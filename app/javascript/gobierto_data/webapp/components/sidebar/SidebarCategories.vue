@@ -12,14 +12,11 @@
       >
         <Dropdown @is-content-visible="filter.isToggle = !filter.isToggle">
           <template v-slot:trigger>
-            <!-- <BlockHeader
-              :title="filter.title"
-              :label-alt="filter.isEverythingChecked"
-              :class="filter.isToggle ? '' : 'gobierto-filter-rotate-icon'"
-              see-link
-              @select-all="e => selectAllCheckbox_TEMP({ ...e, filter })"
-            /> -->
-            <div class="gobierto-block-header" style="flex: 1;">
+            <!-- FIXME: remove inline styles in the next filters refactor -->
+            <div
+              class="gobierto-block-header"
+              style="flex: 1;"
+            >
               <strong class="gobierto-block-header--title">
                 <Caret :rotate="filter.isToggle" />
                 {{ filter.title }}</strong>
@@ -48,12 +45,11 @@
   </div>
 </template>
 <script>
-import { BlockHeader, Checkbox, Dropdown } from "lib/vue-components";
+import { Checkbox, Dropdown } from "lib/vue-components";
 import Caret from "./../commons/Caret.vue";
 export default {
   name: "SidebarCategories",
   components: {
-    BlockHeader,
     Dropdown,
     Caret,
     Checkbox

@@ -20,14 +20,18 @@
 
           <template v-else>
             <template v-if="privateVisualizations.length">
-              <template v-for="{ data, config, name } in privateVisualizations">
+              <template v-for="{ data, config, name, privacy_status } in privateVisualizations">
                 <div :key="name">
                   <div class="gobierto-data-visualization--card">
                     <div class="gobierto-data-visualization--aspect-ratio-16-9">
                       <div class="gobierto-data-visualization--content">
                         <h4 class="gobierto-data-visualization--title">
-                          {{ name }}
+                          {{ privateVisualizations }}
                         </h4>
+                        <PrivateIcon
+                          :is-closed="privacy_status === 'closed'"
+                          class="icons-your-visualizations"
+                        />
                         <Visualizations
                           :items="data"
                           :config="config"
@@ -97,17 +101,20 @@
 import Spinner from "./../commons/Spinner.vue";
 import Caret from "./../commons/Caret.vue";
 import Visualizations from "./../commons/Visualizations.vue";
+import PrivateIcon from './../commons/PrivateIcon.vue';
 import { Dropdown } from "lib/vue-components";
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { DataFactoryMixin } from "./../../../lib/factories/data";
 import { getUserId } from "./../../../lib/helpers";
 
+
 export default {
   name: "VisualizationsTab",
   components: {
     Visualizations,
     Spinner,
+    PrivateIcon,
     Dropdown,
     Caret
   },
@@ -178,7 +185,7 @@ export default {
       const visualizations = [];
       for (let index = 0; index < data.length; index++) {
         const { attributes = {} } = data[index];
-        const { query_id: id, spec = {}, name = "" } = attributes;
+        const { query_id: id, spec = {}, name = "", privacy_status = "open" } = attributes;
 
         let queryData = null;
 
@@ -194,7 +201,7 @@ export default {
         }
 
         // Append the visualization configuration
-        const visualization = { ...queryData, config: spec, name };
+        const visualization = { ...queryData, config: spec, name, privacy_status };
 
         visualizations.push(visualization);
       }

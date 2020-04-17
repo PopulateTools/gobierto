@@ -1019,6 +1019,12 @@
   &-visualization--content {
     display: flex;
     flex-direction: column;
+
+    .icons-your-visualizations {
+      position: absolute;
+      left: 95%;
+      top: 10%;
+    }
   }
 
   &-visualization--h3 {
@@ -1040,7 +1046,7 @@
     --plugin--background: transparent;
 
     overflow: hidden;
-    width: 100%;
+    width: 95%;
     height: 100%;
     background-color: transparent;
   }

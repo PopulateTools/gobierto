@@ -22,6 +22,12 @@ export const VisualizationFactoryMixin = {
     postVisualization(data) {
       // Return a promise to handle the response where it's invoked
       return axios.post(endPoint, data, { headers });
-    }
+    },
+    putVisualization(id, data) {
+      return axios.put(`${endPoint}/${id}`, data, { headers });
+    },
+    deleteVisualization(id) {
+      return axios.delete(`${endPoint}/${id}`, { headers });
+    },
   }
 };

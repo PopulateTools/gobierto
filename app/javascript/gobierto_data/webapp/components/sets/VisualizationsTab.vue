@@ -20,7 +20,7 @@
 
           <template v-else>
             <template v-if="privateVisualizations.length">
-              <template v-for="{ data, config, name, privacy_status, id } in privateVisualizations">
+              <template v-for="{ queryData, config, name, privacy_status, id } in privateVisualizations">
                 <div :key="name">
                   <div class="gobierto-data-visualization--card">
                     <div class="gobierto-data-visualization--aspect-ratio-16-9">
@@ -38,7 +38,7 @@
                           @click.prevent="deleteHandlerVisualization(id)"
                         />
                         <Visualizations
-                          :items="data"
+                          :items="queryData"
                           :config="config"
                         />
                       </div>
@@ -75,7 +75,7 @@
 
         <template v-else>
           <template v-if="publicVisualizations.length">
-            <template v-for="{ data, config, name } in publicVisualizations">
+            <template v-for="{ queryData, config, name } in publicVisualizations">
               <div :key="name">
                 <div class="gobierto-data-visualization--card">
                   <div class="gobierto-data-visualization--aspect-ratio-16-9">
@@ -84,7 +84,7 @@
                         {{ name }}
                       </h4>
                       <Visualizations
-                        :items="data"
+                        :items="queryData"
                         :config="config"
                       />
                     </div>
@@ -206,7 +206,7 @@ export default {
         }
 
         // Append the visualization configuration
-        const visualization = { ...queryData, config: spec, name, privacy_status, query_id, id };
+        const visualization = { queryData, config: spec, name, privacy_status, query_id, id };
 
         visualizations.push(visualization);
       }
@@ -215,7 +215,8 @@ export default {
     },
     async deleteHandlerVisualization(id) {
       await this.deleteVisualization(id)
-      this.getPrivateVisualizations()
+      await this.getPrivateVisualizations()
+      await this.getPublicVisualizations()
     },
   }
 };

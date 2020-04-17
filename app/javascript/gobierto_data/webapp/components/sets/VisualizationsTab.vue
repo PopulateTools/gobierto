@@ -28,15 +28,16 @@
                         <h4 class="gobierto-data-visualization--title">
                           {{ name }}
                         </h4>
-                        <PrivateIcon
-                          :is-closed="privacy_status === 'closed'"
-                          class="icons-your-visualizations"
-                        />
-                        <i
-                          class="fas fa-trash-alt icons-your-queries"
-                          style="color: var(--color-base);"
-                          @click.prevent="deleteHandlerVisualization(id)"
-                        />
+                        <div class="gobierto-data-visualization--icons">
+                          <PrivateIcon
+                            :is-closed="privacy_status === 'closed'"
+                          />
+                          <i
+                            class="fas fa-trash-alt"
+                            style="color: var(--color-base);"
+                            @click.prevent="deleteHandlerVisualization(id)"
+                          />
+                        </div>
                         <Visualizations
                           :items="queryData"
                           :config="config"
@@ -214,9 +215,9 @@ export default {
       return visualizations;
     },
     async deleteHandlerVisualization(id) {
-      await this.deleteVisualization(id)
-      await this.getPrivateVisualizations()
-      await this.getPublicVisualizations()
+      this.deleteVisualization(id)
+      this.getPrivateVisualizations()
+      this.getPublicVisualizations()
     },
   }
 };

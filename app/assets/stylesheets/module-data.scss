@@ -1013,12 +1013,12 @@
   &-visualization--content {
     display: flex;
     flex-direction: column;
+  }
 
-    .icons-your-visualizations {
-      position: absolute;
-      left: 95%;
-      top: 10%;
-    }
+  &-visualization--icons {
+    position: absolute;
+    left: 97%;
+    top: 10%;
   }
 
   &-visualization--h3 {

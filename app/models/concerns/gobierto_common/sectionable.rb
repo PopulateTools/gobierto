@@ -6,11 +6,9 @@ module GobiertoCommon
 
     included do
       def section_id
-        unless GobiertoCms::SectionItem.where(item: self).empty?
-          GobiertoCms::SectionItem.where(item: self).first.section.id
-        else
-          nil
-        end
+        return if GobiertoCms::SectionItem.where(item: self).joins(:section).empty?
+
+        GobiertoCms::SectionItem.where(item: self).first.section.id
       end
 
       def parent_id

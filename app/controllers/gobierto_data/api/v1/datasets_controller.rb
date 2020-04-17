@@ -72,7 +72,7 @@ module GobiertoData
 
           respond_to do |format|
             format.json do
-              send_download(cached_item_json, :json, basename)
+              send_download(cached_item_download_json, :json, basename)
             end
 
             format.csv do
@@ -171,6 +171,12 @@ module GobiertoData
               meta: query_result,
               links: links(:data)
             }.to_json
+          end
+        end
+
+        def cached_item_download_json
+          Rails.cache.fetch("#{@item.cache_key}/download.json") do
+            execute_query(@item.rails_model.all).fetch(:result, "").to_json
           end
         end
 

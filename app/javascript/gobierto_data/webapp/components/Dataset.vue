@@ -223,6 +223,7 @@ export default {
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
     this.runCurrentQuery();
+
   },
   mounted() {
     const recentQueries = localStorage.getItem("recentQueries");
@@ -328,6 +329,7 @@ export default {
     async deleteSavedQuery(id) {
       // factory method
       const { status } = await this.deleteQuery(id);
+      console.log("status", status);
 
       if (status === 204) {
         // only delete private queries
@@ -376,14 +378,7 @@ export default {
       // save the query executed
       this.storeRecentQuery();
 
-      // wrap the result in an small number of records
-      let query = "";
-      if (this.currentQuery.includes("LIMIT")) {
-        query = this.currentQuery;
-      } else {
-        query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 50`;
-      }
-
+      let query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 50`;
 
       const params = { sql: query };
 
@@ -403,6 +398,7 @@ export default {
       }
     },
     async storeCurrentVisualization(config, opts) {
+      console.log("config", config);
       // if there's no user, you cannot save visualizations
       this.ensureUserIsLogged();
 

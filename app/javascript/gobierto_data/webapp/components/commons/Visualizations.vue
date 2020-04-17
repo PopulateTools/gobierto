@@ -23,7 +23,7 @@ export default {
   watch: {
     items(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.updateValues(newValue)
+        this.initPerspective(newValue)
       }
     }
   },
@@ -32,22 +32,10 @@ export default {
     this.initPerspective(this.items);
   },
   methods: {
-    updateValues(values) {
-      this.newColumns = []
-      this.newColumns = Object.keys(values[0])
-      if (JSON.stringify(this.newColumns) === JSON.stringify(this.initColumns)) {
-        this.viewer.setAttribute('columns', JSON.stringify(this.newColumns))
-        this.updatePerspectiveData(values)
-      } else {
-        this.viewer.setAttribute('columns', JSON.stringify(this.newColumns))
-        this.updatePerspectiveColumns(values)
-      }
-    },
     initPerspective(data) {
+      console.log("data", data);
 
       const table = perspective.worker().table(data);
-
-      this.initColumns = Object.keys(data[0]);
 
       this.viewer.load(table);
       if (this.config) {
@@ -62,7 +50,6 @@ export default {
       const table = perspective.worker().table(values);
 
       this.viewer.load(table);
-      this.initColumns = this.newColumns;
     },
     getConfig() {
       // export the visualization configuration object

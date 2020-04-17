@@ -15,7 +15,6 @@
         <router-link
           :to="`/datos/${slug}`"
           class="gobierto-data-sidebar-datasets-name"
-          @click.native="orderDatasets"
         >
           {{ name }}
         </router-link>
@@ -67,14 +66,9 @@
   </div>
 </template>
 <script>
+import { store } from "./../../../lib/store";
 export default {
   name: "SidebarDatasets",
-  props: {
-    items: {
-      type: Array,
-      default: () => []
-    }
-  },
   data() {
     return {
       labelSets: "",
@@ -87,14 +81,8 @@ export default {
       indexToggle: null,
       showMaxKeys: 10,
       showLess: true,
-      lessColumns: []
-    }
-  },
-  watch: {
-    $route(to) {
-      if (to.name === 'Dataset') {
-        this.orderDatasets()
-      }
+      lessColumns: [],
+      items: store.state.datasets || []
     }
   },
   created() {
@@ -107,27 +95,17 @@ export default {
   },
   methods: {
     orderDatasets() {
-      //TODO Datasets should be order in filter mixin
-      const allDatasets = this.items.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
-
-      //Get slug from route params, we need this when user click in any dataset
-      let { id } = this.$route.params || {}
-
-      let slugRoute = id
-      let slugDataset = null
-
-      const indexToggle = allDatasets.findIndex(({ attributes: { slug } = {} }) => slug === slugRoute)
+      const sortDatasets = this.items
+      const allDatasets = sortDatasets.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+      let slug = this.$route.params.id
+      const indexToggle = allDatasets.findIndex(dataset => dataset.attributes.slug == slug)
       this.toggle = indexToggle
-
       if (this.toggle === -1) {
-        const { attributes: { slug } = {} } = allDatasets[0] || []
-        slugDataset = slug
+        this.toggle = 0
+        slug = slug = allDatasets.length ? allDatasets[0].attributes.slug : ''
       }
-
-      id = this.toggle === -1 ? slugDataset : slugRoute
-
-      let firstElement = allDatasets.find(({ attributes: { slug } = {} }) => slug === id)
-      let filteredArray = allDatasets.filter(({ attributes: { slug } = {} }) => slug !== id)
+      let firstElement = allDatasets.find(dataset => dataset.attributes.slug == slug)
+      let filteredArray = allDatasets.filter(dataset => dataset.attributes.slug !== slug)
       filteredArray.unshift(firstElement)
       this.listDatasets = filteredArray
       this.toggle = 0

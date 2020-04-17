@@ -20,7 +20,7 @@
 
           <template v-else>
             <template v-if="privateVisualizations.length">
-              <template v-for="{ data, config, name, privacy_status } in privateVisualizations">
+              <template v-for="{ data, config, name, privacy_status, id } in privateVisualizations">
                 <div :key="name">
                   <div class="gobierto-data-visualization--card">
                     <div class="gobierto-data-visualization--aspect-ratio-16-9">
@@ -35,7 +35,7 @@
                         <i
                           class="fas fa-trash-alt icons-your-queries"
                           style="color: var(--color-base);"
-                          @click.stop="deleteVisualization(id)"
+                          @click.prevent="deleteHandlerVisualization(id)"
                         />
                         <Visualizations
                           :items="data"
@@ -160,6 +160,7 @@ export default {
         "filter[dataset_id]": this.datasetId
       });
       const { data } = response;
+      console.log("data", data);
 
       if (data.length) {
         this.publicVisualizations = await this.getDataFromVisualizations(data);
@@ -189,14 +190,14 @@ export default {
     async getDataFromVisualizations(data) {
       const visualizations = [];
       for (let index = 0; index < data.length; index++) {
-        const { attributes = {} } = data[index];
-        const { query_id: id, spec = {}, name = "", privacy_status = "open" } = attributes;
+        const { attributes = {}, id } = data[index];
+        const { query_id, spec = {}, name = "", privacy_status = "open" } = attributes;
 
         let queryData = null;
 
-        if (id) {
+        if (query_id) {
           // Get my queries, if they're stored
-          const { data } = await this.getQuery(id);
+          const { data } = await this.getQuery(query_id);
           queryData = data;
         } else {
           // Otherwise, run the sql
@@ -206,21 +207,16 @@ export default {
         }
 
         // Append the visualization configuration
-        const visualization = { ...queryData, config: spec, name, privacy_status, id };
+        const visualization = { ...queryData, config: spec, name, privacy_status, query_id, id };
 
         visualizations.push(visualization);
       }
 
       return visualizations;
     },
-    async deleteVisualization(id) {
-      // factory method
-      const { status } = await this.deleteVisualization(id);
-
-      if (status === 204) {
-        // only delete private queries
-        this.setPrivateQueries(await this.getPrivateVisualizations());
-      }
+    async deleteHandlerVisualization(id) {
+      await this.deleteVisualization(id)
+      this.getPrivateVisualizations()
     },
   }
 };

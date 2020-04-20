@@ -17,8 +17,8 @@
                 v-for="{ id, attributes: { sql, name, privacy_status }} in privateQueries"
                 :key="id"
                 class="gobierto-data-summary-queries-container"
-                @mouseover="sqlCode = sql"
-                @mouseleave="sqlCode = null"
+                @mouseover="showSQLCode(sql)"
+                @mouseleave="removeSQLCode()"
               >
                 <router-link
                   :to="`/datos/${$route.params.id}/q/${id}`"
@@ -72,8 +72,8 @@
               v-for="{ id, attributes: { sql, name }} in publicQueries"
               :key="id"
               class="gobierto-data-summary-queries-container"
-              @mouseover="sqlCode = sql"
-              @mouseleave="sqlCode = null"
+              @mouseover="showSQLCode(sql)"
+              @mouseleave="removeSQLCode()"
             >
               <router-link
                 :to="`/datos/${$route.params.id}/q/${id}`"
@@ -89,7 +89,7 @@
       <div class="pure-u-1-2 border-color-queries">
         <p class="gobierto-data-summary-queries-sql-code">
           <transition name="fade">
-            <span v-if="sqlCode"> {{ sqlCode }}</span>
+            <textarea ref="querySnippet" />
           </transition>
         </p>
       </div>
@@ -100,6 +100,8 @@
 import { Dropdown } from "lib/vue-components";
 import Caret from "./Caret.vue";
 import PrivateIcon from './PrivateIcon.vue';
+import CodeMirror from "codemirror";
+import "codemirror/mode/sql/sql.js";
 
 export default {
   name: "Queries",
@@ -129,9 +131,33 @@ export default {
       showPublicQueries: true,
     };
   },
+  mounted() {
+    const cmOption = {
+      tabSize: 2,
+      styleActiveLine: false,
+      lineNumbers: false,
+      styleSelectedText: false,
+      line: true,
+      foldGutter: true,
+      mode: "text/x-sql",
+      showCursorWhenSelecting: true,
+      theme: "default",
+      autoIndent: true
+    };
+
+    this.editor = CodeMirror.fromTextArea(this.$refs.querySnippet, cmOption);
+  },
   methods: {
     clickDeleteQueryHandler(id) {
       this.$root.$emit('deleteSavedQuery', id)
+    },
+    showSQLCode(code) {
+      this.sqlCode = code
+      this.editor.setValue(this.sqlCode);
+    },
+    removeSQLCode() {
+      this.sqlCode = ''
+      this.editor.setValue(this.sqlCode);
     }
   }
 };

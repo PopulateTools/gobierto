@@ -38,7 +38,10 @@ export default {
   created() {
     document.addEventListener("keyup", this.onKeyUpNextRecentItem)
   },
-  beforeDestroy() {
+  activated() {
+    document.addEventListener("keyup", this.onKeyUpNextRecentItem)
+  },
+  deactivated() {
     document.removeEventListener("keyup", this.onKeyUpNextRecentItem)
   },
   methods: {

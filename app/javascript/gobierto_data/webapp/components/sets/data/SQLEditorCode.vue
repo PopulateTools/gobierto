@@ -9,9 +9,6 @@
       </template>
 
       <template v-else>
-        <span class="gobierto-data-sql-editor-footer-records">
-          {{ labelRecords }}
-        </span>
         <span class="gobierto-data-sql-editor-footer-time">
           {{ labelQueryExecuted }} {{ queryDurationParsed }}ms
         </span>

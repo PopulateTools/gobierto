@@ -33,22 +33,13 @@ export default {
   },
   methods: {
     initPerspective(data) {
-
+      this.viewer.clear();
       const table = perspective.worker().table(data);
 
       this.viewer.load(table);
       if (this.config) {
         this.viewer.restore(this.config);
       }
-    },
-    updatePerspectiveData(values) {
-      this.viewer.clear();
-      this.viewer.load(values);
-    },
-    updatePerspectiveColumns(values) {
-      const table = perspective.worker().table(values);
-
-      this.viewer.load(table);
     },
     getConfig() {
       // export the visualization configuration object

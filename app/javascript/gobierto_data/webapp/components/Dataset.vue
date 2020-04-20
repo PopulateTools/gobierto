@@ -157,7 +157,6 @@ export default {
     // change the current query, triggering a new SQL execution
     this.$root.$on("setCurrentQuery", this.setCurrentQuery);
     // execute the current query
-    this.$root.$off("runCurrentQuery");
     this.$root.$on("runCurrentQuery", this.runCurrentQuery);
     // save the query in database
     this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
@@ -236,8 +235,10 @@ export default {
     // change the current query, triggering a new SQL execution
     this.$root.$on("setCurrentQuery", this.setCurrentQuery);
     // execute the current query
+    this.$root.$off("runCurrentQuery");
     this.$root.$on("runCurrentQuery", this.runCurrentQuery);
     // save the query in database
+    this.$root.$off("storeCurrentQuery");
     this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
     // save the visualization in database
     this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);

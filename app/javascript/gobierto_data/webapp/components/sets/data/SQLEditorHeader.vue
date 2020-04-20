@@ -56,6 +56,7 @@
       :placeholder="labelQueryName"
       :value="queryName"
       @save="onSaveEventHandler"
+      @disable-key-events="removeKeyboardListener"
     />
 
     <div
@@ -151,7 +152,7 @@ export default {
     document.addEventListener("keydown", this.keyboardShortcutsListener);
   },
   deactivated() {
-    document.removeEventListener("keydown", this.keyboardShortcutsListener);
+    this.removeKeyboardListener()
   },
   methods: {
     keyboardShortcutsListener(e) {
@@ -174,6 +175,9 @@ export default {
       } else if ((e.keyCode == 10 || e.keyCode == 13) && (e.ctrlKey || e.metaKey)) {
         this.clickRunQueryHandler();
       }
+    },
+    removeKeyboardListener() {
+      document.removeEventListener("keydown", this.keyboardShortcutsListener);
     },
     onSaveEventHandler(opts) {
       const { name } = opts

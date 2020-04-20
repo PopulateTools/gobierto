@@ -136,6 +136,7 @@ export default {
     onKeyUpTextHandler(event) {
       const { value } = event.target
       this.labelValue = value
+      this.$emit('disable-key-events')
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target

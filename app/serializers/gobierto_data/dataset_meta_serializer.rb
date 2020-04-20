@@ -49,10 +49,6 @@ module GobiertoData
       end
     end
 
-    attribute :data_preview do
-      object.rails_model.first(50)
-    end
-
     def current_site
       Site.find_by(id: object.site_id) || instance_options[:site]
     end

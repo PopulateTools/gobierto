@@ -81,6 +81,9 @@ module GobiertoData
     rescue CSV::MalformedCSVError
       errors.add(data_file.present? ? :data_file : :data_path, "CSV file malformed or with wrong encoding (expected UTF-8)")
       false
+    rescue PG::Error => e
+      errors.add(data_file.present? ? :data_file : :data_path, "Database error loading CSV: #{e.message}")
+      false
     end
 
     def csv_separator

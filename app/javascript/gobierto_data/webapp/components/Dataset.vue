@@ -157,6 +157,7 @@ export default {
     // change the current query, triggering a new SQL execution
     this.$root.$on("setCurrentQuery", this.setCurrentQuery);
     // execute the current query
+    this.$root.$off("runCurrentQuery");
     this.$root.$on("runCurrentQuery", this.runCurrentQuery);
     // save the query in database
     this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
@@ -230,15 +231,23 @@ export default {
       this.recentQueries = JSON.parse(recentQueries);
     }
   },
-  beforeDestroy() {
-    this.$root.$off("deleteSavedQuery", this.deleteSavedQuery);
-    this.$root.$off("setCurrentQuery", this.setCurrentQuery);
-    this.$root.$off("runCurrentQuery", this.runCurrentQuery);
-    this.$root.$off("storeCurrentQuery", this.storeCurrentQuery);
-    this.$root.$off(
-      "storeCurrentVisualization",
-      this.storeCurrentVisualization
-    );
+  activated() {
+    this.$root.$on("deleteSavedQuery", this.deleteSavedQuery);
+    // change the current query, triggering a new SQL execution
+    this.$root.$on("setCurrentQuery", this.setCurrentQuery);
+    // execute the current query
+    this.$root.$on("runCurrentQuery", this.runCurrentQuery);
+    // save the query in database
+    this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
+    // save the visualization in database
+    this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
+  },
+  deactivated() {
+    this.$root.$off("deleteSavedQuery");
+    this.$root.$off("setCurrentQuery");
+    this.$root.$off("runCurrentQuery");
+    this.$root.$off("storeCurrentQuery");
+    this.$root.$off("storeCurrentVisualization");
   },
   methods: {
     parseUrl({ queryId, sql }) {

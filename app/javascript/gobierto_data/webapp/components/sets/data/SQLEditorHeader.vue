@@ -146,7 +146,11 @@ export default {
     // it has to be the same event (keydown) as SQLEditorCode
     document.addEventListener("keydown", this.keyboardShortcutsListener);
   },
-  beforeDestroy() {
+  activated() {
+    // it has to be the same event (keydown) as SQLEditorCode
+    document.addEventListener("keydown", this.keyboardShortcutsListener);
+  },
+  deactivated() {
     document.removeEventListener("keydown", this.keyboardShortcutsListener);
   },
   methods: {

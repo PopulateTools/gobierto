@@ -386,7 +386,7 @@ export default {
       // save the query executed
       this.storeRecentQuery();
 
-      let query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 50`;
+      let query = this.currentQuery;
 
       const params = { sql: query };
 

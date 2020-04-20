@@ -259,6 +259,15 @@
         background-color: transparent !important;
         padding: 0;
       }
+
+      .CodeMirror-line {
+        white-space: normal;
+        width: 100%;
+      }
+
+      .CodeMirror-sizer {
+        width: 90%;
+      }
     }
   }
 

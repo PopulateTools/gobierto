@@ -135,7 +135,7 @@ export default {
   },
   computed: {
     recentQueriesFiltered() {
-      return this.recentQueries.length ? this.recentQueries.filter((sql) => sql.includes(this.tableName))
+      return this.recentQueries.length ? this.recentQueries.filter((sql = []) => sql.includes(this.tableName))
         .reverse() : [];
     },
   },

@@ -34,7 +34,10 @@ module GobiertoData
 
     attribute :data_summary do
       {
-        number_of_rows: object.rails_model.count
+        number_of_rows: ::GobiertoData::Connection.execute_query(
+          object.site,
+          Arel.sql("SELECT COUNT(*) FROM #{object.table_name} LIMIT 1"), include_draft: true
+        ).dig(:result)&.first&.dig("count")
       }
     end
 

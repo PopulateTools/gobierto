@@ -277,8 +277,10 @@
       background-color: rgba(var(--color-base-string), .3);
     }
 
-    .gobierto-vue-dropdown {
-      margin-bottom: 2rem;
+    .gobierto-vue-dropdown--content {
+      &:not(:empty) {
+        margin-bottom: 2rem;
+      }
     }
 
   }
@@ -293,6 +295,10 @@
     margin-top: 12px;
     margin-bottom: 6px;
     padding-left: 1rem;
+
+    i {
+      cursor: pointer;
+    }
   }
 
   &-summary-queries-sql-code {
@@ -845,6 +851,10 @@
     width: 78%;
     position: relative;
     z-index: 1;
+
+    &:hover {
+      color: inherit;
+    }
   }
 
   &-summary-queries-container-icon {

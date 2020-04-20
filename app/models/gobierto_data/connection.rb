@@ -52,8 +52,6 @@ module GobiertoData
         end
       rescue ActiveRecord::StatementInvalid => e
         failed_query(e.message)
-      rescue PG::Error => e
-        failed_query(e.message)
       end
 
       def tables(site, include_draft: false)

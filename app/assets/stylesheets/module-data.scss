@@ -252,6 +252,14 @@
   &-summary-queries {
     width: 100%;
     letter-spacing: 0;
+
+    .gobierto-data-summary-queries-sql-code {
+
+      .CodeMirror {
+        background-color: transparent !important;
+        padding: 0;
+      }
+    }
   }
 
   &-summary-queries-panel {
@@ -268,6 +276,11 @@
       left: 50%;
       background-color: rgba(var(--color-base-string), .3);
     }
+
+    .gobierto-vue-dropdown {
+      margin-bottom: 2rem;
+    }
+
   }
 
   &-summary-queries-panel-title {
@@ -277,13 +290,14 @@
     line-height: 20px;
     color: rgba(102, 102, 102, .75);
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 12px;
     margin-bottom: 6px;
     padding-left: 1rem;
   }
 
   &-summary-queries-sql-code {
-    padding: 1rem;
+    padding: 12px 1rem 1rem;
+    margin-top: 0;
     font-family: monospace;
     font-size: 12px;
     color: #666;
@@ -814,8 +828,7 @@
   }
 
   &-summary-queries-container {
-    padding: .25rem 2rem;
-    padding-top: 0;
+    padding: .25rem .5rem .25rem 2rem;
     cursor: pointer;
     transition: background-color var(--transition);
 
@@ -828,6 +841,7 @@
     font-size: 14px;
     color: #666;
     display: inline-block;
+    vertical-align: middle;
     width: 78%;
     position: relative;
     z-index: 1;
@@ -835,7 +849,9 @@
 
   &-summary-queries-container-icon {
     display: inline-block;
+    vertical-align: middle;
     width: 20%;
+    text-align: right;
   }
 
   .icons-your-queries {

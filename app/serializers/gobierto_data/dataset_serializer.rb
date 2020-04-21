@@ -5,6 +5,8 @@ module GobiertoData
     include Rails.application.routes.url_helpers
     include ::GobiertoCommon::HasCustomFieldsAttributes
 
+    cache key: "dataset"
+
     attributes :id, :name, :slug, :table_name, :data_updated_at
 
     attribute :links, unless: :exclude_links? do

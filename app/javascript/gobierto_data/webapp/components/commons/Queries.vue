@@ -87,7 +87,7 @@
       </div>
 
       <div class="pure-u-1-2 border-color-queries">
-        <p v-if="sqlCode" class="gobierto-data-summary-queries-sql-code">
+        <p class="gobierto-data-summary-queries-sql-code">
           <transition name="fade">
             <textarea ref="querySnippet" />
           </transition>

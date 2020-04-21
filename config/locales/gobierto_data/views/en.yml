@@ -1,6 +1,15 @@
 ---
 en:
   gobierto_data:
+    data_type:
+      boolean: boleaan
+      date: date
+      decimal: decimal
+      integer: integer
+      text: texto
+      time: time
+      timestamp: time
+      timestampz: time
     events:
       gobierto_data_dataset_dataset_created: Dataset created
       gobierto_data_dataset_dataset_updated: Dataset updated

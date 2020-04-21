@@ -1,65 +1,50 @@
 <template>
-  <div>
+  <div v-if="listDatasets.length">
     <div
-      v-for="({ id, attributes: { slug, name, columns }}, index) in listDatasets"
-      :key="id"
+      v-for="({ id, attributes: { slug, name }}, index) in listDatasets"
+      :key="slug"
       class="gobierto-data-sidebar-datasets"
     >
       <div class="gobierto-data-sidebar-datasets-links-container">
         <i
-          :class="{'rotate-caret': toggle !== index }"
+          :class="{'rotate-caret': currentDatasetIndex !== index }"
           class="fas fa-caret-down gobierto-data-sidebar-icon"
           @click="handleToggle(index)"
         />
 
         <router-link
           :to="`/datos/${slug}`"
-          class="gobierto-data-sidebar-datasets-name"
-          @click.native="orderDatasets"
+         class="gobierto-data-sidebar-datasets-name"
+         @click.native="selectCurrentDataset"
         >
           {{ name }}
         </router-link>
 
         <div
-          v-show="toggle === index"
+          v-show="currentDatasetIndex === index"
           class="gobierto-data-sidebar-datasets-container-columns"
         >
-          <div v-if="showLess">
-            <template v-for="(column, i) in lessColumns">
-              <span
-                :key="i"
-                class="gobierto-data-sidebar-datasets-links-columns"
-              >
-                {{ column }}
-              </span>
-            </template>
-          </div>
-          <div v-else>
+          <template v-for="(type, column) in activeDatasetVisibleColumns">
             <span
-              v-for="(column, i) in columns"
-              :key="i"
+              :key="`${column}-${type}`"
               class="gobierto-data-sidebar-datasets-links-columns"
             >
-              {{ i }}
+              {{ column }}: {{type | translateType}}
             </span>
-          </div>
-          <div v-if="showKeys()">
-            <template v-if="showLess">
-              <span
-                class="gobierto-data-sidebar-datasets-links-columns-see-more"
-                @click="showLess = false"
-              >
-                {{ labelshowAll }}
-              </span>
-            </template>
-            <template v-else>
-              <span
-                class="gobierto-data-sidebar-datasets-links-columns-see-more"
-                @click="showLess = true"
-              >
-                {{ labelshowLess }}
-              </span>
-            </template>
+          </template>
+          <div v-if="showToggle">
+            <span v-if="showLess"
+              class="gobierto-data-sidebar-datasets-links-columns-see-more"
+              @click="showLess = false"
+            >
+              {{ labelshowAll }}
+            </span>
+            <span v-else
+              class="gobierto-data-sidebar-datasets-links-columns-see-more"
+              @click="showLess = true"
+            >
+              {{ labelshowLess }}
+            </span>
           </div>
         </div>
       </div>
@@ -82,19 +67,13 @@ export default {
       labelCategories: "",
       labelshowAll: "",
       labelshowLess: "",
+      sortedItems: [],
       listDatasets: [],
-      toggle: 0,
-      indexToggle: null,
+      currentDatasetIndex: null,
       showMaxKeys: 10,
-      showLess: true,
-      lessColumns: []
-    }
-  },
-  watch: {
-    $route(to) {
-      if (to.name === 'Dataset') {
-        this.orderDatasets()
-      }
+      showLess: null,
+      activeDatasetColumns: {},
+      showToggle: null,
     }
   },
   created() {
@@ -103,47 +82,52 @@ export default {
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
     this.labelshowAll = I18n.t("gobierto_data.projects.showAll")
     this.labelshowLess = I18n.t("gobierto_data.projects.showLess")
-    this.orderDatasets()
+    //TODO Datasets should be order in filter mixin
+    this.sortedItems = this.items.sort(({ attributes: { name: a } = {} }, { attributes: { name: b } = {} }) => a.localeCompare(b));
+    this.selectCurrentDataset()
+  },
+  watch: {
+    currentDatasetIndex: function(value) {
+      this.showLess = true;
+      if(this.listDatasets.length) {
+        this.activeDatasetColumns = this.listDatasets[value].attributes.columns || {}
+        this.showToggle = Object.keys(this.activeDatasetColumns).length > this.showMaxKeys
+      }
+    }
+  },
+  computed: {
+    activeDatasetVisibleColumns() {
+      if(this.showLess && Object.keys(this.activeDatasetColumns).length) {
+       return Object.keys(this.activeDatasetColumns).slice(0, this.showMaxKeys).reduce((result, key) => {
+          result[key] = this.activeDatasetColumns[key];
+          return result;
+        }, {});
+      } else {
+        return this.activeDatasetColumns;
+      }
+    }
   },
   methods: {
-    orderDatasets() {
-      //TODO Datasets should be order in filter mixin
-      const allDatasets = this.items.sort(({ attributes: { name: a } = {} }, { attributes: { name: b } = {} }) => a.localeCompare(b));
-
-      //Get slug from route params, we need this when user click in any dataset
-      let { id } = this.$route.params || {}
-
-      let slugRoute = id
-      let slugDataset = null
-
-      const indexToggle = allDatasets.findIndex(({ attributes: { slug } = {} }) => slug === slugRoute)
-      this.toggle = indexToggle
-
-      if (this.toggle === -1) {
-        const { attributes: { slug } = {} } = allDatasets[0] || []
-        slugDataset = slug
+    selectCurrentDataset() {
+      // Get slug from route params, we need this when user click in any dataset
+      let { id } = this.$route.params
+      let selectedDatasetIndex = 0
+      if(id !== undefined) {
+        selectedDatasetIndex = this.sortedItems.findIndex(({ attributes: { slug } = {} }) => slug === id)
       }
 
-      id = this.toggle === -1 ? slugDataset : slugRoute
-
-      let firstElement = allDatasets.find(({ attributes: { slug } = {} }) => slug === id)
-      let filteredArray = allDatasets.filter(({ attributes: { slug } = {} }) => slug !== id)
-      filteredArray.unshift(firstElement)
-      this.listDatasets = filteredArray
-      this.toggle = 0
-      this.sliceColumns(0)
+      let selectedDataset = this.sortedItems[selectedDatasetIndex]
+      let filteredArray = this.sortedItems.filter(({ attributes: { slug } = {} }) => slug !== selectedDataset.attributes.slug)
+      this.listDatasets = [selectedDataset].concat(filteredArray)
+      this.currentDatasetIndex = 0
     },
     handleToggle(index) {
-      this.showLess = true
-      this.sliceColumns(index)
-      this.toggle = this.toggle !== index ? index : null;
-    },
-    sliceColumns(index) {
-      const allColumns = this.listDatasets ? Object.keys(this.listDatasets[index].attributes.columns) : []
-      this.lessColumns = allColumns.slice(0, this.showMaxKeys)
-    },
-    showKeys() {
-      return Object.keys(this.listDatasets[0].attributes.columns).length > this.showMaxKeys
+      this.currentDatasetIndex = index;
+    }
+  },
+  filters: {
+    translateType: function(type) {
+      return I18n.t(`gobierto_data.data_type.${type}`)
     }
   }
 };

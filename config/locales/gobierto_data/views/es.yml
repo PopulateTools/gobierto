@@ -1,6 +1,11 @@
 ---
 es:
   gobierto_data:
+    data_type:
+      date: fecha
+      decimal: decimal
+      integer: entero
+      text: texto
     events:
       gobierto_data_dataset_dataset_created: Conjunto de datos creado
       gobierto_data_dataset_dataset_updated: Conjunto de datos actualizado

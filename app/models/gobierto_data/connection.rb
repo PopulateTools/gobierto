@@ -45,6 +45,8 @@ module GobiertoData
 
           execution = raw_connection.copy_data(query) do
             File.open(file_path, "r").each do |line|
+              next if line.blank?
+
               raw_connection.put_copy_data line
             end
           end

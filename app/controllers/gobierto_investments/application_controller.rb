@@ -5,4 +5,5 @@ class GobiertoInvestments::ApplicationController < ApplicationController
 
   layout "gobierto_investments/layouts/application"
 
+  before_action { module_enabled!(current_site, "GobiertoInvestments") }
 end

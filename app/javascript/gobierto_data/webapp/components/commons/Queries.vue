@@ -143,8 +143,6 @@ export default {
       autoIndent: true
     };
 
-    console.log(this.sqlCode)
-
     this.editor = CodeMirror.fromTextArea(this.$refs.querySnippet, cmOption);
   },
   methods: {
@@ -153,7 +151,6 @@ export default {
     },
     showSQLCode(code) {
       this.sqlCode = code
-      console.log(this.sqlCode)
       this.editor.setValue(this.sqlCode);
     },
     removeSQLCode() {

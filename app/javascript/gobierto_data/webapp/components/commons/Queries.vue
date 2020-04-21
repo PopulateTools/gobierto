@@ -88,9 +88,7 @@
 
       <div class="pure-u-1-2 border-color-queries">
         <p class="gobierto-data-summary-queries-sql-code">
-          <transition name="fade">
-            <textarea ref="querySnippet" />
-          </transition>
+          <textarea ref="querySnippet" />
         </p>
       </div>
     </div>

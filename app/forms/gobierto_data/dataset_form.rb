@@ -73,7 +73,17 @@ module GobiertoData
     end
 
     def save
-      save_resource if valid?
+      if valid?
+        ActiveRecord::Base.transaction do
+          save_resource
+        end
+      end
+    rescue CSV::MalformedCSVError
+      errors.add(data_file.present? ? :data_file : :data_path, "CSV file malformed or with wrong encoding (expected UTF-8)")
+      false
+    rescue PG::Error => e
+      errors.add(data_file.present? ? :data_file : :data_path, "Database error loading CSV: #{e.message}")
+      false
     end
 
     def csv_separator
@@ -152,9 +162,6 @@ module GobiertoData
         else
           true
         end
-      rescue CSV::MalformedCSVError
-        errors.add(data_file.present? ? :data_file : :data_path, "CSV file malformed or with wrong encoding (expected UTF-8)")
-        false
       ensure
         temp_file.close
         temp_file.unlink

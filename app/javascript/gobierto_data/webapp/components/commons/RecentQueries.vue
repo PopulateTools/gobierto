@@ -36,16 +36,15 @@ export default {
     }
   },
   created() {
-    document.addEventListener("keydown", this.onKeyUpNextRecentItem)
+    document.addEventListener("keydown", this.onKeyDownNextRecentItem)
   },
   beforeDestroy() {
-    document.removeEventListener("keydown", this.onKeyUpNextRecentItem)
+    document.removeEventListener("keydown", this.onKeyDownNextRecentItem)
   },
   methods: {
-    onKeyUpNextRecentItem(event) {
+    onKeyDownNextRecentItem(event) {
 
       const { keyCode } = event
-      // TODO: evitar el comportamiento del browser
 
       if (keyCode == 38 && this.currentItem > 0) {
         this.currentItem--

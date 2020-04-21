@@ -9,7 +9,7 @@
         :disabled="!isSavingPromptVisible"
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
-        @keydown.stop="onKeyUpTextHandler"
+        @keydDownn.stop="onKeyUpTextHandler"
       >
     </template>
 
@@ -133,7 +133,7 @@ export default {
       this.isSavingPromptVisible = true
       this.$nextTick(() => this.$refs.inputText.focus());
     },
-    onKeyUpTextHandler(event) {
+    onKeyDownTextHandler(event) {
       const { value } = event.target
       this.labelValue = value
     },

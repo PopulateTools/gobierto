@@ -36,24 +36,23 @@ export default {
     }
   },
   created() {
-    document.addEventListener("keyup", this.onKeyUpNextRecentItem)
+    document.addEventListener("keydown", this.onKeyUpNextRecentItem)
   },
-  activated() {
-    document.addEventListener("keyup", this.onKeyUpNextRecentItem)
-  },
-  deactivated() {
-    document.removeEventListener("keyup", this.onKeyUpNextRecentItem)
+  beforeDestroy() {
+    document.removeEventListener("keydown", this.onKeyUpNextRecentItem)
   },
   methods: {
     onKeyUpNextRecentItem(event) {
-      const { keyCode } = event
 
+      const { keyCode } = event
       // TODO: evitar el comportamiento del browser
 
       if (keyCode == 38 && this.currentItem > 0) {
         this.currentItem--
-      } else if (keyCode === 40 && this.currentItem < this.recentQueriesFiltered.length) {
+      } else if (keyCode === 40 && this.currentItem < this.recentQueries.length) {
         this.currentItem++
+      } else if (keyCode === 13) {
+        this.clickRunQueryHandler(this.recentQueries[this.currentItem])
       }
     },
     clickRunQueryHandler(code) {

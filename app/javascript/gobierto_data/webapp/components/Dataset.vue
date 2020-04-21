@@ -135,7 +135,7 @@ export default {
   },
   computed: {
     recentQueriesFiltered() {
-      return this.recentQueries.length ? this.recentQueries.filter((sql = []) => sql.includes(this.tableName))
+      return this.recentQueries.length ? this.recentQueries.filter((sql = '') => sql.contains(this.tableName))
         .reverse() : [];
     },
   },
@@ -386,9 +386,7 @@ export default {
       // save the query executed
       this.storeRecentQuery();
 
-      let query = this.currentQuery;
-
-      const params = { sql: query };
+      const params = { sql: this.currentQuery };
 
       //
       const startTime = new Date().getTime();

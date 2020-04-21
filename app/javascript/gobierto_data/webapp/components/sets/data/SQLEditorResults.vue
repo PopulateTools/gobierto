@@ -19,6 +19,7 @@
 
     <div class="gobierto-data-visualization--aspect-ratio-16-9">
       <Visualizations
+        v-if="items"
         ref="viewer"
         :items="items"
       />

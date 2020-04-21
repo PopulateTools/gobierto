@@ -9,7 +9,7 @@
         :disabled="!isSavingPromptVisible"
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
-        @keyup.stop="onKeyUpTextHandler"
+        @keydown.stop="onKeyUpTextHandler"
       >
     </template>
 
@@ -136,7 +136,6 @@ export default {
     onKeyUpTextHandler(event) {
       const { value } = event.target
       this.labelValue = value
-      this.$emit('disable-key-events')
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target

@@ -199,7 +199,7 @@ module GobiertoData
 
             # attributes
             attributes_keys = resource_data["attributes"].keys
-            %w(name slug data_updated_at data_summary columns formats data_preview).each do |attribute|
+            %w(name slug data_updated_at data_summary columns formats).each do |attribute|
               assert_includes attributes_keys, attribute
             end
             assert resource_data["attributes"].has_key?(datasets_category.uid)

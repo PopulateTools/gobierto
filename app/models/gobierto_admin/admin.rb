@@ -8,7 +8,6 @@ module GobiertoAdmin
     include Authentication::Invitable
     include Authentication::Recoverable
     include Session::Trackable
-    include GobiertoCommon::HasApiTokens
 
     EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 
@@ -35,9 +34,12 @@ module GobiertoAdmin
     has_many :gobierto_data_permissions, through: :admin_groups, class_name: "Permission::GobiertoData", source: :permissions
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
+    has_many :api_tokens, dependent: :destroy, class_name: "GobiertoAdmin::ApiToken"
+
     has_many :census_imports
 
     before_create :set_god_flag, :generate_preview_token
+    after_create :primary_api_token!
 
     validates :email, uniqueness: true
     validates_associated :permissions
@@ -131,6 +133,14 @@ module GobiertoAdmin
 
     def generate_preview_token
       self.preview_token = self.class.generate_unique_secure_token
+    end
+
+    def primary_api_token!
+      primary_api_token || api_tokens.primary.create
+    end
+
+    def primary_api_token
+      api_tokens.primary.take
     end
   end
 end

@@ -56,7 +56,6 @@
       :placeholder="labelQueryName"
       :value="queryName"
       @save="onSaveEventHandler"
-      @disable-key-events="removeKeyboardListener"
     />
 
     <div

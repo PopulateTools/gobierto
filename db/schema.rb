@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_131311) do
+ActiveRecord::Schema.define(version: 2020_04_21_114115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -78,6 +78,17 @@ ActiveRecord::Schema.define(version: 2020_03_27_131311) do
     t.index ["invitation_token"], name: "index_admin_admins_on_invitation_token", unique: true
     t.index ["preview_token"], name: "index_admin_admins_on_preview_token", unique: true
     t.index ["reset_password_token"], name: "index_admin_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "admin_api_tokens", force: :cascade do |t|
+    t.bigint "admin_id"
+    t.string "name"
+    t.string "token"
+    t.boolean "primary", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_admin_api_tokens_on_admin_id"
+    t.index ["token"], name: "index_admin_api_tokens_on_token", unique: true
   end
 
   create_table "admin_census_imports", id: :serial, force: :cascade do |t|

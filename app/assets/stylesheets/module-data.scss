@@ -256,7 +256,7 @@
     .gobierto-data-summary-queries-sql-code {
 
       .CodeMirror {
-        background-color: transparent !important;
+        background-color: transparent;
         padding: 0;
       }
 
@@ -304,10 +304,6 @@
     margin-top: 12px;
     margin-bottom: 6px;
     padding-left: 1rem;
-
-    i {
-      cursor: pointer;
-    }
   }
 
   &-summary-queries-sql-code {
@@ -528,7 +524,7 @@
   }
 
   .CodeMirror {
-    background-color: rgba(#666, .05) !important;
+    background-color: rgba(#666, .05);
     border: 0;
     padding: .5rem;
     height: auto !important;

@@ -87,7 +87,7 @@
       </div>
 
       <div class="pure-u-1-2 border-color-queries">
-        <p class="gobierto-data-summary-queries-sql-code">
+        <p v-if="sqlCode" class="gobierto-data-summary-queries-sql-code">
           <transition name="fade">
             <textarea ref="querySnippet" />
           </transition>
@@ -145,6 +145,8 @@ export default {
       autoIndent: true
     };
 
+    console.log(this.sqlCode)
+
     this.editor = CodeMirror.fromTextArea(this.$refs.querySnippet, cmOption);
   },
   methods: {
@@ -153,6 +155,7 @@ export default {
     },
     showSQLCode(code) {
       this.sqlCode = code
+      console.log(this.sqlCode)
       this.editor.setValue(this.sqlCode);
     },
     removeSQLCode() {

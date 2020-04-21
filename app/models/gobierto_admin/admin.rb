@@ -8,6 +8,7 @@ module GobiertoAdmin
     include Authentication::Invitable
     include Authentication::Recoverable
     include Session::Trackable
+    include GobiertoCommon::HasApiTokens
 
     EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 

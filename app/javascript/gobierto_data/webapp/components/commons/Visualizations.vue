@@ -18,7 +18,11 @@ export default {
     typeChart: {
       type: String,
       default: ''
-    }
+    },
+    arrayColumnsQuery: {
+      type: Array,
+      default: () => []
+    },
   },
   watch: {
     items(newValue, oldValue) {
@@ -29,6 +33,11 @@ export default {
     typeChart(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.viewer.setAttribute('plugin', newValue)
+      }
+    },
+    arrayColumnsQuery(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.viewer.setAttribute('columns', JSON.stringify(this.newValue))
       }
     }
   },

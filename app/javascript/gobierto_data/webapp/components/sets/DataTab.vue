@@ -18,6 +18,7 @@
       <SQLEditorResults
         v-if="items.length"
         :array-formats="arrayFormats"
+        :array-columns-query="arrayColumnsQuery"
         :items="items"
       />
     </div>
@@ -48,6 +49,10 @@ export default {
     arrayColumns: {
       type: Object,
       required: true
+    },
+    arrayColumnsQuery: {
+      type: Array,
+      default: () => []
     },
     publicQueries: {
       type: Array,

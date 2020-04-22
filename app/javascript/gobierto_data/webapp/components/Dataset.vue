@@ -44,6 +44,7 @@
       :recent-queries="recentQueriesFiltered"
       :array-columns="arrayColumns"
       :array-formats="arrayFormats"
+      :array-columns-query="arrayColumnsQuery"
       :items="items"
       :is-query-running="isQueryRunning"
       :is-query-modified="isQueryModified"
@@ -124,6 +125,7 @@ export default {
       publicQueries: [],
       recentQueries: [],
       resourcesList: [],
+      arrayColumnsQuery: [],
       currentQuery: null,
       items: '',
       isQueryRunning: false,
@@ -152,17 +154,6 @@ export default {
     },
   },
   async created() {
-    // remove saved query
-    this.$root.$on("deleteSavedQuery", this.deleteSavedQuery);
-    // change the current query, triggering a new SQL execution
-    this.$root.$on("setCurrentQuery", this.setCurrentQuery);
-    // execute the current query
-    this.$root.$on("runCurrentQuery", this.runCurrentQuery);
-    // save the query in database
-    this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
-    // save the visualization in database
-    this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
-
     const {
       params: { id, queryId },
       query: { sql },
@@ -235,10 +226,8 @@ export default {
     // change the current query, triggering a new SQL execution
     this.$root.$on("setCurrentQuery", this.setCurrentQuery);
     // execute the current query
-    this.$root.$off("runCurrentQuery");
     this.$root.$on("runCurrentQuery", this.runCurrentQuery);
     // save the query in database
-    this.$root.$off("storeCurrentQuery");
     this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
     // save the visualization in database
     this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
@@ -399,6 +388,7 @@ export default {
         this.items = items;
         this.queryDuration = new Date().getTime() - startTime;
         this.isQueryRunning = false;
+        this.getColumnsQuery(this.items)
       } catch (error) {
         this.queryError = error;
       }
@@ -446,6 +436,12 @@ export default {
       // TODO: indicar algo con el status OK
       console.log("postVisualization", status);
     },
+    getColumnsQuery(csv) {
+      const lines = csv.split("\n");
+
+      const columns = lines[0].split(",");
+      this.arrayColumnsQuery = columns
+    }
   },
 };
 </script>

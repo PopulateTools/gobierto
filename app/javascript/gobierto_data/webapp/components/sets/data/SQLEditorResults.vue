@@ -49,6 +49,7 @@
         ref="viewer"
         :items="items"
         :type-chart="typeChart"
+        :array-columns-query="arrayColumnsQuery"
       />
     </div>
   </div>
@@ -72,6 +73,10 @@ export default {
       type: Object,
       required: true
     },
+    arrayColumnsQuery: {
+      type: Array,
+      default: () => []
+    },
     items: {
       type: String,
       default: ''
@@ -87,6 +92,12 @@ export default {
       removeLabelBtn: false,
       typeChart: 'hypergrid'
     };
+  },
+  created() {
+    this.$root.$on('resetPerspective', this.resetViz)
+  },
+  beforeDestroy() {
+    this.$root.$off('resetPerspective')
   },
   methods: {
     onSaveEventHandler(opts) {

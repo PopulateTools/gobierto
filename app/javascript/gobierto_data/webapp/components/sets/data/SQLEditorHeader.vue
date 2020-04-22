@@ -195,6 +195,7 @@ export default {
     },
     clickRunQueryHandler() {
       this.$root.$emit("runCurrentQuery");
+      this.resetPerspective()
     },
     openRecentModal() {
       this.isRecentModalActive = true;
@@ -210,6 +211,9 @@ export default {
     },
     resetQuery() {
       this.$root.$emit('resetQuery')
+    },
+    resetPerspective() {
+      this.$root.$emit('resetPerspective')
     },
   },
 };

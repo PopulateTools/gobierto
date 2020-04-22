@@ -42,6 +42,7 @@
 
 .sdg_icon_inactive {
   opacity: .25;
+  filter: grayscale(100%);
 }
 
 .sdg_label {

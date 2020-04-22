@@ -45,9 +45,6 @@ export default {
     getConfig() {
       // export the visualization configuration object
       return this.viewer.save()
-    },
-    resetViz() {
-      this.viewer.delete();
     }
   }
 };

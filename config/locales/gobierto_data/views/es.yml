@@ -38,6 +38,7 @@ es:
       recents: Recientes
       records: Registros
       resetQuery: Restablecer consulta
+      resetViz: Restablecer Visualización
       resources: Recursos
       runQuery: Ejecutar consulta
       save: Guardar

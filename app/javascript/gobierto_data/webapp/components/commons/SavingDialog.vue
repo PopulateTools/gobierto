@@ -9,7 +9,7 @@
         :disabled="!isSavingPromptVisible"
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
-        @keydDownn.stop="onKeyUpTextHandler"
+        @keydown.stop="onKeyDownTextHandler"
       >
     </template>
 

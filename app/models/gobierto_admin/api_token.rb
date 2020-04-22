@@ -2,7 +2,7 @@
 
 module GobiertoAdmin
   class ApiToken < ApplicationRecord
-    include GobiertoCommon::ActsAsApiToken
+    include ::GobiertoCommon::ActsAsApiToken
 
     acts_as_api_token_on :admin, class_name: "GobiertoAdmin::Admin"
   end

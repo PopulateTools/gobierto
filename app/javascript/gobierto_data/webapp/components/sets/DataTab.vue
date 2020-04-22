@@ -18,7 +18,7 @@
       <SQLEditorResults
         v-if="items.length"
         :array-formats="arrayFormats"
-        :array-columns="arrayColumnsQuery"
+        :array-columns-query="arrayColumnsQuery"
         :items="items"
       />
     </div>

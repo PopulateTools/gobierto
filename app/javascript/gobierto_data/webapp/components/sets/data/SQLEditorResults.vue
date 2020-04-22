@@ -49,7 +49,7 @@
         ref="viewer"
         :items="items"
         :type-chart="typeChart"
-        :array-columns="arrayColumnsQuery"
+        :array-columns-query="arrayColumnsQuery"
       />
     </div>
   </div>

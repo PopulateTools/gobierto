@@ -37,7 +37,7 @@ export default {
     },
     arrayColumnsQuery(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.viewer.setAttribute('columns', this.arrayColumnsQuery)
+        this.viewer.setAttribute('columns', JSON.stringify(this.newValue))
       }
     }
   },
@@ -48,7 +48,6 @@ export default {
   methods: {
     initPerspective(data) {
       this.viewer.setAttribute('plugin', this.typeChart)
-      /*this.viewer.setAttribute('columns', this.arrayColumnsQuery)*/
       this.viewer.clear();
       const table = perspective.worker().table(data);
 

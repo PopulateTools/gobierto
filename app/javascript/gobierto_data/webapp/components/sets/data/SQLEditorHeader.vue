@@ -63,7 +63,7 @@
     <SavingDialog
       :placeholder="labelQueryName"
       :value="queryName"
-      :save-string="labelSave"
+      :label-save="labelSave"
       @save="onSaveEventHandler"
     />
 

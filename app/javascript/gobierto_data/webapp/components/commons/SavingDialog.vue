@@ -40,7 +40,7 @@
     <!-- show edit button if there's no prompt but some name, otherwise, save button -->
     <template v-if="!isSavingPromptVisible && labelValue">
       <Button
-        :text="saveString"
+        :text="labelSave"
         class="btn-sql-editor"
         icon="edit"
         color="var(--color-base)"
@@ -50,7 +50,7 @@
     </template>
     <template v-else>
       <Button
-        :text="saveString"
+        :text="labelSave"
         :style="
           isSavingPromptVisible
             ? 'color: #fff; background-color: var(--color-base)'
@@ -101,7 +101,7 @@ export default {
       type: Function,
       default: () => {}
     },
-    saveString: {
+    labelSave: {
       type: String,
       default: ''
     }

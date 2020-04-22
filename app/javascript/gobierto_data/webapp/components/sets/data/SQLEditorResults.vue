@@ -6,14 +6,6 @@
         style="margin-bottom: 1rem"
       >
         <Button
-          :text="'Visualizar'"
-          class="btn-sql-editor"
-          icon="chart-area"
-          color="var(--color-base)"
-          background="#fff"
-          @click.native="showChart"
-        />
-        <Button
           v-if="showVisualization"
           class="btn-sql-editor"
           icon="home"
@@ -21,10 +13,19 @@
           background="#fff"
           @click.native="resetViz"
         />
+        <Button
+          :text="'Visualizar'"
+          :class="{ 'remove-label' : removeLabelBtn }"
+          class="btn-sql-editor"
+          icon="chart-area"
+          color="var(--color-base)"
+          background="#fff"
+          @click.native="showChart"
+        />
         <SavingDialog
           v-if="showVisualization"
           :placeholder="labelVisName"
-          :save-string="labelSaveViz"
+          :label-save="labelSaveViz"
           @save="onSaveEventHandler"
         />
 
@@ -46,6 +47,7 @@
         v-if="items"
         ref="viewer"
         :items="items"
+        :type-chart="typeChart"
       />
     </div>
   </div>
@@ -78,8 +80,17 @@ export default {
     return {
       labelVisName: I18n.t('gobierto_data.projects.visName') || "",
       labelSaveViz: I18n.t('gobierto_data.projects.saveViz') || "",
-      showVisualization: false
+      showVisualization: false,
+      removeLabelBtn: false,
+      typeChart: 'hypergrid'
     };
+  },
+  watch: {
+    typeChart(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.typeChart = newValue
+      }
+    }
   },
   methods: {
     onSaveEventHandler(opts) {
@@ -87,12 +98,14 @@ export default {
       const config = this.$refs.viewer.getConfig()
 
       this.$root.$emit("storeCurrentVisualization", config, opts);
+      this.removeLabelBtn = true
     },
     resetViz() {
-      this.$root.$emit('resetViz')
+      this.typeChart = 'hypergrid'
     },
-    visualization() {
-      plugin="xy_scatter"
+    showChart() {
+      this.showVisualization = true
+      this.typeChart = 'y_line'
     }
   },
 };

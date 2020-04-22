@@ -19,5 +19,9 @@ module GobiertoCommon
       end
     end
 
+    def to_s
+      token
+    end
+
   end
 end

@@ -2,6 +2,13 @@
   <div class="gobierto-data-sql-editor-toolbar">
     <div class="gobierto-data-sql-editor-container">
       <Button
+        class="btn-sql-editor"
+        icon="home"
+        color="var(--color-base)"
+        background="#fff"
+        @click.native="resetQuery"
+      />
+      <Button
         v-clickoutside="closeRecentModal"
         :text="labelRecents"
         :class="{ 'remove-label' : removeLabelBtn }"
@@ -193,6 +200,9 @@ export default {
     },
     closeQueriesModal() {
       this.isQueriesModalActive = false;
+    },
+    resetQuery() {
+      this.$root.$emit('resetQuery')
     },
   },
 };

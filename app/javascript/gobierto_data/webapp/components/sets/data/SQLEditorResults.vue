@@ -1,6 +1,12 @@
 <template>
   <div class="gobierto-data-sql-editor-tabs">
     <div class="pure-g">
+      <Button
+        class="btn-sql-editor"
+        icon="home"
+        color="var(--color-base)"
+        background="#fff"
+      />
       <div
         class="pure-u-1"
         style="text-align: right; margin-bottom: 1rem"
@@ -26,6 +32,7 @@
   </div>
 </template>
 <script>
+import Button from "./../../commons/Button.vue";
 import DownloadButton from "./../../commons/DownloadButton.vue";
 import SavingDialog from "./../../commons/SavingDialog.vue";
 import Visualizations from "./../../commons/Visualizations.vue";
@@ -35,6 +42,7 @@ export default {
   components: {
     Visualizations,
     DownloadButton,
+    Button,
     SavingDialog
   },
   props: {

@@ -25,13 +25,6 @@ export default {
       if (newValue !== oldValue) {
         this.initPerspective(newValue)
       }
-    },
-    typeChart(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        console.log("oldValue", oldValue);
-        console.log("newValue", newValue);
-        this.viewer.setAttribute('plugin', newValue)
-      }
     }
   },
   mounted() {

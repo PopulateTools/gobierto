@@ -9,7 +9,7 @@
       style="color: inherit;"
       class="fas"
     />
-    {{ text || '' }}
+    {{ text }}
     <slot />
   </button>
 </template>

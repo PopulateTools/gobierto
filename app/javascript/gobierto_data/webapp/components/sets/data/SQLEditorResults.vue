@@ -88,13 +88,6 @@ export default {
       typeChart: 'hypergrid'
     };
   },
-  watch: {
-    typeChart(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.typeChart = newValue
-      }
-    }
-  },
   methods: {
     onSaveEventHandler(opts) {
       // get children configuration
@@ -108,6 +101,7 @@ export default {
     },
     showChart() {
       this.showVisualization = true
+      //Charts Perspective: y_line, hypegrid, xy_scatter, y_scatter, y_area, x_bar, y_bar, heatmap, sunburst, treemap, ohlc, candlestick
       this.typeChart = 'y_line'
     }
   },

@@ -25,11 +25,16 @@ export default {
       if (newValue !== oldValue) {
         this.initPerspective(newValue)
       }
+    },
+    typeChart(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.viewer.setAttribute('plugin', newValue)
+      }
     }
   },
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
-    this.initPerspective(this.items, this.typeChart);
+    this.initPerspective(this.items);
   },
   methods: {
     initPerspective(data) {
@@ -45,6 +50,9 @@ export default {
     getConfig() {
       // export the visualization configuration object
       return this.viewer.save()
+    },
+    resetViz() {
+      this.viewer.delete();
     }
   }
 };

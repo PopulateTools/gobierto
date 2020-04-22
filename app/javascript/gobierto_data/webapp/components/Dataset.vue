@@ -49,7 +49,6 @@
       :is-query-modified="isQueryModified"
       :query-stored="currentQuery"
       :query-name="queryName"
-      :query-number-rows="queryNumberRows"
       :query-duration="queryDuration"
       :query-error="queryError"
     />
@@ -126,18 +125,17 @@ export default {
       recentQueries: [],
       resourcesList: [],
       currentQuery: null,
-      items: [],
+      items: '',
       isQueryRunning: false,
       isQueryModified: false,
       queryName: null,
       queryDuration: 0,
-      queryNumberRows: 0,
-      queryError: null,
+      queryError: null
     };
   },
   computed: {
     recentQueriesFiltered() {
-      return this.recentQueries.length ? this.recentQueries.filter((sql) => sql.includes(this.tableName))
+      return this.recentQueries.length ? this.recentQueries.filter(sql => (sql || '').includes(this.tableName))
         .reverse() : [];
     },
   },
@@ -186,7 +184,7 @@ export default {
       name: titleDataset,
       table_name: tableName,
       columns: arrayColumns,
-      formats: arrayFormats,
+      formats: arrayFormats
     } = attributes;
 
     this.titleDataset = titleDataset;
@@ -221,9 +219,10 @@ export default {
       this.parseUrl({ queryId, sql });
     } else {
       // update the editor text content by default
-      this.currentQuery = `SELECT * FROM ${this.tableName}`;
+      this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
     this.runCurrentQuery();
+
   },
   mounted() {
     const recentQueries = localStorage.getItem("recentQueries");
@@ -231,15 +230,25 @@ export default {
       this.recentQueries = JSON.parse(recentQueries);
     }
   },
-  beforeDestroy() {
-    this.$root.$off("deleteSavedQuery", this.deleteSavedQuery);
-    this.$root.$off("setCurrentQuery", this.setCurrentQuery);
-    this.$root.$off("runCurrentQuery", this.runCurrentQuery);
-    this.$root.$off("storeCurrentQuery", this.storeCurrentQuery);
-    this.$root.$off(
-      "storeCurrentVisualization",
-      this.storeCurrentVisualization
-    );
+  activated() {
+    this.$root.$on("deleteSavedQuery", this.deleteSavedQuery);
+    // change the current query, triggering a new SQL execution
+    this.$root.$on("setCurrentQuery", this.setCurrentQuery);
+    // execute the current query
+    this.$root.$off("runCurrentQuery");
+    this.$root.$on("runCurrentQuery", this.runCurrentQuery);
+    // save the query in database
+    this.$root.$off("storeCurrentQuery");
+    this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
+    // save the visualization in database
+    this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
+  },
+  deactivated() {
+    this.$root.$off("deleteSavedQuery");
+    this.$root.$off("setCurrentQuery");
+    this.$root.$off("runCurrentQuery");
+    this.$root.$off("storeCurrentQuery");
+    this.$root.$off("storeCurrentVisualization");
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -377,28 +386,18 @@ export default {
       // save the query executed
       this.storeRecentQuery();
 
-      // wrap the result in an small number of records
-      let query = "";
-      if (this.currentQuery.includes("LIMIT")) {
-        query = this.currentQuery;
-      } else {
-        query = `SELECT * FROM (${this.currentQuery}) AS data_limited_results LIMIT 100 OFFSET 0`;
-      }
+      const params = { sql: this.currentQuery };
 
-      const params = { sql: query };
-
+      //
+      const startTime = new Date().getTime();
       // factory method
       try {
         const {
-          data: {
-            data: items,
-            meta: { rows, duration },
-          },
+          data: items
         } = await this.getData(params);
 
         this.items = items;
-        this.queryDuration = duration;
-        this.queryNumberRows = rows;
+        this.queryDuration = new Date().getTime() - startTime;
         this.isQueryRunning = false;
       } catch (error) {
         this.queryError = error;

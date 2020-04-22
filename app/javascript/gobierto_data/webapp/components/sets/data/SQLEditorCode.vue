@@ -9,9 +9,6 @@
       </template>
 
       <template v-else>
-        <span class="gobierto-data-sql-editor-footer-records">
-          {{ queryNumberRows }} {{ labelRecords }}
-        </span>
         <span class="gobierto-data-sql-editor-footer-time">
           {{ labelQueryExecuted }} {{ queryDurationParsed }}ms
         </span>
@@ -45,10 +42,6 @@ export default {
     queryStored: {
       type: String,
       default: ""
-    },
-    queryNumberRows: {
-      type: Number,
-      default: 0
     },
     queryDuration: {
       type: Number,

@@ -13,18 +13,12 @@ module GobiertoCommon
     protected
 
     def set_admin_with_token
-      extract_token
+      @current_admin = ::GobiertoAdmin::Admin.joins(:api_tokens).find_by(admin_api_tokens: { token: token })
 
-      # TODO: Implement bad request
-      decoded_data = GobiertoCommon::TokenService.new.decode(@token)
-      if decoded_data && decoded_data["sub"] == "login" && decoded_data["api_token"].present? && (admin = ::GobiertoAdmin::Admin.find_by(api_token: decoded_data["api_token"]))
-        @current_admin = admin
-      else
-        render(json: { message: "Unauthorized" }, status: :unauthorized, adapter: :json_api) && return
-      end
+      render(json: { message: "Unauthorized" }, status: :unauthorized, adapter: :json_api) unless @current_admin.present?
     end
 
-    def extract_token
+    def token
       token_and_options = ActionController::HttpAuthentication::Token.token_and_options(request)
       @token = token_and_options.present? ? token_and_options[0] : nil
     end

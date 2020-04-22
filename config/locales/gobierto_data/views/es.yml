@@ -2,10 +2,14 @@
 es:
   gobierto_data:
     data_type:
+      boolean: logico
       date: fecha
       decimal: decimal
       integer: entero
       text: texto
+      time: tiempo
+      timestamp: tiempo
+      timestampz: tiempo
     events:
       gobierto_data_dataset_dataset_created: Conjunto de datos creado
       gobierto_data_dataset_dataset_updated: Conjunto de datos actualizado

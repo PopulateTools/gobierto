@@ -2,14 +2,18 @@
 ca:
   gobierto_data:
     data_type:
-      boolean: bolea
+      boolean: boolean
       date: data
+      datetime: data i hora
       decimal: decimal
-      integer: senser
+      hstore: hstore
+      integer: enter
+      jsonb: jsonb
+      string: cadena
       text: text
       time: temps
-      timestamp: temps
-      timestampz: temps
+      timestamp: data i hora
+      timestampz: data i hora
     events:
       gobierto_data_dataset_dataset_created: Conjunt de dades creat
       gobierto_data_dataset_dataset_updated: Conjunt de dades actualitzat

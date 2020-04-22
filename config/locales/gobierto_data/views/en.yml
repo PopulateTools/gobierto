@@ -2,11 +2,15 @@
 en:
   gobierto_data:
     data_type:
-      boolean: boleaan
+      boolean: boolean
       date: date
+      datetime: datetime
       decimal: decimal
+      hstore: hstore
       integer: integer
-      text: texto
+      jsonb: jsonb
+      string: string
+      text: text
       time: time
       timestamp: time
       timestampz: time

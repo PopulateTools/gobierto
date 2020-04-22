@@ -14,14 +14,14 @@
 
         <router-link
           :to="`/datos/${slug}`"
-         class="gobierto-data-sidebar-datasets-name"
-         @click.native="selectCurrentDataset(slug)"
+          class="gobierto-data-sidebar-datasets-name"
+          @click.native="selectCurrentDataset(slug)"
         >
           {{ name }}
         </router-link>
 
         <div
-          v-show="currentDatasetSlug === slug"
+          v-if="currentDatasetSlug === slug"
           class="gobierto-data-sidebar-datasets-container-columns"
         >
           <template v-for="(type, column) in activeDatasetVisibleColumns">
@@ -29,19 +29,21 @@
               :key="`${column}-${type}`"
               class="gobierto-data-sidebar-datasets-links-columns"
             >
-              {{ column }}: {{type | translateType}}
+              {{ column }}: {{ type | translateType }}
             </span>
           </template>
           <div v-if="showToggle">
-            <span v-if="showLess"
-              class="gobierto-data-sidebar-datasets-links-columns-see-more"
-              @click="showLess = false"
+            <span
+              v-if="showLess"
+                class="gobierto-data-sidebar-datasets-links-columns-see-more"
+                @click="showLess = false"
             >
               {{ labelshowAll }}
             </span>
-            <span v-else
-              class="gobierto-data-sidebar-datasets-links-columns-see-more"
-              @click="showLess = true"
+            <span
+              v-else
+                class="gobierto-data-sidebar-datasets-links-columns-see-more"
+                @click="showLess = true"
             >
               {{ labelshowLess }}
             </span>
@@ -91,7 +93,7 @@ export default {
   watch: {
     currentDatasetSlug: function(newSlug) {
       this.showLess = true;
-      if(this.sortedItems.length) {
+      if (this.sortedItems.length) {
         this.activeDatasetColumns = this.sortedItems.find(({ attributes: { slug } = {} }) => slug === newSlug).attributes.columns || {}
         this.showToggle = Object.keys(this.activeDatasetColumns).length > this.showMaxKeys
       }
@@ -99,7 +101,7 @@ export default {
   },
   computed: {
     activeDatasetVisibleColumns() {
-      if(this.showLess && Object.keys(this.activeDatasetColumns).length) {
+      if (this.showLess && Object.keys(this.activeDatasetColumns).length) {
        return Object.keys(this.activeDatasetColumns).slice(0, this.showMaxKeys).reduce((result, key) => {
           result[key] = this.activeDatasetColumns[key];
           return result;
@@ -111,12 +113,12 @@ export default {
   },
   methods: {
     selectCurrentDataset(selectedDatasetSlug) {
-      if(selectedDatasetSlug === undefined && this.sortedItems.length) {
+      if (!selectedDatasetSlug && this.sortedItems.length) {
         selectedDatasetSlug = this.sortedItems[0].attributes.slug
       }
-      if(selectedDatasetSlug !== undefined) {
-        let selectedDataset = this.sortedItems.find(({ attributes: { slug } = {} }) => slug === selectedDatasetSlug)
-        let filteredArray = this.sortedItems.filter(({ attributes: { slug } = {} }) => slug !== selectedDatasetSlug)
+      if (selectedDatasetSlug) {
+        const selectedDataset = this.sortedItems.find(({ attributes: { slug } = {} }) => slug === selectedDatasetSlug)
+        const filteredArray = this.sortedItems.filter(({ attributes: { slug } = {} }) => slug !== selectedDatasetSlug)
         this.listDatasets = [selectedDataset].concat(filteredArray)
         this.currentDatasetSlug = selectedDatasetSlug
       }

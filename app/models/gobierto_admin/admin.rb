@@ -122,6 +122,10 @@ module GobiertoAdmin
       membership.created_at
     end
 
+    def primary_api_token
+      api_tokens.primary.take
+    end
+
     private
 
     def set_god_flag
@@ -137,10 +141,6 @@ module GobiertoAdmin
 
     def primary_api_token!
       primary_api_token || api_tokens.primary.create
-    end
-
-    def primary_api_token
-      api_tokens.primary.take
     end
   end
 end

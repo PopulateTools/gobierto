@@ -94,7 +94,7 @@ export default {
     };
   },
   created() {
-    this.$root.$on('resetPerspective', this.resetViz)
+    this.$root.$on('resetPerspective', this.resetVizColumns)
   },
   beforeDestroy() {
     this.$root.$off('resetPerspective')

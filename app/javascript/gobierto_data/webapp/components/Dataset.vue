@@ -52,6 +52,7 @@
       :query-name="queryName"
       :query-duration="queryDuration"
       :query-error="queryError"
+      :query-default="queryDefault"
     />
 
     <QueriesTab
@@ -213,6 +214,8 @@ export default {
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
     this.runCurrentQuery();
+
+    this.queryDefault = `SELECT * FROM ${this.tableName} LIMIT 50`;
 
   },
   mounted() {

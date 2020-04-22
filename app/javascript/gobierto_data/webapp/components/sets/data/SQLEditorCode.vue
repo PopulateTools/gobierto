@@ -107,6 +107,7 @@ export default {
     // metaKey + keyUp doesn't work with MacOS
     // https://stackoverflow.com/questions/11818637/why-does-javascript-drop-keyup-events-when-the-metakey-is-pressed-on-mac-browser
     this.editor.on("keydown", this.onKeyDown);
+    this.$root.$on('resetQuery', this.resetEditor)
   },
   methods: {
     onKeyDown(editor, e) {
@@ -182,6 +183,10 @@ export default {
         from: CodeMirror.Pos(cur.line, token.start),
         to: CodeMirror.Pos(cur.line, token.end)
       };
+    },
+    resetEditor() {
+      const resetSql = ''
+      this.editor.setValue(resetSql)
     }
   }
 };

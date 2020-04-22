@@ -2,6 +2,14 @@
   <div class="gobierto-data-sql-editor-toolbar">
     <div class="gobierto-data-sql-editor-container">
       <Button
+        :title="labelButtonRecentQueries"
+        class="btn-sql-editor"
+        icon="home"
+        color="var(--color-base)"
+        background="#fff"
+        @click.native="resetQuery"
+      />
+      <Button
         v-clickoutside="closeRecentModal"
         :text="labelRecents"
         :class="{ 'remove-label' : removeLabelBtn }"
@@ -55,6 +63,7 @@
     <SavingDialog
       :placeholder="labelQueryName"
       :value="queryName"
+      :label-save="labelSave"
       @save="onSaveEventHandler"
     />
 
@@ -130,6 +139,7 @@ export default {
       labelRecents: I18n.t("gobierto_data.projects.recents") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelRunQuery: I18n.t("gobierto_data.projects.runQuery") || "",
+      labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
       labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
@@ -196,6 +206,9 @@ export default {
     },
     closeQueriesModal() {
       this.isQueriesModalActive = false;
+    },
+    resetQuery() {
+      this.$root.$emit('resetQuery')
     },
   },
 };

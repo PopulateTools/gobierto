@@ -46,9 +46,12 @@ ca:
       queryName: Nom consulta
       recents: Recents
       records: Registres
+      resetQuery: Restableix la consulta
+      resetViz: Restableix la Visualització
       resources: Recursos
       runQuery: Executeu consulta
       save: Deseu
+      saveViz: Deseu Visualització
       sets: Conjunts
       showAll: Vegeu-ho tot
       showLess: Vegeu-ne menys
@@ -60,4 +63,5 @@ ca:
       visPrivate: Les teves visualitzacions
       visPublic: Totes
       visualizations: Visualitzacions
+      visualize: Visualitzar
       yourQueries: Les teves consultes

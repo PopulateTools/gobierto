@@ -15,9 +15,9 @@ export default {
       type: String,
       default: ''
     },
-    config: {
-      type: Object,
-      default: () => {}
+    typeChart: {
+      type: String,
+      default: ''
     }
   },
   watch: {
@@ -25,14 +25,22 @@ export default {
       if (newValue !== oldValue) {
         this.initPerspective(newValue)
       }
+    },
+    typeChart(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        console.log("oldValue", oldValue);
+        console.log("newValue", newValue);
+        this.viewer.setAttribute('plugin', newValue)
+      }
     }
   },
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
-    this.initPerspective(this.items);
+    this.initPerspective(this.items, this.typeChart);
   },
   methods: {
     initPerspective(data) {
+      this.viewer.setAttribute('plugin', this.typeChart)
       this.viewer.clear();
       const table = perspective.worker().table(data);
 
@@ -44,6 +52,9 @@ export default {
     getConfig() {
       // export the visualization configuration object
       return this.viewer.save()
+    },
+    resetViz() {
+      this.viewer.delete();
     }
   }
 };

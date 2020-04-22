@@ -377,6 +377,8 @@
     }
 
     &.modal-right {
+      float: right;
+
       .gobierto-data-btn-download-data-modal {
         width: inherit;
         max-width: 125px;
@@ -547,6 +549,7 @@
       font-weight: 600;
       font-size: 14px;
       margin: 0;
+      vertical-align: top;
 
       &.isDisabled {
         opacity: .4;

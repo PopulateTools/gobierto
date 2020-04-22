@@ -46,9 +46,11 @@ es:
       queryName: Nombre consulta
       recents: Recientes
       records: Registros
+      resetQuery: Restablecer consulta
       resources: Recursos
       runQuery: Ejecutar consulta
       save: Guardar
+      saveViz: Guardar Visualización
       sets: Conjuntos
       showAll: Ver todo
       showLess: Ver menos
@@ -60,4 +62,5 @@ es:
       visPrivate: Tus visualizaciones
       visPublic: Todas
       visualizations: Visualizaciones
+      visualize: Visualizar
       yourQueries: Tus consultas

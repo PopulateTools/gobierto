@@ -111,12 +111,12 @@ export default {
   },
   methods: {
     selectCurrentDataset(selectedDatasetSlug) {
-      if(selectedDatasetSlug === undefined && this.sortedItems.length) {
+      if(!selectedDatasetSlug && this.sortedItems.length) {
         selectedDatasetSlug = this.sortedItems[0].attributes.slug
       }
-      if(selectedDatasetSlug !== undefined) {
-        let selectedDataset = this.sortedItems.find(({ attributes: { slug } = {} }) => slug === selectedDatasetSlug)
-        let filteredArray = this.sortedItems.filter(({ attributes: { slug } = {} }) => slug !== selectedDatasetSlug)
+      if(selectedDatasetSlug) {
+        const selectedDataset = this.sortedItems.find(({ attributes: { slug } = {} }) => slug === selectedDatasetSlug)
+        const filteredArray = this.sortedItems.filter(({ attributes: { slug } = {} }) => slug !== selectedDatasetSlug)
         this.listDatasets = [selectedDataset].concat(filteredArray)
         this.currentDatasetSlug = selectedDatasetSlug
       }

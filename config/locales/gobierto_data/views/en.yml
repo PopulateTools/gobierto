@@ -37,9 +37,9 @@ en:
       queryName: Query name
       recents: Recents
       records: Records
-      resources: Resources
       resetQuery: Reset Query
       resetViz: Reset Visualization
+      resources: Resources
       runQuery: Run query
       save: Save
       saveViz: Save Visualization
@@ -54,4 +54,5 @@ en:
       visPrivate: Your visualizations
       visPublic: All
       visualizations: Visualizations
+      visualize: Visualize
       yourQueries: Your queries

@@ -14,7 +14,7 @@
           @click.native="resetViz"
         />
         <Button
-          :text="'Visualizar'"
+          :text="labelVisualize"
           :class="{ 'remove-label' : removeLabelBtn }"
           class="btn-sql-editor"
           icon="chart-area"
@@ -80,6 +80,7 @@ export default {
     return {
       labelVisName: I18n.t('gobierto_data.projects.visName') || "",
       labelSaveViz: I18n.t('gobierto_data.projects.saveViz') || "",
+      labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
       showVisualization: false,
       removeLabelBtn: false,
       typeChart: 'hypergrid'

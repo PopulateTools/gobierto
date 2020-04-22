@@ -21,7 +21,7 @@
         </router-link>
 
         <div
-          v-show="currentDatasetSlug === slug"
+          v-if="currentDatasetSlug === slug"
           class="gobierto-data-sidebar-datasets-container-columns"
         >
           <template v-for="(type, column) in activeDatasetVisibleColumns">

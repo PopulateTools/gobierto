@@ -1,27 +1,27 @@
 <template>
   <div v-if="listDatasets.length">
     <div
-      v-for="({ id, attributes: { slug, name }}, index) in listDatasets"
+      v-for="({ attributes: { slug, name }}) in listDatasets"
       :key="slug"
       class="gobierto-data-sidebar-datasets"
     >
       <div class="gobierto-data-sidebar-datasets-links-container">
         <i
-          :class="{'rotate-caret': currentDatasetIndex !== index }"
+          :class="{'rotate-caret': currentDatasetSlug !== slug }"
           class="fas fa-caret-down gobierto-data-sidebar-icon"
-          @click="handleToggle(index)"
+          @click="handleToggle(slug)"
         />
 
         <router-link
           :to="`/datos/${slug}`"
          class="gobierto-data-sidebar-datasets-name"
-         @click.native="selectCurrentDataset"
+         @click.native="selectCurrentDataset(slug)"
         >
           {{ name }}
         </router-link>
 
         <div
-          v-show="currentDatasetIndex === index"
+          v-show="currentDatasetSlug === slug"
           class="gobierto-data-sidebar-datasets-container-columns"
         >
           <template v-for="(type, column) in activeDatasetVisibleColumns">
@@ -69,7 +69,7 @@ export default {
       labelshowLess: "",
       sortedItems: [],
       listDatasets: [],
-      currentDatasetIndex: null,
+      currentDatasetSlug: null,
       showMaxKeys: 10,
       showLess: null,
       activeDatasetColumns: {},
@@ -82,15 +82,17 @@ export default {
     this.labelCategories = I18n.t("gobierto_data.projects.categories")
     this.labelshowAll = I18n.t("gobierto_data.projects.showAll")
     this.labelshowLess = I18n.t("gobierto_data.projects.showLess")
-    //TODO Datasets should be order in filter mixin
+    // TODO Datasets should be order in filter mixin
     this.sortedItems = this.items.sort(({ attributes: { name: a } = {} }, { attributes: { name: b } = {} }) => a.localeCompare(b));
-    this.selectCurrentDataset()
+
+    let { id } = this.$route.params
+    this.selectCurrentDataset(id)
   },
   watch: {
-    currentDatasetIndex: function(value) {
+    currentDatasetSlug: function(newSlug) {
       this.showLess = true;
-      if(this.listDatasets.length) {
-        this.activeDatasetColumns = this.listDatasets[value].attributes.columns || {}
+      if(this.sortedItems.length) {
+        this.activeDatasetColumns = this.sortedItems.find(({ attributes: { slug } = {} }) => slug === newSlug).attributes.columns || {}
         this.showToggle = Object.keys(this.activeDatasetColumns).length > this.showMaxKeys
       }
     }
@@ -108,21 +110,19 @@ export default {
     }
   },
   methods: {
-    selectCurrentDataset() {
-      // Get slug from route params, we need this when user click in any dataset
-      let { id } = this.$route.params
-      let selectedDatasetIndex = 0
-      if(id !== undefined) {
-        selectedDatasetIndex = this.sortedItems.findIndex(({ attributes: { slug } = {} }) => slug === id)
+    selectCurrentDataset(selectedDatasetSlug) {
+      if(selectedDatasetSlug === undefined && this.sortedItems.length) {
+        selectedDatasetSlug = this.sortedItems[0].attributes.slug
       }
-
-      let selectedDataset = this.sortedItems[selectedDatasetIndex]
-      let filteredArray = this.sortedItems.filter(({ attributes: { slug } = {} }) => slug !== selectedDataset.attributes.slug)
-      this.listDatasets = [selectedDataset].concat(filteredArray)
-      this.currentDatasetIndex = 0
+      if(selectedDatasetSlug !== undefined) {
+        let selectedDataset = this.sortedItems.find(({ attributes: { slug } = {} }) => slug === selectedDatasetSlug)
+        let filteredArray = this.sortedItems.filter(({ attributes: { slug } = {} }) => slug !== selectedDatasetSlug)
+        this.listDatasets = [selectedDataset].concat(filteredArray)
+        this.currentDatasetSlug = selectedDatasetSlug
+      }
     },
-    handleToggle(index) {
-      this.currentDatasetIndex = index;
+    handleToggle(slug) {
+      this.currentDatasetSlug = slug
     }
   },
   filters: {

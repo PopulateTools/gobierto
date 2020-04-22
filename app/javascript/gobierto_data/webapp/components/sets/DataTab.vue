@@ -12,7 +12,6 @@
       <SQLEditorCode
         :array-columns="arrayColumns"
         :query-stored="queryStored"
-        :query-number-rows="queryNumberRows"
         :query-duration="queryDuration"
         :query-error="queryError"
       />
@@ -59,8 +58,8 @@ export default {
       required: true
     },
     items: {
-      type: Array,
-      default: () => []
+      type: String,
+      default: ''
     },
     isQueryRunning: {
       type: Boolean,
@@ -77,10 +76,6 @@ export default {
     queryName: {
       type: String,
       default: null
-    },
-    queryNumberRows: {
-      type: Number,
-      default: 0
     },
     queryDuration: {
       type: Number,

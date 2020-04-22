@@ -20,7 +20,7 @@
 
           <template v-else>
             <template v-if="privateVisualizations.length">
-              <template v-for="{ data, config, name } in privateVisualizations">
+              <template v-for="{ queryData, config, name, privacy_status, id } in privateVisualizations">
                 <div :key="name">
                   <div class="gobierto-data-visualization--card">
                     <div class="gobierto-data-visualization--aspect-ratio-16-9">
@@ -28,8 +28,18 @@
                         <h4 class="gobierto-data-visualization--title">
                           {{ name }}
                         </h4>
+                        <div class="gobierto-data-visualization--icons">
+                          <PrivateIcon
+                            :is-closed="privacy_status === 'closed'"
+                          />
+                          <i
+                            class="fas fa-trash-alt"
+                            style="color: var(--color-base);"
+                            @click.prevent="deleteHandlerVisualization(id)"
+                          />
+                        </div>
                         <Visualizations
-                          :items="data"
+                          :items="queryData"
                           :config="config"
                         />
                       </div>
@@ -66,7 +76,7 @@
 
         <template v-else>
           <template v-if="publicVisualizations.length">
-            <template v-for="{ data, config, name } in publicVisualizations">
+            <template v-for="{ queryData, config, name } in publicVisualizations">
               <div :key="name">
                 <div class="gobierto-data-visualization--card">
                   <div class="gobierto-data-visualization--aspect-ratio-16-9">
@@ -75,7 +85,7 @@
                         {{ name }}
                       </h4>
                       <Visualizations
-                        :items="data"
+                        :items="queryData"
                         :config="config"
                       />
                     </div>
@@ -97,17 +107,20 @@
 import Spinner from "./../commons/Spinner.vue";
 import Caret from "./../commons/Caret.vue";
 import Visualizations from "./../commons/Visualizations.vue";
+import PrivateIcon from './../commons/PrivateIcon.vue';
 import { Dropdown } from "lib/vue-components";
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { DataFactoryMixin } from "./../../../lib/factories/data";
 import { getUserId } from "./../../../lib/helpers";
 
+
 export default {
   name: "VisualizationsTab",
   components: {
     Visualizations,
     Spinner,
+    PrivateIcon,
     Dropdown,
     Caret
   },
@@ -177,14 +190,14 @@ export default {
     async getDataFromVisualizations(data) {
       const visualizations = [];
       for (let index = 0; index < data.length; index++) {
-        const { attributes = {} } = data[index];
-        const { query_id: id, spec = {}, name = "" } = attributes;
+        const { attributes = {}, id } = data[index];
+        const { query_id, spec = {}, name = "", privacy_status = "open" } = attributes;
 
         let queryData = null;
 
-        if (id) {
+        if (query_id) {
           // Get my queries, if they're stored
-          const { data } = await this.getQuery(id);
+          const { data } = await this.getQuery(query_id);
           queryData = data;
         } else {
           // Otherwise, run the sql
@@ -194,13 +207,18 @@ export default {
         }
 
         // Append the visualization configuration
-        const visualization = { ...queryData, config: spec, name };
+        const visualization = { queryData, config: spec, name, privacy_status, query_id, id };
 
         visualizations.push(visualization);
       }
 
       return visualizations;
-    }
+    },
+    async deleteHandlerVisualization(id) {
+      this.deleteVisualization(id)
+      this.getPrivateVisualizations()
+      this.getPublicVisualizations()
+    },
   }
 };
 </script>

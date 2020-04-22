@@ -2,14 +2,18 @@
 es:
   gobierto_data:
     data_type:
-      boolean: logico
+      boolean: boolean
       date: fecha
+      datetime: fecha y hora
       decimal: decimal
+      hstore: hstore
       integer: entero
+      jsonb: jsonb
+      string: cadena
       text: texto
       time: tiempo
-      timestamp: tiempo
-      timestampz: tiempo
+      timestamp: fecha y hora
+      timestampz: fecha y hora
     events:
       gobierto_data_dataset_dataset_created: Conjunto de datos creado
       gobierto_data_dataset_dataset_updated: Conjunto de datos actualizado

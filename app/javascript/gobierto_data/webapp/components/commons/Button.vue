@@ -9,7 +9,7 @@
       style="color: inherit;"
       class="fas"
     />
-    {{ text }}
+    {{ text || '' }}
     <slot />
   </button>
 </template>
@@ -20,7 +20,7 @@ export default {
   props: {
     text: {
       type: String,
-      required: true
+      default: ''
     },
     icon: {
       type: String,

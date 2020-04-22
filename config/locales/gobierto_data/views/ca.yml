@@ -38,8 +38,11 @@ ca:
       recents: Recents
       records: Registres
       resources: Recursos
+      resetQuery: Restableix la consulta
+      resetViz: Restableix la Visualització
       runQuery: Executeu consulta
       save: Deseu
+      saveViz: Deseu Visualització
       sets: Conjunts
       showAll: Vegeu-ho tot
       showLess: Vegeu-ne menys

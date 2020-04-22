@@ -38,8 +38,11 @@ en:
       recents: Recents
       records: Records
       resources: Resources
+      resetQuery: Reset Query
+      resetViz: Reset Visualization
       runQuery: Run query
       save: Save
+      saveViz: Save Visualization
       sets: Sets
       showAll: Show all
       showLess: Show less

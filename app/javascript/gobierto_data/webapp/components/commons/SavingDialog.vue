@@ -40,7 +40,7 @@
     <!-- show edit button if there's no prompt but some name, otherwise, save button -->
     <template v-if="!isSavingPromptVisible && labelValue">
       <Button
-        :text="labelEdit"
+        :text="saveString"
         class="btn-sql-editor"
         icon="edit"
         color="var(--color-base)"
@@ -50,7 +50,7 @@
     </template>
     <template v-else>
       <Button
-        :text="labelSave"
+        :text="saveString"
         :style="
           isSavingPromptVisible
             ? 'color: #fff; background-color: var(--color-base)'
@@ -100,6 +100,10 @@ export default {
     saveCallback: {
       type: Function,
       default: () => {}
+    },
+    saveString: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -107,7 +111,6 @@ export default {
       isPrivate: false,
       isSavingPromptVisible: false,
       labelValue: this.value,
-      labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
       labelEdit: I18n.t("gobierto_data.projects.edit") || ""

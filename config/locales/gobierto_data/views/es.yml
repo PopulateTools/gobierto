@@ -38,8 +38,10 @@ es:
       recents: Recientes
       records: Registros
       resources: Recursos
+      resetQuery: Restablecer consulta
       runQuery: Ejecutar consulta
       save: Guardar
+      saveViz: Guardar Visualización
       sets: Conjuntos
       showAll: Ver todo
       showLess: Ver menos

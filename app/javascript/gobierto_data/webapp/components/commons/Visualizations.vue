@@ -30,6 +30,10 @@ export default {
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.initPerspective(this.items);
+    this.$root.$on('resetViz', this.resetViz)
+  },
+  beforeDestroy() {
+    this.$root.$off('resetViz')
   },
   methods: {
     initPerspective(data) {
@@ -44,6 +48,9 @@ export default {
     getConfig() {
       // export the visualization configuration object
       return this.viewer.save()
+    },
+    resetViz() {
+      this.viewer.delete();
     }
   }
 };

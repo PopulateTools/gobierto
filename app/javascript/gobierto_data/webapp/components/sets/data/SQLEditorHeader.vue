@@ -2,6 +2,7 @@
   <div class="gobierto-data-sql-editor-toolbar">
     <div class="gobierto-data-sql-editor-container">
       <Button
+        :title="labelButtonRecentQueries"
         class="btn-sql-editor"
         icon="home"
         color="var(--color-base)"
@@ -62,6 +63,7 @@
     <SavingDialog
       :placeholder="labelQueryName"
       :value="queryName"
+      :save-string="labelSave"
       @save="onSaveEventHandler"
     />
 
@@ -137,6 +139,7 @@ export default {
       labelRecents: I18n.t("gobierto_data.projects.recents") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelRunQuery: I18n.t("gobierto_data.projects.runQuery") || "",
+      labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
       labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",

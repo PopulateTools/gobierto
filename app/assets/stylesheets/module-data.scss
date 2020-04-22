@@ -1046,6 +1046,12 @@
     flex-direction: column;
   }
 
+  &-visualization--icons {
+    position: absolute;
+    left: 97%;
+    top: 10%;
+  }
+
   &-visualization--h3 {
     color: $color_text;
     font-size: $f6;
@@ -1065,7 +1071,7 @@
     --plugin--background: transparent;
 
     overflow: hidden;
-    width: 100%;
+    width: 95%;
     height: 100%;
     background-color: transparent;
   }

@@ -19,6 +19,7 @@
 
     <div class="gobierto-data-visualization--aspect-ratio-16-9">
       <Visualizations
+        v-if="items"
         ref="viewer"
         :items="items"
       />
@@ -43,8 +44,8 @@ export default {
       required: true
     },
     items: {
-      type: Array,
-      default: () => []
+      type: String,
+      default: ''
     }
   },
   data() {

@@ -51,9 +51,13 @@ export default {
     this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus)
     this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked)
   },
-  beforeDestroy() {
-    this.$root.$off("sendCheckbox_TEMP", this.handleCheckboxStatus)
-    this.$root.$off("selectAll_TEMP", this.handleIsEverythingChecked)
+  activated() {
+    this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus)
+    this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked)
+  },
+  deactivated() {
+    this.$root.$off("sendCheckbox_TEMP")
+    this.$root.$off("selectAll_TEMP")
   },
   methods: {
     setActiveSidebar() {

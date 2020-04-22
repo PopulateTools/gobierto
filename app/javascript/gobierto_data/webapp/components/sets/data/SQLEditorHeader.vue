@@ -2,7 +2,7 @@
   <div class="gobierto-data-sql-editor-toolbar">
     <div class="gobierto-data-sql-editor-container">
       <Button
-        :title="labelButtonRecentQueries"
+        :title="labelResetQuery"
         class="btn-sql-editor"
         icon="home"
         color="var(--color-base)"
@@ -139,6 +139,7 @@ export default {
       labelRecents: I18n.t("gobierto_data.projects.recents") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelRunQuery: I18n.t("gobierto_data.projects.runQuery") || "",
+      labelResetQuery: I18n.t("gobierto_data.projects.resetQuery") || "",
       labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
       labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",

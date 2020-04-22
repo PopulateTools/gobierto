@@ -7,6 +7,7 @@
       >
         <Button
           v-if="showVisualization"
+          :title="labelResetViz"
           class="btn-sql-editor"
           icon="home"
           color="var(--color-base)"
@@ -81,6 +82,7 @@ export default {
       labelVisName: I18n.t('gobierto_data.projects.visName') || "",
       labelSaveViz: I18n.t('gobierto_data.projects.saveViz') || "",
       labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
+      labelResetViz: I18n.t('gobierto_data.projects.resetViz') || "",
       showVisualization: false,
       removeLabelBtn: false,
       typeChart: 'hypergrid'

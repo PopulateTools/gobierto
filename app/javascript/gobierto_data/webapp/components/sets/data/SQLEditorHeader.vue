@@ -2,6 +2,7 @@
   <div class="gobierto-data-sql-editor-toolbar">
     <div class="gobierto-data-sql-editor-container">
       <Button
+        v-if="isQueryModified"
         :title="labelResetQuery"
         class="btn-sql-editor"
         icon="home"
@@ -195,7 +196,6 @@ export default {
     },
     clickRunQueryHandler() {
       this.$root.$emit("runCurrentQuery");
-      this.resetPerspective()
     },
     openRecentModal() {
       this.isRecentModalActive = true;
@@ -211,10 +211,7 @@ export default {
     },
     resetQuery() {
       this.$root.$emit('resetQuery')
-    },
-    resetPerspective() {
-      this.$root.$emit('resetPerspective')
-    },
+    }
   },
 };
 </script>

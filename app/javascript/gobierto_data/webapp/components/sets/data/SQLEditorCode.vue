@@ -43,6 +43,10 @@ export default {
       type: String,
       default: ""
     },
+    queryDefault: {
+      type: String,
+      default: ""
+    },
     queryDuration: {
       type: Number,
       default: 0
@@ -185,8 +189,8 @@ export default {
       };
     },
     resetEditor() {
-      const resetSql = ''
-      this.editor.setValue(resetSql)
+      //TODO: if we have clicked on a saved query that should be the default query.
+      this.editor.setValue(this.queryDefault)
     }
   }
 };

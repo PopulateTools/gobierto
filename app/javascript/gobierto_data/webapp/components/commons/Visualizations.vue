@@ -37,7 +37,9 @@ export default {
     },
     arrayColumnsQuery(newValue, oldValue) {
       if (newValue !== oldValue) {
+        this.viewer.clear();
         this.viewer.setAttribute('columns', JSON.stringify(this.newValue))
+        this.initPerspective(this.items);
       }
     }
   },

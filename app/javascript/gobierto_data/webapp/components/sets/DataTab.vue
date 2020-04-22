@@ -12,6 +12,7 @@
       <SQLEditorCode
         :array-columns="arrayColumns"
         :query-stored="queryStored"
+        :query-default="queryDefault"
         :query-duration="queryDuration"
         :query-error="queryError"
       />
@@ -75,6 +76,10 @@ export default {
       default: false
     },
     queryStored: {
+      type: String,
+      default: null
+    },
+    queryDefault: {
       type: String,
       default: null
     },

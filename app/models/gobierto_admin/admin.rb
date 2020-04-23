@@ -43,7 +43,6 @@ module GobiertoAdmin
 
     validates :email, uniqueness: true
     validates_associated :permissions
-    validates :api_token, uniqueness: { allow_nil: true }
 
     scope :sorted, -> { order(created_at: :desc) }
     scope :god, -> { where(god: true) }

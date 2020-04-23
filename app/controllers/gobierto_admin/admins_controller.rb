@@ -98,7 +98,6 @@ module GobiertoAdmin
         :password,
         :password_confirmation,
         :authorization_level,
-        :api_token,
         permitted_sites: [],
         admin_group_ids: []
       )

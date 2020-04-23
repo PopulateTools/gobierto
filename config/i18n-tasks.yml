@@ -35,6 +35,7 @@ ignore_missing:
   - 'gobierto_common.visualizations.cards.*'
   - 'gobierto_common.visualizations.frequency.dailt'
   - 'gobierto_admin.gobierto_plans.projects.moderation_visibility_action.*'
+  - 'gobierto_data.data_type.*'
 
 ignore_unused:
   - 'number.*'
@@ -116,6 +117,7 @@ ignore_unused:
   - 'gobierto_plans.plan_types.show.read_more'
   - 'gobierto_admin.layouts.application.modules.*'
   - 'gobierto_admin.layouts.application.global'
+  - 'gobierto_data.data_type.*'
 
 translation:
   api_key: ''

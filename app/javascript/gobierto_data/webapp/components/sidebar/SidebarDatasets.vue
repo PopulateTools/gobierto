@@ -124,7 +124,11 @@ export default {
       }
     },
     handleToggle(slug) {
-      this.currentDatasetSlug = slug
+      if (slug !== this.currentDatasetSlug) {
+        this.currentDatasetSlug = slug
+      } else {
+        this.currentDatasetSlug = null
+      }
     }
   },
   filters: {

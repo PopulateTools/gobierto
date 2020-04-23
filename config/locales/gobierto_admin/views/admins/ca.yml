@@ -25,6 +25,7 @@ ca:
           email: Email
           groups: Grups
           last_sign_in_at: Últim login
+          primary_api_token: Token de l'API primari
           role: Rol
         new: Nou Administrador
         send_invitations: Enviar invitacions

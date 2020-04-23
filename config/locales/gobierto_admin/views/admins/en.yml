@@ -25,6 +25,7 @@ en:
           email: Email
           groups: Groups
           last_sign_in_at: Last sign in
+          primary_api_token: Primary API token
           role: Role
         new: New Admin
         send_invitations: Send invitations

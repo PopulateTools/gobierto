@@ -13,7 +13,6 @@ en:
           regular: Regular
         password_block: Password
         placeholders:
-          api_token: Rand0mStr0ngPassw0rd
           email: fgonzalez@gmail.com
           name: Fernando González
         sites_block: Allowed sites
@@ -26,6 +25,7 @@ en:
           email: Email
           groups: Groups
           last_sign_in_at: Last sign in
+          primary_api_token: Primary API token
           role: Role
         new: New Admin
         send_invitations: Send invitations
@@ -36,3 +36,5 @@ en:
         title: New Admin
       show:
         admin_tokens: Authorization tokens
+        copy_to_clipboard: Copy
+        primary_api_token: Primary token

@@ -34,13 +34,15 @@ module GobiertoAdmin
     has_many :gobierto_data_permissions, through: :admin_groups, class_name: "Permission::GobiertoData", source: :permissions
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
+    has_many :api_tokens, dependent: :destroy, class_name: "GobiertoAdmin::ApiToken"
+
     has_many :census_imports
 
     before_create :set_god_flag, :generate_preview_token
+    after_create :primary_api_token!
 
     validates :email, uniqueness: true
     validates_associated :permissions
-    validates :api_token, uniqueness: { allow_nil: true }
 
     scope :sorted, -> { order(created_at: :desc) }
     scope :god, -> { where(god: true) }
@@ -119,6 +121,10 @@ module GobiertoAdmin
       membership.created_at
     end
 
+    def primary_api_token
+      api_tokens.primary.take
+    end
+
     private
 
     def set_god_flag
@@ -130,6 +136,10 @@ module GobiertoAdmin
 
     def generate_preview_token
       self.preview_token = self.class.generate_unique_secure_token
+    end
+
+    def primary_api_token!
+      primary_api_token || api_tokens.primary.create
     end
   end
 end

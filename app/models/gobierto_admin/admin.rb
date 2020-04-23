@@ -125,6 +125,10 @@ module GobiertoAdmin
       api_tokens.primary.take
     end
 
+    def primary_api_token!
+      primary_api_token || api_tokens.primary.create
+    end
+
     private
 
     def set_god_flag
@@ -136,10 +140,6 @@ module GobiertoAdmin
 
     def generate_preview_token
       self.preview_token = self.class.generate_unique_secure_token
-    end
-
-    def primary_api_token!
-      primary_api_token || api_tokens.primary.create
     end
   end
 end

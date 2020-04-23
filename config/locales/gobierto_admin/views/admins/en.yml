@@ -36,3 +36,5 @@ en:
         title: New Admin
       show:
         admin_tokens: Authorization tokens
+        copy_to_clipboard: Copy
+        primary_api_token: Primary token

@@ -36,3 +36,5 @@ ca:
         title: Nou Administrador
       show:
         admin_tokens: Tokens d'autorització
+        copy_to_clipboard: Copia
+        primary_api_token: Token primari

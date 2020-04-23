@@ -36,3 +36,5 @@ es:
         title: Nuevo Administrador
       show:
         admin_tokens: Tokens de autorización
+        copy_to_clipboard: Copiar
+        primary_api_token: Token primario

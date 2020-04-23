@@ -16,6 +16,7 @@ module GobiertoCommon
         validates singularized_name, uniqueness: { scope: :primary }, if: :primary?
 
         scope :primary, -> { where(primary: true) }
+        scope :secondary, -> { where(primary: false) }
       end
     end
 

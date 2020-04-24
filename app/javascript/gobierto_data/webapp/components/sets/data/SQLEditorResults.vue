@@ -31,6 +31,14 @@
           @save="onSaveEventHandler"
           @resetButtonViz="resetButtonViz"
         />
+        <div
+          v-if="isVisualizationModified"
+          class="gobierto-data-sql-editor-modified-label-container"
+        >
+          <span class="gobierto-data-sql-editor-modified-label">
+            {{ labelModifiedVizualition }}
+          </span>
+        </div>
       </div>
       <div
         class="pure-u-1 pure-u-lg-1-4"
@@ -91,7 +99,9 @@ export default {
       labelSaveViz: I18n.t('gobierto_data.projects.saveViz') || "",
       labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
       labelResetViz: I18n.t('gobierto_data.projects.resetViz') || "",
+      labelModifiedVizualition: I18n.t("gobierto_data.projects.modifiedVisualization") || "",
       showVisualization: false,
+      isVisualizationModified: false,
       showResetViz: false,
       showVisualize: true,
       removeLabelBtn: false,
@@ -106,6 +116,7 @@ export default {
 
       this.$root.$emit("storeCurrentVisualization", config, opts);
       this.removeLabelBtn = true
+      this.isVisualizationModified = false
     },
     resetViz() {
       const hidePerspective = "none"
@@ -115,6 +126,7 @@ export default {
       this.removeLabelBtn = false
       this.showResetViz = false
       this.typeChart = 'hypergrid'
+      this.isVisualizationModified = false
 
       this.$refs.viewer.enableDisabledPerspective(hidePerspective);
       this.$refs.viewer.setColumns();
@@ -129,6 +141,7 @@ export default {
       this.perspectiveChanged = true
       this.showVisualize = false
       this.showResetViz = true
+      this.isVisualizationModified = true
     },
     changeChart(chart) {
       this.typeChart = chart

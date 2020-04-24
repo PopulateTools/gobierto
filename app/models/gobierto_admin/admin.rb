@@ -126,7 +126,7 @@ module GobiertoAdmin
     end
 
     def primary_api_token!
-      primary_api_token || api_tokens.primary.create
+      @primary_api_token = api_tokens.primary.take || api_tokens.primary.create
     end
 
     private

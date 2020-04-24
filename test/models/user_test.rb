@@ -95,10 +95,10 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_primary_api_token
-    assert_equal user_primary_api_token, user.primary_api_token
+    assert_equal user_primary_api_token, User.find(user.id).primary_api_token
 
     user.primary_api_token.destroy
-    assert_nil user.primary_api_token
+    assert_nil User.find(user.id).primary_api_token
   end
 
   def test_primary_api_token!

@@ -71,7 +71,7 @@ class User < ApplicationRecord
   end
 
   def primary_api_token
-    api_tokens.primary.take
+    @primary_api_token ||= api_tokens.primary.take
   end
 
 end

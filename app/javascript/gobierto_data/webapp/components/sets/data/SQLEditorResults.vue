@@ -116,6 +116,7 @@ export default {
       this.typeChart = 'hypergrid'
       const hidePerspective = "none"
       this.$refs.viewer.enableDisabledPerspective(hidePerspective);
+      this.$refs.viewer.setColumns();
     },
     showChart() {
       this.showVisualization = true

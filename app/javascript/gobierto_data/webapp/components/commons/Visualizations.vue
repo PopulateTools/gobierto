@@ -93,6 +93,9 @@ export default {
     },
     selectedValue(chart) {
       this.$emit("selectedChart", chart)
+    },
+    setColumns() {
+      this.viewer.setAttribute('columns', this.arrayColumnsQuery)
     }
   }
 };

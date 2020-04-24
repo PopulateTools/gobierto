@@ -15,6 +15,7 @@
           @click.native="resetViz"
         />
         <Button
+          v-if="showVisualize"
           :text="labelVisualize"
           :class="{ 'remove-label' : removeLabelBtn }"
           class="btn-sql-editor"
@@ -24,12 +25,11 @@
           @click.native="showChart"
         />
         <SavingDialog
-          v-if="showVisualization"
+          v-if="perspectiveChanged"
           :placeholder="labelVisName"
           :label-save="labelSaveViz"
           @save="onSaveEventHandler"
         />
-
       </div>
       <div
         class="pure-u-1 pure-u-lg-1-4"
@@ -50,6 +50,8 @@
         :items="items"
         :type-chart="typeChart"
         :array-columns-query="arrayColumnsQuery"
+        @showSaving="showSavingDialog"
+        @selectedChart="changeChart"
       />
     </div>
   </div>
@@ -89,7 +91,9 @@ export default {
       labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
       labelResetViz: I18n.t('gobierto_data.projects.resetViz') || "",
       showVisualization: false,
+      showVisualize: true,
       removeLabelBtn: false,
+      perspectiveChanged: false,
       typeChart: 'hypergrid'
     };
   },
@@ -109,12 +113,21 @@ export default {
     },
     resetViz() {
       this.typeChart = 'hypergrid'
+      const hidePerspective = "none"
+      this.$refs.viewer.enableDisabledPerspective(hidePerspective);
     },
     showChart() {
       this.showVisualization = true
-      //Charts Perspective: y_line, hypegrid, xy_scatter, y_scatter, y_area, x_bar, y_bar, heatmap, sunburst, treemap, ohlc, candlestick
-      this.typeChart = 'y_line'
-    }
+      const showPerspective = "flex"
+      this.$refs.viewer.enableDisabledPerspective(showPerspective);
+    },
+    showSavingDialog() {
+      this.perspectiveChanged = true
+      this.showVisualize = false
+    },
+    changeChart(chart) {
+      this.typeChart = chart
+    },
   },
 };
 </script>

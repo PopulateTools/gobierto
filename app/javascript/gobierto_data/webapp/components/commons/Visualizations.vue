@@ -1,5 +1,8 @@
 <template>
-  <perspective-viewer v-if="items" ref="perspective-viewer" />
+  <perspective-viewer
+    v-if="items"
+    ref="perspective-viewer"
+  />
 </template>
 <script>
 import perspective from "@finos/perspective";
@@ -39,6 +42,7 @@ export default {
       if (newValue !== oldValue) {
         this.viewer.clear();
         this.viewer.setAttribute('columns', JSON.stringify(this.newValue))
+        this.initPerspective(this.items);
       }
     }
   },
@@ -78,7 +82,7 @@ export default {
       const sendSelectedValue = this.selectedValue
       let selectedValue
 
-      selectVizPerspective.addEventListener('change', function(e) {
+      selectVizPerspective.addEventListener('change', function() {
         selectedValue = selectVizPerspective.options[selectVizPerspective.selectedIndex].value;
         showDialog()
         sendSelectedValue(selectedValue)

@@ -6,7 +6,7 @@
         style="margin-bottom: 1rem"
       >
         <Button
-          v-if="showVisualization"
+          v-if="showResetViz"
           :title="labelResetViz"
           class="btn-sql-editor"
           icon="home"
@@ -91,6 +91,7 @@ export default {
       labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
       labelResetViz: I18n.t('gobierto_data.projects.resetViz') || "",
       showVisualization: false,
+      showResetViz: false,
       showVisualize: true,
       removeLabelBtn: false,
       perspectiveChanged: false,
@@ -124,6 +125,7 @@ export default {
     showSavingDialog() {
       this.perspectiveChanged = true
       this.showVisualize = false
+      this.showResetViz = true
     },
     changeChart(chart) {
       this.typeChart = chart

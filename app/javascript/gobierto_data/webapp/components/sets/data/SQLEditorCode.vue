@@ -75,8 +75,6 @@ export default {
     }
   },
   mounted() {
-    this.mergeTables();
-
     const cmOption = {
       tabSize: 2,
       styleActiveLine: false,
@@ -110,6 +108,7 @@ export default {
   },
   methods: {
     onKeyDown(editor, e) {
+      this.mergeTables();
       // keyUp event to stop "c|r" open modals, but allow ctrl+enter (or cmd+enter) to run query
       if (!((e.keyCode == 10 || e.keyCode == 13) && (e.ctrlKey || e.metaKey))) {
         e.stopPropagation();
@@ -125,10 +124,12 @@ export default {
       }, 250);
     },
     mergeTables() {
-      for (let i = 0; i < this.arrayColumns.length; i++) {
+      const sizeArrayColumns = Object.keys(this.arrayColumns);
+
+      for (let i = 0; i < sizeArrayColumns.length; i++) {
         this.arrayMutated[i] = {
           className: "table",
-          text: this.arrayColumns[i]
+          text: sizeArrayColumns[i]
         };
       }
       this.autoCompleteKeys = [...this.arrayMutated, ...this.sqlAutocomplete];

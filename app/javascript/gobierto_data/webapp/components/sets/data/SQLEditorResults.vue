@@ -29,6 +29,7 @@
           :placeholder="labelVisName"
           :label-save="labelSaveViz"
           @save="onSaveEventHandler"
+          @resetButtonViz="resetButtonViz"
         />
       </div>
       <div
@@ -98,12 +99,6 @@ export default {
       typeChart: 'hypergrid'
     };
   },
-  created() {
-    this.$root.$on('resetPerspective', this.resetVizColumns)
-  },
-  beforeDestroy() {
-    this.$root.$off('resetPerspective')
-  },
   methods: {
     onSaveEventHandler(opts) {
       // get children configuration
@@ -113,14 +108,21 @@ export default {
       this.removeLabelBtn = true
     },
     resetViz() {
-      this.typeChart = 'hypergrid'
       const hidePerspective = "none"
+
+      this.showVisualize = true
+      this.perspectiveChanged = false
+      this.removeLabelBtn = false
+      this.showResetViz = false
+      this.typeChart = 'hypergrid'
+
       this.$refs.viewer.enableDisabledPerspective(hidePerspective);
       this.$refs.viewer.setColumns();
     },
     showChart() {
-      this.showVisualization = true
       const showPerspective = "flex"
+
+      this.showVisualization = true
       this.$refs.viewer.enableDisabledPerspective(showPerspective);
     },
     showSavingDialog() {
@@ -131,6 +133,10 @@ export default {
     changeChart(chart) {
       this.typeChart = chart
     },
+    resetButtonViz() {
+      this.removeLabelBtn = false
+      this.showResetViz = true
+    }
   },
 };
 </script>

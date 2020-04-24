@@ -131,6 +131,7 @@ export default {
     onClickCancelHandler() {
       this.labelValue = null
       this.isSavingPromptVisible = false
+      this.$emit('resetButtonViz')
     },
     onClickEditHandler() {
       this.isSavingPromptVisible = true

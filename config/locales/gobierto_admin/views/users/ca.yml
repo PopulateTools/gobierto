@@ -19,7 +19,6 @@ ca:
           created_at: Creat
           email: Email
           last_sign_in_at: Últim login
-          primary_api_token: Token de l'API primari
           user: Usuari
           verified: Verificat
         title: Usuaris

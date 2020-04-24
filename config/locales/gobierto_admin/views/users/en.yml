@@ -19,7 +19,6 @@ en:
           created_at: Created
           email: Email
           last_sign_in_at: Last sign in
-          primary_api_token: Primary API token
           user: User
           verified: Verified
         title: Users

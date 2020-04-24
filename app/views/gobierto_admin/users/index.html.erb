@@ -33,7 +33,6 @@
   <th></th>
   <th><%= t(".header.user") %></th>
   <th><%= t(".header.email") %></th>
-  <th><%= t(".header.primary_api_token") %></th>
   <th><%= t(".header.last_sign_in_at") %></th>
   <th><%= t(".header.created_at") %></th>
   <th><%= t(".header.verified") %></th>
@@ -58,9 +57,6 @@
       </td>
       <td>
         <%= mail_to user.email %>
-      </td>
-      <td>
-        <%= user.primary_api_token %>
       </td>
       <td>
         <%= time_ago_in_words(user.last_sign_in_at) if user.last_sign_in_at %>

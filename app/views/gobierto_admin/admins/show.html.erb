@@ -5,8 +5,9 @@
   <%= render "session_information", admin: @admin %>
 </p>
 
-<% if @admin.api_tokens.exists? %>
-  <strong><%= t(".admin_tokens") %></strong>:
+<p>
+  <% if @admin.api_tokens.exists? %>
+    <strong><%= t(".admin_tokens") %></strong>:
     <% if @admin.primary_api_token.present? %>
       <div class="list_item">
         <label><%= t(".primary_api_token") %></label>
@@ -25,8 +26,9 @@
         </button>
       </div>
     <% end %>
-  </div>
-<% end %>
+    </div>
+  <% end %>
+</p>
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>

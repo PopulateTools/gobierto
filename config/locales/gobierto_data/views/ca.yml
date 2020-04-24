@@ -43,6 +43,7 @@ ca:
       guide: Guia per utilitzar l'editor SQL
       info: Informació
       modifiedQuery: Consulta modificada
+      modifiedVisualization: Visualització modificada
       news: Notícies
       private: Privat
       queries: Consultes

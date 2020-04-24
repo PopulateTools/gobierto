@@ -1,5 +1,8 @@
 <template>
-  <perspective-viewer v-if="items" ref="perspective-viewer" />
+  <perspective-viewer
+    v-if="items"
+    ref="perspective-viewer"
+  />
 </template>
 <script>
 import perspective from "@finos/perspective";
@@ -46,6 +49,7 @@ export default {
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.initPerspective(this.items);
+    this.listenerPerspective()
   },
   methods: {
     initPerspective(data) {
@@ -62,8 +66,36 @@ export default {
       // export the visualization configuration object
       return this.viewer.save()
     },
-    resetViz() {
-      this.viewer.delete();
+    enableDisabledPerspective(value) {
+      const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot
+      const sidePanelPerspective = shadowRootPerspective.getElementById('side_panel')
+      const topPanelPerspective = shadowRootPerspective.getElementById('top_panel')
+      topPanelPerspective.style.display = value
+      sidePanelPerspective.style.display = value
+    },
+    listenerPerspective() {
+      const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot
+      const configButtonPerspective = shadowRootPerspective.getElementById('config_button')
+      configButtonPerspective.style.display = "none"
+      const selectVizPerspective = shadowRootPerspective.getElementById('vis_selector')
+      const showDialog = this.showSavingDialog
+      const sendSelectedValue = this.selectedValue
+      let selectedValue
+
+      selectVizPerspective.addEventListener('change', function() {
+        selectedValue = selectVizPerspective.options[selectVizPerspective.selectedIndex].value;
+        showDialog()
+        sendSelectedValue(selectedValue)
+      })
+    },
+    showSavingDialog() {
+      this.$emit("showSaving")
+    },
+    selectedValue(chart) {
+      this.$emit("selectedChart", chart)
+    },
+    setColumns() {
+      this.viewer.setAttribute('columns', this.arrayColumnsQuery)
     }
   }
 };

@@ -128,6 +128,7 @@ export default {
       resourcesList: [],
       arrayColumnsQuery: [],
       currentQuery: null,
+      queryDefault: null,
       items: '',
       isQueryRunning: false,
       isQueryModified: false,
@@ -143,7 +144,7 @@ export default {
     },
   },
   watch: {
-    $route(to) {
+    $route(to, from) {
       if (to) {
         const {
           params: { queryId },
@@ -151,6 +152,10 @@ export default {
         } = to;
 
         this.parseUrl({ queryId, sql });
+      }
+
+      if (to.path !== from.path) {
+        this.setDefaultQuery()
       }
     },
   },
@@ -213,9 +218,9 @@ export default {
       // update the editor text content by default
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
-    this.runCurrentQuery();
 
-    this.queryDefault = `SELECT * FROM ${this.tableName} LIMIT 50`;
+    this.runCurrentQuery();
+    this.setDefaultQuery();
 
   },
   mounted() {
@@ -263,6 +268,17 @@ export default {
 
         // update the editor text content
         this.setCurrentQuery(itemSql);
+      }
+    },
+    setDefaultQuery() {
+      const {
+        query: { sql },
+      } = this.$route;
+
+      if (sql) {
+        this.queryDefault = sql
+      } else {
+        this.queryDefault = this.currentQuery
       }
     },
     ensureUserIsLogged() {

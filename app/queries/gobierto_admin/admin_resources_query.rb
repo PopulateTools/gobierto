@@ -63,7 +63,7 @@ module GobiertoAdmin
     end
 
     def moderations_table
-      @moderations_table ::GobiertoAdmin::Moderation.arel_table
+      @moderations_table ||= ::GobiertoAdmin::Moderation.arel_table
     end
 
     def model

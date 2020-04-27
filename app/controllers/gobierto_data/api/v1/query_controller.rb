@@ -17,7 +17,7 @@ module GobiertoData
           else
             respond_to do |format|
               format.json do
-                render json: { data: extract_preview(query_result), meta: query_result }, adapter: :json_api
+                render json: { data: query_result.delete(:result), meta: query_result }, adapter: :json_api
               end
 
               format.csv do

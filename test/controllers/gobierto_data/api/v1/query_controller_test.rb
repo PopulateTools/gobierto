@@ -110,38 +110,6 @@ module GobiertoData
           end
         end
 
-        def test_index_with_default_preview_limit
-          with(site: site) do
-            get gobierto_data_api_v1_root_path(sql: "SELECT * FROM users"), as: :json
-
-            assert_response :success
-            assert_equal users_count, response.parsed_body["data"].count
-
-            get gobierto_data_api_v1_root_path(sql: "SELECT * FROM users", format: :csv), as: :csv
-
-            assert_response :success
-            parsed_csv = CSV.parse(response.parsed_body)
-            assert_equal users_count + 1, parsed_csv.count
-          end
-
-          module_settings = site.gobierto_data_settings
-          module_settings.default_preview_limit = users_count - 1
-          module_settings.save
-
-          with(site: site) do
-            get gobierto_data_api_v1_root_path(sql: "SELECT * FROM users"), as: :json
-
-            assert_response :success
-            assert_equal users_count - 1, response.parsed_body["data"].count
-
-            get gobierto_data_api_v1_root_path(sql: "SELECT * FROM users", format: :csv), as: :csv
-
-            assert_response :success
-            parsed_csv = CSV.parse(response.parsed_body)
-            assert_equal users_count + 1, parsed_csv.count
-          end
-        end
-
       end
     end
   end

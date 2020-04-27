@@ -8,27 +8,9 @@ module GobiertoData
         include ::User::ApiAuthenticationHelper
         include ::PreviewTokenHelper
 
-        DEFAULT_PREVIEW_LIMIT = 50
-
         before_action { module_enabled!(current_site, "GobiertoData", false) }
 
         private
-
-        def extract_preview(query_result)
-          query_result.delete(:result).tap do |data|
-            return data.first(preview_limit) if preview_limit
-          end
-        end
-
-        def default_preview_limit
-          @default_preview_limit ||= current_site.gobierto_data_settings.default_preview_limit || DEFAULT_PREVIEW_LIMIT
-        end
-
-        def preview_limit
-          return if params[:data_preview] == "false"
-
-          default_preview_limit
-        end
 
         def csv_options_params
           separator_tr = {

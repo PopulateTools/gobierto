@@ -6,7 +6,7 @@
         ref="inputText"
         v-model="labelValue"
         :placeholder="placeholder"
-        :disabled="!isSavingPromptVisible"
+        :disabled="disabledSavedButton"
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
         @keydown.stop="onKeyDownTextHandler"
@@ -56,7 +56,7 @@
             ? 'color: #fff; background-color: var(--color-base)'
             : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
         "
-        :disabled="isSavingPromptVisible && !labelValue"
+        :disabled="disabledSavedButton"
         icon="save"
         color="var(--color-base)"
         background="#fff"
@@ -110,11 +110,18 @@ export default {
     return {
       isPrivate: false,
       isSavingPromptVisible: false,
+      disabledSavedButton: true,
       labelValue: this.value,
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
       labelEdit: I18n.t("gobierto_data.projects.edit") || ""
     }
+  },
+  mounted() {
+    this.$root.$on('enableSavedButton', this.enableSavedButton)
+  },
+  beforeDestroy() {
+    this.$root.$off('enableSavedButton')
   },
   methods: {
     onClickSaveHandler() {
@@ -145,6 +152,9 @@ export default {
       const { checked } = event.target
       this.isPrivate = checked
     },
+    enableSavedButton() {
+      this.disabledSavedButton = false
+    }
   }
 }
 </script>

@@ -126,6 +126,7 @@ export default {
 
         // update the query while typing
         this.$root.$emit("setCurrentQuery", value);
+        this.$root.$emit('enableSavedButton')
       }, 250);
     },
     mergeTables() {

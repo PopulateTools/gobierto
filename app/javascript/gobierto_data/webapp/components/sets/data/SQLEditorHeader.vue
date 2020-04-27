@@ -158,11 +158,12 @@ export default {
     // it has to be the same event (keydown) as SQLEditorCode
     document.addEventListener("keydown", this.keyboardShortcutsListener);
   },
-  beforeDestroy() {
+  deactivated() {
     this.removeKeyboardListener()
   },
   methods: {
     keyboardShortcutsListener(e) {
+      console.log("keyboardShortcutsListener -> e", e)
       if (e.keyCode == 67) {
         // key "c"
         this.isQueriesModalActive ? this.closeQueriesModal() : this.openQueriesModal();

@@ -157,6 +157,10 @@ export default {
       if (to.path !== from.path) {
         this.setDefaultQuery()
       }
+
+      if (to.name === 'Query') {
+        this.runCurrentQuery()
+      }
     },
   },
   async created() {

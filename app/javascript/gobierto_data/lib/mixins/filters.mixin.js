@@ -169,8 +169,6 @@ export const FiltersMixin = {
           counter: counter({ id: o.id, key })
         }));
 
-        filter.options = filter.options.filter(element => element.counter > 0);
-
         const index = this.filters.findIndex(d => d.key === key);
         this.filters.splice(index, 1, filter);
       }

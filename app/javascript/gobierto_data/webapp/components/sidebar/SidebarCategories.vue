@@ -30,7 +30,7 @@
           </template>
           <div>
             <Checkbox
-              v-for="option in filter.options"
+              v-for="option in filteredOptions(filter)"
               :id="option.id"
               :key="option.id"
               :title="option.title"
@@ -66,11 +66,11 @@ export default {
   },
   data() {
     return {
-      labelSets:  I18n.t("gobierto_data.projects.sets") || '',
-      labelQueries:  I18n.t("gobierto_data.projects.queries") || '',
-      labelCategories:  I18n.t("gobierto_data.projects.categories") || '',
-      labelAll:  I18n.t("gobierto_common.vue_components.block_header.all") || '',
-      labelNone:  I18n.t("gobierto_common.vue_components.block_header.none") || ''
+      labelSets: I18n.t("gobierto_data.projects.sets") || '',
+      labelQueries: I18n.t("gobierto_data.projects.queries") || '',
+      labelCategories: I18n.t("gobierto_data.projects.categories") || '',
+      labelAll: I18n.t("gobierto_common.vue_components.block_header.all") || '',
+      labelNone: I18n.t("gobierto_common.vue_components.block_header.none") || ''
     }
   },
   computed: {
@@ -92,6 +92,9 @@ export default {
     },
     selectAllCheckbox_TEMP({ filter }) {
       this.$root.$emit("selectAll_TEMP", { filter })
+    },
+    filteredOptions(filter) {
+      return filter.options.filter(element => element.counter > 0);
     }
   }
 };

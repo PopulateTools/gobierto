@@ -59,8 +59,6 @@ module GobiertoPlans
                     node.assign_attributes node_attributes.except(:status_name)
                     node.progress = progress_from_status(node.status.name) unless has_progress_column?
                     node.progress ||= 0.0
-                    node.visibility_level = :published
-                    node.published_version = 1
                     node.build_moderation(stage: :approved)
                     node.categories << category unless node.categories.include?(category)
                     node.external_id = node.scoped_new_external_id(@plan.nodes) if node.external_id.blank?

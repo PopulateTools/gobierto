@@ -107,13 +107,13 @@ module GobiertoPlans
         custom_field_record = first_node.custom_field_records.joins(:custom_field).find_by(custom_fields: { uid: uid })
         assert_equal csv_input.by_row[0][extra_header], custom_field_record.value_string&.strip
       end
-      assert first_node.published?
-      assert first_node.published_version.present?
+      refute first_node.published?
+      refute first_node.published_version.present?
       assert first_node.moderation.approved?
     end
 
-    def test_sample_csv_import_with_empty_plan
-      plan.update_attribute(:statuses_vocabulary_id, csv_import_statuses_vocabulary.id)
+    def test_sample_csv_import_with_empty_plan_and_automatic_publication
+      plan.update_attributes(statuses_vocabulary_id: csv_import_statuses_vocabulary.id, publish_last_version_automatically: true)
       plan.nodes.each(&:destroy)
 
       GobiertoAdmin::GobiertoPlans::PlanDataForm.new(csv_file: sample_import_csv_file, plan: plan).save
@@ -161,8 +161,8 @@ module GobiertoPlans
           assert_equal csv_input.by_row[0][extra_header], custom_field_record.value_string.strip
         end
       end
-      assert first_node.published?
-      assert first_node.published_version.present?
+      refute first_node.published?
+      refute first_node.published_version.present?
       assert first_node.moderation.approved?
     end
   end

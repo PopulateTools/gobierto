@@ -652,10 +652,18 @@
     margin-left: .5em;
   }
 
-  &-sql-editor-modified-label {
+  &-sql-editor-modified-label,
+  &-sql-editor-modified-event {
     font-size: 14px;
     color: #666;
     opacity: .5;
+  }
+
+  &-sql-editor-modified-event {
+    text-transform: lowercase;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0 .25rem;
   }
 
   &-sql-editor-footer-records,

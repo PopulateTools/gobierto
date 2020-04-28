@@ -6,7 +6,6 @@
         ref="inputText"
         v-model="labelValue"
         :placeholder="placeholder"
-        :disabled="disabledSavedButton"
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
         @keydown.stop="onKeyDownTextHandler"
@@ -37,10 +36,24 @@
       />
     </template>
 
+    <template v-if="isQueryModified">
+      <div class="gobierto-data-sql-editor-modified-label-container">
+        <span class="gobierto-data-sql-editor-modified-label">
+          {{ labelModifiedQuery }}
+        </span>
+        <a
+          class="gobierto-data-sql-editor-modified-event"
+          @click.prevent="revertQuery"
+        >
+          ( {{ labelRevert }} )
+        </a>
+      </div>
+    </template>
+
     <!-- show edit button if there's no prompt but some name, otherwise, save button -->
     <template v-if="!isSavingPromptVisible && labelValue">
       <Button
-        :text="labelSave"
+        :text="labelEdit"
         class="btn-sql-editor"
         icon="edit"
         color="var(--color-base)"
@@ -56,7 +69,7 @@
             ? 'color: #fff; background-color: var(--color-base)'
             : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
         "
-        :disabled="disabledSavedButton"
+        :disabled="!enabledSavedButton"
         icon="save"
         color="var(--color-base)"
         background="#fff"
@@ -97,31 +110,42 @@ export default {
       type: String,
       default: ''
     },
-    saveCallback: {
-      type: Function,
-      default: () => {}
-    },
     labelSave: {
       type: String,
       default: ''
+    },
+    isQueryModified: {
+      type: Boolean,
+      default: false
+    },
+    enabledSavedButton: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       isPrivate: false,
       isSavingPromptVisible: false,
-      disabledSavedButton: true,
       labelValue: this.value,
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
-      labelEdit: I18n.t("gobierto_data.projects.edit") || ""
+      labelEdit: I18n.t("gobierto_data.projects.edit") || "",
+      labelRevert: I18n.t("gobierto_data.projects.revert") || "",
+      labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || ""
     }
   },
-  mounted() {
-    this.$root.$on('enableSavedButton', this.enableSavedButton)
-  },
-  beforeDestroy() {
-    this.$root.$off('enableSavedButton')
+  watch: {
+    value(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.labelValue = newValue
+      }
+    },
+    $route(to, from) {
+      if (to.path !== from.path) {
+        this.isSavingPromptVisible = false
+      }
+    }
   },
   methods: {
     onClickSaveHandler() {
@@ -139,6 +163,8 @@ export default {
       this.labelValue = null
       this.isSavingPromptVisible = false
       this.$emit('resetButtonViz')
+      this.$emit('showLabelIcons')
+      this.$root.$emit("hideLabelQueryModified", false);
     },
     onClickEditHandler() {
       this.isSavingPromptVisible = true
@@ -152,8 +178,8 @@ export default {
       const { checked } = event.target
       this.isPrivate = checked
     },
-    enableSavedButton() {
-      this.disabledSavedButton = false
+    revertQuery() {
+      this.$emit('revertQuery')
     }
   }
 }

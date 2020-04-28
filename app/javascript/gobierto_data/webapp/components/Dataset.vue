@@ -176,8 +176,15 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
+    const {
+      params: { tab }
+    } = to;
     next(vm => {
-     vm.showRevertQuery = true
+      if (!tab) {
+        vm.showRevertQuery = true
+      } else {
+        vm.showRevertQuery = false
+      }
     })
   },
   async created() {

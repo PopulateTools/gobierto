@@ -57,6 +57,7 @@
       :reset-query-default="resetQueryDefault"
       :revert-query-saved="revertQuerySaved"
       :enabled-saved-button="enabledSavedButton"
+      :show-revert-query="showRevertQuery"
     />
 
     <QueriesTab
@@ -140,6 +141,7 @@ export default {
       resetQueryDefault: false,
       revertQuerySaved: false,
       enabledSavedButton: false,
+      showRevertQuery: false,
       queryName: null,
       queryDuration: 0,
       queryError: null
@@ -170,6 +172,11 @@ export default {
         this.runCurrentQuery()
       }
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+     vm.showRevertQuery = true
+    })
   },
   async created() {
     const {

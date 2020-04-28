@@ -9,6 +9,7 @@
         :is-query-modified="isQueryModified"
         :query-name="queryName"
         :enabled-saved-button="enabledSavedButton"
+        :show-revert-query="showRevertQuery"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"
@@ -115,6 +116,10 @@ export default {
       type: Boolean,
       default: false
     },
+    showRevertQuery: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 

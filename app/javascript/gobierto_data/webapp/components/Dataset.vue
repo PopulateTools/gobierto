@@ -58,6 +58,7 @@
       :revert-query-saved="revertQuerySaved"
       :enabled-saved-button="enabledSavedButton"
       :show-revert-query="showRevertQuery"
+      :show-private="showPrivate"
     />
 
     <QueriesTab
@@ -135,9 +136,10 @@ export default {
       currentQuery: null,
       queryDefault: null,
       queryRevert: null,
-      items: '',
+      items: "",
       isQueryRunning: false,
       isQueryModified: false,
+      showPrivate: false,
       resetQueryDefault: false,
       revertQuerySaved: false,
       enabledSavedButton: false,
@@ -291,11 +293,13 @@ export default {
 
       if (item) {
         const {
-          attributes: { sql: itemSql, name, user_id },
+          attributes: { sql: itemSql, name, user_id, privacy_status },
         } = item;
 
         this.queryName = name;
         this.queryUserId = user_id;
+
+        this.showPrivate = privacy_status === 'closed' ? true : false
 
         // update the editor text content
         this.setCurrentQuery(itemSql);

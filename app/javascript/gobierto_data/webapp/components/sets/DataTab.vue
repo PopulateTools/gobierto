@@ -10,6 +10,7 @@
         :query-name="queryName"
         :enabled-saved-button="enabledSavedButton"
         :show-revert-query="showRevertQuery"
+        :show-private="showPrivate"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"
@@ -117,6 +118,10 @@ export default {
       default: false
     },
     showRevertQuery: {
+      type: Boolean,
+      default: false
+    },
+    showPrivate: {
       type: Boolean,
       default: false
     }

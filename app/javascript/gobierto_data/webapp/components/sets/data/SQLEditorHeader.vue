@@ -67,6 +67,7 @@
       :is-query-modified="isQueryModified"
       :enabled-saved-button="enabledSavedButton"
       :show-revert-query="showRevertQuery"
+      :show-private="showPrivate"
       @save="onSaveEventHandler"
       @showLabelIcons="showHideLabelIcons(false)"
       @revertQuery="revertQuery"
@@ -134,6 +135,10 @@ export default {
       default: false
     },
     showRevertQuery: {
+      type: Boolean,
+      default: false
+    },
+    showPrivate: {
       type: Boolean,
       default: false
     }

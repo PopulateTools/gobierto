@@ -126,6 +126,10 @@ export default {
     showRevertQuery: {
       type: Boolean,
       default: false
+    },
+    showPrivate: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -150,6 +154,9 @@ export default {
       if (to.path !== from.path) {
         this.isSavingPromptVisible = false
       }
+    },
+    showPrivate(newValue) {
+      this.isPrivate = newValue ? true : false
     }
   },
   methods: {
@@ -178,6 +185,8 @@ export default {
     onKeyDownTextHandler(event) {
       const { value } = event.target
       this.labelValue = value
+      this.isSavingPromptVisible = true
+      this.$root.$emit("hideLabelQueryModified", true);
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target

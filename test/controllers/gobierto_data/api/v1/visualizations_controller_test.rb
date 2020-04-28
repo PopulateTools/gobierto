@@ -20,7 +20,7 @@ module GobiertoData
         end
 
         def user_token
-          @user_token ||= user_api_tokens(:dennis_primary_api_token)
+          @user_token ||= "Bearer #{user_api_tokens(:dennis_primary_api_token)}"
         end
 
         def other_user
@@ -28,7 +28,7 @@ module GobiertoData
         end
 
         def other_user_token
-          @other_user_token ||= user_api_tokens(:peter_primary_api_token)
+          @other_user_token ||= "Bearer #{user_api_tokens(:peter_primary_api_token)}"
         end
 
         def visualization
@@ -279,7 +279,7 @@ module GobiertoData
         # GET /api/v1/data/visualizations.json?user_id=1
         def test_index_filtered_by_user_with_different_user_token
           with(site: site) do
-            get gobierto_data_api_v1_visualizations_path(filter: { user_id: user.id }), headers: { Authorization: other_user_token.token }, as: :json
+            get gobierto_data_api_v1_visualizations_path(filter: { user_id: user.id }), headers: { Authorization: other_user_token }, as: :json
 
             assert_response :success
 
@@ -296,7 +296,7 @@ module GobiertoData
         # GET /api/v1/data/visualizations.json?user_id=1
         def test_index_filtered_by_user_with_same_user_token
           with(site: site) do
-            get gobierto_data_api_v1_visualizations_path(filter: { user_id: user.id }), headers: { Authorization: user_token.token }, as: :json
+            get gobierto_data_api_v1_visualizations_path(filter: { user_id: user.id }), headers: { Authorization: user_token }, as: :json
 
             assert_response :success
 
@@ -385,7 +385,7 @@ module GobiertoData
         def test_create_with_invalid_token
           with(site: site) do
             assert_no_difference "GobiertoData::Visualization.count" do
-              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: "wadus" }, params: valid_params
+              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: "Bearer wadus" }, params: valid_params
 
               assert_response :unauthorized
             end
@@ -396,7 +396,7 @@ module GobiertoData
         def test_create
           with(site: site) do
             assert_difference "GobiertoData::Visualization.count", 1 do
-              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token.token }, params: valid_params, as: :json
+              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token }, params: valid_params, as: :json
 
               assert_response :created
               response_data = response.parsed_body
@@ -434,7 +434,7 @@ module GobiertoData
         def test_create_with_query_and_blank_dataset
           with(site: site) do
             assert_difference "GobiertoData::Visualization.count", 1 do
-              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token.token }, params: valid_params(except: [:dataset_id]), as: :json
+              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token }, params: valid_params(except: [:dataset_id]), as: :json
 
               assert_response :created
               response_data = response.parsed_body
@@ -472,7 +472,7 @@ module GobiertoData
         def test_create_with_dataset_and_blank_query
           with(site: site) do
             assert_difference "GobiertoData::Visualization.count", 1 do
-              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token.token }, params: valid_params(except: [:query_id]), as: :json
+              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token }, params: valid_params(except: [:query_id]), as: :json
 
               assert_response :created
               response_data = response.parsed_body
@@ -512,7 +512,7 @@ module GobiertoData
         def test_create_failure_with_blank_dataset_and_query
           with(site: site) do
             assert_no_difference "GobiertoData::Visualization.count" do
-              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token.token }, params: valid_params(except: [:query_id, :dataset_id]), as: :json
+              post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token }, params: valid_params(except: [:query_id, :dataset_id]), as: :json
 
               assert_response :unprocessable_entity
               response_data = response.parsed_body
@@ -525,7 +525,7 @@ module GobiertoData
         # POST /api/v1/data/visualizations
         def test_create_invalid_params
           with(site: site) do
-            post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token.token }, params: {}, as: :json
+            post gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token }, params: {}, as: :json
 
             assert_response :unprocessable_entity
             response_data = response.parsed_body
@@ -546,7 +546,7 @@ module GobiertoData
         # PUT /api/v1/data/visualizations/1
         def test_update_with_invalid_token
           with(site: site) do
-            put gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: "wadus" }, params: valid_params, as: :json
+            put gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: "Bearer wadus" }, params: valid_params, as: :json
 
             assert_response :unauthorized
           end
@@ -555,7 +555,7 @@ module GobiertoData
         # PUT /api/v1/data/visualizations/1
         def test_update_with_other_user_token
           with(site: site) do
-            put gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: other_user_token.token }, params: valid_params, as: :json
+            put gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: other_user_token }, params: valid_params, as: :json
 
             assert_response :unauthorized
           end
@@ -565,7 +565,7 @@ module GobiertoData
         def test_update
           with(site: site) do
             assert_no_difference "GobiertoData::Visualization.count" do
-              put gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: user_token.token }, params: valid_params, as: :json
+              put gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: user_token }, params: valid_params, as: :json
 
               assert_response :success
               response_data = response.parsed_body
@@ -599,7 +599,7 @@ module GobiertoData
         # PUT /api/v1/data/visualizations/1
         def test_update_invalid_params
           with(site: site) do
-            put gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: user_token.token }, params: {}, as: :json
+            put gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: user_token }, params: {}, as: :json
 
             assert_response :unprocessable_entity
             response_data = response.parsed_body
@@ -623,7 +623,7 @@ module GobiertoData
         def test_delete_with_invalid_token
           with(site: site) do
             assert_no_difference "GobiertoData::Visualization.count" do
-              delete gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: "wadus" }, as: :json
+              delete gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: "Bearer wadus" }, as: :json
 
               assert_response :unauthorized
             end
@@ -634,7 +634,7 @@ module GobiertoData
         def test_delete_with_other_user_token
           with(site: site) do
             assert_no_difference "GobiertoData::Visualization.count" do
-              delete gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: other_user_token.token }, as: :json
+              delete gobierto_data_api_v1_visualization_path(visualization), headers: { Authorization: other_user_token }, as: :json
 
               assert_response :unauthorized
             end
@@ -646,7 +646,7 @@ module GobiertoData
           id = visualization.id
           assert_difference "GobiertoData::Visualization.count", -1 do
             with(site: site) do
-              delete gobierto_data_api_v1_visualization_path(id), headers: { Authorization: user_token.token }, as: :json
+              delete gobierto_data_api_v1_visualization_path(id), headers: { Authorization: user_token }, as: :json
 
               assert_response :no_content
 

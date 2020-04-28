@@ -61,7 +61,7 @@ module GobiertoPlans
     end
 
     def remove_plugin_custom_fields
-      ::GobiertoCommon::CustomField.plugin.destroy_all
+      ::GobiertoCommon::CustomField.plugin.each(&:destroy)
     end
 
     def test_plan
@@ -94,6 +94,7 @@ module GobiertoPlans
     end
 
     def test_progress_precission
+      remove_plugin_custom_fields if site.custom_fields.plugin.present?
       project_with_progress.update_attribute(:progress, 2.666666666666666)
       publish_last_version_on_all_projects!
 
@@ -134,6 +135,7 @@ module GobiertoPlans
     end
 
     def test_navigating_tree
+      remove_plugin_custom_fields if site.custom_fields.plugin.present?
       publish_last_version_on_all_projects!
 
       with(site: site, js: true) do
@@ -324,6 +326,7 @@ module GobiertoPlans
     end
 
     def test_plan_without_configuration
+      remove_plugin_custom_fields if site.custom_fields.plugin.present?
       publish_last_version_on_all_projects!
       plan.update_attribute(:configuration_data, "")
 

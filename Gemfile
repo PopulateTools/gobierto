@@ -96,7 +96,6 @@ gem "cloudinary"
 gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 
 # API
-gem "jwt"
 gem "rubyXL"
 
 group :development, :test do

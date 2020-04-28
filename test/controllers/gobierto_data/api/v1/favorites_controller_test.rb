@@ -20,7 +20,7 @@ module GobiertoData
         end
 
         def user_token
-          @user_token ||= user_api_tokens(:dennis_primary_api_token)
+          @user_token ||= "Bearer #{user_api_tokens(:dennis_primary_api_token)}"
         end
 
         def other_user
@@ -36,7 +36,7 @@ module GobiertoData
         end
 
         def other_user_token
-          @other_user_token ||= user_api_tokens(:janet_primary_api_token)
+          @other_user_token ||= "Bearer #{user_api_tokens(:janet_primary_api_token)}"
         end
 
         def dataset_favorite
@@ -95,7 +95,7 @@ module GobiertoData
         # GET /api/v1/data/datasets/slug/favorites.json
         def test_dataset_index_as_json_with_token
           with(site: site) do
-            get gobierto_data_api_v1_dataset_favorites_path(dataset.slug), headers: { Authorization: user_token.token }, as: :json
+            get gobierto_data_api_v1_dataset_favorites_path(dataset.slug), headers: { Authorization: user_token }, as: :json
 
             assert_response :success
 
@@ -121,7 +121,7 @@ module GobiertoData
         # GET /api/v1/data/datasets/slug/favorites.json
         def test_dataset_index_filtered_by_user_id
           with(site: site) do
-            get gobierto_data_api_v1_dataset_favorites_path(dataset.slug, filter: { user_id: user.id }), headers: { Authorization: other_user_token.token }, as: :json
+            get gobierto_data_api_v1_dataset_favorites_path(dataset.slug, filter: { user_id: user.id }), headers: { Authorization: other_user_token }, as: :json
 
             assert_response :success
 
@@ -146,7 +146,7 @@ module GobiertoData
 
         def test_query_index_with_token
           with(site: site) do
-            get gobierto_data_api_v1_query_favorites_path(other_user_favorited_query), headers: { Authorization: other_user_token.token }, as: :json
+            get gobierto_data_api_v1_query_favorites_path(other_user_favorited_query), headers: { Authorization: other_user_token }, as: :json
 
             assert_response :success
 
@@ -173,7 +173,7 @@ module GobiertoData
 
         def test_visualization_index_with_token
           with(site: site) do
-            get gobierto_data_api_v1_visualization_favorites_path(other_user_favorited_visualization), headers: { Authorization: other_user_token.token }, as: :json
+            get gobierto_data_api_v1_visualization_favorites_path(other_user_favorited_visualization), headers: { Authorization: other_user_token }, as: :json
 
             assert_response :success
 
@@ -213,7 +213,7 @@ module GobiertoData
         def test_create_dataset_favorite_with_invalid_token
           with(site: site) do
             assert_no_difference "GobiertoData::Favorite.count", 1 do
-              post gobierto_data_api_v1_dataset_favorite_path(other_dataset.slug), headers: { Authorization: "wadus" }
+              post gobierto_data_api_v1_dataset_favorite_path(other_dataset.slug), headers: { Authorization: "Bearer wadus" }
 
               assert_response :unauthorized
             end
@@ -223,7 +223,7 @@ module GobiertoData
         def test_create_dataset_favorite
           with(site: site) do
             assert_difference "GobiertoData::Favorite.count", 1 do
-              post gobierto_data_api_v1_dataset_favorite_path(other_dataset.slug), headers: { Authorization: other_user_token.token }
+              post gobierto_data_api_v1_dataset_favorite_path(other_dataset.slug), headers: { Authorization: other_user_token }
 
               assert_response :created
               response_data = response.parsed_body
@@ -243,7 +243,7 @@ module GobiertoData
 
         def test_create_dataset_favorite_already_favorited
           with(site: site) do
-            post gobierto_data_api_v1_dataset_favorite_path(dataset.slug), headers: { Authorization: user_token.token }
+            post gobierto_data_api_v1_dataset_favorite_path(dataset.slug), headers: { Authorization: user_token }
 
             assert_response :unprocessable_entity
             response_data = response.parsed_body
@@ -275,7 +275,7 @@ module GobiertoData
         def test_delete_with_other_user_token
           assert_no_difference "GobiertoData::Favorite.count" do
             with(site: site) do
-              delete gobierto_data_api_v1_dataset_favorite_path(dataset.slug), headers: { Authorization: other_user_token.token }
+              delete gobierto_data_api_v1_dataset_favorite_path(dataset.slug), headers: { Authorization: other_user_token }
 
               assert_response :unauthorized
             end
@@ -287,7 +287,7 @@ module GobiertoData
 
           assert_difference "GobiertoData::Favorite.count", -1 do
             with(site: site) do
-              delete gobierto_data_api_v1_dataset_favorite_path(dataset.slug), headers: { Authorization: user_token.token }
+              delete gobierto_data_api_v1_dataset_favorite_path(dataset.slug), headers: { Authorization: user_token }
 
               assert_response :no_content
 

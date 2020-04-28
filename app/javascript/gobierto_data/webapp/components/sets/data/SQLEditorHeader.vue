@@ -60,13 +60,12 @@
         />
       </transition>
     </div>
-
     <SavingDialog
-      v-if="queryName"
       :placeholder="labelQueryName"
       :value="queryName"
       :label-save="labelSave"
       :is-query-modified="isQueryModified"
+      :enabled-saved-button="enabledSavedButton"
       @save="onSaveEventHandler"
       @showLabelIcons="showHideLabelIcons(false)"
       @revertQuery="revertQuery"
@@ -128,6 +127,10 @@ export default {
     queryName: {
       type: String,
       default: '',
+    },
+    enabledSavedButton: {
+      type: Boolean,
+      default: false
     },
   },
   data() {
@@ -216,9 +219,11 @@ export default {
     },
     resetQuery() {
       this.$root.$emit('resetQuery', true)
+      this.$root.$emit("hideLabelQueryModified", false);
     },
     revertQuery() {
       this.$root.$emit('revertSavedQuery', true)
+      this.$root.$emit("hideLabelQueryModified", false);
     },
     showHideLabelIcons(value) {
       this.removeLabelBtn = value

@@ -56,6 +56,7 @@
       :query-revert="queryRevert"
       :reset-query-default="resetQueryDefault"
       :revert-query-saved="revertQuerySaved"
+      :enabled-saved-button="enabledSavedButton"
     />
 
     <QueriesTab
@@ -138,6 +139,7 @@ export default {
       isQueryModified: false,
       resetQueryDefault: false,
       revertQuerySaved: false,
+      enabledSavedButton: false,
       queryName: null,
       queryDuration: 0,
       queryError: null
@@ -251,10 +253,12 @@ export default {
     this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
     // hide when user click on cancel
     this.$root.$on("hideLabelQueryModified", this.hideLabelQueryModified);
-
+    // Reset to the default query
     this.$root.$on('resetQuery', this.resetQuery)
-
+    //reset to the saved query
     this.$root.$on('revertSavedQuery', this.revertSavedQuery)
+
+    this.$root.$on('enableSavedButton', this.activatedSavedButton)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -265,6 +269,7 @@ export default {
     this.$root.$off("hideLabelQueryModified");
     this.$root.$off("resetQuery");
     this.$root.$off("revertSavedQuery");
+    this.$root.$off('enableSavedButton')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -483,6 +488,9 @@ export default {
     },
     revertSavedQuery(value) {
       this.revertQuerySaved = value
+    },
+    activatedSavedButton() {
+      this.enabledSavedButton = true
     }
   },
 };

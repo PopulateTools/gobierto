@@ -6,7 +6,6 @@
         ref="inputText"
         v-model="labelValue"
         :placeholder="placeholder"
-        :disabled="disabledSavedButton"
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
         @keydown.stop="onKeyDownTextHandler"
@@ -70,7 +69,7 @@
             ? 'color: #fff; background-color: var(--color-base)'
             : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
         "
-        :disabled="disabledSavedButton"
+        :disabled="!enabledSavedButton"
         icon="save"
         color="var(--color-base)"
         background="#fff"
@@ -118,13 +117,16 @@ export default {
     isQueryModified: {
       type: Boolean,
       default: false
+    },
+    enabledSavedButton: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       isPrivate: false,
       isSavingPromptVisible: false,
-      disabledSavedButton: true,
       labelValue: this.value,
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
@@ -144,12 +146,6 @@ export default {
         this.isSavingPromptVisible = false
       }
     }
-  },
-  mounted() {
-    this.$root.$on('enableSavedButton', this.enableSavedButton)
-  },
-  beforeDestroy() {
-    this.$root.$off('enableSavedButton')
   },
   methods: {
     onClickSaveHandler() {
@@ -181,9 +177,6 @@ export default {
     onInputCheckboxHandler(event) {
       const { checked } = event.target
       this.isPrivate = checked
-    },
-    enableSavedButton() {
-      this.disabledSavedButton = false
     },
     revertQuery() {
       this.$emit('revertQuery')

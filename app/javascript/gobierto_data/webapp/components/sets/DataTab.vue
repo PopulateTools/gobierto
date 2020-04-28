@@ -8,6 +8,7 @@
         :is-query-running="isQueryRunning"
         :is-query-modified="isQueryModified"
         :query-name="queryName"
+        :enabled-saved-button="enabledSavedButton"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"
@@ -107,6 +108,10 @@ export default {
       default: false
     },
     revertQuerySaved: {
+      type: Boolean,
+      default: false
+    },
+    enabledSavedButton: {
       type: Boolean,
       default: false
     },

@@ -37,10 +37,24 @@
       />
     </template>
 
+    <template v-if="isQueryModified">
+      <div class="gobierto-data-sql-editor-modified-label-container">
+        <span class="gobierto-data-sql-editor-modified-label">
+          {{ labelModifiedQuery }}
+        </span>
+        <a
+          class="gobierto-data-sql-editor-modified-event"
+          @click.prevent="revertQuery"
+        >
+          ( {{ labelRevert }} )
+        </a>
+      </div>
+    </template>
+
     <!-- show edit button if there's no prompt but some name, otherwise, save button -->
     <template v-if="!isSavingPromptVisible && labelValue">
       <Button
-        :text="labelSave"
+        :text="labelEdit"
         class="btn-sql-editor"
         icon="edit"
         color="var(--color-base)"
@@ -97,13 +111,13 @@ export default {
       type: String,
       default: ''
     },
-    saveCallback: {
-      type: Function,
-      default: () => {}
-    },
     labelSave: {
       type: String,
       default: ''
+    },
+    isQueryModified: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -114,7 +128,21 @@ export default {
       labelValue: this.value,
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
-      labelEdit: I18n.t("gobierto_data.projects.edit") || ""
+      labelEdit: I18n.t("gobierto_data.projects.edit") || "",
+      labelRevert: I18n.t("gobierto_data.projects.revert") || "",
+      labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || ""
+    }
+  },
+  watch: {
+    value(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.labelValue = newValue
+      }
+    },
+    $route(to, from) {
+      if (to.path !== from.path) {
+        this.isSavingPromptVisible = false
+      }
     }
   },
   mounted() {
@@ -139,6 +167,8 @@ export default {
       this.labelValue = null
       this.isSavingPromptVisible = false
       this.$emit('resetButtonViz')
+      this.$emit('showLabelIcons')
+      this.$root.$emit("hideLabelQueryModified", false);
     },
     onClickEditHandler() {
       this.isSavingPromptVisible = true
@@ -154,6 +184,9 @@ export default {
     },
     enableSavedButton() {
       this.disabledSavedButton = false
+    },
+    revertQuery() {
+      this.$emit('revertQuery')
     }
   }
 }

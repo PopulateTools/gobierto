@@ -62,20 +62,15 @@
     </div>
 
     <SavingDialog
+      v-if="queryName"
       :placeholder="labelQueryName"
       :value="queryName"
       :label-save="labelSave"
+      :is-query-modified="isQueryModified"
       @save="onSaveEventHandler"
+      @showLabelIcons="showHideLabelIcons(false)"
+      @revertQuery="revertQuery"
     />
-
-    <div
-      v-if="isQueryModified"
-      class="gobierto-data-sql-editor-modified-label-container"
-    >
-      <span class="gobierto-data-sql-editor-modified-label">
-        {{ labelModifiedQuery }}
-      </span>
-    </div>
 
     <Button
       :text="labelRunQuery"
@@ -132,7 +127,7 @@ export default {
     },
     queryName: {
       type: String,
-      default: null,
+      default: '',
     },
   },
   data() {
@@ -143,7 +138,6 @@ export default {
       labelResetQuery: I18n.t("gobierto_data.projects.resetQuery") || "",
       labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
-      labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
       labelButtonRecentQueries:
         I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
@@ -154,16 +148,26 @@ export default {
       isRecentModalActive: false,
     };
   },
+  watch: {
+    $route(to, from) {
+      if (to.path !== from.path) {
+        this.showHideLabelIcons(true)
+      }
+    },
+  },
   created() {
     // it has to be the same event (keydown) as SQLEditorCode
     document.addEventListener("keydown", this.keyboardShortcutsListener);
+
+    if (this.$route.name === 'Query') {
+      this.showHideLabelIcons(true)
+    }
   },
   deactivated() {
     this.removeKeyboardListener()
   },
   methods: {
     keyboardShortcutsListener(e) {
-      console.log("keyboardShortcutsListener -> e", e)
       if (e.keyCode == 67) {
         // key "c"
         this.isQueriesModalActive ? this.closeQueriesModal() : this.openQueriesModal();
@@ -211,7 +215,13 @@ export default {
       this.isQueriesModalActive = false;
     },
     resetQuery() {
-      this.$root.$emit('resetQuery')
+      this.$root.$emit('resetQuery', true)
+    },
+    revertQuery() {
+      this.$root.$emit('revertSavedQuery', true)
+    },
+    showHideLabelIcons(value) {
+      this.removeLabelBtn = value
     }
   },
 };

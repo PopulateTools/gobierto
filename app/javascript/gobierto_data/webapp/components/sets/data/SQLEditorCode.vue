@@ -47,6 +47,10 @@ export default {
       type: String,
       default: ""
     },
+    queryRevert: {
+      type: String,
+      default: ""
+    },
     queryDuration: {
       type: Number,
       default: 0
@@ -54,6 +58,14 @@ export default {
     queryError: {
       type: String,
       default: null
+    },
+    resetQueryDefault: {
+      type: Boolean,
+      default: false
+    },
+    revertQuerySaved: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -75,6 +87,18 @@ export default {
     queryStored(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.setEditorValue(newValue);
+      }
+    },
+    resetQueryDefault(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.setEditorValue(this.queryDefault);
+        this.editor.focus()
+      }
+    },
+    revertQuerySaved(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.setEditorValue(this.queryRevert);
+        this.editor.focus()
       }
     }
   },
@@ -111,7 +135,6 @@ export default {
     // metaKey + keyUp doesn't work with MacOS
     // https://stackoverflow.com/questions/11818637/why-does-javascript-drop-keyup-events-when-the-metakey-is-pressed-on-mac-browser
     this.editor.on("keydown", this.onKeyDown);
-    this.$root.$on('resetQuery', this.resetEditor)
   },
   methods: {
     onKeyDown(editor, e) {
@@ -127,8 +150,11 @@ export default {
 
         // update the query while typing
         this.$root.$emit("setCurrentQuery", value);
-        this.$root.$emit('enableSavedButton')
       }, 250);
+      this.$root.$emit('enableSavedButton')
+      this.$root.$emit("hideLabelQueryModified", true);
+      this.$root.$emit("resetQuery", false);
+      this.$root.$emit("revertSavedQuery", false);
     },
     mergeTables() {
       for (let i = 0; i < this.arrayColumns.length; i++) {
@@ -188,10 +214,6 @@ export default {
         from: CodeMirror.Pos(cur.line, token.start),
         to: CodeMirror.Pos(cur.line, token.end)
       };
-    },
-    resetEditor() {
-      //TODO: if we have clicked on a saved query that should be the default query.
-      this.editor.setValue(this.queryDefault)
     }
   }
 };

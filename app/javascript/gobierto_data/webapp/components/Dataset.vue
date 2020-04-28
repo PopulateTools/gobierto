@@ -53,6 +53,9 @@
       :query-duration="queryDuration"
       :query-error="queryError"
       :query-default="queryDefault"
+      :query-revert="queryRevert"
+      :reset-query-default="resetQueryDefault"
+      :revert-query-saved="revertQuerySaved"
     />
 
     <QueriesTab
@@ -129,9 +132,12 @@ export default {
       arrayColumnsQuery: [],
       currentQuery: null,
       queryDefault: null,
+      queryRevert: null,
       items: '',
       isQueryRunning: false,
       isQueryModified: false,
+      resetQueryDefault: false,
+      revertQuerySaved: false,
       queryName: null,
       queryDuration: 0,
       queryError: null
@@ -161,7 +167,7 @@ export default {
       if (to.name === 'Query') {
         this.runCurrentQuery()
       }
-    },
+    }
   },
   async created() {
     const {
@@ -243,6 +249,12 @@ export default {
     this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
     // save the visualization in database
     this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
+    // hide when user click on cancel
+    this.$root.$on("hideLabelQueryModified", this.hideLabelQueryModified);
+
+    this.$root.$on('resetQuery', this.resetQuery)
+
+    this.$root.$on('revertSavedQuery', this.revertSavedQuery)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -250,6 +262,9 @@ export default {
     this.$root.$off("runCurrentQuery");
     this.$root.$off("storeCurrentQuery");
     this.$root.$off("storeCurrentVisualization");
+    this.$root.$off("hideLabelQueryModified");
+    this.$root.$off("resetQuery");
+    this.$root.$off("revertSavedQuery");
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -275,15 +290,10 @@ export default {
       }
     },
     setDefaultQuery() {
-      const {
-        query: { sql },
-      } = this.$route;
-
-      if (sql) {
-        this.queryDefault = sql
-      } else {
-        this.queryDefault = this.currentQuery
-      }
+      //QueryDefault: users can reset to the initial Query
+      this.queryDefault = `SELECT * FROM ${this.tableName} LIMIT 50`;
+      //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
+      this.queryRevert = this.currentQuery
     },
     ensureUserIsLogged() {
       if (getUserId() === "")
@@ -464,6 +474,15 @@ export default {
 
       const columns = lines[0].split(",");
       this.arrayColumnsQuery = columns
+    },
+    hideLabelQueryModified(value) {
+      this.isQueryModified = value;
+    },
+    resetQuery(value) {
+      this.resetQueryDefault = value
+    },
+    revertSavedQuery(value) {
+      this.revertQuerySaved = value
     }
   },
 };

@@ -54,6 +54,7 @@ en:
       resetQuery: Reset Query
       resetViz: Reset Visualization
       resources: Resources
+      revert: Revert
       runQuery: Run query
       save: Save
       saveViz: Save Visualization

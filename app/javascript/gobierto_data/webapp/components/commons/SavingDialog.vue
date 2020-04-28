@@ -42,6 +42,7 @@
           {{ labelModifiedQuery }}
         </span>
         <a
+          v-if="showRevertQuery"
           class="gobierto-data-sql-editor-modified-event"
           @click.prevent="revertQuery"
         >
@@ -119,6 +120,10 @@ export default {
       default: false
     },
     enabledSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    showRevertQuery: {
       type: Boolean,
       default: false
     }

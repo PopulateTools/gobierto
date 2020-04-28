@@ -66,6 +66,7 @@
       :label-save="labelSave"
       :is-query-modified="isQueryModified"
       :enabled-saved-button="enabledSavedButton"
+      :show-revert-query="showRevertQuery"
       @save="onSaveEventHandler"
       @showLabelIcons="showHideLabelIcons(false)"
       @revertQuery="revertQuery"
@@ -132,6 +133,10 @@ export default {
       type: Boolean,
       default: false
     },
+    showRevertQuery: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

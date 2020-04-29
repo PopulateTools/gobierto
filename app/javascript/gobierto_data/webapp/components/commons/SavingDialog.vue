@@ -147,12 +147,16 @@ export default {
         this.isSavingPromptVisible = true
         this.$nextTick(() => this.$refs.inputText.focus());
       } else {
-        // the output is the content of the input plus the private flag
-        this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
+        if (this.labelValue === null) {
+          this.$nextTick(() => this.$refs.inputText.focus());
+        } else {
+          // the output is the content of the input plus the private flag
+          this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
 
-        this.isSavingPromptVisible = false
-        this.$root.$emit('disabledSavedButton')
-        this.$root.$emit("resetToInitialState");
+          this.isSavingPromptVisible = false
+          this.$root.$emit('disabledSavedButton')
+          this.$root.$emit("resetToInitialState");
+        }
       }
     },
     onKeyDownTextHandler(event) {

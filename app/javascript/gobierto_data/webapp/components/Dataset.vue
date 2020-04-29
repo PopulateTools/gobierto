@@ -174,9 +174,12 @@ export default {
         this.isQueryModified = false;
       }
 
-      if (to.name === 'Query') {
+      //FIXME: Hugo, we need to talk about this hack
+      // https://stackoverflow.com/questions/50295985/how-to-tell-if-a-vue-component-is-active-or-not
+      if (to.name === 'Query' && this._inactive === false) {
         this.runCurrentQuery()
       }
+
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -189,6 +192,7 @@ export default {
       } else {
         vm.showRevertQuery = false
       }
+
     })
   },
   async created() {

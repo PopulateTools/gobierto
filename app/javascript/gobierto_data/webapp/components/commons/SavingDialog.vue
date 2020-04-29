@@ -189,7 +189,7 @@ export default {
     onKeyDownTextHandler(event) {
       const { value } = event.target
       this.labelValue = value
-      this.isSavingPromptVisible = true
+      this.$root.$emit('enableSavedButton')
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target

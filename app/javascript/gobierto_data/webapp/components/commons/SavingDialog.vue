@@ -112,10 +112,6 @@ export default {
     showPrivate: {
       type: Boolean,
       default: false
-    },
-    disabledInputSaved: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -143,13 +139,6 @@ export default {
     },
     showPrivate(newValue) {
       this.isPrivate = newValue ? true : false
-    },
-    disabledInputSaved(newValue, oldValue) {
-      console.log("disabledInputSaved -> oldValue", oldValue)
-      console.log("disabledInputSaved -> newValue", newValue)
-      if (newValue !== oldValue) {
-        this.isSavingPromptVisible = false
-      }
     }
   },
   methods: {

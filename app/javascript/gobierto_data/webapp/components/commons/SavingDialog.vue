@@ -41,53 +41,35 @@
         <span class="gobierto-data-sql-editor-modified-label">
           {{ labelModifiedQuery }}
         </span>
-        <a
-          v-if="showRevertQuery"
-          class="gobierto-data-sql-editor-modified-event"
-          @click.prevent="revertQuery"
-        >
-          ( {{ labelRevert }} )
-        </a>
       </div>
     </template>
 
     <!-- show edit button if there's no prompt but some name, otherwise, save button -->
-    <template v-if="!isSavingPromptVisible && labelValue">
-      <Button
-        :text="labelEdit"
-        class="btn-sql-editor"
-        icon="edit"
-        color="var(--color-base)"
-        background="#fff"
-        @click.native="onClickEditHandler"
-      />
-    </template>
-    <template v-else>
-      <Button
-        :text="labelSave"
-        :style="
-          isSavingPromptVisible
-            ? 'color: #fff; background-color: var(--color-base)'
-            : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
-        "
-        :disabled="!enabledSavedButton"
-        icon="save"
-        color="var(--color-base)"
-        background="#fff"
-        class="btn-sql-editor"
-        @click.native="onClickSaveHandler"
-      />
-    </template>
+    <Button
+      :text="labelSave"
+      :style="
+        isSavingPromptVisible
+          ? 'color: #fff; background-color: var(--color-base)'
+          : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
+      "
+      :disabled="!enabledSavedButton"
+      icon="save"
+      color="var(--color-base)"
+      background="#fff"
+      class="btn-sql-editor"
+      @click.native="onClickSaveHandler"
+    />
 
     <!-- only show cancel button on prompt visible -->
-    <template v-if="isSavingPromptVisible">
+    <template v-if="showRevertQuery">
       <Button
-        :text="labelCancel"
-        :icon="null"
-        class="btn-sql-editor btn-sql-editor-cancel"
+        :text="labelRevert"
+        :disabled="!enabledSavedButton"
+        icon="undo"
+        class="btn-sql-editor btn-sql-editor-revert"
         color="var(--color-base)"
         background="#fff"
-        @click.native="onClickCancelHandler"
+        @click.native="revertQuery"
       />
     </template>
   </div>
@@ -130,6 +112,10 @@ export default {
     showPrivate: {
       type: Boolean,
       default: false
+    },
+    disabledInputSaved: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -157,6 +143,13 @@ export default {
     },
     showPrivate(newValue) {
       this.isPrivate = newValue ? true : false
+    },
+    disabledInputSaved(newValue, oldValue) {
+      console.log("disabledInputSaved -> oldValue", oldValue)
+      console.log("disabledInputSaved -> newValue", newValue)
+      if (newValue !== oldValue) {
+        this.isSavingPromptVisible = false
+      }
     }
   },
   methods: {
@@ -169,31 +162,26 @@ export default {
         this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
 
         this.isSavingPromptVisible = false
+        this.$root.$emit('disabledSavedButton')
+        this.$root.$emit("resetToInitialState");
       }
-    },
-    onClickCancelHandler() {
-      this.labelValue = null
-      this.isSavingPromptVisible = false
-      this.$emit('resetButtonViz')
-      this.$emit('showLabelIcons')
-      this.$root.$emit("hideLabelQueryModified", false);
-    },
-    onClickEditHandler() {
-      this.isSavingPromptVisible = true
-      this.$nextTick(() => this.$refs.inputText.focus());
     },
     onKeyDownTextHandler(event) {
       const { value } = event.target
       this.labelValue = value
       this.isSavingPromptVisible = true
-      this.$root.$emit("hideLabelQueryModified", true);
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target
       this.isPrivate = checked
     },
     revertQuery() {
-      this.$emit('revertQuery')
+      this.$root.$emit('revertSavedQuery', true)
+      this.isSavingPromptVisible = false
+    },
+    disableSavingPrompt() {
+      this.isSavingPromptVisible = false
+      this.labelValue = null
     }
   }
 }

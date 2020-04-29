@@ -469,7 +469,7 @@
   &-sql-editor-container {
     display: inline-block;
     position: relative;
-    margin-right: .5em;
+    margin-right: .25rem;
   }
 
   &-sql-editor-recent-queries {
@@ -616,7 +616,7 @@
       }
     }
 
-    .btn-sql-editor-cancel {
+    .btn-sql-editor-revert {
       margin-left: .5em;
     }
   }
@@ -649,7 +649,7 @@
   &-sql-editor-modified-label-container {
     display: inline-flex;
     align-items: center;
-    margin-left: .5em;
+    margin: 0 .5rem 0 .25rem;
   }
 
   &-sql-editor-modified-label,

@@ -177,10 +177,10 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     const {
-      params: { tab }
+      name: nameComponent
     } = to;
     next(vm => {
-      if (!tab) {
+      if (nameComponent === 'Query') {
         vm.showRevertQuery = true
       } else {
         vm.showRevertQuery = false
@@ -267,14 +267,16 @@ export default {
     this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
     // save the visualization in database
     this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
-    // hide when user click on cancel
-    this.$root.$on("hideLabelQueryModified", this.hideLabelQueryModified);
     // Reset to the default query
     this.$root.$on('resetQuery', this.resetQuery)
     //reset to the saved query
     this.$root.$on('revertSavedQuery', this.revertSavedQuery)
 
     this.$root.$on('enableSavedButton', this.activatedSavedButton)
+
+    this.$root.$on('resetToInitialState', this.resetToInitialState)
+
+    this.$root.$on('disabledSavedButton', this.disabledSavedButton)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -282,10 +284,11 @@ export default {
     this.$root.$off("runCurrentQuery");
     this.$root.$off("storeCurrentQuery");
     this.$root.$off("storeCurrentVisualization");
-    this.$root.$off("hideLabelQueryModified");
     this.$root.$off("resetQuery");
     this.$root.$off("revertSavedQuery");
     this.$root.$off('enableSavedButton')
+    this.$root.$off('resetToInitialState')
+    this.$root.$off('disabledSavedButton')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -411,6 +414,9 @@ export default {
         const { queryId } = this.$route.params;
         // factory method
         ({ status } = await this.putQuery(queryId, { data }));
+
+        //Update revert query
+        this.queryRevert = this.currentQuery
       } else {
         // factory method
         ({ status } = await this.postQuery({ data }));
@@ -423,7 +429,25 @@ export default {
 
         this.setPublicQueries(await this.getPublicQueries());
         this.setPrivateQueries(await this.getPrivateQueries());
+        //Update URL when user saved a new query
+        // this.setUrlSavedQuery(await this.getPrivateQueries())
       }
+    },
+    setUrlSavedQuery(response) {
+      const {
+        data: { data: items },
+      } = response;
+
+      const lastQuery = items[items.length - 1];
+
+      const {
+        id: queryId
+      } = lastQuery;
+
+      this.$router.push(
+        `/datos/${this.$route.params.id}/q/${queryId}`
+      // eslint-disable-next-line no-unused-vars
+      ).catch(err => {})
     },
     async runCurrentQuery() {
       this.isQueryRunning = true;
@@ -446,7 +470,17 @@ export default {
         this.isQueryRunning = false;
         this.getColumnsQuery(this.items)
       } catch (error) {
-        this.queryError = error;
+        const {
+          response: {
+            data: {
+              errors: arrayError
+            }
+          }
+        } = error;
+        const [ sqlError ] = arrayError
+        const { sql: stringError } = sqlError
+        this.queryError = stringError
+        this.isQueryRunning = false;
       }
     },
     async storeCurrentVisualization(config, opts) {
@@ -498,17 +532,41 @@ export default {
       const columns = lines[0].split(",");
       this.arrayColumnsQuery = columns
     },
-    hideLabelQueryModified(value) {
-      this.isQueryModified = value;
-    },
     resetQuery(value) {
       this.resetQueryDefault = value
+      if (value === true) {
+        this.currentQuery = this.queryDefault
+        this.isQueryModified = false
+        this.runCurrentQuery()
+        this.disabledSavedButton()
+      }
     },
     revertSavedQuery(value) {
       this.revertQuerySaved = value
+      if (value === true) {
+        this.currentQuery = this.queryRevert
+        this.isQueryModified = false
+        this.runCurrentQuery()
+        this.disabledSavedButton()
+      }
     },
     activatedSavedButton() {
       this.enabledSavedButton = true
+      const {
+        name: name
+      } = this.$route;
+
+      if (name === 'Query') {
+        this.showRevertQuery = true
+      }
+
+    },
+    disabledSavedButton() {
+      this.enabledSavedButton = false
+    },
+    resetToInitialState() {
+      this.showRevertQuery = false
+      this.isQueryModified = false
     }
   },
 };

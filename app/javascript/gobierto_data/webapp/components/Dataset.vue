@@ -168,6 +168,8 @@ export default {
 
       if (to.path !== from.path) {
         this.setDefaultQuery()
+        this.disabledSavedButton()
+        this.isQueryModified = false;
       }
 
       if (to.name === 'Query') {

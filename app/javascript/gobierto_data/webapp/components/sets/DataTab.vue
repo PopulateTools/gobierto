@@ -7,6 +7,7 @@
         :recent-queries="recentQueries"
         :is-query-running="isQueryRunning"
         :is-query-modified="isQueryModified"
+        :is-query-saved="isQuerySaved"
         :query-name="queryName"
         :enabled-saved-button="enabledSavedButton"
         :show-revert-query="showRevertQuery"
@@ -122,6 +123,10 @@ export default {
       default: false
     },
     showPrivate: {
+      type: Boolean,
+      default: false
+    },
+    isQuerySaved: {
       type: Boolean,
       default: false
     }

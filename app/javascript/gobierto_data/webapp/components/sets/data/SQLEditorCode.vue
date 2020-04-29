@@ -149,10 +149,11 @@ export default {
 
         // update the query while typing
         this.$root.$emit("setCurrentQuery", value);
-      }, 250);
-      this.$root.$emit('enableSavedButton')
-      this.$root.$emit("resetQuery", false);
-      this.$root.$emit("revertSavedQuery", false);
+        this.$root.$emit('enableSavedButton')
+        this.$root.$emit("resetQuery", false);
+        this.$root.$emit("revertSavedQuery", false);
+        this.$root.$emit("disabledStringSavedQuery", false);
+      }, 50);
     },
     mergeTables() {
       const sizeArrayColumns = Object.keys(this.arrayColumns);

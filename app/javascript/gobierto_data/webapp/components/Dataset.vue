@@ -48,6 +48,7 @@
       :items="items"
       :is-query-running="isQueryRunning"
       :is-query-modified="isQueryModified"
+      :is-query-saved="isQuerySaved"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-duration="queryDuration"
@@ -139,6 +140,7 @@ export default {
       items: "",
       isQueryRunning: false,
       isQueryModified: false,
+      isQuerySaved: false,
       showPrivate: false,
       resetQueryDefault: false,
       revertQuerySaved: false,
@@ -279,6 +281,8 @@ export default {
     this.$root.$on('resetToInitialState', this.resetToInitialState)
 
     this.$root.$on('disabledSavedButton', this.disabledSavedButton)
+    //Show a message for the user, your query is saved
+    this.$root.$on('disabledStringSavedQuery', this.disabledStringSavedQuery)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -291,6 +295,7 @@ export default {
     this.$root.$off('enableSavedButton')
     this.$root.$off('resetToInitialState')
     this.$root.$off('disabledSavedButton')
+    this.$root.$off('disabledStringSavedQuery')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -428,6 +433,8 @@ export default {
       // 200 OK (PUT) / 201 Created (POST)
       if ([200, 201].includes(status)) {
         this.isQueryModified = false;
+        //Show a message for the user, your query is saved
+        this.isQuerySaved = true;
 
         this.setPublicQueries(await this.getPublicQueries());
         this.setPrivateQueries(await this.getPrivateQueries());
@@ -541,6 +548,7 @@ export default {
         this.isQueryModified = false
         this.runCurrentQuery()
         this.disabledSavedButton()
+        this.disabledStringSavedQuery()
       }
     },
     revertSavedQuery(value) {
@@ -550,6 +558,7 @@ export default {
         this.isQueryModified = false
         this.runCurrentQuery()
         this.disabledSavedButton()
+        this.disabledStringSavedQuery()
       }
     },
     activatedSavedButton() {
@@ -569,6 +578,9 @@ export default {
     resetToInitialState() {
       this.showRevertQuery = false
       this.isQueryModified = false
+    },
+    disabledStringSavedQuery() {
+      this.isQuerySaved = false;
     }
   },
 };

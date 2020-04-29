@@ -30,12 +30,12 @@
           </template>
           <div>
             <Checkbox
-              v-for="option in filteredOptions(filter)"
-              :id="option.id"
-              :key="option.id"
-              :title="option.title"
-              :checked="option.isOptionChecked"
-              :counter="option.counter"
+              v-for="{ id, title, isOptionChecked, counter } in filteredOptions(filter)"
+              :id="id"
+              :key="id"
+              :title="title"
+              :checked="isOptionChecked"
+              :counter="counter"
               @checkbox-change="e => sendCheckboxStatus_TEMP({ ...e, filter })"
             />
           </div>
@@ -94,7 +94,7 @@ export default {
       this.$root.$emit("selectAll_TEMP", { filter })
     },
     filteredOptions(filter) {
-      return filter.options.filter(element => element.counter > 0);
+      return filter.options.filter(({ counter: element = 0 }) => element > 0 );
     }
   }
 };

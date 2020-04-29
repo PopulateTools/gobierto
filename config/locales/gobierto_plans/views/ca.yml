@@ -24,7 +24,8 @@ ca:
             d'Actuació Municipal connecta amb els ODS.
           sdgs_title: Objectius de Desenvolupament Sostenible
         projects:
-          sdg_projects_empty: No hi ha projectes de el pla relacionats amb aquest ODS
+          sdg_projects_empty: No hi ha projectes de el pla relacionats amb aquest
+            ODS
           sdg_projects_title: Projectes de el pla relacionats amb aquest ODS
       show:
         desc: Descripció

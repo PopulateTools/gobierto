@@ -65,6 +65,7 @@
       :value="queryName"
       :label-save="labelSave"
       :is-query-modified="isQueryModified"
+      :is-query-saved="isQuerySaved"
       :enabled-saved-button="enabledSavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
@@ -138,6 +139,10 @@ export default {
       default: false
     },
     showPrivate: {
+      type: Boolean,
+      default: false
+    },
+    isQuerySaved: {
       type: Boolean,
       default: false
     }

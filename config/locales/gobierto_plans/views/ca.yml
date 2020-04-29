@@ -25,8 +25,8 @@ ca:
           sdgs_title: Objectius de Desenvolupament Sostenible
         projects:
           sdg_projects_empty: No hi ha projectes de el pla relacionats amb aquest
-            Objectiu
-          sdg_projects_title: Projectes de el pla relacionats amb aquest Objectiu
+            ODS
+          sdg_projects_title: Projectes de el pla relacionats amb aquest ODS
       show:
         desc: Descripció
         ends: Fi

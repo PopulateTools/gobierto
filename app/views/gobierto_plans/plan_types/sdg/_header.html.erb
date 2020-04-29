@@ -4,8 +4,8 @@
       <% if action_name == "sdg" %>
         <div class="heading_breadcrumb"><%= link_to @plan.title, gobierto_plans_plan_url(slug: @plan.plan_type.slug, year: @plan.year) %></div>
       <% end %>
-      <h2 class="with_description"><%= t(".sdgs_title") %></h2>
-      <p>
+      <h2 class="with_description sdgs_title"><%= t(".sdgs_title") %></h2>
+      <p class="sdgs_description">
         <%= t(".sdgs_description") %>
       </p>
     </div>

@@ -2,7 +2,6 @@
   <div class="gobierto-data-sql-editor-toolbar">
     <div class="gobierto-data-sql-editor-container">
       <Button
-        v-if="isQueryModified"
         :title="labelResetQuery"
         class="btn-sql-editor"
         icon="home"
@@ -10,9 +9,10 @@
         background="#fff"
         @click.native="resetQuery"
       />
+    </div>
+    <div class="gobierto-data-sql-editor-container">
       <Button
         v-clickoutside="closeRecentModal"
-        :text="labelRecents"
         :class="{ 'remove-label' : removeLabelBtn }"
         :title="labelButtonRecentQueries"
         class="btn-sql-editor"
@@ -38,7 +38,6 @@
     <div class="gobierto-data-sql-editor-container">
       <Button
         v-clickoutside="closeQueriesModal"
-        :text="labelQueries"
         :class="{ 'remove-label' : removeLabelBtn }"
         :title="labelButtonQueries"
         class="btn-sql-editor"
@@ -61,6 +60,7 @@
       </transition>
     </div>
     <SavingDialog
+      ref="savingDialog"
       :placeholder="labelQueryName"
       :value="queryName"
       :label-save="labelSave"
@@ -69,8 +69,6 @@
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       @save="onSaveEventHandler"
-      @showLabelIcons="showHideLabelIcons(false)"
-      @revertQuery="revertQuery"
     />
 
     <Button
@@ -88,6 +86,7 @@
 </template>
 <script>
 import { CommonsMixin, closableMixin } from "./../../../../lib/commons.js";
+import { tabs } from '../../../../lib/router';
 
 import Button from "./../../commons/Button.vue";
 import Queries from "./../../commons/Queries.vue";
@@ -158,23 +157,12 @@ export default {
         I18n.t("gobierto_data.projects.buttonRunQuery") || "",
       removeLabelBtn: false,
       isQueriesModalActive: false,
-      isRecentModalActive: false,
+      isRecentModalActive: false
     };
-  },
-  watch: {
-    $route(to, from) {
-      if (to.path !== from.path) {
-        this.showHideLabelIcons(true)
-      }
-    },
   },
   created() {
     // it has to be the same event (keydown) as SQLEditorCode
     document.addEventListener("keydown", this.keyboardShortcutsListener);
-
-    if (this.$route.name === 'Query') {
-      this.showHideLabelIcons(true)
-    }
   },
   deactivated() {
     this.removeKeyboardListener()
@@ -228,15 +216,12 @@ export default {
       this.isQueriesModalActive = false;
     },
     resetQuery() {
+      this.$refs.savingDialog.disableSavingPrompt();
       this.$root.$emit('resetQuery', true)
-      this.$root.$emit("hideLabelQueryModified", false);
-    },
-    revertQuery() {
-      this.$root.$emit('revertSavedQuery', true)
-      this.$root.$emit("hideLabelQueryModified", false);
-    },
-    showHideLabelIcons(value) {
-      this.removeLabelBtn = value
+      this.$router.push(
+        `/datos/${this.$route.params.id}/${tabs[1]}`
+      // eslint-disable-next-line no-unused-vars
+      ).catch(err => {})
     }
   },
 };

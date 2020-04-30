@@ -167,9 +167,9 @@ export default {
       }
 
       if (to.path !== from.path) {
-        this.setDefaultQuery()
         this.disabledSavedButton()
         this.isQueryModified = false;
+        this.setDefaultQuery()
       }
 
       //FIXME: Hugo, we need to talk about this hack
@@ -255,6 +255,7 @@ export default {
     }
 
     this.runCurrentQuery();
+    this.setDefaultQuery()
 
   },
   mounted() {
@@ -264,7 +265,6 @@ export default {
     }
   },
   activated() {
-    this.setDefaultQuery();
     this.$root.$on("deleteSavedQuery", this.deleteSavedQuery);
     // change the current query, triggering a new SQL execution
     this.$root.$on("setCurrentQuery", this.setCurrentQuery);
@@ -329,10 +329,34 @@ export default {
       }
     },
     setDefaultQuery() {
+      const userId = getUserId();
+      const {
+        params: { queryId }
+      } = this.$route;
+
+      let items;
+      //Check if user is logged
+      if (userId) {
+        items = this.privateQueries
+      } else {
+        items = this.publicQueries
+      }
+
+      //Find the query
+      const getSavedQuery = items.find(({ id }) => id === queryId) || {}
+
+      //We need to keep this query separate from the editor query
+      //When load a saved query we use the queryId to find inside privateQueries or publicQueries
+      const {
+        attributes: {
+          sql: queryRevert
+        } = {}
+      } = getSavedQuery
+
       //QueryDefault: users can reset to the initial Query
       this.queryDefault = `SELECT * FROM ${this.tableName} LIMIT 50`;
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
-      this.queryRevert = this.currentQuery
+      this.queryRevert = queryRevert
     },
     ensureUserIsLogged() {
       if (getUserId() === "")
@@ -457,9 +481,6 @@ export default {
       this.storeRecentQuery();
 
       const params = { sql: this.currentQuery };
-
-      this.setDefaultQuery()
-
       //
       const startTime = new Date().getTime();
       // factory method

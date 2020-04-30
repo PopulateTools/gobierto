@@ -169,6 +169,7 @@ export default {
       if (to.path !== from.path) {
         this.disabledSavedButton()
         this.isQueryModified = false;
+        this.setDefaultQuery()
       }
 
       //FIXME: Hugo, we need to talk about this hack
@@ -254,6 +255,7 @@ export default {
     }
 
     this.runCurrentQuery();
+    this.setDefaultQuery()
 
   },
   mounted() {
@@ -327,17 +329,28 @@ export default {
       }
     },
     setDefaultQuery() {
+      const userId = getUserId();
       const {
         params: { queryId }
       } = this.$route;
 
+      let items;
+      //Check if user is logged
+      if (userId) {
+        items = this.privateQueries
+      } else {
+        items = this.publicQueries
+      }
+
+      //Find the query
+      const getSavedQuery = items.find(({ id }) => id === queryId) || {}
+
       //We need to keep this query separate from the editor query
-      //When load a saved query we use the queryId to find inside privateQueries
-      let getSavedQuery = this.privateQueries.find(({ id }) => id === queryId)
+      //When load a saved query we use the queryId to find inside privateQueries or publicQueries
       const {
         attributes: {
           sql: queryRevert
-        }
+        } = {}
       } = getSavedQuery
 
       //QueryDefault: users can reset to the initial Query
@@ -400,7 +413,6 @@ export default {
         data: { data: items },
       } = response;
       this.privateQueries = items;
-      this.setDefaultQuery()
     },
     async getPublicQueries() {
       // factory method

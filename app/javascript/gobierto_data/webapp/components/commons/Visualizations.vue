@@ -78,21 +78,12 @@ export default {
       const configButtonPerspective = shadowRootPerspective.getElementById('config_button')
       configButtonPerspective.style.display = "none"
       const selectVizPerspective = shadowRootPerspective.getElementById('vis_selector')
-      const showDialog = this.showSavingDialog
-      const sendSelectedValue = this.selectedValue
-      let selectedValue
 
-      selectVizPerspective.addEventListener('change', function() {
-        selectedValue = selectVizPerspective.options[selectVizPerspective.selectedIndex].value;
-        showDialog()
-        sendSelectedValue(selectedValue)
+      selectVizPerspective.addEventListener('change', () => {
+        const selectedValue = selectVizPerspective.options[selectVizPerspective.selectedIndex].value;
+        this.$emit("showSaving")
+        this.$emit("selectedChart", selectedValue)
       })
-    },
-    showSavingDialog() {
-      this.$emit("showSaving")
-    },
-    selectedValue(chart) {
-      this.$emit("selectedChart", chart)
     },
     setColumns() {
       this.viewer.setAttribute('columns', this.arrayColumnsQuery)

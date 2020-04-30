@@ -43,14 +43,6 @@ export default {
       type: String,
       default: ""
     },
-    queryDefault: {
-      type: String,
-      default: ""
-    },
-    queryRevert: {
-      type: String,
-      default: ""
-    },
     queryDuration: {
       type: Number,
       default: 0
@@ -58,14 +50,6 @@ export default {
     queryError: {
       type: String,
       default: null
-    },
-    resetQueryDefault: {
-      type: Boolean,
-      default: false
-    },
-    revertQuerySaved: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -87,18 +71,6 @@ export default {
     queryStored(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.setEditorValue(newValue);
-      }
-    },
-    resetQueryDefault(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.setEditorValue(this.queryDefault);
-        this.editor.focus()
-      }
-    },
-    revertQuerySaved(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.setEditorValue(this.queryRevert);
-        this.editor.focus()
       }
     }
   },
@@ -150,9 +122,6 @@ export default {
         // update the query while typing
         this.$root.$emit("setCurrentQuery", value);
         this.$root.$emit('enableSavedButton')
-        this.$root.$emit("resetQuery", false);
-        this.$root.$emit("revertSavedQuery", false);
-        this.$root.$emit("disabledStringSavedQuery", false);
       }, 50);
     },
     mergeTables() {

@@ -8,6 +8,7 @@
         :is-query-running="isQueryRunning"
         :is-query-modified="isQueryModified"
         :is-query-saved="isQuerySaved"
+        :is-saving-prompt-visible="isSavingPromptVisible"
         :query-name="queryName"
         :enabled-saved-button="enabledSavedButton"
         :show-revert-query="showRevertQuery"
@@ -16,12 +17,8 @@
       <SQLEditorCode
         :array-columns="arrayColumns"
         :query-stored="queryStored"
-        :query-default="queryDefault"
         :query-duration="queryDuration"
         :query-error="queryError"
-        :query-revert="queryRevert"
-        :reset-query-default="resetQueryDefault"
-        :revert-query-saved="revertQuerySaved"
       />
       <SQLEditorResults
         v-if="items.length"
@@ -82,15 +79,11 @@ export default {
       type: Boolean,
       default: false
     },
+    isSavingPromptVisible: {
+      type: Boolean,
+      default: false
+    },
     queryStored: {
-      type: String,
-      default: null
-    },
-    queryDefault: {
-      type: String,
-      default: null
-    },
-    queryRevert: {
       type: String,
       default: null
     },
@@ -105,14 +98,6 @@ export default {
     queryError: {
       type: String,
       default: null
-    },
-    resetQueryDefault: {
-      type: Boolean,
-      default: false
-    },
-    revertQuerySaved: {
-      type: Boolean,
-      default: false
     },
     enabledSavedButton: {
       type: Boolean,

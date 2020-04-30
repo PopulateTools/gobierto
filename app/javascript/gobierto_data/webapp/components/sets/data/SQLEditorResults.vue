@@ -60,7 +60,7 @@
         :type-chart="typeChart"
         :array-columns-query="arrayColumnsQuery"
         @showSaving="showSavingDialog"
-        @selectedChart="changeChart"
+        @selectedChart="typeChart = $event"
       />
     </div>
   </div>
@@ -142,9 +142,6 @@ export default {
       this.showVisualize = false
       this.showResetViz = true
       this.isVisualizationModified = true
-    },
-    changeChart(chart) {
-      this.typeChart = chart
     },
     resetButtonViz() {
       this.removeLabelBtn = false

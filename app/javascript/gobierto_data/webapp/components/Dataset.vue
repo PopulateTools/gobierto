@@ -49,14 +49,11 @@
       :is-query-running="isQueryRunning"
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
+      :is-saving-prompt-visible="isSavingPromptVisible"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-duration="queryDuration"
       :query-error="queryError"
-      :query-default="queryDefault"
-      :query-revert="queryRevert"
-      :reset-query-default="resetQueryDefault"
-      :revert-query-saved="revertQuerySaved"
       :enabled-saved-button="enabledSavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
@@ -141,6 +138,7 @@ export default {
       isQueryRunning: false,
       isQueryModified: false,
       isQuerySaved: false,
+      isSavingPromptVisible: false,
       showPrivate: false,
       resetQueryDefault: false,
       revertQuerySaved: false,
@@ -178,6 +176,7 @@ export default {
       // https://stackoverflow.com/questions/50295985/how-to-tell-if-a-vue-component-is-active-or-not
       if (to.name === 'Query' && this._inactive === false) {
         this.runCurrentQuery()
+        this.disabledStringSavedQuery()
       }
 
     }
@@ -256,7 +255,6 @@ export default {
     }
 
     this.runCurrentQuery();
-    this.setDefaultQuery();
 
   },
   mounted() {
@@ -266,6 +264,7 @@ export default {
     }
   },
   activated() {
+    this.setDefaultQuery();
     this.$root.$on("deleteSavedQuery", this.deleteSavedQuery);
     // change the current query, triggering a new SQL execution
     this.$root.$on("setCurrentQuery", this.setCurrentQuery);
@@ -287,6 +286,8 @@ export default {
     this.$root.$on('disabledSavedButton', this.disabledSavedButton)
     //Show a message for the user, your query is saved
     this.$root.$on('disabledStringSavedQuery', this.disabledStringSavedQuery)
+
+    this.$root.$on('isSavingPromptVisible', this.isSavingPromptVisibleHandler)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -300,6 +301,7 @@ export default {
     this.$root.$off('resetToInitialState')
     this.$root.$off('disabledSavedButton')
     this.$root.$off('disabledStringSavedQuery')
+    this.$root.$off('isSavingPromptVisible')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -355,6 +357,10 @@ export default {
 
       // set the new query, trimming it to remove potentially harmful voids
       this.currentQuery = sql.trim();
+
+      this.disabledSavedButton()
+      this.resetQuery(false)
+      this.revertSavedQuery(false)
     },
     storeRecentQuery() {
       // if the currentQuery does not exist, nor recent, nor in stored queries neither
@@ -442,25 +448,7 @@ export default {
 
         this.setPublicQueries(await this.getPublicQueries());
         this.setPrivateQueries(await this.getPrivateQueries());
-        //Update URL when user saved a new query
-        // this.setUrlSavedQuery(await this.getPrivateQueries())
       }
-    },
-    setUrlSavedQuery(response) {
-      const {
-        data: { data: items },
-      } = response;
-
-      const lastQuery = items[items.length - 1];
-
-      const {
-        id: queryId
-      } = lastQuery;
-
-      this.$router.push(
-        `/datos/${this.$route.params.id}/q/${queryId}`
-      // eslint-disable-next-line no-unused-vars
-      ).catch(err => {})
     },
     async runCurrentQuery() {
       this.isQueryRunning = true;
@@ -469,6 +457,8 @@ export default {
       this.storeRecentQuery();
 
       const params = { sql: this.currentQuery };
+
+      this.setDefaultQuery()
 
       //
       const startTime = new Date().getTime();
@@ -539,25 +529,26 @@ export default {
       // TODO: indicar algo con el status OK
       console.log("postVisualization", status);
     },
-    getColumnsQuery(csv) {
-      const lines = csv.split("\n");
-
-      const columns = lines[0].split(",");
-      this.arrayColumnsQuery = columns
+    getColumnsQuery(csv = '') {
+      const [ columns = '' ] = csv.split("\n");
+      this.arrayColumnsQuery = columns.split(",");
     },
     resetQuery(value) {
       this.resetQueryDefault = value
       if (value === true) {
-        this.currentQuery = this.queryDefault
+        this.isSavingPromptVisible = false
+        this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
         this.isQueryModified = false
         this.runCurrentQuery()
         this.disabledSavedButton()
         this.disabledStringSavedQuery()
+        this.queryName = null
       }
     },
     revertSavedQuery(value) {
       this.revertQuerySaved = value
       if (value === true) {
+        this.isSavingPromptVisible = false
         this.currentQuery = this.queryRevert
         this.isQueryModified = false
         this.runCurrentQuery()
@@ -580,11 +571,17 @@ export default {
       this.enabledSavedButton = false
     },
     resetToInitialState() {
-      this.showRevertQuery = false
+      this.isQueryModified = false
+    },
+    resetToInitialStateSavedQuery() {
+      this.showRevertQuery = true
       this.isQueryModified = false
     },
     disabledStringSavedQuery() {
       this.isQuerySaved = false;
+    },
+    isSavingPromptVisibleHandler(value) {
+      this.isSavingPromptVisible = value
     }
   },
 };

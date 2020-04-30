@@ -58,6 +58,7 @@ en:
       runQuery: Run query
       save: Save
       saveViz: Save Visualization
+      savedQuery: Saved query
       sets: Sets
       showAll: Show all
       showLess: Show less

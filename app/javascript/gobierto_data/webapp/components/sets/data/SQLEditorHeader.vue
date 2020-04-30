@@ -7,7 +7,7 @@
         icon="home"
         color="var(--color-base)"
         background="#fff"
-        @click.native="resetQuery"
+        @click.native="resetQueryHandler"
       />
     </div>
     <div class="gobierto-data-sql-editor-container">
@@ -66,6 +66,7 @@
       :label-save="labelSave"
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
+      :is-saving-prompt-visible="isSavingPromptVisible"
       :enabled-saved-button="enabledSavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
@@ -122,6 +123,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isSavingPromptVisible: {
+      type: Boolean,
+      default: false
+    },
     isQueryModified: {
       type: Boolean,
       default: false
@@ -169,7 +174,7 @@ export default {
     // it has to be the same event (keydown) as SQLEditorCode
     document.addEventListener("keydown", this.keyboardShortcutsListener);
   },
-  deactivated() {
+  beforeDestroy() {
     this.removeKeyboardListener()
   },
   methods: {
@@ -220,11 +225,11 @@ export default {
     closeQueriesModal() {
       this.isQueriesModalActive = false;
     },
-    resetQuery() {
-      this.$refs.savingDialog.disableSavingPrompt();
+    resetQueryHandler() {
       this.$root.$emit('resetQuery', true)
       this.$router.push(
         `/datos/${this.$route.params.id}/${tabs[1]}`
+      //Avoid errors when user goes to the same route
       // eslint-disable-next-line no-unused-vars
       ).catch(err => {})
     }

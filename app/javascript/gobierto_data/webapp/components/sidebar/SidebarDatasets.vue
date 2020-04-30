@@ -69,11 +69,6 @@ export default {
   },
   data() {
     return {
-      labelSets: "",
-      labelQueries: "",
-      labelCategories: "",
-      labelshowAll: "",
-      labelshowLess: "",
       sortedItems: [],
       listDatasets: [],
       currentDatasetSlug: null,
@@ -81,6 +76,11 @@ export default {
       showLess: null,
       activeDatasetColumns: {},
       showToggle: null,
+      labelSets: I18n.t("gobierto_data.projects.sets"),
+      labelQueries: I18n.t("gobierto_data.projects.queries"),
+      labelCategories: I18n.t("gobierto_data.projects.categories"),
+      labelshowAll: I18n.t("gobierto_data.projects.showAll"),
+      labelshowLess: I18n.t("gobierto_data.projects.showLess")
     }
   },
   computed: {
@@ -96,20 +96,15 @@ export default {
     }
   },
   watch: {
-    currentDatasetSlug: function(newSlug) {
+    currentDatasetSlug (newSlug) {
       this.showLess = true;
-      if (this.sortedItems.length && newSlug !== '') {
+      if (this.sortedItems.length && newSlug) {
         this.activeDatasetColumns = this.sortedItems.find(({ attributes: { slug } = {} }) => slug === newSlug).attributes.columns || {}
         this.showToggle = Object.keys(this.activeDatasetColumns).length > this.showMaxKeys
       }
     }
   },
   created() {
-    this.labelSets = I18n.t("gobierto_data.projects.sets")
-    this.labelQueries = I18n.t("gobierto_data.projects.queries")
-    this.labelCategories = I18n.t("gobierto_data.projects.categories")
-    this.labelshowAll = I18n.t("gobierto_data.projects.showAll")
-    this.labelshowLess = I18n.t("gobierto_data.projects.showLess")
     // TODO Datasets should be order in filter mixin
     this.sortedItems = this.items.sort(({ attributes: { name: a } = {} }, { attributes: { name: b } = {} }) => a.localeCompare(b));
 

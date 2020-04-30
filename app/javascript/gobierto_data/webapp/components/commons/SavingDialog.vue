@@ -36,21 +36,32 @@
       />
     </template>
 
-    <template v-if="isQueryModified">
-      <div class="gobierto-data-sql-editor-modified-label-container">
-        <span class="gobierto-data-sql-editor-modified-label">
-          {{ labelModifiedQuery }}
-        </span>
-      </div>
-    </template>
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <template v-if="isQueryModified">
+        <div class="gobierto-data-sql-editor-modified-label-container">
+          <span class="gobierto-data-sql-editor-modified-label">
+            {{ labelModifiedQuery }}
+          </span>
+        </div>
+      </template>
+    </transition>
 
-    <template v-if="isQuerySaved">
-      <div class="gobierto-data-sql-editor-modified-label-container">
-        <span class="gobierto-data-sql-editor-modified-label">
-          Consulta guardada
-        </span>
-      </div>
-    </template>
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <template v-if="isQuerySaved">
+        <div class="gobierto-data-sql-editor-modified-label-container">
+          <span class="gobierto-data-sql-editor-modified-label">
+            {{ labelSavedQuery }}
+          </span>
+        </div>
+      </template>
+    </transition>
+
 
     <!-- show edit button if there's no prompt but some name, otherwise, save button -->
     <Button
@@ -77,7 +88,7 @@
         class="btn-sql-editor btn-sql-editor-revert"
         color="var(--color-base)"
         background="#fff"
-        @click.native="revertQuery"
+        @click.native="revertQueryHandler"
       />
     </template>
   </div>
@@ -109,6 +120,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isSavingPromptVisible: {
+      type: Boolean,
+      default: false
+    },
     enabledSavedButton: {
       type: Boolean,
       default: false
@@ -129,13 +144,13 @@ export default {
   data() {
     return {
       isPrivate: false,
-      isSavingPromptVisible: false,
       labelValue: this.value,
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
       labelEdit: I18n.t("gobierto_data.projects.edit") || "",
       labelRevert: I18n.t("gobierto_data.projects.revert") || "",
-      labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || ""
+      labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
+      labelSavedQuery: I18n.t("gobierto_data.projects.savedQuery") || ""
     }
   },
   watch: {
@@ -144,13 +159,8 @@ export default {
         this.labelValue = newValue
       }
     },
-    $route(to, from) {
-      if (to.path !== from.path) {
-        this.isSavingPromptVisible = false
-      }
-    },
     showPrivate(newValue) {
-      this.isPrivate = newValue ? true : false
+      this.isPrivate = (newValue);
     }
   },
   methods: {
@@ -170,16 +180,16 @@ export default {
       // the output is the content of the input plus the private flag
       this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
 
-      this.isSavingPromptVisible = false
       this.$root.$emit('disabledSavedButton')
       this.$root.$emit("resetToInitialState");
+      this.$root.$emit("isSavingPromptVisible", false);
     },
     saveHandlerNewQuery() {
       if (!this.isSavingPromptVisible) {
-        this.isSavingPromptVisible = true
+        this.$root.$emit("isSavingPromptVisible", true);
         this.$nextTick(() => this.$refs.inputText.focus());
       } else {
-        if (this.labelValue === null) {
+        if (!this.labelValue) {
           this.$nextTick(() => this.$refs.inputText.focus());
         } else {
           this.saveHandlerSavedQuery()
@@ -195,13 +205,8 @@ export default {
       const { checked } = event.target
       this.isPrivate = checked
     },
-    revertQuery() {
+    revertQueryHandler() {
       this.$root.$emit('revertSavedQuery', true)
-      this.isSavingPromptVisible = false
-    },
-    disableSavingPrompt() {
-      this.isSavingPromptVisible = false
-      this.labelValue = null
     }
   }
 }

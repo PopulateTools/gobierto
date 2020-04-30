@@ -51,13 +51,14 @@ ca:
       queryName: Nom consulta
       recents: Recents
       records: Registres
-      resetQuery: Restableix la consulta
-      resetViz: Restableix la Visualització
+      resetQuery: Restablir la consulta
+      resetViz: Restablir la Visualització
       resources: Recursos
       revert: Revertir
       runQuery: Executeu consulta
       save: Deseu
       saveViz: Deseu Visualització
+      savedQuery: Consulta desada
       sets: Conjunts
       showAll: Vegeu-ho tot
       showLess: Vegeu-ne menys

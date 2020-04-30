@@ -3,14 +3,35 @@
 <p>
   <%= mail_to @admin.email %>
   <%= render "session_information", admin: @admin %>
+</p>
 
-  <% if @api_tokens.present? %>
+<p>
+  <% if @admin.api_tokens.exists? %>
     <strong><%= t(".admin_tokens") %></strong>:
-    <div>
-      <% @api_tokens.each do |token_key, value| %>
-        <%= content_tag(:span, token_key) %>
-        <%= content_tag(:pre, value) %>
-      <% end %>
+    <% if @admin.primary_api_token.present? %>
+      <div class="list_item">
+        <label><%= t(".primary_api_token") %></label>
+        <div class="main"> <%= @admin.primary_api_token %> </div>
+        <button class="small" data-behavior="copy">
+          <%= t('.copy_to_clipboard') %> <span style="font-size:1.5em" class="hidden">✔︎</span>
+        </button>
+      </div>
+    <% end %>
+    <% @admin.api_tokens.secondary.each do |token| %>
+      <div class="list_item">
+        <label><%= token.name %></label>
+        <div class="main"> <%= token %> </div>
+        <button class="small" data-behavior="copy">
+          <%= t('.copy_to_clipboard') %> <span style="font-size:1.5em" class="hidden">✔︎</span>
+        </button>
+      </div>
+    <% end %>
     </div>
   <% end %>
 </p>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.admins_controller.show()
+  <% end %>
+<% end %>

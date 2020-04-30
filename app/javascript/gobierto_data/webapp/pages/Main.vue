@@ -47,11 +47,6 @@ export default {
     }
   },
   created() {
-    this.setActiveSidebar()
-    this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus)
-    this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked)
-  },
-  activated() {
     this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus)
     this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked)
   },

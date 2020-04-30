@@ -33,6 +33,7 @@
   <th><%= t(".header.admin") %></th>
   <th><%= t(".header.email") %></th>
   <th><%= t(".header.role") %></th>
+  <th><%= t(".header.primary_api_token") %></th>
   <th><%= t(".header.groups") %></th>
   <th><%= t(".header.last_sign_in_at") %></th>
   <th><%= t(".header.created_at") %></th>
@@ -60,6 +61,9 @@
       </td>
       <td>
         <%= admin.authorization_level %>
+      </td>
+      <td>
+        <%= admin.primary_api_token %>
       </td>
       <td>
         <%= admin.admin_groups.pluck(:name).to_sentence.presence || " -- " %>

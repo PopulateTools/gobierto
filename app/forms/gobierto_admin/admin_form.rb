@@ -12,8 +12,7 @@ module GobiertoAdmin
       :password_confirmation,
       :creation_ip,
       :last_sign_in_at,
-      :last_sign_in_ip,
-      :api_token
+      :last_sign_in_ip
     )
 
     attr_reader :permitted_sites, :sites, :admin_group_ids, :admin_groups
@@ -112,7 +111,6 @@ module GobiertoAdmin
         admin_attributes.password = password if password
         admin_attributes.authorization_level = authorization_level if authorization_level.present?
         admin_attributes.creation_ip = creation_ip
-        admin_attributes.api_token = api_token.presence
       end
 
       # Check changes

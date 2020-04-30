@@ -28,6 +28,7 @@ module User::ApiAuthenticationHelper
   end
 
   def token
-    @token = request.headers["Authorization"] || params["token"]
+    token_and_options = ActionController::HttpAuthentication::Token.token_and_options(request)
+    @token = token_and_options.present? ? token_and_options[0] : params["token"]
   end
 end

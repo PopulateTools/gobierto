@@ -6,7 +6,6 @@
         ref="inputText"
         v-model="labelValue"
         :placeholder="placeholder"
-        :disabled="!isSavingPromptVisible"
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
         @keydown.stop="onKeyDownTextHandler"
@@ -37,43 +36,59 @@
       />
     </template>
 
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <template v-if="isQueryModified">
+        <div class="gobierto-data-sql-editor-modified-label-container">
+          <span class="gobierto-data-sql-editor-modified-label">
+            {{ labelModifiedQuery }}
+          </span>
+        </div>
+      </template>
+    </transition>
+
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <template v-if="isQuerySaved">
+        <div class="gobierto-data-sql-editor-modified-label-container">
+          <span class="gobierto-data-sql-editor-modified-label">
+            {{ labelSavedQuery }}
+          </span>
+        </div>
+      </template>
+    </transition>
+
+
     <!-- show edit button if there's no prompt but some name, otherwise, save button -->
-    <template v-if="!isSavingPromptVisible && labelValue">
-      <Button
-        :text="labelEdit"
-        class="btn-sql-editor"
-        icon="edit"
-        color="var(--color-base)"
-        background="#fff"
-        @click.native="onClickEditHandler"
-      />
-    </template>
-    <template v-else>
-      <Button
-        :text="labelSave"
-        :style="
-          isSavingPromptVisible
-            ? 'color: #fff; background-color: var(--color-base)'
-            : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
-        "
-        :disabled="isSavingPromptVisible && !labelValue"
-        icon="save"
-        color="var(--color-base)"
-        background="#fff"
-        class="btn-sql-editor"
-        @click.native="onClickSaveHandler"
-      />
-    </template>
+    <Button
+      :text="labelSave"
+      :style="
+        isSavingPromptVisible
+          ? 'color: #fff; background-color: var(--color-base)'
+          : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
+      "
+      :disabled="!enabledSavedButton"
+      icon="save"
+      color="var(--color-base)"
+      background="#fff"
+      class="btn-sql-editor"
+      @click.native="onClickSaveHandler"
+    />
 
     <!-- only show cancel button on prompt visible -->
-    <template v-if="isSavingPromptVisible">
+    <template v-if="showRevertQuery">
       <Button
-        :text="labelCancel"
-        :icon="null"
-        class="btn-sql-editor btn-sql-editor-cancel"
+        :text="labelRevert"
+        :disabled="!enabledSavedButton"
+        icon="undo"
+        class="btn-sql-editor btn-sql-editor-revert"
         color="var(--color-base)"
         background="#fff"
-        @click.native="onClickCancelHandler"
+        @click.native="revertQueryHandler"
       />
     </template>
   </div>
@@ -97,50 +112,102 @@ export default {
       type: String,
       default: ''
     },
-    saveCallback: {
-      type: Function,
-      default: () => {}
+    labelSave: {
+      type: String,
+      default: ''
+    },
+    isQueryModified: {
+      type: Boolean,
+      default: false
+    },
+    isSavingPromptVisible: {
+      type: Boolean,
+      default: false
+    },
+    enabledSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    showRevertQuery: {
+      type: Boolean,
+      default: false
+    },
+    showPrivate: {
+      type: Boolean,
+      default: false
+    },
+    isQuerySaved: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       isPrivate: false,
-      isSavingPromptVisible: false,
       labelValue: this.value,
-      labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
-      labelEdit: I18n.t("gobierto_data.projects.edit") || ""
+      labelEdit: I18n.t("gobierto_data.projects.edit") || "",
+      labelRevert: I18n.t("gobierto_data.projects.revert") || "",
+      labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
+      labelSavedQuery: I18n.t("gobierto_data.projects.savedQuery") || ""
+    }
+  },
+  watch: {
+    value(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.labelValue = newValue
+      }
+    },
+    showPrivate(newValue) {
+      this.isPrivate = (newValue);
     }
   },
   methods: {
     onClickSaveHandler() {
+      const {
+        params: { queryId }
+      } = this.$route;
+
+      if (queryId) {
+        this.saveHandlerSavedQuery()
+      } else {
+        this.saveHandlerNewQuery()
+      }
+
+    },
+    saveHandlerSavedQuery() {
+      // the output is the content of the input plus the private flag
+      this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
+
+      this.$root.$emit('disabledSavedButton')
+      this.$root.$emit("resetToInitialState");
+      this.$root.$emit("isSavingPromptVisible", false);
+    },
+    saveHandlerNewQuery() {
       if (!this.isSavingPromptVisible) {
-        this.isSavingPromptVisible = true
+        this.$root.$emit("isSavingPromptVisible", true);
         this.$nextTick(() => this.$refs.inputText.focus());
       } else {
-        // the output is the content of the input plus the private flag
-        this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
-
-        this.isSavingPromptVisible = false
+        if (!this.labelValue) {
+          this.$nextTick(() => this.$refs.inputText.focus());
+        } else {
+          this.saveHandlerSavedQuery()
+        }
       }
-    },
-    onClickCancelHandler() {
-      this.labelValue = null
-      this.isSavingPromptVisible = false
-    },
-    onClickEditHandler() {
-      this.isSavingPromptVisible = true
-      this.$nextTick(() => this.$refs.inputText.focus());
     },
     onKeyDownTextHandler(event) {
       const { value } = event.target
       this.labelValue = value
+      this.$root.$emit('enableSavedButton')
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target
       this.isPrivate = checked
     },
+    revertQueryHandler() {
+      this.$root.$emit('revertSavedQuery', true)
+    }
   }
 }
 </script>

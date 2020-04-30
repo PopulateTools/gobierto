@@ -6,7 +6,7 @@
     <i
       v-if="icon"
       :class="'fa-' + icon"
-      style="color: inherit;"
+      style="color: inherit; margin: 0;"
       class="fas"
     />
     {{ text }}
@@ -20,7 +20,7 @@ export default {
   props: {
     text: {
       type: String,
-      required: true
+      default: ''
     },
     icon: {
       type: String,

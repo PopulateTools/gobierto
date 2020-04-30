@@ -122,7 +122,8 @@ export default {
 
         // update the query while typing
         this.$root.$emit("setCurrentQuery", value);
-      }, 250);
+        this.$root.$emit('enableSavedButton')
+      }, 50);
     },
     sendQuery() {
 

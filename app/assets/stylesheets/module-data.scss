@@ -335,7 +335,7 @@
       .gobierto-data-btn-download-data-modal {
         height: auto;
         display: block;
-        z-index: 1;
+        z-index: 3;
         min-width: 200px;
 
         &::after,
@@ -377,6 +377,8 @@
     }
 
     &.modal-right {
+      float: right;
+
       .gobierto-data-btn-download-data-modal {
         width: inherit;
         max-width: 125px;
@@ -467,7 +469,7 @@
   &-sql-editor-container {
     display: inline-block;
     position: relative;
-    margin-right: .5em;
+    margin-right: .25rem;
   }
 
   &-sql-editor-recent-queries {
@@ -547,6 +549,7 @@
       font-weight: 600;
       font-size: 14px;
       margin: 0;
+      vertical-align: top;
 
       &.isDisabled {
         opacity: .4;
@@ -613,7 +616,7 @@
       }
     }
 
-    .btn-sql-editor-cancel {
+    .btn-sql-editor-revert {
       margin-left: .5em;
     }
   }
@@ -646,13 +649,21 @@
   &-sql-editor-modified-label-container {
     display: inline-flex;
     align-items: center;
-    margin-left: .5em;
+    margin: 0 .5rem 0 .25rem;
   }
 
-  &-sql-editor-modified-label {
+  &-sql-editor-modified-label,
+  &-sql-editor-modified-event {
     font-size: 14px;
     color: #666;
     opacity: .5;
+  }
+
+  &-sql-editor-modified-event {
+    text-transform: lowercase;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0 .25rem;
   }
 
   &-sql-editor-footer-records,

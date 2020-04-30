@@ -27,7 +27,7 @@ export const router = new VueRouter({
       }, {
         path: ":id/q/:queryId?",
         component: Dataset,
-        name: 'Dataset',
+        name: 'Query',
         props: { activeDatasetTab: 1 }
       }]
     }],

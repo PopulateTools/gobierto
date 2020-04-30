@@ -105,24 +105,36 @@ export default {
     // metaKey + keyUp doesn't work with MacOS
     // https://stackoverflow.com/questions/11818637/why-does-javascript-drop-keyup-events-when-the-metakey-is-pressed-on-mac-browser
     this.editor.on("keydown", this.onKeyDown);
+    // This event detects any changes in the editor
+    this.editor.on("change", this.onChange);
+    // We need this event to enable autocomplete(hint)
+    this.editor.on("keyup", this.onKeyUp);
   },
   methods: {
+    onKeyUp(editor, e) {
+      const {
+        state: {
+          completionActive: isEditorActive
+        }
+      } = editor
+
+      /* Enables keyboard navigation in autocomplete list */
+      if (!isEditorActive && e.keyCode != 13) {
+        editor.showHint()
+      }
+    },
+    onChange(editor) {
+      this.mergeTables();
+      const value = editor.getValue();
+      this.$root.$emit("setCurrentQuery", value);
+      this.$root.$emit('enableSavedButton')
+    },
     onKeyDown(editor, e) {
       this.mergeTables();
       // keyUp event to stop "c|r" open modals, but allow ctrl+enter (or cmd+enter) to run query
       if (!((e.keyCode == 10 || e.keyCode == 13) && (e.ctrlKey || e.metaKey))) {
         e.stopPropagation();
       }
-
-      // keydown needs to wait a little to update the value
-      setTimeout(() => {
-        editor.showHint();
-        const value = editor.getValue();
-
-        // update the query while typing
-        this.$root.$emit("setCurrentQuery", value);
-        this.$root.$emit('enableSavedButton')
-      }, 50);
     },
     mergeTables() {
       const sizeArrayColumns = Object.keys(this.arrayColumns);

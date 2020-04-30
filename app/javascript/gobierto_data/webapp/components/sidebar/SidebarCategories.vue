@@ -30,12 +30,12 @@
           </template>
           <div>
             <Checkbox
-              v-for="option in filter.options"
-              :id="option.id"
-              :key="option.id"
-              :title="option.title"
-              :checked="option.isOptionChecked"
-              :counter="option.counter"
+              v-for="{ id, title, isOptionChecked, counter } in filteredOptions(filter)"
+              :id="id"
+              :key="id"
+              :title="title"
+              :checked="isOptionChecked"
+              :counter="counter"
               @checkbox-change="e => sendCheckboxStatus_TEMP({ ...e, filter })"
             />
           </div>
@@ -66,11 +66,11 @@ export default {
   },
   data() {
     return {
-      labelSets:  I18n.t("gobierto_data.projects.sets") || '',
-      labelQueries:  I18n.t("gobierto_data.projects.queries") || '',
-      labelCategories:  I18n.t("gobierto_data.projects.categories") || '',
-      labelAll:  I18n.t("gobierto_common.vue_components.block_header.all") || '',
-      labelNone:  I18n.t("gobierto_common.vue_components.block_header.none") || ''
+      labelSets: I18n.t("gobierto_data.projects.sets") || '',
+      labelQueries: I18n.t("gobierto_data.projects.queries") || '',
+      labelCategories: I18n.t("gobierto_data.projects.categories") || '',
+      labelAll: I18n.t("gobierto_common.vue_components.block_header.all") || '',
+      labelNone: I18n.t("gobierto_common.vue_components.block_header.none") || ''
     }
   },
   computed: {
@@ -92,6 +92,9 @@ export default {
     },
     selectAllCheckbox_TEMP({ filter }) {
       this.$root.$emit("selectAll_TEMP", { filter })
+    },
+    filteredOptions(filter) {
+      return filter.options.filter(({ counter: element = 0 }) => element > 0 );
     }
   }
 };

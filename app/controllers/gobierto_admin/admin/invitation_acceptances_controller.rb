@@ -1,6 +1,6 @@
 module GobiertoAdmin
   class Admin::InvitationAcceptancesController < BaseController
-    skip_before_action :authenticate_admin!
+    skip_before_action :authenticate_admin!, raise: false
     before_action :require_no_authentication
 
     layout "gobierto_admin/layouts/sessions"

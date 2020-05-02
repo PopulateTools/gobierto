@@ -1,6 +1,6 @@
 RailsPerformance.setup do |config|
   config.redis    = Redis::Namespace.new("#{Rails.env}-rails-performance", redis: Redis.new)
-  config.duration = 48.hours
+  config.duration = 1.month
 
   config.debug    = false
   config.enabled  = ENV["RAILS_PERFORMANCE_ENABLED"]

@@ -129,16 +129,17 @@ export default {
         ch: cursorPosition
       } = cursorObject;
 
-      // Enables keyboard navigation in autocomplete list
+      // Enables keyboard navigation in autocomplete list when editor is active, user dont press return and cu
       if (!isEditorActive && e.keyCode != 13 && cursorPosition !== 0) {
         editor.showHint()
       }
+
+      this.$root.$emit('enableSavedButton')
     },
     onChange(editor) {
       this.mergeTables();
       const value = editor.getValue();
       this.$root.$emit("setCurrentQuery", value);
-      this.$root.$emit('enableSavedButton')
     },
     onKeyDown(editor, e) {
       // keyUp event to stop "c|r" open modals, but allow ctrl+enter (or cmd+enter) to run query
@@ -155,11 +156,11 @@ export default {
           text: sizeArrayColumns[i]
         };
       }
-
       this.autoCompleteKeys = [
-        ...this.autoCompleteKeys,
-        ...this.tableNameAutocomplete,
-        { className: "dataset",
+        ...this.arrayMutated,
+        ...this.sqlAutocomplete,
+        {
+          className: "dataset",
           text: this.tableName
       }];
     },

@@ -353,8 +353,6 @@ export default {
         } = {}
       } = getSavedQuery
 
-      //QueryDefault: users can reset to the initial Query
-      this.queryDefault = `SELECT * FROM ${this.tableName} LIMIT 50`;
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert
     },
@@ -493,6 +491,7 @@ export default {
         this.queryDuration = new Date().getTime() - startTime;
         this.isQueryRunning = false;
         this.getColumnsQuery(this.items)
+        this.queryError = null
       } catch (error) {
         const {
           response: {

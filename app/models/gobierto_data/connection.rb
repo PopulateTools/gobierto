@@ -78,14 +78,11 @@ module GobiertoData
       private
 
       def with_connection(db_conf, fallback: nil, connection_key: :read_db_config)
-        base_connection_config = connection_config
         return fallback if db_conf.nil?
 
         db_conf = db_conf[connection_key] if db_conf.has_key?(connection_key)
         establish_connection(db_conf)
         yield
-      ensure
-        establish_connection(base_connection_config)
       end
 
       def connection_key_from_options(write, include_draft)

@@ -109,7 +109,15 @@ module GobiertoAdmin
           raise StatusMissing, row_decorator.to_csv if row_decorator.status_missing
 
           save_custom_fields(row_decorator)
+          set_publication(node)
         end
+      end
+
+      def set_publication(node)
+        return unless @plan.publish_last_version_automatically?
+
+        node.published!
+        node.update_attribute(:published_version, node.versions.count)
       end
 
       def save_custom_fields(row_decorator)

@@ -8,7 +8,7 @@ module GobiertoData
 
     class << self
 
-      def execute_query(site, query, include_stats: true, write: false, include_draft: false)
+      def execute_query(site, query, include_stats: false, write: false, include_draft: false)
         with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(write, include_draft)) do
           connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if write
           connection.execute("SET search_path TO draft, public") if write || include_draft
@@ -23,6 +23,8 @@ module GobiertoData
           end
 
           execution = connection.execute(query) || null_query
+
+          return execution unless include_stats
 
           {
             result: execution,

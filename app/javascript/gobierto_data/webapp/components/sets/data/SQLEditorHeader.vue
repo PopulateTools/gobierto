@@ -67,7 +67,9 @@
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
       :is-saving-prompt-visible="isSavingPromptVisible"
+      :is-fork-prompt-visible="isForkPromptVisible"
       :enabled-saved-button="enabledSavedButton"
+      :enabled-fork-button="enabledForkButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       @save="onSaveEventHandler"
@@ -127,6 +129,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isForkPromptVisible: {
+      type: Boolean,
+      default: true
+    },
     isQueryModified: {
       type: Boolean,
       default: false
@@ -148,6 +154,10 @@ export default {
       default: false
     },
     isQuerySaved: {
+      type: Boolean,
+      default: false
+    },
+    enabledForkButton: {
       type: Boolean,
       default: false
     }

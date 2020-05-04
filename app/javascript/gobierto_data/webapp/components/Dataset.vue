@@ -50,11 +50,13 @@
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
       :is-saving-prompt-visible="isSavingPromptVisible"
+      :is-fork-prompt-visible="isForkPromptVisible"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-duration="queryDuration"
       :query-error="queryError"
       :enabled-saved-button="enabledSavedButton"
+      :enabled-fork-button="enabledForkButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       :table-name="tableName"
@@ -140,6 +142,7 @@ export default {
       isQueryModified: false,
       isQuerySaved: false,
       isSavingPromptVisible: false,
+      isForkPromptVisible: true,
       showPrivate: false,
       tableName: '',
       resetQueryDefault: false,
@@ -148,7 +151,8 @@ export default {
       showRevertQuery: false,
       queryName: null,
       queryDuration: 0,
-      queryError: null
+      queryError: null,
+      enabledForkButton: false
     };
   },
   computed: {
@@ -180,7 +184,6 @@ export default {
         this.runCurrentQuery()
         this.disabledStringSavedQuery()
       }
-
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -241,6 +244,7 @@ export default {
       queriesPromises
     );
     this.setPublicQueries(publicResponse);
+    this.QueryIsNotMine()
 
     // Only update data if there's any response
     if (privateResponse) {
@@ -290,6 +294,8 @@ export default {
     this.$root.$on('disabledStringSavedQuery', this.disabledStringSavedQuery)
 
     this.$root.$on('isSavingPromptVisible', this.isSavingPromptVisibleHandler)
+
+    this.$root.$on('disabledForkButton', this.disabledForkButton)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -304,6 +310,7 @@ export default {
     this.$root.$off('disabledSavedButton')
     this.$root.$off('disabledStringSavedQuery')
     this.$root.$off('isSavingPromptVisible')
+    this.$root.$off('disabledForkButton')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -332,6 +339,7 @@ export default {
     },
     setDefaultQuery() {
       const userId = getUserId();
+
       const {
         params: { queryId }
       } = this.$route;
@@ -605,6 +613,33 @@ export default {
     },
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value
+    },
+    QueryIsNotMine() {
+      const userId = Number(getUserId());
+
+      const {
+        params: { queryId }
+      } = this.$route;
+
+      let items = this.publicQueries;
+
+      //Find which query is loaded
+      const getSavedQuery = items.find(({ id }) => id === queryId) || {}
+
+      //Find the user has created the query
+      const {
+        attributes: {
+          user_id: checkUserId
+        } = {}
+      } = getSavedQuery
+
+      //Check if the user who loaded the query is the same user who created the query
+      if (userId !== checkUserId) {
+        this.isForkPromptVisible = true
+      }
+    },
+    disabledForkButton() {
+      this.enabledForkButton = false
     }
   },
 };

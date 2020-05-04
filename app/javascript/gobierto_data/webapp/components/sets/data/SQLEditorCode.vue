@@ -50,6 +50,10 @@ export default {
     queryError: {
       type: String,
       default: null
+    },
+    tableName: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -59,7 +63,8 @@ export default {
       labelRecords: I18n.t("gobierto_data.projects.records") || "",
       sqlAutocomplete: sqlKeywords,
       arrayMutated: [],
-      autoCompleteKeys: []
+      autoCompleteKeys: [],
+      tableNameAutocomplete: []
     };
   },
   computed: {
@@ -118,8 +123,14 @@ export default {
         }
       } = editor
 
-      /* Enables keyboard navigation in autocomplete list */
-      if (!isEditorActive && e.keyCode != 13) {
+      // Get position cursor to disable hint in cursor position
+      const cursorObject = editor.getCursor();
+      const {
+        ch: cursorPosition
+      } = cursorObject;
+
+      // Enables keyboard navigation in autocomplete list
+      if (!isEditorActive && e.keyCode != 13 && cursorPosition !== 0) {
         editor.showHint()
       }
     },
@@ -145,7 +156,13 @@ export default {
           text: sizeArrayColumns[i]
         };
       }
-      this.autoCompleteKeys = [...this.arrayMutated, ...this.sqlAutocomplete];
+
+      this.autoCompleteKeys = [
+        ...this.autoCompleteKeys,
+        ...this.tableNameAutocomplete,
+        { className: "dataset",
+          text: this.tableName
+      }];
     },
     setEditorValue(newCode) {
       const pos = this.editor.getCursor();

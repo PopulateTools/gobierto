@@ -19,6 +19,7 @@
         :query-stored="queryStored"
         :query-duration="queryDuration"
         :query-error="queryError"
+        :table-name="tableName"
       />
       <SQLEditorResults
         v-if="items.length"
@@ -114,6 +115,10 @@ export default {
     isQuerySaved: {
       type: Boolean,
       default: false
+    },
+    tableName: {
+      type: String,
+      default: ''
     }
   }
 }

@@ -57,6 +57,7 @@
       :enabled-saved-button="enabledSavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
+      :table-name="tableName"
     />
 
     <QueriesTab
@@ -140,6 +141,7 @@ export default {
       isQuerySaved: false,
       isSavingPromptVisible: false,
       showPrivate: false,
+      tableName: '',
       resetQueryDefault: false,
       revertQuerySaved: false,
       enabledSavedButton: false,

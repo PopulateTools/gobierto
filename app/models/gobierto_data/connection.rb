@@ -10,8 +10,8 @@ module GobiertoData
 
       def execute_query(site, query, include_stats: false, write: false, include_draft: false)
         with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(write, include_draft)) do
-          connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if write
-          connection.execute("SET search_path TO draft, public") if write || include_draft
+          connection_pool.connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if write
+          connection_pool.connection.execute("SET search_path TO draft, public") if write || include_draft
 
           event = nil
           if include_stats
@@ -22,7 +22,7 @@ module GobiertoData
             end
           end
 
-          execution = connection.execute(query) || null_query
+          execution = connection_pool.connection.execute(query) || null_query
 
           return execution unless include_stats
 
@@ -41,9 +41,9 @@ module GobiertoData
         return unless file_path.present?
 
         with_connection(db_config(site), fallback: null_query, connection_key: :write_db_config) do
-          connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if include_draft
+          connection_pool.connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if include_draft
 
-          raw_connection = connection.raw_connection
+          raw_connection = connection_pool.connection.raw_connection
 
           execution = raw_connection.copy_data(query) do
             File.open(file_path, "r").each do |line|
@@ -60,8 +60,8 @@ module GobiertoData
 
       def tables(site, include_draft: false)
         with_connection(db_config(site), connection_key: connection_key_from_options(false, include_draft)) do
-          connection.execute("SET search_path TO draft, public") if include_draft
-          connection.tables
+          connection_pool.connection.execute("SET search_path TO draft, public") if include_draft
+          connection_pool.connection.tables
         end
       end
 
@@ -71,7 +71,7 @@ module GobiertoData
 
       def test_connection_config(config, connection_key = :read_db_config)
         with_connection(config&.with_indifferent_access, connection_key: connection_key) do
-          connection.present?
+          connection_pool.connection.present?
         end
       end
 

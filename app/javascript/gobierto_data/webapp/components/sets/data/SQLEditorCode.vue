@@ -155,8 +155,13 @@ export default {
           text: sizeArrayColumns[i]
         };
       }
-      this.autoCompleteKeys = [...this.arrayMutated, ...this.sqlAutocomplete];
-      this.autoCompleteKeys = [...this.autoCompleteKeys, ...this.tableNameAutocomplete, { className: "dataset", text: this.tableName }];
+
+      this.autoCompleteKeys = [
+        ...this.autoCompleteKeys,
+        ...this.tableNameAutocomplete,
+        { className: "dataset",
+          text: this.tableName
+      }];
     },
     setEditorValue(newCode) {
       const pos = this.editor.getCursor();

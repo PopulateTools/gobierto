@@ -51,6 +51,7 @@ module GobiertoData
               end
             end
           end
+        end
 
         def execute_query(sql, include_stats: false)
           GobiertoData::Connection.execute_query(current_site, Arel.sql(sql), include_stats: include_stats, include_draft: valid_preview_token?)

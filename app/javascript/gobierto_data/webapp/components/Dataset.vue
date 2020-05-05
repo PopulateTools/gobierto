@@ -132,7 +132,6 @@ export default {
       resourcesList: [],
       arrayColumnsQuery: [],
       currentQuery: null,
-      queryDefault: null,
       queryRevert: null,
       items: "",
       isQueryRunning: false,
@@ -186,12 +185,7 @@ export default {
       name: nameComponent
     } = to;
     next(vm => {
-      if (nameComponent === 'Query') {
-        vm.showRevertQuery = true
-      } else {
-        vm.showRevertQuery = false
-      }
-
+      vm.showRevertQuery = (nameComponent === 'Query')
     })
   },
   async created() {
@@ -342,16 +336,9 @@ export default {
         items = this.publicQueries
       }
 
-      //Find the query
-      const getSavedQuery = items.find(({ id }) => id === queryId) || {}
-
       //We need to keep this query separate from the editor query
       //When load a saved query we use the queryId to find inside privateQueries or publicQueries
-      const {
-        attributes: {
-          sql: queryRevert
-        } = {}
-      } = getSavedQuery
+      const { attributes: { sql: queryRevert } = {} } = items.find(({ id }) => id === queryId) || {}
 
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert

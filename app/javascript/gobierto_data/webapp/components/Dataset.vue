@@ -635,6 +635,9 @@ export default {
       if (userId !== checkUserId && nameComponent === 'Query') {
         this.enabledForkButton = true
         this.isForkPromptVisible = false
+      } else {
+        this.disabledForkButton()
+        this.enabledForkPrompt()
       }
     },
     disabledForkButton() {

@@ -593,6 +593,7 @@ export default {
     },
     activatedSavedButton() {
       this.enabledSavedButton = true
+      this.isQueryModified = true
       const {
         name: name
       } = this.$route;

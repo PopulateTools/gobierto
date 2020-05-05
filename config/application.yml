@@ -38,6 +38,9 @@ default: &default
     -
       name: Gobierto Data
       namespace: GobiertoData
+    -
+      name: Gobierto Dashboards
+      namespace: GobiertoDashboards
   site_modules_with_root_path:
     -
       name: Gobierto Budgets
@@ -66,6 +69,9 @@ default: &default
     -
       name: Gobierto Data
       namespace: GobiertoData
+    -
+      name: Gobierto Dashboards
+      namespace: GobiertoDashboards
   dns_config:
     cname_record_target: site.gobierto.test
     a_record_target: 222.111.222.11

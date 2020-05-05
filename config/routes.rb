@@ -248,6 +248,10 @@ Rails.application.routes.draw do
           resource :settings, only: [:edit, :update], path: :settings
         end
       end
+
+      namespace :gobierto_dashboards, as: :dashboards do
+        get "options" => "options#index"
+      end
     end
 
     # User module
@@ -601,6 +605,15 @@ Rails.application.routes.draw do
             end
           end
         end
+      end
+    end
+
+    namespace :gobierto_dashboards, path: 'dashboards' do
+      constraints GobiertoSiteConstraint.new do
+        get "dashboards" => "dashboards#index", as: :root
+
+        get "contracts" => "dashboards#contracts"
+        get "tenders" => "dashboards#tenders"
       end
     end
 

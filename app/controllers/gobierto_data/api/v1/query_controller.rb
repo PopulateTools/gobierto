@@ -10,7 +10,7 @@ module GobiertoData
         # GET /api/v1/data.csv?sql=SELECT%20%2A%20FROM%20table_name
         # GET /api/v1/data.xlsx?sql=SELECT%20%2A%20FROM%20table_name
         def index
-          query_result = execute_query(params[:sql] || {}, include_stats: request.format.json? )
+          query_result = execute_query(params[:sql] || {}, include_stats: request.format.json?)
 
           if query_result.is_a?(Hash) && query_result.has_key?(:errors)
             render json: query_result, status: :bad_request, adapter: :json_api

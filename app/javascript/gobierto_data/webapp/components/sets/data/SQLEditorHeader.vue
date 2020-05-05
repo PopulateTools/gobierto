@@ -181,7 +181,6 @@ export default {
   created() {
     // it has to be the same event (keydown) as SQLEditorCode
     document.addEventListener("keydown", this.keyboardShortcutsListener);
-    this.countInputCharacters()
   },
   beforeDestroy() {
     this.removeKeyboardListener()
@@ -241,9 +240,6 @@ export default {
       //Avoid errors when user goes to the same route
       // eslint-disable-next-line no-unused-vars
       ).catch(err => {})
-    },
-    countInputCharacters() {
-
     }
   },
 };

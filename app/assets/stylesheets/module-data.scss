@@ -582,6 +582,7 @@
       border-radius: 3px;
       display: inline-block;
       padding: .25rem;
+      transition: width var(--transition);
 
       &.disable-input-text {
         border-color: #f9f9f9;

@@ -187,6 +187,7 @@ export default {
     value(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.labelValue = newValue
+        this.countInputCharacters(newValue)
       }
     },
     showPrivate(newValue) {
@@ -230,6 +231,7 @@ export default {
       const { value } = event.target
       this.labelValue = value
       this.$root.$emit('enableSavedButton')
+      this.countInputCharacters(value)
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target
@@ -239,8 +241,24 @@ export default {
       this.$root.$emit('revertSavedQuery', true)
     },
     onClickForkHandler() {
-      this.$nextTick(() => this.$refs.inputText.focus());
+      this.$nextTick(() => {
+        this.$refs.inputText.focus()
+        this.$refs.inputText.select()
+      });
       this.$root.$emit('disabledForkButton')
+    },
+    countInputCharacters(label = {}) {
+      const inputValueSplit = [...label]
+      const inputValueLength = inputValueSplit.length
+
+      if (inputValueLength > 25 && inputValueLength < 50) {
+        const newWidth = inputValueLength * 7.5
+        this.$nextTick(() => this.$refs.inputText.style.width = `${newWidth}px`);
+      } else if (inputValueLength >= 50) {
+        this.$nextTick(() => this.$refs.inputText.style.width = '369.5px');
+      } else {
+        this.$nextTick(() => this.$refs.inputText.style.width = '200px');
+      }
     }
   }
 }

@@ -260,8 +260,9 @@ export default {
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
 
+    this.QueryIsNotMine();
     this.runCurrentQuery();
-    this.setDefaultQuery()
+    this.setDefaultQuery();
 
   },
   mounted() {
@@ -296,6 +297,8 @@ export default {
     this.$root.$on('isSavingPromptVisible', this.isSavingPromptVisibleHandler)
 
     this.$root.$on('disabledForkButton', this.disabledForkButton)
+
+    this.$root.$on('enabledForkPrompt', this.enabledForkPrompt)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -311,6 +314,7 @@ export default {
     this.$root.$off('disabledStringSavedQuery')
     this.$root.$off('isSavingPromptVisible')
     this.$root.$off('disabledForkButton')
+    this.$root.$off('enabledForkPrompt')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -618,30 +622,26 @@ export default {
       const userId = Number(getUserId());
 
       const {
-        params: { queryId }
+        params: { queryId },
+        name: nameComponent
       } = this.$route;
 
       let items = this.publicQueries;
 
       //Find which query is loaded
-      const getSavedQuery = items.find(({ id }) => id === queryId) || {}
-
-      //Find the user has created the query
-      const {
-        attributes: {
-          user_id: checkUserId
-        } = {}
-      } = getSavedQuery
+      const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
 
       //Check if the user who loaded the query is the same user who created the query
-      if (userId !== checkUserId) {
+      if (userId !== checkUserId && nameComponent === 'Query') {
         this.enabledForkButton = true
-        //TODO if yes: hide all buttons and check
-        // this.isForkPromptVisible = true
+        this.isForkPromptVisible = false
       }
     },
     disabledForkButton() {
       this.enabledForkButton = false
+    },
+    enabledForkPrompt() {
+      this.isForkPromptVisible = true
     }
   },
 };

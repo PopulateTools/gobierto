@@ -99,7 +99,7 @@ gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 gem "rubyXL"
 
 # Performance
-gem "rails_performance"
+gem "appsignal"
 
 group :development, :test do
   gem "byebug", platform: :mri

@@ -84,6 +84,7 @@
       <Button
         v-if="enabledForkButton"
         :text="labelFork"
+        :title="labelButtonFork"
         :style="
           isSavingPromptVisible
             ? 'color: #fff; background-color: var(--color-base)'
@@ -178,6 +179,7 @@ export default {
       labelRevert: I18n.t("gobierto_data.projects.revert") || "",
       labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
       labelSavedQuery: I18n.t("gobierto_data.projects.savedQuery") || "",
+      labelButtonFork: I18n.t("gobierto_data.projects.buttonFork") || "",
       labelFork: I18n.t("gobierto_data.projects.fork") || ""
     }
   },

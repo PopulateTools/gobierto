@@ -171,10 +171,8 @@ export default {
       labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
-      labelButtonRecentQueries:
-        I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
-      labelButtonRunQuery:
-        I18n.t("gobierto_data.projects.buttonRunQuery") || "",
+      labelButtonRecentQueries: I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
+      labelButtonRunQuery: I18n.t("gobierto_data.projects.buttonRunQuery") || "",
       removeLabelBtn: false,
       isQueriesModalActive: false,
       isRecentModalActive: false
@@ -183,6 +181,7 @@ export default {
   created() {
     // it has to be the same event (keydown) as SQLEditorCode
     document.addEventListener("keydown", this.keyboardShortcutsListener);
+    this.countInputCharacters()
   },
   beforeDestroy() {
     this.removeKeyboardListener()
@@ -242,6 +241,9 @@ export default {
       //Avoid errors when user goes to the same route
       // eslint-disable-next-line no-unused-vars
       ).catch(err => {})
+    },
+    countInputCharacters() {
+
     }
   },
 };

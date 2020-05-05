@@ -24,6 +24,7 @@ es:
       all: Todas
       analysis: Análisis
       api: API
+      buttonFork: Haz click para crear una versión de esta consulta
       buttonQueries: Ver consultas (c)
       buttonRecentQueries: Ver consultas recientes (r)
       buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)

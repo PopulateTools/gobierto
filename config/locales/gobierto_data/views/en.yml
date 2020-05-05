@@ -24,6 +24,7 @@ en:
       all: All
       analysis: Analysis
       api: API
+      buttonFork: Click to create your own version of this query
       buttonQueries: See queries (r)
       buttonRecentQueries: See recent queries (r)
       buttonRunQuery: Run query (CMD/WIN + Enter)

@@ -24,6 +24,7 @@ ca:
       all: Totes
       analysis: Anàlisi
       api: API
+      buttonFork: Feu clic per crear una versió d'aquesta consulta
       buttonQueries: Vegeu consultes (c)
       buttonRecentQueries: Vegeu consultes recents (r)
       buttonRunQuery: Executeu consulta (CMD/WIN + Enter)

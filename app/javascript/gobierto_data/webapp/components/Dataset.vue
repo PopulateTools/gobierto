@@ -176,6 +176,7 @@ export default {
         this.disabledSavedButton()
         this.isQueryModified = false;
         this.setDefaultQuery()
+        this.QueryIsNotMine()
       }
 
       //FIXME: Hugo, we need to talk about this hack
@@ -244,7 +245,6 @@ export default {
       queriesPromises
     );
     this.setPublicQueries(publicResponse);
-    this.QueryIsNotMine()
 
     // Only update data if there's any response
     if (privateResponse) {
@@ -635,7 +635,9 @@ export default {
 
       //Check if the user who loaded the query is the same user who created the query
       if (userId !== checkUserId) {
-        this.isForkPromptVisible = true
+        this.enabledForkButton = true
+        //TODO if yes: hide all buttons and check
+        // this.isForkPromptVisible = true
       }
     },
     disabledForkButton() {

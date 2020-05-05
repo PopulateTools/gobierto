@@ -2,7 +2,7 @@ Description:
     Generator to start a new gobierto module
 
 Example:
-    rails generate gobierto_module GobiertoData
+    rails generate gobierto_module GobiertoTest
 
     This will do:
         insert  config/application.yml

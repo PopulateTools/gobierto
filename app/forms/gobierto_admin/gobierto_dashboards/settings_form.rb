@@ -62,7 +62,7 @@ module GobiertoAdmin
         return if dashboards_config.blank?
         return if not valid_dashboards_config_format?
 
-        if parsed_dashboards_config['dashboards'].blank?
+        if not parsed_dashboards_config.has_key?('dashboards')
           errors.add :dashboards_config, :invalid_values
         end
 
@@ -80,6 +80,7 @@ module GobiertoAdmin
 
       def valid_dashboards_config_format?
         parsed_dashboards_config
+        true
       rescue JSON::ParserError
         false
       end

@@ -13,83 +13,103 @@
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="isSavingPromptVisible">
-      <label
-        :for="labelPrivate"
-        class="gobierto-data-sql-editor-container-save-label"
-      >
-        <input
-          :id="labelPrivate"
-          :checked="isPrivate"
-          type="checkbox"
-          @input="onInputCheckboxHandler"
+    <template v-if="isForkPromptVisible">
+      <template v-if="isSavingPromptVisible">
+        <label
+          :for="labelPrivate"
+          class="gobierto-data-sql-editor-container-save-label"
         >
-        {{ labelPrivate }}
-      </label>
-    </template>
-
-    <!-- only show if label name is set OR the prompt is visible -->
-    <template v-if="isSavingPromptVisible || labelValue">
-      <PrivateIcon
-        :is-closed="isPrivate"
-        :style="{ paddingRight: '.5em', margin: 0 }"
-      />
-    </template>
-
-    <transition
-      name="fade"
-      mode="out-in"
-    >
-      <template v-if="isQueryModified">
-        <div class="gobierto-data-sql-editor-modified-label-container">
-          <span class="gobierto-data-sql-editor-modified-label">
-            {{ labelModifiedQuery }}
-          </span>
-        </div>
+          <input
+            :id="labelPrivate"
+            :checked="isPrivate"
+            type="checkbox"
+            @input="onInputCheckboxHandler"
+          >
+          {{ labelPrivate }}
+        </label>
       </template>
-    </transition>
 
-    <transition
-      name="fade"
-      mode="out-in"
-    >
-      <template v-if="isQuerySaved">
-        <div class="gobierto-data-sql-editor-modified-label-container">
-          <span class="gobierto-data-sql-editor-modified-label">
-            {{ labelSavedQuery }}
-          </span>
-        </div>
+      <!-- only show if label name is set OR the prompt is visible -->
+      <template v-if="isSavingPromptVisible || labelValue">
+        <PrivateIcon
+          :is-closed="isPrivate"
+          :style="{ paddingRight: '.5em', margin: 0 }"
+        />
       </template>
-    </transition>
+
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <template v-if="isQueryModified">
+          <div class="gobierto-data-sql-editor-modified-label-container">
+            <span class="gobierto-data-sql-editor-modified-label">
+              {{ labelModifiedQuery }}
+            </span>
+          </div>
+        </template>
+      </transition>
+
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <template v-if="isQuerySaved">
+          <div class="gobierto-data-sql-editor-modified-label-container">
+            <span class="gobierto-data-sql-editor-modified-label">
+              {{ labelSavedQuery }}
+            </span>
+          </div>
+        </template>
+      </transition>
 
 
-    <!-- show edit button if there's no prompt but some name, otherwise, save button -->
-    <Button
-      :text="labelSave"
-      :style="
-        isSavingPromptVisible
-          ? 'color: #fff; background-color: var(--color-base)'
-          : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
-      "
-      :disabled="!enabledSavedButton"
-      icon="save"
-      color="var(--color-base)"
-      background="#fff"
-      class="btn-sql-editor"
-      @click.native="onClickSaveHandler"
-    />
-
-    <!-- only show cancel button on prompt visible -->
-    <template v-if="showRevertQuery">
+      <!-- show edit button if there's no prompt but some name, otherwise, save button -->
       <Button
-        :text="labelRevert"
+        v-if="!enabledForkButton"
+        :text="labelSave"
+        :style="
+          isSavingPromptVisible
+            ? 'color: #fff; background-color: var(--color-base)'
+            : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
+        "
         :disabled="!enabledSavedButton"
-        icon="undo"
-        class="btn-sql-editor btn-sql-editor-revert"
+        icon="save"
         color="var(--color-base)"
         background="#fff"
-        @click.native="revertQueryHandler"
+        class="btn-sql-editor"
+        @click.native="onClickSaveHandler"
       />
+
+      <Button
+        v-if="enabledForkButton"
+        :text="labelFork"
+        :title="labelButtonFork"
+        :style="
+          isSavingPromptVisible
+            ? 'color: #fff; background-color: var(--color-base)'
+            : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
+        "
+        :disabled="!enabledSavedButton"
+        icon="code-branch"
+        color="var(--color-base)"
+        background="#fff"
+        class="btn-sql-editor"
+        @click.native="onClickForkHandler"
+      />
+
+      <!-- only show cancel button on prompt visible -->
+      <template v-if="showRevertQuery">
+        <Button
+          :text="labelRevert"
+          :disabled="!enabledSavedButton"
+          icon="undo"
+          class="btn-sql-editor btn-sql-editor-revert"
+          color="var(--color-base)"
+          background="#fff"
+          @click.native="revertQueryHandler"
+        />
+      </template>
     </template>
   </div>
 </template>
@@ -124,7 +144,15 @@ export default {
       type: Boolean,
       default: false
     },
+    isForkPromptVisible: {
+      type: Boolean,
+      default: true
+    },
     enabledSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    enabledForkButton: {
       type: Boolean,
       default: false
     },
@@ -150,13 +178,16 @@ export default {
       labelEdit: I18n.t("gobierto_data.projects.edit") || "",
       labelRevert: I18n.t("gobierto_data.projects.revert") || "",
       labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
-      labelSavedQuery: I18n.t("gobierto_data.projects.savedQuery") || ""
+      labelSavedQuery: I18n.t("gobierto_data.projects.savedQuery") || "",
+      labelButtonFork: I18n.t("gobierto_data.projects.buttonFork") || "",
+      labelFork: I18n.t("gobierto_data.projects.fork") || ""
     }
   },
   watch: {
     value(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.labelValue = newValue
+        this.countInputCharacters(newValue)
       }
     },
     showPrivate(newValue) {
@@ -200,6 +231,7 @@ export default {
       const { value } = event.target
       this.labelValue = value
       this.$root.$emit('enableSavedButton')
+      this.countInputCharacters(value)
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target
@@ -207,6 +239,26 @@ export default {
     },
     revertQueryHandler() {
       this.$root.$emit('revertSavedQuery', true)
+    },
+    onClickForkHandler() {
+      this.$nextTick(() => {
+        this.$refs.inputText.focus()
+        this.$refs.inputText.select()
+      });
+      this.$root.$emit('disabledForkButton')
+    },
+    countInputCharacters(label = {}) {
+      const inputValueSplit = [...label]
+      const inputValueLength = inputValueSplit.length
+
+      if (inputValueLength > 25 && inputValueLength < 50) {
+        const newWidth = inputValueLength * 7.5
+        this.$nextTick(() => this.$refs.inputText.style.width = `${newWidth}px`);
+      } else if (inputValueLength >= 50) {
+        this.$nextTick(() => this.$refs.inputText.style.width = '369.5px');
+      } else {
+        this.$nextTick(() => this.$refs.inputText.style.width = '200px');
+      }
     }
   }
 }

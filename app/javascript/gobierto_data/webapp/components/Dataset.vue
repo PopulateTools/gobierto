@@ -50,11 +50,13 @@
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
       :is-saving-prompt-visible="isSavingPromptVisible"
+      :is-fork-prompt-visible="isForkPromptVisible"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-duration="queryDuration"
       :query-error="queryError"
       :enabled-saved-button="enabledSavedButton"
+      :enabled-fork-button="enabledForkButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       :table-name="tableName"
@@ -139,6 +141,7 @@ export default {
       isQueryModified: false,
       isQuerySaved: false,
       isSavingPromptVisible: false,
+      isForkPromptVisible: true,
       showPrivate: false,
       tableName: '',
       resetQueryDefault: false,
@@ -147,7 +150,8 @@ export default {
       showRevertQuery: false,
       queryName: null,
       queryDuration: 0,
-      queryError: null
+      queryError: null,
+      enabledForkButton: false
     };
   },
   computed: {
@@ -171,6 +175,7 @@ export default {
         this.disabledSavedButton()
         this.isQueryModified = false;
         this.setDefaultQuery()
+        this.QueryIsNotMine()
       }
 
       //FIXME: Hugo, we need to talk about this hack
@@ -179,7 +184,6 @@ export default {
         this.runCurrentQuery()
         this.disabledStringSavedQuery()
       }
-
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -250,8 +254,9 @@ export default {
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
 
+    this.QueryIsNotMine();
     this.runCurrentQuery();
-    this.setDefaultQuery()
+    this.setDefaultQuery();
 
   },
   mounted() {
@@ -284,6 +289,10 @@ export default {
     this.$root.$on('disabledStringSavedQuery', this.disabledStringSavedQuery)
 
     this.$root.$on('isSavingPromptVisible', this.isSavingPromptVisibleHandler)
+
+    this.$root.$on('disabledForkButton', this.disabledForkButton)
+
+    this.$root.$on('enabledForkPrompt', this.enabledForkPrompt)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -298,6 +307,8 @@ export default {
     this.$root.$off('disabledSavedButton')
     this.$root.$off('disabledStringSavedQuery')
     this.$root.$off('isSavingPromptVisible')
+    this.$root.$off('disabledForkButton')
+    this.$root.$off('enabledForkPrompt')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -326,6 +337,7 @@ export default {
     },
     setDefaultQuery() {
       const userId = getUserId();
+
       const {
         params: { queryId }
       } = this.$route;
@@ -567,6 +579,7 @@ export default {
     },
     activatedSavedButton() {
       this.enabledSavedButton = true
+      this.isQueryModified = true
       const {
         name: name
       } = this.$route;
@@ -591,6 +604,34 @@ export default {
     },
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value
+    },
+    QueryIsNotMine() {
+      const userId = Number(getUserId());
+
+      const {
+        params: { queryId },
+        name: nameComponent
+      } = this.$route;
+
+      let items = this.publicQueries;
+
+      //Find which query is loaded
+      const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
+
+      //Check if the user who loaded the query is the same user who created the query
+      if (userId !== checkUserId && nameComponent === 'Query') {
+        this.enabledForkButton = true
+        this.isForkPromptVisible = false
+      } else {
+        this.disabledForkButton()
+        this.enabledForkPrompt()
+      }
+    },
+    disabledForkButton() {
+      this.enabledForkButton = false
+    },
+    enabledForkPrompt() {
+      this.isForkPromptVisible = true
     }
   },
 };

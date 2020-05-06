@@ -67,7 +67,9 @@
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
       :is-saving-prompt-visible="isSavingPromptVisible"
+      :is-fork-prompt-visible="isForkPromptVisible"
       :enabled-saved-button="enabledSavedButton"
+      :enabled-fork-button="enabledForkButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       @save="onSaveEventHandler"
@@ -127,6 +129,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isForkPromptVisible: {
+      type: Boolean,
+      default: true
+    },
     isQueryModified: {
       type: Boolean,
       default: false
@@ -150,6 +156,10 @@ export default {
     isQuerySaved: {
       type: Boolean,
       default: false
+    },
+    enabledForkButton: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -161,10 +171,8 @@ export default {
       labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
-      labelButtonRecentQueries:
-        I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
-      labelButtonRunQuery:
-        I18n.t("gobierto_data.projects.buttonRunQuery") || "",
+      labelButtonRecentQueries: I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
+      labelButtonRunQuery: I18n.t("gobierto_data.projects.buttonRunQuery") || "",
       removeLabelBtn: false,
       isQueriesModalActive: false,
       isRecentModalActive: false

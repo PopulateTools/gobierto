@@ -241,6 +241,8 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
+    ladle (1.0.1)
+      open4 (~> 1.0)
     launchy (2.5.0)
       addressable (~> 2.7)
     libv8 (3.16.14.19)
@@ -295,6 +297,7 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
+    net-ldap (0.16.2)
     netrc (0.11.0)
     nio4r (2.5.2)
     nokogiri (1.10.9)
@@ -302,6 +305,7 @@ GEM
     nori (2.6.0)
     ntlm-http (0.1.1)
     oj (3.9.2)
+    open4 (1.3.4)
     os (1.1.0)
     paper_trail (10.3.1)
       activerecord (>= 4.2)
@@ -535,6 +539,7 @@ DEPENDENCIES
   jquery-rails
   json_translate (~> 4.0)
   kaminari (~> 1.0)
+  ladle
   launchy
   liquid (~> 4.0)
   liquid-rails (~> 0.2.0)
@@ -547,6 +552,7 @@ DEPENDENCIES
   minitest-stub-const
   minitest-stub_any_instance
   mocha
+  net-ldap
   paper_trail
   paranoia
   pg (~> 1.1)

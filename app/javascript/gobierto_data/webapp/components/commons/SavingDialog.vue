@@ -8,7 +8,9 @@
         :placeholder="placeholder"
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
+        :class="{ 'disable-input-text': disabledButton }"
         @keydown.stop="onKeyDownTextHandler"
+        @click="inputHandler"
       >
     </template>
 
@@ -172,6 +174,7 @@ export default {
   data() {
     return {
       isPrivate: false,
+      disabledButton: true,
       labelValue: this.value,
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
@@ -188,10 +191,18 @@ export default {
       if (newValue !== oldValue) {
         this.labelValue = newValue
         this.countInputCharacters(newValue)
+        this.disabledButton = true
       }
     },
     showPrivate(newValue) {
       this.isPrivate = (newValue);
+    }
+  },
+  mounted() {
+    if (this.$route.name === 'Query' && this.value !== null) {
+      this.$nextTick(() => {
+         this.countInputCharacters(this.value)
+      });
     }
   },
   methods: {
@@ -246,8 +257,9 @@ export default {
         this.$refs.inputText.select()
       });
       this.$root.$emit('disabledForkButton')
+      this.disabledButton = false
     },
-    countInputCharacters(label = {}) {
+    countInputCharacters(label) {
       const inputValueSplit = [...label]
       const inputValueLength = inputValueSplit.length
 
@@ -259,7 +271,16 @@ export default {
       } else {
         this.$nextTick(() => this.$refs.inputText.style.width = '200px');
       }
-    }
+    },
+    inputHandler() {
+      this.disabledButton = false
+      if (this.enabledForkButton) {
+        this.$root.$emit('disabledForkButton')
+      }
+      this.$root.$emit('enableSavedButton')
+      this.$root.$emit('enabledForkPrompt')
+      this.$nextTick(() => this.$refs.inputText.focus());
+    },
   }
 }
 </script>

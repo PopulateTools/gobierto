@@ -10,7 +10,7 @@
         class="gobierto-data-sql-editor-container-save-text"
         :class="{
           'disable-input-text': disabledButton,
-          'disable-cursor-pointer': enabledForkButton
+          'disable-cursor-pointer': enabledForkButton || userNotLogged
         }"
         @keydown.stop="onKeyDownTextHandler"
         @click="inputHandler"
@@ -121,6 +121,7 @@
 <script>
 import Button from "./Button.vue";
 import PrivateIcon from "./PrivateIcon.vue";
+import { getUserId } from "./../../../lib/helpers";
 
 export default {
   name: 'SavingDialog',
@@ -178,6 +179,7 @@ export default {
     return {
       isPrivate: false,
       disabledButton: true,
+      userNotLogged: false,
       labelValue: this.value,
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
@@ -206,6 +208,12 @@ export default {
       this.$nextTick(() => {
          this.countInputCharacters(this.value)
       });
+    }
+
+    //Check if user is not logged to disable any interaction with input
+    const userId = getUserId()
+    if (!userId || userId.length === 0) {
+      this.userNotLogged = true
     }
   },
   methods: {
@@ -263,6 +271,9 @@ export default {
       this.disabledButton = false
     },
     countInputCharacters(label) {
+
+      if (!label) return false;
+
       const inputValueSplit = [...label]
       const inputValueLength = inputValueSplit.length
 
@@ -276,7 +287,8 @@ export default {
       }
     },
     inputHandler() {
-      if (!this.enabledForkButton) {
+      const userId = getUserId();
+        if (!this.enabledForkButton && !!userId) {
         this.disabledButton = false
         this.$root.$emit('enableSavedButton')
         this.$root.$emit('enabledForkPrompt')

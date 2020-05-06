@@ -8,7 +8,10 @@
         :placeholder="placeholder"
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
-        :class="{ 'disable-input-text': disabledButton }"
+        :class="{
+          'disable-input-text': disabledButton,
+          'disable-cursor-pointer': enabledForkButton
+        }"
         @keydown.stop="onKeyDownTextHandler"
         @click="inputHandler"
       >
@@ -273,13 +276,12 @@ export default {
       }
     },
     inputHandler() {
-      this.disabledButton = false
-      if (this.enabledForkButton) {
-        this.$root.$emit('disabledForkButton')
+      if (!this.enabledForkButton) {
+        this.disabledButton = false
+        this.$root.$emit('enableSavedButton')
+        this.$root.$emit('enabledForkPrompt')
+        this.$nextTick(() => this.$refs.inputText.focus());
       }
-      this.$root.$emit('enableSavedButton')
-      this.$root.$emit('enabledForkPrompt')
-      this.$nextTick(() => this.$refs.inputText.focus());
     },
   }
 }

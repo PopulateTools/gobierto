@@ -1,3 +1,7 @@
 ---
 ca:
   gobierto_dashboards:
+    layouts:
+      menu_subsections:
+        contracts: Contractes
+        tenders: Licitacions

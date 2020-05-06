@@ -17,8 +17,8 @@ module GobiertoData
 
     delegate :site, :visibility_level, to: :dataset
 
-    def result(include_draft: false)
-      Connection.execute_query(site, sql, include_draft: include_draft)
+    def result(include_draft: false, include_stats: false)
+      Connection.execute_query(site, sql, include_draft: include_draft, include_stats: include_stats)
     end
 
     def file_basename

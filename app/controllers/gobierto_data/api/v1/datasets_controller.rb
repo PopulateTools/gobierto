@@ -165,7 +165,7 @@ module GobiertoData
 
         def cached_item_json
           Rails.cache.fetch("#{@item.cache_key}/show.json") do
-            query_result = execute_query @item.rails_model.all
+            query_result = execute_query @item.rails_model.all, include_stats: true
             {
               data: query_result.delete(:result),
               meta: query_result,
@@ -176,19 +176,19 @@ module GobiertoData
 
         def cached_item_download_json
           Rails.cache.fetch("#{@item.cache_key}/download.json") do
-            execute_query(@item.rails_model.all).fetch(:result, "").to_json
+            execute_query(@item.rails_model.all).to_json
           end
         end
 
         def cached_item_csv
           Rails.cache.fetch("#{@item.cache_key}/show.csv?#{csv_options_params.to_json}") do
-            csv_from_query_result(execute_query(@item.rails_model.all).fetch(:result, ""), csv_options_params)
+            csv_from_query_result(execute_query(@item.rails_model.all), csv_options_params)
           end
         end
 
         def cached_item_xlsx
           Rails.cache.fetch("#{@item.cache_key}/show.xlsx") do
-            xlsx_from_query_result(execute_query(@item.rails_model.all).fetch(:result, ""), name: @item.name).read
+            xlsx_from_query_result(execute_query(@item.rails_model.all), name: @item.name).read
           end
         end
 
@@ -200,8 +200,8 @@ module GobiertoData
           @item = base_relation.find_by!(slug: params[:slug])
         end
 
-        def execute_query(relation)
-          GobiertoData::Connection.execute_query(current_site, relation.to_sql, include_draft: valid_preview_token?)
+        def execute_query(relation, include_stats: false)
+          GobiertoData::Connection.execute_query(current_site, relation.to_sql, include_draft: valid_preview_token?, include_stats: include_stats)
         end
 
         def links(self_key = nil)

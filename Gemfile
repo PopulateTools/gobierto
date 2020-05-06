@@ -98,6 +98,9 @@ gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 # API
 gem "rubyXL"
 
+# Performance
+gem "rails_performance"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

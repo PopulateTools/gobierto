@@ -91,7 +91,7 @@ module GobiertoData
               assert_equal multipart_form_params[:dataset][attribute], attributes[attribute]
             end
 
-            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset")
+            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset", include_stats: true)
             assert_equal 4, query_result[:rows]
             query_result[:result].first.each_value do |value|
               assert value.is_a? String
@@ -119,7 +119,7 @@ module GobiertoData
               assert_equal multipart_form_params[:dataset][attribute], attributes[attribute]
             end
 
-            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset")
+            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset", include_stats: true)
             assert_equal 4, query_result[:rows]
 
             query_result[:result].first.each_key do |column_name|
@@ -157,7 +157,7 @@ module GobiertoData
               assert_equal multipart_form_params[:dataset][attribute], attributes[attribute]
             end
 
-            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset")
+            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset", include_stats: true)
             assert_equal 1, query_result[:rows]
             query_result[:result].first.each_value do |value|
               assert value.is_a? String
@@ -194,7 +194,7 @@ module GobiertoData
               assert_equal multipart_form_params[:dataset][attribute], attributes[attribute]
             end
 
-            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset")
+            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset", include_stats: true)
             assert_equal 5, query_result[:rows]
             query_result[:result].first.each_value do |value|
               assert value.is_a? String
@@ -233,7 +233,7 @@ module GobiertoData
               assert_equal multipart_form_params[:dataset][attribute], attributes[attribute]
             end
 
-            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset")
+            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset", include_stats: true)
             assert_equal 5, query_result[:rows]
 
             schema = Dataset.find_by_slug(slug).send(:table_schema)

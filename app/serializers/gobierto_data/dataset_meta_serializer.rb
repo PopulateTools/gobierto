@@ -36,8 +36,9 @@ module GobiertoData
       {
         number_of_rows: ::GobiertoData::Connection.execute_query(
           object.site,
-          Arel.sql("SELECT COUNT(*) FROM #{object.table_name} LIMIT 1"), include_draft: true
-        ).dig(:result)&.first&.dig("count")
+          Arel.sql("SELECT COUNT(*) FROM #{object.table_name} LIMIT 1"),
+          include_draft: true
+        )&.first&.dig("count")
       }
     end
 

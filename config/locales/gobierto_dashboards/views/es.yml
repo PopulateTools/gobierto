@@ -1,3 +1,7 @@
 ---
 es:
   gobierto_dashboards:
+    layouts:
+      menu_subsections:
+        contracts: Contratos
+        tenders: Licitaciones

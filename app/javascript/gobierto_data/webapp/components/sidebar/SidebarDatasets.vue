@@ -35,15 +35,15 @@
           <div v-if="showToggle">
             <span
               v-if="showLess"
-                class="gobierto-data-sidebar-datasets-links-columns-see-more"
-                @click="showLess = false"
+              class="gobierto-data-sidebar-datasets-links-columns-see-more"
+              @click="showLess = false"
             >
               {{ labelshowAll }}
             </span>
             <span
               v-else
-                class="gobierto-data-sidebar-datasets-links-columns-see-more"
-                @click="showLess = true"
+              class="gobierto-data-sidebar-datasets-links-columns-see-more"
+              @click="showLess = true"
             >
               {{ labelshowLess }}
             </span>
@@ -56,6 +56,11 @@
 <script>
 export default {
   name: "SidebarDatasets",
+  filters: {
+    translateType: function(type) {
+      return I18n.t(`gobierto_data.data_type.${type}`)
+    }
+  },
   props: {
     items: {
       type: Array,
@@ -64,11 +69,6 @@ export default {
   },
   data() {
     return {
-      labelSets: "",
-      labelQueries: "",
-      labelCategories: "",
-      labelshowAll: "",
-      labelshowLess: "",
       sortedItems: [],
       listDatasets: [],
       currentDatasetSlug: null,
@@ -76,27 +76,11 @@ export default {
       showLess: null,
       activeDatasetColumns: {},
       showToggle: null,
-    }
-  },
-  created() {
-    this.labelSets = I18n.t("gobierto_data.projects.sets")
-    this.labelQueries = I18n.t("gobierto_data.projects.queries")
-    this.labelCategories = I18n.t("gobierto_data.projects.categories")
-    this.labelshowAll = I18n.t("gobierto_data.projects.showAll")
-    this.labelshowLess = I18n.t("gobierto_data.projects.showLess")
-    // TODO Datasets should be order in filter mixin
-    this.sortedItems = this.items.sort(({ attributes: { name: a } = {} }, { attributes: { name: b } = {} }) => a.localeCompare(b));
-
-    let { id } = this.$route.params
-    this.selectCurrentDataset(id)
-  },
-  watch: {
-    currentDatasetSlug: function(newSlug) {
-      this.showLess = true;
-      if (this.sortedItems.length) {
-        this.activeDatasetColumns = this.sortedItems.find(({ attributes: { slug } = {} }) => slug === newSlug).attributes.columns || {}
-        this.showToggle = Object.keys(this.activeDatasetColumns).length > this.showMaxKeys
-      }
+      labelSets: I18n.t("gobierto_data.projects.sets"),
+      labelQueries: I18n.t("gobierto_data.projects.queries"),
+      labelCategories: I18n.t("gobierto_data.projects.categories"),
+      labelshowAll: I18n.t("gobierto_data.projects.showAll"),
+      labelshowLess: I18n.t("gobierto_data.projects.showLess")
     }
   },
   computed: {
@@ -110,6 +94,22 @@ export default {
         return this.activeDatasetColumns;
       }
     }
+  },
+  watch: {
+    currentDatasetSlug (newSlug) {
+      this.showLess = true;
+      if (this.sortedItems.length && newSlug) {
+        this.activeDatasetColumns = this.sortedItems.find(({ attributes: { slug } = {} }) => slug === newSlug).attributes.columns || {}
+        this.showToggle = Object.keys(this.activeDatasetColumns).length > this.showMaxKeys
+      }
+    }
+  },
+  created() {
+    // TODO Datasets should be order in filter mixin
+    this.sortedItems = this.items.sort(({ attributes: { name: a } = {} }, { attributes: { name: b } = {} }) => a.localeCompare(b));
+
+    let { id } = this.$route.params
+    this.selectCurrentDataset(id)
   },
   methods: {
     selectCurrentDataset(selectedDatasetSlug) {
@@ -127,13 +127,8 @@ export default {
       if (slug !== this.currentDatasetSlug) {
         this.currentDatasetSlug = slug
       } else {
-        this.currentDatasetSlug = null
+        this.currentDatasetSlug = ''
       }
-    }
-  },
-  filters: {
-    translateType: function(type) {
-      return I18n.t(`gobierto_data.data_type.${type}`)
     }
   }
 };

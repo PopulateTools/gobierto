@@ -43,6 +43,7 @@ es:
       guide: Guía para usar el editor SQL
       info: Información
       modifiedQuery: Consulta modificada
+      modifiedVisualization: Visualización modificada
       news: Noticias
       private: Privada
       queries: Consultas
@@ -50,9 +51,14 @@ es:
       queryName: Nombre consulta
       recents: Recientes
       records: Registros
+      resetQuery: Restablecer consulta
+      resetViz: Restablecer Visualización
       resources: Recursos
+      revert: Revertir
       runQuery: Ejecutar consulta
       save: Guardar
+      saveViz: Guardar Visualización
+      savedQuery: Consulta guardada
       sets: Conjuntos
       showAll: Ver todo
       showLess: Ver menos
@@ -64,4 +70,5 @@ es:
       visPrivate: Tus visualizaciones
       visPublic: Todas
       visualizations: Visualizaciones
+      visualize: Visualizar
       yourQueries: Tus consultas

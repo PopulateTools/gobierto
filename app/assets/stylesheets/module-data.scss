@@ -591,6 +591,10 @@
         -webkit-user-select: none;
         cursor: pointer;
       }
+
+      &.disable-cursor-pointer {
+        pointer-events: none;
+      }
     }
 
     input[type="checkbox"],

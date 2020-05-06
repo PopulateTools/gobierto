@@ -13,8 +13,8 @@ module GobiertoData
     def sql_validation
       return if site.blank? || sql.blank?
 
-      query_test = Connection.execute_query(site, "explain #{sql}", include_stats: false)
-      if query_test.has_key? :errors
+      query_test = Connection.execute_query(site, "explain #{sql}")
+      if query_test.is_a?(Hash) && query_test.has_key?(:errors)
         errors.add(:sql, query_test[:errors].map { |error| error[:sql] }.join("\n"))
       end
     end

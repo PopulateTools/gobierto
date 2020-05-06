@@ -22,6 +22,13 @@ module GobiertoData
 
     def test_execute_query_with_module_enabled
       result = Connection.execute_query(site, "SELECT COUNT(*) AS test_count FROM users")
+      result = JSON.parse(result.to_json)
+
+      assert_equal [{ "test_count" => 7 }], result
+    end
+
+    def test_execute_query_including_stats
+      result = Connection.execute_query(site, "SELECT COUNT(*) AS test_count FROM users", include_stats: true)
       hash_result = JSON.parse(result.to_json)
 
       assert hash_result.has_key?("result")

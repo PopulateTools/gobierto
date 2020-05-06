@@ -101,7 +101,7 @@ module GobiertoData
 
     def table_schema
       table_columns = Connection.execute_query(site, "SELECT column_name, data_type FROM information_schema.COLUMNS WHERE table_name='#{table_name}'", write: true)
-      table_columns[:result].inject({}) do |schema, column|
+      table_columns.inject({}) do |schema, column|
         schema.update(column["column_name"] => { "original_name" => column["column_name"], "type" => column["data_type"] })
       end
     end

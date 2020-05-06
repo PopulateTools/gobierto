@@ -586,7 +586,10 @@
 
       &.disable-input-text {
         border-color: #f9f9f9;
-        pointer-events: none;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        cursor: pointer;
       }
     }
 

@@ -619,7 +619,7 @@ export default {
       const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
 
       //Check if the user who loaded the query is the same user who created the query
-      if (userId !== checkUserId && nameComponent === 'Query') {
+      if (userId !== 0 && userId !== checkUserId && nameComponent === 'Query') {
         this.enabledForkButton = true
         this.isForkPromptVisible = false
       } else {

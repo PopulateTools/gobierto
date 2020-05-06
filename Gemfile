@@ -101,6 +101,10 @@ gem "rubyXL"
 # Performance
 gem "rails_performance"
 
+# Auth strategies
+gem "net-ldap"
+gem "ladle"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

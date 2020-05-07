@@ -55,7 +55,7 @@
           v-if="isQueriesModalActive"
           :private-queries="privateQueries"
           :public-queries="publicQueries"
-
+          :is-user-logged="isUserLogged"
           class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
         />
       </transition>
@@ -152,7 +152,7 @@ export default {
       type: Boolean,
       default: false
     },
-    userIsNotLogged: {
+    isUserLogged: {
       type: Boolean,
       default: false
     }

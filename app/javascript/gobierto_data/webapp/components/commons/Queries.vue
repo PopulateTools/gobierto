@@ -2,12 +2,11 @@
   <div class="gobierto-data-summary-queries">
     <div class="gobierto-data-summary-queries-panel pure-g">
       <div class="pure-u-1-2 gobierto-data-summary-queries-panel-dropdown">
-        <template v-if="userIsNotLogged">
+        <template v-if="isUserLogged">
           <Dropdown @is-content-visible="showPrivateQueries = !showPrivateQueries">
             <template v-slot:trigger>
               <h3 class="gobierto-data-summary-queries-panel-title">
                 <Caret :rotate="showPrivateQueries" />
-
                 {{ labelYourQueries }} ({{ privateQueries.length }})
               </h3>
             </template>
@@ -58,8 +57,7 @@
             <!-- TODO: Favorite Queries -->
             <div />
           </Dropdown>
-
-            <Dropdown @is-content-visible="showPrivateQueries = !showPrivateQueries">
+          <Dropdown @is-content-visible="showPrivateQueries = !showPrivateQueries">
             <template v-slot:trigger>
               <h3 class="gobierto-data-summary-queries-panel-title">
                 <Caret :rotate="showPrivateQueries" />
@@ -175,7 +173,7 @@ export default {
       type: Array,
       required: true
     },
-    userIsNotLogged: {
+    isUserLogged: {
       type: Boolean,
       default: false
     }

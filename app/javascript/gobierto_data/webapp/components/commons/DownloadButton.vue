@@ -42,10 +42,8 @@
             >
               <a
                 :key="index"
-                :href="url"
-                :download="name"
                 class="gobierto-data-btn-download-data-modal-element"
-                target="_blank"
+                @click.prevent="getFiles(url, name)"
               >
                 {{ label }}
               </a>
@@ -59,12 +57,14 @@
 <script>
 import Button from "./Button.vue";
 import { baseUrl, CommonsMixin } from "./../../../lib/commons.js";
+import { DownloadFilesFactoryMixin } from "./../../../lib/factories/download";
+
 export default {
   name: 'DownloadButton',
   components: {
     Button
   },
-  mixins: [CommonsMixin],
+  mixins: [CommonsMixin, DownloadFilesFactoryMixin],
   props: {
     editor: {
       type: Boolean,
@@ -131,7 +131,7 @@ export default {
         {
           label: 'XLSX',
           url: endPointXLSX,
-          name: 'prueban_xls'
+          name: `${titleFile}_${date}.xls`
         }
       ]
     }

@@ -13,7 +13,7 @@
         :enabled-saved-button="enabledSavedButton"
         :show-revert-query="showRevertQuery"
         :show-private="showPrivate"
-        :user-is-not-logged="userIsNotLogged"
+        :is-user-logged="isUserLogged"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"
@@ -114,6 +114,10 @@ export default {
       default: false
     },
     isQuerySaved: {
+      type: Boolean,
+      default: false
+    },
+    isUserLogged: {
       type: Boolean,
       default: false
     }

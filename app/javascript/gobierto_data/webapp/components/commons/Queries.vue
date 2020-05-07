@@ -57,61 +57,6 @@
             <!-- TODO: Favorite Queries -->
             <div />
           </Dropdown>
-          <Dropdown @is-content-visible="showPrivateQueries = !showPrivateQueries">
-            <template v-slot:trigger>
-              <h3 class="gobierto-data-summary-queries-panel-title">
-                <Caret :rotate="showPrivateQueries" />
-
-                {{ labelYourQueries }} ({{ privateQueries.length }})
-              </h3>
-            </template>
-
-            <div>
-              <transition-group name="fade">
-                <div
-                  v-for="{ id, attributes: { sql, name, privacy_status }} in privateQueries"
-                  :key="id"
-                  class="gobierto-data-summary-queries-container"
-                  @mouseover="showSQLCode(sql)"
-                  @mouseleave="removeSQLCode()"
-                >
-                  <router-link
-                    :to="`/datos/${$route.params.id}/q/${id}`"
-                    class="gobierto-data-summary-queries-container-name"
-                  >
-                    {{ name }}
-                  </router-link>
-
-                  <div class="gobierto-data-summary-queries-container-icon">
-                    <i
-                      class="fas fa-trash-alt icons-your-queries"
-                      style="color: var(--color-base);"
-                      @click.stop="clickDeleteQueryHandler(id)"
-                    />
-
-                    <PrivateIcon
-                      :is-closed="privacy_status === 'closed'"
-                      class="icons-your-queries"
-                    />
-                  </div>
-                </div>
-              </transition-group>
-            </div>
-          </Dropdown>
-
-          <Dropdown @is-content-visible="showFavQueries = !showFavQueries">
-            <template v-slot:trigger>
-              <h3 class="gobierto-data-summary-queries-panel-title">
-                <Caret :rotate="showFavQueries" />
-
-                <!-- TODO: Favorite Queries -->
-                {{ labelFavs }} ({{ 0 }})
-              </h3>
-            </template>
-
-            <!-- TODO: Favorite Queries -->
-            <div />
-          </Dropdown>
         </template>
 
         <Dropdown @is-content-visible="showPublicQueries = !showPublicQueries">

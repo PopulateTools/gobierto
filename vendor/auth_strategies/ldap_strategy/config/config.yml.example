@@ -1,0 +1,12 @@
+demo.gobierto.test:
+  ldap_username: uid=admin,ou=people,dc=example,dc=com
+  ldap_password: wadus
+  configurations:
+    -
+      host: 127.0.0.1
+      port: 3897
+      domain: ou=people,dc=example,dc=com
+      authentication_query: uid=%{user_identifier},ou=people,dc=example,dc=com
+      password_field: userPassword
+      email_field: mail
+      name_field: cn

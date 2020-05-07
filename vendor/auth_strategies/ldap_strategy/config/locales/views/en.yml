@@ -1,0 +1,12 @@
+---
+en:
+  user:
+    custom_sessions:
+      ldap_strategy:
+        edit_form:
+          edit: Add some fields to this form
+          session_title: Please, fill in the missing fields
+          submit: Submit
+        new_form:
+          session_title: Sign in
+          submit: Submit

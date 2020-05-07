@@ -6,6 +6,9 @@ es:
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
           del %{entity_name}
         title: Contratos y licitaciones
+        summary: 'Resumen'
+        contracts: 'Contratos'
+        tenders: 'Licitaciones'
     layouts:
       application:
         gobierto_dashboards:

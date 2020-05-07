@@ -6,6 +6,9 @@ ca:
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
         title: Contractes i licitacions
+        summary: 'Resum'
+        contracts: 'Contractes'
+        tenders: 'Licitacions'
     layouts:
       application:
         gobierto_dashboards:

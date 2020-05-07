@@ -95,6 +95,11 @@ default: &default
       description: Null Strategy
       session_form: NullStrategySessionForm
       default: false
+    -
+      name: ldap_strategy
+      description: LDAP Strategy
+      session_form: LdapSessionForm
+      default: false
 
 development:
   <<: *default

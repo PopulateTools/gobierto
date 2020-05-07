@@ -15,7 +15,7 @@ class User::CustomSessionTest < ActionDispatch::IntegrationTest
         quiet: true
       )
     ).start
-    site.configuration.auth_modules = ["ldap_strategy"]
+    site.configuration.auth_modules = %w(ldap_strategy)
   end
 
   def teardown
@@ -77,7 +77,7 @@ class User::CustomSessionTest < ActionDispatch::IntegrationTest
         fill_in :user_session_password, with: ldap_user_credentials[:password]
         click_on "Submit"
 
-        assert has_message?("Please check your inbox and follow the confirmation link to access the service")
+        assert has_message?("Signed in successfully")
       end
     end
   end
@@ -99,7 +99,8 @@ class User::CustomSessionTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def test_invalid_ldap_existing_user
+  def test_invalid_ldap_existing_confirmed_user
+    user.confirm!
     with(site: site) do
       visit new_user_sessions_path
 
@@ -111,7 +112,45 @@ class User::CustomSessionTest < ActionDispatch::IntegrationTest
         click_on "Submit"
 
       end
-      assert has_message?("Invalid data received. The session could not be created")
+      assert has_message?("Signed in successfully")
+    end
+  end
+
+  def test_valid_ldap_existing_unconfirmed_user
+    user = site.users.create(ldap_user_credentials.except(:password))
+    user.regenerate_confirmation_token
+    refute user.confirmed?
+
+    with(site: site) do
+      visit new_user_sessions_path
+
+      assert has_content?("Sign in")
+
+      assert_no_difference "User.count" do
+        fill_in :user_session_email, with: ldap_user_credentials[:email]
+        fill_in :user_session_password, with: ldap_user_credentials[:password]
+        click_on "Submit"
+      end
+      assert has_message?("Signed in successfully")
+    end
+
+    user.reload
+    assert user.confirmed?
+  end
+
+  def test_invalid_ldap_existing_user_invalid_password
+    with(site: site) do
+      visit new_user_sessions_path
+
+      assert has_content?("Sign in")
+
+      assert_no_difference "User.count" do
+        fill_in :user_session_email, with: user.email
+        fill_in :user_session_password, with: "wadus"
+        click_on "Submit"
+
+      end
+      assert has_no_content?("Signed in successfully")
     end
   end
 end

@@ -1,0 +1,12 @@
+---
+es:
+  user:
+    custom_sessions:
+      ldap_strategy:
+        edit_form:
+          edit: Añada algún campo a este formulario
+          session_title: Por favor, rellene los campos que faltan
+          submit: Enviar
+        new_form:
+          session_title: Iniciar sesión
+          submit: Enviar

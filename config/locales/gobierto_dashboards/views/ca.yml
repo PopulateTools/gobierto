@@ -1,7 +1,15 @@
 ---
 ca:
   gobierto_dashboards:
+    dashboards:
+      contracts:
+        description: Visualització i anàlisi dels contractes adjudicats i les licitacions
+          del %{entity_name}
+        title: Contractes i licitacions
     layouts:
+      application:
+        gobierto_dashboards:
+          contracts: Contractes i licitacions
       menu_subsections:
         contracts: Contractes
         tenders: Licitacions

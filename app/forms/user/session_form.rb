@@ -18,6 +18,6 @@ class User::SessionForm < BaseForm
   end
 
   def user
-    @user ||= User.confirmed.find_by(email: email.downcase, site: site)
+    @user ||= User.confirmed.with_password.find_by(email: email.downcase, site: site)
   end
 end

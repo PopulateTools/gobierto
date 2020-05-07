@@ -1,0 +1,12 @@
+<div class="login_box">
+  <h2><%= t(".session_title") %></h2>
+
+  <%= form_for(user_session_form, as: :user_session, url: :user_custom_session, html: { id: "user-session-form" }) do |f| %>
+    <%= f.hidden_field :referrer_url %>
+    <%= f.hidden_field :referrer_entity %>
+
+    <div> <p> <%= t(".edit") %> </p> </div>
+
+    <%= f.submit t(".submit"), class: "button" %>
+  <% end %>
+</div>

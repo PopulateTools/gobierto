@@ -24,6 +24,7 @@
         v-if="items.length"
         :array-formats="arrayFormats"
         :array-columns-query="arrayColumnsQuery"
+        :query-stored="queryStored"
         :items="items"
       />
     </div>

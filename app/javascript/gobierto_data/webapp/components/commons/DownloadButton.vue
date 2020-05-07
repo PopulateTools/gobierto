@@ -13,24 +13,45 @@
         name="fade"
         mode="out-in"
       >
-        <div
-          v-show="!isHidden"
-          class="gobierto-data-btn-download-data-modal"
-        >
-          <template
-            v-for="(item, key, index) in arrayFormats"
+        <template v-if="!editor">
+          <div
+            v-show="!isHidden"
+            class="gobierto-data-btn-download-data-modal"
           >
-            <a
-              :key="index"
-              :item="item"
-              :href="editor ? sqlfileCSV : item"
-              :download="titleDataset"
-              class="gobierto-data-btn-download-data-modal-element"
+            <template
+              v-for="(item, key, index) in arrayFormats"
             >
-              {{ key }}
-            </a>
-          </template>
-        </div>
+              <a
+                :key="index"
+                :href="item"
+                :download="titleFile"
+                class="gobierto-data-btn-download-data-modal-element"
+              >
+                {{ key }}
+              </a>
+            </template>
+          </div>
+        </template>
+        <template v-else>
+          <div
+            v-show="!isHidden"
+            class="gobierto-data-btn-download-data-modal"
+          >
+            <template
+              v-for="({ url, name, label }, index) in arrayFormatsQuery"
+            >
+              <a
+                :key="index"
+                :href="url"
+                :download="name"
+                class="gobierto-data-btn-download-data-modal-element"
+                target="_blank"
+              >
+                {{ label }}
+              </a>
+            </template>
+          </div>
+        </template>
       </transition>
     </Button>
   </div>
@@ -52,32 +73,65 @@ export default {
     arrayFormats: {
       type: Object,
       required: true
-    }
+    },
+    queryStored: {
+      type: String,
+      default: ""
+    },
   },
   data() {
     return {
-      labelDownloadData: "",
+      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || "",
       isHidden: true,
-      sqlfileCSV: '',
-      sqlfileXLSX: '',
-      sqlfileJSON: '',
-      titleDataset: ''
+      arrayFormatsQuery: {},
+      titleFile: ''
+    }
+  },
+  watch: {
+    queryStored(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.createObjectFormatsQuery(newValue)
+      }
     }
   },
   created() {
-    this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
+    this.createObjectFormatsQuery(this.queryStored)
   },
   methods: {
     closeMenu() {
       this.isHidden = true
     },
-    updateCode(sqlQuery) {
-      // TODO: this method do nothing
-      const code = sqlQuery
-      const endPointSQL = `${baseUrl}/data.csv?sql=`
-      this.sqlfileCSV = `${endPointSQL}${code}&csv_separator=semicolon`
-      this.sqlfileXLSX = `${endPointSQL}${code}`
-      this.sqlfileJSON = `${endPointSQL}${code}`
+    createObjectFormatsQuery(sql) {
+      const queryTrim = sql.trim()
+      const endPointCSV = `${baseUrl}/data.csv?sql=${queryTrim}&csv_separator=semicolon`
+      const endPointJSON = `${baseUrl}/data.json?sql=${queryTrim}`
+      const endPointXLSX = `${baseUrl}/data.xlsx?sql=${queryTrim}`
+
+      const {
+        params: {
+          id: titleFile
+        }
+      } = this.$route
+
+      this.titleFile = titleFile
+
+      this.arrayFormatsQuery = [
+        {
+          label: 'CSV',
+          url: endPointCSV,
+          name: `${titleFile}.csv`
+        },
+        {
+          label: 'JSON',
+          url: endPointJSON,
+          name: `${titleFile}.json`
+        },
+        {
+          label: 'XLSX',
+          url: endPointXLSX,
+          name: `${titleFile}.xlsx`
+        }
+      ]
     }
   }
 }

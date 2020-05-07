@@ -12,16 +12,12 @@
     </div>
   </div>
 
-  <main>
-    <div class="pure-g gutters m_b_4">
-      <div id="gobierto-dashboards-app"
-           data-site-name="<%= @site.name %>"
-           data-logo-url="<%= @site.configuration.logo_with_fallback %>"
-           data-home-url="<%= gobierto_dashboards_contracts_url %>"
-           data-contracts-endpoint="<%= @dashboards_config.dig('data_urls', 'contracts') %>"
-           data-tenders-endpoint="<%= @dashboards_config.dig('data_urls', 'tenders') %>" z>
-      </div>
-    </div>
-  </main>
+  <div id="gobierto-dashboards-contracts-app"
+       data-site-name="<%= @site.name %>"
+       data-logo-url="<%= @site.configuration.logo_with_fallback %>"
+       data-home-url="<%= gobierto_dashboards_contracts_url %>"
+       data-contracts-endpoint="<%= @dashboards_config.dig('data_urls', 'contracts') %>"
+       data-tenders-endpoint="<%= @dashboards_config.dig('data_urls', 'tenders') %>" z>
+  </div>
 
 </div>

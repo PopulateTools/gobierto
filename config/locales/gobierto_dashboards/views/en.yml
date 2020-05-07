@@ -6,6 +6,9 @@ en:
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
         title: Contracts and tenders
+        summary: 'Summary'
+        contracts: 'Contracts'
+        tenders: 'Tenders'
     layouts:
       application:
         gobierto_dashboards:

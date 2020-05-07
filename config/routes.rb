@@ -613,8 +613,7 @@ Rails.application.routes.draw do
     namespace :gobierto_dashboards, path: 'dashboards' do
       constraints GobiertoSiteConstraint.new do
         # Front
-        get "contratos" => "dashboards#contracts", as: :contracts
-        get "contratos/resumen" => "dashboards#contracts"
+        get "contratos/resumen" => "dashboards#contracts", as: :contracts
         get "contratos/contratos" => "dashboards#contracts"
         get "contratos/contratos/:id" => "dashboards#contracts"
         get "contratos/licitaciones" => "dashboards#contracts"

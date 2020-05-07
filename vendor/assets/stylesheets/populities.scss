@@ -52,6 +52,11 @@
 .center {
   text-align: center;
 }
+
+.d_block {
+  display: block;
+}
+
 .ib, .inline {
   display: inline-block;
 }
@@ -238,6 +243,10 @@
 .p_h_l_3 {
   padding: 0 0 0 3em;
   box-sizing: border-box;
+}
+
+.bg-gray {
+  background: #f6f6f6;
 }
 
 /*

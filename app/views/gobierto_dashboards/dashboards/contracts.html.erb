@@ -1,1 +1,27 @@
-Contratos
+<% title t('gobierto_dashboards.layouts.application.gobierto_dashboards.contracts') %>
+
+<div class="column">
+  <div class="pure-g block header_block_inline m_b_1">
+    <div class="pure-u-1 pure-u-md-12-24">
+      <h2 class="with_description">
+        <%= t(".title") %>
+      </h2>
+      <p>
+        <%= t(".description", entity_name: current_site.name) %>
+      </p>
+    </div>
+  </div>
+
+  <main>
+    <div class="pure-g gutters m_b_4">
+      <div id="gobierto-dashboards-app"
+           data-site-name="<%= @site.name %>"
+           data-logo-url="<%= @site.configuration.logo_with_fallback %>"
+           data-home-url="<%= gobierto_dashboards_contracts_url %>"
+           data-contracts-endpoint="<%= @dashboards_config.dig('data_urls', 'contracts') %>"
+           data-tenders-endpoint="<%= @dashboards_config.dig('data_urls', 'tenders') %>" z>
+      </div>
+    </div>
+  </main>
+
+</div>

@@ -1,7 +1,15 @@
 ---
 en:
   gobierto_dashboards:
+    dashboards:
+      contracts:
+        description: Visualizations and analisys for the awarded contracts and tenders
+          to %{entity_name}
+        title: Contracts and tenders
     layouts:
+      application:
+        gobierto_dashboards:
+          contracts: Contracts and tenders
       menu_subsections:
         contracts: Contracts
         tenders: Tenders

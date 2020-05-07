@@ -57,6 +57,7 @@
       :enabled-saved-button="enabledSavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
+      :table-name="tableName"
     />
 
     <QueriesTab
@@ -139,6 +140,7 @@ export default {
       isQuerySaved: false,
       isSavingPromptVisible: false,
       showPrivate: false,
+      tableName: '',
       resetQueryDefault: false,
       revertQuerySaved: false,
       enabledSavedButton: false,
@@ -364,10 +366,8 @@ export default {
         this.isQueryModified = true;
       }
 
-      // set the new query, trimming it to remove potentially harmful voids
-      this.currentQuery = sql.trim();
+      this.currentQuery = sql
 
-      this.disabledSavedButton()
       this.resetQuery(false)
       this.revertSavedQuery(false)
     },

@@ -50,6 +50,10 @@ export default {
     queryError: {
       type: String,
       default: null
+    },
+    tableName: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -59,7 +63,8 @@ export default {
       labelRecords: I18n.t("gobierto_data.projects.records") || "",
       sqlAutocomplete: sqlKeywords,
       arrayMutated: [],
-      autoCompleteKeys: []
+      autoCompleteKeys: [],
+      tableNameAutocomplete: []
     };
   },
   computed: {
@@ -75,8 +80,6 @@ export default {
     }
   },
   mounted() {
-    this.mergeTables();
-
     const cmOption = {
       tabSize: 2,
       styleActiveLine: false,
@@ -107,32 +110,53 @@ export default {
     // metaKey + keyUp doesn't work with MacOS
     // https://stackoverflow.com/questions/11818637/why-does-javascript-drop-keyup-events-when-the-metakey-is-pressed-on-mac-browser
     this.editor.on("keydown", this.onKeyDown);
+    // This event detects any changes in the editor
+    this.editor.on("change", this.onChange);
+    // We need this event to enable autocomplete(hint)
+    this.editor.on("keyup", this.onKeyUp);
   },
   methods: {
+    onKeyUp(editor, e) {
+      const {
+        state: {
+          completionActive: isEditorActive
+        }
+      } = editor
+
+      // Show autocomplete only when a letter key is pressed
+      if (!isEditorActive && e.keyCode > 64 && e.keyCode < 91) {
+        editor.showHint({ completeSingle: false })
+      }
+
+      this.$root.$emit('enableSavedButton')
+    },
+    onChange(editor) {
+      this.mergeTables();
+      const value = editor.getValue();
+      this.$root.$emit("setCurrentQuery", value);
+    },
     onKeyDown(editor, e) {
       // keyUp event to stop "c|r" open modals, but allow ctrl+enter (or cmd+enter) to run query
       if (!((e.keyCode == 10 || e.keyCode == 13) && (e.ctrlKey || e.metaKey))) {
         e.stopPropagation();
       }
-
-      // keydown needs to wait a little to update the value
-      setTimeout(() => {
-        editor.showHint();
-        const value = editor.getValue();
-
-        // update the query while typing
-        this.$root.$emit("setCurrentQuery", value);
-        this.$root.$emit('enableSavedButton')
-      }, 50);
     },
     mergeTables() {
-      for (let i = 0; i < this.arrayColumns.length; i++) {
+      const sizeArrayColumns = Object.keys(this.arrayColumns);
+
+      for (let i = 0; i < sizeArrayColumns.length; i++) {
         this.arrayMutated[i] = {
           className: "table",
-          text: this.arrayColumns[i]
+          text: sizeArrayColumns[i]
         };
       }
-      this.autoCompleteKeys = [...this.arrayMutated, ...this.sqlAutocomplete];
+      this.autoCompleteKeys = [
+        ...this.arrayMutated,
+        ...this.sqlAutocomplete,
+        {
+          className: "dataset",
+          text: this.tableName
+      }];
     },
     setEditorValue(newCode) {
       const pos = this.editor.getCursor();

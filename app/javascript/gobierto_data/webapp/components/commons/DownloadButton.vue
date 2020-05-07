@@ -102,12 +102,13 @@ export default {
       this.isHidden = true
     },
     createObjectFormatsQuery(sql) {
+      //Convert all linebreaks from any SO(Windows: \r\n Linux: \n Older Macs: \r) to spaces.
+      const formatSQL = sql.replace(/[\r\n]+/gm, " ");
       let datetime = new Date();
       const date = `${datetime.getDate()}_${(datetime.getMonth() + 1)}_${datetime.getFullYear()}`;
-      const queryCode = new URLSearchParams(sql)
-      const endPointCSV = `${baseUrl}/data.csv?sql=${queryCode.toString()}&csv_separator=semicolon`
-      const endPointJSON = `${baseUrl}/data.json?sql=${queryCode.toString()}`
-      const endPointXLSX = `${baseUrl}/data.xlsx?sql=${queryCode.toString()}`
+      const endPointCSV = `${baseUrl}/data.csv?sql=${formatSQL}&csv_separator=semicolon`
+      const endPointJSON = `${baseUrl}/data.json?sql=${formatSQL}`
+      const endPointXLSX = `${baseUrl}/data.xlsx?sql=${formatSQL}`
 
       const {
         params: {

@@ -20,6 +20,7 @@ search:
     - app/presenters
     - app/views
     - vendor/auth_strategies/null_strategy/app/views
+    - vendor/auth_strategies/ldap_strategy/app/views
 ignore_missing:
   - 'gobierto_budgets.visualizations.*'
   - 'layouts.sandbox.*'

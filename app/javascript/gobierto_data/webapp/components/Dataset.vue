@@ -378,6 +378,8 @@ export default {
         this.isQueryModified = true;
       }
 
+      this.currentQuery = sql
+
       this.resetQuery(false)
       this.revertSavedQuery(false)
     },

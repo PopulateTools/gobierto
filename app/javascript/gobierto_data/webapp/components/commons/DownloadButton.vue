@@ -13,24 +13,43 @@
         name="fade"
         mode="out-in"
       >
-        <div
-          v-show="!isHidden"
-          class="gobierto-data-btn-download-data-modal"
-        >
-          <template
-            v-for="(item, key, index) in arrayFormats"
+        <template v-if="!editor">
+          <div
+            v-show="!isHidden"
+            class="gobierto-data-btn-download-data-modal"
           >
-            <a
-              :key="index"
-              :item="item"
-              :href="editor ? sqlfileCSV : item"
-              :download="titleDataset"
-              class="gobierto-data-btn-download-data-modal-element"
+            <template
+              v-for="(item, key, index) in arrayFormats"
             >
-              {{ key }}
-            </a>
-          </template>
-        </div>
+              <a
+                :key="index"
+                :href="item"
+                :download="titleFile"
+                class="gobierto-data-btn-download-data-modal-element"
+              >
+                {{ key }}
+              </a>
+            </template>
+          </div>
+        </template>
+        <template v-else>
+          <div
+            v-show="!isHidden"
+            class="gobierto-data-btn-download-data-modal"
+          >
+            <template
+              v-for="({ url, name, label }, index) in arrayFormatsQuery"
+            >
+              <a
+                :key="index"
+                class="gobierto-data-btn-download-data-modal-element"
+                @click.prevent="getFiles(url, name)"
+              >
+                {{ label }}
+              </a>
+            </template>
+          </div>
+        </template>
       </transition>
     </Button>
   </div>
@@ -38,12 +57,14 @@
 <script>
 import Button from "./Button.vue";
 import { baseUrl, CommonsMixin } from "./../../../lib/commons.js";
+import { DownloadFilesFactoryMixin } from "./../../../lib/factories/download";
+
 export default {
   name: 'DownloadButton',
   components: {
     Button
   },
-  mixins: [CommonsMixin],
+  mixins: [CommonsMixin, DownloadFilesFactoryMixin],
   props: {
     editor: {
       type: Boolean,
@@ -52,32 +73,67 @@ export default {
     arrayFormats: {
       type: Object,
       required: true
-    }
+    },
+    queryStored: {
+      type: String,
+      default: ""
+    },
   },
   data() {
     return {
-      labelDownloadData: "",
+      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || "",
       isHidden: true,
-      sqlfileCSV: '',
-      sqlfileXLSX: '',
-      sqlfileJSON: '',
-      titleDataset: ''
+      arrayFormatsQuery: {},
+      titleFile: ''
+    }
+  },
+  watch: {
+    queryStored(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.createObjectFormatsQuery(newValue)
+      }
     }
   },
   created() {
-    this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
+    this.createObjectFormatsQuery(this.queryStored)
   },
   methods: {
     closeMenu() {
       this.isHidden = true
     },
-    updateCode(sqlQuery) {
-      // TODO: this method do nothing
-      const code = sqlQuery
-      const endPointSQL = `${baseUrl}/data.csv?sql=`
-      this.sqlfileCSV = `${endPointSQL}${code}&csv_separator=semicolon`
-      this.sqlfileXLSX = `${endPointSQL}${code}`
-      this.sqlfileJSON = `${endPointSQL}${code}`
+    createObjectFormatsQuery(sql) {
+      let datetime = new Date();
+      const date = `${datetime.getDate()}_${(datetime.getMonth() + 1)}_${datetime.getFullYear()}`;
+      const queryCode = new URLSearchParams(sql)
+      const endPointCSV = `${baseUrl}/data.csv?sql=${queryCode.toString()}&csv_separator=semicolon`
+      const endPointJSON = `${baseUrl}/data.json?sql=${queryCode.toString()}`
+      const endPointXLSX = `${baseUrl}/data.xlsx?sql=${queryCode.toString()}`
+
+      const {
+        params: {
+          id: titleFile
+        }
+      } = this.$route
+
+      this.titleFile = titleFile
+
+      this.arrayFormatsQuery = [
+        {
+          label: 'CSV',
+          url: endPointCSV,
+          name: `${titleFile}_${date}.csv`
+        },
+        {
+          label: 'JSON',
+          url: endPointJSON,
+          name: `${titleFile}_${date}.json`
+        },
+        {
+          label: 'XLSX',
+          url: endPointXLSX,
+          name: `${titleFile}_${date}.xls`
+        }
+      ]
     }
   }
 }

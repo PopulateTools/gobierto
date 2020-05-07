@@ -35,6 +35,7 @@
       :array-formats="arrayFormats"
       :resources-list="resourcesList"
       :dataset-attributes="attributes"
+      :user-is-not-logged="userIsNotLogged"
     />
 
     <DataTab
@@ -57,17 +58,20 @@
       :enabled-saved-button="enabledSavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
+      :user-is-not-logged="userIsNotLogged"
     />
 
     <QueriesTab
       v-else-if="activeDatasetTab === 2"
       :private-queries="privateQueries"
       :public-queries="publicQueries"
+      :user-is-not-logged="userIsNotLogged"
     />
 
     <VisualizationsTab
       v-else-if="activeDatasetTab === 3"
       :dataset-id="datasetId"
+      :user-is-not-logged="userIsNotLogged"
     />
 
     <DownloadsTab
@@ -145,7 +149,8 @@ export default {
       showRevertQuery: false,
       queryName: null,
       queryDuration: 0,
-      queryError: null
+      queryError: null,
+      userIsNotLogged: false
     };
   },
   computed: {
@@ -226,6 +231,8 @@ export default {
     if (userId) {
       // Do not request private queries if the user is not logged
       queriesPromises.push(this.getPrivateQueries(userId));
+    } else {
+      this.userIsNotLogged = true
     }
 
     // In order to update from the url, we need both public and private queries

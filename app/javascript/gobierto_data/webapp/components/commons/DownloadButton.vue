@@ -102,10 +102,12 @@ export default {
       this.isHidden = true
     },
     createObjectFormatsQuery(sql) {
-      const queryTrim = sql.trim()
-      const endPointCSV = `${baseUrl}/data.csv?sql=${queryTrim}&csv_separator=semicolon`
-      const endPointJSON = `${baseUrl}/data.json?sql=${queryTrim}`
-      const endPointXLSX = `${baseUrl}/data.xlsx?sql=${queryTrim}`
+      let datetime = new Date();
+      const date = `${datetime.getDate()}_${(datetime.getMonth() + 1)}_${datetime.getFullYear()}`;
+      const queryCode = new URLSearchParams(sql)
+      const endPointCSV = `${baseUrl}/data.csv?sql=${queryCode.toString()}&csv_separator=semicolon`
+      const endPointJSON = `${baseUrl}/data.json?sql=${queryCode.toString()}`
+      const endPointXLSX = `${baseUrl}/data.xlsx?sql=${queryCode.toString()}`
 
       const {
         params: {
@@ -119,17 +121,17 @@ export default {
         {
           label: 'CSV',
           url: endPointCSV,
-          name: `${titleFile}.csv`
+          name: `${titleFile}_${date}.csv`
         },
         {
           label: 'JSON',
           url: endPointJSON,
-          name: `${titleFile}.json`
+          name: `${titleFile}_${date}.json`
         },
         {
           label: 'XLSX',
           url: endPointXLSX,
-          name: `${titleFile}.xlsx`
+          name: 'prueban_xls'
         }
       ]
     }

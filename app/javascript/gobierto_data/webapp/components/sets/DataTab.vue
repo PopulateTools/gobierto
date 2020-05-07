@@ -13,6 +13,7 @@
         :enabled-saved-button="enabledSavedButton"
         :show-revert-query="showRevertQuery"
         :show-private="showPrivate"
+        :user-is-not-logged="userIsNotLogged"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"

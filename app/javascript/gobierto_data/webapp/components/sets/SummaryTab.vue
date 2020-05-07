@@ -17,6 +17,7 @@
     <Queries
       :private-queries="privateQueries"
       :public-queries="publicQueries"
+      :user-is-not-logged="userIsNotLogged"
     />
   </div>
 </template>
@@ -61,6 +62,10 @@ export default {
       required: true,
       default: () => [],
     },
+    userIsNotLogged: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

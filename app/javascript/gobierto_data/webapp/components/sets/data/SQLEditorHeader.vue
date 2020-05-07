@@ -55,6 +55,7 @@
           v-if="isQueriesModalActive"
           :private-queries="privateQueries"
           :public-queries="publicQueries"
+
           class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
         />
       </transition>
@@ -148,6 +149,10 @@ export default {
       default: false
     },
     isQuerySaved: {
+      type: Boolean,
+      default: false
+    },
+    userIsNotLogged: {
       type: Boolean,
       default: false
     }

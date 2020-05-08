@@ -128,6 +128,7 @@ export default {
         editor.showHint({ completeSingle: false })
       }
 
+      // Enabled saved and fork button while typping on editor
       this.$root.$emit('enableSavedButton')
       this.$root.$emit('enabledForkPrompt')
     },

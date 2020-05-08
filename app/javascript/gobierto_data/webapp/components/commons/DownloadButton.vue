@@ -22,7 +22,7 @@
               v-for="(item, key, index) in arrayFormats"
             >
               <a
-                :key="index"
+                :key="key"
                 :href="item"
                 :download="titleFile"
                 class="gobierto-data-btn-download-data-modal-element"
@@ -41,7 +41,7 @@
               v-for="({ url, name, label }, index) in arrayFormatsQuery"
             >
               <a
-                :key="index"
+                :key="key"
                 class="gobierto-data-btn-download-data-modal-element"
                 @click.prevent="getFiles(url, name)"
               >

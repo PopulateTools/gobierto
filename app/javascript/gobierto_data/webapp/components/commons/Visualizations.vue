@@ -55,9 +55,8 @@ export default {
     initPerspective(data) {
       this.viewer.setAttribute('plugin', this.typeChart)
       this.viewer.clear();
-      const table = perspective.worker().table(data);
 
-      this.viewer.load(table);
+      this.viewer.load(data);
       if (this.config) {
         this.viewer.restore(this.config);
       }

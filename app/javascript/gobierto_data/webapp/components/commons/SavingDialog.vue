@@ -218,6 +218,12 @@ export default {
   },
   methods: {
     onClickSaveHandler() {
+
+      if (getUserId() === "") {
+        location.href = "/user/sessions/new?open_modal=true"
+        return false
+      }
+
       const {
         params: { queryId }
       } = this.$route;

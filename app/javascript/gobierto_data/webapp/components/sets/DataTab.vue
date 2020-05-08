@@ -128,6 +128,10 @@ export default {
       type: Boolean,
       default: false
     },
+    tableName: {
+      type: String,
+      default: ''
+    },
     isUserLogged: {
       type: Boolean,
       default: false

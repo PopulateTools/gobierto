@@ -60,6 +60,7 @@
       :enabled-fork-button="enabledForkButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
+      :table-name="tableName"
       :is-user-logged="isUserLogged"
     />
 
@@ -238,11 +239,7 @@ export default {
       queriesPromises.push(this.getPrivateQueries(userId));
     }
 
-    if (!userId || userId.length === 0) {
-      this.isUserLogged = false
-    } else {
-      this.isUserLogged = true
-    }
+    this.isUserLogged = !!(userId && userId.length)
 
     // In order to update from the url, we need both public and private queries
     const [publicResponse, privateResponse] = await Promise.all(

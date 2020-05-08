@@ -3,16 +3,25 @@ en:
   gobierto_dashboards:
     dashboards:
       contracts:
+        assignee: Assignee
+        contract_amount: Contract Amount
+        contractor: Contractor
+        contracts: Contracts
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
+        empty_table: There is no available data
+        end_date: Date
+        final_amount: Amount
+        process_type: Type
+        status: Status
+        submission_date: Date
+        summary: Summary
+        tender_amount: Tender Amount
+        tenders: Tenders
         title: Contracts and tenders
-        summary: 'Summary'
-        contracts: 'Contracts'
-        tenders: 'Tenders'
     layouts:
       application:
         gobierto_dashboards:
           contracts: Contracts and tenders
       menu_subsections:
         contracts: Contracts
-        tenders: Tenders

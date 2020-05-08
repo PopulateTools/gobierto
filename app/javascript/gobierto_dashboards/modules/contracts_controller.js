@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import * as d3 from 'd3'
 import { getRemoteData } from '../webapp/mixins/get_remote_data'
 
 Vue.use(VueRouter);
@@ -11,11 +12,6 @@ export class ContractsController {
 
     // Mount Vue applications
     const entryPoint = document.getElementById(selector);
-
-    const remoteCsvData = {
-      contractsData: getRemoteData(options.contractsEndpoint),
-      tendersData: getRemoteData(options.tendersEndpoint)
-    };
 
     if (entryPoint) {
       const htmlRouterBlock = `
@@ -75,10 +71,17 @@ export class ContractsController {
         );
       });
 
-      new Vue({
-        router,
-        data: Object.assign(options, remoteCsvData),
-      }).$mount(entryPoint);
+      Promise.all([getRemoteData(options.contractsEndpoint), getRemoteData(options.tendersEndpoint)]).then((fullData) => {
+        const remoteCsvData = {
+          contractsData: fullData[0],
+          tendersData: fullData[1]
+        };
+
+        new Vue({
+          router,
+          data: Object.assign(options, remoteCsvData),
+        }).$mount(entryPoint);
+      });
     }
   }
 }

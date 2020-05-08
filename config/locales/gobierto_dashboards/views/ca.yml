@@ -3,16 +3,25 @@ ca:
   gobierto_dashboards:
     dashboards:
       contracts:
+        assignee: Assignee
+        contract_amount: Imp. adjudicació
+        contractor: Contractor
+        contracts: Contractes
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
+        empty_table: No hi ha dades disponibles
+        end_date: Data
+        final_amount: Amount
+        process_type: Tipus
+        status: Procediment
+        submission_date: Data
+        summary: Resum
+        tender_amount: Imp. licitació
+        tenders: Licitacions
         title: Contractes i licitacions
-        summary: 'Resum'
-        contracts: 'Contractes'
-        tenders: 'Licitacions'
     layouts:
       application:
         gobierto_dashboards:
           contracts: Contractes i licitacions
       menu_subsections:
         contracts: Contractes
-        tenders: Licitacions

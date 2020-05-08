@@ -71,6 +71,7 @@
       :is-fork-prompt-visible="isForkPromptVisible"
       :enabled-saved-button="enabledSavedButton"
       :enabled-fork-button="enabledForkButton"
+      :enabled-revert-button="enabledRevertButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       @save="onSaveEventHandler"
@@ -161,7 +162,11 @@ export default {
     isUserLogged: {
       type: Boolean,
       default: false
-    }
+    },
+    enabledRevertButton: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {

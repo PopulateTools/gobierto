@@ -107,7 +107,7 @@
       <template v-if="showRevertQuery">
         <Button
           :text="labelRevert"
-          :disabled="!enabledSavedButton"
+          :disabled="!enabledRevertButton"
           icon="undo"
           class="btn-sql-editor btn-sql-editor-revert"
           color="var(--color-base)"
@@ -171,6 +171,10 @@ export default {
       default: false
     },
     isQuerySaved: {
+      type: Boolean,
+      default: false
+    },
+    enabledRevertButton: {
       type: Boolean,
       default: false
     }
@@ -259,6 +263,7 @@ export default {
       const { value } = event.target
       this.labelValue = value
       this.$root.$emit('enableSavedButton')
+      this.$root.$emit('enabledRevertButton')
       this.countInputCharacters(value)
     },
     onInputCheckboxHandler(event) {
@@ -294,11 +299,13 @@ export default {
       }
     },
     inputHandler() {
+      //If user is logged in and load her queries
       const userId = getUserId();
         if (!this.enabledForkButton && !!userId) {
         this.disabledButton = false
         this.$root.$emit('enableSavedButton')
         this.$root.$emit('enabledForkPrompt')
+        this.$root.$emit('disabledRevertButton')
         this.$nextTick(() => this.$refs.inputText.focus());
       }
     }

@@ -57,6 +57,7 @@
       :query-error="queryError"
       :enabled-saved-button="enabledSavedButton"
       :enabled-fork-button="enabledForkButton"
+      :enabled-revert-button="enabledRevertButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       :table-name="tableName"
@@ -147,6 +148,7 @@ export default {
       resetQueryDefault: false,
       revertQuerySaved: false,
       enabledSavedButton: false,
+      enabledRevertButton: false,
       showRevertQuery: false,
       queryName: null,
       queryDuration: 0,
@@ -172,10 +174,11 @@ export default {
       }
 
       if (to.path !== from.path) {
-        this.disabledSavedButton()
         this.isQueryModified = false;
         this.setDefaultQuery()
         this.QueryIsNotMine()
+        this.disabledSavedButton()
+        this.disabledRevertButton()
       }
 
       //FIXME: Hugo, we need to talk about this hack
@@ -293,6 +296,10 @@ export default {
     this.$root.$on('disabledForkButton', this.disabledForkButton)
 
     this.$root.$on('enabledForkPrompt', this.enabledForkPrompt)
+
+    this.$root.$on('enabledRevertButton', this.activatedRevertButton)
+
+    this.$root.$on('disabledRevertButton', this.disabledRevertButton)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -309,6 +316,8 @@ export default {
     this.$root.$off('isSavingPromptVisible')
     this.$root.$off('disabledForkButton')
     this.$root.$off('enabledForkPrompt')
+    this.$root.$off('enabledRevertButton')
+    this.$root.$off('disabledRevertButton')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -336,19 +345,11 @@ export default {
       }
     },
     setDefaultQuery() {
-      const userId = getUserId();
-
       const {
         params: { queryId }
       } = this.$route;
 
-      let items;
-      //Check if user is logged
-      if (userId) {
-        items = this.privateQueries
-      } else {
-        items = this.publicQueries
-      }
+      let items = this.publicQueries;
 
       //We need to keep this query separate from the editor query
       //When load a saved query we use the queryId to find inside privateQueries or publicQueries
@@ -565,6 +566,7 @@ export default {
         this.runCurrentQuery()
         this.disabledSavedButton()
         this.disabledStringSavedQuery()
+        this.disabledRevertButton()
       }
     },
     activatedSavedButton() {
@@ -622,6 +624,12 @@ export default {
     },
     enabledForkPrompt() {
       this.isForkPromptVisible = true
+    },
+    disabledRevertButton() {
+      this.enabledRevertButton = false
+    },
+    activatedRevertButton() {
+      this.enabledRevertButton = true
     }
   },
 };

@@ -13,6 +13,7 @@
         :query-name="queryName"
         :enabled-saved-button="enabledSavedButton"
         :enabled-fork-button="enabledForkButton"
+        :enabled-revert-button="enabledRevertButton"
         :show-revert-query="showRevertQuery"
         :show-private="showPrivate"
       />
@@ -111,6 +112,10 @@ export default {
       default: false
     },
     enabledForkButton: {
+      type: Boolean,
+      default: false
+    },
+    enabledRevertButton: {
       type: Boolean,
       default: false
     },

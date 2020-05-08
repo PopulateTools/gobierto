@@ -100,31 +100,6 @@ export default {
   methods: {
     closeMenu() {
       this.isHidden = true
-    },
-    createObjectFormatsQuery(sql) {
-
-      //Get the formats from API
-      const keyFomarts = Object.keys(this.arrayFormats)
-      //Convert all linebreaks from any SO(Windows: \r\n Linux: \n Older Macs: \r) to spaces.
-      const formatSQL = sql.replace(/[\r\n]+/gm, " ");
-      let datetime = new Date();
-      const date = `${datetime.getDate()}_${(datetime.getMonth() + 1)}_${datetime.getFullYear()}`;
-
-      const {
-        params: {
-          id: titleFile
-        }
-      } = this.$route
-
-      this.titleFile = titleFile
-
-      for (let i = 0; i < keyFomarts.length; i++) {
-        this.arrayFormatsQuery[i] = {
-          label: keyFomarts[i],
-          url: `${baseUrl}/data.${keyFomarts[i]}?sql=${formatSQL}`,
-          name: `${titleFile}_${date}.${keyFomarts[i]}`
-        };
-      }
     }
   }
 }

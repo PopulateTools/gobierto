@@ -32,6 +32,7 @@ module GobiertoAdmin
     has_many :gobierto_citizens_charters_permissions, through: :admin_groups, class_name: "Permission::GobiertoCitizensCharters", source: :permissions
     has_many :gobierto_investments_permissions, through: :admin_groups, class_name: "Permission::GobiertoInvestments", source: :permissions
     has_many :gobierto_data_permissions, through: :admin_groups, class_name: "Permission::GobiertoData", source: :permissions
+    has_many :gobierto_dashboards_permissions, through: :admin_groups, class_name: "Permission::GobiertoDashboards", source: :permissions
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
     has_many :api_tokens, dependent: :destroy, class_name: "GobiertoAdmin::ApiToken"

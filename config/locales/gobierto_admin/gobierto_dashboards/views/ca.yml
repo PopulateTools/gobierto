@@ -1,0 +1,10 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_dashboards:
+      configuration:
+        settings:
+          edit:
+            title: Configuració dels Dashboards
+            update: Actualitzar
+          title: Preferencies

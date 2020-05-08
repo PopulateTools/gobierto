@@ -250,7 +250,9 @@ Rails.application.routes.draw do
       end
 
       namespace :gobierto_dashboards, as: :dashboards do
-        get "options" => "options#index"
+        namespace :configuration do
+          resource :settings, only: [:edit, :update], path: :settings
+        end
       end
     end
 

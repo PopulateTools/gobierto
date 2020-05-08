@@ -1,0 +1,13 @@
+---
+es:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_dashboards/settings_form:
+        dashboards_config: Configuración de los dashboards
+    errors:
+      models:
+        gobierto_admin/gobierto_dashboards/settings_form:
+          attributes:
+            dashboards_config:
+              invalid_format: La configuración no tiene un formato JSON válido
+              invalid_values: La configuración no tiene valores válidos

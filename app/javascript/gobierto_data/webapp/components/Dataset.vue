@@ -233,8 +233,6 @@ export default {
       queriesPromises.push(this.getPrivateQueries(userId));
     }
 
-      console.log("created -> !userId", !userId)
-      console.log("created -> userId.length", userId.length)
     if (!userId || userId.length === 0) {
       this.isUserLogged = false
     } else {

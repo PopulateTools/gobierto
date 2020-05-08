@@ -7,10 +7,12 @@
 
 .sql {
   color: var(--sql-code);
+  font-size: 12px;
 }
 
 .sql::after,
-.table::after {
+.table::after,
+.dataset::after {
   content: 'SQL';
   padding-left: 1.5rem;
   font-style: italic;
@@ -18,11 +20,18 @@
   color: var(--sql-hover);
 }
 
-.table {
+.table,
+.dataset {
+  font-size: 12px;
   color: var(--table-code);
 }
 
 .table::after {
   content: 'COLUMN';
-  color: var(--table-code);
+  color: var(--table-hover);
+}
+
+.dataset::after {
+  content: 'DATASET';
+  color: var(--table-hover);
 }

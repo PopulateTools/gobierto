@@ -7,9 +7,9 @@ class User::SettingsController < User::BaseController
     @user_settings_form = User::SettingsForm.new(
       user_id: current_user.id, name: current_user.name,
       email: current_user.email, gender: current_user.gender,
-      date_of_birth_year: current_user.date_of_birth.year,
-      date_of_birth_month: current_user.date_of_birth.month,
-      date_of_birth_day: current_user.date_of_birth.day,
+      date_of_birth_year: current_user.date_of_birth&.year,
+      date_of_birth_month: current_user.date_of_birth&.month,
+      date_of_birth_day: current_user.date_of_birth&.day,
       password_enabled: password_enabled,
       read_only_user_attributes: read_only_user_attributes
     )

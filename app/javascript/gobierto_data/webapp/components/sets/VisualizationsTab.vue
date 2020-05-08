@@ -129,7 +129,7 @@ export default {
     datasetId: {
       type: Number,
       required: true
-    }
+    },
   },
   data() {
     return {

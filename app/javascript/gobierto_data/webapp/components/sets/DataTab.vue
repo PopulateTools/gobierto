@@ -25,6 +25,10 @@
         v-if="items.length"
         :array-formats="arrayFormats"
         :array-columns-query="arrayColumnsQuery"
+        :enabled-saved-button="enabledSavedButton"
+        :is-query-modified="isQueryModified"
+        :is-query-saved="isQuerySaved"
+        :is-saving-prompt-visible="isSavingPromptVisible"
         :items="items"
       />
     </div>

@@ -357,10 +357,6 @@ export default {
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert
     },
-    ensureUserIsLogged() {
-      if (getUserId() === "")
-        location.href = "/user/sessions/new?open_modal=true";
-    },
     isQueryStored(query = this.currentQuery) {
       // check if the query passed belongs to public/private arrays, if there's no args, it uses currentQuery
       return (
@@ -431,8 +427,6 @@ export default {
       }
     },
     async storeCurrentQuery({ name, privacy }) {
-      // if there's no user, you cannot save queries
-      this.ensureUserIsLogged();
 
       const data = {
         type: "gobierto_data-queries",
@@ -506,8 +500,6 @@ export default {
       }
     },
     async storeCurrentVisualization(config, opts) {
-      // if there's no user, you cannot save visualizations
-      this.ensureUserIsLogged();
 
       const { name, privacy } = opts;
 

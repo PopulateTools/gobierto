@@ -130,6 +130,7 @@ export default {
 
       this.$root.$emit('enableSavedButton')
       this.$root.$emit('enabledForkPrompt')
+      this.$root.$emit('disabledStringSavedQuery')
     },
     onChange(editor) {
       this.mergeTables();

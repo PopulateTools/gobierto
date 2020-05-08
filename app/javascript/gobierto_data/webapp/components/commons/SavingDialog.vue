@@ -219,9 +219,9 @@ export default {
   methods: {
     onClickSaveHandler() {
 
-      if (getUserId() === "") {
-        location.href = "/user/sessions/new?open_modal=true"
-        return false
+      if (getUserId() === '') {
+        location.href = '/user/sessions/new?open_modal=true';
+        return false;
       }
 
       const {
@@ -266,6 +266,7 @@ export default {
       this.isPrivate = checked
     },
     revertQueryHandler() {
+      this.labelValue = this.value
       this.$root.$emit('revertSavedQuery', true)
     },
     onClickForkHandler() {
@@ -300,7 +301,7 @@ export default {
         this.$root.$emit('enabledForkPrompt')
         this.$nextTick(() => this.$refs.inputText.focus());
       }
-    },
+    }
   }
 }
 </script>

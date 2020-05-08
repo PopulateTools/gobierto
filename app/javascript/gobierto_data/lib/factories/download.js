@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Data-endpoint factory to get/post/put/delete API data
+// Factor to force download files in multiple formats
 export const DownloadFilesFactoryMixin = {
   methods: {
     getFiles(url, name) {

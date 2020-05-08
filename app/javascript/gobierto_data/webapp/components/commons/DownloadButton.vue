@@ -19,10 +19,10 @@
             class="gobierto-data-btn-download-data-modal"
           >
             <template
-              v-for="(item, key, index) in arrayFormats"
+              v-for="(item, key) in arrayFormats"
             >
               <a
-                :key="index"
+                :key="key"
                 :href="item"
                 :download="titleFile"
                 class="gobierto-data-btn-download-data-modal-element"
@@ -38,10 +38,10 @@
             class="gobierto-data-btn-download-data-modal"
           >
             <template
-              v-for="({ url, name, label }, index) in arrayFormatsQuery"
+              v-for="({ url, name, label }, key) in arrayFormatsQuery"
             >
               <a
-                :key="index"
+                :key="key"
                 class="gobierto-data-btn-download-data-modal-element"
                 @click.prevent="getFiles(url, name)"
               >
@@ -102,13 +102,13 @@ export default {
       this.isHidden = true
     },
     createObjectFormatsQuery(sql) {
+
+      //Get the formats from API
+      const keyFomarts = Object.keys(this.arrayFormats)
       //Convert all linebreaks from any SO(Windows: \r\n Linux: \n Older Macs: \r) to spaces.
       const formatSQL = sql.replace(/[\r\n]+/gm, " ");
       let datetime = new Date();
       const date = `${datetime.getDate()}_${(datetime.getMonth() + 1)}_${datetime.getFullYear()}`;
-      const endPointCSV = `${baseUrl}/data.csv?sql=${formatSQL}&csv_separator=semicolon`
-      const endPointJSON = `${baseUrl}/data.json?sql=${formatSQL}`
-      const endPointXLSX = `${baseUrl}/data.xlsx?sql=${formatSQL}`
 
       const {
         params: {
@@ -118,23 +118,13 @@ export default {
 
       this.titleFile = titleFile
 
-      this.arrayFormatsQuery = [
-        {
-          label: 'CSV',
-          url: endPointCSV,
-          name: `${titleFile}_${date}.csv`
-        },
-        {
-          label: 'JSON',
-          url: endPointJSON,
-          name: `${titleFile}_${date}.json`
-        },
-        {
-          label: 'XLSX',
-          url: endPointXLSX,
-          name: `${titleFile}_${date}.xls`
-        }
-      ]
+      for (let i = 0; i < keyFomarts.length; i++) {
+        this.arrayFormatsQuery[i] = {
+          label: keyFomarts[i],
+          url: `${baseUrl}/data.${keyFomarts[i]}?sql=${formatSQL}`,
+          name: `${titleFile}_${date}.${keyFomarts[i]}`
+        };
+      }
     }
   }
 }

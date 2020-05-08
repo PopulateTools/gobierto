@@ -30,6 +30,10 @@
         :array-formats="arrayFormats"
         :array-columns-query="arrayColumnsQuery"
         :query-stored="queryStored"
+        :enabled-saved-button="enabledSavedButton"
+        :is-query-modified="isQueryModified"
+        :is-query-saved="isQuerySaved"
+        :is-saving-prompt-visible="isSavingPromptVisible"
         :items="items"
       />
     </div>

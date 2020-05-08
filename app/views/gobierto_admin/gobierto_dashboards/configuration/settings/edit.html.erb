@@ -13,7 +13,6 @@
     </li>
   </ul>
 </div>
-<% Rails.logger.debug @settings_form.dashboards_config %>
 <%= form_for @settings_form, as: :gobierto_dashboards_settings,
       url: admin_dashboards_configuration_settings_path, method: :patch,
       html: { autocomplete: "off" } do |f| %>

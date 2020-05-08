@@ -123,15 +123,9 @@ export default {
         }
       } = editor
 
-      // Get position cursor to disable hint in cursor position
-      const cursorObject = editor.getCursor();
-      const {
-        ch: cursorPosition
-      } = cursorObject;
-
-      // Enables keyboard navigation in autocomplete list when editor is active, user dont press return and cu
-      if (!isEditorActive && e.keyCode != 13 && cursorPosition !== 0) {
-        editor.showHint()
+      // Show autocomplete only when a letter key is pressed
+      if (!isEditorActive && e.keyCode > 64 && e.keyCode < 91) {
+        editor.showHint({ completeSingle: false })
       }
 
       this.$root.$emit('enableSavedButton')

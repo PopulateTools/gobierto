@@ -378,10 +378,8 @@ export default {
         this.isQueryModified = true;
       }
 
-      // set the new query, trimming it to remove potentially harmful voids
-      this.currentQuery = sql.trim();
+      this.currentQuery = sql
 
-      this.disabledSavedButton()
       this.resetQuery(false)
       this.revertSavedQuery(false)
     },

@@ -51,7 +51,7 @@ gem "sidekiq", "~> 5.2.7"
 gem "sidekiq-monitor-stats"
 
 # AWS SDK client
-gem "aws-sdk", "~> 2.6", require: false
+gem "aws-sdk-s3", "~> 1"
 
 # AWS SES client
 gem "aws-ses", "~> 0.6.0"

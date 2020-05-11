@@ -23,6 +23,7 @@ gem "ruby_px"
 gem "before_renders"
 gem "bootsnap"
 gem "truncate_html"
+gem "rake", "~> 13.0"
 
 # Frontend
 gem "bourbon", "~> 7.0.0"

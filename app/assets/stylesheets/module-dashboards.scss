@@ -1,0 +1,212 @@
+@import "css-conf";
+@import "mixins";
+
+.dashboards {
+  @include min-screen(768) {
+    @include gutters(66px)
+  }
+
+  &-home-nav {
+    background-color: rgba($color_headers, 0.04);
+    margin-bottom: 1em;
+
+    &--reset {
+      display: flex;
+      align-items: flex-end;
+      height: 100%;
+      font-size: $f7;
+      cursor: pointer;
+      justify-content: flex-end;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      @include min-screen(768) {
+        justify-content: flex-start;
+        flex-direction: row;
+        margin-right: 0;
+      }
+    }
+
+    &--tab {
+      color: var(--color-base);
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 24px;
+      text-transform: uppercase;
+      padding: 14px 0;
+      border-top: 3px solid transparent;
+      box-sizing: border-box;
+      cursor: pointer;
+      transition: all 100ms ease-out;
+      text-align: center;
+      margin-left: 20px;
+      flex: 1 0 auto;
+
+      @include min-screen(768) {
+        flex: 0 0 auto;
+        min-width: 100px;
+      }
+
+      > :first-child {
+        flex: 0 0 25px;
+      }
+
+      &.is-active {
+        font-weight: 700;
+        border-top-color: var(--color-base);
+      }
+
+      &.is-active i:first-of-type,
+      &:not(.is-active) i:last-of-type {
+        display: inline-block;
+      }
+
+      &.is-active i:last-of-type,
+      &:not(.is-active) i:first-of-type {
+        display: none;
+      }
+    }
+  }
+
+  &-home-main {
+    $border-radius: 3px 4px 4px;
+
+    height: 100%;
+    min-height: 500px;
+
+    &--link {
+      color: var(--color-base);
+      font-size: $f6;
+      font-weight: 700;
+      line-height: 19px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    &--property {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      > :first-child {
+        font-size: $f8;
+        font-weight: 700;
+        line-height: 14px;
+        text-transform: uppercase;
+        flex: 1 0 25%;
+        padding-right: 3%;
+        box-sizing: border-box;
+      }
+
+      > :last-child {
+        font-size: $f7;
+        font-weight: 400;
+        line-height: 16px;
+        flex: 1 0 50%;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: .5em;
+      }
+    }
+
+    &--th {
+      font-size: $f8;
+      font-weight: 700;
+      line-height: 14px;
+      text-align: left;
+      border-top: 0;
+      text-transform: uppercase;
+      padding: 0 0 0.5em;
+      color: var(--color-base);
+
+      @include min-screen(768) {
+        &:first-child > * {
+          padding-left: 20px;
+        }
+      }
+
+      &:last-child > * {
+        text-align: right;
+        padding-right: 0;
+
+        @include min-screen(768) {
+          padding-right: 20px;
+        }
+      }
+    }
+
+    &--td {
+      padding: 0;
+      font-size: $f6;
+      font-weight: 400;
+      line-height: 28px;
+      text-align: left;
+      border-top: 0;
+      cursor: pointer;
+
+      > * {
+        border-top: 1px solid;
+        border-top-color: rgba(var(--color-base-string), 0.1);
+        padding: 0.5em 0;
+      }
+
+      &:first-child > * {
+        font-weight: 700;
+        margin-left: 0;
+        padding-right: 8px;
+
+        @include min-screen(768) {
+          margin-left: 20px;
+        }
+      }
+
+      &:last-child > * {
+        text-align: right;
+        margin-right: 0;
+        padding-left: 8px;
+
+        @include min-screen(768) {
+          margin-right: 20px;
+        }
+      }
+
+      &:not(:first-child) {
+        white-space: nowrap;
+      }
+
+      &:not(:first-child):not(:last-child) > *::first-letter {
+        text-transform: uppercase;
+      }
+    }
+
+    &--tr:hover > * {
+      background-color: rgba(var(--color-base-string), 0.1);
+
+      > * {
+        border-top-color: transparent;
+      }
+
+      &:first-child {
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+    }
+
+    &--tr:hover + &--tr > * > * {
+      border-top-color: transparent;
+    }
+  }
+}

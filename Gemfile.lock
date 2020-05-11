@@ -523,8 +523,8 @@ DEPENDENCIES
   cookies_eu
   d3-rails (~> 4.8)
   dalli
-  elasticsearch
-  elasticsearch-extensions
+  elasticsearch (~> 6.0, >= 6.0.2)
+  elasticsearch-extensions (~> 0.0.27)
   exchanger
   flight-for-rails
   font-awesome-sass (~> 5.6)

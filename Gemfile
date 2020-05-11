@@ -43,8 +43,8 @@ gem "font-awesome-sass", "~> 5.6"
 gem "webpacker", "~> 5.0"
 
 # Elasticsearch
-gem "elasticsearch"
-gem "elasticsearch-extensions"
+gem "elasticsearch", "~> 6.0", ">= 6.0.2"
+gem "elasticsearch-extensions", "~> 0.0.27"
 
 # Background processing
 gem "sidekiq", "~> 5.2.7"

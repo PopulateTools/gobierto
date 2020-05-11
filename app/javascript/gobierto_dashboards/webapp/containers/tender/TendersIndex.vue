@@ -31,7 +31,6 @@ export default {
   },
   created() {
     this.items = this.tendersData.slice(0, 50);
-    console.log(this.items[0])
   }
 }
 </script>

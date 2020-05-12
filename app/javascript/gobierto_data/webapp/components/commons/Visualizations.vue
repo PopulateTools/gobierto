@@ -65,6 +65,8 @@ export default {
 
       if (arrayColumnsQueryString !== data) {
         this.initPerspective(this.items)
+      } else {
+        this.viewer.clear()
       }
     },
     initPerspective(data) {

@@ -6,18 +6,33 @@ es:
         assignee: Adjudicatario
         contract_amount: Imp. adjudicación
         contractor: Contrato
-        contracts: Contratos
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
           del %{entity_name}
         empty_table: No hay datos disponibles
         end_date: Fecha
         final_amount: Importe
+        nav:
+          contracts: Contratos
+          summary: Resumen
+          tenders: Licitaciones
         process_type: Tipo
         status: Procedicimiento
         submission_date: Fecha
-        summary: Resumen
+        summary:
+          contracts: Contratos adjudicados
+          contracts_for: contratos por importe de
+          label_half_spendings_contracts: El <strong><span id="half-spendings-contracts-pct"></span></strong>
+            de contratos concentran el 50% de todo el gasto
+          label_larger_contract_amount: El mayor contrato supone un <strong><span
+            id="larger-contract-amount-pct"></span></strong> de todo el gasto en contratos
+          label_less_than_1000: El <strong><span id="less-than-1000-pct"></span></strong>
+            de los contratos son menores de <strong>1.000 €</strong>
+          mean_amount: Importe medio
+          mean_savings: Ahorro medio de licitación a adjudicación
+          median_amount: Importe mediano
+          tenders: Licitaciones
+          tenders_for: licitaciones por importe de
         tender_amount: Imp. licitación
-        tenders: Licitaciones
         title: Contratos y licitaciones
     layouts:
       application:

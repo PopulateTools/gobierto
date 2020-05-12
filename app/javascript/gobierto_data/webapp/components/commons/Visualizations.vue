@@ -26,11 +26,15 @@ export default {
       type: Array,
       default: () => []
     },
+    config: {
+      type: Object,
+      default: () => {}
+    }
   },
   watch: {
     items(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.initPerspective(newValue)
+        this.checkIfQueryResultIsEmpty(newValue)
       }
     },
     typeChart(newValue, oldValue) {
@@ -42,16 +46,27 @@ export default {
       if (newValue !== oldValue) {
         this.viewer.clear();
         this.viewer.setAttribute('columns', JSON.stringify(newValue))
-        this.initPerspective(this.items);
+        this.checkIfQueryResultIsEmpty(this.items)
       }
     }
   },
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
-    this.initPerspective(this.items);
+    this.checkIfQueryResultIsEmpty(this.items)
     this.listenerPerspective()
   },
   methods: {
+    // You can run a query that gets an empty result, and this isn't an error. But if the result comes empty Perspective has no data to build the table, so console returns an error. We need to check if the result of the query is equal to the columns
+    checkIfQueryResultIsEmpty(items) {
+      //The result of the query, if returns empty only contains the columns.
+      const data = items.trim()
+      //Only the columns of the query.
+      const arrayColumnsQueryString = this.arrayColumnsQuery.toString()
+
+      if (arrayColumnsQueryString !== data) {
+        this.initPerspective(this.items)
+      }
+    },
     initPerspective(data) {
       this.viewer.setAttribute('plugin', this.typeChart)
       this.viewer.clear();

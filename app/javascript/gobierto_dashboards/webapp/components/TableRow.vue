@@ -1,10 +1,10 @@
 <template>
   <tr class="dashboards-home-main--tr" @click="navigateTo(item)" >
     <td
-      v-for="column in columns"
+      v-for="{ field } in columns"
       class="dashboards-home-main--td"
     >
-      <div>{{ formattedItem[column.field] }}</div>
+      <div>{{ formattedItem[field] }}</div>
     </td>
   </tr>
 </template>

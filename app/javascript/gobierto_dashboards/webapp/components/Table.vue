@@ -3,10 +3,10 @@
     <table class="dashboards-home-main--table">
       <thead>
         <th
-          v-for="column in columns"
+          v-for="{ translation } in columns"
           class="dashboards-home-main--th"
         >
-          <div>{{ column.translation }}</div>
+          <div>{{ translation }}</div>
         </th>
       </thead>
       <transition-group

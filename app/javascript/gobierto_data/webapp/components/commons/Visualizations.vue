@@ -26,6 +26,10 @@ export default {
       type: Array,
       default: () => []
     },
+    config: {
+      type: Object,
+      default: () => {}
+    }
   },
   watch: {
     items(newValue, oldValue) {

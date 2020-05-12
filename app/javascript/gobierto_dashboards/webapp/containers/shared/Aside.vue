@@ -1,6 +1,6 @@
 <template>
   <div class="pure-u-1 pure-u-lg-1-4">
-    <aside class="investments-home-aside--gap">
+    <aside class="dashboards-home-aside--gap">
       wip filtros
     </aside>
   </div>

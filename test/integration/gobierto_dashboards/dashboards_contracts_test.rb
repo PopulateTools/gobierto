@@ -64,44 +64,50 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       assert page.has_content?('CONTRACTOR')
       assert page.has_content?('AMOUNT')
 
+      # Active tab is Contracts
+      assert find(".dashboards-home-nav--tab.is-active").text, 'CONTRACTS'
+
       first_contract = find(".dashboards-home-main--tr", match: :first)
 
       # Assignee
-      assert first_contract.has_content?('Grupo Conforsa Análisis, Desarrollo y Formación , S.A.')
+      assert first_contract.has_content?('IMPORTACIONES INDUSTRIALES, S.A.')
 
       # Contractor
-      assert first_contract.has_content?('Presidencia del Organismo Autónomo Agencia Local de Empleo y Formación del Ayuntamiento de Getafe')
+      assert first_contract.has_content?('Consejero Delegado del Consejo de Administración de Limpieza y Medio Ambiente de Getafe')
 
       # Amount
-      assert first_contract.has_content?('34364.0')
+      assert first_contract.has_content?('€28,600.53')
 
       # Date
-      assert first_contract.has_content?('2020-09-30')
+      assert first_contract.has_content?('2017-04-18')
 
       # Contracts Show
       ################
       first_contract.click
 
+      # Active tab is still Contracts
+      assert find(".dashboards-home-nav--tab.is-active").text, 'CONTRACTS'
+
       # Url is updated
-      assert_equal current_path, "/dashboards/contratos/contratos/807094"
+      assert_equal current_path, "/dashboards/contratos/contratos/56111"
 
       # Title
-      assert page.has_content?('Prestación del servicio de plataforma de formación online "Escuela Virtual Formalef Getafe"')
+      assert page.has_content?('Suministro, de forma sucesiva y por precio unitario, y por lotes de equipos de protección individual para el personal de Limpieza y Medio Ambiente de Getafe SAM')
 
       # Assignee
-      assert page.has_content?('Grupo Conforsa Análisis, Desarrollo y Formación , S.A.')
+      assert page.has_content?('IMPORTACIONES INDUSTRIALES, S.A.')
 
       # Contract amount
-      assert page.has_content?('34364.0')
+      assert page.has_content?('€28,600.53')
 
       # Tender amount
-      assert page.has_content?('48400.0')
+      assert page.has_content?('€123,015.86')
 
       # Status
-      assert page.has_content?('Formalizado')
+      assert page.has_content?('Desierto')
 
       # Type
-      assert page.has_content?('Abierto simplificado')
+      assert page.has_content?('Abierto')
     end
   end
 
@@ -111,33 +117,42 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       ###############
       visit @tenders_path
 
+      # Active tab is Tenders
+      assert find(".dashboards-home-nav--tab.is-active").text, 'TENDERS'
+
       first_tender = find(".dashboards-home-main--tr", match: :first)
 
       # Contractor
-      assert first_tender.has_content?('Presidencia del Organismo Autónomo Agencia Local de Empleo y Formación del Ayuntamiento de Getafe')
+      assert first_tender.has_content?('Consejero Delegado del Consejo de Administración de Limpieza y Medio Ambiente de Getafe, Sociedad Anónima Municipal')
 
       # Status
-      assert first_tender.has_content?('Renuncia')
+      assert first_tender.has_content?('Adjudicado provisionalmente')
 
       # Date
-      assert first_tender.has_content?('2019-09-24')
+      assert first_tender.has_content?('2014-03-24')
 
 
       # Tenders Show
       ##############
       first_tender.click
 
+      # Active tab is still Tenders
+      assert find(".dashboards-home-nav--tab.is-active").text, 'TENDERS'
+
       # Url is updated
-      assert_equal current_path, "/dashboards/contratos/licitaciones/435789"
+      assert_equal current_path, "/dashboards/contratos/licitaciones/174387"
+
+      # Title
+      assert page.has_content?('suministro mediante sistema de renting de tres camiones contenedores de carga trasera')
 
       # Tender amount
-      assert page.has_content?('48400.0')
+      assert page.has_content?('€604,000.00')
 
       # Status
-      assert page.has_content?('Renuncia')
+      assert page.has_content?('Adjudicado provisionalmente')
 
       # Type
-      assert page.has_content?('Abierto simplificado')
+      assert page.has_content?('Abierto')
     end
   end
 

@@ -45,6 +45,8 @@
 
 <script>
 
+import { formatCurrency } from "../../lib/utils.js";
+
 export default {
   name: 'ContractsShow',
   data() {
@@ -71,14 +73,8 @@ export default {
   methods: {
     initFormattedContract(){
       this.formattedContract = Object.assign({}, this.contract);
-      this.formattedContract.final_amount = this.formatCurrency(this.formattedContract.final_amount);
-      this.formattedContract.initial_amount = this.formatCurrency(this.formattedContract.initial_amount);
-    },
-    formatCurrency(amount){
-      return parseFloat(amount).toLocaleString(I18n.locale, {
-        style: 'currency',
-        currency: 'EUR'
-      })
+      this.formattedContract.final_amount = formatCurrency(this.formattedContract.final_amount);
+      this.formattedContract.initial_amount = formatCurrency(this.formattedContract.initial_amount);
     }
   }
 }

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import * as d3 from 'd3'
-import { getRemoteData } from '../webapp/mixins/get_remote_data'
+import { getRemoteData } from '../webapp/lib/get_remote_data'
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;

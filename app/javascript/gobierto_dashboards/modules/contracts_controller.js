@@ -71,11 +71,8 @@ export class ContractsController {
         );
       });
 
-      Promise.all([getRemoteData(options.contractsEndpoint), getRemoteData(options.tendersEndpoint)]).then((fullData) => {
-        const remoteCsvData = {
-          contractsData: fullData[0],
-          tendersData: fullData[1]
-        };
+      Promise.all([getRemoteData(options.contractsEndpoint), getRemoteData(options.tendersEndpoint)]).then((rawData) => {
+        const remoteCsvData = this.buildDataObject(rawData)
 
         new Vue({
           router,
@@ -83,5 +80,40 @@ export class ContractsController {
         }).$mount(entryPoint);
       });
     }
+  }
+
+  buildDataObject(rawData){
+    let contractsData, tendersData;
+    [contractsData, tendersData] = rawData;
+
+    const sortByField = (dateField) => {
+      return function(a, b){
+        const aDate = a[dateField],
+              bDate = b[dateField];
+
+        if (aDate == '') {
+          return 1;
+        }
+
+        if (bDate == '') {
+          return -1;
+        }
+
+        if ( aDate < bDate ){
+          return -1;
+        } else if ( aDate > bDate ){
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    }
+
+    const result = {
+      contractsData: contractsData.sort(sortByField('end_date')),
+      tendersData: tendersData.sort(sortByField('submission_date')),
+    }
+
+    return result;
   }
 }

@@ -52,23 +52,17 @@ export default {
       contractsData: this.$root.$data.contractsData,
       contract: null,
       formattedContract: null,
-      labelAsignee: '',
-      labelTenderAmount: '',
-      labelContractAmount: '',
-      labelStatus: '',
-      labelProcessType: '',
+      labelAsignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
+      labelTenderAmount: I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount'),
+      labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
+      labelStatus: I18n.t('gobierto_dashboards.dashboards.contracts.status'),
+      labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type')
     }
   },
   updated() {
     this.$emit("active-tab", 1);
   },
   created() {
-    this.labelAsignee = I18n.t('gobierto_dashboards.dashboards.contracts.assignee')
-    this.labelTenderAmount = I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount')
-    this.labelContractAmount = I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')
-    this.labelStatus = I18n.t('gobierto_dashboards.dashboards.contracts.status')
-    this.labelProcessType = I18n.t('gobierto_dashboards.dashboards.contracts.process_type')
-
     const itemId = this.$route.params.id;
 
     this.contract = this.contractsData.find((contract) => {

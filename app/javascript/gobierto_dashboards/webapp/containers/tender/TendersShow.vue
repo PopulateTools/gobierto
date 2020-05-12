@@ -39,21 +39,16 @@ export default {
     return {
       tendersData: this.$root.$data.tendersData,
       tender: null,
-      labelTenderAmount: '',
-      labelContractAmount: '',
-      labelStatus: '',
-      labelProcessType: '',
+      labelTenderAmount: I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount'),
+      labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
+      labelStatus: I18n.t('gobierto_dashboards.dashboards.contracts.status'),
+      labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type')
     }
   },
   updated() {
     this.$emit("active-tab", 2);
   },
   created() {
-    this.labelTenderAmount = I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount')
-    this.labelContractAmount = I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')
-    this.labelStatus = I18n.t('gobierto_dashboards.dashboards.contracts.status')
-    this.labelProcessType = I18n.t('gobierto_dashboards.dashboards.contracts.process_type')
-
     const itemId = this.$route.params.id;
 
     this.tender = this.tendersData.find((tender) => {

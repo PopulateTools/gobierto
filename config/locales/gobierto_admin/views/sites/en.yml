@@ -5,7 +5,8 @@ en:
       edit:
         title: Customize site
       form:
-        authentication_modules: Authentication strategies
+        admin_authentication_modules: Authentication strategies for admins
+        authentication_modules: Authentication strategies for users
         hints:
           domain:
             a_record: A record to %{target}

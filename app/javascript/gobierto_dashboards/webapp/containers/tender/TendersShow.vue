@@ -54,16 +54,11 @@ export default {
     this.labelStatus = I18n.t('gobierto_dashboards.dashboards.contracts.status')
     this.labelProcessType = I18n.t('gobierto_dashboards.dashboards.contracts.process_type')
 
-    const { item } = this.$route.params;
     const itemId = this.$route.params.id;
 
-    if (item) {
-      this.tender = item;
-    } else if (itemId) {
-      this.tender = this.tendersData.find((tender) => {
-        return tender.id === itemId
-      });
-    }
+    this.tender = this.tendersData.find((tender) => {
+      return tender.id === itemId
+    });
   }
 }
 </script>

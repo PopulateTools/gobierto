@@ -10,6 +10,7 @@
 
 <script>
 import Table from "../../components/Table.vue";
+import { contractsColumns } from "../../lib/config.js";
 
 export default {
   name: 'ContractsIndex',
@@ -19,17 +20,12 @@ export default {
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
-      items: [],
-      columns: [
-        {field: 'assignee', translation: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'), format: null},
-        {field: 'contractor', translation: I18n.t('gobierto_dashboards.dashboards.contracts.contractor'), format: null},
-        {field: 'final_amount', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount'), format: 'currency'},
-        {field: 'end_date', translation: I18n.t('gobierto_dashboards.dashboards.contracts.end_date'), format: null},
-      ]
+      items: []
     }
   },
   created() {
     this.items = this.contractsData.slice(0, 50);
+    this.columns = contractsColumns;
   }
 }
 </script>

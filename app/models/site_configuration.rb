@@ -70,6 +70,10 @@ class SiteConfiguration
     AUTH_MODULES.select { |mod| auth_modules.include?(mod.name) }
   end
 
+  def admin_auth_modules_data
+    AUTH_MODULES.select { |mod| admin_auth_modules.include?(mod.name) }
+  end
+
   def engine_overrides
     @engine_overrides || []
   end

@@ -59,11 +59,6 @@ export default {
   },
   created() {
     this.labelEmpty = I18n.t("gobierto_dashboards.dashboards.contracts.empty_table");
-  },
-  methods: {
-    showAll(isAllVisible) {
-      this.isAllVisible = isAllVisible
-    }
   }
 };
 </script>

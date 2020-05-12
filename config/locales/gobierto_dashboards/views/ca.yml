@@ -3,7 +3,7 @@ ca:
   gobierto_dashboards:
     dashboards:
       contracts:
-        assignee: Assignee
+        assignee: Adjudicatari
         contract_amount: Imp. adjudicació
         contractor: Contractor
         contracts: Contractes
@@ -11,7 +11,7 @@ ca:
           del %{entity_name}
         empty_table: No hi ha dades disponibles
         end_date: Data
-        final_amount: Amount
+        final_amount: Quantitat
         process_type: Tipus
         status: Procediment
         submission_date: Data

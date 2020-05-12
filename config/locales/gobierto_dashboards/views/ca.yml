@@ -6,18 +6,34 @@ ca:
         assignee: Adjudicatari
         contract_amount: Imp. adjudicació
         contractor: Contractor
-        contracts: Contractes
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
         empty_table: No hi ha dades disponibles
         end_date: Data
         final_amount: Quantitat
+        nav:
+          contracts: Contracts
+          summary: Resum
+          tenders: Licitacions
         process_type: Tipus
         status: Procediment
         submission_date: Data
-        summary: Resum
+        summary:
+          contracts: Contractes adjudicats
+          contracts_for: contractes per import de
+          label_half_spendings_contracts: El <strong> <span id = "half-spendings-contracts-pct">
+            </ span> </ strong> de contractes concentren el 50% de tota la despesa
+          label_larger_contract_amount: El major contracte suposa un <strong> <span
+            id = "larger-contract-amount-pct"> </ span> </ strong> de tota la despesa
+            en contractes
+          label_less_than_1000: El <strong><span id="less-than-1000-pct"></span></strong>
+            dels contractes són menors de <strong> 1.000 € </ strong>
+          mean_amount: Import mitjà
+          mean_savings: Estalvi mitjà de licitació a adjudicació
+          median_amount: Import mitjà
+          tenders: Licitacions
+          tenders_for: licitacions per un import de
         tender_amount: Imp. licitació
-        tenders: Licitacions
         title: Contractes i licitacions
     layouts:
       application:

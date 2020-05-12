@@ -1,18 +1,18 @@
 <template>
   <div>
-    <h1>{{ contract.title }}</h1>
+    <h1>{{ formattedContract.title }}</h1>
 
-    <p v-if="contract.description">
-      {{ contract.description }}
+    <p v-if="formattedContract.description">
+      {{ formattedContract.description }}
     </p>
 
     <div class="pure-g p_2 bg-gray">
       <div class="pure-u-1 pure-u-lg-1-2">
         <label class="soft">{{ labelAsignee }}</label>
         <div class="">
-          <strong class="d_block">{{ contract.assignee }}</strong>
-          <span v-if="contract.document_number">
-            {{contract.document_number}}
+          <strong class="d_block">{{ formattedContract.assignee }}</strong>
+          <span v-if="formattedContract.document_number">
+            {{formattedContract.document_number}}
           </span>
         </div>
       </div>
@@ -21,19 +21,19 @@
         <table>
           <tr>
             <th class="left">{{ labelContractAmount }}</th>
-            <td>{{ contract.final_amount }}</td>
+            <td>{{ formattedContract.final_amount }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelTenderAmount }}</th>
-            <td>{{ contract.initial_amount }}</td>
+            <td>{{ formattedContract.initial_amount }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelStatus }}</th>
-            <td>{{ contract.status }}</td>
+            <td>{{ formattedContract.status }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelProcessType }}</th>
-            <td>{{ contract.process_type }}</td>
+            <td>{{ formattedContract.process_type }}</td>
           </tr>
         </table>
 
@@ -51,6 +51,7 @@ export default {
     return {
       contractsData: this.$root.$data.contractsData,
       contract: null,
+      formattedContract: null,
       labelAsignee: '',
       labelTenderAmount: '',
       labelContractAmount: '',
@@ -77,6 +78,21 @@ export default {
       this.contract = this.contractsData.find((contract) => {
         return contract.id === itemId
       });
+    }
+
+    this.initFormattedContract();
+  },
+  methods: {
+    initFormattedContract(){
+      this.formattedContract = Object.assign({}, this.contract);
+      this.formattedContract.final_amount = this.formatCurrency(this.formattedContract.final_amount);
+      this.formattedContract.initial_amount = this.formatCurrency(this.formattedContract.initial_amount);
+    },
+    formatCurrency(amount){
+      return parseFloat(amount).toLocaleString(I18n.locale, {
+        style: 'currency',
+        currency: 'EUR'
+      })
     }
   }
 }

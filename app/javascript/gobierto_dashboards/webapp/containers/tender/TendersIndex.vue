@@ -23,9 +23,9 @@ export default {
       tendersData: this.$root.$data.tendersData,
       items: [],
       columns: [
-        {field: 'contractor', translation: I18n.t('gobierto_dashboards.dashboards.contracts.contractor')},
-        {field: 'status', translation: I18n.t('gobierto_dashboards.dashboards.contracts.status')},
-        {field: 'submission_date', translation: I18n.t('gobierto_dashboards.dashboards.contracts.submission_date')},
+        {field: 'contractor', translation: I18n.t('gobierto_dashboards.dashboards.contracts.contractor'), format: null},
+        {field: 'status', translation: I18n.t('gobierto_dashboards.dashboards.contracts.status'), format: null},
+        {field: 'submission_date', translation: I18n.t('gobierto_dashboards.dashboards.contracts.submission_date'), format: null},
       ]
     }
   },

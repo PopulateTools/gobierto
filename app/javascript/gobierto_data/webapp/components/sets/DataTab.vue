@@ -50,7 +50,7 @@ export default {
   props: {
     privateQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     recentQueries: {
       type: Array,
@@ -66,7 +66,7 @@ export default {
     },
     publicQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     arrayFormats: {
       type: Object,

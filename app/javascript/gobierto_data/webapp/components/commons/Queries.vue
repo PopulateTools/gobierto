@@ -111,11 +111,11 @@ export default {
   props: {
     privateQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     publicQueries: {
       type: Array,
-      required: true
+      default: () => []
     }
   },
   data() {

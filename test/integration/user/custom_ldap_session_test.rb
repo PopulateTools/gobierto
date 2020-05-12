@@ -8,7 +8,8 @@ class User::CustomSessionTest < ActionDispatch::IntegrationTest
 
   def setup
     super
-    secrets.stubs(:ldap_configurations).returns(ldap_configurations)
+    site.configuration.raw_configuration_variables = ldap_configuration.deep_stringify_keys.to_yaml
+    site.save
 
     @ldap_server = Ladle::Server.new(
       **ldap_server_configuration.slice(:domain, :port, :host).merge(
@@ -32,13 +33,13 @@ class User::CustomSessionTest < ActionDispatch::IntegrationTest
     }
   end
 
-  def ldap_configurations
-    @ldap_configurations ||= {
-      site.domain => {
+  def ldap_configuration
+    @ldap_configuration ||= {
+      ldap: {
         ldap_username: "uid=aa729,ou=people,dc=example,dc=org",
         ldap_password: "smada",
         configurations: [ldap_server_configuration]
-      }.with_indifferent_access
+      }
     }
   end
 

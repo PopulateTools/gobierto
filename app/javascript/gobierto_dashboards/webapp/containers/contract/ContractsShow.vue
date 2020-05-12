@@ -69,16 +69,11 @@ export default {
     this.labelStatus = I18n.t('gobierto_dashboards.dashboards.contracts.status')
     this.labelProcessType = I18n.t('gobierto_dashboards.dashboards.contracts.process_type')
 
-    const { item } = this.$route.params;
     const itemId = this.$route.params.id;
 
-    if (item) {
-      this.contract = item;
-    } else if (itemId) {
-      this.contract = this.contractsData.find((contract) => {
-        return contract.id === itemId
-      });
-    }
+    this.contract = this.contractsData.find((contract) => {
+      return contract.id === itemId
+    });
 
     this.initFormattedContract();
   },

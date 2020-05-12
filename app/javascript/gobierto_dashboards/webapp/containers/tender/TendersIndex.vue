@@ -9,13 +9,11 @@
 </template>
 
 <script>
-import ContractsShow from "./TendersShow.vue";
 import Table from "../../components/Table.vue";
 
 export default {
   name: 'TendersIndex',
   components: {
-    ContractsShow,
     Table
   },
   data() {

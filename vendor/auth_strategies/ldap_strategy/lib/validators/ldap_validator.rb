@@ -8,7 +8,7 @@ class LdapValidator < ActiveModel::Validator
   def validate(form)
     @params = form.data
     @site = form.site
-    if (form.user_ldap_data = extract_user_ldap_data).blank?
+    if (form.ldap_data = extract_user_ldap_data).blank?
       form.errors.add(:data, :invalid)
     end
   end
@@ -47,11 +47,11 @@ class LdapValidator < ActiveModel::Validator
   end
 
   def username
-    params[:user_session][:email]
+    params[:session][:identifier]
   end
 
   def password
-    params[:user_session][:password]
+    params[:session][:password]
   end
 
   def ldap_field_value(ldap_entry, key)

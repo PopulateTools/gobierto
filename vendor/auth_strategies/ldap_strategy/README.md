@@ -50,6 +50,7 @@ To make available from site configuration admin part, add to `auth_modules` in
       password_enabled: true
       domains: ['site1.gobierto.test', 'site2.gobierto.test']
       default: false
+      admin: true
 ```
 
 The `password_enabled` option as false disables the password feature from settings pages.
@@ -57,6 +58,8 @@ The `password_enabled` option as false disables the password feature from settin
 The `domains` variable contains the list of sites for which the strategy will be available.
 The site must have the domain included in the list. If this option is ignored or blank, the
 strategy will be available for all sites.
+
+The `admin` options is used to provide the strategy for admins authentication.
 
 **Warning**
 

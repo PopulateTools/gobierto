@@ -1,12 +1,9 @@
 ---
 ca:
-  user:
+  gobierto_admin:
     custom_sessions:
       ldap_strategy:
-        edit_form:
-          edit: Afegiu algun camp a aquest formulari
-          session_title: Si us plau, completeu els camps que falten
-          submit: Enviar
-        new_form:
-          session_title: Iniciar sessió
+        form:
+          identifier: Identificador
+          password: Contrasenya
           submit: Enviar

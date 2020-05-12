@@ -5,7 +5,8 @@ es:
       edit:
         title: Personalizar sitio
       form:
-        authentication_modules: Estrategias de autenticación
+        admin_authentication_modules: Estrategias de autenticación para admins
+        authentication_modules: Estrategias de autenticación para usuarios
         hints:
           domain:
             a_record: Entrada A a %{target}

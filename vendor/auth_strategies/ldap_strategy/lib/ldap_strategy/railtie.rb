@@ -8,7 +8,6 @@ else
     class Railtie < Rails::Railtie
       config.eager_load_namespaces << LdapStrategy
 
-      Rails.application.secrets.ldap_configurations = File.exists?("vendor/auth_strategies/ldap_strategy/config/config.yml") ?  YAML.load_file("vendor/auth_strategies/ldap_strategy/config/config.yml") : {}
       Rails.application.config.tap do |conf|
         base_strategy_path = conf.root.join("vendor", "auth_strategies", "ldap_strategy")
         conf.paths["app/views"].unshift(base_strategy_path.join("app", "views"))

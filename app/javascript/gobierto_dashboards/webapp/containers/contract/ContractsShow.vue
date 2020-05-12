@@ -59,9 +59,6 @@ export default {
       labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type')
     }
   },
-  updated() {
-    this.$emit("active-tab", 1);
-  },
   created() {
     const itemId = this.$route.params.id;
 

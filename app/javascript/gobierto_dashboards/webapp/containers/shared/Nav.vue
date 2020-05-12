@@ -4,7 +4,7 @@
       <li
         :class="{ 'is-active': activeTab === 0 }"
         class="dashboards-home-nav--tab"
-        @click="activateTab(0)"
+        @click="navigateToTab(0)"
       >
         <i class="fas fa-chart-bar" />
         <i class="far fa-chart-bar" />
@@ -13,7 +13,7 @@
       <li
         :class="{ 'is-active': activeTab === 1 }"
         class="dashboards-home-nav--tab"
-        @click="activateTab(1)"
+        @click="navigateToTab(1)"
       >
         <i class="fas fa-clone" />
         <i class="far fa-clone" />
@@ -22,7 +22,7 @@
       <li
         :class="{ 'is-active': activeTab === 2 }"
         class="dashboards-home-nav--tab"
-        @click="activateTab(2)"
+        @click="navigateToTab(2)"
       >
         <i class="fas fa-clone" />
         <i class="far fa-clone" />
@@ -48,24 +48,39 @@ export default {
       labelTenders: I18n.t("gobierto_dashboards.dashboards.contracts.tenders")
     }
   },
-  routesMapping: ['summary', 'contracts_index', 'tenders_index'],
-  created() {
-    this.activateTab(this.tabIndexFromRouteName(this.$router.currentRoute.name));
+  routesToNavBarMapping: {
+    'summary': 0,
+    'contracts_index': 1,
+    'contracts_show': 1,
+    'tenders_index': 2,
+    'tenders_show': 2
+  },
+  navBarNavigationMapping: [
+    'summary',
+    'contracts_index',
+    'tenders_index'
+  ],
+  created(){
+    const currentTabIndex = this.tabIndexFromRouteName();
+    this.markTabAsActive(currentTabIndex);
   },
   methods: {
-    activateTab(index) {
-      this.$emit("active-tab", index);
+    navigateToTab(index) {
+      this.markTabAsActive(index);
 
       const newRoute = this.routeNameFromTabIndex(index);
       if (newRoute !== this.$router.currentRoute.name) {
         this.$router.push({ name: newRoute });
       }
     },
-    routeNameFromTabIndex(index){
-      return this.$options.routesMapping[index];
+    markTabAsActive(index) {
+      this.$emit("active-tab", index);
     },
-    tabIndexFromRouteName(name){
-      return this.$options.routesMapping.indexOf(name);
+    routeNameFromTabIndex(index){
+      return this.$options.navBarNavigationMapping[index];
+    },
+    tabIndexFromRouteName(name=this.$router.currentRoute.name){
+      return this.$options.routesToNavBarMapping[name];
     }
   }
 }

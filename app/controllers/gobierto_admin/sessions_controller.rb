@@ -9,7 +9,7 @@ module GobiertoAdmin
     def new; end
 
     def create
-      admin = Admin.active.find_by(email: session_params[:email].downcase)
+      admin = Admin.with_password.active.find_by(email: session_params[:email].downcase)
 
       if admin.try(:authenticate, session_params[:password])
         admin.update_session_data(remote_ip)

@@ -352,18 +352,20 @@ export default {
       }
     },
     setDefaultQuery() {
+      const userId = getUserId();
+
       const {
         params: { queryId }
       } = this.$route;
 
-      let items = this.publicQueries;
-
+      //Check if user is logged
+      const items = userId ? this.privateQueries : this.publicQueries
       //We need to keep this query separate from the editor query
       //When load a saved query we use the queryId to find inside privateQueries or publicQueries
       const { attributes: { sql: queryRevert } = {} } = items.find(({ id }) => id === queryId) || {}
-
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert
+
     },
     isQueryStored(query = this.currentQuery) {
       // check if the query passed belongs to public/private arrays, if there's no args, it uses currentQuery
@@ -423,7 +425,8 @@ export default {
       const {
         data: { data: items },
       } = response;
-      this.publicQueries = items;
+
+      this.publicQueries = !items ? [] : items
     },
     async deleteSavedQuery(id) {
       // factory method

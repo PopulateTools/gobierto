@@ -167,6 +167,10 @@ export default {
       type: Boolean,
       default: false
     },
+    enabledForkButton: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

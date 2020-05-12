@@ -41,7 +41,7 @@ class LdapValidator < ActiveModel::Validator
   def bind_ldap(ldap, ldap_server)
     ldap.bind_as(
       base: ldap_server.domain,
-      filter: ldap_server.authentication_query.gsub("%{user_identifier}", username),
+      filter: ldap_server.authentication_query.gsub("@screen_name@", username),
       password: password
     )
   end

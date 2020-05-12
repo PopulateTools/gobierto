@@ -8,7 +8,7 @@ configurations including:
 * The `host`, `port` and `domain` of a LDAP service
 * `authentication_query`. This string be used to authenticate the user in the LDAP service.
 The data introduced as user identifier (usually an email) will be interpolated in the
-query replacing the `%{user_identifier}` part.
+query replacing the `@screen_name@` part.
 * `password_field`: The attribute used to store the password in LDAP
 * `email_field` and `name_field`. The attributes of LDAP used to create a new user in case
 it does not exist in Gobierto.
@@ -24,7 +24,7 @@ ldap:
       host: 127.0.0.1
       port: 3897
       domain: dc=example,dc=org
-      authentication_query: mail=%{user_identifier},dc=example,dc=org
+      authentication_query: mail=@screen_name@,dc=example,dc=org
       password_field: userPassword
       email_field: mail
       name_field: cn

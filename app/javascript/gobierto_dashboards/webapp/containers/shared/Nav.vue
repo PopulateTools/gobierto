@@ -43,17 +43,13 @@ export default {
   },
   data() {
     return {
-      labelSummary: '',
-      labelContracts: '',
-      labelTenders: ''
+      labelSummary: I18n.t("gobierto_dashboards.dashboards.contracts.summary"),
+      labelContracts: I18n.t("gobierto_dashboards.dashboards.contracts.contracts"),
+      labelTenders: I18n.t("gobierto_dashboards.dashboards.contracts.tenders")
     }
   },
   routesMapping: ['summary', 'contracts_index', 'tenders_index'],
   created() {
-    this.labelSummary = I18n.t("gobierto_dashboards.dashboards.contracts.summary");
-    this.labelContracts = I18n.t("gobierto_dashboards.dashboards.contracts.contracts");
-    this.labelTenders = I18n.t("gobierto_dashboards.dashboards.contracts.tenders");
-
     this.activateTab(this.tabIndexFromRouteName(this.$router.currentRoute.name));
   },
   methods: {

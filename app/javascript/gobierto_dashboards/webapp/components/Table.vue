@@ -53,12 +53,9 @@ export default {
   },
   data() {
     return {
-      labelEmpty: "",
+      labelEmpty: I18n.t("gobierto_dashboards.dashboards.contracts.empty_table"),
       perPage: 50
     };
-  },
-  created() {
-    this.labelEmpty = I18n.t("gobierto_dashboards.dashboards.contracts.empty_table");
   }
 };
 </script>

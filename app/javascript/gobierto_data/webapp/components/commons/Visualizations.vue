@@ -65,6 +65,10 @@ export default {
 
       if (arrayColumnsQueryString !== data) {
         this.initPerspective(this.items)
+      } else {
+        this.viewer.clear()
+        // Well, it's a bit tricky, but reset the table with .clear() only responds when trigger an event, if not trigger an event .clear() isn't fired
+        window.dispatchEvent(new Event('resize'))
       }
     },
     initPerspective(data) {

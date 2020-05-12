@@ -3,10 +3,10 @@
     <table class="dashboards-home-main--table">
       <thead>
         <th
-          v-for="column in columns"
+          v-for="{ translation } in columns"
           class="dashboards-home-main--th"
         >
-          <div>{{ column.translation }}</div>
+          <div>{{ translation }}</div>
         </th>
       </thead>
       <transition-group
@@ -53,17 +53,9 @@ export default {
   },
   data() {
     return {
-      labelEmpty: "",
+      labelEmpty: I18n.t("gobierto_dashboards.dashboards.contracts.empty_table"),
       perPage: 50
     };
-  },
-  created() {
-    this.labelEmpty = I18n.t("gobierto_dashboards.dashboards.contracts.empty_table");
-  },
-  methods: {
-    showAll(isAllVisible) {
-      this.isAllVisible = isAllVisible
-    }
   }
 };
 </script>

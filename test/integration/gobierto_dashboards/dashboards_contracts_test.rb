@@ -5,6 +5,7 @@ require "test_helper"
 class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationTest
   def setup
     super
+    @summary_path = gobierto_dashboards_contracts_path(locale: 'es')
     @contracts_path = gobierto_dashboards_contratos_contratos_path
     @tenders_path = gobierto_dashboards_contratos_licitaciones_path
 
@@ -54,6 +55,33 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
     }
   end
 
+  def test_summary
+    with(site: site, js: true) do
+      visit @summary_path
+
+      # Box
+      page.has_content?("Licitaciones\n252")
+      page.has_content?("licitaciones por importe de\n134.068.916,04 €")
+      page.has_content?("Importe medio\n532.019,51 €")
+
+      page.has_content?("Importe medio\n532.019,51 €")
+      page.has_content?("Importe mediano\n87.725,00 €")
+
+      page.has_content?("Contratos adjudicados\n245")
+      page.has_content?("contratos por importe de\n72.980.393,23 €")
+
+      page.has_content?("Importe medio\n304.084,97 €")
+      page.has_content?("Importe mediano\n28.933,91 €")
+
+      page.has_content?("Ahorro medio de licitación a adjudicación\n48 %")
+
+      # Headlines
+      assert page.has_content?("El 10 % de los contratos son menores de 1.000 €")
+      assert page.has_content?("El mayor contrato supone un 18 % de todo el gasto en contratos")
+      assert page.has_content?("El 100 % de contratos concentran el 50% de todo el gasto")
+    end
+  end
+
   def test_contracts
     with(site: site, js: true) do
       # Contracts Index
@@ -64,44 +92,50 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       assert page.has_content?('CONTRACTOR')
       assert page.has_content?('AMOUNT')
 
+      # Active tab is Contracts
+      assert find(".dashboards-home-nav--tab.is-active").text, 'CONTRACTS'
+
       first_contract = find(".dashboards-home-main--tr", match: :first)
 
       # Assignee
-      assert first_contract.has_content?('Grupo Conforsa Análisis, Desarrollo y Formación , S.A.')
+      assert first_contract.has_content?('IMPORTACIONES INDUSTRIALES, S.A.')
 
       # Contractor
-      assert first_contract.has_content?('Presidencia del Organismo Autónomo Agencia Local de Empleo y Formación del Ayuntamiento de Getafe')
+      assert first_contract.has_content?('Consejero Delegado del Consejo de Administración de Limpieza y Medio Ambiente de Getafe')
 
       # Amount
-      assert first_contract.has_content?('34364.0')
+      assert first_contract.has_content?('€28,600.53')
 
       # Date
-      assert first_contract.has_content?('2020-09-30')
+      assert first_contract.has_content?('2017-04-18')
 
       # Contracts Show
       ################
       first_contract.click
 
+      # Active tab is still Contracts
+      assert find(".dashboards-home-nav--tab.is-active").text, 'CONTRACTS'
+
       # Url is updated
-      assert_equal current_path, "/dashboards/contratos/contratos/807094"
+      assert_equal current_path, "/dashboards/contratos/contratos/56111"
 
       # Title
-      assert page.has_content?('Prestación del servicio de plataforma de formación online "Escuela Virtual Formalef Getafe"')
+      assert page.has_content?('Suministro, de forma sucesiva y por precio unitario, y por lotes de equipos de protección individual para el personal de Limpieza y Medio Ambiente de Getafe SAM')
 
       # Assignee
-      assert page.has_content?('Grupo Conforsa Análisis, Desarrollo y Formación , S.A.')
+      assert page.has_content?('IMPORTACIONES INDUSTRIALES, S.A.')
 
       # Contract amount
-      assert page.has_content?('34364.0')
+      assert page.has_content?('€28,600.53')
 
       # Tender amount
-      assert page.has_content?('48400.0')
+      assert page.has_content?('€123,015.86')
 
       # Status
-      assert page.has_content?('Formalizado')
+      assert page.has_content?('Desierto')
 
       # Type
-      assert page.has_content?('Abierto simplificado')
+      assert page.has_content?('Abierto')
     end
   end
 
@@ -111,33 +145,42 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       ###############
       visit @tenders_path
 
+      # Active tab is Tenders
+      assert find(".dashboards-home-nav--tab.is-active").text, 'TENDERS'
+
       first_tender = find(".dashboards-home-main--tr", match: :first)
 
       # Contractor
-      assert first_tender.has_content?('Presidencia del Organismo Autónomo Agencia Local de Empleo y Formación del Ayuntamiento de Getafe')
+      assert first_tender.has_content?('Consejero Delegado del Consejo de Administración de Limpieza y Medio Ambiente de Getafe, Sociedad Anónima Municipal')
 
       # Status
-      assert first_tender.has_content?('Renuncia')
+      assert first_tender.has_content?('Adjudicado provisionalmente')
 
       # Date
-      assert first_tender.has_content?('2019-09-24')
+      assert first_tender.has_content?('2014-03-24')
 
 
       # Tenders Show
       ##############
       first_tender.click
 
+      # Active tab is still Tenders
+      assert find(".dashboards-home-nav--tab.is-active").text, 'TENDERS'
+
       # Url is updated
-      assert_equal current_path, "/dashboards/contratos/licitaciones/435789"
+      assert_equal current_path, "/dashboards/contratos/licitaciones/174387"
+
+      # Title
+      assert page.has_content?('suministro mediante sistema de renting de tres camiones contenedores de carga trasera')
 
       # Tender amount
-      assert page.has_content?('48400.0')
+      assert page.has_content?('€604,000.00')
 
       # Status
-      assert page.has_content?('Renuncia')
+      assert page.has_content?('Adjudicado provisionalmente')
 
       # Type
-      assert page.has_content?('Abierto simplificado')
+      assert page.has_content?('Abierto')
     end
   end
 

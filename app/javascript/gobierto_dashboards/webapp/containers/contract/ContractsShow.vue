@@ -1,18 +1,18 @@
 <template>
   <div>
-    <h1>{{ contract.title }}</h1>
+    <h1>{{ formattedContract.title }}</h1>
 
-    <p v-if="contract.description">
-      {{ contract.description }}
+    <p v-if="formattedContract.description">
+      {{ formattedContract.description }}
     </p>
 
     <div class="pure-g p_2 bg-gray">
       <div class="pure-u-1 pure-u-lg-1-2">
         <label class="soft">{{ labelAsignee }}</label>
         <div class="">
-          <strong class="d_block">{{ contract.assignee }}</strong>
-          <span v-if="contract.document_number">
-            {{contract.document_number}}
+          <strong class="d_block">{{ formattedContract.assignee }}</strong>
+          <span v-if="formattedContract.document_number">
+            {{formattedContract.document_number}}
           </span>
         </div>
       </div>
@@ -21,19 +21,19 @@
         <table>
           <tr>
             <th class="left">{{ labelContractAmount }}</th>
-            <td>{{ contract.final_amount }}</td>
+            <td>{{ formattedContract.final_amount }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelTenderAmount }}</th>
-            <td>{{ contract.initial_amount }}</td>
+            <td>{{ formattedContract.initial_amount }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelStatus }}</th>
-            <td>{{ contract.status }}</td>
+            <td>{{ formattedContract.status }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelProcessType }}</th>
-            <td>{{ contract.process_type }}</td>
+            <td>{{ formattedContract.process_type }}</td>
           </tr>
         </table>
 
@@ -45,38 +45,36 @@
 
 <script>
 
+import { formatCurrency } from "../../lib/utils.js";
+
 export default {
   name: 'ContractsShow',
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
       contract: null,
-      labelAsignee: '',
-      labelTenderAmount: '',
-      labelContractAmount: '',
-      labelStatus: '',
-      labelProcessType: '',
+      formattedContract: null,
+      labelAsignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
+      labelTenderAmount: I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount'),
+      labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
+      labelStatus: I18n.t('gobierto_dashboards.dashboards.contracts.status'),
+      labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type')
     }
   },
-  updated() {
-    this.$emit("active-tab", 1);
-  },
   created() {
-    this.labelAsignee = I18n.t('gobierto_dashboards.dashboards.contracts.assignee')
-    this.labelTenderAmount = I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount')
-    this.labelContractAmount = I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')
-    this.labelStatus = I18n.t('gobierto_dashboards.dashboards.contracts.status')
-    this.labelProcessType = I18n.t('gobierto_dashboards.dashboards.contracts.process_type')
-
-    const { item } = this.$route.params;
     const itemId = this.$route.params.id;
 
-    if (item) {
-      this.contract = item;
-    } else if (itemId) {
-      this.contract = this.contractsData.find((contract) => {
-        return contract.id === itemId
-      });
+    this.contract = this.contractsData.find((contract) => {
+      return contract.id === itemId
+    });
+
+    this.initFormattedContract();
+  },
+  methods: {
+    initFormattedContract(){
+      this.formattedContract = Object.assign({}, this.contract);
+      this.formattedContract.final_amount = formatCurrency(this.formattedContract.final_amount);
+      this.formattedContract.initial_amount = formatCurrency(this.formattedContract.initial_amount);
     }
   }
 }

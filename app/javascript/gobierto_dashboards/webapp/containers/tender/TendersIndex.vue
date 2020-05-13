@@ -1,11 +1,10 @@
 <template>
-  <div>
-    <Table
-      :items="items"
-      :routing-member="'tenders_show'"
-      :columns="columns"
-    />
-  </div>
+  <Table
+    :items="items"
+    :routing-member="'tenders_show'"
+    :columns="columns"
+  >
+  </Table>
 </template>
 
 <script>

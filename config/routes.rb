@@ -198,6 +198,7 @@ Rails.application.routes.draw do
           delete :delete_contents
           put :recover
           patch :import_data
+          patch :import_table_custom_fields
         end
         resources :plan_types, except: [:show], path: :plan_types do
           put :recover

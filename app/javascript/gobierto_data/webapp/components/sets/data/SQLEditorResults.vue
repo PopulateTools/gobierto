@@ -46,6 +46,7 @@
       >
         <DownloadButton
           :editor="true"
+          :query-stored="queryStored"
           :array-formats="arrayFormats"
           class="arrow-top modal-right"
         />
@@ -91,6 +92,10 @@ export default {
     items: {
       type: String,
       default: ''
+    },
+    queryStored: {
+      type: String,
+      default: ""
     }
   },
   data() {

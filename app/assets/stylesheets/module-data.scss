@@ -220,7 +220,7 @@
     font-size: 16px;
     line-height: 20px;
     margin-bottom: 1rem;
-    color: #666;
+    color: rgba(102, 102, 102, .75);
     cursor: pointer;
   }
 
@@ -320,16 +320,16 @@
   &-btn-download-data {
     border: 1px solid rgba(var(--color-base-string), .2);
     padding: 1rem;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: 600;
     min-width: 250px;
-    margin: 1rem 0;
-    margin-right: 1rem !important;
+    margin: 1rem 1rem .5rem .25rem;
     position: relative;
     text-transform: unset;
     vertical-align: top;
 
     i {
-      color: rgba(var(--color-base-string), .2) !important;
+      color: rgba(var(--color-base-string), .5) !important;
     }
   }
 
@@ -1093,6 +1093,13 @@
     width: 95%;
     height: 100%;
     background-color: transparent;
+  }
+
+  &-description {
+    -webkit-columns: 33.33% 3;
+    -moz-columns: 33.33% 3;
+    columns: 33.33% 3;
+    height: 100px;
   }
 
 }

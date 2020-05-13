@@ -54,7 +54,7 @@ export default {
     },
     arrayColumns: {
       type: Object,
-      required: true
+      default: () => {}
     },
     arrayColumnsQuery: {
       type: Array,

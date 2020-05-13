@@ -32,6 +32,7 @@ ca:
       dashboards: Dashboards
       data: Dades
       dataset: Conjunt de dades
+      description: Descripció
       download: Descàrrega
       downloadData: Descarregueu dades
       edit: Editeu
@@ -45,6 +46,7 @@ ca:
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualització modificada
       news: Notícies
+      preview: Previsualitzar
       private: Privat
       queries: Consultes
       queryExecuted: Consulta executada en

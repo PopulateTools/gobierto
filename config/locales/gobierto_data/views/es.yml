@@ -32,6 +32,7 @@ es:
       dashboards: Dashboards
       data: Datos
       dataset: Conjunto de datos
+      description: Descripción
       download: Descargar
       downloadData: Descargar datos
       edit: Editar
@@ -45,6 +46,7 @@ es:
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualización modificada
       news: Noticias
+      preview: Previsualizar
       private: Privada
       queries: Consultas
       queryExecuted: Consulta ejecutada en

@@ -12,28 +12,38 @@
       class="arrow-top modal-left"
     />
 
-    <Button
-      :text="'Previsualizar'"
-      icon="table"
-      color="var(--color-base)"
-      class="gobierto-data-btn-download-data"
-      background="#fff"
-    />
+
+    <router-link
+      :to="`/datos/${$route.params.id}/${tabs[1]}`"
+    >
+      <Button
+        :text="labelPreview"
+        icon="table"
+        color="var(--color-base)"
+        class="gobierto-data-btn-download-data"
+        background="#fff"
+      />
+    </router-link>
 
     <Resources :resources-list="resourcesList" />
 
-    <h2
-      class="gobierto-data-tabs-section-title"
-      @click="showYourQueries = !showYourQueries"
-    >
-      <Caret :rotate="showYourQueries" />
-      {{ labelQueries }}
-    </h2>
-    <Queries
-      v-if="showYourQueries"
-      :private-queries="privateQueries"
-      :public-queries="publicQueries"
-    />
+    <Description :array-columns="arrayColumns" />
+
+    <Dropdown @is-content-visible="showYourQueries = !showYourQueries">
+      <template v-slot:trigger>
+        <h2 class="gobierto-data-tabs-section-title">
+          <Caret :rotate="showYourQueries" />
+          {{ labelQueries }}
+        </h2>
+      </template>
+      <div>
+        <Queries
+          v-if="showYourQueries"
+          :private-queries="privateQueries"
+          :public-queries="publicQueries"
+        />
+      </div>
+    </Dropdown>
   </div>
 </template>
 
@@ -44,6 +54,9 @@ import DownloadButton from "./../commons/DownloadButton.vue";
 import Button from "./../commons/Button.vue";
 import Queries from "./../commons/Queries.vue";
 import Caret from "./../commons/Caret.vue";
+import Description from "./../commons/Description.vue";
+import { tabs } from '../../../lib/router'
+import { Dropdown } from "lib/vue-components";
 import { translate } from "lib/shared"
 
 export default {
@@ -54,7 +67,9 @@ export default {
     DownloadButton,
     Button,
     Info,
-    Caret
+    Caret,
+    Dropdown,
+    Description
   },
   filters: {
     translate
@@ -69,6 +84,10 @@ export default {
       default: () => [],
     },
     arrayFormats: {
+      type: Object,
+      default: () => {},
+    },
+    arrayColumns: {
       type: Object,
       default: () => {},
     },
@@ -89,7 +108,9 @@ export default {
       frequency: {},
       dateUpdated: null,
       showYourQueries: true,
-      labelQueries: I18n.t("gobierto_data.projects.queries") || ""
+      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
+      labelPreview: I18n.t("gobierto_data.projects.preview") || "",
+      tabs
     };
   },
   created() {

@@ -33,6 +33,7 @@
       :private-queries="privateQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
+      :array-columns="arrayColumns"
       :resources-list="resourcesList"
       :dataset-attributes="attributes"
     />

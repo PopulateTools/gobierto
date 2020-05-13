@@ -25,6 +25,18 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def node
+        @node ||= gobierto_plans_nodes(:scholarships_kindergartens)
+      end
+
+      def table_custom_field_indicators
+        @table_custom_field_indicators ||= gobierto_common_custom_fields(:madrid_custom_field_indicators_table_plugin)
+      end
+
+      def table_custom_field_directory
+        @table_custom_field_directory ||= gobierto_common_custom_fields(:madrid_custom_field_table_plugin)
+      end
+
       def vocabulary_used_in_other_context
         @vocabulary_used_in_other_context ||= gobierto_common_vocabularies(:issues_vocabulary)
       end
@@ -40,7 +52,7 @@ module GobiertoAdmin
 
             click_link "Import from CSV"
 
-            within "form" do
+            within "form.new_plan" do
               click_button "Import from CSV file"
             end
 
@@ -57,7 +69,7 @@ module GobiertoAdmin
           click_link "Import from CSV"
 
           attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
-          within "form" do
+          within "form.new_plan" do
             with_stubbed_s3_file_upload do
               click_button "Import from CSV file"
             end
@@ -87,7 +99,7 @@ module GobiertoAdmin
           click_link "Import from CSV"
 
           attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
-          within "form" do
+          within "form.new_plan" do
             with_stubbed_s3_file_upload do
               click_button "Import from CSV file"
             end
@@ -131,7 +143,7 @@ module GobiertoAdmin
             click_link "Import from CSV"
 
             attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
-            within "form" do
+            within "form.new_plan" do
               with_stubbed_s3_file_upload do
                 click_button "Import from CSV file"
               end
@@ -154,7 +166,7 @@ module GobiertoAdmin
             click_link "Import from CSV"
 
             attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan2.csv")
-            within "form" do
+            within "form.new_plan" do
               with_stubbed_s3_file_upload do
                 click_button "Import from CSV file"
               end
@@ -177,7 +189,7 @@ module GobiertoAdmin
             click_link "Import from CSV"
 
             attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan_blank_statuses.csv")
-            within "form" do
+            within "form.new_plan" do
               with_stubbed_s3_file_upload do
                 click_button "Import from CSV file"
               end
@@ -187,6 +199,38 @@ module GobiertoAdmin
               assert has_content? "Data imported successfully"
             end
           end
+        end
+      end
+
+      def test_import_csv_table_custom_fields
+        with(site: site, admin: admin) do
+          visit path
+
+          click_link "Import from CSV"
+
+          attach_file "file_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/table_custom_fields.csv")
+          within "form.new_file" do
+            with_stubbed_s3_file_upload do
+              click_button "Import from CSV file"
+            end
+          end
+
+          within ".flash-message", match: :first do
+            assert has_content? "Data imported successfully"
+          end
+
+          imported_directory = node.custom_field_records.find_by(custom_field: table_custom_field_directory).value
+
+          assert_equal 2, imported_directory.count
+          assert_equal "miguel@example.org", imported_directory.first["email"]
+          assert_equal 999_999_999, imported_directory.first["phone_number"]
+
+          imported_indicators = node.custom_field_records.find_by(custom_field: table_custom_field_indicators).value
+
+          assert_equal 1, imported_indicators.count
+          assert_equal 45.0, imported_indicators.first["objective"]
+          assert_equal 23.0, imported_indicators.first["value_reached"]
+          assert_equal "2020", imported_indicators.first["date"]
         end
       end
 
@@ -201,7 +245,7 @@ module GobiertoAdmin
             click_link "Import from CSV"
 
             attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan.csv")
-            within "form" do
+            within "form.new_plan" do
               with_stubbed_s3_file_upload do
                 click_button "Import from CSV file"
               end
@@ -249,8 +293,10 @@ module GobiertoAdmin
 
             click_link "Import from CSV"
 
-            assert has_content? "The vocabulary configured for this plan is already configured for someone else"
-            assert has_no_button? "Import from CSV file"
+            within "form.new_plan" do
+              assert has_content? "The vocabulary configured for this plan is already configured for someone else"
+              assert has_no_button? "Import from CSV file"
+            end
           end
         end
       end
@@ -265,7 +311,7 @@ module GobiertoAdmin
             click_link "Import from CSV"
 
             attach_file("plan_csv_file", "test/fixtures/files/gobierto_plans/plan.csv")
-            within "form" do
+            within "form.new_plan" do
               with_stubbed_s3_file_upload do
                 click_button "Import from CSV file"
               end
@@ -287,7 +333,7 @@ module GobiertoAdmin
             click_link "Import from CSV"
 
             attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan.csv")
-            within "form" do
+            within "form.new_plan" do
               with_stubbed_s3_file_upload do
                 click_button "Import from CSV file"
               end
@@ -302,7 +348,7 @@ module GobiertoAdmin
             assert_equal 1, node.published_version
 
             attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan.csv")
-            within "form" do
+            within "form.new_plan" do
               with_stubbed_s3_file_upload do
                 click_button "Import from CSV file"
               end
@@ -317,7 +363,7 @@ module GobiertoAdmin
             assert_equal 1, node.published_version
 
             attach_file "plan_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/plan_updated.csv")
-            within "form" do
+            within "form.new_plan" do
               with_stubbed_s3_file_upload do
                 click_button "Import from CSV file"
               end

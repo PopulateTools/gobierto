@@ -58,9 +58,11 @@ es:
           title: Importar CSV
         import_csv_form:
           confirm_import: "¿Estás seguro?"
+          custom_fields_table_plugin: Campos personalizados (plugin de tabla)
           disable_with: Cargando...
           more_info_html: Para obtener más información visita la documentación de
             cómo <a href="%{url}" target="_blank">Importar datos de un plan</a>.
+          plan_content: Contenido del plan
           submit: Importar desde fichero CSV
           vocabulary_used_by_other_plans: El vocabulario configurado para este plan
             ya está configurado para algún otro. Por favor, crea un vocabulario nuevo

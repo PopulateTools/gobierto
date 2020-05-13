@@ -122,6 +122,7 @@ module GobiertoAdmin
       def import_csv
         @plan = ::GobiertoPlans::PlanDecorator.new(find_plan)
         @plan_data_form = PlanDataForm.new(plan: @plan)
+        @plan_table_custom_fields_form = PlanTableCustomFieldsForm.new(plan: @plan)
       end
 
       def export_csv
@@ -150,11 +151,35 @@ module GobiertoAdmin
         end
 
         @plan_data_form = PlanDataForm.new(import_csv_params.merge(plan: @plan))
+        @plan_table_custom_fields_form = PlanTableCustomFieldsForm.new(plan: @plan)
         if @plan_data_form.save
           track_import_csv_data_activity
           redirect_to(
             admin_plans_plan_import_csv_path(@plan),
-            notice: t(".success_html", link: gobierto_plans_plan_type_preview_url(@plan_data_form.plan, host: current_site.domain))
+            notice: t(".success_html", link: gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain))
+          )
+        else
+          render :import_csv
+        end
+      end
+
+      def import_table_custom_fields
+        @plan = find_plan
+
+        if params[:file].blank?
+          redirect_to(
+            admin_plans_plan_import_csv_path(@plan),
+            alert: t("gobierto_admin.gobierto_plans.plans.import_data.missing_file")
+          ) and return
+        end
+
+        @plan_data_form = PlanDataForm.new(plan: @plan)
+        @plan_table_custom_fields_form = PlanTableCustomFieldsForm.new(import_csv_params(:file).merge(plan: @plan))
+        if @plan_table_custom_fields_form.save
+          track_import_csv_data_activity
+          redirect_to(
+            admin_plans_plan_import_csv_path(@plan),
+            notice: t("gobierto_admin.gobierto_plans.plans.import_data.success_html", link: gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain))
           )
         else
           render :import_csv
@@ -209,8 +234,8 @@ module GobiertoAdmin
         )
       end
 
-      def import_csv_params
-        params.require(:plan).permit(:csv_file)
+      def import_csv_params(key = :plan)
+        params.require(key).permit(:csv_file)
       end
 
       def ignored_plan_attributes

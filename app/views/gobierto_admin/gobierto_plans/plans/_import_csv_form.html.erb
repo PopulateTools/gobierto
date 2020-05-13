@@ -12,12 +12,27 @@
         <p><%= t(".more_info_html", url: "https://gobierto.readme.io/docs/planes#section-importar-datos-de-un-plan") %></p>
       <% else %>
         <p><%= t(".more_info_html", url: "https://gobierto.readme.io/docs/planes#section-importar-datos-de-un-plan") %></p>
+
+        <h3> <%= t(".plan_content") %></h3>
         <div class="form_item file_field">
           <%= f.label :csv_file %>
           <%= f.file_field :csv_file %>
         </div>
         <%= f.submit t(".submit"), class: "button", data: { disable_with: t(".disable_with"), confirm: t(".confirm_import") } %>
       <% end %>
+    </div>
+  </div>
+<% end %>
+<div class="separator"></div>
+<%= form_for(@plan_table_custom_fields_form, as: :file, url: admin_plans_plan_import_table_custom_fields_path(@plan), method: :patch, html: { multipart: true }) do |f| %>
+  <div class="pure-g">
+    <div class="pure-u-1 pure-u-md-16-24">
+      <h3> <%= t(".custom_fields_table_plugin") %></h3>
+      <div class="form_item file_field">
+        <%= f.label :csv_file %>
+        <%= f.file_field :csv_file %>
+      </div>
+      <%= f.submit t(".submit"), class: "button", data: { disable_with: t(".disable_with"), confirm: t(".confirm_import") } %>
     </div>
   </div>
 <% end %>

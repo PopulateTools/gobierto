@@ -1,12 +1,16 @@
 <template>
-  <tr class="dashboards-home-main--tr" @click="navigateTo(item)" >
+  <router-link
+    :to="{ name: routingMember, params: {id: item.id } }"
+    tag="tr"
+    class="dashboards-home-main--tr"
+  >
     <td
       v-for="{ field } in columns"
       class="dashboards-home-main--td"
     >
       <div>{{ formattedItem[field] }}</div>
     </td>
-  </tr>
+  </router-link>
 </template>
 
 <script>
@@ -35,9 +39,6 @@ export default {
     this.initFormattedItem();
   },
   methods: {
-    navigateTo(item) {
-      this.$router.push({ name: this.routingMember, params: { id: item.id, item } });
-    },
     initFormattedItem(){
       const _self = this;
 

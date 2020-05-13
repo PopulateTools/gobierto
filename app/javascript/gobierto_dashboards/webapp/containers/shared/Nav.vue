@@ -1,33 +1,36 @@
 <template>
   <nav class="dashboards-home-nav">
     <ul>
-      <li
+      <router-link
+        :to="{ name: 'summary' }"
         :class="{ 'is-active': activeTab === 0 }"
+        tag="li"
         class="dashboards-home-nav--tab"
-        @click="navigateToTab(0)"
       >
         <i class="fas fa-chart-bar" />
         <i class="far fa-chart-bar" />
         <span>{{ labelSummary }}</span>
-      </li>
-      <li
+      </router-link>
+      <router-link
+        :to="{ name: 'contracts_index' }"
         :class="{ 'is-active': activeTab === 1 }"
+        tag="li"
         class="dashboards-home-nav--tab"
-        @click="navigateToTab(1)"
       >
         <i class="fas fa-clone" />
         <i class="far fa-clone" />
         <span>{{ labelContracts }}</span>
-      </li>
-      <li
+      </router-link>
+      <router-link
+        :to="{ name: 'tenders_index' }"
         :class="{ 'is-active': activeTab === 2 }"
+        tag="li"
         class="dashboards-home-nav--tab"
-        @click="navigateToTab(2)"
       >
         <i class="fas fa-clone" />
         <i class="far fa-clone" />
         <span>{{ labelTenders }}</span>
-      </li>
+      </router-link>
     </ul>
   </nav>
 </template>
@@ -55,29 +58,13 @@ export default {
     'tenders_index': 2,
     'tenders_show': 2
   },
-  navBarNavigationMapping: [
-    'summary',
-    'contracts_index',
-    'tenders_index'
-  ],
   created(){
     const currentTabIndex = this.tabIndexFromRouteName();
     this.markTabAsActive(currentTabIndex);
   },
   methods: {
-    navigateToTab(index) {
-      this.markTabAsActive(index);
-
-      const newRoute = this.routeNameFromTabIndex(index);
-      if (newRoute !== this.$router.currentRoute.name) {
-        this.$router.push({ name: newRoute });
-      }
-    },
     markTabAsActive(index) {
       this.$emit("active-tab", index);
-    },
-    routeNameFromTabIndex(index){
-      return this.$options.navBarNavigationMapping[index];
     },
     tabIndexFromRouteName(name=this.$router.currentRoute.name){
       return this.$options.routesToNavBarMapping[name];

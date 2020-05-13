@@ -59,6 +59,9 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
     with(site: site, js: true) do
       visit @summary_path
 
+      # Active tab is Summary
+      assert find(".dashboards-home-nav--tab.is-active").text, 'RESUMEN'
+
       # Box
       page.has_content?("Licitaciones\n252")
       page.has_content?("licitaciones por importe de\n134.068.916,04 €")
@@ -78,7 +81,7 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       # Headlines
       assert page.has_content?("El 10 % de los contratos son menores de 1.000 €")
       assert page.has_content?("El mayor contrato supone un 18 % de todo el gasto en contratos")
-      assert page.has_content?("El 100 % de contratos concentran el 50% de todo el gasto")
+      assert page.has_content?("El 11 % de contratos concentran el 50% de todo el gasto")
     end
   end
 

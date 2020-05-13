@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { getRemoteData } from '../webapp/lib/get_remote_data'
 import { EventBus } from '../webapp/mixins/event_bus'
+import { money } from 'lib/shared/modules/vue-filters'
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -138,18 +139,9 @@ export class ContractsController {
 
     // Updating the DOM
     document.getElementById("number-tenders").innerText = numberTenders.toLocaleString();
-    document.getElementById("sum-tenders").innerText = sumTenders.toLocaleString(I18n.locale, {
-      style: 'currency',
-      currency: 'EUR'
-    });
-    document.getElementById("mean-tenders").innerText = meanTenders.toLocaleString(I18n.locale, {
-      style: 'currency',
-      currency: 'EUR'
-    });
-    document.getElementById("median-tenders").innerText = medianTenders.toLocaleString(I18n.locale, {
-      style: 'currency',
-      currency: 'EUR'
-    });
+    document.getElementById("sum-tenders").innerText = money(sumTenders);
+    document.getElementById("mean-tenders").innerText = money(meanTenders);
+    document.getElementById("median-tenders").innerText = money(medianTenders);
   }
 
   _renderContractsMetricsBox(contractsData){
@@ -171,7 +163,7 @@ export class ContractsController {
     const lessThan1000Total = contractsData.filter((contract) => parseFloat(contract.final_amount) < 1000).length;
     const lessThan1000Pct = lessThan1000Total/numberContracts;
 
-    const largerContractAmount = d3.max(contractsData, function(contract) { return parseFloat(contract.final_amount)} );
+    const largerContractAmount = d3.max(contractsData, (contract) => parseFloat(contract.final_amount));
     const largerContractAmountPct = largerContractAmount / sumContracts;
 
     let iteratorAmountsSum = 0, numberContractsHalfSpendings = 0;
@@ -185,18 +177,9 @@ export class ContractsController {
 
     // Updating the DOM
     document.getElementById("number-contracts").innerText = numberContracts.toLocaleString();
-    document.getElementById("sum-contracts").innerText = sumContracts.toLocaleString(I18n.locale, {
-      style: 'currency',
-      currency: 'EUR'
-    });
-    document.getElementById("mean-contracts").innerText = meanContracts.toLocaleString(I18n.locale, {
-      style: 'currency',
-      currency: 'EUR'
-    });
-    document.getElementById("median-contracts").innerText = medianContracts.toLocaleString(I18n.locale, {
-      style: 'currency',
-      currency: 'EUR'
-    });
+    document.getElementById("sum-contracts").innerText = money(sumContracts);
+    document.getElementById("mean-contracts").innerText = money(meanContracts);
+    document.getElementById("median-contracts").innerText = money(medianContracts);
 
     document.getElementById("mean-savings").innerText = meanSavings.toLocaleString(I18n.locale, {
       style: 'percent'

@@ -194,7 +194,8 @@ export class ContractsController {
     document.getElementById("median-contracts").innerText = money(medianContracts);
 
     document.getElementById("mean-savings").innerText = meanSavings.toLocaleString(I18n.locale, {
-      style: 'percent'
+      style: 'percent',
+      minimumFractionDigits: 2
     });
     document.getElementById("less-than-1000-pct").innerText = lessThan1000Pct.toLocaleString(I18n.locale, {
       style: 'percent'

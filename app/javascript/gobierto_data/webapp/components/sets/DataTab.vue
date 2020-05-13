@@ -13,6 +13,7 @@
         :enabled-saved-button="enabledSavedButton"
         :show-revert-query="showRevertQuery"
         :show-private="showPrivate"
+        :is-user-logged="isUserLogged"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"
@@ -123,6 +124,10 @@ export default {
     tableName: {
       type: String,
       default: ''
+    },
+    isUserLogged: {
+      type: Boolean,
+      default: false
     }
   }
 }

@@ -50,6 +50,7 @@
       >
         <DownloadButton
           :editor="true"
+          :query-stored="queryStored"
           :array-formats="arrayFormats"
           class="arrow-top modal-right"
         />
@@ -115,6 +116,10 @@ export default {
     isQuerySaved: {
       type: Boolean,
       default: false
+    },
+    queryStored: {
+      type: String,
+      default: ""
     }
   },
   data() {

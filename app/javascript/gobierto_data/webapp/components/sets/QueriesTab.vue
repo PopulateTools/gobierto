@@ -3,6 +3,7 @@
     <Queries
       :private-queries="privateQueries"
       :public-queries="publicQueries"
+      :is-user-logged="isUserLogged"
     />
   </div>
 </template>
@@ -23,6 +24,10 @@ export default {
       type: Array,
       default: () => []
     },
+    isUserLogged: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 </script>

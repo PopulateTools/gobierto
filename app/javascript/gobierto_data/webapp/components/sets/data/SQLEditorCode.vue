@@ -129,6 +129,7 @@ export default {
       }
 
       this.$root.$emit('enableSavedButton')
+      this.$root.$emit('enabledForkPrompt')
     },
     onChange(editor) {
       this.mergeTables();

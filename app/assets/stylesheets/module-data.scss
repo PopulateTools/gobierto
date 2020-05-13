@@ -1096,10 +1096,33 @@
   }
 
   &-description {
-    -webkit-columns: 33.33% 3;
-    -moz-columns: 33.33% 3;
-    columns: 33.33% 3;
-    height: 100px;
+    height: auto;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+    columns: 3;
+    -moz-column-fill: balance;
+    column-fill: balance;
+  }
+
+  &-columns-icon-boolean::before,
+  &-columns-icon-decimal::before,
+  &-columns-icon-hstore::before,
+  &-columns-icon-integer::before {
+    content: "\f292";
+  }
+
+  &-columns-icon-jsonb::before,
+  &-columns-icon-string::before,
+  &-columns-icon-text::before {
+    content: "\f073";
+  }
+
+  &-columns-icon-time::before,
+  &-columns-icon-date::before,
+  &-columns-icon-datetime::before,
+  &-columns-icon-timestamp::before,
+  &-columns-icon-timestampz::before {
+    content: "\f031";
   }
 
 }

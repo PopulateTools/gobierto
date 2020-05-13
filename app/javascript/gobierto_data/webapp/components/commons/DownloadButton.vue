@@ -56,7 +56,7 @@
 </template>
 <script>
 import Button from "./Button.vue";
-import { baseUrl, CommonsMixin } from "./../../../lib/commons.js";
+import { CommonsMixin } from "./../../../lib/commons.js";
 import { DownloadFilesFactoryMixin } from "./../../../lib/factories/download";
 
 export default {

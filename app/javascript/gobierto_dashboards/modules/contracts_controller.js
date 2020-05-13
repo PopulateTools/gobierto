@@ -169,7 +169,7 @@ export class ContractsController {
     const _tendersData = this._currentDataSource().tendersData
 
     // Calculations
-    const amountsArray = _tendersData.map(({initial_amount = 0}) => initial_amount === '' ? 0.0 : parseFloat(initial_amount) );
+    const amountsArray = _tendersData.map(({initial_amount = 0}) => parseFloat(initial_amount) );
 
     const numberTenders = _tendersData.length;
     const sumTenders = d3.sum(amountsArray);
@@ -186,7 +186,7 @@ export class ContractsController {
   _renderContractsMetricsBox(){
     const _contractsData = this._currentDataSource().contractsData
     // Calculations
-    const amountsArray = _contractsData.map(({final_amount = 0}) => final_amount === '' ? 0.0 : parseFloat(final_amount) );
+    const amountsArray = _contractsData.map(({final_amount = 0}) => parseFloat(final_amount) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
     const savingsArray = _contractsData.map(({initial_amount = 0, final_amount = 0}) =>{
       initial_amount = initial_amount === '' ? 0.0 : initial_amount;

@@ -221,6 +221,7 @@
     line-height: 20px;
     margin-bottom: 1rem;
     color: #666;
+    cursor: pointer;
   }
 
   &-resources-list-element {
@@ -322,7 +323,14 @@
     font-weight: bold;
     min-width: 250px;
     margin: 1rem 0;
+    margin-right: 1rem !important;
     position: relative;
+    text-transform: unset;
+    vertical-align: top;
+
+    i {
+      color: rgba(var(--color-base-string), .2) !important;
+    }
   }
 
   &-container-btn-download-data {

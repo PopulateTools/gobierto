@@ -2,51 +2,50 @@
   <div class="pure-g">
     <div class="pure-u-1-2 gobierto-data-summary-header">
       <div class="gobierto-data-summary-header-container">
-        <i
-          class="fas fa-clock"
-          style="color: var(--color-base); opacity: .25"
-        />
-        <span class="gobierto-data-summary-header-container-label">
-          {{ labelUpdated }}
-        </span>
-        <span
-          v-if="dateUpdated"
-          class="gobierto-data-summary-header-container-text"
-        >
-          {{ dateUpdated | convertDate }}
-        </span>
+        <template v-if="dateUpdated">
+          <i
+            class="fas fa-clock"
+            style="color: var(--color-base); opacity: .25"
+          />
+          <span class="gobierto-data-summary-header-container-label">
+            {{ labelUpdated }}
+          </span>
+          <span class="gobierto-data-summary-header-container-text">
+            {{ dateUpdated | convertDate }}
+          </span>
+        </template>
       </div>
-      <div class="gobierto-data-summary-header-container">
-        <i
-          class="fas fa-calendar"
-          style="color: var(--color-base); opacity: .25"
-        />
-        <span class="gobierto-data-summary-header-container-label">
-          {{ labelFrequency }}
-        </span>
-        <span
-          v-if="frequencyDataset"
-          class="gobierto-data-summary-header-container-text"
-        >
-          {{ frequencyDataset }}
-        </span>
-      </div>
-      <div class="gobierto-data-summary-header-container">
-        <i
-          class="fas fa-tag"
-          style="color: var(--color-base); opacity: .25"
-        />
-        <span class="gobierto-data-summary-header-container-label">
-          {{ labelSubject }}
-        </span>
-        <a
-          v-if="categoryDataset"
-          href=""
-          class="gobierto-data-summary-header-container-text-link"
-        >
-          {{ categoryDataset }}
-        </a>
-      </div>
+      <template v-if="frequencyDataset">
+        <div class="gobierto-data-summary-header-container">
+          <i
+            class="fas fa-calendar"
+            style="color: var(--color-base); opacity: .25"
+          />
+          <span class="gobierto-data-summary-header-container-label">
+            {{ labelFrequency }}
+          </span>
+          <span class="gobierto-data-summary-header-container-text">
+            {{ frequencyDataset }}
+          </span>
+        </div>
+      </template>
+      <template v-if="categoryDataset">
+        <div class="gobierto-data-summary-header-container">
+          <i
+            class="fas fa-tag"
+            style="color: var(--color-base); opacity: .25"
+          />
+          <span class="gobierto-data-summary-header-container-label">
+            {{ labelSubject }}
+          </span>
+          <a
+            href="#"
+            class="gobierto-data-summary-header-container-text-link"
+          >
+            {{ categoryDataset }}
+          </a>
+        </div>
+      </template>
     </div>
     <div class="pure-u-1-2">
       <div

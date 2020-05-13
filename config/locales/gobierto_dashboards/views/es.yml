@@ -3,8 +3,10 @@ es:
   gobierto_dashboards:
     dashboards:
       contracts:
+        amount_distribution: Distribución por importes
         assignee: Adjudicatario
         contract_amount: Imp. adjudicación
+        contract_type: Tipo de contrato
         contractor: Contrato
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
           del %{entity_name}
@@ -15,7 +17,7 @@ es:
           contracts: Contratos
           summary: Resumen
           tenders: Licitaciones
-        process_type: Tipo
+        process_type: Tipo de proceso
         status: Procedicimiento
         submission_date: Fecha
         summary:

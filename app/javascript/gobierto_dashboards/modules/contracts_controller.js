@@ -10,6 +10,9 @@ const d3 = { sum, mean, median, max }
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
+// Global variables
+let data;
+
 export class ContractsController {
   constructor(options) {
     const selector = "gobierto-dashboards-contracts-app";
@@ -76,15 +79,15 @@ export class ContractsController {
       });
 
       Promise.all([getRemoteData(options.contractsEndpoint), getRemoteData(options.tendersEndpoint)]).then((rawData) => {
-        const remoteCsvData = this.buildDataObject(rawData)
+        this.buildDataObject(rawData)
 
         new Vue({
           router,
-          data: Object.assign(options, remoteCsvData),
+          data: Object.assign(options, data),
         }).$mount(entryPoint);
 
         EventBus.$on('summary_ready', () => {
-          this._renderSummary(remoteCsvData);
+          this._renderSummary();
         });
       });
     }
@@ -117,24 +120,26 @@ export class ContractsController {
       }
     }
 
-    const result = {
+    data = {
       contractsData: contractsData.sort(sortByField('end_date')),
       tendersData: tendersData.sort(sortByField('submission_date')),
     }
-
-    return result;
   }
 
-  _renderSummary(remoteCsvData){
-    this._renderTendersMetricsBox(remoteCsvData.tendersData);
-    this._renderContractsMetricsBox(remoteCsvData.contractsData);
+  _renderSummary(reduced){
+    const _data = data || reduced
+
+    this._renderTendersMetricsBox(data.tendersData);
+    this._renderContractsMetricsBox(data.contractsData);
   }
 
-  _renderTendersMetricsBox(tendersData){
+  _renderTendersMetricsBox(reducedTenders){
+    const _tendersData = reducedTenders || data.tendersData
+
     // Calculations
-    const amountsArray = tendersData.map(({initial_amount = 0}) => initial_amount === '' ? 0.0 : parseFloat(initial_amount) );
+    const amountsArray = _tendersData.map(({initial_amount = 0}) => initial_amount === '' ? 0.0 : parseFloat(initial_amount) );
 
-    const numberTenders = tendersData.length;
+    const numberTenders = _tendersData.length;
     const sumTenders = d3.sum(amountsArray);
     const meanTenders = d3.mean(amountsArray);
     const medianTenders = d3.median(amountsArray);
@@ -146,11 +151,13 @@ export class ContractsController {
     document.getElementById("median-tenders").innerText = money(medianTenders);
   }
 
-  _renderContractsMetricsBox(contractsData){
+  _renderContractsMetricsBox(reducedContracts){
+    const _contractsData = reducedContracts || data.contractsData
+
     // Calculations
-    const amountsArray = contractsData.map(({final_amount = 0}) => final_amount === '' ? 0.0 : parseFloat(final_amount) );
+    const amountsArray = _contractsData.map(({final_amount = 0}) => final_amount === '' ? 0.0 : parseFloat(final_amount) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
-    const savingsArray = contractsData.map(({initial_amount = 0, final_amount = 0}) =>{
+    const savingsArray = _contractsData.map(({initial_amount = 0, final_amount = 0}) =>{
       initial_amount = initial_amount === '' ? 0.0 : initial_amount;
       final_amount = final_amount === '' ? 0.0 : final_amount;
 
@@ -158,17 +165,17 @@ export class ContractsController {
     });
 
     // Calculations box items
-    const numberContracts = contractsData.length;
+    const numberContracts = _contractsData.length;
     const sumContracts = d3.sum(amountsArray);
     const meanContracts = d3.mean(amountsArray);
     const medianContracts = d3.median(amountsArray);
     const meanSavings = d3.mean(savingsArray);
 
     // Calculations headlines
-    const lessThan1000Total = contractsData.filter(({final_amount = 0}) => parseFloat(final_amount) < 1000).length;
+    const lessThan1000Total = _contractsData.filter(({final_amount = 0}) => parseFloat(final_amount) < 1000).length;
     const lessThan1000Pct = lessThan1000Total/numberContracts;
 
-    const largerContractAmount = d3.max(contractsData, ({final_amount = 0}) => parseFloat(final_amount));
+    const largerContractAmount = d3.max(_contractsData, ({final_amount = 0}) => parseFloat(final_amount));
     const largerContractAmountPct = largerContractAmount / sumContracts;
 
     let iteratorAmountsSum = 0, numberContractsHalfSpendings = 0;

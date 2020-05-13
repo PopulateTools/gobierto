@@ -43,6 +43,7 @@ en:
       guide: Guide to using the SQL editor
       info: Information
       modifiedQuery: Modified Query
+      modifiedVisualization: Modified Visualization
       news: News
       private: Private
       queries: Queries
@@ -50,9 +51,14 @@ en:
       queryName: Query name
       recents: Recents
       records: Records
+      resetQuery: Reset Query
+      resetViz: Reset Visualization
       resources: Resources
+      revert: Revert
       runQuery: Run query
       save: Save
+      saveViz: Save Visualization
+      savedQuery: Saved query
       sets: Sets
       showAll: Show all
       showLess: Show less
@@ -64,4 +70,5 @@ en:
       visPrivate: Your visualizations
       visPublic: All
       visualizations: Visualizations
+      visualize: Visualize
       yourQueries: Your queries

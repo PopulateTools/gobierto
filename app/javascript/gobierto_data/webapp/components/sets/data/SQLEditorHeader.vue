@@ -2,8 +2,17 @@
   <div class="gobierto-data-sql-editor-toolbar">
     <div class="gobierto-data-sql-editor-container">
       <Button
+        :title="labelResetQuery"
+        class="btn-sql-editor"
+        icon="home"
+        color="var(--color-base)"
+        background="#fff"
+        @click.native="resetQueryHandler"
+      />
+    </div>
+    <div class="gobierto-data-sql-editor-container">
+      <Button
         v-clickoutside="closeRecentModal"
-        :text="labelRecents"
         :class="{ 'remove-label' : removeLabelBtn }"
         :title="labelButtonRecentQueries"
         class="btn-sql-editor"
@@ -29,7 +38,6 @@
     <div class="gobierto-data-sql-editor-container">
       <Button
         v-clickoutside="closeQueriesModal"
-        :text="labelQueries"
         :class="{ 'remove-label' : removeLabelBtn }"
         :title="labelButtonQueries"
         class="btn-sql-editor"
@@ -51,21 +59,19 @@
         />
       </transition>
     </div>
-
     <SavingDialog
+      ref="savingDialog"
       :placeholder="labelQueryName"
       :value="queryName"
+      :label-save="labelSave"
+      :is-query-modified="isQueryModified"
+      :is-query-saved="isQuerySaved"
+      :is-saving-prompt-visible="isSavingPromptVisible"
+      :enabled-saved-button="enabledSavedButton"
+      :show-revert-query="showRevertQuery"
+      :show-private="showPrivate"
       @save="onSaveEventHandler"
     />
-
-    <div
-      v-if="isQueryModified"
-      class="gobierto-data-sql-editor-modified-label-container"
-    >
-      <span class="gobierto-data-sql-editor-modified-label">
-        {{ labelModifiedQuery }}
-      </span>
-    </div>
 
     <Button
       :text="labelRunQuery"
@@ -82,6 +88,7 @@
 </template>
 <script>
 import { CommonsMixin, closableMixin } from "./../../../../lib/commons.js";
+import { tabs } from '../../../../lib/router';
 
 import Button from "./../../commons/Button.vue";
 import Queries from "./../../commons/Queries.vue";
@@ -116,22 +123,43 @@ export default {
       type: Boolean,
       default: false
     },
+    isSavingPromptVisible: {
+      type: Boolean,
+      default: false
+    },
     isQueryModified: {
       type: Boolean,
       default: false
     },
     queryName: {
       type: String,
-      default: null,
+      default: '',
     },
+    enabledSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    showRevertQuery: {
+      type: Boolean,
+      default: false
+    },
+    showPrivate: {
+      type: Boolean,
+      default: false
+    },
+    isQuerySaved: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
       labelRecents: I18n.t("gobierto_data.projects.recents") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelRunQuery: I18n.t("gobierto_data.projects.runQuery") || "",
+      labelResetQuery: I18n.t("gobierto_data.projects.resetQuery") || "",
+      labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
-      labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
       labelButtonRecentQueries:
         I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
@@ -139,12 +167,15 @@ export default {
         I18n.t("gobierto_data.projects.buttonRunQuery") || "",
       removeLabelBtn: false,
       isQueriesModalActive: false,
-      isRecentModalActive: false,
+      isRecentModalActive: false
     };
   },
   created() {
     // it has to be the same event (keydown) as SQLEditorCode
     document.addEventListener("keydown", this.keyboardShortcutsListener);
+  },
+  deactivated() {
+    this.$destroy()
   },
   beforeDestroy() {
     this.removeKeyboardListener()
@@ -197,6 +228,14 @@ export default {
     closeQueriesModal() {
       this.isQueriesModalActive = false;
     },
+    resetQueryHandler() {
+      this.$root.$emit('resetQuery', true)
+      this.$router.push(
+        `/datos/${this.$route.params.id}/${tabs[1]}`
+      //Avoid errors when user goes to the same route
+      // eslint-disable-next-line no-unused-vars
+      ).catch(err => {})
+    }
   },
 };
 </script>

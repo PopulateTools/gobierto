@@ -44,13 +44,20 @@
       :recent-queries="recentQueriesFiltered"
       :array-columns="arrayColumns"
       :array-formats="arrayFormats"
+      :array-columns-query="arrayColumnsQuery"
       :items="items"
       :is-query-running="isQueryRunning"
       :is-query-modified="isQueryModified"
+      :is-query-saved="isQuerySaved"
+      :is-saving-prompt-visible="isSavingPromptVisible"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-duration="queryDuration"
       :query-error="queryError"
+      :enabled-saved-button="enabledSavedButton"
+      :show-revert-query="showRevertQuery"
+      :show-private="showPrivate"
+      :table-name="tableName"
     />
 
     <QueriesTab
@@ -124,10 +131,20 @@ export default {
       publicQueries: [],
       recentQueries: [],
       resourcesList: [],
+      arrayColumnsQuery: [],
       currentQuery: null,
-      items: '',
+      queryRevert: null,
+      items: "",
       isQueryRunning: false,
       isQueryModified: false,
+      isQuerySaved: false,
+      isSavingPromptVisible: false,
+      showPrivate: false,
+      tableName: '',
+      resetQueryDefault: false,
+      revertQuerySaved: false,
+      enabledSavedButton: false,
+      showRevertQuery: false,
       queryName: null,
       queryDuration: 0,
       queryError: null
@@ -140,7 +157,7 @@ export default {
     },
   },
   watch: {
-    $route(to) {
+    $route(to, from) {
       if (to) {
         const {
           params: { queryId },
@@ -149,20 +166,31 @@ export default {
 
         this.parseUrl({ queryId, sql });
       }
-    },
+
+      if (to.path !== from.path) {
+        this.disabledSavedButton()
+        this.isQueryModified = false;
+        this.setDefaultQuery()
+      }
+
+      //FIXME: Hugo, we need to talk about this hack
+      // https://stackoverflow.com/questions/50295985/how-to-tell-if-a-vue-component-is-active-or-not
+      if (to.name === 'Query' && this._inactive === false) {
+        this.runCurrentQuery()
+        this.disabledStringSavedQuery()
+      }
+
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    const {
+      name: nameComponent
+    } = to;
+    next(vm => {
+      vm.showRevertQuery = (nameComponent === 'Query')
+    })
   },
   async created() {
-    // remove saved query
-    this.$root.$on("deleteSavedQuery", this.deleteSavedQuery);
-    // change the current query, triggering a new SQL execution
-    this.$root.$on("setCurrentQuery", this.setCurrentQuery);
-    // execute the current query
-    this.$root.$on("runCurrentQuery", this.runCurrentQuery);
-    // save the query in database
-    this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
-    // save the visualization in database
-    this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
-
     const {
       params: { id, queryId },
       query: { sql },
@@ -221,7 +249,9 @@ export default {
       // update the editor text content by default
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
+
     this.runCurrentQuery();
+    this.setDefaultQuery()
 
   },
   mounted() {
@@ -235,13 +265,25 @@ export default {
     // change the current query, triggering a new SQL execution
     this.$root.$on("setCurrentQuery", this.setCurrentQuery);
     // execute the current query
-    this.$root.$off("runCurrentQuery");
     this.$root.$on("runCurrentQuery", this.runCurrentQuery);
     // save the query in database
-    this.$root.$off("storeCurrentQuery");
     this.$root.$on("storeCurrentQuery", this.storeCurrentQuery);
     // save the visualization in database
     this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
+    // Reset to the default query
+    this.$root.$on('resetQuery', this.resetQuery)
+    //reset to the saved query
+    this.$root.$on('revertSavedQuery', this.revertSavedQuery)
+
+    this.$root.$on('enableSavedButton', this.activatedSavedButton)
+
+    this.$root.$on('resetToInitialState', this.resetToInitialState)
+
+    this.$root.$on('disabledSavedButton', this.disabledSavedButton)
+    //Show a message for the user, your query is saved
+    this.$root.$on('disabledStringSavedQuery', this.disabledStringSavedQuery)
+
+    this.$root.$on('isSavingPromptVisible', this.isSavingPromptVisibleHandler)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -249,6 +291,13 @@ export default {
     this.$root.$off("runCurrentQuery");
     this.$root.$off("storeCurrentQuery");
     this.$root.$off("storeCurrentVisualization");
+    this.$root.$off("resetQuery");
+    this.$root.$off("revertSavedQuery");
+    this.$root.$off('enableSavedButton')
+    this.$root.$off('resetToInitialState')
+    this.$root.$off('disabledSavedButton')
+    this.$root.$off('disabledStringSavedQuery')
+    this.$root.$off('isSavingPromptVisible')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -263,15 +312,38 @@ export default {
 
       if (item) {
         const {
-          attributes: { sql: itemSql, name, user_id },
+          attributes: { sql: itemSql, name, user_id, privacy_status },
         } = item;
 
         this.queryName = name;
         this.queryUserId = user_id;
 
+        this.showPrivate = privacy_status === 'closed' ? true : false
+
         // update the editor text content
         this.setCurrentQuery(itemSql);
       }
+    },
+    setDefaultQuery() {
+      const userId = getUserId();
+      const {
+        params: { queryId }
+      } = this.$route;
+
+      let items;
+      //Check if user is logged
+      if (userId) {
+        items = this.privateQueries
+      } else {
+        items = this.publicQueries
+      }
+
+      //We need to keep this query separate from the editor query
+      //When load a saved query we use the queryId to find inside privateQueries or publicQueries
+      const { attributes: { sql: queryRevert } = {} } = items.find(({ id }) => id === queryId) || {}
+
+      //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
+      this.queryRevert = queryRevert
     },
     ensureUserIsLogged() {
       if (getUserId() === "")
@@ -294,8 +366,10 @@ export default {
         this.isQueryModified = true;
       }
 
-      // set the new query, trimming it to remove potentially harmful voids
-      this.currentQuery = sql.trim();
+      this.currentQuery = sql
+
+      this.resetQuery(false)
+      this.revertSavedQuery(false)
     },
     storeRecentQuery() {
       // if the currentQuery does not exist, nor recent, nor in stored queries neither
@@ -366,6 +440,9 @@ export default {
         const { queryId } = this.$route.params;
         // factory method
         ({ status } = await this.putQuery(queryId, { data }));
+
+        //Update revert query
+        this.queryRevert = this.currentQuery
       } else {
         // factory method
         ({ status } = await this.postQuery({ data }));
@@ -375,6 +452,8 @@ export default {
       // 200 OK (PUT) / 201 Created (POST)
       if ([200, 201].includes(status)) {
         this.isQueryModified = false;
+        //Show a message for the user, your query is saved
+        this.isQuerySaved = true;
 
         this.setPublicQueries(await this.getPublicQueries());
         this.setPrivateQueries(await this.getPrivateQueries());
@@ -387,7 +466,6 @@ export default {
       this.storeRecentQuery();
 
       const params = { sql: this.currentQuery };
-
       //
       const startTime = new Date().getTime();
       // factory method
@@ -399,8 +477,20 @@ export default {
         this.items = items;
         this.queryDuration = new Date().getTime() - startTime;
         this.isQueryRunning = false;
+        this.getColumnsQuery(this.items)
+        this.queryError = null
       } catch (error) {
-        this.queryError = error;
+        const {
+          response: {
+            data: {
+              errors: arrayError
+            }
+          }
+        } = error;
+        const [ sqlError ] = arrayError
+        const { sql: stringError } = sqlError
+        this.queryError = stringError
+        this.isQueryRunning = false;
       }
     },
     async storeCurrentVisualization(config, opts) {
@@ -446,6 +536,60 @@ export default {
       // TODO: indicar algo con el status OK
       console.log("postVisualization", status);
     },
+    getColumnsQuery(csv = '') {
+      const [ columns = '' ] = csv.split("\n");
+      this.arrayColumnsQuery = columns.split(",");
+    },
+    resetQuery(value) {
+      this.resetQueryDefault = value
+      if (value === true) {
+        this.isSavingPromptVisible = false
+        this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
+        this.isQueryModified = false
+        this.runCurrentQuery()
+        this.disabledSavedButton()
+        this.disabledStringSavedQuery()
+        this.queryName = null
+      }
+    },
+    revertSavedQuery(value) {
+      this.revertQuerySaved = value
+      if (value === true) {
+        this.isSavingPromptVisible = false
+        this.currentQuery = this.queryRevert
+        this.isQueryModified = false
+        this.runCurrentQuery()
+        this.disabledSavedButton()
+        this.disabledStringSavedQuery()
+      }
+    },
+    activatedSavedButton() {
+      this.enabledSavedButton = true
+      const {
+        name: name
+      } = this.$route;
+
+      if (name === 'Query') {
+        this.showRevertQuery = true
+      }
+
+    },
+    disabledSavedButton() {
+      this.enabledSavedButton = false
+    },
+    resetToInitialState() {
+      this.isQueryModified = false
+    },
+    resetToInitialStateSavedQuery() {
+      this.showRevertQuery = true
+      this.isQueryModified = false
+    },
+    disabledStringSavedQuery() {
+      this.isQuerySaved = false;
+    },
+    isSavingPromptVisibleHandler(value) {
+      this.isSavingPromptVisible = value
+    }
   },
 };
 </script>

@@ -43,6 +43,7 @@ ca:
       guide: Guia per utilitzar l'editor SQL
       info: Informació
       modifiedQuery: Consulta modificada
+      modifiedVisualization: Visualització modificada
       news: Notícies
       private: Privat
       queries: Consultes
@@ -50,9 +51,14 @@ ca:
       queryName: Nom consulta
       recents: Recents
       records: Registres
+      resetQuery: Restablir la consulta
+      resetViz: Restablir la Visualització
       resources: Recursos
+      revert: Revertir
       runQuery: Executeu consulta
       save: Deseu
+      saveViz: Deseu Visualització
+      savedQuery: Consulta desada
       sets: Conjunts
       showAll: Vegeu-ho tot
       showLess: Vegeu-ne menys
@@ -64,4 +70,5 @@ ca:
       visPrivate: Les teves visualitzacions
       visPublic: Totes
       visualizations: Visualitzacions
+      visualize: Visualitzar
       yourQueries: Les teves consultes

@@ -1,5 +1,8 @@
 <template>
-  <perspective-viewer v-if="items" ref="perspective-viewer" />
+  <perspective-viewer
+    v-if="items"
+    ref="perspective-viewer"
+  />
 </template>
 <script>
 import perspective from "@finos/perspective";
@@ -15,24 +18,42 @@ export default {
       type: String,
       default: ''
     },
-    config: {
-      type: Object,
-      default: () => {}
-    }
+    typeChart: {
+      type: String,
+      default: ''
+    },
+    arrayColumnsQuery: {
+      type: Array,
+      default: () => []
+    },
   },
   watch: {
     items(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.initPerspective(newValue)
       }
+    },
+    typeChart(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.viewer.setAttribute('plugin', newValue)
+      }
+    },
+    arrayColumnsQuery(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.viewer.clear();
+        this.viewer.setAttribute('columns', JSON.stringify(newValue))
+        this.initPerspective(this.items);
+      }
     }
   },
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.initPerspective(this.items);
+    this.listenerPerspective()
   },
   methods: {
     initPerspective(data) {
+      this.viewer.setAttribute('plugin', this.typeChart)
       this.viewer.clear();
       const table = perspective.worker().table(data);
 
@@ -44,6 +65,28 @@ export default {
     getConfig() {
       // export the visualization configuration object
       return this.viewer.save()
+    },
+    enableDisabledPerspective(value) {
+      const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot
+      const sidePanelPerspective = shadowRootPerspective.getElementById('side_panel')
+      const topPanelPerspective = shadowRootPerspective.getElementById('top_panel')
+      topPanelPerspective.style.display = value
+      sidePanelPerspective.style.display = value
+    },
+    listenerPerspective() {
+      const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot
+      const configButtonPerspective = shadowRootPerspective.getElementById('config_button')
+      configButtonPerspective.style.display = "none"
+      const selectVizPerspective = shadowRootPerspective.getElementById('vis_selector')
+
+      selectVizPerspective.addEventListener('change', () => {
+        const selectedValue = selectVizPerspective.options[selectVizPerspective.selectedIndex].value;
+        this.$emit("showSaving")
+        this.$emit("selectedChart", selectedValue)
+      })
+    },
+    setColumns() {
+      this.viewer.setAttribute('columns', this.arrayColumnsQuery)
     }
   }
 };

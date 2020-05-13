@@ -40,9 +40,19 @@ module GobiertoAdmin
       admin_root_path
     end
 
+    def auth_modules_present?
+      return unless site_from_domain.present?
+
+      site_from_domain.configuration.admin_auth_modules.any?
+    end
+
+    def auth_path(args = {})
+      auth_modules_present? ? new_admin_custom_session_path(args) : new_admin_sessions_path(args)
+    end
+
     def raise_admin_not_signed_in
       redirect_to(
-        new_admin_sessions_path,
+        auth_path,
         alert: t("gobierto_admin.session_helper.not_signed_in")
       )
     end

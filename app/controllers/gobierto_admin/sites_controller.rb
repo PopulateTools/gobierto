@@ -119,12 +119,8 @@ module GobiertoAdmin
     end
 
     def set_auth_modules
-      site = params[:id] ? find_site : Site.new
-
-      @auth_modules ||= AUTH_MODULES.select do |auth_module|
-        domains = auth_module.domains
-        !domains || domains.include?(site.domain)
-      end
+      @auth_modules ||= @site_form.available_user_auth_modules
+      @admin_auth_modules ||= @site_form.available_admin_auth_modules
     end
 
     def site_modules_with_root_path
@@ -179,7 +175,8 @@ module GobiertoAdmin
         available_locales: [],
         title_translations: [*I18n.available_locales],
         name_translations: [*I18n.available_locales],
-        auth_modules: []
+        auth_modules: [],
+        admin_auth_modules: []
       )
     end
 

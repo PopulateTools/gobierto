@@ -34,6 +34,7 @@ es:
       data: Datos
       dataset: Conjunto de datos
       description: Descripción
+      datasetUpdated: Últimos datasets actualizados
       download: Descargar
       downloadData: Descargar datos
       edit: Editar

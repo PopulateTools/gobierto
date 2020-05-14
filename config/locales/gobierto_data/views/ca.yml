@@ -34,6 +34,7 @@ ca:
       data: Dades
       dataset: Conjunt de dades
       description: Descripció
+      datasetUpdated: Darrers datasets actualitzats
       download: Descàrrega
       downloadData: Descarregueu dades
       edit: Editeu

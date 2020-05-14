@@ -34,6 +34,7 @@ en:
       data: Data
       dataset: Datasets
       description: Description
+      datasetUpdated: Last updated datasets
       download: Download
       downloadData: Download Data
       edit: Edit

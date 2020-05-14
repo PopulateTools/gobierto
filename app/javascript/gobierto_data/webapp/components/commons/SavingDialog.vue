@@ -164,37 +164,11 @@ export default {
     }
   },
   methods: {
+    inputFocus() {
+      this.$refs.inputText.focus()
+    },
     onClickSaveHandler() {
-      const {
-        params: { queryId }
-      } = this.$route;
-
-      if (queryId) {
-        this.saveHandlerSavedQuery()
-      } else {
-        this.saveHandlerNewQuery()
-      }
-
-    },
-    saveHandlerSavedQuery() {
-      // the output is the content of the input plus the private flag
       this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
-
-      this.$root.$emit('disabledSavedButton')
-      this.$root.$emit("resetToInitialState");
-      this.$root.$emit("isSavingPromptVisible", false);
-    },
-    saveHandlerNewQuery() {
-      if (!this.isSavingPromptVisible) {
-        this.$root.$emit("isSavingPromptVisible", true);
-        this.$nextTick(() => this.$refs.inputText.focus());
-      } else {
-        if (!this.labelValue) {
-          this.$nextTick(() => this.$refs.inputText.focus());
-        } else {
-          this.saveHandlerSavedQuery()
-        }
-      }
     },
     onKeyDownTextHandler(event) {
       const { value } = event.target

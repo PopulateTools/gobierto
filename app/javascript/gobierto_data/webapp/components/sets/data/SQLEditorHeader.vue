@@ -61,7 +61,7 @@
       </transition>
     </div>
     <SavingDialog
-      ref="savingDialog"
+      ref="savingDialogHeader"
       :placeholder="labelQueryName"
       :value="queryName"
       :label-save="labelSave"
@@ -211,12 +211,36 @@ export default {
       document.removeEventListener("keydown", this.keyboardShortcutsListener);
     },
     onSaveEventHandler(opts) {
-      const { name } = opts
-      // if there's some name, shrink the other buttons
-      this.removeLabelBtn = !!name
 
+      const {
+        params: { queryId }
+      } = this.$route;
+
+      if (queryId) {
+        this.saveHandlerSavedQuery(opts)
+      } else {
+        this.saveHandlerNewQuery(opts)
+      }
+    },
+    saveHandlerSavedQuery(opts) {
       // send the query to be stored
       this.$root.$emit("storeCurrentQuery", opts);
+
+      this.$root.$emit('disabledSavedButton')
+      this.$root.$emit("resetToInitialState");
+      this.$root.$emit("isSavingPromptVisible", false);
+    },
+    saveHandlerNewQuery(opts) {
+      if (!this.isSavingPromptVisible) {
+        this.$root.$emit("isSavingPromptVisible", true);
+        this.$nextTick(() => this.$refs.savingDialogHeader.inputFocus());
+      } else {
+        if (!this.queryName) {
+          this.$nextTick(() => this.$refs.savingDialogHeader.inputFocus());
+        } else {
+          this.saveHandlerSavedQuery(opts)
+        }
+      }
     },
     clickRunQueryHandler() {
       this.$root.$emit("runCurrentQuery");

@@ -9,19 +9,13 @@
           <div>{{ translation }}</div>
         </th>
       </thead>
-      <transition-group
-        name="fade"
-        tag="tbody"
-        mode="out-in"
-      >
-        <TableRow
-          v-for="item in items"
-          :key="item.id"
-          :item="item"
-          :routing-member="routingMember"
-          :columns="columns"
-        />
-      </transition-group>
+      <TableRow
+        v-for="item in items"
+        :key="item.id"
+        :item="item"
+        :routing-member="routingMember"
+        :columns="columns"
+      />
     </table>
   </div>
   <div v-else>

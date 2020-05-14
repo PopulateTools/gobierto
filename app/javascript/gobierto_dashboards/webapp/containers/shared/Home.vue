@@ -9,7 +9,9 @@
           @active-tab="setActiveTab"
         ></Nav>
         <main class="dashboards-home-main">
-          <router-view></router-view>
+          <keep-alive include="Summary">
+            <router-view :key="$route.fullPath"></router-view>
+          </keep-alive>
         </main>
       </div>
     </div>

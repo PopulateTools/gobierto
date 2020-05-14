@@ -6,7 +6,6 @@
         :class="{ 'is-active': activeTab === 0 }"
         class="gobierto-data-home-nav--tab"
       >
-        {{ name }}
         <span>{{ labelDatasets }}</span>
       </router-link>
     </ul>
@@ -25,7 +24,7 @@ export default {
   },
   data() {
     return {
-    labelDatasets: I18n.t("gobierto_data.projects.dataset") || ''
+      labelDatasets: I18n.t("gobierto_data.projects.dataset") || ''
     }
   },
   methods: {

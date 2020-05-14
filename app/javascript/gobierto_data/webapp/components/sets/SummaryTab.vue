@@ -5,29 +5,19 @@
       :category-dataset="category | translate"
       :frequency-dataset="frequency | translate"
       :date-updated="dateUpdated"
-    />
-
-    <DownloadButton
       :array-formats="arrayFormats"
-      class="arrow-top modal-left"
+      class="gobierto-data-summary-separator"
     />
 
+    <Resources
+      :resources-list="resourcesList"
+      class="gobierto-data-summary-separator"
+    />
 
-    <router-link
-      :to="`/datos/${$route.params.id}/${tabs[1]}`"
-    >
-      <Button
-        :text="labelPreview"
-        icon="table"
-        color="var(--color-base)"
-        class="gobierto-data-btn-download-data"
-        background="#fff"
-      />
-    </router-link>
-
-    <Resources :resources-list="resourcesList" />
-
-    <Description :array-columns="arrayColumns" />
+    <Description
+      :array-columns="arrayColumns"
+      class="gobierto-data-summary-separator"
+    />
 
     <Dropdown @is-content-visible="showYourQueries = !showYourQueries">
       <template v-slot:trigger>
@@ -50,12 +40,9 @@
 <script>
 import Resources from "./../commons/Resources.vue";
 import Info from "./../commons/Info.vue";
-import DownloadButton from "./../commons/DownloadButton.vue";
-import Button from "./../commons/Button.vue";
 import Queries from "./../commons/Queries.vue";
 import Caret from "./../commons/Caret.vue";
 import Description from "./../commons/Description.vue";
-import { tabs } from '../../../lib/router'
 import { Dropdown } from "lib/vue-components";
 import { translate } from "lib/shared"
 
@@ -64,8 +51,6 @@ export default {
   components: {
     Resources,
     Queries,
-    DownloadButton,
-    Button,
     Info,
     Caret,
     Dropdown,
@@ -97,7 +82,6 @@ export default {
     },
     resourcesList: {
       type: Array,
-      required: true,
       default: () => [],
     },
   },
@@ -108,9 +92,7 @@ export default {
       frequency: {},
       dateUpdated: null,
       showYourQueries: true,
-      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
-      labelPreview: I18n.t("gobierto_data.projects.preview") || "",
-      tabs
+      labelQueries: I18n.t("gobierto_data.projects.queries") || ""
     };
   },
   created() {

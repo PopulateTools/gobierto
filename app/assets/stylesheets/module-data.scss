@@ -819,7 +819,7 @@
 
       &::after,
       &::before {
-        bottom: 99.9%;
+        bottom: 100%;
         border: solid transparent;
         content: ' ';
         height: 0;
@@ -846,8 +846,6 @@
         .border-color-queries {
           border-color: var(--color-base);
         }
-
-
       }
     }
   }
@@ -977,10 +975,14 @@
   }
 
   &-sidebar-datasets-links-columns {
-    font-size: 14px;
-    opacity: .5;
-    display: block;
     padding-left: 1rem;
+  }
+
+  &-sidebar-datasets-links-columns-text {
+    font-size: 14px;
+    display: inline-block;
+    padding-left: .15rem;
+    opacity: .5;
   }
 
   &-sidebar-icon {
@@ -1104,17 +1106,31 @@
     column-fill: balance;
   }
 
+  &-btn-preview {
+    margin-left: 1.25rem;
+  }
+
+  &-columns-icon {
+    font-size: 11px;
+    opacity: .5;
+  }
+
+  &-summary-header-btns {
+    margin-top: 1.5rem;
+  }
+
   &-columns-icon-boolean::before,
   &-columns-icon-decimal::before,
   &-columns-icon-hstore::before,
-  &-columns-icon-integer::before {
+  &-columns-icon-integer::before,
+  &-columns-icon-inet::before {
     content: "\f292";
   }
 
   &-columns-icon-jsonb::before,
   &-columns-icon-string::before,
   &-columns-icon-text::before {
-    content: "\f073";
+    content: "\f031";
   }
 
   &-columns-icon-time::before,
@@ -1122,7 +1138,12 @@
   &-columns-icon-datetime::before,
   &-columns-icon-timestamp::before,
   &-columns-icon-timestampz::before {
-    content: "\f031";
+    content: "\f073";
+  }
+
+  &-summary-separator {
+    border-bottom: 1px solid rgba(102, 102, 102, .2);
+    padding-bottom: 2rem;
   }
 
 }

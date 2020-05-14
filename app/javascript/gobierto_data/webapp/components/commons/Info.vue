@@ -53,13 +53,38 @@
         v-html="descriptionDataset"
       />
     </div>
+    <div class="gobierto-data-summary-header-btns">
+      <DownloadButton
+        :array-formats="arrayFormats"
+        class="arrow-top modal-left"
+      />
+
+      <router-link
+        :to="`/datos/${$route.params.id}/${tabs[1]}`"
+      >
+        <Button
+          :text="labelPreview"
+          icon="table"
+          color="var(--color-base)"
+          class="gobierto-data-btn-download-data gobierto-data-btn-preview"
+          background="#fff"
+        />
+      </router-link>
+    </div>
   </div>
 </template>
 <script>
 import { date } from "lib/shared"
+import DownloadButton from "./../commons/DownloadButton.vue";
+import Button from "./../commons/Button.vue";
+import { tabs } from '../../../lib/router'
 
 export default {
   name: "Info",
+  components: {
+    DownloadButton,
+    Button,
+  },
   filters: {
     convertDate(valueDate) {
       return date(valueDate, {
@@ -85,21 +110,21 @@ export default {
     dateUpdated: {
       type: String,
       default: ''
-    }
+    },
+    arrayFormats: {
+      type: Object,
+      default: () => {},
+    },
   },
   data() {
     return {
-      labelUpdated: '',
-      labelFrequency: '',
-      labelSubject: '',
-      labelDownloadData: ''
+      labelUpdated: I18n.t("gobierto_data.projects.updated") || '',
+      labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
+      labelSubject: I18n.t("gobierto_data.projects.subject") || '',
+      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',
+      labelPreview: I18n.t("gobierto_data.projects.preview") || "",
+      tabs
     }
-  },
-  created() {
-    this.labelUpdated = I18n.t("gobierto_data.projects.updated")
-    this.labelFrequency = I18n.t("gobierto_data.projects.frequency")
-    this.labelSubject = I18n.t("gobierto_data.projects.subject")
-    this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
   }
 }
 </script>

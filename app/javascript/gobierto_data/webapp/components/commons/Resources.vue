@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="resourcesList.length > 0"
+    v-if="resourcesList.length"
     class="gobierto-data-summary-resources"
   >
     <Dropdown @is-content-visible="showResources = !showResources">

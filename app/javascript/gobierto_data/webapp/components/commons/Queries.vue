@@ -44,19 +44,18 @@
           </div>
         </Dropdown>
 
-        <Dropdown @is-content-visible="showFavQueries = !showFavQueries">
+        <!-- TODO: Favorite Queries -->
+        <!-- <Dropdown @is-content-visible="showFavQueries = !showFavQueries">
           <template v-slot:trigger>
             <h3 class="gobierto-data-summary-queries-panel-title">
               <Caret :rotate="showFavQueries" />
 
-              <!-- TODO: Favorite Queries -->
               {{ labelFavs }} ({{ 0 }})
             </h3>
           </template>
 
-          <!-- TODO: Favorite Queries -->
           <div />
-        </Dropdown>
+        </Dropdown> -->
 
         <Dropdown @is-content-visible="showPublicQueries = !showPublicQueries">
           <template v-slot:trigger>
@@ -66,7 +65,6 @@
               {{ labelAll }} ({{ publicQueries.length }})
             </h3>
           </template>
-
           <div>
             <div
               v-for="{ id, attributes: { sql, name }} in publicQueries"
@@ -125,7 +123,6 @@ export default {
       labelAll: I18n.t("gobierto_data.projects.all") || "",
       sqlCode: null,
       showPrivateQueries: true,
-      showFavQueries: true,
       showPublicQueries: true,
     };
   },
@@ -144,6 +141,9 @@ export default {
     };
 
     this.editor = CodeMirror.fromTextArea(this.$refs.querySnippet, cmOption);
+
+    this.showPrivateQueries = this.privateQueries.length ? false : true
+    this.showPublicQueries = this.publicQueries.length ? false : true
   },
   methods: {
     clickDeleteQueryHandler(id) {

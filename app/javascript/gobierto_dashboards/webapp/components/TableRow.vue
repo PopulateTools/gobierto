@@ -40,17 +40,15 @@ export default {
   },
   methods: {
     initFormattedItem(){
-      const _self = this;
-
-      _self.columns.forEach(function(column){
-        if (column.format === 'currency') {
-          _self.formattedItem[column.field] = parseFloat(_self.item[column.field]).toLocaleString(I18n.locale, {
+      this.columns.forEach(({format, field}) => {
+        if (format === 'currency') {
+          this.formattedItem[field] = parseFloat(this.item[field]).toLocaleString(I18n.locale, {
             style: 'currency',
             currency: 'EUR'
           });
         } else {
-          _self.formattedItem[column.field] = _self.item[column.field]
-        };
+          this.formattedItem[field] = this.item[field]
+        }
       });
     }
   }

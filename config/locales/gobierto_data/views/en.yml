@@ -33,6 +33,7 @@ en:
       dashboards: Dashboards
       data: Data
       dataset: Datasets
+      description: Description
       download: Download
       downloadData: Download Data
       edit: Edit
@@ -47,6 +48,7 @@ en:
       modifiedQuery: Modified Query
       modifiedVisualization: Modified Visualization
       news: News
+      preview: Preview
       private: Private
       queries: Queries
       queryExecuted: Query executed in

@@ -5,28 +5,45 @@
       :category-dataset="category | translate"
       :frequency-dataset="frequency | translate"
       :date-updated="dateUpdated"
-    />
-
-    <DownloadButton
       :array-formats="arrayFormats"
-      class="arrow-top modal-left"
+      class="gobierto-data-summary-separator"
     />
 
-    <Resources :resources-list="resourcesList" />
-
-    <Queries
-      :private-queries="privateQueries"
-      :public-queries="publicQueries"
-      :is-user-logged="isUserLogged"
+    <Resources
+      :resources-list="resourcesList"
+      class="gobierto-data-summary-separator"
     />
+
+    <Description
+      :array-columns="arrayColumns"
+      class="gobierto-data-summary-separator"
+    />
+
+    <Dropdown @is-content-visible="showYourQueries = !showYourQueries">
+      <template v-slot:trigger>
+        <h2 class="gobierto-data-tabs-section-title">
+          <Caret :rotate="showYourQueries" />
+          {{ labelQueries }}
+        </h2>
+      </template>
+      <div>
+        <Queries
+          v-if="showYourQueries"
+          :private-queries="privateQueries"
+          :public-queries="publicQueries"
+        />
+      </div>
+    </Dropdown>
   </div>
 </template>
 
 <script>
 import Resources from "./../commons/Resources.vue";
 import Info from "./../commons/Info.vue";
-import DownloadButton from "./../commons/DownloadButton.vue";
 import Queries from "./../commons/Queries.vue";
+import Caret from "./../commons/Caret.vue";
+import Description from "./../commons/Description.vue";
+import { Dropdown } from "lib/vue-components";
 import { translate } from "lib/shared"
 
 export default {
@@ -34,8 +51,10 @@ export default {
   components: {
     Resources,
     Queries,
-    DownloadButton,
     Info,
+    Caret,
+    Dropdown,
+    Description
   },
   filters: {
     translate
@@ -53,13 +72,16 @@ export default {
       type: Object,
       default: () => {},
     },
+    arrayColumns: {
+      type: Object,
+      default: () => {},
+    },
     datasetAttributes: {
       type: Object,
       default: () => {},
     },
     resourcesList: {
       type: Array,
-      required: true,
       default: () => [],
     },
     isUserLogged: {
@@ -73,6 +95,8 @@ export default {
       category: {},
       frequency: {},
       dateUpdated: null,
+      showYourQueries: true,
+      labelQueries: I18n.t("gobierto_data.projects.queries") || ""
     };
   },
   created() {

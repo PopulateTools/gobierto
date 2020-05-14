@@ -2,51 +2,50 @@
   <div class="pure-g">
     <div class="pure-u-1-2 gobierto-data-summary-header">
       <div class="gobierto-data-summary-header-container">
-        <i
-          class="fas fa-clock"
-          style="color: var(--color-base); opacity: .25"
-        />
-        <span class="gobierto-data-summary-header-container-label">
-          {{ labelUpdated }}
-        </span>
-        <span
-          v-if="dateUpdated"
-          class="gobierto-data-summary-header-container-text"
-        >
-          {{ dateUpdated | convertDate }}
-        </span>
+        <template v-if="dateUpdated">
+          <i
+            class="fas fa-clock"
+            style="color: var(--color-base); opacity: .25"
+          />
+          <span class="gobierto-data-summary-header-container-label">
+            {{ labelUpdated }}
+          </span>
+          <span class="gobierto-data-summary-header-container-text">
+            {{ dateUpdated | convertDate }}
+          </span>
+        </template>
       </div>
-      <div class="gobierto-data-summary-header-container">
-        <i
-          class="fas fa-calendar"
-          style="color: var(--color-base); opacity: .25"
-        />
-        <span class="gobierto-data-summary-header-container-label">
-          {{ labelFrequency }}
-        </span>
-        <span
-          v-if="frequencyDataset"
-          class="gobierto-data-summary-header-container-text"
-        >
-          {{ frequencyDataset }}
-        </span>
-      </div>
-      <div class="gobierto-data-summary-header-container">
-        <i
-          class="fas fa-tag"
-          style="color: var(--color-base); opacity: .25"
-        />
-        <span class="gobierto-data-summary-header-container-label">
-          {{ labelSubject }}
-        </span>
-        <a
-          v-if="categoryDataset"
-          href=""
-          class="gobierto-data-summary-header-container-text-link"
-        >
-          {{ categoryDataset }}
-        </a>
-      </div>
+      <template v-if="frequencyDataset">
+        <div class="gobierto-data-summary-header-container">
+          <i
+            class="fas fa-calendar"
+            style="color: var(--color-base); opacity: .25"
+          />
+          <span class="gobierto-data-summary-header-container-label">
+            {{ labelFrequency }}
+          </span>
+          <span class="gobierto-data-summary-header-container-text">
+            {{ frequencyDataset }}
+          </span>
+        </div>
+      </template>
+      <template v-if="categoryDataset">
+        <div class="gobierto-data-summary-header-container">
+          <i
+            class="fas fa-tag"
+            style="color: var(--color-base); opacity: .25"
+          />
+          <span class="gobierto-data-summary-header-container-label">
+            {{ labelSubject }}
+          </span>
+          <a
+            href="#"
+            class="gobierto-data-summary-header-container-text-link"
+          >
+            {{ categoryDataset }}
+          </a>
+        </div>
+      </template>
     </div>
     <div class="pure-u-1-2">
       <div
@@ -54,13 +53,38 @@
         v-html="descriptionDataset"
       />
     </div>
+    <div class="gobierto-data-summary-header-btns">
+      <DownloadButton
+        :array-formats="arrayFormats"
+        class="arrow-top modal-left"
+      />
+
+      <router-link
+        :to="`/datos/${$route.params.id}/${tabs[1]}`"
+      >
+        <Button
+          :text="labelPreview"
+          icon="table"
+          color="var(--color-base)"
+          class="gobierto-data-btn-download-data gobierto-data-btn-preview"
+          background="#fff"
+        />
+      </router-link>
+    </div>
   </div>
 </template>
 <script>
 import { date } from "lib/shared"
+import DownloadButton from "./../commons/DownloadButton.vue";
+import Button from "./../commons/Button.vue";
+import { tabs } from '../../../lib/router'
 
 export default {
   name: "Info",
+  components: {
+    DownloadButton,
+    Button,
+  },
   filters: {
     convertDate(valueDate) {
       return date(valueDate, {
@@ -86,21 +110,21 @@ export default {
     dateUpdated: {
       type: String,
       default: ''
-    }
+    },
+    arrayFormats: {
+      type: Object,
+      default: () => {},
+    },
   },
   data() {
     return {
-      labelUpdated: '',
-      labelFrequency: '',
-      labelSubject: '',
-      labelDownloadData: ''
+      labelUpdated: I18n.t("gobierto_data.projects.updated") || '',
+      labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
+      labelSubject: I18n.t("gobierto_data.projects.subject") || '',
+      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',
+      labelPreview: I18n.t("gobierto_data.projects.preview") || "",
+      tabs
     }
-  },
-  created() {
-    this.labelUpdated = I18n.t("gobierto_data.projects.updated")
-    this.labelFrequency = I18n.t("gobierto_data.projects.frequency")
-    this.labelSubject = I18n.t("gobierto_data.projects.subject")
-    this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
   }
 }
 </script>

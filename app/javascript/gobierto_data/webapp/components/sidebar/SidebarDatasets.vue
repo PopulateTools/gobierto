@@ -25,12 +25,22 @@
           class="gobierto-data-sidebar-datasets-container-columns"
         >
           <template v-for="(type, column) in activeDatasetVisibleColumns">
-            <span
+            <div
               :key="`${column}-${type}`"
               class="gobierto-data-sidebar-datasets-links-columns"
             >
-              {{ column }}: {{ type | translateType }}
-            </span>
+              <i
+                :key="`${column}-${type}`"
+                :class="`fas gobierto-data-columns-icon gobierto-data-columns-icon-${type}`"
+                style="color: var(--color-base);"
+              />
+              <span
+                :key="`${column}-${type}`"
+                class="gobierto-data-sidebar-datasets-links-columns-text"
+              >
+                {{ column }}
+              </span>
+            </div>
           </template>
           <div v-if="showToggle">
             <span
@@ -56,11 +66,6 @@
 <script>
 export default {
   name: "SidebarDatasets",
-  filters: {
-    translateType: function(type) {
-      return I18n.t(`gobierto_data.data_type.${type}`)
-    }
-  },
   props: {
     items: {
       type: Array,

@@ -1,14 +1,14 @@
 <template>
   <nav class="gobierto-data-home-nav">
     <ul>
-      <a
-        :href="'/datos/'"
+      <router-link
+        :to="'/datos/'"
         :class="{ 'is-active': activeTab === 0 }"
         class="gobierto-data-home-nav--tab"
-        @click.stop="nav(0)"
       >
+        {{ name }}
         <span>{{ labelDatasets }}</span>
-      </a>
+      </router-link>
       <li
         :class="{ 'is-active': activeTab === 1 }"
         class="gobierto-data-home-nav--tab"
@@ -74,25 +74,15 @@ export default {
   },
   data() {
     return {
-      labelDatasets: "",
-      labelQueries: "",
-      labelVisualizations: "",
-      labelDashboards: "",
-      labelAnalysis: "",
-      labelNews: "",
-      labelInformation: "",
-      labelAPI: "",
+      labelDatasets: I18n.t("gobierto_data.projects.dataset") || '',
+      labelQueries:  I18n.t("gobierto_data.projects.queries") || '',
+      labelVisualizations:  I18n.t("gobierto_data.projects.visualizations") || '',
+      labelDashboards:  I18n.t("gobierto_data.projects.dashboards") || '',
+      labelAnalysis:  I18n.t("gobierto_data.projects.analysis") || '',
+      labelNews:  I18n.t("gobierto_data.projects.news") || '',
+      labelInformation:  I18n.t("gobierto_data.projects.info") || '',
+      labelAPI:  I18n.t("gobierto_data.projects.api") || ''
     }
-  },
-  created() {
-    this.labelDatasets = I18n.t("gobierto_data.projects.dataset")
-    this.labelQueries = I18n.t("gobierto_data.projects.queries")
-    this.labelVisualizations = I18n.t("gobierto_data.projects.visualizations")
-    this.labelDashboards = I18n.t("gobierto_data.projects.dashboards")
-    this.labelAnalysis = I18n.t("gobierto_data.projects.analysis")
-    this.labelNews = I18n.t("gobierto_data.projects.news")
-    this.labelInformation = I18n.t("gobierto_data.projects.info")
-    this.labelAPI = I18n.t("gobierto_data.projects.api")
   },
   methods: {
     activateTab(index) {

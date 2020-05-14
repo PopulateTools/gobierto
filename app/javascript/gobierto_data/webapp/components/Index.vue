@@ -36,6 +36,7 @@
 import { VueFiltersMixin } from "lib/shared";
 import Info from "./commons/Info.vue";
 
+
 export default {
   name: "Index",
   components: {
@@ -55,6 +56,15 @@ export default {
       labelSubject: I18n.t("gobierto_data.projects.subject") || "",
       labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || ""
     };
+  },
+  created() {
+    this.injectRouter()
+  },
+  methods: {
+    injectRouter() {
+      const topMenu = document.querySelectorAll("a[href='datos']");
+      console.log("injectRouter -> topMenu", topMenu)
+    }
   }
 };
 </script>

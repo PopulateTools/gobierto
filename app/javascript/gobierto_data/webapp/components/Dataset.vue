@@ -35,6 +35,7 @@
       :array-formats="arrayFormats"
       :resources-list="resourcesList"
       :dataset-attributes="attributes"
+      :is-user-logged="isUserLogged"
     />
 
     <DataTab
@@ -61,17 +62,20 @@
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       :table-name="tableName"
+      :is-user-logged="isUserLogged"
     />
 
     <QueriesTab
       v-else-if="activeDatasetTab === 2"
       :private-queries="privateQueries"
       :public-queries="publicQueries"
+      :is-user-logged="isUserLogged"
     />
 
     <VisualizationsTab
       v-else-if="activeDatasetTab === 3"
       :dataset-id="datasetId"
+      :is-user-logged="isUserLogged"
     />
 
     <DownloadsTab
@@ -153,6 +157,7 @@ export default {
       queryName: null,
       queryDuration: 0,
       queryError: null,
+      isUserLogged: false,
       enabledForkButton: false
     };
   },
@@ -236,6 +241,8 @@ export default {
       // Do not request private queries if the user is not logged
       queriesPromises.push(this.getPrivateQueries(userId));
     }
+
+    this.isUserLogged = !!(userId && userId.length)
 
     // In order to update from the url, we need both public and private queries
     const [publicResponse, privateResponse] = await Promise.all(

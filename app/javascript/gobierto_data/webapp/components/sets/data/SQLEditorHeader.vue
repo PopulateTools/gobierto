@@ -55,6 +55,7 @@
           v-if="isQueriesModalActive"
           :private-queries="privateQueries"
           :public-queries="publicQueries"
+          :is-user-logged="isUserLogged"
           class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
         />
       </transition>
@@ -68,6 +69,7 @@
       :is-query-saved="isQuerySaved"
       :is-saving-prompt-visible="isSavingPromptVisible"
       :is-fork-prompt-visible="isForkPromptVisible"
+      :is-user-logged="isUserLogged"
       :enabled-saved-button="enabledSavedButton"
       :enabled-fork-button="enabledForkButton"
       :enabled-revert-button="enabledRevertButton"
@@ -166,6 +168,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isUserLogged: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

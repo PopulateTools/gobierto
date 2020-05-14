@@ -128,6 +128,7 @@ export default {
         editor.showHint({ completeSingle: false })
       }
 
+      // Enabled saved and fork button while typping on editor
       this.$root.$emit('enableSavedButton')
       this.$root.$emit('enabledForkPrompt')
       this.$root.$emit('enabledRevertButton')
@@ -139,6 +140,7 @@ export default {
       this.$root.$emit("setCurrentQuery", value);
     },
     onKeyDown(editor, e) {
+      this.mergeTables();
       // keyUp event to stop "c|r" open modals, but allow ctrl+enter (or cmd+enter) to run query
       if (!((e.keyCode == 10 || e.keyCode == 13) && (e.ctrlKey || e.metaKey))) {
         e.stopPropagation();

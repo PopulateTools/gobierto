@@ -13,37 +13,58 @@
         name="fade"
         mode="out-in"
       >
-        <div
-          v-show="!isHidden"
-          class="gobierto-data-btn-download-data-modal"
-        >
-          <template
-            v-for="(item, key, index) in arrayFormats"
+        <template v-if="!editor">
+          <div
+            v-show="!isHidden"
+            class="gobierto-data-btn-download-data-modal"
           >
-            <a
-              :key="index"
-              :item="item"
-              :href="editor ? sqlfileCSV : item"
-              :download="titleDataset"
-              class="gobierto-data-btn-download-data-modal-element"
+            <template
+              v-for="(item, key) in arrayFormats"
             >
-              {{ key }}
-            </a>
-          </template>
-        </div>
+              <a
+                :key="key"
+                :href="item"
+                :download="titleFile"
+                class="gobierto-data-btn-download-data-modal-element"
+              >
+                {{ key }}
+              </a>
+            </template>
+          </div>
+        </template>
+        <template v-else>
+          <div
+            v-show="!isHidden"
+            class="gobierto-data-btn-download-data-modal"
+          >
+            <template
+              v-for="({ url, name, label }, key) in arrayFormatsQuery"
+            >
+              <a
+                :key="key"
+                class="gobierto-data-btn-download-data-modal-element"
+                @click.prevent="getFiles(url, name)"
+              >
+                {{ label }}
+              </a>
+            </template>
+          </div>
+        </template>
       </transition>
     </Button>
   </div>
 </template>
 <script>
 import Button from "./Button.vue";
-import { baseUrl, CommonsMixin } from "./../../../lib/commons.js";
+import { CommonsMixin } from "./../../../lib/commons.js";
+import { DownloadFilesFactoryMixin } from "./../../../lib/factories/download";
+
 export default {
   name: 'DownloadButton',
   components: {
     Button
   },
-  mixins: [CommonsMixin],
+  mixins: [CommonsMixin, DownloadFilesFactoryMixin],
   props: {
     editor: {
       type: Boolean,
@@ -52,32 +73,33 @@ export default {
     arrayFormats: {
       type: Object,
       required: true
-    }
+    },
+    queryStored: {
+      type: String,
+      default: ""
+    },
   },
   data() {
     return {
-      labelDownloadData: "",
+      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || "",
       isHidden: true,
-      sqlfileCSV: '',
-      sqlfileXLSX: '',
-      sqlfileJSON: '',
-      titleDataset: ''
+      arrayFormatsQuery: {},
+      titleFile: ''
+    }
+  },
+  watch: {
+    queryStored(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.createObjectFormatsQuery(newValue)
+      }
     }
   },
   created() {
-    this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
+    this.createObjectFormatsQuery(this.queryStored)
   },
   methods: {
     closeMenu() {
       this.isHidden = true
-    },
-    updateCode(sqlQuery) {
-      // TODO: this method do nothing
-      const code = sqlQuery
-      const endPointSQL = `${baseUrl}/data.csv?sql=`
-      this.sqlfileCSV = `${endPointSQL}${code}&csv_separator=semicolon`
-      this.sqlfileXLSX = `${endPointSQL}${code}`
-      this.sqlfileJSON = `${endPointSQL}${code}`
     }
   }
 }

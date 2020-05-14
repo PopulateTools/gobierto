@@ -1,0 +1,28 @@
+---
+default: &defaults
+  name: "Gobierto"
+  # Supports ERB
+  push_api_key: "<%= ENV['APPSIGNAL_PUSH_API_KEY'] %>"
+  ignore_errors:
+    - SystemExit
+    - ActionController::InvalidCrossOriginRequest
+    - ActionController::RoutingError
+    - ActionController::UnknownFormat
+  enable_frontend_error_catching: true
+  enable_gc_instrumentation: true
+
+development:
+  <<: *defaults
+  active: true
+
+test:
+  <<: *defaults
+  active: false
+
+staging:
+  <<: *defaults
+  active: true
+
+production:
+  <<: *defaults
+  active: true

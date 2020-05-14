@@ -160,6 +160,12 @@ class Site < ApplicationRecord
                                 end
   end
 
+  def gobierto_dashboards_settings
+    @gobierto_dashboard_settings ||= if configuration.available_module?("GobiertoDashboards") && configuration.gobierto_dashboards_enabled?
+                                       module_settings.find_by(module_name: "GobiertoDashboards")
+                                     end
+  end
+
   def settings_for_module(module_name)
     return unless respond_to?(method = "#{ module_name.underscore }_settings")
 

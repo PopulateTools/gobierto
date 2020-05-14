@@ -16,6 +16,7 @@
         :enabled-revert-button="enabledRevertButton"
         :show-revert-query="showRevertQuery"
         :show-private="showPrivate"
+        :is-user-logged="isUserLogged"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"
@@ -28,6 +29,7 @@
         v-if="items.length"
         :array-formats="arrayFormats"
         :array-columns-query="arrayColumnsQuery"
+        :query-stored="queryStored"
         :items="items"
       />
     </div>
@@ -134,6 +136,10 @@ export default {
     tableName: {
       type: String,
       default: ''
+    },
+    isUserLogged: {
+      type: Boolean,
+      default: false
     }
   }
 }

@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import * as d3 from 'd3'
 import { getRemoteData } from '../webapp/lib/get_remote_data'
 
 Vue.use(VueRouter);

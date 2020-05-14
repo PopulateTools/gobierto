@@ -97,7 +97,7 @@ module GobiertoAdmin
 
         col_names = config.map { |col| col.fetch("id") }
         transformations = config.map { |col| TRANSFORMATIONS[col.fetch("type")] }
-        raw_values = row.to_h.select { |header, _| /col_\d+/.match?(header) }.values
+        raw_values = row.to_h.select { |header, _| /col_\d+/i.match?(header) }.values
         transformed_values = transformations.zip(raw_values).map { |(function, value)| value.presence && function.call(value) }
         col_names.zip(transformed_values).to_h
       end

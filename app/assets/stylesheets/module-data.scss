@@ -1087,4 +1087,10 @@
     background-color: transparent;
   }
 
+  &-top-menu {
+    a {
+      pointer-events: none;
+    }
+  }
+
 }

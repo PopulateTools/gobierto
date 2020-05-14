@@ -6,7 +6,6 @@
         :class="{ 'is-active': activeTab === 0 }"
         class="gobierto-data-home-nav--tab"
       >
-        {{ name }}
         <span>{{ labelDatasets }}</span>
       </router-link>
       <li

@@ -62,8 +62,12 @@ export default {
   },
   methods: {
     injectRouter() {
-      const topMenu = document.querySelectorAll("a[href='datos']");
-      console.log("injectRouter -> topMenu", topMenu)
+      const topMenu = document.getElementById('gobierto-data-top-menu')
+      topMenu.addEventListener('click', (e) => {
+        e.preventDefault()
+        // eslint-disable-next-line no-unused-vars
+        this.$router.push('/datos').catch(err => {})
+      })
     }
   }
 };

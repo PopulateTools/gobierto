@@ -32,6 +32,7 @@ es:
       dashboards: Dashboards
       data: Datos
       dataset: Conjunto de datos
+      datasetUpdated: Últimos datasets actualizados
       download: Descargar
       downloadData: Descargar datos
       edit: Editar

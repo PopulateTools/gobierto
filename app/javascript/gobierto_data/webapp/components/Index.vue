@@ -1,7 +1,7 @@
 <template>
   <div v-if="allDatasets">
     <h3 class="gobierto-data-index-title">
-      {{ labelDataset }}
+      {{ labelDatasetUpdated }}
     </h3>
     <div
       v-for="{
@@ -57,7 +57,7 @@ export default {
       labelFrequency: I18n.t("gobierto_data.projects.frequency") || "",
       labelSubject: I18n.t("gobierto_data.projects.subject") || "",
       labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || "",
-      labelDataset: I18n.t("gobierto_data.projects.dataset") || "",
+      labelDatasetUpdated: I18n.t("gobierto_data.projects.datasetUpdated") || "",
     };
   },
   created() {

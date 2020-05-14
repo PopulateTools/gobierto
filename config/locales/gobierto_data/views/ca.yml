@@ -32,6 +32,7 @@ ca:
       dashboards: Dashboards
       data: Dades
       dataset: Conjunt de dades
+      datasetUpdated: Darrers datasets actualitzats
       download: Descàrrega
       downloadData: Descarregueu dades
       edit: Editeu

@@ -12,8 +12,9 @@
           v-for="(row, i) in numberOfRows"
         >
           <div
-            v-for="(element, keyRow) in arrayOfObjectsColumns.slice(i * itemsPerRow, (i + 1) * itemsPerRow)"
-            :key="keyRow"
+            v-for="element in arrayOfObjectsColumns.slice(i * itemsPerRow, (i + 1) * itemsPerRow)"
+            :key="Object.keys(element)[0]"
+            :title="Object.values(element)[0]"
             class="gobierto-data-columns-icon-description"
           >
             <i

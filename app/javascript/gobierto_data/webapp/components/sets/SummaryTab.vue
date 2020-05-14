@@ -6,8 +6,26 @@
       :frequency-dataset="frequency | translate"
       :date-updated="dateUpdated"
       :array-formats="arrayFormats"
-      class="gobierto-data-summary-separator"
     />
+
+    <div class="gobierto-data-summary-header-btns gobierto-data-summary-separator">
+      <DownloadButton
+        :array-formats="arrayFormats"
+        class="arrow-top modal-left"
+      />
+
+      <router-link
+        :to="`/datos/${$route.params.id}/${tabs[1]}`"
+      >
+        <Button
+          :text="labelPreview"
+          icon="table"
+          color="var(--color-base)"
+          class="gobierto-data-btn-download-data gobierto-data-btn-preview"
+          background="#fff"
+        />
+      </router-link>
+    </div>
 
     <Resources
       :resources-list="resourcesList"
@@ -43,6 +61,9 @@ import Info from "./../commons/Info.vue";
 import Queries from "./../commons/Queries.vue";
 import Caret from "./../commons/Caret.vue";
 import Description from "./../commons/Description.vue";
+import DownloadButton from "./../commons/DownloadButton.vue";
+import Button from "./../commons/Button.vue";
+import { tabs } from '../../../lib/router'
 import { Dropdown } from "lib/vue-components";
 import { translate } from "lib/shared"
 
@@ -54,6 +75,8 @@ export default {
     Info,
     Caret,
     Dropdown,
+    DownloadButton,
+    Button,
     Description
   },
   filters: {
@@ -92,7 +115,9 @@ export default {
       frequency: {},
       dateUpdated: null,
       showYourQueries: true,
-      labelQueries: I18n.t("gobierto_data.projects.queries") || ""
+      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
+      labelPreview: I18n.t("gobierto_data.projects.preview") || "",
+      tabs
     };
   },
   created() {

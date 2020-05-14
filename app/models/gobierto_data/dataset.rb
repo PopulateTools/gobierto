@@ -71,17 +71,10 @@ module GobiertoData
     end
 
     def load_data_from_file(file_path, schema_file: nil, csv_separator: ",", append: false)
-      schema = if schema_file.blank?
-                 append ? table_schema : {}
-               elsif schema_file.is_a? Hash
-                 schema_file.deep_symbolize_keys
-               else
-                 JSON.parse(File.read(schema_file)).deep_symbolize_keys
-               end
       statements = GobiertoData::Datasets::CreationStatements.new(
         self,
         file_path,
-        schema,
+        schema_from_file(schema_file, append),
         csv_separator: csv_separator,
         append: append,
         use_stdin: true
@@ -98,6 +91,16 @@ module GobiertoData
     end
 
     private
+
+    def schema_from_file(schema_file, append)
+      if schema_file.blank?
+        append ? table_schema : {}
+      elsif schema_file.is_a? Hash
+        schema_file.deep_symbolize_keys
+      else
+        JSON.parse(File.read(schema_file)).deep_symbolize_keys
+      end
+    end
 
     def table_schema
       table_columns = Connection.execute_query(site, "SELECT column_name, data_type FROM information_schema.COLUMNS WHERE table_name='#{table_name}'", write: true)

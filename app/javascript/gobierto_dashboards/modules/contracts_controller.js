@@ -1,5 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
+import { scaleThreshold, sum, mean, median, max } from 'd3';
+const d3 = { scaleThreshold, sum, mean, median, max }
+
+import crossfilter from 'crossfilter2'
+
 import { getRemoteData } from '../webapp/lib/get_remote_data'
 import { EventBus } from '../webapp/mixins/event_bus'
 import { money } from 'lib/shared/modules/vue-filters'
@@ -7,11 +13,14 @@ import { sum, mean, median, max } from 'd3-array';
 
 const d3 = { sum, mean, median, max }
 
+import { AmountDistributionBars } from "lib/visualizations/modules/amount_distribution_bars.js";
+import { GroupPctDistributionBars } from "lib/visualizations/modules/group_pct_distribution_bars.js";
+
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
 // Global variables
-let data;
+let data, reduced, ndx, _r, vueApp;
 
 export class ContractsController {
   constructor(options) {
@@ -79,9 +88,9 @@ export class ContractsController {
       });
 
       Promise.all([getRemoteData(options.contractsEndpoint), getRemoteData(options.tendersEndpoint)]).then((rawData) => {
-        this.buildDataObject(rawData)
+        this.setGlobalVariables(rawData)
 
-        new Vue({
+        vueApp = new Vue({
           router,
           data: Object.assign(options, data),
         }).$mount(entryPoint);
@@ -93,7 +102,7 @@ export class ContractsController {
     }
   }
 
-  buildDataObject(rawData){
+  setGlobalVariables(rawData){
     let contractsData, tendersData;
     [contractsData, tendersData] = rawData;
 
@@ -120,21 +129,48 @@ export class ContractsController {
       }
     }
 
+    // Contracts precalculations
+    _r = {
+      domain: [501, 1001, 5001, 10001, 15001],
+      range: [0, 1, 2, 3, 4, 5]
+    };
+    var rangeFormat = d3.scaleThreshold().domain(_r.domain).range(_r.range);
+
+    for(let i = 0; i < contractsData.length; i++){
+      const contract = contractsData[i],
+            final_amount = (contract.final_amount === '' || contract.final_amount === undefined) ? 0.0 : parseFloat(contract.final_amount);
+
+      contract.final_amount = final_amount;
+      contract.range = rangeFormat(+final_amount);
+    }
+
     data = {
       contractsData: contractsData.sort(sortByField('end_date')),
       tendersData: tendersData.sort(sortByField('submission_date')),
     }
   }
 
-  _renderSummary(reduced){
-    const _data = data || reduced
+  _renderSummary(){
+    ndx = crossfilter(data.contractsData);
 
-    this._renderTendersMetricsBox(data.tendersData);
-    this._renderContractsMetricsBox(data.contractsData);
+    this._renderTendersMetricsBox();
+    this._renderContractsMetricsBox();
+
+    this._renderByAmountsChart();
+    this._renderContractTypeChart();
+    this._renderProcessTypeChart();
   }
 
-  _renderTendersMetricsBox(reducedTenders){
-    const _tendersData = reducedTenders || data.tendersData
+  _refreshData(reducedContractsData){
+    reduced = {tendersData: data.tendersData, contractsData: reducedContractsData};
+
+    vueApp.contractsData = reducedContractsData;
+
+    this._renderContractsMetricsBox();
+  }
+
+  _renderTendersMetricsBox(){
+    const _tendersData = this._currentDataSource().tendersData
 
     // Calculations
     const amountsArray = _tendersData.map(({initial_amount = 0}) => initial_amount === '' ? 0.0 : parseFloat(initial_amount) );
@@ -151,9 +187,8 @@ export class ContractsController {
     document.getElementById("median-tenders").innerText = money(medianTenders);
   }
 
-  _renderContractsMetricsBox(reducedContracts){
-    const _contractsData = reducedContracts || data.contractsData
-
+  _renderContractsMetricsBox(){
+    const _contractsData = this._currentDataSource().contractsData
     // Calculations
     const amountsArray = _contractsData.map(({final_amount = 0}) => final_amount === '' ? 0.0 : parseFloat(final_amount) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
@@ -207,4 +242,48 @@ export class ContractsController {
       style: 'percent'
     });;
   }
+
+  _renderByAmountsChart(){
+    const dimension = ndx.dimension(contract => contract.range);
+
+    const renderOptions = {
+      containerSelector: "#amount-distribution-bars",
+      dimension: dimension,
+      range: _r,
+      labelMore: I18n.t('gobierto_dashboards.dashboards.contracts.more'),
+      labelFromTo: I18n.t('gobierto_dashboards.dashboards.contracts.fromto'),
+      onFilteredFunction: () => this._refreshData(dimension.top(Infinity))
+    }
+
+    new AmountDistributionBars(renderOptions);
+  }
+
+  _renderContractTypeChart(){
+    const dimension = ndx.dimension(contract => contract.contract_type)
+
+    const renderOptions = {
+      containerSelector: "#contract-type-bars",
+      dimension: dimension,
+      onFilteredFunction: () => this._refreshData(dimension.top(Infinity))
+    }
+
+    new GroupPctDistributionBars(renderOptions);
+  }
+
+  _renderProcessTypeChart(){
+    const dimension = ndx.dimension(contract => contract.process_type)
+
+    const renderOptions = {
+      containerSelector: "#process-type-bars",
+      dimension: dimension,
+      onFilteredFunction: () => this._refreshData(dimension.top(Infinity))
+    }
+
+    new GroupPctDistributionBars(renderOptions);
+  }
+
+  _currentDataSource(){
+    return reduced || data
+  }
 }
+

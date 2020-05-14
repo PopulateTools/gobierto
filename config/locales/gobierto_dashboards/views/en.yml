@@ -13,6 +13,8 @@ en:
         empty_table: There is no available data
         end_date: Date
         final_amount: Amount
+        fromto: From To No Contr.
+        more: More than
         nav:
           contracts: Contracts
           summary: Summary

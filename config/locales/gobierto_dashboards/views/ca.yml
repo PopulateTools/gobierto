@@ -13,6 +13,8 @@ ca:
         empty_table: No hi ha dades disponibles
         end_date: Data
         final_amount: Quantitat
+        fromto: De a Nº Contr.
+        more: Més de
         nav:
           contracts: Contracts
           summary: Resum

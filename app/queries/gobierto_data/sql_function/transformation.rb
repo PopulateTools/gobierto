@@ -3,6 +3,7 @@
 module GobiertoData
   module SqlFunction
     class Transformation
+      class UndefinedFunction < ArgumentError; end
 
       attr_reader :function_type, :function_name, :function
 
@@ -68,6 +69,8 @@ module GobiertoData
         @id = opts.fetch(:id, "generic")
         @function_name = "#{function_type}_#{@id}_transformation"
         @function = SQL_FUNCTIONS[function_type]
+        raise(UndefinedFunction, "The type '#{@function_type}' is not defined. Available types: #{SQL_FUNCTIONS.keys.join(", ")}") if @function.blank?
+
         default_optional_params = @function.fetch(:optional_params, {})
         @optional_params = default_optional_params.merge(opts.fetch(:optional_params, {}).slice(*default_optional_params.keys))
       end

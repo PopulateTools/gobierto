@@ -28,14 +28,13 @@
             <div
               :key="`${column}-${type}`"
               class="gobierto-data-sidebar-datasets-links-columns"
+              :title="`${type}`"
             >
               <i
-                :key="`${column}-${type}`"
                 :class="`fas gobierto-data-columns-icon gobierto-data-columns-icon-${type}`"
                 style="color: var(--color-base);"
               />
               <span
-                :key="`${column}-${type}`"
                 class="gobierto-data-sidebar-datasets-links-columns-text"
               >
                 {{ column }}

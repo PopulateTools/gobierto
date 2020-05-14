@@ -140,8 +140,8 @@ export default {
       queryName: null,
       queryDuration: 0,
       queryError: null,
-      enabledForkButton: false,
-      isUserLogged: false
+      isUserLogged: false,
+      enabledForkButton: false
     };
   },
   computed: {

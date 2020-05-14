@@ -10,7 +10,7 @@
         class="gobierto-data-sql-editor-container-save-text"
         :class="{
           'disable-input-text': disabledButton,
-          'disable-cursor-pointer': enabledForkButton || userNotLogged
+          'disable-cursor-pointer': enabledForkButton || !isUserLogged
         }"
         @keydown.stop="onKeyDownTextHandler"
         @click="inputHandler"
@@ -154,6 +154,10 @@ export default {
       type: Boolean,
       default: true
     },
+    isUserLogged: {
+      type: Boolean,
+      default: true
+    },
     enabledSavedButton: {
       type: Boolean,
       default: false
@@ -183,7 +187,6 @@ export default {
     return {
       isPrivate: false,
       disabledButton: true,
-      userNotLogged: false,
       labelValue: this.value,
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
@@ -212,12 +215,6 @@ export default {
       this.$nextTick(() => {
          this.countInputCharacters(this.value)
       });
-    }
-
-    //Check if user is not logged to disable any interaction with input
-    const userId = getUserId()
-    if (!userId || userId.length === 0) {
-      this.userNotLogged = true
     }
   },
   methods: {

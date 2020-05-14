@@ -74,6 +74,7 @@
       :is-query-saved="isQuerySaved"
       :is-saving-prompt-visible="isSavingPromptVisible"
       :is-fork-prompt-visible="isForkPromptVisible"
+      :is-user-logged="isUserLogged"
       :enabled-saved-button="enabledSavedButton"
       :enabled-fork-button="enabledForkButton"
       :enabled-revert-button="enabledRevertButton"
@@ -164,7 +165,7 @@ export default {
       type: Boolean,
       default: false
     },
-    isUserLogged: {
+    enabledForkButton: {
       type: Boolean,
       default: false
     },
@@ -172,7 +173,7 @@ export default {
       type: Boolean,
       default: false
     },
-    enabledForkButton: {
+    isUserLogged: {
       type: Boolean,
       default: false
     }

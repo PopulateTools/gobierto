@@ -28,6 +28,10 @@
           v-if="perspectiveChanged"
           :placeholder="labelVisName"
           :label-save="labelSaveViz"
+          :enabled-saved-button="enabledSavedButton"
+          :is-query-modified="isQueryModified"
+          :is-query-saved="isQuerySaved"
+          :is-saving-prompt-visible="isSavingPromptVisible"
           @save="onSaveEventHandler"
           @resetButtonViz="resetButtonViz"
         />
@@ -93,6 +97,26 @@ export default {
       type: String,
       default: ''
     },
+    enabledSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    isQueryRunning: {
+      type: Boolean,
+      default: false
+    },
+    isSavingPromptVisible: {
+      type: Boolean,
+      default: false
+    },
+    isQueryModified: {
+      type: Boolean,
+      default: false
+    },
+    isQuerySaved: {
+      type: Boolean,
+      default: false
+    },
     queryStored: {
       type: String,
       default: ""
@@ -147,6 +171,8 @@ export default {
       this.showVisualize = false
       this.showResetViz = true
       this.isVisualizationModified = true
+      this.$root.$emit('enableSavedButton')
+      this.$root.$emit("isSavingPromptVisible", true);
     },
     resetButtonViz() {
       this.removeLabelBtn = false

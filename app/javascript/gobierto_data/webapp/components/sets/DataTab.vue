@@ -26,7 +26,10 @@
         v-if="items.length"
         :array-formats="arrayFormats"
         :array-columns-query="arrayColumnsQuery"
-        :query-stored="queryStored"
+        :enabled-saved-button="enabledSavedButton"
+        :is-query-modified="isQueryModified"
+        :is-query-saved="isQuerySaved"
+        :is-saving-prompt-visible="isSavingPromptVisible"
         :items="items"
       />
     </div>
@@ -48,7 +51,7 @@ export default {
   props: {
     privateQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     recentQueries: {
       type: Array,
@@ -64,7 +67,7 @@ export default {
     },
     publicQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     arrayFormats: {
       type: Object,

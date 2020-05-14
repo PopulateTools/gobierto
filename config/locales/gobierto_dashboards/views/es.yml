@@ -1,7 +1,27 @@
 ---
 es:
   gobierto_dashboards:
+    dashboards:
+      contracts:
+        assignee: Adjudicatario
+        contract_amount: Imp. adjudicación
+        contractor: Contrato
+        contracts: Contratos
+        description: Visualización y análisis de los contratos adjudicados y las licitaciones
+          del %{entity_name}
+        empty_table: No hay datos disponibles
+        end_date: Fecha
+        final_amount: Importe
+        process_type: Tipo
+        status: Procedicimiento
+        submission_date: Fecha
+        summary: Resumen
+        tender_amount: Imp. licitación
+        tenders: Licitaciones
+        title: Contratos y licitaciones
     layouts:
+      application:
+        gobierto_dashboards:
+          contracts: Contratos y licitaciones
       menu_subsections:
         contracts: Contratos
-        tenders: Licitaciones

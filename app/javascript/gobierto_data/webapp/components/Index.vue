@@ -38,7 +38,6 @@
 import { VueFiltersMixin } from "lib/shared";
 import Info from "./commons/Info.vue";
 
-
 export default {
   name: "Index",
   components: {

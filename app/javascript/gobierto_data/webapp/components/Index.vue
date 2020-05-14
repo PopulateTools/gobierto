@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <div class="gobierto-data-infolist" />
+  <div v-if="allDatasets">
+    <h3 class="gobierto-data-index-title">
+      {{ labelDataset }}
+    </h3>
     <div
       v-for="{
         id,
@@ -9,8 +11,8 @@
           name,
           description,
           data_updated_at,
-          category: [{ category } = {}] = [],
-          frequency: [{ frequency } = {}] = []
+          category: [{ name_translations: category } = {}] = [],
+          frequency: [{ name_translations: frequency } = {}] = [],
         }
       } in allDatasets"
       :key="id"
@@ -54,7 +56,8 @@ export default {
       labelUpdated: I18n.t("gobierto_data.projects.updated") || "",
       labelFrequency: I18n.t("gobierto_data.projects.frequency") || "",
       labelSubject: I18n.t("gobierto_data.projects.subject") || "",
-      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || ""
+      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || "",
+      labelDataset: I18n.t("gobierto_data.projects.dataset") || "",
     };
   },
   created() {

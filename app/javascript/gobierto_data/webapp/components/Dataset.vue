@@ -406,10 +406,10 @@ export default {
     },
     setPublicQueries(response) {
       const {
-        data: { data: items },
+        data: { data: items = [] },
       } = response;
 
-      this.publicQueries = !items ? [] : items
+      this.publicQueries = items
     },
     async deleteSavedQuery(id) {
       // factory method

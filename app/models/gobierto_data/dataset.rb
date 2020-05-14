@@ -88,6 +88,14 @@ module GobiertoData
         schema: statements.schema,
         script: statements.transaction_sql_code
       }
+    rescue JSON::ParserError => e
+      {
+        db_result: { errors: [{ schema: "Malformed file: #{e.message}" }] }
+      }
+    rescue GobiertoData::SqlFunction::Transformation::UndefinedFunction => e
+      {
+        db_result: { errors: [{ schema: "Invalid schema: #{e.message}" }] }
+      }
     end
 
     private

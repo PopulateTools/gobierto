@@ -71,8 +71,10 @@ module GobiertoAdmin
       def set_last_sync
         @last_sync = if collection_container = @calendar_configuration_form.try(:collection_container)
                        current_site.activities.where(action: 'admin_gobierto_calendars.calendars_synchronized', subject: collection_container)
-                         .order(created_at: :asc)
-                         .last.try(:created_at)
+                         .order(created_at: :desc)
+                         .limit(1)
+                         .pluck(:created_at)
+                         .first
                      end
       end
 

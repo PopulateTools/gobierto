@@ -61,14 +61,15 @@
       </transition>
     </div>
     <SavingDialog
-      ref="savingDialogHeader"
+      ref="savingDialogQuery"
       :placeholder="labelQueryName"
       :value="queryName"
       :label-save="labelSave"
+      :labe-modified="labelModifiedQuery"
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
-      :is-saving-prompt-visible="isSavingPromptVisible"
-      :enabled-saved-button="enabledSavedButton"
+      :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
+      :enabled-query-saved-button="enabledQuerySavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       @save="onSaveEventHandler"
@@ -125,7 +126,7 @@ export default {
       type: Boolean,
       default: false
     },
-    isSavingPromptVisible: {
+   isQuerySavingPromptVisible: {
       type: Boolean,
       default: false
     },
@@ -137,7 +138,7 @@ export default {
       type: String,
       default: '',
     },
-    enabledSavedButton: {
+   enabledQuerySavedButton: {
       type: Boolean,
       default: false
     },
@@ -167,6 +168,7 @@ export default {
       labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
+      labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
       labelButtonRecentQueries:
         I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
       labelButtonRunQuery:
@@ -217,6 +219,7 @@ export default {
         name: queryName
       } = value;
       this.labelValue = queryName
+      this.$root.$emit('enableSavedButton')
     },
     onSaveEventHandler(opts) {
 
@@ -236,15 +239,15 @@ export default {
 
       this.$root.$emit('disabledSavedButton')
       this.$root.$emit("resetToInitialState");
-      this.$root.$emit("isSavingPromptVisible", false);
+      this.$root.$emit("isQuerySavingPromptVisible", false);
     },
     saveHandlerNewQuery(opts) {
-      if (!this.isSavingPromptVisible) {
-        this.$root.$emit("isSavingPromptVisible", true);
-        this.$nextTick(() => this.$refs.savingDialogHeader.inputFocus());
+      if (!this.isQuerySavingPromptVisible) {
+        this.$root.$emit("isQuerySavingPromptVisible", true);
+        this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus());
       } else {
         if (!this.labelValue) {
-          this.$nextTick(() => this.$refs.savingDialogHeader.inputFocus());
+          this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus());
         } else {
           this.saveHandlerSavedQuery(opts)
         }

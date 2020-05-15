@@ -33,7 +33,7 @@ en:
       data: Data
       dataset: Datasets
       download: Download
-      downloadData: Download Data
+      downloadData: Download data
       edit: Edit
       emptyRecentQueries: There's no recent queries
       fav: Favorite
@@ -43,7 +43,8 @@ en:
       guide: Guide to using the SQL editor
       info: Information
       modifiedQuery: Modified Query
-      modifiedVisualization: Modified Visualization
+      modifiedVisualization: Modified visualization
+      savedVisualization: Saved visualization
       news: News
       private: Private
       queries: Queries
@@ -51,13 +52,13 @@ en:
       queryName: Query name
       recents: Recents
       records: Records
-      resetQuery: Reset Query
-      resetViz: Reset Visualization
+      resetQuery: Reset query
+      resetViz: Reset visualization
       resources: Resources
       revert: Revert
       runQuery: Run query
       save: Save
-      saveViz: Save Visualization
+      saveViz: Save visualization
       savedQuery: Saved query
       sets: Sets
       showAll: Show all

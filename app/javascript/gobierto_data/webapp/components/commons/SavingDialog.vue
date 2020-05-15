@@ -1,7 +1,7 @@
 <template>
   <div class="gobierto-data-sql-editor-container-save">
     <!--  only show if label name is set OR the prompt is visible  -->
-    <template v-if="isSavingPromptVisible || labelValue || isSavingPromptVizVisible">
+    <template v-if="isQuerySavingPromptVisible || labelValue ||isVizSavingPromptVisible">
       <input
         ref="inputText"
         v-model="labelValue"
@@ -13,7 +13,7 @@
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="isSavingPromptVisible || isSavingPromptVizVisible">
+    <template v-if="isQuerySavingPromptVisible ||isVizSavingPromptVisible">
       <label
         :for="labelPrivate"
         class="gobierto-data-sql-editor-container-save-label"
@@ -29,7 +29,7 @@
     </template>
 
     <!-- only show if label name is set OR the prompt is visible -->
-    <template v-if="isSavingPromptVisible || labelValue || isSavingPromptVizVisible">
+    <template v-if="isQuerySavingPromptVisible || labelValue ||isVizSavingPromptVisible">
       <PrivateIcon
         :is-closed="isPrivate"
         :style="{ paddingRight: '.5em', margin: 0 }"
@@ -40,10 +40,10 @@
       name="fade"
       mode="out-in"
     >
-      <template v-if="isQueryModified">
+      <template v-if="isQueryModified || isVizModified">
         <div class="gobierto-data-sql-editor-modified-label-container">
           <span class="gobierto-data-sql-editor-modified-label">
-            {{ labelModifiedQuery }}
+            {{ labelModified }}
           </span>
         </div>
       </template>
@@ -63,15 +63,10 @@
     </transition>
 
 
-    <!-- show edit button if there's no prompt but some name, otherwise, save button -->
+    <!-- show save button if there's no prompt but some name, otherwise, save button -->
     <Button
       :text="labelSave"
-      :style="
-        isSavingPromptVisible ||isSavingPromptVizVisible
-          ? 'color: #fff; background-color: var(--color-base)'
-          : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
-      "
-      :disabled="!enabledSavedButton || !enabledSavedVizButton"
+      :disabled="!isDisabled"
       icon="save"
       color="var(--color-base)"
       background="#fff"
@@ -79,11 +74,11 @@
       @click.native="onClickSaveHandler"
     />
 
-    <!-- only show cancel button on prompt visible -->
+    <!-- only show revert button when loaded queries from others users -->
     <template v-if="showRevertQuery">
       <Button
         :text="labelRevert"
-        :disabled="!enabledSavedButton"
+        :disabled="!enabledQuerySavedButton"
         icon="undo"
         class="btn-sql-editor btn-sql-editor-revert"
         color="var(--color-base)"
@@ -116,23 +111,31 @@ export default {
       type: String,
       default: ''
     },
+    labelModified: {
+      type: String,
+      default: ''
+    },
     isQueryModified: {
       type: Boolean,
       default: false
     },
-    isSavingPromptVisible: {
+    isVizModified: {
       type: Boolean,
       default: false
     },
-    isSavingPromptVizVisible: {
+    isQuerySavingPromptVisible: {
       type: Boolean,
       default: false
     },
-    enabledSavedButton: {
+   isVizSavingPromptVisible: {
       type: Boolean,
       default: false
     },
-    enabledSavedVizButton: {
+   enabledQuerySavedButton: {
+      type: Boolean,
+      default: false
+    },
+    enabledVizSavedButton: {
       type: Boolean,
       default: false
     },
@@ -157,8 +160,12 @@ export default {
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
       labelEdit: I18n.t("gobierto_data.projects.edit") || "",
       labelRevert: I18n.t("gobierto_data.projects.revert") || "",
-      labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
       labelSavedQuery: I18n.t("gobierto_data.projects.savedQuery") || ""
+    }
+  },
+  computed: {
+    isDisabled() {
+      return this.enabledVizSavedButton || this.enabledQuerySavedButton ? true : false
     }
   },
   watch: {
@@ -181,7 +188,6 @@ export default {
     onKeyDownTextHandler(event) {
       const { value } = event.target
       this.labelValue = value
-      this.$root.$emit('enableSavedButton')
       this.$emit('keyDownInput', { name: this.labelValue })
     },
     onInputCheckboxHandler(event) {

@@ -26,12 +26,16 @@
         />
         <SavingDialog
           v-if="perspectiveChanged"
+          ref="savingDialogViz"
           :placeholder="labelVisName"
           :label-save="labelSaveViz"
-          :is-saving-prompt-viz-visible="isSavingPromptVizVisible"
-          :enabled-saved-viz-button="enabledSavedVizButton"
+          :label-modified="labelSavedVisualization"
+          :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
+          :is-viz-modified="isVizModified"
+          :enabled-viz-saved-button="enabledVizSavedButton"
           @save="onSaveEventHandler"
           @resetButtonViz="resetButtonViz"
+          @keyDownInput="updateVizName"
         />
         <div
           v-if="isVisualizationModified"
@@ -95,11 +99,15 @@ export default {
       type: String,
       default: ''
     },
-    isSavingPromptVizVisible: {
+    isVizSavingPromptVisible: {
       type: Boolean,
       default: false
     },
-    enabledSavedVizButton: {
+    isVizModified: {
+      type: Boolean,
+      default: false
+    },
+    enabledVizSavedButton: {
       type: Boolean,
       default: false
     },
@@ -115,13 +123,15 @@ export default {
       labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
       labelResetViz: I18n.t('gobierto_data.projects.resetViz') || "",
       labelModifiedVizualition: I18n.t("gobierto_data.projects.modifiedVisualization") || "",
+      labelSavedVisualization: I18n.t("gobierto_data.projects.savedVisualization") || "",
       showVisualization: false,
       isVisualizationModified: false,
       showResetViz: false,
       showVisualize: true,
       removeLabelBtn: false,
       perspectiveChanged: false,
-      typeChart: 'hypergrid'
+      typeChart: 'hypergrid',
+      labelValue: '',
     };
   },
   methods: {
@@ -129,8 +139,25 @@ export default {
       // get children configuration
       const config = this.$refs.viewer.getConfig()
 
-      this.$root.$emit("storeCurrentVisualization", config, opts);
-      this.isVisualizationModified = false
+      if (!this.isVizSavingPromptVisible) {
+        this.$root.$emit("isVizSavingPromptVisible", true);
+        this.$nextTick(() => this.$refs.savingDialogViz.inputFocus());
+      } else {
+        if (!this.labelValue) {
+          this.$nextTick(() => this.$refs.savingDialogViz.inputFocus());
+        } else {
+          console.log('label')
+          this.$root.$emit("storeCurrentVisualization", config, opts);
+          this.isVisualizationModified = false
+        }
+      }
+    },
+    updateVizName(value) {
+      console.log("updateVizName -> value", value)
+      const {
+        name: vizName
+      } = value;
+      this.labelValue = vizName
     },
     resetViz() {
       const hidePerspective = "none"
@@ -157,7 +184,8 @@ export default {
       this.showResetViz = true
       this.isVisualizationModified = true
       this.$root.$emit('enableSavedVizButton')
-      this.$root.$emit("isSavingPromptVizVisible", true);
+      this.$root.$emit("isVizSavingPromptVisible", true);
+      this.$root.$emit("isVizModified");
     },
     resetButtonViz() {
       this.removeLabelBtn = false

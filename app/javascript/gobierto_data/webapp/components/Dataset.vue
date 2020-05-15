@@ -49,15 +49,16 @@
       :items="items"
       :is-query-running="isQueryRunning"
       :is-query-modified="isQueryModified"
+      :is-viz-modified="isVizModified"
       :is-query-saved="isQuerySaved"
-      :is-saving-prompt-visible="isSavingPromptVisible"
-      :is-saving-prompt-viz-visible="isSavingPromptVizVisible"
+      :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
+      :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-duration="queryDuration"
       :query-error="queryError"
-      :enabled-saved-button="enabledSavedButton"
-      :enabled-saved-viz-button="enabledSavedVizButton"
+      :enabled-query-saved-button="enabledQuerySavedButton"
+      :enabled-viz-saved-button="enabledVizSavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       :table-name="tableName"
@@ -143,15 +144,16 @@ export default {
       items: "",
       isQueryRunning: false,
       isQueryModified: false,
+      isVizModified: false,
       isQuerySaved: false,
-      isSavingPromptVisible: false,
-      isSavingPromptVizVisible: false,
+      isQuerySavingPromptVisible: false,
+      isVizSavingPromptVisible: false,
       showPrivate: false,
       tableName: '',
       resetQueryDefault: false,
       revertQuerySaved: false,
-      enabledSavedButton: false,
-      enabledSavedVizButton: false,
+      enabledQuerySavedButton: false,
+      enabledVizSavedButton: false,
       showRevertQuery: false,
       queryName: null,
       queryDuration: 0,
@@ -294,9 +296,11 @@ export default {
     //Show a message for the user, your query is saved
     this.$root.$on('disabledStringSavedQuery', this.disabledStringSavedQuery)
 
-    this.$root.$on('isSavingPromptVisible', this.isSavingPromptVisibleHandler)
+    this.$root.$on('enableSavedVizButton', this.activatedSavedVizButton)
 
-    this.$root.$on('isSavingPromptVizVisible', this.isSavingPromptVizVisibleHandler)
+    this.$root.$on('isQuerySavingPromptVisible', this.isQuerySavingPromptVisibleHandler)
+
+    this.$root.$on('isVizSavingPromptVisible', this.isVizSavingPromptVisibleHandler)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -310,8 +314,9 @@ export default {
     this.$root.$off('resetToInitialState')
     this.$root.$off('disabledSavedButton')
     this.$root.$off('disabledStringSavedQuery')
-    this.$root.$off('isSavingPromptVisible')
-    this.$root.$off('isSavingPromptVizVisible')
+    this.$root.$off('isQuerySavingPromptVisible')
+    this.$root.$off('isVizSavingPromptVisible')
+    this.$root.$off('enableSavedVizButton')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -552,7 +557,7 @@ export default {
     resetQuery(value) {
       this.resetQueryDefault = value
       if (value === true) {
-        this.isSavingPromptVisible = false
+        this.isQuerySavingPromptVisible = false
         this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
         this.isQueryModified = false
         this.runCurrentQuery()
@@ -564,7 +569,7 @@ export default {
     revertSavedQuery(value) {
       this.revertQuerySaved = value
       if (value === true) {
-        this.isSavingPromptVisible = false
+        this.isQuerySavingPromptVisible = false
         this.currentQuery = this.queryRevert
         this.isQueryModified = false
         this.runCurrentQuery()
@@ -573,7 +578,7 @@ export default {
       }
     },
     activatedSavedButton() {
-      this.enabledSavedButton = true
+      this.enabledQuerySavedButton = true
       this.isQueryModified = true
       const {
         name: name
@@ -585,7 +590,7 @@ export default {
 
     },
     disabledSavedButton() {
-      this.enabledSavedButton = false
+      this.enabledQuerySavedButton = false
     },
     resetToInitialState() {
       this.isQueryModified = false
@@ -597,17 +602,17 @@ export default {
     disabledStringSavedQuery() {
       this.isQuerySaved = false;
     },
-    isSavingPromptVisibleHandler(value) {
-      this.isSavingPromptVisible = value
+    isQuerySavingPromptVisibleHandler(value) {
+      this.isQuerySavingPromptVisible = value
     },
     activatedSavedVizButton(){
-      this.enabledSavedVizButton = true
+      this.enabledVizSavedButton = true
     },
     disabledSavedVizButton() {
-      this.enabledSavedButton = false
+      this.enabledVizSavedButton = false
     },
-    isSavingPromptVizVisibleHandler(value) {
-      this.isSavingPromptVizVisible = value
+    isVizSavingPromptVisibleHandler(value) {
+      this.isVizSavingPromptVisible = value
     }
   },
 };

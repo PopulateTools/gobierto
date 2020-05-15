@@ -44,6 +44,7 @@ ca:
       info: Informació
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualització modificada
+      savedVisualization: Visualització desada
       news: Notícies
       private: Privat
       queries: Consultes

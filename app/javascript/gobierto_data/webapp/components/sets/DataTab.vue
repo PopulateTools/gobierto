@@ -8,9 +8,9 @@
         :is-query-running="isQueryRunning"
         :is-query-modified="isQueryModified"
         :is-query-saved="isQuerySaved"
-        :is-saving-prompt-visible="isSavingPromptVisible"
+        :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
         :query-name="queryName"
-        :enabled-saved-button="enabledSavedButton"
+        :enabled-query-saved-button="enabledQuerySavedButton"
         :show-revert-query="showRevertQuery"
         :show-private="showPrivate"
         :is-user-logged="isUserLogged"
@@ -26,10 +26,10 @@
         v-if="items.length"
         :array-formats="arrayFormats"
         :array-columns-query="arrayColumnsQuery"
-        :enabled-saved-viz-button="enabledSavedVizButton"
-        :is-query-modified="isQueryModified"
+        :enabled-viz-saved-button="enabledVizSavedButton"
+        :is-viz-modified="isVizModified"
         :is-query-saved="isQuerySaved"
-        :is-saving-prompt-viz-visible="isSavingPromptVizVisible"
+        :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
         :items="items"
       />
     </div>
@@ -85,11 +85,15 @@ export default {
       type: Boolean,
       default: false
     },
-    isSavingPromptVisible: {
+    isVizModified: {
       type: Boolean,
       default: false
     },
-    isSavingPromptVizVisible: {
+   isQuerySavingPromptVisible: {
+      type: Boolean,
+      default: false
+    },
+   isVizSavingPromptVisible: {
       type: Boolean,
       default: false
     },
@@ -109,11 +113,11 @@ export default {
       type: String,
       default: null
     },
-    enabledSavedButton: {
+   enabledQuerySavedButton: {
       type: Boolean,
       default: false
     },
-    enabledSavedVizButton: {
+    enabledVizSavedButton: {
       type: Boolean,
       default: false
     },

@@ -137,7 +137,7 @@ export default {
         this.$nextTick(() => this.$refs.savingDialogViz.inputFocus());
       } else {
         if (!this.labelValue) {
-          this.$nextTick(() => this.$refs.savingDialogViz.inputFocus());
+          this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
         } else {
           this.$root.$emit("storeCurrentVisualization", config, opts);
         }
@@ -175,6 +175,7 @@ export default {
       this.$root.$emit('enableSavedVizButton')
       this.$root.$emit("isVizSavingPromptVisible", true);
       this.$root.$emit("isVizModified");
+      this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
     }
   },
 };

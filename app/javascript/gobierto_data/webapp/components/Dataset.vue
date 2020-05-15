@@ -54,12 +54,15 @@
       :is-query-modified="isQueryModified"
       :is-viz-modified="isVizModified"
       :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
+      :is-fork-prompt-visible="isForkPromptVisible"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-duration="queryDuration"
       :query-error="queryError"
       :enabled-query-saved-button="enabledQuerySavedButton"
       :enabled-viz-saved-button="enabledVizSavedButton"
+      :enabled-fork-button="enabledForkButton"
+      :enabled-revert-button="enabledRevertButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       :table-name="tableName"
@@ -148,6 +151,7 @@ export default {
       isQuerySavingPromptVisible: false,
       isQueryRunning: false,
       isQueryModified: false,
+      isForkPromptVisible: true,
       isVizModified: false,
       isVizSavingPromptVisible: false,
       showPrivate: false,
@@ -156,11 +160,13 @@ export default {
       revertQuerySaved: false,
       enabledQuerySavedButton: false,
       enabledVizSavedButton: false,
+      enabledRevertButton: false,
       showRevertQuery: false,
       queryName: null,
       queryDuration: 0,
       queryError: null,
-      isUserLogged: false
+      isUserLogged: false,
+      enabledForkButton: false
     };
   },
   computed: {
@@ -181,9 +187,11 @@ export default {
       }
 
       if (to.path !== from.path) {
-        this.disabledSavedButton()
         this.isQueryModified = false;
         this.setDefaultQuery()
+        this.QueryIsNotMine()
+        this.disabledSavedButton()
+        this.disabledRevertButton()
       }
 
       //FIXME: Hugo, we need to talk about this hack
@@ -192,7 +200,6 @@ export default {
         this.runCurrentQuery()
         this.disabledStringSavedQuery()
       }
-
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -265,8 +272,9 @@ export default {
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
 
+    this.QueryIsNotMine();
     this.runCurrentQuery();
-    this.setDefaultQuery()
+    this.setDefaultQuery();
 
   },
   mounted() {
@@ -310,6 +318,13 @@ export default {
 
     this.$root.$on('isVizModified', this.enableVizModified)
 
+    this.$root.$on('disabledForkButton', this.disabledForkButton)
+
+    this.$root.$on('enabledForkPrompt', this.enabledForkPrompt)
+
+    this.$root.$on('enabledRevertButton', this.activatedRevertButton)
+
+    this.$root.$on('disabledRevertButton', this.disabledRevertButton)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -323,6 +338,10 @@ export default {
     this.$root.$off('resetToInitialState')
     this.$root.$off('disabledSavedButton')
     this.$root.$off('disabledStringSavedQuery')
+    this.$root.$off('disabledForkButton')
+    this.$root.$off('enabledForkPrompt')
+    this.$root.$off('enabledRevertButton')
+    this.$root.$off('disabledRevertButton')
     this.$root.$off('isQuerySavingPromptVisible')
     this.$root.$off('isVizSavingPromptVisible')
     this.$root.$off('enableSavedVizButton')
@@ -355,23 +374,18 @@ export default {
       }
     },
     setDefaultQuery() {
-      const userId = getUserId();
       const {
         params: { queryId }
       } = this.$route;
 
-      //Check if user is logged
-      const items = userId ? this.privateQueries : this.publicQueries
+      let items = this.publicQueries;
+
       //We need to keep this query separate from the editor query
       //When load a saved query we use the queryId to find inside privateQueries or publicQueries
       const { attributes: { sql: queryRevert } = {} } = items.find(({ id }) => id === queryId) || {}
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert
 
-    },
-    ensureUserIsLogged() {
-      if (getUserId() === "")
-        location.href = "/user/sessions/new?open_modal=true";
     },
     isQueryStored(query = this.currentQuery) {
       // check if the query passed belongs to public/private arrays, if there's no args, it uses currentQuery
@@ -444,8 +458,6 @@ export default {
       }
     },
     async storeCurrentQuery({ name, privacy }) {
-      // if there's no user, you cannot save queries
-      this.ensureUserIsLogged();
 
       const data = {
         type: "gobierto_data-queries",
@@ -516,11 +528,10 @@ export default {
         const { sql: stringError } = sqlError
         this.queryError = stringError
         this.isQueryRunning = false;
+        this.enabledQuerySavedButton = false
       }
     },
     async storeCurrentVisualization(config, opts) {
-      // if there's no user, you cannot save visualizations
-      this.ensureUserIsLogged();
 
       const { name, privacy } = opts;
 
@@ -591,6 +602,7 @@ export default {
         this.runCurrentQuery()
         this.disabledSavedButton()
         this.disabledStringSavedQuery()
+        this.disabledRevertButton()
       }
     },
     activatedSavedButton() {
@@ -617,6 +629,43 @@ export default {
     },
     disabledStringSavedQuery() {
       this.isQuerySaved = false;
+    },
+    isSavingPromptVisibleHandler(value) {
+      this.isSavingPromptVisible = value
+    },
+    QueryIsNotMine() {
+      const userId = Number(getUserId());
+
+      const {
+        params: { queryId },
+        name: nameComponent
+      } = this.$route;
+
+      let items = this.publicQueries;
+
+      //Find which query is loaded
+      const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
+
+      //Check if the user who loaded the query is the same user who created the query
+      if (userId !== 0 && userId !== checkUserId && nameComponent === 'Query') {
+        this.enabledForkButton = true
+        this.isForkPromptVisible = false
+      } else {
+        this.disabledForkButton()
+        this.enabledForkPrompt()
+      }
+    },
+    disabledForkButton() {
+      this.enabledForkButton = false
+    },
+    enabledForkPrompt() {
+      this.isForkPromptVisible = true
+    },
+    disabledRevertButton() {
+      this.enabledRevertButton = false
+    },
+    activatedRevertButton() {
+      this.enabledRevertButton = true
     },
     disabledSavedVizString() {
       this.isVizSaved = false

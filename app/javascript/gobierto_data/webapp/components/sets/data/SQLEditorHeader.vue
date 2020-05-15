@@ -8,6 +8,7 @@
         color="var(--color-base)"
         background="#fff"
         @click.native="resetQueryHandler"
+        @enabledInput="enabledInputQueries"
       />
     </div>
     <div class="gobierto-data-sql-editor-container">
@@ -68,6 +69,10 @@
       :labe-modified="labelModifiedQuery"
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
+      :is-fork-prompt-visible="isForkPromptVisible"
+      :is-user-logged="isUserLogged"
+      :enabled-fork-button="enabledForkButton"
+      :enabled-revert-button="enabledRevertButton"
       :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
       :enabled-query-saved-button="enabledQuerySavedButton"
       :show-revert-query="showRevertQuery"
@@ -98,6 +103,7 @@ import Queries from "./../../commons/Queries.vue";
 import PulseSpinner from "./../../commons/PulseSpinner.vue";
 import RecentQueries from "./../../commons/RecentQueries.vue";
 import SavingDialog from "./../../commons/SavingDialog.vue";
+import { getUserId } from "./../../../../lib/helpers";
 
 export default {
   name: "SQLEditorHeader",
@@ -130,6 +136,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isForkPromptVisible: {
+      type: Boolean,
+      default: true
+    },
     isQueryModified: {
       type: Boolean,
       default: false
@@ -151,6 +161,14 @@ export default {
       default: false
     },
     isQuerySaved: {
+      type: Boolean,
+      default: false
+    },
+    enabledForkButton: {
+      type: Boolean,
+      default: false
+    },
+    enabledRevertButton: {
       type: Boolean,
       default: false
     },
@@ -275,6 +293,16 @@ export default {
       //Avoid errors when user goes to the same route
       // eslint-disable-next-line no-unused-vars
       ).catch(err => {})
+    },
+    enabledInputQueries() {
+      const userId = getUserId();
+        if (!this.enabledForkButton && !!userId) {
+        this.disabledButton = false
+        this.$root.$emit('enableSavedButton')
+        this.$root.$emit('enabledForkPrompt')
+        this.$root.$emit('disabledRevertButton')
+        this.$nextTick(() => this.$refs.inputText.focus());
+      }
     }
   },
 };

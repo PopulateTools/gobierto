@@ -8,8 +8,11 @@
         :is-query-running="isQueryRunning"
         :is-query-modified="isQueryModified"
         :is-query-saved="isQuerySaved"
+        :is-fork-prompt-visible="isForkPromptVisible"
         :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
         :query-name="queryName"
+        :enabled-fork-button="enabledForkButton"
+        :enabled-revert-button="enabledRevertButton"
         :enabled-query-saved-button="enabledQuerySavedButton"
         :show-revert-query="showRevertQuery"
         :show-private="showPrivate"
@@ -98,6 +101,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isForkPromptVisible: {
+      type: Boolean,
+      default: true
+    },
     queryStored: {
       type: String,
       default: null
@@ -119,6 +126,14 @@ export default {
       default: false
     },
     enabledVizSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    enabledForkButton: {
+      type: Boolean,
+      default: false
+    },
+    enabledRevertButton: {
       type: Boolean,
       default: false
     },

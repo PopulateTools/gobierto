@@ -24,6 +24,7 @@ ca:
       all: Totes
       analysis: Anàlisi
       api: API
+      buttonFork: Feu clic per crear una versió d'aquesta consulta
       buttonQueries: Vegeu consultes (c)
       buttonRecentQueries: Vegeu consultes recents (r)
       buttonRunQuery: Executeu consulta (CMD/WIN + Enter)
@@ -39,6 +40,7 @@ ca:
       fav: Favorit
       favs: Favorites
       follow: Seguïu
+      fork: Fork
       frequency: Freqüència
       guide: Guia per utilitzar l'editor SQL
       info: Informació

@@ -8,25 +8,33 @@
         :placeholder="placeholder"
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
+        :class="{
+          'disable-input-text': disabledButton,
+          'disable-cursor-pointer': enabledForkButton || !isUserLogged
+        }"
         @keydown.stop="onKeyDownTextHandler"
+        @click="enabledInputHandler"
       >
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="isQuerySavingPromptVisible || isVizSavingPromptVisible">
-      <label
-        :for="labelPrivate"
-        class="gobierto-data-sql-editor-container-save-label"
-      >
-        <input
-          :id="labelPrivate"
-          :checked="isPrivate"
-          type="checkbox"
-          @input="onInputCheckboxHandler"
+    <template v-if="isForkPromptVisible">
+      <template v-if="isQuerySavingPromptVisible || isVizSavingPromptVisible">
+        <label
+          :for="labelPrivate"
+          class="gobierto-data-sql-editor-container-save-label"
         >
-        {{ labelPrivate }}
-      </label>
+          <input
+            :id="labelPrivate"
+            :checked="isPrivate"
+            type="checkbox"
+            @input="onInputCheckboxHandler"
+          >
+          {{ labelPrivate }}
+        </label>
+      </template>
     </template>
+
 
     <!-- only show if label name is set OR the prompt is visible -->
     <template v-if="isQuerySavingPromptVisible || labelValue ||isVizSavingPromptVisible">
@@ -65,6 +73,7 @@
 
     <!-- show save button if there's no prompt but some name, otherwise, save button -->
     <Button
+      v-if="!enabledForkButton"
       :text="labelSave"
       :disabled="!isDisabled"
       icon="save"
@@ -74,11 +83,23 @@
       @click.native="onClickSaveHandler"
     />
 
+    <Button
+      v-if="enabledForkButton"
+      :text="labelFork"
+      :title="labelButtonFork"
+      :disabled="!enabledQuerySavedButton"
+      icon="code-branch"
+      color="var(--color-base)"
+      background="#fff"
+      class="btn-sql-editor"
+      @click.native="onClickForkHandler"
+    />
+
     <!-- only show revert button when loaded queries from others users -->
     <template v-if="showRevertQuery">
       <Button
         :text="labelRevert"
-        :disabled="!enabledQuerySavedButton"
+        :disabled="!enabledRevertButton"
         icon="undo"
         class="btn-sql-editor btn-sql-editor-revert"
         color="var(--color-base)"
@@ -135,7 +156,19 @@ export default {
       type: Boolean,
       default: false
     },
+    isForkPromptVisible: {
+      type: Boolean,
+      default: true
+    },
+    isUserLogged: {
+      type: Boolean,
+      default: true
+    },
     enabledVizSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    enabledForkButton: {
       type: Boolean,
       default: false
     },
@@ -151,6 +184,10 @@ export default {
       type: Boolean,
       default: false
     },
+    enabledRevertButton: {
+      type: Boolean,
+      default: false
+    },
     isVizSaved: {
       type: Boolean,
       default: false
@@ -159,12 +196,15 @@ export default {
   data() {
     return {
       isPrivate: false,
+      disabledButton: true,
       labelValue: this.value,
       labelPrivate: I18n.t('gobierto_data.projects.private') || "",
       labelCancel: I18n.t('gobierto_data.projects.cancel') || "",
       labelEdit: I18n.t("gobierto_data.projects.edit") || "",
       labelRevert: I18n.t("gobierto_data.projects.revert") || "",
-      labelSavedQuery: I18n.t("gobierto_data.projects.savedQuery") || ""
+      labelSavedQuery: I18n.t("gobierto_data.projects.savedQuery") || "",
+      labelButtonFork: I18n.t("gobierto_data.projects.buttonFork") || "",
+      labelFork: I18n.t("gobierto_data.projects.fork") || ""
     }
   },
   computed: {
@@ -176,10 +216,19 @@ export default {
     value(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.labelValue = newValue
+        this.countInputCharacters(newValue)
+        this.disabledButton = true
       }
     },
     showPrivate(newValue) {
       this.isPrivate = (newValue);
+    }
+  },
+  mounted() {
+    if (this.$route.name === 'Query' && this.value !== null) {
+      this.$nextTick(() => {
+         this.countInputCharacters(this.value)
+      });
     }
   },
   methods: {
@@ -199,7 +248,35 @@ export default {
       this.isPrivate = checked
     },
     revertQueryHandler() {
+      this.labelValue = this.value
       this.$root.$emit('revertSavedQuery', true)
+    },
+    onClickForkHandler() {
+      this.$nextTick(() => {
+        this.$refs.inputText.focus()
+        this.$refs.inputText.select()
+      });
+      this.$root.$emit('disabledForkButton')
+      this.disabledButton = false
+    },
+    countInputCharacters(label) {
+
+      if (!label) return false;
+
+      const inputValueSplit = [...label]
+      const inputValueLength = inputValueSplit.length
+
+      if (inputValueLength > 25 && inputValueLength < 50) {
+        const newWidth = inputValueLength * 7.5
+        this.$nextTick(() => this.$refs.inputText.style.width = `${newWidth}px`);
+      } else if (inputValueLength >= 50) {
+        this.$nextTick(() => this.$refs.inputText.style.width = '369.5px');
+      } else {
+        this.$nextTick(() => this.$refs.inputText.style.width = '200px');
+      }
+    },
+    enabledInputHandler() {
+      this.$emit('enabledInput')
     }
   }
 }

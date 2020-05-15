@@ -1155,10 +1155,9 @@
     padding-bottom: 2rem;
   }
 
-  &-top-menu {
-    a {
-      pointer-events: none;
-    }
+  //REVIEW: This class prevent/disabled/destroyed click event on data element from top menu
+  &-top-menu a {
+    pointer-events: none;
   }
 
   &-index-title {

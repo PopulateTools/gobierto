@@ -44,20 +44,7 @@
               </transition-group>
             </div>
           </Dropdown>
-
-        <!-- TODO: Favorite Queries -->
-        <!-- <Dropdown @is-content-visible="showFavQueries = !showFavQueries">
-          <template v-slot:trigger>
-            <h3 class="gobierto-data-summary-queries-panel-title">
-              <Caret :rotate="showFavQueries" />
-
-              {{ labelFavs }} ({{ 0 }})
-            </h3>
-          </template>
-
-          <div />
-        </Dropdown> -->
-
+        </template>
         <Dropdown @is-content-visible="showPublicQueries = !showPublicQueries">
           <template v-slot:trigger>
             <h3 class="gobierto-data-summary-queries-panel-title">

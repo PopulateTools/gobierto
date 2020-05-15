@@ -60,7 +60,6 @@
           }"
           :private-queries="privateQueries"
           :public-queries="publicQueries"
-          tabindex="-1"
           :is-user-logged="isUserLogged"
           class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
         />

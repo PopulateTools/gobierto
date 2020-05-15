@@ -64,6 +64,7 @@ export default {
   },
   methods: {
     injectRouter() {
+      //REVIEW: Inject a vue router to element outside VUE, be careful
       const topMenu = document.getElementById('gobierto-data-top-menu')
       topMenu.addEventListener('click', (e) => {
         e.preventDefault()

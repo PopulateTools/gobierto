@@ -61,8 +61,8 @@
           :private-queries="privateQueries"
           :public-queries="publicQueries"
           tabindex="-1"
+          :is-user-logged="isUserLogged"
           class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
-          @closeQueriesModal="closeQueriesModal"
         />
       </transition>
     </div>
@@ -155,6 +155,10 @@ export default {
       default: false
     },
     isQuerySaved: {
+      type: Boolean,
+      default: false
+    },
+    isUserLogged: {
       type: Boolean,
       default: false
     }

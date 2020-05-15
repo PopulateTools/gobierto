@@ -13,6 +13,7 @@
         :enabled-saved-button="enabledSavedButton"
         :show-revert-query="showRevertQuery"
         :show-private="showPrivate"
+        :is-user-logged="isUserLogged"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"
@@ -25,6 +26,10 @@
         v-if="items.length"
         :array-formats="arrayFormats"
         :array-columns-query="arrayColumnsQuery"
+        :enabled-saved-button="enabledSavedButton"
+        :is-query-modified="isQueryModified"
+        :is-query-saved="isQuerySaved"
+        :is-saving-prompt-visible="isSavingPromptVisible"
         :items="items"
       />
     </div>
@@ -46,7 +51,7 @@ export default {
   props: {
     privateQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     recentQueries: {
       type: Array,
@@ -62,7 +67,7 @@ export default {
     },
     publicQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     arrayFormats: {
       type: Object,
@@ -119,6 +124,10 @@ export default {
     tableName: {
       type: String,
       default: ''
+    },
+    isUserLogged: {
+      type: Boolean,
+      default: false
     }
   }
 }

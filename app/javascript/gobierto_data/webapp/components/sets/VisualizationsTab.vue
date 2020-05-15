@@ -1,6 +1,6 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <template v-if="isUserLoggged">
+    <template v-if="isUserLogged">
       <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
         <template v-slot:trigger>
           <h3 class="gobierto-data-visualization--h3">
@@ -129,6 +129,10 @@ export default {
     datasetId: {
       type: Number,
       required: true
+    },
+    isUserLogged: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -138,7 +142,6 @@ export default {
       labelVisPublic: I18n.t("gobierto_data.projects.visPublic") || "",
       publicVisualizations: [],
       privateVisualizations: [],
-      isUserLoggged: false,
       isPrivateLoading: false,
       isPublicLoading: false,
       showPrivateVis: true,
@@ -147,7 +150,6 @@ export default {
   },
   created() {
     this.userId = getUserId();
-    this.isUserLoggged = !!this.userId;
 
     // Get all visualizations
     this.getPrivateVisualizations();

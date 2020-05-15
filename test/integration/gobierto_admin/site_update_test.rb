@@ -198,7 +198,15 @@ YAML
         visit admin_root_path
 
         click_link "Customize site"
-        click_button "Update"
+
+        within "form.edit_site" do
+          # Force the site to be published to avoid a flaky test issue
+          within ".widget_save" do
+            choose "Published"
+          end
+
+          click_button "Update"
+        end
 
         assert has_content? "Site was successfully updated"
       end

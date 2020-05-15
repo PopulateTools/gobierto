@@ -2,47 +2,48 @@
   <div class="gobierto-data-summary-queries">
     <div class="gobierto-data-summary-queries-panel pure-g">
       <div class="pure-u-1-2 gobierto-data-summary-queries-panel-dropdown">
-        <Dropdown @is-content-visible="showPrivateQueries = !showPrivateQueries">
-          <template v-slot:trigger>
-            <h3 class="gobierto-data-summary-queries-panel-title">
-              <Caret :rotate="showPrivateQueries" />
-              {{ labelYourQueries }} ({{ privateQueries.length }})
-            </h3>
-          </template>
+        <template v-if="isUserLogged">
+          <Dropdown @is-content-visible="showPrivateQueries = !showPrivateQueries">
+            <template v-slot:trigger>
+              <h3 class="gobierto-data-summary-queries-panel-title">
+                <Caret :rotate="showPrivateQueries" />
+                {{ labelYourQueries }} ({{ privateQueries.length }})
+              </h3>
+            </template>
 
-          <div>
-            <transition-group name="fade">
-              <div
-                v-for="{ id, attributes: { sql, name, privacy_status }} in privateQueries"
-                :key="id"
-                class="gobierto-data-summary-queries-container"
-                @mouseover="showSQLCode(sql)"
-                @mouseleave="removeSQLCode()"
-              >
-                <router-link
-                  :to="`/datos/${$route.params.id}/q/${id}`"
-                  class="gobierto-data-summary-queries-container-name"
-                  @click.native="closeYourQueriesModal()"
+            <div>
+              <transition-group name="fade">
+                <div
+                  v-for="{ id, attributes: { sql, name, privacy_status }} in privateQueries"
+                  :key="id"
+                  class="gobierto-data-summary-queries-container"
+                  @mouseover="showSQLCode(sql)"
+                  @mouseleave="removeSQLCode()"
                 >
-                  {{ name }}
-                </router-link>
+                  <router-link
+                    :to="`/datos/${$route.params.id}/q/${id}`"
+                    class="gobierto-data-summary-queries-container-name"
+                    @click.native="closeYourQueriesModal()"
+                  >
+                    {{ name }}
+                  </router-link>
 
-                <div class="gobierto-data-summary-queries-container-icon">
-                  <i
-                    class="fas fa-trash-alt icons-your-queries"
-                    style="color: var(--color-base);"
-                    @click.stop="clickDeleteQueryHandler(id)"
-                  />
+                  <div class="gobierto-data-summary-queries-container-icon">
+                    <i
+                      class="fas fa-trash-alt icons-your-queries"
+                      style="color: var(--color-base);"
+                      @click.stop="clickDeleteQueryHandler(id)"
+                    />
 
-                  <PrivateIcon
-                    :is-closed="privacy_status === 'closed'"
-                    class="icons-your-queries"
-                  />
+                    <PrivateIcon
+                      :is-closed="privacy_status === 'closed'"
+                      class="icons-your-queries"
+                    />
+                  </div>
                 </div>
-              </div>
-            </transition-group>
-          </div>
-        </Dropdown>
+              </transition-group>
+            </div>
+          </Dropdown>
 
         <!-- TODO: Favorite Queries -->
         <!-- <Dropdown @is-content-visible="showFavQueries = !showFavQueries">
@@ -110,11 +111,15 @@ export default {
   props: {
     privateQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     publicQueries: {
       type: Array,
-      required: true
+      default: () => []
+    },
+    isUserLogged: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

@@ -23,6 +23,7 @@ gem "ruby_px"
 gem "before_renders"
 gem "bootsnap"
 gem "truncate_html"
+gem "rake", "~> 13.0"
 
 # Frontend
 gem "bourbon", "~> 7.0.0"
@@ -42,15 +43,15 @@ gem "font-awesome-sass", "~> 5.6"
 gem "webpacker", "~> 5.0"
 
 # Elasticsearch
-gem "elasticsearch"
-gem "elasticsearch-extensions"
+gem "elasticsearch", "~> 6.0", ">= 6.0.2"
+gem "elasticsearch-extensions", "~> 0.0.27"
 
 # Background processing
 gem "sidekiq", "~> 5.2.7"
 gem "sidekiq-monitor-stats"
 
 # AWS SDK client
-gem "aws-sdk", "~> 2.6", require: false
+gem "aws-sdk-s3", "~> 1"
 
 # AWS SES client
 gem "aws-ses", "~> 0.6.0"
@@ -99,7 +100,7 @@ gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 gem "rubyXL"
 
 # Performance
-gem "rails_performance"
+gem "appsignal"
 
 group :development, :test do
   gem "byebug", platform: :mri

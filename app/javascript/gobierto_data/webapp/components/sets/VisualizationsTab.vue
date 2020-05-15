@@ -1,129 +1,33 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <template v-if="isUserLogged">
-      <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
-        <template v-slot:trigger>
-          <h3 class="gobierto-data-visualization--h3">
-            <Caret :rotate="showPrivateVis" />
-
-            {{ labelVisPrivate }}
-            <template v-if="privateVisualizations.length">
-              ({{ privateVisualizations.length }})
-            </template>
-          </h3>
-        </template>
-
-        <div class="gobierto-data-visualization--grid">
-          <template v-if="isPrivateLoading">
-            <Spinner />
-          </template>
-
-          <template v-else>
-            <template v-if="privateVisualizations.length">
-              <template v-for="{ queryData, config, name, privacy_status, id } in privateVisualizations">
-                <div :key="name">
-                  <div class="gobierto-data-visualization--card">
-                    <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                      <div class="gobierto-data-visualization--content">
-                        <h4 class="gobierto-data-visualization--title">
-                          {{ name }}
-                        </h4>
-                        <div class="gobierto-data-visualization--icons">
-                          <PrivateIcon
-                            :is-closed="privacy_status === 'closed'"
-                          />
-                          <i
-                            class="fas fa-trash-alt"
-                            style="color: var(--color-base);"
-                            @click.prevent="deleteHandlerVisualization(id)"
-                          />
-                        </div>
-                        <Visualizations
-                          :items="queryData"
-                          :config="config"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </template>
-            </template>
-
-            <template v-else>
-              <div>{{ labelVisEmpty }}</div>
-            </template>
-          </template>
-        </div>
-      </Dropdown>
-    </template>
-
-    <Dropdown @is-content-visible="showPublicVis = !showPublicVis">
-      <template v-slot:trigger>
-        <h3 class="gobierto-data-visualization--h3">
-          <Caret :rotate="showPublicVis" />
-
-          {{ labelVisPublic }}
-          <template v-if="publicVisualizations.length">
-            ({{ publicVisualizations.length }})
-          </template>
-        </h3>
-      </template>
-
-      <div class="gobierto-data-visualization--grid">
-        <template v-if="isPublicLoading">
-          <Spinner />
-        </template>
-
-        <template v-else>
-          <template v-if="publicVisualizations.length">
-            <template v-for="{ queryData, config, name } in publicVisualizations">
-              <div :key="name">
-                <div class="gobierto-data-visualization--card">
-                  <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                    <div class="gobierto-data-visualization--content">
-                      <h4 class="gobierto-data-visualization--title">
-                        {{ name }}
-                      </h4>
-                      <Visualizations
-                        :items="queryData"
-                        :config="config"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </template>
-          </template>
-
-          <template v-else>
-            <div>{{ labelVisEmpty }}</div>
-          </template>
-        </template>
-      </div>
-    </Dropdown>
+    <component
+      :is="currentVizComponent"
+      v-if="privateVisualizations"
+      :public-visualizations="publicVisualizations"
+      :private-visualizations="privateVisualizations"
+      :dataset-id="datasetId"
+      :is-user-logged="isUserLogged"
+      :items="items"
+      :config="config"
+      :name="titleViz"
+      @changeViz="showVizElement"
+    />
   </div>
 </template>
 <script>
-import Spinner from "./../commons/Spinner.vue";
-import Caret from "./../commons/Caret.vue";
-import Visualizations from "./../commons/Visualizations.vue";
-import PrivateIcon from './../commons/PrivateIcon.vue';
-import { Dropdown } from "lib/vue-components";
+
+const COMPONENTS = [
+  () => import("./VisualizationsList.vue"),
+  () => import("./VisualizationsItem.vue")
+];
+
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { DataFactoryMixin } from "./../../../lib/factories/data";
 import { getUserId } from "./../../../lib/helpers";
 
-
 export default {
   name: "VisualizationsTab",
-  components: {
-    Visualizations,
-    Spinner,
-    PrivateIcon,
-    Dropdown,
-    Caret
-  },
   mixins: [VisualizationFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
   props: {
     datasetId: {
@@ -137,18 +41,17 @@ export default {
   },
   data() {
     return {
-      labelVisEmpty: I18n.t("gobierto_data.projects.visEmpty") || "",
-      labelVisPrivate: I18n.t("gobierto_data.projects.visPrivate") || "",
-      labelVisPublic: I18n.t("gobierto_data.projects.visPublic") || "",
+      currentVizComponent: null,
       publicVisualizations: [],
       privateVisualizations: [],
-      isPrivateLoading: false,
-      isPublicLoading: false,
-      showPrivateVis: true,
-      showPublicVis: true,
+      items: '',
+      titleViz: '',
+      activeViz: 0,
+      config: {}
     };
   },
   created() {
+    this.currentVizComponent = COMPONENTS[this.activeViz];
     this.userId = getUserId();
 
     // Get all visualizations
@@ -156,6 +59,10 @@ export default {
     this.getPublicVisualizations();
   },
   methods: {
+    showVizElement() {
+      this.activeViz = 1
+      this.currentVizComponent = COMPONENTS[this.activeViz];
+    },
     async getPublicVisualizations() {
       this.isPublicLoading = true
 
@@ -212,6 +119,10 @@ export default {
         const visualization = { queryData, config: spec, name, privacy_status, query_id, id };
 
         visualizations.push(visualization);
+
+        this.items = queryData
+        this.titleViz = name
+        this.config = visualization.config
       }
 
       return visualizations;

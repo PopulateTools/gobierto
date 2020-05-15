@@ -51,11 +51,13 @@
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
       :is-saving-prompt-visible="isSavingPromptVisible"
+      :is-saving-prompt-viz-visible="isSavingPromptVizVisible"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-duration="queryDuration"
       :query-error="queryError"
       :enabled-saved-button="enabledSavedButton"
+      :enabled-saved-viz-button="enabledSavedVizButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       :table-name="tableName"
@@ -143,11 +145,13 @@ export default {
       isQueryModified: false,
       isQuerySaved: false,
       isSavingPromptVisible: false,
+      isSavingPromptVizVisible: false,
       showPrivate: false,
       tableName: '',
       resetQueryDefault: false,
       revertQuerySaved: false,
       enabledSavedButton: false,
+      enabledSavedVizButton: false,
       showRevertQuery: false,
       queryName: null,
       queryDuration: 0,
@@ -291,6 +295,8 @@ export default {
     this.$root.$on('disabledStringSavedQuery', this.disabledStringSavedQuery)
 
     this.$root.$on('isSavingPromptVisible', this.isSavingPromptVisibleHandler)
+
+    this.$root.$on('isSavingPromptVizVisible', this.isSavingPromptVizVisibleHandler)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -305,6 +311,7 @@ export default {
     this.$root.$off('disabledSavedButton')
     this.$root.$off('disabledStringSavedQuery')
     this.$root.$off('isSavingPromptVisible')
+    this.$root.$off('isSavingPromptVizVisible')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -592,6 +599,15 @@ export default {
     },
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value
+    },
+    activatedSavedVizButton(){
+      this.enabledSavedVizButton = true
+    },
+    disabledSavedVizButton() {
+      this.enabledSavedButton = false
+    },
+    isSavingPromptVizVisibleHandler(value) {
+      this.isSavingPromptVizVisible = value
     }
   },
 };

@@ -26,10 +26,10 @@
         v-if="items.length"
         :array-formats="arrayFormats"
         :array-columns-query="arrayColumnsQuery"
-        :enabled-saved-button="enabledSavedButton"
+        :enabled-saved-viz-button="enabledSavedVizButton"
         :is-query-modified="isQueryModified"
         :is-query-saved="isQuerySaved"
-        :is-saving-prompt-visible="isSavingPromptVisible"
+        :is-saving-prompt-viz-visible="isSavingPromptVizVisible"
         :items="items"
       />
     </div>
@@ -89,6 +89,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isSavingPromptVizVisible: {
+      type: Boolean,
+      default: false
+    },
     queryStored: {
       type: String,
       default: null
@@ -106,6 +110,10 @@ export default {
       default: null
     },
     enabledSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    enabledSavedVizButton: {
       type: Boolean,
       default: false
     },

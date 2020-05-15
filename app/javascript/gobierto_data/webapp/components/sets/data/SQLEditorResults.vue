@@ -28,7 +28,8 @@
           v-if="perspectiveChanged"
           :placeholder="labelVisName"
           :label-save="labelSaveViz"
-          :is-saving-prompt-visible="isSavingPromptVisible"
+          :is-saving-prompt-viz-visible="isSavingPromptVizVisible"
+          :enabled-saved-viz-button="enabledSavedVizButton"
           @save="onSaveEventHandler"
           @resetButtonViz="resetButtonViz"
         />
@@ -94,11 +95,11 @@ export default {
       type: String,
       default: ''
     },
-    isQueryRunning: {
+    isSavingPromptVizVisible: {
       type: Boolean,
       default: false
     },
-    isSavingPromptVisible: {
+    enabledSavedVizButton: {
       type: Boolean,
       default: false
     },
@@ -129,7 +130,6 @@ export default {
       const config = this.$refs.viewer.getConfig()
 
       this.$root.$emit("storeCurrentVisualization", config, opts);
-      this.removeLabelBtn = true
       this.isVisualizationModified = false
     },
     resetViz() {
@@ -156,8 +156,8 @@ export default {
       this.showVisualize = false
       this.showResetViz = true
       this.isVisualizationModified = true
-      this.$root.$emit('enableSavedButton')
-      this.$root.$emit("isSavingPromptVisible", true);
+      this.$root.$emit('enableSavedVizButton')
+      this.$root.$emit("isSavingPromptVizVisible", true);
     },
     resetButtonViz() {
       this.removeLabelBtn = false

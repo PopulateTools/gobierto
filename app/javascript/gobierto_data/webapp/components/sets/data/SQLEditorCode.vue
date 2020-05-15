@@ -131,6 +131,7 @@ export default {
       // Enabled saved and fork button while typping on editor
       this.$root.$emit('enableSavedButton')
       this.$root.$emit('enabledForkPrompt')
+      this.$root.$emit("isSavingPromptVisible", true);
     },
     onChange(editor) {
       this.mergeTables();

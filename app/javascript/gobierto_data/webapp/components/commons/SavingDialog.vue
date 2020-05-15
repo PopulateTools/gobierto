@@ -1,7 +1,7 @@
 <template>
   <div class="gobierto-data-sql-editor-container-save">
     <!--  only show if label name is set OR the prompt is visible  -->
-    <template v-if="isSavingPromptVisible || labelValue">
+    <template v-if="isSavingPromptVisible || labelValue || isSavingPromptVizVisible">
       <input
         ref="inputText"
         v-model="labelValue"
@@ -13,7 +13,7 @@
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="isSavingPromptVisible">
+    <template v-if="isSavingPromptVisible || isSavingPromptVizVisible">
       <label
         :for="labelPrivate"
         class="gobierto-data-sql-editor-container-save-label"
@@ -29,7 +29,7 @@
     </template>
 
     <!-- only show if label name is set OR the prompt is visible -->
-    <template v-if="isSavingPromptVisible || labelValue">
+    <template v-if="isSavingPromptVisible || labelValue || isSavingPromptVizVisible">
       <PrivateIcon
         :is-closed="isPrivate"
         :style="{ paddingRight: '.5em', margin: 0 }"
@@ -67,11 +67,11 @@
     <Button
       :text="labelSave"
       :style="
-        isSavingPromptVisible
+        isSavingPromptVisible ||isSavingPromptVizVisible
           ? 'color: #fff; background-color: var(--color-base)'
           : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
       "
-      :disabled="!enabledSavedButton"
+      :disabled="!enabledSavedButton || !enabledSavedVizButton"
       icon="save"
       color="var(--color-base)"
       background="#fff"
@@ -124,7 +124,15 @@ export default {
       type: Boolean,
       default: false
     },
+    isSavingPromptVizVisible: {
+      type: Boolean,
+      default: false
+    },
     enabledSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    enabledSavedVizButton: {
       type: Boolean,
       default: false
     },
@@ -174,6 +182,7 @@ export default {
       const { value } = event.target
       this.labelValue = value
       this.$root.$emit('enableSavedButton')
+      this.$emit('keyDownInput', { name: this.labelValue })
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target

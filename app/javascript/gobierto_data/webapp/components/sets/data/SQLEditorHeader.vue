@@ -72,6 +72,7 @@
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       @save="onSaveEventHandler"
+      @keyDownInput="updateQueryName"
     />
 
     <Button
@@ -172,7 +173,8 @@ export default {
         I18n.t("gobierto_data.projects.buttonRunQuery") || "",
       removeLabelBtn: false,
       isQueriesModalActive: false,
-      isRecentModalActive: false
+      isRecentModalActive: false,
+      labelValue: this.queryName,
     };
   },
   created() {
@@ -210,6 +212,12 @@ export default {
     removeKeyboardListener() {
       document.removeEventListener("keydown", this.keyboardShortcutsListener);
     },
+    updateQueryName(value) {
+      const {
+        name: queryName
+      } = value;
+      this.labelValue = queryName
+    },
     onSaveEventHandler(opts) {
 
       const {
@@ -235,7 +243,7 @@ export default {
         this.$root.$emit("isSavingPromptVisible", true);
         this.$nextTick(() => this.$refs.savingDialogHeader.inputFocus());
       } else {
-        if (!this.queryName) {
+        if (!this.labelValue) {
           this.$nextTick(() => this.$refs.savingDialogHeader.inputFocus());
         } else {
           this.saveHandlerSavedQuery(opts)

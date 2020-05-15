@@ -6,7 +6,6 @@
           <template v-slot:trigger>
             <h3 class="gobierto-data-summary-queries-panel-title">
               <Caret :rotate="showPrivateQueries" />
-
               {{ labelYourQueries }} ({{ privateQueries.length }})
             </h3>
           </template>
@@ -23,6 +22,7 @@
                 <router-link
                   :to="`/datos/${$route.params.id}/q/${id}`"
                   class="gobierto-data-summary-queries-container-name"
+                  @click.native="closeYourQueriesModal()"
                 >
                   {{ name }}
                 </router-link>
@@ -76,6 +76,7 @@
               <router-link
                 :to="`/datos/${$route.params.id}/q/${id}`"
                 class="gobierto-data-summary-queries-container-name"
+                @click.native="closeYourQueriesModal()"
               >
                 {{ name }}
               </router-link>
@@ -142,10 +143,13 @@ export default {
 
     this.editor = CodeMirror.fromTextArea(this.$refs.querySnippet, cmOption);
 
-    this.showPrivateQueries = this.privateQueries.length ? false : true
-    this.showPublicQueries = this.publicQueries.length ? false : true
+    this.showPrivateQueries = !!this.privateQueries.length
+    this.showPublicQueries = !!this.publicQueries.length
   },
   methods: {
+    closeYourQueriesModal() {
+      this.$emit('closeQueriesModal')
+    },
     clickDeleteQueryHandler(id) {
       this.$root.$emit('deleteSavedQuery', id)
     },

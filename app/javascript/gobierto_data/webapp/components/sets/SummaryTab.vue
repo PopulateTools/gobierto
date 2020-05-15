@@ -20,7 +20,8 @@
         <Button
           :text="labelPreview"
           icon="table"
-          color="var(--color-base)"
+          color="rgba(var(--color-base)"
+          icon-color="rgba(var(--color-base-string), .5)"
           class="gobierto-data-btn-download-data gobierto-data-btn-preview"
           background="#fff"
         />
@@ -44,13 +45,11 @@
           {{ labelQueries }}
         </h2>
       </template>
-      <div>
-        <Queries
-          v-if="showYourQueries"
-          :private-queries="privateQueries"
-          :public-queries="publicQueries"
-        />
-      </div>
+      <Queries
+        v-if="showYourQueries"
+        :private-queries="privateQueries"
+        :public-queries="publicQueries"
+      />
     </Dropdown>
   </div>
 </template>

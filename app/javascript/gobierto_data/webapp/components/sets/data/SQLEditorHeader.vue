@@ -62,6 +62,7 @@
           :public-queries="publicQueries"
           tabindex="-1"
           class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
+          @closeQueriesModal="closeQueriesModal"
         />
       </transition>
     </div>

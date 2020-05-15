@@ -1,51 +1,30 @@
 <template>
   <div class="pure-g">
     <div class="pure-u-1-2 gobierto-data-summary-header">
-      <div class="gobierto-data-summary-header-container">
-        <template v-if="dateUpdated">
-          <i
-            class="fas fa-clock"
-            style="color: var(--color-base); opacity: .25"
-          />
-          <span class="gobierto-data-summary-header-container-label">
-            {{ labelUpdated }}
-          </span>
-          <span class="gobierto-data-summary-header-container-text">
-            {{ dateUpdated | convertDate }}
-          </span>
-        </template>
-      </div>
-      <template v-if="frequencyDataset">
-        <div class="gobierto-data-summary-header-container">
-          <i
-            class="fas fa-calendar"
-            style="color: var(--color-base); opacity: .25"
-          />
-          <span class="gobierto-data-summary-header-container-label">
-            {{ labelFrequency }}
-          </span>
-          <span class="gobierto-data-summary-header-container-text">
-            {{ frequencyDataset }}
-          </span>
-        </div>
-      </template>
-      <template v-if="categoryDataset">
-        <div class="gobierto-data-summary-header-container">
-          <i
-            class="fas fa-tag"
-            style="color: var(--color-base); opacity: .25"
-          />
-          <span class="gobierto-data-summary-header-container-label">
-            {{ labelSubject }}
-          </span>
-          <a
-            href="#"
-            class="gobierto-data-summary-header-container-text-link"
-          >
-            {{ categoryDataset }}
-          </a>
-        </div>
-      </template>
+      <InfoBlockText
+        v-if="dateUpdated"
+        icon="clock"
+        icon-color="var(--color-base)"
+        opacity=".25"
+        :label="labelUpdated"
+        :text="dateUpdated | convertDate"
+      />
+      <InfoBlockText
+        v-if="frequencyDataset"
+        icon="calendar"
+        icon-color="var(--color-base)"
+        opacity=".25"
+        :label="labelFrequency"
+        :text="frequencyDataset"
+      />
+      <InfoBlockText
+        v-if="categoryDataset"
+        icon="tag"
+        icon-color="var(--color-base)"
+        opacity=".25"
+        :label="labelSubject"
+        :text="categoryDataset"
+      />
     </div>
     <div class="pure-u-1-2">
       <div
@@ -57,9 +36,13 @@
 </template>
 <script>
 import { date } from "lib/shared"
+import InfoBlockText from "./../commons/InfoBlockText.vue";
 
 export default {
   name: "Info",
+  components: {
+    InfoBlockText
+  },
   filters: {
     convertDate(valueDate) {
       return date(valueDate, {

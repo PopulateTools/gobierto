@@ -12,17 +12,17 @@
           v-for="(row, i) in numberOfRows"
         >
           <div
-            v-for="element in arrayOfObjectsColumns.slice(i * itemsPerRow, (i + 1) * itemsPerRow)"
-            :key="Object.keys(element)[0]"
-            :title="Object.values(element)[0]"
+            v-for="{ column, type } in arrayOfObjectsColumns.slice(i * itemsPerRow, (i + 1) * itemsPerRow)"
+            :key="column"
+            :title="type"
             class="gobierto-data-columns-icon-description"
           >
             <i
-              :class="'fas gobierto-data-columns-icon gobierto-data-columns-icon-' + Object.values(element)[0]"
+              :class="'fas gobierto-data-columns-icon gobierto-data-columns-icon-' + type"
               style="color: var(--color-base);"
             />
             <span class="gobierto-data-sidebar-datasets-links-columns-text">
-              {{ Object.keys(element)[0] }}
+              {{ column }}
             </span>
           </div>
         </template>
@@ -59,7 +59,7 @@ export default {
     }
   },
   created() {
-    this.arrayOfObjectsColumns = Object.entries(this.arrayColumns).map(([k, v]) => ({ [k]: v }));
+    this.arrayOfObjectsColumns = Object.entries(this.arrayColumns).map(([k, v]) => ({ column: k, type: v }));
   }
 }
 </script>

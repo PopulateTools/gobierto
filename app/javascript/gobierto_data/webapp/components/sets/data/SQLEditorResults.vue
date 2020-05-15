@@ -17,7 +17,6 @@
         <Button
           v-if="showVisualize"
           :text="labelVisualize"
-          :class="{ 'remove-label' : removeLabelBtn }"
           class="btn-sql-editor"
           icon="chart-area"
           color="var(--color-base)"
@@ -28,23 +27,15 @@
           v-if="perspectiveChanged"
           ref="savingDialogViz"
           :placeholder="labelVisName"
-          :label-save="labelSaveViz"
-          :label-modified="labelSavedVisualization"
+          :label-save="labelSavedVisualization"
+          :label-modified="labelModifiedVizualition"
           :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
           :is-viz-modified="isVizModified"
+          :is-viz-saved="isVizSaved"
           :enabled-viz-saved-button="enabledVizSavedButton"
           @save="onSaveEventHandler"
-          @resetButtonViz="resetButtonViz"
           @keyDownInput="updateVizName"
         />
-        <div
-          v-if="isVisualizationModified"
-          class="gobierto-data-sql-editor-modified-label-container"
-        >
-          <span class="gobierto-data-sql-editor-modified-label">
-            {{ labelModifiedVizualition }}
-          </span>
-        </div>
       </div>
       <div
         class="pure-u-1 pure-u-lg-1-4"
@@ -107,6 +98,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isVizSaved: {
+      type: Boolean,
+      default: false
+    },
     enabledVizSavedButton: {
       type: Boolean,
       default: false
@@ -125,13 +120,11 @@ export default {
       labelModifiedVizualition: I18n.t("gobierto_data.projects.modifiedVisualization") || "",
       labelSavedVisualization: I18n.t("gobierto_data.projects.savedVisualization") || "",
       showVisualization: false,
-      isVisualizationModified: false,
       showResetViz: false,
       showVisualize: true,
       removeLabelBtn: false,
       perspectiveChanged: false,
       typeChart: 'hypergrid',
-      labelValue: '',
     };
   },
   methods: {
@@ -146,35 +139,32 @@ export default {
         if (!this.labelValue) {
           this.$nextTick(() => this.$refs.savingDialogViz.inputFocus());
         } else {
-          console.log('label')
           this.$root.$emit("storeCurrentVisualization", config, opts);
-          this.isVisualizationModified = false
         }
       }
     },
     updateVizName(value) {
-      console.log("updateVizName -> value", value)
       const {
         name: vizName
       } = value;
       this.labelValue = vizName
+      this.$root.$emit('isVizModified')
     },
     resetViz() {
       const hidePerspective = "none"
 
       this.showVisualize = true
       this.perspectiveChanged = false
-      this.removeLabelBtn = false
       this.showResetViz = false
       this.typeChart = 'hypergrid'
-      this.isVisualizationModified = false
 
       this.$refs.viewer.enableDisabledPerspective(hidePerspective);
       this.$refs.viewer.setColumns();
+      this.$root.$emit('disabledSavedVizButton')
+      this.$root.$emit('disabledSavedVizString')
     },
     showChart() {
       const showPerspective = "flex"
-
       this.showVisualization = true
       this.$refs.viewer.enableDisabledPerspective(showPerspective);
     },
@@ -182,14 +172,9 @@ export default {
       this.perspectiveChanged = true
       this.showVisualize = false
       this.showResetViz = true
-      this.isVisualizationModified = true
       this.$root.$emit('enableSavedVizButton')
       this.$root.$emit("isVizSavingPromptVisible", true);
       this.$root.$emit("isVizModified");
-    },
-    resetButtonViz() {
-      this.removeLabelBtn = false
-      this.showResetViz = true
     }
   },
 };

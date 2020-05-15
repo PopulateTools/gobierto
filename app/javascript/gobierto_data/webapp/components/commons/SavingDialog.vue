@@ -13,7 +13,7 @@
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="isQuerySavingPromptVisible ||isVizSavingPromptVisible">
+    <template v-if="isQuerySavingPromptVisible || isVizSavingPromptVisible">
       <label
         :for="labelPrivate"
         class="gobierto-data-sql-editor-container-save-label"
@@ -53,10 +53,10 @@
       name="fade"
       mode="out-in"
     >
-      <template v-if="isQuerySaved">
+      <template v-if="isQuerySaved || isVizSaved">
         <div class="gobierto-data-sql-editor-modified-label-container">
           <span class="gobierto-data-sql-editor-modified-label">
-            {{ labelSavedQuery }}
+            {{ labelSave }}
           </span>
         </div>
       </template>
@@ -127,11 +127,11 @@ export default {
       type: Boolean,
       default: false
     },
-   isVizSavingPromptVisible: {
+    isVizSavingPromptVisible: {
       type: Boolean,
       default: false
     },
-   enabledQuerySavedButton: {
+    enabledQuerySavedButton: {
       type: Boolean,
       default: false
     },
@@ -148,6 +148,10 @@ export default {
       default: false
     },
     isQuerySaved: {
+      type: Boolean,
+      default: false
+    },
+    isVizSaved: {
       type: Boolean,
       default: false
     }

@@ -138,7 +138,7 @@ export default {
       type: String,
       default: '',
     },
-   enabledQuerySavedButton: {
+    enabledQuerySavedButton: {
       type: Boolean,
       default: false
     },

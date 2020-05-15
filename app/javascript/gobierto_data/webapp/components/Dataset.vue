@@ -47,11 +47,12 @@
       :array-formats="arrayFormats"
       :array-columns-query="arrayColumnsQuery"
       :items="items"
+      :is-query-saved="isQuerySaved"
+      :is-viz-saved="isVizSaved"
+      :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
       :is-query-running="isQueryRunning"
       :is-query-modified="isQueryModified"
       :is-viz-modified="isVizModified"
-      :is-query-saved="isQuerySaved"
-      :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
       :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
       :query-stored="currentQuery"
       :query-name="queryName"
@@ -142,11 +143,12 @@ export default {
       currentQuery: null,
       queryRevert: null,
       items: "",
+      isQuerySaved: false,
+      isVizSaved: false,
+      isQuerySavingPromptVisible: false,
       isQueryRunning: false,
       isQueryModified: false,
       isVizModified: false,
-      isQuerySaved: false,
-      isQuerySavingPromptVisible: false,
       isVizSavingPromptVisible: false,
       showPrivate: false,
       tableName: '',
@@ -298,9 +300,16 @@ export default {
 
     this.$root.$on('enableSavedVizButton', this.activatedSavedVizButton)
 
+    this.$root.$on('disabledSavedVizButton', this.disabledSavedVizButton)
+
     this.$root.$on('isQuerySavingPromptVisible', this.isQuerySavingPromptVisibleHandler)
 
     this.$root.$on('isVizSavingPromptVisible', this.isVizSavingPromptVisibleHandler)
+
+    this.$root.$on('disabledSavedVizString', this.disabledSavedVizString)
+
+    this.$root.$on('isVizModified', this.enableVizModified)
+
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -317,6 +326,8 @@ export default {
     this.$root.$off('isQuerySavingPromptVisible')
     this.$root.$off('isVizSavingPromptVisible')
     this.$root.$off('enableSavedVizButton')
+    this.$root.$off('disabledSavedVizString')
+    this.$root.$off('isVizModified')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -545,8 +556,13 @@ export default {
         attributes,
       };
 
+      this.isVizModified = false
+      this.isVizSaved = true
+      this.isVizSavingPromptVisible = false
+      this.disabledSavedVizButton()
       // factory method
       const { status } = await this.postVisualization({ data });
+
       // TODO: indicar algo con el status OK
       console.log("postVisualization", status);
     },
@@ -602,6 +618,9 @@ export default {
     disabledStringSavedQuery() {
       this.isQuerySaved = false;
     },
+    disabledSavedVizString() {
+      this.isVizSaved = false
+    },
     isQuerySavingPromptVisibleHandler(value) {
       this.isQuerySavingPromptVisible = value
     },
@@ -613,6 +632,9 @@ export default {
     },
     isVizSavingPromptVisibleHandler(value) {
       this.isVizSavingPromptVisible = value
+    },
+    enableVizModified() {
+      this.isVizModified = true
     }
   },
 };

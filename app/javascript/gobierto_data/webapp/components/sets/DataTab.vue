@@ -29,6 +29,7 @@
         :enabled-viz-saved-button="enabledVizSavedButton"
         :is-viz-modified="isVizModified"
         :is-query-saved="isQuerySaved"
+        :is-viz-saved="isVizSaved"
         :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
         :items="items"
       />
@@ -89,11 +90,11 @@ export default {
       type: Boolean,
       default: false
     },
-   isQuerySavingPromptVisible: {
+    isQuerySavingPromptVisible: {
       type: Boolean,
       default: false
     },
-   isVizSavingPromptVisible: {
+    isVizSavingPromptVisible: {
       type: Boolean,
       default: false
     },
@@ -113,7 +114,7 @@ export default {
       type: String,
       default: null
     },
-   enabledQuerySavedButton: {
+    enabledQuerySavedButton: {
       type: Boolean,
       default: false
     },
@@ -130,6 +131,10 @@ export default {
       default: false
     },
     isQuerySaved: {
+      type: Boolean,
+      default: false
+    },
+    isVizSaved: {
       type: Boolean,
       default: false
     },

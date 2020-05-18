@@ -10,7 +10,6 @@ Vue.config.productionTip = false;
 export class ContractsController {
   constructor(options) {
     const selector = "gobierto-dashboards-contracts-app";
-    const _self = this;
 
     // Mount Vue applications
     const entryPoint = document.getElementById(selector);
@@ -82,7 +81,7 @@ export class ContractsController {
         }).$mount(entryPoint);
 
         EventBus.$on('summary_ready', () => {
-          _self._renderSummary(remoteCsvData);
+          this._renderSummary(remoteCsvData);
         });
       });
     }

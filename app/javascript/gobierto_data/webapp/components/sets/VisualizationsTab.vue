@@ -109,8 +109,8 @@ export default {
       this.activeViz = component
       this.currentVizComponent = COMPONENTS[this.activeViz];
     },
-    deleteHandlerVisualization(id) {
-      this.deleteVisualization(id)
+    async deleteHandlerVisualization(id) {
+      await this.deleteVisualization(id)
       this.$root.$emit('reloadVisualizations')
     }
   }

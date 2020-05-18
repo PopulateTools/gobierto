@@ -453,7 +453,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
       range: _r,
       labelMore: I18n.t('gobierto_budgets.invoices.show.more'),
       labelFromTo: I18n.t('gobierto_budgets.invoices.show.fromto'),
-      onFilteredFunction: (chart) => this._refreshFromCharts(amounts.top(Infinity))
+      onFilteredFunction: (chart) => _refreshFromCharts(amounts.top(Infinity))
     }
 
     new AmountDistributionBars(renderOptions);

@@ -37,12 +37,6 @@ export const router = new VueRouter({
           props: { activeDatasetTab: 1 }
         },
         {
-          path: ':id/q/:queryId?',
-          component: Dataset,
-          name: 'Query',
-          props: { activeDatasetTab: 1 }
-        },
-        {
           path: ':id/v/:queryId?',
           component: Dataset,
           name: 'Visualization',

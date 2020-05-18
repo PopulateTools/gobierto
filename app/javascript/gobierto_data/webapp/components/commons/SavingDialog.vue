@@ -64,7 +64,7 @@
       <template v-if="isQuerySaved || isVizSaved">
         <div class="gobierto-data-sql-editor-modified-label-container">
           <span class="gobierto-data-sql-editor-modified-label">
-            {{ labelSave }}
+            {{ labelSaved }}
           </span>
         </div>
       </template>
@@ -112,6 +112,7 @@
 <script>
 import Button from "./Button.vue";
 import PrivateIcon from "./PrivateIcon.vue";
+import { getUserId } from "./../../../lib/helpers";
 
 export default {
   name: 'SavingDialog',
@@ -129,6 +130,10 @@ export default {
       default: ''
     },
     labelSave: {
+      type: String,
+      default: ''
+    },
+    labelSaved: {
       type: String,
       default: ''
     },
@@ -236,6 +241,11 @@ export default {
       this.$refs.inputText.focus()
     },
     onClickSaveHandler() {
+      if (getUserId() === '') {
+        location.href = '/user/sessions/new?open_modal=true';
+        return false;
+      }
+
       this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
     },
     onKeyDownTextHandler(event) {

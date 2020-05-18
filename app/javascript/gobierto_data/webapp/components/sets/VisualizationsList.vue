@@ -14,18 +14,21 @@
         </template>
 
         <div class="gobierto-data-visualization--grid">
-          <template v-if="isPrivateLoading">
+          <template v-if="isPrivateVizLoading">
             <Spinner />
           </template>
 
           <template v-else>
             <template v-if="privateVisualizations.length">
-              <template v-for="{ queryData, config, name, privacy_status, id } in privateVisualizations">
-                <div :key="name">
+              <template v-for="{ items, queryData, config, name, privacy_status, id } in privateVisualizations">
+                <div
+                  :key="name"
+                  class="gobierto-data-visualization--container"
+                >
                   <router-link
                     :to="`/datos/${$route.params.id}/v/${id}`"
-                    class="gobierto-data-summary-queries-container-name"
-                    @click.native="loadViz"
+                    class="gobierto-data-visualizations-name"
+                    @click.native="loadViz(name)"
                   >
                     <div class="gobierto-data-visualization--card">
                       <div class="gobierto-data-visualization--aspect-ratio-16-9">
@@ -33,28 +36,27 @@
                           <h4 class="gobierto-data-visualization--title">
                             {{ name }}
                           </h4>
-                          <div class="gobierto-data-visualization--icons">
-                            <PrivateIcon
-                              :is-closed="privacy_status === 'closed'"
-                            />
-                            <i
-                              class="fas fa-trash-alt"
-                              style="color: var(--color-base); cursor: pointer;"
-                              @click.prevent="deleteHandlerVisualization(id)"
-                            />
-                          </div>
                           <Visualizations
-                            :items="queryData"
+                            :items="items"
                             :config="config"
                           />
                         </div>
                       </div>
                     </div>
                   </router-link>
+                  <div class="gobierto-data-visualization--icons">
+                    <PrivateIcon
+                      :is-closed="privacy_status === 'closed'"
+                    />
+                    <i
+                      class="fas fa-trash-alt"
+                      style="color: var(--color-base); cursor: pointer;"
+                      @click.stop="emitDeleteHandlerVisualization(id)"
+                    />
+                  </div>
                 </div>
               </template>
             </template>
-
             <template v-else>
               <div>{{ labelVisEmpty }}</div>
             </template>
@@ -76,27 +78,34 @@
       </template>
 
       <div class="gobierto-data-visualization--grid">
-        <template v-if="isPublicLoading">
+        <template v-if="isPublicVizLoading">
           <Spinner />
         </template>
 
         <template v-else>
           <template v-if="publicVisualizations.length">
-            <template v-for="{ queryData, config, name } in publicVisualizations">
+            <template v-for="{ items, config, name, id } in publicVisualizations">
               <div :key="name">
-                <div class="gobierto-data-visualization--card">
-                  <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                    <div class="gobierto-data-visualization--content">
-                      <h4 class="gobierto-data-visualization--title">
-                        {{ name }}
-                      </h4>
-                      <Visualizations
-                        :items="queryData"
-                        :config="config"
-                      />
+                <router-link
+                  :key="$route.path"
+                  :to="`/datos/${$route.params.id}/v/${id}`"
+                  class="gobierto-data-visualizations-name"
+                  @click.native="loadViz(name)"
+                >
+                  <div class="gobierto-data-visualization--card">
+                    <div class="gobierto-data-visualization--aspect-ratio-16-9">
+                      <div class="gobierto-data-visualization--content">
+                        <h4 class="gobierto-data-visualization--title">
+                          {{ name }}
+                        </h4>
+                        <Visualizations
+                          :items="items"
+                          :config="config"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
+                </router-link>
               </div>
             </template>
           </template>
@@ -134,6 +143,14 @@ export default {
       type: Boolean,
       default: false
     },
+    isPrivateVizLoading: {
+      type: Boolean,
+      default: false
+    },
+    isPublicVizLoading: {
+      type: Boolean,
+      default: false
+    },
     publicVisualizations: {
       type: Array,
       default: () => []
@@ -148,15 +165,17 @@ export default {
       labelVisEmpty: I18n.t("gobierto_data.projects.visEmpty") || "",
       labelVisPrivate: I18n.t("gobierto_data.projects.visPrivate") || "",
       labelVisPublic: I18n.t("gobierto_data.projects.visPublic") || "",
-      isPrivateLoading: false,
-      isPublicLoading: false,
       showPrivateVis: true,
       showPublicVis: true,
     };
   },
   methods: {
-    loadViz() {
-      this.$emit('changeViz')
+    loadViz(vizName) {
+      this.$emit('changeViz', 1)
+      this.$root.$emit('loadVizName', vizName)
+    },
+    emitDeleteHandlerVisualization(id) {
+      this.$emit('emitDelete', id)
     }
   }
 };

@@ -2,33 +2,41 @@
   <div class="gobierto-data-sets-nav--tab-container">
     <component
       :is="currentVizComponent"
-      v-if="privateVisualizations"
+      v-if="publicVisualizations"
       :public-visualizations="publicVisualizations"
       :private-visualizations="privateVisualizations"
       :dataset-id="datasetId"
       :is-user-logged="isUserLogged"
+      :is-public-loading="isPublicLoading"
+      :is-private-loading="isPrivateLoading"
       :items="items"
       :config="config"
       :name="titleViz"
+      :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
+      :is-viz-modified="isVizModified"
+      :is-viz-saved="isVizSaved"
+      :is-private-viz-loading="isPrivateVizLoading"
+      :is-public-viz-loading="isPublicVizLoading"
+      :enabled-viz-saved-button="enabledVizSavedButton"
       @changeViz="showVizElement"
+      @emitDelete="deleteHandlerVisualization"
     />
   </div>
 </template>
 <script>
+
+import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 
 const COMPONENTS = [
   () => import("./VisualizationsList.vue"),
   () => import("./VisualizationsItem.vue")
 ];
 
-import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
-import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
-import { DataFactoryMixin } from "./../../../lib/factories/data";
-import { getUserId } from "./../../../lib/helpers";
-
 export default {
   name: "VisualizationsTab",
-  mixins: [VisualizationFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
+  mixins: [
+    VisualizationFactoryMixin,
+  ],
   props: {
     datasetId: {
       type: Number,
@@ -37,101 +45,74 @@ export default {
     isUserLogged: {
       type: Boolean,
       default: false
+    },
+    isVizModified: {
+      type: Boolean,
+      default: false
+    },
+    isVizSaved: {
+      type: Boolean,
+      default: false
+    },
+    isVizSavingPromptVisible: {
+      type: Boolean,
+      default: false
+    },
+    enabledVizSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    privateVisualizations: {
+      type: Array,
+      default: () => []
+    },
+    publicVisualizations: {
+      type: Array,
+      default: () => []
+    },
+    isPrivateVizLoading: {
+      type: Boolean,
+      default: false
+    },
+    isPublicVizLoading: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       currentVizComponent: null,
-      publicVisualizations: [],
-      privateVisualizations: [],
       items: '',
+      isPrivateLoading: false,
+      isPublicLoading: false,
       titleViz: '',
       activeViz: 0,
       config: {}
     };
   },
   created() {
-    this.currentVizComponent = COMPONENTS[this.activeViz];
-    this.userId = getUserId();
 
-    // Get all visualizations
-    this.getPrivateVisualizations();
-    this.getPublicVisualizations();
+    const {
+      name: nameComponent
+    } = this.$route;
+
+    if (nameComponent === 'Visualization') {
+      this.showVizElement(1)
+    } else {
+      this.currentVizComponent = COMPONENTS[this.activeViz];
+    }
+    this.$root.$emit('reloadVisualizations')
+
   },
   methods: {
-    showVizElement() {
-      this.activeViz = 1
+    showVizElement(component) {
+      this.activeViz = component
       this.currentVizComponent = COMPONENTS[this.activeViz];
     },
-    async getPublicVisualizations() {
-      this.isPublicLoading = true
-
-      const { data: response } = await this.getVisualizations({
-        "filter[dataset_id]": this.datasetId
-      });
-      const { data } = response;
-
-      if (data.length) {
-        this.publicVisualizations = await this.getDataFromVisualizations(data);
-      }
-
-      this.isPublicLoading = false
-    },
-    async getPrivateVisualizations() {
-      this.isPrivateLoading = true
-
-      if (this.userId) {
-        const { data: response } = await this.getVisualizations({
-          "filter[dataset_id]": this.datasetId,
-          "filter[user_id]": this.userId
-        });
-        const { data } = response;
-
-        if (data.length) {
-          this.privateVisualizations = await this.getDataFromVisualizations(
-            data
-          );
-        }
-      }
-
-      this.isPrivateLoading = false
-    },
-    async getDataFromVisualizations(data) {
-      const visualizations = [];
-      for (let index = 0; index < data.length; index++) {
-        const { attributes = {}, id } = data[index];
-        const { query_id, spec = {}, name = "", privacy_status = "open" } = attributes;
-
-        let queryData = null;
-
-        if (query_id) {
-          // Get my queries, if they're stored
-          const { data } = await this.getQuery(query_id);
-          queryData = data;
-        } else {
-          // Otherwise, run the sql
-          const { sql } = attributes;
-          const { data } = await this.getData({ sql });
-          queryData = data;
-        }
-
-        // Append the visualization configuration
-        const visualization = { queryData, config: spec, name, privacy_status, query_id, id };
-
-        visualizations.push(visualization);
-
-        this.items = queryData
-        this.titleViz = name
-        this.config = visualization.config
-      }
-
-      return visualizations;
-    },
-    async deleteHandlerVisualization(id) {
+    deleteHandlerVisualization(id) {
       this.deleteVisualization(id)
-      this.getPrivateVisualizations()
-      this.getPublicVisualizations()
-    },
+      this.$root.$emit('reloadVisualizations')
+    }
   }
 };
 </script>

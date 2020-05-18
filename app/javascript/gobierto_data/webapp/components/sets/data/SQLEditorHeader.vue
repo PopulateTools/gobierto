@@ -66,6 +66,7 @@
       :placeholder="labelQueryName"
       :value="queryName"
       :label-save="labelSave"
+      :label-saved="labelSaved"
       :labe-modified="labelModifiedQuery"
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
@@ -184,6 +185,7 @@ export default {
       labelRunQuery: I18n.t("gobierto_data.projects.runQuery") || "",
       labelResetQuery: I18n.t("gobierto_data.projects.resetQuery") || "",
       labelSave: I18n.t("gobierto_data.projects.save") || "",
+      labelSaved: I18n.t("gobierto_data.projects.savedQuery") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
       labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",

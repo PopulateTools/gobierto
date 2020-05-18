@@ -148,7 +148,7 @@ export class ContractsController {
   }
 
   _renderSummary(){
-    ndx = crossfilter(data.contractsData);
+    ndx = crossfilter(this._formalizedContracts());
 
     this._renderTendersMetricsBox();
     this._renderContractsMetricsBox();
@@ -188,16 +188,14 @@ export class ContractsController {
   }
 
   _renderContractsMetricsBox(){
-    const _contractsData = this._currentDataSource().contractsData
+    const _contractsData = this._formalizedContracts();
+
     // Calculations
     const amountsArray = _contractsData.map(({final_amount = 0}) => parseFloat(final_amount) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
-    const savingsArray = _contractsData.map(({initial_amount = 0, final_amount = 0}) =>{
-      initial_amount = initial_amount === '' ? 0.0 : initial_amount;
-      final_amount = final_amount === '' ? 0.0 : final_amount;
-
-      return (1 - parseFloat(final_amount) / parseFloat(initial_amount))
-    });
+    const savingsArray = _contractsData.map(({initial_amount = 0, final_amount = 0}) =>
+      1 - parseFloat(final_amount) / parseFloat(initial_amount)
+    );
 
     // Calculations box items
     const numberContracts = _contractsData.length;
@@ -283,7 +281,7 @@ export class ContractsController {
   }
 
   _renderAssigneesTable(){
-    const _contractsData = this._currentDataSource().contractsData,
+    const _contractsData = this._formalizedContracts(),
           table = document.getElementById("assignees-table"),
           cellClass = "dashboards-home-main--td",
           groupedByAssignee = {};
@@ -334,6 +332,12 @@ export class ContractsController {
 
   _currentDataSource(){
     return reduced || data
+  }
+
+  _formalizedContracts(){
+    return this._currentDataSource().contractsData.filter((contract) =>
+      contract.status == 'Formalizado' || contract.status == 'Adjudicado'
+    )
   }
 }
 

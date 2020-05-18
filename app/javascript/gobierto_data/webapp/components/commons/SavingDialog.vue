@@ -66,11 +66,6 @@
     <!-- show edit button if there's no prompt but some name, otherwise, save button -->
     <Button
       :text="labelSave"
-      :style="
-        isSavingPromptVisible
-          ? 'color: #fff; background-color: var(--color-base)'
-          : 'color: var(--color-base); background-color: rgb(255, 255, 255);'
-      "
       :disabled="!enabledSavedButton"
       icon="save"
       background="#fff"

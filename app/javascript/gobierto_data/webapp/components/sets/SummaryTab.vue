@@ -16,13 +16,14 @@
 
       <router-link
         :to="`/datos/${$route.params.id}/${tabs[1]}`"
+        class="gobierto-data-btn-preview"
       >
         <Button
           :text="labelPreview"
           icon="table"
           color="rgba(var(--color-base)"
           icon-color="rgba(var(--color-base-string), .5)"
-          class="gobierto-data-btn-download-data gobierto-data-btn-preview"
+          class="gobierto-data-btn-download-data "
           background="#fff"
         />
       </router-link>

@@ -1102,6 +1102,9 @@
 
   &-btn-preview {
     margin-left: 1.25rem;
+    &:hover {
+      color: var(--color-base);
+    }
   }
 
   &-columns-icon {

@@ -76,7 +76,7 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       assert page.has_content?("Importe medio\n297.879,16 €")
       assert page.has_content?("Importe mediano\n28.357,56 €")
 
-      assert page.has_content?("Ahorro medio de licitación a adjudicación\n49 %")
+      assert page.has_content?("Ahorro medio de licitación a adjudicación\n49,06 %")
 
       ## Headlines
       assert page.has_content?("El 12 % de los contratos son menores de 1.000 €")
@@ -112,7 +112,7 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       assert first_contract.has_content?('IMPORTACIONES INDUSTRIALES, S.A.')
 
       # Contract
-      assert first_contract.has_content?('Suministro, de forma sucesiva y por precio unitario, y por lotes de equipos de protección individual ')
+      assert first_contract.has_content?('Suministro, de forma sucesiva y por precio unitario, y por l...')
 
       # Amount
       assert first_contract.has_content?('€28,600.53')

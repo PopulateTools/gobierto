@@ -25,7 +25,6 @@
                   :key="name"
                   class="gobierto-data-visualization--container"
                 >
-                  {{ user_id }}
                   <router-link
                     :to="`/datos/${$route.params.id}/v/${id}`"
                     class="gobierto-data-visualizations-name"
@@ -92,7 +91,6 @@
                   class="gobierto-data-visualizations-name"
                   @click.native="loadViz(name, user_id)"
                 >
-                {{ user_id }}
                   <div class="gobierto-data-visualization--card">
                     <div class="gobierto-data-visualization--aspect-ratio-16-9">
                       <div class="gobierto-data-visualization--content">

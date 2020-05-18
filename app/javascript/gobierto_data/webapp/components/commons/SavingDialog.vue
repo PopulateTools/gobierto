@@ -11,7 +11,7 @@
           class="gobierto-data-sql-editor-container-save-text"
           :class="{
             'disable-input-text': disabledButton,
-            'disable-cursor-pointer': enabledForkButton || !isUserLogged
+            'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
           }"
           @keydown.stop="onKeyDownTextHandler"
           @click="enabledInputHandler"
@@ -81,7 +81,6 @@
       :text="labelSave"
       :disabled="!isDisabled"
       icon="save"
-      color="var(--color-base)"
       background="#fff"
       class="btn-sql-editor"
       @click.native="onClickSaveHandler"
@@ -106,7 +105,6 @@
         :disabled="!enabledRevertButton"
         icon="undo"
         class="btn-sql-editor btn-sql-editor-revert"
-        color="var(--color-base)"
         background="#fff"
         @click.native="revertQueryHandler"
       />

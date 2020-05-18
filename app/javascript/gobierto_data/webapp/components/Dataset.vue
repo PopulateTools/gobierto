@@ -352,6 +352,8 @@ export default {
       }
     },
     setDefaultQuery() {
+
+      const userId = getUserId();
       const {
         params: { queryId }
       } = this.$route;

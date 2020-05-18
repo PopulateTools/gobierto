@@ -18,6 +18,7 @@
       :is-private-viz-loading="isPrivateVizLoading"
       :is-public-viz-loading="isPublicVizLoading"
       :enabled-viz-saved-button="enabledVizSavedButton"
+      :enabled-fork-viz-button="enabledForkVizButton"
       @changeViz="showVizElement"
       @emitDelete="deleteHandlerVisualization"
     />
@@ -77,6 +78,14 @@ export default {
     isPublicVizLoading: {
       type: Boolean,
       default: false
+    },
+    currentVizTab: {
+      type: Number,
+      default: null
+    },
+    enabledForkVizButton: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -89,6 +98,13 @@ export default {
       activeViz: 0,
       config: {}
     };
+  },
+  watch: {
+    currentVizTab(newValue, oldValue) {
+      if (newValue === 0) {
+        this.showVizElement(0)
+      }
+    }
   },
   created() {
 
@@ -109,8 +125,8 @@ export default {
       this.activeViz = component
       this.currentVizComponent = COMPONENTS[this.activeViz];
     },
-    async deleteHandlerVisualization(id) {
-      await this.deleteVisualization(id)
+    deleteHandlerVisualization(id) {
+      this.deleteVisualization(id)
       this.$root.$emit('reloadVisualizations')
     }
   }

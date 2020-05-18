@@ -35,6 +35,7 @@
         :is-viz-saved="isVizSaved"
         :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
         :items="items"
+        :is-user-logged="isUserLogged"
       />
     </div>
   </div>

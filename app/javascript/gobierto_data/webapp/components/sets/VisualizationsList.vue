@@ -20,15 +20,16 @@
 
           <template v-else>
             <template v-if="privateVisualizations.length">
-              <template v-for="{ items, queryData, config, name, privacy_status, id } in privateVisualizations">
+              <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
                 <div
                   :key="name"
                   class="gobierto-data-visualization--container"
                 >
+                  {{ user_id }}
                   <router-link
                     :to="`/datos/${$route.params.id}/v/${id}`"
                     class="gobierto-data-visualizations-name"
-                    @click.native="loadViz(name)"
+                    @click.native="loadViz(name, user_id)"
                   >
                     <div class="gobierto-data-visualization--card">
                       <div class="gobierto-data-visualization--aspect-ratio-16-9">
@@ -84,14 +85,14 @@
 
         <template v-else>
           <template v-if="publicVisualizations.length">
-            <template v-for="{ items, config, name, id } in publicVisualizations">
+            <template v-for="{ items, config, name, id, user_id } in publicVisualizations">
               <div :key="name">
                 <router-link
-                  :class="{ 'user-not-logged': !isUserLogged }"
                   :to="`/datos/${$route.params.id}/v/${id}`"
                   class="gobierto-data-visualizations-name"
-                  @click.native="loadViz(name)"
+                  @click.native="loadViz(name, user_id)"
                 >
+                {{ user_id }}
                   <div class="gobierto-data-visualization--card">
                     <div class="gobierto-data-visualization--aspect-ratio-16-9">
                       <div class="gobierto-data-visualization--content">
@@ -124,6 +125,7 @@ import Caret from "./../commons/Caret.vue";
 import Visualizations from "./../commons/Visualizations.vue";
 import PrivateIcon from './../commons/PrivateIcon.vue';
 import { Dropdown } from "lib/vue-components";
+import { getUserId } from "./../../../lib/helpers";
 
 export default {
   name: "VisualizationsList",
@@ -170,9 +172,13 @@ export default {
     };
   },
   methods: {
-    loadViz(vizName) {
+    loadViz(vizName, user) {
+      const userId = Number(getUserId())
       this.$emit('changeViz', 1)
       this.$root.$emit('loadVizName', vizName)
+      if (userId !== user) {
+        this.$root.$emit('enabledForkVizButton', true)
+      }
     },
     emitDeleteHandlerVisualization(id) {
       this.$emit('emitDelete', id)

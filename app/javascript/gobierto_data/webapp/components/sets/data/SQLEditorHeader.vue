@@ -80,6 +80,7 @@
       :show-private="showPrivate"
       @save="onSaveEventHandler"
       @keyDownInput="updateQueryName"
+      @handlerFork="handlerForkQuery"
     />
 
     <Button
@@ -299,12 +300,18 @@ export default {
     enabledInputQueries() {
       const userId = getUserId();
         if (!this.enabledForkButton && !!userId) {
-        this.disabledButton = false
         this.$root.$emit('enableSavedButton')
         this.$root.$emit('enabledForkPrompt')
         this.$root.$emit('disabledRevertButton')
-        this.$nextTick(() => this.$refs.inputText.focus());
+        this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus());
       }
+    },
+    handlerForkQuery() {
+      this.$nextTick(() => {
+        this.$refs.savingDialogQuery.inputFocus()
+        this.$refs.savingDialogQuery.inputSelect()
+      });
+      this.$root.$emit('disabledForkButton')
     }
   },
 };

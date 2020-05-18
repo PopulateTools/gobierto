@@ -6,7 +6,7 @@
         style="margin-bottom: 1rem"
       >
         <Button
-          v-if="showResetViz"
+          v-if="showResetViz && isUserLogged"
           :title="labelResetViz"
           class="btn-sql-editor"
           icon="home"
@@ -33,6 +33,7 @@
           :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
           :is-viz-modified="isVizModified"
           :is-viz-saved="isVizSaved"
+          :is-user-logged="isUserLogged"
           :enabled-viz-saved-button="enabledVizSavedButton"
           @save="onSaveEventHandler"
           @keyDownInput="updateVizName"
@@ -110,7 +111,11 @@ export default {
     queryStored: {
       type: String,
       default: ""
-    }
+    },
+    isUserLogged: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {
@@ -174,9 +179,11 @@ export default {
       this.showVisualize = false
       this.showResetViz = true
       this.$root.$emit('enableSavedVizButton')
-      this.$root.$emit("isVizSavingPromptVisible", true);
-      this.$root.$emit("isVizModified");
-      this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
+      if (this.isUserLogged) {
+        this.$root.$emit("isVizSavingPromptVisible", true);
+        this.$root.$emit("isVizModified");
+        this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
+      }
     }
   },
 };

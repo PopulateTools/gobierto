@@ -88,6 +88,8 @@
       :public-visualizations="publicVisualizations"
       :private-visualizations="privateVisualizations"
       :enabled-viz-saved-button="enabledVizSavedButton"
+      :current-viz-tab="currentVizTab"
+      :enabled-fork-viz-button="enabledForkVizButton"
     />
 
     <DownloadsTab
@@ -154,6 +156,7 @@ export default {
       privateVisualizations: [],
       arrayColumnsQuery: [],
       currentQuery: null,
+      currentVizTab: null,
       queryRevert: null,
       items: "",
       isQuerySaved: false,
@@ -177,6 +180,7 @@ export default {
       queryError: null,
       isUserLogged: false,
       enabledForkButton: false,
+      enabledForkVizButton: false,
       isPrivateVizLoading : false,
       isPublicVizLoading: false
     };
@@ -204,6 +208,12 @@ export default {
         this.QueryIsNotMine()
         this.disabledSavedButton()
         this.disabledRevertButton()
+      }
+
+      if (to.name === 'Dataset') {
+        this.currentVizTab = 0
+      } else if (to.name === 'Visualization') {
+        this.currentVizTab = 1
       }
 
       //FIXME: Hugo, we need to talk about this hack
@@ -333,6 +343,8 @@ export default {
 
     this.$root.$on('isVizModified', this.enableVizModified)
 
+    this.$root.$on('disableVizModified', this.disableVizModified)
+
     this.$root.$on('disabledForkButton', this.disabledForkButton)
 
     this.$root.$on('enabledForkPrompt', this.enabledForkPrompt)
@@ -344,6 +356,9 @@ export default {
     this.$root.$on('loadVizName', this.setVizName)
 
     this.$root.$on('reloadVisualizations', this.reloadVisualizations)
+
+    this.$root.$on('enabledForkVizButton', this.activateForkVizButton)
+
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -368,6 +383,8 @@ export default {
     this.$root.$off('isVizModified')
     this.$root.$off('loadVizName')
     this.$root.$off('reloadVisualizations')
+    this.$root.$off('disableVizModified')
+    this.$root.$off('enabledForkVizButton')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -637,7 +654,7 @@ export default {
       let currentQueryViz;
 
       if (user !== userId) {
-        currentQueryViz = queryViz
+        currentQueryViz = !queryViz ? this.currentQuery : queryViz
       } else {
         currentQueryViz = this.currentQuery
       }
@@ -794,12 +811,18 @@ export default {
     enableVizModified() {
       this.isVizModified = true
     },
+    disableVizModified() {
+      this.isVizModified = false
+    },
     setVizName(vizName) {
       this.vizName = vizName
     },
     reloadVisualizations() {
       this.getPrivateVisualizations()
       this.getPublicVisualizations()
+    },
+    activateForkVizButton(value) {
+      this.enabledForkVizButton = value
     }
   },
 };

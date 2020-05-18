@@ -1,24 +1,26 @@
 <template>
   <div class="gobierto-data-sql-editor-container-save">
     <!--  only show if label name is set OR the prompt is visible  -->
-    <template v-if="isQuerySavingPromptVisible || labelValue ||isVizSavingPromptVisible">
-      <input
-        ref="inputText"
-        v-model="labelValue"
-        :placeholder="placeholder"
-        type="text"
-        class="gobierto-data-sql-editor-container-save-text"
-        :class="{
-          'disable-input-text': disabledButton,
-          'disable-cursor-pointer': enabledForkButton || !isUserLogged
-        }"
-        @keydown.stop="onKeyDownTextHandler"
-        @click="enabledInputHandler"
-      >
+    <template v-if="isUserLogged">
+      <template v-if="isQuerySavingPromptVisible || labelValue ||isVizSavingPromptVisible">
+        <input
+          ref="inputText"
+          v-model="labelValue"
+          :placeholder="placeholder"
+          type="text"
+          class="gobierto-data-sql-editor-container-save-text"
+          :class="{
+            'disable-input-text': disabledButton,
+            'disable-cursor-pointer': enabledForkButton || !isUserLogged
+          }"
+          @keydown.stop="onKeyDownTextHandler"
+          @click="enabledInputHandler"
+        >
+      </template>
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="isForkPromptVisible">
+    <template v-if="isForkPromptVisible && isUserLogged">
       <template v-if="isQuerySavingPromptVisible || isVizSavingPromptVisible">
         <label
           :for="labelPrivate"
@@ -37,11 +39,13 @@
 
 
     <!-- only show if label name is set OR the prompt is visible -->
-    <template v-if="isQuerySavingPromptVisible || labelValue ||isVizSavingPromptVisible">
-      <PrivateIcon
-        :is-closed="isPrivate"
-        :style="{ paddingRight: '.5em', margin: 0 }"
-      />
+    <template v-if="isUserLogged">
+      <template v-if="isQuerySavingPromptVisible || labelValue ||isVizSavingPromptVisible">
+        <PrivateIcon
+          :is-closed="isPrivate"
+          :style="{ paddingRight: '.5em', margin: 0 }"
+        />
+      </template>
     </template>
 
     <transition
@@ -73,7 +77,7 @@
 
     <!-- show save button if there's no prompt but some name, otherwise, save button -->
     <Button
-      v-if="!enabledForkButton"
+      v-if="!showForkButton"
       :text="labelSave"
       :disabled="!isDisabled"
       icon="save"
@@ -84,10 +88,10 @@
     />
 
     <Button
-      v-if="enabledForkButton"
+      v-if="showForkButton"
       :text="labelFork"
       :title="labelButtonFork"
-      :disabled="!enabledQuerySavedButton"
+      :disabled="!isDisabledFork"
       icon="code-branch"
       color="var(--color-base)"
       background="#fff"
@@ -196,6 +200,10 @@ export default {
     isVizSaved: {
       type: Boolean,
       default: false
+    },
+    enabledForkVizButton: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -215,6 +223,12 @@ export default {
   computed: {
     isDisabled() {
       return this.enabledVizSavedButton || this.enabledQuerySavedButton ? true : false
+    },
+    isDisabledFork() {
+      return this.enabledQuerySavedButton || this.isVizModified ? true : false
+    },
+    showForkButton() {
+      return this.enabledForkVizButton || this.enabledForkButton ? true : false
     }
   },
   watch: {
@@ -240,6 +254,9 @@ export default {
     inputFocus() {
       this.$refs.inputText.focus()
     },
+    inputSelect() {
+      this.$refs.inputText.select()
+    },
     onClickSaveHandler() {
       if (getUserId() === '') {
         location.href = '/user/sessions/new?open_modal=true';
@@ -262,11 +279,7 @@ export default {
       this.$root.$emit('revertSavedQuery', true)
     },
     onClickForkHandler() {
-      this.$nextTick(() => {
-        this.$refs.inputText.focus()
-        this.$refs.inputText.select()
-      });
-      this.$root.$emit('disabledForkButton')
+      this.$emit('handlerFork')
       this.disabledButton = false
     },
     countInputCharacters(label) {

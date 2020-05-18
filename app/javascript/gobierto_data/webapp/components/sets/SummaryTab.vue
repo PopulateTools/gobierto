@@ -38,7 +38,10 @@
       class="gobierto-data-summary-separator"
     />
 
-    <Dropdown @is-content-visible="showYourQueries = !showYourQueries">
+    <Dropdown
+      v-if="privateQueries.length || publicQueries.length"
+      @is-content-visible="showYourQueries = !showYourQueries"
+    >
       <template v-slot:trigger>
         <h2 class="gobierto-data-tabs-section-title">
           <Caret :rotate="showYourQueries" />

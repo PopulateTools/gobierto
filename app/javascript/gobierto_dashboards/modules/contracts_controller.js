@@ -117,9 +117,9 @@ export class ContractsController {
         }
 
         if ( aDate < bDate ){
-          return -1;
-        } else if ( aDate > bDate ){
           return 1;
+        } else if ( aDate > bDate ){
+          return -1;
         } else {
           return 0;
         }

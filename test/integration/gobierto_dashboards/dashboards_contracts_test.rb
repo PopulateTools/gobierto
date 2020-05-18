@@ -59,7 +59,7 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
     with(site: site, js: true) do
       visit @summary_path
 
-      # Active tab is Summary
+      ## Active tab is Summary
       assert find(".dashboards-home-nav--tab.is-active").text, 'RESUMEN'
 
       # Box
@@ -78,10 +78,18 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
 
       assert page.has_content?("Ahorro medio de licitación a adjudicación\n49 %")
 
-      # Headlines
-      assert page.has_content?("El 10 % de los contratos son menores de 1.000 €")
+      ## Headlines
+      assert page.has_content?("El 12 % de los contratos son menores de 1.000 €")
       assert page.has_content?("El mayor contrato supone un 18 % de todo el gasto en contratos")
       assert page.has_content?("El 2 % de contratos concentran el 50% de todo el gasto")
+
+      ## Charts
+      # Contract type
+      assert page.has_content?(/Gestión de servicios públicos\d*1,6 %/)
+      assert page.has_content?(/Servicios\d*56,3 %/)
+      # Process type
+      assert page.has_content?(/Abierto simplificado\d*29,8 %/)
+      assert page.has_content?(/Negociado con publicidad\d*0,4 %/)
     end
   end
 

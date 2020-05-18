@@ -4,6 +4,7 @@ import crossfilter from 'crossfilter2'
 import moment from 'moment'
 import { d3locale } from 'lib/shared'
 import 'jsgrid'
+import { AmountDistributionBars } from "lib/visualizations/modules/amount_distribution_bars.js";
 
 window.GobiertoBudgets.InvoicesController = (function() {
 

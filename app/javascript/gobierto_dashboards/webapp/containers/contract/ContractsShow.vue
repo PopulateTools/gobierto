@@ -75,14 +75,24 @@ export default {
       return contract.id === itemId
     });
 
-    this.title = contract.title
-    this.description = contract.description
-    this.assignee = contract.assignee
-    this.document_number = contract.document_number
-    this.final_amount = contract.final_amount
-    this.initial_amount = contract.initial_amount
-    this.status = contract.status
-    this.process_type = contract.process_type
+    const {
+      title,
+      description,
+      assignee,
+      document_number,
+      final_amount,
+      status,
+      process_type
+    } = contract
+
+    this.title = title
+    this.description = description
+    this.assignee = assignee
+    this.document_number = document_number
+    this.final_amount = final_amount
+    this.initial_amount = initial_amount
+    this.status = status
+    this.process_type = process_type
   }
 }
 </script>

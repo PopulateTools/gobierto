@@ -121,7 +121,6 @@
 <script>
 import Button from "./Button.vue";
 import PrivateIcon from "./PrivateIcon.vue";
-import { getUserId } from "./../../../lib/helpers";
 
 export default {
   name: 'SavingDialog',
@@ -220,7 +219,7 @@ export default {
   methods: {
     onClickSaveHandler() {
 
-      if (getUserId() === '') {
+      if (!this.isUserLogged) {
         location.href = '/user/sessions/new?open_modal=true';
         return false;
       }

@@ -181,7 +181,7 @@ export default {
       if (to.path !== from.path) {
         this.isQueryModified = false;
         this.setDefaultQuery()
-        this.QueryIsNotMine()
+        this.queryIsNotMine()
         this.disabledSavedButton()
         this.disabledRevertButton()
       }
@@ -264,7 +264,7 @@ export default {
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
 
-    this.QueryIsNotMine();
+    this.queryIsNotMine();
     this.runCurrentQuery();
     this.setDefaultQuery();
 
@@ -607,7 +607,7 @@ export default {
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value
     },
-    QueryIsNotMine() {
+    queryIsNotMine() {
       const userId = Number(getUserId());
 
       const {

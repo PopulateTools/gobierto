@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import { scaleThreshold, sum, mean, median, max } from 'd3';
+import { sum, mean, median, max } from 'd3-array';
+import { scaleThreshold } from 'd3-scale';
 const d3 = { scaleThreshold, sum, mean, median, max }
 
 import crossfilter from 'crossfilter2'
@@ -9,9 +10,6 @@ import crossfilter from 'crossfilter2'
 import { getRemoteData } from '../webapp/lib/get_remote_data'
 import { EventBus } from '../webapp/mixins/event_bus'
 import { money } from 'lib/shared/modules/vue-filters'
-import { sum, mean, median, max } from 'd3-array';
-
-const d3 = { sum, mean, median, max }
 
 import { AmountDistributionBars } from "lib/visualizations/modules/amount_distribution_bars.js";
 import { GroupPctDistributionBars } from "lib/visualizations/modules/group_pct_distribution_bars.js";

@@ -27,8 +27,6 @@ export const date = (value, opts = {}) => {
 }
 
 export const truncate = (value, opts = {}) => {
-  debugger
-
   const omission = opts['omission'] || '...';
   const length = opts['length'] || 30;
 

@@ -103,8 +103,8 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       # Assignee
       assert first_contract.has_content?('IMPORTACIONES INDUSTRIALES, S.A.')
 
-      # Contractor
-      assert first_contract.has_content?('Consejero Delegado del Consejo de Administración de Limpieza y Medio Ambiente de Getafe')
+      # Contract
+      assert first_contract.has_content?('Suministro, de forma sucesiva y por precio unitario, y por lotes de equipos de protección individual ')
 
       # Amount
       assert first_contract.has_content?('€28,600.53')

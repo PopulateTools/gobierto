@@ -64,7 +64,6 @@
   &-tab-sidebar--tab {
     font-style: normal;
     font-size: 14px;
-    line-height: 18px;
     color: #666;
     cursor: pointer;
     width: 32%;
@@ -1095,8 +1094,9 @@
   }
 
   &-index-title {
+    margin-top: 0;
     font-size: 1rem;
-    font-weight: bold;
+    display: inline-block;
     color: rgba(102, 102, 102, .75);
   }
 

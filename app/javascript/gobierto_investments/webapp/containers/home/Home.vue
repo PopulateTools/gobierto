@@ -112,7 +112,6 @@
 <script>
 import Aside from "./Aside.vue";
 import Main from "./Main.vue";
-import Nav from "./Nav.vue";
 import Article from "./Article.vue";
 import axios from "axios";
 
@@ -129,7 +128,6 @@ export default {
   components: {
     Aside,
     Main,
-    Nav,
     Article,
     Loading,
     Calendar,

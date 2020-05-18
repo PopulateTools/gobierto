@@ -22,14 +22,11 @@ ca:
         gobierto_data: Dades
     projects:
       all: Totes
-      analysis: Anàlisi
-      api: API
       buttonQueries: Vegeu consultes (c)
       buttonRecentQueries: Vegeu consultes recents (r)
       buttonRunQuery: Executeu consulta (CMD/WIN + Enter)
       cancel: Cancel·leu
       categories: Categories
-      dashboards: Dashboards
       data: Dades
       dataset: Conjunt de dades
       datasetUpdated: Darrers datasets actualitzats
@@ -37,15 +34,11 @@ ca:
       downloadData: Descarregueu dades
       edit: Editeu
       emptyRecentQueries: No hi ha consultes recents
-      fav: Favorit
       favs: Favorites
-      follow: Seguïu
       frequency: Freqüència
       guide: Guia per utilitzar l'editor SQL
-      info: Informació
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualització modificada
-      news: Notícies
       private: Privat
       queries: Consultes
       queryExecuted: Consulta executada en

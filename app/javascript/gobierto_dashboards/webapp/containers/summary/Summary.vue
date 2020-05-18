@@ -94,6 +94,18 @@
       </div>
     </div>
 
+    <div class="m_t_4">
+      <h3 class="mt1 graph-title">{{ labelMainAssignees }}</h3>
+      <table id="assignees-table" class="dashboards-home-main--table">
+        <thead>
+          <th class="dashboards-home-main--th"><div>{{ labelTableThAssignee }}</div></th>
+          <th class="dashboards-home-main--th"><div>{{ labelTableThContracts }}</div></th>
+          <th class="dashboards-home-main--th"><div>{{ labelTableThAMount }}</div></th>
+        </thead>
+        <tbody id="assignees-table-body"></tbody>
+      </table>
+    </div>
+
   </div>
 </template>
 
@@ -116,7 +128,11 @@ export default {
       labelHalfSpendingsContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_half_spendings_contracts'),
       labelContractType: I18n.t('gobierto_dashboards.dashboards.contracts.contract_type'),
       labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
-      labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution')
+      labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution'),
+      labelMainAssignees: I18n.t('gobierto_dashboards.dashboards.contracts.main_assignees'),
+      labelTableThAssignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
+      labelTableThContracts: I18n.t('gobierto_dashboards.dashboards.contracts.contracts'),
+      labelTableThAMount: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount'),
     }
   },
   mounted() {

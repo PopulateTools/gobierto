@@ -159,6 +159,8 @@ export class ContractsController {
     this._renderByAmountsChart();
     this._renderContractTypeChart();
     this._renderProcessTypeChart();
+
+    this._renderAssigneesTable();
   }
 
   _refreshData(reducedContractsData){
@@ -167,6 +169,7 @@ export class ContractsController {
     vueApp.contractsData = reducedContractsData;
 
     this._renderContractsMetricsBox();
+    this._renderAssigneesTable();
   }
 
   _renderTendersMetricsBox(){
@@ -280,6 +283,56 @@ export class ContractsController {
     }
 
     new GroupPctDistributionBars(renderOptions);
+  }
+
+  _renderAssigneesTable(){
+    const _contractsData = this._currentDataSource().contractsData,
+          table = document.getElementById("assignees-table"),
+          cellClass = "dashboards-home-main--td",
+          groupedByAssignee = {};
+
+    // Group contracts by assignee
+    _contractsData.forEach((contract) => {
+      if (contract.assignee === '' || contract.assignee === undefined) {
+        return;
+      }
+
+      groupedByAssignee[contract.assignee] = groupedByAssignee[contract.assignee] || {name: contract.assignee}
+
+      groupedByAssignee[contract.assignee].sum = groupedByAssignee[contract.assignee].sum || 0
+      groupedByAssignee[contract.assignee].sum += parseFloat(contract.final_amount)
+
+      groupedByAssignee[contract.assignee].count = groupedByAssignee[contract.assignee].count || 0
+      groupedByAssignee[contract.assignee].count++;
+    });
+
+
+    // Sort grouped elements by number of contracts
+    const sortedAndGrouped = Object.values(groupedByAssignee).sort((a, b) => { return a.count > b.count ? 1 : -1 });
+
+    // If the table already has content we remove it
+    if (table.rows.length > 0) {
+      for (var i = table.rows.length - 1; i >= 0; i--) {
+        table.deleteRow(i);
+      }
+    }
+
+    // Build the table
+    sortedAndGrouped.forEach((groupedItem) => {
+      const row = table.insertRow(0);
+
+      const cellAssignee = row.insertCell(0);
+      const cellContracts = row.insertCell(1);
+      const cellAmountSum = row.insertCell(2);
+
+      cellAssignee.classList.add(cellClass);
+      cellContracts.classList.add(cellClass);
+      cellAmountSum.classList.add(cellClass);
+
+      cellAssignee.innerHTML = groupedItem.name;
+      cellContracts.innerHTML = groupedItem.count;
+      cellAmountSum.innerHTML = money(groupedItem.sum);
+    })
   }
 
   _currentDataSource(){

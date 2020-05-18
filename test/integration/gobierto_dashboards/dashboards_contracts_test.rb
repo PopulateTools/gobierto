@@ -87,9 +87,17 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       # Contract type
       assert page.has_content?(/Gestión de servicios públicos\d*1,6 %/)
       assert page.has_content?(/Servicios\d*56,3 %/)
-      # Process type
+
+      # # Process type
       assert page.has_content?(/Abierto simplificado\d*29,8 %/)
       assert page.has_content?(/Negociado con publicidad\d*0,4 %/)
+
+      # Assignees table
+      first_contract = find("#assignees-table-body tr", match: :first)
+
+      assert first_contract.has_content?('IMPORTACIONES INDUSTRIALES, S.A.')
+      assert first_contract.has_content?(' 4 ')
+      assert first_contract.has_content?('60.004,64 €')
     end
   end
 

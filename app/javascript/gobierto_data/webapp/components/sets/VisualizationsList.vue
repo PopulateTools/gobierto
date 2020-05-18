@@ -87,7 +87,7 @@
             <template v-for="{ items, config, name, id } in publicVisualizations">
               <div :key="name">
                 <router-link
-                  :key="$route.path"
+                  :class="{ 'user-not-logged': !isUserLogged }"
                   :to="`/datos/${$route.params.id}/v/${id}`"
                   class="gobierto-data-visualizations-name"
                   @click.native="loadViz(name)"

@@ -3,6 +3,9 @@ import VueRouter from "vue-router";
 import { getRemoteData } from '../webapp/lib/get_remote_data'
 import { EventBus } from '../webapp/mixins/event_bus'
 import { money } from 'lib/shared/modules/vue-filters'
+import { sum, mean, median, max } from 'd3-array';
+
+const d3 = { sum, mean, median, max }
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -129,7 +132,7 @@ export class ContractsController {
 
   _renderTendersMetricsBox(tendersData){
     // Calculations
-    const amountsArray = tendersData.map((tender) => parseFloat(tender.initial_amount) );
+    const amountsArray = tendersData.map(({initial_amount = 0}) => parseFloat(initial_amount) );
 
     const numberTenders = tendersData.length;
     const sumTenders = d3.sum(amountsArray);
@@ -145,10 +148,10 @@ export class ContractsController {
 
   _renderContractsMetricsBox(contractsData){
     // Calculations
-    const amountsArray = contractsData.map((contract) => parseFloat(contract.final_amount) );
+    const amountsArray = contractsData.map(({final_amount = 0}) => parseFloat(final_amount) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
-    const savingsArray = contractsData.map((contract) =>
-      (1 - parseFloat(contract.final_amount) / parseFloat(contract.initial_amount))
+    const savingsArray = contractsData.map(({initial_amount = 0, final_amount = 0}) =>
+      (1 - parseFloat(final_amount) / parseFloat(initial_amount))
     );
 
     // Calculations box items
@@ -159,10 +162,10 @@ export class ContractsController {
     const meanSavings = d3.mean(savingsArray);
 
     // Calculations headlines
-    const lessThan1000Total = contractsData.filter((contract) => parseFloat(contract.final_amount) < 1000).length;
+    const lessThan1000Total = contractsData.filter(({final_amount = 0}) => parseFloat(final_amount) < 1000).length;
     const lessThan1000Pct = lessThan1000Total/numberContracts;
 
-    const largerContractAmount = d3.max(contractsData, (contract) => parseFloat(contract.final_amount));
+    const largerContractAmount = d3.max(contractsData, ({final_amount = 0}) => parseFloat(final_amount));
     const largerContractAmountPct = largerContractAmount / sumContracts;
 
     let iteratorAmountsSum = 0, numberContractsHalfSpendings = 0;

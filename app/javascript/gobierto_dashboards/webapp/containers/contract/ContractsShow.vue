@@ -1,18 +1,18 @@
 <template>
   <div>
-    <h1>{{ contract.title }}</h1>
+    <h1>{{ title }}</h1>
 
-    <p v-if="contract.description">
-      {{ contract.description }}
+    <p v-if="description">
+      {{ description }}
     </p>
 
     <div class="pure-g p_2 bg-gray">
       <div class="pure-u-1 pure-u-lg-1-2">
         <label class="soft">{{ labelAsignee }}</label>
         <div class="">
-          <strong class="d_block">{{ contract.assignee }}</strong>
-          <span v-if="contract.document_number">
-            {{contract.document_number}}
+          <strong class="d_block">{{ assignee }}</strong>
+          <span v-if="document_number">
+            {{document_number}}
           </span>
         </div>
       </div>
@@ -21,19 +21,19 @@
         <table>
           <tr>
             <th class="left">{{ labelContractAmount }}</th>
-            <td>{{ contract.final_amount | money }}</td>
+            <td>{{ final_amount | money }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelTenderAmount }}</th>
-            <td>{{ contract.initial_amount | money }}</td>
+            <td>{{ initial_amount | money }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelStatus }}</th>
-            <td>{{ contract.status }}</td>
+            <td>{{ status }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelProcessType }}</th>
-            <td>{{ contract.process_type }}</td>
+            <td>{{ process_type }}</td>
           </tr>
         </table>
 
@@ -53,7 +53,14 @@ export default {
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
-      contract: null,
+      title: '',
+      description: '',
+      assignee: '',
+      document_number: '',
+      final_amount: '',
+      initial_amount: '',
+      status: '',
+      process_type: '',
       labelAsignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
       labelTenderAmount: I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount'),
       labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
@@ -64,9 +71,18 @@ export default {
   created() {
     const itemId = this.$route.params.id;
 
-    this.contract = this.contractsData.find((contract) => {
+    const contract = this.contractsData.find((contract) => {
       return contract.id === itemId
     });
+
+    this.title = contract.title
+    this.description = contract.description
+    this.assignee = contract.assignee
+    this.document_number = contract.document_number
+    this.final_amount = contract.final_amount
+    this.initial_amount = contract.initial_amount
+    this.status = contract.status
+    this.process_type = contract.process_type
   }
 }
 </script>

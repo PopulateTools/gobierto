@@ -82,29 +82,19 @@ export default {
   name: 'Summary',
   data(){
     return {
-      labelTenders: '',
-      labelTendersFor: '',
-      labelContracts: '',
-      labelContractsFor: '',
-      labelMeanAmount: '',
-      labelMedianAmount: '',
-      labelMeanSavings: '',
-      labelLessThan1000: '',
-      labelLargerContractAmount: '',
-      labelHalfSpendingsContracts: ''
+      labelTenders: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders'),
+      labelTendersFor: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders_for'),
+      labelContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts'),
+      labelContractsFor: I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts_for'),
+      labelMeanAmount: I18n.t('gobierto_dashboards.dashboards.contracts.summary.mean_amount'),
+      labelMedianAmount: I18n.t('gobierto_dashboards.dashboards.contracts.summary.median_amount'),
+      labelMeanSavings: I18n.t('gobierto_dashboards.dashboards.contracts.summary.mean_savings'),
+      labelLessThan1000: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_less_than_1000'),
+      labelLargerContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_larger_contract_amount'),
+      labelHalfSpendingsContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_half_spendings_contracts')
     }
   },
   created() {
-    this.labelTenders = I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders'),
-    this.labelTendersFor = I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders_for'),
-    this.labelContracts = I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts'),
-    this.labelContractsFor = I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts_for'),
-    this.labelMeanAmount = I18n.t('gobierto_dashboards.dashboards.contracts.summary.mean_amount'),
-    this.labelMedianAmount = I18n.t('gobierto_dashboards.dashboards.contracts.summary.median_amount'),
-    this.labelMeanSavings = I18n.t('gobierto_dashboards.dashboards.contracts.summary.mean_savings'),
-    this.labelLessThan1000 = I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_less_than_1000'),
-    this.labelLargerContractAmount = I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_larger_contract_amount'),
-    this.labelHalfSpendingsContracts = I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_half_spendings_contracts')
   },
   mounted() {
     EventBus.$emit("summary_ready");

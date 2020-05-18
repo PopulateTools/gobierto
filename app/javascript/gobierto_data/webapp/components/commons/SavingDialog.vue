@@ -73,7 +73,6 @@
       "
       :disabled="!enabledSavedButton"
       icon="save"
-      color="var(--color-base)"
       background="#fff"
       class="btn-sql-editor"
       @click.native="onClickSaveHandler"
@@ -86,7 +85,6 @@
         :disabled="!enabledSavedButton"
         icon="undo"
         class="btn-sql-editor btn-sql-editor-revert"
-        color="var(--color-base)"
         background="#fff"
         @click.native="revertQueryHandler"
       />

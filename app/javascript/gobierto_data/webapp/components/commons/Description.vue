@@ -8,17 +8,13 @@
         </h2>
       </template>
       <div class="gobierto-data-description">
-        <template
-          v-for="(row, i) in numberOfRows"
-        >
+        <template>
           <div
-            v-for="{ column, type } in arrayOfObjectsColumns.slice(i * itemsPerRow, (i + 1) * itemsPerRow)"
+            v-for="{ column, type } in arrayOfObjectsColumns"
             :key="column"
-            :title="type"
-            class="gobierto-data-columns-icon-description"
           >
             <i
-              :class="'fas gobierto-data-columns-icon gobierto-data-columns-icon-' + type"
+              :class="`fas gobierto-data-columns-icon gobierto-data-columns-icon-${type}`"
               style="color: var(--color-base);"
             />
             <span class="gobierto-data-sidebar-datasets-links-columns-text">
@@ -47,15 +43,9 @@ export default {
   },
   data() {
     return {
-      itemsPerRow: 5,
       labelDescription: I18n.t("gobierto_data.projects.description") || '',
       showDescription: true,
       arrayOfObjectsColumns: []
-    }
-  },
-  computed: {
-    numberOfRows() {
-      return Math.ceil(Object.keys(this.arrayOfObjectsColumns).length / this.itemsPerRow);
     }
   },
   created() {

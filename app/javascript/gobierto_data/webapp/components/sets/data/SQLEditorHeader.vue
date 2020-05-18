@@ -5,7 +5,6 @@
         :title="labelResetQuery"
         class="btn-sql-editor"
         icon="home"
-        color="var(--color-base)"
         background="#fff"
         @click.native="resetQueryHandler"
       />
@@ -17,7 +16,6 @@
         :title="labelButtonRecentQueries"
         class="btn-sql-editor"
         icon="history"
-        color="var(--color-base)"
         background="#fff"
         @click.native="isRecentModalActive = !isRecentModalActive"
       />
@@ -53,6 +51,7 @@
         mode="out-in"
       >
         <Queries
+          v-if="privateQueries.length || publicQueries.length"
           v-show="isQueriesModalActive"
           v-closable="{
             exclude: ['buttonYourQueries'],
@@ -84,7 +83,6 @@
       :title="labelButtonRunQuery"
       class="btn-sql-editor btn-sql-editor-run"
       icon="play"
-      color="var(--color-base)"
       background="#fff"
       @click.native="clickRunQueryHandler()"
     >

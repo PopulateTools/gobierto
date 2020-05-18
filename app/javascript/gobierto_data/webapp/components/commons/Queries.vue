@@ -1,7 +1,5 @@
 <template>
-  <div
-    v-if="privateQueries.length || publicQueries.length" class="gobierto-data-summary-queries"
-  >
+  <div class="gobierto-data-summary-queries">
     <div class="gobierto-data-summary-queries-panel pure-g">
       <div class="pure-u-1-2 gobierto-data-summary-queries-panel-dropdown">
         <template v-if="isUserLogged">

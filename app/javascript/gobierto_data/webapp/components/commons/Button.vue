@@ -29,15 +29,15 @@ export default {
     },
     color: {
       type: String,
-      required: true
+      default: 'var(--color-base)'
     },
     background: {
       type: String,
-      required: true
+      default: ''
     },
     iconColor: {
       type: String,
-      default: 'inherit'
+      default: 'var(--color-base)'
     }
   }
 }

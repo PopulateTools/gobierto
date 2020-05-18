@@ -4,7 +4,6 @@
       <InfoBlockText
         v-if="dateUpdated"
         icon="clock"
-        icon-color="var(--color-base)"
         opacity=".25"
         :label="labelUpdated"
         :text="dateUpdated | convertDate"
@@ -12,7 +11,6 @@
       <InfoBlockText
         v-if="frequencyDataset"
         icon="calendar"
-        icon-color="var(--color-base)"
         opacity=".25"
         :label="labelFrequency"
         :text="frequencyDataset"
@@ -20,7 +18,6 @@
       <InfoBlockText
         v-if="categoryDataset"
         icon="tag"
-        icon-color="var(--color-base)"
         opacity=".25"
         :label="labelSubject"
         :text="categoryDataset"

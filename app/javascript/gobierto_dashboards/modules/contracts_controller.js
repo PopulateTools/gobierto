@@ -132,7 +132,7 @@ export class ContractsController {
 
   _renderTendersMetricsBox(tendersData){
     // Calculations
-    const amountsArray = tendersData.map(({initial_amount = 0}) => parseFloat(initial_amount) );
+    const amountsArray = tendersData.map(({initial_amount = 0}) => initial_amount === '' ? 0.0 : parseFloat(initial_amount) );
 
     const numberTenders = tendersData.length;
     const sumTenders = d3.sum(amountsArray);
@@ -148,11 +148,14 @@ export class ContractsController {
 
   _renderContractsMetricsBox(contractsData){
     // Calculations
-    const amountsArray = contractsData.map(({final_amount = 0}) => parseFloat(final_amount) );
+    const amountsArray = contractsData.map(({final_amount = 0}) => final_amount === '' ? 0.0 : parseFloat(final_amount) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
-    const savingsArray = contractsData.map(({initial_amount = 0, final_amount = 0}) =>
-      (1 - parseFloat(final_amount) / parseFloat(initial_amount))
-    );
+    const savingsArray = contractsData.map(({initial_amount = 0, final_amount = 0}) =>{
+      initial_amount = initial_amount === '' ? 0.0 : initial_amount;
+      final_amount = final_amount === '' ? 0.0 : final_amount;
+
+      return (1 - parseFloat(final_amount) / parseFloat(initial_amount))
+    });
 
     // Calculations box items
     const numberContracts = contractsData.length;

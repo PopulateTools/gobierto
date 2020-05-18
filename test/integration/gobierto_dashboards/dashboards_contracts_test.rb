@@ -63,25 +63,25 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       assert find(".dashboards-home-nav--tab.is-active").text, 'RESUMEN'
 
       # Box
-      page.has_content?("Licitaciones\n252")
-      page.has_content?("licitaciones por importe de\n134.068.916,04 €")
-      page.has_content?("Importe medio\n532.019,51 €")
+      assert page.has_content?("Licitaciones\n252")
+      assert page.has_content?("licitaciones por importe de\n134.068.916,04 €")
+      assert page.has_content?("Importe medio\n532.019,51 €")
 
-      page.has_content?("Importe medio\n532.019,51 €")
-      page.has_content?("Importe mediano\n87.725,00 €")
+      assert page.has_content?("Importe medio\n532.019,51 €")
+      assert page.has_content?("Importe mediano\n87.725,00 €")
 
-      page.has_content?("Contratos adjudicados\n245")
-      page.has_content?("contratos por importe de\n72.980.393,23 €")
+      assert page.has_content?("Contratos adjudicados\n245")
+      assert page.has_content?("contratos por importe de\n72.980.393,23 €")
 
-      page.has_content?("Importe medio\n304.084,97 €")
-      page.has_content?("Importe mediano\n28.933,91 €")
+      assert page.has_content?("Importe medio\n297.879,16 €")
+      assert page.has_content?("Importe mediano\n28.357,56 €")
 
-      page.has_content?("Ahorro medio de licitación a adjudicación\n48 %")
+      assert page.has_content?("Ahorro medio de licitación a adjudicación\n49 %")
 
       # Headlines
       assert page.has_content?("El 10 % de los contratos son menores de 1.000 €")
       assert page.has_content?("El mayor contrato supone un 18 % de todo el gasto en contratos")
-      assert page.has_content?("El 11 % de contratos concentran el 50% de todo el gasto")
+      assert page.has_content?("El 2 % de contratos concentran el 50% de todo el gasto")
     end
   end
 

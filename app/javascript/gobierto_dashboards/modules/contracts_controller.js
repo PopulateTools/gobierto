@@ -15,9 +15,6 @@ import { money } from 'lib/shared'
 import { AmountDistributionBars } from "lib/visualizations";
 import { GroupPctDistributionBars } from "lib/visualizations";
 
-import { AmountDistributionBars } from "lib/visualizations/modules/amount_distribution_bars.js";
-import { GroupPctDistributionBars } from "lib/visualizations/modules/group_pct_distribution_bars.js";
-
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 

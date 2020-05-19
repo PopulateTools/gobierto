@@ -9,20 +9,6 @@
           {{ titleDataset }}
         </h2>
       </div>
-      <div class="pure-u-1-2 gobierto-data-buttons">
-        <Button
-          :text="labelFav"
-          icon="star"
-          color="#fff"
-          background="var(--color-base)"
-        />
-        <Button
-          :text="labelFollow"
-          icon="bell"
-          color="#fff"
-          background="var(--color-base)"
-        />
-      </div>
     </div>
 
     <DatasetNav :active-dataset-tab="activeDatasetTab" />
@@ -93,7 +79,6 @@ import DataTab from "./sets/DataTab.vue";
 import QueriesTab from "./sets/QueriesTab.vue";
 import VisualizationsTab from "./sets/VisualizationsTab.vue";
 import DownloadsTab from "./sets/DownloadsTab.vue";
-import Button from "./commons/Button.vue";
 import { getUserId } from "./../../lib/helpers";
 import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../lib/factories/queries";
@@ -105,7 +90,6 @@ import { VisualizationFactoryMixin } from "./../../lib/factories/visualizations"
 export default {
   name: "Main",
   components: {
-    Button,
     SummaryTab,
     DataTab,
     QueriesTab,
@@ -127,8 +111,6 @@ export default {
   },
   data() {
     return {
-      labelFav: I18n.t("gobierto_data.projects.fav") || "",
-      labelFollow: I18n.t("gobierto_data.projects.follow") || "",
       datasetId: 0, // possible deprecation in DATA, don't in the class
       titleDataset: "",
       arrayFormats: {},

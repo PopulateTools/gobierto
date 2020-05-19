@@ -22,31 +22,25 @@ es:
         gobierto_data: Datos
     projects:
       all: Todas
-      analysis: Análisis
-      api: API
       buttonFork: Haz click para crear una versión de esta consulta
       buttonQueries: Ver consultas (c)
       buttonRecentQueries: Ver consultas recientes (r)
       buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)
       cancel: Cancelar
       categories: Categorías
-      dashboards: Dashboards
       data: Datos
       dataset: Conjunto de datos
+      datasetUpdated: Últimos datasets actualizados
       download: Descargar
       downloadData: Descargar datos
       edit: Editar
       emptyRecentQueries: No hay consultas recientes
-      fav: Favorito
       favs: Favoritas
-      follow: Seguir
       fork: Fork
       frequency: Frecuencia
       guide: Guía para usar el editor SQL
-      info: Información
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualización modificada
-      news: Noticias
       private: Privada
       queries: Consultas
       queryExecuted: Consulta ejecutada en

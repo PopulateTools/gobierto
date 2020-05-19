@@ -135,9 +135,11 @@ export class ContractsController {
 
     for(let i = 0; i < contractsData.length; i++){
       const contract = contractsData[i],
-            final_amount = (contract.final_amount === '' || contract.final_amount === undefined) ? 0.0 : parseFloat(contract.final_amount);
+            final_amount = (contract.final_amount === '' || contract.final_amount === undefined) ? 0.0 : parseFloat(contract.final_amount),
+            initial_amount = (contract.initial_amount === '' || contract.initial_amount === undefined) ? 0.0 : parseFloat(contract.initial_amount);
 
       contract.final_amount = final_amount;
+      contract.initial_amount = initial_amount;
       contract.range = rangeFormat(+final_amount);
     }
 

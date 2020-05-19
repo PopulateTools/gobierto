@@ -31,7 +31,7 @@ export class GroupPctDistributionBars {
       .x(d3.scaleThreshold())
       .dimension(dimension)
       .group(groupedDimension)
-      .ordering(d => d.key)
+      .ordering(d => -d.value)
       .labelOffsetX(-_initialLabelOffset)
       .gap(_gap)
       .elasticX(true)

@@ -1,4 +1,5 @@
 import 'sticky-kit/dist/sticky-kit.js'
+import "leaflet/dist/leaflet.css";
 
 import { GetUnemploymentAgeData } from './classes/get_unemployment_age_data.js'
 import { PopulationCard } from './classes/population.js'
@@ -29,6 +30,8 @@ import {
   VisRentDistribution,
   VisPopulationPyramid,
  } from 'lib/visualizations'
+
+import buildMap from './map_getafe'
 
 function selectSection(html){
   var $el = $('[data-breadcrumb-sub-item]');
@@ -203,4 +206,8 @@ $(document).on('turbolinks:load', function() {
     // render again
     vis_population.render()
   });
+
+
 });
+
+buildMap()

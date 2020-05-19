@@ -257,6 +257,29 @@ ActiveRecord::Schema.define(version: 2020_05_15_093807) do
     t.index ["site_id"], name: "index_custom_user_fields_on_site_id"
   end
 
+  create_table "example_1_records", id: false, force: :cascade do |t|
+    t.text "objectid"
+    t.text "ref_pt_id"
+    t.text "rte_sin"
+    t.text "hwy"
+    t.text "rte_suffix"
+    t.text "direction"
+    t.text "int_id"
+    t.text "ref_pt_num"
+    t.text "hwy_dir"
+    t.text "hwy_suffix_dir"
+    t.text "created_user"
+    t.text "created_date"
+    t.text "last_edited_user"
+    t.text "last_edited_date"
+    t.text "route_id_rims"
+    t.text "fromdate"
+    t.text "todate"
+    t.text "eventid"
+    t.text "routeid"
+    t.text "measure"
+  end
+
   create_table "ga_attachings", force: :cascade do |t|
     t.integer "site_id", null: false
     t.integer "attachment_id", null: false
@@ -571,6 +594,7 @@ ActiveRecord::Schema.define(version: 2020_05_15_093807) do
   end
 
   create_table "gdata_visualizations", force: :cascade do |t|
+    t.bigint "query_id"
     t.bigint "user_id"
     t.jsonb "name_translations"
     t.integer "privacy_status", default: 0, null: false
@@ -578,7 +602,6 @@ ActiveRecord::Schema.define(version: 2020_05_15_093807) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "sql"
-    t.bigint "query_id"
     t.bigint "dataset_id"
     t.index ["dataset_id"], name: "index_gdata_visualizations_on_dataset_id"
     t.index ["query_id"], name: "index_gdata_visualizations_on_query_id"
@@ -999,6 +1022,41 @@ ActiveRecord::Schema.define(version: 2020_05_15_093807) do
     t.index ["statuses_vocabulary_id"], name: "index_gplan_plans_on_statuses_vocabulary_id"
     t.index ["title_translations"], name: "index_gplan_plans_on_title_translations", using: :gin
     t.index ["vocabulary_id"], name: "index_gplan_plans_on_vocabulary_id"
+  end
+
+  create_table "nba_shot_stats", id: false, force: :cascade do |t|
+    t.text "game_id"
+    t.text "matchup"
+    t.text "location"
+    t.text "w"
+    t.text "final_margin"
+    t.text "shot_number"
+    t.text "period"
+    t.text "game_clock"
+    t.text "shot_clock"
+    t.text "dribbles"
+    t.text "touch_time"
+    t.text "shot_dist"
+    t.text "pts_type"
+    t.text "shot_result"
+    t.text "closest_defender"
+    t.text "closest_defender_player_id"
+    t.text "close_def_dist"
+    t.text "fgm"
+    t.text "pts"
+    t.text "player_name"
+    t.text "player_id"
+  end
+
+  create_table "nba_stats", id: false, force: :cascade do |t|
+    t.text "column_1"
+    t.text "player"
+    t.text "height"
+    t.text "weight"
+    t.text "collage"
+    t.text "born"
+    t.text "birth_city"
+    t.text "birth_state"
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|

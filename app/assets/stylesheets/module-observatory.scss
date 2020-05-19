@@ -1,3 +1,6 @@
+@import "css-conf";
+@import "mixins";
+
 /*
  * Observatory
  *
@@ -456,5 +459,10 @@
         font-size: 1.25rem;
       }
     }
+  }
+
+  #map {
+    height: 100%;
+    width: 100%;
   }
 }

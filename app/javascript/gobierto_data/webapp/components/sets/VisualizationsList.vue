@@ -174,7 +174,7 @@ export default {
       const userId = Number(getUserId())
       this.$emit('changeViz', 1)
       this.$root.$emit('loadVizName', vizName)
-      if (userId !== user) {
+      if (userId !== 0 && userId !== user) {
         this.$root.$emit('enabledForkVizButton', true)
       }
     },

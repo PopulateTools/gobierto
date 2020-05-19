@@ -91,7 +91,7 @@ export default {
   data() {
     return {
       currentVizComponent: null,
-      items: '',
+      items: null,
       isPrivateLoading: false,
       isPublicLoading: false,
       titleViz: '',
@@ -100,7 +100,7 @@ export default {
     };
   },
   watch: {
-    currentVizTab(newValue, oldValue) {
+    currentVizTab(newValue) {
       if (newValue === 0) {
         this.showVizElement(0)
       }

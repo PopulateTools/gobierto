@@ -294,13 +294,14 @@ export default {
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
 
+    // Get all visualizations
+    await this.getPrivateVisualizations();
+    await this.getPublicVisualizations();
+
     this.QueryIsNotMine();
     this.runCurrentQuery();
     this.setDefaultQuery();
 
-    // Get all visualizations
-    await this.getPrivateVisualizations();
-    await this.getPublicVisualizations();
   },
   mounted() {
     const recentQueries = localStorage.getItem("recentQueries");
@@ -605,12 +606,18 @@ export default {
       }
     },
     async runCurrentQuery() {
+      console.log(this.currentQuery)
       this.isQueryRunning = true;
 
       // save the query executed
       this.storeRecentQuery();
 
-      const params = { sql: this.currentQuery };
+      let params = { sql: this.currentQuery };
+
+      if (this.currentQuery === null) {
+        this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
+        params = { sql: this.currentQuery };
+      }
       //
       const startTime = new Date().getTime();
       // factory method

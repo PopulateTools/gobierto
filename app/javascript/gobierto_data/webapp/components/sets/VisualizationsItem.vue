@@ -1,6 +1,6 @@
 <template>
   <div class="gobierto-data-sql-editor">
-    <template v-if="privateVisualizations.length || publicVisualizations.length">
+    <template v-if="privateVisualizations.length && items || publicVisualizations.length && items">
       <div class="pure-g">
         <div
           class="pure-u-1 pure-u-lg-4-4"
@@ -118,6 +118,18 @@ export default {
       tabs
     }
   },
+  watch: {
+    publicVisualizations(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.getDataVisualization(newValue);
+      }
+    },
+    privateVisualization(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.getDataVisualization(newValue);
+      }
+    }
+  },
   async created() {
     const userId = getUserId()
     if (userId) {
@@ -129,10 +141,11 @@ export default {
   },
   beforeDestroy() {
     this.$root.$emit('disableVizModified')
+    this.$root.$emit('disabledSavedVizString')
   },
   methods: {
     onSaveEventHandler(opts) {
-      //Add visualization ID to opts object, we need it to update a viz savedlaputaelite
+      //Add visualization ID to opts object, we need it to update a viz saved
       opts.vizID = Number(this.vizID)
       opts.user = Number(this.user)
       opts.queryViz = Number(this.queryViz)

@@ -46,20 +46,20 @@
           :style="{ paddingRight: '.5em', margin: 0 }"
         />
       </template>
-    </template>
 
-    <transition
-      name="fade"
-      mode="out-in"
-    >
-      <template v-if="isQueryModified || isVizModified">
-        <div class="gobierto-data-sql-editor-modified-label-container">
-          <span class="gobierto-data-sql-editor-modified-label">
-            {{ labelModified }}
-          </span>
-        </div>
-      </template>
-    </transition>
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <template v-if="isQueryModified || isVizModified">
+          <div class="gobierto-data-sql-editor-modified-label-container">
+            <span class="gobierto-data-sql-editor-modified-label">
+              {{ labelModified }}
+            </span>
+          </div>
+        </template>
+      </transition>
+    </template>
 
     <transition
       name="fade"
@@ -81,6 +81,7 @@
       :text="labelSave"
       :disabled="!isDisabled"
       icon="save"
+      color="var(--color-base)"
       background="#fff"
       class="btn-sql-editor"
       @click.native="onClickSaveHandler"
@@ -105,6 +106,7 @@
         :disabled="!enabledRevertButton"
         icon="undo"
         class="btn-sql-editor btn-sql-editor-revert"
+        color="var(--color-base)"
         background="#fff"
         @click.native="revertQueryHandler"
       />
@@ -267,6 +269,7 @@ export default {
       const { value } = event.target
       this.labelValue = value
       this.$emit('keyDownInput', { name: this.labelValue })
+      this.countInputCharacters(value)
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target

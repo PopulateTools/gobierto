@@ -1,18 +1,18 @@
 <template>
   <div>
-    <h1>{{ formattedContract.title }}</h1>
+    <h1>{{ title }}</h1>
 
-    <p v-if="formattedContract.description">
-      {{ formattedContract.description }}
+    <p v-if="description">
+      {{ description }}
     </p>
 
     <div class="pure-g p_2 bg-gray">
       <div class="pure-u-1 pure-u-lg-1-2">
         <label class="soft">{{ labelAsignee }}</label>
         <div class="">
-          <strong class="d_block">{{ formattedContract.assignee }}</strong>
-          <span v-if="formattedContract.document_number">
-            {{formattedContract.document_number}}
+          <strong class="d_block">{{ assignee }}</strong>
+          <span v-if="document_number">
+            {{document_number}}
           </span>
         </div>
       </div>
@@ -21,19 +21,19 @@
         <table>
           <tr>
             <th class="left">{{ labelContractAmount }}</th>
-            <td>{{ formattedContract.final_amount }}</td>
+            <td>{{ final_amount | money }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelTenderAmount }}</th>
-            <td>{{ formattedContract.initial_amount }}</td>
+            <td>{{ initial_amount | money }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelStatus }}</th>
-            <td>{{ formattedContract.status }}</td>
+            <td>{{ status }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelProcessType }}</th>
-            <td>{{ formattedContract.process_type }}</td>
+            <td>{{ process_type }}</td>
           </tr>
         </table>
 
@@ -45,15 +45,22 @@
 
 <script>
 
-import { formatCurrency } from "../../lib/utils.js";
+import { VueFiltersMixin } from "lib/shared"
 
 export default {
   name: 'ContractsShow',
+  mixins: [VueFiltersMixin],
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
-      contract: null,
-      formattedContract: null,
+      title: '',
+      description: '',
+      assignee: '',
+      document_number: '',
+      final_amount: '',
+      initial_amount: '',
+      status: '',
+      process_type: '',
       labelAsignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
       labelTenderAmount: I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount'),
       labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
@@ -64,18 +71,28 @@ export default {
   created() {
     const itemId = this.$route.params.id;
 
-    this.contract = this.contractsData.find((contract) => {
+    const contract = this.contractsData.find((contract) => {
       return contract.id === itemId
     });
 
-    this.initFormattedContract();
-  },
-  methods: {
-    initFormattedContract(){
-      this.formattedContract = Object.assign({}, this.contract);
-      this.formattedContract.final_amount = formatCurrency(this.formattedContract.final_amount);
-      this.formattedContract.initial_amount = formatCurrency(this.formattedContract.initial_amount);
-    }
+    const {
+      title,
+      description,
+      assignee,
+      document_number,
+      final_amount,
+      status,
+      process_type
+    } = contract
+
+    this.title = title
+    this.description = description
+    this.assignee = assignee
+    this.document_number = document_number
+    this.final_amount = final_amount
+    this.initial_amount = initial_amount
+    this.status = status
+    this.process_type = process_type
   }
 }
 </script>

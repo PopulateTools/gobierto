@@ -5,6 +5,7 @@ require "test_helper"
 class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationTest
   def setup
     super
+    @summary_path = gobierto_dashboards_contracts_path(locale: 'es')
     @contracts_path = gobierto_dashboards_contratos_contratos_path
     @tenders_path = gobierto_dashboards_contratos_licitaciones_path
 
@@ -52,6 +53,36 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
         }
       }
     }
+  end
+
+  def test_summary
+    with(site: site, js: true) do
+      visit @summary_path
+
+      # Active tab is Summary
+      assert find(".dashboards-home-nav--tab.is-active").text, 'RESUMEN'
+
+      # Box
+      assert page.has_content?("Licitaciones\n252")
+      assert page.has_content?("licitaciones por importe de\n134.068.916,04 €")
+      assert page.has_content?("Importe medio\n532.019,51 €")
+
+      assert page.has_content?("Importe medio\n532.019,51 €")
+      assert page.has_content?("Importe mediano\n87.725,00 €")
+
+      assert page.has_content?("Contratos adjudicados\n245")
+      assert page.has_content?("contratos por importe de\n72.980.393,23 €")
+
+      assert page.has_content?("Importe medio\n297.879,16 €")
+      assert page.has_content?("Importe mediano\n28.357,56 €")
+
+      assert page.has_content?("Ahorro medio de licitación a adjudicación\n49 %")
+
+      # Headlines
+      assert page.has_content?("El 10 % de los contratos son menores de 1.000 €")
+      assert page.has_content?("El mayor contrato supone un 18 % de todo el gasto en contratos")
+      assert page.has_content?("El 2 % de contratos concentran el 50% de todo el gasto")
+    end
   end
 
   def test_contracts

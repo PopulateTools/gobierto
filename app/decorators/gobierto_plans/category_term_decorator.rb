@@ -148,7 +148,7 @@ module GobiertoPlans
     private
 
     def hide_empty_fields?
-      @hide_empty_fields ||= !plan.configuration_data.fetch("show_empty_fields", false)
+      @hide_empty_fields ||= !plan.configuration_data&.fetch("show_empty_fields", false)
     end
 
     def node_plugins_data(_plan, _node)

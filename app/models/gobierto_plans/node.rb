@@ -93,7 +93,7 @@ module GobiertoPlans
     end
 
     def self.front_node_custom_field_records(plan, node)
-      node_custom_field_records(plan, node).where.not(custom_fields: { uid: plan.configuration_data.fetch("fields_to_not_show_in_front", []) })
+      node_custom_field_records(plan, node).where.not(custom_fields: { uid: plan.configuration_data&.fetch("fields_to_not_show_in_front", []) })
     end
 
     def global_custom_field_records

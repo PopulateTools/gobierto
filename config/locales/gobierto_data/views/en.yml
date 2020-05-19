@@ -22,30 +22,24 @@ en:
         gobierto_data: Data
     projects:
       all: All
-      analysis: Analysis
-      api: API
       buttonQueries: See queries (r)
       buttonRecentQueries: See recent queries (r)
       buttonRunQuery: Run query (CMD/WIN + Enter)
       cancel: Cancel
       categories: Categories
-      dashboards: Dashboards
       data: Data
       dataset: Datasets
+      datasetUpdated: Last updated datasets
       description: Description
       download: Download
       downloadData: Download Data
       edit: Edit
       emptyRecentQueries: There's no recent queries
-      fav: Favorite
       favs: Favorites
-      follow: Follow
       frequency: Frequency
       guide: Guide to using the SQL editor
-      info: Information
       modifiedQuery: Modified Query
       modifiedVisualization: Modified Visualization
-      news: News
       preview: Preview
       private: Private
       queries: Queries

@@ -11,6 +11,8 @@
 
 .gobierto-data {
 
+  padding-top: 1rem;
+
   @include min-screen(768) {
     @include gutters(66px)
   }
@@ -62,7 +64,6 @@
   &-tab-sidebar--tab {
     font-style: normal;
     font-size: 14px;
-    line-height: 18px;
     color: #666;
     cursor: pointer;
     width: 32%;
@@ -1141,6 +1142,18 @@
   &-summary-separator {
     border-bottom: 1px solid rgba(102, 102, 102, .2);
     padding-bottom: 2rem;
+  }
+
+  //REVIEW: This class prevent/disabled/destroyed click event on data element from top menu
+  &-top-menu a {
+    pointer-events: none;
+  }
+
+  &-index-title {
+    margin-top: 0;
+    font-size: 1rem;
+    display: inline-block;
+    color: rgba(102, 102, 102, .75);
   }
 
 }

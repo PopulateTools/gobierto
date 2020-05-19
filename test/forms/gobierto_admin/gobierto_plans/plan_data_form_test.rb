@@ -58,7 +58,8 @@ module GobiertoAdmin
           "description" => /This is a description to be saved in a custom field/,
           "madrid-vocabulary-single-select" => /Bird/,
           "madrid-vocabulary-multiple-select" => /Bird,Swift,Pigeon/,
-          "madrid-vocabulary-tags" => /Pigeon.*New tag, with comma/
+          "madrid-vocabulary-tags" => /Pigeon/,
+          "madrid-vocabulary-tags" => /New tag, with comma/
         }
 
         custom_fields_values.each do |uid, value|

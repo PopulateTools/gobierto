@@ -9,9 +9,10 @@ module GobiertoPlans
 
     def plan_updated_at
       activity_updated_at = @site.activities.where(subject: @plan)
-                                 .order(created_at: :asc)
+                                 .order(created_at: :desc)
+                                 .limit(1)
                                  .pluck(:created_at)
-                                 .last
+                                 .first
 
       if activity_updated_at
         [@plan.updated_at, activity_updated_at].max.to_date

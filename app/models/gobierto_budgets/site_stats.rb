@@ -29,17 +29,19 @@ module GobiertoBudgets
     end
 
     def budgets_data_updated_at
-      @site.activities.where("action ~* ?", "gobierto_budgets.budgets_updated")
-           .order(created_at: :asc)
-           .pluck(:created_at)
-           .last
+      @site.activities.where(action: "gobierto_budgets.budgets_updated")
+        .order(created_at: :desc)
+        .limit(1)
+        .pluck(:created_at)
+        .first
     end
 
     def providers_data_updated_at
-      @site.activities.where("action ~* ?", "gobierto_budgets.providers_updated")
-           .order(created_at: :asc)
-           .pluck(:created_at)
-           .last
+      @site.activities.where(action: "gobierto_budgets.providers_updated")
+        .order(created_at: :desc)
+        .limit(1)
+        .pluck(:created_at)
+        .first
     end
 
     def has_data?(variable, year)

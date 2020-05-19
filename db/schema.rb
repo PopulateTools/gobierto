@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_23_142619) do
+ActiveRecord::Schema.define(version: 2020_05_15_093807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -29,8 +29,10 @@ ActiveRecord::Schema.define(version: 2020_04_23_142619) do
     t.boolean "admin_activity", null: false
     t.integer "site_id"
     t.datetime "created_at", null: false
+    t.index ["action"], name: "index_activities_on_action"
     t.index ["admin_activity"], name: "index_activities_on_admin_activity"
     t.index ["author_type", "author_id"], name: "index_activities_on_author_type_and_author_id"
+    t.index ["created_at"], name: "index_activities_on_created_at"
     t.index ["recipient_type", "recipient_id"], name: "index_activities_on_recipient_type_and_recipient_id"
     t.index ["site_id"], name: "index_activities_on_site_id"
     t.index ["subject_id", "subject_type"], name: "index_activities_on_subject_id_and_subject_type"

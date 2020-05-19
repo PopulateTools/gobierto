@@ -10,3 +10,9 @@ export const tendersColumns = [
   {field: 'status', translation: I18n.t('gobierto_dashboards.dashboards.contracts.status'), format: null},
   {field: 'submission_date', translation: I18n.t('gobierto_dashboards.dashboards.contracts.submission_date'), format: null},
 ];
+
+export const assigneesColumns = [
+  {field: 'name', translation: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'), format: null},
+  {field: 'count', translation: I18n.t('gobierto_dashboards.dashboards.contracts.contracts'), format: 'quantity'},
+  {field: 'sum', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount'), format: 'currency'},
+];

@@ -11,3 +11,12 @@ export function getRemoteData(endpoint) {
       });
   })
 }
+
+export function uuid() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 | 0,
+          val = c == 'x' ? r : (r & 0x3 | 0x8);
+
+    return val.toString(16);
+  });
+}

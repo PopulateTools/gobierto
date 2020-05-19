@@ -96,26 +96,31 @@
 
     <div class="m_t_4">
       <h3 class="mt1 graph-title">{{ labelMainAssignees }}</h3>
-      <table id="assignees-table" class="dashboards-home-main--table">
-        <thead>
-          <th class="dashboards-home-main--th"><div>{{ labelTableThAssignee }}</div></th>
-          <th class="dashboards-home-main--th"><div>{{ labelTableThContracts }}</div></th>
-          <th class="dashboards-home-main--th"><div>{{ labelTableThAMount }}</div></th>
-        </thead>
-        <tbody id="assignees-table-body"></tbody>
-      </table>
+      <Table
+        :items="items"
+        :columns="columns"
+      >
+      </Table>
     </div>
 
   </div>
 </template>
 
 <script>
+import Table from "../../components/Table.vue";
 import { EventBus } from "../../mixins/event_bus";
+import { assigneesColumns } from "../../lib/config.js";
+import { uuid } from '../../lib/utils.js'
 
 export default {
   name: 'Summary',
+  components: {
+    Table
+  },
   data(){
     return {
+      contractsData: this.$root.$data.contractsData,
+      items: [],
       labelTenders: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders'),
       labelTendersFor: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders_for'),
       labelContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts'),
@@ -135,8 +140,48 @@ export default {
       labelTableThAMount: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount'),
     }
   },
+
   mounted() {
     EventBus.$emit("summary_ready");
+
+    EventBus.$on('refresh_summary_data', () => {
+      this.refreshSummaryData();
+    });
+  },
+  created() {
+    this.items = this.buildItems();
+    this.columns = assigneesColumns;
+  },
+  methods: {
+    refreshSummaryData(){
+      this.contractsData = this.$root.$data.contractsData;
+      this.items = this.buildItems();
+    },
+    buildItems() {
+      const groupedByAssignee = {}
+      // Group contracts by assignee
+      this.contractsData.forEach((contract) => {
+        if (contract.assignee === '' || contract.assignee === undefined) {
+          return;
+        }
+
+        groupedByAssignee[contract.assignee] = groupedByAssignee[contract.assignee] || {name: contract.assignee}
+
+        // vue wouldn't update the table rows if there is no id attribute
+        groupedByAssignee[contract.assignee].id = groupedByAssignee[contract.assignee].id || uuid()
+
+        groupedByAssignee[contract.assignee].sum = groupedByAssignee[contract.assignee].sum || 0
+        groupedByAssignee[contract.assignee].sum += parseFloat(contract.final_amount)
+
+        groupedByAssignee[contract.assignee].count = groupedByAssignee[contract.assignee].count || 0
+        groupedByAssignee[contract.assignee].count++;
+      });
+
+      // Sort grouped elements by number of contracts
+      const sortedAndGrouped = Object.values(groupedByAssignee).sort((a, b) => { return a.count < b.count ? 1 : -1 });
+
+      return sortedAndGrouped;
+    }
   }
 }
 </script>

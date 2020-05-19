@@ -4,7 +4,7 @@ module GobiertoCommon::CustomFieldValue
   class Numeric < Base
     def value=(value)
       if custom_field
-        record.payload = { custom_field.uid => value.to_f }
+        record.payload = { custom_field.uid => value.blank? ? nil : value.to_f }
       end
     end
 

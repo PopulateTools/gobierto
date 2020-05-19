@@ -6,7 +6,7 @@ module GobiertoObservatory
 
     before_action :overrided_root_redirect
 
-    def index
-    end
+    def index; end
+    def observatory_demography_map; end
   end
 end

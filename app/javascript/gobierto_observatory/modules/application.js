@@ -60,6 +60,9 @@ $(document).on('turbolinks:click', function (event) {
 var vis_population;
 
 $(document).on('turbolinks:load', function() {
+  if(!$('body.gobierto_observatory_observatory_demography_map').lenght) {
+    return;
+  }
   var getUnemplAgeData = new GetUnemploymentAgeData(window.populateData.municipalityId);
 
   // Process unemployment age data and pass it to both charts

@@ -29,11 +29,7 @@ export class ContractsController {
     const entryPoint = document.getElementById(selector);
 
     if (entryPoint) {
-      const htmlRouterBlock = `
-        <keep-alive>
-          <router-view :key="$route.fullPath"></router-view>
-        </keep-alive>
-      `;
+      const htmlRouterBlock = `<router-view></router-view>`;
 
       entryPoint.innerHTML = htmlRouterBlock;
 

@@ -1,5 +1,6 @@
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
 import * as L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 function buildMap() {
   let geojson
@@ -46,12 +47,14 @@ function buildMap() {
 
   function map() {
     const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
-    const map = L.map('map').setView([40.304665, -3.723679], 13);
-
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
-      id: 'mapbox/light-v9',
+    const map = L.map('map').setView([40.309,-3.680], 13.45);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
+      username: "gobierto",
+      style_id: "ck18y48jg11ip1cqeu3b9wpar",
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       tileSize: 512,
+      minZoom: 9,
+      maxZoom: 16,
       zoomOffset: -1
     }).addTo(map);
 
@@ -74,6 +77,8 @@ function buildMap() {
           "type": "FeatureCollection",
           "features": responseData.map(i => JSON.parse(i.geometry))
         }
+
+        console.log("sections", sections);
 
         geojson = L.geoJson(sections, {
           style: style,

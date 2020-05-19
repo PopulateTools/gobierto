@@ -147,6 +147,10 @@ module GobiertoPlans
 
     private
 
+    def hide_empty_fields?
+      @hide_empty_fields ||= !plan.configuration_data.fetch("show_empty_fields", false)
+    end
+
     def node_plugins_data(_plan, _node)
       {}
     end
@@ -157,10 +161,10 @@ module GobiertoPlans
 
         record = record.versions[node.version_index]&.reify if node.version_index.negative?
 
-        next if record.blank?
+        next if record.blank? || hide_empty_fields? && (value_string = record.value_string).blank?
 
         {
-          value: record.value_string,
+          value: value_string,
           raw_value: record.raw_value,
           custom_field_name_translations: record.custom_field.name_translations,
           custom_field_field_type: record.custom_field.field_type

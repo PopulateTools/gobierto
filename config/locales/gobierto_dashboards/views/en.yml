@@ -21,6 +21,7 @@ en:
           contracts: Contracts
           summary: Summary
           tenders: Tenders
+        permalink: link to the official website
         process_type: Type of process
         status: Status
         submission_date: Date

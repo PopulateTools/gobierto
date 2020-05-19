@@ -21,6 +21,7 @@ ca:
           contracts: Contracts
           summary: Resum
           tenders: Licitacions
+        permalink: enllaç a la web oficial
         process_type: Tipus de procés
         status: Procediment
         submission_date: Data

@@ -95,7 +95,7 @@ module GobiertoPlans
             status: node.at_current_version.status&.name_translations,
             options: node.at_current_version.options,
             plugins_data: node_plugins_data(plan, node),
-            custom_field_records: node_custom_field_records(node)
+            custom_field_records: front_node_custom_field_records(node)
           },
           children: [] }
       end
@@ -151,8 +151,8 @@ module GobiertoPlans
       {}
     end
 
-    def node_custom_field_records(node)
-      ::GobiertoPlans::Node.node_custom_field_records(plan, node).map do |record|
+    def front_node_custom_field_records(node)
+      ::GobiertoPlans::Node.front_node_custom_field_records(plan, node).map do |record|
         next if record.custom_field.field_type == "plugin"
 
         record = record.versions[node.version_index]&.reify if node.version_index.negative?

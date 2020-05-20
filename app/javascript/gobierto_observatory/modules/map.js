@@ -45,6 +45,10 @@ function buildMap() {
     });
   }
 
+  function onClick(e) {
+    alert(this.getLatLng());
+  }
+
   function map() {
     const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
     const map = L.map('map').setView([40.309,-3.680], 13.45);
@@ -83,7 +87,7 @@ function buildMap() {
         geojson = L.geoJson(sections, {
           style: style,
           onEachFeature: onEachFeature
-        }).addTo(map);
+        }).addTo(map).on('mouseover', onClick);
       } else {
         console.log("ERROR! in the request")
       }

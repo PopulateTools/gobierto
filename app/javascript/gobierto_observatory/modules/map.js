@@ -46,7 +46,7 @@ function buildMap() {
   }
 
   function onClick(e) {
-    alert(this.getLatLng());
+    console.log(e)
   }
 
   function map() {
@@ -63,7 +63,7 @@ function buildMap() {
     }).addTo(map);
 
     let request = new XMLHttpRequest();
-    request.open('GET', "https://demo-datos.gobify.net/api/v1/data/data?sql=select%20geometry%20from%20secciones_censales%20where%20cumun=28065", true);
+    request.open('GET', "https://demo-datos.gobify.net/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=28065", true);
 
     request.onload = function() {
       const {
@@ -76,18 +76,29 @@ function buildMap() {
         const {
           data: responseData
         } = data
+        console.log("responseData", responseData);
+
+        /*const sections = {
+          "type": "FeatureCollection",
+          "features": responseData.map(i => JSON.parse(i.geometry))
+        }*/
 
         const sections = {
           "type": "FeatureCollection",
-          "features": responseData.map(i => JSON.parse(i.geometry))
+          "features": responseData.map(i => ({
+            "type": "Feature",
+            "geometry": JSON.parse(i.geometry),
+            "properties": {
+              "secc": i.csec,
+              "dis": i.cdis
+            }
+          }))
         }
-
-        console.log("sections", sections);
 
         geojson = L.geoJson(sections, {
           style: style,
           onEachFeature: onEachFeature
-        }).addTo(map).on('mouseover', onClick);
+        }).addTo(map).on('click', onClick);
       } else {
         console.log("ERROR! in the request")
       }

@@ -22,6 +22,7 @@ en:
         gobierto_data: Data
     projects:
       all: All
+      buttonFork: Click to create your own version of this query
       buttonQueries: See queries (r)
       buttonRecentQueries: See recent queries (r)
       buttonRunQuery: Run query (CMD/WIN + Enter)
@@ -36,6 +37,7 @@ en:
       edit: Edit
       emptyRecentQueries: There's no recent queries
       favs: Favorites
+      fork: Fork
       frequency: Frequency
       guide: Guide to using the SQL editor
       modifiedQuery: Modified Query

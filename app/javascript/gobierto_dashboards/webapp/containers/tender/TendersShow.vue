@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>{{ formattedTender.title }}</h1>
+    <h1>{{ tender.title }}</h1>
 
-    <p v-if="formattedTender.description">
-      {{ formattedTender.description }}
+    <p v-if="tender.description">
+      {{ tender.description }}
     </p>
 
     <div class="pure-g p_2 bg-gray">
@@ -14,15 +14,15 @@
         <table>
           <tr>
             <th class="left">{{ labelTenderAmount }}</th>
-            <td>{{ formattedTender.initial_amount }}</td>
+            <td>{{ tender.initial_amount | money }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelStatus }}</th>
-            <td>{{ formattedTender.status }}</td>
+            <td>{{ tender.status }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelProcessType }}</th>
-            <td>{{ formattedTender.process_type }}</td>
+            <td>{{ tender.process_type }}</td>
           </tr>
         </table>
       </div>
@@ -32,15 +32,15 @@
 </template>
 
 <script>
-import { formatCurrency } from "../../lib/utils.js";
+import { VueFiltersMixin } from "lib/shared"
 
 export default {
   name: 'TendersShow',
+  mixins: [VueFiltersMixin],
   data() {
     return {
       tendersData: this.$root.$data.tendersData,
       tender: null,
-      formattedTender: null,
       labelTenderAmount: I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount'),
       labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
       labelStatus: I18n.t('gobierto_dashboards.dashboards.contracts.status'),
@@ -53,14 +53,6 @@ export default {
     this.tender = this.tendersData.find((tender) => {
       return tender.id === itemId
     });
-
-    this.initFormattedTender();
-  },
-  methods: {
-    initFormattedTender(){
-      this.formattedTender = Object.assign({}, this.tender);
-      this.formattedTender.initial_amount = formatCurrency(this.formattedTender.initial_amount);
-    }
   }
 }
 </script>

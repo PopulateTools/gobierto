@@ -46,9 +46,9 @@ export default {
   },
   data() {
     return {
-      labelSummary: I18n.t("gobierto_dashboards.dashboards.contracts.summary"),
-      labelContracts: I18n.t("gobierto_dashboards.dashboards.contracts.contracts"),
-      labelTenders: I18n.t("gobierto_dashboards.dashboards.contracts.tenders")
+      labelSummary: I18n.t("gobierto_dashboards.dashboards.contracts.nav.summary"),
+      labelContracts: I18n.t("gobierto_dashboards.dashboards.contracts.nav.contracts"),
+      labelTenders: I18n.t("gobierto_dashboards.dashboards.contracts.nav.tenders")
     }
   },
   routesToNavBarMapping: {

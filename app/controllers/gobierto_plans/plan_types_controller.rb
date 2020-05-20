@@ -58,6 +58,7 @@ module GobiertoPlans
       @sdgs = SdgDecorator.new(find_plan)
       @sdg = @sdgs.sdg_term(params[:sdg_slug])
       @projects = @sdgs.projects_by_sdg(@sdg)
+      @projects_term = @plan.level_key(2, @plan.levels + 1)
     end
 
     private

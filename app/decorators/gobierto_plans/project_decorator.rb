@@ -32,6 +32,14 @@ module GobiertoPlans
                               end
     end
 
+    def uid
+      @uid ||= "#{CategoryTermDecorator.new(category).uid}.#{@plan.nodes.with_category(category&.id).published.index(object)}"
+    end
+
+    def category
+      categories.find_by(vocabulary: @plan.categories_vocabulary)
+    end
+
     private
 
     def node_plugins_attributes

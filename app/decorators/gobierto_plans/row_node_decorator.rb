@@ -74,8 +74,12 @@ module GobiertoPlans
       categories.any?(&:new_record?)
     end
 
+    def allow_statuses_creation?
+      @allow_custom_fields_terms_creation
+    end
+
     def status_term_required?
-      @plan.statuses_vocabulary.present?
+      @plan.statuses_vocabulary.present? && (allow_statuses_creation? || @plan.statuses_vocabulary.terms.exists?)
     end
 
     def extra_attributes
@@ -140,10 +144,22 @@ module GobiertoPlans
     def node_attributes
       attributes = node_mandatory_columns.invert.transform_values { |column| object[column] }
 
-      attributes[:status_id] = @plan.statuses_vocabulary.terms.with_name(attributes[:status_name]&.strip).take&.id if status_term_required?
+      attributes[:status_id] = status_term(attributes[:status_name]) if status_term_required?
       @status_missing = status_term_required? ? attributes[:status_id].blank? : attributes[:status_name].present?
 
       attributes
+    end
+
+    def status_term(text)
+      text = text.to_s.strip
+      id = statuses_terms.with_name(text).take&.id
+      return id unless id.blank? && text.present? && allow_statuses_creation?
+
+      statuses_terms.create(name: text).id
+    end
+
+    def statuses_terms
+      @plan.statuses_vocabulary.terms
     end
 
     def progress_from_status(status)

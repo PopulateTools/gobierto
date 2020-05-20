@@ -55,6 +55,10 @@
     </div>
   <% end %>
 
+  <% if @sdgs.has_data? %>
+    <%= render partial: "planification_sdgs" %>
+  <% end %>
+
   <% if @plan.footer.present? %>
     <%= render_liquid @plan.footer %>
   <% end %>

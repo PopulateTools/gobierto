@@ -8,30 +8,30 @@ export class AmountDistributionBars {
   constructor(options) {
     // Declaration
     const { containerSelector, dimension, onFilteredFunction, range, labelMore, labelFromTo } = options
-    const container = dc.rowChart(containerSelector, "group");
+    this.container = dc.rowChart(containerSelector, "group");
 
     // Dimensions
     const amountByGroupingField = dimension.group().reduceCount();
 
     // Styling
-    const _count = amountByGroupingField.size(),
-          _gap = 10,
-          _barHeight = 18,
-          _labelOffset = 195;
+    this._count = amountByGroupingField.size(),
+    this._gap = 10
+    this._barHeight = 18
 
-    const node = container.root().node() || document.createElement("div")
+    const _labelOffset = 195;
+
+    this.node = this.container.root().node() || document.createElement("div")
+
+    this.setContainerSize();
 
     // Construction
-    container
-      .width((node.parentNode || node).getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
-      .height(container.margins().top + container.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // Margins top/bottom + bars + gaps (space between)
-      .fixedBarHeight(_barHeight)
+    this.container
       .x(d3.scaleThreshold())
       .dimension(dimension)
       .group(amountByGroupingField)
       .ordering(d => d.key)
       .labelOffsetX(-_labelOffset)
-      .gap(_gap)
+      .gap(this._gap)
       .elasticX(true)
       .title(d => d.value)
       .on('pretransition', function(chart){
@@ -101,21 +101,27 @@ export class AmountDistributionBars {
           return Math.abs(+d3.select(this).attr("y2")) + (chart.margins().top / 2)
         });
       })
-      .on('filtered', () => onFilteredFunction());
+      .on('filtered', (chart, filter) => onFilteredFunction(chart, filter));
 
     // Customization
-    container.xAxis(d3.axisTop().ticks(5))
-    container.xAxis().tickFormat(
+    this.container.xAxis(d3.axisTop().ticks(5))
+    this.container.xAxis().tickFormat(
       function(tick, pos) {
         if (pos === 0) return null
         return tick
       });
-    container.margins().top = 20;
-    container.margins().left = _labelOffset + 5;
-    container.margins().right = 0;
+    this.container.margins().top = 20;
+    this.container.margins().left = _labelOffset + 5;
+    this.container.margins().right = 0;
 
     // Rendering
-    container.render();
+    this.container.render();
+  }
 
+  setContainerSize(){
+    this.container
+      .width((this.node.parentNode || this.node).getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
+      .height(this.container.margins().top + this.container.margins().bottom + (this._count * this._barHeight) + ((this._count + 1) * this._gap)) // Margins top/bottom + bars + gaps (space between)
+      .fixedBarHeight(this._barHeight)
   }
 }

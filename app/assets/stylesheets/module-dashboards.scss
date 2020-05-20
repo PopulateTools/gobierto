@@ -1,5 +1,8 @@
 @import "css-conf";
 @import "mixins";
+@import "comp-block-checkbox";
+@import "comp-block-header";
+@import "comp-vue-dropdown";
 
 .dashboards {
   @include min-screen(768) {

@@ -9,10 +9,11 @@ en:
         contract_type: Type of contract
         contractor: Contractor
         contracts: Contracts
+        date: Date
+        dates: Dates
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
         empty_table: There is no available data
-        end_date: Date
         final_amount: Amount
         fromto: From To No Contr.
         main_assignees: Main assignees

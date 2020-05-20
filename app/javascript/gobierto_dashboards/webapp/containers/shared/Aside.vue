@@ -6,35 +6,43 @@
         :key="filter.id"
         class="dashboards-home-aside--block"
       >
-        <BlockHeader
-          :title="filter.title"
-          class="dashboards-home-aside--block-header"
-          see-link
-          @select-all="e => handleIsEverythingChecked({ ...e, filter })"
-        />
-        <Checkbox
-          v-for="option in filter.options"
-          :id="option.id"
-          :key="option.id"
-          :title="option.title"
-          :checked="option.isOptionChecked"
-          :counter="option.counter"
-          class="dashboards-home-aside--checkbox"
-          @checkbox-change="e => handleCheckboxStatus({ ...e, filter })"
-        />
+        <Dropdown @is-content-visible="filter.isToggle = !filter.isToggle">
+          <template v-slot:trigger>
+            <BlockHeader
+              :title="filter.title"
+              class="dashboards-home-aside--block-header"
+              see-link
+              @select-all="e => handleIsEverythingChecked({ ...e, filter })"
+              @toggle="toggle(filter)"
+            />
+          </template>
+          <div>
+            <Checkbox
+              v-for="option in filter.options"
+              :id="option.id"
+              :key="option.id"
+              :title="option.title"
+              :checked="option.isOptionChecked"
+              :counter="option.counter"
+              class="dashboards-home-aside--checkbox"
+              @checkbox-change="e => handleCheckboxStatus({ ...e, filter })"
+            />
+          </div>
+        </Dropdown>
       </div>
     </aside>
   </div>
 </template>
 
 <script>
-import { BlockHeader, Checkbox } from "lib/vue-components";
+import { BlockHeader, Checkbox, Dropdown } from "lib/vue-components";
 import { EventBus } from "../../mixins/event_bus";
 import { filtersConfig } from "../../lib/config.js";
 
 export default {
   name: 'Aside',
   components: {
+    Dropdown,
     BlockHeader,
     Checkbox,
   },
@@ -107,7 +115,6 @@ export default {
           filter.options = filter.options.sort((a, b) => a.counter > b.counter ? -1 : 1)
         }
       })
-
     },
     handleIsEverythingChecked({ filter }) {
       const titles = filter.options.map(option => option.title);
@@ -119,6 +126,13 @@ export default {
       const option = filter.options.find(option => option.id === id)
       EventBus.$emit('filter_changed', {all: false, title: option.title, id: filter.id});
     },
+    toggle(filter){
+      this.filters.forEach(_filter => {
+        if (_filter.id == filter.id) {
+          _filter.isToggle = !_filter.isToggle;
+        }
+      })
+    }
   }
 }
 </script>

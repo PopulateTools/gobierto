@@ -21,11 +21,13 @@ export const filtersConfig = [
   {
     id: 'dates',
     title: I18n.t('gobierto_dashboards.dashboards.contracts.dates'),
+    isToggle: true,
     options: []
   },
   {
     id: 'contract_types',
     title: I18n.t('gobierto_dashboards.dashboards.contracts.contract_type'),
+    isToggle: true,
     options: [
       {id: 0, title: 'Gestión de servicios públicos', counter: 0, isOptionChecked: false},
       {id: 1, title: 'Obras', counter: 0, isOptionChecked: false},
@@ -36,6 +38,7 @@ export const filtersConfig = [
   {
     id: 'process_types',
     title: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
+    isToggle: true,
     options: [
         {id: 0, title: 'Abierto', counter: 0, isOptionChecked: false},
         {id: 1, title: 'Abierto simplificado', counter: 0, isOptionChecked: false},

@@ -150,6 +150,7 @@ export default {
           filter.options = filter.options.sort((a, b) => a.counter > b.counter ? -1 : 1)
         }
       })
+
     },
     handleIsEverythingChecked({ filter }) {
       const titles = filter.options.map(option => option.title);

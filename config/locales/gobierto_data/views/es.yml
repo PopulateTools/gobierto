@@ -22,6 +22,7 @@ es:
         gobierto_data: Datos
     projects:
       all: Todas
+      buttonFork: Haz click para crear una versión de esta consulta
       buttonQueries: Ver consultas (c)
       buttonRecentQueries: Ver consultas recientes (r)
       buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)
@@ -35,6 +36,7 @@ es:
       edit: Editar
       emptyRecentQueries: No hay consultas recientes
       favs: Favoritas
+      fork: Fork
       frequency: Frecuencia
       guide: Guía para usar el editor SQL
       modifiedQuery: Consulta modificada

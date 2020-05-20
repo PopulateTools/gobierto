@@ -22,6 +22,7 @@ ca:
         gobierto_data: Dades
     projects:
       all: Totes
+      buttonFork: Feu clic per crear una versió d'aquesta consulta
       buttonQueries: Vegeu consultes (c)
       buttonRecentQueries: Vegeu consultes recents (r)
       buttonRunQuery: Executeu consulta (CMD/WIN + Enter)
@@ -35,6 +36,7 @@ ca:
       edit: Editeu
       emptyRecentQueries: No hi ha consultes recents
       favs: Favorites
+      fork: Fork
       frequency: Freqüència
       guide: Guia per utilitzar l'editor SQL
       modifiedQuery: Consulta modificada

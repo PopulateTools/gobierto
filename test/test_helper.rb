@@ -64,7 +64,10 @@ Minitest::Retry.on_failure do |klass, test_name|
   Capybara.reset_session!
 end
 
-Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
+Minitest::Reporters.use! [
+  Minitest::Reporters::DefaultReporter.new(color: true),
+  Minitest::Reporters::MeanTimeReporter.new(color: true)
+]
 
 WebMock.disable_net_connect!(
   allow_localhost: true,

@@ -1,5 +1,9 @@
-import * as d3 from 'd3'
+import { json } from "d3-request";
+import { queue } from "d3-queue";
+import { nest } from "d3-collection";
 import { Card } from './card.js'
+
+const d3 = { json, queue, nest }
 
 export class GetUnemploymentAgeData extends Card {
   constructor(city_id) {

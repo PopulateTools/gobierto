@@ -40,5 +40,41 @@ module GobiertoCommon::CustomFieldValue
       assert_equal 0.0, record.value
     end
 
+    def test_value_assign_string_with_only_a_comma
+      record.value = "1,56"
+      record.save
+
+      record.reload
+
+      assert_equal 1.56, record.value
+    end
+
+    def test_value_assign_string_with_more_than_a_comma
+      record.value = "1,000,000"
+      record.save
+
+      record.reload
+
+      assert_equal 1000000.0, record.value
+    end
+
+    def test_value_assign_string_with_comma_and_dot
+      record.value = "1,000.78"
+      record.save
+
+      record.reload
+
+      assert_equal 1000.78, record.value
+    end
+
+    def test_value_assign_integer
+      record.value = 25
+      record.save
+
+      record.reload
+
+      assert_equal 25.0, record.value
+    end
+
   end
 end

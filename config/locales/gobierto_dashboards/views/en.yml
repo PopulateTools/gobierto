@@ -3,19 +3,23 @@ en:
   gobierto_dashboards:
     dashboards:
       contracts:
+        amount_distribution: Amount distribution
         assignee: Assignee
         contract_amount: Contract Amount
+        contract_type: Type of contract
         contractor: Contractor
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
         empty_table: There is no available data
         end_date: Date
         final_amount: Amount
+        fromto: From To No Contr.
+        more: More than
         nav:
           contracts: Contracts
           summary: Summary
           tenders: Tenders
-        process_type: Type
+        process_type: Type of process
         status: Status
         submission_date: Date
         summary:

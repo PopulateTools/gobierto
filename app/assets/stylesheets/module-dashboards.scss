@@ -178,10 +178,6 @@
         }
       }
 
-      &:not(:first-child) {
-        white-space: nowrap;
-      }
-
       &:not(:first-child):not(:last-child) > *::first-letter {
         text-transform: uppercase;
       }

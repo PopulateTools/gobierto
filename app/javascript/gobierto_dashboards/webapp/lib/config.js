@@ -1,6 +1,6 @@
 export const contractsColumns = [
   {field: 'assignee', translation: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'), format: null},
-  {field: 'contractor', translation: I18n.t('gobierto_dashboards.dashboards.contracts.contractor'), format: null},
+  {field: 'title', translation: I18n.t('gobierto_dashboards.dashboards.contracts.contractor'), format: 'truncated'},
   {field: 'final_amount', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount'), format: 'currency'},
   {field: 'end_date', translation: I18n.t('gobierto_dashboards.dashboards.contracts.end_date'), format: null},
 ];

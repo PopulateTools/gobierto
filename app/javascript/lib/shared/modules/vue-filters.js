@@ -26,15 +26,24 @@ export const date = (value, opts = {}) => {
   return value instanceof Date ? value.toLocaleDateString(lang, opts) : new Date(value).toLocaleDateString(lang, opts);
 }
 
+export const truncate = (value, opts = {}) => {
+  const omission = opts['omission'] || '...';
+  const length = opts['length'] || 30;
+
+  return `${value.substring(0, length)}${omission}`
+}
+
 export const VueFiltersMixin = {
   methods: {
     translate,
     money,
-    date
+    date,
+    truncate
   },
   filters: {
     translate,
     money,
-    date
+    date,
+    truncate
   }
 };

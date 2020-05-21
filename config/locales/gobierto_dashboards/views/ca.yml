@@ -3,19 +3,23 @@ ca:
   gobierto_dashboards:
     dashboards:
       contracts:
+        amount_distribution: Distribució per imports
         assignee: Adjudicatari
         contract_amount: Imp. adjudicació
+        contract_type: Tipus de contracte
         contractor: Contractor
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
         empty_table: No hi ha dades disponibles
         end_date: Data
         final_amount: Quantitat
+        fromto: De a Nº Contr.
+        more: Més de
         nav:
           contracts: Contracts
           summary: Resum
           tenders: Licitacions
-        process_type: Tipus
+        process_type: Tipus de procés
         status: Procediment
         submission_date: Data
         summary:

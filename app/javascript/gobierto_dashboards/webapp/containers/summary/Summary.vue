@@ -72,6 +72,28 @@
         <p class="decorator" v-html="labelHalfSpendingsContracts"></p>
       </div>
     </div>
+
+    <div class="pure-g block">
+      <div class="pure-u-1 pure-u-lg-1-2 p_h_r_3">
+        <div class="m_b_3">
+          <h3 class="mt1 graph-title">{{ labelContractType }}</h3>
+          <div id="contract-type-bars"></div>
+        </div>
+
+        <div>
+          <h3 class="mt1 graph-title">{{ labelProcessType }}</h3>
+          <div id="process-type-bars"></div>
+        </div>
+      </div>
+
+      <div class="pure-u-1 pure-u-lg-1-2 header_block_inline">
+        <div>
+          <h3 class="mt1 graph-title">{{ labelAmountDistribution }}</h3>
+          <div id="amount-distribution-bars"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -91,10 +113,11 @@ export default {
       labelMeanSavings: I18n.t('gobierto_dashboards.dashboards.contracts.summary.mean_savings'),
       labelLessThan1000: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_less_than_1000'),
       labelLargerContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_larger_contract_amount'),
-      labelHalfSpendingsContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_half_spendings_contracts')
+      labelHalfSpendingsContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_half_spendings_contracts'),
+      labelContractType: I18n.t('gobierto_dashboards.dashboards.contracts.contract_type'),
+      labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
+      labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution')
     }
-  },
-  created() {
   },
   mounted() {
     EventBus.$emit("summary_ready");

@@ -81,6 +81,7 @@ export default {
       assignee,
       document_number,
       final_amount,
+      initial_amount,
       status,
       process_type
     } = contract

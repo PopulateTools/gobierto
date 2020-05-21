@@ -22,6 +22,8 @@ import { VisUnemploymentAge } from './modules/unemployment_age.js'
 import { VisUnemploymentRate } from './modules/unemployment_rate.js'
 import { VisUnemploymentSex } from './modules/unemployment_sex.js'
 import { Areachart } from './modules/areachart'
+import { AmountDistributionBars } from './modules/amount_distribution_bars'
+import { GroupPctDistributionBars } from './modules/group_pct_distribution_bars'
 
 export {
   Areachart,
@@ -47,5 +49,7 @@ export {
   VisTreemap,
   VisUnemploymentAge,
   VisUnemploymentRate,
-  VisUnemploymentSex
+  VisUnemploymentSex,
+  AmountDistributionBars,
+  GroupPctDistributionBars
 }

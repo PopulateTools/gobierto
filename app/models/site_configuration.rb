@@ -18,6 +18,7 @@ class SiteConfiguration
     :home_page_item_id,
     :raw_configuration_variables,
     :auth_modules,
+    :admin_auth_modules,
     :engine_overrides
   ].freeze
 
@@ -54,13 +55,23 @@ class SiteConfiguration
   end
 
   def auth_modules
-    return DEFAULT_MISSING_MODULES.map(&:name) if @auth_modules.nil?
+    return DEFAULT_MISSING_MODULES.reject(&:admin).map(&:name) if @auth_modules.nil?
 
-    @auth_modules & AUTH_MODULES.map(&:name)
+    @auth_modules & AUTH_MODULES.reject(&:admin).map(&:name)
+  end
+
+  def admin_auth_modules
+    return DEFAULT_MISSING_MODULES.select(&:admin) if @admin_auth_modules.blank?
+
+    @admin_auth_modules & AUTH_MODULES.select(&:admin).map(&:name)
   end
 
   def auth_modules_data
     AUTH_MODULES.select { |mod| auth_modules.include?(mod.name) }
+  end
+
+  def admin_auth_modules_data
+    AUTH_MODULES.select { |mod| admin_auth_modules.include?(mod.name) }
   end
 
   def engine_overrides

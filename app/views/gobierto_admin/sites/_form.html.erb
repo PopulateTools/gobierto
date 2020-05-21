@@ -193,6 +193,25 @@
         </div>
       <% end %>
 
+     <% if @admin_auth_modules.present? %>
+        <div class="form_block">
+          <h2><%= t(".admin_authentication_modules") %></h2>
+          <div class="form_item admin-auth-module-check-boxes">
+            <div class="options compact">
+              <%= f.collection_check_boxes(:admin_auth_modules, @admin_auth_modules, :name, :description) do |b| %>
+                <div class="option">
+                  <%= b.check_box %>
+                  <%= b.label do %>
+                    <span></span>
+                    <%= b.text %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
       <div class="form_item input_text">
         <%= f.label :engine_overrides_param %>
         <%= f.text_field(:engine_overrides_param) %>

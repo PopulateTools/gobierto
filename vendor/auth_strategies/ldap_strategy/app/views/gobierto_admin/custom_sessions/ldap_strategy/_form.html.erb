@@ -1,0 +1,13 @@
+<%= form_for :session, url: admin_custom_session_path, html: { id: 'admin-session-form' } do |f| %>
+  <div class="form_item input_text">
+    <%= f.label :identifier, t(".identifier") %>
+    <%= f.text_field :identifier, autofocus: true %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :password, t(".password") %>
+    <%= f.password_field :password %>
+  </div>
+
+  <%= f.submit t(".submit") %>
+<% end %>

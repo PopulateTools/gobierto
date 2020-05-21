@@ -36,13 +36,16 @@ module GobiertoAdmin
       :populate_data_api_token,
       :home_page,
       :home_page_item_id,
-      :raw_configuration_variables,
-      :auth_modules
+      :raw_configuration_variables
     )
 
     attr_reader :logo_url
 
-    attr_writer :engine_overrides
+    attr_writer(
+      :engine_overrides,
+      :auth_modules,
+      :admin_auth_modules
+    )
 
     delegate :persisted?, to: :site
 
@@ -75,14 +78,11 @@ module GobiertoAdmin
     end
 
     def auth_modules
-      @auth_modules = if @auth_modules
-                        @auth_modules & AUTH_MODULES.select do |auth_module|
-                          domains = auth_module.domains
-                          !domains || domains.include?(site.domain)
-                        end.map(&:name)
-                      else
-                        site.configuration.auth_modules
-                      end
+      (@auth_modules || site.configuration.auth_modules) & available_user_auth_modules.map(&:name)
+    end
+
+    def admin_auth_modules
+      (@admin_auth_modules || site.configuration.admin_auth_modules) & available_admin_auth_modules.map(&:name)
     end
 
     def engine_overrides_param=(engine_overrides)
@@ -93,6 +93,21 @@ module GobiertoAdmin
       @engine_overrides = engine_overrides.select do |engine|
         Dir.exist?(File.join(engine_overrides_base_path, engine))
       end
+    end
+
+    def available_auth_modules
+      @available_auth_modules ||= AUTH_MODULES.select do |auth_module|
+        domains = auth_module.domains
+        !domains || domains.include?(site.domain)
+      end
+    end
+
+    def available_user_auth_modules
+      @available_user_auth_modules ||= available_auth_modules.reject(&:admin)
+    end
+
+    def available_admin_auth_modules
+      @available_admin_auth_modules ||= available_auth_modules.select(&:admin)
     end
 
     def engine_overrides
@@ -208,6 +223,7 @@ module GobiertoAdmin
         site_attributes.configuration.populate_data_api_token = populate_data_api_token
         site_attributes.configuration.raw_configuration_variables = raw_configuration_variables
         site_attributes.configuration.auth_modules = auth_modules
+        site_attributes.configuration.admin_auth_modules = admin_auth_modules
         site_attributes.configuration.engine_overrides = engine_overrides
       end
 

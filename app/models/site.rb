@@ -109,7 +109,7 @@ class Site < ApplicationRecord
   translates :name, :title
 
   def self.alphabetically_sorted
-    all.sort_by(&:title).reverse
+    all.sort_by(&:name)
   end
 
   def self.find_by_allowed_domain(domain)

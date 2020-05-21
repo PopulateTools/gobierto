@@ -7,7 +7,7 @@ module GobiertoAdmin
       TRANSFORMATIONS = {
         text: ->(data) { data.to_s },
         integer: ->(data) { data. to_i },
-        float: ->(data) { data.to_f },
+        float: ->(data) { ::GobiertoCommon::CustomFieldValue::Numeric.parse_float(data) },
         date: ->(data) { Date.parse(data) }
       }.with_indifferent_access.freeze
 

@@ -1,13 +1,13 @@
 import { csv } from "d3-request";
-import { max } from "d3-array";
+import { max, min } from "d3-array";
 import * as dc from 'dc'
 import crossfilter from 'crossfilter2'
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
 import * as L from 'leaflet';
-import * as DCL from 'dc.leaflet';
+import * as dc_leaflet from 'dc.leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const d3 = { csv, max }
+const d3 = { csv, max, min }
 
 function getRemoteData(endpoint) {
   return new Promise((resolve) => {
@@ -162,7 +162,7 @@ export class DemographyMapController {
       .groupAll(this.ndx.groups.studies.all)
       .html({
         all: '<strong>%total-count</strong> habitantes',
-        some: '<strong>%filter-count</strong>/%total-count habitantes'
+        some: '<strong>%filter-count</strong>/total habitantes'
       })
 
     const that = this;
@@ -339,6 +339,8 @@ export class DemographyMapController {
         that.chart2.group(that.ndx.groups.origin.byNationality);
         that.chart3.dimension(that.ndx.filters.origin.bySex);
         that.chart3.group(that.ndx.groups.origin.bySex);
+        that.chart8.dimension(that.ndx.filters.origin.byCusec);
+        that.chart8.group(that.ndx.groups.origin.byCusec);
         dc.renderAll();
       });
 
@@ -347,7 +349,8 @@ export class DemographyMapController {
   }
 
   renderChoroplethMap(selector) {
-    const choroplethMap = new DCL.choroplethChart(selector);
+    const chart = new dc_leaflet.choroplethChart(selector);
+    const legendMap = new dc_leaflet.legend(selector).position('bottomright');
     const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
     let geojson
 
@@ -370,13 +373,8 @@ export class DemographyMapController {
     }
 
     function showInfo(feature) {
-      const {
-        sourceTarget: {
-          feature: {
-            properties
-          }
-        }
-      } = feature
+      //Callback click section
+      console.log("feature", feature);
     }
 
     function highlightFeature(e) {
@@ -403,79 +401,85 @@ export class DemographyMapController {
     }
 
     let sections = {}
-    //Init Geojson
-    function getData() {
-      let request = new XMLHttpRequest();
-      request.open('GET', "https://demo-datos.gobify.net/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=28065", true);
 
+    let initObject = {
+        method: 'GET'
+    };
 
-      request.onload = function() {
-        const {
-          status,
-          responseText
-        } = request
-
-        if (status >= 200 && status < 400) {
-          let data = JSON.parse(responseText);
-          const {
-            data: responseData
-          } = data
-
-          sections = {
-            "type": "FeatureCollection",
-            "features": responseData.map(i => ({
-              "type": "Feature",
-              "geometry": JSON.parse(i.geometry),
-              "properties": {
-                "secc": i.csec,
-                "dis": i.cdis
-              }
-            }))
-          }
-          choroplethMap.render()
-          return choroplethMap;
-        } else {
-          console.log("ERROR! in the request")
-        }
-      };
-
-      request.send();
-
+    function checkStatus(response) {
+      if (response.status >= 200 && response.status < 400) {
+        return Promise.resolve(response)
+      } else {
+        return Promise.reject(new Error(response.statusText))
+      }
     }
-    choroplethMap
-      .center([40.309, -3.680], 13.45)
-      .zoom(13)
-      .dimension(this.ndx.filters.origin.byCusec)
-      .group(this.ndx.groups.origin.byCusec)
 
-      .tiles(function(map) {
-        L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
-          username: "gobierto",
-          style_id: "ck18y48jg11ip1cqeu3b9wpar",
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          tileSize: 512,
-          minZoom: 9,
-          maxZoom: 16,
-          zoomOffset: -1
-        }).addTo(map);
-        geojson = L.geoJson(sections, {
-          style: style,
-          onEachFeature: onEachFeature
-        }).addTo(map)
-      })
-      .colors(['#fef8fb', '#fce8f2', '#f9d8e8', '#f7c5de', '#f1b2d1', '#dca2bf', '#c591ab', '#a97c93', '#856274', '#4e3944'])
-      .colorDomain([
-          0,
-          d3.max(this.ndx.groups.origin.byCusec.all(), dc.pluck('value'))
-      ])
-      .colorAccessor(function(d, i) {
-          return d.value;
-      })
-      .featureKeyAccessor(function(feature) {
-          return feature.properties.Sortname
-      });
+    const userRequest = new Request('https://demo-datos.gobify.net/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=28065', initObject);
 
-    document.addEventListener("DOMContentLoaded", getData());
+    async function getData() {
+      let response = await fetch(userRequest);
+      let dataRequest = await checkStatus(response);
+      let data = dataRequest.json()
+      return data;
+    }
+
+    getData()
+      .then(data => {
+        sections = {
+          "type": "FeatureCollection",
+          "features": data.data.map(i => ({
+            "type": "Feature",
+            "geometry": JSON.parse(i.geometry),
+            "properties": {
+              "cusec": `${i.csec}-${i.cdis}`
+            }
+          }))
+        }
+        renderMap(sections)
+      })
+
+    const that = this;
+
+    function renderMap(sections) {
+      chart
+        .width(1200)
+        .height(600)
+        .center([40.309, -3.680], 13.45)
+        .zoom(13)
+        .dimension(that.ndx.filters.studies.byCusec)
+        .group(that.ndx.groups.studies.byCusec)
+        .geojson(sections.features)
+        .colorDomain([
+            0,
+            d3.max(that.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
+        ])
+        .colorAccessor(function(d, i) {
+            return d.value
+        })
+        .featureKeyAccessor(function(feature) {
+            return feature.properties.cusec
+        })
+        .legend(legendMap)
+        .tiles(function(map) {
+          L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
+            username: "gobierto",
+            style_id: "ck18y48jg11ip1cqeu3b9wpar",
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            tileSize: 512,
+            minZoom: 9,
+            maxZoom: 16,
+            zoomOffset: -1
+          }).addTo(map);
+          geojson = L.geoJson(sections, {
+            style: style,
+            onEachFeature: onEachFeature
+          }).addTo(map)
+        })
+      chart.render();
+      return chart;
+    }
+
+
   }
 }
 

@@ -110,7 +110,6 @@
 import Table from "../../components/Table.vue";
 import { EventBus } from "../../mixins/event_bus";
 import { assigneesColumns } from "../../lib/config.js";
-import { uuid } from '../../lib/utils.js'
 
 export default {
   name: 'Summary',
@@ -168,7 +167,6 @@ export default {
         if (groupedByAssignee[assignee] === undefined) {
           groupedByAssignee[assignee] = {
             name: assignee,
-            id: uuid(),
             sum: 0,
             count: 0
           }
@@ -178,8 +176,12 @@ export default {
         groupedByAssignee[assignee].count++;
       });
 
+
       // Sort grouped elements by number of contracts
       const sortedAndGrouped = Object.values(groupedByAssignee).sort((a, b) => { return a.count < b.count ? 1 : -1 });
+
+      // The id must be unique so when data changes vue knows how to refresh the table accordingly.
+      sortedAndGrouped.forEach(contract => contract.id = `${contract.name}-${contract.count}`)
 
       return sortedAndGrouped;
     }

@@ -100,8 +100,8 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       # Assignees table
       first_contract = find(".dashboards-home-main--tr", match: :first)
 
-      assert first_contract.has_content?('IMPORTACIONES INDUSTRIALES, S.A.')
-      assert first_contract.has_content?('60.004,64 €')
+      assert first_contract.has_content?('LIDER SYSTEM, S.L.')
+      assert first_contract.has_content?('43.671,37 €')
     end
   end
 
@@ -121,16 +121,16 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       first_contract = find(".dashboards-home-main--tr", match: :first)
 
       # Assignee
-      assert first_contract.has_content?('Marc Gil Van Beveren')
+      assert first_contract.has_content?('Grupo Conforsa Análisis, Desarrollo y Formación , S.A.')
 
       # Contract
-      assert first_contract.has_content?('Servicios de asesoramiento jurídico, defensa y formación en ...')
+      assert first_contract.has_content?('Prestación del servicio de plataforma de formación online "E...')
 
       # Amount
-      assert first_contract.has_content?('€5,808.00')
+      assert first_contract.has_content?('€34,364.00')
 
       # Date
-      assert first_contract.has_content?('2055-12-31')
+      assert first_contract.has_content?('2020-07-01')
 
       # Contracts Show
       ################
@@ -140,25 +140,25 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       assert find(".dashboards-home-nav--tab.is-active").text, 'CONTRACTS'
 
       # Url is updated
-      assert_equal current_path, "/dashboards/contratos/contratos/807008"
+      assert_equal current_path, "/dashboards/contratos/contratos/807094"
 
       # Title
-      assert page.has_content?('Servicios de asesoramiento jurídico, defensa y formación en materia de contratación pública')
+      assert page.has_content?('Prestación del servicio de plataforma de formación online "Escuela Virtual Formalef Getafe".')
 
       # Assignee
-      assert page.has_content?('Marc Gil Van Beveren')
+      assert page.has_content?('Grupo Conforsa Análisis, Desarrollo y Formación , S.A.')
 
       # Contract amount
-      assert page.has_content?('€5,808.00')
+      assert page.has_content?('€34,364.00')
 
       # Tender amount
-      assert page.has_content?('€217,800.00')
+      assert page.has_content?('€48,400.00')
 
       # Status
       assert page.has_content?('Formalizado')
 
       # Type
-      assert page.has_content?('Abierto')
+      assert page.has_content?('Abierto simplificado')
     end
   end
 

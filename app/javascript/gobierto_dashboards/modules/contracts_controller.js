@@ -190,7 +190,7 @@ export class ContractsController {
     const amountsArray = _contractsData.map(({final_amount = 0}) => parseFloat(final_amount) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
     const savingsArray = _contractsData.map(({initial_amount = 0, final_amount = 0}) =>
-      1 - parseFloat(final_amount) / parseFloat(initial_amount)
+      1 - (parseFloat(final_amount) / parseFloat(initial_amount))
     );
 
     // Calculations box items
@@ -286,4 +286,3 @@ export class ContractsController {
     )
   }
 }
-

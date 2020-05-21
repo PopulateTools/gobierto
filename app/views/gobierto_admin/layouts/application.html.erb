@@ -34,7 +34,7 @@
           <%= link_to "#", id: "menuLink1", class: "pure-menu-link" do %>
             <%= t(".site_network") %>
           <% end %>
-          <ul id="managed-sites-list" class="pure-menu-children" style="max-height: 80vh;" >
+          <ul id="managed-sites-list" class="pure-menu-children" style="max-height: 80vh; overflow-y: scroll" >
             <% managed_sites.alphabetically_sorted.each do |site| %>
               <li class="pure-menu-item" style="display: block; height: 35px;" >
                 <%= link_to(

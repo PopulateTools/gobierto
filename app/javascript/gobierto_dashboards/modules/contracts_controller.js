@@ -281,8 +281,8 @@ export class ContractsController {
   }
 
   _formalizedContracts(){
-    return this._currentDataSource().contractsData.filter((contract) =>
-      contract.status == 'Formalizado' || contract.status == 'Adjudicado'
+    return this._currentDataSource().contractsData.filter(({status}) =>
+      status === 'Formalizado' || status === 'Adjudicado'
     )
   }
 }

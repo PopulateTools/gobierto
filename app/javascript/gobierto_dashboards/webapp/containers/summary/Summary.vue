@@ -151,6 +151,9 @@ export default {
     this.items = this.buildItems();
     this.columns = assigneesColumns;
   },
+  beforeDestroy(){
+    EventBus.$off('refresh_summary_data');
+  },
   methods: {
     refreshSummaryData(){
       this.contractsData = this.$root.$data.contractsData;

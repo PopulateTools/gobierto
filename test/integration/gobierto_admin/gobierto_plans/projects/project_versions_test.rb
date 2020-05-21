@@ -68,7 +68,7 @@ module GobiertoAdmin
         def choose_moderation_status(status_text)
           find(".js-admin-widget-save a").click
           find("label", text: status_text).click
-          find("body").click # lose popover hover so it closes
+          find("#project_name_translations_en").click # lose popover hover so it closes
         end
 
         def test_create_project_as_manager

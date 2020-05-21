@@ -77,10 +77,7 @@ export default {
   },
   created() {
     const itemId = this.$route.params.id;
-
-    const contract = this.contractsData.find((data) => {
-      return data.id === itemId
-    });
+    const contract = this.contractsData.find(({ id }) => id === itemId );
 
     if (contract) {
       const {

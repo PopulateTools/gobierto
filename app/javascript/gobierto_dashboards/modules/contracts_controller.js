@@ -130,9 +130,9 @@ export class ContractsController {
     var rangeFormat = d3.scaleThreshold().domain(_r.domain).range(_r.range);
 
     for(let i = 0; i < contractsData.length; i++){
-      const contract = contractsData[i],
-            final_amount = (contract.final_amount === '' || contract.final_amount === undefined) ? 0.0 : parseFloat(contract.final_amount),
-            initial_amount = (contract.initial_amount === '' || contract.initial_amount === undefined) ? 0.0 : parseFloat(contract.initial_amount);
+      const contract = contractsData[i];
+      const final_amount = (contract.final_amount === '' || contract.final_amount === undefined) ? 0.0 : parseFloat(contract.final_amount);
+      const initial_amount = (contract.initial_amount === '' || contract.initial_amount === undefined) ? 0.0 : parseFloat(contract.initial_amount);
 
       contract.final_amount = final_amount;
       contract.initial_amount = initial_amount;

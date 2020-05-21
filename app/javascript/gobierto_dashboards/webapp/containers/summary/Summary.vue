@@ -160,21 +160,22 @@ export default {
     buildItems() {
       const groupedByAssignee = {}
       // Group contracts by assignee
-      this.contractsData.forEach((contract) => {
-        if (contract.assignee === '' || contract.assignee === undefined) {
+      this.contractsData.forEach(({assignee, final_amount}) => {
+        if (assignee === '' || assignee === undefined) {
           return;
         }
 
-        groupedByAssignee[contract.assignee] = groupedByAssignee[contract.assignee] || {name: contract.assignee}
+        if (groupedByAssignee[assignee] === undefined) {
+          groupedByAssignee[assignee] = {
+            name: assignee,
+            id: uuid(),
+            sum: 0,
+            count: 0
+          }
+        }
 
-        // vue wouldn't update the table rows if there is no id attribute
-        groupedByAssignee[contract.assignee].id = groupedByAssignee[contract.assignee].id || uuid()
-
-        groupedByAssignee[contract.assignee].sum = groupedByAssignee[contract.assignee].sum || 0
-        groupedByAssignee[contract.assignee].sum += parseFloat(contract.final_amount)
-
-        groupedByAssignee[contract.assignee].count = groupedByAssignee[contract.assignee].count || 0
-        groupedByAssignee[contract.assignee].count++;
+        groupedByAssignee[assignee].sum += parseFloat(final_amount)
+        groupedByAssignee[assignee].count++;
       });
 
       // Sort grouped elements by number of contracts

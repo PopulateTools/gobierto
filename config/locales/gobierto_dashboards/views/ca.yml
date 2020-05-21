@@ -8,7 +8,7 @@ ca:
         contract_amount: Imp. adjudicació
         contract_type: Tipus de contracte
         contractor: Contractor
-        contracts: Contracts
+        contracts: Contractes
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
         empty_table: No hi ha dades disponibles
@@ -21,7 +21,7 @@ ca:
           contracts: Contracts
           summary: Resum
           tenders: Licitacions
-        permalink: enllaç a la web oficial
+        permalink: enllaç cap a la web oficial
         process_type: Tipus de procés
         status: Procediment
         submission_date: Data

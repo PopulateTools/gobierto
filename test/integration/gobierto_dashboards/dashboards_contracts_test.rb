@@ -78,8 +78,6 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       assert metrics_box.has_content?("Importe medio\n326.881,83 €")
       assert metrics_box.has_content?("Importe mediano\n33.668,25 €")
 
-      assert metrics_box.has_content?("Ahorro medio de licitación a adjudicación\n44,44 %")
-
       ## Headlines
       assert page.has_content?("El 5 % de los contratos son menores de 1.000 €")
       assert page.has_content?("El mayor contrato supone un 18 % de todo el gasto en contratos")

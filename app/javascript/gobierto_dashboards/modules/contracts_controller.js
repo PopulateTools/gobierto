@@ -200,16 +200,12 @@ export class ContractsController {
     // Calculations
     const amountsArray = _contractsData.map(({final_amount = 0}) => parseFloat(final_amount) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
-    const savingsArray = _contractsData.map(({initial_amount = 0, final_amount = 0}) =>
-      1 - (parseFloat(final_amount) / parseFloat(initial_amount))
-    );
 
     // Calculations box items
     const numberContracts = _contractsData.length;
     const sumContracts = d3.sum(amountsArray);
     const meanContracts = d3.mean(amountsArray);
     const medianContracts = d3.median(amountsArray);
-    const meanSavings = d3.mean(savingsArray);
 
     // Calculations headlines
     const lessThan1000Total = _contractsData.filter(({final_amount = 0}) => parseFloat(final_amount) < 1000).length;
@@ -233,10 +229,6 @@ export class ContractsController {
     document.getElementById("mean-contracts").innerText = money(meanContracts);
     document.getElementById("median-contracts").innerText = money(medianContracts);
 
-    document.getElementById("mean-savings").innerText = meanSavings.toLocaleString(I18n.locale, {
-      style: 'percent',
-      minimumFractionDigits: 2
-    });
     document.getElementById("less-than-1000-pct").innerText = lessThan1000Pct.toLocaleString(I18n.locale, {
       style: 'percent'
     });

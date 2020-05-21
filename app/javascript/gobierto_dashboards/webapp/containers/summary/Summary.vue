@@ -46,11 +46,6 @@
                     </div>
                   </div>
                 </div>
-
-                <div class="pure-u-1-2">
-                  <p class="m_t_0">{{ labelMeanSavings }}</p>
-                  <div class="metric m_b_1"><small><span id="mean-savings"></span></small></div>
-                </div>
               </div>
             </div> <!-- contracts -->
 

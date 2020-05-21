@@ -9,10 +9,10 @@ import crossfilter from 'crossfilter2'
 
 import { getRemoteData } from '../webapp/lib/get_remote_data'
 import { EventBus } from '../webapp/mixins/event_bus'
-import { money } from 'lib/shared/modules/vue-filters'
+import { money } from 'lib/shared'
 
-import { AmountDistributionBars } from "lib/visualizations/modules/amount_distribution_bars.js";
-import { GroupPctDistributionBars } from "lib/visualizations/modules/group_pct_distribution_bars.js";
+import { AmountDistributionBars } from "lib/visualizations";
+import { GroupPctDistributionBars } from "lib/visualizations";
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;

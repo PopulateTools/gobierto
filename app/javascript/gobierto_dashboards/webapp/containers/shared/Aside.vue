@@ -30,6 +30,17 @@
           </div>
         </Dropdown>
       </div>
+
+      <div
+        v-if="showDownloadDataLink()"
+        class="dashboards-home-aside--download-open-data"
+      >
+        <i class="fas fa-table"></i>
+        <a :href="dataDownloadEndpoint" target="blank">
+          {{ labelDownloadData }}
+        </a>
+      </div>
+
     </aside>
   </div>
 </template>
@@ -48,6 +59,8 @@ export default {
   },
   data() {
     return {
+      labelDownloadData: I18n.t('gobierto_dashboards.dashboards.contracts.download_data'),
+      contractsData: this.$root.$data.contractsData,
       filters: filtersConfig
     }
   },
@@ -55,6 +68,10 @@ export default {
     contractsData: {
       type: Array,
       default: {}
+    },
+    dataDownloadEndpoint: {
+      type: String,
+      default: ''
     }
   },
   created(){
@@ -168,6 +185,9 @@ export default {
           _filter.isToggle = !_filter.isToggle;
         }
       })
+    },
+    showDownloadDataLink(){
+      return(this.dataDownloadEndpoint != '' && this.dataDownloadEndpoint != undefined)
     }
   }
 }

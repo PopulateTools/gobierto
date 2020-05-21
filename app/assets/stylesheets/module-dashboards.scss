@@ -208,4 +208,28 @@
       border-top-color: transparent;
     }
   }
+
+  &-home-aside {
+    &--download-open-data {
+      padding: 2em 0;
+      font-size: 1em;
+
+      a {
+        color: var(--color-base);
+        width: 75%;
+        display: inline-block;
+        vertical-align: top;
+        line-height: 1.4em;
+      }
+
+      a:hover {
+        color: rgba(var(--color-base-string), 0.8);
+      }
+
+      .fas {
+        color: var(--color-base);
+        margin: 0 0.6em;
+      }
+    }
+  }
 }

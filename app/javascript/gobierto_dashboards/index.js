@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     logoUrl: appNode.dataset.logoUrl,
     homeUrl: appNode.dataset.homeUrl,
     contractsEndpoint: appNode.dataset.contractsEndpoint,
-    tendersEndpoint: appNode.dataset.tendersEndpoint
+    tendersEndpoint: appNode.dataset.tendersEndpoint,
+    dataDownloadEndpoint: appNode.dataset.dataDownloadEndpoint,
   });
 });

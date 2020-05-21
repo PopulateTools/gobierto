@@ -3,6 +3,7 @@
     <div class="pure-g gutters m_b_4">
       <Aside
         :contracts-data="contractsData"
+        :dataDownloadEndpoint="dataDownloadEndpoint"
       />
 
       <div class="pure-u-1 pure-u-lg-3-4">
@@ -62,6 +63,12 @@ export default {
     EventBus.$on('refresh_summary_data', () => {
       this.contractsData = this.$root.$data.contractsData;
     });
+  },
+  props: {
+    dataDownloadEndpoint: {
+      type: String,
+      default: null
+    }
   },
   methods: {
     setActiveTab(tabIndex) {

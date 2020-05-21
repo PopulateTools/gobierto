@@ -46,7 +46,7 @@ export class ContractsController {
         const router = new VueRouter({
           mode: "history",
           routes: [
-            { path: "/dashboards/contratos", component: Home,
+            { path: "/dashboards/contratos", component: Home, props: {dataDownloadEndpoint: options.dataDownloadEndpoint},
               children: [
                 { path: "resumen", name: "summary", component: Summary},
                 { path: "contratos", name: "contracts_index", component: ContractsIndex },

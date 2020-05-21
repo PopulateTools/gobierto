@@ -100,11 +100,10 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       assert process_type_container.has_content?(/Negociado con publicidad\d*0,4 %/)
 
       # Assignees table
-      first_contract = find("#assignees-table-body tr", match: :first)
+      first_contract = find(".dashboards-home-main--tr", match: :first)
 
-      assert first_contract.has_content?('CONTENUR, S.L.')
-      assert first_contract.has_content?(' 4 ')
-      assert first_contract.has_content?('412.324,00 €')
+      assert first_contract.has_content?('IMPORTACIONES INDUSTRIALES, S.A.')
+      assert first_contract.has_content?('60.004,64 €')
     end
   end
 

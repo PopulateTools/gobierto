@@ -21,6 +21,7 @@
     "d3-jetpack": "^2.0.16",
     "d3-svg-legend": "^2.25.5",
     "dc": "^3.0.6",
+    "dc.leaflet": "0.4.0",
     "devbridge-autocomplete": "^1.4.7",
     "flightjs": "^1.5.2",
     "fullcalendar": "^3.9.0",

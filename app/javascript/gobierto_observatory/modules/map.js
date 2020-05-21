@@ -1,8 +1,6 @@
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import getRemoteData from "./demography_map_controller.js";
-
 
 function buildMap() {
   let geojson

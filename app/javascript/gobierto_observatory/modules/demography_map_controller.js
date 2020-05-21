@@ -1,8 +1,13 @@
 import { csv } from "d3-request";
+import { max } from "d3-array";
 import * as dc from 'dc'
 import crossfilter from 'crossfilter2'
+//https://github.com/Leaflet/Leaflet.markercluster/issues/874
+import * as L from 'leaflet';
+import * as DCL from 'dc.leaflet';
+import 'leaflet/dist/leaflet.css';
 
-const d3 = { csv }
+const d3 = { csv, max }
 
 function getRemoteData(endpoint) {
   return new Promise((resolve) => {
@@ -76,6 +81,7 @@ export class DemographyMapController {
         this.chart5 = this.renderStudies("#bar-by-studies");
         this.chart6 = this.renderOriginNational("#bar-by-origin-spaniards");
         this.chart7 = this.renderOriginOthers("#bar-by-origin-others");
+        this.chart8 = this.renderChoroplethMap("#map");
       });
     }
   }
@@ -105,7 +111,7 @@ export class DemographyMapController {
     }
   }
 
-  buildDataObject(rawData){
+  buildDataObject(rawData) {
     for (let i = 0; i < 2; i++) {
       for (let j = 0; j < rawData[i].length; j++) {
         let d = rawData[i][j];
@@ -122,7 +128,7 @@ export class DemographyMapController {
 
   remove_empty_bins(source_group) {
     return {
-      all:function () {
+      all: function() {
         return source_group.all().filter(function(d) {
           // return Math.abs(d.value) > 0.00001; // if using floating-point numbers
           return d.key !== null;
@@ -131,8 +137,8 @@ export class DemographyMapController {
     };
   }
 
-  updateOriginFilters(dimension, filterValue){
-    if(filterValue.length) {
+  updateOriginFilters(dimension, filterValue) {
+    if (filterValue.length) {
       this.ndx.filters.origin[dimension].filter(filterValue[0]);
     } else {
       this.ndx.filters.origin[dimension].filterAll();
@@ -140,8 +146,8 @@ export class DemographyMapController {
     this.calculateGroups();
   }
 
-  updateStudiesFilters(dimension, filterValue){
-    if(filterValue.length) {
+  updateStudiesFilters(dimension, filterValue) {
+    if (filterValue.length) {
       this.ndx.filters.studies[dimension].filter(filterValue[0]);
     } else {
       this.ndx.filters.studies[dimension].filterAll();
@@ -252,7 +258,7 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'studies';
-        if(chart.filter() !== null){
+        if (chart.filter() !== null) {
           document.getElementById("bar-by-origin-spaniards").style.display = 'none';
           document.getElementById("bar-by-origin-others").style.display = 'none';
         } else {
@@ -283,7 +289,7 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';
-        if(chart.filter() !== null){
+        if (chart.filter() !== null) {
           document.getElementById("bar-by-studies").style.display = 'none';
         } else {
           document.getElementById("bar-by-studies").style.display = 'block';
@@ -295,6 +301,8 @@ export class DemographyMapController {
         that.chart2.group(that.ndx.groups.origin.byNationality);
         that.chart3.dimension(that.ndx.filters.origin.bySex);
         that.chart3.group(that.ndx.groups.origin.bySex);
+        that.chart8.dimension(that.ndx.filters.origin.byCusec);
+        that.chart8.group(that.ndx.groups.origin.byCusec);
         dc.renderAll();
       });
 
@@ -320,7 +328,7 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';
-        if(chart.filter() !== null){
+        if (chart.filter() !== null) {
           document.getElementById("bar-by-studies").style.display = 'none';
         } else {
           document.getElementById("bar-by-studies").style.display = 'block';
@@ -336,6 +344,138 @@ export class DemographyMapController {
 
     chart.render();
     return chart;
+  }
+
+  renderChoroplethMap(selector) {
+    const choroplethMap = new DCL.choroplethChart(selector);
+    const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
+    let geojson
+
+    function style(feature) {
+      return {
+        fillColor: 'var(--color-base)',
+        weight: 1,
+        opacity: 1,
+        color: 'rgba(var(--color-base-string), 0.5)',
+        fillOpacity: 0.3
+      };
+    }
+
+    function onEachFeature(feature, layer) {
+      layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: showInfo
+      });
+    }
+
+    function showInfo(feature) {
+      const {
+        sourceTarget: {
+          feature: {
+            properties
+          }
+        }
+      } = feature
+    }
+
+    function highlightFeature(e) {
+      const {
+        target: layer
+      } = e
+
+      layer.setStyle({
+        weight: 1,
+        color: 'rgba(var(--color-base-string), 0.3)',
+        fillOpacity: 0.7
+      });
+
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+      }
+    }
+
+    function resetHighlight(e) {
+      const {
+        target
+      } = e
+      geojson.resetStyle(target);
+    }
+
+    let sections = {}
+    //Init Geojson
+    function getData() {
+      let request = new XMLHttpRequest();
+      request.open('GET', "https://demo-datos.gobify.net/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=28065", true);
+
+
+      request.onload = function() {
+        const {
+          status,
+          responseText
+        } = request
+
+        if (status >= 200 && status < 400) {
+          let data = JSON.parse(responseText);
+          const {
+            data: responseData
+          } = data
+
+          sections = {
+            "type": "FeatureCollection",
+            "features": responseData.map(i => ({
+              "type": "Feature",
+              "geometry": JSON.parse(i.geometry),
+              "properties": {
+                "secc": i.csec,
+                "dis": i.cdis
+              }
+            }))
+          }
+          choroplethMap.render()
+          return choroplethMap;
+        } else {
+          console.log("ERROR! in the request")
+        }
+      };
+
+      request.send();
+
+    }
+    choroplethMap
+      .center([40.309, -3.680], 13.45)
+      .zoom(13)
+      .dimension(this.ndx.filters.origin.byCusec)
+      .group(this.ndx.groups.origin.byCusec)
+
+      .tiles(function(map) {
+        L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
+          username: "gobierto",
+          style_id: "ck18y48jg11ip1cqeu3b9wpar",
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          tileSize: 512,
+          minZoom: 9,
+          maxZoom: 16,
+          zoomOffset: -1
+        }).addTo(map);
+        geojson = L.geoJson(sections, {
+          style: style,
+          onEachFeature: onEachFeature
+        }).addTo(map)
+      })
+      .colors(['#fef8fb', '#fce8f2', '#f9d8e8', '#f7c5de', '#f1b2d1', '#dca2bf', '#c591ab', '#a97c93', '#856274', '#4e3944'])
+      .colorDomain([
+          0,
+          d3.max(this.ndx.groups.origin.byCusec.all(), dc.pluck('value'))
+      ])
+      .colorAccessor(function(d, i) {
+          return d.value;
+      })
+      .featureKeyAccessor(function(feature) {
+          return feature.properties.Sortname
+      });
+
+    document.addEventListener("DOMContentLoaded", getData());
   }
 }
 

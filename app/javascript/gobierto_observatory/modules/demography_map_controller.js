@@ -1,6 +1,8 @@
-import * as d3 from 'd3'
+import { csv } from "d3-request";
 import * as dc from 'dc'
 import crossfilter from 'crossfilter2'
+
+const d3 = { csv }
 
 function getRemoteData(endpoint) {
   return new Promise((resolve) => {
@@ -8,7 +10,6 @@ function getRemoteData(endpoint) {
       .mimeType("text/csv")
       .get(function(error, csv) {
         if (error) throw error;
-
         resolve(csv);
       });
   })
@@ -175,7 +176,7 @@ export class DemographyMapController {
       .height(100)
       .group(this.ndx.groups.studies.byNationality)
       .dimension(this.ndx.filters.studies.byNationality)
-      .ordinalColors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
+      .colors('#FF776D')
       .elasticX(true)
       .xAxis().ticks(4);
 
@@ -198,7 +199,7 @@ export class DemographyMapController {
       .height(100)
       .group(this.ndx.groups.studies.bySex)
       .dimension(this.ndx.filters.studies.bySex)
-      .ordinalColors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
+      .colors('#FF776D')
       .elasticX(true)
       .xAxis().ticks(4);
 
@@ -220,7 +221,7 @@ export class DemographyMapController {
       .height(250)
       .group(this.ndx.groups.studies.byAge)
       .dimension(this.ndx.filters.studies.byAge)
-      .ordinalColors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
+      .colors('#FF776D')
       .elasticX(true)
       .xAxis().ticks(4);
 
@@ -243,7 +244,7 @@ export class DemographyMapController {
       .cap(10) // Show only top 20
       .group(this.ndx.groups.studies.byStudies)
       .dimension(this.ndx.filters.studies.byStudies)
-      .ordinalColors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
+      .colors('#FF776D')
       .elasticX(true)
       .xAxis().ticks(4);
 
@@ -274,7 +275,7 @@ export class DemographyMapController {
       .othersGrouper(null) // Don't show the rest of the 20 in Other class - https://dc-js.github.io/dc.js/docs/html/CapMixin.html
       .group(this.ndx.groups.origin.byOriginNational)
       .dimension(this.ndx.filters.origin.byOriginNational)
-      .ordinalColors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
+      .colors('#FF776D')
       .elasticX(true)
       .xAxis().ticks(4);
 
@@ -311,7 +312,7 @@ export class DemographyMapController {
       .othersGrouper(null) // Don't show the rest of the 20 in Other clashttps://dc-js.github.io/dc.js/docs/html/CapMixin.htmls
       .group(this.ndx.groups.origin.byOriginOther)
       .dimension(this.ndx.filters.origin.byOriginOther)
-      .ordinalColors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
+      .colors('#FF776D')
       .elasticX(true)
       .xAxis().ticks(4);
 
@@ -337,3 +338,5 @@ export class DemographyMapController {
     return chart;
   }
 }
+
+export default getRemoteData

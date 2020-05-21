@@ -1,9 +1,12 @@
 import './modules/application.js'
+import buildMap from './modules/map'
 import { DemographyMapController } from "./modules/demography_map_controller.js";
+
+buildMap()
 
 document.addEventListener('DOMContentLoaded', () => {
   const demographyMapAppNode = document.getElementById("gobierto-observatory-demography-map-app");
-  if(demographyMapAppNode !== null) {
+  if (demographyMapAppNode !== null) {
     new DemographyMapController({
       selector: demographyMapAppNode.id,
       siteName: demographyMapAppNode.dataset.siteName,

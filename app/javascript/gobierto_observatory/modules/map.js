@@ -1,6 +1,8 @@
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import getRemoteData from "./demography_map_controller.js";
+
 
 function buildMap() {
   let geojson
@@ -45,10 +47,6 @@ function buildMap() {
     });
   }
 
-  function onClick(e) {
-    console.log(e)
-  }
-
   function map() {
     const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
     const map = L.map('map').setView([40.309,-3.680], 13.45);
@@ -76,12 +74,6 @@ function buildMap() {
         const {
           data: responseData
         } = data
-        console.log("responseData", responseData);
-
-        /*const sections = {
-          "type": "FeatureCollection",
-          "features": responseData.map(i => JSON.parse(i.geometry))
-        }*/
 
         const sections = {
           "type": "FeatureCollection",
@@ -98,7 +90,16 @@ function buildMap() {
         geojson = L.geoJson(sections, {
           style: style,
           onEachFeature: onEachFeature
-        }).addTo(map).on('click', onClick);
+        }).addTo(map).on('click', sections => {
+          const {
+            propagatedFrom: {
+              feature: {
+                properties: propiedades
+              }
+            }
+          } = sections
+          console.log(propiedades)
+        });
       } else {
         console.log("ERROR! in the request")
       }

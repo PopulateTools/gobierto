@@ -31,8 +31,6 @@ import {
   VisPopulationPyramid,
  } from 'lib/visualizations'
 
-import buildMap from './map'
-
 function selectSection(html){
   var $el = $('[data-breadcrumb-sub-item]');
   var $prev = $el.prev();
@@ -210,4 +208,4 @@ $(document).on('turbolinks:load', function() {
 
 });
 
-buildMap()
+

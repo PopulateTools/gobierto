@@ -43,46 +43,86 @@ export class DemographyMapController {
     const entryPoint = document.getElementById(options.selector);
 
     if (entryPoint) {
-      Promise.all([getRemoteData(options.studiesEndpoint), getRemoteData(options.originEndpoint)]).then((rawData) => {
-        const data = this.buildDataObject(rawData)
-
-        this.currentFilter = 'studies'; // options: 'studies' or 'origin'
-        let ndxStudies = crossfilter(data.studiesData);
-        let ndxOrigin = crossfilter(data.originData);
-        this.ndx = {
-          filters: {
-            studies: {
-              all: ndxStudies,
-              bySex: ndxStudies.dimension(d => d.sexo),
-              byAge: ndxStudies.dimension(d => parseInt(d.rango_edad.split('-')[0])),
-              byCusec: ndxStudies.dimension(d => d.cusec),
-              byNationality: ndxStudies.dimension(d => d.nacionalidad),
-              byOriginNational: null,
-              byOriginOther: null,
-              byStudies: ndxStudies.dimension(d => d.formacion),
-            },
-            origin: {
-              all: ndxOrigin,
-              bySex: ndxOrigin.dimension(d => d.sexo),
-              byAge: ndxOrigin.dimension(d => parseInt(d.rango_edad.split('-')[0])),
-              byCusec: ndxOrigin.dimension(d => d.cusec),
-              byNationality: ndxOrigin.dimension(d => d.nacionalidad),
-              byOriginNational: ndxOrigin.dimension(d => d.nacionalidad === 'Nacional' ? d.procedencia : null),
-              byOriginOther: ndxOrigin.dimension(d => d.nacionalidad === 'Extranjero' ? d.procedencia : null),
-              byStudies: null,
-            },
-          }
+      function checkStatus(response) {
+        if (response.status >= 200 && response.status < 400) {
+          return Promise.resolve(response)
+        } else {
+          return Promise.reject(new Error(response.statusText))
         }
-        this.calculateGroups();
-        this.chart1 = this.renderInhabitants("#inhabitants");
-        this.chart2 = this.renderBarNationality("#bar-nationality");
-        this.chart3 = this.renderBarSex("#bar-sex");
-        this.chart4 = this.renderPiramid("#piramid-age-sex");
-        this.chart5 = this.renderStudies("#bar-by-studies");
-        this.chart6 = this.renderOriginNational("#bar-by-origin-spaniards");
-        this.chart7 = this.renderOriginOthers("#bar-by-origin-others");
-        this.chart8 = this.renderChoroplethMap("#map");
-      });
+      }
+
+      let initObject = {
+        method: 'GET'
+      };
+
+      const userRequest = new Request('https://demo-datos.gobify.net/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=28065', initObject);
+
+      async function getData() {
+        let response = await fetch(userRequest);
+        let dataRequest = await checkStatus(response);
+        let data = dataRequest.json()
+        return data;
+      }
+
+      let sections = {}
+
+      getData()
+        .then(data => {
+          sections = {
+            "type": "FeatureCollection",
+            "features": data.data.map(i => ({
+              "type": "Feature",
+              "geometry": JSON.parse(i.geometry),
+              "properties": {
+                "cusec": `${i.csec}-${i.cdis}`
+              }
+            }))
+          }
+
+          Promise.all([getRemoteData(options.studiesEndpoint), getRemoteData(options.originEndpoint)]).then((rawData) => {
+            const data = this.buildDataObject(rawData)
+
+            this.currentFilter = 'studies'; // options: 'studies' or 'origin'
+            let ndxStudies = crossfilter(data.studiesData);
+            let ndxOrigin = crossfilter(data.originData);
+            this.ndx = {
+              filters: {
+                studies: {
+                  all: ndxStudies,
+                  bySex: ndxStudies.dimension(d => d.sexo),
+                  byAge: ndxStudies.dimension(d => parseInt(d.rango_edad.split('-')[0])),
+                  byCusec: ndxStudies.dimension(d => d.cusec),
+                  byNationality: ndxStudies.dimension(d => d.nacionalidad),
+                  byOriginNational: null,
+                  byOriginOther: null,
+                  byStudies: ndxStudies.dimension(d => d.formacion),
+                },
+                origin: {
+                  all: ndxOrigin,
+                  bySex: ndxOrigin.dimension(d => d.sexo),
+                  byAge: ndxOrigin.dimension(d => parseInt(d.rango_edad.split('-')[0])),
+                  byCusec: ndxOrigin.dimension(d => d.cusec),
+                  byNationality: ndxOrigin.dimension(d => d.nacionalidad),
+                  byOriginNational: ndxOrigin.dimension(d => d.nacionalidad === 'Nacional' ? d.procedencia : null),
+                  byOriginOther: ndxOrigin.dimension(d => d.nacionalidad === 'Extranjero' ? d.procedencia : null),
+                  byStudies: null,
+                },
+              }
+            }
+            this.calculateGroups();
+            this.chart1 = this.renderInhabitants("#inhabitants");
+            this.chart2 = this.renderBarNationality("#bar-nationality");
+            this.chart3 = this.renderBarSex("#bar-sex");
+            this.chart4 = this.renderPiramid("#piramid-age-sex");
+            this.chart5 = this.renderStudies("#bar-by-studies");
+            this.chart6 = this.renderOriginNational("#bar-by-origin-spaniards");
+            this.chart7 = this.renderOriginOthers("#bar-by-origin-others");
+            this.chart8 = this.renderChoroplethMap("#map", sections);
+            // Don't know why we need to do this
+            dc.chartRegistry.register(this.chart8, "main");
+            dc.renderAll("main");
+          });
+        })
     }
   }
 
@@ -156,7 +196,7 @@ export class DemographyMapController {
   }
 
   renderInhabitants(selector) {
-    const chart = new dc.dataCount(selector);
+    const chart = new dc.dataCount(selector, "main");
     chart
       .crossfilter(this.ndx.filters.studies.all)
       .groupAll(this.ndx.groups.studies.all)
@@ -170,13 +210,11 @@ export class DemographyMapController {
       .on('filtered', (chart) => {
         that.updateOriginFilters('all', chart.filters());
       });
-
-    chart.render()
     return chart;
   }
 
   renderBarNationality(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
     chart
       .width(300)
       .height(100)
@@ -191,14 +229,11 @@ export class DemographyMapController {
       .on('filtered', (chart) => {
         that.updateOriginFilters('byNationality', chart.filters());
       });
-
-
-    chart.render();
     return chart;
   }
 
   renderBarSex(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
 
     chart
       .width(300)
@@ -215,12 +250,11 @@ export class DemographyMapController {
         that.updateOriginFilters('bySex', chart.filters());
       });
 
-    chart.render();
     return chart;
   }
 
   renderPiramid(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
 
     chart
       .width(300)
@@ -236,13 +270,11 @@ export class DemographyMapController {
       .on('filtered', (chart) => {
         that.updateOriginFilters('byAge', chart.filters());
       });
-
-    chart.render();
     return chart;
   }
 
   renderStudies(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
 
     chart
       .width(300)
@@ -266,13 +298,11 @@ export class DemographyMapController {
           document.getElementById("bar-by-origin-others").style.display = 'block';
         }
       });
-
-    chart.render();
     return chart;
   }
 
   renderOriginNational(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
 
     chart
       .width(300)
@@ -303,15 +333,12 @@ export class DemographyMapController {
         that.chart3.group(that.ndx.groups.origin.bySex);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
-        dc.renderAll();
       });
-
-    chart.render();
     return chart;
   }
 
   renderOriginOthers(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
 
     chart
       .width(300)
@@ -341,18 +368,15 @@ export class DemographyMapController {
         that.chart3.group(that.ndx.groups.origin.bySex);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
-        dc.renderAll();
       });
-
-    chart.render();
     return chart;
   }
 
-  renderChoroplethMap(selector) {
-    const chart = new dc_leaflet.choroplethChart(selector);
-    const legendMap = new dc_leaflet.legend(selector).position('bottomright');
+  renderChoroplethMap(selector, sections) {
+    const chart = new dc_leaflet.choroplethChart(selector, "main");
+    const legendMap = new dc_leaflet.legend(selector, "main").position('bottomright');
     const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
-    let geojson
+    let geojson;
 
     function style(feature) {
       return {
@@ -400,86 +424,41 @@ export class DemographyMapController {
       geojson.resetStyle(target);
     }
 
-    let sections = {}
-
-    let initObject = {
-        method: 'GET'
-    };
-
-    function checkStatus(response) {
-      if (response.status >= 200 && response.status < 400) {
-        return Promise.resolve(response)
-      } else {
-        return Promise.reject(new Error(response.statusText))
-      }
-    }
-
-    const userRequest = new Request('https://demo-datos.gobify.net/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=28065', initObject);
-
-    async function getData() {
-      let response = await fetch(userRequest);
-      let dataRequest = await checkStatus(response);
-      let data = dataRequest.json()
-      return data;
-    }
-
-    getData()
-      .then(data => {
-        sections = {
-          "type": "FeatureCollection",
-          "features": data.data.map(i => ({
-            "type": "Feature",
-            "geometry": JSON.parse(i.geometry),
-            "properties": {
-              "cusec": `${i.csec}-${i.cdis}`
-            }
-          }))
-        }
-        renderMap(sections)
+    chart
+      .width(1200)
+      .height(600)
+      .center([40.309, -3.680], 13.45)
+      .zoom(13)
+      .dimension(this.ndx.filters.studies.byCusec)
+      .group(this.ndx.groups.studies.byCusec)
+      .geojson(sections.features)
+      .colorDomain([
+          0,
+          d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
+      ])
+      .colorAccessor(function(d, i) {
+          return d.value
       })
+      .featureKeyAccessor(feature => feature.properties.cusec)
+      .legend(legendMap)
+      // TODO
+      // .tiles(function(map) {
+      //   L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
+      //     username: "gobierto",
+      //     style_id: "ck18y48jg11ip1cqeu3b9wpar",
+      //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      //     tileSize: 512,
+      //     minZoom: 9,
+      //     maxZoom: 16,
+      //     zoomOffset: -1
+      //   }).addTo(map);
 
-    const that = this;
-
-    function renderMap(sections) {
-      chart
-        .width(1200)
-        .height(600)
-        .center([40.309, -3.680], 13.45)
-        .zoom(13)
-        .dimension(that.ndx.filters.studies.byCusec)
-        .group(that.ndx.groups.studies.byCusec)
-        .geojson(sections.features)
-        .colorDomain([
-            0,
-            d3.max(that.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
-        ])
-        .colorAccessor(function(d, i) {
-            return d.value
-        })
-        .featureKeyAccessor(function(feature) {
-            return feature.properties.cusec
-        })
-        .legend(legendMap)
-        .tiles(function(map) {
-          L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
-            username: "gobierto",
-            style_id: "ck18y48jg11ip1cqeu3b9wpar",
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            tileSize: 512,
-            minZoom: 9,
-            maxZoom: 16,
-            zoomOffset: -1
-          }).addTo(map);
-          geojson = L.geoJson(sections, {
-            style: style,
-            onEachFeature: onEachFeature
-          }).addTo(map)
-        })
-      chart.render();
-      return chart;
-    }
-
-
+      //   geojson = L.geoJson(sections, {
+      //     style: style,
+      //     onEachFeature: onEachFeature
+      //   }).addTo(map)
+      // })
+    return chart;
   }
 }
 

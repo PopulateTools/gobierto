@@ -136,8 +136,8 @@ export class ContractsController {
 
     // Contracts precalculations and normalizations
     _amountRange = {
-      domain: [501, 1001, 5001, 10001, 15001],
-      range: [0, 1, 2, 3, 4, 5]
+      domain: [1001, 10001, 50001, 100001],
+      range: [0, 1, 2, 3, 4]
     };
     var rangeFormat = d3.scaleThreshold().domain(_amountRange.domain).range(_amountRange.range);
 

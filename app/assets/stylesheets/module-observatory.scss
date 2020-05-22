@@ -18,6 +18,16 @@
 
 // Intro
 
+#gobierto-observatory-demography-map-app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
 .gobierto_observatory {
   height: 100vh;
 
@@ -145,7 +155,8 @@
   }
 
   &-sidebar {
-    max-height: 100vh;
+    background-color: #fff;
+    height: calc(100vh - 120px);
     overflow-y: hidden;
     overflow-y: scroll;
     scrollbar-width: none;
@@ -157,6 +168,10 @@
     }
   }
 
+  &-container-map {
+    height: calc(100vh - 120px);
+  }
+
   #inhabitants {
     color: var(--pyramidal-female);
   }
@@ -166,6 +181,8 @@
     font-weight: normal;
     color: var(--pyramidal-female);
     border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
     text-transform: initial;
   }
 
@@ -621,6 +638,10 @@
     height: 100%;
     max-height: 100vh;
     width: 100%;
+
+    .leaflet-container {
+      width: 100% !important;
+    }
   }
 
   .info {

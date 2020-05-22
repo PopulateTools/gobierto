@@ -69,7 +69,6 @@ export class DemographyMapController {
     if (entryPoint) {
       Promise.all([getRemoteData(options.studiesEndpoint), getRemoteData(options.originEndpoint), getData()]).then((rawData) => {
         const data = this.buildDataObject(rawData)
-        console.log("data", data);
 
         const { studiesData, originData, getafeData } = data
 
@@ -399,7 +398,7 @@ export class DemographyMapController {
 
   renderChoroplethMap(selector, data) {
     const chart = new dc_leaflet.choroplethChart(selector, "#main");
-    const legendMap = new dc_leaflet.legend(selector).position('topright');
+    const legendMap = new dc_leaflet.legend(selector, "#main").position('topright');
     const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
 
     chart

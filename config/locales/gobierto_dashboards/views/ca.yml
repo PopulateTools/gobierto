@@ -1,8 +1,6 @@
 ---
 ca:
   gobierto_dashboards:
-    shared:
-      loading: Carregant dades...
     dashboards:
       contracts:
         amount_distribution: Distribució per imports
@@ -25,7 +23,8 @@ ca:
           contracts: Contracts
           summary: Resum
           tenders: Licitacions
-        permalink: Consulta aquest contracte en la Plataforma de Contractació de l'Sector Públic
+        permalink: Consulta aquest contracte en la Plataforma de Contractació de l'Sector
+          Públic
         process_type: Tipus de procés
         status: Estat
         submission_date: Data
@@ -52,3 +51,5 @@ ca:
           contracts: Contractes i licitacions
       menu_subsections:
         contracts: Contractes
+    shared:
+      loading: Carregant dades...

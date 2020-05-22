@@ -1,8 +1,6 @@
 ---
 en:
   gobierto_dashboards:
-    shared:
-      loading: Carregant dades...
     dashboards:
       contracts:
         amount_distribution: Amount distribution
@@ -51,3 +49,5 @@ en:
           contracts: Contracts and tenders
       menu_subsections:
         contracts: Contracts
+    shared:
+      loading: Carregant dades...

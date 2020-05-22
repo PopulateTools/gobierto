@@ -1,4 +1,4 @@
-import { csv } from "d3-request";
+import { csv, json } from "d3-request";
 import { max, min } from "d3-array";
 import * as dc from 'dc'
 import crossfilter from 'crossfilter2'
@@ -7,7 +7,7 @@ import * as L from 'leaflet';
 import * as dc_leaflet from 'dc.leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const d3 = { csv, max, min }
+const d3 = { csv, max, min, json }
 
 function getRemoteData(endpoint) {
   return new Promise((resolve) => {
@@ -18,6 +18,27 @@ function getRemoteData(endpoint) {
         resolve(csv);
       });
   })
+}
+
+let initObject = {
+    method: 'GET'
+};
+
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 400) {
+    return Promise.resolve(response)
+  } else {
+    return Promise.reject(new Error(response.statusText))
+  }
+}
+
+const userRequest = new Request('https://demo-datos.gobify.net/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=28065', initObject);
+
+async function getData() {
+  let response = await fetch(userRequest);
+  let dataRequest = await checkStatus(response);
+  let data = dataRequest.json()
+  return data;
 }
 
 
@@ -43,12 +64,13 @@ export class DemographyMapController {
     const entryPoint = document.getElementById(options.selector);
 
     if (entryPoint) {
-      Promise.all([getRemoteData(options.studiesEndpoint), getRemoteData(options.originEndpoint)]).then((rawData) => {
+      Promise.all([getRemoteData(options.studiesEndpoint), getRemoteData(options.originEndpoint), getData()]).then((rawData) => {
         const data = this.buildDataObject(rawData)
 
         this.currentFilter = 'studies'; // options: 'studies' or 'origin'
         let ndxStudies = crossfilter(data.studiesData);
         let ndxOrigin = crossfilter(data.originData);
+        let geojson = data.getafeData
         this.ndx = {
           filters: {
             studies: {
@@ -81,7 +103,7 @@ export class DemographyMapController {
         this.chart5 = this.renderStudies("#bar-by-studies");
         this.chart6 = this.renderOriginNational("#bar-by-origin-spaniards");
         this.chart7 = this.renderOriginOthers("#bar-by-origin-others");
-        this.chart8 = this.renderChoroplethMap("#map");
+        this.chart8 = this.renderChoroplethMap("#map", geojson);
       });
     }
   }
@@ -112,17 +134,31 @@ export class DemographyMapController {
   }
 
   buildDataObject(rawData) {
+    const csvData = [rawData[0], rawData[1]]
+    const geoData = rawData[2]
     for (let i = 0; i < 2; i++) {
-      for (let j = 0; j < rawData[i].length; j++) {
-        let d = rawData[i][j];
+      for (let j = 0; j < csvData[i].length; j++) {
+        let d = csvData[i][j];
         d['cusec'] = d['seccion'] + '-' + d['distrito']
         d['total'] = +d['total']
       }
     }
 
+    const sections = {
+      "type": "FeatureCollection",
+      "features": geoData.data.map(i => ({
+        "type": "Feature",
+        "geometry": JSON.parse(i.geometry),
+        "properties": {
+          "cusec": `${i.csec}-${i.cdis}`
+        }
+      }))
+    }
+
     return {
-      studiesData: rawData[0],
-      originData: rawData[1]
+      studiesData: csvData[0],
+      originData: csvData[1],
+      getafeData: sections
     }
   }
 
@@ -348,33 +384,16 @@ export class DemographyMapController {
     return chart;
   }
 
-  renderChoroplethMap(selector) {
-    const chart = new dc_leaflet.choroplethChart(selector);
-    const legendMap = new dc_leaflet.legend(selector).position('bottomright');
+  renderChoroplethMap(selector, data) {
+    const chart = dc_leaflet.choroplethChart(selector);
+    const legendMap = dc_leaflet.legend(selector).position('bottomright');
     const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
     let geojson
 
-    function style(feature) {
-      return {
-        fillColor: 'var(--color-base)',
-        weight: 1,
-        opacity: 1,
-        color: 'rgba(var(--color-base-string), 0.5)',
-        fillOpacity: 0.3
-      };
-    }
-
     function onEachFeature(feature, layer) {
       layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight,
-        click: showInfo
+        mouseover: highlightFeature
       });
-    }
-
-    function showInfo(feature) {
-      //Callback click section
-      console.log("feature", feature);
     }
 
     function highlightFeature(e) {
@@ -400,86 +419,40 @@ export class DemographyMapController {
       geojson.resetStyle(target);
     }
 
-    let sections = {}
+    chart
+      .center([40.309, -3.680], 13.45)
+      .zoom(13)
+      .dimension(this.ndx.filters.studies.byCusec)
+      .group(this.ndx.groups.studies.byCusec)
+      .geojson(data.features)
+      .colorDomain([
+          0,
+          d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
 
-    let initObject = {
-        method: 'GET'
-    };
-
-    function checkStatus(response) {
-      if (response.status >= 200 && response.status < 400) {
-        return Promise.resolve(response)
-      } else {
-        return Promise.reject(new Error(response.statusText))
-      }
-    }
-
-    const userRequest = new Request('https://demo-datos.gobify.net/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=28065', initObject);
-
-    async function getData() {
-      let response = await fetch(userRequest);
-      let dataRequest = await checkStatus(response);
-      let data = dataRequest.json()
-      return data;
-    }
-
-    getData()
-      .then(data => {
-        sections = {
-          "type": "FeatureCollection",
-          "features": data.data.map(i => ({
-            "type": "Feature",
-            "geometry": JSON.parse(i.geometry),
-            "properties": {
-              "cusec": `${i.csec}-${i.cdis}`
-            }
-          }))
-        }
-        renderMap(sections)
+      ])
+      .colorAccessor(function(d, i) {
+          return d.value
       })
-
-    const that = this;
-
-    function renderMap(sections) {
-      chart
-        .width(1200)
-        .height(600)
-        .center([40.309, -3.680], 13.45)
-        .zoom(13)
-        .dimension(that.ndx.filters.studies.byCusec)
-        .group(that.ndx.groups.studies.byCusec)
-        .geojson(sections.features)
-        .colorDomain([
-            0,
-            d3.max(that.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
-        ])
-        .colorAccessor(function(d, i) {
-            return d.value
-        })
-        .featureKeyAccessor(function(feature) {
-            return feature.properties.cusec
-        })
-        .legend(legendMap)
-        .tiles(function(map) {
-          L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
-            username: "gobierto",
-            style_id: "ck18y48jg11ip1cqeu3b9wpar",
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            tileSize: 512,
-            minZoom: 9,
-            maxZoom: 16,
-            zoomOffset: -1
-          }).addTo(map);
-          geojson = L.geoJson(sections, {
-            style: style,
-            onEachFeature: onEachFeature
-          }).addTo(map)
-        })
-      chart.render();
-      return chart;
-    }
-
-
+      .featureKeyAccessor(function(feature) {
+          return feature.properties.cusec
+      })
+      .legend(legendMap)
+      .tiles(function(map) {
+        L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
+          username: "gobierto",
+          style_id: "ck18y48jg11ip1cqeu3b9wpar",
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          tileSize: 512,
+          minZoom: 9,
+          maxZoom: 16,
+          zoomOffset: -1
+        }).addTo(map);
+        geojson = L.geoJson(data, {
+          onEachFeature: onEachFeature
+        }).addTo(map)
+      })
+    chart.render();
+    return chart;
   }
 }
 

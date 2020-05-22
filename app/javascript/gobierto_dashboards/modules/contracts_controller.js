@@ -3,11 +3,12 @@ import VueRouter from "vue-router";
 
 import { sum, mean, median, max } from 'd3-array';
 import { scaleThreshold } from 'd3-scale';
+
 const d3 = { scaleThreshold, sum, mean, median, max }
 
 import crossfilter from 'crossfilter2'
 
-import { getRemoteData } from '../webapp/lib/get_remote_data'
+import { getRemoteData } from '../webapp/lib/utils'
 import { EventBus } from '../webapp/mixins/event_bus'
 import { money } from 'lib/shared'
 
@@ -28,11 +29,7 @@ export class ContractsController {
     const entryPoint = document.getElementById(selector);
 
     if (entryPoint) {
-      const htmlRouterBlock = `
-        <keep-alive>
-          <router-view :key="$route.fullPath"></router-view>
-        </keep-alive>
-      `;
+      const htmlRouterBlock = `<router-view></router-view>`;
 
       entryPoint.innerHTML = htmlRouterBlock;
 
@@ -116,9 +113,9 @@ export class ContractsController {
         }
 
         if ( aDate < bDate ){
-          return -1;
-        } else if ( aDate > bDate ){
           return 1;
+        } else if ( aDate > bDate ){
+          return -1;
         } else {
           return 0;
         }
@@ -133,10 +130,12 @@ export class ContractsController {
     var rangeFormat = d3.scaleThreshold().domain(_r.domain).range(_r.range);
 
     for(let i = 0; i < contractsData.length; i++){
-      const contract = contractsData[i],
-            final_amount = (contract.final_amount === '' || contract.final_amount === undefined) ? 0.0 : parseFloat(contract.final_amount);
+      const contract = contractsData[i];
+      const final_amount = (contract.final_amount === '' || contract.final_amount === undefined) ? 0.0 : parseFloat(contract.final_amount);
+      const initial_amount = (contract.initial_amount === '' || contract.initial_amount === undefined) ? 0.0 : parseFloat(contract.initial_amount);
 
       contract.final_amount = final_amount;
+      contract.initial_amount = initial_amount;
       contract.range = rangeFormat(+final_amount);
     }
 
@@ -147,7 +146,7 @@ export class ContractsController {
   }
 
   _renderSummary(){
-    ndx = crossfilter(data.contractsData);
+    ndx = crossfilter(this._formalizedContracts());
 
     this._renderTendersMetricsBox();
     this._renderContractsMetricsBox();
@@ -161,6 +160,7 @@ export class ContractsController {
     reduced = {tendersData: data.tendersData, contractsData: reducedContractsData};
 
     vueApp.contractsData = reducedContractsData;
+    EventBus.$emit('refresh_summary_data');
 
     this._renderContractsMetricsBox();
   }
@@ -169,7 +169,7 @@ export class ContractsController {
     const _tendersData = this._currentDataSource().tendersData
 
     // Calculations
-    const amountsArray = _tendersData.map(({initial_amount = 0}) => initial_amount === '' ? 0.0 : parseFloat(initial_amount) );
+    const amountsArray = _tendersData.map(({initial_amount = 0}) => parseFloat(initial_amount) );
 
     const numberTenders = _tendersData.length;
     const sumTenders = d3.sum(amountsArray);
@@ -184,16 +184,14 @@ export class ContractsController {
   }
 
   _renderContractsMetricsBox(){
-    const _contractsData = this._currentDataSource().contractsData
-    // Calculations
-    const amountsArray = _contractsData.map(({final_amount = 0}) => final_amount === '' ? 0.0 : parseFloat(final_amount) );
-    const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
-    const savingsArray = _contractsData.map(({initial_amount = 0, final_amount = 0}) =>{
-      initial_amount = initial_amount === '' ? 0.0 : initial_amount;
-      final_amount = final_amount === '' ? 0.0 : final_amount;
+    const _contractsData = this._formalizedContracts();
 
-      return (1 - parseFloat(final_amount) / parseFloat(initial_amount))
-    });
+    // Calculations
+    const amountsArray = _contractsData.map(({final_amount = 0}) => parseFloat(final_amount) );
+    const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
+    const savingsArray = _contractsData.map(({initial_amount = 0, final_amount = 0}) =>
+      1 - (parseFloat(final_amount) / parseFloat(initial_amount))
+    );
 
     // Calculations box items
     const numberContracts = _contractsData.length;
@@ -281,5 +279,10 @@ export class ContractsController {
   _currentDataSource(){
     return reduced || data
   }
-}
 
+  _formalizedContracts(){
+    return this._currentDataSource().contractsData.filter(({status}) =>
+      status === 'Formalizado' || status === 'Adjudicado'
+    )
+  }
+}

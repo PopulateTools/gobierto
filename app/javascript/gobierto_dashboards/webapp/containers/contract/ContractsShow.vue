@@ -35,6 +35,11 @@
             <th class="left">{{ labelProcessType }}</th>
             <td>{{ process_type }}</td>
           </tr>
+          <tr>
+            <th class="left">
+              <a :href="permalink" target='blank'>{{ labelPermalink }}</a>
+            </th>
+          </tr>
         </table>
 
       </div>
@@ -61,39 +66,42 @@ export default {
       initial_amount: '',
       status: '',
       process_type: '',
+      permalink: '',
       labelAsignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
       labelTenderAmount: I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount'),
       labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
       labelStatus: I18n.t('gobierto_dashboards.dashboards.contracts.status'),
-      labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type')
+      labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
+      labelPermalink: I18n.t('gobierto_dashboards.dashboards.contracts.permalink')
     }
   },
   created() {
     const itemId = this.$route.params.id;
+    const contract = this.contractsData.find(({ id }) => id === itemId ) || {};
 
-    const contract = this.contractsData.find((contract) => {
-      return contract.id === itemId
-    });
+    if (contract) {
+      const {
+        title,
+        description,
+        assignee,
+        document_number,
+        final_amount,
+        initial_amount,
+        status,
+        process_type,
+        permalink
+      } = contract
 
-    const {
-      title,
-      description,
-      assignee,
-      document_number,
-      final_amount,
-      initial_amount,
-      status,
-      process_type
-    } = contract
-
-    this.title = title
-    this.description = description
-    this.assignee = assignee
-    this.document_number = document_number
-    this.final_amount = final_amount
-    this.initial_amount = initial_amount
-    this.status = status
-    this.process_type = process_type
+      this.title = title
+      this.description = description
+      this.assignee = assignee
+      this.document_number = document_number
+      this.final_amount = final_amount
+      this.initial_amount = initial_amount
+      this.status = status
+      this.process_type = process_type
+      this.permalink = permalink
+    }
   }
 }
 </script>

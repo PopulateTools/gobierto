@@ -94,16 +94,32 @@
       </div>
     </div>
 
+    <div class="m_t_4">
+      <h3 class="mt1 graph-title">{{ labelMainAssignees }}</h3>
+      <Table
+        :items="items"
+        :columns="columns"
+      >
+      </Table>
+    </div>
+
   </div>
 </template>
 
 <script>
+import Table from "../../components/Table.vue";
 import { EventBus } from "../../mixins/event_bus";
+import { assigneesColumns } from "../../lib/config.js";
 
 export default {
   name: 'Summary',
+  components: {
+    Table
+  },
   data(){
     return {
+      contractsData: this.$root.$data.contractsData,
+      items: [],
       labelTenders: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders'),
       labelTendersFor: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders_for'),
       labelContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts'),
@@ -116,11 +132,62 @@ export default {
       labelHalfSpendingsContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_half_spendings_contracts'),
       labelContractType: I18n.t('gobierto_dashboards.dashboards.contracts.contract_type'),
       labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
-      labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution')
+      labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution'),
+      labelMainAssignees: I18n.t('gobierto_dashboards.dashboards.contracts.main_assignees'),
+      labelTableThAssignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
+      labelTableThContracts: I18n.t('gobierto_dashboards.dashboards.contracts.contracts'),
+      labelTableThAMount: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount'),
     }
   },
+
   mounted() {
     EventBus.$emit("summary_ready");
+
+    EventBus.$on('refresh_summary_data', () => {
+      this.refreshSummaryData();
+    });
+  },
+  created() {
+    this.items = this.buildItems();
+    this.columns = assigneesColumns;
+  },
+  beforeDestroy(){
+    EventBus.$off('refresh_summary_data');
+  },
+  methods: {
+    refreshSummaryData(){
+      this.contractsData = this.$root.$data.contractsData;
+      this.items = this.buildItems();
+    },
+    buildItems() {
+      const groupedByAssignee = {}
+      // Group contracts by assignee
+      this.contractsData.forEach(({assignee, final_amount}) => {
+        if (assignee === '' || assignee === undefined) {
+          return;
+        }
+
+        if (groupedByAssignee[assignee] === undefined) {
+          groupedByAssignee[assignee] = {
+            name: assignee,
+            sum: 0,
+            count: 0
+          }
+        }
+
+        groupedByAssignee[assignee].sum += parseFloat(final_amount)
+        groupedByAssignee[assignee].count++;
+      });
+
+
+      // Sort grouped elements by number of contracts
+      const sortedAndGrouped = Object.values(groupedByAssignee).sort((a, b) => { return a.count < b.count ? 1 : -1 });
+
+      // The id must be unique so when data changes vue knows how to refresh the table accordingly.
+      sortedAndGrouped.forEach(contract => contract.id = `${contract.name}-${contract.count}`)
+
+      return sortedAndGrouped;
+    }
   }
 }
 </script>

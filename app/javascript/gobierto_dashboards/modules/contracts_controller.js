@@ -158,7 +158,7 @@ export class ContractsController {
 
       tender.initial_amount = initial_amount;
       tender.submission_date_year = tender.submission_date != undefined && tender.submission_date != '' ? (new Date(tender.submission_date).getFullYear()) : tender.submission_date;
-      tender.submission_date_year = tender.submission_date_year.toString()
+      if(tender.submission_date_year) { tender.submission_date_year = tender.submission_date_year.toString() }
     }
 
     unfilteredTendersData = tendersData.sort(sortByField('submission_date'));

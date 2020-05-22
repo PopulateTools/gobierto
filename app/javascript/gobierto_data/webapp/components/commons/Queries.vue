@@ -50,7 +50,10 @@
             <h3 class="gobierto-data-summary-queries-panel-title">
               <Caret :rotate="!showPublicQueries" />
 
-              {{ labelAll }} ({{ publicQueries.length }})
+              {{ labelAll }} 
+              <template v-if="publicQueries.length">
+                ({{ publicQueries.length }})
+              </template>
             </h3>
           </template>
           <div v-if="publicQueries.length">

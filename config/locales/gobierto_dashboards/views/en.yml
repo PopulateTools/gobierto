@@ -1,6 +1,8 @@
 ---
 en:
   gobierto_dashboards:
+    shared:
+      loading: Carregant dades...
     dashboards:
       contracts:
         amount_distribution: Amount distribution
@@ -23,7 +25,7 @@ en:
           contracts: Contracts
           summary: Summary
           tenders: Tenders
-        permalink: link to the official website
+        permalink: Check this contract on the Public Sector Contracting Platform
         process_type: Type of process
         status: Status
         submission_date: Date

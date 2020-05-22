@@ -23,17 +23,6 @@
         <i class="far fa-clone" />
         <span>{{ labelContracts }}</span>
       </router-link>
-      <router-link
-        :to="{ name: 'tenders_index' }"
-        :class="{ 'is-active': activeTab === 2 }"
-        tag="li"
-        class="dashboards-home-nav--tab"
-        @click.native="markTabAsActive(2)"
-      >
-        <i class="fas fa-clone" />
-        <i class="far fa-clone" />
-        <span>{{ labelTenders }}</span>
-      </router-link>
     </ul>
   </nav>
 </template>

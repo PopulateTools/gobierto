@@ -15,8 +15,6 @@
           <Summary v-show="isSummary"/>
           <ContractsIndex v-show="isContractsIndex"/>
           <ContractsShow v-if="isContractsShow"/>
-          <TendersIndex v-show="isTendersIndex"/>
-          <TendersShow v-if="isTendersShow"/>
         </main>
       </div>
     </div>
@@ -43,8 +41,6 @@ export default {
     Summary,
     ContractsIndex,
     ContractsShow,
-    TendersIndex,
-    TendersShow
   },
   data() {
     return {
@@ -56,8 +52,6 @@ export default {
     isSummary() { return this.$route.name === 'summary' },
     isContractsIndex() { return this.$route.name === 'contracts_index' },
     isContractsShow() { return this.$route.name === 'contracts_show' },
-    isTendersIndex() { return this.$route.name === 'tenders_index' },
-    isTendersShow() { return this.$route.name === 'tenders_show' },
   },
   created(){
     EventBus.$on('refresh_summary_data', () => {

@@ -52,8 +52,6 @@ export class ContractsController {
                 { path: "resumen", name: "summary", component: Summary},
                 { path: "contratos", name: "contracts_index", component: ContractsIndex },
                 { path: "contratos/:id", name: "contracts_show", component: ContractsShow },
-                { path: "licitaciones", name: "tenders_index", component: TendersIndex },
-                { path: "licitaciones/:id", name: "tenders_show", component: TendersShow },
               ]
             }
 

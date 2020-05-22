@@ -31,6 +31,7 @@ ca:
       data: Dades
       dataset: Conjunt de dades
       datasetUpdated: Darrers datasets actualitzats
+      description: Descripció
       download: Descàrrega
       downloadData: Descarregueu dades
       edit: Editeu
@@ -41,8 +42,10 @@ ca:
       guide: Guia per utilitzar l'editor SQL
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualització modificada
+      preview: Previsualitzeu
       private: Privat
       queries: Consultes
+      queryEmpty: Cap consulte disponible
       queryExecuted: Consulta executada en
       queryName: Nom consulta
       recents: Recents

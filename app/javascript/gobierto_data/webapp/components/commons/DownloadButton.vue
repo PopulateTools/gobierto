@@ -4,7 +4,7 @@
       v-clickoutside="closeMenu"
       :text="labelDownloadData"
       icon="download"
-      color="var(--color-base)"
+      icon-color="rgba(var(--color-base-string), .5)"
       background="#fff"
       class="gobierto-data-btn-download-data"
       @click.native="isHidden = !isHidden"

@@ -10,7 +10,6 @@
           :title="labelResetViz"
           class="btn-sql-editor"
           icon="home"
-          color="var(--color-base)"
           background="#fff"
           @click.native="resetViz"
         />
@@ -20,7 +19,6 @@
           :class="{ 'remove-label' : removeLabelBtn }"
           class="btn-sql-editor"
           icon="chart-area"
-          color="var(--color-base)"
           background="#fff"
           @click.native="showChart"
         />

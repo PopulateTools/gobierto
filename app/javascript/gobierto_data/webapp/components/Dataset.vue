@@ -19,6 +19,7 @@
       :private-queries="privateQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
+      :array-columns="arrayColumns"
       :resources-list="resourcesList"
       :dataset-attributes="attributes"
       :is-user-logged="isUserLogged"
@@ -605,7 +606,7 @@ export default {
       //Check if the user who loaded the query is the same user who created the query
       if (userId !== 0 && userId !== checkUserId && nameComponent === 'Query') {
         this.enabledForkButton = true
-        this.isForkPromptVisible = false
+        this.isForkPromptVisible = true
       } else {
         this.disabledForkButton()
         this.enabledForkPrompt()

@@ -5,7 +5,6 @@
         :title="labelResetQuery"
         class="btn-sql-editor"
         icon="home"
-        color="var(--color-base)"
         background="#fff"
         @click.native="resetQueryHandler"
       />
@@ -17,7 +16,6 @@
         :title="labelButtonRecentQueries"
         class="btn-sql-editor"
         icon="history"
-        color="var(--color-base)"
         background="#fff"
         @click.native="isRecentModalActive = !isRecentModalActive"
       />
@@ -36,27 +34,33 @@
     </div>
 
     <div class="gobierto-data-sql-editor-container">
-      <Button
-        v-clickoutside="closeQueriesModal"
-        :class="{ 'remove-label' : removeLabelBtn }"
-        :title="labelButtonQueries"
-        class="btn-sql-editor"
-        icon="list"
-        color="var(--color-base)"
-        background="#fff"
-        @click.native="isQueriesModalActive = !isQueriesModalActive"
-      />
+      <!-- //Closable directive doesn't work with component, so i've used the html attribute :\ -->
+      <button
+        ref="buttonYourQueries"
+        class="btn-sql-editor btn-sql-editor-queries gobierto-data-btn-blue"
+        @click="isQueriesModalActive = !isQueriesModalActive"
+      >
+        <i
+          style="color: inherit"
+          class="fas fa-list"
+        />
+      </button>
 
       <transition
         name="fade"
         mode="out-in"
       >
         <Queries
-          v-if="isQueriesModalActive"
+          v-show="isQueriesModalActive"
+          v-closable="{
+            exclude: ['buttonYourQueries'],
+            handler: 'closeQueriesModal'
+          }"
           :private-queries="privateQueries"
           :public-queries="publicQueries"
           :is-user-logged="isUserLogged"
           class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
+          @closeQueriesModal="closeQueriesModal"
         />
       </transition>
     </div>
@@ -83,7 +87,6 @@
       :title="labelButtonRunQuery"
       class="btn-sql-editor btn-sql-editor-run"
       icon="play"
-      color="var(--color-base)"
       background="#fff"
       @click.native="clickRunQueryHandler()"
     >

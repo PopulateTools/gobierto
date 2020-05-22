@@ -31,6 +31,7 @@ es:
       data: Datos
       dataset: Conjunto de datos
       datasetUpdated: Últimos datasets actualizados
+      description: Descripción
       download: Descargar
       downloadData: Descargar datos
       edit: Editar
@@ -41,8 +42,10 @@ es:
       guide: Guía para usar el editor SQL
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualización modificada
+      preview: Previsualizar
       private: Privada
       queries: Consultas
+      queryEmpty: No hay consultas disponibles
       queryExecuted: Consulta ejecutada en
       queryName: Nombre consulta
       recents: Recientes

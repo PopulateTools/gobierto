@@ -6,6 +6,7 @@
     <i
       v-if="icon"
       :class="'fa-' + icon"
+      :style="{'color': iconColor}"
       style="color: inherit; margin: 0;"
       class="fas"
     />
@@ -28,11 +29,15 @@ export default {
     },
     color: {
       type: String,
-      required: true
+      default: 'var(--color-base)'
     },
     background: {
       type: String,
-      required: true
+      default: ''
+    },
+    iconColor: {
+      type: String,
+      default: 'var(--color-base)'
     }
   }
 }

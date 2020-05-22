@@ -31,6 +31,7 @@ en:
       data: Data
       dataset: Datasets
       datasetUpdated: Last updated datasets
+      description: Description
       download: Download
       downloadData: Download Data
       edit: Edit
@@ -41,8 +42,10 @@ en:
       guide: Guide to using the SQL editor
       modifiedQuery: Modified Query
       modifiedVisualization: Modified Visualization
+      preview: Preview
       private: Private
       queries: Queries
+      queryEmpty: No available queries
       queryExecuted: Query executed in
       queryName: Query name
       recents: Recents

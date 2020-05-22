@@ -1,5 +1,6 @@
 import { csv } from "d3-request";
 import { max, min } from "d3-array";
+import { schemeCategory10 } from 'd3-scale'
 import * as dc from 'dc'
 import crossfilter from 'crossfilter2'
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
@@ -7,7 +8,7 @@ import * as L from 'leaflet';
 import * as dc_leaflet from 'dc.leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const d3 = { csv, max, min }
+const d3 = { csv, max, min, schemeCategory10 }
 
 function getRemoteData(endpoint) {
   return new Promise((resolve) => {
@@ -38,6 +39,10 @@ async function getData() {
   let data = dataRequest.json()
   return data;
 }
+
+ const marginHabNat = { top: 0, right: 0, bottom: 0, left: 70 }
+ const marginStudies = { top: 20, right: 0, bottom: 40, left: 100 }
+ const marginOrigin = { top: 20, right: 0, bottom: 40, left: 100 }
 
 
 // Estudios
@@ -201,8 +206,8 @@ export class DemographyMapController {
       .crossfilter(this.ndx.filters.studies.all)
       .groupAll(this.ndx.groups.studies.all)
       .html({
-        all: '<strong>%total-count</strong> habitantes',
-        some: '<strong>%filter-count</strong>/total habitantes'
+        all: '<h2 class="gobierto_observatory-habitants-title">Habitantes</h2><h3 class="gobierto_observatory-habitants-number">%total-count</h3>',
+        some: '<h2 class="gobierto_observatory-habitants-title">Total habitantes</h2><h3 class="gobierto_observatory-habitants-number">%filter-count</h3>'
       })
 
     const that = this;
@@ -217,11 +222,15 @@ export class DemographyMapController {
     const chart = new dc.rowChart(selector, "main");
     chart
       .width(300)
-      .height(100)
+      .height(45)
       .group(this.ndx.groups.studies.byNationality)
       .dimension(this.ndx.filters.studies.byNationality)
       .colors('#FF776D')
       .elasticX(true)
+      .gap(10)
+      .margins(marginHabNat)
+      .fixedBarHeight(10)
+      .labelOffsetX(-70)
       .xAxis().ticks(4);
 
     const that = this;
@@ -237,11 +246,15 @@ export class DemographyMapController {
 
     chart
       .width(300)
-      .height(100)
+      .height(45)
       .group(this.ndx.groups.studies.bySex)
       .dimension(this.ndx.filters.studies.bySex)
       .colors('#FF776D')
       .elasticX(true)
+      .gap(10)
+      .margins(marginHabNat)
+      .fixedBarHeight(10)
+      .labelOffsetX(-70)
       .xAxis().ticks(4);
 
     const that = this;
@@ -284,6 +297,10 @@ export class DemographyMapController {
       .dimension(this.ndx.filters.studies.byStudies)
       .colors('#FF776D')
       .elasticX(true)
+      .gap(10)
+      .margins(marginStudies)
+      .fixedBarHeight(10)
+      .labelOffsetX(-90)
       .xAxis().ticks(4);
 
     const that = this;
@@ -313,7 +330,11 @@ export class DemographyMapController {
       .dimension(this.ndx.filters.origin.byOriginNational)
       .colors('#FF776D')
       .elasticX(true)
-      .xAxis().ticks(4);
+      .gap(10)
+      .margins(marginOrigin)
+      .fixedBarHeight(10)
+      .labelOffsetX(-90)
+      .xAxis().ticks(4)
 
     const that = this;
     chart
@@ -349,6 +370,10 @@ export class DemographyMapController {
       .dimension(this.ndx.filters.origin.byOriginOther)
       .colors('#FF776D')
       .elasticX(true)
+      .gap(10)
+      .margins(marginOrigin)
+      .fixedBarHeight(10)
+      .labelOffsetX(-90)
       .xAxis().ticks(4);
 
     const that = this;
@@ -374,17 +399,21 @@ export class DemographyMapController {
 
   renderChoroplethMap(selector, data) {
     const chart = new dc_leaflet.choroplethChart(selector, "#main");
-    const legendMap = new dc_leaflet.legend(selector).position('bottomright');
+    const legendMap = new dc_leaflet.legend(selector).position('topright');
     const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
 
     chart
       .center([40.309, -3.680], 13.45)
       .zoom(13)
+      .mapOptions({
+        scrollWheelZoom: false,
+      })
       .dimension(this.ndx.filters.studies.byCusec)
       .group(this.ndx.groups.studies.byCusec)
       .geojson(data.features)
+      .colors(d3.schemeCategory10)
       .colorDomain([
-          0,
+          d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck('value')),
           d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
       ])
       .colorAccessor(d => d.value)
@@ -392,6 +421,7 @@ export class DemographyMapController {
       .legend(legendMap)
       .tiles(function(map) {
         L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
+          scrollWheelZoom: false,
           username: "gobierto",
           style_id: "ck18y48jg11ip1cqeu3b9wpar",
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',

@@ -1,7 +1,7 @@
 @import "css-conf";
 @import "mixins";
 //FIXME
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;400;700&display=swap');
 
 /*
  * Observatory
@@ -19,13 +19,106 @@
 // Intro
 
 .gobierto_observatory {
+  height: 100vh;
+
+  &-header {
+    width: 100%;
+    background-color: var(--numbers);
+    font-family: var(--plex-font);
+    padding: 2rem;
+    letter-spacing: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &-header-left {
+    width: 80%;
+  }
+
+  &-header-right {
+    width: 20%;
+    text-align: right;
+  }
+
+  &-header-title,
+  &-header-council,
+  &-header-back {
+    font-size: 1.5rem;
+    font-weight: 100;
+    color: #fff;
+    display: block;
+  }
+
+  &-header-title {
+    font-weight: normal;
+    margin-bottom: .5rem;
+  }
+
+  &-header-back {
+    font-size: 1rem;
+    font-weight: normal;
+  }
+
+  &-date-update,
+  &-legend {
+    font-size: 11px;
+    display: block;
+    text-align: right;
+    color: rgba(79, 79, 79, .5);
+    margin-top: 1rem;
+  }
+
+  &-legend {
+    text-align: left;
+  }
+
+  &-symbol {
+    color: #445d77;
+  }
+
+  &-habitants-title {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--pyramidal-female);
+  }
+
+  &-habitants-number {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--numbers);
+  }
+
   .graphics {
     overflow: hidden;
     margin-top: 2rem;
   }
 
+  .dc-chart {
+    float: none;
+
+    .axis {
+      display: none;
+    }
+
+    g[class*="row"] {
+      cursor: pointer;
+
+      text {
+        font-size: 12px;
+        text-transform: capitalize;
+      }
+
+      &:hover {
+        text {
+          font-weight: bold;
+        }
+      }
+    }
+
+  }
+
   .column {
-    width: 100%;
     max-width: 100%;
     padding: 0 2rem;
   }
@@ -46,9 +139,22 @@
   }
 
   //TODO: remove importants
-  .investments-home-aside--gap,
+  &-sidebar,
   .pure-g [class*="pure-u"] {
     font-family: var(--plex-font) !important;
+  }
+
+  &-sidebar {
+    max-height: 100vh;
+    overflow-y: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    ::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
   }
 
   #inhabitants {
@@ -57,9 +163,10 @@
 
   .graph-title {
     font-size: 1rem;
+    font-weight: normal;
     color: var(--pyramidal-female);
     border-bottom: 0;
-    text-transform: capitalize;
+    text-transform: initial;
   }
 
   .sections-nav {

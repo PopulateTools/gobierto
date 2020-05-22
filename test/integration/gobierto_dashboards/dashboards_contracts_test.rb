@@ -66,23 +66,21 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       metrics_box = find(".metric_box", match: :first)
 
       assert metrics_box.has_content?("Licitaciones\n252")
-      assert metrics_box.has_content?("licitaciones por importe de\n134.068.916,04 €")
-      assert metrics_box.has_content?("Importe medio\n532.019,51 €")
+      assert metrics_box.has_content?("licitaciones por importe de\n113.122.855,23 €")
 
-      assert metrics_box.has_content?("Importe medio\n532.019,51 €")
-      assert metrics_box.has_content?("Importe mediano\n87.725,00 €")
+      assert metrics_box.has_content?("Importe medio\n448.900,22 €")
+      assert metrics_box.has_content?("Importe mediano\n72.500,00 €")
 
       assert metrics_box.has_content?("Contratos adjudicados\n223")
-      assert metrics_box.has_content?("contratos por importe de\n72.894.648,94 €")
+      assert metrics_box.has_content?("contratos por importe de\n61.990.830,68 €")
 
-      assert metrics_box.has_content?("Importe medio\n326.881,83 €")
-      assert metrics_box.has_content?("Importe mediano\n33.668,25 €")
+      assert metrics_box.has_content?("Importe medio\n277.985,79 €")
+      assert metrics_box.has_content?("Importe mediano\n28.400,00 €")
 
       ## Headlines
       assert page.has_content?("El 5 % de los contratos son menores de 1.000 €")
-      assert page.has_content?("El mayor contrato supone un 18 % de todo el gasto en contratos")
+      assert page.has_content?("El mayor contrato supone un 20 % de todo el gasto en contratos")
       assert page.has_content?("El 2 % de contratos concentran el 50% de todo el gasto")
-
 
       ## Charts
       # Contract type
@@ -101,7 +99,7 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       first_contract = find(".dashboards-home-main--tr", match: :first)
 
       assert first_contract.has_content?('LIDER SYSTEM, S.L.')
-      assert first_contract.has_content?('43.671,37 €')
+      assert first_contract.has_content?('40.261,50 €')
     end
   end
 
@@ -127,7 +125,7 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       assert first_contract.has_content?('Prestación del servicio de plataforma de formación online "E...')
 
       # Amount
-      assert first_contract.has_content?('€34,364.00')
+      assert first_contract.has_content?('€28,400.00')
 
       # Date
       assert first_contract.has_content?('2020-07-01')
@@ -149,10 +147,10 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       assert page.has_content?('Grupo Conforsa Análisis, Desarrollo y Formación , S.A.')
 
       # Contract amount
-      assert page.has_content?('€34,364.00')
+      assert page.has_content?('€28,400.00')
 
       # Tender amount
-      assert page.has_content?('€48,400.00')
+      assert page.has_content?('€40,000.00')
 
       # Status
       assert page.has_content?('Formalizado')

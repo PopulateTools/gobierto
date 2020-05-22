@@ -132,9 +132,6 @@ export default {
       labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
       labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution'),
       labelMainAssignees: I18n.t('gobierto_dashboards.dashboards.contracts.main_assignees'),
-      labelTableThAssignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
-      labelTableThContracts: I18n.t('gobierto_dashboards.dashboards.contracts.contracts'),
-      labelTableThAMount: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount'),
     }
   },
 
@@ -165,15 +162,15 @@ export default {
           return;
         }
 
-        if (groupedByAssignee[assignee] === undefined) {
-          groupedByAssignee[assignee] = {
-            name: assignee,
-            sum: 0,
-            count: 0
-          }
-        }
+        groupedByAssignee[contract.assignee] = groupedByAssignee[contract.assignee] || {name: contract.assignee}
 
-        groupedByAssignee[assignee].sum += parseFloat(final_amount)
+        // vue wouldn't update the table rows if there is no id attribute
+        groupedByAssignee[contract.assignee].id = groupedByAssignee[contract.assignee].id || uuid()
+
+        groupedByAssignee[contract.assignee].sum = groupedByAssignee[contract.assignee].sum || 0
+        groupedByAssignee[contract.assignee].sum += parseFloat(contract.final_amount_no_taxes)
+
+        groupedByAssignee[assignee].sum += parseFloat(final_amount_no_taxes)
         groupedByAssignee[assignee].count++;
       });
 

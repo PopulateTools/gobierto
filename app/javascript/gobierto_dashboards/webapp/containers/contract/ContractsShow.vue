@@ -21,11 +21,11 @@
         <table>
           <tr>
             <th class="left">{{ labelContractAmount }}</th>
-            <td>{{ final_amount | money }}</td>
+            <td>{{ final_amount_no_taxes | money }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelTenderAmount }}</th>
-            <td>{{ initial_amount | money }}</td>
+            <td>{{ initial_amount_no_taxes | money }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelStatus }}</th>
@@ -62,8 +62,8 @@ export default {
       description: '',
       assignee: '',
       document_number: '',
-      final_amount: '',
-      initial_amount: '',
+      final_amount_no_taxes: '',
+      initial_amount_no_taxes: '',
       status: '',
       process_type: '',
       permalink: '',
@@ -85,8 +85,8 @@ export default {
         description,
         assignee,
         document_number,
-        final_amount,
-        initial_amount,
+        final_amount_no_taxes,
+        initial_amount_no_taxes,
         status,
         process_type,
         permalink
@@ -96,8 +96,8 @@ export default {
       this.description = description
       this.assignee = assignee
       this.document_number = document_number
-      this.final_amount = final_amount
-      this.initial_amount = initial_amount
+      this.final_amount_no_taxes = final_amount_no_taxes
+      this.initial_amount_no_taxes = initial_amount_no_taxes
       this.status = status
       this.process_type = process_type
       this.permalink = permalink

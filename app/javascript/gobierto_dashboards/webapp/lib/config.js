@@ -1,7 +1,7 @@
 export const contractsColumns = [
   {field: 'assignee', translation: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'), format: null},
   {field: 'title', translation: I18n.t('gobierto_dashboards.dashboards.contracts.contractor'), format: 'truncated'},
-  {field: 'final_amount', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount'), format: 'currency'},
+  {field: 'final_amount_no_taxes', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount_no_taxes'), format: 'currency'},
   {field: 'start_date', translation: I18n.t('gobierto_dashboards.dashboards.contracts.date'), format: null},
 ];
 
@@ -14,7 +14,7 @@ export const tendersColumns = [
 export const assigneesColumns = [
   {field: 'name', translation: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'), format: null},
   {field: 'count', translation: I18n.t('gobierto_dashboards.dashboards.contracts.contracts'), format: 'quantity'},
-  {field: 'sum', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount'), format: 'currency'},
+  {field: 'sum', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount_no_taxes'), format: 'currency'},
 ];
 
 export const filtersConfig = [

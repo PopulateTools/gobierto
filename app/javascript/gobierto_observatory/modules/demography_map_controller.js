@@ -1,4 +1,4 @@
-import { csv, json } from "d3-request";
+import { csv } from "d3-request";
 import { max, min } from "d3-array";
 import * as dc from 'dc'
 import crossfilter from 'crossfilter2'
@@ -7,7 +7,7 @@ import * as L from 'leaflet';
 import * as dc_leaflet from 'dc.leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const d3 = { csv, max, min, json }
+const d3 = { csv, max, min }
 
 function getRemoteData(endpoint) {
   return new Promise((resolve) => {
@@ -20,9 +20,7 @@ function getRemoteData(endpoint) {
   })
 }
 
-let initObject = {
-    method: 'GET'
-};
+let initObject = { method: 'GET' };
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 400) {
@@ -66,11 +64,14 @@ export class DemographyMapController {
     if (entryPoint) {
       Promise.all([getRemoteData(options.studiesEndpoint), getRemoteData(options.originEndpoint), getData()]).then((rawData) => {
         const data = this.buildDataObject(rawData)
+        console.log("data", data);
+
+        const { studiesData, originData, getafeData } = data
 
         this.currentFilter = 'studies'; // options: 'studies' or 'origin'
-        let ndxStudies = crossfilter(data.studiesData);
-        let ndxOrigin = crossfilter(data.originData);
-        let geojson = data.getafeData
+        let ndxStudies = crossfilter(studiesData);
+        let ndxOrigin = crossfilter(originData);
+        let geojson = getafeData
         this.ndx = {
           filters: {
             studies: {
@@ -104,6 +105,9 @@ export class DemographyMapController {
         this.chart6 = this.renderOriginNational("#bar-by-origin-spaniards");
         this.chart7 = this.renderOriginOthers("#bar-by-origin-others");
         this.chart8 = this.renderChoroplethMap("#map", geojson);
+        // Don't know why we need to do this
+        dc.chartRegistry.register(this.chart8, "main");
+        dc.renderAll("main");
       });
     }
   }
@@ -192,7 +196,7 @@ export class DemographyMapController {
   }
 
   renderInhabitants(selector) {
-    const chart = new dc.dataCount(selector);
+    const chart = new dc.dataCount(selector, "main");
     chart
       .crossfilter(this.ndx.filters.studies.all)
       .groupAll(this.ndx.groups.studies.all)
@@ -206,13 +210,11 @@ export class DemographyMapController {
       .on('filtered', (chart) => {
         that.updateOriginFilters('all', chart.filters());
       });
-
-    chart.render()
     return chart;
   }
 
   renderBarNationality(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
     chart
       .width(300)
       .height(100)
@@ -227,14 +229,11 @@ export class DemographyMapController {
       .on('filtered', (chart) => {
         that.updateOriginFilters('byNationality', chart.filters());
       });
-
-
-    chart.render();
     return chart;
   }
 
   renderBarSex(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
 
     chart
       .width(300)
@@ -251,12 +250,11 @@ export class DemographyMapController {
         that.updateOriginFilters('bySex', chart.filters());
       });
 
-    chart.render();
     return chart;
   }
 
   renderPiramid(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
 
     chart
       .width(300)
@@ -272,13 +270,11 @@ export class DemographyMapController {
       .on('filtered', (chart) => {
         that.updateOriginFilters('byAge', chart.filters());
       });
-
-    chart.render();
     return chart;
   }
 
   renderStudies(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
 
     chart
       .width(300)
@@ -302,13 +298,11 @@ export class DemographyMapController {
           document.getElementById("bar-by-origin-others").style.display = 'block';
         }
       });
-
-    chart.render();
     return chart;
   }
 
   renderOriginNational(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
 
     chart
       .width(300)
@@ -339,15 +333,12 @@ export class DemographyMapController {
         that.chart3.group(that.ndx.groups.origin.bySex);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
-        dc.renderAll();
       });
-
-    chart.render();
     return chart;
   }
 
   renderOriginOthers(selector) {
-    const chart = new dc.rowChart(selector);
+    const chart = new dc.rowChart(selector, "main");
 
     chart
       .width(300)
@@ -377,47 +368,14 @@ export class DemographyMapController {
         that.chart3.group(that.ndx.groups.origin.bySex);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
-        dc.renderAll();
       });
-
-    chart.render();
     return chart;
   }
 
   renderChoroplethMap(selector, data) {
-    const chart = dc_leaflet.choroplethChart(selector);
-    const legendMap = dc_leaflet.legend(selector).position('bottomright');
+    const chart = new dc_leaflet.choroplethChart(selector, "#main");
+    const legendMap = new dc_leaflet.legend(selector).position('bottomright');
     const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
-    let geojson
-
-    function onEachFeature(feature, layer) {
-      layer.on({
-        mouseover: highlightFeature
-      });
-    }
-
-    function highlightFeature(e) {
-      const {
-        target: layer
-      } = e
-
-      layer.setStyle({
-        weight: 1,
-        color: 'rgba(var(--color-base-string), 0.3)',
-        fillOpacity: 0.7
-      });
-
-      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
-      }
-    }
-
-    function resetHighlight(e) {
-      const {
-        target
-      } = e
-      geojson.resetStyle(target);
-    }
 
     chart
       .center([40.309, -3.680], 13.45)
@@ -428,14 +386,9 @@ export class DemographyMapController {
       .colorDomain([
           0,
           d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
-
       ])
-      .colorAccessor(function(d, i) {
-          return d.value
-      })
-      .featureKeyAccessor(function(feature) {
-          return feature.properties.cusec
-      })
+      .colorAccessor(d => d.value)
+      .featureKeyAccessor(feature => feature.properties.cusec)
       .legend(legendMap)
       .tiles(function(map) {
         L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
@@ -447,11 +400,7 @@ export class DemographyMapController {
           maxZoom: 16,
           zoomOffset: -1
         }).addTo(map);
-        geojson = L.geoJson(data, {
-          onEachFeature: onEachFeature
-        }).addTo(map)
       })
-    chart.render();
     return chart;
   }
 }

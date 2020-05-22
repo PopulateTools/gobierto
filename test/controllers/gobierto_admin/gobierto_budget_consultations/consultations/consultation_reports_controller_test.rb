@@ -25,11 +25,6 @@ module GobiertoAdmin
         end
         attr_reader :exporter_spy
 
-        def teardown
-          super
-          sign_out_admin
-        end
-
         def test_show
           with_current_site(site) do
             get admin_budget_consultation_consultation_reports_url(consultation), params: { format: :csv }

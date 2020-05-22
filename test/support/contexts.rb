@@ -46,7 +46,6 @@ def with(params = {})
 
   Capybara.reset_session! if params[:js]
 ensure
-  sign_out_admin if admin
   factory&.teardown
   factories.each(&:teardown)
 

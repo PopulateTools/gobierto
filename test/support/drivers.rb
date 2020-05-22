@@ -13,6 +13,8 @@ Capybara.register_driver :headless_chrome do |app|
   Capybara::Selenium::Driver.new(
     app,
     browser: :chrome,
-    desired_capabilities: capabilities
+    desired_capabilities: capabilities,
+    clear_local_storage: true,
+    clear_session_storage: true
   )
 end

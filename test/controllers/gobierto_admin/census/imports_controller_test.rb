@@ -20,11 +20,6 @@ module GobiertoAdmin
       notification_service_spy.calls.first.args
     end
 
-    def teardown
-      super
-      sign_out_admin
-    end
-
     def valid_census_params
       {
         census_import: {

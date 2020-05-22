@@ -36,8 +36,6 @@ module GobiertoParticipation
 
         def with_js_session_of_user(user)
           with_javascript do
-            visit root_path
-            sign_out_user unless has_content? "Sign in"
             with_signed_in_user(user) do
               yield
             end
@@ -45,7 +43,6 @@ module GobiertoParticipation
         end
 
         def test_not_registered_user_contributions
-          sign_out_user
           with_current_site(site) do
             visit container_path registered_level_contribution_container
             assert has_no_link? 'Have an idea!', href: new_participation_path(registered_level_contribution_container)

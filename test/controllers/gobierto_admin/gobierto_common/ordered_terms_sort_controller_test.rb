@@ -59,11 +59,6 @@ module GobiertoAdmin
           sign_in_admin(admin)
         end
 
-        def teardown
-          super
-          sign_out_admin
-        end
-
         def valid_sort_params
           {
             positions: {

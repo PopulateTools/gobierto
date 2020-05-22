@@ -19,11 +19,6 @@ module GobiertoAdmin
       notification_service_spy.calls.first.args
     end
 
-    def teardown
-      super
-      sign_out_admin
-    end
-
     def invitation_token
       invited_admin.invitation_token
     end

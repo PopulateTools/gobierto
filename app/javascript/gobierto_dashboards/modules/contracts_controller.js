@@ -182,7 +182,9 @@ export class ContractsController {
   }
 
   _refreshData(reducedContractsData, filters, tendersAttribute){
-    this._refreshTendersDataFromFilters(filters, tendersAttribute);
+    if (filters) {
+      this._refreshTendersDataFromFilters(filters, tendersAttribute);
+    }
     reduced = {tendersData: data.tendersData, contractsData: reducedContractsData};
 
     vueApp.contractsData = reducedContractsData;

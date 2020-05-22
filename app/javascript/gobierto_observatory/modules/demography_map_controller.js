@@ -41,8 +41,7 @@ async function getData() {
 }
 
  const marginHabNat = { top: 0, right: 0, bottom: 0, left: 70 }
- const marginStudies = { top: 20, right: 0, bottom: 40, left: 100 }
- const marginOrigin = { top: 20, right: 0, bottom: 40, left: 100 }
+ const marginStudies = { top: 0, right: 0, bottom: 0, left: 110 }
 
 
 // Estudios
@@ -113,6 +112,10 @@ export class DemographyMapController {
         dc.chartRegistry.register(this.chart8, "main");
         dc.renderAll("main");
       });
+
+      document.querySelectorAll("#close").forEach(button => button.addEventListener('click', () => {
+        this.clearFilters(event)
+      }));
     }
   }
 
@@ -149,6 +152,25 @@ export class DemographyMapController {
         let d = csvData[i][j];
         d['cusec'] = d['seccion'] + '-' + d['distrito']
         d['total'] = +d['total']
+        if (d['formacion'] === 'No sabe leer ni escribir') {
+          d['formacion'] = 'Ni leer ni escribir'
+        } else if (d['formacion'] === 'Ense?anza Secundaria') {
+          d['formacion'] = 'Ens. Secundaria'
+        } else if (d['formacion'] === 'B.Superior.BUP,COU') {
+          d['formacion'] = 'Bachillerato sup'
+        } else if (d['formacion'] === 'Ense?anza Primaria incomp') {
+          d['formacion'] = 'Ens. Pri. incompleta'
+        } else if (d['formacion'] === 'Doctorado Postgrado') {
+          d['formacion'] = 'Doctorado'
+        } else if (d['formacion'] === 'Doctorado Postgrado') {
+          d['formacion'] = 'Doctorado'
+        } else if (d['formacion'] === 'FP1 Grado Medio') {
+          d['formacion'] = 'Formación prof. 1'
+        } else if (d['formacion'] === 'FP2 Grado Superior') {
+          d['formacion'] = 'Formación prof. 2'
+        } else if (d['formacion'] === 'Licenciado Universitario') {
+          d['formacion'] = 'Licenciado'
+        }
       }
     }
 
@@ -299,13 +321,15 @@ export class DemographyMapController {
       .gap(10)
       .margins(marginStudies)
       .fixedBarHeight(10)
-      .labelOffsetX(-90)
+      .labelOffsetX(-110)
       .xAxis().ticks(4);
 
     const that = this;
     chart
-      .on('filtered', (chart) => {
+      .on('filtered', (chart, event) => {
         that.currentFilter = 'studies';
+        const container = document.getElementById('container-bar-by-studies')
+        that.activeFiltered(container)
         if (chart.filter() !== null) {
           document.getElementById("bar-by-origin-spaniards").style.display = 'none';
           document.getElementById("bar-by-origin-others").style.display = 'none';
@@ -330,9 +354,9 @@ export class DemographyMapController {
       .colors('#FF776D')
       .elasticX(true)
       .gap(10)
-      .margins(marginOrigin)
+      .margins(marginStudies)
       .fixedBarHeight(10)
-      .labelOffsetX(-90)
+      .labelOffsetX(-110)
       .xAxis().ticks(4)
 
     const that = this;
@@ -362,7 +386,7 @@ export class DemographyMapController {
 
     chart
       .width(300)
-      .height(380)
+      .height(260)
       .cap(10) // Show only top 20
       .othersGrouper(null) // Don't show the rest of the 20 in Other clashttps://dc-js.github.io/dc.js/docs/html/CapMixin.htmls
       .group(this.ndx.groups.origin.byOriginOther)
@@ -370,9 +394,9 @@ export class DemographyMapController {
       .colors('#FF776D')
       .elasticX(true)
       .gap(10)
-      .margins(marginOrigin)
+      .margins(marginStudies)
       .fixedBarHeight(10)
-      .labelOffsetX(-90)
+      .labelOffsetX(-110)
       .xAxis().ticks(4);
 
     const that = this;
@@ -431,6 +455,31 @@ export class DemographyMapController {
         }).addTo(map);
       })
     return chart;
+  }
+
+  activeFiltered(container) {
+    console.log("container", container);
+    const {
+      id
+    } = container
+    const element = document.getElementById(id)
+    element.classList.toggle('active-filtered')
+  }
+
+  clearFilters(event) {
+    const target = event.target;
+    const parent = target.parentElement;
+    const chart = parent.parentElement;
+    if (chart.id === 'container-bar-by-studies') {
+      chart.classList.toggle('active-filtered')
+      /*this.updateStudiesFilters('all', this.chart5.filters());*/
+    } else if (chart.id === 'container-bar-origin-spaniards') {
+      chart.classList.toggle('active-filtered')
+
+    } else if (chart.id === 'container-bar-by-origin-others') {
+      chart.classList.toggle('active-filtered')
+
+    }
   }
 }
 

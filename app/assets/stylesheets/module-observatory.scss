@@ -23,7 +23,7 @@
   top: 0;
   left: 0;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -104,6 +104,40 @@
     margin-top: 2rem;
   }
 
+  #bar-nationality.dc-chart {
+    g.row {
+
+      &._0 {
+        rect {
+          fill: var(--numbers);
+        }
+      }
+
+      &._1 {
+        rect {
+          fill: rgba(18, 54, 91, .5);
+        }
+      }
+    }
+  }
+
+  #bar-sex.dc-chart {
+    g.row {
+
+      &._0 {
+        rect {
+          fill: var(--pyramidal-female);
+        }
+      }
+
+      &._1 {
+        rect {
+          fill: var(--pyramidal-male);
+        }
+      }
+    }
+  }
+
   .dc-chart {
     float: none;
 
@@ -161,19 +195,57 @@
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    ::-webkit-scrollbar {
-        display: none;
-        width: 0;
-        height: 0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  &-container-charts {
+    padding: 1rem .5rem;
+    position: relative;
+  }
+
+  #close {
+    position: absolute;
+    top: 10px;
+    left: 93%;
+    background-color: rgba(0, 142, 156, .2);
+    display: none;
+    color: var(--pyramidal-female);
+    padding: 2px 5px;
+    i {
+      margin: 0;
     }
+  }
+
+  .active-filtered {
+    background-color: rgba(0, 142, 156, .1);
+
+    .graph-title {
+      font-weight: bold;
+    }
+
+    #close {
+      display: block;
+    }
+
+  }
+
+  &-sidebar::-webkit-scrollbar {
+    display: none;
+    visibility: hidden;
   }
 
   &-container-map {
     height: calc(100vh - 120px);
+    padding-left: 0 !important;
   }
 
   #inhabitants {
     color: var(--pyramidal-female);
+  }
+
+  .selected + .row {
+    font-weight: bold;
   }
 
   .graph-title {
@@ -181,7 +253,7 @@
     font-weight: normal;
     color: var(--pyramidal-female);
     border-bottom: 0;
-    margin-bottom: 0;
+    margin: 0;
     padding-bottom: 0;
     text-transform: initial;
   }

@@ -51,7 +51,6 @@
         mode="out-in"
       >
         <Queries
-          v-if="privateQueries.length || publicQueries.length"
           v-show="isQueriesModalActive"
           v-closable="{
             exclude: ['buttonYourQueries'],

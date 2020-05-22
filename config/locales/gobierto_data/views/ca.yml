@@ -45,6 +45,7 @@ ca:
       preview: Previsualitzeu
       private: Privat
       queries: Consultes
+      queryEmpty: Cap consulte disponible
       queryExecuted: Consulta executada en
       queryName: Nom consulta
       recents: Recents

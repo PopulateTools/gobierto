@@ -45,6 +45,7 @@ en:
       preview: Preview
       private: Private
       queries: Queries
+      queryEmpty: No available queries
       queryExecuted: Query executed in
       queryName: Query name
       recents: Recents

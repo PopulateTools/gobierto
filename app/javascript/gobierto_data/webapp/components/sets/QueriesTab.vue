@@ -1,7 +1,6 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
     <Queries
-      v-if="privateQueries.length || publicQueries.length"
       :private-queries="privateQueries"
       :public-queries="publicQueries"
       :is-user-logged="isUserLogged"

@@ -45,6 +45,7 @@ es:
       preview: Previsualizar
       private: Privada
       queries: Consultas
+      queryEmpty: No hay consultas disponibles
       queryExecuted: Consulta ejecutada en
       queryName: Nombre consulta
       recents: Recientes

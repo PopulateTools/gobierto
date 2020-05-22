@@ -6,7 +6,7 @@
           <Dropdown @is-content-visible="showPrivateQueries = !showPrivateQueries">
             <template v-slot:trigger>
               <h3 class="gobierto-data-summary-queries-panel-title">
-                <Caret :rotate="showPrivateQueries" />
+                <Caret :rotate="!showPrivateQueries" />
                 {{ labelYourQueries }} ({{ privateQueries.length }})
               </h3>
             </template>
@@ -48,12 +48,12 @@
         <Dropdown @is-content-visible="showPublicQueries = !showPublicQueries">
           <template v-slot:trigger>
             <h3 class="gobierto-data-summary-queries-panel-title">
-              <Caret :rotate="showPublicQueries" />
+              <Caret :rotate="!showPublicQueries" />
 
               {{ labelAll }} ({{ publicQueries.length }})
             </h3>
           </template>
-          <div>
+          <div v-if="publicQueries.length">
             <div
               v-for="{ id, attributes: { sql, name }} in publicQueries"
               :key="id"
@@ -70,6 +70,11 @@
               </router-link>
             </div>
           </div>
+          <template v-else>
+            <div class="gobierto-data-summary-queries-container">
+              {{ labelQueryEmpty }}
+            </div>
+          </template>
         </Dropdown>
       </div>
 
@@ -112,6 +117,7 @@ export default {
   data() {
     return {
       labelYourQueries: I18n.t("gobierto_data.projects.yourQueries") || "",
+      labelQueryEmpty: I18n.t("gobierto_data.projects.queryEmpty") || "",
       labelFavs: I18n.t("gobierto_data.projects.favs") || "",
       labelAll: I18n.t("gobierto_data.projects.all") || "",
       sqlCode: null,

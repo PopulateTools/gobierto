@@ -3,8 +3,9 @@
     <table class="dashboards-home-main--table">
       <thead>
         <th
-          v-for="{ translation } in columns"
+          v-for="{ translation, cssClass } in columns"
           class="dashboards-home-main--th"
+          :class="cssClass"
         >
           <div>{{ translation }}</div>
         </th>

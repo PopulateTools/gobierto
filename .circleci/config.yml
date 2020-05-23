@@ -1,6 +1,6 @@
 ---
 defaults: &defaults
-  working_directory: ~/gobierto
+  working_directory: ~/gobierto-folder
   docker:
     - image: circleci/ruby:2.7.1-node-browsers
       environment:
@@ -24,7 +24,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/gobierto
+          at: ~/gobierto-folder
       - restore_cache:
           name: "[Bundler] Restore cache"
           keys:
@@ -38,17 +38,16 @@ jobs:
           paths:
             - vendor/bundle
       - persist_to_workspace:
-          root: ~/gobierto
+          root: ~/gobierto-folder
           paths:
             - vendor/bundle
-
   tests:
     <<: *defaults
     parallelism: 4
     steps:
       - checkout
       - attach_workspace:
-          at: ~/gobierto
+          at: ~/gobierto-folder
       - run: bundle --path vendor/bundle
       - run: yarn install
       # Wait for DB containers to be ready
@@ -83,7 +82,7 @@ jobs:
             bin/rails test $TEST_FILES
 
   staging-deploy:
-    working_directory: ~/gobierto
+    working_directory: ~/gobierto-folder
     machine:
       enabled: true
     steps:
@@ -94,7 +93,7 @@ jobs:
           command: script/staging_deploy.sh
 
   production-deploy:
-    working_directory: ~/gobierto
+    working_directory: ~/gobierto-folder
     machine:
       enabled: true
     steps:

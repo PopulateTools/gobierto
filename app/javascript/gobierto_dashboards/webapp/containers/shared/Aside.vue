@@ -62,9 +62,9 @@ export default {
     this.updateCounters(true);
 
     EventBus.$on('dc_filter_selected', ({title, id}) => {
-      const filter = this.filters.find(filter => filter.id === id)
+      const { options = [] } = this.filters.find(( { id: i } ) => id === i) || {};
 
-      filter.options.forEach(option => {
+      options.forEach(option => {
         if (option.title === title) {
           option.isOptionChecked = !option.isOptionChecked;
         }

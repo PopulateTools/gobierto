@@ -5,7 +5,7 @@ require "test_helper"
 class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @summary_path = gobierto_dashboards_summary_path(locale: 'es')
+    @summary_path = gobierto_dashboards_contracts_summary_path(locale: 'es')
     @contracts_path = gobierto_dashboards_contracts_path
 
     ::GobiertoModuleSettings.create!({

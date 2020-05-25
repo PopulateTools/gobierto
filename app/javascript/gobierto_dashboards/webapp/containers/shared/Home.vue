@@ -1,7 +1,9 @@
 <template>
   <main>
     <div class="pure-g gutters m_b_4">
-      <Aside />
+      <Aside
+        :contracts-data="contractsData"
+      />
 
       <div class="pure-u-1 pure-u-lg-3-4">
         <Nav
@@ -46,7 +48,13 @@ export default {
   data() {
     return {
       activeTabIndex: store.state.currentTab || 0,
+      contractsData: this.$root.$data.contractsData,
     }
+  },
+  created(){
+    EventBus.$on('refresh_summary_data', () => {
+      this.contractsData = this.$root.$data.contractsData;
+    });
   },
   methods: {
     setActiveTab(tabIndex) {

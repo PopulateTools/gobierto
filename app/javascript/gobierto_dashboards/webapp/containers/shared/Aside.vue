@@ -6,7 +6,7 @@
         :key="filter.id"
         class="dashboards-home-aside--block"
       >
-        <Dropdown @is-content-visible="filter.isToggle = !filter.isToggle">
+        <Dropdown @is-content-visible="toggle(filter)">
           <template v-slot:trigger>
             <BlockHeader
               :title="filter.title"
@@ -48,18 +48,18 @@ export default {
   },
   data() {
     return {
-      contractsData: this.$root.$data.contractsData,
       filters: filtersConfig
+    }
+  },
+  props: {
+    contractsData: {
+      type: Array,
+      default: {}
     }
   },
   created(){
     this.initDateFilterOptions();
     this.updateCounters(true);
-
-    EventBus.$on('refresh_summary_data', () => {
-      this.contractsData = this.$root.$data.contractsData;
-      this.updateCounters();
-    });
 
     EventBus.$on('dc_filter_selected', ({title, id}) => {
       const filter = this.filters.find(filter => filter.id === id)
@@ -70,6 +70,11 @@ export default {
         }
       })
     });
+  },
+  watch: {
+    contractsData: function (newContractsData, oldContractsData) {
+      this.updateCounters();
+    }
   },
   methods: {
     initDateFilterOptions(){

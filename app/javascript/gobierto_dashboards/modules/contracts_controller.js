@@ -18,12 +18,11 @@ import { GroupPctDistributionBars } from "lib/visualizations";
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
-// Global variables
-let data, reduced, ndx, _amountRange, vueApp, unfilteredTendersData, charts = {};
-const tendersFilters = {submission_date: [], process_type: [], contract_type: [] };
-
 export class ContractsController {
   constructor(options) {
+    this.charts = {};
+    this.tendersFilters = {submission_date: [], process_type: [], contract_type: [] };
+
     const selector = "gobierto-dashboards-contracts-app";
 
     // Mount Vue applications
@@ -82,9 +81,9 @@ export class ContractsController {
           );
         });
 
-        vueApp = new Vue({
+        this.vueApp = new Vue({
           router,
-          data: Object.assign(options, data),
+          data: Object.assign(options, this.data),
         }).$mount(entryPoint);
 
         EventBus.$on('summary_ready', () => {
@@ -140,11 +139,11 @@ export class ContractsController {
     }
 
     // Contracts precalculations and normalizations
-    _amountRange = {
+    this._amountRange = {
       domain: [1001, 10001, 50001, 100001],
       range: [0, 1, 2, 3, 4]
     };
-    var rangeFormat = d3.scaleThreshold().domain(_amountRange.domain).range(_amountRange.range);
+    var rangeFormat = d3.scaleThreshold().domain(this._amountRange.domain).range(this._amountRange.range);
 
     for(let i = 0; i < contractsData.length; i++){
       const contract = contractsData[i];
@@ -167,16 +166,16 @@ export class ContractsController {
       if(tender.submission_date_year) { tender.submission_date_year = tender.submission_date_year.toString() }
     }
 
-    unfilteredTendersData = tendersData.sort(sortByField('submission_date'));
+    this.unfilteredTendersData = tendersData.sort(sortByField('submission_date'));
 
-    data = {
+    this.data = {
       contractsData: this._formalizedContractsData(contractsData).sort(sortByField('start_date')),
-      tendersData: unfilteredTendersData,
+      tendersData: this.unfilteredTendersData,
     }
   }
 
   _renderSummary(){
-    ndx = crossfilter(this._currentDataSource().contractsData);
+    this.ndx = crossfilter(this._currentDataSource().contractsData);
 
     this._renderTendersMetricsBox();
     this._renderContractsMetricsBox();
@@ -191,9 +190,9 @@ export class ContractsController {
     if (filters) {
       this._refreshTendersDataFromFilters(filters, tendersAttribute);
     }
-    reduced = {tendersData: data.tendersData, contractsData: reducedContractsData};
+    this.reduced = {tendersData: this.data.tendersData, contractsData: reducedContractsData};
 
-    vueApp.contractsData = reducedContractsData;
+    this.vueApp.contractsData = reducedContractsData;
     EventBus.$emit('refresh_summary_data');
 
     this._renderTendersMetricsBox();
@@ -265,12 +264,12 @@ export class ContractsController {
   }
 
   _renderByAmountsChart(){
-    const dimension = ndx.dimension(contract => contract.range);
+    const dimension = this.ndx.dimension(contract => contract.range);
 
     const renderOptions = {
       containerSelector: "#amount-distribution-bars",
       dimension: dimension,
-      range: _amountRange,
+      range: this._amountRange,
       labelMore: I18n.t('gobierto_dashboards.dashboards.contracts.more'),
       labelFromTo: I18n.t('gobierto_dashboards.dashboards.contracts.fromto'),
       onFilteredFunction: (chart, filter) => {
@@ -278,11 +277,11 @@ export class ContractsController {
       }
     }
 
-    charts['amount_distribution'] = new AmountDistributionBars(renderOptions);
+    this.charts['amount_distribution'] = new AmountDistributionBars(renderOptions);
   }
 
   _renderContractTypeChart(){
-    const dimension = ndx.dimension(contract => contract.contract_type)
+    const dimension = this.ndx.dimension(contract => contract.contract_type)
 
     const renderOptions = {
       containerSelector: "#contract-type-bars",
@@ -293,11 +292,11 @@ export class ContractsController {
       }
     }
 
-    charts['contract_types'] = new GroupPctDistributionBars(renderOptions);
+    this.charts['contract_types'] = new GroupPctDistributionBars(renderOptions);
   }
 
   _renderProcessTypeChart(){
-    const dimension = ndx.dimension(contract => contract.process_type)
+    const dimension = this.ndx.dimension(contract => contract.process_type)
 
     const renderOptions = {
       containerSelector: "#process-type-bars",
@@ -308,11 +307,11 @@ export class ContractsController {
       }
     }
 
-    charts['process_types'] = new GroupPctDistributionBars(renderOptions);
+    this.charts['process_types'] = new GroupPctDistributionBars(renderOptions);
   }
 
   _renderDateChart(){
-    const dimension = ndx.dimension(contract => contract.start_date_year)
+    const dimension = this.ndx.dimension(contract => contract.start_date_year)
 
     const renderOptions = {
       containerSelector: "#date-bars",
@@ -323,11 +322,11 @@ export class ContractsController {
       }
     }
 
-    charts['dates'] = new GroupPctDistributionBars(renderOptions);
+    this.charts['dates'] = new GroupPctDistributionBars(renderOptions);
   }
 
   _updateChartsFromFilter(options){
-    const container = charts[options.id].container;
+    const container = this.charts[options.id].container;
 
     if (options.all) {
       container.filter(null);
@@ -336,31 +335,31 @@ export class ContractsController {
       container.filter(options.title);
     }
 
-    Object.values(charts).forEach((chart) => chart.container.redraw());
+    Object.values(this.charts).forEach((chart) => chart.container.redraw());
   }
 
   _refreshTendersDataFromFilters(filters, tendersAttribute){
-    tendersFilters[tendersAttribute] = filters;
-    let filteredTendersData = [...unfilteredTendersData]
+    this.tendersFilters[tendersAttribute] = filters;
+    let filteredTendersData = [...this.unfilteredTendersData]
 
-    Object.keys(tendersFilters).forEach((key) => {
-      if (tendersFilters[key].length > 0) {
-        filteredTendersData = filteredTendersData.filter(tender => tendersFilters[key].includes(tender[key]) )
+    Object.keys(this.tendersFilters).forEach((key) => {
+      if (this.tendersFilters[key].length > 0) {
+        filteredTendersData = filteredTendersData.filter(tender => this.tendersFilters[key].includes(tender[key]) )
       }
     });
 
-    data.tendersData = filteredTendersData;
+    this.data.tendersData = filteredTendersData;
   }
 
   _redrawCharts(){
-    Object.values(charts).forEach((chart) => {
+    Object.values(this.charts).forEach((chart) => {
       chart.setContainerSize();
       chart.container.redraw();
     });
   }
 
   _currentDataSource(){
-    return reduced || data
+    return this.reduced || this.data
   }
 
   _formalizedContractsData(contractsData){

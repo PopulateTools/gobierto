@@ -98,15 +98,15 @@ export default {
     updateCounters(firstUpdate=false) {
       const counter = {process_types: {}, contract_types: {}, dates: {}};
 
-      this.contractsData.forEach((contract) => {
-        counter.process_types[contract.process_type] = counter.process_types[contract.process_type] || 0
-        counter.process_types[contract.process_type]++
+      this.contractsData.forEach(({process_type, contract_type, start_date_year}) => {
+        counter.process_types[process_type] = counter.process_types[process_type] || 0
+        counter.process_types[process_type]++
 
-        counter.contract_types[contract.contract_type] = counter.contract_types[contract.contract_type] || 0
-        counter.contract_types[contract.contract_type]++
+        counter.contract_types[contract_type] = counter.contract_types[contract_type] || 0
+        counter.contract_types[contract_type]++
 
-        counter.dates[contract.start_date_year] = counter.dates[contract.start_date_year] || 0
-        counter.dates[contract.start_date_year]++
+        counter.dates[start_date_year] = counter.dates[start_date_year] || 0
+        counter.dates[start_date_year]++
       })
 
       this.filters.forEach((filter) => {

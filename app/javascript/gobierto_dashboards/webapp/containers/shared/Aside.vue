@@ -58,7 +58,7 @@ export default {
     }
   },
   created(){
-    this.initDateFilterOptions();
+    this.initFilterOptions();
     this.updateCounters(true);
 
     EventBus.$on('dc_filter_selected', ({title, id}) => {
@@ -77,26 +77,52 @@ export default {
     }
   },
   methods: {
-    initDateFilterOptions(){
-      const options = [];
-      let years = new Set( this.contractsData.map(({start_date_year}) => start_date_year) );
+    initFilterOptions(){
+      const contractTypesOptions = [], processTypesOptions = [], dateOptions = [];
+      const years = new Set( this.contractsData.map(({start_date_year}) => start_date_year) );
+      const contractTypes = new Set( this.contractsData.map(({contract_type}) => contract_type) );
+      const processTypes = new Set( this.contractsData.map(({process_type}) => process_type) );
 
+
+      // Contract Types
+      [...contractTypes]
+        .forEach((contractType, index) => {
+          if (contractType) {
+            contractTypesOptions.push({id: index, title: contractType, counter: 0, isOptionChecked: false })
+          }
+        });
+
+      // Process Types
+      [...processTypes]
+        .forEach((processType, index) => {
+          if (processType) {
+            processTypesOptions.push({id: index, title: processType, counter: 0, isOptionChecked: false })
+          }
+        });
+
+      // Dates
       [...years]
         .sort((a, b) => a < b ? 1 : -1)
         .forEach(year => {
-        if (year != '') {
-          options.push({id: year, title: year.toString(), counter: 0, isOptionChecked: false })
-        }
-      });
+          if (year) {
+            dateOptions.push({id: year, title: year.toString(), counter: 0, isOptionChecked: false })
+          }
+        });
 
       this.filters.forEach((filter) => {
-        if (filter.id == 'dates') {
-          filter.options = options;
+        if (filter.id === 'dates') {
+          filter.options = dateOptions;
+        } else if (filter.id === 'contract_types') {
+          filter.options = contractTypesOptions;
+        } else if (filter.id === 'process_types') {
+          filter.options = processTypesOptions;
         }
       })
     },
     updateCounters(firstUpdate=false) {
       const counter = {process_types: {}, contract_types: {}, dates: {}};
+
+      debugger
 
       this.contractsData.forEach(({process_type, contract_type, start_date_year}) => {
         counter.process_types[process_type] = counter.process_types[process_type] || 0

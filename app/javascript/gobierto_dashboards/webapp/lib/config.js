@@ -28,23 +28,12 @@ export const filtersConfig = [
     id: 'contract_types',
     title: I18n.t('gobierto_dashboards.dashboards.contracts.contract_type'),
     isToggle: true,
-    options: [
-      {id: 0, title: 'Gestión de servicios públicos', counter: 0, isOptionChecked: false},
-      {id: 1, title: 'Obras', counter: 0, isOptionChecked: false},
-      {id: 2, title: 'Servicios', counter: 0, isOptionChecked: false},
-      {id: 3, title: 'Suministros', counter: 0, isOptionChecked: false},
-    ]
+    options: []
   },
   {
     id: 'process_types',
     title: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
     isToggle: true,
-    options: [
-        {id: 0, title: 'Abierto', counter: 0, isOptionChecked: false},
-        {id: 1, title: 'Abierto simplificado', counter: 0, isOptionChecked: false},
-        {id: 2, title: 'Basado en Acuerdo Marco', counter: 0, isOptionChecked: false},
-        {id: 3, title: 'Negociado con publicidad', counter: 0, isOptionChecked: false},
-        {id: 4, title: 'Negociado sin publicidad', counter: 0, isOptionChecked: false}
-      ]
+    options: []
   }
 ]

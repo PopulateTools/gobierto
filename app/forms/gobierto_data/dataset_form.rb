@@ -157,7 +157,7 @@ module GobiertoData
         )
         @schema = @load_status[:schema]
         if @load_status[:db_result].has_key?(:errors)
-          errors.add(:schema, @load_status[:db_result][:errors].map { |error| error[:sql] }.join("\n"))
+          errors.add(:schema, @load_status[:db_result][:errors].map(&:values).join("\n"))
           false
         else
           true

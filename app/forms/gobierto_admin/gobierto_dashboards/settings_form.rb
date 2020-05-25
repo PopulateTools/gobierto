@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoDashboards
     class SettingsForm < BaseForm
 
-      VALID_DASHBOARDS_NAMES = %w(contracts tenders)
+      VALID_DASHBOARDS_NAMES = %w(contracts subsidies)
 
       attr_writer(
         :site_id,

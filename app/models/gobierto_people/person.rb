@@ -34,6 +34,7 @@ module GobiertoPeople
     has_many :received_gifts, class_name: "Gift", dependent: :destroy
     has_many :invitations, dependent: :destroy
     has_many :trips, dependent: :destroy
+    has_many :historical_charges, dependent: :destroy, class_name: "GobiertoPeople::Charge"
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
     scope :by_site, ->(site) { where(site_id: site.id) }

@@ -22,7 +22,11 @@ module GobiertoPeople
     def justice_department
       @justice_department ||= gobierto_people_departments(:justice_department)
     end
-    alias department_with_trips justice_department
+
+    def tourism_department_very_old
+      @tourism_department_very_old ||= gobierto_people_departments(:tourism_department_very_old)
+    end
+    alias department_with_trips tourism_department_very_old
 
     def culture_department
       @culture_department ||= gobierto_people_departments(:culture_department)
@@ -31,15 +35,15 @@ module GobiertoPeople
     alias department_with_invitations culture_department
 
     def departments_with_trips
-      @departments_with_trips ||= [department_with_trips]
+      @departments_with_trips ||= [department_with_trips, culture_department]
     end
 
     def departments_with_gifts
-      @departments_with_gifts ||= [department_with_gifts]
+      @departments_with_gifts ||= [department_with_gifts, tourism_department_very_old]
     end
 
     def departments_with_invitations
-      @departments_with_invitations ||= [department_with_invitations]
+      @departments_with_invitations ||= [department_with_invitations, tourism_department_very_old]
     end
 
     def richard

@@ -22,3 +22,8 @@ immigration_department_mixed:
   site: madrid
   name: Immigration department
   slug: immigration-department-mixed
+
+cosmogony_department:
+  site: santander
+  name: Hindu cosmogony
+  slug: hindu-cosmogony

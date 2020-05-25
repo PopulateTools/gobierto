@@ -43,7 +43,7 @@ module GobiertoPeople
         end
 
         def departments_with_events_count
-          ::GobiertoCalendars::Event.select(:department_id).distinct.count
+          madrid.events.map(&:department).uniq.count
         end
 
         def short_date(date)

@@ -14,7 +14,8 @@ module GobiertoPeople
       :tamara,
       :richard,
       :site,
-      :nelson
+      :nelson,
+      :neil
     )
 
     def setup
@@ -25,9 +26,10 @@ module GobiertoPeople
       @tamara = gobierto_people_people(:tamara)
       @richard = gobierto_people_people(:richard)
       @nelson = gobierto_people_people(:nelson)
+      @neil = gobierto_people_people(:neil)
     end
 
-    alias person_with_justice_department_events tamara
+    alias person_with_justice_department_events neil
     alias person_with_coca_cola_events tamara
     alias person_with_justice_department_trips richard
     alias person_without_coca_cola_events richard
@@ -54,7 +56,7 @@ module GobiertoPeople
       ).results
 
       assert query_results.include?(person_with_justice_department_events)
-      assert query_results.include?(person_with_justice_department_trips)
+      assert query_results.exclude?(person_with_justice_department_trips)
       assert query_results.exclude?(person_without_justice_department_events)
     end
 

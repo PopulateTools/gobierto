@@ -19,7 +19,7 @@ Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
 // Global variables
-let data, reduced, ndx, _r, vueApp;
+let data, reduced, ndx, _amountRange, vueApp, charts = {};
 
 export class ContractsController {
   constructor(options) {
@@ -40,48 +40,48 @@ export class ContractsController {
       const TendersIndex = () => import("../webapp/containers/tender/TendersIndex.vue");
       const TendersShow = () => import("../webapp/containers/tender/TendersShow.vue");
 
-      const router = new VueRouter({
-        mode: "history",
-        routes: [
-          { path: "/dashboards/contratos", component: Home,
-            children: [
-              { path: "resumen", name: "summary", component: Summary },
-              { path: "contratos", name: "contracts_index", component: ContractsIndex },
-              { path: "contratos/:id", name: "contracts_show", component: ContractsShow },
-              { path: "licitaciones", name: "tenders_index", component: TendersIndex },
-              { path: "licitaciones/:id", name: "tenders_show", component: TendersShow },
-            ]
-          }
-
-        ],
-        scrollBehavior() {
-          const element = document.getElementById(selector);
-          window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
-        }
-      });
-
-      const baseTitle = document.title;
-      router.afterEach(to => {
-        // Wait 2 ticks
-        Vue.nextTick(() =>
-          Vue.nextTick(() => {
-            let title = baseTitle;
-
-            if (to.name === "contracts_show" || to.name === "tenders_show") {
-              const { item: { title: itemTitle } = {} } = to.params;
-
-              if (itemTitle) {
-                title = `${itemTitle}${baseTitle}`;
-              }
-            }
-
-            document.title = title;
-          })
-        );
-      });
-
       Promise.all([getRemoteData(options.contractsEndpoint), getRemoteData(options.tendersEndpoint)]).then((rawData) => {
         this.setGlobalVariables(rawData)
+
+        const router = new VueRouter({
+          mode: "history",
+          routes: [
+            { path: "/dashboards/contratos", component: Home,
+              children: [
+                { path: "resumen", name: "summary", component: Summary},
+                { path: "contratos", name: "contracts_index", component: ContractsIndex },
+                { path: "contratos/:id", name: "contracts_show", component: ContractsShow },
+                { path: "licitaciones", name: "tenders_index", component: TendersIndex },
+                { path: "licitaciones/:id", name: "tenders_show", component: TendersShow },
+              ]
+            }
+
+          ],
+          scrollBehavior() {
+            const element = document.getElementById(selector);
+            window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
+          }
+        });
+
+        const baseTitle = document.title;
+        router.afterEach(to => {
+          // Wait 2 ticks
+          Vue.nextTick(() =>
+            Vue.nextTick(() => {
+              let title = baseTitle;
+
+              if (to.name === "contracts_show" || to.name === "tenders_show") {
+                const { item: { title: itemTitle } = {} } = to.params;
+
+                if (itemTitle) {
+                  title = `${itemTitle}${baseTitle}`;
+                }
+              }
+
+              document.title = title;
+            })
+          );
+        });
 
         vueApp = new Vue({
           router,
@@ -90,6 +90,19 @@ export class ContractsController {
 
         EventBus.$on('summary_ready', () => {
           this._renderSummary();
+        });
+
+        EventBus.$on('filter_changed', (options) => {
+          this._updateChartsFromFilter(options);
+        });
+
+        // - dc charts are drawn even if the summary page is not the page where the user lands for the first time
+        //   i.e.: they could first land on a contract page, but still this page would need to render for the filters to work
+        // - dc charts sizes are calculated automatically, but if the page is not visible it won't calculate sizes properly
+        // - Given all that: when we go from a page that is not summary to summary for the first time, the sizes must
+        //   be calculated and the charts redrawn. This is why this event only needs to be listened once.
+        EventBus.$once('moved_to_summary', () => {
+          this._redrawCharts();
         });
       });
     }
@@ -122,12 +135,12 @@ export class ContractsController {
       }
     }
 
-    // Contracts precalculations
-    _r = {
+    // Contracts precalculations and normalizations
+    _amountRange = {
       domain: [501, 1001, 5001, 10001, 15001],
       range: [0, 1, 2, 3, 4, 5]
     };
-    var rangeFormat = d3.scaleThreshold().domain(_r.domain).range(_r.range);
+    var rangeFormat = d3.scaleThreshold().domain(_amountRange.domain).range(_amountRange.range);
 
     for(let i = 0; i < contractsData.length; i++){
       const contract = contractsData[i];
@@ -137,16 +150,17 @@ export class ContractsController {
       contract.final_amount = final_amount;
       contract.initial_amount = initial_amount;
       contract.range = rangeFormat(+final_amount);
+      contract.start_date_year = contract.start_date ? (new Date(contract.start_date).getFullYear()) : contract.start_date;
     }
 
     data = {
-      contractsData: contractsData.sort(sortByField('end_date')),
+      contractsData: this._formalizedContractsData(contractsData).sort(sortByField('start_date')),
       tendersData: tendersData.sort(sortByField('submission_date')),
     }
   }
 
   _renderSummary(){
-    ndx = crossfilter(this._formalizedContracts());
+    ndx = crossfilter(this._currentDataSource().contractsData);
 
     this._renderTendersMetricsBox();
     this._renderContractsMetricsBox();
@@ -154,6 +168,7 @@ export class ContractsController {
     this._renderByAmountsChart();
     this._renderContractTypeChart();
     this._renderProcessTypeChart();
+    this._renderDateChart();
   }
 
   _refreshData(reducedContractsData){
@@ -184,21 +199,17 @@ export class ContractsController {
   }
 
   _renderContractsMetricsBox(){
-    const _contractsData = this._formalizedContracts();
+    const _contractsData = this._currentDataSource().contractsData;
 
     // Calculations
     const amountsArray = _contractsData.map(({final_amount = 0}) => parseFloat(final_amount) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
-    const savingsArray = _contractsData.map(({initial_amount = 0, final_amount = 0}) =>
-      1 - (parseFloat(final_amount) / parseFloat(initial_amount))
-    );
 
     // Calculations box items
     const numberContracts = _contractsData.length;
     const sumContracts = d3.sum(amountsArray);
     const meanContracts = d3.mean(amountsArray);
     const medianContracts = d3.median(amountsArray);
-    const meanSavings = d3.mean(savingsArray);
 
     // Calculations headlines
     const lessThan1000Total = _contractsData.filter(({final_amount = 0}) => parseFloat(final_amount) < 1000).length;
@@ -222,10 +233,6 @@ export class ContractsController {
     document.getElementById("mean-contracts").innerText = money(meanContracts);
     document.getElementById("median-contracts").innerText = money(medianContracts);
 
-    document.getElementById("mean-savings").innerText = meanSavings.toLocaleString(I18n.locale, {
-      style: 'percent',
-      minimumFractionDigits: 2
-    });
     document.getElementById("less-than-1000-pct").innerText = lessThan1000Pct.toLocaleString(I18n.locale, {
       style: 'percent'
     });
@@ -243,13 +250,15 @@ export class ContractsController {
     const renderOptions = {
       containerSelector: "#amount-distribution-bars",
       dimension: dimension,
-      range: _r,
+      range: _amountRange,
       labelMore: I18n.t('gobierto_dashboards.dashboards.contracts.more'),
       labelFromTo: I18n.t('gobierto_dashboards.dashboards.contracts.fromto'),
-      onFilteredFunction: () => this._refreshData(dimension.top(Infinity))
+      onFilteredFunction: (chart, filter) => {
+        this._refreshData(dimension.top(Infinity))
+      }
     }
 
-    new AmountDistributionBars(renderOptions);
+    charts['amount_distribution'] = new AmountDistributionBars(renderOptions);
   }
 
   _renderContractTypeChart(){
@@ -258,10 +267,13 @@ export class ContractsController {
     const renderOptions = {
       containerSelector: "#contract-type-bars",
       dimension: dimension,
-      onFilteredFunction: () => this._refreshData(dimension.top(Infinity))
+      onFilteredFunction: (chart, filter) => {
+        this._refreshData(dimension.top(Infinity))
+        EventBus.$emit('dc_filter_selected', {title: filter, id: 'contract_types'})
+      }
     }
 
-    new GroupPctDistributionBars(renderOptions);
+    charts['contract_types'] = new GroupPctDistributionBars(renderOptions);
   }
 
   _renderProcessTypeChart(){
@@ -270,19 +282,58 @@ export class ContractsController {
     const renderOptions = {
       containerSelector: "#process-type-bars",
       dimension: dimension,
-      onFilteredFunction: () => this._refreshData(dimension.top(Infinity))
+      onFilteredFunction: (chart, filter) => {
+        this._refreshData(dimension.top(Infinity))
+        EventBus.$emit('dc_filter_selected', {title: filter, id: 'process_types'})
+      }
     }
 
-    new GroupPctDistributionBars(renderOptions);
+    charts['process_types'] = new GroupPctDistributionBars(renderOptions);
+  }
+
+  _renderDateChart(){
+    const dimension = ndx.dimension(contract => contract.start_date_year)
+
+    const renderOptions = {
+      containerSelector: "#date-bars",
+      dimension: dimension,
+      onFilteredFunction: (chart, filter) => {
+        this._refreshData(dimension.top(Infinity))
+        EventBus.$emit('dc_filter_selected', {title: filter, id: 'dates'})
+      }
+    }
+
+    charts['dates'] = new GroupPctDistributionBars(renderOptions);
+  }
+
+  _updateChartsFromFilter(options){
+    const container = charts[options.id].container;
+
+    if (options.all) {
+      container.filter(null);
+      container.filter([options.titles]);
+    } else {
+      container.filter(options.title);
+    }
+
+    Object.values(charts).forEach((chart) => chart.container.redraw());
+  }
+
+  _redrawCharts(){
+    Object.values(charts).forEach((chart) => {
+      chart.setContainerSize();
+      chart.container.redraw();
+    });
   }
 
   _currentDataSource(){
     return reduced || data
   }
 
-  _formalizedContracts(){
-    return this._currentDataSource().contractsData.filter(({status}) =>
+  _formalizedContractsData(contractsData){
+    return contractsData.filter(({status}) =>
       status === 'Formalizado' || status === 'Adjudicado'
     )
   }
+
 }

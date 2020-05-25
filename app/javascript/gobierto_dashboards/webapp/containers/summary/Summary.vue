@@ -46,11 +46,6 @@
                     </div>
                   </div>
                 </div>
-
-                <div class="pure-u-1-2">
-                  <p class="m_t_0">{{ labelMeanSavings }}</p>
-                  <div class="metric m_b_1"><small><span id="mean-savings"></span></small></div>
-                </div>
               </div>
             </div> <!-- contracts -->
 
@@ -59,7 +54,7 @@
       </div> <!-- metric_box -->
     </div> <!-- metrix_boxes -->
 
-    <div class="pure-g block m_b_3">
+    <div class="pure-g block m_b_3" id="dccharts">
       <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
         <p class="decorator" v-html="labelLessThan1000"></p>
       </div>
@@ -90,6 +85,9 @@
         <div>
           <h3 class="mt1 graph-title">{{ labelAmountDistribution }}</h3>
           <div id="amount-distribution-bars"></div>
+        </div>
+        <div>
+          <div id="date-bars" class="hidden"></div>
         </div>
       </div>
     </div>
@@ -141,11 +139,11 @@ export default {
   },
 
   mounted() {
-    EventBus.$emit("summary_ready");
-
     EventBus.$on('refresh_summary_data', () => {
       this.refreshSummaryData();
     });
+
+    EventBus.$emit("summary_ready");
   },
   created() {
     this.items = this.buildItems();

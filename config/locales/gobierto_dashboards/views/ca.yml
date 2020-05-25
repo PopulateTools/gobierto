@@ -9,10 +9,11 @@ ca:
         contract_type: Tipus de contracte
         contractor: Contractor
         contracts: Contractes
+        date: Data
+        dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
         empty_table: No hi ha dades disponibles
-        end_date: Data
         final_amount: Quantitat
         fromto: De a Nº Contr.
         main_assignees: Principals adjudicataris

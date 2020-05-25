@@ -9,10 +9,11 @@ es:
         contract_type: Tipo de contrato
         contractor: Contrato
         contracts: Contratos
+        date: Fecha
+        dates: Fechas
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
           del %{entity_name}
         empty_table: No hay datos disponibles
-        end_date: Fecha
         final_amount: Importe
         fromto: Desde A Nº. Contr.
         main_assignees: Principales adjudicatarios

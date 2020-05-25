@@ -52,11 +52,11 @@ export default {
     }
   },
   computed: {
-    isSummary: function() { return this.$route.name === 'summary' },
-    isContractsIndex: function() { return this.$route.name === 'contracts_index' },
-    isContractsShow: function() { return this.$route.name === 'contracts_show' },
-    isTendersIndex: function() { return this.$route.name === 'tenders_index' },
-    isTendersShow: function() { return this.$route.name === 'tenders_show' },
+    isSummary() { return this.$route.name === 'summary' },
+    isContractsIndex() { return this.$route.name === 'contracts_index' },
+    isContractsShow() { return this.$route.name === 'contracts_show' },
+    isTendersIndex() { return this.$route.name === 'tenders_index' },
+    isTendersShow() { return this.$route.name === 'tenders_show' },
   },
   created(){
     EventBus.$on('refresh_summary_data', () => {

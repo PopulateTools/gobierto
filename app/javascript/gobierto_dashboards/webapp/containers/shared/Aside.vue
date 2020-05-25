@@ -78,7 +78,9 @@ export default {
   },
   methods: {
     initFilterOptions(){
-      const contractTypesOptions = [], processTypesOptions = [], dateOptions = [];
+      const contractTypesOptions = [];
+      const processTypesOptions = [];
+      const dateOptions = [];
       const years = new Set( this.contractsData.map(({start_date_year}) => start_date_year) );
       const contractTypes = new Set( this.contractsData.map(({contract_type}) => contract_type) );
       const processTypes = new Set( this.contractsData.map(({process_type}) => process_type) );

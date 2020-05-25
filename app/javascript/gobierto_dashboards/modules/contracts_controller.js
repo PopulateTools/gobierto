@@ -96,6 +96,11 @@ export class ContractsController {
           this._updateChartsFromFilter(options);
         });
 
+        // - dc charts are drawn even if the summary page is not the page where the user lands for the first time
+        //   i.e.: they could first land on a contract page, but still this page would need to render for the filters to work
+        // - dc charts sizes are calculated automatically, but if the page is not visible it won't calculate sizes properly
+        // - Given all that: when we go from a page that is not summary to summary for the first time, the sizes must
+        //   be calculated and the charts redrawn. This is why this event only needs to be listened once.
         EventBus.$once('moved_to_summary', () => {
           this._redrawCharts();
         });

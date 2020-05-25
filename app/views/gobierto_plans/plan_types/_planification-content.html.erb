@@ -161,7 +161,7 @@
         <template v-if="Object.keys(customFields).length">
           <!-- Paragraph template  -->
           <template v-for="item in customFields.paragraphs">
-            <div class="project-description">
+            <div class="project-description" v-if="item.value">
               <div class="description-title" :class="{ 'mb1': item.value.length < 200 }">
                 <span v-if="item.custom_field_name_translations">{{ item.custom_field_name_translations | translate }}</span>
                 <span v-else><%= t("gobierto_plans.plan_types.show.desc") %></span>

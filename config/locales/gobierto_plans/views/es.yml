@@ -24,8 +24,9 @@ es:
             Plan de Actuación Municipal conecta con los ODS.
           sdgs_title: Objetivos de Desarrollo Sostenible
         projects:
-          sdg_projects_empty: No hay proyectos del plan relacionados con este ODS
-          sdg_projects_title: Proyectos del plan relacionados con este ODS
+          sdg_projects_empty: No hay %{projects_term} del plan relacionados con este
+            ODS
+          sdg_projects_title: "%{projects_term} del plan relacionados con este ODS"
       show:
         desc: Descripción
         ends: Fin
@@ -34,7 +35,6 @@ es:
         loading: Cargando...
         percentage_progress: "% progreso"
         progress: Progreso
-        projects: Proyectos
         read_less: Leer menos
         read_more: Leer más
         see_all: Ver todo en

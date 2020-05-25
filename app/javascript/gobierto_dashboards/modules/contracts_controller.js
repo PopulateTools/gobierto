@@ -327,7 +327,7 @@ export class ContractsController {
 
   _formalizedContractsData(contractsData){
     return contractsData.filter(({status}) =>
-      status == 'Formalizado' || status == 'Adjudicado'
+      status === 'Formalizado' || status === 'Adjudicado'
     )
   }
 

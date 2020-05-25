@@ -6,7 +6,6 @@ import { scaleThreshold } from 'd3-scale';
 
 const d3 = { scaleThreshold, sum, mean, median, max }
 
-import * as dc from 'dc'
 import crossfilter from 'crossfilter2'
 
 import { getRemoteData } from '../webapp/lib/utils'

@@ -122,8 +122,9 @@ export default {
     updateCounters(firstUpdate=false) {
       const counter = {process_types: {}, contract_types: {}, dates: {}};
 
-      debugger
-
+      // It iterates over the contracts to get the number of items for each year, process type and contract type
+      // In the end, it populates counter with something like:
+      // {process_types: {'Abierto': 12, 'Abierto Simplificado': 43,...}, dates: {2020: '12'...}}
       this.contractsData.forEach(({process_type, contract_type, start_date_year}) => {
         counter.process_types[process_type] = counter.process_types[process_type] || 0
         counter.process_types[process_type]++
@@ -135,6 +136,7 @@ export default {
         counter.dates[start_date_year]++
       })
 
+      // This loop fills the filters data attribute with the counter result we populated in the previous loop
       this.filters.forEach((filter) => {
         const { id } = filter;
         for (let i = 0; i < filter.options.length; i++) {

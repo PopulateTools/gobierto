@@ -161,7 +161,7 @@ export default {
     },
     toggle(filter){
       this.filters.forEach(_filter => {
-        if (_filter.id == filter.id) {
+        if (_filter.id === filter.id) {
           _filter.isToggle = !_filter.isToggle;
         }
       })

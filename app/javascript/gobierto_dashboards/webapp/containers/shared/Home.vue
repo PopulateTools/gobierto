@@ -11,11 +11,11 @@
           @active-tab="setActiveTab"
         ></Nav>
         <main class="dashboards-home-main">
-          <Summary v-show="isCurrentPath('summary')"/>
-          <ContractsIndex v-show="isCurrentPath('contracts_index')"/>
-          <ContractsShow v-if="isCurrentPath('contracts_show')"/>
-          <TendersIndex v-show="isCurrentPath('tenders_index')"/>
-          <TendersShow v-if="isCurrentPath('tenders_show')"/>
+          <Summary v-show="isSummary"/>
+          <ContractsIndex v-show="isContractsIndex"/>
+          <ContractsShow v-if="isContractsShow"/>
+          <TendersIndex v-show="isTendersIndex"/>
+          <TendersShow v-if="isTendersShow"/>
         </main>
       </div>
     </div>
@@ -51,6 +51,13 @@ export default {
       contractsData: this.$root.$data.contractsData,
     }
   },
+  computed: {
+    isSummary: function() { return this.$route.name === 'summary' },
+    isContractsIndex: function() { return this.$route.name === 'contracts_index' },
+    isContractsShow: function() { return this.$route.name === 'contracts_show' },
+    isTendersIndex: function() { return this.$route.name === 'tenders_index' },
+    isTendersShow: function() { return this.$route.name === 'tenders_show' },
+  },
   created(){
     EventBus.$on('refresh_summary_data', () => {
       this.contractsData = this.$root.$data.contractsData;
@@ -64,9 +71,6 @@ export default {
       if (this.isSummaryPage(tabIndex)) {
         EventBus.$emit("moved_to_summary");
       }
-    },
-    isCurrentPath(componentPathName){
-      return this.$route.name === componentPathName
     },
     isSummaryPage(tabIndex){
       return tabIndex === 0

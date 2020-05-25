@@ -1,14 +1,23 @@
 import { csv } from "d3-request";
+import { format, formatDefaultLocale } from 'd3-format'
+import { select, selectAll } from 'd3-selection';
 import { max, min } from "d3-array";
 import { schemeCategory10 } from 'd3-scale'
-import * as dc from 'dc'
+import dc from 'dc'
 import crossfilter from 'crossfilter2'
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
 import * as L from 'leaflet';
 import * as dc_leaflet from 'dc.leaflet';
 import 'leaflet/dist/leaflet.css';
+import pairedRow from 'dc-addons-paired-row'
 
-const d3 = { csv, max, min, schemeCategory10 }
+const d3 = { csv, max, min, schemeCategory10, select, selectAll, format, formatDefaultLocale }
+
+const locale = d3.formatDefaultLocale({
+  decimal: ',',
+  thousands: '.',
+  grouping: [3]
+});
 
 function getRemoteData(endpoint) {
   return new Promise((resolve) => {
@@ -40,8 +49,8 @@ async function getData() {
   return data;
 }
 
- const marginHabNat = { top: 0, right: 0, bottom: 0, left: 70 }
- const marginStudies = { top: 0, right: 0, bottom: 0, left: 110 }
+const marginHabNat = { top: 0, right: 0, bottom: 0, left: 70 }
+const marginStudies = { top: 0, right: 0, bottom: 0, left: 110 }
 
 
 // Estudios
@@ -78,9 +87,36 @@ export class DemographyMapController {
         this.ndx = {
           filters: {
             studies: {
+              /*d => parseInt(d.rango_edad.split('-')[0])*/
               all: ndxStudies,
               bySex: ndxStudies.dimension(d => d.sexo),
-              byAge: ndxStudies.dimension(d => parseInt(d.rango_edad.split('-')[0])),
+              byAge: ndxStudies.dimension(function(d) {
+                var age_range = 'Unknown';
+                d.rango_edad = parseInt(d.rango_edad.split('-')[0])
+
+                if (d.rango_edad <= 10) {
+                  age_range = '0-10';
+                } else if (d.rango_edad <= 20) {
+                  age_range = '11-20';
+                } else if (d.rango_edad <= 30) {
+                  age_range = '21-30';
+                } else if (d.rango_edad <= 40) {
+                  age_range = '31-40';
+                } else if (d.rango_edad <= 50) {
+                  age_range = '41-50';
+                } else if (d.rango_edad <= 60) {
+                  age_range = '51-60';
+                } else if (d.rango_edad <= 70) {
+                  age_range = '61-70';
+                } else if (d.rango_edad <= 80) {
+                  age_range = '71-80';
+                } else if (d.rango_edad <= 90) {
+                  age_range = '81-90';
+                } else if (d.rango_edad <= 100) {
+                  age_range = '91-100';
+                }
+                return [d.sexo, age_range];
+              }),
               byCusec: ndxStudies.dimension(d => d.cusec),
               byNationality: ndxStudies.dimension(d => d.nacionalidad),
               byOriginNational: null,
@@ -90,7 +126,33 @@ export class DemographyMapController {
             origin: {
               all: ndxOrigin,
               bySex: ndxOrigin.dimension(d => d.sexo),
-              byAge: ndxOrigin.dimension(d => parseInt(d.rango_edad.split('-')[0])),
+              byAge: ndxOrigin.dimension(function(d) {
+                var age_range = 'Unknown';
+                d.rango_edad = parseInt(d.rango_edad.split('-')[0])
+
+                if (d.rango_edad <= 10) {
+                  age_range = '0-10';
+                } else if (d.rango_edad <= 20) {
+                  age_range = '11-20';
+                } else if (d.rango_edad <= 30) {
+                  age_range = '21-30';
+                } else if (d.rango_edad <= 40) {
+                  age_range = '31-40';
+                } else if (d.rango_edad <= 50) {
+                  age_range = '41-50';
+                } else if (d.rango_edad <= 60) {
+                  age_range = '51-60';
+                } else if (d.rango_edad <= 70) {
+                  age_range = '61-70';
+                } else if (d.rango_edad <= 80) {
+                  age_range = '71-80';
+                } else if (d.rango_edad <= 90) {
+                  age_range = '81-90';
+                } else if (d.rango_edad <= 100) {
+                  age_range = '91-100';
+                }
+                return [d.sexo, age_range];
+              }),
               byCusec: ndxOrigin.dimension(d => d.cusec),
               byNationality: ndxOrigin.dimension(d => d.nacionalidad),
               byOriginNational: ndxOrigin.dimension(d => d.nacionalidad === 'Nacional' ? d.procedencia : null),
@@ -103,7 +165,7 @@ export class DemographyMapController {
         this.chart1 = this.renderInhabitants("#inhabitants");
         this.chart2 = this.renderBarNationality("#bar-nationality");
         this.chart3 = this.renderBarSex("#bar-sex");
-        this.chart4 = this.renderPiramid("#piramid-age-sex");
+        this.chart4 = this.renderPyramid("#piramid-age-sex");
         this.chart5 = this.renderStudies("#bar-by-studies");
         this.chart6 = this.renderOriginNational("#bar-by-origin-spaniards");
         this.chart7 = this.renderOriginOthers("#bar-by-origin-others");
@@ -223,9 +285,11 @@ export class DemographyMapController {
 
   renderInhabitants(selector) {
     const chart = new dc.dataCount(selector, "main");
+    console.log("chart", chart);
     chart
       .crossfilter(this.ndx.filters.studies.all)
       .groupAll(this.ndx.groups.studies.all)
+      .formatNumber(locale.format(',.0f'))
       .html({
         all: '<h2 class="gobierto_observatory-habitants-title">Habitantes</h2><h3 class="gobierto_observatory-habitants-number">%total-count</h3>',
         some: '<h2 class="gobierto_observatory-habitants-title">Total habitantes</h2><h3 class="gobierto_observatory-habitants-number">%filter-count</h3>'
@@ -233,9 +297,10 @@ export class DemographyMapController {
 
     const that = this;
     chart
+
       .on('filtered', (chart) => {
         that.updateOriginFilters('all', chart.filters());
-      });
+      })
     return chart;
   }
 
@@ -258,6 +323,7 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.updateOriginFilters('byNationality', chart.filters());
+        that.pyramidChart()
       });
     return chart;
   }
@@ -282,30 +348,115 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.updateOriginFilters('bySex', chart.filters());
+        that.pyramidChart()
       });
 
     return chart;
   }
 
-  renderPiramid(selector) {
-    const chart = new dc.rowChart(selector, "main");
-
-    chart
-      .width(300)
-      .height(250)
-      .group(this.ndx.groups.studies.byAge)
-      .dimension(this.ndx.filters.studies.byAge)
-      .colors('#FF776D')
-      .elasticX(true)
-      .xAxis().ticks(4);
-
+  renderPyramid(selector) {
+    const chart = pairedRow(selector, "main");
+    dc.chartRegistry.register(chart, 'main');
     const that = this;
-    chart
-      .on('filtered', (chart) => {
-        that.updateOriginFilters('byAge', chart.filters());
-      });
+
+    let group = {
+      all: function() {
+        var age_ranges = ['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'];
+
+        // convert to object so we can easily tell if a key exists
+        var values = {};
+        that.ndx.groups.studies.byAge.all().forEach(function(d) {
+          values[d.key[0] + '.' + d.key[1]] = d.value;
+        });
+
+        // convert back into an array for the chart, making sure that all age_ranges exist
+        var g = [];
+        age_ranges.forEach(function(age_range) {
+          g.push({
+            key: ['Hombre', age_range],
+            value: values['Hombre.' + age_range] || 0
+          });
+          g.push({
+            key: ['Mujer', age_range],
+            value: values['Mujer.' + age_range] || 0
+          });
+        });
+
+        return g;
+      }
+    };
+
+    chart.options({
+      // display
+      width: 250,
+      height: 200,
+      labelOffsetX: -50,
+      fixedBarHeight: 10,
+      gap: 10,
+      colorCalculator: function(d) {
+        if (d.key[0] === 'Male') {
+          return '#008E9C';
+        }
+
+        return '#F8B206';
+      },
+      // data
+      dimension: this.ndx.filters.studies.byAge,
+      group: group,
+      // misc
+      renderTitleLabel: true,
+      title: d => d.key[1],
+      label: d => d.key[1],
+      cap: 10,
+      // if elastic is set than the sub charts will have different extent ranges, which could mean the data is interpreted incorrectly
+      elasticX: true,
+      // custom
+      leftKeyFilter: d => d.key[0] === 'Hombre',
+      rightKeyFilter: d => d.key[0] === 'Mujer'
+    })
+
+    let allRows = d3.selectAll('g.row')
+    allRows
+      .attr('opacity', 0)
+
+    chart.render(this.pyramidChart())
     return chart;
   }
+
+  //Create a Pyramid population Chart
+  pyramidChart() {
+    setTimeout(() => {
+      //Only get the rows of the left chart.
+      let selectLeftRows = d3.selectAll('.left-chart g.row rect')
+      selectLeftRows = selectLeftRows._groups[0]
+      const leftChart = d3.select('.left-chart')
+      //Get the size of the left chart. 30 isn't a magic number, it is the margin-right of the  chart.
+      const widthLeftchart = leftChart._groups[0][0].clientWidth - 30
+      selectLeftRows.forEach(rect => {
+        //Get the width of the every rect inside a row.
+        const rectWidth = rect.width.animVal.value
+        //Subtract the width of the chart minus width of the rect, with this now move rect to the right position
+        const translateRectToRight = widthLeftchart - rectWidth
+
+        //Hack to create a tricky animation
+        //First set a width with zero
+        rect.setAttribute('width', 0)
+        //Second, use translateRectToRight to move rect
+        rect.setAttribute('x', translateRectToRight)
+        //Finally, set again the width of the rect, we need a class with CSS animation
+        rect.setAttribute('width', rectWidth)
+      })
+      let allRects = d3.selectAll('g.row')
+      allRects.attr('opacity', 1)
+      //Hack, force to redrawAll dc-charts when user click on every row
+      document.querySelectorAll("g.row").forEach(row => row.addEventListener('click', () => {
+        dc.redrawAll('main');
+      }));
+      //Why???? because the timing of the dc.js animation is equal 1000ms
+    }, 1000)
+
+  }
+
 
   renderStudies(selector) {
     const chart = new dc.rowChart(selector, "main");
@@ -338,6 +489,7 @@ export class DemographyMapController {
           document.getElementById("bar-by-origin-others").style.display = 'block';
         }
       });
+    chart.render()
     return chart;
   }
 
@@ -454,11 +606,15 @@ export class DemographyMapController {
           zoomOffset: -1
         }).addTo(map);
       })
+
+    const that = this;
+    chart.on('filtered', function() {
+      dc.redrawAll('main', that.pyramidChart());
+    })
     return chart;
   }
 
   activeFiltered(container) {
-    console.log("container", container);
     const {
       id
     } = container

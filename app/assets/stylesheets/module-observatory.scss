@@ -26,6 +26,7 @@
   width: 100%;
   margin: 0;
   padding: 0;
+  background-color: #fff;
 }
 
 .gobierto_observatory {
@@ -92,6 +93,13 @@
     color: var(--pyramidal-female);
   }
 
+  #piramid-age-sex {
+    .left-chart,
+    .right-chart {
+      display: inline-block;
+    }
+  }
+
   &-habitants-number {
     margin: 0;
     font-size: 3rem;
@@ -133,6 +141,23 @@
       &._1 {
         rect {
           fill: var(--pyramidal-male);
+        }
+      }
+    }
+  }
+
+  #piramid-age-sex {
+    .left-chart.dc-chart {
+      g.row {
+        rect {
+          fill: var(--pyramidal-male) !important;
+        }
+      }
+    }
+    .right-chart.dc-chart {
+      g.row {
+        rect {
+          fill: var(--pyramidal-female) !important;
         }
       }
     }
@@ -741,6 +766,38 @@
     float: left;
     margin-right: 8px;
     opacity: 0.7;
+  }
+
+  .left-chart.dc-chart {
+    g.row text {
+      display: none;
+    }
+  }
+
+  .left-chart.dc-chart,
+  .right-chart.dc-chart {
+    .axis {
+      display: none;
+    }
+    .axis-y {
+      display: block;
+    }
+    rect {
+      rx: 3px;
+      transition: all .3s ease-in-out;
+    }
+  }
+
+  .right-chart.dc-chart {
+    g.row {
+      text.titlerow {
+        display: none;
+      }
+      text {
+        fill: #111;
+        pointer-events: none;
+      }
+    }
   }
 
 }

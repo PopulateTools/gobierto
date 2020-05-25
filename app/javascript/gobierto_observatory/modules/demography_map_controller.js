@@ -49,10 +49,8 @@ async function getData() {
   return data;
 }
 
-const marginHabNat = { top: 0, right: 0, bottom: 0, left: 70 }
+const marginHabNat = { top: 0, right: 0, bottom: 0, left: 110 }
 const marginStudies = { top: 0, right: 0, bottom: 0, left: 180 }
-const marginOriginNational = { top: 0, right: 0, bottom: 0, left: 140 }
-
 
 // Estudios
 // seccion,distrito,rango_edad,sexo,nacionalidad,formacion,total
@@ -174,11 +172,11 @@ export class DemographyMapController {
         // Don't know why we need to do this
         dc.chartRegistry.register(this.chart8, "main");
         dc.renderAll("main");
-      });
 
-      document.querySelectorAll("#close").forEach(button => button.addEventListener('click', () => {
-        this.clearFilters(event)
-      }));
+        document.querySelectorAll("#close").forEach(button => button.addEventListener('click', () => {
+          this.clearFilters(event)
+        }));
+      });
     }
   }
 
@@ -297,7 +295,6 @@ export class DemographyMapController {
 
     const that = this;
     chart
-
       .on('filtered', (chart) => {
         that.updateOriginFilters('all', chart.filters());
       })
@@ -306,8 +303,9 @@ export class DemographyMapController {
 
   renderBarNationality(selector) {
     const chart = new dc.rowChart(selector, "main");
+    const sumAllValues = this.ndx.groups.origin.all.value()
     chart
-      .width(300)
+      .width(250)
       .height(45)
       .group(this.ndx.groups.studies.byNationality)
       .dimension(this.ndx.filters.studies.byNationality)
@@ -315,14 +313,19 @@ export class DemographyMapController {
       .elasticX(true)
       .gap(10)
       .margins(marginHabNat)
+      .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-70)
+      .labelOffsetX(-110)
+      .titleLabelOffsetX(145)
+      .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4);
 
     const that = this;
     chart
       .on('filtered', (chart) => {
         that.updateOriginFilters('byNationality', chart.filters());
+        const container = document.getElementById('container-bar-nationality')
+        that.activeFiltered(container)
         that.pyramidChart()
       });
     return chart;
@@ -330,9 +333,10 @@ export class DemographyMapController {
 
   renderBarSex(selector) {
     const chart = new dc.rowChart(selector, "main");
+    const sumAllValues = this.ndx.groups.origin.all.value()
 
     chart
-      .width(300)
+      .width(250)
       .height(45)
       .group(this.ndx.groups.studies.bySex)
       .dimension(this.ndx.filters.studies.bySex)
@@ -340,14 +344,19 @@ export class DemographyMapController {
       .elasticX(true)
       .gap(10)
       .margins(marginHabNat)
+      .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-70)
+      .labelOffsetX(-110)
+      .titleLabelOffsetX(145)
+      .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4);
 
     const that = this;
     chart
       .on('filtered', (chart) => {
         that.updateOriginFilters('bySex', chart.filters());
+        const container = document.getElementById('container-bar-sex')
+        that.activeFiltered(container)
         that.pyramidChart()
       });
 
@@ -361,7 +370,7 @@ export class DemographyMapController {
 
     let group = {
       all: function() {
-        var age_ranges = ['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'];
+        var age_ranges = ['91-100','81-90','71-80','61-70','51-60','41-50','31-40','21-30','11-20','00-10']
 
         // convert to object so we can easily tell if a key exists
         var values = {};
@@ -397,7 +406,6 @@ export class DemographyMapController {
         if (d.key[0] === 'Male') {
           return '#008E9C';
         }
-
         return '#F8B206';
       },
       // data
@@ -437,7 +445,6 @@ export class DemographyMapController {
         const rectWidth = rect.width.animVal.value
         //Subtract the width of the chart minus width of the rect, with this now move rect to the right position
         const translateRectToRight = widthLeftchart - rectWidth
-
         //Hack to create a tricky animation
         //First set a width with zero
         rect.setAttribute('width', 0)
@@ -452,18 +459,21 @@ export class DemographyMapController {
       document.querySelectorAll("g.row").forEach(row => row.addEventListener('click', () => {
         dc.redrawAll('main');
       }));
+      const that = this;
+      document.querySelectorAll("#container-piramid-age-sex g.row").forEach(row => row.addEventListener('click', () => {
+        const container = document.getElementById('container-piramid-age-sex')
+        that.activeFiltered(container)
+      }));
       //Why???? because the timing of the dc.js animation is equal 1000ms
     }, 1000)
-
   }
-
 
   renderStudies(selector) {
     const chart = new dc.rowChart(selector, "main");
     const sumAllValues = this.ndx.groups.origin.all.value()
     chart
       .width(300)
-      .height(250)
+      .height(210)
       .cap(10) // Show only top 20
       .group(this.ndx.groups.studies.byStudies)
       .dimension(this.ndx.filters.studies.byStudies)
@@ -480,7 +490,7 @@ export class DemographyMapController {
 
     const that = this;
     chart
-      .on('filtered', (chart, event) => {
+      .on('filtered', (chart) => {
         that.currentFilter = 'studies';
         const container = document.getElementById('container-bar-by-studies')
         that.activeFiltered(container)
@@ -502,7 +512,7 @@ export class DemographyMapController {
     const sumAllValues = this.ndx.groups.origin.all.value()
     chart
       .width(300)
-      .height(250)
+      .height(180)
       .cap(10) // Show only top 20
       .othersGrouper(null) // Don't show the rest of the 20 in Other class - https://dc-js.github.io/dc.js/docs/html/CapMixin.html
       .group(this.ndx.groups.origin.byOriginNational)
@@ -510,11 +520,11 @@ export class DemographyMapController {
       .colors('#FF776D')
       .elasticX(true)
       .gap(10)
-      .margins(marginOriginNational)
+      .margins(marginStudies)
       .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-140)
-      .titleLabelOffsetX(165)
+      .labelOffsetX(-180)
+      .titleLabelOffsetX(125)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4)
 
@@ -522,6 +532,8 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';
+        /*const container = document.getElementById('container-bar-origin-spaniards')
+        that.activeFiltered(container)*/
         if (chart.filter() !== null) {
           document.getElementById("bar-by-studies").style.display = 'none';
         } else {
@@ -546,7 +558,7 @@ export class DemographyMapController {
     const sumAllValues = this.ndx.groups.origin.all.value()
     chart
       .width(300)
-      .height(260)
+      .height(210)
       .cap(10) // Show only top 20
       .othersGrouper(null) // Don't show the rest of the 20 in Other clashttps://dc-js.github.io/dc.js/docs/html/CapMixin.htmls
       .group(this.ndx.groups.origin.byOriginOther)
@@ -554,11 +566,11 @@ export class DemographyMapController {
       .colors('#FF776D')
       .elasticX(true)
       .gap(10)
-      .margins(marginOriginNational)
+      .margins(marginStudies)
       .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-140)
-      .titleLabelOffsetX(165)
+      .labelOffsetX(-180)
+      .titleLabelOffsetX(125)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4);
 
@@ -566,6 +578,8 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';
+        /*const container = document.getElementById('container-bar-origin-others')
+        that.activeFiltered(container)*/
         if (chart.filter() !== null) {
           document.getElementById("bar-by-studies").style.display = 'none';
         } else {
@@ -628,10 +642,15 @@ export class DemographyMapController {
 
   activeFiltered(container) {
     const {
-      id
+      id,
+      className
     } = container
     const element = document.getElementById(id)
-    element.classList.toggle('active-filtered')
+    if (className.includes('active-filtered')) {
+      return false
+    } else {
+      element.classList.toggle('active-filtered')
+    }
   }
 
   clearFilters(event) {
@@ -639,14 +658,47 @@ export class DemographyMapController {
     const parent = target.parentElement;
     const chart = parent.parentElement;
     if (chart.id === 'container-bar-by-studies') {
-      chart.classList.toggle('active-filtered')
-      /*this.updateStudiesFilters('all', this.chart5.filters());*/
-    } else if (chart.id === 'container-bar-origin-spaniards') {
-      chart.classList.toggle('active-filtered')
+      const chartFromList = dc.chartRegistry.list('main')[4]
+      const activeFilters = chartFromList.filters().length
+      for (let index = 0; index < activeFilters; index++) {
+        chartFromList.filter(chartFromList.filters()[0])
+      }
+      chartFromList.redrawGroup();
+      setTimeout(() => {
+        chart.classList.toggle('active-filtered')
+      }, 0)
+    } else if (chart.id === 'container-bar-nationality') {
+      const chartFromList = dc.chartRegistry.list('main')[1]
+      const activeFilters = chartFromList.filters().length
+      for (let index = 0; index < activeFilters; index++) {
+        chartFromList.filter(chartFromList.filters()[0])
+      }
+      chartFromList.redrawGroup();
+      setTimeout(() => {
+        chart.classList.toggle('active-filtered')
 
-    } else if (chart.id === 'container-bar-by-origin-others') {
-      chart.classList.toggle('active-filtered')
-
+      }, 0)
+    } else if (chart.id === 'container-bar-sex') {
+      const chartFromList = dc.chartRegistry.list('main')[2]
+      const activeFilters = chartFromList.filters().length
+      for (let index = 0; index < activeFilters; index++) {
+        chartFromList.filter(chartFromList.filters()[0])
+      }
+      chartFromList.redrawGroup();
+      setTimeout(() => {
+        chart.classList.toggle('active-filtered')
+      }, 0)
+    } else if (chart.id === 'container-piramid-age-sex') {
+      const chartFromList = dc.chartRegistry.list('main')[3]
+      const activeFilters = chartFromList.filters().length
+      chartFromList.redrawGroup();
+      for (let index = 0; index < activeFilters; index++) {
+        chartFromList.filter(chartFromList.filters()[0])
+      }
+      chartFromList.render(this.pyramidChart())
+      setTimeout(() => {
+        chart.classList.toggle('active-filtered')
+      }, 0)
     }
   }
 }

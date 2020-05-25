@@ -208,7 +208,7 @@
 
       text {
         font-size: 12px;
-        text-transform: capitalize;
+        text-transform: initial;
       }
 
       &:hover {
@@ -286,7 +286,8 @@
     color: var(--pyramidal-female);
   }
 
-  .selected + .row {
+  .selected + .row,
+  .selected + .row + .titlerow {
     font-weight: bold;
   }
 
@@ -394,6 +395,8 @@
   footer {
     z-index: 2;
     clear: both;
+    padding: 0;
+    margin: 0;
   }
 
   #poblacion h2 {

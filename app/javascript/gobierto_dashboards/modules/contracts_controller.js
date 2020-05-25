@@ -145,7 +145,7 @@ export class ContractsController {
       contract.final_amount = final_amount;
       contract.initial_amount = initial_amount;
       contract.range = rangeFormat(+final_amount);
-      contract.start_date_year = contract.start_date != undefined && contract.start_date != '' ? (new Date(contract.start_date).getFullYear()) : contract.start_date;
+      contract.start_date_year = contract.start_date ? (new Date(contract.start_date).getFullYear()) : contract.start_date;
     }
 
     data = {

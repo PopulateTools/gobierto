@@ -27,6 +27,7 @@
   margin: 0;
   padding: 0;
   background-color: #fff;
+  z-index: 100;
 }
 
 .gobierto_observatory {
@@ -77,6 +78,10 @@
     text-align: right;
     color: rgba(79, 79, 79, .5);
     margin-top: 1rem;
+  }
+
+  &-date-update {
+    padding-right: 1rem;
   }
 
   &-legend {
@@ -150,14 +155,22 @@
     .left-chart.dc-chart {
       g.row {
         rect {
-          fill: var(--pyramidal-male) !important;
+          fill: var(--pyramidal-male);
+
+          &.deselected {
+            fill: #ccc;
+          }
         }
       }
     }
     .right-chart.dc-chart {
       g.row {
         rect {
-          fill: var(--pyramidal-female) !important;
+          fill: var(--pyramidal-female);
+
+          &.deselected {
+            fill: #ccc;
+          }
         }
       }
     }
@@ -168,6 +181,26 @@
 
     .axis {
       display: none;
+    }
+
+    g.row rect,
+    rect.bar {
+      fill: #ff776d;
+      rx: 3px;
+
+      &.deselected {
+        fill: #ccc;
+      }
+    }
+
+    g.row text.titlerow {
+      font-size: 14px;
+      fill: rgba(79, 79, 79, .5) !important;
+    }
+
+    g.row text {
+      font-size: 14px;
+      fill: rgb(79, 79, 79) !important;
     }
 
     g[class*="row"] {
@@ -192,22 +225,6 @@
     padding: 0 2rem;
   }
 
-  .dc-chart g.row text {
-    fill: rgba(79, 79, 79, .5) !important;
-  }
-
-  //FIX-ME comp-graph-dc.scss
-  .dc-chart g.row rect,
-  .dc-chart rect.bar {
-    fill: #ff776d;
-    rx: 3px;
-
-    &.deselected {
-      fill: #ccc;
-    }
-  }
-
-  //TODO: remove importants
   &-sidebar,
   .pure-g [class*="pure-u"] {
     font-family: var(--plex-font) !important;

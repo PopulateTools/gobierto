@@ -1,7 +1,7 @@
 import { csv } from "d3-request";
 import { format, formatDefaultLocale } from 'd3-format'
 import { select, selectAll } from 'd3-selection';
-import { max, min } from "d3-array";
+import { max, min, sum } from "d3-array";
 import { schemeCategory10 } from 'd3-scale'
 import dc from 'dc'
 import crossfilter from 'crossfilter2'
@@ -11,7 +11,7 @@ import * as dc_leaflet from 'dc.leaflet';
 import 'leaflet/dist/leaflet.css';
 import pairedRow from 'dc-addons-paired-row'
 
-const d3 = { csv, max, min, schemeCategory10, select, selectAll, format, formatDefaultLocale }
+const d3 = { csv, max, min, schemeCategory10, select, selectAll, format, formatDefaultLocale, sum }
 
 const locale = d3.formatDefaultLocale({
   decimal: ',',
@@ -50,7 +50,8 @@ async function getData() {
 }
 
 const marginHabNat = { top: 0, right: 0, bottom: 0, left: 70 }
-const marginStudies = { top: 0, right: 0, bottom: 0, left: 110 }
+const marginStudies = { top: 0, right: 0, bottom: 0, left: 180 }
+const marginOriginNational = { top: 0, right: 0, bottom: 0, left: 140 }
 
 
 // Estudios
@@ -285,7 +286,6 @@ export class DemographyMapController {
 
   renderInhabitants(selector) {
     const chart = new dc.dataCount(selector, "main");
-    console.log("chart", chart);
     chart
       .crossfilter(this.ndx.filters.studies.all)
       .groupAll(this.ndx.groups.studies.all)
@@ -460,7 +460,7 @@ export class DemographyMapController {
 
   renderStudies(selector) {
     const chart = new dc.rowChart(selector, "main");
-
+    const sumAllValues = this.ndx.groups.origin.all.value()
     chart
       .width(300)
       .height(250)
@@ -471,8 +471,11 @@ export class DemographyMapController {
       .elasticX(true)
       .gap(10)
       .margins(marginStudies)
+      .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-110)
+      .labelOffsetX(-180)
+      .titleLabelOffsetX(125)
+      .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4);
 
     const that = this;
@@ -488,6 +491,7 @@ export class DemographyMapController {
           document.getElementById("bar-by-origin-spaniards").style.display = 'block';
           document.getElementById("bar-by-origin-others").style.display = 'block';
         }
+        that.pyramidChart()
       });
     chart.render()
     return chart;
@@ -495,7 +499,7 @@ export class DemographyMapController {
 
   renderOriginNational(selector) {
     const chart = new dc.rowChart(selector, "main");
-
+    const sumAllValues = this.ndx.groups.origin.all.value()
     chart
       .width(300)
       .height(250)
@@ -506,9 +510,12 @@ export class DemographyMapController {
       .colors('#FF776D')
       .elasticX(true)
       .gap(10)
-      .margins(marginStudies)
+      .margins(marginOriginNational)
+      .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-110)
+      .labelOffsetX(-140)
+      .titleLabelOffsetX(165)
+      .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4)
 
     const that = this;
@@ -529,13 +536,14 @@ export class DemographyMapController {
         that.chart3.group(that.ndx.groups.origin.bySex);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
+        that.pyramidChart()
       });
     return chart;
   }
 
   renderOriginOthers(selector) {
     const chart = new dc.rowChart(selector, "main");
-
+    const sumAllValues = this.ndx.groups.origin.all.value()
     chart
       .width(300)
       .height(260)
@@ -546,9 +554,12 @@ export class DemographyMapController {
       .colors('#FF776D')
       .elasticX(true)
       .gap(10)
-      .margins(marginStudies)
+      .margins(marginOriginNational)
+      .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-110)
+      .labelOffsetX(-140)
+      .titleLabelOffsetX(165)
+      .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4);
 
     const that = this;
@@ -568,6 +579,7 @@ export class DemographyMapController {
         that.chart3.group(that.ndx.groups.origin.bySex);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
+        that.pyramidChart()
       });
     return chart;
   }
@@ -586,7 +598,7 @@ export class DemographyMapController {
       .dimension(this.ndx.filters.studies.byCusec)
       .group(this.ndx.groups.studies.byCusec)
       .geojson(data.features)
-      .colors(d3.schemeCategory10)
+      .colors(['#b6d8e6','#9ccbdd','#7fbcd3','#5da9c7','#3293b9','#0174a1','#01445f'])
       .colorDomain([
           d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck('value')),
           d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))

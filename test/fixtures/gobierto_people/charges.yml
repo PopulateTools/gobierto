@@ -1,0 +1,61 @@
+richard_previous_avenger:
+  person: richard
+  department: tourism_department_very_old
+  name_translations: <%= { "en" => "Avenger", "es" => "Vengador" }.to_json %>
+  end_date: 1965-12-31
+
+richard_doctor:
+  person: richard
+  department: ecology_department_old
+  name_translations: <%= { "en" => "Alien doctor", "es" => "Doctor alienígena" }.to_json %>
+  start_date: 1966-01-01
+  end_date: 1976-08-31
+
+richard_avenger:
+  person: richard
+  department: tourism_department_very_old
+  name_translations: <%= { "en" => "Avenger", "es" => "Vengador" }.to_json %>
+  start_date: 1976-09-01
+  end_date: 2009-12-31
+
+richard_culture:
+  person: richard
+  department: culture_department
+  name_translations: <%= { "en" => "Cultural representative", "es" => "Representante cultural" }.to_json %>
+  start_date: 2010-01-01
+
+nelson_commander:
+  person: nelson
+  department: ecology_department_old
+  name_translations: <%= { "en" => "Navy Commander", "es" => "Comandante" }.to_json %>
+  start_date: 1801-05-19
+  end_date: 1805-10-21
+
+tamara_former_avenger:
+  person: tamara
+  department: tourism_department_very_old
+  name_translations: <%= { "en" => "Former Avenger", "es" => "Antigua Vengadora" }.to_json %>
+
+juana_heroine:
+  person: juana
+  department: justice_department
+  name_translations: <%= { "en" => "Heroine of France", "es" => "Heroína de Francia" }.to_json %>
+
+kali_godess:
+  person: kali
+  department: cosmogony_department
+  name_translations: <%= { "en" => "Goddess", "es" => "Diosa" }.to_json %>
+
+neil_prime_minister:
+  person: neil
+  department: justice_department
+  name_translations: <%= { "en" => "Prime minister", "es" => "Primer ministro" }.to_json %> 
+  start_date: 2010-01-01
+  end_date: 2013-12-31
+
+neil_opposition:
+  person: neil
+  department: immigration_department_mixed
+  name_translations: <%= { "en" => "Opposition", "es" => "Opposition" }.to_json %>
+  start_date: 2014-01-01
+  end_date: 2022-12-31

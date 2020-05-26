@@ -162,49 +162,4 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
     end
   end
 
-  def test_tenders
-    with(site: site, js: true) do
-      # Tenders Index
-      ###############
-      visit @tenders_path
-
-      # Active tab is Tenders
-      assert find(".dashboards-home-nav--tab.is-active").text, 'TENDERS'
-
-      first_tender = find(".dashboards-home-main--tr", match: :first)
-
-      # Contractor
-      assert first_tender.has_content?('Consejero Delegado del Consejo de Administración de Limpieza y Medio Ambiente de Getafe, Sociedad Anónima Municipal')
-
-      # Status
-      assert first_tender.has_content?('Adjudicado provisionalmente')
-
-      # Date
-      assert first_tender.has_content?('2020-05-13')
-
-
-      # Tenders Show
-      ##############
-      first_tender.click
-
-      # Active tab is still Tenders
-      assert find(".dashboards-home-nav--tab.is-active").text, 'TENDERS'
-
-      # Url is updated
-      assert_equal current_path, "/dashboards/contratos/licitaciones/990198"
-
-      # Title
-      assert page.has_content?('Servicio de formación para renovación del Certificado de Aptitud Profesional .')
-
-      # Tender amount
-      assert page.has_content?('€33,600.00')
-
-      # Status
-      assert page.has_content?('Adjudicado provisionalmente')
-
-      # Type
-      assert page.has_content?('Abierto simplificado')
-    end
-  end
-
 end

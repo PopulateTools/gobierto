@@ -19,7 +19,8 @@ Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
 // Global variables
-let data, reduced, ndx, _amountRange, vueApp, charts = {};
+let data, reduced, ndx, _amountRange, vueApp, unfilteredTendersData, charts = {};
+const tendersFilters = {submission_date: [], process_type: [], contract_type: [] };
 
 export class ContractsController {
   constructor(options) {
@@ -51,8 +52,6 @@ export class ContractsController {
                 { path: "resumen", name: "summary", component: Summary},
                 { path: "contratos", name: "contracts_index", component: ContractsIndex },
                 { path: "contratos/:id", name: "contracts_show", component: ContractsShow },
-                { path: "licitaciones", name: "tenders_index", component: TendersIndex },
-                { path: "licitaciones/:id", name: "tenders_show", component: TendersShow },
               ]
             }
 
@@ -153,9 +152,20 @@ export class ContractsController {
       contract.start_date_year = contract.start_date ? (new Date(contract.start_date).getFullYear()) : contract.start_date;
     }
 
+    for(let i = 0; i < tendersData.length; i++){
+      const tender = tendersData[i];
+      const initial_amount = (tender.initial_amount === '' || tender.initial_amount === undefined) ? 0.0 : parseFloat(tender.initial_amount);
+
+      tender.initial_amount = initial_amount;
+      tender.submission_date_year = tender.submission_date != undefined && tender.submission_date != '' ? (new Date(tender.submission_date).getFullYear()) : tender.submission_date;
+      if(tender.submission_date_year) { tender.submission_date_year = tender.submission_date_year.toString() }
+    }
+
+    unfilteredTendersData = tendersData.sort(sortByField('submission_date'));
+
     data = {
       contractsData: this._formalizedContractsData(contractsData).sort(sortByField('start_date')),
-      tendersData: tendersData.sort(sortByField('submission_date')),
+      tendersData: unfilteredTendersData,
     }
   }
 
@@ -171,12 +181,16 @@ export class ContractsController {
     this._renderDateChart();
   }
 
-  _refreshData(reducedContractsData){
+  _refreshData(reducedContractsData, filters, tendersAttribute){
+    if (filters) {
+      this._refreshTendersDataFromFilters(filters, tendersAttribute);
+    }
     reduced = {tendersData: data.tendersData, contractsData: reducedContractsData};
 
     vueApp.contractsData = reducedContractsData;
     EventBus.$emit('refresh_summary_data');
 
+    this._renderTendersMetricsBox();
     this._renderContractsMetricsBox();
   }
 
@@ -268,7 +282,7 @@ export class ContractsController {
       containerSelector: "#contract-type-bars",
       dimension: dimension,
       onFilteredFunction: (chart, filter) => {
-        this._refreshData(dimension.top(Infinity))
+        this._refreshData(dimension.top(Infinity), chart.filters(), 'contract_type')
         EventBus.$emit('dc_filter_selected', {title: filter, id: 'contract_types'})
       }
     }
@@ -283,7 +297,7 @@ export class ContractsController {
       containerSelector: "#process-type-bars",
       dimension: dimension,
       onFilteredFunction: (chart, filter) => {
-        this._refreshData(dimension.top(Infinity))
+        this._refreshData(dimension.top(Infinity), chart.filters(), 'process_type')
         EventBus.$emit('dc_filter_selected', {title: filter, id: 'process_types'})
       }
     }
@@ -298,7 +312,7 @@ export class ContractsController {
       containerSelector: "#date-bars",
       dimension: dimension,
       onFilteredFunction: (chart, filter) => {
-        this._refreshData(dimension.top(Infinity))
+        this._refreshData(dimension.top(Infinity), chart.filters(), 'submission_date_year')
         EventBus.$emit('dc_filter_selected', {title: filter, id: 'dates'})
       }
     }
@@ -317,6 +331,19 @@ export class ContractsController {
     }
 
     Object.values(charts).forEach((chart) => chart.container.redraw());
+  }
+
+  _refreshTendersDataFromFilters(filters, tendersAttribute){
+    tendersFilters[tendersAttribute] = filters;
+    let filteredTendersData = [...unfilteredTendersData]
+
+    Object.keys(tendersFilters).forEach((key) => {
+      if (tendersFilters[key].length > 0) {
+        filteredTendersData = filteredTendersData.filter(tender => tendersFilters[key].includes(tender[key]) )
+      }
+    });
+
+    data.tendersData = filteredTendersData;
   }
 
   _redrawCharts(){

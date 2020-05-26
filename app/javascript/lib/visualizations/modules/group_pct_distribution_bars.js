@@ -50,7 +50,7 @@ export class GroupPctDistributionBars {
           .text('')
           .selectAll('tspan')
           .data(d => {
-            let label = truncate(d.key);
+            let label = truncate(d.key, {length: 25});
             let pct;
 
             if (this.hasFilter() && !this.hasFilter(d.key)){

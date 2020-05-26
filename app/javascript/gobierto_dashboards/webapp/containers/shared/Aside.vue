@@ -32,7 +32,7 @@
       </div>
 
       <div
-        v-if="showDownloadDataLink()"
+        v-if="isShowDownloadDatalinkShown"
         class="dashboards-home-aside--download-open-data"
       >
         <i class="fas fa-table"></i>
@@ -60,7 +60,6 @@ export default {
   data() {
     return {
       labelDownloadData: I18n.t('gobierto_dashboards.dashboards.contracts.download_data'),
-      contractsData: this.$root.$data.contractsData,
       filters: filtersConfig
     }
   },
@@ -77,6 +76,8 @@ export default {
   created(){
     this.initFilterOptions();
     this.updateCounters(true);
+
+    this.isShowDownloadDatalinkShown = !!this.dataDownloadEndpoint
 
     EventBus.$on('dc_filter_selected', ({title, id}) => {
       const { options = [] } = this.filters.find(( { id: i } ) => id === i) || {};
@@ -185,9 +186,6 @@ export default {
           _filter.isToggle = !_filter.isToggle;
         }
       })
-    },
-    showDownloadDataLink(){
-      return !!this.dataDownloadEndpoint
     }
   }
 }

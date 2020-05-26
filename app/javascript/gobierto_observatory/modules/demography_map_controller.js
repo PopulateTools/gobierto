@@ -250,15 +250,11 @@ var stackedChart = function (parent, chartGroup) {
 
             _g = _chart.svg()
             const widthSvg = _g._groups[0][0].clientWidth
-            const widthLabelText1 = document.getElementById("text-label_1").getBBox().width
-            const translateLabel1 = widthSvg - widthLabelText1
+            const widthLabelText1 = rows.select('#text-label_1').node().getBoundingClientRect().width;
+            const translateLabel1 = widthSvg - widthLabelText1 + 8
 
             rows.select('.row._1 text._1')
               .attr('x', translateLabel1)
-              .attr('y', 20)
-
-            rows.select('.row._0 text._0')
-              .attr('x', 0)
               .attr('y', 20)
 
             dc.transition(lab, _chart.transitionDuration(), _chart.transitionDelay())
@@ -281,23 +277,26 @@ var stackedChart = function (parent, chartGroup) {
                         return _chart.title()(d);
                     });
 
-            const widthLabelText0 = document.getElementById("text-label_0").getBBox().width
-            const widthLabelTitle0 = document.getElementById("titlerow_0").getBBox().width
-            const translateTitleRow0 = widthLabelText0 + widthLabelTitle0
+            const widthLabelText0 = d3.select('#text-label_0').node().getBoundingClientRect().width;
+            const widthLabelTitle0 = rows.select('#titlerow_0').node().getBoundingClientRect().width;
+
             rows.select('.row._0 .titlerow._0')
-              .attr('x', translateTitleRow0)
+              .attr('x', widthLabelTitle0)
+              .attr('y', 20)
+
+            rows.select('.row._0 text._0')
+              .attr('x', widthLabelText0)
               .attr('y', 20)
 
             _g = _chart.svg()
             const widthSvg = _g._groups[0][0].clientWidth
-            const widthLabelText1 = document.getElementById("text-label_1").getBBox().width
-            const widthLabelTitle1 = document.getElementById("titlerow_1").getBBox().width
-            const translateTitleRow1 = widthSvg - widthLabelText1 - 5
+            const widthLabelText1 = rows.select('#text-label_1').node().getBoundingClientRect().width;
+            const widthLabelTitle1 = rows.select('#titlerow_1').node().getBoundingClientRect().width;
+            const translateTitleRow1 = widthSvg - widthLabelText1
 
             rows.select('.row._1 .titlerow._1')
               .attr('x', translateTitleRow1)
               .attr('y', 20)
-
 
             dc.transition(titlelab, _chart.transitionDuration(), _chart.transitionDelay())
                 .attr('transform', translateX);

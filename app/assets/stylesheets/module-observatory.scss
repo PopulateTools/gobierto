@@ -134,6 +134,19 @@
     }
   }
 
+  #titlerow_0,
+  #titlerow_1,
+  #text-label_0,
+  #text-label_1 {
+    font-weight: bold;
+    fill: rgba(79, 79, 79, .75) !important;
+  }
+
+  #text-label_0,
+  #text-label_1 {
+    font-weight: normal;
+  }
+
   #bar-sex.dc-chart {
     g.row {
 

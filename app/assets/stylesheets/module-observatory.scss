@@ -81,6 +81,7 @@
   }
 
   &-date-update {
+    margin: 0;
     padding-right: 1rem;
   }
 
@@ -117,18 +118,30 @@
     margin-top: 2rem;
   }
 
+  .leaflet-interactive {
+    &:hover {
+      stroke-width: 3px;
+    }
+  }
+
   #bar-nationality.dc-chart {
     g.row {
 
       &._0 {
         rect {
           fill: var(--numbers);
+          &.deselected {
+            fill: #ccc;
+          }
         }
       }
 
       &._1 {
         rect {
           fill: rgba(18, 54, 91, .5);
+          &.deselected {
+            fill: #ccc;
+          }
         }
       }
     }
@@ -153,12 +166,18 @@
       &._0 {
         rect {
           fill: var(--pyramidal-female);
+          &.deselected {
+            fill: #ccc;
+          }
         }
       }
 
       &._1 {
         rect {
           fill: var(--pyramidal-male);
+          &.deselected {
+            fill: #ccc;
+          }
         }
       }
     }
@@ -169,7 +188,6 @@
       g.row {
         rect {
           fill: var(--pyramidal-male);
-
           &.deselected {
             fill: #ccc;
           }
@@ -245,29 +263,36 @@
 
   &-sidebar {
     background-color: #fff;
+    padding: 1rem 0 !important;
     height: calc(100vh - 120px);
     overflow-y: hidden;
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
   }
 
   &-container-charts {
-    padding: 1rem .5rem;
     position: relative;
+    padding: 1rem 2rem;
   }
 
   #close {
     position: absolute;
+    cursor: pointer;
     top: 10px;
     left: 93%;
     background-color: rgba(0, 142, 156, .2);
     display: none;
     color: var(--pyramidal-female);
     padding: 2px 5px;
+    transition: background-color .3s ease-in;
+
+    &:hover {
+      background-color: rgba(0, 142, 156, .5);
+    }
+
     i {
+      cursor: pointer;
       margin: 0;
     }
   }
@@ -830,6 +855,26 @@
         fill: #111;
         pointer-events: none;
       }
+    }
+  }
+
+  &-container-map {
+    position: relative;
+  }
+
+  #reset-filters {
+    background-color: var(--color-base);
+    padding: .5rem 1rem;
+    font-size: 12px;
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 999;
+    color: #fff;
+    &.disabled {
+      cursor: not-allowed;
+      opacity: .8;
+      background-color: #ccc;
     }
   }
 

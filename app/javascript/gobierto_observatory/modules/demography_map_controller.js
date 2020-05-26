@@ -172,7 +172,6 @@ export class DemographyMapController {
         this.chart7 = this.renderOriginOthers("#bar-by-origin-others");
         this.chart8 = this.renderChoroplethMap("#map", geojson);
         // Don't know why we need to do this
-        dc.chartRegistry.register(this.chart8, "main");
         dc.renderAll("main");
 
         document.querySelectorAll("#close").forEach(button => button.addEventListener('click', () => {
@@ -215,6 +214,9 @@ export class DemographyMapController {
         let d = csvData[i][j];
         d['cusec'] = d['seccion'] + '-' + d['distrito']
         d['total'] = +d['total']
+        if(d['procedencia'] === '') {
+          d['procedencia'] = 'GETAFE *'
+        }
         if (d['formacion'] === 'No sabe leer ni escribir') {
           d['formacion'] = 'Ni leer ni escribir'
         } else if (d['formacion'] === 'Ense?anza Secundaria') {
@@ -291,8 +293,8 @@ export class DemographyMapController {
       .groupAll(this.ndx.groups.studies.all)
       .formatNumber(locale.format(',.0f'))
       .html({
-        all: '<h2 class="gobierto_observatory-habitants-title">Habitantes</h2><h3 class="gobierto_observatory-habitants-number">%total-count</h3>',
-        some: '<h2 class="gobierto_observatory-habitants-title">Total habitantes</h2><h3 class="gobierto_observatory-habitants-number">%filter-count</h3>'
+        all: '<h2 class="gobierto_observatory-habitants-title">Total habitantes</h2><h3 class="gobierto_observatory-habitants-number">%total-count</h3>',
+        some: '<h2 class="gobierto_observatory-habitants-title">Habitantes</h2><h3 class="gobierto_observatory-habitants-number">%filter-count</h3>'
       })
 
     const that = this;
@@ -327,6 +329,8 @@ export class DemographyMapController {
         const container = document.getElementById('container-bar-nationality')
         that.activeFiltered(container)
         that.pyramidChart()
+        const chartFromList = dc.chartRegistry.list('main')[7]
+        chartFromList.redrawGroup();
       });
     return chart;
   }
@@ -370,7 +374,7 @@ export class DemographyMapController {
 
     let group = {
       all: function() {
-        var age_ranges = ['91-100','81-90','71-80','61-70','51-60','41-50','31-40','21-30','11-20','00-10']
+        var age_ranges = ['91-100','81-90','71-80','61-70','51-60','41-50','31-40','21-30','11-20','0-10']
 
         // convert to object so we can easily tell if a key exists
         var values = {};
@@ -425,7 +429,6 @@ export class DemographyMapController {
 
     chart.rightChart().options({ width: 185})
 
-
     let allRows = d3.selectAll('g.row')
     allRows
       .attr('opacity', 0)
@@ -462,6 +465,9 @@ export class DemographyMapController {
       document.querySelectorAll("g.row").forEach(row => row.addEventListener('click', () => {
         dc.redrawAll('main');
       }));
+
+      d3.select('#piramid-age-sex .right-chart text._9')
+        .attr('x', -45)
       const that = this;
       document.querySelectorAll("#container-piramid-age-sex g.row").forEach(row => row.addEventListener('click', () => {
         const container = document.getElementById('container-piramid-age-sex')
@@ -602,14 +608,16 @@ export class DemographyMapController {
   }
 
   renderChoroplethMap(selector, data) {
+    this.resetMapSelection()
     const chart = new dc_leaflet.choroplethChart(selector, "#main");
-    var legendMap = new dc_leaflet.legend(selector, "#main").position('topright');
-
+    dc.chartRegistry.register(chart, "main");
+    var legendMap = new dc_leaflet.legend(selector).position('topright');
+    dc.chartRegistry.register(legendMap, "main");
     const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
 
     chart
-      .center([40.309, -3.680], 13.45)
-      .zoom(13)
+      .center([40.312,-3.716], 13.65)
+      .zoom(13.65)
       .mapOptions({
         scrollWheelZoom: false,
       })
@@ -617,11 +625,11 @@ export class DemographyMapController {
       .group(this.ndx.groups.studies.byCusec)
       .geojson(data.features)
       .colors(['#b6d8e6','#9ccbdd','#7fbcd3','#5da9c7','#3293b9','#0174a1','#01445f'])
+      .colorAccessor(d => d.value)
       .colorDomain([
           d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck('value')),
           d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
       ])
-      .colorAccessor(d => d.value)
       .featureKeyAccessor(feature => feature.properties.cusec)
       .legend(legendMap)
       .tiles(function(map) {
@@ -640,8 +648,23 @@ export class DemographyMapController {
     const that = this;
     chart.on('filtered', function() {
       dc.redrawAll('main', that.pyramidChart());
+      const buttonReset = document.getElementById('reset-filters')
+      buttonReset.classList.remove('disabled')
     })
     return chart;
+  }
+
+  resetMapSelection() {
+    const buttonReset = document.getElementById('reset-filters')
+    buttonReset.addEventListener("click", function() {
+      const chartFromList = dc.chartRegistry.list('main')[7]
+      const activeFilters = chartFromList.filters().length
+      for (let index = 0; index < activeFilters; index++) {
+        chartFromList.filter(chartFromList.filters()[0])
+      }
+      chartFromList.redrawGroup();
+      buttonReset.classList.add('disabled')
+    });
   }
 
   activeFiltered(container) {
@@ -657,7 +680,7 @@ export class DemographyMapController {
       setTimeout(() => {
         const deselected = rectArray.every(rect => rect.classList.value === '');
         if (deselected) {
-          element.classList.toggle('active-filtered')
+          element.classList.remove('active-filtered')
         } else {
           return false
         }
@@ -679,7 +702,7 @@ export class DemographyMapController {
       }
       chartFromList.redrawGroup();
       setTimeout(() => {
-        chart.classList.toggle('active-filtered')
+        chart.classList.remove('active-filtered')
       }, 0)
     } else if (chart.id === 'container-bar-nationality') {
       const chartFromList = dc.chartRegistry.list('main')[1]
@@ -689,8 +712,7 @@ export class DemographyMapController {
       }
       chartFromList.redrawGroup();
       setTimeout(() => {
-        chart.classList.toggle('active-filtered')
-
+        chart.classList.remove('active-filtered')
       }, 0)
     } else if (chart.id === 'container-bar-sex') {
       const chartFromList = dc.chartRegistry.list('main')[2]
@@ -700,7 +722,7 @@ export class DemographyMapController {
       }
       chartFromList.redrawGroup();
       setTimeout(() => {
-        chart.classList.toggle('active-filtered')
+        chart.classList.remove('active-filtered')
       }, 0)
     } else if (chart.id === 'container-piramid-age-sex') {
       //Piramid Chart is compose by two children rowChart()
@@ -721,12 +743,10 @@ export class DemographyMapController {
       //Redraw
       dc.chartRegistry.list('main')[0].redrawGroup()
       setTimeout(() => {
-        chart.classList.toggle('active-filtered')
+        chart.classList.remove('active-filtered')
       }, 0)
     }
   }
 }
-
-
 
 export default getRemoteData

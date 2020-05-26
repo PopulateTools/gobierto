@@ -13,7 +13,6 @@ ca:
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
-        download_data: Descarregueu les dades en format reutilitzable
         empty_table: No hi ha dades disponibles
         final_amount_no_taxes: Quantitat
         fromto: De a Nº Contr.
@@ -44,11 +43,44 @@ ca:
           tenders_for: licitacions per un import de
         tender_amount: Imp. licitació
         title: Contractes i licitacions
+      subsidies:
+        amount: Import
+        amount_distribution: Distribució per imports
+        beneficiary: beneficiari
+        category: Categoria
+        date: Data
+        dates: Dates
+        description: Visualització i anàlisi de les subvencions concedides per %{entity_name}
+        fromto: De a Nº Contr.
+        main_beneficiaries: Principals beneficiaris
+        more: Més de
+        nav:
+          subsidies: Subvencions
+          summary: Resum
+        regulatory_bases: Bases reguladores
+        summary:
+          collective_subsidies_for: a col·lectius per import de
+          individual_subsidies_for: a particulars per import de
+          label_half_spendings_subsidies: El <strong> <span id = "half-spendings-subsidies-pct">
+            </ span> </ strong> de subvencions concentren el 50% de tota la despesa
+          label_larger_subsidy_amount: La major subvenció suposa <strong> <span id
+            = "larger-subsidy-amount-pct"> </ span> </ strong> de tota la despesa
+            en subvencions
+          label_less_than_1000: El <strong> <span id = "less-than-1000-pct"> </ span>
+            </ strong> de les subvencions són menors de <strong> 1.000 € </ strong>
+          mean_amount: Import mitjà
+          median_amount: Import mitjà
+          subsidies: Subvencions
+          subsidies_for: subvencions per import de
+        title: Subvencions
     layouts:
       application:
         gobierto_dashboards:
           contracts: Contractes i licitacions
+          subsidies: Subvencions
       menu_subsections:
         contracts: Contractes
+        subsidies: Subvencions
     shared:
+      download_data: Descarregueu les dades en format reutilitzable
       loading: Carregant dades...

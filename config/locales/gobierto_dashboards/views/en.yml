@@ -13,7 +13,6 @@ en:
         dates: Dates
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
-        download_data: Download the full dataset in a reusable format
         empty_table: There is no available data
         final_amount_no_taxes: Amount
         fromto: From To No Contr.
@@ -43,11 +42,43 @@ en:
           tenders_for: tenders for a total amount of
         tender_amount: Tender Amount
         title: Contracts and tenders
+      subsidies:
+        amount: Amount
+        amount_distribution: Amount distribution
+        beneficiary: Beneficiary
+        category: Category
+        date: Date
+        dates: Dates
+        description: Visualizations and analisys for the granted subsidies from %{entity_name}
+        fromto: From To No Contr.
+        main_beneficiaries: Main beneficiaries
+        more: More than
+        nav:
+          subsidies: Subsidies
+          summary: Summary
+        regulatory_bases: Regulatory bases
+        summary:
+          collective_subsidies_for: to collectives for a total amount of
+          individual_subsidies_for: to individuals for a total amount of
+          label_half_spendings_subsidies: <strong><span id="half-spendings-subsidies-pct"></span></strong>
+            of subsidies accumulate the 50% of all the spending
+          label_larger_subsidy_amount: The largest subsidy means a <strong><span id="larger-subsidy-amount-pct"></span></strong>
+            of all the spending
+          label_less_than_1000: <strong><span id="less-than-1000-pct"></span></strong>
+            of subsidies are less than <strong>1.000 €</strong>
+          mean_amount: Average amount
+          median_amount: Median amount
+          subsidies: Subsidies
+          subsidies_for: subsidies for a total amount of
+        title: Subsidies
     layouts:
       application:
         gobierto_dashboards:
           contracts: Contracts and tenders
+          subsidies: Subsidies
       menu_subsections:
         contracts: Contracts
+        subsidies: Subsidies
     shared:
+      download_data: Download the full dataset in a reusable format
       loading: Loading data...

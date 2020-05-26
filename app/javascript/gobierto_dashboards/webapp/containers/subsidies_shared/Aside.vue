@@ -42,7 +42,7 @@
 import { BlockHeader, Checkbox, Dropdown } from "lib/vue-components";
 import DownloadButton from "../../components/DownloadButton.vue";
 import { EventBus } from "../../mixins/event_bus";
-import { contractsFiltersConfig } from "../../lib/config.js";
+import { subsidiesFiltersConfig } from "../../lib/config.js";
 
 export default {
   name: 'Aside',
@@ -54,11 +54,11 @@ export default {
   },
   data() {
     return {
-      filters: contractsFiltersConfig
+      filters: subsidiesFiltersConfig
     }
   },
   props: {
-    contractsData: {
+    subsidiesData: {
       type: Array,
       default: () => []
     },
@@ -82,33 +82,22 @@ export default {
     });
   },
   watch: {
-    contractsData: function (newContractsData, oldContractsData) {
+    subsidiesData: function (newContractsData, oldContractsData) {
       this.updateCounters();
     }
   },
   methods: {
     initFilterOptions(){
-      const contractTypesOptions = [];
-      const processTypesOptions = [];
+      const categoriesOptions = [];
       const dateOptions = [];
-      const years = new Set( this.contractsData.map(({start_date_year}) => start_date_year) );
-      const contractTypes = new Set( this.contractsData.map(({contract_type}) => contract_type) );
-      const processTypes = new Set( this.contractsData.map(({process_type}) => process_type) );
+      const years = new Set( this.subsidiesData.map(({year}) => year) );
+      const categories = new Set( this.subsidiesData.map(({category}) => category) );
 
-
-      // Contract Types
-      [...contractTypes]
-        .forEach((contractType, index) => {
-          if (contractType) {
-            contractTypesOptions.push({id: index, title: contractType, counter: 0, isOptionChecked: false })
-          }
-        });
-
-      // Process Types
-      [...processTypes]
-        .forEach((processType, index) => {
-          if (processType) {
-            processTypesOptions.push({id: index, title: processType, counter: 0, isOptionChecked: false })
+      // Categories
+      [...categories]
+        .forEach((category, index) => {
+          if (category) {
+            categoriesOptions.push({id: index, title: category, counter: 0, isOptionChecked: false })
           }
         });
 
@@ -117,35 +106,30 @@ export default {
         .sort((a, b) => a < b ? 1 : -1)
         .forEach(year => {
           if (year) {
-            dateOptions.push({id: year, title: year.toString(), counter: 0, isOptionChecked: false })
+            dateOptions.push({id: Number(year), title: year.toString(), counter: 0, isOptionChecked: false })
           }
         });
 
       this.filters.forEach((filter) => {
         if (filter.id === 'dates') {
           filter.options = dateOptions;
-        } else if (filter.id === 'contract_types') {
-          filter.options = contractTypesOptions;
-        } else if (filter.id === 'process_types') {
-          filter.options = processTypesOptions;
+        } else if (filter.id === 'categories') {
+          filter.options = categoriesOptions;
         }
       })
     },
     updateCounters(firstUpdate=false) {
-      const counter = {process_types: {}, contract_types: {}, dates: {}};
+      const counter = {categories: {}, dates: {}};
 
-      // It iterates over the contracts to get the number of items for each year, process type and contract type
+      // It iterates over the subsidies to get the number of items for each year, and category
       // In the end, it populates counter with something like:
-      // {process_types: {'Abierto': 12, 'Abierto Simplificado': 43,...}, dates: {2020: '12'...}}
-      this.contractsData.forEach(({process_type, contract_type, start_date_year}) => {
-        counter.process_types[process_type] = counter.process_types[process_type] || 0
-        counter.process_types[process_type]++
+      // {category: {'Urbanismo': 142000, 'Deporte': 2,...}, dates: {2020: '12'...}}
+      this.subsidiesData.forEach(({category, year}) => {
+        counter.categories[category] = counter.categories[category] || 0
+        counter.categories[category]++
 
-        counter.contract_types[contract_type] = counter.contract_types[contract_type] || 0
-        counter.contract_types[contract_type]++
-
-        counter.dates[start_date_year] = counter.dates[start_date_year] || 0
-        counter.dates[start_date_year]++
+        counter.dates[year] = counter.dates[year] || 0
+        counter.dates[year]++
       })
 
       // This loop fills the filters data attribute with the counter result we populated in the previous loop

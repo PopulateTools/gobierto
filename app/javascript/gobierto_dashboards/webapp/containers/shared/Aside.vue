@@ -36,7 +36,7 @@
         class="dashboards-home-aside--download-open-data"
       >
         <i class="fas fa-table"></i>
-        <a :href="dataDownloadEndpoint" target="blank">
+        <a :href="dataDownloadEndpoint" target="_blank">
           {{ labelDownloadData }}
         </a>
       </div>
@@ -187,7 +187,7 @@ export default {
       })
     },
     showDownloadDataLink(){
-      return(this.dataDownloadEndpoint != '' && this.dataDownloadEndpoint != undefined)
+      return !!this.dataDownloadEndpoint
     }
   }
 }

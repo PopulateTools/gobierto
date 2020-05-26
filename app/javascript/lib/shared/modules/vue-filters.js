@@ -28,12 +28,13 @@ export const date = (value, opts = {}) => {
 
 export const truncate = (value, opts = {}) => {
   const length = opts['length'] || 30;
+  const str = `${value || ''}`
 
-  if (value.length <= length) {
-    return value;
+  if (str.length <= length) {
+    return str;
   } else {
     const omission = opts['omission'] || '...';
-    return `${value.substring(0, length)}${omission}`;
+    return `${str.substring(0, length)}${omission}`;
   }
 }
 

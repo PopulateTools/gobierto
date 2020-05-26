@@ -30,7 +30,7 @@ class GobiertoAdmin::LdapSessionForm < GobiertoAdmin::CustomSessionForm
   def find_or_create_admin_by_ldap
     @admin = GobiertoAdmin::Admin.regular_on_site(site).find_by(ldap_data.slice(:email)) || new_admin(ldap_data)
 
-    if admin.new_record? && admin.save
+    if admin.sites.exclude?(site) && admin.save
       admin.sites << site
     end
     admin
@@ -41,6 +41,6 @@ class GobiertoAdmin::LdapSessionForm < GobiertoAdmin::CustomSessionForm
   end
 
   def new_admin(ldap_data)
-    GobiertoAdmin::Admin.regular.new(ldap_data)
+    GobiertoAdmin::Admin.regular.find_by(ldap_data.slice(:email)) || GobiertoAdmin::Admin.regular.new(ldap_data)
   end
 end

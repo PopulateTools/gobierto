@@ -7,16 +7,12 @@ module GobiertoAdmin
   class CustomLdapSessionTest < ActionDispatch::IntegrationTest
     def setup
       super
-      site.configuration.raw_configuration_variables = ldap_configuration.deep_stringify_keys.to_yaml
-      site.save
-
       @ldap_server = Ladle::Server.new(
         **ldap_server_configuration.slice(:domain, :port, :host).merge(
           quiet: true
         )
       ).start
-      site.configuration.admin_auth_modules = %w(ldap_strategy)
-      site.save
+      enable_ldap_on_site(site)
       @sign_in_path = new_admin_sessions_path
     end
 
@@ -24,6 +20,12 @@ module GobiertoAdmin
       super
 
       @ldap_server&.stop
+    end
+
+    def enable_ldap_on_site(site)
+      site.configuration.raw_configuration_variables = ldap_configuration.deep_stringify_keys.to_yaml
+      site.configuration.admin_auth_modules = %w(ldap_strategy)
+      site.save
     end
 
     def ldap_admin_credentials
@@ -58,6 +60,10 @@ module GobiertoAdmin
 
     def site
       @site ||= sites("cortegada")
+    end
+
+    def other_site
+      @other_site ||= sites("huesca")
     end
 
     def admin
@@ -117,6 +123,46 @@ module GobiertoAdmin
           click_on "Submit"
         end
         assert has_no_content?("Signed in successfully")
+      end
+    end
+
+    def test_sign_in_in_multiple_sites
+      enable_ldap_on_site(other_site)
+      with_current_site(site, include_host: true) do
+        visit @sign_in_path
+
+        assert has_content?("Identifier")
+
+        assert_difference "GobiertoAdmin::Admin.count", 1 do
+          fill_in :session_identifier, with: ldap_admin_credentials[:email]
+          fill_in :session_password, with: ldap_admin_credentials[:password]
+          click_on "Submit"
+        end
+
+        assert has_message?("Signed in successfully")
+
+      end
+
+      new_admin = GobiertoAdmin::Admin.last
+      assert new_admin.regular?
+      assert_equal [site], new_admin.sites
+
+      click_link "admin-sign-out"
+
+      with_current_site(other_site, include_host: true) do
+        visit @sign_in_path
+
+        assert has_content?("Identifier")
+
+        assert_no_difference "GobiertoAdmin::Admin.count" do
+          fill_in :session_identifier, with: ldap_admin_credentials[:email]
+          fill_in :session_password, with: ldap_admin_credentials[:password]
+          click_on "Submit"
+        end
+
+        assert has_message?("Signed in successfully")
+
+        assert_includes new_admin.reload.sites, other_site
       end
     end
   end

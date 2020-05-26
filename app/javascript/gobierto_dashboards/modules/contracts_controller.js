@@ -143,8 +143,8 @@ export class ContractsController {
 
     for(let i = 0; i < contractsData.length; i++){
       const contract = contractsData[i];
-      const final_amount_no_taxes = (contract.final_amount_no_taxes === '' || contract.final_amount_no_taxes === undefined) ? 0.0 : parseFloat(contract.final_amount_no_taxes);
-      const initial_amount_no_taxes = (contract.initial_amount_no_taxes === '' || contract.initial_amount_no_taxes === undefined) ? 0.0 : parseFloat(contract.initial_amount_no_taxes);
+      const final_amount_no_taxes = contract.final_amount_no_taxes ? parseFloat(contract.final_amount_no_taxes) : 0.0;
+      const initial_amount_no_taxes = contract.initial_amount_no_taxes ? parseFloat(contract.initial_amount_no_taxes) : 0.0 ;
 
       contract.final_amount_no_taxes = final_amount_no_taxes;
       contract.initial_amount_no_taxes = initial_amount_no_taxes;
@@ -154,10 +154,11 @@ export class ContractsController {
 
     for(let i = 0; i < tendersData.length; i++){
       const tender = tendersData[i];
-      const initial_amount_no_taxes = (tender.initial_amount_no_taxes === '' || tender.initial_amount_no_taxes === undefined) ? 0.0 : parseFloat(tender.initial_amount_no_taxes);
+      const initial_amount_no_taxes = tender.initial_amount_no_taxes ? parseFloat(tender.initial_amount_no_taxes) : 0.0;
 
       tender.initial_amount_no_taxes = initial_amount_no_taxes;
-      tender.submission_date_year = tender.submission_date != undefined && tender.submission_date != '' ? (new Date(tender.submission_date).getFullYear()) : tender.submission_date;
+      tender.submission_date_year = tender.submission_date ? (new Date(tender.submission_date).getFullYear()) : tender.submission_date;
+
       if(tender.submission_date_year) { tender.submission_date_year = tender.submission_date_year.toString() }
     }
 

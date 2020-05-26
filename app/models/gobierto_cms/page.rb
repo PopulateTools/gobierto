@@ -61,10 +61,6 @@ module GobiertoCms
         .where("collection_items.container_id = ?", container.id)
     }
 
-    def section
-      GobiertoCms::SectionItem.find_by(item: self).try(:section)
-    end
-
     def attributes_for_slug
       [title]
     end

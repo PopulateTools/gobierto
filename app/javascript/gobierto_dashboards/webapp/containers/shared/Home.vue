@@ -27,8 +27,6 @@ import Aside from "./Aside.vue";
 import Summary from "./../summary/Summary.vue";
 import ContractsIndex from "./../contract/ContractsIndex.vue";
 import ContractsShow from "./../contract/ContractsShow.vue";
-import TendersIndex from "./../tender/TendersIndex.vue";
-import TendersShow from "./../tender/TendersShow.vue";
 
 import { EventBus } from "../../mixins/event_bus";
 import { store } from "../../mixins/store";

@@ -337,8 +337,6 @@ export class ContractsController {
     tendersFilters[tendersAttribute] = filters;
     let filteredTendersData = [...unfilteredTendersData]
 
-    debugger
-
     Object.keys(tendersFilters).forEach((key) => {
       if (tendersFilters[key].length > 0) {
         filteredTendersData = filteredTendersData.filter(tender => tendersFilters[key].includes(tender[key]) )

@@ -25,7 +25,7 @@ class MetaWelcomeController < ApplicationController
         @section_item = ::GobiertoCms::SectionItem.find_by!(item: page, section: @section)
       else
         @collection = page.collection
-        @pages = current_site.pages.where(id: @collection.pages_in_collection).active
+        @pages = current_site.pages.where(id: @collection.pages_in_collection).active.includes(:collection, :sections)
       end
 
       @page = GobiertoCms::PageDecorator.new(page)

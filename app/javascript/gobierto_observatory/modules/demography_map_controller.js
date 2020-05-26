@@ -68,6 +68,8 @@ const marginStudies = { top: 0, right: 0, bottom: 0, left: 180 }
 // seccion
 // distrito
 
+
+
 export class DemographyMapController {
   constructor(options) {
     // Mount Vue applications
@@ -423,6 +425,10 @@ export class DemographyMapController {
       rightKeyFilter: d => d.key[0] === 'Mujer'
     })
 
+    chart.rightChart().options({ width: 185})
+
+    console.log("chart.rightChart()", chart.rightChart());
+
     let allRows = d3.selectAll('g.row')
     allRows
       .attr('opacity', 0)
@@ -689,13 +695,23 @@ export class DemographyMapController {
         chart.classList.toggle('active-filtered')
       }, 0)
     } else if (chart.id === 'container-piramid-age-sex') {
+      //Piramid Chart is compose by two children rowChart()
+      //We need to reset filters from both charts
       const chartFromList = dc.chartRegistry.list('main')[3]
-      const activeFilters = chartFromList.filters().length
-      chartFromList.redrawGroup();
+      const chartFromListLeft = chartFromList.leftChart()
+      const chartFromListRight = chartFromList.rightChart()
+      //Get the filters length
+      const activeFilters = chartFromListLeft.filters().length
+      const activeFiltersRight = chartFromListRight.filters().length
+      //reset every filter
       for (let index = 0; index < activeFilters; index++) {
-        chartFromList.filter(chartFromList.filters()[0])
+        chartFromListLeft.filter(chartFromListLeft.filters()[0])
       }
-      chartFromList.render(this.pyramidChart())
+      for (let index = 0; index < activeFiltersRight; index++) {
+        chartFromListRight.filter(chartFromListRight.filters()[0])
+      }
+      //Redraw
+      dc.chartRegistry.list('main')[0].redrawGroup()
       setTimeout(() => {
         chart.classList.toggle('active-filtered')
       }, 0)

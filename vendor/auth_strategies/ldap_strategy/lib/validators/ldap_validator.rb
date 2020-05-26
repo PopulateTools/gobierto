@@ -16,12 +16,25 @@ class LdapValidator < ActiveModel::Validator
   def extract_user_ldap_data
     ldap_servers.each do |ldap_server|
       ldap = initialize_ldap(ldap_server)
+      log_message("Connection initialized")
       ldap_entry = bind_ldap(ldap, ldap_server)
+      log_message("LDAP bind result:\n #{ldap.get_operation_result.pretty_inspect}")
 
-      return {
-        email: ldap_field_value(ldap_entry, ldap_server.email_field),
-        name: ldap_field_value(ldap_entry, ldap_server.name_field)
-      } if ldap_entry.present?
+      if ldap_entry.present?
+        log_message(
+          %(
+           Created LDAP entry with uid #{ldap_field_value(ldap_entry, :uid)},
+           email #{ldap_field_value(ldap_entry, ldap_server.name_field)}
+           and name #{ldap_field_value(ldap_entry, ldap_server.email_field)}
+          )
+        )
+        return {
+          email: ldap_field_value(ldap_entry, ldap_server.email_field),
+          name: ldap_field_value(ldap_entry, ldap_server.name_field)
+        }
+      else
+        log_message("LDAP entry creation failed")
+      end
     end
 
     nil
@@ -72,5 +85,9 @@ class LdapValidator < ActiveModel::Validator
 
   def ldap_configuration
     @ldap_configuration || site.configuration.configuration_variables["ldap"] || {}
+  end
+
+  def log_message(message)
+    Rails.logger.info "[LDAP Strategy][LDAP Validator]#{message}"
   end
 end

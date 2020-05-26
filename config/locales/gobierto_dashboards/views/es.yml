@@ -13,6 +13,7 @@ es:
         dates: Fechas
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
           del %{entity_name}
+        download_data: Descarga los datos completos en formatos reutilizables
         empty_table: No hay datos disponibles
         final_amount: Importe
         fromto: Desde A Nº. Contr.

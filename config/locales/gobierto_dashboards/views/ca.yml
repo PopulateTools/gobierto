@@ -13,6 +13,7 @@ ca:
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
+        download_data: Descarregueu les dades en format reutilitzable
         empty_table: No hi ha dades disponibles
         final_amount: Quantitat
         fromto: De a Nº Contr.

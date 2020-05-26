@@ -30,6 +30,17 @@
           </div>
         </Dropdown>
       </div>
+
+      <div
+        v-if="isShowDownloadDatalinkShown"
+        class="dashboards-home-aside--download-open-data"
+      >
+        <i class="fas fa-table"></i>
+        <a :href="dataDownloadEndpoint" target="_blank">
+          {{ labelDownloadData }}
+        </a>
+      </div>
+
     </aside>
   </div>
 </template>
@@ -48,6 +59,7 @@ export default {
   },
   data() {
     return {
+      labelDownloadData: I18n.t('gobierto_dashboards.dashboards.contracts.download_data'),
       filters: filtersConfig
     }
   },
@@ -55,11 +67,17 @@ export default {
     contractsData: {
       type: Array,
       default: {}
+    },
+    dataDownloadEndpoint: {
+      type: String,
+      default: ''
     }
   },
   created(){
     this.initFilterOptions();
     this.updateCounters(true);
+
+    this.isShowDownloadDatalinkShown = !!this.dataDownloadEndpoint
 
     EventBus.$on('dc_filter_selected', ({title, id}) => {
       const { options = [] } = this.filters.find(( { id: i } ) => id === i) || {};
@@ -150,6 +168,7 @@ export default {
           filter.options = filter.options.sort((a, b) => a.counter > b.counter ? -1 : 1)
         }
       })
+
     },
     handleIsEverythingChecked({ filter }) {
       const titles = filter.options.map(option => option.title);

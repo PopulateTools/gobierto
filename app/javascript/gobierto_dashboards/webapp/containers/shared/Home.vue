@@ -50,9 +50,10 @@ export default {
     isSummary() { return this.$route.name === 'summary' },
     isContractsIndex() { return this.$route.name === 'contracts_index' },
     isContractsShow() { return this.$route.name === 'contracts_show' },
+    isAssigneesShow() { return this.$route.name === 'assignees_show' },
   },
   created(){
-    EventBus.$on('refresh_summary_data', () => {
+    EventBus.$on('refresh-summary-data', () => {
       this.contractsData = this.$root.$data.contractsData;
     });
   },
@@ -68,7 +69,7 @@ export default {
       store.addCurrentTab(tabIndex);
 
       if (this.isSummaryPage(tabIndex)) {
-        EventBus.$emit("moved_to_summary");
+        EventBus.$emit("moved-to-summary");
       }
     },
     isSummaryPage(tabIndex){

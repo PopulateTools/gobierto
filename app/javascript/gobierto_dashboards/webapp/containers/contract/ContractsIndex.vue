@@ -24,7 +24,7 @@ export default {
     }
   },
   created() {
-    EventBus.$on('refresh_summary_data', () => {
+    EventBus.$on('refresh-summary-data', () => {
       this.contractsData = this.$root.$data.contractsData
       this.items = this.contractsData.slice(0, 50);
     });
@@ -33,7 +33,7 @@ export default {
     this.columns = contractsColumns;
   },
   beforeDestroy(){
-    EventBus.$off('refresh_summary_data');
+    EventBus.$off('refresh-summary-data');
   }
 }
 </script>

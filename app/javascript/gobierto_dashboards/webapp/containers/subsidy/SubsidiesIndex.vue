@@ -24,7 +24,7 @@ export default {
     }
   },
   created() {
-    EventBus.$on('refresh_summary_data', () => {
+    EventBus.$on('refresh-summary-data', () => {
       this.subsidiesData = this.$root.$data.subsidiesData
       this.items = this.subsidiesData.slice(0, 50);
     });
@@ -33,7 +33,7 @@ export default {
     this.columns = subsidiesColumns;
   },
   beforeDestroy(){
-    EventBus.$off('refresh_summary_data');
+    EventBus.$off('refresh-summary-data');
   }
 }
 </script>

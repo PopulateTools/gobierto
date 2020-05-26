@@ -83,11 +83,11 @@ export class SubsidiesController {
           data: Object.assign(options, this.data),
         }).$mount(entryPoint);
 
-        EventBus.$on('summary_ready', () => {
+        EventBus.$on('summary-ready', () => {
           this._renderSummary();
         });
 
-        EventBus.$on('filter_changed', (options) => {
+        EventBus.$on('filter-changed', (options) => {
           this._updateChartsFromFilter(options);
         });
 
@@ -96,7 +96,7 @@ export class SubsidiesController {
         // - dc charts sizes are calculated automatically, but if the page is not visible it won't calculate sizes properly
         // - Given all that: when we go from a page that is not summary to summary for the first time, the sizes must
         //   be calculated and the charts redrawn. This is why this event only needs to be listened once.
-        EventBus.$once('moved_to_summary', () => {
+        EventBus.$once('moved-to-summary', () => {
           this._redrawCharts();
         });
 
@@ -155,7 +155,7 @@ export class SubsidiesController {
     this.reduced = {subsidiesData: reducedSubsidiesData};
 
     this.vueApp.subsidiesData = reducedSubsidiesData;
-    EventBus.$emit('refresh_summary_data');
+    EventBus.$emit('refresh-summary-data');
 
     this._renderSubsidiesMetricsBox();
   }
@@ -262,7 +262,7 @@ export class SubsidiesController {
       dimension: dimension,
       onFilteredFunction: (chart, filter) => {
         this._refreshData(dimension.top(Infinity))
-        EventBus.$emit('dc_filter_selected', {title: filter, id: 'categories'})
+        EventBus.$emit('dc-filter-selected', {title: filter, id: 'categories'})
       }
     }
 
@@ -277,7 +277,7 @@ export class SubsidiesController {
       dimension: dimension,
       onFilteredFunction: (chart, filter) => {
         this._refreshData(dimension.top(Infinity))
-        EventBus.$emit('dc_filter_selected', {title: filter, id: 'dates'})
+        EventBus.$emit('dc-filter-selected', {title: filter, id: 'dates'})
       }
     }
 

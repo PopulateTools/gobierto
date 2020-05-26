@@ -145,18 +145,18 @@ export default {
   },
 
   mounted() {
-    EventBus.$on('refresh_summary_data', () => {
+    EventBus.$on('refresh-summary-data', () => {
       this.refreshSummaryData();
     });
 
-    EventBus.$emit("summary_ready");
+    EventBus.$emit("summary-ready");
   },
   created() {
     this.items = this.buildItems();
     this.columns = assigneesColumns;
   },
   beforeDestroy(){
-    EventBus.$off('refresh_summary_data');
+    EventBus.$off('refresh-summary-data');
   },
   methods: {
     refreshSummaryData(){

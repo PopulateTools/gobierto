@@ -71,7 +71,7 @@ export default {
     this.initFilterOptions();
     this.updateCounters(true);
 
-    EventBus.$on('dc_filter_selected', ({title, id}) => {
+    EventBus.$on('dc-filter-selected', ({title, id}) => {
       const { options = [] } = this.filters.find(( { id: i } ) => id === i) || {};
 
       options.forEach(option => {
@@ -82,7 +82,7 @@ export default {
     });
   },
   beforeDestroy(){
-    EventBus.$off('dc_filter_selected');
+    EventBus.$off('dc-filter-selected');
   },
   watch: {
     subsidiesData: function (newContractsData, oldContractsData) {
@@ -153,11 +153,11 @@ export default {
       const titles = filter.options.map(option => option.title);
       filter.options.forEach(option => option.isOptionChecked = true)
 
-      EventBus.$emit('filter_changed', {all: true, titles: titles, id: filter.id});
+      EventBus.$emit('filter-changed', {all: true, titles: titles, id: filter.id});
     },
     handleCheckboxStatus({ id, value, filter }) {
       const option = filter.options.find(option => option.id === id)
-      EventBus.$emit('filter_changed', {all: false, title: option.title, id: filter.id});
+      EventBus.$emit('filter-changed', {all: false, title: option.title, id: filter.id});
     },
     toggle(filter){
       this.filters.forEach(_filter => {

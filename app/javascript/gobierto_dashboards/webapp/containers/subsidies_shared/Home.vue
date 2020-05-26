@@ -63,7 +63,7 @@ export default {
       store.addCurrentTab(tabIndex);
 
       if (this.isSummaryPage(tabIndex)) {
-        EventBus.$emit("moved_to_summary");
+        EventBus.$emit("moved-to-summary");
       }
     },
     isCurrentPath(componentPathName){

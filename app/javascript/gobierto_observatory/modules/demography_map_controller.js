@@ -9,7 +9,7 @@ import crossfilter from 'crossfilter2'
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
 import * as L from 'leaflet';
 import * as dc_leaflet from 'dc.leaflet';
-import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/leaflet.css";
 import pairedRow from 'dc-addons-paired-row'
 import stackedVertical from './charts/stacked_vertical'
 
@@ -214,7 +214,7 @@ export class DemographyMapController {
         let d = csvData[i][j];
         d['cusec'] = d['seccion'] + '-' + d['distrito']
         d['total'] = +d['total']
-        if(d['procedencia'] === '') {
+        if (d['procedencia'] === '') {
           d['procedencia'] = 'GETAFE *'
         }
         if (d['formacion'] === 'No sabe leer ni escribir') {
@@ -313,7 +313,6 @@ export class DemographyMapController {
       .height(45)
       .group(this.ndx.groups.studies.byNationality)
       .dimension(this.ndx.filters.studies.byNationality)
-      .colors('#FF776D')
       .elasticX(true)
       .gap(10)
       .margins(marginHabNat)
@@ -329,8 +328,7 @@ export class DemographyMapController {
         const container = document.getElementById('container-bar-nationality')
         that.activeFiltered(container)
         that.pyramidChart()
-        const chartFromList = dc.chartRegistry.list('main')[7]
-        chartFromList.redrawGroup();
+        that.rebuildChoroplethColorDomain()
       });
     return chart;
   }
@@ -344,7 +342,6 @@ export class DemographyMapController {
       .height(45)
       .group(this.ndx.groups.studies.bySex)
       .dimension(this.ndx.filters.studies.bySex)
-      .colors('#FF776D')
       .elasticX(true)
       .gap(10)
       .margins(marginHabNat)
@@ -362,6 +359,7 @@ export class DemographyMapController {
         const container = document.getElementById('container-bar-sex')
         that.activeFiltered(container)
         that.pyramidChart()
+        that.rebuildChoroplethColorDomain()
       });
 
     return chart;
@@ -427,7 +425,23 @@ export class DemographyMapController {
       rightKeyFilter: d => d.key[0] === 'Mujer'
     })
 
-    chart.rightChart().options({ width: 185})
+    chart.rightChart().options({ width: 185 })
+
+    chart.rightChart().on('filtered', function() {
+      const container = document.getElementById('container-piramid-age-sex')
+      that.activeFiltered(container)
+      that.pyramidChart()
+      that.rebuildChoroplethColorDomain()
+      dc.redrawAll('main');
+    })
+
+    chart.leftChart().on('filtered', function() {
+      const container = document.getElementById('container-piramid-age-sex')
+      that.activeFiltered(container)
+      that.pyramidChart()
+      that.rebuildChoroplethColorDomain()
+      dc.redrawAll('main');
+    })
 
     let allRows = d3.selectAll('g.row')
     allRows
@@ -461,20 +475,8 @@ export class DemographyMapController {
       })
       let allRects = d3.selectAll('g.row')
       allRects.attr('opacity', 1)
-      //Hack, force to redrawAll dc-charts when user click on every row
-      document.querySelectorAll("g.row").forEach(row => row.addEventListener('click', () => {
-        dc.redrawAll('main');
-      }));
-
-      d3.select('#piramid-age-sex .right-chart text._9')
-        .attr('x', -45)
-      const that = this;
-      document.querySelectorAll("#container-piramid-age-sex g.row").forEach(row => row.addEventListener('click', () => {
-        const container = document.getElementById('container-piramid-age-sex')
-        that.activeFiltered(container)
-      }));
       //Why???? because the timing of the dc.js animation is equal 1000ms
-    }, 1000)
+    }, 800)
   }
 
   renderStudies(selector) {
@@ -486,7 +488,6 @@ export class DemographyMapController {
       .cap(10) // Show only top 20
       .group(this.ndx.groups.studies.byStudies)
       .dimension(this.ndx.filters.studies.byStudies)
-      .colors('#FF776D')
       .elasticX(true)
       .gap(10)
       .margins(marginStudies)
@@ -503,6 +504,8 @@ export class DemographyMapController {
         that.currentFilter = 'studies';
         const container = document.getElementById('container-bar-by-studies')
         that.activeFiltered(container)
+        that.pyramidChart()
+        that.rebuildChoroplethColorDomain()
         if (chart.filter() !== null) {
           document.getElementById("bar-by-origin-spaniards").style.display = 'none';
           document.getElementById("bar-by-origin-others").style.display = 'none';
@@ -510,7 +513,6 @@ export class DemographyMapController {
           document.getElementById("bar-by-origin-spaniards").style.display = 'block';
           document.getElementById("bar-by-origin-others").style.display = 'block';
         }
-        that.pyramidChart()
       });
     chart.render()
     return chart;
@@ -526,7 +528,6 @@ export class DemographyMapController {
       .othersGrouper(null) // Don't show the rest of the 20 in Other class - https://dc-js.github.io/dc.js/docs/html/CapMixin.html
       .group(this.ndx.groups.origin.byOriginNational)
       .dimension(this.ndx.filters.origin.byOriginNational)
-      .colors('#FF776D')
       .elasticX(true)
       .gap(10)
       .margins(marginStudies)
@@ -558,6 +559,7 @@ export class DemographyMapController {
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
         that.pyramidChart()
+        that.rebuildChoroplethColorDomain()
       });
     return chart;
   }
@@ -572,7 +574,6 @@ export class DemographyMapController {
       .othersGrouper(null) // Don't show the rest of the 20 in Other clashttps://dc-js.github.io/dc.js/docs/html/CapMixin.htmls
       .group(this.ndx.groups.origin.byOriginOther)
       .dimension(this.ndx.filters.origin.byOriginOther)
-      .colors('#FF776D')
       .elasticX(true)
       .gap(10)
       .margins(marginStudies)
@@ -603,17 +604,18 @@ export class DemographyMapController {
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
         that.pyramidChart()
+        that.rebuildChoroplethColorDomain()
       });
     return chart;
   }
 
   renderChoroplethMap(selector, data) {
     this.resetMapSelection()
-    const chart = new dc_leaflet.choroplethChart(selector, "#main");
+    const chart = new dc_leaflet.choroplethChart(selector, "main");
     dc.chartRegistry.register(chart, "main");
-    var legendMap = new dc_leaflet.legend(selector).position('topright');
-    dc.chartRegistry.register(legendMap, "main");
+    const legendMap = new dc_leaflet.legend(selector).position('topright');
     const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
+    const scaleColors = ['#fcde9c','#faa476','#f0746e','#e34f6f','#dc3977','#b9257a','#7c1d6f']
 
     chart
       .center([40.312,-3.716], 13.65)
@@ -624,7 +626,7 @@ export class DemographyMapController {
       .dimension(this.ndx.filters.studies.byCusec)
       .group(this.ndx.groups.studies.byCusec)
       .geojson(data.features)
-      .colors(['#b6d8e6','#9ccbdd','#7fbcd3','#5da9c7','#3293b9','#0174a1','#01445f'])
+      .colors(scaleColors)
       .colorAccessor(d => d.value)
       .colorDomain([
           d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck('value')),
@@ -655,6 +657,7 @@ export class DemographyMapController {
   }
 
   resetMapSelection() {
+    //Remove the selection of 'sección censal'
     const buttonReset = document.getElementById('reset-filters')
     buttonReset.addEventListener("click", function() {
       const chartFromList = dc.chartRegistry.list('main')[7]
@@ -663,6 +666,7 @@ export class DemographyMapController {
         chartFromList.filter(chartFromList.filters()[0])
       }
       chartFromList.redrawGroup();
+      chartFromList._doRedraw();
       buttonReset.classList.add('disabled')
     });
   }
@@ -672,12 +676,15 @@ export class DemographyMapController {
       id,
       className
     } = container
+    //Get all rect from the chart
     let getRectElements = d3.selectAll(`#${id} svg .row rect`)
     getRectElements = getRectElements._groups[0]
+    //Convert rect's to array
     const rectArray = Array.from(getRectElements)
     const element = document.getElementById(id)
     if (className.includes('active-filtered')) {
       setTimeout(() => {
+        //Check if all rect's are deselected, if deselected is true so remove active-fitered.
         const deselected = rectArray.every(rect => rect.classList.value === '');
         if (deselected) {
           element.classList.remove('active-filtered')
@@ -690,40 +697,19 @@ export class DemographyMapController {
     }
   }
 
+  //Remove filters when the user click on close button
   clearFilters(event) {
+    //Get the container parent from the chart
     const target = event.target;
     const parent = target.parentElement;
     const chart = parent.parentElement;
     if (chart.id === 'container-bar-by-studies') {
-      const chartFromList = dc.chartRegistry.list('main')[4]
-      const activeFilters = chartFromList.filters().length
-      for (let index = 0; index < activeFilters; index++) {
-        chartFromList.filter(chartFromList.filters()[0])
-      }
-      chartFromList.redrawGroup();
-      setTimeout(() => {
-        chart.classList.remove('active-filtered')
-      }, 0)
+      //Pass the number of the chart in chartRegisterList
+      this.clearFilterList(4)
     } else if (chart.id === 'container-bar-nationality') {
-      const chartFromList = dc.chartRegistry.list('main')[1]
-      const activeFilters = chartFromList.filters().length
-      for (let index = 0; index < activeFilters; index++) {
-        chartFromList.filter(chartFromList.filters()[0])
-      }
-      chartFromList.redrawGroup();
-      setTimeout(() => {
-        chart.classList.remove('active-filtered')
-      }, 0)
+      this.clearFilterList(1)
     } else if (chart.id === 'container-bar-sex') {
-      const chartFromList = dc.chartRegistry.list('main')[2]
-      const activeFilters = chartFromList.filters().length
-      for (let index = 0; index < activeFilters; index++) {
-        chartFromList.filter(chartFromList.filters()[0])
-      }
-      chartFromList.redrawGroup();
-      setTimeout(() => {
-        chart.classList.remove('active-filtered')
-      }, 0)
+      this.clearFilterList(2)
     } else if (chart.id === 'container-piramid-age-sex') {
       //Piramid Chart is compose by two children rowChart()
       //We need to reset filters from both charts
@@ -746,6 +732,39 @@ export class DemographyMapController {
         chart.classList.remove('active-filtered')
       }, 0)
     }
+  }
+
+
+  clearFilterList(chart) {
+    //Get the chart from the register list
+    const chartFromList = dc.chartRegistry.list('main')[chart]
+    //Get the container
+    const containerChartId = chartFromList.root()._groups[0][0].parentElement.id
+    //Get active filters
+    const activeFilters = chartFromList.filters().length
+    //Loop over active filters
+    for (let index = 0; index < activeFilters; index++) {
+      //Remove active filters
+      chartFromList.filter(chartFromList.filters()[0])
+    }
+    //Redraw charts
+    chartFromList.redrawGroup();
+    setTimeout(() => {
+      //Finally remove the class
+      const containerChart = document.getElementById(`${containerChartId}`)
+      containerChart.classList.remove('active-filtered')
+    }, 0)
+  }
+
+  //When the user interactive with the filter we need to rebuild color domain for update choroplethChart
+  rebuildChoroplethColorDomain() {
+    //Get the Map from the register list
+    const choroplethChart = dc.chartRegistry.list('main')[7]
+    //Rebuild color domain with the selected values.
+    choroplethChart.colorDomain([
+        d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck('value')),
+        d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
+    ])
   }
 }
 

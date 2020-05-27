@@ -102,7 +102,10 @@ export class SubsidiesController {
           this._redrawCharts();
         });
 
-        document.getElementById("loading").classList.add('hidden')
+        const loadingElement = document.querySelector(".js-loading");
+        if (loadingElement) {
+          loadingElement.classList.add('hidden')
+        }
       });
     }
   }

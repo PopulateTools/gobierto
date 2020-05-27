@@ -26,7 +26,7 @@ export const subsidiesColumns = [
 export const grantedColumns = [
   {field: 'name', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.beneficiary'), format: null, cssClass: ''},
   {field: 'count', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.subsidies'), format: null, cssClass: 'right'},
-  {field: 'sum', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount_no_taxes'), format: 'currency', cssClass: ''},
+  {field: 'sum', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.amount'), format: 'currency', cssClass: ''},
 ];
 
 export const contractsFiltersConfig = [

@@ -184,7 +184,7 @@ export default function (parent, chartGroup) {
         _g = _chart.svg()
         const widthSvg = _g._groups[0][0].clientWidth
         //Calculate total values
-        const totalValues = _rowData[0].value + _rowData[1].value
+        const totalValues = _rowData[0].value + _rowData[1].value - 6
 
         dc.transition(rect, _chart.transitionDuration(), _chart.transitionDelay())
             .attr('width', function (d) {
@@ -196,7 +196,7 @@ export default function (parent, chartGroup) {
         //Move the second rect
         rows.select('.row._1 rect')
           .attr('x', function() {
-            return (widthSvg - (((_rowData[1].value * 100) / totalValues).toFixed(1) * widthSvg) / 100) + 5
+            return (widthSvg - (((_rowData[1].value * 100) / totalValues).toFixed(1) * widthSvg) / 100) + 1
           })
 
         createTitles(rows);
@@ -243,7 +243,7 @@ export default function (parent, chartGroup) {
             _g = _chart.svg()
             const widthSvg = _g._groups[0][0].clientWidth
             const widthLabelText1 = rows.select('#text-label_1').node().getBoundingClientRect().width;
-            const translateLabel1 = widthSvg - widthLabelText1 + 8
+            const translateLabel1 = widthSvg - widthLabelText1 + 3
 
             rows.select('.row._1 text._1')
               .attr('x', translateLabel1)

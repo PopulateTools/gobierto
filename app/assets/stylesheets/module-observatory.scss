@@ -136,6 +136,7 @@
 
   &-legend {
     text-align: left;
+    margin-top: -.5rem;
   }
 
   &-symbol {
@@ -168,8 +169,10 @@
   }
 
   .leaflet-interactive {
+
     &:hover {
       stroke-width: 3px;
+      fill-opacity: 0.7;
     }
   }
 
@@ -236,6 +239,7 @@
     .left-chart.dc-chart {
       g.row {
         rect {
+          transition: all .3s ease-in;
           fill: var(--pyramidal-male);
           &.deselected {
             fill: #ccc;
@@ -258,6 +262,10 @@
 
   .dc-chart {
     float: none;
+
+    .svg {
+      overflow: hidden;
+    }
 
     .axis {
       display: none;
@@ -318,6 +326,14 @@
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
+
+    .dc-chart {
+
+      svg {
+        /* overflow: hidden; */
+      }
+
+    }
   }
 
   &-container-charts {

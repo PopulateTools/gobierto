@@ -177,6 +177,7 @@ export class DemographyMapController {
         document.querySelectorAll("#close").forEach(button => button.addEventListener('click', () => {
           this.clearFilters(event)
         }));
+
       });
     }
   }
@@ -400,7 +401,7 @@ export class DemographyMapController {
     chart.options({
       // display
       width: 250,
-      height: 200,
+      height: 220,
       labelOffsetX: -50,
       fixedBarHeight: 10,
       gap: 10,
@@ -430,7 +431,6 @@ export class DemographyMapController {
     chart.rightChart().on('filtered', function() {
       const container = document.getElementById('container-piramid-age-sex')
       that.activeFiltered(container)
-      that.pyramidChart()
       that.rebuildChoroplethColorDomain()
       dc.redrawAll('main');
     })
@@ -438,12 +438,11 @@ export class DemographyMapController {
     chart.leftChart().on('filtered', function() {
       const container = document.getElementById('container-piramid-age-sex')
       that.activeFiltered(container)
-      that.pyramidChart()
       that.rebuildChoroplethColorDomain()
       dc.redrawAll('main');
     })
 
-    let allRows = d3.selectAll('g.row')
+    let allRows = d3.selectAll('g.row rect')
     allRows
       .attr('opacity', 0)
 
@@ -453,6 +452,8 @@ export class DemographyMapController {
 
   //Create a Pyramid population Chart
   pyramidChart() {
+    let selectLeftRows = d3.selectAll('.left-chart g.row rect')
+    selectLeftRows.attr('width', 0)
     setTimeout(() => {
       //Only get the rows of the left chart.
       let selectLeftRows = d3.selectAll('.left-chart g.row rect')
@@ -470,13 +471,12 @@ export class DemographyMapController {
         rect.setAttribute('width', 0)
         //Second, use translateRectToRight to move rect
         rect.setAttribute('x', translateRectToRight)
-        //Finally, set again the width of the rect, we need a class with CSS animation
-        rect.setAttribute('width', rectWidth)
+        rect.setAttribute('width', rectWidth.toFixed(2))
       })
       let allRects = d3.selectAll('g.row')
       allRects.attr('opacity', 1)
       //Why???? because the timing of the dc.js animation is equal 1000ms
-    }, 800)
+    }, 600)
   }
 
   renderStudies(selector) {
@@ -484,7 +484,7 @@ export class DemographyMapController {
     const sumAllValues = this.ndx.groups.origin.all.value()
     chart
       .width(300)
-      .height(210)
+      .height(230)
       .cap(10) // Show only top 20
       .group(this.ndx.groups.studies.byStudies)
       .dimension(this.ndx.filters.studies.byStudies)
@@ -523,7 +523,7 @@ export class DemographyMapController {
     const sumAllValues = this.ndx.groups.origin.all.value()
     chart
       .width(300)
-      .height(180)
+      .height(210)
       .cap(10) // Show only top 20
       .othersGrouper(null) // Don't show the rest of the 20 in Other class - https://dc-js.github.io/dc.js/docs/html/CapMixin.html
       .group(this.ndx.groups.origin.byOriginNational)
@@ -647,7 +647,7 @@ export class DemographyMapController {
       })
 
     const that = this;
-    chart.on('filtered', function() {
+    chart.on('filtered', function(event) {
       dc.redrawAll('main', that.pyramidChart());
       const buttonReset = document.getElementById('reset-filters')
       buttonReset.classList.remove('disabled')
@@ -726,10 +726,10 @@ export class DemographyMapController {
         chartFromListRight.filter(chartFromListRight.filters()[0])
       }
       //Redraw
-      dc.chartRegistry.list('main')[0].redrawGroup()
       setTimeout(() => {
         chart.classList.remove('active-filtered')
       }, 0)
+      dc.chartRegistry.list('main')[0].redrawGroup()
     }
   }
 

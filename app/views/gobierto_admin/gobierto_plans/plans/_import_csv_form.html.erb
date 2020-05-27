@@ -1,4 +1,5 @@
 <%= render "gobierto_admin/shared/validation_errors", resource: @plan_data_form %>
+<%= render "gobierto_admin/shared/validation_errors", resource: @plan_table_custom_fields_form %>
 
 <%= form_for(@plan_data_form, as: :plan, url: admin_plans_plan_import_data_path(@plan), method: :patch, html: { multipart: true }) do |f| %>
   <div class="pure-g">

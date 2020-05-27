@@ -36,8 +36,7 @@ export class ContractsController {
       const Summary = () => import("../webapp/containers/summary/Summary.vue");
       const ContractsIndex = () => import("../webapp/containers/contract/ContractsIndex.vue");
       const ContractsShow = () => import("../webapp/containers/contract/ContractsShow.vue");
-      const TendersIndex = () => import("../webapp/containers/tender/TendersIndex.vue");
-      const TendersShow = () => import("../webapp/containers/tender/TendersShow.vue");
+      const AssigneesShow = () => import("../webapp/containers/assignee/AssigneesShow.vue");
 
       Promise.all([getRemoteData(options.contractsEndpoint), getRemoteData(options.tendersEndpoint)]).then((rawData) => {
         this.setGlobalVariables(rawData)
@@ -50,6 +49,7 @@ export class ContractsController {
                 { path: "", name: "summary", component: Summary},
                 { path: "adjudicaciones", name: "contracts_index", component: ContractsIndex },
                 { path: "adjudicaciones/:id", name: "contracts_show", component: ContractsShow },
+                { path: "adjudicatario/:id", name: "assignees_show", component: AssigneesShow },
               ]
             }
 
@@ -153,6 +153,7 @@ export class ContractsController {
       contract.initial_amount_no_taxes = initial_amount_no_taxes;
       contract.range = rangeFormat(+final_amount_no_taxes);
       contract.start_date_year = contract.start_date ? (new Date(contract.start_date).getFullYear()) : contract.start_date;
+      if (!contract.assignee_routing_id) { contract.assignee_routing_id = contract.assignee_id }
     }
 
     for(let i = 0; i < tendersData.length; i++){

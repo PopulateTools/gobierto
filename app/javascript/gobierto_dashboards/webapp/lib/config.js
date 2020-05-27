@@ -17,6 +17,12 @@ export const assigneesColumns = [
   {field: 'sum', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'right'},
 ];
 
+export const assigneesShowColumns = [
+  {field: 'title', translation: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'), format: null, cssClass: ''},
+  {field: 'final_amount_no_taxes', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount_no_taxes'), format: 'currency', cssClass: ''},
+  {field: 'start_date', translation: I18n.t('gobierto_dashboards.dashboards.contracts.date'), format: null, cssClass: ''},
+];
+
 export const subsidiesColumns = [
   {field: 'beneficiary_name', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.beneficiary'), format: null, cssClass: ''},
   {field: 'amount', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.amount'), format: 'currency', cssClass: 'right'},

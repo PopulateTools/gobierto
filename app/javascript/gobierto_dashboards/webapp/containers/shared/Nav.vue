@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { EventBus } from "../../mixins/event_bus";
+
 export default {
   name: 'Nav',
   props: {
@@ -47,14 +49,23 @@ export default {
     'summary': 0,
     'contracts_index': 1,
     'contracts_show': 1,
+    'assignees_show': 1,
     'tenders_index': 2,
-    'tenders_show': 2
+    'tenders_show': 2,
   },
   created(){
-    const currentTabIndex = this.tabIndexFromRouteName();
-    this.markTabAsActive(currentTabIndex);
+    EventBus.$on('refresh-active-tab', () => this.refreshActiveTab());
+
+    this.refreshActiveTab();
+  },
+  beforeDestroy(){
+    EventBus.$off('refresh-active-tab');
   },
   methods: {
+    refreshActiveTab(index) {
+      const currentTabIndex = this.tabIndexFromRouteName();
+      this.markTabAsActive(currentTabIndex);
+    },
     markTabAsActive(index) {
       this.$emit("active-tab", index);
     },

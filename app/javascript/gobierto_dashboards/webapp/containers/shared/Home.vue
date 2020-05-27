@@ -15,6 +15,7 @@
           <Summary v-show="isSummary"/>
           <ContractsIndex v-show="isContractsIndex"/>
           <ContractsShow v-if="isContractsShow"/>
+          <AssigneesShow v-if="isAssigneesShow"/>
         </main>
       </div>
     </div>
@@ -27,6 +28,7 @@ import Aside from "./Aside.vue";
 import Summary from "./../summary/Summary.vue";
 import ContractsIndex from "./../contract/ContractsIndex.vue";
 import ContractsShow from "./../contract/ContractsShow.vue";
+import AssigneesShow from "./../assignee/AssigneesShow.vue";
 
 import { EventBus } from "../../mixins/event_bus";
 import { store } from "../../mixins/store";
@@ -39,6 +41,7 @@ export default {
     Summary,
     ContractsIndex,
     ContractsShow,
+    AssigneesShow,
   },
   data() {
     return {

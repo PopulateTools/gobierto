@@ -15,6 +15,7 @@
         :key="item.id"
         :item="item"
         :routing-member="routingMember"
+        :routing-attribute="routingAttribute"
         :columns="columns"
       />
     </table>
@@ -44,6 +45,10 @@ export default {
     routingMember: {
       type: String,
       default: ''
+    },
+    routingAttribute: {
+      type: String,
+      default: 'id'
     }
   },
   data() {

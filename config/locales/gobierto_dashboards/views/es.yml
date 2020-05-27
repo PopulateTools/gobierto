@@ -9,6 +9,7 @@ es:
         contract_type: Tipo de contrato
         contractor: Contrato
         contracts: Contratos
+        contracts_assigned_to: Contratos adjudicados a
         date: Fecha
         dates: Fechas
         description: Visualización y análisis de los contratos adjudicados y las licitaciones

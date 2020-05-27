@@ -10,7 +10,11 @@
       <div class="pure-u-1 pure-u-lg-1-2">
         <label class="soft">{{ labelAsignee }}</label>
         <div class="">
-          <strong class="d_block">{{ assignee }}</strong>
+          <router-link
+            :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
+          >
+            <strong class="d_block">{{ assignee }}</strong>
+          </router-link>
           <span v-if="assignee_id">
             {{assignee_id}}
           </span>
@@ -55,6 +59,7 @@
 <script>
 
 import { VueFiltersMixin } from "lib/shared"
+import { EventBus } from "../../mixins/event_bus";
 
 export default {
   name: 'ContractsShow',
@@ -71,6 +76,7 @@ export default {
       status: '',
       process_type: '',
       permalink: '',
+      assignee_routing_id: '',
       labelAsignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
       labelTenderAmount: I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount'),
       labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
@@ -84,6 +90,8 @@ export default {
     const itemId = this.$route.params.id;
     const contract = this.contractsData.find(({ id }) => id === itemId ) || {};
 
+    EventBus.$emit("refresh-active-tab");
+
     if (contract) {
       const {
         title,
@@ -95,7 +103,8 @@ export default {
         status,
         process_type,
         contract_type,
-        permalink
+        permalink,
+        assignee_routing_id
       } = contract
 
       this.title = title
@@ -108,6 +117,7 @@ export default {
       this.process_type = process_type
       this.contract_type = contract_type
       this.permalink = permalink
+      this.assignee_routing_id = assignee_routing_id
     }
   }
 }

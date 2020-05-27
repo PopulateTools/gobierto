@@ -9,6 +9,7 @@ ca:
         contract_type: Tipus de contracte
         contractor: Contractor
         contracts: Contractes
+        contracts_assigned_to: Contractes adjudicats a
         date: Data
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions

@@ -1,6 +1,6 @@
 <template>
   <router-link
-    :to="{ name: routingMember, params: {id: item.id } }"
+    :to="{ name: routingMember, params: {id: routingId } }"
     tag="tr"
     class="dashboards-home-main--tr"
   >
@@ -36,10 +36,15 @@ export default {
     routingMember: {
       type: String,
       default: ''
+    },
+    routingAttribute: {
+      type: String,
+      default: 'id'
     }
   },
   created(){
     this.initFormattedItem();
+    this.routingId = this.item[this.routingAttribute];
   },
   methods: {
     initFormattedItem(){

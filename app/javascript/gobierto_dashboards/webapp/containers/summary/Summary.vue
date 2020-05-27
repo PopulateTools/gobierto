@@ -103,6 +103,8 @@
       <Table
         :items="items"
         :columns="columns"
+        :routing-member="'assignees_show'"
+        :routing-attribute="'assignee_routing_id'"
       >
       </Table>
     </div>
@@ -124,6 +126,7 @@ export default {
     return {
       contractsData: this.$root.$data.contractsData,
       items: [],
+      columns: [],
       labelTenders: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders'),
       labelTendersFor: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders_for'),
       labelContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts'),
@@ -166,7 +169,7 @@ export default {
     buildItems() {
       const groupedByAssignee = {}
       // Group contracts by assignee
-      this.contractsData.forEach(({assignee, final_amount_no_taxes}) => {
+      this.contractsData.forEach(({assignee, assignee_routing_id, final_amount_no_taxes}) => {
         if (assignee === '' || assignee === undefined) {
           return;
         }
@@ -174,6 +177,7 @@ export default {
         if (groupedByAssignee[assignee] === undefined) {
           groupedByAssignee[assignee] = {
             name: assignee,
+            assignee_routing_id: assignee_routing_id,
             sum: 0,
             count: 0
           }

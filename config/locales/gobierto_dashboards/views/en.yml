@@ -9,6 +9,7 @@ en:
         contract_type: Type of contract
         contractor: Contractor
         contracts: Contracts
+        contracts_assigned_to: Contracts assigned to
         date: Date
         dates: Dates
         description: Visualizations and analisys for the awarded contracts and tenders

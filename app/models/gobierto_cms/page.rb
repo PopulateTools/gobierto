@@ -29,7 +29,7 @@ module GobiertoCms
 
     translates :title, :body, :body_source
 
-    belongs_to :site
+    belongs_to :site, touch: true
     has_many :collection_items, as: :item
     has_many :process_stage_pages, class_name: "GobiertoParticipation::ProcessStagePage"
 

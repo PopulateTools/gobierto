@@ -30,7 +30,7 @@
 <script type="text/x-template" id="table-view-template">
   <table>
     <thead v-if="header">
-      <th><%= t("gobierto_plans.plan_types.show.projects") %></th>
+      <th><%= @plan.level_key(2, @levels + 1) %></th>
       <th><%= t("gobierto_plans.plan_types.show.starts") %></th>
       <th><%= t("gobierto_plans.plan_types.show.status") %></th>
       <th><%= t("gobierto_plans.plan_types.show.progress") %></th>

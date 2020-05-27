@@ -128,6 +128,42 @@ module GobiertoData
           end
         end
 
+        # POST /api/v1/data/datasets
+        #
+        def test_dataset_creation_with_file_upload_and_malformed_schema_file
+          with(site: site) do
+            post(
+              gobierto_data_api_v1_datasets_path,
+              params: multipart_form_params("dataset1.csv").deep_merge(
+                dataset: { schema_file: Rack::Test::UploadedFile.new("#{Rails.root}/test/fixtures/files/gobierto_data/malformed_schema.json") }
+              ),
+              headers: { "Authorization" => auth_header }
+            )
+
+            assert_response :unprocessable_entity
+            response_data = response.parsed_body
+            assert_match(/Malformed file/, response_data.to_s)
+          end
+        end
+
+        # POST /api/v1/data/datasets
+        #
+        def test_dataset_creation_with_file_upload_and_schema_file_with_invalid_type
+          with(site: site) do
+            post(
+              gobierto_data_api_v1_datasets_path,
+              params: multipart_form_params("dataset1.csv").deep_merge(
+                dataset: { schema_file: Rack::Test::UploadedFile.new("#{Rails.root}/test/fixtures/files/gobierto_data/invalid_type_schema.json") }
+              ),
+              headers: { "Authorization" => auth_header }
+            )
+
+            assert_response :unprocessable_entity
+            response_data = response.parsed_body
+            assert_match(/The type 'invent' is not defined/, response_data.to_s)
+          end
+        end
+
         # PUT /api/v1/data/datasets/dataset-slug
         #
         def test_dataset_update_with_file_upload

@@ -22,6 +22,7 @@ en:
         gobierto_data: Data
     projects:
       all: All
+      buttonFork: Click to create your own version of this query
       buttonQueries: See queries (r)
       buttonRecentQueries: See recent queries (r)
       buttonRunQuery: Run query (CMD/WIN + Enter)
@@ -30,17 +31,21 @@ en:
       data: Data
       dataset: Datasets
       datasetUpdated: Last updated datasets
+      description: Description
       download: Download
       downloadData: Download Data
       edit: Edit
       emptyRecentQueries: There's no recent queries
       favs: Favorites
+      fork: Fork
       frequency: Frequency
       guide: Guide to using the SQL editor
       modifiedQuery: Modified Query
       modifiedVisualization: Modified Visualization
+      preview: Preview
       private: Private
       queries: Queries
+      queryEmpty: No available queries
       queryExecuted: Query executed in
       queryName: Query name
       recents: Recents

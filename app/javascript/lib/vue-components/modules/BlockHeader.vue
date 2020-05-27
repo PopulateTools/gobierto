@@ -10,7 +10,7 @@
     <a
       v-if="seeLink"
       class="gobierto-block-header--link"
-      @click="selectAll"
+      @click.stop="selectAll"
     >{{
       labelAlt ? labelNone : labelAll
     }}</a>

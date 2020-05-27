@@ -5,8 +5,9 @@
     class="dashboards-home-main--tr"
   >
     <td
-      v-for="{ field } in columns"
+      v-for="{ field, format } in columns"
       class="dashboards-home-main--td"
+      :class="{ 'right': format === 'quantity' }"
     >
       <div>{{ formattedItem[field] }}</div>
     </td>
@@ -14,6 +15,8 @@
 </template>
 
 <script>
+import { money, truncate } from 'lib/shared'
+
 export default {
   name: "TableRow",
   data(){
@@ -42,12 +45,11 @@ export default {
     initFormattedItem(){
       this.columns.forEach(({format, field}) => {
         if (format === 'currency') {
-          this.formattedItem[field] = parseFloat(this.item[field]).toLocaleString(I18n.locale, {
-            style: 'currency',
-            currency: 'EUR'
-          });
+          this.formattedItem[field] = money(this.item[field]);
+        } else if(format == 'truncated'){
+          this.formattedItem[field] = truncate(this.item[field], {length: 60});
         } else {
-          this.formattedItem[field] = this.item[field]
+          this.formattedItem[field] = this.item[field];
         }
       });
     }

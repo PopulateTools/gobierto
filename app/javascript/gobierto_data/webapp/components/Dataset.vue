@@ -19,6 +19,7 @@
       :private-queries="privateQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
+      :array-columns="arrayColumns"
       :resources-list="resourcesList"
       :dataset-attributes="attributes"
       :is-user-logged="isUserLogged"
@@ -37,11 +38,14 @@
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
       :is-saving-prompt-visible="isSavingPromptVisible"
+      :is-fork-prompt-visible="isForkPromptVisible"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-duration="queryDuration"
       :query-error="queryError"
       :enabled-saved-button="enabledSavedButton"
+      :enabled-fork-button="enabledForkButton"
+      :enabled-revert-button="enabledRevertButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       :table-name="tableName"
@@ -125,16 +129,19 @@ export default {
       isQueryModified: false,
       isQuerySaved: false,
       isSavingPromptVisible: false,
+      isForkPromptVisible: true,
       showPrivate: false,
       tableName: '',
       resetQueryDefault: false,
       revertQuerySaved: false,
       enabledSavedButton: false,
+      enabledRevertButton: false,
       showRevertQuery: false,
       queryName: null,
       queryDuration: 0,
       queryError: null,
-      isUserLogged: false
+      isUserLogged: false,
+      enabledForkButton: false
     };
   },
   computed: {
@@ -155,9 +162,11 @@ export default {
       }
 
       if (to.path !== from.path) {
-        this.disabledSavedButton()
         this.isQueryModified = false;
         this.setDefaultQuery()
+        this.queryIsNotMine()
+        this.disabledSavedButton()
+        this.disabledRevertButton()
       }
 
       //FIXME: Hugo, we need to talk about this hack
@@ -166,7 +175,6 @@ export default {
         this.runCurrentQuery()
         this.disabledStringSavedQuery()
       }
-
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -239,8 +247,9 @@ export default {
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
 
+    this.queryIsNotMine();
     this.runCurrentQuery();
-    this.setDefaultQuery()
+    this.setDefaultQuery();
 
   },
   mounted() {
@@ -273,6 +282,14 @@ export default {
     this.$root.$on('disabledStringSavedQuery', this.disabledStringSavedQuery)
 
     this.$root.$on('isSavingPromptVisible', this.isSavingPromptVisibleHandler)
+
+    this.$root.$on('disabledForkButton', this.disabledForkButton)
+
+    this.$root.$on('enabledForkPrompt', this.enabledForkPrompt)
+
+    this.$root.$on('enabledRevertButton', this.activatedRevertButton)
+
+    this.$root.$on('disabledRevertButton', this.disabledRevertButton)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -287,6 +304,10 @@ export default {
     this.$root.$off('disabledSavedButton')
     this.$root.$off('disabledStringSavedQuery')
     this.$root.$off('isSavingPromptVisible')
+    this.$root.$off('disabledForkButton')
+    this.$root.$off('enabledForkPrompt')
+    this.$root.$off('enabledRevertButton')
+    this.$root.$off('disabledRevertButton')
   },
   methods: {
     parseUrl({ queryId, sql }) {
@@ -314,6 +335,7 @@ export default {
       }
     },
     setDefaultQuery() {
+
       const userId = getUserId();
       const {
         params: { queryId }
@@ -327,10 +349,6 @@ export default {
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert
 
-    },
-    ensureUserIsLogged() {
-      if (getUserId() === "")
-        location.href = "/user/sessions/new?open_modal=true";
     },
     isQueryStored(query = this.currentQuery) {
       // check if the query passed belongs to public/private arrays, if there's no args, it uses currentQuery
@@ -403,8 +421,6 @@ export default {
       }
     },
     async storeCurrentQuery({ name, privacy }) {
-      // if there's no user, you cannot save queries
-      this.ensureUserIsLogged();
 
       const data = {
         type: "gobierto_data-queries",
@@ -478,8 +494,6 @@ export default {
       }
     },
     async storeCurrentVisualization(config, opts) {
-      // if there's no user, you cannot save visualizations
-      this.ensureUserIsLogged();
 
       const { name, privacy } = opts;
 
@@ -545,6 +559,7 @@ export default {
         this.runCurrentQuery()
         this.disabledSavedButton()
         this.disabledStringSavedQuery()
+        this.disabledRevertButton()
       }
     },
     activatedSavedButton() {
@@ -574,6 +589,40 @@ export default {
     },
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value
+    },
+    queryIsNotMine() {
+      const userId = Number(getUserId());
+
+      const {
+        params: { queryId },
+        name: nameComponent
+      } = this.$route;
+
+      let items = this.publicQueries;
+
+      //Find which query is loaded
+      const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
+
+      //Check if the user who loaded the query is the same user who created the query
+      if (userId !== 0 && userId !== checkUserId && nameComponent === 'Query') {
+        this.enabledForkButton = true
+        this.isForkPromptVisible = true
+      } else {
+        this.disabledForkButton()
+        this.enabledForkPrompt()
+      }
+    },
+    disabledForkButton() {
+      this.enabledForkButton = false
+    },
+    enabledForkPrompt() {
+      this.isForkPromptVisible = true
+    },
+    disabledRevertButton() {
+      this.enabledRevertButton = false
+    },
+    activatedRevertButton() {
+      this.enabledRevertButton = true
     }
   },
 };

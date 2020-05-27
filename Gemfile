@@ -102,6 +102,10 @@ gem "rubyXL"
 # Performance
 gem "appsignal"
 
+# Auth strategies
+gem "net-ldap"
+gem "ladle"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

@@ -1,18 +1,18 @@
 <template>
   <div>
-    <h1>{{ formattedContract.title }}</h1>
+    <h1>{{ title }}</h1>
 
-    <p v-if="formattedContract.description">
-      {{ formattedContract.description }}
+    <p v-if="description">
+      {{ description }}
     </p>
 
     <div class="pure-g p_2 bg-gray">
       <div class="pure-u-1 pure-u-lg-1-2">
         <label class="soft">{{ labelAsignee }}</label>
         <div class="">
-          <strong class="d_block">{{ formattedContract.assignee }}</strong>
-          <span v-if="formattedContract.document_number">
-            {{formattedContract.document_number}}
+          <strong class="d_block">{{ assignee }}</strong>
+          <span v-if="document_number">
+            {{document_number}}
           </span>
         </div>
       </div>
@@ -21,19 +21,24 @@
         <table>
           <tr>
             <th class="left">{{ labelContractAmount }}</th>
-            <td>{{ formattedContract.final_amount }}</td>
+            <td>{{ final_amount_no_taxes | money }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelTenderAmount }}</th>
-            <td>{{ formattedContract.initial_amount }}</td>
+            <td>{{ initial_amount_no_taxes | money }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelStatus }}</th>
-            <td>{{ formattedContract.status }}</td>
+            <td>{{ status }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelProcessType }}</th>
-            <td>{{ formattedContract.process_type }}</td>
+            <td>{{ process_type }}</td>
+          </tr>
+          <tr>
+            <th class="left">
+              <a :href="permalink" target='blank'>{{ labelPermalink }}</a>
+            </th>
           </tr>
         </table>
 
@@ -45,36 +50,57 @@
 
 <script>
 
-import { formatCurrency } from "../../lib/utils.js";
+import { VueFiltersMixin } from "lib/shared"
 
 export default {
   name: 'ContractsShow',
+  mixins: [VueFiltersMixin],
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
-      contract: null,
-      formattedContract: null,
+      title: '',
+      description: '',
+      assignee: '',
+      document_number: '',
+      final_amount_no_taxes: '',
+      initial_amount_no_taxes: '',
+      status: '',
+      process_type: '',
+      permalink: '',
       labelAsignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
       labelTenderAmount: I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount'),
       labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
       labelStatus: I18n.t('gobierto_dashboards.dashboards.contracts.status'),
-      labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type')
+      labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
+      labelPermalink: I18n.t('gobierto_dashboards.dashboards.contracts.permalink')
     }
   },
   created() {
     const itemId = this.$route.params.id;
+    const contract = this.contractsData.find(({ id }) => id === itemId ) || {};
 
-    this.contract = this.contractsData.find((contract) => {
-      return contract.id === itemId
-    });
+    if (contract) {
+      const {
+        title,
+        description,
+        assignee,
+        document_number,
+        final_amount_no_taxes,
+        initial_amount_no_taxes,
+        status,
+        process_type,
+        permalink
+      } = contract
 
-    this.initFormattedContract();
-  },
-  methods: {
-    initFormattedContract(){
-      this.formattedContract = Object.assign({}, this.contract);
-      this.formattedContract.final_amount = formatCurrency(this.formattedContract.final_amount);
-      this.formattedContract.initial_amount = formatCurrency(this.formattedContract.initial_amount);
+      this.title = title
+      this.description = description
+      this.assignee = assignee
+      this.document_number = document_number
+      this.final_amount_no_taxes = final_amount_no_taxes
+      this.initial_amount_no_taxes = initial_amount_no_taxes
+      this.status = status
+      this.process_type = process_type
+      this.permalink = permalink
     }
   }
 }

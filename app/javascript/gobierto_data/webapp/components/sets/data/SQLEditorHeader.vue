@@ -5,7 +5,6 @@
         :title="labelResetQuery"
         class="btn-sql-editor"
         icon="home"
-        color="var(--color-base)"
         background="#fff"
         @click.native="resetQueryHandler"
       />
@@ -17,7 +16,6 @@
         :title="labelButtonRecentQueries"
         class="btn-sql-editor"
         icon="history"
-        color="var(--color-base)"
         background="#fff"
         @click.native="isRecentModalActive = !isRecentModalActive"
       />
@@ -36,27 +34,33 @@
     </div>
 
     <div class="gobierto-data-sql-editor-container">
-      <Button
-        v-clickoutside="closeQueriesModal"
-        :class="{ 'remove-label' : removeLabelBtn }"
-        :title="labelButtonQueries"
-        class="btn-sql-editor"
-        icon="list"
-        color="var(--color-base)"
-        background="#fff"
-        @click.native="isQueriesModalActive = !isQueriesModalActive"
-      />
+      <!-- //Closable directive doesn't work with component, so i've used the html attribute :\ -->
+      <button
+        ref="buttonYourQueries"
+        class="btn-sql-editor btn-sql-editor-queries gobierto-data-btn-blue"
+        @click="isQueriesModalActive = !isQueriesModalActive"
+      >
+        <i
+          style="color: inherit"
+          class="fas fa-list"
+        />
+      </button>
 
       <transition
         name="fade"
         mode="out-in"
       >
         <Queries
-          v-if="isQueriesModalActive"
+          v-show="isQueriesModalActive"
+          v-closable="{
+            exclude: ['buttonYourQueries'],
+            handler: 'closeQueriesModal'
+          }"
           :private-queries="privateQueries"
           :public-queries="publicQueries"
           :is-user-logged="isUserLogged"
           class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
+          @closeQueriesModal="closeQueriesModal"
         />
       </transition>
     </div>
@@ -68,7 +72,11 @@
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
       :is-saving-prompt-visible="isSavingPromptVisible"
+      :is-fork-prompt-visible="isForkPromptVisible"
+      :is-user-logged="isUserLogged"
       :enabled-saved-button="enabledSavedButton"
+      :enabled-fork-button="enabledForkButton"
+      :enabled-revert-button="enabledRevertButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       @save="onSaveEventHandler"
@@ -79,7 +87,6 @@
       :title="labelButtonRunQuery"
       class="btn-sql-editor btn-sql-editor-run"
       icon="play"
-      color="var(--color-base)"
       background="#fff"
       @click.native="clickRunQueryHandler()"
     >
@@ -128,6 +135,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isForkPromptVisible: {
+      type: Boolean,
+      default: true
+    },
     isQueryModified: {
       type: Boolean,
       default: false
@@ -152,6 +163,14 @@ export default {
       type: Boolean,
       default: false
     },
+    enabledForkButton: {
+      type: Boolean,
+      default: false
+    },
+    enabledRevertButton: {
+      type: Boolean,
+      default: false
+    },
     isUserLogged: {
       type: Boolean,
       default: false
@@ -166,10 +185,8 @@ export default {
       labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
-      labelButtonRecentQueries:
-        I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
-      labelButtonRunQuery:
-        I18n.t("gobierto_data.projects.buttonRunQuery") || "",
+      labelButtonRecentQueries: I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
+      labelButtonRunQuery: I18n.t("gobierto_data.projects.buttonRunQuery") || "",
       removeLabelBtn: false,
       isQueriesModalActive: false,
       isRecentModalActive: false

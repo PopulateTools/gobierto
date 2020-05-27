@@ -1,5 +1,6 @@
 module GobiertoAdmin
   class SessionsController < BaseController
+    before_action :check_auth_modules, only: [:new]
     skip_before_action :authenticate_admin!, only: [:new, :create, :destroy]
     skip_before_action :set_admin_site, only: [:new, :destroy]
     before_action :require_no_authentication, only: [:new, :create]
@@ -9,7 +10,7 @@ module GobiertoAdmin
     def new; end
 
     def create
-      admin = Admin.active.find_by(email: session_params[:email].downcase)
+      admin = Admin.with_password.active.find_by(email: session_params[:email].downcase)
 
       if admin.try(:authenticate, session_params[:password])
         admin.update_session_data(remote_ip)
@@ -31,6 +32,10 @@ module GobiertoAdmin
 
     def session_params
       params.require(:session).permit(:email, :password)
+    end
+
+    def check_auth_modules
+      redirect_to auth_path(request.parameters) and return if controller_name == "sessions" && auth_modules_present?
     end
   end
 end

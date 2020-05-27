@@ -80,8 +80,8 @@ GEM
     arel (9.0.0)
     ast (2.4.0)
     aws-eventstream (1.1.0)
-    aws-partitions (1.313.0)
-    aws-sdk-core (3.95.0)
+    aws-partitions (1.320.0)
+    aws-sdk-core (3.96.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
@@ -89,8 +89,8 @@ GEM
     aws-sdk-kms (1.31.0)
       aws-sdk-core (~> 3, >= 3.71.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.64.0)
-      aws-sdk-core (~> 3, >= 3.83.0)
+    aws-sdk-s3 (1.66.0)
+      aws-sdk-core (~> 3, >= 3.96.1)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
     aws-ses (0.6.0)
@@ -158,7 +158,7 @@ GEM
       faraday (~> 1)
       multi_json
     erubi (1.9.0)
-    exchanger (0.2.1)
+    exchanger (0.3.0)
       activesupport (>= 2.2.2)
       httpclient (>= 2.1.5.2)
       nokogiri (>= 1.3.0)
@@ -177,7 +177,7 @@ GEM
     geocoder (1.6.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    google-api-client (0.39.4)
+    google-api-client (0.39.5)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (~> 0.9)
       httpclient (>= 2.8.1, < 3.0)
@@ -222,7 +222,6 @@ GEM
       activesupport (>= 4.2)
     invisible_captcha (1.0.1)
       rails (>= 4.2)
-    jaro_winkler (1.5.4)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
@@ -249,6 +248,8 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
+    ladle (1.0.1)
+      open4 (~> 1.0)
     launchy (2.5.0)
       addressable (~> 2.7)
     libv8 (3.16.14.19)
@@ -303,6 +304,7 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
+    net-ldap (0.16.2)
     netrc (0.11.0)
     nio4r (2.5.2)
     nokogiri (1.10.9)
@@ -310,6 +312,7 @@ GEM
     nori (2.6.0)
     ntlm-http (0.1.1)
     oj (3.10.6)
+    open4 (1.3.4)
     os (1.1.0)
     paper_trail (10.3.1)
       activerecord (>= 4.2)
@@ -317,11 +320,11 @@ GEM
     parallel (1.19.1)
     paranoia (2.4.2)
       activerecord (>= 4.0, < 6.1)
-    parser (2.7.1.1)
+    parser (2.7.1.2)
       ast (~> 2.4.0)
     pg (1.2.3)
     public_suffix (4.0.5)
-    puma (4.3.3)
+    puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.2)
     rack-cors (1.1.1)
@@ -386,14 +389,16 @@ GEM
     retriable (3.1.2)
     rexml (3.2.4)
     rollbar (2.25.0)
-    rubocop (0.82.0)
-      jaro_winkler (~> 1.5.1)
+    rubocop (0.84.0)
       parallel (~> 1.10)
       parser (>= 2.7.0.1)
       rainbow (>= 2.2.2, < 4.0)
       rexml
+      rubocop-ast (>= 0.0.3)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-ast (0.0.3)
+      parser (>= 2.7.0.1)
     ruby-progressbar (1.10.1)
     rubyXL (3.4.14)
       nokogiri (>= 1.10.8)
@@ -538,6 +543,7 @@ DEPENDENCIES
   jquery-rails
   json_translate (~> 4.0)
   kaminari (~> 1.0)
+  ladle
   launchy
   liquid (~> 4.0)
   liquid-rails (~> 0.2.0)
@@ -550,6 +556,7 @@ DEPENDENCIES
   minitest-stub-const
   minitest-stub_any_instance
   mocha
+  net-ldap
   paper_trail
   paranoia
   pg (~> 1.1)

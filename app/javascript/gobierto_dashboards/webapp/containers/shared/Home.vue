@@ -1,7 +1,10 @@
 <template>
   <main>
     <div class="pure-g gutters m_b_4">
-      <Aside></Aside>
+      <Aside
+        :contracts-data="contractsData"
+        :dataDownloadEndpoint="dataDownloadEndpoint"
+      />
 
       <div class="pure-u-1 pure-u-lg-3-4">
         <Nav
@@ -9,7 +12,9 @@
           @active-tab="setActiveTab"
         ></Nav>
         <main class="dashboards-home-main">
-          <router-view></router-view>
+          <Summary v-show="isSummary"/>
+          <ContractsIndex v-show="isContractsIndex"/>
+          <ContractsShow v-if="isContractsShow"/>
         </main>
       </div>
     </div>
@@ -19,25 +24,56 @@
 <script>
 import Nav from "./Nav.vue";
 import Aside from "./Aside.vue";
+import Summary from "./../summary/Summary.vue";
+import ContractsIndex from "./../contract/ContractsIndex.vue";
+import ContractsShow from "./../contract/ContractsShow.vue";
 
+import { EventBus } from "../../mixins/event_bus";
 import { store } from "../../mixins/store";
 
 export default {
   name: 'Home',
   components: {
     Aside,
-    Nav
+    Nav,
+    Summary,
+    ContractsIndex,
+    ContractsShow,
   },
   data() {
     return {
       activeTabIndex: store.state.currentTab || 0,
+      contractsData: this.$root.$data.contractsData,
+    }
+  },
+  computed: {
+    isSummary() { return this.$route.name === 'summary' },
+    isContractsIndex() { return this.$route.name === 'contracts_index' },
+    isContractsShow() { return this.$route.name === 'contracts_show' },
+  },
+  created(){
+    EventBus.$on('refresh_summary_data', () => {
+      this.contractsData = this.$root.$data.contractsData;
+    });
+  },
+  props: {
+    dataDownloadEndpoint: {
+      type: String,
+      default: null
     }
   },
   methods: {
-    setActiveTab(value) {
-      this.activeTabIndex = value;
-      store.addCurrentTab(value);
+    setActiveTab(tabIndex) {
+      this.activeTabIndex = tabIndex;
+      store.addCurrentTab(tabIndex);
+
+      if (this.isSummaryPage(tabIndex)) {
+        EventBus.$emit("moved_to_summary");
+      }
     },
+    isSummaryPage(tabIndex){
+      return tabIndex === 0
+    }
   }
 
 }

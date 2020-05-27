@@ -4,6 +4,7 @@ import crossfilter from 'crossfilter2'
 import moment from 'moment'
 import { d3locale } from 'lib/shared'
 import 'jsgrid'
+import { AmountDistributionBars } from "lib/visualizations";
 
 window.GobiertoBudgets.InvoicesController = (function() {
 
@@ -444,121 +445,18 @@ window.GobiertoBudgets.InvoicesController = (function() {
   }
 
   function _renderByAmountsChart() {
-    // Declaration
-    var hbars2 = dc.rowChart("#hbars2", "group");
+    const amounts = ndx.dimension(contract => contract.range);
 
-    // Dimensions
-    var amounts = ndx.dimension(function(d) {
-        return d.range
-      }),
-      amountByInvoices = amounts.group().reduceCount();
+    const renderOptions = {
+      containerSelector: "#hbars2",
+      dimension: amounts,
+      range: _r,
+      labelMore: I18n.t('gobierto_budgets.invoices.show.more'),
+      labelFromTo: I18n.t('gobierto_budgets.invoices.show.fromto'),
+      onFilteredFunction: (chart) => _refreshFromCharts(amounts.top(Infinity))
+    }
 
-    // Styling
-    var _count = amountByInvoices.size(),
-      _gap = 10,
-      _barHeight = 18,
-      _labelOffset = 195;
-
-    const node = hbars2.root().node() || document.createElement("div")
-
-    hbars2
-      .width((node.parentNode || node).getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
-      .height(hbars2.margins().top + hbars2.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // Margins top/bottom + bars + gaps (space between)
-      .fixedBarHeight(_barHeight)
-      .x(d3.scaleThreshold())
-      .dimension(amounts)
-      .group(amountByInvoices)
-      .ordering(function(d) {
-        return d.key
-      })
-      .labelOffsetX(-_labelOffset)
-      .gap(_gap)
-      .elasticX(true)
-      .title(function(d) { return d.value })
-      .on('pretransition', function(chart){
-        // Apply rounded corners AFTER render, otherwise they don't exist
-        chart.selectAll('rect').attr("rx", 4).attr("ry", 4);
-
-        // edit labels positions
-        chart.selectAll('text.row')
-          .text('')
-          .selectAll('tspan')
-          .data(d => {
-            // helper
-            function intervalFormat(d) {
-              var n = Number(_r.domain[d.key])
-              var _s = Number(_r.domain[d.key - 1]) || 1;
-
-              // Last value is not a range
-              if (d.key === _r.domain.length) {
-                return [I18n.t('gobierto_budgets.invoices.show.more') + " " + (_s - 1).toLocaleString(I18n.locale, {
-                  style: 'currency',
-                  currency: 'EUR',
-                  minimumFractionDigits: 0
-                })]
-              }
-
-              var _l = Number(n - 1);
-
-              return [_s, _l].map(n => n.toLocaleString(I18n.locale, {
-                style: 'currency',
-                currency: 'EUR',
-                minimumFractionDigits: 0
-              }))
-            }
-
-            return intervalFormat(d)
-          })
-          .enter()
-          .append('tspan')
-          .text(d => d)
-          .attr('x', (d, i) => i === 0 ? -_labelOffset : -_labelOffset / 2)
-
-        chart.select('g.axis')
-          .attr('transform', 'translate(0,0)')
-          .append('text')
-          .attr('class', 'axis-title')
-          .attr('y', -9) // Default
-          .selectAll('text')
-          .data(() => {
-            // helper
-            function titleFormat(str) {
-              str = str.split(' ')
-              if (str.length !== 4) throw new Error()
-
-              var last = [str[2], str[3]].join(' ')
-              return [str[0], str[1], last]
-            }
-
-            return titleFormat(I18n.t('gobierto_budgets.invoices.show.fromto'));
-          })
-          .enter()
-          .append('tspan')
-          .text(d => d)
-          .attr('x', (d, i) => (i === 0) ? -_labelOffset : (i === 1) ? -_labelOffset / 2 : 0)
-          .attr('text-anchor', (d, i) => (i === 2) ? 'middle' : '')
-
-        chart.selectAll('g.axis line.grid-line').attr("y2", function() {
-          return Math.abs(+d3.select(this).attr("y2")) + (chart.margins().top / 2)
-        });
-      })
-      .on('filtered', function(){
-        _refreshFromCharts(amounts.top(Infinity));
-      });
-
-    // Customize
-    hbars2.xAxis(d3.axisTop().ticks(5))
-    hbars2.xAxis().tickFormat(
-      function(tick, pos) {
-        if (pos === 0) return null
-        return tick
-      });
-    hbars2.margins().top = 20;
-    hbars2.margins().left = _labelOffset + 5;
-    hbars2.margins().right = 0;
-
-    // Render
-    hbars2.render();
+    new AmountDistributionBars(renderOptions);
   }
 
   function _renderTableFilter() {

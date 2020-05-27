@@ -25,7 +25,8 @@ import {
   VueFiltersMixin,
   translate,
   money,
-  date
+  date,
+  truncate
 } from "./modules/vue-filters.js";
 import { Middleware } from "./modules/middleware.js";
 
@@ -45,5 +46,6 @@ export {
   Middleware,
   translate,
   money,
-  date
+  date,
+  truncate
 };

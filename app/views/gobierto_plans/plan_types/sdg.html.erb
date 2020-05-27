@@ -1,0 +1,12 @@
+<div class="column" data-turbolinks="false">
+  <div class="">
+    <%= render partial: "gobierto_plans/plan_types/sdg/header" %>
+    <div class="sdg_list_header">
+      <div class="sdg_icons">
+        <%= render partial: "gobierto_plans/plan_types/sdg/icons" %>
+      </div>
+    </div>
+
+    <%= render partial: "gobierto_plans/plan_types/sdg/projects", locals: { sdg: @sdg, projects: @projects, projects_term: @projects_term } %>
+  </div>
+</div>

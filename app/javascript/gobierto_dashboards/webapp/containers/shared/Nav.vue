@@ -6,6 +6,7 @@
         :class="{ 'is-active': activeTab === 0 }"
         tag="li"
         class="dashboards-home-nav--tab"
+        @click.native="markTabAsActive(0)"
       >
         <i class="fas fa-chart-bar" />
         <i class="far fa-chart-bar" />
@@ -16,20 +17,11 @@
         :class="{ 'is-active': activeTab === 1 }"
         tag="li"
         class="dashboards-home-nav--tab"
+        @click.native="markTabAsActive(1)"
       >
         <i class="fas fa-clone" />
         <i class="far fa-clone" />
         <span>{{ labelContracts }}</span>
-      </router-link>
-      <router-link
-        :to="{ name: 'tenders_index' }"
-        :class="{ 'is-active': activeTab === 2 }"
-        tag="li"
-        class="dashboards-home-nav--tab"
-      >
-        <i class="fas fa-clone" />
-        <i class="far fa-clone" />
-        <span>{{ labelTenders }}</span>
       </router-link>
     </ul>
   </nav>
@@ -46,9 +38,9 @@ export default {
   },
   data() {
     return {
-      labelSummary: I18n.t("gobierto_dashboards.dashboards.contracts.summary"),
-      labelContracts: I18n.t("gobierto_dashboards.dashboards.contracts.contracts"),
-      labelTenders: I18n.t("gobierto_dashboards.dashboards.contracts.tenders")
+      labelSummary: I18n.t("gobierto_dashboards.dashboards.contracts.nav.summary"),
+      labelContracts: I18n.t("gobierto_dashboards.dashboards.contracts.nav.contracts"),
+      labelTenders: I18n.t("gobierto_dashboards.dashboards.contracts.nav.tenders")
     }
   },
   routesToNavBarMapping: {

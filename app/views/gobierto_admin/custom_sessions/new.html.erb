@@ -1,0 +1,12 @@
+<div class="cont clearfix">
+  <div class="form clearfix">
+    <h1><%= t("gobierto_admin.sessions.new.title") %></h1>
+    <% @admin_session_forms.each do |strategy_name, admin_session_form| %>
+      <%= render partial: "gobierto_admin/custom_sessions/#{strategy_name}/form", locals: { admin_session_form: admin_session_form } %>
+    <% end %>
+  </div>
+</div>
+
+<p>
+  <%= link_to t("gobierto_admin.sessions.new.forgot_your_password"), new_admin_admin_passwords_path %>
+</p>

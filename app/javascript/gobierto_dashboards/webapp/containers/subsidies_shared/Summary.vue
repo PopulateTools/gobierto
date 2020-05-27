@@ -2,66 +2,64 @@
   <div>
     <div class="metric_boxes" id="subsidiesSummary">
       <div class="metric_box">
-        <div class="inner nomargin ">
+        <div class="inner nomargin">
           <div class="p_1">
-            <h2>{{ labelSubsidies }}</h2>
-          </div>
+            <h3>{{ labelSubsidies }}</h3>
+            <div class="pure-g">
+              <div class="pure-u-1 pure-u-lg-1-3">
+                <div class="metric m_b_1"><span id="number-subsidies"></span></div>
+                <p class="m_t_0">{{ labelSubsidiesFor }}</p>
+                <div class="metric m_b_1"><small><span id="sum-subsidies"></span></small></div>
 
-          <div class="pure-g p_1">
-            <div class="pure-u-1 pure-u-lg-1-3">
-              <div class="metric m_b_1"><span id="number-subsidies"></span></div>
-              <p class="m_t_0">{{ labelSubsidiesFor }}</p>
-              <div class="metric m_b_1"><small><span id="sum-subsidies"></span></small></div>
+                <div class="pure-g">
+                  <div class="pure-u-1-2 explanation explanation--relative">
+                    {{ labelMeanAmount }}
+                    <strong class="d_block"><span id="mean-subsidies"></span></strong>
+                  </div>
 
-              <div class="pure-g">
-                <div class="pure-u-1-2 explanation explanation--relative">
-                  {{ labelMeanAmount }}
-                  <strong class="d_block"><span id="mean-subsidies"></span></strong>
+                  <div class="pure-u-1-2 explanation explanation--relative">
+                    {{ labelMedianAmount }}
+                    <strong class="d_block"> <span id="median-subsidies"></span></strong>
+                  </div>
                 </div>
+              </div> <!-- subsidies block -->
 
-                <div class="pure-u-1-2 explanation explanation--relative">
-                  {{ labelMedianAmount }}
-                  <strong class="d_block"> <span id="median-subsidies"></span></strong>
+              <div class="pure-u-1 pure-u-lg-1-3">
+                <div class="metric m_b_1"><span id="pct-collectives-subsidies"></span></div>
+                <p class="m_t_0">{{ labelCollectiveSubsidiesFor }}</p>
+                <div class="metric m_b_1"><small><span id="sum-collectives-subsidies"></span></small></div>
+
+                <div class="pure-g">
+                  <div class="pure-u-1-2 explanation explanation--relative">
+                    {{ labelMeanAmount }}
+                    <strong class="d_block"><span id="mean-collectives-subsidies"></span></strong>
+                  </div>
+
+                  <div class="pure-u-1-2 explanation explanation--relative">
+                    {{ labelMedianAmount }}
+                    <strong class="d_block"> <span id="median-collectives-subsidies"></span></strong>
+                  </div>
                 </div>
+              </div> <!-- collective subsidies block -->
+
+              <div class="pure-u-1 pure-u-lg-1-3">
+                <div class="metric m_b_1"><span id="pct-individuals-subsidies"></span></div>
+                <p class="m_t_0">{{ labelIndividualSubsidiesFor }}</p>
+                <div class="metric m_b_1"><small><span id="sum-individuals-subsidies"></span></small></div>
+
+                <div class="pure-g">
+                  <div class="pure-u-1-2 explanation explanation--relative">
+                    {{ labelMeanAmount }}
+                    <strong class="d_block"><span id="mean-individuals-subsidies"></span></strong>
+                  </div>
+
+                  <div class="pure-u-1-2 explanation explanation--relative">
+                    {{ labelMedianAmount }}
+                    <strong class="d_block"> <span id="median-individuals-subsidies"></span></strong>
+                  </div>
+                </div> <!-- collective subsidies block -->
               </div>
-            </div> <!-- subsidies block -->
-
-            <div class="pure-u-1 pure-u-lg-1-3">
-              <div class="metric m_b_1"><span id="pct-collectives-subsidies"></span></div>
-              <p class="m_t_0">{{ labelCollectiveSubsidiesFor }}</p>
-              <div class="metric m_b_1"><small><span id="sum-collectives-subsidies"></span></small></div>
-
-              <div class="pure-g">
-                <div class="pure-u-1-2 explanation explanation--relative">
-                  {{ labelMeanAmount }}
-                  <strong class="d_block"><span id="mean-collectives-subsidies"></span></strong>
-                </div>
-
-                <div class="pure-u-1-2 explanation explanation--relative">
-                  {{ labelMedianAmount }}
-                  <strong class="d_block"> <span id="median-collectives-subsidies"></span></strong>
-                </div>
-              </div>
-            </div> <!-- collective subsidies block -->
-
-            <div class="pure-u-1 pure-u-lg-1-3">
-              <div class="metric m_b_1"><span id="pct-individuals-subsidies"></span></div>
-              <p class="m_t_0">{{ labelIndividualSubsidiesFor }}</p>
-              <div class="metric m_b_1"><small><span id="sum-individuals-subsidies"></span></small></div>
-
-              <div class="pure-g">
-                <div class="pure-u-1-2 explanation explanation--relative">
-                  {{ labelMeanAmount }}
-                  <strong class="d_block"><span id="mean-individuals-subsidies"></span></strong>
-                </div>
-
-                <div class="pure-u-1-2 explanation explanation--relative">
-                  {{ labelMedianAmount }}
-                  <strong class="d_block"> <span id="median-individuals-subsidies"></span></strong>
-                </div>
-              </div>
-            </div> <!-- collective subsidies block -->
-
+            </div>
           </div>
         </div>
       </div> <!-- metric_box -->

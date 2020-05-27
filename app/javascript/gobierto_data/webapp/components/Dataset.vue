@@ -9,20 +9,6 @@
           {{ titleDataset }}
         </h2>
       </div>
-      <div class="pure-u-1-2 gobierto-data-buttons">
-        <Button
-          :text="labelFav"
-          icon="star"
-          color="#fff"
-          background="var(--color-base)"
-        />
-        <Button
-          :text="labelFollow"
-          icon="bell"
-          color="#fff"
-          background="var(--color-base)"
-        />
-      </div>
     </div>
 
     <DatasetNav :active-dataset-tab="activeDatasetTab" />
@@ -33,6 +19,7 @@
       :private-queries="privateQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
+      :array-columns="arrayColumns"
       :resources-list="resourcesList"
       :dataset-attributes="attributes"
       :is-user-logged="isUserLogged"
@@ -107,7 +94,6 @@ import DataTab from "./sets/DataTab.vue";
 import QueriesTab from "./sets/QueriesTab.vue";
 import VisualizationsTab from "./sets/VisualizationsTab.vue";
 import DownloadsTab from "./sets/DownloadsTab.vue";
-import Button from "./commons/Button.vue";
 import { getUserId, convertToCSV } from "./../../lib/helpers";
 import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../lib/factories/queries";
@@ -119,7 +105,6 @@ import { VisualizationFactoryMixin } from "./../../lib/factories/visualizations"
 export default {
   name: "Main",
   components: {
-    Button,
     SummaryTab,
     DataTab,
     QueriesTab,
@@ -141,8 +126,6 @@ export default {
   },
   data() {
     return {
-      labelFav: I18n.t("gobierto_data.projects.fav") || "",
-      labelFollow: I18n.t("gobierto_data.projects.follow") || "",
       datasetId: 0, // possible deprecation in DATA, don't in the class
       titleDataset: "",
       arrayFormats: {},
@@ -205,7 +188,7 @@ export default {
       if (to.path !== from.path) {
         this.isQueryModified = false;
         this.setDefaultQuery()
-        this.QueryIsNotMine()
+        this.queryIsNotMine()
         this.disabledSavedButton()
         this.disabledRevertButton()
       }
@@ -298,7 +281,7 @@ export default {
     await this.getPrivateVisualizations();
     await this.getPublicVisualizations();
 
-    this.QueryIsNotMine();
+    this.queryIsNotMine();
     this.runCurrentQuery();
     this.setDefaultQuery();
 
@@ -413,12 +396,14 @@ export default {
       }
     },
     setDefaultQuery() {
+
+      const userId = getUserId();
       const {
         params: { queryId }
       } = this.$route;
 
-      let items = this.publicQueries;
-
+      //Check if user is logged
+      const items = userId ? this.privateQueries : this.publicQueries
       //We need to keep this query separate from the editor query
       //When load a saved query we use the queryId to find inside privateQueries or publicQueries
       const { attributes: { sql: queryRevert } = {} } = items.find(({ id }) => id === queryId) || {}
@@ -606,7 +591,6 @@ export default {
       }
     },
     async runCurrentQuery() {
-      console.log(this.currentQuery)
       this.isQueryRunning = true;
 
       // save the query executed
@@ -766,7 +750,7 @@ export default {
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value
     },
-    QueryIsNotMine() {
+    queryIsNotMine() {
       const userId = Number(getUserId());
 
       const {
@@ -782,7 +766,7 @@ export default {
       //Check if the user who loaded the query is the same user who created the query
       if (userId !== 0 && userId !== checkUserId && nameComponent === 'Query') {
         this.enabledForkButton = true
-        this.isForkPromptVisible = false
+        this.isForkPromptVisible = true
       } else {
         this.disabledForkButton()
         this.enabledForkPrompt()

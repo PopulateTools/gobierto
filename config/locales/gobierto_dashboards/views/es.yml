@@ -1,7 +1,54 @@
 ---
 es:
   gobierto_dashboards:
+    dashboards:
+      contracts:
+        amount_distribution: Distribución por importes
+        assignee: Adjudicatario
+        contract_amount: Imp. adjudicación
+        contract_type: Tipo de contrato
+        contractor: Contrato
+        contracts: Contratos
+        date: Fecha
+        dates: Fechas
+        description: Visualización y análisis de los contratos adjudicados y las licitaciones
+          del %{entity_name}
+        download_data: Descarga los datos completos en formatos reutilizables
+        empty_table: No hay datos disponibles
+        final_amount_no_taxes: Importe
+        fromto: Desde A Nº. Contr.
+        main_assignees: Principales adjudicatarios
+        more: Más de
+        nav:
+          contracts: Contratos
+          summary: Resumen
+          tenders: Licitaciones
+        permalink: Consulta este contrato en la Plataforma de Contratación del Sector
+          Público
+        process_type: Tipo de proceso
+        status: Estado
+        submission_date: Fecha
+        summary:
+          contracts: Contratos adjudicados
+          contracts_for: contratos por importe de
+          label_half_spendings_contracts: El <strong><span id="half-spendings-contracts-pct"></span></strong>
+            de contratos concentran el 50% de todo el gasto
+          label_larger_contract_amount: El mayor contrato supone un <strong><span
+            id="larger-contract-amount-pct"></span></strong> de todo el gasto en contratos
+          label_less_than_1000: El <strong><span id="less-than-1000-pct"></span></strong>
+            de los contratos son menores de <strong>1.000 €</strong>
+          mean_amount: Importe medio
+          mean_savings: Ahorro medio de licitación a adjudicación
+          median_amount: Importe mediano
+          tenders: Licitaciones
+          tenders_for: licitaciones por importe de
+        tender_amount: Imp. licitación
+        title: Contratos y licitaciones
     layouts:
+      application:
+        gobierto_dashboards:
+          contracts: Contratos y licitaciones
       menu_subsections:
         contracts: Contratos
-        tenders: Licitaciones
+    shared:
+      loading: Cargando datos...

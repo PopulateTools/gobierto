@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resource :sessions, only: [:new, :create, :destroy]
+      resource :custom_session, only: [:new, :create, :destroy]
       resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
       namespace :gobierto_core do
         resources :templates, only: [:index] do
@@ -430,6 +431,7 @@ Rails.application.routes.draw do
     namespace :gobierto_plans, path: "planes" do
       constraints GobiertoSiteConstraint.new do
         get "/" => "plan_types#index", as: :root
+        get ":slug(/:year)/ods/:sdg_slug" => "plan_types#sdg", as: :plan_sdg
         get ":slug(/:year)" => "plan_types#show", as: :plan
 
         # API
@@ -613,10 +615,12 @@ Rails.application.routes.draw do
 
     namespace :gobierto_dashboards, path: 'dashboards' do
       constraints GobiertoSiteConstraint.new do
-        get "dashboards" => "dashboards#index", as: :root
-
-        get "contracts" => "dashboards#contracts"
-        get "tenders" => "dashboards#tenders"
+        # Front
+        get "contratos" => "dashboards#contracts", as: :summary
+        get "contratos/adjudicaciones" => "dashboards#contracts", as: :contracts
+        get "contratos/adjudicaciones/:id" => "dashboards#contracts"
+        get "contratos/licitaciones" => "dashboards#contracts"
+        get "contratos/licitaciones/:id" => "dashboards#contracts"
       end
     end
 

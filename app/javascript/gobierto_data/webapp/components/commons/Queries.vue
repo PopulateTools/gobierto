@@ -6,7 +6,7 @@
           <Dropdown @is-content-visible="showPrivateQueries = !showPrivateQueries">
             <template v-slot:trigger>
               <h3 class="gobierto-data-summary-queries-panel-title">
-                <Caret :rotate="showPrivateQueries" />
+                <Caret :rotate="!showPrivateQueries" />
                 {{ labelYourQueries }} ({{ privateQueries.length }})
               </h3>
             </template>
@@ -23,6 +23,7 @@
                   <router-link
                     :to="`/datos/${$route.params.id}/q/${id}`"
                     class="gobierto-data-summary-queries-container-name"
+                    @click.native="closeYourQueriesModal()"
                   >
                     {{ name }}
                   </router-link>
@@ -43,32 +44,19 @@
               </transition-group>
             </div>
           </Dropdown>
-
-          <Dropdown @is-content-visible="showFavQueries = !showFavQueries">
-            <template v-slot:trigger>
-              <h3 class="gobierto-data-summary-queries-panel-title">
-                <Caret :rotate="showFavQueries" />
-
-                <!-- TODO: Favorite Queries -->
-                {{ labelFavs }} ({{ 0 }})
-              </h3>
-            </template>
-
-            <!-- TODO: Favorite Queries -->
-            <div />
-          </Dropdown>
         </template>
-
         <Dropdown @is-content-visible="showPublicQueries = !showPublicQueries">
           <template v-slot:trigger>
             <h3 class="gobierto-data-summary-queries-panel-title">
-              <Caret :rotate="showPublicQueries" />
+              <Caret :rotate="!showPublicQueries" />
 
-              {{ labelAll }} ({{ publicQueries.length }})
+              {{ labelAll }} 
+              <template v-if="publicQueries.length">
+                ({{ publicQueries.length }})
+              </template>
             </h3>
           </template>
-
-          <div>
+          <div v-if="publicQueries.length">
             <div
               v-for="{ id, attributes: { sql, name }} in publicQueries"
               :key="id"
@@ -79,11 +67,17 @@
               <router-link
                 :to="`/datos/${$route.params.id}/q/${id}`"
                 class="gobierto-data-summary-queries-container-name"
+                @click.native="closeYourQueriesModal()"
               >
                 {{ name }}
               </router-link>
             </div>
           </div>
+          <template v-else>
+            <div class="gobierto-data-summary-queries-container">
+              {{ labelQueryEmpty }}
+            </div>
+          </template>
         </Dropdown>
       </div>
 
@@ -126,11 +120,11 @@ export default {
   data() {
     return {
       labelYourQueries: I18n.t("gobierto_data.projects.yourQueries") || "",
+      labelQueryEmpty: I18n.t("gobierto_data.projects.queryEmpty") || "",
       labelFavs: I18n.t("gobierto_data.projects.favs") || "",
       labelAll: I18n.t("gobierto_data.projects.all") || "",
       sqlCode: null,
       showPrivateQueries: true,
-      showFavQueries: true,
       showPublicQueries: true,
     };
   },
@@ -149,8 +143,14 @@ export default {
     };
 
     this.editor = CodeMirror.fromTextArea(this.$refs.querySnippet, cmOption);
+
+    this.showPrivateQueries = !!this.privateQueries.length
+    this.showPublicQueries = !!this.publicQueries.length
   },
   methods: {
+    closeYourQueriesModal() {
+      this.$emit('closeQueriesModal')
+    },
     clickDeleteQueryHandler(id) {
       this.$root.$emit('deleteSavedQuery', id)
     },

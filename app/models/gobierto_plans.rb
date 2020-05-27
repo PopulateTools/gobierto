@@ -85,7 +85,9 @@ module GobiertoPlans
       },
       "level0_options": [],
       "show_table_header": false,
-      "open_node": false
+      "open_node": false,
+      "fields_to_not_show_in_front": [],
+      "show_empty_fields": false
     }
 JSON
   end

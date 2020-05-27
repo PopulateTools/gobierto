@@ -5,7 +5,8 @@ ca:
       edit:
         title: Personalitzar lloc
       form:
-        authentication_modules: Estratègies d'autenticació
+        admin_authentication_modules: Estratègies d'autenticació per admins
+        authentication_modules: Estratègies d'autenticació per a usuaris
         hints:
           domain:
             a_record: Entrada A a %{target}

@@ -102,6 +102,10 @@ gem "rubyXL"
 # Performance
 gem "appsignal"
 
+# Auth strategies
+gem "net-ldap"
+gem "ladle"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
@@ -114,7 +118,7 @@ group :test do
   gem "capybara-email"
   gem "codecov", "~> 0.1.9", require: false
   gem "launchy"
-  gem "minitest", "5.14.0"
+  gem "minitest", "5.14.1"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"

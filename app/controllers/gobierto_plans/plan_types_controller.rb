@@ -19,6 +19,7 @@ module GobiertoPlans
       redirect_to gobierto_plans_plan_path(slug: params[:slug], year: @years.first) and return if @year.nil?
 
       @plan = PlanDecorator.new(find_plan)
+      @sdgs = SdgDecorator.new(find_plan)
 
       @site_stats = GobiertoPlans::SiteStats.new site: current_site, plan: @plan
       @plan_updated_at = @site_stats.plan_updated_at
@@ -45,6 +46,19 @@ module GobiertoPlans
           )
         end
       end
+    end
+
+    def sdg
+      @plan_type = find_plan_type
+      last_year = @plan_type.plans.published.maximum(:year)
+      load_year
+      redirect_to gobierto_plans_plan_sdg_path(slug: params[:slug], year: last_year, sdg_slug: params[:sdg_slug]) and return if @year.nil?
+
+      @plan = PlanDecorator.new(find_plan)
+      @sdgs = SdgDecorator.new(find_plan)
+      @sdg = @sdgs.sdg_term(params[:sdg_slug])
+      @projects = @sdgs.projects_by_sdg(@sdg)
+      @projects_term = @plan.level_key(2, @plan.levels + 1)
     end
 
     private

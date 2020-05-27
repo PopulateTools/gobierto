@@ -1,0 +1,188 @@
+<template>
+  <div>
+    <div class="metric_boxes" id="tendersContractsSummary">
+      <div class="metric_box">
+        <div class="inner nomargin ">
+          <div class="pure-g p_1">
+
+            <div class="pure-u-1 pure-u-lg-1-3">
+              <h3>{{ labelTenders }}</h3>
+
+              <div class="metric m_b_1"><span id="number-tenders"></span></div>
+              <p class="m_t_0">{{ labelTendersFor }}</p>
+              <div class="metric m_b_1"><small><span id="sum-tenders"></span></small></div>
+
+              <div class="pure-g">
+                <div class="pure-u-1-2 explanation explanation--relative">
+                  {{ labelMeanAmount }}
+                  <strong class="d_block"><span id="mean-tenders"></span></strong>
+                </div>
+
+                <div class="pure-u-1-2 explanation explanation--relative">
+                  {{ labelMedianAmount }}
+                  <strong class="d_block"> <span id="median-tenders"></span></strong>
+                </div>
+              </div>
+            </div> <!-- tenders block -->
+
+            <div class="pure-u-1 pure-u-lg-2-3">
+              <h3>{{ labelContracts }}</h3>
+
+              <div class="metric m_b_1"><span id="number-contracts"></span></div>
+              <div class="pure-g">
+                <div class="pure-u-1-2">
+                  <p class="m_t_0">{{ labelContractsFor }}</p>
+                  <div class="metric m_b_1"><small><span id="sum-contracts"></span></small></div>
+
+                  <div class="pure-g">
+                    <div class="pure-u-1-2 explanation explanation--relative">
+                      {{ labelMeanAmount }}
+                      <strong class="d_block"><span id="mean-contracts"></span></strong>
+                    </div>
+
+                    <div class="pure-u-1-2 explanation explanation--relative">
+                      {{ labelMedianAmount }}
+                      <strong class="d_block"><span id="median-contracts"></span></strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> <!-- contracts -->
+
+          </div>
+        </div>
+      </div> <!-- metric_box -->
+    </div> <!-- metrix_boxes -->
+
+    <div class="pure-g block m_b_3" id="dccharts">
+      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
+        <p class="decorator" v-html="labelLessThan1000"></p>
+      </div>
+
+      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
+        <p class="decorator" v-html="labelLargerContractAmount"></p>
+      </div>
+
+      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
+        <p class="decorator" v-html="labelHalfSpendingsContracts"></p>
+      </div>
+    </div>
+
+    <div class="pure-g block">
+      <div class="pure-u-1 pure-u-lg-1-2 p_h_r_3">
+        <div class="m_b_3">
+          <h3 class="mt1 graph-title">{{ labelContractType }}</h3>
+          <div id="contract-type-bars"></div>
+        </div>
+
+        <div>
+          <h3 class="mt1 graph-title">{{ labelProcessType }}</h3>
+          <div id="process-type-bars"></div>
+        </div>
+      </div>
+
+      <div class="pure-u-1 pure-u-lg-1-2 header_block_inline">
+        <div>
+          <h3 class="mt1 graph-title">{{ labelAmountDistribution }}</h3>
+          <div id="amount-distribution-bars"></div>
+        </div>
+        <div>
+          <div id="date-bars" class="hidden"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="m_t_4">
+      <h3 class="mt1 graph-title">{{ labelMainAssignees }}</h3>
+      <Table
+        :items="items"
+        :columns="columns"
+      >
+      </Table>
+    </div>
+
+  </div>
+</template>
+
+<script>
+import Table from "../../components/Table.vue";
+import { EventBus } from "../../mixins/event_bus";
+import { assigneesColumns } from "../../lib/config.js";
+
+export default {
+  name: 'Summary',
+  components: {
+    Table
+  },
+  data(){
+    return {
+      contractsData: this.$root.$data.contractsData,
+      items: [],
+      labelTenders: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders'),
+      labelTendersFor: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders_for'),
+      labelContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts'),
+      labelContractsFor: I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts_for'),
+      labelMeanAmount: I18n.t('gobierto_dashboards.dashboards.contracts.summary.mean_amount'),
+      labelMedianAmount: I18n.t('gobierto_dashboards.dashboards.contracts.summary.median_amount'),
+      labelMeanSavings: I18n.t('gobierto_dashboards.dashboards.contracts.summary.mean_savings'),
+      labelLessThan1000: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_less_than_1000'),
+      labelLargerContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_larger_contract_amount'),
+      labelHalfSpendingsContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.label_half_spendings_contracts'),
+      labelContractType: I18n.t('gobierto_dashboards.dashboards.contracts.contract_type'),
+      labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
+      labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution'),
+      labelMainAssignees: I18n.t('gobierto_dashboards.dashboards.contracts.main_assignees'),
+    }
+  },
+
+  mounted() {
+    EventBus.$on('refresh_summary_data', () => {
+      this.refreshSummaryData();
+    });
+
+    EventBus.$emit("summary_ready");
+  },
+  created() {
+    this.items = this.buildItems();
+    this.columns = assigneesColumns;
+  },
+  beforeDestroy(){
+    EventBus.$off('refresh_summary_data');
+  },
+  methods: {
+    refreshSummaryData(){
+      this.contractsData = this.$root.$data.contractsData;
+      this.items = this.buildItems();
+    },
+    buildItems() {
+      const groupedByAssignee = {}
+      // Group contracts by assignee
+      this.contractsData.forEach(({assignee, final_amount_no_taxes}) => {
+        if (assignee === '' || assignee === undefined) {
+          return;
+        }
+
+        if (groupedByAssignee[assignee] === undefined) {
+          groupedByAssignee[assignee] = {
+            name: assignee,
+            sum: 0,
+            count: 0
+          }
+        }
+
+        groupedByAssignee[assignee].sum += parseFloat(final_amount_no_taxes)
+        groupedByAssignee[assignee].count++;
+      });
+
+
+      // Sort grouped elements by number of contracts
+      const sortedAndGrouped = Object.values(groupedByAssignee).sort((a, b) => { return a.count < b.count ? 1 : -1 });
+
+      // The id must be unique so when data changes vue knows how to refresh the table accordingly.
+      sortedAndGrouped.forEach(contract => contract.id = `${contract.name}-${contract.count}`)
+
+      return sortedAndGrouped;
+    }
+  }
+}
+</script>

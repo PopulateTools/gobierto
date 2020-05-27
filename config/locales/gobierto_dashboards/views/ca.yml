@@ -15,7 +15,7 @@ ca:
           del %{entity_name}
         download_data: Descarregueu les dades en format reutilitzable
         empty_table: No hi ha dades disponibles
-        final_amount: Quantitat
+        final_amount_no_taxes: Quantitat
         fromto: De a Nº Contr.
         main_assignees: Principals adjudicataris
         more: Més de

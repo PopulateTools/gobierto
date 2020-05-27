@@ -136,28 +136,29 @@ export class ContractsController {
 
     // Contracts precalculations and normalizations
     _amountRange = {
-      domain: [501, 1001, 5001, 10001, 15001],
-      range: [0, 1, 2, 3, 4, 5]
+      domain: [1001, 10001, 50001, 100001],
+      range: [0, 1, 2, 3, 4]
     };
     var rangeFormat = d3.scaleThreshold().domain(_amountRange.domain).range(_amountRange.range);
 
     for(let i = 0; i < contractsData.length; i++){
       const contract = contractsData[i];
-      const final_amount = (contract.final_amount === '' || contract.final_amount === undefined) ? 0.0 : parseFloat(contract.final_amount);
-      const initial_amount = (contract.initial_amount === '' || contract.initial_amount === undefined) ? 0.0 : parseFloat(contract.initial_amount);
+      const final_amount_no_taxes = contract.final_amount_no_taxes ? parseFloat(contract.final_amount_no_taxes) : 0.0;
+      const initial_amount_no_taxes = contract.initial_amount_no_taxes ? parseFloat(contract.initial_amount_no_taxes) : 0.0 ;
 
-      contract.final_amount = final_amount;
-      contract.initial_amount = initial_amount;
-      contract.range = rangeFormat(+final_amount);
+      contract.final_amount_no_taxes = final_amount_no_taxes;
+      contract.initial_amount_no_taxes = initial_amount_no_taxes;
+      contract.range = rangeFormat(+final_amount_no_taxes);
       contract.start_date_year = contract.start_date ? (new Date(contract.start_date).getFullYear()) : contract.start_date;
     }
 
     for(let i = 0; i < tendersData.length; i++){
       const tender = tendersData[i];
-      const initial_amount = (tender.initial_amount === '' || tender.initial_amount === undefined) ? 0.0 : parseFloat(tender.initial_amount);
+      const initial_amount_no_taxes = tender.initial_amount_no_taxes ? parseFloat(tender.initial_amount_no_taxes) : 0.0;
 
-      tender.initial_amount = initial_amount;
-      tender.submission_date_year = tender.submission_date != undefined && tender.submission_date != '' ? (new Date(tender.submission_date).getFullYear()) : tender.submission_date;
+      tender.initial_amount_no_taxes = initial_amount_no_taxes;
+      tender.submission_date_year = tender.submission_date ? (new Date(tender.submission_date).getFullYear()) : tender.submission_date;
+
       if(tender.submission_date_year) { tender.submission_date_year = tender.submission_date_year.toString() }
     }
 
@@ -198,7 +199,7 @@ export class ContractsController {
     const _tendersData = this._currentDataSource().tendersData
 
     // Calculations
-    const amountsArray = _tendersData.map(({initial_amount = 0}) => parseFloat(initial_amount) );
+    const amountsArray = _tendersData.map(({initial_amount_no_taxes = 0}) => parseFloat(initial_amount_no_taxes) );
 
     const numberTenders = _tendersData.length;
     const sumTenders = d3.sum(amountsArray);
@@ -216,7 +217,7 @@ export class ContractsController {
     const _contractsData = this._currentDataSource().contractsData;
 
     // Calculations
-    const amountsArray = _contractsData.map(({final_amount = 0}) => parseFloat(final_amount) );
+    const amountsArray = _contractsData.map(({final_amount_no_taxes = 0}) => parseFloat(final_amount_no_taxes) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
 
     // Calculations box items
@@ -226,10 +227,10 @@ export class ContractsController {
     const medianContracts = d3.median(amountsArray);
 
     // Calculations headlines
-    const lessThan1000Total = _contractsData.filter(({final_amount = 0}) => parseFloat(final_amount) < 1000).length;
+    const lessThan1000Total = _contractsData.filter(({final_amount_no_taxes = 0}) => parseFloat(final_amount_no_taxes) < 1000).length;
     const lessThan1000Pct = lessThan1000Total/numberContracts;
 
-    const largerContractAmount = d3.max(_contractsData, ({final_amount = 0}) => parseFloat(final_amount));
+    const largerContractAmount = d3.max(_contractsData, ({final_amount_no_taxes = 0}) => parseFloat(final_amount_no_taxes));
     const largerContractAmountPct = largerContractAmount / sumContracts;
 
     let iteratorAmountsSum = 0, numberContractsHalfSpendings = 0;

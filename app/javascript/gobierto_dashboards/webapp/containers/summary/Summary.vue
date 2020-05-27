@@ -132,9 +132,6 @@ export default {
       labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
       labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution'),
       labelMainAssignees: I18n.t('gobierto_dashboards.dashboards.contracts.main_assignees'),
-      labelTableThAssignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
-      labelTableThContracts: I18n.t('gobierto_dashboards.dashboards.contracts.contracts'),
-      labelTableThAMount: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount'),
     }
   },
 
@@ -160,7 +157,7 @@ export default {
     buildItems() {
       const groupedByAssignee = {}
       // Group contracts by assignee
-      this.contractsData.forEach(({assignee, final_amount}) => {
+      this.contractsData.forEach(({assignee, final_amount_no_taxes}) => {
         if (assignee === '' || assignee === undefined) {
           return;
         }
@@ -173,7 +170,7 @@ export default {
           }
         }
 
-        groupedByAssignee[assignee].sum += parseFloat(final_amount)
+        groupedByAssignee[assignee].sum += parseFloat(final_amount_no_taxes)
         groupedByAssignee[assignee].count++;
       });
 

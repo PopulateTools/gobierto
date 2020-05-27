@@ -13,4 +13,10 @@ class GobiertoBudgets::ApplicationController < ApplicationController
   def set_current_site
     @site = SiteDecorator.new(current_site)
   end
+
+  private
+
+  def cache_path
+    "#{current_site.cache_key}/#{current_module}/#{self.controller_name}/#{self.action_name}/#{I18n.locale}"
+  end
 end

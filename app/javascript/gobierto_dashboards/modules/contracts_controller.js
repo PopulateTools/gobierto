@@ -104,7 +104,7 @@ export class ContractsController {
           this._redrawCharts();
         });
 
-        document.getElementById("loading").classList.add('hidden')
+        document.getElementsByClassName("js-loading")[0].classList.add('hidden');
       });
     }
   }

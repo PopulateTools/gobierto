@@ -187,7 +187,7 @@ export default {
       // The id must be unique so when data changes vue knows how to refresh the table accordingly.
       sortedAndGrouped.forEach(subsidy => subsidy.id = `${subsidy.name}-${subsidy.count}`)
 
-      return sortedAndGrouped;
+      return sortedAndGrouped.slice(0, 30);
     }
   }
 }

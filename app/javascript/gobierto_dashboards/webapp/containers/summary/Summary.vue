@@ -181,7 +181,7 @@ export default {
       // The id must be unique so when data changes vue knows how to refresh the table accordingly.
       sortedAndGrouped.forEach(contract => contract.id = `${contract.name}-${contract.count}`)
 
-      return sortedAndGrouped;
+      return sortedAndGrouped.slice(0, 30);
     }
   }
 }

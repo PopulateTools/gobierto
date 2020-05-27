@@ -1,6 +1,8 @@
 class GobiertoBudgets::ApplicationController < ApplicationController
   include User::SessionHelper
 
+  helper_method :cache_path
+
   rescue_from GobiertoBudgets::BudgetLine::RecordNotFound, with: :render_404
   rescue_from GobiertoBudgets::BudgetLine::InvalidSearchConditions do |exception|
     head :bad_request

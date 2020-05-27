@@ -14,19 +14,19 @@ export const tendersColumns = [
 export const assigneesColumns = [
   {field: 'name', translation: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'), format: null, cssClass: ''},
   {field: 'count', translation: I18n.t('gobierto_dashboards.dashboards.contracts.contracts'), format: null, cssClass: 'right'},
-  {field: 'sum', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount_no_taxes'), format: 'currency', cssClass: ''},
+  {field: 'sum', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'right'},
 ];
 
 export const subsidiesColumns = [
   {field: 'beneficiary_name', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.beneficiary'), format: null, cssClass: ''},
-  {field: 'amount', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.amount'), format: 'currency', cssClass: ''},
+  {field: 'amount', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.amount'), format: 'currency', cssClass: 'right'},
   {field: 'grant_date', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.date'), format: null, cssClass: ''},
 ];
 
 export const grantedColumns = [
   {field: 'name', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.beneficiary'), format: null, cssClass: ''},
   {field: 'count', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.subsidies'), format: null, cssClass: 'right'},
-  {field: 'sum', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.amount'), format: 'currency', cssClass: ''},
+  {field: 'sum', translation: I18n.t('gobierto_dashboards.dashboards.subsidies.amount'), format: 'currency', cssClass: 'right'},
 ];
 
 export const contractsFiltersConfig = [

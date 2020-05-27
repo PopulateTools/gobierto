@@ -50,13 +50,14 @@ en:
         date: Date
         dates: Dates
         description: Visualizations and analisys for the granted subsidies from %{entity_name}
-        fromto: From To No Contr.
+        fromto: From To No Subs.
         main_beneficiaries: Main beneficiaries
         more: More than
         nav:
           subsidies: Subsidies
           summary: Summary
         regulatory_bases: Regulatory bases
+        subsidies: Subsidies
         summary:
           collective_subsidies_for: to collectives for a total amount of
           individual_subsidies_for: to individuals for a total amount of

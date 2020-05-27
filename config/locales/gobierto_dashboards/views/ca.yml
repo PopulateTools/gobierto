@@ -51,13 +51,14 @@ ca:
         date: Data
         dates: Dates
         description: Visualització i anàlisi de les subvencions concedides per %{entity_name}
-        fromto: De a Nº Contr.
+        fromto: De a Nº Subv.
         main_beneficiaries: Principals beneficiaris
         more: Més de
         nav:
           subsidies: Subvencions
           summary: Resum
         regulatory_bases: Bases reguladores
+        subsidies: Subvencions
         summary:
           collective_subsidies_for: a col·lectius per import de
           individual_subsidies_for: a particulars per import de

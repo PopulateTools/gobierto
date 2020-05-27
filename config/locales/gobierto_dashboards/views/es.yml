@@ -51,13 +51,14 @@ es:
         date: Fecha
         dates: Fechas
         description: Visualización y análisis de las subvenciones concedidas por %{entity_name}
-        fromto: Desde A Nº. Contr.
+        fromto: Desde A Nº. Subv.
         main_beneficiaries: Principales beneficiarios
         more: Más de
         nav:
           subsidies: Subvenciones
           summary: Resumen
         regulatory_bases: Bases reguladoras
+        subsidies: Subvenciones
         summary:
           collective_subsidies_for: a colectivos por importe de
           individual_subsidies_for: a particulares por importe de

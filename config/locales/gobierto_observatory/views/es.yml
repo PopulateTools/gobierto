@@ -132,6 +132,9 @@ es:
       application:
         observatory: Observatorio
       menu_subsections:
+        bannerMap: Un visor geográfico para explorar la estructura demográfica de
+          %{place}
+        demographicObservatory: Observatorio demográfico
         economia: Economía
         empleo: Empleo
         poblacion: Población

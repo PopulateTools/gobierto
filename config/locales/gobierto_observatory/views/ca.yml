@@ -132,6 +132,8 @@ ca:
       application:
         observatory: Observatori
       menu_subsections:
+        bannerMap: Un visor geogràfic per explorar l'estructura demogràfica de %{place}
+        demographicObservatory: Observatori demogràfic
         economia: Economia
         empleo: Ocupació
         poblacion: Població

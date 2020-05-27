@@ -30,6 +30,55 @@
   z-index: 100;
 }
 
+.gobierto-observatory-banner {
+  position: relative;
+  min-height: 260px;
+}
+
+.gobierto-observatory-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: var(--pyramidal-female);
+  font-family: var(--plex-font);
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.gobierto-observatory-footer--text,
+.gobierto-observatory-footer--button {
+  font-size: 1.5rem;
+  font-weight: 100;
+  color: #fff;
+  width: 50%;
+  margin: 0;
+  line-height: 31px;
+}
+
+.gobierto-observatory-footer--button {
+  font-weight: bold;
+  text-align: right;
+  text-decoration: none;
+}
+
+.gobierto-observatory-footer--button-text {
+  margin-right: 1rem;
+}
+
+.gobierto-observatory-image {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  object-fit: cover;
+
+}
+
+
 .gobierto_observatory {
   height: 100vh;
 

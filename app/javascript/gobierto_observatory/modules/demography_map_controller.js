@@ -507,11 +507,11 @@ export class DemographyMapController {
         that.pyramidChart()
         that.rebuildChoroplethColorDomain()
         if (chart.filter() !== null) {
-          document.getElementById("bar-by-origin-spaniards").style.display = 'none';
-          document.getElementById("bar-by-origin-others").style.display = 'none';
+          document.getElementById("bar-by-origin-spaniards").style.visiblity = 'hidden';
+          document.getElementById("bar-by-origin-others").style.visiblity = 'hidden';
         } else {
-          document.getElementById("bar-by-origin-spaniards").style.display = 'block';
-          document.getElementById("bar-by-origin-others").style.display = 'block';
+          document.getElementById("bar-by-origin-spaniards").style.visiblity = 'visible';
+          document.getElementById("bar-by-origin-others").style.visiblity = 'visible';
         }
       });
     chart.render()
@@ -545,11 +545,10 @@ export class DemographyMapController {
         /*const container = document.getElementById('container-bar-origin-spaniards')
         that.activeFiltered(container)*/
         if (chart.filter() !== null) {
-          document.getElementById("bar-by-studies").style.display = 'none';
+          document.getElementById("bar-by-studies").style.visibility = 'hidden';
         } else {
-          document.getElementById("bar-by-studies").style.display = 'block';
+          document.getElementById("bar-by-studies").style.visibility = 'visible';
         }
-        that.updateStudiesFilters('all', chart.filters());
         that.chart1.dimension(that.ndx.filters.origin.all);
         that.chart1.group(that.ndx.groups.origin.all);
         that.chart2.dimension(that.ndx.filters.origin.byNationality);
@@ -591,9 +590,9 @@ export class DemographyMapController {
         /*const container = document.getElementById('container-bar-origin-others')
         that.activeFiltered(container)*/
         if (chart.filter() !== null) {
-          document.getElementById("bar-by-studies").style.display = 'none';
+          document.getElementById("bar-by-studies").style.visibility = 'hidden';
         } else {
-          document.getElementById("bar-by-studies").style.display = 'block';
+          document.getElementById("bar-by-studies").style.visibility = 'visible';
         }
         that.chart1.dimension(that.ndx.filters.origin.all);
         that.chart1.group(that.ndx.groups.origin.all);
@@ -733,7 +732,6 @@ export class DemographyMapController {
       }, 0)
     }
   }
-
 
   clearFilterList(chart) {
     //Get the chart from the register list

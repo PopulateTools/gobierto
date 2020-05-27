@@ -156,6 +156,23 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
 
       # Type
       assert page.has_content?('Abierto simplificado')
+
+      # Assignees Show
+      ################
+      find("#assignee_show_link").click
+
+      # Url is updated
+      assert_equal current_path, "/dashboards/contratos/adjudicatario/0d25ed58b4e09e6985b0d5cf27e7fa98"
+
+      assert page.has_content?("Contracts assigned to")
+      assert page.has_content?('Prestación del servicio de plataforma de formación online "Escuela Virtual Formalef Getafe".')
+
+      # We can go back to the contract page
+      first_contract = find(".dashboards-home-main--tr", match: :first)
+      first_contract.click
+
+      assert_equal current_path, "/dashboards/contratos/adjudicaciones/807094"
+
     end
   end
 

@@ -12,6 +12,7 @@
         <div class="">
           <router-link
             :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
+            id="assignee_show_link"
           >
             <strong class="d_block">{{ assignee }}</strong>
           </router-link>

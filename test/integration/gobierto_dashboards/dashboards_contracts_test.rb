@@ -85,7 +85,7 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       # Contract type
       contract_type_container = find("#contract-type-bars", match: :first)
 
-      assert contract_type_container.has_content?(/Gestión de servicios públicos\d*1,3 %/)
+      assert contract_type_container.has_content?(/Gestión de servicios públ...\d*1,3 %/)
       assert contract_type_container.has_content?(/Servicios\d*56,5 %/)
 
       # # Process type

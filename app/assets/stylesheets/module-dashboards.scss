@@ -186,6 +186,10 @@
       }
     }
 
+    .largest-width-td{
+      width: 45%;
+    }
+
     &--tr:hover > * {
       background-color: rgba(var(--color-base-string), 0.1);
 

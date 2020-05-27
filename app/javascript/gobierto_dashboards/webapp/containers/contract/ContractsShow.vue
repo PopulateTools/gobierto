@@ -11,8 +11,8 @@
         <label class="soft">{{ labelAsignee }}</label>
         <div class="">
           <strong class="d_block">{{ assignee }}</strong>
-          <span v-if="document_number">
-            {{document_number}}
+          <span v-if="assignee_id">
+            {{assignee_id}}
           </span>
         </div>
       </div>
@@ -30,6 +30,10 @@
           <tr>
             <th class="left">{{ labelStatus }}</th>
             <td>{{ status }}</td>
+          </tr>
+          <tr>
+            <th class="left">{{ labelContractType }}</th>
+            <td>{{ contract_type }}</td>
           </tr>
           <tr>
             <th class="left">{{ labelProcessType }}</th>
@@ -61,7 +65,7 @@ export default {
       title: '',
       description: '',
       assignee: '',
-      document_number: '',
+      assignee_id: '',
       final_amount_no_taxes: '',
       initial_amount_no_taxes: '',
       status: '',
@@ -72,6 +76,7 @@ export default {
       labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
       labelStatus: I18n.t('gobierto_dashboards.dashboards.contracts.status'),
       labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
+      labelContractType: I18n.t('gobierto_dashboards.dashboards.contracts.contract_type'),
       labelPermalink: I18n.t('gobierto_dashboards.dashboards.contracts.permalink')
     }
   },
@@ -84,22 +89,24 @@ export default {
         title,
         description,
         assignee,
-        document_number,
+        assignee_id,
         final_amount_no_taxes,
         initial_amount_no_taxes,
         status,
         process_type,
+        contract_type,
         permalink
       } = contract
 
       this.title = title
       this.description = description
       this.assignee = assignee
-      this.document_number = document_number
+      this.assignee_id = assignee_id
       this.final_amount_no_taxes = final_amount_no_taxes
       this.initial_amount_no_taxes = initial_amount_no_taxes
       this.status = status
       this.process_type = process_type
+      this.contract_type = contract_type
       this.permalink = permalink
     }
   }

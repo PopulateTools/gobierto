@@ -23,9 +23,10 @@ es:
           contracts: Contratos
           summary: Resumen
           tenders: Licitaciones
-        permalink: enlace a la web oficial
+        permalink: Consulta este contrato en la Plataforma de Contratación del Sector
+          Público
         process_type: Tipo de proceso
-        status: Procedicimiento
+        status: Estado
         submission_date: Fecha
         summary:
           contracts: Contratos adjudicados
@@ -49,3 +50,5 @@ es:
           contracts: Contratos y licitaciones
       menu_subsections:
         contracts: Contratos
+    shared:
+      loading: Cargando datos...

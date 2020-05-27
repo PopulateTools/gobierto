@@ -23,7 +23,7 @@ en:
           contracts: Contracts
           summary: Summary
           tenders: Tenders
-        permalink: link to the official website
+        permalink: Check this contract on the Public Sector Contracting Platform
         process_type: Type of process
         status: Status
         submission_date: Date
@@ -49,3 +49,5 @@ en:
           contracts: Contracts and tenders
       menu_subsections:
         contracts: Contracts
+    shared:
+      loading: Loading data...

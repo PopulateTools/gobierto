@@ -49,9 +49,9 @@ export class ContractsController {
           routes: [
             { path: "/dashboards/contratos", component: Home, props: {dataDownloadEndpoint: options.dataDownloadEndpoint},
               children: [
-                { path: "resumen", name: "summary", component: Summary},
-                { path: "contratos", name: "contracts_index", component: ContractsIndex },
-                { path: "contratos/:id", name: "contracts_show", component: ContractsShow },
+                { path: "", name: "summary", component: Summary},
+                { path: "adjudicaciones", name: "contracts_index", component: ContractsIndex },
+                { path: "adjudicaciones/:id", name: "contracts_show", component: ContractsShow },
               ]
             }
 
@@ -103,6 +103,11 @@ export class ContractsController {
         EventBus.$once('moved_to_summary', () => {
           this._redrawCharts();
         });
+
+        const loadingElement = document.querySelector(".js-loading");
+        if (loadingElement) {
+          loadingElement.classList.add('hidden')
+        }
       });
     }
   }

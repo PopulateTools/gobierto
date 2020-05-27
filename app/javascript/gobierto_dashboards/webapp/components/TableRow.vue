@@ -5,9 +5,9 @@
     class="dashboards-home-main--tr"
   >
     <td
-      v-for="{ field, format } in columns"
+      v-for="{ field, format, cssClass } in columns"
       class="dashboards-home-main--td"
-      :class="{ 'right': format === 'quantity' }"
+      :class="cssClass"
     >
       <div>{{ formattedItem[field] }}</div>
     </td>

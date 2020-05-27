@@ -23,9 +23,9 @@ ca:
           contracts: Contracts
           summary: Resum
           tenders: Licitacions
-        permalink: enllaç cap a la web oficial
+        permalink: Consulteu aquest contracte a la Plataforma de Contractació del Sector Públic
         process_type: Tipus de procés
-        status: Procediment
+        status: Estat
         submission_date: Data
         summary:
           contracts: Contractes adjudicats
@@ -50,3 +50,5 @@ ca:
           contracts: Contractes i licitacions
       menu_subsections:
         contracts: Contractes
+    shared:
+      loading: Carregant dades...

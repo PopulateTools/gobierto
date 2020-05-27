@@ -5,9 +5,8 @@ require "test_helper"
 class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @summary_path = gobierto_dashboards_contracts_path(locale: 'es')
-    @contracts_path = gobierto_dashboards_contratos_contratos_path
-    @tenders_path = gobierto_dashboards_contratos_licitaciones_path
+    @summary_path = gobierto_dashboards_summary_path(locale: 'es')
+    @contracts_path = gobierto_dashboards_contracts_path
 
     ::GobiertoModuleSettings.create!({
       site_id: site.id,
@@ -138,7 +137,7 @@ class GobiertoDashboards::DashboardsContractsTest < ActionDispatch::IntegrationT
       assert find(".dashboards-home-nav--tab.is-active").text, 'CONTRACTS'
 
       # Url is updated
-      assert_equal current_path, "/dashboards/contratos/contratos/807094"
+      assert_equal current_path, "/dashboards/contratos/adjudicaciones/807094"
 
       # Title
       assert page.has_content?('Prestación del servicio de plataforma de formación online "Escuela Virtual Formalef Getafe".')

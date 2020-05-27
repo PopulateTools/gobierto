@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class PlanTableCustomFieldsForm < BaseForm
-      REQUIRED_COLUMNS = %w(Node.Title external_id custom_field).freeze
+      REQUIRED_COLUMNS = %w(external_id custom_field).freeze
       TRANSFORMATIONS = {
         text: ->(data) { data.to_s },
         integer: ->(data) { data. to_i },
@@ -53,7 +53,7 @@ module GobiertoAdmin
         errors.add(:base, :file_not_found) unless csv_file.present?
         errors.add(:base, :invalid_format) unless csv_file_content
 
-        unless !csv_file_content || (REQUIRED_COLUMNS - csv_file_content.headers).blank? && csv_file_content.headers.any? { |header| /col_\d+/.match?(header) }
+        if !csv_file_content || (REQUIRED_COLUMNS - csv_file_content.headers).present? || csv_file_content.headers.none? { |header| /col_\d+/.match?(header) }
           errors.add(:base, :invalid_columns)
         end
       end

@@ -30,12 +30,12 @@ es:
         summary:
           contracts: Contratos adjudicados
           contracts_for: contratos por importe de
-          label_half_spendings_contracts: El <strong><span id="half-spendings-contracts-pct"></span></strong>
-            de contratos concentran el 50% de todo el gasto
-          label_larger_contract_amount: El mayor contrato supone un <strong><span
-            id="larger-contract-amount-pct"></span></strong> de todo el gasto en contratos
-          label_less_than_1000: El <strong><span id="less-than-1000-pct"></span></strong>
-            de los contratos son menores de <strong>1.000 €</strong>
+          label_half_spendings_contracts_1: "El "
+          label_half_spendings_contracts_2: " de contratos concentran el 50% de todo el gasto"
+          label_larger_contract_amount_1: "El mayor contrato supone un "
+          label_larger_contract_amount_2: " de todo el gasto en contratos"
+          label_less_than_1000_1: "El "
+          label_less_than_1000_2: " de los contratos son menores de "
           mean_amount: Importe medio
           mean_savings: Ahorro medio de licitación a adjudicación
           median_amount: Importe mediano
@@ -62,12 +62,12 @@ es:
         summary:
           collective_subsidies_for: a colectivos por importe de
           individual_subsidies_for: a particulares por importe de
-          label_half_spendings_subsidies: El <strong><span id="half-spendings-subsidies-pct"></span></strong>
-            de subvenciones concentran el 50% de todo el gasto
-          label_larger_subsidy_amount: La mayor subvención supone un <strong><span
-            id="larger-subsidy-amount-pct"></span></strong> de todo el gasto en subvenciones
-          label_less_than_1000: El <strong><span id="less-than-1000-pct"></span></strong>
-            de las subvenciones son menores de <strong>1.000 €</strong>
+          label_half_spendings_subsidies_1: "El "
+          label_half_spendings_subsidies_2: " de subvenciones concentran el 50% de todo el gasto"
+          label_larger_subsidy_amount_1: "La mayor subvención supone un "
+          label_larger_subsidy_amount_2: " de todo el gasto en subvenciones"
+          label_less_than_1000_1: "El "
+          label_less_than_1000_2: " de las subvenciones son menores de "
           mean_amount: Importe medio
           median_amount: Importe mediano
           subsidies: Subvenciones

@@ -29,12 +29,12 @@ en:
         summary:
           contracts: Assigned contracts
           contracts_for: contracts for a total amount of
-          label_half_spendings_contracts: <strong><span id="half-spendings-contracts-pct"></span></strong>
-            of contracts accumulate the 50% of all the spending
-          label_larger_contract_amount: The largest contract means a <strong><span
-            id="larger-contract-amount-pct"></span></strong> of all the spending
-          label_less_than_1000: <strong><span id="less-than-1000-pct"></span></strong>
-            of contracts are less than <strong>1.000 €</strong>
+          label_half_spendings_contracts_1: ""
+          label_half_spendings_contracts_2: " of contracts accumulate the 50% of all the spending"
+          label_larger_contract_amount_1: "The largest contract means a "
+          label_larger_contract_amount_2: " of all the spending"
+          label_less_than_1000_1: ""
+          label_less_than_1000_2: " of contracts are less than "
           mean_amount: Average amount
           mean_savings: Average savings from tender to contract
           median_amount: Median amount
@@ -61,12 +61,12 @@ en:
         summary:
           collective_subsidies_for: to collectives for a total amount of
           individual_subsidies_for: to individuals for a total amount of
-          label_half_spendings_subsidies: <strong><span id="half-spendings-subsidies-pct"></span></strong>
-            of subsidies accumulate the 50% of all the spending
-          label_larger_subsidy_amount: The largest subsidy means a <strong><span id="larger-subsidy-amount-pct"></span></strong>
-            of all the spending
-          label_less_than_1000: <strong><span id="less-than-1000-pct"></span></strong>
-            of subsidies are less than <strong>1.000 €</strong>
+          label_half_spendings_subsidies_1: ""
+          label_half_spendings_subsidies_2: " of subsidies accumulate the 50% of all the spending"
+          label_larger_subsidy_amount_1: "The largest subsidy means a "
+          label_larger_subsidy_amount_2: " of all the spending"
+          label_less_than_1000_1: ""
+          label_less_than_1000_1: " of subsidies are less than "
           mean_amount: Average amount
           median_amount: Median amount
           subsidies: Subsidies

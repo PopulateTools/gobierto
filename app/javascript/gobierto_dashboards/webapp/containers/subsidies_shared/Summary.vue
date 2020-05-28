@@ -67,15 +67,21 @@
 
     <div class="pure-g block m_b_3" id="dccharts">
       <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator" v-html="labelLessThan1000"></p>
+        <p class="decorator">
+          {{ labelLessThan1000_1 }}<strong><span id="less-than-1000-pct"></span></strong>{{ labelLessThan1000_2 }}<strong>1.000 €</strong>
+        </p>
       </div>
 
       <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator" v-html="labelLargerSubsidyAmount"></p>
+        <p class="decorator">
+          {{ labelLargerSubsidyAmount_1 }}<strong><span id="larger-subsidy-amount-pct"></span></strong>{{ labelLargerSubsidyAmount_2 }}
+        </p>
       </div>
 
       <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator" v-html="labelHalfSpendingsSubsidies"></p>
+        <p class="decorator">
+          {{ labelHalfSpendingsSubsidies_1 }}<strong><span id="half-spendings-subsidies-pct"></span></strong>{{ labelHalfSpendingsSubsidies_2 }}
+        </p>
       </div>
     </div>
 
@@ -130,9 +136,12 @@ export default {
       labelCollectiveSubsidiesFor: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.collective_subsidies_for'),
       labelMeanAmount: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.mean_amount'),
       labelMedianAmount: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.median_amount'),
-      labelLessThan1000: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.label_less_than_1000'),
-      labelLargerSubsidyAmount: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.label_larger_subsidy_amount'),
-      labelHalfSpendingsSubsidies: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.label_half_spendings_subsidies'),
+      labelLessThan1000_1: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.label_less_than_1000_1'),
+      labelLessThan1000_2: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.label_less_than_1000_2'),
+      labelLargerSubsidyAmount_1: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.label_larger_subsidy_amount_1'),
+      labelLargerSubsidyAmount_2: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.label_larger_subsidy_amount_2'),
+      labelHalfSpendingsSubsidies_1: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.label_half_spendings_subsidies_1'),
+      labelHalfSpendingsSubsidies_2: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.label_half_spendings_subsidies_2'),
       labelCategory: I18n.t('gobierto_dashboards.dashboards.subsidies.category'),
       labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.subsidies.amount_distribution'),
       labelMainBeneficiaries: I18n.t('gobierto_dashboards.dashboards.subsidies.main_beneficiaries')

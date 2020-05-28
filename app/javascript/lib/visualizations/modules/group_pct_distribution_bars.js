@@ -4,6 +4,8 @@ import { rowChart } from 'dc';
 const d3 = { scaleThreshold, axisTop, select }
 const dc = { rowChart }
 
+import { money, truncate } from 'lib/shared'
+
 export class GroupPctDistributionBars {
   constructor(options) {
     // Declaration
@@ -20,7 +22,7 @@ export class GroupPctDistributionBars {
     this._barHeight = 18
 
     const _initialLabelOffset = 250,
-          _pctLabelOffset = 70;
+          _pctLabelOffset = 50;
 
     this.node = this.container.root().node() || document.createElement("div")
 
@@ -48,7 +50,8 @@ export class GroupPctDistributionBars {
           .text('')
           .selectAll('tspan')
           .data(d => {
-            let label = d.key, pct;
+            let label = truncate(d.key, {length: 25});
+            let pct;
 
             if (this.hasFilter() && !this.hasFilter(d.key)){
               pct = 0.0;

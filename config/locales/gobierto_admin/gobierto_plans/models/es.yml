@@ -46,3 +46,9 @@ es:
                 el vocabulario '%{vocabulary}' usado por la columna 'Node.%{uid}'
               used_resource: El vocabulario emplea términos que se usan en otras partes
                 de la aplicación
+        gobierto_admin/gobierto_plans/plan_table_custom_fields_form:
+          attributes:
+            base:
+              file_not_found: Fichero no encontrado
+              invalid_columns: No están todas las columnas necesarias
+              invalid_format: Formato de fichero inválido

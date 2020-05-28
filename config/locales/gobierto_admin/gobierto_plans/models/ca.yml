@@ -45,3 +45,9 @@ ca:
                 vocabulari '%{vocabulary}' usat per la columna 'Node.%{uid}'
               used_resource: El vocabulari empra termes que s'usen en altres parts
                 de l'aplicació
+        gobierto_admin/gobierto_plans/plan_table_custom_fields_form:
+          attributes:
+            base:
+              file_not_found: Fitxer no trobat
+              invalid_columns: No estan totes les columnes necessàries
+              invalid_format: Format de fitxer invàlid

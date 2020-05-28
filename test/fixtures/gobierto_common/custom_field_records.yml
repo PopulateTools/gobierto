@@ -159,7 +159,7 @@ political_agendas_indicators_table_custom_field_record:
   item: political_agendas (GobiertoPlans::Node)
   custom_field: madrid_custom_field_indicators_table_plugin
   payload: <%= {
-    indicators_table: [
+    "indicators-table" => [
       {
         indicator: ActiveRecord::FixtureSet.identify(:indicators_raw_savings),
         objective: 100,

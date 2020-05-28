@@ -45,3 +45,9 @@ en:
                 '%{vocabulary}' used by the column 'Node.%{uid}'
               used_resource: The vocabulary contains terms used in other parts of
                 the application
+        gobierto_admin/gobierto_plans/plan_table_custom_fields_form:
+          attributes:
+            base:
+              file_not_found: File not found
+              invalid_columns: Required columns are missing
+              invalid_format: Invalid file format

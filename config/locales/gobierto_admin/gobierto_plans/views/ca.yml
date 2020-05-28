@@ -58,9 +58,11 @@ ca:
           title: Importa CSV
         import_csv_form:
           confirm_import: Estàs segur?
+          custom_fields_table_plugin: Camps personalitzats (plugin de taula)
           disable_with: Carregant...
           more_info_html: Per obtenir més informació visita la documentació <a href="%{url}"
             target="_blank">Importar datos de un plan</a>.
+          plan_content: Contingut del pla
           submit: Importa des de fitxer CSV
           vocabulary_used_by_other_plans: El vocabulari configurat per aquest pla
             ja està configurat per a algun altre. Si us plau, crea un vocabulari nou

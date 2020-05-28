@@ -6,7 +6,6 @@ import { scaleThreshold } from 'd3-scale';
 
 const d3 = { scaleThreshold, sum, mean, median, max }
 
-import * as dc from 'dc'
 import crossfilter from 'crossfilter2'
 
 import { getRemoteData, sortByField, uniqueMembers } from '../webapp/lib/utils'
@@ -14,8 +13,7 @@ import { EventBus } from '../webapp/mixins/event_bus'
 
 import { money } from 'lib/shared'
 
-import { AmountDistributionBars } from "lib/visualizations";
-import { GroupPctDistributionBars } from "lib/visualizations";
+import { AmountDistributionBars, GroupPctDistributionBars } from "lib/visualizations";
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -289,6 +287,10 @@ export class SubsidiesController {
   _updateChartsFromFilter(options){
     const container = this.charts[options.id].container;
 
+    // https://dc-js.github.io/dc.js/docs/html/BaseMixin.html#filter__anchor
+    // - filter(null) removes any existing filter.
+    // - If all filters are set at one (options.all), we first remove the existing ones
+    // - Note: when you add more than 1 filter, you need to add an array within an array
     if (options.all) {
       container.filter(null);
       container.filter([options.titles]);
@@ -308,10 +310,6 @@ export class SubsidiesController {
 
   _currentDataSource(){
     return this.reduced || this.data
-  }
-
-  _formalizedSubsidiesData(subsidiesData){
-    return subsidiesData
   }
 
 }

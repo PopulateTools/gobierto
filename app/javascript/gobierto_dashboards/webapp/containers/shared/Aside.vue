@@ -81,6 +81,9 @@ export default {
       })
     });
   },
+  beforeDestroy(){
+    EventBus.$off('dc_filter_selected');
+  },
   watch: {
     contractsData: function (newContractsData, oldContractsData) {
       this.updateCounters();

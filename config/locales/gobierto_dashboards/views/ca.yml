@@ -38,7 +38,7 @@ ca:
             dels contractes són menors de <strong> 1.000 € </ strong>
           mean_amount: Import mitjà
           mean_savings: Estalvi mitjà de licitació a adjudicació
-          median_amount: Import mitjà
+          median_amount: Import mitjana
           tenders: Licitacions
           tenders_for: licitacions per un import de
         tender_amount: Imp. licitació
@@ -70,7 +70,7 @@ ca:
           label_less_than_1000: El <strong> <span id = "less-than-1000-pct"> </ span>
             </ strong> de les subvencions són menors de <strong> 1.000 € </ strong>
           mean_amount: Import mitjà
-          median_amount: Import mitjà
+          median_amount: Import mitjana
           subsidies: Subvencions
           subsidies_for: subvencions per import de
         title: Subvencions

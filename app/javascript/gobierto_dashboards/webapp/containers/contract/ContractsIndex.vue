@@ -31,6 +31,9 @@ export default {
 
     this.items = this.contractsData.slice(0, 50);
     this.columns = contractsColumns;
+  },
+  beforeDestroy(){
+    EventBus.$off('refresh_summary_data');
   }
 }
 </script>

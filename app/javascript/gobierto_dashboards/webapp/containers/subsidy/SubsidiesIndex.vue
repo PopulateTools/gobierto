@@ -31,6 +31,9 @@ export default {
 
     this.items = this.subsidiesData.slice(0, 50);
     this.columns = subsidiesColumns;
+  },
+  beforeDestroy(){
+    EventBus.$off('refresh_summary_data');
   }
 }
 </script>

@@ -26,11 +26,6 @@ export default {
   },
   created(){
     this.isShowDownloadDatalinkShown = !!this.dataDownloadEndpoint
-  },
-  methods: {
-    showDownloadDataLink(){
-      return !!this.dataDownloadEndpoint
-    }
   }
 }
 </script>

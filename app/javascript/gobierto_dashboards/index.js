@@ -5,7 +5,6 @@ import { SubsidiesController } from "./modules/subsidies_controller.js";
 
 document.addEventListener('DOMContentLoaded', () => {
   const contractsAppNode = document.getElementById("gobierto-dashboards-contracts-app");
-
   if (contractsAppNode) {
     new ContractsController({
       siteName: contractsAppNode.dataset.siteName,
@@ -16,11 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
       dataDownloadEndpoint: contractsAppNode.dataset.dataDownloadEndpoint,
     });
   }
-});
 
-document.addEventListener('DOMContentLoaded', () => {
   const subsidiesAppNode = document.getElementById("gobierto-dashboards-subsidies-app");
-
   if (subsidiesAppNode) {
     new SubsidiesController({
       siteName: subsidiesAppNode.dataset.siteName,

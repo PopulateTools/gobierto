@@ -36,6 +36,7 @@
         :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
         :items="items"
         :is-user-logged="isUserLogged"
+        :query-stored="queryStored"
       />
     </div>
   </div>

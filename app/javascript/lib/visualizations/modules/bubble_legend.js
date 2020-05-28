@@ -12,7 +12,7 @@ export class VisBubbleLegend {
 
     var bigScreen = window.innerWidth > 1280;
 
-    var colors =['#b2182b','#d6604d','#f4a582','#fddbc7','#f7f7f7','#d1e5f0','#92c5de','#4393c3','#2166ac'];
+    var colors = ['#b2182b','#d6604d','#f4a582','#fddbc7','#f7f7f7','#d1e5f0','#92c5de','#4393c3','#2166ac'];
 
     var scale = d3.scaleOrdinal()
       .domain(colors.reverse())
@@ -27,7 +27,7 @@ export class VisBubbleLegend {
       .attr('height', height + margin.top + margin.bottom)
       .style('overflow', 'visible')
       .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
 
     var defs = svg.append('defs');
 
@@ -63,8 +63,8 @@ export class VisBubbleLegend {
       .data(colors)
       .enter()
       .append('stop')
-      .attr('stop-color', function(d) { return d;})
-      .attr('offset', function(d) { return scale(d) + '%'; });
+      .attr('stop-color', d => d)
+      .attr('offset', d => `scale(${d})%`);
 
     svg.append('line')
       .attr('transform', 'translate(' + width / 2 + ',' + 0 + ')')

@@ -4,12 +4,12 @@ import VueRouter from "vue-router";
 import { getRemoteData } from '../webapp/lib/utils'
 import { EventBus } from '../webapp/mixins/event_bus'
 
-import { VisBubbles } from "lib/visualizations";
+import { VisBubble } from "lib/visualizations";
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
-export class ContractsController {
+export class CostsController {
   constructor(options) {
     this.charts = {};
 
@@ -25,13 +25,16 @@ export class ContractsController {
 
       const Home = () => import("../webapp/containers/shared/Home.vue");
 
+      //FIX-ME: get
+      // JSON https://mataro.gobify.net/api/v1/data/data?sql=select%20*%20from%20costes
+      // CSV https://mataro.gobify.net/api/v1/data/data.csv?sql=select%20*%20from%20costes
       Promise.all([getRemoteData(options.contractsEndpoint), getRemoteData(options.tendersEndpoint)]).then((rawData) => {
         this.setGlobalVariables(rawData)
 
         const router = new VueRouter({
           mode: "history",
           routes: [
-            { path: "/dashboards/contratos", component: Home, props: { dataDownloadEndpoint: options.dataDownloadEndpoint }
+            { path: "/costes", component: Home
             }
           ],
           scrollBehavior() {

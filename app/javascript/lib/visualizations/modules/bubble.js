@@ -10,7 +10,7 @@ const d3 = { select, selectAll, mouse, scaleThreshold, scaleLinear, scaleSqrt, f
 
 import { d3locale, accounting } from 'lib/shared'
 
-export class VisBubbles {
+export class VisBubble {
   constructor(divId, budgetCategory, data) {
     this.container = divId;
     d3.select(this.container).html('');
@@ -122,7 +122,7 @@ export class VisBubbles {
       }.bind(this))
     }
 
-    this.nodes.sort((a, b) => b.value - a.value);
+    this.nodes.sort(function (a, b) { return b.value - a.value; });
 
     return this.nodes;
   }
@@ -135,7 +135,7 @@ export class VisBubbles {
 
     d3.selectAll('.bubble')
       .data(this.nodes, d => d.name)
-      .attr('class', d => `bubble bubble-${d.year}`)
+      .attr('class', function(d) { return 'bubble bubble-' + d.year})
       .transition()
       .duration(transitionDuration)
       .attr('r', d => d.radius)
@@ -182,7 +182,7 @@ export class VisBubbles {
       .style('font-size', function(d) { return this.fontSize(d.radius) + 'px'; }.bind(this))
       .attr('text-anchor', 'middle')
       .attr('y', -15)
-      .attr('fill', d => d.pct_diff > 30 || d.pct_diff < -10 ? 'white' : 'black')
+      .attr('fill', function(d) { return d.pct_diff > 30 || d.pct_diff < -10 ? 'white' : 'black'; })
       .tspans(function(d) { return d.radius > 40 ? d3.wordwrap(d.name, 15) : d3.wordwrap('', 15); }, function(d) { return this.fontSize(d.radius);}.bind(this));
 
     this.simulation.nodes(this.nodes);

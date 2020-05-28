@@ -175,7 +175,7 @@ class Site < ApplicationRecord
   # If the organization_id corresponds to a municipality ID,
   # this method will return an instance of INE::Places::Place
   def place
-    @place ||= if self.organization_id
+    @place ||= if self.organization_id.present?
                  INE::Places::Place.find(self.organization_id)
                end
   end

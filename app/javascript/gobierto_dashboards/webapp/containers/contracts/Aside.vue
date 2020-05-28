@@ -42,7 +42,7 @@
 import { BlockHeader, Checkbox, Dropdown } from "lib/vue-components";
 import DownloadButton from "../../components/DownloadButton.vue";
 import { EventBus } from "../../mixins/event_bus";
-import { contractsFiltersConfig } from "../../lib/config.js";
+import { contractsFiltersConfig } from "../../lib/config/contracts.js";
 
 export default {
   name: 'Aside',

@@ -119,7 +119,7 @@
 <script>
 import Table from "../../components/Table.vue";
 import { EventBus } from "../../mixins/event_bus";
-import { grantedColumns } from "../../lib/config.js";
+import { grantedColumns } from "../../lib/config/subsidies.js";
 
 export default {
   name: 'Summary',

@@ -29,7 +29,7 @@ import { VueFiltersMixin } from "lib/shared"
 
 import Table from "../../components/Table.vue";
 import { EventBus } from "../../mixins/event_bus";
-import { assigneesShowColumns } from "../../lib/config.js";
+import { assigneesShowColumns } from "../../lib/config/contracts.js";
 
 export default {
   name: 'AssigneesShow',

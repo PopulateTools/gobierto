@@ -9,7 +9,7 @@
 
 <script>
 import Table from "../../components/Table.vue";
-import { tendersColumns } from "../../lib/config.js";
+import { tendersColumns } from "../../lib/config/contracts.js";
 
 export default {
   name: 'TendersIndex',

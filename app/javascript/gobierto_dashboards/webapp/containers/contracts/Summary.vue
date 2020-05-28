@@ -115,7 +115,7 @@
 <script>
 import Table from "../../components/Table.vue";
 import { EventBus } from "../../mixins/event_bus";
-import { assigneesColumns } from "../../lib/config.js";
+import { assigneesColumns } from "../../lib/config/contracts.js";
 
 export default {
   name: 'Summary',

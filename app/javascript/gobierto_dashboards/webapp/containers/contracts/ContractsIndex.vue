@@ -10,7 +10,7 @@
 <script>
 import Table from "../../components/Table.vue";
 import { EventBus } from "../../mixins/event_bus";
-import { contractsColumns } from "../../lib/config.js";
+import { contractsColumns } from "../../lib/config/contracts.js";
 
 export default {
   name: 'ContractsIndex',

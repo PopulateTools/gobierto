@@ -2,7 +2,7 @@
   <main>
     <div class="pure-g gutters m_b_4">
       <Aside
-        :contracts-data="contractsData"
+        :subsidies-data="subsidiesData"
         :dataDownloadEndpoint="dataDownloadEndpoint"
       />
 
@@ -13,9 +13,8 @@
         ></Nav>
         <main class="dashboards-home-main">
           <Summary v-show="isSummary"/>
-          <ContractsIndex v-show="isContractsIndex"/>
-          <ContractsShow v-if="isContractsShow"/>
-          <AssigneesShow v-if="isAssigneesShow"/>
+          <SubsidiesIndex v-show="isSubsidiesIndex"/>
+          <SubsidiesShow v-if="isSubsidiesShow"/>
         </main>
       </div>
     </div>
@@ -25,10 +24,9 @@
 <script>
 import Nav from "./Nav.vue";
 import Aside from "./Aside.vue";
-import Summary from "./../summary/Summary.vue";
-import ContractsIndex from "./../contract/ContractsIndex.vue";
-import ContractsShow from "./../contract/ContractsShow.vue";
-import AssigneesShow from "./../assignee/AssigneesShow.vue";
+import Summary from "./Summary.vue";
+import SubsidiesIndex from "./SubsidiesIndex.vue";
+import SubsidiesShow from "./SubsidiesShow.vue";
 
 import { EventBus } from "../../mixins/event_bus";
 import { store } from "../../mixins/store";
@@ -39,26 +37,19 @@ export default {
     Aside,
     Nav,
     Summary,
-    ContractsIndex,
-    ContractsShow,
-    AssigneesShow,
+    SubsidiesIndex,
+    SubsidiesShow
   },
   data() {
     return {
       activeTabIndex: store.state.currentTab || 0,
-      contractsData: this.$root.$data.contractsData,
+      subsidiesData: this.$root.$data.subsidiesData,
     }
   },
   computed: {
     isSummary() { return this.$route.name === 'summary' },
-    isContractsIndex() { return this.$route.name === 'contracts_index' },
-    isContractsShow() { return this.$route.name === 'contracts_show' },
-    isAssigneesShow() { return this.$route.name === 'assignees_show' },
-  },
-  created(){
-    EventBus.$on('refresh-summary-data', () => {
-      this.contractsData = this.$root.$data.contractsData;
-    });
+    isSubsidiesIndex() { return this.$route.name === 'subsidies_index' },
+    isSubsidiesShow() { return this.$route.name === 'subsidies_show' },
   },
   props: {
     dataDownloadEndpoint: {
@@ -74,6 +65,9 @@ export default {
       if (this.isSummaryPage(tabIndex)) {
         EventBus.$emit("moved-to-summary");
       }
+    },
+    isCurrentPath(componentPathName){
+      return this.$route.name === componentPathName
     },
     isSummaryPage(tabIndex){
       return tabIndex === 0

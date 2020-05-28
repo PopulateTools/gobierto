@@ -32,11 +32,11 @@ export class ContractsController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () => import("../webapp/containers/shared/Home.vue");
-      const Summary = () => import("../webapp/containers/summary/Summary.vue");
-      const ContractsIndex = () => import("../webapp/containers/contract/ContractsIndex.vue");
-      const ContractsShow = () => import("../webapp/containers/contract/ContractsShow.vue");
-      const AssigneesShow = () => import("../webapp/containers/assignee/AssigneesShow.vue");
+      const Home = () => import("../webapp/containers/contracts/Home.vue");
+      const Summary = () => import("../webapp/containers/contracts/Summary.vue");
+      const ContractsIndex = () => import("../webapp/containers/contracts/ContractsIndex.vue");
+      const ContractsShow = () => import("../webapp/containers/contracts/ContractsShow.vue");
+      const AssigneesShow = () => import("../webapp/containers/contracts/AssigneesShow.vue");
 
       Promise.all([getRemoteData(options.contractsEndpoint), getRemoteData(options.tendersEndpoint)]).then((rawData) => {
         this.setGlobalVariables(rawData)

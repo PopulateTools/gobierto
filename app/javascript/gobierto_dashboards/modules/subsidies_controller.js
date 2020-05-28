@@ -32,10 +32,10 @@ export class SubsidiesController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () => import("../webapp/containers/subsidies_shared/Home.vue");
-      const Summary = () => import("../webapp/containers/subsidies_shared/Summary.vue");
-      const SubsidiesIndex = () => import("../webapp/containers/subsidy/SubsidiesIndex.vue");
-      const SubsidiesShow = () => import("../webapp/containers/subsidy/SubsidiesShow.vue");
+      const Home = () => import("../webapp/containers/subsidies/Home.vue");
+      const Summary = () => import("../webapp/containers/subsidies/Summary.vue");
+      const SubsidiesIndex = () => import("../webapp/containers/subsidies/SubsidiesIndex.vue");
+      const SubsidiesShow = () => import("../webapp/containers/subsidies/SubsidiesShow.vue");
 
       Promise.all([getRemoteData(options.subsidiesEndpoint)]).then((rawData) => {
         this.setGlobalVariables(rawData)

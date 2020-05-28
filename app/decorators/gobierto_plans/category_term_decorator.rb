@@ -161,7 +161,10 @@ module GobiertoPlans
 
         record = record.versions[node.version_index]&.reify if node.version_index.negative?
 
-        next if record.blank? || hide_empty_fields? && (value_string = record.value_string).blank?
+        next if record.blank?
+
+        value_string = record.value_string
+        next if hide_empty_fields? && value_string.blank?
 
         {
           value: value_string,

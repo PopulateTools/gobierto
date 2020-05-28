@@ -2,6 +2,7 @@ import "../../assets/stylesheets/module-dashboards.scss"
 
 import { ContractsController } from "./modules/contracts_controller.js";
 import { SubsidiesController } from "./modules/subsidies_controller.js";
+import { CostsController } from "./modules/costs_controller.js";
 
 document.addEventListener('DOMContentLoaded', () => {
   const contractsAppNode = document.getElementById("gobierto-dashboards-contracts-app");
@@ -24,6 +25,18 @@ document.addEventListener('DOMContentLoaded', () => {
       homeUrl: subsidiesAppNode.dataset.homeUrl,
       subsidiesEndpoint: subsidiesAppNode.dataset.subsidiesEndpoint,
       dataDownloadEndpoint: subsidiesAppNode.dataset.dataDownloadEndpoint,
+    });
+  }
+
+  //FIX-ME
+  const costsAppNode = document.getElementById("gobierto-dashboards-costs-app");
+  if (subsidiesAppNode) {
+    new CostsController({
+      siteName: costsAppNode.dataset.siteName,
+      logoUrl: costsAppNode.dataset.logoUrl,
+      homeUrl: costsAppNode.dataset.homeUrl,
+      costsEndpoint: costsAppNode.dataset.costsEndpoint,
+      dataDownloadEndpoint: costsAppNode.dataset.dataDownloadEndpoint,
     });
   }
 });

@@ -6,6 +6,7 @@ module GobiertoDashboards
     before_action :dashboard_enabled!
 
     def contracts; end
+    def subsidies; end
 
     private
 

@@ -13,7 +13,6 @@ ca:
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
-        download_data: Descarregueu les dades en format reutilitzable
         empty_table: No hi ha dades disponibles
         final_amount_no_taxes: Quantitat
         fromto: De a Nº Contr.
@@ -31,25 +30,57 @@ ca:
         summary:
           contracts: Contractes adjudicats
           contracts_for: contractes per import de
-          label_half_spendings_contracts: El <strong> <span id = "half-spendings-contracts-pct">
-            </ span> </ strong> de contractes concentren el 50% de tota la despesa
-          label_larger_contract_amount: El major contracte suposa un <strong> <span
-            id = "larger-contract-amount-pct"> </ span> </ strong> de tota la despesa
-            en contractes
-          label_less_than_1000: El <strong><span id="less-than-1000-pct"></span></strong>
-            dels contractes són menors de <strong> 1.000 € </ strong>
+          label_half_spendings_contracts_1: "El "
+          label_half_spendings_contracts_2: " de contractes concentren el 50% de tota la despesa"
+          label_larger_contract_amount_1: "El major contracte suposa un "
+          label_larger_contract_amount_2: " de tota la despesa en contractes"
+          label_less_than_1000_1: "El "
+          label_less_than_1000_2: " dels contractes són menors de "
           mean_amount: Import mitjà
           mean_savings: Estalvi mitjà de licitació a adjudicació
-          median_amount: Import mitjà
+          median_amount: Import mitjana
           tenders: Licitacions
           tenders_for: licitacions per un import de
         tender_amount: Imp. licitació
         title: Contractes i licitacions
+      subsidies:
+        amount: Import
+        amount_distribution: Distribució per imports
+        beneficiary: beneficiari
+        category: Categoria
+        date: Data
+        dates: Dates
+        description: Visualització i anàlisi de les subvencions concedides per %{entity_name}
+        fromto: De a Nº Subv.
+        main_beneficiaries: Principals beneficiaris
+        more: Més de
+        nav:
+          subsidies: Subvencions
+          summary: Resum
+        regulatory_bases: Bases reguladores
+        subsidies: Subvencions
+        summary:
+          collective_subsidies_for: a col·lectius per import de
+          individual_subsidies_for: a particulars per import de
+          label_half_spendings_subsidies_1: "El "
+          label_half_spendings_subsidies_2: " de subvencions concentren el 50% de tota la despesa"
+          label_larger_subsidy_amount_1: "La major subvenció suposa "
+          label_larger_subsidy_amount_2: " de tota la despesa en subvencions"
+          label_less_than_1000_1: "El "
+          label_less_than_1000_2: " de les subvencions són menors de "
+          mean_amount: Import mitjà
+          median_amount: Import mitjana
+          subsidies: Subvencions
+          subsidies_for: subvencions per import de
+        title: Subvencions
     layouts:
       application:
         gobierto_dashboards:
           contracts: Contractes i licitacions
+          subsidies: Subvencions
       menu_subsections:
         contracts: Contractes
+        subsidies: Subvencions
     shared:
+      download_data: Descarregueu les dades en format reutilitzable
       loading: Carregant dades...

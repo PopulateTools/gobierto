@@ -260,10 +260,6 @@ export default {
     saveHandlerSavedQuery(opts) {
       // send the query to be stored
       this.$root.$emit("storeCurrentQuery", opts);
-
-      this.$root.$emit('disabledSavedButton')
-      this.$root.$emit("resetToInitialState");
-      this.$root.$emit("isQuerySavingPromptVisible", false);
     },
     saveHandlerNewQuery(opts) {
       if (!this.isQuerySavingPromptVisible) {
@@ -303,9 +299,7 @@ export default {
     enabledInputQueries() {
       const userId = getUserId();
         if (!this.enabledForkButton && !!userId) {
-        this.$root.$emit('enableSavedButton')
-        this.$root.$emit('enabledForkPrompt')
-        this.$root.$emit('disabledRevertButton')
+        this.$root.$emit('eventToEnabledInputQueries')
         this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus());
       }
     },

@@ -140,7 +140,8 @@ export default {
     }
   },
   beforeDestroy() {
-    this.$root.$emit('disableVizModified')
+    //Hide the string, and the buttons return to their initial state.
+    this.$root.$emit("isVizModified", false);
     this.$root.$emit('disabledSavedVizString')
   },
   methods: {
@@ -168,9 +169,7 @@ export default {
         name: vizName
       } = value;
       this.labelValue = vizName
-      this.$root.$emit('isVizModified')
-      this.$root.$emit('enableSavedVizButton')
-      this.$root.$emit('disabledSavedVizString')
+      this.$root.$emit('updateVizName')
     },
     showChart() {
       const showPerspective = "flex"
@@ -181,11 +180,12 @@ export default {
       const userId = getUserId()
       this.showVisualize = false
       this.showResetViz = true
-      this.$root.$emit('enableSavedVizButton')
-      this.$root.$emit('disabledSavedVizString')
+      //Enable saved button
+      this.$root.$emit('enableSavedVizButton', true)
+      //If user is logged show a saved button and string 'query modified'
       if (this.isUserLogged) {
         this.$root.$emit("isVizSavingPromptVisible", true);
-        this.$root.$emit("isVizModified");
+        this.$root.$emit("isVizModified", true);
         this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
       }
 

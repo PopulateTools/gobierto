@@ -304,44 +304,42 @@ export default {
     this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
     // Reset to the default query
     this.$root.$on('resetQuery', this.resetQuery)
-    //reset to the saved query
+    // reset to the saved query
     this.$root.$on('revertSavedQuery', this.revertSavedQuery)
-
+    // activate button to saved a query
     this.$root.$on('enableSavedButton', this.activatedSavedButton)
-
+    // disable
     this.$root.$on('resetToInitialState', this.resetToInitialState)
-
+    // disabled saved button
     this.$root.$on('disabledSavedButton', this.disabledSavedButton)
     //Show a message for the user, your query is saved
     this.$root.$on('disabledStringSavedQuery', this.disabledStringSavedQuery)
-
+    // enabled button to saved a viz
     this.$root.$on('enableSavedVizButton', this.activatedSavedVizButton)
-
-    this.$root.$on('disabledSavedVizButton', this.disabledSavedVizButton)
-
+    //if user is logged show a prompt to saved a query
     this.$root.$on('isQuerySavingPromptVisible', this.isQuerySavingPromptVisibleHandler)
-
+    //if user is logged show a prompt to saved a visualization
     this.$root.$on('isVizSavingPromptVisible', this.isVizSavingPromptVisibleHandler)
-
+    //When user save a vizusliation show a string
     this.$root.$on('disabledSavedVizString', this.disabledSavedVizString)
-
-    this.$root.$on('isVizModified', this.enableVizModified)
-
-    this.$root.$on('disableVizModified', this.disableVizModified)
-
+    //Show a string when the vis is modified
+    this.$root.$on('isVizModified', this.eventIsVizModified)
+    //Check if the query is ours if it isn't ours show a button to fork
     this.$root.$on('disabledForkButton', this.disabledForkButton)
-
     this.$root.$on('enabledForkPrompt', this.enabledForkPrompt)
-
+    //If load a query from the other user show a button to revert the code of the editor
     this.$root.$on('enabledRevertButton', this.activatedRevertButton)
-
     this.$root.$on('disabledRevertButton', this.disabledRevertButton)
-
+    //Show the name of the visualization
     this.$root.$on('loadVizName', this.setVizName)
-
+    //Reload a list of private and public visualizations
     this.$root.$on('reloadVisualizations', this.reloadVisualizations)
-
+    //Check if the visualization is ours if it isn't ours show a button to fork
     this.$root.$on('enabledForkVizButton', this.activateForkVizButton)
+    //Update the name of Visualization
+    this.$root.$on('updateVizName', this.eventToUpdateVizName)
+    //Enable input to write a name for query
+    this.$root.$emit('eventToEnabledInputQueries', this.eventToEnabledInputQueries)
 
   },
   deactivated() {
@@ -361,13 +359,15 @@ export default {
     this.$root.$off('enabledRevertButton')
     this.$root.$off('disabledRevertButton')
     this.$root.$off('isQuerySavingPromptVisible')
+    this.$root.$off('eventToEnabledInputQueries')
+
     this.$root.$off('isVizSavingPromptVisible')
     this.$root.$off('enableSavedVizButton')
     this.$root.$off('disabledSavedVizString')
     this.$root.$off('isVizModified')
     this.$root.$off('loadVizName')
+    this.$root.$off('updateVizName')
     this.$root.$off('reloadVisualizations')
-    this.$root.$off('disableVizModified')
     this.$root.$off('enabledForkVizButton')
   },
   methods: {
@@ -585,6 +585,9 @@ export default {
         this.isQueryModified = false;
         //Show a message for the user, your query is saved
         this.isQuerySaved = true;
+        this.enabledQuerySavedButton = false
+        this.isQueryModified = false
+        this.isQuerySavingPromptVisible = false
 
         this.setPublicQueries(await this.getPublicQueries());
         this.setPrivateQueries(await this.getPrivateQueries());
@@ -684,7 +687,7 @@ export default {
         this.isVizModified = false
         this.isVizSaved = true
         this.isVizSavingPromptVisible = false
-        this.disabledSavedVizButton()
+        this.enabledVizSavedButton = false
 
         await this.getPrivateVisualizations()
         await this.getPublicVisualizations()
@@ -790,20 +793,14 @@ export default {
     isQuerySavingPromptVisibleHandler(value) {
       this.isQuerySavingPromptVisible = value
     },
-    activatedSavedVizButton(){
-      this.enabledVizSavedButton = true
-    },
-    disabledSavedVizButton() {
-      this.enabledVizSavedButton = false
+    activatedSavedVizButton(value){
+      this.enabledVizSavedButton = value
     },
     isVizSavingPromptVisibleHandler(value) {
       this.isVizSavingPromptVisible = value
     },
-    enableVizModified() {
-      this.isVizModified = true
-    },
-    disableVizModified() {
-      this.isVizModified = false
+    eventIsVizModified(value) {
+      this.isVizModified = value
     },
     setVizName(vizName) {
       this.vizName = vizName
@@ -814,6 +811,16 @@ export default {
     },
     activateForkVizButton(value) {
       this.enabledForkVizButton = value
+    },
+    eventToUpdateVizName() {
+      this.isVizModified = true
+      this.enabledVizSavedButton = true
+      this.isVizSaved = false
+    },
+    eventToEnabledInputQueries() {
+      this.activatedSavedButton()
+      this.isForkPromptVisible = true
+      this.enabledRevertButton = false
     }
   },
 };

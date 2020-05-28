@@ -2,7 +2,7 @@
   <div class="gobierto-data-sql-editor-container-save">
     <!--  only show if label name is set OR the prompt is visible  -->
     <template v-if="isUserLogged">
-      <template v-if="isQuerySavingPromptVisible || labelValue ||isVizSavingPromptVisible">
+      <template v-if="handlerInputQuery()">
         <input
           ref="inputText"
           v-model="labelValue"
@@ -20,8 +20,8 @@
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="isForkPromptVisible && isUserLogged">
-      <template v-if="isQuerySavingPromptVisible || isVizSavingPromptVisible">
+    <template v-if="enableForkPrompt()">
+      <template v-if="handlerInputQuery()">
         <label
           :for="labelPrivate"
           class="gobierto-data-sql-editor-container-save-label"
@@ -40,7 +40,7 @@
 
     <!-- only show if label name is set OR the prompt is visible -->
     <template v-if="isUserLogged">
-      <template v-if="isQuerySavingPromptVisible || labelValue ||isVizSavingPromptVisible">
+      <template v-if="handlerInputQuery()">
         <PrivateIcon
           :is-closed="isPrivate"
           :style="{ paddingRight: '.5em', margin: 0 }"
@@ -81,7 +81,6 @@
       :text="labelSave"
       :disabled="!isDisabled"
       icon="save"
-      color="var(--color-base)"
       background="#fff"
       class="btn-sql-editor"
       @click.native="onClickSaveHandler"
@@ -221,13 +220,13 @@ export default {
   },
   computed: {
     isDisabled() {
-      return this.enabledVizSavedButton || this.enabledQuerySavedButton ? true : false
+      return this.enabledVizSavedButton || this.enabledQuerySavedButton
     },
     isDisabledFork() {
-      return this.enabledQuerySavedButton || this.isVizModified ? true : false
+      return this.enabledQuerySavedButton || this.isVizModified
     },
     showForkButton() {
-      return this.enabledForkVizButton || this.enabledForkButton ? true : false
+      return this.enabledForkVizButton || this.enabledForkButton
     }
   },
   watch: {
@@ -250,6 +249,12 @@ export default {
     }
   },
   methods: {
+    handlerInputQuery() {
+       return this.isQuerySavingPromptVisible || this.labelValue || this.isVizSavingPromptVisible
+    },
+    enableForkPrompt() {
+      return this.isForkPromptVisible && this.isUserLogged
+    },
     inputFocus() {
       this.$refs.inputText.focus()
     },

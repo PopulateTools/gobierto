@@ -152,7 +152,7 @@ export default {
         name: vizName
       } = value;
       this.labelValue = vizName
-      this.$root.$emit('isVizModified')
+      this.$root.$emit("eventIsVizModified", true);
     },
     resetViz() {
       const hidePerspective = "none"
@@ -164,7 +164,7 @@ export default {
 
       this.$refs.viewer.enableDisabledPerspective(hidePerspective);
       this.$refs.viewer.setColumns();
-      this.$root.$emit('disabledSavedVizButton')
+      this.$root.$emit('enableSavedVizButton', true)
       this.$root.$emit('disabledSavedVizString')
     },
     showChart() {
@@ -176,10 +176,10 @@ export default {
       this.perspectiveChanged = true
       this.showVisualize = false
       this.showResetViz = true
-      this.$root.$emit('enableSavedVizButton')
+      this.$root.$emit('enableSavedVizButton', true)
       if (this.isUserLogged) {
         this.$root.$emit("isVizSavingPromptVisible", true);
-        this.$root.$emit("isVizModified");
+        this.$root.$emit("isVizModified", true);
         this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
       }
     }

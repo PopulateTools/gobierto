@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isShowDownloadDatalinkShown"
+    v-if="!!this.dataDownloadEndpoint"
     class="dashboards-home-aside--download-open-data"
   >
     <i class="fas fa-table"></i>
@@ -23,9 +23,6 @@ export default {
       type: String,
       default: ''
     }
-  },
-  created(){
-    this.isShowDownloadDatalinkShown = !!this.dataDownloadEndpoint
   }
 }
 </script>

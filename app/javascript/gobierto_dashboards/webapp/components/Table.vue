@@ -3,7 +3,8 @@
     <table class="dashboards-home-main--table">
       <thead>
         <th
-          v-for="{ translation, cssClass } in columns"
+          v-for="{ field, translation, cssClass } in columns"
+          :key="field"
           class="dashboards-home-main--th"
           :class="cssClass"
         >

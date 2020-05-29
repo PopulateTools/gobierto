@@ -62,7 +62,7 @@ export default {
     EventBus.$off('refresh-active-tab');
   },
   methods: {
-    refreshActiveTab(index) {
+    refreshActiveTab() {
       const currentTabIndex = this.tabIndexFromRouteName();
       this.markTabAsActive(currentTabIndex);
     },

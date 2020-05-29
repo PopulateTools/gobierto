@@ -6,7 +6,7 @@
         <div class="">
           <strong class="d_block">{{ assignee }}</strong>
           <span v-if="assignee_id">
-            {{assignee_id}}
+            {{ assignee_id }}
           </span>
         </div>
       </div>
@@ -17,8 +17,7 @@
         :items="items"
         :columns="columns"
         :routing-member="'contracts_show'"
-      >
-      </Table>
+      />
     </div>
   </div>
 </template>
@@ -33,10 +32,10 @@ import { assigneesShowColumns } from "../../lib/config/contracts.js";
 
 export default {
   name: 'AssigneesShow',
-  mixins: [VueFiltersMixin],
   components: {
     Table
   },
+  mixins: [VueFiltersMixin],
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
@@ -61,7 +60,7 @@ export default {
   methods: {
     buildItems(){
       const assigneeRoutingId = this.$route.params.id;
-      const contracts = this.contractsData.filter(({ assignee_routing_id }) => assignee_routing_id === assigneeRoutingId ) || [];
+      const contracts = this.contractsData.filter(({ assignee_routing_id }) => assignee_routing_id === assigneeRoutingId ) || [];
 
       this.items = contracts
       this.columns = assigneesShowColumns;

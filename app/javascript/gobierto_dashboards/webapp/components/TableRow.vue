@@ -6,6 +6,7 @@
   >
     <td
       v-for="{ field, format, cssClass } in columns"
+      :key="field"
       class="dashboards-home-main--td"
       :class="cssClass"
     >
@@ -19,11 +20,6 @@ import { money, truncate } from 'lib/shared'
 
 export default {
   name: "TableRow",
-  data(){
-    return {
-      formattedItem: {}
-    }
-  },
   props: {
     item: {
       type: Object,
@@ -42,17 +38,22 @@ export default {
       default: 'id'
     }
   },
+  data(){
+    return {
+      formattedItem: {}
+    }
+  },
   created(){
     this.initFormattedItem();
     this.routingId = this.item[this.routingAttribute];
   },
   methods: {
     initFormattedItem(){
-      this.columns.forEach(({format, field}) => {
+      this.columns.forEach(({ format, field }) => {
         if (format === 'currency') {
           this.formattedItem[field] = money(this.item[field]);
-        } else if(format == 'truncated'){
-          this.formattedItem[field] = truncate(this.item[field], {length: 60});
+        } else if (format == 'truncated'){
+          this.formattedItem[field] = truncate(this.item[field], { length: 60 });
         } else {
           this.formattedItem[field] = this.item[field];
         }

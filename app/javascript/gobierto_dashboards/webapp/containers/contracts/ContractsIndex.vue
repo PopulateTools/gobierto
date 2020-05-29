@@ -3,8 +3,7 @@
     :items="items"
     :routing-member="'contracts_show'"
     :columns="columns"
-  >
-  </Table>
+  />
 </template>
 
 <script>

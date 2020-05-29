@@ -52,11 +52,6 @@ export default {
     Checkbox,
     DownloadButton
   },
-  data() {
-    return {
-      filters: subsidiesFiltersConfig
-    }
-  },
   props: {
     subsidiesData: {
       type: Array,
@@ -67,11 +62,21 @@ export default {
       default: ''
     }
   },
+  data() {
+    return {
+      filters: subsidiesFiltersConfig
+    }
+  },
+  watch: {
+    subsidiesData: function (newContractsData, oldContractsData) {
+      this.updateCounters();
+    }
+  },
   created(){
     this.initFilterOptions();
     this.updateCounters(true);
 
-    EventBus.$on('dc-filter-selected', ({title, id}) => {
+    EventBus.$on('dc-filter-selected', ({ title, id }) => {
       const { options = [] } = this.filters.find(( { id: i } ) => id === i) || {};
 
       options.forEach(option => {
@@ -84,23 +89,18 @@ export default {
   beforeDestroy(){
     EventBus.$off('dc-filter-selected');
   },
-  watch: {
-    subsidiesData: function (newContractsData, oldContractsData) {
-      this.updateCounters();
-    }
-  },
   methods: {
     initFilterOptions(){
       const categoriesOptions = [];
       const dateOptions = [];
-      const years = new Set( this.subsidiesData.map(({year}) => year) );
-      const categories = new Set( this.subsidiesData.map(({category}) => category) );
+      const years = new Set( this.subsidiesData.map(({ year }) => year) );
+      const categories = new Set( this.subsidiesData.map(({ category }) => category) );
 
       // Categories
       [...categories]
         .forEach((category, index) => {
           if (category) {
-            categoriesOptions.push({id: index, title: category, counter: 0, isOptionChecked: false })
+            categoriesOptions.push({ id: index, title: category, counter: 0, isOptionChecked: false })
           }
         });
 
@@ -109,7 +109,7 @@ export default {
         .sort((a, b) => a < b ? 1 : -1)
         .forEach(year => {
           if (year) {
-            dateOptions.push({id: Number(year), title: year.toString(), counter: 0, isOptionChecked: false })
+            dateOptions.push({ id: Number(year), title: year.toString(), counter: 0, isOptionChecked: false })
           }
         });
 
@@ -122,12 +122,12 @@ export default {
       })
     },
     updateCounters(firstUpdate=false) {
-      const counter = {categories: {}, dates: {}};
+      const counter = { categories: {}, dates: {} };
 
       // It iterates over the subsidies to get the number of items for each year, and category
       // In the end, it populates counter with something like:
       // {category: {'Urbanismo': 142000, 'Deporte': 2,...}, dates: {2020: '12'...}}
-      this.subsidiesData.forEach(({category, year}) => {
+      this.subsidiesData.forEach(({ category, year }) => {
         counter.categories[category] = counter.categories[category] || 0
         counter.categories[category]++
 
@@ -153,11 +153,11 @@ export default {
       const titles = filter.options.map(option => option.title);
       filter.options.forEach(option => option.isOptionChecked = true)
 
-      EventBus.$emit('filter-changed', {all: true, titles: titles, id: filter.id});
+      EventBus.$emit('filter-changed', { all: true, titles: titles, id: filter.id });
     },
     handleCheckboxStatus({ id, value, filter }) {
       const option = filter.options.find(option => option.id === id)
-      EventBus.$emit('filter-changed', {all: false, title: option.title, id: filter.id});
+      EventBus.$emit('filter-changed', { all: false, title: option.title, id: filter.id });
     },
     toggle(filter){
       this.filters.forEach(_filter => {

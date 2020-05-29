@@ -11,13 +11,13 @@
         <label class="soft">{{ labelAsignee }}</label>
         <div class="">
           <router-link
-            :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
             id="assignee_show_link"
+            :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
           >
             <strong class="d_block">{{ assignee }}</strong>
           </router-link>
           <span v-if="assignee_id">
-            {{assignee_id}}
+            {{ assignee_id }}
           </span>
         </div>
       </div>
@@ -25,35 +25,48 @@
       <div class="pure-u-1 pure-u-lg-1-2">
         <table>
           <tr>
-            <th class="left">{{ labelContractAmount }}</th>
+            <th class="left">
+              {{ labelContractAmount }}
+            </th>
             <td>{{ final_amount_no_taxes | money }}</td>
           </tr>
           <tr>
-            <th class="left">{{ labelTenderAmount }}</th>
+            <th class="left">
+              {{ labelTenderAmount }}
+            </th>
             <td>{{ initial_amount_no_taxes | money }}</td>
           </tr>
           <tr>
-            <th class="left">{{ labelStatus }}</th>
+            <th class="left">
+              {{ labelStatus }}
+            </th>
             <td>{{ status }}</td>
           </tr>
           <tr>
-            <th class="left">{{ labelContractType }}</th>
+            <th class="left">
+              {{ labelContractType }}
+            </th>
             <td>{{ contract_type }}</td>
           </tr>
           <tr>
-            <th class="left">{{ labelProcessType }}</th>
+            <th class="left">
+              {{ labelProcessType }}
+            </th>
             <td>{{ process_type }}</td>
           </tr>
           <tr>
             <th class="left">
-              <a :href="permalink" target='blank'>{{ labelPermalink }}</a>
+              <a
+                :href="permalink"
+                target="_blank"
+              >
+                {{ labelPermalink }}
+              </a>
             </th>
           </tr>
         </table>
-
       </div>
     </div>
-
   </div>
 </template>
 
@@ -89,7 +102,7 @@ export default {
   },
   created() {
     const itemId = this.$route.params.id;
-    const contract = this.contractsData.find(({ id }) => id === itemId ) || {};
+    const contract = this.contractsData.find(({ id }) => id === itemId ) || {};
 
     EventBus.$emit("refresh-active-tab");
 

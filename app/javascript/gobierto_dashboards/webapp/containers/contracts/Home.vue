@@ -3,19 +3,19 @@
     <div class="pure-g gutters m_b_4">
       <Aside
         :contracts-data="contractsData"
-        :dataDownloadEndpoint="dataDownloadEndpoint"
+        :data-download-endpoint="dataDownloadEndpoint"
       />
 
       <div class="pure-u-1 pure-u-lg-3-4">
         <Nav
           :active-tab="activeTabIndex"
           @active-tab="setActiveTab"
-        ></Nav>
+        />
         <main class="dashboards-home-main">
-          <Summary v-show="isSummary"/>
-          <ContractsIndex v-show="isContractsIndex"/>
-          <ContractsShow v-if="isContractsShow"/>
-          <AssigneesShow v-if="isAssigneesShow"/>
+          <Summary v-show="isSummary" />
+          <ContractsIndex v-show="isContractsIndex" />
+          <ContractsShow v-if="isContractsShow" />
+          <AssigneesShow v-if="isAssigneesShow" />
         </main>
       </div>
     </div>
@@ -43,6 +43,12 @@ export default {
     ContractsShow,
     AssigneesShow,
   },
+  props: {
+    dataDownloadEndpoint: {
+      type: String,
+      default: null
+    }
+  },
   data() {
     return {
       activeTabIndex: store.state.currentTab || 0,
@@ -59,12 +65,6 @@ export default {
     EventBus.$on('refresh-summary-data', () => {
       this.contractsData = this.$root.$data.contractsData;
     });
-  },
-  props: {
-    dataDownloadEndpoint: {
-      type: String,
-      default: null
-    }
   },
   methods: {
     setActiveTab(tabIndex) {

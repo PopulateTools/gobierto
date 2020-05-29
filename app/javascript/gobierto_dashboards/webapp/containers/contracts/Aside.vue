@@ -52,11 +52,6 @@ export default {
     Checkbox,
     DownloadButton
   },
-  data() {
-    return {
-      filters: contractsFiltersConfig
-    }
-  },
   props: {
     contractsData: {
       type: Array,
@@ -67,11 +62,21 @@ export default {
       default: ''
     }
   },
+  data() {
+    return {
+      filters: contractsFiltersConfig
+    }
+  },
+  watch: {
+    contractsData: function (newContractsData, oldContractsData) {
+      this.updateCounters();
+    }
+  },
   created(){
     this.initFilterOptions();
     this.updateCounters(true);
 
-    EventBus.$on('dc-filter-selected', ({title, id}) => {
+    EventBus.$on('dc-filter-selected', ({ title, id }) => {
       const { options = [] } = this.filters.find(( { id: i } ) => id === i) || {};
 
       options.forEach(option => {
@@ -84,26 +89,21 @@ export default {
   beforeDestroy(){
     EventBus.$off('dc-filter-selected');
   },
-  watch: {
-    contractsData: function (newContractsData, oldContractsData) {
-      this.updateCounters();
-    }
-  },
   methods: {
     initFilterOptions(){
       const contractTypesOptions = [];
       const processTypesOptions = [];
       const dateOptions = [];
-      const years = new Set( this.contractsData.map(({start_date_year}) => start_date_year) );
-      const contractTypes = new Set( this.contractsData.map(({contract_type}) => contract_type) );
-      const processTypes = new Set( this.contractsData.map(({process_type}) => process_type) );
+      const years = new Set( this.contractsData.map(({ start_date_year }) => start_date_year) );
+      const contractTypes = new Set( this.contractsData.map(({ contract_type }) => contract_type) );
+      const processTypes = new Set( this.contractsData.map(({ process_type }) => process_type) );
 
 
       // Contract Types
       [...contractTypes]
         .forEach((contractType, index) => {
           if (contractType) {
-            contractTypesOptions.push({id: index, title: contractType, counter: 0, isOptionChecked: false })
+            contractTypesOptions.push({ id: index, title: contractType, counter: 0, isOptionChecked: false })
           }
         });
 
@@ -111,7 +111,7 @@ export default {
       [...processTypes]
         .forEach((processType, index) => {
           if (processType) {
-            processTypesOptions.push({id: index, title: processType, counter: 0, isOptionChecked: false })
+            processTypesOptions.push({ id: index, title: processType, counter: 0, isOptionChecked: false })
           }
         });
 
@@ -120,7 +120,7 @@ export default {
         .sort((a, b) => a < b ? 1 : -1)
         .forEach(year => {
           if (year) {
-            dateOptions.push({id: year, title: year.toString(), counter: 0, isOptionChecked: false })
+            dateOptions.push({ id: year, title: year.toString(), counter: 0, isOptionChecked: false })
           }
         });
 
@@ -135,12 +135,12 @@ export default {
       })
     },
     updateCounters(firstUpdate=false) {
-      const counter = {process_types: {}, contract_types: {}, dates: {}};
+      const counter = { process_types: {}, contract_types: {}, dates: {} };
 
       // It iterates over the contracts to get the number of items for each year, process type and contract type
       // In the end, it populates counter with something like:
       // {process_types: {'Abierto': 12, 'Abierto Simplificado': 43,...}, dates: {2020: '12'...}}
-      this.contractsData.forEach(({process_type, contract_type, start_date_year}) => {
+      this.contractsData.forEach(({ process_type, contract_type, start_date_year }) => {
         counter.process_types[process_type] = counter.process_types[process_type] || 0
         counter.process_types[process_type]++
 
@@ -169,11 +169,11 @@ export default {
       const titles = filter.options.map(option => option.title);
       filter.options.forEach(option => option.isOptionChecked = true)
 
-      EventBus.$emit('filter-changed', {all: true, titles: titles, id: filter.id});
+      EventBus.$emit('filter-changed', { all: true, titles: titles, id: filter.id });
     },
     handleCheckboxStatus({ id, value, filter }) {
       const option = filter.options.find(option => option.id === id)
-      EventBus.$emit('filter-changed', {all: false, title: option.title, id: filter.id});
+      EventBus.$emit('filter-changed', { all: false, title: option.title, id: filter.id });
     },
     toggle(filter){
       this.filters.forEach(_filter => {

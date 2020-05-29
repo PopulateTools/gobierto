@@ -86,11 +86,6 @@ module GobiertoPeople
       "Departament d'"
     ].join("|")).freeze
 
-    DATE_RANGE_CONDITIONS = {
-      from_date: "(gp_charges.end_date IS NULL OR gp_charges.end_date >= :from_date)",
-      to_date: "(gp_charges.start_date IS NULL OR gp_charges.start_date <= :to_date)"
-    }.freeze
-
     def to_param
       slug
     end
@@ -104,7 +99,7 @@ module GobiertoPeople
     end
 
     def people(params = {})
-      people_with_charge.where(self.class.date_range_sql(params), params).distinct
+      people_with_charge.where(Charge.date_range_sql(params), params).distinct
     end
 
     def short_name
@@ -115,13 +110,7 @@ module GobiertoPeople
     def self.filter_department_people(params = {})
       people_relation = params.delete(:people_relation)
 
-      people_relation.joins(:historical_charges).where(date_range_sql(params), params).where("gp_charges.department_id = :department_id", params).distinct
-    end
-
-    def self.date_range_sql(params = {})
-      date_params = params.slice(:from_date, :to_date).compact
-
-      DATE_RANGE_CONDITIONS.slice(*date_params.keys).values.join(" AND ")
+      people_relation.joins(:historical_charges).where(Charge.date_range_sql(params), params).where("#{Charge.table_name}.department_id = :department_id", params).distinct
     end
   end
 end

@@ -144,10 +144,9 @@ YAML
         clear_activities
         site.events.where.not(id: neil.events.pluck(:id)).destroy_all
 
-        departments = [
-          ecology_department_old,
-          tourism_department_very_old,
-          immigration_department_mixed
+        departments_with_activities = [
+          immigration_department_mixed,
+          justice_department
         ]
 
         with_current_site(site) do
@@ -187,7 +186,7 @@ YAML
           )
 
           within departments_sidebar do
-            departments.each do |department|
+            departments_with_activities.each do |department|
               assert has_link? department.name
               assert has_link_to? gobierto_people_department_people_path(department.slug, start_date: start_date, end_date: end_date)
             end
@@ -217,8 +216,9 @@ YAML
 
           within departments_sidebar do
             assert has_no_link? ecology_department_old.name
-            assert has_link? tourism_department_very_old.name
+            assert has_no_link? tourism_department_very_old.name
             assert has_no_link? immigration_department_mixed.name
+            assert has_link? justice_department.name
           end
         end
       end

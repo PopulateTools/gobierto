@@ -114,6 +114,10 @@ export default {
       type: Boolean,
       default: false
     },
+    vizInputFocus: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -131,21 +135,18 @@ export default {
       typeChart: 'hypergrid',
     };
   },
+  watch: {
+    vizInputFocus(newValue) {
+      if (newValue) {
+        this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
+      }
+    }
+  },
   methods: {
     onSaveEventHandler(opts) {
       // get children configuration
       const config = this.$refs.viewer.getConfig()
-
-      if (!this.isVizSavingPromptVisible) {
-        this.$root.$emit("isVizSavingPromptVisible", true);
-        this.$nextTick(() => this.$refs.savingDialogViz.inputFocus());
-      } else {
-        if (!this.labelValue) {
-          this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
-        } else {
-          this.$root.$emit("storeCurrentVisualization", config, opts);
-        }
-      }
+      this.$root.$emit("storeCurrentVisualization", config, opts);
     },
     updateVizName(value) {
       const {
@@ -177,11 +178,8 @@ export default {
       this.showVisualize = false
       this.showResetViz = true
       this.$root.$emit('enableSavedVizButton', true)
-      if (this.isUserLogged) {
-        this.$root.$emit("isVizSavingPromptVisible", true);
-        this.$root.$emit("isVizModified", true);
-        this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
-      }
+      this.$root.$emit("isVizModified", true);
+      this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
     }
   },
 };

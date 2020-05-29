@@ -54,6 +54,8 @@
       :show-private="showPrivate"
       :table-name="tableName"
       :is-user-logged="isUserLogged"
+      :query-input-focus="queryInputFocus"
+      :viz-input-focus="vizInputFocus"
     />
 
     <QueriesTab
@@ -77,6 +79,7 @@
       :enabled-viz-saved-button="enabledVizSavedButton"
       :current-viz-tab="currentVizTab"
       :enabled-fork-viz-button="enabledForkVizButton"
+      :viz-input-focus="vizInputFocus"
     />
 
     <DownloadsTab
@@ -165,7 +168,10 @@ export default {
       enabledForkButton: false,
       enabledForkVizButton: false,
       isPrivateVizLoading : false,
-      isPublicVizLoading: false
+      queryInputFocus : false,
+      isPublicVizLoading: false,
+      vizName: null,
+      vizInputFocus: false
     };
   },
   computed: {
@@ -284,6 +290,7 @@ export default {
     this.queryIsNotMine();
     this.runCurrentQuery();
     this.setDefaultQuery();
+    this.checkIfUserIsLogged();
 
   },
   mounted() {
@@ -371,6 +378,11 @@ export default {
     this.$root.$off('enabledForkVizButton')
   },
   methods: {
+    checkIfUserIsLogged() {
+      if (this.isUserLogged) {
+        this.isVizSavingPromptVisible = true
+      }
+    },
     parseUrl({ queryId, sql }) {
       let item = null;
       if (queryId) {
@@ -553,6 +565,17 @@ export default {
     },
     async storeCurrentQuery({ name, privacy }) {
 
+      const {
+        params: { queryId }
+      } = this.$route;
+
+      if (!queryId && !this.isQuerySavingPromptVisible) {
+        this.isQuerySavingPromptVisible = true
+        this.queryInputFocus = true
+      } else if (!this.labelValue) {
+        this.queryInputFocus = true
+      }
+
       const data = {
         type: "gobierto_data-queries",
         attributes: {
@@ -635,6 +658,13 @@ export default {
     },
     async storeCurrentVisualization(config, opts) {
 
+      if (!this.isVizSavingPromptVisible) {
+        this.isVizSavingPromptVisible = true
+        this.vizInputFocus = true
+      } else if (!this.vizName) {
+        this.vizInputFocus = true
+      }
+
       const { name, privacy, vizID, user, queryViz } = opts;
 
       const userId = Number(getUserId());
@@ -688,14 +718,11 @@ export default {
         this.isVizSaved = true
         this.isVizSavingPromptVisible = false
         this.enabledVizSavedButton = false
+        this.vizName = null
 
         await this.getPrivateVisualizations()
         await this.getPublicVisualizations()
-
-        // TODO: indicar algo con el status OK
-        console.log("postVisualization", status);
       }
-
     },
     getColumnsQuery(csv = '') {
       const [ columns = '' ] = csv.split("\n");

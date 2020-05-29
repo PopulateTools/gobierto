@@ -1,6 +1,6 @@
 <template>
   <div class="gobierto-data-sql-editor">
-    <template v-if="privateVisualizations.length && items || publicVisualizations.length && items">
+    <template v-if="(privateVisualizations.length && items) || (publicVisualizations.length && items)">
       <div class="pure-g">
         <div
           class="pure-u-1 pure-u-lg-4-4"
@@ -27,7 +27,6 @@
             :text="labelEdit"
             class="btn-sql-editor"
             icon="chart-area"
-            color="var(--color-base)"
             background="#fff"
             @click.native="showChart"
           />
@@ -96,6 +95,10 @@ export default {
     enabledForkVizButton: {
       type: Boolean,
       default: true
+    },
+    vizInputFocus: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -128,6 +131,11 @@ export default {
       if (newValue !== oldValue) {
         this.getDataVisualization(newValue);
       }
+    },
+    vizInputFocus(newValue) {
+      if (newValue) {
+        this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
+      }
     }
   },
   async created() {
@@ -153,16 +161,7 @@ export default {
       // get children configuration
       const config = this.$refs.viewer.getConfig()
 
-      if (!this.isVizSavingPromptVisible) {
-        this.$root.$emit("isVizSavingPromptVisible", true);
-        this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus());
-      } else {
-        if (!this.name) {
-          this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
-        } else {
-          this.$root.$emit("storeCurrentVisualization", config, opts);
-        }
-      }
+      this.$root.$emit("storeCurrentVisualization", config, opts);
     },
     updateVizName(value) {
       const {
@@ -182,12 +181,8 @@ export default {
       this.showResetViz = true
       //Enable saved button
       this.$root.$emit('enableSavedVizButton', true)
-      //If user is logged show a saved button and string 'query modified'
-      if (this.isUserLogged) {
-        this.$root.$emit("isVizSavingPromptVisible", true);
-        this.$root.$emit("isVizModified", true);
-        this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
-      }
+      this.$root.$emit("isVizModified", true);
+      this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
 
       if (userId !== this.user) {
         this.isQuerySavingPromptVisible = true

@@ -19,6 +19,7 @@
       :is-public-viz-loading="isPublicVizLoading"
       :enabled-viz-saved-button="enabledVizSavedButton"
       :enabled-fork-viz-button="enabledForkVizButton"
+      :viz-input-focus="vizInputFocus"
       @changeViz="showVizElement"
       @emitDelete="deleteHandlerVisualization"
     />
@@ -84,6 +85,10 @@ export default {
       default: null
     },
     enabledForkVizButton: {
+      type: Boolean,
+      default: true
+    },
+    vizInputFocus: {
       type: Boolean,
       default: true
     }

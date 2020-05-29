@@ -71,7 +71,7 @@
       :value="queryName"
       :label-save="labelSave"
       :label-saved="labelSaved"
-      :labe-modified="labelModifiedQuery"
+      :label-modified="labelModifiedQuery"
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
       :is-fork-prompt-visible="isForkPromptVisible"
@@ -82,7 +82,7 @@
       :enabled-query-saved-button="enabledQuerySavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
-      @save="onSaveEventHandler"
+      @save="saveHandlerSavedQuery"
       @keyDownInput="updateQueryName"
       @handlerFork="handlerForkQuery"
     />
@@ -137,7 +137,7 @@ export default {
       type: Boolean,
       default: false
     },
-   isQuerySavingPromptVisible: {
+    isQuerySavingPromptVisible: {
       type: Boolean,
       default: false
     },
@@ -180,6 +180,10 @@ export default {
     isUserLogged: {
       type: Boolean,
       default: false
+    },
+    queryInputFocus: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -202,6 +206,13 @@ export default {
       isRecentModalActive: false,
       labelValue: this.queryName,
     };
+  },
+  watch: {
+    queryInputFocus(newValue) {
+      if (newValue) {
+        this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus())
+      }
+    }
   },
   created() {
     // it has to be the same event (keydown) as SQLEditorCode
@@ -245,33 +256,9 @@ export default {
       this.labelValue = queryName
       this.$root.$emit('enableSavedButton')
     },
-    onSaveEventHandler(opts) {
-
-      const {
-        params: { queryId }
-      } = this.$route;
-
-      if (queryId) {
-        this.saveHandlerSavedQuery(opts)
-      } else {
-        this.saveHandlerNewQuery(opts)
-      }
-    },
     saveHandlerSavedQuery(opts) {
       // send the query to be stored
       this.$root.$emit("storeCurrentQuery", opts);
-    },
-    saveHandlerNewQuery(opts) {
-      if (!this.isQuerySavingPromptVisible) {
-        this.$root.$emit("isQuerySavingPromptVisible", true);
-        this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus());
-      } else {
-        if (!this.labelValue) {
-          this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus());
-        } else {
-          this.saveHandlerSavedQuery(opts)
-        }
-      }
     },
     clickRunQueryHandler() {
       this.$root.$emit("runCurrentQuery");
@@ -298,7 +285,7 @@ export default {
     },
     enabledInputQueries() {
       const userId = getUserId();
-        if (!this.enabledForkButton && !!userId) {
+      if (!this.enabledForkButton && !!userId) {
         this.$root.$emit('eventToEnabledInputQueries')
         this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus());
       }

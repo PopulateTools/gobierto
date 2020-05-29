@@ -17,6 +17,7 @@
         :show-revert-query="showRevertQuery"
         :show-private="showPrivate"
         :is-user-logged="isUserLogged"
+        :query-input-focus="queryInputFocus"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"
@@ -37,6 +38,7 @@
         :items="items"
         :is-user-logged="isUserLogged"
         :query-stored="queryStored"
+        :viz-input-focus="vizInputFocus"
       />
     </div>
   </div>
@@ -160,6 +162,14 @@ export default {
       default: ''
     },
     isUserLogged: {
+      type: Boolean,
+      default: false
+    },
+    queryInputFocus: {
+      type: Boolean,
+      default: false
+    },
+    vizInputFocus: {
       type: Boolean,
       default: false
     }

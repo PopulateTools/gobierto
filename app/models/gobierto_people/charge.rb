@@ -22,6 +22,7 @@ module GobiertoPeople
     }
     scope :with_department, ->(department) { where(department: department) if department.present? }
     scope :sorted, -> { order("#{table_name}.start_date ASC NULLS FIRST, #{table_name}.end_date ASC NULLS LAST") }
+    scope :reverse_sorted, -> { order("#{table_name}.start_date DESC NULLS LAST, #{table_name}.end_date ASC NULLS FIRST") }
 
     def self.date_range_sql(params = {})
       date_params = params.slice(:start_date, :end_date).compact

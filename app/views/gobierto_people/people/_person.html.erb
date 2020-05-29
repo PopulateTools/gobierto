@@ -16,7 +16,7 @@
     <%= link_to gobierto_people_person_path(person.slug, date_range_params) do %>
       <h2><%= person.name %></h2>
     <% end %>
-    <div class="soft"><%= person.charge %></div>
+    <div class="soft"><%= person.charge(filter_end_date) %></div>
   </div>
 
 </div>

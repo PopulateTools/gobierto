@@ -28,7 +28,7 @@
 
         <h2><%= title @person.name %></h2>
 
-        <div class="person_charge"><%= @person.charge %></div>
+        <div class="person_charge"><%= @person.charge(filter_end_date) %></div>
         <% if @person.party.present? %>
           <div class="person_party">
             <%= t(".party.#{@person.party}") %>

@@ -65,6 +65,22 @@ module GobiertoPeople
       attending_events.person_events.where(collection_items: { container_id: id })
     end
 
+    def historical_charge(date = nil)
+      if date.present?
+        historical_charges.on_date(date).take
+      else
+        historical_charge(Date.current) || historical_charges.reverse_sorted.first
+      end
+    end
+
+    def charge(date = nil)
+      if historical_charges.exists?
+        historical_charge(date)&.name
+      else
+        charge_translations(I18n.locale) || charge_translations.values.first
+      end
+    end
+
     def as_csv
       political_group_name = political_group.try(:name)
 

@@ -16,6 +16,7 @@ en:
         contract_type: Type of contract
         contractor: Contractor
         contracts: Contracts
+        contracts_assigned_to: Contracts assigned to
         date: Date
         dates: Dates
         description: Visualizations and analisys for the awarded contracts and tenders
@@ -74,7 +75,8 @@ en:
             the spending"
           label_larger_subsidy_amount_1: 'The largest subsidy means a '
           label_larger_subsidy_amount_2: " of all the spending"
-          label_less_than_1000_1: " of subsidies are less than "
+          label_less_than_1000_1: ''
+          label_less_than_1000_2: " of subsidies are less than "
           mean_amount: Average amount
           median_amount: Median amount
           subsidies: Subsidies

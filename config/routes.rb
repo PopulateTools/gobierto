@@ -619,6 +619,7 @@ Rails.application.routes.draw do
         get "contratos" => "dashboards#contracts", as: :contracts_summary
         get "contratos/adjudicaciones" => "dashboards#contracts", as: :contracts
         get "contratos/adjudicaciones/:id" => "dashboards#contracts"
+        get "contratos/adjudicatario/:id" => "dashboards#contracts"
 
         get "subvenciones" => "dashboards#subsidies", as: :subsidies_summary
         get "subvenciones/subvenciones" => "dashboards#subsidies", as: :subsidies

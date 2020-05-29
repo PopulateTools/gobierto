@@ -3,14 +3,13 @@
     :items="items"
     :routing-member="'subsidies_show'"
     :columns="columns"
-  >
-  </Table>
+  />
 </template>
 
 <script>
 import Table from "../../components/Table.vue";
 import { EventBus } from "../../mixins/event_bus";
-import { subsidiesColumns } from "../../lib/config.js";
+import { subsidiesColumns } from "../../lib/config/subsidies.js";
 
 export default {
   name: 'SubsidiesIndex',
@@ -24,7 +23,7 @@ export default {
     }
   },
   created() {
-    EventBus.$on('refresh_summary_data', () => {
+    EventBus.$on('refresh-summary-data', () => {
       this.subsidiesData = this.$root.$data.subsidiesData
       this.items = this.subsidiesData.slice(0, 50);
     });
@@ -33,7 +32,7 @@ export default {
     this.columns = subsidiesColumns;
   },
   beforeDestroy(){
-    EventBus.$off('refresh_summary_data');
+    EventBus.$off('refresh-summary-data');
   }
 }
 </script>

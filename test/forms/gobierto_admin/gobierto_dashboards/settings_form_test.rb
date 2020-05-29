@@ -126,7 +126,7 @@ JSON
 
         assert valid_settings_form.gobierto_module_settings.dashboards_config['dashboards'].present?
         assert valid_settings_form.gobierto_module_settings.dashboards_config.dig('dashboards', 'contracts').present?
-        assert valid_settings_form.gobierto_module_settings.dashboards_config.dig('dashboards', 'tenders').present?
+        assert valid_settings_form.gobierto_module_settings.dashboards_config.dig('dashboards', 'subsidies').present?
       end
 
       def test_save_with_valid_empty_attributes
@@ -135,7 +135,7 @@ JSON
 
         assert valid_empty_settings_form.gobierto_module_settings.dashboards_config.has_key?('dashboards')
         assert valid_empty_settings_form.gobierto_module_settings.dashboards_config.dig('dashboards', 'contracts').blank?
-        assert valid_empty_settings_form.gobierto_module_settings.dashboards_config.dig('dashboards', 'tenders').blank?
+        assert valid_empty_settings_form.gobierto_module_settings.dashboards_config.dig('dashboards', 'subsidies').blank?
       end
 
       def test_does_not_save_with_invalid_main_key

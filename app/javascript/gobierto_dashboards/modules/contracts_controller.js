@@ -20,7 +20,7 @@ Vue.config.productionTip = false;
 export class ContractsController {
   constructor(options) {
     this.charts = {};
-    this.tendersFilters = {submission_date: [], process_type: [], contract_type: [] };
+    this.tendersFilters = { submission_date: [], process_type: [], contract_type: [] };
 
     const selector = "gobierto-dashboards-contracts-app";
 
@@ -32,12 +32,11 @@ export class ContractsController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () => import("../webapp/containers/shared/Home.vue");
-      const Summary = () => import("../webapp/containers/summary/Summary.vue");
-      const ContractsIndex = () => import("../webapp/containers/contract/ContractsIndex.vue");
-      const ContractsShow = () => import("../webapp/containers/contract/ContractsShow.vue");
-      const TendersIndex = () => import("../webapp/containers/tender/TendersIndex.vue");
-      const TendersShow = () => import("../webapp/containers/tender/TendersShow.vue");
+      const Home = () => import("../webapp/containers/contracts/Home.vue");
+      const Summary = () => import("../webapp/containers/contracts/Summary.vue");
+      const ContractsIndex = () => import("../webapp/containers/contracts/ContractsIndex.vue");
+      const ContractsShow = () => import("../webapp/containers/contracts/ContractsShow.vue");
+      const AssigneesShow = () => import("../webapp/containers/contracts/AssigneesShow.vue");
 
       Promise.all([getRemoteData(options.contractsEndpoint), getRemoteData(options.tendersEndpoint)]).then((rawData) => {
         this.setGlobalVariables(rawData)
@@ -45,11 +44,12 @@ export class ContractsController {
         const router = new VueRouter({
           mode: "history",
           routes: [
-            { path: "/dashboards/contratos", component: Home, props: {dataDownloadEndpoint: options.dataDownloadEndpoint},
+            { path: "/dashboards/contratos", component: Home, props: { dataDownloadEndpoint: options.dataDownloadEndpoint },
               children: [
-                { path: "", name: "summary", component: Summary},
+                { path: "", name: "summary", component: Summary },
                 { path: "adjudicaciones", name: "contracts_index", component: ContractsIndex },
                 { path: "adjudicaciones/:id", name: "contracts_show", component: ContractsShow },
+                { path: "adjudicatario/:id", name: "assignees_show", component: AssigneesShow },
               ]
             }
 
@@ -85,11 +85,11 @@ export class ContractsController {
           data: Object.assign(options, this.data),
         }).$mount(entryPoint);
 
-        EventBus.$on('summary_ready', () => {
+        EventBus.$on('summary-ready', () => {
           this._renderSummary();
         });
 
-        EventBus.$on('filter_changed', (options) => {
+        EventBus.$on('filter-changed', (options) => {
           this._updateChartsFromFilter(options);
         });
 
@@ -98,7 +98,7 @@ export class ContractsController {
         // - dc charts sizes are calculated automatically, but if the page is not visible it won't calculate sizes properly
         // - Given all that: when we go from a page that is not summary to summary for the first time, the sizes must
         //   be calculated and the charts redrawn. This is why this event only needs to be listened once.
-        EventBus.$once('moved_to_summary', () => {
+        EventBus.$once('moved-to-summary', () => {
           this._redrawCharts();
         });
 
@@ -144,7 +144,7 @@ export class ContractsController {
     };
     var rangeFormat = d3.scaleThreshold().domain(this._amountRange.domain).range(this._amountRange.range);
 
-    for(let i = 0; i < contractsData.length; i++){
+    for (let i = 0; i < contractsData.length; i++){
       const contract = contractsData[i];
       const final_amount_no_taxes = contract.final_amount_no_taxes ? parseFloat(contract.final_amount_no_taxes) : 0.0;
       const initial_amount_no_taxes = contract.initial_amount_no_taxes ? parseFloat(contract.initial_amount_no_taxes) : 0.0 ;
@@ -153,16 +153,17 @@ export class ContractsController {
       contract.initial_amount_no_taxes = initial_amount_no_taxes;
       contract.range = rangeFormat(+final_amount_no_taxes);
       contract.start_date_year = contract.start_date ? (new Date(contract.start_date).getFullYear()) : contract.start_date;
+      if (!contract.assignee_routing_id) { contract.assignee_routing_id = contract.assignee_id }
     }
 
-    for(let i = 0; i < tendersData.length; i++){
+    for (let i = 0; i < tendersData.length; i++){
       const tender = tendersData[i];
       const initial_amount_no_taxes = tender.initial_amount_no_taxes ? parseFloat(tender.initial_amount_no_taxes) : 0.0;
 
       tender.initial_amount_no_taxes = initial_amount_no_taxes;
       tender.submission_date_year = tender.submission_date ? (new Date(tender.submission_date).getFullYear()) : tender.submission_date;
 
-      if(tender.submission_date_year) { tender.submission_date_year = tender.submission_date_year.toString() }
+      if (tender.submission_date_year) { tender.submission_date_year = tender.submission_date_year.toString() }
     }
 
     this.unfilteredTendersData = tendersData.sort(sortByField('submission_date'));
@@ -189,10 +190,10 @@ export class ContractsController {
     if (filters) {
       this._refreshTendersDataFromFilters(filters, tendersAttribute);
     }
-    this.reduced = {tendersData: this.data.tendersData, contractsData: reducedContractsData};
+    this.reduced = { tendersData: this.data.tendersData, contractsData: reducedContractsData };
 
     this.vueApp.contractsData = reducedContractsData;
-    EventBus.$emit('refresh_summary_data');
+    EventBus.$emit('refresh-summary-data');
 
     this._renderTendersMetricsBox();
     this._renderContractsMetricsBox();
@@ -202,7 +203,7 @@ export class ContractsController {
     const _tendersData = this._currentDataSource().tendersData
 
     // Calculations
-    const amountsArray = _tendersData.map(({initial_amount_no_taxes = 0}) => parseFloat(initial_amount_no_taxes) );
+    const amountsArray = _tendersData.map(({ initial_amount_no_taxes = 0 }) => parseFloat(initial_amount_no_taxes) );
 
     const numberTenders = _tendersData.length;
     const sumTenders = d3.sum(amountsArray);
@@ -220,7 +221,7 @@ export class ContractsController {
     const _contractsData = this._currentDataSource().contractsData;
 
     // Calculations
-    const amountsArray = _contractsData.map(({final_amount_no_taxes = 0}) => parseFloat(final_amount_no_taxes) );
+    const amountsArray = _contractsData.map(({ final_amount_no_taxes = 0 }) => parseFloat(final_amount_no_taxes) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
 
     // Calculations box items
@@ -230,14 +231,14 @@ export class ContractsController {
     const medianContracts = d3.median(amountsArray);
 
     // Calculations headlines
-    const lessThan1000Total = _contractsData.filter(({final_amount_no_taxes = 0}) => parseFloat(final_amount_no_taxes) < 1000).length;
+    const lessThan1000Total = _contractsData.filter(({ final_amount_no_taxes = 0 }) => parseFloat(final_amount_no_taxes) < 1000).length;
     const lessThan1000Pct = lessThan1000Total/numberContracts;
 
-    const largerContractAmount = d3.max(_contractsData, ({final_amount_no_taxes = 0}) => parseFloat(final_amount_no_taxes));
+    const largerContractAmount = d3.max(_contractsData, ({ final_amount_no_taxes = 0 }) => parseFloat(final_amount_no_taxes));
     const largerContractAmountPct = largerContractAmount / sumContracts;
 
     let iteratorAmountsSum = 0, numberContractsHalfSpendings = 0;
-    for(let i= 0; i < sortedAmountsArray.length; i++){
+    for (let i= 0; i < sortedAmountsArray.length; i++){
       iteratorAmountsSum += sortedAmountsArray[i];
       numberContractsHalfSpendings++;
 
@@ -259,7 +260,7 @@ export class ContractsController {
     });
     document.getElementById("half-spendings-contracts-pct").innerText = halfSpendingsContractsPct.toLocaleString(I18n.locale, {
       style: 'percent'
-    });;
+    });
   }
 
   _renderByAmountsChart(){
@@ -287,7 +288,7 @@ export class ContractsController {
       dimension: dimension,
       onFilteredFunction: (chart, filter) => {
         this._refreshData(dimension.top(Infinity), chart.filters(), 'contract_type')
-        EventBus.$emit('dc_filter_selected', {title: filter, id: 'contract_types'})
+        EventBus.$emit('dc-filter-selected', { title: filter, id: 'contract_types' })
       }
     }
 
@@ -302,7 +303,7 @@ export class ContractsController {
       dimension: dimension,
       onFilteredFunction: (chart, filter) => {
         this._refreshData(dimension.top(Infinity), chart.filters(), 'process_type')
-        EventBus.$emit('dc_filter_selected', {title: filter, id: 'process_types'})
+        EventBus.$emit('dc-filter-selected', { title: filter, id: 'process_types' })
       }
     }
 
@@ -317,7 +318,7 @@ export class ContractsController {
       dimension: dimension,
       onFilteredFunction: (chart, filter) => {
         this._refreshData(dimension.top(Infinity), chart.filters(), 'submission_date_year')
-        EventBus.$emit('dc_filter_selected', {title: filter, id: 'dates'})
+        EventBus.$emit('dc-filter-selected', { title: filter, id: 'dates' })
       }
     }
 
@@ -366,7 +367,7 @@ export class ContractsController {
   }
 
   _formalizedContractsData(contractsData){
-    return contractsData.filter(({status}) =>
+    return contractsData.filter(({ status }) =>
       status === 'Formalizado' || status === 'Adjudicado'
     )
   }

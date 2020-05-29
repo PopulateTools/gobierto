@@ -1,9 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import { EventBus } from '../webapp/mixins/event_bus'
-
-/*import { VisBubble } from "lib/visualizations";*/
+import { getRemoteData } from '../webapp/lib/utils'
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -24,13 +22,13 @@ export class CostsController {
 
       const Home = () => import("../webapp/containers/costs/Home.vue");
 
-      Promise.all([getData()]).then((rawData) => {
-        const data = rawData
+      Promise.all([getRemoteData(options.costsEndpoint)]).then((rawData) => {
+        this.setGlobalVariables(rawData)
 
         const router = new VueRouter({
           mode: "history",
           routes: [
-            { path: "/costes", component: Home
+            { path: "/dashboards/costes", component: Home
             }
           ],
           scrollBehavior() {
@@ -61,8 +59,7 @@ export class CostsController {
 
         this.vueApp = new Vue({
           router,
-          //TO-DO: factory
-          data: Object.assign(options, this.data),
+          data: Object.assign(options, this.data)
         }).$mount(entryPoint);
 
         const loadingElement = document.querySelector(".js-loading");
@@ -70,6 +67,12 @@ export class CostsController {
           loadingElement.classList.add('hidden')
         }
       });
+    }
+  }
+
+  setGlobalVariables(rawData) {
+    this.data = {
+      costData: rawData
     }
   }
 

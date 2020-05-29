@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //FIX-ME
   const costsAppNode = document.getElementById("gobierto-dashboards-costs-app");
-  if (subsidiesAppNode) {
+  if (costsAppNode) {
     new CostsController({
       siteName: costsAppNode.dataset.siteName,
       logoUrl: costsAppNode.dataset.logoUrl,

@@ -18,9 +18,9 @@ module GobiertoPeople
       lambda {
         where(
           %{
-            (gp_charges.start_date is NULL OR gp_charges.start_date <= gc_events.starts_at)
+            (#{Charge.table_name}.start_date is NULL OR #{Charge.table_name}.start_date <= #{GobiertoCalendars::Event.table_name}.starts_at)
             AND
-            (gp_charges.end_date is null or gp_charges.end_date >= gc_events.starts_at)
+            (#{Charge.table_name}.end_date is null or #{Charge.table_name}.end_date >= #{GobiertoCalendars::Event.table_name}.starts_at)
           }
         )
       },
@@ -32,9 +32,9 @@ module GobiertoPeople
       lambda {
         where(
           %{
-            (gp_charges.start_date is NULL OR gp_charges.start_date <= gp_gifts.date)
+            (#{Charge.table_name}.start_date is NULL OR #{Charge.table_name}.start_date <= #{Gift.table_name}.date)
             AND
-            (gp_charges.end_date is null or gp_charges.end_date >= gp_gifts.date)
+            (#{Charge.table_name}.end_date is null or #{Charge.table_name}.end_date >= #{Gift.table_name}.date)
           }
         )
       },
@@ -46,9 +46,9 @@ module GobiertoPeople
       lambda {
         where(
           %{
-            (gp_charges.start_date is NULL OR gp_charges.start_date <= gp_trips.start_date)
+            (#{Charge.table_name}.start_date is NULL OR #{Charge.table_name}.start_date <= #{Trip.table_name}.start_date)
             AND
-            (gp_charges.end_date is null or gp_charges.end_date >= gp_trips.start_date)
+            (#{Charge.table_name}.end_date is null or #{Charge.table_name}.end_date >= #{Trip.table_name}.start_date)
           }
         )
       },
@@ -60,9 +60,9 @@ module GobiertoPeople
       lambda {
         where(
           %{
-            (gp_charges.start_date is NULL OR gp_charges.start_date <= gp_invitations.start_date)
+            (#{Charge.table_name}.start_date is NULL OR #{Charge.table_name}.start_date <= #{Invitation.table_name}.start_date)
             AND
-            (gp_charges.end_date is null or gp_charges.end_date >= gp_invitations.start_date)
+            (#{Charge.table_name}.end_date is null or #{Charge.table_name}.end_date >= #{Invitation.table_name}.start_date)
           }
         )
       },

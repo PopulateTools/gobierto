@@ -15,11 +15,11 @@ module GobiertoPeople
     scope :sorted, -> { order(start_date: :desc) }
     scope :between_dates, lambda { |start_date, end_date|
       if start_date && end_date
-        where("gp_trips.start_date >= ? AND gp_trips.end_date <= ?", start_date, end_date)
+        where("#{table_name}.start_date >= ? AND #{table_name}.end_date <= ?", start_date, end_date)
       elsif start_date
-        where("gp_trips.start_date >= ?", start_date)
+        where("#{table_name}.start_date >= ?", start_date)
       elsif end_date
-        where("gp_trips.end_date <= ?", end_date)
+        where("#{table_name}.end_date <= ?", end_date)
       end
     }
 

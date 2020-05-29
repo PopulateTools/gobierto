@@ -1,21 +1,35 @@
 <template>
-  <div class="pure-g gutters m_b_4">
+  <div class="pure-u-1 gutters m_b_1">
     <p>Distribución de costes por área</p>
+    <div
+      v-if="data"
+      class="vis-costs">
+    </div>
   </div>
 </template>
 
 <script>
 
-import { VisBubble } from "lib/visualizations";
+import { VisBubbles } from "lib/visualizations";
 
 export default {
   name: 'Distribution',
+  props: {
+    data: {
+      type: Array,
+      default: () => []
+    }
+  },
   created() {
-    this.createBubbleViz()
+    this.getDataForBubbles()
   },
   methods: {
+    getDataForBubbles() {
+
+    },
     createBubbleViz() {
-      const visBubblesCosts = new VisBubble('.vis-bubbles-expense', 'expense', window.budgetLevels);
+      const visBubblesCosts = new VisBubbles('.vis-costs', 'costs', this.data);
+      visBubblesCosts.render();
     }
   }
 }

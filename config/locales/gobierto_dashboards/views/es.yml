@@ -53,6 +53,7 @@ es:
         cost_indirect: Coste indirecto
         cost_inhabitant: Coste/habitante
         income: Ingresos
+        coverage: Cobertura
       subsidies:
         amount: Importe
         amount_distribution: Distribución por importes

@@ -1,9 +1,15 @@
 <template>
-  <main>
-    <div class="pure-g gutters m_b_4">
+  <main class="gobierto-dashboards">
+    <div class="pure-g gutters m_b_1">
       <Header />
-      <Distribution />
-      <Detail />
+      <Distribution
+        v-if="costData"
+        :data="costData"
+      />
+      <Detail
+        :items="groupData"
+        :data="costData"
+      />
     </div>
   </main>
 </template>
@@ -22,6 +28,7 @@ export default {
   data() {
     return {
       costData: this.$root.$data.costData,
+      groupData: this.$root.$data.agrupacioData,
     }
   },
   created() {

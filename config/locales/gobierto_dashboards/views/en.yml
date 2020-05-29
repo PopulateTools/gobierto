@@ -9,6 +9,8 @@ en:
         cost_direct: Direct cost
         cost_indirect: Indirect cost
         cost_inhabitant: Cost / inhabitant
+        income: Income
+        coverage: Cobertura
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee

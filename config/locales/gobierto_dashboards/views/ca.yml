@@ -9,7 +9,8 @@ ca:
         cost_direct: Cost directe
         cost_indirect: Cost indirecte
         cost_inhabitant: Cost / habitant
-        income: Ingresos
+        income: Ingressos
+        coverage: Cobertura
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari

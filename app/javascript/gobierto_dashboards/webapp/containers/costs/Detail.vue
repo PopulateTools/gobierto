@@ -1,13 +1,29 @@
 <template>
-  <div class="pure-g gutters m_b_4">
-    <p>Detalle</p>
+  <div class="pure-u-1 gutters m_b_1">
+    Tablica
+    <Table
+      :items="items"
+      :data="data"
+    />
   </div>
 </template>
 
 <script>
-
+import Table from './Table.vue'
 export default {
   name: 'Detail',
-
+  components: {
+    Table
+  },
+  props: {
+    items: {
+      type: Array,
+      default: () => []
+    },
+    data: {
+      type: Array,
+      default: () => []
+    }
+  },
 }
 </script>

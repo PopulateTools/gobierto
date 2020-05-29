@@ -1,7 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+import { nest } from 'd3-collection';
+import { sum } from 'd3-array';
 import { getRemoteData } from '../webapp/lib/utils'
+
+const d3 = { nest, sum }
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -71,8 +75,42 @@ export class CostsController {
   }
 
   setGlobalVariables(rawData) {
+
+    function convertStringToNumbers(amount) {
+      return Number(parseFloat(amount.replace(/\./g,'').replace(',','.'))).toFixed(2)
+    }
+
+    const amountStrings = [ 'cd_bens_i_serveis', 'cd_cost_personal', 'cost_directe_2018' , 'cost_indirecte_2018', 'cost_total_2018', 'costpers2018', 'costrestadir2018']
+
+    for (let cost of rawData) {
+      for (let index = 0; index < cost.length; index++) {
+        let d = cost[index]
+
+        for (let amounts = 0; amounts < amountStrings.length; amounts++) {
+          d[amountStrings[amounts]] = convertStringToNumbers(d[amountStrings[amounts]])
+        }
+        if (d.cost_directe_2018) {
+          d['year'] = '2018'
+        } else if (d.cost_directe_2019) {
+          d['year'] = '2019'
+        }
+      }
+    }
+
+    const groupData = d3.nest()
+        .key(d => d.agrupacio)
+        .rollup(function(value) {
+          return {
+            count: value.length,
+            total: d3.sum(value, d => d.cost_total_2018)
+          }
+        })
+        .entries(rawData[0]);
+    console.log("rawData[0]", rawData[0]);
+    console.log("groupData", groupData);
     this.data = {
-      costData: rawData
+      costData: rawData,
+      agrupacioData: groupData
     }
   }
 

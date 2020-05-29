@@ -20,9 +20,7 @@
        data-site-name="<%= @site.name %>"
        data-logo-url="<%= @site.configuration.logo_with_fallback %>"
        data-home-url="<%= gobierto_dashboards_contracts_summary_url %>"
-       data-contracts-endpoint="<%= @dashboards_config.dig('data_urls', 'contracts') %>"
-       data-tenders-endpoint="<%= @dashboards_config.dig('data_urls', 'tenders') %>"
-       data-data-download-endpoint="<%= @dashboards_config['data_download_source'] %>"
+       data-costs-endpoint="<%= @dashboards_config.dig('data_urls', 'costs') %>"
   >
   </div>
 

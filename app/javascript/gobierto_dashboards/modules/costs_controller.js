@@ -8,27 +8,6 @@ import { EventBus } from '../webapp/mixins/event_bus'
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
-
-//TO-DO: create a factory to get data
-let initObject = { method: 'GET' };
-
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 400) {
-    return Promise.resolve(response)
-  } else {
-    return Promise.reject(new Error(response.statusText))
-  }
-}
-
-const userRequest = new Request('https://mataro.gobify.net/api/v1/data/data?sql=select%20*%20from%20costes', initObject);
-
-async function getData() {
-  let response = await fetch(userRequest);
-  let dataRequest = await checkStatus(response);
-  let data = dataRequest.json()
-  return data;
-}
-
 export class CostsController {
   constructor(options) {
     this.charts = {};

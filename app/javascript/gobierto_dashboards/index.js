@@ -35,8 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       siteName: costsAppNode.dataset.siteName,
       logoUrl: costsAppNode.dataset.logoUrl,
       homeUrl: costsAppNode.dataset.homeUrl,
-      costsEndpoint: costsAppNode.dataset.costsEndpoint,
-      dataDownloadEndpoint: costsAppNode.dataset.dataDownloadEndpoint,
+      costsEndpoint: costsAppNode.dataset.costsEndpoint
     });
   }
 });

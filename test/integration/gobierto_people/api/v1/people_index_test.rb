@@ -81,8 +81,8 @@ module GobiertoPeople
               gobierto_people_api_v1_people_path,
               params: {
                 department_id: justice_department.id,
-                from_date: FAR_PAST,
-                to_date: FAR_FUTURE
+                start_date: FAR_PAST,
+                end_date: FAR_FUTURE
               }
             )
 

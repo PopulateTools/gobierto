@@ -77,7 +77,7 @@ module GobiertoPeople
 
       query_results = PeopleQuery.new(
         relation: site.people,
-        conditions: { from_date: Time.zone.now }
+        conditions: { start_date: Time.zone.now }
       ).results
 
       assert query_results.include?(tamara)
@@ -85,7 +85,7 @@ module GobiertoPeople
 
       query_results = PeopleQuery.new(
         relation: site.people,
-        conditions: { to_date: Time.zone.now }
+        conditions: { end_date: Time.zone.now }
       ).results
 
       assert query_results.exclude?(tamara)

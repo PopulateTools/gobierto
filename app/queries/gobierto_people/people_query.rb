@@ -8,7 +8,7 @@ module GobiertoPeople
     def append_query_conditions(conditions)
       if conditions[:department_id]
         @relation = Department.filter_department_people(
-          conditions.slice(:department_id, :from_date, :to_date)
+          conditions.slice(:department_id, :start_date, :end_date)
                     .merge(people_relation: relation)
         )
       end
@@ -17,12 +17,12 @@ module GobiertoPeople
         append_condition(:interest_group_id, conditions[:interest_group_id])
       end
 
-      if conditions[:from_date]
-        append_condition(:starts_at, conditions[:from_date], ">=")
+      if conditions[:start_date]
+        append_condition(:starts_at, conditions[:start_date], ">=")
       end
 
-      if conditions[:to_date]
-        append_condition(:ends_at, conditions[:to_date], "<=")
+      if conditions[:end_date]
+        append_condition(:ends_at, conditions[:end_date], "<=")
       end
     end
 

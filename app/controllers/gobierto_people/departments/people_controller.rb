@@ -10,7 +10,7 @@ module GobiertoPeople
       include FilterByActivitiesHelper
 
       def index
-        @people = current_department.people(from_date: filter_start_date, to_date: filter_end_date)
+        @people = current_department.people(start_date: filter_start_date, end_date: filter_end_date)
 
         @sidebar_departments = current_site.departments
 

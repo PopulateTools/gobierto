@@ -54,14 +54,14 @@ module GobiertoPeople
 
     def test_filter_by_date
       query = InterestGroupsQuery.new(conditions: {
-        from_date: 2.months.ago
+        start_date: 2.months.ago
       })
 
       assert query.results.include?(interest_group_with_recent_event)
       assert query.results.exclude?(interest_group_with_old_event)
 
       query = InterestGroupsQuery.new(conditions: {
-        to_date: 1.year.ago
+        end_date: 1.year.ago
       })
 
       assert query.results.include?(interest_group_with_old_event)
@@ -71,7 +71,7 @@ module GobiertoPeople
     def test_filter_by_multiple_conditions
       query = InterestGroupsQuery.new(conditions: {
         person_id: tamara.id,
-        from_date: 2.months.ago.iso8601
+        start_date: 2.months.ago.iso8601
       })
 
       assert query.results.include?(tamara_interst_group_with_recent_event)

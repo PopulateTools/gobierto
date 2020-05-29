@@ -66,8 +66,8 @@ module GobiertoPeople
               params: {
                 department_id: justice_department.id,
                 person_id: tamara.id,
-                from_date: FAR_PAST,
-                to_date: FAR_FUTURE
+                start_date: FAR_PAST,
+                end_date: FAR_FUTURE
               }
             )
 

@@ -3,18 +3,19 @@
     <div class="pure-g gutters m_b_4">
       <Aside
         :contracts-data="contractsData"
-        :dataDownloadEndpoint="dataDownloadEndpoint"
+        :data-download-endpoint="dataDownloadEndpoint"
       />
 
       <div class="pure-u-1 pure-u-lg-3-4">
         <Nav
           :active-tab="activeTabIndex"
           @active-tab="setActiveTab"
-        ></Nav>
+        />
         <main class="dashboards-home-main">
-          <Summary v-show="isSummary"/>
-          <ContractsIndex v-show="isContractsIndex"/>
-          <ContractsShow v-if="isContractsShow"/>
+          <Summary v-show="isSummary" />
+          <ContractsIndex v-show="isContractsIndex" />
+          <ContractsShow v-if="isContractsShow" />
+          <AssigneesShow v-if="isAssigneesShow" />
         </main>
       </div>
     </div>
@@ -24,9 +25,10 @@
 <script>
 import Nav from "./Nav.vue";
 import Aside from "./Aside.vue";
-import Summary from "./../summary/Summary.vue";
-import ContractsIndex from "./../contract/ContractsIndex.vue";
-import ContractsShow from "./../contract/ContractsShow.vue";
+import Summary from "./Summary.vue";
+import ContractsIndex from "./ContractsIndex.vue";
+import ContractsShow from "./ContractsShow.vue";
+import AssigneesShow from "./AssigneesShow.vue";
 
 import { EventBus } from "../../mixins/event_bus";
 import { store } from "../../mixins/store";
@@ -39,6 +41,13 @@ export default {
     Summary,
     ContractsIndex,
     ContractsShow,
+    AssigneesShow,
+  },
+  props: {
+    dataDownloadEndpoint: {
+      type: String,
+      default: null
+    }
   },
   data() {
     return {
@@ -50,17 +59,12 @@ export default {
     isSummary() { return this.$route.name === 'summary' },
     isContractsIndex() { return this.$route.name === 'contracts_index' },
     isContractsShow() { return this.$route.name === 'contracts_show' },
+    isAssigneesShow() { return this.$route.name === 'assignees_show' },
   },
   created(){
-    EventBus.$on('refresh_summary_data', () => {
+    EventBus.$on('refresh-summary-data', () => {
       this.contractsData = this.$root.$data.contractsData;
     });
-  },
-  props: {
-    dataDownloadEndpoint: {
-      type: String,
-      default: null
-    }
   },
   methods: {
     setActiveTab(tabIndex) {
@@ -68,7 +72,7 @@ export default {
       store.addCurrentTab(tabIndex);
 
       if (this.isSummaryPage(tabIndex)) {
-        EventBus.$emit("moved_to_summary");
+        EventBus.$emit("moved-to-summary");
       }
     },
     isSummaryPage(tabIndex){

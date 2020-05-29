@@ -8,7 +8,7 @@ const d3 = { scaleThreshold, sum, mean, median, max }
 
 import crossfilter from 'crossfilter2'
 
-import { getRemoteData, sortByField, uniqueMembers } from '../webapp/lib/utils'
+import { getRemoteData, sortByField } from '../webapp/lib/utils'
 import { EventBus } from '../webapp/mixins/event_bus'
 
 import { money } from 'lib/shared'
@@ -32,10 +32,10 @@ export class SubsidiesController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () => import("../webapp/containers/subsidies_shared/Home.vue");
-      const Summary = () => import("../webapp/containers/subsidies_shared/Summary.vue");
-      const SubsidiesIndex = () => import("../webapp/containers/subsidy/SubsidiesIndex.vue");
-      const SubsidiesShow = () => import("../webapp/containers/subsidy/SubsidiesShow.vue");
+      const Home = () => import("../webapp/containers/subsidies/Home.vue");
+      const Summary = () => import("../webapp/containers/subsidies/Summary.vue");
+      const SubsidiesIndex = () => import("../webapp/containers/subsidies/SubsidiesIndex.vue");
+      const SubsidiesShow = () => import("../webapp/containers/subsidies/SubsidiesShow.vue");
 
       Promise.all([getRemoteData(options.subsidiesEndpoint)]).then((rawData) => {
         this.setGlobalVariables(rawData)
@@ -43,9 +43,9 @@ export class SubsidiesController {
         const router = new VueRouter({
           mode: "history",
           routes: [
-            { path: "/dashboards/subvenciones", component: Home, props: {dataDownloadEndpoint: options.dataDownloadEndpoint},
+            { path: "/dashboards/subvenciones", component: Home, props: { dataDownloadEndpoint: options.dataDownloadEndpoint },
               children: [
-                { path: "", name: "summary", component: Summary},
+                { path: "", name: "summary", component: Summary },
                 { path: "subvenciones", name: "subsidies_index", component: SubsidiesIndex },
                 { path: "subvenciones/:id", name: "subsidies_show", component: SubsidiesShow },
               ]
@@ -83,11 +83,11 @@ export class SubsidiesController {
           data: Object.assign(options, this.data),
         }).$mount(entryPoint);
 
-        EventBus.$on('summary_ready', () => {
+        EventBus.$on('summary-ready', () => {
           this._renderSummary();
         });
 
-        EventBus.$on('filter_changed', (options) => {
+        EventBus.$on('filter-changed', (options) => {
           this._updateChartsFromFilter(options);
         });
 
@@ -96,7 +96,7 @@ export class SubsidiesController {
         // - dc charts sizes are calculated automatically, but if the page is not visible it won't calculate sizes properly
         // - Given all that: when we go from a page that is not summary to summary for the first time, the sizes must
         //   be calculated and the charts redrawn. This is why this event only needs to be listened once.
-        EventBus.$once('moved_to_summary', () => {
+        EventBus.$once('moved-to-summary', () => {
           this._redrawCharts();
         });
 
@@ -118,7 +118,7 @@ export class SubsidiesController {
     };
     var rangeFormat = d3.scaleThreshold().domain(this._amountRange.domain).range(this._amountRange.range);
 
-    for(let i = 0; i < subsidiesData.length; i++){
+    for (let i = 0; i < subsidiesData.length; i++){
       const subsidy = subsidiesData[i];
       const amount = subsidy.amount ? parseFloat(subsidy.amount) : 0.0
 
@@ -152,10 +152,10 @@ export class SubsidiesController {
   }
 
   _refreshData(reducedSubsidiesData){
-    this.reduced = {subsidiesData: reducedSubsidiesData};
+    this.reduced = { subsidiesData: reducedSubsidiesData };
 
     this.vueApp.subsidiesData = reducedSubsidiesData;
-    EventBus.$emit('refresh_summary_data');
+    EventBus.$emit('refresh-summary-data');
 
     this._renderSubsidiesMetricsBox();
   }
@@ -167,9 +167,9 @@ export class SubsidiesController {
     const collectivesData = subsidiesData.filter(subsidy => !subsidy.isIndividual);
 
     // Calculations
-    const amountsArray = subsidiesData.map(({amount = 0}) => parseFloat(amount) );
-    const amountsIndividualsArray = individualsData.map(({amount = 0}) => parseFloat(amount) );
-    const amountsCollectivesArray = collectivesData.map(({amount = 0}) => parseFloat(amount) );
+    const amountsArray = subsidiesData.map(({ amount = 0 }) => parseFloat(amount) );
+    const amountsIndividualsArray = individualsData.map(({ amount = 0 }) => parseFloat(amount) );
+    const amountsCollectivesArray = collectivesData.map(({ amount = 0 }) => parseFloat(amount) );
     const sortedAmountsArray = amountsArray.sort((a, b) => b - a);
 
     // Calculations box items
@@ -189,14 +189,14 @@ export class SubsidiesController {
     const medianIndividualsSubsidies = d3.median(amountsIndividualsArray) || 0;
 
     // Calculations headlines
-    const lessThan1000Total = subsidiesData.filter(({amount = 0}) => parseFloat(amount) < 1000).length;
+    const lessThan1000Total = subsidiesData.filter(({ amount = 0 }) => parseFloat(amount) < 1000).length;
     const lessThan1000Pct = lessThan1000Total/numberSubsidies;
 
-    const largerSubsidyAmount = d3.max(subsidiesData, ({amount = 0}) => parseFloat(amount));
+    const largerSubsidyAmount = d3.max(subsidiesData, ({ amount = 0 }) => parseFloat(amount));
     const largerSubsidyAmountPct = largerSubsidyAmount / sumSubsidies;
 
     let iteratorAmountsSum = 0, numberSubsidiesHalfSpendings = 0;
-    for(let i= 0; i < sortedAmountsArray.length; i++){
+    for (let i= 0; i < sortedAmountsArray.length; i++){
       iteratorAmountsSum += sortedAmountsArray[i];
       numberSubsidiesHalfSpendings++;
 
@@ -234,7 +234,7 @@ export class SubsidiesController {
     });
     document.getElementById("half-spendings-subsidies-pct").innerText = halfSpendingsSubsidiesPct.toLocaleString(I18n.locale, {
       style: 'percent'
-    });;
+    });
   }
 
   _renderByAmountsChart(){
@@ -262,7 +262,7 @@ export class SubsidiesController {
       dimension: dimension,
       onFilteredFunction: (chart, filter) => {
         this._refreshData(dimension.top(Infinity))
-        EventBus.$emit('dc_filter_selected', {title: filter, id: 'categories'})
+        EventBus.$emit('dc-filter-selected', { title: filter, id: 'categories' })
       }
     }
 
@@ -277,7 +277,7 @@ export class SubsidiesController {
       dimension: dimension,
       onFilteredFunction: (chart, filter) => {
         this._refreshData(dimension.top(Infinity))
-        EventBus.$emit('dc_filter_selected', {title: filter, id: 'dates'})
+        EventBus.$emit('dc-filter-selected', { title: filter, id: 'dates' })
       }
     }
 

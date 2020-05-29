@@ -9,6 +9,7 @@ es:
         contract_type: Tipo de contrato
         contractor: Contrato
         contracts: Contratos
+        contracts_assigned_to: Contratos adjudicados a
         date: Fecha
         dates: Fechas
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
@@ -30,11 +31,12 @@ es:
         summary:
           contracts: Contratos adjudicados
           contracts_for: contratos por importe de
-          label_half_spendings_contracts_1: "El "
-          label_half_spendings_contracts_2: " de contratos concentran el 50% de todo el gasto"
-          label_larger_contract_amount_1: "El mayor contrato supone un "
+          label_half_spendings_contracts_1: 'El '
+          label_half_spendings_contracts_2: " de contratos concentran el 50% de todo
+            el gasto"
+          label_larger_contract_amount_1: 'El mayor contrato supone un '
           label_larger_contract_amount_2: " de todo el gasto en contratos"
-          label_less_than_1000_1: "El "
+          label_less_than_1000_1: 'El '
           label_less_than_1000_2: " de los contratos son menores de "
           mean_amount: Importe medio
           mean_savings: Ahorro medio de licitación a adjudicación
@@ -62,11 +64,12 @@ es:
         summary:
           collective_subsidies_for: a colectivos por importe de
           individual_subsidies_for: a particulares por importe de
-          label_half_spendings_subsidies_1: "El "
-          label_half_spendings_subsidies_2: " de subvenciones concentran el 50% de todo el gasto"
-          label_larger_subsidy_amount_1: "La mayor subvención supone un "
+          label_half_spendings_subsidies_1: 'El '
+          label_half_spendings_subsidies_2: " de subvenciones concentran el 50% de
+            todo el gasto"
+          label_larger_subsidy_amount_1: 'La mayor subvención supone un '
           label_larger_subsidy_amount_2: " de todo el gasto en subvenciones"
-          label_less_than_1000_1: "El "
+          label_less_than_1000_1: 'El '
           label_less_than_1000_2: " de las subvenciones son menores de "
           mean_amount: Importe medio
           median_amount: Importe mediano

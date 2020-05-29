@@ -9,6 +9,7 @@ ca:
         contract_type: Tipus de contracte
         contractor: Contractor
         contracts: Contractes
+        contracts_assigned_to: Contractes adjudicats a
         date: Data
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
@@ -30,11 +31,12 @@ ca:
         summary:
           contracts: Contractes adjudicats
           contracts_for: contractes per import de
-          label_half_spendings_contracts_1: "El "
-          label_half_spendings_contracts_2: " de contractes concentren el 50% de tota la despesa"
-          label_larger_contract_amount_1: "El major contracte suposa un "
+          label_half_spendings_contracts_1: 'El '
+          label_half_spendings_contracts_2: " de contractes concentren el 50% de tota
+            la despesa"
+          label_larger_contract_amount_1: 'El major contracte suposa un '
           label_larger_contract_amount_2: " de tota la despesa en contractes"
-          label_less_than_1000_1: "El "
+          label_less_than_1000_1: 'El '
           label_less_than_1000_2: " dels contractes són menors de "
           mean_amount: Import mitjà
           mean_savings: Estalvi mitjà de licitació a adjudicació
@@ -62,11 +64,12 @@ ca:
         summary:
           collective_subsidies_for: a col·lectius per import de
           individual_subsidies_for: a particulars per import de
-          label_half_spendings_subsidies_1: "El "
-          label_half_spendings_subsidies_2: " de subvencions concentren el 50% de tota la despesa"
-          label_larger_subsidy_amount_1: "La major subvenció suposa "
+          label_half_spendings_subsidies_1: 'El '
+          label_half_spendings_subsidies_2: " de subvencions concentren el 50% de
+            tota la despesa"
+          label_larger_subsidy_amount_1: 'La major subvenció suposa '
           label_larger_subsidy_amount_2: " de tota la despesa en subvencions"
-          label_less_than_1000_1: "El "
+          label_less_than_1000_1: 'El '
           label_less_than_1000_2: " de les subvencions són menors de "
           mean_amount: Import mitjà
           median_amount: Import mitjana

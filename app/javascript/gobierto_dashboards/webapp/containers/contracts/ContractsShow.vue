@@ -10,9 +10,14 @@
       <div class="pure-u-1 pure-u-lg-1-2">
         <label class="soft">{{ labelAsignee }}</label>
         <div class="">
-          <strong class="d_block">{{ assignee }}</strong>
+          <router-link
+            id="assignee_show_link"
+            :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
+          >
+            <strong class="d_block">{{ assignee }}</strong>
+          </router-link>
           <span v-if="assignee_id">
-            {{assignee_id}}
+            {{ assignee_id }}
           </span>
         </div>
       </div>
@@ -20,41 +25,55 @@
       <div class="pure-u-1 pure-u-lg-1-2">
         <table>
           <tr>
-            <th class="left">{{ labelContractAmount }}</th>
+            <th class="left">
+              {{ labelContractAmount }}
+            </th>
             <td>{{ final_amount_no_taxes | money }}</td>
           </tr>
           <tr>
-            <th class="left">{{ labelTenderAmount }}</th>
+            <th class="left">
+              {{ labelTenderAmount }}
+            </th>
             <td>{{ initial_amount_no_taxes | money }}</td>
           </tr>
           <tr>
-            <th class="left">{{ labelStatus }}</th>
+            <th class="left">
+              {{ labelStatus }}
+            </th>
             <td>{{ status }}</td>
           </tr>
           <tr>
-            <th class="left">{{ labelContractType }}</th>
+            <th class="left">
+              {{ labelContractType }}
+            </th>
             <td>{{ contract_type }}</td>
           </tr>
           <tr>
-            <th class="left">{{ labelProcessType }}</th>
+            <th class="left">
+              {{ labelProcessType }}
+            </th>
             <td>{{ process_type }}</td>
           </tr>
           <tr>
             <th class="left">
-              <a :href="permalink" target='blank'>{{ labelPermalink }}</a>
+              <a
+                :href="permalink"
+                target="_blank"
+              >
+                {{ labelPermalink }}
+              </a>
             </th>
           </tr>
         </table>
-
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 
 import { VueFiltersMixin } from "lib/shared"
+import { EventBus } from "../../mixins/event_bus";
 
 export default {
   name: 'ContractsShow',
@@ -71,6 +90,7 @@ export default {
       status: '',
       process_type: '',
       permalink: '',
+      assignee_routing_id: '',
       labelAsignee: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'),
       labelTenderAmount: I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount'),
       labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
@@ -82,7 +102,9 @@ export default {
   },
   created() {
     const itemId = this.$route.params.id;
-    const contract = this.contractsData.find(({ id }) => id === itemId ) || {};
+    const contract = this.contractsData.find(({ id }) => id === itemId ) || {};
+
+    EventBus.$emit("refresh-active-tab");
 
     if (contract) {
       const {
@@ -95,7 +117,8 @@ export default {
         status,
         process_type,
         contract_type,
-        permalink
+        permalink,
+        assignee_routing_id
       } = contract
 
       this.title = title
@@ -108,6 +131,7 @@ export default {
       this.process_type = process_type
       this.contract_type = contract_type
       this.permalink = permalink
+      this.assignee_routing_id = assignee_routing_id
     }
   }
 }

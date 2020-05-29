@@ -8,7 +8,7 @@
         <div class="">
           <strong class="d_block">{{ beneficiary_name }}</strong>
           <span v-if="beneficiary_id">
-            {{beneficiary_id}}
+            {{ beneficiary_id }}
           </span>
         </div>
       </div>
@@ -16,23 +16,25 @@
       <div class="pure-u-1 pure-u-lg-1-2">
         <table>
           <tr>
-            <th class="left">{{ labelAmount }}</th>
+            <th class="left">
+              {{ labelAmount }}
+            </th>
             <td>{{ amount | money }}</td>
           </tr>
           <tr>
-            <th class="left">{{ labelGrantDate }}</th>
+            <th class="left">
+              {{ labelGrantDate }}
+            </th>
             <td>{{ grant_date }}</td>
           </tr>
           <tr>
             <th class="left">
-              <a :href="regulatory_bases" target='blank'>{{ labelRegulatoryBases }}</a>
+              <a :href="regulatory_bases" target="_blank">{{ labelRegulatoryBases }}</a>
             </th>
           </tr>
         </table>
-
       </div>
     </div>
-
   </div>
 </template>
 

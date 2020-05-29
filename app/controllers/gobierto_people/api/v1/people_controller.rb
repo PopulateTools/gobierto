@@ -14,6 +14,8 @@ module GobiertoPeople
             limit: params[:limit]
           ).results
 
+          department = current_site.departments.find_by(id: permitted_conditions[:department_id])
+
           if params[:include_history] == "true"
             records = PeopleEventsHistoryQuery.new(
               relation: current_site.people.where(id: top_people.map(&:id)),
@@ -49,7 +51,13 @@ module GobiertoPeople
             render json: result
           else
             serializer = params[:serializer] == "rowchart" ? GobiertoPeople::RowchartItemSerializer : GobiertoPeople::PersonSerializer
-            render json: top_people, each_serializer: serializer, date_range_query: date_range_params.to_query
+            render(
+              json: top_people,
+              each_serializer: serializer,
+              date_range_query: date_range_params.to_query,
+              date_range_params: date_range_params.to_h,
+              department: department
+            )
           end
         end
 

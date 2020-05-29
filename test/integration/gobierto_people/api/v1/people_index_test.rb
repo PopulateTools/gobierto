@@ -36,7 +36,7 @@ module GobiertoPeople
 
         def person_attributes
           %w(
-            id name email position bio bio_url avatar_url category political_group
+            id name email position positions bio bio_url avatar_url category political_group
             party url created_at updated_at content_block_records
           )
         end

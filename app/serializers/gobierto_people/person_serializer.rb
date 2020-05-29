@@ -6,6 +6,7 @@ module GobiertoPeople
       :name,
       :email,
       :position,
+      :positions,
       :bio,
       :bio_url,
       :avatar_url,
@@ -28,7 +29,11 @@ module GobiertoPeople
     end
 
     def position
-      object.charge
+      positions.last
+    end
+
+    def positions
+      object.historical_charges.between_dates(instance_options[:date_range_params]).with_department(instance_options[:department]).sorted.map(&:name)
     end
 
     private

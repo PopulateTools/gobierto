@@ -481,7 +481,7 @@ GEM
     unf_ext (0.0.7.6)
     unicode-display_width (1.7.0)
     url (0.3.2)
-    vcr (5.1.0)
+    vcr (6.0.0)
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)

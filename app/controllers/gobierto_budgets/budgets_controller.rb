@@ -2,6 +2,12 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
   before_action :load_year, except: [:guide]
   before_action :overrided_root_redirect, only: [:index]
 
+  caches_action(
+    :index,
+    cache_path: -> { cache_path },
+    unless: -> { user_signed_in? }
+  )
+
   def index
     @kind = GobiertoBudgets::BudgetLine::INCOME
     @area_name = GobiertoBudgets::EconomicArea.area_name
@@ -32,6 +38,10 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
   end
 
   private
+
+  def cache_path
+    "#{super}/#{@year}"
+  end
 
   def load_year
     if params[:year].nil?

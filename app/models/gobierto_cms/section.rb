@@ -7,7 +7,7 @@ module GobiertoCms
     include GobiertoCommon::Sortable
     include GobiertoCommon::Sluggable
 
-    belongs_to :site
+    belongs_to :site, touch: true
     has_many :section_items, dependent: :destroy, class_name: "GobiertoCms::SectionItem"
 
     translates :title

@@ -1,12 +1,13 @@
 <template>
   <div>
     <div
-      v-for="{ agrupacio, cost_directe_2018, cost_indirecte_2018, cost_total_2018, cost_per_habitant, ingressos, respecte_ambit, total } in groupData" :key="agrupacio"
+      v-for="{ agrupacio, cost_directe_2018, cost_indirecte_2018, cost_total_2018, cost_per_habitant, ingressos, respecte_ambit } in groupData"
+      :key="agrupacio"
       class="gobierto-dashboards-table--header gobierto-dashboards-tablerow--header"
     >
       <div class="gobierto-dashboards-table-header--nav">
         <router-link
-          :to="{ name: 'TableSecondLevel', params: { items: items, id: agrupacio} }"
+          :to="{ name: 'TableSecondLevel', params: { id: agrupacio } }"
           class="gobierto-dashboards-table-header--link"
         >
           {{ agrupacio }}

@@ -27,10 +27,15 @@ export const date = (value, opts = {}) => {
 }
 
 export const truncate = (value, opts = {}) => {
-  const omission = opts['omission'] || '...';
   const length = opts['length'] || 30;
+  const str = `${value || ''}`
 
-  return `${value.substring(0, length)}${omission}`
+  if (str.length <= length) {
+    return str;
+  } else {
+    const omission = opts['omission'] || '...';
+    return `${str.substring(0, length)}${omission}`;
+  }
 }
 
 export const VueFiltersMixin = {

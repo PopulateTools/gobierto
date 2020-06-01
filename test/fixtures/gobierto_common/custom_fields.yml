@@ -387,7 +387,7 @@ madrid_custom_field_indicators_table_plugin:
   position: 9
   name_translations: <%= { en: "Indicator (table)", es: "Indicador (tabla)" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
-  uid: indicators_table
+  uid: indicators-table
   options: <%= {
     configuration: {
       plugin_type: "table",

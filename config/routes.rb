@@ -199,6 +199,7 @@ Rails.application.routes.draw do
           delete :delete_contents
           put :recover
           patch :import_data
+          patch :import_table_custom_fields
         end
         resources :plan_types, except: [:show], path: :plan_types do
           put :recover
@@ -616,11 +617,14 @@ Rails.application.routes.draw do
     namespace :gobierto_dashboards, path: 'dashboards' do
       constraints GobiertoSiteConstraint.new do
         # Front
-        get "contratos" => "dashboards#contracts", as: :summary
+        get "contratos" => "dashboards#contracts", as: :contracts_summary
         get "contratos/adjudicaciones" => "dashboards#contracts", as: :contracts
         get "contratos/adjudicaciones/:id" => "dashboards#contracts"
-        get "contratos/licitaciones" => "dashboards#contracts"
-        get "contratos/licitaciones/:id" => "dashboards#contracts"
+        get "contratos/adjudicatario/:id" => "dashboards#contracts"
+
+        get "subvenciones" => "dashboards#subsidies", as: :subsidies_summary
+        get "subvenciones/subvenciones" => "dashboards#subsidies", as: :subsidies
+        get "subvenciones/subvenciones/:id" => "dashboards#subsidies"
       end
     end
 

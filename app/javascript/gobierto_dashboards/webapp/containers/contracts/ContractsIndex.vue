@@ -3,14 +3,13 @@
     :items="items"
     :routing-member="'contracts_show'"
     :columns="columns"
-  >
-  </Table>
+  />
 </template>
 
 <script>
 import Table from "../../components/Table.vue";
 import { EventBus } from "../../mixins/event_bus";
-import { contractsColumns } from "../../lib/config.js";
+import { contractsColumns } from "../../lib/config/contracts.js";
 
 export default {
   name: 'ContractsIndex',
@@ -24,13 +23,16 @@ export default {
     }
   },
   created() {
-    EventBus.$on('refresh_summary_data', () => {
+    EventBus.$on('refresh-summary-data', () => {
       this.contractsData = this.$root.$data.contractsData
       this.items = this.contractsData.slice(0, 50);
     });
 
     this.items = this.contractsData.slice(0, 50);
     this.columns = contractsColumns;
+  },
+  beforeDestroy(){
+    EventBus.$off('refresh-summary-data');
   }
 }
 </script>

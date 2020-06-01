@@ -28,16 +28,20 @@ module GobiertoCommon::CustomFieldFunctions
 
     private
 
+    def indicator_has_vocabulary?
+      @indicator_has_vocabulary ||= configuration.plugin_configuration["columns"].find { |col| col["id"] == "indicator" }&.dig("type") == "vocabulary"
+    end
+
     def data
       @data ||= begin
                   resources = value.is_a?(Array) ? value : value.dig(custom_field.uid) || []
 
                   resources.map do |resource|
-                    indicator = ::GobiertoCommon::Term.find_by(id: resource["indicator"])
+                    indicator = indicator_term(resource)
                     next unless indicator.present?
 
                     OpenStruct.new(
-                      id: indicator.id,
+                      id: indicator_has_vocabulary? ? indicator.id : indicator.name,
                       indicator: indicator,
                       objective: resource["objective"],
                       value_reached: resource["value_reached"],
@@ -46,6 +50,15 @@ module GobiertoCommon::CustomFieldFunctions
                     )
                   end.compact
                 end
+    end
+
+    def indicator_term(resource)
+      return ::GobiertoCommon::Term.find_by(id: resource["indicator"]) if indicator_has_vocabulary?
+
+      ::GobiertoCommon::Term.new(
+        name: resource["indicator"],
+        description: resource["description"]
+      )
     end
 
     def parse_date(date, fallback = nil)

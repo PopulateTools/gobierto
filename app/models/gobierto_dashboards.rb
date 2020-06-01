@@ -12,13 +12,14 @@ module GobiertoDashboards
         "contracts": {
           "enabled": false,
           "data_urls": {
-            "endpoint": ""
+            "contracts": "",
+            "tenders": ""
           }
         },
-        "tenders": {
+        "subsidies": {
           "enabled": false,
           "data_urls": {
-            "endpoint": ""
+            "subsidies": ""
           }
         }
       }

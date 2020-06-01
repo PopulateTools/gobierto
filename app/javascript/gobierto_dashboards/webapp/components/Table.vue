@@ -3,7 +3,8 @@
     <table class="dashboards-home-main--table">
       <thead>
         <th
-          v-for="{ translation, cssClass } in columns"
+          v-for="{ field, translation, cssClass } in columns"
+          :key="field"
           class="dashboards-home-main--th"
           :class="cssClass"
         >
@@ -15,6 +16,7 @@
         :key="item.id"
         :item="item"
         :routing-member="routingMember"
+        :routing-attribute="routingAttribute"
         :columns="columns"
       />
     </table>
@@ -44,6 +46,10 @@ export default {
     routingMember: {
       type: String,
       default: ''
+    },
+    routingAttribute: {
+      type: String,
+      default: 'id'
     }
   },
   data() {

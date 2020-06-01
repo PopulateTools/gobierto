@@ -328,7 +328,7 @@ export class DemographyMapController {
         that.updateOriginFilters('byNationality', chart.filters());
         const container = document.getElementById('container-bar-nationality')
         that.activeFiltered(container)
-        that.pyramidChart()
+        
         that.rebuildChoroplethColorDomain()
       });
     return chart;
@@ -359,7 +359,7 @@ export class DemographyMapController {
         that.updateOriginFilters('bySex', chart.filters());
         const container = document.getElementById('container-bar-sex')
         that.activeFiltered(container)
-        that.pyramidChart()
+        
         that.rebuildChoroplethColorDomain()
       });
 
@@ -446,37 +446,8 @@ export class DemographyMapController {
     allRows
       .attr('opacity', 0)
 
-    chart.render(this.pyramidChart())
+    chart.render()
     return chart;
-  }
-
-  //Create a Pyramid population Chart
-  pyramidChart() {
-    let selectLeftRows = d3.selectAll('.left-chart g.row rect')
-    selectLeftRows.attr('width', 0)
-    setTimeout(() => {
-      //Only get the rows of the left chart.
-      let selectLeftRows = d3.selectAll('.left-chart g.row rect')
-      selectLeftRows = selectLeftRows._groups[0]
-      const leftChart = d3.select('.left-chart')
-      //Get the size of the left chart. 30 isn't a magic number, it is the margin-right of the  chart.
-      const widthLeftchart = leftChart._groups[0][0].clientWidth - 30
-      selectLeftRows.forEach(rect => {
-        //Get the width of the every rect inside a row.
-        const rectWidth = rect.width.animVal.value
-        //Subtract the width of the chart minus width of the rect, with this now move rect to the right position
-        const translateRectToRight = widthLeftchart - rectWidth
-        //Hack to create a tricky animation
-        //First set a width with zero
-        rect.setAttribute('width', 0)
-        //Second, use translateRectToRight to move rect
-        rect.setAttribute('x', translateRectToRight)
-        rect.setAttribute('width', rectWidth.toFixed(2))
-      })
-      let allRects = d3.selectAll('g.row')
-      allRects.attr('opacity', 1)
-      //Why???? because the timing of the dc.js animation is equal 1000ms
-    }, 600)
   }
 
   renderStudies(selector) {
@@ -504,7 +475,7 @@ export class DemographyMapController {
         that.currentFilter = 'studies';
         const container = document.getElementById('container-bar-by-studies')
         that.activeFiltered(container)
-        that.pyramidChart()
+        
         that.rebuildChoroplethColorDomain()
         if (chart.filter() !== null) {
           document.getElementById("bar-by-origin-spaniards").style.visiblity = 'hidden';
@@ -557,7 +528,7 @@ export class DemographyMapController {
         that.chart3.group(that.ndx.groups.origin.bySex);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
-        that.pyramidChart()
+        
         that.rebuildChoroplethColorDomain()
       });
     return chart;
@@ -602,7 +573,7 @@ export class DemographyMapController {
         that.chart3.group(that.ndx.groups.origin.bySex);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
-        that.pyramidChart()
+        
         that.rebuildChoroplethColorDomain()
       });
     return chart;
@@ -648,7 +619,7 @@ export class DemographyMapController {
 
     const that = this;
     chart.on('filtered', function(event) {
-      dc.redrawAll('main', that.pyramidChart());
+      dc.redrawAll('main', );
       const buttonReset = document.getElementById('reset-filters')
       buttonReset.classList.remove('disabled')
     })

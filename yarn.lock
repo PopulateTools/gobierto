@@ -2588,7 +2588,7 @@ crossfilter2@^1.4.5:
   dependencies:
     lodash.result "^4.4.0"
 
-crossfilter2@^1.4.8, crossfilter2@^1.5.2:
+crossfilter2@^1.4.8:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/crossfilter2/-/crossfilter2-1.5.2.tgz#582a3c42a2ec6452768c0f5c8ed588c160d8897f"
   integrity sha512-ImlvPlUOQ2MW+DJmoglK3anU9GwvHk2EWaqUoXczydhIKzg7ot4W+w8kPNlUAW6Onoyg2AE1QhH5fzK2gNSbYg==
@@ -3586,12 +3586,11 @@ date-now@^0.1.4:
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   integrity sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=
 
-dc-addons-paired-row@^0.91.0:
-  version "0.91.0"
-  resolved "https://registry.yarnpkg.com/dc-addons-paired-row/-/dc-addons-paired-row-0.91.0.tgz#bfaf32b02e409e17bc930cabad5dfc8b9ea740fc"
-  integrity sha512-IFvS/XUI3+gH7FyJxCkhfjzLP5ahB5Q4OYUpWqeCjNUVKkbW7rGgPV67ydgVbTuGE3hmV5Nuq3JA4bmWDpeHlA==
+dc-addons-paired-row@^0.92.0:
+  version "0.92.0"
+  resolved "https://registry.yarnpkg.com/dc-addons-paired-row/-/dc-addons-paired-row-0.92.0.tgz#6132bd7910b65ab973188b1998387ff2de86ae70"
+  integrity sha512-2QEdDNuHwRBd7Z+ObeRxfuqsi8haRDunlZkrgANT8jLPsO6ZrrxGvWiyrvmJMCX1/kvO7QF8AkGANBAKvltimw==
   dependencies:
-    crossfilter2 "^1.5.2"
     d3 "^4.x"
     dc "^3.0.8"
 

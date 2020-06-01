@@ -263,8 +263,10 @@
   .dc-chart {
     float: none;
 
-    .svg {
-      overflow: hidden;
+    &.left-chart {
+      svg {
+        overflow: hidden;
+      }
     }
 
     .axis {

@@ -1,28 +1,34 @@
 <template>
   <div v-if="items.length">
-    <table>
-      <thead>
-        <th
-          v-for="item in theadData"
-          :key="item"
-          class="gobierto-dashboards-table-costs--th"
-        >
-          <span class="gobierto-dashboards-table-costs--th">
-            {{ item }}
-          </span>
-        </th>
-      </thead>
-    </table>
-    <TableRow :items="items" />
+    <div class="gobierto-dashboards-table--header">
+      <div class="gobierto-dashboards-table-header--nav">
+
+      </div>
+      <div
+        v-for="item in theadData"
+        :key="item"
+        :class="`gobierto-dashboards-table-header--${item}`"
+        class="gobierto-dashboards-table-header--elements"
+      >
+        <i
+          class="far fa-question-circle"
+          style="color: var(--color-base)"
+        />
+        <span class="gobierto-dashboards-header--elements-text">
+          {{ item }}
+        </span>
+      </div>
+    </div>
+    <TableFirstLevel :items="data" />
   </div>
 </template>
 
 <script>
-import TableRow from './TableRow.vue'
+import TableFirstLevel from './TableFirstLevel.vue'
 export default {
   name: 'Table',
   components: {
-    TableRow
+    TableFirstLevel
   },
   props: {
     items: {
@@ -47,8 +53,7 @@ export default {
     }
   },
   created() {
-    console.log(this.data)
-    this.theadData = [ this.labelCostDirect, this.labelCostIndirect, this.labelTotal, this.labelCostPerInhabitant, this.labelIncome, this.labelCoverage]
+    this.theadData = [ this.labelCostDirect, this.labelCostIndirect, this.labelTotal, this.labelCostInhabitant, this.labelIncome, this.labelCoverage]
   }
 }
 </script>

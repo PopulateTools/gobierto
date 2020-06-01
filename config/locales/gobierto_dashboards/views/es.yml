@@ -46,6 +46,7 @@ es:
         tender_amount: Imp. licitación
         title: Contratos y licitaciones
       costs:
+        activities: Actividades
         distribution: Distribución de costes por área
         total: Coste total
         cost_per_inhabitant: Coste por habitante

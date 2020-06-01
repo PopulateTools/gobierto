@@ -626,8 +626,8 @@ Rails.application.routes.draw do
         get "subvenciones/subvenciones/:id" => "dashboards#subsidies"
 
         get "costes" => "dashboards#costs", as: :costs_summary
-        get "costes/costes" => "dashboards#costs", as: :costs
-        get "costes/costes/:id" => "dashboards#costs"
+        get "costes/:id" => "dashboards#costs", as: :costs
+        get "costes/:id/:id" => "dashboards#costs"
       end
     end
 

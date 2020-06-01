@@ -1,6 +1,5 @@
 <template>
   <div class="pure-u-1 gutters m_b_1">
-    Tablica
     <Table
       :items="items"
       :data="data"

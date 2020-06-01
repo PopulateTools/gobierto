@@ -4,6 +4,11 @@
 @import "comp-block-header";
 @import "comp-vue-dropdown";
 
+:root {
+  --green-table--first: rgba(33, 150, 83, .1);
+  --green-table--second: rgba(33, 150, 83, .2);
+}
+
 .dashboards {
   @include min-screen(768) {
     @include gutters(66px)
@@ -244,4 +249,74 @@
   .pure-g {
     letter-spacing: 0 !important;
   }
+
+  &-table--header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  &-tablerow--header {
+    border-bottom: 1px dashed rgba(0, 0, 0, .15);
+    padding: 0 1rem;
+  }
+
+  &-table-header--nav {
+    width: 30%;
+    min-width: 30%;
+  }
+
+  &-table-header--elements {
+    display: inline-block;
+    width: 14%;
+    padding: .75rem;
+    box-sizing: border-box;
+    text-align: right;
+
+    i {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  &-table-header--Cost.directe {
+    background-color: rgba(var(--color-base-string), 0.04);
+  }
+
+  &-table-header--Cost.indirecte {
+    background-color: rgba(var(--color-base-string), 0.06);
+  }
+
+  &-table-header--Coste.total {
+    background-color: rgba(var(--color-base-string), 0.1);
+  }
+
+  &-table-header--Cost.\/.habitant {
+    background-color: rgba(var(--color-base-string), 0.2);
+  }
+
+  &-table-header--Ingressos {
+    background-color: var(--green-table--first);
+  }
+
+  &-table-header--Cobertura {
+    background-color: var(--green-table--second);
+  }
+
+  &-header--elements-text {
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+    color: #666;
+    max-width: calc(100% - 19px);
+  }
+
+  &-table-header--link {
+    font-size: 18px;
+    color: var(--color-base);
+    text-decoration: underline;
+  }
+
 }

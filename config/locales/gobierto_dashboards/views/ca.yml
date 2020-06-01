@@ -3,6 +3,7 @@ ca:
   gobierto_dashboards:
     dashboards:
       costs:
+        activities: activitats
         distribution: Distribució de costos per àrea
         total: Coste total
         cost_per_inhabitant: Cost per habitant

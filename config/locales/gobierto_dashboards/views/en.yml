@@ -3,6 +3,7 @@ en:
   gobierto_dashboards:
     dashboards:
       costs:
+        activities: Activities
         distribution: Distribution of costs by area
         total: Total cost
         cost_inhabitant: Cost per inhabitant

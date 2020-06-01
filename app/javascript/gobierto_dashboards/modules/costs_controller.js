@@ -25,6 +25,7 @@ export class CostsController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () => import("../webapp/containers/costs/Home.vue");
+      const TableSecondLevel = () => import("../webapp/containers/costs/TableSecondLevel.vue");
 
       Promise.all([getRemoteData(options.costsEndpoint)]).then((rawData) => {
         this.setGlobalVariables(rawData)
@@ -32,7 +33,17 @@ export class CostsController {
         const router = new VueRouter({
           mode: "history",
           routes: [
-            { path: "/dashboards/costes", component: Home
+            {
+              path: "/dashboards/costes",
+              component: Home
+            },
+            {
+              path: "/dashboards/costes/:id?",
+              component: TableSecondLevel,
+              name: 'TableSecondLevel',
+              props: {
+                 default: true,
+              }
             }
           ],
           scrollBehavior() {
@@ -77,10 +88,15 @@ export class CostsController {
   setGlobalVariables(rawData) {
 
     function convertStringToNumbers(amount) {
-      return Number(parseFloat(amount.replace(/\./g,'').replace(',','.'))).toFixed(2)
+      return Number(parseFloat(amount.replace(/\./g,'').replace(',','.')))
     }
 
-    const amountStrings = [ 'cd_bens_i_serveis', 'cd_cost_personal', 'cost_directe_2018' , 'cost_indirecte_2018', 'cost_total_2018', 'costpers2018', 'costrestadir2018']
+    function nanToZero(val) {
+       val = +val || 0
+       return val;
+    }
+
+    const amountStrings = [ 'cd_bens_i_serveis', 'cd_cost_personal', 'cost_directe_2018' , 'cost_indirecte_2018', 'cost_total_2018', 'costpers2018', 'costrestadir2018', 'cost_per_habitant', 'ingressos', 'respecte_ambit']
 
     for (let cost of rawData) {
       for (let index = 0; index < cost.length; index++) {
@@ -89,11 +105,14 @@ export class CostsController {
         for (let amounts = 0; amounts < amountStrings.length; amounts++) {
           d[amountStrings[amounts]] = convertStringToNumbers(d[amountStrings[amounts]])
         }
+
         if (d.cost_directe_2018) {
           d['year'] = '2018'
         } else if (d.cost_directe_2019) {
           d['year'] = '2019'
         }
+
+        d.ingressos = nanToZero(d.ingressos)
       }
     }
 
@@ -106,10 +125,9 @@ export class CostsController {
           }
         })
         .entries(rawData[0]);
-    console.log("rawData[0]", rawData[0]);
-    console.log("groupData", groupData);
+
     this.data = {
-      costData: rawData,
+      costData: rawData[0],
       agrupacioData: groupData
     }
   }

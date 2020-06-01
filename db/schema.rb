@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_103945) do
+ActiveRecord::Schema.define(version: 2020_06_01_185920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -622,6 +622,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_103945) do
     t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "external_id"
     t.index ["department_id"], name: "index_gp_charges_on_department_id"
     t.index ["person_id"], name: "index_gp_charges_on_person_id"
   end

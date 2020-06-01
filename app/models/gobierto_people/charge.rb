@@ -4,6 +4,7 @@ require_dependency "gobierto_people"
 
 module GobiertoPeople
   class Charge < ApplicationRecord
+    include GobiertoCommon::HasExternalId
 
     DATE_RANGE_CONDITIONS = {
       start_date: "(#{table_name}.end_date IS NULL OR #{table_name}.end_date >= :start_date)",

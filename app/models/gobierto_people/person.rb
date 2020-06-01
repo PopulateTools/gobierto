@@ -77,7 +77,9 @@ module GobiertoPeople
       if historical_charges.exists?
         historical_charge(date)&.name
       else
-        charge_translations(I18n.locale) || charge_translations.values.first
+        return if charge_translations.blank?
+
+        charge_translations.fetch(I18n.locale, charge_translations&.values&.first)
       end
     end
 

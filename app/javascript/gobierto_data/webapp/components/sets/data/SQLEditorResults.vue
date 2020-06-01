@@ -34,7 +34,7 @@
           :is-user-logged="isUserLogged"
           :enabled-viz-saved-button="enabledVizSavedButton"
           @save="onSaveEventHandler"
-          @keyDownInput="updateVizName"
+          @keyDownInput="updateVizNameHandler"
         />
       </div>
       <div
@@ -148,7 +148,7 @@ export default {
       const config = this.$refs.viewer.getConfig()
       this.$root.$emit("storeCurrentVisualization", config, opts);
     },
-    updateVizName(value) {
+    updateVizNameHandler(value) {
       const {
         name: vizName
       } = value;
@@ -165,8 +165,7 @@ export default {
 
       this.$refs.viewer.enableDisabledPerspective(hidePerspective);
       this.$refs.viewer.setColumns();
-      this.$root.$emit('enableSavedVizButton', true)
-      this.$root.$emit('disabledSavedVizString')
+      this.$root.$emit('resetVizEvent')
     },
     showChart() {
       const showPerspective = "flex"
@@ -177,8 +176,7 @@ export default {
       this.perspectiveChanged = true
       this.showVisualize = false
       this.showResetViz = true
-      this.$root.$emit('enableSavedVizButton', true)
-      this.$root.$emit("isVizModified", true);
+      this.$root.$emit('showSavingDialogEvent')
       this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
     }
   },

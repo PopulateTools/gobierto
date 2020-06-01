@@ -1,7 +1,7 @@
 <template>
   <div class="gobierto-data-sql-editor-container-save">
     <!--  only show if label name is set OR the prompt is visible  -->
-    <template v-if="handlerInputQuery()">
+    <template v-if="handlerInputQuery">
         <input
           ref="inputText"
           v-model="labelValue"
@@ -18,7 +18,7 @@
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="enableForkPrompt()">
+    <template v-if="enableForkPrompt">
       <label
         :for="labelPrivate"
         class="gobierto-data-sql-editor-container-save-label"
@@ -35,7 +35,7 @@
 
 
     <!-- only show if label name is set OR the prompt is visible -->
-    <template v-if="handlerInputQuery()">
+    <template v-if="handlerInputQuery">
       <PrivateIcon
         :is-closed="isPrivate"
         :style="{ paddingRight: '.5em', margin: 0 }"
@@ -86,7 +86,6 @@
       :title="labelButtonFork"
       :disabled="!isDisabledFork"
       icon="code-branch"
-      color="var(--color-base)"
       background="#fff"
       class="btn-sql-editor"
       @click.native="onClickForkHandler"
@@ -99,7 +98,6 @@
         :disabled="!enabledRevertButton"
         icon="undo"
         class="btn-sql-editor btn-sql-editor-revert"
-        color="var(--color-base)"
         background="#fff"
         @click.native="revertQueryHandler"
       />
@@ -221,7 +219,13 @@ export default {
     },
     showForkButton() {
       return this.enabledForkVizButton || this.enabledForkButton
-    }
+    },
+    handlerInputQuery() {
+       return (this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
+    },
+    enableForkPrompt() {
+      return (this.isForkPromptVisible && this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
+    },
   },
   watch: {
     value(newValue, oldValue) {
@@ -243,12 +247,6 @@ export default {
     }
   },
   methods: {
-    handlerInputQuery() {
-       return this.isUserLogged && this.isQuerySavingPromptVisible || this.labelValue || this.isVizSavingPromptVisible
-    },
-    enableForkPrompt() {
-      return this.isForkPromptVisible && this.isUserLogged && this.isQuerySavingPromptVisible || this.labelValue || this.isVizSavingPromptVisible
-    },
     inputFocus() {
       this.$refs.inputText.focus()
     },

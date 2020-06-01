@@ -107,7 +107,7 @@ export default {
   watch: {
     currentVizTab(newValue) {
       if (newValue === 0) {
-        this.showVizElement(0)
+        this.currentVizComponent = COMPONENTS[newValue];
       }
     }
   },
@@ -118,7 +118,7 @@ export default {
     } = this.$route;
 
     if (nameComponent === 'Visualization') {
-      this.showVizElement(1)
+      this.currentVizComponent = COMPONENTS[1];
     } else {
       this.currentVizComponent = COMPONENTS[this.activeViz];
     }

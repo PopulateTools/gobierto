@@ -108,7 +108,6 @@ import Queries from "./../../commons/Queries.vue";
 import PulseSpinner from "./../../commons/PulseSpinner.vue";
 import RecentQueries from "./../../commons/RecentQueries.vue";
 import SavingDialog from "./../../commons/SavingDialog.vue";
-import { getUserId } from "./../../../../lib/helpers";
 
 export default {
   name: "SQLEditorHeader",
@@ -284,8 +283,7 @@ export default {
       ).catch(err => {})
     },
     enabledInputQueries() {
-      const userId = getUserId();
-      if (!this.enabledForkButton && !!userId) {
+      if (!this.enabledForkButton && this.isUserLogged) {
         this.$root.$emit('eventToEnabledInputQueries')
         this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus());
       }

@@ -1,6 +1,6 @@
 <template>
   <div class="gobierto-data-sql-editor">
-    <template v-if="(privateVisualizations.length && items) || (publicVisualizations.length && items)">
+    <template v-if="checkVisualizationsItems">
       <div class="pure-g">
         <div
           class="pure-u-1 pure-u-lg-4-4"
@@ -101,6 +101,11 @@ export default {
       default: false
     }
   },
+  computed: {
+    checkVisualizationsItems() {
+      return (this.privateVisualizations.length && this.items) || (this.publicVisualizations.length && this.items)
+    }
+  },
   data() {
     return {
       labelVisName: I18n.t('gobierto_data.projects.visName') || "",
@@ -180,13 +185,8 @@ export default {
       this.showVisualize = false
       this.showResetViz = true
       //Enable saved button
-      this.$root.$emit('enableSavedVizButton', true)
-      this.$root.$emit("isVizModified", true);
+      this.$root.$emit('showSavingDialogEvent')
       this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
-
-      if (userId !== this.user) {
-        this.isQuerySavingPromptVisible = true
-      }
     },
     getDataVisualization(data) {
       const {

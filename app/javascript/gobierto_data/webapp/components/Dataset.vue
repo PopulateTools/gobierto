@@ -315,7 +315,7 @@ export default {
     this.$root.$on('revertSavedQuery', this.revertSavedQuery)
     // activate button to saved a query
     this.$root.$on('enableSavedButton', this.activatedSavedButton)
-    // disable
+    // reset query flow to initial state
     this.$root.$on('resetToInitialState', this.resetToInitialState)
     // disabled saved button
     this.$root.$on('disabledSavedButton', this.disabledSavedButton)
@@ -347,7 +347,10 @@ export default {
     this.$root.$on('updateVizName', this.eventToUpdateVizName)
     //Enable input to write a name for query
     this.$root.$emit('eventToEnabledInputQueries', this.eventToEnabledInputQueries)
-
+    //Reset visualization flow
+    this.$root.$emit('resetVizEvent', this.resetVizEvent)
+    //Show saving dialog visualization
+    this.$root.$emit('showSavingDialogEvent', this.showSavingDialogEvent)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -376,6 +379,8 @@ export default {
     this.$root.$off('updateVizName')
     this.$root.$off('reloadVisualizations')
     this.$root.$off('enabledForkVizButton')
+    this.$root.$off('resetVizEvent')
+    this.$root.$off('showSavingDialogEvent')
   },
   methods: {
     checkIfUserIsLogged() {
@@ -848,6 +853,14 @@ export default {
       this.activatedSavedButton()
       this.isForkPromptVisible = true
       this.enabledRevertButton = false
+    },
+    resetVizEvent() {
+      this.enabledVizSavedButton = true
+      this.isVizSaved = false
+    },
+    showSavingDialogEvent() {
+      this.enabledVizSavedButton = true
+      this.isVizModified = true
     }
   },
 };

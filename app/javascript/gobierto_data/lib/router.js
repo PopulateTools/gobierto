@@ -11,31 +11,48 @@ export const tabs = ['resumen', 'editor', 'consultas', 'visualizaciones', 'desca
 
 // https://router.vuejs.org/guide/essentials/nested-routes.html
 export const router = new VueRouter({
-  mode: "history",
-  routes: [{
-      path: "/datos",
+  mode: 'history',
+  routes: [
+    {
+      path: '/datos',
       component: Main,
-      children: [{
-        path: "",
-        component: Index
-      }, {
-        path: ":id/:tab?",
-        component: Dataset,
-        name: 'Dataset',
-        // send props as a function, default to tab[0], otherwise take the index
-        props: ({ params: { tab = tabs[0] } }) => ({ activeDatasetTab: tabs.indexOf(tab) })
-      }, {
-        path: ":id/q/:queryId?",
-        component: Dataset,
-        name: 'Query',
-        props: { activeDatasetTab: 1 }
-      }]
-    }],
+      children: [
+        {
+          path: '',
+          component: Index
+        },
+        {
+          path: ':id/:tab?',
+          component: Dataset,
+          name: 'Dataset',
+          // send props as a function, default to tab[0], otherwise take the index
+          props: ({ params: { tab = tabs[0] } }) => ({
+            activeDatasetTab: tabs.indexOf(tab)
+          })
+        },
+        {
+          path: ':id/q/:queryId?',
+          component: Dataset,
+          name: 'Query',
+          props: { activeDatasetTab: 1 }
+        },
+        {
+          path: ':id/v/:queryId?',
+          component: Dataset,
+          name: 'Visualization',
+          props: { activeDatasetTab: 3 }
+        }
+      ]
+      }
+    ],
     scrollBehavior() {
       const element = document.getElementById('gobierto-datos-app');
-      window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
+      window.scrollTo({
+        top: element.offsetTop,
+        behavior: 'smooth'
+      });
     }
-})
+  });
 
 const baseTitle = document.title;
 

@@ -256,6 +256,7 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    flex-wrap: wrap;
   }
 
   &-tablerow--header {
@@ -320,7 +321,7 @@
     align-items: end;
 
     .gobierto-dashboards-table-header--elements {
-      padding: 2rem 1rem .75rem 0;
+      padding: 2rem 1rem .75rem .25rem;
     }
 
     .gobierto-dashboards-table-color-direct {
@@ -332,6 +333,11 @@
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       padding-top: 3rem;
+    }
+
+    .gobierto-dashboards-table-color-coverage {
+      background-color: var(--green-table--second);
+      border-top-right-radius: 4px;
     }
   }
 
@@ -370,7 +376,6 @@
 
   &-table-color-coverage {
     background-color: var(--green-table--second);
-    border-top-right-radius: 4px;
   }
 
   &-header--elements-text {
@@ -381,10 +386,17 @@
     max-width: calc(100% - 19px);
   }
 
-  &-table-header--link {
+  &-table-header--link,
+  &-table-header--link-top {
     font-size: 18px;
     color: var(--color-base);
     text-decoration: underline;
+  }
+
+  &-table-header--link-top {
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom: 1rem;
   }
 
   &-tablesecondlevel--header {
@@ -400,4 +412,56 @@
       font-weight: bold;
     }
   }
+
+  &-table-header--link-container {
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom: 1rem;
+
+    i {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .gobierto-dashboards-table-header--link-top {
+      padding-bottom: 0;
+    }
+  }
+
+  &-table-item {
+    background: #fff;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    width: 100%;
+    padding: 3rem;
+    display: flex;
+  }
+
+  &-table-item-left {
+    width: 60%;
+  }
+
+  &-table-item-right {
+    width: 40%;
+  }
+
+  &-table-item-left-container {
+    margin-bottom: 1.5rem;
+  }
+
+  &-table-item-title,
+  &-table-item-text {
+    font-size: 1rem;
+    font-weight: normal;
+    color: #666;
+    display: block;
+  }
+
+  &-table-item-title {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+
 }

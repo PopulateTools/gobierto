@@ -627,7 +627,7 @@ Rails.application.routes.draw do
 
         get "costes" => "dashboards#costs", as: :costs_summary
         get "costes/:id" => "dashboards#costs", as: :costs
-        get "costes/:id/:id" => "dashboards#costs"
+        get "costes/:id/:item" => "dashboards#costs"
       end
     end
 

@@ -55,6 +55,21 @@ es:
         cost_inhabitant: Coste/habitante
         income: Ingresos
         coverage: Cobertura
+        see_all: Ver todos
+        item:
+          description: Descripción
+          competence: Competence
+          personal_cost: Coste personal
+          types: Tipos
+          legal_framework: Marco legal
+          goods_and_services: Goods and services
+          external_services: External services
+          transference: Transference
+          equipments: Equipments
+          total: Total
+          subsidies: Subsidies
+          income_cost: Income - Cost
+          public_tax: Public tax or prices
       subsidies:
         amount: Importe
         amount_distribution: Distribución por importes

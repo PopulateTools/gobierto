@@ -1,6 +1,8 @@
 <template>
   <div class="gobierto-dashboards-table--header gobierto-dashboards-table--header--thead">
-    <div class="gobierto-dashboards-table-header--nav" />
+    <div class="gobierto-dashboards-table-header--nav">
+      <slot />
+    </div>
     <div
       v-for="{ item, classItem } in theadData"
       :key="item"

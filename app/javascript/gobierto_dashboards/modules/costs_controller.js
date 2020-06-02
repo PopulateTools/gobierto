@@ -26,6 +26,7 @@ export class CostsController {
 
       const Home = () => import("../webapp/containers/costs/Home.vue");
       const TableSecondLevel = () => import("../webapp/containers/costs/TableSecondLevel.vue");
+      const TableItem = () => import("../webapp/containers/costs/TableItem.vue");
 
       Promise.all([getRemoteData(options.costsEndpoint)]).then((rawData) => {
         this.setGlobalVariables(rawData)
@@ -35,15 +36,18 @@ export class CostsController {
           routes: [
             {
               path: "/dashboards/costes",
-              component: Home
+              component: Home,
+              name: 'Home',
             },
             {
               path: "/dashboards/costes/:id?",
               component: TableSecondLevel,
-              name: 'TableSecondLevel',
-              props: {
-                 default: true,
-              }
+              name: 'TableSecondLevel'
+            },
+            {
+              path: "/dashboards/costes/:id?/:item?",
+              component: TableItem,
+              name: 'TableItem'
             }
           ],
           scrollBehavior() {
@@ -96,7 +100,7 @@ export class CostsController {
        return val;
     }
 
-    const amountStrings = [ 'cd_bens_i_serveis', 'cd_cost_personal', 'cost_directe_2018' , 'cost_indirecte_2018', 'cost_total_2018', 'costpers2018', 'costrestadir2018', 'cost_per_habitant', 'ingressos', 'respecte_ambit']
+    const amountStrings = [ 'cd_bens_i_serveis', 'cd_cost_personal', 'cost_directe_2018' , 'cost_indirecte_2018', 'cost_total_2018', 'costpers2018', 'costrestadir2018', 'cost_per_habitant', 'ingressos', 'respecte_ambit', 'taxa_o_preu_public', 'cd_serveis_exteriors', 'cd_transferencies', 'cd_equipaments', 'ingres_cost', 'subvencio']
 
     for (let cost of rawData) {
       for (let index = 0; index < cost.length; index++) {

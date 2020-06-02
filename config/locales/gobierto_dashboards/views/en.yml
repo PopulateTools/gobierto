@@ -12,6 +12,21 @@ en:
         cost_inhabitant: Cost / inhabitant
         income: Income
         coverage: Cobertura
+        see_all: See all
+        item:
+          description: Description
+          competence: Competence
+          personal_cost: Personal cost
+          types: Types
+          legal_framework: Legal framework
+          goods_and_services: Goods and services
+          external_services: External services
+          transference: Transference
+          equipments: Equipments
+          total: Total
+          subsidies: Subsidies
+          income_cost: Income - Cost
+          public_tax: Public tax or prices
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee

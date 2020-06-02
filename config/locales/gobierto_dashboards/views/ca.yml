@@ -12,6 +12,21 @@ ca:
         cost_inhabitant: Cost / habitant
         income: Ingressos
         coverage: Cobertura
+        see_all: Vegeu-ho tot
+        item:
+          description: Descripció
+          competence: Competència
+          personal_cost: Cost personal
+          types: Tipus
+          legal_framework: Marc legal
+          goods_and_services: Béns i Servéis
+          external_services: Servéis exteriors
+          transference: Transferències
+          equipments: Equipaments
+          total: Total
+          subsidies: Subvencions
+          income_cost: Ingresos - Cost
+          public_tax: Taxa o preus públics
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari

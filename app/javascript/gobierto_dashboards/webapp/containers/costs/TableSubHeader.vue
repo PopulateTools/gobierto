@@ -1,17 +1,12 @@
 <template>
-  <div>
+  <div v-if="items.length">
     <div
-      v-for="{ agrupacio, cost_directe_2018, cost_indirecte_2018, cost_total_2018, cost_per_habitant, ingressos, respecte_ambit } in groupData"
+      v-for="{ agrupacio, cost_directe_2018, cost_indirecte_2018, cost_total_2018, cost_per_habitant, ingressos, respecte_ambit } in dataGroup"
       :key="agrupacio"
-      class="gobierto-dashboards-table--header gobierto-dashboards-tablerow--header"
+      class="gobierto-dashboards-table--header gobierto-dashboards-tablesecondlevel--header"
     >
       <div class="gobierto-dashboards-table-header--nav">
-        <router-link
-          :to="{ name: 'TableSecondLevel', params: { id: agrupacio } }"
-          class="gobierto-dashboards-table-header--link"
-        >
-          {{ agrupacio }}
-        </router-link>
+        {{ agrupacio }}
       </div>
       <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
         <span>{{ cost_directe_2018 | money }}</span>
@@ -28,8 +23,8 @@
       <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income">
         <span>{{ ingressos | money }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage">
-        <span>{{ (respecte_ambit).toFixed(0) }} %</span>
+      <div class="gobierto-dashboards-table-header--elements">
+        <span>{{ (respecte_ambit).toFixed(0) }}%</span>
       </div>
     </div>
   </div>
@@ -37,18 +32,25 @@
 <script>
 import { VueFiltersMixin } from "lib/shared"
 export default {
-  name: "TableFirstLevel",
+  name: "TableSubHeader",
   mixins: [VueFiltersMixin],
-  props: {
-    items: {
-      type: Array,
-      default: () => []
+  data() {
+    return {
+      dataGroup: [],
+      items: this.$root.$data.costData
     }
   },
-  computed: {
-    groupData() {
-      let dataGroup = []
-      dataGroup = [...this.items.reduce((r, o) => {
+  created() {
+    const {
+      params: {
+        id: agrupacioId
+      }
+    } = this.$route
+    this.agrupacioData(agrupacioId)
+  },
+  methods: {
+    agrupacioData(id) {
+      this.dataGroup = [...this.items.reduce((r, o) => {
         const key = o.agrupacio
 
         const item = r.get(key) || Object.assign({}, o, {
@@ -57,7 +59,8 @@ export default {
           cost_total_2018: 0,
           ingressos: 0,
           respecte_ambit: 0,
-          total: 0
+          total: 0,
+          cost_per_habitant: 0
         });
 
         item.cost_directe_2018 += o.cost_directe_2018
@@ -66,12 +69,12 @@ export default {
         item.ingressos += o.ingressos
         item.total += (o.total || 0) + 1
         item.respecte_ambit += o.respecte_ambit
+        item.cost_per_habitant += o.cost_per_habitant
 
         return r.set(key, item);
       }, new Map).values()];
-      dataGroup = dataGroup.filter(element => element.agrupacio !== '')
-      return dataGroup
-    },
+      this.dataGroup = this.dataGroup.filter(element => element.agrupacio === id)
+    }
   }
 }
 </script>

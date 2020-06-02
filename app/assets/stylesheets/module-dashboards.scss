@@ -162,7 +162,7 @@
 
       > * {
         border-top: 1px solid;
-        border-top-color: rgba(var(--color-base-string), 0.1);
+        border-top-color: rgba(var(--color-base-string), .1);
         padding: 0.5em 0;
       }
 
@@ -196,7 +196,7 @@
     }
 
     &--tr:hover > * {
-      background-color: rgba(var(--color-base-string), 0.1);
+      background-color: rgba(var(--color-base-string), .1);
 
       > * {
         border-top-color: transparent;
@@ -260,6 +260,11 @@
 
   &-tablerow--header {
     border-bottom: 1px dashed rgba(0, 0, 0, .15);
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(var(--color-base-string), .1);
+    }
 
     .gobierto-dashboards-table-header--nav-text {
       color: var(--color-base);
@@ -267,8 +272,12 @@
     }
 
     &.act-has-children {
-      background-color: rgba(var(--color-base-string), 0.1);
+      background-color: rgba(var(--color-base-string), .1);
       flex-wrap: wrap;
+
+      &:hover {
+        background-color: rgba(var(--color-base-string), .2);
+      }
 
       .gobierto-dashboards-table-header--nav-text {
         font-weight: bold;
@@ -286,12 +295,11 @@
         }
 
         .gobierto-dashboards-table-header--nav {
-          width: 20%;
           display: inline-block;
 
           .gobierto-dashboards-table-header--nav-text {
             font-weight: normal;
-            padding-left: 2rem;
+            padding-left: 1.5rem;
           }
         }
       }
@@ -301,16 +309,36 @@
   &-table-header--nav {
     width: 25%;
     min-width: 25%;
+    color: var(--color-base);
 
     p {
       color: var(--color-base);
     }
   }
 
+  &-table--header--thead {
+    align-items: end;
+
+    .gobierto-dashboards-table-header--elements {
+      padding: 2rem 1rem .75rem 0;
+    }
+
+    .gobierto-dashboards-table-color-direct {
+      border-top-left-radius: 4px;
+    }
+
+    .gobierto-dashboards-table-color-inhabitant {
+      background-color: rgba(var(--color-base-string), 0.2);
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      padding-top: 3rem;
+    }
+  }
+
   &-table-header--elements {
     display: inline-block;
     width: 12%;
-    padding: .75rem 0;
+    padding: .75rem 1rem .75rem 0;
     box-sizing: border-box;
     text-align: right;
 
@@ -320,28 +348,29 @@
     }
   }
 
-  &-table-header--Cost.directe {
+  &-table-color-direct {
     background-color: rgba(var(--color-base-string), 0.04);
   }
 
-  &-table-header--Cost.indirecte {
+  &-table-color-indirect {
     background-color: rgba(var(--color-base-string), 0.06);
   }
 
-  &-table-header--Coste.total {
-    background-color: rgba(var(--color-base-string), 0.1);
+  &-table-color-total {
+    background-color: rgba(var(--color-base-string), .1);
   }
 
-  &-table-header--Cost.\/.habitant {
+  &-table-color-inhabitant {
     background-color: rgba(var(--color-base-string), 0.2);
   }
 
-  &-table-header--Ingressos {
+  &-table-color-income {
     background-color: var(--green-table--first);
   }
 
-  &-table-header--Cobertura {
+  &-table-color-coverage {
     background-color: var(--green-table--second);
+    border-top-right-radius: 4px;
   }
 
   &-header--elements-text {
@@ -362,7 +391,7 @@
     background-color: var(--color-base);
     border-radius: 4px;
     box-shadow: 0 0 6px rgba(0, 0, 0, .25);
-    padding: 0 1rem;
+    padding: .5rem 0;
 
     .gobierto-dashboards-table-header--nav,
     .gobierto-dashboards-table-header--elements {

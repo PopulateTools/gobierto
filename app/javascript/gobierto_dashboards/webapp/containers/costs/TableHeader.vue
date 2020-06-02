@@ -1,10 +1,10 @@
 <template>
-  <div class="gobierto-dashboards-table--header">
+  <div class="gobierto-dashboards-table--header gobierto-dashboards-table--header--thead">
     <div class="gobierto-dashboards-table-header--nav" />
     <div
-      v-for="item in theadData"
+      v-for="{ item, classItem } in theadData"
       :key="item"
-      :class="`gobierto-dashboards-table-header--${item}`"
+      :class="`gobierto-dashboards-table-color-${classItem}`"
       class="gobierto-dashboards-table-header--elements"
     >
       <i
@@ -23,18 +23,36 @@ export default {
   name: 'TableHeader',
   data() {
     return {
-      labelTotal: I18n.t("gobierto_dashboards.dashboards.costs.total") || "",
-      labelCostPerInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.cost_per_inhabitant") || "",
-      labelCostDirect: I18n.t("gobierto_dashboards.dashboards.costs.cost_direct") || "",
-      labelCostIndirect: I18n.t("gobierto_dashboards.dashboards.costs.cost_indirect") || "",
-      labelCostInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.cost_inhabitant") || "",
-      labelIncome: I18n.t("gobierto_dashboards.dashboards.costs.income") || "",
-      labelCoverage: I18n.t("gobierto_dashboards.dashboards.costs.coverage") || "",
       theadData: []
     }
   },
   created() {
-    this.theadData = [ this.labelCostDirect, this.labelCostIndirect, this.labelTotal, this.labelCostInhabitant, this.labelIncome, this.labelCoverage]
+    this.theadData = [
+      {
+        item: I18n.t("gobierto_dashboards.dashboards.costs.cost_direct") || "",
+        classItem: 'direct'
+      },
+      {
+        item: I18n.t("gobierto_dashboards.dashboards.costs.cost_indirect") || "",
+        classItem: 'indirect'
+      },
+      {
+        item: I18n.t("gobierto_dashboards.dashboards.costs.total") || "",
+        classItem: 'total'
+      },
+      {
+        item: I18n.t("gobierto_dashboards.dashboards.costs.cost_inhabitant") || "",
+        classItem: 'inhabitant'
+      },
+      {
+        item: I18n.t("gobierto_dashboards.dashboards.costs.income") || "",
+        classItem: 'income'
+      },
+      {
+        item: I18n.t("gobierto_dashboards.dashboards.costs.coverage") || "",
+        classItem: 'coverage'
+      }
+    ]
   }
 }
 </script>

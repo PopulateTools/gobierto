@@ -13,22 +13,22 @@
           {{ agrupacio }}
         </router-link>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
         <span>{{ cost_directe_2018.toFixed(0) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect">
         <span>{{ cost_indirecte_2018.toFixed(0) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
         <span>{{ cost_total_2018.toFixed(0) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
         <span>{{ cost_per_habitant.toFixed(2) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income">
         <span>{{ ingressos.toFixed(0) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage">
         <span>{{ (respecte_ambit).toFixed(2) }}%</span>
       </div>
     </div>
@@ -71,7 +71,6 @@ export default {
       dataGroup = dataGroup.filter(element => element.agrupacio !== '')
       return dataGroup
     },
-
   }
 }
 </script>

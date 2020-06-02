@@ -1,21 +1,6 @@
 <template>
   <div v-if="items.length">
-    <div class="gobierto-dashboards-table--header">
-      <div class="gobierto-dashboards-table-header--nav" />
-      <div
-        v-for="item in theadData"
-        :key="item"
-        class="gobierto-dashboards-table-header--elements"
-      >
-        <i
-          class="far fa-question-circle"
-          style="color: var(--color-base)"
-        />
-        <span class="gobierto-dashboards-header--elements-text">
-          {{ item }}
-        </span>
-      </div>
-    </div>
+    <TableHeader />
     <div
       v-for="{ agrupacio, cost_directe_2018, cost_indirecte_2018, cost_total_2018, cost_per_habitant, ingressos, respecte_ambit } in dataGroup"
       :key="agrupacio"
@@ -24,19 +9,19 @@
       <div class="gobierto-dashboards-table-header--nav">
         {{ agrupacio }}
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
         <span>{{ cost_directe_2018.toFixed(0) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect">
         <span>{{ cost_indirecte_2018.toFixed(0) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
         <span>{{ cost_total_2018.toFixed(0) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
         <span>{{ cost_per_habitant.toFixed(2) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income">
         <span>{{ ingressos.toFixed(0) }}</span>
       </div>
       <div class="gobierto-dashboards-table-header--elements">
@@ -54,35 +39,31 @@
           class="gobierto-dashboards-table-header--nav"
           @click="handleToggle(act_intermedia)"
         >
-          <p>
-            <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
-            ({{ total }} {{ labelActivities }})
-          </p>
+          <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
+          ({{ total }} {{ labelActivities }})
         </div>
       </template>
       <template v-else>
         <div class="gobierto-dashboards-table-header--nav">
-          <p>
-            <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
-          </p>
+          <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
         </div>
       </template>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
         <span>{{ cost_directe_2018.toFixed(0) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect">
         <span>{{ cost_indirecte_2018.toFixed(0) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
         <span>{{ cost_total_2018.toFixed(0) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
         <span>{{ cost_per_habitant.toFixed(2) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income">
         <span>{{ ingressos.toFixed(0) }}</span>
       </div>
-      <div class="gobierto-dashboards-table-header--elements">
+      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage">
         <span>{{ (respecte_ambit).toFixed(2) }}%</span>
       </div>
       <template v-if="total > 0 && selectedToggle === act_intermedia && selectedToggle !== null">
@@ -93,26 +74,24 @@
             class="gobierto-dashboards-table--header gobierto-dashboards-tablerow--header"
           >
             <div class="gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-header--nav">
-              <p>
-                <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
-              </p>
+              <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
             </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements">
+            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-direct">
               <span>{{ cost_directe_2018.toFixed(0) }}</span>
             </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements">
+            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-indirect">
               <span>{{ cost_indirecte_2018.toFixed(0) }}</span>
             </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements">
+            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-total">
               <span>{{ cost_total_2018.toFixed(0) }}</span>
             </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements">
+            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-inhabitant">
               <span>{{ cost_per_habitant.toFixed(2) }}</span>
             </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements">
+            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-income">
               <span>{{ ingressos.toFixed(0) }}</span>
             </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements">
+            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-coverage">
               <span>{{ (respecte_ambit).toFixed(2) }}%</span>
             </div>
           </div>
@@ -122,8 +101,13 @@
   </div>
 </template>
 <script>
+import TableHeader from './TableHeader.vue'
+
 export default {
   name: "TableSecondLevel",
+  components: {
+    TableHeader
+  },
   data() {
     return {
       labelTotal: I18n.t("gobierto_dashboards.dashboards.costs.total") || "",

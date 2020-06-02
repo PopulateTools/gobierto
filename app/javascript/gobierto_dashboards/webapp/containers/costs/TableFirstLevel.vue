@@ -14,22 +14,22 @@
         </router-link>
       </div>
       <div class="gobierto-dashboards-table-header--elements">
-        <div>{{ cost_directe_2018.toFixed(0) }}</div>
+        <span>{{ cost_directe_2018.toFixed(0) }}</span>
       </div>
       <div class="gobierto-dashboards-table-header--elements">
-        <div>{{ cost_indirecte_2018.toFixed(0) }}</div>
+        <span>{{ cost_indirecte_2018.toFixed(0) }}</span>
       </div>
       <div class="gobierto-dashboards-table-header--elements">
-        <div>{{ cost_total_2018.toFixed(0) }}</div>
+        <span>{{ cost_total_2018.toFixed(0) }}</span>
       </div>
       <div class="gobierto-dashboards-table-header--elements">
-        <div>{{ cost_per_habitant.toFixed(2) }}</div>
+        <span>{{ cost_per_habitant.toFixed(2) }}</span>
       </div>
       <div class="gobierto-dashboards-table-header--elements">
-        <div>{{ ingressos.toFixed(0) }}</div>
+        <span>{{ ingressos.toFixed(0) }}</span>
       </div>
       <div class="gobierto-dashboards-table-header--elements">
-        <div>{{ (respecte_ambit).toFixed(2) }}</div>
+        <span>{{ (respecte_ambit).toFixed(2) }}%</span>
       </div>
     </div>
   </div>
@@ -46,7 +46,8 @@ export default {
   },
   computed: {
     groupData() {
-      let dataGroup = [...this.items.reduce((r, o) => {
+      let dataGroup = []
+      dataGroup = [...this.items.reduce((r, o) => {
         const key = o.agrupacio
 
         const item = r.get(key) || Object.assign({}, o, {
@@ -54,6 +55,7 @@ export default {
           cost_indirecte_2018: 0,
           cost_total_2018: 0,
           ingressos: 0,
+          respecte_ambit: 0,
           total: 0
         });
 

@@ -2,7 +2,7 @@
   <div v-if="items.length">
     <TableHeader />
     <!-- TODO: dynamic components -->
-    <TableFirstLevel :items="data" />
+    <TableFirstLevel :items="items" />
   </div>
 </template>
 
@@ -17,10 +17,6 @@ export default {
   },
   props: {
     items: {
-      type: Array,
-      default: () => []
-    },
-    data: {
       type: Array,
       default: () => []
     }

@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { VisBubbles } from "lib/visualizations";
+import { VisBubble } from "lib/visualizations";
 export default {
   name: 'Distribution',
   props: {
@@ -53,14 +53,11 @@ export default {
     }
   },
   created() {
-    this.getDataForBubbles()
+    this.createBubbleViz()
   },
   methods: {
-    getDataForBubbles() {
-
-    },
     createBubbleViz() {
-      const visBubblesCosts = new VisBubbles('.vis-costs', 'costs', this.data);
+      const visBubblesCosts = new VisBubble('.vis-costs', 'costs', this.data);
       visBubblesCosts.render();
     }
   }

@@ -1,10 +1,7 @@
 <template>
   <div class="pure-u-1 gutters m_b_1">
     <h2 class="gobierto-dashboards-title">{{ labelDetail }}</h2>
-    <Table
-      :items="items"
-      :data="data"
-    />
+    <Table :items="items" />
   </div>
 </template>
 
@@ -22,10 +19,6 @@ export default {
   },
   props: {
     items: {
-      type: Array,
-      default: () => []
-    },
-    data: {
       type: Array,
       default: () => []
     }

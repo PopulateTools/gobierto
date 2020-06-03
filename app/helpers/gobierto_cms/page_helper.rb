@@ -21,8 +21,9 @@ module GobiertoCms
     def gobierto_cms_page_or_news_path(page, options = {})
       url_helpers = Rails.application.routes.url_helpers
       if page.collection.item_type == "GobiertoCms::Page"
-        if page.section
-          url_helpers.gobierto_cms_section_item_path(page.section.slug, page.slug, options)
+        section = page.section
+        if section
+          url_helpers.gobierto_cms_section_item_path(section.slug, page.slug, options)
         else
           url_helpers.gobierto_cms_page_path(page.slug, options)
         end

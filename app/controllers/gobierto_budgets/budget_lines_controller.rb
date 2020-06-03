@@ -2,6 +2,13 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
   before_action :load_params
   before_action :check_elaboration, only: [:show]
 
+  caches_action(
+    :show,
+    :index,
+    cache_path: -> { cache_path },
+    unless: -> { user_signed_in? }
+  )
+
   def index
     @place_budget_lines = updated_forecast(level: @level)
     @sample_budget_lines = GobiertoBudgets::TopBudgetLine.limit(20).where(site: current_site, year: @year, kind: @kind).all.sample(3)
@@ -76,6 +83,10 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
     else
       []
     end
+  end
+
+  def cache_path
+    "#{super}/#{ [@code, @year, @area_name, @kind, @level].compact.join("/") }"
   end
 
 end

@@ -133,6 +133,7 @@ export default {
       this.$root.$emit('enabledForkPrompt')
       this.$root.$emit('enabledRevertButton')
       this.$root.$emit('disabledStringSavedQuery')
+      this.$root.$emit("isQuerySavingPromptVisible", true);
     },
     onChange(editor) {
       this.mergeTables();

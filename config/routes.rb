@@ -578,6 +578,7 @@ Rails.application.routes.draw do
         get "/datos/:id/consultas" => "welcome#index"
         get "/datos/:id/q/(:queryId)" => "welcome#index"
         get "/datos/:id/visualizaciones" => "welcome#index"
+        get "/datos/:id/v/(:queryId)" => "welcome#index"
         get "/datos/:id/descarga" => "welcome#index"
 
         # API

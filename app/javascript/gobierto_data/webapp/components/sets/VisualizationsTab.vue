@@ -1,130 +1,44 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <template v-if="isUserLogged">
-      <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
-        <template v-slot:trigger>
-          <h3 class="gobierto-data-visualization--h3">
-            <Caret :rotate="showPrivateVis" />
-
-            {{ labelVisPrivate }}
-            <template v-if="privateVisualizations.length">
-              ({{ privateVisualizations.length }})
-            </template>
-          </h3>
-        </template>
-
-        <div class="gobierto-data-visualization--grid">
-          <template v-if="isPrivateLoading">
-            <Spinner />
-          </template>
-
-          <template v-else>
-            <template v-if="privateVisualizations.length">
-              <template v-for="{ queryData, config, name, privacy_status, id } in privateVisualizations">
-                <div :key="name">
-                  <div class="gobierto-data-visualization--card">
-                    <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                      <div class="gobierto-data-visualization--content">
-                        <h4 class="gobierto-data-visualization--title">
-                          {{ name }}
-                        </h4>
-                        <div class="gobierto-data-visualization--icons">
-                          <PrivateIcon
-                            :is-closed="privacy_status === 'closed'"
-                          />
-                          <i
-                            class="fas fa-trash-alt"
-                            style="color: var(--color-base);"
-                            @click.prevent="deleteHandlerVisualization(id)"
-                          />
-                        </div>
-                        <Visualizations
-                          :items="queryData"
-                          :config="config"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </template>
-            </template>
-
-            <template v-else>
-              <div>{{ labelVisEmpty }}</div>
-            </template>
-          </template>
-        </div>
-      </Dropdown>
-    </template>
-
-    <Dropdown @is-content-visible="showPublicVis = !showPublicVis">
-      <template v-slot:trigger>
-        <h3 class="gobierto-data-visualization--h3">
-          <Caret :rotate="showPublicVis" />
-
-          {{ labelVisPublic }}
-          <template v-if="publicVisualizations.length">
-            ({{ publicVisualizations.length }})
-          </template>
-        </h3>
-      </template>
-
-      <div class="gobierto-data-visualization--grid">
-        <template v-if="isPublicLoading">
-          <Spinner />
-        </template>
-
-        <template v-else>
-          <template v-if="publicVisualizations.length">
-            <template v-for="{ queryData, config, name } in publicVisualizations">
-              <div :key="name">
-                <div class="gobierto-data-visualization--card">
-                  <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                    <div class="gobierto-data-visualization--content">
-                      <h4 class="gobierto-data-visualization--title">
-                        {{ name }}
-                      </h4>
-                      <Visualizations
-                        :items="queryData"
-                        :config="config"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </template>
-          </template>
-
-          <template v-else>
-            <div>{{ labelVisEmpty }}</div>
-          </template>
-        </template>
-      </div>
-    </Dropdown>
+    <component
+      :is="currentVizComponent"
+      v-if="publicVisualizations"
+      :public-visualizations="publicVisualizations"
+      :private-visualizations="privateVisualizations"
+      :dataset-id="datasetId"
+      :is-user-logged="isUserLogged"
+      :is-public-loading="isPublicLoading"
+      :is-private-loading="isPrivateLoading"
+      :items="items"
+      :config="config"
+      :name="titleViz"
+      :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
+      :is-viz-modified="isVizModified"
+      :is-viz-saved="isVizSaved"
+      :is-private-viz-loading="isPrivateVizLoading"
+      :is-public-viz-loading="isPublicVizLoading"
+      :enabled-viz-saved-button="enabledVizSavedButton"
+      :enabled-fork-viz-button="enabledForkVizButton"
+      :viz-input-focus="vizInputFocus"
+      @changeViz="showVizElement"
+      @emitDelete="deleteHandlerVisualization"
+    />
   </div>
 </template>
 <script>
-import Spinner from "./../commons/Spinner.vue";
-import Caret from "./../commons/Caret.vue";
-import Visualizations from "./../commons/Visualizations.vue";
-import PrivateIcon from './../commons/PrivateIcon.vue';
-import { Dropdown } from "lib/vue-components";
-import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
-import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
-import { DataFactoryMixin } from "./../../../lib/factories/data";
-import { getUserId } from "./../../../lib/helpers";
 
+import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
+
+const COMPONENTS = [
+  () => import("./VisualizationsList.vue"),
+  () => import("./VisualizationsItem.vue")
+];
 
 export default {
   name: "VisualizationsTab",
-  components: {
-    Visualizations,
-    Spinner,
-    PrivateIcon,
-    Dropdown,
-    Caret
-  },
-  mixins: [VisualizationFactoryMixin, QueriesFactoryMixin, DataFactoryMixin],
+  mixins: [
+    VisualizationFactoryMixin,
+  ],
   props: {
     datasetId: {
       type: Number,
@@ -133,94 +47,93 @@ export default {
     isUserLogged: {
       type: Boolean,
       default: false
+    },
+    isVizModified: {
+      type: Boolean,
+      default: false
+    },
+    isVizSaved: {
+      type: Boolean,
+      default: false
+    },
+    isVizSavingPromptVisible: {
+      type: Boolean,
+      default: false
+    },
+    enabledVizSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    privateVisualizations: {
+      type: Array,
+      default: () => []
+    },
+    publicVisualizations: {
+      type: Array,
+      default: () => []
+    },
+    isPrivateVizLoading: {
+      type: Boolean,
+      default: false
+    },
+    isPublicVizLoading: {
+      type: Boolean,
+      default: false
+    },
+    currentVizTab: {
+      type: Number,
+      default: null
+    },
+    enabledForkVizButton: {
+      type: Boolean,
+      default: true
+    },
+    vizInputFocus: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
-      labelVisEmpty: I18n.t("gobierto_data.projects.visEmpty") || "",
-      labelVisPrivate: I18n.t("gobierto_data.projects.visPrivate") || "",
-      labelVisPublic: I18n.t("gobierto_data.projects.visPublic") || "",
-      publicVisualizations: [],
-      privateVisualizations: [],
+      currentVizComponent: null,
+      items: null,
       isPrivateLoading: false,
       isPublicLoading: false,
-      showPrivateVis: true,
-      showPublicVis: true,
+      titleViz: '',
+      activeViz: 0,
+      config: {}
     };
   },
+  watch: {
+    currentVizTab(newValue) {
+      if (newValue === 0) {
+        this.currentVizComponent = COMPONENTS[newValue];
+      }
+    }
+  },
   created() {
-    this.userId = getUserId();
 
-    // Get all visualizations
-    this.getPrivateVisualizations();
-    this.getPublicVisualizations();
+    const {
+      name: nameComponent
+    } = this.$route;
+
+    if (nameComponent === 'Visualization') {
+      this.currentVizComponent = COMPONENTS[1];
+    } else {
+      this.currentVizComponent = COMPONENTS[this.activeViz];
+    }
+    this.$root.$emit('reloadVisualizations')
+
   },
   methods: {
-    async getPublicVisualizations() {
-      this.isPublicLoading = true
-
-      const { data: response } = await this.getVisualizations({
-        "filter[dataset_id]": this.datasetId
-      });
-      const { data } = response;
-
-      if (data.length) {
-        this.publicVisualizations = await this.getDataFromVisualizations(data);
-      }
-
-      this.isPublicLoading = false
+    showVizElement(component) {
+      this.activeViz = component
+      this.currentVizComponent = COMPONENTS[this.activeViz];
     },
-    async getPrivateVisualizations() {
-      this.isPrivateLoading = true
-
-      if (this.userId) {
-        const { data: response } = await this.getVisualizations({
-          "filter[dataset_id]": this.datasetId,
-          "filter[user_id]": this.userId
-        });
-        const { data } = response;
-
-        if (data.length) {
-          this.privateVisualizations = await this.getDataFromVisualizations(
-            data
-          );
-        }
-      }
-
-      this.isPrivateLoading = false
-    },
-    async getDataFromVisualizations(data) {
-      const visualizations = [];
-      for (let index = 0; index < data.length; index++) {
-        const { attributes = {}, id } = data[index];
-        const { query_id, spec = {}, name = "", privacy_status = "open" } = attributes;
-
-        let queryData = null;
-
-        if (query_id) {
-          // Get my queries, if they're stored
-          const { data } = await this.getQuery(query_id);
-          queryData = data;
-        } else {
-          // Otherwise, run the sql
-          const { sql } = attributes;
-          const { data } = await this.getData({ sql });
-          queryData = data;
-        }
-
-        // Append the visualization configuration
-        const visualization = { queryData, config: spec, name, privacy_status, query_id, id };
-
-        visualizations.push(visualization);
-      }
-
-      return visualizations;
-    },
-    async deleteHandlerVisualization(id) {
+    deleteHandlerVisualization(id) {
       this.deleteVisualization(id)
-      this.getPrivateVisualizations()
-      this.getPublicVisualizations()
-    },
+      this.$root.$emit('reloadVisualizations')
+    }
   }
 };
 </script>

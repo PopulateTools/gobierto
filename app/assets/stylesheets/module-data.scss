@@ -885,6 +885,14 @@
     }
   }
 
+  &-visualizations-name {
+    font-size: 14px;
+    color: #666;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+  }
+
   &-summary-queries-container-icon {
     display: inline-block;
     vertical-align: middle;
@@ -1013,7 +1021,7 @@
   &-sql-editor-footer {
     display: inline-block;
     width: max-content;
-    max-width: 100%;
+    max-width: 80%;
   }
 
   &-filters {
@@ -1059,7 +1067,11 @@
   }
 
   &-visualization--aspect-ratio-16-9 {
-    @include aspect-ratio(16, 9)
+    @include aspect-ratio(16, 9);
+  }
+
+  &-visualization--container {
+    position: relative;
   }
 
   &-visualization--card {
@@ -1075,8 +1087,9 @@
 
   &-visualization--icons {
     position: absolute;
-    left: 97%;
+    left: 92%;
     top: 10%;
+    z-index: 2;
   }
 
   &-visualization--h3 {
@@ -1162,6 +1175,10 @@
     font-size: 1rem;
     display: inline-block;
     color: rgba(102, 102, 102, .75);
+  }
+
+  &-visualitzation-element-title {
+    margin: 0;
   }
 
 }

@@ -47,29 +47,29 @@ es:
         title: Contratos y licitaciones
       costs:
         activities: Actividades
-        distribution: Distribución de costes por área
-        total: Coste total
-        cost_per_inhabitant: Coste por habitante
         cost_direct: Coste directo
         cost_indirect: Coste indirecto
         cost_inhabitant: Coste/habitante
-        income: Ingresos
+        cost_per_inhabitant: Coste por habitante
         coverage: Cobertura
-        see_all: Ver todos
+        distribution: Distribución de costes por área
+        income: Ingresos
         item:
-          description: Descripción
           competence: Competence
-          personal_cost: Coste personal
-          types: Tipos
-          legal_framework: Marco legal
-          goods_and_services: Goods and services
-          external_services: External services
-          transference: Transference
+          description: Descripción
           equipments: Equipments
-          total: Total
-          subsidies: Subsidies
+          external_services: External services
+          goods_and_services: Goods and services
           income_cost: Income - Cost
+          legal_framework: Marco legal
+          personal_cost: Coste personal
           public_tax: Public tax or prices
+          subsidies: Subsidies
+          total: Total
+          transference: Transference
+          types: Tipos
+        see_all: Ver todos
+        total: Coste total
       subsidies:
         amount: Importe
         amount_distribution: Distribución por importes

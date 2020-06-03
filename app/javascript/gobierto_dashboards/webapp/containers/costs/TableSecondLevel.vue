@@ -29,7 +29,7 @@
       <template v-else>
         <div class="gobierto-dashboards-table-header--nav">
           <router-link
-            :to="{ name: 'TableItem', params: { id: codiact, section: agrupacio } }"
+            :to="{ name: 'TableItem', params: { item: codiact, id: agrupacio } }"
             class="gobierto-dashboards-table-header--link"
             tag="a"
           >
@@ -64,7 +64,7 @@
           >
             <div class="gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-header--nav">
               <router-link
-                :to="{ name: 'TableItem', params: { id: codiact, section: agrupacio } }"
+                :to="{ name: 'TableItem', params: { item: codiact, id: agrupacio } }"
                 class="gobierto-dashboards-table-header--link"
                 tag="a"
               >

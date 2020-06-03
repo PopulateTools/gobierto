@@ -2,31 +2,6 @@
 ca:
   gobierto_dashboards:
     dashboards:
-      costs:
-        activities: activitats
-        distribution: Distribució de costos per àrea
-        total: Coste total
-        cost_per_inhabitant: Cost per habitant
-        cost_direct: Cost directe
-        cost_indirect: Cost indirecte
-        cost_inhabitant: Cost / habitant
-        income: Ingressos
-        coverage: Cobertura
-        see_all: Vegeu-ho tot
-        item:
-          description: Descripció
-          competence: Competència
-          personal_cost: Cost personal
-          types: Tipus
-          legal_framework: Marc legal
-          goods_and_services: Béns i Servéis
-          external_services: Servéis exteriors
-          transference: Transferències
-          equipments: Equipaments
-          total: Total
-          subsidies: Subvencions
-          income_cost: Ingresos - Cost
-          public_tax: Taxa o preus públics
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
@@ -70,6 +45,31 @@ ca:
           tenders_for: licitacions per un import de
         tender_amount: Imp. licitació
         title: Contractes i licitacions
+      costs:
+        activities: activitats
+        cost_direct: Cost directe
+        cost_indirect: Cost indirecte
+        cost_inhabitant: Cost / habitant
+        cost_per_inhabitant: Cost per habitant
+        coverage: Cobertura
+        distribution: Distribució de costos per àrea
+        income: Ingressos
+        item:
+          competence: Competència
+          description: Descripció
+          equipments: Equipaments
+          external_services: Servéis exteriors
+          goods_and_services: Béns i Servéis
+          income_cost: Ingressos - Cost
+          legal_framework: Marc legal
+          personal_cost: Cost personal
+          public_tax: Taxa o preus públics
+          subsidies: Subvencions
+          total: Total
+          transference: Transferències
+          types: Tipus
+        see_all: Vegeu-ho tot
+        total: Coste total
       subsidies:
         amount: Import
         amount_distribution: Distribució per imports

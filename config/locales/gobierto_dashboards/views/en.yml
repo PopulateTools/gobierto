@@ -2,31 +2,6 @@
 en:
   gobierto_dashboards:
     dashboards:
-      costs:
-        activities: Activities
-        distribution: Distribution of costs by area
-        total: Total cost
-        cost_inhabitant: Cost per inhabitant
-        cost_direct: Direct cost
-        cost_indirect: Indirect cost
-        cost_inhabitant: Cost / inhabitant
-        income: Income
-        coverage: Cobertura
-        see_all: See all
-        item:
-          description: Description
-          competence: Competence
-          personal_cost: Personal cost
-          types: Types
-          legal_framework: Legal framework
-          goods_and_services: Goods and services
-          external_services: External services
-          transference: Transference
-          equipments: Equipments
-          total: Total
-          subsidies: Subsidies
-          income_cost: Income - Cost
-          public_tax: Public tax or prices
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee
@@ -69,6 +44,30 @@ en:
           tenders_for: tenders for a total amount of
         tender_amount: Tender Amount
         title: Contracts and tenders
+      costs:
+        activities: Activities
+        cost_direct: Direct cost
+        cost_indirect: Indirect cost
+        cost_inhabitant: Cost / inhabitant
+        coverage: Cobertura
+        distribution: Distribution of costs by area
+        income: Income
+        item:
+          competence: Competence
+          description: Description
+          equipments: Equipments
+          external_services: External services
+          goods_and_services: Goods and services
+          income_cost: Income - Cost
+          legal_framework: Legal framework
+          personal_cost: Personal cost
+          public_tax: Public tax or prices
+          subsidies: Subsidies
+          total: Total
+          transference: Transference
+          types: Types
+        see_all: See all
+        total: Total cost
       subsidies:
         amount: Amount
         amount_distribution: Amount distribution

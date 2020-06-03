@@ -11,11 +11,11 @@
         </router-link>
         <i class="fas fa-chevron-right"/>
         <router-link
-          :to="{ path:`/dashboards/costes/${$route.params.section}`}"
+          :to="{ path:`/dashboards/costes/${$route.params.id}`}"
           class="gobierto-dashboards-table-header--link-top"
           tag="a"
         >
-          {{ $route.params.section }}
+          {{ $route.params.id }}
         </router-link>
       </div>
     </TableHeader>
@@ -55,7 +55,7 @@
             {{ labelDescription }}
           </span>
           <span class="gobierto-dashboards-table-item-text">
-            {{ dataGroup[0].descripcio }}
+            {{ description }}
           </span>
         </div>
         <div class="gobierto-dashboards-table-item-left-container">
@@ -63,7 +63,7 @@
             {{ labelCompetence }}
           </span>
           <span class="gobierto-dashboards-table-item-text">
-            {{ dataGroup[0].competencia }}
+            {{ competence }}
           </span>
         </div>
         <div class="gobierto-dashboards-table-item-left-container">
@@ -71,7 +71,7 @@
             {{ labelTypes }}
           </span>
           <span class="gobierto-dashboards-table-item-text">
-            {{ dataGroup[0].tipus_competencia }}
+            {{ types }}
           </span>
         </div>
         <div class="gobierto-dashboards-table-item-left-container">
@@ -79,15 +79,128 @@
             {{ labelLegalFramework }}
           </span>
           <span class="gobierto-dashboards-table-item-text">
-            {{ dataGroup[0].marc_legal }}
+            {{ legal }}
           </span>
         </div>
       </div>
 
       <div class="gobierto-dashboards-table-item-right">
-
+        <div class="gobierto-dashboards-table-item-right-container">
+          <div class="gobierto-dashboards-table-item-right-section">
+            <span class="gobierto-dashboards-table-item-right-section-title">
+              {{ labelCosts }}
+            </span>
+          </div>
+          <div class="gobierto-dashboards-table-item-right-table">
+            <div class="gobierto-dashboards-table-item-right-table-element">
+              <span class="gobierto-dashboards-table-item-right-table-text">
+                {{ labelPersonalCost }}
+              </span>
+              <span class="gobierto-dashboards-table-item-right-table-amount">
+                {{ costPersonal | money }}
+              </span>
+            </div>
+            <div class="gobierto-dashboards-table-item-right-table-element">
+              <span class="gobierto-dashboards-table-item-right-table-text">
+                {{ labelGoodsServices }}
+              </span>
+              <span class="gobierto-dashboards-table-item-right-table-amount">
+                {{ goodServices | money }}
+              </span>
+            </div>
+            <div class="gobierto-dashboards-table-item-right-table-element">
+              <span class="gobierto-dashboards-table-item-right-table-text">
+                {{ labelExternalServices }}
+              </span>
+              <span class="gobierto-dashboards-table-item-right-table-amount">
+                {{ externalServices | money  }}
+              </span>
+            </div>
+            <div class="gobierto-dashboards-table-item-right-table-element">
+              <span class="gobierto-dashboards-table-item-right-table-text">
+                {{ labelTransference }}
+              </span>
+              <span class="gobierto-dashboards-table-item-right-table-amount">
+                {{ transferences | money  }}
+              </span>
+            </div>
+            <div class="gobierto-dashboards-table-item-right-table-element">
+              <span class="gobierto-dashboards-table-item-right-table-text">
+                {{ labelEquipments }}
+              </span>
+              <span class="gobierto-dashboards-table-item-right-table-amount">
+                {{ equiptments | money  }}
+              </span>
+            </div>
+            <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
+              <span class="gobierto-dashboards-table-item-right-table-text">
+                {{ labelTotal }}
+              </span>
+              <span class="gobierto-dashboards-table-item-right-table-amount">
+                {{ totalCost | money }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="gobierto-dashboards-table-item-right-container gobierto-dashboards-table-item-right-container-income">
+          <div class="gobierto-dashboards-table-item-right-section">
+            <span class="gobierto-dashboards-table-item-right-section-title">
+              {{ labelIncome }}
+            </span>
+          </div>
+          <div class="gobierto-dashboards-table-item-right-table">
+            <div class="gobierto-dashboards-table-item-right-table-element">
+              <span class="gobierto-dashboards-table-item-right-table-text">
+                {{ labelPublicTax }}
+              </span>
+              <span class="gobierto-dashboards-table-item-right-table-amount">
+                {{ taxs | money  }}
+              </span>
+            </div>
+            <div class="gobierto-dashboards-table-item-right-table-element">
+              <span class="gobierto-dashboards-table-item-right-table-text">
+                {{ labelSubsidies }}
+              </span>
+              <span class="gobierto-dashboards-table-item-right-table-amount">
+                {{ subsidies | money  }}
+              </span>
+            </div>
+            <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
+              <span class="gobierto-dashboards-table-item-right-table-text">
+                {{ labelTotal }}
+              </span>
+              <span class="gobierto-dashboards-table-item-right-table-amount">
+                {{ totalIncomes | money }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="gobierto-dashboards-table-item-right-container gobierto-dashboards-table-item-right-container-coverage">
+          <div class="gobierto-dashboards-table-item-right-section">
+            <span class="gobierto-dashboards-table-item-right-section-title">
+              {{ labelCoverage }}
+            </span>
+          </div>
+          <div class="gobierto-dashboards-table-item-right-table">
+            <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
+              <span class="gobierto-dashboards-table-item-right-table-text">
+                {{ labelIncomeCost }}
+              </span>
+              <span class="gobierto-dashboards-table-item-right-table-amount">
+                {{ incomeCost | money  }}
+              </span>
+            </div>
+            <div class="gobierto-dashboards-table-item-right-table-element">
+              <span class="gobierto-dashboards-table-item-right-table-text">
+                % {{ labelCoverage }}
+              </span>
+              <span class="gobierto-dashboards-table-item-right-table-amount">
+                {{ coverage }}%
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -117,6 +230,9 @@ export default {
       labelSubsidies: I18n.t("gobierto_dashboards.dashboards.costs.item.subsidies") || "",
       labelIncomeCost: I18n.t("gobierto_dashboards.dashboards.costs.item.income_cost") || "",
       labelPublicTax: I18n.t("gobierto_dashboards.dashboards.costs.item.public_tax") || "",
+      labelCoverage: I18n.t("gobierto_dashboards.dashboards.costs.coverage") || "",
+      labelIncome: I18n.t("gobierto_dashboards.dashboards.costs.income") || "",
+      labelCosts: I18n.t("gobierto_dashboards.layouts.application.gobierto_dashboards.costs") || "",
       description: '',
       competence: '',
       types: '',
@@ -132,8 +248,16 @@ export default {
       income: ''
     }
   },
+  computed: {
+    totalCost() {
+      return this.equiptments + this.transferences + this.externalServices + this.goodServices + this.costPersonal
+    },
+    totalIncomes() {
+      return this.taxs + this.subsidies
+    }
+  },
   created() {
-    this.agrupacioData(this.$route.params.id)
+    this.agrupacioData(this.$route.params.item)
   },
   methods: {
     agrupacioData(id) {
@@ -152,7 +276,8 @@ export default {
         taxa_o_preu_public: taxs,
         subvencio: subsidies,
         ingres_cost: incomeCost,
-        ingressos: income
+        ingressos: income,
+        respecte_ambit: coverage
       }] = this.dataGroup
 
       this.description = description
@@ -168,6 +293,7 @@ export default {
       this.subsidies = subsidies || 0
       this.incomeCost = incomeCost
       this.income = income || 0
+      this.coverage = coverage
     }
   }
 }

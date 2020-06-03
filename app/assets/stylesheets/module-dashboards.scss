@@ -433,9 +433,11 @@
     box-shadow: 0 0 6px rgba(0, 0, 0, .25);
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
-    width: 100%;
+    width: 96.5%;
+    margin: 0 auto;
     padding: 3rem;
     display: flex;
+    box-sizing: border-box;
   }
 
   &-table-item-left {
@@ -444,6 +446,8 @@
 
   &-table-item-right {
     width: 40%;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   &-table-item-left-container {
@@ -456,11 +460,77 @@
     font-weight: normal;
     color: #666;
     display: block;
+    max-width: 30rem;
   }
 
   &-table-item-title {
     font-weight: bold;
     text-transform: uppercase;
+  }
+
+  &-table-item-right-container {
+    width: 100%;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+
+    &-income,
+    &-coverage {
+      .gobierto-dashboards-table-item-right-table {
+        border-color: rgba(33, 150, 83, .2);
+      }
+    }
+  }
+
+  &-table-item-right-section {
+    width: 22%;
+    display: inline-block;
+    padding-right: .5rem;
+  }
+
+  &-table-item-right-section-title {
+    font-size: 1rem;
+    color: rgba(102, 102, 102, .5);
+    text-align: right;
+    display: inline-block;
+    width: 100%;
+    text-transform: uppercase;
+  }
+
+  &-table-item-right-table {
+    border-left: 7px solid rgba(1, 120, 168, .2);
+    padding-left: 1rem;
+    width: 70%;
+  }
+
+  &-table-item-right-table-element {
+    padding: .25rem 0;
+    border-bottom: 1px dashed rgba(0, 0, 0, .15);
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+
+  &-table-item-right-table-element-bold {
+    font-weight: bold;
+  }
+
+  &-table-item-right-table-text,
+  &-table-item-right-table-amount {
+    font-size: 1rem;
+    color: #666;
+    width: 49%;
+    display: inline-block;
+  }
+
+  &-table-item-right-table-amount {
+    text-align: right;
   }
 
 

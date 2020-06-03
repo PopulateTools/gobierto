@@ -58,8 +58,7 @@ module GobiertoPeople
       # home statistics
       people = QueryWithEvents.new(source: current_site.event_attendances,
                                    start_date: filter_start_date,
-                                   end_date: filter_end_date,
-                                   not_null: [:department_id])
+                                   end_date: filter_end_date)
       interest_groups = QueryWithEvents.new(source: current_site.interest_groups,
                                             start_date: filter_start_date,
                                             end_date: filter_end_date)

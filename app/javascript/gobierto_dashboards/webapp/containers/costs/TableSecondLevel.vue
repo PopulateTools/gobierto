@@ -11,88 +11,91 @@
       </router-link>
     </TableHeader>
     <TableSubHeader />
-    <div
-      v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, act_intermedia, respecte_ambit, agrupacio } in dataActIntermediaTotal"
-      :key="nomact"
-      class="gobierto-dashboards-table--header gobierto-dashboards-tablerow--header"
-      :class="{'act-has-children': hasChildren(total)}"
-    >
-      <template v-if="total > 0">
-        <div
-          class="gobierto-dashboards-table-header--nav"
-          @click="handleToggle(act_intermedia)"
+    <table class="gobierto-dashboards-table">
+      <template v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, act_intermedia, respecte_ambit, agrupacio, ordre_agrupacio } in dataActIntermediaTotal">
+        <tr
+          :key="nomact"
+          class="gobierto-dashboards-tablerow--header"
+          :class="{'act-has-children': hasChildren(total)}"
         >
-          <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
-          ({{ total }} {{ labelActivities }})
-        </div>
-      </template>
-      <template v-else>
-        <div class="gobierto-dashboards-table-header--nav">
-          <router-link
-            :to="{ name: 'TableItem', params: { item: codiact, id: agrupacio } }"
-            class="gobierto-dashboards-table-header--link"
-            tag="a"
-          >
-            <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
-          </router-link>
-        </div>
-      </template>
-      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
-        <span>{{ cost_directe_2018 | money }}</span>
-      </div>
-      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect">
-        <span>{{ cost_indirecte_2018 | money }}</span>
-      </div>
-      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
-        <span>{{ cost_total_2018 | money }}</span>
-      </div>
-      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
-        <span>{{ cost_per_habitant | money }}</span>
-      </div>
-      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income">
-        <span>{{ ingressos | money }}</span>
-      </div>
-      <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage">
-        <span>{{ (respecte_ambit) | money }}%</span>
-      </div>
-      <template v-if="total > 0 && selectedToggle === act_intermedia && selectedToggle !== null">
-        <div class="gobierto-dashboards-table--secondlevel">
-          <div
-            v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, respecte_ambit, agrupacio } in dataGroupIntermedia"
-            :key="nomact"
-            class="gobierto-dashboards-table--header gobierto-dashboards-tablerow--header"
-          >
-            <div class="gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-header--nav">
+          <template v-if="total > 0">
+            <td
+              class="gobierto-dashboards-table-header--nav"
+              @click="handleToggle(act_intermedia)"
+            >
+              <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
+              ({{ total }} {{ labelActivities }})
+            </td>
+          </template>
+          <template v-else>
+            <td class="gobierto-dashboards-table-header--nav">
               <router-link
-                :to="{ name: 'TableItem', params: { item: codiact, id: agrupacio } }"
+                :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio } }"
                 class="gobierto-dashboards-table-header--link"
                 tag="a"
               >
                 <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
               </router-link>
-            </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-direct">
-              <span>{{ cost_directe_2018 | money }}</span>
-            </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-indirect">
-              <span>{{ cost_indirecte_2018 | money }}</span>
-            </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-total">
-              <span>{{ cost_total_2018 | money }}</span>
-            </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-inhabitant">
-              <span>{{ cost_per_habitant | money }}</span>
-            </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-income">
-              <span>{{ ingressos | money }}</span>
-            </div>
-            <div class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-coverage">
-              <span>{{ (respecte_ambit).toFixed(0) }}%</span>
-            </div>
-          </div>
-        </div>
-      </template>
-    </div>
+            </td>
+          </template>
+          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
+            <span>{{ cost_directe_2018 | money }}</span>
+          </td>
+          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect">
+            <span>{{ cost_indirecte_2018 | money }}</span>
+          </td>
+          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
+            <span>{{ cost_total_2018 | money }}</span>
+          </td>
+          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
+            <span>{{ cost_per_habitant | money }}</span>
+          </td>
+          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income">
+            <span>{{ ingressos | money }}</span>
+          </td>
+          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage">
+            <span>{{ (respecte_ambit).toFixed(2) }}%</span>
+          </td>
+        </tr>
+        <template v-if="total > 0 && selectedToggle === act_intermedia && selectedToggle !== null">
+          <tbody class="gobierto-dashboards-table--secondlevel gobierto-dashboards-table--secondlevel-nested">
+            <tr
+              v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, respecte_ambit, agrupacio, ordre_agrupacio } in dataGroupIntermedia"
+              :key="nomact"
+              class="gobierto-dashboards-tablerow--header"
+            >
+              <td class="gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-header--nav">
+                <router-link
+                  :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio } }"
+                  class="gobierto-dashboards-table-header--link"
+                  tag="a"
+                >
+                  <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
+                </router-link>
+              </td>
+              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-direct">
+                <span>{{ cost_directe_2018 | money }}</span>
+              </td>
+              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-indirect">
+                <span>{{ cost_indirecte_2018 | money }}</span>
+              </td>
+              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-total">
+                <span>{{ cost_total_2018 | money }}</span>
+              </td>
+              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-inhabitant">
+                <span>{{ cost_per_habitant | money }}</span>
+              </td>
+              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-income">
+                <span>{{ ingressos | money }}</span>
+              </td>
+              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-coverage">
+                <span>{{ (respecte_ambit).toFixed(0) }}%</span>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+    </template>
+    </table>
   </div>
 </template>
 <script>
@@ -131,7 +134,7 @@ export default {
   methods: {
     intermediaData() {
       const filterActIntermedia = this.$route.params.id
-      let dataAgrupacio = this.items.filter(element => element.agrupacio === filterActIntermedia)
+      let dataAgrupacio = this.items.filter(element => element.ordre_agrupacio === filterActIntermedia)
       let dataActIntermedia = dataAgrupacio.filter(element => element.act_intermedia !== '')
 
       let dataActIntermediaValues = [...dataActIntermedia.reduce((r, o) => {

@@ -250,6 +250,32 @@
     letter-spacing: 0 !important;
   }
 
+  &-table {
+    td > * {
+      padding: .75rem .5rem .75rem 0;
+      vertical-align: middle;
+      display: inline-block;
+    }
+
+    td {
+      border-top: 0;
+      padding: 0 1rem;
+    }
+
+    &--subheader {
+      border-collapse: collapse;
+      border-radius: 4px;
+      width: 100%;
+      overflow: hidden;
+
+      td > * {
+        padding: .75rem .5rem .75rem 0;
+        vertical-align: middle;
+        display: inline-block;
+      }
+    }
+  }
+
   &-table--header {
     width: 100%;
     display: flex;
@@ -280,9 +306,14 @@
         background-color: rgba(var(--color-base-string), .2);
       }
 
+      .gobierto-dashboards-table-header--elements {
+        font-weight: bold;
+      }
+
       .gobierto-dashboards-table-header--nav-text {
         font-weight: bold;
         display: inline-block;
+        font-size: 1rem;
       }
 
       .gobierto-dashboards-table--secondlevel {
@@ -308,8 +339,8 @@
   }
 
   &-table-header--nav {
-    width: 25%;
-    min-width: 25%;
+    width: 28%;
+    min-width: 28%;
     color: var(--color-base);
 
     p {
@@ -321,36 +352,57 @@
     align-items: end;
 
     .gobierto-dashboards-table-header--elements {
-      padding: 2rem 1rem .75rem .25rem;
+      padding: 2rem 1.5rem .75rem .25rem;
     }
 
     .gobierto-dashboards-table-color-direct {
       border-top-left-radius: 4px;
+      background-color: rgba(var(--color-base-string), .08);
+    }
+
+    .gobierto-dashboards-table-color-indirect {
+      background-color: rgba(var(--color-base-string), .12);
+    }
+
+    .gobierto-dashboards-table-color-total {
+      background-color: rgba(var(--color-base-string), .2);
     }
 
     .gobierto-dashboards-table-color-inhabitant {
-      background-color: rgba(var(--color-base-string), 0.2);
+      background-color: rgba(var(--color-base-string), .4);
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       padding-top: 3rem;
     }
 
+    .gobierto-dashboards-table-color-income {
+      background-color: rgba(33, 150, 83, .2);
+    }
+
     .gobierto-dashboards-table-color-coverage {
-      background-color: var(--green-table--second);
       border-top-right-radius: 4px;
+      background-color: rgba(33, 150, 83, .4);
+    }
+  }
+
+  &-table--secondlevel-nested {
+    .gobierto-dashboards-table-header--nav {
+      padding-left: 1.5rem;
     }
   }
 
   &-table-header--elements {
-    display: inline-block;
     width: 12%;
-    padding: .75rem 1rem .75rem 0;
     box-sizing: border-box;
     text-align: right;
 
     i {
       display: inline-block;
       vertical-align: middle;
+    }
+
+    span {
+      font-size: 1rem;
     }
   }
 
@@ -404,6 +456,12 @@
     border-radius: 4px;
     box-shadow: 0 0 6px rgba(0, 0, 0, .25);
     padding: .5rem 0;
+    border-bottom: 0;
+    cursor: initial;
+
+    &:hover {
+      background-color: var(--color-base);
+    }
 
     .gobierto-dashboards-table-header--nav,
     .gobierto-dashboards-table-header--elements {

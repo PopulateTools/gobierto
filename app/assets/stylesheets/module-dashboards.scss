@@ -250,6 +250,20 @@
     letter-spacing: 0 !important;
   }
 
+  .metric_boxes {
+
+    .metric_box {
+      margin-bottom: 1rem;
+
+      .inner {
+        margin-right: 0;
+        margin-left: 0;
+        min-height: auto;
+        padding-bottom: 2rem;
+      }
+    }
+  }
+
   &-table {
     td > * {
       padding: .75rem .5rem .75rem 0;
@@ -591,5 +605,10 @@
     text-align: right;
   }
 
-
+  &-title {
+    font-weight: 300;
+    font-size: 25.6px;
+    color: var(--color-base);
+    text-transform: uppercase;
+  }
 }

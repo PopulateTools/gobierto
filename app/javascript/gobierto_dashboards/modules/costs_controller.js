@@ -25,8 +25,8 @@ export class CostsController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () => import("../webapp/containers/costs/Home.vue");
-      const TableSecondLevel = () => import("../webapp/containers/costs/TableSecondLevel.vue");
-      const TableItem = () => import("../webapp/containers/costs/TableItem.vue");
+      const TableSecondLevel = () => import("../webapp/containers/costs/table/TableSecondLevel.vue");
+      const TableItem = () => import("../webapp/containers/costs/table/TableItem.vue");
 
       Promise.all([getRemoteData(options.costsEndpoint)]).then((rawData) => {
         this.setGlobalVariables(rawData)

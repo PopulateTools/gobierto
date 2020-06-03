@@ -55,6 +55,9 @@ es:
         distribution: Distribución de costes por área
         home: Inicio
         income: Ingresos
+        detail: Detalle
+        total_cost: Coste total
+        inhabitant: Habitante
         item:
           competence: Competence
           description: Descripción

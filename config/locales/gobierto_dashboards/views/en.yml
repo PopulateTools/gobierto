@@ -53,6 +53,10 @@ en:
         distribution: Distribution of costs by area
         home: Home
         income: Income
+        detail: Detail
+        total_cost: Total cost
+        inhabitant: Habitant
+        cost_per_inhabitant: Cost per inhabitant
         item:
           competence: Competence
           description: Description

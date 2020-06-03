@@ -51,10 +51,13 @@ ca:
         cost_indirect: Cost indirecte
         cost_inhabitant: Cost / habitant
         cost_per_inhabitant: Cost per habitant
+        inhabitant: Habitant
         coverage: Cobertura
         distribution: Distribució de costos per àrea
         home: Inici
         income: Ingressos
+        detail: Detall
+        total_cost: Cost total
         item:
           competence: Competència
           description: Descripció

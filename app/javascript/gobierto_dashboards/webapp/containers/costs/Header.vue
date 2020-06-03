@@ -1,6 +1,6 @@
 <template>
   <div class="pure-u-1 gutters m_b_1">
-    <p>{{ titleHeader }}</p>
+    <h2 class="gobierto-dashboards-title">{{ titleHeader }}</h2>
   </div>
 </template>
 

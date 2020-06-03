@@ -1,6 +1,32 @@
 <template>
   <div class="pure-u-1 gutters m_b_1">
-    <p>{{ labelDistribution }}</p>
+    <h2 class="gobierto-dashboards-title">{{ labelDistribution }}</h2>
+    <div class="pure-g pure-u-1-4 metric_boxes">
+      <div class="pure-u-1-1 metric_box tipsit">
+        <div class="inner">
+          <h3>{{ labelTotalCost }}</h3>
+          <div class="metric">
+            172,1 M€
+          </div>
+        </div>
+      </div>
+      <div class="pure-u-1-1 metric_box tipsit">
+        <div class="inner">
+          <h3>{{ labelCostPerInhabitant }}</h3>
+          <div class="metric">
+            172,1 M€
+          </div>
+        </div>
+      </div>
+      <div class="pure-u-1-1 metric_box tipsit">
+        <div class="inner">
+          <h3>{{ labelInhabitant }}</h3>
+          <div class="metric">
+            172,1 M€
+          </div>
+        </div>
+      </div>
+    </div>
     <div
       v-if="data"
       class="vis-costs"
@@ -21,6 +47,9 @@ export default {
   data() {
     return {
       labelDistribution: I18n.t("gobierto_dashboards.dashboards.costs.distribution") || "",
+      labelTotalCost: I18n.t("gobierto_dashboards.dashboards.costs.total_cost") || "",
+      labelInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.inhabitant") || "",
+      labelCostPerInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.cost_per_inhabitant") || "",
     }
   },
   created() {

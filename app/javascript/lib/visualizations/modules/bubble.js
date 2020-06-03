@@ -75,12 +75,11 @@ export class VisBubble {
     }
   }
 
-  createNodes(rawData, year) {
+  createNodes(rawData) {
     var data = rawData;
     if (this.locale === 'en') this.locale = 'es';
 
-    this.maxAmount = d3.max(data, function (d) { return d.values[year] }.bind(this));
-    this.filtered = data.filter(function(d) { return d.budget_category === this.budget_category; }.bind(this));
+    this.maxAmount = d3.max(data, function (d) { return d.cost_total_2018 }.bind(this));
 
     this.radiusScale = d3.scaleSqrt()
       .range(this.isMobile ? [0, 80] : [0, 120])
@@ -94,33 +93,9 @@ export class VisBubble {
 
     // If we enter for the first time, we build the data
     // If we update, we update the data but not the x and the y
-    if (!this.nodes.length > 0) {
-      this.nodes = this.filtered.map(function (d) {
-        return {
-          values: d.values,
-          pct_diffs: d.pct_diff,
-          id: d.id,
-          values_per_inhabitant: d.values_per_inhabitant,
-          radius: d.values[year] ? this.radiusScale(d.values[year]) : 0,
-          value: d.values[year],
-          name: d['level_2_' + this.locale],
-          pct_diff: d.pct_diff[year],
-          per_inhabitant: d.values_per_inhabitant[year],
-          x: Math.random() * 600,
-          y: d.pct_diff[year] ? this.nodeScale(d.pct_diff[year]) : 0,
-          year: year
-        };
-      }.bind(this))
-    } else {
-      this.nodes.forEach(function(d) {
-        d.radius = this.radiusScale(d.values[year])
-        d.radius = d.values[year] ? this.radiusScale(d.values[year]) : 0
-        d.value = d.values[year]
-        d.pct_diff = d.pct_diffs[year]
-        d.per_inhabitant = d.values_per_inhabitant[year]
-        d.year = year
-      }.bind(this))
-    }
+    this.nodes.forEach(function(d) {
+    }.bind(this))
+
 
     this.nodes.sort(function (a, b) { return b.value - a.value; });
 

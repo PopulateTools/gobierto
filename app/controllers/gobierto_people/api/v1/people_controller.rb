@@ -8,7 +8,8 @@ module GobiertoPeople
         before_action :check_active_submodules
 
         def index
-          top_people = PeopleQuery.new(
+          top_people = PeopleWithActivitiesQuery.new(
+            site: current_site,
             relation: current_site.people,
             conditions: permitted_conditions,
             limit: params[:limit]

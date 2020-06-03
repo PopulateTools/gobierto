@@ -10,13 +10,13 @@ module GobiertoPeople
     DEFAULT_LIMIT = 10
 
     def initialize(params = {})
-      @relation = (params[:relation] || model.all).joins(events_association)
+      @relation = (params[:relation] || model.all).left_outer_joins(events_association)
       append_query_conditions(params[:conditions]) if params[:conditions]
       @limit = params[:limit] || DEFAULT_LIMIT
     end
 
     def results
-      relation.select("#{model.table_name}.*, COUNT(*) AS custom_events_count")
+      relation.select("#{model.table_name}.*, COUNT(#{events_table}.starts_at) AS custom_events_count")
               .group(:id)
               .order("custom_events_count DESC")
               .limit(limit)
@@ -40,8 +40,8 @@ module GobiertoPeople
       ::GobiertoCalendars::Event.table_name
     end
 
-    def append_condition(attribute_name, attribute_value, operator = "=")
-      @relation = relation.where("#{events_table}.#{attribute_name} #{operator} ?", attribute_value)
+    def append_condition(attribute_name, attribute_value, operator = "=", allow_null = false)
+      @relation = relation.where("#{events_table}.#{attribute_name} #{operator} ? #{" OR #{events_table}.#{attribute_name} IS NULL" if allow_null}", attribute_value)
     end
 
   end

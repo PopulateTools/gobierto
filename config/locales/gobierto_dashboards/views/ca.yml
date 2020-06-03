@@ -70,7 +70,7 @@ ca:
           transference: Transferències
           types: Tipus
         see_all: Vegeu-ho tot
-        total: Coste total
+        total: Cost total
       subsidies:
         amount: Import
         amount_distribution: Distribució per imports
@@ -106,7 +106,7 @@ ca:
       application:
         gobierto_dashboards:
           contracts: Contractes i licitacions
-          costs: Costes
+          costs: Costos
           subsidies: Subvencions
       menu_subsections:
         contracts: Contractes

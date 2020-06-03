@@ -32,7 +32,19 @@ module GobiertoPeople
     end
 
     def to_s
-      name
+      "#{name}#{date_range_to_s}"
+    end
+
+    private
+
+    def date_range_to_s
+      return if date_range.compact.blank?
+
+      " - #{date_range.join(" - ")}"
+    end
+
+    def date_range
+      @date_range ||= [start_date&.strftime("%m/%Y"), end_date&.strftime("%m/%Y")]
     end
   end
 end

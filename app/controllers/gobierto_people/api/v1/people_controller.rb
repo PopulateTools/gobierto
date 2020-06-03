@@ -15,6 +15,7 @@ module GobiertoPeople
           ).results
 
           department = current_site.departments.find_by(id: permitted_conditions[:department_id])
+          charges = current_site.historical_charges.with_department(department).between_dates(permitted_conditions).reverse_sorted.group_by(&:person_id)
 
           if params[:include_history] == "true"
             records = PeopleEventsHistoryQuery.new(
@@ -56,7 +57,8 @@ module GobiertoPeople
               each_serializer: serializer,
               date_range_query: date_range_params.to_query,
               date_range_params: date_range_params.to_h,
-              department: department
+              charges: charges,
+              exclude_content_block_records: true
             )
           end
         end

@@ -7,9 +7,9 @@
           class="gobierto-dashboards-table-header--link-top"
           tag="a"
         >
-          Inicio
+          {{ labelHome }}
         </router-link>
-        <i class="fas fa-chevron-right"/>
+        <i class="fas fa-chevron-right" />
         <router-link
           :to="{ path:`/dashboards/costes/${$route.params.id}`}"
           class="gobierto-dashboards-table-header--link-top"
@@ -118,7 +118,7 @@
                 {{ labelExternalServices }}
               </span>
               <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ externalServices | money  }}
+                {{ externalServices | money }}
               </span>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
@@ -126,7 +126,7 @@
                 {{ labelTransference }}
               </span>
               <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ transferences | money  }}
+                {{ transferences | money }}
               </span>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
@@ -134,7 +134,7 @@
                 {{ labelEquipments }}
               </span>
               <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ equiptments | money  }}
+                {{ equiptments | money }}
               </span>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
@@ -159,7 +159,7 @@
                 {{ labelPublicTax }}
               </span>
               <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ taxs | money  }}
+                {{ taxs | money }}
               </span>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
@@ -167,7 +167,7 @@
                 {{ labelSubsidies }}
               </span>
               <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ subsidies | money  }}
+                {{ subsidies | money }}
               </span>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
@@ -192,7 +192,7 @@
                 {{ labelIncomeCost }}
               </span>
               <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ incomeCost | money  }}
+                {{ incomeCost | money }}
               </span>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
@@ -214,10 +214,10 @@ import TableHeader from './TableHeader.vue'
 import { VueFiltersMixin } from "lib/shared"
 export default {
   name: "TableItem",
-  mixins: [VueFiltersMixin],
   components: {
     TableHeader
   },
+  mixins: [VueFiltersMixin],
   data() {
     return {
       items: this.$root.$data.costData,
@@ -238,6 +238,7 @@ export default {
       labelCoverage: I18n.t("gobierto_dashboards.dashboards.costs.coverage") || "",
       labelIncome: I18n.t("gobierto_dashboards.dashboards.costs.income") || "",
       labelCosts: I18n.t("gobierto_dashboards.layouts.application.gobierto_dashboards.costs") || "",
+      labelHome : I18n.t("gobierto_dashboards.dashboards.costs.home") || "",
       description: '',
       competence: '',
       types: '',
@@ -254,9 +255,11 @@ export default {
     }
   },
   computed: {
+    //Get the total of all values in the cost table
     totalCost() {
       return this.equiptments + this.transferences + this.externalServices + this.goodServices + this.costPersonal
     },
+    //Get the total of all values in the incomes table
     totalIncomes() {
       return this.taxs + this.subsidies
     }

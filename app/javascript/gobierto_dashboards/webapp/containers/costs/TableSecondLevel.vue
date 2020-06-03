@@ -6,7 +6,7 @@
         class="gobierto-dashboards-table-header--link-top"
         tag="a"
       >
-        <i class="fas fa-chevron-left"/>
+        <i class="fas fa-chevron-left" />
         {{ labelSeeAll }}
       </router-link>
     </TableHeader>
@@ -58,7 +58,10 @@
           </td>
         </tr>
         <template v-if="total > 0 && selectedToggle === act_intermedia && selectedToggle !== null">
-          <tbody class="gobierto-dashboards-table--secondlevel gobierto-dashboards-table--secondlevel-nested">
+          <tbody
+            :key="nomact"
+            class="gobierto-dashboards-table--secondlevel gobierto-dashboards-table--secondlevel-nested"
+          >
             <tr
               v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, respecte_ambit, agrupacio, ordre_agrupacio } in dataGroupIntermedia"
               :key="nomact"
@@ -94,7 +97,7 @@
             </tr>
           </tbody>
         </template>
-    </template>
+      </template>
     </table>
   </div>
 </template>
@@ -105,11 +108,11 @@ import { VueFiltersMixin } from "lib/shared"
 
 export default {
   name: "TableSecondLevel",
-  mixins: [VueFiltersMixin],
   components: {
     TableHeader,
     TableSubHeader
   },
+  mixins: [VueFiltersMixin],
   data() {
     return {
       labelTotal: I18n.t("gobierto_dashboards.dashboards.costs.total") || "",
@@ -123,13 +126,11 @@ export default {
       labelSeeAll: I18n.t("gobierto_dashboards.dashboards.costs.see_all") || "",
       dataActIntermediaTotal: [],
       items: this.$root.$data.costData,
-      theadData: [],
       selectedToggle: null,
     }
   },
   created() {
     this.intermediaData()
-    this.theadData = [ this.labelCostDirect, this.labelCostIndirect, this.labelTotal, this.labelCostInhabitant, this.labelIncome, this.labelCoverage]
   },
   methods: {
     intermediaData() {

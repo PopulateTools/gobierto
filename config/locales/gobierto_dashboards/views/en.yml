@@ -51,6 +51,7 @@ en:
         cost_inhabitant: Cost / inhabitant
         coverage: Cobertura
         distribution: Distribution of costs by area
+        home: Home
         income: Income
         item:
           competence: Competence

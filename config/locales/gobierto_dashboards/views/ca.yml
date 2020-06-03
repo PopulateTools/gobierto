@@ -53,6 +53,7 @@ ca:
         cost_per_inhabitant: Cost per habitant
         coverage: Cobertura
         distribution: Distribució de costos per àrea
+        home: Inici
         income: Ingressos
         item:
           competence: Competència

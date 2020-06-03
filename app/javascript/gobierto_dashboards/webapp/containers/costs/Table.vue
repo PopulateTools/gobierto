@@ -33,12 +33,8 @@ export default {
       labelCostIndirect: I18n.t("gobierto_dashboards.dashboards.costs.cost_indirect") || "",
       labelCostInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.cost_inhabitant") || "",
       labelIncome: I18n.t("gobierto_dashboards.dashboards.costs.income") || "",
-      labelCoverage: I18n.t("gobierto_dashboards.dashboards.costs.coverage") || "",
-      theadData: []
+      labelCoverage: I18n.t("gobierto_dashboards.dashboards.costs.coverage") || ""
     }
-  },
-  created() {
-    this.theadData = [ this.labelCostDirect, this.labelCostIndirect, this.labelTotal, this.labelCostInhabitant, this.labelIncome, this.labelCoverage]
   }
 }
 </script>

@@ -30,8 +30,6 @@ export default {
       costData: this.$root.$data.costData,
       groupData: this.$root.$data.agrupacioData,
     }
-  },
-  created() {
   }
 }
 </script>

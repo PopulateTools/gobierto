@@ -49,6 +49,7 @@ export default {
   },
   computed: {
     groupData() {
+      //reduce to sum all values for agrupacio
       let dataGroup = []
       dataGroup = [...this.items.reduce((r, o) => {
         const key = o.agrupacio
@@ -66,6 +67,7 @@ export default {
         item.cost_indirecte_2018 += o.cost_indirecte_2018
         item.cost_total_2018 += o.cost_total_2018
         item.ingressos += o.ingressos
+        //New item with the sum of values of each agrupacio
         item.total += (o.total || 0) + 1
         item.respecte_ambit += o.respecte_ambit
 

@@ -91,15 +91,18 @@ export class CostsController {
 
   setGlobalVariables(rawData) {
 
+    //Convert strings with some format to Numbers without format
     function convertStringToNumbers(amount) {
       return Number(parseFloat(amount.replace(/\./g,'').replace(',','.')))
     }
 
+    //Some values are empty, so we need to transform to zero
     function nanToZero(val) {
        val = +val || 0
        return val;
     }
 
+    //Array with all the strings that we've to convert to Number
     const amountStrings = [ 'cd_bens_i_serveis', 'cd_cost_personal', 'cost_directe_2018' , 'cost_indirecte_2018', 'cost_total_2018', 'costpers2018', 'costrestadir2018', 'cost_per_habitant', 'ingressos', 'respecte_ambit', 'taxa_o_preu_public', 'cd_serveis_exteriors', 'cd_transferencies', 'cd_equipaments', 'ingres_cost', 'subvencio']
 
     for (let cost of rawData) {
@@ -110,6 +113,7 @@ export class CostsController {
           d[amountStrings[amounts]] = convertStringToNumbers(d[amountStrings[amounts]])
         }
 
+        //Include a year column
         if (d.cost_directe_2018) {
           d['year'] = '2018'
         } else if (d.cost_directe_2019) {

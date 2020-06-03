@@ -10,7 +10,6 @@
         class="gobierto-dashboards-tablerow--header gobierto-dashboards-tablesecondlevel--header"
       >
         <td class="gobierto-dashboards-table-header--nav">
-        
           <span>{{ agrupacio }}</span>
         </td>
         <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">

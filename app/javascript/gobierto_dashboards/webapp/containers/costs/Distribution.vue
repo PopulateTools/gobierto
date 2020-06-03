@@ -1,23 +1,26 @@
 <template>
   <div class="pure-u-1 gutters m_b_1">
-    <p>Distribución de costes por área</p>
+    <p>{{ labelDistribution }}</p>
     <div
       v-if="data"
-      class="vis-costs">
-    </div>
+      class="vis-costs"
+    />
   </div>
 </template>
 
 <script>
-
 import { VisBubbles } from "lib/visualizations";
-
 export default {
   name: 'Distribution',
   props: {
     data: {
       type: Array,
       default: () => []
+    }
+  },
+  data() {
+    return {
+      labelDistribution: I18n.t("gobierto_dashboards.dashboards.costs.distribution") || "",
     }
   },
   created() {

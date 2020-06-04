@@ -7,7 +7,7 @@
           <div class="inner">
             <h3>{{ labelTotalCost }}</h3>
             <div class="metric">
-              172,1 M€
+              {{ totalCost }}
             </div>
           </div>
         </div>
@@ -15,7 +15,7 @@
           <div class="inner">
             <h3>{{ labelCostPerInhabitant }}</h3>
             <div class="metric">
-              172,1 M€
+              {{ totalCostPerHabitant | money }}
             </div>
           </div>
         </div>
@@ -23,7 +23,7 @@
           <div class="inner">
             <h3>{{ labelInhabitant }}</h3>
             <div class="metric">
-              172,1 M€
+              {{ population2018 }}
             </div>
           </div>
         </div>
@@ -34,11 +34,13 @@
     </div>
   </div>
 </template>
-
 <script>
 import { VisBubble } from "lib/visualizations";
+import { VueFiltersMixin } from "lib/shared"
+
 export default {
   name: 'Distribution',
+  mixins: [VueFiltersMixin],
   props: {
     data: {
       type: Array,
@@ -51,6 +53,18 @@ export default {
       labelTotalCost: I18n.t("gobierto_dashboards.dashboards.costs.total_cost") || "",
       labelInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.inhabitant") || "",
       labelCostPerInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.cost_per_inhabitant") || "",
+      population2018: 126988,
+      population2019: 128265,
+      totalAmount: ''
+    }
+  },
+  computed: {
+    totalCost() {
+      const total = this.data.reduce((accum,element) => accum + element.cost_total_2018, 0)
+      return (total / 1000000).toFixed(1).replace(/\./, ',') + ' M€';
+    },
+    totalCostPerHabitant() {
+      return this.data.reduce((accum,element) => accum + element.cost_total_2018, 0) / this.population2018
     }
   },
   mounted() {
@@ -60,6 +74,10 @@ export default {
     createBubbleViz() {
       const visBubblesCosts = new VisBubble('.vis-costs', this.data);
       visBubblesCosts.render();
+
+      window.addEventListener('resize', function() {
+        visBubblesCosts.resize()
+      });
     }
   }
 }

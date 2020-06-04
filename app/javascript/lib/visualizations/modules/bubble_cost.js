@@ -23,8 +23,9 @@ export class VisBubble {
 
     this.margin = { top: 20, right: 10, bottom: 20, left: 10 }
     //Get container from Vue Template
+    this.containerWidth = document.querySelector('.vis-costs')
     const containerNode = document.getElementById('gobierto-dashboards-bubble-container')
-    this.width = (containerNode.parentNode || containerNode).getBoundingClientRect().width - this.margin.left - this.margin.right;
+    this.width = this.containerWidth.offsetWidth - this.margin.left - this.margin.right;
     this.height = this.isMobile ? 320 : 520 - this.margin.top - this.margin.bottom;
     this.center = { x: this.width / 2, y: this.height / 2 };
 
@@ -175,17 +176,17 @@ export class VisBubble {
   }
 
   _ticked() {
-    this.bubbles.attr('transform', d => `translate(${d.x - 200},${d.y})`)
+    this.bubbles.attr('transform', d => `translate(${d.x},${d.y})`)
   }
 
   _mousemoved(d) {
-    var coordinates = d3.mouse(this.selectionNode);
+    var coordinates = d3.mouse(this.containerWidth);
     var x = coordinates[0], y = coordinates[1];
 
     this.tooltip
       .style('display', 'block')
-      .style('left', `${x}px`)
-      .style('top', `${y - 50}px`)
+      .style('left', `${x - 100}px`)
+      .style('top', `${y + 40}px`)
 
     this.tooltip.html(`<div class="line-name"><strong>${d.id}</strong></div>
                       <div>${I18n.t('gobierto_dashboards.dashboards.costs.total_cost')}: ${accounting.formatMoney(d.cost_total_2018, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))}</div>

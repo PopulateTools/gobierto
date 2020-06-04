@@ -584,7 +584,7 @@ export class DemographyMapController {
     const chart = new dc_leaflet.choroplethChart(selector, "main");
     dc.chartRegistry.register(chart, "main");
     const legendMap = new dc_leaflet.legend(selector).position('topright');
-    const mapboxAccessToken = "pk.eyJ1IjoiZmVyYmxhcGUiLCJhIjoiY2pqMzNnZjcxMTY1NjNyczI2ZXQ0dm1rYiJ9.yUynmgYKzaH4ALljowiFHw";
+    const mapboxAccessToken = "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ"
     const scaleColors = ['#fcde9c','#faa476','#f0746e','#e34f6f','#dc3977','#b9257a','#7c1d6f']
 
     chart

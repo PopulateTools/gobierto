@@ -28,6 +28,7 @@ ca:
       buttonRunQuery: Executeu consulta (CMD/WIN + Enter)
       cancel: Cancel·leu
       categories: Categories
+      dashboards: Dashboards
       data: Dades
       dataset: Conjunt de dades
       datasetUpdated: Darrers datasets actualitzats
@@ -42,7 +43,6 @@ ca:
       guide: Guia per utilitzar l'editor SQL
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualització modificada
-      savedVisualization: Visualització desada
       preview: Previsualitzeu
       private: Privat
       queries: Consultes
@@ -59,6 +59,7 @@ ca:
       save: Deseu
       saveViz: Deseu Visualització
       savedQuery: Consulta desada
+      savedVisualization: Visualització desada
       sets: Conjunts
       showAll: Vegeu-ho tot
       showLess: Vegeu-ne menys

@@ -28,6 +28,7 @@ en:
       buttonRunQuery: Run query (CMD/WIN + Enter)
       cancel: Cancel
       categories: Categories
+      dashboards: Dashboards
       data: Data
       dataset: Datasets
       datasetUpdated: Last updated datasets
@@ -42,7 +43,6 @@ en:
       guide: Guide to using the SQL editor
       modifiedQuery: Modified Query
       modifiedVisualization: Modified visualization
-      savedVisualization: Saved visualization
       preview: Preview
       private: Private
       queries: Queries
@@ -59,6 +59,7 @@ en:
       save: Save
       saveViz: Save visualization
       savedQuery: Saved query
+      savedVisualization: Saved visualization
       sets: Sets
       showAll: Show all
       showLess: Show less

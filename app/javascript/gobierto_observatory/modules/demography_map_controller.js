@@ -32,8 +32,6 @@ function getRemoteData(endpoint) {
   })
 }
 
-let initObject = { method: 'GET' };
-
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 400) {
     return Promise.resolve(response)
@@ -42,33 +40,16 @@ function checkStatus(response) {
   }
 }
 
-const userRequest = new Request('https://demo-datos.gobify.net/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=28065', initObject);
 
-async function getData() {
-  let response = await fetch(userRequest);
+async function getMapPolygons() {
+  const polygonsRequest = new Request('https://datos.gobierto.es/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=28065', {method: 'GET'});
+  let response = await fetch(polygonsRequest);
   let dataRequest = await checkStatus(response);
-  let data = dataRequest.json()
-  return data;
+  return dataRequest.json()
 }
 
 const marginHabNat = { top: 0, right: 0, bottom: 0, left: 0 }
 const marginStudies = { top: 0, right: 0, bottom: 0, left: 180 }
-
-// Estudios
-// seccion,distrito,rango_edad,sexo,nacionalidad,formacion,total
-// 2,1,0 - 4,Hombre,Extranjero,Menores de 16,1
-// -----
-//
-// Origen
-// seccion,distrito,rango_edad,sexo,nacionalidad,procedencia,total
-// 16,2,60 - 64,Mujer,Nacional,MADRID,22
-// -----
-//
-// Dimensiones
-// sexo
-// rango-edad
-// seccion
-// distrito
 
 export class DemographyMapController {
   constructor(options) {
@@ -76,7 +57,7 @@ export class DemographyMapController {
     const entryPoint = document.getElementById(options.selector);
 
     if (entryPoint) {
-      Promise.all([getRemoteData(options.studiesEndpoint), getRemoteData(options.originEndpoint), getData()]).then((rawData) => {
+      Promise.all([getRemoteData(options.studiesEndpoint), getRemoteData(options.originEndpoint), getMapPolygons()]).then((rawData) => {
         const data = this.buildDataObject(rawData)
 
         const { studiesData, originData, getafeData } = data
@@ -328,7 +309,7 @@ export class DemographyMapController {
         that.updateOriginFilters('byNationality', chart.filters());
         const container = document.getElementById('container-bar-nationality')
         that.activeFiltered(container)
-        
+
         that.rebuildChoroplethColorDomain()
       });
     return chart;
@@ -359,7 +340,7 @@ export class DemographyMapController {
         that.updateOriginFilters('bySex', chart.filters());
         const container = document.getElementById('container-bar-sex')
         that.activeFiltered(container)
-        
+
         that.rebuildChoroplethColorDomain()
       });
 
@@ -475,7 +456,7 @@ export class DemographyMapController {
         that.currentFilter = 'studies';
         const container = document.getElementById('container-bar-by-studies')
         that.activeFiltered(container)
-        
+
         that.rebuildChoroplethColorDomain()
         if (chart.filter() !== null) {
           document.getElementById("bar-by-origin-spaniards").style.visiblity = 'hidden';
@@ -528,7 +509,7 @@ export class DemographyMapController {
         that.chart3.group(that.ndx.groups.origin.bySex);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
-        
+
         that.rebuildChoroplethColorDomain()
       });
     return chart;
@@ -573,7 +554,7 @@ export class DemographyMapController {
         that.chart3.group(that.ndx.groups.origin.bySex);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
-        
+
         that.rebuildChoroplethColorDomain()
       });
     return chart;

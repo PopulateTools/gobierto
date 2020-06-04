@@ -28,6 +28,7 @@ es:
       buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)
       cancel: Cancelar
       categories: Categorías
+      dashboards: Dashboards
       data: Datos
       dataset: Conjunto de datos
       datasetUpdated: Últimos datasets actualizados
@@ -42,7 +43,6 @@ es:
       guide: Guía para usar el editor SQL
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualización modificada
-      savedVisualization: Visualización guardada
       preview: Previsualizar
       private: Privada
       queries: Consultas
@@ -59,6 +59,7 @@ es:
       save: Guardar
       saveViz: Guardar Visualización
       savedQuery: Consulta guardada
+      savedVisualization: Visualización guardada
       sets: Conjuntos
       showAll: Ver todo
       showLess: Ver menos

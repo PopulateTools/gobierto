@@ -49,14 +49,13 @@ en:
         cost_direct: Direct cost
         cost_indirect: Indirect cost
         cost_inhabitant: Cost / inhabitant
+        cost_per_inhabitant: Cost per inhabitant
         coverage: Cobertura
+        detail: Detail
         distribution: Distribution of costs by area
         home: Home
         income: Income
-        detail: Detail
-        total_cost: Total cost
         inhabitant: Habitant
-        cost_per_inhabitant: Cost per inhabitant
         item:
           competence: Competence
           description: Description
@@ -71,8 +70,10 @@ en:
           total: Total
           transference: Transference
           types: Types
+        per_inhabitant: per inhabitant
         see_all: See all
         total: Total cost
+        total_cost: Total cost
       subsidies:
         amount: Amount
         amount_distribution: Amount distribution

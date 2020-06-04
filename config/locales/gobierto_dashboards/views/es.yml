@@ -52,11 +52,10 @@ es:
         cost_inhabitant: Coste/habitante
         cost_per_inhabitant: Coste por habitante
         coverage: Cobertura
+        detail: Detalle
         distribution: Distribución de costes por área
         home: Inicio
         income: Ingresos
-        detail: Detalle
-        total_cost: Coste total
         inhabitant: Habitante
         item:
           competence: Competence
@@ -72,8 +71,10 @@ es:
           total: Total
           transference: Transference
           types: Tipos
+        per_inhabitant: por habitante
         see_all: Ver todos
         total: Coste total
+        total_cost: Coste total
       subsidies:
         amount: Importe
         amount_distribution: Distribución por importes

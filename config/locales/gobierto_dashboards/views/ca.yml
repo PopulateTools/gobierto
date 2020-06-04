@@ -51,13 +51,12 @@ ca:
         cost_indirect: Cost indirecte
         cost_inhabitant: Cost / habitant
         cost_per_inhabitant: Cost per habitant
-        inhabitant: Habitant
         coverage: Cobertura
+        detail: Detall
         distribution: Distribució de costos per àrea
         home: Inici
         income: Ingressos
-        detail: Detall
-        total_cost: Cost total
+        inhabitant: Habitant
         item:
           competence: Competència
           description: Descripció
@@ -72,8 +71,10 @@ ca:
           total: Total
           transference: Transferències
           types: Tipus
+        per_inhabitant: per inhabitant
         see_all: Vegeu-ho tot
         total: Coste total
+        total_cost: Cost total
       subsidies:
         amount: Import
         amount_distribution: Distribució per imports

@@ -31,7 +31,7 @@ export class VisBubble {
     this.selectionNode = containerNode
 
     this.budgetColor = d3.scaleThreshold()
-      .domain([100, 0])
+    .domain([0, 20, 40, 60, 80, 100, 120, 140])
       .range(['#b2182b','#d6604d','#f4a582','#fddbc7','#f7f7f7','#d1e5f0','#92c5de','#4393c3','#2166ac']);
 
     this.fontSize = d3.scaleLinear()
@@ -101,7 +101,7 @@ export class VisBubble {
           y: this.nodeScale(+d.cost_total_2018 / 185000),
           cost_total_2018: d.cost_total_2018,
           year: d.year,
-          cost_per_inhabitant: d.cost_per_inhabitant
+          cost_per_habitant: d.cost_per_habitant
         };
       }.bind(this))
     } else {
@@ -167,12 +167,12 @@ export class VisBubble {
 
     this.bubbles = this.bubbles.merge(bubblesG);
 
-    /*this.bubbles.append('text')
+    this.bubbles.append('text')
       .style('font-size', function(d) { return this.fontSize(d.radius) + 'px'; }.bind(this))
       .attr('text-anchor', 'middle')
       .attr('y', -15)
-      .attr('fill', function(d) { return d.pct_diff > 30 || d.pct_diff < -10 ? 'white' : 'black'; })
-      .tspans(function(d) { return d.radius > 40 ? d3.wordwrap(d.name, 15) : d3.wordwrap('', 15); }, function(d) { return this.fontSize(d.radius);}.bind(this));*/
+      .attr('fill', function(d) { return d.radius > 30 || d.radius < -10 ? 'black' : 'white'; })
+      .tspans(function(d) { return d.radius > 40 ? d3.wordwrap(d.id, 15) : d3.wordwrap('', 15); }, function(d) { return this.fontSize(d.radius);}.bind(this));
 
     this.simulation.nodes(this.nodes);
     this.simulation.alpha(1).restart();
@@ -206,8 +206,8 @@ export class VisBubble {
     }
 
     this.tooltip.html(`<div class="line-name"><strong>${d.id}</strong></div>
-                      <div>${accounting.formatMoney(d.cost_total_2018, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))}</div>
-                        ${d.cost_per_inhabitant}`);
+                      <div>${I18n.t('gobierto_dashboards.dashboards.costs.total_cost')}: ${accounting.formatMoney(d.cost_total_2018, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))}</div>
+                        ${d.cost_per_habitant}€ ${I18n.t('gobierto_dashboards.dashboards.costs.per_inhabitant')}`);
   }
 
   _mouseleft() {

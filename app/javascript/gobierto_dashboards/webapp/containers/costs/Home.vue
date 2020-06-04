@@ -4,20 +4,17 @@
       v-if="dataGroup"
       class="pure-g gutters m_b_1"
     >
-      <Header />
       <Distribution :data="dataGroup" />
-      <Detail :items="dataGroup"/>
+      <Detail :items="dataGroup" />
     </div>
   </main>
 </template>
 <script>
-import Header from './Header.vue'
 import Distribution from './Distribution.vue'
 import Detail from './Detail.vue'
 export default {
   name: 'Home',
   components: {
-    Header,
     Distribution,
     Detail
   },

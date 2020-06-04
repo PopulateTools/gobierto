@@ -33,7 +33,7 @@ export class VisBubble {
 
     this.budgetColor = d3.scaleThreshold()
     .domain([0, 20, 40, 60, 80, 100, 120, 140])
-      .range(['#b2182b','#d6604d','#f4a582','#fddbc7','#f7f7f7','#d1e5f0','#92c5de','#4393c3','#2166ac']);
+      .range(['#4393c3']);
 
     this.fontSize = d3.scaleLinear()
       .domain([0, 90])
@@ -135,7 +135,7 @@ export class VisBubble {
       .data(this.nodes, d => d.id)
       .transition()
       .duration(transitionDuration)
-      .attr('fill', d => d.radius > 100 ? 'white' : 'black')
+      .attr('fill', 'white')
       .style('font-size', function(d) { return this.fontSize(d.radius) + 'px'; }.bind(this))
 
     this.simulation.nodes(this.nodes)
@@ -168,7 +168,7 @@ export class VisBubble {
       .style('font-size', function(d) { return this.fontSize(d.radius) + 'px'; }.bind(this))
       .attr('text-anchor', 'middle')
       .attr('y', -15)
-      .attr('fill', d => d.radius > 100 ? 'white' : 'black')
+      .attr('fill', 'white')
       .tspans(function(d) { return d.radius > 40 ? d3.wordwrap(d.id, 15) : d3.wordwrap('', 15); }, function(d) { return this.fontSize(d.radius);}.bind(this));
 
     this.simulation.nodes(this.nodes);

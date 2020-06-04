@@ -17,7 +17,7 @@
           tag="a"
           @click.native="loadTable(1)"
         >
-          {{ $route.params.section }}
+          {{ agrupacioID }}
         </router-link>
       </div>
     </TableHeader>
@@ -50,7 +50,7 @@
             <span>{{ ingressos | money }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements">
-            <span>{{ (respecte_ambit).toFixed(0) }}%</span>
+            <span>{{ (respecte_ambit).toFixed(2) }}%</span>
           </td>
         </tr>
       </tbody>
@@ -100,52 +100,102 @@
           </div>
           <div class="gobierto-dashboards-table-item-right-table">
             <div class="gobierto-dashboards-table-item-right-table-element">
-              <span class="gobierto-dashboards-table-item-right-table-text">
-                {{ labelPersonalCost }}
-              </span>
-              <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ costPersonal | money }}
-              </span>
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  {{ labelPersonalCost }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ costPersonal | money }}
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
-              <span class="gobierto-dashboards-table-item-right-table-text">
-                {{ labelGoodsServices }}
-              </span>
-              <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ goodServices | money }}
-              </span>
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  {{ labelGoodsServices }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ goodServices | money }}
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
-              <span class="gobierto-dashboards-table-item-right-table-text">
-                {{ labelExternalServices }}
-              </span>
-              <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ externalServices | money }}
-              </span>
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  {{ labelExternalServices }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ externalServices | money }}
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
-              <span class="gobierto-dashboards-table-item-right-table-text">
-                {{ labelTransference }}
-              </span>
-              <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ transferences | money }}
-              </span>
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  {{ labelTransference }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ transferences | money }}
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
-              <span class="gobierto-dashboards-table-item-right-table-text">
-                {{ labelEquipments }}
-              </span>
-              <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ equiptments | money }}
-              </span>
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  {{ labelEquipments }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ equiptments | money }}
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
+            </div>
+            <div class="gobierto-dashboards-table-item-right-table-element">
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  {{ labelCostIndirect }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ costIndirect | money }}
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
-              <span class="gobierto-dashboards-table-item-right-table-text">
-                {{ labelTotal }}
-              </span>
-              <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ totalCost | money }}
-              </span>
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  {{ labelTotal }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ totalCost | money }}
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
             </div>
           </div>
         </div>
@@ -157,28 +207,46 @@
           </div>
           <div class="gobierto-dashboards-table-item-right-table">
             <div class="gobierto-dashboards-table-item-right-table-element">
-              <span class="gobierto-dashboards-table-item-right-table-text">
-                {{ labelPublicTax }}
-              </span>
-              <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ taxs | money }}
-              </span>
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  {{ labelPublicTax }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ taxs | money }}
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
-              <span class="gobierto-dashboards-table-item-right-table-text">
-                {{ labelSubsidies }}
-              </span>
-              <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ subsidies | money }}
-              </span>
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  {{ labelSubsidies }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ subsidies | money }}
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
-              <span class="gobierto-dashboards-table-item-right-table-text">
-                {{ labelTotal }}
-              </span>
-              <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ totalIncomes | money }}
-              </span>
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  {{ labelTotal }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ totalIncomes | money }}
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
             </div>
           </div>
         </div>
@@ -190,20 +258,32 @@
           </div>
           <div class="gobierto-dashboards-table-item-right-table">
             <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
-              <span class="gobierto-dashboards-table-item-right-table-text">
-                {{ labelIncomeCost }}
-              </span>
-              <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ incomeCost | money }}
-              </span>
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  {{ labelIncomeCost }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ incomeCost | money }}
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
-              <span class="gobierto-dashboards-table-item-right-table-text">
-                % {{ labelCoverage }}
-              </span>
-              <span class="gobierto-dashboards-table-item-right-table-amount">
-                {{ coverage }}%
-              </span>
+              <div class="gobierto-dashboards-table-item-right-table-container">
+                <span class="gobierto-dashboards-table-item-right-table-text">
+                  % {{ labelCoverage }}
+                </span>
+                <span class="gobierto-dashboards-table-item-right-table-amount">
+                  {{ coverage }}%
+                </span>
+              </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base)"
+              />
             </div>
           </div>
         </div>
@@ -241,6 +321,7 @@ export default {
       labelIncome: I18n.t("gobierto_dashboards.dashboards.costs.income") || "",
       labelCosts: I18n.t("gobierto_dashboards.layouts.application.gobierto_dashboards.costs") || "",
       labelHome : I18n.t("gobierto_dashboards.dashboards.costs.home") || "",
+      labelCostIndirect : I18n.t("gobierto_dashboards.dashboards.costs.cost_indirect") || "",
       description: '',
       competence: '',
       types: '',
@@ -253,13 +334,15 @@ export default {
       taxs: '',
       subsidies: '',
       incomeCost: '',
+      agrupacioID: '',
+      costIndirect: '',
       income: ''
     }
   },
   computed: {
     //Get the total of all values in the cost table
     totalCost() {
-      return this.equiptments + this.transferences + this.externalServices + this.goodServices + this.costPersonal
+      return this.equiptments + this.transferences + this.externalServices + this.goodServices + this.costPersonal + this.costIndirect
     },
     //Get the total of all values in the incomes table
     totalIncomes() {
@@ -278,6 +361,7 @@ export default {
         competencia: competence,
         tipus_competencia: types,
         marc_legal: legal,
+        cost_indirecte_2018: costIndirect,
         cd_cost_personal: costPersonal,
         cd_bens_i_serveis: goodServices,
         cd_serveis_exteriors: externalServices,
@@ -287,7 +371,8 @@ export default {
         subvencio: subsidies,
         ingres_cost: incomeCost,
         ingressos: income,
-        respecte_ambit: coverage
+        respecte_ambit: coverage,
+        agrupacio: agrupacio
       }] = this.dataGroup
 
       this.description = description
@@ -295,6 +380,7 @@ export default {
       this.types = types
       this.legal = legal
       this.costPersonal = costPersonal
+      this.costIndirect = costIndirect
       this.goodServices = goodServices
       this.externalServices = externalServices
       this.transferences = transferences
@@ -304,6 +390,7 @@ export default {
       this.incomeCost = incomeCost
       this.income = income || 0
       this.coverage = coverage
+      this.agrupacioID = agrupacio
     },
     loadTable(value) {
       this.$emit('changeTableHandler', value)

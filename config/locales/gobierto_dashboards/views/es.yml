@@ -58,18 +58,18 @@ es:
         income: Ingresos
         inhabitant: Habitante
         item:
-          competence: Competence
+          competence: Competencia
           description: Descripción
-          equipments: Equipments
-          external_services: External services
-          goods_and_services: Goods and services
-          income_cost: Income - Cost
+          equipments: Equipamientos
+          external_services: Servicios externos
+          goods_and_services: Bienes y servicios
+          income_cost: Ingresos - Costes
           legal_framework: Marco legal
           personal_cost: Coste personal
-          public_tax: Public tax or prices
-          subsidies: Subsidies
+          public_tax: Tasa o precios públicos
+          subsidies: Subvenciones
           total: Total
-          transference: Transference
+          transference: Transferencias
           types: Tipos
         per_inhabitant: por habitante
         see_all: Ver todos

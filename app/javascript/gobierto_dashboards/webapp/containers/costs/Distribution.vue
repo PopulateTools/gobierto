@@ -1,7 +1,9 @@
 <template>
   <div class="pure-u-1 m_b_1">
     <div class="pure-g gutters">
-      <h2 class="pure-u-1 gobierto-dashboards-title">{{ labelDistribution }}</h2>
+      <h2 class="pure-u-1 gobierto-dashboards-title">
+        {{ labelDistribution }}
+      </h2>
       <div class="pure-u-1 pure-u-lg-1-4 metric_boxes">
         <div class="pure-u-1-1 metric_box tipsit">
           <div class="inner">
@@ -28,7 +30,10 @@
           </div>
         </div>
       </div>
-      <div id="gobierto-dashboards-bubble-container" class="pure-u-1 pure-u-lg-3-4">
+      <div
+        id="gobierto-dashboards-bubble-container"
+        class="pure-u-1 pure-u-lg-3-4"
+      >
         <div class="vis-costs vis-bubbles" />
       </div>
     </div>

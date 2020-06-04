@@ -33,8 +33,8 @@
               <router-link
                 :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio } }"
                 class="gobierto-dashboards-table-header--link"
-                @click.native="loadTable(2)"
                 tag="a"
+                @click.native="loadTable(2)"
               >
                 <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
               </router-link>

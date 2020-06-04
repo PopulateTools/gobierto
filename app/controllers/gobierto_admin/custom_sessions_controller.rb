@@ -19,6 +19,7 @@ module GobiertoAdmin
 
       if @admin_session_forms.values.any?(&:save)
         @valid_session_form = @admin_session_forms.values.find(&:valid?)
+        @valid_session_form.admin.update_session_data(remote_ip)
         sign_in_admin(@valid_session_form.admin.id)
         redirect_to after_sign_in_path, notice: t("gobierto_admin.sessions.create.success")
       else

@@ -611,4 +611,9 @@
     color: var(--color-base);
     text-transform: uppercase;
   }
+
+  .vis-costs,
+  .graph {
+    width: 800px;
+  }
 }

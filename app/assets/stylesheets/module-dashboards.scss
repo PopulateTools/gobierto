@@ -612,8 +612,8 @@
     text-transform: uppercase;
   }
 
-  .vis-costs,
-  .graph {
-    width: 800px;
+  .vis-costs {
+    position: relative;
+    background-color: #F0F0F0;
   }
 }

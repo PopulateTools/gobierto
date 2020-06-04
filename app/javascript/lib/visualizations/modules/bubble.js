@@ -106,16 +106,15 @@ export class VisBubble {
       }.bind(this))
     } else {
       this.nodes.forEach(function(d) {
-        d.radius = this.radiusScale(d.values[year])
-        d.radius = d.values[year] ? this.radiusScale(d.values[year]) : 0
-        d.value = d.values[year]
-        d.pct_diff = d.pct_diffs[year]
-        d.per_inhabitant = d.values_per_inhabitant[year]
-        d.year = year
+        d.id = d.agrupacio,
+        d.radius = +d.cost_total_2018 / 185000,
+        d.cost_total_2018 = d.cost_total_2018,
+        d.year = d.year,
+        d.cost_per_habitant = d.cost_per_habitant
       }.bind(this))
     }
 
-    this.nodes.sort(function (a, b) { return b.value - a.value; });
+    this.nodes.sort((a, b) => b.value - a.value);
 
     return this.nodes;
   }
@@ -128,7 +127,7 @@ export class VisBubble {
 
     d3.selectAll('.bubble')
       .data(this.nodes, d => d.id)
-      .attr('class', function(d) { return 'bubble bubble-' + d.year})
+      .attr('class', d => 'bubble bubble-' + d.year)
       .transition()
       .duration(transitionDuration)
       .attr('r', d => d.radius)
@@ -138,7 +137,7 @@ export class VisBubble {
       .data(this.nodes, d => d.id)
       .transition()
       .duration(transitionDuration)
-      .attr('fill', function(d) { return d.radius > 30 || d.radius < -10 ? 'white' : 'black'; })
+      .attr('fill', d => d.radius > 100 ? 'white' : 'black')
       .style('font-size', function(d) { return this.fontSize(d.radius) + 'px'; }.bind(this))
 
     this.simulation.nodes(this.nodes)
@@ -171,7 +170,7 @@ export class VisBubble {
       .style('font-size', function(d) { return this.fontSize(d.radius) + 'px'; }.bind(this))
       .attr('text-anchor', 'middle')
       .attr('y', -15)
-      .attr('fill', function(d) { return d.radius > 30 || d.radius < -10 ? 'black' : 'white'; })
+      .attr('fill', d => d.radius > 100 ? 'white' : 'black')
       .tspans(function(d) { return d.radius > 40 ? d3.wordwrap(d.id, 15) : d3.wordwrap('', 15); }, function(d) { return this.fontSize(d.radius);}.bind(this));
 
     this.simulation.nodes(this.nodes);
@@ -188,22 +187,8 @@ export class VisBubble {
 
     this.tooltip
       .style('display', 'block')
-      .style('left', `${x - 100}px`)
-      .style('top', `${y + 40}px`)
-
-    function getString(d) {
-      return d > 0 ? I18n.t('gobierto_common.visualizations.main_budget_levels_tooltip_up') : I18n.t('gobierto_common.visualizations.main_budget_levels_tooltip_down');
-    }
-    function perInhabitantTooltipStr(d) {
-      return d ? `<div class="clear_b">${accounting.formatMoney(d, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))} ${I18n.t('gobierto_common.visualizations.main_budget_levels_per_inhabitant')}</div>` : '';
-    }
-
-    var tooltipEnding;
-    if (d.year > new Date().getFullYear()) {
-      tooltipEnding = I18n.t('gobierto_common.visualizations.main_budget_levels_tooltip_article_last');
-    } else {
-      tooltipEnding = `${I18n.t('gobierto_common.visualizations.main_budget_levels_tooltip_article')} ${d.year - 1}`
-    }
+      .style('left', `${x}px`)
+      .style('top', `${y}px`)
 
     this.tooltip.html(`<div class="line-name"><strong>${d.id}</strong></div>
                       <div>${I18n.t('gobierto_dashboards.dashboards.costs.total_cost')}: ${accounting.formatMoney(d.cost_total_2018, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))}</div>

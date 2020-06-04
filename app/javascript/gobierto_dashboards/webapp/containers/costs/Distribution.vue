@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="pure-u-1 pure-u-lg-3-4">
-      <div class="graph vis-costs" />
+      <div class="vis-costs vis-bubbles" />
     </div>
   </div>
 </template>

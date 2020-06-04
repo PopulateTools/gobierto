@@ -27,12 +27,12 @@
             <%= image_tag('illustrations/background_observatory_map.png', class: 'gobierto-observatory-image side_100') %>
             <div class="gobierto-observatory-footer">
               <p class="gobierto-observatory-footer--text">
-                <%= t("gobierto_observatory.layouts.menu_subsections.bannerMap", place: @site.organization_name) %>
+                <%= t("gobierto_observatory.layouts.menu_subsections.banner_map", place: @site.organization_name) %>
               </p>
-              <a href="mapa" class="gobierto-observatory-footer--button">
-                <span class="gobierto-observatory-footer--button-text"><%= t("gobierto_observatory.layouts.menu_subsections.demographicObservatory") %></span>
+              <%= link_to gobierto_observatory_map_path, class: "gobierto-observatory-footer--button" do %>
+                <span class="gobierto-observatory-footer--button-text"><%= t("gobierto_observatory.layouts.menu_subsections.demographic_observatory") %></span>
                 <i class="fas fa-external-link-square-alt"></i>
-              </a>
+              <% end %>
             </div>
           </div>
 					<div class="main_graphic">

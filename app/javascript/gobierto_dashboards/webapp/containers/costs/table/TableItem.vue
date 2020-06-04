@@ -3,9 +3,10 @@
     <TableHeader>
       <div class="gobierto-dashboards-table-header--link-container">
         <router-link
-          :to="{ name: 'Home'}"
+          :to="{ name: 'TableFirstLevel'}"
           class="gobierto-dashboards-table-header--link-top"
           tag="a"
+          @click.native="loadTable(0)"
         >
           {{ labelHome }}
         </router-link>
@@ -14,6 +15,7 @@
           :to="{ path:`/dashboards/costes/${$route.params.id}`}"
           class="gobierto-dashboards-table-header--link-top"
           tag="a"
+          @click.native="loadTable(1)"
         >
           {{ $route.params.section }}
         </router-link>
@@ -302,6 +304,9 @@ export default {
       this.incomeCost = incomeCost
       this.income = income || 0
       this.coverage = coverage
+    },
+    loadTable(value) {
+      this.$emit('changeTableHandler', value)
     }
   }
 }

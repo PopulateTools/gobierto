@@ -25,6 +25,7 @@ export class CostsController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () => import("../webapp/containers/costs/Home.vue");
+      const TableFirstLevel = () => import("../webapp/containers/costs/table/TableFirstLevel.vue");
       const TableSecondLevel = () => import("../webapp/containers/costs/table/TableSecondLevel.vue");
       const TableItem = () => import("../webapp/containers/costs/table/TableItem.vue");
 
@@ -36,22 +37,36 @@ export class CostsController {
           routes: [
             {
               path: "/dashboards/costes",
-              component: Home,
               name: 'Home',
+              component: Home,
+              children: [
+              {
+                path: "",
+                component: TableFirstLevel,
+                name: 'TableFirstLevel'
+              },
+              {
+                path: "/dashboards/costes/:id?",
+                component: TableSecondLevel,
+                name: 'TableSecondLevel'
+              },
+              {
+                path: "/dashboards/costes/:id?/:item?",
+                component: TableItem,
+                name: 'TableItem'
+              }
+              ]
             },
-            {
-              path: "/dashboards/costes/:id?",
-              component: TableSecondLevel,
-              name: 'TableSecondLevel'
-            },
-            {
-              path: "/dashboards/costes/:id?/:item?",
-              component: TableItem,
-              name: 'TableItem'
-            }
+            
           ],
-          scrollBehavior() {
-            const element = document.getElementById(selector);
+          scrollBehavior(to) {
+            let element
+            //Get different scroll position
+            if (to.name === 'Home') {
+              element = document.getElementById(selector);
+            } else {
+              element = document.querySelector('.gobierto-dashboards-table');
+            }
             window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
           }
         });

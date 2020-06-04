@@ -2,9 +2,10 @@
   <div v-if="items.length">
     <TableHeader>
       <router-link
-        :to="{ name: 'Home'}"
+        :to="{ name: 'TableFirstLevel'}"
         class="gobierto-dashboards-table-header--link-top"
         tag="a"
+        @click.native="loadTable(0)"
       >
         <i class="fas fa-chevron-left" />
         {{ labelSeeAll }}
@@ -32,6 +33,7 @@
               <router-link
                 :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio } }"
                 class="gobierto-dashboards-table-header--link"
+                @click.native="loadTable(2)"
                 tag="a"
               >
                 <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
@@ -72,6 +74,7 @@
                   :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio } }"
                   class="gobierto-dashboards-table-header--link"
                   tag="a"
+                  @click.native="loadTable(2)"
                 >
                   <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
                 </router-link>
@@ -182,6 +185,9 @@ export default {
       } else {
         this.selectedToggle = ''
       }
+    },
+    loadTable(value) {
+      this.$emit('changeTableHandler', value)
     }
   }
 }

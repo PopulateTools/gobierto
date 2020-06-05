@@ -52,6 +52,10 @@ ca:
         cost_inhabitant: Cost / habitant
         cost_per_inhabitant: Cost per habitant
         coverage: Cobertura
+        description: L'%{entity_name} és el responsable de proveir determinats serveis
+          als ciutadans. El cost dels serveis es cobreix de forma directa (a través
+          de taxes) o indirecta (a través de partides generals). En aquesta visualització
+          pots explorar els serveis, els seus costos i evolució, els ingressos ...
         detail: Detall
         distribution: Distribució de costos per àrea
         home: Inici
@@ -74,6 +78,7 @@ ca:
         per_inhabitant: per inhabitant
         see_all: Vegeu-ho tot
         see_more: Més informació
+        title: Costos
         total: Total
         total_cost: Cost total
       subsidies:
@@ -116,7 +121,6 @@ ca:
       menu_subsections:
         contracts: Contractes
         subsidies: Subvencions
-        costs: Costos
     shared:
       download_data: Descarregueu les dades en format reutilitzable
       loading: Carregant dades...

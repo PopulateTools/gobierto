@@ -39,6 +39,17 @@ export default {
       currentComponent: 0,
     }
   },
+  watch: {
+    $route(to) {
+      if (to.name === 'TableSecondLevel') {
+        this.currentComponent = COMPONENTS_TABLE[1];
+      } else if ( to.name === 'TableItem') {
+        this.currentComponent = COMPONENTS_TABLE[2];
+      } else {
+        this.currentComponent = COMPONENTS_TABLE[0];
+      }
+    }
+  },
   created(){
     this.currentComponent = COMPONENTS_TABLE[0];
 

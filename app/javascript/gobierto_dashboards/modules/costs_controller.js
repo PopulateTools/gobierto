@@ -53,7 +53,6 @@ export class CostsController {
               }
               ]
             },
-            
           ],
           scrollBehavior(to) {
             let element
@@ -61,7 +60,7 @@ export class CostsController {
             if (to.name === 'Home') {
               element = document.getElementById(selector);
             } else {
-              element = document.querySelector('.gobierto-dashboards-table');
+              element = document.getElementById('gobierto-dashboards-title-detail');
             }
             window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
           }
@@ -91,11 +90,6 @@ export class CostsController {
           router,
           data: Object.assign(options, this.data)
         }).$mount(entryPoint);
-
-        const loadingElement = document.querySelector(".js-loading");
-        if (loadingElement) {
-          loadingElement.classList.add('hidden')
-        }
       });
     }
   }

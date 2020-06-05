@@ -51,6 +51,10 @@ en:
         cost_inhabitant: Cost / inhabitant
         cost_per_inhabitant: Cost per inhabitant
         coverage: Cobertura
+        description: The %{entity_name} is responsible for providing certain services
+          to citizens. The cost of the services is covered directly (fees) or indirectly
+          (budget lines). In this visualization, you can explore the services, their
+          costs, and evolution, the income ...
         detail: Detail
         distribution: Distribution of costs by area
         home: Home
@@ -73,6 +77,7 @@ en:
         per_inhabitant: per inhabitant
         see_all: See all
         see_more: More information
+        title: Costs
         total: Total cost
         total_cost: Total cost
       subsidies:
@@ -115,7 +120,6 @@ en:
       menu_subsections:
         contracts: Contracts
         subsidies: Subsidies
-        costs: Costs
     shared:
       download_data: Download the full dataset in a reusable format
       loading: Loading data...

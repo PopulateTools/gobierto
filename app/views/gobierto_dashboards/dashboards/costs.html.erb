@@ -6,14 +6,25 @@
       <h2 class="with_description">
         <%= t(".title") %>
       </h2>
+      <%= render(
+        partial: "gobierto_budgets/shared/year_breadcrumb",
+        locals: {
+          selected_year: 2018,
+          selected_year_path: gobierto_dashboards_costs_summary_path,
+          available_years: [2018, 2019]
+        }
+      ) %>
       <p>
         <%= t(".description", entity_name: current_site.name) %>
       </p>
     </div>
   </div>
 
+
+
   <div id="gobierto-dashboards-costs-app"
        data-site-name="<%= @site.name %>"
+       data-year="2018"
        data-logo-url="<%= @site.configuration.logo_with_fallback %>"
        data-home-url="<%= gobierto_dashboards_costs_summary_url %>"
        data-costs-endpoint="<%= @dashboards_config.dig('data_urls', 'costs') %>"

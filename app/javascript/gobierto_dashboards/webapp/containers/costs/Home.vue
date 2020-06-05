@@ -1,17 +1,5 @@
 <template>
   <main class="gobierto-dashboards">
-    <!-- FIX-ME: ruby -->
-    <p>Selecciona el año:</p>
-    <select
-      style="width: 200px"
-      name="costs-years"
-      id="costs-years"
-      @change="onChangeFilterYear($event)"
-    >
-      <option value="2018">2018</option>
-      <option value="2019">2019</option>
-    </select>
-    <p>Estas viendo los datos del año: {{ yearFiltered }}</p>
     <div
       v-if="dataGroup"
       class="pure-g gutters m_b_1"

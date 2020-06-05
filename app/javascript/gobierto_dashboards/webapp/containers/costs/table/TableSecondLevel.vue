@@ -1,5 +1,5 @@
 <template>
-  <div v-if="items.length">
+  <div>
     <TableHeader>
       <router-link
         :to="{ name: 'TableFirstLevel'}"

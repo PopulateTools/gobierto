@@ -25,7 +25,7 @@
           <div class="inner">
             <h3>{{ labelInhabitant }}</h3>
             <div class="metric">
-              {{ population }}
+              {{ populationNumber }}
             </div>
           </div>
         </div>
@@ -63,6 +63,7 @@ export default {
       labelInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.inhabitant") || "",
       labelCostPerInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.cost_per_inhabitant") || "",
       population: '',
+      populationNumber: '',
       visBubblesCosts: null
     }
   },
@@ -84,7 +85,11 @@ export default {
     }
   },
   created() {
-    this.population = this.data[0].population
+    const [{
+      population: population
+    }] = this.data
+    this.population = population
+    this.populationNumber = Number(population).toLocaleString("es-ES")
   },
   mounted() {
     this.createBubbleViz()

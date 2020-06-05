@@ -10,7 +10,7 @@ module GobiertoPeople
     DEFAULT_LIMIT = 10
 
     def initialize(params = {})
-      @relation = (params[:relation] || model.all).left_outer_joins(events_association)
+      @relation = (params[:relation] || model.all).joins(events_association)
       append_query_conditions(params[:conditions]) if params[:conditions]
       @limit = params[:limit] || DEFAULT_LIMIT
     end

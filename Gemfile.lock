@@ -389,6 +389,10 @@ GEM
     retriable (3.1.2)
     rexml (3.2.4)
     rollbar (2.25.0)
+    route_translator (8.0.0)
+      actionpack (>= 5.0.0.1, < 6.1)
+      activesupport (>= 5.0.0.1, < 6.1)
+      addressable (~> 2.7)
     rubocop (0.85.0)
       parallel (~> 1.10)
       parser (>= 2.7.0.1)
@@ -571,6 +575,7 @@ DEPENDENCIES
   redis (~> 4.0)
   responders
   rollbar
+  route_translator
   rubocop
   rubyXL
   ruby_px

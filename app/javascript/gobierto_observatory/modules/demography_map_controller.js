@@ -150,13 +150,14 @@ export class DemographyMapController {
               }),
               byCusec: ndxOrigin.dimension(d => d.cusec),
               byNationality: ndxOrigin.dimension(d => d.nacionalidad),
-              byOriginNational: ndxOrigin.dimension(d => d.nacionalidad === 'Nacional' ? d.procedencia : null),
-              byOriginOther: ndxOrigin.dimension(d => d.nacionalidad === 'Extranjero' ? d.procedencia : null),
+              byOriginNational: ndxOrigin.dimension(d => d.nacionalidad === 'Nacional' ? d.procedencia : 'Extranjero'),
+              byOriginOther: ndxOrigin.dimension(d => d.nacionalidad === 'Extranjero' ? d.procedencia : 'Nacional'),
               byStudies: null,
             },
           }
         }
         this.calculateGroups();
+
         this.chart1 = this.renderInhabitants("#inhabitants");
         this.chart2 = this.renderBarNationality("#bar-nationality");
         this.chart3 = this.renderBarSex("#bar-sex");
@@ -171,7 +172,6 @@ export class DemographyMapController {
         document.querySelectorAll("#close").forEach(button => button.addEventListener('click', () => {
           this.clearFilters(event)
         }));
-
       });
     }
   }
@@ -257,8 +257,7 @@ export class DemographyMapController {
     return {
       all: function() {
         return source_group.all().filter(function(d) {
-          // return Math.abs(d.value) > 0.00001; // if using floating-point numbers
-          return d.key !== null;
+          return d.key !== 'Nacional' && d.key !== 'Extranjero';
         });
       }
     };
@@ -508,8 +507,6 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';
-        /*const container = document.getElementById('container-bar-origin-spaniards')
-        that.activeFiltered(container)*/
         if (chart.filter() !== null) {
           document.getElementById("bar-by-studies").style.visibility = 'hidden';
         } else {

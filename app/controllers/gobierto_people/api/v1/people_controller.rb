@@ -16,7 +16,11 @@ module GobiertoPeople
           ).results
 
           department = current_site.departments.find_by(id: permitted_conditions[:department_id])
-          charges = current_site.historical_charges.with_department(department).between_dates(permitted_conditions).reverse_sorted.group_by(&:person_id)
+          charges = if params[:filter_positions] == "true"
+                      current_site.historical_charges.with_department(department).between_dates(permitted_conditions).reverse_sorted.group_by(&:person_id)
+                    else
+                      current_site.historical_charges.where(person_id: top_people.map(&:id)).reverse_sorted.group_by(&:person_id)
+                    end
 
           if params[:include_history] == "true"
             records = PeopleEventsHistoryQuery.new(

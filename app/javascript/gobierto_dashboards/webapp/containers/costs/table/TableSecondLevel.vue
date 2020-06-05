@@ -59,47 +59,53 @@
             <span>{{ (respecte_ambit).toFixed(2) }}%</span>
           </td>
         </tr>
-        <template v-if="total > 0 && selectedToggle === act_intermedia && selectedToggle !== null">
-          <tbody
-            :key="nomact"
-            class="gobierto-dashboards-table--secondlevel gobierto-dashboards-table--secondlevel-nested"
-          >
-            <tr
-              v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, respecte_ambit, agrupacio, ordre_agrupacio } in dataGroupIntermedia"
+        <transition
+          name="fade"
+          mode="out-in"
+          :key="nomact"
+        >
+          <template v-if="total > 0 && selectedToggle === act_intermedia && selectedToggle !== null">
+            <tbody
               :key="nomact"
-              class="gobierto-dashboards-tablerow--header"
+              class="gobierto-dashboards-table--secondlevel gobierto-dashboards-table--secondlevel-nested"
             >
-              <td class="gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-header--nav">
-                <router-link
-                  :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio } }"
-                  class="gobierto-dashboards-table-header--link"
-                  tag="a"
-                  @click.native="loadTable(2)"
-                >
-                  <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
-                </router-link>
-              </td>
-              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-direct">
-                <span>{{ cost_directe_2018 | money }}</span>
-              </td>
-              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-indirect">
-                <span>{{ cost_indirecte_2018 | money }}</span>
-              </td>
-              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-total">
-                <span>{{ cost_total_2018 | money }}</span>
-              </td>
-              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-inhabitant">
-                <span>{{ cost_per_habitant | money }}</span>
-              </td>
-              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-income">
-                <span>{{ ingressos | money }}</span>
-              </td>
-              <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-coverage">
-                <span>{{ (respecte_ambit).toFixed(0) }}%</span>
-              </td>
-            </tr>
-          </tbody>
-        </template>
+              <tr
+                v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, respecte_ambit, agrupacio, ordre_agrupacio } in dataGroupIntermedia"
+                :key="nomact"
+                class="gobierto-dashboards-tablerow--header"
+              >
+                <td class="gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-header--nav">
+                  <router-link
+                    :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio } }"
+                    class="gobierto-dashboards-table-header--link"
+                    tag="a"
+                    @click.native="loadTable(2)"
+                  >
+                    <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
+                  </router-link>
+                </td>
+                <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-direct">
+                  <span>{{ cost_directe_2018 | money }}</span>
+                </td>
+                <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-indirect">
+                  <span>{{ cost_indirecte_2018 | money }}</span>
+                </td>
+                <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-total">
+                  <span>{{ cost_total_2018 | money }}</span>
+                </td>
+                <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-inhabitant">
+                  <span>{{ cost_per_habitant | money }}</span>
+                </td>
+                <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-income">
+                  <span>{{ ingressos | money }}</span>
+                </td>
+                <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-coverage">
+                  <span>{{ (respecte_ambit).toFixed(0) }}%</span>
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </transition>
       </template>
     </table>
   </div>

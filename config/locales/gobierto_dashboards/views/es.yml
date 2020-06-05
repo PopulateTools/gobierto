@@ -73,7 +73,8 @@ es:
           types: Tipos
         per_inhabitant: por habitante
         see_all: Ver todos
-        total: Coste total
+        see_more: Más información
+        total: Total
         total_cost: Coste total
       subsidies:
         amount: Importe

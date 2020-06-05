@@ -74,7 +74,7 @@ ca:
         per_inhabitant: per inhabitant
         see_all: Vegeu-ho tot
         see_more: Més informació
-        total: Coste total
+        total: Total
         total_cost: Cost total
       subsidies:
         amount: Import
@@ -111,7 +111,7 @@ ca:
       application:
         gobierto_dashboards:
           contracts: Contractes i licitacions
-          costs: Costes
+          costs: Costos
           subsidies: Subvencions
       menu_subsections:
         contracts: Contractes

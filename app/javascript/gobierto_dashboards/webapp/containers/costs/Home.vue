@@ -39,7 +39,8 @@ export default {
           cost_total_2018: 0,
           ingressos: 0,
           respecte_ambit: 0,
-          total: 0
+          total: 0,
+          totalPerHabitant: 0
         });
 
         item.cost_directe_2018 += o.cost_directe_2018
@@ -49,6 +50,7 @@ export default {
         //New item with the sum of values of each agrupacio
         item.total += (o.total || 0) + 1
         item.respecte_ambit += o.respecte_ambit
+        item.totalPerHabitant = item.cost_total_2018 / o.population
 
         return r.set(key, item);
       }, new Map).values()];

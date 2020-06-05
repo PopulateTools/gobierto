@@ -115,6 +115,7 @@ en:
       menu_subsections:
         contracts: Contracts
         subsidies: Subsidies
+        costs: Costs
     shared:
       download_data: Download the full dataset in a reusable format
       loading: Loading data...

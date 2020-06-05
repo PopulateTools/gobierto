@@ -11,7 +11,7 @@
         {{ labelSeeAll }}
       </router-link>
     </TableHeader>
-    <TableSubHeader />
+    <TableSubHeader :items="items" />
     <table class="gobierto-dashboards-table">
       <template v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, act_intermedia, respecte_ambit, agrupacio, ordre_agrupacio } in dataActIntermediaTotal">
         <tr
@@ -121,6 +121,12 @@ export default {
     TableHeader,
     TableSubHeader
   },
+  props: {
+    items: {
+      type: Array,
+      default: () => []
+    }
+  },
   mixins: [VueFiltersMixin],
   data() {
     return {
@@ -134,7 +140,7 @@ export default {
       labelActivities: I18n.t("gobierto_dashboards.dashboards.costs.activities") || "",
       labelSeeAll: I18n.t("gobierto_dashboards.dashboards.costs.see_all") || "",
       dataActIntermediaTotal: [],
-      items: this.$root.$data.costData,
+      totalItems: this.$root.$data.costData,
       selectedToggle: null,
     }
   },
@@ -144,7 +150,7 @@ export default {
   methods: {
     intermediaData() {
       const filterActIntermedia = this.$route.params.id
-      let dataAgrupacio = this.items.filter(element => element.ordre_agrupacio === filterActIntermedia)
+      let dataAgrupacio = this.totalItems.filter(element => element.ordre_agrupacio === filterActIntermedia)
       let dataActIntermedia = dataAgrupacio.filter(element => element.act_intermedia !== '')
 
       let dataActIntermediaValues = [...dataActIntermedia.reduce((r, o) => {
@@ -177,7 +183,7 @@ export default {
       this.dataActIntermediaTotal = [...dataActIntermediaValues, ...dataActIntermediaWithoutValues]
     },
     agrupacioDataFilter(actIntermedia) {
-      this.dataGroupIntermedia = this.items.filter(element => element.act_intermedia === actIntermedia)
+      this.dataGroupIntermedia = this.totalItems.filter(element => element.act_intermedia === actIntermedia)
     },
     hasChildren(value) {
       if (value > 0) {

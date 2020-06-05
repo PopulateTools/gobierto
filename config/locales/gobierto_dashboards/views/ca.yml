@@ -116,6 +116,7 @@ ca:
       menu_subsections:
         contracts: Contractes
         subsidies: Subvencions
+        costs: Costos
     shared:
       download_data: Descarregueu les dades en format reutilitzable
       loading: Carregant dades...

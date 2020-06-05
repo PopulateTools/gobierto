@@ -4,7 +4,7 @@
     <table class="gobierto-dashboards-table">
       <tbody>
         <tr
-          v-for="{ agrupacio, cost_directe_2018, cost_indirecte_2018, cost_total_2018, cost_per_habitant, ingressos, respecte_ambit, ordre_agrupacio } in items"
+          v-for="{ agrupacio, cost_directe_2018, cost_indirecte_2018, cost_total_2018, cost_per_habitant, ingressos, respecte_ambit, ordre_agrupacio, totalPerHabitant } in items"
           :key="agrupacio"
           class="gobierto-dashboards-tablerow--header"
         >
@@ -27,7 +27,7 @@
             <span>{{ cost_total_2018 | money }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
-            <span>{{ cost_per_habitant | money }}</span>
+            <span>{{ totalPerHabitant | money }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income">
             <span>{{ ingressos | money }}</span>

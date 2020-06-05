@@ -131,8 +131,10 @@ export class CostsController {
         //Include a year column
         if (d.cost_directe_2018) {
           d['year'] = '2018'
+          d['population'] = '126988'
         } else if (d.cost_directe_2019) {
           d['year'] = '2019'
+          d['population'] = '128265'
         }
 
         d.ingressos = nanToZero(d.ingressos)

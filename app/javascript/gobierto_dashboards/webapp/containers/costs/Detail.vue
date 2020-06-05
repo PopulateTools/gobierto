@@ -3,7 +3,10 @@
     <h2 class="gobierto-dashboards-title">
       {{ labelDetail }}
     </h2>
-    <Table :items="items" />
+    <Table
+      :items="items"
+      :year="year"
+    />
   </div>
 </template>
 
@@ -18,6 +21,10 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    year: {
+      type: String,
+      default: ''
     }
   },
   data() {

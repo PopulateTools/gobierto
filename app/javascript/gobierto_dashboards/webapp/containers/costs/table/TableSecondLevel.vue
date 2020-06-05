@@ -11,9 +11,12 @@
         {{ labelSeeAll }}
       </router-link>
     </TableHeader>
-    <TableSubHeader :items="items" />
+    <TableSubHeader
+      :items="items"
+      :year="year"
+    />
     <table class="gobierto-dashboards-table">
-      <template v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, act_intermedia, respecte_ambit, agrupacio, ordre_agrupacio, totalPerHabitant } in dataActIntermediaTotal">
+      <template v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, act_intermedia, respecte_ambit, agrupacio, ordre_agrupacio, totalPerHabitant } in dataActIntermediaTotal">
         <tr
           :key="nomact"
           class="gobierto-dashboards-tablerow--header"
@@ -41,13 +44,13 @@
             </td>
           </template>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
-            <span>{{ cost_directe_2018 | money }}</span>
+            <span>{{ cost_directe | money }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect">
-            <span>{{ cost_indirecte_2018 | money }}</span>
+            <span>{{ cost_indirecte | money }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
-            <span>{{ cost_total_2018 | money }}</span>
+            <span>{{ cost_total | money }}</span>
           </td>
           <template v-if="total > 0">
             <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
@@ -69,16 +72,16 @@
         <transition
           name="fade"
           mode="out-in"
-          :key="nomact"
+          :key="codiact"
         >
           <template v-if="total > 0 && selectedToggle === act_intermedia && selectedToggle !== null">
             <tbody
-              :key="nomact"
+              :key="codiact"
               class="gobierto-dashboards-table--secondlevel gobierto-dashboards-table--secondlevel-nested"
             >
               <tr
-                v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, respecte_ambit, agrupacio, ordre_agrupacio } in dataGroupIntermedia"
-                :key="nomact"
+                v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, respecte_ambit, agrupacio, ordre_agrupacio } in dataGroupIntermedia"
+                :key="codiact"
                 class="gobierto-dashboards-tablerow--header"
               >
                 <td class="gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-header--nav">
@@ -92,13 +95,13 @@
                   </router-link>
                 </td>
                 <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-direct">
-                  <span>{{ cost_directe_2018 | money }}</span>
+                  <span>{{ cost_directe | money }}</span>
                 </td>
                 <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-indirect">
-                  <span>{{ cost_indirecte_2018 | money }}</span>
+                  <span>{{ cost_indirecte | money }}</span>
                 </td>
                 <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-total">
-                  <span>{{ cost_total_2018 | money }}</span>
+                  <span>{{ cost_total | money }}</span>
                 </td>
                 <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-inhabitant">
                   <span>{{ cost_per_habitant | money }}</span>
@@ -132,6 +135,10 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    year: {
+      type: String,
+      default: ''
     }
   },
   mixins: [VueFiltersMixin],
@@ -157,16 +164,17 @@ export default {
   methods: {
     intermediaData() {
       const filterActIntermedia = this.$route.params.id
-      let dataAgrupacio = this.totalItems.filter(element => element.ordre_agrupacio === filterActIntermedia)
+      let dataAgrupacio = this.totalItems.filter(element => element.year === this.year)
+      dataAgrupacio = dataAgrupacio.filter(element => element.ordre_agrupacio === filterActIntermedia)
       let dataActIntermedia = dataAgrupacio.filter(element => element.act_intermedia !== '')
 
       let dataActIntermediaValues = [...dataActIntermedia.reduce((r, o) => {
         let key = o.act_intermedia
 
         const item = r.get(key) || Object.assign({}, o, {
-          cost_directe_2018: 0,
-          cost_indirecte_2018: 0,
-          cost_total_2018: 0,
+          cost_directe: 0,
+          cost_indirecte: 0,
+          cost_total: 0,
           ingressos: 0,
           respecte_ambit: 0,
           total: 0,
@@ -174,15 +182,15 @@ export default {
           totalPerHabitant: 0
         });
 
-        item.cost_directe_2018 += o.cost_directe_2018
-        item.cost_indirecte_2018 += o.cost_indirecte_2018
-        item.cost_total_2018 += o.cost_total_2018
+        item.cost_directe += o.cost_directe
+        item.cost_indirecte += o.cost_indirecte
+        item.cost_total += o.cost_total
         item.ingressos += o.ingressos
         item.respecte_ambit += o.respecte_ambit
         item.total += (o.total || 0) + 1
         item.nomact = o.act_intermedia
         item.respecte_ambit += o.respecte_ambit
-        item.totalPerHabitant = item.cost_total_2018 / o.population
+        item.totalPerHabitant = item.cost_total / o.population
 
         return r.set(key, item);
       }, new Map).values()];
@@ -192,7 +200,7 @@ export default {
       this.dataActIntermediaTotal = [...dataActIntermediaValues, ...dataActIntermediaWithoutValues]
     },
     agrupacioDataFilter(actIntermedia) {
-      this.dataGroupIntermedia = this.totalItems.filter(element => element.act_intermedia === actIntermedia)
+      this.dataGroupIntermedia = this.totalItems.filter(element => element.act_intermedia === actIntermedia && element.year === this.year)
     },
     hasChildren(value) {
       if (value > 0) {

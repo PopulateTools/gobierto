@@ -27,7 +27,7 @@
     >
       <tbody>
         <tr
-          v-for="{ agrupacio, nomact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, cost_per_habitant, ingressos, respecte_ambit } in dataGroup"
+          v-for="{ agrupacio, nomact, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, respecte_ambit } in dataGroup"
           :key="nomact"
           class="gobierto-dashboards-tablerow--header gobierto-dashboards-tablesecondlevel--header"
         >
@@ -35,13 +35,13 @@
             <span>{{ nomact }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
-            <span>{{ cost_directe_2018 | money }}</span>
+            <span>{{ cost_directe | money }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect">
-            <span>{{ cost_indirecte_2018 | money }}</span>
+            <span>{{ cost_indirecte | money }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
-            <span>{{ cost_total_2018 | money }}</span>
+            <span>{{ cost_total | money }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
             <span>{{ cost_per_habitant | money }}</span>
@@ -354,14 +354,14 @@ export default {
   },
   methods: {
     agrupacioData(id) {
-      this.dataGroup = this.items.filter(element => element.codiact === id)
+      this.dataGroup = this.items.filter(element => element.codiact === id && element.year === "2018")
 
       const [{
         descripcio: description,
         competencia: competence,
         tipus_competencia: types,
         marc_legal: legal,
-        cost_indirecte_2018: costIndirect,
+        cost_indirecte: costIndirect,
         cd_cost_personal: costPersonal,
         cd_bens_i_serveis: goodServices,
         cd_serveis_exteriors: externalServices,

@@ -3,6 +3,7 @@
     <component
       :is="currentComponent"
       :items="items"
+      :year="year"
       @changeTableHandler="changeTableComponent"
     />
   </div>
@@ -20,6 +21,10 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    year: {
+      type: String,
+      default: ''
     }
   },
   data() {

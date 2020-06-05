@@ -5,7 +5,7 @@
   >
     <tbody>
       <tr
-        v-for="{ agrupacio, cost_directe_2018, cost_indirecte_2018, cost_total_2018, totalPerHabitant, ingressos, respecte_ambit } in dataGroup"
+        v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, totalPerHabitant, ingressos, respecte_ambit } in dataGroup"
         :key="agrupacio"
         class="gobierto-dashboards-tablerow--header gobierto-dashboards-tablesecondlevel--header"
       >
@@ -13,13 +13,13 @@
           <span>{{ agrupacio }}</span>
         </td>
         <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
-          <span>{{ cost_directe_2018 | money }}</span>
+          <span>{{ cost_directe | money }}</span>
         </td>
         <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect">
-          <span>{{ cost_indirecte_2018 | money }}</span>
+          <span>{{ cost_indirecte | money }}</span>
         </td>
         <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
-          <span>{{ cost_total_2018 | money }}</span>
+          <span>{{ cost_total | money }}</span>
         </td>
         <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
           <span>{{ totalPerHabitant | money }}</span>
@@ -43,6 +43,10 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    year: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -60,7 +64,7 @@ export default {
   },
   methods: {
     agrupacioData(id) {
-      this.dataGroup = this.items.filter(element => element.ordre_agrupacio === id)
+      this.dataGroup = this.items.filter(element => element.ordre_agrupacio === id && element.year === this.year)
     }
   }
 }

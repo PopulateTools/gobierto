@@ -141,7 +141,7 @@ export class CostsController {
     const totalData = [...duplicate2018_TEMP, ...duplicate2019_TEMP]
 
     this.data = {
-      costData: rawData[0]
+      costData: totalData
     }
   }
 

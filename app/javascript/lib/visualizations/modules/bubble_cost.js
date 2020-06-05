@@ -11,10 +11,11 @@ const d3 = { select, selectAll, mouse, scaleThreshold, scaleLinear, scaleSqrt, f
 import { d3locale, accounting } from 'lib/shared'
 
 export class VisBubble {
-  constructor(divId, data) {
+  constructor(divId, year, data) {
     this.container = divId;
     this.currentYear = parseInt(d3.select('body').attr('data-year'));
     this.data = data;
+    this.year = year
     this.forceStrength = 0.045;
     this.isMobile = window.innerWidth <= 590;
     this.locale = I18n.locale;
@@ -66,17 +67,18 @@ export class VisBubble {
     this.updateRender();
   }
 
-  resize() {
+  resize(year) {
     const { parentNode } = this.svg.node()
     if (parentNode) {
       parentNode.remove();
-      this.constructor(this.container, this.data);
+      this.constructor(this.container, year, this.data);
       this.render();
     }
   }
 
   createNodes(rawData) {
     var data = rawData;
+    data = data.filter(element => element.year === this.year)
     if (this.locale === 'en') this.locale = 'es';
 
     this.maxAmount = d3.max(data, function (d) { return d.radius }.bind(this));
@@ -97,10 +99,10 @@ export class VisBubble {
       this.nodes = rawData.map(function (d) {
         return {
           id: d.agrupacio,
-          radius: +d.cost_total_2018 / 185000,
+          radius: (+d.cost_total / (d.population * 1.5)),
           x: Math.random() * 600,
-          y: this.nodeScale(+d.cost_total_2018 / 185000),
-          cost_total_2018: d.cost_total_2018,
+          y: this.nodeScale(+d.cost_total / (d.population * 1.5)),
+          cost_total: d.cost_total,
           year: d.year,
           cost_per_habitant: d.cost_per_habitant
         };
@@ -108,7 +110,7 @@ export class VisBubble {
     } else {
       this.nodes.forEach(function(d) {
         d.id = d.agrupacio,
-        d.radius = +d.cost_total_2018 / 185000
+        d.radius = (+d.cost_total / (d.population * 1.5))
       }.bind(this))
     }
 
@@ -189,7 +191,7 @@ export class VisBubble {
       .style('top', `${y + 40}px`)
 
     this.tooltip.html(`<div class="line-name"><strong>${d.id}</strong></div>
-                      <div>${I18n.t('gobierto_dashboards.dashboards.costs.total_cost')}: ${accounting.formatMoney(d.cost_total_2018, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))}</div>
+                      <div>${I18n.t('gobierto_dashboards.dashboards.costs.total_cost')}: ${accounting.formatMoney(d.cost_total, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))}</div>
                         ${d.cost_per_habitant}€ ${I18n.t('gobierto_dashboards.dashboards.costs.per_inhabitant')}`);
   }
 

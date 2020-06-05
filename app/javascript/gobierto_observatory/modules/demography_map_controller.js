@@ -40,9 +40,8 @@ function checkStatus(response) {
   }
 }
 
-
-async function getMapPolygons() {
-  const polygonsRequest = new Request('https://datos.gobierto.es/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=28065', {method: 'GET'});
+async function getMapPolygons(ineCode) {
+  const polygonsRequest = new Request(`https://datos.gobierto.es/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=${ineCode}`, {method: 'GET'});
   let response = await fetch(polygonsRequest);
   let dataRequest = await checkStatus(response);
   return dataRequest.json()
@@ -53,19 +52,20 @@ const marginStudies = { top: 0, right: 0, bottom: 0, left: 180 }
 
 export class DemographyMapController {
   constructor(options) {
-    // Mount Vue applications
     const entryPoint = document.getElementById(options.selector);
+    const center = [options.mapLat, options.mapLon];
+    const ineCode = options.ineCode;
 
     if (entryPoint) {
-      Promise.all([getRemoteData(options.studiesEndpoint), getRemoteData(options.originEndpoint), getMapPolygons()]).then((rawData) => {
+      Promise.all([getRemoteData(options.studiesEndpoint), getRemoteData(options.originEndpoint), getMapPolygons(ineCode)]).then((rawData) => {
         const data = this.buildDataObject(rawData)
 
-        const { studiesData, originData, getafeData } = data
+        const { studiesData, originData, mapPolygonsData } = data
 
         this.currentFilter = 'studies'; // options: 'studies' or 'origin'
         let ndxStudies = crossfilter(studiesData);
         let ndxOrigin = crossfilter(originData);
-        let geojson = getafeData
+        let geojson = mapPolygonsData
         this.ndx = {
           filters: {
             studies: {
@@ -151,7 +151,7 @@ export class DemographyMapController {
         this.chart5 = this.renderStudies("#bar-by-studies");
         this.chart6 = this.renderOriginNational("#bar-by-origin-spaniards");
         this.chart7 = this.renderOriginOthers("#bar-by-origin-others");
-        this.chart8 = this.renderChoroplethMap("#map", geojson);
+        this.chart8 = this.renderChoroplethMap("#map", geojson, center);
         // Don't know why we need to do this
         dc.renderAll("main");
 
@@ -194,6 +194,7 @@ export class DemographyMapController {
     for (let i = 0; i < 2; i++) {
       for (let j = 0; j < csvData[i].length; j++) {
         let d = csvData[i][j];
+        // Rewrite cusec to match it with the map cusec
         d['cusec'] = d['seccion'] + '-' + d['distrito']
         d['total'] = +d['total']
         if (d['procedencia'] === '') {
@@ -235,7 +236,7 @@ export class DemographyMapController {
     return {
       studiesData: csvData[0],
       originData: csvData[1],
-      getafeData: sections
+      mapPolygonsData: sections
     }
   }
 
@@ -560,7 +561,8 @@ export class DemographyMapController {
     return chart;
   }
 
-  renderChoroplethMap(selector, data) {
+  renderChoroplethMap(selector, data, center) {
+    const zoom = 13.65;
     this.resetMapSelection()
     const chart = new dc_leaflet.choroplethChart(selector, "main");
     dc.chartRegistry.register(chart, "main");
@@ -569,8 +571,8 @@ export class DemographyMapController {
     const scaleColors = ['#fcde9c','#faa476','#f0746e','#e34f6f','#dc3977','#b9257a','#7c1d6f']
 
     chart
-      .center([40.312,-3.716], 13.65)
-      .zoom(13.65)
+      .center(center, zoom)
+      .zoom(zoom)
       .mapOptions({
         scrollWheelZoom: false,
       })

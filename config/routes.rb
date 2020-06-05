@@ -251,6 +251,12 @@ Rails.application.routes.draw do
         end
       end
 
+      namespace :gobierto_observatory, as: :observatory do
+        namespace :configuration do
+          resource :settings, only: [:edit, :update], path: :settings
+        end
+      end
+
       namespace :gobierto_dashboards, as: :dashboards do
         namespace :configuration do
           resource :settings, only: [:edit, :update], path: :settings

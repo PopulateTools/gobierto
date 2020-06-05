@@ -4,11 +4,8 @@
   <main>
     <div id="gobierto-observatory-demography-map-app"
          class="pure-g gutters m_b_4"
-         data-site-name="<%= @site.name %>"
-         data-logo-url="<%= @site.configuration.logo_with_fallback %>"
-         data-home-url="/observatorio/mapa"
-         data-endpoint-studies="/estudios.csv"
-         data-endpoint-origin="/origen.csv">
+         <%== gobierto_observatory_js_app_settings %>
+         >
 
      <div class="gobierto_observatory-header">
        <div class="gobierto_observatory-header-left">
@@ -16,12 +13,12 @@
          <span class="gobierto_observatory-header-council"><%= @site.organization_name %></span>
        </div>
        <div class="gobierto_observatory-header-right">
-         <%= link_to t('.back'), gobierto_observatory_root_path, class: 'gobierto_observatory-header-back'  %>
+         <%= link_to t('.back'), gobierto_observatory_root_path, class: 'gobierto_observatory-header-back', data: { turbolinks: false }  %>
        </div>
      </div>
 
      <aside class="pure-u-1 pure-u-lg-7-24 gobierto_observatory-sidebar">
-       <span class="gobierto_observatory-date-update"><%= t('.data_updated', date: I18n.l(Date.today.beginning_of_month, format: '%d de %b de %Y')) %></span>
+       <span class="gobierto_observatory-date-update"><%= t('.data_updated', date: I18n.l(Date.today.beginning_of_month, format: '%d de %B de %Y')) %></span>
        <div id="container-inhabitants" class="gobierto_observatory-container-charts">
          <div id="close">
            <i class="fas fa-times"></i>

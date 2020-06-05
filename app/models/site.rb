@@ -166,6 +166,12 @@ class Site < ApplicationRecord
                                      end
   end
 
+  def gobierto_observatory_settings
+    @gobierto_observatory_settings ||= if configuration.available_module?("GobiertoObservatory") && configuration.gobierto_observatory_enabled?
+                                       module_settings.find_by(module_name: "GobiertoObservatory")
+                                     end
+  end
+
   def settings_for_module(module_name)
     return unless respond_to?(method = "#{ module_name.underscore }_settings")
 

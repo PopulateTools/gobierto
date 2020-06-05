@@ -74,7 +74,8 @@ module GobiertoAdmin
         gobierto_citizens_charters: admin_citizens_charters_path,
         gobierto_investments: admin_investments_projects_path,
         gobierto_data: admin_data_datasets_path,
-        gobierto_dashboards: edit_admin_dashboards_configuration_settings_path
+        gobierto_dashboards: edit_admin_dashboards_configuration_settings_path,
+        gobierto_observatory: edit_admin_observatory_configuration_settings_path
       }.with_indifferent_access
     end
 

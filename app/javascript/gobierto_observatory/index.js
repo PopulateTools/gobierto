@@ -6,12 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (demographyMapAppNode !== null) {
     new DemographyMapController({
       selector: demographyMapAppNode.id,
-      siteName: demographyMapAppNode.dataset.siteName,
-      logoUrl: demographyMapAppNode.dataset.logoUrl,
-      homeUrl: demographyMapAppNode.dataset.homeUrl,
       studiesEndpoint: demographyMapAppNode.dataset.endpointStudies,
       originEndpoint: demographyMapAppNode.dataset.endpointOrigin,
-      getafeEndpoint: demographyMapAppNode.dataset.endpointGetafe
+      mapLat: demographyMapAppNode.dataset.mapLat,
+      mapLon: demographyMapAppNode.dataset.mapLon,
+      ineCode: demographyMapAppNode.dataset.ineCode
     });
   }
 });

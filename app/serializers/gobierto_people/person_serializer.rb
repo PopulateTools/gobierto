@@ -8,9 +8,10 @@ module GobiertoPeople
       :name,
       :email,
       :position,
-      :positions,
-      :positions_str,
-      :positions_html,
+      :filtered_positions,
+      :filtered_positions_str,
+      :filtered_positions_html,
+      :filtered_positions_tooltip,
       :bio,
       :bio_url,
       :avatar_url,
@@ -33,19 +34,27 @@ module GobiertoPeople
     end
 
     def position
-      positions.first
+      filtered_positions.first&.name
     end
 
-    def positions
-      charges[object.id]&.map(&:to_s) || []
+    def all_positions_html
+      object.historical_charges.reverse_sorted.join("<br>")
     end
 
-    def positions_html
-      positions.map { |pos| "<span>#{pos}</span>" }.join
+    def filtered_positions
+      charges[object.id] || []
     end
 
-    def positions_str
-      positions.join(" ")
+    def filtered_positions_html
+      filtered_positions.map { |pos| "<span>#{pos}</span>" }.join
+    end
+
+    def filtered_positions_tooltip
+      filtered_positions.join("<br>")
+    end
+
+    def filtered_positions_str
+      filtered_positions.join(" ")
     end
 
     def exclude_content_block_records?
@@ -55,7 +64,11 @@ module GobiertoPeople
     private
 
     def charges
-      instance_options[:charges].presence || {}
+      instance_options[:charges].presence || charges_query
+    end
+
+    def charges_query
+      { object.id => object.historical_charges.between_dates(instance_options[:date_range_params]).with_department(instance_options[:department]).reverse_sorted }
     end
 
     def date_range_query

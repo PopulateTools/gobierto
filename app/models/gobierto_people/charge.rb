@@ -26,7 +26,7 @@ module GobiertoPeople
     scope :reverse_sorted, -> { order("#{table_name}.start_date DESC NULLS LAST, #{table_name}.end_date ASC NULLS FIRST") }
 
     def self.date_range_sql(params = {})
-      date_params = params.slice(:start_date, :end_date).compact
+      date_params = params.symbolize_keys.slice(:start_date, :end_date).compact
 
       DATE_RANGE_CONDITIONS.slice(*date_params.keys).values.join(" AND ")
     end

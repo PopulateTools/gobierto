@@ -17,7 +17,7 @@ module GobiertoPeople
       serializer_output = JSON.parse(serializer.to_json)
 
       assert_equal person.name, serializer_output["name"]
-      assert_equal person.charge, serializer_output["position"]
+      assert_equal person.historical_charges.reverse_sorted.first.to_s, serializer_output["position"]
       assert_equal "http://madrid.gobierto.test/personas/richard-rider", serializer_output["url"]
     end
 

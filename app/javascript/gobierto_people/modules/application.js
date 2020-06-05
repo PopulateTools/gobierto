@@ -9,4 +9,7 @@ $(document).on('turbolinks:load', function() {
       $('#people-filter li').removeClass('active');
       $(this).addClass('active');
   });
+
+  $(".tipsit").tipsy({ fade: false, gravity: "n", html: true });
+
 });

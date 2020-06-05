@@ -21,6 +21,16 @@ const locale = d3.formatDefaultLocale({
   grouping: [3]
 });
 
+const zeroPad = (num, places) => String(num).padStart(places, '0')
+
+function getSQLMonthFilter() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = zeroPad(today.getUTCMonth() + 1, 2);
+
+  return ` WHERE to_char(fecha, 'YYYY-MM') = '${year}-${month}'`;
+}
+
 function getRemoteData(endpoint) {
   return new Promise((resolve) => {
     d3.csv(endpoint)
@@ -56,8 +66,12 @@ export class DemographyMapController {
     const center = [options.mapLat, options.mapLon];
     const ineCode = options.ineCode;
 
+    // Datasets contain the history of all the months, but we only require the last month of data
+    const studiesEndpointFiltered = options.studiesEndpoint + getSQLMonthFilter();
+    const originEndpointFiltered = options.originEndpoint + getSQLMonthFilter();
+
     if (entryPoint) {
-      Promise.all([getRemoteData(options.studiesEndpoint), getRemoteData(options.originEndpoint), getMapPolygons(ineCode)]).then((rawData) => {
+      Promise.all([getRemoteData(studiesEndpointFiltered), getRemoteData(originEndpointFiltered), getMapPolygons(ineCode)]).then((rawData) => {
         const data = this.buildDataObject(rawData)
 
         const { studiesData, originData, mapPolygonsData } = data
@@ -69,7 +83,6 @@ export class DemographyMapController {
         this.ndx = {
           filters: {
             studies: {
-              /*d => parseInt(d.rango_edad.split('-')[0])*/
               all: ndxStudies,
               bySex: ndxStudies.dimension(d => d.sexo),
               byAge: ndxStudies.dimension(function(d) {
@@ -438,7 +451,7 @@ export class DemographyMapController {
     chart
       .width(300)
       .height(230)
-      .cap(10) // Show only top 20
+      .cap(10) // Show only top 10
       .group(this.ndx.groups.studies.byStudies)
       .dimension(this.ndx.filters.studies.byStudies)
       .elasticX(true)
@@ -477,7 +490,7 @@ export class DemographyMapController {
     chart
       .width(300)
       .height(210)
-      .cap(10) // Show only top 20
+      .cap(10) // Show only top 10
       .othersGrouper(null) // Don't show the rest of the 20 in Other class - https://dc-js.github.io/dc.js/docs/html/CapMixin.html
       .group(this.ndx.groups.origin.byOriginNational)
       .dimension(this.ndx.filters.origin.byOriginNational)

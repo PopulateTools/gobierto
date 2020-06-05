@@ -1,11 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import { nest } from 'd3-collection';
-import { sum } from 'd3-array';
 import { getRemoteData } from '../webapp/lib/utils'
-
-const d3 = { nest, sum }
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -61,7 +57,7 @@ export class CostsController {
           ],
           scrollBehavior(to) {
             let element
-            //Get different scroll position
+            //Get a different position scroll
             if (to.name === 'Home') {
               element = document.getElementById(selector);
             } else {
@@ -128,32 +124,24 @@ export class CostsController {
           d[amountStrings[amounts]] = convertStringToNumbers(d[amountStrings[amounts]])
         }
 
-        //Include a year column
-        if (d.cost_directe_2018) {
-          d['year'] = '2018'
-          d['population'] = '126988'
-        } else if (d.cost_directe_2019) {
-          d['year'] = '2019'
-          d['population'] = '128265'
-        }
-
         d.ingressos = nanToZero(d.ingressos)
       }
     }
 
-    const groupData = d3.nest()
-        .key(d => d.agrupacio)
-        .rollup(function(value) {
-          return {
-            count: value.length,
-            total: d3.sum(value, d => d.cost_total_2018)
-          }
-        })
-        .entries(rawData[0]);
+    //Function to replace those keys that contain 2018
+    const replacedKeys = rawData[0].map(({ cost_directe_2018: cost_directe, cost_indirecte_2018: cost_indirecte, cost_total_2018: cost_total, costpers2018: costpers, costrestadir2018: costrestadir, ...items }) => Object.assign({}, items, { cost_directe, cost_indirecte, cost_total, costpers, costrestadir }));
+
+    //This is temporary, until we've the data from 2019
+    let duplicate2018_TEMP = [...replacedKeys]
+    let duplicate2019_TEMP = [...replacedKeys]
+
+    duplicate2018_TEMP = duplicate2018_TEMP.map(items => ({ ...items, year: '2018', population: 126988 }))
+    duplicate2019_TEMP = duplicate2019_TEMP.map(items => ({ ...items, year: '2019', population: 128265 }))
+
+    const totalData = [...duplicate2018_TEMP, ...duplicate2019_TEMP]
 
     this.data = {
-      costData: rawData[0],
-      agrupacioData: groupData
+      costData: rawData[0]
     }
   }
 

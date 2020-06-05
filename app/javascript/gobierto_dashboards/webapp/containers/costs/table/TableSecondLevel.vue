@@ -13,7 +13,7 @@
     </TableHeader>
     <TableSubHeader :items="items" />
     <table class="gobierto-dashboards-table">
-      <template v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, act_intermedia, respecte_ambit, agrupacio, ordre_agrupacio } in dataActIntermediaTotal">
+      <template v-for="{ nomact, codiact, cost_directe_2018, cost_indirecte_2018, cost_total_2018, total, index, cost_per_habitant, ingressos, act_intermedia, respecte_ambit, agrupacio, ordre_agrupacio, totalPerHabitant } in dataActIntermediaTotal">
         <tr
           :key="nomact"
           class="gobierto-dashboards-tablerow--header"
@@ -49,9 +49,16 @@
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
             <span>{{ cost_total_2018 | money }}</span>
           </td>
-          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
-            <span>{{ cost_per_habitant | money }}</span>
-          </td>
+          <template v-if="total > 0">
+            <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
+              <span>{{ totalPerHabitant | money }}</span>
+            </td>
+          </template>
+          <template v-else>
+            <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
+              <span>{{ cost_per_habitant | money }}</span>
+            </td>
+          </template>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income">
             <span>{{ ingressos | money }}</span>
           </td>
@@ -100,7 +107,7 @@
                   <span>{{ ingressos | money }}</span>
                 </td>
                 <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-coverage">
-                  <span>{{ (respecte_ambit).toFixed(0) }}%</span>
+                  <span>{{ (respecte_ambit).toFixed(2) }}%</span>
                 </td>
               </tr>
             </tbody>
@@ -163,7 +170,8 @@ export default {
           ingressos: 0,
           respecte_ambit: 0,
           total: 0,
-          nomact: ''
+          nomact: '',
+          totalPerHabitant: 0
         });
 
         item.cost_directe_2018 += o.cost_directe_2018
@@ -174,6 +182,7 @@ export default {
         item.total += (o.total || 0) + 1
         item.nomact = o.act_intermedia
         item.respecte_ambit += o.respecte_ambit
+        item.totalPerHabitant = item.cost_total_2018 / o.population
 
         return r.set(key, item);
       }, new Map).values()];

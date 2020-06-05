@@ -67,14 +67,6 @@ export default {
       visBubblesCosts: null
     }
   },
-  watch: {
-    data(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.population = newValue[0].population
-        this.updateBubbles()
-      }
-    }
-  },
   computed: {
     totalCost() {
       const total = this.data.reduce((accum,element) => accum + element.cost_total, 0)
@@ -82,6 +74,14 @@ export default {
     },
     totalCostPerHabitant() {
       return this.data.reduce((accum,element) => accum + element.cost_total, 0) / this.population
+    }
+  },
+  watch: {
+    data(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.population = newValue[0].population
+        this.updateBubbles()
+      }
     }
   },
   created() {
@@ -98,8 +98,8 @@ export default {
     createBubbleViz() {
       this.visBubblesCosts = new VisBubble('.vis-costs', this.year, this.data);
       this.visBubblesCosts.render();
-      var self = this;
-      window.addEventListener('resize', function(e) {
+      const self = this;
+      window.addEventListener('resize', function() {
         self.updateBubbles()
       });
     },

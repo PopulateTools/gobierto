@@ -1,6 +1,9 @@
 <template>
   <div class="pure-u-1 gutters m_b_1">
-    <h2 id="gobierto-dashboards-title-detail" class="gobierto-dashboards-title">
+    <h2
+      id="gobierto-dashboards-title-detail"
+      class="gobierto-dashboards-title"
+    >
       {{ labelDetail }}
     </h2>
     <Table

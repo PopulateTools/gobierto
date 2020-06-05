@@ -70,9 +70,9 @@
           </td>
         </tr>
         <transition
+          :key="codiact"
           name="fade"
           mode="out-in"
-          :key="codiact"
         >
           <template v-if="total > 0 && selectedToggle === act_intermedia && selectedToggle !== null">
             <tbody
@@ -131,6 +131,7 @@ export default {
     TableHeader,
     TableSubHeader
   },
+  mixins: [VueFiltersMixin],
   props: {
     items: {
       type: Array,
@@ -141,7 +142,6 @@ export default {
       default: ''
     }
   },
-  mixins: [VueFiltersMixin],
   data() {
     return {
       labelTotal: I18n.t("gobierto_dashboards.dashboards.costs.total") || "",

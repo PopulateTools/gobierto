@@ -44,15 +44,15 @@ module GobiertoData
         with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(write, include_draft)) do
           connection_pool.connection.execute("SET search_path TO draft, public") if include_draft
 
-          csv  = ""
+          csv  = []
           # Get the raw connection (in our case the pg connection object)
           pg_connection = connection_pool.connection.raw_connection
           pg_connection.copy_data("COPY (#{query}) TO STDOUT WITH (FORMAT CSV, HEADER TRUE, FORCE_QUOTE *, ESCAPE E'\\\\');") do
             while row = pg_connection.get_copy_data
-              csv += row
+              csv.push(row)
             end
           end
-          return csv
+          return csv.join('')
         end
       rescue ActiveRecord::StatementInvalid, PG::SyntaxError, PG::UndefinedTable => e
         failed_query(e.message)

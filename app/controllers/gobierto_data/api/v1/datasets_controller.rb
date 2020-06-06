@@ -182,7 +182,7 @@ module GobiertoData
 
         def cached_item_csv
           Rails.cache.fetch("#{@item.cache_key}/show.csv?#{csv_options_params.to_json}") do
-            csv_from_query_result(execute_query(@item.rails_model.all), csv_options_params)
+            GobiertoData::Connection.execute_query_output_csv(current_site, @item.rails_model.all.to_sql)
           end
         end
 

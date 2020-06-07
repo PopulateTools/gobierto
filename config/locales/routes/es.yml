@@ -1,0 +1,29 @@
+---
+es:
+  routes:
+    bio: biografia
+    department_people: personas/departamentos/:department_slug
+    departments: departamentos
+    events: agendas
+    executive_category_events: agendas/directivos
+    executive_category_past_events: agendas/directivos/eventos-pasados
+    gifts: obsequios-y-regalos
+    government: gobierno
+    government_party_events: agendas/gobierno
+    government_party_past_events: agendas/gobierno/eventos-pasados
+    interest_groups: grupos-de-interes
+    invitations: invitaciones
+    managers: directivos
+    messages: contacto
+    opposition: oposicion
+    opposition_party_events: agendas/oposicion
+    opposition_party_past_events: agendas/oposicion/eventos-pasados
+    past_events: agendas/eventos-pasados
+    people: personas
+    people_and_agendas: cargos-y-agendas
+    people_government: personas/gobierno
+    people_managers: personas/directivos
+    people_opposition: personas/oposicion
+    person_events: agendas/:container_slug
+    person_past_events: agendas/:container_slug/eventos-pasados
+    trips: viajes-y-desplazamientos

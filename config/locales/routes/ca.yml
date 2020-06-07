@@ -1,0 +1,29 @@
+---
+ca:
+  routes:
+    bio: biografia
+    department_people: carrecs/departments/:department_slug
+    departments: departments
+    events: agendas
+    executive_category_events: agendas/directius
+    executive_category_past_events: agendas/directius/reunions-passades
+    gifts: regals-i-obsequis
+    government: govern
+    government_party_events: agendas/govern
+    government_party_past_events: agendas/govern/reunions-passades
+    interest_groups: grups-d-interes
+    invitations: invitacions
+    managers: directius
+    messages: contacte
+    opposition: oposicio
+    opposition_party_events: agendas/oposicio
+    opposition_party_past_events: agendas/oposicio/reunions-passades
+    past_events: agendas/reunions-passades
+    people: carrecs
+    people_and_agendas: carrecs-i-agendes
+    people_government: carrecs/govern
+    people_managers: carrecs/directius
+    people_opposition: carrecs/oposicio
+    person_events: agendas/:container_slug
+    person_past_events: agendas/:container_slug/reunions-passades
+    trips: viatges-i-desplacaments

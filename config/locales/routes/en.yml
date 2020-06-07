@@ -1,0 +1,29 @@
+---
+en:
+  routes:
+    bio: bio
+    department_people: people/departments/:department_slug
+    departments: departments
+    events: agendas
+    executive_category_events: agendas/managers
+    executive_category_past_events: agendas/managers/past-events
+    gifts: gifts
+    government: government
+    government_party_events: agendas/government
+    government_party_past_events: agendas/government/past-events
+    interest_groups: interest-groups
+    invitations: invitations
+    managers: managers
+    messages: contact
+    opposition: opposition
+    opposition_party_events: agendas/opposition
+    opposition_party_past_events: agendas/opposition/past-events
+    past_events: agendas/past-events
+    people: people
+    people_and_agendas: people-and-agendas
+    people_government: people/government
+    people_managers: people/managers
+    people_opposition: people/opposition
+    person_events: agendas/:container_slug
+    person_past_events: agendas/:container_slug/past-events
+    trips: trips

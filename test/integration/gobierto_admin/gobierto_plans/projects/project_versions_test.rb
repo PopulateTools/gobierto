@@ -8,7 +8,7 @@ module GobiertoAdmin
       class ProjectVersionsTest < ActionDispatch::IntegrationTest
         include Integration::AdminGroupsConcern
 
-        attr_reader :plan, :create_path, :project
+        attr_reader :plan, :create_path
 
         def setup
           super
@@ -28,10 +28,9 @@ module GobiertoAdmin
           { site: site, js: true, admin: admin, window_size: :xl }
         end
 
-        def remove_custom_fields_with_callbacks
-          ::GobiertoCommon::CustomFieldPlugin.with_callbacks.each do |plugin|
-            ::GobiertoCommon::CustomField.with_plugin_type(plugin.type).destroy_all
-          end
+        # Load project dynamically from database (slower but avoids flaky tests)
+        def project
+          ::GobiertoPlans::Node.with_name_translation("Project with versions", :en).last
         end
 
         def create_project
@@ -50,7 +49,6 @@ module GobiertoAdmin
               click_button "Save"
             end
           end
-          @project = ::GobiertoPlans::Node.with_name_translation("Project with versions", :en).last
         end
 
         def all_versions_are_equal(project, versions_number)
@@ -68,7 +66,14 @@ module GobiertoAdmin
         def choose_moderation_status(status_text)
           find(".js-admin-widget-save a").click
           find("label", text: status_text).click
-          find("body").click # lose popover hover so it closes
+          body = find("body", visible: false)
+          body.execute_script("this.click()") # lose popover hover so it closes
+        end
+
+        def click_publish_button_and_accept_alert
+          publish_button = find_button("Publish", visible: false)
+          publish_button.execute_script("this.click()")
+          page.accept_alert
         end
 
         def test_create_project_as_manager
@@ -81,27 +86,28 @@ module GobiertoAdmin
             assert has_content? "Status\nNot published"
             assert has_content? "Published version\nnot published yet"
             assert has_content? "Click on Publish to make this version publicly visible."
-
           end
 
           assert all_versions_are_equal(project, 1)
         end
 
         def test_create_new_version_as_manager
+          new_name = "Project with versions: Version 2"
+
           with default_test_context do
             create_project
 
             within "form" do
-              fill_in "project_name_translations_en", with: "Project with versions: Version 2"
+              fill_in "project_name_translations_en", with: new_name
 
               within "div.widget_save_v2.editor" do
                 click_button "Save"
               end
             end
-
           end
 
-          assert all_versions_are_equal(project, 2)
+          updated_project = ::GobiertoPlans::Node.with_name_translation(new_name).last
+          assert all_versions_are_equal(updated_project, 2)
         end
 
         def test_create_new_custom_field_version_as_manager
@@ -131,9 +137,7 @@ module GobiertoAdmin
 
             choose_moderation_status "Approved"
 
-            click_button "Publish"
-
-            page.accept_alert
+            click_publish_button_and_accept_alert
 
             assert has_link? "Unpublish"
             assert has_content? "Editing version\n2"
@@ -161,13 +165,7 @@ module GobiertoAdmin
 
             visit edit_admin_plans_plan_project_path(plan, project, version: 1)
 
-            within "form" do
-              within "div.widget_save_v2.editor" do
-                click_button "Publish"
-              end
-            end
-
-            page.accept_alert
+            click_publish_button_and_accept_alert
 
             assert has_content? "Editing version\n2"
             assert has_content? "Status\nNot published"
@@ -207,13 +205,7 @@ module GobiertoAdmin
             assert has_content?("Editing version\n3")
             assert has_content?("not published yet")
 
-            within "form" do
-              within "div.widget_save_v2.editor" do
-                click_button "Publish"
-              end
-            end
-
-            page.accept_alert
+            click_publish_button_and_accept_alert
 
             assert has_content? "Editing version\n3"
             assert has_content? "Status\nPublished"
@@ -330,8 +322,10 @@ module GobiertoAdmin
             assert all_versions_are_equal(project, 1)
             assert has_content? "Editing version\n1"
 
+            new_name = "Project with versions: Version 2"
+
             within "form" do
-              fill_in "project_name_translations_en", with: "Project with versions: Version 2"
+              fill_in "project_name_translations_en", with: new_name
 
               within "div.widget_save_v2.editor" do
                 find("label", text: "Minor change (does not save version)").click
@@ -339,7 +333,8 @@ module GobiertoAdmin
               end
             end
 
-            assert all_versions_are_equal(project, 1)
+            updated_project = ::GobiertoPlans::Node.with_name_translation(new_name).last
+            assert all_versions_are_equal(updated_project, 1)
             assert has_content? "Editing version\n1"
           end
         end

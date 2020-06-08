@@ -28,6 +28,7 @@ en:
       buttonRunQuery: Run query (CMD/WIN + Enter)
       cancel: Cancel
       categories: Categories
+      dashboards: Dashboards
       data: Data
       dataset: Datasets
       datasetUpdated: Last updated datasets

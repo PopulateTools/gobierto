@@ -28,6 +28,7 @@ es:
       buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)
       cancel: Cancelar
       categories: Categorías
+      dashboards: Dashboards
       data: Datos
       dataset: Conjunto de datos
       datasetUpdated: Últimos datasets actualizados

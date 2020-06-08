@@ -28,6 +28,7 @@ ca:
       buttonRunQuery: Executeu consulta (CMD/WIN + Enter)
       cancel: Cancel·leu
       categories: Categories
+      dashboards: Dashboards
       data: Dades
       dataset: Conjunt de dades
       datasetUpdated: Darrers datasets actualitzats

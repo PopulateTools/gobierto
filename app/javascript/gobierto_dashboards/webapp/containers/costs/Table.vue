@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pure-u-1 gutters m_b_1">
     <TableHeader />
     <!-- TODO: dynamic components -->
     <TableFirstLevel :items="data" />

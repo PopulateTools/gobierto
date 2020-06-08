@@ -42,7 +42,6 @@ ca:
       guide: Guia per utilitzar l'editor SQL
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualització modificada
-      savedVisualization: Visualització desada
       preview: Previsualitzeu
       private: Privat
       queries: Consultes
@@ -59,6 +58,7 @@ ca:
       save: Deseu
       saveViz: Deseu Visualització
       savedQuery: Consulta desada
+      savedVisualization: Visualització desada
       sets: Conjunts
       showAll: Vegeu-ho tot
       showLess: Vegeu-ne menys

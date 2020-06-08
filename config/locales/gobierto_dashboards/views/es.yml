@@ -52,6 +52,10 @@ es:
         cost_inhabitant: Coste/habitante
         cost_per_inhabitant: Coste por habitante
         coverage: Cobertura
+        description: El %{entity_name} es el responsable de proveer determinados servicios
+          a los ciudadanos. El coste de los servicios se cubre de forma directa (a
+          través de tasas) o indirecta (a través de partidas generales). En esta visualización
+          puedes explorar los servicios, sus costes y evolución, los ingresos...
         distribution: Distribución de costes por área
         home: Inicio
         income: Ingresos
@@ -70,6 +74,7 @@ es:
           transference: Transference
           types: Tipos
         see_all: Ver todos
+        title: Costes
         total: Coste total
       subsidies:
         amount: Importe

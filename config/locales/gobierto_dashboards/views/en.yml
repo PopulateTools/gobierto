@@ -49,7 +49,12 @@ en:
         cost_direct: Direct cost
         cost_indirect: Indirect cost
         cost_inhabitant: Cost / inhabitant
+        cost_per_inhabitant: Cost per inhabitant
         coverage: Cobertura
+        description: The %{entity_name} is responsible for providing certain services
+          to citizens. The cost of the services is covered directly (fees) or indirectly
+          (budget lines). In this visualization, you can explore the services, their
+          costs, and evolution, the income ...
         distribution: Distribution of costs by area
         home: Home
         income: Income
@@ -68,6 +73,7 @@ en:
           transference: Transference
           types: Types
         see_all: See all
+        title: Costs
         total: Total cost
       subsidies:
         amount: Amount

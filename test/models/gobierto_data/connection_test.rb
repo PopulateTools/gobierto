@@ -56,13 +56,13 @@ module GobiertoData
     end
 
     def test_execute_query_with_output_csv
-      result = Connection.execute_query_output_csv(site, "SELECT COUNT(*) AS test_count FROM users")
+      result = Connection.execute_query_output_csv(site, "SELECT COUNT(*) AS test_count FROM users", {col_sep: ','})
       csv = CSV.parse(result, headers: true)
       assert_equal "7", csv[0]["test_count"]
     end
 
     def test_execute_query_with_output_csv_with_errors
-      result = Connection.execute_query_output_csv(site, "SELECT COUNT(*) FROM not_existing_table")
+      result = Connection.execute_query_output_csv(site, "SELECT COUNT(*) FROM not_existing_table", {col_sep: ','})
       hash_result = JSON.parse(result.to_json)
 
       assert hash_result.has_key?("errors")

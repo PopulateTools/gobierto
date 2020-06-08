@@ -13,7 +13,6 @@ import { d3locale, accounting } from 'lib/shared'
 export class VisBubble {
   constructor(divId, year, data) {
     this.container = divId;
-    this.currentYear = parseInt(d3.select('body').attr('data-year'));
     this.data = data;
     this.year = year
     this.forceStrength = 0.045;
@@ -78,7 +77,6 @@ export class VisBubble {
 
   createNodes(rawData) {
     var data = rawData;
-    data = data.filter(element => element.year === this.year)
     if (this.locale === 'en') this.locale = 'es';
 
     this.maxAmount = d3.max(data, function (d) { return d.radius }.bind(this));
@@ -104,13 +102,14 @@ export class VisBubble {
           y: this.nodeScale(+d.cost_total / (d.population * 1.5)),
           cost_total: d.cost_total,
           year: d.year,
-          cost_per_habitant: d.cost_per_habitant
+          cost_per_habitant: (d.cost_total / d.population).toFixed(2)
         };
       }.bind(this))
     } else {
       this.nodes.forEach(function(d) {
         d.id = d.agrupacio,
-        d.radius = (+d.cost_total / (d.population * 1.5))
+        d.radius = (+d.cost_total / (d.population * 1.5)),
+        d.cost_per_habitant = (d.cost_total / d.population).toFixed(2)
       }.bind(this))
     }
 
@@ -146,8 +145,11 @@ export class VisBubble {
 
   updateRender() {
 
+    const year = this.year
+    const data = this.data.filter(element => element.year === year)
+
     // var budgetCategory = this.budget_category;
-    this.nodes = this.createNodes(this.data, this.currentYear);
+    this.nodes = this.createNodes(data, year);
 
     this.bubbles = this.svg.selectAll('g')
       .data(this.nodes, d => d.id)

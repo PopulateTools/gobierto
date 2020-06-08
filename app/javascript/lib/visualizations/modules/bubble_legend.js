@@ -27,7 +27,7 @@ export class VisBubbleLegend {
       .attr('height', height + margin.top + margin.bottom)
       .style('overflow', 'visible')
       .append('g')
-      .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
+      .attr('transform', `translate(${margin.left},${margin.top})`);
 
     var defs = svg.append('defs');
 

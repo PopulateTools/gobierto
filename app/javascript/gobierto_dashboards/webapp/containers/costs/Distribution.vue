@@ -64,30 +64,40 @@ export default {
       labelCostPerInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.cost_per_inhabitant") || "",
       population: '',
       populationNumber: '',
-      visBubblesCosts: null
+      visBubblesCosts: null,
+      dataFilter: []
     }
   },
   computed: {
     totalCost() {
-      const total = this.data.reduce((accum,element) => accum + element.cost_total, 0)
+      const total = this.dataFilter.reduce((accum,element) => accum + element.cost_total, 0)
       return (total / 1000000).toFixed(1).replace(/\./, ',') + ' M€';
     },
     totalCostPerHabitant() {
-      return this.data.reduce((accum,element) => accum + element.cost_total, 0) / this.population
+      return this.dataFilter.reduce((accum,element) => accum + element.cost_total, 0) / this.population
     }
   },
   watch: {
-    data(newValue, oldValue) {
+    year(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.population = newValue[0].population
+        this.dataFilter = this.data.filter(element => element.year === newValue)
+        const [{
+          population: population
+        }] = this.dataFilter
+        this.population = population
+        this.populationNumber = Number(population).toLocaleString("es-ES")
         this.updateBubbles()
+        this.totalCost
+        this.totalCostPerHabitant
       }
     }
   },
   created() {
+    const year = this.year
+    this.dataFilter = this.data.filter(element => element.year === year)
     const [{
       population: population
-    }] = this.data
+    }] = this.dataFilter
     this.population = population
     this.populationNumber = Number(population).toLocaleString("es-ES")
   },

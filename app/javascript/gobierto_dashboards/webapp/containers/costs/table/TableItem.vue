@@ -3,7 +3,7 @@
     <TableHeader>
       <div class="gobierto-dashboards-table-header--link-container">
         <router-link
-          :to="{ name: 'TableFirstLevel'}"
+          :to="{ path:`/dashboards/costes/${$route.params.year}`}"
           class="gobierto-dashboards-table-header--link-top"
           tag="a"
           @click.native="loadTable(0)"
@@ -12,7 +12,7 @@
         </router-link>
         <i class="fas fa-chevron-right" />
         <router-link
-          :to="{ path:`/dashboards/costes/${$route.params.id}`}"
+          :to="{ path:`/dashboards/costes/${$route.params.year}/${$route.params.id}`}"
           class="gobierto-dashboards-table-header--link-top"
           tag="a"
           @click.native="loadTable(1)"
@@ -396,6 +396,12 @@ export default {
     TableHeader
   },
   mixins: [VueFiltersMixin],
+  props: {
+    year: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       items: this.$root.$data.costData,
@@ -452,7 +458,8 @@ export default {
   },
   methods: {
     agrupacioData(id) {
-      this.dataGroup = this.items.filter(element => element.codiact === id && element.year === "2018")
+      const yearFiltered = this.year
+      this.dataGroup = this.items.filter(element => element.codiact === id && element.year === yearFiltered)
 
       const [{
         descripcio: description,

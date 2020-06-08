@@ -32,22 +32,22 @@ export class CostsController {
           mode: "history",
           routes: [
             {
-              path: "/dashboards/costes",
+              path: "/dashboards/costes/:year?",
               name: 'Home',
               component: Home,
               children: [
               {
-                path: "",
+                path: "/dashboards/costes/:year?",
                 component: TableFirstLevel,
                 name: 'TableFirstLevel'
               },
               {
-                path: "/dashboards/costes/:id?",
+                path: "/dashboards/costes/:year?/:id?",
                 component: TableSecondLevel,
                 name: 'TableSecondLevel'
               },
               {
-                path: "/dashboards/costes/:id?/:item?",
+                path: "/dashboards/costes/:year?/:id?/:item?",
                 component: TableItem,
                 name: 'TableItem'
               }
@@ -57,7 +57,7 @@ export class CostsController {
           scrollBehavior(to) {
             let element
             //Get a different position scroll
-            if (to.name === 'Home') {
+            if (to.name === 'Home' || to.name === 'TableFirstLevel') {
               element = document.getElementById(selector);
             } else {
               element = document.getElementById('gobierto-dashboards-title-detail');
@@ -132,38 +132,47 @@ export class CostsController {
 
     const totalData = [...duplicate2018_TEMP, ...duplicate2019_TEMP]
 
-    let filterGroupData = totalData.filter(element => element.year === '2018')
+    let groupDataByYears = []
+    let groupData2018 = []
+    let groupData2019 = []
 
-    let groupData = []
-    groupData = [...filterGroupData.reduce((r, o) => {
-      const key = o.agrupacio
+    function groupDataByYear(data, year) {
+      let groupData = [...data.reduce((r, o) => {
+        const key = o.agrupacio
 
-      const item = r.get(key) || Object.assign({}, o, {
-        cost_directe: 0,
-        cost_indirecte: 0,
-        cost_total: 0,
-        ingressos: 0,
-        respecte_ambit: 0,
-        total: 0,
-        totalPerHabitant: 0,
-      });
+        const item = r.get(key) || Object.assign({}, o, {
+          cost_directe: 0,
+          cost_indirecte: 0,
+          cost_total: 0,
+          ingressos: 0,
+          respecte_ambit: 0,
+          total: 0,
+          totalPerHabitant: 0,
+        });
 
-      item.cost_directe += o.cost_directe
-      item.cost_indirecte += o.cost_indirecte
-      item.cost_total += o.cost_total
-      item.ingressos += o.ingressos
-      //New item with the sum of values of each agrupacio
-      item.total += (o.total || 0) + 1
-      item.respecte_ambit += o.respecte_ambit
-      item.totalPerHabitant = item.cost_total / o.population
+        item.cost_directe += o.cost_directe
+        item.cost_indirecte += o.cost_indirecte
+        item.cost_total += o.cost_total
+        item.ingressos += o.ingressos
+        //New item with the sum of values of each agrupacio
+        item.total += (o.total || 0) + 1
+        item.respecte_ambit += o.respecte_ambit
+        item.totalPerHabitant = item.cost_total / o.population
 
-      return r.set(key, item);
-    }, new Map).values()];
-    groupData = groupData.filter(element => element.agrupacio !== '')
+        return r.set(key, item);
+      }, new Map).values()];
+      return groupData = groupData.filter(element => element.agrupacio !== '' && element.year === year)
+    }
+
+    groupData2018 = groupDataByYear(duplicate2018_TEMP, '2018')
+    groupData2019 = groupDataByYear(duplicate2019_TEMP, '2019')
+
+    groupDataByYears = [...groupData2018, ...groupData2019]
+
 
     this.data = {
       costData: totalData,
-      groupData: groupData
+      groupData: groupDataByYears
     }
   }
 

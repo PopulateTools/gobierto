@@ -2,7 +2,7 @@
   <div>
     <TableHeader>
       <router-link
-        :to="{ name: 'TableFirstLevel'}"
+        :to="{ path:`/dashboards/costes/${$route.params.year}`}"
         class="gobierto-dashboards-table-header--link-top"
         tag="a"
         @click.native="loadTable(0)"
@@ -13,7 +13,7 @@
     </TableHeader>
     <TableSubHeader :items="itemsFilter" />
     <table class="gobierto-dashboards-table">
-      <template v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, act_intermedia, respecte_ambit, agrupacio, ordre_agrupacio, totalPerHabitant } in dataActIntermediaTotal">
+      <template v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, act_intermedia, respecte_ambit, agrupacio, ordre_agrupacio, totalPerHabitant, year } in dataActIntermediaTotal">
         <tr
           :key="nomact"
           class="gobierto-dashboards-tablerow--header"
@@ -31,7 +31,7 @@
           <template v-else>
             <td class="gobierto-dashboards-table-header--nav">
               <router-link
-                :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio } }"
+                :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio, year: year } }"
                 class="gobierto-dashboards-table-header--link"
                 tag="a"
                 @click.native="loadTable(2)"
@@ -77,13 +77,13 @@
               class="gobierto-dashboards-table--secondlevel gobierto-dashboards-table--secondlevel-nested"
             >
               <tr
-                v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, respecte_ambit, agrupacio, ordre_agrupacio } in dataGroupIntermedia"
+                v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, respecte_ambit, agrupacio, ordre_agrupacio, year } in dataGroupIntermedia"
                 :key="codiact"
                 class="gobierto-dashboards-tablerow--header"
               >
                 <td class="gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-header--nav">
                   <router-link
-                    :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio } }"
+                    :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio, year: year } }"
                     class="gobierto-dashboards-table-header--link"
                     tag="a"
                     @click.native="loadTable(2)"
@@ -137,6 +137,10 @@ export default {
     itemsFilter: {
       type: Array,
       default: () => []
+    },
+    year: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -151,7 +155,7 @@ export default {
       labelActivities: I18n.t("gobierto_dashboards.dashboards.costs.activities") || "",
       labelSeeAll: I18n.t("gobierto_dashboards.dashboards.costs.see_all") || "",
       dataActIntermediaTotal: [],
-      selectedToggle: null,
+      selectedToggle: null
     }
   },
   created() {

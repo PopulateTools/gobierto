@@ -4,13 +4,13 @@
     <table class="gobierto-dashboards-table">
       <tbody>
         <tr
-          v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, respecte_ambit, ordre_agrupacio, totalPerHabitant } in itemsFilter"
+          v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, respecte_ambit, ordre_agrupacio, totalPerHabitant, year } in itemsFilter"
           :key="agrupacio"
           class="gobierto-dashboards-tablerow--header"
         >
           <td class="gobierto-dashboards-table-header--nav">
             <router-link
-              :to="{ name: 'TableSecondLevel', params: { id: ordre_agrupacio } }"
+              :to="{ name: 'TableSecondLevel', params: { id: ordre_agrupacio, year: year } }"
               class="gobierto-dashboards-table-header--link"
               @click.native="loadTable"
             >
@@ -53,6 +53,10 @@ export default {
     itemsFilter: {
       type: Array,
       default: () => []
+    },
+    year: {
+      type: String,
+      default: ''
     }
   },
   methods: {

@@ -20,7 +20,7 @@ module GobiertoData
             end
 
             format.csv do
-              query_result = GobiertoData::Connection.execute_query_output_csv(current_site, Arel.sql(params[:sql] || {}))
+              query_result = GobiertoData::Connection.execute_query_output_csv(current_site, Arel.sql(params[:sql] || {}), csv_options_params)
 
               render_error_or_continue(query_result) do
                 render_csv(query_result)

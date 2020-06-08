@@ -7,6 +7,9 @@
 :root {
   --green-table--first: rgba(33, 150, 83, .1);
   --green-table--second: rgba(33, 150, 83, .2);
+  --grey: #666;
+  --border-grey: rgba(102, 102, 102, .5);
+  --table-item-cost: rgba(1, 120, 168, .2);
 }
 
 .dashboards {
@@ -462,7 +465,7 @@
     font-weight: bold;
     display: inline-block;
     vertical-align: middle;
-    color: #666;
+    color: var(--grey);
     max-width: calc(100% - 19px);
   }
 
@@ -558,7 +561,7 @@
   &-table-item-text {
     font-size: 1rem;
     font-weight: normal;
-    color: #666;
+    color: var(--grey);
     display: block;
     max-width: 30rem;
   }
@@ -578,7 +581,7 @@
     &-income,
     &-coverage {
       .gobierto-dashboards-table-item-right-table {
-        border-color: rgba(33, 150, 83, .2);
+        border-color: var(--green-table--second);
       }
     }
   }
@@ -591,7 +594,7 @@
 
   &-table-item-right-section-title {
     font-size: 1rem;
-    color: rgba(102, 102, 102, .5);
+    color: var(--border-grey);
     text-align: right;
     display: inline-block;
     width: 100%;
@@ -599,7 +602,7 @@
   }
 
   &-table-item-right-table {
-    border-left: 7px solid rgba(1, 120, 168, .2);
+    border-left: 7px solid var(--table-item-cost);
     padding-left: 1rem;
     width: 100%;
 
@@ -636,7 +639,7 @@
   &-table-item-right-table-text,
   &-table-item-right-table-amount {
     font-size: 1rem;
-    color: #666;
+    color: var(--grey);
     width: 49%;
     display: inline-block;
   }

@@ -4,7 +4,7 @@
     <table class="gobierto-dashboards-table">
       <tbody>
         <tr
-          v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, respecte_ambit, ordre_agrupacio, totalPerHabitant } in items"
+          v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, respecte_ambit, ordre_agrupacio, totalPerHabitant } in itemsFilter"
           :key="agrupacio"
           class="gobierto-dashboards-tablerow--header"
         >
@@ -50,7 +50,7 @@ export default {
   },
   mixins: [VueFiltersMixin],
   props: {
-    items: {
+    itemsFilter: {
       type: Array,
       default: () => []
     }

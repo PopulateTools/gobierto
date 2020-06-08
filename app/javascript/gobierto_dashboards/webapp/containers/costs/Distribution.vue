@@ -60,7 +60,7 @@ export default {
     return {
       labelDistribution: I18n.t("gobierto_dashboards.dashboards.costs.distribution") || "",
       labelTotalCost: I18n.t("gobierto_dashboards.dashboards.costs.total_cost") || "",
-      labelInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.inhabitant") || "",
+      labelInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.inhabitants") || "",
       labelCostPerInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.cost_per_inhabitant") || "",
       population: '',
       populationNumber: '',

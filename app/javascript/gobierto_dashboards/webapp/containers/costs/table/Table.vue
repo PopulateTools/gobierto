@@ -1,8 +1,15 @@
 <template>
-  <div v-if="items.length">
+  <div class="pure-u-1 m_b_1">
+    <h2
+      id="gobierto-dashboards-title-detail"
+      class="gobierto-dashboards-title"
+    >
+      {{ labelDetail }}
+    </h2>
     <component
       :is="currentComponent"
       :items="items"
+      :items-filter="itemsFilter"
       :year="year"
       @changeTableHandler="changeTableComponent"
     />
@@ -22,6 +29,10 @@ export default {
       type: Array,
       default: () => []
     },
+    itemsFilter: {
+      type: Array,
+      default: () => []
+    },
     year: {
       type: String,
       default: ''
@@ -36,6 +47,7 @@ export default {
       labelCostInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.cost_inhabitant") || "",
       labelIncome: I18n.t("gobierto_dashboards.dashboards.costs.income") || "",
       labelCoverage: I18n.t("gobierto_dashboards.dashboards.costs.coverage") || "",
+      labelDetail: I18n.t("gobierto_dashboards.dashboards.costs.detail") || "",
       currentComponent: 0,
     }
   },

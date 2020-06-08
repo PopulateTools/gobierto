@@ -1,8 +1,5 @@
 <template>
-  <table
-    v-if="items.length"
-    class="gobierto-dashboards-table gobierto-dashboards-table--subheader"
-  >
+  <table class="gobierto-dashboards-table gobierto-dashboards-table--subheader">
     <tbody>
       <tr
         v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, totalPerHabitant, ingressos, respecte_ambit } in dataGroup"
@@ -43,10 +40,6 @@ export default {
     items: {
       type: Array,
       default: () => []
-    },
-    year: {
-      type: String,
-      default: ''
     }
   },
   data() {
@@ -64,7 +57,7 @@ export default {
   },
   methods: {
     agrupacioData(id) {
-      this.dataGroup = this.items.filter(element => element.ordre_agrupacio === id && element.year === this.year)
+      this.dataGroup = this.items.filter(element => element.ordre_agrupacio === id)
     }
   }
 }

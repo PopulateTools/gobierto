@@ -25,7 +25,7 @@ export class CostsController {
       const TableSecondLevel = () => import("../webapp/containers/costs/table/TableSecondLevel.vue");
       const TableItem = () => import("../webapp/containers/costs/table/TableItem.vue");
 
-      Promise.all([getRemoteData(options.costsEndpoint)]).then((rawData) => {
+      Promise.resolve(getRemoteData(options.costsEndpoint)).then((rawData) => {
         this.setGlobalVariables(rawData)
 
         const router = new VueRouter({
@@ -110,20 +110,18 @@ export class CostsController {
     //Array with all the strings that we've to convert to Number
     const amountStrings = [ 'cd_bens_i_serveis', 'cd_cost_personal', 'cost_directe_2018' , 'cost_indirecte_2018', 'cost_total_2018', 'costpers2018', 'costrestadir2018', 'cost_per_habitant', 'ingressos', 'respecte_ambit', 'taxa_o_preu_public', 'cd_serveis_exteriors', 'cd_transferencies', 'cd_equipaments', 'ingres_cost', 'subvencio']
 
-    for (let cost of rawData) {
-      for (let index = 0; index < cost.length; index++) {
-        let d = cost[index]
+    for (let index = 0; index < rawData.length; index++) {
+      let d = rawData[index]
 
-        for (let amounts = 0; amounts < amountStrings.length; amounts++) {
-          d[amountStrings[amounts]] = convertStringToNumbers(d[amountStrings[amounts]])
-        }
-
-        d.ingressos = nanToZero(d.ingressos)
+      for (let amounts = 0; amounts < amountStrings.length; amounts++) {
+        d[amountStrings[amounts]] = convertStringToNumbers(d[amountStrings[amounts]])
       }
+
+      d.ingressos = nanToZero(d.ingressos)
     }
 
     //Function to replace those keys that contain 2018
-    const replacedKeys = rawData[0].map(({ cost_directe_2018: cost_directe, cost_indirecte_2018: cost_indirecte, cost_total_2018: cost_total, costpers2018: costpers, costrestadir2018: costrestadir, ...items }) => Object.assign({}, items, { cost_directe, cost_indirecte, cost_total, costpers, costrestadir }));
+    const replacedKeys = rawData.map(({ cost_directe_2018: cost_directe, cost_indirecte_2018: cost_indirecte, cost_total_2018: cost_total, costpers2018: costpers, costrestadir2018: costrestadir, ...items }) => Object.assign({}, items, { cost_directe, cost_indirecte, cost_total, costpers, costrestadir }));
 
     //This is temporary, until we've the data from 2019
     let duplicate2018_TEMP = [...replacedKeys]
@@ -134,8 +132,38 @@ export class CostsController {
 
     const totalData = [...duplicate2018_TEMP, ...duplicate2019_TEMP]
 
+    let filterGroupData = totalData.filter(element => element.year === '2018')
+
+    let groupData = []
+    groupData = [...filterGroupData.reduce((r, o) => {
+      const key = o.agrupacio
+
+      const item = r.get(key) || Object.assign({}, o, {
+        cost_directe: 0,
+        cost_indirecte: 0,
+        cost_total: 0,
+        ingressos: 0,
+        respecte_ambit: 0,
+        total: 0,
+        totalPerHabitant: 0,
+      });
+
+      item.cost_directe += o.cost_directe
+      item.cost_indirecte += o.cost_indirecte
+      item.cost_total += o.cost_total
+      item.ingressos += o.ingressos
+      //New item with the sum of values of each agrupacio
+      item.total += (o.total || 0) + 1
+      item.respecte_ambit += o.respecte_ambit
+      item.totalPerHabitant = item.cost_total / o.population
+
+      return r.set(key, item);
+    }, new Map).values()];
+    groupData = groupData.filter(element => element.agrupacio !== '')
+
     this.data = {
-      costData: totalData
+      costData: totalData,
+      groupData: groupData
     }
   }
 

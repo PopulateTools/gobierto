@@ -11,10 +11,7 @@
         {{ labelSeeAll }}
       </router-link>
     </TableHeader>
-    <TableSubHeader
-      :items="items"
-      :year="year"
-    />
+    <TableSubHeader :items="itemsFilter" />
     <table class="gobierto-dashboards-table">
       <template v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, act_intermedia, respecte_ambit, agrupacio, ordre_agrupacio, totalPerHabitant } in dataActIntermediaTotal">
         <tr
@@ -137,9 +134,9 @@ export default {
       type: Array,
       default: () => []
     },
-    year: {
-      type: String,
-      default: ''
+    itemsFilter: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -154,7 +151,6 @@ export default {
       labelActivities: I18n.t("gobierto_dashboards.dashboards.costs.activities") || "",
       labelSeeAll: I18n.t("gobierto_dashboards.dashboards.costs.see_all") || "",
       dataActIntermediaTotal: [],
-      totalItems: this.$root.$data.costData,
       selectedToggle: null,
     }
   },
@@ -164,10 +160,8 @@ export default {
   methods: {
     intermediaData() {
       const filterActIntermedia = this.$route.params.id
-      let dataAgrupacio = this.totalItems.filter(element => element.year === this.year)
-      dataAgrupacio = dataAgrupacio.filter(element => element.ordre_agrupacio === filterActIntermedia)
+      let dataAgrupacio = this.items.filter(element => element.ordre_agrupacio === filterActIntermedia)
       let dataActIntermedia = dataAgrupacio.filter(element => element.act_intermedia !== '')
-
       let dataActIntermediaValues = [...dataActIntermedia.reduce((r, o) => {
         let key = o.act_intermedia
 
@@ -196,11 +190,10 @@ export default {
       }, new Map).values()];
 
       const dataActIntermediaWithoutValues = dataAgrupacio.filter(element => element.act_intermedia === '')
-
       this.dataActIntermediaTotal = [...dataActIntermediaValues, ...dataActIntermediaWithoutValues]
     },
     agrupacioDataFilter(actIntermedia) {
-      this.dataGroupIntermedia = this.totalItems.filter(element => element.act_intermedia === actIntermedia && element.year === this.year)
+      this.dataGroupIntermedia = this.items.filter(element => element.act_intermedia === actIntermedia)
     },
     hasChildren(value) {
       if (value > 0) {

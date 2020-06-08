@@ -26,4 +26,11 @@ ca:
     people_opposition: carrecs/oposicio
     person_events: agendas/:container_slug
     person_past_events: agendas/:container_slug/reunions-passades
+    person_post_tags: blogs/:person_slug/tags
+    person_posts: blogs/:person_slug
+    person_statements: declaracions/:person_slug
+    political_groups: carrecs/grups-politics
+    post_tags: blogs/tags
+    posts: blogs/posts
+    statements: declaracions
     trips: viatges-i-desplacaments

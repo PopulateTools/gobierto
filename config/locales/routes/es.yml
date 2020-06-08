@@ -26,4 +26,11 @@ es:
     people_opposition: personas/oposicion
     person_events: agendas/:container_slug
     person_past_events: agendas/:container_slug/eventos-pasados
+    person_post_tags: blogs/:person_slug/tags
+    person_posts: blogs/:person_slug
+    person_statements: declaraciones/:person_slug
+    political_groups: personas/grupos-politicos
+    post_tags: blogs/tags
+    posts: blogs/posts
+    statements: declaraciones
     trips: viajes-y-desplazamientos

@@ -298,22 +298,6 @@ Rails.application.routes.draw do
     # Gobierto People module
     namespace :gobierto_people, path: "/" do
       constraints GobiertoSiteConstraint.new do
-        # Blogs
-        resources :person_posts, only: [:index], as: :posts, path: "blogs/posts"
-        resources :person_post_tags, only: [:show], as: :post_tags, path: "blogs/tags"
-
-        resources :people_person_post_tags, only: [:show], controller: "people/person_post_tags", as: :person_post_tags, path: "blogs/:person_slug/tags"
-        resources :people_person_posts, only: [:index, :show], controller: "people/person_posts", as: :person_posts, path: "blogs/:person_slug", param: :slug
-
-        # Statements
-        resources :person_statements, only: [:index], as: :statements, path: "declaraciones"
-        resources :people_person_statements, only: [:index, :show], controller: "people/person_statements", as: :person_statements, path: "declaraciones/:person_slug", param: :slug
-
-        # Political Groups
-        resources :political_group, only: [:show], path: "personas/grupos-politicos", param: :slug do
-          resources :people, only: [:index], controller: "political_groups/people", path: "/"
-        end
-
         localized do
           get "people_and_agendas", to: "welcome#index", as: :root
 
@@ -337,6 +321,22 @@ Rails.application.routes.draw do
           resources :government_party_people, only: [:index], path: :people_government
           resources :opposition_party_people, only: [:index], path: :people_opposition
           resources :executive_category_people, only: [:index], path: :people_managers
+
+          # Blogs
+          resources :person_posts, only: [:index], as: :posts, path: :posts
+          resources :person_post_tags, only: [:show], as: :post_tags, path: :post_tags
+
+          resources :people_person_post_tags, only: [:show], controller: "people/person_post_tags", as: :person_post_tags, path: :person_post_tags
+          resources :people_person_posts, only: [:index, :show], controller: "people/person_posts", as: :person_posts, path: :person_posts, param: :slug
+
+          # Statements
+          resources :person_statements, only: [:index], as: :statements, path: :statements
+          resources :people_person_statements, only: [:index, :show], controller: "people/person_statements", as: :person_statements, path: :person_statements, param: :slug
+
+          # Political Groups
+          resources :political_group, only: [:show], path: :political_groups, param: :slug do
+            resources :people, only: [:index], controller: "political_groups/people", path: "/"
+          end
 
           # Departments
           resources :departments, only: [:index, :show], path: :departments

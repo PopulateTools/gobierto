@@ -26,4 +26,11 @@ en:
     people_opposition: people/opposition
     person_events: agendas/:container_slug
     person_past_events: agendas/:container_slug/past-events
+    person_post_tags: blogs/:person_slug/tags
+    person_posts: blogs/:person_slug
+    person_statements: statements/:person_slug
+    political_groups: people/political-groups
+    post_tags: blogs/tags
+    posts: blogs/posts
+    statements: statements
     trips: trips

@@ -182,10 +182,23 @@
               <template v-for="item in customFields.rest">
                 <div class="description-list mb1">
                   <div class="description-title">{{ item.custom_field_name_translations | translate }}</div>
-                  <div class="description-desc" v-if="typeOf(item.value) === 'array'">
-                    <div v-for="value in item.value">{{ value }}</div>
-                  </div>
-                  <div class="description-desc" v-else>{{ item.value }}</div>
+
+                  <template v-if="item.custom_field_name_translations.ca === 'ODS' || item.custom_field_id === 'sdgs'">
+                    <div class="description-desc">
+                      <img :src="`/assets/images/ods/ods_goal_${item.external_id || '01'}_${'es'}.png`" :alt="item.value" />
+                    </div>
+                  </template>
+
+                  <template v-else-if="typeOf(item.value) === 'array'">
+                    <div class="description-desc">
+                      <div v-for="value in item.value">{{ value }}</div>
+                    </div>
+                  </template>
+
+                  <template v-else>
+                    <div class="description-desc">{{ item.value }}</div>
+                  </template>
+
                 </div>
               </template>
             </div>

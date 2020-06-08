@@ -365,8 +365,11 @@ Rails.application.routes.draw do
                 get "/" => "people/person_messages#new", as: :new
               end
             end
-            resource :google_calendar_calendars, only: [:edit, :update], controller: "people/google_calendar/calendars", as: :google_calendar_calendars
           end
+        end
+
+        resources :people, only: [], path: "personas", param: :slug do
+          resource :google_calendar_calendars, only: [:edit, :update], controller: "people/google_calendar/calendars", as: :google_calendar_calendars
         end
 
         # API

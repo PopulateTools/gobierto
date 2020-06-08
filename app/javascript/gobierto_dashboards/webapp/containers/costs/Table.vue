@@ -1,5 +1,5 @@
 <template>
-  <div v-if="items.length">
+  <div>
     <TableHeader />
     <!-- TODO: dynamic components -->
     <TableFirstLevel :items="data" />

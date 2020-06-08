@@ -3,13 +3,9 @@
     <div class="pure-g gutters m_b_1">
       <Header />
       <Distribution
-        v-if="costData"
         :data="costData"
       />
-      <Detail
-        :items="groupData"
-        :data="costData"
-      />
+      <Detail :data="costData" />
     </div>
   </main>
 </template>
@@ -27,8 +23,7 @@ export default {
   },
   data() {
     return {
-      costData: this.$root.$data.costData,
-      groupData: this.$root.$data.agrupacioData,
+      costData: this.$root.$data.costData
     }
   }
 }

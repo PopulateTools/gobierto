@@ -30,7 +30,7 @@
           <span>{{ ingressos | money }}</span>
         </td>
         <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage">
-          <span>{{ (respecte_ambit).toFixed(0) }} %</span>
+          <span>{{ respecte_ambit.toFixed(0) }} %</span>
         </td>
       </tr>
     </tbody>

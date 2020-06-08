@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  //FIX-ME
   const costsAppNode = document.getElementById("gobierto-dashboards-costs-app");
   if (costsAppNode) {
     new CostsController({

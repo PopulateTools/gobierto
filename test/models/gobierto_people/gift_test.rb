@@ -27,7 +27,7 @@ module GobiertoPeople
     end
 
     def test_to_url
-      assert_equal "http://#{site.domain}/personas/#{richard.slug}/obsequios-y-regalos/#{encyclopedia.id}", encyclopedia.to_url
+      assert_equal "http://#{site.domain}/en/people/#{richard.slug}/gifts/#{encyclopedia.id}", encyclopedia.to_url
     end
 
   end

@@ -41,7 +41,7 @@ module GobiertoPeople
     end
 
     def test_to_url
-      assert_equal "http://#{person.site.domain}/personas/#{person.slug}", person.to_url
+      assert_equal "http://#{person.site.domain}/en/people/#{person.slug}", person.to_url
     end
 
     def test_public?

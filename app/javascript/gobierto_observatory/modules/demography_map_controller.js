@@ -79,6 +79,8 @@ export class DemographyMapController {
         this.currentFilter = 'studies'; // options: 'studies' or 'origin'
         let ndxStudies = crossfilter(studiesData);
         let ndxOrigin = crossfilter(originData);
+        const spinnerMap = document.getElementById('gobierto_observatory-demography-map-app-container-spinner')
+        spinnerMap.classList.add('disable-spinner')
         let geojson = mapPolygonsData
         this.ndx = {
           filters: {

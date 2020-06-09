@@ -946,4 +946,44 @@
       background-color: #ccc;
     }
   }
+
+  #gobierto_observatory-demography-map-app-container-spinner {
+    position: absolute;
+    background-color: #fff;
+    z-index: 1000;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+
+    &.disable-spinner {
+      display: none;
+    }
+  }
+
+  #gobierto-observatory-demography-map-app-spinner {
+    pointer-events: none;
+    width: 2.5em;
+    height: 2.5em;
+    border: 0.4em solid transparent;
+    border-color: #eee;
+    border-top-color: #3e67ec;
+    border-radius: 50%;
+    animation: loadingSpinner 1s linear infinite;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+  }
+
+  @keyframes loadingSpinner {
+    100% {
+      transform: rotate(360deg)
+    }
+  }
 }

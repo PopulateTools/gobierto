@@ -520,6 +520,8 @@ export class DemographyMapController {
         that.chart2.group(that.ndx.groups.origin.byNationality);
         that.chart3.dimension(that.ndx.filters.origin.bySex);
         that.chart3.group(that.ndx.groups.origin.bySex);
+        that.chart4.dimension(that.ndx.filters.origin.byAge);
+        that.chart4.group(that.ndx.groups.origin.byAge);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
 
@@ -565,6 +567,8 @@ export class DemographyMapController {
         that.chart2.group(that.ndx.groups.origin.byNationality);
         that.chart3.dimension(that.ndx.filters.origin.bySex);
         that.chart3.group(that.ndx.groups.origin.bySex);
+        that.chart4.dimension(that.ndx.filters.origin.byAge);
+        that.chart4.group(that.ndx.groups.origin.byAge);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
 

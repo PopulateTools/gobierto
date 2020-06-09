@@ -29,7 +29,7 @@ module GobiertoCms
 
     translates :title, :body, :body_source
 
-    belongs_to :site
+    belongs_to :site, touch: true
     has_many :collection_items, as: :item
     has_many :process_stage_pages, class_name: "GobiertoParticipation::ProcessStagePage"
 
@@ -60,10 +60,6 @@ module GobiertoCms
         .where("collection_items.container_type = ?", container.class.name)
         .where("collection_items.container_id = ?", container.id)
     }
-
-    def section
-      GobiertoCms::SectionItem.find_by(item: self).try(:section)
-    end
 
     def attributes_for_slug
       [title]

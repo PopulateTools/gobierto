@@ -7,6 +7,7 @@
         icon="home"
         background="#fff"
         @click.native="resetQueryHandler"
+        @enabledInput="enabledInputQueries"
       />
     </div>
     <div class="gobierto-data-sql-editor-container">
@@ -65,21 +66,25 @@
       </transition>
     </div>
     <SavingDialog
-      ref="savingDialog"
+      ref="savingDialogQuery"
       :placeholder="labelQueryName"
       :value="queryName"
       :label-save="labelSave"
+      :label-saved="labelSaved"
+      :label-modified="labelModifiedQuery"
       :is-query-modified="isQueryModified"
       :is-query-saved="isQuerySaved"
-      :is-saving-prompt-visible="isSavingPromptVisible"
       :is-fork-prompt-visible="isForkPromptVisible"
       :is-user-logged="isUserLogged"
-      :enabled-saved-button="enabledSavedButton"
       :enabled-fork-button="enabledForkButton"
       :enabled-revert-button="enabledRevertButton"
+      :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
+      :enabled-query-saved-button="enabledQuerySavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
-      @save="onSaveEventHandler"
+      @save="saveHandlerSavedQuery"
+      @keyDownInput="updateQueryName"
+      @handlerFork="handlerForkQuery"
     />
 
     <Button
@@ -131,7 +136,7 @@ export default {
       type: Boolean,
       default: false
     },
-    isSavingPromptVisible: {
+    isQuerySavingPromptVisible: {
       type: Boolean,
       default: false
     },
@@ -147,7 +152,7 @@ export default {
       type: String,
       default: '',
     },
-    enabledSavedButton: {
+    enabledQuerySavedButton: {
       type: Boolean,
       default: false
     },
@@ -174,6 +179,10 @@ export default {
     isUserLogged: {
       type: Boolean,
       default: false
+    },
+    queryInputFocus: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -183,14 +192,26 @@ export default {
       labelRunQuery: I18n.t("gobierto_data.projects.runQuery") || "",
       labelResetQuery: I18n.t("gobierto_data.projects.resetQuery") || "",
       labelSave: I18n.t("gobierto_data.projects.save") || "",
+      labelSaved: I18n.t("gobierto_data.projects.savedQuery") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
-      labelButtonRecentQueries: I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
-      labelButtonRunQuery: I18n.t("gobierto_data.projects.buttonRunQuery") || "",
+      labelModifiedQuery: I18n.t("gobierto_data.projects.modifiedQuery") || "",
+      labelButtonRecentQueries:
+        I18n.t("gobierto_data.projects.buttonRecentQueries") || "",
+      labelButtonRunQuery:
+        I18n.t("gobierto_data.projects.buttonRunQuery") || "",
       removeLabelBtn: false,
       isQueriesModalActive: false,
-      isRecentModalActive: false
+      isRecentModalActive: false,
+      labelValue: this.queryName,
     };
+  },
+  watch: {
+    queryInputFocus(newValue) {
+      if (newValue) {
+        this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus())
+      }
+    }
   },
   created() {
     // it has to be the same event (keydown) as SQLEditorCode
@@ -227,11 +248,14 @@ export default {
     removeKeyboardListener() {
       document.removeEventListener("keydown", this.keyboardShortcutsListener);
     },
-    onSaveEventHandler(opts) {
-      const { name } = opts
-      // if there's some name, shrink the other buttons
-      this.removeLabelBtn = !!name
-
+    updateQueryName(value) {
+      const {
+        name: queryName
+      } = value;
+      this.labelValue = queryName
+      this.$root.$emit('enableSavedButton')
+    },
+    saveHandlerSavedQuery(opts) {
       // send the query to be stored
       this.$root.$emit("storeCurrentQuery", opts);
     },
@@ -257,6 +281,19 @@ export default {
       //Avoid errors when user goes to the same route
       // eslint-disable-next-line no-unused-vars
       ).catch(err => {})
+    },
+    enabledInputQueries() {
+      if (!this.enabledForkButton && this.isUserLogged) {
+        this.$root.$emit('eventToEnabledInputQueries')
+        this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus());
+      }
+    },
+    handlerForkQuery() {
+      this.$nextTick(() => {
+        this.$refs.savingDialogQuery.inputFocus()
+        this.$refs.savingDialogQuery.inputSelect()
+      });
+      this.$root.$emit('disabledForkButton')
     }
   },
 };

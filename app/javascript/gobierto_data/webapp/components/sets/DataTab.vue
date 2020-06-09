@@ -8,15 +8,16 @@
         :is-query-running="isQueryRunning"
         :is-query-modified="isQueryModified"
         :is-query-saved="isQuerySaved"
-        :is-saving-prompt-visible="isSavingPromptVisible"
         :is-fork-prompt-visible="isForkPromptVisible"
+        :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
         :query-name="queryName"
-        :enabled-saved-button="enabledSavedButton"
         :enabled-fork-button="enabledForkButton"
         :enabled-revert-button="enabledRevertButton"
+        :enabled-query-saved-button="enabledQuerySavedButton"
         :show-revert-query="showRevertQuery"
         :show-private="showPrivate"
         :is-user-logged="isUserLogged"
+        :query-input-focus="queryInputFocus"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"
@@ -29,11 +30,15 @@
         v-if="items.length"
         :array-formats="arrayFormats"
         :array-columns-query="arrayColumnsQuery"
-        :enabled-saved-button="enabledSavedButton"
-        :is-query-modified="isQueryModified"
+        :enabled-viz-saved-button="enabledVizSavedButton"
+        :is-viz-modified="isVizModified"
         :is-query-saved="isQuerySaved"
-        :is-saving-prompt-visible="isSavingPromptVisible"
+        :is-viz-saved="isVizSaved"
+        :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
         :items="items"
+        :is-user-logged="isUserLogged"
+        :query-stored="queryStored"
+        :viz-input-focus="vizInputFocus"
       />
     </div>
   </div>
@@ -88,7 +93,15 @@ export default {
       type: Boolean,
       default: false
     },
-    isSavingPromptVisible: {
+    isVizModified: {
+      type: Boolean,
+      default: false
+    },
+    isQuerySavingPromptVisible: {
+      type: Boolean,
+      default: false
+    },
+    isVizSavingPromptVisible: {
       type: Boolean,
       default: false
     },
@@ -112,7 +125,11 @@ export default {
       type: String,
       default: null
     },
-    enabledSavedButton: {
+    enabledQuerySavedButton: {
+      type: Boolean,
+      default: false
+    },
+    enabledVizSavedButton: {
       type: Boolean,
       default: false
     },
@@ -136,11 +153,23 @@ export default {
       type: Boolean,
       default: false
     },
+    isVizSaved: {
+      type: Boolean,
+      default: false
+    },
     tableName: {
       type: String,
       default: ''
     },
     isUserLogged: {
+      type: Boolean,
+      default: false
+    },
+    queryInputFocus: {
+      type: Boolean,
+      default: false
+    },
+    vizInputFocus: {
       type: Boolean,
       default: false
     }

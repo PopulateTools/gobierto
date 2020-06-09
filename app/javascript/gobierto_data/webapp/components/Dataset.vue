@@ -34,22 +34,28 @@
       :array-formats="arrayFormats"
       :array-columns-query="arrayColumnsQuery"
       :items="items"
+      :is-query-saved="isQuerySaved"
+      :is-viz-saved="isVizSaved"
+      :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
       :is-query-running="isQueryRunning"
       :is-query-modified="isQueryModified"
-      :is-query-saved="isQuerySaved"
-      :is-saving-prompt-visible="isSavingPromptVisible"
+      :is-viz-modified="isVizModified"
+      :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
       :is-fork-prompt-visible="isForkPromptVisible"
       :query-stored="currentQuery"
       :query-name="queryName"
       :query-duration="queryDuration"
       :query-error="queryError"
-      :enabled-saved-button="enabledSavedButton"
+      :enabled-query-saved-button="enabledQuerySavedButton"
+      :enabled-viz-saved-button="enabledVizSavedButton"
       :enabled-fork-button="enabledForkButton"
       :enabled-revert-button="enabledRevertButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       :table-name="tableName"
       :is-user-logged="isUserLogged"
+      :query-input-focus="queryInputFocus"
+      :viz-input-focus="vizInputFocus"
     />
 
     <QueriesTab
@@ -63,6 +69,17 @@
       v-else-if="activeDatasetTab === 3"
       :dataset-id="datasetId"
       :is-user-logged="isUserLogged"
+      :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
+      :is-viz-modified="isVizModified"
+      :is-viz-saved="isVizSaved"
+      :is-private-viz-loading="isPrivateVizLoading"
+      :is-public-viz-loading="isPublicVizLoading"
+      :public-visualizations="publicVisualizations"
+      :private-visualizations="privateVisualizations"
+      :enabled-viz-saved-button="enabledVizSavedButton"
+      :current-viz-tab="currentVizTab"
+      :enabled-fork-viz-button="enabledForkVizButton"
+      :viz-input-focus="vizInputFocus"
     />
 
     <DownloadsTab
@@ -80,7 +97,7 @@ import DataTab from "./sets/DataTab.vue";
 import QueriesTab from "./sets/QueriesTab.vue";
 import VisualizationsTab from "./sets/VisualizationsTab.vue";
 import DownloadsTab from "./sets/DownloadsTab.vue";
-import { getUserId } from "./../../lib/helpers";
+import { getUserId, convertToCSV } from "./../../lib/helpers";
 import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../lib/factories/queries";
 import { DataFactoryMixin } from "./../../lib/factories/data";
@@ -121,27 +138,40 @@ export default {
       publicQueries: [],
       recentQueries: [],
       resourcesList: [],
+      publicVisualizations: [],
+      privateVisualizations: [],
       arrayColumnsQuery: [],
       currentQuery: null,
+      currentVizTab: null,
       queryRevert: null,
       items: "",
+      isQuerySaved: false,
+      isVizSaved: false,
+      isQuerySavingPromptVisible: false,
       isQueryRunning: false,
       isQueryModified: false,
-      isQuerySaved: false,
-      isSavingPromptVisible: false,
       isForkPromptVisible: true,
+      isVizModified: false,
+      isVizSavingPromptVisible: false,
       showPrivate: false,
       tableName: '',
       resetQueryDefault: false,
       revertQuerySaved: false,
-      enabledSavedButton: false,
+      enabledQuerySavedButton: false,
+      enabledVizSavedButton: false,
       enabledRevertButton: false,
       showRevertQuery: false,
       queryName: null,
       queryDuration: 0,
       queryError: null,
       isUserLogged: false,
-      enabledForkButton: false
+      enabledForkButton: false,
+      enabledForkVizButton: false,
+      isPrivateVizLoading : false,
+      queryInputFocus : false,
+      isPublicVizLoading: false,
+      vizName: null,
+      vizInputFocus: false
     };
   },
   computed: {
@@ -167,6 +197,12 @@ export default {
         this.queryIsNotMine()
         this.disabledSavedButton()
         this.disabledRevertButton()
+      }
+
+      if (to.name === 'Dataset') {
+        this.currentVizTab = 0
+      } else if (to.name === 'Visualization') {
+        this.currentVizTab = 1
       }
 
       //FIXME: Hugo, we need to talk about this hack
@@ -247,9 +283,14 @@ export default {
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
 
+    // Get all visualizations
+    await this.getPrivateVisualizations();
+    await this.getPublicVisualizations();
+
     this.queryIsNotMine();
     this.runCurrentQuery();
     this.setDefaultQuery();
+    this.checkIfUserIsLogged();
 
   },
   mounted() {
@@ -270,26 +311,46 @@ export default {
     this.$root.$on("storeCurrentVisualization", this.storeCurrentVisualization);
     // Reset to the default query
     this.$root.$on('resetQuery', this.resetQuery)
-    //reset to the saved query
+    // reset to the saved query
     this.$root.$on('revertSavedQuery', this.revertSavedQuery)
-
+    // activate button to saved a query
     this.$root.$on('enableSavedButton', this.activatedSavedButton)
-
+    // reset query flow to initial state
     this.$root.$on('resetToInitialState', this.resetToInitialState)
-
+    // disabled saved button
     this.$root.$on('disabledSavedButton', this.disabledSavedButton)
     //Show a message for the user, your query is saved
     this.$root.$on('disabledStringSavedQuery', this.disabledStringSavedQuery)
-
-    this.$root.$on('isSavingPromptVisible', this.isSavingPromptVisibleHandler)
-
+    // enabled button to saved a viz
+    this.$root.$on('enableSavedVizButton', this.activatedSavedVizButton)
+    //if user is logged show a prompt to saved a query
+    this.$root.$on('isQuerySavingPromptVisible', this.isQuerySavingPromptVisibleHandler)
+    //if user is logged show a prompt to saved a visualization
+    this.$root.$on('isVizSavingPromptVisible', this.isVizSavingPromptVisibleHandler)
+    //When user save a vizusliation show a string
+    this.$root.$on('disabledSavedVizString', this.disabledSavedVizString)
+    //Show a string when the vis is modified
+    this.$root.$on('isVizModified', this.eventIsVizModified)
+    //Check if the query is ours if it isn't ours show a button to fork
     this.$root.$on('disabledForkButton', this.disabledForkButton)
-
     this.$root.$on('enabledForkPrompt', this.enabledForkPrompt)
-
+    //If load a query from the other user show a button to revert the code of the editor
     this.$root.$on('enabledRevertButton', this.activatedRevertButton)
-
     this.$root.$on('disabledRevertButton', this.disabledRevertButton)
+    //Show the name of the visualization
+    this.$root.$on('loadVizName', this.setVizName)
+    //Reload a list of private and public visualizations
+    this.$root.$on('reloadVisualizations', this.reloadVisualizations)
+    //Check if the visualization is ours if it isn't ours show a button to fork
+    this.$root.$on('enabledForkVizButton', this.activateForkVizButton)
+    //Update the name of Visualization
+    this.$root.$on('updateVizName', this.eventToUpdateVizName)
+    //Enable input to write a name for query
+    this.$root.$emit('eventToEnabledInputQueries', this.eventToEnabledInputQueries)
+    //Reset visualization flow
+    this.$root.$emit('resetVizEvent', this.resetVizEvent)
+    //Show saving dialog visualization
+    this.$root.$emit('showSavingDialogEvent', this.showSavingDialogEvent)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -303,13 +364,30 @@ export default {
     this.$root.$off('resetToInitialState')
     this.$root.$off('disabledSavedButton')
     this.$root.$off('disabledStringSavedQuery')
-    this.$root.$off('isSavingPromptVisible')
     this.$root.$off('disabledForkButton')
     this.$root.$off('enabledForkPrompt')
     this.$root.$off('enabledRevertButton')
     this.$root.$off('disabledRevertButton')
+    this.$root.$off('isQuerySavingPromptVisible')
+    this.$root.$off('eventToEnabledInputQueries')
+
+    this.$root.$off('isVizSavingPromptVisible')
+    this.$root.$off('enableSavedVizButton')
+    this.$root.$off('disabledSavedVizString')
+    this.$root.$off('isVizModified')
+    this.$root.$off('loadVizName')
+    this.$root.$off('updateVizName')
+    this.$root.$off('reloadVisualizations')
+    this.$root.$off('enabledForkVizButton')
+    this.$root.$off('resetVizEvent')
+    this.$root.$off('showSavingDialogEvent')
   },
   methods: {
+    checkIfUserIsLogged() {
+      if (this.isUserLogged) {
+        this.isVizSavingPromptVisible = true
+      }
+    },
     parseUrl({ queryId, sql }) {
       let item = null;
       if (queryId) {
@@ -356,6 +434,76 @@ export default {
         this.publicQueries.some(({ attributes: { sql } }) => sql === query) ||
         this.privateQueries.some(({ attributes: { sql } }) => sql === query)
       );
+    },
+    async getPublicVisualizations() {
+      this.isPublicVizLoading = true
+
+
+      const { data: response } = await this.getVisualizations({
+        "filter[dataset_id]": this.datasetId
+      });
+      const { data } = response;
+
+      if (data.length) {
+        this.publicVisualizations = await this.getDataFromVisualizations(data);
+      }
+
+      this.isPublicVizLoading = false
+    },
+    async getPrivateVisualizations() {
+      const userId = getUserId()
+      this.isPrivateVizLoading = true
+
+      if (userId) {
+        const { data: response } = await this.getVisualizations({
+          "filter[dataset_id]": this.datasetId,
+          "filter[user_id]": userId
+        });
+        const { data } = response;
+
+        if (data.length) {
+          this.privateVisualizations = await this.getDataFromVisualizations(
+            data
+          );
+        }
+      }
+
+      this.isPrivateVizLoading = false
+    },
+    async getDataFromVisualizations(data) {
+      const visualizations = [];
+      for (let index = 0; index < data.length; index++) {
+        const { attributes = {}, id } = data[index];
+        const { query_id, user_id, sql = "", spec = {}, name = "", privacy_status = "open" } = attributes;
+
+        let queryData = null;
+
+        if (query_id) {
+          // Get my queries, if they're stored
+          const { data } = await this.getQuery(query_id);
+          queryData = data;
+        } else {
+          // Otherwise, run the sql
+          const { sql } = attributes;
+          const { data } = await this.getData({ sql });
+          queryData = data;
+        }
+
+        let items = ''
+        if (typeof(queryData) === 'object') {
+          items = convertToCSV(queryData.data)
+        } else {
+          items = queryData
+        }
+
+        // Append the visualization configuration
+        const visualization = { items, config: spec, name, privacy_status, query_id, id, user_id, sql };
+
+        visualizations.push(visualization);
+
+      }
+
+      return visualizations;
     },
     setCurrentQuery(sql) {
       // trigger the modified label:
@@ -422,6 +570,17 @@ export default {
     },
     async storeCurrentQuery({ name, privacy }) {
 
+      const {
+        params: { queryId }
+      } = this.$route;
+
+      if (!queryId && !this.isQuerySavingPromptVisible) {
+        this.isQuerySavingPromptVisible = true
+        this.queryInputFocus = true
+      } else if (!this.labelValue) {
+        this.queryInputFocus = true
+      }
+
       const data = {
         type: "gobierto_data-queries",
         attributes: {
@@ -454,6 +613,9 @@ export default {
         this.isQueryModified = false;
         //Show a message for the user, your query is saved
         this.isQuerySaved = true;
+        this.enabledQuerySavedButton = false
+        this.isQueryModified = false
+        this.isQuerySavingPromptVisible = false
 
         this.setPublicQueries(await this.getPublicQueries());
         this.setPrivateQueries(await this.getPrivateQueries());
@@ -465,7 +627,12 @@ export default {
       // save the query executed
       this.storeRecentQuery();
 
-      const params = { sql: this.currentQuery };
+      let params = { sql: this.currentQuery };
+
+      if (this.currentQuery === null) {
+        this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
+        params = { sql: this.currentQuery };
+      }
       //
       const startTime = new Date().getTime();
       // factory method
@@ -491,11 +658,35 @@ export default {
         const { sql: stringError } = sqlError
         this.queryError = stringError
         this.isQueryRunning = false;
+        this.enabledQuerySavedButton = false
       }
     },
     async storeCurrentVisualization(config, opts) {
 
-      const { name, privacy } = opts;
+      if (!this.isVizSavingPromptVisible) {
+        this.isVizSavingPromptVisible = true
+        this.vizInputFocus = true
+      } else if (!this.vizName) {
+        this.vizInputFocus = true
+      }
+
+      const { name, privacy, vizID, user, queryViz } = opts;
+
+      const userId = Number(getUserId());
+
+      // Get the id if the query matches with a stored query
+      const { id } =
+        this.privateQueries.find(
+          ({ attributes: { sql } }) => sql === this.currentQuery
+        ) || {};
+
+      let currentQueryViz;
+
+      if (user !== userId) {
+        currentQueryViz = !queryViz ? this.currentQuery : queryViz
+      } else {
+        currentQueryViz = this.currentQuery
+      }
 
       // default attributes
       let attributes = {
@@ -507,21 +698,9 @@ export default {
         spec: config,
         user_id: this.userId,
         dataset_id: this.datasetId,
+        query_id: id,
+        sql: currentQueryViz
       };
-
-      // Get the id if the query matches with a stored query
-      const { id } =
-        this.privateQueries.find(
-          ({ attributes: { sql } }) => sql === this.currentQuery
-        ) || {};
-
-      // Depending whether the query was stored in database or not,
-      // we must save the query_id or the query, instead
-      if (id) {
-        attributes = { ...attributes, query_id: id };
-      } else {
-        attributes = { ...attributes, sql: this.currentQuery };
-      }
 
       // POST data obj
       const data = {
@@ -529,10 +708,26 @@ export default {
         attributes,
       };
 
-      // factory method
-      const { status } = await this.postVisualization({ data });
-      // TODO: indicar algo con el status OK
-      console.log("postVisualization", status);
+      let status = null
+
+      if (name === this.vizName && user === userId) {
+        // factory method
+        ({ status } = await this.putVisualization(vizID, { data }));
+      } else {
+        // factory method
+        ({ status } = await this.postVisualization({ data }));
+      }
+
+      if ([200, 201].includes(status)) {
+        this.isVizModified = false
+        this.isVizSaved = true
+        this.isVizSavingPromptVisible = false
+        this.enabledVizSavedButton = false
+        this.vizName = null
+
+        await this.getPrivateVisualizations()
+        await this.getPublicVisualizations()
+      }
     },
     getColumnsQuery(csv = '') {
       const [ columns = '' ] = csv.split("\n");
@@ -541,7 +736,7 @@ export default {
     resetQuery(value) {
       this.resetQueryDefault = value
       if (value === true) {
-        this.isSavingPromptVisible = false
+        this.isQuerySavingPromptVisible = false
         this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
         this.isQueryModified = false
         this.runCurrentQuery()
@@ -553,7 +748,7 @@ export default {
     revertSavedQuery(value) {
       this.revertQuerySaved = value
       if (value === true) {
-        this.isSavingPromptVisible = false
+        this.isQuerySavingPromptVisible = false
         this.currentQuery = this.queryRevert
         this.isQueryModified = false
         this.runCurrentQuery()
@@ -563,7 +758,7 @@ export default {
       }
     },
     activatedSavedButton() {
-      this.enabledSavedButton = true
+      this.enabledQuerySavedButton = true
       this.isQueryModified = true
       const {
         name: name
@@ -575,7 +770,7 @@ export default {
 
     },
     disabledSavedButton() {
-      this.enabledSavedButton = false
+      this.enabledQuerySavedButton = false
     },
     resetToInitialState() {
       this.isQueryModified = false
@@ -623,6 +818,49 @@ export default {
     },
     activatedRevertButton() {
       this.enabledRevertButton = true
+    },
+    disabledSavedVizString() {
+      this.isVizSaved = false
+    },
+    isQuerySavingPromptVisibleHandler(value) {
+      this.isQuerySavingPromptVisible = value
+    },
+    activatedSavedVizButton(value){
+      this.enabledVizSavedButton = value
+    },
+    isVizSavingPromptVisibleHandler(value) {
+      this.isVizSavingPromptVisible = value
+    },
+    eventIsVizModified(value) {
+      this.isVizModified = value
+    },
+    setVizName(vizName) {
+      this.vizName = vizName
+    },
+    reloadVisualizations() {
+      this.getPrivateVisualizations()
+      this.getPublicVisualizations()
+    },
+    activateForkVizButton(value) {
+      this.enabledForkVizButton = value
+    },
+    eventToUpdateVizName() {
+      this.isVizModified = true
+      this.enabledVizSavedButton = true
+      this.isVizSaved = false
+    },
+    eventToEnabledInputQueries() {
+      this.activatedSavedButton()
+      this.isForkPromptVisible = true
+      this.enabledRevertButton = false
+    },
+    resetVizEvent() {
+      this.enabledVizSavedButton = true
+      this.isVizSaved = false
+    },
+    showSavingDialogEvent() {
+      this.enabledVizSavedButton = true
+      this.isVizModified = true
     }
   },
 };

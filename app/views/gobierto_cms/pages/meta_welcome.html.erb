@@ -1,0 +1,6 @@
+<% cache(["gobierto_cms/pages/meta_welcome", current_site, I18n.locale]) do %>
+  <% title(@page.title) %>
+  <% description(truncate(strip_tags(@page.body), length: 100)) %>
+
+  <%= render @page.template %>
+<% end %>

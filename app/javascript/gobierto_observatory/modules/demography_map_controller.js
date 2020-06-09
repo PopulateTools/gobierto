@@ -9,9 +9,9 @@ import crossfilter from 'crossfilter2'
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
 import * as L from 'leaflet';
 import * as dc_leaflet from 'dc.leaflet';
-import "leaflet/dist/leaflet.css";
 import pairedRow from 'dc-addons-paired-row'
 import stackedVertical from './charts/stacked_vertical'
+import "leaflet/dist/leaflet.css";
 
 const d3 = { csv, max, min, schemeCategory10, select, selectAll, format, formatDefaultLocale, sum, axisBottom, extent, scaleLinear }
 

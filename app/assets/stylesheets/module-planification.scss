@@ -587,4 +587,35 @@ $nodeLevel1HeightMobile: 20vh;
       padding: 2em 3em;
     }
   }
+
+  // https://stackoverflow.com/questions/20120342/how-can-i-zerofill-the-index-of-a-sass-for-loop
+  @function zerofill($i) { @return #{str-slice("00", 0, 2 - str-length(#{$i}))}#{$i}; }
+  
+  // ODS icons
+  .ods-goal-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -5px;
+  }
+
+  .ods-goal-content {
+    padding: 5px;
+    display: inline-flex;
+  }
+
+  .ods-goal {
+    background-size: cover;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+  }
+
+  @for $num from 1 through 17 {
+    @each $lang in (ca es) {
+      $num: zerofill($num);
+      .ods-goal__#{$num}__#{$lang} {
+        background-image: url(asset_path('ods/ods_goal_' + $num + '_' + $lang + '.png' ));
+      }
+    }
+  }
 }

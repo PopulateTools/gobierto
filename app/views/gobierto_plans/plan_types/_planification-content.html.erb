@@ -183,9 +183,13 @@
                 <div class="description-list mb1">
                   <div class="description-title">{{ item.custom_field_name_translations | translate }}</div>
 
-                  <template v-if="item.custom_field_name_translations.ca === 'ODS' || item.custom_field_id === 'sdgs'">
+                  <template v-if="item.custom_field_id === 'sdgs'">
                     <div class="description-desc">
-                      <img :src="`/assets/images/ods/ods_goal_${item.external_id || '01'}_${'es'}.png`" :alt="item.value" />
+                      <div class="ods-goal-container">
+                        <div class="ods-goal-content" v-for="id in item.external_id">
+                          <div :class="`ods-goal ods-goal__${id}__${item.locale}`"></div>
+                        </div>
+                      </div>
                     </div>
                   </template>
 

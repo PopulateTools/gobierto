@@ -23,6 +23,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
   };
 
   function _loadPlan() {
+    // TODO: sacar de aquí y usar los compartidos (lib/shared)
     // filters
     Vue.filter("translate", function(key) {
       if (!key) return;
@@ -41,7 +42,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
     // define the node root component
     Vue.component("node-root", {
-      template: "#node-root-template",
       props: ["model"],
       data: function() {
         return {};
@@ -57,12 +57,12 @@ window.GobiertoPlans.PlanTypesController = (function() {
           this.$emit("selection", { ...this.model });
           this.$emit("open-menu-mobile");
         }
-      }
+      },
+      template: "#node-root-template"
     });
 
     // define the node list component
     Vue.component("node-list", {
-      template: "#node-list-template",
       props: ["model", "level"],
       data: function() {
         return {
@@ -97,12 +97,12 @@ window.GobiertoPlans.PlanTypesController = (function() {
           var key = this.level["level" + (level + 1)];
           return number_of_elements == 1 ? key["one"] : key["other"];
         }
-      }
+      },
+      template: "#node-list-template"
     });
 
     // define the table view component
     Vue.component("table-view", {
-      template: "#table-view-template",
       props: ["model", "header", "open"],
       data: function() {
         return {};
@@ -128,13 +128,14 @@ window.GobiertoPlans.PlanTypesController = (function() {
             }
           }
         }
-      }
+      },
+      template: "#table-view-template"
     });
 
     // main object
     new Vue({
       el: "#gobierto-planification",
-      name: "gobierto-planification",
+      name: "GobiertoPlanification",
       data: {
         json: {},
         levelKeys: {},
@@ -148,27 +149,6 @@ window.GobiertoPlans.PlanTypesController = (function() {
         readMoreButton: true,
         customFields: {},
         openMenu: true
-      },
-      created: function() {
-        this.getJson();
-
-        let vm = this;
-        function locationHashChanged() {
-          vm.getPermalink(window.location.hash.substring(1));
-        }
-
-        window.onhashchange = locationHashChanged;
-      },
-      watch: {
-        activeNode: {
-          handler: function(node) {
-            // update hash when a new node is active
-            this.setPermalink();
-
-            this.isOpen(node.level);
-          },
-          deep: true
-        }
       },
       computed: {
         computedProgress() {
@@ -188,6 +168,27 @@ window.GobiertoPlans.PlanTypesController = (function() {
             )
           );
         }
+      },
+      watch: {
+        activeNode: {
+          handler: function(node) {
+            // update hash when a new node is active
+            this.setPermalink();
+
+            this.isOpen(node.level);
+          },
+          deep: true
+        }
+      },
+      created: function() {
+        this.getJson();
+
+        let vm = this;
+        function locationHashChanged() {
+          vm.getPermalink(window.location.hash.substring(1));
+        }
+
+        window.onhashchange = locationHashChanged;
       },
       methods: {
         getJson: function() {
@@ -306,8 +307,11 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
           this.activeNode = this.getParent(breakpoint);
         },
+        resetParent() {
+          this.activeNode = {}
+        },
         setPermalink: function() {
-          window.location.hash = this.activeNode.uid;
+          window.location.hash = this.activeNode ? this.activeNode.uid : '';
         },
         getPermalink: function(hash, forcedNode = null) {
           let found = this.searchByUid(hash, this.json);

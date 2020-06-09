@@ -22,14 +22,21 @@
 
       <div><%= t("gobierto_plans.plan_types.show.percentage_progress") %></div>
     </div>
-    <% end %> <% if level_index > 1 %>
+    <% end %>
+    
+    <% if level_index > 1 %>
     <div class="node-breadcrumb mb2">
+      <a data-turbolinks="false" @click.stop="resetParent">
+        <%= t("gobierto_plans.plan_types.show.starts") %>
+      </a>
       <a data-turbolinks="false" @click.stop="setParent">
-        <i class="fas fa-caret-left"></i>
-        <%= t("gobierto_plans.plan_types.show.see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
+        <i class="fas fa-caret-right"></i>
+        {{ (getParent().attributes || {}).title | translate }}
       </a>
     </div>
-    <% end %> <% if level_index == @levels %>
+    <% end %>
+    
+    <% if level_index == @levels %>
     <div class="node-action-line">
       <div class="action-line--header node-list cat--negative">
         <div class="node-title">
@@ -72,13 +79,18 @@
     </ul>
     <% end %>
   </section>
-  <% end %> <% if @levels == 2 %>
+  <% end %>
+  
+  <% if @levels == 2 %>
   <!-- Acts level -->
   <section class="level_2" v-if="isOpen(2)" :class="['cat_' + color() ]">
     <div class="node-breadcrumb mb2">
+      <a data-turbolinks="false" @click.stop="resetParent">
+        <%= t("gobierto_plans.plan_types.show.starts") %>
+      </a>
       <a data-turbolinks="false" @click.stop="setParent">
-        <i class="fas fa-caret-left"></i>
-        <%= t("gobierto_plans.plan_types.show.see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
+        <i class="fas fa-caret-right"></i>
+        {{ (getParent().attributes || {}).title | translate }}
       </a>
     </div>
 
@@ -116,17 +128,19 @@
 
   <!-- Projects level -->
   <section class="level_<%= @levels + 1 %>" v-if="isOpen(<%= @levels + 1 %>)" :class="['cat_' + color() ]">
-    <template v-for="level in (activeNode.level - 1)">
-      <div class="node-breadcrumb" :style="{ marginLeft: (level - 1) + 'em', marginBottom: '0.5em' }">
+    <div class="node-breadcrumb mb2">
+      <a data-turbolinks="false" @click.stop="resetParent">
+        <%= t("gobierto_plans.plan_types.show.starts") %>
+      </a>
+      <template v-for="level in (activeNode.level - 1)">
         <a data-turbolinks="false" @click.stop="setParent(level)">
-          <i class="fas fa-caret-left"></i>
+          <i class="fas fa-caret-right"></i>
           {{ (getParent(level).attributes || {}).title | translate }}
         </a>
-      </div>
-      <br />
-    </template>
+      </template>
+    </div>
 
-    <div class="node-action-line" :style="{ marginLeft: activeNode.level + 'em' }">
+    <div class="node-action-line">
       <div class="action-line--header node-list cat--negative">
         <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
       </div>

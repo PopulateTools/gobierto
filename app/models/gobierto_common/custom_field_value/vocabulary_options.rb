@@ -15,6 +15,10 @@ module GobiertoCommon::CustomFieldValue
       end
     end
 
+    def external_id
+      value.map(&:external_id).compact.join(",")
+    end
+
     def filter_value
       raw_value.to_s
     end

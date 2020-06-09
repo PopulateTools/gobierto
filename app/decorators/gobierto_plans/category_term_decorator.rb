@@ -169,8 +169,10 @@ module GobiertoPlans
         {
           value: value_string,
           raw_value: record.raw_value,
+          external_id: record.external_id,
           custom_field_name_translations: record.custom_field.name_translations,
-          custom_field_field_type: record.custom_field.field_type
+          custom_field_field_type: record.custom_field.field_type,
+          custom_field_id: record.custom_field.uid
         }
       end.compact
     end

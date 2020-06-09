@@ -2,25 +2,26 @@
   <main class="gobierto-dashboards">
     <div class="pure-g block header_block_inline m_b_1">
       <div class="pure-u-1 pure-u-md-12-24">
-        <h2 class="pure-u-1 gobierto-dashboards-title gobierto-dashboards-title-select">
-          {{ labelTittle }}
-        </h2>
-        <select
-          v-model="yearFiltered"
-          name="educationOption"
-          class="form-control gobierto-dashboards-select"
-          @change="onChangeFilterYear"
-        >
-          <option
-            v-for="year in years"
-            :key="year"
-            :value="year"
-            :index="year"
-            class="gobierto-dashboards-select-option"
+        <div class="gobierto-dashboards-container-title">
+          <h2 class="pure-u-1 gobierto-dashboards-title gobierto-dashboards-title-select">
+            {{ labelTittle }}
+          </h2>
+          <select
+            v-model="yearFiltered"
+            class="form-control gobierto-dashboards-select"
+            @change="onChangeFilterYear"
           >
-            {{ year }}
-          </option>
-        </select>
+            <option
+              v-for="year in years"
+              :key="year"
+              :value="year"
+              :index="year"
+              class="gobierto-dashboards-select-option"
+            >
+              {{ year }}
+            </option>
+          </select>
+        </div>
         <p class="gobierto-dashboards-description">
           {{ labelDescription }}
         </p>
@@ -50,8 +51,9 @@ export default {
     return {
       costData: this.$root.$data.costData,
       groupData: this.$root.$data.groupData,
+      getSiteName: document.querySelector('[data-site-name]').getAttribute('data-site-name'),
       labelTittle: I18n.t("gobierto_dashboards.dashboards.costs.title") || "",
-      labelDescription: I18n.t("gobierto_dashboards.dashboards.costs.description") || "",
+      labelDescription: '',
       yearFiltered: "2018",
       years: ['2018', '2019'],
       costDataFilter: [],
@@ -59,13 +61,16 @@ export default {
     }
   },
   created() {
+    this.labelDescription = I18n.t("gobierto_dashboards.dashboards.costs.description", { entity_name: this.getSiteName }) || "";
     const {
       params: {
         year: year
       }
     } = this.$route
-    const yearFiltered = year
+    let yearFiltered = year
+    if (!year) yearFiltered = '2018'
     this.yearFiltered = yearFiltered
+
     this.costDataFilter = this.costData.filter(element => element.year === yearFiltered)
     this.groupDataFilter = this.groupData.filter(element => element.year === yearFiltered)
   },

@@ -32,7 +32,7 @@ export class CostsController {
           mode: "history",
           routes: [
             {
-              path: "/dashboards/costes/:year?",
+              path: "/dashboards/costes/",
               name: 'Home',
               component: Home,
               children: [
@@ -57,12 +57,10 @@ export class CostsController {
           scrollBehavior(to) {
             let element
             //Get a different position scroll
-            if (to.name === 'Home' || to.name === 'TableFirstLevel') {
-              element = document.getElementById(selector);
-            } else {
+            if (to.name !== 'TableFirstLevel') {
               element = document.getElementById('gobierto-dashboards-title-detail');
+              window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
             }
-            window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
           }
         });
 

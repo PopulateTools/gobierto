@@ -369,9 +369,14 @@
   }
 
   &-table-header--nav {
-    width: 28%;
-    min-width: 28%;
+    width: 100%;
+    min-width: 100%;
     color: var(--color-base);
+
+    @include min-screen(768) {
+      width: 28%;
+      min-width: 28%;
+    }
 
     p {
       color: var(--color-base);
@@ -379,11 +384,15 @@
   }
 
   &-table--header--thead {
-    align-items: baseline;
+    align-items: flex-end;
 
     .gobierto-dashboards-table-header--elements {
-      padding: 2rem 1.5rem .75rem .25rem;
+      padding: .25rem;
       position: relative;
+
+      @include min-screen(768) {
+        padding: 2rem 1.5rem .75rem .25rem;
+      }
     }
 
     .gobierto-dashboards-table-color-direct {
@@ -403,7 +412,11 @@
       background-color: rgba(var(--color-base-string), .4);
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
-      padding-top: 3rem;
+      padding-top: 0;
+
+      @include min-screen(768) {
+        padding-top: 3rem;
+      }
     }
 
     .gobierto-dashboards-table-color-income {
@@ -423,9 +436,13 @@
   }
 
   &-table-header--elements {
-    width: 12%;
+    width: 16.3%;
     box-sizing: border-box;
     text-align: right;
+
+    @include min-screen(768) {
+      width: 12%;
+    }
 
     i {
       display: inline-block;
@@ -433,7 +450,11 @@
     }
 
     span {
-      font-size: 1rem;
+      font-size: 12px;
+
+      @include min-screen(768) {
+        font-size: 1rem;
+      }
     }
   }
 
@@ -742,5 +763,16 @@
   &-select-option {
     height: auto;
     padding: 0;
+  }
+
+  &-container-title {
+    margin-bottom: 1rem;
+    display: inline-block;
+    vertical-align: middle;
+
+    .gobierto-dashboards-title-select {
+      margin: 0 !important;
+      margin-right: .25rem;
+    }
   }
 }

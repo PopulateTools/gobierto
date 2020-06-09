@@ -298,71 +298,77 @@ Rails.application.routes.draw do
     # Gobierto People module
     namespace :gobierto_people, path: "/" do
       constraints GobiertoSiteConstraint.new do
-        get "cargos-y-agendas" => "welcome#index", as: :root
+        localized do
+          get "people_and_agendas", to: "welcome#index", as: :root
 
-        # Agendas
-        resources :person_events, only: [:index], as: :events, path: "agendas"
-        resources :government_party_person_events, only: [:index], as: :government_party_events, path: "agendas/gobierno"
-        resources :opposition_party_person_events, only: [:index], as: :opposition_party_events, path: "agendas/oposicion"
-        resources :executive_category_person_events, only: [:index], as: :executive_category_events, path: "agendas/directivos"
+          # Agendas
+          resources :person_events, only: [:index], as: :events, path: "agendas"
+          resources :government_party_person_events, only: [:index], as: :government_party_events, path: "agendas/gobierno"
+          resources :opposition_party_person_events, only: [:index], as: :opposition_party_events, path: "agendas/oposicion"
+          resources :executive_category_person_events, only: [:index], as: :executive_category_events, path: "agendas/directivos"
 
-        resources :past_person_events, only: [:index], as: :past_events, path: "agendas/eventos-pasados"
-        resources :government_party_past_person_events, only: [:index], as: :government_party_past_events, path: "agendas/gobierno/eventos-pasados"
-        resources :opposition_party_past_person_events, only: [:index], as: :opposition_party_past_events, path: "agendas/oposicion/eventos-pasados"
-        resources :executive_category_past_person_events, only: [:index], as: :executive_category_past_events, path: "agendas/directivos/eventos-pasados"
+          resources :past_person_events, only: [:index], as: :past_events, path: "agendas/eventos-pasados"
+          resources :government_party_past_person_events, only: [:index], as: :government_party_past_events, path: "agendas/gobierno/eventos-pasados"
+          resources :opposition_party_past_person_events, only: [:index], as: :opposition_party_past_events, path: "agendas/oposicion/eventos-pasados"
+          resources :executive_category_past_person_events, only: [:index], as: :executive_category_past_events, path: "agendas/directivos/eventos-pasados"
 
-        resources :people_past_person_events, only: [:index], controller: "people/past_person_events", as: :person_past_events, path: "agendas/:container_slug/eventos-pasados"
-        resources :people_person_events, only: [:index, :show], controller: "people/person_events", as: :person_events, path: "agendas/:container_slug", param: :slug
+          resources :people_past_person_events, only: [:index], controller: "people/past_person_events", as: :person_past_events, path: "agendas/:container_slug/eventos-pasados"
+          resources :people_person_events, only: [:index, :show], controller: "people/person_events", as: :person_events, path: "agendas/:container_slug", param: :slug
 
-        # Blogs
-        resources :person_posts, only: [:index], as: :posts, path: "blogs/posts"
-        resources :person_post_tags, only: [:show], as: :post_tags, path: "blogs/tags"
+          # Officials
+          resources :people, only: [:index], path: :people
 
-        resources :people_person_post_tags, only: [:show], controller: "people/person_post_tags", as: :person_post_tags, path: "blogs/:person_slug/tags"
-        resources :people_person_posts, only: [:index, :show], controller: "people/person_posts", as: :person_posts, path: "blogs/:person_slug", param: :slug
+          resources :government_party_people, only: [:index], path: :people_government
+          resources :opposition_party_people, only: [:index], path: :people_opposition
+          resources :executive_category_people, only: [:index], path: :people_managers
 
-        # Statements
-        resources :person_statements, only: [:index], as: :statements, path: "declaraciones"
-        resources :people_person_statements, only: [:index, :show], controller: "people/person_statements", as: :person_statements, path: "declaraciones/:person_slug", param: :slug
+          # Blogs
+          resources :person_posts, only: [:index], as: :posts, path: :posts
+          resources :person_post_tags, only: [:show], as: :post_tags, path: :post_tags
 
-        # Officials
-        resources :people, only: [:index], path: "personas"
-        resources :government_party_people, only: [:index], path: "personas/gobierno"
-        resources :opposition_party_people, only: [:index], path: "personas/oposicion"
-        resources :executive_category_people, only: [:index], path: "personas/directivos"
+          resources :people_person_post_tags, only: [:show], controller: "people/person_post_tags", as: :person_post_tags, path: :person_post_tags
+          resources :people_person_posts, only: [:index, :show], controller: "people/person_posts", as: :person_posts, path: :person_posts, param: :slug
 
-        # Political Groups
-        resources :political_group, only: [:show], path: "personas/grupos-politicos", param: :slug do
-          resources :people, only: [:index], controller: "political_groups/people", path: "/"
-        end
+          # Statements
+          resources :person_statements, only: [:index], as: :statements, path: :statements
+          resources :people_person_statements, only: [:index, :show], controller: "people/person_statements", as: :person_statements, path: :person_statements, param: :slug
 
-        # Departments
-        resources :departments, only: [:index, :show], path: "departamentos"
-        resources :department_people, only: [:index], controller: "departments/people", path: "/personas/departamentos/:department_slug"
+          # Political Groups
+          resources :political_group, only: [:show], path: :political_groups, param: :slug do
+            resources :people, only: [:index], controller: "political_groups/people", path: "/"
+          end
 
-        # Interest groups
-        resources :interest_groups, only: [:index, :show], path: "grupos-de-interes"
+          # Departments
+          resources :departments, only: [:index, :show], path: :departments
+          resources :department_people, only: [:index], controller: "departments/people", path: :department_people
 
-        # Gifts
-        resources :person_gifts, only: [:index], as: :gifts, path: "obsequios-y-regalos"
+          # Interest groups
+          resources :interest_groups, only: [:index, :show], path: :interest_groups
 
-        # Trips
-        resources :person_trips, only: [:index], as: :trips, path: "viajes-y-desplazamientos"
+          # Gifts
+          resources :person_gifts, only: [:index], as: :gifts, path: "obsequios-y-regalos"
 
-        # Invitations
-        resources :person_invitations, only: [:index], as: :invitations, path: "invitaciones"
+          # Trips
+          resources :person_trips, only: [:index], as: :trips, path: "viajes-y-desplazamientos"
 
-        # People
-        resources :people, only: [:show], path: "personas", param: :slug do
-          resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: "biografia"
-          resources :gifts, only: [:index, :show], controller: "people/gifts", path: "obsequios-y-regalos"
-          resources :trips, only: [:index, :show], controller: "people/trips", path: "viajes-y-desplazamientos"
-          resources :invitations, only: [:index, :show], controller: "people/invitations", path: "invitaciones"
-          resources :person_messages, only: [:create], controller: "people/person_messages", as: :messages, path: "contacto", param: :slug do
-            collection do
-              get "/" => "people/person_messages#new", as: :new
+          # Invitations
+          resources :person_invitations, only: [:index], as: :invitations, path: "invitaciones"
+
+          # People
+          resources :people, only: [:show], path: :people, param: :slug do
+            resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: :bio
+            resources :gifts, only: [:index, :show], controller: "people/gifts", path: :gifts
+            resources :trips, only: [:index, :show], controller: "people/trips", path: :trips
+            resources :invitations, only: [:index, :show], controller: "people/invitations", path: :invitations
+            resources :person_messages, only: [:create], controller: "people/person_messages", as: :messages, path: :messages, param: :slug do
+              collection do
+                get "/" => "people/person_messages#new", as: :new
+              end
             end
           end
+        end
+
+        resources :people, only: [], path: "personas", param: :slug do
           resource :google_calendar_calendars, only: [:edit, :update], controller: "people/google_calendar/calendars", as: :google_calendar_calendars
         end
 

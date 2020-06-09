@@ -5,6 +5,7 @@ module ApplicationConcern
 
   included do
     before_action :set_current_site, :set_locale
+    around_action :set_locale_from_url
   end
 
   def current_site

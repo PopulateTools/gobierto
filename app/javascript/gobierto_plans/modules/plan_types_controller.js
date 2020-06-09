@@ -391,7 +391,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
               const { custom_field_id: id } = f;
 
               if (id === 'sdgs') {
-                f.external_id = (f.external_id || '').split(',')
+                f.external_id = (f.external_id || '').split(',').map(v => v.padStart(2, 0))
                 f.locale = I18n.locale
               }
 

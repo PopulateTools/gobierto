@@ -730,10 +730,17 @@ export class DemographyMapController {
     //Get the Map from the register list
     const choroplethChart = dc.chartRegistry.list('main')[7]
     //Rebuild color domain with the selected values.
-    choroplethChart.colorDomain([
-        d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck('value')),
-        d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
-    ])
+    if(this.currentFilter === 'studies') {
+      choroplethChart.colorDomain([
+          d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck('value')),
+          d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
+      ])
+    } else {
+      choroplethChart.colorDomain([
+          d3.min(this.ndx.groups.origin.byCusec.all(), dc.pluck('value')),
+          d3.max(this.ndx.groups.origin.byCusec.all(), dc.pluck('value'))
+      ])
+    }
   }
 }
 

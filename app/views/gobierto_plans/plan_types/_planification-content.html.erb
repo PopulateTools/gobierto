@@ -14,6 +14,12 @@
   <!-- Lines level -->
   <section class="level_<%= level_index -%>" v-if="isOpen(<%= level_index -%>)" :class="['cat_' + color() ]">
     <% unless level_index == @levels %>
+    <div class="node-breadcrumb mb2">
+      <a data-turbolinks="false" @click.stop="resetParent">
+        <%= t("gobierto_plans.plan_types.show.starts") %>
+      </a>
+    </div>
+
     <div class="lines-header">
       <div>
         {{ (activeNode.attributes || {}).children_count }}
@@ -21,18 +27,6 @@
       </div>
 
       <div><%= t("gobierto_plans.plan_types.show.percentage_progress") %></div>
-    </div>
-    <% end %>
-    
-    <% if level_index > 1 %>
-    <div class="node-breadcrumb mb2">
-      <a data-turbolinks="false" @click.stop="resetParent">
-        <%= t("gobierto_plans.plan_types.show.starts") %>
-      </a>
-      <a data-turbolinks="false" @click.stop="setParent">
-        <i class="fas fa-caret-right"></i>
-        {{ (getParent().attributes || {}).title | translate }}
-      </a>
     </div>
     <% end %>
     
@@ -132,7 +126,7 @@
       <a data-turbolinks="false" @click.stop="resetParent">
         <%= t("gobierto_plans.plan_types.show.starts") %>
       </a>
-      <template v-for="level in (activeNode.level - 1)">
+      <template v-for="level in activeNode.level">
         <a data-turbolinks="false" @click.stop="setParent(level)">
           <i class="fas fa-caret-right"></i>
           {{ (getParent(level).attributes || {}).title | translate }}

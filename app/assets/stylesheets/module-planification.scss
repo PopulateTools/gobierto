@@ -230,6 +230,7 @@ $nodeLevel1HeightMobile: 20vh;
 
   .node-breadcrumb {
     display: inline-block;
+    padding: 0 0.5rem;
 
     @include screen(768) {
       margin-left: 0 !important;
@@ -250,11 +251,18 @@ $nodeLevel1HeightMobile: 20vh;
     }
 
     a {
-      text-decoration: none;
       font-size: $f7;
       font-weight: 700;
       padding: 0.25em;
       cursor: pointer;
+
+      &:first-of-type {
+        padding-left: 0;
+      }
+
+      &:last-of-type {
+        padding-right: 0;
+      }
     }
   }
 

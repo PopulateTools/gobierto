@@ -311,7 +311,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
           this.activeNode = {}
         },
         setPermalink: function() {
-          window.location.hash = this.activeNode ? this.activeNode.uid : '';
+          window.location.hash = this.activeNode.uid ? this.activeNode.uid : '';
         },
         getPermalink: function(hash, forcedNode = null) {
           let found = this.searchByUid(hash, this.json);

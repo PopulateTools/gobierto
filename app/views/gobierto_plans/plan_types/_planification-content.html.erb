@@ -187,7 +187,7 @@
                     <div class="description-desc">
                       <div class="ods-goal-container">
                         <div class="ods-goal-content" v-for="id in item.external_id">
-                          <div :class="`ods-goal ods-goal__${id}__${item.locale}`"></div>
+                          <a :href="`${baseUrl}/${id}`" :class="`ods-goal ods-goal__${id}__${item.locale}`"></a>
                         </div>
                       </div>
                     </div>

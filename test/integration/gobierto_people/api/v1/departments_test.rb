@@ -122,12 +122,12 @@ module GobiertoPeople
                   "key" => Time.zone.parse("2017/01"),
                   "value" => 1,
                   "properties" => {
-                    "url" => "/departamentos/justice-department?end_date=2017-02-01&start_date=2017-01-01"
+                    "url" => "/en/departments/justice-department?end_date=2017-02-01&start_date=2017-01-01"
                   }
                 }
               ],
               "properties" => {
-                "url" => "/departamentos/justice-department?page=false"
+                "url" => "/en/departments/justice-department?page=false"
               }
             }
 

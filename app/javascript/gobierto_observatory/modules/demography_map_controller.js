@@ -474,11 +474,11 @@ export class DemographyMapController {
 
         that.rebuildChoroplethColorDomain()
         if (chart.filter() !== null) {
-          document.getElementById("bar-by-origin-spaniards").style.visiblity = 'hidden';
-          document.getElementById("bar-by-origin-others").style.visiblity = 'hidden';
+          document.getElementById("bar-by-origin-spaniards").style.visibility = 'hidden';
+          document.getElementById("bar-by-origin-others").style.visibility = 'hidden';
         } else {
-          document.getElementById("bar-by-origin-spaniards").style.visiblity = 'visible';
-          document.getElementById("bar-by-origin-others").style.visiblity = 'visible';
+          document.getElementById("bar-by-origin-spaniards").style.visibility = 'visible';
+          document.getElementById("bar-by-origin-others").style.visibility = 'visible';
         }
       });
     chart.render()
@@ -612,8 +612,7 @@ export class DemographyMapController {
         }).addTo(map);
       })
 
-    const that = this;
-    chart.on('filtered', function(event) {
+    chart.on('filtered', function() {
       dc.redrawAll('main', );
       const buttonReset = document.getElementById('reset-filters')
       buttonReset.classList.remove('disabled')

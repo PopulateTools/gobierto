@@ -154,6 +154,31 @@
     .right-chart {
       display: inline-block;
     }
+
+    .left-chart.dc-chart {
+      g.row {
+        rect {
+          transition: all .3s ease-in;
+          fill: var(--pyramidal-male);
+
+          &.deselected {
+            fill: #ccc;
+          }
+        }
+      }
+    }
+
+    .right-chart.dc-chart {
+      g.row {
+        rect {
+          fill: var(--pyramidal-female);
+
+          &.deselected {
+            fill: #ccc;
+          }
+        }
+      }
+    }
   }
 
   &-habitants-number {
@@ -182,6 +207,7 @@
       &._0 {
         rect {
           fill: var(--numbers);
+
           &.deselected {
             fill: #ccc;
           }
@@ -191,6 +217,7 @@
       &._1 {
         rect {
           fill: rgba(18, 54, 91, .5);
+
           &.deselected {
             fill: #ccc;
           }
@@ -218,6 +245,7 @@
       &._0 {
         rect {
           fill: var(--pyramidal-female);
+
           &.deselected {
             fill: #ccc;
           }
@@ -227,30 +255,6 @@
       &._1 {
         rect {
           fill: var(--pyramidal-male);
-          &.deselected {
-            fill: #ccc;
-          }
-        }
-      }
-    }
-  }
-
-  #piramid-age-sex {
-    .left-chart.dc-chart {
-      g.row {
-        rect {
-          transition: all .3s ease-in;
-          fill: var(--pyramidal-male);
-          &.deselected {
-            fill: #ccc;
-          }
-        }
-      }
-    }
-    .right-chart.dc-chart {
-      g.row {
-        rect {
-          fill: var(--pyramidal-female);
 
           &.deselected {
             fill: #ccc;
@@ -326,16 +330,7 @@
     height: calc(100vh - 120px);
     overflow-y: hidden;
     overflow-y: scroll;
-    scrollbar-width: none;
     -ms-overflow-style: none;
-
-    .dc-chart {
-
-      svg {
-        /* overflow: hidden; */
-      }
-
-    }
   }
 
   &-container-charts {
@@ -385,6 +380,7 @@
   &-container-map {
     height: calc(100vh - 120px);
     padding-left: 0 !important;
+    position: relative;
   }
 
   #inhabitants {
@@ -905,9 +901,11 @@
     .axis {
       display: none;
     }
+
     .axis-y {
       display: block;
     }
+
     rect {
       rx: 3px;
       transition: all .3s ease-in-out;
@@ -919,15 +917,12 @@
       text.titlerow {
         display: none;
       }
+
       text {
         fill: #111;
         pointer-events: none;
       }
     }
-  }
-
-  &-container-map {
-    position: relative;
   }
 
   #reset-filters {
@@ -983,7 +978,7 @@
 
   @keyframes loadingSpinner {
     100% {
-      transform: rotate(360deg)
+      transform: rotate(360deg);
     }
   }
 }

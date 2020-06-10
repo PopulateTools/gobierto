@@ -491,6 +491,10 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';
+
+        const container = document.getElementById('container-bar-origin-spaniards')
+        that.activeFiltered(container)
+
         if (chart.filter() !== null) {
           document.getElementById("bar-by-studies").style.visibility = 'hidden';
         } else {
@@ -536,8 +540,10 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';
-        /*const container = document.getElementById('container-bar-origin-others')
-        that.activeFiltered(container)*/
+
+        const container = document.getElementById('container-bar-origin-others')
+        that.activeFiltered(container)
+
         if (chart.filter() !== null) {
           document.getElementById("bar-by-studies").style.visibility = 'hidden';
         } else {

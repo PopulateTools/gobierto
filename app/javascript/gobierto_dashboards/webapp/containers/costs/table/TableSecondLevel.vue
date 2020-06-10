@@ -13,7 +13,7 @@
     </TableHeader>
     <TableSubHeader :items="itemsFilter" />
     <table class="gobierto-dashboards-table">
-      <template v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, act_intermedia, respecte_ambit, agrupacio, ordre_agrupacio, totalPerHabitant, year } in dataActIntermediaTotal">
+      <template v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, act_intermedia, agrupacio, ordre_agrupacio, totalPerHabitant, year } in dataActIntermediaTotal">
         <tr
           :key="nomact"
           class="gobierto-dashboards-tablerow--header"
@@ -25,7 +25,7 @@
               @click="handleToggle(act_intermedia)"
             >
               <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
-              ({{ total }} {{ labelActivities }})
+              <span>({{ total }} {{ labelActivities }})</span>
             </td>
           </template>
           <template v-else>
@@ -63,7 +63,7 @@
             <span>{{ ingressos | money }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage">
-            <span>{{ (respecte_ambit).toFixed(2) }}%</span>
+            <span>{{ ((ingressos * 100) / cost_total).toFixed(0) }}%</span>
           </td>
         </tr>
         <transition
@@ -77,7 +77,7 @@
               class="gobierto-dashboards-table--secondlevel gobierto-dashboards-table--secondlevel-nested"
             >
               <tr
-                v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, respecte_ambit, agrupacio, ordre_agrupacio, year } in dataGroupIntermedia"
+                v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, coverage, agrupacio, ordre_agrupacio, year } in dataGroupIntermedia"
                 :key="codiact"
                 class="gobierto-dashboards-tablerow--header"
               >
@@ -107,7 +107,7 @@
                   <span>{{ ingressos | money }}</span>
                 </td>
                 <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-coverage">
-                  <span>{{ (respecte_ambit).toFixed(2) }}%</span>
+                  <span>{{ ((ingressos * 100) / cost_total).toFixed(0) }}%</span>
                 </td>
               </tr>
             </tbody>
@@ -174,7 +174,6 @@ export default {
           cost_indirecte: 0,
           cost_total: 0,
           ingressos: 0,
-          respecte_ambit: 0,
           total: 0,
           nomact: '',
           totalPerHabitant: 0
@@ -184,10 +183,8 @@ export default {
         item.cost_indirecte += o.cost_indirecte
         item.cost_total += o.cost_total
         item.ingressos += o.ingressos
-        item.respecte_ambit += o.respecte_ambit
         item.total += (o.total || 0) + 1
         item.nomact = o.act_intermedia
-        item.respecte_ambit += o.respecte_ambit
         item.totalPerHabitant = item.cost_total / o.population
 
         return r.set(key, item);

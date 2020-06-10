@@ -105,7 +105,7 @@ export class CostsController {
     }
 
     //Array with all the strings that we've to convert to Number
-    const amountStrings = [ 'cd_bens_i_serveis', 'cd_cost_personal', 'cost_directe_2018' , 'cost_indirecte_2018', 'cost_total_2018', 'costpers2018', 'costrestadir2018', 'cost_per_habitant', 'ingressos', 'respecte_ambit', 'taxa_o_preu_public', 'cd_serveis_exteriors', 'cd_transferencies', 'cd_equipaments', 'ingres_cost', 'subvencio']
+    const amountStrings = [ 'cd_bens_i_serveis', 'cd_cost_personal', 'cost_directe_2018' , 'cost_indirecte_2018', 'cost_total_2018', 'costpers2018', 'costrestadir2018', 'cost_per_habitant', 'ingressos', 'taxa_o_preu_public', 'cd_serveis_exteriors', 'cd_transferencies', 'cd_equipaments', 'ingres_cost', 'subvencio']
 
     for (let index = 0; index < rawData.length; index++) {
       let d = rawData[index]
@@ -142,9 +142,9 @@ export class CostsController {
           cost_indirecte: 0,
           cost_total: 0,
           ingressos: 0,
-          respecte_ambit: 0,
           total: 0,
           totalPerHabitant: 0,
+          coverage: 0,
         });
 
         item.cost_directe += o.cost_directe
@@ -153,7 +153,7 @@ export class CostsController {
         item.ingressos += o.ingressos
         //New item with the sum of values of each agrupacio
         item.total += (o.total || 0) + 1
-        item.respecte_ambit += o.respecte_ambit
+        item.coverage = (item.ingressos * 100) / item.cost_total
         item.totalPerHabitant = item.cost_total / o.population
 
         return r.set(key, item);

@@ -2,7 +2,7 @@
   <table class="gobierto-dashboards-table gobierto-dashboards-table--subheader">
     <tbody>
       <tr
-        v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, totalPerHabitant, ingressos, respecte_ambit } in dataGroup"
+        v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, totalPerHabitant, ingressos, coverage } in dataGroup"
         :key="agrupacio"
         class="gobierto-dashboards-tablerow--header gobierto-dashboards-tablesecondlevel--header"
       >
@@ -25,7 +25,7 @@
           <span>{{ ingressos | money }}</span>
         </td>
         <td class="gobierto-dashboards-table-header--elements">
-          <span>{{ (respecte_ambit).toFixed(0) }}%</span>
+          <span>{{ (coverage).toFixed(0) }}%</span>
         </td>
       </tr>
     </tbody>

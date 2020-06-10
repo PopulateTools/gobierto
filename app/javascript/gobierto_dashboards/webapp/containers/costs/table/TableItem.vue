@@ -27,7 +27,7 @@
     >
       <tbody>
         <tr
-          v-for="{ agrupacio, nomact, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, respecte_ambit } in dataGroup"
+          v-for="{ agrupacio, nomact, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos } in dataGroup"
           :key="nomact"
           class="gobierto-dashboards-tablerow--header gobierto-dashboards-tablesecondlevel--header"
         >
@@ -50,7 +50,7 @@
             <span>{{ ingressos | money }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements">
-            <span>{{ (respecte_ambit).toFixed(2) }}%</span>
+            <span>{{ ((ingressos * 100) / cost_total).toFixed(0) }}%</span>
           </td>
         </tr>
       </tbody>
@@ -237,7 +237,7 @@
                   {{ labelTotal }}
                 </span>
                 <span class="gobierto-dashboards-table-item-right-table-amount">
-                  {{ totalCost | money }}
+                  {{ costTotal | money }}
                 </span>
               </div>
               <i
@@ -309,7 +309,7 @@
             <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
               <div class="gobierto-dashboards-table-item-right-table-container">
                 <span class="gobierto-dashboards-table-item-right-table-text">
-                  {{ labelTotal }}
+                  {{ labelTotalIncome }}
                 </span>
                 <span class="gobierto-dashboards-table-item-right-table-amount">
                   {{ totalIncomes | money }}
@@ -318,11 +318,11 @@
               <i
                 class="far fa-question-circle"
                 style="color: var(--color-base); cursor: pointer;"
-                @mouseover="showTooltipItem = labelTotal"
+                @mouseover="showTooltipItem = labelTotalIncome"
                 @mouseleave="showTooltipItem = null"
               />
               <div
-                v-show="showTooltipItem === labelTotal"
+                v-show="showTooltipItem === labelTotalIncome"
                 class="gobierto-dashboards-item--tooltip"
               >
                 {{ tooltipTextCost }}
@@ -365,7 +365,7 @@
                   % {{ labelCoverage }}
                 </span>
                 <span class="gobierto-dashboards-table-item-right-table-amount">
-                  {{ coverage }}%
+                  {{ coverage.toFixed(0) }}%
                 </span>
               </div>
               <i
@@ -416,6 +416,7 @@ export default {
       labelTransference: I18n.t("gobierto_dashboards.dashboards.costs.item.transference") || "",
       labelEquipments: I18n.t("gobierto_dashboards.dashboards.costs.item.equipments") || "",
       labelTotal: I18n.t("gobierto_dashboards.dashboards.costs.item.total") || "",
+      labelTotalIncome: I18n.t("gobierto_dashboards.dashboards.costs.item.total") || "",
       labelSubsidies: I18n.t("gobierto_dashboards.dashboards.costs.item.subsidies") || "",
       labelIncomeCost: I18n.t("gobierto_dashboards.dashboards.costs.item.income_cost") || "",
       labelPublicTax: I18n.t("gobierto_dashboards.dashboards.costs.item.public_tax") || "",
@@ -439,15 +440,12 @@ export default {
       agrupacioID: '',
       costIndirect: '',
       income: '',
+      costTotal: '',
       showTooltipItem: null,
       tooltipTextCost: 'Wip: Esto es una prueba de tooltip'
     }
   },
   computed: {
-    //Get the total of all values in the cost table
-    totalCost() {
-      return this.equiptments + this.transferences + this.externalServices + this.goodServices + this.costPersonal + this.costIndirect
-    },
     //Get the total of all values in the incomes table
     totalIncomes() {
       return this.taxs + this.subsidies
@@ -476,8 +474,8 @@ export default {
         subvencio: subsidies,
         ingres_cost: incomeCost,
         ingressos: income,
-        respecte_ambit: coverage,
-        agrupacio: agrupacio
+        agrupacio: agrupacio,
+        cost_total: costTotal
       }] = this.dataGroup
 
       this.description = description
@@ -494,8 +492,9 @@ export default {
       this.subsidies = subsidies || 0
       this.incomeCost = incomeCost
       this.income = income || 0
-      this.coverage = coverage
       this.agrupacioID = agrupacio
+      this.costTotal = costTotal
+      this.coverage = (income * 100) / costTotal
     },
     loadTable(value) {
       this.$emit('changeTableHandler', value)

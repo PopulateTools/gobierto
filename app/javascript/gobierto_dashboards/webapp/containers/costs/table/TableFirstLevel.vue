@@ -4,7 +4,7 @@
     <table class="gobierto-dashboards-table">
       <tbody>
         <tr
-          v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, respecte_ambit, ordre_agrupacio, totalPerHabitant, year } in itemsFilter"
+          v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, coverage, ordre_agrupacio, totalPerHabitant, year } in itemsFilter"
           :key="agrupacio"
           class="gobierto-dashboards-tablerow--header"
         >
@@ -33,7 +33,7 @@
             <span>{{ ingressos | money }}</span>
           </td>
           <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage">
-            <span>{{ (respecte_ambit).toFixed(0) }} %</span>
+            <span>{{ (coverage).toFixed(0) }} %</span>
           </td>
         </tr>
       </tbody>

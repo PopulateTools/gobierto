@@ -574,6 +574,20 @@ export class DemographyMapController {
     const mapboxAccessToken = "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ"
     const scaleColors = ['#fcde9c','#faa476','#f0746e','#e34f6f','#dc3977','#b9257a','#7c1d6f']
 
+    /*Replace bindPopupWithMod from dc.leaflet, the method only accepted the click event to display the popup. We've replaced the click with the mouseover, include mouseout event to close the popup*/
+    chart.bindPopupWithMod = function(layer, value) {
+        layer.bindPopup(value);
+        layer.off('mouseover', layer._openPopup);
+        layer.on('mouseover', function(e) {
+            if (chart.modKeyMatches(e, chart.popupMod()))
+                layer._openPopup(e);
+        });
+        layer.on('mouseout', function(e) {
+            if (chart.modKeyMatches(e, chart.popupMod()))
+                layer.closePopup(e);
+        });
+    };
+
     chart
       .center(center, zoom)
       .zoom(zoom)
@@ -603,16 +617,14 @@ export class DemographyMapController {
           zoomOffset: -1
         }).addTo(map)
       })
-      .popupMod('alt')
       .popup(d => `Habitantes: ${d.value}`)
 
-    const that = this
     chart.on('filtered', function() {
       dc.redrawAll('main');
       const buttonReset = document.getElementById('reset-filters')
       const chartFromList = dc.chartRegistry.list('main')[7]
       const activeFilters = chartFromList.filters().length
-      if(activeFilters !== 0) {
+      if (activeFilters !== 0) {
         buttonReset.classList.remove('disabled')
       } else {
         buttonReset.classList.add('disabled')
@@ -727,7 +739,7 @@ export class DemographyMapController {
     //Get the Map from the register list
     const choroplethChart = dc.chartRegistry.list('main')[7]
     //Rebuild color domain with the selected values.
-    if(this.currentFilter === 'studies') {
+    if (this.currentFilter === 'studies') {
       choroplethChart.colorDomain([
           d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck('value')),
           d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))

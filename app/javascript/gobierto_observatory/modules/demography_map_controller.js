@@ -171,7 +171,7 @@ export class DemographyMapController {
         // Don't know why we need to do this
         dc.renderAll("main");
 
-        document.querySelectorAll("#close").forEach(button => button.addEventListener('click', () => {
+        document.querySelectorAll(".close").forEach(button => button.addEventListener('click', () => {
           this.clearFilters(event)
         }));
       });

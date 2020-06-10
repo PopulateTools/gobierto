@@ -338,7 +338,7 @@
     padding: 1rem 2rem;
   }
 
-  #close {
+  .close {
     position: absolute;
     cursor: pointer;
     top: 10px;
@@ -366,7 +366,7 @@
       font-weight: bold;
     }
 
-    #close {
+    .close {
       display: block;
     }
 

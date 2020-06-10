@@ -27,7 +27,7 @@
                 </th>
               </thead>
               <tr
-                v-for="({ id, objective, date, value }, index) in table[indicator]"
+                v-for="({ id, objective, date, value }, index) in sortByDate(table[indicator])"
                 :key="`${id}-${date || index}`"
                 class="tablerow__item-table-row"
               >
@@ -86,6 +86,11 @@ export default {
   created() {
     this.title = this.config.title_translations;
     this.table = _.groupBy(this.config.data, 'name');
+  },
+  methods: {
+    sortByDate(arr) {
+      return arr.sort(({ date: a }, { date: b }) => a < b)
+    }
   }
 };
 </script>
@@ -139,6 +144,7 @@ export default {
         text-align: left;
         padding-left: 0;
         color: rgba(#4D4D4D, 0.5);
+        white-space: nowrap;
       }
     }
 

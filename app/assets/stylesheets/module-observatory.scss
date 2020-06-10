@@ -30,6 +30,10 @@
   z-index: 100;
 }
 
+.gobierto-observatory-container-banner {
+  cursor: pointer;
+}
+
 .gobierto-observatory-banner {
   position: relative;
   min-height: 260px;
@@ -75,9 +79,7 @@
   left: 0;
   height: 100%;
   object-fit: cover;
-
 }
-
 
 .gobierto_observatory {
   height: 100vh;
@@ -315,7 +317,6 @@
   }
 
   .column {
-    max-width: 100%;
     padding: 0 2rem;
   }
 

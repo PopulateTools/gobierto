@@ -284,7 +284,7 @@ export class DemographyMapController {
     const chart = stackedVertical(selector, "main");
     const sumAllValues = this.ndx.groups.origin.all.value()
     chart
-      .width(250)
+      .useViewBoxResizing(true)
       .height(45)
       .group(this.ndx.groups.studies.byNationality)
       .dimension(this.ndx.filters.studies.byNationality)
@@ -294,7 +294,9 @@ export class DemographyMapController {
       .renderTitleLabel(true)
       .fixedBarHeight(10)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
-      .xAxis().ticks(4);
+      .xAxis().ticks(4)
+
+
 
     const that = this;
     chart
@@ -313,7 +315,7 @@ export class DemographyMapController {
     const sumAllValues = this.ndx.groups.origin.all.value()
 
     chart
-      .width(250)
+      .useViewBoxResizing(true)
       .height(45)
       .group(this.ndx.groups.studies.bySex)
       .dimension(this.ndx.filters.studies.bySex)
@@ -325,7 +327,8 @@ export class DemographyMapController {
       .labelOffsetX(-110)
       .titleLabelOffsetX(145)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
-      .xAxis().ticks(4);
+      .xAxis().ticks(4)
+
 
     const that = this;
     chart
@@ -373,7 +376,7 @@ export class DemographyMapController {
     };
 
     chart.options({
-      // display
+      // TODO: should be responsive
       width: 250,
       height: 220,
       labelOffsetX: -50,
@@ -399,7 +402,7 @@ export class DemographyMapController {
       leftKeyFilter: d => d.key[0] === 'Hombre',
       rightKeyFilter: d => d.key[0] === 'Mujer'
     })
-
+    // TODO: should be responsive
     chart.rightChart().options({ width: 185 })
 
     chart.rightChart().on('filtered', function() {
@@ -431,8 +434,10 @@ export class DemographyMapController {
   renderStudies(selector) {
     const chart = new dc.rowChart(selector, "main");
     const sumAllValues = this.ndx.groups.origin.all.value()
+    const widthContainer = document.getElementById('container-bar-by-studies').offsetWidth
+    const widthContainerLabelPosition = widthContainer - 240
     chart
-      .width(300)
+      .useViewBoxResizing(true)
       .height(230)
       .cap(10) // Show only top 10
       .group(this.ndx.groups.studies.byStudies)
@@ -443,9 +448,10 @@ export class DemographyMapController {
       .renderTitleLabel(true)
       .fixedBarHeight(10)
       .labelOffsetX(-180)
-      .titleLabelOffsetX(125)
+      .titleLabelOffsetX(widthContainerLabelPosition)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
-      .xAxis().ticks(4);
+      .xAxis().ticks(4)
+
 
     const that = this;
     chart
@@ -470,8 +476,11 @@ export class DemographyMapController {
   renderOriginNational(selector) {
     const chart = new dc.rowChart(selector, "main");
     const sumAllValues = this.ndx.groups.origin.all.value()
+
+    const widthContainer = document.getElementById('container-bar-by-studies').offsetWidth
+    const widthContainerLabelPosition = widthContainer - 240
     chart
-      .width(300)
+      .useViewBoxResizing(true)
       .height(210)
       .cap(10) // Show only top 10
       .othersGrouper(null) // Don't show the rest of the 20 in Other class - https://dc-js.github.io/dc.js/docs/html/CapMixin.html
@@ -483,9 +492,10 @@ export class DemographyMapController {
       .renderTitleLabel(true)
       .fixedBarHeight(10)
       .labelOffsetX(-180)
-      .titleLabelOffsetX(125)
+      .titleLabelOffsetX(widthContainerLabelPosition)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4)
+
 
     const that = this;
     chart
@@ -519,8 +529,10 @@ export class DemographyMapController {
   renderOriginOthers(selector) {
     const chart = new dc.rowChart(selector, "main");
     const sumAllValues = this.ndx.groups.origin.all.value()
+    const widthContainer = document.getElementById('container-bar-by-studies').offsetWidth
+    const widthContainerLabelPosition = widthContainer - 240
     chart
-      .width(300)
+      .useViewBoxResizing(true)
       .height(210)
       .cap(10) // Show only top 20
       .othersGrouper(null) // Don't show the rest of the 20 in Other clashttps://dc-js.github.io/dc.js/docs/html/CapMixin.htmls
@@ -532,9 +544,11 @@ export class DemographyMapController {
       .renderTitleLabel(true)
       .fixedBarHeight(10)
       .labelOffsetX(-180)
-      .titleLabelOffsetX(125)
+      //TODO: create a function to get the width of the container and calculate position for titles
+      .titleLabelOffsetX(widthContainerLabelPosition)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
-      .xAxis().ticks(4);
+      .xAxis().ticks(4)
+
 
     const that = this;
     chart
@@ -579,12 +593,12 @@ export class DemographyMapController {
         layer.bindPopup(value);
         layer.off('mouseover', layer._openPopup);
         layer.on('mouseover', function(e) {
-            if (chart.modKeyMatches(e, chart.popupMod()))
-                layer._openPopup(e);
+          if (chart.modKeyMatches(e, chart.popupMod()))
+              layer._openPopup(e);
         });
         layer.on('mouseout', function(e) {
-            if (chart.modKeyMatches(e, chart.popupMod()))
-                layer.closePopup(e);
+          if (chart.modKeyMatches(e, chart.popupMod()))
+              layer.closePopup(e);
         });
     };
 
@@ -606,7 +620,7 @@ export class DemographyMapController {
       .featureKeyAccessor(feature => feature.properties.cusec)
       .legend(legendMap)
       .tiles(function(map) {
-        const layers = L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
+        L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
           scrollWheelZoom: false,
           username: "gobierto",
           style_id: "ck18y48jg11ip1cqeu3b9wpar",

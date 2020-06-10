@@ -217,11 +217,11 @@ export class DemographyMapController {
         }
         if (d['formacion'] === 'No sabe leer ni escribir') {
           d['formacion'] = 'Ni leer ni escribir'
-        } else if (d['formacion'] === 'Ense?anza Secundaria') {
+        } else if (d['formacion'] === 'Enseñanza Secundaria') {
           d['formacion'] = 'Ens. Secundaria'
         } else if (d['formacion'] === 'B.Superior.BUP,COU') {
           d['formacion'] = 'Bachillerato sup'
-        } else if (d['formacion'] === 'Ense?anza Primaria incomp') {
+        } else if (d['formacion'] === 'Enseñanza Primaria incomp') {
           d['formacion'] = 'Ens. Pri. incompleta'
         } else if (d['formacion'] === 'Doctorado Postgrado') {
           d['formacion'] = 'Doctorado'

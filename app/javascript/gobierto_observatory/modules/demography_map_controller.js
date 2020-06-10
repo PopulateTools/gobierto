@@ -50,6 +50,36 @@ function checkStatus(response) {
   }
 }
 
+function prepareAgeRange(d) {
+  let age_range = 'Unknown';
+  d.rango_edad = parseInt(d.rango_edad.split('-')[0])
+
+  if (d.rango_edad <= 10) {
+    age_range = '0-10';
+  } else if (d.rango_edad <= 20) {
+    age_range = '11-20';
+  } else if (d.rango_edad <= 30) {
+    age_range = '21-30';
+  } else if (d.rango_edad <= 40) {
+    age_range = '31-40';
+  } else if (d.rango_edad <= 50) {
+    age_range = '41-50';
+  } else if (d.rango_edad <= 60) {
+    age_range = '51-60';
+  } else if (d.rango_edad <= 70) {
+    age_range = '61-70';
+  } else if (d.rango_edad <= 80) {
+    age_range = '71-80';
+  } else if (d.rango_edad <= 90) {
+    age_range = '81-90';
+  } else if (d.rango_edad < 100) {
+    age_range = '91-100';
+  } else {
+    age_range = '+100';
+  }
+  return [d.sexo, age_range];
+}
+
 async function getMapPolygons(ineCode) {
   const polygonsRequest = new Request(`https://datos.gobierto.es/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=${ineCode}`, {method: 'GET'});
   let response = await fetch(polygonsRequest);
@@ -87,33 +117,7 @@ export class DemographyMapController {
             studies: {
               all: ndxStudies,
               bySex: ndxStudies.dimension(d => d.sexo),
-              byAge: ndxStudies.dimension(function(d) {
-                var age_range = 'Unknown';
-                d.rango_edad = parseInt(d.rango_edad.split('-')[0])
-
-                if (d.rango_edad <= 10) {
-                  age_range = '0-10';
-                } else if (d.rango_edad <= 20) {
-                  age_range = '11-20';
-                } else if (d.rango_edad <= 30) {
-                  age_range = '21-30';
-                } else if (d.rango_edad <= 40) {
-                  age_range = '31-40';
-                } else if (d.rango_edad <= 50) {
-                  age_range = '41-50';
-                } else if (d.rango_edad <= 60) {
-                  age_range = '51-60';
-                } else if (d.rango_edad <= 70) {
-                  age_range = '61-70';
-                } else if (d.rango_edad <= 80) {
-                  age_range = '71-80';
-                } else if (d.rango_edad <= 90) {
-                  age_range = '81-90';
-                } else if (d.rango_edad <= 100) {
-                  age_range = '91-100';
-                }
-                return [d.sexo, age_range];
-              }),
+              byAge: ndxStudies.dimension(d => prepareAgeRange(d)),
               byCusec: ndxStudies.dimension(d => d.cusec),
               byNationality: ndxStudies.dimension(d => d.nacionalidad),
               byOriginNational: null,
@@ -123,33 +127,7 @@ export class DemographyMapController {
             origin: {
               all: ndxOrigin,
               bySex: ndxOrigin.dimension(d => d.sexo),
-              byAge: ndxOrigin.dimension(function(d) {
-                var age_range = 'Unknown';
-                d.rango_edad = parseInt(d.rango_edad.split('-')[0])
-
-                if (d.rango_edad <= 10) {
-                  age_range = '0-10';
-                } else if (d.rango_edad <= 20) {
-                  age_range = '11-20';
-                } else if (d.rango_edad <= 30) {
-                  age_range = '21-30';
-                } else if (d.rango_edad <= 40) {
-                  age_range = '31-40';
-                } else if (d.rango_edad <= 50) {
-                  age_range = '41-50';
-                } else if (d.rango_edad <= 60) {
-                  age_range = '51-60';
-                } else if (d.rango_edad <= 70) {
-                  age_range = '61-70';
-                } else if (d.rango_edad <= 80) {
-                  age_range = '71-80';
-                } else if (d.rango_edad <= 90) {
-                  age_range = '81-90';
-                } else if (d.rango_edad <= 100) {
-                  age_range = '91-100';
-                }
-                return [d.sexo, age_range];
-              }),
+              byAge: ndxOrigin.dimension(d => prepareAgeRange(d)),
               byCusec: ndxOrigin.dimension(d => d.cusec),
               byNationality: ndxOrigin.dimension(d => d.nacionalidad),
               byOriginNational: ndxOrigin.dimension(d => d.nacionalidad === 'Nacional' ? d.procedencia : 'Extranjero'),
@@ -171,7 +149,7 @@ export class DemographyMapController {
         // Don't know why we need to do this
         dc.renderAll("main");
 
-        document.querySelectorAll("#close").forEach(button => button.addEventListener('click', () => {
+        document.querySelectorAll(".close").forEach(button => button.addEventListener('click', () => {
           this.clearFilters(event)
         }));
       });
@@ -217,11 +195,11 @@ export class DemographyMapController {
         }
         if (d['formacion'] === 'No sabe leer ni escribir') {
           d['formacion'] = 'Ni leer ni escribir'
-        } else if (d['formacion'] === 'Ense?anza Secundaria') {
+        } else if (d['formacion'] === 'Enseñanza Secundaria') {
           d['formacion'] = 'Ens. Secundaria'
         } else if (d['formacion'] === 'B.Superior.BUP,COU') {
           d['formacion'] = 'Bachillerato sup'
-        } else if (d['formacion'] === 'Ense?anza Primaria incomp') {
+        } else if (d['formacion'] === 'Enseñanza Primaria incomp') {
           d['formacion'] = 'Ens. Pri. incompleta'
         } else if (d['formacion'] === 'Doctorado Postgrado') {
           d['formacion'] = 'Doctorado'
@@ -369,7 +347,7 @@ export class DemographyMapController {
 
     let group = {
       all: function() {
-        var age_ranges = ['91-100','81-90','71-80','61-70','51-60','41-50','31-40','21-30','11-20','0-10']
+        var age_ranges = ['+100','91-100','81-90','71-80','61-70','51-60','41-50','31-40','21-30','11-20','0-10']
 
         // convert to object so we can easily tell if a key exists
         var values = {};
@@ -428,6 +406,8 @@ export class DemographyMapController {
       const container = document.getElementById('container-piramid-age-sex')
       that.activeFiltered(container)
       that.rebuildChoroplethColorDomain()
+
+      that.updateOriginFilters('byAge', chart.filters());
       dc.redrawAll('main');
     })
 
@@ -435,6 +415,8 @@ export class DemographyMapController {
       const container = document.getElementById('container-piramid-age-sex')
       that.activeFiltered(container)
       that.rebuildChoroplethColorDomain()
+
+      that.updateOriginFilters('byAge', chart.filters());
       dc.redrawAll('main');
     })
 
@@ -509,6 +491,10 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';
+
+        const container = document.getElementById('container-bar-origin-spaniards')
+        that.activeFiltered(container)
+
         if (chart.filter() !== null) {
           document.getElementById("bar-by-studies").style.visibility = 'hidden';
         } else {
@@ -520,6 +506,8 @@ export class DemographyMapController {
         that.chart2.group(that.ndx.groups.origin.byNationality);
         that.chart3.dimension(that.ndx.filters.origin.bySex);
         that.chart3.group(that.ndx.groups.origin.bySex);
+        that.chart4.dimension(that.ndx.filters.origin.byAge);
+        that.chart4.group(that.ndx.groups.origin.byAge);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
 
@@ -552,8 +540,10 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';
-        /*const container = document.getElementById('container-bar-origin-others')
-        that.activeFiltered(container)*/
+
+        const container = document.getElementById('container-bar-origin-others')
+        that.activeFiltered(container)
+
         if (chart.filter() !== null) {
           document.getElementById("bar-by-studies").style.visibility = 'hidden';
         } else {
@@ -565,6 +555,8 @@ export class DemographyMapController {
         that.chart2.group(that.ndx.groups.origin.byNationality);
         that.chart3.dimension(that.ndx.filters.origin.bySex);
         that.chart3.group(that.ndx.groups.origin.bySex);
+        that.chart4.dimension(that.ndx.filters.origin.byAge);
+        that.chart4.group(that.ndx.groups.origin.byAge);
         that.chart8.dimension(that.ndx.filters.origin.byCusec);
         that.chart8.group(that.ndx.groups.origin.byCusec);
 
@@ -735,10 +727,17 @@ export class DemographyMapController {
     //Get the Map from the register list
     const choroplethChart = dc.chartRegistry.list('main')[7]
     //Rebuild color domain with the selected values.
-    choroplethChart.colorDomain([
-        d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck('value')),
-        d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
-    ])
+    if(this.currentFilter === 'studies') {
+      choroplethChart.colorDomain([
+          d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck('value')),
+          d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
+      ])
+    } else {
+      choroplethChart.colorDomain([
+          d3.min(this.ndx.groups.origin.byCusec.all(), dc.pluck('value')),
+          d3.max(this.ndx.groups.origin.byCusec.all(), dc.pluck('value'))
+      ])
+    }
   }
 }
 

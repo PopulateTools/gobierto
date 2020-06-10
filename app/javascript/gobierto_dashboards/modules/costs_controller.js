@@ -59,7 +59,7 @@ export class CostsController {
             //Get a different position scroll
             if (to.name !== 'TableFirstLevel') {
               element = document.getElementById('gobierto-dashboards-title-detail');
-              window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
+              window.scrollTo({ top: element.offsetTop + 200, behavior: "smooth" });
             }
           }
         });
@@ -70,12 +70,11 @@ export class CostsController {
           Vue.nextTick(() =>
             Vue.nextTick(() => {
               let title = baseTitle;
-
-              if (to.name === "costs") {
-                const { item: { title: itemTitle } = {} } = to.params;
+              if (to.name === "TableFirstLevel" || to.name === "TableSecondLevel" || to.name === "TableItem") {
+                const { item: itemTitle} = to.params;
 
                 if (itemTitle) {
-                  title = `${itemTitle}${baseTitle}`;
+                  title = `${itemTitle} ${baseTitle}`;
                 }
               }
 

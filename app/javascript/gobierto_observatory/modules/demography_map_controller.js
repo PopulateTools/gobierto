@@ -50,6 +50,36 @@ function checkStatus(response) {
   }
 }
 
+function prepareAgeRange(d) {
+  let age_range = 'Unknown';
+  d.rango_edad = parseInt(d.rango_edad.split('-')[0])
+
+  if (d.rango_edad <= 10) {
+    age_range = '0-10';
+  } else if (d.rango_edad <= 20) {
+    age_range = '11-20';
+  } else if (d.rango_edad <= 30) {
+    age_range = '21-30';
+  } else if (d.rango_edad <= 40) {
+    age_range = '31-40';
+  } else if (d.rango_edad <= 50) {
+    age_range = '41-50';
+  } else if (d.rango_edad <= 60) {
+    age_range = '51-60';
+  } else if (d.rango_edad <= 70) {
+    age_range = '61-70';
+  } else if (d.rango_edad <= 80) {
+    age_range = '71-80';
+  } else if (d.rango_edad <= 90) {
+    age_range = '81-90';
+  } else if (d.rango_edad < 100) {
+    age_range = '91-100';
+  } else {
+    age_range = '+100';
+  }
+  return [d.sexo, age_range];
+}
+
 async function getMapPolygons(ineCode) {
   const polygonsRequest = new Request(`https://datos.gobierto.es/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=${ineCode}`, {method: 'GET'});
   let response = await fetch(polygonsRequest);
@@ -87,33 +117,7 @@ export class DemographyMapController {
             studies: {
               all: ndxStudies,
               bySex: ndxStudies.dimension(d => d.sexo),
-              byAge: ndxStudies.dimension(function(d) {
-                var age_range = 'Unknown';
-                d.rango_edad = parseInt(d.rango_edad.split('-')[0])
-
-                if (d.rango_edad <= 10) {
-                  age_range = '0-10';
-                } else if (d.rango_edad <= 20) {
-                  age_range = '11-20';
-                } else if (d.rango_edad <= 30) {
-                  age_range = '21-30';
-                } else if (d.rango_edad <= 40) {
-                  age_range = '31-40';
-                } else if (d.rango_edad <= 50) {
-                  age_range = '41-50';
-                } else if (d.rango_edad <= 60) {
-                  age_range = '51-60';
-                } else if (d.rango_edad <= 70) {
-                  age_range = '61-70';
-                } else if (d.rango_edad <= 80) {
-                  age_range = '71-80';
-                } else if (d.rango_edad <= 90) {
-                  age_range = '81-90';
-                } else if (d.rango_edad <= 100) {
-                  age_range = '91-100';
-                }
-                return [d.sexo, age_range];
-              }),
+              byAge: ndxStudies.dimension(d => prepareAgeRange(d)),
               byCusec: ndxStudies.dimension(d => d.cusec),
               byNationality: ndxStudies.dimension(d => d.nacionalidad),
               byOriginNational: null,
@@ -123,33 +127,7 @@ export class DemographyMapController {
             origin: {
               all: ndxOrigin,
               bySex: ndxOrigin.dimension(d => d.sexo),
-              byAge: ndxOrigin.dimension(function(d) {
-                var age_range = 'Unknown';
-                d.rango_edad = parseInt(d.rango_edad.split('-')[0])
-
-                if (d.rango_edad <= 10) {
-                  age_range = '0-10';
-                } else if (d.rango_edad <= 20) {
-                  age_range = '11-20';
-                } else if (d.rango_edad <= 30) {
-                  age_range = '21-30';
-                } else if (d.rango_edad <= 40) {
-                  age_range = '31-40';
-                } else if (d.rango_edad <= 50) {
-                  age_range = '41-50';
-                } else if (d.rango_edad <= 60) {
-                  age_range = '51-60';
-                } else if (d.rango_edad <= 70) {
-                  age_range = '61-70';
-                } else if (d.rango_edad <= 80) {
-                  age_range = '71-80';
-                } else if (d.rango_edad <= 90) {
-                  age_range = '81-90';
-                } else if (d.rango_edad <= 100) {
-                  age_range = '91-100';
-                }
-                return [d.sexo, age_range];
-              }),
+              byAge: ndxOrigin.dimension(d => prepareAgeRange(d)),
               byCusec: ndxOrigin.dimension(d => d.cusec),
               byNationality: ndxOrigin.dimension(d => d.nacionalidad),
               byOriginNational: ndxOrigin.dimension(d => d.nacionalidad === 'Nacional' ? d.procedencia : 'Extranjero'),
@@ -369,7 +347,7 @@ export class DemographyMapController {
 
     let group = {
       all: function() {
-        var age_ranges = ['91-100','81-90','71-80','61-70','51-60','41-50','31-40','21-30','11-20','0-10']
+        var age_ranges = ['+100','91-100','81-90','71-80','61-70','51-60','41-50','31-40','21-30','11-20','0-10']
 
         // convert to object so we can easily tell if a key exists
         var values = {};

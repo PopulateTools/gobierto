@@ -88,7 +88,7 @@ async function getMapPolygons(ineCode) {
 }
 
 const marginHabNat = { top: 0, right: 0, bottom: 0, left: 0 }
-const marginStudies = { top: 0, right: 0, bottom: 0, left: 205 }
+const marginStudies = { top: 0, right: 0, bottom: 0, left: 180 }
 
 export class DemographyMapController {
   constructor(options) {
@@ -442,8 +442,8 @@ export class DemographyMapController {
       .margins(marginStudies)
       .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-205)
-      .titleLabelOffsetX(105)
+      .labelOffsetX(-180)
+      .titleLabelOffsetX(125)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4);
 
@@ -482,8 +482,8 @@ export class DemographyMapController {
       .margins(marginStudies)
       .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-205)
-      .titleLabelOffsetX(105)
+      .labelOffsetX(-180)
+      .titleLabelOffsetX(125)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4)
 
@@ -531,8 +531,8 @@ export class DemographyMapController {
       .margins(marginStudies)
       .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-205)
-      .titleLabelOffsetX(105)
+      .labelOffsetX(-180)
+      .titleLabelOffsetX(125)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4);
 

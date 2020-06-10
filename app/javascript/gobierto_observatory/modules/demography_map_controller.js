@@ -58,7 +58,7 @@ async function getMapPolygons(ineCode) {
 }
 
 const marginHabNat = { top: 0, right: 0, bottom: 0, left: 0 }
-const marginStudies = { top: 0, right: 0, bottom: 0, left: 180 }
+const marginStudies = { top: 0, right: 0, bottom: 0, left: 205 }
 
 export class DemographyMapController {
   constructor(options) {
@@ -460,8 +460,8 @@ export class DemographyMapController {
       .margins(marginStudies)
       .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-180)
-      .titleLabelOffsetX(125)
+      .labelOffsetX(-205)
+      .titleLabelOffsetX(105)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4);
 
@@ -500,8 +500,8 @@ export class DemographyMapController {
       .margins(marginStudies)
       .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-180)
-      .titleLabelOffsetX(125)
+      .labelOffsetX(-205)
+      .titleLabelOffsetX(105)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4)
 
@@ -543,8 +543,8 @@ export class DemographyMapController {
       .margins(marginStudies)
       .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .labelOffsetX(-180)
-      .titleLabelOffsetX(125)
+      .labelOffsetX(-205)
+      .titleLabelOffsetX(105)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4);
 
@@ -600,7 +600,7 @@ export class DemographyMapController {
       .featureKeyAccessor(feature => feature.properties.cusec)
       .legend(legendMap)
       .tiles(function(map) {
-        L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
+        const layers = L.tileLayer('https://api.mapbox.com/styles/v1/{username}/{style_id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
           scrollWheelZoom: false,
           username: "gobierto",
           style_id: "ck18y48jg11ip1cqeu3b9wpar",
@@ -611,11 +611,20 @@ export class DemographyMapController {
           zoomOffset: -1
         }).addTo(map)
       })
+      .popupMod('alt')
+      .popup(d => `Habitantes: ${d.value}`)
 
+    const that = this
     chart.on('filtered', function() {
-      dc.redrawAll('main', );
+      dc.redrawAll('main');
       const buttonReset = document.getElementById('reset-filters')
-      buttonReset.classList.remove('disabled')
+      const chartFromList = dc.chartRegistry.list('main')[7]
+      const activeFilters = chartFromList.filters().length
+      if(activeFilters !== 0) {
+        buttonReset.classList.remove('disabled')
+      } else {
+        buttonReset.classList.add('disabled')
+      }
     })
 
 

@@ -428,6 +428,8 @@ export class DemographyMapController {
       const container = document.getElementById('container-piramid-age-sex')
       that.activeFiltered(container)
       that.rebuildChoroplethColorDomain()
+
+      that.updateOriginFilters('byAge', chart.filters());
       dc.redrawAll('main');
     })
 
@@ -435,6 +437,8 @@ export class DemographyMapController {
       const container = document.getElementById('container-piramid-age-sex')
       that.activeFiltered(container)
       that.rebuildChoroplethColorDomain()
+
+      that.updateOriginFilters('byAge', chart.filters());
       dc.redrawAll('main');
     })
 

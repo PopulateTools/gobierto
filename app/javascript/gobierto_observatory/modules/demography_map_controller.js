@@ -588,10 +588,6 @@ export class DemographyMapController {
       .mapOptions({
         scrollWheelZoom: false,
       })
-      .renderPopup(true)
-      .popup(function(d,feature) {
-        return feature.properties.cusec+" : "+d.value;
-      })
       .dimension(this.ndx.filters.studies.byCusec)
       .group(this.ndx.groups.studies.byCusec)
       .geojson(data.features)
@@ -614,42 +610,7 @@ export class DemographyMapController {
           maxZoom: 16,
           zoomOffset: -1
         }).addTo(map)
-
-        L.geoJson(data.features, {
-          onEachFeature: onEachFeature
-        }).addTo(map)
       })
-
-    function highlightFeature(e) {
-      var layer = e.target;
-
-      layer.setStyle({
-        weight: 5,
-        dashArray: '',
-        fillOpacity: 0.7
-      });
-
-      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
-      }
-    }
-
-    function resetHighlight(e) {
-      var layer = e.target;
-
-      layer.setStyle({
-        weight: 1,
-        dashArray: '',
-        fillOpacity: 0.7
-      });
-    }
-
-    function onEachFeature(feature, layer) {
-      layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight
-      });
-    }
 
     chart.on('filtered', function() {
       dc.redrawAll('main', );

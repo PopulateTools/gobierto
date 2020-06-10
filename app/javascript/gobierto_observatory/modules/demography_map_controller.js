@@ -675,6 +675,10 @@ export class DemographyMapController {
       this.clearFilterList(4)
     } else if (chart.id === 'container-bar-nationality') {
       this.clearFilterList(1)
+    } else if (chart.id === 'container-bar-origin-spaniards') {
+      this.clearFilterList(5)
+    } else if (chart.id === 'container-bar-origin-others') {
+      this.clearFilterList(6)
     } else if (chart.id === 'container-bar-sex') {
       this.clearFilterList(2)
     } else if (chart.id === 'container-piramid-age-sex') {

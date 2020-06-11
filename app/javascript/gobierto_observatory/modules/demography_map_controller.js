@@ -296,8 +296,6 @@ export class DemographyMapController {
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4)
 
-
-
     const that = this;
     chart
       .on('filtered', (chart) => {
@@ -344,6 +342,7 @@ export class DemographyMapController {
   }
 
   renderPyramid(selector) {
+
     const chart = pairedRow(selector, "main");
     dc.chartRegistry.register(chart, 'main');
     const that = this;
@@ -376,8 +375,6 @@ export class DemographyMapController {
     };
 
     chart.options({
-      // TODO: should be responsive
-      width: 250,
       height: 220,
       labelOffsetX: -50,
       fixedBarHeight: 10,
@@ -402,8 +399,21 @@ export class DemographyMapController {
       leftKeyFilter: d => d.key[0] === 'Hombre',
       rightKeyFilter: d => d.key[0] === 'Mujer'
     })
-    // TODO: should be responsive
-    chart.rightChart().options({ width: 185 })
+
+    /*This chart is composed of two elements. You've to divide the container. The chart on the left will have the width minus the margin. And the right will have the width plus the margin.*/
+    function pyramidResponsive() {
+      const containerWidth = document.getElementById('piramid-age-sex').getBoundingClientRect()
+      const widthChartLeft = (containerWidth.width / 2) - 40
+      const widthChartRight = widthChartLeft + 60
+      chart.leftChart().options({ width: widthChartLeft })
+      chart.rightChart().options({ width: widthChartRight })
+    }
+    pyramidResponsive()
+
+    window.addEventListener('resize', function() {
+      pyramidResponsive()
+      dc.redrawAll('main');
+    })
 
     chart.rightChart().on('filtered', function() {
       const container = document.getElementById('container-piramid-age-sex')

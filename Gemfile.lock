@@ -127,7 +127,7 @@ GEM
     cloudinary (1.13.2)
       aws_cf_signer
       rest-client
-    codecov (0.1.16)
+    codecov (0.1.17)
       json
       simplecov
       url
@@ -446,11 +446,10 @@ GEM
       multi_json (~> 1.10)
     simple_calendar (2.4.0)
       rails (>= 3.0)
-    simplecov (0.17.1)
+    simplecov (0.18.5)
       docile (~> 1.1)
-      json (>= 1.8, < 3)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.2)
+      simplecov-html (~> 0.11)
+    simplecov-html (0.12.2)
     socksify (1.7.1)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)

@@ -55,25 +55,25 @@ function prepareAgeRange(d) {
   d.rango_edad = parseInt(d.rango_edad.split('-')[0])
 
   if (d.rango_edad <= 10) {
-    age_range = '00-10';
+    age_range = '0 - 10';
   } else if (d.rango_edad <= 20) {
-    age_range = '11-20';
+    age_range = '11 - 20';
   } else if (d.rango_edad <= 30) {
-    age_range = '21-30';
+    age_range = '21 - 30';
   } else if (d.rango_edad <= 40) {
-    age_range = '31-40';
+    age_range = '31 - 40';
   } else if (d.rango_edad <= 50) {
-    age_range = '41-50';
+    age_range = '41 - 50';
   } else if (d.rango_edad <= 60) {
-    age_range = '51-60';
+    age_range = '51 - 60';
   } else if (d.rango_edad <= 70) {
-    age_range = '61-70';
+    age_range = '61 - 70';
   } else if (d.rango_edad <= 80) {
-    age_range = '71-80';
+    age_range = '71 - 80';
   } else if (d.rango_edad <= 90) {
-    age_range = '81-90';
+    age_range = '81 - 90';
   } else if (d.rango_edad < 100) {
-    age_range = '91-100';
+    age_range = '91 - 100';
   } else {
     age_range = '+100';
   }
@@ -311,7 +311,6 @@ export class DemographyMapController {
       .on('filtered', (chart) => {
         that.updateOriginFilters('byNationality', chart.filters());
         that.activeFiltered(container)
-
         that.rebuildChoroplethColorDomain()
       });
     return chart;
@@ -350,7 +349,6 @@ export class DemographyMapController {
         that.updateOriginFilters('bySex', chart.filters());
         const container = document.getElementById('container-bar-sex')
         that.activeFiltered(container)
-
         that.rebuildChoroplethColorDomain()
       });
 
@@ -365,7 +363,7 @@ export class DemographyMapController {
 
     let group = {
       all: function() {
-        var age_ranges = ['+100','91-100','81-90','71-80','61-70','51-60','41-50','31-40','21-30','11-20','00-10']
+        var age_ranges = ['+100','91 - 100','81 - 90','71 - 80','61 - 70','51 - 60','41 - 50','31 - 40','21 - 30','11 - 20','0 - 10']
 
         // convert to object so we can easily tell if a key exists
         var values = {};
@@ -430,25 +428,23 @@ export class DemographyMapController {
       dc.redrawAll('main');
     })
 
+
     chart.rightChart().on('filtered', function() {
       const container = document.getElementById('container-piramid-age-sex')
       that.activeFiltered(container)
       that.rebuildChoroplethColorDomain()
+      that.updateOriginFilters('byAge', chart.rightChart().filters());
+
       dc.redrawAll('main');
     })
 
     chart.leftChart().on('filtered', function() {
       const container = document.getElementById('container-piramid-age-sex')
       that.activeFiltered(container)
+      that.updateOriginFilters('byAge', chart.leftChart().filters());
       that.rebuildChoroplethColorDomain()
-
-      that.updateOriginFilters('byAge', chart.filters());
       dc.redrawAll('main');
     })
-
-    let allRows = d3.selectAll('g.row rect')
-    allRows
-      .attr('opacity', 0)
 
     chart.render()
     return chart;
@@ -498,11 +494,11 @@ export class DemographyMapController {
 
         that.rebuildChoroplethColorDomain()
         if (chart.filter() !== null) {
-          document.getElementById("bar-by-origin-spaniards").style.visibility = 'hidden';
-          document.getElementById("bar-by-origin-others").style.visibility = 'hidden';
+          document.getElementById("container-bar-by-origin-spaniards").style.visibility = 'hidden';
+          document.getElementById("container-bar-by-origin-others").style.visibility = 'hidden';
         } else {
-          document.getElementById("bar-by-origin-spaniards").style.visibility = 'visible';
-          document.getElementById("bar-by-origin-others").style.visibility = 'visible';
+          document.getElementById("container-bar-by-origin-spaniards").style.visibility = 'visible';
+          document.getElementById("container-bar-by-origin-others").style.visibility = 'visible';
         }
         dc.redrawAll('main');
       });
@@ -546,15 +542,25 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';
-        const container = document.getElementById('container-bar-origin-spaniards')
+        const container = document.getElementById('container-bar-by-origin-spaniards')
         that.activeFiltered(container)
 
         if (chart.filter() !== null) {
-          document.getElementById("bar-by-studies").style.visibility = 'hidden';
+          document.getElementById("container-bar-by-studies").style.visibility = 'hidden';
         } else {
-          document.getElementById("bar-by-studies").style.visibility = 'visible';
+          document.getElementById("container-bar-by-studies").style.visibility = 'visible';
         }
         that.rebuildChoroplethColorDomain()
+        that.chart1.dimension(that.ndx.filters.origin.all);
+        that.chart1.group(that.ndx.groups.origin.all);
+        that.chart2.dimension(that.ndx.filters.origin.byNationality);
+        that.chart2.group(that.ndx.groups.origin.byNationality);
+        that.chart3.dimension(that.ndx.filters.origin.bySex);
+        that.chart3.group(that.ndx.groups.origin.bySex);
+        that.chart4.dimension(that.ndx.filters.origin.byAge);
+        that.chart4.group(that.ndx.groups.origin.byAge);
+        that.chart8.dimension(that.ndx.filters.origin.byCusec);
+        that.chart8.group(that.ndx.groups.origin.byCusec);
         dc.redrawAll('main');
       });
     return chart;
@@ -585,24 +591,33 @@ export class DemographyMapController {
         habitantsValue = habitantsValue.replace('.', '')
         if (chart.hasFilter() && !chart.hasFilter(d.key))
           return "0%";
-        if(sumAllValues)
+        if (sumAllValues)
           return `${((d.value * 100) / Number(habitantsValue)).toFixed(1)}%`
       })
       .xAxis().ticks(4)
-
 
     const that = this;
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';
-        const container = document.getElementById('container-bar-origin-others')
+        const container = document.getElementById('container-bar-by-origin-others')
         that.activeFiltered(container)
         if (chart.filter() !== null) {
-          document.getElementById("bar-by-studies").style.visibility = 'hidden';
+          document.getElementById("container-bar-by-studies").style.visibility = 'hidden';
         } else {
-          document.getElementById("bar-by-studies").style.visibility = 'visible';
+          document.getElementById("container-bar-by-studies").style.visibility = 'visible';
         }
         that.rebuildChoroplethColorDomain()
+        that.chart1.dimension(that.ndx.filters.origin.all);
+        that.chart1.group(that.ndx.groups.origin.all);
+        that.chart2.dimension(that.ndx.filters.origin.byNationality);
+        that.chart2.group(that.ndx.groups.origin.byNationality);
+        that.chart3.dimension(that.ndx.filters.origin.bySex);
+        that.chart3.group(that.ndx.groups.origin.bySex);
+        that.chart4.dimension(that.ndx.filters.origin.byAge);
+        that.chart4.group(that.ndx.groups.origin.byAge);
+        that.chart8.dimension(that.ndx.filters.origin.byCusec);
+        that.chart8.group(that.ndx.groups.origin.byCusec);
         dc.redrawAll('main');
       });
     return chart;
@@ -662,7 +677,9 @@ export class DemographyMapController {
       })
       .popup(d => `Habitantes: ${d.value}`)
 
+    const that = this;
     chart.on('filtered', function() {
+      that.updateOriginFilters('byCusec', chart.filters());
       const buttonReset = document.getElementById('reset-filters')
       const chartFromList = dc.chartRegistry.list('main')[7]
       const activeFilters = chartFromList.filters().length
@@ -673,7 +690,6 @@ export class DemographyMapController {
       }
       dc.redrawAll('main');
     })
-
 
     return chart;
   }
@@ -730,9 +746,9 @@ export class DemographyMapController {
       this.clearFilterList(4)
     } else if (chart.id === 'container-bar-nationality') {
       this.clearFilterList(1)
-    } else if (chart.id === 'container-bar-origin-spaniards') {
+    } else if (chart.id === 'container-bar-by-origin-spaniards') {
       this.clearFilterList(5)
-    } else if (chart.id === 'container-bar-origin-others') {
+    } else if (chart.id === 'container-bar-by-origin-others') {
       this.clearFilterList(6)
     } else if (chart.id === 'container-bar-sex') {
       this.clearFilterList(2)
@@ -787,12 +803,18 @@ export class DemographyMapController {
     const choroplethChart = dc.chartRegistry.list('main')[7]
     //Rebuild color domain with the selected values.
     if (this.currentFilter === 'studies') {
-      choroplethChart.colorDomain([
+      choroplethChart
+        .dimension(this.ndx.filters.studies.byCusec)
+        .group(this.ndx.groups.studies.byCusec)
+        .colorDomain([
           d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck('value')),
           d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck('value'))
       ])
     } else {
-      choroplethChart.colorDomain([
+      choroplethChart
+        .dimension(this.ndx.filters.origin.byCusec)
+        .group(this.ndx.groups.origin.byCusec)
+        .colorDomain([
           d3.min(this.ndx.groups.origin.byCusec.all(), dc.pluck('value')),
           d3.max(this.ndx.groups.origin.byCusec.all(), dc.pluck('value'))
       ])

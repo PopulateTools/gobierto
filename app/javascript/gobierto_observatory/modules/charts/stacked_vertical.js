@@ -279,7 +279,7 @@ export default function (parent, chartGroup) {
               .attr('y', 20)
 
             rows.select('.row._0 text._0')
-              .attr('x', widthLabelText0)
+              .attr('x', widthLabelText0 + 5)
               .attr('y', 20)
 
             _g = _chart.svg()

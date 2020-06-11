@@ -109,6 +109,7 @@ export class DemographyMapController {
         this.currentFilter = 'studies'; // options: 'studies' or 'origin'
         let ndxStudies = crossfilter(studiesData);
         let ndxOrigin = crossfilter(originData);
+        this.sumAll = 191386
         const spinnerMap = document.getElementById('gobierto_observatory-demography-map-app-container-spinner')
         spinnerMap.classList.add('disable-spinner')
         let geojson = mapPolygonsData
@@ -282,7 +283,8 @@ export class DemographyMapController {
 
   renderBarNationality(selector) {
     const chart = stackedVertical(selector, "main");
-
+    const container = document.getElementById('container-bar-nationality')
+    const sumAllValues = this.ndx.groups.origin.all.value()
     chart
       .useViewBoxResizing(true)
       .height(45)
@@ -297,7 +299,10 @@ export class DemographyMapController {
         const habitants = document.getElementById('gobierto_observatory-habitants-number')
         let habitantsValue = habitants.innerText
         habitantsValue = habitantsValue.replace('.', '')
-        return `${((d.value * 100) / Number(habitantsValue)).toFixed(1) > 100 ? 0 : ((d.value * 100) / Number(habitantsValue)).toFixed(1) }%`
+        if (chart.hasFilter() && !chart.hasFilter(d.key))
+          return "0%";
+        if(sumAllValues)
+          return `${((d.value * 100) / Number(habitantsValue)).toFixed(1) > 100 ? 0 : ((d.value * 100) / Number(habitantsValue)).toFixed(1) }%`
       })
       .xAxis().ticks(4)
 
@@ -305,7 +310,6 @@ export class DemographyMapController {
     chart
       .on('filtered', (chart) => {
         that.updateOriginFilters('byNationality', chart.filters());
-        const container = document.getElementById('container-bar-nationality')
         that.activeFiltered(container)
 
         that.rebuildChoroplethColorDomain()
@@ -315,7 +319,7 @@ export class DemographyMapController {
 
   renderBarSex(selector) {
     const chart = stackedVertical(selector, "main");
-
+    const sumAllValues = this.ndx.groups.origin.all.value()
     chart
       .useViewBoxResizing(true)
       .height(45)
@@ -332,7 +336,10 @@ export class DemographyMapController {
         const habitants = document.getElementById('gobierto_observatory-habitants-number')
         let habitantsValue = habitants.innerText
         habitantsValue = habitantsValue.replace('.', '')
-        return `${((d.value * 100) / Number(habitantsValue)).toFixed(1) > 100 ? 0 : ((d.value * 100) / Number(habitantsValue)).toFixed(1) }%`
+        if (chart.hasFilter() && !chart.hasFilter(d.key))
+          return "0%";
+        if(sumAllValues)
+          return `${((d.value * 100) / Number(habitantsValue)).toFixed(1) > 100 ? 0 : ((d.value * 100) / Number(habitantsValue)).toFixed(1) }%`
       })
       .xAxis().ticks(4)
 
@@ -512,7 +519,15 @@ export class DemographyMapController {
       .fixedBarHeight(10)
       .labelOffsetX(-180)
       .titleLabelOffsetX(widthContainerLabelPosition)
-      .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
+      .title(function(d) {
+        const habitants = document.getElementById('gobierto_observatory-habitants-number')
+        let habitantsValue = habitants.innerText
+        habitantsValue = habitantsValue.replace('.', '')
+        if (chart.hasFilter() && !chart.hasFilter(d.key))
+          return "0%";
+        if(sumAllValues)
+          return `${((d.value * 100) / Number(habitantsValue)).toFixed(1) > 100 ? 0 : ((d.value * 100) / Number(habitantsValue)).toFixed(1) }%`
+      })
       .xAxis().ticks(4)
 
 
@@ -564,7 +579,15 @@ export class DemographyMapController {
       .fixedBarHeight(10)
       .labelOffsetX(-180)
       .titleLabelOffsetX(widthContainerLabelPosition)
-      .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
+      .title(function(d) {
+        const habitants = document.getElementById('gobierto_observatory-habitants-number')
+        let habitantsValue = habitants.innerText
+        habitantsValue = habitantsValue.replace('.', '')
+        if (chart.hasFilter() && !chart.hasFilter(d.key))
+          return "0%";
+        if(sumAllValues)
+          return `${((d.value * 100) / Number(habitantsValue)).toFixed(1) > 100 ? 0 : ((d.value * 100) / Number(habitantsValue)).toFixed(1) }%`
+      })
       .xAxis().ticks(4)
 
 
@@ -652,7 +675,6 @@ export class DemographyMapController {
       .popup(d => `Habitantes: ${d.value}`)
 
     chart.on('filtered', function() {
-      dc.redrawAll('main');
       const buttonReset = document.getElementById('reset-filters')
       const chartFromList = dc.chartRegistry.list('main')[7]
       const activeFilters = chartFromList.filters().length
@@ -661,6 +683,7 @@ export class DemographyMapController {
       } else {
         buttonReset.classList.add('disabled')
       }
+      dc.redrawAll('main');
     })
 
 

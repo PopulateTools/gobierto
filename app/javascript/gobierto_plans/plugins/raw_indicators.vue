@@ -85,13 +85,15 @@ export default {
   },
   created() {
     this.title = this.config.title_translations;
-    this.table = _.groupBy(this.config.data, 'name');
+    const data = _.groupBy(this.config.data, 'name');
 
-    for (const key in this.table) {
-      if (Object.prototype.hasOwnProperty.call(this.table, key)) {
-        this.table[key] = (this.table[key] || []).sort(({ date: a }, { date: b }) => a < b)
+    for (const key in data) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        data[key] = (data[key] || []).sort(({ date: a }, { date: b }) => a < b)
       }
     }
+
+    this.table = data;
   }
 };
 </script>

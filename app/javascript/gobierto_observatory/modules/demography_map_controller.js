@@ -269,7 +269,7 @@ export class DemographyMapController {
       .formatNumber(locale.format(',.0f'))
       .html({
         all: '<h2 class="gobierto_observatory-habitants-title">Total habitantes</h2><h3 class="gobierto_observatory-habitants-number">%total-count</h3>',
-        some: '<h2 class="gobierto_observatory-habitants-title">Habitantes</h2><h3 class="gobierto_observatory-habitants-number">%filter-count</h3>'
+        some: '<h2 class="gobierto_observatory-habitants-title">Habitantes</h2><h3 id="gobierto_observatory-habitants-number" class="gobierto_observatory-habitants-number">%filter-count</h3>'
       })
 
     const that = this;
@@ -282,7 +282,7 @@ export class DemographyMapController {
 
   renderBarNationality(selector) {
     const chart = stackedVertical(selector, "main");
-    const sumAllValues = this.ndx.groups.origin.all.value()
+
     chart
       .useViewBoxResizing(true)
       .height(45)
@@ -293,7 +293,12 @@ export class DemographyMapController {
       .margins(marginHabNat)
       .renderTitleLabel(true)
       .fixedBarHeight(10)
-      .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
+      .title(function(d) {
+        const habitants = document.getElementById('gobierto_observatory-habitants-number')
+        let habitantsValue = habitants.innerText
+        habitantsValue = habitantsValue.replace('.', '')
+        return `${((d.value * 100) / Number(habitantsValue)).toFixed(1) > 100 ? 0 : ((d.value * 100) / Number(habitantsValue)).toFixed(1) }%`
+      })
       .xAxis().ticks(4)
 
     const that = this;
@@ -310,7 +315,6 @@ export class DemographyMapController {
 
   renderBarSex(selector) {
     const chart = stackedVertical(selector, "main");
-    const sumAllValues = this.ndx.groups.origin.all.value()
 
     chart
       .useViewBoxResizing(true)
@@ -324,7 +328,12 @@ export class DemographyMapController {
       .fixedBarHeight(10)
       .labelOffsetX(-110)
       .titleLabelOffsetX(145)
-      .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
+      .title(function(d) {
+        const habitants = document.getElementById('gobierto_observatory-habitants-number')
+        let habitantsValue = habitants.innerText
+        habitantsValue = habitantsValue.replace('.', '')
+        return `${((d.value * 100) / Number(habitantsValue)).toFixed(1) > 100 ? 0 : ((d.value * 100) / Number(habitantsValue)).toFixed(1) }%`
+      })
       .xAxis().ticks(4)
 
 
@@ -554,7 +563,6 @@ export class DemographyMapController {
       .renderTitleLabel(true)
       .fixedBarHeight(10)
       .labelOffsetX(-180)
-      //TODO: create a function to get the width of the container and calculate position for titles
       .titleLabelOffsetX(widthContainerLabelPosition)
       .title(d => `${((d.value * 100) / sumAllValues).toFixed(1)}%`)
       .xAxis().ticks(4)

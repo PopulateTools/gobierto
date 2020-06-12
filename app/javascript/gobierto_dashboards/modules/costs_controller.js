@@ -70,14 +70,19 @@ export class CostsController {
           Vue.nextTick(() =>
             Vue.nextTick(() => {
               let title = baseTitle;
-              if (to.name === "TableFirstLevel" || to.name === "TableSecondLevel" || to.name === "TableItem") {
-                const { item: itemTitle} = to.params;
+              if (to.name === "TableItem") {
+                const { description: itemTitle } = to.params;
 
                 if (itemTitle) {
-                  title = `${baseTitle} ${itemTitle}`;
+                  title = `${itemTitle} ${baseTitle}`;
+                }
+              } else if (to.name === "TableSecondLevel") {
+                const { description: itemTitle } = to.params;
+
+                if (itemTitle) {
+                  title = `${itemTitle} ${baseTitle}`;
                 }
               }
-
               document.title = title;
             })
           );

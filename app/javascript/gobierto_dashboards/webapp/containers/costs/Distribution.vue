@@ -109,10 +109,23 @@ export default {
         this.totalCost
         this.totalCostPerHabitant
       }
+    },
+    activeYear(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.dataFilter = this.data.filter(element => element.year === newValue)
+        const [{
+          population: population
+        }] = this.dataFilter
+        this.population = population
+        this.populationNumber = Number(population).toLocaleString("es-ES")
+        this.totalCost
+        this.totalCostPerHabitant
+      }
     }
   },
   created() {
     const year = this.year
+    this.selectYearHandler(year)
     this.dataFilter = this.data.filter(element => element.year === year)
     const [{
       population: population

@@ -10,7 +10,7 @@
         >
           <td class="gobierto-dashboards-table-header--nav">
             <router-link
-              :to="{ name: 'TableSecondLevel', params: { id: ordre_agrupacio, year: year } }"
+              :to="{ name: 'TableSecondLevel', params: { id: ordre_agrupacio, year: year, description: agrupacio } }"
               class="gobierto-dashboards-table-header--link"
               @click.native="loadTable"
             >

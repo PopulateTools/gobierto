@@ -54,9 +54,13 @@ export default {
   watch: {
     $route(to) {
       if (to.name === 'TableSecondLevel') {
+        const { params: { id: id }} = to
         this.currentComponent = COMPONENTS_TABLE[1];
+        this.changeTitleSecondLevel(id)
       } else if ( to.name === 'TableItem') {
+        const { params: { item: item }} = to
         this.currentComponent = COMPONENTS_TABLE[2];
+        this.changeTitleItem(item)
       } else {
         this.currentComponent = COMPONENTS_TABLE[0];
       }
@@ -65,12 +69,18 @@ export default {
   created(){
     this.currentComponent = COMPONENTS_TABLE[0];
     const {
-      name: nameComponent
+      name: nameComponent,
+      params: {
+        id: id,
+        item: item
+      }
     } = this.$route;
     if (nameComponent === 'TableSecondLevel') {
       this.currentComponent = COMPONENTS_TABLE[1];
+      this.changeTitleSecondLevel(id)
     } else if ( nameComponent === 'TableItem') {
       this.currentComponent = COMPONENTS_TABLE[2];
+      this.changeTitleItem(item)
     } else {
       this.currentComponent = COMPONENTS_TABLE[0];
     }
@@ -79,6 +89,33 @@ export default {
     changeTableComponent(value) {
       this.currentComponent = COMPONENTS_TABLE[value];
     },
+    changeTitleSecondLevel(id) {
+      const filterItems = this.itemsFilter.filter(element => element.ordre_agrupacio === id)
+
+      const [{
+        agrupacio: titleAgrupacio
+      }] = filterItems
+
+      this.updateTitle(titleAgrupacio)
+    },
+    changeTitleItem(id) {
+      const filterItem = this.items.filter(element => element.codiact === id)
+
+      const [{
+        nomact: titleItem
+      }] = filterItem
+
+      this.updateTitle(titleItem)
+    },
+    updateTitle(newTitle) {
+      this.$nextTick(() => {
+        this.$nextTick(() => {
+          const baseTitle = document.title;
+          let title = `${newTitle} ${baseTitle}`
+          document.title = title;
+        });
+      });
+    }
   }
 }
 </script>

@@ -125,7 +125,6 @@ export default {
   },
   created() {
     const year = this.year
-    this.selectYearHandler(year)
     this.dataFilter = this.data.filter(element => element.year === year)
     const [{
       population: population
@@ -135,6 +134,7 @@ export default {
   },
   mounted() {
     this.createBubbleViz()
+    this.selectYearHandler(this.year)
   },
   methods: {
     createBubbleViz() {

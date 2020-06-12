@@ -29,6 +29,7 @@
       <Distribution
         :data="groupData"
         :year="yearFiltered"
+        :years="years"
       />
       <Table
         :items-filter="groupDataFilter"

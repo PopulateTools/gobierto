@@ -35,13 +35,27 @@
         class="pure-u-1 pure-u-lg-3-4"
       >
         <div class="vis-costs vis-bubbles" />
+        <div class="range-slider-costs">
+          <div class="range-slider-costs--container">
+            <div
+              v-for="item in years"
+              :key="item"
+              class="range-slider-costs--values"
+              :class="{ 'active-slider' : activeYear === item }"
+              @click="selectYearHandler(item)"
+            >
+              <span class="range-slider-costs--values-circle" />
+              <span class="range-slider-costs--values-text">{{ item }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { VisBubble } from "lib/visualizations";
-import { VueFiltersMixin } from "lib/shared"
+import { VueFiltersMixin } from "lib/shared";
 
 export default {
   name: 'Distribution',
@@ -54,6 +68,10 @@ export default {
     year: {
       type: String,
       default: ''
+    },
+    years: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -65,7 +83,8 @@ export default {
       population: '',
       populationNumber: '',
       visBubblesCosts: null,
-      dataFilter: []
+      dataFilter: [],
+      activeYear: null
     }
   },
   computed: {
@@ -115,7 +134,11 @@ export default {
     },
     updateBubbles() {
       this.visBubblesCosts.resize(this.year)
-    }
+    },
+    selectYearHandler(item) {
+      this.activeYear = item
+      this.visBubblesCosts.resize(item)
+    },
   }
 }
 </script>

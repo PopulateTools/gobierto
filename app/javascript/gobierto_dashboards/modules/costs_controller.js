@@ -59,7 +59,7 @@ export class CostsController {
             //Get a different position scroll
             if (to.name !== 'TableFirstLevel') {
               element = document.getElementById('gobierto-dashboards-title-detail');
-              window.scrollTo({ top: element.offsetTop + 200, behavior: "smooth" });
+              element.scrollIntoView({ behavior: "smooth" });
             }
           }
         });

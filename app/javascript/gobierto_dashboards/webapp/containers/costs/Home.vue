@@ -73,6 +73,9 @@ export default {
 
     this.costDataFilter = this.costData.filter(element => element.year === yearFiltered)
     this.groupDataFilter = this.groupData.filter(element => element.year === yearFiltered)
+
+    this.costDataFilter = this.costDataFilter.sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
+    this.groupDataFilter = this.groupDataFilter.sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
   },
   methods: {
     onChangeFilterYear(value) {

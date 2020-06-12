@@ -160,6 +160,10 @@ export default {
   },
   created() {
     this.intermediaData()
+    const el = this.$el.getElementsByClassName('gobierto-dashboards-table-header--link-container')[0];
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   },
   methods: {
     intermediaData() {
@@ -191,7 +195,9 @@ export default {
       }, new Map).values()];
 
       const dataActIntermediaWithoutValues = dataAgrupacio.filter(element => element.act_intermedia === '')
+      dataActIntermediaValues = dataActIntermediaValues.sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
       this.dataActIntermediaTotal = [...dataActIntermediaValues, ...dataActIntermediaWithoutValues]
+
     },
     agrupacioDataFilter(actIntermedia) {
       this.dataGroupIntermedia = this.items.filter(element => element.act_intermedia === actIntermedia)

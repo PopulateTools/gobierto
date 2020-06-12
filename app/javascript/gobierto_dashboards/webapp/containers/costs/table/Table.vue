@@ -64,11 +64,9 @@ export default {
   },
   created(){
     this.currentComponent = COMPONENTS_TABLE[0];
-
     const {
       name: nameComponent
     } = this.$route;
-
     if (nameComponent === 'TableSecondLevel') {
       this.currentComponent = COMPONENTS_TABLE[1];
     } else if ( nameComponent === 'TableItem') {

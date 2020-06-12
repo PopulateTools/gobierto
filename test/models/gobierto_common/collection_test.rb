@@ -103,7 +103,7 @@ module GobiertoCommon
       assert_equal "/participacion/noticias", participation_news.to_path
       assert_equal "/participacion/documentos", participation_docs.to_path
 
-      assert_equal "/agendas/#{person.slug}", person_events.to_path
+      assert_equal "/en/agendas/#{person.slug}", person_events.to_path
 
       assert_equal "/paginas/#{site_pages.slug}", site_pages.to_path
       assert_equal "/noticias/#{site_news.slug}", site_news.to_path

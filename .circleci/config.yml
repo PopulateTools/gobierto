@@ -28,19 +28,32 @@ jobs:
       - restore_cache:
           name: "[Bundler] Restore cache"
           keys:
-            - gobierto-{{ checksum "Gemfile.lock" }}
+            - gobierto-bundler-{{ checksum "Gemfile.lock" }}
       - run:
           name: "[Bundler] Install dependencies"
           command: bundle install --path vendor/bundle --jobs=4 --retry=3  --without development
       - save_cache:
           name: "[Bundler] Cache dependencies"
-          key: gobierto-{{ checksum "Gemfile.lock" }}
+          key: gobierto-bundler-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+      - restore_cache:
+          name: "[Yarn] Restore cache"
+          keys:
+            - gobierto-yarn-{{ checksum "yarn.lock" }}
+      - run:
+          name: "[Yarn] Install dependencies"
+          command: yarn install
+      - save_cache:
+          name: "[Yarn] Cache dependencies"
+          key: gobierto-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
       - persist_to_workspace:
           root: ~/gobierto
           paths:
             - vendor/bundle
+            - node_modules
 
   tests:
     <<: *defaults
@@ -69,7 +82,21 @@ jobs:
       - run: bin/rails i18n:js:export
 
       # Precompile assets
+      - restore_cache:
+          name: "Restore cached assets"
+          keys:
+            - v1-asset-cache-{{ .Branch }}
+            - v1-asset-cache-
+
       - run: bin/rails assets:precompile
+
+      - save_cache:
+          name: "Cache assets"
+          key: v1-asset-cache-{{ .Branch }}
+          paths:
+            - public/packs
+            - public/packs-test
+            - tmp/cache/assets/sprockets
 
       # Run tests
       - run:

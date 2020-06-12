@@ -35,6 +35,7 @@
         :items-filter="groupDataFilter"
         :items="costDataFilter"
         :year="yearFiltered"
+        :baseTitle="baseTitle"
       />
     </div>
   </main>
@@ -77,6 +78,8 @@ export default {
 
     this.costDataFilter = this.costDataFilter.sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
     this.groupDataFilter = this.groupDataFilter.sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
+
+    this.baseTitle = document.title;
   },
   mounted() {
     this.injectRouter()
@@ -109,6 +112,7 @@ export default {
         e.preventDefault()
         // eslint-disable-next-line no-unused-vars
         this.$router.push(`/dashboards/costes/${year}/${order}`).catch(err => {})
+        this.groupDataFilter = this.groupData.filter(element => element.year === year)
       }))
     }
   }

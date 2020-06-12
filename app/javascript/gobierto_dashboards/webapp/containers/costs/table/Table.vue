@@ -36,6 +36,10 @@ export default {
     year: {
       type: String,
       default: ''
+    },
+    baseTitle: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -54,11 +58,11 @@ export default {
   watch: {
     $route(to) {
       if (to.name === 'TableSecondLevel') {
-        const { params: { id: id }} = to
+        const { params: { id: id } } = to
         this.currentComponent = COMPONENTS_TABLE[1];
         this.changeTitleSecondLevel(id)
       } else if ( to.name === 'TableItem') {
-        const { params: { item: item }} = to
+        const { params: { item: item } } = to
         this.currentComponent = COMPONENTS_TABLE[2];
         this.changeTitleItem(item)
       } else {
@@ -110,7 +114,7 @@ export default {
     updateTitle(newTitle) {
       this.$nextTick(() => {
         this.$nextTick(() => {
-          const baseTitle = document.title;
+          const baseTitle = this.baseTitle;
           let title = `${newTitle} ${baseTitle}`
           document.title = title;
         });

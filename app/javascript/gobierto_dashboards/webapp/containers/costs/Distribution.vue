@@ -121,7 +121,7 @@ export default {
         this.totalCost
         this.totalCostPerHabitant
       }
-    }
+    },
   },
   created() {
     const year = this.year
@@ -152,6 +152,7 @@ export default {
       this.activeYear = item
       this.visBubblesCosts.resize(item)
     },
+
   }
 }
 </script>

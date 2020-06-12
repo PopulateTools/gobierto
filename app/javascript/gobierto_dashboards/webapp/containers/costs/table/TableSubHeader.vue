@@ -47,6 +47,18 @@ export default {
       dataGroup: []
     }
   },
+  watch: {
+    $route(to) {
+      if (to.name === 'TableSecondLevel') {
+        const {
+          params: {
+            id: agrupacioId
+          }
+        } = this.$route
+        this.agrupacioData(agrupacioId)
+      }
+    }
+  },
   created() {
     const {
       params: {

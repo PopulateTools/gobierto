@@ -158,6 +158,13 @@ export default {
       selectedToggle: null
     }
   },
+  watch: {
+    $route(to) {
+      if (to.name === 'TableSecondLevel') {
+        this.intermediaData()
+      }
+    }
+  },
   created() {
     this.intermediaData()
   },

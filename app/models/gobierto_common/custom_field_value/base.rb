@@ -41,6 +41,8 @@ module GobiertoCommon
           record.payload = { custom_field.uid => value }
         end
       end
+
+      def external_id; end
     end
 
   end

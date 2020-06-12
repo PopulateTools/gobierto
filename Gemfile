@@ -75,6 +75,7 @@ gem "redis", "~> 4.0"
 
 # Translations
 gem "json_translate", "~> 4.0"
+gem "route_translator"
 
 # Liquid
 gem "liquid", "~> 4.0"

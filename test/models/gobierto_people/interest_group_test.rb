@@ -35,7 +35,7 @@ module GobiertoPeople
     end
 
     def test_to_url
-      assert_equal "http://madrid.gobierto.test/grupos-de-interes/#{google.slug}", google.to_url
+      assert_equal "http://madrid.gobierto.test/en/interest-groups/#{google.slug}", google.to_url
     end
 
   end

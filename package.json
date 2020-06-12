@@ -70,6 +70,7 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^6.4.0",
     "eslint-plugin-vue": "^5.2.3",
+    "husky": "^4.2.5",
     "sass-lint": "^1.13.1",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.1",
@@ -78,6 +79,12 @@
   "scripts": {
     "jslint": "eslint $(git diff --name-status master | grep -E '.js$|.vue$' | cut -f 2)",
     "jslint:fix": "yarn run jslint --fix",
-    "csslint": "sass-lint -v $(git diff --name-status master | grep -E '.css$|.scss$' | cut -f 2)"
+    "csslint": "sass-lint -v $(git diff --name-status master | grep -E '.css$|.scss$' | cut -f 2)",
+    "pre_commit_i18n_check": "script/check_i18n.sh"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pre_commit_i18n_check"
+    }
   }
 }

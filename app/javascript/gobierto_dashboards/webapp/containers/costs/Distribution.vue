@@ -108,6 +108,7 @@ export default {
         this.updateBubbles()
         this.totalCost
         this.totalCostPerHabitant
+        this.selectYearHandler(newValue)
       }
     },
     activeYear(newValue, oldValue) {
@@ -147,12 +148,13 @@ export default {
     },
     updateBubbles() {
       this.visBubblesCosts.resize(this.year)
+      this.$emit('preventReload')
     },
     selectYearHandler(item) {
       this.activeYear = item
       this.visBubblesCosts.resize(item)
+      this.$emit('preventReload')
     },
-
   }
 }
 </script>

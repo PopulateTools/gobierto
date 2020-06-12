@@ -30,6 +30,7 @@
         :data="groupData"
         :year="yearFiltered"
         :years="years"
+        @preventReload="injectRouter"
       />
       <Table
         :items-filter="groupDataFilter"
@@ -62,8 +63,15 @@ export default {
       groupDataFilter: []
     }
   },
+  watch: {
+    $route(to) {
+      if (to.name) {
+        this.injectRouter()
+      }
+    }
+  },
   created() {
-    this.labelDescription = I18n.t("gobierto_dashboards.dashboards.costs.description", { entity_name: this.getSiteName }) || "";
+      this.labelDescription = I18n.t("gobierto_dashboards.dashboards.costs.description", { entity_name: this.getSiteName }) || "";
     const {
       params: {
         year: year
@@ -86,6 +94,7 @@ export default {
   },
   methods: {
     onChangeFilterYear(value) {
+      this.injectRouter()
       let year
       if (value === '2018') {
         year = value

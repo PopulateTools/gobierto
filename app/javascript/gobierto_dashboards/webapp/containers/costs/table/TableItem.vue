@@ -455,7 +455,7 @@ export default {
     this.agrupacioData(this.$route.params.item)
   },
   mounted() {
-    const el = this.$el.getElementsByClassName('gobierto-dashboards-table-header--link-container')[0];
+    const el = this.$el.getElementsByClassName('gobierto-dashboards-table-header--nav')[0];
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }

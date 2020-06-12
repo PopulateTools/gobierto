@@ -160,7 +160,9 @@ export default {
   },
   created() {
     this.intermediaData()
-    const el = this.$el.getElementsByClassName('gobierto-dashboards-table-header--link-container')[0];
+  },
+  mounted() {
+    const el = this.$el.getElementsByClassName('gobierto-dashboards-table-header--nav')[0];
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }

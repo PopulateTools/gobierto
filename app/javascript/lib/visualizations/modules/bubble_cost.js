@@ -102,6 +102,7 @@ export class VisBubble {
           y: this.nodeScale(+d.cost_total / (d.population * 1.5)),
           cost_total: d.cost_total,
           year: d.year,
+          ordre_agrupacio: +d.ordre_agrupacio,
           cost_per_habitant: (d.cost_total / d.population).toFixed(2)
         };
       }.bind(this))
@@ -163,6 +164,21 @@ export class VisBubble {
       .attr('r', d => d.radius)
       .attr('fill', function(d) { return this.budgetColor(d.radius)}.bind(this))
       .attr('stroke-width', 2)
+      .on('mousemove', !this.isMobile && this._mousemoved.bind(this))
+      .on('mouseleave', !this.isMobile && this._mouseleft.bind(this));
+
+    var bubblesG = this.bubbles.append('a')
+      .attr('xlink:href', function(d) {
+        return `/dashboards/costes/${d.year}/${d.ordre_agrupacio}`
+      }.bind(this))
+      .attr('target', '_top')
+      .attr('class', 'bubbles-links')
+      .append('circle')
+      .attr('class', d => `${d.year} bubble`)
+      .attr('data-order', d => d.ordre_agrupacio)
+      .attr('data-year', d => d.year)
+      .attr('r', d => d.radius)
+      .attr('fill', function(d) { return this.budgetColor(d.radius)}.bind(this))
       .on('mousemove', !this.isMobile && this._mousemoved.bind(this))
       .on('mouseleave', !this.isMobile && this._mouseleft.bind(this));
 

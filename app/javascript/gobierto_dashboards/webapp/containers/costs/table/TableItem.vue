@@ -34,22 +34,22 @@
           <td class="gobierto-dashboards-table-header--nav">
             <span>{{ nomact }}</span>
           </td>
-          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
+          <td :data-th="labelCostDirect" class="gobierto-dashboards-table-header--elements">
             <span>{{ cost_directe | money }}</span>
           </td>
-          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect">
+          <td :data-th="labelCostIndirect" class="gobierto-dashboards-table-header--elements">
             <span>{{ cost_indirecte | money }}</span>
           </td>
-          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
+          <td :data-th="labelCostTotal" class="gobierto-dashboards-table-header--elements">
             <span>{{ cost_total | money }}</span>
           </td>
-          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
+          <td :data-th="labelCostInhabitant" class="gobierto-dashboards-table-header--elements">
             <span>{{ cost_per_habitant | money }}</span>
           </td>
-          <td class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income">
+          <td :data-th="labelIncome" class="gobierto-dashboards-table-header--elements">
             <span>{{ ingressos | money }}</span>
           </td>
-          <td class="gobierto-dashboards-table-header--elements">
+          <td :data-th="labelCoverage" class="gobierto-dashboards-table-header--elements">
             <span>{{ ((ingressos * 100) / cost_total).toFixed(0) }}%</span>
           </td>
         </tr>
@@ -406,6 +406,9 @@ export default {
     return {
       items: this.$root.$data.costData,
       dataGroup: [],
+      labelCostInhabitant: I18n.t("gobierto_dashboards.dashboards.costs.cost_inhabitant") || "",
+      labelCostTotal: I18n.t("gobierto_dashboards.dashboards.costs.total") || "",
+      labelCostDirect: I18n.t("gobierto_dashboards.dashboards.costs.cost_direct") || "",
       labelCompetence: I18n.t("gobierto_dashboards.dashboards.costs.item.competence") || "",
       labelDescription: I18n.t("gobierto_dashboards.dashboards.costs.item.description") || "",
       labelPersonalCost: I18n.t("gobierto_dashboards.dashboards.costs.item.personal_cost") || "",

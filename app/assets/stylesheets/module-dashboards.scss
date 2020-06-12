@@ -281,15 +281,50 @@
   }
 
   &-table {
-    td > * {
-      padding: .75rem .5rem .75rem 0;
-      vertical-align: middle;
-      display: inline-block;
+    td {
+      display: block;
+      width: 100%;
+
+      &:not(:first-child) {
+        &::before {
+          width: 120px;
+          font-weight: bold;
+          content: attr(data-th) ": ";
+          display: inline-block;
+        }
+      }
     }
 
+    th,
     td {
-      border-top: 0;
-      padding: 0 1rem;
+      text-align: left;
+      padding: .5rem;
+    }
+
+    @include min-screen(740) {
+
+      td > * {
+        padding: .75rem .5rem .75rem 0;
+        vertical-align: middle;
+        display: inline-block;
+      }
+
+      td {
+        border-top: 0;
+        padding: 0 1rem;
+        display: table-cell;
+        width: 12%;
+
+        &.gobierto-dashboards-table-header--elements::before {
+          display: none;
+        }
+      }
+
+      .gobierto-dashboards-table-header--elements {
+        text-align: right;
+      }
+
+
     }
 
     &--subheader {
@@ -299,10 +334,17 @@
       overflow: hidden;
 
       td > * {
-        padding: .75rem .5rem .75rem 0;
+        padding: 0;
         vertical-align: middle;
         display: inline-block;
       }
+
+      @include min-screen(740) {
+        td > * {
+          padding: .75rem .5rem .75rem 0;
+        }
+      }
+
     }
   }
 
@@ -373,7 +415,7 @@
     min-width: 100%;
     color: var(--color-base);
 
-    @include min-screen(768) {
+    @include min-screen(740) {
       width: 28%;
       min-width: 28%;
     }
@@ -389,8 +431,10 @@
     .gobierto-dashboards-table-header--elements {
       padding: .25rem;
       position: relative;
+      display: none;
 
-      @include min-screen(768) {
+      @include min-screen(740) {
+        display: inline-block;
         padding: 2rem 1.5rem .75rem .25rem;
       }
     }
@@ -414,7 +458,7 @@
       border-top-right-radius: 4px;
       padding-top: 0;
 
-      @include min-screen(768) {
+      @include min-screen(740) {
         padding-top: 3rem;
       }
     }
@@ -440,7 +484,7 @@
     box-sizing: border-box;
     text-align: right;
 
-    @include min-screen(768) {
+    @include min-screen(740) {
       width: 12%;
     }
 
@@ -452,7 +496,7 @@
     span {
       font-size: 12px;
 
-      @include min-screen(768) {
+      @include min-screen(740) {
         font-size: 1rem;
       }
     }
@@ -550,7 +594,7 @@
     box-sizing: border-box;
     flex-wrap: wrap;
 
-    @include min-screen(768) {
+    @include min-screen(740) {
       flex-wrap: nowrap;
       padding: 3rem;
     }
@@ -559,7 +603,7 @@
   &-table-item-left {
     width: 100%;
 
-    @include min-screen(768) {
+    @include min-screen(740) {
       width: 60%;
     }
   }
@@ -569,7 +613,7 @@
     display: flex;
     flex-wrap: wrap;
 
-    @include min-screen(768) {
+    @include min-screen(740) {
       width: 45%;
     }
   }
@@ -627,7 +671,7 @@
     padding-left: 1rem;
     width: 100%;
 
-    @include min-screen(768) {
+    @include min-screen(740) {
       width: 70%;
     }
   }

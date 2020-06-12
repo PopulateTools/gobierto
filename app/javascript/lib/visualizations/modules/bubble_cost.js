@@ -17,6 +17,7 @@ export class VisBubble {
     this.year = year
     this.forceStrength = 0.045;
     this.isMobile = window.innerWidth <= 590;
+    this.radiusReponsive = this.isMobile ? 2 : 1.5
     this.locale = I18n.locale;
 
     d3.formatDefaultLocale(d3locale[this.locale]);
@@ -97,9 +98,9 @@ export class VisBubble {
       this.nodes = rawData.map(function (d) {
         return {
           id: d.agrupacio,
-          radius: (+d.cost_total / (d.population * 1.5)),
+          radius: (+d.cost_total / (d.population * this.radiusReponsive)),
           x: Math.random() * 600,
-          y: this.nodeScale(+d.cost_total / (d.population * 1.5)),
+          y: this.nodeScale(+d.cost_total / (d.population * this.radiusReponsive)),
           cost_total: d.cost_total,
           year: d.year,
           ordre_agrupacio: +d.ordre_agrupacio,
@@ -109,7 +110,7 @@ export class VisBubble {
     } else {
       this.nodes.forEach(function(d) {
         d.id = d.agrupacio,
-        d.radius = (+d.cost_total / (d.population * 1.5)),
+        d.radius = (+d.cost_total / (d.population * this.radiusReponsive)),
         d.cost_per_habitant = (d.cost_total / d.population).toFixed(2)
       }.bind(this))
     }

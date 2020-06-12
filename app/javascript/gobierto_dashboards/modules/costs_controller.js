@@ -74,7 +74,7 @@ export class CostsController {
                 const { item: itemTitle} = to.params;
 
                 if (itemTitle) {
-                  title = `${itemTitle} ${baseTitle}`;
+                  title = `${baseTitle} ${itemTitle}`;
                 }
               }
 
@@ -166,6 +166,7 @@ export class CostsController {
 
     groupDataByYears = [...groupData2018, ...groupData2019]
 
+    groupDataByYears = groupDataByYears.sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
 
     this.data = {
       costData: totalData,

@@ -78,7 +78,7 @@ module GobiertoPeople
     end
 
     def activities_sql
-      cte = ASSOCIATIONS.keys.map do |association_model|
+      common_table_expression = ASSOCIATIONS.keys.map do |association_model|
         "#{association_model}_relation AS (#{relation_sql(association_model)})"
       end.join(", ")
 
@@ -90,7 +90,7 @@ module GobiertoPeople
         "#{table_name}.id = #{association_model}_relation.id"
       end.join(" OR ")
 
-      "WITH #{cte} SELECT DISTINCT(#{table_name}.*) FROM #{table_name} #{joins} WHERE #{where}"
+      "WITH #{common_table_expression} SELECT DISTINCT(#{table_name}.id) FROM #{table_name} #{joins} WHERE #{where}"
     end
 
     def relation_sql(model)

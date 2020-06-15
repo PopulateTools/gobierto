@@ -51,7 +51,7 @@ module GobiertoData
           end
           return csv.join('')
         end
-      rescue ActiveRecord::StatementInvalid, PG::SyntaxError, PG::UndefinedTable => e
+      rescue ActiveRecord::StatementInvalid, PG::SyntaxError, PG::UndefinedTable, PG::UndefinedColumn => e
         failed_query(e.message)
       end
 

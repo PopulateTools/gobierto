@@ -61,12 +61,20 @@ module GobiertoData
       assert_equal "7", csv[0]["test_count"]
     end
 
-    def test_execute_query_with_output_csv_with_errors
+    def test_execute_query_with_output_csv_with_no_table_error
       result = Connection.execute_query_output_csv(site, "SELECT COUNT(*) FROM not_existing_table", {col_sep: ','})
       hash_result = JSON.parse(result.to_json)
 
       assert hash_result.has_key?("errors")
       assert_match(/ERROR:  relation \"not_existing_table\" does not exist/, hash_result["errors"].first["sql"])
+    end
+
+    def test_execute_query_with_output_csv_with_undefined_column_error
+      result = Connection.execute_query_output_csv(site, "SELECT not_existing_column FROM users", {col_sep: ','})
+      hash_result = JSON.parse(result.to_json)
+
+      assert hash_result.has_key?("errors")
+      assert_match(/ERROR:  column \"not_existing_column\" does not exist/, hash_result["errors"].first["sql"])
     end
 
     def test_execute_query_with_module_disabled

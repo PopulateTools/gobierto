@@ -6,7 +6,7 @@ module GobiertoPeople
     def initialize(params = {})
       @site = params[:site]
       @conditions = params[:conditions].symbolize_keys
-      @relation = (params[:relation] || model.all).where(id: people_with_activities.map(&:id)).left_outer_joins(events_association)
+      @relation = (params[:relation] || model).where(id: people_with_activities.map(&:id)).left_outer_joins(events_association)
       append_query_conditions(@conditions) if @conditions
       @limit = params[:limit] || DEFAULT_LIMIT
     end

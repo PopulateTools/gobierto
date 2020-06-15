@@ -51,10 +51,16 @@ en:
         cost_inhabitant: Cost / inhabitant
         cost_per_inhabitant: Cost per inhabitant
         coverage: Cobertura
-        description: The %{entity_name} is responsible for providing certain services
-          to citizens. The cost of the services is covered directly (fees) or indirectly
-          (budget lines). In this visualization, you can explore the services, their
-          costs, and evolution, the income ...
+        description: The %{entity_name} provides services to its citizens based on
+          their competencies. This provision of services involves a cost that is covered
+          by the income available to the City Council, which are derived from the
+          service itself to be provided or from general resources of the taxes or
+          subsidies received.
+        description_2: This section shows the data on the costs of the services and
+          the income needed to provide them.
+        description_3: The starting point is the municipal budget, but with this analysis
+          the real cost of a service is expanded and specified as we can find related
+          the indirect (support) cost required to provide a service.
         detail: Detail
         distribution: Distribution of costs by area
         home: Home
@@ -78,6 +84,43 @@ en:
         see_all: See all
         see_more: More information
         title: Costs
+        tooltips:
+          cost_direct: Resources needed to provide a finalist service or activity
+            that is directly related.
+          cost_indirect: Resources for the provision of non-finalist services and
+            which are necessary support for the performance of finalist services and
+            activities.
+          cost_per_habitant: Total cost divided by the number of inhabitants.
+          cost_total: Sum of direct cost and indirect cost.
+          coverage: State of coverage of income directly related to the total cost
+            of the activity or service.
+          income: Revenue directly related to the provision of the service, whether
+            derived from the application of a public fee or price or a subsidy.
+        tooltips_items:
+          cost_indirect: An equal part of the cost of non-finalist activities (human
+            resources, financial services).
+          coverage: Measure (in%) to which the income directly related to the activity
+            is sufficient to cover its cost.
+          equipments: Proportional cost of using the infrastructure necessary for
+            the provision of the activity or service (consumption and maintenance
+            of buildings, vehicles) depending on the degree of use.
+          externalServices: Miscellaneous services acquired by the City Council and
+            benefits for legal or natural persons not included in the staff.
+          goodsServices: Monetary assessment of the consumption of necessary and non-storable
+            consumable material essential for the provision of the business or service
+            (supply, office supplies).
+          income_cost: Difference between the set of income directly related to the
+            activity and the cost required to provide it. A negative balance indicates
+            the insufficiency of specific resources and the need for financing with
+            general funds from the City Council.
+          staff_cost: Annual calculation of the part of the salaries and wages of
+            the workers proportional to their dedication to the activity.
+          subsidies: Income without direct compensation by the beneficiary, intended
+            for a specific activity or project.
+          taxes: Financial consideration received for the provision of a service or
+            the private use or exclusive use of the public domain.
+          transferences: Contributions of financial resources from the City Council
+            as a previously granted subsidy.
         total: Total cost
         total_cost: Total cost
       subsidies:

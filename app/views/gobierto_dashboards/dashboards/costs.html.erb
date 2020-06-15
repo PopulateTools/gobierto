@@ -1,6 +1,11 @@
 <% title t('gobierto_dashboards.layouts.application.gobierto_dashboards.costs') %>
 
 <div class="column">
+
+  <div class="js-loading">
+    <i class="fas fa-spinner fa-spin"></i> <%= t("gobierto_dashboards.shared.loading") %>
+  </div>
+
   <div id="gobierto-dashboards-costs-app"
        data-site-name="<%= @site.name %>"
        data-year="2018"

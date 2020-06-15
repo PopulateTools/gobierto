@@ -51,37 +51,37 @@ export default {
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.cost_direct") || "",
         classItem: 'direct',
-        tooltipText: 'Explicación sobre el concepto de Coste directo, con un enlace a la guía para ampliar información.',
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_direct") || "",
         infoLink: 'https://mataro.gobierto.test'
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.cost_indirect") || "",
         classItem: 'indirect',
-        tooltipText: 'Explicación sobre el concepto de Coste Indirecto, con un enlace a la guía para ampliar información.',
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_indirect") || "",
         infoLink: 'https://mataro.gobierto.test'
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.total") || "",
         classItem: 'total',
-        tooltipText: 'Explicación sobre el concepto de Coste total, con un enlace a la guía para ampliar información.',
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_total") || "",
         infoLink: 'https://mataro.gobierto.test'
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.cost_inhabitant") || "",
         classItem: 'inhabitant',
-        tooltipText: 'Explicación sobre el concepto de Coste por habitante, con un enlace a la guía para ampliar información.',
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_per_habitant") || "",
         infoLink: 'https://mataro.gobierto.test'
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.income") || "",
         classItem: 'income',
-        tooltipText: 'Explicación sobre el concepto de ingresos, con un enlace a la guía para ampliar información.',
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.income") || "",
         infoLink: 'https://mataro.gobierto.test'
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.coverage") || "",
         classItem: 'coverage',
-        tooltipText: 'Explicación sobre el concepto de cobertura, con un enlace a la guía para ampliar información.',
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.coverage") || "",
         infoLink: 'https://mataro.gobierto.test'
       }
     ]

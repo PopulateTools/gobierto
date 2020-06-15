@@ -113,13 +113,14 @@
                 style="color: var(--color-base); cursor: pointer;"
                 @mouseover="showTooltipItem = labelPersonalCost"
                 @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelPersonalCost"
-                class="gobierto-dashboards-item--tooltip"
               >
-                {{ tooltipTextCost }}
-              </div>
+                <div
+                  v-show="showTooltipItem === labelPersonalCost"
+                  class="gobierto-dashboards-item--tooltip"
+                >
+                  {{ tooltipTextStaffCost }}
+                </div>
+              </i>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
               <div class="gobierto-dashboards-table-item-right-table-container">
@@ -135,13 +136,14 @@
                 style="color: var(--color-base); cursor: pointer;"
                 @mouseover="showTooltipItem = labelGoodsServices"
                 @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelGoodsServices"
-                class="gobierto-dashboards-item--tooltip"
               >
-                {{ tooltipTextCost }}
-              </div>
+                <div
+                  v-show="showTooltipItem === labelGoodsServices"
+                  class="gobierto-dashboards-item--tooltip"
+                >
+                  {{ tooltipTextGoodServices }}
+                </div>
+              </i>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
               <div class="gobierto-dashboards-table-item-right-table-container">
@@ -157,13 +159,14 @@
                 style="color: var(--color-base); cursor: pointer;"
                 @mouseover="showTooltipItem = labelExternalServices"
                 @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelExternalServices"
-                class="gobierto-dashboards-item--tooltip"
               >
-                {{ tooltipTextCost }}
-              </div>
+                <div
+                  v-show="showTooltipItem === labelExternalServices"
+                  class="gobierto-dashboards-item--tooltip"
+                >
+                  {{ tooltipTextExternalServices }}
+                </div>
+              </i>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
               <div class="gobierto-dashboards-table-item-right-table-container">
@@ -179,13 +182,14 @@
                 style="color: var(--color-base); cursor: pointer;"
                 @mouseover="showTooltipItem = labelTransference"
                 @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelTransference"
-                class="gobierto-dashboards-item--tooltip"
               >
-                {{ tooltipTextCost }}
-              </div>
+                <div
+                  v-show="showTooltipItem === labelTransference"
+                  class="gobierto-dashboards-item--tooltip"
+                >
+                  {{ tooltipTextTransferences }}
+                </div>
+              </i>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
               <div class="gobierto-dashboards-table-item-right-table-container">
@@ -201,13 +205,14 @@
                 style="color: var(--color-base); cursor: pointer;"
                 @mouseover="showTooltipItem = labelEquipments"
                 @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelEquipments"
-                class="gobierto-dashboards-item--tooltip"
               >
-                {{ tooltipTextCost }}
-              </div>
+                <div
+                  v-show="showTooltipItem === labelEquipments"
+                  class="gobierto-dashboards-item--tooltip"
+                >
+                  {{ tooltipTextEquipments }}
+                </div>
+              </i>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
               <div class="gobierto-dashboards-table-item-right-table-container">
@@ -223,13 +228,14 @@
                 style="color: var(--color-base); cursor: pointer;"
                 @mouseover="showTooltipItem = labelCostIndirect"
                 @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelCostIndirect"
-                class="gobierto-dashboards-item--tooltip"
               >
-                {{ tooltipTextCost }}
-              </div>
+                <div
+                  v-show="showTooltipItem === labelCostIndirect"
+                  class="gobierto-dashboards-item--tooltip"
+                >
+                  {{ tooltipTextCostIndirect }}
+                </div>
+              </i>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
               <div class="gobierto-dashboards-table-item-right-table-container">
@@ -239,18 +245,6 @@
                 <span class="gobierto-dashboards-table-item-right-table-amount">
                   {{ costTotal | money }}
                 </span>
-              </div>
-              <i
-                class="far fa-question-circle"
-                style="color: var(--color-base); cursor: pointer;"
-                @mouseover="showTooltipItem = labelTotal"
-                @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelTotal"
-                class="gobierto-dashboards-item--tooltip"
-              >
-                {{ tooltipTextCost }}
               </div>
             </div>
           </div>
@@ -276,13 +270,14 @@
                 style="color: var(--color-base); cursor: pointer;"
                 @mouseover="showTooltipItem = labelPublicTax"
                 @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelPublicTax"
-                class="gobierto-dashboards-item--tooltip"
               >
-                {{ tooltipTextCost }}
-              </div>
+                <div
+                  v-show="showTooltipItem === labelPublicTax"
+                  class="gobierto-dashboards-item--tooltip"
+                >
+                  {{ tooltipTextTaxes }}
+                </div>
+              </i>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
               <div class="gobierto-dashboards-table-item-right-table-container">
@@ -298,13 +293,14 @@
                 style="color: var(--color-base); cursor: pointer;"
                 @mouseover="showTooltipItem = labelSubsidies"
                 @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelSubsidies"
-                class="gobierto-dashboards-item--tooltip"
               >
-                {{ tooltipTextCost }}
-              </div>
+                <div
+                  v-show="showTooltipItem === labelSubsidies"
+                  class="gobierto-dashboards-item--tooltip"
+                >
+                  {{ tooltipTextIncomeCost }}
+                </div>
+              </i>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
               <div class="gobierto-dashboards-table-item-right-table-container">
@@ -314,18 +310,6 @@
                 <span class="gobierto-dashboards-table-item-right-table-amount">
                   {{ totalIncomes | money }}
                 </span>
-              </div>
-              <i
-                class="far fa-question-circle"
-                style="color: var(--color-base); cursor: pointer;"
-                @mouseover="showTooltipItem = labelTotalIncome"
-                @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelTotalIncome"
-                class="gobierto-dashboards-item--tooltip"
-              >
-                {{ tooltipTextCost }}
               </div>
             </div>
           </div>
@@ -351,13 +335,14 @@
                 style="color: var(--color-base); cursor: pointer;"
                 @mouseover="showTooltipItem = labelIncomeCost"
                 @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelIncomeCost"
-                class="gobierto-dashboards-item--tooltip"
               >
-                {{ tooltipTextCost }}
-              </div>
+                <div
+                  v-show="showTooltipItem === labelIncomeCost"
+                  class="gobierto-dashboards-item--tooltip"
+                >
+                  {{ tooltipTextIncomeCost }}
+                </div>
+              </i>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element">
               <div class="gobierto-dashboards-table-item-right-table-container">
@@ -373,13 +358,14 @@
                 style="color: var(--color-base); cursor: pointer;"
                 @mouseover="showTooltipItem = labelCoverage"
                 @mouseleave="showTooltipItem = null"
-              />
-              <div
-                v-show="showTooltipItem === labelCoverage"
-                class="gobierto-dashboards-item--tooltip"
               >
-                {{ tooltipTextCost }}
-              </div>
+                <div
+                  v-show="showTooltipItem === labelCoverage"
+                  class="gobierto-dashboards-item--tooltip"
+                >
+                  {{ tooltipTextCoverage }}
+                </div>
+              </i>
             </div>
           </div>
         </div>
@@ -445,7 +431,11 @@ export default {
       income: '',
       costTotal: '',
       showTooltipItem: null,
-      tooltipTextCost: 'Wip: Esto es una prueba de tooltip'
+      tooltipTextStaffCost: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.staff_cost") || "",
+      tooltipTextGoodServices: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.goodsServices") || "",tooltipTextExternalServices: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.externalServices") || "",tooltipTextTransferences: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.transferences") || "",tooltipTextEquipments: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.equipments") || "",tooltipTextCostIndirect: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.cost_indirect") || "",tooltipTextTaxes: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.taxes") || "",
+      tooltipTextSubvencions: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.subsidies") || "",
+      tooltipTextIncomeCost: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.income_cost") || "",
+      tooltipTextCoverage: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.coverage") || "",
     }
   },
   computed: {

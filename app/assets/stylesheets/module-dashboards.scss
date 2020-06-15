@@ -749,7 +749,7 @@
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .1);
     border-radius: 4px;
     text-align: left;
-    top: -110px;
+    bottom: 80px;
     left: -10px;
 
     &::before,
@@ -776,8 +776,10 @@
   }
 
   &-item--tooltip {
-    top: -70px;
-    left: 60%;
+    bottom: 115%;
+    left: 66%;
+    font-family: "Source Sans Pro", "Helvetica Neue", "Arial", "sans-serif";
+    color: var(--grey);
   }
 
   &-select {

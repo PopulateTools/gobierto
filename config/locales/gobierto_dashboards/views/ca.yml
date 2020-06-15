@@ -52,10 +52,17 @@ ca:
         cost_inhabitant: Cost / habitant
         cost_per_inhabitant: Cost per habitant
         coverage: Cobertura
-        description: L'%{entity_name} és el responsable de proveir determinats serveis
-          als ciutadans. El cost dels serveis es cobreix de forma directa (a través
-          de taxes) o indirecta (a través de partides generals). En aquesta visualització
-          pots explorar els serveis, els seus costos i evolució, els ingressos ...
+        description: L'%{entity_name} presta serveis als seus ciutadans a partir de
+          les seves competències. Aquesta prestació de serveis suposa un cost que
+          es cobreix amb els ingressos que disposa l’Ajuntament, que són els derivats
+          del propi servei a prestar o bé de recursos generals dels impostos o subvencions
+          rebudes.
+        description_2: En aquest apartat es mostren les dades sobre els costos dels
+          serveis i els ingressos necessaris per prestar-los.
+        description_3: El punt de partida és el pressupost municipal, però amb aquesta
+          anàlisi s’amplia i es concreta el cost real d’un servei ja que podem trobar
+          relacionat el cost indirecte (de suport) necessari per a la prestació d’un
+          servei.
         detail: Detall
         distribution: Distribució de costos per àrea
         home: Inici
@@ -79,6 +86,42 @@ ca:
         see_all: Vegeu-ho tot
         see_more: Més informació
         title: Costos
+        tooltips:
+          cost_direct: Recursos necessaris per la prestació d’un servei o activitat
+            finalista i que es relacionen directament.
+          cost_indirect: Recursos per la prestació de serveis no finalistes i que
+            són de suport necessari per a la realització de serveis i activitats finalistes.
+          cost_per_habitant: Cost total dividit pel nombre d ́habitants.
+          cost_total: Suma del cost directe i cost indirecte.
+          coverage: Grau de cobertura dels ingressos directament relacionats amb el
+            cost total de l’activitat o servei.
+          income: Ingressos directament relacionats amb la prestació del servei, ja
+            siguin derivats de l’aplicació d’una taxa o preu públic o bé d’una subvenció.
+        tooltips_items:
+          cost_indirect: Part proporcional del cost de les activitats no finalistes
+            (recursos humans, serveis econòmics).
+          coverage: Mesura (en %) en què els ingressos directament relacionats amb
+            l’activitat són suficients per cobrir el seu cost.
+          equipments: Cost proporcional de l’ús de la infrastuctura necessària per
+            a la prestació de l’activitat o servei (consums i manteniments dels edificis,
+            vehicles) en funció del seu grau d’utilització.
+          externalServices: Serveis diversos adquirits per l’Ajuntament i prestacions
+            de persones jurídiques o físiques no integrades a la plantilla.
+          goodsServices: Valoració monetària del consum de material fungible necessari
+            i no emmagatzemable necessari per a la prestació de l’activitat o servei
+            (subministrament, material d’oficina)
+          income_cost: Diferència entre conjunt d’ingressos directament relacionats
+            amb l’activitat i el cost necessari per a la seva prestació. Un saldo
+            negatiu indica la insuficiència de recursos específics i la necessitat
+            de finançament amb recursos generals de l’Ajuntament.
+          staff_cost: Còmput anual de la part dels sous i salaris de les treballadores
+            i treballadors proporcional a la seva dedicació a l’activitat.
+          subsidies: Ingressos sense contraprestació directa per part del beneficiari,
+            destinats a una activitat o a un projecte específic.
+          taxes: Contraprestacions econòmiques rebudes per la prestació d’un servei
+            o per la utilització privativa o aprofitament especial del domini públic.
+          transferences: Aportacions de recursos financers per part de l’Ajuntament
+            en concepte de subvenció prèviament concedida.
         total: Total
         total_cost: Cost total
       subsidies:

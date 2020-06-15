@@ -92,6 +92,11 @@ export class CostsController {
           router,
           data: Object.assign(options, this.data)
         }).$mount(entryPoint);
+
+        const loadingElement = document.querySelector(".js-loading");
+        if (loadingElement) {
+          loadingElement.classList.add('hidden')
+        }
       });
     }
   }

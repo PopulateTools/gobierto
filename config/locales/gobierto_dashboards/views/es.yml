@@ -52,10 +52,17 @@ es:
         cost_inhabitant: Coste/habitante
         cost_per_inhabitant: Coste por habitante
         coverage: Cobertura
-        description: El %{entity_name} es el responsable de proveer determinados servicios
-          a los ciudadanos. El coste de los servicios se cubre de forma directa (a
-          través de tasas) o indirecta (a través de partidas generales). En esta visualización
-          puedes explorar los servicios, sus costes y evolución, los ingresos...
+        description: L'%{entity_name} presta servicios a sus ciudadanos a partir de
+          sus competencias. Esta prestación de servicios supone un coste que se cubre
+          con los ingresos que dispone el Ayuntamiento, que son los derivados del
+          propio servicio a prestar o bien de recursos generales de los impuestos
+          o subvenciones recibidas.
+        description_2: En este apartado se muestran los datos sobre los costes de
+          los servicios y los ingresos necesarios para prestarlos.
+        description_3: El punto de partida es el presupuesto municipal, pero con este
+          análisis se amplía y se concreta el coste real de un servicio ya que podemos
+          encontrar relacionado el coste indirecto (de apoyo) necesario para la prestación
+          de un servicio.
         detail: Detalle
         distribution: Distribución de costes por área
         home: Inicio
@@ -79,6 +86,45 @@ es:
         see_all: Ver todos
         see_more: Más información
         title: Costes
+        tooltips:
+          cost_direct: Recursos necesarios para la prestación de un servicio o actividad
+            finalista y que se relacionan directamente.
+          cost_indirect: Recursos para la prestación de servicios no finalistas y
+            que son de apoyo necesario para la realización de servicios y actividades
+            finalistas.
+          cost_per_habitant: Coste total dividido por el número de habitantes.
+          cost_total: Suma del coste directo y coste indirecto.
+          coverage: Grado de cobertura de los ingresos directamente relacionados con
+            el coste total de la actividad o servicio.
+          income: Ingresos directamente relacionados con la prestación del servicio,
+            ya sean derivados de la aplicación de una tasa o precio público o bien
+            de una subvención.
+        tooltips_items:
+          cost_indirect: Parte proporcional del coste de las actividades no finalistas
+            (recursos humanos, servicios económicos).
+          coverage: Medida (en%) en el que los ingresos directamente relacionados
+            con la actividad son suficientes para cubrir su coste.
+          equipments: Coste proporcional del uso de la Infrastucturas necesaria para
+            la prestación de la actividad o servicio (consumos y mantenimientos de
+            los edificios, vehículos) en función de su grado de utilización.
+          externalServices: Servicios diversos adquiridos por el Ayuntamiento y prestaciones
+            de personas jurídicas o físicas no integradas en la plantilla.
+          goodsServices: Valoración monetaria del consumo de material fungible necesario
+            y no almacenable necesario para la prestación de la actividad o servicio
+            (suministro, material de oficina)
+          income_cost: Diferencia entre conjunto de ingresos directamente relacionados
+            con la actividad y el coste necesario para su prestación. Un saldo negativo
+            indica la insuficiencia de recursos específicos y la necesidad de financiación
+            con recursos generales del Ayuntamiento.
+          staff_cost: Cómputo anual de la parte de los sueldos y salarios de las trabajadoras
+            y trabajadores proporcional a su dedicación a la actividad.
+          subsidies: Ingresos sin contraprestación directa por parte del beneficiario,
+            destinados a una actividad o un proyecto específico.
+          taxes: Contraprestaciones económicas recibidas por la prestación de un servicio
+            o por la utilización privativa o aprovechamiento especial del dominio
+            público.
+          transferences: Aportaciones de recursos financieros por parte del Ayuntamiento
+            en concepto de subvención previamente concedida.
         total: Total
         total_cost: Coste total
       subsidies:

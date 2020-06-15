@@ -25,6 +25,12 @@
         <p class="gobierto-dashboards-description">
           {{ labelDescription }}
         </p>
+        <p class="gobierto-dashboards-description">
+          {{ labelDescription2 }}
+        </p>
+        <p class="gobierto-dashboards-description">
+          {{ labelDescription3 }}
+        </p>
       </div>
       <Distribution
         :data="groupData"
@@ -57,6 +63,8 @@ export default {
       getSiteName: document.querySelector('[data-site-name]').getAttribute('data-site-name'),
       labelTittle: I18n.t("gobierto_dashboards.dashboards.costs.title") || "",
       labelDescription: '',
+      labelDescription2: I18n.t("gobierto_dashboards.dashboards.costs.description_2") || "",
+      labelDescription3: I18n.t("gobierto_dashboards.dashboards.costs.description_3") || "",
       yearFiltered: "2018",
       years: ['2018', '2019'],
       costDataFilter: [],

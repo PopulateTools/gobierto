@@ -38,7 +38,7 @@ module GobiertoPeople
     end
 
     def filtered_positions
-      charges[object.id] || []
+      @filtered_positions ||= charges[object.id] || []
     end
 
     def filtered_positions_html

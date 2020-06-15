@@ -78,14 +78,23 @@ module GobiertoPeople
     end
 
     def activities_sql
+      # Query to find people from a people relation or the model itself which
+      # have at least one activity within the dates set in @conditions and are of
+      # one of the types defined in ASSOCIATIONS
+
+      # This sql is used to provide common table expresions selecting all kinds
+      # of person activities restricted to the dates in @conditions
       common_table_expression = ASSOCIATIONS.keys.map do |association_model|
         "#{association_model}_relation AS (#{relation_sql(association_model)})"
       end.join(", ")
 
+      # left outer joins of all previous common table expressions with relation table
       joins = ASSOCIATIONS.keys.map do |association_model|
         "LEFT OUTER JOIN #{association_model}_relation on #{table_name}.id = #{association_model}_relation.id"
       end.join(" ")
 
+      # the person must be present in at least one of the previous common table
+      # expression
       where = ASSOCIATIONS.keys.map do |association_model|
         "#{table_name}.id = #{association_model}_relation.id"
       end.join(" OR ")
@@ -94,6 +103,7 @@ module GobiertoPeople
     end
 
     def relation_sql(model)
+      # sql of join between people and model restricted to the the date range of @conditions
       @site.people.joins(ASSOCIATIONS[model][:association_name]).where(date_range_sql(model, @conditions), @conditions).distinct.to_sql
     end
 

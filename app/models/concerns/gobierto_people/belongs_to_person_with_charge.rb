@@ -33,5 +33,13 @@ module GobiertoPeople
         scope :with_charge, -> { joins(:historical_charges).where("gp_charges.start_date <= #{date_attribute} and gp_charges.end_date >= #{date_attribute}") }
       end
     end
+
+    included do
+      def person_name_with_charge
+        return unless respond_to? :person
+
+        "#{person&.name} - #{historical_charge&.name}"
+      end
+    end
   end
 end

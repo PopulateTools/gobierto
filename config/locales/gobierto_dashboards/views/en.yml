@@ -82,7 +82,6 @@ en:
           types: Types
         per_inhabitant: per inhabitant
         see_all: See all
-        see_more: More information
         title: Costs
         tooltips:
           cost_direct: Resources needed to provide a finalist service or activity

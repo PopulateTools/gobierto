@@ -27,7 +27,6 @@
           class="gobierto-dashboards-header--tooltip"
         >
           {{ tooltipText }}
-          <a :href="infoLink">{{ labelSeeMore }}</a>
         </div>
       </transition>
     </div>
@@ -42,8 +41,7 @@ export default {
   data() {
     return {
       theadData: [],
-      showTooltipItem: null,
-      labelSeeMore: I18n.t("gobierto_dashboards.dashboards.costs.see_more") || "",
+      showTooltipItem: null
     }
   },
   created() {
@@ -51,38 +49,32 @@ export default {
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.cost_direct") || "",
         classItem: 'direct',
-        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_direct") || "",
-        infoLink: 'https://mataro.gobierto.test'
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_direct") || ""
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.cost_indirect") || "",
         classItem: 'indirect',
-        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_indirect") || "",
-        infoLink: 'https://mataro.gobierto.test'
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_indirect") || ""
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.total") || "",
         classItem: 'total',
-        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_total") || "",
-        infoLink: 'https://mataro.gobierto.test'
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_total") || ""
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.cost_inhabitant") || "",
         classItem: 'inhabitant',
-        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_per_habitant") || "",
-        infoLink: 'https://mataro.gobierto.test'
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_per_habitant") || ""
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.income") || "",
         classItem: 'income',
-        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.income") || "",
-        infoLink: 'https://mataro.gobierto.test'
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.income") || ""
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.coverage") || "",
         classItem: 'coverage',
-        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.coverage") || "",
-        infoLink: 'https://mataro.gobierto.test'
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.coverage") || ""
       }
     ]
   }

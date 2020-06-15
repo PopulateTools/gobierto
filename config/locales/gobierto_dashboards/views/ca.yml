@@ -84,7 +84,6 @@ ca:
           types: Tipus
         per_inhabitant: per habitant
         see_all: Vegeu-ho tot
-        see_more: Més informació
         title: Costos
         tooltips:
           cost_direct: Recursos necessaris per la prestació d’un servei o activitat

@@ -109,7 +109,6 @@ export class DemographyMapController {
         this.currentFilter = 'studies'; // options: 'studies' or 'origin'
         let ndxStudies = crossfilter(studiesData);
         let ndxOrigin = crossfilter(originData);
-        this.sumAll = 191386
         const spinnerMap = document.getElementById('gobierto_observatory-demography-map-app-container-spinner')
         spinnerMap.classList.add('disable-spinner')
         let geojson = mapPolygonsData
@@ -551,16 +550,6 @@ export class DemographyMapController {
           document.getElementById("container-bar-by-studies").style.visibility = 'visible';
         }
         that.rebuildChoroplethColorDomain()
-        that.chart1.dimension(that.ndx.filters.origin.all);
-        that.chart1.group(that.ndx.groups.origin.all);
-        that.chart2.dimension(that.ndx.filters.origin.byNationality);
-        that.chart2.group(that.ndx.groups.origin.byNationality);
-        that.chart3.dimension(that.ndx.filters.origin.bySex);
-        that.chart3.group(that.ndx.groups.origin.bySex);
-        that.chart4.dimension(that.ndx.filters.origin.byAge);
-        that.chart4.group(that.ndx.groups.origin.byAge);
-        that.chart8.dimension(that.ndx.filters.origin.byCusec);
-        that.chart8.group(that.ndx.groups.origin.byCusec);
         dc.redrawAll('main');
       });
     return chart;
@@ -608,16 +597,6 @@ export class DemographyMapController {
           document.getElementById("container-bar-by-studies").style.visibility = 'visible';
         }
         that.rebuildChoroplethColorDomain()
-        that.chart1.dimension(that.ndx.filters.origin.all);
-        that.chart1.group(that.ndx.groups.origin.all);
-        that.chart2.dimension(that.ndx.filters.origin.byNationality);
-        that.chart2.group(that.ndx.groups.origin.byNationality);
-        that.chart3.dimension(that.ndx.filters.origin.bySex);
-        that.chart3.group(that.ndx.groups.origin.bySex);
-        that.chart4.dimension(that.ndx.filters.origin.byAge);
-        that.chart4.group(that.ndx.groups.origin.byAge);
-        that.chart8.dimension(that.ndx.filters.origin.byCusec);
-        that.chart8.group(that.ndx.groups.origin.byCusec);
         dc.redrawAll('main');
       });
     return chart;
@@ -699,10 +678,7 @@ export class DemographyMapController {
     const buttonReset = document.getElementById('reset-filters')
     buttonReset.addEventListener("click", function() {
       const chartFromList = dc.chartRegistry.list('main')[7]
-      const activeFilters = chartFromList.filters().length
-      for (let index = 0; index < activeFilters; index++) {
-        chartFromList.filter(chartFromList.filters()[0])
-      }
+      chartFromList.filter(null);
       chartFromList.redrawGroup();
       chartFromList._doRedraw();
       buttonReset.classList.add('disabled')
@@ -758,21 +734,13 @@ export class DemographyMapController {
       const chartFromList = dc.chartRegistry.list('main')[3]
       const chartFromListLeft = chartFromList.leftChart()
       const chartFromListRight = chartFromList.rightChart()
-      //Get the filters length
-      const activeFilters = chartFromListLeft.filters().length
-      const activeFiltersRight = chartFromListRight.filters().length
-      //reset every filter
-      for (let index = 0; index < activeFilters; index++) {
-        chartFromListLeft.filter(chartFromListLeft.filters()[0])
-      }
-      for (let index = 0; index < activeFiltersRight; index++) {
-        chartFromListRight.filter(chartFromListRight.filters()[0])
-      }
+      chartFromListLeft.filter(null);
+      chartFromListRight.filter(null);
       //Redraw
       setTimeout(() => {
         chart.classList.remove('active-filtered')
       }, 0)
-      dc.chartRegistry.list('main')[0].redrawGroup()
+      chartFromList.redrawGroup()
     }
   }
 
@@ -783,11 +751,8 @@ export class DemographyMapController {
     const containerChartId = chartFromList.root()._groups[0][0].parentElement.id
     //Get active filters
     const activeFilters = chartFromList.filters().length
-    //Loop over active filters
-    for (let index = 0; index < activeFilters; index++) {
-      //Remove active filters
-      chartFromList.filter(chartFromList.filters()[0])
-    }
+    //Remove active filters
+    chartFromList.filter(null);
     //Redraw charts
     chartFromList.redrawGroup();
     setTimeout(() => {

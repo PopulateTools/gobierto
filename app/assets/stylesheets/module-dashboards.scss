@@ -313,19 +313,18 @@
       td {
         border-top: 0;
         padding: 0 1rem;
-        display: inline-table;
+        display: table-cell;
         width: 12%;
+
+        &.gobierto-dashboards-table-header--nav {
+          width: 28%;
+        }
 
         &.gobierto-dashboards-table-header--elements::before {
           display: none;
         }
       }
 
-      @-moz-document url-prefix() {
-        td {
-          display: table-cell;
-        }
-      }
       .gobierto-dashboards-table-header--elements {
         text-align: right;
       }

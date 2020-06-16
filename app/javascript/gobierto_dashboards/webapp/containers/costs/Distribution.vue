@@ -99,28 +99,14 @@ export default {
   watch: {
     year(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.dataFilter = this.data.filter(element => element.year === newValue)
-        const [{
-          population: population
-        }] = this.dataFilter
-        this.population = population
-        this.populationNumber = Number(population).toLocaleString("es-ES")
+        this.updateYear(newValue)
         this.updateBubbles()
-        this.totalCost
-        this.totalCostPerHabitant
         this.selectYearHandler(newValue)
       }
     },
     activeYear(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.dataFilter = this.data.filter(element => element.year === newValue)
-        const [{
-          population: population
-        }] = this.dataFilter
-        this.population = population
-        this.populationNumber = Number(population).toLocaleString("es-ES")
-        this.totalCost
-        this.totalCostPerHabitant
+        this.updateYear(newValue)
       }
     },
   },
@@ -138,13 +124,20 @@ export default {
     this.selectYearHandler(this.year)
   },
   methods: {
+    updateYear(value) {
+      this.dataFilter = this.data.filter(element => element.year === value)
+      const [{
+        population: population
+      }] = this.dataFilter
+      this.population = population
+      this.populationNumber = Number(population).toLocaleString(I18n.locale)
+    },
     createBubbleViz() {
       this.visBubblesCosts = new VisBubble('.vis-costs', this.year, this.data);
       this.visBubblesCosts.render();
-      const self = this;
       window.addEventListener('resize', function() {
-        self.updateBubbles()
-      });
+        this.updateBubbles()
+      }.bind(this));
     },
     updateBubbles() {
       this.visBubblesCosts.resize(this.year)

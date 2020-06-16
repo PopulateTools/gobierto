@@ -89,11 +89,11 @@ export default {
     if (!year) yearFiltered = '2018'
     this.yearFiltered = yearFiltered
 
-    this.costDataFilter = this.costData.filter(element => element.year === yearFiltered)
-    this.groupDataFilter = this.groupData.filter(element => element.year === yearFiltered)
+    const costDataFilter = this.costData.filter(element => element.year === yearFiltered).sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
+    const groupDataFilter = this.groupData.filter(element => element.year === yearFiltered).sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
 
-    this.costDataFilter = this.costDataFilter.sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
-    this.groupDataFilter = this.groupDataFilter.sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
+    this.costDataFilter = costDataFilter
+    this.groupDataFilter = groupDataFilter
 
     this.baseTitle = document.title;
   },
@@ -110,8 +110,12 @@ export default {
         year = value.target.value
         this.yearFiltered = value.target.value
       }
-      this.costDataFilter = this.costData.filter(element => element.year === year)
-      this.groupDataFilter = this.groupData.filter(element => element.year === year)
+      const costDataFilter = this.costData.filter(element => element.year === year)
+      const groupDataFilter = this.groupData.filter(element => element.year === year)
+
+      this.costDataFilter = costDataFilter
+      this.groupDataFilter = groupDataFilter
+
       // eslint-disable-next-line no-unused-vars
       this.$router.push(`/dashboards/costes/${year}`).catch(err => {})
     },
@@ -129,7 +133,6 @@ export default {
         e.preventDefault()
         // eslint-disable-next-line no-unused-vars
         this.$router.push(`/dashboards/costes/${year}/${order}`).catch(err => {})
-        this.groupDataFilter = this.groupData.filter(element => element.year === year)
       }))
     }
   }

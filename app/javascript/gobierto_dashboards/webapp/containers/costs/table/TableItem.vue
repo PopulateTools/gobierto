@@ -21,58 +21,10 @@
         </router-link>
       </div>
     </TableHeader>
-    <table
-      v-if="items.length"
-      class="gobierto-dashboards-table gobierto-dashboards-table--subheader"
-    >
-      <tbody>
-        <tr
-          v-for="{ agrupacio, nomact, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos } in dataGroup"
-          :key="nomact"
-          class="gobierto-dashboards-tablerow--header gobierto-dashboards-tablesecondlevel--header"
-        >
-          <td class="gobierto-dashboards-table-header--nav">
-            <span>{{ nomact }}</span>
-          </td>
-          <td
-            :data-th="labelCostDirect"
-            class="gobierto-dashboards-table-header--elements"
-          >
-            <span>{{ cost_directe | money }}</span>
-          </td>
-          <td
-            :data-th="labelCostIndirect"
-            class="gobierto-dashboards-table-header--elements"
-          >
-            <span>{{ cost_indirecte | money }}</span>
-          </td>
-          <td
-            :data-th="labelCostTotal"
-            class="gobierto-dashboards-table-header--elements"
-          >
-            <span>{{ cost_total | money }}</span>
-          </td>
-          <td
-            :data-th="labelCostInhabitant"
-            class="gobierto-dashboards-table-header--elements"
-          >
-            <span>{{ cost_per_habitant | money }}</span>
-          </td>
-          <td
-            :data-th="labelIncome"
-            class="gobierto-dashboards-table-header--elements"
-          >
-            <span>{{ ingressos | money }}</span>
-          </td>
-          <td
-            :data-th="labelCoverage"
-            class="gobierto-dashboards-table-header--elements"
-          >
-            <span>{{ ((ingressos * 100) / cost_total).toFixed(0) }}%</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <TableRow
+      :items="dataGroup"
+      :table-item="showTableHeader"
+    />
     <div class="gobierto-dashboards-table-item">
       <div class="gobierto-dashboards-table-item-left">
         <div class="gobierto-dashboards-table-item-left-container">
@@ -393,11 +345,13 @@
 </template>
 <script>
 import TableHeader from './TableHeader.vue'
+import TableRow from './TableRow.vue'
 import { VueFiltersMixin } from "lib/shared"
 export default {
   name: "TableItem",
   components: {
-    TableHeader
+    TableHeader,
+    TableRow
   },
   mixins: [VueFiltersMixin],
   props: {
@@ -449,6 +403,7 @@ export default {
       income: '',
       costTotal: '',
       showTooltipItem: null,
+      showTableHeader: true,
       tooltipTextStaffCost: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.staff_cost") || "",
       tooltipTextGoodServices: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.goodsServices") || "",tooltipTextExternalServices: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.externalServices") || "",tooltipTextTransferences: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.transferences") || "",tooltipTextEquipments: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.equipments") || "",tooltipTextCostIndirect: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.cost_indirect") || "",tooltipTextTaxes: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.taxes") || "",
       tooltipTextSubvencions: I18n.t("gobierto_dashboards.dashboards.costs.tooltips_items.subsidies") || "",

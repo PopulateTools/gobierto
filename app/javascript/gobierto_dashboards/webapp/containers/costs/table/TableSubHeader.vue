@@ -17,19 +17,19 @@
         </td>
         <td
           :data-th="labelCostIndirect"
-          class="gobierto-dashboards-table-header--elementsgobierto-dashboards-table-color-indirect"
+          class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect"
         >
           <span>{{ cost_indirecte | money }}</span>
         </td>
         <td
           :data-th="labelCostTotal"
-          class="gobierto-dashboards-table-header--elementsgobierto-dashboards-table-color-total"
+          class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total"
         >
           <span>{{ cost_total | money }}</span>
         </td>
         <td
           :data-th="labelCostInhabitant"
-          class="gobierto-dashboards-table-header--elementsgobierto-dashboards-table-color-inhabitant"
+          class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant"
         >
           <span>{{ totalPerHabitant | money }}</span>
         </td>

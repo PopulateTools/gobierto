@@ -111,13 +111,7 @@ export default {
     },
   },
   created() {
-    const year = this.year
-    this.dataFilter = this.data.filter(element => element.year === year)
-    const [{
-      population: population
-    }] = this.dataFilter
-    this.population = population
-    this.populationNumber = Number(population).toLocaleString("es-ES")
+    this.updateYear(this.year)
   },
   mounted() {
     this.createBubbleViz()

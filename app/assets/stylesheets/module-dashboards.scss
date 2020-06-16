@@ -316,14 +316,15 @@
         display: table-cell;
         width: 12%;
 
-        &.gobierto-dashboards-table-header--nav {
-          width: 28%;
-        }
-
         &.gobierto-dashboards-table-header--elements::before {
           display: none;
         }
       }
+
+      td.gobierto-dashboards-table-header--nav {
+          width: 28%;
+          min-width: 28%;
+        }
 
       .gobierto-dashboards-table-header--elements {
         text-align: right;

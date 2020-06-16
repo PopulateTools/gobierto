@@ -34,22 +34,40 @@
           <td class="gobierto-dashboards-table-header--nav">
             <span>{{ nomact }}</span>
           </td>
-          <td :data-th="labelCostDirect" class="gobierto-dashboards-table-header--elements">
+          <td
+            :data-th="labelCostDirect"
+            class="gobierto-dashboards-table-header--elements"
+          >
             <span>{{ cost_directe | money }}</span>
           </td>
-          <td :data-th="labelCostIndirect" class="gobierto-dashboards-table-header--elements">
+          <td
+            :data-th="labelCostIndirect"
+            class="gobierto-dashboards-table-header--elements"
+          >
             <span>{{ cost_indirecte | money }}</span>
           </td>
-          <td :data-th="labelCostTotal" class="gobierto-dashboards-table-header--elements">
+          <td
+            :data-th="labelCostTotal"
+            class="gobierto-dashboards-table-header--elements"
+          >
             <span>{{ cost_total | money }}</span>
           </td>
-          <td :data-th="labelCostInhabitant" class="gobierto-dashboards-table-header--elements">
+          <td
+            :data-th="labelCostInhabitant"
+            class="gobierto-dashboards-table-header--elements"
+          >
             <span>{{ cost_per_habitant | money }}</span>
           </td>
-          <td :data-th="labelIncome" class="gobierto-dashboards-table-header--elements">
+          <td
+            :data-th="labelIncome"
+            class="gobierto-dashboards-table-header--elements"
+          >
             <span>{{ ingressos | money }}</span>
           </td>
-          <td :data-th="labelCoverage" class="gobierto-dashboards-table-header--elements">
+          <td
+            :data-th="labelCoverage"
+            class="gobierto-dashboards-table-header--elements"
+          >
             <span>{{ ((ingressos * 100) / cost_total).toFixed(0) }}%</span>
           </td>
         </tr>

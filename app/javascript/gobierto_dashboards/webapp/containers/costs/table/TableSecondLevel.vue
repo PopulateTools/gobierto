@@ -40,29 +40,50 @@
               </router-link>
             </td>
           </template>
-          <td :data-th="labelCostDirect" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
+          <td
+            :data-th="labelCostDirect"
+            class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct"
+          >
             <span>{{ cost_directe | money }}</span>
           </td>
-          <td :data-th="labelCostIndirect" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect">
+          <td
+            :data-th="labelCostIndirect"
+            class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect"
+          >
             <span>{{ cost_indirecte | money }}</span>
           </td>
-          <td :data-th="labelCostTotal" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
+          <td
+            :data-th="labelCostTotal"
+            class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total"
+          >
             <span>{{ cost_total | money }}</span>
           </td>
           <template v-if="total > 0">
-            <td :data-th="labelCostInhabitant" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
+            <td
+              :data-th="labelCostInhabitant"
+              class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant"
+            >
               <span>{{ totalPerHabitant | money }}</span>
             </td>
           </template>
           <template v-else>
-            <td :data-th="labelCostInhabitant" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
+            <td
+              :data-th="labelCostInhabitant"
+              class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant"
+            >
               <span>{{ cost_per_habitant | money }}</span>
             </td>
           </template>
-          <td :data-th="labelIncome" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income">
+          <td
+            :data-th="labelIncome"
+            class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income"
+          >
             <span>{{ ingressos | money }}</span>
           </td>
-          <td :data-th="labelCoverage" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage">
+          <td
+            :data-th="labelCoverage"
+            class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage"
+          >
             <span>{{ ((ingressos * 100) / cost_total).toFixed(0) }}%</span>
           </td>
         </tr>
@@ -91,22 +112,40 @@
                     <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
                   </router-link>
                 </td>
-                <td :data-th="labelCostDirect" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-direct">
+                <td
+                  :data-th="labelCostDirect"
+                  class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-direct"
+                >
                   <span>{{ cost_directe | money }}</span>
                 </td>
-                <td :data-th="labelCostIndirect" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-indirect">
+                <td
+                  :data-th="labelCostIndirect"
+                  class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-indirect"
+                >
                   <span>{{ cost_indirecte | money }}</span>
                 </td>
-                <td :data-th="labelCostTotal" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-total">
+                <td
+                  :data-th="labelCostTotal"
+                  class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-total"
+                >
                   <span>{{ cost_total | money }}</span>
                 </td>
-                <td :data-th="labelCostInhabitant" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-inhabitant">
+                <td
+                  :data-th="labelCostInhabitant"
+                  class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-inhabitant"
+                >
                   <span>{{ cost_per_habitant | money }}</span>
                 </td>
-                <td :data-th="labelIncome" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-income">
+                <td
+                  :data-th="labelIncome"
+                  class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-income"
+                >
                   <span>{{ ingressos | money }}</span>
                 </td>
-                <td :data-th="labelCoverage" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-coverage">
+                <td
+                  :data-th="labelCoverage"
+                  class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-coverage"
+                >
                   <span>{{ ((ingressos * 100) / cost_total).toFixed(0) }}%</span>
                 </td>
               </tr>

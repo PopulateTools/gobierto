@@ -4,7 +4,7 @@
       <slot />
     </div>
     <div
-      v-for="{ item, classItem, tooltipText, infoLink } in theadData"
+      v-for="{ item, classItem, tooltipText } in theadData"
       :key="item"
       :class="`gobierto-dashboards-table-color-${classItem}`"
       class="gobierto-dashboards-table-header--elements"

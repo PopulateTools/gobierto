@@ -17,22 +17,40 @@
               {{ agrupacio }}
             </router-link>
           </td>
-          <td :data-th="labelCostDirect" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct">
+          <td
+            :data-th="labelCostDirect"
+            class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct"
+          >
             <span>{{ cost_directe | money }}</span>
           </td>
-          <td :data-th="labelCostIndirect" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect">
+          <td
+            :data-th="labelCostIndirect"
+            class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect"
+          >
             <span>{{ cost_indirecte | money }}</span>
           </td>
-          <td :data-th="labelCostTotal" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total">
+          <td
+            :data-th="labelCostTotal"
+            class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total"
+          >
             <span>{{ cost_total | money }}</span>
           </td>
-          <td :data-th="labelCostInhabitant" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant">
+          <td
+            :data-th="labelCostInhabitant"
+            class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant"
+          >
             <span>{{ totalPerHabitant | money }}</span>
           </td>
-          <td :data-th="labelCostIncome" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income">
+          <td
+            :data-th="labelCostIncome"
+            class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-income"
+          >
             <span>{{ ingressos | money }}</span>
           </td>
-          <td :data-th="labelCostCoverage" class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage">
+          <td
+            :data-th="labelCostCoverage"
+            class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage"
+          >
             <span>{{ (coverage).toFixed(0) }} %</span>
           </td>
         </tr>

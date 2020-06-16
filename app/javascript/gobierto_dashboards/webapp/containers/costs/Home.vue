@@ -42,7 +42,7 @@
         :items-filter="groupDataFilter"
         :items="costDataFilter"
         :year="yearFiltered"
-        :baseTitle="baseTitle"
+        :base-title="baseTitle"
       />
     </div>
   </main>

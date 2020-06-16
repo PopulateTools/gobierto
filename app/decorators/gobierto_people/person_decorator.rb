@@ -82,6 +82,10 @@ module GobiertoPeople
       meetings_with_interest_groups(start_date: start_date, end_date: end_date).select(:interest_group_id).distinct.count
     end
 
+    def historical_charges_names
+      historical_charges.reverse_sorted
+    end
+
     private
 
     def person_contact_method_for(service_name, attribute_name)

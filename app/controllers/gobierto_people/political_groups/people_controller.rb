@@ -6,7 +6,10 @@ module GobiertoPeople
       include DatesRangeHelper
 
       def index
-        @people = @political_group.people.by_site(current_site).active.sorted
+        @people = CollectionDecorator.new(
+          @political_group.people.includes(:historical_charges).by_site(current_site).active.sorted,
+          decorator: GobiertoPeople::PersonDecorator
+        )
         @political_groups = get_political_groups
         set_present_groups
       end

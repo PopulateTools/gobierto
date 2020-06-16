@@ -10,7 +10,10 @@ module GobiertoPeople
     before_action :overrided_root_redirect, only: [:index]
 
     def index
-      @people = current_site.people.active.politician.government.sorted.first(10)
+      @people = CollectionDecorator.new(
+        current_site.people.includes(:historical_charges).active.politician.government.sorted.first(10),
+        decorator: PersonDecorator
+      )
       @posts  = current_site.person_posts.active.sorted.last(10)
       @political_groups = get_political_groups
       @home_text = load_home_text

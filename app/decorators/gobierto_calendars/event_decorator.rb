@@ -14,5 +14,9 @@ module GobiertoCalendars
       simple_format description.gsub(/<!--(.*?)-->/, '')
     end
 
+    def attendees
+      object.attendees.includes(person: :historical_charges)
+    end
+
   end
 end

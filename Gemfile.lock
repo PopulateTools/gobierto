@@ -75,7 +75,7 @@ GEM
       algoliasearch (>= 1.26.0, < 2.0.0)
       json (>= 1.5.1)
     ansi (1.5.0)
-    appsignal (2.10.6)
+    appsignal (2.10.8)
       rack
     arel (9.0.0)
     ast (2.4.0)

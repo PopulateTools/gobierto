@@ -34,25 +34,8 @@
   </div>
 
   <% if @plan.nodes.any? || @plan.categories.any? %>
-    <div class="overlay-container is-active js-toggle-overlay">
-
-      <div class="overlay">
-        <div class="overlay-content">
-          <i class="fas fa-spinner fa-pulse fa-2x fa-fw"></i>
-          <span class="sr-only"><%= t('.loading') %></span>
-        </div>
-      </div>
-
-      <div id="gobierto-planification" class="gobierto_planification">
-
-        <%= render partial: "planification-header" %>
-        <%= render partial: "planification-content" %>
-
-      </div>
-
-      <%= render partial: "x-templates" %>
-
-    </div>
+    <%# plans webapp %>
+    <div id="gobierto-planification" class="gobierto_planification"></div>
   <% end %>
 
   <% if @sdgs.has_data? %>
@@ -63,7 +46,3 @@
     <%= render_liquid @plan.footer %>
   <% end %>
 </div>
-
-<% content_for :javascript_hook do %>
-    window.GobiertoPlans.plan_types_controller.show();
-<% end %>

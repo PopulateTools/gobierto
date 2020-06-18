@@ -455,6 +455,7 @@ export class DemographyMapController {
       .useViewBoxResizing(true)
       .height(230)
       .cap(10) // Show only top 10
+      .othersGrouper(null) // Don't show the rest of the 20 in Other clashttps://dc-js.github.io/dc.js/docs/html/CapMixin.htmls
       .group(this.ndx.groups.studies.byStudies)
       .dimension(this.ndx.filters.studies.byStudies)
       .elasticX(true)

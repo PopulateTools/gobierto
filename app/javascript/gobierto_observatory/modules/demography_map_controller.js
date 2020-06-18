@@ -203,8 +203,6 @@ export class DemographyMapController {
           d['formacion'] = 'Ens. Pri. incompleta'
         } else if (d['formacion'] === 'Doctorado Postgrado') {
           d['formacion'] = 'Doctorado'
-        } else if (d['formacion'] === 'Doctorado Postgrado') {
-          d['formacion'] = 'Doctorado'
         } else if (d['formacion'] === 'FP1 Grado Medio') {
           d['formacion'] = 'Formación prof. 1'
         } else if (d['formacion'] === 'FP2 Grado Superior') {
@@ -355,7 +353,6 @@ export class DemographyMapController {
   }
 
   renderPyramid(selector) {
-
     const chart = pairedRow(selector, "main");
     dc.chartRegistry.register(chart, 'main');
     const that = this;
@@ -427,7 +424,6 @@ export class DemographyMapController {
       dc.redrawAll('main');
     })
 
-
     chart.rightChart().on('filtered', function() {
       const container = document.getElementById('container-piramid-age-sex')
       that.activeFiltered(container)
@@ -440,8 +436,9 @@ export class DemographyMapController {
     chart.leftChart().on('filtered', function() {
       const container = document.getElementById('container-piramid-age-sex')
       that.activeFiltered(container)
-      that.updateOriginFilters('byAge', chart.leftChart().filters());
       that.rebuildChoroplethColorDomain()
+      that.updateOriginFilters('byAge', chart.leftChart().filters());
+
       dc.redrawAll('main');
     })
 

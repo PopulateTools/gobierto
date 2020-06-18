@@ -77,7 +77,7 @@ function prepareAgeRange(d) {
   } else {
     age_range = '+100';
   }
-  return [d.sexo, age_range];
+  return [d.sexo, age_range].join('.');
 }
 
 async function getMapPolygons(ineCode) {
@@ -243,7 +243,9 @@ export class DemographyMapController {
 
   updateOriginFilters(dimension, filterValue) {
     if (filterValue.length) {
-      this.ndx.filters.origin[dimension].filter(filterValue[0]);
+      filterValue.forEach(v => {
+        this.ndx.filters.origin[dimension].filter(v);
+      })
     } else {
       this.ndx.filters.origin[dimension].filterAll();
     }
@@ -281,7 +283,7 @@ export class DemographyMapController {
   renderBarNationality(selector) {
     const chart = stackedVertical(selector, "main");
     const container = document.getElementById('container-bar-nationality')
-    const sumAllValues = this.ndx.groups.origin.all.value()
+    const sumAllValues = this.ndx.groups.studies.all.value()
     chart
       .useViewBoxResizing(true)
       .height(45)
@@ -315,7 +317,7 @@ export class DemographyMapController {
 
   renderBarSex(selector) {
     const chart = stackedVertical(selector, "main");
-    const sumAllValues = this.ndx.groups.origin.all.value()
+    const sumAllValues = this.ndx.groups.studies.all.value()
     chart
       .useViewBoxResizing(true)
       .height(45)
@@ -364,18 +366,19 @@ export class DemographyMapController {
         // convert to object so we can easily tell if a key exists
         var values = {};
         that.ndx.groups.studies.byAge.all().forEach(function(d) {
-          values[d.key[0] + '.' + d.key[1]] = d.value;
+          // values[d.key[0] + '.' + d.key[1]] = d.value;
+          values[d.key] = d.value;
         });
 
         // convert back into an array for the chart, making sure that all age_ranges exist
         var g = [];
         age_ranges.forEach(function(age_range) {
           g.push({
-            key: ['Hombre', age_range],
+            key: 'Hombre.'+age_range,
             value: values['Hombre.' + age_range] || 0
           });
           g.push({
-            key: ['Mujer', age_range],
+            key: 'Mujer.'+age_range,
             value: values['Mujer.' + age_range] || 0
           });
         });
@@ -389,7 +392,7 @@ export class DemographyMapController {
       fixedBarHeight: 10,
       gap: 10,
       colorCalculator: function(d) {
-        if (d.key[0] === 'Male') {
+        if (d.key.split('.')[0] === 'Male') {
           return '#008E9C';
         }
         return '#F8B206';
@@ -399,14 +402,14 @@ export class DemographyMapController {
       group: group,
       // misc
       renderTitleLabel: true,
-      title: d => d.key[1],
-      label: d => d.key[1],
+      title: d => d.key.split('.')[1],
+      label: d => d.key.split('.')[1],
       cap: 11,
       // if elastic is set than the sub charts will have different extent ranges, which could mean the data is interpreted incorrectly
       elasticX: true,
       // custom
-      leftKeyFilter: d => d.key[0] === 'Hombre',
-      rightKeyFilter: d => d.key[0] === 'Mujer'
+      leftKeyFilter: d => d.key.split('.')[0] === 'Hombre',
+      rightKeyFilter: d => d.key.split('.')[0] === 'Mujer'
     })
 
     /*This chart is composed of two elements. You've to divide the container. The chart on the left will have the width minus the margin. And the right will have the width plus the margin.*/
@@ -448,7 +451,7 @@ export class DemographyMapController {
 
   renderStudies(selector) {
     const chart = new dc.rowChart(selector, "main");
-    const sumAllValues = this.ndx.groups.origin.all.value()
+    const sumAllValues = this.ndx.groups.studies.all.value()
     const widthContainer = document.getElementById('container-bar-by-studies').offsetWidth
     const widthContainerLabelPosition = widthContainer - 240
     chart
@@ -505,7 +508,7 @@ export class DemographyMapController {
 
   renderOriginNational(selector) {
     const chart = new dc.rowChart(selector, "main");
-    const sumAllValues = this.ndx.groups.origin.all.value()
+    const sumAllValues = this.ndx.groups.studies.all.value()
 
     const widthContainer = document.getElementById('container-bar-by-studies').offsetWidth
     const widthContainerLabelPosition = widthContainer - 240
@@ -555,9 +558,10 @@ export class DemographyMapController {
 
   renderOriginOthers(selector) {
     const chart = new dc.rowChart(selector, "main");
-    const sumAllValues = this.ndx.groups.origin.all.value()
+    const sumAllValues = this.ndx.groups.studies.all.value()
     const widthContainer = document.getElementById('container-bar-by-studies').offsetWidth
     const widthContainerLabelPosition = widthContainer - 240
+    const that = this;
     chart
       .useViewBoxResizing(true)
       .height(210)
@@ -583,7 +587,6 @@ export class DemographyMapController {
       })
       .xAxis().ticks(4)
 
-    const that = this;
     chart
       .on('filtered', (chart) => {
         that.currentFilter = 'origin';

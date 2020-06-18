@@ -2,9 +2,11 @@
   <div>
     <Header :progress="globalProgress" />
     <ButtonFilters />
-    <div class="planification-content">
-      <router-view :json="json" />
-    </div>
+    <router-view
+      v-if="json.length"
+      :json="json"
+      :level-keys="levelKeys"
+    />
   </div>
 </template>
 
@@ -23,12 +25,14 @@ export default {
   data() {
     return {
       json: [],
+      levelKeys: {},
       globalProgress: 0
     }
   },
   async created() {
-    const { data: { plan_tree } } = await this.getPlans({ format: 'json' });
+    const { data: { plan_tree, level_keys } } = await this.getPlans({ format: 'json' });
     this.json = plan_tree;
+    this.levelKeys = level_keys;
   }
 }
 </script>

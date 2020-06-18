@@ -10,7 +10,9 @@
     </div>
   </section>
 
-  <% generic_levels = @levels == 2 ? 1 : @levels %> <% (1..generic_levels).each do |level_index| %>
+  <% generic_levels = @levels == 2 ? 1 : @levels %>
+  
+  <% (1..generic_levels).each do |level_index| %>
   <!-- Lines level -->
   <section class="level_<%= level_index -%>" v-if="isOpen(<%= level_index -%>)" :class="['cat_' + color() ]">
     <% unless level_index == @levels %>

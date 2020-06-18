@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = `${location.origin}` // TODO: edit once the proper endpoint will be ready
+const baseUrl = `${location.href}` // TODO: edit once the proper endpoint will be ready
 const endPoint = `${baseUrl}`;
 const headers = {
   "Content-type": "application/json",

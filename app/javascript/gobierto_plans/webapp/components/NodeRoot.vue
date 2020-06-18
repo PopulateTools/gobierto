@@ -1,7 +1,7 @@
 <template>
   <div
     class="node-root"
-    :class="[`cat_${rootColor}`]"
+    :class="classes"
   >
     <a @click="open">
       <div class="node-img">
@@ -40,14 +40,10 @@ export default {
       type: Object,
       default: () => {}
     },
-    elementIndex: {
-      type: Number,
-      default: 0
+    classes: {
+      type: Array,
+      default: () => []
     },
-    elementsLength: {
-      type: Number,
-      default: 0
-    }
   },
   data() {
     return {
@@ -58,15 +54,12 @@ export default {
     }
   },
   computed: {
-    rootColor() {
-      return (this.elementIndex % this.elementsLength) + 1
-    },
     progressWidth() {
       return `${this.progress}%`;
     }
   },
   created() {
-    const { attributes: { img, progress, counter, title } } = this.model
+    const { attributes: { img, progress, counter, title } = {} } = this.model
 
     this.image = img
     this.progress = progress

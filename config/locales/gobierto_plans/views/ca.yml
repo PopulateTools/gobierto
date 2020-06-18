@@ -32,11 +32,9 @@ ca:
         ends: Fi
         global_execution: Estat d'execució global
         latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
-        loading: Carregant...
         percentage_progress: "% progrés"
         progress: Progrés
         read_less: Llegiu menys
         read_more: Llegiu més
-        see_all: Veure tot en
         starts: Inici
         status: Estat

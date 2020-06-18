@@ -30,11 +30,9 @@ en:
         ends: End
         global_execution: State of global execution
         latest_update_html: "<strong>Latest update:</strong> %{date}"
-        loading: Loading...
         percentage_progress: "% progress"
         progress: Progress
         read_less: Read more
         read_more: Read less
-        see_all: See all in
         starts: Start
         status: Status

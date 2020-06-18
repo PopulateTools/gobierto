@@ -306,7 +306,9 @@ module GobiertoPlans
             end
           end
 
-          all("div.node-breadcrumb")[0].click
+          within "div.node-breadcrumb" do
+            find("a", text: axes.first.name).click
+          end
 
           within ".lines-header" do
             assert has_content?("1 line of action")

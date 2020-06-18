@@ -333,7 +333,7 @@ export class GobiertoPlansController {
 //           this.activeNode = this.getParent(breakpoint);
 //         },
 //         setPermalink: function() {
-//           window.location.hash = this.activeNode.uid;
+//            window.location.hash = this.activeNode.uid ? this.activeNode.uid : '';
 //         },
 //         getPermalink: function(hash, forcedNode = null) {
 //           let found = this.searchByUid(hash, this.json);
@@ -414,6 +414,12 @@ export class GobiertoPlansController {
 //             if (type === "paragraph" || type === "localized_paragraph" || type === "string" || type === "localized_string") {
 //               paragraphs.push(f);
 //             } else {
+                // const { custom_field_id: id } = f;
+
+                // if (id === 'sdgs') {
+                //   f.external_id = (f.external_id || '').split(',').map(v => v.padStart(2, 0))
+                //   f.locale = I18n.locale
+                // }
 //               rest.push(f);
 //             }
 //           });

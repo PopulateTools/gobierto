@@ -6,13 +6,7 @@
     </div>
 
     <div class="header-detail">
-      <!-- TODO -->
-      <i>TODO: Complete via Vue once endpoint available</i>
-      <!-- <% for i in 0..(@levels + 1) %>
-      <div>
-        <%= level_name_pluralize(@plan, i) %>
-      </div>
-      <% end %> -->
+      <slot />
     </div>
   </div>
 </template>
@@ -26,15 +20,20 @@ export default {
     percent
   },
   props: {
-    progress: {
-      type: Number,
-      default: 0
+    options: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
     return {
-      labelGlobalExecution: I18n.t("gobierto_plans.plan_types.show.global_execution") || ''
+      labelGlobalExecution: I18n.t("gobierto_plans.plan_types.show.global_execution") || '',
+      progress: 0
     }
+  },
+  created() {
+    const { global_progress } = this.options
+    this.progress = global_progress
   }
 }
 </script>

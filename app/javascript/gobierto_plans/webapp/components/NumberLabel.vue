@@ -33,8 +33,7 @@ export default {
   },
   methods: {
     getLabel(level, number_of_elements) {
-      const l = Object.keys(this.keys).length === level + 1 ? level : level + 1;
-      const key = this.keys[`level${l}`];
+      const key = this.keys[`level${level}`];
       return number_of_elements === 1 ? key["one"] : key["other"];
     }
   }

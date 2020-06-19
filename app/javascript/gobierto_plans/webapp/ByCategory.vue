@@ -108,7 +108,7 @@
               <NumberLabel
                 :keys="levelKeys"
                 :length="activeNode.children.length"
-                :level="activeNode.level"
+                :level="activeNode.level + 1"
               />
             </ActionLineHeader>
 
@@ -123,7 +123,7 @@
                       <NumberLabel
                         :keys="levelKeys"
                         :length="model.attributes.children_count"
-                        :level="model.level"
+                        :level="model.level + 1"
                       />
                     </template>
 
@@ -136,7 +136,7 @@
                     >
                       <NumberLabel
                         :keys="levelKeys"
-                        :level="model.level"
+                        :level="model.level + 1"
                       />
                     </TableView>
                   </ActionLine>
@@ -151,7 +151,7 @@
             <NumberLabel
               :keys="levelKeys"
               :length="activeNode.children.length"
-              :level="activeNode.level"
+              :level="activeNode.level + 1"
             />
 
             <div>% {{ labelProgress }}</div>
@@ -171,7 +171,7 @@
                 <NumberLabel
                   :keys="levelKeys"
                   :length="model.children.length"
-                  :level="model.level"
+                  :level="model.level + 1"
                 />
               </NodeList>
             </li>

@@ -56,21 +56,7 @@ export default {
   methods: {
     getProject(row) {
       if (this.open) {
-        var project = { ...row };
-
-        this.$emit("selection", project);
-
-        // Preprocess custom fields
-        const { custom_field_records = [] } = project.attributes;
-        if (custom_field_records.length > 0) {
-          this.$emit("custom-fields", custom_field_records);
-        }
-
-        // Activate plugins
-        const { plugins_data = {} } = project.attributes;
-        if (Object.keys(plugins_data).length) {
-          this.$emit("activate", plugins_data);
-        }
+        this.$emit("selection", { ...row });
       }
     }
   }

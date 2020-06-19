@@ -34,8 +34,8 @@
   </div>
 
   <% if @plan.nodes.any? || @plan.categories.any? %>
-    <%# plans webapp %>
-    <div id="gobierto-planification" class="gobierto_planification"></div>
+    <div id="gobierto-planification" class="gobierto_planification" 
+    data-baseurl="<%= gobierto_plans_plan_path(slug: @plan.plan_type.slug, year: @year) %>" />
   <% end %>
 
   <% if @sdgs.has_data? %>

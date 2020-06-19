@@ -620,7 +620,7 @@ $nodeLevel1HeightMobile: 20vh;
     @each $lang in (ca es) {
       $num: zerofill($num);
       .ods-goal__#{$num}__#{$lang} {
-        background-image: url(asset_path('ods/ods_goal_' + $num + '_' + $lang + '.png' ));
+        background-image: url('../images/ods/ods_goal_' + $num + '_' + $lang + '.png' );
       }
     }
   }

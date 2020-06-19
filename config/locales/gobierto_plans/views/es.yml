@@ -32,7 +32,6 @@ es:
         ends: Fin
         global_execution: Estado de ejecución global
         latest_update_html: "<strong>Última actualización:</strong> %{date}"
-        percentage_progress: "% progreso"
         progress: Progreso
         read_less: Leer menos
         read_more: Leer más

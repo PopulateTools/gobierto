@@ -27,11 +27,13 @@
         :key="i"
         :class="[`level_${i}`, `cat_${color()}`]"
       >
+        <!-- general breadcrumb -->
         <div class="node-breadcrumb mb2">
-          <a @click.stop="resetParent">
+          <a @click="activeNode = {}">
             {{ labelStarts }}
           </a>
 
+          <!-- TODO: refactor setParent/getParent -->
           <template v-for="level in activeNode.level">
             <a
               :key="level"
@@ -43,8 +45,64 @@
           </template>
         </div>
 
-        <!-- last children -->
+        <!-- last children template -->
         <template v-if="i === jsonDepth">
+          <div class="node-action-line">
+            <div class="action-line--header node-list cat--negative">
+              <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
+            </div>
+
+            <div class="node-project-detail">
+              <!-- Native fields -->
+              <div class="project-mandatory">
+                <div>
+                  <div class="mandatory-list">
+                    <div class="mandatory-title">
+                      {{ labelProgress }}
+                    </div>
+                    <div class="mandatory-desc">
+                      {{ activeNode.attributes.progress | percent }}
+                    </div>
+                  </div>
+                  <div class="mandatory-progress">
+                    <!-- TODO: apply math.round -->
+                    <div
+                      :style="{ width: activeNode.attributes.progress + '%' }"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div class="mandatory-list">
+                    <div class="mandatory-title">
+                      {{ labelStarts }} - {{ labelEnds }}
+                    </div>
+                    <div class="mandatory-desc">
+                      {{ activeNode.attributes.starts_at | date }} -
+                      {{ activeNode.attributes.ends_at | date }}
+                    </div>
+                  </div>
+                  <div class="mandatory-list">
+                    <div class="mandatory-title">
+                      {{ labelStatus }}
+                    </div>
+                    <div class="mandatory-desc">
+                      {{ activeNode.attributes.status | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <CustomFields
+                v-if="Object.keys(customFields).length"
+                :custom-fields="customFields"
+              />
+
+              <Plugins :plugins="availablePlugins" />
+            </div>
+          </div>
+        </template>
+        <!-- next to last children template -->
+        <template v-else-if="i === jsonDepth - 1">
           <div class="node-action-line">
             <ActionLineHeader :node="activeNode">
               <NumberLabel
@@ -74,8 +132,6 @@
                       :model="model"
                       :header="showTableHeader"
                       :open="openNode"
-                      @activate="activatePlugins"
-                      @custom-fields="parseCustomFields"
                       @selection="setSelection"
                     >
                       <NumberLabel
@@ -89,6 +145,7 @@
             </div>
           </div>
         </template>
+        <!-- otherwise, recursive templates -->
         <template v-else>
           <div class="lines-header">
             <NumberLabel
@@ -97,7 +154,7 @@
               :level="activeNode.level"
             />
 
-            <div>{{ labelProgress }}</div>
+            <div>% {{ labelProgress }}</div>
           </div>
 
           <ul class="lines-list">
@@ -132,14 +189,17 @@ import TableView from "./components/TableView";
 import ActionLineHeader from "./components/ActionLineHeader";
 import ActionLine from "./components/ActionLine";
 import NumberLabel from "./components/NumberLabel";
-import { translate, percent } from "lib/shared";
+import CustomFields from "./components/CustomFields";
+import Plugins from "./components/Plugins";
+import { translate, percent, date } from "lib/shared";
 import { depth } from "../lib/helpers";
 
 export default {
   name: "ByCategory",
   filters: {
     translate,
-    percent
+    percent,
+    date
   },
   components: {
     NodeRoot,
@@ -147,7 +207,9 @@ export default {
     ActionLine,
     NumberLabel,
     NodeList,
-    TableView
+    TableView,
+    CustomFields,
+    Plugins
   },
   props: {
     json: {
@@ -163,15 +225,17 @@ export default {
     return {
       openMenu: false,
       labelStarts: I18n.t("gobierto_plans.plan_types.show.starts") || "",
-      labelSeeAll: I18n.t("gobierto_plans.plan_types.show.see_all") || "",
+      labelEnds: I18n.t("gobierto_plans.plan_types.show.ends") || "",
+      labelStatus: I18n.t("gobierto_plans.plan_types.show.status") || "",
       labelProgress:
-        I18n.t("gobierto_plans.plan_types.show.percentage_progress") || "",
+        I18n.t("gobierto_plans.plan_types.show.progress").toLowerCase() || "",
       activeNode: {},
       levelKeys: {},
       openNode: false,
       showTableHeader: false,
       jsonDepth: 0,
-      showTable: {}
+      customFields: {},
+      availablePlugins: [],
     };
   },
   created() {
@@ -182,11 +246,25 @@ export default {
     this.showTableHeader = show_table_header;
 
     // Maximum depth of all objects in the json
-    this.jsonDepth = Math.max(...this.json.map(depth)) - 1;
+    this.jsonDepth = Math.max(...this.json.map(depth));
   },
   methods: {
     setSelection(model) {
       this.activeNode = model;
+
+      // Preprocess custom fields
+      const { custom_field_records = [] } = model.attributes;
+      if (custom_field_records.length > 0) {
+        this.customFields = custom_field_records
+      }
+
+      // Activate plugins
+      const { plugins_data = {} } = model.attributes;
+      if (Object.keys(plugins_data).length) {
+        this.availablePlugins = plugins_data
+      }
+
+      // TODO: avoid use uid
       // To know the root node
       this.rootid = this.activeNode.uid.toString().charAt(0);
     },
@@ -212,6 +290,7 @@ export default {
       return isOpen;
     },
     color() {
+      // TODO: avoid use rootid
       return (this.rootid % this.json.length) + 1;
     },
     getParent() {
@@ -238,6 +317,17 @@ export default {
       }
 
       return current || {};
+    },
+    setParent() {
+      // Initialize args
+      var breakpoint =
+        arguments.length > 0 && arguments[0] !== undefined
+          ? arguments[0]
+          : undefined;
+      //hack 3rd level (3rd level has no SECTION)
+      if (breakpoint === 3) breakpoint = breakpoint - 1;
+
+      this.activeNode = this.getParent(breakpoint);
     }
   }
 };

@@ -21,9 +21,11 @@ export class GobiertoPlansController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
+      const { dataset: { baseurl } } = entryPoint
+
       new Vue({
         router,
-        data: options,
+        data: { ...options, baseurl },
       }).$mount(entryPoint);
     }
   }

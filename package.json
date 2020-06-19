@@ -46,6 +46,7 @@
     "mustache": "^2.3.0",
     "regenerator-runtime": "^0.13.3",
     "select2": "4.0.8",
+    "serialize-javascript": "^2.1.1",
     "simplemde": "^1.11.2",
     "slickgrid-es6": "^3.0.1",
     "sortablejs": "^1.8.4",

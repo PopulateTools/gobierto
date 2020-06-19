@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { percent, translate } from "lib/shared";
 
 export default {

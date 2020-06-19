@@ -5,7 +5,7 @@
     <router-view
       v-if="json.length"
       :json="json"
-      :level-keys="levelKeys"
+      :options="options"
     />
   </div>
 </template>
@@ -25,14 +25,14 @@ export default {
   data() {
     return {
       json: [],
-      levelKeys: {},
+      options: {},
       globalProgress: 0
     }
   },
   async created() {
-    const { data: { plan_tree, level_keys } } = await this.getPlans({ format: 'json' });
+    const { data: { plan_tree, ...options } } = await this.getPlans({ format: 'json' });
     this.json = plan_tree;
-    this.levelKeys = level_keys;
+    this.options = options;
   }
 }
 </script>

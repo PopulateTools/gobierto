@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO: tratar de convertir en computed -->
   <div>
     {{ length }} {{ label | translate }}
   </div>
@@ -20,7 +19,7 @@ export default {
     },
     length: {
       type: Number,
-      default: 0
+      default: null
     },
     level: {
       type: Number,

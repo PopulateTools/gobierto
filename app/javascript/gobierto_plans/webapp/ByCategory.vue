@@ -9,7 +9,10 @@
           :key="model.id"
           :element-index="index"
           :elements-length="json.length"
-          :classes="[`cat_${(index % json.length) + 1}`, { 'is-root-open': parseInt(activeNode.uid) === index }]"
+          :classes="[
+            `cat_${(index % json.length) + 1}`,
+            { 'is-root-open': parseInt(activeNode.uid) === index }
+          ]"
           :model="model"
           @selection="setSelection"
           @open-menu-mobile="openMenu = !openMenu"
@@ -18,24 +21,75 @@
     </section>
 
     <!-- TODO: pruebas -->
-    <!-- TODO: el bucle es super falso, nunca se recorre dos veces -->
-    <template v-for="i in [1, 2]">
+    <template v-for="i in jsonDepth">
       <section
         v-if="isOpen(i)"
         :key="i"
         :class="[`level_${i}`, `cat_${color()}`]"
       >
-        <!-- TODO: Si no es el último -->
-        <template v-if="i !== 2">
-          <div class="node-breadcrumb mb2">
-            <a
-              data-turbolinks="false"
-              @click.stop="resetParent"
-            >
-              {{ labelStarts }}
-            </a>
-          </div>
+        <div class="node-breadcrumb mb2">
+          <a @click.stop="resetParent">
+            {{ labelStarts }}
+          </a>
 
+          <template v-for="level in activeNode.level">
+            <a
+              :key="level"
+              @click.stop="setParent(level)"
+            >
+              <i class="fas fa-caret-right" />
+              {{ (getParent(level).attributes || {}).title | translate }}
+            </a>
+          </template>
+        </div>
+
+        <!-- last children -->
+        <template v-if="i === jsonDepth">
+          <div class="node-action-line">
+            <ActionLineHeader :node="activeNode">
+              <NumberLabel
+                :keys="levelKeys"
+                :length="activeNode.children.length"
+                :level="activeNode.level"
+              />
+            </ActionLineHeader>
+
+            <div class="node-action-line">
+              <ul class="action-line--list">
+                <template v-for="model in activeNode.children">
+                  <ActionLine
+                    :key="model.id"
+                    :model="model"
+                  >
+                    <template v-slot:numberLabel>
+                      <NumberLabel
+                        :keys="levelKeys"
+                        :length="model.attributes.children_count"
+                        :level="model.level"
+                      />
+                    </template>
+
+                    <TableView
+                      :key="model.id"
+                      :model="model"
+                      :header="showTableHeader"
+                      :open="openNode"
+                      @activate="activatePlugins"
+                      @custom-fields="parseCustomFields"
+                      @selection="setSelection"
+                    >
+                      <NumberLabel
+                        :keys="levelKeys"
+                        :level="model.level"
+                      />
+                    </TableView>
+                  </ActionLine>
+                </template>
+              </ul>
+            </div>
+          </div>
+        </template>
+        <template v-else>
           <div class="lines-header">
             <NumberLabel
               :keys="levelKeys"
@@ -45,138 +99,29 @@
 
             <div>{{ labelProgress }}</div>
           </div>
-        </template>
 
-        <!-- TODO: Si es el último -->
-        <template v-if="i === 2">
-          <div class="node-action-line">
-            <div class="action-line--header node-list cat--negative">
-              <div class="node-title">
-                <div><i class="fas fa-caret-down" /></div>
-                <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
-              </div>
-
-              <NumberLabel
-                :keys="levelKeys"
-                :length="activeNode.children.length"
-                :level="activeNode.level"
-              />
-
-              <div>
-                {{ (activeNode.attributes || {}).progress || 0 | percent }}
-              </div>
-            </div>
-
-            <div class="node-action-line">
-              <ul class="action-line--list">
-                <li
-                  v-for="(model, index) in activeNode.children"
-                  :key="model.id"
-                >
-                  <NodeList
-                    :model="model"
-                    @toggle="toggle(activeNode.id, index)"
-                  >
-                    <NumberLabel
-                      :keys="levelKeys"
-                      :length="model.children.length"
-                      :level="model.level"
-                    />
-                  </NodeList>
-                  <transition name="slide-fade">
-                  <!-- <TableView
-                    v-if="showTable[`${activeNode.id}-${index}`]"
-                    :key="model.id"
-                    :model="model"
-                    :header="showTableHeader"
-                    :open="openNode"
-                    @activate="activatePlugins"
-                    @custom-fields="parseCustomFields"
-                    @selection="setSelection"
-                  /> -->
-                  </transition>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </template>
-        <template v-else>
-          <!-- TODO: Se establece recursión, es decir, la pantalla 1, de lineas de actuacion -->
           <ul class="lines-list">
             <li
-              v-for="(model, index) in activeNode.children"
+              v-for="model in activeNode.children"
+              :key="model.id"
               class="mb2"
             >
               <NodeList
-                :key="model.id"
                 :model="model"
                 :level="levelKeys"
                 @selection="setSelection"
-              />
+              >
+                <NumberLabel
+                  :keys="levelKeys"
+                  :length="model.children.length"
+                  :level="model.level"
+                />
+              </NodeList>
             </li>
           </ul>
         </template>
       </section>
     </template>
-
-    <!-- TODO: esto es igual que dentro del bucle pero, pero este aparece cuando hay dos niveles -->
-    <section
-      v-if="false && isOpen(2)"
-      class="level_2"
-      :class="['cat_' + color() ]"
-    >
-      <div class="node-breadcrumb mb2">
-        <a
-          data-turbolinks="false"
-          @click.stop="resetParent"
-        >
-          {{ labelStarts }}
-        </a>
-        <a
-          data-turbolinks="false"
-          @click.stop="setParent"
-        >
-          <i class="fas fa-caret-right" />
-          {{ (getParent().attributes || {}).title | translate }}
-        </a>
-      </div>
-
-      <div class="node-action-line">
-        <ActionLineHeader :node="activeNode">
-          <NumberLabel
-            :keys="levelKeys"
-            :length="activeNode.children.length"
-            :level="activeNode.level"
-          />
-        </ActionLineHeader>
-
-        <ul class="action-line--list">
-          <li
-            v-for="(model, index) in activeNode.children"
-            :key="model.id"
-          >
-            <NodeList
-              :model="model"
-              :level="levelKeys"
-              @toggle="toggle(activeNode.id, index)"
-            />
-
-            <transition name="slide-fade">
-              <!-- <TableView
-                v-if="showTable[`${activeNode.id}-${index}`]"
-                :key="model.id"
-                :model="model"
-                :header="showTableHeader"
-                :open="openNode"
-                @selection="setSelection"
-                @activate="activatePlugins"
-                @custom-fields="parseCustomFields"
-              /> -->
-            </transition>
-          </li>
-        </ul>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -185,8 +130,10 @@ import NodeRoot from "./components/NodeRoot";
 import NodeList from "./components/NodeList";
 import TableView from "./components/TableView";
 import ActionLineHeader from "./components/ActionLineHeader";
+import ActionLine from "./components/ActionLine";
 import NumberLabel from "./components/NumberLabel";
 import { translate, percent } from "lib/shared";
+import { depth } from "../lib/helpers";
 
 export default {
   name: "ByCategory",
@@ -197,6 +144,7 @@ export default {
   components: {
     NodeRoot,
     ActionLineHeader,
+    ActionLine,
     NumberLabel,
     NodeList,
     TableView
@@ -206,7 +154,7 @@ export default {
       type: Array,
       default: () => []
     },
-    levelKeys: {
+    options: {
       type: Object,
       default: () => {}
     }
@@ -214,21 +162,27 @@ export default {
   data() {
     return {
       openMenu: false,
-      labelStarts: I18n.t("gobierto_plans.plan_types.show.starts") || '',
+      labelStarts: I18n.t("gobierto_plans.plan_types.show.starts") || "",
       labelSeeAll: I18n.t("gobierto_plans.plan_types.show.see_all") || "",
       labelProgress:
         I18n.t("gobierto_plans.plan_types.show.percentage_progress") || "",
       activeNode: {},
+      levelKeys: {},
+      openNode: false,
+      showTableHeader: false,
+      jsonDepth: 0,
+      showTable: {}
     };
   },
-  computed: {
-    // isOpenLevel0() {}
-  },
   created() {
-    const depth = ({ children }) => 1 + (children.length ? Math.max(...children.map(depth)) : 0)
+    const { level_keys, open_node, show_table_header } = this.options;
 
-    console.log('depth', Math.max(...this.json.map(depth)));
+    this.levelKeys = level_keys;
+    this.openNode = open_node;
+    this.showTableHeader = show_table_header;
 
+    // Maximum depth of all objects in the json
+    this.jsonDepth = Math.max(...this.json.map(depth)) - 1;
   },
   methods: {
     setSelection(model) {

@@ -1,7 +1,7 @@
 <template>
   <table>
     <thead v-if="header">
-      <th><%= @plan.level_key(2, @levels + 1) %></th>
+      <th><slot /></th>
       <th>{{ labelStarts }}</th>
       <th>{{ labelStatus }}</th>
       <th>{{ labelProgress }}</th>

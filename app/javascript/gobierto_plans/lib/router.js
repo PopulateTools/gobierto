@@ -11,7 +11,8 @@ export const router = new VueRouter({
   mode: "history",
   routes: [
     {
-      path: "/planes/:name/:year",
+      path: "/planes/:name?/:year?",
+      alias: "/",
       component: Main,
       children: [
         {

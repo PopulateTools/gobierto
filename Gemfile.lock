@@ -12,6 +12,15 @@ GIT
       oj (~> 3.6)
       rake (~> 13.0)
 
+GIT
+  remote: https://github.com/maierru/liquid-rails.git
+  revision: 85428a0f713f27281c72f0df60316c62115cf76b
+  specs:
+    liquid-rails (0.2.1)
+      kaminari (~> 1.2.1)
+      liquid (~> 4.0.0)
+      rails (>= 5.0.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -204,7 +213,7 @@ GEM
     httpi (2.4.4)
       rack
       socksify
-    i18n (1.8.2)
+    i18n (1.8.3)
       concurrent-ruby (~> 1.0)
     i18n-js (3.7.0)
       i18n (>= 0.6.6)
@@ -236,32 +245,28 @@ GEM
       activerecord (>= 4.2.0)
     jsonapi-renderer (0.2.2)
     jwt (2.2.1)
-    kaminari (1.1.1)
+    kaminari (1.2.1)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.1.1)
-      kaminari-activerecord (= 1.1.1)
-      kaminari-core (= 1.1.1)
-    kaminari-actionview (1.1.1)
+      kaminari-actionview (= 1.2.1)
+      kaminari-activerecord (= 1.2.1)
+      kaminari-core (= 1.2.1)
+    kaminari-actionview (1.2.1)
       actionview
-      kaminari-core (= 1.1.1)
-    kaminari-activerecord (1.1.1)
+      kaminari-core (= 1.2.1)
+    kaminari-activerecord (1.2.1)
       activerecord
-      kaminari-core (= 1.1.1)
-    kaminari-core (1.1.1)
+      kaminari-core (= 1.2.1)
+    kaminari-core (1.2.1)
     ladle (1.0.1)
       open4 (~> 1.0)
     launchy (2.5.0)
       addressable (~> 2.7)
     libv8 (3.16.14.19)
     liquid (4.0.3)
-    liquid-rails (0.2.0)
-      kaminari (~> 1.1.1)
-      liquid (~> 4.0.0)
-      rails (>= 5.0.6)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.5.0)
+    loofah (2.6.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -546,11 +551,11 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   json_translate (~> 4.0)
-  kaminari (~> 1.0)
+  kaminari (~> 1.2)
   ladle
   launchy
   liquid (~> 4.0)
-  liquid-rails (~> 0.2.0)
+  liquid-rails!
   listen
   mechanize
   meta-tags

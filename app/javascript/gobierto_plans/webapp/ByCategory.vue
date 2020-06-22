@@ -192,7 +192,6 @@ import NumberLabel from "./components/NumberLabel";
 import CustomFields from "./components/CustomFields";
 import Plugins from "./components/Plugins";
 import { translate, percent, date } from "lib/shared";
-import { depth } from "../lib/helpers";
 
 export default {
   name: "ByCategory",
@@ -239,14 +238,12 @@ export default {
     };
   },
   created() {
-    const { level_keys, open_node, show_table_header } = this.options;
+    const { level_keys, open_node, show_table_header, json_depth } = this.options;
 
     this.levelKeys = level_keys;
     this.openNode = open_node;
     this.showTableHeader = show_table_header;
-
-    // Maximum depth of all objects in the json
-    this.jsonDepth = Math.max(...this.json.map(depth));
+    this.jsonDepth = +json_depth - 1;
   },
   methods: {
     setSelection(model) {

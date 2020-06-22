@@ -1,13 +1,12 @@
 <template>
   <div v-if="json.length">
     <Header :options="options">
-      <template v-for="lvl in numberOfLevelKeys">
-        <!-- TODO: calculate number of items each cat -->
+      <template v-for="[key, length] in summary">
         <NumberLabel
-          :key="lvl"
+          :key="key"
           :keys="levelKeys"
-          :length="10"
-          :level="lvl - 1"
+          :length="length"
+          :level="key"
         />
       </template>
     </Header>
@@ -24,6 +23,7 @@ import Header from "./components/Header.vue";
 import NumberLabel from "./components/NumberLabel.vue";
 import ButtonFilters from "./components/ButtonFilters.vue";
 import { PlansFactoryMixin } from "../lib/factory";
+import { recursiveChildrenCount } from "../lib/helpers";
 
 export default {
   name: "Main",
@@ -37,17 +37,18 @@ export default {
     return {
       json: [],
       options: {},
-      levelKeys: {}
-    }
-  },
-  computed: {
-    numberOfLevelKeys() {
-      return Object.keys(this.levelKeys).length
+      levelKeys: {},
+      summary: []
     }
   },
   async created() {
     const { data: { plan_tree, ...options } } = await this.getPlans({ format: 'json' });
     this.json = plan_tree;
+
+    const jsonMap = recursiveChildrenCount(plan_tree)
+    this.summary = Array.from(jsonMap)
+    options.json_depth = jsonMap.size
+
     this.options = options;
 
     const { level_keys } = options

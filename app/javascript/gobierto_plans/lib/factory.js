@@ -14,5 +14,8 @@ export const PlansFactoryMixin = {
       const qs = new URLSearchParams(params)
       return axios.get(`${endPoint}?${qs.toString()}`, { headers });
     },
+    getProjects(url) {
+      return axios.get(url, { headers });
+    },
   }
 };

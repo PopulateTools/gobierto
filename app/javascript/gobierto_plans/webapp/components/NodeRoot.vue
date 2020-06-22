@@ -68,9 +68,8 @@ export default {
   },
   methods: {
     open() {
-      // Trigger event
-      this.$emit("selection", { ...this.model });
       this.$emit("open-menu-mobile");
+      this.$router.push({ name: 'categories', params: { ...this.$route.params, id: this.model.id } })
     }
   }
 };

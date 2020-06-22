@@ -11,7 +11,7 @@
         v-for="row in model.children"
         :key="row.id"
         :style="{ cursor: !open ? 'pointer' : '' }"
-        @click.stop="getProject(row)"
+        @click="getProject(row)"
       >
         <td>{{ row.attributes.title | translate }}</td>
         <td>{{ row.attributes.starts_at | date }}</td>
@@ -56,7 +56,7 @@ export default {
   methods: {
     getProject(row) {
       if (this.open) {
-        this.$emit("selection", { ...row });
+        this.$router.push({ name: 'projects', params: { ...this.$route.params, id: row.id } })
       }
     }
   }

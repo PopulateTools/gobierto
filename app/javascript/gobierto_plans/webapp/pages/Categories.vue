@@ -1,31 +1,27 @@
 <template>
   <div class="planification-content">
     <section
-      class="level_0"
-      :class="{ 'is-active': isOpen(0), 'is-mobile-open': openMenu }"
+      class="level_0 is-active"
+      :class="{ 'is-mobile-open': openMenu }"
     >
       <template v-for="(model, index) in json">
         <NodeRoot
           :key="model.id"
-          :element-index="index"
-          :elements-length="json.length"
           :classes="[
             `cat_${(index % json.length) + 1}`,
             { 'is-root-open': parseInt(activeNode.uid) === index }
           ]"
           :model="model"
-          @selection="setSelection"
           @open-menu-mobile="openMenu = !openMenu"
         />
       </template>
     </section>
 
-    <!-- TODO: pruebas -->
     <template v-for="i in jsonDepth">
       <section
         v-if="isOpen(i)"
         :key="i"
-        :class="[`level_${i}`, `cat_${color()}`]"
+        :class="[`level_${i}`, `cat_${color}`]"
       >
         <!-- general breadcrumb -->
         <div class="node-breadcrumb mb2">
@@ -46,60 +42,13 @@
         </div>
 
         <!-- last children template -->
+        <!-- TODO: SACAR de ahi -->
         <template v-if="i === jsonDepth">
-          <div class="node-action-line">
-            <div class="action-line--header node-list cat--negative">
-              <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
-            </div>
-
-            <div class="node-project-detail">
-              <!-- Native fields -->
-              <div class="project-mandatory">
-                <div>
-                  <div class="mandatory-list">
-                    <div class="mandatory-title">
-                      {{ labelProgress }}
-                    </div>
-                    <div class="mandatory-desc">
-                      {{ activeNode.attributes.progress | percent }}
-                    </div>
-                  </div>
-                  <div class="mandatory-progress">
-                    <!-- TODO: apply math.round -->
-                    <div
-                      :style="{ width: activeNode.attributes.progress + '%' }"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div class="mandatory-list">
-                    <div class="mandatory-title">
-                      {{ labelStarts }} - {{ labelEnds }}
-                    </div>
-                    <div class="mandatory-desc">
-                      {{ activeNode.attributes.starts_at | date }} -
-                      {{ activeNode.attributes.ends_at | date }}
-                    </div>
-                  </div>
-                  <div class="mandatory-list">
-                    <div class="mandatory-title">
-                      {{ labelStatus }}
-                    </div>
-                    <div class="mandatory-desc">
-                      {{ activeNode.attributes.status | translate }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <CustomFields
-                v-if="Object.keys(customFields).length"
-                :custom-fields="customFields"
-              />
-
-              <Plugins :plugins="availablePlugins" />
-            </div>
-          </div>
+          <Project
+            :model="activeNode"
+            :custom-fields="customFields"
+            :plugins="availablePlugins"
+          />
         </template>
         <!-- next to last children template -->
         <template v-else-if="i === jsonDepth - 1">
@@ -132,7 +81,6 @@
                       :model="model"
                       :header="showTableHeader"
                       :open="openNode"
-                      @selection="setSelection"
                     >
                       <NumberLabel
                         :keys="levelKeys"
@@ -163,11 +111,7 @@
               :key="model.id"
               class="mb2"
             >
-              <NodeList
-                :model="model"
-                :level="levelKeys"
-                @selection="setSelection"
-              >
+              <NodeList :model="model">
                 <NumberLabel
                   :keys="levelKeys"
                   :length="model.children.length"
@@ -183,18 +127,18 @@
 </template>
 
 <script>
-import NodeRoot from "./components/NodeRoot";
-import NodeList from "./components/NodeList";
-import TableView from "./components/TableView";
-import ActionLineHeader from "./components/ActionLineHeader";
-import ActionLine from "./components/ActionLine";
-import NumberLabel from "./components/NumberLabel";
-import CustomFields from "./components/CustomFields";
-import Plugins from "./components/Plugins";
+import NodeRoot from "../components/NodeRoot";
+import NodeList from "../components/NodeList";
+import TableView from "../components/TableView";
+import ActionLineHeader from "../components/ActionLineHeader";
+import ActionLine from "../components/ActionLine";
+import NumberLabel from "../components/NumberLabel";
+import Project from "../components/Project";
 import { translate, percent, date } from "lib/shared";
+import { findRecursive } from "../../lib/helpers";
 
 export default {
-  name: "ByCategory",
+  name: "Categories",
   filters: {
     translate,
     percent,
@@ -207,8 +151,7 @@ export default {
     NumberLabel,
     NodeList,
     TableView,
-    CustomFields,
-    Plugins
+    Project
   },
   props: {
     json: {
@@ -222,12 +165,8 @@ export default {
   },
   data() {
     return {
-      openMenu: false,
       labelStarts: I18n.t("gobierto_plans.plan_types.show.starts") || "",
-      labelEnds: I18n.t("gobierto_plans.plan_types.show.ends") || "",
-      labelStatus: I18n.t("gobierto_plans.plan_types.show.status") || "",
-      labelProgress:
-        I18n.t("gobierto_plans.plan_types.show.progress").toLowerCase() || "",
+      openMenu: false,
       activeNode: {},
       levelKeys: {},
       openNode: false,
@@ -235,35 +174,65 @@ export default {
       jsonDepth: 0,
       customFields: {},
       availablePlugins: [],
+      rootid: 0
     };
   },
+  computed: {
+    color() {
+      return (this.rootid % this.json.length) + 1;
+    }
+  },
+  watch: {
+    $route(to) {
+      const {
+        params: { id }
+      } = to;
+      this.setActiveNode(id);
+    }
+  },
   created() {
-    const { level_keys, open_node, show_table_header, json_depth } = this.options;
+    const {
+      level_keys,
+      open_node,
+      show_table_header,
+      json_depth
+    } = this.options;
 
     this.levelKeys = level_keys;
     this.openNode = open_node;
     this.showTableHeader = show_table_header;
     this.jsonDepth = +json_depth - 1;
+
+    const {
+      params: { id }
+    } = this.$route;
+    this.setActiveNode(id);
   },
   methods: {
-    setSelection(model) {
-      this.activeNode = model;
+    setActiveNode(id) {
+      this.activeNode = findRecursive(this.json, +id);
 
-      // Preprocess custom fields
-      const { custom_field_records = [] } = model.attributes;
-      if (custom_field_records.length > 0) {
-        this.customFields = custom_field_records
+      if (this.activeNode) {
+        const {
+          level,
+          attributes: { custom_field_records = [], plugins_data = {} }
+        } = this.activeNode;
+
+        // if the activeNode is level zero, it sets the children colors
+        if (level === 0) {
+          this.rootid = this.json.findIndex(d => d.id === +id);
+        }
+
+        // Preprocess custom fields
+        if (custom_field_records.length > 0) {
+          this.customFields = custom_field_records;
+        }
+
+        // Activate plugins
+        if (Object.keys(plugins_data).length) {
+          this.availablePlugins = plugins_data;
+        }
       }
-
-      // Activate plugins
-      const { plugins_data = {} } = model.attributes;
-      if (Object.keys(plugins_data).length) {
-        this.availablePlugins = plugins_data
-      }
-
-      // TODO: avoid use uid
-      // To know the root node
-      this.rootid = this.activeNode.uid.toString().charAt(0);
     },
     isOpen(level) {
       if (this.activeNode.level === undefined) return false;
@@ -285,10 +254,6 @@ export default {
       }
 
       return isOpen;
-    },
-    color() {
-      // TODO: avoid use rootid
-      return (this.rootid % this.json.length) + 1;
     },
     getParent() {
       // Initialize args
@@ -321,8 +286,8 @@ export default {
         arguments.length > 0 && arguments[0] !== undefined
           ? arguments[0]
           : undefined;
-      //hack 3rd level (3rd level has no SECTION)
-      if (breakpoint === 3) breakpoint = breakpoint - 1;
+      // //hack 3rd level (3rd level has no SECTION)
+      // if (breakpoint === 3) breakpoint = breakpoint - 1;
 
       this.activeNode = this.getParent(breakpoint);
     }

@@ -175,7 +175,12 @@ export default {
       queryInputFocus : false,
       isPublicVizLoading: false,
       vizName: null,
-      vizInputFocus: false
+      vizInputFocus: false,
+      labelSummary: I18n.t("gobierto_data.projects.summary") || "",
+      labelData: I18n.t("gobierto_data.projects.data") || "",
+      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
+      labelVisualizations: I18n.t("gobierto_data.projects.visualizations") || "",
+      labelDownload: I18n.t("gobierto_data.projects.download") || "",
     };
   },
   computed: {
@@ -392,18 +397,38 @@ export default {
     this.$root.$off('showSavingDialogEvent')
   },
   methods: {
-    //
     updateBaseTitle() {
       this.$nextTick(() =>
         this.$nextTick(() => {
           let title
-          if (this.$route.name === "Dataset") {
+          const {
+            name: nameComponent,
+            params: {
+              tab: tabName
+            }
+          } = this.$route
+          if (nameComponent === "Dataset") {
             if (this.titleDataset) {
               const titleI18n = this.titleDataset
                 ? `${this.titleDataset} · `
                 : "";
 
-              title = `${titleI18n}${this.pageTitle}`;
+                if (tabName === 'editor') {
+                  const tabTitle = `${this.labelData} · `
+                  title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
+                } else if (tabName === 'consultas') {
+                  const tabTitle = `${this.labelQueries} · `
+                  title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
+                } else if (tabName === 'visualizaciones') {
+                  const tabTitle = `${this.labelVisualizations} · `
+                  title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
+                } else if (tabName === 'descarga') {
+                  const tabTitle = `${this.labelDownload} · `
+                  title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
+                } else {
+                  const tabTitle = `${this.labelSummary} · `
+                  title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
+                }
             }
           }
           document.title = title;

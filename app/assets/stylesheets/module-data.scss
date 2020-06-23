@@ -995,7 +995,8 @@
   &-sidebar-datasets-links-columns-text {
     font-size: 14px;
     display: inline-block;
-    padding-left: .15rem;
+    white-space: nowrap;
+    width: 95%;
     opacity: .5;
   }
 

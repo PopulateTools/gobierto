@@ -126,6 +126,10 @@ export default {
       type: Number,
       default: 0,
     },
+    pageTitle: {
+      type: String,
+      default: ''
+    },
   },
   data() {
     return {
@@ -205,6 +209,10 @@ export default {
         this.currentVizTab = 1
       }
 
+      //Update only the baseTitle of the dataset that is active
+      if (to.name === 'Dataset' && this._inactive === false) {
+        this.updateBaseTitle()
+      }
       //FIXME: Hugo, we need to talk about this hack
       // https://stackoverflow.com/questions/50295985/how-to-tell-if-a-vue-component-is-active-or-not
       if (to.name === 'Query' && this._inactive === false) {
@@ -291,6 +299,7 @@ export default {
     this.runCurrentQuery();
     this.setDefaultQuery();
     this.checkIfUserIsLogged();
+    this.updateBaseTitle()
 
   },
   mounted() {
@@ -383,6 +392,24 @@ export default {
     this.$root.$off('showSavingDialogEvent')
   },
   methods: {
+    //
+    updateBaseTitle() {
+      this.$nextTick(() =>
+        this.$nextTick(() => {
+          let title
+          if (this.$route.name === "Dataset") {
+            if (this.titleDataset) {
+              const titleI18n = this.titleDataset
+                ? `${this.titleDataset} · `
+                : "";
+
+              title = `${titleI18n}${this.pageTitle}`;
+            }
+          }
+          document.title = title;
+        })
+      );
+    },
     checkIfUserIsLogged() {
       if (this.isUserLogged) {
         this.isVizSavingPromptVisible = true

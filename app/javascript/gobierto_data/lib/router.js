@@ -53,28 +53,3 @@ export const router = new VueRouter({
       });
     }
   });
-
-const baseTitle = document.title;
-
-router.afterEach(to => {
-  // Wait 2 ticks
-  Vue.nextTick(() =>
-    Vue.nextTick(() => {
-      let title = baseTitle;
-      // FIXME: this is not working because routes don't have a name now
-      if (to.name === "dataset") {
-        const { titleDataset: dataset } = to.params;
-
-        if (dataset) {
-          const titleI18n = dataset
-            ? `${dataset} · `
-            : "";
-
-          title = `${titleI18n}${baseTitle}`;
-        }
-      }
-
-      document.title = title;
-    })
-  );
-})

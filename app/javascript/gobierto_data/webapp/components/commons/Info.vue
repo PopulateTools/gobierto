@@ -25,15 +25,33 @@
     </div>
     <div class="pure-u-1-2">
       <div
+        id="gobierto-data-summary-header"
         class="gobierto-data-summary-header-description"
-        v-html="descriptionDataset"
+        v-html="compiledHTMLMarkdown"
       />
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <template v-if="truncateIsActive">
+          <span class="gobierto-data-summary-header-description-link" @click="truncateIsActive = !truncateIsActive">
+            {{ seeMore }}
+          </span>
+        </template>
+        <template v-else>
+          <span class="gobierto-data-summary-header-description-link" @click="scrollDetail">
+            {{ seeLess }}
+          </span>
+        </template>
+      </transition>
     </div>
   </div>
 </template>
 <script>
-import { date } from "lib/shared"
+import { date, truncate } from "lib/shared"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
+const marked = require('marked');
+const TurndownService = require('turndown').default;
 
 export default {
   name: "Info",
@@ -76,7 +94,34 @@ export default {
       labelUpdated: I18n.t("gobierto_data.projects.updated") || '',
       labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
       labelSubject: I18n.t("gobierto_data.projects.subject") || '',
-      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || ''
+      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',
+      seeMore: I18n.t("gobierto_common.vue_components.read_more.more") || '',
+      seeLess: I18n.t("gobierto_common.vue_components.read_more.less") || '',
+      truncateIsActive: true
+    }
+  },
+  computed: {
+    compiledHTMLMarkdown() {
+      const turndownService = new TurndownService()
+      const markdown = turndownService.turndown(this.descriptionDataset)
+      const mdText = marked(markdown, {
+        sanitize: false,
+        tables: true
+      })
+
+      if (this.truncateIsActive) {
+        return truncate(mdText, { length: 250 })
+      } else {
+        return mdText
+      }
+
+    }
+  },
+  methods: {
+    scrollDetail() {
+      const element = document.getElementById('gobierto-data-summary-header');
+      element.scrollIntoView({ behavior: "smooth" })
+      this.truncateIsActive = true
     }
   }
 }

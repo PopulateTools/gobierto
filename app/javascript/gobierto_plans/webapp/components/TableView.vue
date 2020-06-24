@@ -1,14 +1,16 @@
 <template>
   <table>
     <thead v-if="header">
-      <th><slot /></th>
+      <th>
+        <NumberLabel :level="level + 1" />
+      </th>
       <th>{{ labelStarts }}</th>
       <th>{{ labelStatus }}</th>
       <th>{{ labelProgress }}</th>
     </thead>
     <tbody>
       <tr
-        v-for="row in model.children"
+        v-for="row in children"
         :key="row.id"
         :style="{ cursor: !open ? 'pointer' : '' }"
         @click="getProject(row)"
@@ -23,10 +25,14 @@
 </template>
 
 <script>
+import NumberLabel from "./NumberLabel";
 import { percent, translate, date } from "lib/shared";
 
 export default {
   name: "TableView",
+  components: {
+    NumberLabel
+  },
   filters: {
     percent,
     translate,
@@ -51,7 +57,18 @@ export default {
       labelStarts: I18n.t("gobierto_plans.plan_types.show.starts") || '',
       labelStatus: I18n.t("gobierto_plans.plan_types.show.status") || '',
       labelProgress: I18n.t("gobierto_plans.plan_types.show.progress") || '',
+      children: [],
+      level: 0
     };
+  },
+  created() {
+    const { children, level } = this.model
+
+    this.children = children
+    this.level = level
+  },
+  updated() {
+
   },
   methods: {
     getProject(row) {

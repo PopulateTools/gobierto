@@ -4,10 +4,7 @@
       <template v-for="(model, index) in json">
         <NodeRoot
           :key="model.id"
-          :classes="[
-            `cat_${(index % json.length) + 1}`,
-            { 'is-root-open': parseInt(activeNode.uid) === index }
-          ]"
+          :classes="[ `cat_${(index % json.length) + 1}` ]"
           :model="model"
           @open-menu-mobile="openMenu = !openMenu"
         />
@@ -32,28 +29,8 @@ export default {
   },
   data() {
     return {
-      openMenu: false,
-      activeNode: {},
-      customFields: {},
-      availablePlugins: [],
+      openMenu: false
     };
-  },
-  methods: {
-    setSelection(model) {
-      this.activeNode = model;
-
-      // Preprocess custom fields
-      const { custom_field_records = [] } = model.attributes;
-      if (custom_field_records.length > 0) {
-        this.customFields = custom_field_records
-      }
-
-      // Activate plugins
-      const { plugins_data = {} } = model.attributes;
-      if (Object.keys(plugins_data).length) {
-        this.availablePlugins = plugins_data
-      }
-    }
   }
 };
 </script>

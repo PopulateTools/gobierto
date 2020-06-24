@@ -3,10 +3,10 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-const Main = () => import("../webapp/Main.vue");
-const Home = () => import("../webapp/pages/Home.vue");
-const Categories = () => import("../webapp/pages/Categories.vue");
-const Projects = () => import("../webapp/pages/Projects.vue");
+const Main = () => import("../Main.vue");
+const Home = () => import("../pages/Home.vue");
+const Categories = () => import("../pages/Categories.vue");
+const Projects = () => import("../pages/Projects.vue");
 
 // https://router.vuejs.org/guide/essentials/nested-routes.html
 export const router = new VueRouter({

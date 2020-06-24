@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { router } from "../lib/router";
+import { router } from "../webapp/lib/router";
 // Vue.config.productionTip = false;
 // import TurbolinksAdapter from "vue-turbolinks";
 // Vue.use(TurbolinksAdapter);

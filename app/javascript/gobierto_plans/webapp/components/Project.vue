@@ -5,67 +5,36 @@
     </div>
 
     <div class="node-project-detail">
-      <!-- Native fields -->
-      <div class="project-mandatory">
-        <div>
-          <div class="mandatory-list">
-            <div class="mandatory-title">
-              {{ labelProgress }}
-            </div>
-            <div class="mandatory-desc">
-              {{ progress | percent }}
-            </div>
-          </div>
-          <div class="mandatory-progress">
-            <div :style="{ width: roundedWidth }" />
-          </div>
-        </div>
-        <div>
-          <div class="mandatory-list">
-            <div class="mandatory-title">
-              {{ labelStarts }} - {{ labelEnds }}
-            </div>
-            <div class="mandatory-desc">
-              {{ startsAt | date }} -
-              {{ endsAt | date }}
-            </div>
-          </div>
-          <div class="mandatory-list">
-            <div class="mandatory-title">
-              {{ labelStatus }}
-            </div>
-            <div class="mandatory-desc">
-              {{ status | translate }}
-            </div>
-          </div>
-        </div>
-      </div>
+      <ProjectNativeFields :model="model" />
 
-      <CustomFields
-        v-if="Object.keys(customFields).length"
+      <ProjectCustomFields
+        v-if="hasCustomFields"
         :custom-fields="customFields"
       />
 
-      <Plugins :plugins="plugins" />
+      <ProjectPlugins
+        v-if="hasPlugins"
+        :plugins="plugins"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import CustomFields from "./CustomFields";
-import Plugins from "./Plugins";
-import { translate, percent, date } from "lib/shared";
+import ProjectNativeFields from "./ProjectNativeFields";
+import ProjectCustomFields from "./ProjectCustomFields";
+import ProjectPlugins from "./ProjectPlugins";
+import { translate } from "lib/shared";
 
 export default {
-  name: "ActionLine",
+  name: "Project",
   components: {
-    CustomFields,
-    Plugins
+    ProjectNativeFields,
+    ProjectCustomFields,
+    ProjectPlugins
   },
   filters: {
-    translate,
-    percent,
-    date
+    translate
   },
   props: {
     model: {
@@ -73,43 +42,33 @@ export default {
       default: () => {}
     },
     customFields: {
-      type: Object,
-      default: () => {}
-    },
-    plugins: {
       type: Array,
       default: () => []
+    },
+    plugins: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
     return {
-      labelStarts: I18n.t("gobierto_plans.plan_types.show.starts") || "",
-      labelEnds: I18n.t("gobierto_plans.plan_types.show.ends") || "",
-      labelStatus: I18n.t("gobierto_plans.plan_types.show.status") || "",
-      labelProgress:
-        I18n.t("gobierto_plans.plan_types.show.progress").toLowerCase() || "",
       title: "",
-      progress: "",
-      startsAt: null,
-      endsAt: null,
-      status: ""
     };
   },
   computed: {
-    roundedWidth() {
-      return `${Math.round(this.progress)}%`
-    }
+    hasPlugins() {
+      return !!Object.keys(this.plugins).length
+    },
+    hasCustomFields() {
+      return !!this.customFields.length
+    },
   },
   created() {
     const {
-      attributes: { title, progress, starts_at, ends_at, status }
+      attributes: { title }
     } = this.model;
 
     this.title = title;
-    this.progress = progress;
-    this.startsAt = starts_at;
-    this.endsAt = ends_at;
-    this.status = status;
   }
 };
 </script>

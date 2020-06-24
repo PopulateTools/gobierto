@@ -33,7 +33,7 @@
 <script>
 import NodeRoot from "../components/NodeRoot";
 import Project from "../components/Project";
-import { findRecursive } from "../../lib/helpers";
+import { findRecursive } from "../lib/helpers";
 
 export default {
   name: "Projects",

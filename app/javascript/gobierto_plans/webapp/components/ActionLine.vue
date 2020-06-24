@@ -4,7 +4,10 @@
       :model="model"
       @toggle="showContent = !showContent"
     >
-      <slot name="numberLabel" />
+      <NumberLabel
+        :length="childrenCount"
+        :level="level + 1"
+      />
     </NodeList>
 
     <transition name="slide-fade">
@@ -17,11 +20,13 @@
 
 <script>
 import NodeList from './NodeList'
+import NumberLabel from "./NumberLabel";
 
 export default {
   name: "ActionLine",
   components: {
-    NodeList
+    NodeList,
+    NumberLabel
   },
   props: {
     model: {
@@ -31,8 +36,16 @@ export default {
   },
   data() {
     return {
-      showContent: false
+      showContent: false,
+      childrenCount: 0,
+      level: 0
     };
+  },
+    created() {
+    const { attributes: { children_count } = {}, level } = this.model;
+
+    this.childrenCount = children_count;
+    this.level = level;
   },
 };
 </script>

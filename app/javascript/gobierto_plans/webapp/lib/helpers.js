@@ -1,9 +1,12 @@
 /**
- * Recursive calculation of depth levels in a object with children
- * @param {Array} Object with a children property
+ * Returns an object whose keys are the different groups, i.e. the different values of the groupBy property
+ * @param {Array} xs array element
+ * @param {String} key property to be grouped by.
  */
-export const depth = ({ children }) =>
-  1 + (children.length ? Math.max(...children.map(depth)) : 0);
+export const groupBy = (xs, key) => xs.reduce((rv, x) => {
+  (rv[x[key]] = rv[x[key]] || []).push(x);
+  return rv;
+}, {});
 
 /**
  * Recursive calculation of the number of children, grouped by depth level

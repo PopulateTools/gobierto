@@ -1,16 +1,21 @@
 <template>
-  <div v-if="json.length">
+  <Loading
+    v-if="isFetchingData"
+    :message="labelLoading"
+  />
+  <div v-else>
     <Header :options="options">
-      <template v-for="[key, length] in summary">
+      <template v-for="{ key, length } in summary">
         <NumberLabel
           :key="key"
-          :keys="levelKeys"
           :length="length"
           :level="key"
         />
       </template>
     </Header>
+
     <ButtonFilters />
+
     <router-view
       :json="json"
       :options="options"
@@ -22,37 +27,82 @@
 import Header from "./components/Header.vue";
 import NumberLabel from "./components/NumberLabel.vue";
 import ButtonFilters from "./components/ButtonFilters.vue";
-import { PlansFactoryMixin } from "../lib/factory";
-import { recursiveChildrenCount } from "../lib/helpers";
+import { PlansFactoryMixin } from "./lib/factory";
+import { groupBy } from "./lib/helpers";
+import { PlansStore } from "./lib/store";
+import { Loading } from "lib/vue-components";
 
 export default {
   name: "Main",
   components: {
     Header,
     NumberLabel,
-    ButtonFilters
+    ButtonFilters,
+    Loading
   },
   mixins: [PlansFactoryMixin],
   data() {
     return {
       json: [],
       options: {},
-      levelKeys: {},
-      summary: []
-    }
+      summary: [],
+      isFetchingData: true,
+      // TODO: mover el locale
+      labelLoading: I18n.t("gobierto_investments.projects.loading") || ""
+    };
   },
   async created() {
-    const { data: { plan_tree, ...options } } = await this.getPlans({ format: 'json' });
-    this.json = plan_tree;
+    const {
+      data: {
+        // meta,
+        configuration_data: options,
+        categories_vocabulary: categories
+      }
+    } = await this.getPlan(0);
 
-    const jsonMap = recursiveChildrenCount(plan_tree)
-    this.summary = Array.from(jsonMap)
-    options.json_depth = jsonMap.size
+    const { depth, summary, json } = this.setCategories(categories);
+
+    this.json = json;
+    this.summary = summary;
+    options.json_depth = depth;
 
     this.options = options;
+    PlansStore.setLevelKeys(options);
 
-    const { level_keys } = options
-    this.levelKeys = level_keys
+    // set this flag at the end, once every calc has been done
+    this.isFetchingData = false;
+  },
+  methods: {
+    setCategories(data) {
+      const agg = groupBy(data, "level");
+      const keys = Object.keys(agg);
+      const summary = keys.map(a => ({ key: +a, length: agg[a].length }));
+
+// TODO: añadir rootid, porcentajes y demás
+      const fn = (data, j) => [
+        ...data.filter(d => d.level < j),
+        ...data.reduce((acc, item) => {
+          if (item.level === j) {
+            acc.push({
+              ...item,
+              children: data.filter(e => item.id === e.term_id)
+            });
+          }
+          return acc;
+        }, [])
+      ];
+
+      let dataParsed = data
+      for (let index = keys.length; index--;) {
+        dataParsed = fn(dataParsed, index)
+      }
+
+      return {
+        depth: keys.length,
+        summary,
+        json: dataParsed
+      };
+    }
   }
-}
+};
 </script>

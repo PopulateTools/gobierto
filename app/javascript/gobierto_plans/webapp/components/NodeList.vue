@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import Vue from "vue";
+
 import { percent, translate } from "lib/shared";
-import { PlansFactoryMixin } from "../../lib/factory";
+import { PlansFactoryMixin } from "../lib/factory";
 
 export default {
   name: "NodeList",
@@ -74,8 +74,8 @@ export default {
         this.isOpen = !this.isOpen;
 
         if (children.length === 0 && children_count > 0) {
-          const { data } = await this.getProjects(nodes_list_path);
-          Vue.set(this.model, "children", data);
+          const { data } = await this.getProjectsByUrl(nodes_list_path);
+          this.$set(this.model, "children", data);
         }
       }
     }

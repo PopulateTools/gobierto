@@ -1,0 +1,2349 @@
+{
+  "id": 12,
+  "title": "Test import",
+  "introduction": "Test import introduction",
+  "year": 2020,
+  "configuration_data": {
+    "level0": {
+      "one": {
+        "ca": "eix",
+        "es": "eje",
+        "en": "axis"
+      },
+      "other": {
+        "ca": "eixos",
+        "es": "ejes",
+        "en": "axes"
+      }
+    },
+    "level1": {
+      "one": {
+        "ca": "línia d'actuació",
+        "es": "línea de actuación",
+        "en": "line of action"
+      },
+      "other": {
+        "ca": "línies d'actuació",
+        "es": "líneas de actuación",
+        "en": "lines of action"
+      }
+    },
+    "level2": {
+      "one": {
+        "ca": "actuació",
+        "es": "actuación",
+        "en": "action"
+      },
+      "other": {
+        "ca": "actuacions",
+        "es": "actuaciones",
+        "en": "actions"
+      }
+    },
+    "level3": {
+      "one": {
+        "ca": "subacció",
+        "es": "subacción",
+        "en": "subaction"
+      },
+      "other": {
+        "ca": "subaccions",
+        "es": "subacciones",
+        "en": "subactions"
+      }
+    },
+    "level4": {
+      "one": {
+        "ca": "projecte/acció",
+        "es": "proyecto/acción",
+        "en": "project/action"
+      },
+      "other": {
+        "ca": "projectes/accions",
+        "es": "proyectos/acciones",
+        "en": "projects/actions"
+      }
+    },
+    "level0_options": [
+      {
+        "slug": "economia-emprenedoria-i-ocupacio",
+        "logo": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-9/gobierto_attachments/attachments/file-083c12fb-0fd6-4688-8088-962afb9f4b21/Bitmap4.png"
+      },
+      {
+        "slug": "persones-i-families",
+        "logo": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-9/gobierto_attachments/attachments/file-75ed3dcb-660f-4b57-8d39-dd99f3e19eb4/Bitmap3.png"
+      },
+      {
+        "slug": "ciutadania-entitats-i-associacions",
+        "logo": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-9/gobierto_attachments/attachments/file-b7019520-562a-463d-a071-1d9a0cf7a0be/Bitmap2.png"
+      },
+      {
+        "slug": "ciutat",
+        "logo": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-9/gobierto_attachments/attachments/file-77e52c3f-0315-428a-80c4-5f7c0d9c17e5/Bitmap.png"
+      },
+      {
+        "slug": "bon-govern",
+        "logo": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-9/gobierto_attachments/attachments/file-2778e2ef-dd0d-4aa6-beec-790fe73fc0f4/Bitmap5.png"
+      }
+    ],
+    "option_keys": {
+      "GOALS": {
+        "ca": "Metes",
+        "es": "Objetivos",
+        "en": "Goals"
+      },
+      "DESCRIPTION": {
+        "ca": "Descripció",
+        "es": "Descripción",
+        "en": "Description"
+      },
+      "TECHNICAL_SUPERVISOR_AREA": {
+        "ca": "àrea de supervisió tècnica",
+        "es": "área de supervisor técnico",
+        "en": "technical supervisor area"
+      },
+      "TECHNICAL_SUPERVISOR_DEPARTMENT": {
+        "ca": "departament de supervisió tècnica",
+        "es": "departamento de supervisor técnico",
+        "en": "technical supervisor department"
+      }
+    },
+    "show_table_header": false,
+    "open_node": true
+  },
+  "plan_type_id": 9,
+  "site_id": 2,
+  "slug": "test-import",
+  "created_at": "2018-08-17T12:15:33.795+02:00",
+  "updated_at": "2020-05-25T07:00:25.017+02:00",
+  "visibility_level": "draft",
+  "css": "",
+  "archived_at": null,
+  "footer": "",
+  "categories_vocabulary": [
+    {
+      "id": 8296,
+      "name_translations": {
+        "ca": "Liderar l'estratègia de desenvolupament sostenible de l'Agenda 2030"
+      },
+      "description_translations": null,
+      "slug": "liderar-l-estrategia-de-desenvolupament-sostenible-de-l-agenda-2030",
+      "position": 0,
+      "level": 2,
+      "term_id": 8295
+    },
+    {
+      "id": 8291,
+      "name_translations": {
+        "ca": "Apropar l'administració a la ciutadania"
+      },
+      "description_translations": null,
+      "slug": "apropar-l-administracio-a-la-ciutadania",
+      "position": 0,
+      "level": 2,
+      "term_id": 8290
+    },
+    {
+      "id": 8290,
+      "name_translations": {
+        "ca": "Consolidar un model d'administració propera, intel·ligent, oberta i participativa"
+      },
+      "description_translations": null,
+      "slug": "consolidar-un-model-d-administracio-propera-intel-ligent-oberta-i-participativa",
+      "position": 0,
+      "level": 1,
+      "term_id": 8289
+    },
+    {
+      "id": 8287,
+      "name_translations": {
+        "ca": "Planificar l'estratègia cultural de la ciutat"
+      },
+      "description_translations": null,
+      "slug": "planificar-l-estrategia-cultural-de-la-ciutat",
+      "position": 0,
+      "level": 2,
+      "term_id": 8286
+    },
+    {
+      "id": 8283,
+      "name_translations": {
+        "ca": "Fer accesible la pràctica esportiva al conjunt de la ciutadania"
+      },
+      "description_translations": null,
+      "slug": "fer-accesible-la-practica-esportiva-al-conjunt-de-la-ciutadania",
+      "position": 0,
+      "level": 2,
+      "term_id": 8282
+    },
+    {
+      "id": 8276,
+      "name_translations": {
+        "ca": "Impulsar actuacions amb perspectiva de gènere"
+      },
+      "description_translations": null,
+      "slug": "impulsar-actuacions-amb-perspectiva-de-genere",
+      "position": 0,
+      "level": 2,
+      "term_id": 8275
+    },
+    {
+      "id": 8275,
+      "name_translations": {
+        "ca": "Fomentar una societat cohesionada i saludable"
+      },
+      "description_translations": null,
+      "slug": "fomentar-una-societat-cohesionada-i-saludable",
+      "position": 0,
+      "level": 1,
+      "term_id": 8274
+    },
+    {
+      "id": 8270,
+      "name_translations": {
+        "ca": "Optimitzar l'ordenació urbanística territorial"
+      },
+      "description_translations": null,
+      "slug": "optimitzar-l-ordenacio-urbanistica-territorial",
+      "position": 0,
+      "level": 2,
+      "term_id": 8269
+    },
+    {
+      "id": 8266,
+      "name_translations": {
+        "ca": "Millorar la seguretat ciutadana"
+      },
+      "description_translations": null,
+      "slug": "millorar-la-seguretat-ciutadana",
+      "position": 0,
+      "level": 2,
+      "term_id": 8265
+    },
+    {
+      "id": 8265,
+      "name_translations": {
+        "ca": "Fomentar un Manlleu net i segur"
+      },
+      "description_translations": null,
+      "slug": "fomentar-un-manlleu-net-i-segur",
+      "position": 0,
+      "level": 1,
+      "term_id": 8264
+    },
+    {
+      "id": 8261,
+      "name_translations": {
+        "ca": "Fomentar l'emprenedoria i acompanyar l'activitat econòmica"
+      },
+      "description_translations": null,
+      "slug": "fomentar-l-emprenedoria-i-acompanyar-l-activitat-economica",
+      "position": 0,
+      "level": 2,
+      "term_id": 8260
+    },
+    {
+      "id": 8257,
+      "name_translations": {
+        "ca": "Capacitar a les persones per tal d'adequar les seves competències a les necessitats i oportunitats del mercat de treball"
+      },
+      "description_translations": null,
+      "slug": "capacitar-a-les-persones-per-tal-d-adequar-les-seves-competencies-a-les-necessitats-i-oportunitats-del-mercat-de-treball",
+      "position": 0,
+      "level": 2,
+      "term_id": 8256
+    },
+    {
+      "id": 8256,
+      "name_translations": {
+        "ca": "Millorar l'ocupació i la qualitat del treball"
+      },
+      "description_translations": null,
+      "slug": "millorar-l-ocupacio-i-la-qualitat-del-treball",
+      "position": 0,
+      "level": 1,
+      "term_id": 8255
+    },
+    {
+      "id": 8252,
+      "name_translations": {
+        "ca": "Millorar els nivells formatius de la ciutadania"
+      },
+      "description_translations": null,
+      "slug": "millorar-els-nivells-formatius-de-la-ciutadania",
+      "position": 0,
+      "level": 2,
+      "term_id": 8251
+    },
+    {
+      "id": 8248,
+      "name_translations": {
+        "ca": "Enfortir els centres de formació integral"
+      },
+      "description_translations": null,
+      "slug": "enfortir-els-centres-de-formacio-integral",
+      "position": 0,
+      "level": 2,
+      "term_id": 8247
+    },
+    {
+      "id": 8247,
+      "name_translations": {
+        "ca": "Esdevenir un referent en la formació professional i universitària"
+      },
+      "description_translations": null,
+      "slug": "esdevenir-un-referent-en-la-formacio-professional-i-universitaria",
+      "position": 0,
+      "level": 1,
+      "term_id": 8246
+    },
+    {
+      "id": 8246,
+      "name_translations": {
+        "ca": "Ciutat educadora i del coneixement"
+      },
+      "description_translations": null,
+      "slug": "ciutat-educadora-i-del-coneixement",
+      "position": 0,
+      "level": 0,
+      "term_id": null
+    },
+    {
+      "id": 8249,
+      "name_translations": {
+        "ca": "Aconseguir iniciar estudis universitaris i de la UVIC superiors"
+      },
+      "description_translations": null,
+      "slug": "aconseguir-iniciar-estudis-universitaris-i-de-la-uvic-superiors",
+      "position": 1,
+      "level": 2,
+      "term_id": 8247
+    },
+    {
+      "id": 8250,
+      "name_translations": {
+        "ca": "Incrementar l'oferta de formació professional pública i privada"
+      },
+      "description_translations": null,
+      "slug": "incrementar-l-oferta-de-formacio-professional-publica-i-privada",
+      "position": 2,
+      "level": 2,
+      "term_id": 8247
+    },
+    {
+      "id": 8251,
+      "name_translations": {
+        "ca": "Garantir oportunitats educatives i formatives de qualitat al llarg i ample de la vida"
+      },
+      "description_translations": null,
+      "slug": "garantir-oportunitats-educatives-i-formatives-de-qualitat-al-llarg-i-ample-de-la-vida",
+      "position": 3,
+      "level": 1,
+      "term_id": 8246
+    },
+    {
+      "id": 8253,
+      "name_translations": {
+        "ca": "Reduir les desigualtats en l'accés a les activitats socioeducatives"
+      },
+      "description_translations": null,
+      "slug": "reduir-les-desigualtats-en-l-acces-a-les-activitats-socioeducatives",
+      "position": 4,
+      "level": 2,
+      "term_id": 8251
+    },
+    {
+      "id": 8254,
+      "name_translations": {
+        "ca": "Aconseguir una escolarització equilibrada"
+      },
+      "description_translations": null,
+      "slug": "aconseguir-una-escolaritzacio-equilibrada",
+      "position": 5,
+      "level": 2,
+      "term_id": 8251
+    },
+    {
+      "id": 8255,
+      "name_translations": {
+        "ca": "Ciutat generadora d'ocupació i dinamitzadora econòmicament"
+      },
+      "description_translations": null,
+      "slug": "ciutat-generadora-d-ocupacio-i-dinamitzadora-economicament",
+      "position": 6,
+      "level": 0,
+      "term_id": null
+    },
+    {
+      "id": 8258,
+      "name_translations": {
+        "ca": "Oferir orientació i acompanyament a les persones demandants d'ocupació i/o a les persones que aspiren a una millora laboral"
+      },
+      "description_translations": null,
+      "slug": "oferir-orientacio-i-acompanyament-a-les-persones-demandants-d-ocupacio-i-o-a-les-persones-que-aspiren-a-una-millora-laboral",
+      "position": 7,
+      "level": 2,
+      "term_id": 8256
+    },
+    {
+      "id": 8259,
+      "name_translations": {
+        "ca": "Facilitar l'encaix entre l'oferta i la demanda d'ocupació"
+      },
+      "description_translations": null,
+      "slug": "facilitar-l-encaix-entre-l-oferta-i-la-demanda-d-ocupacio",
+      "position": 8,
+      "level": 2,
+      "term_id": 8256
+    },
+    {
+      "id": 8260,
+      "name_translations": {
+        "ca": "Diversificar l'activitat econòmica i millorar el teixti empresarial, comercial i industrial del territori"
+      },
+      "description_translations": null,
+      "slug": "diversificar-l-activitat-economica-i-millorar-el-teixti-empresarial-comercial-i-industrial-del-territori",
+      "position": 9,
+      "level": 1,
+      "term_id": 8255
+    },
+    {
+      "id": 8262,
+      "name_translations": {
+        "ca": "Impulsar i dinamitzar el comerç de proximitat"
+      },
+      "description_translations": null,
+      "slug": "impulsar-i-dinamitzar-el-comerc-de-proximitat",
+      "position": 10,
+      "level": 2,
+      "term_id": 8260
+    },
+    {
+      "id": 8263,
+      "name_translations": {
+        "ca": "Dinamitzar, consolidar i interrelacionar el teixit empresarial"
+      },
+      "description_translations": null,
+      "slug": "dinamitzar-consolidar-i-interrelacionar-el-teixit-empresarial",
+      "position": 11,
+      "level": 2,
+      "term_id": 8260
+    },
+    {
+      "id": 8264,
+      "name_translations": {
+        "ca": "Ciutat amable i sostenible"
+      },
+      "description_translations": null,
+      "slug": "ciutat-amable-i-sostenible",
+      "position": 12,
+      "level": 0,
+      "term_id": null
+    },
+    {
+      "id": 8267,
+      "name_translations": {
+        "ca": "Millorar la seguretat viària"
+      },
+      "description_translations": null,
+      "slug": "millorar-la-seguretat-viaria",
+      "position": 13,
+      "level": 2,
+      "term_id": 8265
+    },
+    {
+      "id": 8268,
+      "name_translations": {
+        "ca": "Millorar la neteja i la recollida selectiva"
+      },
+      "description_translations": null,
+      "slug": "millorar-la-neteja-i-la-recollida-selectiva",
+      "position": 14,
+      "level": 2,
+      "term_id": 8265
+    },
+    {
+      "id": 8269,
+      "name_translations": {
+        "ca": "Vetllar per un desenvolupament urbanístic atractiu, sostenible i adaptat a les diferents necessitats de la ciutadania"
+      },
+      "description_translations": null,
+      "slug": "vetllar-per-un-desenvolupament-urbanistic-atractiu-sostenible-i-adaptat-a-les-diferents-necessitats-de-la-ciutadania",
+      "position": 15,
+      "level": 1,
+      "term_id": 8264
+    },
+    {
+      "id": 8271,
+      "name_translations": {
+        "ca": "Incrementar l'oferta d'equipaments i infraestructures municipals"
+      },
+      "description_translations": null,
+      "slug": "incrementar-l-oferta-d-equipaments-i-infraestructures-municipals",
+      "position": 16,
+      "level": 2,
+      "term_id": 8269
+    },
+    {
+      "id": 8272,
+      "name_translations": {
+        "ca": "Actuar localment pel canvi climàtic"
+      },
+      "description_translations": null,
+      "slug": "actuar-localment-pel-canvi-climatic",
+      "position": 17,
+      "level": 2,
+      "term_id": 8269
+    },
+    {
+      "id": 8273,
+      "name_translations": {
+        "ca": "Conservar i millorar la biodiversitat a la llera del Ter"
+      },
+      "description_translations": null,
+      "slug": "conservar-i-millorar-la-biodiversitat-a-la-llera-del-ter",
+      "position": 18,
+      "level": 2,
+      "term_id": 8269
+    },
+    {
+      "id": 8274,
+      "name_translations": {
+        "ca": "Ciutat inclusiva i al servei de les persones"
+      },
+      "description_translations": null,
+      "slug": "ciutat-inclusiva-i-al-servei-de-les-persones",
+      "position": 19,
+      "level": 0,
+      "term_id": null
+    },
+    {
+      "id": 8277,
+      "name_translations": {
+        "ca": "Garantir que totes les persones tinguin accés a un habitatge"
+      },
+      "description_translations": null,
+      "slug": "garantir-que-totes-les-persones-tinguin-acces-a-un-habitatge",
+      "position": 20,
+      "level": 2,
+      "term_id": 8275
+    },
+    {
+      "id": 8278,
+      "name_translations": {
+        "ca": "Promoure la salut comunitària"
+      },
+      "description_translations": null,
+      "slug": "promoure-la-salut-comunitaria",
+      "position": 21,
+      "level": 2,
+      "term_id": 8275
+    },
+    {
+      "id": 8279,
+      "name_translations": {
+        "ca": "Promoure la salut pública"
+      },
+      "description_translations": null,
+      "slug": "promoure-la-salut-publica",
+      "position": 22,
+      "level": 2,
+      "term_id": 8275
+    },
+    {
+      "id": 8280,
+      "name_translations": {
+        "ca": "Promoure la convivència i harmonia social dins de la ciutat"
+      },
+      "description_translations": null,
+      "slug": "promoure-la-convivencia-i-harmonia-social-dins-de-la-ciutat",
+      "position": 23,
+      "level": 2,
+      "term_id": 8275
+    },
+    {
+      "id": 8281,
+      "name_translations": {
+        "ca": "Promoure polítiques de joventut"
+      },
+      "description_translations": null,
+      "slug": "promoure-politiques-de-joventut",
+      "position": 24,
+      "level": 2,
+      "term_id": 8275
+    },
+    {
+      "id": 8282,
+      "name_translations": {
+        "ca": "Avançar cap a una ciutat més inclusiva i que cuida a les persones vulnerables"
+      },
+      "description_translations": null,
+      "slug": "avancar-cap-a-una-ciutat-mes-inclusiva-i-que-cuida-a-les-persones-vulnerables",
+      "position": 25,
+      "level": 1,
+      "term_id": 8274
+    },
+    {
+      "id": 8284,
+      "name_translations": {
+        "ca": "Augmentar la participació social i comunitària de tota la ciutadania"
+      },
+      "description_translations": null,
+      "slug": "augmentar-la-participacio-social-i-comunitaria-de-tota-la-ciutadania",
+      "position": 26,
+      "level": 2,
+      "term_id": 8282
+    },
+    {
+      "id": 8285,
+      "name_translations": {
+        "ca": "Reduir la pobresa infantil"
+      },
+      "description_translations": null,
+      "slug": "reduir-la-pobresa-infantil",
+      "position": 27,
+      "level": 2,
+      "term_id": 8282
+    },
+    {
+      "id": 8286,
+      "name_translations": {
+        "ca": "Contribuir a construir una ciutat culturalment rica"
+      },
+      "description_translations": null,
+      "slug": "contribuir-a-construir-una-ciutat-culturalment-rica",
+      "position": 28,
+      "level": 1,
+      "term_id": 8274
+    },
+    {
+      "id": 8288,
+      "name_translations": {
+        "ca": "Enfortir i crear noves aliances entre els equipaments culturals i els agents educatius i entitats culturals"
+      },
+      "description_translations": null,
+      "slug": "enfortir-i-crear-noves-aliances-entre-els-equipaments-culturals-i-els-agents-educatius-i-entitats-culturals",
+      "position": 29,
+      "level": 2,
+      "term_id": 8286
+    },
+    {
+      "id": 8289,
+      "name_translations": {
+        "ca": "Govern transformador i amb lideratge territorial"
+      },
+      "description_translations": null,
+      "slug": "govern-transformador-i-amb-lideratge-territorial",
+      "position": 30,
+      "level": 0,
+      "term_id": null
+    },
+    {
+      "id": 8292,
+      "name_translations": {
+        "ca": "Fomentar el govern obert"
+      },
+      "description_translations": null,
+      "slug": "fomentar-el-govern-obert",
+      "position": 31,
+      "level": 2,
+      "term_id": 8290
+    },
+    {
+      "id": 8293,
+      "name_translations": {
+        "ca": "Millorar l'eficiència del treball dins l'organització"
+      },
+      "description_translations": null,
+      "slug": "millorar-l-eficiencia-del-treball-dins-l-organitzacio",
+      "position": 32,
+      "level": 2,
+      "term_id": 8290
+    },
+    {
+      "id": 8294,
+      "name_translations": {
+        "ca": "Fomentar la gestió intel·ligent de la ciutat"
+      },
+      "description_translations": null,
+      "slug": "fomentar-la-gestio-intel-ligent-de-la-ciutat",
+      "position": 33,
+      "level": 2,
+      "term_id": 8290
+    },
+    {
+      "id": 8295,
+      "name_translations": {
+        "ca": "Avançar cap a un lideratge territorial"
+      },
+      "description_translations": null,
+      "slug": "avancar-cap-a-un-lideratge-territorial",
+      "position": 34,
+      "level": 1,
+      "term_id": 8289
+    },
+    {
+      "id": 8297,
+      "name_translations": {
+        "ca": "Promocionar la ciutat i el territori amb visió de planificació estratègica"
+      },
+      "description_translations": null,
+      "slug": "promocionar-la-ciutat-i-el-territori-amb-visio-de-planificacio-estrategica",
+      "position": 35,
+      "level": 2,
+      "term_id": 8295
+    }
+  ],
+  "meta": [
+    {
+      "id": "139",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "adjudicatari",
+        "name_translations": {
+          "ca": "Adjudicatari",
+          "es": "Adjudicatario"
+        },
+        "field_type": "string",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "135",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "descripcio-projecte",
+        "name_translations": {
+          "ca": "Descripció Projecte",
+          "es": "Descripción del proyecto"
+        },
+        "field_type": "localized_string",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "156",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "data-fi-redaccio",
+        "name_translations": {
+          "ca": "Data fi redacció",
+          "es": "Fecha final de redacción"
+        },
+        "field_type": "date",
+        "options": {
+          "configuration": {
+            "date_type": "date"
+          }
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "145",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "data-final",
+        "name_translations": {
+          "ca": "Data final",
+          "es": "Fecha final"
+        },
+        "field_type": "date",
+        "options": {
+          "configuration": {
+            "date_type": "date"
+          }
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "144",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "import",
+        "name_translations": {
+          "ca": "Import licitació",
+          "es": "Importe presupuestado del proyecto"
+        },
+        "field_type": "numeric",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "142",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "nom-projecte",
+        "name_translations": {
+          "ca": "Nom projecte",
+          "es": "Nombre del proyecto"
+        },
+        "field_type": "localized_string",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "158",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "import-adjudicacio",
+        "name_translations": {
+          "ca": "Import adjudicació",
+          "es": "Importe adjudicación"
+        },
+        "field_type": "numeric",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "162",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "partida",
+        "name_translations": {
+          "ca": "Partida",
+          "es": "Partida"
+        },
+        "field_type": "string",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "150",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "gallery",
+        "name_translations": {
+          "ca": "Galeria d'imatges",
+          "es": "Galería de imágenes"
+        },
+        "field_type": "image",
+        "options": {
+          "configuration": {
+            "multiple": true
+          }
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "161",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "financament",
+        "name_translations": {
+          "ca": "Finançament",
+          "es": "Financiación"
+        },
+        "field_type": "plugin",
+        "options": {
+          "configuration": {
+            "plugin_type": "table",
+            "plugin_configuration": {
+              "columns": []
+            }
+          }
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "136",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "data-inici",
+        "name_translations": {
+          "ca": "Data inici",
+          "es": "Fecha inicio"
+        },
+        "field_type": "date",
+        "options": {
+          "configuration": {
+            "date_type": "date"
+          }
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "141",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "tipus-projecte",
+        "name_translations": {
+          "ca": "Tipus projecte",
+          "es": "Tipo de proyecto"
+        },
+        "field_type": "vocabulary_options",
+        "options": {
+          "configuration": {
+            "vocabulary_type": "single_select"
+          },
+          "vocabulary_id": "102"
+        },
+        "vocabulary_terms": [
+          {
+            "id": 4604,
+            "name_translations": {
+              "ca": "Altres"
+            },
+            "description_translations": null,
+            "slug": "altres",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 3665,
+            "name_translations": {
+              "ca": "Millores equipaments",
+              "es": "Mejoras equipamientos"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "mejoras-equipamientos",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 3680,
+            "name_translations": {
+              "ca": "Rehabilitació equipaments",
+              "es": "Rehabilitación equipamientos"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "rehabilitacion-equipamientos",
+            "position": 1,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 3670,
+            "name_translations": {
+              "ca": "Millores espais públics",
+              "es": "Mejoras espacios públicos"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "mejoras-espacio-publico",
+            "position": 2,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 3671,
+            "name_translations": {
+              "ca": "Nous espais públics",
+              "es": "Nuevos espacios públicos"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "nuevos-espacios-publicos",
+            "position": 3,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 3679,
+            "name_translations": {
+              "ca": "Nous equipaments",
+              "es": "Nuevos equipamientos"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "nuevos-equipamientos",
+            "position": 4,
+            "level": 0,
+            "term_id": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "159",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "import-liquidacio",
+        "name_translations": {
+          "ca": "Import liquidació",
+          "es": "Importe real del proyecto"
+        },
+        "field_type": "numeric",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "157",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "adreca",
+        "name_translations": {
+          "ca": "Adreça",
+          "es": "Dirección equipamiento"
+        },
+        "field_type": "string",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "154",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "data-adjudicacio",
+        "name_translations": {
+          "ca": "Data d'adjudicació",
+          "es": "Fecha de adjudicación"
+        },
+        "field_type": "date",
+        "options": {
+          "configuration": {
+            "date_type": "date"
+          }
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "155",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "data-inici-redaccio",
+        "name_translations": {
+          "ca": "Data inici de redacció",
+          "es": "Fecha inicio de redacción"
+        },
+        "field_type": "date",
+        "options": {
+          "configuration": {
+            "date_type": "date"
+          }
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "146",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "wkt",
+        "name_translations": {
+          "ca": "wkt",
+          "es": "wkt"
+        },
+        "field_type": "string",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "138",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "nom-servei-responsable",
+        "name_translations": {
+          "ca": "Nom servei responsable",
+          "es": "Nombre servicio responsable"
+        },
+        "field_type": "vocabulary_options",
+        "options": {
+          "configuration": {
+            "vocabulary_type": "single_select"
+          },
+          "vocabulary_id": 104
+        },
+        "vocabulary_terms": [
+          {
+            "id": 4368,
+            "name_translations": {
+              "ca": "Ajuntament de Mataró",
+              "es": "Ayuntamiento de Mataró"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "ajuntament-de-mataro",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4367,
+            "name_translations": {
+              "ca": "Direcció de Transició Ecològica, Sostenibilitat i Espai Públic",
+              "es": "Dirección de Transición Ecológica, Sostenibilidad y Espacio Público"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "direccio-de-transicio-ecologica-sostenibilitat-i-espai-public",
+            "position": 1,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4150,
+            "name_translations": {
+              "ca": "Secció Xarxa d'Equipaments",
+              "es": "Sección Red de equipamientos"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "seccion-red-de-equipamientos",
+            "position": 10,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4142,
+            "name_translations": {
+              "ca": "Secció Igualtat, Joventut i Gent Gran",
+              "es": "Sección Igualdad, Juventud y Mayores"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "seccion-igualdad-juventud-y-mayores",
+            "position": 11,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4143,
+            "name_translations": {
+              "ca": "Servei d'Estratègia i Governança",
+              "es": "Servicio de Estrategia y Gobernanza"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "servicio-de-estrategia-y-gobernanza",
+            "position": 12,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4144,
+            "name_translations": {
+              "ca": "Direcció d'Esports",
+              "es": "Dirección de Deportes"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "direccion-de-deportes",
+            "position": 13,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4145,
+            "name_translations": {
+              "ca": "Activitats Esportives",
+              "es": "Actividades Deportivas"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "actividades-deportivas",
+            "position": 14,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4146,
+            "name_translations": {
+              "ca": "Servei d'Educació",
+              "es": "Servicio de Educación"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "servicio-de-educacion",
+            "position": 15,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4147,
+            "name_translations": {
+              "ca": "Servei d'Espais Públics",
+              "es": "Servicio de Espacios Públicos"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "servicio-de-espacios-publicos",
+            "position": 16,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4148,
+            "name_translations": {
+              "ca": "Festes i Territori",
+              "es": "Fiestas y Territorio"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "fiestas-y-territorio",
+            "position": 17,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4149,
+            "name_translations": {
+              "ca": "Servei d'Urbanisme i Patrimoni",
+              "es": "Servicio de Urbanismo y Patrimonio"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "servicio-de-urbanismo-y-patrimonio",
+            "position": 18,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 3669,
+            "name_translations": {
+              "ca": "Àmbit territorial",
+              "es": "Ámbito territorial"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "ambito-territorial",
+            "position": 19,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 3674,
+            "name_translations": {
+              "ca": "Àrea de Serveis a la Ciutadania",
+              "es": "Área de Servicios a la Ciudadanía"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "area-de-servicios-a-la-ciudadania",
+            "position": 20,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 3675,
+            "name_translations": {
+              "ca": "Manteniment",
+              "es": "Mantenimiento"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "mantenimiento",
+            "position": 21,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 3676,
+            "name_translations": {
+              "ca": "Acció Cultural",
+              "es": "Acción cultural"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "accion-cultural",
+            "position": 22,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 3673,
+            "name_translations": {
+              "ca": "Àmbit seguretat ciutadana",
+              "es": "Ámbito seguridad ciudadana"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "ambito-seguridad-ciudadana",
+            "position": 23,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 3677,
+            "name_translations": {
+              "ca": "Servei d'Equipaments Municipals",
+              "es": "Servicio de Equipamientos Municipales"
+            },
+            "description_translations": {
+              "ca": "",
+              "es": ""
+            },
+            "slug": "servicio-de-equipamientos-municipales",
+            "position": 24,
+            "level": 0,
+            "term_id": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "148",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "tasques",
+        "name_translations": {
+          "ca": "tasques",
+          "es": "tareas"
+        },
+        "field_type": "plugin",
+        "options": {
+          "configuration": {
+            "plugin_type": "table",
+            "plugin_configuration": {
+              "columns": [
+                {
+                  "id": "nomactuacio",
+                  "type": "text",
+                  "name_translations": {
+                    "ca": "Nom actuació",
+                    "es": "Nombre actuación"
+                  }
+                },
+                {
+                  "id": "id",
+                  "type": "integer",
+                  "name_translations": {
+                    "ca": "id",
+                    "es": "id"
+                  }
+                },
+                {
+                  "id": "idprj",
+                  "type": "integer",
+                  "name_translations": {
+                    "ca": "idprj",
+                    "es": "idprj"
+                  }
+                },
+                {
+                  "id": "nimport",
+                  "type": "text",
+                  "name_translations": {
+                    "ca": "Nimport",
+                    "es": "Nimport"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "178",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "tipus",
+        "name_translations": {
+          "ca": "Tipus",
+          "es": "Tipo"
+        },
+        "field_type": "string",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "179",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "import-main",
+        "name_translations": {
+          "ca": "Import",
+          "es": "Importe"
+        },
+        "field_type": "numeric",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "177",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "nom-servei-gestor",
+        "name_translations": {
+          "ca": "Nom servei gestor",
+          "es": "Nombre servicio gestor"
+        },
+        "field_type": "vocabulary_options",
+        "options": {
+          "configuration": {
+            "vocabulary_type": "single_select"
+          },
+          "vocabulary_id": 114
+        },
+        "vocabulary_terms": [
+          {
+            "id": 4606,
+            "name_translations": {
+              "ca": "Direcció de Promoció Econòmica"
+            },
+            "description_translations": null,
+            "slug": "direccio-de-promocio-economica",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4605,
+            "name_translations": {
+              "ca": "Servei de Protecció Civil i Salut"
+            },
+            "description_translations": null,
+            "slug": "servei-de-proteccio-civil-i-salut",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4383,
+            "name_translations": {
+              "ca": "Àrea de Presidència i Estratègia Mataró"
+            },
+            "description_translations": null,
+            "slug": "area-de-presidencia-i-estrategia-mataro",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4382,
+            "name_translations": {
+              "ca": "Secció Xarxa d'Equipaments"
+            },
+            "description_translations": null,
+            "slug": "seccio-xarxa-d-equipaments",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4381,
+            "name_translations": {
+              "ca": "Direcció de Serveis Econòmics"
+            },
+            "description_translations": null,
+            "slug": "direccio-de-serveis-economics",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4380,
+            "name_translations": {
+              "ca": "Servei de Benestar Social"
+            },
+            "description_translations": null,
+            "slug": "servei-de-benestar-social",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4379,
+            "name_translations": {
+              "ca": "Secció Igualtat, Joventut i Gent Gran"
+            },
+            "description_translations": null,
+            "slug": "seccio-igualtat-joventut-i-gent-gran",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4378,
+            "name_translations": {
+              "ca": "Promoció de Ciutat"
+            },
+            "description_translations": null,
+            "slug": "promocio-de-ciutat",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4377,
+            "name_translations": {
+              "ca": "Servei d'Equipaments Municipals"
+            },
+            "description_translations": null,
+            "slug": "servei-d-equipaments-municipals",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4376,
+            "name_translations": {
+              "ca": "Servei de Sistemes d'Informació i Telecomunicacions"
+            },
+            "description_translations": null,
+            "slug": "servei-de-sistemes-d-informacio-i-telecomunicacions",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4375,
+            "name_translations": {
+              "ca": "Direcció d'Esports"
+            },
+            "description_translations": null,
+            "slug": "direccio-d-esports",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4374,
+            "name_translations": {
+              "ca": "Direcció de Transició Ecològica, Sostenibilitat i Espai Públic"
+            },
+            "description_translations": null,
+            "slug": "direccio-de-transicio-ecologica-sostenibilitat-i-espai-public",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4373,
+            "name_translations": {
+              "ca": "Secció de Bon Govern, Transparència i Participació"
+            },
+            "description_translations": null,
+            "slug": "seccio-de-bon-govern-transparencia-i-participacio",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4372,
+            "name_translations": {
+              "ca": "Direcció d'Ensenyament"
+            },
+            "description_translations": null,
+            "slug": "direccio-d-ensenyament",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4371,
+            "name_translations": {
+              "ca": "Direcció de Cultura"
+            },
+            "description_translations": null,
+            "slug": "direccio-de-cultura",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4370,
+            "name_translations": {
+              "ca": "Ajuntament de Mataró"
+            },
+            "description_translations": null,
+            "slug": "ajuntament-de-mataro",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 4369,
+            "name_translations": {
+              "ca": "Servei d'Espais Públics"
+            },
+            "description_translations": null,
+            "slug": "servei-d-espais-publics",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "173",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "element",
+        "name_translations": {
+          "ca": "Element",
+          "es": "Elemento"
+        },
+        "field_type": "string",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "171",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "any-partida",
+        "name_translations": {
+          "ca": "Any partida",
+          "es": "Año partida"
+        },
+        "field_type": "numeric",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "174",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "documents",
+        "name_translations": {
+          "ca": "Documents",
+          "es": "Documentos"
+        },
+        "field_type": "plugin",
+        "options": {
+          "configuration": {
+            "plugin_type": "table",
+            "plugin_configuration": {
+              "columns": [
+                {
+                  "id": "file_name",
+                  "type": "text",
+                  "name_translations": {
+                    "ca": "Nom documento",
+                    "es": "Nombre documento"
+                  }
+                },
+                {
+                  "id": "url",
+                  "type": "text",
+                  "name_translations": {
+                    "ca": "URL",
+                    "es": "URL"
+                  }
+                },
+                {
+                  "id": "human_readable_url",
+                  "type": "text",
+                  "name_translations": {
+                    "ca": "URL vista prèvia",
+                    "es": "URL vista previa"
+                  }
+                },
+                {
+                  "id": "nom",
+                  "type": "text",
+                  "name_translations": {
+                    "ca": "Nom",
+                    "es": "Nombre"
+                  }
+                },
+                {
+                  "id": "file_size",
+                  "type": "text",
+                  "name_translations": {
+                    "ca": "Mida",
+                    "es": "Tamaño"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "176",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "budget",
+        "name_translations": {
+          "ca": "Pressupost",
+          "es": "Presupuesto"
+        },
+        "field_type": "numeric",
+        "options": {
+          "configuration": {}
+        },
+        "vocabulary_terms": null
+      }
+    },
+    {
+      "id": "143",
+      "type": "gobierto_common-custom_fields",
+      "attributes": {
+        "uid": "category",
+        "name_translations": {
+          "ca": "Categoria",
+          "es": "Categoría"
+        },
+        "field_type": "vocabulary_options",
+        "options": {
+          "configuration": {
+            "vocabulary_type": "single_select"
+          },
+          "vocabulary_id": 153
+        },
+        "vocabulary_terms": [
+          {
+            "id": 8296,
+            "name_translations": {
+              "ca": "Liderar l'estratègia de desenvolupament sostenible de l'Agenda 2030"
+            },
+            "description_translations": null,
+            "slug": "liderar-l-estrategia-de-desenvolupament-sostenible-de-l-agenda-2030",
+            "position": 0,
+            "level": 2,
+            "term_id": 8295
+          },
+          {
+            "id": 8291,
+            "name_translations": {
+              "ca": "Apropar l'administració a la ciutadania"
+            },
+            "description_translations": null,
+            "slug": "apropar-l-administracio-a-la-ciutadania",
+            "position": 0,
+            "level": 2,
+            "term_id": 8290
+          },
+          {
+            "id": 8290,
+            "name_translations": {
+              "ca": "Consolidar un model d'administració propera, intel·ligent, oberta i participativa"
+            },
+            "description_translations": null,
+            "slug": "consolidar-un-model-d-administracio-propera-intel-ligent-oberta-i-participativa",
+            "position": 0,
+            "level": 1,
+            "term_id": 8289
+          },
+          {
+            "id": 8287,
+            "name_translations": {
+              "ca": "Planificar l'estratègia cultural de la ciutat"
+            },
+            "description_translations": null,
+            "slug": "planificar-l-estrategia-cultural-de-la-ciutat",
+            "position": 0,
+            "level": 2,
+            "term_id": 8286
+          },
+          {
+            "id": 8283,
+            "name_translations": {
+              "ca": "Fer accesible la pràctica esportiva al conjunt de la ciutadania"
+            },
+            "description_translations": null,
+            "slug": "fer-accesible-la-practica-esportiva-al-conjunt-de-la-ciutadania",
+            "position": 0,
+            "level": 2,
+            "term_id": 8282
+          },
+          {
+            "id": 8276,
+            "name_translations": {
+              "ca": "Impulsar actuacions amb perspectiva de gènere"
+            },
+            "description_translations": null,
+            "slug": "impulsar-actuacions-amb-perspectiva-de-genere",
+            "position": 0,
+            "level": 2,
+            "term_id": 8275
+          },
+          {
+            "id": 8275,
+            "name_translations": {
+              "ca": "Fomentar una societat cohesionada i saludable"
+            },
+            "description_translations": null,
+            "slug": "fomentar-una-societat-cohesionada-i-saludable",
+            "position": 0,
+            "level": 1,
+            "term_id": 8274
+          },
+          {
+            "id": 8270,
+            "name_translations": {
+              "ca": "Optimitzar l'ordenació urbanística territorial"
+            },
+            "description_translations": null,
+            "slug": "optimitzar-l-ordenacio-urbanistica-territorial",
+            "position": 0,
+            "level": 2,
+            "term_id": 8269
+          },
+          {
+            "id": 8266,
+            "name_translations": {
+              "ca": "Millorar la seguretat ciutadana"
+            },
+            "description_translations": null,
+            "slug": "millorar-la-seguretat-ciutadana",
+            "position": 0,
+            "level": 2,
+            "term_id": 8265
+          },
+          {
+            "id": 8265,
+            "name_translations": {
+              "ca": "Fomentar un Manlleu net i segur"
+            },
+            "description_translations": null,
+            "slug": "fomentar-un-manlleu-net-i-segur",
+            "position": 0,
+            "level": 1,
+            "term_id": 8264
+          },
+          {
+            "id": 8261,
+            "name_translations": {
+              "ca": "Fomentar l'emprenedoria i acompanyar l'activitat econòmica"
+            },
+            "description_translations": null,
+            "slug": "fomentar-l-emprenedoria-i-acompanyar-l-activitat-economica",
+            "position": 0,
+            "level": 2,
+            "term_id": 8260
+          },
+          {
+            "id": 8257,
+            "name_translations": {
+              "ca": "Capacitar a les persones per tal d'adequar les seves competències a les necessitats i oportunitats del mercat de treball"
+            },
+            "description_translations": null,
+            "slug": "capacitar-a-les-persones-per-tal-d-adequar-les-seves-competencies-a-les-necessitats-i-oportunitats-del-mercat-de-treball",
+            "position": 0,
+            "level": 2,
+            "term_id": 8256
+          },
+          {
+            "id": 8256,
+            "name_translations": {
+              "ca": "Millorar l'ocupació i la qualitat del treball"
+            },
+            "description_translations": null,
+            "slug": "millorar-l-ocupacio-i-la-qualitat-del-treball",
+            "position": 0,
+            "level": 1,
+            "term_id": 8255
+          },
+          {
+            "id": 8252,
+            "name_translations": {
+              "ca": "Millorar els nivells formatius de la ciutadania"
+            },
+            "description_translations": null,
+            "slug": "millorar-els-nivells-formatius-de-la-ciutadania",
+            "position": 0,
+            "level": 2,
+            "term_id": 8251
+          },
+          {
+            "id": 8248,
+            "name_translations": {
+              "ca": "Enfortir els centres de formació integral"
+            },
+            "description_translations": null,
+            "slug": "enfortir-els-centres-de-formacio-integral",
+            "position": 0,
+            "level": 2,
+            "term_id": 8247
+          },
+          {
+            "id": 8247,
+            "name_translations": {
+              "ca": "Esdevenir un referent en la formació professional i universitària"
+            },
+            "description_translations": null,
+            "slug": "esdevenir-un-referent-en-la-formacio-professional-i-universitaria",
+            "position": 0,
+            "level": 1,
+            "term_id": 8246
+          },
+          {
+            "id": 8246,
+            "name_translations": {
+              "ca": "Ciutat educadora i del coneixement"
+            },
+            "description_translations": null,
+            "slug": "ciutat-educadora-i-del-coneixement",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 8249,
+            "name_translations": {
+              "ca": "Aconseguir iniciar estudis universitaris i de la UVIC superiors"
+            },
+            "description_translations": null,
+            "slug": "aconseguir-iniciar-estudis-universitaris-i-de-la-uvic-superiors",
+            "position": 1,
+            "level": 2,
+            "term_id": 8247
+          },
+          {
+            "id": 8250,
+            "name_translations": {
+              "ca": "Incrementar l'oferta de formació professional pública i privada"
+            },
+            "description_translations": null,
+            "slug": "incrementar-l-oferta-de-formacio-professional-publica-i-privada",
+            "position": 2,
+            "level": 2,
+            "term_id": 8247
+          },
+          {
+            "id": 8251,
+            "name_translations": {
+              "ca": "Garantir oportunitats educatives i formatives de qualitat al llarg i ample de la vida"
+            },
+            "description_translations": null,
+            "slug": "garantir-oportunitats-educatives-i-formatives-de-qualitat-al-llarg-i-ample-de-la-vida",
+            "position": 3,
+            "level": 1,
+            "term_id": 8246
+          },
+          {
+            "id": 8253,
+            "name_translations": {
+              "ca": "Reduir les desigualtats en l'accés a les activitats socioeducatives"
+            },
+            "description_translations": null,
+            "slug": "reduir-les-desigualtats-en-l-acces-a-les-activitats-socioeducatives",
+            "position": 4,
+            "level": 2,
+            "term_id": 8251
+          },
+          {
+            "id": 8254,
+            "name_translations": {
+              "ca": "Aconseguir una escolarització equilibrada"
+            },
+            "description_translations": null,
+            "slug": "aconseguir-una-escolaritzacio-equilibrada",
+            "position": 5,
+            "level": 2,
+            "term_id": 8251
+          },
+          {
+            "id": 8255,
+            "name_translations": {
+              "ca": "Ciutat generadora d'ocupació i dinamitzadora econòmicament"
+            },
+            "description_translations": null,
+            "slug": "ciutat-generadora-d-ocupacio-i-dinamitzadora-economicament",
+            "position": 6,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 8258,
+            "name_translations": {
+              "ca": "Oferir orientació i acompanyament a les persones demandants d'ocupació i/o a les persones que aspiren a una millora laboral"
+            },
+            "description_translations": null,
+            "slug": "oferir-orientacio-i-acompanyament-a-les-persones-demandants-d-ocupacio-i-o-a-les-persones-que-aspiren-a-una-millora-laboral",
+            "position": 7,
+            "level": 2,
+            "term_id": 8256
+          },
+          {
+            "id": 8259,
+            "name_translations": {
+              "ca": "Facilitar l'encaix entre l'oferta i la demanda d'ocupació"
+            },
+            "description_translations": null,
+            "slug": "facilitar-l-encaix-entre-l-oferta-i-la-demanda-d-ocupacio",
+            "position": 8,
+            "level": 2,
+            "term_id": 8256
+          },
+          {
+            "id": 8260,
+            "name_translations": {
+              "ca": "Diversificar l'activitat econòmica i millorar el teixti empresarial, comercial i industrial del territori"
+            },
+            "description_translations": null,
+            "slug": "diversificar-l-activitat-economica-i-millorar-el-teixti-empresarial-comercial-i-industrial-del-territori",
+            "position": 9,
+            "level": 1,
+            "term_id": 8255
+          },
+          {
+            "id": 8262,
+            "name_translations": {
+              "ca": "Impulsar i dinamitzar el comerç de proximitat"
+            },
+            "description_translations": null,
+            "slug": "impulsar-i-dinamitzar-el-comerc-de-proximitat",
+            "position": 10,
+            "level": 2,
+            "term_id": 8260
+          },
+          {
+            "id": 8263,
+            "name_translations": {
+              "ca": "Dinamitzar, consolidar i interrelacionar el teixit empresarial"
+            },
+            "description_translations": null,
+            "slug": "dinamitzar-consolidar-i-interrelacionar-el-teixit-empresarial",
+            "position": 11,
+            "level": 2,
+            "term_id": 8260
+          },
+          {
+            "id": 8264,
+            "name_translations": {
+              "ca": "Ciutat amable i sostenible"
+            },
+            "description_translations": null,
+            "slug": "ciutat-amable-i-sostenible",
+            "position": 12,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 8267,
+            "name_translations": {
+              "ca": "Millorar la seguretat viària"
+            },
+            "description_translations": null,
+            "slug": "millorar-la-seguretat-viaria",
+            "position": 13,
+            "level": 2,
+            "term_id": 8265
+          },
+          {
+            "id": 8268,
+            "name_translations": {
+              "ca": "Millorar la neteja i la recollida selectiva"
+            },
+            "description_translations": null,
+            "slug": "millorar-la-neteja-i-la-recollida-selectiva",
+            "position": 14,
+            "level": 2,
+            "term_id": 8265
+          },
+          {
+            "id": 8269,
+            "name_translations": {
+              "ca": "Vetllar per un desenvolupament urbanístic atractiu, sostenible i adaptat a les diferents necessitats de la ciutadania"
+            },
+            "description_translations": null,
+            "slug": "vetllar-per-un-desenvolupament-urbanistic-atractiu-sostenible-i-adaptat-a-les-diferents-necessitats-de-la-ciutadania",
+            "position": 15,
+            "level": 1,
+            "term_id": 8264
+          },
+          {
+            "id": 8271,
+            "name_translations": {
+              "ca": "Incrementar l'oferta d'equipaments i infraestructures municipals"
+            },
+            "description_translations": null,
+            "slug": "incrementar-l-oferta-d-equipaments-i-infraestructures-municipals",
+            "position": 16,
+            "level": 2,
+            "term_id": 8269
+          },
+          {
+            "id": 8272,
+            "name_translations": {
+              "ca": "Actuar localment pel canvi climàtic"
+            },
+            "description_translations": null,
+            "slug": "actuar-localment-pel-canvi-climatic",
+            "position": 17,
+            "level": 2,
+            "term_id": 8269
+          },
+          {
+            "id": 8273,
+            "name_translations": {
+              "ca": "Conservar i millorar la biodiversitat a la llera del Ter"
+            },
+            "description_translations": null,
+            "slug": "conservar-i-millorar-la-biodiversitat-a-la-llera-del-ter",
+            "position": 18,
+            "level": 2,
+            "term_id": 8269
+          },
+          {
+            "id": 8274,
+            "name_translations": {
+              "ca": "Ciutat inclusiva i al servei de les persones"
+            },
+            "description_translations": null,
+            "slug": "ciutat-inclusiva-i-al-servei-de-les-persones",
+            "position": 19,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 8277,
+            "name_translations": {
+              "ca": "Garantir que totes les persones tinguin accés a un habitatge"
+            },
+            "description_translations": null,
+            "slug": "garantir-que-totes-les-persones-tinguin-acces-a-un-habitatge",
+            "position": 20,
+            "level": 2,
+            "term_id": 8275
+          },
+          {
+            "id": 8278,
+            "name_translations": {
+              "ca": "Promoure la salut comunitària"
+            },
+            "description_translations": null,
+            "slug": "promoure-la-salut-comunitaria",
+            "position": 21,
+            "level": 2,
+            "term_id": 8275
+          },
+          {
+            "id": 8279,
+            "name_translations": {
+              "ca": "Promoure la salut pública"
+            },
+            "description_translations": null,
+            "slug": "promoure-la-salut-publica",
+            "position": 22,
+            "level": 2,
+            "term_id": 8275
+          },
+          {
+            "id": 8280,
+            "name_translations": {
+              "ca": "Promoure la convivència i harmonia social dins de la ciutat"
+            },
+            "description_translations": null,
+            "slug": "promoure-la-convivencia-i-harmonia-social-dins-de-la-ciutat",
+            "position": 23,
+            "level": 2,
+            "term_id": 8275
+          },
+          {
+            "id": 8281,
+            "name_translations": {
+              "ca": "Promoure polítiques de joventut"
+            },
+            "description_translations": null,
+            "slug": "promoure-politiques-de-joventut",
+            "position": 24,
+            "level": 2,
+            "term_id": 8275
+          },
+          {
+            "id": 8282,
+            "name_translations": {
+              "ca": "Avançar cap a una ciutat més inclusiva i que cuida a les persones vulnerables"
+            },
+            "description_translations": null,
+            "slug": "avancar-cap-a-una-ciutat-mes-inclusiva-i-que-cuida-a-les-persones-vulnerables",
+            "position": 25,
+            "level": 1,
+            "term_id": 8274
+          },
+          {
+            "id": 8284,
+            "name_translations": {
+              "ca": "Augmentar la participació social i comunitària de tota la ciutadania"
+            },
+            "description_translations": null,
+            "slug": "augmentar-la-participacio-social-i-comunitaria-de-tota-la-ciutadania",
+            "position": 26,
+            "level": 2,
+            "term_id": 8282
+          },
+          {
+            "id": 8285,
+            "name_translations": {
+              "ca": "Reduir la pobresa infantil"
+            },
+            "description_translations": null,
+            "slug": "reduir-la-pobresa-infantil",
+            "position": 27,
+            "level": 2,
+            "term_id": 8282
+          },
+          {
+            "id": 8286,
+            "name_translations": {
+              "ca": "Contribuir a construir una ciutat culturalment rica"
+            },
+            "description_translations": null,
+            "slug": "contribuir-a-construir-una-ciutat-culturalment-rica",
+            "position": 28,
+            "level": 1,
+            "term_id": 8274
+          },
+          {
+            "id": 8288,
+            "name_translations": {
+              "ca": "Enfortir i crear noves aliances entre els equipaments culturals i els agents educatius i entitats culturals"
+            },
+            "description_translations": null,
+            "slug": "enfortir-i-crear-noves-aliances-entre-els-equipaments-culturals-i-els-agents-educatius-i-entitats-culturals",
+            "position": 29,
+            "level": 2,
+            "term_id": 8286
+          },
+          {
+            "id": 8289,
+            "name_translations": {
+              "ca": "Govern transformador i amb lideratge territorial"
+            },
+            "description_translations": null,
+            "slug": "govern-transformador-i-amb-lideratge-territorial",
+            "position": 30,
+            "level": 0,
+            "term_id": null
+          },
+          {
+            "id": 8292,
+            "name_translations": {
+              "ca": "Fomentar el govern obert"
+            },
+            "description_translations": null,
+            "slug": "fomentar-el-govern-obert",
+            "position": 31,
+            "level": 2,
+            "term_id": 8290
+          },
+          {
+            "id": 8293,
+            "name_translations": {
+              "ca": "Millorar l'eficiència del treball dins l'organització"
+            },
+            "description_translations": null,
+            "slug": "millorar-l-eficiencia-del-treball-dins-l-organitzacio",
+            "position": 32,
+            "level": 2,
+            "term_id": 8290
+          },
+          {
+            "id": 8294,
+            "name_translations": {
+              "ca": "Fomentar la gestió intel·ligent de la ciutat"
+            },
+            "description_translations": null,
+            "slug": "fomentar-la-gestio-intel-ligent-de-la-ciutat",
+            "position": 33,
+            "level": 2,
+            "term_id": 8290
+          },
+          {
+            "id": 8295,
+            "name_translations": {
+              "ca": "Avançar cap a un lideratge territorial"
+            },
+            "description_translations": null,
+            "slug": "avancar-cap-a-un-lideratge-territorial",
+            "position": 34,
+            "level": 1,
+            "term_id": 8289
+          },
+          {
+            "id": 8297,
+            "name_translations": {
+              "ca": "Promocionar la ciutat i el territori amb visió de planificació estratègica"
+            },
+            "description_translations": null,
+            "slug": "promocionar-la-ciutat-i-el-territori-amb-visio-de-planificacio-estrategica",
+            "position": 35,
+            "level": 2,
+            "term_id": 8295
+          }
+        ]
+      }
+    }
+  ],
+  "publish_last_version_automatically": false
+}

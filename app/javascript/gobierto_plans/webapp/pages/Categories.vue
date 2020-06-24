@@ -17,109 +17,33 @@
       </template>
     </section>
 
-    <template v-for="i in jsonDepth">
+    <template v-for="i in jsonDepth - 1">
       <section
         v-if="isOpen(i)"
         :key="i"
         :class="[`level_${i}`, `cat_${color}`]"
       >
         <!-- general breadcrumb -->
-        <div class="node-breadcrumb mb2">
-          <a @click="activeNode = {}">
-            {{ labelStarts }}
-          </a>
+        <Breadcrumb
+          :model="activeNode"
+          :json="json"
+          :options="options"
+        />
 
-          <!-- TODO: refactor setParent/getParent -->
-          <template v-for="level in activeNode.level">
-            <a
-              :key="level"
-              @click.stop="setParent(level)"
-            >
-              <i class="fas fa-caret-right" />
-              {{ (getParent(level).attributes || {}).title | translate }}
-            </a>
-          </template>
-        </div>
-
-        <!-- last children template -->
-        <!-- TODO: SACAR de ahi -->
-        <template v-if="i === jsonDepth">
-          <Project
-            :model="activeNode"
-            :custom-fields="customFields"
-            :plugins="availablePlugins"
-          />
-        </template>
         <!-- next to last children template -->
-        <template v-else-if="i === jsonDepth - 1">
+        <template v-if="i === jsonDepth - 1">
           <div class="node-action-line">
-            <ActionLineHeader :node="activeNode">
-              <NumberLabel
-                :keys="levelKeys"
-                :length="activeNode.children.length"
-                :level="activeNode.level + 1"
-              />
-            </ActionLineHeader>
-
-            <div class="node-action-line">
-              <ul class="action-line--list">
-                <template v-for="model in activeNode.children">
-                  <ActionLine
-                    :key="model.id"
-                    :model="model"
-                  >
-                    <template v-slot:numberLabel>
-                      <NumberLabel
-                        :keys="levelKeys"
-                        :length="model.attributes.children_count"
-                        :level="model.level + 1"
-                      />
-                    </template>
-
-                    <TableView
-                      :key="model.id"
-                      :model="model"
-                      :header="showTableHeader"
-                      :open="openNode"
-                    >
-                      <NumberLabel
-                        :keys="levelKeys"
-                        :level="model.level + 1"
-                      />
-                    </TableView>
-                  </ActionLine>
-                </template>
-              </ul>
-            </div>
+            <ActionLineHeader :model="activeNode" />
+            <ActionLines
+              :models="activeNode.children"
+              :options="options"
+            />
           </div>
         </template>
         <!-- otherwise, recursive templates -->
         <template v-else>
-          <div class="lines-header">
-            <NumberLabel
-              :keys="levelKeys"
-              :length="activeNode.children.length"
-              :level="activeNode.level + 1"
-            />
-
-            <div>% {{ labelProgress }}</div>
-          </div>
-
-          <ul class="lines-list">
-            <li
-              v-for="model in activeNode.children"
-              :key="model.id"
-              class="mb2"
-            >
-              <NodeList :model="model">
-                <NumberLabel
-                  :keys="levelKeys"
-                  :length="model.children.length"
-                  :level="model.level + 1"
-                />
-              </NodeList>
-            </li>
-          </ul>
+          <RecursiveHeader :model="activeNode" />
+          <RecursiveLines :models="activeNode.children" />
         </template>
       </section>
     </template>
@@ -128,30 +52,26 @@
 
 <script>
 import NodeRoot from "../components/NodeRoot";
-import NodeList from "../components/NodeList";
-import TableView from "../components/TableView";
+import Breadcrumb from "../components/Breadcrumb";
 import ActionLineHeader from "../components/ActionLineHeader";
-import ActionLine from "../components/ActionLine";
-import NumberLabel from "../components/NumberLabel";
-import Project from "../components/Project";
-import { translate, percent, date } from "lib/shared";
-import { findRecursive } from "../../lib/helpers";
+import ActionLines from "../components/ActionLines";
+import RecursiveHeader from "../components/RecursiveHeader";
+import RecursiveLines from "../components/RecursiveLines";
+import { translate } from "lib/shared";
+import { findRecursive } from "../lib/helpers";
 
 export default {
   name: "Categories",
   filters: {
-    translate,
-    percent,
-    date
+    translate
   },
   components: {
     NodeRoot,
+    Breadcrumb,
     ActionLineHeader,
-    ActionLine,
-    NumberLabel,
-    NodeList,
-    TableView,
-    Project
+    ActionLines,
+    RecursiveHeader,
+    RecursiveLines
   },
   props: {
     json: {
@@ -165,12 +85,8 @@ export default {
   },
   data() {
     return {
-      labelStarts: I18n.t("gobierto_plans.plan_types.show.starts") || "",
       openMenu: false,
       activeNode: {},
-      levelKeys: {},
-      openNode: false,
-      showTableHeader: false,
       jsonDepth: 0,
       customFields: {},
       availablePlugins: [],
@@ -192,15 +108,9 @@ export default {
   },
   created() {
     const {
-      level_keys,
-      open_node,
-      show_table_header,
       json_depth
     } = this.options;
 
-    this.levelKeys = level_keys;
-    this.openNode = open_node;
-    this.showTableHeader = show_table_header;
     this.jsonDepth = +json_depth - 1;
 
     const {
@@ -254,42 +164,6 @@ export default {
       }
 
       return isOpen;
-    },
-    getParent() {
-      // Initialize args
-      var breakpoint =
-        arguments.length > 0 && arguments[0] !== undefined
-          ? arguments[0]
-          : undefined;
-
-      // From uid, turno into array all parents, and drop last item (myself)
-      var ancestors = _.dropRight(this.activeNode.uid.split(".")).map(Number);
-
-      var current = this.json; // First item. ROOT item
-      for (var i = 0; i < ancestors.length; i++) {
-        if (i === breakpoint) {
-          // If there is breakpoint, I get the corresponding ancestor set by breakpoint
-          break;
-        }
-
-        if (!_.isArray(current)) {
-          current = current.children;
-        }
-        current = current[ancestors[i]];
-      }
-
-      return current || {};
-    },
-    setParent() {
-      // Initialize args
-      var breakpoint =
-        arguments.length > 0 && arguments[0] !== undefined
-          ? arguments[0]
-          : undefined;
-      // //hack 3rd level (3rd level has no SECTION)
-      // if (breakpoint === 3) breakpoint = breakpoint - 1;
-
-      this.activeNode = this.getParent(breakpoint);
     }
   }
 };

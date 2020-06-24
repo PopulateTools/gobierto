@@ -88,7 +88,7 @@ export default {
   props: {
     customFields: {
       type: Array,
-      default: () => {}
+      default: () => []
     }
   },
   data() {

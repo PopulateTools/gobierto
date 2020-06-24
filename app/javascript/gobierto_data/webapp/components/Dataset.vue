@@ -398,42 +398,35 @@ export default {
   },
   methods: {
     updateBaseTitle() {
-      this.$nextTick(() =>
-        this.$nextTick(() => {
-          let title
-          const {
-            name: nameComponent,
-            params: {
-              tab: tabName
-            }
-          } = this.$route
-          if (nameComponent === "Dataset") {
-            if (this.titleDataset) {
-              const titleI18n = this.titleDataset
-                ? `${this.titleDataset} · `
-                : "";
-
-                if (tabName === 'editor') {
-                  const tabTitle = `${this.labelData} · `
-                  title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
-                } else if (tabName === 'consultas') {
-                  const tabTitle = `${this.labelQueries} · `
-                  title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
-                } else if (tabName === 'visualizaciones') {
-                  const tabTitle = `${this.labelVisualizations} · `
-                  title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
-                } else if (tabName === 'descarga') {
-                  const tabTitle = `${this.labelDownload} · `
-                  title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
-                } else {
-                  const tabTitle = `${this.labelSummary} · `
-                  title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
-                }
-            }
+      this.$nextTick(() => {
+        let title
+        let tabTitle
+        const {
+          name: nameComponent,
+          params: {
+            tab: tabName
           }
-          document.title = title;
-        })
-      );
+        } = this.$route
+        if (nameComponent === "Dataset" && this.titleDataset) {
+          const titleI18n = this.titleDataset
+            ? `${this.titleDataset} · `
+            : "";
+
+          if (tabName === 'editor') {
+            tabTitle = `${this.labelData} · `
+          } else if (tabName === 'consultas') {
+            tabTitle = `${this.labelQueries} · `
+          } else if (tabName === 'visualizaciones') {
+            tabTitle = `${this.labelVisualizations} · `
+          } else if (tabName === 'descarga') {
+            tabTitle = `${this.labelDownload} · `
+          } else {
+            tabTitle = `${this.labelSummary} · `
+          }
+          title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
+        }
+        document.title = title;
+      });
     },
     checkIfUserIsLogged() {
       if (this.isUserLogged) {

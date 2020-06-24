@@ -7,7 +7,8 @@ const headers = {
   Authorization: window.gobiertoAPI.token
 };
 
-import FAKE from "./FAKE.JSON";
+import categories from "./fake_categories.json";
+import projects from "./fake_projects.json";
 
 // Plans-endpoint factory to get/post/put/delete API data
 export const PlansFactoryMixin = {
@@ -16,11 +17,15 @@ export const PlansFactoryMixin = {
       return axios.get(`${endPoint}/${id}`, { headers })
         .catch(() => {
           // TODO: Eliminar cuando la API devuelva bien
-          return { data: FAKE }
+          return { data: categories }
         });
     },
     getProjects(id) {
-      return axios.get(`${endPoint}/${id}/projects`, { headers });
+      return axios.get(`${endPoint}/${id}/projects`, { headers })
+        .catch(() => {
+          // TODO: Eliminar cuando la API devuelva bien
+          return { data: projects }
+        });
     },
     getProjectsByUrl(url) {
       return axios.get(url, { headers });

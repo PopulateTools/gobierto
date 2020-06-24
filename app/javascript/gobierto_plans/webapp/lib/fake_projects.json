@@ -1,0 +1,942 @@
+[
+  {
+    "id": 11972,
+    "uid": "2.0.0.0",
+    "category_id": 8296,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Realització de controls preventius de delictes sobre el patrimoni",
+        "es": ""
+      },
+      "parent_id": 7544,
+      "progress": 0.0,
+      "starts_at": "2020-01-01",
+      "ends_at": "2023-12-31",
+      "status": { "ca": "Iniciat", "es": "Iniciado" },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        },
+        "raw_indicators": {
+          "title_translations": {
+            "ca": "Altres indicadors",
+            "es": "Otros indicadores"
+          },
+          "data": [
+            {
+              "id": "Nombre d'identificacions i controls de seguretat ciutadana per cada 1.000 habitants",
+              "name": "Nombre d'identificacions i controls de seguretat ciutadana per cada 1.000 habitants",
+              "description": null,
+              "objective": 21.0,
+              "value": 19.0,
+              "date": "2020"
+            }
+          ]
+        }
+      },
+      "custom_field_records": [
+        {
+          "value": "ca",
+          "raw_value": { "ca": "ca", "es": "" },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Pressupost al que s'assigna la despesa",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_string",
+          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
+        },
+        {
+          "value": "Ciutats y comunitats sostenibles",
+          "raw_value": "7045",
+          "external_id": "11",
+          "custom_field_name_translations": { "ca": "ODS", "es": "" },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "sdgs"
+        },
+        {
+          "value": "MAND",
+          "raw_value": "7616",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Tipologia d'actuació",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "tipologia-d-actuacio"
+        },
+        {
+          "value": "0.0",
+          "raw_value": 0.0,
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Cost previst (€)",
+            "es": ""
+          },
+          "custom_field_field_type": "numeric",
+          "custom_field_id": "cost-previst"
+        },
+        {
+          "value": "Jesús Calvo",
+          "raw_value": ["7611"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Persona responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "persona-responsable"
+        },
+        {
+          "value": "Policia Local",
+          "raw_value": "7605",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Unitat responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "unitat-responsable"
+        },
+        {
+          "value": "Mossos Esquadra",
+          "raw_value": ["7623"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Altres unitats implicades",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "altres-unitats-implicades"
+        },
+        {
+          "value": "Superior a la mitjana de la província de Barcelon d'acord les dades dels Cercles Comparació Intermunicipal DIBA",
+          "raw_value": {
+            "ca": "Superior a la mitjana de la província de Barcelon d'acord les dades dels Cercles Comparació Intermunicipal DIBA",
+            "es": ""
+          },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Altres observacions",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_paragraph",
+          "custom_field_id": "altres-observacions"
+        }
+      ]
+    },
+    "children": []
+  },
+  {
+    "id": 11973,
+    "uid": "2.0.0.1",
+    "category_id": 8296,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": { "ca": "Instal·lació de càmares de seguretat ciutadana" },
+      "parent_id": 7544,
+      "progress": 10.0,
+      "starts_at": "2020-01-01",
+      "ends_at": "2022-12-31",
+      "status": { "ca": "Planificat", "es": "" },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        },
+        "raw_indicators": {
+          "title_translations": {
+            "ca": "Altres indicadors",
+            "es": "Otros indicadores"
+          },
+          "data": [
+            {
+              "id": "Nombre de càmeres instal·lades",
+              "name": "Nombre de càmeres instal·lades",
+              "description": null,
+              "objective": 5.0,
+              "value": 4.0,
+              "date": "2020"
+            }
+          ]
+        }
+      },
+      "custom_field_records": [
+        {
+          "value": "2021",
+          "raw_value": { "ca": "2021" },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Pressupost al que s'assigna la despesa",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_string",
+          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
+        },
+        {
+          "value": "Ciutats y comunitats sostenibles",
+          "raw_value": "7045",
+          "external_id": "11",
+          "custom_field_name_translations": { "ca": "ODS", "es": "" },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "sdgs"
+        },
+        {
+          "value": "OBR",
+          "raw_value": "7617",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Tipologia d'actuació",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "tipologia-d-actuacio"
+        },
+        {
+          "value": "70000.0",
+          "raw_value": 70000.0,
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Cost previst (€)",
+            "es": ""
+          },
+          "custom_field_field_type": "numeric",
+          "custom_field_id": "cost-previst"
+        },
+        {
+          "value": "Jesús Calvo",
+          "raw_value": ["7611"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Persona responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "persona-responsable"
+        },
+        {
+          "value": "Policia Local",
+          "raw_value": "7605",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Unitat responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "unitat-responsable"
+        },
+        {
+          "value": "Serveis Territorials",
+          "raw_value": ["7606"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Altres unitats implicades",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "altres-unitats-implicades"
+        },
+        {
+          "value": "Cobrir totes les entrades de Manlleu i la cruïlla Avda. Roma i Passeig de Sant Joan",
+          "raw_value": {
+            "ca": "Cobrir totes les entrades de Manlleu i la cruïlla Avda. Roma i Passeig de Sant Joan"
+          },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Altres observacions",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_paragraph",
+          "custom_field_id": "altres-observacions"
+        }
+      ]
+    },
+    "children": []
+  },
+  {
+    "id": 11974,
+    "uid": "2.0.0.2",
+    "category_id": 8296,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 50.0,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": { "ca": "Aturat", "es": "" },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": [
+        {
+          "value": "No Aplica",
+          "raw_value": { "ca": "No Aplica" },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Pressupost al que s'assigna la despesa",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_string",
+          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
+        },
+        {
+          "value": "Ciutats y comunitats sostenibles",
+          "raw_value": "7045",
+          "external_id": "11",
+          "custom_field_name_translations": { "ca": "ODS", "es": "" },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "sdgs"
+        },
+        {
+          "value": "PLAN",
+          "raw_value": "7618",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Tipologia d'actuació",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "tipologia-d-actuacio"
+        },
+        {
+          "value": "0.0",
+          "raw_value": 0.0,
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Cost previst (€)",
+            "es": ""
+          },
+          "custom_field_field_type": "numeric",
+          "custom_field_id": "cost-previst"
+        },
+        {
+          "value": "Jesús Calvo",
+          "raw_value": ["7611"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Persona responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "persona-responsable"
+        },
+        {
+          "value": "Policia Local",
+          "raw_value": "7605",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Unitat responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "unitat-responsable"
+        },
+        {
+          "value": "Transversal",
+          "raw_value": ["7625"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Altres unitats implicades",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "altres-unitats-implicades"
+        },
+        {
+          "value": null,
+          "raw_value": {},
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Altres observacions",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_paragraph",
+          "custom_field_id": "altres-observacions"
+        }
+      ]
+    },
+    "children": []
+  },
+  {
+    "id": 11975,
+    "uid": "2.0.0.3",
+    "category_id": 8296,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Controls i sancions a conductes incíviques en base al Pla de convivència en la diversitat"
+      },
+      "parent_id": 7544,
+      "progress": 100.0,
+      "starts_at": "2020-01-01",
+      "ends_at": "2023-12-31",
+      "status": { "ca": "Finalizat", "es": "" },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        },
+        "raw_indicators": {
+          "title_translations": {
+            "ca": "Altres indicadors",
+            "es": "Otros indicadores"
+          },
+          "data": [
+            {
+              "id": "Nombre de controls anual/ Nre de sancions",
+              "name": "Nombre de controls anual/ Nre de sancions",
+              "description": null,
+              "objective": 600.0,
+              "value": 600.0,
+              "date": "2019"
+            }
+          ]
+        }
+      },
+      "custom_field_records": [
+        {
+          "value": "No Aplica",
+          "raw_value": { "ca": "No Aplica" },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Pressupost al que s'assigna la despesa",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_string",
+          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
+        },
+        {
+          "value": "Ciutats y comunitats sostenibles",
+          "raw_value": "7045",
+          "external_id": "11",
+          "custom_field_name_translations": { "ca": "ODS", "es": "" },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "sdgs"
+        },
+        {
+          "value": "MAND",
+          "raw_value": "7616",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Tipologia d'actuació",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "tipologia-d-actuacio"
+        },
+        {
+          "value": "0.0",
+          "raw_value": 0.0,
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Cost previst (€)",
+            "es": ""
+          },
+          "custom_field_field_type": "numeric",
+          "custom_field_id": "cost-previst"
+        },
+        {
+          "value": "Jesús Calvo",
+          "raw_value": ["7611"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Persona responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "persona-responsable"
+        },
+        {
+          "value": "Policia Local",
+          "raw_value": "7605",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Unitat responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "unitat-responsable"
+        },
+        {
+          "value": "",
+          "raw_value": null,
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Altres unitats implicades",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "altres-unitats-implicades"
+        },
+        {
+          "value": null,
+          "raw_value": {},
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Altres observacions",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_paragraph",
+          "custom_field_id": "altres-observacions"
+        }
+      ]
+    },
+    "children": []
+  },
+  {
+    "id": 11976,
+    "uid": "2.0.0.4",
+    "category_id": 8291,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Realització de controls pel consum o tinença de drogues a la via pública"
+      },
+      "parent_id": 7544,
+      "progress": 0.0,
+      "starts_at": "2020-01-01",
+      "ends_at": "2023-12-31",
+      "status": { "ca": "En curs", "es": "" },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        },
+        "raw_indicators": {
+          "title_translations": {
+            "ca": "Altres indicadors",
+            "es": "Otros indicadores"
+          },
+          "data": [
+            {
+              "id": "Nre de controls anuals/ Nre de persones denunciades",
+              "name": "Nre de controls anuals/ Nre de persones denunciades",
+              "description": null,
+              "objective": 200.0,
+              "value": 150.0,
+              "date": "2020"
+            }
+          ]
+        }
+      },
+      "custom_field_records": [
+        {
+          "value": "2021-2023",
+          "raw_value": { "ca": "2021-2023" },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Pressupost al que s'assigna la despesa",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_string",
+          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
+        },
+        {
+          "value": "Salut i benestar",
+          "raw_value": "7037",
+          "external_id": "3",
+          "custom_field_name_translations": { "ca": "ODS", "es": "" },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "sdgs"
+        },
+        {
+          "value": "MAND",
+          "raw_value": "7616",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Tipologia d'actuació",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "tipologia-d-actuacio"
+        },
+        {
+          "value": "30000.0",
+          "raw_value": 30000.0,
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Cost previst (€)",
+            "es": ""
+          },
+          "custom_field_field_type": "numeric",
+          "custom_field_id": "cost-previst"
+        },
+        {
+          "value": "Jesús Calvo",
+          "raw_value": ["7611"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Persona responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "persona-responsable"
+        },
+        {
+          "value": "Policia Local",
+          "raw_value": "7605",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Unitat responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "unitat-responsable"
+        },
+        {
+          "value": "Mossos Esquadra",
+          "raw_value": ["7623"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Altres unitats implicades",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "altres-unitats-implicades"
+        },
+        {
+          "value": "Brigada canina",
+          "raw_value": { "ca": "Brigada canina" },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Altres observacions",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_paragraph",
+          "custom_field_id": "altres-observacions"
+        }
+      ]
+    },
+    "children": []
+  },
+  {
+    "id": 11977,
+    "uid": "2.0.0.5",
+    "category_id": 8291,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Construcció i posada en funcionament d'una nova comissaria"
+      },
+      "parent_id": 7544,
+      "progress": 10.0,
+      "starts_at": "2020-01-01",
+      "ends_at": "2022-05-31",
+      "status": { "ca": "Iniciat", "es": "Iniciado" },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": [
+        {
+          "value": "2021-2023",
+          "raw_value": { "ca": "2021-2023" },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Pressupost al que s'assigna la despesa",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_string",
+          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
+        },
+        {
+          "value": "Ciutats y comunitats sostenibles",
+          "raw_value": "7045",
+          "external_id": "11",
+          "custom_field_name_translations": { "ca": "ODS", "es": "" },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "sdgs"
+        },
+        {
+          "value": "OBR",
+          "raw_value": "7617",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Tipologia d'actuació",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "tipologia-d-actuacio"
+        },
+        {
+          "value": "1500000.0",
+          "raw_value": 1500000.0,
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Cost previst (€)",
+            "es": ""
+          },
+          "custom_field_field_type": "numeric",
+          "custom_field_id": "cost-previst"
+        },
+        {
+          "value": "Josep Pou",
+          "raw_value": ["7612"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Persona responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "persona-responsable"
+        },
+        {
+          "value": "Serveis Territorials",
+          "raw_value": "7606",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Unitat responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "unitat-responsable"
+        },
+        {
+          "value": "Policia Local",
+          "raw_value": ["7605"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Altres unitats implicades",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "altres-unitats-implicades"
+        },
+        {
+          "value": null,
+          "raw_value": {},
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Altres observacions",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_paragraph",
+          "custom_field_id": "altres-observacions"
+        }
+      ]
+    },
+    "children": []
+  },
+  {
+    "id": 11978,
+    "uid": "2.0.0.6",
+    "category_id": 8291,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Realització de formació i xerrades preventives en matèria de seguretat ciutadana"
+      },
+      "parent_id": 7544,
+      "progress": 50.0,
+      "starts_at": "2020-01-01",
+      "ends_at": "2023-12-31",
+      "status": { "ca": "Planificat", "es": "" },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        },
+        "raw_indicators": {
+          "title_translations": {
+            "ca": "Altres indicadors",
+            "es": "Otros indicadores"
+          },
+          "data": [
+            {
+              "id": "Ciutadans assistents a accions formatives per cada 1.000 habitants",
+              "name": "Ciutadans assistents a accions formatives per cada 1.000 habitants",
+              "description": null,
+              "objective": 126.0,
+              "value": 76.0,
+              "date": "2020"
+            }
+          ]
+        }
+      },
+      "custom_field_records": [
+        {
+          "value": "No Aplica",
+          "raw_value": { "ca": "No Aplica" },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Pressupost al que s'assigna la despesa",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_string",
+          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
+        },
+        {
+          "value": "Ciutats y comunitats sostenibles",
+          "raw_value": "7045",
+          "external_id": "11",
+          "custom_field_name_translations": { "ca": "ODS", "es": "" },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "sdgs"
+        },
+        {
+          "value": "MAND",
+          "raw_value": "7616",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Tipologia d'actuació",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "tipologia-d-actuacio"
+        },
+        {
+          "value": "0.0",
+          "raw_value": 0.0,
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Cost previst (€)",
+            "es": ""
+          },
+          "custom_field_field_type": "numeric",
+          "custom_field_id": "cost-previst"
+        },
+        {
+          "value": "Jesús Calvo",
+          "raw_value": ["7611"],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Persona responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "persona-responsable"
+        },
+        {
+          "value": "Policia Local",
+          "raw_value": "7605",
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Unitat responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "unitat-responsable"
+        },
+        {
+          "value": "",
+          "raw_value": null,
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Altres unitats implicades",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "altres-unitats-implicades"
+        },
+        {
+          "value": "Superior a la mitjana de la província de Barcelon d'acord les dades dels Cercles Comparació Intermunicipal DIBA",
+          "raw_value": {
+            "ca": "Superior a la mitjana de la província de Barcelon d'acord les dades dels Cercles Comparació Intermunicipal DIBA"
+          },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Altres observacions",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_paragraph",
+          "custom_field_id": "altres-observacions"
+        }
+      ]
+    },
+    "children": []
+  }
+]

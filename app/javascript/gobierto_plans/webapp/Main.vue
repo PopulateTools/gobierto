@@ -51,19 +51,27 @@ export default {
     };
   },
   async created() {
-    const {
-      data: {
-        // meta,
-        configuration_data: options,
-        categories_vocabulary: categories
-      }
-    } = await this.getPlan(0);
+    const PLAN_ID = 0; // TODO: usar el oficial que vendrá de attributes dataset
 
-    const { depth, summary, json } = this.setCategories(categories);
+    const [{ data: plan }, { data: projects }] = await Promise.all([
+      this.getPlan(PLAN_ID),
+      this.getProjects(PLAN_ID)
+    ]);
+    const {
+      // meta,
+      configuration_data: options,
+      categories_vocabulary: categories
+    } = plan;
+
+    const { depth, summary, json, progress } = this.setJsonTree([
+      ...categories,
+      ...projects
+    ]);
 
     this.json = json;
     this.summary = summary;
     options.json_depth = depth;
+    options.global_progress = progress;
 
     this.options = options;
     PlansStore.setLevelKeys(options);
@@ -72,34 +80,58 @@ export default {
     this.isFetchingData = false;
   },
   methods: {
-    setCategories(data) {
+    setJsonTree(data) {
       const agg = groupBy(data, "level");
       const keys = Object.keys(agg);
       const summary = keys.map(a => ({ key: +a, length: agg[a].length }));
+      const lastLevel = Number([...keys].pop());
 
-// TODO: añadir rootid, porcentajes y demás
+      // TODO: recorremos desde abajo hacia arriba
       const fn = (data, j) => [
         ...data.filter(d => d.level < j),
         ...data.reduce((acc, item) => {
           if (item.level === j) {
+            const children =
+              item.level === lastLevel
+                ? null
+                : item.level === lastLevel - 1
+                ? data.filter(e => item.id === e.category_id)
+                : data.filter(e => item.id === e.term_id);
+
+            const progress =
+              item.level === lastLevel
+                ? item.attributes.progress
+                : children.length
+                ? children.reduce((acc, { progress }) => acc + progress, 0) /
+                  children.length
+                  : 0;
+
             acc.push({
               ...item,
-              children: data.filter(e => item.id === e.term_id)
+              progress,
+              ...(children && { children })
             });
           }
           return acc;
         }, [])
       ];
 
-      let dataParsed = data
-      for (let index = keys.length; index--;) {
-        dataParsed = fn(dataParsed, index)
+      let dataParsed = data;
+      // note the FOR-loop is inversed
+      for (let index = keys.length; index--; ) {
+        dataParsed = fn(dataParsed, index);
       }
+
+      console.log(dataParsed, dataParsed.reduce((acc, { progress }) => acc + progress, 0));
+
 
       return {
         depth: keys.length,
         summary,
-        json: dataParsed
+        json: dataParsed,
+        progress:
+          dataParsed.reduce((acc, { progress }) => acc + progress, 0) /
+          dataParsed.length
       };
     }
   }

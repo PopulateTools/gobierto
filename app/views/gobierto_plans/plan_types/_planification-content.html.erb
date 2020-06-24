@@ -190,10 +190,27 @@
               <template v-for="item in customFields.rest">
                 <div class="description-list mb1">
                   <div class="description-title">{{ item.custom_field_name_translations | translate }}</div>
-                  <div class="description-desc" v-if="typeOf(item.value) === 'array'">
-                    <div v-for="value in item.value">{{ value }}</div>
-                  </div>
-                  <div class="description-desc" v-else>{{ item.value }}</div>
+
+                  <template v-if="item.custom_field_id === 'sdgs'">
+                    <div class="description-desc">
+                      <div class="ods-goal-container">
+                        <div class="ods-goal-content" v-for="id in item.external_id">
+                          <a :href="`${baseUrl}/ods/${Number(id)}`" :class="`ods-goal ods-goal__${id}__${item.locale}`"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+
+                  <template v-else-if="typeOf(item.value) === 'array'">
+                    <div class="description-desc">
+                      <div v-for="value in item.value">{{ value }}</div>
+                    </div>
+                  </template>
+
+                  <template v-else>
+                    <div class="description-desc">{{ item.value }}</div>
+                  </template>
+
                 </div>
               </template>
             </div>
@@ -201,7 +218,7 @@
         </template>
 
         <!-- Rails must add the markup if plugin is available -->
-        <% availablePlugins = ['budgets', 'human_resources', 'indicators'] %> <% availablePlugins.each do |plugin| %>
+        <% availablePlugins = ['budgets', 'human_resources', 'raw_indicators'] %> <% availablePlugins.each do |plugin| %>
 
         <!-- Add plugin markup -->
         <div data-plugin="<%= plugin %>"></div>

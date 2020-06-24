@@ -427,7 +427,7 @@ madrid_custom_field_indicators_table_plugin:
             }
           }
         ],
-        "category_term_decorator": "indicators"
+        "category_term_decorator": "raw_indicators"
       }
     }
   }.to_json %>

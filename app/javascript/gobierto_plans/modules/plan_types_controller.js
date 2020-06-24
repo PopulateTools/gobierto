@@ -148,7 +148,8 @@ window.GobiertoPlans.PlanTypesController = (function() {
         rootid: 0,
         readMoreButton: true,
         customFields: {},
-        openMenu: true
+        openMenu: true,
+        baseUrl: ''
       },
       computed: {
         computedProgress() {
@@ -189,6 +190,9 @@ window.GobiertoPlans.PlanTypesController = (function() {
         }
 
         window.onhashchange = locationHashChanged;
+      },
+      mounted: function() {
+        this.baseUrl = this.$el.dataset.baseurl
       },
       methods: {
         getJson: function() {
@@ -392,6 +396,13 @@ window.GobiertoPlans.PlanTypesController = (function() {
             if (type === "paragraph" || type === "localized_paragraph" || type === "string" || type === "localized_string") {
               paragraphs.push(f);
             } else {
+              const { custom_field_id: id } = f;
+
+              if (id === 'sdgs') {
+                f.external_id = (f.external_id || '').split(',').map(v => v.padStart(2, 0))
+                f.locale = I18n.locale
+              }
+
               rest.push(f);
             }
           });

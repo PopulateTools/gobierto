@@ -346,11 +346,11 @@ export default {
     //Update the name of Visualization
     this.$root.$on('updateVizName', this.eventToUpdateVizName)
     //Enable input to write a name for query
-    this.$root.$emit('eventToEnabledInputQueries', this.eventToEnabledInputQueries)
+    this.$root.$on('eventToEnabledInputQueries', this.eventToEnabledInputQueries)
     //Reset visualization flow
-    this.$root.$emit('resetVizEvent', this.resetVizEvent)
+    this.$root.$on('resetVizEvent', this.resetVizEvent)
     //Show saving dialog visualization
-    this.$root.$emit('showSavingDialogEvent', this.showSavingDialogEvent)
+    this.$root.$on('showSavingDialogEvent', this.showSavingDialogEvent)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");

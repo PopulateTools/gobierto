@@ -33,8 +33,10 @@ ca:
         global_execution: Estat d'execució global
         latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
         loading: Carregant...
+        objective: Objectiu
         percentage_progress: "% progrés"
         progress: Progrés
+        reached: Assolit
         read_less: Llegiu menys
         read_more: Llegiu més
         starts: Inici

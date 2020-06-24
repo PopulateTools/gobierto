@@ -129,8 +129,11 @@ export default {
   },
   methods: {
     scrollDetail() {
-      const element = document.getElementById('gobierto-data-summary-header');
-      element.scrollIntoView({ behavior: "smooth" })
+      const element = document.getElementById('gobierto-datos-app');
+      window.scrollTo({
+        top: element.offsetTop,
+        behavior: 'smooth'
+      });
       this.truncateIsActive = true
     }
   }

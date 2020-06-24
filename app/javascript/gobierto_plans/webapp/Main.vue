@@ -47,8 +47,7 @@ export default {
       options: {},
       summary: [],
       isFetchingData: true,
-      // TODO: mover el locale
-      labelLoading: I18n.t("gobierto_investments.projects.loading") || ""
+      labelLoading: I18n.t("gobierto_plans.plan_types.show.loading") || ""
     };
   },
   async created() {

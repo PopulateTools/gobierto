@@ -54,7 +54,7 @@ module GobiertoPlans
         def base_relation
           if params[:id].present?
             find_resource
-            @resource.nodes
+            @resource.nodes.unscope(:order)
           else
             plans_base_relation
           end
@@ -62,14 +62,6 @@ module GobiertoPlans
 
         def plans_base_relation
           @plans_base_relation = current_site.plans.send(valid_preview_token? ? :itself : :published)
-        end
-
-        def filter_params
-          params.fetch(:filter, {}).permit(:plan_type_id, :year)
-        end
-
-        def filtered_relation
-          @filtered_relation ||= base_relation.where(filter_params)
         end
 
         def find_resource

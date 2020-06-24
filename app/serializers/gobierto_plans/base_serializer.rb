@@ -3,7 +3,7 @@
 module GobiertoPlans
   class BaseSerializer < ActiveModel::Serializer
     def current_site
-      Site.find(object.site.id)
+      Site.find((instance_options[:plan].presence || object).site.id)
     end
 
     def exclude_links?

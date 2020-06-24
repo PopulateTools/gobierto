@@ -5,7 +5,7 @@ module GobiertoCommon
     extend ActiveSupport::Concern
 
     included do
-      attr_reader :resource
+      attr_reader :resource, :vocabularies_adapter
 
       serialization_scope :current_site
     end
@@ -39,7 +39,7 @@ module GobiertoCommon
                    else
                      {}
                    end
-      render json: custom_fields, adapter: :json_api, meta: meta_stats
+      render json: custom_fields, adapter: :json_api, meta: meta_stats, vocabularies_adapter: vocabularies_adapter
     end
 
     private

@@ -7,6 +7,10 @@ module GobiertoPlans
 
         include ::GobiertoCommon::CustomFieldsApi
 
+        def vocabularies_adapter
+          :json_api
+        end
+
         # GET /api/v1/plans
         # GET /api/v1/plans.json
         def index

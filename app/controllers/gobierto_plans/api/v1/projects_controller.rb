@@ -9,7 +9,14 @@ module GobiertoPlans
         # GET /api/v1/plans/1/projects
         # GET /api/v1/plans/1/projects.json
         def index
-          render json: filtered_relation, links: links(:index), each_serializer: GobiertoPlans::NodeSerializer, plan: @plan, adapter: :json_api
+          render(
+            json: filtered_relation,
+            links: links(:index),
+            each_serializer: GobiertoPlans::NodeSerializer,
+            plan: @plan,
+            custom_fields: custom_fields,
+            adapter: :json_api
+          )
         end
 
         private
@@ -18,6 +25,10 @@ module GobiertoPlans
           find_plan
 
           @plan.nodes.published
+        end
+
+        def custom_fields
+          @custom_fields ||= @plan.instance_level_custom_fields
         end
 
         def find_plan

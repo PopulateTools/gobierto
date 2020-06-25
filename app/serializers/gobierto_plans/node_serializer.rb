@@ -11,5 +11,9 @@ module GobiertoPlans
     def category
       object.categories.find_by(gplan_categories_nodes: { category_id: instance_options[:plan].categories })
     end
+
+    def custom_fields
+      instance_options[:custom_fields]
+    end
   end
 end

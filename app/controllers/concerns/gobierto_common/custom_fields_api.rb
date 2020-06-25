@@ -14,7 +14,7 @@ module GobiertoCommon
       @resource ||= base_relation.try(:model)&.new
       return base_relation unless filter_params.present?
 
-      query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation)
+      query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation, custom_fields: custom_fields)
       query.filter(filter_params)
     end
 
@@ -31,9 +31,10 @@ module GobiertoCommon
       return unless stale?(base_relation)
 
       meta_stats = if params[:stats] == "true"
+                     query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation, custom_fields: custom_fields)
                      filterable_custom_fields.inject({}) do |stats, custom_field|
                        stats.update(
-                         custom_field.uid => GobiertoCommon::CustomFieldsQuery.new(relation: base_relation).stats(custom_field, filter_params)
+                         custom_field.uid => query.stats(custom_field, filter_params)
                        )
                      end
                    else

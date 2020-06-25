@@ -77,10 +77,6 @@ module GobiertoPlans
             hash[:self] = hash.delete(self_key) if self_key.present?
           end
         end
-
-        def custom_fields
-          @custom_fields ||= @resource.instance_level_custom_fields
-        end
       end
     end
   end

@@ -5,7 +5,10 @@
       :key="model.id"
       class="mb2"
     >
-      <NodeList :model="model">
+      <NodeList
+        :model="model"
+        :max-category-level="maxCategoryLevel"
+      >
         <NumberLabel
           :length="model.children.length"
           :level="model.level + 1"
@@ -29,7 +32,20 @@ export default {
     models: {
       type: Array,
       default: () => []
+    },
+    options: {
+      type: Object,
+      default: () => {}
     }
+  },
+  data() {
+    return {
+      maxCategoryLevel: 0
+    }
+  },
+  created() {
+    const { max_category_level } = this.options
+    this.maxCategoryLevel = max_category_level
   }
 };
 </script>

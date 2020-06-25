@@ -63,7 +63,7 @@ export default {
       categories_vocabulary: categories
     } = plan;
 
-    const { depth, summary, json, progress } = this.setJsonTree([
+    const { depth, summary, json, progress, max_category_level } = this.setJsonTree([
       ...categories,
       ...projects
     ]);
@@ -72,6 +72,7 @@ export default {
     this.summary = summary;
     options.json_depth = depth;
     options.global_progress = progress;
+    options.max_category_level = max_category_level;
 
     this.options = options;
     PlansStore.setLevelKeys(options);
@@ -84,27 +85,38 @@ export default {
       const agg = groupBy(data, "level");
       const keys = Object.keys(agg);
       const summary = keys.map(a => ({ key: +a, length: agg[a].length }));
+      // project level
       const lastLevel = Number([...keys].pop());
 
-      // TODO: recorremos desde abajo hacia arriba
-      const fn = (data, j) => [
-        ...data.filter(d => d.level < j),
+      // From a plain array, creates the required JSON structure
+      // nesting their children inside each category
+      const setRecursiveTree = (data, i) => [
+        ...data.filter(({ level }) => level < i),
         ...data.reduce((acc, item) => {
-          if (item.level === j) {
+          if (item.level === i) {
+
+            /**
+             * calculate which are its children based on its level
+             * project: no children
+             * last-category: count category_id
+             * others: count term_id
+             */
             const children =
               item.level === lastLevel
                 ? null
                 : item.level === lastLevel - 1
-                ? data.filter(e => item.id === e.category_id)
-                : data.filter(e => item.id === e.term_id);
+                ? data.filter(({ category_id }) => item.id === category_id)
+                : data.filter(({ term_id }) => item.id === term_id);
 
+            /**
+             * calculate which are its progress
+             * project: get the attribute progress
+             * others: arithmethic mean of its children
+             */
             const progress =
               item.level === lastLevel
                 ? item.attributes.progress
-                : children.length
-                ? children.reduce((acc, { progress }) => acc + progress, 0) /
-                  children.length
-                  : 0;
+                : this.meanByProgress(children);
 
             acc.push({
               ...item,
@@ -119,20 +131,22 @@ export default {
       let dataParsed = data;
       // note the FOR-loop is inversed
       for (let index = keys.length; index--; ) {
-        dataParsed = fn(dataParsed, index);
+        dataParsed = setRecursiveTree(dataParsed, index);
       }
-
-      console.log(dataParsed, dataParsed.reduce((acc, { progress }) => acc + progress, 0));
-
 
       return {
         depth: keys.length,
+        max_category_level: lastLevel - 1,
         summary,
         json: dataParsed,
-        progress:
-          dataParsed.reduce((acc, { progress }) => acc + progress, 0) /
-          dataParsed.length
+        progress: this.meanByProgress(dataParsed)
       };
+    },
+    meanByProgress(data) {
+      if (!data.length) return 0
+
+      const sum = data.reduce((acc, { progress }) => acc + progress, 0)
+      return sum / data.length
     }
   }
 };

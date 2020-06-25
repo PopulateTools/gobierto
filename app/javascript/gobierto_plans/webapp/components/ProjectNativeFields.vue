@@ -39,7 +39,7 @@
 import { translate, date, percent } from "lib/shared";
 
 export default {
-  name: "NativeFields",
+  name: "ProjectNativeFields",
   filters: {
     translate,
     date,

@@ -24,7 +24,6 @@
 </template>
 
 <script>
-
 import { percent, translate } from "lib/shared";
 import { PlansFactoryMixin } from "../lib/factory";
 
@@ -39,9 +38,13 @@ export default {
     model: {
       type: Object,
       default: () => {}
+    },
+    maxCategoryLevel: {
+      type: Number,
+      default: 0
     }
   },
-  data: function() {
+  data() {
     return {
       isOpen: false,
       title: "",
@@ -49,22 +52,17 @@ export default {
     };
   },
   created() {
-    const { attributes: { progress, title } = {} } = this.model;
+    const { progress, title } = this.model;
+    // const { attributes: { progress, title } = {} } = this.model;
 
     this.progress = progress;
     this.title = title;
   },
   methods: {
-    async setActive() {
-      const {
-        id,
-        type,
-        max_level,
-        children = [],
-        attributes: { children_count, nodes_list_path }
-      } = this.model;
+    setActive() {
+      const { id, level } = this.model;
 
-      if (type === "category" && !max_level) {
+      if (level !== this.maxCategoryLevel) {
         this.$router.push({
           name: "categories",
           params: { ...this.$route.params, id }
@@ -72,11 +70,6 @@ export default {
       } else {
         this.$emit("toggle");
         this.isOpen = !this.isOpen;
-
-        if (children.length === 0 && children_count > 0) {
-          const { data } = await this.getProjectsByUrl(nodes_list_path);
-          this.$set(this.model, "children", data);
-        }
       }
     }
   }

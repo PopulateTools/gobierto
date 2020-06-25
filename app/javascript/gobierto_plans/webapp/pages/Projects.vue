@@ -55,12 +55,11 @@ export default {
     return {
       openMenu: false,
       activeNode: {},
-      levelKeys: {},
       openNode: false,
       showTableHeader: false,
       jsonDepth: 0,
-      customFields: {},
-      availablePlugins: [],
+      customFields: [],
+      availablePlugins: {},
       rootid: 0
     };
   },
@@ -78,16 +77,7 @@ export default {
     }
   },
   created() {
-    const {
-      level_keys,
-      open_node,
-      show_table_header,
-      json_depth
-    } = this.options;
-
-    this.levelKeys = level_keys;
-    this.openNode = open_node;
-    this.showTableHeader = show_table_header;
+    const { json_depth } = this.options;
     this.jsonDepth = +json_depth - 1;
 
     const {
@@ -96,13 +86,13 @@ export default {
     this.setActiveNode(id);
   },
   methods: {
-    async setActiveNode(id) {
+    setActiveNode(id) {
       this.activeNode = findRecursive(this.json, +id);
 
       if (this.activeNode) {
         const {
           level,
-          attributes: { custom_field_records = [], plugins_data = {} }
+          attributes: { custom_field_records = [], plugins_data = {} } = {}
         } = this.activeNode;
 
         // if the activeNode is level zero, it sets the children colors

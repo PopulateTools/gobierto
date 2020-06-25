@@ -127,7 +127,6 @@
         "title": {
           "ca": "Liderar l'estratègia de desenvolupament sostenible de l'Agenda 2030"
         },
-
         "slug": "liderar-l-estrategia-de-desenvolupament-sostenible-de-l-agenda-2030"
       },
       "position": 0,
@@ -140,7 +139,6 @@
         "title": {
           "ca": "Apropar l'administració a la ciutadania"
         },
-
         "slug": "apropar-l-administracio-a-la-ciutadania"
       },
       "position": 0,
@@ -153,7 +151,6 @@
         "title": {
           "ca": "Consolidar un model d'administració propera, intel·ligent, oberta i participativa"
         },
-
         "slug": "consolidar-un-model-d-administracio-propera-intel-ligent-oberta-i-participativa"
       },
       "position": 0,
@@ -166,7 +163,6 @@
         "title": {
           "ca": "Planificar l'estratègia cultural de la ciutat"
         },
-
         "slug": "planificar-l-estrategia-cultural-de-la-ciutat"
       },
       "position": 0,
@@ -178,7 +174,6 @@
       "title": {
         "ca": "Fer accesible la pràctica esportiva al conjunt de la ciutadania"
       },
-
       "slug": "fer-accesible-la-practica-esportiva-al-conjunt-de-la-ciutadania",
       "position": 0,
       "level": 2,
@@ -189,7 +184,6 @@
       "title": {
         "ca": "Impulsar actuacions amb perspectiva de gènere"
       },
-
       "slug": "impulsar-actuacions-amb-perspectiva-de-genere",
       "position": 0,
       "level": 2,
@@ -200,7 +194,6 @@
       "title": {
         "ca": "Fomentar una societat cohesionada i saludable"
       },
-
       "slug": "fomentar-una-societat-cohesionada-i-saludable",
       "position": 0,
       "level": 1,
@@ -211,7 +204,6 @@
       "title": {
         "ca": "Optimitzar l'ordenació urbanística territorial"
       },
-
       "slug": "optimitzar-l-ordenacio-urbanistica-territorial",
       "position": 0,
       "level": 2,
@@ -222,7 +214,6 @@
       "title": {
         "ca": "Millorar la seguretat ciutadana"
       },
-
       "slug": "millorar-la-seguretat-ciutadana",
       "position": 0,
       "level": 2,
@@ -233,7 +224,6 @@
       "title": {
         "ca": "Fomentar un Manlleu net i segur"
       },
-
       "slug": "fomentar-un-manlleu-net-i-segur",
       "position": 0,
       "level": 1,
@@ -244,7 +234,6 @@
       "title": {
         "ca": "Fomentar l'emprenedoria i acompanyar l'activitat econòmica"
       },
-
       "slug": "fomentar-l-emprenedoria-i-acompanyar-l-activitat-economica",
       "position": 0,
       "level": 2,
@@ -255,7 +244,6 @@
       "title": {
         "ca": "Capacitar a les persones per tal d'adequar les seves competències a les necessitats i oportunitats del mercat de treball"
       },
-
       "slug": "capacitar-a-les-persones-per-tal-d-adequar-les-seves-competencies-a-les-necessitats-i-oportunitats-del-mercat-de-treball",
       "position": 0,
       "level": 2,
@@ -266,7 +254,6 @@
       "title": {
         "ca": "Millorar l'ocupació i la qualitat del treball"
       },
-
       "slug": "millorar-l-ocupacio-i-la-qualitat-del-treball",
       "position": 0,
       "level": 1,
@@ -277,7 +264,6 @@
       "title": {
         "ca": "Millorar els nivells formatius de la ciutadania"
       },
-
       "slug": "millorar-els-nivells-formatius-de-la-ciutadania",
       "position": 0,
       "level": 2,
@@ -288,7 +274,6 @@
       "title": {
         "ca": "Enfortir els centres de formació integral"
       },
-
       "slug": "enfortir-els-centres-de-formacio-integral",
       "position": 0,
       "level": 2,
@@ -299,7 +284,6 @@
       "title": {
         "ca": "Esdevenir un referent en la formació professional i universitària"
       },
-
       "slug": "esdevenir-un-referent-en-la-formacio-professional-i-universitaria",
       "position": 0,
       "level": 1,
@@ -310,7 +294,6 @@
       "title": {
         "ca": "Ciutat educadora i del coneixement"
       },
-
       "slug": "ciutat-educadora-i-del-coneixement",
       "position": 0,
       "level": 0,
@@ -321,7 +304,6 @@
       "title": {
         "ca": "Aconseguir iniciar estudis universitaris i de la UVIC superiors"
       },
-
       "slug": "aconseguir-iniciar-estudis-universitaris-i-de-la-uvic-superiors",
       "position": 1,
       "level": 2,
@@ -332,7 +314,6 @@
       "title": {
         "ca": "Incrementar l'oferta de formació professional pública i privada"
       },
-
       "slug": "incrementar-l-oferta-de-formacio-professional-publica-i-privada",
       "position": 2,
       "level": 2,
@@ -343,7 +324,6 @@
       "title": {
         "ca": "Garantir oportunitats educatives i formatives de qualitat al llarg i ample de la vida"
       },
-
       "slug": "garantir-oportunitats-educatives-i-formatives-de-qualitat-al-llarg-i-ample-de-la-vida",
       "position": 3,
       "level": 1,
@@ -354,7 +334,6 @@
       "title": {
         "ca": "Reduir les desigualtats en l'accés a les activitats socioeducatives"
       },
-
       "slug": "reduir-les-desigualtats-en-l-acces-a-les-activitats-socioeducatives",
       "position": 4,
       "level": 2,
@@ -365,7 +344,6 @@
       "title": {
         "ca": "Aconseguir una escolarització equilibrada"
       },
-
       "slug": "aconseguir-una-escolaritzacio-equilibrada",
       "position": 5,
       "level": 2,
@@ -376,7 +354,6 @@
       "title": {
         "ca": "Ciutat generadora d'ocupació i dinamitzadora econòmicament"
       },
-
       "slug": "ciutat-generadora-d-ocupacio-i-dinamitzadora-economicament",
       "position": 6,
       "level": 0,
@@ -387,7 +364,6 @@
       "title": {
         "ca": "Oferir orientació i acompanyament a les persones demandants d'ocupació i/o a les persones que aspiren a una millora laboral"
       },
-
       "slug": "oferir-orientacio-i-acompanyament-a-les-persones-demandants-d-ocupacio-i-o-a-les-persones-que-aspiren-a-una-millora-laboral",
       "position": 7,
       "level": 2,
@@ -398,7 +374,6 @@
       "title": {
         "ca": "Facilitar l'encaix entre l'oferta i la demanda d'ocupació"
       },
-
       "slug": "facilitar-l-encaix-entre-l-oferta-i-la-demanda-d-ocupacio",
       "position": 8,
       "level": 2,
@@ -409,7 +384,6 @@
       "title": {
         "ca": "Diversificar l'activitat econòmica i millorar el teixti empresarial, comercial i industrial del territori"
       },
-
       "slug": "diversificar-l-activitat-economica-i-millorar-el-teixti-empresarial-comercial-i-industrial-del-territori",
       "position": 9,
       "level": 1,
@@ -420,7 +394,6 @@
       "title": {
         "ca": "Impulsar i dinamitzar el comerç de proximitat"
       },
-
       "slug": "impulsar-i-dinamitzar-el-comerc-de-proximitat",
       "position": 10,
       "level": 2,
@@ -431,7 +404,6 @@
       "title": {
         "ca": "Dinamitzar, consolidar i interrelacionar el teixit empresarial"
       },
-
       "slug": "dinamitzar-consolidar-i-interrelacionar-el-teixit-empresarial",
       "position": 11,
       "level": 2,
@@ -442,7 +414,6 @@
       "title": {
         "ca": "Ciutat amable i sostenible"
       },
-
       "slug": "ciutat-amable-i-sostenible",
       "position": 12,
       "level": 0,
@@ -453,7 +424,6 @@
       "title": {
         "ca": "Millorar la seguretat viària"
       },
-
       "slug": "millorar-la-seguretat-viaria",
       "position": 13,
       "level": 2,
@@ -464,7 +434,6 @@
       "title": {
         "ca": "Millorar la neteja i la recollida selectiva"
       },
-
       "slug": "millorar-la-neteja-i-la-recollida-selectiva",
       "position": 14,
       "level": 2,
@@ -475,7 +444,6 @@
       "title": {
         "ca": "Vetllar per un desenvolupament urbanístic atractiu, sostenible i adaptat a les diferents necessitats de la ciutadania"
       },
-
       "slug": "vetllar-per-un-desenvolupament-urbanistic-atractiu-sostenible-i-adaptat-a-les-diferents-necessitats-de-la-ciutadania",
       "position": 15,
       "level": 1,
@@ -486,7 +454,6 @@
       "title": {
         "ca": "Incrementar l'oferta d'equipaments i infraestructures municipals"
       },
-
       "slug": "incrementar-l-oferta-d-equipaments-i-infraestructures-municipals",
       "position": 16,
       "level": 2,
@@ -497,7 +464,6 @@
       "title": {
         "ca": "Actuar localment pel canvi climàtic"
       },
-
       "slug": "actuar-localment-pel-canvi-climatic",
       "position": 17,
       "level": 2,
@@ -508,7 +474,6 @@
       "title": {
         "ca": "Conservar i millorar la biodiversitat a la llera del Ter"
       },
-
       "slug": "conservar-i-millorar-la-biodiversitat-a-la-llera-del-ter",
       "position": 18,
       "level": 2,
@@ -519,7 +484,6 @@
       "title": {
         "ca": "Ciutat inclusiva i al servei de les persones"
       },
-
       "slug": "ciutat-inclusiva-i-al-servei-de-les-persones",
       "position": 19,
       "level": 0,
@@ -530,7 +494,6 @@
       "title": {
         "ca": "Garantir que totes les persones tinguin accés a un habitatge"
       },
-
       "slug": "garantir-que-totes-les-persones-tinguin-acces-a-un-habitatge",
       "position": 20,
       "level": 2,
@@ -541,7 +504,6 @@
       "title": {
         "ca": "Promoure la salut comunitària"
       },
-
       "slug": "promoure-la-salut-comunitaria",
       "position": 21,
       "level": 2,
@@ -552,7 +514,6 @@
       "title": {
         "ca": "Promoure la salut pública"
       },
-
       "slug": "promoure-la-salut-publica",
       "position": 22,
       "level": 2,
@@ -563,7 +524,6 @@
       "title": {
         "ca": "Promoure la convivència i harmonia social dins de la ciutat"
       },
-
       "slug": "promoure-la-convivencia-i-harmonia-social-dins-de-la-ciutat",
       "position": 23,
       "level": 2,
@@ -574,7 +534,6 @@
       "title": {
         "ca": "Promoure polítiques de joventut"
       },
-
       "slug": "promoure-politiques-de-joventut",
       "position": 24,
       "level": 2,
@@ -585,7 +544,6 @@
       "title": {
         "ca": "Avançar cap a una ciutat més inclusiva i que cuida a les persones vulnerables"
       },
-
       "slug": "avancar-cap-a-una-ciutat-mes-inclusiva-i-que-cuida-a-les-persones-vulnerables",
       "position": 25,
       "level": 1,
@@ -596,7 +554,6 @@
       "title": {
         "ca": "Augmentar la participació social i comunitària de tota la ciutadania"
       },
-
       "slug": "augmentar-la-participacio-social-i-comunitaria-de-tota-la-ciutadania",
       "position": 26,
       "level": 2,
@@ -607,7 +564,6 @@
       "title": {
         "ca": "Reduir la pobresa infantil"
       },
-
       "slug": "reduir-la-pobresa-infantil",
       "position": 27,
       "level": 2,
@@ -618,7 +574,6 @@
       "title": {
         "ca": "Contribuir a construir una ciutat culturalment rica"
       },
-
       "slug": "contribuir-a-construir-una-ciutat-culturalment-rica",
       "position": 28,
       "level": 1,
@@ -629,7 +584,6 @@
       "title": {
         "ca": "Enfortir i crear noves aliances entre els equipaments culturals i els agents educatius i entitats culturals"
       },
-
       "slug": "enfortir-i-crear-noves-aliances-entre-els-equipaments-culturals-i-els-agents-educatius-i-entitats-culturals",
       "position": 29,
       "level": 2,
@@ -640,7 +594,6 @@
       "title": {
         "ca": "Govern transformador i amb lideratge territorial"
       },
-
       "slug": "govern-transformador-i-amb-lideratge-territorial",
       "position": 30,
       "level": 0,
@@ -651,7 +604,6 @@
       "title": {
         "ca": "Fomentar el govern obert"
       },
-
       "slug": "fomentar-el-govern-obert",
       "position": 31,
       "level": 2,
@@ -662,7 +614,6 @@
       "title": {
         "ca": "Millorar l'eficiència del treball dins l'organització"
       },
-
       "slug": "millorar-l-eficiencia-del-treball-dins-l-organitzacio",
       "position": 32,
       "level": 2,
@@ -673,7 +624,6 @@
       "title": {
         "ca": "Fomentar la gestió intel·ligent de la ciutat"
       },
-
       "slug": "fomentar-la-gestio-intel-ligent-de-la-ciutat",
       "position": 33,
       "level": 2,
@@ -684,7 +634,6 @@
       "title": {
         "ca": "Avançar cap a un lideratge territorial"
       },
-
       "slug": "avancar-cap-a-un-lideratge-territorial",
       "position": 34,
       "level": 1,
@@ -695,7 +644,6 @@
       "title": {
         "ca": "Promocionar la ciutat i el territori amb visió de planificació estratègica"
       },
-
       "slug": "promocionar-la-ciutat-i-el-territori-amb-visio-de-planificacio-estrategica",
       "position": 35,
       "level": 2,
@@ -914,7 +862,6 @@
             "title": {
               "ca": "Altres"
             },
-
             "slug": "altres",
             "position": 0,
             "level": 0,
@@ -1465,7 +1412,6 @@
             "title": {
               "ca": "Direcció de Promoció Econòmica"
             },
-
             "slug": "direccio-de-promocio-economica",
             "position": 0,
             "level": 0,
@@ -1476,7 +1422,6 @@
             "title": {
               "ca": "Servei de Protecció Civil i Salut"
             },
-
             "slug": "servei-de-proteccio-civil-i-salut",
             "position": 0,
             "level": 0,
@@ -1487,7 +1432,6 @@
             "title": {
               "ca": "Àrea de Presidència i Estratègia Mataró"
             },
-
             "slug": "area-de-presidencia-i-estrategia-mataro",
             "position": 0,
             "level": 0,
@@ -1498,7 +1442,6 @@
             "title": {
               "ca": "Secció Xarxa d'Equipaments"
             },
-
             "slug": "seccio-xarxa-d-equipaments",
             "position": 0,
             "level": 0,
@@ -1509,7 +1452,6 @@
             "title": {
               "ca": "Direcció de Serveis Econòmics"
             },
-
             "slug": "direccio-de-serveis-economics",
             "position": 0,
             "level": 0,
@@ -1520,7 +1462,6 @@
             "title": {
               "ca": "Servei de Benestar Social"
             },
-
             "slug": "servei-de-benestar-social",
             "position": 0,
             "level": 0,
@@ -1531,7 +1472,6 @@
             "title": {
               "ca": "Secció Igualtat, Joventut i Gent Gran"
             },
-
             "slug": "seccio-igualtat-joventut-i-gent-gran",
             "position": 0,
             "level": 0,
@@ -1542,7 +1482,6 @@
             "title": {
               "ca": "Promoció de Ciutat"
             },
-
             "slug": "promocio-de-ciutat",
             "position": 0,
             "level": 0,
@@ -1553,7 +1492,6 @@
             "title": {
               "ca": "Servei d'Equipaments Municipals"
             },
-
             "slug": "servei-d-equipaments-municipals",
             "position": 0,
             "level": 0,
@@ -1564,7 +1502,6 @@
             "title": {
               "ca": "Servei de Sistemes d'Informació i Telecomunicacions"
             },
-
             "slug": "servei-de-sistemes-d-informacio-i-telecomunicacions",
             "position": 0,
             "level": 0,
@@ -1575,7 +1512,6 @@
             "title": {
               "ca": "Direcció d'Esports"
             },
-
             "slug": "direccio-d-esports",
             "position": 0,
             "level": 0,
@@ -1586,7 +1522,6 @@
             "title": {
               "ca": "Direcció de Transició Ecològica, Sostenibilitat i Espai Públic"
             },
-
             "slug": "direccio-de-transicio-ecologica-sostenibilitat-i-espai-public",
             "position": 0,
             "level": 0,
@@ -1597,7 +1532,6 @@
             "title": {
               "ca": "Secció de Bon Govern, Transparència i Participació"
             },
-
             "slug": "seccio-de-bon-govern-transparencia-i-participacio",
             "position": 0,
             "level": 0,
@@ -1608,7 +1542,6 @@
             "title": {
               "ca": "Direcció d'Ensenyament"
             },
-
             "slug": "direccio-d-ensenyament",
             "position": 0,
             "level": 0,
@@ -1619,7 +1552,6 @@
             "title": {
               "ca": "Direcció de Cultura"
             },
-
             "slug": "direccio-de-cultura",
             "position": 0,
             "level": 0,
@@ -1630,7 +1562,6 @@
             "title": {
               "ca": "Ajuntament de Mataró"
             },
-
             "slug": "ajuntament-de-mataro",
             "position": 0,
             "level": 0,
@@ -1641,7 +1572,6 @@
             "title": {
               "ca": "Servei d'Espais Públics"
             },
-
             "slug": "servei-d-espais-publics",
             "position": 0,
             "level": 0,
@@ -1782,7 +1712,6 @@
             "title": {
               "ca": "Liderar l'estratègia de desenvolupament sostenible de l'Agenda 2030"
             },
-
             "slug": "liderar-l-estrategia-de-desenvolupament-sostenible-de-l-agenda-2030",
             "position": 0,
             "level": 2,
@@ -1793,7 +1722,6 @@
             "title": {
               "ca": "Apropar l'administració a la ciutadania"
             },
-
             "slug": "apropar-l-administracio-a-la-ciutadania",
             "position": 0,
             "level": 2,
@@ -1804,7 +1732,6 @@
             "title": {
               "ca": "Consolidar un model d'administració propera, intel·ligent, oberta i participativa"
             },
-
             "slug": "consolidar-un-model-d-administracio-propera-intel-ligent-oberta-i-participativa",
             "position": 0,
             "level": 1,
@@ -1815,7 +1742,6 @@
             "title": {
               "ca": "Planificar l'estratègia cultural de la ciutat"
             },
-
             "slug": "planificar-l-estrategia-cultural-de-la-ciutat",
             "position": 0,
             "level": 2,
@@ -1826,7 +1752,6 @@
             "title": {
               "ca": "Fer accesible la pràctica esportiva al conjunt de la ciutadania"
             },
-
             "slug": "fer-accesible-la-practica-esportiva-al-conjunt-de-la-ciutadania",
             "position": 0,
             "level": 2,
@@ -1837,7 +1762,6 @@
             "title": {
               "ca": "Impulsar actuacions amb perspectiva de gènere"
             },
-
             "slug": "impulsar-actuacions-amb-perspectiva-de-genere",
             "position": 0,
             "level": 2,
@@ -1848,7 +1772,6 @@
             "title": {
               "ca": "Fomentar una societat cohesionada i saludable"
             },
-
             "slug": "fomentar-una-societat-cohesionada-i-saludable",
             "position": 0,
             "level": 1,
@@ -1859,7 +1782,6 @@
             "title": {
               "ca": "Optimitzar l'ordenació urbanística territorial"
             },
-
             "slug": "optimitzar-l-ordenacio-urbanistica-territorial",
             "position": 0,
             "level": 2,
@@ -1870,7 +1792,6 @@
             "title": {
               "ca": "Millorar la seguretat ciutadana"
             },
-
             "slug": "millorar-la-seguretat-ciutadana",
             "position": 0,
             "level": 2,
@@ -1881,7 +1802,6 @@
             "title": {
               "ca": "Fomentar un Manlleu net i segur"
             },
-
             "slug": "fomentar-un-manlleu-net-i-segur",
             "position": 0,
             "level": 1,
@@ -1892,7 +1812,6 @@
             "title": {
               "ca": "Fomentar l'emprenedoria i acompanyar l'activitat econòmica"
             },
-
             "slug": "fomentar-l-emprenedoria-i-acompanyar-l-activitat-economica",
             "position": 0,
             "level": 2,
@@ -1903,7 +1822,6 @@
             "title": {
               "ca": "Capacitar a les persones per tal d'adequar les seves competències a les necessitats i oportunitats del mercat de treball"
             },
-
             "slug": "capacitar-a-les-persones-per-tal-d-adequar-les-seves-competencies-a-les-necessitats-i-oportunitats-del-mercat-de-treball",
             "position": 0,
             "level": 2,
@@ -1914,7 +1832,6 @@
             "title": {
               "ca": "Millorar l'ocupació i la qualitat del treball"
             },
-
             "slug": "millorar-l-ocupacio-i-la-qualitat-del-treball",
             "position": 0,
             "level": 1,
@@ -1925,7 +1842,6 @@
             "title": {
               "ca": "Millorar els nivells formatius de la ciutadania"
             },
-
             "slug": "millorar-els-nivells-formatius-de-la-ciutadania",
             "position": 0,
             "level": 2,
@@ -1936,7 +1852,6 @@
             "title": {
               "ca": "Enfortir els centres de formació integral"
             },
-
             "slug": "enfortir-els-centres-de-formacio-integral",
             "position": 0,
             "level": 2,
@@ -1947,7 +1862,6 @@
             "title": {
               "ca": "Esdevenir un referent en la formació professional i universitària"
             },
-
             "slug": "esdevenir-un-referent-en-la-formacio-professional-i-universitaria",
             "position": 0,
             "level": 1,
@@ -1958,7 +1872,6 @@
             "title": {
               "ca": "Ciutat educadora i del coneixement"
             },
-
             "slug": "ciutat-educadora-i-del-coneixement",
             "position": 0,
             "level": 0,
@@ -1969,7 +1882,6 @@
             "title": {
               "ca": "Aconseguir iniciar estudis universitaris i de la UVIC superiors"
             },
-
             "slug": "aconseguir-iniciar-estudis-universitaris-i-de-la-uvic-superiors",
             "position": 1,
             "level": 2,
@@ -1980,7 +1892,6 @@
             "title": {
               "ca": "Incrementar l'oferta de formació professional pública i privada"
             },
-
             "slug": "incrementar-l-oferta-de-formacio-professional-publica-i-privada",
             "position": 2,
             "level": 2,
@@ -1991,7 +1902,6 @@
             "title": {
               "ca": "Garantir oportunitats educatives i formatives de qualitat al llarg i ample de la vida"
             },
-
             "slug": "garantir-oportunitats-educatives-i-formatives-de-qualitat-al-llarg-i-ample-de-la-vida",
             "position": 3,
             "level": 1,
@@ -2002,7 +1912,6 @@
             "title": {
               "ca": "Reduir les desigualtats en l'accés a les activitats socioeducatives"
             },
-
             "slug": "reduir-les-desigualtats-en-l-acces-a-les-activitats-socioeducatives",
             "position": 4,
             "level": 2,
@@ -2013,7 +1922,6 @@
             "title": {
               "ca": "Aconseguir una escolarització equilibrada"
             },
-
             "slug": "aconseguir-una-escolaritzacio-equilibrada",
             "position": 5,
             "level": 2,
@@ -2024,7 +1932,6 @@
             "title": {
               "ca": "Ciutat generadora d'ocupació i dinamitzadora econòmicament"
             },
-
             "slug": "ciutat-generadora-d-ocupacio-i-dinamitzadora-economicament",
             "position": 6,
             "level": 0,
@@ -2035,7 +1942,6 @@
             "title": {
               "ca": "Oferir orientació i acompanyament a les persones demandants d'ocupació i/o a les persones que aspiren a una millora laboral"
             },
-
             "slug": "oferir-orientacio-i-acompanyament-a-les-persones-demandants-d-ocupacio-i-o-a-les-persones-que-aspiren-a-una-millora-laboral",
             "position": 7,
             "level": 2,
@@ -2046,7 +1952,6 @@
             "title": {
               "ca": "Facilitar l'encaix entre l'oferta i la demanda d'ocupació"
             },
-
             "slug": "facilitar-l-encaix-entre-l-oferta-i-la-demanda-d-ocupacio",
             "position": 8,
             "level": 2,
@@ -2057,7 +1962,6 @@
             "title": {
               "ca": "Diversificar l'activitat econòmica i millorar el teixti empresarial, comercial i industrial del territori"
             },
-
             "slug": "diversificar-l-activitat-economica-i-millorar-el-teixti-empresarial-comercial-i-industrial-del-territori",
             "position": 9,
             "level": 1,
@@ -2068,7 +1972,6 @@
             "title": {
               "ca": "Impulsar i dinamitzar el comerç de proximitat"
             },
-
             "slug": "impulsar-i-dinamitzar-el-comerc-de-proximitat",
             "position": 10,
             "level": 2,
@@ -2079,7 +1982,6 @@
             "title": {
               "ca": "Dinamitzar, consolidar i interrelacionar el teixit empresarial"
             },
-
             "slug": "dinamitzar-consolidar-i-interrelacionar-el-teixit-empresarial",
             "position": 11,
             "level": 2,
@@ -2090,7 +1992,6 @@
             "title": {
               "ca": "Ciutat amable i sostenible"
             },
-
             "slug": "ciutat-amable-i-sostenible",
             "position": 12,
             "level": 0,
@@ -2101,7 +2002,6 @@
             "title": {
               "ca": "Millorar la seguretat viària"
             },
-
             "slug": "millorar-la-seguretat-viaria",
             "position": 13,
             "level": 2,
@@ -2112,7 +2012,6 @@
             "title": {
               "ca": "Millorar la neteja i la recollida selectiva"
             },
-
             "slug": "millorar-la-neteja-i-la-recollida-selectiva",
             "position": 14,
             "level": 2,
@@ -2123,7 +2022,6 @@
             "title": {
               "ca": "Vetllar per un desenvolupament urbanístic atractiu, sostenible i adaptat a les diferents necessitats de la ciutadania"
             },
-
             "slug": "vetllar-per-un-desenvolupament-urbanistic-atractiu-sostenible-i-adaptat-a-les-diferents-necessitats-de-la-ciutadania",
             "position": 15,
             "level": 1,
@@ -2134,7 +2032,6 @@
             "title": {
               "ca": "Incrementar l'oferta d'equipaments i infraestructures municipals"
             },
-
             "slug": "incrementar-l-oferta-d-equipaments-i-infraestructures-municipals",
             "position": 16,
             "level": 2,
@@ -2145,7 +2042,6 @@
             "title": {
               "ca": "Actuar localment pel canvi climàtic"
             },
-
             "slug": "actuar-localment-pel-canvi-climatic",
             "position": 17,
             "level": 2,
@@ -2156,7 +2052,6 @@
             "title": {
               "ca": "Conservar i millorar la biodiversitat a la llera del Ter"
             },
-
             "slug": "conservar-i-millorar-la-biodiversitat-a-la-llera-del-ter",
             "position": 18,
             "level": 2,
@@ -2167,7 +2062,6 @@
             "title": {
               "ca": "Ciutat inclusiva i al servei de les persones"
             },
-
             "slug": "ciutat-inclusiva-i-al-servei-de-les-persones",
             "position": 19,
             "level": 0,
@@ -2178,7 +2072,6 @@
             "title": {
               "ca": "Garantir que totes les persones tinguin accés a un habitatge"
             },
-
             "slug": "garantir-que-totes-les-persones-tinguin-acces-a-un-habitatge",
             "position": 20,
             "level": 2,
@@ -2189,7 +2082,6 @@
             "title": {
               "ca": "Promoure la salut comunitària"
             },
-
             "slug": "promoure-la-salut-comunitaria",
             "position": 21,
             "level": 2,
@@ -2200,7 +2092,6 @@
             "title": {
               "ca": "Promoure la salut pública"
             },
-
             "slug": "promoure-la-salut-publica",
             "position": 22,
             "level": 2,
@@ -2211,7 +2102,6 @@
             "title": {
               "ca": "Promoure la convivència i harmonia social dins de la ciutat"
             },
-
             "slug": "promoure-la-convivencia-i-harmonia-social-dins-de-la-ciutat",
             "position": 23,
             "level": 2,
@@ -2222,7 +2112,6 @@
             "title": {
               "ca": "Promoure polítiques de joventut"
             },
-
             "slug": "promoure-politiques-de-joventut",
             "position": 24,
             "level": 2,
@@ -2233,7 +2122,6 @@
             "title": {
               "ca": "Avançar cap a una ciutat més inclusiva i que cuida a les persones vulnerables"
             },
-
             "slug": "avancar-cap-a-una-ciutat-mes-inclusiva-i-que-cuida-a-les-persones-vulnerables",
             "position": 25,
             "level": 1,
@@ -2244,7 +2132,6 @@
             "title": {
               "ca": "Augmentar la participació social i comunitària de tota la ciutadania"
             },
-
             "slug": "augmentar-la-participacio-social-i-comunitaria-de-tota-la-ciutadania",
             "position": 26,
             "level": 2,
@@ -2255,7 +2142,6 @@
             "title": {
               "ca": "Reduir la pobresa infantil"
             },
-
             "slug": "reduir-la-pobresa-infantil",
             "position": 27,
             "level": 2,
@@ -2266,7 +2152,6 @@
             "title": {
               "ca": "Contribuir a construir una ciutat culturalment rica"
             },
-
             "slug": "contribuir-a-construir-una-ciutat-culturalment-rica",
             "position": 28,
             "level": 1,
@@ -2277,7 +2162,6 @@
             "title": {
               "ca": "Enfortir i crear noves aliances entre els equipaments culturals i els agents educatius i entitats culturals"
             },
-
             "slug": "enfortir-i-crear-noves-aliances-entre-els-equipaments-culturals-i-els-agents-educatius-i-entitats-culturals",
             "position": 29,
             "level": 2,
@@ -2288,7 +2172,6 @@
             "title": {
               "ca": "Govern transformador i amb lideratge territorial"
             },
-
             "slug": "govern-transformador-i-amb-lideratge-territorial",
             "position": 30,
             "level": 0,
@@ -2299,7 +2182,6 @@
             "title": {
               "ca": "Fomentar el govern obert"
             },
-
             "slug": "fomentar-el-govern-obert",
             "position": 31,
             "level": 2,
@@ -2310,7 +2192,6 @@
             "title": {
               "ca": "Millorar l'eficiència del treball dins l'organització"
             },
-
             "slug": "millorar-l-eficiencia-del-treball-dins-l-organitzacio",
             "position": 32,
             "level": 2,
@@ -2321,7 +2202,6 @@
             "title": {
               "ca": "Fomentar la gestió intel·ligent de la ciutat"
             },
-
             "slug": "fomentar-la-gestio-intel-ligent-de-la-ciutat",
             "position": 33,
             "level": 2,
@@ -2332,7 +2212,6 @@
             "title": {
               "ca": "Avançar cap a un lideratge territorial"
             },
-
             "slug": "avancar-cap-a-un-lideratge-territorial",
             "position": 34,
             "level": 1,
@@ -2343,7 +2222,6 @@
             "title": {
               "ca": "Promocionar la ciutat i el territori amb visió de planificació estratègica"
             },
-
             "slug": "promocionar-la-ciutat-i-el-territori-amb-visio-de-planificacio-estrategica",
             "position": 35,
             "level": 2,

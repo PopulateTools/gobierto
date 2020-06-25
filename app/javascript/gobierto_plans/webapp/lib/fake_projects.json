@@ -1,20 +1,22 @@
 [
   {
-    "id": 11972,
-    "uid": "2.0.0.0",
-    "category_id": 8296,
+    "id": 42446,
+    "uid": "2.0.0.2",
+    "category_id": 8279,
     "type": "node",
     "level": 3,
     "attributes": {
       "title": {
-        "ca": "Realització de controls preventius de delictes sobre el patrimoni",
-        "es": ""
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
       },
       "parent_id": 7544,
-      "progress": 0.0,
-      "starts_at": "2020-01-01",
-      "ends_at": "2023-12-31",
-      "status": { "ca": "Iniciat", "es": "Iniciado" },
+      "progress": 18,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
       "options": null,
       "plugins_data": {
         "budgets": {
@@ -30,130 +32,30 @@
           "budgeted_amount": null,
           "executed_amount": null,
           "executed_percentage": null
-        },
-        "raw_indicators": {
-          "title_translations": {
-            "ca": "Altres indicadors",
-            "es": "Otros indicadores"
-          },
-          "data": [
-            {
-              "id": "Nombre d'identificacions i controls de seguretat ciutadana per cada 1.000 habitants",
-              "name": "Nombre d'identificacions i controls de seguretat ciutadana per cada 1.000 habitants",
-              "description": null,
-              "objective": 21.0,
-              "value": 19.0,
-              "date": "2020"
-            }
-          ]
         }
       },
-      "custom_field_records": [
-        {
-          "value": "ca",
-          "raw_value": { "ca": "ca", "es": "" },
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Pressupost al que s'assigna la despesa",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_string",
-          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
-        },
-        {
-          "value": "Ciutats y comunitats sostenibles",
-          "raw_value": "7045",
-          "external_id": "11",
-          "custom_field_name_translations": { "ca": "ODS", "es": "" },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "sdgs"
-        },
-        {
-          "value": "MAND",
-          "raw_value": "7616",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Tipologia d'actuació",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "tipologia-d-actuacio"
-        },
-        {
-          "value": "0.0",
-          "raw_value": 0.0,
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Cost previst (€)",
-            "es": ""
-          },
-          "custom_field_field_type": "numeric",
-          "custom_field_id": "cost-previst"
-        },
-        {
-          "value": "Jesús Calvo",
-          "raw_value": ["7611"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Persona responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "persona-responsable"
-        },
-        {
-          "value": "Policia Local",
-          "raw_value": "7605",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Unitat responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "unitat-responsable"
-        },
-        {
-          "value": "Mossos Esquadra",
-          "raw_value": ["7623"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Altres unitats implicades",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "altres-unitats-implicades"
-        },
-        {
-          "value": "Superior a la mitjana de la província de Barcelon d'acord les dades dels Cercles Comparació Intermunicipal DIBA",
-          "raw_value": {
-            "ca": "Superior a la mitjana de la província de Barcelon d'acord les dades dels Cercles Comparació Intermunicipal DIBA",
-            "es": ""
-          },
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Altres observacions",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_paragraph",
-          "custom_field_id": "altres-observacions"
-        }
-      ]
+      "custom_field_records": []
     },
     "children": []
   },
   {
-    "id": 11973,
-    "uid": "2.0.0.1",
-    "category_id": 8296,
+    "id": 26787,
+    "uid": "2.0.0.2",
+    "category_id": 8273,
     "type": "node",
     "level": 3,
     "attributes": {
-      "title": { "ca": "Instal·lació de càmares de seguretat ciutadana" },
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
       "parent_id": 7544,
-      "progress": 10.0,
-      "starts_at": "2020-01-01",
-      "ends_at": "2022-12-31",
-      "status": { "ca": "Planificat", "es": "" },
+      "progress": 12,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
       "options": null,
       "plugins_data": {
         "budgets": {
@@ -169,118 +71,1067 @@
           "budgeted_amount": null,
           "executed_amount": null,
           "executed_percentage": null
-        },
-        "raw_indicators": {
-          "title_translations": {
-            "ca": "Altres indicadors",
-            "es": "Otros indicadores"
-          },
-          "data": [
-            {
-              "id": "Nombre de càmeres instal·lades",
-              "name": "Nombre de càmeres instal·lades",
-              "description": null,
-              "objective": 5.0,
-              "value": 4.0,
-              "date": "2020"
-            }
-          ]
         }
       },
-      "custom_field_records": [
-        {
-          "value": "2021",
-          "raw_value": { "ca": "2021" },
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Pressupost al que s'assigna la despesa",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_string",
-          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
-        },
-        {
-          "value": "Ciutats y comunitats sostenibles",
-          "raw_value": "7045",
-          "external_id": "11",
-          "custom_field_name_translations": { "ca": "ODS", "es": "" },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "sdgs"
-        },
-        {
-          "value": "OBR",
-          "raw_value": "7617",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Tipologia d'actuació",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "tipologia-d-actuacio"
-        },
-        {
-          "value": "70000.0",
-          "raw_value": 70000.0,
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Cost previst (€)",
-            "es": ""
-          },
-          "custom_field_field_type": "numeric",
-          "custom_field_id": "cost-previst"
-        },
-        {
-          "value": "Jesús Calvo",
-          "raw_value": ["7611"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Persona responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "persona-responsable"
-        },
-        {
-          "value": "Policia Local",
-          "raw_value": "7605",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Unitat responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "unitat-responsable"
-        },
-        {
-          "value": "Serveis Territorials",
-          "raw_value": ["7606"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Altres unitats implicades",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "altres-unitats-implicades"
-        },
-        {
-          "value": "Cobrir totes les entrades de Manlleu i la cruïlla Avda. Roma i Passeig de Sant Joan",
-          "raw_value": {
-            "ca": "Cobrir totes les entrades de Manlleu i la cruïlla Avda. Roma i Passeig de Sant Joan"
-          },
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Altres observacions",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_paragraph",
-          "custom_field_id": "altres-observacions"
-        }
-      ]
+      "custom_field_records": []
     },
     "children": []
   },
   {
-    "id": 11974,
+    "id": 12149,
+    "uid": "2.0.0.2",
+    "category_id": 8254,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 39,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 5440,
+    "uid": "2.0.0.2",
+    "category_id": 8258,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 71,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 56372,
+    "uid": "2.0.0.2",
+    "category_id": 8292,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 64,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 16455,
+    "uid": "2.0.0.2",
+    "category_id": 8273,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 80,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 43531,
+    "uid": "2.0.0.2",
+    "category_id": 8277,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 39,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 91048,
+    "uid": "2.0.0.2",
+    "category_id": 8263,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 42,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 2883,
+    "uid": "2.0.0.2",
+    "category_id": 8268,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 35,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 61271,
+    "uid": "2.0.0.2",
+    "category_id": 8268,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 82,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 42516,
+    "uid": "2.0.0.2",
+    "category_id": 8278,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 12,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 41258,
+    "uid": "2.0.0.2",
+    "category_id": 8280,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 67,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 5438,
+    "uid": "2.0.0.2",
+    "category_id": 8294,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 7,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 39803,
+    "uid": "2.0.0.2",
+    "category_id": 8252,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 71,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 32608,
+    "uid": "2.0.0.2",
+    "category_id": 8248,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 1,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 59618,
+    "uid": "2.0.0.2",
+    "category_id": 8278,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 45,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 589,
+    "uid": "2.0.0.2",
+    "category_id": 8278,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 59,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 16220,
+    "uid": "2.0.0.2",
+    "category_id": 8267,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 78,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 52670,
+    "uid": "2.0.0.2",
+    "category_id": 8271,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 56,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 45951,
+    "uid": "2.0.0.2",
+    "category_id": 8252,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 90,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 60317,
+    "uid": "2.0.0.2",
+    "category_id": 8259,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 61,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 13469,
+    "uid": "2.0.0.2",
+    "category_id": 8283,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 33,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 56493,
+    "uid": "2.0.0.2",
+    "category_id": 8291,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 78,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 56923,
+    "uid": "2.0.0.2",
+    "category_id": 8268,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 1,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 31154,
+    "uid": "2.0.0.2",
+    "category_id": 8261,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 87,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 59693,
+    "uid": "2.0.0.2",
+    "category_id": 8258,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 63,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 3952,
+    "uid": "2.0.0.2",
+    "category_id": 8288,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 4,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 5388,
+    "uid": "2.0.0.2",
+    "category_id": 8263,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 62,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 74653,
+    "uid": "2.0.0.2",
+    "category_id": 8254,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 26,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 21033,
     "uid": "2.0.0.2",
     "category_id": 8296,
     "type": "node",
@@ -290,10 +1141,13 @@
         "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
       },
       "parent_id": 7544,
-      "progress": 50.0,
+      "progress": 12,
       "starts_at": "2019-06-01",
       "ends_at": "2022-09-01",
-      "status": { "ca": "Aturat", "es": "" },
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
       "options": null,
       "plugins_data": {
         "budgets": {
@@ -311,111 +1165,1354 @@
           "executed_percentage": null
         }
       },
-      "custom_field_records": [
-        {
-          "value": "No Aplica",
-          "raw_value": { "ca": "No Aplica" },
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Pressupost al que s'assigna la despesa",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_string",
-          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
-        },
-        {
-          "value": "Ciutats y comunitats sostenibles",
-          "raw_value": "7045",
-          "external_id": "11",
-          "custom_field_name_translations": { "ca": "ODS", "es": "" },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "sdgs"
-        },
-        {
-          "value": "PLAN",
-          "raw_value": "7618",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Tipologia d'actuació",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "tipologia-d-actuacio"
-        },
-        {
-          "value": "0.0",
-          "raw_value": 0.0,
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Cost previst (€)",
-            "es": ""
-          },
-          "custom_field_field_type": "numeric",
-          "custom_field_id": "cost-previst"
-        },
-        {
-          "value": "Jesús Calvo",
-          "raw_value": ["7611"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Persona responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "persona-responsable"
-        },
-        {
-          "value": "Policia Local",
-          "raw_value": "7605",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Unitat responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "unitat-responsable"
-        },
-        {
-          "value": "Transversal",
-          "raw_value": ["7625"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Altres unitats implicades",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "altres-unitats-implicades"
-        },
-        {
-          "value": null,
-          "raw_value": {},
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Altres observacions",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_paragraph",
-          "custom_field_id": "altres-observacions"
-        }
-      ]
+      "custom_field_records": []
     },
     "children": []
   },
   {
-    "id": 11975,
-    "uid": "2.0.0.3",
+    "id": 81940,
+    "uid": "2.0.0.2",
+    "category_id": 8253,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 82,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 61643,
+    "uid": "2.0.0.2",
+    "category_id": 8254,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 87,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 51134,
+    "uid": "2.0.0.2",
+    "category_id": 8261,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 65,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 38367,
+    "uid": "2.0.0.2",
+    "category_id": 8288,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 43,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 91574,
+    "uid": "2.0.0.2",
+    "category_id": 8292,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 81,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 82420,
+    "uid": "2.0.0.2",
+    "category_id": 8261,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 56,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 12429,
+    "uid": "2.0.0.2",
+    "category_id": 8271,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 28,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 56302,
+    "uid": "2.0.0.2",
+    "category_id": 8291,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 62,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 30393,
+    "uid": "2.0.0.2",
+    "category_id": 8271,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 65,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 96558,
+    "uid": "2.0.0.2",
+    "category_id": 8252,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 88,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 95415,
+    "uid": "2.0.0.2",
+    "category_id": 8271,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 26,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 30014,
+    "uid": "2.0.0.2",
+    "category_id": 8250,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 56,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 17754,
+    "uid": "2.0.0.2",
+    "category_id": 8272,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 83,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 45051,
+    "uid": "2.0.0.2",
+    "category_id": 8273,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 98,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 16799,
+    "uid": "2.0.0.2",
+    "category_id": 8254,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 51,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 62165,
+    "uid": "2.0.0.2",
+    "category_id": 8277,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 34,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 20441,
+    "uid": "2.0.0.2",
+    "category_id": 8284,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 71,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 86524,
+    "uid": "2.0.0.2",
+    "category_id": 8249,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 34,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 23992,
+    "uid": "2.0.0.2",
     "category_id": 8296,
     "type": "node",
     "level": 3,
     "attributes": {
       "title": {
-        "ca": "Controls i sancions a conductes incíviques en base al Pla de convivència en la diversitat"
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
       },
       "parent_id": 7544,
-      "progress": 100.0,
-      "starts_at": "2020-01-01",
-      "ends_at": "2023-12-31",
-      "status": { "ca": "Finalizat", "es": "" },
+      "progress": 11,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 95902,
+    "uid": "2.0.0.2",
+    "category_id": 8263,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 75,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 45569,
+    "uid": "2.0.0.2",
+    "category_id": 8296,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 26,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 41987,
+    "uid": "2.0.0.2",
+    "category_id": 8279,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 48,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 27362,
+    "uid": "2.0.0.2",
+    "category_id": 8254,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 59,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 33589,
+    "uid": "2.0.0.2",
+    "category_id": 8258,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 48,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 87528,
+    "uid": "2.0.0.2",
+    "category_id": 8287,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 88,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 847,
+    "uid": "2.0.0.2",
+    "category_id": 8281,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 61,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 99050,
+    "uid": "2.0.0.2",
+    "category_id": 8280,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 30,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 71660,
+    "uid": "2.0.0.2",
+    "category_id": 8277,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 85,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 29561,
+    "uid": "2.0.0.2",
+    "category_id": 8253,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 85,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 77230,
+    "uid": "2.0.0.2",
+    "category_id": 8281,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 88,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 37071,
+    "uid": "2.0.0.2",
+    "category_id": 8257,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 4,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 62178,
+    "uid": "2.0.0.2",
+    "category_id": 8281,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 51,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 80410,
+    "uid": "2.0.0.2",
+    "category_id": 8271,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 90,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 52134,
+    "uid": "2.0.0.2",
+    "category_id": 8253,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 45,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 658,
+    "uid": "2.0.0.2",
+    "category_id": 8262,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 74,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
       "options": null,
       "plugins_data": {
         "budgets": {
@@ -439,493 +2536,126 @@
           },
           "data": [
             {
-              "id": "Nombre de controls anual/ Nre de sancions",
-              "name": "Nombre de controls anual/ Nre de sancions",
+              "id": "Habitantes afectados",
+              "name": "Habitantes afectados",
               "description": null,
-              "objective": 600.0,
-              "value": 600.0,
-              "date": "2019"
+              "objective": 100,
+              "value": 50,
+              "date": "2019-01-01"
+            },
+            {
+              "id": "Habitantes afectados",
+              "name": "Habitantes afectados",
+              "description": null,
+              "objective": 120,
+              "value": 70,
+              "date": "2019-02-01"
+            },
+            {
+              "id": "Habitantes afectados",
+              "name": "Habitantes afectados",
+              "description": null,
+              "objective": 100,
+              "value": 90,
+              "date": "2019-04-01"
+            },
+            {
+              "id": "Habitantes afectados",
+              "name": "Habitantes afectados",
+              "description": null,
+              "objective": 150,
+              "value": 100,
+              "date": "2019-03-01"
             }
           ]
         }
       },
       "custom_field_records": [
-        {
-          "value": "No Aplica",
-          "raw_value": { "ca": "No Aplica" },
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Pressupost al que s'assigna la despesa",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_string",
-          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
-        },
-        {
-          "value": "Ciutats y comunitats sostenibles",
-          "raw_value": "7045",
-          "external_id": "11",
-          "custom_field_name_translations": { "ca": "ODS", "es": "" },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "sdgs"
-        },
-        {
-          "value": "MAND",
-          "raw_value": "7616",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Tipologia d'actuació",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "tipologia-d-actuacio"
-        },
-        {
-          "value": "0.0",
-          "raw_value": 0.0,
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Cost previst (€)",
-            "es": ""
-          },
-          "custom_field_field_type": "numeric",
-          "custom_field_id": "cost-previst"
-        },
-        {
-          "value": "Jesús Calvo",
-          "raw_value": ["7611"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Persona responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "persona-responsable"
-        },
-        {
-          "value": "Policia Local",
-          "raw_value": "7605",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Unitat responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "unitat-responsable"
-        },
         {
           "value": "",
-          "raw_value": null,
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Altres unitats implicades",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "altres-unitats-implicades"
-        },
-        {
-          "value": null,
-          "raw_value": {},
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Altres observacions",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_paragraph",
-          "custom_field_id": "altres-observacions"
-        }
-      ]
-    },
-    "children": []
-  },
-  {
-    "id": 11976,
-    "uid": "2.0.0.4",
-    "category_id": 8291,
-    "type": "node",
-    "level": 3,
-    "attributes": {
-      "title": {
-        "ca": "Realització de controls pel consum o tinença de drogues a la via pública"
-      },
-      "parent_id": 7544,
-      "progress": 0.0,
-      "starts_at": "2020-01-01",
-      "ends_at": "2023-12-31",
-      "status": { "ca": "En curs", "es": "" },
-      "options": null,
-      "plugins_data": {
-        "budgets": {
-          "title_translations": {
-            "es": "Presupuesto",
-            "en": "Budget",
-            "ca": "Pressupost"
-          },
-          "detail": {
-            "link": "http://diba-plan.gobify.net/presupuestos",
-            "text": "veure detall en Pressupostos"
-          },
-          "budgeted_amount": null,
-          "executed_amount": null,
-          "executed_percentage": null
-        },
-        "raw_indicators": {
-          "title_translations": {
-            "ca": "Altres indicadors",
-            "es": "Otros indicadores"
-          },
-          "data": [
-            {
-              "id": "Nre de controls anuals/ Nre de persones denunciades",
-              "name": "Nre de controls anuals/ Nre de persones denunciades",
-              "description": null,
-              "objective": 200.0,
-              "value": 150.0,
-              "date": "2020"
-            }
-          ]
-        }
-      },
-      "custom_field_records": [
-        {
-          "value": "2021-2023",
-          "raw_value": { "ca": "2021-2023" },
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Pressupost al que s'assigna la despesa",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_string",
-          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
-        },
-        {
-          "value": "Salut i benestar",
-          "raw_value": "7037",
-          "external_id": "3",
-          "custom_field_name_translations": { "ca": "ODS", "es": "" },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "sdgs"
-        },
-        {
-          "value": "MAND",
-          "raw_value": "7616",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Tipologia d'actuació",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "tipologia-d-actuacio"
-        },
-        {
-          "value": "30000.0",
-          "raw_value": 30000.0,
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Cost previst (€)",
-            "es": ""
-          },
-          "custom_field_field_type": "numeric",
-          "custom_field_id": "cost-previst"
-        },
-        {
-          "value": "Jesús Calvo",
-          "raw_value": ["7611"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Persona responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "persona-responsable"
-        },
-        {
-          "value": "Policia Local",
-          "raw_value": "7605",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Unitat responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "unitat-responsable"
-        },
-        {
-          "value": "Mossos Esquadra",
-          "raw_value": ["7623"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Altres unitats implicades",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "altres-unitats-implicades"
-        },
-        {
-          "value": "Brigada canina",
-          "raw_value": { "ca": "Brigada canina" },
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Altres observacions",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_paragraph",
-          "custom_field_id": "altres-observacions"
-        }
-      ]
-    },
-    "children": []
-  },
-  {
-    "id": 11977,
-    "uid": "2.0.0.5",
-    "category_id": 8291,
-    "type": "node",
-    "level": 3,
-    "attributes": {
-      "title": {
-        "ca": "Construcció i posada en funcionament d'una nova comissaria"
-      },
-      "parent_id": 7544,
-      "progress": 10.0,
-      "starts_at": "2020-01-01",
-      "ends_at": "2022-05-31",
-      "status": { "ca": "Iniciat", "es": "Iniciado" },
-      "options": null,
-      "plugins_data": {
-        "budgets": {
-          "title_translations": {
-            "es": "Presupuesto",
-            "en": "Budget",
-            "ca": "Pressupost"
-          },
-          "detail": {
-            "link": "http://diba-plan.gobify.net/presupuestos",
-            "text": "veure detall en Pressupostos"
-          },
-          "budgeted_amount": null,
-          "executed_amount": null,
-          "executed_percentage": null
-        }
-      },
-      "custom_field_records": [
-        {
-          "value": "2021-2023",
-          "raw_value": { "ca": "2021-2023" },
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Pressupost al que s'assigna la despesa",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_string",
-          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
-        },
-        {
-          "value": "Ciutats y comunitats sostenibles",
-          "raw_value": "7045",
-          "external_id": "11",
-          "custom_field_name_translations": { "ca": "ODS", "es": "" },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "sdgs"
-        },
-        {
-          "value": "OBR",
-          "raw_value": "7617",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Tipologia d'actuació",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "tipologia-d-actuacio"
-        },
-        {
-          "value": "1500000.0",
-          "raw_value": 1500000.0,
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Cost previst (€)",
-            "es": ""
-          },
-          "custom_field_field_type": "numeric",
-          "custom_field_id": "cost-previst"
-        },
-        {
-          "value": "Josep Pou",
-          "raw_value": ["7612"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Persona responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "persona-responsable"
-        },
-        {
-          "value": "Serveis Territorials",
-          "raw_value": "7606",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Unitat responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "unitat-responsable"
-        },
-        {
-          "value": "Policia Local",
-          "raw_value": ["7605"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Altres unitats implicades",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "altres-unitats-implicades"
-        },
-        {
-          "value": null,
-          "raw_value": {},
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Altres observacions",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_paragraph",
-          "custom_field_id": "altres-observacions"
-        }
-      ]
-    },
-    "children": []
-  },
-  {
-    "id": 11978,
-    "uid": "2.0.0.6",
-    "category_id": 8291,
-    "type": "node",
-    "level": 3,
-    "attributes": {
-      "title": {
-        "ca": "Realització de formació i xerrades preventives en matèria de seguretat ciutadana"
-      },
-      "parent_id": 7544,
-      "progress": 50.0,
-      "starts_at": "2020-01-01",
-      "ends_at": "2023-12-31",
-      "status": { "ca": "Planificat", "es": "" },
-      "options": null,
-      "plugins_data": {
-        "budgets": {
-          "title_translations": {
-            "es": "Presupuesto",
-            "en": "Budget",
-            "ca": "Pressupost"
-          },
-          "detail": {
-            "link": "http://diba-plan.gobify.net/presupuestos",
-            "text": "veure detall en Pressupostos"
-          },
-          "budgeted_amount": null,
-          "executed_amount": null,
-          "executed_percentage": null
-        },
-        "raw_indicators": {
-          "title_translations": {
-            "ca": "Altres indicadors",
-            "es": "Otros indicadores"
-          },
-          "data": [
-            {
-              "id": "Ciutadans assistents a accions formatives per cada 1.000 habitants",
-              "name": "Ciutadans assistents a accions formatives per cada 1.000 habitants",
-              "description": null,
-              "objective": 126.0,
-              "value": 76.0,
-              "date": "2020"
-            }
-          ]
-        }
-      },
-      "custom_field_records": [
-        {
-          "value": "No Aplica",
-          "raw_value": { "ca": "No Aplica" },
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Pressupost al que s'assigna la despesa",
-            "es": ""
-          },
-          "custom_field_field_type": "localized_string",
-          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
-        },
-        {
-          "value": "Ciutats y comunitats sostenibles",
-          "raw_value": "7045",
-          "external_id": "11",
-          "custom_field_name_translations": { "ca": "ODS", "es": "" },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "sdgs"
-        },
-        {
-          "value": "MAND",
-          "raw_value": "7616",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Tipologia d'actuació",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "tipologia-d-actuacio"
-        },
-        {
-          "value": "0.0",
-          "raw_value": 0.0,
-          "external_id": null,
-          "custom_field_name_translations": {
-            "ca": "Cost previst (€)",
-            "es": ""
-          },
-          "custom_field_field_type": "numeric",
-          "custom_field_id": "cost-previst"
-        },
-        {
-          "value": "Jesús Calvo",
-          "raw_value": ["7611"],
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Persona responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "persona-responsable"
-        },
-        {
-          "value": "Policia Local",
-          "raw_value": "7605",
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Unitat responsable",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "unitat-responsable"
-        },
-        {
-          "value": "",
-          "raw_value": null,
-          "external_id": "",
-          "custom_field_name_translations": {
-            "ca": "Altres unitats implicades",
-            "es": ""
-          },
-          "custom_field_field_type": "vocabulary_options",
-          "custom_field_id": "altres-unitats-implicades"
-        },
-        {
-          "value": "Superior a la mitjana de la província de Barcelon d'acord les dades dels Cercles Comparació Intermunicipal DIBA",
           "raw_value": {
-            "ca": "Superior a la mitjana de la província de Barcelon d'acord les dades dels Cercles Comparació Intermunicipal DIBA"
+            "ca": "",
+            "es": ""
+          },
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Pressupost al que s'assigna la despesa",
+            "es": ""
+          },
+          "custom_field_field_type": "localized_string",
+          "custom_field_id": "pressupost-al-que-s-assigna-la-despesa"
+        },
+        {
+          "value": "Treball digne i creixement econòmic",
+          "raw_value": "7042",
+          "external_id": "8",
+          "custom_field_name_translations": {
+            "ca": "ODS",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "sdgs"
+        },
+        {
+          "value": "",
+          "raw_value": null,
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Tipologia d'actuació",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "tipologia-d-actuacio"
+        },
+        {
+          "value": "0.0",
+          "raw_value": 0,
+          "external_id": null,
+          "custom_field_name_translations": {
+            "ca": "Cost previst (€)",
+            "es": ""
+          },
+          "custom_field_field_type": "numeric",
+          "custom_field_id": "cost-previst"
+        },
+        {
+          "value": "",
+          "raw_value": [],
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Persona responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "persona-responsable"
+        },
+        {
+          "value": "",
+          "raw_value": null,
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Unitat responsable",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "unitat-responsable"
+        },
+        {
+          "value": "",
+          "raw_value": null,
+          "external_id": "",
+          "custom_field_name_translations": {
+            "ca": "Altres unitats implicades",
+            "es": ""
+          },
+          "custom_field_field_type": "vocabulary_options",
+          "custom_field_id": "altres-unitats-implicades"
+        },
+        {
+          "value": "",
+          "raw_value": {
+            "ca": "",
+            "es": ""
           },
           "external_id": null,
           "custom_field_name_translations": {
@@ -936,6 +2666,2151 @@
           "custom_field_id": "altres-observacions"
         }
       ]
+    },
+    "children": []
+  },
+  {
+    "id": 53405,
+    "uid": "2.0.0.2",
+    "category_id": 8291,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 28,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 42283,
+    "uid": "2.0.0.2",
+    "category_id": 8281,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 1,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 12669,
+    "uid": "2.0.0.2",
+    "category_id": 8272,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 47,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 71737,
+    "uid": "2.0.0.2",
+    "category_id": 8294,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 67,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 27263,
+    "uid": "2.0.0.2",
+    "category_id": 8276,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 14,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 574,
+    "uid": "2.0.0.2",
+    "category_id": 8297,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 69,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 53398,
+    "uid": "2.0.0.2",
+    "category_id": 8297,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 86,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 65942,
+    "uid": "2.0.0.2",
+    "category_id": 8249,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 86,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 69704,
+    "uid": "2.0.0.2",
+    "category_id": 8273,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 17,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 7277,
+    "uid": "2.0.0.2",
+    "category_id": 8297,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 53,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 3041,
+    "uid": "2.0.0.2",
+    "category_id": 8283,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 7,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 95221,
+    "uid": "2.0.0.2",
+    "category_id": 8254,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 18,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 49521,
+    "uid": "2.0.0.2",
+    "category_id": 8271,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 36,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 30017,
+    "uid": "2.0.0.2",
+    "category_id": 8268,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 52,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 95914,
+    "uid": "2.0.0.2",
+    "category_id": 8278,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 92,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 24655,
+    "uid": "2.0.0.2",
+    "category_id": 8258,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 36,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 47925,
+    "uid": "2.0.0.2",
+    "category_id": 8268,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 22,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 22955,
+    "uid": "2.0.0.2",
+    "category_id": 8249,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 31,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 45157,
+    "uid": "2.0.0.2",
+    "category_id": 8248,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 66,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 21944,
+    "uid": "2.0.0.2",
+    "category_id": 8270,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 1,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 93474,
+    "uid": "2.0.0.2",
+    "category_id": 8296,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 93,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 42517,
+    "uid": "2.0.0.2",
+    "category_id": 8253,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 41,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 50642,
+    "uid": "2.0.0.2",
+    "category_id": 8253,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 21,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 19776,
+    "uid": "2.0.0.2",
+    "category_id": 8270,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 84,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 46200,
+    "uid": "2.0.0.2",
+    "category_id": 8296,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 41,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 86676,
+    "uid": "2.0.0.2",
+    "category_id": 8283,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 46,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 34554,
+    "uid": "2.0.0.2",
+    "category_id": 8257,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 77,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 40066,
+    "uid": "2.0.0.2",
+    "category_id": 8293,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 70,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 77344,
+    "uid": "2.0.0.2",
+    "category_id": 8259,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 4,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 85304,
+    "uid": "2.0.0.2",
+    "category_id": 8261,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 11,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 53140,
+    "uid": "2.0.0.2",
+    "category_id": 8259,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 33,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 26780,
+    "uid": "2.0.0.2",
+    "category_id": 8254,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 72,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 91108,
+    "uid": "2.0.0.2",
+    "category_id": 8248,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 50,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 85527,
+    "uid": "2.0.0.2",
+    "category_id": 8288,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 53,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 53260,
+    "uid": "2.0.0.2",
+    "category_id": 8280,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 56,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 96680,
+    "uid": "2.0.0.2",
+    "category_id": 8254,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 78,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 51571,
+    "uid": "2.0.0.2",
+    "category_id": 8258,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 81,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 7542,
+    "uid": "2.0.0.2",
+    "category_id": 8288,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 0,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 85319,
+    "uid": "2.0.0.2",
+    "category_id": 8273,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 51,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 75804,
+    "uid": "2.0.0.2",
+    "category_id": 8294,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 12,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 21623,
+    "uid": "2.0.0.2",
+    "category_id": 8263,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 41,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 55169,
+    "uid": "2.0.0.2",
+    "category_id": 8254,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 92,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 6870,
+    "uid": "2.0.0.2",
+    "category_id": 8297,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 80,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 84739,
+    "uid": "2.0.0.2",
+    "category_id": 8285,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 83,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 81270,
+    "uid": "2.0.0.2",
+    "category_id": 8292,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 41,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 4138,
+    "uid": "2.0.0.2",
+    "category_id": 8257,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 97,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 75444,
+    "uid": "2.0.0.2",
+    "category_id": 8277,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 10,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 76177,
+    "uid": "2.0.0.2",
+    "category_id": 8292,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 81,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 34581,
+    "uid": "2.0.0.2",
+    "category_id": 8272,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 97,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 80376,
+    "uid": "2.0.0.2",
+    "category_id": 8259,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 21,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 88038,
+    "uid": "2.0.0.2",
+    "category_id": 8268,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 98,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 30194,
+    "uid": "2.0.0.2",
+    "category_id": 8259,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 77,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 24740,
+    "uid": "2.0.0.2",
+    "category_id": 8254,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 51,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 17559,
+    "uid": "2.0.0.2",
+    "category_id": 8285,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 94,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
+    },
+    "children": []
+  },
+  {
+    "id": 18559,
+    "uid": "2.0.0.2",
+    "category_id": 8291,
+    "type": "node",
+    "level": 3,
+    "attributes": {
+      "title": {
+        "ca": "Elaborar i implantar el Pla de protecció civil municipal (DUPROCIM)"
+      },
+      "parent_id": 7544,
+      "progress": 83,
+      "starts_at": "2019-06-01",
+      "ends_at": "2022-09-01",
+      "status": {
+        "ca": "Aturat",
+        "es": ""
+      },
+      "options": null,
+      "plugins_data": {
+        "budgets": {
+          "title_translations": {
+            "es": "Presupuesto",
+            "en": "Budget",
+            "ca": "Pressupost"
+          },
+          "detail": {
+            "link": "http://diba-plan.gobify.net/presupuestos",
+            "text": "veure detall en Pressupostos"
+          },
+          "budgeted_amount": null,
+          "executed_amount": null,
+          "executed_percentage": null
+        }
+      },
+      "custom_field_records": []
     },
     "children": []
   }

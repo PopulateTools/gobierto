@@ -16,7 +16,7 @@
           :style="{ width: progressWidth }"
         />
         <div class="info-content">
-          <h3 :class="{ counter }">
+          <h3 class="counter">
             {{ title | translate }}
           </h3>
           <span>{{ progress | percent }}</span>
@@ -48,7 +48,6 @@ export default {
   data() {
     return {
       image: null,
-      counter: 0,
       title: '',
       progress: 0
     }
@@ -59,11 +58,11 @@ export default {
     }
   },
   created() {
-    const { attributes: { img, progress, counter, title } = {} } = this.model
+    // const { attributes: { img, progress, counter, title } = {} } = this.model
+    const { attributes: { img } = {}, title, progress } = this.model
 
     this.image = img
     this.progress = progress
-    this.counter = counter
     this.title = title
   },
   methods: {

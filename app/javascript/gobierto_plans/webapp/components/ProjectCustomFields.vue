@@ -81,7 +81,7 @@
 import { translate } from "lib/shared";
 
 export default {
-  name: "CustomFields",
+  name: "ProjectCustomFields",
   filters: {
     translate
   },

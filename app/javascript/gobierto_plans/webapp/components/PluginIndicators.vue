@@ -28,7 +28,7 @@
 import { VueFiltersMixin } from "lib/shared";
 
 export default {
-  name: "Indicators",
+  name: "PluginIndicators",
   mixins: [VueFiltersMixin],
   props: {
     config: {

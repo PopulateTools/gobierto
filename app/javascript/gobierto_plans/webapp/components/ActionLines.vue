@@ -4,6 +4,7 @@
       <ActionLine
         :key="model.id"
         :model="model"
+        :options="options"
       >
         <TableView
           :key="model.id"

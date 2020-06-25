@@ -12,6 +12,7 @@
 
 <script>
 const PluginIndicators = () => import("./PluginIndicators");
+const PluginRawIndicators = () => import("./PluginRawIndicators");
 const PluginHumanResources = () => import("./PluginHumanResources");
 const PluginBudgets = () => import("./PluginBudgets");
 
@@ -25,12 +26,17 @@ const AVAILABLE_PLUGINS = [
     component: PluginHumanResources
   },
   {
-    id: "raw_indicators",
+    id: "indicators",
     component: PluginIndicators
+  },
+  {
+    id: "raw_indicators",
+    component: PluginRawIndicators
   }
 ];
+
 export default {
-  name: "Plugins",
+  name: "ProjectPlugins",
   props: {
     plugins: {
       type: Object,

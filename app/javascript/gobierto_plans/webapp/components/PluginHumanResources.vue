@@ -49,7 +49,7 @@
 import { VueFiltersMixin } from "lib/shared";
 
 export default {
-  name: "HumanResources",
+  name: "PluginHumanResources",
   mixins: [VueFiltersMixin],
   props: {
     config: {

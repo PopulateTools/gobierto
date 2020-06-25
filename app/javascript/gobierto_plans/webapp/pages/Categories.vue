@@ -43,7 +43,10 @@
         <!-- otherwise, recursive templates -->
         <template v-else>
           <RecursiveHeader :model="activeNode" />
-          <RecursiveLines :models="activeNode.children" />
+          <RecursiveLines
+            :models="activeNode.children"
+            :options="options"
+          />
         </template>
       </section>
     </template>
@@ -88,8 +91,8 @@ export default {
       openMenu: false,
       activeNode: {},
       jsonDepth: 0,
-      customFields: {},
-      availablePlugins: [],
+      customFields: [],
+      availablePlugins: {},
       rootid: 0
     };
   },
@@ -125,7 +128,7 @@ export default {
       if (this.activeNode) {
         const {
           level,
-          attributes: { custom_field_records = [], plugins_data = {} }
+          attributes: { custom_field_records = [], plugins_data = {} } = {}
         } = this.activeNode;
 
         // if the activeNode is level zero, it sets the children colors

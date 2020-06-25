@@ -2,10 +2,11 @@
   <li>
     <NodeList
       :model="model"
+      :max-category-level="maxCategoryLevel"
       @toggle="showContent = !showContent"
     >
       <NumberLabel
-        :length="childrenCount"
+        :length="children.length"
         :level="level + 1"
       />
     </NodeList>
@@ -32,20 +33,26 @@ export default {
     model: {
       type: Object,
       default: () => {}
+    },
+    options: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
     return {
       showContent: false,
-      childrenCount: 0,
-      level: 0
+      level: 0,
+      maxCategoryLevel: 0,
+      children: []
     };
   },
-    created() {
-    const { attributes: { children_count } = {}, level } = this.model;
-
-    this.childrenCount = children_count;
+  created() {
+    const { level, children } = this.model;
+    const { max_category_level } = this.options;
     this.level = level;
+    this.children = children;
+    this.maxCategoryLevel = max_category_level;
   },
 };
 </script>

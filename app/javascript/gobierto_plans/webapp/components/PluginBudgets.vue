@@ -49,7 +49,7 @@
 import { VueFiltersMixin } from "lib/shared";
 
 export default {
-  name: "Budgets",
+  name: "PluginBudgets",
   mixins: [VueFiltersMixin],
   props: {
     config: {

@@ -40,7 +40,8 @@ export default {
     };
   },
   created() {
-    const { attributes: { title, progress } = {}, children, level } = this.model;
+    const { title, progress, children, level } = this.model;
+    // const { attributes: { title, progress } = {}, children, level } = this.model;
 
     this.title = title;
     this.progress = progress;

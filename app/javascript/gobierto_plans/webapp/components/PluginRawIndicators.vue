@@ -53,7 +53,7 @@
 import { VueFiltersMixin } from "lib/shared";
 
 export default {
-  name: "RawIndicators",
+  name: "PluginRawIndicators",
   mixins: [VueFiltersMixin],
   props: {
     config: {

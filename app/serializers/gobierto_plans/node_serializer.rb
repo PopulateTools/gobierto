@@ -6,10 +6,10 @@ module GobiertoPlans
 
     cache key: "node"
 
-    attributes :id, :name_translations, :category, :progress, :starts_at, :ends_at, :status_id, :published_version, :position, :external_id
+    attributes :id, :name_translations, :category_id, :progress, :starts_at, :ends_at, :status_id, :published_version, :position, :external_id
 
-    def category
-      object.categories.find_by(gplan_categories_nodes: { category_id: instance_options[:plan].categories })
+    def category_id
+      object.categories.find_by(gplan_categories_nodes: { category_id: instance_options[:plan].categories })&.id
     end
 
     def custom_fields

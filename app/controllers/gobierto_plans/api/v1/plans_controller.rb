@@ -20,7 +20,10 @@ module GobiertoPlans
             json: filtered_relation,
             links: links(:index),
             each_serializer: GobiertoPlans::PlanSerializer,
-            adapter: :json_api
+            adapter: :json_api,
+            with_translations: false,
+            exclude_links: false,
+            exclude_relationships: true
           )
         end
 
@@ -32,20 +35,11 @@ module GobiertoPlans
           render(
             json: @resource,
             serializer: GobiertoPlans::PlanSerializer,
-            adapter: :json_api
-          )
-        end
-
-        # GET /api/v1/data/queries/1/meta
-        # GET /api/v1/data/queries/1/meta.json
-        def metaax
-          find_resource
-
-          render(
-            json: @resource,
-            serializer: GobiertoPlans::PlanMetaSerializer,
-            links: links(:metadata),
-            adapter: :json_api
+            adapter: :json_api,
+            with_translations: false,
+            exclude_links: false,
+            exclude_relationships: false,
+            vocabularies_adapter: :json_api
           )
         end
 

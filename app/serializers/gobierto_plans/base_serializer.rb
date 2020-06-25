@@ -21,5 +21,11 @@ module GobiertoPlans
     def include_draft?
       instance_options[:include_draft]
     end
+
+    def vocabularies_serialization_options
+      instance_options.slice(:vocabularies_adapter, :with_translations).tap do |options|
+        options[:adapter] = options.delete :vocabularies_adapter
+      end
+    end
   end
 end

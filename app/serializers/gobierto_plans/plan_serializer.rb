@@ -8,11 +8,10 @@ module GobiertoPlans
     belongs_to :plan_type, unless: :exclude_relationships?
     attributes :id, :slug, :title, :introduction, :year, :visibility_level, :configuration_data, :css, :footer
     attribute :categories_vocabulary_terms, unless: :exclude_relationships? do
-      ActiveModelSerializers::SerializableResource.new(object.categories_vocabulary.terms.sorted, **vocabularies_serialization_options).as_json
+      serialize_terms(object.categories_vocabulary.terms.sorted)
     end
-
     attribute :statuses_vocabulary_terms, unless: :exclude_relationships? do
-      ActiveModelSerializers::SerializableResource.new(object.statuses_vocabulary.terms.sorted, **vocabularies_serialization_options).as_json
+      serialize_terms(object.statuses_vocabulary.terms.sorted)
     end
 
     attribute :links, unless: :exclude_links? do

@@ -2,6 +2,8 @@
 
 module GobiertoPlans
   class BaseSerializer < ActiveModel::Serializer
+    include ::GobiertoCommon::SerializableVocabularyTerms
+
     def current_site
       Site.find((instance_options[:plan].presence || object).site.id)
     end
@@ -20,12 +22,6 @@ module GobiertoPlans
 
     def include_draft?
       instance_options[:include_draft]
-    end
-
-    def vocabularies_serialization_options
-      instance_options.slice(:vocabularies_adapter, :with_translations).tap do |options|
-        options[:adapter] = options.delete :vocabularies_adapter
-      end
     end
   end
 end

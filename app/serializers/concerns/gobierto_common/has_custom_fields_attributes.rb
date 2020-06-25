@@ -22,7 +22,7 @@ module GobiertoCommon
     end
 
     def custom_fields
-      @custom_fields ||= current_site.custom_fields.where(class_name: object.class.name).sorted
+      @custom_fields ||= current_site.custom_fields.for_class(object.class).sorted
     end
 
   end

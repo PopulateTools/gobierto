@@ -17,7 +17,7 @@
         />
         <div class="info-content">
           <h3 class="counter">
-            {{ title | translate }}
+            {{ title }}
           </h3>
           <span>{{ progress | percent }}</span>
         </div>
@@ -27,13 +27,12 @@
 </template>
 
 <script>
-import { percent, translate } from "lib/shared"
+import { percent } from "lib/shared"
 
 export default {
   name: "NodeRoot",
   filters: {
-    percent,
-    translate
+    percent
   },
   props: {
     model: {
@@ -58,12 +57,11 @@ export default {
     }
   },
   created() {
-    // const { attributes: { img, progress, counter, title } = {} } = this.model
-    const { attributes: { img } = {}, title, progress } = this.model
+    const { attributes: { img, name } = {}, progress } = this.model
 
     this.image = img
     this.progress = progress
-    this.title = title
+    this.title = name
   },
   methods: {
     open() {

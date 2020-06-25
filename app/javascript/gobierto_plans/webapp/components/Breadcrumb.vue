@@ -10,7 +10,7 @@
         :to="{ name: 'categories' }"
       >
         <i class="fas fa-caret-right" />
-        {{ level }}
+        {{ getParent() }}
       </router-link>
       <!-- <a
         :key="level"
@@ -49,15 +49,12 @@ export default {
     return {
       labelStarts: I18n.t("gobierto_plans.plan_types.show.starts") || "",
       currentLevel: 0,
-      maxDepth: 0
     }
   },
   created() {
     const { level } = this.model
-    const { json_depth } = this.options
 
     this.currentLevel = level
-    this.maxDepth = json_depth
   },
   methods: {
     getParent() {

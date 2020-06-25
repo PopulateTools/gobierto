@@ -1,0 +1,792 @@
+{
+  "data": {
+    "id": "41",
+    "type": "gobierto_plans-plans",
+    "attributes": {
+      "slug": "pla-de-mandat-2019-2023",
+      "title": "Pla de Mandat 2019 - 2023",
+      "introduction": "Us presento el Pla d’Actuació Municipal 2019-2023, elaborat conjuntament entre els membres del’equip de govern i el personal tècnic municipal, amb l’objectiu de recollir en un document  els objectiusprincipals de l’acció de govern d’aquest mandat. \u003ca href=\"https://diba-plan.gobify.net/pagina/presentacio-del-pam-2019-2023\"\u003eVer presentación del Alcalde\u003c/a\u003e",
+      "year": 2019,
+      "visibility_level": "published",
+      "configuration_data": {
+        "level0": {
+          "one": {
+            "en": "axis",
+            "ca": "Objectiu de ciutat",
+            "es": "Objetivo de ciudad"
+          },
+          "other": {
+            "en": "axes",
+            "ca": "Objectius  de ciutat",
+            "es": "Objetivos de ciudad"
+          }
+        },
+        "level1": {
+          "one": {
+            "en": "line of activity",
+            "ca": "Objectiu estratègic",
+            "es": "Objetivo estratégico"
+          },
+          "other": {
+            "en": "lines of activity",
+            "ca": "Objectius estratègics",
+            "es": "Objetivos estratégico"
+          }
+        },
+        "level2": {
+          "one": {
+            "en": "activity",
+            "ca": "Objectiu específics",
+            "es": "Objetivo específico"
+          },
+          "other": {
+            "en": "activities",
+            "ca": "Objectius específics",
+            "es": "Objetivos específicos"
+          }
+        },
+        "level3": {
+          "one": {
+            "en": "project/action",
+            "ca": "Actuacion",
+            "es": "Actuación"
+          },
+          "other": {
+            "en": "projects/actions",
+            "ca": "Actuacions",
+            "es": "Actuaciones"
+          }
+        },
+        "level0_options": [
+          {
+            "slug": "ciutat-educadora-i-del-coneixement",
+            "logo": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-27/gobierto_attachments/attachments/file-e1dfecad-9136-4c0b-bbab-f5eeb3c9125a/Cat-1.jpg"
+          },
+          {
+            "slug": "ciutat-generadora-d-ocupacio-i-dinamitzadora-economicament",
+            "logo": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-27/gobierto_attachments/attachments/file-623be653-9ddb-4e15-a2ee-771561101a3a/Cat-2.jpg"
+          },
+          {
+            "slug": "ciutat-amable-i-sostenible",
+            "logo": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-27/gobierto_attachments/attachments/file-3c926b6d-8753-4bf2-b68c-79ac3be8718d/Cat-3.jpg"
+          },
+          {
+            "slug": "ciutat-inclusiva-i-al-servei-de-les-persones",
+            "logo": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-27/gobierto_attachments/attachments/file-b5d118df-858a-4eae-8a7d-90c2a5ff7e62/Cat-4.jpg"
+          },
+          {
+            "slug": "govern-transformador-i-amb-lideratge-territorial",
+            "logo": "https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/site-27/gobierto_attachments/attachments/file-15f35833-58fe-4287-a6b0-e5cf23db512e/Cat-5.jpg"
+          }
+        ],
+        "show_table_header": true,
+        "open_node": true,
+        "sdg_uid": "sdgs",
+        "show_empty_fields": true
+      },
+      "css": ".gobierto_planification section.level_0 .cat_1 {\r\n  background-color: rgba(219, 82, 75, .85);\r\n}\r\n.gobierto_planification section.level_0 .cat_2 {\r\n    background-color: rgba(0, 144, 158, 0.85);\r\n}\r\n.gobierto_planification section.level_0 .cat_3 {\r\n  background-color: rgba(241, 173, 68, 0.85);\r\n}\r\n.gobierto_planification section.level_0 .cat_4 {\r\n    background-color: rgba(133, 168, 28, 0.85);\r\n}\r\n.gobierto_planification section.level_0 .cat_5 {\r\n    background-color: rgba(0, 82, 158, 0.85);\r\n}",
+      "footer": null,
+      "categories_vocabulary_terms": [
+        {
+          "id": "7522",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Ciutat educadora i del coneixement",
+            "description": null,
+            "slug": "ciutat-educadora-i-del-coneixement",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          }
+        },
+        {
+          "id": "7545",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Ciutat generadora d'ocupació i dinamitzadora econòmicament",
+            "description": null,
+            "slug": "ciutat-generadora-d-ocupacio-i-dinamitzadora-economicament",
+            "position": 1,
+            "level": 0,
+            "term_id": null
+          }
+        },
+        {
+          "id": "7540",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Ciutat amable i sostenible",
+            "description": null,
+            "slug": "ciutat-amable-i-sostenible",
+            "position": 2,
+            "level": 0,
+            "term_id": null
+          }
+        },
+        {
+          "id": "7533",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Ciutat inclusiva i al servei de les persones",
+            "description": null,
+            "slug": "ciutat-inclusiva-i-al-servei-de-les-persones",
+            "position": 3,
+            "level": 0,
+            "term_id": null
+          }
+        },
+        {
+          "id": "7527",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Govern transformador i amb lideratge territorial",
+            "description": null,
+            "slug": "govern-transformador-i-amb-lideratge-territorial",
+            "position": 4,
+            "level": 0,
+            "term_id": null
+          }
+        },
+        {
+          "id": "7523",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Esdevenir un referent en la formació professional i universitària",
+            "description": null,
+            "slug": "esdevenir-un-referent-en-la-formacio-professional-i-universitaria",
+            "position": 5,
+            "level": 1,
+            "term_id": 7522
+          }
+        },
+        {
+          "id": "7550",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Garantir oportunitats educatives i formatives de qualitat al llarg i ample de la vida",
+            "description": null,
+            "slug": "garantir-oportunitats-educatives-i-formatives-de-qualitat-al-llarg-i-ample-de-la-vida",
+            "position": 6,
+            "level": 1,
+            "term_id": 7522
+          }
+        },
+        {
+          "id": "7524",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Enfortir els centres de formació integral",
+            "description": null,
+            "slug": "enfortir-els-centres-de-formacio-integral",
+            "position": 7,
+            "level": 2,
+            "term_id": 7523
+          }
+        },
+        {
+          "id": "7552",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Aconseguir iniciar estudis universitaris i de la UVIC superiors",
+            "description": null,
+            "slug": "aconseguir-iniciar-estudis-universitaris-i-de-la-uvic-superiors",
+            "position": 8,
+            "level": 2,
+            "term_id": 7523
+          }
+        },
+        {
+          "id": "7553",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Incrementar l'oferta de formació professional pública i privada",
+            "description": null,
+            "slug": "incrementar-l-oferta-de-formacio-professional-publica-i-privada",
+            "position": 9,
+            "level": 2,
+            "term_id": 7523
+          }
+        },
+        {
+          "id": "7551",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Millorar els nivells formatius de la ciutadania",
+            "description": null,
+            "slug": "millorar-els-nivells-formatius-de-la-ciutadania",
+            "position": 10,
+            "level": 2,
+            "term_id": 7550
+          }
+        },
+        {
+          "id": "7554",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Reduir les desigualtats en l'accés a les activitats socioeducatives",
+            "description": null,
+            "slug": "reduir-les-desigualtats-en-l-acces-a-les-activitats-socioeducatives",
+            "position": 11,
+            "level": 2,
+            "term_id": 7550
+          }
+        },
+        {
+          "id": "7555",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Aconseguir una escolarització equilibrada",
+            "description": null,
+            "slug": "aconseguir-una-escolaritzacio-equilibrada",
+            "position": 12,
+            "level": 2,
+            "term_id": 7550
+          }
+        },
+        {
+          "id": "7548",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Millorar l'ocupació i la qualitat del treball",
+            "description": null,
+            "slug": "millorar-l-ocupacio-i-la-qualitat-del-treball",
+            "position": 13,
+            "level": 1,
+            "term_id": 7545
+          }
+        },
+        {
+          "id": "7546",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Diversificar l'activitat econòmica i millorar el teixti empresarial, comercial i industrial del territori",
+            "description": null,
+            "slug": "diversificar-l-activitat-economica-i-millorar-el-teixti-empresarial-comercial-i-industrial-del-territori",
+            "position": 14,
+            "level": 1,
+            "term_id": 7545
+          }
+        },
+        {
+          "id": "7549",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Capacitar a les persones per tal d'adequar les seves competències a les necessitats i oportunitats del mercat de treball",
+            "description": null,
+            "slug": "capacitar-a-les-persones-per-tal-d-adequar-les-seves-competencies-a-les-necessitats-i-oportunitats-del-mercat-de-treball",
+            "position": 15,
+            "level": 2,
+            "term_id": 7548
+          }
+        },
+        {
+          "id": "7556",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Oferir orientació i acompanyament a les persones demandants d'ocupació i/o a les persones que aspiren a una millora laboral",
+            "description": null,
+            "slug": "oferir-orientacio-i-acompanyament-a-les-persones-demandants-d-ocupacio-i-o-a-les-persones-que-aspiren-a-una-millora-laboral",
+            "position": 16,
+            "level": 2,
+            "term_id": 7548
+          }
+        },
+        {
+          "id": "7557",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Facilitar l'encaix entre l'oferta i la demanda d'ocupació",
+            "description": null,
+            "slug": "facilitar-l-encaix-entre-l-oferta-i-la-demanda-d-ocupacio",
+            "position": 17,
+            "level": 2,
+            "term_id": 7548
+          }
+        },
+        {
+          "id": "7547",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Fomentar l'emprenedoria i acompanyar l'activitat econòmica",
+            "description": null,
+            "slug": "fomentar-l-emprenedoria-i-acompanyar-l-activitat-economica",
+            "position": 18,
+            "level": 2,
+            "term_id": 7546
+          }
+        },
+        {
+          "id": "7558",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Impulsar i dinamitzar el comerç de proximitat",
+            "description": null,
+            "slug": "impulsar-i-dinamitzar-el-comerc-de-proximitat",
+            "position": 19,
+            "level": 2,
+            "term_id": 7546
+          }
+        },
+        {
+          "id": "7559",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Dinamitzar, consolidar i interrelacionar el teixit empresarial",
+            "description": null,
+            "slug": "dinamitzar-consolidar-i-interrelacionar-el-teixit-empresarial",
+            "position": 20,
+            "level": 2,
+            "term_id": 7546
+          }
+        },
+        {
+          "id": "7543",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Fomentar un Manlleu net i segur",
+            "description": null,
+            "slug": "fomentar-un-manlleu-net-i-segur",
+            "position": 21,
+            "level": 1,
+            "term_id": 7540
+          }
+        },
+        {
+          "id": "7541",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Vetllar per un desenvolupament urbanístic atractiu, sostenible i adaptat a les diferents necessitats de la ciutadania",
+            "description": null,
+            "slug": "vetllar-per-un-desenvolupament-urbanistic-atractiu-sostenible-i-adaptat-a-les-diferents-necessitats-de-la-ciutadania",
+            "position": 22,
+            "level": 1,
+            "term_id": 7540
+          }
+        },
+        {
+          "id": "7544",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Millorar la seguretat ciutadana",
+            "description": null,
+            "slug": "millorar-la-seguretat-ciutadana",
+            "position": 23,
+            "level": 2,
+            "term_id": 7543
+          }
+        },
+        {
+          "id": "7560",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Millorar la seguretat viària",
+            "description": null,
+            "slug": "millorar-la-seguretat-viaria",
+            "position": 24,
+            "level": 2,
+            "term_id": 7543
+          }
+        },
+        {
+          "id": "7561",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Millorar la neteja i la recollida selectiva",
+            "description": null,
+            "slug": "millorar-la-neteja-i-la-recollida-selectiva",
+            "position": 25,
+            "level": 2,
+            "term_id": 7543
+          }
+        },
+        {
+          "id": "7542",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Optimitzar l'ordenació urbanística territorial",
+            "description": null,
+            "slug": "optimitzar-l-ordenacio-urbanistica-territorial",
+            "position": 26,
+            "level": 2,
+            "term_id": 7541
+          }
+        },
+        {
+          "id": "7562",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Incrementar l'oferta d'equipaments i infraestructures municipals",
+            "description": null,
+            "slug": "incrementar-l-oferta-d-equipaments-i-infraestructures-municipals",
+            "position": 27,
+            "level": 2,
+            "term_id": 7541
+          }
+        },
+        {
+          "id": "7563",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Actuar localment pel canvi climàtic",
+            "description": null,
+            "slug": "actuar-localment-pel-canvi-climatic",
+            "position": 28,
+            "level": 2,
+            "term_id": 7541
+          }
+        },
+        {
+          "id": "7564",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Conservar i millorar la biodiversitat a la llera del Ter",
+            "description": null,
+            "slug": "conservar-i-millorar-la-biodiversitat-a-la-llera-del-ter",
+            "position": 29,
+            "level": 2,
+            "term_id": 7541
+          }
+        },
+        {
+          "id": "7536",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Fomentar una societat cohesionada i saludable",
+            "description": null,
+            "slug": "fomentar-una-societat-cohesionada-i-saludable",
+            "position": 30,
+            "level": 1,
+            "term_id": 7533
+          }
+        },
+        {
+          "id": "7538",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Avançar cap a una ciutat més inclusiva i que cuida a les persones vulnerables",
+            "description": null,
+            "slug": "avancar-cap-a-una-ciutat-mes-inclusiva-i-que-cuida-a-les-persones-vulnerables",
+            "position": 31,
+            "level": 1,
+            "term_id": 7533
+          }
+        },
+        {
+          "id": "7534",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Contribuir a construir una ciutat culturalment rica",
+            "description": null,
+            "slug": "contribuir-a-construir-una-ciutat-culturalment-rica",
+            "position": 32,
+            "level": 1,
+            "term_id": 7533
+          }
+        },
+        {
+          "id": "7537",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Impulsar actuacions amb perspectiva de gènere",
+            "description": null,
+            "slug": "impulsar-actuacions-amb-perspectiva-de-genere",
+            "position": 33,
+            "level": 2,
+            "term_id": 7536
+          }
+        },
+        {
+          "id": "7567",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Garantir que totes les persones tinguin accés a un habitatge",
+            "description": null,
+            "slug": "garantir-que-totes-les-persones-tinguin-acces-a-un-habitatge",
+            "position": 34,
+            "level": 2,
+            "term_id": 7536
+          }
+        },
+        {
+          "id": "7568",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Promoure la salut comunitària",
+            "description": null,
+            "slug": "promoure-la-salut-comunitaria",
+            "position": 35,
+            "level": 2,
+            "term_id": 7536
+          }
+        },
+        {
+          "id": "7569",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Promoure la salut pública",
+            "description": null,
+            "slug": "promoure-la-salut-publica",
+            "position": 36,
+            "level": 2,
+            "term_id": 7536
+          }
+        },
+        {
+          "id": "7570",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Promoure la convivència i harmonia social dins de la ciutat",
+            "description": null,
+            "slug": "promoure-la-convivencia-i-harmonia-social-dins-de-la-ciutat",
+            "position": 37,
+            "level": 2,
+            "term_id": 7536
+          }
+        },
+        {
+          "id": "7571",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Promoure polítiques de joventut",
+            "description": null,
+            "slug": "promoure-politiques-de-joventut",
+            "position": 38,
+            "level": 2,
+            "term_id": 7536
+          }
+        },
+        {
+          "id": "7539",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Fer accesible la pràctica esportiva al conjunt de la ciutadania",
+            "description": null,
+            "slug": "fer-accesible-la-practica-esportiva-al-conjunt-de-la-ciutadania",
+            "position": 39,
+            "level": 2,
+            "term_id": 7538
+          }
+        },
+        {
+          "id": "7565",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Augmentar la participació social i comunitària de tota la ciutadania",
+            "description": null,
+            "slug": "augmentar-la-participacio-social-i-comunitaria-de-tota-la-ciutadania",
+            "position": 40,
+            "level": 2,
+            "term_id": 7538
+          }
+        },
+        {
+          "id": "7566",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Reduir la pobresa infantil",
+            "description": null,
+            "slug": "reduir-la-pobresa-infantil",
+            "position": 41,
+            "level": 2,
+            "term_id": 7538
+          }
+        },
+        {
+          "id": "7535",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Planificar l'estratègia cultural de la ciutat",
+            "description": null,
+            "slug": "planificar-l-estrategia-cultural-de-la-ciutat",
+            "position": 42,
+            "level": 2,
+            "term_id": 7534
+          }
+        },
+        {
+          "id": "7572",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Enfortir i crear noves aliances entre els equipaments culturals i els agents educatius i entitats culturals",
+            "description": null,
+            "slug": "enfortir-i-crear-noves-aliances-entre-els-equipaments-culturals-i-els-agents-educatius-i-entitats-culturals",
+            "position": 43,
+            "level": 2,
+            "term_id": 7534
+          }
+        },
+        {
+          "id": "7531",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Consolidar un model d’administració propera, intel·ligent, oberta i participativa",
+            "description": null,
+            "slug": "consolidar-un-model-d-administracio-propera-intel-ligent-oberta-i-participativa",
+            "position": 44,
+            "level": 1,
+            "term_id": 7527
+          }
+        },
+        {
+          "id": "7528",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Avançar cap a un lideratge territorial",
+            "description": null,
+            "slug": "avancar-cap-a-un-lideratge-territorial",
+            "position": 45,
+            "level": 1,
+            "term_id": 7527
+          }
+        },
+        {
+          "id": "7532",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Apropar l'administració a la ciutadania",
+            "description": null,
+            "slug": "apropar-l-administracio-a-la-ciutadania",
+            "position": 46,
+            "level": 2,
+            "term_id": 7531
+          }
+        },
+        {
+          "id": "7573",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Fomentar el govern obert",
+            "description": null,
+            "slug": "fomentar-el-govern-obert",
+            "position": 47,
+            "level": 2,
+            "term_id": 7531
+          }
+        },
+        {
+          "id": "7574",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Millorar l'eficiència del treball dins l'organització",
+            "description": null,
+            "slug": "millorar-l-eficiencia-del-treball-dins-l-organitzacio",
+            "position": 48,
+            "level": 2,
+            "term_id": 7531
+          }
+        },
+        {
+          "id": "7575",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Fomentar la gestió intel·ligent de la ciutat",
+            "description": null,
+            "slug": "fomentar-la-gestio-intel-ligent-de-la-ciutat",
+            "position": 49,
+            "level": 2,
+            "term_id": 7531
+          }
+        },
+        {
+          "id": "7529",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Liderar l’estratègia de desenvolupament sostenible de l’Agenda 2030",
+            "description": null,
+            "slug": "liderar-l-estrategia-de-desenvolupament-sostenible-de-l-agenda-2030",
+            "position": 50,
+            "level": 2,
+            "term_id": 7528
+          }
+        },
+        {
+          "id": "7576",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Promocionar la ciutat i el territori amb visió de planificació estratègica",
+            "description": null,
+            "slug": "promocionar-la-ciutat-i-el-territori-amb-visio-de-planificacio-estrategica",
+            "position": 51,
+            "level": 2,
+            "term_id": 7528
+          }
+        }
+      ],
+      "statuses_vocabulary_terms": [
+        {
+          "id": "7530",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Finalizat",
+            "description": null,
+            "slug": "finalizado",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          }
+        },
+        {
+          "id": "7526",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "En curs",
+            "description": null,
+            "slug": "en-curso",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          }
+        },
+        {
+          "id": "7525",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Iniciat",
+            "description": null,
+            "slug": "iniciado",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          }
+        },
+        {
+          "id": "7521",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Planificat",
+            "description": null,
+            "slug": "planificado",
+            "position": 0,
+            "level": 0,
+            "term_id": null
+          }
+        },
+        {
+          "id": "7626",
+          "type": "gobierto_common-terms",
+          "attributes": {
+            "name": "Aturat",
+            "description": null,
+            "slug": "aturat",
+            "position": 1,
+            "level": 0,
+            "term_id": null
+          }
+        }
+      ],
+      "links": { "show": "/api/v1/plans/41", "meta": "/api/v1/plans/41/meta" }
+    },
+    "relationships": {
+      "plan_type": {
+        "data": {
+          "id": 22,
+          "created_at": "2020-04-02T15:32:15.786+02:00",
+          "updated_at": "2020-04-02T15:32:15.786+02:00",
+          "slug": "pla-de-mandat",
+          "name_translations": { "ca": "Pla de Mandat", "es": "" },
+          "site_id": 27
+        }
+      }
+    }
+  }
+}

@@ -7,8 +7,8 @@ const headers = {
   Authorization: window.gobiertoAPI.token
 };
 
-import categories from "./fake_categories.json";
-import projects from "./fake_projects.json";
+import plan from "./fake-plan.json";
+import projects from "./fake-projects.json";
 
 // Plans-endpoint factory to get/post/put/delete API data
 export const PlansFactoryMixin = {
@@ -17,7 +17,7 @@ export const PlansFactoryMixin = {
       return axios.get(`${endPoint}/${id}`, { headers })
         .catch(() => {
           // TODO: Eliminar cuando la API devuelva bien
-          return { data: categories }
+          return { data: plan }
         });
     },
     getProjects(id) {

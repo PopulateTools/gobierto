@@ -53,20 +53,25 @@ export default {
   async created() {
     const PLAN_ID = 0; // TODO: usar el oficial que vendrá de attributes dataset
 
-    const [{ data: plan }, { data: projects }] = await Promise.all([
-      this.getPlan(PLAN_ID),
-      this.getProjects(PLAN_ID)
-    ]);
+    const [
+      { data: { data: plan } = {} } = {},
+      { data: { data: projects } = {} } = {}
+    ] = await Promise.all([this.getPlan(PLAN_ID), this.getProjects(PLAN_ID)]);
+
     const {
-      // meta,
-      configuration_data: options,
-      categories_vocabulary: categories
+      attributes: {
+        configuration_data: options,
+        categories_vocabulary_terms: categories
+      }
     } = plan;
 
-    const { depth, summary, json, progress, max_category_level } = this.setJsonTree([
-      ...categories,
-      ...projects
-    ]);
+    const {
+      depth,
+      summary,
+      json,
+      progress,
+      max_category_level
+    } = this.setJsonTree(categories, projects);
 
     this.json = json;
     this.summary = summary;
@@ -81,12 +86,21 @@ export default {
     this.isFetchingData = false;
   },
   methods: {
-    setJsonTree(data) {
+    setJsonTree(categories, projects) {
+      // for simplicity to groupby
+      const categoriesWithLevel = categories.map(d => ({ ...d, level: d.attributes.level }))
+      // get the deepest category level, plus one to set the project level
+      const lastLevel = Math.max(...categoriesWithLevel.map(({ level }) => level)) + 1
+      // populate projects with another extra level
+      const projectsWithLevel = projects.map(d => ({ ...d, level: lastLevel }))
+      // merge both arrays
+      const data = [...categoriesWithLevel, ...projectsWithLevel]
+      // group them by level
       const agg = groupBy(data, "level");
+      // get the keys
       const keys = Object.keys(agg);
-      const summary = keys.map(a => ({ key: +a, length: agg[a].length }));
-      // project level
-      const lastLevel = Number([...keys].pop());
+      // creates a summary with the amounts of items by category
+      const summary = keys.map(a => ({ key: +a, length: agg[a].length }))
 
       // From a plain array, creates the required JSON structure
       // nesting their children inside each category
@@ -94,7 +108,6 @@ export default {
         ...data.filter(({ level }) => level < i),
         ...data.reduce((acc, item) => {
           if (item.level === i) {
-
             /**
              * calculate which are its children based on its level
              * project: no children
@@ -105,8 +118,8 @@ export default {
               item.level === lastLevel
                 ? null
                 : item.level === lastLevel - 1
-                ? data.filter(({ category_id }) => item.id === category_id)
-                : data.filter(({ term_id }) => item.id === term_id);
+                ? data.filter(({ attributes: { category: { id: category_id } = {} } = {} }) => +item.id === category_id)
+                : data.filter(({ attributes: { term_id } = {} }) => +item.id === term_id);
 
             /**
              * calculate which are its progress
@@ -143,10 +156,10 @@ export default {
       };
     },
     meanByProgress(data) {
-      if (!data.length) return 0
+      if (!data.length) return 0;
 
-      const sum = data.reduce((acc, { progress }) => acc + progress, 0)
-      return sum / data.length
+      const sum = data.reduce((acc, { progress }) => acc + progress, 0);
+      return sum / data.length;
     }
   }
 };

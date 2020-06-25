@@ -123,7 +123,7 @@ export default {
   },
   methods: {
     setActiveNode(id) {
-      this.activeNode = findRecursive(this.json, +id);
+      this.activeNode = findRecursive(this.json, id);
 
       if (this.activeNode) {
         const {
@@ -133,7 +133,7 @@ export default {
 
         // if the activeNode is level zero, it sets the children colors
         if (level === 0) {
-          this.rootid = this.json.findIndex(d => d.id === +id);
+          this.rootid = this.json.findIndex(d => d.id === id);
         }
 
         // Preprocess custom fields

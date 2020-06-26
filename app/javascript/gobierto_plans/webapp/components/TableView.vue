@@ -15,7 +15,7 @@
         :style="{ cursor: !open ? 'pointer' : '' }"
         @click="getProject(row)"
       >
-        <td>{{ row.attributes.name_translations | translate }}</td>
+        <td>{{ row.attributes.name }}</td>
         <td>{{ row.attributes.starts_at | date }}</td>
         <td>{{ row.attributes.status | translate }}</td>
         <td>{{ row.attributes.progress | percent }}</td>
@@ -66,9 +66,6 @@ export default {
 
     this.children = children
     this.level = level
-  },
-  updated() {
-
   },
   methods: {
     getProject(row) {

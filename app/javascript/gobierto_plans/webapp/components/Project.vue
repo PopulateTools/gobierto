@@ -1,7 +1,7 @@
 <template>
   <div class="node-action-line">
     <div class="action-line--header node-list cat--negative">
-      <h3>{{ title | translate }}</h3>
+      <h3>{{ title }}</h3>
     </div>
 
     <div class="node-project-detail">
@@ -24,7 +24,6 @@
 import ProjectNativeFields from "./ProjectNativeFields";
 import ProjectCustomFields from "./ProjectCustomFields";
 import ProjectPlugins from "./ProjectPlugins";
-import { translate } from "lib/shared";
 
 export default {
   name: "Project",
@@ -32,9 +31,6 @@ export default {
     ProjectNativeFields,
     ProjectCustomFields,
     ProjectPlugins
-  },
-  filters: {
-    translate
   },
   props: {
     model: {
@@ -64,11 +60,8 @@ export default {
     },
   },
   created() {
-    const {
-      attributes: { title }
-    } = this.model;
-
-    this.title = title;
+    const { attributes: { name } } = this.model;
+    this.title = name;
   }
 };
 </script>

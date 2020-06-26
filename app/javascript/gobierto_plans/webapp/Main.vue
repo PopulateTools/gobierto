@@ -51,7 +51,7 @@ export default {
     };
   },
   async created() {
-    const PLAN_ID = 0; // TODO: usar el oficial que vendrá de attributes dataset
+    const PLAN_ID = this.$root.$data.planId;
 
     const [
       { data: { data: plan } = {} } = {},
@@ -120,8 +120,7 @@ export default {
               item.level === lastLevel
                 ? null
                 : item.level === lastLevel - 1
-                // TODO: Si esta estructura cambia, es necesario adaptar este objeto
-                ? data.filter(({ attributes: { category: { id: category_id } = {} } = {} }) => +item.id === category_id)
+                ? data.filter(({ attributes: { category_id } = {} }) => +item.id === category_id)
                 : data.filter(({ attributes: { term_id } = {} }) => +item.id === term_id);
 
             /**

@@ -47,10 +47,9 @@ export default {
     const parents = []
 
     const findParents = (model) => {
-      const { level, attributes } = model
+      const { level, attributes: { category_id, term_id } = {} } = model
 
-      // TODO: Si esta estructura cambia, es necesario adaptar este objeto
-      const id = (level === last_level) ? attributes.category.id : attributes.term_id
+      const id = (level === last_level) ? category_id : term_id
       const parent = ITEMS.find(d => +d.id === id)
 
       if (parent) {

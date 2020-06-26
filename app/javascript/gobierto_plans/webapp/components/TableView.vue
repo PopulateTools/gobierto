@@ -15,7 +15,7 @@
         :style="{ cursor: !open ? 'pointer' : '' }"
         @click="getProject(row)"
       >
-        <td>{{ row.attributes.title | translate }}</td>
+        <td>{{ row.attributes.name_translations | translate }}</td>
         <td>{{ row.attributes.starts_at | date }}</td>
         <td>{{ row.attributes.status | translate }}</td>
         <td>{{ row.attributes.progress | percent }}</td>

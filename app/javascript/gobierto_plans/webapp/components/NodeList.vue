@@ -11,7 +11,7 @@
         />
       </div>
       <h3>
-        <a>{{ title | translate }}</a>
+        <a>{{ title }}</a>
       </h3>
     </div>
     <div class="flex-basis-20">
@@ -24,14 +24,13 @@
 </template>
 
 <script>
-import { percent, translate } from "lib/shared";
+import { percent } from "lib/shared";
 import { PlansFactoryMixin } from "../lib/factory";
 
 export default {
   name: "NodeList",
   filters: {
-    percent,
-    translate
+    percent
   },
   mixins: [PlansFactoryMixin],
   props: {
@@ -52,11 +51,10 @@ export default {
     };
   },
   created() {
-    const { progress, title } = this.model;
-    // const { attributes: { progress, title } = {} } = this.model;
+    const { attributes: { name } = {}, progress } = this.model;
 
     this.progress = progress;
-    this.title = title;
+    this.title = name;
   },
   methods: {
     setActive() {

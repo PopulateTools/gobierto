@@ -2,7 +2,7 @@
   <div class="action-line--header node-list cat--negative">
     <div class="node-title">
       <div><i class="fas fa-caret-down" /></div>
-      <h3>{{ title | translate }}</h3>
+      <h3>{{ title }}</h3>
     </div>
     <NumberLabel
       :length="children.length"
@@ -14,7 +14,7 @@
 
 <script>
 import NumberLabel from "./NumberLabel";
-import { percent, translate } from "lib/shared";
+import { percent } from "lib/shared";
 
 export default {
   name: "ActionLineHeader",
@@ -22,8 +22,7 @@ export default {
     NumberLabel
   },
   filters: {
-    percent,
-    translate
+    percent
   },
   props: {
     model: {
@@ -40,10 +39,9 @@ export default {
     };
   },
   created() {
-    const { title, progress, children, level } = this.model;
-    // const { attributes: { title, progress } = {}, children, level } = this.model;
+    const { attributes: { name } = {}, children, level, progress } = this.model;
 
-    this.title = title;
+    this.title = name;
     this.progress = progress;
     this.children = children;
     this.level = level;

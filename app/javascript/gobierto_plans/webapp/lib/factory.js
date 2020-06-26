@@ -7,6 +7,7 @@ const headers = {
   Authorization: window.gobiertoAPI.token
 };
 
+// TODO: Eliminar
 import plan from "./fake-plan.json";
 import projects from "./fake-projects.json";
 

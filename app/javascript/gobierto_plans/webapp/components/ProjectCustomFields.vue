@@ -79,6 +79,7 @@
 
 <script>
 import { translate } from "lib/shared";
+import { PlansStore } from "./lib/store";
 
 export default {
   name: "ProjectCustomFields",
@@ -86,9 +87,9 @@ export default {
     translate
   },
   props: {
-    customFields: {
-      type: Array,
-      default: () => []
+    model: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -102,7 +103,9 @@ export default {
     };
   },
   created() {
-    this.parseCustomFields(this.customFields);
+    // TODO: parsear el meta con los attributes
+    const META = PlansStore.state.meta
+    // this.parseCustomFields(this.customFields);
   },
   methods: {
     parseCustomFields(fields) {

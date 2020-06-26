@@ -7,15 +7,12 @@
     <div class="node-project-detail">
       <ProjectNativeFields :model="model" />
 
-      <ProjectCustomFields
-        v-if="hasCustomFields"
-        :custom-fields="customFields"
-      />
-
+      <ProjectCustomFields :model="model" />
+      <!--
       <ProjectPlugins
         v-if="hasPlugins"
         :plugins="plugins"
-      />
+      /> -->
     </div>
   </div>
 </template>
@@ -36,28 +33,12 @@ export default {
     model: {
       type: Object,
       default: () => {}
-    },
-    customFields: {
-      type: Array,
-      default: () => []
-    },
-    plugins: {
-      type: Object,
-      default: () => {}
     }
   },
   data() {
     return {
       title: "",
     };
-  },
-  computed: {
-    hasPlugins() {
-      return !!Object.keys(this.plugins).length
-    },
-    hasCustomFields() {
-      return !!this.customFields.length
-    },
   },
   created() {
     const { attributes: { name } } = this.model;

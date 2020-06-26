@@ -16,8 +16,8 @@ export const PlansFactoryMixin = {
     getProjects(id) {
       return axios.get(`${endPoint}/${id}/projects`, { headers })
     },
-    getProjectsByUrl(url) {
-      return axios.get(url, { headers });
+    getMeta(id) {
+      return axios.get(`${endPoint}/${id}/meta`, { headers })
     }
   }
 };

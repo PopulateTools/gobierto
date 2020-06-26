@@ -12,11 +12,7 @@
         :options="options"
       />
 
-      <Project
-        :model="activeNode"
-        :custom-fields="customFields"
-        :plugins="availablePlugins"
-      />
+      <Project :model="activeNode" />
     </section>
   </div>
 </template>

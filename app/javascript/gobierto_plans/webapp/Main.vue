@@ -55,8 +55,13 @@ export default {
 
     const [
       { data: { data: plan } = {} } = {},
-      { data: { data: projects } = {} } = {}
-    ] = await Promise.all([this.getPlan(PLAN_ID), this.getProjects(PLAN_ID)]);
+      { data: { data: projects } = {} } = {},
+      { data: { data: meta } = {} } = {},
+    ] = await Promise.all([
+      this.getPlan(PLAN_ID),
+      this.getProjects(PLAN_ID),
+      this.getMeta(PLAN_ID)
+    ]);
 
     const {
       attributes: {
@@ -66,6 +71,7 @@ export default {
     } = plan;
 
     PlansStore.setPlainItems([...categories, ...projects]);
+    PlansStore.setMeta(meta);
 
     const {
       last_level,
@@ -86,23 +92,34 @@ export default {
 
     // set this flag at the end, once every calc has been done
     this.isFetchingData = false;
+
+    // this cannot be done in the recursiveTree function since
+    // it's declared in a reverse way, from the projects to the root
+    // however, to insert the rootid has to be done from root to projects
+    for (let index = 0; index < this.json.length; index++) {
+      this.json[index] = this.setRootId(this.json[index], index);
+    }
   },
   methods: {
     setJsonTree(categories, projects) {
       // for simplicity to groupby
-      const categoriesWithLevel = categories.map(d => ({ ...d, level: d.attributes.level }))
+      const categoriesWithLevel = categories.map(d => ({
+        ...d,
+        level: d.attributes.level
+      }));
       // get the deepest category level, plus one to set the project level
-      const lastLevel = Math.max(...categoriesWithLevel.map(({ level }) => level)) + 1
+      const lastLevel =
+        Math.max(...categoriesWithLevel.map(({ level }) => level)) + 1;
       // populate projects with another extra level
-      const projectsWithLevel = projects.map(d => ({ ...d, level: lastLevel }))
+      const projectsWithLevel = projects.map(d => ({ ...d, level: lastLevel }));
       // merge both arrays
-      const data = [...categoriesWithLevel, ...projectsWithLevel]
+      const data = [...categoriesWithLevel, ...projectsWithLevel];
       // group them by level
       const agg = groupBy(data, "level");
       // get the keys
       const keys = Object.keys(agg);
       // creates a summary with the amounts of items by category
-      const summary = keys.map(a => ({ key: +a, length: agg[a].length }))
+      const summary = keys.map(a => ({ key: +a, length: agg[a].length }));
 
       // From a plain array, creates the required JSON structure
       // nesting their children inside each category
@@ -111,7 +128,7 @@ export default {
         ...data.reduce((acc, item) => {
           if (item.level === i) {
             /**
-             * calculate which are its children based on its level
+             * calculate which are their children based on its level
              * project: no children
              * last-category: count category_id
              * others: count term_id
@@ -120,8 +137,13 @@ export default {
               item.level === lastLevel
                 ? null
                 : item.level === lastLevel - 1
-                ? data.filter(({ attributes: { category_id } = {} }) => +item.id === category_id)
-                : data.filter(({ attributes: { term_id } = {} }) => +item.id === term_id);
+                ? data.filter(
+                    ({ attributes: { category_id } = {} }) =>
+                      +item.id === category_id
+                  )
+                : data.filter(
+                    ({ attributes: { term_id } = {} }) => +item.id === term_id
+                  );
 
             /**
              * calculate which are its progress
@@ -162,6 +184,12 @@ export default {
 
       const sum = data.reduce((acc, { progress }) => acc + progress, 0);
       return sum / data.length;
+    },
+    setRootId(item, ix) {
+      if ((item.children || []).length) {
+        item.children = item.children.map(x => this.setRootId(x, ix));
+      }
+      return { ...item, rootid: ix };
     }
   }
 };

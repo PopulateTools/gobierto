@@ -26,7 +26,6 @@
       >
         <Breadcrumb
           :model="activeNode"
-          :json="json"
           :options="options"
         />
 
@@ -95,30 +94,15 @@ export default {
   },
   created() {
     const { last_level } = this.options;
-
     this.lastLevel = last_level;
   },
   methods: {
     isOpen(level) {
-      if (this.activeNode.level === undefined) return false;
+      const { level: currentLevel } = this.activeNode
+      const { max_category_level } = this.options
 
-      let isOpen = false;
-      if (this.activeNode.level === 0) {
-        // activeNode = 0, it means is a "line"
-        // then, it shows level_0 and level_1
-        isOpen = level < 2;
-      } else {
-        // activeNode = X
-        if (this.activeNode.type === "node") {
-          // type = node, it means there's no further levels, then it shows as previous one
-          isOpen = level === 0 || level === this.activeNode.level;
-        } else {
-          // then, it shows level_0 and level_(X+1), but not those between
-          isOpen = level === 0 || level === this.activeNode.level + 1;
-        }
-      }
-
-      return isOpen;
+// TODO: incomplete
+      return (level - 1) === currentLevel || max_category_level === currentLevel
     }
   }
 };

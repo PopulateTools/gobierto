@@ -20,7 +20,6 @@
     <section :class="[`level_${lastLevel}`, `cat_${color}`]">
       <Breadcrumb
         :model="activeNode"
-        :json="json"
         :options="options"
       />
 

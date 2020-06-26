@@ -1,13 +1,13 @@
 <template>
   <div class="node-breadcrumb mb2">
-    <router-link :to="{ name: 'home' }">
+    <router-link :to="{ name: 'home', params: { ...$route.params } }">
       {{ labelStarts }}
     </router-link>
 
     <template v-for="parent in parents">
       <router-link
         :key="parent.id"
-        :to="{ name: 'categories', params: { id: parent.id } }"
+        :to="{ name: 'categories', params: { ...$route.params, id: parent.id } }"
       >
         <i class="fas fa-caret-right" />
         {{ parent.attributes.name }}
@@ -29,10 +29,6 @@ export default {
     model: {
       type: Object,
       default: () => {}
-    },
-    json: {
-      type: Array,
-      default: () => []
     },
     options: {
       type: Object,

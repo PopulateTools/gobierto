@@ -42,7 +42,7 @@ export default {
     }
   },
   created() {
-    const { last_level } = this.options
+    const { last_level, max_category_level } = this.options
     const ITEMS = PlansStore.state.plainItems
     const parents = []
 
@@ -59,7 +59,10 @@ export default {
     }
 
     findParents(this.model)
-    this.parents = parents.reverse()
+
+    // filter the last category, since the view is shared with the next to last category.
+    // then, reverse the items in order to show them from minor level to higher
+    this.parents = parents.filter(({ attributes: { level } = {} }) => level !== max_category_level ).reverse()
   }
 }
 </script>

@@ -91,8 +91,7 @@ export default {
       const { level: currentLevel } = this.activeNode
       const { max_category_level } = this.options
 
-// TODO: incomplete
-      return (level - 1) === currentLevel || max_category_level === currentLevel
+      return (level - 1) === currentLevel || (max_category_level === currentLevel && level === currentLevel)
     }
   }
 };

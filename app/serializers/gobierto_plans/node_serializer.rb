@@ -4,8 +4,6 @@ module GobiertoPlans
   class NodeSerializer < BaseSerializer
     include ::GobiertoCommon::HasCustomFieldsAttributes
 
-    cache key: "node"
-
     attributes :id, :name, :category_id, :progress, :starts_at, :ends_at, :status_id, :published_version, :position, :external_id
 
     def category_id

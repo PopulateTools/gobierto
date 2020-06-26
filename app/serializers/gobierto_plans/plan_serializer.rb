@@ -4,7 +4,6 @@ module GobiertoPlans
   class PlanSerializer < BaseSerializer
     include Rails.application.routes.url_helpers
 
-    cache key: "plan"
     belongs_to :plan_type, unless: :exclude_relationships?
     attributes :id, :slug, :title, :introduction, :year, :visibility_level, :configuration_data, :css, :footer
     attribute :categories_vocabulary_terms, unless: :exclude_relationships? do

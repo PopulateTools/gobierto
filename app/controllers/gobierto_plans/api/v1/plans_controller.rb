@@ -62,6 +62,10 @@ module GobiertoPlans
           @resource = plans_base_relation.find(params[:id])
         end
 
+        def custom_fields
+          @custom_fields ||= @resource.front_instance_level_custom_fields
+        end
+
         def links(self_key = nil)
           id = @resource&.id
           {

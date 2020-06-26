@@ -32,7 +32,7 @@ module GobiertoPlans
         end
 
         def custom_fields
-          @custom_fields ||= @plan.instance_level_custom_fields
+          @custom_fields ||= @plan.front_instance_level_custom_fields
         end
 
         def find_plan

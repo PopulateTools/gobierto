@@ -4,27 +4,21 @@
       {{ labelStarts }}
     </router-link>
 
-    <template v-for="level in currentLevel">
+    <template v-for="parent in parents">
       <router-link
-        :key="level"
-        :to="{ name: 'categories' }"
+        :key="parent.id"
+        :to="{ name: 'categories', params: { id: parent.id } }"
       >
         <i class="fas fa-caret-right" />
-        {{ getParent() }}
+        {{ parent.attributes.name }}
       </router-link>
-      <!-- <a
-        :key="level"
-        @click.stop="setParent(level)"
-      >
-        <i class="fas fa-caret-right" />
-        {{ (getParent(level).attributes || {}).title | translate }}
-      </a> -->
     </template>
   </div>
 </template>
 
 <script>
 import { translate } from "lib/shared"
+import { PlansStore } from "../lib/store";
 
 export default {
   name: "Breadcrumb",
@@ -48,46 +42,29 @@ export default {
   data() {
     return {
       labelStarts: I18n.t("gobierto_plans.plan_types.show.starts") || "",
-      currentLevel: 0,
+      parents: []
     }
   },
   created() {
-    const { level } = this.model
+    const { last_level } = this.options
+    const ITEMS = PlansStore.state.plainItems
+    const parents = []
 
-    this.currentLevel = level
-  },
-  methods: {
-    getParent() {
+    const findParents = (model) => {
+      const { level, attributes } = model
 
-      // From uid, turno into array all parents, and drop last item (myself)
-      var ancestors = _.dropRight(this.activeNode.uid.split(".")).map(Number);
+      // TODO: Si esta estructura cambia, es necesario adaptar este objeto
+      const id = (level === last_level) ? attributes.category.id : attributes.term_id
+      const parent = ITEMS.find(d => +d.id === id)
 
-      var current = this.json; // First item. ROOT item
-      for (var i = 0; i < ancestors.length; i++) {
-        if (i === breakpoint) {
-          // If there is breakpoint, I get the corresponding ancestor set by breakpoint
-          break;
-        }
-
-        if (!_.isArray(current)) {
-          current = current.children;
-        }
-        current = current[ancestors[i]];
+      if (parent) {
+        parents.push(parent)
+        findParents(parent)
       }
-
-      return current || {};
-    },
-    setParent() {
-      // Initialize args
-      var breakpoint =
-        arguments.length > 0 && arguments[0] !== undefined
-          ? arguments[0]
-          : undefined;
-      //hack 3rd level (3rd level has no SECTION)
-      if (breakpoint === 3) breakpoint = breakpoint - 1;
-
-      this.activeNode = this.getParent(breakpoint);
     }
+
+    findParents(this.model)
+    this.parents = parents.reverse()
   }
 }
 </script>

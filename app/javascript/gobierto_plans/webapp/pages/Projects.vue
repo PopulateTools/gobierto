@@ -17,8 +17,7 @@
       </template>
     </section>
 
-    <section :class="[`level_${jsonDepth}`, `cat_${color}`]">
-      <!-- general breadcrumb -->
+    <section :class="[`level_${lastLevel}`, `cat_${color}`]">
       <Breadcrumb
         :model="activeNode"
         :json="json"
@@ -61,12 +60,12 @@ export default {
   data() {
     return {
       openMenu: false,
-      jsonDepth: 0
+      lastLevel: 0
     };
   },
   created() {
-    const { json_depth } = this.options;
-    this.jsonDepth = +json_depth - 1;
+    const { last_level } = this.options;
+    this.lastLevel = last_level;
   }
 };
 </script>

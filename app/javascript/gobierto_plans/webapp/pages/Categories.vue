@@ -17,13 +17,13 @@
       </template>
     </section>
 
-    <template v-for="i in jsonDepth - 1">
+    <!-- avoid last level, as they're projects -->
+    <template v-for="i in lastLevel - 1">
       <section
         v-if="isOpen(i)"
         :key="i"
         :class="[`level_${i}`, `cat_${color}`]"
       >
-        <!-- general breadcrumb -->
         <Breadcrumb
           :model="activeNode"
           :json="json"
@@ -31,7 +31,7 @@
         />
 
         <!-- next to last children template -->
-        <template v-if="i === jsonDepth - 1">
+        <template v-if="i === lastLevel - 1">
           <div class="node-action-line">
             <ActionLineHeader :model="activeNode" />
             <ActionLines
@@ -90,15 +90,13 @@ export default {
   data() {
     return {
       openMenu: false,
-      jsonDepth: 0
+      lastLevel: 0
     };
   },
   created() {
-    const {
-      json_depth
-    } = this.options;
+    const { last_level } = this.options;
 
-    this.jsonDepth = +json_depth - 1;
+    this.lastLevel = last_level;
   },
   methods: {
     isOpen(level) {

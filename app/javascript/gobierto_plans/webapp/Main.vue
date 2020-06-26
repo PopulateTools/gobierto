@@ -65,8 +65,10 @@ export default {
       }
     } = plan;
 
+    PlansStore.setPlainItems([...categories, ...projects]);
+
     const {
-      depth,
+      last_level,
       summary,
       json,
       progress,
@@ -75,7 +77,7 @@ export default {
 
     this.json = json;
     this.summary = summary;
-    options.json_depth = depth;
+    options.last_level = last_level;
     options.global_progress = progress;
     options.max_category_level = max_category_level;
 
@@ -118,6 +120,7 @@ export default {
               item.level === lastLevel
                 ? null
                 : item.level === lastLevel - 1
+                // TODO: Si esta estructura cambia, es necesario adaptar este objeto
                 ? data.filter(({ attributes: { category: { id: category_id } = {} } = {} }) => +item.id === category_id)
                 : data.filter(({ attributes: { term_id } = {} }) => +item.id === term_id);
 
@@ -148,7 +151,7 @@ export default {
       }
 
       return {
-        depth: keys.length,
+        last_level: lastLevel,
         max_category_level: lastLevel - 1,
         summary,
         json: dataParsed,

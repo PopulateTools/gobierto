@@ -1,21 +1,10 @@
 <template>
   <div class="planification-content">
-    <section
-      class="level_0 is-active"
-      :class="{ 'is-mobile-open': openMenu }"
-    >
-      <template v-for="(model, index) in json">
-        <NodeRoot
-          :key="model.id"
-          :classes="[
-            `cat_${(index % json.length) + 1}`,
-            { 'is-root-open': parseInt(activeNode.uid) === index }
-          ]"
-          :model="model"
-          @open-menu-mobile="openMenu = !openMenu"
-        />
-      </template>
-    </section>
+    <SectionZero
+      :json="json"
+      :active="true"
+      :rootid="rootid"
+    />
 
     <section :class="[`level_${lastLevel}`, `cat_${color}`]">
       <Breadcrumb
@@ -33,7 +22,7 @@
 </template>
 
 <script>
-import NodeRoot from "../components/NodeRoot";
+import SectionZero from "../components/SectionZero";
 import Project from "../components/Project";
 import Breadcrumb from "../components/Breadcrumb";
 import { ActiveNodeMixin } from "../lib/mixins";
@@ -41,9 +30,9 @@ import { ActiveNodeMixin } from "../lib/mixins";
 export default {
   name: "Projects",
   components: {
-    NodeRoot,
+    SectionZero,
     Project,
-    Breadcrumb,
+    Breadcrumb
   },
   mixins: [ActiveNodeMixin],
   props: {
@@ -58,7 +47,6 @@ export default {
   },
   data() {
     return {
-      openMenu: false,
       lastLevel: 0
     };
   },

@@ -1,0 +1,54 @@
+<template>
+  <section
+    class="level_0"
+    :class="{ 'is-active': active, 'is-mobile-open': openMenu }"
+  >
+    <template v-for="(model, index) in json">
+      <NodeRoot
+        :key="model.id"
+        :classes="[
+          `cat_${(index % json.length) + 1}`,
+          { 'is-root-open': rootid === index }
+        ]"
+        :model="model"
+        :options="rootOptions[index]"
+        @open-menu-mobile="openMenu = !openMenu"
+      />
+    </template>
+  </section>
+</template>
+
+<script>
+import NodeRoot from "../components/NodeRoot";
+import { PlansStore } from "../lib/store";
+
+export default {
+  name: "SectionZero",
+  components: {
+    NodeRoot
+  },
+  props: {
+    active: {
+      type: Boolean,
+      default: false
+    },
+    json: {
+      type: Array,
+      default: () => []
+    },
+    rootid: {
+      type: Number,
+      default: null
+    }
+  },
+  data() {
+    return {
+      openMenu: false,
+      rootOptions: {}
+    };
+  },
+  created() {
+    this.rootOptions = PlansStore.state.levelKeys["level0_options"] || {};
+  }
+};
+</script>

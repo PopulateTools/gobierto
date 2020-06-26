@@ -1,21 +1,10 @@
 <template>
   <div class="planification-content">
-    <section
-      class="level_0 is-active"
-      :class="{ 'is-mobile-open': openMenu }"
-    >
-      <template v-for="(model, index) in json">
-        <NodeRoot
-          :key="model.id"
-          :classes="[
-            `cat_${(index % json.length) + 1}`,
-            { 'is-root-open': parseInt(activeNode.uid) === index }
-          ]"
-          :model="model"
-          @open-menu-mobile="openMenu = !openMenu"
-        />
-      </template>
-    </section>
+    <SectionZero
+      :json="json"
+      :active="true"
+      :rootid="rootid"
+    />
 
     <!-- avoid last level, as they're projects -->
     <template v-for="i in lastLevel - 1">
@@ -53,7 +42,7 @@
 </template>
 
 <script>
-import NodeRoot from "../components/NodeRoot";
+import SectionZero from "../components/SectionZero";
 import Breadcrumb from "../components/Breadcrumb";
 import ActionLineHeader from "../components/ActionLineHeader";
 import ActionLines from "../components/ActionLines";
@@ -61,6 +50,7 @@ import RecursiveHeader from "../components/RecursiveHeader";
 import RecursiveLines from "../components/RecursiveLines";
 import { translate } from "lib/shared";
 import { ActiveNodeMixin } from "../lib/mixins";
+import { PlansStore } from "../lib/store";
 
 export default {
   name: "Categories",
@@ -68,7 +58,7 @@ export default {
     translate
   },
   components: {
-    NodeRoot,
+    SectionZero,
     Breadcrumb,
     ActionLineHeader,
     ActionLines,
@@ -88,13 +78,13 @@ export default {
   },
   data() {
     return {
-      openMenu: false,
-      lastLevel: 0
+      lastLevel: 0,
     };
   },
   created() {
     const { last_level } = this.options;
     this.lastLevel = last_level;
+    this.rootOptions = PlansStore.state.levelKeys["level0_options"] || {}
   },
   methods: {
     isOpen(level) {

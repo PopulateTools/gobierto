@@ -43,6 +43,10 @@ export default {
       type: Array,
       default: () => []
     },
+    options: {
+      type: Object,
+      default: () => {}
+    },
   },
   data() {
     return {
@@ -57,9 +61,9 @@ export default {
     }
   },
   created() {
-    const { attributes: { img, name } = {}, progress } = this.model
+    const { attributes: { name } = {}, progress } = this.model
 
-    this.image = img
+    this.image = this.options.logo
     this.progress = progress
     this.title = name
   },

@@ -2,6 +2,7 @@
 
 module GobiertoPlans
   class NodeSerializer < BaseSerializer
+    include ::GobiertoCommon::Versionable
     include ::GobiertoCommon::HasCustomFieldsAttributes
 
     attributes :id, :name, :category_id, :progress, :starts_at, :ends_at, :status_id, :published_version, :position, :external_id

@@ -23,6 +23,7 @@ window.GobiertoPlans.PlanTypesController = (function() {
   };
 
   function _loadPlan() {
+    // TODO: sacar de aquí y usar los compartidos (lib/shared)
     // filters
     Vue.filter("translate", function(key) {
       if (!key) return;
@@ -310,8 +311,11 @@ window.GobiertoPlans.PlanTypesController = (function() {
 
           this.activeNode = this.getParent(breakpoint);
         },
+        resetParent() {
+          this.activeNode = {}
+        },
         setPermalink: function() {
-          window.location.hash = this.activeNode.uid;
+          window.location.hash = this.activeNode.uid ? this.activeNode.uid : '';
         },
         getPermalink: function(hash, forcedNode = null) {
           let found = this.searchByUid(hash, this.json);

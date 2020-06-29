@@ -571,7 +571,10 @@ export default {
     async storeCurrentQuery({ name, privacy }) {
 
       const {
-        params: { queryId }
+        params: {
+          queryId,
+          id: slugDataset
+        }
       } = this.$route;
 
       if (!queryId && !this.isQuerySavingPromptVisible) {
@@ -607,10 +610,35 @@ export default {
         ({ status } = await this.postQuery({ data }));
       }
 
+      if (userId !== this.queryUserId) {
+        this.isForkPromptVisible = false
+        //Get the list before the newQuery is saved
+        const oldQueries = this.privateQueries
+        //Get the list with the new query
+        const newQueries = await this.getPrivateQueries()
+        const {
+          data: {
+            data: allNewQueries
+          }
+        } = newQueries
+
+        //Compare both list and get the unique element
+        let newQuery = allNewQueries.filter(value1 => !oldQueries.some(value2 => value1.id === value2.id));
+
+        const [{
+          id: newId
+        }] = newQuery
+
+        //Update the URL with the new id
+        this.$router.push(`/datos/${slugDataset}/q/${newId}`)
+
+        this.publicQueries = this.setPublicQueries(await this.getPublicQueries());
+
+      }
+
       // reload the queries if the response was successfull
       // 200 OK (PUT) / 201 Created (POST)
       if ([200, 201].includes(status)) {
-        this.isQueryModified = false;
         //Show a message for the user, your query is saved
         this.isQuerySaved = true;
         this.enabledQuerySavedButton = false
@@ -785,8 +813,9 @@ export default {
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value
     },
-    queryIsNotMine() {
+    async queryIsNotMine() {
       const userId = Number(getUserId());
+      await this.getPublicVisualizations()
 
       const {
         params: { queryId },

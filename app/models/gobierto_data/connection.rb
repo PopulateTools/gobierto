@@ -37,6 +37,24 @@ module GobiertoData
         failed_query(e.message)
       end
 
+      def execute_query_output_csv(site, query, csv_options_params, include_draft: false)
+        with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(false, include_draft)) do
+          connection_pool.connection.execute("SET search_path TO draft, public") if include_draft
+
+          csv  = []
+          # Get the raw connection (in our case the pg connection object)
+          pg_connection = connection_pool.connection.raw_connection
+          pg_connection.copy_data("COPY (#{query}) TO STDOUT WITH (FORMAT CSV, HEADER TRUE, DELIMITER '#{csv_options_params[:col_sep]}', FORCE_QUOTE *, ESCAPE E'\\\\');") do
+            while row = pg_connection.get_copy_data
+              csv.push(row)
+            end
+          end
+          return csv.join('')
+        end
+      rescue ActiveRecord::StatementInvalid, PG::Error => e
+        failed_query(e.message)
+      end
+
       def execute_write_query_from_file_using_stdin(site, query, file_path: nil, include_draft: false)
         return unless file_path.present?
 

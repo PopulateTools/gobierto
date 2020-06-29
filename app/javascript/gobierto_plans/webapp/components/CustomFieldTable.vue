@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="config && table"
-    class="tablerow"
-  >
+  <div class="tablerow">
     <div class="tablerow__title">
       {{ title | translate }}
     </div>
@@ -27,7 +24,7 @@
                 </th>
               </thead>
               <tr
-                v-for="({ id, objective, date, value }, index) in table[indicator]"
+                v-for="({ id, objective, date, value_reached }, index) in table[indicator]"
                 :key="`${id}-${date || index}`"
                 class="tablerow__item-table-row"
               >
@@ -38,7 +35,7 @@
                   {{ objective }}
                 </td>
                 <td v-if="hasReached">
-                  {{ value }}
+                  {{ value_reached }}
                 </td>
               </tr>
             </table>
@@ -50,13 +47,16 @@
 </template>
 
 <script>
-import { VueFiltersMixin } from "lib/shared";
+import { translate } from "lib/shared";
+import { groupBy } from "../lib/helpers";
 
 export default {
-  name: "PluginRawIndicators",
-  mixins: [VueFiltersMixin],
+  name: "CustomFieldTable",
+  filters: {
+    translate
+  },
   props: {
-    config: {
+    attributes: {
       type: Object,
       default: () => {}
     }
@@ -64,28 +64,36 @@ export default {
   data() {
     return {
       title: "",
+      value: [],
       table: {},
-      labelObjetive: I18n.t("gobierto_plans.plan_types.show.objective") || '',
-      labelReached: I18n.t("gobierto_plans.plan_types.show.reached") || '',
+      labelObjetive: I18n.t("gobierto_plans.plan_types.show.objective") || "",
+      labelReached: I18n.t("gobierto_plans.plan_types.show.reached") || ""
     };
   },
   computed: {
     columns() {
-      return Object.keys(this.table)
+      return Object.keys(this.table);
     },
     hasDate() {
-      return this.config.data.some(({ date }) => !!date)
+      return this.value.some(({ date }) => !!date);
     },
     hasObjective() {
-      return this.config.data.some(({ objective }) => !!objective)
+      return this.value.some(({ objective }) => !!objective);
     },
     hasReached() {
-      return this.config.data.some(({ value }) => !!value)
-    },
+      return this.value.some(({ value_reached }) => !!value_reached);
+    }
   },
   created() {
-    this.title = this.config.title_translations;
-    const data = _.groupBy(this.config.data, 'name');
+    const {
+      name_translations,
+      value
+    } = this.attributes;
+    this.title = name_translations;
+    this.value = value;
+
+    // creates as many tables as indicators there are
+    const data = groupBy(value, 'indicator');
 
     for (const key in data) {
       if (Object.prototype.hasOwnProperty.call(data, key)) {

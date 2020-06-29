@@ -7,12 +7,12 @@
     <div class="node-project-detail">
       <ProjectNativeFields :model="model" />
 
-      <ProjectCustomFields :model="model" />
-      <!--
-      <ProjectPlugins
-        v-if="hasPlugins"
-        :plugins="plugins"
-      /> -->
+      <template v-for="{ id, attributes } in customFields">
+        <ProjectCustomFields
+          :key="id"
+          :attributes="attributes"
+        />
+      </template>
     </div>
   </div>
 </template>
@@ -20,14 +20,13 @@
 <script>
 import ProjectNativeFields from "./ProjectNativeFields";
 import ProjectCustomFields from "./ProjectCustomFields";
-import ProjectPlugins from "./ProjectPlugins";
+import { PlansStore } from "../lib/store";
 
 export default {
   name: "Project",
   components: {
     ProjectNativeFields,
-    ProjectCustomFields,
-    ProjectPlugins
+    ProjectCustomFields
   },
   props: {
     model: {
@@ -38,11 +37,19 @@ export default {
   data() {
     return {
       title: "",
+      customFields: [],
     };
   },
   created() {
-    const { attributes: { name } } = this.model;
-    this.title = name;
+    const META = PlansStore.state.meta;
+    const { attributes } = this.model;
+    this.title = attributes.name;
+
+    // Expand the META object with the matching values for this project
+    this.customFields = META.map(d => ({
+      ...d,
+      attributes: { ...d.attributes, value: attributes[d.attributes.uid] }
+    }));
   }
 };
 </script>

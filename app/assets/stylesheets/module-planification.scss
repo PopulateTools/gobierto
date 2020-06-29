@@ -469,6 +469,11 @@ $nodeLevel1HeightMobile: 20vh;
       margin-top: 0.5em;
     }
 
+    .description-content {
+      max-height: 100vh;
+      transition: all 250ms;
+    }
+
     .is-hidden {
       max-height: 100px;
       position: relative;
@@ -487,7 +492,7 @@ $nodeLevel1HeightMobile: 20vh;
 
     .description-desc {
       font-size: 14px;
-      word-break: break-all;
+      word-break: break-word;
     }
 
     .description-list {

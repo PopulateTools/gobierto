@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+module GobiertoCommon
+  module Versionable
+    extend ActiveSupport::Concern
+
+    def object
+      return @object if @live_object.present?
+
+      @live_object = super
+      @object = version_index.negative? ? @live_object.versions[version_index].reify : @live_object
+    end
+
+    def version_index
+      @version_index ||= @live_object.published_version - @live_object.versions.count
+    end
+  end
+end

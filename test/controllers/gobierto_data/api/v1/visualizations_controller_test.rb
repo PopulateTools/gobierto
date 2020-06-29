@@ -127,9 +127,33 @@ module GobiertoData
             privacy_status: "open",
             sql: "select count(*) from users where bio is not null",
             spec: {
-              "x" => 1,
-              "y" => 2,
-              "z" => 3
+              "plugin": "d3_xy_scatter",
+              "columns": [
+                "column_1",
+                "height",
+                nil,
+                nil,
+                "birth_state",
+                "birth_city"
+              ],
+              "selectable": nil,
+              "editable": nil,
+              "row-pivots": nil,
+              "column-pivots": nil,
+              "aggregates": nil,
+              "filters": nil,
+              "sort": nil,
+              "computed-columns": nil,
+              "plugin_config": {
+                "realValues": [
+                  "column_1",
+                  "height",
+                  nil,
+                  nil,
+                  "birth_state",
+                  "birth_city"
+                ]
+              }
             },
             query_id: query.id,
             dataset_id: dataset.id

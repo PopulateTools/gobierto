@@ -9,14 +9,18 @@ module GobiertoPlans
         # GET /api/v1/plans/1/projects
         # GET /api/v1/plans/1/projects.json
         def index
-          render(
-            json: filtered_relation,
-            links: links(:index),
-            each_serializer: GobiertoPlans::NodeSerializer,
-            plan: @plan,
-            custom_fields: custom_fields,
-            adapter: :json_api
-          )
+          json = Rails.cache.fetch("#{filtered_relation.cache_key}/#{@plan.cache_key}/#{I18n.locale}/projects_collection") do
+            render_to_string(
+              json: filtered_relation,
+              links: links(:index),
+              each_serializer: GobiertoPlans::NodeSerializer,
+              plan: @plan,
+              custom_fields: custom_fields,
+              custom_fields_value_method: :raw_api_value,
+              adapter: :json_api
+            )
+          end
+          render json: json
         end
 
         private
@@ -28,7 +32,7 @@ module GobiertoPlans
         end
 
         def custom_fields
-          @custom_fields ||= @plan.instance_level_custom_fields
+          @custom_fields ||= @plan.front_instance_level_custom_fields
         end
 
         def find_plan

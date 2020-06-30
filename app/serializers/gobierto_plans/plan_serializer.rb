@@ -4,9 +4,11 @@ module GobiertoPlans
   class PlanSerializer < BaseSerializer
     include Rails.application.routes.url_helpers
 
-    cache key: "plan"
     belongs_to :plan_type, unless: :exclude_relationships?
-    attributes :id, :slug, :title, :introduction, :year, :visibility_level, :configuration_data, :css, :footer
+    attributes :id, :slug, :title, :introduction, :year, :visibility_level, :css, :footer
+    attribute :configuration_data do
+      object.configuration_data.except("fields_to_not_show_in_front")
+    end
     attribute :categories_vocabulary_terms, unless: :exclude_relationships? do
       serialize_terms(object.categories_vocabulary.terms.sorted)
     end

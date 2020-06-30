@@ -31,6 +31,7 @@ module GobiertoCommon
                          payload[custom_field.uid]
                        end
       end
+      alias raw_api_value raw_value
 
       def default_value
         custom_field.configuration.multiple ? [] : nil

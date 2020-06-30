@@ -63,7 +63,7 @@ bowling_group_very_active:
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels['active'] %>
   issue: culture_term
-  header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
+  header_image_url: /assets/samples/process.jpg
 
 group_archived:
   site: madrid
@@ -83,7 +83,7 @@ group_archived:
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels['active'] %>
   issue: culture_term
-  header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
+  header_image_url: /assets/samples/process.jpg
   created_at: <%= 1.hour.ago %>
   archived_at: <%= 1.second.ago %>
 
@@ -156,7 +156,7 @@ gender_violence_process:
   ends: <%= 30.days.from_now %>
   issue: women_term
   scope: old_town_term
-  header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
+  header_image_url: /assets/samples/process.jpg
 
 commission_for_carnival_festivities:
   site: madrid
@@ -178,7 +178,7 @@ commission_for_carnival_festivities:
   starts: <%= 5.months.ago %>
   ends: <%= 6.months.from_now %>
   issue: culture_term
-  header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
+  header_image_url: /assets/samples/process.jpg
 
 center_scope_process:
   site: madrid
@@ -212,4 +212,4 @@ complete_process:
   visibility_level: <%= Site.visibility_levels['active'] %>
   starts: <%= 5.months.ago %>
   ends: <%= 6.months.from_now %>
-  header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
+  header_image_url: /assets/samples/process.jpg

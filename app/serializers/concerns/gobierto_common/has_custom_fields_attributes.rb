@@ -10,9 +10,10 @@ module GobiertoCommon
 
       if data[:id].present?
         ::GobiertoCommon::CustomFieldRecord.includes(:custom_field).where(custom_field: custom_fields, item: object).sorted.each do |record|
+          uid = record.custom_field.uid
           record = record.versions[@version_index]&.reify if @version_index&.negative?
 
-          data[record.custom_field.uid] = record.send(value_method)
+          data[uid] = record&.send(value_method)
         end
       else
         custom_fields.each do |custom_field|

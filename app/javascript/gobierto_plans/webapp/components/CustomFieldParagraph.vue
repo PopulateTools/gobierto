@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     isElementHidden() {
-      return this.value.length > 200;
+      return this.value && this.value.length > 200;
     }
   },
   created() {

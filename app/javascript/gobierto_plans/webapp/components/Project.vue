@@ -32,24 +32,38 @@ export default {
     model: {
       type: Object,
       default: () => {}
+    },
+    options: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
     return {
       title: "",
-      customFields: [],
+      customFields: []
     };
   },
   created() {
     const META = PlansStore.state.meta;
     const { attributes } = this.model;
+    const { show_empty_fields = true } = this.options;
     this.title = attributes.name;
 
     // Expand the META object with the matching values for this project
-    this.customFields = META.map(d => ({
-      ...d,
-      attributes: { ...d.attributes, value: attributes[d.attributes.uid] }
-    }));
+    this.customFields = META.reduce((acc, item) => {
+      const { uid } = item.attributes;
+      const value = attributes[uid];
+
+      if (show_empty_fields || value) {
+        acc.push({
+          ...item,
+          attributes: { ...item.attributes, value }
+        });
+      }
+
+      return acc;
+    }, []);
   }
 };
 </script>

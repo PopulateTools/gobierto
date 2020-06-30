@@ -11,7 +11,7 @@
           { 'is-root-open': rootid === index }
         ]"
         :model="model"
-        :options="rootOptions[index]"
+        :options="rootOptions[index] || {}"
         @open-menu-mobile="openMenu = !openMenu"
       />
     </template>

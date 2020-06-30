@@ -12,7 +12,10 @@
         :options="options"
       />
 
-      <Project :model="activeNode" />
+      <Project
+        :model="activeNode"
+        :options="options"
+      />
     </section>
   </div>
 </template>

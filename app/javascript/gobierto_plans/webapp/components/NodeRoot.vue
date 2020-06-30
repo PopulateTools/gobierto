@@ -62,8 +62,9 @@ export default {
   },
   created() {
     const { attributes: { name } = {}, progress } = this.model
+    const { logo } = this.options
 
-    this.image = this.options.logo
+    this.image = logo
     this.progress = progress
     this.title = name
   },

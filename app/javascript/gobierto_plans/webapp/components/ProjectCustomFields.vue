@@ -20,30 +20,17 @@
         </div>
 
         <div class="description-desc">
-          <template v-if="attributes.uid === 'sdgs'">
-            <CustomFieldSDG :attributes="attributes" />
+          <template v-if="fieldType === 'vocabulary_options'">
+            <CustomFieldVocabulary :attributes="attributes" />
           </template>
 
-          <template v-else-if="fieldType === 'vocabulary_options'">
+          <template v-else>
             <div
-              v-for="{ id: idx, name_translations } in attributes.value"
-              :key="idx"
-            >
-              {{ name_translations | translate }}
-            </div>
-          </template>
-
-          <template v-else-if="Array.isArray(attributes.value)">
-            <div
-              v-for="value in attributes.value"
+              v-for="value in values"
               :key="value"
             >
               {{ value }}
             </div>
-          </template>
-
-          <template v-else>
-            {{ attributes.value }}
           </template>
         </div>
       </div>
@@ -55,14 +42,14 @@
 import { translate } from "lib/shared";
 import CustomFieldParagraph from "./CustomFieldParagraph.vue";
 import CustomFieldTable from "./CustomFieldTable.vue";
-import CustomFieldSDG from "./CustomFieldSDG.vue";
+import CustomFieldVocabulary from "./CustomFieldVocabulary.vue";
 
 export default {
   name: "ProjectCustomFields",
   components: {
     CustomFieldParagraph,
     CustomFieldTable,
-    CustomFieldSDG
+    CustomFieldVocabulary
   },
   filters: {
     translate
@@ -75,20 +62,27 @@ export default {
   },
   data() {
     return {
-      fieldType: null
+      fieldType: null,
+      values: []
     };
   },
   computed: {
     paragraphType() {
-      return ['paragraph', 'localized_paragraph', 'string', 'localized_string'].includes(this.fieldType)
+      return [
+        "paragraph",
+        "localized_paragraph",
+        "string",
+        "localized_string"
+      ].includes(this.fieldType);
     },
     pluginType() {
-      return this.fieldType === 'plugin'
+      return this.fieldType === "plugin";
     }
   },
   created() {
-    const { field_type } = this.attributes;
-    this.fieldType = field_type
+    const { field_type, value } = this.attributes;
+    this.fieldType = field_type;
+    this.values = Array.isArray(value) ? value : [value];
   }
 };
 </script>

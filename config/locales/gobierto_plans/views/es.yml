@@ -33,9 +33,7 @@ es:
         global_execution: Estado de ejecución global
         latest_update_html: "<strong>Última actualización:</strong> %{date}"
         loading: Cargando...
-        objective: Objetivo
         progress: Progreso
-        reached: Alcanzado
         read_less: Leer menos
         read_more: Leer más
         starts: Inicio

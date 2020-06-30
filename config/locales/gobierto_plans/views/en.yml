@@ -31,9 +31,7 @@ en:
         global_execution: State of global execution
         latest_update_html: "<strong>Latest update:</strong> %{date}"
         loading: Loading...
-        objective: Objective
         progress: Progress
-        reached: Reached
         read_less: Read more
         read_more: Read less
         starts: Start

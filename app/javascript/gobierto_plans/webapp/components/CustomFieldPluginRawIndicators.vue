@@ -4,7 +4,7 @@
       {{ title | translate }}
     </div>
     <div class="tablerow__data">
-      <template v-for="indicator in columns">
+      <template v-for="indicator in indicators">
         <div
           :key="indicator"
           class="tablerow__item"
@@ -15,27 +15,23 @@
           <div class="tablerow__item-table-container">
             <table class="tablerow__item-table">
               <thead class="tablerow__item-table-header">
-                <th v-if="hasDate" />
-                <th v-if="hasObjective">
-                  {{ labelObjetive }}
-                </th>
-                <th v-if="hasReached">
-                  {{ labelReached }}
+                <th
+                  v-for="{ id, name_translations } in noAggColumns"
+                  :key="id"
+                >
+                  {{ name_translations | translate }}
                 </th>
               </thead>
               <tr
-                v-for="({ id, objective, date, value_reached }, index) in table[indicator]"
-                :key="`${id}-${date || index}`"
+                v-for="(row, index) in table[indicator]"
+                :key="`${row[indicator]}--${index}`"
                 class="tablerow__item-table-row"
               >
-                <td v-if="hasDate">
-                  {{ date }}
-                </td>
-                <td v-if="hasObjective">
-                  {{ objective }}
-                </td>
-                <td v-if="hasReached">
-                  {{ value_reached }}
+                <td
+                  v-for="{ id } in noAggColumns"
+                  :key="id"
+                >
+                  {{ row[id] }}
                 </td>
               </tr>
             </table>
@@ -66,34 +62,29 @@ export default {
       title: "",
       value: [],
       table: {},
-      labelObjetive: I18n.t("gobierto_plans.plan_types.show.objective") || "",
-      labelReached: I18n.t("gobierto_plans.plan_types.show.reached") || ""
+      noAggColumns: []
     };
   },
   computed: {
-    columns() {
+    indicators() {
       return Object.keys(this.table);
     },
-    hasDate() {
-      return this.value.some(({ date }) => !!date);
-    },
-    hasObjective() {
-      return this.value.some(({ objective }) => !!objective);
-    },
-    hasReached() {
-      return this.value.some(({ value_reached }) => !!value_reached);
-    }
   },
   created() {
     const {
       name_translations,
-      value
+      value,
+      options: { configuration: { plugin_configuration: { columns } = {} } = {} } = {}
     } = this.attributes;
     this.title = name_translations;
     this.value = value;
 
+    // first column is the aggregator, the rest of columns will make the table
+    const [{ id: aggKey }, ...noAggColumns ] = columns
+    this.noAggColumns = noAggColumns
+
     // creates as many tables as indicators there are
-    const data = groupBy(value, 'indicator');
+    const data = groupBy(value, aggKey);
 
     for (const key in data) {
       if (Object.prototype.hasOwnProperty.call(data, key)) {

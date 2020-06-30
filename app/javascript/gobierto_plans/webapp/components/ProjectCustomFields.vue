@@ -5,8 +5,8 @@
     </template>
 
     <template v-else-if="pluginType">
-      <template v-if="attributes.options.configuration.plugin_type === 'table'">
-        <CustomFieldTable :attributes="attributes" />
+      <template v-if="attributes.options.configuration.plugin_configuration.category_term_decorator === 'raw_indicators'">
+        <CustomFieldPluginRawIndicators :attributes="attributes" />
       </template>
       <template v-else>
         <!-- incomplete markups: plugin types progress & budgets -->
@@ -41,14 +41,14 @@
 <script>
 import { translate } from "lib/shared";
 import CustomFieldParagraph from "./CustomFieldParagraph.vue";
-import CustomFieldTable from "./CustomFieldTable.vue";
+import CustomFieldPluginRawIndicators from "./CustomFieldPluginRawIndicators.vue";
 import CustomFieldVocabulary from "./CustomFieldVocabulary.vue";
 
 export default {
   name: "ProjectCustomFields",
   components: {
     CustomFieldParagraph,
-    CustomFieldTable,
+    CustomFieldPluginRawIndicators,
     CustomFieldVocabulary
   },
   filters: {

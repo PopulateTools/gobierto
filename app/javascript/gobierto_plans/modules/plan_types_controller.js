@@ -2,6 +2,7 @@ import Vue from "vue";
 import { router } from "../webapp/lib/router";
 
 Vue.config.productionTip = false;
+Vue.config.devtools = true;
 
 export class GobiertoPlansController {
   constructor(options = {}) {

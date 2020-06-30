@@ -23,29 +23,6 @@ module GobiertoPlans
 
       @site_stats = GobiertoPlans::SiteStats.new site: current_site, plan: @plan
       @plan_updated_at = @site_stats.plan_updated_at
-
-      respond_to do |format|
-        format.html do
-          @node_number = @plan.nodes.count
-          @levels = @plan.levels
-        end
-
-        format.json do
-          plan_tree, global_progress = Rails.cache.fetch(@plan.cache_key + "/plan_tree") do
-            tree = GobiertoPlans::PlanTree.new(@plan)
-            [tree.call, tree.global_progress]
-          end
-
-          render(
-            json: { plan_tree: plan_tree,
-                    option_keys: @plan.configuration_data&.dig("option_keys") || {},
-                    level_keys: @plan.level_keys,
-                    show_table_header: @plan.configuration_data&.dig("show_table_header"),
-                    open_node: @plan.configuration_data&.dig("open_node"),
-                    global_progress: global_progress }
-          )
-        end
-      end
     end
 
     def sdg

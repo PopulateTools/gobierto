@@ -14,7 +14,7 @@
       <% projects.each do |project| %>
         <div class="m_b_1">
           <i class="fas fa-angle-right"></i>
-          <%= link_to project.at_current_version.name, gobierto_plans_plan_url(slug: @plan.plan_type.slug, year: @plan.year, anchor: project.uid) %>
+          <%= link_to project.at_current_version.name, gobierto_plans_project_url(project, slug: @plan.plan_type.slug, year: @plan.year) %>
         </div>
       <% end %>
     </div>

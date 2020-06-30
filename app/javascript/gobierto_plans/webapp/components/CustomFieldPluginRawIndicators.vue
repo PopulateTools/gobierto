@@ -16,10 +16,12 @@
             <table class="tablerow__item-table">
               <thead class="tablerow__item-table-header">
                 <th
-                  v-for="{ id, name_translations } in noAggColumns"
+                  v-for="({ id, name_translations }, index) in noAggColumns"
                   :key="id"
                 >
-                  {{ name_translations | translate }}
+                  <template v-if="index !== 0">
+                    {{ name_translations | translate }}
+                  </template>
                 </th>
               </thead>
               <tr

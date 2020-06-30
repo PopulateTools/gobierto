@@ -16,7 +16,7 @@ module GobiertoPlans
       load_plans
       load_years
       load_year
-      redirect_to gobierto_plans_plan_path(slug: params[:slug], year: @years.first) and return if @year.nil?
+      @year ||= @years.first
 
       @plan = PlanDecorator.new(find_plan)
       @sdgs = SdgDecorator.new(find_plan)
@@ -64,11 +64,13 @@ module GobiertoPlans
     private
 
     def find_plan_type
+      return PlanType.site_plan_types_with_years(current_site).first unless params[:slug]
+
       current_site.plan_types.find_by!(slug: params[:slug])
     end
 
     def find_plan
-      valid_preview_token? ? @plan_type.plans.find_by!(year: params[:year]) : @plan_type.plans.published.find_by!(year: params[:year])
+      valid_preview_token? ? @plan_type.plans.find_by!(year: @year) : @plan_type.plans.published.find_by!(year: @year)
     end
 
     def load_plans

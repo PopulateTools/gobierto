@@ -46,16 +46,17 @@ export default {
   },
   created() {
     const META = PlansStore.state.meta;
-    const { attributes } = this.model;
     const { show_empty_fields = true } = this.options;
-    this.title = attributes.name;
+    const { attributes = {} } = this.model;
+    const { name } = attributes
 
+    this.title = name;
     // Expand the META object with the matching values for this project
     this.customFields = META.reduce((acc, item) => {
       const { uid } = item.attributes;
       const value = attributes[uid];
 
-      if (show_empty_fields || value) {
+      if (show_empty_fields || (value && value.length)) {
         acc.push({
           ...item,
           attributes: { ...item.attributes, value }

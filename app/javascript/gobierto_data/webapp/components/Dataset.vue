@@ -215,10 +215,16 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     const {
-      name: nameComponent
+      name: nameComponent,
+      params: {
+        tab
+      }
     } = to;
     next(vm => {
       vm.showRevertQuery = (nameComponent === 'Query')
+      if (tab === 'visualizaciones') {
+        vm.reloadVisualizations()
+      }
     })
   },
   async created() {
@@ -282,10 +288,6 @@ export default {
       // update the editor text content by default
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
-
-    // Get all visualizations
-    await this.getPrivateVisualizations();
-    await this.getPublicVisualizations();
 
     this.queryIsNotMine();
     this.runCurrentQuery();
@@ -413,14 +415,11 @@ export default {
       }
     },
     setDefaultQuery() {
-
-      const userId = getUserId();
       const {
         params: { queryId }
       } = this.$route;
 
-      //Check if user is logged
-      const items = userId ? this.privateQueries : this.publicQueries
+      const items = this.publicQueries
       //We need to keep this query separate from the editor query
       //When load a saved query we use the queryId to find inside privateQueries or publicQueries
       const { attributes: { sql: queryRevert } = {} } = items.find(({ id }) => id === queryId) || {}
@@ -451,7 +450,7 @@ export default {
       this.isPublicVizLoading = false
     },
     async getPrivateVisualizations() {
-      const userId = getUserId()
+      const userId = Number(getUserId());
       this.isPrivateVizLoading = true
 
       if (userId) {
@@ -535,7 +534,7 @@ export default {
       }
     },
     async getPrivateQueries() {
-      const userId = getUserId();
+      const userId = Number(getUserId());
       // factory method
       return this.getQueries({
         "filter[dataset_id]": this.datasetId,
@@ -754,8 +753,37 @@ export default {
         this.vizName = null
 
         await this.getPrivateVisualizations()
+        if (user !== userId) {
+          await this.updateUrlViz()
+        }
         await this.getPublicVisualizations()
       }
+    },
+    async updateUrlViz() {
+      const {
+        params: {
+          id: slugDataset
+        }
+      } = this.$route;
+
+      this.isForkPromptVisible = false
+      //Get the list before the newViz is saved
+      const oldVizs = this.publicVisualizations
+
+      //Get the list with the new visualization
+      const allNewVizs = this.privateVisualizations
+      //Compare both list and get the unique element
+      const newViz = allNewVizs.filter(value1 => !oldVizs.some(value2 => value1.id === value2.id));
+
+      const [{
+        id: newId
+      }] = newViz
+
+      //Update the URL with the new id
+      this.$router.push(`/datos/${slugDataset}/v/${newId}`)
+
+      this.publicVisualizations = await this.getPublicVisualizations();
+      this.queryInputFocus = false
     },
     getColumnsQuery(csv = '') {
       const [ columns = '' ] = csv.split("\n");
@@ -813,9 +841,8 @@ export default {
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value
     },
-    async queryIsNotMine() {
+    queryIsNotMine() {
       const userId = Number(getUserId());
-      await this.getPublicVisualizations()
 
       const {
         params: { queryId },
@@ -866,9 +893,21 @@ export default {
     setVizName(vizName) {
       this.vizName = vizName
     },
-    reloadVisualizations() {
-      this.getPrivateVisualizations()
-      this.getPublicVisualizations()
+    async reloadVisualizations() {
+      const {
+        params: { id }
+      } = this.$route;
+
+      // factory method
+      const {
+        data: {
+          data: { id: datasetId }
+        }
+      } = await this.getDatasetMetadata(id);
+      this.datasetId = parseInt(datasetId)
+
+      await this.getPrivateVisualizations()
+      await this.getPublicVisualizations()
     },
     activateForkVizButton(value) {
       this.enabledForkVizButton = value

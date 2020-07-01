@@ -112,7 +112,6 @@ export default {
     }
   },
   created() {
-
     const {
       name: nameComponent
     } = this.$route;

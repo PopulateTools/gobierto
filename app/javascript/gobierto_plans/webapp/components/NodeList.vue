@@ -61,10 +61,7 @@ export default {
       const { id, level } = this.model;
 
       if (level !== this.maxCategoryLevel) {
-        this.$router.push({
-          name: "categories",
-          params: { ...this.$route.params, id }
-        });
+        this.$router.push({ path: `${this.$root.$data.baseurl}/categoria/${id}` })
       } else {
         this.$emit("toggle");
         this.isOpen = !this.isOpen;

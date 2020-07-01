@@ -70,7 +70,7 @@ export default {
   methods: {
     getProject(row) {
       if (this.open) {
-        this.$router.push({ name: 'projects', params: { ...this.$route.params, id: row.id } })
+        this.$router.push({ path: `${this.$root.$data.baseurl}/proyecto/${row.id}` })
       }
     }
   }

@@ -71,7 +71,7 @@ export default {
   methods: {
     open() {
       this.$emit("open-menu-mobile");
-      this.$router.push({ name: 'categories', params: { ...this.$route.params, id: this.model.id } })
+      this.$router.push({ path: `${this.$root.$data.baseurl}/categoria/${this.model.id}` })
     }
   }
 };

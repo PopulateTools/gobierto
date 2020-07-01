@@ -6,7 +6,10 @@
       :rootid="rootid"
     />
 
-    <section :class="[`level_${lastLevel}`, `cat_${color}`]">
+    <section
+      :class="[`level_${lastLevel}`, 'category']"
+      :style="`--category: var(--category-${color})`"
+    >
       <Breadcrumb
         :model="activeNode"
         :options="options"

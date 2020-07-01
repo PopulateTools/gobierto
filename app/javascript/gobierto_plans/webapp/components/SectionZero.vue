@@ -7,11 +7,12 @@
       <NodeRoot
         :key="model.id"
         :classes="[
-          `cat_${(index % json.length) + 1}`,
+          'category',
           { 'is-root-open': rootid === index }
         ]"
         :model="model"
         :options="rootOptions[index] || {}"
+        :style="`--category: var(--category-${(index % json.length) + 1})`"
         @open-menu-mobile="openMenu = !openMenu"
       />
     </template>

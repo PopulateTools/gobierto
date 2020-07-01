@@ -11,7 +11,8 @@
       <section
         v-if="isOpen(i)"
         :key="i"
-        :class="[`level_${i}`, `cat_${color}`]"
+        :class="[`level_${i}`, 'category']"
+        :style="`--category: var(--category-${color})`"
       >
         <Breadcrumb
           :model="activeNode"

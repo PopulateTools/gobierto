@@ -447,6 +447,10 @@ $nodeLevel1HeightMobile: 20vh;
     color: $color_text;
     padding: 0.75em 0;
 
+    &:empty {
+      display: none;
+    }
+
     .description-title {
       text-transform: uppercase;
       font-weight: 700;

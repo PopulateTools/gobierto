@@ -82,7 +82,10 @@ export default {
   created() {
     const { field_type, value } = this.attributes;
     this.fieldType = field_type;
-    this.values = Array.isArray(value) ? value : [value];
+
+    if (value) {
+      this.values = Array.isArray(value) ? value : [value];
+    }
   }
 };
 </script>

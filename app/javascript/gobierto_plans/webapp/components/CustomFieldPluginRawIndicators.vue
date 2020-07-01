@@ -49,7 +49,7 @@ import { translate } from "lib/shared";
 import { groupBy } from "../lib/helpers";
 
 export default {
-  name: "CustomFieldTable",
+  name: "CustomFieldPluginRawIndicators",
   filters: {
     translate
   },
@@ -85,19 +85,21 @@ export default {
     const [{ id: aggKey }, ...noAggColumns ] = columns
     this.noAggColumns = noAggColumns
 
-    // creates as many tables as indicators there are
-    const data = groupBy(value, aggKey);
+    if (value) {
+      // creates as many tables as indicators there are
+      const data = groupBy(value, aggKey);
 
-    // sort by date column if exists
-    if (noAggColumns.some(({ id }) => id === 'date')) {
-      for (const key in data) {
-        if (Object.prototype.hasOwnProperty.call(data, key)) {
-          data[key] = (data[key] || []).sort(({ date: a }, { date: b }) => a < b)
+      // sort by date column if exists
+      if (noAggColumns.some(({ id }) => id === 'date')) {
+        for (const key in data) {
+          if (Object.prototype.hasOwnProperty.call(data, key)) {
+            data[key] = (data[key] || []).sort(({ date: a }, { date: b }) => a < b)
+          }
         }
       }
-    }
 
-    this.table = data;
+      this.table = data;
+    }
   }
 };
 </script>

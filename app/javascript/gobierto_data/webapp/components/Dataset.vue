@@ -398,16 +398,17 @@ export default {
   },
   methods: {
     updateBaseTitle() {
-      this.$nextTick(() => {
-        let title
-        let tabTitle
-        const {
-          name: nameComponent,
-          params: {
-            tab: tabName
-          }
-        } = this.$route
-        if (nameComponent === "Dataset" && this.titleDataset) {
+      const {
+        name: nameComponent,
+        params: {
+          tab: tabName
+        }
+      } = this.$route
+      if (nameComponent === "Dataset" && this.titleDataset) {
+        this.$nextTick(() => {
+          let title
+          let tabTitle
+
           const titleI18n = this.titleDataset
             ? `${this.titleDataset} · `
             : "";
@@ -424,9 +425,9 @@ export default {
             tabTitle = `${this.labelSummary} · `
           }
           title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
-        }
-        document.title = title;
-      });
+          document.title = title;
+        })
+      }
     },
     checkIfUserIsLogged() {
       if (this.isUserLogged) {

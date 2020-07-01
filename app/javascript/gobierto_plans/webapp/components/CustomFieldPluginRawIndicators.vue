@@ -88,9 +88,12 @@ export default {
     // creates as many tables as indicators there are
     const data = groupBy(value, aggKey);
 
-    for (const key in data) {
-      if (Object.prototype.hasOwnProperty.call(data, key)) {
-        data[key] = (data[key] || []).sort(({ date: a }, { date: b }) => a < b)
+    // sort by date column if exists
+    if (noAggColumns.some(({ id }) => id === 'date')) {
+      for (const key in data) {
+        if (Object.prototype.hasOwnProperty.call(data, key)) {
+          data[key] = (data[key] || []).sort(({ date: a }, { date: b }) => a < b)
+        }
       }
     }
 

@@ -91,7 +91,7 @@ module GobiertoAdmin
       end
 
       def table_reachable
-        query_result = ::GobiertoData::Connection.execute_query(site, Arel.sql("SELECT COUNT(*) FROM #{table_name} LIMIT 1"), include_draft: true)
+        query_result = ::GobiertoData::Connection.execute_query(site, Arel.sql("SELECT COUNT(1) FROM #{table_name} LIMIT 1"), include_draft: true)
 
         errors.add(:table_name, :invalid_table, error_message: query_result[:error]) if query_result.is_a?(Hash) && query_result.has_key?(:errors)
       end

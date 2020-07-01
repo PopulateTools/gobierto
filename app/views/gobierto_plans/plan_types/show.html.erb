@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <div id="gobierto-planification" class="gobierto_planification">
+      <div id="gobierto-planification" class="gobierto_planification" data-baseurl="<%= gobierto_plans_plan_path(slug: @plan.plan_type.slug, year: @year) %>">
 
         <%= render partial: "planification-header" %>
         <%= render partial: "planification-content" %>

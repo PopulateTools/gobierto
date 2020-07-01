@@ -13,7 +13,7 @@ const headers = {
 export const DatasetFactoryMixin = {
   methods: {
     getDatasetMetadata(id) {
-      return axios.get(`${endPoint}/${id}/meta`, { headers });
-    },
+      return axios.get(`${endPoint}/${id}/meta`, { headers })
+    }
   }
 };

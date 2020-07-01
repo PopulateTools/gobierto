@@ -240,13 +240,23 @@ export default {
       query: { sql },
     } = this.$route;
 
-    // factory method
+    let responseMetaData
+
+    try {
+      responseMetaData = await this.getDatasetMetadata(id);
+    } catch (error) {
+      if (error.response.status === 404) {
+        this.$router.push('/datos/')
+        throw error;
+      }
+    }
+
     const {
       data: {
         data: { id: datasetId, attributes },
       },
       included,
-    } = await this.getDatasetMetadata(id);
+    } = responseMetaData;
 
     this.datasetId = parseInt(datasetId);
     this.resourcesList = included;

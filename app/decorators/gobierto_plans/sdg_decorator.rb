@@ -7,7 +7,7 @@ module GobiertoPlans
     end
 
     def has_data?
-      sdg_field.present?
+      sdg_field.present? && sdg_field.vocabulary.present?
     end
 
     def sdg_records

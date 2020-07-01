@@ -13,7 +13,9 @@ module GobiertoPlans
       serialize_terms(object.categories_vocabulary.terms.sorted)
     end
     attribute :statuses_vocabulary_terms, unless: :exclude_relationships? do
-      serialize_terms(object.statuses_vocabulary.terms.sorted)
+      if object.statuses_vocabulary.present?
+        serialize_terms(object.statuses_vocabulary.terms.sorted)
+      end
     end
 
     attribute :links, unless: :exclude_links? do

@@ -633,7 +633,7 @@ export default {
         this.$router.push(`/datos/${slugDataset}/q/${newId}`)
 
         this.publicQueries = this.setPublicQueries(await this.getPublicQueries());
-
+        this.queryInputFocus = false
       }
 
       // reload the queries if the response was successfull

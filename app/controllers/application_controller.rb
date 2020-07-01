@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   def preferred_locale
     @preferred_locale ||= begin
                             locale_param = params[:locale]
-                            locale_cookie = cookies.signed[:locale]
+                            locale_cookie = cookies.signed[:locale] if available_locales.include?(cookies.signed[:locale])
                             site_locale = current_site.configuration.default_locale if current_site.present?
 
                             (locale_param || locale_cookie || site_locale || I18n.default_locale).to_s

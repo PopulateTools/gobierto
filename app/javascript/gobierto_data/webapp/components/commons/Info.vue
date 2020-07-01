@@ -34,22 +34,20 @@
           name="fade"
           mode="out-in"
         >
-          <template v-if="truncateIsActive">
-            <span
-              class="gobierto-data-summary-header-description-link"
-              @click="truncateIsActive = !truncateIsActive"
-            >
-              {{ seeMore }}
-            </span>
-          </template>
-          <template v-else>
-            <span
-              class="gobierto-data-summary-header-description-link"
-              @click="scrollDetail"
-            >
-              {{ seeLess }}
-            </span>
-          </template>
+          <span
+            v-if="truncateIsActive"
+            class="gobierto-data-summary-header-description-link"
+            @click="truncateIsActive = !truncateIsActive"
+          >
+            {{ seeMore }}
+          </span>
+          <span
+            v-else
+            class="gobierto-data-summary-header-description-link"
+            @click="scrollDetail"
+          >
+            {{ seeLess }}
+          </span>
         </transition>
       </template>
     </div>

@@ -176,9 +176,8 @@ export default {
       this.$root.$emit('updateVizName')
     },
     showChart() {
-      const showPerspective = "flex"
       this.$root.$emit('disabledSavedVizString')
-      this.$refs.viewer.enableDisabledPerspective(showPerspective);
+      this.$refs.viewer.toggleConfigPerspective();
     },
     showSavingDialog() {
       const userId = getUserId()

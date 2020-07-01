@@ -78,18 +78,24 @@ export default {
       this.viewer.load(data);
       if (this.config) {
         this.viewer.restore(this.config);
+        //Perspective can't restore row_pivots, column_pivots and computed_columns, so we need to check if visualization config contains some of these values, if contain them we've need to include these values to viewer
+        this.loadPivots('column-pivots', this.config.column_pivots)
+        this.loadPivots('row-pivots', this.config.row_pivots)
+        this.loadPivots('computed-columns', this.config.computed_columns)
+      }
+    },
+    loadPivots(pivot, data) {
+      // Check if config contains row_pivots, column_pivots or computed_columns
+      if (data) {
+        this.viewer.setAttribute(pivot, JSON.stringify(data))
       }
     },
     getConfig() {
       // export the visualization configuration object
       return this.viewer.save()
     },
-    enableDisabledPerspective(value) {
-      const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot
-      const sidePanelPerspective = shadowRootPerspective.getElementById('side_panel')
-      const topPanelPerspective = shadowRootPerspective.getElementById('top_panel')
-      topPanelPerspective.style.display = value
-      sidePanelPerspective.style.display = value
+    toggleConfigPerspective() {
+      this.viewer.toggleConfig()
     },
     listenerPerspective() {
       const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot

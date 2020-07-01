@@ -569,8 +569,7 @@ export default {
     async storeCurrentQuery({ name, privacy }) {
       const {
         params: {
-          queryId,
-          id: slugDataset
+          queryId
         }
       } = this.$route;
 
@@ -593,6 +592,7 @@ export default {
 
       const userId = Number(getUserId());
       let status = null; // https://javascript.info/destructuring-assignment
+      let newQuery
 
       // Only update the query is the user and the name are the same
       if (name === this.queryName && userId === this.queryUserId) {
@@ -604,7 +604,7 @@ export default {
         this.queryRevert = this.currentQuery
       } else {
         // factory method
-        ({ status } = await this.postQuery({ data }));
+        ({ status, data: { data: newQuery } } = await this.postQuery({ data }));
       }
 
       // reload the queries if the response was successfull
@@ -617,14 +617,6 @@ export default {
         this.isQuerySavingPromptVisible = false
 
         this.setPrivateQueries(await this.getPrivateQueries());
-
-        //Get the old list
-        const oldQueries = this.publicQueries
-        //Get the list with the new query
-        const newQueries = this.privateQueries
-
-        //Compare both lists and get the new query
-        let newQuery = newQueries.filter(value1 => !oldQueries.some(value2 => value1.id === value2.id));
 
         if (userId !== this.queryUserId || newQuery) {
           this.updateURL(newQuery)
@@ -720,13 +712,14 @@ export default {
       };
 
       let status = null
+      let newViz
 
       if (name === this.vizName && user === userId) {
         // factory method
         ({ status } = await this.putVisualization(vizID, { data }));
       } else {
         // factory method
-        ({ status } = await this.postVisualization({ data }));
+        ({ status, data: { data: newViz } } = await this.postVisualization({ data }));
       }
 
       if ([200, 201].includes(status)) {
@@ -738,12 +731,6 @@ export default {
 
         await this.getPrivateVisualizations()
 
-        //Get the list before the newViz is saved
-        const oldVizs = this.publicVisualizations
-        //Get the list with the new visualization
-        const allNewVizs = this.privateVisualizations
-        //Compare both list and get the unique element
-        const newViz = allNewVizs.filter(value1 => !oldVizs.some(value2 => value1.id === value2.id));
         /* Check if the user saved a viz from another user, we need to wait to obtain the private visualizations to avoid error because it's possible which this Visualization is the first Visualization which user save */
         if (user !== userId || newViz) {
           await this.updateURL(newViz)
@@ -759,9 +746,9 @@ export default {
         }
       } = this.$route;
 
-      const [{ id: newId }] = element
+      const { id: newId } = element
       //Changes the path depending on if we save a query or viz.
-      const pathQueryOrViz = nameComponent === 'Query' || 'Editor' ? 'q' : 'v'
+      const pathQueryOrViz = nameComponent === 'Visualization' ? 'v' : 'q'
 
       //Update the URL with the new id
       this.$router.push(`/datos/${slugDataset}/${pathQueryOrViz}/${newId}`)

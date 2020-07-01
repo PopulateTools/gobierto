@@ -110,11 +110,6 @@ export default {
       default: false
     },
   },
-  computed: {
-    checkVisualizationsItems() {
-      return (this.privateVisualizations.length && this.items) || (this.publicVisualizations.length && this.items)
-    }
-  },
   data() {
     return {
       labelVisName: I18n.t('gobierto_data.projects.visName') || "",
@@ -135,6 +130,11 @@ export default {
       tabs
     }
   },
+  computed: {
+    checkVisualizationsItems() {
+      return (this.privateVisualizations.length && this.items) || (this.publicVisualizations.length && this.items)
+    }
+  },
   watch: {
     publicVisualizations(newValue, oldValue) {
       if (newValue !== oldValue) {
@@ -149,6 +149,12 @@ export default {
     vizInputFocus(newValue) {
       if (newValue) {
         this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
+      }
+    },
+    async $route(to, from) {
+      if (to.path !== from.path) {
+        await this.getDataVisualization(this.privateVisualizations);
+        await this.getDataVisualization(this.publicVisualizations);
       }
     }
   },

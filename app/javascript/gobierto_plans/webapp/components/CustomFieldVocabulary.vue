@@ -5,7 +5,7 @@
   </div>
   <div v-else>
     <div
-      v-for="{ id, attributes: { name } = {} } in vocabularies"
+      v-for="{ id, name } in vocabularies"
       :key="id"
     >
       {{ name }}
@@ -39,9 +39,16 @@ export default {
     const { value, vocabulary_terms, uid } = this.attributes;
     const elements = Array.isArray(value) ? value : [value]
 
-    this.vocabularies = vocabulary_terms.filter(({ id }) => elements.includes(id))
     // true if the plan option sdg_uid mtches the attribute uid
     this.isSDG = sdg_uid === uid
+
+    // parse the vocabularies, sorting them by its name
+    this.vocabularies = vocabulary_terms.reduce((acc, { id, attributes: { name = '' } = {} }) => {
+      if (elements.includes(id)) {
+        acc.push({ id, name })
+      }
+      return acc
+    }, []).sort((a, b) => a.name > b.name)
   }
 };
 </script>

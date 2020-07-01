@@ -1,6 +1,9 @@
 <template>
   <div class="gobierto-data-sql-editor">
-    <template v-if="checkVisualizationsItems">
+    <template v-if="isPrivateVizLoading">
+      <Spinner />
+    </template>
+    <template v-else>
       <div class="pure-g">
         <div
           class="pure-u-1 pure-u-lg-4-4"
@@ -46,6 +49,7 @@
   </div>
 </template>
 <script>
+import Spinner from "./../commons/Spinner.vue";
 import Visualizations from "./../commons/Visualizations.vue";
 import SavingDialog from "./../commons/SavingDialog.vue";
 import Button from "./../commons/Button.vue";
@@ -57,7 +61,8 @@ export default {
   components: {
     Visualizations,
     SavingDialog,
-    Button
+    Button,
+    Spinner
   },
   props: {
     datasetId: {
@@ -99,7 +104,11 @@ export default {
     vizInputFocus: {
       type: Boolean,
       default: false
-    }
+    },
+    isPrivateVizLoading: {
+      type: Boolean,
+      default: false
+    },
   },
   computed: {
     checkVisualizationsItems() {
@@ -181,7 +190,6 @@ export default {
       this.$refs.viewer.enableDisabledPerspective(showPerspective);
     },
     showSavingDialog() {
-      const userId = getUserId()
       this.showVisualize = false
       this.showResetViz = true
       //Enable saved button

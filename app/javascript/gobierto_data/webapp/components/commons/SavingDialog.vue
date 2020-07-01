@@ -242,7 +242,12 @@ export default {
       if (newValue) {
         this.disabledButton = true
       }
-    }
+    },
+    enabledForkButton(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.enabledForkButton = newValue
+      }
+    },
   },
   mounted() {
     if (this.$route.name === 'Query' && this.value !== null) {

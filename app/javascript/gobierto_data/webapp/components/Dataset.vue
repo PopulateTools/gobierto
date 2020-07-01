@@ -222,7 +222,7 @@ export default {
     } = to;
     next(vm => {
       vm.showRevertQuery = (nameComponent === 'Query')
-      if (tab === 'visualizaciones') {
+      if (tab === 'visualizaciones' || nameComponent === 'Visualization') {
         vm.reloadVisualizations()
       }
     })
@@ -425,7 +425,6 @@ export default {
       const { attributes: { sql: queryRevert } = {} } = items.find(({ id }) => id === queryId) || {}
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert
-
     },
     isQueryStored(query = this.currentQuery) {
       // check if the query passed belongs to public/private arrays, if there's no args, it uses currentQuery
@@ -568,7 +567,6 @@ export default {
       }
     },
     async storeCurrentQuery({ name, privacy }) {
-
       const {
         params: {
           queryId,
@@ -609,32 +607,6 @@ export default {
         ({ status } = await this.postQuery({ data }));
       }
 
-      if (userId !== this.queryUserId) {
-        this.isForkPromptVisible = false
-        //Get the list before the newQuery is saved
-        const oldQueries = this.privateQueries
-        //Get the list with the new query
-        const newQueries = await this.getPrivateQueries()
-        const {
-          data: {
-            data: allNewQueries
-          }
-        } = newQueries
-
-        //Compare both list and get the unique element
-        let newQuery = allNewQueries.filter(value1 => !oldQueries.some(value2 => value1.id === value2.id));
-
-        const [{
-          id: newId
-        }] = newQuery
-
-        //Update the URL with the new id
-        this.$router.push(`/datos/${slugDataset}/q/${newId}`)
-
-        this.publicQueries = this.setPublicQueries(await this.getPublicQueries());
-        this.queryInputFocus = false
-      }
-
       // reload the queries if the response was successfull
       // 200 OK (PUT) / 201 Created (POST)
       if ([200, 201].includes(status)) {
@@ -644,8 +616,20 @@ export default {
         this.isQueryModified = false
         this.isQuerySavingPromptVisible = false
 
-        this.setPublicQueries(await this.getPublicQueries());
         this.setPrivateQueries(await this.getPrivateQueries());
+
+        //Get the old list
+        const oldQueries = this.publicQueries
+        //Get the list with the new query
+        const newQueries = this.privateQueries
+
+        //Compare both lists and get the new query
+        let newQuery = newQueries.filter(value1 => !oldQueries.some(value2 => value1.id === value2.id));
+
+        if (userId !== this.queryUserId || newQuery) {
+          this.updateURL(newQuery)
+        }
+        this.setPublicQueries(await this.getPublicQueries());
       }
     },
     async runCurrentQuery() {
@@ -753,36 +737,36 @@ export default {
         this.vizName = null
 
         await this.getPrivateVisualizations()
-        if (user !== userId) {
-          await this.updateUrlViz()
+
+        //Get the list before the newViz is saved
+        const oldVizs = this.publicVisualizations
+        //Get the list with the new visualization
+        const allNewVizs = this.privateVisualizations
+        //Compare both list and get the unique element
+        const newViz = allNewVizs.filter(value1 => !oldVizs.some(value2 => value1.id === value2.id));
+        /* Check if the user saved a viz from another user, we need to wait to obtain the private visualizations to avoid error because it's possible which this Visualization is the first Visualization which user save */
+        if (user !== userId || newViz) {
+          await this.updateURL(newViz)
         }
         await this.getPublicVisualizations()
       }
     },
-    async updateUrlViz() {
+    updateURL(element) {
       const {
+        name: nameComponent,
         params: {
           id: slugDataset
         }
       } = this.$route;
 
-      this.isForkPromptVisible = false
-      //Get the list before the newViz is saved
-      const oldVizs = this.publicVisualizations
-
-      //Get the list with the new visualization
-      const allNewVizs = this.privateVisualizations
-      //Compare both list and get the unique element
-      const newViz = allNewVizs.filter(value1 => !oldVizs.some(value2 => value1.id === value2.id));
-
-      const [{
-        id: newId
-      }] = newViz
+      const [{ id: newId }] = element
+      //Changes the path depending on if we save a query or viz.
+      const pathQueryOrViz = nameComponent === 'Query' ? 'q' : 'v'
 
       //Update the URL with the new id
-      this.$router.push(`/datos/${slugDataset}/v/${newId}`)
+      this.$router.push(`/datos/${slugDataset}/${pathQueryOrViz}/${newId}`)
 
-      this.publicVisualizations = await this.getPublicVisualizations();
+      this.enabledForkButton = false
       this.queryInputFocus = false
     },
     getColumnsQuery(csv = '') {
@@ -851,11 +835,15 @@ export default {
 
       let items = this.publicQueries;
 
-      //Find which query is loaded
-      const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
+      //Find which query is loaded, get the userId and queryId
+      const { id: oldQueryId, attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
 
-      //Check if the user who loaded the query is the same user who created the query
-      if (userId !== 0 && userId !== checkUserId && nameComponent === 'Query') {
+      /*Check:
+      - If user is logged
+      - If the user who loaded the query is the same user who created the query
+      - If the component is query
+      - The user can fork a query from another user, so we need to check if the ID's are equal.*/
+      if (this.isUserLogged && userId !== checkUserId && nameComponent === 'Query' && oldQueryId === queryId) {
         this.enabledForkButton = true
         this.isForkPromptVisible = true
       } else {

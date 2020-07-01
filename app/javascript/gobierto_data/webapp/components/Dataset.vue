@@ -761,7 +761,7 @@ export default {
 
       const [{ id: newId }] = element
       //Changes the path depending on if we save a query or viz.
-      const pathQueryOrViz = nameComponent === 'Query' ? 'q' : 'v'
+      const pathQueryOrViz = nameComponent === 'Query' || 'Editor' ? 'q' : 'v'
 
       //Update the URL with the new id
       this.$router.push(`/datos/${slugDataset}/${pathQueryOrViz}/${newId}`)

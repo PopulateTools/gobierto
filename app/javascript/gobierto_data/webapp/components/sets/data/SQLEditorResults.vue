@@ -156,21 +156,19 @@ export default {
       this.$root.$emit("eventIsVizModified", true);
     },
     resetViz() {
-      const hidePerspective = "none"
 
       this.showVisualize = true
       this.perspectiveChanged = false
       this.showResetViz = false
       this.typeChart = 'hypergrid'
 
-      this.$refs.viewer.enableDisabledPerspective(hidePerspective);
+      this.$refs.viewer.toggleConfigPerspective();
       this.$refs.viewer.setColumns();
       this.$root.$emit('resetVizEvent')
     },
     showChart() {
-      const showPerspective = "flex"
       this.showVisualization = true
-      this.$refs.viewer.enableDisabledPerspective(showPerspective);
+      this.$refs.viewer.toggleConfigPerspective();
     },
     showSavingDialog() {
       this.perspectiveChanged = true

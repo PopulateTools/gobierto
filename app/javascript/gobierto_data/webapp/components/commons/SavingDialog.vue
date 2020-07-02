@@ -234,14 +234,17 @@ export default {
     },
     showPrivate(newValue) {
       this.isPrivate = (newValue);
+    },
+    $route(to, from) {
+      if (to.path !== from.path) {
+        this.countInputCharacters(this.value)
+      }
     }
   },
   mounted() {
-    if (this.$route.name === 'Query' && this.value !== null) {
-      this.$nextTick(() => {
-         this.countInputCharacters(this.value)
-      });
-    }
+    this.$nextTick(() => {
+       this.countInputCharacters(this.value)
+    });
   },
   methods: {
     inputFocus() {
@@ -255,7 +258,6 @@ export default {
         location.href = '/user/sessions/new?open_modal=true';
         return false;
       }
-
       this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
     },
     onKeyDownTextHandler(event) {
@@ -283,13 +285,22 @@ export default {
       const inputValueSplit = [...label]
       const inputValueLength = inputValueSplit.length
 
+      let newWidth = inputValueLength * 7.5
+      let maxWidth = 369.5
+      let minWidth = 200
+
+      //In the Visualizations view, we've more space, so we take advantage of it by increasing the input name width.
+      if (this.$route.name === 'Visualization') {
+        maxWidth = maxWidth * 1.2
+        minWidth = minWidth * 1.2
+      }
+
       if (inputValueLength > 25 && inputValueLength < 50) {
-        const newWidth = inputValueLength * 7.5
         this.$nextTick(() => this.$refs.inputText.style.width = `${newWidth}px`);
       } else if (inputValueLength >= 50) {
-        this.$nextTick(() => this.$refs.inputText.style.width = '369.5px');
+        this.$nextTick(() => this.$refs.inputText.style.width = `${maxWidth}px`);
       } else {
-        this.$nextTick(() => this.$refs.inputText.style.width = '200px');
+        this.$nextTick(() => this.$refs.inputText.style.width = `${minWidth}px`);
       }
     },
     enabledInputHandler() {

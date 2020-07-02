@@ -224,7 +224,6 @@ export default {
       } = this.$route;
 
       const objectViz = data.find(({ id }) => id === queryId) || {}
-      console.log("objectViz", objectViz);
 
       const {
         items: elements,

@@ -17,6 +17,7 @@ module GobiertoPlans
               plan: @plan,
               custom_fields: custom_fields,
               custom_fields_value_method: :raw_api_value,
+              versions_indexes: filtered_relation.versions_indexes,
               adapter: :json_api
             )
           end

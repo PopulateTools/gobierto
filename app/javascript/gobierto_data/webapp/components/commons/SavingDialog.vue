@@ -274,7 +274,12 @@ export default {
         return false;
       }
 
-      this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
+      if (!this.labelValue) {
+        this.$refs.inputText.focus()
+      } else {
+        this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
+      }
+
     },
     onKeyDownTextHandler(event) {
       const { value } = event.target

@@ -171,7 +171,9 @@ export default {
       queryInputFocus : false,
       isPublicVizLoading: false,
       vizName: null,
-      vizInputFocus: false
+      vizInputFocus: false,
+      savingViz: false,
+      savingQuery: false
     };
   },
   computed: {
@@ -577,6 +579,10 @@ export default {
       }
     },
     async storeCurrentQuery({ name, privacy }) {
+
+      this.savingViz = false
+      this.savingQuery = true
+
       const {
         params: {
           queryId
@@ -676,6 +682,9 @@ export default {
     },
     async storeCurrentVisualization(config, opts) {
 
+      this.savingViz = true
+      this.savingQuery = false
+
       if (!this.isVizSavingPromptVisible) {
         this.isVizSavingPromptVisible = true
         this.vizInputFocus = true
@@ -693,6 +702,8 @@ export default {
           ({ attributes: { sql } }) => sql === this.currentQuery
         ) || {};
 
+      let currentQueryViz = !queryViz ? this.currentQuery : queryViz
+
       // default attributes
       let attributes = {
         name_translations: {
@@ -704,7 +715,7 @@ export default {
         user_id: this.userId,
         dataset_id: this.datasetId,
         query_id: id,
-        sql: queryViz
+        sql: currentQueryViz
       };
 
       // POST data obj
@@ -742,7 +753,6 @@ export default {
     },
     updateURL(element) {
       const {
-        name: nameComponent,
         params: {
           id: slugDataset
         }
@@ -750,10 +760,15 @@ export default {
 
       const { id: newId } = element
       //Changes the path depending on if we save a query or viz.
-      const pathQueryOrViz = nameComponent === 'Visualization' ? 'v' : 'q'
+      const pathQueryOrViz = this.savingViz ? 'v' : 'q'
 
-      //Update the URL with the new id
-      this.$router.push(`/datos/${slugDataset}/${pathQueryOrViz}/${newId}`)
+      /*Don't updates the URL, only replace and don't reload, because in the editor we've two options, saved a query or viz, if the user saves a viz, and we update the URL, the browser reloads, and the user goes to visualization tab, and this behavior is too hacky.*/
+      //https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
+      history.pushState(
+        {},
+        null,
+        `${location.origin}/datos/${slugDataset}/${pathQueryOrViz}/${newId}`
+      )
 
       this.enabledForkButton = false
       this.queryInputFocus = false

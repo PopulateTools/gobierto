@@ -178,6 +178,11 @@
     color: #666;
   }
 
+  &-summary-header-description-link {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
   &-summary-header-container {
     margin: .5rem 0;
   }
@@ -1124,6 +1129,7 @@
 
   &-btn-preview {
     margin-left: 1.25rem;
+
     &:hover {
       color: var(--color-base);
     }

@@ -2,19 +2,19 @@
   <div class="gobierto-data-sql-editor-container-save">
     <!--  only show if label name is set OR the prompt is visible  -->
     <template v-if="handlerInputQuery">
-        <input
-          ref="inputText"
-          v-model="labelValue"
-          :placeholder="placeholder"
-          type="text"
-          class="gobierto-data-sql-editor-container-save-text"
-          :class="{
-            'disable-input-text': disabledButton,
-            'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
-          }"
-          @keydown.stop="onKeyDownTextHandler"
-          @click="enabledInputHandler"
-        >
+      <input
+        ref="inputText"
+        v-model="labelValue"
+        :placeholder="placeholder"
+        type="text"
+        class="gobierto-data-sql-editor-container-save-text"
+        :class="{
+          'disable-input-text': disabledButton,
+          'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
+        }"
+        @keydown.stop="onKeyDownTextHandler"
+        @click="enabledInputHandler"
+      >
     </template>
 
     <!-- only show checkbox on prompt visible -->
@@ -45,11 +45,11 @@
           name="fade"
           mode="out-in"
         >
-            <div class="gobierto-data-sql-editor-modified-label-container">
-              <span class="gobierto-data-sql-editor-modified-label">
-                {{ labelModified }}
-              </span>
-            </div>
+          <div class="gobierto-data-sql-editor-modified-label-container">
+            <span class="gobierto-data-sql-editor-modified-label">
+              {{ labelModified }}
+            </span>
+          </div>
         </transition>
       </template>
     </template>

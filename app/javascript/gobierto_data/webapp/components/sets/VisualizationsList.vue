@@ -22,7 +22,7 @@
             <template v-if="privateVisualizations.length">
               <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
                 <div
-                  :key="name"
+                  :key="id"
                   class="gobierto-data-visualization--container"
                 >
                   <router-link
@@ -85,7 +85,7 @@
         <template v-else>
           <template v-if="publicVisualizations.length">
             <template v-for="{ items, config, name, id, user_id } in publicVisualizations">
-              <div :key="name">
+              <div :key="id">
                 <router-link
                   :to="`/datos/${$route.params.id}/v/${id}`"
                   class="gobierto-data-visualizations-name"

@@ -8,6 +8,7 @@ module GobiertoPlans
     attributes :id, :name, :category_id, :progress, :starts_at, :ends_at, :status_id, :position, :external_id
 
     def category_id
+      instance_options.dig(:category_ids, object.id) ||
       object.categories.find_by(gplan_categories_nodes: { category_id: instance_options[:plan].categories })&.id
     end
 

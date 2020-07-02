@@ -1,7 +1,7 @@
 <template>
   <div class="gobierto-data-sql-editor">
     <template v-if="isPrivateVizLoading">
-      <Spinner />
+      <Loading />
     </template>
     <template v-else>
       <div class="pure-g">
@@ -49,7 +49,7 @@
   </div>
 </template>
 <script>
-import Spinner from "./../commons/Spinner.vue";
+import { Loading } from "lib/vue-components";
 import Visualizations from "./../commons/Visualizations.vue";
 import SavingDialog from "./../commons/SavingDialog.vue";
 import Button from "./../commons/Button.vue";
@@ -62,7 +62,7 @@ export default {
     Visualizations,
     SavingDialog,
     Button,
-    Spinner
+    Loading
   },
   props: {
     datasetId: {

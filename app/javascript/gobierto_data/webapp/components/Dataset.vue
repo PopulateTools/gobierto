@@ -814,7 +814,6 @@ export default {
     },
     queryIsNotMine() {
       const userId = Number(getUserId());
-
       const {
         params: { queryId },
         name: nameComponent

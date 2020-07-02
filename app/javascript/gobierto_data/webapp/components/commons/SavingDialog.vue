@@ -247,8 +247,12 @@ export default {
     });
   },
   methods: {
-    inputFocus() {
-      this.$refs.inputText.focus()
+    inputFocus(value) {
+      if (value) {
+        this.$refs.inputText.focus()
+      } else {
+        this.$refs.inputText.blur()
+      }
     },
     inputSelect() {
       this.$refs.inputText.select()

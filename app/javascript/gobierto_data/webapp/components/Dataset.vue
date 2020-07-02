@@ -216,10 +216,16 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     const {
-      name: nameComponent
+      name: nameComponent,
+      params: {
+        tab
+      }
     } = to;
     next(vm => {
       vm.showRevertQuery = (nameComponent === 'Query')
+      if (tab === 'visualizaciones' || nameComponent === 'Visualization') {
+        vm.reloadVisualizations()
+      }
     })
   },
   async created() {
@@ -293,10 +299,6 @@ export default {
       // update the editor text content by default
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
-
-    // Get all visualizations
-    await this.getPrivateVisualizations();
-    await this.getPublicVisualizations();
 
     this.queryOrVizIsNotMine();
     this.runCurrentQuery();
@@ -424,20 +426,16 @@ export default {
       }
     },
     setDefaultQuery() {
-
-      const userId = getUserId();
       const {
         params: { queryId }
       } = this.$route;
 
-      //Check if user is logged
-      const items = userId ? this.privateQueries : this.publicQueries
+      const items = this.publicQueries
       //We need to keep this query separate from the editor query
       //When load a saved query we use the queryId to find inside privateQueries or publicQueries
       const { attributes: { sql: queryRevert } = {} } = items.find(({ id }) => id === queryId) || {}
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert
-
     },
     isQueryStored(query = this.currentQuery) {
       // check if the query passed belongs to public/private arrays, if there's no args, it uses currentQuery
@@ -462,7 +460,7 @@ export default {
       this.isPublicVizLoading = false
     },
     async getPrivateVisualizations() {
-      const userId = getUserId()
+      const userId = Number(getUserId());
       this.isPrivateVizLoading = true
 
       if (userId) {
@@ -546,7 +544,7 @@ export default {
       }
     },
     async getPrivateQueries() {
-      const userId = getUserId();
+      const userId = Number(getUserId());
       // factory method
       return this.getQueries({
         "filter[dataset_id]": this.datasetId,
@@ -580,9 +578,10 @@ export default {
       }
     },
     async storeCurrentQuery({ name, privacy }) {
-
       const {
-        params: { queryId }
+        params: {
+          queryId
+        }
       } = this.$route;
 
       if (!queryId && !this.isQuerySavingPromptVisible) {
@@ -604,6 +603,7 @@ export default {
 
       const userId = Number(getUserId());
       let status = null; // https://javascript.info/destructuring-assignment
+      let newQuery
 
       // Only update the query is the user and the name are the same
       if (name === this.queryName && userId === this.queryUserId) {
@@ -615,21 +615,24 @@ export default {
         this.queryRevert = this.currentQuery
       } else {
         // factory method
-        ({ status } = await this.postQuery({ data }));
+        ({ status, data: { data: newQuery } } = await this.postQuery({ data }));
       }
 
       // reload the queries if the response was successfull
       // 200 OK (PUT) / 201 Created (POST)
       if ([200, 201].includes(status)) {
-        this.isQueryModified = false;
         //Show a message for the user, your query is saved
         this.isQuerySaved = true;
         this.enabledQuerySavedButton = false
         this.isQueryModified = false
         this.isQuerySavingPromptVisible = false
 
-        this.setPublicQueries(await this.getPublicQueries());
         this.setPrivateQueries(await this.getPrivateQueries());
+
+        if (userId !== this.queryUserId || newQuery) {
+          this.updateURL(newQuery)
+        }
+        this.setPublicQueries(await this.getPublicQueries());
       }
     },
     async runCurrentQuery() {
@@ -691,14 +694,6 @@ export default {
           ({ attributes: { sql } }) => sql === this.currentQuery
         ) || {};
 
-      let currentQueryViz;
-
-      if (user !== userId) {
-        currentQueryViz = !queryViz ? this.currentQuery : queryViz
-      } else {
-        currentQueryViz = this.currentQuery
-      }
-
       // default attributes
       let attributes = {
         name_translations: {
@@ -710,7 +705,7 @@ export default {
         user_id: this.userId,
         dataset_id: this.datasetId,
         query_id: id,
-        sql: currentQueryViz
+        sql: queryViz
       };
 
       // POST data obj
@@ -720,13 +715,14 @@ export default {
       };
 
       let status = null
+      let newViz
 
       if (name === this.vizName && user === userId) {
         // factory method
         ({ status } = await this.putVisualization(vizID, { data }));
       } else {
         // factory method
-        ({ status } = await this.postVisualization({ data }));
+        ({ status, data: { data: newViz } } = await this.postVisualization({ data }));
       }
 
       if ([200, 201].includes(status)) {
@@ -737,8 +733,31 @@ export default {
         this.vizName = null
 
         await this.getPrivateVisualizations()
+
+        /* Check if the user saved a viz from another user, we need to wait to obtain the private visualizations to avoid error because it's possible which this Visualization is the first Visualization which user save */
+        if (user !== userId || newViz) {
+          await this.updateURL(newViz)
+        }
         await this.getPublicVisualizations()
       }
+    },
+    updateURL(element) {
+      const {
+        name: nameComponent,
+        params: {
+          id: slugDataset
+        }
+      } = this.$route;
+
+      const { id: newId } = element
+      //Changes the path depending on if we save a query or viz.
+      const pathQueryOrViz = nameComponent === 'Visualization' ? 'v' : 'q'
+
+      //Update the URL with the new id
+      this.$router.push(`/datos/${slugDataset}/${pathQueryOrViz}/${newId}`)
+
+      this.enabledForkButton = false
+      this.queryInputFocus = false
     },
     getColumnsQuery(csv = '') {
       const [ columns = '' ] = csv.split("\n");
@@ -798,16 +817,14 @@ export default {
     },
     queryOrVizIsNotMine() {
       const userId = Number(getUserId());
-
       const {
         params: { queryId },
         name: nameComponent
       } = this.$route;
 
+      //Find which query is loaded
       if (userId !== 0 && nameComponent === 'Query') {
         const items = this.publicQueries;
-
-        //Find which query is loaded
         const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
 
         //Check if the user who loaded the query is the same user who created the query
@@ -863,9 +880,21 @@ export default {
     setVizName(vizName) {
       this.vizName = vizName
     },
-    reloadVisualizations() {
-      this.getPrivateVisualizations()
-      this.getPublicVisualizations()
+    async reloadVisualizations() {
+      const {
+        params: { id }
+      } = this.$route;
+
+      // factory method
+      const {
+        data: {
+          data: { id: datasetId }
+        }
+      } = await this.getDatasetMetadata(id);
+      this.datasetId = parseInt(datasetId)
+
+      await this.getPrivateVisualizations()
+      await this.getPublicVisualizations()
     },
     activateForkVizButton(value) {
       this.enabledForkVizButton = value

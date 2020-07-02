@@ -15,7 +15,7 @@
 
         <div class="gobierto-data-visualization--grid">
           <template v-if="isPrivateVizLoading">
-            <Spinner />
+            <Loading />
           </template>
 
           <template v-else>
@@ -79,7 +79,7 @@
 
       <div class="gobierto-data-visualization--grid">
         <template v-if="isPublicVizLoading">
-          <Spinner />
+          <Loading />
         </template>
 
         <template v-else>
@@ -118,7 +118,7 @@
   </div>
 </template>
 <script>
-import Spinner from "./../commons/Spinner.vue";
+import { Loading } from "lib/vue-components";
 import Caret from "./../commons/Caret.vue";
 import Visualizations from "./../commons/Visualizations.vue";
 import PrivateIcon from './../commons/PrivateIcon.vue';
@@ -129,7 +129,7 @@ export default {
   name: "VisualizationsList",
   components: {
     Visualizations,
-    Spinner,
+    Loading,
     PrivateIcon,
     Dropdown,
     Caret

@@ -1,39 +1,22 @@
 <template>
   <div class="planification-content">
-    <table>
-      <th>{{ uid | translate }}</th>
-      <th>{{ labelProgress }}</th>
-      <th><NumberLabel :level="lastLevel" /></th>
-      <tr
-        v-for="{ key, name, slug, progress, length } in groups"
-        :key="key"
-      >
-        <td>
-          <router-link :to="{ name: 'term', params: { ...params, term: slug } }">
-            {{ name }}
-          </router-link>
-        </td>
-        <td>{{ progress | percent }}</td>
-        <td>{{ length }}</td>
-      </tr>
-    </table>
+    <router-view
+      :uid="uid | translate"
+      :groups="groups"
+      :options="options"
+    />
   </div>
 </template>
 
 <script>
 import { PlansStore } from "../lib/store";
 import { groupBy } from "../lib/helpers";
-import { translate, percent } from "lib/shared";
-import NumberLabel from "../components/NumberLabel";
+import { translate } from "lib/shared";
 
 export default {
-  name: "Table",
+  name: "Groups",
   filters: {
-    translate,
-    percent
-  },
-  components: {
-    NumberLabel
+    translate
   },
   props: {
     json: {
@@ -49,9 +32,6 @@ export default {
     return {
       uid: null,
       groups: [],
-      isLoading: false,
-      lastLevel: 0,
-      labelProgress: I18n.t("gobierto_plans.plan_types.show.progress") || '',
     };
   },
   computed: {

@@ -171,6 +171,7 @@ export default {
   },
   methods: {
     loadViz(vizName, user) {
+      document.getElementById('gobierto-datos-app').scrollIntoView();
       const userId = Number(getUserId())
       this.$emit('changeViz', 1)
       this.$root.$emit('loadVizName', vizName)

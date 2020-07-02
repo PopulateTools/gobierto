@@ -35,7 +35,7 @@
           v-if="queryID"
           class="gobierto-data-visualization-query-container"
         >
-          <span class="gobierto-data-summary-queries-panel-title">Query:</span>
+          <span class="gobierto-data-summary-queries-panel-title">{{ labelQuery }}:</span>
           <router-link
             :to="`/datos/${$route.params.id}/q/${queryID}`"
             class="gobierto-data-summary-queries-container-name"
@@ -132,6 +132,7 @@ export default {
       labelDashboard: I18n.t('gobierto_data.projects.dashboards') || "",
       labelSavedVisualization: I18n.t("gobierto_data.projects.savedVisualization") || "",
       labelModifiedVizualition: I18n.t("gobierto_data.projects.modifiedVisualization") || "",
+      labelQuery: I18n.t("gobierto_data.projects.query") || "",
       items: null,
       config: {},
       vizID: null,
@@ -223,6 +224,7 @@ export default {
       } = this.$route;
 
       const objectViz = data.find(({ id }) => id === queryId) || {}
+      console.log("objectViz", objectViz);
 
       const {
         items: elements,

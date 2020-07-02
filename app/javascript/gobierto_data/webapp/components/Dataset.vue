@@ -693,14 +693,6 @@ export default {
           ({ attributes: { sql } }) => sql === this.currentQuery
         ) || {};
 
-      let currentQueryViz;
-
-      if (user !== userId) {
-        currentQueryViz = !queryViz ? this.currentQuery : queryViz
-      } else {
-        currentQueryViz = this.currentQuery
-      }
-
       // default attributes
       let attributes = {
         name_translations: {
@@ -712,7 +704,7 @@ export default {
         user_id: this.userId,
         dataset_id: this.datasetId,
         query_id: id,
-        sql: currentQueryViz
+        sql: queryViz
       };
 
       // POST data obj

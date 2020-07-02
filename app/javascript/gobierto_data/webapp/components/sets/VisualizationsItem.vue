@@ -177,7 +177,7 @@ export default {
       //Add visualization ID to opts object, we need it to update a viz saved
       opts.vizID = Number(this.vizID)
       opts.user = Number(this.user)
-      opts.queryViz = Number(this.queryViz)
+      opts.queryViz = this.queryViz
       // get children configuration
       const config = this.$refs.viewer.getConfig()
 

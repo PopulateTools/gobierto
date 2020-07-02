@@ -2,23 +2,27 @@
   <div class="gobierto-data-sql-editor-container-save">
     <!--  only show if label name is set OR the prompt is visible  -->
     <template v-if="handlerInputQuery">
-        <input
-          ref="inputText"
-          v-model="labelValue"
-          :placeholder="placeholder"
-          type="text"
-          class="gobierto-data-sql-editor-container-save-text"
-          :class="{
-            'disable-input-text': disabledButton,
-            'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
-          }"
-          @keydown.stop="onKeyDownTextHandler"
-          @click="enabledInputHandler"
-        >
+      <input
+        ref="inputText"
+        v-model="labelValue"
+        :placeholder="placeholder"
+        type="text"
+        class="gobierto-data-sql-editor-container-save-text"
+        :class="{
+          'disable-input-text': disabledButton,
+          'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
+        }"
+        @keydown.stop="onKeyDownTextHandler"
+        @click="enabledInputHandler"
+      >
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="enableForkPrompt">
+    <template v-if="enabledPrivateIcon">
+      <PrivateIcon
+        :is-closed="isPrivate"
+        :style="{ paddingRight: '.5em', margin: 0 }"
+      />
       <label
         :for="labelPrivate"
         class="gobierto-data-sql-editor-container-save-label"
@@ -33,25 +37,18 @@
       </label>
     </template>
 
-
     <!-- only show if label name is set OR the prompt is visible -->
-    <template v-if="handlerInputQuery">
-      <PrivateIcon
-        :is-closed="isPrivate"
-        :style="{ paddingRight: '.5em', margin: 0 }"
-      />
-      <template v-if="isQueryModified || isVizModified">
-        <transition
-          name="fade"
-          mode="out-in"
-        >
-            <div class="gobierto-data-sql-editor-modified-label-container">
-              <span class="gobierto-data-sql-editor-modified-label">
-                {{ labelModified }}
-              </span>
-            </div>
-        </transition>
-      </template>
+    <template v-if="isQueryModified || isVizModified">
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <div class="gobierto-data-sql-editor-modified-label-container">
+          <span class="gobierto-data-sql-editor-modified-label">
+            {{ labelModified }}
+          </span>
+        </div>
+      </transition>
     </template>
 
 
@@ -223,8 +220,8 @@ export default {
     handlerInputQuery() {
        return (this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
     },
-    enableForkPrompt() {
-      return (this.isForkPromptVisible && this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
+    enabledPrivateIcon() {
+      return this.enabledVizSavedButton || this.isVizSaved
     },
   },
   watch: {
@@ -254,7 +251,6 @@ export default {
       this.$refs.inputText.select()
     },
     onClickSaveHandler() {
-
       if (!this.isUserLogged) {
         location.href = '/user/sessions/new?open_modal=true';
         return false;

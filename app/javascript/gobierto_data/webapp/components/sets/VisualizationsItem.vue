@@ -5,10 +5,7 @@
     </template>
     <template v-else>
       <div class="pure-g">
-        <div
-          class="pure-u-1 pure-u-lg-4-4"
-          style="margin-bottom: 1rem;"
-        >
+        <div class="pure-u-1 pure-u-lg-4-4">
           <SavingDialog
             ref="savingDialogVizElement"
             :value="name"
@@ -33,6 +30,18 @@
             background="#fff"
             @click.native="showChart"
           />
+        </div>
+        <div
+          v-if="queryID"
+          class="gobierto-data-visualization-query-container"
+        >
+          <span class="gobierto-data-summary-queries-panel-title">Query:</span>
+          <router-link
+            :to="`/datos/${$route.params.id}/q/${queryID}`"
+            class="gobierto-data-summary-queries-container-name"
+          >
+            {{ queryName }}
+          </router-link>
         </div>
       </div>
       <div class="gobierto-data-visualization--aspect-ratio-16-9">
@@ -81,6 +90,10 @@ export default {
       type: Array,
       default: () => []
     },
+    privateQueries: {
+      type: Array,
+      default: () => []
+    },
     isVizModified: {
       type: Boolean,
       default: false
@@ -122,6 +135,8 @@ export default {
       items: null,
       config: {},
       vizID: null,
+      queryID: '',
+      queryName: '',
       user: null,
       queryViz: '',
       isVizElementSavingVisible: false,
@@ -177,6 +192,7 @@ export default {
       //Add visualization ID to opts object, we need it to update a viz saved
       opts.vizID = Number(this.vizID)
       opts.user = Number(this.user)
+      opts.queryID = Number(this.queryID)
       opts.queryViz = this.queryViz
       // get children configuration
       const config = this.$refs.viewer.getConfig()
@@ -214,10 +230,16 @@ export default {
         name: name,
         id: vizID,
         user_id: user_id,
-        sql: sql
+        sql: sql,
+        query_id: queryID
       } = objectViz
 
+      //Find the query associated to the visualization
+      const { attributes: { name: queryName } = {} } = this.privateQueries.find(({ id }) => id == queryID) || {}
+
       this.vizID = vizID
+      this.queryID = queryID
+      this.queryName = queryName
       this.user = user_id
       this.name = name
       this.config = config

@@ -1187,4 +1187,19 @@
     margin: 0;
   }
 
+  &-visualization-query-container {
+    letter-spacing: 0;
+    margin-bottom: 1rem;
+    width: 100%;
+
+    .gobierto-data-summary-queries-panel-title {
+      padding-left: 0;
+      display: inline-block;
+    }
+
+    .gobierto-data-summary-queries-container-name {
+      width: auto;
+    }
+  }
+
 }

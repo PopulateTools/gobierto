@@ -5,6 +5,7 @@
       v-if="publicVisualizations"
       :public-visualizations="publicVisualizations"
       :private-visualizations="privateVisualizations"
+      :private-queries="privateQueries"
       :dataset-id="datasetId"
       :is-user-logged="isUserLogged"
       :is-public-loading="isPublicLoading"
@@ -69,6 +70,10 @@ export default {
       default: () => []
     },
     publicVisualizations: {
+      type: Array,
+      default: () => []
+    },
+    privateQueries: {
       type: Array,
       default: () => []
     },

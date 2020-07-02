@@ -76,6 +76,7 @@
       :is-public-viz-loading="isPublicVizLoading"
       :public-visualizations="publicVisualizations"
       :private-visualizations="privateVisualizations"
+      :private-queries="privateQueries"
       :enabled-viz-saved-button="enabledVizSavedButton"
       :current-viz-tab="currentVizTab"
       :enabled-fork-viz-button="enabledForkVizButton"

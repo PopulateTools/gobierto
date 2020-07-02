@@ -169,6 +169,14 @@ export default {
       showPublicVis: true,
     };
   },
+  watch: {
+    isPrivateVizLoading(newValue) {
+      if (!newValue) this.removeAllIcons()
+    },
+    isPublicVizLoading(newValue) {
+      if (!newValue) this.removeAllIcons()
+    }
+  },
   methods: {
     loadViz(vizName, user) {
       document.getElementById('gobierto-datos-app').scrollIntoView();
@@ -181,6 +189,18 @@ export default {
     },
     emitDeleteHandlerVisualization(id) {
       this.$emit('emitDelete', id)
+    },
+    removeAllIcons() {
+      /*Method to remove the config icon for all visualizations, we need to wait to load both lists when they are loaded, we select alls visualizations, and iterate over them with a loop to remove every icon.*/
+      if (!this.isPrivateVizLoading && !this.isPublicVizLoading) {
+        this.$nextTick(() => {
+          let vizList = document.querySelectorAll("perspective-viewer");
+
+          for (let index = 0; index < vizList.length; index++) {
+            vizList[index].shadowRoot.querySelector("div#config_button").style.display = "none";
+          }
+        })
+      }
     }
   }
 };

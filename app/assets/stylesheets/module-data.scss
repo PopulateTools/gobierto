@@ -9,6 +9,10 @@
   --shadow: 0 2px 20px rgba(0, 0, 0, .3);
 }
 
+:host #config_button {
+  display: none !important;
+}
+
 .gobierto-data {
 
   padding-top: 1rem;
@@ -1119,6 +1123,10 @@
     width: 95%;
     height: 100%;
     background-color: transparent;
+
+    #config_button {
+      display: none !important;
+    }
   }
 
   &-description {

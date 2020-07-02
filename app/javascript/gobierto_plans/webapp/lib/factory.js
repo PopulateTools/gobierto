@@ -9,15 +9,19 @@ const headers = {
 
 // Plans-endpoint factory to get/post/put/delete API data
 export const PlansFactoryMixin = {
+  locale: I18n.locale,
   methods: {
-    getPlan(id) {
-      return axios.get(`${endPoint}/${id}`, { headers })
+    getPlan(id, params) {
+      const qs = new URLSearchParams({ locale: this.$options.locale, ...params })
+      return axios.get(`${endPoint}/${id}?${qs.toString()}`, { headers })
     },
-    getProjects(id) {
-      return axios.get(`${endPoint}/${id}/projects`, { headers })
+    getProjects(id, params) {
+      const qs = new URLSearchParams({ locale: this.$options.locale, ...params })
+      return axios.get(`${endPoint}/${id}/projects?${qs.toString()}`, { headers })
     },
-    getMeta(id) {
-      return axios.get(`${endPoint}/${id}/meta`, { headers })
+    getMeta(id, params) {
+      const qs = new URLSearchParams({ locale: this.$options.locale, ...params })
+      return axios.get(`${endPoint}/${id}/meta?${qs.toString()}`, { headers })
     }
   }
 };

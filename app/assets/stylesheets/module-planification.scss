@@ -476,6 +476,14 @@ $nodeLevel1HeightMobile: 20vh;
     .description-content {
       max-height: 100vh;
       transition: all 250ms;
+
+      > :first-child {
+        margin-top: 0;
+      }
+
+      > :last-child {
+        margin-bottom: 0;
+      }
     }
 
     .is-hidden {
@@ -494,16 +502,29 @@ $nodeLevel1HeightMobile: 20vh;
       }
     }
 
+    .description-content,
     .description-desc {
       font-size: 14px;
       word-break: break-word;
+    }
+
+    .description-images {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+
+      img {
+        width: 50%;
+        flex: 0 0 50%;
+        object-fit: cover;
+      }
     }
 
     .description-list {
       display: flex;
 
       > :first-child {
-        flex: 0 0 40%;
+        flex: 0 0 33%;
         padding-right: 0.25em;
       }
     }

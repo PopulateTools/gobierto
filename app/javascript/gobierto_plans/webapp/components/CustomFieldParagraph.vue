@@ -1,14 +1,6 @@
 <template>
   <div>
     <div
-      class="description-title"
-      :class="{ mb1: !isElementHidden }"
-    >
-      <span v-if="title">{{ title | translate }}</span>
-      <span v-else>{{ labelDesc }}</span>
-    </div>
-
-    <div
       class="description-content"
       :class="[isActive ? 'is-hidden' : '']"
       v-html="value"

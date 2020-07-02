@@ -1,11 +1,7 @@
 <template>
   <div class="project-description">
-    <template v-if="paragraphType">
-      <CustomFieldParagraph :attributes="attributes" />
-    </template>
-
-    <template v-else-if="pluginType">
-      <template v-if="attributes.options.configuration.plugin_configuration.category_term_decorator === 'raw_indicators'">
+    <template v-if="pluginType">
+      <template v-if="rawIndicatorsType">
         <CustomFieldPluginRawIndicators :attributes="attributes" />
       </template>
       <template v-else>
@@ -20,8 +16,20 @@
         </div>
 
         <div class="description-desc">
-          <template v-if="fieldType === 'vocabulary_options'">
+          <template v-if="paragraphType">
+            <CustomFieldParagraph :attributes="attributes" />
+          </template>
+
+          <template v-else-if="vocabularyType">
             <CustomFieldVocabulary :attributes="attributes" />
+          </template>
+
+          <template v-else-if="selectionType">
+            <CustomFieldSelection :attributes="attributes" />
+          </template>
+
+          <template v-else-if="imageType">
+            <CustomFieldImage :attributes="attributes" />
           </template>
 
           <template v-else>
@@ -43,13 +51,17 @@ import { translate } from "lib/shared";
 import CustomFieldParagraph from "./CustomFieldParagraph.vue";
 import CustomFieldPluginRawIndicators from "./CustomFieldPluginRawIndicators.vue";
 import CustomFieldVocabulary from "./CustomFieldVocabulary.vue";
+import CustomFieldSelection from "./CustomFieldSelection.vue";
+import CustomFieldImage from "./CustomFieldImage.vue";
 
 export default {
   name: "ProjectCustomFields",
   components: {
     CustomFieldParagraph,
     CustomFieldPluginRawIndicators,
-    CustomFieldVocabulary
+    CustomFieldVocabulary,
+    CustomFieldSelection,
+    CustomFieldImage
   },
   filters: {
     translate
@@ -77,6 +89,21 @@ export default {
     },
     pluginType() {
       return this.fieldType === "plugin";
+    },
+    vocabularyType() {
+      return this.fieldType === 'vocabulary_options'
+    },
+    imageType() {
+      return this.fieldType === 'image'
+    },
+    selectionType() {
+      return [
+        "single_option",
+        "multiple_options"
+      ].includes(this.fieldType);
+    },
+    rawIndicatorsType() {
+      return this.attributes.options.configuration.plugin_configuration.category_term_decorator === 'raw_indicators'
     }
   },
   created() {

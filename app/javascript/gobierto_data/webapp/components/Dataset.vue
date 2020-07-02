@@ -126,6 +126,10 @@ export default {
       type: Number,
       default: 0,
     },
+    pageTitle: {
+      type: String,
+      default: ''
+    },
   },
   data() {
     return {
@@ -174,6 +178,11 @@ export default {
       vizInputFocus: false,
       savingViz: false,
       savingQuery: false
+      labelSummary: I18n.t("gobierto_data.projects.summary") || "",
+      labelData: I18n.t("gobierto_data.projects.data") || "",
+      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
+      labelVisualizations: I18n.t("gobierto_data.projects.visualizations") || "",
+      labelDownload: I18n.t("gobierto_data.projects.download") || "",
     };
   },
   computed: {
@@ -207,6 +216,10 @@ export default {
         this.currentVizTab = 1
       }
 
+      //Update only the baseTitle of the dataset that is active
+      if (to.name === 'Dataset' && this._inactive === false) {
+        this.updateBaseTitle()
+      }
       //FIXME: Hugo, we need to talk about this hack
       // https://stackoverflow.com/questions/50295985/how-to-tell-if-a-vue-component-is-active-or-not
       if (to.name === 'Query' && this._inactive === false) {
@@ -305,6 +318,7 @@ export default {
     this.runCurrentQuery();
     this.setDefaultQuery();
     this.checkIfUserIsLogged();
+    this.updateBaseTitle()
 
   },
   mounted() {
@@ -397,6 +411,38 @@ export default {
     this.$root.$off('showSavingDialogEvent')
   },
   methods: {
+    updateBaseTitle() {
+      const {
+        name: nameComponent,
+        params: {
+          tab: tabName
+        }
+      } = this.$route
+      if (nameComponent === "Dataset" && this.titleDataset) {
+        this.$nextTick(() => {
+          let title
+          let tabTitle
+
+          const titleI18n = this.titleDataset
+            ? `${this.titleDataset} · `
+            : "";
+
+          if (tabName === 'editor') {
+            tabTitle = `${this.labelData} · `
+          } else if (tabName === 'consultas') {
+            tabTitle = `${this.labelQueries} · `
+          } else if (tabName === 'visualizaciones') {
+            tabTitle = `${this.labelVisualizations} · `
+          } else if (tabName === 'descarga') {
+            tabTitle = `${this.labelDownload} · `
+          } else {
+            tabTitle = `${this.labelSummary} · `
+          }
+          title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
+          document.title = title;
+        })
+      }
+    },
     checkIfUserIsLogged() {
       if (this.isUserLogged) {
         this.isVizSavingPromptVisible = true

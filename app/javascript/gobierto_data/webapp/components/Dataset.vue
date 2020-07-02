@@ -194,7 +194,7 @@ export default {
       if (to.path !== from.path) {
         this.isQueryModified = false;
         this.setDefaultQuery()
-        this.queryIsNotMine()
+        this.queryOrVizIsNotMine()
         this.disabledSavedButton()
         this.disabledRevertButton()
       }
@@ -297,7 +297,7 @@ export default {
     await this.getPrivateVisualizations();
     await this.getPublicVisualizations();
 
-    this.queryIsNotMine();
+    this.queryOrVizIsNotMine();
     this.runCurrentQuery();
     this.setDefaultQuery();
     this.checkIfUserIsLogged();
@@ -795,7 +795,7 @@ export default {
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value
     },
-    queryIsNotMine() {
+    queryOrVizIsNotMine() {
       const userId = Number(getUserId());
 
       const {
@@ -803,18 +803,33 @@ export default {
         name: nameComponent
       } = this.$route;
 
-      let items = this.publicQueries;
+      if (userId !== 0 && nameComponent === 'Query') {
+        const items = this.publicQueries;
 
-      //Find which query is loaded
-      const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
+        //Find which query is loaded
+        const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
 
-      //Check if the user who loaded the query is the same user who created the query
-      if (userId !== 0 && userId !== checkUserId && nameComponent === 'Query') {
-        this.enabledForkButton = true
-        this.isForkPromptVisible = true
-      } else {
-        this.disabledForkButton()
-        this.enabledForkPrompt()
+        //Check if the user who loaded the query is the same user who created the query
+        if (userId !== checkUserId) {
+          this.enabledForkButton = true
+          this.isForkPromptVisible = true
+        } else {
+          this.disabledForkButton()
+          this.enabledForkPrompt()
+        }
+      } else if (userId !== 0 && nameComponent === 'Visualization') {
+        const items = this.publicVisualizations;
+
+        //Find which viz is loaded
+        const { user_id: checkUserId = {} } = items.find(({ id }) => id === queryId) || {}
+
+        //Check if the user who loaded the viz is the same user who created the viz
+        if (userId !== checkUserId) {
+          this.enabledForkVizButton = true
+        } else {
+          this.activateForkVizButton(false)
+          this.enabledForkPrompt()
+        }
       }
     },
     disabledForkButton() {

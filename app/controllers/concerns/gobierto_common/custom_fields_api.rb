@@ -37,15 +37,19 @@ module GobiertoCommon
 
       localized_uids = localized_custom_fields.pluck(:uid)
       raw_values.transform_values do |attributes|
-        localized_uids.each do |uid|
-          next unless attributes[uid].present?
-
-          attributes[uid] = translate(attributes[uid])
-        end
+        transform(attributes, localized_uids, :translate)
         attributes
       end
 
       raw_values
+    end
+
+    def transform(attributes, uids, function)
+      uids.each do |uid|
+        next unless attributes.present? && attributes[uid].present?
+
+        attributes[uid] = send(function, attributes[uid])
+      end
     end
 
     def records_query(relation)

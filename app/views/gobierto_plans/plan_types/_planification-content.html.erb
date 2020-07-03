@@ -14,6 +14,12 @@
   <!-- Lines level -->
   <section class="level_<%= level_index -%>" v-if="isOpen(<%= level_index -%>)" :class="['cat_' + color() ]">
     <% unless level_index == @levels %>
+    <div class="node-breadcrumb mb2">
+      <a data-turbolinks="false" @click.stop="resetParent">
+        <%= t("gobierto_plans.plan_types.show.starts") %>
+      </a>
+    </div>
+
     <div class="lines-header">
       <div>
         {{ (activeNode.attributes || {}).children_count }}
@@ -22,14 +28,9 @@
 
       <div><%= t("gobierto_plans.plan_types.show.percentage_progress") %></div>
     </div>
-    <% end %> <% if level_index > 1 %>
-    <div class="node-breadcrumb mb2">
-      <a data-turbolinks="false" @click.stop="setParent">
-        <i class="fas fa-caret-left"></i>
-        <%= t("gobierto_plans.plan_types.show.see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
-      </a>
-    </div>
-    <% end %> <% if level_index == @levels %>
+    <% end %>
+    
+    <% if level_index == @levels %>
     <div class="node-action-line">
       <div class="action-line--header node-list cat--negative">
         <div class="node-title">
@@ -72,13 +73,18 @@
     </ul>
     <% end %>
   </section>
-  <% end %> <% if @levels == 2 %>
+  <% end %>
+  
+  <% if @levels == 2 %>
   <!-- Acts level -->
   <section class="level_2" v-if="isOpen(2)" :class="['cat_' + color() ]">
     <div class="node-breadcrumb mb2">
+      <a data-turbolinks="false" @click.stop="resetParent">
+        <%= t("gobierto_plans.plan_types.show.starts") %>
+      </a>
       <a data-turbolinks="false" @click.stop="setParent">
-        <i class="fas fa-caret-left"></i>
-        <%= t("gobierto_plans.plan_types.show.see_all") %>&nbsp;{{ (getParent().attributes || {}).title | translate }}
+        <i class="fas fa-caret-right"></i>
+        {{ (getParent().attributes || {}).title | translate }}
       </a>
     </div>
 
@@ -116,17 +122,19 @@
 
   <!-- Projects level -->
   <section class="level_<%= @levels + 1 %>" v-if="isOpen(<%= @levels + 1 %>)" :class="['cat_' + color() ]">
-    <template v-for="level in (activeNode.level - 1)">
-      <div class="node-breadcrumb" :style="{ marginLeft: (level - 1) + 'em', marginBottom: '0.5em' }">
+    <div class="node-breadcrumb mb2">
+      <a data-turbolinks="false" @click.stop="resetParent">
+        <%= t("gobierto_plans.plan_types.show.starts") %>
+      </a>
+      <template v-for="level in activeNode.level">
         <a data-turbolinks="false" @click.stop="setParent(level)">
-          <i class="fas fa-caret-left"></i>
+          <i class="fas fa-caret-right"></i>
           {{ (getParent(level).attributes || {}).title | translate }}
         </a>
-      </div>
-      <br />
-    </template>
+      </template>
+    </div>
 
-    <div class="node-action-line" :style="{ marginLeft: activeNode.level + 'em' }">
+    <div class="node-action-line">
       <div class="action-line--header node-list cat--negative">
         <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
       </div>
@@ -182,10 +190,27 @@
               <template v-for="item in customFields.rest">
                 <div class="description-list mb1">
                   <div class="description-title">{{ item.custom_field_name_translations | translate }}</div>
-                  <div class="description-desc" v-if="typeOf(item.value) === 'array'">
-                    <div v-for="value in item.value">{{ value }}</div>
-                  </div>
-                  <div class="description-desc" v-else>{{ item.value }}</div>
+
+                  <template v-if="item.custom_field_id === 'sdgs'">
+                    <div class="description-desc">
+                      <div class="ods-goal-container">
+                        <div class="ods-goal-content" v-for="id in item.external_id">
+                          <a :href="`${baseUrl}/ods/${Number(id)}`" :class="`ods-goal ods-goal__${id}__${item.locale}`"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+
+                  <template v-else-if="typeOf(item.value) === 'array'">
+                    <div class="description-desc">
+                      <div v-for="value in item.value">{{ value }}</div>
+                    </div>
+                  </template>
+
+                  <template v-else>
+                    <div class="description-desc">{{ item.value }}</div>
+                  </template>
+
                 </div>
               </template>
             </div>
@@ -193,7 +218,7 @@
         </template>
 
         <!-- Rails must add the markup if plugin is available -->
-        <% availablePlugins = ['budgets', 'human_resources', 'indicators'] %> <% availablePlugins.each do |plugin| %>
+        <% availablePlugins = ['budgets', 'human_resources', 'raw_indicators'] %> <% availablePlugins.each do |plugin| %>
 
         <!-- Add plugin markup -->
         <div data-plugin="<%= plugin %>"></div>

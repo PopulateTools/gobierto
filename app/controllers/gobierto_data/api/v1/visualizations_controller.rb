@@ -122,7 +122,17 @@ module GobiertoData
         end
 
         def visualization_params
-          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:query_id, :dataset_id, :name_translations, :name, :privacy_status, :spec, :sql])
+          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: writable_attributes).tap do |post_params|
+            post_params[:spec] = raw_spec_from_params if post_params.has_key?(:spec)
+          end
+        end
+
+        def raw_spec_from_params
+          JSON.parse(request.raw_post).dig("data", "attributes", "spec")
+        end
+
+        def writable_attributes
+          [:query_id, :dataset_id, :name_translations, :name, :privacy_status, :spec, :sql]
         end
 
         def filter_params

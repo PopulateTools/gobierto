@@ -177,7 +177,7 @@ export default {
       vizName: null,
       vizInputFocus: false,
       savingViz: false,
-      savingQuery: false
+      savingQuery: false,
       labelSummary: I18n.t("gobierto_data.projects.summary") || "",
       labelData: I18n.t("gobierto_data.projects.data") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
@@ -808,13 +808,17 @@ export default {
       //Changes the path depending on if we save a query or viz.
       const pathQueryOrViz = this.savingViz ? 'v' : 'q'
 
-      /*Don't updates the URL, only replace and don't reload, because in the editor we've two options, saved a query or viz, if the user saves a viz, and we update the URL, the browser reloads, and the user goes to visualization tab, and this behavior is too hacky.*/
+      /*Don't updates the URL if the component is Editor, only replace and don't reload, because in the editor we've two options, saved a query or viz, if the user saves a viz, and we update the URL, the browser reloads, and the user goes to visualization tab, and this behavior is too hacky.*/
       //https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
-      history.pushState(
-        {},
-        null,
-        `${location.origin}/datos/${slugDataset}/${pathQueryOrViz}/${newId}`
-      )
+      if (nameComponent === 'Query') {
+        history.pushState(
+          {},
+          null,
+          `${location.origin}/datos/${slugDataset}/${pathQueryOrViz}/${newId}`
+        )
+      } else {
+        this.$router.push(`/datos/${slugDataset}/${pathQueryOrViz}/${newId}`)
+      }
 
       this.enabledForkButton = false
       this.queryInputFocus = false

@@ -1,7 +1,6 @@
 <template>
   <div class="planification-content">
     <router-view
-      :uid="uid | translate"
       :groups="groups"
       :options="options"
     />
@@ -11,13 +10,9 @@
 <script>
 import { PlansStore } from "../lib/store";
 import { groupBy } from "../lib/helpers";
-import { translate } from "lib/shared";
 
 export default {
   name: "Groups",
-  filters: {
-    translate
-  },
   props: {
     json: {
       type: Array,
@@ -56,10 +51,8 @@ export default {
     setGroups(id) {
       const { projects, meta } = PlansStore.state;
       const {
-        attributes: { name_translations, vocabulary_terms }
+        attributes: { vocabulary_terms }
       } = meta.find(({ attributes: { uid } = {} }) => uid === id);
-
-      this.uid = name_translations;
 
       // get the projects with the differentiate attribute informed, and move it to the first level for easier aggrupation
       const projectsWithUid = projects.reduce((acc, item) => {
@@ -84,7 +77,8 @@ export default {
           attributes: { name, slug }
         } = vocabulary_terms.find(({ id }) => id === key) || {};
         // items by key
-        const length = groupedProjects[key].length;
+        const children = groupedProjects[key] || [];
+        const length = children.length;
         // sum all project's progresses
         const progress = length
           ? groupedProjects[key].reduce(
@@ -93,7 +87,7 @@ export default {
             ) / length
           : 0;
 
-        return { key, name, slug, length, progress };
+        return { key, name, slug, length, children, progress };
       });
     }
   }

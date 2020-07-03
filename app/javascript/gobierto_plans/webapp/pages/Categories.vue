@@ -50,7 +50,7 @@ import ActionLines from "../components/ActionLines";
 import RecursiveHeader from "../components/RecursiveHeader";
 import RecursiveLines from "../components/RecursiveLines";
 import { translate } from "lib/shared";
-import { ActiveNodeMixin } from "../lib/mixins";
+import { ActiveNodeMixin } from "../lib/mixins/active-node";
 import { PlansStore } from "../lib/store";
 
 export default {

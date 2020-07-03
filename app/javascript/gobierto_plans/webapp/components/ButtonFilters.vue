@@ -4,6 +4,7 @@
       :to="{ path: $root.$data.baseurl }"
       tag="button"
     >
+      <!-- TODO: reemplazar botón correctamente -->
       CAteogría
     </router-link>
     <router-link

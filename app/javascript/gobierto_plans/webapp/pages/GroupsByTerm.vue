@@ -1,25 +1,21 @@
 <template>
   <table>
     <thead>
-      <th @click="handleTableHeaderClick(1)">
-        {{ uid }}
+      <th
+        v-for="[id, [name]] in columns"
+        :key="id"
+        @click="handleTableHeaderClick(id)"
+      >
+        <template v-if="id === 'length'">
+          <NumberLabel :level="lastLevel" />
+        </template>
+        <template v-else>
+          {{ name }}
+        </template>
+
         <SortIcon
-          v-if="currentSortColumn === 1"
-          :direction="getDirection(1)"
-        />
-      </th>
-      <th @click="handleTableHeaderClick(2)">
-        {{ labelProgress }}
-        <SortIcon
-          v-if="currentSortColumn === 2"
-          :direction="getDirection(2)"
-        />
-      </th>
-      <th @click="handleTableHeaderClick(3)">
-        <NumberLabel :level="lastLevel" />
-        <SortIcon
-          v-if="currentSortColumn === 3"
-          :direction="getDirection(3)"
+          v-if="currentSortColumn === id"
+          :direction="getSorting(id)"
         />
       </th>
     </thead>
@@ -45,22 +41,21 @@
 <script>
 import NumberLabel from "../components/NumberLabel";
 import SortIcon from "../components/SortIcon";
-import { percent } from "lib/shared";
+import { translate, percent } from "lib/shared";
+import { NamesMixin } from "../lib/mixins/names";
 
 export default {
-  name: "TableTerms",
+  name: "GroupsByTerm",
   components: {
     NumberLabel,
     SortIcon
   },
   filters: {
+    translate,
     percent
   },
+  mixins: [NamesMixin],
   props: {
-    uid: {
-      type: String,
-      default: ""
-    },
     groups: {
       type: Array,
       default: () => []
@@ -73,6 +68,7 @@ export default {
   data() {
     return {
       labelProgress: I18n.t("gobierto_plans.plan_types.show.progress") || "",
+      columns: [],
       termsSorted: [],
       map: new Map(),
       lastLevel: 0,
@@ -85,30 +81,37 @@ export default {
     }
   },
   created() {
+    const { id } = this.$route.params;
     const { last_level } = this.options;
+
     this.lastLevel = last_level;
     this.termsSorted = this.groups;
+    this.uid = this.getName(id);
 
-    this.map.set(1, ["name", "up"]);
-    this.map.set(2, ["progress", "up"]);
-    this.map.set(3, ["length", "up"]);
+    // set table columns
+    this.map.set("name", [this.uid, "up"]);
+    this.map.set("progress", [this.labelProgress, "up"]);
+    this.map.set("length", [null, "up"]);
+
+    this.columns = Array.from(this.map)
   },
   methods: {
-    handleTableHeaderClick(column) {
-      const [id, order] = this.map.get(column);
-      this.currentSortColumn = column
+    handleTableHeaderClick(id) {
+      const [name, order] = this.map.get(id);
+      this.currentSortColumn = id;
 
       // toggle sort order
       const currentSort = order === "up" ? "down" : "up";
       // update the order for the item clicked
-      this.map.set(column, [id, currentSort]);
+      this.map.set(id, [name, currentSort]);
       // change the order based on the currentSort
       this.termsSorted.sort(({ [id]: termA }, { [id]: termB }) =>
         currentSort === "up" ? termA > termB : termA < termB
       );
     },
-    getDirection(column) {
-      const [_, order] = this.map.get(column);
+    getSorting(column) {
+      // ignore the first item of the tuple
+      const [, order] = this.map.get(column);
       return order;
     }
   }

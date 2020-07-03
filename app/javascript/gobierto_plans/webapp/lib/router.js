@@ -8,8 +8,8 @@ const Home = () => import("../pages/Home.vue");
 const Categories = () => import("../pages/Categories.vue");
 const Projects = () => import("../pages/Projects.vue");
 const Groups = () => import("../pages/Groups.vue");
-const TableTerms = () => import("../pages/TableTerms.vue");
-const Term = () => import("../pages/Term.vue");
+const GroupsByTerm = () => import("../pages/GroupsByTerm.vue");
+const ProjectsByTerm = () => import("../pages/ProjectsByTerm.vue");
 
 // https://router.vuejs.org/guide/essentials/nested-routes.html
 export const router = new VueRouter({
@@ -42,12 +42,12 @@ export const router = new VueRouter({
             {
               path: "/",
               name: "table",
-              component: TableTerms
+              component: GroupsByTerm
             },
             {
               path: ":term",
               name: "term",
-              component: Term
+              component: ProjectsByTerm
             },
           ]
         },

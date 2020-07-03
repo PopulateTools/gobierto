@@ -28,7 +28,7 @@ module GobiertoCommon
         else
           records.pluck(:payload)
         end.inject(:merge)
-      end
+      end.compact
     end
 
     def translated_custom_field_record_values(relation)

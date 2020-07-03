@@ -2,7 +2,7 @@
   <div class="gobierto-data-sets-nav--tab-container">
     <component
       :is="currentVizComponent"
-      v-if="publicVisualizations"
+      v-if="publicVisualizations.length"
       :public-visualizations="publicVisualizations"
       :private-visualizations="privateVisualizations"
       :private-queries="privateQueries"
@@ -22,13 +22,13 @@
       :enabled-fork-viz-button="enabledForkVizButton"
       :viz-input-focus="vizInputFocus"
       :show-private-public-icon-viz="showPrivatePublicIconViz"
+      :show-private-viz="showPrivateViz"
       @changeViz="showVizElement"
       @emitDelete="deleteHandlerVisualization"
     />
   </div>
 </template>
 <script>
-
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 
 const COMPONENTS = [
@@ -99,6 +99,10 @@ export default {
       default: true
     },
     showPrivatePublicIconViz: {
+      type: Boolean,
+      default: false
+    },
+    showPrivateViz: {
       type: Boolean,
       default: false
     }

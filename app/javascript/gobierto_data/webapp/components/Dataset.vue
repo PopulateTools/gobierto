@@ -84,6 +84,8 @@
       :enabled-fork-viz-button="enabledForkVizButton"
       :viz-input-focus="vizInputFocus"
       :show-private-public-icon-viz="showPrivatePublicIconViz"
+      :show-private="showPrivate"
+      :show-private-viz="showPrivateViz"
     />
 
     <DownloadsTab
@@ -184,6 +186,7 @@ export default {
       savingQuery: false,
       showPrivatePublicIcon: false,
       showPrivatePublicIconViz: false,
+      showPrivateViz: false,
       labelSummary: I18n.t("gobierto_data.projects.summary") || "",
       labelData: I18n.t("gobierto_data.projects.data") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
@@ -220,6 +223,7 @@ export default {
         this.currentVizTab = 0
       } else if (to.name === 'Visualization') {
         this.currentVizTab = 1
+        this.reloadVisualizations()
       }
 
       //Update only the baseTitle of the dataset that is active
@@ -794,19 +798,15 @@ export default {
         this.enabledVizSavedButton = false
         this.vizName = null
 
-        await this.getPrivateVisualizations()
-
         /* Check if the user saved a viz from another user, we need to wait to obtain the private visualizations to avoid error because it's possible which this Visualization is the first Visualization which user save */
         if (user !== userId || newViz) {
           await this.updateURL(newViz)
-          this.reloadVisualizations()
         }
-        await this.getPublicVisualizations()
+        this.reloadVisualizations()
       }
     },
     updateURL(element) {
       const {
-        name: nameComponent,
         params: {
           id: slugDataset
         }
@@ -894,7 +894,8 @@ export default {
 
       //Find which query is loaded
       if (userId !== 0 && nameComponent === 'Query') {
-        const items = this.publicQueries;
+
+        const items = !this.showPrivate ? this.publicQueries : this.privateQueries
         const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
 
         //Check if the user who loaded the query is the same user who created the query
@@ -907,7 +908,12 @@ export default {
           this.disabledForkButton()
         }
       } else if (userId !== 0 && nameComponent === 'Visualization') {
-        const items = this.publicVisualizations;
+
+        const objectViz = this.privateVisualizations.find(({ id }) => id === queryId) || {}
+        const { privacy_status: privacyStatus } = objectViz
+
+        this.showPrivateViz = privacyStatus === 'closed' ? true : false
+        const items = !this.showPrivateViz ? this.publicVisualizations : this.privateVisualizations
 
         //Find which viz is loaded
         const { user_id: checkUserId = {} } = items.find(({ id }) => id === queryId) || {}
@@ -918,7 +924,7 @@ export default {
           this.showPrivatePublicIconViz = false
         } else {
           this.showPrivatePublicIconViz = true
-          this.activateForkVizButton(false)
+          this.enabledForkVizButton = false
         }
       }
     },
@@ -971,7 +977,6 @@ export default {
       this.queryOrVizIsNotMine()
     },
     activateForkVizButton(value) {
-      console.log("this.enabledForkVizButton", this.enabledForkVizButton);
       this.enabledForkVizButton = value
     },
     eventToUpdateVizName() {

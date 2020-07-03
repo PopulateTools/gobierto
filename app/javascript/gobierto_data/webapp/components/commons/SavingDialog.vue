@@ -199,6 +199,10 @@ export default {
     showPrivatePublicIconViz: {
       type: Boolean,
       default: false
+    },
+    showPrivateViz: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -228,12 +232,10 @@ export default {
     handlerInputQuery() {
        return (this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
     },
-
   },
   watch: {
     value(newValue, oldValue) {
       if (newValue !== oldValue) {
-        console.log("newValue", newValue);
         this.labelValue = newValue
         this.countInputCharacters(newValue)
         this.disabledButton = true
@@ -246,6 +248,11 @@ export default {
       if (to.path !== from.path) {
         this.countInputCharacters(this.value)
       }
+    }
+  },
+  created() {
+    if (this.showPrivateViz) {
+      this.isPrivate = this.showPrivateViz
     }
   },
   mounted() {

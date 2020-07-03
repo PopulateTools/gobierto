@@ -1,6 +1,6 @@
 <template>
   <div class="gobierto-data-sql-editor">
-    <template v-if="isPrivateVizLoading">
+    <template v-if="disabledSpinner">
       <Loading />
     </template>
     <template v-else>
@@ -20,6 +20,7 @@
             :enabled-viz-saved-button="enabledVizSavedButton"
             :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
             :show-private-public-icon-viz="showPrivatePublicIconViz"
+            :show-private-viz="showPrivateViz"
             @save="onSaveEventHandler"
             @keyDownInput="updateVizName"
             @handlerFork="handlerForkViz"
@@ -125,6 +126,10 @@ export default {
     showPrivatePublicIconViz: {
       type: Boolean,
       default: false
+    },
+    showPrivateViz: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -144,47 +149,45 @@ export default {
       queryName: '',
       user: null,
       queryViz: '',
-      privacyStatus: null,
       isVizElementSavingVisible: false,
       name: '',
-      isQuerySavingPromptVisible: false
+      isQuerySavingPromptVisible: false,
+      loadingViz: true
+    }
+  },
+  computed: {
+    disabledSpinner() {
+      return this.loadingViz && this.publicVisualizations.length
     }
   },
   watch: {
-    publicVisualizations(newValue, oldValue) {
-      if (newValue !== oldValue && this.privacyStatus !== 'closed') {
-        this.getDataVisualization(newValue);
-      }
-    },
-    privateVisualization(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.getDataVisualization(newValue);
-      }
-    },
     vizInputFocus(newValue) {
       if (newValue) {
         this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
       }
     },
-    async $route(to, from) {
+    $route(to, from) {
       if (to.path !== from.path) {
         this.$root.$emit("isVizModified", false);
         this.$root.$emit('disabledSavedVizString')
         this.$root.$emit('enabledForkVizButton', false)
-        await this.getDataVisualization(this.privateVisualizations);
-        await this.getDataVisualization(this.publicVisualizations);
+        this.getDataVisualization(this.publicVisualizations);
+        if (this.showPrivateViz) {
+          this.getDataVisualization(this.privateVisualizations);
+        }
       }
     }
   },
-  async created() {
+  mounted() {
     const userId = getUserId()
     if (userId) {
-      await this.getDataVisualization(this.privateVisualizations);
-      if (this.privacyStatus !== 'closed') {
-        await this.getDataVisualization(this.publicVisualizations);
+      this.getDataVisualization(this.publicVisualizations);
+      //Only getPrivate if user load a PrivateViz
+      if (this.showPrivateViz) {
+        this.getDataVisualization(this.privateVisualizations);
       }
     } else {
-      await this.getDataVisualization(this.publicVisualizations);
+      this.getDataVisualization(this.publicVisualizations);
     }
   },
   beforeDestroy() {
@@ -237,8 +240,7 @@ export default {
         id: vizID,
         user_id: user_id,
         sql: sql,
-        query_id: queryID,
-        privacy_status: privacyStatus
+        query_id: queryID
       } = objectViz
 
       //Find the query associated to the visualization
@@ -252,7 +254,10 @@ export default {
       this.config = config
       this.items = elements
       this.queryViz = sql
-      this.privacyStatus = privacyStatus
+
+      if (config) {
+        this.loadingViz = false
+      }
     },
     handlerForkViz() {
       this.$nextTick(() => {

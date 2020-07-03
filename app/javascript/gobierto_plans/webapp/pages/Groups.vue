@@ -31,13 +31,8 @@ export default {
   data() {
     return {
       uid: null,
-      groups: [],
+      groups: []
     };
-  },
-  computed: {
-    params() {
-      return this.$route.params
-    }
   },
   watch: {
     $route(
@@ -56,9 +51,6 @@ export default {
   created() {
     const { id } = this.$route.params;
     this.setGroups(id);
-
-    const { last_level } = this.options;
-    this.lastLevel = last_level
   },
   methods: {
     setGroups(id) {
@@ -73,7 +65,12 @@ export default {
       const projectsWithUid = projects.reduce((acc, item) => {
         const { [id]: uid } = item.attributes;
         if (uid && uid.length) {
-          acc.push({ ...item, uid });
+          // to handle multiple keys
+          const uids = Array.isArray(uid) ? uid : [uid];
+          for (let index = 0; index < uids.length; index++) {
+            const element = uids[index];
+            acc.push({ ...item, uid: element });
+          }
         }
         return acc;
       }, []);

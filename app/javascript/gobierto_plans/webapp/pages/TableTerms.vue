@@ -28,12 +28,12 @@ export default {
     NumberLabel
   },
   filters: {
-    percent,
+    percent
   },
   props: {
     uid: {
-      type: Object,
-      default: () => {}
+      type: String,
+      default: ''
     },
     groups: {
       type: Array,
@@ -47,8 +47,17 @@ export default {
   data() {
     return {
       lastLevel: 0,
-      labelProgress: I18n.t("gobierto_plans.plan_types.show.progress") || '',
+      labelProgress: I18n.t("gobierto_plans.plan_types.show.progress") || ""
     };
+  },
+  computed: {
+    params() {
+      return this.$route.params;
+    }
+  },
+  created() {
+    const { last_level } = this.options;
+    this.lastLevel = last_level;
   }
 };
 </script>

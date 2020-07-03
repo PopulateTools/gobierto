@@ -57,7 +57,10 @@ module GobiertoCommon
 
     def versioned_payloads(records, version_index)
       records.map do |record|
-        JSON.parse(record.versions[version_index]&.object_deserialized&.dig("payload") || "{}")
+        version = record.versions[version_index]
+        return {} unless version.present? && version.object?
+
+        JSON.parse(version.object_deserialized&.dig("payload") || "{}")
       end
     end
 

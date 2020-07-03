@@ -32,7 +32,7 @@ module GobiertoCommon
       end.compact
     end
 
-    def translated_custom_field_record_values(relation)
+    def transformed_custom_field_record_values(relation)
       raw_values = custom_field_record_values(relation)
       return raw_values if localized_custom_fields.blank? && md_custom_fields.blank?
 

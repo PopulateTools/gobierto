@@ -16,7 +16,7 @@ module GobiertoPlans
               each_serializer: GobiertoPlans::NodeSerializer,
               plan: @plan,
               custom_fields: custom_fields,
-              preloaded_data: translated_custom_field_record_values(filtered_relation),
+              preloaded_data: transformed_custom_field_record_values(filtered_relation),
               versions_indexes: filtered_relation.versions_indexes,
               category_ids: category_ids,
               adapter: :json_api

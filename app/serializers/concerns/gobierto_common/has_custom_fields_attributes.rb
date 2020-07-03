@@ -9,11 +9,15 @@ module GobiertoCommon
       data = super
 
       if data[:id].present?
-        ::GobiertoCommon::CustomFieldRecord.includes(:custom_field).where(custom_field: custom_fields, item: object).sorted.each do |record|
-          uid = record.custom_field.uid
-          record = record.versions[@version_index]&.reify if @version_index&.negative?
+        if has_preloaded_data?
+          data.merge!(preloaded_data[data[:id]]) if preloaded_data.has_key?(data[:id])
+        else
+          ::GobiertoCommon::CustomFieldRecord.includes(:custom_field).where(custom_field: custom_fields, item: object).sorted.each do |record|
+            uid = record.custom_field.uid
+            record = record.versions[@version_index]&.reify if @version_index&.negative?
 
-          data[uid] = record&.send(value_method)
+            data[uid] = record&.send(value_method)
+          end
         end
       else
         custom_fields.each do |custom_field|
@@ -26,6 +30,14 @@ module GobiertoCommon
 
     def custom_fields
       @custom_fields ||= current_site.custom_fields.for_class(object.class).sorted
+    end
+
+    def has_preloaded_data?
+      @has_preloaded_data ||= instance_options.has_key?(:preloaded_data)
+    end
+
+    def preloaded_data
+      @preloaded_data ||= instance_options[:preloaded_data]
     end
 
     def value_method

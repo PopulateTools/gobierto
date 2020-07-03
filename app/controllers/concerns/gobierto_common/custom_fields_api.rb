@@ -3,6 +3,7 @@
 module GobiertoCommon
   module CustomFieldsApi
     extend ActiveSupport::Concern
+    include GobiertoHelper
 
     included do
       attr_reader :resource, :vocabularies_adapter
@@ -18,11 +19,68 @@ module GobiertoCommon
       query.filter(filter_params)
     end
 
+    def custom_field_record_values(relation)
+      versions_indexes = relation.respond_to?(:versions_indexes) ? relation.versions_indexes.select { |_, index| index.negative? } : {}
+
+      records_query(relation).group_by(&:item_id).transform_values do |records|
+        item_id = records.first&.item_id
+        if versions_indexes.has_key?(item_id)
+          versioned_payloads(records, versions_indexes[item_id])
+        else
+          records.pluck(:payload)
+        end.inject(:merge)
+      end.compact
+    end
+
+    def transformed_custom_field_record_values(relation)
+      raw_values = custom_field_record_values(relation)
+      return raw_values if localized_custom_fields.blank? && md_custom_fields.blank?
+
+      localized_uids = localized_custom_fields.pluck(:uid)
+      md_uids = md_custom_fields.pluck(:uid)
+      raw_values.transform_values do |attributes|
+        transform(attributes, localized_uids, :translate)
+        transform(attributes, md_uids, :markdown)
+        attributes
+      end
+
+      raw_values
+    end
+
+    def transform(attributes, uids, function)
+      uids.each do |uid|
+        next unless attributes.present? && attributes[uid].present?
+
+        attributes[uid] = send(function, attributes[uid])
+      end
+    end
+
+    def records_query(relation)
+      GobiertoCommon::CustomFieldRecord.where(
+        custom_field: custom_fields,
+        item: relation
+      ).sorted.select(:id, :item_id, :payload)
+    end
+
+    def versioned_payloads(records, version_index)
+      records.map do |record|
+        version = record.versions[version_index]
+        return {} unless version.present? && version.object?
+
+        JSON.parse(version.object_deserialized&.dig("payload") || "{}")
+      end
+    end
+
     def save_with_custom_fields
       return unless resource.save
 
       initialize_custom_fields_form
       custom_fields_save
+    end
+
+    def translate(hash)
+      hash = hash.with_indifferent_access
+      hash[I18n.locale] || hash[I18n.default_locale] || hash.slice(I18n.available_locales).values&.first || ""
     end
 
     def meta
@@ -114,6 +172,14 @@ module GobiertoCommon
                          else
                            current_site.custom_fields.for_class(resource.class)
                          end
+    end
+
+    def localized_custom_fields
+      @localized_custom_fields ||= custom_fields.localized
+    end
+
+    def md_custom_fields
+      @md_custom_fields ||= custom_fields.with_md
     end
 
   end

@@ -37,6 +37,7 @@
     <div id="gobierto-planification" class="gobierto_planification" 
       data-baseurl="<%= gobierto_plans_plan_path(slug: @plan.plan_type.slug, year: @year) %>"
       data-plan-id="<%= @plan.id %>" />
+    </div>
   <% end %>
 
   <% if @sdgs.has_data? %>
@@ -46,4 +47,3 @@
   <% if @plan.footer.present? %>
     <%= render_liquid @plan.footer %>
   <% end %>
-</div>

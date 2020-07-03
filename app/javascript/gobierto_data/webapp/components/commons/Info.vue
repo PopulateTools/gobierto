@@ -25,15 +25,40 @@
     </div>
     <div class="pure-u-1-2">
       <div
+        id="gobierto-data-summary-header"
         class="gobierto-data-summary-header-description"
-        v-html="descriptionDataset"
+        v-html="compiledHTMLMarkdown"
       />
+      <template v-if="checkStringLength">
+        <transition
+          name="fade"
+          mode="out-in"
+        >
+          <span
+            v-if="truncateIsActive"
+            class="gobierto-data-summary-header-description-link"
+            @click="truncateIsActive = !truncateIsActive"
+          >
+            {{ seeMore }}
+          </span>
+          <span
+            v-else
+            class="gobierto-data-summary-header-description-link"
+            @click="scrollDetail"
+          >
+            {{ seeLess }}
+          </span>
+        </transition>
+      </template>
     </div>
   </div>
 </template>
 <script>
-import { date } from "lib/shared"
+import { date, truncate } from "lib/shared"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
+//Parse markdown to HTML
+const marked = require('marked');
+const TurndownService = require('turndown').default;
 
 export default {
   name: "Info",
@@ -76,7 +101,38 @@ export default {
       labelUpdated: I18n.t("gobierto_data.projects.updated") || '',
       labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
       labelSubject: I18n.t("gobierto_data.projects.subject") || '',
-      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || ''
+      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',
+      seeMore: I18n.t("gobierto_common.vue_components.read_more.more") || '',
+      seeLess: I18n.t("gobierto_common.vue_components.read_more.less") || '',
+      truncateIsActive: true
+    }
+  },
+  computed: {
+    compiledHTMLMarkdown() {
+      const turndownService = new TurndownService()
+      const markdown = turndownService.turndown(this.descriptionDataset)
+      const mdText = marked(markdown, {
+        sanitize: false,
+        tables: true
+      })
+      if (this.truncateIsActive) {
+        return truncate(mdText, { length: 250 })
+      } else {
+        return mdText
+      }
+    },
+    checkStringLength() {
+      return this.descriptionDataset.length > 250
+    }
+  },
+  methods: {
+    scrollDetail() {
+      const element = document.getElementById('gobierto-datos-app');
+      window.scrollTo({
+        top: element.offsetTop,
+        behavior: 'smooth'
+      });
+      this.truncateIsActive = true
     }
   }
 }

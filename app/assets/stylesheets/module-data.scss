@@ -1074,6 +1074,7 @@
 
   &-visualization--aspect-ratio-16-9 {
     @include aspect-ratio(16, 9);
+    min-height: 350px;
   }
 
   &-visualization--container {
@@ -1084,6 +1085,7 @@
     background-color: rgba(var(--color-base-string), .05);
     padding: 16px;
     border-radius: 3px;
+    min-height: 350px;
   }
 
   &-visualization--content {
@@ -1093,7 +1095,7 @@
 
   &-visualization--icons {
     position: absolute;
-    left: 92%;
+    left: 93%;
     top: 10%;
     z-index: 2;
   }

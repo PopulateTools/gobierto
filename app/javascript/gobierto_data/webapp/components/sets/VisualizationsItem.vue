@@ -19,6 +19,7 @@
             :enabled-fork-viz-button="enabledForkVizButton"
             :enabled-viz-saved-button="enabledVizSavedButton"
             :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
+            :show-private-public-icon-viz="showPrivatePublicIconViz"
             @save="onSaveEventHandler"
             @keyDownInput="updateVizName"
             @handlerFork="handlerForkViz"
@@ -63,7 +64,6 @@ import Visualizations from "./../commons/Visualizations.vue";
 import SavingDialog from "./../commons/SavingDialog.vue";
 import Button from "./../commons/Button.vue";
 import { getUserId } from "./../../../lib/helpers";
-import { tabs } from '../../../lib/router';
 
 export default {
   name: "VisualizationsItem",
@@ -122,6 +122,10 @@ export default {
       type: Boolean,
       default: false
     },
+    showPrivatePublicIconViz: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -140,20 +144,15 @@ export default {
       queryName: '',
       user: null,
       queryViz: '',
+      privacyStatus: null,
       isVizElementSavingVisible: false,
       name: '',
-      isQuerySavingPromptVisible: false,
-      tabs
-    }
-  },
-  computed: {
-    checkVisualizationsItems() {
-      return (this.privateVisualizations.length && this.items) || (this.publicVisualizations.length && this.items)
+      isQuerySavingPromptVisible: false
     }
   },
   watch: {
     publicVisualizations(newValue, oldValue) {
-      if (newValue !== oldValue) {
+      if (newValue !== oldValue && this.privacyStatus !== 'closed') {
         this.getDataVisualization(newValue);
       }
     },
@@ -169,6 +168,9 @@ export default {
     },
     async $route(to, from) {
       if (to.path !== from.path) {
+        this.$root.$emit("isVizModified", false);
+        this.$root.$emit('disabledSavedVizString')
+        this.$root.$emit('enabledForkVizButton', false)
         await this.getDataVisualization(this.privateVisualizations);
         await this.getDataVisualization(this.publicVisualizations);
       }
@@ -178,7 +180,9 @@ export default {
     const userId = getUserId()
     if (userId) {
       await this.getDataVisualization(this.privateVisualizations);
-      await this.getDataVisualization(this.publicVisualizations);
+      if (this.privacyStatus !== 'closed') {
+        await this.getDataVisualization(this.publicVisualizations);
+      }
     } else {
       await this.getDataVisualization(this.publicVisualizations);
     }
@@ -187,6 +191,7 @@ export default {
     //Hide the string, and the buttons return to their initial state.
     this.$root.$emit("isVizModified", false);
     this.$root.$emit('disabledSavedVizString')
+    this.$root.$emit('enableSavedVizButton', false)
   },
   methods: {
     onSaveEventHandler(opts) {
@@ -232,7 +237,8 @@ export default {
         id: vizID,
         user_id: user_id,
         sql: sql,
-        query_id: queryID
+        query_id: queryID,
+        privacy_status: privacyStatus
       } = objectViz
 
       //Find the query associated to the visualization
@@ -246,6 +252,7 @@ export default {
       this.config = config
       this.items = elements
       this.queryViz = sql
+      this.privacyStatus = privacyStatus
     },
     handlerForkViz() {
       this.$nextTick(() => {

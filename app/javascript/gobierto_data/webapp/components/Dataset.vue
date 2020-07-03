@@ -56,6 +56,8 @@
       :is-user-logged="isUserLogged"
       :query-input-focus="queryInputFocus"
       :viz-input-focus="vizInputFocus"
+      :show-private-public-icon="showPrivatePublicIcon"
+      :show-private-public-icon-viz="showPrivatePublicIconViz"
     />
 
     <QueriesTab
@@ -81,6 +83,7 @@
       :current-viz-tab="currentVizTab"
       :enabled-fork-viz-button="enabledForkVizButton"
       :viz-input-focus="vizInputFocus"
+      :show-private-public-icon-viz="showPrivatePublicIconViz"
     />
 
     <DownloadsTab
@@ -177,6 +180,10 @@ export default {
       isPublicVizLoading: false,
       vizName: null,
       vizInputFocus: false,
+      savingViz: false,
+      savingQuery: false,
+      showPrivatePublicIcon: false,
+      showPrivatePublicIconViz: false,
       labelSummary: I18n.t("gobierto_data.projects.summary") || "",
       labelData: I18n.t("gobierto_data.projects.data") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
@@ -624,6 +631,10 @@ export default {
       }
     },
     async storeCurrentQuery({ name, privacy }) {
+
+      this.savingViz = false
+      this.savingQuery = true
+
       const {
         params: {
           queryId
@@ -723,6 +734,9 @@ export default {
     },
     async storeCurrentVisualization(config, opts) {
 
+      this.savingViz = true
+      this.savingQuery = false
+
       if (!this.isVizSavingPromptVisible) {
         this.isVizSavingPromptVisible = true
         this.vizInputFocus = true
@@ -740,6 +754,8 @@ export default {
           ({ attributes: { sql } }) => sql === this.currentQuery
         ) || {};
 
+      let currentQueryViz = !queryViz ? this.currentQuery : queryViz
+
       // default attributes
       let attributes = {
         name_translations: {
@@ -751,7 +767,7 @@ export default {
         user_id: this.userId,
         dataset_id: this.datasetId,
         query_id: id,
-        sql: queryViz
+        sql: currentQueryViz
       };
 
       // POST data obj
@@ -783,6 +799,7 @@ export default {
         /* Check if the user saved a viz from another user, we need to wait to obtain the private visualizations to avoid error because it's possible which this Visualization is the first Visualization which user save */
         if (user !== userId || newViz) {
           await this.updateURL(newViz)
+          this.reloadVisualizations()
         }
         await this.getPublicVisualizations()
       }
@@ -797,10 +814,15 @@ export default {
 
       const { id: newId } = element
       //Changes the path depending on if we save a query or viz.
-      const pathQueryOrViz = nameComponent === 'Visualization' ? 'v' : 'q'
+      const pathQueryOrViz = this.savingViz ? 'v' : 'q'
 
-      //Update the URL with the new id
-      this.$router.push(`/datos/${slugDataset}/${pathQueryOrViz}/${newId}`)
+      /*Don't updates the URL, only replace and don't reload, because in the editor we've two options, saved a query or viz, if the user saves a viz, and we update the URL, the browser reloads, and the user goes to visualization tab, and this behavior is too hacky.*/
+      //https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
+      history.pushState(
+        {},
+        null,
+        `${location.origin}/datos/${slugDataset}/${pathQueryOrViz}/${newId}`
+      )
 
       this.enabledForkButton = false
       this.queryInputFocus = false
@@ -812,6 +834,7 @@ export default {
     resetQuery(value) {
       this.resetQueryDefault = value
       if (value === true) {
+        this.showPrivatePublicIcon = false
         this.isQuerySavingPromptVisible = false
         this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
         this.isQueryModified = false
@@ -819,6 +842,7 @@ export default {
         this.disabledSavedButton()
         this.disabledStringSavedQuery()
         this.queryName = null
+        this.disabledForkButton()
       }
     },
     revertSavedQuery(value) {
@@ -875,11 +899,12 @@ export default {
 
         //Check if the user who loaded the query is the same user who created the query
         if (userId !== checkUserId) {
+          this.showPrivatePublicIcon = false
           this.enabledForkButton = true
           this.isForkPromptVisible = true
         } else {
+          this.showPrivatePublicIcon = true
           this.disabledForkButton()
-          this.enabledForkPrompt()
         }
       } else if (userId !== 0 && nameComponent === 'Visualization') {
         const items = this.publicVisualizations;
@@ -890,9 +915,10 @@ export default {
         //Check if the user who loaded the viz is the same user who created the viz
         if (userId !== checkUserId) {
           this.enabledForkVizButton = true
+          this.showPrivatePublicIconViz = false
         } else {
+          this.showPrivatePublicIconViz = true
           this.activateForkVizButton(false)
-          this.enabledForkPrompt()
         }
       }
     },
@@ -907,6 +933,7 @@ export default {
     },
     activatedRevertButton() {
       this.enabledRevertButton = true
+      this.showPrivatePublicIcon = true
     },
     disabledSavedVizString() {
       this.isVizSaved = false
@@ -941,8 +968,10 @@ export default {
 
       await this.getPrivateVisualizations()
       await this.getPublicVisualizations()
+      this.queryOrVizIsNotMine()
     },
     activateForkVizButton(value) {
+      console.log("this.enabledForkVizButton", this.enabledForkVizButton);
       this.enabledForkVizButton = value
     },
     eventToUpdateVizName() {
@@ -962,6 +991,7 @@ export default {
     showSavingDialogEvent() {
       this.enabledVizSavedButton = true
       this.isVizModified = true
+      this.showPrivatePublicIconViz = true
     }
   },
 };

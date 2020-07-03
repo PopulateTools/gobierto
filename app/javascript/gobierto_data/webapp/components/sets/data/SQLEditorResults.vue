@@ -33,6 +33,7 @@
           :is-viz-saved="isVizSaved"
           :is-user-logged="isUserLogged"
           :enabled-viz-saved-button="enabledVizSavedButton"
+          :show-private-public-icon-viz="showPrivatePublicIconViz"
           @save="onSaveEventHandler"
           @keyDownInput="updateVizNameHandler"
         />
@@ -115,6 +116,10 @@ export default {
       default: false
     },
     vizInputFocus: {
+      type: Boolean,
+      default: false
+    },
+    showPrivatePublicIconViz: {
       type: Boolean,
       default: false
     }

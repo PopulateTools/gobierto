@@ -82,6 +82,7 @@
       :enabled-query-saved-button="enabledQuerySavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
+      :show-private-public-icon="showPrivatePublicIcon"
       @save="saveHandlerSavedQuery"
       @keyDownInput="updateQueryName"
       @handlerFork="handlerForkQuery"
@@ -181,6 +182,10 @@ export default {
       default: false
     },
     queryInputFocus: {
+      type: Boolean,
+      default: false
+    },
+    showPrivatePublicIcon: {
       type: Boolean,
       default: false
     }

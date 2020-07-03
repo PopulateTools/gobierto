@@ -18,7 +18,7 @@
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="enabledPrivateIcon">
+    <template v-if="showPrivatePublicIcon || showPrivatePublicIconViz">
       <PrivateIcon
         :is-closed="isPrivate"
         :style="{ paddingRight: '.5em', margin: 0 }"
@@ -191,6 +191,14 @@ export default {
     enabledForkVizButton: {
       type: Boolean,
       default: false
+    },
+    showPrivatePublicIcon: {
+      type: Boolean,
+      default: false
+    },
+    showPrivatePublicIconViz: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -220,13 +228,12 @@ export default {
     handlerInputQuery() {
        return (this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
     },
-    enabledPrivateIcon() {
-      return this.enabledVizSavedButton || this.isVizSaved
-    },
+
   },
   watch: {
     value(newValue, oldValue) {
       if (newValue !== oldValue) {
+        console.log("newValue", newValue);
         this.labelValue = newValue
         this.countInputCharacters(newValue)
         this.disabledButton = true
@@ -262,7 +269,13 @@ export default {
         location.href = '/user/sessions/new?open_modal=true';
         return false;
       }
-      this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
+
+      if (!this.labelValue) {
+        this.$refs.inputText.focus()
+      } else {
+        this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
+      }
+
     },
     onKeyDownTextHandler(event) {
       const { value } = event.target

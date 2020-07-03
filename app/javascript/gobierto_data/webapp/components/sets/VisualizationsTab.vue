@@ -21,6 +21,7 @@
       :enabled-viz-saved-button="enabledVizSavedButton"
       :enabled-fork-viz-button="enabledForkVizButton"
       :viz-input-focus="vizInputFocus"
+      :show-private-public-icon-viz="showPrivatePublicIconViz"
       @changeViz="showVizElement"
       @emitDelete="deleteHandlerVisualization"
     />
@@ -96,6 +97,10 @@ export default {
     vizInputFocus: {
       type: Boolean,
       default: true
+    },
+    showPrivatePublicIconViz: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

@@ -120,12 +120,13 @@ export class SubsidiesController {
 
     for (let i = 0; i < subsidiesData.length; i++){
       const subsidy = subsidiesData[i];
-      const amount = subsidy.amount ? parseFloat(subsidy.amount) : 0.0
+      const amount = subsidy.amount && !isNaN(subsidy.amount) ? parseFloat(subsidy.amount) : 0.0
 
       let [beneficiary_id, ...beneficiary_name] = subsidy.beneficiary.split(' ')
 
       subsidy.amount = amount;
       subsidy.range = rangeFormat(+amount);
+
       subsidy.beneficiary_id = beneficiary_id
       subsidy.beneficiary_name = beneficiary_name.join(' ')
       // it's an individual if the beneficiary id is hidden with asterisks

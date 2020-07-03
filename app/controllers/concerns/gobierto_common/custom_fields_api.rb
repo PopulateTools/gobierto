@@ -3,6 +3,7 @@
 module GobiertoCommon
   module CustomFieldsApi
     extend ActiveSupport::Concern
+    include GobiertoHelper
 
     included do
       attr_reader :resource, :vocabularies_adapter
@@ -33,11 +34,13 @@ module GobiertoCommon
 
     def translated_custom_field_record_values(relation)
       raw_values = custom_field_record_values(relation)
-      return raw_values if localized_custom_fields.blank?
+      return raw_values if localized_custom_fields.blank? && md_custom_fields.blank?
 
       localized_uids = localized_custom_fields.pluck(:uid)
+      md_uids = md_custom_fields.pluck(:uid)
       raw_values.transform_values do |attributes|
         transform(attributes, localized_uids, :translate)
+        transform(attributes, md_uids, :markdown)
         attributes
       end
 
@@ -173,6 +176,10 @@ module GobiertoCommon
 
     def localized_custom_fields
       @localized_custom_fields ||= custom_fields.localized
+    end
+
+    def md_custom_fields
+      @md_custom_fields ||= custom_fields.with_md
     end
 
   end

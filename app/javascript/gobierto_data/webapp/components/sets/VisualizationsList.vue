@@ -195,7 +195,6 @@ export default {
       if (!this.isPrivateVizLoading && !this.isPublicVizLoading) {
         this.$nextTick(() => {
           let vizList = document.querySelectorAll("perspective-viewer");
-
           for (let index = 0; index < vizList.length; index++) {
             vizList[index].shadowRoot.querySelector("div#config_button").style.display = "none";
           }

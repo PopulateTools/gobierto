@@ -146,8 +146,8 @@ export class ContractsController {
 
     for (let i = 0; i < contractsData.length; i++){
       const contract = contractsData[i];
-      const final_amount_no_taxes = contract.final_amount_no_taxes && !isNaN(contract.final_amount_no_taxes) ? parseFloat(contract.final_amount_no_taxes) : 0.0;
-      const initial_amount_no_taxes = contract.initial_amount_no_taxes && !isNaN(contract.initial_amount_no_taxes) ? parseFloat(contract.initial_amount_no_taxes) : 0.0 ;
+      const final_amount_no_taxes = contract.final_amount_no_taxes && !Number.isNaN(contract.final_amount_no_taxes) ? parseFloat(contract.final_amount_no_taxes) : 0.0;
+      const initial_amount_no_taxes = contract.initial_amount_no_taxes && !Number.isNaN(contract.initial_amount_no_taxes) ? parseFloat(contract.initial_amount_no_taxes) : 0.0 ;
 
       contract.final_amount_no_taxes = final_amount_no_taxes;
       contract.initial_amount_no_taxes = initial_amount_no_taxes;

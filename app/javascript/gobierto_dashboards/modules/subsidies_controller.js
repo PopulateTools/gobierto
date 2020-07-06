@@ -120,7 +120,7 @@ export class SubsidiesController {
 
     for (let i = 0; i < subsidiesData.length; i++){
       const subsidy = subsidiesData[i];
-      const amount = subsidy.amount && !isNaN(subsidy.amount) ? parseFloat(subsidy.amount) : 0.0
+      const amount = subsidy.amount && !Number.isNaN(subsidy.amount) ? parseFloat(subsidy.amount) : 0.0
 
       let [beneficiary_id, ...beneficiary_name] = subsidy.beneficiary.split(' ')
 

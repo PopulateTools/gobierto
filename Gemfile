@@ -65,7 +65,7 @@ gem "algoliasearch-rails", "~> 1.17"
 gem "rails-html-sanitizer"
 
 # Pagination
-gem "kaminari", "~> 1.0"
+gem "kaminari", "~> 1.2"
 
 # Captcha
 gem "invisible_captcha"
@@ -75,10 +75,11 @@ gem "redis", "~> 4.0"
 
 # Translations
 gem "json_translate", "~> 4.0"
+gem "route_translator"
 
 # Liquid
 gem "liquid", "~> 4.0"
-gem "liquid-rails", "~> 0.2.0"
+gem "liquid-rails", git: "https://github.com/maierru/liquid-rails.git"
 
 # Google API
 gem "geocoder"

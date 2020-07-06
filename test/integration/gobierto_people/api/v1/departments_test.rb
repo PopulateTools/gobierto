@@ -134,12 +134,12 @@ module GobiertoPeople
                   "key" => Time.zone.parse("2000/01"),
                   "value" => 1,
                   "properties" => {
-                    "url" => "/departamentos/toursim-department-very-old?end_date=2000-02-01&start_date=2000-01-01"
+                    "url" => "/en/departments/toursim-department-very-old?end_date=2000-02-01&start_date=2000-01-01"
                   }
                 }
               ],
               "properties" => {
-                "url" => "/departamentos/toursim-department-very-old?page=false"
+                "url" => "/en/departments/toursim-department-very-old?page=false"
               }
             }
 

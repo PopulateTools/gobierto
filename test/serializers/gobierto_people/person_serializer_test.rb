@@ -18,7 +18,7 @@ module GobiertoPeople
 
       assert_equal person.name, serializer_output["name"]
       assert_equal person.historical_charges.reverse_sorted.first.name, serializer_output["position"]
-      assert_equal "http://madrid.gobierto.test/personas/richard-rider", serializer_output["url"]
+      assert_equal "http://madrid.gobierto.test/en/people/richard-rider", serializer_output["url"]
     end
 
     def test_serialize_with_date_range

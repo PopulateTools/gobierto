@@ -86,6 +86,7 @@
       @save="saveHandlerSavedQuery"
       @keyDownInput="updateQueryName"
       @handlerFork="handlerForkQuery"
+      @isPrivateChecked="isPrivateChecked"
     />
 
     <Button
@@ -299,6 +300,9 @@ export default {
         this.$refs.savingDialogQuery.inputSelect()
       });
       this.$root.$emit('disabledForkButton')
+    },
+    isPrivateChecked() {
+      this.$root.$emit('eventIsQueryModified', true)
     }
   },
 };

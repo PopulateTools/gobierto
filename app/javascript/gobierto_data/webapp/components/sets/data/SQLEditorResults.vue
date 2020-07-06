@@ -36,6 +36,7 @@
           :show-private-public-icon-viz="showPrivatePublicIconViz"
           @save="onSaveEventHandler"
           @keyDownInput="updateVizNameHandler"
+          @isPrivateChecked="isPrivateChecked"
         />
       </div>
       <div
@@ -181,6 +182,9 @@ export default {
       this.showResetViz = true
       this.$root.$emit('showSavingDialogEvent')
       this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
+    },
+    isPrivateChecked() {
+      this.$root.$emit('eventIsVizModified', true)
     }
   },
 };

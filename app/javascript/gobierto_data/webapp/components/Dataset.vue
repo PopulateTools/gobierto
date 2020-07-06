@@ -239,16 +239,10 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     const {
-      name: nameComponent,
-      params: {
-        tab
-      }
+      name: nameComponent
     } = to;
     next(vm => {
       vm.showRevertQuery = (nameComponent === 'Query')
-      if (tab === 'visualizaciones' || nameComponent === 'Visualization' && vm.publicVisualizations.length === 0) {
-        vm.getAllVisualizations()
-      }
     })
   },
   async created() {
@@ -328,9 +322,7 @@ export default {
     this.setDefaultQuery();
     this.checkIfUserIsLogged();
     this.updateBaseTitle()
-    if (this.publicVisualizations.length === 0) {
-      this.getAllVisualizations()
-    }
+    this.getAllVisualizations()
   },
   mounted() {
     const recentQueries = localStorage.getItem("recentQueries");
@@ -355,7 +347,7 @@ export default {
     // activate button to saved a query
     this.$root.$on('enableSavedButton', this.activatedSavedButton)
     // reset query flow to initial state
-    this.$root.$on('resetToInitialState', this.resetToInitialState)
+    this.$root.$on('eventIsQueryModified', this.eventIsQueryModified)
     // disabled saved button
     this.$root.$on('disabledSavedButton', this.disabledSavedButton)
     //Show a message for the user, your query is saved
@@ -367,7 +359,7 @@ export default {
     //if user is logged show a prompt to saved a visualization
     this.$root.$on('isVizSavingPromptVisible', this.isVizSavingPromptVisibleHandler)
     //When user save a vizusliation show a string
-    this.$root.$on('disabledSavedVizString', this.disabledSavedVizString)
+    this.$root.$on('showSavedVizString', this.showSavedVizString)
     //Show a string when the vis is modified
     this.$root.$on('isVizModified', this.eventIsVizModified)
     //Check if the query is ours if it isn't ours show a button to fork
@@ -400,7 +392,7 @@ export default {
     this.$root.$off("resetQuery");
     this.$root.$off("revertSavedQuery");
     this.$root.$off('enableSavedButton')
-    this.$root.$off('resetToInitialState')
+    this.$root.$off('eventIsQueryModified')
     this.$root.$off('disabledSavedButton')
     this.$root.$off('disabledStringSavedQuery')
     this.$root.$off('disabledForkButton')
@@ -412,7 +404,7 @@ export default {
 
     this.$root.$off('isVizSavingPromptVisible')
     this.$root.$off('enableSavedVizButton')
-    this.$root.$off('disabledSavedVizString')
+    this.$root.$off('showSavedVizString')
     this.$root.$off('isVizModified')
     this.$root.$off('loadVizName')
     this.$root.$off('updateVizName')
@@ -796,7 +788,6 @@ export default {
         this.isVizSaved = true
         this.isVizSavingPromptVisible = false
         this.enabledVizSavedButton = false
-        this.vizName = null
 
         /* Check if the user saved a viz from another user, we need to wait to obtain the private visualizations to avoid error because it's possible which this Visualization is the first Visualization which user save */
         if (user !== userId || newViz) {
@@ -873,8 +864,9 @@ export default {
     disabledSavedButton() {
       this.enabledQuerySavedButton = false
     },
-    resetToInitialState() {
-      this.isQueryModified = false
+    eventIsQueryModified(value) {
+      this.isQueryModified = value
+      this.enabledQuerySavedButton = true
     },
     resetToInitialStateSavedQuery() {
       this.showRevertQuery = true
@@ -942,8 +934,8 @@ export default {
       this.enabledRevertButton = true
       this.showPrivatePublicIcon = true
     },
-    disabledSavedVizString() {
-      this.isVizSaved = false
+    showSavedVizString(value) {
+      this.isVizSaved = value
     },
     isQuerySavingPromptVisibleHandler(value) {
       this.isQuerySavingPromptVisible = value
@@ -998,6 +990,7 @@ export default {
       this.enabledVizSavedButton = true
       this.isVizModified = true
       this.showPrivatePublicIconViz = true
+      this.isVizSavingPromptVisible = true
     }
   },
 };

@@ -132,6 +132,13 @@ export default {
       if (newValue === 0) {
         this.currentVizComponent = COMPONENTS[newValue];
       }
+    },
+    $route(to, from) {
+      if (to.path !== from.path) {
+        this.$root.$emit("isVizModified", false);
+        this.$root.$emit("showSavedVizString", false);
+        this.$root.$emit('enabledForkVizButton', false)
+      }
     }
   },
   created() {

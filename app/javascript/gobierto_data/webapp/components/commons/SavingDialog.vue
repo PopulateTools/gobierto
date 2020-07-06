@@ -293,7 +293,7 @@ export default {
     onInputCheckboxHandler(event) {
       const { checked } = event.target
       this.isPrivate = checked
-      this.$root.$emit('enableSavedButton')
+      this.$emit('isPrivateChecked')
     },
     revertQueryHandler() {
       this.labelValue = this.value
@@ -311,13 +311,13 @@ export default {
       const inputValueLength = inputValueSplit.length
 
       let newWidth = inputValueLength * 7.5
-      let maxWidth = 369.5
+      let maxWidth = 289.5
       let minWidth = 200
 
       //In the Visualizations view, we've more space, so we take advantage of it by increasing the input name width.
       if (this.$route.name === 'Visualization') {
-        maxWidth = maxWidth * 1.2
-        minWidth = minWidth * 1.2
+        maxWidth = maxWidth * 1.4
+        minWidth = minWidth * 1.4
       }
 
       if (inputValueLength > 25 && inputValueLength < 50) {

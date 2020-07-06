@@ -5,6 +5,7 @@
         <SavingDialog
           ref="savingDialogVizElement"
           :value="name"
+          :placeholder="labelVisName"
           :label-save="labelSaveViz"
           :label-saved="labelSavedVisualization"
           :label-modified="labelModifiedVizualition"
@@ -20,6 +21,7 @@
           @save="onSaveEventHandler"
           @keyDownInput="updateVizName"
           @handlerFork="handlerForkViz"
+          @isPrivateChecked="isPrivateChecked"
         />
         <Button
           :text="labelEdit"
@@ -148,16 +150,11 @@ export default {
       if (newValue) {
         this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
       }
-    },
-    $route(to, from) {
-      if (to.path !== from.path) {
-        this.$root.$emit("isVizModified", false);
-        this.$root.$emit('disabledSavedVizString')
-        this.$root.$emit('enabledForkVizButton', false)
-      }
     }
   },
   created() {
+    this.$root.$emit("isVizModified", false);
+    this.$root.$emit('enableSavedVizButton', false)
     const userId = getUserId()
     this.getDataVisualization(this.publicVisualizations);
     //Only getPrivate if user load a PrivateViz
@@ -168,7 +165,6 @@ export default {
   beforeDestroy() {
     //Hide the string, and the buttons return to their initial state.
     this.$root.$emit("isVizModified", false);
-    this.$root.$emit('disabledSavedVizString')
     this.$root.$emit('enableSavedVizButton', false)
   },
   methods: {
@@ -236,6 +232,9 @@ export default {
         this.$refs.savingDialogVizElement.inputSelect()
       });
       this.$root.$emit('enabledForkVizButton', false)
+    },
+    isPrivateChecked() {
+      this.$root.$emit('isVizModified', true)
     }
   }
 };

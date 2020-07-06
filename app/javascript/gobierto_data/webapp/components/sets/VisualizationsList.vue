@@ -12,7 +12,6 @@
             </template>
           </h3>
         </template>
-
         <div class="gobierto-data-visualization--grid">
           <template v-if="isPrivateVizLoading">
             <Loading />

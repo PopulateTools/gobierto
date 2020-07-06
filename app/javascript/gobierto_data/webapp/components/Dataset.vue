@@ -223,7 +223,6 @@ export default {
         this.currentVizTab = 0
       } else if (to.name === 'Visualization') {
         this.currentVizTab = 1
-        this.reloadVisualizations()
       }
 
       //Update only the baseTitle of the dataset that is active
@@ -247,8 +246,8 @@ export default {
     } = to;
     next(vm => {
       vm.showRevertQuery = (nameComponent === 'Query')
-      if (tab === 'visualizaciones' || nameComponent === 'Visualization') {
-        vm.reloadVisualizations()
+      if (tab === 'visualizaciones' || nameComponent === 'Visualization' && vm.publicVisualizations.length === 0) {
+        vm.getAllVisualizations()
       }
     })
   },
@@ -329,7 +328,9 @@ export default {
     this.setDefaultQuery();
     this.checkIfUserIsLogged();
     this.updateBaseTitle()
-
+    if (this.publicVisualizations.length === 0) {
+      this.getAllVisualizations()
+    }
   },
   mounted() {
     const recentQueries = localStorage.getItem("recentQueries");
@@ -378,7 +379,7 @@ export default {
     //Show the name of the visualization
     this.$root.$on('loadVizName', this.setVizName)
     //Reload a list of private and public visualizations
-    this.$root.$on('reloadVisualizations', this.reloadVisualizations)
+    this.$root.$on('reloadVisualizations', this.getAllVisualizations)
     //Check if the visualization is ours if it isn't ours show a button to fork
     this.$root.$on('enabledForkVizButton', this.activateForkVizButton)
     //Update the name of Visualization
@@ -503,7 +504,6 @@ export default {
     },
     async getPublicVisualizations() {
       this.isPublicVizLoading = true
-
 
       const { data: response } = await this.getVisualizations({
         "filter[dataset_id]": this.datasetId
@@ -800,9 +800,9 @@ export default {
 
         /* Check if the user saved a viz from another user, we need to wait to obtain the private visualizations to avoid error because it's possible which this Visualization is the first Visualization which user save */
         if (user !== userId || newViz) {
-          await this.updateURL(newViz)
+          this.updateURL(newViz)
         }
-        this.reloadVisualizations()
+        this.getAllVisualizations()
       }
     },
     updateURL(element) {
@@ -826,6 +826,7 @@ export default {
 
       this.enabledForkButton = false
       this.queryInputFocus = false
+      this.enabledForkVizButton = false
     },
     getColumnsQuery(csv = '') {
       const [ columns = '' ] = csv.split("\n");
@@ -919,7 +920,7 @@ export default {
         const { user_id: checkUserId = {} } = items.find(({ id }) => id === queryId) || {}
 
         //Check if the user who loaded the viz is the same user who created the viz
-        if (userId !== checkUserId) {
+        if (userId !== checkUserId && !this.savingViz) {
           this.enabledForkVizButton = true
           this.showPrivatePublicIconViz = false
         } else {
@@ -959,7 +960,7 @@ export default {
     setVizName(vizName) {
       this.vizName = vizName
     },
-    async reloadVisualizations() {
+    async getAllVisualizations() {
       const {
         params: { id }
       } = this.$route;

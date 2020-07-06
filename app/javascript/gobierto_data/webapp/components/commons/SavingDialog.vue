@@ -293,6 +293,7 @@ export default {
     onInputCheckboxHandler(event) {
       const { checked } = event.target
       this.isPrivate = checked
+      this.$root.$emit('enableSavedButton')
     },
     revertQueryHandler() {
       this.labelValue = this.value

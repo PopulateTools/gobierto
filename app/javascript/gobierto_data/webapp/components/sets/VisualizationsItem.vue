@@ -1,66 +1,60 @@
 <template>
   <div class="gobierto-data-sql-editor">
-    <template v-if="disabledSpinner">
-      <Loading />
-    </template>
-    <template v-else>
-      <div class="pure-g">
-        <div class="pure-u-1 pure-u-lg-4-4">
-          <SavingDialog
-            ref="savingDialogVizElement"
-            :value="name"
-            :label-save="labelSaveViz"
-            :label-saved="labelSavedVisualization"
-            :label-modified="labelModifiedVizualition"
-            :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
-            :is-viz-modified="isVizModified"
-            :is-viz-saved="isVizSaved"
-            :is-user-logged="isUserLogged"
-            :enabled-fork-viz-button="enabledForkVizButton"
-            :enabled-viz-saved-button="enabledVizSavedButton"
-            :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
-            :show-private-public-icon-viz="showPrivatePublicIconViz"
-            :show-private-viz="showPrivateViz"
-            @save="onSaveEventHandler"
-            @keyDownInput="updateVizName"
-            @handlerFork="handlerForkViz"
-          />
-          <Button
-            :text="labelEdit"
-            class="btn-sql-editor"
-            icon="chart-area"
-            background="#fff"
-            @click.native="showChart"
-          />
-        </div>
-        <div
-          v-if="queryID"
-          class="gobierto-data-visualization-query-container"
-        >
-          <span class="gobierto-data-summary-queries-panel-title">{{ labelQuery }}:</span>
-          <router-link
-            :to="`/datos/${$route.params.id}/q/${queryID}`"
-            class="gobierto-data-summary-queries-container-name"
-          >
-            {{ queryName }}
-          </router-link>
-        </div>
-      </div>
-      <div class="gobierto-data-visualization--aspect-ratio-16-9">
-        <Visualizations
-          v-if="items"
-          ref="viewer"
-          :items="items"
-          :config="config"
-          @showSaving="showSavingDialog"
-          @selectedChart="typeChart = $event"
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-4-4">
+        <SavingDialog
+          ref="savingDialogVizElement"
+          :value="name"
+          :label-save="labelSaveViz"
+          :label-saved="labelSavedVisualization"
+          :label-modified="labelModifiedVizualition"
+          :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
+          :is-viz-modified="isVizModified"
+          :is-viz-saved="isVizSaved"
+          :is-user-logged="isUserLogged"
+          :enabled-fork-viz-button="enabledForkVizButton"
+          :enabled-viz-saved-button="enabledVizSavedButton"
+          :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
+          :show-private-public-icon-viz="showPrivatePublicIconViz"
+          :show-private-viz="showPrivateViz"
+          @save="onSaveEventHandler"
+          @keyDownInput="updateVizName"
+          @handlerFork="handlerForkViz"
+        />
+        <Button
+          :text="labelEdit"
+          class="btn-sql-editor"
+          icon="chart-area"
+          background="#fff"
+          @click.native="showChart"
         />
       </div>
-    </template>
+      <div
+        v-if="queryID"
+        class="gobierto-data-visualization-query-container"
+      >
+        <span class="gobierto-data-summary-queries-panel-title">{{ labelQuery }}:</span>
+        <router-link
+          :to="`/datos/${$route.params.id}/q/${queryID}`"
+          class="gobierto-data-summary-queries-container-name"
+        >
+          {{ queryName }}
+        </router-link>
+      </div>
+    </div>
+    <div class="gobierto-data-visualization--aspect-ratio-16-9">
+      <Visualizations
+        v-if="items"
+        ref="viewer"
+        :items="items"
+        :config="config"
+        @showSaving="showSavingDialog"
+        @selectedChart="typeChart = $event"
+      />
+    </div>
   </div>
 </template>
 <script>
-import { Loading } from "lib/vue-components";
 import Visualizations from "./../commons/Visualizations.vue";
 import SavingDialog from "./../commons/SavingDialog.vue";
 import Button from "./../commons/Button.vue";
@@ -71,8 +65,7 @@ export default {
   components: {
     Visualizations,
     SavingDialog,
-    Button,
-    Loading
+    Button
   },
   props: {
     datasetId: {
@@ -119,10 +112,6 @@ export default {
       type: Boolean,
       default: false
     },
-    isPrivateVizLoading: {
-      type: Boolean,
-      default: false
-    },
     showPrivatePublicIconViz: {
       type: Boolean,
       default: false
@@ -151,13 +140,7 @@ export default {
       queryViz: '',
       isVizElementSavingVisible: false,
       name: '',
-      isQuerySavingPromptVisible: false,
-      loadingViz: true
-    }
-  },
-  computed: {
-    disabledSpinner() {
-      return this.loadingViz && this.publicVisualizations.length
+      isQuerySavingPromptVisible: false
     }
   },
   watch: {
@@ -171,23 +154,15 @@ export default {
         this.$root.$emit("isVizModified", false);
         this.$root.$emit('disabledSavedVizString')
         this.$root.$emit('enabledForkVizButton', false)
-        this.getDataVisualization(this.publicVisualizations);
-        if (this.showPrivateViz) {
-          this.getDataVisualization(this.privateVisualizations);
-        }
       }
     }
   },
-  mounted() {
+  created() {
     const userId = getUserId()
-    if (userId) {
-      this.getDataVisualization(this.publicVisualizations);
-      //Only getPrivate if user load a PrivateViz
-      if (this.showPrivateViz) {
-        this.getDataVisualization(this.privateVisualizations);
-      }
-    } else {
-      this.getDataVisualization(this.publicVisualizations);
+    this.getDataVisualization(this.publicVisualizations);
+    //Only getPrivate if user load a PrivateViz
+    if (userId && this.showPrivateViz) {
+      this.getDataVisualization(this.privateVisualizations);
     }
   },
   beforeDestroy() {
@@ -254,10 +229,6 @@ export default {
       this.config = config
       this.items = elements
       this.queryViz = sql
-
-      if (config) {
-        this.loadingViz = false
-      }
     },
     handlerForkViz() {
       this.$nextTick(() => {

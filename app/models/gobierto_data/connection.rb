@@ -44,7 +44,7 @@ module GobiertoData
           csv  = []
           # Get the raw connection (in our case the pg connection object)
           pg_connection = connection_pool.connection.raw_connection
-          pg_connection.copy_data("COPY (#{query}) TO STDOUT WITH (FORMAT CSV, HEADER TRUE, DELIMITER '#{csv_options_params[:col_sep]}', FORCE_QUOTE *, ESCAPE E'\\\\');") do
+          pg_connection.copy_data("COPY (#{query}) TO STDOUT WITH (FORMAT CSV, HEADER TRUE, DELIMITER '#{csv_options_params[:col_sep]}', FORCE_QUOTE *);") do
             while row = pg_connection.get_copy_data
               csv.push(row)
             end

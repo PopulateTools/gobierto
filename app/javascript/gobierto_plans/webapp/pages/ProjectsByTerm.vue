@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div style="width: 100%">
     <div>
       <div>{{ uid }} -> {{ termId }}</div>
       <div>Personalizar columns</div>
     </div>
+
     <table>
       <thead>
         <template v-for="[thId, [name, , thVisibility]] in selectedColumns">
@@ -27,37 +28,54 @@
         </template>
       </thead>
       <tbody>
-        <tr
-          v-for="{ id, attributes } in projectsSorted"
-          :key="id"
-        >
-          <template v-for="[trId, [, , trVisibility]] in selectedColumns">
-            <td
-              v-if="trVisibility"
-              :key="trId"
-            >
-              {{ attributes[trId] }}
-            </td>
-          </template>
-        </tr>
+        <template v-for="{ id, attributes } in projectsSorted">
+          <ProjectsByTermTableRow
+            :key="id"
+            :project-id="id"
+            :columns="selectedColumns"
+            :attributes="attributes"
+            @show-project="setCurrentProject"
+          />
+        </template>
       </tbody>
+
+      <section
+        v-if="activeNode"
+        class="category"
+        :style="`--category: var(--category-${rootid})`"
+      >
+        <Project
+          :key="activeNode.id"
+          :model="activeNode"
+          :options="options"
+        />
+      </section>
     </table>
   </div>
 </template>
 
 <script>
 import { NamesMixin } from "../lib/mixins/names";
+import { findRecursive } from "../lib/helpers";
 import SortIcon from "../components/SortIcon";
 import NumberLabel from "../components/NumberLabel";
+import Project from "../components/Project";
+import ProjectsByTermTableRow from "../components/ProjectsByTermTableRow";
 
 export default {
   name: "ProjectsByTerm",
   components: {
     NumberLabel,
-    SortIcon
+    SortIcon,
+    ProjectsByTermTableRow,
+    Project
   },
   mixins: [NamesMixin],
   props: {
+    json: {
+      type: Array,
+      default: () => []
+    },
     groups: {
       type: Array,
       default: () => []
@@ -74,8 +92,15 @@ export default {
       projectsSorted: [],
       selectedColumns: [],
       map: new Map(),
-      currentSortColumn: null
+      currentSortColumn: null,
+      activeNode: null
     };
+  },
+  computed: {
+    rootid() {
+      const { rootid } = this.activeNode || {};
+      return rootid + 1;
+    }
   },
   created() {
     const { id, term } = this.$route.params;
@@ -97,7 +122,11 @@ export default {
     // initialize a map to handle the columns
     // for each key, we store the traslation, the sorting direction, and the visibility
     Object.keys(attributes).forEach(key =>
-      this.map.set(key, [this.getName(key), "up", key === 'name' || this.natives.has(key)])
+      this.map.set(key, [
+        this.getName(key),
+        "up",
+        key === "name" || this.natives.has(key)
+      ])
     );
     this.selectedColumns = Array.from(this.map);
   },
@@ -111,14 +140,18 @@ export default {
       // update the order for the item clicked
       this.map.set(id, [name, currentSort]);
       // change the order based on the currentSort
-      this.projectsSorted.sort(({ attributes: { [id]: termA } }, { attributes: { [id]: termB } }) =>
-        currentSort === "up" ? termA > termB : termA < termB
+      this.projectsSorted.sort(
+        ({ attributes: { [id]: termA } }, { attributes: { [id]: termB } }) =>
+          currentSort === "up" ? termA > termB : termA < termB
       );
     },
     getSorting(column) {
       // ignore the first item of the tuple
       const [, order] = this.map.get(column);
       return order;
+    },
+    setCurrentProject(id) {
+      this.activeNode = findRecursive(this.json, id);
     }
   }
 };

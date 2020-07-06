@@ -2,6 +2,7 @@
   <div class="planification-content">
     <router-view
       :groups="groups"
+      :json="json"
       :options="options"
     />
   </div>

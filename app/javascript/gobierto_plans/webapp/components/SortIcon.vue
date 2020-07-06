@@ -1,7 +1,7 @@
 <template>
   <i
     v-if="direction"
-    :class="`fas fa-sort-amount-${direction}`"
+    :class="`fas fa-sort-amount-${icon}`"
   />
 </template>
 
@@ -12,6 +12,11 @@ export default {
     direction: {
       type: String,
       default: null
+    }
+  },
+  computed: {
+    icon() {
+      return this.direction === 'down' ? 'down' : 'down-alt'
     }
   }
 };

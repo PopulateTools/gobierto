@@ -811,15 +811,11 @@ export default {
 
       /*Don't updates the URL if the component is Editor, only replace and don't reload, because in the editor we've two options, saved a query or viz, if the user saves a viz, and we update the URL, the browser reloads, and the user goes to visualization tab, and this behavior is too hacky.*/
       //https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
-      if (nameComponent === 'Query') {
-        history.pushState(
-          {},
-          null,
-          `${location.origin}/datos/${slugDataset}/${pathQueryOrViz}/${newId}`
-        )
-      } else {
-        this.$router.push(`/datos/${slugDataset}/${pathQueryOrViz}/${newId}`)
-      }
+      history.pushState(
+        {},
+        null,
+        `${location.origin}/datos/${slugDataset}/${pathQueryOrViz}/${newId}`
+      )
 
       this.enabledForkButton = false
       this.queryInputFocus = false

@@ -1,0 +1,49 @@
+.gobierto-skeleton-spinner-container-squares {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.gobierto-skeleton-spinner {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  overflow: hidden;
+  background-color: #dddbdd;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(var(--color-base-string), .05),
+      rgba(var(--color-base-string), .1),
+      rgba(var(--color-base-string), .05)
+    );
+    animation: shimmer 2s cubic-bezier(0.36, 0, 0.66, -0.56) forwards infinite;
+    content: '';
+  }
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.gobierto-skeleton-spinner-line {
+  height: 1rem;
+  width: 100%;
+  margin-bottom: .25rem;
+  background-color: rgba(var(--color-base-string), .1);
+}
+
+.gobierto-skeleton-spinner-square {
+  height: 5rem;
+  background-color: rgba(var(--color-base-string), .1);
+}

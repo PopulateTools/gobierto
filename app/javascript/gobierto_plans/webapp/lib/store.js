@@ -4,6 +4,7 @@ export const PlansStore = {
     plainItems: [],
     meta: [],
     projects: [],
+    status: [],
   },
   setLevelKeys(keys) {
     this.state.levelKeys = keys
@@ -16,5 +17,8 @@ export const PlansStore = {
   },
   setProjects(projects) {
     this.state.projects = projects
+  },
+  setStatus(status) {
+    this.state.status = status
   }
 }

@@ -28,7 +28,7 @@
           {{ labelStatus }}
         </div>
         <div class="mandatory-desc">
-          {{ status | translate }}
+          {{ status }}
         </div>
       </div>
     </div>
@@ -36,12 +36,12 @@
 </template>
 
 <script>
-import { translate, date, percent } from "lib/shared";
+import { date, percent } from "lib/shared";
+import { PlansStore } from "../lib/store";
 
 export default {
   name: "ProjectNativeFields",
   filters: {
-    translate,
     date,
     percent
   },
@@ -71,13 +71,16 @@ export default {
   },
   created() {
     const {
-      attributes: { progress, starts_at, ends_at, status }
+      attributes: { progress, starts_at, ends_at, status_id }
     } = this.model;
 
     this.progress = progress;
     this.startsAt = starts_at;
     this.endsAt = ends_at;
-    this.status = status;
+
+    const { status } = PlansStore.state
+    const { attributes: { name } = {} } = status.find(({ id }) => +id === +status_id) || {};
+    this.status = name
   }
 };
 </script>

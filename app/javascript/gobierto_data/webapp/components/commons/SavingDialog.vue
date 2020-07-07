@@ -2,23 +2,27 @@
   <div class="gobierto-data-sql-editor-container-save">
     <!--  only show if label name is set OR the prompt is visible  -->
     <template v-if="handlerInputQuery">
-        <input
-          ref="inputText"
-          v-model="labelValue"
-          :placeholder="placeholder"
-          type="text"
-          class="gobierto-data-sql-editor-container-save-text"
-          :class="{
-            'disable-input-text': disabledButton,
-            'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
-          }"
-          @keydown.stop="onKeyDownTextHandler"
-          @click="enabledInputHandler"
-        >
+      <input
+        ref="inputText"
+        v-model="labelValue"
+        :placeholder="placeholder"
+        type="text"
+        class="gobierto-data-sql-editor-container-save-text"
+        :class="{
+          'disable-input-text': disabledButton,
+          'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
+        }"
+        @keydown.stop="onKeyDownTextHandler"
+        @click="enabledInputHandler"
+      >
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="enableForkPrompt">
+    <template v-if="showPrivatePublicIcon || showPrivatePublicIconViz">
+      <PrivateIcon
+        :is-closed="isPrivate"
+        :style="{ paddingRight: '.5em', margin: 0 }"
+      />
       <label
         :for="labelPrivate"
         class="gobierto-data-sql-editor-container-save-label"
@@ -33,25 +37,18 @@
       </label>
     </template>
 
-
     <!-- only show if label name is set OR the prompt is visible -->
-    <template v-if="handlerInputQuery">
-      <PrivateIcon
-        :is-closed="isPrivate"
-        :style="{ paddingRight: '.5em', margin: 0 }"
-      />
-      <template v-if="isQueryModified || isVizModified">
-        <transition
-          name="fade"
-          mode="out-in"
-        >
-            <div class="gobierto-data-sql-editor-modified-label-container">
-              <span class="gobierto-data-sql-editor-modified-label">
-                {{ labelModified }}
-              </span>
-            </div>
-        </transition>
-      </template>
+    <template v-if="isQueryModified || isVizModified">
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <div class="gobierto-data-sql-editor-modified-label-container">
+          <span class="gobierto-data-sql-editor-modified-label">
+            {{ labelModified }}
+          </span>
+        </div>
+      </transition>
     </template>
 
 
@@ -194,6 +191,18 @@ export default {
     enabledForkVizButton: {
       type: Boolean,
       default: false
+    },
+    showPrivatePublicIcon: {
+      type: Boolean,
+      default: false
+    },
+    showPrivatePublicIconViz: {
+      type: Boolean,
+      default: false
+    },
+    showPrivateViz: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -223,9 +232,6 @@ export default {
     handlerInputQuery() {
        return (this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
     },
-    enableForkPrompt() {
-      return (this.isForkPromptVisible && this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
-    },
   },
   watch: {
     value(newValue, oldValue) {
@@ -237,30 +243,46 @@ export default {
     },
     showPrivate(newValue) {
       this.isPrivate = (newValue);
+    },
+    $route(to, from) {
+      if (to.path !== from.path) {
+        this.countInputCharacters(this.value)
+      }
+    }
+  },
+  created() {
+    if (this.showPrivateViz) {
+      this.isPrivate = this.showPrivateViz
     }
   },
   mounted() {
-    if (this.$route.name === 'Query' && this.value !== null) {
-      this.$nextTick(() => {
-         this.countInputCharacters(this.value)
-      });
-    }
+    this.$nextTick(() => {
+       this.countInputCharacters(this.value)
+    });
   },
   methods: {
-    inputFocus() {
-      this.$refs.inputText.focus()
+    inputFocus(value) {
+      if (value) {
+        this.$refs.inputText.focus()
+      } else {
+        this.$refs.inputText.blur()
+      }
     },
     inputSelect() {
       this.$refs.inputText.select()
     },
     onClickSaveHandler() {
-
       if (!this.isUserLogged) {
         location.href = '/user/sessions/new?open_modal=true';
         return false;
       }
 
-      this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
+      if (!this.labelValue) {
+        this.$refs.inputText.focus()
+      } else {
+        this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
+      }
+
     },
     onKeyDownTextHandler(event) {
       const { value } = event.target
@@ -271,6 +293,7 @@ export default {
     onInputCheckboxHandler(event) {
       const { checked } = event.target
       this.isPrivate = checked
+      this.$emit('isPrivateChecked')
     },
     revertQueryHandler() {
       this.labelValue = this.value
@@ -287,13 +310,22 @@ export default {
       const inputValueSplit = [...label]
       const inputValueLength = inputValueSplit.length
 
+      let newWidth = inputValueLength * 7.5
+      let maxWidth = 289.5
+      let minWidth = 200
+
+      //In the Visualizations view, we've more space, so we take advantage of it by increasing the input name width.
+      if (this.$route.name === 'Visualization') {
+        maxWidth = maxWidth * 1.4
+        minWidth = minWidth * 1.4
+      }
+
       if (inputValueLength > 25 && inputValueLength < 50) {
-        const newWidth = inputValueLength * 7.5
         this.$nextTick(() => this.$refs.inputText.style.width = `${newWidth}px`);
       } else if (inputValueLength >= 50) {
-        this.$nextTick(() => this.$refs.inputText.style.width = '369.5px');
+        this.$nextTick(() => this.$refs.inputText.style.width = `${maxWidth}px`);
       } else {
-        this.$nextTick(() => this.$refs.inputText.style.width = '200px');
+        this.$nextTick(() => this.$refs.inputText.style.width = `${minWidth}px`);
       }
     },
     enabledInputHandler() {

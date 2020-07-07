@@ -1074,6 +1074,7 @@
 
   &-visualization--aspect-ratio-16-9 {
     @include aspect-ratio(16, 9);
+    min-height: 350px;
   }
 
   &-visualization--container {
@@ -1084,6 +1085,7 @@
     background-color: rgba(var(--color-base-string), .05);
     padding: 16px;
     border-radius: 3px;
+    min-height: 350px;
   }
 
   &-visualization--content {
@@ -1093,7 +1095,7 @@
 
   &-visualization--icons {
     position: absolute;
-    left: 92%;
+    left: 93%;
     top: 10%;
     z-index: 2;
   }
@@ -1186,6 +1188,22 @@
 
   &-visualitzation-element-title {
     margin: 0;
+  }
+
+  &-visualization-query-container {
+    letter-spacing: 0;
+    margin-bottom: 1rem;
+    width: 100%;
+
+    .gobierto-data-summary-queries-panel-title {
+      padding-left: 0;
+      display: inline-block;
+      font-size: 14px;
+    }
+
+    .gobierto-data-summary-queries-container-name {
+      width: auto;
+    }
   }
 
 }

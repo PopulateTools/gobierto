@@ -82,9 +82,11 @@
       :enabled-query-saved-button="enabledQuerySavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
+      :show-private-public-icon="showPrivatePublicIcon"
       @save="saveHandlerSavedQuery"
       @keyDownInput="updateQueryName"
       @handlerFork="handlerForkQuery"
+      @isPrivateChecked="isPrivateChecked"
     />
 
     <Button
@@ -183,6 +185,10 @@ export default {
     queryInputFocus: {
       type: Boolean,
       default: false
+    },
+    showPrivatePublicIcon: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -207,9 +213,9 @@ export default {
     };
   },
   watch: {
-    queryInputFocus(newValue) {
-      if (newValue) {
-        this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus())
+    queryInputFocus(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus(newValue))
       }
     }
   },
@@ -294,6 +300,9 @@ export default {
         this.$refs.savingDialogQuery.inputSelect()
       });
       this.$root.$emit('disabledForkButton')
+    },
+    isPrivateChecked() {
+      this.$root.$emit('eventIsQueryModified', true)
     }
   },
 };

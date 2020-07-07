@@ -56,6 +56,8 @@
       :is-user-logged="isUserLogged"
       :query-input-focus="queryInputFocus"
       :viz-input-focus="vizInputFocus"
+      :show-private-public-icon="showPrivatePublicIcon"
+      :show-private-public-icon-viz="showPrivatePublicIconViz"
     />
 
     <QueriesTab
@@ -76,10 +78,14 @@
       :is-public-viz-loading="isPublicVizLoading"
       :public-visualizations="publicVisualizations"
       :private-visualizations="privateVisualizations"
+      :private-queries="privateQueries"
       :enabled-viz-saved-button="enabledVizSavedButton"
       :current-viz-tab="currentVizTab"
       :enabled-fork-viz-button="enabledForkVizButton"
       :viz-input-focus="vizInputFocus"
+      :show-private-public-icon-viz="showPrivatePublicIconViz"
+      :show-private="showPrivate"
+      :show-private-viz="showPrivateViz"
     />
 
     <DownloadsTab
@@ -176,6 +182,11 @@ export default {
       isPublicVizLoading: false,
       vizName: null,
       vizInputFocus: false,
+      savingViz: false,
+      savingQuery: false,
+      showPrivatePublicIcon: false,
+      showPrivatePublicIconViz: false,
+      showPrivateViz: false,
       labelSummary: I18n.t("gobierto_data.projects.summary") || "",
       labelData: I18n.t("gobierto_data.projects.data") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
@@ -203,7 +214,7 @@ export default {
       if (to.path !== from.path) {
         this.isQueryModified = false;
         this.setDefaultQuery()
-        this.queryIsNotMine()
+        this.queryOrVizIsNotMine()
         this.disabledSavedButton()
         this.disabledRevertButton()
       }
@@ -306,16 +317,12 @@ export default {
       this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
     }
 
-    // Get all visualizations
-    await this.getPrivateVisualizations();
-    await this.getPublicVisualizations();
-
-    this.queryIsNotMine();
+    this.queryOrVizIsNotMine();
     this.runCurrentQuery();
     this.setDefaultQuery();
     this.checkIfUserIsLogged();
     this.updateBaseTitle()
-
+    this.getAllVisualizations()
   },
   mounted() {
     const recentQueries = localStorage.getItem("recentQueries");
@@ -340,7 +347,7 @@ export default {
     // activate button to saved a query
     this.$root.$on('enableSavedButton', this.activatedSavedButton)
     // reset query flow to initial state
-    this.$root.$on('resetToInitialState', this.resetToInitialState)
+    this.$root.$on('eventIsQueryModified', this.eventIsQueryModified)
     // disabled saved button
     this.$root.$on('disabledSavedButton', this.disabledSavedButton)
     //Show a message for the user, your query is saved
@@ -352,7 +359,7 @@ export default {
     //if user is logged show a prompt to saved a visualization
     this.$root.$on('isVizSavingPromptVisible', this.isVizSavingPromptVisibleHandler)
     //When user save a vizusliation show a string
-    this.$root.$on('disabledSavedVizString', this.disabledSavedVizString)
+    this.$root.$on('showSavedVizString', this.showSavedVizString)
     //Show a string when the vis is modified
     this.$root.$on('isVizModified', this.eventIsVizModified)
     //Check if the query is ours if it isn't ours show a button to fork
@@ -364,7 +371,7 @@ export default {
     //Show the name of the visualization
     this.$root.$on('loadVizName', this.setVizName)
     //Reload a list of private and public visualizations
-    this.$root.$on('reloadVisualizations', this.reloadVisualizations)
+    this.$root.$on('reloadVisualizations', this.getAllVisualizations)
     //Check if the visualization is ours if it isn't ours show a button to fork
     this.$root.$on('enabledForkVizButton', this.activateForkVizButton)
     //Update the name of Visualization
@@ -385,7 +392,7 @@ export default {
     this.$root.$off("resetQuery");
     this.$root.$off("revertSavedQuery");
     this.$root.$off('enableSavedButton')
-    this.$root.$off('resetToInitialState')
+    this.$root.$off('eventIsQueryModified')
     this.$root.$off('disabledSavedButton')
     this.$root.$off('disabledStringSavedQuery')
     this.$root.$off('disabledForkButton')
@@ -397,7 +404,7 @@ export default {
 
     this.$root.$off('isVizSavingPromptVisible')
     this.$root.$off('enableSavedVizButton')
-    this.$root.$off('disabledSavedVizString')
+    this.$root.$off('showSavedVizString')
     this.$root.$off('isVizModified')
     this.$root.$off('loadVizName')
     this.$root.$off('updateVizName')
@@ -469,20 +476,16 @@ export default {
       }
     },
     setDefaultQuery() {
-
-      const userId = getUserId();
       const {
         params: { queryId }
       } = this.$route;
 
-      //Check if user is logged
-      const items = userId ? this.privateQueries : this.publicQueries
+      const items = this.publicQueries
       //We need to keep this query separate from the editor query
       //When load a saved query we use the queryId to find inside privateQueries or publicQueries
       const { attributes: { sql: queryRevert } = {} } = items.find(({ id }) => id === queryId) || {}
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert
-
     },
     isQueryStored(query = this.currentQuery) {
       // check if the query passed belongs to public/private arrays, if there's no args, it uses currentQuery
@@ -493,7 +496,6 @@ export default {
     },
     async getPublicVisualizations() {
       this.isPublicVizLoading = true
-
 
       const { data: response } = await this.getVisualizations({
         "filter[dataset_id]": this.datasetId
@@ -507,7 +509,7 @@ export default {
       this.isPublicVizLoading = false
     },
     async getPrivateVisualizations() {
-      const userId = getUserId()
+      const userId = Number(getUserId());
       this.isPrivateVizLoading = true
 
       if (userId) {
@@ -591,7 +593,7 @@ export default {
       }
     },
     async getPrivateQueries() {
-      const userId = getUserId();
+      const userId = Number(getUserId());
       // factory method
       return this.getQueries({
         "filter[dataset_id]": this.datasetId,
@@ -626,8 +628,13 @@ export default {
     },
     async storeCurrentQuery({ name, privacy }) {
 
+      this.savingViz = false
+      this.savingQuery = true
+
       const {
-        params: { queryId }
+        params: {
+          queryId
+        }
       } = this.$route;
 
       if (!queryId && !this.isQuerySavingPromptVisible) {
@@ -649,6 +656,7 @@ export default {
 
       const userId = Number(getUserId());
       let status = null; // https://javascript.info/destructuring-assignment
+      let newQuery
 
       // Only update the query is the user and the name are the same
       if (name === this.queryName && userId === this.queryUserId) {
@@ -660,21 +668,24 @@ export default {
         this.queryRevert = this.currentQuery
       } else {
         // factory method
-        ({ status } = await this.postQuery({ data }));
+        ({ status, data: { data: newQuery } } = await this.postQuery({ data }));
       }
 
       // reload the queries if the response was successfull
       // 200 OK (PUT) / 201 Created (POST)
       if ([200, 201].includes(status)) {
-        this.isQueryModified = false;
         //Show a message for the user, your query is saved
         this.isQuerySaved = true;
         this.enabledQuerySavedButton = false
         this.isQueryModified = false
         this.isQuerySavingPromptVisible = false
 
-        this.setPublicQueries(await this.getPublicQueries());
         this.setPrivateQueries(await this.getPrivateQueries());
+
+        if (userId !== this.queryUserId || newQuery) {
+          this.updateURL(newQuery)
+        }
+        this.setPublicQueries(await this.getPublicQueries());
       }
     },
     async runCurrentQuery() {
@@ -719,6 +730,9 @@ export default {
     },
     async storeCurrentVisualization(config, opts) {
 
+      this.savingViz = true
+      this.savingQuery = false
+
       if (!this.isVizSavingPromptVisible) {
         this.isVizSavingPromptVisible = true
         this.vizInputFocus = true
@@ -736,13 +750,7 @@ export default {
           ({ attributes: { sql } }) => sql === this.currentQuery
         ) || {};
 
-      let currentQueryViz;
-
-      if (user !== userId) {
-        currentQueryViz = !queryViz ? this.currentQuery : queryViz
-      } else {
-        currentQueryViz = this.currentQuery
-      }
+      let currentQueryViz = !queryViz ? this.currentQuery : queryViz
 
       // default attributes
       let attributes = {
@@ -765,13 +773,14 @@ export default {
       };
 
       let status = null
+      let newViz
 
       if (name === this.vizName && user === userId) {
         // factory method
         ({ status } = await this.putVisualization(vizID, { data }));
       } else {
         // factory method
-        ({ status } = await this.postVisualization({ data }));
+        ({ status, data: { data: newViz } } = await this.postVisualization({ data }));
       }
 
       if ([200, 201].includes(status)) {
@@ -779,11 +788,36 @@ export default {
         this.isVizSaved = true
         this.isVizSavingPromptVisible = false
         this.enabledVizSavedButton = false
-        this.vizName = null
 
-        await this.getPrivateVisualizations()
-        await this.getPublicVisualizations()
+        /* Check if the user saved a viz from another user, we need to wait to obtain the private visualizations to avoid error because it's possible which this Visualization is the first Visualization which user save */
+        if (user !== userId || newViz) {
+          this.updateURL(newViz)
+        }
+        this.getAllVisualizations()
       }
+    },
+    updateURL(element) {
+      const {
+        params: {
+          id: slugDataset
+        }
+      } = this.$route;
+
+      const { id: newId } = element
+      //Changes the path depending on if we save a query or viz.
+      const pathQueryOrViz = this.savingViz ? 'v' : 'q'
+
+      /*Don't updates the URL, only replace and don't reload, because in the editor we've two options, saved a query or viz, if the user saves a viz, and we update the URL, the browser reloads, and the user goes to visualization tab, and this behavior is too hacky.*/
+      //https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
+      history.pushState(
+        {},
+        null,
+        `${location.origin}/datos/${slugDataset}/${pathQueryOrViz}/${newId}`
+      )
+
+      this.enabledForkButton = false
+      this.queryInputFocus = false
+      this.enabledForkVizButton = false
     },
     getColumnsQuery(csv = '') {
       const [ columns = '' ] = csv.split("\n");
@@ -792,6 +826,7 @@ export default {
     resetQuery(value) {
       this.resetQueryDefault = value
       if (value === true) {
+        this.showPrivatePublicIcon = false
         this.isQuerySavingPromptVisible = false
         this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
         this.isQueryModified = false
@@ -799,6 +834,7 @@ export default {
         this.disabledSavedButton()
         this.disabledStringSavedQuery()
         this.queryName = null
+        this.disabledForkButton()
       }
     },
     revertSavedQuery(value) {
@@ -828,8 +864,9 @@ export default {
     disabledSavedButton() {
       this.enabledQuerySavedButton = false
     },
-    resetToInitialState() {
-      this.isQueryModified = false
+    eventIsQueryModified(value) {
+      this.isQueryModified = value
+      this.enabledQuerySavedButton = true
     },
     resetToInitialStateSavedQuery() {
       this.showRevertQuery = true
@@ -841,26 +878,47 @@ export default {
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value
     },
-    queryIsNotMine() {
+    queryOrVizIsNotMine() {
       const userId = Number(getUserId());
-
       const {
         params: { queryId },
         name: nameComponent
       } = this.$route;
 
-      let items = this.publicQueries;
-
       //Find which query is loaded
-      const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
+      if (userId !== 0 && nameComponent === 'Query') {
 
-      //Check if the user who loaded the query is the same user who created the query
-      if (userId !== 0 && userId !== checkUserId && nameComponent === 'Query') {
-        this.enabledForkButton = true
-        this.isForkPromptVisible = true
-      } else {
-        this.disabledForkButton()
-        this.enabledForkPrompt()
+        const items = !this.showPrivate ? this.publicQueries : this.privateQueries
+        const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
+
+        //Check if the user who loaded the query is the same user who created the query
+        if (userId !== checkUserId) {
+          this.showPrivatePublicIcon = false
+          this.enabledForkButton = true
+          this.isForkPromptVisible = true
+        } else {
+          this.showPrivatePublicIcon = true
+          this.disabledForkButton()
+        }
+      } else if (userId !== 0 && nameComponent === 'Visualization') {
+
+        const objectViz = this.privateVisualizations.find(({ id }) => id === queryId) || {}
+        const { privacy_status: privacyStatus } = objectViz
+
+        this.showPrivateViz = privacyStatus === 'closed' ? true : false
+        const items = !this.showPrivateViz ? this.publicVisualizations : this.privateVisualizations
+
+        //Find which viz is loaded
+        const { user_id: checkUserId = {} } = items.find(({ id }) => id === queryId) || {}
+
+        //Check if the user who loaded the viz is the same user who created the viz
+        if (userId !== checkUserId && !this.savingViz) {
+          this.enabledForkVizButton = true
+          this.showPrivatePublicIconViz = false
+        } else {
+          this.showPrivatePublicIconViz = true
+          this.enabledForkVizButton = false
+        }
       }
     },
     disabledForkButton() {
@@ -874,9 +932,10 @@ export default {
     },
     activatedRevertButton() {
       this.enabledRevertButton = true
+      this.showPrivatePublicIcon = true
     },
-    disabledSavedVizString() {
-      this.isVizSaved = false
+    showSavedVizString(value) {
+      this.isVizSaved = value
     },
     isQuerySavingPromptVisibleHandler(value) {
       this.isQuerySavingPromptVisible = value
@@ -893,9 +952,22 @@ export default {
     setVizName(vizName) {
       this.vizName = vizName
     },
-    reloadVisualizations() {
-      this.getPrivateVisualizations()
-      this.getPublicVisualizations()
+    async getAllVisualizations() {
+      const {
+        params: { id }
+      } = this.$route;
+
+      // factory method
+      const {
+        data: {
+          data: { id: datasetId }
+        }
+      } = await this.getDatasetMetadata(id);
+      this.datasetId = parseInt(datasetId)
+
+      await this.getPrivateVisualizations()
+      await this.getPublicVisualizations()
+      this.queryOrVizIsNotMine()
     },
     activateForkVizButton(value) {
       this.enabledForkVizButton = value
@@ -917,6 +989,8 @@ export default {
     showSavingDialogEvent() {
       this.enabledVizSavedButton = true
       this.isVizModified = true
+      this.showPrivatePublicIconViz = true
+      this.isVizSavingPromptVisible = true
     }
   },
 };

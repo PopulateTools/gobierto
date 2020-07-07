@@ -33,8 +33,10 @@
           :is-viz-saved="isVizSaved"
           :is-user-logged="isUserLogged"
           :enabled-viz-saved-button="enabledVizSavedButton"
+          :show-private-public-icon-viz="showPrivatePublicIconViz"
           @save="onSaveEventHandler"
           @keyDownInput="updateVizNameHandler"
+          @isPrivateChecked="isPrivateChecked"
         />
       </div>
       <div
@@ -117,6 +119,10 @@ export default {
     vizInputFocus: {
       type: Boolean,
       default: false
+    },
+    showPrivatePublicIconViz: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -176,6 +182,9 @@ export default {
       this.showResetViz = true
       this.$root.$emit('showSavingDialogEvent')
       this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
+    },
+    isPrivateChecked() {
+      this.$root.$emit('eventIsVizModified', true)
     }
   },
 };

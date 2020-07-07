@@ -18,6 +18,7 @@
         :show-private="showPrivate"
         :is-user-logged="isUserLogged"
         :query-input-focus="queryInputFocus"
+        :show-private-public-icon="showPrivatePublicIcon"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"
@@ -39,6 +40,7 @@
         :is-user-logged="isUserLogged"
         :query-stored="queryStored"
         :viz-input-focus="vizInputFocus"
+        :show-private-public-icon-viz="showPrivatePublicIconViz"
       />
     </div>
   </div>
@@ -170,6 +172,14 @@ export default {
       default: false
     },
     vizInputFocus: {
+      type: Boolean,
+      default: false
+    },
+    showPrivatePublicIcon: {
+      type: Boolean,
+      default: false
+    },
+    showPrivatePublicIconViz: {
       type: Boolean,
       default: false
     }

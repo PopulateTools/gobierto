@@ -36,6 +36,7 @@ module GobiertoAdmin
         def create
           @custom_field_form = form_class.new(custom_field_params.merge(site_id: current_site.id, resource_name: params[:module_resource_name]))
           if @custom_field_form.save
+            touch_instance
             redirect_to(
               admin_common_custom_fields_module_resource_custom_fields_path(
                 module_resource_name: @custom_field_form.resource_param,
@@ -70,6 +71,7 @@ module GobiertoAdmin
 
           @custom_field_form = form_class.new(custom_field_params.merge(id: @custom_field.id, site_id: current_site.id))
           if @custom_field_form.save
+            touch_instance
             redirect_to(
               admin_common_custom_fields_module_resource_custom_fields_path(
                 module_resource_name: @custom_field_form.resource_param,
@@ -92,6 +94,7 @@ module GobiertoAdmin
           module_resource_name = @custom_field_form.resource_param
 
           if @custom_field.destroy
+            touch_instance
             redirect_to(
               admin_common_custom_fields_module_resource_custom_fields_path(
                 module_resource_name: module_resource_name,
@@ -113,6 +116,12 @@ module GobiertoAdmin
         end
 
         private
+
+        def touch_instance
+          return unless @custom_field_form&.instance&.present?
+
+          @custom_field_form.instance.touch
+        end
 
         def check_permissions!
           raise_module_not_allowed unless current_admin.can_edit_custom_fields?

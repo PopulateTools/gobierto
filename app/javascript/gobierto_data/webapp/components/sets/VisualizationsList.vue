@@ -13,78 +13,12 @@
           </h3>
         </template>
         <div class="gobierto-data-visualization--grid">
-          <template v-if="isPrivateVizLoading">
-            <Loading />
-          </template>
-
-          <template v-else>
-            <template v-if="privateVisualizations.length">
-              <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
-                <div
-                  :key="id"
-                  class="gobierto-data-visualization--container"
-                >
-                  <router-link
-                    :to="`/datos/${$route.params.id}/v/${id}`"
-                    class="gobierto-data-visualizations-name"
-                    @click.native="loadViz(name, user_id)"
-                  >
-                    <div class="gobierto-data-visualization--card">
-                      <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                        <div class="gobierto-data-visualization--content">
-                          <h4 class="gobierto-data-visualization--title">
-                            {{ name }}
-                          </h4>
-                          <Visualizations
-                            :items="items"
-                            :config="config"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </router-link>
-                  <div class="gobierto-data-visualization--icons">
-                    <PrivateIcon
-                      :is-closed="privacy_status === 'closed'"
-                    />
-                    <i
-                      class="fas fa-trash-alt"
-                      style="color: var(--color-base); cursor: pointer;"
-                      @click.stop="emitDeleteHandlerVisualization(id)"
-                    />
-                  </div>
-                </div>
-              </template>
-            </template>
-            <template v-else>
-              <div>{{ labelVisEmpty }}</div>
-            </template>
-          </template>
-        </div>
-      </Dropdown>
-    </template>
-
-    <Dropdown @is-content-visible="showPublicVis = !showPublicVis">
-      <template v-slot:trigger>
-        <h3 class="gobierto-data-visualization--h3">
-          <Caret :rotate="showPublicVis" />
-
-          {{ labelVisPublic }}
-          <template v-if="publicVisualizations.length">
-            ({{ publicVisualizations.length }})
-          </template>
-        </h3>
-      </template>
-
-      <div class="gobierto-data-visualization--grid">
-        <template v-if="isPublicVizLoading">
-          <Loading />
-        </template>
-
-        <template v-else>
-          <template v-if="publicVisualizations.length">
-            <template v-for="{ items, config, name, id, user_id } in publicVisualizations">
-              <div :key="id">
+          <template v-if="privateVisualizations.length">
+            <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
+              <div
+                :key="id"
+                class="gobierto-data-visualization--container"
+              >
                 <router-link
                   :to="`/datos/${$route.params.id}/v/${id}`"
                   class="gobierto-data-visualizations-name"
@@ -104,20 +38,73 @@
                     </div>
                   </div>
                 </router-link>
+                <div class="gobierto-data-visualization--icons">
+                  <PrivateIcon
+                    :is-closed="privacy_status === 'closed'"
+                  />
+                  <i
+                    class="fas fa-trash-alt"
+                    style="color: var(--color-base); cursor: pointer;"
+                    @click.stop="emitDeleteHandlerVisualization(id)"
+                  />
+                </div>
               </div>
             </template>
           </template>
-
           <template v-else>
             <div>{{ labelVisEmpty }}</div>
           </template>
+        </div>
+      </Dropdown>
+    </template>
+
+    <Dropdown @is-content-visible="showPublicVis = !showPublicVis">
+      <template v-slot:trigger>
+        <h3 class="gobierto-data-visualization--h3">
+          <Caret :rotate="showPublicVis" />
+
+          {{ labelVisPublic }}
+          <template v-if="publicVisualizations.length">
+            ({{ publicVisualizations.length }})
+          </template>
+        </h3>
+      </template>
+
+      <div class="gobierto-data-visualization--grid">
+        <template v-if="publicVisualizations.length">
+          <template v-for="{ items, config, name, id, user_id } in publicVisualizations">
+            <div :key="id">
+              <router-link
+                :to="`/datos/${$route.params.id}/v/${id}`"
+                class="gobierto-data-visualizations-name"
+                @click.native="loadViz(name, user_id)"
+              >
+                <div class="gobierto-data-visualization--card">
+                  <div class="gobierto-data-visualization--aspect-ratio-16-9">
+                    <div class="gobierto-data-visualization--content">
+                      <h4 class="gobierto-data-visualization--title">
+                        {{ name }}
+                      </h4>
+                      <Visualizations
+                        :items="items"
+                        :config="config"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </router-link>
+            </div>
+          </template>
+        </template>
+
+        <template v-else>
+          <div>{{ labelVisEmpty }}</div>
         </template>
       </div>
     </Dropdown>
   </div>
 </template>
 <script>
-import { Loading } from "lib/vue-components";
 import Caret from "./../commons/Caret.vue";
 import Visualizations from "./../commons/Visualizations.vue";
 import PrivateIcon from './../commons/PrivateIcon.vue';
@@ -128,7 +115,6 @@ export default {
   name: "VisualizationsList",
   components: {
     Visualizations,
-    Loading,
     PrivateIcon,
     Dropdown,
     Caret

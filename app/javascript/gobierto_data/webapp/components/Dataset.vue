@@ -1,102 +1,113 @@
 <template>
   <div>
-    <div class="pure-g">
-      <div class="pure-u-1-2">
-        <h2
-          v-if="titleDataset"
-          class="gobierto-data-title-dataset"
-        >
-          {{ titleDataset }}
-        </h2>
+    <template v-if="!isDatasetLoading">
+      <SkeletonSpinner
+        height-square="300px"
+        squares-rows="2"
+        squares="2"
+        lines="5"
+      />
+    </template>
+    <template v-else>
+      <div class="pure-g">
+        <div class="pure-u-1-2">
+          <h2
+            v-if="titleDataset"
+            class="gobierto-data-title-dataset"
+          >
+            {{ titleDataset }}
+          </h2>
+        </div>
       </div>
-    </div>
 
-    <DatasetNav :active-dataset-tab="activeDatasetTab" />
+      <DatasetNav :active-dataset-tab="activeDatasetTab" />
 
-    <!-- Only is mounted where there are attributes -->
-    <SummaryTab
-      v-if="activeDatasetTab === 0 && attributes"
-      :private-queries="privateQueries"
-      :public-queries="publicQueries"
-      :array-formats="arrayFormats"
-      :array-columns="arrayColumns"
-      :resources-list="resourcesList"
-      :dataset-attributes="attributes"
-      :is-user-logged="isUserLogged"
-    />
+      <!-- Only is mounted where there are attributes -->
+      <SummaryTab
+        v-if="activeDatasetTab === 0 && attributes"
+        :private-queries="privateQueries"
+        :public-queries="publicQueries"
+        :array-formats="arrayFormats"
+        :array-columns="arrayColumns"
+        :resources-list="resourcesList"
+        :dataset-attributes="attributes"
+        :is-user-logged="isUserLogged"
+      />
 
-    <DataTab
-      v-else-if="activeDatasetTab === 1"
-      :private-queries="privateQueries"
-      :public-queries="publicQueries"
-      :recent-queries="recentQueriesFiltered"
-      :array-columns="arrayColumns"
-      :array-formats="arrayFormats"
-      :array-columns-query="arrayColumnsQuery"
-      :items="items"
-      :is-query-saved="isQuerySaved"
-      :is-viz-saved="isVizSaved"
-      :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
-      :is-query-running="isQueryRunning"
-      :is-query-modified="isQueryModified"
-      :is-viz-modified="isVizModified"
-      :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
-      :is-fork-prompt-visible="isForkPromptVisible"
-      :query-stored="currentQuery"
-      :query-name="queryName"
-      :query-duration="queryDuration"
-      :query-error="queryError"
-      :enabled-query-saved-button="enabledQuerySavedButton"
-      :enabled-viz-saved-button="enabledVizSavedButton"
-      :enabled-fork-button="enabledForkButton"
-      :enabled-revert-button="enabledRevertButton"
-      :show-revert-query="showRevertQuery"
-      :show-private="showPrivate"
-      :table-name="tableName"
-      :is-user-logged="isUserLogged"
-      :query-input-focus="queryInputFocus"
-      :viz-input-focus="vizInputFocus"
-      :show-private-public-icon="showPrivatePublicIcon"
-      :show-private-public-icon-viz="showPrivatePublicIconViz"
-    />
+      <DataTab
+        v-else-if="activeDatasetTab === 1"
+        :private-queries="privateQueries"
+        :public-queries="publicQueries"
+        :recent-queries="recentQueriesFiltered"
+        :array-columns="arrayColumns"
+        :array-formats="arrayFormats"
+        :array-columns-query="arrayColumnsQuery"
+        :items="items"
+        :is-query-saved="isQuerySaved"
+        :is-viz-saved="isVizSaved"
+        :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
+        :is-query-running="isQueryRunning"
+        :is-query-modified="isQueryModified"
+        :is-viz-modified="isVizModified"
+        :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
+        :is-fork-prompt-visible="isForkPromptVisible"
+        :query-stored="currentQuery"
+        :query-name="queryName"
+        :query-duration="queryDuration"
+        :query-error="queryError"
+        :enabled-query-saved-button="enabledQuerySavedButton"
+        :enabled-viz-saved-button="enabledVizSavedButton"
+        :enabled-fork-button="enabledForkButton"
+        :enabled-revert-button="enabledRevertButton"
+        :show-revert-query="showRevertQuery"
+        :show-private="showPrivate"
+        :table-name="tableName"
+        :is-user-logged="isUserLogged"
+        :query-input-focus="queryInputFocus"
+        :viz-input-focus="vizInputFocus"
+        :show-private-public-icon="showPrivatePublicIcon"
+        :show-private-public-icon-viz="showPrivatePublicIconViz"
+      />
 
-    <QueriesTab
-      v-else-if="activeDatasetTab === 2"
-      :private-queries="privateQueries"
-      :public-queries="publicQueries"
-      :is-user-logged="isUserLogged"
-    />
+      <QueriesTab
+        v-else-if="activeDatasetTab === 2"
+        :private-queries="privateQueries"
+        :public-queries="publicQueries"
+        :is-user-logged="isUserLogged"
+      />
 
-    <VisualizationsTab
-      v-else-if="activeDatasetTab === 3"
-      :dataset-id="datasetId"
-      :is-user-logged="isUserLogged"
-      :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
-      :is-viz-modified="isVizModified"
-      :is-viz-saved="isVizSaved"
-      :is-private-viz-loading="isPrivateVizLoading"
-      :is-public-viz-loading="isPublicVizLoading"
-      :public-visualizations="publicVisualizations"
-      :private-visualizations="privateVisualizations"
-      :private-queries="privateQueries"
-      :enabled-viz-saved-button="enabledVizSavedButton"
-      :current-viz-tab="currentVizTab"
-      :enabled-fork-viz-button="enabledForkVizButton"
-      :viz-input-focus="vizInputFocus"
-      :show-private-public-icon-viz="showPrivatePublicIconViz"
-      :show-private="showPrivate"
-      :show-private-viz="showPrivateViz"
-    />
+      <VisualizationsTab
+        v-else-if="activeDatasetTab === 3"
+        :dataset-id="datasetId"
+        :is-user-logged="isUserLogged"
+        :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
+        :is-viz-modified="isVizModified"
+        :is-viz-saved="isVizSaved"
+        :is-private-viz-loading="isPrivateVizLoading"
+        :is-public-viz-loading="isPublicVizLoading"
+        :public-visualizations="publicVisualizations"
+        :private-visualizations="privateVisualizations"
+        :private-queries="privateQueries"
+        :enabled-viz-saved-button="enabledVizSavedButton"
+        :current-viz-tab="currentVizTab"
+        :enabled-fork-viz-button="enabledForkVizButton"
+        :viz-input-focus="vizInputFocus"
+        :show-private-public-icon-viz="showPrivatePublicIconViz"
+        :show-private="showPrivate"
+        :show-private-viz="showPrivateViz"
+      />
 
-    <DownloadsTab
-      v-else-if="activeDatasetTab === 4"
-      :array-formats="arrayFormats"
-      :resources-list="resourcesList"
-    />
+      <DownloadsTab
+        v-else-if="activeDatasetTab === 4"
+        :array-formats="arrayFormats"
+        :resources-list="resourcesList"
+      />
+    </template>
   </div>
 </template>
 
 <script>
+import { SkeletonSpinner } from "lib/vue-components";
 import DatasetNav from "./sets/DatasetNav.vue";
 import SummaryTab from "./sets/SummaryTab.vue";
 import DataTab from "./sets/DataTab.vue";
@@ -120,6 +131,7 @@ export default {
     VisualizationsTab,
     DownloadsTab,
     DatasetNav,
+    SkeletonSpinner
   },
   mixins: [
     DatasetFactoryMixin,
@@ -199,6 +211,9 @@ export default {
       return this.recentQueries.length ? this.recentQueries.filter(sql => (sql || '').includes(this.tableName))
         .reverse() : [];
     },
+    isDatasetLoading() {
+      return this.attributes && this.publicQueries && this.publicVisualizations
+    }
   },
   watch: {
     $route(to, from) {

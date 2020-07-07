@@ -1,6 +1,6 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <template v-if="!publicVisualizations.length">
+    <template v-if="!isVizLoading">
       <SkeletonSpinner
         height-square="300px"
         squares-rows="2"
@@ -11,7 +11,7 @@
     <template v-else>
       <component
         :is="currentVizComponent"
-        v-if="publicVisualizations.length"
+        v-if="isVizLoading"
         :public-visualizations="publicVisualizations"
         :private-visualizations="privateVisualizations"
         :private-queries="privateQueries"
@@ -131,6 +131,11 @@ export default {
       activeViz: 0,
       config: {}
     };
+  },
+  computed: {
+    isVizLoading() {
+      return this.publicVisualizations.length || !this.isPublicVizLoading
+    }
   },
   watch: {
     currentVizTab(newValue) {

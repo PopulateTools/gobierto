@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
 }
 
 .gobierto-skeleton-spinner {
@@ -26,7 +26,7 @@
       rgba(var(--color-base-string), .1),
       rgba(var(--color-base-string), .05)
     );
-    animation: shimmer 2s cubic-bezier(0.36, 0, 0.66, -0.56) forwards infinite;
+    animation: shimmer 2s cubic-bezier(0.36, 0, 0.66, -0.56) infinite;
     content: '';
   }
   @keyframes shimmer {
@@ -39,8 +39,9 @@
 .gobierto-skeleton-spinner-line {
   height: 1rem;
   width: 100%;
-  margin-bottom: .25rem;
+  margin-bottom: .5rem;
   background-color: rgba(var(--color-base-string), .1);
+  display: block;
 }
 
 .gobierto-skeleton-spinner-square {

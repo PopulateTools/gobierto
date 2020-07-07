@@ -1,62 +1,74 @@
 <template>
   <div class="gobierto-data-sql-editor">
-    <div class="pure-g">
-      <div class="pure-u-1 pure-u-lg-4-4">
-        <SavingDialog
-          ref="savingDialogVizElement"
-          :value="name"
-          :placeholder="labelVisName"
-          :label-save="labelSaveViz"
-          :label-saved="labelSavedVisualization"
-          :label-modified="labelModifiedVizualition"
-          :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
-          :is-viz-modified="isVizModified"
-          :is-viz-saved="isVizSaved"
-          :is-user-logged="isUserLogged"
-          :enabled-fork-viz-button="enabledForkVizButton"
-          :enabled-viz-saved-button="enabledVizSavedButton"
-          :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
-          :show-private-public-icon-viz="showPrivatePublicIconViz"
-          :show-private-viz="showPrivateViz"
-          @save="onSaveEventHandler"
-          @keyDownInput="updateVizName"
-          @handlerFork="handlerForkViz"
-          @isPrivateChecked="isPrivateChecked"
-        />
-        <Button
-          :text="labelEdit"
-          class="btn-sql-editor"
-          icon="chart-area"
-          background="#fff"
-          @click.native="showChart"
-        />
-      </div>
-      <div
-        v-if="queryID"
-        class="gobierto-data-visualization-query-container"
-      >
-        <span class="gobierto-data-summary-queries-panel-title">{{ labelQuery }}:</span>
-        <router-link
-          :to="`/datos/${$route.params.id}/q/${queryID}`"
-          class="gobierto-data-summary-queries-container-name"
-        >
-          {{ queryName }}
-        </router-link>
-      </div>
-    </div>
-    <div class="gobierto-data-visualization--aspect-ratio-16-9">
-      <Visualizations
-        v-if="items"
-        ref="viewer"
-        :items="items"
-        :config="config"
-        @showSaving="showSavingDialog"
-        @selectedChart="typeChart = $event"
+    <template v-if="!items">
+      <SkeletonSpinner
+        lines="2"
       />
-    </div>
+      <SkeletonSpinner
+        height-square="300px"
+        squares="1"
+      />
+    </template>
+    <template v-else>
+      <div class="pure-g">
+        <div class="pure-u-1 pure-u-lg-4-4">
+          <SavingDialog
+            ref="savingDialogVizElement"
+            :value="name"
+            :placeholder="labelVisName"
+            :label-save="labelSaveViz"
+            :label-saved="labelSavedVisualization"
+            :label-modified="labelModifiedVizualition"
+            :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
+            :is-viz-modified="isVizModified"
+            :is-viz-saved="isVizSaved"
+            :is-user-logged="isUserLogged"
+            :enabled-fork-viz-button="enabledForkVizButton"
+            :enabled-viz-saved-button="enabledVizSavedButton"
+            :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
+            :show-private-public-icon-viz="showPrivatePublicIconViz"
+            :show-private-viz="showPrivateViz"
+            @save="onSaveEventHandler"
+            @keyDownInput="updateVizName"
+            @handlerFork="handlerForkViz"
+            @isPrivateChecked="isPrivateChecked"
+          />
+          <Button
+            :text="labelEdit"
+            class="btn-sql-editor"
+            icon="chart-area"
+            background="#fff"
+            @click.native="showChart"
+          />
+        </div>
+        <div
+          v-if="queryID"
+          class="gobierto-data-visualization-query-container"
+        >
+          <span class="gobierto-data-summary-queries-panel-title">{{ labelQuery }}:</span>
+          <router-link
+            :to="`/datos/${$route.params.id}/q/${queryID}`"
+            class="gobierto-data-summary-queries-container-name"
+          >
+            {{ queryName }}
+          </router-link>
+        </div>
+      </div>
+      <div class="gobierto-data-visualization--aspect-ratio-16-9">
+        <Visualizations
+          v-if="items"
+          ref="viewer"
+          :items="items"
+          :config="config"
+          @showSaving="showSavingDialog"
+          @selectedChart="typeChart = $event"
+        />
+      </div>
+    </template>
   </div>
 </template>
 <script>
+import { SkeletonSpinner } from "lib/vue-components";
 import Visualizations from "./../commons/Visualizations.vue";
 import SavingDialog from "./../commons/SavingDialog.vue";
 import Button from "./../commons/Button.vue";
@@ -67,7 +79,8 @@ export default {
   components: {
     Visualizations,
     SavingDialog,
-    Button
+    Button,
+    SkeletonSpinner
   },
   props: {
     datasetId: {

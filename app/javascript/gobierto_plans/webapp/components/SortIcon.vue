@@ -1,7 +1,7 @@
 <template>
   <i
     v-if="direction"
-    :class="`fas fa-sort-amount-${icon}`"
+    :class="`sort-icon fas fa-sort-amount-${icon}`"
   />
 </template>
 

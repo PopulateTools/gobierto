@@ -5,25 +5,28 @@
       <div>Personalizar columns</div>
     </div>
 
-    <table>
+    <table class="planification-table">
       <thead>
         <template v-for="[thId, [name, , thVisibility]] in selectedColumns">
           <th
             v-if="thVisibility"
             :key="thId"
+            class="planification-table__th"
             @click="handleTableHeaderClick(thId)"
           >
-            <template v-if="thId === 'name'">
-              <NumberLabel :level="lastLevel" />
-            </template>
-            <template v-else>
-              {{ name }}
-            </template>
+            <div class="planification-table__th-content">
+              <template v-if="thId === 'name'">
+                <NumberLabel :level="lastLevel" />
+              </template>
+              <template v-else>
+                {{ name }}
+              </template>
 
-            <SortIcon
-              v-if="currentSortColumn === thId"
-              :direction="getSorting(thId)"
-            />
+              <SortIcon
+                v-if="currentSortColumn === thId"
+                :direction="getSorting(thId)"
+              />
+            </div>
           </th>
         </template>
       </thead>

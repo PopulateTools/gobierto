@@ -1,22 +1,25 @@
 <template>
-  <table>
+  <table class="planification-table">
     <thead>
       <th
         v-for="[id, [name]] in columns"
         :key="id"
+        class="planification-table__th"
         @click="handleTableHeaderClick(id)"
       >
-        <template v-if="id === 'length'">
-          <NumberLabel :level="lastLevel" />
-        </template>
-        <template v-else>
-          {{ name }}
-        </template>
+        <div class="planification-table__th-content">
+          <template v-if="id === 'length'">
+            <NumberLabel :level="lastLevel" />
+          </template>
+          <template v-else>
+            {{ name }}
+          </template>
 
-        <SortIcon
-          v-if="currentSortColumn === id"
-          :direction="getSorting(id)"
-        />
+          <SortIcon
+            v-if="currentSortColumn === id"
+            :direction="getSorting(id)"
+          />
+        </div>
       </th>
     </thead>
     <tbody>
@@ -24,15 +27,20 @@
         v-for="{ key, name, slug, progress, length } in termsSorted"
         :key="key"
       >
-        <td>
+        <td class="planification-table__tr">
+          <i class="fas fa-caret-right" />
           <router-link
             :to="{ name: 'term', params: { ...params, term: slug } }"
           >
             {{ name }}
           </router-link>
         </td>
-        <td>{{ progress | percent }}</td>
-        <td>{{ length }}</td>
+        <td class="planification-table__tr">
+          {{ progress | percent }}
+        </td>
+        <td class="planification-table__tr">
+          {{ length }}
+        </td>
       </tr>
     </tbody>
   </table>
@@ -56,6 +64,10 @@ export default {
   },
   mixins: [NamesMixin],
   props: {
+    json: {
+      type: Array,
+      default: () => []
+    },
     groups: {
       type: Array,
       default: () => []
@@ -80,11 +92,6 @@ export default {
       return this.$route.params;
     }
   },
-  // watch: {
-  //   groups(newGroups) {
-  //     this.termsSorted = newGroups;
-  //   }
-  // },
   created() {
     const { id } = this.$route.params;
     const { last_level } = this.options;

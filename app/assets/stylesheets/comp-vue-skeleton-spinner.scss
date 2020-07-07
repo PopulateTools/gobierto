@@ -26,7 +26,7 @@
       rgba(var(--color-base-string), .1),
       rgba(var(--color-base-string), .05)
     );
-    animation: shimmer 2s cubic-bezier(0.36, 0, 0.66, -0.56) infinite;
+    animation: shimmer 800ms cubic-bezier(0.36, 0, 0.66, -0.56) infinite;
     content: '';
   }
   @keyframes shimmer {

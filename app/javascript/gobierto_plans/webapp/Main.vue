@@ -66,12 +66,14 @@ export default {
     const {
       attributes: {
         configuration_data: options,
-        categories_vocabulary_terms: categories
+        categories_vocabulary_terms: categories,
+        statuses_vocabulary_terms: status
       }
     } = plan;
 
     PlansStore.setPlainItems([...categories, ...projects]);
     PlansStore.setMeta(meta);
+    PlansStore.setStatus(status);
 
     const {
       last_level,

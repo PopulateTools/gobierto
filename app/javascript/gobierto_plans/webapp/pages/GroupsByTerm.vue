@@ -80,16 +80,20 @@ export default {
       return this.$route.params;
     }
   },
+  // watch: {
+  //   groups(newGroups) {
+  //     this.termsSorted = newGroups;
+  //   }
+  // },
   created() {
     const { id } = this.$route.params;
     const { last_level } = this.options;
 
     this.lastLevel = last_level;
     this.termsSorted = this.groups;
-    this.uid = this.getName(id);
 
     // set table columns
-    this.map.set("name", [this.uid, "up"]);
+    this.map.set("name", [this.getName(id), "up"]);
     this.map.set("progress", [this.labelProgress, "up"]);
     this.map.set("length", [null, "up"]);
 

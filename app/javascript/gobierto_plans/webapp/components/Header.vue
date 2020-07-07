@@ -1,5 +1,5 @@
 <template>
-  <div class="planification-header m_v_3">
+  <div class="planification-header">
     <div class="header-resume">
       <h3>{{ labelGlobalExecution }}</h3>
       <span>{{ progress | percent }}</span>

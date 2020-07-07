@@ -28,6 +28,7 @@ ca:
             aquest ODS
           sdg_projects_title: "%{projects_term} de el pla relacionats amb aquest ODS"
       show:
+        category: Categoria
         desc: Descripció
         ends: Fi
         global_execution: Estat d'execució global
@@ -38,3 +39,4 @@ ca:
         read_more: Llegiu més
         starts: Inici
         status: Estat
+        view_by: Vegeu-ne per

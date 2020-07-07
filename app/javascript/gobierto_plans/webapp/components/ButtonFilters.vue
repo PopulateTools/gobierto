@@ -1,19 +1,20 @@
 <template>
-  <div class="mb2">
+  <div class="planification-buttons">
     <router-link
       :to="{ path: $root.$data.baseurl }"
+      class="planification-buttons__button"
       tag="button"
     >
-      <!-- TODO: reemplazar botón correctamente -->
-      CAteogría
+      {{ labelViewBy }} <strong>{{ labelCategory }}</strong>
     </router-link>
     <router-link
       v-for="{ id, name } in buttons"
       :key="id"
       :to="{ path: `${$root.$data.baseurl}/tabla/${id}` }"
+      class="planification-buttons__button"
       tag="button"
     >
-      {{ name | translate }}
+      {{ labelViewBy }} <strong>{{ name | translate }}</strong>
     </router-link>
   </div>
 </template>
@@ -29,7 +30,9 @@ export default {
   },
   data() {
     return {
-      buttons: []
+      buttons: [],
+      labelViewBy: I18n.t("gobierto_plans.plan_types.show.view_by") || '',
+      labelCategory: I18n.t("gobierto_plans.plan_types.show.category") || ''
     }
   },
   created() {

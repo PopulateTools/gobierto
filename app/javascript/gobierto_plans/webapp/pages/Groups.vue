@@ -1,6 +1,7 @@
 <template>
   <div class="planification-content">
     <router-view
+      :key="uid"
       :groups="groups"
       :json="json"
       :options="options"
@@ -26,7 +27,6 @@ export default {
   },
   data() {
     return {
-      uid: null,
       groups: []
     };
   },
@@ -40,12 +40,14 @@ export default {
       }
     ) {
       if (newId !== oldId) {
+        this.uid = newId
         this.setGroups(newId);
       }
     }
   },
   created() {
     const { id } = this.$route.params;
+    this.uid = id
     this.setGroups(id);
   },
   methods: {

@@ -32,6 +32,7 @@
           <ProjectsByTermTableRow
             :key="id"
             :project-id="id"
+            :marked="currentId === id"
             :columns="selectedColumns"
             :attributes="attributes"
             @show-project="setCurrentProject"
@@ -42,10 +43,10 @@
       <section
         v-if="activeNode"
         class="category"
-        :style="`--category: var(--category-${rootid})`"
+        :style="`--category: var(--category-${currentRootid})`"
       >
         <Project
-          :key="activeNode.id"
+          :key="currentId"
           :model="activeNode"
           :options="options"
         />
@@ -97,9 +98,13 @@ export default {
     };
   },
   computed: {
-    rootid() {
+    currentRootid() {
       const { rootid } = this.activeNode || {};
       return rootid + 1;
+    },
+    currentId() {
+      const { id } = this.activeNode || {};
+      return id;
     }
   },
   created() {
@@ -151,7 +156,10 @@ export default {
       return order;
     },
     setCurrentProject(id) {
-      this.activeNode = findRecursive(this.json, id);
+      const { id: prevId } = this.activeNode || {}
+      console.log(prevId, this.activeNode);
+
+      this.activeNode = (id === prevId) ? null : findRecursive(this.json, id);
     }
   }
 };

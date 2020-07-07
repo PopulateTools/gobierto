@@ -4,6 +4,7 @@
       <td
         v-if="trVisibility"
         :key="trId"
+        :style="{ fontWeight: marked ? 900 : 400 }"
       >
         <!-- TODO: faltan definir ciertos tipos de plantilla según su type -->
         <template v-if="trId === 'name'">
@@ -23,6 +24,10 @@
 export default {
   name: "ProjectsByTermTableRow",
   props: {
+    marked: {
+      type: Boolean,
+      default: false
+    },
     projectId: {
       type: String,
       default: ''

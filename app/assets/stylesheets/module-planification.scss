@@ -11,8 +11,6 @@ $nodeLevel1HeightMobile: 20vh;
   min-height: 300px;
 
   .planification-header {
-    border-top: 1px solid rgba(var(--color-base-string), 0.06);
-    border-bottom: 1px solid rgba(var(--color-base-string), 0.06);
     padding: 1rem;
     display: flex;
 
@@ -51,6 +49,38 @@ $nodeLevel1HeightMobile: 20vh;
 
       li {
         list-style: none;
+      }
+    }
+  }
+
+  .planification-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 2em;
+
+    &__button {
+      border: 1px solid var(--color-base);
+      box-sizing: border-box;
+      border-radius: 3px;
+      background: none;
+      color: var(--color-base);
+      text-transform: lowercase;
+      font-weight: normal;
+      padding: 0.5em 1em;
+      margin: 0 5px 5px 0;
+      text-align: left;
+      transition: all 250ms;
+      display: block;
+
+      &::first-letter,
+      strong::first-letter {
+        text-transform: uppercase;
+      }
+
+      &.router-link-exact-active,
+      &:hover {
+        background: var(--color-base);
+        color: $color_main_negative;
       }
     }
   }

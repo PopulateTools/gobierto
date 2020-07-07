@@ -3,7 +3,7 @@
   <a class="social_share twitter"
      data-share-network="twitter"
      target="_blank"
-     href="https://twitter.com/intent/tweet?text=<%= URI.encode(text) %>&url=<%= url %>">
+     href="https://twitter.com/intent/tweet?text=<%= CGI.escape(text) %>&url=<%= url %>">
      <i class="fab fa-twitter"></i> Twitter
   </a>
 
@@ -17,14 +17,14 @@
   <a class="social_share linkedin"
      data-share-network="linkedin"
      target="_blank"
-     href="https://www.linkedin.com/shareArticle?mini=true&url=<%= url %>&title=<%= URI.encode(text) %>">
+     href="https://www.linkedin.com/shareArticle?mini=true&url=<%= url %>&title=<%= CGI.escape(text) %>">
      <i class="fab fa-linkedin"></i> LinkedIn
   </a>
 
   <a class="social_share email"
      data-share-network="email"
      target="_blank"
-     href="mailto:?subject=<%= URI.encode(text) %>&body=<%= url %>">
+     href="mailto:?subject=<%= CGI.escape(text) %>&body=<%= url %>">
      <i class="fas fa-envelope"></i> Correo-e
   </a>
 

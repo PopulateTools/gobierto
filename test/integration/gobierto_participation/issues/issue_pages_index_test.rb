@@ -77,8 +77,8 @@ module GobiertoParticipation
 
         assert_equal issue_news.active.size, all(".news_teaser").size
 
-        refute has_link? "Notice 1 title"
-        refute has_link? "Notice 2 title"
+        assert has_no_link? "Notice 1 title"
+        assert has_no_link? "Notice 2 title"
       end
     end
   end

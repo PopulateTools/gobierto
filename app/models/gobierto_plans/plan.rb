@@ -64,7 +64,7 @@ module GobiertoPlans
     end
 
     def instance_level_custom_fields
-      ::GobiertoCommon::CustomField.where(instance: self).sorted
+      ::GobiertoCommon::CustomField.where(instance: self).sorted.presence || site.custom_fields.where(class_name: "GobiertoPlans::Node").sorted
     end
 
   end

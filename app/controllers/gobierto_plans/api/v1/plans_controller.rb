@@ -63,7 +63,7 @@ module GobiertoPlans
         end
 
         def custom_fields
-          @custom_fields ||= find_resource.front_instance_level_custom_fields
+          @custom_fields ||= find_resource.front_available_custom_fields
         end
 
         def links(self_key = nil)

@@ -112,7 +112,6 @@ export default {
     }
   },
   created() {
-
     const {
       name: nameComponent
     } = this.$route;
@@ -123,7 +122,6 @@ export default {
       this.currentVizComponent = COMPONENTS[this.activeViz];
     }
     this.$root.$emit('reloadVisualizations')
-
   },
   methods: {
     showVizElement(component) {

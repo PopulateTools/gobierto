@@ -86,7 +86,7 @@ module GobiertoCommon
     def meta
       @resource ||= base_relation.new
 
-      return unless stale?(custom_fields) || params[:stats] == "true"
+      return unless stale?(custom_fields)
 
       meta_stats = if params[:stats] == "true"
                      query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation, custom_fields: custom_fields)

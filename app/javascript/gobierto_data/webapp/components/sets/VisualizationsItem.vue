@@ -234,7 +234,7 @@ export default {
       this.$root.$emit('enabledForkVizButton', false)
     },
     isPrivateChecked() {
-      this.$root.$emit('isVizModified', true)
+      this.$root.$emit('enableSavedVizButton', true)
     }
   }
 };

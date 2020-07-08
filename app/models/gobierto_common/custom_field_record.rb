@@ -29,7 +29,7 @@ module GobiertoCommon
     attr_accessor :item_has_versions, :callback_update
 
     belongs_to :item, polymorphic: true
-    belongs_to :custom_field
+    belongs_to :custom_field, touch: true
 
     validates :custom_field, presence: true
     validates :item, presence: true, type: true

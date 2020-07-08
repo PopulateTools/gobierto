@@ -14,8 +14,6 @@
         :is-user-logged="isUserLogged"
         :is-public-loading="isPublicLoading"
         :is-private-loading="isPrivateLoading"
-        :items="items"
-        :config="config"
         :name="titleViz"
         :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
         :is-viz-modified="isVizModified"

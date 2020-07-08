@@ -76,10 +76,8 @@ jobs:
           key: v1-asset-cache-{{ .Branch }}
           paths:
             - public/assets
-            - public/packs
             - public/packs-test
-            - tmp/cache/assets/sprockets
-            - tmp/cache/webpacker
+            - tmp/cache
 
       - persist_to_workspace:
           root: ~/gobierto

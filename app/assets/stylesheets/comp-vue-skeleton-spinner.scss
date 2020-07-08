@@ -42,9 +42,11 @@
   margin-bottom: .5rem;
   background-color: rgba(var(--color-base-string), .1);
   display: block;
+  border-radius: 4px;
 }
 
 .gobierto-skeleton-spinner-square {
+  border-radius: 4px;
   height: 5rem;
   background-color: rgba(var(--color-base-string), .1);
 }

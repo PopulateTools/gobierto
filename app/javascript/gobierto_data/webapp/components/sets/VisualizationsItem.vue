@@ -1,5 +1,8 @@
 <template>
-  <div class="gobierto-data-sql-editor">
+  <div
+    v-if="items"
+    class="gobierto-data-sql-editor"
+  >
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-4-4">
         <SavingDialog
@@ -46,7 +49,6 @@
     </div>
     <div class="gobierto-data-visualization--aspect-ratio-16-9">
       <Visualizations
-        v-if="items"
         ref="viewer"
         :items="items"
         :config="config"

@@ -2,19 +2,19 @@
   <div class="gobierto-data-sql-editor-container-save">
     <!--  only show if label name is set OR the prompt is visible  -->
     <template v-if="handlerInputQuery">
-        <input
-          ref="inputText"
-          v-model="labelValue"
-          :placeholder="placeholder"
-          type="text"
-          class="gobierto-data-sql-editor-container-save-text"
-          :class="{
-            'disable-input-text': disabledButton,
-            'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
-          }"
-          @keydown.stop="onKeyDownTextHandler"
-          @click="enabledInputHandler"
-        >
+      <input
+        ref="inputText"
+        v-model="labelValue"
+        :placeholder="placeholder"
+        type="text"
+        class="gobierto-data-sql-editor-container-save-text"
+        :class="{
+          'disable-input-text': disabledButton,
+          'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
+        }"
+        @keydown.stop="onKeyDownTextHandler"
+        @click="enabledInputHandler"
+      >
     </template>
 
     <!-- only show checkbox on prompt visible -->
@@ -45,11 +45,11 @@
           name="fade"
           mode="out-in"
         >
-            <div class="gobierto-data-sql-editor-modified-label-container">
-              <span class="gobierto-data-sql-editor-modified-label">
-                {{ labelModified }}
-              </span>
-            </div>
+          <div class="gobierto-data-sql-editor-modified-label-container">
+            <span class="gobierto-data-sql-editor-modified-label">
+              {{ labelModified }}
+            </span>
+          </div>
         </transition>
       </template>
     </template>
@@ -225,7 +225,7 @@ export default {
     },
     enableForkPrompt() {
       return (this.isForkPromptVisible && this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
-    },
+    }
   },
   watch: {
     value(newValue, oldValue) {
@@ -237,7 +237,17 @@ export default {
     },
     showPrivate(newValue) {
       this.isPrivate = (newValue);
-    }
+    },
+    isQuerySaved(newValue) {
+      if (newValue) {
+        this.disabledButton = true
+      }
+    },
+    enabledForkButton(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.enabledForkButton = newValue
+      }
+    },
   },
   mounted() {
     if (this.$route.name === 'Query' && this.value !== null) {
@@ -247,8 +257,12 @@ export default {
     }
   },
   methods: {
-    inputFocus() {
-      this.$refs.inputText.focus()
+    inputFocus(value) {
+      if (value) {
+        this.$refs.inputText.focus()
+      } else {
+        this.$refs.inputText.blur()
+      }
     },
     inputSelect() {
       this.$refs.inputText.select()
@@ -260,7 +274,12 @@ export default {
         return false;
       }
 
-      this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
+      if (!this.labelValue) {
+        this.$refs.inputText.focus()
+      } else {
+        this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
+      }
+
     },
     onKeyDownTextHandler(event) {
       const { value } = event.target

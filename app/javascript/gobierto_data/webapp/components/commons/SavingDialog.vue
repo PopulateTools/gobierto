@@ -23,9 +23,8 @@
         :is-closed="isPrivate"
         :style="{ paddingRight: '.5em', margin: 0 }"
       />
-      <label
+      <div
         v-if="isQueryModified || isVizModified"
-        :for="labelPrivate"
         class="gobierto-data-sql-editor-container-save-label"
       >
         <input
@@ -33,9 +32,15 @@
           :checked="isPrivate"
           type="checkbox"
           @input="onInputCheckboxHandler"
+          class="gobierto-data-sql-editor-container-save-label-input"
         >
-        {{ labelPrivate }}
-      </label>
+        <label
+          :for="labelPrivate"
+          class="gobierto-data-sql-editor-container-save-label-text"
+        >
+          {{ labelPrivate }}
+        </label>
+      </div>
     </template>
 
     <!-- only show if label name is set OR the prompt is visible -->

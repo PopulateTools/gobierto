@@ -585,6 +585,10 @@
       }
     }
 
+    .btn-sql-revert-query {
+      vertical-align: top;
+    }
+
     input[type="text"] {
       background: #f9f9f9;
       border: 1px solid rgba(0, 89, 201, .2);
@@ -646,7 +650,7 @@
 
   &-sql-editor-container-save {
     display: inline-flex;
-    align-items: baseline;
+    align-items: center;
 
     i {
       min-width: 20px;
@@ -664,9 +668,13 @@
     cursor: pointer;
   }
 
+  &-sql-editor-container-save-label-input,
+  &-sql-editor-container-save-label-text {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
   &-sql-editor-modified-label-container {
-    display: inline-flex;
-    align-items: center;
     margin: 0 .5rem 0 .25rem;
   }
 

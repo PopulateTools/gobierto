@@ -25,7 +25,7 @@
         />
         <Button
           :text="labelEdit"
-          class="btn-sql-editor"
+          class="btn-sql-editor btn-sql-revert-query"
           icon="chart-area"
           background="#fff"
           @click.native="showChart"

@@ -31,7 +31,7 @@ module GobiertoCommon::CustomFieldFunctions
 
     def update_progress!
       current_progress = progress
-      record.value = current_progress
+      record.value = { record.custom_field.uid => current_progress }.to_json
       record.callback_update = true
 
       record.save!

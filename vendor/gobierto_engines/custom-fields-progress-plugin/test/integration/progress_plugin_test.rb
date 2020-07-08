@@ -73,7 +73,7 @@ class ProgressPluginTest < ActionDispatch::IntegrationTest
       assert_no_selector("#custom_field_progress")
       assert_equal "-", evaluate_script("$('input[data-plugin-type=\"progress\"]').val()")
       assert_nil project.progress
-      assert_nil custom_field_record.payload
+      assert_equal({ "progress" => nil }, custom_field_record.payload)
     end
   end
 
@@ -92,7 +92,7 @@ class ProgressPluginTest < ActionDispatch::IntegrationTest
       assert_no_selector("#custom_field_progress")
       assert_equal "50%", evaluate_script("$('input[data-plugin-type=\"progress\"]').val()")
       assert_equal 50.0, project.progress
-      assert_equal 0.5, custom_field_record.payload
+      assert_equal({ "progress" => 0.5 }, custom_field_record.payload)
     end
   end
 end

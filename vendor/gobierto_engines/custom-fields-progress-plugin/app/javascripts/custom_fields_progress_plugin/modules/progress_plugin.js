@@ -9,7 +9,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsProgressPluginController = 
   function _handlePluginData(uid) {
     let element = $(`[data-uid=${uid}]`)
     let id = element.attr('id')
-    let data = JSON.parse($(`#${id}`).find("input[name$='[value]'").val())
+    let data = JSON.parse($(`#${id}`).find("input[name$='[value]'").val()) ? JSON.parse($(`#${id}`).find("input[name$='[value]'").val())[uid] : null
 
     _insertProgressPlugin(id, data)
   }

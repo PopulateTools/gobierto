@@ -5,7 +5,7 @@ module GobiertoCommon
     extend ActiveSupport::Concern
 
     included do
-      attr_reader :resource
+      attr_reader :resource, :vocabularies_adapter
 
       serialization_scope :current_site
     end
@@ -14,7 +14,7 @@ module GobiertoCommon
       @resource ||= base_relation.try(:model)&.new
       return base_relation unless filter_params.present?
 
-      query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation)
+      query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation, custom_fields: custom_fields)
       query.filter(filter_params)
     end
 
@@ -26,20 +26,21 @@ module GobiertoCommon
     end
 
     def meta
-      @resource = base_relation.new
+      @resource ||= base_relation.new
 
-      return unless stale?(base_relation)
+      return unless stale?(custom_fields)
 
       meta_stats = if params[:stats] == "true"
+                     query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation, custom_fields: custom_fields)
                      filterable_custom_fields.inject({}) do |stats, custom_field|
                        stats.update(
-                         custom_field.uid => GobiertoCommon::CustomFieldsQuery.new(relation: base_relation).stats(custom_field, filter_params)
+                         custom_field.uid => query.stats(custom_field, filter_params)
                        )
                      end
                    else
                      {}
                    end
-      render json: custom_fields, adapter: :json_api, meta: meta_stats
+      render json: custom_fields, adapter: :json_api, meta: meta_stats, vocabularies_adapter: vocabularies_adapter
     end
 
     private
@@ -108,7 +109,11 @@ module GobiertoCommon
     end
 
     def custom_fields
-      @custom_fields ||= current_site.custom_fields.for_class(resource.class)
+      @custom_fields ||= if resource.try(:instance_level_custom_fields).present?
+                           resource.instance_level_custom_fields
+                         else
+                           current_site.custom_fields.for_class(resource.class)
+                         end
     end
 
   end

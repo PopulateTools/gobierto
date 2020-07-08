@@ -1,23 +1,12 @@
 <template>
   <div class="planification-table__container">
     <div class="planification-table__header">
-      <div class="planification-table__breadcrumb">
-        <span class="planification-table__breadcrumb-group">
-          {{ uid }}
-        </span>
-        <i class="planification-table__breadcrumb-arrow fas fa-arrow-right" />
-        <router-link
-          :to="{ name: 'table', params: { ...params } }"
-          class="planification-table__breadcrumb-term"
-        >
-          <span>{{ termId }}</span>
-          <i class="planification-table__breadcrumb-times fas fa-times" />
-        </router-link>
-      </div>
-      <div style="opacity: 0.25">
-        <!-- TODO: completar -->
-        Personalizar columns
-      </div>
+      <TableBreadcrumb :groups="groups" />
+      <TableColumnsSelector
+        v-clickoutside="hideTableColumnsSelector"
+        :columns="selectedColumns"
+        @toggle-visibility="toggleVisibility"
+      />
     </div>
 
     <table class="planification-table">
@@ -82,6 +71,9 @@ import SortIcon from "../components/SortIcon";
 import NumberLabel from "../components/NumberLabel";
 import Project from "../components/Project";
 import ProjectsByTermTableRow from "../components/ProjectsByTermTableRow";
+import TableBreadcrumb from "../components/TableBreadcrumb";
+import TableColumnsSelector from "../components/TableColumnsSelector";
+import { clickoutside } from "lib/shared"
 
 export default {
   name: "ProjectsByTerm",
@@ -89,7 +81,12 @@ export default {
     NumberLabel,
     SortIcon,
     ProjectsByTermTableRow,
-    Project
+    Project,
+    TableBreadcrumb,
+    TableColumnsSelector
+  },
+  directives: {
+    clickoutside
   },
   mixins: [NamesMixin],
   props: {
@@ -108,13 +105,12 @@ export default {
   },
   data() {
     return {
-      termId: null,
       lastLevel: 0,
       projectsSorted: [],
-      selectedColumns: [],
       map: new Map(),
+      mapTracker: 1,
       currentSortColumn: null,
-      activeNode: null
+      activeNode: null,
     };
   },
   computed: {
@@ -128,16 +124,17 @@ export default {
     currentId() {
       const { id } = this.activeNode || {};
       return id;
+    },
+    selectedColumns() {
+      return this.mapTracker && Array.from(this.map)
     }
   },
   created() {
-    const { id, term } = this.$route.params;
-    const { name, children } = this.groups.find(({ slug }) => slug === term);
+    const { term } = this.$route.params;
+    const { children } = this.groups.find(({ slug }) => slug === term);
     const { last_level } = this.options;
 
     this.lastLevel = last_level;
-    this.termId = name;
-    this.uid = this.getName(id);
     this.projectsSorted = children;
 
     // get the object with the biggest amount of attributes (they'll be the available columns)
@@ -154,15 +151,17 @@ export default {
     }
 
     // initialize a map to handle the columns
-    keys.forEach(key =>
+    keys.forEach(key => {
       // for each key, we store the traslation, the sorting direction, and the visibility
-      this.map.set(key, [
-        this.getName(key),
-        "up",
-        key === "name" || this.natives.has(key)
-      ])
-    );
-    this.selectedColumns = Array.from(this.map);
+      const name = this.getName(key);
+      if (name) {
+        this.map.set(key, [
+          name,
+          "up",
+          this.natives.has(key)
+        ]);
+      }
+    });
   },
   methods: {
     handleTableHeaderClick(id) {
@@ -188,10 +187,20 @@ export default {
       const { id: prevId } = this.activeNode || {};
       this.activeNode = id === prevId ? null : findRecursive(this.json, id);
     },
-    hey() {
-      console.log('jo');
+    toggleVisibility({ id, value }) {
+      const [name,order] = this.map.get(id)
+      this.map.set(id, [name, order, value])
 
-    }
+      // https://stackoverflow.com/a/45441321/5020256
+      this.mapTracker += 1;
+    },
+    hideProject() {
+      // TODO: repasar esto
+      if (this.activeNode) {
+        this.activeNode = null
+      }
+    },
+    hideTableColumnsSelector() {}
   }
 };
 </script>

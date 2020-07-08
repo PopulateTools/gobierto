@@ -27,6 +27,7 @@ en:
           sdg_projects_title: Plan %{projects_term} related to this Goal
       show:
         category: Category
+        customize_columns: Customize columns
         desc: Description
         ends: End
         global_execution: State of global execution

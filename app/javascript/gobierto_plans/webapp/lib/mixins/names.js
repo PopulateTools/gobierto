@@ -15,7 +15,10 @@ export const NamesMixin = {
   created() {
     this.meta = PlansStore.state.meta;
 
+    const { last_level = 0 } = this.options || {}
+
     // initialize static fields
+    this.natives.set("name", translate(this.getLabel(last_level)));
     this.natives.set("progress", this.labelProgress);
     this.natives.set("starts_at", this.labelStarts);
     this.natives.set("ends_at", this.labelEnds);
@@ -37,6 +40,12 @@ export const NamesMixin = {
       }
 
       return name;
+    },
+    // helper to extract the labelfrom the configuration
+    getLabel(level, number_of_elements) {
+      const KEYS = PlansStore.state.levelKeys
+      const key = KEYS[`level${level}`];
+      return number_of_elements === 1 ? key["one"] : key["other"];
     }
   }
 };

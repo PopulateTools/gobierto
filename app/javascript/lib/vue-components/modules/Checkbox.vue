@@ -15,7 +15,10 @@
         class="gobierto-filter-checkbox--label-title"
       >
         {{ title }}
-        <i class="gobierto-filter-checkbox--label-counter">({{ counter }})</i>
+        <i
+          v-if="hasCounter"
+          class="gobierto-filter-checkbox--label-counter"
+        >({{ counter }})</i>
       </div>
     </label>
   </div>
@@ -30,7 +33,7 @@ export default {
       default: ""
     },
     id: {
-      type: Number,
+      type: [Number, String],
       default: 0
     },
     checked: {
@@ -39,13 +42,18 @@ export default {
     },
     counter: {
       type: Number,
-      default: 0
+      default: null
     }
   },
   data() {
     return {
-      marked: false,
+      marked: this.checked,
       seed: Math.random().toString(36).substring(7)
+    }
+  },
+  computed: {
+    hasCounter() {
+      return this.counter !== null
     }
   },
   watch: {

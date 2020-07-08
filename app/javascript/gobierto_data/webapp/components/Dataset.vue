@@ -421,8 +421,6 @@ export default {
           tab: tabName
         }
       } = this.$route
-      console.log("this.$route", this.$route);
-      console.log("this.titleDataset", this.titleDataset);
       if (nameComponent === "Dataset" && this.titleDataset) {
         let title
         let tabTitle
@@ -430,7 +428,6 @@ export default {
         const titleI18n = this.titleDataset
           ? `${this.titleDataset} · `
           : "";
-        console.log("titleI18n", titleI18n);
 
         if (tabName === 'editor') {
           tabTitle = `${this.labelData} · `

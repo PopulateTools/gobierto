@@ -797,6 +797,7 @@ export default {
     },
     updateURL(element) {
       const {
+        name: nameComponent,
         params: {
           id: slugDataset
         }
@@ -806,7 +807,7 @@ export default {
       //Changes the path depending on if we save a query or viz.
       const pathQueryOrViz = this.savingViz ? 'v' : 'q'
 
-      /*Don't updates the URL, only replace and don't reload, because in the editor we've two options, saved a query or viz, if the user saves a viz, and we update the URL, the browser reloads, and the user goes to visualization tab, and this behavior is too hacky.*/
+      /*Don't updates the URL if the component is Editor, only replace and don't reload, because in the editor we've two options, saved a query or viz, if the user saves a viz, and we update the URL, the browser reloads, and the user goes to visualization tab, and this behavior is too hacky.*/
       //https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
       history.pushState(
         {},

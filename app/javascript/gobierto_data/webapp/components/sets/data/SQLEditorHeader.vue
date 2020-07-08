@@ -102,7 +102,8 @@
   </div>
 </template>
 <script>
-import { CommonsMixin, closableMixin } from "./../../../../lib/commons.js";
+import { VueDirectivesMixin } from "lib/shared";
+import { closableMixin } from "./../../../../lib/commons.js";
 import { tabs } from '../../../../lib/router';
 
 import Button from "./../../commons/Button.vue";
@@ -120,7 +121,7 @@ export default {
     PulseSpinner,
     SavingDialog
   },
-  mixins: [CommonsMixin, closableMixin],
+  mixins: [VueDirectivesMixin, closableMixin],
   props: {
     privateQueries: {
       type: Array,

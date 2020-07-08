@@ -90,6 +90,10 @@ export default {
       type: Array,
       default: () => []
     },
+    publicQueries: {
+      type: Array,
+      default: () => []
+    },
     isVizModified: {
       type: Boolean,
       default: false
@@ -119,6 +123,10 @@ export default {
       default: false
     },
     showPrivateViz: {
+      type: Boolean,
+      default: false
+    },
+    showPrivate: {
       type: Boolean,
       default: false
     }
@@ -215,7 +223,8 @@ export default {
       } = objectViz
 
       //Find the query associated to the visualization
-      const { attributes: { name: queryName } = {} } = this.privateQueries.find(({ id }) => id == queryID) || {}
+      const itemQueries = this.showPrivate ? this.privateQueries : this.publicQueries
+      const { attributes: { name: queryName } = {} } = itemQueries.find(({ id }) => id == queryID) || {}
 
       this.vizID = vizID
       this.queryID = queryID

@@ -79,6 +79,7 @@
       :public-visualizations="publicVisualizations"
       :private-visualizations="privateVisualizations"
       :private-queries="privateQueries"
+      :public-queries="publicQueries"
       :enabled-viz-saved-button="enabledVizSavedButton"
       :current-viz-tab="currentVizTab"
       :enabled-fork-viz-button="enabledForkVizButton"

@@ -24,76 +24,72 @@ In order to generate more custom categories, refer to https://gobierto.readme.io
 }
 
 .gobierto_planification {
-  section.level_0 {
-    .category {
-      background-color: rgba(var(--category), 0.9);
+  .level_0 .category {
+    background-color: rgba(var(--category), 0.9);
 
-      .progress {
-        background-color: rgba(var(--category), 1);
-      }
+    .progress {
+      background-color: rgba(var(--category), 1);
     }
   }
 
-  section:not(.level_0) {
-    &.category {
-      background: rgba(var(--category), 0.1);
+  .category {
+    background: rgba(var(--category), 0.1);
+    color: rgba(var(--category), 1);
+
+    .node-list .node-title h3,
+    .node-list .node-title h3 a {
       color: rgba(var(--category), 1);
+    }
 
-      .node-list .node-title h3,
-      .node-list .node-title h3 a {
-        color: rgba(var(--category), 1);
-      }
+    .node-list .node-title .fas {
+      background: rgba(var(--category), 0.1);
+    }
 
-      .node-list .node-title .fas {
-        background: rgba(var(--category), 0.1);
-      }
+    .node-list.cat--negative .node-title h3,
+    .node-list.cat--negative .node-title h3 a {
+      color: $color_main_negative;
+    }
 
-      .node-list.cat--negative .node-title h3,
-      .node-list.cat--negative .node-title h3 a {
-        color: $color_main_negative;
-      }
+    .node-list.cat--negative .node-title .fas {
+      background: $color_main_negative;
+      color: rgba(var(--category), 1);
+    }
 
-      .node-list.cat--negative .node-title .fas {
-        background: $color_main_negative;
-        color: rgba(var(--category), 1);
-      }
+    .node-breadcrumb {
+      border: 1px solid rgba(var(--category), 0.75);
+      color: rgba(var(--category), 1);
+    }
 
-      .node-breadcrumb {
-        border: 1px solid rgba(var(--category), 0.75);
-        color: rgba(var(--category), 1);
-      }
+    .node-breadcrumb a {
+      color: rgba(var(--category), 1);
+    }
 
-      .node-breadcrumb a {
-        color: rgba(var(--category), 1);
-      }
+    .node-action-line table tbody tr:hover td {
+      background-color: rgba(var(--category), 0.2);
+    }
 
-      .node-action-line table tbody tr:hover td {
-        background-color: rgba(var(--category), 0.2);
-      }
+    .node-project-detail .project-mandatory .mandatory-progress > div {
+      background-color: rgba(var(--category), 1);
+    }
 
-      .node-project-detail .project-mandatory .mandatory-progress > div {
-        background-color: rgba(var(--category), 1);
-      }
+    .node-project-detail .project-description .description-more {
+      border-color: rgba(var(--category), 1);
+      color: rgba(var(--category), 1);
+    }
 
-      .node-project-detail .project-description .description-more {
-        border-color: rgba(var(--category), 1);
-        color: rgba(var(--category), 1);
-      }
+    .cat--negative {
+      background: rgba(var(--category), 1);
+      color: $color_main_negative;
+    }
 
-      .cat--negative {
-        background: rgba(var(--category), 1);
-        color: $color_main_negative;
-      }
+    .cat--negative h3,
+    .cat--negative h3 a {
+      color: $color_main_negative;
+    }
 
-      .cat--negative h3,
-      .cat--negative h3 a {
-        color: $color_main_negative;
-      }
-
-      .cat--negative .fas {
-        background: $color_main_negative;
-        color: rgba(var(--category), 1);
-      }
+    .cat--negative .fas {
+      background: $color_main_negative;
+      color: rgba(var(--category), 1);
     }
   }
 }

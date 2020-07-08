@@ -35,6 +35,80 @@ $nodeLevel1HeightMobile: 20vh;
       flex-direction: row;
     }
 
+    // Sections
+    > .level_0 {
+      flex: 1 0 25%;
+      counter-reset: section;
+
+      @include screen(768) {
+        max-height: 100vh;
+      }
+
+      &.is-active {
+        .node-img {
+          display: none;
+        }
+
+        .node-info {
+          padding: 1em;
+
+          @include min-screen(768) {
+            padding: 1.5em;
+          }
+
+          .info-content {
+            padding: 0;
+          }
+
+          h3,
+          span {
+            font-size: $f4;
+          }
+        }
+
+        @include screen(768) {
+          .node-root {
+            transition: all 250ms;
+            max-height: 100%;
+          }
+
+          &:not(.is-mobile-open) .node-root {
+            min-height: auto;
+
+            &:not(.is-root-open) {
+              max-height: 0;
+              min-height: 0;
+              transition: all 250ms;
+
+              * {
+                visibility: hidden;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @include screen(768) {
+      section.level_1 {
+        padding: 0 !important;
+
+        .action-line--header {
+          display: none;
+        }
+      }
+    }
+
+    > [class^='level_']:not(.level_0) {
+      flex: 0 0 75%;
+      box-sizing: border-box;
+      padding: 1em 0 0 0;
+
+      @include min-screen(768) {
+        padding: 2em 3em;
+      }
+    }
+
     .lines-header {
       display: flex;
       justify-content: space-between;
@@ -572,6 +646,7 @@ $nodeLevel1HeightMobile: 20vh;
 
   .planification-table {
     width: 100%;
+    position: relative;
 
     &__th {
       border-top: 0;
@@ -695,6 +770,16 @@ $nodeLevel1HeightMobile: 20vh;
     }
   }
 
+  .planification-floating-project {
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+    border-radius: 6px;
+  }
+
   // Animations
   .slide-fade-enter-active,
   .slide-fade-leave-active {
@@ -705,79 +790,6 @@ $nodeLevel1HeightMobile: 20vh;
   .slide-fade-leave-to {
     transform: translateY(-10px);
     opacity: 0;
-  }
-
-  // Sections
-  section.level_0 {
-    flex: 1 1 25%;
-    counter-reset: section;
-
-    @include screen(768) {
-      max-height: 100vh;
-    }
-
-    &.is-active {
-      .node-img {
-        display: none;
-      }
-
-      .node-info {
-        padding: 1em;
-
-        @include min-screen(768) {
-          padding: 1.5em;
-        }
-
-        .info-content {
-          padding: 0;
-        }
-
-        h3,
-        span {
-          font-size: $f4;
-        }
-      }
-
-      @include screen(768) {
-        .node-root {
-          transition: all 250ms;
-          max-height: 100%;
-        }
-
-        &:not(.is-mobile-open) .node-root {
-          min-height: auto;
-
-          &:not(.is-root-open) {
-            max-height: 0;
-            min-height: 0;
-            transition: all 250ms;
-
-            * {
-              visibility: hidden;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  @include screen(768) {
-    section.level_1 {
-      padding: 0 !important;
-
-      .action-line--header {
-        display: none;
-      }
-    }
-  }
-
-  section:not(.level_0) {
-    flex: 10;
-    padding: 1em 0 0 0;
-
-    @include min-screen(768) {
-      padding: 2em 3em;
-    }
   }
 
   // https://stackoverflow.com/questions/20120342/how-can-i-zerofill-the-index-of-a-sass-for-loop

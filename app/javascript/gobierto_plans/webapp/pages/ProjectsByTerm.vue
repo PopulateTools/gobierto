@@ -15,6 +15,7 @@
         </router-link>
       </div>
       <div style="opacity: 0.25">
+        <!-- TODO: completar -->
         Personalizar columns
       </div>
     </div>
@@ -57,17 +58,19 @@
         </template>
       </tbody>
 
-      <section
-        v-if="activeNode"
-        class="category"
-        :style="`--category: var(--category-${currentRootid})`"
-      >
-        <Project
-          :key="currentId"
-          :model="activeNode"
-          :options="options"
-        />
-      </section>
+      <transition name="fade">
+        <section
+          v-if="activeNode"
+          class="planification-floating-project category"
+          :style="`--category: var(--category-${currentRootid})`"
+        >
+          <Project
+            :key="currentId"
+            :model="activeNode"
+            :options="options"
+          />
+        </section>
+      </transition>
     </table>
   </div>
 </template>

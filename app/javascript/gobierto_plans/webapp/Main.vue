@@ -113,7 +113,7 @@ export default {
       const lastLevel =
         Math.max(...categoriesWithLevel.map(({ level }) => level)) + 1;
       // populate projects with another extra level
-      const projectsWithLevel = projects.map(d => ({ ...d, level: lastLevel }));
+      const projectsWithLevel = projects.map(d => ({ ...d, level: lastLevel, progress: d.attributes.progress }));
       // merge both arrays
       const data = [...categoriesWithLevel, ...projectsWithLevel];
       // group them by level
@@ -178,7 +178,7 @@ export default {
         max_category_level: lastLevel - 1,
         summary,
         json: dataParsed,
-        progress: this.meanByProgress(dataParsed)
+        progress: this.meanByProgress(projectsWithLevel)
       };
     },
     meanByProgress(data) {

@@ -207,9 +207,9 @@ export default {
     };
   },
   watch: {
-    queryInputFocus(newValue) {
-      if (newValue) {
-        this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus())
+    queryInputFocus(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.$nextTick(() => this.$refs.savingDialogQuery.inputFocus(newValue))
       }
     }
   },

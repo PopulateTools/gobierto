@@ -1,11 +1,13 @@
 <template>
   <div class="planification-content">
-    <router-view
-      :key="uid"
-      :groups="groups"
-      :json="json"
-      :options="options"
-    />
+    <transition name="fade">
+      <router-view
+        :key="uid"
+        :groups="groups"
+        :json="json"
+        :options="options"
+      />
+    </transition>
   </div>
 </template>
 

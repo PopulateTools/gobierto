@@ -1,8 +1,22 @@
 <template>
-  <div style="width: 100%">
-    <div>
-      <div>{{ uid }} -> {{ termId }}</div>
-      <div>Personalizar columns</div>
+  <div class="planification-table__container">
+    <div class="planification-table__header">
+      <div class="planification-table__breadcrumb">
+        <span class="planification-table__breadcrumb-group">
+          {{ uid }}
+        </span>
+        <i class="planification-table__breadcrumb-arrow fas fa-arrow-right" />
+        <router-link
+          :to="{ name: 'table', params: { ...params } }"
+          class="planification-table__breadcrumb-term"
+        >
+          <span>{{ termId }}</span>
+          <i class="planification-table__breadcrumb-times fas fa-times" />
+        </router-link>
+      </div>
+      <div style="opacity: 0.25">
+        Personalizar columns
+      </div>
     </div>
 
     <table class="planification-table">
@@ -101,6 +115,9 @@ export default {
     };
   },
   computed: {
+    params() {
+      return this.$route.params;
+    },
     currentRootid() {
       const { rootid } = this.activeNode || {};
       return rootid + 1;
@@ -120,16 +137,22 @@ export default {
     this.uid = this.getName(id);
     this.projectsSorted = children;
 
-    // get the object with the biggest amount of attributes
+    // get the object with the biggest amount of attributes (they'll be the available columns)
     const { attributes } = children.reduce((a, b) =>
       Object.keys(a.attributes).length > Object.keys(b.attributes).length
         ? a
         : b
     );
 
+    // if exists, move the column called 'progress' to the end of the list
+    const keys = Object.keys(attributes);
+    if (keys.includes("progress")) {
+      keys.push(keys.splice(keys.indexOf("progress"), 1)[0]);
+    }
+
     // initialize a map to handle the columns
-    // for each key, we store the traslation, the sorting direction, and the visibility
-    Object.keys(attributes).forEach(key =>
+    keys.forEach(key =>
+      // for each key, we store the traslation, the sorting direction, and the visibility
       this.map.set(key, [
         this.getName(key),
         "up",
@@ -159,10 +182,8 @@ export default {
       return order;
     },
     setCurrentProject(id) {
-      const { id: prevId } = this.activeNode || {}
-      console.log(prevId, this.activeNode);
-
-      this.activeNode = (id === prevId) ? null : findRecursive(this.json, id);
+      const { id: prevId } = this.activeNode || {};
+      this.activeNode = id === prevId ? null : findRecursive(this.json, id);
     }
   }
 };

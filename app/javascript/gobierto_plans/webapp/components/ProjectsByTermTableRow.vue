@@ -4,13 +4,20 @@
       <td
         v-if="trVisibility"
         :key="trId"
-        :style="{ fontWeight: marked ? 900 : 400 }"
+        class="planification-table__td--alt"
+        :class="{ 'is-selected' : marked }"
       >
         <!-- TODO: faltan definir ciertos tipos de plantilla según su type -->
         <template v-if="trId === 'name'">
-          <div @click="showProject">
+          <div
+            class="planification-table__td-name"
+            @click="showProject"
+          >
             {{ attributes[trId] }}
           </div>
+        </template>
+        <template v-else-if="trId === 'progress'">
+          {{ attributes[trId] | percent }}
         </template>
         <template v-else>
           {{ attributes[trId] }}
@@ -21,8 +28,13 @@
 </template>
 
 <script>
+import { percent } from "lib/shared";
+
 export default {
   name: "ProjectsByTermTableRow",
+  filters: {
+    percent
+  },
   props: {
     marked: {
       type: Boolean,

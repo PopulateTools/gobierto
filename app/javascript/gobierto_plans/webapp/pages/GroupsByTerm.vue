@@ -27,7 +27,7 @@
         v-for="{ key, name, slug, progress, length } in termsSorted"
         :key="key"
       >
-        <td class="planification-table__tr">
+        <td class="planification-table__td">
           <i class="fas fa-caret-right" />
           <router-link
             :to="{ name: 'term', params: { ...params, term: slug } }"
@@ -35,10 +35,10 @@
             {{ name }}
           </router-link>
         </td>
-        <td class="planification-table__tr">
+        <td class="planification-table__td">
           {{ progress | percent }}
         </td>
-        <td class="planification-table__tr">
+        <td class="planification-table__td">
           {{ length }}
         </td>
       </tr>
@@ -49,7 +49,7 @@
 <script>
 import NumberLabel from "../components/NumberLabel";
 import SortIcon from "../components/SortIcon";
-import { translate, percent } from "lib/shared";
+import { percent } from "lib/shared";
 import { NamesMixin } from "../lib/mixins/names";
 
 export default {
@@ -59,7 +59,6 @@ export default {
     SortIcon
   },
   filters: {
-    translate,
     percent
   },
   mixins: [NamesMixin],

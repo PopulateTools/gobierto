@@ -24,6 +24,7 @@
         :style="{ paddingRight: '.5em', margin: 0 }"
       />
       <label
+        v-if="isQueryModified || isVizModified"
         :for="labelPrivate"
         class="gobierto-data-sql-editor-container-save-label"
       >
@@ -313,6 +314,7 @@ export default {
       let newWidth = inputValueLength * 7.5
       let maxWidth = 289.5
       let minWidth = 200
+      newWidth = newWidth > 290 ? maxWidth : newWidth
 
       //In the Visualizations view, we've more space, so we take advantage of it by increasing the input name width.
       if (this.$route.name === 'Visualization') {

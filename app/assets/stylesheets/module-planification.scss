@@ -486,7 +486,7 @@ $nodeLevel1HeightMobile: 20vh;
   }
 
   .node-project-detail {
-    padding: 1em 0;
+    padding: 1em;
     color: $color_text;
 
     @include min-screen(768) {
@@ -714,6 +714,17 @@ $nodeLevel1HeightMobile: 20vh;
       cursor: pointer;
     }
 
+    &__td-link {
+      display: flex;
+      align-items: baseline;
+      color: var(--color-base);
+      cursor: pointer;
+
+      a {
+        flex: 1;
+      }
+    }
+
     &__container {
       width: 100%;
     }
@@ -778,23 +789,96 @@ $nodeLevel1HeightMobile: 20vh;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
     z-index: 1;
     border-radius: 6px;
-  }
+    width: 100%;
 
-  // Animations
-  .slide-fade-enter-active,
-  .slide-fade-leave-active {
-    transition: all 0.3s ease;
-  }
-
-  .slide-fade-enter,
-  .slide-fade-leave-to {
-    transform: translateY(-10px);
-    opacity: 0;
+    @include min-screen(768) {
+      width: 60vw;
+    }
   }
 
   // https://stackoverflow.com/questions/20120342/how-can-i-zerofill-the-index-of-a-sass-for-loop
   @function zerofill($i) { @return #{str-slice("00", 0, 2 - str-length(#{$i}))}#{$i}; }
   
+  // Raw Indicators
+  .tablerow {
+    padding: .5em 0;
+  
+    &__title {
+      font-size: 14px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+  
+    &__data {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 20px 20px;
+      
+      @media screen and (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 40px 40px;
+      }
+    }
+  
+    &__item {
+      background-color: rgba(#D8D8D8, 0.2);
+      padding: 0.5em 1em;
+      display: flex;
+  
+      &-title {
+        flex: 0 1 50%;
+        padding-right: 5px;
+        font-size: 14px;
+        font-weight: 600;
+        min-width: 25%;
+        line-height: 1.2;
+      }
+  
+      &-table-container {
+        flex: 1 0 50%;
+        padding-left: 5px;
+      }
+  
+      &-table {
+        text-align: center;
+        line-height: 18px;
+        color: #4D4D4D;
+  
+        th:first-child:not(:last-child),
+        td:first-child:not(:last-child) {
+          text-align: left;
+          padding-left: 0;
+          color: rgba(#4D4D4D, 0.5);
+          white-space: nowrap;
+        }
+      }
+  
+      &-table-header {
+        font-weight: bold;
+        color: rgba(#4D4D4D, 0.5);
+        border-bottom: 2px solid rgba(#000, 0.2);
+  
+        > * {
+          border-top: 0;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+  
+      &-table-row {
+        > * {
+          font-size: 14px;
+          font-weight: normal;
+        }
+  
+        &:not(:last-child) {
+          border-bottom: 1px solid rgba(#000, 0.2);
+        }
+      }
+    }
+  }
+
   // ODS icons
   .ods-goal-container {
     display: flex;

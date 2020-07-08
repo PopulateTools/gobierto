@@ -28,12 +28,14 @@
         :key="key"
       >
         <td class="planification-table__td">
-          <i class="fas fa-caret-right" />
-          <router-link
-            :to="{ name: 'term', params: { ...params, term: slug } }"
-          >
-            {{ name }}
-          </router-link>
+          <div class="planification-table__td-link">
+            <i class="fas fa-caret-right" />
+            <router-link
+              :to="{ name: 'term', params: { ...params, term: slug } }"
+            >
+              {{ name }}
+            </router-link>
+          </div>
         </td>
         <td class="planification-table__td">
           {{ progress | percent }}

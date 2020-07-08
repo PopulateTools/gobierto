@@ -187,6 +187,10 @@ export default {
     setCurrentProject(id) {
       const { id: prevId } = this.activeNode || {};
       this.activeNode = id === prevId ? null : findRecursive(this.json, id);
+    },
+    hey() {
+      console.log('jo');
+
     }
   }
 };

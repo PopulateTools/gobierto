@@ -58,6 +58,7 @@
         ref="viewer"
         :items="items"
         :type-chart="typeChart"
+        :reset-config-viz="resetConfigViz"
         :array-columns-query="arrayColumnsQuery"
         @showSaving="showSavingDialog"
         @selectedChart="typeChart = $event"
@@ -138,6 +139,7 @@ export default {
       showVisualize: true,
       removeLabelBtn: false,
       perspectiveChanged: false,
+      resetConfigViz: false,
       typeChart: 'hypergrid',
     };
   },
@@ -166,6 +168,7 @@ export default {
       this.showVisualize = true
       this.perspectiveChanged = false
       this.showResetViz = false
+      this.resetConfigViz = true
       this.typeChart = 'hypergrid'
 
       this.$refs.viewer.toggleConfigPerspective();
@@ -174,6 +177,7 @@ export default {
     },
     showChart() {
       this.showVisualization = true
+      this.resetConfigViz = false
       this.$refs.viewer.toggleConfigPerspective();
     },
     showSavingDialog() {

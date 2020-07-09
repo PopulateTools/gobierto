@@ -48,17 +48,24 @@
       </div>
     </div>
     <div class="gobierto-data-visualization--aspect-ratio-16-9">
-      <Visualizations
-        ref="viewer"
-        :items="items"
-        :config="config"
-        @showSaving="showSavingDialog"
-        @selectedChart="typeChart = $event"
-      />
+      <template v-if="saveLoader">
+        <Loading />
+      </template>
+      <template v-else>
+        <Visualizations
+          v-if="items"
+          ref="viewer"
+          :items="items"
+          :config="config"
+          @showSaving="showSavingDialog"
+          @selectedChart="typeChart = $event"
+        />
+      </template>
     </div>
   </div>
 </template>
 <script>
+import { Loading } from "lib/vue-components";
 import Visualizations from "./../commons/Visualizations.vue";
 import SavingDialog from "./../commons/SavingDialog.vue";
 import Button from "./../commons/Button.vue";
@@ -69,7 +76,8 @@ export default {
   components: {
     Visualizations,
     SavingDialog,
-    Button
+    Button,
+    Loading
   },
   props: {
     datasetId: {
@@ -144,13 +152,19 @@ export default {
       queryViz: '',
       isVizElementSavingVisible: false,
       name: '',
-      isQuerySavingPromptVisible: false
+      isQuerySavingPromptVisible: false,
+      saveLoader: false
     }
   },
   watch: {
     vizInputFocus(newValue) {
       if (newValue) {
         this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
+      }
+    },
+    isVizSaved(newValue) {
+      if (newValue) {
+        this.saveLoader = false
       }
     }
   },
@@ -171,6 +185,7 @@ export default {
   },
   methods: {
     onSaveEventHandler(opts) {
+      this.saveLoader = true
       //Add visualization ID to opts object, we need it to update a viz saved
       opts.vizID = Number(this.vizID)
       opts.user = Number(this.user)

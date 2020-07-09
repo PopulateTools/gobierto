@@ -13,46 +13,51 @@
           </h3>
         </template>
         <div class="gobierto-data-visualization--grid">
-          <template v-if="privateVisualizations.length">
-            <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
-              <div
-                :key="id"
-                class="gobierto-data-visualization--container"
-              >
-                <router-link
-                  :to="`/datos/${$route.params.id}/v/${id}`"
-                  class="gobierto-data-visualizations-name"
-                  @click.native="loadViz(name, user_id)"
-                >
-                  <div class="gobierto-data-visualization--card">
-                    <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                      <div class="gobierto-data-visualization--content">
-                        <h4 class="gobierto-data-visualization--title">
-                          {{ name }}
-                        </h4>
-                        <Visualizations
-                          :items="items"
-                          :config="config"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </router-link>
-                <div class="gobierto-data-visualization--icons">
-                  <PrivateIcon
-                    :is-closed="privacy_status === 'closed'"
-                  />
-                  <i
-                    class="fas fa-trash-alt"
-                    style="color: var(--color-base); cursor: pointer;"
-                    @click.stop="emitDeleteHandlerVisualization(id)"
-                  />
-                </div>
-              </div>
-            </template>
+          <template v-if="deleteAndReload">
+            <Loading />
           </template>
           <template v-else>
-            <div>{{ labelVisEmpty }}</div>
+            <template v-if="privateVisualizations.length">
+              <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
+                <div
+                  :key="id"
+                  class="gobierto-data-visualization--container"
+                >
+                  <router-link
+                    :to="`/datos/${$route.params.id}/v/${id}`"
+                    class="gobierto-data-visualizations-name"
+                    @click.native="loadViz(name, user_id)"
+                  >
+                    <div class="gobierto-data-visualization--card">
+                      <div class="gobierto-data-visualization--aspect-ratio-16-9">
+                        <div class="gobierto-data-visualization--content">
+                          <h4 class="gobierto-data-visualization--title">
+                            {{ name }}
+                          </h4>
+                          <Visualizations
+                            :items="items"
+                            :config="config"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </router-link>
+                  <div class="gobierto-data-visualization--icons">
+                    <PrivateIcon
+                      :is-closed="privacy_status === 'closed'"
+                    />
+                    <i
+                      class="fas fa-trash-alt"
+                      style="color: var(--color-base); cursor: pointer;"
+                      @click.stop="emitDeleteHandlerVisualization(id)"
+                    />
+                  </div>
+                </div>
+              </template>
+            </template>
+            <template v-else>
+              <div>{{ labelVisEmpty }}</div>
+            </template>
           </template>
         </div>
       </Dropdown>
@@ -105,6 +110,7 @@
   </div>
 </template>
 <script>
+import { Loading } from "lib/vue-components";
 import Caret from "./../commons/Caret.vue";
 import Visualizations from "./../commons/Visualizations.vue";
 import PrivateIcon from './../commons/PrivateIcon.vue';
@@ -117,7 +123,8 @@ export default {
     Visualizations,
     PrivateIcon,
     Dropdown,
-    Caret
+    Caret,
+    Loading
   },
   props: {
     datasetId: {
@@ -152,6 +159,7 @@ export default {
       labelVisPublic: I18n.t("gobierto_data.projects.visPublic") || "",
       showPrivateVis: true,
       showPublicVis: true,
+      deleteAndReload: false,
     };
   },
   watch: {
@@ -160,6 +168,11 @@ export default {
     },
     isPublicVizLoading(newValue) {
       if (!newValue) this.removeAllIcons()
+    },
+    privateVisualizations(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.deleteAndReload = false
+      }
     }
   },
   methods: {
@@ -173,6 +186,7 @@ export default {
       }
     },
     emitDeleteHandlerVisualization(id) {
+      this.deleteAndReload = true
       this.$emit('emitDelete', id)
     },
     removeAllIcons() {

@@ -84,7 +84,7 @@ GEM
       algoliasearch (>= 1.26.0, < 2.0.0)
       json (>= 1.5.1)
     ansi (1.5.0)
-    appsignal (2.10.9)
+    appsignal (2.10.10)
       rack
     arel (9.0.0)
     ast (2.4.1)
@@ -136,10 +136,11 @@ GEM
     cloudinary (1.16.1)
       aws_cf_signer
       rest-client
-    codecov (0.1.17)
+    codecov (0.1.19)
+      colorize
       json
       simplecov
-      url
+    colorize (0.8.1)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.3)
     cookies_eu (1.7.6)
@@ -240,7 +241,7 @@ GEM
       thor (>= 0.14, < 2.0)
     js_cookie_rails (2.2.0)
       railties (>= 3.1)
-    json (2.3.0)
+    json (2.3.1)
     json_translate (4.0.0)
       activerecord (>= 4.2.0)
     jsonapi-renderer (0.2.2)
@@ -398,7 +399,7 @@ GEM
       actionpack (>= 5.0.0.1, < 6.1)
       activesupport (>= 5.0.0.1, < 6.1)
       addressable (~> 2.7)
-    rubocop (0.87.0)
+    rubocop (0.87.1)
       parallel (~> 1.10)
       parser (>= 2.7.1.1)
       rainbow (>= 2.2.2, < 4.0)
@@ -489,7 +490,6 @@ GEM
       unf_ext
     unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
-    url (0.3.2)
     vcr (6.0.0)
     wasabi (3.5.0)
       httpi (~> 2.0)

@@ -192,7 +192,8 @@ module GobiertoPlans
               assert has_content?(action_lines.first.name)
               assert has_content?("2 actions")
 
-              assert has_content?((published_projects.sum(:progress) / published_projects.count).to_i.to_s + "%")
+              # Progress divided by number of categories of next level
+              assert has_content?((published_projects.sum(:progress) / 2).to_i.to_s + "%")
             end
 
             assert has_selector?("h3", text: action_lines.first.name)

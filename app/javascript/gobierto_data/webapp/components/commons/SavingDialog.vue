@@ -18,7 +18,7 @@
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="showPrivatePublicIcon || showPrivatePublicIconViz">
+    <template v-if="showPrivateIcon">
       <PrivateIcon
         :is-closed="isPrivate"
         :style="{ paddingRight: '.5em', margin: 0 }"
@@ -44,7 +44,7 @@
     </template>
 
     <!-- only show if label name is set OR the prompt is visible -->
-    <template v-if="isQueryModified || isVizModified">
+    <template v-if="isQueryOrVizModified">
       <transition
         name="fade"
         mode="out-in"
@@ -237,6 +237,12 @@ export default {
     handlerInputQuery() {
        return (this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
     },
+    showPrivateIcon() {
+      return this.showPrivatePublicIcon || this.showPrivatePublicIconViz
+    },
+    isQueryOrVizModified() {
+      return this.isQueryModified || this.isVizModified
+    }
   },
   watch: {
     value(newValue, oldValue) {

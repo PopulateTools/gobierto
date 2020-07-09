@@ -241,7 +241,7 @@ export default {
       }
 
       //Update only the baseTitle of the dataset that is active
-      if (to.name === 'Dataset' && this._inactive === false) {
+      if (to.path !== from.path && to.name === 'Dataset' && this._inactive === false) {
         this.updateBaseTitle()
       }
       //FIXME: Hugo, we need to talk about this hack
@@ -336,8 +336,8 @@ export default {
     this.runCurrentQuery();
     this.setDefaultQuery();
     this.checkIfUserIsLogged();
-    this.updateBaseTitle()
     this.getAllVisualizations()
+    this.updateBaseTitle()
   },
   mounted() {
     const recentQueries = localStorage.getItem("recentQueries");
@@ -437,28 +437,26 @@ export default {
         }
       } = this.$route
       if (nameComponent === "Dataset" && this.titleDataset) {
-        this.$nextTick(() => {
-          let title
-          let tabTitle
+        let title
+        let tabTitle
 
-          const titleI18n = this.titleDataset
-            ? `${this.titleDataset} · `
-            : "";
+        const titleI18n = this.titleDataset
+          ? `${this.titleDataset} · `
+          : "";
 
-          if (tabName === 'editor') {
-            tabTitle = `${this.labelData} · `
-          } else if (tabName === 'consultas') {
-            tabTitle = `${this.labelQueries} · `
-          } else if (tabName === 'visualizaciones') {
-            tabTitle = `${this.labelVisualizations} · `
-          } else if (tabName === 'descarga') {
-            tabTitle = `${this.labelDownload} · `
-          } else {
-            tabTitle = `${this.labelSummary} · `
-          }
-          title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
-          document.title = title;
-        })
+        if (tabName === 'editor') {
+          tabTitle = `${this.labelData} · `
+        } else if (tabName === 'consultas') {
+          tabTitle = `${this.labelQueries} · `
+        } else if (tabName === 'visualizaciones') {
+          tabTitle = `${this.labelVisualizations} · `
+        } else if (tabName === 'descarga') {
+          tabTitle = `${this.labelDownload} · `
+        } else {
+          tabTitle = `${this.labelSummary} · `
+        }
+        title = `${titleI18n} ${tabTitle} ${this.pageTitle}`;
+        document.title = title;
       }
     },
     checkIfUserIsLogged() {
@@ -538,6 +536,8 @@ export default {
           this.privateVisualizations = await this.getDataFromVisualizations(
             data
           );
+        } else {
+          this.privateVisualizations = []
         }
       }
 
@@ -822,7 +822,7 @@ export default {
       //Changes the path depending on if we save a query or viz.
       const pathQueryOrViz = this.savingViz ? 'v' : 'q'
 
-      /*Don't updates the URL, only replace and don't reload, because in the editor we've two options, saved a query or viz, if the user saves a viz, and we update the URL, the browser reloads, and the user goes to visualization tab, and this behavior is too hacky.*/
+      /*Don't updates the URL if the component is Editor, only replace and don't reload, because in the editor we've two options, saved a query or viz, if the user saves a viz, and we update the URL, the browser reloads, and the user goes to visualization tab, and this behavior is too hacky.*/
       //https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
       history.pushState(
         {},

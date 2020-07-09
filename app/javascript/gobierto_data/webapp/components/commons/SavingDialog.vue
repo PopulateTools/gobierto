@@ -23,8 +23,8 @@
         :is-closed="isPrivate"
         :style="{ paddingRight: '.5em', margin: 0 }"
       />
-      <label
-        :for="labelPrivate"
+      <div
+        v-if="isQueryModified || isVizModified"
         class="gobierto-data-sql-editor-container-save-label"
       >
         <input
@@ -32,9 +32,15 @@
           :checked="isPrivate"
           type="checkbox"
           @input="onInputCheckboxHandler"
+          class="gobierto-data-sql-editor-container-save-label-input"
         >
-        {{ labelPrivate }}
-      </label>
+        <label
+          :for="labelPrivate"
+          class="gobierto-data-sql-editor-container-save-label-text"
+        >
+          {{ labelPrivate }}
+        </label>
+      </div>
     </template>
 
     <!-- only show if label name is set OR the prompt is visible -->
@@ -313,6 +319,7 @@ export default {
       let newWidth = inputValueLength * 7.5
       let maxWidth = 289.5
       let minWidth = 200
+      newWidth = newWidth > 290 ? maxWidth : newWidth
 
       //In the Visualizations view, we've more space, so we take advantage of it by increasing the input name width.
       if (this.$route.name === 'Visualization') {

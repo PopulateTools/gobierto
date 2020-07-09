@@ -28,7 +28,7 @@
         />
         <Button
           :text="labelEdit"
-          class="btn-sql-editor"
+          class="btn-sql-editor btn-sql-revert-query"
           icon="chart-area"
           background="#fff"
           @click.native="showChart"
@@ -100,6 +100,10 @@ export default {
       type: Array,
       default: () => []
     },
+    publicQueries: {
+      type: Array,
+      default: () => []
+    },
     isVizModified: {
       type: Boolean,
       default: false
@@ -129,6 +133,10 @@ export default {
       default: false
     },
     showPrivateViz: {
+      type: Boolean,
+      default: false
+    },
+    showPrivate: {
       type: Boolean,
       default: false
     }
@@ -232,7 +240,8 @@ export default {
       } = objectViz
 
       //Find the query associated to the visualization
-      const { attributes: { name: queryName } = {} } = this.privateQueries.find(({ id }) => id == queryID) || {}
+      const itemQueries = this.showPrivate ? this.privateQueries : this.publicQueries
+      const { attributes: { name: queryName } = {} } = itemQueries.find(({ id }) => id == queryID) || {}
 
       this.vizID = vizID
       this.queryID = queryID
@@ -251,7 +260,7 @@ export default {
       this.$root.$emit('enabledForkVizButton', false)
     },
     isPrivateChecked() {
-      this.$root.$emit('isVizModified', true)
+      this.$root.$emit('enableSavedVizButton', true)
     }
   }
 };

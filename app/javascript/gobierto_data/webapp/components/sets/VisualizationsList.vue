@@ -1,5 +1,5 @@
 <template>
-  <div class="gobierto-data-sets-nav--tab-container">
+  <div>
     <template v-if="isUserLogged">
       <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
         <template v-slot:trigger>
@@ -164,7 +164,10 @@ export default {
   },
   watch: {
     isPrivateVizLoading(newValue) {
-      if (!newValue) this.removeAllIcons()
+      if (!newValue) {
+        this.removeAllIcons()
+        this.deleteAndReload = false
+      }
     },
     isPublicVizLoading(newValue) {
       if (!newValue) this.removeAllIcons()
@@ -174,6 +177,9 @@ export default {
         this.deleteAndReload = false
       }
     }
+  },
+  mounted() {
+    this.removeAllIcons()
   },
   methods: {
     loadViz(vizName, user) {

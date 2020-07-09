@@ -60,6 +60,10 @@ module GobiertoAdmin
       @site ||= sites("cortegada")
     end
 
+    def other_site
+      @other_site ||= sites("madrid")
+    end
+
     def admin
       @admin ||= gobierto_admin_admins("nick")
     end
@@ -103,6 +107,40 @@ module GobiertoAdmin
         end
         assert has_message?("Signed in successfully")
       end
+    end
+
+    def test_valid_ldap_existing_manager_admin
+      GobiertoAdmin::Admin.manager.create(ldap_admin_credentials.except(:password))
+      with_current_site(site, include_host: true) do
+        visit @sign_in_path
+
+        assert has_content?("Identifier")
+
+        assert_no_difference "GobiertoAdmin::Admin.count" do
+          fill_in :session_identifier, with: ldap_admin_credentials[:email]
+          fill_in :session_password, with: ldap_admin_credentials[:password]
+          click_on "Submit"
+        end
+        assert has_message?("Signed in successfully")
+      end
+    end
+
+    def test_valid_ldap_existing_regular_admin_on_other_site
+      ldap_admin = GobiertoAdmin::Admin.regular.create(ldap_admin_credentials.except(:password))
+      ldap_admin.sites << other_site
+      with_current_site(site, include_host: true) do
+        visit @sign_in_path
+
+        assert has_content?("Identifier")
+
+        assert_no_difference "GobiertoAdmin::Admin.count" do
+          fill_in :session_identifier, with: ldap_admin_credentials[:email]
+          fill_in :session_password, with: ldap_admin_credentials[:password]
+          click_on "Submit"
+        end
+        assert has_message?("Signed in successfully")
+      end
+      assert_includes ldap_admin.sites, other_site
     end
 
     def test_invalid_ldap_existing_admin_invalid_password

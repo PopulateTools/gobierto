@@ -990,6 +990,7 @@ export default {
       this.isVizModified = true
       this.showPrivatePublicIconViz = true
       this.isVizSavingPromptVisible = true
+      this.isVizSaved = false
     }
   },
 };

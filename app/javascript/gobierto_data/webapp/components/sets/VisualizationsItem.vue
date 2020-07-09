@@ -195,7 +195,7 @@ export default {
       this.$root.$emit('updateVizName')
     },
     showChart() {
-      this.$root.$emit('disabledSavedVizString')
+      this.$root.$emit('showSavedVizString', false)
       this.$refs.viewer.toggleConfigPerspective();
     },
     showSavingDialog() {

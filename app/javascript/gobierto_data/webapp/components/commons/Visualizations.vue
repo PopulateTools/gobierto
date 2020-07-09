@@ -105,6 +105,7 @@ export default {
       return this.viewer.save()
     },
     toggleConfigPerspective() {
+      this.$root.$emit('showSavedVizString', false)
       this.viewer.toggleConfig()
       //Enable save button when user interacts with Perspective columns
       const itemPerspective = document.querySelector('perspective-viewer').shadowRoot

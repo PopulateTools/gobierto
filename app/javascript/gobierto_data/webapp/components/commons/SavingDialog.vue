@@ -87,7 +87,6 @@
       v-if="showForkButton"
       :text="labelFork"
       :title="labelButtonFork"
-      :disabled="!isDisabledFork"
       icon="code-branch"
       background="#fff"
       class="btn-sql-editor"

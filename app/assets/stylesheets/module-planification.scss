@@ -647,7 +647,6 @@ $nodeLevel1HeightMobile: 20vh;
 
   .planification-table {
     width: 100%;
-    position: relative;
 
     &__th {
       border-top: 0;
@@ -655,8 +654,9 @@ $nodeLevel1HeightMobile: 20vh;
       text-transform: uppercase;
       font-weight: bold;
       font-size: $f6;
-      padding: 0 0 0.25rem;
+      padding: 0 0.5rem 0.25rem 0;
       cursor: pointer;
+      text-align: left;
 
       .sort-icon {
         color: var(--color-base);
@@ -670,11 +670,15 @@ $nodeLevel1HeightMobile: 20vh;
         flex-direction: row;
       }
 
-      &:last-child .planification-table__th-content {
-        flex-direction: row-reverse;
+      &:last-child {
+        padding: 0 0 0.25rem;
 
-        .sort-icon {
-          margin-right: 0.5rem;
+        .planification-table__th-content {
+          flex-direction: row-reverse;
+  
+          .sort-icon {
+            margin-right: 0.5rem;
+          }
         }
       }
     }
@@ -683,7 +687,7 @@ $nodeLevel1HeightMobile: 20vh;
       border: 0;
       font-size: $f5;
       text-transform: uppercase;
-      padding: 0.5rem 0;
+      padding: 0.5rem 0.5rem 0.5rem 0;
 
       i {
         color: var(--color-base);
@@ -691,13 +695,14 @@ $nodeLevel1HeightMobile: 20vh;
 
       &:last-child {
         text-align: right;
+        padding: 0.5rem 0;
       }
     }
 
     &__td--alt {
       border: 0;
       font-size: $f7;
-      padding: 0.5rem 0;
+      padding: 0.5rem 0.5rem 0.5rem 0;
       font-weight: normal;
 
       &.is-selected {
@@ -706,6 +711,7 @@ $nodeLevel1HeightMobile: 20vh;
 
       &:last-child {
         text-align: right;
+        padding: 0.5rem 0;
       }
     }
 
@@ -728,6 +734,15 @@ $nodeLevel1HeightMobile: 20vh;
 
     &__container {
       width: 100%;
+    }
+
+    &__wrapper {
+      width: 100%;
+      position: relative;
+
+      > div {
+        overflow-x: auto;
+      }
     }
 
     &__header {

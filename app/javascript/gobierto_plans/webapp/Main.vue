@@ -14,7 +14,7 @@
       </template>
     </Header>
 
-    <ButtonFilters />
+    <ButtonFilters :options="options" />
 
     <router-view
       :json="json"

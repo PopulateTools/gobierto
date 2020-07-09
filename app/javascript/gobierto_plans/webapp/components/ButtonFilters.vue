@@ -28,6 +28,12 @@ export default {
   filters: {
     translate
   },
+  props: {
+    options: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data() {
     return {
       buttons: [],
@@ -37,9 +43,11 @@ export default {
   },
   created() {
     const { meta } = PlansStore.state
+    const { fields_to_show_as_filters = [] } = this.options
+
     this.buttons = meta.reduce((acc, { attributes }) => {
       const { uid, field_type, name_translations } = attributes
-      if (field_type === 'vocabulary_options') {
+      if (field_type === 'vocabulary_options' && fields_to_show_as_filters.includes(uid)) {
         acc.push({ id: uid, name: name_translations })
       }
       return acc

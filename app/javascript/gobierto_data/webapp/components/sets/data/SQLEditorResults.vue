@@ -8,7 +8,7 @@
         <Button
           v-if="showResetViz && isUserLogged"
           :title="labelResetViz"
-          class="btn-sql-editor"
+          class="btn-sql-editor btn-sql-revert-query"
           icon="home"
           background="#fff"
           @click.native="resetViz"
@@ -33,8 +33,10 @@
           :is-viz-saved="isVizSaved"
           :is-user-logged="isUserLogged"
           :enabled-viz-saved-button="enabledVizSavedButton"
+          :show-private-public-icon-viz="showPrivatePublicIconViz"
           @save="onSaveEventHandler"
           @keyDownInput="updateVizNameHandler"
+          @isPrivateChecked="isPrivateChecked"
         />
       </div>
       <div
@@ -56,6 +58,7 @@
         ref="viewer"
         :items="items"
         :type-chart="typeChart"
+        :reset-config-viz="resetConfigViz"
         :array-columns-query="arrayColumnsQuery"
         @showSaving="showSavingDialog"
         @selectedChart="typeChart = $event"
@@ -117,6 +120,10 @@ export default {
     vizInputFocus: {
       type: Boolean,
       default: false
+    },
+    showPrivatePublicIconViz: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -132,6 +139,7 @@ export default {
       showVisualize: true,
       removeLabelBtn: false,
       perspectiveChanged: false,
+      resetConfigViz: false,
       typeChart: 'hypergrid',
     };
   },
@@ -160,6 +168,7 @@ export default {
       this.showVisualize = true
       this.perspectiveChanged = false
       this.showResetViz = false
+      this.resetConfigViz = true
       this.typeChart = 'hypergrid'
 
       this.$refs.viewer.toggleConfigPerspective();
@@ -168,6 +177,7 @@ export default {
     },
     showChart() {
       this.showVisualization = true
+      this.resetConfigViz = false
       this.$refs.viewer.toggleConfigPerspective();
     },
     showSavingDialog() {
@@ -176,6 +186,9 @@ export default {
       this.showResetViz = true
       this.$root.$emit('showSavingDialogEvent')
       this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
+    },
+    isPrivateChecked() {
+      this.$root.$emit('eventIsVizModified', true)
     }
   },
 };

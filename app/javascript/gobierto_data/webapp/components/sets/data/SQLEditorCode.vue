@@ -132,7 +132,7 @@ export default {
       this.$root.$emit('enableSavedButton')
       this.$root.$emit('enabledForkPrompt')
       this.$root.$emit('enabledRevertButton')
-      this.$root.$emit('disabledStringSavedQuery')
+      this.$root.$emit('showStringSavedQuery', false)
       this.$root.$emit("isQuerySavingPromptVisible", true);
     },
     onChange(editor) {

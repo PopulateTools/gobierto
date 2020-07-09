@@ -12,7 +12,6 @@
             </template>
           </h3>
         </template>
-
         <div class="gobierto-data-visualization--grid">
           <template v-if="isPrivateVizLoading">
             <Loading />
@@ -22,7 +21,7 @@
             <template v-if="privateVisualizations.length">
               <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
                 <div
-                  :key="name"
+                  :key="id"
                   class="gobierto-data-visualization--container"
                 >
                   <router-link
@@ -85,7 +84,7 @@
         <template v-else>
           <template v-if="publicVisualizations.length">
             <template v-for="{ items, config, name, id, user_id } in publicVisualizations">
-              <div :key="name">
+              <div :key="id">
                 <router-link
                   :to="`/datos/${$route.params.id}/v/${id}`"
                   class="gobierto-data-visualizations-name"
@@ -169,8 +168,20 @@ export default {
       showPublicVis: true,
     };
   },
+  watch: {
+    isPrivateVizLoading(newValue) {
+      if (!newValue) this.removeAllIcons()
+    },
+    isPublicVizLoading(newValue) {
+      if (!newValue) this.removeAllIcons()
+    }
+  },
+  mounted() {
+    this.removeAllIcons()
+  },
   methods: {
     loadViz(vizName, user) {
+      document.getElementById('gobierto-datos-app').scrollIntoView();
       const userId = Number(getUserId())
       this.$emit('changeViz', 1)
       this.$root.$emit('loadVizName', vizName)
@@ -180,6 +191,17 @@ export default {
     },
     emitDeleteHandlerVisualization(id) {
       this.$emit('emitDelete', id)
+    },
+    removeAllIcons() {
+      /*Method to remove the config icon for all visualizations, we need to wait to load both lists when they are loaded, we select alls visualizations, and iterate over them with a loop to remove every icon.*/
+      if (!this.isPrivateVizLoading && !this.isPublicVizLoading) {
+        this.$nextTick(() => {
+          let vizList = document.querySelectorAll("perspective-viewer");
+          for (let index = 0; index < vizList.length; index++) {
+            vizList[index].shadowRoot.querySelector("div#config_button").style.display = "none";
+          }
+        })
+      }
     }
   }
 };

@@ -24,9 +24,11 @@ const locale = d3.formatDefaultLocale({
 const zeroPad = (num, places) => String(num).padStart(places, '0')
 
 function getSQLMonthFilter() {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = zeroPad(today.getUTCMonth() + 1, 2);
+  //FIXME: JavaScript date
+  const month = '06';
+  const year = '2020';
+  /*const year = today.getFullYear();*/
+  /*const month = zeroPad(today.getUTCMonth() + 1, 2);*/
 
   return ` WHERE to_char(fecha, 'YYYY-MM') = '${year}-${month}'`;
 }

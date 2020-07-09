@@ -118,9 +118,7 @@ module GobiertoAdmin
         private
 
         def touch_instance
-          return unless @custom_field_form&.instance&.present?
-
-          @custom_field_form.instance.touch
+          @custom_field_form&.instance&.touch
         end
 
         def check_permissions!

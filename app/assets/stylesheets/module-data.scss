@@ -9,13 +9,6 @@
   --shadow: 0 2px 20px rgba(0, 0, 0, .3);
 }
 
-.gobierto-filter-checkbox {
-  &:last-child {
-    padding-bottom: 1em;
-    border-bottom: 1px solid hsla(0, 0, 59.2%, .5);
-  }
-}
-
 .gobierto-data {
 
   padding-top: 1rem;
@@ -1039,6 +1032,11 @@
 
   &-filters {
     width: 100%;
+  }
+
+  &-filters-element {
+    padding-bottom: 1em;
+    border-bottom: 1px solid hsla(0, 0, 59.2%, .5);
   }
 
   &-filters-element-no-margin {

@@ -15,6 +15,7 @@
         <router-view
           :key="$route.params.id"
           :all-datasets="subsetItems"
+          :page-title="pageTitle"
         />
       </keep-alive>
     </template>
@@ -36,7 +37,8 @@ export default {
   mixins: [CategoriesMixin, FiltersMixin],
   data() {
     return {
-      activeSidebarTab: 0
+      activeSidebarTab: 0,
+      pageTitle: ''
     }
   },
   watch: {
@@ -49,6 +51,7 @@ export default {
   created() {
     this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus)
     this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked)
+    this.pageTitle = document.title
   },
   deactivated() {
     this.$root.$off("sendCheckbox_TEMP")

@@ -1,6 +1,9 @@
 <template>
   <div class="gobierto-data-sql-editor">
-    <template v-if="checkVisualizationsItems">
+    <template v-if="isPrivateVizLoading">
+      <Loading />
+    </template>
+    <template v-else>
       <div class="pure-g">
         <div
           class="pure-u-1 pure-u-lg-4-4"
@@ -46,6 +49,7 @@
   </div>
 </template>
 <script>
+import { Loading } from "lib/vue-components";
 import Visualizations from "./../commons/Visualizations.vue";
 import SavingDialog from "./../commons/SavingDialog.vue";
 import Button from "./../commons/Button.vue";
@@ -57,7 +61,8 @@ export default {
   components: {
     Visualizations,
     SavingDialog,
-    Button
+    Button,
+    Loading
   },
   props: {
     datasetId: {
@@ -99,12 +104,11 @@ export default {
     vizInputFocus: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    checkVisualizationsItems() {
-      return (this.privateVisualizations.length && this.items) || (this.publicVisualizations.length && this.items)
-    }
+    },
+    isPrivateVizLoading: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {
@@ -126,6 +130,11 @@ export default {
       tabs
     }
   },
+  computed: {
+    checkVisualizationsItems() {
+      return (this.privateVisualizations.length && this.items) || (this.publicVisualizations.length && this.items)
+    }
+  },
   watch: {
     publicVisualizations(newValue, oldValue) {
       if (newValue !== oldValue) {
@@ -140,6 +149,12 @@ export default {
     vizInputFocus(newValue) {
       if (newValue) {
         this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
+      }
+    },
+    async $route(to, from) {
+      if (to.path !== from.path) {
+        await this.getDataVisualization(this.privateVisualizations);
+        await this.getDataVisualization(this.publicVisualizations);
       }
     }
   },
@@ -162,7 +177,7 @@ export default {
       //Add visualization ID to opts object, we need it to update a viz saved
       opts.vizID = Number(this.vizID)
       opts.user = Number(this.user)
-      opts.queryViz = Number(this.queryViz)
+      opts.queryViz = this.queryViz
       // get children configuration
       const config = this.$refs.viewer.getConfig()
 
@@ -180,7 +195,6 @@ export default {
       this.$refs.viewer.toggleConfigPerspective();
     },
     showSavingDialog() {
-      const userId = getUserId()
       this.showVisualize = false
       this.showResetViz = true
       //Enable saved button

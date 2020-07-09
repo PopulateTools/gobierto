@@ -3,7 +3,6 @@
     <div class="planification-table__header">
       <TableBreadcrumb :groups="groups" />
       <TableColumnsSelector
-        v-clickoutside="hideTableColumnsSelector"
         :columns="selectedColumns"
         @toggle-visibility="toggleVisibility"
       />
@@ -55,6 +54,7 @@
         >
           <Project
             :key="currentId"
+            v-clickoutside="hideProject"
             :model="activeNode"
             :options="options"
           />
@@ -110,7 +110,7 @@ export default {
       map: new Map(),
       mapTracker: 1,
       currentSortColumn: null,
-      activeNode: null,
+      activeNode: null
     };
   },
   computed: {
@@ -127,6 +127,16 @@ export default {
     },
     selectedColumns() {
       return this.mapTracker && Array.from(this.map)
+    }
+  },
+  watch: {
+    activeNode(newVal, oldVal) {
+      /**
+       * disable directive in two cases:
+       * 1. there's no former activeNode, i.e. Project component is unmounted
+       * 2. both newVal and oldVal has value, i.e. it's clicking in a different project
+       */
+      this.disableClickOutsideDirective = (oldVal === null || (newVal && oldVal))
     }
   },
   created() {
@@ -195,9 +205,11 @@ export default {
       this.mapTracker += 1;
     },
     hideProject() {
-      // TODO: repasar esto
-      if (this.activeNode) {
+      // If the directive is not disable, we clean the activeNode, otherwise, we activate it
+      if (!this.disableClickOutsideDirective) {
         this.activeNode = null
+      } else {
+        this.disableClickOutsideDirective = false
       }
     },
     hideTableColumnsSelector() {}

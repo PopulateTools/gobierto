@@ -1,5 +1,8 @@
 <template>
-  <div class="planification-table__column-selector">
+  <div
+    v-clickoutside="showModal"
+    class="planification-table__column-selector"
+  >
     <div
       class="planification-table__column-selector__trigger"
       @click="showColumnsModal = !showColumnsModal"
@@ -28,11 +31,15 @@
 <script>
 import { NamesMixin } from "../lib/mixins/names";
 import { Checkbox } from "lib/vue-components";
+import { clickoutside } from "lib/shared"
 
 export default {
   name: "TableColumnsSelector",
   components: {
     Checkbox
+  },
+  directives: {
+    clickoutside
   },
   mixins: [NamesMixin],
   props: {
@@ -48,6 +55,11 @@ export default {
     }
   },
   methods: {
+    showModal() {
+      if (this.showColumnsModal) {
+        this.showColumnsModal = false
+      }
+    },
     toggleVisibility(column) {
       this.$emit('toggle-visibility', column)
     }

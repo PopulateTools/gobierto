@@ -140,7 +140,7 @@ export default {
       removeLabelBtn: false,
       perspectiveChanged: false,
       resetConfigViz: false,
-      typeChart: 'hypergrid',
+      typeChart: 'datagrid',
     };
   },
   watch: {
@@ -169,7 +169,7 @@ export default {
       this.perspectiveChanged = false
       this.showResetViz = false
       this.resetConfigViz = true
-      this.typeChart = 'hypergrid'
+      this.typeChart = 'datagrid'
 
       this.$refs.viewer.toggleConfigPerspective();
       this.$refs.viewer.setColumns();

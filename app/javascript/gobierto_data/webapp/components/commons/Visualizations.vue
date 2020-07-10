@@ -7,7 +7,7 @@
 <script>
 import perspective from "@finos/perspective";
 import "@finos/perspective-viewer";
-import "@finos/perspective-viewer-hypergrid";
+import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
 import "@finos/perspective-viewer/themes/all-themes.css";
 
@@ -85,6 +85,7 @@ export default {
 
       this.viewer.load(data);
       if (this.config) {
+        console.log("this.config", this.config);
         this.viewer.restore(this.config);
         //Perspective can't restore row_pivots, column_pivots and computed_columns, so we need to check if visualization config contains some of these values, if contain them we've need to include these values to viewer
         this.loadPivots('column-pivots', this.config.column_pivots)

@@ -1130,6 +1130,7 @@
     width: 95%;
     height: 100%;
     background-color: transparent;
+
   }
 
   &-description {
@@ -1214,4 +1215,23 @@
     }
   }
 
+}
+
+perspective-viewer regular-table {
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+
+  th {
+    min-width: 100px !important;
+    width: auto !important;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  td,
+  th {
+    padding: .25rem;
+  }
 }

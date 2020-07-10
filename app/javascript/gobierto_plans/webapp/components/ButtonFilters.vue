@@ -3,6 +3,7 @@
     <router-link
       :to="{ path: $root.$data.baseurl }"
       class="planification-buttons__button"
+      :class="{ 'is-active': isComponentHome }"
       tag="button"
     >
       {{ labelViewBy }} <strong>{{ labelCategory }}</strong>
@@ -12,6 +13,7 @@
       :key="id"
       :to="{ path: `${$root.$data.baseurl}/tabla/${id}` }"
       class="planification-buttons__button"
+      :class="{ 'is-active': id === currentId }"
       tag="button"
     >
       {{ labelViewBy }} <strong>{{ name | translate }}</strong>
@@ -39,6 +41,15 @@ export default {
       buttons: [],
       labelViewBy: I18n.t("gobierto_plans.plan_types.show.view_by") || '',
       labelCategory: I18n.t("gobierto_plans.plan_types.show.category") || ''
+    }
+  },
+  computed: {
+    currentId() {
+      const { id } = this.$route.params
+      return id
+    },
+    isComponentHome() {
+      return ['home', 'categories', 'projects'].includes(this.$route.name)
     }
   },
   created() {

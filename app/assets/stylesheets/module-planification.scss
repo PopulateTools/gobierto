@@ -152,7 +152,7 @@ $nodeLevel1HeightMobile: 20vh;
         text-transform: uppercase;
       }
 
-      &.router-link-exact-active,
+      &.is-active,
       &:hover {
         background: var(--color-base);
         color: $color_main_negative;

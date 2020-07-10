@@ -784,6 +784,7 @@ $nodeLevel1HeightMobile: 20vh;
         text-transform: uppercase;
         font-size: $f6;
         font-weight: bold;
+        cursor: pointer;
       }
 
       &-term {
@@ -791,29 +792,12 @@ $nodeLevel1HeightMobile: 20vh;
         font-size: $f5;
         text-decoration: none;
         color: var(--color-base);
-        cursor: pointer;
         display: flex;
         align-items: baseline;
-
-        span {
-          text-decoration: underline;
-        }
       }
 
       &-arrow {
         opacity: 0.5;
-      }
-
-      &-times {
-        font-size: $f6;
-        margin-left: 1rem;
-        opacity: 0;
-        transition: opacity 250ms;
-        text-decoration: none;
-      }
-      
-      &-term:hover .planification-table__breadcrumb-times {
-        opacity: 1;
       }
     }
 
@@ -862,7 +846,7 @@ $nodeLevel1HeightMobile: 20vh;
     width: 100%;
 
     @include min-screen(768) {
-      width: 60vw;
+      width: 50%;
     }
   }
 

@@ -1,16 +1,14 @@
 <template>
   <div class="planification-table__breadcrumb">
-    <span class="planification-table__breadcrumb-group">
-      {{ uid }}
-    </span>
-    <i class="planification-table__breadcrumb-arrow fas fa-arrow-right" />
-    <router-link
-      :to="{ name: 'table', params: { ...params } }"
-      class="planification-table__breadcrumb-term"
-    >
-      <span>{{ termId }}</span>
-      <i class="planification-table__breadcrumb-times fas fa-times" />
+    <router-link :to="{ name: 'table', params: { ...params } }">
+      <span class="planification-table__breadcrumb-group">
+        {{ uid }}
+      </span>
     </router-link>
+    <i class="planification-table__breadcrumb-arrow fas fa-arrow-right" />
+    <span class="planification-table__breadcrumb-term">
+      {{ termId }}
+    </span>
   </div>
 </template>
 

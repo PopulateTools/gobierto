@@ -56,7 +56,7 @@ export default {
     const [
       { data: { data: plan } = {} } = {},
       { data: { data: projects } = {} } = {},
-      { data: { data: meta } = {} } = {},
+      { data: { data: meta } = {} } = {}
     ] = await Promise.all([
       this.getPlan(PLAN_ID),
       this.getProjects(PLAN_ID),
@@ -65,7 +65,7 @@ export default {
 
     const {
       attributes: {
-        configuration_data: options,
+        configuration_data: options = {},
         categories_vocabulary_terms: categories,
         statuses_vocabulary_terms: status
       }
@@ -113,8 +113,13 @@ export default {
       // get the deepest category level, plus one to set the project level
       const lastLevel =
         Math.max(...categoriesWithLevel.map(({ level }) => level)) + 1;
-      // populate projects with another extra level
-      const projectsWithLevel = projects.map(d => ({ ...d, level: lastLevel, progress: d.attributes.progress }));
+      // populate the projects with another extra level, its progress, and the number of projects (always 1)
+      const projectsWithLevel = projects.map(d => ({
+        ...d,
+        level: lastLevel,
+        progress: d.attributes.progress,
+        projects: 1
+      }));
       // merge both arrays
       const data = [...categoriesWithLevel, ...projectsWithLevel];
       // group them by level
@@ -149,9 +154,21 @@ export default {
                   );
 
             /**
+             * calculate the number of projects a category has
+             * last-category: their children
+             *
+             */
+            const projects =
+              item.level === lastLevel
+                ? 1
+                : item.level === lastLevel - 1
+                ? children.length
+                : children.reduce((acc, { projects: p }) => acc + p, 0);
+
+            /**
              * calculate which are its progress
              * project: get the attribute progress
-             * others: arithmethic mean of its children
+             * others: arithmethic mean of their children projects
              */
             const progress =
               item.level === lastLevel
@@ -161,7 +178,8 @@ export default {
             acc.push({
               ...item,
               progress,
-              ...(children && { children })
+              ...(children && { children }),
+              ...(projects !== undefined && { projects })
             });
           }
           return acc;
@@ -186,7 +204,8 @@ export default {
       if (!data.length) return 0;
 
       const sum = data.reduce((acc, { progress }) => acc + progress, 0);
-      return sum / data.length;
+      const total = data.reduce((acc, { projects }) => acc + projects, 0);
+      return total === 0 ? 0 : sum / total;
     },
     setRootId(item, ix) {
       if ((item.children || []).length) {

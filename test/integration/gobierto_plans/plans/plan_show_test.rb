@@ -81,11 +81,7 @@ module GobiertoPlans
           assert has_selector?("div.node-root", count: axes.count)
 
           axes.each_with_index do |axe, index|
-            assert has_selector?("div.node-root.cat_#{index + 1}")
-
-            within "div.node-root.cat_#{index + 1}" do
-              assert has_content?(axe.name.to_s)
-            end
+            assert has_content?(axe.name.to_s)
           end
         end
 
@@ -142,16 +138,12 @@ module GobiertoPlans
         visit @path
 
         within "section.level_0" do
-          within "div.node-root.cat_1" do
-            find("a").click
-          end
+          first("div", text: axes.first.name).click
         end
 
         within ".planification-content" do
-          within "section.level_1.cat_1" do
-            within ".lines-header" do
-              assert has_content?("1 line of action")
-            end
+          within "section.level_1" do
+            assert has_content?("1 line of action")
 
             within ".lines-list" do
               assert has_content?(action_lines.first.name)
@@ -164,7 +156,7 @@ module GobiertoPlans
             find("h3", text: action_lines.first.name).click
           end
 
-          within "section.level_2.cat_1" do
+          within "section.level_2" do
             assert has_content?(action_lines.first.name)
 
             within "ul.action-line--list" do
@@ -187,13 +179,11 @@ module GobiertoPlans
         visit @path
 
         within "section.level_0" do
-          within "div.node-root.cat_1" do
-            find("a").click
-          end
+          first("div", text: axes.first.name).click
         end
 
         within ".planification-content" do
-          within "section.level_1.cat_1" do
+          within "section.level_1" do
             within ".lines-header" do
               assert has_content?("1 line of action")
             end
@@ -202,14 +192,15 @@ module GobiertoPlans
               assert has_content?(action_lines.first.name)
               assert has_content?("2 actions")
 
-              assert has_content?((published_projects.sum(:progress) / published_projects.count).to_i.to_s + "%")
+              # Progress divided by number of categories of next level
+              assert has_content?((published_projects.sum(:progress) / 2).to_i.to_s + "%")
             end
 
             assert has_selector?("h3", text: action_lines.first.name)
             find("h3", text: action_lines.first.name).click
           end
 
-          within "section.level_2.cat_1" do
+          within "section.level_2" do
             assert has_content?(action_lines.first.name)
 
             within "ul.action-line--list" do
@@ -231,17 +222,15 @@ module GobiertoPlans
         visit @path
 
         within "section.level_0" do
-          within "div.node-root.cat_1" do
-            find("a").click
-          end
+          first("div", text: axes.first.name).click
         end
 
         within ".planification-content" do
-          within "section.level_1.cat_1" do
+          within "section.level_1" do
             find("h3", text: action_lines.first.name).click
           end
 
-          within "section.level_2.cat_1" do
+          within "section.level_2" do
             within "ul.action-line--list" do
               find("h3", text: actions.first.name).click
               assert has_no_selector?("thead", count: 1)
@@ -256,17 +245,17 @@ module GobiertoPlans
         visit @path
 
         within "section.level_0" do
-          within "div.node-root.cat_1" do
-            find("a").click
+          within "div.node-root", match: :first do
+            find("h3", text: axes.first.name).click
           end
         end
 
         within ".planification-content" do
-          within "section.level_1.cat_1" do
+          within "section.level_1" do
             find("h3", text: action_lines.first.name).click
           end
 
-          within "section.level_2.cat_1" do
+          within "section.level_2" do
             within "ul.action-line--list" do
               find("h3", text: actions.first.name).click
               Capybara.using_wait_time(2) { assert has_selector?("thead", count: 1) }
@@ -285,23 +274,24 @@ module GobiertoPlans
         plan.update_attribute(:configuration_data, JSON.pretty_generate(hash))
 
         within "section.level_0" do
-          within "div.node-root.cat_1" do
-            find("a").click
+          within "div.node-root", match: :first  do
+            find("h3", text: axes.first.name).click
           end
         end
 
         within ".planification-content" do
-          within "section.level_1.cat_1" do
+          within "section.level_1" do
             find("h3", text: action_lines.first.name).click
           end
 
-          within "section.level_2.cat_1" do
+          within "section.level_2" do
             within "ul.action-line--list" do
               find("h3", text: actions.last.name).click
             end
             assert has_selector?("div.node-breadcrumb")
 
             within "ul.action-line--list" do
+            assert has_content?(published_projects.first.name)
               find("td", text: published_projects.first.name).click
             end
           end
@@ -337,13 +327,13 @@ module GobiertoPlans
         visit @path
 
         within "section.level_0" do
-          within "div.node-root.cat_1" do
-            find("a").click
+          within "div.node-root", match: :first do
+            find("h3", text: axes.first.name).click
           end
         end
 
         within ".planification-content" do
-          within "section.level_1.cat_1" do
+          within "section.level_1" do
             within ".lines-header" do
               assert has_content?("1 item of level 3")
             end
@@ -359,7 +349,7 @@ module GobiertoPlans
             find("h3", text: action_lines.last.name).click
           end
 
-          within "section.level_2.cat_1" do
+          within "section.level_2" do
             assert has_content?(action_lines.last.name)
 
             within "ul.action-line--list" do

@@ -2,6 +2,7 @@
   <div class="node-action-line">
     <div class="action-line--header node-list cat--negative">
       <h3>{{ title }}</h3>
+      <slot />
     </div>
 
     <div class="node-project-detail">

@@ -74,7 +74,14 @@
             v-clickoutside="hideProject"
             :model="activeNode"
             :options="options"
-          />
+          >
+            <div
+              class="planification-floating-project__times"
+              @click="hideProject"
+            >
+              <i class="fas fa-times" />
+            </div>
+          </Project>
         </section>
       </transition>
     </div>

@@ -86,10 +86,5 @@ In order to generate more custom categories, refer to https://gobierto.readme.io
     .cat--negative h3 a {
       color: $color_main_negative;
     }
-
-    .cat--negative .fas {
-      background: $color_main_negative;
-      color: rgba(var(--category), 1);
-    }
   }
 }

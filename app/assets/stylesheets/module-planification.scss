@@ -283,7 +283,7 @@ $nodeLevel1HeightMobile: 20vh;
     @include flexbox(1rem);
 
     > :not(:first-child) {
-      flex: 1;
+      flex: 1 0 auto;
       text-align: right;
     }
 
@@ -847,6 +847,11 @@ $nodeLevel1HeightMobile: 20vh;
 
     @include min-screen(768) {
       width: 50%;
+    }
+
+    &__times {
+      position: relative;
+      cursor: pointer;
     }
   }
 

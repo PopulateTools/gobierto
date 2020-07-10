@@ -83,6 +83,7 @@
 
 <script>
 import { NamesMixin } from "../lib/mixins/names";
+import { TableHeaderMixin } from "../lib/mixins/table-header";
 import { findRecursive } from "../lib/helpers";
 import SortIcon from "../components/SortIcon";
 import NumberLabel from "../components/NumberLabel";
@@ -108,7 +109,7 @@ export default {
   directives: {
     clickoutside
   },
-  mixins: [NamesMixin],
+  mixins: [NamesMixin, TableHeaderMixin],
   props: {
     json: {
       type: Array,
@@ -126,10 +127,8 @@ export default {
   data() {
     return {
       lastLevel: 0,
-      projectsSorted: [],
-      map: new Map(),
+      children: [],
       mapTracker: 1,
-      currentSortColumn: null,
       activeNode: null
     };
   },
@@ -147,6 +146,21 @@ export default {
     },
     selectedColumns() {
       return this.mapTracker && Array.from(this.map)
+    },
+    projectsSorted() {
+      const id = this.currentSortColumn;
+      const sort = this.currentSort;
+      return this.children
+        .slice()
+        .sort(({ attributes: { [id]: termA } }, { attributes: { [id]: termB } }) =>
+          sort === "up"
+            ? typeof termA === "string"
+              ? termA.localeCompare(termB)
+              : termA > termB
+            : typeof termA === "string"
+              ? termB.localeCompare(termA)
+              : termA < termB
+        );
     }
   },
   watch: {
@@ -165,7 +179,7 @@ export default {
     const { last_level } = this.options;
 
     this.lastLevel = last_level;
-    this.projectsSorted = children;
+    this.children = children;
 
     // get the object with the biggest amount of attributes (they'll be the available columns)
     const { attributes } = children.reduce((a, b) =>
@@ -187,32 +201,13 @@ export default {
       if (name) {
         this.map.set(key, [
           name,
-          "up",
+          this.currentSort,
           this.natives.has(key)
         ]);
       }
     });
   },
   methods: {
-    handleTableHeaderClick(id) {
-      const [name, order] = this.map.get(id);
-      this.currentSortColumn = id;
-
-      // toggle sort order
-      const currentSort = order === "up" ? "down" : "up";
-      // update the order for the item clicked
-      this.map.set(id, [name, currentSort]);
-      // change the order based on the currentSort
-      this.projectsSorted.sort(
-        ({ attributes: { [id]: termA } }, { attributes: { [id]: termB } }) =>
-          currentSort === "up" ? termA > termB : termA < termB
-      );
-    },
-    getSorting(column) {
-      // ignore the first item of the tuple
-      const [, order] = this.map.get(column);
-      return order;
-    },
     setCurrentProject(id) {
       const { id: prevId } = this.activeNode || {};
       this.activeNode = id === prevId ? null : findRecursive(this.json, id);
@@ -231,8 +226,7 @@ export default {
       } else {
         this.disableClickOutsideDirective = false
       }
-    },
-    hideTableColumnsSelector() {}
+    }
   }
 };
 </script>

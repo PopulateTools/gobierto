@@ -53,6 +53,7 @@ import NumberLabel from "../components/NumberLabel";
 import SortIcon from "../components/SortIcon";
 import { percent } from "lib/shared";
 import { NamesMixin } from "../lib/mixins/names";
+import { TableHeaderMixin } from "../lib/mixins/table-header";
 
 export default {
   name: "GroupsByTerm",
@@ -63,7 +64,7 @@ export default {
   filters: {
     percent
   },
-  mixins: [NamesMixin],
+  mixins: [NamesMixin, TableHeaderMixin],
   props: {
     json: {
       type: Array,
@@ -82,15 +83,27 @@ export default {
     return {
       labelProgress: I18n.t("gobierto_plans.plan_types.show.progress") || "",
       columns: [],
-      termsSorted: [],
-      map: new Map(),
       lastLevel: 0,
-      currentSortColumn: null
     };
   },
   computed: {
     params() {
       return this.$route.params;
+    },
+    termsSorted() {
+      const id = this.currentSortColumn;
+      const sort = this.currentSort;
+      return this.groups
+        .slice()
+        .sort(({ [id]: termA }, { [id]: termB }) =>
+          sort === "up"
+            ? typeof termA === "string"
+              ? termA.localeCompare(termB)
+              : termA > termB
+            : typeof termA === "string"
+              ? termB.localeCompare(termA)
+              : termA < termB
+        );
     }
   },
   created() {
@@ -98,34 +111,13 @@ export default {
     const { last_level } = this.options;
 
     this.lastLevel = last_level;
-    this.termsSorted = this.groups;
 
     // set table columns
-    this.map.set("name", [this.getName(id), "up"]);
-    this.map.set("progress", [this.labelProgress, "up"]);
-    this.map.set("length", [null, "up"]);
+    this.map.set("name", [this.getName(id), this.currentSort]);
+    this.map.set("progress", [this.labelProgress, this.currentSort]);
+    this.map.set("length", [null, this.currentSort]);
 
-    this.columns = Array.from(this.map)
-  },
-  methods: {
-    handleTableHeaderClick(id) {
-      const [name, order] = this.map.get(id);
-      this.currentSortColumn = id;
-
-      // toggle sort order
-      const currentSort = order === "up" ? "down" : "up";
-      // update the order for the item clicked
-      this.map.set(id, [name, currentSort]);
-      // change the order based on the currentSort
-      this.termsSorted.sort(({ [id]: termA }, { [id]: termB }) =>
-        currentSort === "up" ? termA > termB : termA < termB
-      );
-    },
-    getSorting(column) {
-      // ignore the first item of the tuple
-      const [, order] = this.map.get(column);
-      return order;
-    }
+    this.columns = Array.from(this.map);
   }
 };
 </script>

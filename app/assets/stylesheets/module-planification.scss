@@ -10,6 +10,12 @@ $nodeLevel1HeightMobile: 20vh;
 // styles only concern this module
 .gobierto_planification {
   min-height: 300px;
+  margin-bottom: 3rem;
+  
+  @include min-screen(768) {
+    flex-direction: row;
+    margin-bottom: 9rem;
+  }
 
   .planification-header {
     margin: 1rem 0;
@@ -147,9 +153,12 @@ $nodeLevel1HeightMobile: 20vh;
       transition: all 250ms;
       display: block;
 
-      &::first-letter,
-      strong::first-letter {
+      &::first-letter {
         text-transform: uppercase;
+      }
+
+      strong {
+        text-transform: initial;
       }
 
       &.is-active,
@@ -670,6 +679,10 @@ $nodeLevel1HeightMobile: 20vh;
         flex-direction: row;
       }
 
+      &:first-child {
+        width: 50%;
+      }
+
       &:last-child {
         padding: 0 0 0.25rem;
 
@@ -693,6 +706,10 @@ $nodeLevel1HeightMobile: 20vh;
         color: var(--color-base);
       }
 
+      &:first-child {
+        width: 50%;
+      }
+
       &:last-child {
         text-align: right;
         padding: 0.5rem 0;
@@ -707,6 +724,10 @@ $nodeLevel1HeightMobile: 20vh;
 
       &.is-selected {
         font-weight: 900;
+      }
+
+      &:first-child {
+        width: 50%;
       }
 
       &:last-child {

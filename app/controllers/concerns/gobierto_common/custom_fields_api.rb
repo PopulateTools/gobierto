@@ -89,7 +89,7 @@ module GobiertoCommon
       return unless stale?(custom_fields)
 
       meta_stats = if params[:stats] == "true"
-                     query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation, custom_fields: custom_fields)
+                     query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation.unscope(:order), custom_fields: custom_fields)
                      filterable_custom_fields.inject({}) do |stats, custom_field|
                        stats.update(
                          custom_field.uid => query.stats(custom_field, filter_params)

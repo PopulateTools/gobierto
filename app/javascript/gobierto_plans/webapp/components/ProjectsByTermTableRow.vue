@@ -1,13 +1,16 @@
 <template>
   <tr>
-    <template v-for="[id, [, , visibility]] in columns">
+    <template v-for="[id, { options, visibility }] in columns">
       <td
         v-if="visibility"
         :key="id"
         class="planification-table__td--alt"
         :class="{ 'is-selected' : marked }"
       >
-        <slot :column="id" />
+        <slot
+          :column="id"
+          :options="options"
+        />
       </td>
     </template>
   </tr>

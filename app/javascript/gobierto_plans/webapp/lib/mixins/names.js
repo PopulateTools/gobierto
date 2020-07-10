@@ -34,14 +34,18 @@ export const NamesMixin = {
         name = this.natives.get(id);
       } else {
         // custom fields
-        const { attributes: { name_translations = {} } = {} } =
-          this.meta.find(({ attributes: { uid } = {} }) => uid === id) || {};
+        const { name_translations = {} } = this.getAttributes(id)
         name = translate(name_translations);
       }
 
       return name;
     },
-    // helper to extract the labelfrom the configuration
+    // helper to extract the attributes from the uid
+    getAttributes(id) {
+      const { attributes = {} } = this.meta.find(({ attributes: { uid } = {} }) => uid === id) || {};
+      return attributes
+    },
+    // helper to extract the label from the configuration
     getLabel(level, number_of_elements) {
       const KEYS = PlansStore.state.levelKeys
       const key = KEYS[`level${level}`];

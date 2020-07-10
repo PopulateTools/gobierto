@@ -12,15 +12,15 @@
       <div>
         <table class="planification-table">
           <thead>
-            <template v-for="[thId, [name, , thVisibility]] in selectedColumns">
+            <template v-for="[id, { name, visibility }] in selectedColumns">
               <th
-                v-if="thVisibility"
-                :key="thId"
+                v-if="visibility"
+                :key="id"
                 class="planification-table__th"
-                @click="handleTableHeaderClick(thId)"
+                @click="handleTableHeaderClick(id)"
               >
                 <div class="planification-table__th-content">
-                  <template v-if="thId === 'name'">
+                  <template v-if="id === 'name'">
                     <NumberLabel :level="lastLevel" />
                   </template>
                   <template v-else>
@@ -28,8 +28,8 @@
                   </template>
 
                   <SortIcon
-                    v-if="currentSortColumn === thId"
-                    :direction="getSorting(thId)"
+                    v-if="currentSortColumn === id"
+                    :direction="getSorting(id)"
                   />
                 </div>
               </th>
@@ -39,7 +39,7 @@
             <template v-for="{ id, attributes } in projectsSorted">
               <ProjectsByTermTableRow
                 :key="id"
-                v-slot="{ column }"
+                v-slot="{ column, options }"
                 :marked="currentId === id"
                 :columns="selectedColumns"
               >
@@ -53,6 +53,9 @@
                 </template>
                 <template v-else-if="column === 'progress'">
                   {{ attributes[column] | percent }}
+                </template>
+                <template v-else-if="options.field_type === 'vocabulary_options'">
+                  <CustomFieldVocabulary :attributes="{ ...options, value: attributes[column] }" />
                 </template>
                 <template v-else>
                   {{ attributes[column] }}
@@ -99,6 +102,7 @@ import ProjectsByTermTableRow from "../components/ProjectsByTermTableRow";
 import TableBreadcrumb from "../components/TableBreadcrumb";
 import TableColumnsSelector from "../components/TableColumnsSelector";
 import { percent, clickoutside } from "lib/shared"
+import CustomFieldVocabulary from "../components/CustomFieldVocabulary.vue";
 
 export default {
   name: "ProjectsByTerm",
@@ -111,7 +115,8 @@ export default {
     ProjectsByTermTableRow,
     Project,
     TableBreadcrumb,
-    TableColumnsSelector
+    TableColumnsSelector,
+    CustomFieldVocabulary
   },
   directives: {
     clickoutside
@@ -206,11 +211,12 @@ export default {
       // for each key, we store the traslation, the sorting direction, and the visibility
       const name = this.getName(key);
       if (name) {
-        this.map.set(key, [
+        this.map.set(key, {
           name,
-          this.currentSort,
-          this.natives.has(key)
-        ]);
+          sort: this.currentSort,
+          visibility: this.natives.has(key),
+          options: this.getAttributes(key)
+        });
       }
     });
   },
@@ -220,9 +226,7 @@ export default {
       this.activeNode = id === prevId ? null : findRecursive(this.json, id);
     },
     toggleVisibility({ id, value }) {
-      const [name,order] = this.map.get(id)
-      this.map.set(id, [name, order, value])
-
+      this.map.set(id, { ...this.map.get(id), visibility: value })
       // https://stackoverflow.com/a/45441321/5020256
       this.mapTracker += 1;
     },

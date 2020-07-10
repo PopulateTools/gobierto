@@ -2,7 +2,7 @@
   <table class="planification-table">
     <thead>
       <th
-        v-for="[id, [name]] in columns"
+        v-for="[id, { name }] in columns"
         :key="id"
         class="planification-table__th"
         @click="handleTableHeaderClick(id)"
@@ -113,9 +113,9 @@ export default {
     this.lastLevel = last_level;
 
     // set table columns
-    this.map.set("name", [this.getName(id), this.currentSort]);
-    this.map.set("progress", [this.labelProgress, this.currentSort]);
-    this.map.set("length", [null, this.currentSort]);
+    this.map.set("name", { name: this.getName(id), sort: this.currentSort });
+    this.map.set("progress", { name: this.labelProgress, sort:this.currentSort });
+    this.map.set("length", { name: null, sort:this.currentSort });
 
     this.columns = Array.from(this.map);
   }

@@ -16,7 +16,7 @@
         class="planification-table__column-selector__content"
       >
         <Checkbox
-          v-for="[id, [name, , visibility]] in columns"
+          v-for="[id, { name, visibility }] in columns"
           :id="id"
           :key="id"
           :title="name"

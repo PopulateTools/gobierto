@@ -53,6 +53,11 @@ module GobiertoPlans
         where(author: admin)
       end
     }
+    scope :versions_indexes, lambda {
+      joins(:versions).group("gplan_nodes.id", "gplan_nodes.published_version").count("versions.id").inject({}) do |counts, (k, v)|
+        counts.update(k[0] => k[1] - v)
+      end
+    }
 
     extra_moderation_permissions_lookup_attributes do |node, action|
       if node.new_record? || action != :edit

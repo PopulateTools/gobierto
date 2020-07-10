@@ -16,7 +16,9 @@ module GobiertoPlans
               each_serializer: GobiertoPlans::NodeSerializer,
               plan: @plan,
               custom_fields: custom_fields,
-              custom_fields_value_method: :raw_api_value,
+              preloaded_data: transformed_custom_field_record_values(filtered_relation),
+              versions_indexes: filtered_relation.versions_indexes,
+              category_ids: category_ids,
               adapter: :json_api
             )
           end
@@ -29,6 +31,10 @@ module GobiertoPlans
           find_plan
 
           @plan.nodes.published
+        end
+
+        def category_ids
+          filtered_relation.select("gplan_nodes.id", "gplan_categories_nodes.category_id").map { |project| [project.id, project.category_id] }.to_h
         end
 
         def custom_fields

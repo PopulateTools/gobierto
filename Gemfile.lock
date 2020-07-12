@@ -136,7 +136,7 @@ GEM
     cloudinary (1.16.1)
       aws_cf_signer
       rest-client
-    codecov (0.1.19)
+    codecov (0.2.0)
       colorize
       json
       simplecov
@@ -530,7 +530,7 @@ DEPENDENCIES
   capybara-email
   chroma
   cloudinary
-  codecov (~> 0.1.9)
+  codecov (~> 0.2.0)
   cookies_eu
   d3-rails (~> 4.8)
   dalli

@@ -63,6 +63,7 @@ gem "simple_calendar", "~> 2.2"
 gem "algoliasearch-rails", "~> 1.17"
 # Algolia client indexing sanitizer
 gem "rails-html-sanitizer"
+gem "pg_search"
 
 # Pagination
 gem "kaminari", "~> 1.2"

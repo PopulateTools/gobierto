@@ -88,7 +88,7 @@ gem "google-api-client"
 # Microsoft Exchange calendars
 gem "exchanger"
 
-# Web Services
+# Web Services: Alcobendas, Valencia
 gem "savon", "~> 2.12.0"
 
 # Image management

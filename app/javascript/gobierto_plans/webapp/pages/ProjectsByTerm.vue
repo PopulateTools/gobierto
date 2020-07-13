@@ -37,30 +37,18 @@
           </thead>
           <tbody>
             <template v-for="{ id, attributes } in projectsSorted">
-              <ProjectsByTermTableRow
+              <TableRow
                 :key="id"
                 v-slot="{ column, options }"
                 :marked="currentId === id"
                 :columns="selectedColumns"
               >
-                <template v-if="column === 'name'">
-                  <div
-                    class="planification-table__td-name"
-                    @click="setCurrentProject(id)"
-                  >
-                    {{ attributes[column] }}
-                  </div>
-                </template>
-                <template v-else-if="column === 'progress'">
-                  {{ attributes[column] | percent }}
-                </template>
-                <template v-else-if="options.field_type === 'vocabulary_options'">
-                  <CustomFieldVocabulary :attributes="{ ...options, value: attributes[column] }" />
-                </template>
-                <template v-else>
-                  {{ attributes[column] }}
-                </template>
-              </ProjectsByTermTableRow>
+                <TableCellTemplates
+                  :column="column"
+                  :attributes="{ ...options, id, value: attributes[column] }"
+                  @current-project="setCurrentProject"
+                />
+              </TableRow>
             </template>
           </tbody>
         </table>
@@ -98,11 +86,11 @@ import { findRecursive } from "../lib/helpers";
 import SortIcon from "../components/SortIcon";
 import NumberLabel from "../components/NumberLabel";
 import Project from "../components/Project";
-import ProjectsByTermTableRow from "../components/ProjectsByTermTableRow";
+import TableRow from "../components/TableRow";
 import TableBreadcrumb from "../components/TableBreadcrumb";
 import TableColumnsSelector from "../components/TableColumnsSelector";
+import TableCellTemplates from "../components/TableCellTemplates";
 import { percent, clickoutside } from "lib/shared"
-import CustomFieldVocabulary from "../components/CustomFieldVocabulary.vue";
 
 export default {
   name: "ProjectsByTerm",
@@ -112,11 +100,11 @@ export default {
   components: {
     NumberLabel,
     SortIcon,
-    ProjectsByTermTableRow,
+    TableRow,
     Project,
     TableBreadcrumb,
     TableColumnsSelector,
-    CustomFieldVocabulary
+    TableCellTemplates
   },
   directives: {
     clickoutside

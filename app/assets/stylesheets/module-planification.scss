@@ -565,13 +565,13 @@ $nodeLevel1HeightMobile: 20vh;
       display: none;
     }
 
-    .description-title {
+    &__title {
       text-transform: uppercase;
       font-weight: 700;
       font-size: 14px;
     }
 
-    .description-more {
+    &__more {
       display: block;
       border: 1px solid;
       border-radius: 4px;
@@ -587,7 +587,7 @@ $nodeLevel1HeightMobile: 20vh;
       margin-top: 0.5em;
     }
 
-    .description-content {
+    &__content {
       max-height: 100vh;
       transition: all 250ms;
 
@@ -598,31 +598,31 @@ $nodeLevel1HeightMobile: 20vh;
       > :last-child {
         margin-bottom: 0;
       }
-    }
 
-    .is-hidden {
-      max-height: 100px;
-      position: relative;
-      overflow: hidden;
-
-      &::after {
-        content: "";
-        display: block;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-        height: 50px;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
+      &.is-hidden {
+        max-height: 100px;
+        position: relative;
+        overflow: hidden;
+  
+        &::after {
+          content: "";
+          display: block;
+          background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+          height: 50px;
+          width: 100%;
+          position: absolute;
+          bottom: 0;
+        }
       }
     }
 
-    .description-content,
-    .description-desc {
+    &__content,
+    &__desc {
       font-size: 14px;
       word-break: break-word;
     }
 
-    .description-images {
+    &__images {
       display: flex;
       align-items: flex-start;
       flex-wrap: wrap;
@@ -634,7 +634,7 @@ $nodeLevel1HeightMobile: 20vh;
       }
     }
 
-    .description-list {
+    &__list {
       display: flex;
 
       > :first-child {
@@ -656,6 +656,7 @@ $nodeLevel1HeightMobile: 20vh;
 
   .planification-table {
     width: 100%;
+    table-layout: fixed;
 
     &__th {
       border-top: 0;

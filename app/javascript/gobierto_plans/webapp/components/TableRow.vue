@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "ProjectsByTermTableRow",
+  name: "TableRow",
   props: {
     marked: {
       type: Boolean,

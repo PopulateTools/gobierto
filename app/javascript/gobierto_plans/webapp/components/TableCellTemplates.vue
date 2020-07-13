@@ -23,6 +23,9 @@
     <template v-else-if="paragraphType">
       <CustomFieldParagraph :attributes="attributes" />
     </template>
+    <template v-else-if="rawIndicatorsType">
+      <CustomFieldPluginRawIndicators :attributes="attributes" />
+    </template>
     <template v-else>
       {{ value }}
     </template>
@@ -34,6 +37,7 @@ import CustomFieldVocabulary from "../components/CustomFieldVocabulary.vue";
 import CustomFieldImage from "../components/CustomFieldImage.vue";
 import CustomFieldSelection from "../components/CustomFieldSelection.vue";
 import CustomFieldParagraph from "../components/CustomFieldParagraph.vue";
+import CustomFieldPluginRawIndicators from "../components/CustomFieldPluginRawIndicators.vue";
 import { FieldTypeMixin } from "../lib/mixins/field-type";
 import { percent } from "lib/shared";
 
@@ -43,7 +47,8 @@ export default {
     CustomFieldVocabulary,
     CustomFieldImage,
     CustomFieldSelection,
-    CustomFieldParagraph
+    CustomFieldParagraph,
+    CustomFieldPluginRawIndicators
   },
   filters: {
     percent

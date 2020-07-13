@@ -1,7 +1,8 @@
 export const FieldTypeMixin = {
   data() {
     return {
-      fieldType: null
+      fieldType: null,
+      termDecorator: null
     };
   },
   computed: {
@@ -17,24 +18,28 @@ export const FieldTypeMixin = {
       return this.fieldType === "plugin";
     },
     vocabularyType() {
-      return this.fieldType === 'vocabulary_options'
+      return this.fieldType === "vocabulary_options";
     },
     imageType() {
-      return this.fieldType === 'image'
+      return this.fieldType === "image";
     },
     selectionType() {
-      return [
-        "single_option",
-        "multiple_options"
-      ].includes(this.fieldType);
+      return ["single_option", "multiple_options"].includes(this.fieldType);
     },
     rawIndicatorsType() {
-      // TODO: repasar
-      return this.attributes.options.configuration.plugin_configuration.category_term_decorator === 'raw_indicators'
+      return this.termDecorator === "raw_indicators";
     }
   },
   created() {
-    const { field_type } = this.attributes
-    this.fieldType = field_type
+    const {
+      field_type,
+      options: {
+        configuration: {
+          plugin_configuration: { category_term_decorator } = {}
+        } = {}
+      } = {}
+    } = this.attributes;
+    this.fieldType = field_type;
+    this.termDecorator = category_term_decorator;
   }
 };

@@ -2,6 +2,10 @@
   <div class="project-description">
     <template v-if="pluginType">
       <template v-if="rawIndicatorsType">
+        <div class="project-description__title">
+          {{ attributes.name_translations | translate }}
+        </div>
+
         <CustomFieldPluginRawIndicators :attributes="attributes" />
       </template>
       <template v-else>

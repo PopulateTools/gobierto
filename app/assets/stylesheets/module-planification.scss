@@ -867,23 +867,12 @@ $nodeLevel1HeightMobile: 20vh;
   // Raw Indicators
   .tablerow {
     padding: 0.5em 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 3vmin;
 
-    &__title {
-      font-size: 14px;
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 25px;
-    }
-
-    &__data {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-gap: 20px 20px;
-
-      @media screen and (min-width: 768px) {
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 40px 40px;
-      }
+    @media screen and (min-width: 768px) {
+      grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
     }
 
     &__item {
@@ -896,12 +885,11 @@ $nodeLevel1HeightMobile: 20vh;
         padding-right: 5px;
         font-size: 14px;
         font-weight: 600;
-        min-width: 25%;
         line-height: 1.2;
       }
 
       &-table-container {
-        flex: 1 0 50%;
+        flex: 0 0 50%;
         padding-left: 5px;
       }
 

@@ -36,6 +36,12 @@ module GobiertoPlans
       )
     end
 
+    def sdg_percentage(sdg)
+      return if nodes_count.zero?
+
+      ActionController::Base::helpers.number_with_precision((projects_by_sdg(sdg).count * 100.0) / nodes_count, precision: 1) + "%"
+    end
+
     def sdg_term(sdg_slug)
       sdgs_terms&.find_by(slug: sdg_slug)
     end
@@ -56,6 +62,10 @@ module GobiertoPlans
 
     def nodes_query
       @nodes_query ||= GobiertoCommon::CustomFieldsQuery.new(relation: nodes_relation, custom_fields: site.custom_fields.where(id: sdg_field.id))
+    end
+
+    def nodes_count
+      @nodes_count ||= nodes_relation.count
     end
 
     def nodes_relation

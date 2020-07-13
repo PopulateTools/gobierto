@@ -53,5 +53,12 @@ export const router = new VueRouter({
         },
       ],
     }
-  ]
+  ],
+  scrollBehavior() {
+    const element = document.getElementById('gobierto-planification');
+    window.scrollTo({
+      top: element.offsetTop - 24,
+      behavior: 'smooth'
+    });
+  }
 });

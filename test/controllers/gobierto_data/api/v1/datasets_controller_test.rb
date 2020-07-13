@@ -27,6 +27,10 @@ module GobiertoData
           @dataset ||= gobierto_data_datasets(:users_dataset)
         end
 
+        def other_dataset
+          @other_dataset ||= gobierto_data_datasets(:events_dataset)
+        end
+
         def datasets_category
           @datasets_category ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_category)
         end
@@ -80,6 +84,26 @@ module GobiertoData
             assert response_data.has_key? "links"
             assert_includes response_data["links"].values, gobierto_data_api_v1_datasets_path
             assert_includes response_data["links"].values, meta_gobierto_data_api_v1_datasets_path
+          end
+        end
+
+        # GET /api/v1/data/datasets.json
+        def test_index_datasets_order
+          with(site: site) do
+            dataset.update_attribute(:data_updated_at, 1.minute.ago)
+            other_dataset.update_attribute(:data_updated_at, 1.hour.ago)
+
+            get gobierto_data_api_v1_datasets_path, as: :json
+            response_data = response.parsed_body
+            datasets_names = response_data["data"].map { |item| item.dig("attributes", "name") }
+            assert_equal [dataset.name, other_dataset.name], datasets_names
+
+            other_dataset.update_attribute(:data_updated_at, 1.second.ago)
+
+            get gobierto_data_api_v1_datasets_path, as: :json
+            response_data = response.parsed_body
+            datasets_names = response_data["data"].map { |item| item.dig("attributes", "name") }
+            assert_equal [other_dataset.name, dataset.name], datasets_names
           end
         end
 

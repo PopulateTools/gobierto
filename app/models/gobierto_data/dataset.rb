@@ -13,6 +13,8 @@ module GobiertoData
     has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"
     has_many :visualizations, dependent: :destroy, class_name: "GobiertoData::Visualization"
 
+    scope :sorted, -> { order(data_updated_at: :desc) }
+
     translates :name
 
     enum visibility_level: { draft: 0, active: 1 }

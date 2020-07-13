@@ -88,6 +88,9 @@ gem "google-api-client"
 # Microsoft Exchange calendars
 gem "exchanger"
 
+# Web Services
+gem "savon", "~> 2.12.0"
+
 # Image management
 gem "cloudinary"
 

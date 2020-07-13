@@ -4,13 +4,13 @@
       {{ labelStarts }}
     </router-link>
 
-    <template v-for="parent in parents">
+    <template v-for="{ id, attributes: { name } = {}} in parents">
       <router-link
-        :key="parent.id"
-        :to="{ name: 'categories', params: { ...$route.params, id: parent.id } }"
+        :key="id"
+        :to="{ name: 'categories', params: { ...params, id } }"
       >
         <i class="fas fa-caret-right" />
-        {{ parent.attributes.name }}
+        {{ name }}
       </router-link>
     </template>
   </div>
@@ -29,10 +29,6 @@ export default {
     model: {
       type: Object,
       default: () => {}
-    },
-    options: {
-      type: Object,
-      default: () => {}
     }
   },
   data() {
@@ -41,16 +37,21 @@ export default {
       parents: []
     }
   },
+  computed: {
+    params() {
+      return this.$route.params
+    }
+  },
   created() {
-    const { last_level, max_category_level } = this.options
-    const ITEMS = PlansStore.state.plainItems
+    const { plainItems, options } = PlansStore.state
+    const { last_level, max_category_level } = options
     const parents = []
 
     const findParents = (model) => {
       const { level, attributes: { category_id, term_id } = {} } = model
 
       const id = (level === last_level) ? category_id : term_id
-      const parent = ITEMS.find(d => +d.id === id)
+      const parent = plainItems.find(d => +d.id === id)
 
       if (parent) {
         parents.push(parent)

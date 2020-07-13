@@ -1,13 +1,13 @@
 export const PlansStore = {
   state: {
-    levelKeys: {},
+    options: {},
     plainItems: [],
     meta: [],
     projects: [],
     status: [],
   },
-  setLevelKeys(keys) {
-    this.state.levelKeys = keys
+  setOptions(keys) {
+    this.state.options = keys
   },
   setPlainItems(items) {
     this.state.plainItems = items

@@ -4,12 +4,24 @@
     <CustomFieldVocabularySDG :attributes="attributes" />
   </div>
   <div v-else>
-    <div
-      v-for="{ id, name } in vocabularies"
-      :key="id"
+    <template
+      v-for="{ id, name, group, term, hasLink } in vocabularies"
     >
-      {{ name }}
-    </div>
+      <router-link
+        v-if="hasLink"
+        :key="id"
+        :to="{ name: 'term', params: { ...params, id: group, term } }"
+        class="project-description__link"
+      >
+        {{ name }}
+      </router-link>
+      <div
+        v-else
+        :key="id"
+      >
+        {{ name }}
+      </div>
+    </template>
   </div>
 </template>
 
@@ -34,21 +46,31 @@ export default {
       vocabularies: []
     };
   },
+  computed: {
+    params() {
+      return this.$route.params;
+    }
+  },
   created() {
-    const { sdg_uid = "" } = PlansStore.state.levelKeys
+    const { sdg_uid = "", fields_to_show_as_filters = [] } = PlansStore.state.options;
     const { value, vocabulary_terms, uid } = this.attributes;
-    const elements = Array.isArray(value) ? value : [value]
+    const elements = Array.isArray(value) ? value : [value];
 
     // true if the plan option sdg_uid mtches the attribute uid
-    this.isSDG = sdg_uid === uid
+    this.isSDG = sdg_uid === uid;
+
+    // if the vocabulary belongs to the filters, make it linkable
+    const vocabularyLinkable = fields_to_show_as_filters.includes(uid)
 
     // parse the vocabularies, sorting them by its name
-    this.vocabularies = vocabulary_terms.reduce((acc, { id, attributes: { name = '' } = {} }) => {
-      if (elements.includes(id)) {
-        acc.push({ id, name })
-      }
-      return acc
-    }, []).sort((a, b) => a.name > b.name)
+    this.vocabularies = vocabulary_terms
+      .reduce((acc, { id, attributes: { name = "", slug = "" } = {} }) => {
+        if (elements.includes(id)) {
+          acc.push({ id, name, group: uid, term: slug, hasLink: vocabularyLinkable });
+        }
+        return acc;
+      }, [])
+      .sort((a, b) => a.name > b.name);
   }
 };
 </script>

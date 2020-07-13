@@ -11,7 +11,7 @@ $nodeLevel1HeightMobile: 20vh;
 .gobierto_planification {
   min-height: 300px;
   margin-bottom: 3rem;
-  
+
   @include min-screen(768) {
     flex-direction: row;
     margin-bottom: 9rem;
@@ -106,7 +106,7 @@ $nodeLevel1HeightMobile: 20vh;
       }
     }
 
-    > [class^='level_']:not(.level_0) {
+    > [class^="level_"]:not(.level_0) {
       flex: 0 0 75%;
       box-sizing: border-box;
       padding: 1em 0 0 0;
@@ -223,7 +223,7 @@ $nodeLevel1HeightMobile: 20vh;
     .node-info {
       position: relative;
       flex: 1;
-      transition: all .3s;
+      transition: all 0.3s;
 
       .info-progress {
         top: 0;
@@ -603,11 +603,15 @@ $nodeLevel1HeightMobile: 20vh;
         max-height: 100px;
         position: relative;
         overflow: hidden;
-  
+
         &::after {
           content: "";
           display: block;
-          background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+          background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 1) 100%
+          );
           height: 50px;
           width: 100%;
           position: absolute;
@@ -620,6 +624,10 @@ $nodeLevel1HeightMobile: 20vh;
     &__desc {
       font-size: 14px;
       word-break: break-word;
+    }
+
+    &__link {
+      display: block;
     }
 
     &__images {
@@ -689,7 +697,7 @@ $nodeLevel1HeightMobile: 20vh;
 
         .planification-table__th-content {
           flex-direction: row-reverse;
-  
+
           .sort-icon {
             margin-right: 0.5rem;
           }
@@ -856,36 +864,33 @@ $nodeLevel1HeightMobile: 20vh;
     }
   }
 
-  // https://stackoverflow.com/questions/20120342/how-can-i-zerofill-the-index-of-a-sass-for-loop
-  @function zerofill($i) { @return #{str-slice("00", 0, 2 - str-length(#{$i}))}#{$i}; }
-  
   // Raw Indicators
   .tablerow {
-    padding: .5em 0;
-  
+    padding: 0.5em 0;
+
     &__title {
       font-size: 14px;
       text-transform: uppercase;
       font-weight: 700;
       margin-bottom: 25px;
     }
-  
+
     &__data {
       display: grid;
       grid-template-columns: 1fr;
       grid-gap: 20px 20px;
-      
+
       @media screen and (min-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 40px 40px;
       }
     }
-  
+
     &__item {
-      background-color: rgba(#D8D8D8, 0.2);
+      background-color: rgba(#d8d8d8, 0.2);
       padding: 0.5em 1em;
       display: flex;
-  
+
       &-title {
         flex: 0 1 50%;
         padding-right: 5px;
@@ -894,44 +899,44 @@ $nodeLevel1HeightMobile: 20vh;
         min-width: 25%;
         line-height: 1.2;
       }
-  
+
       &-table-container {
         flex: 1 0 50%;
         padding-left: 5px;
       }
-  
+
       &-table {
         text-align: center;
         line-height: 18px;
-        color: #4D4D4D;
-  
+        color: #4d4d4d;
+
         th:first-child:not(:last-child),
         td:first-child:not(:last-child) {
           text-align: left;
           padding-left: 0;
-          color: rgba(#4D4D4D, 0.5);
+          color: rgba(#4d4d4d, 0.5);
           white-space: nowrap;
         }
       }
-  
+
       &-table-header {
         font-weight: bold;
-        color: rgba(#4D4D4D, 0.5);
+        color: rgba(#4d4d4d, 0.5);
         border-bottom: 2px solid rgba(#000, 0.2);
-  
+
         > * {
           border-top: 0;
           font-size: 14px;
           font-weight: bold;
         }
       }
-  
+
       &-table-row {
         > * {
           font-size: 14px;
           font-weight: normal;
         }
-  
+
         &:not(:last-child) {
           border-bottom: 1px solid rgba(#000, 0.2);
         }
@@ -940,29 +945,34 @@ $nodeLevel1HeightMobile: 20vh;
   }
 
   // ODS icons
-  .ods-goal-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin: -5px;
-  }
-
-  .ods-goal-content {
-    padding: 5px;
-    display: inline-flex;
-  }
-
   .ods-goal {
     background-size: cover;
     width: 80px;
     height: 80px;
     display: inline-block;
-  }
 
-  @for $num from 1 through 17 {
-    @each $lang in (ca es) {
-      $num: zerofill($num);
-      .ods-goal__#{$num}__#{$lang} {
-        background-image: url('../images/ods/ods_goal_' + $num + '_' + $lang + '.png' );
+    &__container {
+      display: flex;
+      flex-wrap: wrap;
+      margin: -5px;
+    }
+  
+    &__content {
+      padding: 5px;
+      display: inline-flex;
+    }
+
+    // https://stackoverflow.com/questions/20120342/how-can-i-zerofill-the-index-of-a-sass-for-loop
+    @function zerofill($i) {
+      @return #{str-slice("00", 0, 2 - str-length(#{$i}))}#{$i};
+    }
+  
+    @for $num from 1 through 17 {
+      @each $lang in (ca es) {
+        $num: zerofill($num);
+        &__#{$num}__#{$lang} {
+          background-image: url("../images/ods/ods_goal_"+$num+"_"+$lang+".png");
+        }
       }
     }
   }

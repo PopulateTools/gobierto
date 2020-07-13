@@ -49,7 +49,8 @@ export default {
     };
   },
   created() {
-    this.rootOptions = PlansStore.state.levelKeys["level0_options"] || {};
+    const { options } = PlansStore.state
+    this.rootOptions = options["level0_options"] || {};
   }
 };
 </script>

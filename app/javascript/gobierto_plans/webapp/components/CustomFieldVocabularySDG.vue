@@ -1,9 +1,9 @@
 <template>
-  <div class="ods-goal-container">
+  <div class="ods-goal__container">
     <div
       v-for="{ id, attributes: { slug } = {} } in sdgs"
       :key="id"
-      class="ods-goal-content"
+      class="ods-goal__content"
     >
       <a
         :href="`${baseUrl}/ods/${+slug}`"

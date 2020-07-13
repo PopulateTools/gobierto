@@ -47,7 +47,7 @@ export const NamesMixin = {
     },
     // helper to extract the label from the configuration
     getLabel(level, number_of_elements) {
-      const KEYS = PlansStore.state.levelKeys
+      const KEYS = PlansStore.state.options
       const key = KEYS[`level${level}`];
       return number_of_elements === 1 ? key["one"] : key["other"];
     }

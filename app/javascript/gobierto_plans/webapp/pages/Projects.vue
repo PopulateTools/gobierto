@@ -10,15 +10,8 @@
       :class="[`level_${lastLevel}`, 'category']"
       :style="`--category: var(--category-${color})`"
     >
-      <Breadcrumb
-        :model="activeNode"
-        :options="options"
-      />
-
-      <Project
-        :model="activeNode"
-        :options="options"
-      />
+      <Breadcrumb :model="activeNode" />
+      <Project :model="activeNode" />
     </section>
   </div>
 </template>

@@ -37,7 +37,7 @@
           </thead>
           <tbody>
             <template v-for="{ id, attributes } in projectsSorted">
-              <TableRow
+              <ProjectsByTermTableRow
                 :key="id"
                 v-slot="{ column, options }"
                 :marked="currentId === id"
@@ -48,7 +48,7 @@
                   :attributes="{ ...options, id, value: attributes[column] }"
                   @current-project="setCurrentProject"
                 />
-              </TableRow>
+              </ProjectsByTermTableRow>
             </template>
           </tbody>
         </table>
@@ -86,7 +86,7 @@ import { findRecursive } from "../lib/helpers";
 import SortIcon from "../components/SortIcon";
 import NumberLabel from "../components/NumberLabel";
 import Project from "../components/Project";
-import TableRow from "../components/TableRow";
+import ProjectsByTermTableRow from "../components/ProjectsByTermTableRow";
 import TableBreadcrumb from "../components/TableBreadcrumb";
 import TableColumnsSelector from "../components/TableColumnsSelector";
 import TableCellTemplates from "../components/TableCellTemplates";
@@ -100,7 +100,7 @@ export default {
   components: {
     NumberLabel,
     SortIcon,
-    TableRow,
+    ProjectsByTermTableRow,
     Project,
     TableBreadcrumb,
     TableColumnsSelector,

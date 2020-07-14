@@ -664,43 +664,47 @@ $nodeLevel1HeightMobile: 20vh;
 
   .planification-table {
     width: 100%;
-    table-layout: fixed;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 
-    &__th {
-      border-top: 0;
+    &__li {
       border-bottom: 1px solid $separator;
+
+      &--content {
+        display: flex;
+        flex: 1;
+      }
+    }
+    
+    &__th {
+      padding: 0 0.5rem 0.25rem 0;
       text-transform: uppercase;
       font-weight: bold;
       font-size: $f6;
-      padding: 0 0.5rem 0.25rem 0;
       cursor: pointer;
       text-align: left;
+      display: flex;
+      align-items: baseline;
+      justify-content: flex-start;
+      flex-direction: row;
 
       .sort-icon {
         color: var(--color-base);
         margin-left: 0.5rem;
       }
 
-      &-content {
-        display: flex;
-        align-items: baseline;
-        justify-content: flex-start;
-        flex-direction: row;
-      }
-
       &:first-child {
-        width: 50%;
+        flex: 0 0 50%;
       }
 
       &:last-child {
         padding: 0 0 0.25rem;
+        flex-direction: row-reverse;
+        margin-left: auto;
 
-        .planification-table__th-content {
-          flex-direction: row-reverse;
-
-          .sort-icon {
-            margin-right: 0.5rem;
-          }
+        .sort-icon {
+          margin-right: 0.5rem;
         }
       }
     }
@@ -716,11 +720,11 @@ $nodeLevel1HeightMobile: 20vh;
       }
 
       &:first-child {
-        width: 50%;
+        flex: 0 0 50%;
       }
 
       &:last-child {
-        text-align: right;
+        margin-left: auto;
         padding: 0.5rem 0;
       }
     }
@@ -736,7 +740,7 @@ $nodeLevel1HeightMobile: 20vh;
       }
 
       &:first-child {
-        width: 50%;
+        flex: 0 0 50%;
       }
 
       &:last-child {
@@ -756,10 +760,6 @@ $nodeLevel1HeightMobile: 20vh;
       align-items: baseline;
       color: var(--color-base);
       cursor: pointer;
-
-      a {
-        flex: 1;
-      }
     }
 
     &__container {

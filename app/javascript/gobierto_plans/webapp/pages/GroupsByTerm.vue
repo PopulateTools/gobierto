@@ -1,13 +1,13 @@
 <template>
-  <table class="planification-table">
-    <thead>
-      <th
-        v-for="[id, { name }] in columns"
-        :key="id"
-        class="planification-table__th"
-        @click="handleTableHeaderClick(id)"
-      >
-        <div class="planification-table__th-content">
+  <ul class="planification-table">
+    <li class="planification-table__li">
+      <div class="planification-table__li--content">
+        <div
+          v-for="[id, { name }] in columns"
+          :key="id"
+          class="planification-table__th"
+          @click="handleTableHeaderClick(id)"
+        >
           <template v-if="id === 'length'">
             <NumberLabel :level="lastLevel" />
           </template>
@@ -20,38 +20,21 @@
             :direction="getSorting(id)"
           />
         </div>
-      </th>
-    </thead>
-    <tbody>
-      <tr
-        v-for="{ key, name, slug, progress, length } in termsSorted"
-        :key="key"
-      >
-        <td class="planification-table__td">
-          <div class="planification-table__td-link">
-            <i class="fas fa-caret-right" />
-            <router-link
-              :to="{ name: 'term', params: { ...params, term: slug } }"
-            >
-              {{ name }}
-            </router-link>
-          </div>
-        </td>
-        <td class="planification-table__td">
-          {{ progress | percent }}
-        </td>
-        <td class="planification-table__td">
-          {{ length }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      </div>
+    </li>
+    <template v-for="term in termsSorted">
+      <GroupsByTermTableRowRecursive
+        :key="term.key"
+        :term="term"
+      />
+    </template>
+  </ul>
 </template>
 
 <script>
 import NumberLabel from "../components/NumberLabel";
 import SortIcon from "../components/SortIcon";
-import { percent } from "lib/shared";
+import GroupsByTermTableRowRecursive from "../components/GroupsByTermTableRowRecursive";
 import { NamesMixin } from "../lib/mixins/names";
 import { TableHeaderMixin } from "../lib/mixins/table-header";
 
@@ -59,10 +42,8 @@ export default {
   name: "GroupsByTerm",
   components: {
     NumberLabel,
-    SortIcon
-  },
-  filters: {
-    percent
+    SortIcon,
+    GroupsByTermTableRowRecursive
   },
   mixins: [NamesMixin, TableHeaderMixin],
   props: {
@@ -83,18 +64,15 @@ export default {
     return {
       labelProgress: I18n.t("gobierto_plans.plan_types.show.progress") || "",
       columns: [],
-      lastLevel: 0,
+      lastLevel: 0
     };
   },
   computed: {
-    params() {
-      return this.$route.params;
-    },
     termsSorted() {
       const id = this.currentSortColumn;
       const sort = this.currentSort;
       return this.groups
-        .slice()
+        .filter(({ level }) => level === 0)
         .sort(({ [id]: termA }, { [id]: termB }) =>
           sort === "up"
             ? typeof termA === "string"

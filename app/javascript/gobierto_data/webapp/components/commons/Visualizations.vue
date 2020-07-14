@@ -47,10 +47,10 @@ export default {
       }
     },
     arrayColumnsQuery(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.viewer.clear();
+      if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+        this.viewer.clear()
+        this.viewer.update(this.items)
         this.viewer.setAttribute('columns', JSON.stringify(newValue))
-        this.checkIfQueryResultIsEmpty(this.items)
       }
     },
     resetConfigViz(newValue) {

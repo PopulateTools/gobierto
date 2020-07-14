@@ -16,10 +16,12 @@
           class="planification-table"
           :style="ulStyles"
         >
-          <template v-for="innerTerm in term.nestedGroups">
+          <template v-for="{ key, level } in nestedGroups">
             <GroupsByTermTableRowRecursive
-              :key="innerTerm.key"
-              :term="innerTerm"
+              v-if="nextLevel === level"
+              :id="key"
+              :key="key"
+              :groups="groups"
             />
           </template>
         </ul>
@@ -41,25 +43,45 @@ export default {
     percent
   },
   props: {
-    term: {
-      type: Object,
+    id: {
+      type: String,
+      default: null
+    },
+    groups: {
+      type: Array,
       default: () => []
     }
   },
   data() {
     return {
+      term: {},
+      nestedGroups: [],
       currentGroupIdOpen: null
     };
   },
   computed: {
+    nextLevel() {
+      return this.term.level + 1;
+    },
     ulStyles() {
-      const rem = this.level + 1;
-      return `margin-left: ${rem}rem; width: calc(100% - ${rem}rem)`;
+      return `margin-left: ${this.nextLevel}rem; width: calc(100% - ${
+        this.nextLevel
+      }rem)`;
     }
   },
   created() {
-    const { level } = this.term;
-    this.level = level;
+    // TODO: repasar
+    const [term, nestedGroups] = this.groups.reduce(
+      (acc, item) => {
+        if (item.key === this.id) acc[0] = item;
+        if (acc[0] && acc[0].nestedGroups.includes(item.key)) acc[1].push(item);
+        return acc;
+      },
+      [null, []]
+    );
+
+    this.term = term;
+    this.nestedGroups = nestedGroups;
   },
   methods: {
     showNestedGroups(id) {

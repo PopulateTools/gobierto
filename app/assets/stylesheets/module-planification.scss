@@ -781,14 +781,20 @@ $nodeLevel1HeightMobile: 20vh;
       display: flex;
       justify-content: space-between;
       margin: 0 0 2rem;
+      align-items: center;
     }
 
     &__breadcrumb {
       display: flex;
-      align-items: baseline;
+      align-items: center;
+      padding-right: 0.5rem;
 
       > :not(:last-child) {
         margin-right: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 35vw;
       }
 
       &-group {
@@ -803,8 +809,10 @@ $nodeLevel1HeightMobile: 20vh;
         font-size: $f5;
         text-decoration: none;
         color: var(--color-base);
-        display: flex;
-        align-items: baseline;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 40vw;
       }
 
       &-arrow {
@@ -824,6 +832,7 @@ $nodeLevel1HeightMobile: 20vh;
 
         span {
           text-decoration: underline;
+          white-space: nowrap;
         }
       }
 

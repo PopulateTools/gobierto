@@ -22,10 +22,12 @@
         </div>
       </div>
     </li>
-    <template v-for="term in termsSorted">
+    <template v-for="{ key, level } in termsSorted">
       <GroupsByTermTableRowRecursive
-        :key="term.key"
-        :term="term"
+        v-if="level === 0"
+        :id="key"
+        :key="key"
+        :groups="groups"
       />
     </template>
   </ul>
@@ -72,7 +74,7 @@ export default {
       const id = this.currentSortColumn;
       const sort = this.currentSort;
       return this.groups
-        .filter(({ level }) => level === 0)
+        .slice()
         .sort(({ [id]: termA }, { [id]: termB }) =>
           sort === "up"
             ? typeof termA === "string"

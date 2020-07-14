@@ -86,21 +86,18 @@ export default {
         const length = children.length;
         // sum all project's progresses
         const progress = length
-          ? groupedProjects[key].reduce(
-              (acc, { attributes: { progress } = {} }) => acc + progress,
-              0
-            ) / length
+          ? children.reduce((acc, { attributes: { progress } = {} }) => acc + progress, 0) / length
           : 0;
 
-        // nested categories (recursive call)
-        const nestedGroupsIds = vocabulary_terms.reduce(
+        // nested groups ids
+        const nestedGroups = vocabulary_terms.reduce(
           (acc, { id: nestId, attributes: { term_id } }) => {
+            // only need those inner groups selected
             if (keys.includes(nestId) && +id === +term_id) {
               acc.push(nestId)
             }
             return acc
           }, []);
-        const nestedGroups = parseProjects(nestedGroupsIds)
 
         return { key, name, slug, length, children, progress, level, nestedGroups };
       })

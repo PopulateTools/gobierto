@@ -2,20 +2,25 @@
   <% if (icon_path = @sdgs.sdg_icon(sdg)).present? %>
     <% if @sdgs.sdgs_with_projects.include?(sdg) %>
       <%= link_to(
-            image_tag(icon_path),
             gobierto_plans_plan_sdg_path(slug: @plan.plan_type.slug, year: @plan.year, sdg_slug: sdg.slug),
             class:"sdg_icon"
-          ) %>
+          ) do %>
+        <%= image_tag(icon_path) %>
+        <%= content_tag(:div, @sdgs.sdg_percentage(sdg), class: "sdg_project_assignations_percentage") if local_assigns[:percentages] %>
+      <% end %>
     <% else %>
       <%= image_tag(icon_path, class: "sdg_icon sdg_icon_inactive") %>
     <% end %>
   <% else %>
     <% if @sdgs.sdgs_with_projects.include?(sdg) %>
       <%= link_to(
-            "#{sdg.external_id}. #{sdg.name}",
+            sdg.name,
             gobierto_plans_plan_sdg_path(slug: @plan.plan_type.slug, year: @plan.year, sdg_slug: sdg.slug),
             class:"sdg_icon"
-          ) %>
+          ) do %>
+        <%= sdg.name %>
+        <%= content_tag(:div, @sdgs.sdg_percentage(sdg), class: "sdg_project_assignations_percentage") if local_assigns[:percentages] %>
+      <% end %>
     <% else %>
       <div class="sdg_icon sdg_icon_inactive"><%= sdg.name %></div>
     <% end %>

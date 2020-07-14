@@ -192,7 +192,7 @@ module GobiertoCitizensCharters
             assert has_content? "100%"
           end
           assert has_no_content? "Reached"
-          refute has_content? "Goal"
+          assert has_no_content? "Goal"
         end
       end
     end

@@ -1,5 +1,6 @@
 <div class="sdg_label sdg-<%= sdg.external_id %> m_b_2" >
-  <%= "#{sdg.external_id}. #{sdg.name}" %>
+  <p class="sdg_title"><%= sdg.name %></p>
+  <p class="sdg_description"><%= sdg.description %></p>
 </div>
 
 <% if projects.blank? %>

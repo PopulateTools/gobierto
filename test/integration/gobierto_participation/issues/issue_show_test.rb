@@ -193,7 +193,7 @@ module GobiertoParticipation
         visit @path
 
         within "div#processes" do
-          refute has_content? participation_process.title
+          assert has_no_content? participation_process.title
         end
 
         assert has_content? "No related news"

@@ -174,6 +174,11 @@ export default {
       if (newValue) {
         this.saveLoader = false
       }
+    },
+    showPrivateViz(newValue) {
+      if (newValue) {
+        this.getDataVisualization(this.privateVisualizations);
+      }
     }
   },
   created() {

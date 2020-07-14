@@ -187,7 +187,7 @@ module GobiertoParticipation
         visit @path
 
         within "div#processes" do
-          refute has_content? participation_process.title
+          assert has_no_content? participation_process.title
         end
 
         assert_equal processes.size, all("div#processes/div").size
@@ -209,7 +209,7 @@ module GobiertoParticipation
         participation_process.events.published.upcoming.each do |event|
           assert has_link? event.title
         end
-        refute has_content? "No related updates"
+        assert has_no_content? "No related updates"
       end
     end
 

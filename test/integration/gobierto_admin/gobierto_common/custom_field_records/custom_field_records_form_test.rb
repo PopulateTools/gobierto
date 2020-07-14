@@ -63,7 +63,7 @@ module GobiertoAdmin
           with(site: site, admin: admin) do
             visit resource_with_instance_level_custom_fields_path
 
-            refute has_content? global_custom_field.name
+            assert has_no_content? global_custom_field.name
             assert has_content? instance_level_custom_field.name
           end
         end

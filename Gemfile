@@ -88,7 +88,7 @@ gem "google-api-client"
 # Microsoft Exchange calendars
 gem "exchanger"
 
-# Web Services
+# Web Services: Alcobendas, Valencia
 gem "savon", "~> 2.12.0"
 
 # Image management
@@ -117,7 +117,7 @@ end
 group :test do
   gem "capybara"
   gem "capybara-email"
-  gem "codecov", "~> 0.1.9", require: false
+  gem "codecov", "~> 0.2.0", require: false
   gem "launchy"
   gem "minitest", "5.14.1"
   gem "minitest-reporters"

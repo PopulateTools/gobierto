@@ -448,6 +448,22 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :gobierto_plans, path: "/" do
+      constraints GobiertoSiteConstraint.new do
+        # API
+        namespace :api, path: "/" do
+          namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1" do
+            resources :plans, only: [:index, :show], defaults: { format: "json" } do
+              member do
+                get :meta
+              end
+              resources :projects, only: [:index]
+            end
+          end
+        end
+      end
+    end
+
     # Gobierto Indicators module
     namespace :gobierto_indicators, path: "indicadores" do
       constraints GobiertoSiteConstraint.new do

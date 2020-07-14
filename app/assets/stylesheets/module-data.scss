@@ -1043,6 +1043,11 @@
     width: 100%;
   }
 
+  &-filters-element {
+    padding-bottom: 1em;
+    border-bottom: 1px solid hsla(0, 0, 59.2%, .5);
+  }
+
   &-filters-element-no-margin {
     margin-bottom: 0;
   }

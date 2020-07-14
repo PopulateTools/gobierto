@@ -223,7 +223,7 @@ module GobiertoAdmin
             click_button "Update"
 
             visit gobierto_participation_issue_attachments_path(old_issue) do
-              refute has_content? gobierto_attachments_attachments(:pdf_collection_attachment).description
+              assert has_no_content? gobierto_attachments_attachments(:pdf_collection_attachment).description
             end
           end
         end

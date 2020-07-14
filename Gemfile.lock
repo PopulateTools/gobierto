@@ -84,12 +84,12 @@ GEM
       algoliasearch (>= 1.26.0, < 2.0.0)
       json (>= 1.5.1)
     ansi (1.5.0)
-    appsignal (2.10.9)
+    appsignal (2.10.10)
       rack
     arel (9.0.0)
     ast (2.4.1)
     aws-eventstream (1.1.0)
-    aws-partitions (1.338.0)
+    aws-partitions (1.341.0)
     aws-sdk-core (3.103.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -98,7 +98,7 @@ GEM
     aws-sdk-kms (1.36.0)
       aws-sdk-core (~> 3, >= 3.99.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.73.0)
+    aws-sdk-s3 (1.74.0)
       aws-sdk-core (~> 3, >= 3.102.1)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
@@ -136,10 +136,11 @@ GEM
     cloudinary (1.16.1)
       aws_cf_signer
       rest-client
-    codecov (0.1.17)
+    codecov (0.2.0)
+      colorize
       json
       simplecov
-      url
+    colorize (0.8.1)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.3)
     cookies_eu (1.7.6)
@@ -186,7 +187,7 @@ GEM
     geocoder (1.6.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    google-api-client (0.41.2)
+    google-api-client (0.42.0)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (~> 0.9)
       httpclient (>= 2.8.1, < 3.0)
@@ -240,7 +241,7 @@ GEM
       thor (>= 0.14, < 2.0)
     js_cookie_rails (2.2.0)
       railties (>= 3.1)
-    json (2.3.0)
+    json (2.3.1)
     json_translate (4.0.0)
       activerecord (>= 4.2.0)
     jsonapi-renderer (0.2.2)
@@ -304,7 +305,7 @@ GEM
     minitest-stub_any_instance (1.0.2)
     mocha (1.11.2)
     msgpack (1.3.3)
-    multi_json (1.14.1)
+    multi_json (1.15.0)
     multipart-post (2.1.1)
     net-http-digest_auth (1.4.1)
     net-http-persistent (3.0.0)
@@ -398,7 +399,7 @@ GEM
       actionpack (>= 5.0.0.1, < 6.1)
       activesupport (>= 5.0.0.1, < 6.1)
       addressable (~> 2.7)
-    rubocop (0.87.0)
+    rubocop (0.87.1)
       parallel (~> 1.10)
       parser (>= 2.7.1.1)
       rainbow (>= 2.2.2, < 4.0)
@@ -489,7 +490,6 @@ GEM
       unf_ext
     unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
-    url (0.3.2)
     vcr (6.0.0)
     wasabi (3.5.0)
       httpi (~> 2.0)
@@ -530,7 +530,7 @@ DEPENDENCIES
   capybara-email
   chroma
   cloudinary
-  codecov (~> 0.1.9)
+  codecov (~> 0.2.0)
   cookies_eu
   d3-rails (~> 4.8)
   dalli

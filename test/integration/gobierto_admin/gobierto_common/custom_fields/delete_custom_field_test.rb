@@ -48,7 +48,7 @@ module GobiertoCommon
           end
           assert has_content? "Custom field successfully deleted"
           assert has_content? "Custom fields"
-          refute has_content? global_custom_field.name
+          assert has_no_content? global_custom_field.name
         end
       end
 
@@ -61,7 +61,7 @@ module GobiertoCommon
           end
           assert has_content? "Custom field successfully deleted"
           assert has_content? "Custom fields of #{instance.title}"
-          refute has_content? instance_level_custom_field.name
+          assert has_no_content? instance_level_custom_field.name
         end
       end
     end

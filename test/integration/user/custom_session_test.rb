@@ -66,7 +66,7 @@ class User::CustomSessionTest < ActionDispatch::IntegrationTest
       fill_in :user_session_password, with: "gobierto"
       click_on "Submit"
 
-      refute has_message?("Signed in successfully")
+      assert has_no_message?("Signed in successfully")
 
       assert has_message?("Invalid data received. The session could not be created")
     end

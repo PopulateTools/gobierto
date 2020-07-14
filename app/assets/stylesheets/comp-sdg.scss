@@ -48,8 +48,19 @@
 .sdg_label {
   padding: 1em;
   color: #fff;
-  text-transform: uppercase;
-  font-weight: 700;
+
+  p {
+    margin: 0;
+  }
+
+  .sdg_title {
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .sdg_description {
+    opacity: .65;
+  }
 }
 
 /* Official colors */

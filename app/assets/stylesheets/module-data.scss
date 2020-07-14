@@ -1131,6 +1131,10 @@
     height: 100%;
     background-color: transparent;
 
+    table {
+      width: auto;
+    }
+
   }
 
   &-description {
@@ -1218,11 +1222,16 @@
 }
 
 perspective-viewer regular-table {
-  overflow-y: scroll !important;
-  overflow-x: hidden !important;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
 
   th {
-    min-width: 100px !important;
     width: auto !important;
 
     span {

@@ -37,8 +37,6 @@ export default {
   },
   watch: {
     items(newValue, oldValue) {
-      console.log("oldValue", oldValue);
-      console.log("newValue", newValue);
       if (newValue !== oldValue) {
         this.checkIfQueryResultIsEmpty(newValue)
       }
@@ -64,7 +62,6 @@ export default {
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.checkIfQueryResultIsEmpty(this.items)
-
   },
   methods: {
     // You can run a query that gets an empty result, and this isn't an error. But if the result comes empty Perspective has no data to build the table, so console returns an error. We need to check if the result of the query is equal to the columns
@@ -84,7 +81,6 @@ export default {
     },
     initPerspective(data) {
       this.viewer.setAttribute('plugin', this.typeChart)
-      console.log("this.viewer", this.viewer);
       this.viewer.clear();
 
       this.viewer.load(data);
@@ -114,6 +110,7 @@ export default {
       //Enable save button when user interacts with Perspective columns
       const itemPerspective = document.querySelector('perspective-viewer').shadowRoot
       const rowPerspective = itemPerspective.querySelectorAll("perspective-row");
+
       rowPerspective.forEach(rowMenu => rowMenu.addEventListener('drag', () => this.$emit("showSaving")));
       rowPerspective.forEach(rowMenu => rowMenu.addEventListener('click', () => this.$emit("showSaving")));
     },
@@ -122,7 +119,6 @@ export default {
       const configButtonPerspective = shadowRootPerspective.getElementById('config_button')
       configButtonPerspective.style.display = "none"
       const selectVizPerspective = shadowRootPerspective.getElementById('vis_selector')
-
 
       selectVizPerspective.addEventListener('change', () => {
         const selectedValue = selectVizPerspective.options[selectVizPerspective.selectedIndex].value;

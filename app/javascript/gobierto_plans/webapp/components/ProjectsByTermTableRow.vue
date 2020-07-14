@@ -1,19 +1,21 @@
 <template>
-  <tr>
-    <template v-for="[id, { options, visibility }] in columns">
-      <td
-        v-if="visibility"
-        :key="id"
-        class="planification-table__td--alt"
-        :class="{ 'is-selected' : marked }"
-      >
-        <slot
-          :column="id"
-          :options="options"
-        />
-      </td>
-    </template>
-  </tr>
+  <li class="planification-table__li">
+    <div class="planification-table__li--content">
+      <template v-for="[id, { options, visibility }] in columns">
+        <div
+          v-if="visibility"
+          :key="id"
+          class="planification-table__td--alt"
+          :class="{ 'is-selected' : marked }"
+        >
+          <slot
+            :column="id"
+            :options="options"
+          />
+        </div>
+      </template>
+    </div>
+  </li>
 </template>
 
 <script>

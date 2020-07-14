@@ -688,6 +688,7 @@ $nodeLevel1HeightMobile: 20vh;
       align-items: baseline;
       justify-content: flex-start;
       flex-direction: row;
+      flex: 1;
 
       .sort-icon {
         color: var(--color-base);
@@ -734,6 +735,7 @@ $nodeLevel1HeightMobile: 20vh;
       font-size: $f7;
       padding: 0.5rem 0.5rem 0.5rem 0;
       font-weight: normal;
+      flex: 1;
 
       &.is-selected {
         font-weight: 900;

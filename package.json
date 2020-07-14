@@ -33,7 +33,6 @@
     "jquery-visible": "^1.2.0",
     "jsgrid": "^1.5.3",
     "leaflet": "^1.5.1",
-    "less": "^3.11.3",
     "less-loader": "^6.2.0",
     "lightbox2": "^2.10.0",
     "lodash": "^4.17.13",

@@ -1,6 +1,7 @@
 <template>
   <div class="planification-buttons">
     <router-link
+      v-if="buttons.length"
       :to="{ path: $root.$data.baseurl }"
       class="planification-buttons__button"
       :class="{ 'is-active': isComponentHome }"

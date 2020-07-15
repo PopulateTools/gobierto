@@ -762,6 +762,10 @@ $nodeLevel1HeightMobile: 20vh;
       align-items: baseline;
       color: var(--color-base);
       cursor: pointer;
+
+      a {
+        max-width: 80%;
+      }
     }
 
     &__container {

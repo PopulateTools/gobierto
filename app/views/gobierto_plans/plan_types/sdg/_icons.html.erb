@@ -14,7 +14,6 @@
   <% else %>
     <% if @sdgs.sdgs_with_projects.include?(sdg) %>
       <%= link_to(
-            sdg.name,
             gobierto_plans_plan_sdg_path(slug: @plan.plan_type.slug, year: @plan.year, sdg_slug: sdg.slug),
             class:"sdg_icon"
           ) do %>

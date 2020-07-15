@@ -9,8 +9,8 @@
         type="text"
         class="gobierto-data-sql-editor-container-save-text"
         :class="{
-          'disable-input-text': disabledButton || isVizItemModified,
-          'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton || isVizItemModified
+          'disable-input-text': disabledButton,
+          'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
         }"
         @keydown.stop="onKeyDownTextHandler"
         @click="enabledInputHandler"
@@ -45,7 +45,7 @@
 
     <!-- show save button if there's no prompt but some name, otherwise, save button -->
     <Button
-      v-if="!showForkButton && isQueryOrVizModified || isVizItemModified"
+      v-if="showSaveButton"
       :text="labelSave"
       icon="save"
       background="#fff"
@@ -64,7 +64,7 @@
     />
 
     <!-- only show revert button when loaded queries from others users -->
-    <template v-if="showRevertQuery && isQueryOrVizModified && isVizItemModified">
+    <template v-if="showRevertButton">
       <Button
         :text="labelRevert"
         icon="undo"
@@ -74,7 +74,7 @@
       />
     </template>
 
-    <template v-if="showLabelEdit && !isVizItemModified">
+    <template v-if="showEditButton">
       <Button
         :text="labelEdit"
         class="btn-sql-editor btn-sql-revert-query"
@@ -112,7 +112,7 @@
       name="fade"
       mode="out-in"
     >
-      <template v-if="isQuerySaved || isVizSaved">
+      <template v-if="isQueryOrVizSaved">
         <div class="gobierto-data-sql-editor-modified-label-container">
           <span class="gobierto-data-sql-editor-modified-label">
             {{ labelSaved }}
@@ -224,6 +224,10 @@ export default {
     isVizItemModified: {
       type: Boolean,
       default: false
+    },
+    resetPrivate: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -249,10 +253,22 @@ export default {
        return (this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
     },
     showPrivateIcon() {
-      return this.showPrivatePublicIcon || this.showPrivatePublicIconViz
+      return this.showPrivatePublicIcon || this.showPrivatePublicIconViz && !this.showForkButton
     },
     isQueryOrVizModified() {
       return this.isQueryModified || this.isVizModified
+    },
+    isQueryOrVizSaved() {
+      return this.isQuerySaved || this.isVizSaved
+    },
+    showEditButton() {
+      return this.showLabelEdit && !this.isVizItemModified && !this.showForkButton
+    },
+    showRevertButton() {
+      return this.showRevertQuery && this.isQueryOrVizModified
+    },
+    showSaveButton() {
+      return !this.showForkButton && this.isQueryOrVizModified || this.isVizItemModified
     }
   },
   watch: {
@@ -270,12 +286,15 @@ export default {
       if (to.path !== from.path) {
         this.countInputCharacters(this.value)
       }
+    },
+    resetPrivate(newValue) {
+      if (newValue) {
+        this.isPrivate = false
+      }
     }
   },
   created() {
-    if (this.showPrivateViz) {
-      this.isPrivate = this.showPrivateViz
-    }
+    this.isPrivate = this.showPrivateViz
   },
   mounted() {
     this.$nextTick(() => {
@@ -319,7 +338,8 @@ export default {
     },
     revertQueryHandler() {
       this.labelValue = this.value
-      this.$root.$emit('revertSavedQuery', true)
+      this.$root.$emit('revertSavedQuery')
+      this.disabledButton = true
     },
     onClickForkHandler() {
       this.$emit('handlerFork')
@@ -356,6 +376,10 @@ export default {
     },
     showChart() {
       this.$emit('showToggleConfig')
+    },
+    revertViz() {
+      this.$emit('handlerRevertViz')
+      this.disabledButton = true
     }
   }
 }

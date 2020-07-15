@@ -24,6 +24,7 @@
           @handlerFork="handlerForkViz"
           @isPrivateChecked="isPrivateChecked"
           @showToggleConfig="showPromptSaveViz"
+          @handlerRevertViz="hidePromptSaveViz"
         />
       </div>
       <div
@@ -185,6 +186,7 @@ export default {
       const config = this.$refs.viewer.getConfig()
 
       this.$root.$emit("storeCurrentVisualization", config, opts);
+      this.hidePromptSaveViz()
     },
     updateVizName(value) {
       const {
@@ -236,6 +238,8 @@ export default {
         this.$refs.savingDialogVizElement.inputSelect()
       });
       this.$root.$emit('enabledForkVizButton', false)
+      this.$refs.viewer.toggleConfigPerspective();
+      this.$root.$emit('showSavingDialogEventViz', true)
     },
     isPrivateChecked() {
       this.$root.$emit('isVizModified', true)
@@ -243,7 +247,13 @@ export default {
     showPromptSaveViz() {
       this.$refs.viewer.toggleConfigPerspective();
       this.$root.$emit('showSavingDialogEventViz', true)
-    }
+    },
+    hidePromptSaveViz() {
+      this.$refs.viewer.toggleConfigPerspective();
+      this.$root.$emit('showSavingDialogEventViz', false)
+      this.$root.$emit("isVizModified", false);
+      this.$root.$emit('enableSavedVizButton', false)
+    },
   }
 };
 </script>

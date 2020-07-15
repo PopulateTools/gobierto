@@ -82,6 +82,7 @@
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       :show-private-public-icon="showPrivatePublicIcon"
+      :reset-private="resetPrivate"
       @save="saveHandlerSavedQuery"
       @keyDownInput="updateQueryName"
       @handlerFork="handlerForkQuery"
@@ -208,6 +209,7 @@ export default {
       removeLabelBtn: false,
       isQueriesModalActive: false,
       isRecentModalActive: false,
+      resetPrivate: false,
       labelValue: this.queryName,
     };
   },
@@ -280,7 +282,8 @@ export default {
       this.isQueriesModalActive = false;
     },
     resetQueryHandler() {
-      this.$root.$emit('resetQuery', true)
+      this.$root.$emit('resetQuery')
+      this.resetPrivate = true
       this.$router.push(
         `/datos/${this.$route.params.id}/${tabs[1]}`
       //Avoid errors when user goes to the same route
@@ -298,6 +301,9 @@ export default {
         this.$refs.savingDialogQuery.inputFocus()
         this.$refs.savingDialogQuery.inputSelect()
       });
+      this.$root.$emit('enableSavedButton')
+      this.$root.$emit('enabledForkPrompt')
+      this.$root.$emit('enabledRevertButton')
       this.$root.$emit('disabledForkButton')
     },
     isPrivateChecked() {

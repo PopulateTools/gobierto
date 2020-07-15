@@ -169,8 +169,6 @@ export default {
       isVizSavingPromptVisible: false,
       showPrivate: false,
       tableName: '',
-      resetQueryDefault: false,
-      revertQuerySaved: false,
       enabledQuerySavedButton: false,
       enabledVizSavedButton: false,
       enabledRevertButton: false,
@@ -580,9 +578,6 @@ export default {
       }
 
       this.currentQuery = sql
-
-      this.resetQuery(false)
-      this.revertSavedQuery(false)
     },
     storeRecentQuery() {
       // if the currentQuery does not exist, nor recent, nor in stored queries neither
@@ -829,30 +824,34 @@ export default {
       const [ columns = '' ] = csv.split("\n");
       this.arrayColumnsQuery = columns.split(",");
     },
-    resetQuery(value) {
-      this.resetQueryDefault = value
-      if (value === true) {
-        this.showPrivatePublicIcon = false
-        this.isQuerySavingPromptVisible = false
-        this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
-        this.isQueryModified = false
-        this.runCurrentQuery()
-        this.disabledSavedButton()
-        this.disabledStringSavedQuery()
-        this.queryName = null
-        this.disabledForkButton()
-      }
+    resetQuery() {
+      this.isQuerySavingPromptVisible = false
+      this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
+      this.isQueryModified = false
+      this.runCurrentQuery()
+      this.disabledSavedButton()
+      this.disabledStringSavedQuery()
+      this.queryName = null
+      this.disabledForkButton()
+      this.showPrivatePublicIcon = false
+      this.showPrivate = false
     },
-    revertSavedQuery(value) {
-      this.revertQuerySaved = value
-      if (value === true) {
-        this.isQuerySavingPromptVisible = false
-        this.currentQuery = this.queryRevert
-        this.isQueryModified = false
-        this.runCurrentQuery()
-        this.disabledSavedButton()
-        this.disabledStringSavedQuery()
-        this.disabledRevertButton()
+    revertSavedQuery() {
+      this.isQuerySavingPromptVisible = false
+      this.currentQuery = this.queryRevert
+      this.isQueryModified = false
+      this.runCurrentQuery()
+      this.disabledSavedButton()
+      this.disabledStringSavedQuery()
+      this.disabledRevertButton()
+
+      const userId = Number(getUserId());
+      if (this.queryUserId !== userId) {
+        this.showPrivatePublicIcon = false
+        this.enabledForkButton = true
+        this.isForkPromptVisible = true
+      } else {
+        this.showPrivatePublicIcon = true
       }
     },
     activatedSavedButton() {
@@ -919,6 +918,8 @@ export default {
         //Find which viz is loaded
         const { user_id: checkUserId = {} } = items.find(({ id }) => id === queryId) || {}
 
+        this.vizUserId = checkUserId
+
         //Check if the user who loaded the viz is the same user who created the viz
         if (userId !== checkUserId && !this.savingViz) {
           this.enabledForkVizButton = true
@@ -956,6 +957,12 @@ export default {
     },
     eventIsVizModified(value) {
       this.isVizModified = value
+      const userId = Number(getUserId());
+      if (this.vizUserId !== userId) {
+        this.showPrivatePublicIconViz = false
+      } else {
+        this.showPrivatePublicIconViz = true
+      }
     },
     setVizName(vizName) {
       this.vizName = vizName
@@ -1003,6 +1010,7 @@ export default {
     },
     showSavingDialogEventViz(value) {
       this.isVizItemModified = value
+      this.showPrivatePublicIconViz = true
     }
   },
 };

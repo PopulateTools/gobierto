@@ -73,16 +73,15 @@ export default {
     termsSorted() {
       const id = this.currentSortColumn;
       const sort = this.currentSort;
-      console.log(this.groups, this.currentSortColumn, this.currentSort);
       return this.groups
         .slice()
         .sort(({ [id]: termA }, { [id]: termB }) =>
           sort === "up"
             ? typeof termA === "string"
-              ? termA.localeCompare(termB)
+              ? termA.localeCompare(termB, undefined, { numeric: true })
               : termA > termB ? -1 : 1
             : typeof termA === "string"
-              ? termB.localeCompare(termA)
+              ? termB.localeCompare(termA, undefined, { numeric: true })
               : termA < termB ? -1 : 1
         );
     }

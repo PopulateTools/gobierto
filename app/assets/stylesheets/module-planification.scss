@@ -668,13 +668,13 @@ $nodeLevel1HeightMobile: 20vh;
     padding: 0;
     list-style-type: none;
 
-    &__li {
+    &__li:not(:last-child) {
       border-bottom: 1px solid $separator;
+    }
 
-      &--content {
-        display: flex;
-        flex: 1;
-      }
+    &__li--content {
+      display: flex;
+      flex: 1;
     }
     
     &__th {
@@ -761,6 +761,10 @@ $nodeLevel1HeightMobile: 20vh;
       align-items: baseline;
       color: var(--color-base);
       cursor: pointer;
+
+      i {
+        flex: 0 0 12px;
+      }
 
       a {
         max-width: 80%;
@@ -855,6 +859,11 @@ $nodeLevel1HeightMobile: 20vh;
         border-radius: 3px;
         z-index: 3;
       }
+    }
+
+    &--inner {
+      margin-left: 1rem;
+      width: calc(100% - 1rem);
     }
   }
 

@@ -12,10 +12,7 @@
       name="slide"
     >
       <template v-if="currentGroupIdOpen === term.key">
-        <ul
-          class="planification-table"
-          :style="ulStyles"
-        >
+        <ul class="planification-table planification-table--inner">
           <template v-for="{ key, level } in nestedGroups">
             <GroupsByTermTableRowRecursive
               v-if="nextLevel === level"
@@ -63,11 +60,6 @@ export default {
     nextLevel() {
       return this.term.level + 1;
     },
-    ulStyles() {
-      return `margin-left: ${this.nextLevel}rem; width: calc(100% - ${
-        this.nextLevel
-      }rem)`;
-    }
   },
   created() {
     this.term = this.groups.find(({ key }) => key === this.id);

@@ -8,7 +8,7 @@
         class="planification-table__td-link"
         @click="showNestedGroups"
       >
-        <i :class="`fas fa-caret-${isOpen ? 'down' : 'right'}`" />
+        <i :class="['fas', nestedGroups.length ? `fa-caret-${isOpen ? 'down' : 'right'}` : '']" />
         <router-link
           :to="{ name: 'term', params: { ...params, term: slug } }"
         >
@@ -50,6 +50,7 @@ export default {
       progress: 0,
       length: 0,
       level: 0,
+      nestedGroups: []
     }
   },
   computed: {
@@ -61,13 +62,14 @@ export default {
     }
   },
   created() {
-    const { key, name, slug, progress, length, level } = this.term
+    const { key, name, slug, progress, length, level, nestedGroups } = this.term
     this.key = key
     this.name = name
     this.slug = slug
     this.progress = progress
     this.length = length
     this.level = level
+    this.nestedGroups = nestedGroups
   },
   methods: {
     showNestedGroups() {

@@ -70,18 +70,8 @@ export default {
     }
   },
   created() {
-    // TODO: repasar
-    const [term, nestedGroups] = this.groups.reduce(
-      (acc, item) => {
-        if (item.key === this.id) acc[0] = item;
-        if (acc[0] && acc[0].nestedGroups.includes(item.key)) acc[1].push(item);
-        return acc;
-      },
-      [null, []]
-    );
-
-    this.term = term;
-    this.nestedGroups = nestedGroups;
+    this.term = this.groups.find(({ key }) => key === this.id);
+    this.nestedGroups = this.groups.filter(({ key }) => this.term.nestedGroups.includes(key));
   },
   methods: {
     showNestedGroups(id) {

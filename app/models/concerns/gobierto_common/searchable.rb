@@ -7,6 +7,7 @@ module GobiertoCommon
     included do
       include AlgoliaSearch
       include ActionView::Helpers::SanitizeHelper
+      include PgSearch::Model
 
       def self.search_index_name
         "#{APP_CONFIG["site"]["name"]}_#{Rails.env}_#{name}"
@@ -39,6 +40,14 @@ module GobiertoCommon
       attribute_summary = translations_hash.values.join(" ").tr("\n\r", " ").gsub(/\s+/, " ")
       attribute_summary = strip_tags(attribute_summary)
       attribute_summary[0..9300]
+    end
+
+    # pg_search
+
+    def truncated_translations(attribute, limit: 1000, strip_tags: true)
+      return {} unless (translations_hash = send("#{attribute}_translations")).present?
+
+      translations_hash.transform_values { |value| (strip_tags ? strip_tags(value) : value)&.truncate(limit) }
     end
   end
 end

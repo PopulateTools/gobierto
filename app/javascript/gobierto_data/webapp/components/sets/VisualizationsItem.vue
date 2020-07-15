@@ -6,29 +6,24 @@
           ref="savingDialogVizElement"
           :value="name"
           :placeholder="labelVisName"
-          :label-save="labelSaveViz"
           :label-saved="labelSavedVisualization"
           :label-modified="labelModifiedVizualition"
           :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
           :is-viz-modified="isVizModified"
           :is-viz-saved="isVizSaved"
+          :is-viz-item-modified="isVizItemModified"
           :is-user-logged="isUserLogged"
           :enabled-fork-viz-button="enabledForkVizButton"
           :enabled-viz-saved-button="enabledVizSavedButton"
           :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
           :show-private-public-icon-viz="showPrivatePublicIconViz"
           :show-private-viz="showPrivateViz"
+          :show-label-edit="showLabelEdit"
           @save="onSaveEventHandler"
           @keyDownInput="updateVizName"
           @handlerFork="handlerForkViz"
           @isPrivateChecked="isPrivateChecked"
-        />
-        <Button
-          :text="labelEdit"
-          class="btn-sql-editor btn-sql-revert-query"
-          icon="chart-area"
-          background="#fff"
-          @click.native="showChart"
+          @showToggleConfig="showPromptSaveViz"
         />
       </div>
       <div
@@ -59,15 +54,13 @@
 <script>
 import Visualizations from "./../commons/Visualizations.vue";
 import SavingDialog from "./../commons/SavingDialog.vue";
-import Button from "./../commons/Button.vue";
 import { getUserId } from "./../../../lib/helpers";
 
 export default {
   name: "VisualizationsItem",
   components: {
     Visualizations,
-    SavingDialog,
-    Button
+    SavingDialog
   },
   props: {
     datasetId: {
@@ -129,13 +122,19 @@ export default {
     showPrivate: {
       type: Boolean,
       default: false
+    },
+    showLabelEdit: {
+      type: Boolean,
+      default: false
+    },
+    isVizItemModified: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       labelVisName: I18n.t('gobierto_data.projects.visName') || "",
-      labelEdit: I18n.t('gobierto_data.projects.edit') || "",
-      labelSaveViz: I18n.t('gobierto_data.projects.saveViz') || "",
       labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
       labelDashboard: I18n.t('gobierto_data.projects.dashboards') || "",
       labelSavedVisualization: I18n.t("gobierto_data.projects.savedVisualization") || "",
@@ -194,10 +193,6 @@ export default {
       this.labelValue = vizName
       this.$root.$emit('updateVizName')
     },
-    showChart() {
-      this.$root.$emit('showSavedVizString', false)
-      this.$refs.viewer.toggleConfigPerspective();
-    },
     showSavingDialog() {
       this.showVisualize = false
       this.showResetViz = true
@@ -243,7 +238,11 @@ export default {
       this.$root.$emit('enabledForkVizButton', false)
     },
     isPrivateChecked() {
-      this.$root.$emit('enableSavedVizButton', true)
+      this.$root.$emit('isVizModified', true)
+    },
+    showPromptSaveViz() {
+      this.$refs.viewer.toggleConfigPerspective();
+      this.$root.$emit('showSavingDialogEventViz', true)
     }
   }
 };

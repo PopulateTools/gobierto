@@ -73,6 +73,7 @@
       :is-user-logged="isUserLogged"
       :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
       :is-viz-modified="isVizModified"
+      :is-viz-item-modified="isVizItemModified"
       :is-viz-saved="isVizSaved"
       :is-private-viz-loading="isPrivateVizLoading"
       :is-public-viz-loading="isPublicVizLoading"
@@ -87,6 +88,7 @@
       :show-private-public-icon-viz="showPrivatePublicIconViz"
       :show-private="showPrivate"
       :show-private-viz="showPrivateViz"
+      :show-label-edit="showLabelEdit"
     />
 
     <DownloadsTab
@@ -163,6 +165,7 @@ export default {
       isQueryModified: false,
       isForkPromptVisible: true,
       isVizModified: false,
+      isVizItemModified: false,
       isVizSavingPromptVisible: false,
       showPrivate: false,
       tableName: '',
@@ -188,6 +191,7 @@ export default {
       showPrivatePublicIcon: false,
       showPrivatePublicIconViz: false,
       showPrivateViz: false,
+      showLabelEdit: false,
       labelSummary: I18n.t("gobierto_data.projects.summary") || "",
       labelData: I18n.t("gobierto_data.projects.data") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
@@ -224,6 +228,7 @@ export default {
         this.currentVizTab = 0
       } else if (to.name === 'Visualization') {
         this.currentVizTab = 1
+        this.showLabelEdit = true
       }
 
       //Update only the baseTitle of the dataset that is active
@@ -383,6 +388,8 @@ export default {
     this.$root.$on('resetVizEvent', this.resetVizEvent)
     //Show saving dialog visualization
     this.$root.$on('showSavingDialogEvent', this.showSavingDialogEvent)
+    //Show saving dialog visualization tab item
+    this.$root.$on('showSavingDialogEventViz', this.showSavingDialogEventViz)
   },
   deactivated() {
     this.$root.$off("deleteSavedQuery");
@@ -901,6 +908,8 @@ export default {
         }
       } else if (userId !== 0 && nameComponent === 'Visualization') {
 
+        this.showLabelEdit = true
+
         const objectViz = this.privateVisualizations.find(({ id }) => id === queryId) || {}
         const { privacy_status: privacyStatus } = objectViz
 
@@ -991,6 +1000,9 @@ export default {
       this.showPrivatePublicIconViz = true
       this.isVizSavingPromptVisible = true
       this.isVizSaved = false
+    },
+    showSavingDialogEventViz(value) {
+      this.isVizItemModified = value
     }
   },
 };

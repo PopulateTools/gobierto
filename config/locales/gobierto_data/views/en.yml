@@ -58,7 +58,6 @@ en:
       revert: Revert
       runQuery: Run query
       save: Save
-      saveViz: Save visualization
       savedQuery: Saved query
       savedVisualization: Saved visualization
       sets: Sets

@@ -6,7 +6,7 @@
         style="margin-bottom: 1rem"
       >
         <Button
-          v-if="showResetViz && isUserLogged"
+          v-if="showResetViz"
           :title="labelResetViz"
           class="btn-sql-editor btn-sql-revert-query"
           icon="home"
@@ -25,7 +25,6 @@
           v-if="perspectiveChanged"
           ref="savingDialogViz"
           :placeholder="labelVisName"
-          :label-save="labelSaveViz"
           :label-saved="labelSavedVisualization"
           :label-modified="labelModifiedVizualition"
           :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
@@ -129,7 +128,6 @@ export default {
   data() {
     return {
       labelVisName: I18n.t('gobierto_data.projects.visName') || "",
-      labelSaveViz: I18n.t('gobierto_data.projects.saveViz') || "",
       labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
       labelResetViz: I18n.t('gobierto_data.projects.resetViz') || "",
       labelModifiedVizualition: I18n.t("gobierto_data.projects.modifiedVisualization") || "",

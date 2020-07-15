@@ -587,6 +587,7 @@
 
     .btn-sql-revert-query {
       vertical-align: top;
+      margin-left: .5rem;
     }
 
     input[type="text"] {
@@ -675,7 +676,7 @@
   }
 
   &-sql-editor-modified-label-container {
-    margin: 0 .5rem 0 .25rem;
+    margin: 0 .5rem;
   }
 
   &-sql-editor-modified-label,

@@ -222,6 +222,10 @@ class Site < ApplicationRecord
     configuration.configuration_variables.fetch("algolia_search_disabled", false)
   end
 
+  def multisearch(*args)
+    PgSearch.multisearch(*args).where(site: self)
+  end
+
   private
 
   def site_configuration_attributes

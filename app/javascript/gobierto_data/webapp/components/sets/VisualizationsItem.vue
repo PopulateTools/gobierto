@@ -256,8 +256,8 @@ export default {
     hidePromptSaveViz() {
       this.$refs.viewer.toggleConfigPerspective();
       this.$root.$emit('showSavingDialogEventViz', false)
-      this.$root.$emit("isVizModified", false);
       this.$root.$emit('enableSavedVizButton', false)
+      this.$root.$emit("isVizModified", false);
     },
   }
 };

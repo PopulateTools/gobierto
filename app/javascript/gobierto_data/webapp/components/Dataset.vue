@@ -487,9 +487,9 @@ export default {
         params: { queryId }
       } = this.$route;
 
-      const items = this.publicQueries
       //We need to keep this query separate from the editor query
       //When load a saved query we use the queryId to find inside privateQueries or publicQueries
+      const items = !this.showPrivate ? this.publicQueries : this.privateQueries
       const { attributes: { sql: queryRevert } = {} } = items.find(({ id }) => id === queryId) || {}
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert
@@ -1015,7 +1015,7 @@ export default {
     },
     showSavingDialogEventViz(value) {
       this.isVizItemModified = value
-      this.eventIsVizModified(value)
+      this.isVizModified = false
       this.activatedSavedVizButton(value)
       this.showPrivatePublicIconViz = true
     }

@@ -44,10 +44,20 @@ module GobiertoCommon
 
     # pg_search
 
-    def truncated_translations(attribute, limit: 1000, strip_tags: true)
-      return {} unless (translations_hash = send("#{attribute}_translations")).present?
+    def truncated_translations(attribute, **opts)
+      return localized_truncated_plain_attribute(attribute, opts) unless (translations_hash = try("#{attribute}_translations")).present?
 
-      translations_hash.transform_values { |value| (strip_tags ? strip_tags(value) : value)&.truncate(limit) }
+      translations_hash.transform_values { |value| clean_text(value, **opts) }
+    end
+
+    def localized_truncated_plain_attribute(attribute, **opts)
+      return {} unless respond_to?(attribute)
+
+      { I18n.locale => clean_text(send(attribute), **opts) }
+    end
+
+    def clean_text(text, limit: 1000, strip_tags: true)
+      (strip_tags ? strip_tags(text) : text)&.truncate(limit)
     end
   end
 end

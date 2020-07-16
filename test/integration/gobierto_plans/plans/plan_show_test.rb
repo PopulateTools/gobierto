@@ -192,8 +192,7 @@ module GobiertoPlans
               assert has_content?(action_lines.first.name)
               assert has_content?("2 actions")
 
-              # Progress divided by number of categories of next level
-              assert has_content?((published_projects.sum(:progress) / 2).to_i.to_s + "%")
+              assert has_content?((published_projects.sum(:progress) / published_projects.count).to_i.to_s + "%")
             end
 
             assert has_selector?("h3", text: action_lines.first.name)
@@ -314,58 +313,6 @@ module GobiertoPlans
         visit @path
 
         assert_equal 404, page.status_code
-      end
-    end
-
-    def test_plan_without_configuration
-      remove_plugin_custom_fields if site.custom_fields.plugin.present?
-      publish_last_version_on_all_projects!
-      plan.update_attribute(:configuration_data, "")
-
-      with(site: site, js: true, window_size: :xl) do
-
-        visit @path
-
-        within "section.level_0" do
-          within "div.node-root", match: :first do
-            find("h3", text: axes.first.name).click
-          end
-        end
-
-        within ".planification-content" do
-          within "section.level_1" do
-            within ".lines-header" do
-              assert has_content?("1 item of level 3")
-            end
-
-            within ".lines-list" do
-              assert has_content?(action_lines.first.name)
-              assert has_content?("2 items of level 4")
-
-              assert has_content?((projects.sum(:progress) / projects.count).to_i.to_s + "%")
-            end
-
-            assert has_selector?("h3", text: action_lines.first.name)
-            find("h3", text: action_lines.last.name).click
-          end
-
-          within "section.level_2" do
-            assert has_content?(action_lines.last.name)
-
-            within "ul.action-line--list" do
-              assert has_selector?("li", count: actions.count)
-
-              find("h3", text: actions.last.name).click
-
-              assert has_selector?("div", text: published_projects.last.progress.to_i.to_s + "%")
-              assert has_content? published_projects.last.name
-
-              find("td", text: published_projects.last.name).click
-
-              assert has_content?(published_projects.last.status.name)
-            end
-          end
-        end
       end
     end
   end

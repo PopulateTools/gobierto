@@ -1,13 +1,10 @@
 <template>
-  <div
-    v-if="config && table"
-    class="tablerow"
-  >
+  <div class="tablerow">
     <div class="tablerow__title">
       {{ title | translate }}
     </div>
     <div class="tablerow__data">
-      <template v-for="indicator in columns">
+      <template v-for="indicator in indicators">
         <div
           :key="indicator"
           class="tablerow__item"
@@ -18,27 +15,25 @@
           <div class="tablerow__item-table-container">
             <table class="tablerow__item-table">
               <thead class="tablerow__item-table-header">
-                <th v-if="hasDate" />
-                <th v-if="hasObjective">
-                  {{ labelObjetive }}
-                </th>
-                <th v-if="hasReached">
-                  {{ labelReached }}
+                <th
+                  v-for="({ id, name_translations }, index) in noAggColumns"
+                  :key="id"
+                >
+                  <template v-if="index !== 0">
+                    {{ name_translations | translate }}
+                  </template>
                 </th>
               </thead>
               <tr
-                v-for="({ id, objective, date, value }, index) in table[indicator]"
-                :key="`${id}-${date || index}`"
+                v-for="(row, index) in table[indicator]"
+                :key="`${row[indicator]}--${index}`"
                 class="tablerow__item-table-row"
               >
-                <td v-if="hasDate">
-                  {{ date }}
-                </td>
-                <td v-if="hasObjective">
-                  {{ objective }}
-                </td>
-                <td v-if="hasReached">
-                  {{ value }}
+                <td
+                  v-for="{ id } in noAggColumns"
+                  :key="id"
+                >
+                  {{ row[id] }}
                 </td>
               </tr>
             </table>
@@ -50,13 +45,16 @@
 </template>
 
 <script>
-import { VueFiltersMixin } from "lib/shared";
+import { translate } from "lib/shared";
+import { groupBy } from "../lib/helpers";
 
 export default {
-  name: "RawIndicators",
-  mixins: [VueFiltersMixin],
+  name: "CustomFieldPluginRawIndicators",
+  filters: {
+    translate
+  },
   props: {
-    config: {
+    attributes: {
       type: Object,
       default: () => {}
     }
@@ -64,36 +62,44 @@ export default {
   data() {
     return {
       title: "",
+      value: [],
       table: {},
-      labelObjetive: I18n.t("gobierto_plans.plan_types.show.objective") || '',
-      labelReached: I18n.t("gobierto_plans.plan_types.show.reached") || '',
+      noAggColumns: []
     };
   },
   computed: {
-    columns() {
-      return Object.keys(this.table)
-    },
-    hasDate() {
-      return this.config.data.some(({ date }) => !!date)
-    },
-    hasObjective() {
-      return this.config.data.some(({ objective }) => !!objective)
-    },
-    hasReached() {
-      return this.config.data.some(({ value }) => !!value)
+    indicators() {
+      return Object.keys(this.table);
     },
   },
   created() {
-    this.title = this.config.title_translations;
-    const data = _.groupBy(this.config.data, 'name');
+    const {
+      name_translations,
+      value,
+      options: { configuration: { plugin_configuration: { columns } = {} } = {} } = {}
+    } = this.attributes;
+    this.title = name_translations;
+    this.value = value;
 
-    for (const key in data) {
-      if (Object.prototype.hasOwnProperty.call(data, key)) {
-        data[key] = (data[key] || []).sort(({ date: a }, { date: b }) => a < b)
+    // first column is the aggregator, the rest of columns will make the table
+    const [{ id: aggKey }, ...noAggColumns ] = columns
+    this.noAggColumns = noAggColumns
+
+    if (value) {
+      // creates as many tables as indicators there are
+      const data = groupBy(value, aggKey);
+
+      // sort by date column if exists
+      if (noAggColumns.some(({ id }) => id === 'date')) {
+        for (const key in data) {
+          if (Object.prototype.hasOwnProperty.call(data, key)) {
+            data[key] = (data[key] || []).sort(({ date: a }, { date: b }) => a < b)
+          }
+        }
       }
-    }
 
-    this.table = data;
+      this.table = data;
+    }
   }
 };
 </script>

@@ -1,7 +1,5 @@
-/*
- * Planification
- *
- */
+@import "css-conf";
+@import "mixins";
 
 // Vars
 $nodeLevel1IllustrationWidth: 33%;
@@ -254,6 +252,7 @@ $nodeLevel1HeightMobile: 20vh;
       font-size: $f7;
       font-weight: 700;
       padding: 0.25em;
+      text-decoration: none;
       cursor: pointer;
 
       &:first-of-type {
@@ -448,6 +447,10 @@ $nodeLevel1HeightMobile: 20vh;
     color: $color_text;
     padding: 0.75em 0;
 
+    &:empty {
+      display: none;
+    }
+
     .description-title {
       text-transform: uppercase;
       font-weight: 700;
@@ -470,6 +473,19 @@ $nodeLevel1HeightMobile: 20vh;
       margin-top: 0.5em;
     }
 
+    .description-content {
+      max-height: 100vh;
+      transition: all 250ms;
+
+      > :first-child {
+        margin-top: 0;
+      }
+
+      > :last-child {
+        margin-bottom: 0;
+      }
+    }
+
     .is-hidden {
       max-height: 100px;
       position: relative;
@@ -486,16 +502,29 @@ $nodeLevel1HeightMobile: 20vh;
       }
     }
 
+    .description-content,
     .description-desc {
       font-size: 14px;
-      word-break: break-all;
+      word-break: break-word;
+    }
+
+    .description-images {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+
+      img {
+        width: 50%;
+        flex: 0 0 50%;
+        object-fit: cover;
+      }
     }
 
     .description-list {
       display: flex;
 
       > :first-child {
-        flex: 0 0 40%;
+        flex: 0 0 33%;
         padding-right: 0.25em;
       }
     }
@@ -622,7 +651,7 @@ $nodeLevel1HeightMobile: 20vh;
     @each $lang in (ca es) {
       $num: zerofill($num);
       .ods-goal__#{$num}__#{$lang} {
-        background-image: url(asset_path('ods/ods_goal_' + $num + '_' + $lang + '.png' ));
+        background-image: url('../images/ods/ods_goal_' + $num + '_' + $lang + '.png' );
       }
     }
   }

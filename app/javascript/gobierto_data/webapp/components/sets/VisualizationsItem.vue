@@ -220,7 +220,9 @@ export default {
       } = objectViz
 
       //Find the query associated to the visualization
-      const itemQueries = this.showPrivate ? this.privateQueries : this.publicQueries
+      console.log("itemQueries", itemQueries);
+      console.log("this.showPrivate", this.showPrivate);
+      const itemQueries = this.showPrivateViz ? this.privateQueries : this.publicQueries
       const { attributes: { name: queryName } = {} } = itemQueries.find(({ id }) => id == queryID) || {}
 
       this.vizID = vizID

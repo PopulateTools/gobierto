@@ -19,6 +19,7 @@
         :is-user-logged="isUserLogged"
         :query-input-focus="queryInputFocus"
         :show-private-public-icon="showPrivatePublicIcon"
+        :reset-private="resetPrivate"
       />
       <SQLEditorCode
         :array-columns="arrayColumns"
@@ -180,6 +181,10 @@ export default {
       default: false
     },
     showPrivatePublicIconViz: {
+      type: Boolean,
+      default: false
+    },
+    resetPrivate: {
       type: Boolean,
       default: false
     }

@@ -56,6 +56,7 @@
       :is-user-logged="isUserLogged"
       :query-input-focus="queryInputFocus"
       :viz-input-focus="vizInputFocus"
+      :reset-private="resetPrivate"
       :show-private-public-icon="showPrivatePublicIcon"
       :show-private-public-icon-viz="showPrivatePublicIconViz"
     />
@@ -89,6 +90,7 @@
       :show-private="showPrivate"
       :show-private-viz="showPrivateViz"
       :show-label-edit="showLabelEdit"
+      :reset-private="resetPrivate"
     />
 
     <DownloadsTab
@@ -190,6 +192,7 @@ export default {
       showPrivatePublicIconViz: false,
       showPrivateViz: false,
       showLabelEdit: false,
+      resetPrivate: false,
       labelSummary: I18n.t("gobierto_data.projects.summary") || "",
       labelData: I18n.t("gobierto_data.projects.data") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
@@ -835,6 +838,7 @@ export default {
       this.disabledForkButton()
       this.showPrivatePublicIcon = false
       this.showPrivate = false
+      this.resetPrivate = true
     },
     revertSavedQuery() {
       this.isQuerySavingPromptVisible = false
@@ -865,6 +869,7 @@ export default {
         this.showRevertQuery = true
       }
 
+      this.resetPrivate = false
     },
     disabledSavedButton() {
       this.enabledQuerySavedButton = false
@@ -1010,6 +1015,8 @@ export default {
     },
     showSavingDialogEventViz(value) {
       this.isVizItemModified = value
+      this.eventIsVizModified(value)
+      this.activatedSavedVizButton(value)
       this.showPrivatePublicIconViz = true
     }
   },

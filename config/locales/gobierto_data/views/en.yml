@@ -28,6 +28,7 @@ en:
       buttonRunQuery: Run query (CMD/WIN + Enter)
       cancel: Cancel
       categories: Categories
+      createCopy: Create a copy
       dashboards: Dashboards
       data: Data
       dataset: Datasets
@@ -40,7 +41,6 @@ en:
       edit: Edit
       emptyRecentQueries: There's no recent queries
       favs: Favorites
-      fork: Fork
       frequency: Frequency
       guide: Guide to using the SQL editor
       modifiedQuery: Modified Query

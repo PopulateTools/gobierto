@@ -29,6 +29,7 @@
         :show-private="showPrivate"
         :show-label-edit="showLabelEdit"
         :is-viz-item-modified="isVizItemModified"
+        :reset-private="resetPrivate"
         @changeViz="showVizElement"
         @emitDelete="deleteHandlerVisualization"
       />
@@ -130,6 +131,10 @@ export default {
       default: false
     },
     isVizItemModified: {
+      type: Boolean,
+      default: false
+    },
+    resetPrivate: {
       type: Boolean,
       default: false
     }

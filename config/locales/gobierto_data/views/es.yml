@@ -28,6 +28,7 @@ es:
       buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)
       cancel: Cancelar
       categories: Categorías
+      createCopy: Crear una copia
       dashboards: Dashboards
       data: Datos
       dataset: Conjunto de datos
@@ -40,7 +41,6 @@ es:
       edit: Editar
       emptyRecentQueries: No hay consultas recientes
       favs: Favoritas
-      fork: Fork
       frequency: Frecuencia
       guide: Guía para usar el editor SQL
       modifiedQuery: Consulta modificada

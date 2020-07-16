@@ -190,6 +190,10 @@ export default {
     showPrivatePublicIcon: {
       type: Boolean,
       default: false
+    },
+    resetPrivate: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -209,7 +213,6 @@ export default {
       removeLabelBtn: false,
       isQueriesModalActive: false,
       isRecentModalActive: false,
-      resetPrivate: false,
       labelValue: this.queryName,
     };
   },
@@ -283,7 +286,6 @@ export default {
     },
     resetQueryHandler() {
       this.$root.$emit('resetQuery')
-      this.resetPrivate = true
       this.$router.push(
         `/datos/${this.$route.params.id}/${tabs[1]}`
       //Avoid errors when user goes to the same route

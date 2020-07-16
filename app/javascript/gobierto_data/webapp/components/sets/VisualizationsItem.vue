@@ -19,6 +19,7 @@
           :show-private-public-icon-viz="showPrivatePublicIconViz"
           :show-private-viz="showPrivateViz"
           :show-label-edit="showLabelEdit"
+          :reset-private="resetPrivate"
           @save="onSaveEventHandler"
           @keyDownInput="updateVizName"
           @handlerFork="handlerForkViz"
@@ -131,6 +132,10 @@ export default {
     isVizItemModified: {
       type: Boolean,
       default: false
+    },
+    resetPrivate: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -208,7 +213,6 @@ export default {
       } = this.$route;
 
       const objectViz = data.find(({ id }) => id === queryId) || {}
-      console.log("objectViz", objectViz);
 
       const {
         items: elements,
@@ -222,9 +226,7 @@ export default {
 
       //Find the query associated to the visualization
       const itemQueries = this.showPrivateViz ? this.privateQueries : this.publicQueries
-      console.log("itemQueries", itemQueries);
       const { attributes: { name: queryName } = {} } = itemQueries.find(({ id }) => id == queryID) || {}
-      console.log("queryName", queryName);
 
       this.vizID = vizID
       this.queryID = queryID

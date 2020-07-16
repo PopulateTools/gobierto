@@ -8,7 +8,7 @@ module GobiertoCommon
       return @object if @live_object.present?
 
       @live_object = super
-      @object = version_index.negative? ? @live_object.versions[version_index].reify : @live_object
+      @object = version_index&.negative? ? @live_object.versions[version_index].reify : @live_object
     end
 
     def version_index

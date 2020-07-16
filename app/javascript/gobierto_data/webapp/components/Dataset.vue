@@ -910,12 +910,9 @@ export default {
         this.showLabelEdit = true
 
         const objectViz = this.privateVisualizations.find(({ id }) => id === queryId) || {}
-        console.log("objectViz", objectViz);
         const { privacy_status: privacyStatus } = objectViz
-        console.log("privacyStatus", privacyStatus);
 
         this.showPrivateViz = privacyStatus === 'closed' ? true : false
-        console.log("this.showPrivateViz", this.showPrivateViz);
         const items = !this.showPrivateViz ? this.publicVisualizations : this.privateVisualizations
 
         //Find which viz is loaded

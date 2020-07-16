@@ -28,7 +28,7 @@
         />
       </div>
       <div
-        v-if="queryID"
+        v-if="queryName"
         class="gobierto-data-visualization-query-container"
       >
         <span class="gobierto-data-summary-queries-panel-title">{{ labelQuery }}:</span>
@@ -208,6 +208,7 @@ export default {
       } = this.$route;
 
       const objectViz = data.find(({ id }) => id === queryId) || {}
+      console.log("objectViz", objectViz);
 
       const {
         items: elements,
@@ -220,10 +221,10 @@ export default {
       } = objectViz
 
       //Find the query associated to the visualization
-      console.log("itemQueries", itemQueries);
-      console.log("this.showPrivate", this.showPrivate);
       const itemQueries = this.showPrivateViz ? this.privateQueries : this.publicQueries
+      console.log("itemQueries", itemQueries);
       const { attributes: { name: queryName } = {} } = itemQueries.find(({ id }) => id == queryID) || {}
+      console.log("queryName", queryName);
 
       this.vizID = vizID
       this.queryID = queryID

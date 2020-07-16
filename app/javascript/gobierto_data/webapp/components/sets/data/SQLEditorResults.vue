@@ -8,7 +8,7 @@
         <Button
           v-if="showResetViz"
           :title="labelResetViz"
-          class="btn-sql-editor btn-sql-revert-query"
+          class="btn-sql-editor btn-sql-revert-viz"
           icon="home"
           background="#fff"
           @click.native="resetViz"

@@ -10,7 +10,7 @@
         class="gobierto-data-sql-editor-container-save-text"
         :class="{
           'disable-input-text': disabledButton,
-          'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
+          'disable-cursor-pointer': disabledInputName
         }"
         @keydown.stop="onKeyDownTextHandler"
         @click="enabledInputHandler"
@@ -24,7 +24,7 @@
         :style="{ paddingRight: '.5em', margin: 0 }"
       />
       <div
-        v-if="isQueryModified || isVizModified || isVizItemModified"
+        v-if="showLabelPrivate"
         class="gobierto-data-sql-editor-container-save-label"
       >
         <input
@@ -85,7 +85,7 @@
     </template>
     <template v-if="isVizItemModified">
       <Button
-        :text="labelRevert"
+        :text="labelCancel"
         class="btn-sql-editor btn-sql-revert-query"
         icon="undo"
         background="#fff"
@@ -106,8 +106,6 @@
         </div>
       </transition>
     </template>
-
-
     <transition
       name="fade"
       mode="out-in"
@@ -269,6 +267,12 @@ export default {
     },
     showSaveButton() {
       return !this.showForkButton && this.isQueryOrVizModified || this.isVizItemModified
+    },
+    showLabelPrivate() {
+      return this.isQueryModified || this.isVizModified || this.isVizItemModified
+    },
+    disabledInputName() {
+      return this.enabledForkButton || !this.isUserLogged || this.enabledForkVizButton
     }
   },
   watch: {

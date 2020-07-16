@@ -32,6 +32,8 @@ es:
       data: Datos
       dataset: Conjunto de datos
       datasetUpdated: Últimos datasets actualizados
+      deleteQuery: "¿Estás seguro de que deseas eliminar esta consulta?"
+      deleteViz: "¿Estás seguro de que deseas eliminar esta visualización?"
       description: Descripción
       download: Descargar
       downloadData: Descargar datos

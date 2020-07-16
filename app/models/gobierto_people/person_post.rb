@@ -13,6 +13,19 @@ module GobiertoPeople
     validates :site, presence: true
     validates :slug, uniqueness: { scope: :site_id }
 
+    multisearchable(
+      against: [:title, :body],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          description_translations: item.truncated_translations(:body),
+          resource_path: item.resource_path
+        }
+      },
+      if: :active?
+    )
+
     algoliasearch_gobierto do
       attribute :site_id, :title, :body, :updated_at
       searchableAttributes ['title', 'body']

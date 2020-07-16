@@ -20,6 +20,19 @@ module GobiertoCms
     include GobiertoCommon::Collectionable
     include GobiertoCommon::Sectionable
 
+    multisearchable(
+      against: [:title_en, :title_es, :title_ca, :searchable_body],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          description_translations: item.truncated_translations(:body),
+          resource_path: item.resource_path
+        }
+      },
+      if: :active?
+    )
+
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :searchable_body, :collection_id
       searchableAttributes %w(title_en title_es title_ca searchable_body)

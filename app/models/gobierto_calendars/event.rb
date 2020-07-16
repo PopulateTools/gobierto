@@ -27,6 +27,19 @@ module GobiertoCalendars
 
     metadata_attributes :type
 
+    multisearchable(
+      against: [:title_es, :title_en, :title_ca, :searchable_description],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          description_translations: item.truncated_translations(:description),
+          resource_path: item.resource_path
+        }
+      },
+      if: :active?
+    )
+
     algoliasearch_gobierto do
       attribute :site_id, :title_en, :title_es, :title_ca, :searchable_description, :updated_at
       searchableAttributes ['title_en', 'title_es', 'title_ca', 'searchable_description']

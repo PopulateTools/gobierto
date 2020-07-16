@@ -14,6 +14,19 @@ module GobiertoParticipation
     belongs_to :contribution_container
     has_many :comments, as: :commentable
 
+    multisearchable(
+      against: [:title, :description],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          description_translations: item.truncated_translations(:description),
+          resource_path: item.resource_path
+        }
+      },
+      if: :active?
+    )
+
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title, :description
       searchableAttributes ["title", "description"]

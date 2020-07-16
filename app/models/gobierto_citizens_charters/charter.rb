@@ -10,6 +10,18 @@ module GobiertoCitizensCharters
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Searchable
 
+    multisearchable(
+      against: [:title_en, :title_es, :title_ca, :searchable_custom_fields],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          resource_path: item.resource_path
+        }
+      },
+      if: :active?
+    )
+
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :searchable_custom_fields
       searchableAttributes %w(title_en title_es title_ca searchable_custom_fields)

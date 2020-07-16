@@ -15,6 +15,18 @@ module GobiertoPeople
 
     translates :title
 
+    multisearchable(
+      against: [:title_es, :title_en, :title_ca],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          resource_path: item.resource_path
+        }
+      },
+      if: :active?
+    )
+
     algoliasearch_gobierto do
       attribute :site_id, :title_en, :title_es, :title_ca, :updated_at
       searchableAttributes ['title_en', 'title_es', 'title_ca']

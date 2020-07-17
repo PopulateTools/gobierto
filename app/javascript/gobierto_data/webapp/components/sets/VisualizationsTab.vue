@@ -122,6 +122,10 @@ export default {
     showPrivate: {
       type: Boolean,
       default: false
+    },
+    arrayColumns: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {

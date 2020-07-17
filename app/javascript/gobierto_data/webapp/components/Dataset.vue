@@ -87,6 +87,7 @@
       :show-private-public-icon-viz="showPrivatePublicIconViz"
       :show-private="showPrivate"
       :show-private-viz="showPrivateViz"
+      :array-columns="arrayColumns"
     />
 
     <DownloadsTab

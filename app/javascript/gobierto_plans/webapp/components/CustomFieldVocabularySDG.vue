@@ -33,7 +33,7 @@ export default {
     const { value, vocabulary_terms } = this.attributes;
     const elements = Array.isArray(value) ? value : [value]
 
-    this.sdgs = vocabulary_terms.filter(({ id }) => elements.includes(id))
+    this.sdgs = vocabulary_terms.filter(({ id, attributes: { level } = {} }) => elements.includes(id) && level === 0)
   }
 };
 </script>

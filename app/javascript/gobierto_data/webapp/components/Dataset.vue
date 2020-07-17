@@ -733,6 +733,13 @@ export default {
       }
     },
     async storeCurrentVisualization(config, opts) {
+      const {
+        params: {
+          queryId
+        }
+      } = this.$route;
+
+      let vizIdFromRoute = +queryId
 
       this.savingViz = true
       this.savingQuery = false
@@ -779,7 +786,7 @@ export default {
       let status = null
       let newViz
 
-      if (name === this.vizName && user === userId) {
+      if (vizID === vizIdFromRoute && user === userId) {
         // factory method
         ({ status } = await this.putVisualization(vizID, { data }));
       } else {

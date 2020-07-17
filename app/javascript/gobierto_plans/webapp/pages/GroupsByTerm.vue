@@ -73,6 +73,16 @@ export default {
     termsSorted() {
       const id = this.currentSortColumn;
       const sort = this.currentSort;
+
+      /**
+       * In order to sort:
+       * 1. create a copy of the array to avoid collateral effects (eslint recommendations)
+       * 2. based on the sorting type (up|down) apply different policies
+       * 3. if the term in an string, we must run localeCompare function to proper parsing the accents
+       *    example: ['Ángels', 'Antonio', ..., 'Vanessa'] will be ['Antonio', ..., 'Vanessa', 'Ángels'] if no local comparison
+       * 4. add to the options object { numeric: true }, in order to parse numbers at the beginning
+       *    example: ['1. Opt-A', '2. Opt-B', ..., '10. Opt-J'] will be ['1. Opt-A', '10. Opt-J', ..., '2. Opt-B'] if no option provided
+       */
       return this.groups
         .slice()
         .sort(({ [id]: termA }, { [id]: termB }) =>

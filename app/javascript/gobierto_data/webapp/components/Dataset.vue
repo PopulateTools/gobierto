@@ -233,7 +233,7 @@ export default {
       }
 
       //Update only the baseTitle of the dataset that is active
-      if (to.path !== from.path && to.name === 'Dataset' && this._inactive === false) {
+      if (to.name === 'Dataset' && this._inactive === false) {
         this.updateBaseTitle()
       }
       //FIXME: Hugo, we need to talk about this hack
@@ -970,7 +970,8 @@ export default {
     eventIsVizModified(value) {
       this.isVizModified = value
       const userId = Number(getUserId());
-      if (this.vizUserId !== userId) {
+      //Don't show privatePublicIcon when load a viz from other user
+      if (this.vizUserId !== userId && this.enabledForkButton) {
         this.showPrivatePublicIconViz = false
       } else {
         this.showPrivatePublicIconViz = true

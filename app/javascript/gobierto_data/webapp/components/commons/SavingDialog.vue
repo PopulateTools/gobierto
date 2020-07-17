@@ -252,7 +252,7 @@ export default {
        return (this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
     },
     showPrivateIcon() {
-      return this.showPrivatePublicIcon || this.showPrivatePublicIconViz && !this.showForkButton
+      return this.showPrivatePublicIcon || (this.showPrivatePublicIconViz && !this.showForkButton)
     },
     isQueryOrVizModified() {
       return this.isQueryModified || this.isVizModified
@@ -261,13 +261,13 @@ export default {
       return this.isQuerySaved || this.isVizSaved
     },
     showEditButton() {
-      return this.showLabelEdit && !this.isVizItemModified && !this.showForkButton
+      return this.showLabelEdit && (!this.isVizItemModified && !this.showForkButton)
     },
     showRevertButton() {
       return this.showRevertQuery && this.isQueryOrVizModified
     },
     showSaveButton() {
-      return !this.showForkButton && this.isQueryOrVizModified || this.isVizItemModified
+      return !this.showForkButton && (this.isQueryOrVizModified || this.isVizItemModified)
     },
     showLabelPrivate() {
       return this.isQueryModified || this.isVizModified || this.isVizItemModified
@@ -286,11 +286,6 @@ export default {
     },
     showPrivate(newValue) {
       this.isPrivate = (newValue);
-    },
-    $route(to, from) {
-      if (to.path !== from.path) {
-        this.countInputCharacters(this.value)
-      }
     },
     resetPrivate(newValue) {
       if (newValue) {

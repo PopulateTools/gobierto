@@ -89,7 +89,7 @@ export default {
 
       const transformColumns = this.arrayColumns
 
-      Object.keys(transformColumns).forEach(function(key){
+      Object.keys(transformColumns).forEach((key) => {
         if (transformColumns[key] === 'hstore') {
           transformColumns[key] = 'string'
         } else if (transformColumns[key] === 'jsonb') {
@@ -98,13 +98,15 @@ export default {
           transformColumns[key] = 'float'
         } else if (transformColumns[key] === 'text') {
           transformColumns[key] = 'string'
+        } else if (transformColumns[key] === 'inet') {
+          transformColumns[key] = 'integer'
         }
       });
 
       let schema = transformColumns
 
-      const table2 = this.viewer.worker.table(schema);
-      this.viewer.load(table2)
+      const loadSchema = this.viewer.worker.table(schema);
+      this.viewer.load(loadSchema)
       this.viewer.update(data)
 
       if (this.config) {

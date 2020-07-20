@@ -355,7 +355,7 @@ export default {
       newWidth = newWidth > 290 ? maxWidth : newWidth
 
       //Check if the user is typing in the input of the queries or visualizations
-      const { placeholder = [] } = this.$ref.inputText || {};
+      const { placeholder = [] } = this.$refs.inputText || {};
 
       //In the Visualizations view, we've more space, so we take advantage of it by increasing the input name width.
       if (this.$route.name === 'Visualization') {

@@ -41,6 +41,8 @@
         :is-user-logged="isUserLogged"
         :query-stored="queryStored"
         :viz-input-focus="vizInputFocus"
+        :viz-name="vizName"
+        :viz-id="vizId"
         :show-private-public-icon-viz="showPrivatePublicIconViz"
       />
     </div>
@@ -187,6 +189,14 @@ export default {
     resetPrivate: {
       type: Boolean,
       default: false
+    },
+    vizName: {
+      type: String,
+      default: ''
+    },
+    vizId: {
+      type: Number,
+      default: 0
     }
   }
 }

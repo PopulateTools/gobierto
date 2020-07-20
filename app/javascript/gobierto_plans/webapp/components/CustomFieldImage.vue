@@ -1,5 +1,5 @@
 <template>
-  <div class="description-images">
+  <div class="project-description__images">
     <img
       v-for="{ id, src } in images"
       :key="id"

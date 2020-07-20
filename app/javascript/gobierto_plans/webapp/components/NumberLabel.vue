@@ -6,13 +6,14 @@
 
 <script>
 import { translate } from "lib/shared";
-import { PlansStore } from "../lib/store";
+import { NamesMixin } from "../lib/mixins/names";
 
 export default {
   name: "NumberLabel",
   filters: {
     translate
   },
+  mixins: [NamesMixin],
   props: {
     length: {
       type: Number,
@@ -26,13 +27,6 @@ export default {
   computed: {
     label() {
       return this.getLabel(this.level, this.length)
-    }
-  },
-  methods: {
-    getLabel(level, number_of_elements) {
-      const KEYS = PlansStore.state.levelKeys
-      const key = KEYS[`level${level}`];
-      return number_of_elements === 1 ? key["one"] : key["other"];
     }
   }
 };

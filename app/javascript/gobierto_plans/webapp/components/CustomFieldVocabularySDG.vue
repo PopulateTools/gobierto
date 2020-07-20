@@ -1,9 +1,9 @@
 <template>
-  <div class="ods-goal-container">
+  <div class="ods-goal__container">
     <div
       v-for="{ id, attributes: { slug } = {} } in sdgs"
       :key="id"
-      class="ods-goal-content"
+      class="ods-goal__content"
     >
       <a
         :href="`${baseUrl}/ods/${+slug}`"
@@ -33,7 +33,7 @@ export default {
     const { value, vocabulary_terms } = this.attributes;
     const elements = Array.isArray(value) ? value : [value]
 
-    this.sdgs = vocabulary_terms.filter(({ id }) => elements.includes(id))
+    this.sdgs = vocabulary_terms.filter(({ id, attributes: { level } = {} }) => elements.includes(id) && level === 0)
   }
 };
 </script>

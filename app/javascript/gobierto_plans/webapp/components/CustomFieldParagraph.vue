@@ -1,14 +1,14 @@
 <template>
   <div>
     <div
-      class="description-content"
+      class="project-description__content"
       :class="[isActive ? 'is-hidden' : '']"
       v-html="value"
     />
 
     <button
       v-if="isElementHidden"
-      class="description-more"
+      class="project-description__more"
       @click="isActive = !isActive"
     >
       <span v-if="readMoreButton">{{ labelReadMore }}</span>

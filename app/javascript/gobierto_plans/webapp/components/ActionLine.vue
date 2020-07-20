@@ -11,7 +11,7 @@
       />
     </NodeList>
 
-    <transition name="slide-fade">
+    <transition name="slide">
       <template v-if="showContent">
         <slot />
       </template>

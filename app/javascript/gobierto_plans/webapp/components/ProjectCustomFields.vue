@@ -2,6 +2,10 @@
   <div class="project-description">
     <template v-if="pluginType">
       <template v-if="rawIndicatorsType">
+        <div class="project-description__title">
+          {{ attributes.name_translations | translate }}
+        </div>
+
         <CustomFieldPluginRawIndicators :attributes="attributes" />
       </template>
       <template v-else>
@@ -10,12 +14,12 @@
     </template>
 
     <template v-else>
-      <div class="description-list mb1">
-        <div class="description-title">
+      <div class="project-description__list mb1">
+        <div class="project-description__title">
           {{ attributes.name_translations | translate }}
         </div>
 
-        <div class="description-desc">
+        <div class="project-description__desc">
           <template v-if="paragraphType">
             <CustomFieldParagraph :attributes="attributes" />
           </template>
@@ -48,6 +52,7 @@
 
 <script>
 import { translate } from "lib/shared";
+import { FieldTypeMixin } from "../lib/mixins/field-type";
 import CustomFieldParagraph from "./CustomFieldParagraph.vue";
 import CustomFieldPluginRawIndicators from "./CustomFieldPluginRawIndicators.vue";
 import CustomFieldVocabulary from "./CustomFieldVocabulary.vue";
@@ -66,6 +71,7 @@ export default {
   filters: {
     translate
   },
+  mixins: [FieldTypeMixin],
   props: {
     attributes: {
       type: Object,
@@ -74,41 +80,11 @@ export default {
   },
   data() {
     return {
-      fieldType: null,
       values: []
     };
   },
-  computed: {
-    paragraphType() {
-      return [
-        "paragraph",
-        "localized_paragraph",
-        "string",
-        "localized_string"
-      ].includes(this.fieldType);
-    },
-    pluginType() {
-      return this.fieldType === "plugin";
-    },
-    vocabularyType() {
-      return this.fieldType === 'vocabulary_options'
-    },
-    imageType() {
-      return this.fieldType === 'image'
-    },
-    selectionType() {
-      return [
-        "single_option",
-        "multiple_options"
-      ].includes(this.fieldType);
-    },
-    rawIndicatorsType() {
-      return this.attributes.options.configuration.plugin_configuration.category_term_decorator === 'raw_indicators'
-    }
-  },
   created() {
-    const { field_type, value } = this.attributes;
-    this.fieldType = field_type;
+    const { value } = this.attributes;
 
     if (value) {
       this.values = Array.isArray(value) ? value : [value];

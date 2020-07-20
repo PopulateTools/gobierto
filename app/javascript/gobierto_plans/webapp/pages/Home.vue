@@ -17,6 +17,10 @@ export default {
       type: Array,
       default: () => []
     },
+    options: {
+      type: Object,
+      default: () => {}
+    }
   }
 };
 </script>

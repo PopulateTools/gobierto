@@ -26,6 +26,8 @@ en:
           sdg_projects_empty: There are no plan %{projects_term} related to this Goal
           sdg_projects_title: Plan %{projects_term} related to this Goal
       show:
+        category: Category
+        customize_columns: Customize columns
         desc: Description
         ends: End
         global_execution: State of global execution
@@ -36,3 +38,4 @@ en:
         read_more: Read less
         starts: Start
         status: Status
+        view_by: View by

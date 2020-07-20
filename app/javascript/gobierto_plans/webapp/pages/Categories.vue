@@ -14,10 +14,7 @@
         :class="[`level_${i}`, 'category']"
         :style="`--category: var(--category-${color})`"
       >
-        <Breadcrumb
-          :model="activeNode"
-          :options="options"
-        />
+        <Breadcrumb :model="activeNode" />
 
         <!-- next to last children template -->
         <template v-if="i === lastLevel - 1">
@@ -50,7 +47,7 @@ import ActionLines from "../components/ActionLines";
 import RecursiveHeader from "../components/RecursiveHeader";
 import RecursiveLines from "../components/RecursiveLines";
 import { translate } from "lib/shared";
-import { ActiveNodeMixin } from "../lib/mixins";
+import { ActiveNodeMixin } from "../lib/mixins/active-node";
 import { PlansStore } from "../lib/store";
 
 export default {
@@ -85,7 +82,7 @@ export default {
   created() {
     const { last_level } = this.options;
     this.lastLevel = last_level;
-    this.rootOptions = PlansStore.state.levelKeys["level0_options"] || {}
+    this.rootOptions = PlansStore.state.options["level0_options"] || {}
   },
   methods: {
     isOpen(level) {

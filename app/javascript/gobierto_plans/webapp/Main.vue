@@ -14,7 +14,7 @@
       </template>
     </Header>
 
-    <ButtonFilters v-if="false" />
+    <ButtonFilters :options="options" />
 
     <router-view
       :json="json"
@@ -71,6 +71,7 @@ export default {
       }
     } = plan;
 
+    PlansStore.setProjects(projects);
     PlansStore.setPlainItems([...categories, ...projects]);
     PlansStore.setMeta(meta);
     PlansStore.setStatus(status);
@@ -90,7 +91,7 @@ export default {
     options.max_category_level = max_category_level;
 
     this.options = options;
-    PlansStore.setLevelKeys(options);
+    PlansStore.setOptions(options);
 
     // set this flag at the end, once every calc has been done
     this.isFetchingData = false;

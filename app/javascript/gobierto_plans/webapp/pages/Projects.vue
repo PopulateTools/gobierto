@@ -10,15 +10,8 @@
       :class="[`level_${lastLevel}`, 'category']"
       :style="`--category: var(--category-${color})`"
     >
-      <Breadcrumb
-        :model="activeNode"
-        :options="options"
-      />
-
-      <Project
-        :model="activeNode"
-        :options="options"
-      />
+      <Breadcrumb :model="activeNode" />
+      <Project :model="activeNode" />
     </section>
   </div>
 </template>
@@ -27,7 +20,7 @@
 import SectionZero from "../components/SectionZero";
 import Project from "../components/Project";
 import Breadcrumb from "../components/Breadcrumb";
-import { ActiveNodeMixin } from "../lib/mixins";
+import { ActiveNodeMixin } from "../lib/mixins/active-node";
 
 export default {
   name: "Projects",

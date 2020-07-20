@@ -2,6 +2,7 @@
   <div class="node-action-line">
     <div class="action-line--header node-list cat--negative">
       <h3>{{ title }}</h3>
+      <slot />
     </div>
 
     <div class="node-project-detail">
@@ -32,10 +33,6 @@ export default {
     model: {
       type: Object,
       default: () => {}
-    },
-    options: {
-      type: Object,
-      default: () => {}
     }
   },
   data() {
@@ -45,14 +42,14 @@ export default {
     };
   },
   created() {
-    const META = PlansStore.state.meta;
-    const { show_empty_fields = true } = this.options;
+    const { meta, options } = PlansStore.state;
+    const { show_empty_fields = true } = options;
     const { attributes = {} } = this.model;
     const { name } = attributes
 
     this.title = name;
     // Expand the META object with the matching values for this project
-    this.customFields = META.reduce((acc, item) => {
+    this.customFields = meta.reduce((acc, item) => {
       const { uid } = item.attributes;
       const value = attributes[uid];
 

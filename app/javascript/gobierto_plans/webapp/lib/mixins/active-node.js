@@ -1,4 +1,4 @@
-import { findRecursive } from "./helpers";
+import { findRecursive } from "../helpers";
 
 export const ActiveNodeMixin = {
   data() {
@@ -31,10 +31,7 @@ export const ActiveNodeMixin = {
       this.activeNode = findRecursive(this.json, id);
 
       if (this.activeNode) {
-        const {
-          rootid,
-          attributes
-        } = this.activeNode;
+        const { rootid } = this.activeNode;
 
         // to determine the colors
         this.rootid = rootid

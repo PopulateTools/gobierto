@@ -166,8 +166,6 @@ export default {
     }
   },
   created() {
-    this.$root.$emit("isVizModified", false);
-    this.$root.$emit('enableSavedVizButton', false)
     const userId = getUserId()
     this.getDataVisualization(this.publicVisualizations);
     //Only getPrivate if user load a PrivateViz

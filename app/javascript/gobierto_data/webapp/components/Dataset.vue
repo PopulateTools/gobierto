@@ -820,11 +820,12 @@ export default {
 
       /*Don't updates the URL if the component is Editor, only replace and don't reload, because in the editor we've two options, saved a query or viz, if the user saves a viz, and we update the URL, the browser reloads, and the user goes to visualization tab, and this behavior is too hacky.*/
       //https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
-      history.pushState(
+      this.$router.push(`/datos/${slugDataset}/${pathQueryOrViz}/${newId}`)
+      /*history.pushState(
         {},
         null,
         `${location.origin}/datos/${slugDataset}/${pathQueryOrViz}/${newId}`
-      )
+      )*/
 
       this.enabledForkButton = false
       this.queryInputFocus = false
@@ -970,12 +971,6 @@ export default {
     eventIsVizModified(value) {
       this.isVizModified = value
       const userId = Number(getUserId());
-      //Don't show privatePublicIcon when load a viz from other user
-      if (this.vizUserId !== userId && this.enabledForkButton) {
-        this.showPrivatePublicIconViz = false
-      } else {
-        this.showPrivatePublicIconViz = true
-      }
     },
     setVizName(vizName) {
       this.vizName = vizName

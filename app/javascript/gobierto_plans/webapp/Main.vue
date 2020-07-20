@@ -155,15 +155,16 @@ export default {
 
             /**
              * calculate the number of projects a category has
+             * project: itself. Just one.
              * last-category: their children
-             *
+             * others: concat all the projects their children have
              */
-            const projects =
+            const itemProjects =
               item.level === lastLevel
                 ? 1
                 : item.level === lastLevel - 1
-                ? children.length
-                : children.reduce((acc, { projects: p }) => acc + p, 0);
+                ? children
+                : children.reduce((acc, { projects }) => [...acc, ...projects], [])
 
             /**
              * calculate which are its progress
@@ -173,13 +174,13 @@ export default {
             const progress =
               item.level === lastLevel
                 ? item.attributes.progress
-                : this.meanByProgress(children);
+                : this.meanByProgress(itemProjects);
 
             acc.push({
               ...item,
               progress,
               ...(children && { children }),
-              ...(projects !== undefined && { projects })
+              ...(itemProjects !== undefined && { projects: itemProjects })
             });
           }
           return acc;
@@ -205,6 +206,7 @@ export default {
 
       const sum = data.reduce((acc, { progress }) => acc + progress, 0);
       const total = data.reduce((acc, { projects }) => acc + projects, 0);
+
       return total === 0 ? 0 : sum / total;
     },
     setRootId(item, ix) {

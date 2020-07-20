@@ -9,34 +9,26 @@
       <th>{{ labelProgress }}</th>
     </thead>
     <tbody>
-      <tr
+      <ActionLinesTableViewRow
         v-for="row in children"
         :key="row.id"
+        :model="row"
         :style="{ cursor: !open ? 'pointer' : '' }"
-        @click="getProject(row)"
-      >
-        <td>{{ row.attributes.name }}</td>
-        <td>{{ row.attributes.starts_at | date }}</td>
-        <td>{{ row.attributes.status | translate }}</td>
-        <td>{{ row.attributes.progress | percent }}</td>
-      </tr>
+        @click.native="getProject(row)"
+      />
     </tbody>
   </table>
 </template>
 
 <script>
 import NumberLabel from "./NumberLabel";
-import { percent, translate, date } from "lib/shared";
+import ActionLinesTableViewRow from "./ActionLinesTableViewRow";
 
 export default {
-  name: "TableView",
+  name: "ActionLinesTableView",
   components: {
-    NumberLabel
-  },
-  filters: {
-    percent,
-    translate,
-    date
+    NumberLabel,
+    ActionLinesTableViewRow
   },
   props: {
     model: {

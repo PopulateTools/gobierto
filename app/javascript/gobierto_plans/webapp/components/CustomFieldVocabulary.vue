@@ -70,7 +70,7 @@ export default {
         }
         return acc;
       }, [])
-      .sort((a, b) => a.name > b.name);
+      .sort((a, b) => a.name > b.name ? 1 : -1);
   }
 };
 </script>

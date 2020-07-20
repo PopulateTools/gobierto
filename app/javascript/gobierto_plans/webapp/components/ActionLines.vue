@@ -6,7 +6,7 @@
         :model="model"
         :options="options"
       >
-        <TableView
+        <ActionLinesTableView
           :key="model.id"
           :model="model"
           :header="showTableHeader"
@@ -19,13 +19,13 @@
 
 <script>
 import ActionLine from "./ActionLine";
-import TableView from "./TableView";
+import ActionLinesTableView from "./ActionLinesTableView";
 
 export default {
   name: "ActionLines",
   components: {
     ActionLine,
-    TableView
+    ActionLinesTableView
   },
   props: {
     models: {

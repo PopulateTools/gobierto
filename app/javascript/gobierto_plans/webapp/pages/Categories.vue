@@ -19,7 +19,10 @@
         <!-- next to last children template -->
         <template v-if="i === lastLevel - 1">
           <div class="node-action-line">
-            <ActionLineHeader :model="activeNode" />
+            <ActionLineHeader
+              :key="color"
+              :model="activeNode"
+            />
             <ActionLines
               :models="activeNode.children"
               :options="options"
@@ -28,7 +31,10 @@
         </template>
         <!-- otherwise, recursive templates -->
         <template v-else>
-          <RecursiveHeader :model="activeNode" />
+          <RecursiveHeader
+            :key="color"
+            :model="activeNode"
+          />
           <RecursiveLines
             :models="activeNode.children"
             :options="options"

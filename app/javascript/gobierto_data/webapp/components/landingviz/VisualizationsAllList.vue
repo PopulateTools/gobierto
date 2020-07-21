@@ -125,9 +125,7 @@ export default {
         const visualization = { items, config: spec, name, privacy_status, query_id, id, user_id, sql };
 
         visualizations.push(visualization);
-
       }
-
       return visualizations;
     },
   }

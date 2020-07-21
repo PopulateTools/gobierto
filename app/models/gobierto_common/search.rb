@@ -24,6 +24,10 @@ module GobiertoCommon
       end.map(&add_quotes).join(',')
     end
 
+    def searchable_types
+      models_to_search.map(&:name).to_json
+    end
+
     private
 
     def modules_to_search

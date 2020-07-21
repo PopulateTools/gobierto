@@ -62,7 +62,7 @@
     window.searchClient = {
       client: algoliasearch('<%= Rails.application.secrets.algolia_application_id %>', '<%= Rails.application.secrets.algolia_search_api_key %>'),
       indexes: ["<%= GobiertoCms::Page.search_index_name %>"],
-      filters: "site_id:<%= algolia_search_client.site.id %>"
+      filters: "site_id:<%= search_client.site.id %>"
     };
     <% end %>
 

@@ -1204,6 +1204,14 @@
     margin: 0;
   }
 
+  &-landing-visualizations {
+    .gobierto-data-summary-header-description {
+      margin-bottom: 1rem;
+
+      p {
+        margin: 0;
+        max-width: 50%;
+      }
     }
   }
 

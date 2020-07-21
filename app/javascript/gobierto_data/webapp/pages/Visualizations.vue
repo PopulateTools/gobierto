@@ -40,11 +40,13 @@ import { CategoriesMixin } from "./../../lib/mixins/categories.mixin";
 import { FiltersMixin } from "./../../lib/mixins/filters.mixin";
 import { VisualizationFactoryMixin } from "./../../lib/factories/visualizations";
 import VisualizationsAllList from "./../components/landingviz/VisualizationsAllList";
+import { SkeletonSpinner } from "lib/vue-components";
 
 export default {
   name: "Visualizations",
   components: {
-    VisualizationsAllList
+    VisualizationsAllList,
+    SkeletonSpinner
   },
   mixins: [
     CategoriesMixin,
@@ -76,7 +78,7 @@ export default {
         });
         const { data } = response;
 
-        if (data[0] !== undefined) {
+        if (data.length) {
           const { relationships: { dataset: { data: { id } } } } = data[0];
           datasetsWithVizs.push(id);
         }

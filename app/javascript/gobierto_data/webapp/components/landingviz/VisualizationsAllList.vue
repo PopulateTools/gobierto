@@ -1,26 +1,35 @@
 <template>
   <div v-if="datasetId">
-    <Caret
-      :rotate="showViz"
-      @click.native="handleToggle"
-    />
-    <router-link
-      :to="{ path:`/datos/${slug}`, params: { activeSidebarTab: 1 }}"
-      class="gobierto-data-title-dataset gobierto-data-title-dataset-big"
-    >
-      {{ name }}
-    </router-link>
-    <div v-show="showViz">
-      <div
-        class="gobierto-data-summary-header-description"
-        v-html="description"
+    <template v-if="!isVizsLoading">
+      <SkeletonSpinner
+        height-square="250px"
+        square-rows="2"
+        squares="2"
       />
-      <VisualizationsGrid
-        v-if="publicVisualizations"
-        :public-visualizations="publicVisualizations"
-        :slug="slug"
+    </template>
+    <template v-else>
+      <Caret
+        :rotate="showViz"
+        @click.native="handleToggle"
       />
-    </div>
+      <router-link
+        :to="{ path:`/datos/${slug}`, params: { activeSidebarTab: 1 }}"
+        class="gobierto-data-title-dataset gobierto-data-title-dataset-big"
+      >
+        {{ name }}
+      </router-link>
+      <div v-show="showViz">
+        <div
+          class="gobierto-data-summary-header-description"
+          v-html="description"
+        />
+        <VisualizationsGrid
+          v-if="publicVisualizations"
+          :public-visualizations="publicVisualizations"
+          :slug="slug"
+        />
+      </div>
+    </template>
   </div>
 </template>
 <script>
@@ -30,11 +39,13 @@ import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { convertToCSV } from "./../../../lib/helpers";
 import VisualizationsGrid from "./VisualizationsGrid";
 import Caret from "./../commons/Caret";
+import { SkeletonSpinner } from "lib/vue-components";
 export default {
   name: "VisualizationsAllList",
   components: {
     VisualizationsGrid,
-    Caret
+    Caret,
+    SkeletonSpinner
   },
   mixins: [
     VisualizationFactoryMixin,
@@ -62,7 +73,8 @@ export default {
   data() {
     return {
       publicVisualizations: [],
-      showViz: true
+      showViz: true,
+      isVizsLoading: false
     }
   },
   mounted() {
@@ -81,6 +93,7 @@ export default {
       if (data.length) {
         this.publicVisualizations = await this.getDataFromVisualizations(data);
       }
+      this.isVizsLoading = true
     },
     async getDataFromVisualizations(data) {
       const visualizations = [];

@@ -1,19 +1,6 @@
 <template>
   <div class="gobierto-data gobierto-data-landing-visualizations">
-    <div class="block">
-      <div class="pure-g header_block_inline">
-        <div class="pure-u-1 pure-u-md-12-24">
-          <div class="inline_header">
-            <h2 class="with_description p_h_r_1">
-              {{ labelVisualizations }}
-            </h2>
-          </div>
-          <p>
-            {{ labelTextVisualizations }}
-          </p>
-        </div>
-      </div>
-    </div>
+    <VisualizationsHeader />
     <div
       v-for="{
         id,
@@ -36,16 +23,18 @@
   </div>
 </template>
 <script>
+import VisualizationsAllList from "./../components/landingviz/VisualizationsAllList";
+import VisualizationsHeader from "./../components/landingviz/VisualizationsHeader";
 import { CategoriesMixin } from "./../../lib/mixins/categories.mixin";
 import { FiltersMixin } from "./../../lib/mixins/filters.mixin";
 import { VisualizationFactoryMixin } from "./../../lib/factories/visualizations";
-import VisualizationsAllList from "./../components/landingviz/VisualizationsAllList";
 import { SkeletonSpinner } from "lib/vue-components";
 
 export default {
   name: "Visualizations",
   components: {
     VisualizationsAllList,
+    VisualizationsHeader,
     SkeletonSpinner
   },
   mixins: [
@@ -55,8 +44,6 @@ export default {
   ],
   data() {
     return {
-      labelVisualizations: I18n.t("gobierto_data.projects.visualizations") || "",
-      labelTextVisualizations: I18n.t("gobierto_data.layouts.visualizations") || "",
       datasetsVisualizations: []
     }
   },

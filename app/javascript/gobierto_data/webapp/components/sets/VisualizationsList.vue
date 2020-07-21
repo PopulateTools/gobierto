@@ -38,6 +38,7 @@
                           <Visualizations
                             :items="items"
                             :config="config"
+                            :object-columns="objectColumns"
                           />
                         </div>
                       </div>
@@ -99,6 +100,7 @@
                         <Visualizations
                           :items="items"
                           :config="config"
+                          :object-columns="objectColumns"
                         />
                       </div>
                     </div>
@@ -157,6 +159,10 @@ export default {
     privateVisualizations: {
       type: Array,
       default: () => []
+    },
+    objectColumns: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {

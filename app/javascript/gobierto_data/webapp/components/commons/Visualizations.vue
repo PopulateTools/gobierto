@@ -26,7 +26,7 @@ export default {
       type: Array,
       default: () => []
     },
-    arrayColumns: {
+    objectColumns: {
       type: Object,
       default: () => {}
     },
@@ -87,7 +87,7 @@ export default {
       this.viewer.setAttribute('plugin', this.typeChart)
       this.viewer.clear();
 
-      const transformColumns = this.arrayColumns
+      const transformColumns = this.objectColumns
 
       Object.keys(transformColumns).forEach((key) => {
         if (transformColumns[key] === 'hstore') {

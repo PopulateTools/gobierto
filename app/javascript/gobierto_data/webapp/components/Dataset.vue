@@ -19,7 +19,7 @@
       :private-queries="privateQueries"
       :public-queries="publicQueries"
       :array-formats="arrayFormats"
-      :array-columns="arrayColumns"
+      :object-columns="objectColumns"
       :resources-list="resourcesList"
       :dataset-attributes="attributes"
       :is-user-logged="isUserLogged"
@@ -30,7 +30,7 @@
       :private-queries="privateQueries"
       :public-queries="publicQueries"
       :recent-queries="recentQueriesFiltered"
-      :array-columns="arrayColumns"
+      :object-columns="objectColumns"
       :array-formats="arrayFormats"
       :array-columns-query="arrayColumnsQuery"
       :items="items"
@@ -87,7 +87,7 @@
       :show-private-public-icon-viz="showPrivatePublicIconViz"
       :show-private="showPrivate"
       :show-private-viz="showPrivateViz"
-      :array-columns="arrayColumns"
+      :object-columns="objectColumns"
     />
 
     <DownloadsTab
@@ -144,7 +144,7 @@ export default {
       datasetId: 0, // possible deprecation in DATA, don't in the class
       titleDataset: "",
       arrayFormats: {},
-      arrayColumns: {},
+      objectColumns: {},
       attributes: null,
       privateQueries: [],
       publicQueries: [],
@@ -278,13 +278,13 @@ export default {
     const {
       name: titleDataset,
       table_name: tableName,
-      columns: arrayColumns,
+      columns: objectColumns,
       formats: arrayFormats
     } = attributes;
 
     this.titleDataset = titleDataset;
     this.tableName = tableName;
-    this.arrayColumns = arrayColumns;
+    this.objectColumns = objectColumns;
     this.arrayFormats = arrayFormats;
 
     // Once we have the dataset info, we request both kind of queries

@@ -27,6 +27,7 @@
         :show-private-public-icon-viz="showPrivatePublicIconViz"
         :show-private-viz="showPrivateViz"
         :show-private="showPrivate"
+        :object-columns="objectColumns"
         @changeViz="showVizElement"
         @emitDelete="deleteHandlerVisualization"
       />
@@ -123,7 +124,7 @@ export default {
       type: Boolean,
       default: false
     },
-    arrayColumns: {
+    objectColumns: {
       type: Object,
       default: () => {}
     }

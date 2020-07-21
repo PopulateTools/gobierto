@@ -35,7 +35,7 @@
     />
 
     <Description
-      :array-columns="arrayColumns"
+      :object-columns="objectColumns"
       class="gobierto-data-summary-separator"
     />
 
@@ -98,7 +98,7 @@ export default {
       type: Object,
       default: () => {},
     },
-    arrayColumns: {
+    objectColumns: {
       type: Object,
       default: () => {},
     },

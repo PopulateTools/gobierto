@@ -136,9 +136,7 @@ export default {
       /*Method to remove the config icon for all visualizations, we need to wait to load both lists when they are loaded, we select alls visualizations, and iterate over them with a loop to remove every icon.*/
       this.$nextTick(() => {
         let vizList = document.querySelectorAll("perspective-viewer");
-        console.log("vizList", vizList);
         for (let index = 0; index < vizList.length; index++) {
-          console.log("vizList[index]", vizList[index]);
           vizList[index].shadowRoot.querySelector("div#config_button").style.display = "none";
         }
       })

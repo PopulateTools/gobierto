@@ -8,7 +8,6 @@
         <router-link
           :to="`/datos/${slug}/v/${id}`"
           class="gobierto-data-visualizations-name"
-          @click.native="loadViz(name, user_id)"
         >
           <div class="gobierto-data-visualization--card">
             <div class="gobierto-data-visualization--aspect-ratio-16-9">

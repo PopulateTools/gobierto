@@ -1,5 +1,5 @@
 <template>
-  <div class="gobierto-data-sets-nav--tab-container">
+  <div>
     <template v-if="isUserLogged">
       <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
         <template v-slot:trigger>
@@ -12,17 +12,15 @@
             </template>
           </h3>
         </template>
-
         <div class="gobierto-data-visualization--grid">
-          <template v-if="isPrivateVizLoading">
+          <template v-if="deleteAndReload">
             <Loading />
           </template>
-
           <template v-else>
             <template v-if="privateVisualizations.length">
               <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
                 <div
-                  :key="name"
+                  :key="id"
                   class="gobierto-data-visualization--container"
                 >
                   <router-link
@@ -78,40 +76,34 @@
       </template>
 
       <div class="gobierto-data-visualization--grid">
-        <template v-if="isPublicVizLoading">
-          <Loading />
+        <template v-if="publicVisualizations.length">
+          <template v-for="{ items, config, name, id, user_id } in publicVisualizations">
+            <div :key="id">
+              <router-link
+                :to="`/datos/${$route.params.id}/v/${id}`"
+                class="gobierto-data-visualizations-name"
+                @click.native="loadViz(name, user_id)"
+              >
+                <div class="gobierto-data-visualization--card">
+                  <div class="gobierto-data-visualization--aspect-ratio-16-9">
+                    <div class="gobierto-data-visualization--content">
+                      <h4 class="gobierto-data-visualization--title">
+                        {{ name }}
+                      </h4>
+                      <Visualizations
+                        :items="items"
+                        :config="config"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </router-link>
+            </div>
+          </template>
         </template>
 
         <template v-else>
-          <template v-if="publicVisualizations.length">
-            <template v-for="{ items, config, name, id, user_id } in publicVisualizations">
-              <div :key="name">
-                <router-link
-                  :to="`/datos/${$route.params.id}/v/${id}`"
-                  class="gobierto-data-visualizations-name"
-                  @click.native="loadViz(name, user_id)"
-                >
-                  <div class="gobierto-data-visualization--card">
-                    <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                      <div class="gobierto-data-visualization--content">
-                        <h4 class="gobierto-data-visualization--title">
-                          {{ name }}
-                        </h4>
-                        <Visualizations
-                          :items="items"
-                          :config="config"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </router-link>
-              </div>
-            </template>
-          </template>
-
-          <template v-else>
-            <div>{{ labelVisEmpty }}</div>
-          </template>
+          <div>{{ labelVisEmpty }}</div>
         </template>
       </div>
     </Dropdown>
@@ -129,10 +121,10 @@ export default {
   name: "VisualizationsList",
   components: {
     Visualizations,
-    Loading,
     PrivateIcon,
     Dropdown,
-    Caret
+    Caret,
+    Loading
   },
   props: {
     datasetId: {
@@ -167,10 +159,31 @@ export default {
       labelVisPublic: I18n.t("gobierto_data.projects.visPublic") || "",
       showPrivateVis: true,
       showPublicVis: true,
+      deleteAndReload: false,
     };
+  },
+  watch: {
+    isPrivateVizLoading(newValue) {
+      if (!newValue) {
+        this.removeAllIcons()
+        this.deleteAndReload = false
+      }
+    },
+    isPublicVizLoading(newValue) {
+      if (!newValue) this.removeAllIcons()
+    },
+    privateVisualizations(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.deleteAndReload = false
+      }
+    }
+  },
+  mounted() {
+    this.removeAllIcons()
   },
   methods: {
     loadViz(vizName, user) {
+      document.getElementById('gobierto-datos-app').scrollIntoView();
       const userId = Number(getUserId())
       this.$emit('changeViz', 1)
       this.$root.$emit('loadVizName', vizName)
@@ -179,7 +192,19 @@ export default {
       }
     },
     emitDeleteHandlerVisualization(id) {
+      this.deleteAndReload = true
       this.$emit('emitDelete', id)
+    },
+    removeAllIcons() {
+      /*Method to remove the config icon for all visualizations, we need to wait to load both lists when they are loaded, we select alls visualizations, and iterate over them with a loop to remove every icon.*/
+      if (!this.isPrivateVizLoading && !this.isPublicVizLoading) {
+        this.$nextTick(() => {
+          let vizList = document.querySelectorAll("perspective-viewer");
+          for (let index = 0; index < vizList.length; index++) {
+            vizList[index].shadowRoot.querySelector("div#config_button").style.display = "none";
+          }
+        })
+      }
     }
   }
 };

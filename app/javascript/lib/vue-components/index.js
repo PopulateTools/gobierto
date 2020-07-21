@@ -6,6 +6,7 @@ import Checkbox from "./modules/Checkbox.vue"
 import RangeBars from "./modules/RangeBars.vue"
 import ReadMore from "./modules/ReadMore.vue"
 import Dropdown from "./modules/Dropdown.vue"
+import SkeletonSpinner from "./modules/SkeletonSpinner.vue"
 
 export {
   BlockHeader,
@@ -15,5 +16,6 @@ export {
   Checkbox,
   RangeBars,
   ReadMore,
-  Dropdown
+  Dropdown,
+  SkeletonSpinner
 }

@@ -82,9 +82,11 @@
       :enabled-query-saved-button="enabledQuerySavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
+      :show-private-public-icon="showPrivatePublicIcon"
       @save="saveHandlerSavedQuery"
       @keyDownInput="updateQueryName"
       @handlerFork="handlerForkQuery"
+      @isPrivateChecked="isPrivateChecked"
     />
 
     <Button
@@ -100,7 +102,8 @@
   </div>
 </template>
 <script>
-import { CommonsMixin, closableMixin } from "./../../../../lib/commons.js";
+import { VueDirectivesMixin } from "lib/shared";
+import { closableMixin } from "./../../../../lib/commons.js";
 import { tabs } from '../../../../lib/router';
 
 import Button from "./../../commons/Button.vue";
@@ -118,7 +121,7 @@ export default {
     PulseSpinner,
     SavingDialog
   },
-  mixins: [CommonsMixin, closableMixin],
+  mixins: [VueDirectivesMixin, closableMixin],
   props: {
     privateQueries: {
       type: Array,
@@ -181,6 +184,10 @@ export default {
       default: false
     },
     queryInputFocus: {
+      type: Boolean,
+      default: false
+    },
+    showPrivatePublicIcon: {
       type: Boolean,
       default: false
     }
@@ -294,6 +301,9 @@ export default {
         this.$refs.savingDialogQuery.inputSelect()
       });
       this.$root.$emit('disabledForkButton')
+    },
+    isPrivateChecked() {
+      this.$root.$emit('eventIsQueryModified', true)
     }
   },
 };

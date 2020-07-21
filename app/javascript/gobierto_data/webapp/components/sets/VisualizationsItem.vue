@@ -1,41 +1,57 @@
 <template>
-  <div class="gobierto-data-sql-editor">
-    <template v-if="isPrivateVizLoading">
-      <Loading />
-    </template>
-    <template v-else>
-      <div class="pure-g">
-        <div
-          class="pure-u-1 pure-u-lg-4-4"
-          style="margin-bottom: 1rem;"
-        >
-          <SavingDialog
-            ref="savingDialogVizElement"
-            :value="name"
-            :label-save="labelSaveViz"
-            :label-saved="labelSavedVisualization"
-            :label-modified="labelModifiedVizualition"
-            :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
-            :is-viz-modified="isVizModified"
-            :is-viz-saved="isVizSaved"
-            :is-user-logged="isUserLogged"
-            :enabled-fork-viz-button="enabledForkVizButton"
-            :enabled-viz-saved-button="enabledVizSavedButton"
-            :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
-            @save="onSaveEventHandler"
-            @keyDownInput="updateVizName"
-            @handlerFork="handlerForkViz"
-          />
-          <Button
-            :text="labelEdit"
-            class="btn-sql-editor"
-            icon="chart-area"
-            background="#fff"
-            @click.native="showChart"
-          />
-        </div>
+  <div
+    v-if="items"
+    class="gobierto-data-sql-editor"
+  >
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-4-4">
+        <SavingDialog
+          ref="savingDialogVizElement"
+          :value="name"
+          :placeholder="labelVisName"
+          :label-save="labelSaveViz"
+          :label-saved="labelSavedVisualization"
+          :label-modified="labelModifiedVizualition"
+          :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
+          :is-viz-modified="isVizModified"
+          :is-viz-saved="isVizSaved"
+          :is-user-logged="isUserLogged"
+          :enabled-fork-viz-button="enabledForkVizButton"
+          :enabled-viz-saved-button="enabledVizSavedButton"
+          :is-query-saving-prompt-visible="isQuerySavingPromptVisible"
+          :show-private-public-icon-viz="showPrivatePublicIconViz"
+          :show-private-viz="showPrivateViz"
+          @save="onSaveEventHandler"
+          @keyDownInput="updateVizName"
+          @handlerFork="handlerForkViz"
+          @isPrivateChecked="isPrivateChecked"
+        />
+        <Button
+          :text="labelEdit"
+          class="btn-sql-editor btn-sql-revert-query"
+          icon="chart-area"
+          background="#fff"
+          @click.native="showChart"
+        />
       </div>
-      <div class="gobierto-data-visualization--aspect-ratio-16-9">
+      <div
+        v-if="queryID"
+        class="gobierto-data-visualization-query-container"
+      >
+        <span class="gobierto-data-summary-queries-panel-title">{{ labelQuery }}:</span>
+        <router-link
+          :to="`/datos/${$route.params.id}/q/${queryID}`"
+          class="gobierto-data-summary-queries-container-name"
+        >
+          {{ queryName }}
+        </router-link>
+      </div>
+    </div>
+    <div class="gobierto-data-visualization--aspect-ratio-16-9">
+      <template v-if="saveLoader">
+        <Loading />
+      </template>
+      <template v-else>
         <Visualizations
           v-if="items"
           ref="viewer"
@@ -44,8 +60,8 @@
           @showSaving="showSavingDialog"
           @selectedChart="typeChart = $event"
         />
-      </div>
-    </template>
+      </template>
+    </div>
   </div>
 </template>
 <script>
@@ -54,7 +70,6 @@ import Visualizations from "./../commons/Visualizations.vue";
 import SavingDialog from "./../commons/SavingDialog.vue";
 import Button from "./../commons/Button.vue";
 import { getUserId } from "./../../../lib/helpers";
-import { tabs } from '../../../lib/router';
 
 export default {
   name: "VisualizationsItem",
@@ -78,6 +93,14 @@ export default {
       default: () => []
     },
     publicVisualizations: {
+      type: Array,
+      default: () => []
+    },
+    privateQueries: {
+      type: Array,
+      default: () => []
+    },
+    publicQueries: {
       type: Array,
       default: () => []
     },
@@ -105,10 +128,18 @@ export default {
       type: Boolean,
       default: false
     },
-    isPrivateVizLoading: {
+    showPrivatePublicIconViz: {
       type: Boolean,
       default: false
     },
+    showPrivateViz: {
+      type: Boolean,
+      default: false
+    },
+    showPrivate: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -119,64 +150,59 @@ export default {
       labelDashboard: I18n.t('gobierto_data.projects.dashboards') || "",
       labelSavedVisualization: I18n.t("gobierto_data.projects.savedVisualization") || "",
       labelModifiedVizualition: I18n.t("gobierto_data.projects.modifiedVisualization") || "",
+      labelQuery: I18n.t("gobierto_data.projects.query") || "",
       items: null,
       config: {},
       vizID: null,
+      queryID: '',
+      queryName: '',
       user: null,
       queryViz: '',
       isVizElementSavingVisible: false,
       name: '',
       isQuerySavingPromptVisible: false,
-      tabs
-    }
-  },
-  computed: {
-    checkVisualizationsItems() {
-      return (this.privateVisualizations.length && this.items) || (this.publicVisualizations.length && this.items)
+      saveLoader: false
     }
   },
   watch: {
-    publicVisualizations(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.getDataVisualization(newValue);
-      }
-    },
-    privateVisualization(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.getDataVisualization(newValue);
-      }
-    },
     vizInputFocus(newValue) {
       if (newValue) {
         this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
       }
     },
-    async $route(to, from) {
-      if (to.path !== from.path) {
-        await this.getDataVisualization(this.privateVisualizations);
-        await this.getDataVisualization(this.publicVisualizations);
+    isVizSaved(newValue) {
+      if (newValue) {
+        this.saveLoader = false
+      }
+    },
+    showPrivateViz(newValue) {
+      if (newValue) {
+        this.getDataVisualization(this.privateVisualizations);
       }
     }
   },
-  async created() {
+  created() {
+    this.$root.$emit("isVizModified", false);
+    this.$root.$emit('enableSavedVizButton', false)
     const userId = getUserId()
-    if (userId) {
-      await this.getDataVisualization(this.privateVisualizations);
-      await this.getDataVisualization(this.publicVisualizations);
-    } else {
-      await this.getDataVisualization(this.publicVisualizations);
+    this.getDataVisualization(this.publicVisualizations);
+    //Only getPrivate if user load a PrivateViz
+    if (userId && this.showPrivateViz) {
+      this.getDataVisualization(this.privateVisualizations);
     }
   },
   beforeDestroy() {
     //Hide the string, and the buttons return to their initial state.
     this.$root.$emit("isVizModified", false);
-    this.$root.$emit('disabledSavedVizString')
+    this.$root.$emit('enableSavedVizButton', false)
   },
   methods: {
     onSaveEventHandler(opts) {
+      this.saveLoader = true
       //Add visualization ID to opts object, we need it to update a viz saved
       opts.vizID = Number(this.vizID)
       opts.user = Number(this.user)
+      opts.queryID = Number(this.queryID)
       opts.queryViz = this.queryViz
       // get children configuration
       const config = this.$refs.viewer.getConfig()
@@ -214,10 +240,17 @@ export default {
         name: name,
         id: vizID,
         user_id: user_id,
-        sql: sql
+        sql: sql,
+        query_id: queryID
       } = objectViz
 
+      //Find the query associated to the visualization
+      const itemQueries = this.showPrivate ? this.privateQueries : this.publicQueries
+      const { attributes: { name: queryName } = {} } = itemQueries.find(({ id }) => id == queryID) || {}
+
       this.vizID = vizID
+      this.queryID = queryID
+      this.queryName = queryName
       this.user = user_id
       this.name = name
       this.config = config
@@ -230,6 +263,9 @@ export default {
         this.$refs.savingDialogVizElement.inputSelect()
       });
       this.$root.$emit('enabledForkVizButton', false)
+    },
+    isPrivateChecked() {
+      this.$root.$emit('enableSavedVizButton', true)
     }
   }
 };

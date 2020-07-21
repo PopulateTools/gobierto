@@ -56,7 +56,7 @@
 </template>
 <script>
 import Button from "./Button.vue";
-import { CommonsMixin } from "./../../../lib/commons.js";
+import { VueDirectivesMixin } from "lib/shared";
 import { DownloadFilesFactoryMixin } from "./../../../lib/factories/download";
 
 export default {
@@ -64,7 +64,7 @@ export default {
   components: {
     Button
   },
-  mixins: [CommonsMixin, DownloadFilesFactoryMixin],
+  mixins: [VueDirectivesMixin, DownloadFilesFactoryMixin],
   props: {
     editor: {
       type: Boolean,

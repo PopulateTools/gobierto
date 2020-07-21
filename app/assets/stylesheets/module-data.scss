@@ -1205,13 +1205,23 @@
   }
 
   &-landing-visualizations {
+
     .gobierto-data-summary-header-description {
+      padding-left: 1rem;
       margin-bottom: 1rem;
 
       p {
-        margin: 0;
-        max-width: 30%;
+        margin-top: .25rem;
+        max-width: 60%;
       }
+    }
+
+    .gobierto-data-summary-header-description-link {
+      padding-left: 1rem;
+    }
+
+    .gobierto-data-visualization--grid {
+      margin-top: 1rem;
     }
   }
 

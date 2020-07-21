@@ -19,9 +19,8 @@
         {{ name }}
       </router-link>
       <div v-show="showViz">
-        <div
-          class="gobierto-data-summary-header-description"
-          v-html="description"
+        <Info
+          :description-dataset="description"
         />
         <VisualizationsGrid
           v-if="publicVisualizations"
@@ -38,6 +37,7 @@ import { DataFactoryMixin } from "./../../../lib/factories/data";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { convertToCSV } from "./../../../lib/helpers";
 import VisualizationsGrid from "./VisualizationsGrid";
+import Info from "./../commons/Info.vue";
 import Caret from "./../commons/Caret";
 import { SkeletonSpinner } from "lib/vue-components";
 export default {
@@ -45,6 +45,7 @@ export default {
   components: {
     VisualizationsGrid,
     Caret,
+    Info,
     SkeletonSpinner
   },
   mixins: [
@@ -94,6 +95,7 @@ export default {
         this.publicVisualizations = await this.getDataFromVisualizations(data);
       }
       this.isVizsLoading = true
+      this.removeAllIcons()
     },
     async getDataFromVisualizations(data) {
       const visualizations = [];
@@ -126,8 +128,21 @@ export default {
 
         visualizations.push(visualization);
       }
+
       return visualizations;
+
     },
+    removeAllIcons() {
+      /*Method to remove the config icon for all visualizations, we need to wait to load both lists when they are loaded, we select alls visualizations, and iterate over them with a loop to remove every icon.*/
+      this.$nextTick(() => {
+        let vizList = document.querySelectorAll("perspective-viewer");
+        console.log("vizList", vizList);
+        for (let index = 0; index < vizList.length; index++) {
+          console.log("vizList[index]", vizList[index]);
+          vizList[index].shadowRoot.querySelector("div#config_button").style.display = "none";
+        }
+      })
+    }
   }
 };
 </script>

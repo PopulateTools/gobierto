@@ -3,6 +3,8 @@
 module GobiertoAdmin
   module GobiertoPlans
     class PlanDataForm < BaseForm
+      include ::GobiertoAdmin::PermissionsGroupHelpers
+
       class CSVRowInvalid < ArgumentError; end
       class StatusMissing < ArgumentError; end
       class ExternalIdTaken < ArgumentError; end
@@ -17,6 +19,8 @@ module GobiertoAdmin
 
       validates :plan, :csv_file, presence: true
       validate :csv_file_format
+
+      delegate :site, to: :plan
 
       def initialize(options = {})
         super(options)
@@ -110,6 +114,7 @@ module GobiertoAdmin
 
           save_custom_fields(row_decorator)
           set_publication(node)
+          set_permissions_group(node, action_name: :edit)
         end
       end
 

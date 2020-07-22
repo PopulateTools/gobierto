@@ -15,7 +15,7 @@ module GobiertoAdmin
         action_name: action_name
       )
 
-      yield(group)
+      yield(group) if block_given?
     end
   end
 end

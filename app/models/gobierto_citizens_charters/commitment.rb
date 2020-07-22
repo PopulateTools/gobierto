@@ -20,7 +20,7 @@ module GobiertoCitizensCharters
           resource_path: item.resource_path
         }
       },
-      if: :active?
+      if: :searchable?
     )
 
     algoliasearch_gobierto do

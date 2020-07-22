@@ -59,5 +59,9 @@ module GobiertoCommon
     def clean_text(text, limit: 1000, strip_tags: true)
       (strip_tags ? strip_tags(text) : text)&.truncate(limit)
     end
+
+    def searchable?
+      !try(:archived?) && try(:active?)
+    end
   end
 end

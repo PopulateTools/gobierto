@@ -37,7 +37,7 @@ module GobiertoAttachments
           resource_path: item.human_readable_url
         }
       },
-      if: :active?
+      if: :searchable?
     )
 
     algoliasearch_gobierto do
@@ -91,7 +91,7 @@ module GobiertoAttachments
     end
 
     def active?
-      true
+      !archived?
     end
 
     def created_at

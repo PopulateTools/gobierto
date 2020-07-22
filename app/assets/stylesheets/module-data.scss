@@ -588,6 +588,11 @@
 
     .btn-sql-revert-query {
       vertical-align: top;
+      margin-left: .5rem;
+    }
+
+    .btn-sql-revert-viz {
+      vertical-align: top;
     }
 
     input[type="text"] {
@@ -676,7 +681,7 @@
   }
 
   &-sql-editor-modified-label-container {
-    margin: 0 .5rem 0 .25rem;
+    margin: 0 .5rem;
   }
 
   &-sql-editor-modified-label,
@@ -1206,7 +1211,6 @@
 
   &-visualization-query-container {
     letter-spacing: 0;
-    margin-bottom: 1rem;
     width: 100%;
 
     .gobierto-data-summary-queries-panel-title {

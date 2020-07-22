@@ -28,19 +28,22 @@ en:
       buttonRunQuery: Run query (CMD/WIN + Enter)
       cancel: Cancel
       categories: Categories
+      createCopy: Create a copy
       dashboards: Dashboards
       data: Data
       dataset: Datasets
       datasetUpdated: Last updated datasets
+      deleteQuery: Are you sure you want to delete this query?
+      deleteViz: Are you sure you want to delete this visualization?
       description: Description
       download: Download
       downloadData: Download data
       edit: Edit
       emptyRecentQueries: There's no recent queries
       favs: Favorites
-      fork: Fork
       frequency: Frequency
       guide: Guide to using the SQL editor
+      link: Link
       modifiedQuery: Modified Query
       modifiedVisualization: Modified visualization
       preview: Preview
@@ -58,7 +61,6 @@ en:
       revert: Revert
       runQuery: Run query
       save: Save
-      saveViz: Save visualization
       savedQuery: Saved query
       savedVisualization: Saved visualization
       sets: Sets

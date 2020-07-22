@@ -47,10 +47,10 @@ export default {
       }
     },
     arrayColumnsQuery(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.viewer.clear();
+      if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+        this.viewer.clear()
+        this.viewer.update(this.items)
         this.viewer.setAttribute('columns', JSON.stringify(newValue))
-        this.checkIfQueryResultIsEmpty(this.items)
       }
     },
     resetConfigViz(newValue) {
@@ -110,8 +110,11 @@ export default {
       //Enable save button when user interacts with Perspective columns
       const itemPerspective = document.querySelector('perspective-viewer').shadowRoot
       const rowPerspective = itemPerspective.querySelectorAll("perspective-row");
-      rowPerspective.forEach(rowMenu => rowMenu.addEventListener('drag', () => this.$emit("showSaving")));
-      rowPerspective.forEach(rowMenu => rowMenu.addEventListener('click', () => this.$emit("showSaving")));
+
+      rowPerspective.forEach(rowMenu => {
+        rowMenu.addEventListener('drag', () => this.$emit("showSaving"))
+        rowMenu.addEventListener('click', () => this.$emit("showSaving"))
+      });
     },
     listenerPerspective() {
       const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot

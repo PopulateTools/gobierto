@@ -157,6 +157,7 @@ export default {
       labelVisEmpty: I18n.t("gobierto_data.projects.visEmpty") || "",
       labelVisPrivate: I18n.t("gobierto_data.projects.visPrivate") || "",
       labelVisPublic: I18n.t("gobierto_data.projects.visPublic") || "",
+      labelDeleteViz: I18n.t("gobierto_data.projects.deleteViz") || "",
       showPrivateVis: true,
       showPublicVis: true,
       deleteAndReload: false,
@@ -193,7 +194,10 @@ export default {
     },
     emitDeleteHandlerVisualization(id) {
       this.deleteAndReload = true
-      this.$emit('emitDelete', id)
+      const answerDelete = confirm(this.labelDeleteViz);
+      if (answerDelete) {
+        this.$emit('emitDelete', id)
+      }
     },
     removeAllIcons() {
       /*Method to remove the config icon for all visualizations, we need to wait to load both lists when they are loaded, we select alls visualizations, and iterate over them with a loop to remove every icon.*/

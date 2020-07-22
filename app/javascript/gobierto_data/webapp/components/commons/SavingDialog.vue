@@ -10,7 +10,7 @@
         class="gobierto-data-sql-editor-container-save-text"
         :class="{
           'disable-input-text': disabledButton,
-          'disable-cursor-pointer': enabledForkButton || !isUserLogged || enabledForkVizButton
+          'disable-cursor-pointer': disabledInputName
         }"
         @keydown.stop="onKeyDownTextHandler"
         @click="enabledInputHandler"
@@ -24,15 +24,15 @@
         :style="{ paddingRight: '.5em', margin: 0 }"
       />
       <div
-        v-if="isQueryModified || isVizModified"
+        v-if="showLabelPrivate"
         class="gobierto-data-sql-editor-container-save-label"
       >
         <input
           :id="labelPrivate"
           :checked="isPrivate"
           type="checkbox"
-          @input="onInputCheckboxHandler"
           class="gobierto-data-sql-editor-container-save-label-input"
+          @input="onInputCheckboxHandler"
         >
         <label
           :for="labelPrivate"
@@ -43,40 +43,10 @@
       </div>
     </template>
 
-    <!-- only show if label name is set OR the prompt is visible -->
-    <template v-if="isQueryOrVizModified">
-      <transition
-        name="fade"
-        mode="out-in"
-      >
-        <div class="gobierto-data-sql-editor-modified-label-container">
-          <span class="gobierto-data-sql-editor-modified-label">
-            {{ labelModified }}
-          </span>
-        </div>
-      </transition>
-    </template>
-
-
-    <transition
-      name="fade"
-      mode="out-in"
-    >
-      <template v-if="isQuerySaved || isVizSaved">
-        <div class="gobierto-data-sql-editor-modified-label-container">
-          <span class="gobierto-data-sql-editor-modified-label">
-            {{ labelSaved }}
-          </span>
-        </div>
-      </template>
-    </transition>
-
-
     <!-- show save button if there's no prompt but some name, otherwise, save button -->
     <Button
-      v-if="!showForkButton"
+      v-if="showSaveButton"
       :text="labelSave"
-      :disabled="!isDisabled"
       icon="save"
       background="#fff"
       class="btn-sql-editor"
@@ -94,16 +64,60 @@
     />
 
     <!-- only show revert button when loaded queries from others users -->
-    <template v-if="showRevertQuery">
+    <template v-if="showRevertButton">
       <Button
         :text="labelRevert"
-        :disabled="!enabledRevertButton"
         icon="undo"
         class="btn-sql-editor btn-sql-editor-revert"
         background="#fff"
         @click.native="revertQueryHandler"
       />
     </template>
+
+    <template v-if="showEditButton">
+      <Button
+        :text="labelEdit"
+        class="btn-sql-editor btn-sql-revert-query"
+        icon="chart-area"
+        background="#fff"
+        @click.native="showChart"
+      />
+    </template>
+    <template v-if="isVizItemModified">
+      <Button
+        :text="labelCancel"
+        class="btn-sql-editor btn-sql-revert-query"
+        icon="undo"
+        background="#fff"
+        @click.native="revertViz"
+      />
+    </template>
+
+    <!-- only show if label name is set OR the prompt is visible -->
+    <template v-if="isQueryOrVizModified">
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <div class="gobierto-data-sql-editor-modified-label-container">
+          <span class="gobierto-data-sql-editor-modified-label">
+            {{ labelModified }}
+          </span>
+        </div>
+      </transition>
+    </template>
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <template v-if="isQueryOrVizSaved">
+        <div class="gobierto-data-sql-editor-modified-label-container">
+          <span class="gobierto-data-sql-editor-modified-label">
+            {{ labelSaved }}
+          </span>
+        </div>
+      </template>
+    </transition>
   </div>
 </template>
 <script>
@@ -122,10 +136,6 @@ export default {
       default: ''
     },
     placeholder: {
-      type: String,
-      default: ''
-    },
-    labelSave: {
       type: String,
       default: ''
     },
@@ -185,10 +195,6 @@ export default {
       type: Boolean,
       default: false
     },
-    enabledRevertButton: {
-      type: Boolean,
-      default: false
-    },
     isVizSaved: {
       type: Boolean,
       default: false
@@ -208,6 +214,18 @@ export default {
     showPrivateViz: {
       type: Boolean,
       default: false
+    },
+    showLabelEdit: {
+      type: Boolean,
+      default: false
+    },
+    isVizItemModified: {
+      type: Boolean,
+      default: false
+    },
+    resetPrivate: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -220,17 +238,13 @@ export default {
       labelEdit: I18n.t("gobierto_data.projects.edit") || "",
       labelRevert: I18n.t("gobierto_data.projects.revert") || "",
       labelSavedQuery: I18n.t("gobierto_data.projects.savedQuery") || "",
+      labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelButtonFork: I18n.t("gobierto_data.projects.buttonFork") || "",
-      labelFork: I18n.t("gobierto_data.projects.fork") || ""
+      labelFork: I18n.t("gobierto_data.projects.createCopy") || "",
+      labelVisName: I18n.t('gobierto_data.projects.visName') || "",
     }
   },
   computed: {
-    isDisabled() {
-      return this.enabledVizSavedButton || this.enabledQuerySavedButton
-    },
-    isDisabledFork() {
-      return this.enabledQuerySavedButton || this.isVizModified
-    },
     showForkButton() {
       return this.enabledForkVizButton || this.enabledForkButton
     },
@@ -238,10 +252,28 @@ export default {
        return (this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
     },
     showPrivateIcon() {
-      return this.showPrivatePublicIcon || this.showPrivatePublicIconViz
+      return this.showPrivatePublicIcon || (this.showPrivatePublicIconViz && !this.showForkButton)
     },
     isQueryOrVizModified() {
       return this.isQueryModified || this.isVizModified
+    },
+    isQueryOrVizSaved() {
+      return this.isQuerySaved || this.isVizSaved
+    },
+    showEditButton() {
+      return this.showLabelEdit && (!this.isVizItemModified && !this.showForkButton)
+    },
+    showRevertButton() {
+      return this.showRevertQuery && this.isQueryOrVizModified
+    },
+    showSaveButton() {
+      return !this.showForkButton && (this.isQueryOrVizModified || this.isVizItemModified)
+    },
+    showLabelPrivate() {
+      return this.isQueryModified || this.isVizModified || this.isVizItemModified
+    },
+    disabledInputName() {
+      return this.enabledForkButton || !this.isUserLogged || this.enabledForkVizButton
     }
   },
   watch: {
@@ -255,21 +287,17 @@ export default {
     showPrivate(newValue) {
       this.isPrivate = (newValue);
     },
-    $route(to, from) {
-      if (to.path !== from.path) {
-        this.countInputCharacters(this.value)
+    resetPrivate(newValue) {
+      if (newValue) {
+        this.isPrivate = false
       }
     }
   },
   created() {
-    if (this.showPrivateViz) {
-      this.isPrivate = this.showPrivateViz
-    }
+    this.isPrivate = this.showPrivateViz
   },
   mounted() {
-    this.$nextTick(() => {
-       this.countInputCharacters(this.value)
-    });
+    this.countInputCharacters(this.value)
   },
   methods: {
     inputFocus(value) {
@@ -293,7 +321,6 @@ export default {
       } else {
         this.$emit('save', { name: this.labelValue, privacy: this.isPrivate })
       }
-
     },
     onKeyDownTextHandler(event) {
       const { value } = event.target
@@ -308,7 +335,8 @@ export default {
     },
     revertQueryHandler() {
       this.labelValue = this.value
-      this.$root.$emit('revertSavedQuery', true)
+      this.$root.$emit('revertSavedQuery')
+      this.disabledButton = true
     },
     onClickForkHandler() {
       this.$emit('handlerFork')
@@ -326,10 +354,16 @@ export default {
       let minWidth = 200
       newWidth = newWidth > 290 ? maxWidth : newWidth
 
+      //Check if the user is typing in the input of the queries or visualizations
+      const { placeholder = [] } = this.$refs.inputText || {};
+
       //In the Visualizations view, we've more space, so we take advantage of it by increasing the input name width.
       if (this.$route.name === 'Visualization') {
         maxWidth = maxWidth * 1.4
         minWidth = minWidth * 1.4
+      } else if (placeholder) {
+        maxWidth = maxWidth * 1.2
+        minWidth = minWidth * 1.2
       }
 
       if (inputValueLength > 25 && inputValueLength < 50) {
@@ -342,6 +376,13 @@ export default {
     },
     enabledInputHandler() {
       this.$emit('enabledInput')
+    },
+    showChart() {
+      this.$emit('showToggleConfig')
+    },
+    revertViz() {
+      this.$emit('handlerRevertViz')
+      this.disabledButton = true
     }
   }
 }

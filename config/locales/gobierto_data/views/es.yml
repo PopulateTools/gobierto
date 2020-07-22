@@ -28,19 +28,22 @@ es:
       buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)
       cancel: Cancelar
       categories: Categorías
+      createCopy: Crear una copia
       dashboards: Dashboards
       data: Datos
       dataset: Conjunto de datos
       datasetUpdated: Últimos datasets actualizados
+      deleteQuery: "¿Estás seguro de que deseas eliminar esta consulta?"
+      deleteViz: "¿Estás seguro de que deseas eliminar esta visualización?"
       description: Descripción
       download: Descargar
       downloadData: Descargar datos
       edit: Editar
       emptyRecentQueries: No hay consultas recientes
       favs: Favoritas
-      fork: Fork
       frequency: Frecuencia
       guide: Guía para usar el editor SQL
+      link: Enlace
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualización modificada
       preview: Previsualizar
@@ -58,7 +61,6 @@ es:
       revert: Revertir
       runQuery: Ejecutar consulta
       save: Guardar
-      saveViz: Guardar Visualización
       savedQuery: Consulta guardada
       savedVisualization: Visualización guardada
       sets: Conjuntos

@@ -112,8 +112,6 @@ es:
       person_item: Biografía
       person_post_item: Post
       person_statement_item: Declaración
-      powered_by: Gobierto utiliza <a href="https://www.algolia.com" target="_blank">Algolia</a>
-        para buscar
       process_item: Proceso
       updated: Actualizado
   scopes:

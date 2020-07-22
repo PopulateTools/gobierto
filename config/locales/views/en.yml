@@ -107,7 +107,6 @@ en:
       person_item: Biography
       person_post_item: Post
       person_statement_item: Statement
-      powered_by: Search powered by <a href="https://www.algolia.com" target="_blank">Algolia</a>
       process_item: Process
       updated: Updated
   scopes:

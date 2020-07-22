@@ -112,8 +112,6 @@ ca:
       person_item: Biografia
       person_post_item: Post
       person_statement_item: Declaració
-      powered_by: Gobierto utilitza <a href="https://www.algolia.com" target="_blank">Algolia</a>
-        per a cercar
       process_item: Procés
       updated: Actualitzat
   scopes:

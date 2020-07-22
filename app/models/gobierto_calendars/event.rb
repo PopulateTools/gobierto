@@ -144,6 +144,8 @@ module GobiertoCalendars
     end
 
     def to_path
+      return if archived?
+
       if collection.container_type == "GobiertoParticipation::Process"
         url_helpers.gobierto_participation_process_event_path(id: slug, process_id: container.slug)
       elsif collection.container_type == "GobiertoParticipation"

@@ -97,6 +97,8 @@
         :current-viz-tab="currentVizTab"
         :enabled-fork-viz-button="enabledForkVizButton"
         :viz-input-focus="vizInputFocus"
+        :viz-id="vizID"
+        :user-save-viz="userSaveViz"
         :show-private-public-icon-viz="showPrivatePublicIconViz"
         :show-private="showPrivate"
         :show-private-viz="showPrivateViz"
@@ -200,6 +202,7 @@ export default {
       isPublicVizLoading: false,
       vizName: null,
       vizID: null,
+      userSaveViz: null,
       vizInputFocus: false,
       savingViz: false,
       savingQuery: false,
@@ -237,10 +240,8 @@ export default {
 
       if (to.path !== from.path) {
         this.isQueryModified = false;
-        this.isVizSaved = false;
         this.setDefaultQuery()
         this.queryOrVizIsNotMine()
-        this.disabledSavedButton()
         this.disabledRevertButton()
       }
 
@@ -260,7 +261,6 @@ export default {
       // https://stackoverflow.com/questions/50295985/how-to-tell-if-a-vue-component-is-active-or-not
       if (to.name === 'Query' && this._inactive === false) {
         this.runCurrentQuery()
-        this.disabledStringSavedQuery()
       }
     }
   },
@@ -707,11 +707,11 @@ export default {
         this.isQuerySavingPromptVisible = false
 
         this.setPrivateQueries(await this.getPrivateQueries());
+        this.setPublicQueries(await this.getPublicQueries());
 
         if (userId !== this.queryUserId || newQuery) {
           this.updateURL(newQuery)
         }
-        this.setPublicQueries(await this.getPublicQueries());
       }
     },
     async runCurrentQuery() {
@@ -795,7 +795,7 @@ export default {
         },
         privacy_status: privacy ? "closed" : "open",
         spec: config,
-        user_id: this.userId,
+        user_id: user,
         dataset_id: this.datasetId,
         query_id: id,
         sql: currentQueryViz
@@ -816,8 +816,9 @@ export default {
       } else {
         // factory method
         ({ status, data: { data: newViz } } = await this.postVisualization({ data }));
-        const { id: saveVizID } = newViz
+        const { id: saveVizID, attributes: { user_id: user } } = newViz
         this.vizID = +saveVizID
+        this.userSaveViz = user
       }
 
       if ([200, 201].includes(status)) {
@@ -825,7 +826,6 @@ export default {
         this.isVizSaved = true
         this.isVizSavingPromptVisible = false
         this.enabledVizSavedButton = false
-
         /* Check if the user saved a viz from another user, we need to wait to obtain the private visualizations to avoid error because it's possible which this Visualization is the first Visualization which user save */
         /*Update URL only when saved a query from editor or a viz from Visualizations tabs*/
         if ((user !== userId || newViz) && nameComponent === 'Visualization') {
@@ -850,6 +850,7 @@ export default {
       this.enabledForkButton = false
       this.queryInputFocus = false
       this.enabledForkVizButton = false
+      this.isVizSaved = true
     },
     getColumnsQuery(csv = '') {
       const [ columns = '' ] = csv.split("\n");
@@ -1013,11 +1014,11 @@ export default {
     },
     activateForkVizButton(value) {
       this.enabledForkVizButton = value
+      this.userSaveViz = null
     },
     eventToUpdateVizName() {
       this.isVizModified = true
       this.enabledVizSavedButton = true
-      this.isVizSaved = false
     },
     eventToEnabledInputQueries() {
       this.activatedSavedButton()
@@ -1026,7 +1027,6 @@ export default {
     },
     resetVizEvent() {
       this.enabledVizSavedButton = true
-      this.isVizSaved = false
       this.vizName = null
     },
     showSavingDialogEvent() {
@@ -1034,7 +1034,6 @@ export default {
       this.isVizModified = true
       this.showPrivatePublicIconViz = true
       this.isVizSavingPromptVisible = true
-      this.isVizSaved = false
     },
     showSavingDialogEventViz(value) {
       this.isVizItemModified = value

@@ -136,6 +136,14 @@ export default {
     resetPrivate: {
       type: Boolean,
       default: false
+    },
+    vizId: {
+      type: Number,
+      default: 0
+    },
+    userSaveViz: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -148,7 +156,7 @@ export default {
       labelQuery: I18n.t("gobierto_data.projects.query") || "",
       items: null,
       config: {},
-      vizID: null,
+      vizSaveID: null,
       queryID: '',
       queryName: '',
       user: null,
@@ -163,9 +171,18 @@ export default {
       if (newValue) {
         this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
       }
+    },
+    vizId(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.vizSaveID = newValue
+      }
+    },
+    userSaveViz(newValue) {
+      this.user = newValue
     }
   },
   created() {
+    this.$root.$emit("showSavedVizString", false);
     const userId = getUserId()
     this.getDataVisualization(this.publicVisualizations);
     //Only getPrivate if user load a PrivateViz
@@ -176,18 +193,19 @@ export default {
   beforeDestroy() {
     //Hide the string, and the buttons return to their initial state.
     this.$root.$emit("isVizModified", false);
-    this.$root.$emit('enableSavedVizButton', false)
+    this.$root.$emit("showSavedVizString", false);
+    this.$root.$emit('enabledForkVizButton', false)
+    this.$root.$emit('showSavingDialogEventViz', false)
   },
   methods: {
     onSaveEventHandler(opts) {
       //Add visualization ID to opts object, we need it to update a viz saved
-      opts.vizID = Number(this.vizID)
+      opts.vizID = Number(this.vizSaveID)
       opts.user = Number(this.user)
       opts.queryID = Number(this.queryID)
       opts.queryViz = this.queryViz
       // get children configuration
       const config = this.$refs.viewer.getConfig()
-
       this.$root.$emit("storeCurrentVisualization", config, opts);
       this.hidePromptSaveViz()
     },
@@ -226,7 +244,7 @@ export default {
       const itemQueries = this.showPrivateViz ? this.privateQueries : this.publicQueries
       const { attributes: { name: queryName } = {} } = itemQueries.find(({ id }) => id == queryID) || {}
 
-      this.vizID = vizID
+      this.vizSaveID = vizID
       this.queryID = queryID
       this.queryName = queryName
       this.user = user_id

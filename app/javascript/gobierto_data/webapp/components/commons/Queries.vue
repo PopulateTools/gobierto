@@ -151,6 +151,7 @@ export default {
   methods: {
     closeYourQueriesModal() {
       this.$emit('closeQueriesModal')
+      this.$root.$emit('disabledStringSavedQuery')
     },
     clickDeleteQueryHandler(id) {
       const answerDelete = confirm(this.labelDeleteQuery);

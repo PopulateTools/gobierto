@@ -1,9 +1,6 @@
 <template>
   <div class="pure-g">
-    <div
-      v-if="showBlockLeft"
-      class="pure-u-1-2 gobierto-data-summary-header"
-    >
+    <div class="pure-u-1-2 gobierto-data-summary-header">
       <InfoBlockText
         v-if="dateUpdated"
         icon="clock"
@@ -126,9 +123,6 @@ export default {
     },
     checkStringLength() {
       return this.descriptionDataset.length > 250
-    },
-    showBlockLeft() {
-      return this.dateUpdated || this.frequencyDataset || this.categoryDataset
     }
   },
   methods: {

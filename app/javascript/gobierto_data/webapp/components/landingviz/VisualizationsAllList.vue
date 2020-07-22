@@ -1,5 +1,5 @@
 <template>
-  <div v-if="datasetId">
+  <div>
     <template v-if="!isVizsLoading">
       <SkeletonSpinner
         height-square="250px"
@@ -21,6 +21,9 @@
       <div v-show="showViz">
         <Info
           :description-dataset="description"
+          :category-dataset="category | translate"
+          :frequency-dataset="frequency | translate"
+          :date-updated="dateUpdated"
         />
         <VisualizationsGrid
           v-if="publicVisualizations"
@@ -40,6 +43,7 @@ import VisualizationsGrid from "./VisualizationsGrid";
 import Info from "./../commons/Info.vue";
 import Caret from "./../commons/Caret";
 import { SkeletonSpinner } from "lib/vue-components";
+import { translate } from "lib/shared"
 export default {
   name: "VisualizationsAllList",
   components: {
@@ -47,6 +51,9 @@ export default {
     Caret,
     Info,
     SkeletonSpinner
+  },
+  filters: {
+    translate
   },
   mixins: [
     VisualizationFactoryMixin,
@@ -58,25 +65,33 @@ export default {
       type: String,
       default: ''
     },
-    slug: {
-      type: String,
-      default: ''
-    },
-    name: {
-      type: String,
-      default: ''
-    },
-    description: {
-      type: String,
-      default: ''
+    datasetAttributes: {
+      type: Object,
+      default: () => {},
     }
   },
   data() {
     return {
       publicVisualizations: [],
       showViz: true,
-      isVizsLoading: false
+      isVizsLoading: false,
+      description: null,
+      name: null,
+      slug: null,
+      category: {},
+      frequency: {},
+      dateUpdated: null
     }
+  },
+  created() {
+    ({
+      data_updated_at: this.dateUpdated,
+      category: [{ name_translations: this.category } = {}] = [],
+      frequency: [{ name_translations: this.frequency } = {}] = [],
+      description: this.description,
+      name: this.name,
+      slug: this.slug
+    } = this.datasetAttributes)
   },
   mounted() {
     this.getPublicVisualizations()

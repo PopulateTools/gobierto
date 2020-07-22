@@ -3,7 +3,7 @@
     v-if="publicVisualizations.length"
     class="gobierto-data-visualization--grid"
   >
-    <template v-for="{ items, config, name, id, user_id } in publicVisualizations">
+    <template v-for="{ items, config, name, id } in publicVisualizations">
       <div :key="id">
         <router-link
           :to="`/datos/${slug}/v/${id}`"

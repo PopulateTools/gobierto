@@ -1,24 +1,29 @@
 <template>
   <div class="gobierto-data gobierto-data-landing-visualizations">
-    <VisualizationsHeader />
-    <div
-      v-for="{
-        id,
-        attributes: {
-          slug,
-          name,
-          description
-        }
-      } in datasetsVisualizations"
-      :key="id"
-      class="gobierto-data-info-list-element"
-    >
-      <VisualizationsAllList
-        :dataset-id="id"
-        :slug="slug"
-        :name="name"
-        :description="description"
-      />
+    <!-- <VisualizationsHeader /> -->
+    <div class="pure-g gutters m_b_1">
+      <div class="pure-u-1 pure-u-lg-1-4 gobierto-data-layout-column gobierto-data-layout-sidebar">
+        <p>Sidebar Opcional</p>
+      </div>
+
+      <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
+        <h3 class="gobierto-data-index-title">
+          {{ labelVisualizations }}
+        </h3>
+        <div
+          v-for="{
+            id,
+            attributes
+          } in datasetsVisualizations"
+          :key="id"
+          class="gobierto-data-info-list-element"
+        >
+          <VisualizationsAllList
+            :dataset-id="id"
+            :dataset-attributes="attributes"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -28,14 +33,12 @@ import VisualizationsHeader from "./../components/landingviz/VisualizationsHeade
 import { CategoriesMixin } from "./../../lib/mixins/categories.mixin";
 import { FiltersMixin } from "./../../lib/mixins/filters.mixin";
 import { VisualizationFactoryMixin } from "./../../lib/factories/visualizations";
-import { SkeletonSpinner } from "lib/vue-components";
 
 export default {
   name: "Visualizations",
   components: {
     VisualizationsAllList,
-    VisualizationsHeader,
-    SkeletonSpinner
+    VisualizationsHeader
   },
   mixins: [
     CategoriesMixin,
@@ -44,7 +47,8 @@ export default {
   ],
   data() {
     return {
-      datasetsVisualizations: []
+      datasetsVisualizations: [],
+      labelVisualizations: I18n.t("gobierto_data.projects.visualizations") || "",
     }
   },
   created() {
@@ -52,9 +56,11 @@ export default {
   },
   methods: {
     async getDataVizs() {
-      await this.getItems()
-      let datasetsID = this.subsetItems.map(dataset => dataset.id);
-      this.getPublicVisualizations(datasetsID)
+      const { data: response } = await this.getListVisualizations();
+      const { data: listVisualizations } = response
+      const sizeViz = 4
+      let datasets = listVisualizations.slice(0, sizeViz).map(dataset => dataset.attributes.dataset_id);
+      this.getPublicVisualizations(datasets)
     },
     async getPublicVisualizations(datasetsID) {
       //Filters dataset which only contains Visualizations

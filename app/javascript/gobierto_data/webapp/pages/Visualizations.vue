@@ -3,7 +3,7 @@
     <!-- <VisualizationsHeader /> -->
     <div class="pure-g gutters m_b_1">
       <div class="pure-u-1 pure-u-lg-1-4 gobierto-data-layout-column gobierto-data-layout-sidebar">
-        <p>Sidebar Opcional</p>
+        <span>Sidebar Opcional</span>
       </div>
 
       <div class="pure-u-1 pure-u-lg-3-4 gobierto-data-layout-column">
@@ -57,9 +57,9 @@ export default {
   methods: {
     async getDataVizs() {
       const { data: response } = await this.getListVisualizations();
-      const { data: listVisualizations } = response
-      const sizeViz = 4
-      let datasets = listVisualizations.slice(0, sizeViz).map(dataset => dataset.attributes.dataset_id);
+      const { data } = response
+      let listVisualizations = data.slice(0, 4)
+      let datasets = listVisualizations.map(dataset => dataset.attributes.dataset_id);
       this.getPublicVisualizations(datasets)
     },
     async getPublicVisualizations(datasetsID) {

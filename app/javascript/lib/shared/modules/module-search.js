@@ -75,12 +75,14 @@ $(document).on('turbolinks:load', function() {
   var searchOptions = {
     serviceUrl: '/api/v1/search',
     dataType: 'json',
-    params: {
-      request:
+    params: window.searchClient === undefined ?
+      {} :
       {
-        searchable_type: window.searchClient.searchable_types
-      }
-    },
+        request:
+          {
+            searchable_type: window.searchClient.searchable_types
+          }
+      },
     onSelect: function(suggestion){
       Turbolinks.visit(suggestion.data.resource_path);
     },

@@ -87,7 +87,7 @@ export default {
       this.viewer.setAttribute('plugin', this.typeChart)
       this.viewer.clear();
 
-      /*const transformColumns = this.objectColumns
+      const transformColumns = this.objectColumns
 
       Object.keys(transformColumns).forEach((key) => {
         if (transformColumns[key] === 'hstore') {
@@ -106,7 +106,7 @@ export default {
       let schema = transformColumns
 
       const loadSchema = this.viewer.worker.table(schema);
-      this.viewer.load(loadSchema)*/
+      this.viewer.load(loadSchema)
       this.viewer.load(data)
 
       if (this.config) {

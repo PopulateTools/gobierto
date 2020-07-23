@@ -78,7 +78,7 @@ $(document).on('turbolinks:load', function() {
     params: window.searchClient === undefined ?
       {} :
       {
-        request:
+        filters:
           {
             searchable_type: window.searchClient.searchable_types
           }

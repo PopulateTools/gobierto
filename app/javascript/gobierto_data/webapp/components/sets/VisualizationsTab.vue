@@ -1,32 +1,45 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <component
-      :is="currentVizComponent"
-      v-if="publicVisualizations"
-      :public-visualizations="publicVisualizations"
-      :private-visualizations="privateVisualizations"
-      :dataset-id="datasetId"
-      :is-user-logged="isUserLogged"
-      :is-public-loading="isPublicLoading"
-      :is-private-loading="isPrivateLoading"
-      :items="items"
-      :config="config"
-      :name="titleViz"
-      :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
-      :is-viz-modified="isVizModified"
-      :is-viz-saved="isVizSaved"
-      :is-private-viz-loading="isPrivateVizLoading"
-      :is-public-viz-loading="isPublicVizLoading"
-      :enabled-viz-saved-button="enabledVizSavedButton"
-      :enabled-fork-viz-button="enabledForkVizButton"
-      :viz-input-focus="vizInputFocus"
-      @changeViz="showVizElement"
-      @emitDelete="deleteHandlerVisualization"
-    />
+    <template v-if="!publicVisualizations.length">
+      <Loading />
+    </template>
+    <template v-else>
+      <component
+        :is="currentVizComponent"
+        v-if="publicVisualizations.length"
+        :public-visualizations="publicVisualizations"
+        :private-visualizations="privateVisualizations"
+        :private-queries="privateQueries"
+        :public-queries="publicQueries"
+        :dataset-id="datasetId"
+        :is-user-logged="isUserLogged"
+        :is-public-loading="isPublicLoading"
+        :is-private-loading="isPrivateLoading"
+        :name="titleViz"
+        :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
+        :is-viz-modified="isVizModified"
+        :is-viz-saved="isVizSaved"
+        :is-private-viz-loading="isPrivateVizLoading"
+        :is-public-viz-loading="isPublicVizLoading"
+        :enabled-viz-saved-button="enabledVizSavedButton"
+        :enabled-fork-viz-button="enabledForkVizButton"
+        :viz-input-focus="vizInputFocus"
+        :show-private-public-icon-viz="showPrivatePublicIconViz"
+        :show-private-viz="showPrivateViz"
+        :show-private="showPrivate"
+        :show-label-edit="showLabelEdit"
+        :is-viz-item-modified="isVizItemModified"
+        :reset-private="resetPrivate"
+        :viz-id="vizId"
+        :user-save-viz="userSaveViz"
+        @changeViz="showVizElement"
+        @emitDelete="deleteHandlerVisualization"
+      />
+    </template>
   </div>
 </template>
 <script>
-
+import { Loading } from "lib/vue-components";
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 
 const COMPONENTS = [
@@ -36,6 +49,9 @@ const COMPONENTS = [
 
 export default {
   name: "VisualizationsTab",
+  components: {
+    Loading
+  },
   mixins: [
     VisualizationFactoryMixin,
   ],
@@ -72,6 +88,14 @@ export default {
       type: Array,
       default: () => []
     },
+    privateQueries: {
+      type: Array,
+      default: () => []
+    },
+    publicQueries: {
+      type: Array,
+      default: () => []
+    },
     isPrivateVizLoading: {
       type: Boolean,
       default: false
@@ -91,6 +115,38 @@ export default {
     vizInputFocus: {
       type: Boolean,
       default: true
+    },
+    showPrivatePublicIconViz: {
+      type: Boolean,
+      default: false
+    },
+    showPrivateViz: {
+      type: Boolean,
+      default: false
+    },
+    showPrivate: {
+      type: Boolean,
+      default: false
+    },
+    showLabelEdit: {
+      type: Boolean,
+      default: false
+    },
+    isVizItemModified: {
+      type: Boolean,
+      default: false
+    },
+    resetPrivate: {
+      type: Boolean,
+      default: false
+    },
+    vizId: {
+      type: Number,
+      default: 0
+    },
+    userSaveViz: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -121,15 +177,14 @@ export default {
     } else {
       this.currentVizComponent = COMPONENTS[this.activeViz];
     }
-    this.$root.$emit('reloadVisualizations')
   },
   methods: {
     showVizElement(component) {
       this.activeViz = component
       this.currentVizComponent = COMPONENTS[this.activeViz];
     },
-    deleteHandlerVisualization(id) {
-      this.deleteVisualization(id)
+    async deleteHandlerVisualization(id) {
+      await this.deleteVisualization(id)
       this.$root.$emit('reloadVisualizations')
     }
   }

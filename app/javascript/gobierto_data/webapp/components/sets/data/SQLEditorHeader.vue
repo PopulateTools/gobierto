@@ -69,7 +69,6 @@
       ref="savingDialogQuery"
       :placeholder="labelQueryName"
       :value="queryName"
-      :label-save="labelSave"
       :label-saved="labelSaved"
       :label-modified="labelModifiedQuery"
       :is-query-modified="isQueryModified"
@@ -82,9 +81,12 @@
       :enabled-query-saved-button="enabledQuerySavedButton"
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
+      :show-private-public-icon="showPrivatePublicIcon"
+      :reset-private="resetPrivate"
       @save="saveHandlerSavedQuery"
       @keyDownInput="updateQueryName"
       @handlerFork="handlerForkQuery"
+      @isPrivateChecked="isPrivateChecked"
     />
 
     <Button
@@ -100,7 +102,8 @@
   </div>
 </template>
 <script>
-import { CommonsMixin, closableMixin } from "./../../../../lib/commons.js";
+import { VueDirectivesMixin } from "lib/shared";
+import { closableMixin } from "./../../../../lib/commons.js";
 import { tabs } from '../../../../lib/router';
 
 import Button from "./../../commons/Button.vue";
@@ -118,7 +121,7 @@ export default {
     PulseSpinner,
     SavingDialog
   },
-  mixins: [CommonsMixin, closableMixin],
+  mixins: [VueDirectivesMixin, closableMixin],
   props: {
     privateQueries: {
       type: Array,
@@ -183,6 +186,14 @@ export default {
     queryInputFocus: {
       type: Boolean,
       default: false
+    },
+    showPrivatePublicIcon: {
+      type: Boolean,
+      default: false
+    },
+    resetPrivate: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -191,7 +202,6 @@ export default {
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelRunQuery: I18n.t("gobierto_data.projects.runQuery") || "",
       labelResetQuery: I18n.t("gobierto_data.projects.resetQuery") || "",
-      labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelSaved: I18n.t("gobierto_data.projects.savedQuery") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
@@ -275,7 +285,7 @@ export default {
       this.isQueriesModalActive = false;
     },
     resetQueryHandler() {
-      this.$root.$emit('resetQuery', true)
+      this.$root.$emit('resetQuery')
       this.$router.push(
         `/datos/${this.$route.params.id}/${tabs[1]}`
       //Avoid errors when user goes to the same route
@@ -293,7 +303,13 @@ export default {
         this.$refs.savingDialogQuery.inputFocus()
         this.$refs.savingDialogQuery.inputSelect()
       });
+      this.$root.$emit('enableSavedButton')
+      this.$root.$emit('enabledForkPrompt')
+      this.$root.$emit('enabledRevertButton')
       this.$root.$emit('disabledForkButton')
+    },
+    isPrivateChecked() {
+      this.$root.$emit('eventIsQueryModified', true)
     }
   },
 };

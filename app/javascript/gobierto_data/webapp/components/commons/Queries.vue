@@ -123,6 +123,7 @@ export default {
       labelQueryEmpty: I18n.t("gobierto_data.projects.queryEmpty") || "",
       labelFavs: I18n.t("gobierto_data.projects.favs") || "",
       labelAll: I18n.t("gobierto_data.projects.all") || "",
+      labelDeleteQuery: I18n.t("gobierto_data.projects.deleteQuery") || "",
       sqlCode: null,
       showPrivateQueries: true,
       showPublicQueries: true,
@@ -150,9 +151,13 @@ export default {
   methods: {
     closeYourQueriesModal() {
       this.$emit('closeQueriesModal')
+      this.$root.$emit('disabledStringSavedQuery')
     },
     clickDeleteQueryHandler(id) {
-      this.$root.$emit('deleteSavedQuery', id)
+      const answerDelete = confirm(this.labelDeleteQuery);
+      if (answerDelete) {
+        this.$root.$emit('deleteSavedQuery', id)
+      }
     },
     showSQLCode(code) {
       this.sqlCode = code

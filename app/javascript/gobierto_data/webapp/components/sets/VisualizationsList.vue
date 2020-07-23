@@ -1,5 +1,5 @@
 <template>
-  <div class="gobierto-data-sets-nav--tab-container">
+  <div>
     <template v-if="isUserLogged">
       <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
         <template v-slot:trigger>
@@ -13,10 +13,9 @@
           </h3>
         </template>
         <div class="gobierto-data-visualization--grid">
-          <template v-if="isPrivateVizLoading">
+          <template v-if="deleteAndReload">
             <Loading />
           </template>
-
           <template v-else>
             <template v-if="privateVisualizations.length">
               <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
@@ -77,40 +76,34 @@
       </template>
 
       <div class="gobierto-data-visualization--grid">
-        <template v-if="isPublicVizLoading">
-          <Loading />
+        <template v-if="publicVisualizations.length">
+          <template v-for="{ items, config, name, id, user_id } in publicVisualizations">
+            <div :key="id">
+              <router-link
+                :to="`/datos/${$route.params.id}/v/${id}`"
+                class="gobierto-data-visualizations-name"
+                @click.native="loadViz(name, user_id)"
+              >
+                <div class="gobierto-data-visualization--card">
+                  <div class="gobierto-data-visualization--aspect-ratio-16-9">
+                    <div class="gobierto-data-visualization--content">
+                      <h4 class="gobierto-data-visualization--title">
+                        {{ name }}
+                      </h4>
+                      <Visualizations
+                        :items="items"
+                        :config="config"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </router-link>
+            </div>
+          </template>
         </template>
 
         <template v-else>
-          <template v-if="publicVisualizations.length">
-            <template v-for="{ items, config, name, id, user_id } in publicVisualizations">
-              <div :key="id">
-                <router-link
-                  :to="`/datos/${$route.params.id}/v/${id}`"
-                  class="gobierto-data-visualizations-name"
-                  @click.native="loadViz(name, user_id)"
-                >
-                  <div class="gobierto-data-visualization--card">
-                    <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                      <div class="gobierto-data-visualization--content">
-                        <h4 class="gobierto-data-visualization--title">
-                          {{ name }}
-                        </h4>
-                        <Visualizations
-                          :items="items"
-                          :config="config"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </router-link>
-              </div>
-            </template>
-          </template>
-
-          <template v-else>
-            <div>{{ labelVisEmpty }}</div>
-          </template>
+          <div>{{ labelVisEmpty }}</div>
         </template>
       </div>
     </Dropdown>
@@ -128,10 +121,10 @@ export default {
   name: "VisualizationsList",
   components: {
     Visualizations,
-    Loading,
     PrivateIcon,
     Dropdown,
-    Caret
+    Caret,
+    Loading
   },
   props: {
     datasetId: {
@@ -167,14 +160,23 @@ export default {
       labelDeleteViz: I18n.t("gobierto_data.projects.deleteViz") || "",
       showPrivateVis: true,
       showPublicVis: true,
+      deleteAndReload: false,
     };
   },
   watch: {
     isPrivateVizLoading(newValue) {
-      if (!newValue) this.removeAllIcons()
+      if (!newValue) {
+        this.removeAllIcons()
+        this.deleteAndReload = false
+      }
     },
     isPublicVizLoading(newValue) {
       if (!newValue) this.removeAllIcons()
+    },
+    privateVisualizations(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.deleteAndReload = false
+      }
     }
   },
   mounted() {
@@ -191,6 +193,7 @@ export default {
       }
     },
     emitDeleteHandlerVisualization(id) {
+      this.deleteAndReload = true
       const answerDelete = confirm(this.labelDeleteViz);
       if (answerDelete) {
         this.$emit('emitDelete', id)

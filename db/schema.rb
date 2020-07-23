@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_15_172832) do
+ActiveRecord::Schema.define(version: 2020_07_23_121433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -1014,6 +1014,8 @@ ActiveRecord::Schema.define(version: 2020_07_15_172832) do
     t.jsonb "meta"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "external_id"
+    t.datetime "searchable_updated_at"
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
     t.index ["site_id"], name: "index_pg_search_documents_on_site_id"
   end

@@ -1,12 +1,25 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <template v-if="!publicVisualizations.length">
-      <Loading />
+    <template v-if="!isVizLoading">
+      <template v-if="listVizComponent">
+        <SkeletonSpinner
+          height-square="200px"
+          squares-rows="2"
+          squares="2"
+        />
+      </template>
+      <template v-else>
+        <SkeletonSpinner
+          height-square="300px"
+          squares="1"
+          lines="2"
+        />
+      </template>
     </template>
     <template v-else>
       <component
         :is="currentVizComponent"
-        v-if="publicVisualizations.length"
+        v-if="isVizLoading"
         :public-visualizations="publicVisualizations"
         :private-visualizations="privateVisualizations"
         :private-queries="privateQueries"
@@ -27,6 +40,11 @@
         :show-private-public-icon-viz="showPrivatePublicIconViz"
         :show-private-viz="showPrivateViz"
         :show-private="showPrivate"
+        :show-label-edit="showLabelEdit"
+        :is-viz-item-modified="isVizItemModified"
+        :reset-private="resetPrivate"
+        :viz-id="vizId"
+        :user-save-viz="userSaveViz"
         :object-columns="objectColumns"
         @changeViz="showVizElement"
         @emitDelete="deleteHandlerVisualization"
@@ -35,7 +53,7 @@
   </div>
 </template>
 <script>
-import { Loading } from "lib/vue-components";
+import { SkeletonSpinner } from "lib/vue-components";
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 
 const COMPONENTS = [
@@ -46,7 +64,7 @@ const COMPONENTS = [
 export default {
   name: "VisualizationsTab",
   components: {
-    Loading
+    SkeletonSpinner
   },
   mixins: [
     VisualizationFactoryMixin,
@@ -124,6 +142,26 @@ export default {
       type: Boolean,
       default: false
     },
+    showLabelEdit: {
+      type: Boolean,
+      default: false
+    },
+    isVizItemModified: {
+      type: Boolean,
+      default: false
+    },
+    resetPrivate: {
+      type: Boolean,
+      default: false
+    },
+    vizId: {
+      type: Number,
+      default: 0
+    },
+    userSaveViz: {
+      type: Number,
+      default: 0
+    },
     objectColumns: {
       type: Object,
       default: () => {}
@@ -135,22 +173,21 @@ export default {
       items: null,
       isPrivateLoading: false,
       isPublicLoading: false,
+      listVizComponent: true,
       titleViz: '',
       activeViz: 0,
       config: {}
     };
   },
+  computed: {
+    isVizLoading() {
+      return this.publicVisualizations.length || !this.isPublicVizLoading
+    }
+  },
   watch: {
     currentVizTab(newValue) {
       if (newValue === 0) {
         this.currentVizComponent = COMPONENTS[newValue];
-      }
-    },
-    $route(to, from) {
-      if (to.path !== from.path) {
-        this.$root.$emit("isVizModified", false);
-        this.$root.$emit("showSavedVizString", false);
-        this.$root.$emit('enabledForkVizButton', false)
       }
     }
   },
@@ -161,8 +198,10 @@ export default {
 
     if (nameComponent === 'Visualization') {
       this.currentVizComponent = COMPONENTS[1];
+      this.listVizComponent = false
     } else {
       this.currentVizComponent = COMPONENTS[this.activeViz];
+      this.listVizComponent = true
     }
   },
   methods: {

@@ -28,19 +28,22 @@ ca:
       buttonRunQuery: Executeu consulta (CMD/WIN + Enter)
       cancel: Cancel·leu
       categories: Categories
+      createCopy: Crear una còpia
       dashboards: Dashboards
       data: Dades
       dataset: Conjunt de dades
       datasetUpdated: Darrers datasets actualitzats
+      deleteQuery: Esteu segur que voleu suprimir aquesta consulta?
+      deleteViz: Esteu segur que voleu suprimir aquesta visualització?
       description: Descripció
       download: Descàrrega
       downloadData: Descarregueu dades
       edit: Editeu
       emptyRecentQueries: No hi ha consultes recents
       favs: Favorites
-      fork: Fork
       frequency: Freqüència
       guide: Guia per utilitzar l'editor SQL
+      link: Enllaç
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualització modificada
       preview: Previsualitzeu
@@ -53,12 +56,11 @@ ca:
       recents: Recents
       records: Registres
       resetQuery: Restablir la consulta
-      resetViz: Restablir la Visualització
+      resetViz: Restablir la visualització
       resources: Recursos
       revert: Revertir
       runQuery: Executeu consulta
       save: Deseu
-      saveViz: Deseu Visualització
       savedQuery: Consulta desada
       savedVisualization: Visualització desada
       sets: Conjunts

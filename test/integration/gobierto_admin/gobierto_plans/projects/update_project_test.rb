@@ -301,7 +301,7 @@ module GobiertoAdmin
               select "In progress", from: "project_status_id"
               select "3%", from: "project_progress"
 
-              within(".widget_save_v2") { refute has_content?("Moderation") }
+              within(".widget_save_v2") { assert has_no_content?("Moderation") }
 
               within "div.widget_save_v2" do
                 click_button "Save"

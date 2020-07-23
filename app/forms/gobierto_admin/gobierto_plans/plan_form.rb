@@ -24,7 +24,7 @@ module GobiertoAdmin
         :publish_last_version_automatically
       )
 
-      validates :site_id, presence: true
+      validates :site_id, :configuration_data, presence: true
       validates :vocabulary_id, presence: true, if: :persisted?
       validate :configuration_data_format
 

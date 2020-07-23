@@ -85,8 +85,12 @@ module GobiertoAdmin
           assert has_content? "247 projects/actions"
 
           plan.reload
+          plan.nodes.reload
           assert_equal 247, plan.nodes.count
           assert_equal 0, plan.nodes.published.count
+
+          visit edit_admin_plans_plan_project_path(plan, plan.nodes.first)
+          assert has_link? "Permissions"
         end
       end
 

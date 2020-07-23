@@ -193,7 +193,7 @@ module GobiertoData
         end
 
         def base_relation
-          current_site.datasets.send(current_admin.present? || valid_preview_token? ? :itself : :active)
+          current_site.datasets.send(current_admin.present? || valid_preview_token? ? :itself : :active).sorted
         end
 
         def find_item

@@ -1,14 +1,14 @@
 <template>
   <div class="gobierto-data-sql-editor-tabs">
-    <div class="pure-g">
-      <div
-        class="pure-u-1 pure-u-lg-3-4"
-        style="margin-bottom: 1rem"
-      >
+    <div
+      class="pure-g"
+      style="margin-bottom: 1rem;"
+    >
+      <div class="pure-u-1 pure-u-lg-4-4">
         <Button
-          v-if="showResetViz && isUserLogged"
+          v-if="showResetViz"
           :title="labelResetViz"
-          class="btn-sql-editor btn-sql-revert-query"
+          class="btn-sql-editor btn-sql-revert-viz"
           icon="home"
           background="#fff"
           @click.native="resetViz"
@@ -25,7 +25,6 @@
           v-if="perspectiveChanged"
           ref="savingDialogViz"
           :placeholder="labelVisName"
-          :label-save="labelSaveViz"
           :label-saved="labelSavedVisualization"
           :label-modified="labelModifiedVizualition"
           :is-viz-saving-prompt-visible="isVizSavingPromptVisible"
@@ -38,11 +37,6 @@
           @keyDownInput="updateVizNameHandler"
           @isPrivateChecked="isPrivateChecked"
         />
-      </div>
-      <div
-        class="pure-u-1 pure-u-lg-1-4"
-        style="margin-bottom: 1rem"
-      >
         <DownloadButton
           :editor="true"
           :query-stored="queryStored"
@@ -50,6 +44,23 @@
           class="arrow-top modal-right"
         />
       </div>
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <div
+          v-if="vizName"
+          class="gobierto-data-visualization-query-container"
+        >
+          <span class="gobierto-data-summary-queries-panel-title">{{ labelLink }}: </span>
+          <router-link
+            :to="`/datos/${$route.params.id}/v/${vizId}`"
+            class="gobierto-data-summary-queries-container-name"
+          >
+            {{ vizName }}
+          </router-link>
+        </div>
+      </transition>
     </div>
 
     <div class="gobierto-data-visualization--aspect-ratio-16-9">
@@ -129,16 +140,24 @@ export default {
     showPrivatePublicIconViz: {
       type: Boolean,
       default: false
+    },
+    vizName: {
+      type: String,
+      default: ''
+    },
+    vizId: {
+      type: Number,
+      default: 0
     }
   },
   data() {
     return {
       labelVisName: I18n.t('gobierto_data.projects.visName') || "",
-      labelSaveViz: I18n.t('gobierto_data.projects.saveViz') || "",
       labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
       labelResetViz: I18n.t('gobierto_data.projects.resetViz') || "",
       labelModifiedVizualition: I18n.t("gobierto_data.projects.modifiedVisualization") || "",
       labelSavedVisualization: I18n.t("gobierto_data.projects.savedVisualization") || "",
+      labelLink: I18n.t("gobierto_data.projects.link") || "",
       showVisualization: false,
       showResetViz: false,
       showVisualize: true,

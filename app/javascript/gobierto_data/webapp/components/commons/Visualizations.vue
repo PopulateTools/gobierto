@@ -136,8 +136,10 @@ export default {
       const itemPerspective = document.querySelector('perspective-viewer').shadowRoot
       const rowPerspective = itemPerspective.querySelectorAll("perspective-row");
 
-      rowPerspective.forEach(rowMenu => rowMenu.addEventListener('drag', () => this.$emit("showSaving")));
-      rowPerspective.forEach(rowMenu => rowMenu.addEventListener('click', () => this.$emit("showSaving")));
+      rowPerspective.forEach(rowMenu => {
+        rowMenu.addEventListener('drag', () => this.$emit("showSaving"))
+        rowMenu.addEventListener('click', () => this.$emit("showSaving"))
+      });
     },
     listenerPerspective() {
       const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot

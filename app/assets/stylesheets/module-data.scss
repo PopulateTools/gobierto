@@ -3,6 +3,7 @@
 @import "comp-block-checkbox";
 @import "comp-block-header";
 @import "comp-vue-dropdown";
+@import "comp-vue-skeleton-spinner";
 
 :root {
   --transition: .1s ease-in;
@@ -587,6 +588,11 @@
 
     .btn-sql-revert-query {
       vertical-align: top;
+      margin-left: .5rem;
+    }
+
+    .btn-sql-revert-viz {
+      vertical-align: top;
     }
 
     input[type="text"] {
@@ -675,7 +681,7 @@
   }
 
   &-sql-editor-modified-label-container {
-    margin: 0 .5rem 0 .25rem;
+    margin: 0 .5rem;
   }
 
   &-sql-editor-modified-label,
@@ -1042,6 +1048,11 @@
     width: 100%;
   }
 
+  &-filters-element {
+    padding-bottom: 1em;
+    border-bottom: 1px solid hsla(0, 0, 59.2%, .5);
+  }
+
   &-filters-element-no-margin {
     margin-bottom: 0;
   }
@@ -1205,7 +1216,6 @@
 
   &-visualization-query-container {
     letter-spacing: 0;
-    margin-bottom: 1rem;
     width: 100%;
 
     .gobierto-data-summary-queries-panel-title {

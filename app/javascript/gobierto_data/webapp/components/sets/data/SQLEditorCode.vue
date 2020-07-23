@@ -129,10 +129,10 @@ export default {
       }
 
       // Enabled saved and fork button while typping on editor
+      this.$root.$emit('disabledStringSavedQuery', false)
       this.$root.$emit('enableSavedButton')
       this.$root.$emit('enabledForkPrompt')
       this.$root.$emit('enabledRevertButton')
-      this.$root.$emit('showStringSavedQuery', false)
       this.$root.$emit("isQuerySavingPromptVisible", true);
     },
     onChange(editor) {

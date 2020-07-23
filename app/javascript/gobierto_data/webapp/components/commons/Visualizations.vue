@@ -7,7 +7,7 @@
 <script>
 import perspective from "@finos/perspective";
 import "@finos/perspective-viewer";
-import "@finos/perspective-viewer-hypergrid";
+import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
 import "@finos/perspective-viewer/themes/all-themes.css";
 
@@ -25,6 +25,10 @@ export default {
     arrayColumnsQuery: {
       type: Array,
       default: () => []
+    },
+    objectColumns: {
+      type: Object,
+      default: () => {}
     },
     config: {
       type: Object,
@@ -47,10 +51,10 @@ export default {
       }
     },
     arrayColumnsQuery(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.viewer.clear();
+      if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+        this.viewer.clear()
+        this.viewer.update(this.items)
         this.viewer.setAttribute('columns', JSON.stringify(newValue))
-        this.checkIfQueryResultIsEmpty(this.items)
       }
     },
     resetConfigViz(newValue) {
@@ -83,7 +87,28 @@ export default {
       this.viewer.setAttribute('plugin', this.typeChart)
       this.viewer.clear();
 
-      this.viewer.load(data);
+      const transformColumns = this.objectColumns
+
+      Object.keys(transformColumns).forEach((key) => {
+        if (transformColumns[key] === 'hstore') {
+          transformColumns[key] = 'string'
+        } else if (transformColumns[key] === 'jsonb') {
+          transformColumns[key] = 'string'
+        } else if (transformColumns[key] === 'decimal') {
+          transformColumns[key] = 'float'
+        } else if (transformColumns[key] === 'text') {
+          transformColumns[key] = 'string'
+        } else if (transformColumns[key] === 'inet') {
+          transformColumns[key] = 'integer'
+        }
+      });
+
+      let schema = transformColumns
+
+      const loadSchema = this.viewer.worker.table(schema);
+      this.viewer.load(loadSchema)
+      this.viewer.load(data)
+
       if (this.config) {
         this.viewer.restore(this.config);
         //Perspective can't restore row_pivots, column_pivots and computed_columns, so we need to check if visualization config contains some of these values, if contain them we've need to include these values to viewer
@@ -105,12 +130,16 @@ export default {
       return this.viewer.save()
     },
     toggleConfigPerspective() {
+      this.$root.$emit('showSavedVizString', false)
       this.viewer.toggleConfig()
       //Enable save button when user interacts with Perspective columns
       const itemPerspective = document.querySelector('perspective-viewer').shadowRoot
       const rowPerspective = itemPerspective.querySelectorAll("perspective-row");
-      rowPerspective.forEach(rowMenu => rowMenu.addEventListener('drag', () => this.$emit("showSaving")));
-      rowPerspective.forEach(rowMenu => rowMenu.addEventListener('click', () => this.$emit("showSaving")));
+
+      rowPerspective.forEach(rowMenu => {
+        rowMenu.addEventListener('drag', () => this.$emit("showSaving"))
+        rowMenu.addEventListener('click', () => this.$emit("showSaving"))
+      });
     },
     listenerPerspective() {
       const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot

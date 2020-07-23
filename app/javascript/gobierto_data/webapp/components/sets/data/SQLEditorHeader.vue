@@ -69,7 +69,6 @@
       ref="savingDialogQuery"
       :placeholder="labelQueryName"
       :value="queryName"
-      :label-save="labelSave"
       :label-saved="labelSaved"
       :label-modified="labelModifiedQuery"
       :is-query-modified="isQueryModified"
@@ -83,6 +82,7 @@
       :show-revert-query="showRevertQuery"
       :show-private="showPrivate"
       :show-private-public-icon="showPrivatePublicIcon"
+      :reset-private="resetPrivate"
       @save="saveHandlerSavedQuery"
       @keyDownInput="updateQueryName"
       @handlerFork="handlerForkQuery"
@@ -190,6 +190,10 @@ export default {
     showPrivatePublicIcon: {
       type: Boolean,
       default: false
+    },
+    resetPrivate: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -198,7 +202,6 @@ export default {
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelRunQuery: I18n.t("gobierto_data.projects.runQuery") || "",
       labelResetQuery: I18n.t("gobierto_data.projects.resetQuery") || "",
-      labelSave: I18n.t("gobierto_data.projects.save") || "",
       labelSaved: I18n.t("gobierto_data.projects.savedQuery") || "",
       labelQueryName: I18n.t("gobierto_data.projects.queryName") || "",
       labelButtonQueries: I18n.t("gobierto_data.projects.buttonQueries") || "",
@@ -282,7 +285,7 @@ export default {
       this.isQueriesModalActive = false;
     },
     resetQueryHandler() {
-      this.$root.$emit('resetQuery', true)
+      this.$root.$emit('resetQuery')
       this.$router.push(
         `/datos/${this.$route.params.id}/${tabs[1]}`
       //Avoid errors when user goes to the same route
@@ -300,6 +303,9 @@ export default {
         this.$refs.savingDialogQuery.inputFocus()
         this.$refs.savingDialogQuery.inputSelect()
       });
+      this.$root.$emit('enableSavedButton')
+      this.$root.$emit('enabledForkPrompt')
+      this.$root.$emit('enabledRevertButton')
       this.$root.$emit('disabledForkButton')
     },
     isPrivateChecked() {

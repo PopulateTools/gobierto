@@ -40,6 +40,12 @@
         :show-private-public-icon-viz="showPrivatePublicIconViz"
         :show-private-viz="showPrivateViz"
         :show-private="showPrivate"
+        :show-label-edit="showLabelEdit"
+        :is-viz-item-modified="isVizItemModified"
+        :reset-private="resetPrivate"
+        :viz-id="vizId"
+        :user-save-viz="userSaveViz"
+        :object-columns="objectColumns"
         @changeViz="showVizElement"
         @emitDelete="deleteHandlerVisualization"
       />
@@ -135,6 +141,30 @@ export default {
     showPrivate: {
       type: Boolean,
       default: false
+    },
+    showLabelEdit: {
+      type: Boolean,
+      default: false
+    },
+    isVizItemModified: {
+      type: Boolean,
+      default: false
+    },
+    resetPrivate: {
+      type: Boolean,
+      default: false
+    },
+    vizId: {
+      type: Number,
+      default: 0
+    },
+    userSaveViz: {
+      type: Number,
+      default: 0
+    },
+    objectColumns: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -158,13 +188,6 @@ export default {
     currentVizTab(newValue) {
       if (newValue === 0) {
         this.currentVizComponent = COMPONENTS[newValue];
-      }
-    },
-    $route(to, from) {
-      if (to.path !== from.path) {
-        this.$root.$emit("isVizModified", false);
-        this.$root.$emit("showSavedVizString", false);
-        this.$root.$emit('enabledForkVizButton', false)
       }
     }
   },

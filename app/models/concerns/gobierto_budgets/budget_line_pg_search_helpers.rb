@@ -50,7 +50,7 @@ module GobiertoBudgets
       end
 
       def searchable_content
-        translated_attributes.values.join(" ")
+        translated_attributes.values.map{ |translations| translations.values.join(" ") }.join(" ")
       end
     end
 

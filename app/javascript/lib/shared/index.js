@@ -26,7 +26,8 @@ import {
   translate,
   money,
   date,
-  truncate
+  truncate,
+  percent
 } from "./modules/vue-filters.js";
 import {
   VueDirectivesMixin,
@@ -52,6 +53,7 @@ export {
   money,
   date,
   truncate,
+  percent,
   VueDirectivesMixin,
   clickoutside
 };

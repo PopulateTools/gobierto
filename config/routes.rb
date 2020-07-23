@@ -440,6 +440,10 @@ Rails.application.routes.draw do
         get "/" => "plan_types#index", as: :root
         get ":slug(/:year)/ods/:sdg_slug" => "plan_types#sdg", as: :plan_sdg
         get ":slug(/:year)" => "plan_types#show", as: :plan
+        get ":slug(/:year)/categoria/:id" => "plan_types#show", as: :category
+        get ":slug(/:year)/proyecto/:id" => "plan_types#show", as: :project
+        get ":slug(/:year)/tabla/:uid" => "plan_types#show"
+        get ":slug(/:year)/tabla/:uid/:term_id" => "plan_types#show"
 
         # API
         namespace :api, path: "gobierto_plans/api" do

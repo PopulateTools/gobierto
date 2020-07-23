@@ -89,7 +89,6 @@ module GobiertoAdmin
 
             select "pam", from: "plan_plan_type_id"
             select "New Strategic Plan", from: "plan_vocabulary_id"
-            fill_in "plan_configuration_data", with: ""
 
             click_button "Create"
 
@@ -108,8 +107,8 @@ module GobiertoAdmin
             visit admin_plans_plan_import_csv_path(plan)
 
             assert has_no_content? "No data loaded yet"
-            assert has_content? "2 items of level 1"
-            assert has_content? "3 items of level 2"
+            assert has_content? "2 axes"
+            assert has_content? "3 lines of activity"
           end
         end
       end

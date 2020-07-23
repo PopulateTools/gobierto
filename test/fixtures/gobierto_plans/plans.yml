@@ -94,6 +94,7 @@ strategic_plan:
                     "TECHNICAL_SUPERVISOR_DEPARTMENT": {"ca": "departament de supervisió tècnica",
                                                         "es": "departamento de supervisor técnico",
                                                         "en": "technical supervisor department"}},
+    "fields_to_not_show_in_front": ["progress"],
     "show_table_header": false,
     "open_node": true }).inspect %>
 government_plan:

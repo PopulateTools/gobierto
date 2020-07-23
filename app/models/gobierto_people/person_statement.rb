@@ -21,7 +21,8 @@ module GobiertoPeople
         {
           site_id: item.site_id,
           title_translations: item.truncated_translations(:title),
-          resource_path: item.resource_path
+          resource_path: item.resource_path,
+          searchable_updated_at: item.updated_at
         }
       },
       if: :searchable?

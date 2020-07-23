@@ -16,10 +16,10 @@ $(document).on('turbolinks:load', function() {
   }
 
   function itemUpdatedAt(d){
-    if(d['updated_at'] === undefined)
+    if(d['searchable_updated_at'] === undefined)
       return;
 
-    return I18n.t("layouts.search.updated") + ": " + I18n.l("date.formats.short", d['updated_at']);
+    return I18n.t("layouts.search.updated") + ": " + I18n.l("date.formats.short", d['searchable_updated_at']);
   }
 
   function itemDescription(d){

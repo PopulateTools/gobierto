@@ -13,7 +13,7 @@ module GobiertoCommon
       :searchable_id,
       :resource_path,
       :meta,
-      :updated_at
+      :searchable_updated_at
     )
 
     def with_translations?

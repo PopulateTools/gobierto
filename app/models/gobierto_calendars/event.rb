@@ -33,7 +33,6 @@ module GobiertoCalendars
         {
           site_id: item.site_id,
           title_translations: item.truncated_translations(:title),
-          description_translations: item.truncated_translations(:description),
           resource_path: item.resource_path
         }
       },

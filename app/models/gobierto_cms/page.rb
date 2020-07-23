@@ -26,7 +26,6 @@ module GobiertoCms
         {
           site_id: item.site_id,
           title_translations: item.truncated_translations(:title),
-          description_translations: item.truncated_translations(:body),
           resource_path: item.resource_path
         }
       },

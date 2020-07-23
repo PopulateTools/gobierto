@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="!isDatasetLoading">
+    <template v-if="!isDatasetLoaded">
       <SkeletonSpinner
         height-square="300px"
         squares-rows="2"
@@ -223,7 +223,7 @@ export default {
       return this.recentQueries.length ? this.recentQueries.filter(sql => (sql || '').includes(this.tableName))
         .reverse() : [];
     },
-    isDatasetLoading() {
+    isDatasetLoaded() {
       return this.attributes && this.publicQueries && this.publicVisualizations
     }
   },

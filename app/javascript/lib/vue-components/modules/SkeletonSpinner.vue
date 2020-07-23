@@ -29,7 +29,7 @@ export default {
   name: "SkeletonSpinner",
   props: {
     heightSquare: {
-      default: `1rem`,
+      default: '1rem',
       type: String,
     },
     squaresRows: {
@@ -37,7 +37,7 @@ export default {
       type: String,
     },
     squares: {
-      default: '0',
+      default: '1',
       type: String,
     },
     lines: {
@@ -48,8 +48,7 @@ export default {
   computed: {
     styleSquares() {
       return {
-        //
-        width: ((100 - (this.squares - 1)) / this.squares) + '%',
+        width: ((100 - (+(this.squares) - 1)) / +(this.squares)) + '%',
         height: this.heightSquare
       }
     },

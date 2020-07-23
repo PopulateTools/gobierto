@@ -18,6 +18,7 @@
                 <Visualizations
                   v-if="items"
                   :items="items"
+                  :object-columns="objectColumns"
                   :config="config"
                 />
               </div>
@@ -43,6 +44,10 @@ export default {
     slug: {
       type: String,
       default: ''
+    },
+    objectColumns: {
+      type: Object,
+      default: () => {}
     }
   }
 };

@@ -28,6 +28,7 @@
         <VisualizationsGrid
           v-if="publicVisualizations"
           :public-visualizations="publicVisualizations"
+          :object-columns="columns"
           :slug="slug"
         />
       </div>
@@ -80,6 +81,7 @@ export default {
       slug: null,
       category: {},
       frequency: {},
+      columns: {},
       dateUpdated: null
     }
   },
@@ -90,7 +92,8 @@ export default {
       frequency: [{ name_translations: this.frequency } = {}] = [],
       description: this.description,
       name: this.name,
-      slug: this.slug
+      slug: this.slug,
+      columns: this.columns
     } = this.datasetAttributes)
   },
   mounted() {

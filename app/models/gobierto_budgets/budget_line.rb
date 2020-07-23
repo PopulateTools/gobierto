@@ -8,6 +8,7 @@ module GobiertoBudgets
     include ActiveModel::Model
     include BudgetLineElasticsearchHelpers
     include BudgetLineAlgoliaHelpers
+    include BudgetLinePgSearchHelpers
 
     INCOME = "I"
     EXPENSE = "G"

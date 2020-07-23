@@ -45,10 +45,10 @@ module GobiertoBudgets
           kind: kind,
           resource_path: resource_path,
           class_name: self.class.name
-        }.merge(translated_attributes)
+        }.merge(algolia_translated_attributes)
       end
 
-      def translated_attributes
+      def algolia_translated_attributes
         translations = {}
 
         I18n.available_locales.each do |locale|

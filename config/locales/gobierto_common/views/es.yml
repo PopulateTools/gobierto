@@ -193,6 +193,9 @@ es:
         none: Ninguna
       calendar:
         date: Seleccione fecha
+      pagination:
+        next: Siguiente
+        previous: Anterior
       read_more:
         less: Ver menos
         more: Ver más

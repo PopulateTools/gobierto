@@ -5,7 +5,7 @@
       :disabled="page === 1"
       @click="page--"
     >
-      Previous
+      {{ labelPrev }}
     </button>
     <ul class="gobierto-pagination-pages">
       <li
@@ -27,7 +27,7 @@
       :disabled="page === pages.slice(-1)[0]"
       @click="page++"
     >
-      Next
+      {{ labelNext }}
     </button>
   </nav>
 </template>
@@ -48,7 +48,8 @@ export default {
   },
   data() {
     return {
-      labelEmpty: I18n.t("gobierto_dashboards.dashboards.contracts.empty_table"),
+      labelNext: I18n.t("gobierto_common.vue_components.pagination.next"),
+      labelPrev: I18n.t("gobierto_common.vue_components.pagination.previous"),
       page: 1,
       pages: [],
     };

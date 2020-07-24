@@ -10,6 +10,8 @@
   background: transparent;
   text-decoration: underline;
   color: var(--color-base);
+  padding: 1rem;
+  margin: 0;
 
   &:disabled,
   &:hover {
@@ -19,6 +21,7 @@
 
 .gobierto-pagination-pages {
   display: inline-block;
+  padding-left: 0;
 }
 
 .gobierto-pagination-pages-element {

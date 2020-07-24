@@ -90,7 +90,7 @@ export default {
       const arrayColumnsFromAPI = Object.keys(this.objectColumns)
 
       /* We compare the columns, if it returns true we pass the schema to Perspective, if false Perspective will convert the columns*/
-      const sameColumns = arrayColumnsFromQuery.some(column => arrayColumnsFromAPI.includes(column))
+      const sameColumns = arrayColumnsFromAPI.length == arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
 
       if (sameColumns) {
         this.initPerspectiveWithSchema(this.items)

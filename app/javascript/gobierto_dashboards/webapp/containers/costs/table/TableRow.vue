@@ -1,4 +1,4 @@
-<template>
+  <template>
   <table
     class="gobierto-dashboards-table"
     :class="{'gobierto-dashboards-table--subheader': blueHeader }"
@@ -14,8 +14,10 @@
             class="gobierto-dashboards-table-header--nav"
             @click="handleToggle(act_intermedia)"
           >
-            <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
-            <span>({{ total }} {{ labelActivities }})</span>
+            <div class="gobierto-dashboards-table-header--nav-has-children">
+              <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
+              <span class="gobierto-dashboards-table-header--nav-text-total">({{ total }} {{ labelActivities }})</span>
+            </div>
           </td>
         </template>
         <template v-else-if="tableHeader">

@@ -393,6 +393,11 @@
         font-size: 1rem;
       }
 
+      .gobierto-dashboards-table-header--nav-has-children,
+      .gobierto-dashboards-table-header--nav {
+        padding-right: 0;
+      }
+
       .gobierto-dashboards-table--secondlevel {
         width: 100%;
         background-color: #fff;
@@ -539,9 +544,16 @@
     max-width: calc(100% - 19px);
   }
 
+  &-table-first-level {
+    .gobierto-dashboards-table-header--link,
+    .gobierto-dashboards-table-header--link-top {
+      font-size: 18px;
+    }
+  }
+
   &-table-header--link,
   &-table-header--link-top {
-    font-size: 18px;
+    font-size: 1rem;
     color: var(--color-base);
     text-decoration: underline;
   }
@@ -596,6 +608,7 @@
         font-weight: bold;
         background-color: transparent;
       }
+
     }
   }
 

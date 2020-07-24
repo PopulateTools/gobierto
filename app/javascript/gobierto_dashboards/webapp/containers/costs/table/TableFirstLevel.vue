@@ -1,7 +1,7 @@
 <template>
   <div>
     <TableHeader />
-    <table class="gobierto-dashboards-table">
+    <table class="gobierto-dashboards-table gobierto-dashboards-table-first-level">
       <tbody>
         <tr
           v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, coverage, ordre_agrupacio, totalPerHabitant, year } in itemsFilter"

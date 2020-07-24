@@ -79,6 +79,12 @@ export default {
       if (newValue !== oldValue) {
         this.paginateData(this.data);
       }
+    },
+    data(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.setPages();
+        this.page = 1;
+      }
     }
   },
   created() {

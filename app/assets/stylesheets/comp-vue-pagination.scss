@@ -1,9 +1,20 @@
 .gobierto-pagination {
   display: block;
+  width: 100%;
+  text-align: center;
 }
 
-.gobierto-pagination-btn {
+.gobierto-pagination-btn,
+.gobierto-pagination-pages-element-btn {
   display: inline-block;
+  background: transparent;
+  text-decoration: underline;
+  color: var(--color-base);
+
+  &:disabled,
+  &:hover {
+    background: transparent;
+  }
 }
 
 .gobierto-pagination-pages {
@@ -11,9 +22,5 @@
 }
 
 .gobierto-pagination-pages-element {
-  display: inline-block;
-}
-
-.gobierto-pagination-pages-element-btn {
   display: inline-block;
 }

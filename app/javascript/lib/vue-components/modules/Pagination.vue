@@ -7,12 +7,14 @@
     >
       Previous
     </button>
-    <ul>
+    <ul class="gobierto-pagination-pages">
       <li
         v-for="pageNumber in paginationOptions"
         :key="pageNumber"
+        class="gobierto-pagination-pages-element"
       >
         <button
+          class="gobierto-pagination-pages-element-btn"
           :disabled="pageNumber === page"
           @click="page = pageNumber"
         >
@@ -34,17 +36,26 @@
 
 export default {
   name: "Pagination",
+  props: {
+    data: {
+      type: Array,
+      default: () => []
+    },
+    itemsPerPage: {
+      type: Number,
+      default: 1
+    },
+  },
   data() {
     return {
       labelEmpty: I18n.t("gobierto_dashboards.dashboards.contracts.empty_table"),
-      perPage: 10,
       page: 1,
       pages: [],
     };
   },
   computed: {
     displayedData() {
-      return this.paginateData(this.items);
+      return this.paginateData(this.data);
     },
     paginationOptions() {
       let page = this.page;
@@ -62,25 +73,32 @@ export default {
         this.page = 1;
         this.setPages();
       }
+    },
+    page(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.paginateData(this.data);
+      }
     }
   },
   created() {
     this.setPages();
+    this.paginateData(this.data);
   },
   methods: {
     setPages() {
       this.pages.splice(0, this.pages.length);
-      let pageCount = Math.ceil(this.items.length / this.perPage);
+      let pageCount = Math.ceil(this.data.length / this.itemsPerPage);
       for (let index = 1; index <= pageCount; index++) {
         this.pages.push(index);
       }
     },
     paginateData(data) {
       let page = this.page;
-      let perPage = this.perPage;
+      let perPage = this.itemsPerPage;
       let from = (page * perPage) - perPage;
       let to = (page * perPage);
-      return data.slice(from, to);
+      const displayedData = data.slice(from, to);
+      this.$emit('showData', displayedData)
     }
   }
 };

@@ -144,7 +144,9 @@ export class CostsController {
     let groupData2019 = []
 
     function groupDataByYear(data, year) {
-      let groupData = [...data.reduce((r, o) => {
+      //Filter groupData by "sumadatos" :https://github.com/PopulateTools/issues/issues/1097
+      let dataFilterSum = data.filter(element => element.sumadatos === '')
+      let groupData = [...dataFilterSum.reduce((r, o) => {
         const key = o.agrupacio
 
         const item = r.get(key) || Object.assign({}, o, {

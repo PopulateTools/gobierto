@@ -145,9 +145,10 @@ module GobiertoData
     def load_data
       return unless [data_file, data_path].any?(&:present?)
 
+      # Use the Array form to enforce an extension in the filename
       temp_file = Tempfile.new(["data", ".csv"])
       begin
-        temp_file.write(source_data.read.force_encoding("UTF-8"))
+        temp_file.write(encode_to_utf_8(source_data.read))
         temp_file.rewind
         @load_status = @resource.load_data_from_file(
           temp_file.path,
@@ -166,6 +167,11 @@ module GobiertoData
         temp_file.close
         temp_file.unlink
       end
+    end
+
+    def encode_to_utf_8(data)
+      encoding_detection = CharlockHolmes::EncodingDetector.detect(data)
+      data.force_encoding(encoding_detection[:encoding]).encode('UTF-8')
     end
 
   end

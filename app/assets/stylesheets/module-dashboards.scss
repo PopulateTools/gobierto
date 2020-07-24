@@ -3,6 +3,7 @@
 @import "comp-block-checkbox";
 @import "comp-block-header";
 @import "comp-vue-dropdown";
+@import "comp-vue-pagination";
 
 .dashboards {
   @include min-screen(768) {

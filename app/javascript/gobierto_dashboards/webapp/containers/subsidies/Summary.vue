@@ -158,13 +158,13 @@ export default {
       labelMainBeneficiaries: I18n.t('gobierto_dashboards.dashboards.subsidies.main_beneficiaries')
     }
   },
-
   mounted() {
     EventBus.$on('refresh-summary-data', () => {
       this.refreshSummaryData();
     });
 
     EventBus.$emit("summary-ready");
+    EventBus.$on('filtered-items', (data) => this.updateItems(data))
   },
   created() {
     this.items = this.buildItems();
@@ -174,6 +174,12 @@ export default {
     EventBus.$off('refresh-summary-data');
   },
   methods: {
+    updateItems(values) {
+      this.subsidiesData = values
+      this.items = this.buildItems();
+
+      EventBus.$emit('send-filtered-items', this.items)
+    },
     refreshSummaryData(){
       this.subsidiesData = this.$root.$data.subsidiesData;
       this.items = this.buildItems();

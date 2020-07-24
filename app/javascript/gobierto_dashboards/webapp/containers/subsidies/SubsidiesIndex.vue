@@ -27,6 +27,9 @@ export default {
       this.subsidiesData = this.$root.$data.subsidiesData
       this.items = this.subsidiesData.slice(0, 50);
     });
+    EventBus.$on('filtered-items-subsidies', (data) => {
+      /*this.items = data.filter(item => item.year === '2019')*/
+    })
 
     this.items = this.subsidiesData.slice(0, 50);
     this.columns = subsidiesColumns;

@@ -170,8 +170,11 @@ module GobiertoData
     end
 
     def encode_to_utf_8(data)
-      encoding_detection = CharlockHolmes::EncodingDetector.detect(data)
-      data.force_encoding(encoding_detection[:encoding]).encode('UTF-8')
+      if encoding_detection = CharlockHolmes::EncodingDetector.detect(data)
+        data.force_encoding(encoding_detection[:encoding]).encode("UTF-8")
+      else
+        data.force_encoding("UTF-8")
+      end
     end
 
   end

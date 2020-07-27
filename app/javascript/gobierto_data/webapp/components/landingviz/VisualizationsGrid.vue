@@ -6,7 +6,7 @@
     <template v-for="{ items, config, name, id } in publicVisualizations">
       <div :key="id">
         <router-link
-          :to="`/datos/${slug}/v/${id}`"
+          :to="`/datos/${datasetSlug}/v/${id}`"
           class="gobierto-data-visualizations-name"
         >
           <div class="gobierto-data-visualization--card">
@@ -41,7 +41,7 @@ export default {
       type: Array,
       default: () => []
     },
-    slug: {
+    datasetSlug: {
       type: String,
       default: ''
     },

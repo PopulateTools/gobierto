@@ -13,14 +13,20 @@
         <div
           v-for="{
             id,
-            attributes
+            attributes: {
+              name,
+              slug,
+              columns
+            }
           } in datasetsVisualizations"
           :key="id"
           class="gobierto-data-info-list-element"
         >
           <VisualizationsAllList
             :dataset-id="id"
-            :dataset-attributes="attributes"
+            :dataset-name="name"
+            :dataset-slug="slug"
+            :dataset-columns="columns"
           />
         </div>
       </div>

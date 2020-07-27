@@ -13,23 +13,17 @@
         @click.native="handleToggle"
       />
       <router-link
-        :to="{ path:`/datos/${slug}`, params: { activeSidebarTab: 1 }}"
+        :to="{ path:`/datos/${datasetSlug}`, params: { activeSidebarTab: 1 }}"
         class="gobierto-data-title-dataset gobierto-data-title-dataset-big"
       >
-        {{ name }}
+        {{ datasetName }}
       </router-link>
       <div v-show="showViz">
-        <Info
-          :description-dataset="description"
-          :category-dataset="category | translate"
-          :frequency-dataset="frequency | translate"
-          :date-updated="dateUpdated"
-        />
         <VisualizationsGrid
           v-if="publicVisualizations"
           :public-visualizations="publicVisualizations"
-          :object-columns="columns"
-          :slug="slug"
+          :object-columns="datasetColumns"
+          :dataset-slug="datasetSlug"
         />
       </div>
     </template>
@@ -41,7 +35,6 @@ import { DataFactoryMixin } from "./../../../lib/factories/data";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { convertToCSV } from "./../../../lib/helpers";
 import VisualizationsGrid from "./VisualizationsGrid";
-import Info from "./../commons/Info.vue";
 import Caret from "./../commons/Caret";
 import { SkeletonSpinner } from "lib/vue-components";
 import { translate } from "lib/shared"
@@ -50,7 +43,6 @@ export default {
   components: {
     VisualizationsGrid,
     Caret,
-    Info,
     SkeletonSpinner
   },
   filters: {
@@ -66,35 +58,25 @@ export default {
       type: String,
       default: ''
     },
-    datasetAttributes: {
+    datasetName: {
+      type: String,
+      default: ''
+    },
+    datasetSlug: {
+      type: String,
+      default: ''
+    },
+    datasetColumns: {
       type: Object,
-      default: () => {},
+      default: () => {}
     }
   },
   data() {
     return {
       publicVisualizations: [],
       showViz: true,
-      isVizsLoading: false,
-      description: null,
-      name: null,
-      slug: null,
-      category: {},
-      frequency: {},
-      columns: {},
-      dateUpdated: null
+      isVizsLoading: false
     }
-  },
-  created() {
-    ({
-      data_updated_at: this.dateUpdated,
-      category: [{ name_translations: this.category } = {}] = [],
-      frequency: [{ name_translations: this.frequency } = {}] = [],
-      description: this.description,
-      name: this.name,
-      slug: this.slug,
-      columns: this.columns
-    } = this.datasetAttributes)
   },
   mounted() {
     this.getPublicVisualizations()

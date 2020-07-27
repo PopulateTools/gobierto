@@ -49,7 +49,13 @@ module GobiertoCommon
     end
 
     def save
-      save_custom_fields if valid?
+      return unless valid?
+
+      save_custom_fields
+      if item.respond_to? :pg_search_document
+        item.reset_serialized_version
+        item.update_pg_search_document
+      end
     end
 
     def single_value(value, record, default_value: nil)

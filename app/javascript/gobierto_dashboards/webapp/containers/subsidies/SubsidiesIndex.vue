@@ -25,13 +25,13 @@ export default {
   created() {
     EventBus.$on('refresh-summary-data', () => {
       this.subsidiesData = this.$root.$data.subsidiesData
-      this.items = this.subsidiesData.slice(0, 50);
+      this.items = this.subsidiesData
     });
     EventBus.$on('filtered-items-subsidies', (data) => {
       this.items = data
     })
 
-    this.items = this.subsidiesData.slice(0, 50);
+    this.items = this.subsidiesData
     this.columns = subsidiesColumns;
   },
   beforeDestroy(){

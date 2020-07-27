@@ -79,6 +79,5 @@ export default {
       return tabIndex === 0
     }
   }
-
 }
 </script>

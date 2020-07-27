@@ -3,6 +3,7 @@
 @import "comp-block-checkbox";
 @import "comp-block-header";
 @import "comp-vue-dropdown";
+@import "comp-vue-pagination";
 
 .dashboards {
   @include min-screen(768) {
@@ -235,5 +236,19 @@
         margin: 0 0.6em;
       }
     }
+  }
+
+  .gobierto_dashboards-search-container-label {
+    display: block;
+    margin-bottom: .5rem;
+  }
+
+  .gobierto_dashboards-search-container-input {
+    height: auto;
+    padding: 1rem;
+  }
+
+  .gobierto_dashboards-search-btn-clear {
+    display: block;
   }
 }

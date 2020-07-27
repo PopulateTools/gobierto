@@ -160,7 +160,7 @@ export default {
 
       EventBus.$emit('filter-changed', { all: true, titles: titles, id: filter.id });
     },
-    handleCheckboxStatus({ id, value, filter }) {
+    handleCheckboxStatus({ id, filter }) {
       const option = filter.options.find(option => option.id === id)
       EventBus.$emit('filter-changed', { all: false, title: option.title, id: filter.id });
     },

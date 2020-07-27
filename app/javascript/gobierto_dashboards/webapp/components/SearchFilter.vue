@@ -1,23 +1,20 @@
 <template>
   <div class="gobierto_dashboards-search-container">
     <label class="gobierto_dashboards-search-container-label">
-      Search subsidies:
+      {{ labelSearch }}:
     </label>
     <input
       v-model="search"
       type="text"
-      placeholder="Search contract"
+      :placeholder="labelPlaceholder"
       class="gobierto_dashboards-search-container-input"
       @input="handlerFilterItems"
-      @focus="focusTable"
     >
-    <a
-      href="#"
-      class="gobierto_dashboards-search-btn-clear"
+    <i
+      class="fas fa-times"
+      style="margin-left: -2rem;"
       @click="handlerClearSearch"
-    >
-      Clear search
-    </a>
+    />
   </div>
 </template>
 
@@ -34,23 +31,21 @@ export default {
   data() {
     return {
       search: '',
+      labelSearch: I18n.t('gobierto_dashboards.dashboards.contracts.search'),
+      labelPlaceholder: I18n.t('gobierto_dashboards.dashboards.contracts.search_placeholder')
     }
   },
   methods: {
     handlerFilterItems(event) {
       const { target: { value } } = event
-      const filterItems = this.data.filter(contract => contract.beneficiary_name.toLowerCase().includes(value.toLowerCase()))
-      EventBus.$emit('filtered-items', filterItems)
-      EventBus.$emit('filtered-items-subsidies', filterItems)
+      EventBus.$emit('filtered-items', value)
+      EventBus.$emit('filtered-items-grouped', value)
       EventBus.$emit('update-tab')
     },
     handlerClearSearch() {
       this.search = ''
-      EventBus.$emit('filtered-items', this.data)
-      EventBus.$emit('filtered-items-subsidies', this.data)
-    },
-    focusTable() {
-
+      EventBus.$emit('filtered-items', this.search)
+      EventBus.$emit('filtered-items-grouped', this.search)
     }
   }
 }

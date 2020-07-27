@@ -25,6 +25,8 @@ en:
           tenders: Tenders
         permalink: Check this contract on the Public Sector Contracting Platform
         process_type: Type of process
+        search: Search
+        search_placeholder: Search by beneficiary
         status: Status
         submission_date: Date
         summary:

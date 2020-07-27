@@ -26,6 +26,8 @@ ca:
         permalink: Consulteu aquest contracte a la Plataforma de Contractació del
           Sector Públic
         process_type: Tipus de procés
+        search: Cerca
+        search_placeholder: Cerca per beneficiari
         status: Estat
         submission_date: Data
         summary:

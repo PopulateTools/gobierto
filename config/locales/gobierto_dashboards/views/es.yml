@@ -26,6 +26,8 @@ es:
         permalink: Consulta este contrato en la Plataforma de Contratación del Sector
           Público
         process_type: Tipo de proceso
+        search: Buscar
+        search_placeholder: Busca por beneficiario
         status: Estado
         submission_date: Fecha
         summary:

@@ -170,6 +170,7 @@ export default {
     return {
       subsidiesData: this.$root.$data.subsidiesData,
       items: [],
+      value: '',
       labelSubsidies: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.subsidies'),
       labelSubsidiesFor: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.subsidies_for'),
       labelIndividualSubsidiesFor: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.individual_subsidies_for'),
@@ -193,7 +194,7 @@ export default {
     });
 
     EventBus.$emit("summary-ready");
-    EventBus.$on('filtered-items', (data) => this.updateItems(data))
+    EventBus.$on('filtered-items-grouped', (value) => this.updateItems(value))
   },
   created() {
     this.items = this.buildItems();
@@ -203,8 +204,9 @@ export default {
     EventBus.$off('refresh-summary-data');
   },
   methods: {
-    updateItems(values) {
-      this.subsidiesData = values
+    updateItems(value) {
+      this.value = value
+      this.subsidiesData = this.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase())).slice(0, 25)
       this.items = this.buildItems();
 
       EventBus.$emit('send-filtered-items', this.items)

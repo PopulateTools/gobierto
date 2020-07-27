@@ -169,11 +169,19 @@ export default {
   created() {
     this.items = this.buildItems();
     this.columns = assigneesColumns;
+
+    EventBus.$on('filtered-items-grouped', (value) => this.updateItems(value))
   },
   beforeDestroy(){
     EventBus.$off('refresh-summary-data');
   },
   methods: {
+    updateItems(value) {
+      this.contractsData = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(value.toLowerCase())).slice(0, 25)
+      this.items = this.buildItems();
+
+      EventBus.$emit('send-filtered-items', this.items)
+    },
     refreshSummaryData(){
       this.contractsData = this.$root.$data.contractsData;
       this.items = this.buildItems();

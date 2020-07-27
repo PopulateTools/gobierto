@@ -22,7 +22,7 @@
     </table>
     <Pagination
       :data="items"
-      :items-per-page="20"
+      :items-per-page="10"
       @showData="updateData"
     />
   </div>

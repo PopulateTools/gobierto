@@ -59,7 +59,8 @@ export default {
   },
   created() {
     EventBus.$on("update-tab", () => {
-      this.$router.push('subvenciones')
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push('subvenciones').catch(err => {})
       this.activeTabIndex = 1
     });
   },

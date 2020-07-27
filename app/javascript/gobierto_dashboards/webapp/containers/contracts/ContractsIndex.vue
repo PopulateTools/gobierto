@@ -16,6 +16,13 @@ export default {
   components: {
     Table
   },
+  watch: {
+    contractsData(newValue, oldValue) {
+      if (oldValue !== newValue) {
+        this.updateFilteredItems(this.value)
+      }
+    }
+  },
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
@@ -25,14 +32,26 @@ export default {
   created() {
     EventBus.$on('refresh-summary-data', () => {
       this.contractsData = this.$root.$data.contractsData
-      this.items = this.contractsData.slice(0, 50);
+      this.items = this.contractsData
     });
 
-    this.items = this.contractsData.slice(0, 50);
+    EventBus.$on('filtered-items', (value) => this.updateFilteredItems(value))
+
+    this.items = this.contractsData
     this.columns = contractsColumns;
   },
   beforeDestroy(){
     EventBus.$off('refresh-summary-data');
+  },
+  methods: {
+    updateFilteredItems(value) {
+      this.value = value
+      if (this.value === '') {
+        this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()))
+      } else {
+        this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase())).slice(0, 25)
+      }
+    }
   }
 }
 </script>

@@ -61,13 +61,7 @@ module GobiertoCitizensCharters
     end
 
     def searchable_custom_fields
-      searchable_values = GobiertoCommon::CustomFieldRecord.searchable.for_item(self).map do |record|
-        if record.custom_field.has_localized_value?
-          searchable_translated_attribute(record.searchable_value)
-        else
-          searchable_attribute(record.searchable_value)
-        end
-      end
+      searchable_values = GobiertoCommon::CustomFieldRecord.searchable.for_item(self).map(&:searchable_value)
       searchable_values.sort_by { |value| -value.length }.join(" ")[0..9300]
     end
 

@@ -23,7 +23,7 @@ module GobiertoCommon
       end
 
       def searchable_value
-        value
+        value_string
       end
 
       def raw_value

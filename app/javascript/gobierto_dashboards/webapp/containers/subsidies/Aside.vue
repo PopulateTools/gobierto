@@ -2,6 +2,7 @@
   <div class="pure-u-1 pure-u-lg-1-4">
     <SearchFilter
       :data="subsidiesData"
+      :search-type="type"
     />
     <aside class="dashboards-home-aside--gap">
       <div
@@ -69,7 +70,8 @@ export default {
   },
   data() {
     return {
-      filters: subsidiesFiltersConfig
+      filters: subsidiesFiltersConfig,
+      type: 'Subsidies'
     }
   },
   watch: {

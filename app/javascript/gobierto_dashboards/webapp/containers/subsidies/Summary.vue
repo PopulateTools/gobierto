@@ -194,7 +194,7 @@ export default {
     });
 
     EventBus.$emit("summary-ready");
-    EventBus.$on('filtered-items-grouped', (value) => this.updateItems(value))
+    EventBus.$on('filtered-items-grouped', (data, value) => this.updateItems(data, value))
   },
   created() {
     this.items = this.buildItems();
@@ -204,15 +204,19 @@ export default {
     EventBus.$off('refresh-summary-data');
   },
   methods: {
-    updateItems(value) {
+    updateItems(data, value) {
       this.value = value
-      this.subsidiesData = this.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase())).slice(0, 25)
+      this.subsidiesData = data
       this.items = this.buildItems();
 
       EventBus.$emit('send-filtered-items', this.items)
     },
     refreshSummaryData(){
-      this.subsidiesData = this.$root.$data.subsidiesData;
+      if (this.value === '') {
+        this.subsidiesData = this.$root.$data.subsidiesData;
+      } else {
+        this.subsidiesData = this.$root.$data.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase()))
+      }
       this.items = this.buildItems();
     },
     buildItems() {

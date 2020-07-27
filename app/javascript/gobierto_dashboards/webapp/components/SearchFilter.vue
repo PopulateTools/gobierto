@@ -1,5 +1,8 @@
 <template>
   <div class="gobierto_dashboards-search-container">
+    <label class="gobierto_dashboards-search-container-label">
+      Search subsidies:
+    </label>
     <input
       v-model="search"
       type="text"
@@ -7,9 +10,6 @@
       class="gobierto_dashboards-search-container-input"
       @input="HandlerFilterItems"
     >
-    <label class="gobierto_dashboards-search-container-label">
-      Search contract:
-    </label>
   </div>
 </template>
 

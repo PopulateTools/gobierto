@@ -90,7 +90,7 @@ export default {
       const arrayColumnsFromAPI = Object.keys(this.objectColumns)
 
       /* We compare the columns, if it returns true we pass the schema to Perspective, if false Perspective will convert the columns*/
-      const sameColumns = arrayColumnsFromAPI.length == arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
+      const sameColumns = arrayColumnsFromAPI.length === arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
 
       if (sameColumns) {
         this.initPerspectiveWithSchema(this.items)
@@ -105,14 +105,10 @@ export default {
       const transformColumns = this.objectColumns
 
       Object.keys(transformColumns).forEach((key) => {
-        if (transformColumns[key] === 'hstore') {
-          transformColumns[key] = 'string'
-        } else if (transformColumns[key] === 'jsonb') {
+        if (transformColumns[key] === 'hstore' || transformColumns[key] === 'jsonb' || transformColumns[key] === 'text') {
           transformColumns[key] = 'string'
         } else if (transformColumns[key] === 'decimal') {
           transformColumns[key] = 'float'
-        } else if (transformColumns[key] === 'text') {
-          transformColumns[key] = 'string'
         } else if (transformColumns[key] === 'inet') {
           transformColumns[key] = 'integer'
         }

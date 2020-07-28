@@ -212,7 +212,7 @@ export default {
       EventBus.$emit('send-filtered-items', this.items)
     },
     refreshSummaryData(){
-      if (this.value === '') {
+      if (!this.value) {
         this.subsidiesData = this.$root.$data.subsidiesData;
       } else {
         this.subsidiesData = this.$root.$data.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase()))

@@ -1,5 +1,8 @@
 <template>
-  <nav class="gobierto-pagination">
+  <nav
+    v-if="showPagination"
+    class="gobierto-pagination"
+  >
     <button
       class="gobierto-pagination-btn"
       :disabled="disabledPrevButton"
@@ -73,6 +76,9 @@ export default {
     disabledNextButton() {
       //Disable the Next button when the current page is the last.
       return this.page === this.pages.slice(-1)[0]
+    },
+    showPagination() {
+      return this.data.length > this.itemsPerPage
     }
   },
   watch:{

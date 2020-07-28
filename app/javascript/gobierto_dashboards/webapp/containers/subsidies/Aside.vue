@@ -1,6 +1,6 @@
 <template>
-  <div class="pure-u-1 pure-u-lg-1-4">
-    <aside class="dashboards-home-aside--gap">
+  <div class="pure-u-1 pure-u-lg-1-4 dashboards-home-aside--gap">
+    <aside>
       <div
         v-for="filter in filters"
         :key="filter.id"

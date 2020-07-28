@@ -112,6 +112,7 @@ ca:
       person_item: Biografia
       person_post_item: Post
       person_statement_item: Declaració
+      plan_project_item: Plan - Actuació
       process_item: Procés
       updated: Actualitzat
   scopes:

@@ -112,6 +112,7 @@ es:
       person_item: Biografía
       person_post_item: Post
       person_statement_item: Declaración
+      plan_project_item: Plan - Actuación
       process_item: Proceso
       updated: Actualizado
   scopes:

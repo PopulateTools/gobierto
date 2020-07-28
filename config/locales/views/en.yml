@@ -107,6 +107,7 @@ en:
       person_item: Biography
       person_post_item: Post
       person_statement_item: Statement
+      plan_project_item: Plan - Project/Action
       process_item: Process
       updated: Updated
   scopes:

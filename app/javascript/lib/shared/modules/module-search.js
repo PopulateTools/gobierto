@@ -61,6 +61,8 @@ $(document).on('turbolinks:load', function() {
         return I18n.t("layouts.search.charter");
       case 'GobiertoCitizensCharters::Commitment':
         return I18n.t("layouts.search.charter_commitment");
+      case 'GobiertoPlans::Node':
+        return I18n.t("layouts.search.plan_project_item");
     }
   }
 

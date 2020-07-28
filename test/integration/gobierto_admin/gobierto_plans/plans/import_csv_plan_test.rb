@@ -238,6 +238,38 @@ module GobiertoAdmin
         end
       end
 
+      def test_import_csv_with_prefixed_external_id_column
+        with(site: site, admin: admin) do
+          visit path
+
+          click_link "Import from CSV"
+
+          attach_file "file_csv_file", Rails.root.join("test/fixtures/files/gobierto_plans/table_custom_fields_node_prefix.csv")
+          within "form.new_file" do
+            with_stubbed_s3_file_upload do
+              click_button "Import from CSV file"
+            end
+          end
+
+          within ".flash-message", match: :first do
+            assert has_content? "Data imported successfully"
+          end
+
+          imported_directory = node.custom_field_records.find_by(custom_field: table_custom_field_directory).value
+
+          assert_equal 2, imported_directory.count
+          assert_equal "miguel@example.org", imported_directory.first["email"]
+          assert_equal 999_999_999, imported_directory.first["phone_number"]
+
+          imported_indicators = node.custom_field_records.find_by(custom_field: table_custom_field_indicators).value
+
+          assert_equal 1, imported_indicators.count
+          assert_equal 45.0, imported_indicators.first["objective"]
+          assert_equal 23.0, imported_indicators.first["value_reached"]
+          assert_equal "2020", imported_indicators.first["date"]
+        end
+      end
+
       def test_regular_admin_manager_import
         plan.nodes.each(&:destroy)
         allow_regular_admin_manage_plans

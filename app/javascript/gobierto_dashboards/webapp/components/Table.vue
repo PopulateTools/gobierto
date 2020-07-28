@@ -23,6 +23,7 @@
     <Pagination
       :data="items"
       :items-per-page="15"
+      :container-pagination="'main.dashboards-home-main'"
       @showData="updateData"
     />
   </div>

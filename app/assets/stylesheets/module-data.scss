@@ -1141,6 +1141,11 @@
     width: 95%;
     height: 100%;
     background-color: transparent;
+
+    table {
+      width: auto;
+    }
+
   }
 
   &-description {
@@ -1224,4 +1229,27 @@
     }
   }
 
+}
+
+perspective-viewer regular-table {
+  overflow: scroll;
+  -ms-overflow-style: none;
+
+  ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+
+  th {
+    width: auto !important;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  td,
+  th {
+    padding: .25rem;
+  }
 }

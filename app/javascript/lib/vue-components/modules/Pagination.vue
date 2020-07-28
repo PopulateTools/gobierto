@@ -6,7 +6,7 @@
     <button
       class="gobierto-pagination-btn"
       :disabled="disabledPrevButton"
-      @click="page--"
+      @click="prevPage"
     >
       {{ labelPrev }}
     </button>
@@ -19,7 +19,7 @@
         <button
           class="gobierto-pagination-pages-element-btn"
           :disabled="pageNumber === page"
-          @click="page = pageNumber"
+          @click="currentPage(pageNumber)"
         >
           {{ pageNumber }}
         </button>
@@ -28,7 +28,7 @@
     <button
       class="gobierto-pagination-btn"
       :disabled="disabledNextButton"
-      @click="page++"
+      @click="nextPage"
     >
       {{ labelNext }}
     </button>
@@ -47,6 +47,10 @@ export default {
     itemsPerPage: {
       type: Number,
       default: 1
+    },
+    containerPagination: {
+      type: String,
+      default: ''
     },
   },
   data() {
@@ -120,6 +124,22 @@ export default {
       let to = (page * perPage);
       const displayedData = data.slice(from, to);
       this.$emit('showData', displayedData)
+    },
+    nextPage() {
+      this.page++
+      this.scrollToTop()
+    },
+    currentPage(pageNumber) {
+      this.page = pageNumber
+      this.scrollToTop()
+    },
+    prevPage() {
+      this.page--
+      this.scrollToTop()
+    },
+    scrollToTop() {
+      const element = document.querySelector(this.containerPagination);
+      element.scrollIntoView({ behavior: "smooth" });
     }
   }
 };

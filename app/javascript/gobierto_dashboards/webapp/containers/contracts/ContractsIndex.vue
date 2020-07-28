@@ -47,9 +47,9 @@ export default {
     updateFilteredItems(value) {
       this.value = value
       if (this.value === '') {
-        this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()))
+        this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()) || contract.title.toLowerCase().includes(this.value.toLowerCase()))
       } else {
-        this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase())).slice(0, 25)
+        this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(value.toLowerCase()) || contract.title.toLowerCase().includes(value.toLowerCase()))
       }
     }
   }

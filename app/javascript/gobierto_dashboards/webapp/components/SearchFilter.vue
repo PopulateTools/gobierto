@@ -3,18 +3,22 @@
     <label class="gobierto_dashboards-search-container-label">
       {{ labelSearch }}:
     </label>
-    <input
-      v-model="search"
-      type="text"
-      :placeholder="labelPlaceholder"
-      class="gobierto_dashboards-search-container-input"
-      @input="handlerFilterItems"
-    >
-    <i
-      class="fas fa-times"
-      style="margin-left: -2rem;"
-      @click="handlerClearSearch"
-    />
+    <div class="gobierto_dashboards-search-container-wrapper-input">
+      <div class="search-box">
+        <i class="fas fa-search gobierto_dashboards-search-btn-search" />
+        <input
+          v-model="search"
+          type="text"
+          :placeholder="labelPlaceholder"
+          class="gobierto_dashboards-search-container-input"
+          @input="handlerFilterItems"
+        >
+        <i
+          class="fas fa-times gobierto_dashboards-search-btn-clear"
+          @click="handlerClearSearch"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -46,7 +50,7 @@ export default {
       if (this.searchType === 'Subsidies') {
         filterItems = this.data.filter(contract => contract.beneficiary_name.toLowerCase().includes(value.toLowerCase()))
       } else {
-        filterItems = this.data.filter(contract => contract.assignee.toLowerCase().includes(value.toLowerCase()))
+        filterItems = this.data.filter(contract => contract.assignee.toLowerCase().includes(value.toLowerCase()) || contract.title.toLowerCase().includes(value.toLowerCase()))
       }
 
       EventBus.$emit('filtered-items', value)

@@ -264,13 +264,29 @@
     margin-bottom: .5rem;
   }
 
-  .gobierto_dashboards-search-container-input {
-    height: auto;
-    padding: 1rem;
+  .gobierto_dashboards-search-container-wrapper-input {
+    width: 100%;
+    position: relative;
   }
 
-  .gobierto_dashboards-search-btn-clear {
-    display: block;
+  .gobierto_dashboards-search-container-input {
+    height: auto;
+    padding: .5rem 1rem .5rem 1.75rem;
+    width: 100%;
+  }
+
+  .gobierto_dashboards-search-btn-clear,
+  .gobierto_dashboards-search-btn-search {
+    left: 95%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+  }
+
+  .gobierto_dashboards-search-btn-search {
+    cursor: pointer;
+    opacity: .3;
+    left: 6%;
   }
 }
 

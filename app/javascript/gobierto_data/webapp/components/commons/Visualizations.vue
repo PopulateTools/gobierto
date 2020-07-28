@@ -29,6 +29,10 @@ export default {
     config: {
       type: Object,
       default: () => {}
+    },
+    resetConfigViz: {
+      type: Boolean,
+      default: false
     }
   },
   watch: {
@@ -43,17 +47,21 @@ export default {
       }
     },
     arrayColumnsQuery(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.viewer.clear();
+      if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+        this.viewer.clear()
+        this.viewer.update(this.items)
         this.viewer.setAttribute('columns', JSON.stringify(newValue))
-        this.checkIfQueryResultIsEmpty(this.items)
+      }
+    },
+    resetConfigViz(newValue) {
+      if (newValue) {
+        this.clearColumnPivots()
       }
     }
   },
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.checkIfQueryResultIsEmpty(this.items)
-    this.listenerPerspective()
   },
   methods: {
     // You can run a query that gets an empty result, and this isn't an error. But if the result comes empty Perspective has no data to build the table, so console returns an error. We need to check if the result of the query is equal to the columns
@@ -83,6 +91,8 @@ export default {
         this.loadPivots('row-pivots', this.config.row_pivots)
         this.loadPivots('computed-columns', this.config.computed_columns)
       }
+
+      this.listenerPerspective()
     },
     loadPivots(pivot, data) {
       // Check if config contains row_pivots, column_pivots or computed_columns
@@ -95,7 +105,16 @@ export default {
       return this.viewer.save()
     },
     toggleConfigPerspective() {
+      this.$root.$emit('showSavedVizString', false)
       this.viewer.toggleConfig()
+      //Enable save button when user interacts with Perspective columns
+      const itemPerspective = document.querySelector('perspective-viewer').shadowRoot
+      const rowPerspective = itemPerspective.querySelectorAll("perspective-row");
+
+      rowPerspective.forEach(rowMenu => {
+        rowMenu.addEventListener('drag', () => this.$emit("showSaving"))
+        rowMenu.addEventListener('click', () => this.$emit("showSaving"))
+      });
     },
     listenerPerspective() {
       const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot
@@ -111,6 +130,14 @@ export default {
     },
     setColumns() {
       this.viewer.setAttribute('columns', this.arrayColumnsQuery)
+    },
+    clearColumnPivots() {
+      /* These properties belong to Perspective's top menu, and we can't clear with this.viewer.clear() or this.viewer.reset(), so, we need it to reset values */
+      const attributesTopMenu = ['column-pivots', 'row-pivots', 'computed-columns', 'sort', 'filters']
+
+      for (let index = 0; index < attributesTopMenu.length; index++) {
+        this.viewer.setAttribute(attributesTopMenu[index], null)
+      }
     }
   }
 };

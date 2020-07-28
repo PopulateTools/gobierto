@@ -3,6 +3,7 @@
 @import "comp-block-checkbox";
 @import "comp-block-header";
 @import "comp-vue-dropdown";
+@import "comp-vue-skeleton-spinner";
 
 :root {
   --transition: .1s ease-in;
@@ -560,7 +561,6 @@
       font-weight: 600;
       font-size: 14px;
       margin: 0;
-      vertical-align: top;
 
       &.isDisabled {
         opacity: .4;
@@ -584,6 +584,15 @@
         background-color: #fff;
         color: var(--color-base);
       }
+    }
+
+    .btn-sql-revert-query {
+      vertical-align: top;
+      margin-left: .5rem;
+    }
+
+    .btn-sql-revert-viz {
+      vertical-align: top;
     }
 
     input[type="text"] {
@@ -647,7 +656,7 @@
 
   &-sql-editor-container-save {
     display: inline-flex;
-    align-items: baseline;
+    align-items: center;
 
     i {
       min-width: 20px;
@@ -665,10 +674,14 @@
     cursor: pointer;
   }
 
+  &-sql-editor-container-save-label-input,
+  &-sql-editor-container-save-label-text {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
   &-sql-editor-modified-label-container {
-    display: inline-flex;
-    align-items: center;
-    margin: 0 .5rem 0 .25rem;
+    margin: 0 .5rem;
   }
 
   &-sql-editor-modified-label,
@@ -721,6 +734,7 @@
       text-transform: none;
       margin: 0;
       margin-left: auto;
+      font-size: 14px;
     }
   }
 
@@ -1079,6 +1093,7 @@
 
   &-visualization--aspect-ratio-16-9 {
     @include aspect-ratio(16, 9);
+    min-height: 350px;
   }
 
   &-visualization--container {
@@ -1089,6 +1104,7 @@
     background-color: rgba(var(--color-base-string), .05);
     padding: 16px;
     border-radius: 3px;
+    min-height: 350px;
   }
 
   &-visualization--content {
@@ -1098,7 +1114,7 @@
 
   &-visualization--icons {
     position: absolute;
-    left: 92%;
+    left: 93%;
     top: 10%;
     z-index: 2;
   }
@@ -1191,6 +1207,21 @@
 
   &-visualitzation-element-title {
     margin: 0;
+  }
+
+  &-visualization-query-container {
+    letter-spacing: 0;
+    width: 100%;
+
+    .gobierto-data-summary-queries-panel-title {
+      padding-left: 0;
+      display: inline-block;
+      font-size: 14px;
+    }
+
+    .gobierto-data-summary-queries-container-name {
+      width: auto;
+    }
   }
 
 }

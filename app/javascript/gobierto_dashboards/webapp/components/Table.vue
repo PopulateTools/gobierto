@@ -21,8 +21,9 @@
       />
     </table>
     <Pagination
+      v-if="showPagination"
       :data="items"
-      :items-per-page="10"
+      :items-per-page="15"
       @showData="updateData"
     />
   </div>
@@ -64,6 +65,11 @@ export default {
       labelEmpty: I18n.t("gobierto_dashboards.dashboards.contracts.empty_table"),
       displayedData: [],
     };
+  },
+  computed: {
+    showPagination() {
+      return this.items.length > 15
+    }
   },
   methods: {
     updateData(values) {

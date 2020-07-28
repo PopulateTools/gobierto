@@ -2,7 +2,7 @@
   <nav class="gobierto-pagination">
     <button
       class="gobierto-pagination-btn"
-      :disabled="page === 1"
+      :disabled="disabledPrevButton"
       @click="page--"
     >
       {{ labelPrev }}
@@ -24,7 +24,7 @@
     </ul>
     <button
       class="gobierto-pagination-btn"
-      :disabled="page === pages.slice(-1)[0]"
+      :disabled="disabledNextButton"
       @click="page++"
     >
       {{ labelNext }}
@@ -66,6 +66,13 @@ export default {
       } else {
         return this.pages.slice(page - (page < 4 ? page : 3), page + (5 - (page < 4 ? page : 3)));
       }
+    },
+    disabledPrevButton() {
+      return this.page === 1
+    },
+    disabledNextButton() {
+      //Disable the Next button when the current page is the last.
+      return this.page === this.pages.slice(-1)[0]
     }
   },
   watch:{

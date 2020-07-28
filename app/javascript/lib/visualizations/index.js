@@ -2,6 +2,7 @@ import { VisAgeDistribution } from './modules/age_distribution.js'
 import { VisAgeReport } from './modules/age_report.js'
 import { VisBubbleLegend } from './modules/bubble_legend.js'
 import { VisBubbles } from './modules/bubbles.js'
+import { VisBubble } from './modules/bubble_cost.js'
 import { BarsCard } from './modules/card_bars.js'
 import { ComparisonCard } from './modules/card_comparison.js'
 import { SimpleCard } from './modules/card_simple.js'
@@ -31,6 +32,7 @@ export {
   VisAgeReport,
   VisBubbleLegend,
   VisBubbles,
+  VisBubble,
   BarsCard,
   ComparisonCard,
   SimpleCard,

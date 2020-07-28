@@ -6,6 +6,7 @@ import Checkbox from "./modules/Checkbox.vue"
 import RangeBars from "./modules/RangeBars.vue"
 import ReadMore from "./modules/ReadMore.vue"
 import Dropdown from "./modules/Dropdown.vue"
+import SkeletonSpinner from "./modules/SkeletonSpinner.vue"
 import Pagination from "./modules/Pagination.vue"
 
 export {
@@ -17,5 +18,6 @@ export {
   RangeBars,
   ReadMore,
   Dropdown,
+  SkeletonSpinner,
   Pagination
 }

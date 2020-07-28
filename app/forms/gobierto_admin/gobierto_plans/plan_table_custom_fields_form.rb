@@ -53,14 +53,24 @@ module GobiertoAdmin
         errors.add(:base, :file_not_found) unless csv_file.present?
         errors.add(:base, :invalid_format) unless csv_file_content
 
-        if !csv_file_content || (REQUIRED_COLUMNS - csv_file_content.headers).present? || csv_file_content.headers.none? { |header| /col_\d+/.match?(header) }
+        if !csv_file_content || (REQUIRED_COLUMNS - csv_file_headers).present? || csv_file_headers.none? { |header| /col_\d+/.match?(header) }
           errors.add(:base, :invalid_columns)
+        end
+      end
+
+      def external_id_header
+        @external_id_header ||= csv_file_content.headers.intersection(%w(Node.external_id external_id)).first
+      end
+
+      def csv_file_headers
+        @csv_file_headers ||= csv_file_content.headers.map do |header|
+          header.gsub(/\ANode\./, "")
         end
       end
 
       def import_table_custom_fields
         nodes_data = csv_file_content.inject({}) do |hash, row|
-          hash.update(row["external_id"] => (hash[row["external_id"]] || []) << row)
+          hash.update(row[external_id_header] => (hash[row[external_id_header]] || []) << row)
         end
 
         nodes_data.each_pair do |external_id, rows|

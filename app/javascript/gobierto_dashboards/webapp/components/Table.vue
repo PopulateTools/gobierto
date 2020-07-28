@@ -12,7 +12,7 @@
         </th>
       </thead>
       <TableRow
-        v-for="item in items"
+        v-for="item in displayedData"
         :key="item.id"
         :item="item"
         :routing-member="routingMember"
@@ -20,6 +20,12 @@
         :columns="columns"
       />
     </table>
+    <Pagination
+      :data="items"
+      :items-per-page="15"
+      :container-pagination="'main.dashboards-home-main'"
+      @showData="updateData"
+    />
   </div>
   <div v-else>
     {{ labelEmpty }}
@@ -28,11 +34,13 @@
 
 <script>
 import TableRow from "./TableRow.vue";
+import { Pagination } from "lib/vue-components";
 
 export default {
   name: "Table",
   components: {
-    TableRow
+    TableRow,
+    Pagination
   },
   props: {
     items: {
@@ -55,8 +63,13 @@ export default {
   data() {
     return {
       labelEmpty: I18n.t("gobierto_dashboards.dashboards.contracts.empty_table"),
-      perPage: 50
+      displayedData: [],
     };
+  },
+  methods: {
+    updateData(values) {
+      this.displayedData = values
+    }
   }
 };
 </script>

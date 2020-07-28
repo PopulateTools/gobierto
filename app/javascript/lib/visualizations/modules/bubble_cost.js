@@ -10,30 +10,31 @@ const d3 = { select, selectAll, mouse, scaleThreshold, scaleLinear, scaleSqrt, f
 
 import { d3locale, accounting } from 'lib/shared'
 
-export class VisBubbles {
-  constructor(divId, budgetCategory, data) {
+export class VisBubble {
+  constructor(divId, year, data) {
     this.container = divId;
-    d3.select(this.container).html('');
-    this.currentYear = parseInt(d3.select('body').attr('data-year'));
     this.data = data;
-    this.budget_category = budgetCategory;
+    this.year = year
     this.forceStrength = 0.045;
     this.isMobile = window.innerWidth <= 590;
+    this.radiusReponsive = this.isMobile ? 2 : 1.5
     this.locale = I18n.locale;
 
     d3.formatDefaultLocale(d3locale[this.locale]);
 
     this.margin = { top: 20, right: 10, bottom: 20, left: 10 }
-    const containerNode = d3.select(this.container).node() || document.createElement("div")
-    this.width = (containerNode.parentNode || containerNode).getBoundingClientRect().width - this.margin.left - this.margin.right;
+    //Get container from Vue Template
+    this.containerWidth = document.querySelector('.vis-costs')
+    const containerNode = document.getElementById('gobierto-dashboards-bubble-container')
+    this.width = this.containerWidth.offsetWidth - this.margin.left - this.margin.right;
     this.height = this.isMobile ? 320 : 520 - this.margin.top - this.margin.bottom;
     this.center = { x: this.width / 2, y: this.height / 2 };
 
-    this.selectionNode = d3.select(this.container).node();
+    this.selectionNode = containerNode
 
     this.budgetColor = d3.scaleThreshold()
-      .domain([-30, -10, -5, 0, 5, 10, 30, 100])
-      .range(['#b2182b','#d6604d','#f4a582','#fddbc7','#f7f7f7','#d1e5f0','#92c5de','#4393c3','#2166ac']);
+    .domain([0, 20, 40, 60, 80, 100, 120, 140])
+      .range(['#4393c3']);
 
     this.fontSize = d3.scaleLinear()
       .domain([0, 90])
@@ -66,59 +67,51 @@ export class VisBubbles {
     this.updateRender();
   }
 
-  resize() {
+  resize(year) {
     const { parentNode } = this.svg.node()
     if (parentNode) {
       parentNode.remove();
-      this.constructor(this.container, this.budget_category, this.data);
+      this.constructor(this.container, year, this.data);
       this.render();
     }
   }
 
-  createNodes(rawData, year) {
+  createNodes(rawData) {
     var data = rawData;
     if (this.locale === 'en') this.locale = 'es';
 
-    this.maxAmount = d3.max(data, function (d) { return d.values[year] }.bind(this));
-    this.filtered = data.filter(function(d) { return d.budget_category === this.budget_category; }.bind(this));
+    this.maxAmount = d3.max(data, function (d) { return d.radius }.bind(this));
 
     this.radiusScale = d3.scaleSqrt()
       .range(this.isMobile ? [0, 80] : [0, 120])
-      .domain([0, this.maxAmount]);
+      .domain([0, 100]);
 
     // Assigns the nodes an initial y before the force takes place
     this.nodeScale = d3.scaleLinear()
       .range([0, 500]) // SVG coordinates
-      .domain([80, -80]) // Percentage diff between this year and last
+      .domain([0, 100]) // Percentage diff between this year and last
       .clamp(true);
 
     // If we enter for the first time, we build the data
     // If we update, we update the data but not the x and the y
     if (!this.nodes.length > 0) {
-      this.nodes = this.filtered.map(function (d) {
+      this.nodes = rawData.map(function (d) {
         return {
-          values: d.values,
-          pct_diffs: d.pct_diff,
-          id: d.id,
-          values_per_inhabitant: d.values_per_inhabitant,
-          radius: d.values[year] ? this.radiusScale(d.values[year]) : 0,
-          value: d.values[year],
-          name: d['level_2_' + this.locale],
-          pct_diff: d.pct_diff[year],
-          per_inhabitant: d.values_per_inhabitant[year],
+          id: d.agrupacio,
+          radius: (+d.cost_total / (d.population * this.radiusReponsive)),
           x: Math.random() * 600,
-          y: d.pct_diff[year] ? this.nodeScale(d.pct_diff[year]) : 0,
-          year: year
+          y: this.nodeScale(+d.cost_total / (d.population * this.radiusReponsive)),
+          cost_total: d.cost_total,
+          year: d.year,
+          ordre_agrupacio: +d.ordre_agrupacio,
+          cost_per_habitant: (d.cost_total / d.population).toFixed(2)
         };
       }.bind(this))
     } else {
       this.nodes.forEach(function(d) {
-        d.radius = this.radiusScale(d.values[year])
-        d.radius = d.values[year] ? this.radiusScale(d.values[year]) : 0
-        d.value = d.values[year]
-        d.pct_diff = d.pct_diffs[year]
-        d.per_inhabitant = d.values_per_inhabitant[year]
-        d.year = year
+        d.id = d.agrupacio,
+        d.radius = (+d.cost_total / (d.population * this.radiusReponsive)),
+        d.cost_per_habitant = (d.cost_total / d.population).toFixed(2)
       }.bind(this))
     }
 
@@ -134,18 +127,18 @@ export class VisBubbles {
     this.bubbles.data(this.nodes, d => d.id)
 
     d3.selectAll('.bubble')
-      .data(this.nodes, d => d.name)
-      .attr('class', d => `bubble bubble-${d.year}`)
+      .data(this.nodes, d => d.id)
+      .attr('class', d => 'bubble bubble-' + d.year)
       .transition()
       .duration(transitionDuration)
       .attr('r', d => d.radius)
-      .attr('fill', function(d) { return this.budgetColor(d.pct_diff)}.bind(this))
+      .attr('fill', function(d) { return this.budgetColor(d.radius)}.bind(this))
 
     d3.selectAll('.bubble-g text')
-      .data(this.nodes, d => d.name)
+      .data(this.nodes, d => d.id)
       .transition()
       .duration(transitionDuration)
-      .attr('fill', function(d) { return d.pct_diff > 30 || d.pct_diff < -10 ? 'white' : 'black'; })
+      .attr('fill', 'white')
       .style('font-size', function(d) { return this.fontSize(d.radius) + 'px'; }.bind(this))
 
     this.simulation.nodes(this.nodes)
@@ -154,25 +147,39 @@ export class VisBubbles {
 
   updateRender() {
 
+    const year = this.year
+    const data = this.data.filter(element => element.year === year)
+
     // var budgetCategory = this.budget_category;
-    this.nodes = this.createNodes(this.data, this.currentYear);
+    this.nodes = this.createNodes(data, year);
 
     this.bubbles = this.svg.selectAll('g')
-      .data(this.nodes, d => d.name)
+      .data(this.nodes, d => d.id)
       .enter()
       .append('g')
       .attr('class', 'bubble-g');
 
-    var bubblesG = this.bubbles.append('a')
-      .attr('xlink:href', function(d) {
-        return this.budget_category === 'income' ? '/presupuestos/partidas/' + d.id + '/' + d.year + '/economic/I' : '/presupuestos/partidas/' + d.id + '/' + d.year + '/functional/G';
-      }.bind(this))
-      .attr('target', '_top')
+    var bubblesG = this.bubbles
       .append('circle')
       .attr('class', d => `${d.year} bubble`)
       .attr('r', d => d.radius)
-      .attr('fill', function(d) { return this.budgetColor(d.pct_diff)}.bind(this))
+      .attr('fill', function(d) { return this.budgetColor(d.radius)}.bind(this))
       .attr('stroke-width', 2)
+      .on('mousemove', !this.isMobile && this._mousemoved.bind(this))
+      .on('mouseleave', !this.isMobile && this._mouseleft.bind(this));
+
+    var bubblesG = this.bubbles.append('a')
+      .attr('xlink:href', function(d) {
+        return `/dashboards/costes/${d.year}/${d.ordre_agrupacio}`
+      }.bind(this))
+      .attr('target', '_top')
+      .attr('class', 'bubbles-links')
+      .append('circle')
+      .attr('class', d => `${d.year} bubble`)
+      .attr('data-order', d => d.ordre_agrupacio)
+      .attr('data-year', d => d.year)
+      .attr('r', d => d.radius)
+      .attr('fill', function(d) { return this.budgetColor(d.radius)}.bind(this))
       .on('mousemove', !this.isMobile && this._mousemoved.bind(this))
       .on('mouseleave', !this.isMobile && this._mouseleft.bind(this));
 
@@ -182,8 +189,8 @@ export class VisBubbles {
       .style('font-size', function(d) { return this.fontSize(d.radius) + 'px'; }.bind(this))
       .attr('text-anchor', 'middle')
       .attr('y', -15)
-      .attr('fill', d => d.pct_diff > 30 || d.pct_diff < -10 ? 'white' : 'black')
-      .tspans(function(d) { return d.radius > 40 ? d3.wordwrap(d.name, 15) : d3.wordwrap('', 15); }, function(d) { return this.fontSize(d.radius);}.bind(this));
+      .attr('fill', 'white')
+      .tspans(function(d) { return d.radius > 40 ? d3.wordwrap(d.id, 15) : d3.wordwrap('', 15); }, function(d) { return this.fontSize(d.radius);}.bind(this));
 
     this.simulation.nodes(this.nodes);
     this.simulation.alpha(1).restart();
@@ -194,7 +201,7 @@ export class VisBubbles {
   }
 
   _mousemoved(d) {
-    var coordinates = d3.mouse(this.selectionNode);
+    var coordinates = d3.mouse(this.containerWidth);
     var x = coordinates[0], y = coordinates[1];
 
     this.tooltip
@@ -202,24 +209,9 @@ export class VisBubbles {
       .style('left', `${x - 100}px`)
       .style('top', `${y + 40}px`)
 
-    function getString(d) {
-      return d > 0 ? I18n.t('gobierto_common.visualizations.main_budget_levels_tooltip_up') : I18n.t('gobierto_common.visualizations.main_budget_levels_tooltip_down');
-    }
-    function perInhabitantTooltipStr(d) {
-      return d ? `<div class="clear_b">${accounting.formatMoney(d, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))} ${I18n.t('gobierto_common.visualizations.main_budget_levels_per_inhabitant')}</div>` : '';
-    }
-
-    var tooltipEnding;
-    if (d.year > new Date().getFullYear()) {
-      tooltipEnding = I18n.t('gobierto_common.visualizations.main_budget_levels_tooltip_article_last');
-    } else {
-      tooltipEnding = `${I18n.t('gobierto_common.visualizations.main_budget_levels_tooltip_article')} ${d.year - 1}`
-    }
-
-    this.tooltip.html(`<div class="line-name"><strong>${d.name}</strong></div>
-                      <div>${accounting.formatMoney(d.value, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))}</div>
-                        ${perInhabitantTooltipStr(d.per_inhabitant)}
-                      <div class="line-pct">${getString(d.pct_diff)} ${accounting.formatNumber(d.pct_diff, 1)} %</span> ${tooltipEnding}</div>`);
+    this.tooltip.html(`<div class="line-name"><strong>${d.id}</strong></div>
+                      <div>${I18n.t('gobierto_dashboards.dashboards.costs.total_cost')}: ${accounting.formatMoney(d.cost_total, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))}</div>
+                        ${d.cost_per_habitant}€ ${I18n.t('gobierto_dashboards.dashboards.costs.per_inhabitant')}`);
   }
 
   _mouseleft() {

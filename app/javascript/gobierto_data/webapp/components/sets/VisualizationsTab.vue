@@ -45,6 +45,7 @@
         :reset-private="resetPrivate"
         :viz-id="vizId"
         :user-save-viz="userSaveViz"
+        :object-columns="objectColumns"
         @changeViz="showVizElement"
         @emitDelete="deleteHandlerVisualization"
       />
@@ -160,6 +161,10 @@ export default {
     userSaveViz: {
       type: Number,
       default: 0
+    },
+    objectColumns: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {

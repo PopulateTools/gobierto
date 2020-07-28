@@ -54,6 +54,7 @@
           ref="viewer"
           :items="items"
           :config="config"
+          :object-columns="objectColumns"
           @showSaving="showSavingDialog"
           @selectedChart="typeChart = $event"
         />
@@ -154,6 +155,10 @@ export default {
     userSaveViz: {
       type: Number,
       default: 0
+    },
+    objectColumns: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {

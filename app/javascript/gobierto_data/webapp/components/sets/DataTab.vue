@@ -22,7 +22,7 @@
         :reset-private="resetPrivate"
       />
       <SQLEditorCode
-        :array-columns="arrayColumns"
+        :object-columns="objectColumns"
         :query-stored="queryStored"
         :query-duration="queryDuration"
         :query-error="queryError"
@@ -31,6 +31,7 @@
       <SQLEditorResults
         v-if="items.length"
         :array-formats="arrayFormats"
+        :object-columns="objectColumns"
         :array-columns-query="arrayColumnsQuery"
         :enabled-viz-saved-button="enabledVizSavedButton"
         :is-viz-modified="isVizModified"
@@ -70,7 +71,7 @@ export default {
       type: Array,
       default: () => []
     },
-    arrayColumns: {
+    objectColumns: {
       type: Object,
       default: () => {}
     },

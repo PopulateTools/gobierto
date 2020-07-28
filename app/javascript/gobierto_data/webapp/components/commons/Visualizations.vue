@@ -7,7 +7,7 @@
 <script>
 import perspective from "@finos/perspective";
 import "@finos/perspective-viewer";
-import "@finos/perspective-viewer-hypergrid";
+import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
 import "@finos/perspective-viewer/themes/all-themes.css";
 
@@ -25,6 +25,10 @@ export default {
     arrayColumnsQuery: {
       type: Array,
       default: () => []
+    },
+    objectColumns: {
+      type: Object,
+      default: () => {}
     },
     config: {
       type: Object,
@@ -72,27 +76,74 @@ export default {
       const arrayColumnsQueryString = this.arrayColumnsQuery.toString()
 
       if (arrayColumnsQueryString !== data) {
-        this.initPerspective(this.items)
+        this.checkPerspectiveTypes()
       } else {
         this.viewer.clear()
         // Well, it's a bit tricky, but reset the table with .clear() only responds when trigger an event, if not trigger an event .clear() isn't fired
         window.dispatchEvent(new Event('resize'))
       }
     },
+    checkPerspectiveTypes() {
+      //Get columns generates from query
+      const arrayColumnsFromQuery = this.arrayColumnsQuery
+      //Get columns from API
+      const arrayColumnsFromAPI = Object.keys(this.objectColumns)
+
+      /* We compare the columns, if it returns true we pass the schema to Perspective, if false Perspective will convert the columns*/
+      const sameColumns = arrayColumnsFromAPI.length === arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
+
+      if (sameColumns) {
+        this.initPerspectiveWithSchema(this.items)
+      } else {
+        this.initPerspective(this.items)
+      }
+    },
+    initPerspectiveWithSchema(data) {
+      this.viewer.setAttribute('plugin', this.typeChart)
+      this.viewer.clear();
+
+      const transformColumns = this.objectColumns
+
+      Object.keys(transformColumns).forEach((key) => {
+        if (transformColumns[key] === 'hstore' || transformColumns[key] === 'jsonb' || transformColumns[key] === 'text') {
+          transformColumns[key] = 'string'
+        } else if (transformColumns[key] === 'decimal') {
+          transformColumns[key] = 'float'
+        } else if (transformColumns[key] === 'inet') {
+          transformColumns[key] = 'integer'
+        }
+      });
+
+      let schema = transformColumns
+
+      const loadSchema = this.viewer.worker.table(schema);
+      this.viewer.load(loadSchema)
+      this.viewer.update(data)
+
+      if (this.config) {
+        this.loadConfig()
+      }
+
+      this.listenerPerspective()
+    },
     initPerspective(data) {
       this.viewer.setAttribute('plugin', this.typeChart)
       this.viewer.clear();
 
-      this.viewer.load(data);
+      this.viewer.load(data)
+
       if (this.config) {
-        this.viewer.restore(this.config);
-        //Perspective can't restore row_pivots, column_pivots and computed_columns, so we need to check if visualization config contains some of these values, if contain them we've need to include these values to viewer
-        this.loadPivots('column-pivots', this.config.column_pivots)
-        this.loadPivots('row-pivots', this.config.row_pivots)
-        this.loadPivots('computed-columns', this.config.computed_columns)
+        this.loadConfig()
       }
 
       this.listenerPerspective()
+    },
+    loadConfig() {
+      this.viewer.restore(this.config);
+      //Perspective can't restore row_pivots, column_pivots and computed_columns, so we need to check if visualization config contains some of these values, if contain them we've need to include these values to viewer
+      this.loadPivots('column-pivots', this.config.column_pivots)
+      this.loadPivots('row-pivots', this.config.row_pivots)
+      this.loadPivots('computed-columns', this.config.computed_columns)
     },
     loadPivots(pivot, data) {
       // Check if config contains row_pivots, column_pivots or computed_columns

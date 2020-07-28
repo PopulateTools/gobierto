@@ -1,5 +1,9 @@
 <template>
   <div class="pure-u-1 pure-u-lg-1-4 dashboards-home-aside--gap">
+    <SearchFilter
+      :data="contractsData"
+      :search-type="type"
+    />
     <aside>
       <div
         v-for="filter in filters"
@@ -43,6 +47,7 @@ import { BlockHeader, Checkbox, Dropdown } from "lib/vue-components";
 import DownloadButton from "../../components/DownloadButton.vue";
 import { EventBus } from "../../mixins/event_bus";
 import { contractsFiltersConfig } from "../../lib/config/contracts.js";
+import SearchFilter from "../../components/SearchFilter.vue";
 
 export default {
   name: 'Aside',
@@ -50,7 +55,8 @@ export default {
     Dropdown,
     BlockHeader,
     Checkbox,
-    DownloadButton
+    DownloadButton,
+    SearchFilter
   },
   props: {
     contractsData: {
@@ -64,11 +70,12 @@ export default {
   },
   data() {
     return {
-      filters: contractsFiltersConfig
+      filters: contractsFiltersConfig,
+      type: 'Contracts'
     }
   },
   watch: {
-    contractsData: function (newContractsData, oldContractsData) {
+    contractsData (newContractsData, oldContractsData) {
       this.updateCounters();
     }
   },
@@ -171,7 +178,7 @@ export default {
 
       EventBus.$emit('filter-changed', { all: true, titles: titles, id: filter.id });
     },
-    handleCheckboxStatus({ id, value, filter }) {
+    handleCheckboxStatus({ id, filter }) {
       const option = filter.options.find(option => option.id === id)
       EventBus.$emit('filter-changed', { all: false, title: option.title, id: filter.id });
     },

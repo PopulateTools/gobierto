@@ -68,6 +68,7 @@
         v-if="items"
         ref="viewer"
         :items="items"
+        :object-columns="objectColumns"
         :type-chart="typeChart"
         :reset-config-viz="resetConfigViz"
         :array-columns-query="arrayColumnsQuery"
@@ -99,6 +100,10 @@ export default {
     arrayColumnsQuery: {
       type: Array,
       default: () => []
+    },
+    objectColumns: {
+      type: Object,
+      default: () => {}
     },
     items: {
       type: String,
@@ -159,7 +164,7 @@ export default {
       removeLabelBtn: false,
       perspectiveChanged: false,
       resetConfigViz: false,
-      typeChart: 'hypergrid',
+      typeChart: 'datagrid',
     };
   },
   watch: {
@@ -188,7 +193,7 @@ export default {
       this.perspectiveChanged = false
       this.showResetViz = false
       this.resetConfigViz = true
-      this.typeChart = 'hypergrid'
+      this.typeChart = 'datagrid'
 
       this.$refs.viewer.toggleConfigPerspective();
       this.$refs.viewer.setColumns();

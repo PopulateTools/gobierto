@@ -57,6 +57,13 @@ export default {
     isSubsidiesIndex() { return this.$route.name === 'subsidies_index' },
     isSubsidiesShow() { return this.$route.name === 'subsidies_show' },
   },
+  created() {
+    EventBus.$on("update-tab", () => {
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push('subvenciones').catch(err => {})
+      this.activeTabIndex = 1
+    });
+  },
   methods: {
     setActiveTab(tabIndex) {
       this.activeTabIndex = tabIndex;

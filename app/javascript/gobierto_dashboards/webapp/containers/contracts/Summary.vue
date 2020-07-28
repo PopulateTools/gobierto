@@ -139,6 +139,7 @@ export default {
       contractsData: this.$root.$data.contractsData,
       items: [],
       columns: [],
+      value: '',
       labelTenders: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders'),
       labelTendersFor: I18n.t('gobierto_dashboards.dashboards.contracts.summary.tenders_for'),
       labelContracts: I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts'),
@@ -169,13 +170,26 @@ export default {
   created() {
     this.items = this.buildItems();
     this.columns = assigneesColumns;
+
+    EventBus.$on('filtered-items-grouped', (data, value) => this.updateItems(data, value))
   },
   beforeDestroy(){
     EventBus.$off('refresh-summary-data');
   },
   methods: {
-    refreshSummaryData(){
-      this.contractsData = this.$root.$data.contractsData;
+    updateItems(data, value) {
+      this.value = value
+      this.contractsData = data
+      this.items = this.buildItems();
+
+      EventBus.$emit('send-filtered-items', this.items)
+    },
+    refreshSummaryData() {
+      if (this.value === '') {
+        this.contractsData = this.$root.$data.contractsData;
+      } else {
+        this.contractsData = this.$root.$data.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()))
+      }
       this.items = this.buildItems();
     },
     buildItems() {

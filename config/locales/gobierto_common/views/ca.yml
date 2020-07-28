@@ -193,6 +193,9 @@ ca:
         none: Cap
       calendar:
         date: Escolliu data
+      pagination:
+        next: Següent
+        previous: Anterior
       read_more:
         less: Vegeu-ne menys
         more: Vegeu-ne mès

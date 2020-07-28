@@ -65,6 +65,11 @@ export default {
     EventBus.$on('refresh-summary-data', () => {
       this.contractsData = this.$root.$data.contractsData;
     });
+    EventBus.$on("update-tab", () => {
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push('adjudicaciones').catch(err => {})
+      this.activeTabIndex = 1
+    });
   },
   methods: {
     setActiveTab(tabIndex) {
@@ -79,6 +84,5 @@ export default {
       return tabIndex === 0
     }
   }
-
 }
 </script>

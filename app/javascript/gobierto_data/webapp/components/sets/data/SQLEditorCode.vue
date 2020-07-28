@@ -35,7 +35,7 @@ import { sqlKeywords } from "./../../../../lib/commons.js";
 export default {
   name: "SQLEditorCode",
   props: {
-    arrayColumns: {
+    objectColumns: {
       type: Object,
       required: true
     },
@@ -148,12 +148,12 @@ export default {
       }
     },
     mergeTables() {
-      const sizeArrayColumns = Object.keys(this.arrayColumns);
+      const sizeObjectColumns = Object.keys(this.objectColumns);
 
-      for (let i = 0; i < sizeArrayColumns.length; i++) {
+      for (let i = 0; i < sizeObjectColumns.length; i++) {
         this.arrayMutated[i] = {
           className: "table",
-          text: sizeArrayColumns[i]
+          text: sizeObjectColumns[i]
         };
       }
       this.autoCompleteKeys = [

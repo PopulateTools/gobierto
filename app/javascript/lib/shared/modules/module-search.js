@@ -1,8 +1,9 @@
+import Turbolinks from 'turbolinks'
 import { AUTOCOMPLETE_DEFAULTS } from 'lib/shared'
 import 'devbridge-autocomplete'
 
 $(document).on('turbolinks:load', function() {
-  var $input = $('input#gobierto_search');
+  var $input = $('input#gobierto_search:visible');
 
   function truncateOnWord(str, limit) {
     var trimmable = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u2028\u2029\u3000\uFEFF';
@@ -16,26 +17,26 @@ $(document).on('turbolinks:load', function() {
   }
 
   function itemUpdatedAt(d){
-    if(d['searchable_updated_at'] == null)
+    if (d['searchable_updated_at'] == null)
       return;
 
     return I18n.t("layouts.search.updated") + ": " + I18n.l("date.formats.short", d['searchable_updated_at']);
   }
 
   function itemDescription(d){
-    var maxLenght = 200;
+    var maxLength = 200;
     var description = (d['description'] || '');
-    if(description === '' || description.length < maxLenght)
+    if (description === '' || description.length < maxLength)
       return description;
-    return truncateOnWord(description, maxLenght) + '...';
+    return truncateOnWord(description, maxLength) + '...';
   }
 
   function itemType(d){
     let class_name = d['class_name'] || d['searchable_type']
-    if(class_name === undefined)
+    if (class_name === undefined)
       return;
 
-    switch(class_name){
+    switch (class_name){
       case 'GobiertoPeople::Person':
         return I18n.t("layouts.search.person_item");
       case 'GobiertoPeople::PersonPost':
@@ -83,6 +84,10 @@ $(document).on('turbolinks:load', function() {
             searchable_type: window.searchClient.searchable_types
           }
       },
+    appendTo: $input.parent(),
+    beforeRender(container) {
+      container.css({ width: '100%' })
+    },
     onSelect: function(suggestion){
       Turbolinks.visit(suggestion.data.resource_path);
     },
@@ -94,7 +99,7 @@ $(document).on('turbolinks:load', function() {
         }))
       }
     },
-    formatResult: function(suggestion, current_value){
+    formatResult: function(suggestion){
       return formattedResult(suggestion.data)
     },
     noSuggestionNotice: `<div class="result"><p>${ I18n.t("layouts.search.no_results") }</p></div>`

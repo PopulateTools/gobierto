@@ -907,6 +907,11 @@ select {
 .autocomplete-selected {
   background: var(--color-base);
   color: #fff;
+  cursor: pointer;
+}
+
+.autocomplete-selected h2 {
+  color: #fff;
 }
 
 .autocomplete-suggestions strong {

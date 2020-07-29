@@ -220,10 +220,6 @@ class Site < ApplicationRecord
     configuration.home_page.constantize.send(:root_path, self)
   end
 
-  def algolia_search_disabled?
-    configuration.configuration_variables.fetch("algolia_search_disabled", false)
-  end
-
   def multisearch(*args)
     PgSearch.multisearch(*args).where(site: self)
   end

@@ -27,7 +27,11 @@ module GobiertoCms
           site_id: item.site_id,
           title_translations: item.truncated_translations(:title),
           resource_path: item.resource_path,
-          searchable_updated_at: item.updated_at
+          searchable_updated_at: item.updated_at,
+          meta: {
+            collection_id: item.collection_id,
+            collection_title_translations: item.collection&.title_translations
+          }
         }
       },
       if: :searchable?

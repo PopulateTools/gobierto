@@ -108,6 +108,9 @@ gem "appsignal"
 gem "net-ldap"
 gem "ladle"
 
+# Detect encoding
+gem "charlock_holmes"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

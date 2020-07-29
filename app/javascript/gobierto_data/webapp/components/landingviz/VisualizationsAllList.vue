@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="datasetsArray.length">
     <template v-if="!isVizsLoading">
       <SkeletonSpinner
         height-square="250px"
@@ -8,24 +8,11 @@
       />
     </template>
     <template v-else>
-      <Caret
-        :rotate="showViz"
-        @click.native="handleToggle"
-      />
-      <router-link
-        :to="{ path:`/datos/${datasetSlug}`, params: { activeSidebarTab: 1 }}"
-        class="gobierto-data-title-dataset gobierto-data-title-dataset-big"
-      >
-        {{ datasetName }}
-      </router-link>
-      <div v-show="showViz">
+      <template v-show="showViz">
         <VisualizationsGrid
-          v-if="publicVisualizations"
           :public-visualizations="publicVisualizations"
-          :object-columns="datasetColumns"
-          :dataset-slug="datasetSlug"
         />
-      </div>
+      </template>
     </template>
   </div>
 </template>
@@ -35,14 +22,12 @@ import { DataFactoryMixin } from "./../../../lib/factories/data";
 import { QueriesFactoryMixin } from "./../../../lib/factories/queries";
 import { convertToCSV } from "./../../../lib/helpers";
 import VisualizationsGrid from "./VisualizationsGrid";
-import Caret from "./../commons/Caret";
 import { SkeletonSpinner } from "lib/vue-components";
 import { translate } from "lib/shared"
 export default {
   name: "VisualizationsAllList",
   components: {
     VisualizationsGrid,
-    Caret,
     SkeletonSpinner
   },
   filters: {
@@ -54,21 +39,13 @@ export default {
     QueriesFactoryMixin
   ],
   props: {
-    datasetId: {
-      type: String,
-      default: ''
+    datasetsArray: {
+      type: Array,
+      default: () => []
     },
-    datasetName: {
-      type: String,
-      default: ''
-    },
-    datasetSlug: {
-      type: String,
-      default: ''
-    },
-    datasetColumns: {
-      type: Object,
-      default: () => {}
+    datasetsAttributes: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -86,14 +63,20 @@ export default {
       this.showViz = !this.showViz
     },
     async getPublicVisualizations() {
-      const { data: response } = await this.getVisualizations({
-        "filter[dataset_id]": this.datasetId
-      });
-      const { data } = response;
+      let allVizs = []
+      for (let index = 0; index < this.datasetsArray.length; index++) {
+        const { data: response } = await this.getVisualizations({
+          "filter[dataset_id]": this.datasetsArray[index]
+        });
+        const { data } = response;
 
-      if (data.length) {
-        this.publicVisualizations = await this.getDataFromVisualizations(data);
+        if (data.length) {
+          this.publicVisualizations = await this.getDataFromVisualizations(data);
+          allVizs.push(this.publicVisualizations);
+        }
       }
+
+      this.publicVisualizations = allVizs.reduce((flatten, arr) => [...flatten, ...arr])
       this.isVizsLoading = true
       this.removeAllIcons()
     },
@@ -101,7 +84,7 @@ export default {
       const visualizations = [];
       for (let index = 0; index < data.length; index++) {
         const { attributes = {}, id } = data[index];
-        const { query_id, user_id, sql = "", spec = {}, name = "", privacy_status = "open" } = attributes;
+        const { query_id, user_id, sql = "", spec = {}, name = "", privacy_status = "open", dataset_id } = attributes;
 
         let queryData = null;
 
@@ -123,8 +106,12 @@ export default {
           items = queryData
         }
 
+        let datasetInfo = this.datasetsAttributes.filter((dataset) => dataset.id == dataset_id)
+
+        const [{ attributes: { columns, slug, name: datasetName } }] = datasetInfo
+
         // Append the visualization configuration
-        const visualization = { items, config: spec, name, privacy_status, query_id, id, user_id, sql };
+        const visualization = { items, columns, slug, datasetName, config: spec, name, privacy_status, query_id, id, user_id, sql, dataset_id };
 
         visualizations.push(visualization);
       }

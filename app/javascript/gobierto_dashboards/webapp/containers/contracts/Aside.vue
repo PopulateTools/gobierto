@@ -75,7 +75,7 @@ export default {
     }
   },
   watch: {
-    contractsData (newContractsData, oldContractsData) {
+    contractsData() {
       this.updateCounters();
     }
   },

@@ -11,6 +11,7 @@
   --grey: #666;
   --border-grey: rgba(102, 102, 102, .5);
   --table-item-cost: rgba(1, 120, 168, .2);
+  --border-separator: rgba(151, 151, 151, .5);
 }
 
 .dashboards {
@@ -20,7 +21,7 @@
 
   &-home-aside--block {
     padding-bottom: 1em;
-    border-bottom: 1px solid rgba(151, 151, 151, .5);
+    border-bottom: 1px solid var(--border-separator);
   }
 
   &-home-aside--gap {
@@ -270,6 +271,11 @@
         margin-left: .5rem;
       }
     }
+  }
+
+  .gobierto_dashboards-search-container {
+    padding-bottom: 1em;
+    border-bottom: 1px solid var(--border-separator);
   }
 
   .gobierto_dashboards-search-container-label {

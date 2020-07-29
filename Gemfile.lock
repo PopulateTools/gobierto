@@ -131,6 +131,7 @@ GEM
       mail
     case_transform (0.2)
       activesupport
+    charlock_holmes (0.7.7)
     childprocess (3.0.0)
     chroma (0.2.0)
     cloudinary (1.16.1)
@@ -528,6 +529,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-email
+  charlock_holmes
   chroma
   cloudinary
   codecov (~> 0.2.0)

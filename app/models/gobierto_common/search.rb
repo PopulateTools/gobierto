@@ -16,14 +16,6 @@ module GobiertoCommon
       @current_module_class = current_module_class || GobiertoCms
     end
 
-    def search_in_indexes
-      add_quotes = -> x{"'#{x}'"}
-
-      models_to_search.map do |model|
-        model.search_index_name
-      end.map(&add_quotes).join(',')
-    end
-
     def searchable_types
       models_to_search.map(&:name).to_json
     end

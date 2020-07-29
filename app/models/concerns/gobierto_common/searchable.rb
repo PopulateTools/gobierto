@@ -12,12 +12,6 @@ module GobiertoCommon
       def self.search_index_name
         "#{APP_CONFIG["site"]["name"]}_#{Rails.env}_#{name}"
       end
-
-      def self.trigger_reindex_job(record, remove)
-        return if record.nil? || (record.respond_to?(:site) && record.site.algolia_search_disabled?)
-
-        GobiertoCommon::AlgoliaReindexJob.perform_later(record.class.name, record.id, remove)
-      end
     end
 
     def class_name

@@ -37,7 +37,7 @@ module GobiertoCommon
 
     def reindex_page
       if item_type == "GobiertoCms::News" || item_type == "GobiertoCms::Page"
-        ::GobiertoCms::Page.trigger_reindex_job(item, false)
+        item.update_pg_search_document
       end
     end
   end

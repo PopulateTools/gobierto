@@ -11,10 +11,7 @@
 
   <% if algoliasearch_configured? %>
     window.searchClient = {
-      client: algoliasearch('<%= Rails.application.secrets.algolia_application_id %>', '<%= Rails.application.secrets.algolia_search_api_key %>'),
-      indexes: [<%= search_client.search_in_indexes.html_safe %>],
-      searchable_types: <%== search_client.searchable_types %>,
-      filters: "site_id:<%= search_client.site.id %>"
+      searchable_types: <%== search_client.searchable_types %>
     };
   <% end %>
   window.populateData = {

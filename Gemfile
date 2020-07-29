@@ -59,11 +59,11 @@ gem "aws-ses", "~> 0.6.0"
 # Calendar view component
 gem "simple_calendar", "~> 2.2"
 
-# Algolia client
-gem "algoliasearch-rails", "~> 1.17"
-# Algolia client indexing sanitizer
-gem "rails-html-sanitizer"
+# Search client
 gem "pg_search"
+
+# Search client indexing sanitizer
+gem "rails-html-sanitizer"
 
 # Pagination
 gem "kaminari", "~> 1.2"

@@ -5,13 +5,8 @@ module GobiertoCommon
     extend ActiveSupport::Concern
 
     included do
-      include AlgoliaSearch
       include ActionView::Helpers::SanitizeHelper
       include PgSearch::Model
-
-      def self.search_index_name
-        "#{APP_CONFIG["site"]["name"]}_#{Rails.env}_#{name}"
-      end
     end
 
     def class_name

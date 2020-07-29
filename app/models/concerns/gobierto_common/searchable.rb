@@ -13,10 +13,6 @@ module GobiertoCommon
         "#{APP_CONFIG["site"]["name"]}_#{Rails.env}_#{name}"
       end
 
-      def self.algoliasearch_gobierto(&block)
-        algoliasearch(enqueue: :trigger_reindex_job, disable_indexing: Rails.env.test?, index_name: search_index_name, if: :active?, sanitize: true, &block)
-      end
-
       def self.trigger_reindex_job(record, remove)
         return if record.nil? || (record.respond_to?(:site) && record.site.algolia_search_disabled?)
 

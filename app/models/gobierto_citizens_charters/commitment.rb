@@ -23,13 +23,6 @@ module GobiertoCitizensCharters
       if: :searchable?
     )
 
-    algoliasearch_gobierto do
-      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :searchable_description
-      searchableAttributes %w(title_en title_es title_ca searchable_description)
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
-
     attr_accessor :admin_id
 
     belongs_to :charter, -> { with_archived }

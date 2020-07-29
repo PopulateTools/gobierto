@@ -28,13 +28,6 @@ module GobiertoParticipation
       if: :searchable?
     )
 
-    algoliasearch_gobierto do
-      attribute :site_id, :updated_at, :title, :description
-      searchableAttributes ["title", "description"]
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
-
     validates :user, :contribution_container, presence: true
     validates :slug, uniqueness: { scope: :site_id }
 

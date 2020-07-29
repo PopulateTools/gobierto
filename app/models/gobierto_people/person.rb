@@ -28,13 +28,6 @@ module GobiertoPeople
       if: :searchable?
     )
 
-    algoliasearch_gobierto do
-      attribute :site_id, :name, :charge_en, :charge_es, :charge_ca, :bio_en, :bio_es, :bio_ca, :updated_at
-      searchableAttributes ['name', 'charge_en', 'charge_es', 'charge_ca', 'bio_en', 'bio_es', 'bio_ca']
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
-
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site
     has_vocabulary :political_groups

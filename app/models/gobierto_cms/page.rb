@@ -37,13 +37,6 @@ module GobiertoCms
       if: :searchable?
     )
 
-    algoliasearch_gobierto do
-      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :searchable_body, :collection_id
-      searchableAttributes %w(title_en title_es title_ca searchable_body)
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
-
     translates :title, :body, :body_source
 
     belongs_to :site, touch: true

@@ -28,13 +28,6 @@ module GobiertoPeople
       if: :searchable?
     )
 
-    algoliasearch_gobierto do
-      attribute :site_id, :title_en, :title_es, :title_ca, :updated_at
-      searchableAttributes ['title_en', 'title_es', 'title_ca']
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
-
     belongs_to :person, counter_cache: :statements_count
     belongs_to :site
 

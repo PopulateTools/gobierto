@@ -45,12 +45,6 @@ module GobiertoAttachments
       if: :searchable?
     )
 
-    algoliasearch_gobierto do
-      attribute :site_id, :name, :description, :file_name, :url, :file_size
-      searchableAttributes %w(name description file_name)
-      attributesForFaceting [:site_id]
-    end
-
     attr_accessor :file
 
     validates :site, :url, presence: true

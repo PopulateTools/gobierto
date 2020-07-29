@@ -9,11 +9,9 @@
   I18n.defaultLocale = "<%= I18n.default_locale %>";
   I18n.locale = "<%= I18n.locale %>";
 
-  <% if algoliasearch_configured? %>
-    window.searchClient = {
-      searchable_types: <%== search_client.searchable_types %>
-    };
-  <% end %>
+  window.searchClient = {
+    searchable_types: <%== search_client.searchable_types %>
+  };
   window.populateData = {
     token: "<%= current_site.configuration.populate_data_api_token %>",
     <% if current_site.place %>

@@ -48,10 +48,6 @@ module ApplicationConcern
                            end
   end
 
-  def algoliasearch_configured?
-    ::GobiertoCommon::Search.algoliasearch_configured?
-  end
-
   def cache_key_preffix
     "site-#{current_site.id}-#{params.to_unsafe_h.sort.flatten.join("-")}"
   end

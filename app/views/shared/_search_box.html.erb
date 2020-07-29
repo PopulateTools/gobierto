@@ -2,7 +2,7 @@
 
   <i class="fas fa-search"></i>
 
-  <% if algoliasearch_configured? %>
+  <% if current_site.pg_search_documents.exists? %>
 
     <input id="gobierto_search" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
     <div id="search_results" class="search_result_list"></div>

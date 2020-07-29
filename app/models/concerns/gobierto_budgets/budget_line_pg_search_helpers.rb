@@ -7,19 +7,30 @@ module GobiertoBudgets
     class_methods do
       def pg_search_reindex_collection(budget_lines)
         budget_lines.each do |budget_line|
-          document = budget_line.site.pg_search_documents.find_or_initialize_by(
-            searchable_type: budget_line.class.name,
-            external_id: budget_line.external_id
-          )
-          document.assign_attributes(
-            budget_line.translated_attributes.merge(
-              content: budget_line.searchable_content,
-              resource_path: budget_line.resource_path,
-              meta: budget_line.search_meta
-            )
-          )
-          document.save
+          pg_search_reindex(budget_line)
         end
+      end
+
+      def pg_search_reindex(budget_line)
+        document = budget_line.site.pg_search_documents.find_or_initialize_by(
+          searchable_type: budget_line.class.name,
+          external_id: budget_line.external_id
+        )
+        document.assign_attributes(
+          budget_line.translated_attributes.merge(
+            content: budget_line.searchable_content,
+            resource_path: budget_line.resource_path,
+            meta: budget_line.search_meta
+          )
+        )
+        document.save
+      end
+
+      def pg_search_delete_index(budget_line)
+        document = budget_line.site.pg_search_documents.find_by(
+          searchable_type: budget_line.class.name,
+          external_id: budget_line.external_id
+        )&.destroy
       end
     end
 

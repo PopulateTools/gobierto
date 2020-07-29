@@ -117,12 +117,12 @@ module GobiertoBudgets
     def save
       result = GobiertoBudgets::SearchEngine.client.index(index: elastic_search_index, type: area.area_name, id: id, body: elasticsearch_as_json.to_json)
       saved = (result["_shards"]["failed"] == 0)
-      self.class.algolia_index.add_object(algolia_as_json) if saved
+      self.class.pg_search_reindex(self) if saved
       saved
     end
 
     def destroy
-      self.class.algolia_index.delete_object(algolia_id)
+      self.class.pg_search_delete_index(self)
       result = GobiertoBudgets::SearchEngine.client.delete(index: elastic_search_index, type: area.area_name, id: id)
       result["_shards"]["failed"] == 0
     end

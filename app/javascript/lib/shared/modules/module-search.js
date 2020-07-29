@@ -20,7 +20,7 @@ $(document).on('turbolinks:load', function() {
     if (d['searchable_updated_at'] == null)
       return;
 
-    return I18n.t("layouts.search.updated") + ": " + I18n.l("date.formats.short", d['searchable_updated_at']);
+    return `${I18n.t("layouts.search.updated")}: ${I18n.l("date.formats.short", d['searchable_updated_at'])}`;
   }
 
   function itemDescription(d){
@@ -67,11 +67,11 @@ $(document).on('turbolinks:load', function() {
   }
 
   function formattedResult(d){
-    return '<h2>' + d['title'] + '</h2>' +
+    return `<h2>${d['title']}</h2>` +
            '<div class="description">' +
-             '<div>' + itemDescription(d) + '</div>' +
-             '<span class="soft item_type">' + itemType(d) + '</span>' +
-             (itemUpdatedAt(d) ? ' · <span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' : '') +
+             `<div>${itemDescription(d)}</div>` +
+             `<span class="soft item_type">${itemType(d)}</span>` +
+             (itemUpdatedAt(d) ? ` · <span class="soft updated_at">${itemUpdatedAt(d)}</span>` : '') +
            '</div>'
   }
 

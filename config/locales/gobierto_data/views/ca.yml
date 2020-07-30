@@ -20,8 +20,6 @@ ca:
     layouts:
       application:
         gobierto_data: Dades
-      visualizations: Una llista de visualitzacions, creades a partir dels diferents
-        datasets que estan disponible a Gobierto Data.
     projects:
       all: Totes
       buttonFork: Feu clic per crear una versió d'aquesta consulta

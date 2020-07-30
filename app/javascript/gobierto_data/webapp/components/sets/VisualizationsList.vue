@@ -28,20 +28,15 @@
                     class="gobierto-data-visualizations-name"
                     @click.native="loadViz(name, user_id)"
                   >
-                    <div class="gobierto-data-visualization--card">
-                      <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                        <div class="gobierto-data-visualization--content">
-                          <h4 class="gobierto-data-visualization--title">
-                            {{ name }}
-                          </h4>
-                          <Visualizations
-                            :items="items"
-                            :config="config"
-                            :object-columns="objectColumns"
-                          />
-                        </div>
-                      </div>
-                    </div>
+                    <VisualizationsSlot :name="name">
+                      <template v-slot:visualization>
+                        <Visualizations
+                          :items="items"
+                          :config="config"
+                          :object-columns="objectColumns"
+                        />
+                      </template>
+                    </VisualizationsSlot>
                   </router-link>
                   <div class="gobierto-data-visualization--icons">
                     <PrivateIcon
@@ -85,20 +80,15 @@
                 class="gobierto-data-visualizations-name"
                 @click.native="loadViz(name, user_id)"
               >
-                <div class="gobierto-data-visualization--card">
-                  <div class="gobierto-data-visualization--aspect-ratio-16-9">
-                    <div class="gobierto-data-visualization--content">
-                      <h4 class="gobierto-data-visualization--title">
-                        {{ name }}
-                      </h4>
-                      <Visualizations
-                        :items="items"
-                        :config="config"
-                        :object-columns="objectColumns"
-                      />
-                    </div>
-                  </div>
-                </div>
+                <VisualizationsSlot :name="name">
+                  <template v-slot:visualization>
+                    <Visualizations
+                      :items="items"
+                      :config="config"
+                      :object-columns="objectColumns"
+                    />
+                  </template>
+                </VisualizationsSlot>
               </router-link>
             </div>
           </template>
@@ -118,6 +108,7 @@ import Visualizations from "./../commons/Visualizations.vue";
 import PrivateIcon from './../commons/PrivateIcon.vue';
 import { Dropdown } from "lib/vue-components";
 import { getUserId } from "./../../../lib/helpers";
+import VisualizationsSlot from "./../commons/VisualizationsSlot.vue";
 
 export default {
   name: "VisualizationsList",
@@ -126,7 +117,8 @@ export default {
     PrivateIcon,
     Dropdown,
     Caret,
-    Loading
+    Loading,
+    VisualizationsSlot
   },
   props: {
     datasetId: {

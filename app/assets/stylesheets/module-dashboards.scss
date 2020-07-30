@@ -27,7 +27,6 @@
   &-home-aside--gap {
     height: 100%;
     overflow: hidden;
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
   }
@@ -246,7 +245,7 @@
         display: inline-block;
         vertical-align: top;
         line-height: 1.3;
-        font-size: 14px;
+        font-size: $f7;
 
         &:hover {
           color: rgba(var(--color-base-string), .8);

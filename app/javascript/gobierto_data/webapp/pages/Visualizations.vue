@@ -103,7 +103,7 @@ export default {
         }
       }
 
-      this.publicVisualizations = allVizs.reduce((flatten, arr) => [...flatten, ...arr])
+      this.publicVisualizations = allVizs.flat()
       this.isVizsLoaded = true
       this.removeAllIcons()
     },

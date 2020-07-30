@@ -20,8 +20,6 @@ es:
     layouts:
       application:
         gobierto_data: Datos
-      visualizations: Una lista de visualizaciones, creadas a partir de los diferentes
-        datasets que están disponibles en el módulo de Gobierto Datos.
     projects:
       all: Todas
       buttonFork: Haz click para crear una versión de esta consulta

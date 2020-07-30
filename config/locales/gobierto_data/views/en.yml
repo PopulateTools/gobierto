@@ -20,8 +20,6 @@ en:
     layouts:
       application:
         gobierto_data: Data
-      visualizations: A list of Visualizations, created from the different datasets
-        that are available in Gobierto Datos.
     projects:
       all: All
       buttonFork: Click to create your own version of this query

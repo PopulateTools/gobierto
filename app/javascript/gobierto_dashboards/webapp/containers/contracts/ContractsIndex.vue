@@ -45,10 +45,8 @@ export default {
   },
   methods: {
     updateFilteredItems(value) {
-      this.value = value
-      if (!this.value) {
-        this.value = ''
-      }
+      this.value = value || ''
+
       this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()) || contract.title.toLowerCase().includes(this.value.toLowerCase()))
     }
   }

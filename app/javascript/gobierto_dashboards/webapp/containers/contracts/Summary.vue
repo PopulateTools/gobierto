@@ -144,7 +144,7 @@
 
 <script>
 import Table from "../../components/Table.vue";
-import { EventBus } from "../../mixins/event_bus";
+import { dashboardsMixins } from "../../mixins/dashboards_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
 
 export default {
@@ -152,9 +152,10 @@ export default {
   components: {
     Table
   },
+  mixins: [dashboardsMixins],
   data(){
     return {
-      contractsData: this.$root.$data.contractsData,
+      dashboardsData: this.$root.$data.contractsData,
       items: [],
       columns: [],
       value: '',
@@ -177,43 +178,22 @@ export default {
       labelMainAssignees: I18n.t('gobierto_dashboards.dashboards.contracts.main_assignees'),
     }
   },
-
-  mounted() {
-    EventBus.$on('refresh-summary-data', () => {
-      this.refreshSummaryData();
-    });
-
-    EventBus.$emit("summary-ready");
-  },
   created() {
-    this.items = this.buildItems();
     this.columns = assigneesColumns;
-
-    EventBus.$on('filtered-items-grouped', (data, value) => this.updateItems(data, value))
-  },
-  beforeDestroy(){
-    EventBus.$off('refresh-summary-data');
   },
   methods: {
-    updateItems(data, value) {
-      this.value = value
-      this.contractsData = data
-      this.items = this.buildItems();
-
-      EventBus.$emit('send-filtered-items', this.items)
-    },
     refreshSummaryData() {
       if (!this.value) {
-        this.contractsData = this.$root.$data.contractsData;
+        this.dashboardsData = this.$root.$data.contractsData;
       } else {
-        this.contractsData = this.$root.$data.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()))
+        this.dashboardsData = this.$root.$data.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()))
       }
       this.items = this.buildItems();
     },
     buildItems() {
       const groupedByAssignee = {}
       // Group contracts by assignee
-      this.contractsData.forEach(({ assignee, assignee_routing_id, final_amount_no_taxes }) => {
+      this.dashboardsData.forEach(({ assignee, assignee_routing_id, final_amount_no_taxes }) => {
         if (assignee === '' || assignee === undefined) {
           return;
         }

@@ -28,9 +28,6 @@ export const VisualizationFactoryMixin = {
     },
     deleteVisualization(id) {
       return axios.delete(`${endPoint}/${id}`, { headers });
-    },
-    getListVisualizations() {
-      return axios.get(`${endPoint}`, { headers });
-    },
+    }
   }
 };

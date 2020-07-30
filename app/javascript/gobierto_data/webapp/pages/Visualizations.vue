@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     async getDataVizs() {
-      const { data: response } = await this.getListVisualizations();
+      const { data: response } = await this.getVisualizations();
       const { data } = response
       let listVisualizations = data.slice(0, 4)
       let datasets = listVisualizations.map(dataset => dataset.attributes.dataset_id);

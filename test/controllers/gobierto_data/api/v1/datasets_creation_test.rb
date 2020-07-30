@@ -101,6 +101,38 @@ module GobiertoData
 
         # POST /api/v1/data/datasets
         #
+        def test_dataset_creation_with_iso8859_1_encoding
+          with(site: site) do
+            post(
+              gobierto_data_api_v1_datasets_path,
+              params: multipart_form_params("dataset_iso88591.csv").deep_merge(
+                dataset: { csv_separator: ';' }
+              ),
+              headers: { "Authorization" => auth_header }
+            )
+
+            assert_response :created
+            response_data = response.parsed_body
+            attributes = response_data["data"]["attributes"].with_indifferent_access
+
+            [:name, :table_name, :visibility_level].each do |attribute|
+              assert_equal multipart_form_params[:dataset][attribute], attributes[attribute]
+            end
+
+            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset", include_stats: true)
+            assert_equal 29, query_result[:rows]
+            query_result[:result].first.each_value do |value|
+              assert value.is_a? String
+            end
+
+            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset where municipio_distrito like 'Alcor%'", include_stats: true)
+            assert_equal 1, query_result[:rows]
+            assert_equal "Alcorcón", query_result[:result].first["municipio_distrito"]
+          end
+        end
+
+        # POST /api/v1/data/datasets
+        #
         def test_dataset_creation_with_file_upload_and_schema_file_renaming_columns
           with(site: site) do
             post(

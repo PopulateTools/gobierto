@@ -1213,6 +1213,7 @@
   &-visualitzation-element-title {
     margin: 0;
   }
+
   &-visualization-query-container {
     letter-spacing: 0;
     width: 100%;
@@ -1243,6 +1244,10 @@
 
     .gobierto-data-summary-header-description-link {
       padding-left: 1rem;
+    }
+
+    .gobierto-data-index-title {
+      margin-bottom: 0;
     }
 
     .gobierto-data-visualization--grid {

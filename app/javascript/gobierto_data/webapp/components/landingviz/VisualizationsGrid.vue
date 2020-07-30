@@ -47,18 +47,6 @@ export default {
     publicVisualizations: {
       type: Array,
       default: () => []
-    },
-    datasetSlug: {
-      type: String,
-      default: ''
-    },
-    datasetName: {
-      type: String,
-      default: ''
-    },
-    objectColumns: {
-      type: Object,
-      default: () => {}
     }
   }
 };

@@ -28,15 +28,16 @@
                     class="gobierto-data-visualizations-name"
                     @click.native="loadViz(name, user_id)"
                   >
-                    <VisualizationsSlot :name="name">
-                      <template v-slot:visualization>
-                        <Visualizations
-                          :items="items"
-                          :config="config"
-                          :object-columns="objectColumns"
-                        />
+                    <CardVisualization>
+                      <template v-slot:title>
+                        {{ name }}
                       </template>
-                    </VisualizationsSlot>
+                      <Visualizations
+                        :items="items"
+                        :config="config"
+                        :object-columns="objectColumns"
+                      />
+                    </CardVisualization>
                   </router-link>
                   <div class="gobierto-data-visualization--icons">
                     <PrivateIcon
@@ -80,15 +81,16 @@
                 class="gobierto-data-visualizations-name"
                 @click.native="loadViz(name, user_id)"
               >
-                <VisualizationsSlot :name="name">
-                  <template v-slot:visualization>
-                    <Visualizations
-                      :items="items"
-                      :config="config"
-                      :object-columns="objectColumns"
-                    />
+                <CardVisualization>
+                  <template v-slot:title>
+                    {{ name }}
                   </template>
-                </VisualizationsSlot>
+                  <Visualizations
+                    :items="items"
+                    :config="config"
+                    :object-columns="objectColumns"
+                  />
+                </CardVisualization>
               </router-link>
             </div>
           </template>
@@ -108,7 +110,7 @@ import Visualizations from "./../commons/Visualizations.vue";
 import PrivateIcon from './../commons/PrivateIcon.vue';
 import { Dropdown } from "lib/vue-components";
 import { getUserId } from "./../../../lib/helpers";
-import VisualizationsSlot from "./../commons/VisualizationsSlot.vue";
+import CardVisualization from "./../../layouts/CardVisualization.vue";
 
 export default {
   name: "VisualizationsList",
@@ -118,7 +120,7 @@ export default {
     Dropdown,
     Caret,
     Loading,
-    VisualizationsSlot
+    CardVisualization
   },
   props: {
     datasetId: {

@@ -9,36 +9,37 @@
         :to="`/datos/${slug}/v/${id}`"
         class="gobierto-data-visualizations-name"
       >
-        <VisualizationsSlot :name="name">
-          <template v-slot:visualization>
-            <Visualizations
-              v-if="items"
-              :items="items"
-              :object-columns="columns"
-              :config="config"
-            />
-            <router-link
-              :to="`/datos/${slug}/`"
-              class="gobierto-data-visualizations-name"
-            >
-              <h4 class="gobierto-data-visualization--dataset">
-                {{ datasetName }}
-              </h4>
-            </router-link>
+        <CardVisualization>
+          <template v-slot:title>
+            {{ name }}
           </template>
-        </VisualizationsSlot>
+          <Visualizations
+            v-if="items"
+            :items="items"
+            :object-columns="columns"
+            :config="config"
+          />
+          <router-link
+            :to="`/datos/${slug}/`"
+            class="gobierto-data-visualizations-name"
+          >
+            <h4 class="gobierto-data-visualization--dataset">
+              {{ datasetName }}
+            </h4>
+          </router-link>
+        </CardVisualization>
       </router-link>
     </template>
   </div>
 </template>
 <script>
 import Visualizations from "./../commons/Visualizations.vue";
-import VisualizationsSlot from "./../commons/VisualizationsSlot.vue";
+import CardVisualization from "./../../layouts/CardVisualization.vue";
 export default {
   name: "VisualizationsGrid",
   components: {
     Visualizations,
-    VisualizationsSlot
+    CardVisualization
   },
   props: {
     publicVisualizations: {

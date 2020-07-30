@@ -3,9 +3,9 @@
     <div class="gobierto-data-visualization--aspect-ratio-16-9">
       <div class="gobierto-data-visualization--content">
         <h4 class="gobierto-data-visualization--title">
-          {{ name }}
+          <slot name="title" />
         </h4>
-        <slot name="visualization" />
+        <slot />
       </div>
     </div>
   </div>
@@ -13,12 +13,6 @@
 
 <script>
 export default {
-  name: "VisualizationSlot",
-  props: {
-    name: {
-      type: String,
-      default: ''
-    }
-  }
+  name: "CardVisualization",
 }
 </script>

@@ -65,7 +65,7 @@
 
   &-tab-sidebar--tab {
     font-style: normal;
-    font-size: 14px;
+    font-size: $f7;
     color: #666;
     cursor: pointer;
     width: 32%;
@@ -109,7 +109,7 @@
   }
 
   &-btn-blue {
-    font-size: 14px;
+    font-size: $f7;
     background-color: var(--color-base);
     cursor: pointer;
     padding: 4px 9px;
@@ -129,7 +129,7 @@
     list-style: none;
     font-family: $font_text;
     font-weight: 500;
-    font-size: 14px;
+    font-size: $f7;
     line-height: 1.5;
     text-align: center;
     color: #4a4a4a;
@@ -176,7 +176,7 @@
 
   &-summary-header-description {
     margin-top: 0;
-    font-size: 14px;
+    font-size: $f7;
     color: #666;
   }
 
@@ -560,7 +560,7 @@
       min-height: 31px;
       border: 1px solid rgba(var(--color-base-string), .2);
       font-weight: 600;
-      font-size: 14px;
+      font-size: $f7;
       margin: 0;
 
       &.isDisabled {
@@ -572,7 +572,7 @@
         font-size: 0;
 
         i {
-          font-size: 14px;
+          font-size: $f7;
         }
       }
 
@@ -669,7 +669,7 @@
   }
 
   &-sql-editor-container-save-label {
-    font-size: 14px;
+    font-size: $f7;
     color: #666;
     padding-right: .5em;
     cursor: pointer;
@@ -687,7 +687,7 @@
 
   &-sql-editor-modified-label,
   &-sql-editor-modified-event {
-    font-size: 14px;
+    font-size: $f7;
     color: #666;
     opacity: .5;
   }
@@ -703,7 +703,7 @@
   &-sql-editor-footer-time,
   &-sql-editor-footer-guide {
     display: inline-block;
-    font-size: 14px;
+    font-size: $f7;
     color: #666;
     opacity: .6;
   }
@@ -735,7 +735,7 @@
       text-transform: none;
       margin: 0;
       margin-left: auto;
-      font-size: 14px;
+      font-size: $f7;
     }
   }
 
@@ -749,7 +749,7 @@
     &.gobierto-data-sql-editor-table {
       border: 1px solid rgba(#666, .1);
       border-top: 0;
-      font-size: 14px;
+      font-size: $f7;
       color: #666;
 
       thead,
@@ -792,7 +792,7 @@
   &-recent-queries-list-element {
     background-color: transparent;
     padding: .5rem;
-    font-size: 14px;
+    font-size: $f7;
     font-weight: normal;
     display: block;
     width: 100%;
@@ -815,7 +815,7 @@
   }
 
   &-sql-error-message {
-    font-size: 14px;
+    font-size: $f7;
     font-weight: 600;
     color: #b62323;
   }
@@ -892,7 +892,7 @@
   }
 
   &-summary-queries-container-name {
-    font-size: 14px;
+    font-size: $f7;
     color: #666;
     display: inline-block;
     vertical-align: middle;
@@ -906,7 +906,7 @@
   }
 
   &-visualizations-name {
-    font-size: 14px;
+    font-size: $f7;
     color: #666;
     display: inline-block;
     vertical-align: middle;
@@ -997,7 +997,7 @@
   }
 
   &-sidebar-datasets-name {
-    font-size: 14px;
+    font-size: $f7;
     cursor: pointer;
     color: #000;
     text-decoration: none;
@@ -1013,7 +1013,7 @@
   }
 
   &-sidebar-datasets-links-columns-text {
-    font-size: 14px;
+    font-size: $f7;
     display: inline-block;
     white-space: nowrap;
     width: 90%;
@@ -1074,7 +1074,7 @@
   }
 
   &-sidebar-datasets-links-columns-see-more {
-    font-size: 14px;
+    font-size: $f7;
     cursor: pointer;
     color: var(--color-base);
     text-decoration: underline;
@@ -1222,7 +1222,7 @@
     .gobierto-data-summary-queries-panel-title {
       padding-left: 0;
       display: inline-block;
-      font-size: 14px;
+      font-size: $f7;
     }
 
     .gobierto-data-summary-queries-container-name {
@@ -1256,7 +1256,7 @@
     }
 
     .gobierto-data-visualization--dataset {
-      font-size: 14px;
+      font-size: $f7;
       color: var(--grey-dataset);
     }
   }

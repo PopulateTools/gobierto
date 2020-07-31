@@ -4,7 +4,7 @@
 
   <% if current_site.pg_search_documents.exists? %>
 
-    <input id="gobierto_search" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
+    <input id="<%= local_assigns.fetch(:input_id, "gobierto_search") %>" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
     <div id="search_results" class="search_result_list"></div>
 
   <% elsif current_module == "gobierto_budgets" %>

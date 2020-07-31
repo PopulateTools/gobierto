@@ -4,6 +4,7 @@ import 'devbridge-autocomplete'
 
 $(document).on('turbolinks:load', function() {
   var $input = $('input#gobierto_search:visible');
+  var $mobile_input = $('input#gobierto_search_mobile');
 
   function truncateOnWord(str, limit) {
     var trimmable = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u2028\u2029\u3000\uFEFF';
@@ -88,7 +89,6 @@ $(document).on('turbolinks:load', function() {
             searchable_type: window.searchClient.searchable_types
           }
       },
-    appendTo: $input.parent(),
     beforeRender(container) {
       container.css({ width: '100%' })
     },
@@ -106,5 +106,6 @@ $(document).on('turbolinks:load', function() {
     noSuggestionNotice: `<div class="result"><p>${ I18n.t("layouts.search.no_results") }</p></div>`
   };
 
-  $input.devbridgeAutocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchOptions));
+  $input.devbridgeAutocomplete($.extend({ appendTo: $input.parent() }, AUTOCOMPLETE_DEFAULTS, searchOptions));
+  $mobile_input.devbridgeAutocomplete($.extend({ appendTo: $mobile_input.parent() }, AUTOCOMPLETE_DEFAULTS, searchOptions));
 });

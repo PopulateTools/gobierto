@@ -14,6 +14,7 @@
           @input="handlerFilterItems"
         >
         <i
+          v-if="showClearSearch"
           class="fas fa-times gobierto_dashboards-search-btn-clear"
           @click="handlerClearSearch"
         />
@@ -41,6 +42,11 @@ export default {
       search: '',
       labelSearch: I18n.t('gobierto_dashboards.dashboards.contracts.search'),
       labelPlaceholder: I18n.t('gobierto_dashboards.dashboards.contracts.search_placeholder')
+    }
+  },
+  computed: {
+    showClearSearch() {
+      return this.search
     }
   },
   methods: {

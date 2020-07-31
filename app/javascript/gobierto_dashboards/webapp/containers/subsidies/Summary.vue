@@ -158,7 +158,7 @@
 
 <script>
 import Table from "../../components/Table.vue";
-import { EventBus } from "../../mixins/event_bus";
+import { dashboardsMixins } from "../../mixins/dashboards_mixins";
 import { grantedColumns } from "../../lib/config/subsidies.js";
 
 export default {
@@ -166,9 +166,10 @@ export default {
   components: {
     Table
   },
+  mixins: [dashboardsMixins],
   data(){
     return {
-      subsidiesData: this.$root.$data.subsidiesData,
+      dashboardsData: this.$root.$data.subsidiesData,
       items: [],
       value: '',
       labelSubsidies: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.subsidies'),
@@ -188,41 +189,22 @@ export default {
       labelMainBeneficiaries: I18n.t('gobierto_dashboards.dashboards.subsidies.main_beneficiaries')
     }
   },
-  mounted() {
-    EventBus.$on('refresh-summary-data', () => {
-      this.refreshSummaryData();
-    });
-
-    EventBus.$emit("summary-ready");
-    EventBus.$on('filtered-items-grouped', (data, value) => this.updateItems(data, value))
-  },
   created() {
-    this.items = this.buildItems();
     this.columns = grantedColumns;
   },
-  beforeDestroy(){
-    EventBus.$off('refresh-summary-data');
-  },
   methods: {
-    updateItems(data, value) {
-      this.value = value
-      this.subsidiesData = data
-      this.items = this.buildItems();
-
-      EventBus.$emit('send-filtered-items', this.items)
-    },
     refreshSummaryData(){
       if (!this.value) {
-        this.subsidiesData = this.$root.$data.subsidiesData;
+        this.dashboardsData = this.$root.$data.subsidiesData;
       } else {
-        this.subsidiesData = this.$root.$data.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase()))
+        this.subsidashboardsDatadiesData = this.$root.$data.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase()))
       }
       this.items = this.buildItems();
     },
     buildItems() {
       const groupedByBeneficiary = {}
       // Group subsidies by beneficiary
-      this.subsidiesData.forEach(({ beneficiary_name, amount }) => {
+      this.dashboardsData.forEach(({ beneficiary_name, amount }) => {
         if (beneficiary_name === '' || beneficiary_name === undefined) {
           return;
         }

@@ -46,7 +46,7 @@ export default {
   methods: {
     updateFilteredItems(value) {
       this.value = value
-      if (this.value === '') {
+      if (!this.value) {
         this.items = this.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase()))
       } else {
         this.items = this.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase())).slice(0, 25)

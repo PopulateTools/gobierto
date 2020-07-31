@@ -161,10 +161,12 @@ export default {
       filter.options.forEach(option => option.isOptionChecked = true)
 
       EventBus.$emit('filter-changed', { all: true, titles: titles, id: filter.id });
+      EventBus.$emit("update-filters");
     },
     handleCheckboxStatus({ id, filter }) {
       const option = filter.options.find(option => option.id === id)
       EventBus.$emit('filter-changed', { all: false, title: option.title, id: filter.id });
+      EventBus.$emit("update-filters");
     },
     toggle(filter){
       this.filters.forEach(_filter => {

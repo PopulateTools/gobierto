@@ -67,14 +67,14 @@ $(document).on('turbolinks:load', function() {
   }
 
   function formattedResult(d){
-    return `<a class="result" <a href="${d['resource_path']}" data-turbolinks="false">` +
-             `<h2>${d['title']}</h2>` +
-             '<div class="description">' +
-               `<div>${itemDescription(d)}</div>` +
-               `<span class="soft item_type">${itemType(d)}</span>` +
-               (itemUpdatedAt(d) ? ` · <span class="soft updated_at">${itemUpdatedAt(d)}</span>` : '') +
-             '</div>' +
-           '</a>'
+    return `<a class="result" href="${d['resource_path']}" data-turbolinks="false">
+             <h2>${d['title']}</h2>
+             <div class="description">
+               <div>${itemDescription(d)}</div>
+               <span class="soft item_type">${itemType(d)}</span>
+               ${itemUpdatedAt(d) ? ` · <span class="soft updated_at">${itemUpdatedAt(d)}</span>` : ''}
+             </div>
+           </a>`
   }
 
   var searchOptions = {

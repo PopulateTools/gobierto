@@ -49,6 +49,7 @@ events_count_open_visualization:
   name_translations: <%= { en: "Events count visualization open", es: "Visualización de cuenta de eventos abierta" }.to_json %>
   privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
   spec: "{}"
+  created_at: <%= 1.day.from_now %>
 
 visualization_with_sql_and_blank_query:
   dataset: users_dataset

@@ -46,6 +46,7 @@ module GobiertoData
         def other_dataset_visualization
           @other_dataset_visualization ||= gobierto_data_visualizations(:events_count_open_visualization)
         end
+        alias latest_visualization other_dataset_visualization
 
         def other_query_visualization
           @other_query_visualization ||= gobierto_data_visualizations(:census_verified_users_visualization)
@@ -679,6 +680,59 @@ module GobiertoData
           end
         end
 
+        # Sortable API concern
+
+        # GET /api/v1/data/visualizations?order
+        def test_order_without_params_is_ignored
+          with(site: site) do
+            get gobierto_data_api_v1_visualizations_path
+            unordered_response_data = response.parsed_body
+
+            get gobierto_data_api_v1_visualizations_path(order: "")
+            assert_response :success
+
+            assert_equal unordered_response_data, response.parsed_body
+          end
+        end
+
+        def test_order_with_not_configured_attribute_is_ignored
+          with(site: site) do
+            get gobierto_data_api_v1_visualizations_path
+            unordered_response_data = response.parsed_body
+
+            get gobierto_data_api_v1_visualizations_path(order: { id: "desc" })
+            assert_response :success
+
+            assert_equal unordered_response_data, response.parsed_body
+          end
+        end
+
+        def test_order_with_configured_attribute_but_invalid_sorting_value_is_replaced_with_asc
+          with(site: site) do
+            get gobierto_data_api_v1_visualizations_path(order: { created_at: "asc" })
+            ordered_response_data = response.parsed_body
+
+            get gobierto_data_api_v1_visualizations_path(order: { created_at: "wadus" })
+            assert_response :success
+
+            assert_equal ordered_response_data, response.parsed_body
+          end
+        end
+
+        def test_order_with_configured_attribute_and_valid_sorting_criteria
+          with(site: site) do
+            get gobierto_data_api_v1_visualizations_path
+            unordered_response_data = response.parsed_body
+
+            get gobierto_data_api_v1_visualizations_path(order: { created_at: "desc" })
+            assert_response :success
+
+            response_data = response.parsed_body
+            refute_equal unordered_response_data, response_data
+            assert_equal unordered_response_data["data"].count, response_data["data"].count
+            assert_equal latest_visualization.id, response_data["data"].first.dig("id").to_i
+          end
+        end
       end
     end
   end

@@ -169,6 +169,7 @@ module GobiertoData
           errors.add(:schema, @load_status[:db_result][:errors].map(&:values).join("\n"))
           false
         else
+          track_update_data_activity
           true
         end
       ensure
@@ -185,5 +186,10 @@ module GobiertoData
       end
     end
 
+    def track_update_data_activity
+      Publishers::AdminGobiertoDataActivity.broadcast_event(
+        "dataset_data_updated", event_payload.merge(subject: resource)
+      )
+    end
   end
 end

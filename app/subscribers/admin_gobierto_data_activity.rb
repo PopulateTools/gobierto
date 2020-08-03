@@ -3,6 +3,10 @@
 module Subscribers
   class AdminGobiertoDataActivity < ::Subscribers::Base
 
+    def dataset_data_updated(event)
+      create_activity_from_event(event, "dataset_data_updated")
+    end
+
     def dataset_attribute_changed(event)
       create_activity_from_event(event, "dataset_updated")
     end

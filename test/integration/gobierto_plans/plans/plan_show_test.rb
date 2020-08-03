@@ -54,8 +54,9 @@ module GobiertoPlans
 
     def publish_last_version_on_all_projects!
       projects.each do |project|
+        project.touch
+        project.published_version = project.versions.count
         project.published!
-        project.update_attribute(:published_version, project.versions.count)
       end
       plan.touch
     end

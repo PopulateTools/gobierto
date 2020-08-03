@@ -121,8 +121,8 @@ module GobiertoAdmin
       def set_publication(node)
         return unless @plan.publish_last_version_automatically?
 
+        node.published_version = node.versions.count
         node.published!
-        node.update_attribute(:published_version, node.versions.count)
       end
 
       def save_custom_fields(row_decorator)

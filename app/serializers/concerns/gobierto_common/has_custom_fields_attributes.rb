@@ -28,6 +28,17 @@ module GobiertoCommon
       data
     end
 
+    included do
+      attribute :searchable_custom_fields, if: :serialize_for_search_engine?
+    end
+
+    def searchable_custom_fields
+      ::GobiertoCommon::CustomFieldRecord.includes(:custom_field).where(custom_field: custom_fields, item: object).map do |record|
+        record = record.versions[@version_index]&.reify if @version_index&.negative?
+        record&.searchable_value
+      end.join(" ")
+    end
+
     def custom_fields
       @custom_fields ||= current_site.custom_fields.for_class(object.class).sorted
     end
@@ -44,5 +55,8 @@ module GobiertoCommon
       @value_method ||= instance_options.fetch(:custom_fields_value_method, instance_options[:string_output] ? :value_string : :value)
     end
 
+    def serialize_for_search_engine?
+      @serialize_for_search_engine ||= instance_options[:serialize_for_search_engine]
+    end
   end
 end

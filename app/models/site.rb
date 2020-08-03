@@ -25,6 +25,8 @@ class Site < ApplicationRecord
   has_many :custom_fields, class_name: "GobiertoCommon::CustomField"
   has_many :custom_field_records, through: :custom_fields, class_name: "GobiertoCommon::CustomFieldRecord", source: :records
 
+  has_many :pg_search_documents, class_name: "PgSearch::Document"
+
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
   has_many :notifications, dependent: :destroy, class_name: "User::Notification"
@@ -218,8 +220,8 @@ class Site < ApplicationRecord
     configuration.home_page.constantize.send(:root_path, self)
   end
 
-  def algolia_search_disabled?
-    configuration.configuration_variables.fetch("algolia_search_disabled", false)
+  def multisearch(*args)
+    PgSearch.multisearch(*args).where(site: self)
   end
 
   private

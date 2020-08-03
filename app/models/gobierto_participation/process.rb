@@ -15,12 +15,19 @@ module GobiertoParticipation
     include GobiertoAttachments::Attachable
     include GobiertoCommon::HasVocabulary
 
-    algoliasearch_gobierto do
-      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
-      searchableAttributes %w(title_en title_es title_ca body_en body_es body_ca)
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
+    multisearchable(
+      against: [:title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          description_translations: item.truncated_translations(:body),
+          resource_path: item.resource_path,
+          searchable_updated_at: item.updated_at
+        }
+      },
+      if: :searchable?
+    )
 
     translates :title, :body, :body_source, :information_text
 

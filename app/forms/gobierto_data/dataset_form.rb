@@ -2,13 +2,15 @@
 
 module GobiertoData
   class DatasetForm < BaseForm
+    prepend ::GobiertoCommon::TrackableGroupedAttributes
     include ::GobiertoCore::TranslationsHelpers
     include ActiveModel::Serialization
 
     attr_accessor(
       :site_id,
       :data_path,
-      :data_file
+      :data_file,
+      :admin_id
     )
 
     attr_writer(
@@ -30,6 +32,12 @@ module GobiertoData
     validates :visibility_level, inclusion: { in: Dataset.visibility_levels.keys }
 
     delegate :persisted?, :data_updated_at, to: :resource
+
+    trackable_on :dataset
+    use_event_prefix :dataset
+    notify_changed :name_translations, :table_name, :slug, as: :attribute
+    use_publisher Publishers::AdminGobiertoDataActivity
+    use_trackable_subject :dataset
 
     def resource
       @resource ||= resource_class.find_by(id: @id) || build_resource
@@ -134,7 +142,7 @@ module GobiertoData
         attributes.visibility_level = visibility_level
       end
 
-      if @resource.save && load_data
+      if run_callbacks(:save) { @resource.save } && load_data
         @resource
       else
         promote_errors(@resource.errors)

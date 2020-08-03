@@ -16,6 +16,8 @@ ca:
       timestampz: data i hora
     events:
       gobierto_data_dataset_dataset_created: Conjunt de dades creat
+      gobierto_data_dataset_dataset_data_updated: Dades de conjunt de dades actualitzats
+      gobierto_data_dataset_dataset_deleted: Conjunt de dades eliminat
       gobierto_data_dataset_dataset_updated: Conjunt de dades actualitzat
     layouts:
       application:

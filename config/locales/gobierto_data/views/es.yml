@@ -16,6 +16,8 @@ es:
       timestampz: fecha y hora
     events:
       gobierto_data_dataset_dataset_created: Conjunto de datos creado
+      gobierto_data_dataset_dataset_data_updated: Datos de conjunto de datos actualizados
+      gobierto_data_dataset_dataset_deleted: Conjunto de datos eliminado
       gobierto_data_dataset_dataset_updated: Conjunto de datos actualizado
     layouts:
       application:

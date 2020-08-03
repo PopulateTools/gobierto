@@ -16,6 +16,8 @@ en:
       timestampz: time
     events:
       gobierto_data_dataset_dataset_created: Dataset created
+      gobierto_data_dataset_dataset_data_updated: Dataset data updated
+      gobierto_data_dataset_dataset_deleted: Dataset deleted
       gobierto_data_dataset_dataset_updated: Dataset updated
     layouts:
       application:

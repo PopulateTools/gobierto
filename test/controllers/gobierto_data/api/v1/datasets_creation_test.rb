@@ -51,6 +51,7 @@ module GobiertoData
               assert_response :unprocessable_entity
               response_data = response.parsed_body
               assert_match(/can't be blank/, response_data.to_s)
+              refute site.activities.where(subject_type: "GobiertoData::Dataset").exists?
             end
           end
         end
@@ -69,6 +70,7 @@ module GobiertoData
               assert_response :unprocessable_entity
               response_data = response.parsed_body
               assert_match(/CSV file malformed or with wrong encoding/, response_data.to_s)
+              refute site.activities.where(subject_type: "GobiertoData::Dataset").exists?
             end
           end
         end
@@ -83,6 +85,8 @@ module GobiertoData
               headers: { "Authorization" => auth_header }
             )
 
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
@@ -111,6 +115,8 @@ module GobiertoData
               headers: { "Authorization" => auth_header }
             )
 
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
@@ -143,6 +149,8 @@ module GobiertoData
               headers: { "Authorization" => auth_header }
             )
 
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
@@ -175,6 +183,7 @@ module GobiertoData
             assert_response :unprocessable_entity
             response_data = response.parsed_body
             assert_match(/Malformed file/, response_data.to_s)
+            refute site.activities.where(subject_type: "GobiertoData::Dataset").exists?
           end
         end
 
@@ -193,6 +202,7 @@ module GobiertoData
             assert_response :unprocessable_entity
             response_data = response.parsed_body
             assert_match(/The type 'invent' is not defined/, response_data.to_s)
+            refute site.activities.where(subject_type: "GobiertoData::Dataset").exists?
           end
         end
 
@@ -206,17 +216,23 @@ module GobiertoData
               headers: { "Authorization" => auth_header }
             )
 
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
             slug = response_data["data"]["attributes"]["slug"]
 
+            site.activities.where(subject_type: "GobiertoData::Dataset").destroy_all
             put(
               gobierto_data_api_v1_dataset_path(slug),
               params: multipart_form_params("dataset2.csv"),
               headers: { "Authorization" => auth_header }
             )
 
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_updated").exists?
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :success
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
@@ -243,17 +259,23 @@ module GobiertoData
               headers: { "Authorization" => auth_header }
             )
 
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
             slug = response_data["data"]["attributes"]["slug"]
 
+            site.activities.where(subject_type: "GobiertoData::Dataset").destroy_all
             put(
               gobierto_data_api_v1_dataset_path(slug),
               params: multipart_form_params("dataset2.csv").deep_merge(dataset: { append: "true" }),
               headers: { "Authorization" => auth_header }
             )
 
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_updated").exists?
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :success
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
@@ -282,17 +304,23 @@ module GobiertoData
               headers: { "Authorization" => auth_header }
             )
 
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
             slug = response_data["data"]["attributes"]["slug"]
 
+            site.activities.where(subject_type: "GobiertoData::Dataset").destroy_all
             put(
               gobierto_data_api_v1_dataset_path(slug),
               params: multipart_form_params("dataset2.csv").deep_merge(dataset: { append: "true" }),
               headers: { "Authorization" => auth_header }
             )
 
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_updated").exists?
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :success
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access

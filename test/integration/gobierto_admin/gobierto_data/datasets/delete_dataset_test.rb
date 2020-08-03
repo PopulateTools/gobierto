@@ -25,15 +25,18 @@ module GobiertoAdmin
 
         def test_delete_dataset
           with(site: site, admin: authorized_regular_admin) do
-            visit @path
+            assert_difference "site.activities.where(action: \"gobierto_data_dataset.dataset_deleted\").count", 1 do
+              visit @path
 
-            within "#dataset-item-#{dataset.id}" do
-              find("a[data-method='delete']").click
+              within "#dataset-item-#{dataset.id}" do
+                find("a[data-method='delete']").click
+              end
+
+              assert has_message?("Dataset deleted correctly.")
+
+              refute site.datasets.exists?(id: dataset.id)
+              assert site.activities.where(action: "gobierto_data_dataset.dataset_deleted").exists?
             end
-
-            assert has_message?("Dataset deleted correctly.")
-
-            refute site.datasets.exists?(id: dataset.id)
           end
         end
       end

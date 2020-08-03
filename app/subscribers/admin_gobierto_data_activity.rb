@@ -15,6 +15,22 @@ module Subscribers
       create_activity_from_event(event, "dataset_created")
     end
 
+    def dataset_deleted(event)
+      author = GobiertoAdmin::Admin.find_by id: event.payload[:admin_id]
+      return unless author.present?
+
+      action = "gobierto_data_dataset.dataset_deleted"
+      Activity.create!(
+        subject_type: "Site",
+        subject_id: event.payload[:site_id],
+        author: author,
+        subject_ip: event.payload[:ip] || author.last_sign_in_ip,
+        action: action,
+        admin_activity: true,
+        site_id: event.payload[:site_id]
+      )
+    end
+
     private
 
     def create_activity_from_event(event, action)

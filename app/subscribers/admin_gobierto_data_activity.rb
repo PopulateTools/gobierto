@@ -19,7 +19,7 @@ module Subscribers
       author = GobiertoAdmin::Admin.find_by id: event.payload[:admin_id]
       return unless author.present?
 
-      action = "gobierto_data_dataset.dataset_deleted"
+      action = "gobierto_data.dataset_dataset_deleted"
       Activity.create!(
         subject_type: "Site",
         subject_id: event.payload[:site_id],

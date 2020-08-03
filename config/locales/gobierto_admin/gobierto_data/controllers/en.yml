@@ -5,7 +5,6 @@ en:
       configuration:
         settings:
           update:
-            error: 'There was a problem when saving configuration: %{validation_errors}'
             success: Configuration stored successfully
       datasets:
         create:

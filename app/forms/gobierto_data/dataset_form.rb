@@ -142,7 +142,9 @@ module GobiertoData
         attributes.visibility_level = visibility_level
       end
 
-      if run_callbacks(:save) { @resource.save } && load_data
+      new_record = @resource.new_record?
+
+      if run_callbacks(:save) { @resource.save } && load_data(new_record)
         @resource
       else
         promote_errors(@resource.errors)
@@ -150,7 +152,7 @@ module GobiertoData
       end
     end
 
-    def load_data
+    def load_data(new_record)
       return unless [data_file, data_path].any?(&:present?)
 
       # Use the Array form to enforce an extension in the filename
@@ -169,7 +171,7 @@ module GobiertoData
           errors.add(:schema, @load_status[:db_result][:errors].map(&:values).join("\n"))
           false
         else
-          track_update_data_activity
+          track_update_data_activity unless new_record
           true
         end
       ensure

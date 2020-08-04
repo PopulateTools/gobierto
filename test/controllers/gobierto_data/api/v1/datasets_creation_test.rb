@@ -86,7 +86,7 @@ module GobiertoData
             )
 
             assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
-            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
@@ -116,7 +116,7 @@ module GobiertoData
             )
 
             assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
-            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
@@ -150,7 +150,7 @@ module GobiertoData
             )
 
             assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
-            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
@@ -217,7 +217,7 @@ module GobiertoData
             )
 
             assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
-            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
@@ -260,7 +260,7 @@ module GobiertoData
             )
 
             assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
-            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access
@@ -305,7 +305,7 @@ module GobiertoData
             )
 
             assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
-            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
             assert_response :created
             response_data = response.parsed_body
             attributes = response_data["data"]["attributes"].with_indifferent_access

@@ -24,7 +24,7 @@ module Subscribers
         subject_type: "Site",
         subject_id: event.payload[:site_id],
         author: author,
-        subject_ip: event.payload[:ip] || author.last_sign_in_ip,
+        subject_ip: subject_ip(event, author),
         action: action,
         admin_activity: true,
         site_id: event.payload[:site_id]
@@ -32,6 +32,10 @@ module Subscribers
     end
 
     private
+
+    def subject_ip(event, author)
+      event.payload[:ip] || author.last_sign_in_ip || "127.0.0.1"
+    end
 
     def create_activity_from_event(event, action)
       subject = GlobalID::Locator.locate event.payload[:gid]
@@ -47,7 +51,7 @@ module Subscribers
 
       Activity.create! subject: subject,
                        author: author,
-                       subject_ip: event.payload[:ip] || author.last_sign_in_ip,
+                       subject_ip: subject_ip(event, author),
                        action: action,
                        admin_activity: true,
                        site_id: event.payload[:site_id]

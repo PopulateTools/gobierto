@@ -24,6 +24,10 @@ module GobiertoData
           @admin ||= gobierto_admin_admins(:tony)
         end
 
+        def admin_without_last_sign_in_ip_auth_header
+          @admin_without_last_sign_in_ip_auth_header ||= "Bearer #{gobierto_admin_admins(:steve).primary_api_token}"
+        end
+
         def multipart_form_params(file = "dataset1.csv")
           {
             dataset: {
@@ -337,6 +341,22 @@ module GobiertoData
             assert_equal "numeric", schema["decimal_column"]["type"]
             assert_equal "text", schema["text_column"]["type"]
             assert_equal "date", schema["date_column"]["type"]
+          end
+        end
+
+        # POST /api/v1/data/datasets
+        #
+        def test_dataset_creation_with_admin_with_blank_last_sign_in_ip
+          with(site: site) do
+            post(
+              gobierto_data_api_v1_datasets_path,
+              params: multipart_form_params("dataset1.csv"),
+              headers: { "Authorization" => admin_without_last_sign_in_ip_auth_header }
+            )
+
+            assert site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_created").exists?
+            refute site.activities.where(subject_type: "GobiertoData::Dataset", action: "gobierto_data.dataset.dataset_data_updated").exists?
+            assert_response :created
           end
         end
 

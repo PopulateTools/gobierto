@@ -78,6 +78,7 @@ import {
 } from "vue-mapbox";
 import Wkt from "wicket";
 import axios from "axios";
+import { Middleware } from "lib/shared";
 import { CommonsMixin, baseUrl } from "./../mixins/common.js";
 
 export default {
@@ -142,6 +143,10 @@ export default {
       ] = responses;
 
       this.dictionary = attributesDictionary;
+      this.middleware = new Middleware({
+        dictionary: attributesDictionary
+      });
+
       this.items = this.setData(items);
 
       this.subsetItems = this.items;

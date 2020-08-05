@@ -89,6 +89,7 @@ export const CommonsMixin = {
         availableProjectFields
       } = CONFIGURATION;
       const { id: locationId, ...restLocationOptions } = location;
+      const phase_terms = this.convertToArrayOfIds(attributes[phases.id]).map(phase_id => this.middleware.getAttributesByKey(phases.id).vocabulary_terms.find(({ id }) => id === phase_id));
 
       return {
         ...element,
@@ -98,7 +99,7 @@ export const CommonsMixin = {
         gallery: attributes.gallery || [],
         location: attributes[locationId],
         locationOptions: restLocationOptions || {},
-        phases: attributes[phases.id].map(element => ({
+        phases: phase_terms.map(element => ({
           ...element,
           title: this.translate(element.name_translations)
         })),
@@ -118,6 +119,9 @@ export const CommonsMixin = {
     },
     setData(data) {
       return data.map(element => this.setItem(element));
+    },
+    convertToArrayOfIds(items) {
+      return Array.isArray(items) ? items.map(item => (+item)) : [+items]
     }
   }
 };

@@ -57,13 +57,6 @@ module GobiertoCommon
             response_data = response.parsed_body
             assert response_data.has_key? "data"
             assert response_data["data"].blank?
-
-            assert response_data.has_key? "meta"
-            assert_equal 0, response_data["meta"]["hits_count"]
-            assert_equal 1, response_data["meta"]["page"]
-            assert_equal 25, response_data["meta"]["per_page"]
-
-            assert response_data.has_key? "links"
           end
         end
 
@@ -80,13 +73,6 @@ module GobiertoCommon
             refute response_data["data"].blank?
 
             assert results_include?(response_data, person)
-
-            assert response_data.has_key? "meta"
-            assert response_data["meta"]["hits_count"].positive?
-            assert_equal 1, response_data["meta"]["page"]
-            assert_equal 25, response_data["meta"]["per_page"]
-
-            assert response_data.has_key? "links"
           end
         end
 
@@ -100,7 +86,6 @@ module GobiertoCommon
 
             response_data = response.parsed_body
             assert response_data["data"].blank?
-            assert_equal 0, response_data["meta"]["hits_count"]
           end
         end
 

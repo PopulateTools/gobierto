@@ -57,9 +57,16 @@ module GobiertoCommon
 
     def records_query(relation)
       GobiertoCommon::CustomFieldRecord.where(
-        custom_field: custom_fields,
-        item: relation
+        item_condition(relation).merge(custom_field: custom_fields)
       ).sorted.select(:id, :item_id, :payload)
+    end
+
+    def item_condition(relation)
+      if relation.to_sql.include?("custom_field_records")
+        { item_type: relation.model.name, item_id: relation.pluck(:id) }
+      else
+        { item: relation }
+      end
     end
 
     def versioned_payloads(records, version_index)

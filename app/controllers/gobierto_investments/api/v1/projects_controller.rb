@@ -17,7 +17,11 @@ module GobiertoInvestments
           relation = filtered_relation
 
           if stale?(relation)
-            render json: relation, adapter: :json_api
+            render(
+              json: relation,
+              preloaded_data: transformed_custom_field_record_values(relation),
+              adapter: :json_api
+            )
           end
         end
 
@@ -26,7 +30,11 @@ module GobiertoInvestments
         def show
           find_resource
 
-          render json: @resource, adapter: :json_api
+          render(
+            json: @resource,
+            preloaded_data: transformed_custom_field_record_values(base_relation.where(id: params[:id])),
+            adapter: :json_api
+          )
         end
 
         # GET /gobierto_investments/api/v1/projects/new

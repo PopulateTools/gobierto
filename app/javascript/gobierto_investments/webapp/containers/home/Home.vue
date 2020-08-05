@@ -314,7 +314,7 @@ export default {
       this.filters.splice(index, 1, filter); // To detect array mutations
 
       const checkboxFilterFn = attrs =>
-        attrs[key].find(d => checkboxesSelected.get(+d.id));
+        attrs[key] && this.convertToArrayOfIds(attrs[key]).find(d => checkboxesSelected.get(+d));
 
       const callback = size ? checkboxFilterFn : undefined;
       this.filterItems(callback, key);
@@ -374,8 +374,9 @@ export default {
         // Get the items based on these new active filters
         const __items__ = this.applyFiltersCallbacks(__activeFilters__);
 
-        return __items__.filter(({ attributes }) =>
-          attributes[key].map(g => g.id).includes(id)
+        return __items__.filter(({ attributes }) =>(
+          this.convertToArrayOfIds(attributes[key]).includes(id)
+          )
         ).length;
       };
       const { key, options = [] } = filter;

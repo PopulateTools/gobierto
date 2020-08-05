@@ -32,6 +32,10 @@ module GobiertoPlans
     [GobiertoPlans::Node]
   end
 
+  def self.searchable_models
+    [GobiertoPlans::Node]
+  end
+
   def self.default_plans_configuration_data
     <<JSON
     {

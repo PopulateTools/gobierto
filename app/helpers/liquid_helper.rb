@@ -15,7 +15,7 @@ module LiquidHelper
   end
 
   def to_liquid(template_content)
-    template_content = template_content.gsub(/<%.*%>/, "")
+    template_content = template_content.gsub(/<%((?!%>)[\s\S])*%>/, "")
     template = Liquid::Template.parse(template_content)
     template.assigns["current_site"] = current_site
     template

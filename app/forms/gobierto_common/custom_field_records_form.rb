@@ -49,7 +49,15 @@ module GobiertoCommon
     end
 
     def save
-      save_custom_fields if valid?
+      return unless valid?
+
+      save_result = save_custom_fields
+      if save_result.present? && item.respond_to?(:pg_search_document)
+        item.reset_serialized_version if versioned?
+        item.update_pg_search_document
+      end
+
+      save_result
     end
 
     def single_value(value, record, default_value: nil)
@@ -79,6 +87,10 @@ module GobiertoCommon
       end
     end
 
+    def versioned?
+      @versioned ||= item.respond_to?(:paper_trail)
+    end
+
     def instance_type_options
       return [nil] unless instance
 
@@ -96,7 +108,7 @@ module GobiertoCommon
     end
 
     def callback_update
-      item.respond_to?(:paper_trail) && !with_version
+      versioned? && !with_version
     end
 
     def save_custom_fields

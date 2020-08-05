@@ -195,8 +195,12 @@ export default {
 
       if (searchString.startsWith(".")) {
         resu.forEach(s => {
-          if (s.className == "column") s.score += N;
-          else if (s.className == "sql") s.score -= N;
+          if (s.className === "table") {
+            s.score += N;
+            s.text = `.${s.text}`
+          } else if (s.className === "sql") {
+            s.score -= N;
+          }
           return s;
         });
       }

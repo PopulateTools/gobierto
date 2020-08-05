@@ -127,7 +127,7 @@ module GobiertoData
         end
 
         def create
-          @form = DatasetForm.new(dataset_params.merge(site_id: current_site.id))
+          @form = DatasetForm.new(dataset_params.merge(site_id: current_site.id, admin_id: current_admin.id))
 
           if @form.save
             @item = @form.resource
@@ -146,7 +146,7 @@ module GobiertoData
 
         def update
           find_item
-          @form = DatasetForm.new(dataset_params.merge(id: @item.id, site_id: current_site.id))
+          @form = DatasetForm.new(dataset_params.merge(id: @item.id, site_id: current_site.id, admin_id: current_admin.id))
 
           if @form.save
             render(

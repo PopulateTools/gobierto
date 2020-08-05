@@ -9,8 +9,25 @@ module GobiertoPlans
     include GobiertoAdmin::HasPermissionsGroup
     include GobiertoCommon::HasCustomFieldRecords
     include GobiertoCommon::HasExternalId
+    include GobiertoCommon::UrlBuildable
+    include GobiertoCommon::Searchable
+
+    multisearchable(
+      against: [:versioned_searchable_name, :versioned_searchable_custom_fields],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.plan.site_id,
+          title_translations: item.truncated_translations(:versioned_name),
+          resource_path: item.resource_path,
+          searchable_updated_at: item.updated_at
+        }
+      },
+      if: :searchable?
+    )
 
     attr_accessor :minor_change
+
+    attr_writer :plan
 
     belongs_to :author, class_name: "GobiertoAdmin::Admin", foreign_key: :admin_id
     has_and_belongs_to_many :categories, class_name: "GobiertoCommon::Term", association_foreign_key: :category_id, join_table: :gplan_categories_nodes
@@ -105,5 +122,49 @@ module GobiertoPlans
       ::GobiertoCommon::CustomFieldRecord.where(item: self).sorted
     end
 
+    def plan
+      @plan ||= categories_vocabulary && GobiertoPlans::Plan.find_by(categories_vocabulary: categories_vocabulary)
+    end
+
+    def categories_vocabulary
+      @categories_vocabulary ||= categories.take&.vocabulary
+    end
+
+    def searchable?
+      published? && plan.present?
+    end
+
+    def versioned_searchable_name
+      serialized_version.dig(:searchable_name)
+    end
+
+    def versioned_name_translations
+      serialized_version.dig(:name_translations)
+    end
+
+    def versioned_searchable_custom_fields
+      serialized_version.dig(:searchable_custom_fields)
+    end
+
+    def parameterize
+      params = { id: id, year: plan.year, slug: plan.plan_type.slug }
+    end
+
+    def singular_route_key
+      :gobierto_plans_project
+    end
+
+    def reset_serialized_version
+      @serialized_version = nil
+    end
+
+    def serialized_version
+      @serialized_version ||= GobiertoPlans::NodeSerializer.new(
+        self,
+        plan: plan,
+        serialize_for_search_engine: true,
+        custom_fields: plan.front_available_custom_fields.where(field_type: GobiertoCommon::CustomField.searchable_fields)
+      ).to_h.symbolize_keys
+    end
   end
 end

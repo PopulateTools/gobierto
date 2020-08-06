@@ -9,6 +9,8 @@ module GobiertoData
         include ::PreviewTokenHelper
 
         before_action { module_enabled!(current_site, "GobiertoData", false) }
+        skip_before_action :authenticate_user_in_site
+        before_action :authenticate_in_site
 
         private
 

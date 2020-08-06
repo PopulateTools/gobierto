@@ -6,7 +6,6 @@ module GobiertoData
       class VisualizationsController < BaseController
         include ::GobiertoCommon::SortableApi
 
-        skip_before_action :authenticate_user_in_site, except: [:index, :show, :new]
         before_action :authenticate_user!, except: [:index, :show, :new]
         before_action :allow_author!, only: [:update, :destroy]
 

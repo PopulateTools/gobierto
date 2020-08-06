@@ -17,6 +17,12 @@ module User::ApiAuthenticationHelper
     raise_unauthorized unless user_authenticated?
   end
 
+  def authenticate_in_site
+    return if user_authenticated?
+
+    authenticate_user_in_site
+  end
+
   def find_current_user
     return unless token.present?
 

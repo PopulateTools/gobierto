@@ -5,6 +5,7 @@ module GobiertoData
     module V1
       class QueriesController < BaseController
 
+        skip_before_action :authenticate_user_in_site, except: [:index, :show, :meta, :new, :download]
         before_action :authenticate_user!, except: [:index, :show, :meta, :new, :download]
         before_action :allow_author!, only: [:update, :destroy]
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApiBaseController < ActionController::API
+  include ActionController::HttpAuthentication::Basic::ControllerMethods
   include SubmodulesHelper
   include ::GobiertoCommon::ModuleHelper
   include ApplicationConcern

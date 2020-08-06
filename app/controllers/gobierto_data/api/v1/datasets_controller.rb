@@ -8,6 +8,7 @@ module GobiertoData
         include ::GobiertoCommon::CustomFieldsApi
         include ::GobiertoCommon::SecuredWithAdminToken
 
+        skip_before_action :authenticate_user_in_site, only: [:new, :create, :update, :destroy]
         skip_before_action :set_admin_with_token, except: [:new, :create, :update, :destroy]
 
         # GET /api/v1/data/datasets

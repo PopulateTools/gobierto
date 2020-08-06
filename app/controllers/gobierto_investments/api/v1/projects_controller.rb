@@ -8,6 +8,7 @@ module GobiertoInvestments
         include ::GobiertoCommon::CustomFieldsApi
         include ::GobiertoCommon::SecuredWithAdminToken
 
+        skip_before_action :authenticate_user_in_site, except: [:index, :show, :new, :meta]
         skip_before_action :set_admin_with_token, only: [:index, :show, :new, :meta]
         before_action :module_allowed, except: [:index, :show, :new, :meta]
 

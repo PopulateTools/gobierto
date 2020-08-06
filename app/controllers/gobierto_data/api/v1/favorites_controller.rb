@@ -5,6 +5,7 @@ module GobiertoData
     module V1
       class FavoritesController < BaseController
 
+        skip_before_action :authenticate_user_in_site, except: [:index]
         before_action :authenticate_user!, except: [:index]
         before_action :allow_author!, only: [:destroy]
 

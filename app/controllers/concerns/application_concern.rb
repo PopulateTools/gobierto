@@ -4,7 +4,7 @@ module ApplicationConcern
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_current_site, :set_locale
+    before_action :set_current_site, :set_locale, :authenticate_user_in_site
     around_action :set_locale_from_url
   end
 
@@ -50,6 +50,14 @@ module ApplicationConcern
 
   def cache_key_preffix
     "site-#{current_site.id}-#{params.to_unsafe_h.sort.flatten.join("-")}"
+  end
+
+  def authenticate_user_in_site
+    if (Rails.env.production? || Rails.env.staging?) && @site && @site.password_protected?
+      authenticate_or_request_with_http_basic("Gobierto") do |username, password|
+        username == @site.configuration.password_protection_username && password == @site.configuration.password_protection_password
+      end
+    end
   end
 
   protected

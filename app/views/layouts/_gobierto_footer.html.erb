@@ -32,7 +32,10 @@
   };
   window.gobiertoAPI = {
     current_user_id: "<%= current_user&.id %>",
-    token: "Bearer <%= current_user&.primary_api_token&.token %>"
+    <% if site_password_protected? %>
+    basic_auth_token: "Basic <%= current_site.basic_auth_token %>",
+    <% end %>
+    token: "<%= user_signed_in? ? "Bearer #{current_user.primary_api_token&.token}" : "" %>"
   };
 </script>
 

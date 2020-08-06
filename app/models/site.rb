@@ -186,6 +186,10 @@ class Site < ApplicationRecord
     @configuration ||= SiteConfiguration.new(site_configuration_attributes)
   end
 
+  def basic_auth_token
+    Base64.encode64("#{configuration.password_protection_username}:#{configuration.password_protection_password}").strip
+  end
+
   def password_protected?
     draft?
   end

@@ -374,9 +374,8 @@ export default {
         // Get the items based on these new active filters
         const __items__ = this.applyFiltersCallbacks(__activeFilters__);
 
-        return __items__.filter(({ attributes }) =>(
+        return __items__.filter(({ attributes }) =>
           this.convertToArrayOfIds(attributes[key]).includes(id)
-          )
         ).length;
       };
       const { key, options = [] } = filter;

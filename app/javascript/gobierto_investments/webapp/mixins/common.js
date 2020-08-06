@@ -89,7 +89,10 @@ export const CommonsMixin = {
         availableProjectFields
       } = CONFIGURATION;
       const { id: locationId, ...restLocationOptions } = location;
-      const phase_terms = this.convertToArrayOfIds(attributes[phases.id]).map(phase_id => this.middleware.getAttributesByKey(phases.id).vocabulary_terms.find(({ id }) => id === phase_id));
+      const phase_terms = this.convertToArrayOfIds(attributes[phases.id]).map(phase_id => {
+        const { vocabulary_terms= [] } = this.middleware.getAttributesByKey(phases.id) || {}
+        return vocabulary_terms.find(({ id }) => id === phase_id) || attributes[phases.id]
+      }) || [];
 
       return {
         ...element,

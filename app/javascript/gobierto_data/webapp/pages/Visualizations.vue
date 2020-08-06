@@ -64,7 +64,9 @@ export default {
   },
   methods: {
     async getDataVizs() {
-      const { data: response } = await this.getVisualizations();
+      const { data: response } = await this.getVisualizations({
+        "order[updated_at]": "desc"
+      });
       const { data } = response
       let listVisualizations = data.slice(0, 4)
       let datasets = listVisualizations.map(dataset => dataset.attributes.dataset_id);
@@ -77,6 +79,7 @@ export default {
       const datasetsWithVizs = []
       for (let index = 0; index < datasetsID.length; index++) {
         const { data: response } = await this.getVisualizations({
+          "order[updated_at]": "desc",
           "filter[dataset_id]": datasetsID[index]
         });
         const { data } = response;
@@ -93,6 +96,7 @@ export default {
       let allVizs = []
       for (let index = 0; index < this.datasetsArray.length; index++) {
         const { data: response } = await this.getVisualizations({
+          "order[updated_at]": "desc",
           "filter[dataset_id]": this.datasetsArray[index]
         });
         const { data } = response;

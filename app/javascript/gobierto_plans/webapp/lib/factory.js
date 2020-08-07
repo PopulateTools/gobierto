@@ -2,9 +2,11 @@ import axios from "axios";
 
 const baseUrl = location.origin;
 const endPoint = `${baseUrl}/api/v1/plans`;
+const token = window.gobiertoAPI.token.length == 0 && window.gobiertoAPI.basic_auth_token ? window.gobiertoAPI.basic_auth_token : window.gobiertoAPI.token
+
 const headers = {
   "Content-type": "application/json",
-  Authorization: window.gobiertoAPI.token
+  Authorization: token
 };
 
 // Plans-endpoint factory to get/post/put/delete API data

@@ -131,7 +131,7 @@ GEM
     cloudinary (1.16.1)
       aws_cf_signer
       rest-client
-    codecov (0.2.3)
+    codecov (0.2.5)
       colorize
       json
       simplecov

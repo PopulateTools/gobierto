@@ -109,6 +109,7 @@ module GobiertoAdmin
           next unless (node = row_decorator.node).present?
 
           raise ExternalIdTaken, row_decorator.to_csv if row_decorator.external_id_taken?
+          node.moderation.site = @plan.site
           raise CSVRowInvalid, row_decorator.to_csv unless REQUIRED_COLUMNS.all? { |column| row_decorator[column].present? } && node.save
           raise StatusMissing, row_decorator.to_csv if row_decorator.status_missing
 

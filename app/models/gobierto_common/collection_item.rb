@@ -3,8 +3,8 @@
 module GobiertoCommon
   class CollectionItem < ApplicationRecord
     belongs_to :collection
-    belongs_to :item, polymorphic: true
-    belongs_to :container, polymorphic: true
+    belongs_to :item, polymorphic: true, optional: true
+    belongs_to :container, polymorphic: true, optional: true
 
     after_commit :reindex_page, on: [:create, :update]
 

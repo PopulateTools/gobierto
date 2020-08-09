@@ -9,11 +9,11 @@ module GobiertoCommon
     end
 
     class_methods do
-      def has_vocabulary(name, opts = {})
+      def has_vocabulary(name, **opts)
         vocabularies = class_variable_get :@@vocabularies
 
         singularized_name = name.to_s.singularize.to_sym
-        extra_opts = { foreign_key: opts[:column_name] }.compact
+        extra_opts = opts.slice(:optional).merge({ foreign_key: opts[:column_name] }).compact
         vocabulary_module_setting = opts[:vocabulary_module_setting] || :"#{ name }_vocabulary_id"
         module_name = self.name.deconstantize
         vocabularies[singularized_name] = vocabulary_module_setting
@@ -21,7 +21,7 @@ module GobiertoCommon
         belongs_to(
           singularized_name,
           ->(item) { where(vocabulary_id: item.class.send("#{ name }_vocabulary_id", item&.site)) },
-          extra_opts.merge(class_name: "GobiertoCommon::Term")
+          **extra_opts.merge(class_name: "GobiertoCommon::Term")
         )
 
         define_singleton_method :vocabularies do

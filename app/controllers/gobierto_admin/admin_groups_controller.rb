@@ -99,8 +99,8 @@ module GobiertoAdmin
     end
 
     def set_site_modules
-      @site_modules = APP_CONFIG["site_modules"].map do |site_module|
-        next unless current_site.configuration.modules.include? site_module["namespace"]
+      @site_modules = APP_CONFIG[:site_modules].map do |site_module|
+        next unless current_site.configuration.modules.include? site_module[:namespace]
 
         OpenStruct.new(site_module)
       end.compact

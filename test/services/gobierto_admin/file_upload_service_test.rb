@@ -30,7 +30,7 @@ module GobiertoAdmin
     end
 
     def test_adapter
-      Object.stub_const(:APP_CONFIG, APP_CONFIG.dup.tap { |config| config["file_uploads_adapter"] = "s3" }) do
+      Object.stub_const(:APP_CONFIG, APP_CONFIG.dup.tap { |config| config[:file_uploads_adapter] = "s3" }) do
         assert_kind_of FileUploader::S3, file_upload_service.adapter
         assert_equal file, file_upload_service.adapter.file
         assert_includes file_upload_service.adapter.file_name, "site-#{site.id}/test_collection/test_attribute"

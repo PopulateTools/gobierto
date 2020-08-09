@@ -15,7 +15,7 @@
 
     <%= content_tag :div, nil, id: tooltip_id %>
     <div class="help">
-      <%= link_to t(:note_about_the_data, scope: i18n_scope), APP_CONFIG["gobierto_budgets"]["data_note_url"], target: "_blank", title: t(:note_about_the_data_title, scope: i18n_scope), class: "tipsit-n" %>
+      <%= link_to t(:note_about_the_data, scope: i18n_scope), APP_CONFIG[:gobierto_budgets][:data_note_url], target: "_blank", title: t(:note_about_the_data_title, scope: i18n_scope), class: "tipsit-n" %>
     </div>
 
     <% if show_widget %>

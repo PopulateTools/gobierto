@@ -59,7 +59,7 @@ module GobiertoParticipation
     end
 
     def test_scope_events_index
-      scope_events.first.update_attributes!(starts_at: Time.zone.now + 1.hour, ends_at: Time.zone.now)
+      scope_events.first.update!(starts_at: Time.zone.now + 1.hour, ends_at: Time.zone.now)
 
       with_current_site(site) do
         visit scope_events_path

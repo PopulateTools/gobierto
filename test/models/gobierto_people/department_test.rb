@@ -33,7 +33,7 @@ module GobiertoPeople
       }
 
       expected_result.keys.each.each do |full_name|
-        department.update_attributes!(name: full_name)
+        department.update!(name: full_name)
         assert_equal expected_result[full_name], department.short_name
       end
     end

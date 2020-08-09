@@ -29,11 +29,11 @@ class TablePluginTest < ActionDispatch::IntegrationTest
   end
 
   def clear_payload
-    custom_field_record.update_attributes!(payload: { human_resources: [] })
+    custom_field_record.update!(payload: { human_resources: [] })
   end
 
   def set_payload
-    custom_field_record.update_attributes!(
+    custom_field_record.update!(
       payload: {
         directory: [
           {
@@ -50,7 +50,7 @@ class TablePluginTest < ActionDispatch::IntegrationTest
   end
 
   def set_table_with_one_vocabulary
-    custom_field.update_attributes!(
+    custom_field.update!(
       options: {
         configuration: {
           plugin_type: "table",

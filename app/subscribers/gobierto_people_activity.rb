@@ -18,7 +18,7 @@ module Subscribers
 
     def create_activity_from_event(event, action)
       subject = GlobalID::Locator.locate event.payload[:gid]
-      return unless subject.class.parent == GobiertoPeople
+      return unless subject.class.module_parent == GobiertoPeople
       author = GobiertoAdmin::Admin.find event.payload[:admin_id]
       action = subject.class.name.underscore.tr('/', '.') + '.' + action
 

@@ -40,7 +40,7 @@ module Subscribers
     def create_activity_from_event(event, action)
       subject = GlobalID::Locator.locate event.payload[:gid]
 
-      return unless subject.class.parent == GobiertoData
+      return unless subject.class.module_parent == GobiertoData
 
       author = GobiertoAdmin::Admin.find_by id: event.payload[:admin_id]
 

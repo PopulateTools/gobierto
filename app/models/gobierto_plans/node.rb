@@ -35,7 +35,7 @@ module GobiertoPlans
     VERSIONED_ATTRIBUTES = %w(name_translations status_id progress starts_at ends_at options).freeze
 
     has_paper_trail skip: [:visibility_level, :published_version, :external_id], unless: ->(this) { this.minor_change }
-    has_vocabulary :statuses
+    has_vocabulary :statuses, optional: true
     belongs_to :status, class_name: "GobiertoCommon::Term", optional: true
 
     delegate :name, to: :status, prefix: true, allow_nil: true

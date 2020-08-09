@@ -30,7 +30,7 @@ module GobiertoPeople
 
     belongs_to :admin, class_name: "GobiertoAdmin::Admin", optional: true
     belongs_to :site
-    has_vocabulary :political_groups
+    has_vocabulary :political_groups, optional: true
 
     has_many :attending_person_events, class_name: "GobiertoCalendars::EventAttendee", dependent: :destroy
     has_many :attending_events, class_name: "GobiertoCalendars::Event", through: :attending_person_events, source: :event

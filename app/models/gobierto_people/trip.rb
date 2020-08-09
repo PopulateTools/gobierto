@@ -9,7 +9,7 @@ module GobiertoPeople
     include GobiertoCommon::UrlBuildable
 
     belongs_to :person
-    belongs_to :department
+    belongs_to :department, optional: true
 
     scope :sorted, -> { order(start_date: :desc) }
     scope :between_dates, lambda { |start_date, end_date|

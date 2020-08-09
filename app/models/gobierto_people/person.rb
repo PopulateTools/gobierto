@@ -28,7 +28,7 @@ module GobiertoPeople
       if: :searchable?
     )
 
-    belongs_to :admin, class_name: "GobiertoAdmin::Admin"
+    belongs_to :admin, class_name: "GobiertoAdmin::Admin", optional: true
     belongs_to :site
     has_vocabulary :political_groups
 

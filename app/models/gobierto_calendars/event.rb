@@ -41,8 +41,8 @@ module GobiertoCalendars
     )
 
     belongs_to :site
-    belongs_to :department, class_name: "GobiertoPeople::Department"
-    belongs_to :interest_group, class_name: "GobiertoPeople::InterestGroup"
+    belongs_to :department, class_name: "GobiertoPeople::Department", optional: true
+    belongs_to :interest_group, class_name: "GobiertoPeople::InterestGroup", optional: true
     has_many :locations, class_name: "EventLocation", dependent: :destroy
     has_many :attendees, class_name: "EventAttendee", dependent: :destroy
 

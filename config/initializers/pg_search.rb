@@ -4,6 +4,8 @@ module PgSearch
   class Document
     belongs_to :site
     translates :title, :description
+
+    belongs_to :searchable, polymorphic: true, optional: true
   end
 end
 

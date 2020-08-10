@@ -4,7 +4,7 @@
     <h3><%= t(".add_title") %></h3>
     <%= form_tag admin_admin_group_admins_path(@admin_group), remote: true do %>
       <div class="pure-g">
-        <div class="pure-u-1-2">
+        <div class="pure-u-1-2" style="margin-top: -22px">
           <%= select_tag(
                 "admin_group[admin_ids]",
                 options_for_select(
@@ -16,7 +16,7 @@
           %>
         </div>
         <div class="pure-u-1-2">
-          <div class="form_item input_text ">
+          <div class="form_item input_text p_h_1">
             <button class="button medium"><%= t(".add") %></button>
           </div>
         </div>

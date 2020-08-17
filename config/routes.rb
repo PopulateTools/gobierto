@@ -598,6 +598,7 @@ Rails.application.routes.draw do
     namespace :gobierto_data, path: "/" do
       constraints GobiertoSiteConstraint.new do
         get "/datos" => "welcome#index", as: :root
+        get "/datos/v/visualizaciones" => "welcome#index"
         get "/datos/:id" => "welcome#index", as: :datasets
         get "/datos/:id/resumen" => "welcome#index"
         get "/datos/:id/editor" => "welcome#index"

@@ -33,7 +33,7 @@ es:
       createCopy: Crear una copia
       dashboards: Dashboards
       data: Datos
-      dataset: Conjunto de datos
+      dataset: Conjuntos de datos
       datasetUpdated: Últimos datasets actualizados
       deleteQuery: "¿Estás seguro de que deseas eliminar esta consulta?"
       deleteViz: "¿Estás seguro de que deseas eliminar esta visualización?"

@@ -33,7 +33,7 @@ ca:
       createCopy: Crear una còpia
       dashboards: Dashboards
       data: Dades
-      dataset: Conjunt de dades
+      dataset: Conjunts de dades
       datasetUpdated: Darrers datasets actualitzats
       deleteQuery: Esteu segur que voleu suprimir aquesta consulta?
       deleteViz: Esteu segur que voleu suprimir aquesta visualització?

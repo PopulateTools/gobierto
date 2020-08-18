@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div id="subsidiesSummary" class="metric_boxes">
+    <div
+      id="subsidiesSummary"
+      class="metric_boxes"
+    >
       <div class="metric_box">
         <div class="inner nomargin">
           <div class="p_1">
@@ -8,68 +11,83 @@
             <div class="pure-g">
               <div class="pure-u-1 pure-u-lg-1-3">
                 <div class="metric m_b_1">
-                  <span id="number-subsidies"></span>
+                  <span id="number-subsidies" />
                 </div>
-                <p class="m_t_0">{{ labelSubsidiesFor }}</p>
+                <p class="m_t_0">
+                  {{ labelSubsidiesFor }}
+                </p>
                 <div class="metric m_b_1">
-                  <small><span id="sum-subsidies"></span></small>
+                  <small>
+                    <span id="sum-subsidies" />
+                  </small>
                 </div>
-
                 <div class="pure-g">
                   <div class="pure-u-1-2 explanation explanation--relative">
                     {{ labelMeanAmount }}
-                    <strong class="d_block"><span id="mean-subsidies"></span></strong>
+                    <strong class="d_block">
+                      <span id="mean-subsidies" />
+                    </strong>
                   </div>
-
                   <div class="pure-u-1-2 explanation explanation--relative">
                     {{ labelMedianAmount }}
-                    <strong class="d_block"> <span id="median-subsidies"></span></strong>
+                    <strong class="d_block">
+                      <span id="median-subsidies" />
+                    </strong>
                   </div>
                 </div>
-              </div> <!-- subsidies block -->
-
+              </div>
+              <!-- subsidies block -->
               <div class="pure-u-1 pure-u-lg-1-3">
                 <div class="metric m_b_1">
-                  <span id="pct-collectives-subsidies"></span>
+                  <span id="pct-collectives-subsidies" />
                 </div>
-                <p class="m_t_0">{{ labelCollectiveSubsidiesFor }}</p>
+                <p class="m_t_0">
+                  {{ labelCollectiveSubsidiesFor }}
+                </p>
                 <div class="metric m_b_1">
-                  <small><span id="sum-collectives-subsidies"></span></small>
+                  <small>
+                    <span id="sum-collectives-subsidies" />
+                  </small>
                 </div>
-
                 <div class="pure-g">
                   <div class="pure-u-1-2 explanation explanation--relative">
                     {{ labelMeanAmount }}
-                    <strong class="d_block"><span id="mean-collectives-subsidies"></span></strong>
+                    <strong class="d_block">
+                      <span id="mean-collectives-subsidies" />
+                    </strong>
                   </div>
-
                   <div class="pure-u-1-2 explanation explanation--relative">
                     {{ labelMedianAmount }}
-                    <strong class="d_block"> <span id="median-collectives-subsidies"></span></strong>
+                    <strong class="d_block">
+                      <span id="median-collectives-subsidies" />
+                    </strong>
                   </div>
                 </div>
-              </div> <!-- collective subsidies block -->
-
+              </div>
+              <!-- collective subsidies block -->
               <div class="pure-u-1 pure-u-lg-1-3">
                 <div class="metric m_b_1">
-                  <span id="pct-individuals-subsidies"></span>
+                  <span id="pct-individuals-subsidies" />
                 </div>
-                <p class="m_t_0">{{ labelIndividualSubsidiesFor }}</p>
+                <p class="m_t_0">
+                  {{ labelIndividualSubsidiesFor }}
+                </p>
                 <div class="metric m_b_1">
-                  <small><span id="sum-individuals-subsidies"></span></small>
+                  <small><span id="sum-individuals-subsidies" /></small>
                 </div>
-
                 <div class="pure-g">
                   <div class="pure-u-1-2 explanation explanation--relative">
                     {{ labelMeanAmount }}
-                    <strong class="d_block"><span id="mean-individuals-subsidies"></span></strong>
+                    <strong class="d_block"><span id="mean-individuals-subsidies" /></strong>
                   </div>
-
                   <div class="pure-u-1-2 explanation explanation--relative">
                     {{ labelMedianAmount }}
-                    <strong class="d_block"> <span id="median-individuals-subsidies"></span></strong>
+                    <strong class="d_block">
+                      <span id="median-individuals-subsidies" />
+                    </strong>
                   </div>
-                </div> <!-- collective subsidies block -->
+                </div>
+                <!-- collective subsidies block -->
               </div>
             </div>
           </div>
@@ -77,22 +95,25 @@
       </div> <!-- metric_box -->
     </div> <!-- metrix_boxes -->
 
-    <div id="dccharts" class="pure-g block m_b_3">
+    <div
+      id="dccharts"
+      class="pure-g block m_b_3"
+    >
       <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
         <p class="decorator">
-          {{ labelLessThan1000_1 }}<strong><span id="less-than-1000-pct"></span></strong>{{ labelLessThan1000_2 }}<strong>1.000 €</strong>
+          {{ labelLessThan1000_1 }}<strong><span id="less-than-1000-pct" /></strong>{{ labelLessThan1000_2 }}<strong>1.000 €</strong>
         </p>
       </div>
 
       <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
         <p class="decorator">
-          {{ labelLargerSubsidyAmount_1 }}<strong><span id="larger-subsidy-amount-pct"></span></strong>{{ labelLargerSubsidyAmount_2 }}
+          {{ labelLargerSubsidyAmount_1 }}<strong><span id="larger-subsidy-amount-pct" /></strong>{{ labelLargerSubsidyAmount_2 }}
         </p>
       </div>
 
       <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
         <p class="decorator">
-          {{ labelHalfSpendingsSubsidies_1 }}<strong><span id="half-spendings-subsidies-pct"></span></strong>{{ labelHalfSpendingsSubsidies_2 }}
+          {{ labelHalfSpendingsSubsidies_1 }}<strong><span id="half-spendings-subsidies-pct" /></strong>{{ labelHalfSpendingsSubsidies_2 }}
         </p>
       </div>
     </div>
@@ -100,36 +121,44 @@
     <div class="pure-g block">
       <div class="pure-u-1 pure-u-lg-1-2 p_h_r_3">
         <div class="m_b_3">
-          <h3 class="mt1 graph-title">{{ labelCategory }}</h3>
-          <div id="category-bars"></div>
+          <h3 class="mt1 graph-title">
+            {{ labelCategory }}
+          </h3>
+          <div id="category-bars" />
         </div>
       </div>
 
       <div class="pure-u-1 pure-u-lg-1-2 header_block_inline">
         <div>
-          <h3 class="mt1 graph-title">{{ labelAmountDistribution }}</h3>
-          <div id="amount-distribution-bars"></div>
+          <h3 class="mt1 graph-title">
+            {{ labelAmountDistribution }}
+          </h3>
+          <div id="amount-distribution-bars" />
         </div>
         <div>
-          <div id="date-bars" class="hidden"></div>
+          <div
+            id="date-bars"
+            class="hidden"
+          />
         </div>
       </div>
     </div>
 
     <div class="m_t_4">
-      <h3 class="mt1 graph-title">{{ labelMainBeneficiaries }}</h3>
+      <h3 class="mt1 graph-title">
+        {{ labelMainBeneficiaries }}
+      </h3>
       <Table
         :items="items"
         :columns="columns"
       />
     </div>
-
   </div>
 </template>
 
 <script>
 import Table from "../../components/Table.vue";
-import { EventBus } from "../../mixins/event_bus";
+import { dashboardsMixins } from "../../mixins/dashboards_mixins";
 import { grantedColumns } from "../../lib/config/subsidies.js";
 
 export default {
@@ -137,10 +166,12 @@ export default {
   components: {
     Table
   },
+  mixins: [dashboardsMixins],
   data(){
     return {
-      subsidiesData: this.$root.$data.subsidiesData,
+      dashboardsData: this.$root.$data.subsidiesData,
       items: [],
+      value: '',
       labelSubsidies: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.subsidies'),
       labelSubsidiesFor: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.subsidies_for'),
       labelIndividualSubsidiesFor: I18n.t('gobierto_dashboards.dashboards.subsidies.summary.individual_subsidies_for'),
@@ -158,30 +189,22 @@ export default {
       labelMainBeneficiaries: I18n.t('gobierto_dashboards.dashboards.subsidies.main_beneficiaries')
     }
   },
-
-  mounted() {
-    EventBus.$on('refresh-summary-data', () => {
-      this.refreshSummaryData();
-    });
-
-    EventBus.$emit("summary-ready");
-  },
   created() {
-    this.items = this.buildItems();
     this.columns = grantedColumns;
-  },
-  beforeDestroy(){
-    EventBus.$off('refresh-summary-data');
   },
   methods: {
     refreshSummaryData(){
-      this.subsidiesData = this.$root.$data.subsidiesData;
+      if (!this.value) {
+        this.dashboardsData = this.$root.$data.subsidiesData;
+      } else {
+        this.subsidashboardsDatadiesData = this.$root.$data.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase()))
+      }
       this.items = this.buildItems();
     },
     buildItems() {
       const groupedByBeneficiary = {}
       // Group subsidies by beneficiary
-      this.subsidiesData.forEach(({ beneficiary_name, amount }) => {
+      this.dashboardsData.forEach(({ beneficiary_name, amount }) => {
         if (beneficiary_name === '' || beneficiary_name === undefined) {
           return;
         }

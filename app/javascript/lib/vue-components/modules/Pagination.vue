@@ -99,8 +99,9 @@ export default {
     },
     data(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.setPages();
         this.page = 1;
+        this.setPages();
+        this.paginateData(newValue);
       }
     }
   },

@@ -1,5 +1,9 @@
 <template>
   <div class="pure-u-1 pure-u-lg-1-4">
+    <SearchFilter
+      :data="subsidiesData"
+      :search-type="type"
+    />
     <aside class="dashboards-home-aside--gap">
       <div
         v-for="filter in filters"
@@ -41,6 +45,7 @@
 <script>
 import { BlockHeader, Checkbox, Dropdown } from "lib/vue-components";
 import DownloadButton from "../../components/DownloadButton.vue";
+import SearchFilter from "../../components/SearchFilter.vue";
 import { EventBus } from "../../mixins/event_bus";
 import { subsidiesFiltersConfig } from "../../lib/config/subsidies.js";
 
@@ -50,7 +55,8 @@ export default {
     Dropdown,
     BlockHeader,
     Checkbox,
-    DownloadButton
+    DownloadButton,
+    SearchFilter
   },
   props: {
     subsidiesData: {
@@ -64,11 +70,12 @@ export default {
   },
   data() {
     return {
-      filters: subsidiesFiltersConfig
+      filters: subsidiesFiltersConfig,
+      type: 'Subsidies'
     }
   },
   watch: {
-    subsidiesData: function (newContractsData, oldContractsData) {
+    subsidiesData() {
       this.updateCounters();
     }
   },
@@ -154,10 +161,12 @@ export default {
       filter.options.forEach(option => option.isOptionChecked = true)
 
       EventBus.$emit('filter-changed', { all: true, titles: titles, id: filter.id });
+      EventBus.$emit("update-filters");
     },
-    handleCheckboxStatus({ id, value, filter }) {
+    handleCheckboxStatus({ id, filter }) {
       const option = filter.options.find(option => option.id === id)
       EventBus.$emit('filter-changed', { all: false, title: option.title, id: filter.id });
+      EventBus.$emit("update-filters");
     },
     toggle(filter){
       this.filters.forEach(_filter => {

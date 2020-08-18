@@ -78,7 +78,7 @@ module GobiertoCms
 
     def reindex_item
       if item.is_a?(GobiertoCms::Page)
-        ::GobiertoCms::Page.trigger_reindex_job(item, false)
+        item.update_pg_search_document
       end
     end
   end

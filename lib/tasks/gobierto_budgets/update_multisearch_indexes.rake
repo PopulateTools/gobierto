@@ -1,17 +1,27 @@
 # frozen_string_literal: true
 
 namespace :gobierto_budgets do
-  namespace :algolia do
-    desc "Reindex records"
+  namespace :pg_search do
+    desc "Rebuild multisearch indexes of Budget lines by domain and year"
     task :reindex, [:site_domain, :year] => [:environment] do |_t, args|
       site = Site.find_by!(domain: args[:site_domain])
+      autodetect_year = args[:year].blank?
       year = args[:year].to_i
       organization_id = site.organization_id
 
       puts "== Reindexing records for site #{site.domain}=="
 
-      # Delete all Algolia Budget Line records within this site
-      GobiertoBudgets::BudgetLine.algolia_destroy_records(site)
+      # Delete all Budget Line PgSearch documents within this site
+
+      if autodetect_year
+        site.pg_search_documents.where(searchable_type: "GobiertoBudgets::BudgetLine").destroy_all
+      else
+        site.pg_search_documents.where(searchable_type: "GobiertoBudgets::BudgetLine").where("meta @> ?", { year: year }.to_json).destroy_all
+      end
+
+      GobiertoCore::CurrentScope.current_site = site
+
+      year = autodetect_year ? GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data : args[:year].to_i
 
       GobiertoBudgets::BudgetArea.all_areas.each do |area|
         area.available_kinds.each do |kind|
@@ -31,7 +41,7 @@ namespace :gobierto_budgets do
             create_budget_line(site, "index_forecast", h)
           end
 
-          GobiertoBudgets::BudgetLine.algolia_reindex_collection(forecast_budget_lines)
+          GobiertoBudgets::BudgetLine.pg_search_reindex_collection(forecast_budget_lines)
         end
       end
     end

@@ -598,6 +598,7 @@ Rails.application.routes.draw do
     namespace :gobierto_data, path: "/" do
       constraints GobiertoSiteConstraint.new do
         get "/datos" => "welcome#index", as: :root
+        get "/datos/v/visualizaciones" => "welcome#index"
         get "/datos/:id" => "welcome#index", as: :datasets
         get "/datos/:id/resumen" => "welcome#index"
         get "/datos/:id/editor" => "welcome#index"
@@ -665,6 +666,7 @@ Rails.application.routes.draw do
         namespace :api, path: "/" do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1" do
             get ":module_name/configuration" => "configuration#show", as: :configuration
+            get "search" => "search#query", as: :search
           end
         end
       end

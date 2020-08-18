@@ -4,9 +4,12 @@ module GobiertoData
   module Api
     module V1
       class VisualizationsController < BaseController
+        include ::GobiertoCommon::SortableApi
 
         before_action :authenticate_user!, except: [:index, :show, :new]
         before_action :allow_author!, only: [:update, :destroy]
+
+        sortable_attributes :created_at, :updated_at
 
         # GET /api/v1/data/visualizations
         # GET /api/v1/data/visualizations.json
@@ -141,9 +144,9 @@ module GobiertoData
 
         def filtered_relation
           if user_authenticated? && filter_params[:user_id].present? && current_user.id == filter_params[:user_id].to_i
-            base_relation.unscope(where: :privacy_status).where(filter_params)
+            base_relation.unscope(where: :privacy_status).where(filter_params).order(order_params)
           else
-            base_relation.where(filter_params)
+            base_relation.where(filter_params).order(order_params)
           end
         end
 

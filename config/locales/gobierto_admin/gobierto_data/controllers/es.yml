@@ -5,7 +5,6 @@ es:
       configuration:
         settings:
           update:
-            error: 'Se ha producido un error al actualizar la configuración: %{validation_errors}'
             success: Configuración guardada correctamente
       datasets:
         create:

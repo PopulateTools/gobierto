@@ -51,6 +51,17 @@ module GobiertoAdmin
           end
         end
 
+        def fill_in_md_editor_field(text, delete_chars_count: 0)
+          within "div.CodeMirror" do
+            current_scope.click
+            field = current_scope.find("textarea", visible: false)
+            delete_chars_count.times do
+              field.send_keys :backspace
+            end
+            field.send_keys text
+          end
+        end
+
         def all_versions_are_equal(project, versions_number)
           return false unless versions_number == project.versions.count
 
@@ -336,6 +347,82 @@ module GobiertoAdmin
             updated_project = ::GobiertoPlans::Node.with_name_translation(new_name).last
             assert all_versions_are_equal(updated_project, 1)
             assert has_content? "Editing version\n1"
+          end
+        end
+
+        def test_searchable_version
+          with default_test_context do
+            create_project
+
+            project = plan.nodes.last
+
+            # A draft project has no indexed search document
+            assert_nil project.pg_search_document
+
+            select "Not started", from: "project_custom_records_status_value"
+            choose_moderation_status "Approved"
+            click_publish_button_and_accept_alert
+
+            assert has_link? "Unpublish"
+            project.reload
+            # A published project has a indexed search document
+            refute_nil project.pg_search_document
+
+            # A published project can be found by title once published
+            assert_includes site.multisearch("Project with versions").map(&:searchable), project
+
+            new_name = "Future Teenage Cave Artists"
+            new_description = "Farewell Symphony"
+
+            assert has_content? "Editing version\n2"
+            within "form" do
+              fill_in "project_name_translations_en", with: new_name
+              fill_in_md_editor_field(new_description)
+              find("label", text: "Minor change (does not save version)").click
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+            assert has_content? "Editing version\n2"
+
+            project.reload
+            # The search document of a published project is updated after minor changes
+            refute_includes site.multisearch("Project with versions").map(&:searchable), project
+            assert_includes site.multisearch(new_name).map(&:searchable), project
+            assert_includes site.multisearch(new_description).map(&:searchable), project
+
+            last_version_name = "La Isla Bonita es la caña"
+            last_version_description = "Big House Waltz"
+            within "form" do
+              fill_in "project_name_translations_en", with: last_version_name
+              fill_in_md_editor_field(last_version_description, delete_chars_count: new_description.length)
+              find("label", text: "Minor change (does not save version)").click
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+            assert has_content? "Not published"
+            assert has_content? "Editing version\n3"
+
+            # The search document of a published project remains the same
+            # after the creation of a new version without changes in
+            # published version
+            refute_includes site.multisearch("Project with versions").map(&:searchable), project
+            assert_includes site.multisearch(new_name).map(&:searchable), project
+            assert_includes site.multisearch(new_description).map(&:searchable), project
+            refute_includes site.multisearch(last_version_name).map(&:searchable), project
+            refute_includes site.multisearch(last_version_description).map(&:searchable), project
+
+            click_publish_button_and_accept_alert
+
+            # The search document of a published project changes if the
+            # published version is updated
+            assert has_link? "Unpublish"
+            refute_includes site.multisearch("Project with versions").map(&:searchable), project
+            refute_includes site.multisearch(new_name).map(&:searchable), project
+            refute_includes site.multisearch(new_description).map(&:searchable), project
+            assert_includes site.multisearch("la cana").map(&:searchable), project
+            assert_includes site.multisearch("waltz").map(&:searchable), project
           end
         end
       end

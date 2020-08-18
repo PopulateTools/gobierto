@@ -27,11 +27,23 @@ module GobiertoAttachments
       ignore: [:name, :file_size, :file_name, :description, :current_version]
     )
 
-    algoliasearch_gobierto do
-      attribute :site_id, :name, :description, :file_name, :url, :file_size
-      searchableAttributes %w(name description file_name)
-      attributesForFaceting [:site_id]
-    end
+    multisearchable(
+      against: [:name, :description, :file_name],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:name),
+          description_translations: item.truncated_translations(:description),
+          resource_path: item.human_readable_url,
+          searchable_updated_at: item.updated_at,
+          meta: {
+            url: item.url,
+            file_size: item.file_size
+          }
+        }
+      },
+      if: :searchable?
+    )
 
     attr_accessor :file
 
@@ -78,7 +90,7 @@ module GobiertoAttachments
     end
 
     def active?
-      true
+      !archived?
     end
 
     def created_at

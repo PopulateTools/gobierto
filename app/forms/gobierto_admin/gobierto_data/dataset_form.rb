@@ -42,6 +42,10 @@ module GobiertoAdmin
         @site ||= Site.find_by(id: site_id)
       end
 
+      def destroy
+        destroy_dataset
+      end
+
       def dataset
         @dataset ||= dataset_class.find_by(id: id).presence || build_dataset
       end
@@ -87,6 +91,12 @@ module GobiertoAdmin
           promote_errors(@dataset.errors)
 
           false
+        end
+      end
+
+      def destroy_dataset
+        run_callbacks(:destroy) do
+          dataset.destroy
         end
       end
 

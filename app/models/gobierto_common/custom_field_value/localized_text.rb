@@ -16,7 +16,7 @@ module GobiertoCommon::CustomFieldValue
     alias raw_api_value value
 
     def searchable_value
-      raw_value
+      raw_value.values.join(" ")
     end
 
     def raw_value

@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
     :current_module,
     :current_module_class,
     :available_locales,
-    :algoliasearch_configured?,
     :cache_key_preffix
   )
 

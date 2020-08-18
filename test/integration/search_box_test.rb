@@ -8,8 +8,8 @@ class SearchBoxTest < ActionDispatch::IntegrationTest
     @site ||= sites(:madrid)
   end
 
-  def test_search_box_with_algoliasearch
-    ::GobiertoCommon::Search.stubs(:algoliasearch_configured?).returns(true)
+  def test_search_box_with_search_documents
+    site.people.each(&:update_pg_search_document)
 
     with_current_site(site) do
       visit gobierto_people_root_path
@@ -22,8 +22,8 @@ class SearchBoxTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def test_search_box_without_algoliasearch
-    ::GobiertoCommon::Search.stubs(:algoliasearch_configured?).returns(false)
+  def test_search_box_without_search_documents
+    site.pg_search_documents.destroy_all
 
     with_current_site(site) do
       visit gobierto_people_root_path

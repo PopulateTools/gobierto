@@ -40,8 +40,8 @@ else
           load task
         end
       end
-      Webpacker::Compiler.additional_paths << "app/javascript/custom_fields_table_plugin/**/*.js"
-      Webpacker::Compiler.additional_paths << "app/javascript/packs/*.js"
+      Webpacker::Compiler.watched_paths << "app/javascript/custom_fields_table_plugin/**/*.js"
+      Webpacker::Compiler.watched_paths << "app/javascript/packs/*.js"
     end
   end
 end

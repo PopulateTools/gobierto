@@ -390,7 +390,7 @@ GEM
       netrc (~> 0.8)
     retriable (3.1.2)
     rexml (3.2.4)
-    rollbar (2.27.0)
+    rollbar (2.27.1)
     route_translator (8.0.0)
       actionpack (>= 5.0.0.1, < 6.1)
       activesupport (>= 5.0.0.1, < 6.1)

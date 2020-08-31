@@ -115,7 +115,7 @@ export class CostsController {
     }
 
     //Array with all the strings that we've to convert to Number
-    const amountStrings = [ 'cd_bens_i_serveis', 'cd_cost_personal', 'cost_directe_2018' , 'cost_indirecte_2018', 'cost_total_2018', 'costpers2018', 'costrestadir2018', 'cost_per_habitant', 'ingressos', 'taxa_o_preu_public', 'cd_serveis_exteriors', 'cd_transferencies', 'cd_equipaments', 'ingres_cost', 'subvencio']
+    const amountStrings = [ 'cd_bens_i_serveis', 'cd_cost_personal', 'cost_directe' , 'cost_indirecte', 'cost_total', 'costpers', 'costrestadir', 'cost_per_habitant', 'ingressos', 'taxa_o_preu_public', 'cd_serveis_exteriors', 'cd_transferencies', 'cd_equipaments', 'ingres_cost', 'subvencio']
 
     for (let index = 0; index < rawData.length; index++) {
       let d = rawData[index]
@@ -127,17 +127,11 @@ export class CostsController {
       d.ingressos = nanToZero(d.ingressos)
     }
 
-    //Function to replace those keys that contain 2018
-    const replacedKeys = rawData.map(({ cost_directe_2018: cost_directe, cost_indirecte_2018: cost_indirecte, cost_total_2018: cost_total, costpers2018: costpers, costrestadir2018: costrestadir, ...items }) => Object.assign({}, items, { cost_directe, cost_indirecte, cost_total, costpers, costrestadir }));
+    //Split data by year
+    const data2018 = rawData.filter(items => items.any === '2018').map(items => ({ ...items, year: '2018', population: 126988 }))
+    const data2019 = rawData.filter(items => items.any === '2019').map(items => ({ ...items, year: '2019', population: 128265 }))
 
-    //This is temporary, until we've the data from 2019
-    let duplicate2018_TEMP = [...replacedKeys]
-    let duplicate2019_TEMP = [...replacedKeys]
-
-    duplicate2018_TEMP = duplicate2018_TEMP.map(items => ({ ...items, year: '2018', population: 126988 }))
-    duplicate2019_TEMP = duplicate2019_TEMP.map(items => ({ ...items, year: '2019', population: 128265 }))
-
-    const totalData = [...duplicate2018_TEMP, ...duplicate2019_TEMP]
+    const totalData = [...data2018, ...data2019]
 
     let groupDataByYears = []
     let groupData2018 = []
@@ -173,8 +167,8 @@ export class CostsController {
       return groupData = groupData.filter(element => element.agrupacio !== '' && element.year === year)
     }
 
-    groupData2018 = groupDataByYear(duplicate2018_TEMP, '2018')
-    groupData2019 = groupDataByYear(duplicate2019_TEMP, '2019')
+    groupData2018 = groupDataByYear(data2018, '2018')
+    groupData2019 = groupDataByYear(data2019, '2019')
 
     groupDataByYears = [...groupData2018, ...groupData2019]
 

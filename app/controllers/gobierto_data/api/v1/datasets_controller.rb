@@ -22,10 +22,10 @@ module GobiertoData
             format.json do
               json = if base_relation.exists?
                        Rails.cache.fetch("#{filtered_relation.cache_key}/#{valid_preview_token? ? "all" : "active"}/datasets_collection") do
-                         render_to_string json: relation, links: links(:index), each_serializer: DatasetSerializer, adapter: :json_api
+                         json_from_relation(relation, :index)
                        end
                      else
-                       render_to_string json: relation, links: links(:index), each_serializer: DatasetSerializer, adapter: :json_api
+                       json_from_relation(relation, :index)
                      end
               render json: json
             end
@@ -263,6 +263,16 @@ module GobiertoData
               schema: schema_json_param
             )
           end
+        end
+
+        def json_from_relation(relation, action)
+          render_to_string(
+            json: relation,
+            links: links(action),
+            each_serializer: DatasetSerializer,
+            preloaded_data: transformed_custom_field_record_values(relation),
+            adapter: :json_api
+          )
         end
 
         def schema_json_param

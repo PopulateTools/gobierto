@@ -1,10 +1,10 @@
 <template>
-  <div class="pure-u-1 pure-u-lg-1-4">
+  <div class="pure-u-1 pure-u-lg-1-4 dashboards-home-aside--gap">
     <SearchFilter
       :data="subsidiesData"
       :search-type="type"
     />
-    <aside class="dashboards-home-aside--gap">
+    <aside>
       <div
         v-for="filter in filters"
         :key="filter.id"

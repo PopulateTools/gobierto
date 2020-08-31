@@ -5,6 +5,7 @@
   >
     <i class="fas fa-table" />
     <a
+      class="dashboards-home-aside--download-open-data-link"
       :href="dataDownloadEndpoint"
       target="_blank"
     >

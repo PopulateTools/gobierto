@@ -28,14 +28,14 @@ module GobiertoData
           @admin_without_last_sign_in_ip_auth_header ||= "Bearer #{gobierto_admin_admins(:steve).primary_api_token}"
         end
 
-        def multipart_form_params(file = "dataset1.csv")
+        def multipart_form_params(file = "dataset1.csv", **opts)
           {
             dataset: {
               name: "Uploaded dataset",
               table_name: "uploaded_dataset",
               data_file: Rack::Test::UploadedFile.new("#{Rails.root}/test/fixtures/files/gobierto_data/#{file}"),
               visibility_level: "active"
-            }
+            }.merge(opts)
           }
         end
 
@@ -81,6 +81,51 @@ module GobiertoData
 
         # POST /api/v1/data/datasets
         #
+        def test_dataset_creation_with_password_protected_site_and_admin_auth_header
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                post(
+                  gobierto_data_api_v1_datasets_path,
+                  params: multipart_form_params("dataset1.csv", table_name: "uploaded_dataset_#{environment}"),
+                  headers: { "Authorization" => auth_header }
+                )
+
+                assert_response :created
+              end
+            end
+          end
+        end
+
+        # POST /api/v1/data/datasets
+        #
+        def test_dataset_creation_with_password_protected_site_and_basic_auth_header
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+          basic_auth_header = "Basic #{Base64.encode64("username:password")}"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                post(
+                  gobierto_data_api_v1_datasets_path,
+                  params: multipart_form_params("dataset1.csv", table_name: "uploaded_dataset_#{environment}"),
+                  headers: { "Authorization" => basic_auth_header }
+                )
+
+                assert_response :unauthorized
+              end
+            end
+          end
+        end
+
+        # POST /api/v1/data/datasets
+        #
         def test_dataset_creation_with_file_upload
           with(site: site) do
             post(
@@ -114,7 +159,7 @@ module GobiertoData
             post(
               gobierto_data_api_v1_datasets_path,
               params: multipart_form_params("dataset_iso88591.csv").deep_merge(
-                dataset: { csv_separator: ';' }
+                dataset: { csv_separator: ";" }
               ),
               headers: { "Authorization" => auth_header }
             )

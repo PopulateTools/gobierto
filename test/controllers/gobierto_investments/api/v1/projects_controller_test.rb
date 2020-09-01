@@ -47,6 +47,18 @@ module GobiertoInvestments
           "Bearer #{admin.primary_api_token}"
         end
 
+        def user
+          @user ||= users(:dennis)
+        end
+
+        def user_token
+          @user_token ||= "Bearer #{user_api_tokens(:dennis_primary_api_token)}"
+        end
+
+        def basic_auth_header
+          @basic_auth_header ||= "Basic #{Base64.encode64("username:password")}"
+        end
+
         def political_group
           gobierto_common_terms(:dc_term)
         end
@@ -102,6 +114,45 @@ module GobiertoInvestments
             ids = response_data["data"].map { |item| item["id"].to_i }
             assert_includes ids, project.id
             assert_includes ids, project_without_external_id.id
+          end
+        end
+
+        # GET /gobierto_investments/api/v1/projects
+        # GET /gobierto_investments/api/v1/projects.json
+        def test_index_with_password_protected_site
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                get gobierto_investments_api_v1_projects_path, as: :json
+                assert_response :unauthorized
+                assert_includes response.parsed_body, "HTTP Basic: Access denied."
+
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :success
+
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => user_token }
+                assert_response :success
+
+                admin = authorized_regular_admin
+                admin_auth_header = auth_header(admin)
+                admin.regular!
+                admin.admin_sites.create(site: site)
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :success
+
+                admin.admin_sites.destroy_all
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :unauthorized
+
+                admin.manager!
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :success
+              end
+            end
           end
         end
 

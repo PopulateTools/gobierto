@@ -13,12 +13,16 @@ module User::ApiAuthenticationHelper
     current_user.present?
   end
 
+  def admin_authorized?
+    find_current_admin.present? && current_admin.sites.include?(current_site)
+  end
+
   def authenticate_user!
     raise_unauthorized unless user_authenticated?
   end
 
   def authenticate_in_site
-    return if user_authenticated?
+    return if user_authenticated? || admin_authorized?
 
     authenticate_user_in_site
   end
@@ -27,6 +31,12 @@ module User::ApiAuthenticationHelper
     return unless token.present?
 
     current_site.users.confirmed.joins(:api_tokens).find_by(user_api_tokens: { token: token })
+  end
+
+  def find_current_admin
+    return unless token.present?
+
+    @current_admin ||= ::GobiertoAdmin::Admin.joins(:api_tokens).find_by(admin_api_tokens: { token: token })
   end
 
   def raise_unauthorized

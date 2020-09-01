@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     :cache_key_preffix
   )
 
-  before_action :apply_engines_overrides
+  before_action :apply_engines_overrides, :authenticate_user_in_site
 
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]

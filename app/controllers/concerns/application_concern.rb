@@ -4,7 +4,7 @@ module ApplicationConcern
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_current_site, :set_locale, :authenticate_user_in_site
+    before_action :set_current_site, :set_locale
     around_action :set_locale_from_url
   end
 

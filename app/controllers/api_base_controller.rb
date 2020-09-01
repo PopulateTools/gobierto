@@ -5,8 +5,9 @@ class ApiBaseController < ActionController::API
   include SubmodulesHelper
   include ::GobiertoCommon::ModuleHelper
   include ApplicationConcern
+  include ::User::ApiAuthenticationHelper
 
-  before_action :disable_cors
+  before_action :disable_cors, :authenticate_in_site
 
   rescue_from ActiveRecord::RecordNotFound, with: -> { send_not_found }
 

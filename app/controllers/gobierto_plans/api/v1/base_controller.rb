@@ -5,7 +5,6 @@ module GobiertoPlans
     module V1
       class BaseController < ApiBaseController
         include ActionController::MimeResponds
-        include ::User::ApiAuthenticationHelper
         include ::PreviewTokenHelper
 
         before_action { module_enabled!(current_site, "GobiertoPlans", false) }

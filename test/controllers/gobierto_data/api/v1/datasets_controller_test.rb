@@ -11,6 +11,18 @@ module GobiertoData
           @site ||= sites(:madrid)
         end
 
+        def admin_auth_header
+          @admin_auth_header ||= "Bearer #{admin.primary_api_token}"
+        end
+
+        def basic_auth_header
+          @basic_auth_header ||= "Basic #{Base64.encode64("username:password")}"
+        end
+
+        def admin
+          @admin ||= gobierto_admin_admins(:tony)
+        end
+
         def site_with_module_disabled
           @site_with_module_disabled ||= sites(:santander)
         end
@@ -60,6 +72,39 @@ module GobiertoData
             get gobierto_data_api_v1_datasets_path
 
             assert_response :forbidden
+          end
+        end
+
+        # GET /api/v1/data/datasets.json
+        def test_index_with_password_protected_site
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                get gobierto_data_api_v1_datasets_path, as: :json
+                assert_response :unauthorized
+                assert_includes response.parsed_body, "HTTP Basic: Access denied."
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :success
+
+                admin.regular!
+                admin.admin_sites.create(site: site)
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :success
+
+                admin.admin_sites.destroy_all
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :unauthorized
+
+                admin.manager!
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :success
+              end
+            end
           end
         end
 

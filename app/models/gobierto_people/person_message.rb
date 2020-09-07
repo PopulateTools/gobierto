@@ -1,4 +1,4 @@
-require_dependency "gobierto_people"
+# frozen_string_literal: true
 
 module GobiertoPeople
   class PersonMessage

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_data"
-
 module GobiertoData
   class Dataset < ApplicationRecord
     include GobiertoCommon::Sluggable

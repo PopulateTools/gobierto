@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_investments"
-
 module GobiertoInvestments
   class Project < ApplicationRecord
     belongs_to :site

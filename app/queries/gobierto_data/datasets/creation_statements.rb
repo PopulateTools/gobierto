@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_data"
-
 module GobiertoData
   module Datasets
     class CreationStatements

@@ -1,5 +1,4 @@
-require_dependency "gobierto_budget_consultations"
-require_dependency "secret_attribute"
+# frozen_string_literal: true
 
 module GobiertoBudgetConsultations
   class ConsultationResponse < ApplicationRecord

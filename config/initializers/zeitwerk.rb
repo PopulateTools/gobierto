@@ -5,4 +5,6 @@ Rails.autoloaders.each do |autoloader|
     "es_query_builder" => "ESQueryBuilder",
     "csv_renderer" => "CSVRenderer"
   )
+
+  autoloader.ignore(Rails.root.join("lib/generators/gobierto_module/gobierto_module_generator.rb"))
 end

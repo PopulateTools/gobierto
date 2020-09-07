@@ -7,7 +7,7 @@ module GobiertoCommon
     include GobiertoCommon::Sluggable
 
     belongs_to :site
-    belongs_to :container, polymorphic: true
+    belongs_to :container, polymorphic: true, optional: true
     has_many :collection_items, dependent: :destroy
     has_one :calendar_configuration, class_name: "GobiertoCalendars::CalendarConfiguration"
 
@@ -133,7 +133,7 @@ module GobiertoCommon
       if container.is_a?(Module)
         [container.name, nil]
       elsif !container_is_a_collector?(container)
-        [container.class.parent.name, nil]
+        [container.class.module_parent.name, nil]
       end
     end
 

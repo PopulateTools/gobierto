@@ -65,7 +65,7 @@ module GobiertoAdmin
       end
 
       def module_name
-        self.class.parent.name.demodulize
+        self.class.module_parent.name.demodulize
       end
 
       def build_gobierto_module_settings

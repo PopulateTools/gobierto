@@ -9,7 +9,7 @@ module PopulateData
     class Client
       include Logging
 
-      BASE_URI = APP_CONFIG["populate_data"]["endpoint"]
+      BASE_URI = APP_CONFIG[:populate_data][:endpoint]
 
       def initialize(options = {})
         @origin = options.fetch(:origin)

@@ -5,7 +5,7 @@ require_dependency "gobierto_admin"
 module GobiertoAdmin
   class GroupPermission < ApplicationRecord
     belongs_to :admin_group
-    belongs_to :resource, polymorphic: true
+    belongs_to :resource, polymorphic: true, optional: true
 
     scope :global, -> { where(namespace: "global", resource_type: "global") }
     scope :for_modules, -> { where(namespace: "site_module") }

@@ -4,7 +4,7 @@ class AddPublishedAtToGobiertoCmsPage < ActiveRecord::Migration[5.2]
     add_column :gcms_pages, :published_on, :datetime
 
     GobiertoCms::Page.unscoped.each do |page|
-      page.update_attributes!(published_on: page.created_at)
+      page.update!(published_on: page.created_at)
     end
 
     change_column :gcms_pages, :published_on, :datetime, null: false

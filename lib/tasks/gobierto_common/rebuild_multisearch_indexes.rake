@@ -5,12 +5,12 @@ namespace :common do
   task :rebuild_multisearch_indexes, [:force_reset] => [:environment] do |_t, args|
     force_reset = args[:force_reset] == "true"
 
-    site_modules = Rails.application.config_for(:application).dig("site_modules") << { "namespace" => "GobiertoCms" }
+    site_modules = Rails.application.config_for(:application).dig(:site_modules) << { namespace: "GobiertoCms" }
 
     site_modules.each do |site_module|
-      next unless Module.const_defined?(site_module["namespace"])
+      next unless Module.const_defined?(site_module[:namespace])
 
-      module_class = site_module["namespace"].constantize
+      module_class = site_module[:namespace].constantize
       next unless module_class.respond_to?(:searchable_models)
 
       module_class.searchable_models.each do |searchable_model|

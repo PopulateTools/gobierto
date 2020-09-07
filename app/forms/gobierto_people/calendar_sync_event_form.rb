@@ -56,9 +56,9 @@ module GobiertoPeople
         attendee = if existing_attendee
                      existing_attendee
                    elsif attendee_person.present?
-                     event_attendee_class.new(person: attendee_person)
+                     event_attendee_class.new(person: attendee_person, event: event_class.new)
                    else
-                     event_attendee_class.new(name: name)
+                     event_attendee_class.new(name: name, event: event_class.new)
                    end
 
         @attendees.push(attendee) if attendee.valid?

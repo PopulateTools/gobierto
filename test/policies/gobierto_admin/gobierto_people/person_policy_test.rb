@@ -66,7 +66,9 @@ module GobiertoAdmin
         assert PersonPolicy.new(current_admin: regular_admin, person: person).manage?
 
         # without site permissions
-        setup_specific_permissions(regular_admin, module: "gobierto_people", person: person)
+        setup_specific_permissions(regular_admin, module: "gobierto_people", person: person, site: site)
+        regular_admin.sites = []
+        regular_admin.save
         refute PersonPolicy.new(current_admin: regular_admin, person: person).manage?
 
         # without module permissions

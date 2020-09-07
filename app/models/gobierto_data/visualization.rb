@@ -7,7 +7,7 @@ module GobiertoData
     include GobiertoData::Favoriteable
 
     belongs_to :dataset
-    belongs_to :query
+    belongs_to :query, optional: true
     belongs_to :user
     enum privacy_status: { open: 0, closed: 1 }
 

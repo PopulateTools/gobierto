@@ -23,7 +23,7 @@ module GobiertoBudgets
             meta: budget_line.search_meta
           )
         )
-        document.save
+        document.save!(validate: false)
       end
 
       def pg_search_delete_index(budget_line)

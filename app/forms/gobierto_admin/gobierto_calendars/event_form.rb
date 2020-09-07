@@ -58,7 +58,8 @@ module GobiertoAdmin
           attendee = event_attendee_class.new(
             person_id: attendee_attributes[:person_id],
             name: attendee_attributes[:name],
-            charge: attendee_attributes[:charge]
+            charge: attendee_attributes[:charge],
+            event: event_class.new
           )
 
           @attendees.push(attendee) if attendee.valid?

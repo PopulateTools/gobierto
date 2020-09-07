@@ -5,7 +5,7 @@ module GobiertoCommon
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :collection, class_name: "GobiertoCommon::Collection"
+      belongs_to :collection, class_name: "GobiertoCommon::Collection", optional: true
 
       scope :in_collections, lambda { |site|
         joins(Arel.sql("join collection_items on collection_items.item_id = #{ table_name }.id"))

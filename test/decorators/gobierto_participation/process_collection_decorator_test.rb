@@ -122,7 +122,7 @@ module GobiertoParticipation
         assert_includes events_decorator.with_term(scope), resource
       end
 
-      participation_process.update_attributes(scope_id: nil, issue_id: nil)
+      participation_process.update(scope_id: nil, issue_id: nil)
 
       participation_events.where(collections: { container: participation_process }).each do |resource|
         refute_includes events_decorator.with_term(issue), resource

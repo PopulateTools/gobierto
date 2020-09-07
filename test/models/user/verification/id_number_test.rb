@@ -9,13 +9,21 @@ class User::Verification::IdNumberTest < ActiveSupport::TestCase
     @dennis_verification ||= user_verification_id_numbers(:dennis_id_number)
   end
 
+  def site
+    @site ||= sites(:madrid)
+  end
+
+  def user
+    @user ||= users(:reed)
+  end
+
   def blank_verification_without_encryption_key
-    @blank_verification_without_encryption_key ||= User::Verification::IdNumber.new
+    @blank_verification_without_encryption_key ||= User::Verification::IdNumber.new(site: site, user: user)
   end
 
   def blank_verification_with_encryption_key
     with_stubbed_application_secrets do
-      @blank_verification_with_encryption_key ||= User::Verification::IdNumber.new(encryption_key: 'test_certificate')
+      @blank_verification_with_encryption_key ||= User::Verification::IdNumber.new(site: site, user: user, encryption_key: "test_certificate")
     end
   end
 

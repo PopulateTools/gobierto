@@ -32,8 +32,8 @@ module GobiertoParticipation
     translates :title, :body, :body_source, :information_text
 
     belongs_to :site
-    has_vocabulary :issues
-    has_vocabulary :scopes
+    has_vocabulary :issues, optional: true
+    has_vocabulary :scopes, optional: true
     has_many :stages, -> { sorted }, dependent: :destroy, class_name: "GobiertoParticipation::ProcessStage", autosave: true
     has_many :published_stages, -> { published.sorted }, class_name: "GobiertoParticipation::ProcessStage"
     has_many :polls

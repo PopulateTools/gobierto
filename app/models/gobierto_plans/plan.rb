@@ -11,8 +11,8 @@ module GobiertoPlans
 
     belongs_to :site
     belongs_to :plan_type
-    belongs_to :categories_vocabulary, class_name: "GobiertoCommon::Vocabulary", foreign_key: :vocabulary_id
-    belongs_to :statuses_vocabulary, class_name: "GobiertoCommon::Vocabulary", foreign_key: :statuses_vocabulary_id
+    belongs_to :categories_vocabulary, class_name: "GobiertoCommon::Vocabulary", foreign_key: :vocabulary_id, optional: true
+    belongs_to :statuses_vocabulary, class_name: "GobiertoCommon::Vocabulary", foreign_key: :statuses_vocabulary_id, optional: true
     has_many :categories, through: :categories_vocabulary, source: :terms, class_name: "GobiertoCommon::Term"
 
     translates :title, :introduction, :footer

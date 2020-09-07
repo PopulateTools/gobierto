@@ -45,7 +45,7 @@ module GobiertoCms
 
     def test_prohibit_editing_poll_with_answers
       assert_raises GobiertoParticipation::Poll::PollHasAnswers do
-        published_poll.update_attributes(title: "wadus")
+        published_poll.update(title: "wadus")
       end
     end
 
@@ -81,7 +81,7 @@ module GobiertoCms
     def test_predicted_unique_answers_count
       # total: 28 days, past: 15 days, answers: 23, avg/day: 1.533x
       # prediction: (28*1.533) ~> 42.933 ~> 43
-      poll.update_attributes!(starts_at: 15.days.ago, ends_at: 13.days.from_now)
+      poll.update!(starts_at: 15.days.ago, ends_at: 13.days.from_now)
       poll.stubs(:unique_answers_count).returns(23)
 
       assert_equal 43, poll.predicted_unique_answers_count
@@ -96,7 +96,7 @@ module GobiertoCms
     end
 
     def test_predicted_answers_under_estimation_limit
-      poll.update_attributes!(
+      poll.update!(
         starts_at: Time.zone.now, # started today
         ends_at: 10.days.from_now
       )
@@ -105,21 +105,21 @@ module GobiertoCms
     end
 
     def test_past_days
-      poll.update_attributes!(starts_at: Time.zone.now)
+      poll.update!(starts_at: Time.zone.now)
       assert_equal 0, poll.past_days
 
-      poll.update_attributes!(starts_at: 15.days.ago)
+      poll.update!(starts_at: 15.days.ago)
       assert_equal 15, poll.past_days
     end
 
     def test_length_in_days
-      poll.update_attributes!(starts_at: 7.days.ago, ends_at: 3.days.from_now)
+      poll.update!(starts_at: 7.days.ago, ends_at: 3.days.from_now)
 
       assert_equal 10, poll.length_in_days
     end
 
     def test_average_answers_per_day
-      poll.update_attributes!(starts_at: 10.days.ago)
+      poll.update!(starts_at: 10.days.ago)
       poll.stubs(:unique_answers_count).returns(23)
 
       assert_equal 2.3, poll.average_answers_per_day

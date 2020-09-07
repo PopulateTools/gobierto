@@ -24,8 +24,8 @@
     <% else %>
       municipalityId: "<%= current_site.organization_id %>",
     <% end %>
-    year: <%= APP_CONFIG["gobierto_observatory"]["year"] %>,
-    endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"
+    year: <%= APP_CONFIG[:gobierto_observatory][:year] %>,
+    endpoint: "<%= APP_CONFIG[:populate_data][:endpoint] %>"
   };
   window.populateDataYear = {
     currentYear: <%= @selected_year || Date.current.year %>

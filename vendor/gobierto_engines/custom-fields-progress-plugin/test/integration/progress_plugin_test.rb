@@ -29,11 +29,11 @@ class ProgressPluginTest < ActionDispatch::IntegrationTest
   end
 
   def clear_source_payload
-    source_custom_field_of_progress_calculations.update_attributes!(payload: { human_resources_table: [] })
+    source_custom_field_of_progress_calculations.update!(payload: { human_resources_table: [] })
   end
 
   def set_source_payload
-    source_custom_field_of_progress_calculations.update_attributes!(
+    source_custom_field_of_progress_calculations.update!(
       payload: {
         human_resources_table: [
           {

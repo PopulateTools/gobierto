@@ -27,7 +27,7 @@ module Liquid
           else
             return ""
           end
-        rescue ActiveRecord::RecordNotFound
+        rescue ::ActiveRecord::RecordNotFound
           return ""
         end
 
@@ -38,7 +38,7 @@ module Liquid
               html << "<div class='page_children'>"
               nodes.each do |node|
                 html << "<div class='page_child'>"
-                html << ActionController::Base.helpers.link_to(node.item.title,
+                html << ::ActionController::Base.helpers.link_to(node.item.title,
                                                                 gobierto_cms_page_or_news_path(node.item))
                 if node.children.any?
                   html << children_pages(node.children.not_archived.not_drafted, level - 1)

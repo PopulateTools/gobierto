@@ -44,8 +44,8 @@ module Liquid
         def t(query)
           translation_key, interpolation_vals = parse_interpolation(query)
           begin
-            I18n.t(translation_key, **interpolation_vals.merge(raise: !Rails.env.production?))
-          rescue I18n::MissingTranslationData => e
+            ::I18n.t(translation_key, **interpolation_vals.merge(raise: !::Rails.env.production?))
+          rescue ::I18n::MissingTranslationData => e
             raise I18n::TranslationMissing.new(e.message)
           end
         end

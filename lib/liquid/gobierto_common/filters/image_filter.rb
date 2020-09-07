@@ -6,7 +6,7 @@ module Liquid
     module Filters
       module ImageFilter
         def image_url(input)
-          ActionController::Base.helpers.image_url(input)
+          ::ActionController::Base.helpers.image_url(input)
         end
       end
     end

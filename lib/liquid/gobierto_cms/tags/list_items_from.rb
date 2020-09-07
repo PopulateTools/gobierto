@@ -28,14 +28,14 @@ module Liquid
 
           return "" if pages.empty?
           render_pages(pages)
-        rescue ActiveRecord::RecordNotFound
+        rescue ::ActiveRecord::RecordNotFound
           return ""
         end
 
         def render_pages(pages)
           html = [ %Q{<div class="list_items_from_collection">} ]
           pages.each do |page|
-            page = GobiertoCms::PageDecorator.new(page)
+            page = ::GobiertoCms::PageDecorator.new(page)
             collection_item_text = [ %Q{<div class="collection_item">} ]
             if page.main_image
               collection_item_text << %Q{ <img src="#{page.main_image}"> }
@@ -62,7 +62,7 @@ module Liquid
         end
 
         def helpers
-          ActionController::Base.helpers
+          ::ActionController::Base.helpers
         end
       end
     end

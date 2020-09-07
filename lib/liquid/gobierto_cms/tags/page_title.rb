@@ -13,7 +13,7 @@ module Liquid
           current_site = context.environments.first["current_site"]
           page = current_site.pages.find_by_slug!(@page_slug)
           return page.title
-        rescue ActiveRecord::RecordNotFound
+        rescue ::ActiveRecord::RecordNotFound
           return ""
         end
       end

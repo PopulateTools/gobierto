@@ -23,8 +23,8 @@ module Liquid
         end
 
         def next_poll(current_site, current_user, poll_id = nil)
-          poll = GobiertoParticipation::Poll.by_site(current_site).find(poll_id) if poll_id
-          answerable_polls = GobiertoParticipation::Poll.by_site(current_site).answerable.order(ends_at: :asc)
+          poll = ::GobiertoParticipation::Poll.by_site(current_site).find(poll_id) if poll_id
+          answerable_polls = ::GobiertoParticipation::Poll.by_site(current_site).answerable.order(ends_at: :asc)
 
           if current_user
             if poll && poll.answerable_by?(current_user)
@@ -35,7 +35,7 @@ module Liquid
           else
             poll || answerable_polls.first
           end
-        rescue ActiveRecord::RecordNotFound
+        rescue ::ActiveRecord::RecordNotFound
           return ""
         end
       end

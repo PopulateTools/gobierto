@@ -32,40 +32,46 @@
 # Because +Liquid+ catches +StandardError+, we've created another error
 # class subclassed directly on Exception that will not be caught.
 
-class I18n::TranslationMissing < Exception; end
-class I18n::TooMuchInterpolation < StandardError; end
+module Liquid
+  module GobiertoCommon
+    module Filters
+      class I18n::TranslationMissing < Exception; end
+      class I18n::TooMuchInterpolation < StandardError; end
 
-module LiquidI18n
-  MAX_INTERPOLATIONS = 10
+      module LiquidI18n
+        MAX_INTERPOLATIONS = 10
 
-  def t(query)
-    translation_key, interpolation_vals = parse_interpolation(query)
-    begin
-      I18n.t(translation_key, **interpolation_vals.merge(raise: !Rails.env.production?))
-    rescue I18n::MissingTranslationData => e
-      raise I18n::TranslationMissing.new(e.message)
-    end
-  end
+        def t(query)
+          translation_key, interpolation_vals = parse_interpolation(query)
+          begin
+            I18n.t(translation_key, **interpolation_vals.merge(raise: !Rails.env.production?))
+          rescue I18n::MissingTranslationData => e
+            raise I18n::TranslationMissing.new(e.message)
+          end
+        end
 
-  def val(base, key, value)
-    "#{base}, #{key}: #{value}"
-  end
+        def val(base, key, value)
+          "#{base}, #{key}: #{value}"
+        end
 
-  private
+        private
 
-  def parse_interpolation(query)
-    params, depth = {}, 0
-    _, translation_key, string_params = /([^,]+)(.*)/.match(query).to_a
-    while string_params.present? && string_params.length > 0
-      if depth >= MAX_INTERPOLATIONS
-        raise I18n::TooMuchInterpolation.new("More than #{MAX_INTERPOLATIONS} interpolation values are not allowed.")
+        def parse_interpolation(query)
+          params, depth = {}, 0
+          _, translation_key, string_params = /([^,]+)(.*)/.match(query).to_a
+          while string_params.present? && string_params.length > 0
+            if depth >= MAX_INTERPOLATIONS
+              raise I18n::TooMuchInterpolation.new("More than #{MAX_INTERPOLATIONS} interpolation values are not allowed.")
+            end
+            _, key, val, string_params = /, *([a-zA-z_]+): *([^,]+)(.*)/.match(string_params).to_a
+            params[key.to_sym] = val if key.present? && key.length > 0
+            depth += 1
+          end
+          [translation_key, params]
+        end
       end
-      _, key, val, string_params = /, *([a-zA-z_]+): *([^,]+)(.*)/.match(string_params).to_a
-      params[key.to_sym] = val if key.present? && key.length > 0
-      depth += 1
     end
-    [translation_key, params]
   end
 end
 
-Liquid::Template.register_filter LiquidI18n
+Liquid::Template.register_filter Liquid::GobiertoCommon::Filters::LiquidI18n

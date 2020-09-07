@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "../gobierto_data"
+
 module GobiertoData
   class Connection < ActiveRecord::Base
     self.abstract_class = true

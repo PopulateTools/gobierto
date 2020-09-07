@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "../gobierto_data"
+
 module GobiertoData
   class Query < ApplicationRecord
     include GobiertoData::Favoriteable

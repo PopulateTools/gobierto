@@ -64,7 +64,7 @@ module Gobierto
     end
 
     available_strategies.each do |strategy|
-      require_dependency config.root.join(*base_strategies_path).join(strategy, "lib", "initializer")
+      require config.root.join(*base_strategies_path).join(strategy, "lib", "initializer")
     end
 
     # Engine Overrides
@@ -83,7 +83,7 @@ module Gobierto
     end
 
     available_engines.each do |engine_dir|
-      require_dependency config.root.join(*base_engines_path).join(engine_dir, "lib", "initializer")
+      require config.root.join(*base_engines_path).join(engine_dir, "lib", "initializer")
     end
 
     # Do not add wrapper .field_with_errors around form fields with validation errors

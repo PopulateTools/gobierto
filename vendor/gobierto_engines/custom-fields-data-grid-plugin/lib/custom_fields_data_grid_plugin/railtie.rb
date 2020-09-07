@@ -22,8 +22,9 @@ else
         conf.custom_field_plugins.merge!(budgets: {})
         conf.custom_field_plugins_packs += %w(data_grid)
 
-        conf.autoload_paths += Dir[Pathname.new(base_path).join('app', 'models')]
-        conf.eager_load_paths += Dir[Pathname.new(base_path).join("app", "models")]
+        load_paths = %w(models decorators).map { |directory| Pathname.new(base_path).join("app", directory) }
+        conf.autoload_paths += load_paths
+        conf.eager_load_paths += load_paths
 
         attach_module(conf, "::GobiertoPlans::CategoryTermDecorator", ::GobiertoPlans::CategoryTermDecoratorBudgetsAttachment)
 

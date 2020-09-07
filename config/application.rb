@@ -97,6 +97,3 @@ module Gobierto
     end
   end
 end
-
-require_dependency "app/publishers/base"
-require_dependency "app/subscribers/base"

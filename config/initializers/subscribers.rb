@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency Rails.root.join("app/subscribers/base")
-Dir.glob("app/subscribers/*.rb").each do |subscriber_path|
-  require_dependency Rails.root.join(subscriber_path)
-end
-
 Subscribers::AdminActivity.attach_to("activities/admins")
 Subscribers::AdminGroupActivity.attach_to("activities/admins")
 Subscribers::CensusActivity.attach_to("activities/census")

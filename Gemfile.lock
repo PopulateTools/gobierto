@@ -344,8 +344,6 @@ GEM
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-protection (2.0.8.1)
-      rack
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -386,7 +384,7 @@ GEM
       ffi (~> 1.0)
     rb-readline (0.5.5)
     redcarpet (3.5.0)
-    redis (4.2.1)
+    redis (4.2.2)
     ref (2.0.0)
     regexp_parser (1.7.1)
     representable (3.0.4)
@@ -449,11 +447,10 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
-    sidekiq (5.2.7)
-      connection_pool (~> 2.2, >= 2.2.2)
-      rack (>= 1.5.0)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
+    sidekiq (6.1.2)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     sidekiq-monitor-stats (0.0.4)
       sidekiq
     signet (0.14.0)
@@ -600,7 +597,7 @@ DEPENDENCIES
   sassc
   savon (~> 2.12.0)
   selenium-webdriver
-  sidekiq (~> 5.2.7)
+  sidekiq (~> 6.1.2)
   sidekiq-monitor-stats
   simple_calendar (~> 2.2)
   spring

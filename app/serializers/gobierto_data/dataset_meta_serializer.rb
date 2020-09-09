@@ -33,12 +33,13 @@ module GobiertoData
     end
 
     attribute :data_summary do
+      count_result = ::GobiertoData::Connection.execute_query(
+        object.site,
+        Arel.sql("SELECT COUNT(1) FROM #{object.table_name} LIMIT 1"),
+        include_draft: true
+      )
       {
-        number_of_rows: ::GobiertoData::Connection.execute_query(
-          object.site,
-          Arel.sql("SELECT COUNT(1) FROM #{object.table_name} LIMIT 1"),
-          include_draft: true
-        )&.first&.dig("count")
+        number_of_rows: count_result.is_a?(PG::Result) ? count_result.first.dig("count") : nil
       }
     end
 

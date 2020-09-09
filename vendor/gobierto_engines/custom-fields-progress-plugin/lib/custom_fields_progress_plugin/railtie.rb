@@ -38,8 +38,6 @@ else
           load task
         end
       end
-      Webpacker::Compiler.watched_paths << "app/javascript/custom_fields_progress_plugin/**/*.js"
-      Webpacker::Compiler.watched_paths << "app/javascript/packs/*.js"
     end
   end
 end

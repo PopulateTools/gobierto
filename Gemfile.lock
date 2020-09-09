@@ -144,7 +144,7 @@ GEM
     cloudinary (1.17.1)
       aws_cf_signer
       rest-client
-    codecov (0.2.10)
+    codecov (0.2.11)
       json
       simplecov
     concurrent-ruby (1.1.7)

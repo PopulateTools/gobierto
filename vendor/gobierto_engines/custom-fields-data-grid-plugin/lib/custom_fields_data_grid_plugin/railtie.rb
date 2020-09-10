@@ -29,12 +29,6 @@ else
 
         conf.i18n.load_path += Dir[File.join(base_path, 'config', 'locales', '**', '*.{rb,yml}')]
       end
-
-      Webpacker::Compiler.watched_paths += [
-        "app/javascript/packs/*.js",
-        "app/javascript/custom_fields_data_grid_plugin/*.js",
-        "app/javascript/custom_fields_data_grid_plugin/**/*.js"
-      ]
     end
   end
 end

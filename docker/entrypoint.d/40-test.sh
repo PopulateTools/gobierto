@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
 bin/rails gobierto_budgets:elastic_search_schemas:manage:create

@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+
+$PWD/bin/bundle exec $PWD/bin/sidekiq -C config/sidekiq.yml

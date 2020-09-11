@@ -40,11 +40,11 @@ module GobiertoPeople
     def date_range_to_s
       return if date_range.compact.blank?
 
-      " - #{date_range.join(" - ")}"
+      " (#{date_range.join(" - ")})"
     end
 
     def date_range
-      @date_range ||= [start_date&.strftime("%m/%Y"), end_date&.strftime("%m/%Y")]
+      @date_range ||= [start_date&.strftime("%m/%Y"), end_date&.strftime("%m/%Y") || I18n.t("shared.currently")]
     end
   end
 end

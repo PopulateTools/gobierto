@@ -115,6 +115,7 @@ en:
       scopes_scope_created: Scope created
       scopes_scope_updated: Scope updated
   shared:
+    currently: currently
     download_open_data:
       exports: Download data in a reusable format
     jsgrid:

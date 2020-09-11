@@ -71,9 +71,9 @@ module GobiertoAdmin
       def children(nodes, position, level, parent_id)
         nodes.each do |node|
           section_item = ::GobiertoCms::SectionItem.find(node['id'])
-          section_item.update_attributes(position: position,
-                                         level: level,
-                                         parent_id: parent_id)
+          section_item.update(position: position,
+                              level: level,
+                              parent_id: parent_id)
           unless node['children'].nil?
             children(node['children'], 0, level + 1, node['id'])
           end

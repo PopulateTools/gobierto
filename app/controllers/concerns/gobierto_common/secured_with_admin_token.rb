@@ -13,7 +13,7 @@ module GobiertoCommon
     protected
 
     def set_admin_with_token
-      @current_admin = ::GobiertoAdmin::Admin.joins(:api_tokens).find_by(admin_api_tokens: { token: token })
+      @current_admin ||= ::GobiertoAdmin::Admin.joins(:api_tokens).find_by(admin_api_tokens: { token: token })
 
       render(json: { message: "Unauthorized" }, status: :unauthorized, adapter: :json_api) unless @current_admin.present?
     end

@@ -10,6 +10,7 @@ module GobiertoCommon::CustomFieldValue
 
       markdown(raw_value)
     end
+    alias raw_api_value value
 
     def value_string
       return "" unless value

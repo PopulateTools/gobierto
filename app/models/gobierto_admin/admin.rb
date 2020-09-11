@@ -54,8 +54,8 @@ module GobiertoAdmin
 
     def self.preset
       god.first || god.new(
-        email: APP_CONFIG["admins"]["preset_admin_email"],
-        name: APP_CONFIG["admins"]["preset_admin_name"],
+        email: APP_CONFIG[:admins][:preset_admin_email],
+        name: APP_CONFIG[:admins][:preset_admin_name],
         password: Rails.application.secrets.preset_admin_password
       )
     end

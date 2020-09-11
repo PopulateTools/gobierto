@@ -1,7 +1,7 @@
 class User::Subscription < ApplicationRecord
   belongs_to :user
   belongs_to :site
-  belongs_to :subscribable, polymorphic: true
+  belongs_to :subscribable, polymorphic: true, optional: true
 
   validates :user_id, :site_id, presence: true
   validates :subscribable_type, presence: true

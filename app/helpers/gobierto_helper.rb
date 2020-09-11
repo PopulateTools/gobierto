@@ -32,8 +32,8 @@ module GobiertoHelper
     markdown.render(text).html_safe
   end
 
-  def algolia_search_client
-    @algolia_search_client ||= GobiertoCommon::Search.new(current_site, current_module_class)
+  def search_client
+    @search_client ||= GobiertoCommon::Search.new(current_site, current_module_class)
   end
 
   private

@@ -39,6 +39,9 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
         if (window.GobiertoAdmin && window.GobiertoAdmin.terms_controller) {
           window.GobiertoAdmin.terms_controller.form()
         }
+
+        // autofocus on the first modal input field
+        $(".modal .form_item input[type=text]:visible").first().focus()
       }
     }
   });

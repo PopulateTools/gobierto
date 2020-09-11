@@ -2,20 +2,22 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_15_093807) do
+ActiveRecord::Schema.define(version: 2020_08_09_102521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "hstore"
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "activities", id: :serial, force: :cascade do |t|
     t.string "action", null: false
@@ -500,7 +502,7 @@ ActiveRecord::Schema.define(version: 2020_05_15_093807) do
     t.string "item_type"
     t.string "item_id"
     t.integer "position", default: 0, null: false
-    t.integer "parent_id", null: false
+    t.integer "parent_id"
     t.bigint "section_id"
     t.integer "level", default: 0, null: false
     t.datetime "created_at", null: false
@@ -999,6 +1001,23 @@ ActiveRecord::Schema.define(version: 2020_05_15_093807) do
     t.index ["statuses_vocabulary_id"], name: "index_gplan_plans_on_statuses_vocabulary_id"
     t.index ["title_translations"], name: "index_gplan_plans_on_title_translations", using: :gin
     t.index ["vocabulary_id"], name: "index_gplan_plans_on_vocabulary_id"
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text "content"
+    t.string "searchable_type"
+    t.bigint "searchable_id"
+    t.bigint "site_id"
+    t.string "resource_path"
+    t.jsonb "title_translations"
+    t.jsonb "description_translations"
+    t.jsonb "meta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "external_id"
+    t.datetime "searchable_updated_at"
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
+    t.index ["site_id"], name: "index_pg_search_documents_on_site_id"
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|

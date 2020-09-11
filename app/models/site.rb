@@ -25,6 +25,8 @@ class Site < ApplicationRecord
   has_many :custom_fields, class_name: "GobiertoCommon::CustomField"
   has_many :custom_field_records, through: :custom_fields, class_name: "GobiertoCommon::CustomFieldRecord", source: :records
 
+  has_many :pg_search_documents, class_name: "PgSearch::Document"
+
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
   has_many :notifications, dependent: :destroy, class_name: "User::Notification"
@@ -190,6 +192,10 @@ class Site < ApplicationRecord
     @configuration ||= SiteConfiguration.new(site_configuration_attributes)
   end
 
+  def basic_auth_token
+    Base64.encode64("#{configuration.password_protection_username}:#{configuration.password_protection_password}").strip
+  end
+
   def password_protected?
     draft?
   end
@@ -224,8 +230,8 @@ class Site < ApplicationRecord
     configuration.home_page.constantize.send(:root_path, self)
   end
 
-  def algolia_search_disabled?
-    configuration.configuration_variables.fetch("algolia_search_disabled", false)
+  def multisearch(*args)
+    PgSearch.multisearch(*args).where(site: self)
   end
 
   private
@@ -262,7 +268,7 @@ class Site < ApplicationRecord
     if self.saved_change_to_attribute?('configuration_data') && added_modules_after_update.any?
       added_modules_after_update.each do |module_name|
         GobiertoCommon::GobiertoSeeder::ModuleSeeder.seed(module_name, self)
-        GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG['site']['name'], module_name, self)
+        GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG[:site][:name], module_name, self)
       end
     end
   end

@@ -17,7 +17,7 @@ module GobiertoData
         return none unless user.present?
 
         parent ||= user.site
-        association_name = parent.class.reflect_on_all_associations(:has_many).find { |association| association.options[:class_name] == name }&.name
+        association_name = module_parent.class.reflect_on_all_associations(:has_many).find { |association| association.options[:class_name] == name }&.name
 
         return none unless association_name.present?
 

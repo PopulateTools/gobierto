@@ -12,6 +12,7 @@ module GobiertoPlans
 
       indicators_records = get_indicators_records(node)
       human_resources_records = get_human_resources_records(node)
+      raw_indicators_records = site.custom_field_records.where(custom_field: raw_indicators_custom_fields, item: node)
 
       if human_resources_records.exists?
         super_result[:human_resources] = human_resources_data(human_resources_records, version: node.published_version)
@@ -19,6 +20,10 @@ module GobiertoPlans
 
       if indicators_records.exists?
         super_result[:indicators] = indicators_data(indicators_records, version: node.published_version)
+      end
+
+      if raw_indicators_records.exists?
+        super_result[:raw_indicators] = raw_indicators_data(raw_indicators_records, version: node.published_version)
       end
 
       super_result
@@ -39,6 +44,28 @@ module GobiertoPlans
         totals[:executed_amount] = total_executed.round
         if total_cost.positive?
           totals[:executed_percentage] = "#{((total_executed * 100) / total_cost).round} %"
+        end
+      end
+
+      totals
+    end
+
+    def raw_indicators_data(records, version: nil)
+      totals = { title_translations: raw_indicators_custom_fields&.first&.name_translations,
+                 data: [] }
+
+      if records.present?
+        combined_table = records.map do |record|
+          ::GobiertoCommon::CustomFieldFunctions::Indicator.new(record, version: version).indicators
+        end.flatten
+
+        totals[:data] = combined_table.map do |row|
+          { id: row.id,
+            name: row.indicator.name,
+            description: row.indicator.description,
+            objective: row.objective,
+            value: row.value_reached,
+            date: row.date_string }
         end
       end
 
@@ -89,18 +116,16 @@ module GobiertoPlans
       ::GobiertoCommon::CustomFieldRecord.where(custom_field: human_resources_custom_fields, item: node)
     end
 
+    def raw_indicators_custom_fields
+      @raw_indicators_custom_fields || site.custom_fields.table_with_decorator("raw_indicators")
+    end
+
     def indicators_custom_fields
-      @indicators_custom_fields ||= site.custom_fields.where("options @> ?", { configuration: {
-        plugin_type: "table",
-        plugin_configuration: { category_term_decorator: "indicators" }
-      }}.to_json)
+      @indicators_custom_fields ||= site.custom_fields.table_with_decorator("indicators")
     end
 
     def human_resources_custom_fields
-      @human_resources_custom_fields ||= site.custom_fields.where("options @> ?", { configuration: {
-        plugin_type: "table",
-        plugin_configuration: { category_term_decorator: "human_resources" }
-      }}.to_json)
+      @human_resources_custom_fields ||= site.custom_fields.table_with_decorator("human_resources")
     end
 
   end

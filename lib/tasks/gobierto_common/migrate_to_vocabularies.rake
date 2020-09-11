@@ -212,14 +212,14 @@ namespace :common do
       return if issue.blank?
       term = site.issues.find_by(name_translations: issue.name_translations)
       return if term.blank?
-      target.update_attributes("#{ prefix }_type" => "GobiertoCommon::Term", "#{ prefix }_id" => term.id)
+      target.update("#{ prefix }_type" => "GobiertoCommon::Term", "#{ prefix }_id" => term.id)
     end
 
     def move_scope_to_term(scope:, site:, target:, prefix:)
       return if scope.blank?
       term = site.scopes.find_by(name_translations: scope.name_translations)
       return if term.blank?
-      target.update_attributes("#{ prefix }_type" => "GobiertoCommon::Term", "#{ prefix }_id" => term.id)
+      target.update("#{ prefix }_type" => "GobiertoCommon::Term", "#{ prefix }_id" => term.id)
     end
   end
 end

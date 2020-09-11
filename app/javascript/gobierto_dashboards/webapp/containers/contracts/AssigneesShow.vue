@@ -54,9 +54,6 @@ export default {
 
     this.buildItems();
   },
-  beforeDestroy(){
-    EventBus.$off('refresh-summary-data');
-  },
   methods: {
     buildItems(){
       const assigneeRoutingId = this.$route.params.id;

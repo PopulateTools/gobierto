@@ -128,7 +128,7 @@ module GobiertoCommon
           ApplicationController.helpers.options_for_select(custom_field.localized_options(I18n.locale), payload.present? && payload[uid])
         end
       else
-        long_text? ? raw_value : value
+        long_text? || has_localized_value? ? raw_value : value
       end
     end
 

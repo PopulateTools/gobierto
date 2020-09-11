@@ -118,7 +118,7 @@ module GobiertoAttachments
     end
 
     def test_update_attachment_metadata
-      pdf_attachment.update_attributes!(name: "(SECOND EDIT) PDF Attachment Name")
+      pdf_attachment.update!(name: "(SECOND EDIT) PDF Attachment Name")
 
       assert_equal 1, pdf_attachment.current_version
       assert_equal 1, pdf_attachment.versions.size

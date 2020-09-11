@@ -71,7 +71,7 @@ module GobiertoBudgets
       end
 
       def endpoint
-        @endpoint ||= APP_CONFIG["populate_data"]["endpoint"]
+        @endpoint ||= APP_CONFIG[:populate_data][:endpoint]
       end
 
       def date_range

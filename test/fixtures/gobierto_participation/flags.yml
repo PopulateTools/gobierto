@@ -1,4 +1,4 @@
 contribution_flag:
-  flaggable: ciname (GobiertoParticipation::Contribution)
+  flaggable: cinema (GobiertoParticipation::Contribution)
   user: peter
   site: madrid

@@ -3,9 +3,10 @@
 module GobiertoCommon
   module CustomFieldsApi
     extend ActiveSupport::Concern
+    include GobiertoHelper
 
     included do
-      attr_reader :resource
+      attr_reader :resource, :vocabularies_adapter
 
       serialization_scope :current_site
     end
@@ -14,8 +15,67 @@ module GobiertoCommon
       @resource ||= base_relation.try(:model)&.new
       return base_relation unless filter_params.present?
 
-      query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation)
+      query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation, custom_fields: custom_fields)
       query.filter(filter_params)
+    end
+
+    def custom_field_record_values(relation)
+      versions_indexes = relation.respond_to?(:versions_indexes) ? relation.versions_indexes.select { |_, index| index.negative? } : {}
+
+      records_query(relation).group_by(&:item_id).transform_values do |records|
+        item_id = records.first&.item_id
+        if versions_indexes.has_key?(item_id)
+          versioned_payloads(records, versions_indexes[item_id])
+        else
+          records.pluck(:payload)
+        end.inject(:merge)
+      end.compact
+    end
+
+    def transformed_custom_field_record_values(relation)
+      raw_values = custom_field_record_values(relation)
+      return raw_values if localized_custom_fields.blank? && md_custom_fields.blank?
+
+      localized_uids = localized_custom_fields.pluck(:uid)
+      md_uids = md_custom_fields.pluck(:uid)
+      raw_values.transform_values do |attributes|
+        transform(attributes, localized_uids, :translate)
+        transform(attributes, md_uids, :markdown)
+        attributes
+      end
+
+      raw_values
+    end
+
+    def transform(attributes, uids, function)
+      uids.each do |uid|
+        next unless attributes.present? && attributes[uid].present?
+
+        attributes[uid] = send(function, attributes[uid])
+      end
+    end
+
+    def records_query(relation)
+      GobiertoCommon::CustomFieldRecord.where(
+        item_condition(relation).merge(custom_field: custom_fields)
+      ).sorted.select(:id, :item_id, :payload)
+    end
+
+    def item_condition(relation)
+      if relation.to_sql.include?("custom_field_records")
+        { item_type: relation.model.name, item_id: relation.pluck(:id) }
+      else
+        { item: relation }
+      end
+    end
+
+    def versioned_payloads(records, version_index)
+      records.map do |record|
+        version = record.versions[version_index]
+        return {} unless version.present? && version.object?
+
+        JSON.parse(version.object_deserialized&.dig("payload") || "{}")
+      end
     end
 
     def save_with_custom_fields
@@ -25,21 +85,27 @@ module GobiertoCommon
       custom_fields_save
     end
 
-    def meta
-      @resource = base_relation.new
+    def translate(hash)
+      hash = hash.with_indifferent_access
+      hash[I18n.locale] || hash[I18n.default_locale] || hash.slice(I18n.available_locales).values&.first || ""
+    end
 
-      return unless stale?(base_relation)
+    def meta
+      @resource ||= base_relation.new
+
+      return unless stale?(custom_fields)
 
       meta_stats = if params[:stats] == "true"
+                     query = GobiertoCommon::CustomFieldsQuery.new(relation: base_relation.unscope(:order), custom_fields: custom_fields)
                      filterable_custom_fields.inject({}) do |stats, custom_field|
                        stats.update(
-                         custom_field.uid => GobiertoCommon::CustomFieldsQuery.new(relation: base_relation).stats(custom_field, filter_params)
+                         custom_field.uid => query.stats(custom_field, filter_params)
                        )
                      end
                    else
                      {}
                    end
-      render json: custom_fields, adapter: :json_api, meta: meta_stats
+      render json: custom_fields, adapter: :json_api, meta: meta_stats, vocabularies_adapter: vocabularies_adapter
     end
 
     private
@@ -108,7 +174,19 @@ module GobiertoCommon
     end
 
     def custom_fields
-      @custom_fields ||= current_site.custom_fields.for_class(resource.class)
+      @custom_fields ||= if resource.try(:instance_level_custom_fields).present?
+                           resource.instance_level_custom_fields
+                         else
+                           current_site.custom_fields.for_class(resource.class)
+                         end
+    end
+
+    def localized_custom_fields
+      @localized_custom_fields ||= custom_fields.localized
+    end
+
+    def md_custom_fields
+      @md_custom_fields ||= custom_fields.with_md
     end
 
   end

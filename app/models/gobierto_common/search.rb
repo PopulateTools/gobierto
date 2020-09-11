@@ -3,25 +3,13 @@ module GobiertoCommon
 
     attr_reader :site, :current_module_class
 
-    def self.algoliasearch_configured?
-      s = Rails.application.secrets
-
-      s.algolia_application_id.present? &&
-      s.algolia_api_key.present? &&
-      s.algolia_search_api_key.present?
-    end
-
     def initialize(site, current_module_class=nil)
       @site = site
       @current_module_class = current_module_class || GobiertoCms
     end
 
-    def search_in_indexes
-      add_quotes = -> x{"'#{x}'"}
-
-      models_to_search.map do |model|
-        model.search_index_name
-      end.map(&add_quotes).join(',')
+    def searchable_types
+      models_to_search.map(&:name).to_json
     end
 
     private

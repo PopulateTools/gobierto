@@ -65,6 +65,8 @@ export default {
     EventBus.$on('refresh-summary-data', () => {
       this.contractsData = this.$root.$data.contractsData;
     });
+    EventBus.$on("update-filters", () => this.updateFilters());
+    EventBus.$on("update-tab", () => this.updateTab());
   },
   methods: {
     setActiveTab(tabIndex) {
@@ -77,8 +79,19 @@ export default {
     },
     isSummaryPage(tabIndex){
       return tabIndex === 0
+    },
+    updateFilters() {
+      const { name } = this.$route
+      const components = ['contracts_show', 'assignees_show']
+      if (components.includes(name)) {
+        this.updateTab()
+      }
+    },
+    updateTab() {
+      // eslint-disable-next-line no-unused-vars
+      this.$router.replace('/dashboards/contratos/adjudicaciones').catch(err => {})
+      this.activeTabIndex = 1
     }
   }
-
 }
 </script>

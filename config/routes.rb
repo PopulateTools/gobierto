@@ -447,10 +447,30 @@ Rails.application.routes.draw do
         get "/" => "plan_types#index", as: :root
         get ":slug(/:year)/ods/:sdg_slug" => "plan_types#sdg", as: :plan_sdg
         get ":slug(/:year)" => "plan_types#show", as: :plan
+        get ":slug(/:year)/categoria/:id" => "plan_types#show", as: :category
+        get ":slug(/:year)/proyecto/:id" => "plan_types#show", as: :project
+        get ":slug(/:year)/tabla/:uid" => "plan_types#show"
+        get ":slug(/:year)/tabla/:uid/:term_id" => "plan_types#show"
 
         # API
         namespace :api, path: "gobierto_plans/api" do
           get "plan_projects/:plan_id/:category_id" => "plan_projects#index", as: "plan_projects"
+        end
+      end
+    end
+
+    namespace :gobierto_plans, path: "/" do
+      constraints GobiertoSiteConstraint.new do
+        # API
+        namespace :api, path: "/" do
+          namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1" do
+            resources :plans, only: [:index, :show], defaults: { format: "json" } do
+              member do
+                get :meta
+              end
+              resources :projects, only: [:index]
+            end
+          end
         end
       end
     end
@@ -585,6 +605,7 @@ Rails.application.routes.draw do
     namespace :gobierto_data, path: "/" do
       constraints GobiertoSiteConstraint.new do
         get "/datos" => "welcome#index", as: :root
+        get "/datos/v/visualizaciones" => "welcome#index"
         get "/datos/:id" => "welcome#index", as: :datasets
         get "/datos/:id/resumen" => "welcome#index"
         get "/datos/:id/editor" => "welcome#index"
@@ -638,6 +659,11 @@ Rails.application.routes.draw do
         get "subvenciones" => "dashboards#subsidies", as: :subsidies_summary
         get "subvenciones/subvenciones" => "dashboards#subsidies", as: :subsidies
         get "subvenciones/subvenciones/:id" => "dashboards#subsidies"
+
+        get "costes/" => "dashboards#costs", as: :costs_summary
+        get "costes/:year" => "dashboards#costs", as: :costs
+        get "costes/:year/:id/" => "dashboards#costs"
+        get "costes/:year/:id/:item" => "dashboards#costs"
       end
     end
 
@@ -647,6 +673,7 @@ Rails.application.routes.draw do
         namespace :api, path: "/" do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1" do
             get ":module_name/configuration" => "configuration#show", as: :configuration
+            get "search" => "search#query", as: :search
           end
         end
       end

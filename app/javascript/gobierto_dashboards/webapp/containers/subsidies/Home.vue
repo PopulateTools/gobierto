@@ -57,6 +57,10 @@ export default {
     isSubsidiesIndex() { return this.$route.name === 'subsidies_index' },
     isSubsidiesShow() { return this.$route.name === 'subsidies_show' },
   },
+  created() {
+    EventBus.$on("update-tab", () => this.updateTab());
+    EventBus.$on("update-filters", () => this.updateFilters());
+  },
   methods: {
     setActiveTab(tabIndex) {
       this.activeTabIndex = tabIndex;
@@ -71,6 +75,18 @@ export default {
     },
     isSummaryPage(tabIndex){
       return tabIndex === 0
+    },
+    updateFilters() {
+      const { name } = this.$route
+      const components = ['subsidies_show', 'subsidies_index']
+      if (components.includes(name)) {
+        this.updateTab()
+      }
+    },
+    updateTab() {
+      // eslint-disable-next-line no-unused-vars
+      this.$router.replace('/dashboards/subvenciones/subvenciones').catch(err => {})
+      this.activeTabIndex = 1
     }
   }
 

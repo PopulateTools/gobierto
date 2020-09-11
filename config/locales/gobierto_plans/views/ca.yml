@@ -28,15 +28,16 @@ ca:
             aquest ODS
           sdg_projects_title: "%{projects_term} de el pla relacionats amb aquest ODS"
       show:
+        category: Categoria
+        customize_columns: Personalitzeu columnes
         desc: Descripció
         ends: Fi
         global_execution: Estat d'execució global
         latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
         loading: Carregant...
-        percentage_progress: "% progrés"
         progress: Progrés
         read_less: Llegiu menys
         read_more: Llegiu més
-        see_all: Veure tot en
         starts: Inici
         status: Estat
+        view_by: Vegeu per

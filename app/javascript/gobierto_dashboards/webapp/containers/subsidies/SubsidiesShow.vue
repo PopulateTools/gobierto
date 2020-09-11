@@ -29,7 +29,12 @@
           </tr>
           <tr>
             <th class="left">
-              <a :href="regulatory_bases" target="_blank">{{ labelRegulatoryBases }}</a>
+              <a
+                :href="regulatory_bases"
+                target="_blank"
+              >
+                {{ labelRegulatoryBases }}
+              </a>
             </th>
           </tr>
         </table>

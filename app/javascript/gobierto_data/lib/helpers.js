@@ -1,5 +1,5 @@
 function getToken() {
-  return window.gobiertoAPI.token
+  return window.gobiertoAPI.token.length == 0 && window.gobiertoAPI.basic_auth_token ? window.gobiertoAPI.basic_auth_token : window.gobiertoAPI.token
 }
 
 function getUserId() {

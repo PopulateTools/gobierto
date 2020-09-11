@@ -3,10 +3,10 @@
 class Activity < ApplicationRecord
   paginates_per 50
 
-  belongs_to :subject, polymorphic: true
-  belongs_to :author, polymorphic: true
-  belongs_to :recipient, polymorphic: true
-  belongs_to :site
+  belongs_to :subject, polymorphic: true, optional: true
+  belongs_to :author, polymorphic: true, optional: true
+  belongs_to :recipient, polymorphic: true, optional: true
+  belongs_to :site, optional: true
 
   validates :action, presence: true
   validates :subject_ip, presence: true

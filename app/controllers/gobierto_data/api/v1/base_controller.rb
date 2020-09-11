@@ -5,7 +5,6 @@ module GobiertoData
     module V1
       class BaseController < ApiBaseController
         include ActionController::MimeResponds
-        include ::User::ApiAuthenticationHelper
         include ::PreviewTokenHelper
 
         before_action { module_enabled!(current_site, "GobiertoData", false) }
@@ -21,6 +20,8 @@ module GobiertoData
           {}.tap do |options|
             if (separator = params[:csv_separator]).present?
               options[:col_sep] = separator_tr.fetch(separator, separator)
+            else
+              options[:col_sep] = separator_tr["comma"]
             end
           end
         end

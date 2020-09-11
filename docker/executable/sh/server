@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-dockerize -wait tcp://$PG_HOST:5432 -timeout 1m
-dockerize -wait $ELASTICSEARCH_URL -timeout 1m
-dockerize -wait tcp://localhost:6379 -timeout 1m
+dockerize -wait tcp://$PG_HOST:5432 -timeout 50s
+dockerize -wait $ELASTICSEARCH_URL -timeout 50s
+dockerize -wait tcp://localhost:6379 -timeout 50s
 
 $PWD/bin/rails s -e $RAILS_ENV

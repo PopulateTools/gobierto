@@ -95,10 +95,10 @@ module GobiertoAdmin
         if section_instance.blank? && section_item.present?
           section_item.destroy
         else
-          section_item.update_attributes(parent_id: parent,
-                                         section_id: section,
-                                         position: position,
-                                         level: parent_node ? parent_node.level + 1 : 0)
+          section_item.update(parent_id: parent,
+                              section_id: section,
+                              position: position,
+                              level: parent_node ? parent_node.level + 1 : 0)
         end
       end
 

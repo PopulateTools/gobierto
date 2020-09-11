@@ -3,8 +3,8 @@
 module GobiertoCommon
   class CollectionItem < ApplicationRecord
     belongs_to :collection
-    belongs_to :item, polymorphic: true
-    belongs_to :container, polymorphic: true
+    belongs_to :item, polymorphic: true, optional: true
+    belongs_to :container, polymorphic: true, optional: true
 
     after_commit :reindex_page, on: [:create, :update]
 
@@ -37,7 +37,7 @@ module GobiertoCommon
 
     def reindex_page
       if item_type == "GobiertoCms::News" || item_type == "GobiertoCms::Page"
-        ::GobiertoCms::Page.trigger_reindex_job(item, false)
+        item.update_pg_search_document
       end
     end
   end

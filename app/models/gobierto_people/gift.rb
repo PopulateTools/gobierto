@@ -9,7 +9,7 @@ module GobiertoPeople
     include GobiertoCommon::UrlBuildable
     include BelongsToPersonWithCharge
 
-    belongs_to :department
+    belongs_to :department, optional: true
     belongs_to_person_with_historical_charge date_attribute: :date
 
     scope :sorted, -> { order(date: :desc, name: :asc) }

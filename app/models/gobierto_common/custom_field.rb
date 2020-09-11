@@ -5,7 +5,7 @@ module GobiertoCommon
     include GobiertoCommon::Sortable
 
     belongs_to :site
-    belongs_to :instance, polymorphic: true
+    belongs_to :instance, polymorphic: true, optional: true
     has_many :records, dependent: :destroy, class_name: "CustomFieldRecord"
     validates :name, presence: true
     validates :uid, uniqueness: { scope: [:site_id, :class_name] }
@@ -24,6 +24,7 @@ module GobiertoCommon
                        numeric: 11 }
 
     scope :sorted, -> { order(position: :asc) }
+    scope :with_md, -> { where(field_type: [:paragraph, :localized_paragraph]) }
     scope :localized, -> { where(field_type: [:localized_string, :localized_paragraph]) }
     scope :not_localized, -> { where.not(field_type: [:localized_string, :localized_paragraph]) }
     scope :with_plugin_type, ->(plugin_type) { plugin.where("options @> ?", { configuration: { plugin_type: plugin_type } }.to_json) }

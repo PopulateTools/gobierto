@@ -8,22 +8,37 @@ class SiteNavigationTest < ActionDispatch::IntegrationTest
     @path = root_path
   end
 
-  def site
-    @site ||= sites(:santander)
+  def password_protected_site
+    @password_protected_site ||= sites(:santander)
   end
 
   def site_with_data_module
     @site_with_data_module ||= sites(:madrid)
   end
 
-  def test_navigation
-    with_current_site(site) do
-      visit @path
+  def test_navigation_without_password
+    Rails.stub(:env, ActiveSupport::StringInquirer.new("production")) do
+      with_current_site(password_protected_site) do
+        visit @path
+        assert has_content?("HTTP Basic: Access denied.")
+      end
+    end
+  end
 
-      within "nav.main-nav" do
-        assert has_link?("Budgets")
-        assert has_link?("Officials and Agendas")
-        assert has_link?("CMS")
+  def test_navigation_with_basic_auth
+    Rails.stub(:env, ActiveSupport::StringInquirer.new("production")) do
+      with_current_site(password_protected_site) do
+        Capybara.current_session.driver.browser.basic_authorize(
+          password_protected_site.configuration.password_protection_username,
+          password_protected_site.configuration.password_protection_password
+        )
+        visit gobierto_people_root_path
+
+        within "nav.main-nav" do
+          assert has_link?("Budgets")
+          assert has_link?("Officials and Agendas")
+          assert has_link?("CMS")
+        end
       end
     end
   end

@@ -14,7 +14,7 @@ module GobiertoCommon
     belongs_to :vocabulary
 
     has_many :terms, dependent: :nullify
-    belongs_to :parent_term, class_name: name, foreign_key: :term_id
+    belongs_to :parent_term, class_name: name, foreign_key: :term_id, optional: true
 
     validates :vocabulary, :slug, :position, :level, presence: true
     validates :name_translations, translated_attribute_presence: true

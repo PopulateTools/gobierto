@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 const Main = () => import("../webapp/pages/Main.vue");
 const Index = () => import("../webapp/components/Index.vue");
 const Dataset = () => import("../webapp/components/Dataset.vue");
+const Visualizations = () => import("../webapp/pages/Visualizations.vue");
 
 export const tabs = ['resumen', 'editor', 'consultas', 'visualizaciones', 'descarga']
 
@@ -13,6 +14,11 @@ export const tabs = ['resumen', 'editor', 'consultas', 'visualizaciones', 'desca
 export const router = new VueRouter({
   mode: 'history',
   routes: [
+    {
+      path: '/datos/v/visualizaciones',
+      component: Visualizations,
+      name: 'Visualizations'
+    },
     {
       path: '/datos',
       component: Main,
@@ -43,7 +49,7 @@ export const router = new VueRouter({
           props: { activeDatasetTab: 3 }
         }
       ]
-      }
+    }
     ],
     scrollBehavior() {
       const element = document.getElementById('gobierto-datos-app');

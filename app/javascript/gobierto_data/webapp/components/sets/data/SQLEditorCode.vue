@@ -35,7 +35,7 @@ import { sqlKeywords } from "./../../../../lib/commons.js";
 export default {
   name: "SQLEditorCode",
   props: {
-    arrayColumns: {
+    objectColumns: {
       type: Object,
       required: true
     },
@@ -129,10 +129,10 @@ export default {
       }
 
       // Enabled saved and fork button while typping on editor
+      this.$root.$emit('disabledStringSavedQuery', false)
       this.$root.$emit('enableSavedButton')
       this.$root.$emit('enabledForkPrompt')
       this.$root.$emit('enabledRevertButton')
-      this.$root.$emit('disabledStringSavedQuery')
       this.$root.$emit("isQuerySavingPromptVisible", true);
     },
     onChange(editor) {
@@ -148,12 +148,12 @@ export default {
       }
     },
     mergeTables() {
-      const sizeArrayColumns = Object.keys(this.arrayColumns);
+      const sizeObjectColumns = Object.keys(this.objectColumns);
 
-      for (let i = 0; i < sizeArrayColumns.length; i++) {
+      for (let i = 0; i < sizeObjectColumns.length; i++) {
         this.arrayMutated[i] = {
           className: "table",
-          text: sizeArrayColumns[i]
+          text: sizeObjectColumns[i]
         };
       }
       this.autoCompleteKeys = [
@@ -195,8 +195,12 @@ export default {
 
       if (searchString.startsWith(".")) {
         resu.forEach(s => {
-          if (s.className == "column") s.score += N;
-          else if (s.className == "sql") s.score -= N;
+          if (s.className === "table") {
+            s.score += N;
+            s.text = `.${s.text}`
+          } else if (s.className === "sql") {
+            s.score -= N;
+          }
           return s;
         });
       }

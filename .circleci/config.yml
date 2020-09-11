@@ -49,25 +49,6 @@ jobs:
           key: gobierto-yarn-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
-      - persist_to_workspace:
-          root: ~/gobierto
-          paths:
-            - vendor/bundle
-            - node_modules
-
-  tests:
-    <<: *defaults
-    parallelism: 4
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
@@ -94,9 +75,41 @@ jobs:
           name: "Cache assets"
           key: v1-asset-cache-{{ .Branch }}
           paths:
-            - public/packs
+            - public/assets
             - public/packs-test
-            - tmp/cache/assets/sprockets
+            - tmp/cache
+
+      - persist_to_workspace:
+          root: ~/gobierto
+          paths:
+            - vendor/bundle
+            - node_modules
+            - public/assets
+            - public/packs-test
+            - tmp/cache
+
+  tests:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
 
       # Run tests
       - run:

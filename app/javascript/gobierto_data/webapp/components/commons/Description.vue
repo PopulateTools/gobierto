@@ -36,7 +36,7 @@ export default {
     Dropdown
   },
   props: {
-    arrayColumns: {
+    objectColumns: {
       type: Object,
       default: () => {}
     }
@@ -49,7 +49,7 @@ export default {
     }
   },
   created() {
-    this.arrayOfObjectsColumns = Object.entries(this.arrayColumns).map(([k, v]) => ({ column: k, type: v }));
+    this.arrayOfObjectsColumns = Object.entries(this.objectColumns).map(([k, v]) => ({ column: k, type: v }));
   }
 }
 </script>

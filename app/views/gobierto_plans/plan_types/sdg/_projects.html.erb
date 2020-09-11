@@ -1,5 +1,6 @@
 <div class="sdg_label sdg-<%= sdg.external_id %> m_b_2" >
-  <%= "#{sdg.external_id}. #{sdg.name}" %>
+  <p class="sdg_title"><%= sdg.name %></p>
+  <p class="sdg_description"><%= sdg.description %></p>
 </div>
 
 <% if projects.blank? %>
@@ -14,7 +15,7 @@
       <% projects.each do |project| %>
         <div class="m_b_1">
           <i class="fas fa-angle-right"></i>
-          <%= link_to project.at_current_version.name, gobierto_plans_plan_url(slug: @plan.plan_type.slug, year: @plan.year, anchor: project.uid) %>
+          <%= link_to project.at_current_version.name, gobierto_plans_project_url(project, slug: @plan.plan_type.slug, year: @plan.year) %>
         </div>
       <% end %>
     </div>

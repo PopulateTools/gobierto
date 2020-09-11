@@ -898,6 +898,10 @@ a .global_menu {
   }
 }
 
+.gobierto_admin .select2-container .select2-selection--single {
+  position: relative;
+}
+
 // reset gobierto styles (comp-forms.scss)
 .jsgrid {
   input[type="text"],

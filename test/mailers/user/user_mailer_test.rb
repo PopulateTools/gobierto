@@ -45,7 +45,7 @@ class User::UserMailerTest < ActionMailer::TestCase
   end
 
   def test_without_reply_to_email
-    site.update_attributes!(reply_to_email: nil)
+    site.update!(reply_to_email: nil)
 
     email = User::UserMailer.welcome(user, site).deliver_now
 

@@ -14,7 +14,7 @@ module GobiertoAdmin
           if @settings_form.save
             redirect_to edit_admin_data_configuration_settings_path, notice: t(".success")
           else
-            redirect_to edit_admin_data_configuration_settings_path, alert: t(".error", validation_errors: @settings_form.errors.full_messages.to_sentence)
+            render :edit
           end
         end
 

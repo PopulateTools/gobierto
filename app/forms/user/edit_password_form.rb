@@ -19,6 +19,6 @@ class User::EditPasswordForm < BaseForm
   private
 
   def update_password
-    @user.update_attributes(password: password)
+    @user.update(password: password)
   end
 end

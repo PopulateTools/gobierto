@@ -39,7 +39,7 @@ module GobiertoAdmin
       end
 
       def get_services_config
-        OpenStruct.new(APP_CONFIG["services"])
+        OpenStruct.new(APP_CONFIG[:services])
       end
 
       def get_available_pages

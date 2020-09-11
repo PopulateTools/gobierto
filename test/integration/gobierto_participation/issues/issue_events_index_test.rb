@@ -59,7 +59,7 @@ module GobiertoParticipation
     end
 
     def test_issue_events_index
-      issue_events.first.update_attributes!(starts_at: Time.zone.now + 1.hour, ends_at: Time.zone.now)
+      issue_events.first.update!(starts_at: Time.zone.now + 1.hour, ends_at: Time.zone.now)
 
       with_current_site(site) do
         visit issue_events_path

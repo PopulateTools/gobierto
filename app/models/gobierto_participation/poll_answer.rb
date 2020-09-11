@@ -9,7 +9,7 @@ module GobiertoParticipation
 
     belongs_to :poll
     belongs_to :question, class_name: 'GobiertoParticipation::PollQuestion'
-    belongs_to :answer_template, class_name: 'GobiertoParticipation::PollAnswerTemplate'
+    belongs_to :answer_template, class_name: 'GobiertoParticipation::PollAnswerTemplate', optional: true
 
     scope :open_answers,  -> { where(answer_template: nil) }
     scope :fixed_answers, -> { where.not(answer_template: nil) }

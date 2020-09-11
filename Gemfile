@@ -15,7 +15,7 @@ gem "meta-tags"
 gem "paper_trail"
 gem "paranoia"
 gem "pg", "~> 1.1"
-gem "rails", "~> 5.2.4"
+gem "rails", "~> 6.0"
 gem "redcarpet", require: true
 gem "responders"
 gem "rollbar"
@@ -54,14 +54,15 @@ gem "sidekiq-monitor-stats"
 gem "aws-sdk-s3", "~> 1"
 
 # AWS SES client
-gem "aws-ses", "~> 0.6.0"
+gem "aws-ses", "~> 0.7.0"
 
 # Calendar view component
 gem "simple_calendar", "~> 2.2"
 
-# Algolia client
-gem "algoliasearch-rails", "~> 1.17"
-# Algolia client indexing sanitizer
+# Search client
+gem "pg_search"
+
+# Search client indexing sanitizer
 gem "rails-html-sanitizer"
 
 # Pagination
@@ -88,7 +89,7 @@ gem "google-api-client"
 # Microsoft Exchange calendars
 gem "exchanger"
 
-# Web Services
+# Web Services: Alcobendas, Valencia
 gem "savon", "~> 2.12.0"
 
 # Image management
@@ -107,6 +108,9 @@ gem "appsignal"
 gem "net-ldap"
 gem "ladle"
 
+# Detect encoding
+gem "charlock_holmes"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
@@ -117,9 +121,9 @@ end
 group :test do
   gem "capybara"
   gem "capybara-email"
-  gem "codecov", "~> 0.1.9", require: false
+  gem "codecov", "~> 0.2.0", require: false
   gem "launchy"
-  gem "minitest", "5.14.1"
+  gem "minitest", "5.14.2"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"

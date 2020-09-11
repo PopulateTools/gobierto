@@ -16,6 +16,8 @@ es:
       timestampz: fecha y hora
     events:
       gobierto_data_dataset_dataset_created: Conjunto de datos creado
+      gobierto_data_dataset_dataset_data_updated: Datos de conjunto de datos actualizados
+      gobierto_data_dataset_dataset_deleted: Conjunto de datos eliminado
       gobierto_data_dataset_dataset_updated: Conjunto de datos actualizado
     layouts:
       application:
@@ -28,24 +30,28 @@ es:
       buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)
       cancel: Cancelar
       categories: Categorías
+      createCopy: Crear una copia
       dashboards: Dashboards
       data: Datos
-      dataset: Conjunto de datos
+      dataset: Conjuntos de datos
       datasetUpdated: Últimos datasets actualizados
+      deleteQuery: "¿Estás seguro de que deseas eliminar esta consulta?"
+      deleteViz: "¿Estás seguro de que deseas eliminar esta visualización?"
       description: Descripción
       download: Descargar
       downloadData: Descargar datos
       edit: Editar
       emptyRecentQueries: No hay consultas recientes
       favs: Favoritas
-      fork: Fork
       frequency: Frecuencia
       guide: Guía para usar el editor SQL
+      link: Enlace
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualización modificada
       preview: Previsualizar
       private: Privada
       queries: Consultas
+      query: Consulta
       queryEmpty: No hay consultas disponibles
       queryExecuted: Consulta ejecutada en
       queryName: Nombre consulta
@@ -57,7 +63,6 @@ es:
       revert: Revertir
       runQuery: Ejecutar consulta
       save: Guardar
-      saveViz: Guardar Visualización
       savedQuery: Consulta guardada
       savedVisualization: Visualización guardada
       sets: Conjuntos

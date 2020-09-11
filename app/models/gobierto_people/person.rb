@@ -14,16 +14,23 @@ module GobiertoPeople
 
     translates :charge, :bio
 
-    algoliasearch_gobierto do
-      attribute :site_id, :name, :charge_en, :charge_es, :charge_ca, :bio_en, :bio_es, :bio_ca, :updated_at
-      searchableAttributes ['name', 'charge_en', 'charge_es', 'charge_ca', 'bio_en', 'bio_es', 'bio_ca']
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
+    multisearchable(
+      against: [:name, :charge_es, :charge_en, :charge_ca, :bio_es, :bio_en, :bio_ca],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:name),
+          description_translations: item.truncated_translations(:bio),
+          resource_path: item.resource_path,
+          searchable_updated_at: item.updated_at
+        }
+      },
+      if: :searchable?
+    )
 
-    belongs_to :admin, class_name: "GobiertoAdmin::Admin"
+    belongs_to :admin, class_name: "GobiertoAdmin::Admin", optional: true
     belongs_to :site
-    has_vocabulary :political_groups
+    has_vocabulary :political_groups, optional: true
 
     has_many :attending_person_events, class_name: "GobiertoCalendars::EventAttendee", dependent: :destroy
     has_many :attending_events, class_name: "GobiertoCalendars::Event", through: :attending_person_events, source: :event

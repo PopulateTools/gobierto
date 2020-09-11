@@ -61,11 +61,11 @@ module GobiertoBudgets
 
       SearchEngine.stubs(client: @client)
 
-      algolia_index = mock
-      algolia_index.expects(:add_object).with(budget_line.algolia_as_json)
-      BudgetLine.stubs(algolia_index: algolia_index)
+      assert_difference "site.pg_search_documents.count", 1 do
+        budget_line.save
+      end
 
-      budget_line.save
+      assert site.multisearch("Gastos de personal").exists?
     end
 
     def test_save_fail
@@ -75,50 +75,27 @@ module GobiertoBudgets
 
       SearchEngine.stubs(client: @client)
 
-      algolia_index = mock
-      algolia_index.expects(:add_object).with(budget_line.algolia_as_json).never
-      BudgetLine.stubs(algolia_index: algolia_index)
+      assert_no_difference "site.pg_search_documents.count" do
+        budget_line.save
+      end
 
-      budget_line.save
+      refute site.multisearch("Gastos de personal").exists?
     end
 
     def test_destroy
-      algolia_index = mock
-      algolia_index.expects(:delete_object).with(budget_line.algolia_id)
-      BudgetLine.stubs(algolia_index: algolia_index)
-
       @client.expects(:delete)
              .with(has_entries(budget_line_arguments_for_indexing))
              .returns("_shards" => { "failed" => 0 })
 
       SearchEngine.stubs(client: @client)
 
-      budget_line.destroy
-    end
+      GobiertoBudgets::BudgetLine.pg_search_reindex(budget_line)
 
-    def test_algolia_as_json
-      SearchEngine.stubs(client: @client)
-
-      expected_hash = {
-        objectID: "index_forecast/economic/28079/2015/1/G",
-        index: "index_forecast",
-        type: "economic",
-        site_id: site.id,
-        organization_id: budget_line.organization_id,
-        year: budget_line.year,
-        code: budget_line.code,
-        kind: budget_line.kind,
-        resource_path: budget_line.resource_path,
-        class_name: budget_line.class.name,
-        "name_es"        => "Gastos de personal (custom, translated)",
-        "description_es" => "Los gastos de personal son... (custom, translated)",
-        "name_en"        => "Personal expenses (custom, translated)",
-        "description_en" => "Personal expenses are... (custom, translated)",
-        "name_ca"        => "Despeses de personal",
-        "description_ca" => "Tot tipus de retribucions fixes i variables i indemnitzacions, en diners i en espècie, a satisfer per les entitats locals i els seus organismes autònoms al personal que hi presti els seus serveis. Cotitzacions obligatòries de les entitats locals i dels seus organismes autònoms als diferents règims de Seguretat Social del personal al seu servei. Prestacions socials, que comprenen tota classe de pensions i les remuneracions a concedir per raó de les càrregues familiars. Despeses de naturalesa social realitzades, en compliment d'acords i disposicions vigents, per les entitats locals i els seus organismes autònoms per al seu personal."
-      }
-
-      assert_equal expected_hash, budget_line.algolia_as_json
+      assert site.multisearch("Gastos de personal").exists?
+      assert_difference "site.pg_search_documents.count", -1 do
+        budget_line.destroy
+      end
+      refute site.multisearch("Gastos de personal").exists?
     end
   end
 end

@@ -19,11 +19,10 @@ class ApplicationController < ActionController::Base
     :current_module,
     :current_module_class,
     :available_locales,
-    :algoliasearch_configured?,
     :cache_key_preffix
   )
 
-  before_action :authenticate_user_in_site, :apply_engines_overrides
+  before_action :apply_engines_overrides, :authenticate_user_in_site
 
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -34,14 +33,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def authenticate_user_in_site
-    if (Rails.env.production? || Rails.env.staging?) && @site && @site.password_protected?
-      authenticate_or_request_with_http_basic("Gobierto") do |username, password|
-        username == @site.configuration.password_protection_username && password == @site.configuration.password_protection_password
-      end
-    end
-  end
 
   def set_locale
     if available_locales.include?(preferred_locale)

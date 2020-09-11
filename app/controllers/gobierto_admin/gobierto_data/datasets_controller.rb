@@ -61,8 +61,9 @@ module GobiertoAdmin
 
       def destroy
         @dataset = find_dataset
+        @dataset_form = DatasetForm.new(id: params[:id], site_id: current_site.id, admin_id: current_admin.id, ip: remote_ip)
 
-        @dataset.destroy
+        @dataset_form.destroy
 
         redirect_to admin_data_datasets_path, notice: t(".success")
       end

@@ -28,6 +28,6 @@ export const VisualizationFactoryMixin = {
     },
     deleteVisualization(id) {
       return axios.delete(`${endPoint}/${id}`, { headers });
-    },
+    }
   }
 };

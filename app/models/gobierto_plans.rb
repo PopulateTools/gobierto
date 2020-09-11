@@ -32,6 +32,10 @@ module GobiertoPlans
     [GobiertoPlans::Node]
   end
 
+  def self.searchable_models
+    [GobiertoPlans::Node]
+  end
+
   def self.default_plans_configuration_data
     <<JSON
     {
@@ -86,6 +90,8 @@ module GobiertoPlans
       "level0_options": [],
       "show_table_header": false,
       "open_node": false,
+      "hide_level0_counters": false,
+      "sdg_uid": null,
       "fields_to_not_show_in_front": [],
       "show_empty_fields": false
     }

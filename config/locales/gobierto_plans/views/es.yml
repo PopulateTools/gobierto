@@ -28,16 +28,16 @@ es:
             ODS
           sdg_projects_title: "%{projects_term} del plan relacionados con este ODS"
       show:
+        category: Categoría
+        customize_columns: Personalizar columnas
         desc: Descripción
         ends: Fin
         global_execution: Estado de ejecución global
         latest_update_html: "<strong>Última actualización:</strong> %{date}"
         loading: Cargando...
-        objective: Objetivo
-        percentage_progress: "% progreso"
         progress: Progreso
-        reached: Alcanzado
         read_less: Leer menos
         read_more: Leer más
         starts: Inicio
         status: Estado
+        view_by: Ver por

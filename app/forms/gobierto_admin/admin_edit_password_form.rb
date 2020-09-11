@@ -20,7 +20,7 @@ module GobiertoAdmin
     private
 
     def update_password
-      @admin.update_attributes(password: password)
+      @admin.update(password: password)
     end
   end
 end

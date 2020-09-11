@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoDashboards
     class SettingsForm < BaseForm
 
-      VALID_DASHBOARDS_NAMES = %w(contracts subsidies)
+      VALID_DASHBOARDS_NAMES = %w(contracts subsidies costs)
 
       attr_writer(
         :site_id,
@@ -98,7 +98,7 @@ module GobiertoAdmin
       end
 
       def module_name
-        self.class.parent.name.demodulize
+        self.class.module_parent.name.demodulize
       end
 
     end

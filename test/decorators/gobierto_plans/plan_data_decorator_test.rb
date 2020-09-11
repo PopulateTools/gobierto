@@ -113,7 +113,7 @@ module GobiertoPlans
     end
 
     def test_sample_csv_import_with_empty_plan_and_automatic_publication
-      plan.update_attributes(statuses_vocabulary_id: csv_import_statuses_vocabulary.id, publish_last_version_automatically: true)
+      plan.update(statuses_vocabulary_id: csv_import_statuses_vocabulary.id, publish_last_version_automatically: true)
       plan.nodes.each(&:destroy)
 
       GobiertoAdmin::GobiertoPlans::PlanDataForm.new(csv_file: sample_import_csv_file, plan: plan).save

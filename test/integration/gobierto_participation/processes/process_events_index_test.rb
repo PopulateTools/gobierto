@@ -88,7 +88,7 @@ module GobiertoParticipation
     end
 
     def test_process_events_index
-      process_current_events.first.update_attributes!(starts_at: Time.zone.now + 1.hour, ends_at: Time.zone.now)
+      process_current_events.first.update!(starts_at: Time.zone.now + 1.hour, ends_at: Time.zone.now)
 
       with_current_site(site) do
         visit process_events_path

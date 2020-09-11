@@ -8,6 +8,7 @@ module GobiertoCommon::CustomFieldValue
     def value
       markdown(value_string) || ""
     end
+    alias raw_api_value value
 
     def value_string
       raw_value[I18n.locale.to_s] ||

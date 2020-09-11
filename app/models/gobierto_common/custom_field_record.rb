@@ -29,7 +29,7 @@ module GobiertoCommon
     attr_accessor :item_has_versions, :callback_update
 
     belongs_to :item, polymorphic: true
-    belongs_to :custom_field
+    belongs_to :custom_field, touch: true
 
     validates :custom_field, presence: true
     validates :item, presence: true, type: true
@@ -41,7 +41,7 @@ module GobiertoCommon
 
     has_paper_trail if: ->(this) { this.item_has_versions }
 
-    delegate :value, :value_string, :raw_value, :value=, :filter_value, :searchable_value, :external_id, to: :value_processor
+    delegate :value, :value_string, :raw_value, :raw_api_value, :value=, :filter_value, :searchable_value, :external_id, to: :value_processor
 
     after_save :check_plugin_callbacks, :touch_item
 

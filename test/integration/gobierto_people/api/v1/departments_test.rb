@@ -63,7 +63,7 @@ module GobiertoPeople
         end
 
         def test_departments_index_test
-          justice_department.update_attributes!(name: "Departament de la Presidència")
+          justice_department.update!(name: "Departament de la Presidència")
 
           with_current_site(madrid) do
 
@@ -107,7 +107,7 @@ module GobiertoPeople
 
         def test_departments_index_test_with_events_history
           ::GobiertoCalendars::Event.destroy_all
-          culture_department.update_attributes!(name: "Departament de Cultura")
+          culture_department.update!(name: "Departament de Cultura")
 
           create_event(person: richard, starts_at: "15-01-1970") # As alien doctor in ecology department old
           create_event(person: richard, starts_at: "16-01-2000") # As avenger in tourism department very old

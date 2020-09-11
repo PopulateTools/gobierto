@@ -30,16 +30,22 @@ module GobiertoCalendars
 
     metadata_attributes :type
 
-    algoliasearch_gobierto do
-      attribute :site_id, :title_en, :title_es, :title_ca, :searchable_description, :updated_at
-      searchableAttributes ['title_en', 'title_es', 'title_ca', 'searchable_description']
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
+    multisearchable(
+      against: [:title_es, :title_en, :title_ca, :searchable_description],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          resource_path: item.resource_path,
+          searchable_updated_at: item.updated_at
+        }
+      },
+      if: :searchable?
+    )
 
     belongs_to :site
-    belongs_to :department, class_name: "GobiertoPeople::Department"
-    belongs_to :interest_group, class_name: "GobiertoPeople::InterestGroup"
+    belongs_to :department, class_name: "GobiertoPeople::Department", optional: true
+    belongs_to :interest_group, class_name: "GobiertoPeople::InterestGroup", optional: true
     has_many :locations, class_name: "EventLocation", dependent: :destroy
     has_many :attendees, class_name: "EventAttendee", dependent: :destroy
 
@@ -134,6 +140,8 @@ module GobiertoCalendars
     end
 
     def to_path
+      return if archived?
+
       if collection.container_type == "GobiertoParticipation::Process"
         url_helpers.gobierto_participation_process_event_path(id: slug, process_id: container.slug)
       elsif collection.container_type == "GobiertoParticipation"

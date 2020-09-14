@@ -111,6 +111,9 @@ gem "ladle"
 # Detect encoding
 gem "charlock_holmes"
 
+# CORS support
+gem "rack-cors"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
@@ -129,7 +132,6 @@ group :test do
   gem "minitest-stub_any_instance"
   gem "minitest-stub-const"
   gem "mocha"
-  gem "rack-cors"
   gem "selenium-webdriver"
   gem "spy"
   gem "timecop"

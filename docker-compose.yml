@@ -4,13 +4,20 @@ web:
   command: ./docker/executable/sh/entrypoint.sh
   env_file: .env
   environment:
-    - RAILS_ENV=development
-    - RACK_ENV=development
+    - RAILS_ENV=test
+    - RACK_ENV=test
     - DISABLE_SPRING=true
     - RAILS_LOG_TO_STDOUT=true
+    - HOST=gobierto.test
+    - BINDING=0.0.0.0
+    - BASE_HOST=gobierto.test
+    - PG_HOST=postgres
+    - PG_USERNAME=postgres
+    - PG_PASSWORD=postgres
     - ELASTICSEARCH_URL=http://elasticsearch:9200
     - MAILCATCHER_HOST=mailcatcher
     - BUNDLE_PATH=/bundle
+    - RAILS_MAX_THREADS=5
     - PYTHONUNBUFFERED=1
     - REDIS_URL=redis://redis:6379
   volumes_from:

@@ -1,8 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
-dockerize -wait tcp://$PG_HOST:5432 -timeout 50s
-dockerize -wait $ELASTICSEARCH_URL -timeout 50s
-dockerize -wait tcp://localhost:6379 -timeout 50s
-
-$PWD/bin/rails s -e $RAILS_ENV
+echo -e "\e[92mDeploy Application\e[39m"
+$PWD/bin/rails s -b 0.0.0.0 -p 3000 -e $RAILS_ENV

@@ -46,7 +46,7 @@ module GobiertoPeople
     end
 
     def filtered_positions_tooltip
-      filtered_positions.join("<br>")
+      "<ul>" + filtered_positions.map { |pos| "<li>#{pos}</li>" }.join + "</ul>"
     end
 
     def filtered_positions_str

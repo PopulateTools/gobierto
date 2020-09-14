@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_citizens_charters"
-
 module GobiertoCitizensCharters
   class Edition < ApplicationRecord
     acts_as_paranoid column: :archived_at

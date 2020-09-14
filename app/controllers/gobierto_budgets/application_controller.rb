@@ -19,6 +19,6 @@ class GobiertoBudgets::ApplicationController < ApplicationController
   private
 
   def cache_path
-    "#{current_site.cache_key}/#{current_module}/#{self.controller_name}/#{self.action_name}/#{I18n.locale}"
+    "#{current_site.cache_key_with_version}/#{current_module}/#{self.controller_name}/#{self.action_name}/#{I18n.locale}"
   end
 end

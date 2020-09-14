@@ -2,7 +2,7 @@
 
 require "i18n/backend/gobierto"
 require "i18n/backend/fallbacks"
-require "i18n/backend/gobierto/memoize"
+require "i18n/backend/gobierto_core/memoize"
 
 I18n::Backend::Gobierto.configure do |config|
   config.cleanup_with_destroy = true # defaults to false

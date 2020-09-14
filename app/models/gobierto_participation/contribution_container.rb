@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_participation"
-
 module GobiertoParticipation
   class ContributionContainer < ApplicationRecord
     acts_as_paranoid column: :archived_at

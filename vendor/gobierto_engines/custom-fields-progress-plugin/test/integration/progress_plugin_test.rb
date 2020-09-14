@@ -4,6 +4,13 @@ require "test_helper"
 
 class ProgressPluginTest < ActionDispatch::IntegrationTest
 
+  def setup
+    super
+    # This is used to stub the API response of the budgets API,
+    # which can be called by a different plugin custom field
+    GobiertoBudgets::BudgetLine.stubs(:all).returns([])
+  end
+
   def site
     @site ||= sites(:madrid)
   end

@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
-class I18nLocale < Liquid::Tag
-  def render(context)
-    I18n.locale
+module Liquid
+  module GobiertoCommon
+    module Tags
+      class I18nLocale < Liquid::Tag
+        def render(context)
+          ::I18n.locale
+        end
+      end
+    end
   end
 end
 
-Liquid::Template.register_tag("i18n_locale", I18nLocale)
+Liquid::Template.register_tag("i18n_locale", Liquid::GobiertoCommon::Tags::I18nLocale)

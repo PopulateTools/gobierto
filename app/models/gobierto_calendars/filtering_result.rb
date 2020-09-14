@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_calendars"
-
 module GobiertoCalendars
   class FilteringResult
     attr_accessor :action

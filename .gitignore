@@ -74,6 +74,3 @@ app/javascript/packs/custom_fields_table_plugin.js
 !vendor/gobierto_engines/custom-fields-*-plugin
 vendor/gobierto_engines/custom-fields-*-plugin/node_modules
 
-
-# Volumes Docker-compose
-volumes/*

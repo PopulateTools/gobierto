@@ -1,9 +1,6 @@
-#!/bin/sh
-set -e
+#!/bin/bash
 
-echo "[INFO] User: $(whoami)"
-
-if [ "${DEBUG}" == "True" ]; then
-    export
-fi
-
+echo "INIT CONTAINER"
+echo "127.0.0.1 $HOST" >> /etc/hosts
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"

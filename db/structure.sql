@@ -66,6 +66,26 @@ COMMENT ON EXTENSION unaccent IS 'text search dictionary that removes accents';
 
 
 --
+-- Name: f_unaccent(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.f_unaccent(text) RETURNS text
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+      SELECT public.immutable_unaccent(regdictionary 'public.unaccent', $1)
+      $_$;
+
+
+--
+-- Name: immutable_unaccent(regdictionary, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.immutable_unaccent(regdictionary, text) RETURNS text
+    LANGUAGE c IMMUTABLE STRICT
+    AS '$libdir/unaccent', 'unaccent_dict';
+
+
+--
 -- Name: unaccent_trigger(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -2674,7 +2694,8 @@ CREATE TABLE public.pg_search_documents (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     external_id character varying,
-    searchable_updated_at timestamp without time zone
+    searchable_updated_at timestamp without time zone,
+    content_tsvector tsvector GENERATED ALWAYS AS (to_tsvector('simple'::regconfig, public.f_unaccent(COALESCE(content, ''::text)))) STORED
 );
 
 
@@ -5732,6 +5753,13 @@ CREATE INDEX index_gplan_plans_on_vocabulary_id ON public.gplan_plans USING btre
 
 
 --
+-- Name: index_pg_search_documents_on_content_tsvector; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pg_search_documents_on_content_tsvector ON public.pg_search_documents USING gin (content_tsvector);
+
+
+--
 -- Name: index_pg_search_documents_on_searchable_type_and_searchable_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6331,6 +6359,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200722180617'),
 ('20200723121433'),
 ('20200809102521'),
-('20200910112444');
+('20200910112444'),
+('20200915105712'),
+('20200915105848'),
+('20200915105920');
 
 

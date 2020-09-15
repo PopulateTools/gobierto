@@ -71,7 +71,7 @@ export default {
       const { attributes: { vocabulary_terms: categories = [] } = {} } = dictionary.find(
         ({ attributes: { uid } = {} }) => uid === "category"
       ) || {};
-      const { attributes:{ vocabulary_terms: frecuencies = [] } = {} } = dictionary.find(
+      const { attributes:{ vocabulary_terms: frequencies = [] } = {} } = dictionary.find(
         ({ attributes: { uid } = {} }) => uid === "frequency"
       ) || {};
 
@@ -91,7 +91,7 @@ export default {
           const selectedCategories = Array.isArray(category_id)
             ? +category_id
             : [+category_id];
-          const selectedFrecuencies = Array.isArray(frequency_id)
+          const selectedFrequencies = Array.isArray(frequency_id)
             ? +frequency_id
             : [+frequency_id];
 
@@ -102,8 +102,8 @@ export default {
             }
             return acc
           }, []) || []).join(", ");
-          const frequency = (frecuencies.reduce((acc, { id, name_translations }) => {
-            if (selectedFrecuencies.includes(id)) {
+          const frequency = (frequencies.reduce((acc, { id, name_translations }) => {
+            if (selectedFrequencies.includes(id)) {
               acc.push(this.translate(name_translations))
             }
             return acc

@@ -33,7 +33,7 @@
         <keep-alive>
           <router-view
             :key="$route.params.id"
-            :all-datasets="subsetItems"
+            :datasets="parsedSubsetItems"
             :page-title="pageTitle"
           />
         </keep-alive>
@@ -48,6 +48,7 @@ import Layout from "./../layouts/Layout.vue";
 import Sidebar from "./../components/Sidebar.vue";
 import { CategoriesMixin } from "./../../lib/mixins/categories.mixin";
 import { FiltersMixin } from "./../../lib/mixins/filters.mixin";
+import { VueFiltersMixin } from "lib/shared";
 
 export default {
   name: "Dataset",
@@ -56,38 +57,94 @@ export default {
     Sidebar,
     SkeletonSpinner
   },
-  mixins: [CategoriesMixin, FiltersMixin],
+  mixins: [CategoriesMixin, FiltersMixin, VueFiltersMixin],
   data() {
     return {
       activeSidebarTab: 0,
-      pageTitle: ''
+      pageTitle: ""
+    };
+  },
+  computed: {
+    parsedSubsetItems() {
+      const { dictionary = [] } = this.middleware || {};
+      // We need to extract the human-readable elements from the dictionary
+      const { attributes: { vocabulary_terms: categories = [] } = {} } = dictionary.find(
+        ({ attributes: { uid } = {} }) => uid === "category"
+      ) || {};
+      const { attributes:{ vocabulary_terms: frecuencies = [] } = {} } = dictionary.find(
+        ({ attributes: { uid } = {} }) => uid === "frequency"
+      ) || {};
+
+      return this.subsetItems.map(
+        ({
+          id,
+          attributes: {
+            slug,
+            name,
+            description,
+            data_updated_at,
+            category: category_id,
+            frequency: frequency_id
+          }
+        }) => {
+          // convert into arrays
+          const selectedCategories = Array.isArray(category_id)
+            ? +category_id
+            : [+category_id];
+          const selectedFrecuencies = Array.isArray(frequency_id)
+            ? +frequency_id
+            : [+frequency_id];
+
+          // get only the translated strings, separated by commas
+          const category = (categories.reduce((acc, { id, name_translations }) => {
+            if (selectedCategories.includes(id)) {
+              acc.push(this.translate(name_translations))
+            }
+            return acc
+          }, []) || []).join(", ");
+          const frequency = (frecuencies.reduce((acc, { id, name_translations }) => {
+            if (selectedFrecuencies.includes(id)) {
+              acc.push(this.translate(name_translations))
+            }
+            return acc
+          }, []) || []).join(", ");
+
+          return {
+            id,
+            slug,
+            name,
+            description,
+            data_updated_at,
+            category,
+            frequency
+          };
+        }
+      );
+    },
+    isDatasetLoaded() {
+      return this.items.length && this.subsetItems.length;
     }
   },
   watch: {
     $route(to) {
-      if (to.name === 'Dataset') {
-        this.activeSidebarTab = 1
+      if (to.name === "Dataset") {
+        this.activeSidebarTab = 1;
       }
     }
   },
-  computed: {
-    isDatasetLoaded() {
-      return this.items.length && this.subsetItems.length
-    }
-  },
   created() {
-    this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus)
-    this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked)
-    this.pageTitle = document.title
+    this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus);
+    this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked);
+    this.pageTitle = document.title;
   },
   deactivated() {
-    this.$root.$off("sendCheckbox_TEMP")
-    this.$root.$off("selectAll_TEMP")
+    this.$root.$off("sendCheckbox_TEMP");
+    this.$root.$off("selectAll_TEMP");
   },
   methods: {
     setActiveSidebar() {
-      if (this.$route.name === 'Dataset') {
-        this.activeSidebarTab = 1
+      if (this.$route.name === "Dataset") {
+        this.activeSidebarTab = 1;
       }
     }
   }

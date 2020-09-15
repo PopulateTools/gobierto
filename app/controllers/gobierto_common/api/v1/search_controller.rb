@@ -7,7 +7,7 @@ module GobiertoCommon
 
         # GET /api/v1/search?query=term&filters[searchable_type][]=GobiertoPeople::Person
         def query
-          search_result = current_site.ilike_search(params[:query]).where(filters_params).limit(25)
+          search_result = current_site.multisearch(params[:query]).where(filters_params).limit(25)
 
           render(
             json: search_result,

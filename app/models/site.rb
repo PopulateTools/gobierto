@@ -228,12 +228,6 @@ class Site < ApplicationRecord
     PgSearch.multisearch(*args).where(site: self)
   end
 
-  def ilike_search(*args)
-    return PgSearch::Document.none if args&.first.blank?
-
-    PgSearch::Document.where("unaccent(content) ILIKE unaccent(?)", "%#{args.first.squeeze}%").where(site: self)
-  end
-
   private
 
   def site_configuration_attributes

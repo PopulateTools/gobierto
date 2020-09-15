@@ -65,16 +65,25 @@ export default {
     };
   },
   computed: {
-    parsedSubsetItems() {
+    categories() {
       const { dictionary = [] } = this.middleware || {};
       // We need to extract the human-readable elements from the dictionary
       const { attributes: { vocabulary_terms: categories = [] } = {} } = dictionary.find(
         ({ attributes: { uid } = {} }) => uid === "category"
       ) || {};
+
+      return categories
+    },
+    frequencies() {
+      const { dictionary = [] } = this.middleware || {};
+      // We need to extract the human-readable elements from the dictionary
       const { attributes:{ vocabulary_terms: frequencies = [] } = {} } = dictionary.find(
         ({ attributes: { uid } = {} }) => uid === "frequency"
       ) || {};
 
+      return frequencies
+    },
+    parsedSubsetItems() {
       return this.subsetItems.map(
         ({
           id,
@@ -87,27 +96,35 @@ export default {
             frequency: frequency_id
           }
         }) => {
-          // convert into arrays
-          const selectedCategories = Array.isArray(category_id)
-            ? +category_id
-            : [+category_id];
-          const selectedFrequencies = Array.isArray(frequency_id)
-            ? +frequency_id
-            : [+frequency_id];
+          let category = null;
+          let frequency = null;
 
-          // get only the translated strings, separated by commas
-          const category = (categories.reduce((acc, { id, name_translations }) => {
-            if (selectedCategories.includes(id)) {
-              acc.push(this.translate(name_translations))
-            }
-            return acc
-          }, []) || []).join(", ");
-          const frequency = (frequencies.reduce((acc, { id, name_translations }) => {
-            if (selectedFrequencies.includes(id)) {
-              acc.push(this.translate(name_translations))
-            }
-            return acc
-          }, []) || []).join(", ");
+          if (category_id) {
+            // convert into arrays
+            const selectedCategories = Array.isArray(category_id)
+              ? category_id
+              : [category_id];
+            // get only the translated strings, separated by commas
+            category = (this.categories.reduce((acc, { id, name_translations }) => {
+              if (selectedCategories.includes(id.toString())) {
+                acc.push(this.translate(name_translations))
+              }
+              return acc
+            }, []) || []).join(", ");
+          }
+
+          if (frequency_id) {
+            const selectedFrequencies = Array.isArray(frequency_id)
+              ? frequency_id
+              : [frequency_id];
+
+            frequency = (this.frequencies.reduce((acc, { id, name_translations }) => {
+              if (selectedFrequencies.includes(id.toString())) {
+                acc.push(this.translate(name_translations))
+              }
+              return acc
+            }, []) || []).join(", ");
+          }
 
           return {
             id,

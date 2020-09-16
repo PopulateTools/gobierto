@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_data"
+require_relative "../gobierto_data"
 
 module GobiertoData
   class Visualization < ApplicationRecord

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_admin"
-
 module GobiertoAdmin
   class Admin < ApplicationRecord
     include Authentication::Authenticable

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_cms"
-
 module GobiertoCms
   class Section < ApplicationRecord
     include GobiertoCommon::Sortable

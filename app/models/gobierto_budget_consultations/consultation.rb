@@ -1,4 +1,4 @@
-require_dependency "gobierto_budget_consultations"
+# frozen_string_literal: true
 
 module GobiertoBudgetConsultations
   class Consultation < ApplicationRecord

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_admin"
-
 module GobiertoAdmin
   class AdminGroup < ApplicationRecord
     belongs_to :site

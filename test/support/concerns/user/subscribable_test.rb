@@ -2,7 +2,7 @@
 
 module User::SubscribableTest
   class User::SubscribableClass
-    include Subscribable
+    include User::Subscribable
     attr_accessor :title, :name
   end
 

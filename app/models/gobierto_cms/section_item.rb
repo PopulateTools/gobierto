@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_cms"
-
 module GobiertoCms
   class SectionItem < ApplicationRecord
     belongs_to :item, polymorphic: true

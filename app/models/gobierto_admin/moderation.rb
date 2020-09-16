@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_admin"
-
 class GobiertoAdmin::Moderation < ApplicationRecord
   belongs_to :site, optional: true
   belongs_to :admin, optional: true

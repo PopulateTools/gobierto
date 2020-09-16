@@ -1,20 +1,18 @@
 <template>
-  <div v-if="allDatasets">
+  <div v-if="datasets.length">
     <h3 class="gobierto-data-index-title">
       {{ labelDatasetUpdated }}
     </h3>
     <div
       v-for="{
         id,
-        attributes: {
-          slug,
-          name,
-          description,
-          data_updated_at,
-          category: [{ name_translations: category } = {}] = [],
-          frequency: [{ name_translations: frequency } = {}] = [],
-        }
-      } in allDatasets"
+        slug,
+        name,
+        description,
+        data_updated_at,
+        category,
+        frequency,
+      } in datasets"
       :key="id"
       class="gobierto-data-info-list-element"
     >
@@ -27,15 +25,14 @@
 
       <Info
         :description-dataset="description"
-        :category-dataset="category | translate"
-        :frequency-dataset="frequency | translate"
+        :category-dataset="category"
+        :frequency-dataset="frequency"
         :date-updated="data_updated_at"
       />
     </div>
   </div>
 </template>
 <script>
-import { VueFiltersMixin } from "lib/shared";
 import Info from "./commons/Info.vue";
 
 export default {
@@ -43,9 +40,8 @@ export default {
   components: {
     Info
   },
-  mixins: [VueFiltersMixin],
   props: {
-    allDatasets: {
+    datasets: {
       type: Array,
       default: () => []
     }

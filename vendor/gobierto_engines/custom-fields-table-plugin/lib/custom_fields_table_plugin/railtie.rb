@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "../../app/decorators/gobierto_plans/category_term_decorator_table_attachment"
-
 def attach_module(config, origin, module_class)
   if config.plugins_attached_modules[origin]
     config.plugins_attached_modules[origin].append(module_class)
@@ -27,10 +25,11 @@ else
           }
         )
         conf.custom_field_plugins_packs += %w(table)
-        conf.autoload_paths += Dir[Pathname.new(base_path).join("app", "models")]
-        conf.eager_load_paths += Dir[Pathname.new(base_path).join("app", "models")]
+        load_paths = %w(models decorators).map { |directory| Pathname.new(base_path).join("app", directory) }
+        conf.autoload_paths += load_paths
+        conf.eager_load_paths += load_paths
 
-        attach_module(conf, "::GobiertoPlans::CategoryTermDecorator", ::GobiertoPlans::CategoryTermDecoratorTableAttachment)
+        attach_module(conf, "::GobiertoPlans::CategoryTermDecorator", "::GobiertoPlans::CategoryTermDecoratorTableAttachment")
 
         conf.i18n.load_path += Dir[File.join(base_path, "config", "locales", "**", "*.{rb,yml}")]
       end

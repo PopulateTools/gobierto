@@ -51,7 +51,7 @@ export const FiltersMixin = {
         filters: availableFilters
       });
       store.addDatasets(__items__);
-      let items = this.setData(__items__);
+      let items = __items__;
       let filters = [];
 
       if (filtersFromConfiguration) {

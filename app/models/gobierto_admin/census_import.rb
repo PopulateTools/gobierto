@@ -1,4 +1,4 @@
-require_dependency "gobierto_admin"
+# frozen_string_literal: true
 
 module GobiertoAdmin
   class CensusImport < ApplicationRecord

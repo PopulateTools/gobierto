@@ -88,4 +88,15 @@ Rails.application.configure do
     host: ENV.fetch("HOST"),
     script_name: ""
   }
+
+  config.middleware.insert_before(0, Rack::Cors) do
+    allow do
+      origins "*"
+
+      resource "/api/*",
+        :headers => :any,
+        :methods => [:get, :post, :delete, :put, :patch, :options, :head],
+        :max_age => 0
+    end
+  end
 end

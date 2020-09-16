@@ -82,8 +82,8 @@ function prepareAgeRange(d) {
   return [d.sexo, age_range].join('.');
 }
 
-async function getMapPolygons(ineCode) {
-  const polygonsRequest = new Request(`https://datos.gobierto.es/api/v1/data/data?sql=select%20geometry,csec,cdis%20from%20secciones_censales%20where%20cumun=${ineCode}`, { method: 'GET' });
+async function getMapPolygons(url) {
+  const polygonsRequest = new Request(url, { method: 'GET' });
   let response = await fetch(polygonsRequest);
   let dataRequest = await checkStatus(response);
   return dataRequest.json()
@@ -103,7 +103,7 @@ export class DemographyMapController {
     const originEndpointFiltered = options.originEndpoint + getSQLMonthFilter();
 
     if (entryPoint) {
-      Promise.all([getRemoteData(studiesEndpointFiltered), getRemoteData(originEndpointFiltered), getMapPolygons(ineCode)]).then((rawData) => {
+      Promise.all([getRemoteData(studiesEndpointFiltered), getRemoteData(originEndpointFiltered), getMapPolygons(options.sectionsEndpoint)]).then((rawData) => {
         const data = this.buildDataObject(rawData)
 
         const { studiesData, originData, mapPolygonsData } = data

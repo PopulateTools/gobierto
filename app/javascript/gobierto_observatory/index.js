@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (demographyMapAppNode !== null) {
     new DemographyMapController({
       selector: demographyMapAppNode.id,
+      sectionsEndpoint: demographyMapAppNode.dataset.endpointSections,
       studiesEndpoint: demographyMapAppNode.dataset.endpointStudies,
       originEndpoint: demographyMapAppNode.dataset.endpointOrigin,
       mapLat: demographyMapAppNode.dataset.mapLat,

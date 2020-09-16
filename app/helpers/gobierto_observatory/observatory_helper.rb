@@ -16,6 +16,7 @@ module GobiertoObservatory
            data-map-lon="#{settings.dig("options", "center", "lon")}"
            data-endpoint-studies="#{settings.dig("options", "studies_dataset_url")}"
            data-endpoint-origin="#{settings.dig("options", "origin_dataset_url")}"
+           data-endpoint-sections="#{settings.dig("options", "sections_dataset_url")}"
         ).html_safe
       end
     end

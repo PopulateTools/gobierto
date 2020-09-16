@@ -11,8 +11,7 @@ end
 
 PgSearch.multisearch_options = {
   using: {
-    tsearch: { prefix: true },
-    trigram: { word_similarity: true }
+    tsearch: { prefix: true , tsvector_column: "content_tsvector" }
   },
   ignoring: :accents
 }

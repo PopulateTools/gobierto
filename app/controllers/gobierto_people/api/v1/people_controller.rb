@@ -8,13 +8,6 @@ module GobiertoPeople
         before_action :check_active_submodules
 
         def index
-          top_people = PeopleWithActivitiesQuery.new(
-            site: current_site,
-            relation: current_site.people,
-            conditions: permitted_conditions,
-            limit: params[:limit]
-          ).results
-
           department = current_site.departments.find_by(id: permitted_conditions[:department_id])
           charges = if params[:filter_positions] == "true"
                       current_site.historical_charges.with_department(department).between_dates(permitted_conditions).reverse_sorted.group_by(&:person_id)
@@ -69,6 +62,22 @@ module GobiertoPeople
         end
 
         private
+
+        def top_people
+          @top_people ||= begin
+                            query = PeopleWithActivitiesQuery.new(
+                              site: current_site,
+                              relation: current_site.people,
+                              conditions: permitted_conditions,
+                              limit: params[:limit]
+                            )
+                            if params[:include_all_activities]
+                              GobiertoPeople::Person.where(id: query.people_with_activities)
+                            else
+                              query.results
+                            end
+                          end
+        end
 
         def parsed_parameters
           params[:start_date] = Time.zone.parse(params[:start_date]) if params[:start_date].is_a?(String)

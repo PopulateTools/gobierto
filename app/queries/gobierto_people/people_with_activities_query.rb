@@ -11,6 +11,10 @@ module GobiertoPeople
       @limit = params[:limit] || DEFAULT_LIMIT
     end
 
+    def people_with_activities
+      GobiertoPeople::Person.find_by_sql(activities_sql)
+    end
+
     private
 
     def events_association
@@ -43,10 +47,6 @@ module GobiertoPeople
         end_date: "#{GobiertoPeople::Gift.table_name}.date <= :end_date"
       }
     }.freeze
-
-    def people_with_activities
-      GobiertoPeople::Person.find_by_sql(activities_sql)
-    end
 
     def model
       Person

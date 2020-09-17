@@ -64,11 +64,16 @@ module GobiertoPeople
       interest_groups = QueryWithEvents.new(source: current_site.interest_groups,
                                             start_date: filter_start_date,
                                             end_date: filter_end_date)
+      people_query = PeopleWithActivitiesQuery.new(
+        site: current_site,
+        relation: current_site.people,
+        conditions: { start_date: filter_start_date, end_date: filter_end_date }
+      )
 
       @home_statistics = {
         total_events: people.count,
         total_interest_groups: interest_groups.count,
-        total_people_with_attendances: people.select(:person_id).distinct.count,
+        total_people_with_attendances: people_query.people_with_activities.count,
         total_trips: site_trips_query.count,
         total_unique_destinations: site_trips_query.unique_destinations_count
       }

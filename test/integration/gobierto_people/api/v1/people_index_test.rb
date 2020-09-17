@@ -56,6 +56,14 @@ module GobiertoPeople
           [tamara]
         end
 
+        def people_with_gifts_invitations_or_trips
+          [richard, tamara]
+        end
+
+        def people_with_old_gifts_invitations_or_trips
+          [richard]
+        end
+
         def short_date(date)
           date[/^\d+-\d+-\d+/]
         end
@@ -94,6 +102,40 @@ module GobiertoPeople
             assert_equal people_with_activity_on_justice_department.size, people.size
             assert_equal neil.name, people.first["name"]
             assert_match "?end_date=#{ short_date(FAR_FUTURE) }&start_date=#{ short_date(FAR_PAST) }", people.first["url"]
+          end
+        end
+
+        def test_people_index_including_all_activities
+          with(site: madrid) do
+            GobiertoCalendars::Event.destroy_all
+
+            get(
+              gobierto_people_api_v1_people_path,
+              params: {
+                include_all_activities: true,
+                start_date: 3.years.ago.iso8601,
+                end_date: 1.year.ago.iso8601
+              }
+            )
+
+            assert_response :success
+
+            people = JSON.parse(response.body)
+
+            assert_equal people_with_old_gifts_invitations_or_trips.map(&:name).sort, people.map { |person| person["name"] }.sort
+
+            get(
+              gobierto_people_api_v1_people_path,
+              params: {
+                include_all_activities: true
+              }
+            )
+
+            assert_response :success
+
+            people = JSON.parse(response.body)
+
+            assert_equal people_with_gifts_invitations_or_trips.map(&:name).sort, people.map { |person| person["name"] }.sort
           end
         end
 

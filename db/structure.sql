@@ -85,19 +85,6 @@ CREATE FUNCTION public.immutable_unaccent(regdictionary, text) RETURNS text
     AS '$libdir/unaccent', 'unaccent_dict';
 
 
---
--- Name: unaccent_trigger(); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.unaccent_trigger() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-  NEW.content = unaccent(NEW.content);
-  RETURN NEW;
-END$$;
-
-
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -2768,27 +2755,6 @@ CREATE SEQUENCE public.sites_id_seq
 --
 
 ALTER SEQUENCE public.sites_id_seq OWNED BY public.sites.id;
-
-
---
--- Name: temakis; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.temakis (
-    id bigint,
-    content text,
-    searchable_type character varying,
-    searchable_id bigint,
-    site_id bigint,
-    resource_path character varying,
-    title_translations jsonb,
-    description_translations jsonb,
-    meta jsonb,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    external_id character varying,
-    searchable_updated_at timestamp without time zone
-);
 
 
 --
@@ -6023,13 +5989,6 @@ CREATE UNIQUE INDEX unique_index_gpart_poll_answers_for_fixed_answer_questions O
 --
 
 CREATE UNIQUE INDEX unique_index_gpart_poll_answers_for_open_answer_questions ON public.gpart_poll_answers USING btree (user_id_hmac, answer_template_id);
-
-
---
--- Name: temakis unaccent_temakis; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER unaccent_temakis BEFORE INSERT OR UPDATE ON public.temakis FOR EACH ROW EXECUTE FUNCTION public.unaccent_trigger();
 
 
 --

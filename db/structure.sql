@@ -245,7 +245,8 @@ CREATE TABLE public.admin_api_tokens (
     token character varying,
     "primary" boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    domain character varying
 );
 
 
@@ -2842,7 +2843,8 @@ CREATE TABLE public.user_api_tokens (
     token character varying,
     "primary" boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    domain character varying
 );
 
 
@@ -6321,6 +6323,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200910112444'),
 ('20200915105712'),
 ('20200915105848'),
-('20200915105920');
+('20200915105920'),
+('20200921171234');
 
 

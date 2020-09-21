@@ -13,6 +13,7 @@ module GobiertoCommon
         validates singularized_name, presence: true
         validates :name, uniqueness: { scope: singularized_name }, unless: :blank_name?
         validates singularized_name, uniqueness: { scope: :primary }, if: :primary?
+        validates :domain, domain: true
 
         scope :primary, -> { where(primary: true) }
         scope :secondary, -> { where(primary: false) }

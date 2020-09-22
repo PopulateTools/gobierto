@@ -30,6 +30,7 @@ module User::ApiAuthenticationHelper
   def authenticate_in_site
     return if token.present? && (user_authenticated? || admin_authorized?)
 
+    authenticate_user_in_site unless internal_site_request?
   end
 
   def valid_token_domain?

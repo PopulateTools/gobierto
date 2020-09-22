@@ -60,7 +60,7 @@ gem "aws-ses", "~> 0.7.0"
 gem "simple_calendar", "~> 2.2"
 
 # Search client
-gem "pg_search"
+gem "pg_search", "2.3.2"
 
 # Search client indexing sanitizer
 gem "rails-html-sanitizer"

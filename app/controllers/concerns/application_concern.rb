@@ -52,8 +52,12 @@ module ApplicationConcern
     "site-#{current_site.id}-#{params.to_unsafe_h.sort.flatten.join("-")}"
   end
 
+  def site_protected?
+   (Rails.env.production? || Rails.env.staging?) && @site && @site.password_protected?
+  end
+
   def authenticate_user_in_site
-    if (Rails.env.production? || Rails.env.staging?) && @site && @site.password_protected?
+    if site_protected?
       authenticate_or_request_with_http_basic("Gobierto") do |username, password|
         username == @site.configuration.password_protection_username && password == @site.configuration.password_protection_password
       end

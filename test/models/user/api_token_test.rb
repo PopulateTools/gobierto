@@ -10,4 +10,8 @@ class User::ApiTokenTest < ActiveSupport::TestCase
   def test_valid
     assert user_primary_api_token.valid?
   end
+
+  def test_to_s
+    assert_equal user_primary_api_token.token, "#{user_primary_api_token}"
+  end
 end

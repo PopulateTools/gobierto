@@ -22,6 +22,20 @@ class SearchBoxTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_search_box_use
+    site.people.each(&:update_pg_search_document)
+
+    with(site: site, js: true) do
+      visit gobierto_people_root_path
+
+      find("#gobierto_search").send_keys("ric")
+
+      sleep 2
+
+      assert has_content? "Richard Rider"
+    end
+  end
+
   def test_search_box_without_search_documents
     site.pg_search_documents.destroy_all
 

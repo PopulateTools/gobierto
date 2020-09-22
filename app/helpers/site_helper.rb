@@ -35,8 +35,4 @@ module SiteHelper
     current_site.configuration.configuration_variables["favicon_url"].presence
   end
 
-  def site_password_protected?
-    (Rails.env.production? || Rails.env.staging?) && current_site&.password_protected?
-  end
-
 end

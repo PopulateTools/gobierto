@@ -43,10 +43,14 @@ module User::ApiAuthenticationHelper
   end
 
   def find_current_user
+    return unless internal_site_request? || valid_token_domain?
+
     current_site.users.confirmed.joins(:api_tokens).find_by(user_api_tokens: { token: token })
   end
 
   def find_current_admin
+    return unless internal_site_request? || valid_token_domain?
+
     @current_admin ||= ::GobiertoAdmin::Admin.joins(:api_tokens).find_by(admin_api_tokens: { token: token })
   end
 

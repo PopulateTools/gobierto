@@ -56,6 +56,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show, :edit, :update] do
         resource :welcome_messages, only: [:create], controller: "users/welcome_messages"
         resource :passwords, only: [:new, :create], controller: "users/passwords"
+        resources :api_tokens, only: [:new, :create, :edit, :update, :destroy], controller: "users/api_tokens"
       end
 
       namespace :census do

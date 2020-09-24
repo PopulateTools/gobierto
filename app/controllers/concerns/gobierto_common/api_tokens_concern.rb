@@ -53,7 +53,8 @@ module GobiertoCommon
     end
 
     def destroy
-      if api_token.destroy
+      token = base_relation.secondary.find(params[:id])
+      if token.destroy
         redirect_to owner_path, notice: t("concerns.gobierto_common.api_tokens_concern.destroy.success")
       else
         redirect_to owner_path, alert: t("concerns.gobierto_common.api_tokens_concern.destroy.failed")

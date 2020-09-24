@@ -1,0 +1,28 @@
+<tr id="api_token-<%= api_token.id %>" class="<%= cycle("odd", "even") %>">
+  <td>
+    <%= link_to send("edit_admin_#{owner_type}_api_token_path", owner, api_token), class: "open_remote_modal" do %>
+      <i class="fas fa-edit"></i>
+    <% end %>
+  </td>
+  <td>
+    <%= api_token.name %>
+  </td>
+  <td>
+    <%= api_token.token %>
+  </td>
+  <td>
+    <%= api_token.domain %>
+  </td>
+  <td>
+    <%= time_ago_in_words(api_token.created_at) %>
+  </td>
+  <td>
+    <% if local_assigns[:primary] %>
+      <%= t(".primary") %>
+    <% else %>
+      <%= link_to send("admin_#{owner_type}_api_token_path", owner, api_token), method: :delete, title: t("views.delete"), data: { confirm: t("views.delete_confirm") } do %>
+        <i class="fas fa-trash"></i>
+      <% end %>
+    <% end %>
+  </td>
+</tr>

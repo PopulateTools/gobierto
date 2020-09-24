@@ -1,0 +1,33 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @form %>
+
+<%= form_for(
+  @form, as: :api_token,
+  url: @form.persisted? ? send("admin_#{owner_type}_api_token_path", @owner, @form) : send("admin_#{owner_type}_api_tokens_path", @owner)) do |f| %>
+  <div class="form_item input_text">
+    <%= f.label :name do %>
+      <%= t("gobierto_admin.api_tokens.list.header.name") %>
+    <% end %>
+    <%= f.text_field :name, placeholder: t(".placeholders.name") %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :domain do %>
+      <%= t("gobierto_admin.api_tokens.list.header.domain") %>
+    <% end %>
+    <%= f.text_field :domain, placeholder: t(".placeholders.domain") %>
+  </div>
+
+  <% if @form.persisted? %>
+    <div class="form_item site-check-boxes">
+      <%= f.check_box :update_token %>
+      <%= f.label :update_token do %>
+        <span></span>
+        <%= t(".update_token")  %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="actions right">
+    <%= f.submit %>
+  </div>
+<% end %>

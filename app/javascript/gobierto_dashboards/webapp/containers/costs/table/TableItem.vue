@@ -429,22 +429,22 @@ export default {
   methods: {
     agrupacioData(id) {
       const yearFiltered = this.year
-      this.dataGroup = this.items.filter(element => element.codiact === id && element.year === yearFiltered)
+      this.dataGroup = this.items.filter(element => element.codiact === id && element.any === yearFiltered)
 
       const [{
         descripcio: description,
         competencia: competence,
-        tipus_competencia: types,
+        tipus_de_competencia: types,
         marc_legal: legal,
         cost_indirecte: costIndirect,
-        cd_cost_personal: costPersonal,
-        cd_bens_i_serveis: goodServices,
-        cd_serveis_exteriors: externalServices,
-        cd_transferencies: transferences,
-        cd_equipaments: equiptments,
+        cost_directe_personal: costPersonal,
+        cost_directe_bens_i_serveis: goodServices,
+        cost_directe_serveis_exteriors: externalServices,
+        cost_directe_transferencies: transferences,
+        cost_directe_equipaments: equiptments,
         taxa_o_preu_public: taxs,
-        subvencio: subsidies,
-        ingres_cost: incomeCost,
+        subvencions: subsidies,
+        costos_resta_directes: incomeCost,
         ingressos: income,
         agrupacio: agrupacio,
         cost_total: costTotal

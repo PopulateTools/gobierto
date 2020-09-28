@@ -35,7 +35,10 @@
         class="pure-u-1 pure-u-lg-3-4"
       >
         <div class="vis-costs vis-bubbles" />
-        <div class="range-slider-costs">
+        <div
+          v-if="yearsMultiple"
+          class="range-slider-costs"
+        >
           <div class="range-slider-costs--container">
             <div
               v-for="item in years"
@@ -72,6 +75,10 @@ export default {
     years: {
       type: Array,
       default: () => []
+    },
+    yearsMultiple: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -119,7 +126,7 @@ export default {
   },
   methods: {
     updateYear(value) {
-      this.dataFilter = this.data.filter(element => element.year === value)
+      this.dataFilter = this.data.filter(element => element.any === value)
       const [{
         population: population
       }] = this.dataFilter

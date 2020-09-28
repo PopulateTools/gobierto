@@ -26,7 +26,7 @@ module GobiertoCommon
       @add_suffix = args[:add_suffix] || true
     end
 
-    delegate :call, :uploaded_file_exists?, :upload!, to: :adapter
+    delegate :call, :uploaded_file_exists?, :upload!, :delete, to: :adapter
 
     def adapter
       if Rails.env.development?

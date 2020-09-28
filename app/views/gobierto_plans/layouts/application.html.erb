@@ -6,4 +6,8 @@
   <%= stylesheet_pack_tag 'plans', 'data-turbolinks-track': true %>
 <% end %>
 
+<% content_for :body_attributes  do %>
+  data-turbolinks="false"
+<% end %>
+
 <%= render template: "layouts/application" %>

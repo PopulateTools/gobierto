@@ -1,0 +1,18 @@
+---
+en:
+  activerecord:
+    attributes:
+      gobierto_admin/api_token:
+        domain: Domain
+      user/api_token:
+        domain: Domain
+    errors:
+      models:
+        gobierto_admin/api_token:
+          attributes:
+            domain:
+              not_valid_format: Invalid format
+        user/api_token:
+          attributes:
+            domain:
+              not_valid_format: Invalid format

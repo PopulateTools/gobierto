@@ -1,0 +1,18 @@
+---
+ca:
+  activerecord:
+    attributes:
+      gobierto_admin/api_token:
+        domain: Domini
+      user/api_token:
+        domain: Domini
+    errors:
+      models:
+        gobierto_admin/api_token:
+          attributes:
+            domain:
+              not_valid_format: Format invàlid
+        user/api_token:
+          attributes:
+            domain:
+              not_valid_format: Format invàlid

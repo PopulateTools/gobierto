@@ -7,7 +7,7 @@ class ApiBaseController < ActionController::API
   include ApplicationConcern
   include ::User::ApiAuthenticationHelper
 
-  before_action :disable_cors, :authenticate_in_site
+  before_action :disable_cors, :check_host, :authenticate_in_site
 
   rescue_from ActiveRecord::RecordNotFound, with: -> { send_not_found }
 

@@ -3,6 +3,18 @@ tony_primary_api_token:
   primary: true
   token: tony_primary_api_token
 
+tony_domain:
+  admin_id: <%= ActiveRecord::FixtureSet.identify(:tony) %>
+  primary: false
+  token: example_api_token
+  domain: "www.example.com"
+
+tony_other_domain:
+  admin_id: <%= ActiveRecord::FixtureSet.identify(:tony) %>
+  primary: false
+  token: wadus_api_token
+  domain: "www.wadus.com"
+
 steve_primary_api_token:
   admin_id: <%= ActiveRecord::FixtureSet.identify(:steve) %>
   primary: true

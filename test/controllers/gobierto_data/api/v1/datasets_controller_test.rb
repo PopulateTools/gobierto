@@ -75,6 +75,14 @@ module GobiertoData
           end
         end
 
+        def token_with_domain
+          @token_with_domain ||= gobierto_admin_api_tokens(:tony_domain)
+        end
+
+        def token_with_other_domain
+          @token_with_other_domain ||= gobierto_admin_api_tokens(:tony_other_domain)
+        end
+
         # GET /api/v1/data/datasets.json
         def test_index_with_password_protected_site
           site.draft!
@@ -86,10 +94,9 @@ module GobiertoData
               with(site: site) do
                 get gobierto_data_api_v1_datasets_path, as: :json
                 assert_response :unauthorized
-                assert_includes response.parsed_body, "HTTP Basic: Access denied."
 
                 get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
-                assert_response :success
+                assert_response :unauthorized
 
                 admin.regular!
                 admin.admin_sites.create(site: site)
@@ -102,6 +109,63 @@ module GobiertoData
 
                 admin.manager!
                 get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :success
+              end
+            end
+          end
+        end
+
+        def test_index_with_internal_site_request
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                self.host = "santander.gobierto.test"
+                get gobierto_data_api_v1_datasets_path, as: :json
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                assert_response :success
+              end
+            end
+          end
+        end
+
+        def test_index_with_domain_token
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                get gobierto_data_api_v1_datasets_path, as: :json
+                assert_response :unauthorized
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :unauthorized
+
+                self.host = token_with_domain.domain
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                assert_response :unauthorized
+
+                self.host = token_with_other_domain.domain
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :unauthorized
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
                 assert_response :success
               end
             end

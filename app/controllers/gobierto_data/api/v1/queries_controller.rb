@@ -53,7 +53,15 @@ module GobiertoData
             end
 
             format.xlsx do
-              send_data xlsx_from_query_result(query_result, name: @item.name).read, filename: "#{@item.id}.xlsx"
+              send_data(
+                GobiertoData::Connection.execute_query_output_xlsx(
+                  current_site,
+                  @item.sql,
+                  { name: @item.name },
+                  include_draft: valid_preview_token?
+                ).read,
+                filename: "#{@item.id}.xlsx"
+              )
             end
           end
         end
@@ -75,7 +83,16 @@ module GobiertoData
             end
 
             format.xlsx do
-              send_download(xlsx_from_query_result(query_result, name: @item.name).read, :xlsx, basename)
+              send_download(
+                GobiertoData::Connection.execute_query_output_xlsx(
+                  current_site,
+                  @item.sql,
+                  { name: @item.name },
+                  include_draft: valid_preview_token?
+                ).read,
+                :xlsx,
+                basename
+              )
             end
           end
         end

@@ -87,7 +87,7 @@ module GobiertoData
 
             format.xlsx do
               @cache_uri = cached_data.source("download.xlsx") do
-                xlsx_from_query_result(execute_query(@item.rails_model.all), name: @item.name).read
+                GobiertoData::Connection.execute_query_output_xlsx(current_site, @item.rails_model.all.to_sql, { name: @item.name }).read
               end
             end
           end
@@ -196,7 +196,7 @@ module GobiertoData
 
         def cached_item_xlsx
           Rails.cache.fetch("#{@item.cache_key_with_version}/show.xlsx") do
-            xlsx_from_query_result(execute_query(@item.rails_model.all), name: @item.name).read
+            GobiertoData::Connection.execute_query_output_xlsx(current_site, @item.rails_model.all.to_sql, { name: @item.name }).read
           end
         end
 

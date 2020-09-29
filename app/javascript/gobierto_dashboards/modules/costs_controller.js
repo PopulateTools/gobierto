@@ -135,6 +135,7 @@ export class CostsController {
       }
     }
 
+    //Create an array with all years.
     function getYearsFromData(arr, key) {
       return [...new Map(arr.map(item => [item[key], item])).values()]
     }
@@ -143,8 +144,9 @@ export class CostsController {
 
     yearsCosts = yearsCosts.map(a => a.any);
 
-
     let groupDataByYears = []
+
+    //Create an array of objects with all years
     for (let index = 0; index < yearsCosts.length; index++) {
       const data = rawData.filter(items => items.any == yearsCosts[index]).map(items => ({ ...items, population: population[index] }))
       const dataGroup = groupDataByYear(data, yearsCosts[index])

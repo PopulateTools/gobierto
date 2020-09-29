@@ -112,7 +112,7 @@ export default {
     onChangeFilterYear(value) {
       this.injectRouter()
       let year
-      if (value === '2018') {
+      if (value === '2019') {
         year = value
       } else {
         year = value.target.value

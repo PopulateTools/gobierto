@@ -51,7 +51,7 @@
             :data-th="labelCostCoverage"
             class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage"
           >
-            <span>{{ (coverage).toFixed(0) }} %</span>
+            <span>{{ (coverage).toFixed(2) }} %</span>
           </td>
         </tr>
       </tbody>

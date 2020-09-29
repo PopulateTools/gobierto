@@ -34,7 +34,6 @@
           role: "tab",
           tabindex: 0,
           "aria-selected": "true",
-          id: "per_person",
           "aria-controls": "lines_chart_wrapper" %>
       <% end %>
       <%= link_to t(:in_total, scope: i18n_scope), "#",
@@ -45,7 +44,6 @@
         role: "tab",
         tabindex:-1,
         "aria-selected": !@site_stats.population_data?,
-        id: "total_budget",
         "aria-controls": "lines_chart_comparison_wrapper" %>
     </div>
   </div>

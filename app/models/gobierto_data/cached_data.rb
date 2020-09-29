@@ -3,6 +3,11 @@
 module GobiertoData
   class CachedData
     CACHED_DATA_BASE_PATH = "gobierto_data/cache/"
+    CONTENT_TYPES = {
+      ".json" => "application/json; charset=utf-8",
+      ".csv" => "text/csv; charset=utf-8",
+      ".xlsx" => "application/xlsx"
+    }.freeze
 
     attr_reader :resource, :resource_path
 
@@ -16,10 +21,17 @@ module GobiertoData
       @local
     end
 
-    def source(name, update: false)
+    def source(name, update: false, content_type: nil)
       update_method = update ? :upload! : :call
       service = GobiertoCommon::FileUploadService.new(file_name: "#{resource_path}/#{name}")
-      service = GobiertoCommon::FileUploadService.new(file_name: "#{resource_path}/#{name}", content: yield) if update || !service.uploaded_file_exists?
+      if update || !service.uploaded_file_exists?
+        service = GobiertoCommon::FileUploadService.new(
+          file_name: "#{resource_path}/#{name}",
+          content: yield,
+          content_disposition: "attachment",
+          content_type: content_type || CONTENT_TYPES[File.extname(name)]
+        )
+      end
       local? ? Rails.root.join("public#{service.send(update_method)}") : service.send(update_method)
     end
   end

@@ -84,7 +84,11 @@ module GobiertoData
 
       query_result = Connection.execute_write_query_from_file_using_stdin(site, statements.sql_code, file_path: file_path)
       set_schema
-      touch(:data_updated_at) unless query_result.blank? || query_result.has_key?(:errors)
+      unless query_result.blank? || query_result.has_key?(:errors)
+        touch(:data_updated_at)
+        refresh_cached_downloads
+      end
+
       {
         db_result: query_result,
         schema: statements.schema,
@@ -101,6 +105,10 @@ module GobiertoData
     end
 
     private
+
+    def refresh_cached_downloads
+      CacheDatasetsDownloads.perform_later self
+    end
 
     def schema_from_file(schema_file, append)
       if schema_file.blank?

@@ -105,7 +105,7 @@ export class CostsController {
 
     //Convert strings with some format to Numbers without format
     function convertStringToNumbers(amount) {
-      if (amount === '' || undefined) {
+      if (amount === '') {
         return nanToZero(amount)
       } else {
         return Number(parseFloat(amount.replace(/\./g,'').replace(',','.')))
@@ -135,14 +135,7 @@ export class CostsController {
       }
     }
 
-    //Create an array with all years.
-    function getYearsFromData(arr, key) {
-      return [...new Map(arr.map(item => [item[key], item])).values()]
-    }
-
-    let yearsCosts = getYearsFromData(rawData, 'any')
-
-    yearsCosts = yearsCosts.map(a => a.any);
+    let yearsCosts = [...new Set(rawData.map(item => item.any))]
 
     let groupDataByYears = []
 

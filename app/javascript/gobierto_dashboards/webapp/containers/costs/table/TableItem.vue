@@ -444,7 +444,7 @@ export default {
         cost_directe_equipaments: equiptments,
         taxa_o_preu_public: taxs,
         subvencions: subsidies,
-        costos_resta_directes: incomeCost,
+        ingressos_cost: incomeCost,
         ingressos: income,
         agrupacio: agrupacio,
         cost_total: costTotal

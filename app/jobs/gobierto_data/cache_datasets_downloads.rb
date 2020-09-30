@@ -6,20 +6,19 @@ module GobiertoData
 
     def perform(*datasets)
       datasets.each do |dataset|
+        file_basename = dataset.slug
         cached_data = CachedData.new(dataset)
 
-        cached_data.source("download.json", update: true) do
+        cached_data.source("#{file_basename}.json", update: true) do
           Connection.execute_query(dataset.site, dataset.rails_model.all.to_sql).to_json
         end
 
-        %w(, ;).each do |separator|
-          csv_options_params = { col_sep: separator }
-          cached_data.source("download_#{csv_options_params.to_query}.csv", update: true) do
-            Connection.execute_query_output_csv(dataset.site, dataset.rails_model.all.to_sql, csv_options_params)
-          end
+        # Download cache only supports comma separated CSVs
+        cached_data.source("#{file_basename}.csv", update: true) do
+          Connection.execute_query_output_csv(dataset.site, dataset.rails_model.all.to_sql, { col_sep: "," })
         end
 
-        cached_data.source("download.xlsx", update: true) do
+        cached_data.source("#{file_basename}.xlsx", update: true) do
           Connection.execute_query_output_xlsx(dataset.site, dataset.rails_model.all.to_sql, { name: dataset.name }).read
         end
       end

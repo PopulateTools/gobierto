@@ -70,23 +70,25 @@ module GobiertoData
         def download
           find_item
           return if @item.draft? && !valid_preview_token?
+
           filename = "#{@item.slug}.#{request.format.symbol}"
 
           respond_to do |format|
             format.json do
-              @cache_uri = cached_data.source("download.json") do
+              @cache_uri = cached_data.source(filename) do
                 execute_query(@item.rails_model.all).to_json
               end
             end
 
             format.csv do
-              @cache_uri = cached_data.source("download_#{csv_options_params.to_query}.csv") do
-                GobiertoData::Connection.execute_query_output_csv(current_site, @item.rails_model.all.to_sql, csv_options_params)
+              # Download cache only supports comma separated CSVs
+              @cache_uri = cached_data.source(filename) do
+                GobiertoData::Connection.execute_query_output_csv(current_site, @item.rails_model.all.to_sql, { col_sep: "," })
               end
             end
 
             format.xlsx do
-              @cache_uri = cached_data.source("download.xlsx") do
+              @cache_uri = cached_data.source(filename) do
                 GobiertoData::Connection.execute_query_output_xlsx(current_site, @item.rails_model.all.to_sql, { name: @item.name }).read
               end
             end

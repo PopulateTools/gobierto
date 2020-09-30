@@ -51,9 +51,10 @@ module FileUploader
     end
 
     def delete_children
-      objects = resource.bucket(bucket_name).objects({ prefix: file_name }).each do |object|
-        object.delete
-      end
+      resource.bucket(bucket_name).objects({ prefix: file_name }).each(&:delete)
+      true
+    rescue Aws::S3::Errors::AccessDenied
+      false
     end
 
     private

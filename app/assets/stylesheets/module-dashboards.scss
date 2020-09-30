@@ -166,6 +166,14 @@
           padding-right: 20px;
         }
       }
+
+      &.padding-right div {
+        padding-right: 1em;
+      }
+
+      &.padding-left div {
+        padding-left: 1em;
+      }
     }
 
     &--td {
@@ -205,6 +213,14 @@
 
       &:not(:first-child):not(:last-child) > *::first-letter {
         text-transform: uppercase;
+      }
+
+      &.padding-right div {
+        padding-right: 1em;
+      }
+
+      &.padding-left div {
+        padding-left: 1em;
       }
     }
 

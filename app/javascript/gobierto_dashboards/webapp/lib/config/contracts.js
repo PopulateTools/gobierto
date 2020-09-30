@@ -2,8 +2,8 @@
 export const contractsColumns = [
   { field: 'assignee', translation: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'), format: null, cssClass: '' },
   { field: 'title', translation: I18n.t('gobierto_dashboards.dashboards.contracts.contractor'), format: 'truncated', cssClass: 'largest-width-td' },
-  { field: 'final_amount_no_taxes', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'right nowrap' },
-  { field: 'start_date', translation: I18n.t('gobierto_dashboards.dashboards.contracts.date'), format: null, cssClass: 'nowrap' },
+  { field: 'final_amount_no_taxes', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'right nowrap padding-right' },
+  { field: 'start_date', translation: I18n.t('gobierto_dashboards.dashboards.contracts.date'), format: null, cssClass: 'nowrap padding-left' },
 ];
 
 export const tendersColumns = [
@@ -20,8 +20,8 @@ export const assigneesColumns = [
 
 export const assigneesShowColumns = [
   { field: 'title', translation: I18n.t('gobierto_dashboards.dashboards.contracts.assignee'), format: null, cssClass: '' },
-  { field: 'final_amount_no_taxes', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'nowrap' },
-  { field: 'start_date', translation: I18n.t('gobierto_dashboards.dashboards.contracts.date'), format: null, cssClass: 'nowrap' },
+  { field: 'final_amount_no_taxes', translation: I18n.t('gobierto_dashboards.dashboards.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'nowrap padding-right' },
+  { field: 'start_date', translation: I18n.t('gobierto_dashboards.dashboards.contracts.date'), format: null, cssClass: 'nowrap padding-left' },
 ];
 
 // filters config

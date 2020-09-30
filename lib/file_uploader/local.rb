@@ -32,6 +32,19 @@ module FileUploader
       File.exists?(file_path)
     end
 
+    def delete
+      !uploaded_file_exists? || File.delete(file_path)
+    end
+
+    def delete_children
+      return unless File.directory?(file_path)
+
+      Dir.each_child(file_path) do |file|
+        File.delete(File.join(file_path, file))
+      end
+      Dir.delete(file_path)
+    end
+
     private
 
     def file_uri

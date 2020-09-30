@@ -50,6 +50,12 @@ module FileUploader
       !uploaded_file_exists? || object.delete
     end
 
+    def delete_children
+      objects = resource.bucket(bucket_name).objects({ prefix: file_name }).each do |object|
+        object.delete
+      end
+    end
+
     private
 
     def resource

@@ -9,11 +9,12 @@ module GobiertoData
       ".xlsx" => "application/xlsx"
     }.freeze
 
-    attr_reader :resource, :resource_path
+    attr_reader :resource, :resource_path, :resource_basename
 
     def initialize(resource)
       @resource = resource
       @resource_path = "#{CACHED_DATA_BASE_PATH}#{resource.class.name.underscore}/#{resource.id}"
+      @resource_basename = resource.is_a?(GobiertoData::Dataset) ? resource.slug : resource.id
       @local = ::GobiertoCommon::FileUploadService.new(file_name: resource_path).adapter.is_a? ::FileUploader::Local
     end
 
@@ -22,7 +23,9 @@ module GobiertoData
     end
 
     def delete_cached_data
-      ::GobiertoCommon::FileUploadService.new(file_name: resource_path).delete_children
+      CONTENT_TYPES.each_key do |extension|
+        ::GobiertoCommon::FileUploadService.new(file_name: "#{resource_path}/#{resource_basename}#{extension}").delete
+      end
     end
 
     def source(name, update: false, content_type: nil)

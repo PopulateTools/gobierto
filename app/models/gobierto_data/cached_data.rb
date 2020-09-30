@@ -21,6 +21,10 @@ module GobiertoData
       @local
     end
 
+    def delete_cached_data
+      ::GobiertoCommon::FileUploadService.new(file_name: resource_path).delete_children
+    end
+
     def source(name, update: false, content_type: nil)
       update_method = update ? :upload! : :call
       service = GobiertoCommon::FileUploadService.new(file_name: "#{resource_path}/#{name}")

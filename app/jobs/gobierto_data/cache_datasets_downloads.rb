@@ -2,7 +2,7 @@
 
 module GobiertoData
   class CacheDatasetsDownloads < ActiveJob::Base
-    queue_as :default
+    queue_as :cached_data
 
     def perform(*datasets)
       datasets.each do |dataset|

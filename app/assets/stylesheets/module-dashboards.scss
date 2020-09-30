@@ -167,11 +167,15 @@
         }
       }
 
-      &.padding-right div {
+      &-text {
+        display: block;
+      }
+
+      &.padding-right .dashboards-home-main--th-text {
         padding-right: 1em;
       }
 
-      &.padding-left div {
+      &.padding-left .dashboards-home-main--th-text {
         padding-left: 1em;
       }
     }
@@ -215,11 +219,15 @@
         text-transform: uppercase;
       }
 
-      &.padding-right div {
+      &-text {
+        display: block;
+      }
+
+      &.padding-right .dashboards-home-main--td-text {
         padding-right: 1em;
       }
 
-      &.padding-left div {
+      &.padding-left .dashboards-home-main--td-text {
         padding-left: 1em;
       }
     }

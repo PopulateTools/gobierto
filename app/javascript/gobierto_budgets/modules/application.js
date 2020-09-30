@@ -114,13 +114,15 @@ $(document).on('turbolinks:load', function() {
     $('.line_browser').velocity("fadeIn", { duration: 50 });
   });
 
+
+  // Function to make the menu accessible with the keyboard
   $('#popup-year table tr a').blur(function() {
     $(window).keyup(function (e) {
       var code = (e.keyCode ? e.keyCode : e.which);
       if (code == 9 && $('#popup-year table tr a').not(':focus') && $('.bread_links a').not(':focus')) {
         $('.bread_links').removeClass('hasFocus')
       }
-      if (code == 9 && $('#popup-year table tr a').is(':focus')) {
+      if (code == 9 && $('#popup-year table tr a').is(':focus') || $('.bread_links a').is(':focus')) {
         $('.bread_links').addClass('hasFocus')
       }
       if (code == 9 && $('#popup-year table tr a').not(':focus') && !$('.bread_links').hasClass("hasFocus")) {

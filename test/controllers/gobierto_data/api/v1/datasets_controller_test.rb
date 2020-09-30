@@ -55,6 +55,12 @@ module GobiertoData
           @attachment ||= gobierto_attachments_attachments(:txt_pdf_attachment)
         end
 
+        def delete_cached_files(dataset)
+          FileUtils.rm_rf(
+            GobiertoCommon::FileUploadService.new(file_name: GobiertoData::CachedData.new(dataset).resource_path).adapter.send(:file_path)
+          )
+        end
+
         def array_data(dataset)
           [
             dataset.id.to_s,
@@ -370,6 +376,9 @@ module GobiertoData
 
             assert_equal dataset.rails_model.count, response_data.count
             assert_equal dataset.rails_model.all.map(&:id).sort, response_data.map { |row| row["id"] }.sort
+
+            assert File.exist? GobiertoData::CachedData.new(dataset).source("#{dataset.slug}.json")
+            delete_cached_files(dataset)
           end
         end
 
@@ -384,6 +393,9 @@ module GobiertoData
             parsed_csv = CSV.parse(response_data)
 
             assert_equal dataset.rails_model.count + 1, parsed_csv.count
+
+            assert File.exist? GobiertoData::CachedData.new(dataset).source("#{dataset.slug}.csv")
+            delete_cached_files(dataset)
           end
         end
 
@@ -400,6 +412,9 @@ module GobiertoData
             sheet = parsed_xlsx.worksheets.first
             refute_nil sheet[dataset.rails_model.count]
             assert_nil sheet[dataset.rails_model.count + 1]
+
+            assert File.exist? GobiertoData::CachedData.new(dataset).source("#{dataset.slug}.xlsx")
+            delete_cached_files(dataset)
           end
         end
 

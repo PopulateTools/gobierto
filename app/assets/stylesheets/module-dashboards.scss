@@ -170,14 +170,6 @@
       &-text {
         display: block;
       }
-
-      &.padding-right .dashboards-home-main--th-text {
-        padding-right: 1em;
-      }
-
-      &.padding-left .dashboards-home-main--th-text {
-        padding-left: 1em;
-      }
     }
 
     &--td {
@@ -223,13 +215,6 @@
         display: block;
       }
 
-      &.padding-right .dashboards-home-main--td-text {
-        padding-right: 1em;
-      }
-
-      &.padding-left .dashboards-home-main--td-text {
-        padding-left: 1em;
-      }
     }
 
     .largest-width-td {

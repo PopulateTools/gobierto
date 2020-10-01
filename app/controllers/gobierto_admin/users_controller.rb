@@ -20,12 +20,14 @@ module GobiertoAdmin
         @user.attributes.except(*ignored_user_attributes)
       )
       initialize_custom_field_form
+      set_api_tokens
     end
 
     def update
       @user = find_user
       @user_form = UserForm.new(user_params.merge(id: params[:id]))
       initialize_custom_field_form
+      set_api_tokens
 
       if @user_form.save && custom_fields_save
         track_update_activity
@@ -85,6 +87,10 @@ module GobiertoAdmin
 
     def default_activity_params
       { ip: remote_ip, author: current_admin }
+    end
+
+    def set_api_tokens
+      @api_tokens = @user.api_tokens
     end
 
     def get_users_stats

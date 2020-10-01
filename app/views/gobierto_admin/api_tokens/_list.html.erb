@@ -1,0 +1,23 @@
+<% if api_tokens.exists? %>
+  <h2><%= t(".title") %></h2>
+  <div class="admin_tools right">
+    <%= link_to t(".new"), send("new_admin_#{local_assigns[:owner_type]}_api_token_path", local_assigns[:owner]), class: "button open_remote_modal" %>
+  </div>
+  <table class="admin-list">
+    <thead>
+      <tr>
+        <th class='icon_col'></th>
+        <th><%= t(".header.name") %></th>
+        <th><%= t(".header.token") %></th>
+        <th><%= t(".header.domain") %></th>
+        <th><%= t(".header.created_at") %></th>
+        <th class='icon_col'></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= render partial: "gobierto_admin/api_tokens/api_token", collection: local_assigns[:api_tokens].primary, locals: { primary: true }.merge(local_assigns.slice(:owner, :owner_type)) %>
+      <%= render partial: "gobierto_admin/api_tokens/api_token", collection: local_assigns[:api_tokens].secondary, locals: local_assigns.slice(:owner, :owner_type) %>
+    </tbody>
+  </table>
+<% end %>

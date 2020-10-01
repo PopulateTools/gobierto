@@ -58,6 +58,8 @@ module GobiertoData
       def execute_query_output_xlsx(site, query, xlsx_options_params, include_draft: false)
         result = execute_query(site, query, include_draft: include_draft)
 
+        return result if result.is_a?(Hash) && result.has_key?(:errors)
+
         row_index = 0
         book = RubyXL::Workbook.new
 

@@ -41,6 +41,7 @@
 
     <Dropdown
       v-if="privateQueries.length || publicQueries.length"
+      class="gobierto-data-summary-separator"
       @is-content-visible="showYourQueries = !showYourQueries"
     >
       <template v-slot:trigger>
@@ -55,10 +56,48 @@
         :public-queries="publicQueries"
       />
     </Dropdown>
+
+    <Dropdown
+      v-if="privateVisualizations.length || publicVisualizations.length"
+      @is-content-visible="showYourVizs = !showYourVizs"
+    >
+      <template v-slot:trigger>
+        <h2 class="gobierto-data-tabs-section-title">
+          <Caret :rotate="showYourVizs" />
+          {{ labelVisualizations }}
+        </h2>
+      </template>
+      <VisualizationsTab
+        v-if="showYourVizs"
+        :dataset-id="datasetId"
+        :is-user-logged="isUserLogged"
+        :is-viz-modified="isVizModified"
+        :is-viz-item-modified="isVizItemModified"
+        :is-viz-saved="isVizSaved"
+        :is-private-viz-loading="isPrivateVizLoading"
+        :is-public-viz-loading="isPublicVizLoading"
+        :public-visualizations="publicVisualizations"
+        :private-visualizations="privateVisualizations"
+        :private-queries="privateQueries"
+        :public-queries="publicQueries"
+        :enabled-viz-saved-button="enabledVizSavedButton"
+        :current-viz-tab="currentVizTab"
+        :enabled-fork-viz-button="enabledForkVizButton"
+        :viz-input-focus="vizInputFocus"
+        :user-save-viz="userSaveViz"
+        :show-private-public-icon-viz="showPrivatePublicIconViz"
+        :show-private="showPrivate"
+        :show-private-viz="showPrivateViz"
+        :show-label-edit="showLabelEdit"
+        :reset-private="resetPrivate"
+        :object-columns="objectColumns"
+      />
+    </Dropdown>
   </div>
 </template>
 
 <script>
+import VisualizationsTab from "./VisualizationsTab.vue";
 import Resources from "./../commons/Resources.vue";
 import Info from "./../commons/Info.vue";
 import Queries from "./../commons/Queries.vue";
@@ -80,12 +119,37 @@ export default {
     Dropdown,
     DownloadButton,
     Button,
-    Description
+    Description,
+    VisualizationsTab
   },
   filters: {
     translate
   },
   props: {
+    datasetId: {
+      type: Number,
+      required: true
+    },
+    isVizModified: {
+      type: Boolean,
+      default: false
+    },
+    isVizSaved: {
+      type: Boolean,
+      default: false
+    },
+    enabledVizSavedButton: {
+      type: Boolean,
+      default: false
+    },
+    privateVisualizations: {
+      type: Array,
+      default: () => []
+    },
+    publicVisualizations: {
+      type: Array,
+      default: () => []
+    },
     privateQueries: {
       type: Array,
       default: () => [],
@@ -113,6 +177,54 @@ export default {
     isUserLogged: {
       type: Boolean,
       default: false
+    },
+    isPrivateVizLoading: {
+      type: Boolean,
+      default: false
+    },
+    isPublicVizLoading: {
+      type: Boolean,
+      default: false
+    },
+    currentVizTab: {
+      type: Number,
+      default: null
+    },
+    enabledForkVizButton: {
+      type: Boolean,
+      default: true
+    },
+    vizInputFocus: {
+      type: Boolean,
+      default: true
+    },
+    showPrivatePublicIconViz: {
+      type: Boolean,
+      default: false
+    },
+    showPrivateViz: {
+      type: Boolean,
+      default: false
+    },
+    showPrivate: {
+      type: Boolean,
+      default: false
+    },
+    showLabelEdit: {
+      type: Boolean,
+      default: false
+    },
+    isVizItemModified: {
+      type: Boolean,
+      default: false
+    },
+    resetPrivate: {
+      type: Boolean,
+      default: false
+    },
+    userSaveViz: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -122,8 +234,10 @@ export default {
       frequency: {},
       dateUpdated: null,
       showYourQueries: true,
+      showYourVizs: true,
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelPreview: I18n.t("gobierto_data.projects.preview") || "",
+      labelVisualizations: I18n.t("gobierto_data.projects.visualizations") || "",
       tabs
     };
   },

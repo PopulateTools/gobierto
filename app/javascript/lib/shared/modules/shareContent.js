@@ -7,6 +7,12 @@ export var shareContent = flight.component(function(){
   });
 
   this.after('initialize', function() {
+
+    var twitterElement = document.querySelector(".twitter");
+    var facebookElement = document.querySelector(".facebook");
+    twitterElement.style.display = 'inline-block'
+    facebookElement.style.display = 'inline-block'
+
     if(this.$node.find('[data-share-url]').length > 0){
       this.attr.url = this.$node.find('[data-share-url]').data('share-url');
     }

@@ -148,7 +148,7 @@ export class VisBubble {
   updateRender() {
 
     const year = this.year
-    const data = this.data.filter(element => element.year === year)
+    const data = this.data.filter(element => element.any === year)
 
     // var budgetCategory = this.budget_category;
     this.nodes = this.createNodes(data, year);

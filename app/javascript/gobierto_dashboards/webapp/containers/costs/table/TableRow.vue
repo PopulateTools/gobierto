@@ -3,7 +3,7 @@
     class="gobierto-dashboards-table"
     :class="{'gobierto-dashboards-table--subheader': blueHeader }"
   >
-    <template v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, act_intermedia, agrupacio, ordre_agrupacio, totalPerHabitant, year } in items">
+    <template v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, act_intermitja, agrupacio, ordre_agrupacio, totalPerHabitant, any } in items">
       <tr
         :key="nomact"
         class="gobierto-dashboards-tablerow--header"
@@ -12,7 +12,7 @@
         <template v-if="total > 0 && !tableHeader">
           <td
             class="gobierto-dashboards-table-header--nav"
-            @click="handleToggle(act_intermedia)"
+            @click="handleToggle(act_intermitja)"
           >
             <div class="gobierto-dashboards-table-header--nav-has-children">
               <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
@@ -33,7 +33,7 @@
         <template v-else>
           <td class="gobierto-dashboards-table-header--nav">
             <router-link
-              :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio, year: year, description: nomact } }"
+              :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio, year: any, description: nomact } }"
               class="gobierto-dashboards-table-header--link"
               tag="a"
               @click.native="loadTable(2)"
@@ -89,19 +89,19 @@
           <span>{{ calculateCoverage(ingressos, cost_total) }}%</span>
         </td>
       </tr>
-      <template v-if="showChildren && selectedToggle === act_intermedia">
+      <template v-if="showChildren && selectedToggle === act_intermitja">
         <tbody
           :key="codiact"
           class="gobierto-dashboards-table--secondlevel gobierto-dashboards-table--secondlevel-nested"
         >
           <tr
-            v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, coverage, agrupacio, ordre_agrupacio, year } in subItems"
+            v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, coverage, agrupacio, ordre_agrupacio, any } in subItems"
             :key="codiact"
             class="gobierto-dashboards-tablerow--header"
           >
             <td class="gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-header--nav">
               <router-link
-                :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio, year: year, description: nomact } }"
+                :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio, year: any, description: nomact } }"
                 class="gobierto-dashboards-table-header--link"
                 tag="a"
                 @click="loadTable(2)"

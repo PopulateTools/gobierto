@@ -6,21 +6,23 @@
           <h2 class="pure-u-1 gobierto-dashboards-title gobierto-dashboards-title-select">
             {{ labelTittle }}
           </h2>
-          <select
-            v-model="yearFiltered"
-            class="form-control gobierto-dashboards-select"
-            @change="onChangeFilterYear"
-          >
-            <option
-              v-for="year in years"
-              :key="year"
-              :value="year"
-              :index="year"
-              class="gobierto-dashboards-select-option"
+          <template v-if="yearsMultiple">
+            <select
+              v-model="yearFiltered"
+              class="form-control gobierto-dashboards-select"
+              @change="onChangeFilterYear"
             >
-              {{ year }}
-            </option>
-          </select>
+              <option
+                v-for="year in years"
+                :key="year"
+                :value="year"
+                :index="year"
+                class="gobierto-dashboards-select-option"
+              >
+                {{ year }}
+              </option>
+            </select>
+          </template>
         </div>
         <p class="gobierto-dashboards-description">
           {{ labelDescription }}
@@ -36,6 +38,7 @@
         :data="groupData"
         :year="yearFiltered"
         :years="years"
+        :yearsMultiple="yearsMultiple"
         @preventReload="injectRouter"
       />
       <Table
@@ -65,10 +68,15 @@ export default {
       labelDescription: '',
       labelDescription2: I18n.t("gobierto_dashboards.dashboards.costs.description_2") || "",
       labelDescription3: I18n.t("gobierto_dashboards.dashboards.costs.description_3") || "",
-      yearFiltered: "2018",
-      years: ['2018', '2019'],
+      yearFiltered: this.$root.$data.yearsCosts[0],
+      years: this.$root.$data.yearsCosts,
       costDataFilter: [],
       groupDataFilter: []
+    }
+  },
+  computed: {
+    yearsMultiple() {
+      return this.years.length > 1
     }
   },
   watch: {
@@ -86,11 +94,11 @@ export default {
       }
     } = this.$route
     let yearFiltered = year
-    if (!year) yearFiltered = '2018'
+    if (!year) yearFiltered = '2019'
     this.yearFiltered = yearFiltered
 
-    const costDataFilter = this.costData.filter(element => element.year === yearFiltered).sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
-    const groupDataFilter = this.groupData.filter(element => element.year === yearFiltered).sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
+    const costDataFilter = this.costData.filter(element => element.any === yearFiltered).sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
+    const groupDataFilter = this.groupData.filter(element => element.any === yearFiltered).sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
 
     this.costDataFilter = costDataFilter
     this.groupDataFilter = groupDataFilter
@@ -104,14 +112,14 @@ export default {
     onChangeFilterYear(value) {
       this.injectRouter()
       let year
-      if (value === '2018') {
+      if (value === '2019') {
         year = value
       } else {
         year = value.target.value
         this.yearFiltered = value.target.value
       }
-      const costDataFilter = this.costData.filter(element => element.year === year)
-      const groupDataFilter = this.groupData.filter(element => element.year === year)
+      const costDataFilter = this.costData.filter(element => element.any === year)
+      const groupDataFilter = this.groupData.filter(element => element.any === year)
 
       this.costDataFilter = costDataFilter
       this.groupDataFilter = groupDataFilter
@@ -126,7 +134,7 @@ export default {
           target: {
             __data__: {
               ordre_agrupacio: order,
-              year: year
+              any: year
             }
           }
         } = e

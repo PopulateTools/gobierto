@@ -1,0 +1,23 @@
+---
+ca:
+  gobierto_admin:
+    api_tokens:
+      api_token:
+        primary: Primari
+      edit:
+        api_token: Token de l'API %{name}
+      form:
+        placeholders:
+          domain: www.example.org
+          name: Token per a aplicacions externes
+        update_token: Actualitzar Token
+      list:
+        header:
+          created_at: Creat
+          domain: Domini
+          name: Nom
+          token: Token
+        new: Nou
+        title: Tokens de l'API
+      new:
+        api_token: Nou Token de l'API

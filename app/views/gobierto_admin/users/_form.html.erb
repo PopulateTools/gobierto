@@ -47,6 +47,12 @@
 
       </div>
 
+      <% if @user_form.persisted? %>
+        <div class="form_block" id="api_tokens">
+          <%= render "gobierto_admin/api_tokens/list", { api_tokens: @api_tokens, owner: @user, owner_type: :user } %>
+        </div>
+      <% end %>
+
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

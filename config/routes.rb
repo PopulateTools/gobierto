@@ -38,7 +38,10 @@ Rails.application.routes.draw do
         resource :sessions, only: [:create, :destroy]
       end
 
-      resources :admins, only: [:index, :show, :new, :create, :edit, :update]
+      resources :admins, only: [:index, :show, :new, :create, :edit, :update] do
+        resources :api_tokens, only: [:new, :create, :edit, :update, :destroy], controller: "admins/api_tokens"
+      end
+
       resources :admin_groups, only: [:index, :new, :create, :edit, :update] do
         resources :admins, only: [:index, :new, :create, :destroy], controller: "admin_groups/admins"
       end
@@ -53,6 +56,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show, :edit, :update] do
         resource :welcome_messages, only: [:create], controller: "users/welcome_messages"
         resource :passwords, only: [:new, :create], controller: "users/passwords"
+        resources :api_tokens, only: [:new, :create, :edit, :update, :destroy], controller: "users/api_tokens"
       end
 
       namespace :census do

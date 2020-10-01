@@ -4,13 +4,13 @@
     <table class="gobierto-dashboards-table gobierto-dashboards-table-first-level">
       <tbody>
         <tr
-          v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, coverage, ordre_agrupacio, totalPerHabitant, year } in itemsFilter"
+          v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, coverage, ordre_agrupacio, totalPerHabitant, any } in itemsFilter"
           :key="agrupacio"
           class="gobierto-dashboards-tablerow--header"
         >
           <td class="gobierto-dashboards-table-header--nav">
             <router-link
-              :to="{ name: 'TableSecondLevel', params: { id: ordre_agrupacio, year: year, description: agrupacio } }"
+              :to="{ name: 'TableSecondLevel', params: { id: ordre_agrupacio, year: any, description: agrupacio } }"
               class="gobierto-dashboards-table-header--link"
               @click.native="loadTable"
             >
@@ -51,7 +51,7 @@
             :data-th="labelCostCoverage"
             class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage"
           >
-            <span>{{ (coverage).toFixed(0) }} %</span>
+            <span>{{ coverageDecimals(coverage) }} %</span>
           </td>
         </tr>
       </tbody>
@@ -90,6 +90,9 @@ export default {
   methods: {
     loadTable() {
       this.$emit('changeTableHandler', 1)
+    },
+    coverageDecimals(value) {
+      return value === 0 ? value.toFixed(0) : value.toFixed(2)
     }
   }
 }

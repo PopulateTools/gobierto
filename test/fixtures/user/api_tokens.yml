@@ -8,6 +8,13 @@ reed_primary_api_token:
   primary: true
   token: reed_primary_api_token
 
+reed_secondary_api_token:
+  user: reed
+  primary: false
+  domain: www.example.org
+  name: Reed secondary token
+  token: reed_secondary_api_token
+
 susan_primary_api_token:
   user: susan
   primary: true

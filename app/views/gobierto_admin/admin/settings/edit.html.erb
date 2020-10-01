@@ -41,6 +41,10 @@
 
       </div>
 
+      <div class="form_block" id="api_tokens">
+        <%= render "gobierto_admin/api_tokens/list", { api_tokens: @api_tokens, owner: current_admin, owner_type: :admin } %>
+      </div>
+
       <%= f.submit class: "button" %>
     </div>
 

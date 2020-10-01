@@ -1,0 +1,24 @@
+<% unless current_admin == @owner %>
+  <div class="tabs">
+    <ul>
+      <li<%== " class=\"active\"" if owner_type == :user %>>
+        <%= link_to admin_users_path do %>
+          <%= t("gobierto_admin.admins.index.users_section") %>
+        <% end %>
+      </li>
+      <li<%== " class=\"active\"" if owner_type == :admin %>>
+        <%= link_to admin_admins_path do %>
+          <%= t("gobierto_admin.admins.index.title") %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+  <div class='admin_breadcrumb'>
+    <%= link_to @owner.name, send("edit_admin_#{owner_type}_path", @owner) %> »
+    <%= t(".api_token", name: @form.name) %>
+  </div>
+<% end %>
+
+<h1><%= t(".api_token", name: @form.name) %></h1>
+<%= render "gobierto_admin/api_tokens/form" %>

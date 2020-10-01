@@ -4,8 +4,13 @@ ca:
     attributes:
       gobierto_admin/api_token:
         domain: Domini
+        name: Nom
+      gobierto_common/api_token_form:
+        domain: Domini
+        name: Nom
       user/api_token:
         domain: Domini
+        name: Nom
     errors:
       models:
         gobierto_admin/api_token:

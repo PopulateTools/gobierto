@@ -48,7 +48,7 @@
         <Dropdown @is-content-visible="showPublicQueries = !showPublicQueries">
           <template v-slot:trigger>
             <h3 class="gobierto-data-summary-queries-panel-title">
-              <Caret :rotate="!showPublicQueries" />
+              <Caret :rotate="showPublicQueries" />
 
               {{ labelAll }}
               <template v-if="publicQueries.length">

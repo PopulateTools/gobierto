@@ -601,7 +601,7 @@ Rails.application.routes.draw do
     # Gobierto Data module
     namespace :gobierto_data, path: "/" do
       constraints GobiertoSiteConstraint.new do
-        get "/datos" => "welcome#index", as: :root
+        get "/datos/" => "welcome#index", as: :root
         get "/datos/v/visualizaciones" => "welcome#index"
         get "/datos/:id" => "welcome#index", as: :datasets
         get "/datos/:id/resumen" => "welcome#index"
@@ -611,6 +611,7 @@ Rails.application.routes.draw do
         get "/datos/:id/visualizaciones" => "welcome#index"
         get "/datos/:id/v/(:queryId)" => "welcome#index"
         get "/datos/:id/descarga" => "welcome#index"
+        get "/datos/terms/(:vocabId)" => "welcome#index"
 
         # API
         namespace :api, path: "/" do

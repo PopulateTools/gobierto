@@ -157,13 +157,6 @@ export default {
   deactivated() {
     this.$root.$off("sendCheckbox_TEMP");
     this.$root.$off("selectAll_TEMP");
-  },
-  methods: {
-    setActiveSidebar() {
-      if (this.$route.name === "Dataset") {
-        this.activeSidebarTab = 1;
-      }
-    }
   }
 };
 </script>

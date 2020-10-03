@@ -166,6 +166,10 @@
           padding-right: 20px;
         }
       }
+
+      &-text {
+        display: block;
+      }
     }
 
     &--td {
@@ -206,6 +210,11 @@
       &:not(:first-child):not(:last-child) > *::first-letter {
         text-transform: uppercase;
       }
+
+      &-text {
+        display: block;
+      }
+
     }
 
     .largest-width-td {

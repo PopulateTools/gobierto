@@ -10,7 +10,7 @@
       class="dashboards-home-main--td"
       :class="cssClass"
     >
-      <div>{{ formattedItem[field] }}</div>
+      <span class="dashboards-home-main--td-text">{{ formattedItem[field] }}</span>
     </td>
   </router-link>
 </template>

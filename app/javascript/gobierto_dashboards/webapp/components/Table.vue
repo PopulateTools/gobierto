@@ -8,7 +8,7 @@
           class="dashboards-home-main--th"
           :class="cssClass"
         >
-          <div>{{ translation }}</div>
+          <span class="dashboards-home-main--th-text">{{ translation }}</span>
         </th>
       </thead>
       <TableRow

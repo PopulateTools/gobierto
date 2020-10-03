@@ -50,6 +50,15 @@ module FileUploader
       !uploaded_file_exists? || object.delete
     end
 
+    def delete_children
+      resource.bucket(bucket_name).objects({ prefix: file_name }).each(&:delete)
+      Rails.logger.debug "[gobierto_data] Successful deletion of children of #{file_name}"
+      true
+    rescue Aws::S3::Errors::AccessDenied
+      Rails.logger.debug "[gobierto_data] Failed deletion of children of #{file_name}"
+      false
+    end
+
     private
 
     def resource

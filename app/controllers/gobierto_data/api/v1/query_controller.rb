@@ -31,7 +31,15 @@ module GobiertoData
               query_result = execute_query(params[:sql] || {}, include_stats: false)
 
               render_error_or_continue(query_result) do
-                send_data xlsx_from_query_result(query_result).read, filename: "data.xlsx"
+                send_data(
+                  GobiertoData::Connection.execute_query_output_xlsx(
+                    current_site,
+                    Arel.sql(params[:sql] || {}),
+                    { name: "data" },
+                    include_draft: valid_preview_token?
+                  ).read,
+                  filename: "data.xlsx"
+                )
               end
             end
           end

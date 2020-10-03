@@ -55,6 +55,29 @@ module GobiertoData
         failed_query(e.message)
       end
 
+      def execute_query_output_xlsx(site, query, xlsx_options_params, include_draft: false)
+        result = execute_query(site, query, include_draft: include_draft)
+
+        return result if result.is_a?(Hash) && result.has_key?(:errors)
+
+        row_index = 0
+        book = RubyXL::Workbook.new
+
+        sheet = book.worksheets.first
+        sheet.sheet_name = xlsx_options_params.fetch(:name, "data")
+        result.fields.each_with_index do |value, col_index|
+          sheet.add_cell(row_index, col_index, value)
+        end
+        result.each_row do |row|
+          row_index += 1
+          row.each_with_index do |value, col_index|
+            sheet.add_cell(row_index, col_index, value)
+          end
+        end
+
+        book.stream
+      end
+
       def execute_write_query_from_file_using_stdin(site, query, file_path: nil, include_draft: false)
         return unless file_path.present?
 

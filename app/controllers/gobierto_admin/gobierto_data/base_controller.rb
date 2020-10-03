@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "#{Rails.root}/app/models/gobierto_data"
+
 module GobiertoAdmin
   module GobiertoData
     class BaseController < GobiertoAdmin::BaseController

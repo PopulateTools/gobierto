@@ -149,7 +149,7 @@ GEM
       simplecov
     concurrent-ruby (1.1.7)
     connection_pool (2.2.3)
-    cookies_eu (1.7.6)
+    cookies_eu (1.7.7)
       js_cookie_rails (~> 2.2.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)

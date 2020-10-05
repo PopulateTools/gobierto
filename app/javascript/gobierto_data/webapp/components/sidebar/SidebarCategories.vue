@@ -75,7 +75,9 @@ export default {
       labelCategories: I18n.t("gobierto_data.projects.categories") || '',
       labelAll: I18n.t("gobierto_common.vue_components.block_header.all") || '',
       labelNone: I18n.t("gobierto_common.vue_components.block_header.none") || '',
-      isPermalinkActive: false
+      isPermalinkActive: false,
+      routeItemsFrequency: [],
+      routeItemsCategory: []
     }
   },
   computed: {
@@ -86,6 +88,9 @@ export default {
     },
     filtersModify() {
       return this.filters.length ? this.filters.map(d => ({ ...d, isToggle: true })) : []
+    },
+    isAllUnChecked() {
+      return this.routeItemsFrequency.length !== 0 || this.routeItemsCategory.length !== 0
     }
   },
   created() {
@@ -99,9 +104,6 @@ export default {
     //TODO temporary functions, waiting for the filter refactor
     sendCheckboxStatus_TEMP({ id, value, filter }) {
       this.$root.$emit("sendCheckbox_TEMP", { id, value, filter })
-
-      // eslint-disable-next-line no-unused-vars
-      this.$router.push('/datos/').catch(err => {})
 
       this.updateURLwithCategoriesSelected(filter)
       this.checkSelectedCheckbox(filter)
@@ -118,16 +120,35 @@ export default {
       return filter.options.filter(({ counter: element = 0 }) => element > 0 );
     },
     updateURLwithCategoriesSelected(values) {
+      if (this.$route.name === 'Dataset') {
+        // eslint-disable-next-line no-unused-vars
+        this.$router.push('/datos/').catch(err => {})
+      }
       const { options: optionsChecked } = values
+      const { key } = values
       const isItemSelected = optionsChecked.filter(({ isOptionChecked }) => isOptionChecked === true)
       const getIdFromItems = [...new Set(isItemSelected.map(({ id }) => id))]
       let routeItems = []
-      for (let index = 0; index < getIdFromItems.length; index++) {
-        let item = `${getIdFromItems[index]}:`
-        routeItems.push(item)
+      if (key === 'frequency') {
+        this.routeItemsFrequency = []
+        for (let index = 0; index < getIdFromItems.length; index++) {
+          let item = `${getIdFromItems[index]}:`
+          this.routeItemsFrequency.push(item)
+        }
       }
+
+      if (key === 'category') {
+        this.routeItemsCategory = []
+        for (let index = 0; index < getIdFromItems.length; index++) {
+          let item = `${getIdFromItems[index]}:`
+          this.routeItemsCategory.push(item)
+        }
+      }
+
       let urlTerms = this.isPermalinkActive ? `${location.origin}/datos/terms/` : `${this.$route.path}terms/`
-      routeItems = routeItems.toString().replace(/,/gi, '');
+      routeItems = [...this.routeItemsFrequency, ...this.routeItemsCategory]
+      routeItems = [...new Set(routeItems)];
+      routeItems = routeItems.toString().replace(/,/gi, '')
       urlTerms = routeItems.length === 0 ? `${this.$route.path}` : urlTerms
       history.pushState(
         {},
@@ -137,18 +158,17 @@ export default {
     },
     selectedCheckbox(values) {
       const categoriesSelected = values.filter(item => item).map(item => +item);
-      let categories = this.filters.filter(({ key }) => key === 'category')
-      categories = categories[0]
-      categories.options.forEach((d) => {
-        if (categoriesSelected.includes(d.id)) {
-          d.isOptionChecked = true
-        }
-      })
-      this.$root.$emit("selectChecboxPermalink_TEMP", categories)
+      for (let item of this.filters) {
+        item.options.forEach((d) => {
+          if (categoriesSelected.includes(d.id)) {
+            d.isOptionChecked = true
+          }
+        })
+        this.$root.$emit("selectChecboxPermalink_TEMP", item)
+      }
     },
-    checkSelectedCheckbox(values) {
-      const isItemSelected = values.options.filter(({ isOptionChecked }) => isOptionChecked)
-      if (isItemSelected.length === 0) {
+    checkSelectedCheckbox() {
+      if (!this.isAllUnChecked) {
         // eslint-disable-next-line no-unused-vars
         this.$router.push('/datos/').catch(err => {})
       }

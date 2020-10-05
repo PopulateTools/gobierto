@@ -74,7 +74,8 @@ export default {
       labelQueries: I18n.t("gobierto_data.projects.queries") || '',
       labelCategories: I18n.t("gobierto_data.projects.categories") || '',
       labelAll: I18n.t("gobierto_common.vue_components.block_header.all") || '',
-      labelNone: I18n.t("gobierto_common.vue_components.block_header.none") || ''
+      labelNone: I18n.t("gobierto_common.vue_components.block_header.none") || '',
+      isPermalinkActive: false
     }
   },
   computed: {
@@ -90,6 +91,7 @@ export default {
   created() {
     if (this.$route.params.pathMatch !== undefined) {
       let paramsRouter = this.$route.params.pathMatch.split(':')
+      this.isPermalinkActive = true
       this.selectedCheckbox(paramsRouter)
     }
   },
@@ -97,14 +99,12 @@ export default {
     //TODO temporary functions, waiting for the filter refactor
     sendCheckboxStatus_TEMP({ id, value, filter }) {
       this.$root.$emit("sendCheckbox_TEMP", { id, value, filter })
-      if (!this.$route.params.pathMatch) {
-        // eslint-disable-next-line no-unused-vars
-        this.$router.push('/datos/').catch(err => {})
-      }
-      const { key } = filter
-      if (key === 'category') {
-        this.updateURLwithCategoriesSelected(filter)
-      }
+
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push('/datos/').catch(err => {})
+
+      this.updateURLwithCategoriesSelected(filter)
+      this.checkSelectedCheckbox(filter)
     },
     selectAllCheckbox_TEMP({ filter }) {
       this.$root.$emit("selectAll_TEMP", { filter })
@@ -126,12 +126,14 @@ export default {
         let item = `${getIdFromItems[index]}:`
         routeItems.push(item)
       }
+      let urlTerms = this.isPermalinkActive ? `${location.origin}/datos/terms/` : `${this.$route.path}terms/`
       routeItems = routeItems.toString().replace(/,/gi, '');
-       history.pushState(
-         {},
-         null,
-         `${this.$route.path}terms/${routeItems}`
-       )
+      urlTerms = routeItems.length === 0 ? `${this.$route.path}` : urlTerms
+      history.pushState(
+        {},
+        null,
+        `${urlTerms}${routeItems}`
+      )
     },
     selectedCheckbox(values) {
       const categoriesSelected = values.filter(item => item).map(item => +item);
@@ -143,6 +145,13 @@ export default {
         }
       })
       this.$root.$emit("selectChecboxPermalink_TEMP", categories)
+    },
+    checkSelectedCheckbox(values) {
+      const isItemSelected = values.options.filter(({ isOptionChecked }) => isOptionChecked)
+      if (isItemSelected.length === 0) {
+        // eslint-disable-next-line no-unused-vars
+        this.$router.push('/datos/').catch(err => {})
+      }
     }
   }
 };

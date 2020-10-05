@@ -97,8 +97,10 @@ export default {
     //TODO temporary functions, waiting for the filter refactor
     sendCheckboxStatus_TEMP({ id, value, filter }) {
       this.$root.$emit("sendCheckbox_TEMP", { id, value, filter })
-      // eslint-disable-next-line no-unused-vars
-      this.$router.push('/datos/').catch(err => {})
+      if (!this.$route.params.pathMatch) {
+        // eslint-disable-next-line no-unused-vars
+        this.$router.push('/datos/').catch(err => {})
+      }
       const { key } = filter
       if (key === 'category') {
         this.updateURLwithCategoriesSelected(filter)
@@ -106,6 +108,11 @@ export default {
     },
     selectAllCheckbox_TEMP({ filter }) {
       this.$root.$emit("selectAll_TEMP", { filter })
+
+      const { key } = filter
+      if (key === 'category') {
+        this.updateURLwithCategoriesSelected(filter)
+      }
     },
     filteredOptions(filter) {
       return filter.options.filter(({ counter: element = 0 }) => element > 0 );
@@ -115,7 +122,7 @@ export default {
       const isItemSelected = optionsChecked.filter(({ isOptionChecked }) => isOptionChecked === true)
       const getIdFromItems = [...new Set(isItemSelected.map(({ id }) => id))]
       let routeItems = []
-      for (let index = 0; index < getIdFromItems.length - 1; index++) {
+      for (let index = 0; index < getIdFromItems.length; index++) {
         let item = `${getIdFromItems[index]}:`
         routeItems.push(item)
       }
@@ -128,16 +135,14 @@ export default {
     },
     selectedCheckbox(values) {
       const categoriesSelected = values.filter(item => item).map(item => +item);
-      const categories = this.filters.filter(({ key }) => key === 'category')
-      const filterCategories = categories.map((element) => {
-        return { ...element, options: element.options.filter((option) => categoriesSelected.includes(option.id)) }
+      let categories = this.filters.filter(({ key }) => key === 'category')
+      categories = categories[0]
+      categories.options.forEach((d) => {
+        if (categoriesSelected.includes(d.id)) {
+          d.isOptionChecked = true
+        }
       })
-
-      const [{ options: [{ id }] }] = filterCategories
-      const value = true
-      this.$nextTick(() => {
-        this.$root.$emit("sendCheckbox_TEMP", { id, value, filterCategories })
-      })
+      this.$root.$emit("selectChecboxPermalink_TEMP", categories)
     }
   }
 };

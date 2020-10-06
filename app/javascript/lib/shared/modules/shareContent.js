@@ -21,9 +21,16 @@ export var shareContent = flight.component(function(){
       this.attr.url += '#' + this.$node.data('anchor');
     }
 
-    this.attr.twitterHandle = document.head.querySelector("[name='twitter:site']").content;
+    var twitterHandleContent = document.head.querySelector("[name='twitter:site']")
 
-    if(this.attr.url === "") {
+    if (twitterHandleContent === null) {
+      twitterElement.style.display = 'none'
+    }
+
+    this.attr.twitterHandle = twitterHandleContent === null ? '' : twitterHandleContent.content
+
+
+    if (this.attr.url === "") {
       this.attr.url = window.location.href;
     }
 

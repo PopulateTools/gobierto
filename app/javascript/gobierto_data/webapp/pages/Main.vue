@@ -152,13 +152,13 @@ export default {
   created() {
     this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus);
     this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked);
-    this.$root.$on("selectChecboxPermalink_TEMP", this.handleCheckboxFilter);
+    this.$root.$on("selectCheckboxPermalink_TEMP", this.handleCheckboxFilter);
     this.pageTitle = document.title;
   },
   deactivated() {
     this.$root.$off("sendCheckbox_TEMP");
     this.$root.$off("selectAll_TEMP");
-    this.$root.$off("selectChecboxPermalink_TEMP");
+    this.$root.$off("selectCheckboxPermalink_TEMP");
   }
 };
 </script>

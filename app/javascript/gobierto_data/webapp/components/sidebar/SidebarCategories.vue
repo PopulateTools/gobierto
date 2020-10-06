@@ -109,12 +109,9 @@ export default {
       this.checkSelectedCheckbox(filter)
     },
     selectAllCheckbox_TEMP({ filter }) {
+      filter.options = this.filteredOptions(filter)
       this.$root.$emit("selectAll_TEMP", { filter })
-
-      const { key } = filter
-      if (key === 'category') {
-        this.updateURLwithCategoriesSelected(filter)
-      }
+      this.updateURLwithCategoriesSelected(filter)
     },
     filteredOptions(filter) {
       return filter.options.filter(({ counter: element = 0 }) => element > 0 );

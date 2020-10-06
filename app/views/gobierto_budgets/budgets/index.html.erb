@@ -300,7 +300,7 @@
 
 
   <% if budgets_comparison_context_table_enabled %>
-    <div id="lines_chart_wrapper_separator" class="separator"></div>
+    <div class="separator"></div>
     <%= render partial: "comparison_chart", locals: { wrapper_id: "lines_chart_wrapper",
                                                       chart_id: "lines_chart",
                                                       tooltip_id: "lines_tooltip",
@@ -311,7 +311,7 @@
   <% end %>
 
   <% if budgets_comparison_compare_municipalities.any? %>
-    <div id="lines_chart_wrapper_separator" class="separator"></div>
+    <div class="separator"></div>
     <%= render partial: "comparison_chart", locals: { wrapper_id: "lines_chart_comparison_wrapper",
                                                       chart_id: "lines_chart_comparison",
                                                       tooltip_id: "lines_tooltip_comparison",

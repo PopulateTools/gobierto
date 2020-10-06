@@ -108,6 +108,30 @@ $(document).on('turbolinks:load', function() {
     $('.line_browser').velocity("fadeOut", { duration: 50 });
   });
 
+  $('.bread_links a').focus(function() {
+    $(this).attr('aria-expanded', true);
+    $('.bread_links').addClass('hasFocus');
+    $('.line_browser').velocity("fadeIn", { duration: 50 });
+  });
+
+
+  // Function to make the menu accessible with the keyboard
+  $('#popup-year table tr a').blur(function() {
+    $(window).keyup(function (e) {
+      var code = (e.keyCode ? e.keyCode : e.which);
+      if (code == 9 && $('#popup-year table tr a').not(':focus') && $('.bread_links a').not(':focus')) {
+        $('.bread_links').removeClass('hasFocus')
+      }
+      if (code == 9 && $('#popup-year table tr a').is(':focus') || $('.bread_links a').is(':focus')) {
+        $('.bread_links').addClass('hasFocus')
+      }
+      if (code == 9 && $('#popup-year table tr a').not(':focus') && !$('.bread_links').hasClass("hasFocus")) {
+        $('.bread_links a').attr('aria-expanded', false);
+        $('.line_browser').velocity("fadeOut", { duration: 50 });
+      }
+    });
+  });
+
   $('.open_line_browser').click(function(e) {
     e.preventDefault();
     e.stopPropagation();

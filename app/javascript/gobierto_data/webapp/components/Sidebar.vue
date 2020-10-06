@@ -30,7 +30,7 @@
     <keep-alive>
       <component
         :is="currentTabComponent"
-        :filters="filters"
+        :filters="reFilters"
         :items="items"
       />
     </keep-alive>
@@ -77,6 +77,10 @@ export default {
   },
   created() {
     this.currentTabComponent = COMPONENTS[this.activeTab];
+
+    this.reFilters = this.filters.map((element) => {
+      return { ...element, options: element.options.filter((subElement) => subElement.counter > 0) }
+    })
   },
   methods: {
     activateTab(index) {

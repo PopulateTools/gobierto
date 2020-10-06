@@ -87,7 +87,7 @@ export default {
     filtersModify() {
       return this.filters.length ? this.filters.map(d => ({ ...d, isToggle: true })) : []
     },
-    isAllUnchecked() {
+    isAllChecked() {
       return this.routeItemsFrequency.length !== 0 || this.routeItemsCategory.length !== 0
     }
   },
@@ -104,14 +104,14 @@ export default {
       this.$root.$emit("sendCheckbox_TEMP", { id, value, filter })
 
       this.updateURLwithSelectedCategories(filter)
-      this.checkSelectedCheckbox()
+      this.checkSelectedCheckbox(filter)
     },
     selectAllCheckbox_TEMP({ filter }) {
       filter.options = this.filteredOptions(filter)
       this.$root.$emit("selectAll_TEMP", { filter })
 
       this.updateURLwithSelectedCategories(filter)
-      this.checkSelectedCheckbox()
+      this.checkSelectedCheckbox(filter)
     },
     filteredOptions(filter) {
       return filter.options.filter(({ counter: element = 0 }) => element > 0 );
@@ -125,26 +125,20 @@ export default {
       const { options: optionsChecked } = values
       const { key } = values
       //We filter by selected elements
-      const isItemSelected = optionsChecked.filter(({ isOptionChecked }) => isOptionChecked === true)
+      const isItemSelected = optionsChecked.filter(({ isOptionChecked, counter }) => isOptionChecked === true && counter > 0)
       //Now we get only the id of them
       const getIdFromItems = [...new Set(isItemSelected.map(({ id }) => id))]
 
       //Create an array which contains only the id from selected elements
       let routeItems = []
       if (key === 'frequency') {
-        this.routeItemsFrequency = []
-        for (let index = 0; index < getIdFromItems.length; index++) {
-          let item = `${getIdFromItems[index]}:`
-          this.routeItemsFrequency.push(item)
-        }
+        this.routeItemsFrequency = this.getElements(getIdFromItems)
+        this.routeItemsCategory = this.reFilterElements('category')
       }
 
       if (key === 'category') {
-        this.routeItemsCategory = []
-        for (let index = 0; index < getIdFromItems.length; index++) {
-          let item = `${getIdFromItems[index]}:`
-          this.routeItemsCategory.push(item)
-        }
+        this.routeItemsCategory = this.getElements(getIdFromItems)
+        this.routeItemsFrequency = this.reFilterElements('frequency')
       }
 
       //Create an array with all elements
@@ -154,7 +148,8 @@ export default {
       routeItems = routeItems.toString().replace(/,/gi, '')
 
       //If the user accesses through a permalink we change the route
-      let urlTerms = this.isPermalinkActive ? `${location.origin}/datos/terms/` : `${this.$route.path}terms/`
+      let backSlashRoute = this.$route.fullPath === '/datos' ? `${this.$route.path}/terms/` : `${this.$route.path}terms/`
+      let urlTerms = this.isPermalinkActive ? `${location.origin}/datos/terms/` : backSlashRoute
       urlTerms = routeItems.length === 0 ? `${this.$route.path}` : urlTerms
 
       history.pushState(
@@ -162,6 +157,25 @@ export default {
         null,
         `${urlTerms}${routeItems}`
       )
+    },
+    getElements(ids) {
+      let list = []
+      if (ids.length > 0) {
+        for (let index = 0; index < ids.length; index++) {
+          let item = `${ids[index]}:`
+          list.push(item)
+        }
+      }
+      return list
+    },
+    reFilterElements(category) {
+      let elements = []
+      elements = this.filters.filter(({ key }) => key === category)
+      const { options } = elements[0]
+      const isItemCounter = options.filter(({ isOptionChecked, counter }) => isOptionChecked === true && counter > 0)
+      const getIdFromItemsCounter = [...new Set(isItemCounter.map(({ id }) => id))]
+      elements = this.getElements(getIdFromItemsCounter)
+      return elements
     },
     selectedCheckbox(values) {
       //When the user accesses through a permalink we capture the selected elements, select them and filter the datasets
@@ -174,11 +188,10 @@ export default {
         })
         this.$root.$emit("selectCheckboxPermalink_TEMP", item)
       }
-
     },
     checkSelectedCheckbox() {
       //If all checkbox are unselected update URL and goes to datos
-      if (!this.isAllUnchecked) {
+      if (!this.isAllChecked) {
         // eslint-disable-next-line no-unused-vars
         this.$router.push('/datos/').catch(err => {})
       }

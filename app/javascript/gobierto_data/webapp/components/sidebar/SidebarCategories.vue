@@ -23,9 +23,7 @@
               <a
                 class="gobierto-block-header--link"
                 @click.stop="e => selectAllCheckbox_TEMP({ ...e, filter })"
-              >{{
-                filter.isEverythingChecked ? labelNone : labelAll
-              }}</a>
+              >{{ checkIfEverythingChecked(filter.isEverythingChecked) }}</a>
             </div>
           </template>
           <div>
@@ -106,12 +104,14 @@ export default {
       this.$root.$emit("sendCheckbox_TEMP", { id, value, filter })
 
       this.updateURLwithSelectedCategories(filter)
-      this.checkSelectedCheckbox(filter)
+      this.checkSelectedCheckbox()
     },
     selectAllCheckbox_TEMP({ filter }) {
       filter.options = this.filteredOptions(filter)
       this.$root.$emit("selectAll_TEMP", { filter })
+
       this.updateURLwithSelectedCategories(filter)
+      this.checkSelectedCheckbox()
     },
     filteredOptions(filter) {
       return filter.options.filter(({ counter: element = 0 }) => element > 0 );
@@ -154,7 +154,7 @@ export default {
       routeItems = routeItems.toString().replace(/,/gi, '')
 
       //If the user accesses through a permalink we change the route
-      let urlTerms = this.isPermalinkActive ? `${location.origin}/datos/terms/` : `${this.$route.path}/terms/`
+      let urlTerms = this.isPermalinkActive ? `${location.origin}/datos/terms/` : `${this.$route.path}terms/`
       urlTerms = routeItems.length === 0 ? `${this.$route.path}` : urlTerms
 
       history.pushState(
@@ -174,6 +174,7 @@ export default {
         })
         this.$root.$emit("selectCheckboxPermalink_TEMP", item)
       }
+
     },
     checkSelectedCheckbox() {
       //If all checkbox are unselected update URL and goes to datos
@@ -181,6 +182,9 @@ export default {
         // eslint-disable-next-line no-unused-vars
         this.$router.push('/datos/').catch(err => {})
       }
+    },
+    checkIfEverythingChecked(value) {
+      return value === true ? this.labelNone : this.labelAll
     }
   }
 };

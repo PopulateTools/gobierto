@@ -28,7 +28,7 @@
           </template>
           <div>
             <Checkbox
-              v-for="{ id, title, isOptionChecked, counter } in filteredOptions(filter)"
+              v-for="{ id, title, isOptionChecked, counter } in filter.options"
               :id="id"
               :key="id"
               :title="title"
@@ -107,7 +107,6 @@ export default {
       this.checkSelectedCheckbox(filter)
     },
     selectAllCheckbox_TEMP({ filter }) {
-      filter.options = this.filteredOptions(filter)
       this.$root.$emit("selectAll_TEMP", { filter })
 
       this.updateURLwithSelectedCategories(filter)

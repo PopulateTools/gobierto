@@ -8,6 +8,7 @@ module GobiertoAdmin
       def setup
         super
         @path = admin_plans_plans_path
+        plan.update_attribute(:plan_type_id, plan_type.id)
       end
 
       def admin
@@ -20,6 +21,27 @@ module GobiertoAdmin
 
       def plan
         @plan ||= gobierto_plans_plans(:strategic_plan)
+      end
+
+      def plan_type
+        @plan_type ||= gobierto_plans_plan_types(:pu)
+      end
+
+      def test_archive_plan_and_delete_plan_type
+        with(site: site, admin: admin, js: true) do
+          visit @path
+
+          within "#plan-item-#{plan.id}" do
+            find("a[data-method='delete']").click
+          end
+
+          page.accept_alert
+
+          assert has_message?("Plan archived successfully")
+          plan_type.destroy
+          visit @path
+          assert has_no_content? plan.title
+        end
       end
 
       def test_archive_restore_plan

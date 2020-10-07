@@ -26,7 +26,6 @@
       <SummaryTab
         v-if="activeDatasetTab === 0 && attributes"
         :dataset-id="datasetId"
-        is-viz-saving-prompt-visible="isVizSavingPromptVisible"
         :is-viz-modified="isVizModified"
         :is-viz-item-modified="isVizItemModified"
         :is-viz-saved="isVizSaved"

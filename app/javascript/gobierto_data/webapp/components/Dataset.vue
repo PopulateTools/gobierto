@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="!isDatasetLoaded">
+    <template v-if="!isDatasetLoaded && !isPrivateVizLoading">
       <SkeletonSpinner
         height-square="300px"
         squares-rows="2"

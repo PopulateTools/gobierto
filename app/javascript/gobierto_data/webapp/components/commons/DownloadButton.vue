@@ -42,6 +42,7 @@
             >
               <a
                 :key="key"
+                :href="url"
                 class="gobierto-data-btn-download-data-modal-element"
                 @click.prevent="getFiles(url, name)"
               >

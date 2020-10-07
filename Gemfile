@@ -54,7 +54,7 @@ gem "sidekiq-monitor-stats"
 gem "aws-sdk-s3", "~> 1"
 
 # AWS SES client
-gem "aws-ses", "~> 0.7.0"
+gem "aws-ses", "= 0.7.0"
 
 # Calendar view component
 gem "simple_calendar", "~> 2.2"

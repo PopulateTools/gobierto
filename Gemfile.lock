@@ -109,7 +109,7 @@ GEM
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
-    aws-ses (0.7.1)
+    aws-ses (0.7.0)
       builder
       mail (> 2.2.5)
       mime-types
@@ -532,7 +532,7 @@ DEPENDENCIES
   active_model_serializers
   appsignal
   aws-sdk-s3 (~> 1)
-  aws-ses (~> 0.7.0)
+  aws-ses (= 0.7.0)
   bcrypt (~> 3.1.0)
   before_renders
   bootsnap

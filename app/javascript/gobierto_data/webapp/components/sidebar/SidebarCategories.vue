@@ -5,7 +5,7 @@
       class="gobierto-data-filters"
     >
       <div
-        v-for="filter in filtersModify"
+        v-for="filter in filters"
         :key="filter.title"
         :class="!filter.isToggle ? 'gobierto-data-filters-element-no-margin' : ''"
         class="gobierto-data-filters-element"
@@ -34,6 +34,7 @@
               :title="title"
               :checked="isOptionChecked"
               :counter="counter"
+              :class="counter === 0 ? 'disabled' : ''"
               @checkbox-change="e => sendCheckboxStatus_TEMP({ ...e, filter })"
             />
           </div>
@@ -84,9 +85,6 @@ export default {
       return ((this.filters[0] && (this.filters[0] || {}).count >= 1)
         || (this.filters[1] && (this.filters[1] || {}).count >= 1));
     },
-    filtersModify() {
-      return this.filters.length ? this.filters.map(d => ({ ...d, isToggle: true })) : []
-    },
     isAllChecked() {
       return this.routeItemsFrequency.length !== 0 || this.routeItemsCategory.length !== 0
     }
@@ -104,16 +102,13 @@ export default {
       this.$root.$emit("sendCheckbox_TEMP", { id, value, filter })
 
       this.updateURLwithSelectedCategories(filter)
-      this.checkSelectedCheckbox(filter)
+      this.checkSelectedCheckbox()
     },
     selectAllCheckbox_TEMP({ filter }) {
       this.$root.$emit("selectAll_TEMP", { filter })
 
       this.updateURLwithSelectedCategories(filter)
-      this.checkSelectedCheckbox(filter)
-    },
-    filteredOptions(filter) {
-      return filter.options.filter(({ counter: element = 0 }) => element > 0 );
+      this.checkSelectedCheckbox()
     },
     updateURLwithSelectedCategories(values) {
       if (this.$route.name === 'Dataset') {
@@ -127,6 +122,7 @@ export default {
       const isItemSelected = optionsChecked.filter(({ isOptionChecked, counter }) => isOptionChecked === true && counter > 0)
       //Now we get only the id of them
       const getIdFromItems = [...new Set(isItemSelected.map(({ id }) => id))]
+      this.selectedCheckbox(getIdFromItems)
 
       //Create an array which contains only the id from selected elements
       let routeItems = []

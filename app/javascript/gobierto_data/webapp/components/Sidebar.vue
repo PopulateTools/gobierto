@@ -30,7 +30,7 @@
     <keep-alive>
       <component
         :is="currentTabComponent"
-        :filters="reFilters"
+        :filters="mutatedFilters"
         :items="items"
       />
     </keep-alive>
@@ -65,7 +65,8 @@ export default {
       labelSets: I18n.t("gobierto_data.projects.sets") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelCategories: I18n.t("gobierto_data.projects.categories") || "",
-      currentTabComponent: null
+      currentTabComponent: null,
+      mutatedFilters: []
     };
   },
   watch: {
@@ -78,7 +79,7 @@ export default {
   created() {
     this.currentTabComponent = COMPONENTS[this.activeTab];
 
-    this.reFilters = this.filters.map((element) => {
+    this.mutatedFilters = this.filters.map((element) => {
       return { ...element, options: element.options.filter((subElement) => subElement.counter > 0) }
     })
   },

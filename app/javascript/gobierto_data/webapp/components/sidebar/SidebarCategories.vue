@@ -111,10 +111,6 @@ export default {
       this.checkSelectedCheckbox()
     },
     updateURLwithSelectedCategories(values) {
-      if (this.$route.name === 'Dataset') {
-        // eslint-disable-next-line no-unused-vars
-        this.$router.push('/datos/').catch(err => {})
-      }
 
       const { options: optionsChecked } = values
       const { key } = values
@@ -142,16 +138,9 @@ export default {
       routeItems = [...new Set(routeItems)];
       routeItems = routeItems.toString().replace(/,/gi, '')
 
-      //If the user accesses through a permalink we change the route
-      let backSlashRoute = this.$route.fullPath === '/datos' ? `${this.$route.path}/terms/` : `${this.$route.path}terms/`
-      let urlTerms = this.isPermalinkActive ? `${location.origin}/datos/terms/` : backSlashRoute
-      urlTerms = routeItems.length === 0 ? `${this.$route.path}` : urlTerms
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push(`/datos/terms/${routeItems}`).catch(err => {})
 
-      history.pushState(
-        {},
-        null,
-        `${urlTerms}${routeItems}`
-      )
     },
     getElements(ids) {
       let list = []
@@ -166,15 +155,16 @@ export default {
     reFilterElements(category) {
       let elements = []
       elements = this.filters.filter(({ key }) => key === category)
-      const { options } = elements[0]
+      const [{ options } = {}] = elements || []
       const isItemCounter = options.filter(({ isOptionChecked, counter }) => isOptionChecked === true && counter > 0)
       const getIdFromItemsCounter = [...new Set(isItemCounter.map(({ id }) => id))]
       elements = this.getElements(getIdFromItemsCounter)
       return elements
     },
     selectedCheckbox(values) {
-      //When the user accesses through a permalink we capture the selected elements, select them and filter the datasets
+      //Remove undefined values to prevent error when converting the rest into an array of numbers.
       const categoriesSelected = values.filter(item => item).map(item => +item);
+      //When the user accesses through a permalink we capture the selected elements, select them and filter the datasets
       for (let item of this.filters) {
         item.options.forEach((d) => {
           if (categoriesSelected.includes(d.id)) {

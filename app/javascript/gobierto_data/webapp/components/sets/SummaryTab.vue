@@ -57,46 +57,56 @@
       />
     </Dropdown>
 
-    <Dropdown
-      v-if="privateVisualizations.length || publicVisualizations.length"
-      @is-content-visible="showYourVizs = !showYourVizs"
-    >
-      <template v-slot:trigger>
-        <h2 class="gobierto-data-tabs-section-title">
-          <Caret :rotate="showYourVizs" />
-          {{ labelVisualizations }}
-        </h2>
-      </template>
-      <VisualizationsTab
-        v-if="showYourVizs"
-        :dataset-id="datasetId"
-        :is-user-logged="isUserLogged"
-        :is-viz-modified="isVizModified"
-        :is-viz-item-modified="isVizItemModified"
-        :is-viz-saved="isVizSaved"
-        :is-private-viz-loading="isPrivateVizLoading"
-        :is-public-viz-loading="isPublicVizLoading"
-        :public-visualizations="publicVisualizations"
-        :private-visualizations="privateVisualizations"
-        :private-queries="privateQueries"
-        :public-queries="publicQueries"
-        :enabled-viz-saved-button="enabledVizSavedButton"
-        :current-viz-tab="currentVizTab"
-        :enabled-fork-viz-button="enabledForkVizButton"
-        :viz-input-focus="vizInputFocus"
-        :user-save-viz="userSaveViz"
-        :show-private-public-icon-viz="showPrivatePublicIconViz"
-        :show-private="showPrivate"
-        :show-private-viz="showPrivateViz"
-        :show-label-edit="showLabelEdit"
-        :reset-private="resetPrivate"
-        :object-columns="objectColumns"
+    <template v-if="!isVizLoading">
+      <SkeletonSpinner
+        height-square="300px"
+        squares="1"
+        lines="2"
       />
-    </Dropdown>
+    </template>
+    <template v-else>
+      <Dropdown
+        v-if="privateVisualizations.length || publicVisualizations.length"
+        @is-content-visible="showYourVizs = !showYourVizs"
+      >
+        <template v-slot:trigger>
+          <h2 class="gobierto-data-tabs-section-title">
+            <Caret :rotate="showYourVizs" />
+            {{ labelVisualizations }}
+          </h2>
+        </template>
+        <VisualizationsTab
+          v-if="showYourVizs"
+          :dataset-id="datasetId"
+          :is-user-logged="isUserLogged"
+          :is-viz-modified="isVizModified"
+          :is-viz-item-modified="isVizItemModified"
+          :is-viz-saved="isVizSaved"
+          :is-private-viz-loading="isPrivateVizLoading"
+          :is-public-viz-loading="isPublicVizLoading"
+          :public-visualizations="publicVisualizations"
+          :private-visualizations="privateVisualizations"
+          :private-queries="privateQueries"
+          :public-queries="publicQueries"
+          :enabled-viz-saved-button="enabledVizSavedButton"
+          :current-viz-tab="currentVizTab"
+          :enabled-fork-viz-button="enabledForkVizButton"
+          :viz-input-focus="vizInputFocus"
+          :user-save-viz="userSaveViz"
+          :show-private-public-icon-viz="showPrivatePublicIconViz"
+          :show-private="showPrivate"
+          :show-private-viz="showPrivateViz"
+          :show-label-edit="showLabelEdit"
+          :reset-private="resetPrivate"
+          :object-columns="objectColumns"
+        />
+      </Dropdown>
+    </template>
   </div>
 </template>
 
 <script>
+import { SkeletonSpinner } from "lib/vue-components";
 import VisualizationsTab from "./VisualizationsTab.vue";
 import Resources from "./../commons/Resources.vue";
 import Info from "./../commons/Info.vue";
@@ -120,7 +130,8 @@ export default {
     DownloadButton,
     Button,
     Description,
-    VisualizationsTab
+    VisualizationsTab,
+    SkeletonSpinner
   },
   filters: {
     translate
@@ -240,6 +251,11 @@ export default {
       labelVisualizations: I18n.t("gobierto_data.projects.visualizations") || "",
       tabs
     };
+  },
+  computed: {
+    isVizLoading() {
+      return this.publicVisualizations.length || !this.isPublicVizLoading
+    }
   },
   created() {
     ({

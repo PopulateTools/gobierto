@@ -163,7 +163,11 @@ export default {
     },
     selectedCheckbox(values) {
       //Remove undefined values to prevent error when converting the rest into an array of numbers.
-      const categoriesSelected = values.filter(item => item).map(item => +item);
+      const categoriesSelected = values.reduce((acc, item) => {
+        if (item) acc.push(+item)
+        return acc
+        },
+      [])
       //When the user accesses through a permalink we capture the selected elements, select them and filter the datasets
       for (let item of this.filters) {
         item.options.forEach((d) => {

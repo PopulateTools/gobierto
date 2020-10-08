@@ -190,7 +190,7 @@ GEM
     font-awesome-sass (5.13.0)
       sassc (>= 1.11)
     foreman (0.87.2)
-    geocoder (1.6.2)
+    geocoder (1.6.4)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     google-api-client (0.46.0)

@@ -10,7 +10,6 @@ if [ ! -d $PWD/app ]; then
     cp config/database.yml.example config/database.yml
     cp .env.example .env
     ln -s .env .rbenv-vars
-    sed -i "s/CONFIGHOST/`echo $HOST`/g" $PWD/config/environments/development.rb
 else
     echo -e "\e[92mDetected Volume with data\e[39m"
 fi

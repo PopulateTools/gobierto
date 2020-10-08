@@ -1,63 +1,63 @@
 <template>
   <div>
     <template v-if="isUserLogged">
-      <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
-        <template v-slot:trigger>
-          <h3 class="gobierto-data-visualization--h3">
-            <Caret :rotate="showPrivateVis" />
+      <template v-if="privateVisualizations.length">
+        <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
+          <template v-slot:trigger>
+            <h3 class="gobierto-data-visualization--h3">
+              <Caret :rotate="showPrivateVis" />
 
-            {{ labelVisPrivate }}
-            <template v-if="privateVisualizations.length">
-              ({{ privateVisualizations.length }})
-            </template>
-          </h3>
-        </template>
-        <div class="gobierto-data-visualization--grid">
-          <template v-if="deleteAndReload">
-            <Loading />
+              {{ labelVisPrivate }}
+                ({{ privateVisualizations.length }})
+            </h3>
           </template>
-          <template v-else>
-            <template v-if="privateVisualizations.length">
-              <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
-                <div
-                  :key="id"
-                  class="gobierto-data-visualization--container"
-                >
-                  <router-link
-                    :to="`/datos/${$route.params.id}/v/${id}`"
-                    class="gobierto-data-visualizations-name"
-                    @click.native="loadViz(name, user_id)"
-                  >
-                    <CardVisualization>
-                      <template v-slot:title>
-                        {{ name }}
-                      </template>
-                      <Visualizations
-                        :items="items"
-                        :config="config"
-                        :object-columns="objectColumns"
-                      />
-                    </CardVisualization>
-                  </router-link>
-                  <div class="gobierto-data-visualization--icons">
-                    <PrivateIcon
-                      :is-closed="privacy_status === 'closed'"
-                    />
-                    <i
-                      class="fas fa-trash-alt"
-                      style="color: var(--color-base); cursor: pointer;"
-                      @click.stop="emitDeleteHandlerVisualization(id)"
-                    />
-                  </div>
-                </div>
-              </template>
+          <div class="gobierto-data-visualization--grid">
+            <template v-if="deleteAndReload">
+              <Loading />
             </template>
             <template v-else>
-              <div>{{ labelVisEmpty }}</div>
+              <template v-if="privateVisualizations.length">
+                <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
+                  <div
+                    :key="id"
+                    class="gobierto-data-visualization--container"
+                  >
+                    <router-link
+                      :to="`/datos/${$route.params.id}/v/${id}`"
+                      class="gobierto-data-visualizations-name"
+                      @click.native="loadViz(name, user_id)"
+                    >
+                      <CardVisualization>
+                        <template v-slot:title>
+                          {{ name }}
+                        </template>
+                        <Visualizations
+                          :items="items"
+                          :config="config"
+                          :object-columns="objectColumns"
+                        />
+                      </CardVisualization>
+                    </router-link>
+                    <div class="gobierto-data-visualization--icons">
+                      <PrivateIcon
+                        :is-closed="privacy_status === 'closed'"
+                      />
+                      <i
+                        class="fas fa-trash-alt"
+                        style="color: var(--color-base); cursor: pointer;"
+                        @click.stop="emitDeleteHandlerVisualization(id)"
+                      />
+                    </div>
+                  </div>
+                </template>
+              </template>
+              <template v-else>
+                <div>{{ labelVisEmpty }}</div>
+              </template>
             </template>
-          </template>
-        </div>
-      </Dropdown>
+          </div>
+        </Dropdown>
+      </template>
     </template>
 
     <Dropdown @is-content-visible="showPublicVis = !showPublicVis">

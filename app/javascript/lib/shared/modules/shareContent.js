@@ -10,8 +10,6 @@ export var shareContent = flight.component(function(){
 
     var twitterElement = document.querySelector(".twitter");
     var facebookElement = document.querySelector(".facebook");
-    twitterElement.style.display = 'inline-block'
-    facebookElement.style.display = 'inline-block'
 
     if(this.$node.find('[data-share-url]').length > 0){
       this.attr.url = this.$node.find('[data-share-url]').data('share-url');
@@ -23,8 +21,11 @@ export var shareContent = flight.component(function(){
 
     var twitterHandleContent = document.head.querySelector("[name='twitter:site']")
 
-    if (twitterHandleContent === null) {
+    if (twitterHandleContent === null && twitterElement) {
       twitterElement.style.display = 'none'
+    } else if (twitterElement) {
+      twitterElement.style.display = 'inline-block'
+      facebookElement.style.display = 'inline-block'
     }
 
     this.attr.twitterHandle = twitterHandleContent === null ? '' : twitterHandleContent.content

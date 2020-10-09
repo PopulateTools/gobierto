@@ -3,7 +3,9 @@ set -e
 
 echo -e "\e[33mExecute Webpack\e[39m"
 if [[ $RAILS_ENV == "production" ]]; then
-    $PWD/bin/webpack -w --verbose --mode production
+    $PWD/bin/webpack -w --verbose --mode production --config /gobierto/config/webpack/production.js
+elif [[ $RAILS_ENV == "test" ]]; then
+    $PWD/bin/webpack -w --verbose --mode test --config /gobierto/config/webpack/test.js
 else
-    $PWD/bin/webpack -w --verbose --mode development
+    $PWD/bin/webpack -w --verbose
 fi

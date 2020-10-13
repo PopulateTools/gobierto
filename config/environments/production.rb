@@ -34,7 +34,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = true
+  config.assets.compile = ENV.fetch("ASSETS_COMPILE") { "true" }
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -93,12 +93,6 @@ Rails.application.configure do
   end
 
   app_host = ENV.fetch("HOST") { "gobierto.test" }
-
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: ENV.fetch("MAILCATCHER_HOST") { "localhost" },
-    port: ENV.fetch("MAILCATCHER_PORT") { "1025" }
-  }
 
   config.action_mailer.default_url_options = {
     host: app_host,

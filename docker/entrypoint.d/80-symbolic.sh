@@ -6,8 +6,6 @@ echo -e "\e[33mExecute Pre-Webpack\e[39m"
 yarn install
 if [[ $RAILS_ENV == "production" ]]; then
     $PWD/bin/webpack --verbose --mode production --config /gobierto/config/webpack/production.js
-elif [[ $RAILS_ENV == "test" ]]; then
-    $PWD/bin/webpack --verbose --mode test --config /gobierto/config/webpack/test.js
 else
     $PWD/bin/webpack --verbose
 fi

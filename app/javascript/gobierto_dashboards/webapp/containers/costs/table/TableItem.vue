@@ -434,8 +434,8 @@ export default {
       const [{
         descripcio: description,
         competencia: competence,
-        tipus_de_competencia: types,
-        marc_legal: legal,
+        tipus: types,
+        marclegal: legal,
         costindirecte: costIndirect,
         costdirectepers: costPersonal,
         costdirebens: goodServices,

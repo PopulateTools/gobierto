@@ -4,13 +4,13 @@
     <table class="gobierto-dashboards-table gobierto-dashboards-table-first-level">
       <tbody>
         <tr
-          v-for="{ agrupacio, cost_directe, cost_indirecte, cost_total, cost_per_habitant, ingressos, coverage, ordre_agrupacio, totalPerHabitant, any } in itemsFilter"
+          v-for="{ agrupacio, costdirecte, costindirecte, costtotal, costperhabit, ingressos, coverage, ordreagrup, totalPerHabitant, any_ } in itemsFilter"
           :key="agrupacio"
           class="gobierto-dashboards-tablerow--header"
         >
           <td class="gobierto-dashboards-table-header--nav">
             <router-link
-              :to="{ name: 'TableSecondLevel', params: { id: ordre_agrupacio, year: any, description: agrupacio } }"
+              :to="{ name: 'TableSecondLevel', params: { id: ordreagrup, year: any_, description: agrupacio } }"
               class="gobierto-dashboards-table-header--link"
               @click.native="loadTable"
             >
@@ -21,19 +21,19 @@
             :data-th="labelCostDirect"
             class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct"
           >
-            <span>{{ cost_directe | money }}</span>
+            <span>{{ costdirecte | money }}</span>
           </td>
           <td
             :data-th="labelCostIndirect"
             class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect"
           >
-            <span>{{ cost_indirecte | money }}</span>
+            <span>{{ costindirecte | money }}</span>
           </td>
           <td
             :data-th="labelCostTotal"
             class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total"
           >
-            <span>{{ cost_total | money }}</span>
+            <span>{{ costtotal | money }}</span>
           </td>
           <td
             :data-th="labelCostInhabitant"

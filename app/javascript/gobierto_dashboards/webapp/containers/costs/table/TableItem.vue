@@ -258,19 +258,6 @@
                   {{ subsidies | money }}
                 </span>
               </div>
-              <i
-                class="far fa-question-circle"
-                style="color: var(--color-base); cursor: pointer;"
-                @mouseover="showTooltipItem = labelSubsidies"
-                @mouseleave="showTooltipItem = null"
-              >
-                <div
-                  v-show="showTooltipItem === labelSubsidies"
-                  class="gobierto-dashboards-item--tooltip"
-                >
-                  {{ tooltipTextIncomeCost }}
-                </div>
-              </i>
             </div>
             <div class="gobierto-dashboards-table-item-right-table-element gobierto-dashboards-table-item-right-table-element-bold">
               <div class="gobierto-dashboards-table-item-right-table-container">
@@ -281,6 +268,19 @@
                   {{ totalIncomes | money }}
                 </span>
               </div>
+              <i
+                class="far fa-question-circle"
+                style="color: var(--color-base); cursor: pointer;"
+                @mouseover="showTooltipItem = labelSubsidies"
+                @mouseleave="showTooltipItem = null"
+              >
+                <div
+                  v-show="showTooltipItem === labelSubsidies"
+                  class="gobierto-dashboards-item--tooltip"
+                >
+                  {{ tooltipTextSubvencions }}
+                </div>
+              </i>
             </div>
           </div>
         </div>
@@ -429,25 +429,25 @@ export default {
   methods: {
     agrupacioData(id) {
       const yearFiltered = this.year
-      this.dataGroup = this.items.filter(element => element.codiact === id && element.any === yearFiltered)
+      this.dataGroup = this.items.filter(element => element.codiact === id && element.any_ === yearFiltered)
 
       const [{
         descripcio: description,
         competencia: competence,
         tipus_de_competencia: types,
         marc_legal: legal,
-        cost_indirecte: costIndirect,
-        cost_directe_personal: costPersonal,
-        cost_directe_bens_i_serveis: goodServices,
-        cost_directe_serveis_exteriors: externalServices,
-        cost_directe_transferencies: transferences,
-        cost_directe_equipaments: equiptments,
-        taxa_o_preu_public: taxs,
+        costindirecte: costIndirect,
+        costdirectepers: costPersonal,
+        costdirebens: goodServices,
+        costdirservext: externalServices,
+        costdirtransf: transferences,
+        costdirequip: equiptments,
+        taxapreupub: taxs,
         subvencions: subsidies,
         ingressos_cost: incomeCost,
         ingressos: income,
         agrupacio: agrupacio,
-        cost_total: costTotal
+        costtotal: costTotal
       }] = this.dataGroup
 
       this.description = description

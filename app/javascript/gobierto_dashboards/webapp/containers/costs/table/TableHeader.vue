@@ -59,12 +59,12 @@ export default {
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.total") || "",
         classItem: 'total',
-        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_total") || ""
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.costtotal") || ""
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.cost_inhabitant") || "",
         classItem: 'inhabitant',
-        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.cost_per_habitant") || ""
+        tooltipText: I18n.t("gobierto_dashboards.dashboards.costs.tooltips.costperhabit") || ""
       },
       {
         item: I18n.t("gobierto_dashboards.dashboards.costs.income") || "",

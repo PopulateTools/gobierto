@@ -98,20 +98,20 @@ export class VisBubble {
       this.nodes = rawData.map(function (d) {
         return {
           id: d.agrupacio,
-          radius: (+d.cost_total / (d.population * this.radiusReponsive)),
+          radius: (+d.costtotal / (d.population * this.radiusReponsive)),
           x: Math.random() * 600,
-          y: this.nodeScale(+d.cost_total / (d.population * this.radiusReponsive)),
-          cost_total: d.cost_total,
-          year: d.year,
-          ordre_agrupacio: +d.ordre_agrupacio,
-          cost_per_habitant: (d.cost_total / d.population).toFixed(2)
+          y: this.nodeScale(+d.costtotal / (d.population * this.radiusReponsive)),
+          costtotal: d.costtotal,
+          year: d.any_,
+          ordreagrup: d.ordreagrup,
+          costperhabit: (d.costtotal / d.population).toFixed(2)
         };
       }.bind(this))
     } else {
       this.nodes.forEach(function(d) {
         d.id = d.agrupacio,
-        d.radius = (+d.cost_total / (d.population * this.radiusReponsive)),
-        d.cost_per_habitant = (d.cost_total / d.population).toFixed(2)
+        d.radius = (+d.costtotal / (d.population * this.radiusReponsive)),
+        d.costperhabit = (d.costtotal / d.population).toFixed(2)
       }.bind(this))
     }
 
@@ -148,7 +148,7 @@ export class VisBubble {
   updateRender() {
 
     const year = this.year
-    const data = this.data.filter(element => element.any === year)
+    const data = this.data.filter(element => element.any_ === year)
 
     // var budgetCategory = this.budget_category;
     this.nodes = this.createNodes(data, year);
@@ -170,13 +170,13 @@ export class VisBubble {
 
     var bubblesG = this.bubbles.append('a')
       .attr('xlink:href', function(d) {
-        return `/dashboards/costes/${d.year}/${d.ordre_agrupacio}`
+        return `/dashboards/costes/${d.year}/${d.ordreagrup}`
       }.bind(this))
       .attr('target', '_top')
       .attr('class', 'bubbles-links')
       .append('circle')
       .attr('class', d => `${d.year} bubble`)
-      .attr('data-order', d => d.ordre_agrupacio)
+      .attr('data-order', d => d.ordreagrup)
       .attr('data-year', d => d.year)
       .attr('r', d => d.radius)
       .attr('fill', function(d) { return this.budgetColor(d.radius)}.bind(this))
@@ -210,8 +210,8 @@ export class VisBubble {
       .style('top', `${y + 40}px`)
 
     this.tooltip.html(`<div class="line-name"><strong>${d.id}</strong></div>
-                      <div>${I18n.t('gobierto_dashboards.dashboards.costs.total_cost')}: ${accounting.formatMoney(d.cost_total, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))}</div>
-                        ${d.cost_per_habitant}€ ${I18n.t('gobierto_dashboards.dashboards.costs.per_inhabitant')}`);
+                      <div>${I18n.t('gobierto_dashboards.dashboards.costs.total_cost')}: ${accounting.formatMoney(d.costtotal, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator"))}</div>
+                        ${d.costperhabit}€ ${I18n.t('gobierto_dashboards.dashboards.costs.per_inhabitant')}`);
   }
 
   _mouseleft() {

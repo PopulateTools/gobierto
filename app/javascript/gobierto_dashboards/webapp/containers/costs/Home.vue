@@ -97,8 +97,8 @@ export default {
     if (!year) yearFiltered = '2019'
     this.yearFiltered = yearFiltered
 
-    const costDataFilter = this.costData.filter(element => element.any === yearFiltered).sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
-    const groupDataFilter = this.groupData.filter(element => element.any === yearFiltered).sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
+    const costDataFilter = this.costData.filter(element => element.any_ === yearFiltered).sort((a, b) => (a.costtotal > b.costtotal) ? -1 : 1)
+    const groupDataFilter = this.groupData.filter(element => element.any_ === yearFiltered).sort((a, b) => (a.costtotal > b.costtotal) ? -1 : 1)
 
     this.costDataFilter = costDataFilter
     this.groupDataFilter = groupDataFilter
@@ -118,8 +118,8 @@ export default {
         year = value.target.value
         this.yearFiltered = value.target.value
       }
-      const costDataFilter = this.costData.filter(element => element.any === year)
-      const groupDataFilter = this.groupData.filter(element => element.any === year)
+      const costDataFilter = this.costData.filter(element => element.any_ === year)
+      const groupDataFilter = this.groupData.filter(element => element.any_ === year)
 
       this.costDataFilter = costDataFilter
       this.groupDataFilter = groupDataFilter
@@ -133,8 +133,8 @@ export default {
         const {
           target: {
             __data__: {
-              ordre_agrupacio: order,
-              any: year
+              ordreagrup: order,
+              year: year
             }
           }
         } = e

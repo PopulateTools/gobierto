@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     agrupacioData(id) {
-      this.dataGroup = this.items.filter(element => element.ordre_agrupacio === id)
+      this.dataGroup = this.items.filter(element => element.ordreagrup === id)
     }
   }
 }

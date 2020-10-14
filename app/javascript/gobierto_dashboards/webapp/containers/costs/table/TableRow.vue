@@ -221,7 +221,9 @@ export default {
       this.$emit('loadTable', value)
     },
     calculateCoverage(income, cost) {
-      return ((income * 100) / cost).toFixed(0)
+      let coverage = ((income * 100) / cost).toFixed(2)
+      coverage = +coverage
+      return coverage === 0 ? coverage.toFixed(0) : coverage.toFixed(2)
     }
   }
 }

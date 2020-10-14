@@ -50,6 +50,7 @@ RUN apt-get update \
         libfreetype6 \
         libfontconfig1-dev \
         libfontconfig1 \
+        postgresql-client \
     && echo "Install PHANTOM_JS: " \
     && wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2 -O /tmp/${PHANTOM_JS}.tar.bz2 \
     && tar xvjf /tmp/${PHANTOM_JS}.tar.bz2 -C /usr/local/share/ \

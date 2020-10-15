@@ -8,7 +8,6 @@ if [ ! -d $PWD/app ]; then
     if [ ! -f $PWD/config/database.yml ]; then
         echo "[INFO] Change name of file database.yml.example to database.yml"
         cd $PWD
-        ls -la config/
         cp config/database.yml.example config/database.yml
     fi
 

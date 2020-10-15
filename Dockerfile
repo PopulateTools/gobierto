@@ -9,10 +9,10 @@ ENV PATH $HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/.rbenv/plugins/ruby-build/bin
 
 ENV PWD='/gobierto' \
     OLDPWD='/gobierto' \
-    ENV='development' \
     HOST='gobierto.test' \
     BASE_HOST='gobierto.test' \
     BINDING='0.0.0.0' \
+    ASSETS_COMPILE='true' \
     RAILS_MAX_THREADS='5'
 
 RUN apt-get update \
@@ -50,7 +50,6 @@ RUN apt-get update \
         libfreetype6 \
         libfontconfig1-dev \
         libfontconfig1 \
-        postgresql-client \
     && echo "Install PostgreSQL_Client 12" \
     && wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add - \
     && echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" >> /etc/apt/sources.list \
@@ -85,13 +84,13 @@ RUN apt-get update \
     && echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc \
     && mkdir -p /app /gobierto
 
-ADD . /app
-RUN mv /app/docker /docker \
-    && gem install cocoapods bundle puma rake cap rails i18n-tasks \
+ADD /app/Gemfile /app/Gemfile
+RUN gem install cocoapods bundle puma rake cap rails i18n-tasks \
     && bundle install --binstubs=/app/bin --gemfile=/app/Gemfile --path=/app --jobs 2 \
     && yarn install
 
-ADD docker /docker
+ADD app /app
+RUN mv /app/docker /docker
 
 WORKDIR /gobierto
 

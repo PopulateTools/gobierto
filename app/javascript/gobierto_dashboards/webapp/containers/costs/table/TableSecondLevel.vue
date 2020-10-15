@@ -88,39 +88,39 @@ export default {
   methods: {
     intermediaData() {
       const filterActIntermedia = this.$route.params.id
-      let dataAgrupacio = this.items.filter(element => element.ordre_agrupacio === filterActIntermedia)
-      let dataActIntermedia = dataAgrupacio.filter(element => element.act_intermitja !== '')
+      let dataAgrupacio = this.items.filter(element => element.ordreagrup === filterActIntermedia)
+      let dataActIntermedia = dataAgrupacio.filter(element => element.actintermitja !== '')
       let dataActIntermediaValues = [...dataActIntermedia.reduce((r, o) => {
-        let key = o.act_intermitja
+        let key = o.actintermitja
 
         const item = r.get(key) || Object.assign({}, o, {
-          cost_directe: 0,
-          cost_indirecte: 0,
-          cost_total: 0,
+          costdirecte: 0,
+          costindirecte: 0,
+          costtotal: 0,
           ingressos: 0,
           total: 0,
           nomact: '',
           totalPerHabitant: 0
         });
 
-        item.cost_directe += o.cost_directe
-        item.cost_indirecte += o.cost_indirecte
-        item.cost_total += o.cost_total
+        item.costdirecte += o.costdirecte
+        item.costindirecte += o.costindirecte
+        item.costtotal += o.costtotal
         item.ingressos += o.ingressos
         item.total += (o.total || 0) + 1
-        item.nomact = o.act_intermitja
-        item.totalPerHabitant = item.cost_total / o.population
+        item.nomact = o.actintermitja
+        item.totalPerHabitant = item.costtotal / o.population
 
         return r.set(key, item);
       }, new Map).values()];
 
-      const dataActIntermediaWithoutValues = dataAgrupacio.filter(element => element.act_intermitja === '')
-      dataActIntermediaValues = dataActIntermediaValues.sort((a, b) => (a.cost_total > b.cost_total) ? -1 : 1)
+      const dataActIntermediaWithoutValues = dataAgrupacio.filter(element => element.actintermitja === '')
+      dataActIntermediaValues = dataActIntermediaValues.sort((a, b) => (a.costtotal > b.costtotal) ? -1 : 1)
       this.dataActIntermediaTotal = [...dataActIntermediaValues, ...dataActIntermediaWithoutValues]
 
     },
     agrupacioDataFilter(actIntermedia) {
-      const dataGroupIntermedia = this.items.filter(element => element.act_intermitja === actIntermedia)
+      const dataGroupIntermedia = this.items.filter(element => element.actintermitja === actIntermedia)
       this.dataGroupIntermedia = dataGroupIntermedia
       if (actIntermedia === '') {
         this.totalElements = 0

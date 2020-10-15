@@ -96,11 +96,11 @@ export default {
   },
   computed: {
     totalCost() {
-      const total = this.dataFilter.reduce((accum,element) => accum + element.cost_total, 0)
+      const total = this.dataFilter.reduce((accum,element) => accum + element.costtotal, 0)
       return (total / 1000000).toFixed(1).replace(/\./, ',') + ' M€';
     },
     totalCostPerHabitant() {
-      return this.dataFilter.reduce((accum,element) => accum + element.cost_total, 0) / this.population
+      return this.dataFilter.reduce((accum,element) => accum + element.costtotal, 0) / this.population
     }
   },
   watch: {
@@ -126,7 +126,7 @@ export default {
   },
   methods: {
     updateYear(value) {
-      this.dataFilter = this.data.filter(element => element.any === value)
+      this.dataFilter = this.data.filter(element => element.any_ === value)
       const [{
         population: population
       }] = this.dataFilter

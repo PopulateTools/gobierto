@@ -94,7 +94,7 @@ export default {
       this.currentComponent = COMPONENTS_TABLE[value];
     },
     changeTitleSecondLevel(id) {
-      const filterItems = this.itemsFilter.filter(element => element.ordre_agrupacio === id)
+      const filterItems = this.itemsFilter.filter(element => element.ordreagrup === id)
 
       const [{
         agrupacio: titleAgrupacio

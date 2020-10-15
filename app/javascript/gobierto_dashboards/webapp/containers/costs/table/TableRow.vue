@@ -3,7 +3,7 @@
     class="gobierto-dashboards-table"
     :class="{'gobierto-dashboards-table--subheader': blueHeader }"
   >
-    <template v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, act_intermitja, agrupacio, ordre_agrupacio, totalPerHabitant, any } in items">
+    <template v-for="{ nomact, codiact, costdirecte, costindirecte, costtotal, total, index, costperhabit, ingressos, actintermitja, agrupacio, ordreagrup, totalPerHabitant, any_ } in items">
       <tr
         :key="nomact"
         class="gobierto-dashboards-tablerow--header"
@@ -12,7 +12,7 @@
         <template v-if="total > 0 && !tableHeader">
           <td
             class="gobierto-dashboards-table-header--nav"
-            @click="handleToggle(act_intermitja)"
+            @click="handleToggle(actintermitja)"
           >
             <div class="gobierto-dashboards-table-header--nav-has-children">
               <span class="gobierto-dashboards-table-header--nav-text">{{ nomact }}</span>
@@ -33,7 +33,7 @@
         <template v-else>
           <td class="gobierto-dashboards-table-header--nav">
             <router-link
-              :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio, year: any, description: nomact } }"
+              :to="{ name: 'TableItem', params: { item: codiact, id: ordreagrup, section: agrupacio, year: any_, description: nomact } }"
               class="gobierto-dashboards-table-header--link"
               tag="a"
               @click.native="loadTable(2)"
@@ -46,19 +46,19 @@
           :data-th="labelCostDirect"
           class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-direct"
         >
-          <span>{{ cost_directe | money }}</span>
+          <span>{{ costdirecte | money }}</span>
         </td>
         <td
           :data-th="labelCostIndirect"
           class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-indirect"
         >
-          <span>{{ cost_indirecte | money }}</span>
+          <span>{{ costindirecte | money }}</span>
         </td>
         <td
           :data-th="labelCostTotal"
           class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-total"
         >
-          <span>{{ cost_total | money }}</span>
+          <span>{{ costtotal | money }}</span>
         </td>
         <template v-if="total > 0">
           <td
@@ -73,7 +73,7 @@
             :data-th="labelCostInhabitant"
             class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-inhabitant"
           >
-            <span>{{ cost_per_habitant | money }}</span>
+            <span>{{ costperhabit | money }}</span>
           </td>
         </template>
         <td
@@ -86,22 +86,22 @@
           :data-th="labelCoverage"
           class="gobierto-dashboards-table-header--elements gobierto-dashboards-table-color-coverage"
         >
-          <span>{{ calculateCoverage(ingressos, cost_total) }}%</span>
+          <span>{{ calculateCoverage(ingressos, costtotal) }}%</span>
         </td>
       </tr>
-      <template v-if="showChildren && selectedToggle === act_intermitja">
+      <template v-if="showChildren && selectedToggle === actintermitja">
         <tbody
           :key="codiact"
           class="gobierto-dashboards-table--secondlevel gobierto-dashboards-table--secondlevel-nested"
         >
           <tr
-            v-for="{ nomact, codiact, cost_directe, cost_indirecte, cost_total, total, index, cost_per_habitant, ingressos, coverage, agrupacio, ordre_agrupacio, any } in subItems"
+            v-for="{ nomact, codiact, costdirecte, costindirecte, costtotal, total, index, costperhabit, ingressos, coverage, agrupacio, ordreagrup, any_ } in subItems"
             :key="codiact"
             class="gobierto-dashboards-tablerow--header"
           >
             <td class="gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-header--nav">
               <router-link
-                :to="{ name: 'TableItem', params: { item: codiact, id: ordre_agrupacio, section: agrupacio, year: any, description: nomact } }"
+                :to="{ name: 'TableItem', params: { item: codiact, id: ordreagrup, section: agrupacio, year: any_, description: nomact } }"
                 class="gobierto-dashboards-table-header--link"
                 tag="a"
                 @click="loadTable(2)"
@@ -113,25 +113,25 @@
               :data-th="labelCostDirect"
               class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-direct"
             >
-              <span>{{ cost_directe | money }}</span>
+              <span>{{ costdirecte | money }}</span>
             </td>
             <td
               :data-th="labelCostIndirect"
               class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-indirect"
             >
-              <span>{{ cost_indirecte | money }}</span>
+              <span>{{ costindirecte | money }}</span>
             </td>
             <td
               :data-th="labelCostTotal"
               class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-total"
             >
-              <span>{{ cost_total | money }}</span>
+              <span>{{ costtotal | money }}</span>
             </td>
             <td
               :data-th="labelCostInhabitant"
               class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-inhabitant"
             >
-              <span>{{ cost_per_habitant | money }}</span>
+              <span>{{ costperhabit | money }}</span>
             </td>
             <td
               :data-th="labelIncome"
@@ -143,7 +143,7 @@
               :data-th="labelCoverage"
               class="gobierto-dashboards-table-header--elements gobierto-dashboards-table--secondlevel-elements gobierto-dashboards-table-color-coverage"
             >
-              <span>{{ calculateCoverage(ingressos, cost_total) }}%</span>
+              <span>{{ calculateCoverage(ingressos, costtotal) }}%</span>
             </td>
           </tr>
         </tbody>
@@ -221,7 +221,9 @@ export default {
       this.$emit('loadTable', value)
     },
     calculateCoverage(income, cost) {
-      return ((income * 100) / cost).toFixed(0)
+      let coverage = ((income * 100) / cost).toFixed(2)
+      coverage = +coverage
+      return coverage === 0 ? coverage.toFixed(0) : coverage.toFixed(2)
     }
   }
 }

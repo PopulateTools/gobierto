@@ -108,7 +108,7 @@ export class CostsController {
       if (amount === '') {
         return nanToZero(amount)
       } else {
-        return Number(parseFloat(amount.replace(/\./g,'').replace(',','.')))
+        return Number(parseFloat(amount))
       }
     }
 
@@ -119,14 +119,14 @@ export class CostsController {
     }
 
     //Array with all the strings that we've to convert to Number
-    const amountStrings = [ 'cost_directe', 'cost_indirecte', 'cost_total', 'cost_per_habitant', 'cost_personal', 'costos_resta_directes', 'ingressos', 'taxa_o_preu_public', 'subvencions', 'ingressos_cost', 'cost_directe_personal', 'cost_directe_bens_i_serveis', 'cost_directe_serveis_exteriors', 'cost_directe_transferencies', 'cost_directe_equipaments', 'cost_directe_financer']
+    const amountStrings = [ 'costdirecte', 'costindirecte', 'costtotal', 'costperhabit', 'costpersonal', 'costrestadir', 'ingressos', 'taxapreupub', 'subvencions', 'ingressos_cost', 'costdirectepers', 'costdirebens', 'costdirservext', 'costdirtransf', 'costdirequip', 'costdirfin']
 
     const population = ['126988']
 
     for (let index = 0; index < rawData.length; index++) {
       let d = rawData[index]
 
-      if (d['any'] === '2019') {
+      if (d['any_'] === '2019') {
         d['population'] = population[0]
       }
 
@@ -135,14 +135,14 @@ export class CostsController {
       }
     }
 
-    let yearsCosts = [...new Set(rawData.map(item => item.any))]
+    let yearsCosts = [...new Set(rawData.map(item => item.any_))]
 
     let groupDataByYears = []
 
     //Create an array of objects with all years
     for (let index = 0; index < yearsCosts.length; index++) {
       const data = rawData.reduce((acc, item) => {
-        if (item.any === yearsCosts[index]) {
+        if (item.any_ === yearsCosts[index]) {
           acc.push({ ...item, population: population[index] })
         }
         return acc
@@ -153,35 +153,35 @@ export class CostsController {
 
     function groupDataByYear(data, year) {
       //Filter groupData by "sumadatos": https://github.com/PopulateTools/issues/issues/1097
-      let dataFilterSum = data.filter(({ suma_datos }) => suma_datos === '')
+      let dataFilterSum = data.filter(({ sumadatos }) => sumadatos === '')
       let groupData = [...dataFilterSum.reduce((r, o) => {
         const key = o.agrupacio
 
         const item = r.get(key) || Object.assign({}, o, {
-          cost_directe: 0,
-          cost_indirecte: 0,
-          cost_total: 0,
+          costdirecte: 0,
+          costindirecte: 0,
+          costtotal: 0,
           ingressos: 0,
           total: 0,
           totalPerHabitant: 0,
           coverage: 0,
         });
 
-        item.cost_directe += o.cost_directe
-        item.cost_indirecte += o.cost_indirecte
-        item.cost_total += o.cost_total
+        item.costdirecte += o.costdirecte
+        item.costindirecte += o.costindirecte
+        item.costtotal += o.costtotal
         item.ingressos += o.ingressos
         //New item with the sum of values of each agrupacio
         item.total += (o.total || 0) + 1
-        item.coverage = (item.ingressos * 100) / item.cost_total
-        item.totalPerHabitant = item.cost_total / o.population
+        item.coverage = (item.ingressos * 100) / item.costtotal
+        item.totalPerHabitant = item.costtotal / o.population
 
         return r.set(key, item);
       }, new Map).values()];
-      return groupData = groupData.filter(({ agrupacio, any }) => agrupacio !== '' && any === year)
+      return groupData = groupData.filter(({ agrupacio, any_ }) => agrupacio !== '' && any_ === year)
     }
 
-    groupDataByYears = groupDataByYears.flat().sort(({ cost_total: a }, { cost_total: b }) => (a > b) ? -1 : 1)
+    groupDataByYears = groupDataByYears.flat().sort(({ costtotal: a }, { costtotal: b }) => (a > b) ? -1 : 1)
 
     this.data = {
       costData: rawData,

@@ -5,10 +5,12 @@ export SECRET_KEY_BASE=$(rake secret)
 export ROLLBAR_ACCESS_TOKEN=$(rake secret)
 echo -e "[INFO] Execute Pre-Webpack"
 yarn install
-if [[ $RAILS_ENV == "production" ]]; then
-    $PWD/bin/webpack --verbose --mode production --config /gobierto/config/webpack/production.js
-else
-    $PWD/bin/webpack --verbose
+if [[ ! -f $PWD/node_modules/css-loader/index.js ]]; then
+  if [[ $RAILS_ENV == "production" ]]; then
+      $PWD/bin/webpack --verbose --mode production --config /gobierto/config/webpack/production.js
+  else
+      $PWD/bin/webpack --verbose
+  fi
 fi
 
 if [[ ! $(stat $PWD/app/javascript/packs/custom_fields_data_grid_plugin.js | grep -o 'symbolic link') ]]; then

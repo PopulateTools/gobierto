@@ -3,11 +3,11 @@
 # Reference: config/database.yml
 if [ "$ENV" == "development" ]; then
     PG_DATABASE="gobierto_development"
-if [ "$ENV" == "test" ]; then
+elif [ "$ENV" == "test" ]; then
     PG_DATABASE="gobierto_test"
-if [ "$ENV" == "staging" ]; then
+elif [ "$ENV" == "staging" ]; then
     PG_DATABASE="gobierto_staging"
-if [ "$ENV" == "production" ]; then
+else
     PG_DATABASE="gobierto_production"
 fi
 

@@ -1,15 +1,16 @@
 #!/bin/bash
+set -e
 
 if [ ! -d $PWD/app ]; then
-    echo "New mount volume, move content to directory with persistence"
-    echo -e "\e[5mMoving the content\e[25m"
+    echo "[INFO] New mount volume, move content to directory with persistence"
+    echo -e "[INFO] Moving the content"
     mv /app/* $PWD && mv /app/.[!.]* $PWD
-    echo -e "Access to directory"
+    echo -e "[INFO] Access to directory"
     cd $PWD
-    echo -e "Copy file database.yml, copy file .env and create link .env"
+    echo -e "[INFO] Copy file database.yml, copy file .env and create link .env"
     cp config/database.yml.example config/database.yml
     cp .env.example .env
     ln -s .env .rbenv-vars
 else
-    echo -e "\e[92mDetected Volume with data\e[39m"
+    echo -e "[INFO] Detected Volume with data"
 fi

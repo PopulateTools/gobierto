@@ -51,6 +51,10 @@ RUN apt-get update \
         libfontconfig1-dev \
         libfontconfig1 \
         postgresql-client \
+    && echo "Install PostgreSQL_Client 12" \
+    && wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add - \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" >> /etc/apt/sources.list \
+    && apt-get update && apt-get install postgresql-client-12 -y --force-yes --no-install-recommends \
     && echo "Install PHANTOM_JS: " \
     && wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2 -O /tmp/${PHANTOM_JS}.tar.bz2 \
     && tar xvjf /tmp/${PHANTOM_JS}.tar.bz2 -C /usr/local/share/ \

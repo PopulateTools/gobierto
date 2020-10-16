@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 export SECRET_KEY_BASE=$(rake secret)
 export ROLLBAR_ACCESS_TOKEN=$(rake secret)

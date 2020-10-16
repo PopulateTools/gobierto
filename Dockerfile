@@ -24,6 +24,7 @@ RUN apt-get update \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
     && apt-get update \
     && apt-get install -y -q \
+        yarn \
         nodejs \
         git \
         zlib1g-dev \
@@ -44,7 +45,6 @@ RUN apt-get update \
         puma \
         libpq-dev \
         libicu-dev \
-        yarn \
         build-essential \
         chrpath \
         libssl-dev \

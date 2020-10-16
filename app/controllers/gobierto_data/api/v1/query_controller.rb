@@ -12,34 +12,40 @@ module GobiertoData
         def index
           respond_to do |format|
             format.json do
-              query_result = execute_query(params[:sql] || {}, include_stats: request.format.json?)
+              if stale?(stale_params)
+                query_result = execute_query(params[:sql] || {}, include_stats: request.format.json?)
 
-              render_error_or_continue(query_result) do
-                render json: { data: query_result.delete(:result), meta: query_result }, adapter: :json_api
+                render_error_or_continue(query_result) do
+                  render json: { data: query_result.delete(:result), meta: query_result }, adapter: :json_api
+                end
               end
             end
 
             format.csv do
-              query_result = GobiertoData::Connection.execute_query_output_csv(current_site, Arel.sql(params[:sql] || {}), csv_options_params)
+              if stale?(stale_params)
+                query_result = GobiertoData::Connection.execute_query_output_csv(current_site, Arel.sql(params[:sql] || {}), csv_options_params)
 
-              render_error_or_continue(query_result) do
-                render_csv(query_result)
+                render_error_or_continue(query_result) do
+                  render_csv(query_result)
+                end
               end
             end
 
             format.xlsx do
-              query_result = execute_query(params[:sql] || {}, include_stats: false)
+              if stale?(stale_params)
+                query_result = execute_query(params[:sql] || {}, include_stats: false)
 
-              render_error_or_continue(query_result) do
-                send_data(
-                  GobiertoData::Connection.execute_query_output_xlsx(
-                    current_site,
-                    Arel.sql(params[:sql] || {}),
-                    { name: "data" },
-                    include_draft: valid_preview_token?
-                  ).read,
-                  filename: "data.xlsx"
-                )
+                render_error_or_continue(query_result) do
+                  send_data(
+                    GobiertoData::Connection.execute_query_output_xlsx(
+                      current_site,
+                      Arel.sql(params[:sql] || {}),
+                      { name: "data" },
+                      include_draft: valid_preview_token?
+                    ).read,
+                    filename: "data.xlsx"
+                  )
+                end
               end
             end
           end
@@ -57,6 +63,10 @@ module GobiertoData
           else
             yield
           end
+        end
+
+        def stale_params
+          {etag: GobiertoData::Cache.etag(params.values.join, current_site), last_modified: GobiertoData::Cache.last_modified(current_site)}
         end
       end
     end

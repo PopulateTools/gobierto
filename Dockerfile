@@ -7,7 +7,7 @@ ARG HOME="/root"
 ARG PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 ENV PATH $HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/.rbenv/plugins/ruby-build/bin:$PATH
 
-ENV PWD='/gobierto' \
+ENV PWD_APP='/gobierto' \
     OLDPWD='/gobierto' \
     HOST='gobierto.test' \
     BASE_HOST='gobierto.test' \
@@ -84,13 +84,17 @@ RUN apt-get update \
     && echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc \
     && mkdir -p /app /gobierto
 
-ADD /app/Gemfile /app/Gemfile
+ADD ./app/bin/* /app/bin/
+ADD ./app/Gemfile /app/
 RUN gem install cocoapods bundle puma rake cap rails i18n-tasks \
     && bundle install --binstubs=/app/bin --gemfile=/app/Gemfile --path=/app --jobs 2 \
     && yarn install
 
-ADD app /app
-RUN mv /app/docker /docker
+ADD ./app /tmp/app
+RUN mv /tmp/app/docker /docker \
+    && rm -rf /tmp/app/Gemfile /tmp/app/bin \
+    && mv /tmp/app/* /app \
+    && mv /tmp/app/.[!.]* /app
 
 WORKDIR /gobierto
 

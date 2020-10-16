@@ -4,6 +4,7 @@ export SECRET_KEY_BASE=$(rake secret)
 export ROLLBAR_ACCESS_TOKEN=$(rake secret)
 echo -e "[INFO] Execute Pre-Webpack"
 yarn install
+
 if [[ ! -f $PWD_APP/node_modules/css-loader/index.js ]]; then
   if [[ $RAILS_ENV == "production" ]]; then
       $PWD_APP/bin/webpack --verbose --mode production --config /gobierto/config/webpack/production.js

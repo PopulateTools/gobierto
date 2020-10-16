@@ -16,4 +16,4 @@ else
 fi
 
 echo -e "\e[92mDeploy Application\e[39m"
-$PWD/bin/rails s -b 0.0.0.0 -p 3000 -e $RAILS_ENV
+$PWD_APP/bin/rails s -b 0.0.0.0 -p 3000 -e $RAILS_ENV

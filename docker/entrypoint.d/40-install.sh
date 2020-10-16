@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-cd $PWD
+cd $PWD_APP
 echo -e "[INFO] Recovery gems"
-$PWD/bin/bundle install --binstubs=$PWD/bin --gemfile=$PWD/Gemfile --path=$PWD
+$PWD_APP/bin/bundle install --binstubs=$PWD_APP/bin --gemfile=$PWD_APP/Gemfile --path=$PWD_APP
 
 echo -e "[INFO] Check health of keys"
-$PWD/bin/i18n-tasks normalize
-$PWD/bin/i18n-tasks health
+$PWD_APP/bin/i18n-tasks normalize
+$PWD_APP/bin/i18n-tasks health

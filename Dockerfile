@@ -28,6 +28,9 @@ RUN apt-get update \
         git \
         zlib1g-dev \
         autoconf \
+        gcc \
+        g++ \
+        make \
         bison \
         libyaml-dev \
         libreadline-dev \

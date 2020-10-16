@@ -26,7 +26,7 @@ fi
 if [[ ! $(stat $PWD/app/javascript/packs/custom_fields_progress_plugin.js | grep -o 'symbolic link') ]]; then
     echo -e "[INFO] Create symbolic link $PWD/vendor/gobierto_engines/custom-fields-progress-plugin"
     ln -s \
-      $PWD/vendor/gobierto_engines/custom-fields-progress-plugin/app/javascripts/packs/custom_fields_progress_plugin.js º
+      $PWD/vendor/gobierto_engines/custom-fields-progress-plugin/app/javascripts/packs/custom_fields_progress_plugin.js \
       $PWD/app/javascript/packs
     ln -s \
       $PWD/vendor/gobierto_engines/custom-fields-progress-plugin/app/javascripts/custom_fields_progress_plugin \

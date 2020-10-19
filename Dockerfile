@@ -87,13 +87,13 @@ RUN apt-get update \
     && echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc \
     && mkdir -p /app /gobierto
 
-ADD ./app/bin/* /app/bin/
-ADD ./app/Gemfile /app/
+ADD ./bin/* /app/bin/
+ADD ./Gemfile /app/
 RUN gem install cocoapods bundle puma rake cap rails i18n-tasks \
     && bundle install --binstubs=/app/bin --gemfile=/app/Gemfile --path=/app --jobs 2 \
     && yarn install
 
-ADD ./app /tmp/app
+ADD . /tmp/app
 RUN mv /tmp/app/docker /docker \
     && rm -rf /tmp/app/Gemfile /tmp/app/bin \
     && mv /tmp/app/* /app \

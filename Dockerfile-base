@@ -95,14 +95,14 @@ ADD ./Gemfile /app/
 RUN gem install cocoapods bundle puma rake cap rails i18n-tasks \
     && bundle install --binstubs=/app/bin --gemfile=/app/Gemfile --path=/app --jobs 2 \
     && yarn install
+ADD ./docker /docker
 
 WORKDIR /gobierto
 EXPOSE 3000
 VOLUME [ "/gobierto" ]
+ENTRYPOINT [ "/bin/bash","/docker/executable/sh/entrypoint.sh" ]
 
 ONBUILD ADD . /tmp/app
-ONBUILD RUN mv /tmp/app/docker /docker \
-    && rm -rf /tmp/app/Gemfile /tmp/app/bin \
+ONBUILD RUN rm -rf /tmp/app/Gemfile /tmp/app/bin /tmp/docker \
     && mv /tmp/app/* /app \
     && mv /tmp/app/.[!.]* /app
-ONBUILD ENTRYPOINT [ "/bin/bash","/docker/executable/sh/entrypoint.sh" ]

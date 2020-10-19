@@ -103,6 +103,6 @@ VOLUME [ "/gobierto" ]
 ENTRYPOINT [ "/bin/bash","/docker/executable/sh/entrypoint.sh" ]
 
 ONBUILD ADD . /tmp/app
-ONBUILD RUN rm -rf /tmp/app/Gemfile /tmp/app/bin /tmp/docker \
+ONBUILD RUN rm -rf /tmp/app/Gemfile /tmp/app/bin \
     && mv /tmp/app/* /app \
     && mv /tmp/app/.[!.]* /app

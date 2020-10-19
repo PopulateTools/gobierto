@@ -8,7 +8,7 @@ ARG PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/.rbenv/plugins/ruby-build/bi
 ENV PATH $HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/.rbenv/plugins/ruby-build/bin:$PATH
 
 ENV PWD_APP='/gobierto' \
-    OLDPWD='/gobierto' \
+    ENV='development' \
     HOST='gobierto.test' \
     BASE_HOST='gobierto.test' \
     BINDING='0.0.0.0' \
@@ -19,6 +19,9 @@ RUN apt-get update \
     && apt-get install -y -q \
         curl \
         wget \
+        gcc \
+        g++ \
+        make \
     && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \

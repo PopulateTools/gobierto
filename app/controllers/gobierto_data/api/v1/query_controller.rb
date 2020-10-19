@@ -14,10 +14,9 @@ module GobiertoData
 
           respond_to do |format|
             format.json do
-              if stale?(stale_params)
+              if stale?(**stale_params)
                 query_result = GobiertoData::Cache.query_cache(current_site, query, 'json') do
-                  query_result = GobiertoData::Connection.execute_query(current_site, query, include_stats: request.format.json?, include_draft: valid_preview_token?)
-                  { data: query_result.delete(:result), meta: query_result }.to_json
+                  GobiertoData::Connection.execute_query(current_site, query, include_stats: true, include_draft: valid_preview_token?)
                 end
 
                 if query_result.is_a?(File)
@@ -31,7 +30,7 @@ module GobiertoData
             end
 
             format.csv do
-              if stale?(stale_params)
+              if stale?(**stale_params)
                 query_result = GobiertoData::Cache.query_cache(current_site, query, 'csv') do
                   GobiertoData::Connection.execute_query_output_csv(current_site, query, csv_options_params)
                 end
@@ -47,7 +46,7 @@ module GobiertoData
             end
 
             format.xlsx do
-              if stale?(stale_params)
+              if stale?(**stale_params)
                 query_result = GobiertoData::Cache.query_cache(current_site, query, 'xlsx') do
                   GobiertoData::Connection.execute_query_output_xlsx(
                     current_site,

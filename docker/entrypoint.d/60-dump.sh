@@ -20,7 +20,7 @@ if PGPASSWORD=$PG_PASSWORD psql -h $PG_HOST -U $PG_USERNAME -d postgres -c '\q';
       -c "SELECT datname FROM pg_database WHERE datname='$PG_DATABASE';")
 
     # If not exist database and file .create-finish execute setup
-    if [ "$PG_DATABASE_CHECK" == "$PG_DATABASE" ]; then
+    if [ $( echo "$PG_DATABASE_CHECK" | grep -o "$PG_DATABASE" ) ]; then
         echo -e "[INFO] Database found: $PG_DATABASE, will not be created"
     else
         echo -e "[INFO] Create database $PG_DATABASE"

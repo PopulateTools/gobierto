@@ -1,60 +1,73 @@
-web:
-  build: .
-  dockerfile: Dockerfile
-  command: ./docker/executable/sh/entrypoint.sh
-  env_file: .env
-  environment:
-    - RAILS_ENV=test
-    - RACK_ENV=test
-    - DISABLE_SPRING=true
-    - RAILS_LOG_TO_STDOUT=true
-    - HOST=gobierto.test
-    - BINDING=0.0.0.0
-    - BASE_HOST=gobierto.test
-    - PG_HOST=postgres
-    - PG_USERNAME=postgres
-    - PG_PASSWORD=postgres
-    - ELASTICSEARCH_URL=http://elasticsearch:9200
-    - MAILCATCHER_HOST=mailcatcher
-    - BUNDLE_PATH=/bundle
-    - RAILS_MAX_THREADS=5
-    - PYTHONUNBUFFERED=1
-    - REDIS_URL=redis://redis:6379
-  volumes_from:
-    - bundle
-  ports:
-    - "3000:3000"
-  links:
-    - postgres
-    - elasticsearch
-    - mailcatcher
-    - redis
+version: "2"
+services:
+  base:
+    build:
+      context: .
+      dockerfile: Dockerfile-base
+    entrypoint: "bash -c"
+    command: "exit 0"
 
-bundle:
-  image: busybox
-  volumes:
-    - /bundle
+  web:
+    depends_on:
+      - base
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ./docker/executable/sh/entrypoint.sh
+    env_file: .env
+    environment:
+      - RAILS_ENV=test
+      - RACK_ENV=test
+      - DISABLE_SPRING=true
+      - RAILS_LOG_TO_STDOUT=true
+      - HOST=gobierto.test
+      - BINDING=0.0.0.0
+      - BASE_HOST=gobierto.test
+      - PG_HOST=postgres
+      - PG_USERNAME=postgres
+      - PG_PASSWORD=postgres
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - MAILCATCHER_HOST=mailcatcher
+      - BUNDLE_PATH=/bundle
+      - RAILS_MAX_THREADS=5
+      - PYTHONUNBUFFERED=1
+      - REDIS_URL=redis://redis:6379
+    volumes_from:
+      - bundle
+    ports:
+      - "3000:3000"
+    links:
+      - postgres
+      - elasticsearch
+      - mailcatcher
+      - redis
 
-postgres:
-  image: postgres:12
-  env_file: .env
-  ports:
-    - "5432"
+  bundle:
+    image: busybox
+    volumes:
+      - /bundle
 
-elasticsearch:
-  build: .
-  dockerfile: Dockerfile-elasticsearch
-  ports:
-    - "9200:9200"
-    - "9300"
+  postgres:
+    image: postgres:12
+    env_file: .env
+    ports:
+      - "5432"
 
-mailcatcher:
-  image: schickling/mailcatcher
-  ports:
-    - "1025"
-    - "1080:1080"
+  elasticsearch:
+    build:
+      context: .
+      dockerfile: Dockerfile-elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300"
 
-redis:
-  image: redis:4.0.9
-  ports:
-    - "6379"
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - "1025"
+      - "1080:1080"
+
+  redis:
+    image: redis:4.0.9
+    ports:
+      - "6379"

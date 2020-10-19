@@ -1,1 +1,1 @@
-FROM gobierto_base
+FROM guadaltech/app-gobierto-base:latest

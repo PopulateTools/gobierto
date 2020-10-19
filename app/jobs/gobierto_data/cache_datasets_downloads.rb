@@ -19,7 +19,7 @@ module GobiertoData
         end
 
         cached_data.source("#{file_basename}.xlsx", update: true) do
-          Connection.execute_query_output_xlsx(dataset.site, dataset.rails_model.all.to_sql, { name: dataset.name }).read
+          Connection.execute_query_output_xlsx(dataset.site, dataset.rails_model.all.to_sql, { name: dataset.name })
         end
       end
     end

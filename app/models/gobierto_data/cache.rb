@@ -53,6 +53,10 @@ module GobiertoData
       FileUtils.rm_r(Dir.glob("#{dirname}/#{dataset.id}.*"))
     end
 
+    def self.expire_queries_cache
+      FileUtils.rm_r(Rails.root.join("public/cache/gobierto_data/queries/"))
+    rescue Errno::ENOENT
+    end
   end
 end
 

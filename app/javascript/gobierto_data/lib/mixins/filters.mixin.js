@@ -130,8 +130,10 @@ export const FiltersMixin = {
       );
 
       const size = [...checkboxesSelected.values()].filter(Boolean).length;
+      //Filter by those that have at least one element
+      const optionsActive = options.filter(({ counter: element = 0 }) => element > 0 );
       // Update the property when all isEverythingChecked
-      if (size === options.length) {
+      if (size === optionsActive.length) {
         filter.isEverythingChecked = true;
       }
 

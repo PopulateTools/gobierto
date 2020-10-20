@@ -65,7 +65,7 @@ export default {
       topMenu.addEventListener('click', (e) => {
         e.preventDefault()
         // eslint-disable-next-line no-unused-vars
-        this.$router.push('/datos').catch(err => {})
+        this.$router.push('/datos/').catch(err => {})
       })
     }
   }

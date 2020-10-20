@@ -152,18 +152,13 @@ export default {
   created() {
     this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus);
     this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked);
+    this.$root.$on("selectCheckboxPermalink_TEMP", this.handleCheckboxFilter);
     this.pageTitle = document.title;
   },
   deactivated() {
     this.$root.$off("sendCheckbox_TEMP");
     this.$root.$off("selectAll_TEMP");
-  },
-  methods: {
-    setActiveSidebar() {
-      if (this.$route.name === "Dataset") {
-        this.activeSidebarTab = 1;
-      }
-    }
+    this.$root.$off("selectCheckboxPermalink_TEMP");
   }
 };
 </script>

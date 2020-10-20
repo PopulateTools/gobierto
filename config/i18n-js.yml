@@ -27,4 +27,5 @@
 #
 export_i18n_js: false
 translations:
-  - file: "app/javascript/lib/i18n/modules/translations.js"
+  - file: "app/javascript/lib/i18n/modules/translations_%{locale}.js"
+    only: '*'

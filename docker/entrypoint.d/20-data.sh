@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
-if [ ! -f $PWD_APP/config/environments/$RAILS_ENV.rb ]; then
+if [ ! -d $PWD_APP/app ]; then
     echo "[INFO] New mount volume, move content to directory with persistence"
     echo -e "[INFO] Moving the content"
-    cp -R /app/* $PWD_APP && cp -R /app/.[!.]* $PWD_APP
+    rsync -asr --ignore-existing /app/* $PWD_APP && rsync -asr --ignore-existing /app/.[!.]* $PWD_APP
     
     if [ ! -f $PWD_APP/config/database.yml ]; then
         echo "[INFO] Change name of file database.yml.example to database.yml"

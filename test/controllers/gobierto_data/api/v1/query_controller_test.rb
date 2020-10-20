@@ -23,7 +23,7 @@ module GobiertoData
           @users_count ||= User.count
         end
 
-        def test_index
+        def test_index_json_format
           with(site: site) do
             get gobierto_data_api_v1_root_path(sql: "SELECT COUNT(*) AS test_count FROM users"), as: :json
 
@@ -50,6 +50,27 @@ module GobiertoData
             assert_equal users_count + 1, parsed_csv.count
             assert_equal %w(id name), parsed_csv.first
             assert_includes parsed_csv, [user.id.to_s, user.name]
+          end
+        end
+
+        def test_index_csv_format_with_cache
+          with(site: site) do
+            Rails.application.config.action_controller.stubs(:perform_caching).returns(true)
+
+            get gobierto_data_api_v1_root_path(sql: "SELECT id, name FROM users", format: :csv), as: :csv
+
+            assert_response :success
+
+            response_data = response.parsed_body
+            parsed_csv = CSV.parse(response_data)
+
+            assert_match(/\Aid,name\n/, response_data)
+            assert_equal users_count + 1, parsed_csv.count
+            assert_equal %w(id name), parsed_csv.first
+            assert_includes parsed_csv, [user.id.to_s, user.name]
+
+            cached_file = Dir.glob(Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/**/*.csv")).first
+            assert_equal File.read(cached_file), response_data
           end
         end
 

@@ -14,8 +14,8 @@ module GobiertoData
 
           respond_to do |format|
             format.json do
-              if stale?(**stale_params)
-                query_result = GobiertoData::Cache.query_cache(current_site, query, 'json') do
+              if expired_http_cache?
+                query_result = GobiertoData::Cache.query_cache(current_site, query, format: 'json') do
                   GobiertoData::Connection.execute_query(current_site, query, include_stats: true, include_draft: valid_preview_token?)
                 end
 
@@ -30,8 +30,8 @@ module GobiertoData
             end
 
             format.csv do
-              if stale?(**stale_params)
-                query_result = GobiertoData::Cache.query_cache(current_site, query, 'csv') do
+              if expired_http_cache?
+                query_result = GobiertoData::Cache.query_cache(current_site, query, format: 'csv') do
                   GobiertoData::Connection.execute_query_output_csv(current_site, query, csv_options_params)
                 end
 
@@ -46,8 +46,8 @@ module GobiertoData
             end
 
             format.xlsx do
-              if stale?(**stale_params)
-                query_result = GobiertoData::Cache.query_cache(current_site, query, 'xlsx') do
+              if expired_http_cache?
+                query_result = GobiertoData::Cache.query_cache(current_site, query, format: 'xlsx') do
                   GobiertoData::Connection.execute_query_output_xlsx(
                     current_site,
                     Arel.sql(params[:sql] || {}),
@@ -78,8 +78,8 @@ module GobiertoData
           end
         end
 
-        def stale_params
-          {etag: GobiertoData::Cache.etag(params.values.join, current_site), last_modified: GobiertoData::Cache.last_modified(current_site)}
+        def expired_http_cache?
+          stale?({etag: GobiertoData::Cache.etag(params.values.join, current_site), last_modified: GobiertoData::Cache.last_modified(current_site)})
         end
       end
     end

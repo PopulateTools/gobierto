@@ -101,6 +101,7 @@ class ActiveSupport::TestCase
 
   def teardown
     mocha_teardown
+    FileUtils.rm_r(Rails.root.join("public/cache"))
   end
 end
 
@@ -137,6 +138,7 @@ class ActionDispatch::IntegrationTest
 
   def teardown
     Capybara.reset_session!
+    FileUtils.rm_r(Rails.root.join("public/cache"))
   end
 
   def javascript_driver?

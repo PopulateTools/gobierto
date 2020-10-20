@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-
-if [ ! -d $PWD_APP/app ]; then
+sleep 5
+if [ ! -f $PWD_APP/config/environments/$RAILS_ENV.rb ]; then
     echo "[INFO] New mount volume, move content to directory with persistence"
     echo -e "[INFO] Moving the content"
     mv /app/* $PWD_APP && mv /app/.[!.]* $PWD_APP

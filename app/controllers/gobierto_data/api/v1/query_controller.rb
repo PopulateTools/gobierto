@@ -79,7 +79,7 @@ module GobiertoData
         end
 
         def expired_http_cache?
-          stale?({etag: GobiertoData::Cache.etag(params.values.join, current_site), last_modified: GobiertoData::Cache.last_modified(current_site)})
+          stale?(etag: GobiertoData::Cache.etag(params.values.join, current_site), last_modified: GobiertoData::Cache.last_modified(current_site))
         end
       end
     end

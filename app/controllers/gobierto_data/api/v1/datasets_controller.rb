@@ -75,29 +75,26 @@ module GobiertoData
 
           respond_to do |format|
             format.json do
-              @cache_uri = cached_data.source(filename) do
+              cache_file = GobiertoData::Cache.dataset_cache(@item, format: 'json') do
                 execute_query(@item.rails_model.all).to_json
               end
+              send_file cache_file.path, x_sendfile: true, type: 'application/json', filename: filename
             end
 
             format.csv do
               # Download cache only supports comma separated CSVs
-              @cache_uri = cached_data.source(filename) do
+              cache_file = GobiertoData::Cache.dataset_cache(@item, format: 'csv') do
                 GobiertoData::Connection.execute_query_output_csv(current_site, @item.rails_model.all.to_sql, { col_sep: "," })
               end
+              send_file cache_file.path, x_sendfile: true, type: 'text/csv', filename: filename
             end
 
             format.xlsx do
-              @cache_uri = cached_data.source(filename) do
+              cache_file = GobiertoData::Cache.dataset_cache(@item, format: 'xlsx') do
                 GobiertoData::Connection.execute_query_output_xlsx(current_site, @item.rails_model.all.to_sql, { name: @item.name })
               end
+              send_file cache_file.path, x_sendfile: true, type: 'application/xlsx', filename: filename
             end
-          end
-
-          if cached_data.local?
-            send_file @cache_uri, filename: filename
-          else
-            redirect_to @cache_uri
           end
         end
 
@@ -283,10 +280,6 @@ module GobiertoData
             preloaded_data: transformed_custom_field_record_values(relation),
             adapter: :json_api
           )
-        end
-
-        def cached_data
-          @cached_data ||= CachedData.new(@item)
         end
 
         def schema_json_param

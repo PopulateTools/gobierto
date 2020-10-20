@@ -71,6 +71,8 @@ module GobiertoData
 
             cached_file = Dir.glob(Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/**/*.csv")).first
             assert_equal File.read(cached_file), response_data
+
+            FileUtils.rm_r(Rails.root.join("public/cache"))
           end
         end
 

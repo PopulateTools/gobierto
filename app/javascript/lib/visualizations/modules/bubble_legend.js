@@ -64,7 +64,7 @@ export class VisBubbleLegend {
       .enter()
       .append('stop')
       .attr('stop-color', d => d)
-      .attr('offset', d => `scale(${d})%`);
+      .attr('offset', d => `${scale(d)}%`);
 
     svg.append('line')
       .attr('transform', 'translate(' + width / 2 + ',' + 0 + ')')

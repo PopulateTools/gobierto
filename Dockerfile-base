@@ -91,10 +91,10 @@ RUN apt-get update \
     && echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc \
     && mkdir -p /app /gobierto
 
-ADD ./bin/* /app/bin/
-ADD ./Gemfile /app/
+ADD ./bin/* /gobierto/bin/
+ADD ./Gemfile /gobierto/
 RUN gem install cocoapods bundle puma rake cap rails i18n-tasks \
-    && bundle install --binstubs=/app/bin --gemfile=/app/Gemfile --path=/app --jobs 2 \
+    && bundle install --binstubs=/gobierto/bin --gemfile=/gobierto/Gemfile --path=/gobierto --jobs 2 \
     && yarn install
 ADD ./docker /docker
 
@@ -103,7 +103,5 @@ EXPOSE 3000
 VOLUME [ "/gobierto" ]
 ENTRYPOINT [ "/bin/bash","/docker/executable/sh/entrypoint.sh" ]
 
-ONBUILD ADD . /tmp/app
-ONBUILD RUN rm -rf /tmp/app/Gemfile /tmp/app/bin \
-    && mv /tmp/app/* /app \
-    && mv /tmp/app/.[!.]* /app
+ONBUILD ADD . /gobierto
+ONBUILD RUN cp -r /gobierto/public /app

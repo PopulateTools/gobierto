@@ -405,6 +405,29 @@ module GobiertoData
           end
         end
 
+        # POST /api/v1/data/datasets
+        #
+        def test_dataset_create_with_boolean_columns
+          with(site: site) do
+            post(
+              gobierto_data_api_v1_datasets_path,
+              params: multipart_form_params("dataset_boolean_columns.csv").deep_merge(
+                dataset: { schema_file: Rack::Test::UploadedFile.new("#{Rails.root}/test/fixtures/files/gobierto_data/schema_boolean_columns.json") }
+              ),
+              headers: { "Authorization" => auth_header }
+            )
+
+            assert_response :created
+            query_result = GobiertoData::Connection.execute_query(site, "select * from uploaded_dataset", include_stats: true)
+            assert_equal 6, query_result[:rows]
+            assert_equal 1, query_result[:result][0]["id"]
+            assert_equal "Ruby", query_result[:result][0]["name"]
+            assert_equal true, query_result[:result][0]["is_cool"]
+            assert_equal 2, query_result[:result][1]["id"]
+            assert_equal "Javascript", query_result[:result][1]["name"]
+            assert_equal false, query_result[:result][1]["is_cool"]
+          end
+        end
       end
     end
   end

@@ -20,27 +20,22 @@ if PGPASSWORD=$PG_PASSWORD psql -h $PG_HOST -U $PG_USERNAME -d postgres -c '\q';
       -c "SELECT datname FROM pg_database WHERE datname='$PG_DATABASE';")
 
     # If not exist database and file .create-finish execute setup
-    if [ "$PG_DATABASE_CHECK" == "$PG_DATABASE" ]; then
-        echo -e "[INFO] Database found: $PG_DATABASE, will not be created"
+    if [ $( echo "$PG_DATABASE_CHECK" | grep -o "$PG_DATABASE" ) ]; then
+        echo -e "[INFO] Database found: $PG_DATABASE, will not create database PostgreSQL and ElastickSearch"
     else
         echo -e "[INFO] Create database $PG_DATABASE"
-        if [ ! -f $PWD_APP/db/.create-finish ]; then
-            set -e
-            echo -e "[INFO] Setup database PostgreSQL"
-            cd $PWD_APP
-            $PWD_APP/bin/rails db:setup
-            
-            echo -e "[INFO] Setup database ElastickSearch"
-            $PWD_APP/bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            $PWD_APP/bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            $PWD_APP/bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | $PWD_APP/bin/rails c
-            touch $PWD_APP/db/.create-finish
-            set +e
-        else
-            echo -e "[INFO] File found: $PWD_APP/db/.create-finish, \
-              will not create database PostgreSQL and ElastickSearch"
-        fi
+        set -e
+        echo -e "[INFO] Setup database PostgreSQL"
+        cd $PWD_APP
+        $PWD_APP/bin/rails db:setup
+        
+        echo -e "[INFO] Setup database ElastickSearch"
+        $PWD_APP/bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+        $PWD_APP/bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+        $PWD_APP/bin/rails gobierto_budgets:fixtures:load
+        echo '::BudgetsSeeder.seed!' | $PWD_APP/bin/rails c
+        touch $PWD_APP/db/.create-finish
+        set +e
     fi
 
 else

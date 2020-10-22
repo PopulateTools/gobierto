@@ -108,7 +108,7 @@ module GobiertoData
     private
 
     def delete_cached_data
-      CachedData.new(self).delete_cached_data
+      GobiertoData::Cache.expire_dataset_cache(self)
     end
 
     def refresh_cached_downloads

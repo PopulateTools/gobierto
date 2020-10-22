@@ -59,7 +59,7 @@ module GobiertoData
                   @item.sql,
                   { name: @item.name },
                   include_draft: valid_preview_token?
-                ).read,
+                ),
                 filename: "#{@item.id}.xlsx"
               )
             end
@@ -89,7 +89,7 @@ module GobiertoData
                   @item.sql,
                   { name: @item.name },
                   include_draft: valid_preview_token?
-                ).read,
+                ),
                 :xlsx,
                 basename
               )

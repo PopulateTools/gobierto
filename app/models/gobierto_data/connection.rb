@@ -75,7 +75,9 @@ module GobiertoData
           end
         end
 
-        book.stream
+        book.stream.read
+      rescue ActiveRecord::StatementInvalid => e
+        failed_query(e.message)
       end
 
       def execute_write_query_from_file_using_stdin(site, query, file_path: nil, include_draft: false)

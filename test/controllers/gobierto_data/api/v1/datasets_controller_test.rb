@@ -55,10 +55,8 @@ module GobiertoData
           @attachment ||= gobierto_attachments_attachments(:txt_pdf_attachment)
         end
 
-        def delete_cached_files(dataset)
-          FileUtils.rm_rf(
-            GobiertoCommon::FileUploadService.new(file_name: GobiertoData::CachedData.new(dataset).resource_path).adapter.send(:file_path)
-          )
+        def delete_cached_files
+          FileUtils.rm_rf(Rails.root.join(GobiertoData::Cache::BASE_PATH))
         end
 
         def array_data(dataset)
@@ -371,14 +369,13 @@ module GobiertoData
             get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :json), as: :json
 
             assert_response :success
-            assert_match(/attachment; filename="?#{dataset.slug}.json"?/, response.headers["content-disposition"])
             response_data = response.parsed_body
 
             assert_equal dataset.rails_model.count, response_data.count
             assert_equal dataset.rails_model.all.map(&:id).sort, response_data.map { |row| row["id"] }.sort
 
-            assert File.exist? GobiertoData::CachedData.new(dataset).source("#{dataset.slug}.json")
-            delete_cached_files(dataset)
+            assert File.exist? Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/datasets/#{dataset.id}.json")
+            delete_cached_files
           end
         end
 
@@ -388,14 +385,13 @@ module GobiertoData
             get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :csv), as: :csv
 
             assert_response :success
-            assert_match(/attachment; filename="?#{dataset.slug}.csv"?/, response.headers["content-disposition"])
             response_data = response.parsed_body
             parsed_csv = CSV.parse(response_data)
 
             assert_equal dataset.rails_model.count + 1, parsed_csv.count
 
-            assert File.exist? GobiertoData::CachedData.new(dataset).source("#{dataset.slug}.csv")
-            delete_cached_files(dataset)
+            assert File.exist? Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/datasets/#{dataset.id}.csv")
+            delete_cached_files
           end
         end
 
@@ -405,7 +401,6 @@ module GobiertoData
             get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :xlsx), as: :xlsx
 
             assert_response :success
-            assert_match(/attachment; filename="?#{dataset.slug}.xlsx"?/, response.headers["content-disposition"])
             parsed_xlsx = RubyXL::Parser.parse_buffer response.parsed_body
 
             assert_equal 1, parsed_xlsx.worksheets.count
@@ -413,8 +408,8 @@ module GobiertoData
             refute_nil sheet[dataset.rails_model.count]
             assert_nil sheet[dataset.rails_model.count + 1]
 
-            assert File.exist? GobiertoData::CachedData.new(dataset).source("#{dataset.slug}.xlsx")
-            delete_cached_files(dataset)
+            assert File.exist? Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/datasets/#{dataset.id}.xlsx")
+            delete_cached_files
           end
         end
 

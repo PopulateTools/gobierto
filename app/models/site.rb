@@ -115,8 +115,7 @@ class Site < ApplicationRecord
   end
 
   def self.find_by_allowed_domain(domain)
-    @cached_sites ||= {}
-    @cached_sites[domain] ||= find_by(domain: domain) unless reserved_domains.include?(domain)
+    find_by(domain: domain) unless reserved_domains.include?(domain)
   end
 
   def issues

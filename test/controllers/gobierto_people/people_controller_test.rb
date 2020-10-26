@@ -32,6 +32,13 @@ gobierto_people_default_filter_end_date: "#{options[:end_date]}"
     @wide_date_range_params ||= { start_date: 10.years.ago.strftime("%Y-%m-%d"), end_date: 10.years.from_now.strftime("%Y-%m-%d") }
   end
 
+  def test_wrong_dates_cause_bad_request
+    with_current_site(site) do
+      get gobierto_people_past_events_path(date: '2018-04-27', start_date: '700')
+      assert_response :bad_request
+    end
+  end
+
   def test_redirect_without_default_dates
     with_current_site(site) do
       get gobierto_people_person_path(person.slug)

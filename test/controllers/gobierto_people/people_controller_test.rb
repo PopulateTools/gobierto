@@ -56,12 +56,12 @@ gobierto_people_default_filter_end_date: "#{options[:end_date]}"
       set_default_dates(wide_date_range_params)
       get gobierto_people_person_path(person.slug)
       assert_response :success
+    end
+  end
 
-      person.events.destroy_all
-
-      get gobierto_people_person_path(person.slug)
-      assert_response :success
-
+  def test_redirect_with_default_dates_and_person_path
+    with_current_site(site) do
+      set_default_dates(wide_date_range_params)
 
       person.events.destroy_all
       person.invitations.destroy_all
@@ -70,6 +70,16 @@ gobierto_people_default_filter_end_date: "#{options[:end_date]}"
       get gobierto_people_person_path(person.slug)
       assert_response :redirect
       assert_redirected_to(gobierto_people_person_gifts_path(@person.slug))
+    end
+  end
+
+  def test_redirect_with_default_dates_and_person_path_with_ranges
+    with_current_site(site) do
+      set_default_dates(wide_date_range_params)
+
+      person.events.destroy_all
+      person.invitations.destroy_all
+      person.trips.destroy_all
 
       get gobierto_people_person_path(person.slug, start_date: "2012-01-01", end_date: "2019-01-01")
       assert_response :redirect

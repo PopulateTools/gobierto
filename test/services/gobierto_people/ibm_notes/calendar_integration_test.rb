@@ -312,6 +312,55 @@ module GobiertoPeople
         end
       end
 
+      def test_sync_private_events
+        configure_ibm_notes_calendar_with_description
+
+        Timecop.freeze(Time.zone.parse("2017-05-05 01:00:00")) do
+          VCR.use_cassette("ibm_notes/person_events_collection_v9_private", decode_compressed_response: true, match_requests_on: [:host, :path]) do
+            # Returns first event from the previous set, which is now past
+            calendar_service.sync!
+          end
+
+          richard_synchronized_events = richard.events.synchronized.order(:external_id)
+
+          assert_equal 2, richard_synchronized_events.count
+
+          assert richard_synchronized_events.first.active?
+          assert richard_synchronized_events.second.active?
+        end
+      end
+
+      def test_sync_private_events_from_public_to_private
+        configure_ibm_notes_calendar_with_description
+
+        Timecop.freeze(Time.zone.parse("2017-05-03")) do
+          VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
+            # Returns 3 events, all of them upcoming
+            calendar_service.sync!
+          end
+
+          richard_synchronized_events = richard.events.synchronized
+
+          assert_equal 3, richard_synchronized_events.count
+          assert richard_synchronized_events.all?(&:active?)
+        end
+
+        Timecop.freeze(Time.zone.parse("2017-05-05 01:00:00")) do
+          VCR.use_cassette("ibm_notes/person_events_collection_v9_private", decode_compressed_response: true, match_requests_on: [:host, :path]) do
+            # Returns first event from the previous set, which is now past
+            calendar_service.sync!
+          end
+
+          richard_synchronized_events = richard.events.synchronized.order(:external_id)
+
+          assert_equal 3, richard_synchronized_events.count
+
+          assert richard_synchronized_events.first.active?
+          assert richard_synchronized_events.second.active?
+          refute richard_synchronized_events.third.active?
+        end
+      end
+
       def test_sync_event_creates_new_event_with_location
         configure_ibm_notes_calendar_with_description
 

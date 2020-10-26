@@ -157,6 +157,7 @@ module GobiertoPeople
 
       def process_event(event_data, event_url)
         processed_events_ids = []
+        return processed_events_ids if event_data["class"] != "public"
 
         if self.class.recurring_event?(event_data)
           instances_urls = event_instances_urls(event_url)

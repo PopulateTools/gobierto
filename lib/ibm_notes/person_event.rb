@@ -14,6 +14,7 @@ module IbmNotes
       "Huso horario desconocido (1) Standard Time",
       "W. Europe Standard Time",
       "Unknown1 Standard Time",
+      "Unknown Time Zone (1) Standard Time"
     ].freeze
 
     UTC_TIMEZONES = [ "UTC", "GMT Standard Time" ].freeze

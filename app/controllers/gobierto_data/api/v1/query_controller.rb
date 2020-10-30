@@ -17,7 +17,11 @@ module GobiertoData
               if expired_http_cache?
                 query_result = GobiertoData::Cache.query_cache(current_site, query, format: 'json') do
                   query_result = GobiertoData::Connection.execute_query(current_site, query, include_stats: true, include_draft: valid_preview_token?)
-                  { data: query_result.delete(:result), meta: query_result }.to_json
+                  if !query_result.has_key?(:errors)
+                    { data: query_result.delete(:result), meta: query_result }.to_json
+                  else
+                    query_result
+                  end
                 end
 
                 if query_result.is_a?(File)

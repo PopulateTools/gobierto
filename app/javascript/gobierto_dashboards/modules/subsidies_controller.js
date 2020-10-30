@@ -129,8 +129,6 @@ export class SubsidiesController {
 
       subsidy.beneficiary_id = beneficiary_id
       subsidy.beneficiary_name = beneficiary_name.join(' ')
-      // it's an individual if the beneficiary id is hidden with asterisks
-      subsidy.isIndividual = (/\*+/).test(beneficiary_id)
 
       if (!subsidy.id) {
         subsidy.id = `${subsidy.grant_date.replace(/\D+/g,'')}${subsidy.beneficiary_id.replace(/\D+/g, '')}${parseInt(subsidy.amount) || 0}`;
@@ -164,8 +162,8 @@ export class SubsidiesController {
   _renderSubsidiesMetricsBox(){
     const subsidiesData = this._currentDataSource().subsidiesData;
 
-    const individualsData = subsidiesData.filter(subsidy => subsidy.isIndividual);
-    const collectivesData = subsidiesData.filter(subsidy => !subsidy.isIndividual);
+    const individualsData = subsidiesData.filter(( { beneficiary_type }) => beneficiary_type === 'persona');
+    const collectivesData = subsidiesData.filter(( { beneficiary_type }) => beneficiary_type === 'colectivo');
 
     // Calculations
     const amountsArray = subsidiesData.map(({ amount = 0 }) => parseFloat(amount) );

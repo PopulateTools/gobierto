@@ -16,14 +16,19 @@ module GobiertoData
             format.json do
               if expired_http_cache?
                 query_result = GobiertoData::Cache.query_cache(current_site, query, format: 'json') do
-                  GobiertoData::Connection.execute_query(current_site, query, include_stats: true, include_draft: valid_preview_token?)
+                  query_result = GobiertoData::Connection.execute_query(current_site, query, include_stats: true, include_draft: valid_preview_token?)
+                  if !query_result.has_key?(:errors)
+                    { data: query_result.delete(:result), meta: query_result }.to_json
+                  else
+                    query_result
+                  end
                 end
 
                 if query_result.is_a?(File)
                   send_file query_result.path, x_sendfile: true, type: 'application/json', disposition: 'inline'
                 else
                   render_error_or_continue(query_result) do
-                    render json: { data: query_result.delete(:result), meta: query_result }, adapter: :json_api
+                    render json: query_result, adapter: :json_api
                   end
                 end
               end

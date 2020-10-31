@@ -37,6 +37,27 @@ module GobiertoData
           end
         end
 
+        def test_index_json_format_with_cache
+          with(site: site) do
+            Rails.application.config.action_controller.stubs(:perform_caching).returns(true)
+
+            get gobierto_data_api_v1_root_path(sql: "SELECT id, name FROM users", format: :json), as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            assert_equal 7, response_data["data"].count
+            assert response_data["data"].map{ |e| e["name"] }.include?(User.first.name)
+
+            cached_file = Dir.glob(Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/**/*.json")).first
+            assert_equal JSON.parse(File.read(cached_file))["data"], response_data["data"]
+
+            FileUtils.rm_r(Rails.root.join("public/cache"))
+          end
+        end
+
         def test_index_csv_format
           with(site: site) do
             get gobierto_data_api_v1_root_path(sql: "SELECT id, name FROM users", format: :csv), as: :csv

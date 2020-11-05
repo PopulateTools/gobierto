@@ -1,84 +1,100 @@
-import * as d3 from 'd3'
-import { Card } from './card.js'
-import { Sparkline, SparklineTableCard } from 'lib/visualizations'
+import { rollup } from "d3-array";
+import { Sparkline, SparklineTableCard } from "lib/visualizations";
+import { Card } from "./card.js";
 
 export class InvestmentByInhabitantCard extends Card {
   constructor(divClass, city_id) {
-    super(divClass)
+    super(divClass);
 
-    this.url = window.populateData.endpoint + '/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=' + city_id;
-    this.bcnUrl = window.populateData.endpoint + '/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=08019';  // TODO: Use Populate Data's related cities API
-    this.vlcUrl = window.populateData.endpoint + '/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=46250';  // TODO: Use Populate Data's related cities API
+    this.url =
+      window.populateData.endpoint +
+      "/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" +
+      city_id;
+    this.bcnUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=08019"; // TODO: Use Populate Data's related cities API
+    this.vlcUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=46250"; // TODO: Use Populate Data's related cities API
   }
 
   getData() {
-    var data = d3.json(this.url)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+    var data = this.handlePromise(this.url);
+    var bcn = this.handlePromise(this.bcnUrl);
+    var vlc = this.handlePromise(this.vlcUrl);
 
-    var bcn = d3.json(this.bcnUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+    Promise.all([data, bcn, vlc]).then(([json, bcn, vlc]) => {
+      json.data.forEach(function(d) {
+        d.location_name = window.populateData.municipalityName;
+        d.row = "first_column";
+      });
 
-    var vlc = d3.json(this.vlcUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+      bcn.data.forEach(function(d) {
+        d.location_name = "Barcelona";
+        d.row = "second_column";
+      });
 
-    d3.queue()
-      .defer(data.get)
-      .defer(bcn.get)
-      .defer(vlc.get)
-      .await(function (error, json, bcn, vlc) {
-        if (error) throw error;
+      vlc.data.forEach(function(d) {
+        d.location_name = "Valencia";
+        d.row = "third_column";
+      });
 
-        json.data.forEach(function(d) {
-          d.location_name = window.populateData.municipalityName;
-          d.row = 'first_column';
-        });
+      this.data = json.data.concat(bcn.data, vlc.data);
 
-        bcn.data.forEach(function(d) {
-          d.location_name = 'Barcelona';
-          d.row = 'second_column';
-        });
+      this.nest = rollup(
+        this.data,
+        v => ({
+          value: v[0].value,
+          diff: ((v[0].value - v[1].value) / v[1].value) * 100
+        }),
+        d => d.row
+      );
 
-        vlc.data.forEach(function(d) {
-          d.location_name = 'Valencia';
-          d.row = 'third_column';
-        });
+      // Convert map to specific array
+      this.nest = Array.from(this.nest, ([key, { value, diff }]) => ({
+        key,
+        value,
+        diff
+      }));
 
-        this.data = json.data.concat(bcn.data, vlc.data);
+      new SparklineTableCard(
+        this.container,
+        json,
+        this.nest,
+        "investment_by_inhabitant"
+      );
 
-        this.nest = d3.nest()
-          .key(function(d) { return d.row; })
-          .rollup(function(v) { return {
-              value: v[0].value,
-              diff: (v[0].value - v[1].value) / v[1].value * 100,
-            };
-          })
-          .entries(this.data);
+      /* Sparklines */
+      var place = this.data.filter(
+        d => d.location_name === window.populateData.municipalityName
+      );
+      bcn = this.data.filter(d => d.location_name === "Barcelona");
+      vlc = this.data.filter(d => d.location_name === "Valencia");
 
-        this.nest.forEach(function(d) {
-          d.key = d.key,
-          d.diff = d.value.diff,
-          d.value = d.value.value
-        }.bind(this));
+      var opts = {
+        trend: this.trend,
+        freq: this.freq
+      };
 
-        new SparklineTableCard(this.container, json, this.nest, 'investment_by_inhabitant');
+      var placeSpark = new Sparkline(
+        this.container + " .sparkline-first_column",
+        place,
+        opts
+      );
+      var bcnSpark = new Sparkline(
+        this.container + " .sparkline-second_column",
+        bcn,
+        opts
+      );
+      var vlcSpark = new Sparkline(
+        this.container + " .sparkline-third_column",
+        vlc,
+        opts
+      );
 
-        /* Sparklines */
-        var place = this.data.filter(function(d) { return d.location_name === window.populateData.municipalityName; });
-        bcn = this.data.filter(function(d) { return d.location_name === 'Barcelona'; });
-        vlc = this.data.filter(function(d) { return d.location_name === 'Valencia'; });
-
-        var opts = {
-          trend: this.trend,
-          freq: this.freq
-        }
-
-        var placeSpark = new Sparkline(this.container + ' .sparkline-first_column', place, opts);
-        var bcnSpark = new Sparkline(this.container + ' .sparkline-second_column', bcn, opts);
-        var vlcSpark = new Sparkline(this.container + ' .sparkline-third_column', vlc, opts);
-
-        placeSpark.render();
-        bcnSpark.render();
-        vlcSpark.render();
-      }.bind(this));
+      placeSpark.render();
+      bcnSpark.render();
+      vlcSpark.render();
+    });
   }
 }

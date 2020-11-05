@@ -1,18 +1,24 @@
-import { select, selectAll, mouse } from "d3-selection";
-import { format, formatDefaultLocale } from "d3-format";
-import { timeParse, timeFormatDefaultLocale, timeFormat } from "d3-time-format";
-import { transition } from "d3-transition";
-import { scaleOrdinal, scaleTime, scaleLog, scaleBand, scaleLinear } from "d3-scale";
-import { axisBottom, axisTop } from "d3-axis";
-import { json } from "d3-request";
 import { max } from "d3-array";
-import { nest } from "d3-collection";
+import { axisBottom, axisTop } from "d3-axis";
 import { rgb } from "d3-color";
+import { json } from "d3-fetch";
+import { format, formatDefaultLocale } from "d3-format";
+import {
+  scaleBand,
+  scaleLinear,
+  scaleLog,
+  scaleOrdinal,
+  scaleTime
+} from "d3-scale";
+import { pointer, select, selectAll } from "d3-selection";
+import { timeFormat, timeFormatDefaultLocale, timeParse } from "d3-time-format";
+import { transition } from "d3-transition";
+import { accounting, d3locale } from "lib/shared";
 
 const d3 = {
   select,
   selectAll,
-  mouse,
+  pointer,
   format,
   formatDefaultLocale,
   timeFormatDefaultLocale,
@@ -28,11 +34,8 @@ const d3 = {
   axisTop,
   json,
   max,
-  nest,
   rgb
 };
-
-import { d3locale, accounting } from "lib/shared";
 
 export class VisLinesExecution {
   constructor(divId, type, category) {
@@ -129,7 +132,12 @@ export class VisLinesExecution {
     }
 
     // Chart dimensions
-    this.margin = { top: 55, right: 0, bottom: 50, left: this.isMobile ? 0 : 385 };
+    this.margin = {
+      top: 55,
+      right: 0,
+      bottom: 50,
+      left: this.isMobile ? 0 : 385
+    };
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -167,7 +175,10 @@ export class VisLinesExecution {
       // .attr('height', this.height + this.margin.top + this.margin.bottom)
       .append("g")
       .attr("class", "chart-container")
-      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+      .attr(
+        "transform",
+        "translate(" + this.margin.left + "," + this.margin.top + ")"
+      );
 
     this.xAxis = d3
       .axisTop(this.x)
@@ -250,7 +261,10 @@ export class VisLinesExecution {
     );
 
     /* A time scale which spreads along the whole chart */
-    this.z.domain([this.parseTime(this.currentYear + "-01-01"), this.parseTime(this.currentYear + "-12-31")]);
+    this.z.domain([
+      this.parseTime(this.currentYear + "-01-01"),
+      this.parseTime(this.currentYear + "-12-31")
+    ]);
 
     this.bars = this.svg
       .selectAll("g")
@@ -276,7 +290,16 @@ export class VisLinesExecution {
       .attr(
         "xlink:href",
         function(d) {
-          return "/presupuestos/partidas/" + d.id + "/" + this.budgetYear + "/" + this.budgetCategory + "/" + this.executionKind;
+          return (
+            "/presupuestos/partidas/" +
+            d.id +
+            "/" +
+            this.budgetYear +
+            "/" +
+            this.budgetCategory +
+            "/" +
+            this.executionKind
+          );
         }.bind(this)
       )
       .attr("target", "_top");
@@ -445,14 +468,22 @@ export class VisLinesExecution {
     legend
       .append("text")
       .attr("class", "legend-value halo")
-      .text(this.bigDeviation ? I18n.t("gobierto_common.visualizations.percent_log") : I18n.t("gobierto_common.visualizations.percent"))
+      .text(
+        this.bigDeviation
+          ? I18n.t("gobierto_common.visualizations.percent_log")
+          : I18n.t("gobierto_common.visualizations.percent")
+      )
       .attr("stroke", "white")
       .attr("stroke-width", 5);
 
     legend
       .append("text")
       .attr("class", "legend-value")
-      .text(this.bigDeviation ? I18n.t("gobierto_common.visualizations.percent_log") : I18n.t("gobierto_common.visualizations.percent"));
+      .text(
+        this.bigDeviation
+          ? I18n.t("gobierto_common.visualizations.percent_log")
+          : I18n.t("gobierto_common.visualizations.percent")
+      );
 
     /* Remove first tick */
     d3.selectAll(".x.axis .tick")
@@ -495,11 +526,17 @@ export class VisLinesExecution {
       }.bind(this)
     );
 
-    d3.select("body:not(" + this.container + ")").on("touchstart", this._mouseleft.bind(this));
+    d3.select("body:not(" + this.container + ")").on(
+      "touchstart",
+      this._mouseleft.bind(this)
+    );
 
     // NOTE: resize container once all data has been displayed
-    const node = this.svg.node() || document.createElement("div")
-    d3.select(this.container + ' svg').attr('height', node.getBoundingClientRect().height + this.margin.top);
+    const node = this.svg.node() || document.createElement("div");
+    d3.select(this.container + " svg").attr(
+      "height",
+      node.getBoundingClientRect().height + this.margin.top
+    );
   }
 
   _update(valueKind, symbol) {
@@ -520,7 +557,9 @@ export class VisLinesExecution {
     this.svg
       .selectAll(".x.axis .tick")
       .filter(function(d) {
-        return valueKind === "executed" ? d === 0 || d === 0.1 || d === 1 : d === 0 || d === 0.1;
+        return valueKind === "executed"
+          ? d === 0 || d === 0.1 || d === 1
+          : d === 0 || d === 0.1;
       })
       .remove();
 
@@ -534,7 +573,9 @@ export class VisLinesExecution {
     this.svg
       .select(".legend-value")
       .text(
-        valueKind === "executed" ? I18n.t("gobierto_common.visualizations.absolute") : I18n.t("gobierto_common.visualizations.percent")
+        valueKind === "executed"
+          ? I18n.t("gobierto_common.visualizations.absolute")
+          : I18n.t("gobierto_common.visualizations.percent")
       );
 
     this.svg
@@ -649,7 +690,7 @@ export class VisLinesExecution {
   }
 
   _mousemoved(d) {
-    var coordinates = d3.mouse(this.selectionNode);
+    var coordinates = d3.pointer(this.selectionNode);
     var x = coordinates[0],
       y = coordinates[1];
 
@@ -665,7 +706,13 @@ export class VisLinesExecution {
       '<div class="line-name">' +
       I18n.t("gobierto_common.visualizations.tooltip_budgeted") +
       ": " +
-      accounting.formatMoney(d.budget, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) +
+      accounting.formatMoney(
+        d.budget,
+        "€",
+        0,
+        I18n.t("number.currency.format.delimiter"),
+        I18n.t("number.currency.format.separator")
+      ) +
       "</div>";
 
     if (d.budget_updated !== null)
@@ -686,10 +733,21 @@ export class VisLinesExecution {
       '<div class="line-name">' +
       I18n.t("gobierto_common.visualizations.tooltip_executed_amount") +
       ": " +
-      accounting.formatMoney(d.executed, "€", 0, I18n.t("number.currency.format.delimiter"), I18n.t("number.currency.format.separator")) +
+      accounting.formatMoney(
+        d.executed,
+        "€",
+        0,
+        I18n.t("number.currency.format.delimiter"),
+        I18n.t("number.currency.format.separator")
+      ) +
       "</div>";
 
-    tooltipHtml += "<div>" + I18n.t("gobierto_common.visualizations.tooltip") + " " + this.pctFormat(d.pct_executed) + " %</div>";
+    tooltipHtml +=
+      "<div>" +
+      I18n.t("gobierto_common.visualizations.tooltip") +
+      " " +
+      this.pctFormat(d.pct_executed) +
+      " %</div>";
 
     this.tooltip.html(tooltipHtml);
   }

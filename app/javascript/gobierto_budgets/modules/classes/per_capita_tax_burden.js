@@ -1,4 +1,4 @@
-import * as d3 from 'd3'
+import { json } from 'd3-fetch'
 import { Card } from './card.js'
 import { SimpleCard } from 'lib/visualizations'
 
@@ -10,12 +10,9 @@ export class PerCapitaTaxBurdenCard extends Card {
   }
 
   getData() {
-    var pop = d3.json(this.popUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken)
+    var data = json(this.popUrl, { headers: new Headers({ 'authorization': 'Bearer ' + this.tbiToken }) })
 
-    d3.queue()
-      .defer(pop.get)
-      .await(function (error, jsonData) {
+    data.then(function (error, jsonData) {
         if (error) throw error;
 
         var value = jsonData.data[0].value;

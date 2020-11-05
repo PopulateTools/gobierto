@@ -30,7 +30,6 @@ window.GobiertoParticipation.ContributionContainersController = (function() {
 
     var cardnumber = 12;
     var page_max = Math.round(data.length/cardnumber);
-    var format_date = d3.timeFormat("%Y-%m-%d");
 
     var page = 1;
     var viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
@@ -192,7 +191,7 @@ window.GobiertoParticipation.ContributionContainersController = (function() {
 
       page = 1;
 
-      switch(toggleFilter) {
+      switch (toggleFilter) {
         case 'all':
           data = data_origin;
           $('#contribution_legend').html(users_ideas_origin);

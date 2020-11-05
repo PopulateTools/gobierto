@@ -132,8 +132,6 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
 
       assert has_css?(".metric_box h3", text: "Initial budget")
       assert has_css?(".metric_box h3", text: "Executed")
-      assert has_no_css?(".metric_box h3", text: "Debt")
-      assert has_css?(".metric_box h3", text: "Net savings")
       assert page.all(".metric_box .metric").all? { |e| e.text =~ /(\d+)|Not avail./ }
     end
   end

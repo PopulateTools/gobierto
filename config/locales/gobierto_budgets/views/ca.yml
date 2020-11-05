@@ -30,11 +30,13 @@ ca:
         budget_line_percentage: Percentatge
         budget_line_value: Quantitat
         budget_lines_distribution: Distribució de les despeses d'aquesta partida
+        current_amount: Pressupost actual
+        current_amount_per_inhabitant: Pressupost actual / hab.
         evolution: Evolució
         give_your_opinion: Opina sobre aquesta partida
         give_your_opinion_cta: Entens de què va aquesta partida? Et sembla molt, poc?
           Opina
-        initial_estimate: Estimació inicial
+        initial_estimate: Pressupost inicial
         last_year: L'any passat %{value}
         no_description: No hi ha una descripció associada a aquesta partida.
         no_distribution: No hi ha distribució associada a aquesta partida.
@@ -44,7 +46,7 @@ ca:
         percentage_tooltip: Percentage del pressupost total que suposa aquesta partida
         planned: pressupostat
         planned_female: pressupostada
-        planned_per_inhabitant: pres. / hab.
+        planned_per_inhabitant: Pressupost inicial / hab.
         planned_per_inhabitant_tooltip: Quantitat pressupostada dividida pel nombre
           d'habitants
         planned_tooltip: Quantitat pressupostada
@@ -244,7 +246,7 @@ ca:
         description: En aquesta pàgina pots aprendre sobre la distribució del pressupost,
           l'estat d'execució de cada partida i com ha evolucionat la despesa per habitant
         executed: Execució
-        executed_percent: "%{percentage}% del pressupost"
+        executed_percent: "%{percentage}% del pressupost actual"
         executed_percent_other_year_html: En %{year} va ser un %{link}
         executed_tooltip: Despesa executada respecte el pressupost actual (pressupost
           inicial més modificacions)
@@ -258,6 +260,7 @@ ca:
         expenses: Despeses
         expenses_per_inhabitant: Despesa per habitant
         expenses_per_inhabitant_tooltip: Pressupost inicial dividit pel nombre d’habitants
+        expenses_per_inhabitant_updated: Despesa per habitant actual
         header: Pressupostos
         in_total: En total
         income: Ingressos
@@ -265,7 +268,8 @@ ca:
         income_per_inhabitant_tooltip: Pressupost inicial dividit pel nombre d’habitants
         inhabitants: Habitants
         inhabitants_tooltip: Nombre d’habitants
-        initial_estimate: Estimació inicial
+        initial_estimate: Pressupost inicial
+        initial_estimate_per_inhabitant: Pressupost inicial per habitant
         less: menys
         level_1_category: Categoria nivell 1
         level_2_category: Categoria nivell 2
@@ -316,6 +320,7 @@ ca:
         top_income_value: Quantitat
         total_expenses: Despesa total
         total_expenses_tooltip: Pressupost inicial de despesa
+        total_expenses_updated: Despesa total actual
         visualize: Visualitza les despeses per habitant o el total
     budgets_elaboration:
       index:
@@ -399,7 +404,8 @@ ca:
         higher_execution: Més execució
         income_executed: Ingressos executats
         income_planned: Ingressos pressupostats
-        initial_estimate: Estimació inicial
+        initial_estimate: Pressupost inicial
+        initial_estimate_per_inhabitant: Pressupost inicial per habitant
         lower_execution: Menys execució
         metric:
           execution:
@@ -593,6 +599,7 @@ ca:
       I_economic: En què s'ingressa
       category_per_inhabitant: "%{category} per habitant"
       expenses_per_inhabitant: Despesa per habitant
+      expenses_per_inhabitant_updated: Despesa per habitant actual
       inhabitant_short: hab
       mean_autonomy: Mitjana autonòmica
       mean_national: Mitjana estatal

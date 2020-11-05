@@ -407,9 +407,9 @@ GEM
     retriable (3.1.2)
     rexml (3.2.4)
     rollbar (3.0.1)
-    route_translator (8.1.0)
-      actionpack (>= 5.0.0.1, < 6.1)
-      activesupport (>= 5.0.0.1, < 6.1)
+    route_translator (8.2.1)
+      actionpack (>= 5.0.0.1, < 6.2)
+      activesupport (>= 5.0.0.1, < 6.2)
       addressable (~> 2.7)
     rubocop (1.1.0)
       parallel (~> 1.10)
@@ -522,7 +522,7 @@ GEM
     xml-simple (1.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.4.0)
+    zeitwerk (2.4.1)
 
 PLATFORMS
   ruby

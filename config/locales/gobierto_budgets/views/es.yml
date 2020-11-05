@@ -30,11 +30,13 @@ es:
         budget_line_percentage: Porcentaje
         budget_line_value: Cantidad
         budget_lines_distribution: Distribución de los gastos de esta partida
+        current_amount: Presupuesto actual
+        current_amount_per_inhabitant: Presupuesto actual / hab.
         evolution: Evolución
         give_your_opinion: Opina sobre esta partida
         give_your_opinion_cta: "¿Entiendes de qué va esta partida? ¿Te parece mucho,
           poco? Opina"
-        initial_estimate: Estimación inicial
+        initial_estimate: Presupuesto inicial
         last_year: El año pasado %{value}
         no_description: No hay una descripción asociada a esta partida.
         no_distribution: No hay distribución asociada a esta partida.
@@ -44,7 +46,7 @@ es:
         percentage_tooltip: Porcentaje del presupuesto total que supone esta partida
         planned: presupuestado
         planned_female: presupuestada
-        planned_per_inhabitant: pres. / hab.
+        planned_per_inhabitant: Presupuesto inicial / hab.
         planned_per_inhabitant_tooltip: Cantidad presupuestada dividida por el número
           de habitantes
         planned_tooltip: Cantidad presupuestada
@@ -232,7 +234,7 @@ es:
           cuál es el estado de ejecución de cada partida, quiénes son los proveedores
           con los que trabajamos, y cómo ha evolucionado el gasto por habitante.
         executed: Ejecución
-        executed_percent: "%{percentage}% de lo presupuestado"
+        executed_percent: "%{percentage}% del presupuesto actual"
         executed_percent_other_year_html: En %{year} fue un %{link}
         executed_tooltip: Cantidad ejecutada respecto al presupuesto actual (presupuesto
           inicial más modificaciones)
@@ -247,6 +249,7 @@ es:
         expenses_per_inhabitant: Gasto por habitante
         expenses_per_inhabitant_tooltip: Presupuesto inicial dividido por el número
           de habitantes
+        expenses_per_inhabitant_updated: Presupuesto por habitante actual
         header: Presupuestos
         in_total: En total
         income: Ingresos
@@ -255,7 +258,8 @@ es:
           de habitantes
         inhabitants: Habitantes
         inhabitants_tooltip: Número de habitantes
-        initial_estimate: Estimación inicial
+        initial_estimate: Presupuesto inicial
+        initial_estimate_per_inhabitant: Presupuesto inicial por habitante
         less: menos
         level_1_category: Categoría nivel 1
         level_2_category: Categoría nivel 2
@@ -306,6 +310,7 @@ es:
         top_income_value: Cantidad
         total_expenses: Gasto total
         total_expenses_tooltip: Presupuesto inicial
+        total_expenses_updated: Gasto total actual
         visualize: Visualiza los gastos por habitante o el total
     budgets_elaboration:
       index:
@@ -392,7 +397,8 @@ es:
         higher_execution: Mayor ejecución
         income_executed: Ingresos ejecutados
         income_planned: Ingresos presupuestados
-        initial_estimate: Estimación inicial
+        initial_estimate: Presupuesto inicial
+        initial_estimate_per_inhabitant: Presupuesto inicial por habitante
         lower_execution: Menor ejecución
         metric:
           execution:
@@ -587,6 +593,7 @@ es:
       I_economic: En qué se ingresa
       category_per_inhabitant: "%{category} por habitante"
       expenses_per_inhabitant: Gasto por habitante
+      expenses_per_inhabitant_updated: Gasto por habitante actual
       inhabitant_short: hab
       mean_autonomy: Media autonómica
       mean_national: Media estatal

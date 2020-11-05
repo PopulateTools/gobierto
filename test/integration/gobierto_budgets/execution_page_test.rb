@@ -49,11 +49,11 @@ class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
         assert has_content?("BUDGET EXECUTION")
 
         assert income_summary_box.include? "Planned income"
-        assert income_summary_box.include? "Initial estimate"
+        assert income_summary_box.include? "Initial budget"
         assert income_summary_box.include? "Executed income"
 
         assert expenses_summary_box.include? "Planned expenses"
-        assert expenses_summary_box.include? "Initial estimate"
+        assert expenses_summary_box.include? "Initial budget"
         assert expenses_summary_box.include? "Executed expenses"
       end
     end

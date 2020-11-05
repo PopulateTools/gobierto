@@ -34,25 +34,25 @@
 
         <% if @site_stats.population_data? %>
           <%= render("metric_box",
-                title: t(".expenses_per_inhabitant"),
-                value: @site_stats.total_budget_per_inhabitant_updated(fallback: true),
+                title: t(".initial_estimate_per_inhabitant"),
+                value: @site_stats.total_budget_per_inhabitant,
                 tooltip: t(".expenses_per_inhabitant_tooltip"),
                 data_box: "expenses_per_inhabitant",
                 explanation: {
                   if: @site_stats.total_budget_per_inhabitant_updated(fallback: false).present?,
-                  text: "#{t('.initial_estimate')}: #{format_currency(@site_stats.total_budget_per_inhabitant)}"
+                  text: "#{t('.expenses_per_inhabitant_updated')}: #{format_currency(@site_stats.total_budget_per_inhabitant_updated(fallback: true))}"
                 }
               ) %>
         <% end %>
 
         <%= render("metric_box",
-              title: t(".total_expenses"),
-              value: @site_stats.total_budget_updated(fallback: true),
+              title: t(".initial_estimate"),
+              value: @site_stats.total_budget,
               tooltip: t(".total_expenses_tooltip"),
               data_box: "total_expenses",
               explanation: {
                 if: @site_stats.total_budget_updated(fallback: false).present?,
-                text: "#{t('.initial_estimate')}: #{format_currency(@site_stats.total_budget)}"
+                text: "#{t('.total_expenses_updated')}: #{format_currency(@site_stats.total_budget_updated(fallback: true))}"
               }
             ) %>
 

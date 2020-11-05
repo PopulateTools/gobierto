@@ -44,16 +44,19 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
   end
 
   def load_year
-    if params[:year].nil?
-      default_year = if budgets_elaboration_active?
-        GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data - 1
-      else
-        GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data
-      end
+    default_year = if budgets_elaboration_active?
+                     GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data - 1
+                   else
+                     GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data
+                   end
 
+    if params[:year].nil?
       redirect_to gobierto_budgets_budgets_path(default_year)
     else
       @year = params[:year].to_i
+      if @year > default_year
+        redirect_to gobierto_budgets_budgets_path(default_year)
+      end
     end
   end
 

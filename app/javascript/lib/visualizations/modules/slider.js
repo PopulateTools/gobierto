@@ -158,7 +158,7 @@ export class VisSlider {
       .call(
         d3
           .drag()
-          .on("start.interrupt", function() {
+          .on("start.interrupt", () => {
             slider.interrupt();
           })
           .on("start drag", dragged)
@@ -172,13 +172,11 @@ export class VisSlider {
       slider
         .select(".ticks")
         .selectAll("text")
-        .classed("active", function(d) {
-          return d === year;
-        });
+        .classed("active", d => d === year);
     }
 
-    function endDrag() {
-      var year = x.invert(d3.mouse(this)[0]);
+    function endDrag(e) {
+      var year = x.invert(d3.pointer(e)[0]);
       $(document).trigger("visSlider:yearChanged", year);
     }
   }

@@ -255,6 +255,12 @@ Rails.application.routes.draw do
         end
       end
 
+      namespace :gobierto_observatory, as: :observatory do
+        namespace :configuration do
+          resource :settings, only: [:edit, :update], path: :settings
+        end
+      end
+
       namespace :gobierto_dashboards, as: :dashboards do
         namespace :configuration do
           resource :settings, only: [:edit, :update], path: :settings
@@ -435,6 +441,7 @@ Rails.application.routes.draw do
     namespace :gobierto_observatory, path: "observatorio" do
       constraints GobiertoSiteConstraint.new do
         root "observatory#index"
+        get "mapa" => "observatory#demography_map", as: :map
       end
     end
 

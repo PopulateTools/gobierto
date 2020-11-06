@@ -1,13 +1,19 @@
-import * as d3 from 'd3'
+import { json } from "d3-request";
+import { queue } from "d3-queue";
+import { nest } from "d3-collection";
+import { timeParse } from 'd3-time-format';
+import { sum } from 'd3-array';
 import { Card } from './card.js'
+
+const d3 = { json, queue, nest }
 
 export class GetUnemploymentAgeData extends Card {
   constructor(city_id) {
     super()
-    
+
     this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
     this.unemplUrl = window.populateData.endpoint + '/datasets/ds-personas-paradas-municipio-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
-    this.parseTime = d3.timeParse('%Y-%m');
+    this.parseTime = timeParse('%Y-%m');
     this.data = null;
   }
 
@@ -28,9 +34,9 @@ export class GetUnemploymentAgeData extends Card {
         var nested = d3.nest()
           .key(function(d) { return d.date; })
           .rollup(function(v) { return {
-              '<25': d3.sum(v.filter(function(d) {return d.age >= 16 && d.age < 25}), function(d) { return d.value; }),
-              '25-44': d3.sum(v.filter(function(d) {return d.age >= 25 && d.age < 45}), function(d) { return d.value; }),
-              '>=45': d3.sum(v.filter(function(d) {return d.age >= 45 && d.age < 65}), function(d) { return d.value; }),
+              '<25': sum(v.filter(function(d) {return d.age >= 16 && d.age < 25}), function(d) { return d.value; }),
+              '25-44': sum(v.filter(function(d) {return d.age >= 25 && d.age < 45}), function(d) { return d.value; }),
+              '>=45': sum(v.filter(function(d) {return d.age >= 45 && d.age < 65}), function(d) { return d.value; }),
             };
           })
           .entries(jsonData);

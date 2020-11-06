@@ -1,6 +1,9 @@
-import * as d3 from 'd3'
+import { json } from "d3-request";
+import { queue } from "d3-queue";
 import { Card } from './card.js'
 import { BarsCard } from 'lib/visualizations'
+
+const d3 = { json, queue }
 
 export class CarsCard extends Card {
   constructor(divClass, city_id) {

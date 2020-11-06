@@ -1,6 +1,5 @@
 class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationController
   before_action :load_params
-  before_action :check_elaboration, only: [:show]
 
   caches_action(
     :show,
@@ -58,12 +57,6 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
     @area_name = params[:area_name] || GobiertoBudgets::FunctionalArea.area_name
     @level = params[:level].present? ? params[:level].to_i : 1
     @code = params[:id]
-  end
-
-  def check_elaboration
-    if @year > Date.today.year && !budgets_elaboration_active?
-      raise GobiertoBudgets::BudgetLine::RecordNotFound
-    end
   end
 
   def common_params

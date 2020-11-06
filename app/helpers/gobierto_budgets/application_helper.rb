@@ -167,7 +167,7 @@ module GobiertoBudgets
     end
 
     def in_elaboration?
-      @year && @year > Date.today.year
+      @year && @year > Date.today.year && budgets_elaboration_active?
     end
   end
 end

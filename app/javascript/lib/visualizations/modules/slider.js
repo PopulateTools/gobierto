@@ -68,34 +68,6 @@ export class VisSlider {
       .attr("class", "slider")
       .attr("transform", "translate(0," + height / 4 + ")");
 
-    if (maxYear > new Date().getFullYear()) {
-      var proposal = slider
-        .append("g")
-        .attr(
-          "transform",
-          "translate(" +
-            (x(maxYear) - (2 / 3) * (x(maxYear) - x(years[years.length - 2]))) +
-            ",0)"
-        )
-        .attr("class", "proposal");
-
-      proposal
-        .append("rect")
-        .attr("x", 0)
-        .attr("y", -(height / 4))
-        .attr("rx", 12)
-        .attr("ry", 12)
-        .attr("width", x(maxYear) - x(years[years.length - 2]))
-        .attr("height", height);
-
-      proposal
-        .append("text")
-        .attr("class", "highlight-proposal")
-        .attr("y", "60%")
-        .attr("text-anchor", "end")
-        .attr("x", (2 / 3) * (x(maxYear) - x(years[years.length - 2])));
-    }
-
     slider
       .append("line")
       .attr("class", "track")
@@ -112,7 +84,7 @@ export class VisSlider {
       .call(
         d3
           .drag()
-          .on("start.interrupt", function() {
+          .on("start.interrupt", () => {
             slider.interrupt();
           })
           .on("start drag", dragged)
@@ -127,14 +99,12 @@ export class VisSlider {
       .data(years)
       .enter()
       .append("circle")
-      .attr("cx", function(d) {
-        return x(d);
-      })
+      .attr("cx", d => x(d))
       .attr("r", 9)
       .call(
         d3
           .drag()
-          .on("start.interrupt", function() {
+          .on("start.interrupt", () => {
             slider.interrupt();
           })
           .on("start drag", dragged)
@@ -149,19 +119,10 @@ export class VisSlider {
       .data(years)
       .enter()
       .append("text")
-      .attr("x", function(d) {
-        return x(d);
-      })
-      .text(function(year) {
-        if (year > new Date().getFullYear()) {
-          return I18n.t("gobierto_common.visualizations.project");
-        }
-        return year;
-      })
-      .classed("active", function(d) {
-        return d == currentYear;
-      })
-      .attr("dx", function(d) {
+      .attr("x", d => x(d))
+      .text(year => year)
+      .classed("active", d => d == currentYear)
+      .attr("dx", d => {
         if (d == maxYear) {
           return 10;
         } else if (d == 2010) {
@@ -170,7 +131,7 @@ export class VisSlider {
           return 0;
         }
       })
-      .attr("text-anchor", function(d) {
+      .attr("text-anchor", d => {
         if (d == maxYear) {
           return "end";
         } else if (d == 2010) {
@@ -182,7 +143,7 @@ export class VisSlider {
       .call(
         d3
           .drag()
-          .on("start.interrupt", function() {
+          .on("start.interrupt", () => {
             slider.interrupt();
           })
           .on("start drag", dragged)

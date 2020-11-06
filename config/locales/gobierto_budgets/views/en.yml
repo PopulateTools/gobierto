@@ -30,11 +30,13 @@ en:
         budget_line_percentage: Percentage
         budget_line_value: Amount
         budget_lines_distribution: Expense budget lines distribution
+        current_amount: Current amount
+        current_amount_per_inhabitant: Current amount / hab.
         evolution: Evolution
         give_your_opinion: Give your opinion about this budget line
         give_your_opinion_cta: Do you understand this budget line? Do you think it's
           enough, too much? Give your opinion
-        initial_estimate: Initial estimate
+        initial_estimate: Initial budget
         last_year: Last year %{value}
         no_description: There's no description for this budget line.
         no_distribution: There aren't any related budget lines.
@@ -44,7 +46,7 @@ en:
         percentage_tooltip: Percentage of the total budget this budget line implies
         planned: planned
         planned_female: planned
-        planned_per_inhabitant: plan. / inh.
+        planned_per_inhabitant: Initial budget / inh.
         planned_per_inhabitant_tooltip: Budgeted amount divided by the inhabitants
         planned_tooltip: Budgeted amount
         raise_hand: Raise your hand
@@ -228,7 +230,7 @@ en:
           the status of the execution, the different providers we work with and the
           evolution of the expense per inhabitant.
         executed: Executed
-        executed_percent: "%{percentage}% of the budget"
+        executed_percent: "%{percentage}% of the current budget"
         executed_percent_other_year_html: In %{year} it was a %{link}
         executed_tooltip: The execution is the quantity that has been spent from the
           initial budget.
@@ -242,6 +244,7 @@ en:
         expenses: Expenses
         expenses_per_inhabitant: Expenses per inhabitant
         expenses_per_inhabitant_tooltip: Starting budget divided by the inhabitants
+        expenses_per_inhabitant_updated: Budget per inhabitant updated
         header: Budgets
         in_total: Total
         income: Income
@@ -249,7 +252,8 @@ en:
         income_per_inhabitant_tooltip: Starting budget divided by the inhabitants
         inhabitants: Inhabitants
         inhabitants_tooltip: Number of inhabitants
-        initial_estimate: Initial estimate
+        initial_estimate: Initial budget
+        initial_estimate_per_inhabitant: Initial budget per inhabitant
         less: less
         level_1_category: Level 1 category
         level_2_category: Level 2 category
@@ -299,6 +303,7 @@ en:
         top_income_value: Amount
         total_expenses: Total expenses
         total_expenses_tooltip: Starting budget
+        total_expenses_updated: Current budget
         visualize: Visualize expenses per inhabitant or the total
     budgets_elaboration:
       index:
@@ -379,7 +384,8 @@ en:
         higher_execution: Higher execution
         income_executed: Executed income
         income_planned: Planned income
-        initial_estimate: Initial estimate
+        initial_estimate: Initial budget
+        initial_estimate_per_inhabitant: Initial budget per inhabitant
         lower_execution: Lower execution
         metric:
           execution:
@@ -569,6 +575,7 @@ en:
       I_economic: How
       category_per_inhabitant: "%{category} per inhabitant"
       expenses_per_inhabitant: Expenses per inhabitant
+      expenses_per_inhabitant_updated: Expenses per inhabitant updated
       inhabitant_short: inh
       mean_autonomy: Autonomy mean
       mean_national: National mean

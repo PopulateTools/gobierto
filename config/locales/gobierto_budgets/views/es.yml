@@ -310,7 +310,7 @@ es:
         top_income_value: Cantidad
         total_expenses: Gasto total
         total_expenses_tooltip: Presupuesto inicial
-        total_expenses_updated: Gasto total actual
+        total_expenses_updated: Presupuesto actual
         visualize: Visualiza los gastos por habitante o el total
     budgets_elaboration:
       index:

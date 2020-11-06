@@ -303,7 +303,7 @@ en:
         top_income_value: Amount
         total_expenses: Total expenses
         total_expenses_tooltip: Starting budget
-        total_expenses_updated: Total expenses today
+        total_expenses_updated: Current budget
         visualize: Visualize expenses per inhabitant or the total
     budgets_elaboration:
       index:

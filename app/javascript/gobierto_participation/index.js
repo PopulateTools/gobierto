@@ -1,5 +1,5 @@
 import "./modules/init.js";
-// local
+// init.js must be first
 import "./modules/application.js";
 import "./modules/contribution_containers_controller.js";
 import "./modules/poll_teaser_controller.js";

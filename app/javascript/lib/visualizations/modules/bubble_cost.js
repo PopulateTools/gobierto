@@ -1,16 +1,17 @@
-import { select, selectAll, pointer } from "d3-selection";
-import { scaleThreshold, scaleLinear, scaleSqrt } from "d3-scale";
+import { max } from "d3-array";
 import {
+  forceCollide,
+  forceManyBody,
   forceSimulation,
   forceX,
-  forceY,
-  forceManyBody,
-  forceCollide
+  forceY
 } from "d3-force";
-import { max } from "d3-array";
 import { formatDefaultLocale } from "d3-format";
-import { transition } from "d3-transition";
 import { wordwrap } from "d3-jetpack";
+import { scaleLinear, scaleSqrt, scaleThreshold } from "d3-scale";
+import { pointer, select, selectAll } from "d3-selection";
+import { transition } from "d3-transition";
+import { accounting, d3locale } from "lib/shared";
 
 const d3 = {
   select,
@@ -29,8 +30,6 @@ const d3 = {
   transition,
   wordwrap
 };
-
-import { d3locale, accounting } from "lib/shared";
 
 export class VisBubble {
   constructor(divId, year, data) {

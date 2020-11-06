@@ -1,14 +1,11 @@
-import { voronoi } from 'd3-voronoi'
-import { path } from 'd3-path'
+import { path } from "d3-path";
+import { voronoi } from "d3-voronoi";
 
-const d3 = { voronoi, path }
+const d3 = { voronoi, path };
 
 export function distanceLimitedVoronoi() {
   /////// Internals ///////
-  var voronoi = d3.voronoi().extent([
-    [-1e6, -1e6],
-    [1e6, 1e6]
-  ]);
+  var voronoi = d3.voronoi().extent([[-1e6, -1e6], [1e6, 1e6]]);
   var limit = 20; // default limit
   var context = null; // set it to render to a canvas' 2D context
 
@@ -220,7 +217,10 @@ export function distanceLimitedVoronoi() {
     }
 
     function pointTooFarFromSeed(p, seed, r) {
-      return (Math.pow(p[0] - seed[0], 2) + Math.pow(p[1] - seed[1], 2) > Math.pow(r, 2));
+      return (
+        Math.pow(p[0] - seed[0], 2) + Math.pow(p[1] - seed[1], 2) >
+        Math.pow(r, 2)
+      );
     }
 
     function angle(seed, p) {
@@ -266,17 +266,19 @@ export function distanceLimitedVoronoi() {
     if (LEC < r) {
       // compute distance from t to circle intersection point
       var dt = Math.sqrt(Math.pow(r, 2) - Math.pow(LEC, 2));
-      var tF = (t - dt); // t of first intersection point
-      var tG = (t + dt); // t of second intersection point
+      var tF = t - dt; // t of first intersection point
+      var tG = t + dt; // t of second intersection point
 
       var result = [];
-      if ((tF > 0) && (tF < LAB)) { // test if first intersection point in segment
+      if (tF > 0 && tF < LAB) {
+        // test if first intersection point in segment
         // compute first intersection point
         var Fx = (t - dt) * Dx + Ax;
         var Fy = (t - dt) * Dy + Ay;
         result.push([Fx, Fy]);
       }
-      if ((tG > 0) && (tG < LAB)) { // test if second intersection point in segment
+      if (tG > 0 && tG < LAB) {
+        // test if second intersection point in segment
         // compute second intersection point
         var Gx = (t + dt) * Dx + Ax;
         var Gy = (t + dt) * Dy + Ay;

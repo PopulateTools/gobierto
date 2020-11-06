@@ -10,7 +10,6 @@ import { SimpleCard } from "./modules/card_simple.js";
 import { SparklineTableCard } from "./modules/card_sparkline_table.js";
 import { TableCard } from "./modules/card_table.js";
 import { VisIndicators } from "./modules/consultation_indicators.js";
-import { VisEvoLine } from "./modules/evo_line.js";
 import { GroupPctDistributionBars } from "./modules/group_pct_distribution_bars";
 import { VisLineasJ } from "./modules/lineas_tabla.js";
 import { VisLinesExecution } from "./modules/lines_execution.js";
@@ -37,7 +36,6 @@ export {
   SparklineTableCard,
   TableCard,
   VisIndicators,
-  VisEvoLine,
   VisLineasJ,
   VisLinesExecution,
   VisPopulationPyramid,

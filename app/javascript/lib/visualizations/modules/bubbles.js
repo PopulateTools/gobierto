@@ -1,16 +1,20 @@
-import { select, selectAll, pointer } from "d3-selection";
-import { scaleThreshold, scaleLinear, scaleSqrt } from "d3-scale";
+import { max } from "d3-array";
 import {
+  forceCollide,
+  forceManyBody,
   forceSimulation,
   forceX,
-  forceY,
-  forceManyBody,
-  forceCollide
+  forceY
 } from "d3-force";
-import { max } from "d3-array";
 import { formatDefaultLocale } from "d3-format";
-import { transition } from "d3-transition";
 import { wordwrap } from "d3-jetpack";
+import tspans from "d3-jetpack/src/tspans";
+import { scaleLinear, scaleSqrt, scaleThreshold } from "d3-scale";
+import { pointer, select, selectAll, selection } from "d3-selection";
+import { transition } from "d3-transition";
+import { accounting, d3locale } from "lib/shared";
+
+selection.prototype.tspans = tspans;
 
 const d3 = {
   select,
@@ -27,10 +31,9 @@ const d3 = {
   max,
   formatDefaultLocale,
   transition,
-  wordwrap
+  wordwrap,
+  selection
 };
-
-import { d3locale, accounting } from "lib/shared";
 
 export class VisBubbles {
   constructor(divId, budgetCategory, data) {
@@ -281,24 +284,15 @@ export class VisBubbles {
 
     this.bubbles
       .append("text")
-      .style(
-        "font-size",
-        function(d) {
-          return this.fontSize(d.radius) + "px";
-        }.bind(this)
-      )
+      .style("font-size", d => this.fontSize(d.radius) + "px")
       .attr("text-anchor", "middle")
       .attr("y", -15)
       .attr("fill", d =>
         d.pct_diff > 30 || d.pct_diff < -10 ? "white" : "black"
       )
       .tspans(
-        function(d) {
-          return d.radius > 40 ? d3.wordwrap(d.name, 15) : d3.wordwrap("", 15);
-        },
-        function(d) {
-          return this.fontSize(d.radius);
-        }.bind(this)
+        d => (d.radius > 40 ? d3.wordwrap(d.name, 15) : d3.wordwrap("", 15)),
+        d => this.fontSize(d.radius)
       );
 
     this.simulation.nodes(this.nodes);

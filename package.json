@@ -33,7 +33,6 @@
     "d3-scale-chromatic": "^2.0.0",
     "d3-selection": "^2.0.0",
     "d3-shape": "^2.0.0",
-    "d3-svg-legend": "^2.25.5",
     "d3-time": "^2.0.0",
     "d3-time-format": "^3.0.0",
     "d3-transition": "^2.0.0",

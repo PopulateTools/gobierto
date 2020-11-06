@@ -1,4 +1,4 @@
-import { max } from "d3-array";
+import { group, groups, max } from "d3-array";
 import { axisBottom, axisTop } from "d3-axis";
 import { rgb } from "d3-color";
 import { json } from "d3-fetch";
@@ -34,7 +34,9 @@ const d3 = {
   axisTop,
   json,
   max,
-  rgb
+  rgb,
+  group,
+  groups
 };
 
 export class VisLinesExecution {
@@ -91,28 +93,23 @@ export class VisLinesExecution {
       this.budgetCategory +
       ".json";
 
-    d3.json(
-      this.dataUrl,
-      function(error, jsonData) {
-        if (error) throw error;
+    d3.json(this.dataUrl).then(jsonData => {
+      this.data = jsonData;
 
-        this.data = jsonData;
+      // Setting scales in a separate step, as we need the lines to set the height
+      this.setScales();
+      this.updateRender();
 
-        // Setting scales in a separate step, as we need the lines to set the height
-        this.setScales();
-        this.updateRender();
+      var event;
+      if (typeof Event === "function") {
+        event = new Event("chartloaded");
+      } else {
+        event = document.createEvent("Event");
+        event.initEvent("chartloaded", true, true);
+      }
 
-        var event;
-        if (typeof Event === "function") {
-          event = new Event("chartloaded");
-        } else {
-          event = document.createEvent("Event");
-          event.initEvent("chartloaded", true, true);
-        }
-
-        window.dispatchEvent(event);
-      }.bind(this)
-    );
+      window.dispatchEvent(event);
+    });
   }
 
   render() {
@@ -201,33 +198,23 @@ export class VisLinesExecution {
   }
 
   updateRender() {
-    this.nested = d3
-      .nest()
-      .key(function(d) {
-        return d.parent_id;
-      })
-      .sortValues(function(a, b) {
-        // Parent lines are the first for each group, and then child lines are sorted by execution rate
-        return a.level === 1 || b.level === 1 ? b.level - a.level : b.id - a.id;
-      })
-      .entries(this.data.lines);
+    this.nested = Array.from(
+      d3.group(this.data.lines, d => d.parent_id),
+      ([key, values]) => ({ key, values })
+    );
 
-    // Get parent line values for each group to sort them later
-    this.nested.forEach(function(d) {
+    this.nested.forEach(d => {
+      d.values = d.values.sort((a, b) =>
+        a.level === 1 || b.level === 1 ? b.level - a.level : b.id - a.id
+      );
+
+      // Get parent line values for each group to sort them later
       d.group_pct = d.values
-        .filter(function(d) {
-          return d.level == 1;
-        })
-        .map(function(d) {
-          return d.pct_executed;
-        })[0];
+        .filter(d => d.level == 1)
+        .map(d => d.pct_executed)[0];
       d.group_executed = d.values
-        .filter(function(d) {
-          return d.level == 1;
-        })
-        .map(function(d) {
-          return d.executed;
-        })[0];
+        .filter(d => d.level == 1)
+        .map(d => d.executed)[0];
 
       return d;
     });
@@ -235,30 +222,16 @@ export class VisLinesExecution {
     if (this.data.lines.length === 0) return false;
 
     // Sort by execution
-    this.nested.sort(function(a, b) {
-      return a.group_pct - b.group_pct;
-    });
+    this.nested.sort((a, b) => a.group_pct - b.group_pct);
 
     /* Extent of the execution */
     this.x.domain(this.maxPct <= 100 ? [0.1, 100] : [0.1, this.maxPct]);
 
     /* Number of lines */
-    this.y0.domain(
-      this.nested.map(function(d) {
-        return d.key;
-      })
-    );
+    this.y0.domain(this.nested.map(d => d.key));
 
     /* Get the id of every line */
-    this.y1.domain(
-      _.flatten(
-        this.nested.map(function(d) {
-          return d.values.map(function(v) {
-            return v.id;
-          });
-        })
-      )
-    );
+    this.y1.domain(_.flatten(this.nested.map(d => d.values.map(v => v.id))));
 
     /* A time scale which spreads along the whole chart */
     this.z.domain([
@@ -274,34 +247,27 @@ export class VisLinesExecution {
       .attr("class", "line-group")
       .attr(
         "transform",
-        function(d) {
-          return "translate(" + 0 + "," + this.y0(d.key) / 14 + ")";
-        }.bind(this)
+        d => "translate(" + 0 + "," + this.y0(d.key) / 14 + ")"
       );
 
     var lineGroup = this.bars
       .selectAll("a")
-      .data(function(d) {
-        return d.values;
-      })
+      .data(d => d.values)
       .enter()
       .append("a")
       .attr("class", "line")
-      .attr(
-        "xlink:href",
-        function(d) {
-          return (
-            "/presupuestos/partidas/" +
-            d.id +
-            "/" +
-            this.budgetYear +
-            "/" +
-            this.budgetCategory +
-            "/" +
-            this.executionKind
-          );
-        }.bind(this)
-      )
+      .attr("xlink:href", d => {
+        return (
+          "/presupuestos/partidas/" +
+          d.id +
+          "/" +
+          this.budgetYear +
+          "/" +
+          this.budgetCategory +
+          "/" +
+          this.executionKind
+        );
+      })
       .attr("target", "_top");
 
     var barGroup = lineGroup
@@ -315,12 +281,7 @@ export class VisLinesExecution {
       .attr("class", "bar-bg")
       .attr("x", 0)
       .attr("height", this.y1.bandwidth())
-      .attr(
-        "y",
-        function(d) {
-          return this.y1(d.id);
-        }.bind(this)
-      )
+      .attr("y", d => this.y1(d.id))
       .attr("width", this.x(this.x.domain()[1]))
       .attr("fill", "#efefef");
 
@@ -330,18 +291,8 @@ export class VisLinesExecution {
       .attr("class", "hundred_percent")
       .attr("x1", this.x(100))
       .attr("x2", this.x(100))
-      .attr(
-        "y1",
-        function(d) {
-          return this.y1(d.id);
-        }.bind(this)
-      )
-      .attr(
-        "y2",
-        function(d) {
-          return this.y1(d.id) + this.y1.bandwidth();
-        }.bind(this)
-      )
+      .attr("y1", d => this.y1(d.id))
+      .attr("y2", d => this.y1(d.id) + this.y1.bandwidth())
       .attr("stroke", "white")
       .attr("stroke-width", 4);
 
@@ -351,54 +302,34 @@ export class VisLinesExecution {
       .attr("class", "bar")
       .attr("x", 0)
       .attr("height", this.y1.bandwidth())
-      .attr(
-        "y",
-        function(d) {
-          return this.y1(d.id);
-        }.bind(this)
-      )
-      .attr(
-        "width",
-        function(d) {
-          if (d.pct_executed == 0) {
-            return 0;
-          } else {
-            return this.x(d.pct_executed);
-          }
-        }.bind(this)
-      )
-      .attr(
-        "fill",
-        function(d) {
-          var levelTwoColor = d3.rgb(this.color(this.executionKind));
-          levelTwoColor.opacity = this.isMobile ? 0.3 : 0.5;
+      .attr("y", d => this.y1(d.id))
+      .attr("width", d => {
+        if (d.pct_executed == 0) {
+          return 0;
+        } else {
+          return this.x(d.pct_executed);
+        }
+      })
+      .attr("fill", d => {
+        var levelTwoColor = d3.rgb(this.color(this.executionKind));
+        levelTwoColor.opacity = this.isMobile ? 0.3 : 0.5;
 
-          return d.level === 1 ? this.color(this.executionKind) : levelTwoColor;
-        }.bind(this)
-      );
+        return d.level === 1 ? this.color(this.executionKind) : levelTwoColor;
+      });
 
     /* Line names */
     if (!this.isMobile) {
       lineGroup
         .append("text")
         .attr("x", 0)
-        .attr(
-          "y",
-          function(d) {
-            return this.y1(d.id);
-          }.bind(this)
-        )
+        .attr("y", d => this.y1(d.id))
         .attr("dy", 12)
         .attr("dx", -10)
         .attr("text-anchor", "end")
-        .attr("class", function(d) {
-          return d.level === 1 ? "line-txt-group" : "line-txt-detail";
-        })
-        .text(
-          function(d) {
-            return d["name_" + this.localeFallback];
-          }.bind(this)
+        .attr("class", d =>
+          d.level === 1 ? "line-txt-group" : "line-txt-detail"
         )
+        .text(d => d["name_" + this.localeFallback])
         .on("mousemove", function() {
           $(this)
             .prev()
@@ -410,39 +341,20 @@ export class VisLinesExecution {
             .css("stroke", "none");
         })
         .append("title")
-        .text(
-          function(d) {
-            return d["name_" + this.localeFallback];
-          }.bind(this)
-        );
+        .text(d => d["name_" + this.localeFallback]);
     } else {
       lineGroup
         .append("text")
         .attr("x", 0)
-        .attr(
-          "y",
-          function(d) {
-            return this.y1(d.id);
-          }.bind(this)
-        )
+        .attr("y", d => this.y1(d.id))
         .attr("dy", 12)
         .attr("dx", 2)
         .attr("text-anchor", "start")
-        .style("text-shadow", function(d) {
-          return d.level === 1 ? "0 0 4px white" : "";
-        })
-        .style("font-size", function(d) {
-          return d.level === 1 ? "0.875rem" : "0.75rem";
-        })
-        .style("font-weight", function(d) {
-          return d.level === 1 ? "600" : "400";
-        })
+        .style("text-shadow", d => (d.level === 1 ? "0 0 4px white" : ""))
+        .style("font-size", d => (d.level === 1 ? "0.875rem" : "0.75rem"))
+        .style("font-weight", d => (d.level === 1 ? "600" : "400"))
         .style("fill", "#4A4A4A")
-        .text(
-          function(d) {
-            return d["name_" + this.localeFallback];
-          }.bind(this)
-        )
+        .text(d => d["name_" + this.localeFallback])
         .style("pointer-events", "none");
     }
 
@@ -487,44 +399,34 @@ export class VisLinesExecution {
 
     /* Remove first tick */
     d3.selectAll(".x.axis .tick")
-      .filter(function(d) {
-        return d === 0 || d === 0.1;
-      })
+      .filter(d => d === 0 || d === 0.1)
       .remove();
 
     /* Style 100% completion */
     d3.selectAll(".x.axis .tick")
-      .filter(function(d) {
-        return d === 100;
-      })
+      .filter(d => d === 100)
       .classed("hundred_percent", true);
 
     /* Switch to absolute values */
-    $(".value-switcher-" + this.executionKind).on(
-      "click",
-      function(e) {
-        var valueKind = $(e.target).attr("data-toggle");
-        var symbol = $(e.target).attr("data-symbol");
+    $(".value-switcher-" + this.executionKind).on("click", e => {
+      var valueKind = $(e.target).attr("data-toggle");
+      var symbol = $(e.target).attr("data-symbol");
 
-        $(".value-switcher-" + this.executionKind).removeClass("active");
-        $(e.target).addClass("active");
+      $(".value-switcher-" + this.executionKind).removeClass("active");
+      $(e.target).addClass("active");
 
-        this._update(valueKind, symbol);
-      }.bind(this)
-    );
+      this._update(valueKind, symbol);
+    });
 
     /* Trigger sorting functions */
-    $(".sort-" + this.executionKind).on(
-      "click",
-      function(e) {
-        var sortKind = $(e.target).attr("data-toggle");
+    $(".sort-" + this.executionKind).on("click", e => {
+      var sortKind = $(e.target).attr("data-toggle");
 
-        $(".sort-" + this.executionKind).removeClass("active");
-        $(e.target).addClass("active");
+      $(".sort-" + this.executionKind).removeClass("active");
+      $(e.target).addClass("active");
 
-        this._sortValues(e.target, sortKind);
-      }.bind(this)
-    );
+      this._sortValues(e.target, sortKind);
+    });
 
     d3.select("body:not(" + this.container + ")").on(
       "touchstart",
@@ -540,34 +442,23 @@ export class VisLinesExecution {
   }
 
   _update(valueKind, symbol) {
-    this.xAxis.tickFormat(
-      function(d) {
-        return d === 0 ? "" : this.pctFormat(d) + symbol;
-      }.bind(this)
-    );
-    this.x.domain([
-      0.1,
-      d3.max(this.data.lines, function(d) {
-        return d[valueKind];
-      })
-    ]);
+    this.xAxis.tickFormat(d => (d === 0 ? "" : this.pctFormat(d) + symbol));
+    this.x.domain([0.1, d3.max(this.data.lines, d => d[valueKind])]);
 
     this.svg.select(".x.axis").call(this.xAxis);
 
     this.svg
       .selectAll(".x.axis .tick")
-      .filter(function(d) {
-        return valueKind === "executed"
+      .filter(d =>
+        valueKind === "executed"
           ? d === 0 || d === 0.1 || d === 1
-          : d === 0 || d === 0.1;
-      })
+          : d === 0 || d === 0.1
+      )
       .remove();
 
     this.svg
       .selectAll(".x.axis .tick")
-      .filter(function(d) {
-        return d === 100;
-      })
+      .filter(d => d === 100)
       .classed("hundred_percent", valueKind === "pct_executed" ? true : false);
 
     this.svg
@@ -587,44 +478,21 @@ export class VisLinesExecution {
       .selectAll(".bar")
       .transition()
       .duration(300)
-      .attr(
-        "width",
-        function(d) {
-          return this.x(d[valueKind]);
-        }.bind(this)
-      );
+      .attr("width", d => this.x(d[valueKind]));
   }
 
   _sortValues(target, sortKind) {
     sortKind === "highest"
-      ? this.nested.sort(function(a, b) {
-          return a.group_pct - b.group_pct;
-        })
-      : this.nested.sort(function(a, b) {
-          return b.group_pct - a.group_pct;
-        });
+      ? this.nested.sort((a, b) => a.group_pct - b.group_pct)
+      : this.nested.sort((a, b) => b.group_pct - a.group_pct);
 
     this.y0.domain(
       sortKind === "highest"
-        ? this.nested.map(function(d) {
-            return d.key;
-          })
-        : this.nested
-            .map(function(d) {
-              return d.key;
-            })
-            .reverse()
+        ? this.nested.map(d => d.key)
+        : this.nested.map(d => d.key).reverse()
     );
 
-    this.y1.domain(
-      _.flatten(
-        this.nested.map(function(d) {
-          return d.values.map(function(v) {
-            return v.id;
-          });
-        })
-      )
-    );
+    this.y1.domain(_.flatten(this.nested.map(d => d.values.map(v => v.id))));
 
     this.svg
       .selectAll(".line-group")
@@ -633,60 +501,33 @@ export class VisLinesExecution {
       .duration(500)
       .attr(
         "transform",
-        function(d) {
-          return "translate(" + 0 + "," + this.y0(d.key) / 14 + ")";
-        }.bind(this)
+        d => "translate(" + 0 + "," + this.y0(d.key) / 14 + ")"
       );
 
     this.svg
       .selectAll(".bar")
       .transition()
       .duration(300)
-      .attr(
-        "y",
-        function(d) {
-          return this.y1(d.id);
-        }.bind(this)
-      );
+      .attr("y", d => this.y1(d.id));
 
     this.svg
       .selectAll(".bar-bg")
       .transition()
       .duration(300)
-      .attr(
-        "y",
-        function(d) {
-          return this.y1(d.id);
-        }.bind(this)
-      );
+      .attr("y", d => this.y1(d.id));
 
     this.svg
       .selectAll(".line text")
       .transition()
       .duration(300)
-      .attr(
-        "y",
-        function(d) {
-          return this.y1(d.id);
-        }.bind(this)
-      );
+      .attr("y", d => this.y1(d.id));
 
     this.svg
       .selectAll(".hundred_percent")
       .transition()
       .duration(300)
-      .attr(
-        "y1",
-        function(d) {
-          return this.y1(d.id);
-        }.bind(this)
-      )
-      .attr(
-        "y2",
-        function(d) {
-          return this.y1(d.id) + this.y1.bandwidth();
-        }.bind(this)
-      );
+      .attr("y1", d => this.y1(d.id))
+      .attr("y2", d => this.y1(d.id) + this.y1.bandwidth());
   }
 
   _mousemoved(d) {
@@ -762,10 +603,7 @@ export class VisLinesExecution {
 
   _height() {
     // Height depends on number of lines
-    var groupPadding =
-      this.data.lines.filter(function(d) {
-        return d.level === 1;
-      }).length * 10;
+    var groupPadding = this.data.lines.filter(d => d.level === 1).length * 10;
 
     return this.data.lines.length * 30 + groupPadding;
   }

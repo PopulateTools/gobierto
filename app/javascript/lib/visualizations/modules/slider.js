@@ -1,5 +1,4 @@
 import { drag } from "d3-drag";
-// import { keys } from "d3-collection";
 import { scalePoint, scaleQuantize } from "d3-scale";
 import { pointer, select, selectAll } from "d3-selection";
 
@@ -19,19 +18,12 @@ export class VisSlider {
     this.data = data;
 
     var currentYear = d3.select("body").attr("data-year");
-    // var slideYear = currentYear;
     var maxYear = parseInt(d3.select("body").attr("data-max-year"));
     var years = [];
-    d3.keys(this.data[0].values).forEach(function(year) {
+    Object.keys(this.data[0].values).forEach(function(year) {
       year = parseInt(year);
       if (year <= maxYear) years.push(year);
     });
-    // var parseYear = d3.timeParse('%Y');
-    // var formatYear = d3.timeFormat('%Y');
-
-    // var bisectDate = d3.bisector(function(d) {
-    //   return d;
-    // }).left;
 
     var margin = {
       right: 20,

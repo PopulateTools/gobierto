@@ -320,7 +320,7 @@ ca:
         top_income_value: Quantitat
         total_expenses: Despesa total
         total_expenses_tooltip: Pressupost inicial de despesa
-        total_expenses_updated: Despesa total actual
+        total_expenses_updated: Pressupost actual
         visualize: Visualitza les despeses per habitant o el total
     budgets_elaboration:
       index:

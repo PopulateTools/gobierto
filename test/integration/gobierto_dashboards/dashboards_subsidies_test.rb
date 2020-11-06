@@ -59,30 +59,30 @@ class GobiertoDashboards::DashboardsSubsidiesTest < ActionDispatch::IntegrationT
       # Box
       metrics_box = find(".metric_box", match: :first)
 
-      assert metrics_box.has_content?("552\nsubvenciones por importe de\n2.462.031,49 €")
-      assert metrics_box.has_content?("99,64 %\na colectivos por importe de\n2.461.652,49 €")
-      assert metrics_box.has_content?("0,36 %\na particulares por importe de\n379,00 €")
+      assert metrics_box.has_content?("30\nsubvenciones por importe de\n39.606,19 €")
+      assert metrics_box.has_content?("53,33 %\na colectivos por importe de\n38.652,19 €")
+      assert metrics_box.has_content?("46,67 %\na particulares por importe de\n954,00 €")
 
-      assert metrics_box.has_content?("Importe medio\n4460,20 €")
-      assert metrics_box.has_content?("Importe mediano\n2074,36 €")
+      assert metrics_box.has_content?("Importe medio\n1320,21 €")
+      assert metrics_box.has_content?("Importe mediano\n539,58 €")
 
       ## Headlines
-      assert page.has_content?("El 30 % de las subvenciones son menores de 1.000 €")
-      assert page.has_content?("La mayor subvención supone un 6 % de todo el gasto en subvenciones")
-      assert page.has_content?("El 13 % de subvenciones concentran el 50% de todo el gasto")
+      assert page.has_content?("El 70 % de las subvenciones son menores de 1.000 €")
+      assert page.has_content?("La mayor subvención supone un 24 % de todo el gasto en subvenciones")
+      assert page.has_content?("El 10 % de subvenciones concentran el 50% de todo el gasto")
 
       ## Charts
       # Category
       category_container = find("#category-bars", match: :first)
 
       assert category_container.has_content?("URBANISMO")
-      assert category_container.has_content?("74,3 %")
+      assert category_container.has_content?("3,3 %")
 
       # Beneficiaries table
       first_beneficiary = find(".dashboards-home-main--tr", match: :first)
 
-      assert first_beneficiary.has_content?('ALIANZA CRISTIANA DE JOVENES DE LA Y.M.C.A.')
-      assert first_beneficiary.has_content?('22.500,31 €')
+      assert first_beneficiary.has_content?('REGIONAL DE EXTREMADURA')
+      assert first_beneficiary.has_content?('756,00 €')
     end
   end
 
@@ -102,13 +102,13 @@ class GobiertoDashboards::DashboardsSubsidiesTest < ActionDispatch::IntegrationT
       first_subsidy = find(".dashboards-home-main--tr", match: :first)
 
       # Beneficiary
-      assert first_subsidy.has_content?('SUSANA HERRANZ')
+      assert first_subsidy.has_content?('1')
 
       # Amount
-      assert first_subsidy.has_content?('€133.00')
+      assert first_subsidy.has_content?('€146.00')
 
       # Date
-      assert first_subsidy.has_content?('2019-02-26')
+      assert first_subsidy.has_content?('2016-12-27')
 
 
       # Subsidies Show
@@ -119,13 +119,13 @@ class GobiertoDashboards::DashboardsSubsidiesTest < ActionDispatch::IntegrationT
       assert find(".dashboards-home-nav--tab.is-active").text, 'SUBSIDIES'
 
       # Url is updated
-      assert_equal current_path, "/dashboards/subvenciones/subvenciones/201902261222133"
+      assert_equal current_path, "/dashboards/subvenciones/subvenciones/20161227146"
 
       # Title
-      assert page.has_content?('CONVOCATORIA INSTRUMENTAL AYUDAS COMEDOR ESCOLAR')
+      assert page.has_content?('CONVOCATORIA DE AYUDAS PARA LA ESCOLARIZACIÓN DE NIÑOS Y NIÑAS EN EL PRIMER CICLO DE EDUCACIÓN INFANTIL DE 0 A 3 AÑOS, EN ESCUELAS INFANTILES Y CASAS DE NIÑOS PÚBLICAS DE GETAFE 2016/2017')
 
       # Beneficiary
-      assert page.has_content?('SUSANA HERRANZ')
+      assert page.has_content?('1')
     end
   end
 

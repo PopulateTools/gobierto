@@ -1,0 +1,10 @@
+---
+es:
+  gobierto_admin:
+    gobierto_observatory:
+      configuration:
+        settings:
+          edit:
+            title: Configuración del Observatorio
+            update: Actualizar
+          title: Preferencias

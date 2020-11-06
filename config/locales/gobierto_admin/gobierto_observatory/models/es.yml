@@ -1,0 +1,13 @@
+---
+es:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_observatory/settings_form:
+        observatory_config: Configuración del observatorio
+    errors:
+      models:
+        gobierto_admin/gobierto_observatory/settings_form:
+          attributes:
+            observatory_config:
+              invalid_format: La configuración no tiene un formato JSON válido
+              invalid_values: La configuración no tiene valores válidos

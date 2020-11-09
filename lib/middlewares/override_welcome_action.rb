@@ -11,10 +11,12 @@ class OverrideWelcomeAction
 
     if site = Site.find_by_allowed_domain(full_domain)
       env["gobierto_site"] = site
+      GobiertoCore::CurrentScope.current_site = site
     end
 
     if Rails.env.test? && site.nil?
-      env["gobierto_site"] = ::GobiertoCore::CurrentScope.current_site || Site.first
+      env["gobierto_site"] = Site.first
+      GobiertoCore::CurrentScope.current_site = Site.first
     end
 
     # If the path is the homepage, the route should be the site root path

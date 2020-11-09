@@ -1,12 +1,11 @@
 <template>
-  <div class="container">
+  <div class="container-tree-map">
     <p>Tipos de contrato</p>
-    <svg 
+    <svg
       id="treemap-contracts"
       :width="svgWidth"
       :height="svgHeight"
     >
-
     </svg>
   </div>
 </template>
@@ -94,7 +93,7 @@ export default {
         .append("text")
           .attr('class', 'value')
           .attr("x", d => d.x0 + 10)
-          .attr("y", d => d.y0 + 40)
+          .attr("y", d => d.y0 + 45)
           .text(d => `${d.value.toFixed(0)} €`)
           .attr("fill", "white")
 

@@ -315,6 +315,21 @@
     opacity: .3;
     left: 6%;
   }
+
+  #treemap-contracts {
+    font-family: $font_headings;
+    .name {
+      font-size: 16px;
+      font-weight: bold;
+      font-family: $font_headings;
+    }
+
+    .value {
+      font-size: 26px;
+      font-family: $font_headings;
+    }
+  }
+
 }
 
 
@@ -881,7 +896,7 @@
   &-item--tooltip {
     bottom: 115%;
     left: 66%;
-    font-family: "Source Sans Pro", "Helvetica Neue", "Arial", "sans-serif";
+    font-family: $font_headings;
     color: var(--grey);
   }
 
@@ -988,3 +1003,4 @@
   }
 
 }
+

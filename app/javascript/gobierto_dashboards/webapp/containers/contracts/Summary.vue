@@ -1,6 +1,7 @@
 <template>
   <div>
     <TreeMap />
+    <Beeswarm />
     <div
       id="tendersContractsSummary"
       class="metric_boxes"
@@ -144,6 +145,7 @@
 </template>
 <script>
 import TreeMap from "../../visualizations/treeMap.vue";
+import Beeswarm from "../../visualizations/beeswarmChart.vue";
 import Table from "../../components/Table.vue";
 import { dashboardsMixins } from "../../mixins/dashboards_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
@@ -152,7 +154,8 @@ export default {
   name: 'Summary',
   components: {
     Table,
-    TreeMap
+    TreeMap,
+    Beeswarm
   },
   mixins: [dashboardsMixins],
   data(){

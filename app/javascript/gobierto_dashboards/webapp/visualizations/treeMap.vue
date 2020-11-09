@@ -14,9 +14,9 @@
 
 import { select, selectAll } from 'd3-selection'
 import { treemap, stratify } from 'd3-hierarchy'
+import { scaleOrdinal } from 'd3-scale'
 
-
-const d3 = { select, selectAll, treemap, stratify }
+const d3 = { select, selectAll, treemap, stratify, scaleOrdinal }
 
 import { getDataMixin } from "../lib/getData";
 export default {
@@ -48,13 +48,17 @@ export default {
         parent: '',
         total: ''
       });
+
+      const arrayGobiertoColors = ['#12365B', '#008E9C', '#FF776D', '#F8B205']
+      const color = d3.scaleOrdinal(arrayGobiertoColors);
+
       const svg = d3.select('#treemap-contracts')
 
       const rootTreeMap = d3.stratify()
         .id(d => d.contract_type)
         .parentId(d => d.parent)(typeOfContracts)
 
-      rootTreeMap.sum(d => +d.total )
+      rootTreeMap.sum(d => +d.total)
 
       d3.treemap()
         .size([this.svgWidth, this.svgHeight])
@@ -70,7 +74,29 @@ export default {
           .attr('width', d => d.x1 - d.x0)
           .attr('height', d => d.y1 - d.y0)
           .style("stroke", "black")
-          .style("fill", "#69b3a2");
+          .style('fill', d => d.color = color(d.id));
+
+      svg
+        .selectAll(".name")
+        .data(rootTreeMap.leaves())
+        .enter()
+        .append("text")
+          .attr('class', 'name')
+          .attr("x", d => d.x0 + 10)
+          .attr("y", d => d.y0 + 20)
+          .text(d => d.id)
+          .attr("fill", "white")
+
+      svg
+        .selectAll(".value")
+        .data(rootTreeMap.leaves())
+        .enter()
+        .append("text")
+          .attr('class', 'value')
+          .attr("x", d => d.x0 + 10)
+          .attr("y", d => d.y0 + 40)
+          .text(d => `${d.value.toFixed(0)} €`)
+          .attr("fill", "white")
 
     }
   }

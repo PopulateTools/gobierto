@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TreeMap />
     <div
       id="tendersContractsSummary"
       class="metric_boxes"
@@ -139,11 +140,10 @@
         :routing-attribute="'assignee_routing_id'"
       />
     </div>
-    <pricesChart />
   </div>
 </template>
 <script>
-import pricesChart from "../../visualizations/pricesCharts.vue";
+import TreeMap from "../../visualizations/treeMap.vue";
 import Table from "../../components/Table.vue";
 import { dashboardsMixins } from "../../mixins/dashboards_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
@@ -152,7 +152,7 @@ export default {
   name: 'Summary',
   components: {
     Table,
-    pricesChart
+    TreeMap
   },
   mixins: [dashboardsMixins],
   data(){

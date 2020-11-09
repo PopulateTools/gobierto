@@ -15,8 +15,8 @@ class OverrideWelcomeAction
     end
 
     if Rails.env.test? && site.nil?
-      env["gobierto_site"] = Site.first
-      GobiertoCore::CurrentScope.current_site = Site.first
+      GobiertoCore::CurrentScope.current_site ||= Site.first
+      env["gobierto_site"] = GobiertoCore::CurrentScope.current_site
     end
 
     # If the path is the homepage, the route should be the site root path

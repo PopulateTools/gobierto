@@ -139,10 +139,11 @@
         :routing-attribute="'assignee_routing_id'"
       />
     </div>
+    <pricesChart />
   </div>
 </template>
-
 <script>
+import pricesChart from "../../visualizations/pricesCharts.vue";
 import Table from "../../components/Table.vue";
 import { dashboardsMixins } from "../../mixins/dashboards_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
@@ -150,7 +151,8 @@ import { assigneesColumns } from "../../lib/config/contracts.js";
 export default {
   name: 'Summary',
   components: {
-    Table
+    Table,
+    pricesChart
   },
   mixins: [dashboardsMixins],
   data(){

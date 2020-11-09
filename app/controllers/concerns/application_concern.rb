@@ -9,15 +9,7 @@ module ApplicationConcern
   end
 
   def current_site
-    @current_site ||= begin
-                        site = if request.env["gobierto_site"].present?
-                                 request.env["gobierto_site"]
-                               elsif Rails.env.test?
-                                 Site.first
-                               end
-                        ::GobiertoCore::CurrentScope.current_site = site
-                        site
-                      end
+    GobiertoCore::CurrentScope.current_site
   end
 
   private

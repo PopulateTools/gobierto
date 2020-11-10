@@ -113,6 +113,9 @@ gem "charlock_holmes"
 # CORS support
 gem "rack-cors"
 
+# Redirections
+gem 'rack-rewrite'
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

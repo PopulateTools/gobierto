@@ -1,7 +1,14 @@
 <template>
   <div>
     <TreeMap />
-    <Beeswarm />
+    <BeesWarmChart
+      v-if="dataBeesWarm"
+      :data="dataBeesWarm"
+      :height="600"
+      :radius-property="'initial_amount'"
+      :scale-x-property="'start_date'"
+      :scale-y-property="'contract_type'"
+    />
     <div
       id="tendersContractsSummary"
       class="metric_boxes"
@@ -144,8 +151,9 @@
   </div>
 </template>
 <script>
+import { BeesWarmChart } from "lib/vue-components";
 import TreeMap from "../../visualizations/treeMap.vue";
-import Beeswarm from "../../visualizations/beeswarmChart.vue";
+import { getDataMixin } from "../../lib/getData";
 import Table from "../../components/Table.vue";
 import { dashboardsMixins } from "../../mixins/dashboards_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
@@ -155,9 +163,9 @@ export default {
   components: {
     Table,
     TreeMap,
-    Beeswarm
+    BeesWarmChart
   },
-  mixins: [dashboardsMixins],
+  mixins: [dashboardsMixins, getDataMixin],
   data(){
     return {
       dashboardsData: this.$root.$data.contractsData,
@@ -181,10 +189,15 @@ export default {
       labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
       labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution'),
       labelMainAssignees: I18n.t('gobierto_dashboards.dashboards.contracts.main_assignees'),
+      queryBeesWarmChart:"?sql=SELECT EXTRACT(YEAR FROM start_date), initial_amount, contract_type, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
+      dataBeesWarm: undefined
     }
   },
-  created() {
+  async created() {
     this.columns = assigneesColumns;
+    const { data: { data: dataBeesWarm } } = await this.getData(this.queryBeesWarmChart)
+    this.dataBeesWarm = dataBeesWarm
+    console.log("this.dataBeesWarm", this.dataBeesWarm);
   },
   methods: {
     refreshSummaryData() {

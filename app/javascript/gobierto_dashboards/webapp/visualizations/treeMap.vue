@@ -23,7 +23,7 @@ export default {
   mixins: [getDataMixin],
   data() {
     return {
-      query: '?sql=SELECT contract_type, sum(initial_amount) as TOTAL FROM contratos GROUP BY contract_type',
+      query: "?sql=SELECT contract_type, sum(initial_amount) as TOTAL FROM contratos WHERE contract_type != 'Patrimonial' GROUP BY contract_type",
       svgWidth: 0,
       svgHeight: 400
     }

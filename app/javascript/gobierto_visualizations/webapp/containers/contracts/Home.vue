@@ -88,7 +88,7 @@ export default {
     },
     updateTab() {
       // eslint-disable-next-line no-unused-vars
-      this.$router.replace('/visualizations/contratos/adjudicaciones').catch(err => {})
+      this.$router.replace('/visualizaciones/contratos/adjudicaciones').catch(err => {})
       this.activeTabIndex = 1
     }
   }

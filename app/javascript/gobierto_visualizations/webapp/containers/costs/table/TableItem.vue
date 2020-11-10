@@ -3,7 +3,7 @@
     <TableHeader>
       <div class="gobierto-visualizations-table-header--link-container">
         <router-link
-          :to="{ path:`/visualizations/costes/${$route.params.year}`}"
+          :to="{ path:`/visualizaciones/costes/${$route.params.year}`}"
           class="gobierto-visualizations-table-header--link-top"
           tag="a"
           @click.native="loadTable(0)"
@@ -12,7 +12,7 @@
         </router-link>
         <i class="fas fa-chevron-right" />
         <router-link
-          :to="{ path:`/visualizations/costes/${$route.params.year}/${$route.params.id}`}"
+          :to="{ path:`/visualizaciones/costes/${$route.params.year}/${$route.params.id}`}"
           class="gobierto-visualizations-table-header--link-top"
           tag="a"
           @click.native="loadTable(1)"

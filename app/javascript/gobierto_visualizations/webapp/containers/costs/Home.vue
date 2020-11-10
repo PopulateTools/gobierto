@@ -125,7 +125,7 @@ export default {
       this.groupDataFilter = groupDataFilter
 
       // eslint-disable-next-line no-unused-vars
-      this.$router.push(`/visualizations/costes/${year}`).catch(err => {})
+      this.$router.push(`/visualizaciones/costes/${year}`).catch(err => {})
     },
     injectRouter() {
       const bubbleLinks = document.querySelectorAll('.bubbles-links')
@@ -140,7 +140,7 @@ export default {
         } = e
         e.preventDefault()
         // eslint-disable-next-line no-unused-vars
-        this.$router.push(`/visualizations/costes/${year}/${order}`).catch(err => {})
+        this.$router.push(`/visualizaciones/costes/${year}/${order}`).catch(err => {})
       }))
     }
   }

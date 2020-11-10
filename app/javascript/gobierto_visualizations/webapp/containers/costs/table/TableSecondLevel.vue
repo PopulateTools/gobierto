@@ -2,7 +2,7 @@
   <div>
     <TableHeader>
       <router-link
-        :to="{ path:`/visualizations/costes/${$route.params.year}`}"
+        :to="{ path:`/visualizaciones/costes/${$route.params.year}`}"
         class="gobierto-visualizations-table-header--link-top"
         tag="a"
         @click.native="loadTable(0)"

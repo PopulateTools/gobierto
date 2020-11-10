@@ -85,7 +85,7 @@ export default {
     },
     updateTab() {
       // eslint-disable-next-line no-unused-vars
-      this.$router.replace('/visualizations/subvenciones/subvenciones').catch(err => {})
+      this.$router.replace('/visualizaciones/subvenciones/subvenciones').catch(err => {})
       this.activeTabIndex = 1
     }
   }

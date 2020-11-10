@@ -137,7 +137,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert find(".visualizations-home-nav--tab.is-active").text, 'CONTRACTS'
 
       # Url is updated
-      assert_equal current_path, "/visualizations/contratos/adjudicaciones/807094"
+      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/807094"
 
       # Title
       assert page.has_content?('Prestación del servicio de plataforma de formación online "Escuela Virtual Formalef Getafe".')
@@ -162,7 +162,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       find("#assignee_show_link").click
 
       # Url is updated
-      assert_equal current_path, "/visualizations/contratos/adjudicatario/0d25ed58b4e09e6985b0d5cf27e7fa98"
+      assert_equal current_path, "/visualizaciones/contratos/adjudicatario/0d25ed58b4e09e6985b0d5cf27e7fa98"
 
       assert page.has_content?("Contracts assigned to")
       assert page.has_content?('Prestación del servicio de plataforma de formación online "Escuela Virtual Formalef Getafe".')
@@ -171,7 +171,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       first_contract = find(".visualizations-home-main--tr", match: :first)
       first_contract.click
 
-      assert_equal current_path, "/visualizations/contratos/adjudicaciones/807094"
+      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/807094"
 
     end
   end

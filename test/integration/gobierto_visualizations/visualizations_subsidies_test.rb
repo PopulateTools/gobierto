@@ -119,7 +119,7 @@ class GobiertoVisualizations::VisualizationsSubsidiesTest < ActionDispatch::Inte
       assert find(".visualizations-home-nav--tab.is-active").text, 'SUBSIDIES'
 
       # Url is updated
-      assert_equal current_path, "/visualizations/subvenciones/subvenciones/20161227146"
+      assert_equal current_path, "/visualizaciones/subvenciones/subvenciones/20161227146"
 
       # Title
       assert page.has_content?('CONVOCATORIA DE AYUDAS PARA LA ESCOLARIZACIÓN DE NIÑOS Y NIÑAS EN EL PRIMER CICLO DE EDUCACIÓN INFANTIL DE 0 A 3 AÑOS, EN ESCUELAS INFANTILES Y CASAS DE NIÑOS PÚBLICAS DE GETAFE 2016/2017')

@@ -63,14 +63,14 @@ jobs:
       - restore_cache:
           name: "Restore cached assets"
           keys:
-            - v1-asset-cache-{{ .Branch }}
-            - v1-asset-cache-
+            - v2-asset-cache-{{ .Branch }}
+            - v2-asset-cache-
 
       - run: bin/rails assets:precompile
 
       - save_cache:
           name: "Cache assets"
-          key: v1-asset-cache-{{ .Branch }}
+          key: v2-asset-cache-{{ .Branch }}
           paths:
             - public/assets
             - public/packs-test

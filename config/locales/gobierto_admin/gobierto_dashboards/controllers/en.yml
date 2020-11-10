@@ -1,9 +1,0 @@
----
-en:
-  gobierto_admin:
-    gobierto_dashboards:
-      configuration:
-        settings:
-          update:
-            error: 'There was a problem when saving configuration: %{validation_errors}'
-            success: Configuration stored successfully

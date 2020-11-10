@@ -1,0 +1,10 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_visualizations:
+      configuration:
+        settings:
+          edit:
+            title: Configuració dels Visualitzacions
+            update: Actualitzar
+          title: Preferencies

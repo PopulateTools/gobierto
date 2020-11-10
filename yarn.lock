@@ -865,13 +865,13 @@
     "@d3fc/d3fc-rebind" "^5.0.8"
     d3 "^4.1.1"
 
-"@finos/perspective-viewer-d3fc@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@finos/perspective-viewer-d3fc/-/perspective-viewer-d3fc-0.5.1.tgz"
-  integrity sha512-Ov/MZokDvm8zWYa8XG525H7c4i4ljiC3kqe9x8DHng6L95PG7BiiKgXwRUQBmHAcJIuJf+uv0gqQownZg7ab6Q==
+"@finos/perspective-viewer-d3fc@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@finos/perspective-viewer-d3fc/-/perspective-viewer-d3fc-0.5.6.tgz#b6cdb1e862ac7d48cb633ecacdcad3d7a4f4ee99"
+  integrity sha512-eniSshlfX/PT3IqWcU/FtQA462GHEsAG49nDKXh+laHmhI4aWFv7o8CQC/ucUPN3WYt148OHrDiSDSbPBN6yGg==
   dependencies:
-    "@finos/perspective" "^0.5.1"
-    "@finos/perspective-viewer" "^0.5.1"
+    "@finos/perspective" "^0.5.6"
+    "@finos/perspective-viewer" "^0.5.6"
     babel-runtime "^6.26.0"
     chroma-js "^1.3.4"
     core-js "^3.6.4"
@@ -880,22 +880,22 @@
     d3fc "14.0.40"
     gradient-parser "0.1.5"
 
-"@finos/perspective-viewer-datagrid@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@finos/perspective-viewer-datagrid/-/perspective-viewer-datagrid-0.5.1.tgz"
-  integrity sha512-zq5M1H7482YtCpq34dPYLONHQUIhhwFDLR/D90isXhNDlEjOOsqGehV1tjggPArDewbv8dRl5f8JOoxD2DfrHg==
+"@finos/perspective-viewer-datagrid@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@finos/perspective-viewer-datagrid/-/perspective-viewer-datagrid-0.5.6.tgz#d57590097cce5432ec5962f34955ae41b25e6fde"
+  integrity sha512-JBgXhws+eOtACiwf7NoIVeRAofmhPP3HfKMAvREtSJhkN+9ISWieNFRGH6caG0OcLqK9bbX2aGrn3eRgWdK4fw==
   dependencies:
-    "@finos/perspective" "^0.5.1"
-    "@finos/perspective-viewer" "^0.5.1"
-    regular-table "=0.0.2"
+    "@finos/perspective" "^0.5.6"
+    "@finos/perspective-viewer" "^0.5.6"
+    regular-table "=0.1.5"
 
-"@finos/perspective-viewer@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@finos/perspective-viewer/-/perspective-viewer-0.5.1.tgz"
-  integrity sha512-MY49PSG0AUcwXm4Ykx8K0mBXCOPoqltPfYRzaYsVJMe6ruEKNu6vTkqP4dsIS2EddqufrWYHEWsBDvg+6Yym2Q==
+"@finos/perspective-viewer@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@finos/perspective-viewer/-/perspective-viewer-0.5.6.tgz#484044deaa2ccf6a547dbc0e0f99493850197b9f"
+  integrity sha512-0sW46SZBAToK1fJvSiJcqkt5QH2yDsRI9Vo1owtAUqiAsAvCKaQlPLnz3yYnkgIYba97TyBt/HWEflu/HYQEPA==
   dependencies:
     "@babel/runtime" "^7.8.4"
-    "@finos/perspective" "^0.5.1"
+    "@finos/perspective" "^0.5.6"
     "@types/react" "^16.9.17"
     "@webcomponents/shadycss" "^1.5.2"
     "@webcomponents/webcomponentsjs" "~2.0.4"
@@ -908,10 +908,10 @@
     lodash "^4.17.4"
     mobile-drag-drop "^2.3.0-rc.2"
 
-"@finos/perspective-webpack-plugin@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@finos/perspective-webpack-plugin/-/perspective-webpack-plugin-0.5.0.tgz"
-  integrity sha512-LCQ+x1nps2UZDB5LaiFov+zV/RsTsE20qYA3tQ01Trlwgnj2WVmwjodkkuGJgCEqiZa47fzaVxO9zodwHMWPAQ==
+"@finos/perspective-webpack-plugin@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@finos/perspective-webpack-plugin/-/perspective-webpack-plugin-0.5.6.tgz#a5b50db2848779cf5e8b7556a89f11cfa2729b70"
+  integrity sha512-ABdwBYEsePGxYW6YwN7wNhwi6tos3+ohx+Nocx/+VrlBSwegJ1OHm0mft3oJyBAACEblcTEbYzZGk8/+C3g53Q==
   dependencies:
     "@webpack-contrib/schema-utils" "^1.0.0-beta.0"
     acorn "^6.1.1"
@@ -920,10 +920,10 @@
     tslib "^1.9.3"
     worker-loader "^2.0.0"
 
-"@finos/perspective@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@finos/perspective/-/perspective-0.5.1.tgz"
-  integrity sha512-3nhrxLBxo2rstGrjoOx1SZMlCVl+hAfZ/nCxZloW93XP7gpqJZIifSnbQ4UutR/bEp1kod6wQaiDwiSczN5Gmg==
+"@finos/perspective@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@finos/perspective/-/perspective-0.5.6.tgz#04bbd3454db7953d26492b1fb2c27774db3a8c6e"
+  integrity sha512-BXzhWtyV8fCjQiqzaKhTwnnSGFkgMHg54ht4pAXhyiBP/bgeb9TXITh8ceBGhkvyqKjkgPoBX2VWmLdKFBQAOQ==
   dependencies:
     "@babel/runtime" "^7.8.4"
     core-js "^3.6.4"
@@ -931,8 +931,6 @@
     detectie "1.0.0"
     flatbuffers "^1.10.2"
     lodash "^4.17.4"
-    moment "^2.19.1"
-    papaparse "^5.2.0"
     text-encoding-utf-8 "^1.0.2"
     tslib "^1.9.3"
     ws "^6.1.2"
@@ -7039,7 +7037,7 @@ moment-locales-webpack-plugin@^1.0.7:
   dependencies:
     lodash.difference "^4.5.0"
 
-moment@^2.19.1, moment@^2.21.0:
+moment@^2.21.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
@@ -7612,11 +7610,6 @@ pako@~1.0.5:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.10.tgz"
   integrity sha512-0DTvPVU3ed8+HNXOu5Bs+o//Mbdj9VNQMUOe9oKCwh8l0GNwpTDMKCWbRjgtD291AWnkAgkqA/LOnQS8AmS1tw==
-
-papaparse@5.2.0, papaparse@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.2.0.tgz"
-  integrity sha512-ylq1wgUSnagU+MKQtNeVqrPhZuMYBvOSL00DHycFTCxownF95gpLAk1HiHdUW77N8yxRq1qHXLdlIPyBSG9NSA==
 
 parallel-transform@^1.1.0:
   version "1.2.0"
@@ -8955,14 +8948,10 @@ regjsparser@^0.6.0:
   dependencies:
     jsesc "~0.5.0"
 
-regular-table@=0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/regular-table/-/regular-table-0.0.2.tgz"
-  integrity sha512-r1ZsrN/4wepK5tkNBiG/PVbpPaVEQAaYJZKpOSsPIY1PW5gZqgm6Sf4c0ZlTWH3SLVX6uGffCFIIgARUoifyEA==
-  dependencies:
-    core-js "^3.6.4"
-    papaparse "5.2.0"
-    superscript-number "^1.0.0"
+regular-table@=0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/regular-table/-/regular-table-0.1.5.tgz#11e4ba9fd799800006d27a9f5415bf33c0cd0246"
+  integrity sha512-cNBVD8Qw/o9rqs3h4bS/4cnDSyH5egAcBT2bJw7ihKQQFIz6MtJoE9iIC/kozTPlIK//EiFw5C4VKKkckElwmQ==
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
@@ -9975,11 +9964,6 @@ supercluster@^6.0.1:
   integrity sha512-aa0v2HURjBTOpbcknilcfxGDuArM8khklKSmZ/T8ZXL0BuRwb5aRw95lz+2bmWpFvCXDX/+FzqHxmg0TIaJErw==
   dependencies:
     kdbush "^3.0.0"
-
-superscript-number@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/superscript-number/-/superscript-number-1.0.0.tgz"
-  integrity sha1-djYT4hSJHa3BiJldDHSFyMC+tu8=
 
 supports-color@6.1.0, supports-color@^6.1.0:
   version "6.1.0"

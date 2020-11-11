@@ -1,10 +1,9 @@
 <template>
   <div class="multiple-line-chart-container">
-    <p>Contratos por tipo, volumen, tamaño y fecha</p>
     <svg
       class="multiple-line-chart"
       :width="svgWidth"
-      :height="height"
+      :height="svgHeight"
     >
     </svg>
   </div>
@@ -13,12 +12,12 @@
 import { select, selectAll } from 'd3-selection';
 import { nest } from 'd3-collection';
 import { min, max, extent } from 'd3-array';
-import { line } from 'd3-shape';
+import { line, curveCardinal } from 'd3-shape';
 import { scaleTime, scaleLinear, scaleOrdinal } from 'd3-scale';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { timeFormat, timeParse } from 'd3-time-format';
 
-const d3 = { select, selectAll, nest, min, max, line, scaleOrdinal, scaleTime, scaleLinear, axisBottom, axisLeft, timeFormat, timeParse, extent }
+const d3 = { select, selectAll, nest, min, max, line, scaleOrdinal, scaleTime, scaleLinear, axisBottom, axisLeft, timeFormat, timeParse, extent, curveCardinal }
 
 export default {
   name: 'MultipleLineChart',
@@ -39,6 +38,7 @@ export default {
   data() {
     return {
       svgWidth: 0,
+      svgHeight: 0,
       margin: {
         left: 30,
         right: 30,
@@ -50,6 +50,7 @@ export default {
   mounted() {
     const containerChart = document.getElementsByClassName('multiple-line-chart-container')[0];
     this.svgWidth = containerChart.offsetWidth
+    this.svgHeight = this.height + this.margin.top + this.margin.bottom
     this.setupElements()
     this.buildMultipleLine(this.data)
   },
@@ -77,7 +78,6 @@ export default {
       data.sort(function(a,b){
         return new Date(b.year) - new Date(a.year);
       });
-      console.log("data", data);
 
       const arrayGobiertoColors = ['#12365B', '#008E9C', '#FF776D', '#F8B205']
       const color = d3.scaleOrdinal(arrayGobiertoColors);
@@ -96,12 +96,11 @@ export default {
 
       const scaleX = d3.scaleTime()
         .domain(d3.extent(data, d => d.year))
-        .range([0, this.svgWidth]);
+        .range([0, this.svgWidth - (this.margin.left + this.margin.right)]);
 
       const axisX = d3
         .axisBottom(scaleX)
-        .tickPadding(20)
-        .tickSize(-this.height)
+        .tickPadding(10)
         .ticks(5)
 
       g.select('.axis-x')
@@ -121,12 +120,22 @@ export default {
 
        let valueline = d3.line()
          .x(d => scaleX(d.year))
-         .y(d => scaleY(d[this.arrayValues[index]]));
+         .y(d => scaleY(d[this.arrayValues[index]]))
+         .curve(d3.curveCardinal);
 
-        svg.append("path")
+        g.append("path")
           .data([data])
-          .attr("class", "lines-multiple-lines")
+          .attr("class", `lines-multiple-lines line-${this.arrayValues[index]}`)
           .attr("d", valueline);
+
+        g.selectAll(`circle-${this.arrayValues[index]}`)
+          .data(data)
+          .enter()
+          .append('circle')
+          .attr("class", `circle-${this.arrayValues[index]}`)
+          .attr('cx', d => scaleX(d.year))
+          .attr('cy', d => scaleY(d[this.arrayValues[index]]))
+          .attr('r', 4)
       }
     }
   }

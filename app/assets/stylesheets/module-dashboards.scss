@@ -331,6 +331,67 @@
     }
   }
 
+  .multiple-line-chart-container {
+
+    .line-formalizado,
+    .line-total_contracts {
+      stroke-width: 4px;
+    }
+
+    .line-formalizado {
+      stroke: #F8B205;
+    }
+
+    .circle-formalizado {
+      fill: #F8B205;
+    }
+
+    .line-total_contracts {
+      stroke: #008E9C;
+    }
+
+    .circle-total_contracts {
+      fill: #008E9C;
+    }
+
+    .line-percentageYear {
+      stroke-width: 2px;
+      stroke: #1F78B4;
+    }
+
+    .circle-percentageYear {
+      fill: #1F78B4;
+    }
+
+    .domain {
+      stroke: none;
+    }
+
+    .axis-x {
+      .tick {
+        line {
+          stroke: none;
+        }
+
+        text {
+          font-size: 14px;
+          color: #c4c4c4; }
+      }
+    }
+
+    .axis-y {
+      .tick {
+        stroke-dasharray: 1px;
+
+        text {
+          font-size: 14px;
+          text-transform: uppercase;
+          color: #0072bc;
+        }
+      }
+    }
+  }
+
   .lines-multiple-lines {
     fill: none;
     stroke: #111;

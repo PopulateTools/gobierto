@@ -279,7 +279,8 @@ export class VisUnemploymentAge {
       .on("mouseout", this._mouseout.bind(this));
   }
 
-  _mouseover(_, d) {
+  // WARNING: replace arguments in d3v6
+  _mouseover(d) {
     this.focus.select("circle").attr("stroke", this.color(d.data.age_range));
 
     this.focus.attr(

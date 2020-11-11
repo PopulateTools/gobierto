@@ -165,8 +165,8 @@ export class VisSlider {
           .on("end", endDrag)
       );
 
-    function dragged(e) {
-      var year = x.invert(d3.mouse(e)[0]);
+    function dragged() {
+      var year = x.invert(d3.mouse(this)[0]);
       handle.attr("cx", x(year));
 
       slider
@@ -175,8 +175,8 @@ export class VisSlider {
         .classed("active", d => d === year);
     }
 
-    function endDrag(e) {
-      var year = x.invert(d3.mouse(e)[0]);
+    function endDrag() {
+      var year = x.invert(d3.mouse(this)[0]);
       $(document).trigger("visSlider:yearChanged", year);
     }
   }

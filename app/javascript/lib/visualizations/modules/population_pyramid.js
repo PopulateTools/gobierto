@@ -657,7 +657,8 @@ export class VisPopulationPyramid {
     focus.append("text");
   }
 
-  _mousemove(_, d) {
+  // WARNING: replace arguments for d3v6
+  _mousemove(d) {
     this.svg
       .select(".tooltip")
       .attr("opacity", 1)

@@ -133,12 +133,23 @@ export default {
       svg.selectAll('circle')
         .data(filterData)
         .join('circle')
+        .attr('class', 'beeswarm-circle')
         .attr('cx', (d) => scaleX(d.date))
         .attr('cy', (d) => scaleY(d[this.scaleYProperty]))
         .attr('r', (d) => d.radius)
         .attr('stroke', '#111')
-        .style('fill', d => d.color = color(parseYear(d.date)))
-        .on("mouseover", this.showTooltip());
+        .attr('fill-opacity', 0.9)
+        .style('fill', d => d.color = color(d[this.scaleYProperty]))
+        .on("mouseover", (event, d) => {
+          this.$emit("showTooltip", event, d)
+        })
+        .on("mouseout", () => {
+          d3.select('.beeswarm-tooltip')
+            .style('display', 'none')
+        })
+        .on("click", (event, d) => {
+          this.$emit("goesToItem", d)
+        })
 
       for (let i = 0; i < 120; i++) {
         simulation.tick();
@@ -151,7 +162,7 @@ export default {
       }
     },
     transformData(data) {
-      let dataScaleRadius = data.map(({ initial_amount }) => +initial_amount)
+      let dataScaleRadius = data.map((d) => +d[this.radiusProperty])
       const arrayScaleRadius = chroma.limits(dataScaleRadius, 'q', 4);
 
       const parseTime = d3.timeParse('%Y-%m-%d');
@@ -160,13 +171,13 @@ export default {
         d[this.radiusProperty] = +d[this.radiusProperty]
         d.date = parseTime(d[this.scaleXProperty])
         if (d[this.radiusProperty] > arrayScaleRadius[0] && d[this.radiusProperty] <= arrayScaleRadius[1]) {
-          d.radius = 2
-        } else if (d[this.radiusProperty] >= arrayScaleRadius[1] && d[this.radiusProperty] <= arrayScaleRadius[2]) {
           d.radius = 4
-        } else if (d[this.radiusProperty] >= arrayScaleRadius[2] && d[this.radiusProperty] <= arrayScaleRadius[3]) {
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[1] && d[this.radiusProperty] <= arrayScaleRadius[2]) {
           d.radius = 6
-        } else if (d[this.radiusProperty] >= arrayScaleRadius[4] ) {
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[2] && d[this.radiusProperty] <= arrayScaleRadius[3]) {
           d.radius = 8
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[4] ) {
+          d.radius = 10
         }
       })
 
@@ -194,21 +205,6 @@ export default {
           }
         }
       });
-    },
-    showTooltip(d, event) {
-      console.log("event", event);
-      const tooltip = d3.select('.beeswarm-tooltip')
-
-      const { layerX, layerY } = d
-
-      tooltip
-        .style("display", "block")
-        .style('left', `${layerX - 50}px`)
-        .style('top', `${layerY + 10}px`)
-        .transition()
-        .duration(200)
-        .html(`<h2>Initial amount: ${event.initial_amount}</h2>`)
-
     }
   }
 }

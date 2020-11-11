@@ -332,9 +332,23 @@
   }
 
 
+  .beeswarm-tooltip-header-title {
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+  }
+
+  .beeswarm-tooltip-table-element {
+    border-top: 1px solid #ccc;
+    padding: .5rem 0;
+  }
+
+  .beeswarm-tooltip-table-element-text {
+    font-size: 14px;
+    color: #a5a5a5;
+  }
 
 }
-
 
 .gobierto-dashboards {
 

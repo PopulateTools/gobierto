@@ -8,6 +8,8 @@
       :radius-property="'initial_amount'"
       :scale-x-property="'start_date'"
       :scale-y-property="'contract_type'"
+      @showTooltip="showTooltip"
+      @goesToItem="goesToItem"
     />
     <div
       id="tendersContractsSummary"
@@ -157,6 +159,9 @@ import { getDataMixin } from "../../lib/getData";
 import Table from "../../components/Table.vue";
 import { dashboardsMixins } from "../../mixins/dashboards_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
+import { select } from 'd3-selection'
+
+const d3 = { select }
 
 export default {
   name: 'Summary',
@@ -189,7 +194,7 @@ export default {
       labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
       labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution'),
       labelMainAssignees: I18n.t('gobierto_dashboards.dashboards.contracts.main_assignees'),
-      queryBeesWarmChart:"?sql=SELECT EXTRACT(YEAR FROM start_date), initial_amount, contract_type, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
+      queryBeesWarmChart:"?sql=SELECT EXTRACT(YEAR FROM start_date), initial_amount, final_amount, contract_type, id, assignee, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
       dataBeesWarm: undefined
     }
   },
@@ -197,9 +202,46 @@ export default {
     this.columns = assigneesColumns;
     const { data: { data: dataBeesWarm } } = await this.getData(this.queryBeesWarmChart)
     this.dataBeesWarm = dataBeesWarm
-    console.log("this.dataBeesWarm", this.dataBeesWarm);
   },
   methods: {
+    showTooltip(event, d) {
+
+      const { assignee, final_amount, initial_amount } = d
+      const tooltip = d3.select('.beeswarm-tooltip')
+
+      const { layerX, layerY } = event
+
+      tooltip
+        .style("display", "block")
+        .style('left', `${layerX - 50}px`)
+        .style('top', `${layerY + 10}px`)
+        .html(`
+          <span class="beeswarm-tooltip-header-title">
+            Adjudicatario:
+            ${assignee}
+          </span>
+          <div class="beeswarm-tooltip-table-element">
+            <span class="beeswarm-tooltip-table-element-text">
+              Importe inicial:
+            </span>
+            <span class="beeswarm-tooltip-table-element-text">
+              ${initial_amount}
+            </span>
+          </div>
+          <div class="beeswarm-tooltip-table-element">
+            <span class="beeswarm-tooltip-table-element-text">
+              Importe final:
+            </span>
+            <span class="beeswarm-tooltip-table-element-text">
+              ${final_amount}
+            </span>
+          </div>
+        `)
+    },
+    goesToItem(d) {
+      const { id } = d
+      this.$router.push(`adjudicaciones/${id}`).catch(err => {})
+    },
     refreshSummaryData() {
       if (!this.value) {
         this.dashboardsData = this.$root.$data.contractsData;

@@ -1,51 +1,80 @@
 ---
 ca:
   gobierto_data:
+    data_type:
+      boolean: boolean
+      date: data
+      datetime: data i hora
+      decimal: decimal
+      hstore: hstore
+      integer: enter
+      jsonb: jsonb
+      string: cadena
+      text: text
+      time: temps
+      timestamp: data i hora
+      timestampz: data i hora
     events:
       gobierto_data_dataset_dataset_created: Conjunt de dades creat
+      gobierto_data_dataset_dataset_data_updated: Dades de conjunt de dades actualitzats
+      gobierto_data_dataset_dataset_deleted: Conjunt de dades eliminat
       gobierto_data_dataset_dataset_updated: Conjunt de dades actualitzat
     layouts:
       application:
         gobierto_data: Dades
     projects:
       all: Totes
-      analysis: Anàlisi
-      api: API
-      buttonQueries: Veure consultes (c)
-      buttonRecentQueries: Veure consultes recents (r)
-      buttonRunQuery: Executar consulta (CMD/WIN + Enter)
-      cancel: Cancel·lar
+      buttonFork: Feu clic per crear una versió d'aquesta consulta
+      buttonQueries: Vegeu consultes (c)
+      buttonRecentQueries: Vegeu consultes recents (r)
+      buttonRunQuery: Executeu consulta (CMD/WIN + Enter)
+      cancel: Cancel·leu
       categories: Categories
+      createCopy: Crear una còpia
       dashboards: Dashboards
       data: Dades
-      dataset: Conjunt de dades
+      dataset: Conjunts de dades
+      datasetUpdated: Darrers datasets actualitzats
+      deleteQuery: Esteu segur que voleu suprimir aquesta consulta?
+      deleteViz: Esteu segur que voleu suprimir aquesta visualització?
+      description: Descripció
       download: Descàrrega
-      downloadData: Descarregar dades
-      edit: Edita
-      fav: Favorit
+      downloadData: Descarregueu dades
+      edit: Editeu
+      emptyRecentQueries: No hi ha consultes recents
       favs: Favorites
-      follow: Seguir
       frequency: Freqüència
       guide: Guia per utilitzar l'editor SQL
-      info: Informació
-      loading: Carregant
+      link: Enllaç
       modifiedQuery: Consulta modificada
-      news: Notícies
+      modifiedVisualization: Visualització modificada
+      preview: Previsualitzeu
       private: Privat
       queries: Consultes
+      query: Consulta
+      queryEmpty: Cap consulte disponible
       queryExecuted: Consulta executada en
       queryName: Nom consulta
       recents: Recents
       records: Registres
+      resetQuery: Restablir la consulta
+      resetViz: Restablir la visualització
       resources: Recursos
-      runQuery: Executar consulta
-      save: Desar
+      revert: Revertir
+      runQuery: Executeu consulta
+      save: Deseu
+      savedQuery: Consulta desada
+      savedVisualization: Visualització desada
       sets: Conjunts
-      showRows: Mostra totes les files
+      showAll: Vegeu-ho tot
+      showLess: Vegeu-ne menys
       subject: Tema
       summary: Resum
-      table: Taula
       updated: Actualizat
-      visualization: Visualització
+      visEmpty: Cap visualització disponible
+      visName: Nom visualització
+      visPrivate: Les teves visualitzacions
+      visPublic: Totes
       visualizations: Visualitzacions
+      visualize: Visualitzar
       yourQueries: Les teves consultes

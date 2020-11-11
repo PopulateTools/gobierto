@@ -1,0 +1,36 @@
+tony_primary_api_token:
+  admin_id: <%= ActiveRecord::FixtureSet.identify(:tony) %>
+  primary: true
+  token: tony_primary_api_token
+
+tony_domain:
+  admin_id: <%= ActiveRecord::FixtureSet.identify(:tony) %>
+  primary: false
+  token: example_api_token
+  domain: "www.example.com"
+
+tony_other_domain:
+  admin_id: <%= ActiveRecord::FixtureSet.identify(:tony) %>
+  primary: false
+  token: wadus_api_token
+  domain: "www.wadus.com"
+
+steve_primary_api_token:
+  admin_id: <%= ActiveRecord::FixtureSet.identify(:steve) %>
+  primary: true
+  token: steve_primary_api_token
+
+nick_primary_api_token:
+  admin_id: <%= ActiveRecord::FixtureSet.identify(:nick) %>
+  primary: true
+  token: nick_primary_api_token
+
+natasha_primary_api_token:
+  admin_id: <%= ActiveRecord::FixtureSet.identify(:natasha) %>
+  primary: true
+  token: natasha_primary_api_token
+
+podrick_primary_api_token:
+  admin_id: <%= ActiveRecord::FixtureSet.identify(:podrick) %>
+  primary: true
+  token: podrick_primary_api_token

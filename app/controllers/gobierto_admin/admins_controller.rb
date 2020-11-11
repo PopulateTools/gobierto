@@ -10,7 +10,6 @@ module GobiertoAdmin
 
     def show
       @admin = find_admin
-      set_api_tokens
     end
 
     def new
@@ -38,6 +37,7 @@ module GobiertoAdmin
       set_admin_groups
       set_authorization_levels
       set_activities
+      set_api_tokens
     end
 
     def create
@@ -77,6 +77,7 @@ module GobiertoAdmin
       set_admin_groups
       set_authorization_levels
       set_activities
+      set_api_tokens
 
       if @admin_form.save
         track_update_activity
@@ -99,7 +100,6 @@ module GobiertoAdmin
         :password,
         :password_confirmation,
         :authorization_level,
-        :api_token,
         permitted_sites: [],
         admin_group_ids: []
       )
@@ -136,14 +136,7 @@ module GobiertoAdmin
     end
 
     def set_api_tokens
-      return unless @admin.api_token.present?
-
-      @api_tokens = {
-        login: ::GobiertoCommon::TokenService.new.encode(
-          sub: :login,
-          api_token: @admin.api_token
-        )
-      }
+      @api_tokens = @admin.api_tokens
     end
 
     def track_create_activity

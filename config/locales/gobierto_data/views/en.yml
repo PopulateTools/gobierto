@@ -1,51 +1,80 @@
 ---
 en:
   gobierto_data:
+    data_type:
+      boolean: boolean
+      date: date
+      datetime: datetime
+      decimal: decimal
+      hstore: hstore
+      integer: integer
+      jsonb: jsonb
+      string: string
+      text: text
+      time: time
+      timestamp: time
+      timestampz: time
     events:
       gobierto_data_dataset_dataset_created: Dataset created
+      gobierto_data_dataset_dataset_data_updated: Dataset data updated
+      gobierto_data_dataset_dataset_deleted: Dataset deleted
       gobierto_data_dataset_dataset_updated: Dataset updated
     layouts:
       application:
         gobierto_data: Data
     projects:
       all: All
-      analysis: Analysis
-      api: API
+      buttonFork: Click to create your own version of this query
       buttonQueries: See queries (r)
       buttonRecentQueries: See recent queries (r)
       buttonRunQuery: Run query (CMD/WIN + Enter)
       cancel: Cancel
       categories: Categories
+      createCopy: Create a copy
       dashboards: Dashboards
       data: Data
       dataset: Datasets
+      datasetUpdated: Last updated datasets
+      deleteQuery: Are you sure you want to delete this query?
+      deleteViz: Are you sure you want to delete this visualization?
+      description: Description
       download: Download
-      downloadData: Download Data
+      downloadData: Download data
       edit: Edit
-      fav: Favorite
+      emptyRecentQueries: There's no recent queries
       favs: Favorites
-      follow: Follow
       frequency: Frequency
       guide: Guide to using the SQL editor
-      info: Information
-      loading: Loading
+      link: Link
       modifiedQuery: Modified Query
-      news: News
+      modifiedVisualization: Modified visualization
+      preview: Preview
       private: Private
       queries: Queries
+      query: Query
+      queryEmpty: No available queries
       queryExecuted: Query executed in
       queryName: Query name
       recents: Recents
       records: Records
+      resetQuery: Reset query
+      resetViz: Reset visualization
       resources: Resources
+      revert: Revert
       runQuery: Run query
       save: Save
+      savedQuery: Saved query
+      savedVisualization: Saved visualization
       sets: Sets
-      showRows: Show all rows
+      showAll: Show all
+      showLess: Show less
       subject: Subject
       summary: Summary
-      table: Table
       updated: Updated
-      visualization: Visualization
+      visEmpty: No available visualizations
+      visName: Visualization name
+      visPrivate: Your visualizations
+      visPublic: All
       visualizations: Visualizations
+      visualize: Visualize
       yourQueries: Your queries

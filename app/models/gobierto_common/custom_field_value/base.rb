@@ -23,7 +23,7 @@ module GobiertoCommon
       end
 
       def searchable_value
-        value
+        value_string
       end
 
       def raw_value
@@ -31,6 +31,7 @@ module GobiertoCommon
                          payload[custom_field.uid]
                        end
       end
+      alias raw_api_value raw_value
 
       def default_value
         custom_field.configuration.multiple ? [] : nil
@@ -41,6 +42,8 @@ module GobiertoCommon
           record.payload = { custom_field.uid => value }
         end
       end
+
+      def external_id; end
     end
 
   end

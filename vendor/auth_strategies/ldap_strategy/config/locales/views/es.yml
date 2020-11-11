@@ -1,0 +1,9 @@
+---
+es:
+  gobierto_admin:
+    custom_sessions:
+      ldap_strategy:
+        form:
+          identifier: Identificador
+          password: Contraseña
+          submit: Enviar

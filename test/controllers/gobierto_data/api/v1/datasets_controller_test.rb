@@ -11,6 +11,18 @@ module GobiertoData
           @site ||= sites(:madrid)
         end
 
+        def admin_auth_header
+          @admin_auth_header ||= "Bearer #{admin.primary_api_token}"
+        end
+
+        def basic_auth_header
+          @basic_auth_header ||= "Basic #{Base64.encode64("username:password")}"
+        end
+
+        def admin
+          @admin ||= gobierto_admin_admins(:tony)
+        end
+
         def site_with_module_disabled
           @site_with_module_disabled ||= sites(:santander)
         end
@@ -27,6 +39,10 @@ module GobiertoData
           @dataset ||= gobierto_data_datasets(:users_dataset)
         end
 
+        def other_dataset
+          @other_dataset ||= gobierto_data_datasets(:events_dataset)
+        end
+
         def datasets_category
           @datasets_category ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_category)
         end
@@ -37,6 +53,10 @@ module GobiertoData
 
         def attachment
           @attachment ||= gobierto_attachments_attachments(:txt_pdf_attachment)
+        end
+
+        def delete_cached_files
+          FileUtils.rm_rf(Rails.root.join(GobiertoData::Cache::BASE_PATH))
         end
 
         def array_data(dataset)
@@ -56,6 +76,103 @@ module GobiertoData
             get gobierto_data_api_v1_datasets_path
 
             assert_response :forbidden
+          end
+        end
+
+        def token_with_domain
+          @token_with_domain ||= gobierto_admin_api_tokens(:tony_domain)
+        end
+
+        def token_with_other_domain
+          @token_with_other_domain ||= gobierto_admin_api_tokens(:tony_other_domain)
+        end
+
+        # GET /api/v1/data/datasets.json
+        def test_index_with_password_protected_site
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                get gobierto_data_api_v1_datasets_path, as: :json
+                assert_response :unauthorized
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :unauthorized
+
+                admin.regular!
+                admin.admin_sites.create(site: site)
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :success
+
+                admin.admin_sites.destroy_all
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :unauthorized
+
+                admin.manager!
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :success
+              end
+            end
+          end
+        end
+
+        def test_index_with_internal_site_request
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                self.host = "santander.gobierto.test"
+                get gobierto_data_api_v1_datasets_path, as: :json
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                assert_response :success
+              end
+            end
+          end
+        end
+
+        def test_index_with_domain_token
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                get gobierto_data_api_v1_datasets_path, as: :json
+                assert_response :unauthorized
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :unauthorized
+
+                self.host = token_with_domain.domain
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                assert_response :unauthorized
+
+                self.host = token_with_other_domain.domain
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :unauthorized
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                assert_response :success
+              end
+            end
           end
         end
 
@@ -80,6 +197,26 @@ module GobiertoData
             assert response_data.has_key? "links"
             assert_includes response_data["links"].values, gobierto_data_api_v1_datasets_path
             assert_includes response_data["links"].values, meta_gobierto_data_api_v1_datasets_path
+          end
+        end
+
+        # GET /api/v1/data/datasets.json
+        def test_index_datasets_order
+          with(site: site) do
+            dataset.update_attribute(:data_updated_at, 1.minute.ago)
+            other_dataset.update_attribute(:data_updated_at, 1.hour.ago)
+
+            get gobierto_data_api_v1_datasets_path, as: :json
+            response_data = response.parsed_body
+            datasets_names = response_data["data"].map { |item| item.dig("attributes", "name") }
+            assert_equal [dataset.name, other_dataset.name], datasets_names
+
+            other_dataset.update_attribute(:data_updated_at, 1.second.ago)
+
+            get gobierto_data_api_v1_datasets_path, as: :json
+            response_data = response.parsed_body
+            datasets_names = response_data["data"].map { |item| item.dig("attributes", "name") }
+            assert_equal [other_dataset.name, dataset.name], datasets_names
           end
         end
 
@@ -199,7 +336,7 @@ module GobiertoData
 
             # attributes
             attributes_keys = resource_data["attributes"].keys
-            %w(name slug data_updated_at data_summary columns formats data_preview).each do |attribute|
+            %w(name slug data_updated_at data_summary columns formats).each do |attribute|
               assert_includes attributes_keys, attribute
             end
             assert resource_data["attributes"].has_key?(datasets_category.uid)
@@ -232,11 +369,13 @@ module GobiertoData
             get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :json), as: :json
 
             assert_response :success
-            assert_match(/attachment; filename="?#{dataset.slug}.json"?/, response.headers["content-disposition"])
             response_data = response.parsed_body
 
             assert_equal dataset.rails_model.count, response_data.count
             assert_equal dataset.rails_model.all.map(&:id).sort, response_data.map { |row| row["id"] }.sort
+
+            assert File.exist? Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/datasets/#{dataset.id}.json")
+            delete_cached_files
           end
         end
 
@@ -246,11 +385,13 @@ module GobiertoData
             get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :csv), as: :csv
 
             assert_response :success
-            assert_match(/attachment; filename="?#{dataset.slug}.csv"?/, response.headers["content-disposition"])
             response_data = response.parsed_body
             parsed_csv = CSV.parse(response_data)
 
             assert_equal dataset.rails_model.count + 1, parsed_csv.count
+
+            assert File.exist? Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/datasets/#{dataset.id}.csv")
+            delete_cached_files
           end
         end
 
@@ -260,13 +401,15 @@ module GobiertoData
             get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :xlsx), as: :xlsx
 
             assert_response :success
-            assert_match(/attachment; filename="?#{dataset.slug}.xlsx"?/, response.headers["content-disposition"])
             parsed_xlsx = RubyXL::Parser.parse_buffer response.parsed_body
 
             assert_equal 1, parsed_xlsx.worksheets.count
             sheet = parsed_xlsx.worksheets.first
             refute_nil sheet[dataset.rails_model.count]
             assert_nil sheet[dataset.rails_model.count + 1]
+
+            assert File.exist? Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/datasets/#{dataset.id}.xlsx")
+            delete_cached_files
           end
         end
 

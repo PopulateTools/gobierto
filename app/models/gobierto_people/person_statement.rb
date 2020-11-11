@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_people"
-
 module GobiertoPeople
   class PersonStatement < ApplicationRecord
     include ::GobiertoCommon::DynamicContent
@@ -15,12 +13,18 @@ module GobiertoPeople
 
     translates :title
 
-    algoliasearch_gobierto do
-      attribute :site_id, :title_en, :title_es, :title_ca, :updated_at
-      searchableAttributes ['title_en', 'title_es', 'title_ca']
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
+    multisearchable(
+      against: [:title_es, :title_en, :title_ca],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          resource_path: item.resource_path,
+          searchable_updated_at: item.updated_at
+        }
+      },
+      if: :searchable?
+    )
 
     belongs_to :person, counter_cache: :statements_count
     belongs_to :site

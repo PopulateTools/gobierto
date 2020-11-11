@@ -1,4 +1,5 @@
 import 'sticky-kit/dist/sticky-kit.js'
+import "leaflet/dist/leaflet.css";
 
 import { GetUnemploymentAgeData } from './classes/get_unemployment_age_data.js'
 import { PopulationCard } from './classes/population.js'
@@ -60,6 +61,9 @@ $(document).on('turbolinks:click', function (event) {
 var vis_population;
 
 $(document).on('turbolinks:load', function() {
+  // Skip all this execution if we are in the observatory map
+  if($('body.gobierto_observatory_observatory_demography_map').length) { return; }
+
   var getUnemplAgeData = new GetUnemploymentAgeData(window.populateData.municipalityId);
 
   // Process unemployment age data and pass it to both charts
@@ -200,4 +204,8 @@ $(document).on('turbolinks:load', function() {
     // render again
     vis_population.render()
   });
+
+
 });
+
+

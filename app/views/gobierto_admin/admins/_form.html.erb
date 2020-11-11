@@ -34,11 +34,6 @@
         </div>
       <% end %>
 
-      <div class="form_item input_text">
-        <%= f.label :api_token %>
-        <%= f.text_field :api_token, placeholder: t(".placeholders.api_token"), disabled: !@admin_policy.update? %>
-      </div>
-
       <% unless @admin && @admin.god? %>
         <!-- Admin groups -->
         <div class="form_block" id="admin_groups" style="<%= @admin&.regular? && @admin.sites.include?(current_site) ? '' : 'display: none;' %>">
@@ -94,6 +89,12 @@
       <% end %>
 
       <% if @admin_form.persisted? %>
+        <div class="form_block" id="api_tokens">
+
+          <%= render "gobierto_admin/api_tokens/list", { api_tokens: @api_tokens, owner: @admin, owner_type: :admin } %>
+
+        </div>
+
         <div class="form_block">
 
           <h2><%= t(".activity_block") %></h2>

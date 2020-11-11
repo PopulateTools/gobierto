@@ -7,7 +7,16 @@ module GobiertoCommon::CustomFieldValue
     end
 
     def value_string
-      value.map(&:name).join(", ")
+      names = value.map(&:name)
+      if names.any? { |name| name.include?(",") }
+        CSV.generate_line(names).strip
+      else
+        names.join(",")
+      end
+    end
+
+    def external_id
+      value.map(&:external_id).compact.join(",")
     end
 
     def filter_value

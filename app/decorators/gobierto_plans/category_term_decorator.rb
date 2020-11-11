@@ -95,7 +95,7 @@ module GobiertoPlans
             status: node.at_current_version.status&.name_translations,
             options: node.at_current_version.options,
             plugins_data: node_plugins_data(plan, node),
-            custom_field_records: node_custom_field_records(node)
+            custom_field_records: front_node_custom_field_records(node)
           },
           children: [] }
       end
@@ -147,23 +147,32 @@ module GobiertoPlans
 
     private
 
+    def hide_empty_fields?
+      @hide_empty_fields ||= !plan.configuration_data&.fetch("show_empty_fields", false)
+    end
+
     def node_plugins_data(_plan, _node)
       {}
     end
 
-    def node_custom_field_records(node)
-      ::GobiertoPlans::Node.node_custom_field_records(plan, node).map do |record|
+    def front_node_custom_field_records(node)
+      ::GobiertoPlans::Node.front_node_custom_field_records(plan, node).map do |record|
         next if record.custom_field.field_type == "plugin"
 
         record = record.versions[node.version_index]&.reify if node.version_index.negative?
 
         next if record.blank?
 
+        value_string = record.value_string
+        next if hide_empty_fields? && value_string.blank?
+
         {
-          value: record.value_string,
+          value: value_string,
           raw_value: record.raw_value,
+          external_id: record.external_id,
           custom_field_name_translations: record.custom_field.name_translations,
-          custom_field_field_type: record.custom_field.field_type
+          custom_field_field_type: record.custom_field.field_type,
+          custom_field_id: record.custom_field.uid
         }
       end.compact
     end

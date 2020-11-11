@@ -1,0 +1,12 @@
+---
+en:
+  concerns:
+    gobierto_common:
+      api_tokens_concern:
+        create:
+          success: API Token was successfully created
+        destroy:
+          failed: API Token couldn't be deleted
+          success: API Token deleted successfully
+        update:
+          success: API Token was successfully updated

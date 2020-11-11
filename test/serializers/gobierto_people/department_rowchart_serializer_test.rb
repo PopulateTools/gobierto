@@ -10,7 +10,7 @@ module GobiertoPeople
     end
 
     def test_serialize
-      department.update_attributes!(name: "Departament de la Presidència")
+      department.update!(name: "Departament de la Presidència")
 
       serializer = DepartmentRowchartSerializer.new(department)
       serializer_output = JSON.parse(serializer.to_json)

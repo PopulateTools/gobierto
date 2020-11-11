@@ -6,18 +6,6 @@ module GobiertoInvestments
   module Api
     module V1
       class ProjectsControllerTest < GobiertoControllerTest
-
-        attr_reader :default_secret, :token_service
-
-        def setup
-          super
-
-          @default_secret = "S3cr3t"
-          @token_service = with_stubbed_jwt_default_secret(default_secret) do
-            GobiertoCommon::TokenService.new
-          end
-        end
-
         def site
           @site ||= sites(:madrid)
         end
@@ -55,8 +43,32 @@ module GobiertoInvestments
           gobierto_admin_admins(:steve)
         end
 
-        def auth_token(admin)
-          token_service.encode(sub: "login", api_token: admin.api_token)
+        def auth_header(admin)
+          "Bearer #{admin.primary_api_token}"
+        end
+
+        def token_with_domain
+          @token_with_domain ||= gobierto_admin_api_tokens(:tony_domain)
+        end
+
+        def token_with_other_domain
+          @token_with_other_domain ||= gobierto_admin_api_tokens(:tony_other_domain)
+        end
+
+        def token_with_domain_header
+          "Bearer #{admin.primary_api_token}"
+        end
+
+        def user
+          @user ||= users(:dennis)
+        end
+
+        def user_token
+          @user_token ||= "Bearer #{user_api_tokens(:dennis_primary_api_token)}"
+        end
+
+        def basic_auth_header
+          @basic_auth_header ||= "Basic #{Base64.encode64("username:password")}"
         end
 
         def political_group
@@ -114,6 +126,101 @@ module GobiertoInvestments
             ids = response_data["data"].map { |item| item["id"].to_i }
             assert_includes ids, project.id
             assert_includes ids, project_without_external_id.id
+          end
+        end
+
+        # GET /gobierto_investments/api/v1/projects
+        # GET /gobierto_investments/api/v1/projects.json
+        def test_index_with_password_protected_site
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                get gobierto_investments_api_v1_projects_path, as: :json
+                assert_response :unauthorized
+
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :unauthorized
+
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => user_token }
+                assert_response :success
+
+                admin = authorized_regular_admin
+                admin_auth_header = auth_header(admin)
+                admin.regular!
+                admin.admin_sites.create(site: site)
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :success
+
+                admin.admin_sites.destroy_all
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :unauthorized
+
+                admin.manager!
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :success
+              end
+            end
+          end
+        end
+
+        def test_index_with_internal_site_request
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                self.host = "santander.gobierto.test"
+                get gobierto_investments_api_v1_projects_path, as: :json
+                assert_response :success
+
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :success
+
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :success
+
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                assert_response :success
+              end
+            end
+          end
+        end
+
+        def test_index_with_domain_token
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                get gobierto_investments_api_v1_projects_path, as: :json
+                assert_response :unauthorized
+
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :unauthorized
+
+                self.host = token_with_domain.domain
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :success
+
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                assert_response :unauthorized
+
+                self.host = token_with_other_domain.domain
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :unauthorized
+
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                assert_response :success
+              end
+            end
           end
         end
 
@@ -277,7 +384,6 @@ module GobiertoInvestments
         # GET /gobierto_investments/api/v1/projects/new.json
         def test_new
           with(site: site) do
-
             get new_gobierto_investments_api_v1_project_path, as: :json
 
             assert_response :success
@@ -305,168 +411,126 @@ module GobiertoInvestments
 
         def test_create_invalid_token
           with(site: site) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              auth_header = "Bearer WADUS"
+            auth_header = "Bearer WADUS"
 
-              post(
-                gobierto_investments_api_v1_projects_path,
-                headers: { "Authorization" => auth_header },
-                params: new_project_data,
-                as: :json
-              )
-              assert_response :unauthorized
-              assert_equal({ "message" => "Unauthorized" }, response.parsed_body)
-            end
+            post(
+              gobierto_investments_api_v1_projects_path,
+              headers: { "Authorization" => auth_header },
+              params: new_project_data,
+              as: :json
+            )
+            assert_response :unauthorized
+            assert_equal({ "message" => "Unauthorized" }, response.parsed_body)
           end
         end
 
         def test_create_with_nil_api_token
           with(site: site) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              auth_header = "Bearer #{token_service.encode(sub: "login", api_token: nil)}"
-              post(
-                gobierto_investments_api_v1_projects_path,
-                headers: { "Authorization" => auth_header },
-                params: new_project_data,
-                as: :json
-              )
-              assert_response :unauthorized
-              assert_equal({ "message" => "Unauthorized" }, response.parsed_body)
-            end
-          end
-        end
-
-        def test_create_invalid_default_secret
-          with(site: site) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              @token_service = GobiertoCommon::TokenService.new(secret: "Wadus!")
-              auth_header = "Bearer #{ auth_token(authorized_regular_admin) }"
-
-              post(
-                gobierto_investments_api_v1_projects_path,
-                headers: { "Authorization" => auth_header },
-                params: new_project_data,
-                as: :json
-              )
-              assert_response :unauthorized
-              assert_equal({ "message" => "Unauthorized" }, response.parsed_body)
-            end
+            auth_header = "Bearer "
+            post(
+              gobierto_investments_api_v1_projects_path,
+              headers: { "Authorization" => auth_header },
+              params: new_project_data,
+              as: :json
+            )
+            assert_response :unauthorized
+            assert_equal({ "message" => "Unauthorized" }, response.parsed_body)
           end
         end
 
         def test_create_regular_admin_unauthorized
           with(site: site) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              auth_header = "Bearer #{ auth_token(unauthorized_regular_admin) }"
-
-              post(
-                gobierto_investments_api_v1_projects_path,
-                headers: { "Authorization" => auth_header },
-                params: new_project_data,
-                as: :json
-              )
-              assert_response :unauthorized
-              assert_equal({ "message" => "Module not allowed" }, response.parsed_body)
-            end
+            post(
+              gobierto_investments_api_v1_projects_path,
+              headers: { "Authorization" => auth_header(unauthorized_regular_admin) },
+              params: new_project_data,
+              as: :json
+            )
+            assert_response :unauthorized
+            assert_equal({ "message" => "Module not allowed" }, response.parsed_body)
           end
         end
 
         def test_create_regular_admin_authorized
           with(site: site) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              auth_header = "Bearer #{ auth_token(authorized_regular_admin) }"
-
-              assert_difference "GobiertoInvestments::Project.count", 1 do
-                post(
-                  gobierto_investments_api_v1_projects_path,
-                  headers: { "Authorization" => auth_header },
-                  params: new_project_data,
-                  as: :json
-                )
-              end
-
-              assert_response :success
-
-              response_data = response.parsed_body
-              assert_equal(
-                response_data["data"]["attributes"]["external_id"],
-                new_project_data["data"]["attributes"]["external_id"]
+            assert_difference "GobiertoInvestments::Project.count", 1 do
+              post(
+                gobierto_investments_api_v1_projects_path,
+                headers: { "Authorization" => auth_header(authorized_regular_admin) },
+                params: new_project_data,
+                as: :json
               )
-              assert response_data["data"]["id"].present?
             end
+
+            assert_response :success
+
+            response_data = response.parsed_body
+            assert_equal(
+              response_data["data"]["attributes"]["external_id"],
+              new_project_data["data"]["attributes"]["external_id"]
+            )
+            assert response_data["data"]["id"].present?
           end
         end
 
         def test_create_regular_admin_authorized_with_existing_external_id
           with(site: site) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              auth_header = "Bearer #{ auth_token(authorized_regular_admin) }"
-
-              assert_difference "GobiertoInvestments::Project.count", 0 do
-                post(
-                  gobierto_investments_api_v1_projects_path,
-                  headers: { "Authorization" => auth_header },
-                  params: existing_project_data,
-                  as: :json
-                )
-              end
-
-              assert_response :success
-
-              response_data = response.parsed_body
-              assert_equal(
-                response_data["data"]["attributes"]["external_id"],
-                existing_project_data["data"]["attributes"]["external_id"]
+            assert_difference "GobiertoInvestments::Project.count", 0 do
+              post(
+                gobierto_investments_api_v1_projects_path,
+                headers: { "Authorization" => auth_header(authorized_regular_admin) },
+                params: existing_project_data,
+                as: :json
               )
-              assert_equal project.id, response_data["data"]["id"].to_i
             end
+
+            assert_response :success
+
+            response_data = response.parsed_body
+            assert_equal(
+              response_data["data"]["attributes"]["external_id"],
+              existing_project_data["data"]["attributes"]["external_id"]
+            )
+            assert_equal project.id, response_data["data"]["id"].to_i
           end
         end
 
         def test_create_regular_admin_authorized_without_external_id
           with(site: site) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              auth_header = "Bearer #{ auth_token(authorized_regular_admin) }"
+            existing_project_data["data"]["attributes"].delete("external_id")
 
-              existing_project_data["data"]["attributes"].delete("external_id")
-
-              assert_difference "GobiertoInvestments::Project.count", 1 do
-                post(
-                  gobierto_investments_api_v1_projects_path,
-                  headers: { "Authorization" => auth_header },
-                  params: existing_project_data,
-                  as: :json
-                )
-              end
-
-              assert_response :success
-
-              last_project = GobiertoInvestments::Project.last
-              response_data = response.parsed_body
-              assert_nil last_project.external_id
-              assert_equal last_project.id, response_data["data"]["id"].to_i
-              assert_equal(
-                response_data["data"]["attributes"]["title_translations"],
-                existing_project_data["data"]["attributes"]["title_translations"]
+            assert_difference "GobiertoInvestments::Project.count", 1 do
+              post(
+                gobierto_investments_api_v1_projects_path,
+                headers: { "Authorization" => auth_header(authorized_regular_admin) },
+                params: existing_project_data,
+                as: :json
               )
             end
+
+            assert_response :success
+
+            last_project = GobiertoInvestments::Project.last
+            response_data = response.parsed_body
+            assert_nil last_project.external_id
+            assert_equal last_project.id, response_data["data"]["id"].to_i
+            assert_equal(
+              response_data["data"]["attributes"]["title_translations"],
+              existing_project_data["data"]["attributes"]["title_translations"]
+            )
           end
         end
 
         def test_create_regular_admin_authorized_on_other_site
           with(site: site_witout_projects_authorizations) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              auth_header = "Bearer #{ auth_token(authorized_regular_admin) }"
-
-              post(
-                gobierto_investments_api_v1_projects_path,
-                headers: { "Authorization" => auth_header },
-                params: new_project_data,
-                as: :json
-              )
-              assert_response :unauthorized
-              assert_equal({ "message" => "Module not allowed" }, response.parsed_body)
-            end
+            post(
+              gobierto_investments_api_v1_projects_path,
+              headers: { "Authorization" => auth_header(authorized_regular_admin) },
+              params: new_project_data,
+              as: :json
+            )
+            assert_response :unauthorized
+            assert_equal({ "message" => "Module not allowed" }, response.parsed_body)
           end
         end
 
@@ -476,49 +540,41 @@ module GobiertoInvestments
         # PATCH/PUT /gobierto_investments/api/v1/projects/1
         def test_update_admin_authorized
           with(site: site) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              auth_header = "Bearer #{ auth_token(authorized_regular_admin) }"
+            put(
+              gobierto_investments_api_v1_project_path(project_without_external_id),
+              headers: { "Authorization" => auth_header(authorized_regular_admin) },
+              params: new_project_data,
+              as: :json
+            )
 
-              put(
-                gobierto_investments_api_v1_project_path(project_without_external_id),
-                headers: { "Authorization" => auth_header },
-                params: new_project_data,
-                as: :json
-              )
+            assert_response :success
 
-              assert_response :success
-
-              response_data = response.parsed_body
-              project_without_external_id.reload
-              assert_equal(
-                response_data["data"]["attributes"]["external_id"],
-                new_project_data["data"]["attributes"]["external_id"]
-              )
-              assert_equal(
-                response_data["data"]["attributes"]["external_id"],
-                project_without_external_id.external_id
-              )
-              assert response_data["data"]["id"].present?
-              assert_equal project_without_external_id.id, response_data["data"]["id"].to_i
-            end
+            response_data = response.parsed_body
+            project_without_external_id.reload
+            assert_equal(
+              response_data["data"]["attributes"]["external_id"],
+              new_project_data["data"]["attributes"]["external_id"]
+            )
+            assert_equal(
+              response_data["data"]["attributes"]["external_id"],
+              project_without_external_id.external_id
+            )
+            assert response_data["data"]["id"].present?
+            assert_equal project_without_external_id.id, response_data["data"]["id"].to_i
           end
         end
 
         def test_update_admin_unauthorized
           with(site: site) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              auth_header = "Bearer #{ auth_token(unauthorized_regular_admin) }"
+            put(
+              gobierto_investments_api_v1_project_path(project_without_external_id),
+              headers: { "Authorization" => auth_header(unauthorized_regular_admin) },
+              params: new_project_data,
+              as: :json
+            )
 
-              put(
-                gobierto_investments_api_v1_project_path(project_without_external_id),
-                headers: { "Authorization" => auth_header },
-                params: new_project_data,
-                as: :json
-              )
-
-              assert_response :unauthorized
-              assert_equal({ "message" => "Module not allowed" }, response.parsed_body)
-            end
+            assert_response :unauthorized
+            assert_equal({ "message" => "Module not allowed" }, response.parsed_body)
           end
         end
 
@@ -528,43 +584,35 @@ module GobiertoInvestments
         # DELETE /gobierto_investments/api/v1/projects/1.json
         def test_destroy_admin_authorized
           with(site: site) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              auth_header = "Bearer #{ auth_token(authorized_regular_admin) }"
-
-              project_id = project.id
-              assert_difference "GobiertoInvestments::Project.count", -1 do
-                delete(
-                  gobierto_investments_api_v1_project_path(project),
-                  headers: { "Authorization" => auth_header },
-                  as: :json
-                )
-              end
-
-              assert_response :success
-              assert(response.parsed_body.blank?)
-              refute GobiertoInvestments::Project.where(id: project_id).exists?
+            project_id = project.id
+            assert_difference "GobiertoInvestments::Project.count", -1 do
+              delete(
+                gobierto_investments_api_v1_project_path(project),
+                headers: { "Authorization" => auth_header(authorized_regular_admin) },
+                as: :json
+              )
             end
+
+            assert_response :success
+            assert(response.parsed_body.blank?)
+            refute GobiertoInvestments::Project.where(id: project_id).exists?
           end
         end
 
         def test_destroy_admin_unauthorized
           with(site: site) do
-            with_stubbed_jwt_default_secret(default_secret) do
-              auth_header = "Bearer #{ auth_token(unauthorized_regular_admin) }"
-
-              project_id = project.id
-              assert_difference "GobiertoInvestments::Project.count", 0 do
-                delete(
-                  gobierto_investments_api_v1_project_path(project_without_external_id),
-                  headers: { "Authorization" => auth_header },
-                  as: :json
-                )
-              end
-
-              assert_response :unauthorized
-              assert_equal({ "message" => "Module not allowed" }, response.parsed_body)
-              assert GobiertoInvestments::Project.where(id: project_id).exists?
+            project_id = project.id
+            assert_difference "GobiertoInvestments::Project.count", 0 do
+              delete(
+                gobierto_investments_api_v1_project_path(project_without_external_id),
+                headers: { "Authorization" => auth_header(unauthorized_regular_admin) },
+                as: :json
+              )
             end
+
+            assert_response :unauthorized
+            assert_equal({ "message" => "Module not allowed" }, response.parsed_body)
+            assert GobiertoInvestments::Project.where(id: project_id).exists?
           end
         end
 

@@ -15,7 +15,7 @@ gem "meta-tags"
 gem "paper_trail"
 gem "paranoia"
 gem "pg", "~> 1.1"
-gem "rails", "~> 5.2.1"
+gem "rails", "~> 6.0"
 gem "redcarpet", require: true
 gem "responders"
 gem "rollbar"
@@ -23,9 +23,10 @@ gem "ruby_px"
 gem "before_renders"
 gem "bootsnap"
 gem "truncate_html"
+gem "rake", "~> 13.0"
 
 # Frontend
-gem "bourbon", "~> 6.0.0"
+gem "bourbon", "~> 7.0.0"
 gem "sass", "~> 3.4"
 gem "d3-rails", "~> 4.8"
 gem "flight-for-rails"
@@ -39,32 +40,33 @@ gem "chroma"
 gem "font-awesome-sass", "~> 5.6"
 
 # Webpack
-gem "webpacker", "~> 4.0"
+gem "webpacker", "~> 5.0"
 
 # Elasticsearch
-gem "elasticsearch"
-gem "elasticsearch-extensions"
+gem "elasticsearch", "~> 6.0", ">= 6.0.2"
+gem "elasticsearch-extensions", "~> 0.0.27"
 
 # Background processing
 gem "sidekiq", "~> 5.2.7"
 gem "sidekiq-monitor-stats"
 
 # AWS SDK client
-gem "aws-sdk", "~> 2.6", require: false
+gem "aws-sdk-s3", "~> 1"
 
 # AWS SES client
-gem "aws-ses", "~> 0.6.0"
+gem "aws-ses", "= 0.7.0"
 
 # Calendar view component
 gem "simple_calendar", "~> 2.2"
 
-# Algolia client
-gem "algoliasearch-rails", "~> 1.17"
-# Algolia client indexing sanitizer
+# Search client
+gem "pg_search", "2.3.4"
+
+# Search client indexing sanitizer
 gem "rails-html-sanitizer"
 
 # Pagination
-gem "kaminari", "~> 1.0"
+gem "kaminari", "~> 1.2"
 
 # Captcha
 gem "invisible_captcha"
@@ -74,10 +76,11 @@ gem "redis", "~> 4.0"
 
 # Translations
 gem "json_translate", "~> 4.0"
+gem "route_translator"
 
 # Liquid
 gem "liquid", "~> 4.0"
-gem "liquid-rails", "~> 0.2.0"
+gem "liquid-rails", git: "https://github.com/maierru/liquid-rails.git"
 
 # Google API
 gem "geocoder"
@@ -86,7 +89,7 @@ gem "google-api-client"
 # Microsoft Exchange calendars
 gem "exchanger"
 
-# Web Services
+# Web Services: Alcobendas, Valencia
 gem "savon", "~> 2.12.0"
 
 # Image management
@@ -96,8 +99,20 @@ gem "cloudinary"
 gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 
 # API
-gem "jwt"
 gem "rubyXL"
+
+# Performance
+gem "appsignal"
+
+# Auth strategies
+gem "net-ldap"
+gem "ladle"
+
+# Detect encoding
+gem "charlock_holmes"
+
+# CORS support
+gem "rack-cors"
 
 group :development, :test do
   gem "byebug", platform: :mri
@@ -109,15 +124,14 @@ end
 group :test do
   gem "capybara"
   gem "capybara-email"
-  gem "codecov", "~> 0.1.9", require: false
+  gem "codecov", "~> 0.2.0", require: false
   gem "launchy"
-  gem "minitest", "5.14.0"
+  gem "minitest", "5.14.2"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"
   gem "minitest-stub-const"
   gem "mocha"
-  gem "rack-cors"
   gem "selenium-webdriver"
   gem "spy"
   gem "timecop"

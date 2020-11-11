@@ -25,3 +25,7 @@ Rails.application.config.ssl_options = { hsts: { subdomains: true } }
 # Unknown asset fallback will return the path passed in when the given
 # asset is not present in the asset pipeline.
 Rails.application.config.assets.unknown_asset_fallback = false
+
+# Disable cache versioning
+# https://github.com/rails/rails/pull/34378/files
+ActiveRecord::Base.collection_cache_versioning = false

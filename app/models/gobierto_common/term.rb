@@ -11,12 +11,14 @@ module GobiertoCommon
     before_destroy :free_children
     before_validation :clear_parent_if_itself
 
-    belongs_to :vocabulary, touch: true
+    belongs_to :vocabulary
 
     has_many :terms, dependent: :nullify
-    belongs_to :parent_term, class_name: name, foreign_key: :term_id
+    belongs_to :parent_term, class_name: name, foreign_key: :term_id, optional: true
 
-    validates :vocabulary, :name, :slug, :position, :level, presence: true
+    validates :vocabulary, :slug, :position, :level, presence: true
+    validates :name_translations, translated_attribute_presence: true
+
     validates :slug, uniqueness: { scope: :vocabulary_id }
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
@@ -41,18 +43,13 @@ module GobiertoCommon
     end
 
     def destroy
-      return false if has_dependent_resources?
+      dependent_resources_decorator = TermDependentResourcesDecorator.new(self)
+      if dependent_resources_decorator.has_dependent_resources?
+        errors.add(:base, :has_dependent_resources_html, dependencies_list: dependent_resources_decorator.dependencies_list)
+        return false
+      end
 
       super
-    end
-
-    def has_dependent_resources?
-      enabled_classes_with_vocabularies.any? do |klass|
-        klass.vocabularies.keys.any? do |association|
-          klass.where(klass.reflections[association.to_s].foreign_key => id).exists?
-        end
-      end ||
-        GobiertoPlans::CategoryTermDecorator.new(self).has_dependent_resources?
     end
 
     def last_descendants
@@ -102,7 +99,7 @@ module GobiertoCommon
 
     def clear_parent_if_itself
       if parent_term == self
-        term_id = nil
+        self.term_id = nil
         errors.add(:term_id)
       end
     end

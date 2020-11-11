@@ -29,6 +29,11 @@ en:
         gobierto_admin/gobierto_plans/plan_data_form:
           attributes:
             base:
+              category_not_found: 'One of the categories couldn''t be found. Row content:
+                %{row_data}'
+              external_id_taken: 'The external_id field is already in use, either
+                because another row has the same external_id or because it was empty
+                and this value was automatically assigned. Row content: %{row_data}'
               file_not_found: File not found
               invalid_columns: Required columns are missing
               invalid_format: Invalid file format
@@ -36,5 +41,13 @@ en:
               status_missing: 'The state on the row has not been found in the corresponding
                 statuses vocabulary or there is a status in the row but none statuses
                 vocabulary has been configured in the plan. Row content: %{row_data}'
+              term_not_found: The term '%{term}' couldn't be found in the vocabulary
+                '%{vocabulary}' used by the column 'Node.%{uid}'
               used_resource: The vocabulary contains terms used in other parts of
                 the application
+        gobierto_admin/gobierto_plans/plan_table_custom_fields_form:
+          attributes:
+            base:
+              file_not_found: File not found
+              invalid_columns: Required columns are missing
+              invalid_format: Invalid file format

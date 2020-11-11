@@ -26,11 +26,18 @@ en:
         vocabulary_options: Vocabulary
       gobierto_admin/gobierto_common/term_form:
         description: Description
+        external_id: External ID
         name: Name
         slug: Slug
         term_id: Parent Term
       gobierto_admin/gobierto_common/vocabulary_form:
         name: Name
+    errors:
+      models:
+        gobierto_admin/gobierto_common/vocabulary_terms_import_form:
+          attributes:
+            base:
+              invalid_row: 'There is an invalid row: %{row_data}'
     models:
       gobierto_admin/gobierto_common/collection_form: Collection
       gobierto_admin/gobierto_common/term_form: Term
@@ -42,3 +49,8 @@ en:
           attributes:
             item:
               wrong_item_class: not associated with an item of the appropriate class
+        gobierto_common/term:
+          attributes:
+            base:
+              has_dependent_resources_html: Is being used by the following resources:</br>
+                %{dependencies_list}

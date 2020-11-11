@@ -51,7 +51,7 @@ module GobiertoPeople
         end
 
         def test_departments_index_test
-          justice_department.update_attributes!(name: "Departament de la Presidència")
+          justice_department.update!(name: "Departament de la Presidència")
 
           with_current_site(madrid) do
 
@@ -95,7 +95,7 @@ module GobiertoPeople
 
         def test_departments_index_test_with_events_history
           ::GobiertoCalendars::Event.destroy_all
-          culture_department.update_attributes!(name: "Departament de Cultura")
+          culture_department.update!(name: "Departament de Cultura")
 
           create_event(person: tamara, starts_at: "15-01-2017", department: justice_department)
           create_event(person: tamara, starts_at: "16-01-2017", department: culture_department)
@@ -122,12 +122,12 @@ module GobiertoPeople
                   "key" => Time.zone.parse("2017/01"),
                   "value" => 1,
                   "properties" => {
-                    "url" => "/departamentos/justice-department?end_date=2017-02-01&start_date=2017-01-01"
+                    "url" => "/en/departments/justice-department?end_date=2017-02-01&start_date=2017-01-01"
                   }
                 }
               ],
               "properties" => {
-                "url" => "/departamentos/justice-department?page=false"
+                "url" => "/en/departments/justice-department?page=false"
               }
             }
 

@@ -2,13 +2,15 @@
 
 module GobiertoData
   class DatasetForm < BaseForm
+    prepend ::GobiertoCommon::TrackableGroupedAttributes
     include ::GobiertoCore::TranslationsHelpers
     include ActiveModel::Serialization
 
     attr_accessor(
       :site_id,
       :data_path,
-      :data_file
+      :data_file,
+      :admin_id
     )
 
     attr_writer(
@@ -30,6 +32,12 @@ module GobiertoData
     validates :visibility_level, inclusion: { in: Dataset.visibility_levels.keys }
 
     delegate :persisted?, :data_updated_at, to: :resource
+
+    trackable_on :dataset
+    use_event_prefix :dataset
+    notify_changed :name_translations, :table_name, :slug, as: :attribute
+    use_publisher Publishers::AdminGobiertoDataActivity
+    use_trackable_subject :dataset
 
     def resource
       @resource ||= resource_class.find_by(id: @id) || build_resource
@@ -69,11 +77,21 @@ module GobiertoData
     end
 
     def visibility_level
-      @visibility_level ||= "draft"
+      @visibility_level ||= resource.visibility_level
     end
 
     def save
-      save_resource if valid?
+      if valid?
+        ActiveRecord::Base.transaction do
+          save_resource
+        end
+      end
+    rescue CSV::MalformedCSVError
+      errors.add(data_file.present? ? :data_file : :data_path, "CSV file malformed or with wrong encoding (expected UTF-8)")
+      false
+    rescue PG::Error => e
+      errors.add(data_file.present? ? :data_file : :data_path, "Database error loading CSV: #{e.message}")
+      false
     end
 
     def csv_separator
@@ -124,7 +142,9 @@ module GobiertoData
         attributes.visibility_level = visibility_level
       end
 
-      if @resource.save && load_data
+      new_record = @resource.new_record?
+
+      if run_callbacks(:save) { @resource.save } && load_data(new_record)
         @resource
       else
         promote_errors(@resource.errors)
@@ -132,12 +152,13 @@ module GobiertoData
       end
     end
 
-    def load_data
+    def load_data(new_record)
       return unless [data_file, data_path].any?(&:present?)
 
+      # Use the Array form to enforce an extension in the filename
       temp_file = Tempfile.new(["data", ".csv"])
       begin
-        temp_file.write(source_data.read.force_encoding("UTF-8"))
+        temp_file.write(encode_to_utf_8(source_data.read))
         temp_file.rewind
         @load_status = @resource.load_data_from_file(
           temp_file.path,
@@ -147,19 +168,30 @@ module GobiertoData
         )
         @schema = @load_status[:schema]
         if @load_status[:db_result].has_key?(:errors)
-          errors.add(:schema, @load_status[:db_result][:errors].map { |error| error[:sql] }.join("\n"))
+          errors.add(:schema, @load_status[:db_result][:errors].map(&:values).join("\n"))
           false
         else
+          track_update_data_activity unless new_record
           true
         end
-      rescue CSV::MalformedCSVError
-        errors.add(data_file.present? ? :data_file : :data_path, "CSV file malformed or with wrong encoding (expected UTF-8)")
-        false
       ensure
         temp_file.close
         temp_file.unlink
       end
     end
 
+    def encode_to_utf_8(data)
+      if encoding_detection = CharlockHolmes::EncodingDetector.detect(data)
+        data.force_encoding(encoding_detection[:encoding]).encode("UTF-8")
+      else
+        data.force_encoding("UTF-8")
+      end
+    end
+
+    def track_update_data_activity
+      Publishers::AdminGobiertoDataActivity.broadcast_event(
+        "dataset_data_updated", event_payload.merge(subject: resource)
+      )
+    end
   end
 end

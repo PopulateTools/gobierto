@@ -115,20 +115,16 @@ module GobiertoAdmin
     end
 
     def get_site_modules
-      APP_CONFIG["site_modules"].map { |site_module| OpenStruct.new(site_module) }
+      APP_CONFIG[:site_modules].map { |site_module| OpenStruct.new(site_module) }
     end
 
     def set_auth_modules
-      site = params[:id] ? find_site : Site.new
-
-      @auth_modules ||= AUTH_MODULES.select do |auth_module|
-        domains = auth_module.domains
-        !domains || domains.include?(site.domain)
-      end
+      @auth_modules ||= @site_form.available_user_auth_modules
+      @admin_auth_modules ||= @site_form.available_admin_auth_modules
     end
 
     def site_modules_with_root_path
-      modules_with_root_path = APP_CONFIG["site_modules_with_root_path"].map { |site_module| OpenStruct.new(site_module) }
+      modules_with_root_path = APP_CONFIG[:site_modules_with_root_path].map { |site_module| OpenStruct.new(site_module) }
       modules_with_root_path = modules_with_root_path.push(OpenStruct.new(name: "GobiertoCms", namespace: "GobiertoCms"))
       modules_with_root_path
     end
@@ -139,11 +135,11 @@ module GobiertoAdmin
     end
 
     def get_dns_config
-      OpenStruct.new(APP_CONFIG["dns_config"])
+      OpenStruct.new(APP_CONFIG[:dns_config])
     end
 
     def get_services_config
-      OpenStruct.new(APP_CONFIG["services"])
+      OpenStruct.new(APP_CONFIG[:services])
     end
 
     def get_site_visibility_levels
@@ -179,7 +175,8 @@ module GobiertoAdmin
         available_locales: [],
         title_translations: [*I18n.available_locales],
         name_translations: [*I18n.available_locales],
-        auth_modules: []
+        auth_modules: [],
+        admin_auth_modules: []
       )
     end
 

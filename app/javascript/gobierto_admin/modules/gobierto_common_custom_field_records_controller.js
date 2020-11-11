@@ -153,6 +153,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
   }
 
   function _handleSelectBehaviors() {
+    $("[data-behavior=single_select]").select2()
     $("[data-behavior=multiple_select]").select2()
     $("[data-behavior=tags]").select2({
       tags: true,

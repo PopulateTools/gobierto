@@ -208,7 +208,7 @@ module GobiertoPeople
 
           recurrent_event_instance = richard.events.find_by(external_id: "D2E5B40E6AAEAED4C125808E0035A6A0-Lotus_Notes_Generated/20170503T073000Z")
           recurrent_event_instance.title = "Old recurrent event instance title"
-          recurrent_event_instance.locations.first.update_attributes!(name: "Old location")
+          recurrent_event_instance.locations.first.update!(name: "Old location")
           recurrent_event_instance.save!
 
           VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do

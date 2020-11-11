@@ -3,6 +3,8 @@
 module GobiertoAdmin
   module GobiertoPlans
     class PlansController < GobiertoAdmin::GobiertoPlans::BaseController
+      class HasDependentResources < StandardError; end
+
       before_action -> { module_allowed_action!(current_admin, current_admin_module, :manage) }, except: [:index, :plan]
 
       def index
@@ -79,6 +81,37 @@ module GobiertoAdmin
         redirect_to admin_plans_plans_path, notice: t(".success")
       end
 
+      def delete_contents
+        @plan = find_plan
+
+        ActiveRecord::Base.transaction do
+          @plan.nodes.destroy_all
+          destroy_terms(@plan.categories_vocabulary)
+          destroy_terms(@plan.statuses_vocabulary)
+          @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(
+            site_id: current_site.id,
+            item: @plan.nodes.new,
+            instance: @plan
+          )
+          @custom_fields_form.associated_vocabularies.each do |vocabulary|
+            destroy_terms(vocabulary)
+          end
+        end
+
+        # Update plan cache
+        @plan.touch
+
+        redirect_to(
+          edit_admin_plans_plan_path(@plan),
+          notice: t(".success")
+        )
+      rescue HasDependentResources => e
+        redirect_to(
+          edit_admin_plans_plan_path(@plan),
+          alert: e.message
+        )
+      end
+
       def recover
         @plan = find_archived_plan
         @plan.restore
@@ -89,6 +122,7 @@ module GobiertoAdmin
       def import_csv
         @plan = ::GobiertoPlans::PlanDecorator.new(find_plan)
         @plan_data_form = PlanDataForm.new(plan: @plan)
+        @plan_table_custom_fields_form = PlanTableCustomFieldsForm.new(plan: @plan)
       end
 
       def export_csv
@@ -117,11 +151,35 @@ module GobiertoAdmin
         end
 
         @plan_data_form = PlanDataForm.new(import_csv_params.merge(plan: @plan))
+        @plan_table_custom_fields_form = PlanTableCustomFieldsForm.new(plan: @plan)
         if @plan_data_form.save
           track_import_csv_data_activity
           redirect_to(
             admin_plans_plan_import_csv_path(@plan),
-            notice: t(".success_html", link: gobierto_plans_plan_type_preview_url(@plan_data_form.plan, host: current_site.domain))
+            notice: t(".success_html", link: gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain))
+          )
+        else
+          render :import_csv
+        end
+      end
+
+      def import_table_custom_fields
+        @plan = find_plan
+
+        if params[:file].blank?
+          redirect_to(
+            admin_plans_plan_import_csv_path(@plan),
+            alert: t("gobierto_admin.gobierto_plans.plans.import_data.missing_file")
+          ) and return
+        end
+
+        @plan_data_form = PlanDataForm.new(plan: @plan)
+        @plan_table_custom_fields_form = PlanTableCustomFieldsForm.new(import_csv_params(:file).merge(plan: @plan))
+        if @plan_table_custom_fields_form.save
+          track_import_csv_data_activity
+          redirect_to(
+            admin_plans_plan_import_csv_path(@plan),
+            notice: t("gobierto_admin.gobierto_plans.plans.import_data.success_html", link: gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain))
           )
         else
           render :import_csv
@@ -132,6 +190,19 @@ module GobiertoAdmin
 
       def track_create_activity
         Publishers::GobiertoPlansPlanActivity.broadcast_event("plan_created", default_activity_params.merge(subject: @plan_form.plan))
+      end
+
+      def destroy_terms(vocabulary)
+        vocabulary.terms.each do |term|
+          next if term.destroy
+
+          raise HasDependentResources, t(
+            "gobierto_admin.gobierto_plans.plans.delete_contents.term_deletion_failed_html",
+            vocabulary: term.vocabulary.name,
+            term: term.name,
+            message: term.errors.full_messages.to_sentence
+          )
+        end
       end
 
       def track_update_activity
@@ -156,14 +227,15 @@ module GobiertoAdmin
           :css,
           :vocabulary_id,
           :statuses_vocabulary_id,
+          :publish_last_version_automatically,
           title_translations: [*I18n.available_locales],
           footer_translations: [*I18n.available_locales],
           introduction_translations: [*I18n.available_locales]
         )
       end
 
-      def import_csv_params
-        params.require(:plan).permit(:csv_file)
+      def import_csv_params(key = :plan)
+        params.require(key).permit(:csv_file)
       end
 
       def ignored_plan_attributes

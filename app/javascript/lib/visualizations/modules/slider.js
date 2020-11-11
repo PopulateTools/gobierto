@@ -60,27 +60,6 @@ export class VisSlider {
       .attr('class', 'slider')
       .attr('transform', 'translate(0,' + height / 4 + ')');
 
-    if (maxYear > (new Date().getFullYear())) {
-      var proposal = slider.append('g')
-        .attr('transform', 'translate(' + (x(maxYear) - (2 / 3 * (x(maxYear) - x(years[years.length - 2])))) + ',0)')
-        .attr('class', 'proposal');
-
-      proposal.append('rect')
-        .attr('x', 0)
-        .attr('y', -(height / 4))
-        .attr('rx', 12)
-        .attr('ry', 12)
-        .attr('width', x(maxYear) - x(years[years.length - 2]))
-        .attr('height', height);
-
-      proposal.append('text')
-        .attr('class', 'highlight-proposal')
-        .attr('y', '60%')
-        .attr('text-anchor', 'end')
-        .attr('x', (2 / 3 * (x(maxYear) - x(years[years.length - 2]))))
-    }
-
-
     slider.append('line')
       .attr('class', 'track')
       .attr('x1', x.range()[0])
@@ -131,7 +110,6 @@ export class VisSlider {
         return x(d)
       })
       .text(function(year) {
-        if (year > new Date().getFullYear()) { return I18n.t('gobierto_common.visualizations.project') }
         return year;
       })
       .classed('active', function(d) {

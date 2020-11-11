@@ -1,0 +1,30 @@
+.gobierto-block-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: .75rem;
+  line-height: 14px;
+  padding-top: 1em;
+  width: 100%;
+}
+
+.gobierto-block-header--title {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.gobierto-block-header--link {
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.gobierto-block-header--icon {
+  cursor: pointer;
+  transition: transform ease-in .1s;
+}
+
+.gobierto-rotate-icon {
+  i {
+    transform: rotate(270deg);
+  }
+}

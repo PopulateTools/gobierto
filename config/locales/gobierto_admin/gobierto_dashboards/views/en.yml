@@ -1,0 +1,10 @@
+---
+en:
+  gobierto_admin:
+    gobierto_dashboards:
+      configuration:
+        settings:
+          edit:
+            title: Dashboards configuration
+            update: Update
+          title: Preferences

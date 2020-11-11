@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_cms"
-
 module GobiertoCms
   class SectionItem < ApplicationRecord
     belongs_to :item, polymorphic: true
     belongs_to :section
-    belongs_to :parent, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id"
+    belongs_to :parent, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id", optional: true
     has_many :children, -> { sorted }, dependent: :destroy, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id"
 
     after_commit :reindex_item, on: [:create, :update]
 
-    validates :item_id, :item_type, :position, :parent_id, :section_id, :level, presence: true
+    validates :item_id, :item_type, :position, :section_id, :level, presence: true
 
-    scope :without_parent, -> { where(parent_id: 0) }
+    scope :without_parent, -> { where(parent_id: [0, nil]) }
     scope :sorted, -> { order(position: :asc) }
     scope :first_level, -> { without_parent.sorted }
 
@@ -45,7 +43,7 @@ module GobiertoCms
 
     # TODO - try to do this with a scope. Purpose is not clear.
     def all_parents(parent_array = [])
-      if parent_id != 0
+      if parent_id&.positive?
         parent_array.unshift(parent)
         parent.all_parents(parent_array)
       end
@@ -78,7 +76,7 @@ module GobiertoCms
 
     def reindex_item
       if item.is_a?(GobiertoCms::Page)
-        ::GobiertoCms::Page.trigger_reindex_job(item, false)
+        item.update_pg_search_document
       end
     end
   end

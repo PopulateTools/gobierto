@@ -24,6 +24,11 @@ Bundler.require(*Rails.groups)
 
 module Gobierto
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults "6.0"
+
+    config.active_record.schema_format = :sql
+
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}").to_s]
 
     config.i18n.default_locale = :es
@@ -47,9 +52,9 @@ module Gobierto
       "#{config.root}/lib",
       "#{config.root}/lib/validators",
       "#{config.root}/lib/constraints",
-      "#{config.root}/lib/errors",
-      "#{config.root}/lib/ibm_notes",
-      "#{config.root}/lib/liquid"
+      "#{config.root}/lib/middlewares",
+      "#{config.root}/lib/utils",
+      "#{config.root}/lib/minitest"
     ]
     config.autoload_paths += required_paths
     config.eager_load_paths += required_paths
@@ -61,7 +66,7 @@ module Gobierto
     end
 
     available_strategies.each do |strategy|
-      require_dependency config.root.join(*base_strategies_path).join(strategy, "lib", "initializer")
+      require config.root.join(*base_strategies_path).join(strategy, "lib", "initializer")
     end
 
     # Engine Overrides
@@ -80,7 +85,7 @@ module Gobierto
     end
 
     available_engines.each do |engine_dir|
-      require_dependency config.root.join(*base_engines_path).join(engine_dir, "lib", "initializer")
+      require config.root.join(*base_engines_path).join(engine_dir, "lib", "initializer")
     end
 
     # Do not add wrapper .field_with_errors around form fields with validation errors
@@ -94,6 +99,3 @@ module Gobierto
     end
   end
 end
-
-require_dependency "app/publishers/base"
-require_dependency "app/subscribers/base"

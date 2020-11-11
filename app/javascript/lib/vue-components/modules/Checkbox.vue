@@ -1,17 +1,24 @@
 <template>
-  <div>
+  <div class="gobierto-filter-checkbox">
     <input
       :id="`checkbox-${id}-${seed}`"
       :checked="checked"
       type="checkbox"
+      class="gobierto-filter-checkbox--input"
       @change="marked = !marked"
     >
     <label
       :for="`checkbox-${id}-${seed}`"
+      class="gobierto-filter-checkbox--label"
     >
-      <div>
+      <div
+        class="gobierto-filter-checkbox--label-title"
+      >
         {{ title }}
-        <i>({{ counter }})</i>
+        <i
+          v-if="hasCounter"
+          class="gobierto-filter-checkbox--label-counter"
+        >({{ counter }})</i>
       </div>
     </label>
   </div>
@@ -26,7 +33,7 @@ export default {
       default: ""
     },
     id: {
-      type: Number,
+      type: [Number, String],
       default: 0
     },
     checked: {
@@ -35,19 +42,28 @@ export default {
     },
     counter: {
       type: Number,
-      default: 0
+      default: null
     }
   },
   data() {
     return {
-      marked: false,
+      marked: this.checked,
       seed: Math.random().toString(36).substring(7)
+    }
+  },
+  computed: {
+    hasCounter() {
+      return this.counter !== null
     }
   },
   watch: {
     marked(value) {
       this.$emit("checkbox-change", { id: this.id, value })
     },
+    //If the user uses selectAll from BlockHeader component, the state of 'marked' doesn't change, so we need to add a 'watcher' for 'checked' and update 'marked' when 'checked' changes.
+    checked(value) {
+      this.marked = value
+    }
   }
 };
 </script>

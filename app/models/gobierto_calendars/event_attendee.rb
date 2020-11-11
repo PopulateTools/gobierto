@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_calendars"
-
 module GobiertoCalendars
   class EventAttendee < ApplicationRecord
-    belongs_to :person, class_name: "GobiertoPeople::Person"
+    belongs_to :person, class_name: "GobiertoPeople::Person", optional: true
     belongs_to :event
 
     validates :person, presence: true, unless: :custom_person_present?

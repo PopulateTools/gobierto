@@ -16,12 +16,12 @@ module GobiertoAdmin
           super
           @plan = gobierto_plans_plans(:strategic_plan)
 
-          @published_project = @plan.nodes.create(gobierto_plans_nodes(:political_agendas).attributes.except("id"))
+          @published_project = @plan.nodes.create(gobierto_plans_nodes(:political_agendas).attributes.except("id", "external_id"))
           @published_project.categories << gobierto_plans_nodes(:political_agendas).categories
           @published_project.save
           @published_project.moderation.approved!
 
-          @unpublished_project = @plan.nodes.create(gobierto_plans_nodes(:scholarships_kindergartens).attributes.except("id"))
+          @unpublished_project = @plan.nodes.create(gobierto_plans_nodes(:scholarships_kindergartens).attributes.except("id", "external_id"))
           @unpublished_project.categories << gobierto_plans_nodes(:scholarships_kindergartens).categories
           @unpublished_project.save
           @unpublished_project.moderation.sent!
@@ -301,7 +301,7 @@ module GobiertoAdmin
               select "In progress", from: "project_status_id"
               select "3%", from: "project_progress"
 
-              within(".widget_save_v2") { refute has_content?("Moderation") }
+              within(".widget_save_v2") { assert has_no_content?("Moderation") }
 
               within "div.widget_save_v2" do
                 click_button "Save"

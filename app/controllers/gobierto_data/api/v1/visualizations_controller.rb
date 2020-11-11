@@ -4,9 +4,12 @@ module GobiertoData
   module Api
     module V1
       class VisualizationsController < BaseController
+        include ::GobiertoCommon::SortableApi
 
         before_action :authenticate_user!, except: [:index, :show, :new]
         before_action :allow_author!, only: [:update, :destroy]
+
+        sortable_attributes :created_at, :updated_at
 
         # GET /api/v1/data/visualizations
         # GET /api/v1/data/visualizations.json
@@ -122,22 +125,28 @@ module GobiertoData
         end
 
         def visualization_params
-          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:query_id, :name_translations, :name, :privacy_status, :spec])
+          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: writable_attributes).tap do |post_params|
+            post_params[:spec] = raw_spec_from_params if post_params.has_key?(:spec)
+          end
+        end
+
+        def raw_spec_from_params
+          JSON.parse(request.raw_post).dig("data", "attributes", "spec")
+        end
+
+        def writable_attributes
+          [:query_id, :dataset_id, :name_translations, :name, :privacy_status, :spec, :sql]
         end
 
         def filter_params
-          params.fetch(:filter, {}).permit(:user_id, :dataset_id, :query_id).tap do |f_params|
-            if (dataset_id = f_params.delete(:dataset_id))
-              f_params[Query.table_name] = { dataset_id: dataset_id }
-            end
-          end
+          params.fetch(:filter, {}).permit(:user_id, :dataset_id, :query_id)
         end
 
         def filtered_relation
           if user_authenticated? && filter_params[:user_id].present? && current_user.id == filter_params[:user_id].to_i
-            base_relation.unscope(where: :privacy_status).where(filter_params)
+            base_relation.unscope(where: :privacy_status).where(filter_params).order(order_params)
           else
-            base_relation.where(filter_params)
+            base_relation.where(filter_params).order(order_params)
           end
         end
 

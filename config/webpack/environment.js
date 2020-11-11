@@ -3,7 +3,9 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const { VueLoaderPlugin } = require('vue-loader')
 const vue = require('./loaders/vue')
+const less = require('./loaders/less')
 
+environment.loaders.append('less', less)
 environment.loaders.append('vue', vue)
 environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin())
 environment.plugins.append(
@@ -24,6 +26,13 @@ environment.plugins.append(
   new MomentLocalesPlugin({
     localesToKeep: ['es', 'ca']
   })
+)
+
+// Persperctive webpack
+const PerspectivePlugin = require('@finos/perspective-webpack-plugin')
+environment.plugins.append(
+  'Perspective',
+  new PerspectivePlugin()
 )
 
 environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: { name: "commons", minChunks: 5 } } }))

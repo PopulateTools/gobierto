@@ -2,7 +2,7 @@
 defaults: &defaults
   working_directory: ~/gobierto
   docker:
-    - image: circleci/ruby:2.6.5-node-browsers
+    - image: circleci/ruby:2.7.1-node-browsers
       environment:
         RAILS_ENV: test
         PGHOST: localhost
@@ -28,19 +28,62 @@ jobs:
       - restore_cache:
           name: "[Bundler] Restore cache"
           keys:
-            - gobierto-{{ checksum "Gemfile.lock" }}
+            - gobierto-bundler-{{ checksum "Gemfile.lock" }}
       - run:
           name: "[Bundler] Install dependencies"
           command: bundle install --path vendor/bundle --jobs=4 --retry=3  --without development
       - save_cache:
           name: "[Bundler] Cache dependencies"
-          key: gobierto-{{ checksum "Gemfile.lock" }}
+          key: gobierto-bundler-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+      - restore_cache:
+          name: "[Yarn] Restore cache"
+          keys:
+            - gobierto-yarn-{{ checksum "yarn.lock" }}
+      - run:
+          name: "[Yarn] Install dependencies"
+          command: yarn install
+      - save_cache:
+          name: "[Yarn] Cache dependencies"
+          key: gobierto-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Compile I18n JS file
+      - run: bin/rails i18n:js:export
+
+      # Precompile assets
+      - restore_cache:
+          name: "Restore cached assets"
+          keys:
+            - v2-asset-cache-{{ .Branch }}
+            - v2-asset-cache-
+
+      - run: bin/rails assets:precompile
+
+      - save_cache:
+          name: "Cache assets"
+          key: v2-asset-cache-{{ .Branch }}
+          paths:
+            - public/assets
+            - public/packs-test
+            - tmp/cache
+
       - persist_to_workspace:
           root: ~/gobierto
           paths:
             - vendor/bundle
+            - node_modules
+            - public/assets
+            - public/packs-test
+            - tmp/cache
 
   tests:
     <<: *defaults
@@ -56,6 +99,12 @@ jobs:
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
 
@@ -64,12 +113,6 @@ jobs:
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
-
-      # Compile I18n JS file
-      - run: bin/rails i18n:js:export
-
-      # Precompile assets
-      - run: bin/rails assets:precompile
 
       # Run tests
       - run:

@@ -8,6 +8,7 @@ module GobiertoData
         include ::GobiertoCommon::CustomFieldsApi
         include ::GobiertoCommon::SecuredWithAdminToken
 
+        skip_before_action :authenticate_in_site, only: [:new, :create, :update, :destroy]
         skip_before_action :set_admin_with_token, except: [:new, :create, :update, :destroy]
 
         # GET /api/v1/data/datasets
@@ -16,9 +17,18 @@ module GobiertoData
         # GET /api/v1/data/datasets.xlsx
         def index
           relation = filtered_relation
+          return unless stale? filtered_relation
+
           respond_to do |format|
             format.json do
-              render json: relation, links: links(:index), adapter: :json_api
+              json = if base_relation.exists?
+                       Rails.cache.fetch("#{filtered_relation.cache_key_with_version}/#{valid_preview_token? ? "all" : "active"}/datasets_collection") do
+                         json_from_relation(relation, :index)
+                       end
+                     else
+                       json_from_relation(relation, :index)
+                     end
+              render json: json
             end
 
             format.csv do
@@ -37,27 +47,19 @@ module GobiertoData
         # GET /api/v1/data/datasets/dataset-slug.xlsx
         def show
           find_item
-          relation = @item.rails_model.all
-          query_result = execute_query relation
+          return unless stale? @item
+
           respond_to do |format|
             format.json do
-              render(
-                json:
-                {
-                  data: query_result.delete(:result),
-                  meta: query_result,
-                  links: links(:data)
-                },
-                adapter: :json_api
-              )
+              render json: cached_item_json
             end
 
             format.csv do
-              render_csv(csv_from_query_result(query_result.fetch(:result, ""), csv_options_params))
+              render_csv cached_item_csv
             end
 
             format.xlsx do
-              send_data xlsx_from_query_result(query_result.fetch(:result, ""), name: @item.name).read, filename: "#{@item.slug}.xlsx"
+              send_data cached_item_xlsx, filename: "#{@item.slug}.xlsx"
             end
           end
         end
@@ -67,20 +69,31 @@ module GobiertoData
         # GET /api/v1/data/datasets/dataset-slug/download.xlsx
         def download
           find_item
-          relation = @item.rails_model.all
-          query_result = execute_query relation
-          basename = @item.slug
+          return if @item.draft? && !valid_preview_token?
+
+          filename = "#{@item.slug}.#{request.format.symbol}"
+
           respond_to do |format|
             format.json do
-              send_download(query_result.fetch(:result, ""), :json, basename)
+              cache_file = GobiertoData::Cache.dataset_cache(@item, format: 'json') do
+                execute_query(@item.rails_model.all).to_json
+              end
+              send_file cache_file.path, x_sendfile: true, type: 'application/json', filename: filename
             end
 
             format.csv do
-              send_download(csv_from_query_result(query_result.fetch(:result, ""), csv_options_params), :csv, basename)
+              # Download cache only supports comma separated CSVs
+              cache_file = GobiertoData::Cache.dataset_cache(@item, format: 'csv') do
+                GobiertoData::Connection.execute_query_output_csv(current_site, @item.rails_model.all.to_sql, { col_sep: "," })
+              end
+              send_file cache_file.path, x_sendfile: true, type: 'text/csv', filename: filename
             end
 
             format.xlsx do
-              send_download(xlsx_from_query_result(query_result.fetch(:result, ""), name: @item.name).read, :xlsx, basename)
+              cache_file = GobiertoData::Cache.dataset_cache(@item, format: 'xlsx') do
+                GobiertoData::Connection.execute_query_output_xlsx(current_site, @item.rails_model.all.to_sql, { name: @item.name })
+              end
+              send_file cache_file.path, x_sendfile: true, type: 'application/xlsx', filename: filename
             end
           end
         end
@@ -89,6 +102,7 @@ module GobiertoData
         # GET /api/v1/data/datasets/dataset-slug/metadata.json
         def dataset_meta
           find_item
+          return unless stale? @item
 
           render(
             json: @item,
@@ -102,6 +116,7 @@ module GobiertoData
 
         def stats
           find_item
+          return unless stale? @item
 
           render(
             json: @item,
@@ -125,7 +140,7 @@ module GobiertoData
         end
 
         def create
-          @form = DatasetForm.new(dataset_params.merge(site_id: current_site.id))
+          @form = DatasetForm.new(dataset_params.merge(site_id: current_site.id, admin_id: current_admin.id))
 
           if @form.save
             @item = @form.resource
@@ -144,7 +159,7 @@ module GobiertoData
 
         def update
           find_item
-          @form = DatasetForm.new(dataset_params.merge(id: @item.id, site_id: current_site.id))
+          @form = DatasetForm.new(dataset_params.merge(id: @item.id, site_id: current_site.id, admin_id: current_admin.id))
 
           if @form.save
             render(
@@ -161,16 +176,39 @@ module GobiertoData
 
         private
 
+        def cached_item_json
+          Rails.cache.fetch("#{@item.cache_key_with_version}/show.json") do
+            query_result = execute_query @item.rails_model.all, include_stats: true
+            {
+              data: query_result.delete(:result),
+              meta: query_result,
+              links: links(:data)
+            }.to_json
+          end
+        end
+
+        def cached_item_csv
+          Rails.cache.fetch("#{@item.cache_key_with_version}/show.csv?#{csv_options_params.to_json}") do
+            GobiertoData::Connection.execute_query_output_csv(current_site, @item.rails_model.all.to_sql, csv_options_params)
+          end
+        end
+
+        def cached_item_xlsx
+          Rails.cache.fetch("#{@item.cache_key_with_version}/show.xlsx") do
+            GobiertoData::Connection.execute_query_output_xlsx(current_site, @item.rails_model.all.to_sql, { name: @item.name })
+          end
+        end
+
         def base_relation
-          current_site.datasets.send(valid_preview_token? ? :itself : :active)
+          current_site.datasets.send(current_admin.present? || valid_preview_token? ? :itself : :active).sorted
         end
 
         def find_item
           @item = base_relation.find_by!(slug: params[:slug])
         end
 
-        def execute_query(relation)
-          GobiertoData::Connection.execute_query(current_site, relation.to_sql, include_draft: valid_preview_token?)
+        def execute_query(relation, include_stats: false)
+          GobiertoData::Connection.execute_query(current_site, relation.to_sql, include_draft: valid_preview_token?, include_stats: include_stats)
         end
 
         def links(self_key = nil)
@@ -202,6 +240,7 @@ module GobiertoData
           if request.content_mime_type.symbol == :multipart_form
             params.require(:dataset).permit(
               :data_file,
+              :data_path,
               :name,
               :table_name,
               :slug,
@@ -231,6 +270,16 @@ module GobiertoData
               schema: schema_json_param
             )
           end
+        end
+
+        def json_from_relation(relation, action)
+          render_to_string(
+            json: relation,
+            links: links(action),
+            each_serializer: DatasetSerializer,
+            preloaded_data: transformed_custom_field_record_values(relation),
+            adapter: :json_api
+          )
         end
 
         def schema_json_param

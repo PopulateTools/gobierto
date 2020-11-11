@@ -1,19 +1,40 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_plans"
-
 module GobiertoPlans
   class Node < ApplicationRecord
     include GobiertoCommon::Moderable
     include GobiertoCommon::HasVocabulary
     include GobiertoAdmin::HasPermissionsGroup
+    include GobiertoCommon::HasCustomFieldRecords
+    include GobiertoCommon::HasExternalId
+    include GobiertoCommon::UrlBuildable
+    include GobiertoCommon::Searchable
 
-    belongs_to :author, class_name: "GobiertoAdmin::Admin", foreign_key: :admin_id
+    multisearchable(
+      against: [:versioned_searchable_name, :versioned_searchable_custom_fields],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.plan.site_id,
+          title_translations: item.truncated_translations(:versioned_name),
+          resource_path: item.resource_path,
+          searchable_updated_at: item.updated_at
+        }
+      },
+      if: :searchable?
+    )
+
+    attr_accessor :minor_change
+
+    attr_writer :plan
+
+    belongs_to :author, class_name: "GobiertoAdmin::Admin", foreign_key: :admin_id, optional: true
     has_and_belongs_to_many :categories, class_name: "GobiertoCommon::Term", association_foreign_key: :category_id, join_table: :gplan_categories_nodes
 
-    has_paper_trail skip: [:visibility_level, :published_version]
-    has_vocabulary :statuses
-    belongs_to :status, class_name: "GobiertoCommon::Term"
+    VERSIONED_ATTRIBUTES = %w(name_translations status_id progress starts_at ends_at options).freeze
+
+    has_paper_trail skip: [:visibility_level, :published_version, :external_id], unless: ->(this) { this.minor_change }
+    has_vocabulary :statuses, optional: true
+    belongs_to :status, class_name: "GobiertoCommon::Term", optional: true
 
     delegate :name, to: :status, prefix: true, allow_nil: true
 
@@ -45,6 +66,11 @@ module GobiertoPlans
         all
       else
         where(author: admin)
+      end
+    }
+    scope :versions_indexes, lambda {
+      joins(:versions).group("gplan_nodes.id", "gplan_nodes.published_version").count("versions.id").inject({}) do |counts, (k, v)|
+        counts.update(k[0] => k[1] - v)
       end
     }
 
@@ -86,9 +112,57 @@ module GobiertoPlans
       end
     end
 
+    def self.front_node_custom_field_records(plan, node)
+      node_custom_field_records(plan, node).where.not(custom_fields: { uid: plan.configuration_data&.fetch("fields_to_not_show_in_front", []) })
+    end
+
     def global_custom_field_records
       ::GobiertoCommon::CustomFieldRecord.where(item: self).sorted
     end
 
+    def plan
+      @plan ||= categories_vocabulary && GobiertoPlans::Plan.find_by(categories_vocabulary: categories_vocabulary)
+    end
+
+    def categories_vocabulary
+      @categories_vocabulary ||= categories.take&.vocabulary
+    end
+
+    def searchable?
+      published? && plan.present?
+    end
+
+    def versioned_searchable_name
+      serialized_version.dig(:searchable_name)
+    end
+
+    def versioned_name_translations
+      serialized_version.dig(:name_translations)
+    end
+
+    def versioned_searchable_custom_fields
+      serialized_version.dig(:searchable_custom_fields)
+    end
+
+    def parameterize
+      params = { id: id, year: plan.year, slug: plan.plan_type.slug }
+    end
+
+    def singular_route_key
+      :gobierto_plans_project
+    end
+
+    def reset_serialized_version
+      @serialized_version = nil
+    end
+
+    def serialized_version
+      @serialized_version ||= GobiertoPlans::NodeSerializer.new(
+        self,
+        plan: plan,
+        serialize_for_search_engine: true,
+        custom_fields: plan.front_available_custom_fields.where(field_type: GobiertoCommon::CustomField.searchable_fields)
+      ).to_h.symbolize_keys
+    end
   end
 end

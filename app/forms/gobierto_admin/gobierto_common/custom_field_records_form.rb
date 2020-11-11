@@ -25,22 +25,20 @@ module GobiertoAdmin
       end
 
       def custom_field_records=(values)
-        @custom_field_records ||= begin
-                                     values["custom_records"].to_h.map do |uid, value|
-                                       record = site.custom_field_records.find_or_initialize_by(
-                                         custom_field: site.custom_fields.find_by(uid: uid, class_name: item.class.name),
-                                         item: item
-                                       )
-                                       if record.custom_field_id == value["custom_field_id"].to_i
-                                         record.value = if record.custom_field.configuration.multiple
-                                                          extract_multiple_values(value, record)
-                                                        else
-                                                          extract_single_value(value, record, default_value: record.value)
-                                                        end
-                                       end
-                                       ::GobiertoCommon::CustomFieldRecordDecorator.new(record)
-                                     end
-                                   end
+        @custom_field_records = values["custom_records"].to_h.map do |uid, value|
+          record = site.custom_field_records.find_or_initialize_by(
+            custom_field: site.custom_fields.find_by(uid: uid, class_name: item.class.name),
+            item: item
+          )
+          if record.custom_field_id == value["custom_field_id"].to_i
+            record.value = if record.custom_field.configuration.multiple
+                             extract_multiple_values(value, record)
+                           else
+                             extract_single_value(value, record, default_value: record.value)
+                           end
+          end
+          ::GobiertoCommon::CustomFieldRecordDecorator.new(record)
+        end
       end
 
       def extract_multiple_values(value, record)

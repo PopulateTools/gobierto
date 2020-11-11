@@ -70,7 +70,7 @@ module GobiertoAdmin
       def destroy
         @term = find_term
 
-        if current_site.processes.where(issue: @term).blank? && @term.destroy
+        if @term.destroy
           redirect_to(
             index_path,
             notice: t(".success")
@@ -78,7 +78,7 @@ module GobiertoAdmin
         else
           redirect_to(
             index_path,
-            alert: t(".destroy_failed")
+            alert: t(".destroy_failed", validation_errors: @term.errors.full_messages.to_sentence)
           )
         end
       end
@@ -109,6 +109,7 @@ module GobiertoAdmin
         params.require(:term).permit(
           :slug,
           :term_id,
+          :external_id,
           name_translations: [*I18n.available_locales],
           description_translations: [*I18n.available_locales]
         )
@@ -124,7 +125,7 @@ module GobiertoAdmin
 
       def parent_terms_for_select(relation)
         flatten_tree(relation).map do |term|
-          ["#{"--" * term.level} #{term.name}".strip, term.id]
+          [ActiveSupport::SafeBuffer.new("#{"&nbsp;" * 6 * term.level} #{term.name}".strip), term.id]
         end
       end
 

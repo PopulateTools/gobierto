@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_attachments"
-
 module GobiertoAttachments
   class Attaching < ApplicationRecord
     belongs_to :site

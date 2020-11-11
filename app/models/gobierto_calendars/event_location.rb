@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_calendars"
-
 module GobiertoCalendars
   class EventLocation < ApplicationRecord
-    belongs_to :event
+    belongs_to :event, optional: true
 
     validates :name, presence: true
 

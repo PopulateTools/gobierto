@@ -34,7 +34,7 @@ module GobiertoData
         # GET /api/v1/data/queries/1.xlsx
         def show
           find_item
-          query_result = @item.result(include_draft: valid_preview_token?)
+          query_result = @item.result(include_draft: valid_preview_token?, include_stats: request.format.json?)
           respond_to do |format|
             format.json do
               render(
@@ -49,11 +49,19 @@ module GobiertoData
             end
 
             format.csv do
-              render_csv(csv_from_query_result(query_result.fetch(:result, ""), csv_options_params))
+              render_csv(csv_from_query_result(query_result, csv_options_params))
             end
 
             format.xlsx do
-              send_data xlsx_from_query_result(query_result.fetch(:result, ""), name: @item.name).read, filename: "#{@item.id}.xlsx"
+              send_data(
+                GobiertoData::Connection.execute_query_output_xlsx(
+                  current_site,
+                  @item.sql,
+                  { name: @item.name },
+                  include_draft: valid_preview_token?
+                ),
+                filename: "#{@item.id}.xlsx"
+              )
             end
           end
         end
@@ -67,15 +75,24 @@ module GobiertoData
           basename = @item.file_basename
           respond_to do |format|
             format.json do
-              send_download(query_result.fetch(:result, ""), :json, basename)
+              send_download(query_result, :json, basename)
             end
 
             format.csv do
-              send_download(csv_from_query_result(query_result.fetch(:result, ""), csv_options_params), :csv, basename)
+              send_download(csv_from_query_result(query_result, csv_options_params), :csv, basename)
             end
 
             format.xlsx do
-              send_download(xlsx_from_query_result(query_result.fetch(:result, ""), name: @item.name).read, :xlsx, basename)
+              send_download(
+                GobiertoData::Connection.execute_query_output_xlsx(
+                  current_site,
+                  @item.sql,
+                  { name: @item.name },
+                  include_draft: valid_preview_token?
+                ),
+                :xlsx,
+                basename
+              )
             end
           end
         end

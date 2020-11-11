@@ -1,85 +1,139 @@
 <template>
-  <div>
-    <div class="pure-g">
-      <div class="pure-u-1-2 gobierto-data-summary-header">
-        <div class="gobierto-data-summary-header-container">
-          <i class="fas fa-clock" />
-          <span class="gobierto-data-summary-header-container-label">
-            {{ labelUpdated }}
-          </span>
-          <span class="gobierto-data-summary-header-container-text">
-            {{ datasetDate }}
-          </span>
-        </div>
-        <div class="gobierto-data-summary-header-container">
-          <i class="fas fa-calendar" />
-          <span class="gobierto-data-summary-header-container-label">
-            {{ labelFrequency }}
-          </span>
-          <span class="gobierto-data-summary-header-container-text">
-            {{ datasetFrequency }}
-          </span>
-        </div>
-        <div class="gobierto-data-summary-header-container">
-          <i class="fas fa-tag" />
-          <span class="gobierto-data-summary-header-container-label">
-            {{ labelSubject }}
-          </span>
-          <a
-            href=""
-            class="gobierto-data-summary-header-container-text-link"
+  <div class="pure-g">
+    <div class="pure-u-1-2 gobierto-data-summary-header">
+      <InfoBlockText
+        v-if="dateUpdated"
+        icon="clock"
+        opacity=".25"
+        :label="labelUpdated"
+        :text="dateUpdated | convertDate"
+      />
+      <InfoBlockText
+        v-if="frequencyDataset"
+        icon="calendar"
+        opacity=".25"
+        :label="labelFrequency"
+        :text="frequencyDataset"
+      />
+      <InfoBlockText
+        v-if="categoryDataset"
+        icon="tag"
+        opacity=".25"
+        :label="labelSubject"
+        :text="categoryDataset"
+      />
+    </div>
+    <div class="pure-u-1-2">
+      <div
+        id="gobierto-data-summary-header"
+        class="gobierto-data-summary-header-description"
+        v-html="compiledHTMLMarkdown"
+      />
+      <template v-if="checkStringLength">
+        <transition
+          name="fade"
+          mode="out-in"
+        >
+          <span
+            v-if="truncateIsActive"
+            class="gobierto-data-summary-header-description-link"
+            @click="truncateIsActive = !truncateIsActive"
           >
-            {{ datasetSubject }}
-          </a>
-        </div>
-      </div>
-      <div class="pure-u-1-2">
-        <p class="gobierto-data-summary-header-description">
-          {{ datasetDescription }}
-        </p>
-      </div>
+            {{ seeMore }}
+          </span>
+          <span
+            v-else
+            class="gobierto-data-summary-header-description-link"
+            @click="scrollDetail"
+          >
+            {{ seeLess }}
+          </span>
+        </transition>
+      </template>
     </div>
   </div>
 </template>
 <script>
+import { date, truncate } from "lib/shared"
+import InfoBlockText from "./../commons/InfoBlockText.vue";
+//Parse markdown to HTML
+const marked = require('marked');
+const TurndownService = require('turndown').default;
+
 export default {
   name: "Info",
-  data() {
-    return {
-      labelUpdated: '',
-      labelFrequency: '',
-      labelSubject: '',
-      labelDownloadData: '',
-      datasetDate: '',
-      datasetFrequency: '',
-      datasetSubject: '',
-      datasetDescription: ''
+  components: {
+    InfoBlockText
+  },
+  filters: {
+    convertDate(valueDate) {
+      return date(valueDate, {
+        day : 'numeric',
+        month : 'short',
+        year : 'numeric'
+      })
     }
   },
-  created() {
-    this.labelUpdated = I18n.t("gobierto_data.projects.updated")
-    this.labelFrequency = I18n.t("gobierto_data.projects.frequency")
-    this.labelSubject = I18n.t("gobierto_data.projects.subject")
-    this.labelDownloadData = I18n.t("gobierto_data.projects.downloadData")
+  props: {
+    descriptionDataset: {
+      type: String,
+      default: ''
+    },
+    categoryDataset: {
+      type: String,
+      default: ''
+    },
+    frequencyDataset: {
+      type: String,
+      default: ''
+    },
+    dateUpdated: {
+      type: String,
+      default: ''
+    },
+    arrayFormats: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  data() {
+    return {
+      labelUpdated: I18n.t("gobierto_data.projects.updated") || '',
+      labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
+      labelSubject: I18n.t("gobierto_data.projects.subject") || '',
+      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',
+      seeMore: I18n.t("gobierto_common.vue_components.read_more.more") || '',
+      seeLess: I18n.t("gobierto_common.vue_components.read_more.less") || '',
+      truncateIsActive: true
+    }
+  },
+  computed: {
+    compiledHTMLMarkdown() {
+      const turndownService = new TurndownService()
+      const markdown = turndownService.turndown(this.descriptionDataset)
+      const mdText = marked(markdown, {
+        sanitize: false,
+        tables: true
+      })
+      if (this.truncateIsActive) {
+        return truncate(mdText, { length: 250 })
+      } else {
+        return mdText
+      }
+    },
+    checkStringLength() {
+      return this.descriptionDataset.length > 250
+    }
   },
   methods: {
-    updateSummaryInfo(values) {
-      const { 0: updatedDate, 1: frequency, 2: subject, 3: description } = values
-
-      this.datasetDate = this.datasetDate === undefined ? '' : updatedDate
-      this.datasetFrequency = this.datasetFrequency === undefined ? '' : frequency
-      this.datasetSubject = this.datasetSubject === undefined ? '' : subject
-      this.datasetDescription = this.datasetDescription === undefined ? '' : description
-
-      this.datasetDate = new Date(this.datasetDate)
-      this.datasetDate = this.datasetDate.toLocaleDateString('es-ES', {
-          day : 'numeric',
-          month : 'short',
-          year : 'numeric'
-      })
-
+    scrollDetail() {
+      const element = document.getElementById('gobierto-datos-app');
+      window.scrollTo({
+        top: element.offsetTop,
+        behavior: 'smooth'
+      });
+      this.truncateIsActive = true
     }
   }
 }
-
 </script>

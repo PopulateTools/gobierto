@@ -3,6 +3,7 @@
 module GobiertoData
   module SqlFunction
     class Transformation
+      class UndefinedFunction < ArgumentError; end
 
       attr_reader :function_type, :function_name, :function
 
@@ -35,7 +36,7 @@ module GobiertoData
           input_type: "text",
           output_type: "date",
           sql: "select (to_date(nullif(trim($1), '#null_value'), '#date_format'));",
-          optional_params: { date_format: "DD-MON-YYY", null_value: "" }
+          optional_params: { date_format: "YYY-MM-DD", null_value: "" }
         },
         time: {
           input_type: "text",
@@ -47,13 +48,13 @@ module GobiertoData
           input_type: "text",
           output_type: "timestamp",
           sql: "select (to_timestamp(nullif(trim($1), '#null_value'), '#date_format')::timestamp without time zone);",
-          optional_params: { date_format: "DD-MON-YYY", null_value: "" }
+          optional_params: { date_format: "YYY-MM-DD", null_value: "" }
         },
         timestamptz: {
           input_type: "text",
           output_type: "timestamptz",
           sql: "select (to_timestamp(nullif(trim($1), '#null_value'), '#date_format'));",
-          optional_params: { date_format: "DD-MON-YYY", null_value: "" }
+          optional_params: { date_format: "YYY-MM-DD", null_value: "" }
         },
         boolean: {
           input_type: "text",
@@ -68,6 +69,8 @@ module GobiertoData
         @id = opts.fetch(:id, "generic")
         @function_name = "#{function_type}_#{@id}_transformation"
         @function = SQL_FUNCTIONS[function_type]
+        raise(UndefinedFunction, "The type '#{@function_type}' is not defined. Available types: #{SQL_FUNCTIONS.keys.join(", ")}") if @function.blank?
+
         default_optional_params = @function.fetch(:optional_params, {})
         @optional_params = default_optional_params.merge(opts.fetch(:optional_params, {}).slice(*default_optional_params.keys))
       end

@@ -16,45 +16,38 @@ module GobiertoPlans
       load_plans
       load_years
       load_year
-      redirect_to gobierto_plans_plan_path(slug: params[:slug], year: @years.first) and return if @year.nil?
+      @year ||= @years.first
 
       @plan = PlanDecorator.new(find_plan)
+      @sdgs = SdgDecorator.new(find_plan)
 
       @site_stats = GobiertoPlans::SiteStats.new site: current_site, plan: @plan
       @plan_updated_at = @site_stats.plan_updated_at
+    end
 
-      respond_to do |format|
-        format.html do
-          @node_number = @plan.nodes.count
-          @levels = @plan.levels
-        end
+    def sdg
+      @plan_type = find_plan_type
+      last_year = @plan_type.plans.published.maximum(:year)
+      load_year
+      redirect_to gobierto_plans_plan_sdg_path(slug: params[:slug], year: last_year, sdg_slug: params[:sdg_slug]) and return if @year.nil?
 
-        format.json do
-          plan_tree, global_progress = Rails.cache.fetch(@plan.cache_key + "/plan_tree") do
-            tree = GobiertoPlans::PlanTree.new(@plan)
-            [tree.call, tree.global_progress]
-          end
-
-          render(
-            json: { plan_tree: plan_tree,
-                    option_keys: @plan.configuration_data&.dig("option_keys") || {},
-                    level_keys: @plan.level_keys,
-                    show_table_header: @plan.configuration_data&.dig("show_table_header"),
-                    open_node: @plan.configuration_data&.dig("open_node"),
-                    global_progress: global_progress }
-          )
-        end
-      end
+      @plan = PlanDecorator.new(find_plan)
+      @sdgs = SdgDecorator.new(find_plan)
+      @sdg = @sdgs.sdg_term(params[:sdg_slug])
+      @projects = @sdgs.projects_by_sdg(@sdg)
+      @projects_term = @plan.level_key(2, @plan.levels + 1)
     end
 
     private
 
     def find_plan_type
+      return PlanType.site_plan_types_with_years(current_site).first unless params[:slug]
+
       current_site.plan_types.find_by!(slug: params[:slug])
     end
 
     def find_plan
-      valid_preview_token? ? @plan_type.plans.find_by!(year: params[:year]) : @plan_type.plans.published.find_by!(year: params[:year])
+      valid_preview_token? ? @plan_type.plans.find_by!(year: @year) : @plan_type.plans.published.find_by!(year: @year)
     end
 
     def load_plans

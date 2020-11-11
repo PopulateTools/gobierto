@@ -140,7 +140,7 @@ module ApplicationHelper
   end
 
   def simple_pluralize(count, singular, plural)
-    if count == 1 || count =~ /^1(\.0+)?$/
+    if count == 1 || count.to_s =~ /^1(\.0+)?$/
       singular
     else
       plural

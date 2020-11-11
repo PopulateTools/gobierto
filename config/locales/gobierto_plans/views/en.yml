@@ -15,17 +15,27 @@ en:
       application:
         plans: Plans
     plan_types:
+      sdg:
+        header:
+          sdgs_description: The Sustainable Development Goals are a set of global
+            goals related to the environmental, political, and economic challenges
+            facing our world. Here you can see how the Municipal Action Plan connects
+            with the SDGs.
+          sdgs_title: Sustainable Development Goals
+        projects:
+          sdg_projects_empty: There are no plan %{projects_term} related to this Goal
+          sdg_projects_title: Plan %{projects_term} related to this Goal
       show:
+        category: Category
+        customize_columns: Customize columns
         desc: Description
         ends: End
         global_execution: State of global execution
         latest_update_html: "<strong>Latest update:</strong> %{date}"
         loading: Loading...
-        percentage_progress: "% progress"
         progress: Progress
-        projects: Projects
         read_less: Read more
         read_more: Read less
-        see_all: See all in
         starts: Start
         status: Status
+        view_by: View by

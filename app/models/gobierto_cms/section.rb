@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_cms"
-
 module GobiertoCms
   class Section < ApplicationRecord
     include GobiertoCommon::Sortable
     include GobiertoCommon::Sluggable
 
-    belongs_to :site
+    belongs_to :site, touch: true
     has_many :section_items, dependent: :destroy, class_name: "GobiertoCms::SectionItem"
 
     translates :title

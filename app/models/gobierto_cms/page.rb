@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_cms"
-
 module GobiertoCms
   class Page < ApplicationRecord
     acts_as_paranoid column: :archived_at
@@ -20,16 +18,26 @@ module GobiertoCms
     include GobiertoCommon::Collectionable
     include GobiertoCommon::Sectionable
 
-    algoliasearch_gobierto do
-      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :searchable_body, :collection_id
-      searchableAttributes %w(title_en title_es title_ca searchable_body)
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
+    multisearchable(
+      against: [:title_en, :title_es, :title_ca, :searchable_body],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          resource_path: item.resource_path,
+          searchable_updated_at: item.updated_at,
+          meta: {
+            collection_id: item.collection_id,
+            collection_title_translations: item.collection&.title_translations
+          }
+        }
+      },
+      if: :searchable?
+    )
 
     translates :title, :body, :body_source
 
-    belongs_to :site
+    belongs_to :site, touch: true
     has_many :collection_items, as: :item
     has_many :process_stage_pages, class_name: "GobiertoParticipation::ProcessStagePage"
 
@@ -60,10 +68,6 @@ module GobiertoCms
         .where("collection_items.container_type = ?", container.class.name)
         .where("collection_items.container_id = ?", container.id)
     }
-
-    def section
-      GobiertoCms::SectionItem.find_by(item: self).try(:section)
-    end
 
     def attributes_for_slug
       [title]

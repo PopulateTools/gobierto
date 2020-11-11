@@ -66,6 +66,7 @@ module GobiertoCommon
                 fill_in "term_name_translations_en", with: "Dog updated"
                 fill_in "term_description_translations_en", with: "Dog description updated"
                 fill_in "term_slug", with: "dog-updated"
+                fill_in "term_external_id", with: "animal-updated"
                 select other_term.name, from: "term_term_id"
 
                 click_button "Update"
@@ -80,7 +81,8 @@ module GobiertoCommon
               assert has_field? "term_name_translations_en", with: "Dog updated"
               assert has_field? "term_description_translations_en", with: "Dog description updated"
               assert has_field? "term_slug", with: "dog-updated"
-              assert has_select? "term_term_id", selected: "-- Cat"
+              assert has_field? "term_external_id", with: "animal-updated"
+              assert has_select? "term_term_id", selected: "#{" " * 6} Cat"
 
               activity = Activity.last
               assert_equal term, activity.subject
@@ -88,27 +90,6 @@ module GobiertoCommon
               assert_equal site.id, activity.site_id
               assert_equal "gobierto_common.term_updated", activity.action
             end
-          end
-        end
-      end
-
-      def test_update_term_updates_items_with_custom_fields
-        with(site: site, admin: admin) do
-          visit admin_common_vocabulary_terms_path(vocabulary_associated_to_custom_fields)
-
-          within("#v_el_actions_#{vocabulary_associated_to_custom_fields.terms.first.id}") do
-            click_link("Edit")
-          end
-
-          assert_changes "item_related_with_vocabulary.reload.updated_at" do
-            within "form.edit_term" do
-              fill_in "term_name_translations_en", with: "WADUS"
-              fill_in "term_slug", with: "wadus-updated"
-
-              click_button "Update"
-            end
-
-            assert has_message?("Term updated successfully.")
           end
         end
       end

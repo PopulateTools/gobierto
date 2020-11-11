@@ -34,6 +34,6 @@ module GobiertoPeople
   end
 
   def self.root_path(_)
-    Rails.application.routes.url_helpers.gobierto_people_root_path
+    Rails.application.routes.url_helpers.send("gobierto_people_root_#{I18n.locale}_path")
   end
 end

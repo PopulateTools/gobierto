@@ -5,18 +5,6 @@ require "test_helper"
 module GobiertoCommon
   module Api
     class TermsControllerTest < GobiertoControllerTest
-
-      attr_reader :default_secret, :token_service
-
-      def setup
-        super
-
-        @default_secret = "S3cr3t"
-        @token_service = with_stubbed_jwt_default_secret(default_secret) do
-          GobiertoCommon::TokenService.new
-        end
-      end
-
       def path
         @path ||= admin_common_api_vocabulary_terms_path(vocabulary)
       end
@@ -53,8 +41,8 @@ module GobiertoCommon
         gobierto_admin_admins(:steve)
       end
 
-      def auth_token(admin)
-        token_service.encode(sub: "login", api_token: admin.api_token)
+      def auth_header(admin)
+        "Bearer #{admin.primary_api_token}"
       end
 
       def new_term_data
@@ -94,121 +82,87 @@ module GobiertoCommon
 
       def test_create_invalid_token
         with(site: site) do
-          with_stubbed_jwt_default_secret(default_secret) do
-            auth_header = "Bearer WADUS"
+          auth_header = "Bearer WADUS"
 
-            post(
-              path,
-              headers: { "Authorization" => auth_header },
-              params: new_term_data,
-              as: :json
-            )
-            assert_response :unauthorized
-            assert_equal({ "message" => "Unauthorized" }, response.parsed_body)
-          end
+          post(
+            path,
+            headers: { "Authorization" => auth_header },
+            params: new_term_data,
+            as: :json
+          )
+          assert_response :unauthorized
+          assert_equal({ "message" => "Unauthorized" }, response.parsed_body)
         end
       end
 
       def test_create_with_nil_api_token
         with(site: site) do
-          with_stubbed_jwt_default_secret(default_secret) do
-            auth_header = "Bearer #{token_service.encode(sub: "login", api_token: nil)}"
-            post(
-              path,
-              headers: { "Authorization" => auth_header },
-              params: new_term_data,
-              as: :json
-            )
-            assert_response :unauthorized
-            assert_equal({ "message" => "Unauthorized" }, response.parsed_body)
-          end
-        end
-      end
-
-      def test_create_invalid_default_secret
-        with(site: site) do
-          with_stubbed_jwt_default_secret(default_secret) do
-            @token_service = GobiertoCommon::TokenService.new(secret: "Wadus!")
-            auth_header = "Bearer #{ auth_token(authorized_regular_admin) }"
-
-            post(
-              path,
-              headers: { "Authorization" => auth_header },
-              params: new_term_data,
-              as: :json
-            )
-            assert_response :unauthorized
-            assert_equal({ "message" => "Unauthorized" }, response.parsed_body)
-          end
+          auth_header = "Bearer "
+          post(
+            path,
+            headers: { "Authorization" => auth_header },
+            params: new_term_data,
+            as: :json
+          )
+          assert_response :unauthorized
+          assert_equal({ "message" => "Unauthorized" }, response.parsed_body)
         end
       end
 
       def test_create_regular_admin_unauthorized
         with(site: site) do
-          with_stubbed_jwt_default_secret(default_secret) do
-            auth_header = "Bearer #{ auth_token(unauthorized_regular_admin) }"
-
-            post(
-              path,
-              headers: { "Authorization" => auth_header },
-              params: new_term_data,
-              as: :json
-            )
-            assert_response :unauthorized
-            assert_equal({ "message" => "Module not allowed" }, response.parsed_body)
-          end
+          post(
+            path,
+            headers: { "Authorization" => auth_header(unauthorized_regular_admin) },
+            params: new_term_data,
+            as: :json
+          )
+          assert_response :unauthorized
+          assert_equal({ "message" => "Module not allowed" }, response.parsed_body)
         end
       end
 
       def test_create_regular_admin_authorized
         with(site: site) do
-          with_stubbed_jwt_default_secret(default_secret) do
-            auth_header = "Bearer #{ auth_token(authorized_regular_admin) }"
-
-            assert_difference "GobiertoCommon::Term.count", 1 do
-              post(
-                path,
-                headers: { "Authorization" => auth_header },
-                params: new_term_data,
-                as: :json
-              )
-            end
-
-            assert_response :success
-
-            response_data = response.parsed_body
-            assert_equal(
-              response_data["name_translations"],
-              new_term_data["term"]["name_translations"]
+          assert_difference "GobiertoCommon::Term.count", 1 do
+            post(
+              path,
+              headers: { "Authorization" => auth_header(authorized_regular_admin) },
+              params: new_term_data,
+              as: :json
             )
-            assert response_data["id"].present?
           end
+
+          assert_response :success
+
+          response_data = response.parsed_body
+          assert_equal(
+            response_data["name_translations"],
+            new_term_data["term"]["name_translations"]
+          )
+          assert response_data["id"].present?
         end
       end
 
       def test_create_regular_admin_authorized_with_existing_term
         with(site: site) do
-          with_stubbed_jwt_default_secret(default_secret) do
-            auth_header = "Bearer #{ auth_token(authorized_regular_admin) }"
-
-            assert_difference "GobiertoCommon::Term.count", 0 do
-              post(
-                path,
-                headers: { "Authorization" => auth_header },
-                params: existing_term_data,
-                as: :json
-              )
-            end
-
-            assert_response :success
-
-            response_data = response.parsed_body
-            assert_equal(
-              response_data["name_translations"],
-              existing_term.name_translations
+          assert_difference "GobiertoCommon::Term.count", 0 do
+            post(
+              path,
+              headers: { "Authorization" => auth_header(authorized_regular_admin) },
+              params: existing_term_data,
+              as: :json
             )
-            assert_equal existing_term.id, response_data["id"].to_i
           end
+
+          assert_response :success
+
+          response_data = response.parsed_body
+          assert_equal(
+            response_data["name_translations"],
+            existing_term.name_translations
+          )
+          assert_equal existing_term.id, response_data["id"].to_i
         end
       end
     end

@@ -34,24 +34,30 @@ module GobiertoCommon
     end
 
     def custom_field_records=(attributes)
-      @custom_field_records ||= begin
-                                  attributes.to_h.map do |attribute, value|
-                                    custom_field = site.custom_fields.find_by(uid: attribute)
+      @custom_field_records = attributes.to_h.map do |attribute, value|
+        custom_field = site.custom_fields.find_by(uid: attribute)
 
-                                    next unless custom_field.present?
+        next unless custom_field.present?
 
-                                    record = site.custom_field_records.find_or_initialize_by(
-                                      custom_field: custom_field,
-                                      item: item
-                                    )
-                                    record.value = single_value(value, record)
-                                    ::GobiertoCommon::CustomFieldRecordDecorator.new(record)
-                                  end.compact
-                                end
+        record = site.custom_field_records.find_or_initialize_by(
+          custom_field: custom_field,
+          item: item
+        )
+        record.value = single_value(value, record)
+        ::GobiertoCommon::CustomFieldRecordDecorator.new(record)
+      end.compact
     end
 
     def save
-      save_custom_fields if valid?
+      return unless valid?
+
+      save_result = save_custom_fields
+      if save_result.present? && item.respond_to?(:pg_search_document)
+        item.reset_serialized_version if versioned?
+        item.update_pg_search_document
+      end
+
+      save_result
     end
 
     def single_value(value, record, default_value: nil)
@@ -62,14 +68,27 @@ module GobiertoCommon
       custom_field_records.any? { |custom_field| version_changed?(custom_field) }
     end
 
+    def associated_vocabularies
+      available_custom_fields.select(&:has_vocabulary?).map(&:vocabulary).compact
+    end
+
     private
 
     def version_changed?(custom_field)
+      return true unless ::GobiertoCommon::CustomFieldRecord.exists?(custom_field.id)
+
       if with_version && version_index.present?
-        (custom_field.versions[version_index]&.reify || custom_field.clone.reload).slice(*attributes_for_new_version) != custom_field.slice(*attributes_for_new_version)
+        (
+          custom_field.versions[version_index]&.reify ||
+          ::GobiertoCommon::CustomFieldRecord.find(custom_field.id)
+        ).slice(*attributes_for_new_version) != custom_field.slice(*attributes_for_new_version)
       else
         custom_field.changed?
       end
+    end
+
+    def versioned?
+      @versioned ||= item.respond_to?(:paper_trail)
     end
 
     def instance_type_options
@@ -88,11 +107,16 @@ module GobiertoCommon
       @site ||= Site.find_by(id: site_id || item.try(:site_id))
     end
 
+    def callback_update
+      versioned? && !with_version
+    end
+
     def save_custom_fields
       return custom_field_records if with_version && !force_new_version && !changed?
 
       custom_field_records.each do |record|
         record.item_has_versions = with_version
+        record.callback_update = callback_update
 
         save_success = with_version && force_new_version && !record.changed? ? record.paper_trail.save_with_version : record.save
         unless save_success

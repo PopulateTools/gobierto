@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_admin"
-
 module GobiertoAdmin
   class Admin < ApplicationRecord
     include Authentication::Authenticable
@@ -32,26 +30,30 @@ module GobiertoAdmin
     has_many :gobierto_citizens_charters_permissions, through: :admin_groups, class_name: "Permission::GobiertoCitizensCharters", source: :permissions
     has_many :gobierto_investments_permissions, through: :admin_groups, class_name: "Permission::GobiertoInvestments", source: :permissions
     has_many :gobierto_data_permissions, through: :admin_groups, class_name: "Permission::GobiertoData", source: :permissions
+    has_many :gobierto_dashboards_permissions, through: :admin_groups, class_name: "Permission::GobiertoDashboards", source: :permissions
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
+
+    has_many :api_tokens, dependent: :destroy, class_name: "GobiertoAdmin::ApiToken"
 
     has_many :census_imports
 
     before_create :set_god_flag, :generate_preview_token
+    after_create :primary_api_token!
 
     validates :email, uniqueness: true
     validates_associated :permissions
-    validates :api_token, uniqueness: { allow_nil: true }
 
     scope :sorted, -> { order(created_at: :desc) }
     scope :god, -> { where(god: true) }
     scope :active, -> { where.not(authorization_level: authorization_levels[:disabled]) }
+    scope :regular_on_site, ->(site) { regular.joins(:sites).where(admin_admin_sites: {site_id: site.id}) }
 
     enum authorization_level: { regular: 0, manager: 1, disabled: 2 }
 
     def self.preset
       god.first || god.new(
-        email: APP_CONFIG["admins"]["preset_admin_email"],
-        name: APP_CONFIG["admins"]["preset_admin_name"],
+        email: APP_CONFIG[:admins][:preset_admin_email],
+        name: APP_CONFIG[:admins][:preset_admin_name],
         password: Rails.application.secrets.preset_admin_password
       )
     end
@@ -117,6 +119,14 @@ module GobiertoAdmin
       return unless membership
 
       membership.created_at
+    end
+
+    def primary_api_token
+      @primary_api_token ||= api_tokens.primary.take
+    end
+
+    def primary_api_token!
+      @primary_api_token = api_tokens.primary.take || api_tokens.primary.create
     end
 
     private

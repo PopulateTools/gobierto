@@ -1,258 +1,172 @@
 <template>
   <div class="gobierto-data-summary-queries">
     <div class="gobierto-data-summary-queries-panel pure-g">
-      <div class="pure-u-1-2">
-        <div class="gobierto-data-summary-queries-element">
-          <h3
-            class="gobierto-data-summary-queries-panel-title"
-            @click="showYourQueries = !showYourQueries"
-          >
-            <i
-              :class="showYourQueries ? '' : 'rotate-caret'"
-              class="fas fa-caret-down"
-              style="color: var(--color-base);"
-            />
-            {{ labelYourQueries }} ({{ arrayQueries.length }})
-          </h3>
-          <div
-            v-for="(item, index) in arrayQueries"
-            v-show="showYourQueries"
-            :key="index"
-            class="gobierto-data-summary-queries-container"
-            @mouseover="showCode(index)"
-            @mouseleave="hideCode = true"
-          >
-            <span
-              class="gobierto-data-summary-queries-container-name"
-              @click="handleQueries(arrayQueries[index].attributes.sql, item, false)"
-            >
-              {{ item.attributes.name }}
-            </span>
+      <div class="pure-u-1-2 gobierto-data-summary-queries-panel-dropdown">
+        <template v-if="isUserLogged">
+          <Dropdown @is-content-visible="showPrivateQueries = !showPrivateQueries">
+            <template v-slot:trigger>
+              <h3 class="gobierto-data-summary-queries-panel-title">
+                <Caret :rotate="!showPrivateQueries" />
+                {{ labelYourQueries }} ({{ privateQueries.length }})
+              </h3>
+            </template>
+
+            <div>
+              <transition-group name="fade">
+                <div
+                  v-for="{ id, attributes: { sql, name, privacy_status }} in privateQueries"
+                  :key="id"
+                  class="gobierto-data-summary-queries-container"
+                  @mouseover="showSQLCode(sql)"
+                  @mouseleave="removeSQLCode()"
+                >
+                  <router-link
+                    :to="`/datos/${$route.params.id}/q/${id}`"
+                    class="gobierto-data-summary-queries-container-name"
+                    @click.native="closeYourQueriesModal()"
+                  >
+                    {{ name }}
+                  </router-link>
+
+                  <div class="gobierto-data-summary-queries-container-icon">
+                    <i
+                      class="fas fa-trash-alt icons-your-queries"
+                      style="color: var(--color-base);"
+                      @click.stop="clickDeleteQueryHandler(id)"
+                    />
+
+                    <PrivateIcon
+                      :is-closed="privacy_status === 'closed'"
+                      class="icons-your-queries"
+                    />
+                  </div>
+                </div>
+              </transition-group>
+            </div>
+          </Dropdown>
+        </template>
+        <Dropdown @is-content-visible="showPublicQueries = !showPublicQueries">
+          <template v-slot:trigger>
+            <h3 class="gobierto-data-summary-queries-panel-title">
+              <Caret :rotate="showPublicQueries" />
+
+              {{ labelAll }}
+              <template v-if="publicQueries.length">
+                ({{ publicQueries.length }})
+              </template>
+            </h3>
+          </template>
+          <div v-if="publicQueries.length">
             <div
-              class="gobierto-data-summary-queries-container-icon"
+              v-for="{ id, attributes: { sql, name }} in publicQueries"
+              :key="id"
+              class="gobierto-data-summary-queries-container"
+              @mouseover="showSQLCode(sql)"
+              @mouseleave="removeSQLCode()"
             >
-              <i
-                class="fas fa-trash-alt icons-your-queries"
-                style="color: var(--color-base);"
-                @click="deleteQuery(item.id, index)"
-              />
-              <i
-                v-if="item.attributes.privacy_status === 'closed'"
-                style="color: #D0021B"
-                class="fas fa-lock icons-your-queries"
-              />
-              <i
-                v-else
-                style="color: rgb(160, 197, 29)"
-                class="fas fa-lock-open icons-your-queries"
-              />
+              <router-link
+                :to="`/datos/${$route.params.id}/q/${id}`"
+                class="gobierto-data-summary-queries-container-name"
+                @click.native="closeYourQueriesModal()"
+              >
+                {{ name }}
+              </router-link>
             </div>
           </div>
-        </div>
-        <div class="gobierto-data-summary-queries-element">
-          <h3
-            class="gobierto-data-summary-queries-panel-title"
-            @click="showYourFavQueries = !showYourFavQueries"
-          >
-            <i
-              :class="showYourFavQueries ? '' : 'rotate-caret'"
-              class="fas fa-caret-down"
-              style="color: var(--color-base);"
-            />
-            {{ labelFavs }} ({{ numberFavQueries }})
-          </h3>
-        </div>
-        <div class="gobierto-data-summary-queries-element">
-          <h3
-            class="gobierto-data-summary-queries-panel-title"
-            @click="showYourTotalQueries = !showYourTotalQueries"
-          >
-            <i
-              :class="showYourTotalQueries ? '' : 'rotate-caret'"
-              class="fas fa-caret-down"
-              style="color: var(--color-base);"
-            />
-            {{ labelAll }} ({{ publicQueries.length }})
-          </h3>
-          <div
-            v-for="(item, index) in publicQueries"
-            v-show="showYourTotalQueries"
-            :key="index"
-            class="gobierto-data-summary-queries-container"
-            @mouseover="showCodePublic(index)"
-            @mouseleave="hideCode = true"
-            @click="handleQueries(publicQueries[index].attributes.sql, item, true)"
-          >
-            <span class="gobierto-data-summary-queries-container-name"> {{ item.attributes.name }}</span>
-            <div
-              class="gobierto-data-summary-queries-container-icon"
-            >
-              <!-- <i
-                style="color: rgb(160, 197, 29)"
-                class="fas fa-lock"
-              /> -->
+          <template v-else>
+            <div class="gobierto-data-summary-queries-container">
+              {{ labelQueryEmpty }}
             </div>
-          </div>
-        </div>
+          </template>
+        </Dropdown>
       </div>
+
       <div class="pure-u-1-2 border-color-queries">
         <p class="gobierto-data-summary-queries-sql-code">
-          <span v-if="!hideCode"> {{ sqlCode }}</span>
+          <textarea ref="querySnippet" />
         </p>
       </div>
     </div>
   </div>
 </template>
 <script>
-import axios from 'axios';
-import { getToken, getUserId } from './../../../lib/helpers';
-import { baseUrl } from "./../../../lib/commons.js"
+import { Dropdown } from "lib/vue-components";
+import Caret from "./Caret.vue";
+import PrivateIcon from './PrivateIcon.vue';
+import CodeMirror from "codemirror";
+import "codemirror/mode/sql/sql.js";
+
 export default {
   name: "Queries",
+  components: {
+    Caret,
+    Dropdown,
+    PrivateIcon
+  },
   props: {
-    arrayQueries: {
+    privateQueries: {
       type: Array,
-      required: true
+      default: () => []
     },
     publicQueries: {
       type: Array,
-      required: true
+      default: () => []
+    },
+    isUserLogged: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      labelQueries: '',
-      labelYourQueries: '',
-      labelFavs: '',
-      labelAll: '',
-      hideCode: true,
-      sqlCode: '',
-      numberQueries: 0,
-      numberFavQueries: 0,
-      totalQueries: 0,
-      showSection: true,
-      showYourQueries: true,
-      showYourFavQueries: true,
-      showYourTotalQueries: true,
-      token: '',
-      endPoint: '',
-      filterId: '',
-      url: '',
-      endPointDelete: '',
-      numberId: ''
-    }
+      labelYourQueries: I18n.t("gobierto_data.projects.yourQueries") || "",
+      labelQueryEmpty: I18n.t("gobierto_data.projects.queryEmpty") || "",
+      labelFavs: I18n.t("gobierto_data.projects.favs") || "",
+      labelAll: I18n.t("gobierto_data.projects.all") || "",
+      labelDeleteQuery: I18n.t("gobierto_data.projects.deleteQuery") || "",
+      sqlCode: null,
+      showPrivateQueries: true,
+      showPublicQueries: true,
+    };
   },
-  created() {
-    this.numberId = this.$route.params.numberId
-    this.numberQueries = this.arrayQueries.length
-    this.totalQueries = this.arrayQueries.length + this.numberFavQueries
+  mounted() {
+    const cmOption = {
+      tabSize: 2,
+      styleActiveLine: false,
+      lineNumbers: false,
+      styleSelectedText: false,
+      line: true,
+      foldGutter: true,
+      mode: "text/x-sql",
+      showCursorWhenSelecting: true,
+      theme: "default",
+      autoIndent: true
+    };
 
-    this.labelYourQueries = I18n.t("gobierto_data.projects.yourQueries")
-    this.labelQueries = I18n.t("gobierto_data.projects.queries")
-    this.labelFavs = I18n.t("gobierto_data.projects.favs")
-    this.labelAll = I18n.t("gobierto_data.projects.all")
-    this.token = getToken()
-    this.userId = getUserId()
+    this.editor = CodeMirror.fromTextArea(this.$refs.querySnippet, cmOption);
 
+    this.showPrivateQueries = !!this.privateQueries.length
+    this.showPublicQueries = !!this.publicQueries.length
   },
   methods: {
-    handleQueries(sql, item, anonymusQuery) {
-      this.runYourQuery(sql)
-      this.sendQuery(item)
-      this.closeModal()
-      this.changeTab()
-      if (anonymusQuery === true) {
-        this.$root.$emit('disableEdit')
+    closeYourQueriesModal() {
+      this.$emit('closeQueriesModal')
+      this.$root.$emit('disabledStringSavedQuery')
+    },
+    clickDeleteQueryHandler(id) {
+      const answerDelete = confirm(this.labelDeleteQuery);
+      if (answerDelete) {
+        this.$root.$emit('deleteSavedQuery', id)
       }
     },
-    closeModal() {
-      this.$root.$emit('closeQueriesModal');
+    showSQLCode(code) {
+      this.sqlCode = code
+      this.editor.setValue(this.sqlCode);
     },
-    showCode(index) {
-      this.hideCode = false
-      this.sqlCode = this.arrayQueries[index].attributes.sql
-    },
-    showCodePublic(index) {
-      this.hideCode = false
-      this.sqlCode = this.publicQueries[index].attributes.sql
-    },
-    sendQuery(item) {
-      this.queryParams = [item.attributes.name, item.attributes.privacy_status, item.attributes.sql, item.id, item.attributes.user_id ]
-      this.queryCode = item.attributes.sql
-      this.$root.$emit('sendQueryParams', this.queryParams)
-      this.$root.$emit('sendQueryCode', this.queryCode)
-    },
-    toggle() {
-      this.showSection = !this.showSection
-    },
-    changeTab() {
-      this.$root.$emit('changeNavTab')
-    },
-    deleteQuery(id, index) {
-      this.$delete(this.arrayQueries, index)
-      this.deleteQueryApi(id)
-    },
-    deleteQueryApi(id) {
-      const endPointDelete = `${baseUrl}/queries/${id}`
-      axios.delete(endPointDelete, {
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': `${this.token}`
-        }
-      }
-      ).then(
-        this.$root.$emit('reloadPublicQueries')
-      )
-    },
-    runYourQuery(code) {
-      this.queryEditor = encodeURI(code)
-      this.$root.$emit('postRecentQuery', code)
-      this.$root.$emit('showMessages', false, true)
-      this.$root.$emit('updateCode', code)
-
-      if (this.queryEditor.includes('LIMIT')) {
-        this.queryEditor = this.queryEditor
-        this.$root.$emit('hiddeShowButtonColumns')
-      } else {
-        this.$root.$emit('ShowButtonColumns')
-        this.$root.$emit('sendCompleteQuery', this.queryEditor)
-        this.code = `SELECT%20*%20FROM%20(${this.queryEditor})%20AS%20data_limited_results%20LIMIT%20100%20OFFSET%200`
-        this.queryEditor = this.code
-      }
-      this.urlPath = location.origin
-      this.endPoint = '/api/v1/data/data';
-      this.url = `${this.urlPath}${this.endPoint}?sql=${this.queryEditor}`
-
-      axios
-        .get(this.url)
-        .then(response => {
-          let data = []
-          let keysData = []
-          const rawData = response.data
-          const meta = rawData.meta
-          data = rawData.data
-
-          const queryDurationRecords = [ meta.rows, meta.duration ]
-
-          keysData = Object.keys(data[0])
-
-          this.$root.$emit('recordsDuration', queryDurationRecords)
-          this.$root.$emit('sendData', keysData, data)
-          this.$root.$emit('showMessages', true, false)
-          this.$root.$emit('sendQueryCode', this.queryCode)
-          this.$root.$emit('runSpinner')
-
-        })
-        .catch(error => {
-          const messageError = error.response.data.errors[0].sql
-          this.$root.$emit('apiError', messageError)
-
-
-          const data = []
-          const keysData = []
-          this.$root.$emit('sendData', keysData, data)
-        })
+    removeSQLCode() {
+      this.sqlCode = ''
+      this.editor.setValue(this.sqlCode);
     }
   }
-}
+};
 </script>

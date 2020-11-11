@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_budgets"
-
 module GobiertoBudgets
   class BudgetLineFeedback < ApplicationRecord
     belongs_to :site

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_people"
-
 module GobiertoPeople
   class PersonPost < ApplicationRecord
     include User::Subscribable
@@ -13,12 +11,19 @@ module GobiertoPeople
     validates :site, presence: true
     validates :slug, uniqueness: { scope: :site_id }
 
-    algoliasearch_gobierto do
-      attribute :site_id, :title, :body, :updated_at
-      searchableAttributes ['title', 'body']
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
+    multisearchable(
+      against: [:title, :body],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          description_translations: item.truncated_translations(:body),
+          resource_path: item.resource_path,
+          searchable_updated_at: item.updated_at
+        }
+      },
+      if: :searchable?
+    )
 
     belongs_to :person, counter_cache: :posts_count
     belongs_to :site

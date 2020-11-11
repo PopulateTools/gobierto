@@ -16,17 +16,28 @@ ca:
       application:
         plans: Plans
     plan_types:
+      sdg:
+        header:
+          sdgs_description: Els Objectius de Desenvolupament Sostenible són un conjunt
+            d'objectius mundials relacionats amb els desafiaments ambientals, polítics
+            i econòmics amb què s'enfronta el nostre món. Aquí pots veure com el Pla
+            d'Actuació Municipal connecta amb els ODS.
+          sdgs_title: Objectius de Desenvolupament Sostenible
+        projects:
+          sdg_projects_empty: No hi ha %{projects_term} de el pla relacionats amb
+            aquest ODS
+          sdg_projects_title: "%{projects_term} de el pla relacionats amb aquest ODS"
       show:
+        category: Categoria
+        customize_columns: Personalitzeu columnes
         desc: Descripció
         ends: Fi
         global_execution: Estat d'execució global
         latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
         loading: Carregant...
-        percentage_progress: "% progrés"
         progress: Progrés
-        projects: Projectes
         read_less: Llegiu menys
         read_more: Llegiu més
-        see_all: Veure tot en
         starts: Inici
         status: Estat
+        view_by: Vegeu per

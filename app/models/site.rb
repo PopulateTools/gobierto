@@ -25,6 +25,8 @@ class Site < ApplicationRecord
   has_many :custom_fields, class_name: "GobiertoCommon::CustomField"
   has_many :custom_field_records, through: :custom_fields, class_name: "GobiertoCommon::CustomFieldRecord", source: :records
 
+  has_many :pg_search_documents, class_name: "PgSearch::Document"
+
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
   has_many :notifications, dependent: :destroy, class_name: "User::Notification"
@@ -90,7 +92,7 @@ class Site < ApplicationRecord
   # GobiertoData integration
   has_many :datasets, dependent: :destroy, class_name: "GobiertoData::Dataset"
   has_many :queries, through: :datasets, class_name: "GobiertoData::Query"
-  has_many :visualizations, through: :queries, class_name: "GobiertoData::Visualization"
+  has_many :visualizations, through: :datasets, class_name: "GobiertoData::Visualization"
 
   serialize :configuration_data
 
@@ -109,13 +111,11 @@ class Site < ApplicationRecord
   translates :name, :title
 
   def self.alphabetically_sorted
-    all.sort_by(&:title).reverse
+    all.sort_by{ |site| site.try(:name) || "" }
   end
 
   def self.find_by_allowed_domain(domain)
-    unless reserved_domains.include?(domain)
-      find_by(domain: domain)
-    end
+    find_by(domain: domain) unless reserved_domains.include?(domain)
   end
 
   def issues
@@ -160,6 +160,18 @@ class Site < ApplicationRecord
                                 end
   end
 
+  def gobierto_dashboards_settings
+    @gobierto_dashboard_settings ||= if configuration.available_module?("GobiertoDashboards") && configuration.gobierto_dashboards_enabled?
+                                       module_settings.find_by(module_name: "GobiertoDashboards")
+                                     end
+  end
+
+  def gobierto_observatory_settings
+    @gobierto_observatory_settings ||= if configuration.available_module?("GobiertoObservatory") && configuration.gobierto_observatory_enabled?
+                                       module_settings.find_by(module_name: "GobiertoObservatory")
+                                     end
+  end
+
   def settings_for_module(module_name)
     return unless respond_to?(method = "#{ module_name.underscore }_settings")
 
@@ -169,7 +181,7 @@ class Site < ApplicationRecord
   # If the organization_id corresponds to a municipality ID,
   # this method will return an instance of INE::Places::Place
   def place
-    @place ||= if self.organization_id
+    @place ||= if self.organization_id.present?
                  INE::Places::Place.find(self.organization_id)
                end
   end
@@ -212,8 +224,8 @@ class Site < ApplicationRecord
     configuration.home_page.constantize.send(:root_path, self)
   end
 
-  def algolia_search_disabled?
-    configuration.configuration_variables.fetch("algolia_search_disabled", false)
+  def multisearch(*args)
+    PgSearch.multisearch(*args).where(site: self)
   end
 
   private
@@ -250,7 +262,7 @@ class Site < ApplicationRecord
     if self.saved_change_to_attribute?('configuration_data') && added_modules_after_update.any?
       added_modules_after_update.each do |module_name|
         GobiertoCommon::GobiertoSeeder::ModuleSeeder.seed(module_name, self)
-        GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG['site']['name'], module_name, self)
+        GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG[:site][:name], module_name, self)
       end
     end
   end

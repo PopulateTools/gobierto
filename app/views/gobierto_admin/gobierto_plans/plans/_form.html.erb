@@ -79,6 +79,17 @@
             options_from_collection_for_select(@vocabularies, :id, :name, f.object.statuses_vocabulary_id),
             include_blank: true %>
       </div>
+      <div class="form_item site-module-check-boxes">
+        <div class="options compact">
+          <div class="option">
+            <%= f.check_box :publish_last_version_automatically %>
+            <%= f.label :publish_last_version_automatically do %>
+              <span></span>
+              <%= t(".publish_last_version_automatically")  %>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>
@@ -122,6 +133,15 @@
                 <%= t(".export_csv") %>
               <% end %>
             </div>
+          </div>
+          <div class="m_v_1">
+            <%= link_to admin_plans_plan_delete_contents_path(@plan),
+                        title: t(".delete_contents"),
+                        method: :delete,
+                        data: { confirm: t(".delete_contents_confirm") } do %>
+              <i class="fas fa-undo"></i>
+              <%= t(".delete_contents") %>
+            <% end %>
           </div>
         <% end %>
 

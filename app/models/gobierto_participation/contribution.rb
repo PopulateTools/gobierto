@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_participation"
-
 module GobiertoParticipation
   class Contribution < ApplicationRecord
     include GobiertoCommon::Searchable
@@ -14,12 +12,19 @@ module GobiertoParticipation
     belongs_to :contribution_container
     has_many :comments, as: :commentable
 
-    algoliasearch_gobierto do
-      attribute :site_id, :updated_at, :title, :description
-      searchableAttributes ["title", "description"]
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
+    multisearchable(
+      against: [:title, :description],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          description_translations: item.truncated_translations(:description),
+          resource_path: item.resource_path,
+          searchable_updated_at: item.updated_at
+        }
+      },
+      if: :searchable?
+    )
 
     validates :user, :contribution_container, presence: true
     validates :slug, uniqueness: { scope: :site_id }

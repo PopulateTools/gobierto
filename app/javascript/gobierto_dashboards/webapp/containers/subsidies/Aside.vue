@@ -1,0 +1,180 @@
+<template>
+  <div class="pure-u-1 pure-u-lg-1-4 dashboards-home-aside--gap">
+    <SearchFilter
+      :data="subsidiesData"
+      :search-type="type"
+    />
+    <aside>
+      <div
+        v-for="filter in filters"
+        :key="filter.id"
+        class="dashboards-home-aside--block"
+      >
+        <Dropdown @is-content-visible="toggle(filter)">
+          <template v-slot:trigger>
+            <BlockHeader
+              :title="filter.title"
+              class="dashboards-home-aside--block-header"
+              see-link
+              @select-all="e => handleIsEverythingChecked({ ...e, filter })"
+              @toggle="toggle(filter)"
+            />
+          </template>
+          <div>
+            <Checkbox
+              v-for="option in filter.options"
+              :id="option.id"
+              :key="option.id"
+              :title="option.title"
+              :checked="option.isOptionChecked"
+              :counter="option.counter"
+              class="dashboards-home-aside--checkbox"
+              @checkbox-change="e => handleCheckboxStatus({ ...e, filter })"
+            />
+          </div>
+        </Dropdown>
+      </div>
+
+      <DownloadButton
+        :data-download-endpoint="dataDownloadEndpoint"
+      />
+    </aside>
+  </div>
+</template>
+
+<script>
+import { BlockHeader, Checkbox, Dropdown } from "lib/vue-components";
+import DownloadButton from "../../components/DownloadButton.vue";
+import SearchFilter from "../../components/SearchFilter.vue";
+import { EventBus } from "../../mixins/event_bus";
+import { subsidiesFiltersConfig } from "../../lib/config/subsidies.js";
+
+export default {
+  name: 'Aside',
+  components: {
+    Dropdown,
+    BlockHeader,
+    Checkbox,
+    DownloadButton,
+    SearchFilter
+  },
+  props: {
+    subsidiesData: {
+      type: Array,
+      default: () => []
+    },
+    dataDownloadEndpoint: {
+      type: String,
+      default: ''
+    }
+  },
+  data() {
+    return {
+      filters: subsidiesFiltersConfig,
+      type: 'Subsidies'
+    }
+  },
+  watch: {
+    subsidiesData() {
+      this.updateCounters();
+    }
+  },
+  created(){
+    this.initFilterOptions();
+    this.updateCounters(true);
+
+    EventBus.$on('dc-filter-selected', ({ title, id }) => {
+      const { options = [] } = this.filters.find(( { id: i } ) => id === i) || {};
+
+      options.forEach(option => {
+        if (option.title === title) {
+          option.isOptionChecked = !option.isOptionChecked;
+        }
+      })
+    });
+  },
+  beforeDestroy(){
+    EventBus.$off('dc-filter-selected');
+  },
+  methods: {
+    initFilterOptions(){
+      const categoriesOptions = [];
+      const dateOptions = [];
+      const years = new Set( this.subsidiesData.map(({ year }) => year) );
+      const categories = new Set( this.subsidiesData.map(({ category }) => category) );
+
+      // Categories
+      [...categories]
+        .forEach((category, index) => {
+          if (category) {
+            categoriesOptions.push({ id: index, title: category, counter: 0, isOptionChecked: false })
+          }
+        });
+
+      // Dates
+      [...years]
+        .sort((a, b) => a < b ? 1 : -1)
+        .forEach(year => {
+          if (year) {
+            dateOptions.push({ id: Number(year), title: year.toString(), counter: 0, isOptionChecked: false })
+          }
+        });
+
+      this.filters.forEach((filter) => {
+        if (filter.id === 'dates') {
+          filter.options = dateOptions;
+        } else if (filter.id === 'categories') {
+          filter.options = categoriesOptions;
+        }
+      })
+    },
+    updateCounters(firstUpdate=false) {
+      const counter = { categories: {}, dates: {} };
+
+      // It iterates over the subsidies to get the number of items for each year, and category
+      // In the end, it populates counter with something like:
+      // {category: {'Urbanismo': 142000, 'Deporte': 2,...}, dates: {2020: '12'...}}
+      this.subsidiesData.forEach(({ category, year }) => {
+        counter.categories[category] = counter.categories[category] || 0
+        counter.categories[category]++
+
+        counter.dates[year] = counter.dates[year] || 0
+        counter.dates[year]++
+      })
+
+      // This loop fills the filters data attribute with the counter result we populated in the previous loop
+      this.filters.forEach((filter) => {
+        const { id } = filter;
+        for (let i = 0; i < filter.options.length; i++) {
+          filter.options[i].counter = counter[id][filter.options[i].title];
+        }
+
+        if (firstUpdate && filter.id != 'dates') {
+          // Sorting from highest to lowest, just like the chart bars.
+          filter.options = filter.options.sort((a, b) => a.counter > b.counter ? -1 : 1)
+        }
+      })
+
+    },
+    handleIsEverythingChecked({ filter }) {
+      const titles = filter.options.map(option => option.title);
+      filter.options.forEach(option => option.isOptionChecked = true)
+
+      EventBus.$emit('filter-changed', { all: true, titles: titles, id: filter.id });
+      EventBus.$emit("update-filters");
+    },
+    handleCheckboxStatus({ id, filter }) {
+      const option = filter.options.find(option => option.id === id)
+      EventBus.$emit('filter-changed', { all: false, title: option.title, id: filter.id });
+      EventBus.$emit("update-filters");
+    },
+    toggle(filter){
+      this.filters.forEach(_filter => {
+        if (_filter.id === filter.id) {
+          _filter.isToggle = !_filter.isToggle;
+        }
+      })
+    }
+  }
+}
+</script>

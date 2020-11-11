@@ -28,6 +28,8 @@ en:
         edit:
           title: Configuration
         form:
+          delete_contents: Delete projects of this plan
+          delete_contents_confirm: Confirm you want to delete projects from this plan
           export_csv: Export to CSV
           import_csv: Import from CSV
           placeholders:
@@ -39,6 +41,7 @@ en:
             slug: about-this-plan
             title: Plan title
             year: 2018
+          publish_last_version_automatically: Publish new versions of projects automatically
         import_csv:
           defaults:
             category:
@@ -52,18 +55,22 @@ en:
           there_are: There are %{info}
           title: Import CSV
         import_csv_form:
-          confirm_import: Are you sure? All current data will be deleted
+          confirm_import: Are you sure?
+          custom_fields_table_plugin: Custom fields (table plugin)
           disable_with: Loading...
           more_info_html: For more information, visit the documentation <a href="%{url}"
             target="_blank">Importar datos de un plan</a>.
+          plan_content: Plan content
           submit: Import from CSV file
           vocabulary_used_by_other_plans: The vocabulary configured for this plan
             is already configured for someone else. Please create a new vocabulary
             for this plan or remove it from the configuration of the other plans using
             it, since their data would be deleted with the import.
-          warning: "<strong>Warning</strong> If you upload a CSV, all current content
-            will be deleted, so any change you might have done through the Gobierto
-            Web UI will be lost."
+          warning: "<strong>Warning</strong> When importing from a CSV file, if the
+            plan is empty, terms will be added to the vocabularies associated with
+            categories and custom fields as they are found, but if the plan already
+            contains data, since it's an update, errors will be produced for the terms
+            not found in the respective vocabularies."
         index:
           header:
             elements: Elements

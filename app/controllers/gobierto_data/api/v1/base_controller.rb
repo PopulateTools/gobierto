@@ -5,7 +5,6 @@ module GobiertoData
     module V1
       class BaseController < ApiBaseController
         include ActionController::MimeResponds
-        include ::User::ApiAuthenticationHelper
         include ::PreviewTokenHelper
 
         before_action { module_enabled!(current_site, "GobiertoData", false) }
@@ -21,6 +20,8 @@ module GobiertoData
           {}.tap do |options|
             if (separator = params[:csv_separator]).present?
               options[:col_sep] = separator_tr.fetch(separator, separator)
+            else
+              options[:col_sep] = separator_tr["comma"]
             end
           end
         end
@@ -34,25 +35,6 @@ module GobiertoData
               csv << row
             end
           end.force_encoding("utf-8")
-        end
-
-        def xlsx_from_query_result(result, options = {})
-          row_index = 0
-          book = RubyXL::Workbook.new
-
-          sheet = book.worksheets.first
-          sheet.sheet_name = options.fetch(:name, "data")
-          result.fields.each_with_index do |value, col_index|
-            sheet.add_cell(row_index, col_index, value)
-          end
-          result.each_row do |row|
-            row_index += 1
-            row.each_with_index do |value, col_index|
-              sheet.add_cell(row_index, col_index, value)
-            end
-          end
-
-          book.stream
         end
 
         def csv_from_relation(relation, options = {})
@@ -110,10 +92,9 @@ module GobiertoData
         def send_download(content, format, base_filename)
           case format
           when :json
+            content = ActiveModelSerializers::SerializableResource.new(content).to_json unless content.is_a? String
             send_data(
-              ActiveModelSerializers::SerializableResource.new(
-                content
-              ).to_json,
+              content,
               filename: "#{base_filename}.json"
             )
           when :csv

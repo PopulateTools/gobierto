@@ -4,6 +4,13 @@ require "test_helper"
 
 class ProgressPluginTest < ActionDispatch::IntegrationTest
 
+  def setup
+    super
+    # This is used to stub the API response of the budgets API,
+    # which can be called by a different plugin custom field
+    GobiertoBudgets::BudgetLine.stubs(:all).returns([])
+  end
+
   def site
     @site ||= sites(:madrid)
   end
@@ -29,11 +36,11 @@ class ProgressPluginTest < ActionDispatch::IntegrationTest
   end
 
   def clear_source_payload
-    source_custom_field_of_progress_calculations.update_attributes!(payload: { human_resources_table: [] })
+    source_custom_field_of_progress_calculations.update!(payload: { human_resources_table: [] })
   end
 
   def set_source_payload
-    source_custom_field_of_progress_calculations.update_attributes!(
+    source_custom_field_of_progress_calculations.update!(
       payload: {
         human_resources_table: [
           {
@@ -73,7 +80,7 @@ class ProgressPluginTest < ActionDispatch::IntegrationTest
       assert_no_selector("#custom_field_progress")
       assert_equal "-", evaluate_script("$('input[data-plugin-type=\"progress\"]').val()")
       assert_nil project.progress
-      assert_nil custom_field_record.payload
+      assert_equal({ "progress" => nil }, custom_field_record.payload)
     end
   end
 
@@ -92,7 +99,7 @@ class ProgressPluginTest < ActionDispatch::IntegrationTest
       assert_no_selector("#custom_field_progress")
       assert_equal "50%", evaluate_script("$('input[data-plugin-type=\"progress\"]').val()")
       assert_equal 50.0, project.progress
-      assert_equal 0.5, custom_field_record.payload
+      assert_equal({ "progress" => 0.5 }, custom_field_record.payload)
     end
   end
 end

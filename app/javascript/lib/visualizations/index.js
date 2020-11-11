@@ -2,6 +2,7 @@ import { VisAgeDistribution } from './modules/age_distribution.js'
 import { VisAgeReport } from './modules/age_report.js'
 import { VisBubbleLegend } from './modules/bubble_legend.js'
 import { VisBubbles } from './modules/bubbles.js'
+import { VisBubble } from './modules/bubble_cost.js'
 import { BarsCard } from './modules/card_bars.js'
 import { ComparisonCard } from './modules/card_comparison.js'
 import { SimpleCard } from './modules/card_simple.js'
@@ -22,6 +23,8 @@ import { VisUnemploymentAge } from './modules/unemployment_age.js'
 import { VisUnemploymentRate } from './modules/unemployment_rate.js'
 import { VisUnemploymentSex } from './modules/unemployment_sex.js'
 import { Areachart } from './modules/areachart'
+import { AmountDistributionBars } from './modules/amount_distribution_bars'
+import { GroupPctDistributionBars } from './modules/group_pct_distribution_bars'
 
 export {
   Areachart,
@@ -29,6 +32,7 @@ export {
   VisAgeReport,
   VisBubbleLegend,
   VisBubbles,
+  VisBubble,
   BarsCard,
   ComparisonCard,
   SimpleCard,
@@ -47,5 +51,7 @@ export {
   VisTreemap,
   VisUnemploymentAge,
   VisUnemploymentRate,
-  VisUnemploymentSex
+  VisUnemploymentSex,
+  AmountDistributionBars,
+  GroupPctDistributionBars
 }

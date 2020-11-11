@@ -5,7 +5,7 @@ module GobiertoCommon
     include GobiertoCommon::Sortable
 
     belongs_to :site
-    belongs_to :instance, polymorphic: true
+    belongs_to :instance, polymorphic: true, optional: true
     has_many :records, dependent: :destroy, class_name: "CustomFieldRecord"
     validates :name, presence: true
     validates :uid, uniqueness: { scope: [:site_id, :class_name] }
@@ -24,11 +24,18 @@ module GobiertoCommon
                        numeric: 11 }
 
     scope :sorted, -> { order(position: :asc) }
+    scope :with_md, -> { where(field_type: [:paragraph, :localized_paragraph]) }
     scope :localized, -> { where(field_type: [:localized_string, :localized_paragraph]) }
     scope :not_localized, -> { where.not(field_type: [:localized_string, :localized_paragraph]) }
     scope :with_plugin_type, ->(plugin_type) { plugin.where("options @> ?", { configuration: { plugin_type: plugin_type } }.to_json) }
     scope :for_class, ->(klass) { klass.present? ? where(class_name: klass.name).all : all }
-    scope :for_vocabulary, ->(vocabulary) { where("options @> ?", { vocabulary_id: vocabulary.id }.to_json) }
+    scope :for_vocabulary, ->(vocabulary) { where("options @> ?", { vocabulary_id: vocabulary.id.to_s }.to_json) }
+    scope :table_with_decorator, lambda { |decorator|
+      with_plugin_type("table").where(
+        "options @> ?",
+        { configuration: { plugin_configuration: { category_term_decorator: decorator } } }.to_json
+      )
+    }
 
     translates :name
 
@@ -47,6 +54,20 @@ module GobiertoCommon
       [:single_select, :multiple_select, :tags]
     end
 
+    def self.csv_importable_field_types
+      [:localized_string,
+       :string,
+       :localized_paragraph,
+       :paragraph,
+       :single_option,
+       :multiple_options,
+       :color,
+       :image,
+       :date,
+       :vocabulary_options,
+       :numeric]
+    end
+
     def self.field_types_with_multiple_setting
       %w(image)
     end
@@ -61,6 +82,10 @@ module GobiertoCommon
 
     def long_text?
       /paragraph/.match field_type
+    end
+
+    def csv_importable?
+      self.class.csv_importable_field_types.include? field_type.to_sym
     end
 
     def self.searchable_fields

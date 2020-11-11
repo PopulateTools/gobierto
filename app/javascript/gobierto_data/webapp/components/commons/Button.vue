@@ -4,8 +4,10 @@
     class="gobierto-data-btn-blue"
   >
     <i
+      v-if="icon"
       :class="'fa-' + icon"
-      style="color: inherit;"
+      :style="{'color': iconColor}"
+      style="color: inherit; margin: 0;"
       class="fas"
     />
     {{ text }}
@@ -19,21 +21,23 @@ export default {
   props: {
     text: {
       type: String,
-      required: true,
       default: ''
     },
     icon: {
       type: String,
-      required: true,
       default: ''
     },
     color: {
       type: String,
-      required: true
+      default: 'var(--color-base)'
     },
     background: {
       type: String,
-      required: true
+      default: ''
+    },
+    iconColor: {
+      type: String,
+      default: 'var(--color-base)'
     }
   }
 }

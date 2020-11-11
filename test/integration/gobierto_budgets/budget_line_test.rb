@@ -66,13 +66,13 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
       visit @path
 
       within(metric_box(:planned)) do
-        assert has_content?("Expense planned\n#{amount_updated}")
-        assert has_content?("Initial estimate: #{amount}")
+        assert has_content?("Initial budget\n#{amount}")
+        assert has_content?("Current amount: #{amount_updated}")
       end
 
       within(metric_box(:planned_per_inhabitant)) do
-        assert has_content?("Expense plan. / inh.\n20.00")
-        assert has_content?("Initial estimate: 15.00")
+        assert has_content?("Initial budget / inh.\n15.00")
+        assert has_content?("Current amount / hab.: 20.00")
       end
 
       assert has_css?(".metric_box h3", text: "% execution")
@@ -111,7 +111,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
   def test_request_more_information_and_subscribe_as_spam
     enable_budget_line_feedback
 
-    with(default_test_context.merge(js: :deprecated)) do
+    with(default_test_context) do
       visit @path
 
       click_link "Ask your #{placed_site.organization_name}"
@@ -152,7 +152,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
   def test_send_feedback_and_subscribe_as_spam
     enable_budget_line_feedback
 
-    with(default_test_context.merge(js: :deprecated)) do
+    with(default_test_context) do
       visit @path
 
       click_link "Raise your hand"
@@ -162,7 +162,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
       assert has_content? feedback_ack_message
 
       fill_in :email, with: "spam@email.com"
-      
+
       # find("#ic_email", visible: false).set("spam@email.com")
       page.execute_script('document.getElementById("ic_email").innerText = "spam@email.com"')
 

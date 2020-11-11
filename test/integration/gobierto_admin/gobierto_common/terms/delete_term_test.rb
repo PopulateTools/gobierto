@@ -35,6 +35,10 @@ module GobiertoCommon
         @term_with_associated_items ||= gobierto_common_terms(:culture_term)
       end
 
+      def term_associated_process
+        @term_associated_process ||= gobierto_participation_processes(:dance_studio_group_ended)
+      end
+
       def plan_vocabulary
         @plan_vocabulary ||= gobierto_common_vocabularies(:plan_categories_vocabulary)
       end
@@ -45,6 +49,10 @@ module GobiertoCommon
 
       def term_in_plan_with_nodes
         @term_in_plan_with_nodes ||= gobierto_common_terms(:people_and_families_plan_term)
+      end
+
+      def term_associated_plan
+        @term_associated_plan ||= gobierto_plans_plans(:strategic_plan)
       end
 
       def term_in_plan_without_nodes
@@ -86,7 +94,9 @@ module GobiertoCommon
               click_link "Delete", visible: false
             end
 
-            assert has_message?("You can't delete a term while it has associated elements.")
+            assert has_message?("The term couldn't be deleted")
+            assert has_message?("GobiertoParticipation::Process: Attribute issue_id on instances with ids")
+            assert has_message?(term_associated_process.id)
 
             assert vocabulary.terms.exists?(id: term_with_associated_items.id)
           end
@@ -102,7 +112,8 @@ module GobiertoCommon
               click_link "Delete", visible: false
             end
 
-            assert has_message?("You can't delete a term while it has associated elements.")
+            assert has_message?("The term couldn't be deleted")
+            assert has_message?("GobiertoPlans::Plan: Attribute category_ids on projects of plans with ids: #{term_associated_plan.id}")
 
             assert plan_vocabulary.terms.exists?(id: term_in_plan_with_nodes.id)
           end

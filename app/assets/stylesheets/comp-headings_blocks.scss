@@ -31,6 +31,24 @@ h4 {
     margin-bottom: 0.35em;
   }
 
+  .heading_breadcrumb {
+    position: relative;
+    margin-top: 2em;
+    font-size: $f7;
+    text-transform: uppercase;
+  }
+
+  .heading_breadcrumb::after {
+    font-family: "Font Awesome 5 Pro";
+    content: "\f105";
+    height: 0;
+    position: absolute;
+    width: 0;
+    top: 6%;
+    margin-left: 10px;
+    color: var(--color-base);
+  }
+  
   .description {
     width: 50%;
     font-size: 0.85em;

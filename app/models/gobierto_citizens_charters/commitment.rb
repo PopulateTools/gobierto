@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_citizens_charters"
-
 module GobiertoCitizensCharters
   class Commitment < ApplicationRecord
     acts_as_paranoid column: :archived_at
@@ -10,12 +8,18 @@ module GobiertoCitizensCharters
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Searchable
 
-    algoliasearch_gobierto do
-      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :searchable_description
-      searchableAttributes %w(title_en title_es title_ca searchable_description)
-      attributesForFaceting [:site_id]
-      add_attribute :resource_path, :class_name
-    end
+    multisearchable(
+      against: [:title_es, :title_en, :title_ca, :searchable_description],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:title),
+          resource_path: item.resource_path,
+          searchable_updated_at: item.updated_at
+        }
+      },
+      if: :searchable?
+    )
 
     attr_accessor :admin_id
 

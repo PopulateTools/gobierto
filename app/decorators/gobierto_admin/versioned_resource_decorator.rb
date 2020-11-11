@@ -36,6 +36,10 @@ module GobiertoAdmin
       @last_version ||= paper_trail.live?
     end
 
+    def allows_minor_change?
+      !new_record? && last_version?
+    end
+
     def current_version_published?
       published_version_number == current_version
     end

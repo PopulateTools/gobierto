@@ -10,22 +10,64 @@ module GobiertoData
         # GET /api/v1/data.csv?sql=SELECT%20%2A%20FROM%20table_name
         # GET /api/v1/data.xlsx?sql=SELECT%20%2A%20FROM%20table_name
         def index
-          query_result = execute_query(params[:sql] || {})
+          query = Arel.sql(params[:sql] || {})
 
-          if query_result.is_a?(Hash) && query_result.has_key?(:errors)
-            render json: query_result, status: :bad_request, adapter: :json_api
-          else
-            respond_to do |format|
-              format.json do
-                render json: { data: query_result.delete(:result), meta: query_result }, adapter: :json_api
+          respond_to do |format|
+            format.json do
+              if expired_http_cache?
+                query_result = GobiertoData::Cache.query_cache(current_site, query, format: 'json') do
+                  query_result = GobiertoData::Connection.execute_query(current_site, query, include_stats: true, include_draft: valid_preview_token?)
+                  if !query_result.has_key?(:errors)
+                    { data: query_result.delete(:result), meta: query_result }.to_json
+                  else
+                    query_result
+                  end
+                end
+
+                if query_result.is_a?(File)
+                  send_file query_result.path, x_sendfile: true, type: 'application/json', disposition: 'inline'
+                else
+                  render_error_or_continue(query_result) do
+                    render json: query_result, adapter: :json_api
+                  end
+                end
               end
+            end
 
-              format.csv do
-                render_csv(csv_from_query_result(query_result.fetch(:result, ""), csv_options_params))
+            format.csv do
+              if expired_http_cache?
+                query_result = GobiertoData::Cache.query_cache(current_site, query, format: 'csv') do
+                  GobiertoData::Connection.execute_query_output_csv(current_site, query, csv_options_params)
+                end
+
+                if query_result.is_a?(File)
+                  send_file query_result.path, x_sendfile: true, type: 'text/plain', disposition: 'inline'
+                else
+                  render_error_or_continue(query_result) do
+                    render_csv(query_result)
+                  end
+                end
               end
+            end
 
-              format.xlsx do
-                send_data xlsx_from_query_result(query_result.fetch(:result, "")).read, filename: "data.xlsx"
+            format.xlsx do
+              if expired_http_cache?
+                query_result = GobiertoData::Cache.query_cache(current_site, query, format: 'xlsx') do
+                  GobiertoData::Connection.execute_query_output_xlsx(
+                    current_site,
+                    Arel.sql(params[:sql] || {}),
+                    { name: "data" },
+                    include_draft: valid_preview_token?
+                  )
+                end
+
+                if query_result.is_a?(File)
+                  send_file query_result.path, x_sendfile: true, type: 'application/xlsx'
+                else
+                  render_error_or_continue(query_result) do
+                    send_data(query_result, filename: "data.xlsx")
+                  end
+                end
               end
             end
           end
@@ -33,10 +75,17 @@ module GobiertoData
 
         private
 
-        def execute_query(sql)
-          GobiertoData::Connection.execute_query(current_site, Arel.sql(sql), include_draft: valid_preview_token?)
+        def render_error_or_continue(query_result, &block)
+          if query_result.is_a?(Hash) && query_result.has_key?(:errors)
+            render json: query_result, status: :bad_request, adapter: :json_api
+          else
+            yield
+          end
         end
 
+        def expired_http_cache?
+          stale?(etag: GobiertoData::Cache.etag(params.values.join, current_site), last_modified: GobiertoData::Cache.last_modified(current_site))
+        end
       end
     end
   end

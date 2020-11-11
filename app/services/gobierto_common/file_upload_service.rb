@@ -7,7 +7,7 @@ module GobiertoCommon
     attr_reader :file, :site, :collection
 
     def initialize(args={})
-      @adapter = APP_CONFIG['file_uploads_adapter'].presence.try(:to_sym) || :s3
+      @adapter = APP_CONFIG[:file_uploads_adapter].presence.try(:to_sym) || :s3
       @site = args[:site]
       @collection = args[:collection]
       @attribute_name = args[:attribute_name]
@@ -26,7 +26,7 @@ module GobiertoCommon
       @add_suffix = args[:add_suffix] || true
     end
 
-    delegate :call, :uploaded_file_exists?, :upload!, to: :adapter
+    delegate :call, :uploaded_file_exists?, :upload!, :delete, :delete_children, to: :adapter
 
     def adapter
       if Rails.env.development?

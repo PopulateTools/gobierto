@@ -29,6 +29,11 @@ ca:
         gobierto_admin/gobierto_plans/plan_data_form:
           attributes:
             base:
+              category_not_found: 'Alguna de les categories no s''ha pogut trobar.
+                Contingut de la fila: %{row_data}'
+              external_id_taken: 'El camp external_id ja està en ús, bé perquè una
+                altra fila té el mateix external_id o perquè estava buida i automàticament
+                es va assignar el mateix valor. Contingut de la fila: %{row_data}'
               file_not_found: Fitxer no trobat
               invalid_columns: No estan totes les columnes necessàries
               invalid_format: Format de fitxer invàlid
@@ -36,5 +41,13 @@ ca:
               status_missing: 'L''estat de la fila no s''ha trobat en el vocabulari
                 d''estats corresponent o hi ha un estat a la fila però no hi ha un
                 vocabulari d''estats configurat en el pla. Contingut de la fila: %{row_data}'
+              term_not_found: No ha estat possible trobar el terme '%{term}' en el
+                vocabulari '%{vocabulary}' usat per la columna 'Node.%{uid}'
               used_resource: El vocabulari empra termes que s'usen en altres parts
                 de l'aplicació
+        gobierto_admin/gobierto_plans/plan_table_custom_fields_form:
+          attributes:
+            base:
+              file_not_found: Fitxer no trobat
+              invalid_columns: No estan totes les columnes necessàries
+              invalid_format: Format de fitxer invàlid

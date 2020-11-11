@@ -43,6 +43,13 @@
   }
 }
 
+.social_share {
+  &.twitter,
+  &.facebook {
+    display: none;
+  }
+}
+
 .social_share:hover {
   color: #fff;
 }

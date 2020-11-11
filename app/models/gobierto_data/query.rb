@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_data"
+require_relative "../gobierto_data"
 
 module GobiertoData
   class Query < ApplicationRecord
@@ -8,7 +8,7 @@ module GobiertoData
 
     belongs_to :dataset
     belongs_to :user
-    has_many :visualizations, dependent: :destroy, class_name: "GobiertoData::Visualization"
+    has_many :visualizations, dependent: :nullify, class_name: "GobiertoData::Visualization"
     enum privacy_status: { open: 0, closed: 1 }
 
     translates :name
@@ -17,8 +17,8 @@ module GobiertoData
 
     delegate :site, :visibility_level, to: :dataset
 
-    def result(include_draft: false)
-      Connection.execute_query(site, sql, include_draft: include_draft)
+    def result(include_draft: false, include_stats: false)
+      Connection.execute_query(site, sql, include_draft: include_draft, include_stats: include_stats)
     end
 
     def file_basename

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_citizens_charters"
-
 module GobiertoCitizensCharters
   class Edition < ApplicationRecord
     acts_as_paranoid column: :archived_at
@@ -51,7 +49,7 @@ module GobiertoCitizensCharters
 
     def self.progress
       p_rel = where.not(percentage: nil)
-      p_val = where(percentage: nil).where.not(value: nil, max_value: nil)
+      p_val = where(percentage: nil).where.not(value: nil).where.not(max_value: nil)
       (p_rel.sum(:percentage) + p_val.sum("value/max_value") * 100) / (p_rel.count + p_val.count)
     end
 

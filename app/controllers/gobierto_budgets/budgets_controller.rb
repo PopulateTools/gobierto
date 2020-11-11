@@ -2,6 +2,12 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
   before_action :load_year, except: [:guide]
   before_action :overrided_root_redirect, only: [:index]
 
+  caches_action(
+    :index,
+    cache_path: -> { cache_path },
+    unless: -> { user_signed_in? }
+  )
+
   def index
     @kind = GobiertoBudgets::BudgetLine::INCOME
     @area_name = GobiertoBudgets::EconomicArea.area_name
@@ -33,17 +39,24 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
   private
 
-  def load_year
-    if params[:year].nil?
-      default_year = if budgets_elaboration_active?
-        GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data - 1
-      else
-        GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data
-      end
+  def cache_path
+    "#{super}/#{@year}"
+  end
 
+  def load_year
+    default_year = if budgets_elaboration_active?
+                     GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data - 1
+                   else
+                     GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data
+                   end
+
+    if params[:year].nil?
       redirect_to gobierto_budgets_budgets_path(default_year)
     else
       @year = params[:year].to_i
+      if @year > default_year
+        redirect_to gobierto_budgets_budgets_path(default_year)
+      end
     end
   end
 

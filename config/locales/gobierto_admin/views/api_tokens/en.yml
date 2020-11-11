@@ -1,0 +1,23 @@
+---
+en:
+  gobierto_admin:
+    api_tokens:
+      api_token:
+        primary: Primary
+      edit:
+        api_token: API Token %{name}
+      form:
+        placeholders:
+          domain: www.example.org
+          name: External apps Token
+        update_token: Update Token
+      list:
+        header:
+          created_at: Created at
+          domain: Domain
+          name: Name
+          token: Token
+        new: New
+        title: API Tokens
+      new:
+        api_token: New API Token

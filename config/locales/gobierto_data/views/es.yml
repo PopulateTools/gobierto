@@ -1,51 +1,80 @@
 ---
 es:
   gobierto_data:
+    data_type:
+      boolean: boolean
+      date: fecha
+      datetime: fecha y hora
+      decimal: decimal
+      hstore: hstore
+      integer: entero
+      jsonb: jsonb
+      string: cadena
+      text: texto
+      time: tiempo
+      timestamp: fecha y hora
+      timestampz: fecha y hora
     events:
       gobierto_data_dataset_dataset_created: Conjunto de datos creado
+      gobierto_data_dataset_dataset_data_updated: Datos de conjunto de datos actualizados
+      gobierto_data_dataset_dataset_deleted: Conjunto de datos eliminado
       gobierto_data_dataset_dataset_updated: Conjunto de datos actualizado
     layouts:
       application:
         gobierto_data: Datos
     projects:
       all: Todas
-      analysis: Análisis
-      api: API
+      buttonFork: Haz click para crear una versión de esta consulta
       buttonQueries: Ver consultas (c)
       buttonRecentQueries: Ver consultas recientes (r)
       buttonRunQuery: Ejecutar consulta (CMD/WIN + Enter)
       cancel: Cancelar
       categories: Categorías
+      createCopy: Crear una copia
       dashboards: Dashboards
       data: Datos
-      dataset: Conjunto de datos
+      dataset: Conjuntos de datos
+      datasetUpdated: Últimos datasets actualizados
+      deleteQuery: "¿Estás seguro de que deseas eliminar esta consulta?"
+      deleteViz: "¿Estás seguro de que deseas eliminar esta visualización?"
+      description: Descripción
       download: Descargar
       downloadData: Descargar datos
       edit: Editar
-      fav: Favorito
+      emptyRecentQueries: No hay consultas recientes
       favs: Favoritas
-      follow: Seguir
       frequency: Frecuencia
       guide: Guía para usar el editor SQL
-      info: Información
-      loading: Cargando
+      link: Enlace
       modifiedQuery: Consulta modificada
-      news: Noticias
+      modifiedVisualization: Visualización modificada
+      preview: Previsualizar
       private: Privada
       queries: Consultas
+      query: Consulta
+      queryEmpty: No hay consultas disponibles
       queryExecuted: Consulta ejecutada en
       queryName: Nombre consulta
       recents: Recientes
       records: Registros
+      resetQuery: Restablecer consulta
+      resetViz: Restablecer Visualización
       resources: Recursos
+      revert: Revertir
       runQuery: Ejecutar consulta
       save: Guardar
+      savedQuery: Consulta guardada
+      savedVisualization: Visualización guardada
       sets: Conjuntos
-      showRows: Mostrar todas las filas
+      showAll: Ver todo
+      showLess: Ver menos
       subject: Tema
       summary: Resumen
-      table: Tabla
       updated: Actualizado
-      visualization: Visualización
+      visEmpty: No hay visualizaciones disponibles
+      visName: Nombre visualización
+      visPrivate: Tus visualizaciones
+      visPublic: Todas
       visualizations: Visualizaciones
+      visualize: Visualizar
       yourQueries: Tus consultas

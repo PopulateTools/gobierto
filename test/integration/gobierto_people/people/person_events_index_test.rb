@@ -74,7 +74,7 @@ module GobiertoPeople
 
         with_javascript do
           with_current_site(site) do
-            visit gobierto_people_person_events_path(richard.slug)
+            visit @path
 
             click_button "List"
 
@@ -97,26 +97,43 @@ module GobiertoPeople
         end
       end
 
+      def test_person_events_present_in_other_agendas
+        attributes = {
+          starts_at: Time.now.tomorrow,
+          title: "Duplicated event",
+          external_id: "duplicated-event"
+        }
+        richard_event = create_event(attributes.merge(person: richard))
+        richard_event.attendees.create(person: nelson)
+        nelson_event = create_event(attributes.merge(person: nelson))
+        nelson_event.attendees.create(person: richard)
+
+        with(site: site, js: true) do
+          visit @path
+
+          click_button "List"
+
+          assert has_content? richard_event.title
+        end
+      end
+
       def test_person_events_index_pagination
-        # SKIP: with_javascript is causing concurrency problems with the create_event() helper, since this
-        # events are not visible form the test. A solution is to use fixtures as in other test in this file,
-        # but since i'm not going to create 10 fixtures to test pagination, let's skip this for now.
-
-        skip 'see comment inside code'
-
         20.times do |i|
           create_event(person: richard, title: "Event #{i}", starts_at: (Time.now.tomorrow + i.days).to_s)
         end
 
-        with_current_site(site) do
+        with(site: site, js: true) do
           visit @path
+
+          click_button "List"
 
           assert has_link?("View more")
           assert has_no_link?("Event 8")
           click_link "View more"
 
-          assert has_link?("Event 8")
+          assert has_link?("Event 12")
           assert has_link?("View more")
+          click_link "View more"
 
           assert has_link?("Event 18")
           assert has_no_link?("View more")
@@ -130,7 +147,7 @@ module GobiertoPeople
 
         Timecop.freeze(Time.zone.parse("2014-03-15")) do
           with_current_site(site) do
-            visit gobierto_people_person_events_path(richard.slug)
+            visit @path
 
             within ".calendar-component" do
               assert has_link?(present_event.starts_at.day)
@@ -142,7 +159,7 @@ module GobiertoPeople
               assert has_link?(future_event.starts_at.day)
             end
 
-            visit gobierto_people_person_events_path(richard.slug)
+            visit @path
 
             click_link "previous-month-link"
 
@@ -171,7 +188,7 @@ module GobiertoPeople
         Timecop.freeze(freeze_date) do
           with_javascript do
             with_current_site(site) do
-              visit gobierto_people_person_events_path(richard.slug)
+              visit @path
 
               within ".calendar-component" do
                 click_link yesterday_early_event.starts_at.day

@@ -48,7 +48,6 @@ require "support/gobierto_site_constraint_helpers"
 require "support/asymmetric_encryptor_helpers"
 require "support/site_config_helpers"
 require "support/gobierto_people/submodules_helper"
-require "support/gobierto_common/token_service_helpers"
 require "capybara/email"
 require "capybara/rails"
 require "capybara/minitest"
@@ -65,7 +64,10 @@ Minitest::Retry.on_failure do |klass, test_name|
   Capybara.reset_session!
 end
 
-Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
+Minitest::Reporters.use! [
+  Minitest::Reporters::DefaultReporter.new(color: true),
+  Minitest::Reporters::MeanTimeReporter.new(color: true)
+]
 
 WebMock.disable_net_connect!(
   allow_localhost: true,
@@ -123,7 +125,7 @@ class ActionDispatch::IntegrationTest
   Capybara.configure do |config|
     config.javascript_driver = (ENV["INTEGRATION_TEST_DRIVER"] || :headless_chrome).to_sym
     config.default_host = "http://gobierto.test"
-    config.default_max_wait_time = 3
+    config.default_max_wait_time = 10
   end
 
   self.use_transactional_tests = true
@@ -150,5 +152,4 @@ class GobiertoControllerTest < ActionDispatch::IntegrationTest
   require "support/integration/request_authentication_helpers"
 
   include Integration::RequestAuthenticationHelpers
-  include GobiertoCommon::TokenServiceHelpers
 end

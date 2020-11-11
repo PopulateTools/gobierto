@@ -7,6 +7,10 @@ window.GobiertoAdmin.AdminsController = (function() {
       _addChangeAuthorizationLevelBehaviors();
     };
 
+    AdminsController.prototype.show = function() {
+      _addCopyBehaviors()
+    }
+
     function _addToggleSiteBehaviors() {
       var $siteCheckboxes = $("[data-behavior='toggle_site']");
 
@@ -46,6 +50,18 @@ window.GobiertoAdmin.AdminsController = (function() {
         $('#sites_permissions').hide('fast');
         $('#admin_groups').hide('fast');
       });
+    }
+
+    function _addCopyBehaviors() {
+      $("[data-behavior='copy']").click(function() {
+          var textArea = document.createElement("textarea");
+          textArea.value = this.parentNode.children[1].innerText
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textArea);
+          $(this.parentElement).find("span").removeClass("hidden")
+      })
     }
 
     return AdminsController;

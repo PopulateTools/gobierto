@@ -94,19 +94,20 @@ module GobiertoAdmin
                                                                       gobierto_participation: [:manage],
                                                                       gobierto_plans: [:manage],
                                                                       gobierto_investments: [:manage],
-                                                                      gobierto_data: [:manage] }))
+                                                                      gobierto_data: [:manage],
+                                                                      gobierto_dashboards: [:manage] }))
 
-      assert_equal 5, tony.modules_permissions.size
+      assert_equal 6, tony.modules_permissions.size
 
       assert form.save
 
-      assert_equal 6, tony.modules_permissions.size
+      assert_equal 7, tony.modules_permissions.size
     end
 
     def test_revoke_module_permissions
       form = subject.new(madrid_group_params.merge(modules_actions: { gobierto_people: [:manage] }))
 
-      assert_equal 5, tony.modules_permissions.size
+      assert_equal 6, tony.modules_permissions.size
 
       assert form.save
 

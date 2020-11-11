@@ -1,0 +1,12 @@
+---
+ca:
+  concerns:
+    gobierto_common:
+      api_tokens_concern:
+        create:
+          success: El Token de l'API s'ha creat correctament
+        destroy:
+          failed: El Token de l'API no ha pogut ser eliminat
+          success: El Token de l'API s'ha eliminat correctament
+        update:
+          success: El Token de l'API s'ha actualizat correctament

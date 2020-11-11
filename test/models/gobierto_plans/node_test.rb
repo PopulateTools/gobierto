@@ -25,6 +25,10 @@ module GobiertoPlans
       ::GobiertoPlans::Node.node_custom_field_records(@plan, @node)
     end
 
+    def front_node_custom_field_records
+      ::GobiertoPlans::Node.front_node_custom_field_records(@plan, @node)
+    end
+
     def test_valid
       assert @node.valid?
     end
@@ -64,6 +68,30 @@ module GobiertoPlans
       record = ::GobiertoCommon::CustomFieldRecord.create!(@instance_custom_field_record.attributes)
 
       assert_equal [record], node_custom_field_records
+    end
+
+    def test_front_node_custom_field_records
+      ::GobiertoCommon::CustomFieldRecord.destroy_all
+      ::GobiertoCommon::CustomField.destroy_all
+
+      # when empty
+      assert front_node_custom_field_records.empty?
+
+      # when only global records
+      ::GobiertoCommon::CustomField.create!(@global_custom_field.attributes)
+      record = ::GobiertoCommon::CustomFieldRecord.create!(@global_custom_field_record.attributes)
+
+      assert_equal [record], front_node_custom_field_records
+      @plan.update_attribute(:configuration_data, { "fields_to_not_show_in_front" => [@global_custom_field.attributes["uid"]] }.to_json)
+      assert_equal [], front_node_custom_field_records
+
+      # when global and instance-level records
+      ::GobiertoCommon::CustomField.create!(@instance_custom_field.attributes)
+      record = ::GobiertoCommon::CustomFieldRecord.create!(@instance_custom_field_record.attributes)
+
+      assert_equal [record], front_node_custom_field_records
+      @plan.update_attribute(:configuration_data, { "fields_to_not_show_in_front" => [@instance_custom_field.attributes["uid"]] }.to_json)
+      assert_equal [], front_node_custom_field_records
     end
 
   end

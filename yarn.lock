@@ -3465,7 +3465,7 @@ d3-scale@3, d3-scale@^3.2.3:
     d3-time "1 - 2"
     d3-time-format "2 - 3"
 
-d3-selection@1, d3-selection@^1.1.0:
+d3-selection@1, d3-selection@^1.1.0, d3-selection@^1.4.0:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/d3-selection/-/d3-selection-1.4.2.tgz#dcaa49522c0dbf32d6c1858afc26b6094555bc5c"
   integrity sha512-SJ0BqYihzOjDnnlfyeHT0e30k0K1+5sR3d5fNueCNeuhZTnGw4M4o8mqJchSwgKMXCNFo+e2VTChiSJ0vYtXkg==
@@ -3480,7 +3480,7 @@ d3-selection@1.3.0:
   resolved "https://registry.yarnpkg.com/d3-selection/-/d3-selection-1.3.0.tgz"
   integrity sha512-qgpUOg9tl5CirdqESUAu0t9MU/t3O9klYfGfyKsXEmhyxyzLpzpeh08gaxBUTQw1uXIOkr/30Ut2YRjSSxlmHA==
 
-d3-selection@2, d3-selection@^2.0.0:
+d3-selection@2:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/d3-selection/-/d3-selection-2.0.0.tgz"
   integrity sha512-XoGGqhLUN/W14NmaqcO/bb1nqjDAw5WtSYb2X8wiuQWvSZUsUVYsOSkOybUrNvcBjaywBdYPy03eXHMXjk9nZA==
@@ -3613,7 +3613,7 @@ d3-transition@1.1.1:
 
 d3-transition@2, d3-transition@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/d3-transition/-/d3-transition-2.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/d3-transition/-/d3-transition-2.0.0.tgz#366ef70c22ef88d1e34105f507516991a291c94c"
   integrity sha512-42ltAGgJesfQE3u9LuuBHNbGrI/AJjNL2OAUdclE70UE6Vy239GCBEYD38uBPoLeNsOhFStGpPI0BAOV+HMxog==
   dependencies:
     d3-color "1 - 2"
@@ -3883,7 +3883,7 @@ dc.leaflet@0.5.1:
     leaflet "~1.3.4"
     leaflet.markercluster "~1.0.0"
 
-dc@^3.0.8:
+dc@^3.0.8, dc@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/dc/-/dc-3.2.2.tgz#d223c9b1cfa8c8d6775414e264f524903c3e934f"
   integrity sha512-tCukd80Wf9InyXs1FyC+aUdEz9mqYltaRX4E53E5lWJuQQpi1RqRVCM5dU/oOx2o+UYAxibzZV5fQMIOlRyZyw==
@@ -3891,7 +3891,7 @@ dc@^3.0.8:
     d3 "^5.15.0"
     url-search-params-polyfill "^7.0.1"
 
-dc@^4.0.3, dc@^4.2.0:
+dc@^4.0.3:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/dc/-/dc-4.2.0.tgz#433378b588dc2949059669fc289aaecff3b482bb"
   integrity sha512-2FdNSB/mgYKc381VEpqvCQxXIcr3DH8Q0SNAoDYKpAcYmepVaWOy3u5c4pLCYh6XuXx7Ud1F3in1WtoGREQiAg==

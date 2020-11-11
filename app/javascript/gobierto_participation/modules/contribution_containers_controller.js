@@ -3,7 +3,7 @@ import { forceSimulation } from "d3-force";
 import { quadtree } from "d3-quadtree";
 import { randomUniform } from "d3-random";
 import { scaleLinear } from "d3-scale";
-import { pointer, select, selectAll } from "d3-selection";
+import { select, selectAll } from "d3-selection";
 
 const d3 = {
   select,
@@ -12,8 +12,7 @@ const d3 = {
   forceSimulation,
   randomUniform,
   drag,
-  quadtree,
-  pointer
+  quadtree
 };
 
 window.GobiertoParticipation.ContributionContainersController = (function() {

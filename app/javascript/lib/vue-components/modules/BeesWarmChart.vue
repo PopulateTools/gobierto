@@ -79,7 +79,7 @@ export default {
         .attr('class', 'axis axis-y')
     },
    buildBeesWarm(data) {
-      const parseYear = d3.timeFormat("%Y");
+      
       let filterData = this.transformData(data)
 
       const arrayGobiertoColors = ['#12365B', '#008E9C', '#FF776D', '#F8B205']

@@ -11,6 +11,12 @@
       @showTooltip="showTooltip"
       @goesToItem="goesToItem"
     />
+    <MultipleLineChart
+      v-if="dataLineChart"
+      :data="dataLineChart"
+      :height="600"
+      :array-values="valuesForLineChart"
+    />
     <div
       id="tendersContractsSummary"
       class="metric_boxes"
@@ -153,7 +159,7 @@
   </div>
 </template>
 <script>
-import { BeesWarmChart } from "lib/vue-components";
+import { BeesWarmChart, MultipleLineChart } from "lib/vue-components";
 import TreeMap from "../../visualizations/treeMap.vue";
 import { getDataMixin } from "../../lib/getData";
 import Table from "../../components/Table.vue";
@@ -168,7 +174,8 @@ export default {
   components: {
     Table,
     TreeMap,
-    BeesWarmChart
+    BeesWarmChart,
+    MultipleLineChart
   },
   mixins: [dashboardsMixins, getDataMixin],
   data(){
@@ -195,15 +202,75 @@ export default {
       labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution'),
       labelMainAssignees: I18n.t('gobierto_dashboards.dashboards.contracts.main_assignees'),
       queryBeesWarmChart:"?sql=SELECT EXTRACT(YEAR FROM start_date), initial_amount, final_amount, contract_type, id, assignee, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
-      dataBeesWarm: undefined
+      queryLineChart: "?sql=SELECT EXTRACT(YEAR FROM start_date), final_amount, status, initial_amount, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
+      dataBeesWarm: undefined,
+      dataLineChart: undefined,
+      valuesForLineChart: undefined
     }
   },
   async created() {
     this.columns = assigneesColumns;
     const { data: { data: dataBeesWarm } } = await this.getData(this.queryBeesWarmChart)
     this.dataBeesWarm = dataBeesWarm
+
+    const { data: { data: dataLineChart } } = await this.getData(this.queryLineChart)
+    this.transformDataContractsLine(dataLineChart)
+
   },
   methods: {
+    transformDataContractsLine(data) {
+      data = data.filter(({ date_part }) => date_part !== null)
+
+      data.forEach(d => {
+        d.final_amount = +d.final_amount
+        d.initial_amount = +d.initial_amount
+        d.percentage_total = Math.abs(((d.final_amount - d.initial_amount) / d.initial_amount) * 100)
+        d.year = new Date(d.start_date).getFullYear()
+
+        if (d.status === "Formalizado" || d.status === "Adjudicado") {
+          d.formalizado = 1
+        } else {
+          d.formalizado = 0
+        }
+
+        if (d.status === "Desierto") {
+          d.desierto = 1
+        } else {
+          d.desierto = 0
+        }
+      })
+
+      const sumFinalAmount = Array.from(data.reduce(
+        (m, { year, final_amount }) => m.set(year, (m.get(year) || 0) + final_amount), new Map
+      ), ([year, final_amount]) => ({ year, final_amount }));
+
+      const formalizadoCount = Array.from(data.reduce(
+        (m, { year, formalizado }) => m.set(year, (m.get(year) || 0) + formalizado), new Map
+      ), ([year, formalizado]) => ({ year, formalizado }));
+
+      const formalizadoNotCount = Array.from(data.reduce(
+        (m, { year, desierto }) => m.set(year, (m.get(year) || 0) + desierto), new Map
+      ), ([year, desierto]) => ({ year, desierto }));
+
+      const sumInitialAmount = Array.from(data.reduce(
+        (m, { year, initial_amount }) => m.set(year, (m.get(year) || 0) + initial_amount), new Map
+      ), ([year, initial_amount]) => ({ year, initial_amount }));
+
+      const sumPercentage = Array.from(data.reduce(
+        (m, { year, percentage_total }) => m.set(year, (m.get(year) || 0) + percentage_total), new Map
+      ), ([year, percentage_total]) => ({ year, percentage_total }));
+
+      let dataContractsLine = sumFinalAmount.map((item, i) => Object.assign({}, item, sumInitialAmount[i], sumPercentage[i], formalizadoCount[i], formalizadoNotCount[i]));
+
+      dataContractsLine.forEach(d => {
+        d.total_contracts = (d.desierto + d.formalizado)
+        d.percentageYear = (d.percentage_total / d.total_contracts)
+      })
+
+      this.dataLineChart = dataContractsLine
+
+      this.valuesForLineChart = ['formalizado', 'percentageYear', 'total_contracts']
+    },
     showTooltip(event, d) {
 
       const { assignee, final_amount, initial_amount } = d
@@ -217,7 +284,6 @@ export default {
         .style('top', `${layerY + 10}px`)
         .html(`
           <span class="beeswarm-tooltip-header-title">
-            Adjudicatario:
             ${assignee}
           </span>
           <div class="beeswarm-tooltip-table-element">

@@ -1,4 +1,4 @@
-import { rollup } from "d3-array";
+import { nest } from "d3-collection";
 import { TableCard } from "lib/visualizations";
 import { Card } from "./card.js";
 
@@ -90,19 +90,40 @@ export class IncomeCard extends Card {
         vlcNet.data
       );
 
-      this.nest = rollup(
-        this.data,
-        v => ({
-          column: v[0].column,
-          key: v[0].location_name,
-          valueOne: v.filter(d => d.kind === "gross")[0].value,
-          valueTwo: v.filter(d => d.kind === "net")[0].value
-        }),
-        d => d.location_id
-      );
+      // d3v5
+      //
+      this.nest = nest()
+        .key(function(d) {
+          return d.location_id;
+        })
+        .rollup(function(v) {
+          return {
+            column: v[0].column,
+            key: v[0].location_name,
+            valueOne: v.filter(function(d) {
+              return d.kind === "gross";
+            })[0].value,
+            valueTwo: v.filter(function(d) {
+              return d.kind === "net";
+            })[0].value
+          };
+        })
+        .entries(this.data);
 
-      // Convert map to specific array
-      this.nest = Array.from(this.nest, ([key, value]) => ({ key, value }));
+      // d3v6
+      //
+      // this.nest = rollup(
+      //   this.data,
+      //   v => ({
+      //     column: v[0].column,
+      //     key: v[0].location_name,
+      //     valueOne: v.filter(d => d.kind === "gross")[0].value,
+      //     valueTwo: v.filter(d => d.kind === "net")[0].value
+      //   }),
+      //   d => d.location_id
+      // );
+      // // Convert map to specific array
+      // this.nest = Array.from(this.nest, ([key, value]) => ({ key, value }));
 
       new TableCard(this.container, placeGross, this.nest, "income");
     });

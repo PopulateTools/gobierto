@@ -10,7 +10,8 @@ export class getBudgetLevelData extends Card {
 
   getData(callback) {
     if (this.url) {
-      this.handlePromise(this.url).then(data => {
+      // empty the Authorization header
+      this.handlePromise(this.url, { headers: new Headers() }).then(data => {
         this.data = data;
 
         window.budgetLevels = this.data;

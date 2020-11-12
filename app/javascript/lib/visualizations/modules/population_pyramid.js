@@ -657,7 +657,7 @@ export class VisPopulationPyramid {
     focus.append("text");
   }
 
-  _mousemove(_, d) {
+  _mousemove(d) {
     this.svg
       .select(".tooltip")
       .attr("opacity", 1)

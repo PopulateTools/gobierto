@@ -111,7 +111,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
   def test_request_more_information_and_subscribe_as_spam
     enable_budget_line_feedback
 
-    with(default_test_context.merge(js: :deprecated)) do
+    with(default_test_context) do
       visit @path
 
       click_link "Ask your #{placed_site.organization_name}"
@@ -152,7 +152,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
   def test_send_feedback_and_subscribe_as_spam
     enable_budget_line_feedback
 
-    with(default_test_context.merge(js: :deprecated)) do
+    with(default_test_context) do
       visit @path
 
       click_link "Raise your hand"

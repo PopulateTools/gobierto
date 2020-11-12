@@ -4,7 +4,7 @@ import { json } from "d3-fetch";
 import { format, formatDefaultLocale } from "d3-format";
 import { scaleLinear, scaleLog, scaleSequential } from "d3-scale";
 import { interpolatePlasma } from "d3-scale-chromatic";
-import { pointer, select, selectAll } from "d3-selection";
+import { mouse, select, selectAll } from "d3-selection";
 import { accounting, d3locale } from "lib/shared";
 import { distanceLimitedVoronoi } from "./d3-distance-limited-voronoi.js";
 
@@ -22,7 +22,7 @@ const d3 = {
   distanceLimitedVoronoi,
   extent,
   selectAll,
-  pointer
+  mouse
 };
 
 export class VisRentDistribution {
@@ -196,16 +196,8 @@ export class VisRentDistribution {
     // Create voronoi
     this.voronoi = d3
       .distanceLimitedVoronoi()
-      .x(
-        function(d) {
-          return this.xScale(d.value);
-        }.bind(this)
-      )
-      .y(
-        function(d) {
-          return this.yScale(d.rent);
-        }.bind(this)
-      )
+      .x(d => this.xScale(d.value))
+      .y(d => this.yScale(d.rent))
       .limit(50)
       .extent([[0, 0], [this.width, this.height]]);
 
@@ -216,25 +208,26 @@ export class VisRentDistribution {
       .data(this.voronoi(this.data))
       .enter()
       .append("path")
-      .style("fill", "none")
+      .style("fill", "transparent") // with none the event didn't trigger
+      .style("mouse-events", "all")
       .attr("class", "voronoiPath")
       .attr("d", d => (d || {}).path)
-      .style("pointer-events", "all")
       .on("mousemove", this._mousemove.bind(this))
       .on("mouseout", this._mouseout.bind(this));
 
     // Attach hover circle
     this.svg
       .append("circle")
-      .style("pointer-events", "none")
+      .style("mouse-events", "none")
       .attr("class", "hover")
       .attr("fill", "none")
       .attr("transform", "translate(-100,-100)")
       .attr("r", this.isMobile ? 6 : 12);
   }
 
-  _mousemove(event, d) {
-    d3.select(".circle").attr("stroke", "none");
+  _mousemove(d, i) {
+    d3.select('.circle' + i).attr('stroke', 'none')
+    // d3.select(".circle").attr("stroke", "none");
 
     d3.selectAll(".hover")
       .attr("stroke", "#111")
@@ -243,7 +236,7 @@ export class VisRentDistribution {
       .attr("cy", this.yScale(d.datum.rent))
       .attr("transform", "translate(0,0)");
 
-    // // Fill the tooltip
+    // Fill the tooltip
     this.tooltip
       .html(
         '<div class="tooltip-city">' +
@@ -274,7 +267,8 @@ export class VisRentDistribution {
     if (this.isMobile) {
       this.tooltip.style("opacity", 0);
     } else {
-      var coords = d3.pointer(event);
+      var coords = d3.mouse(d3.select(this.container)._groups[0][0]);
+      // var coords = d3.mouse(event);
       var x = coords[0],
         y = coords[1];
 

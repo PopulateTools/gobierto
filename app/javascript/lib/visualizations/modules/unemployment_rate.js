@@ -1,5 +1,6 @@
-import { group, max, merge } from "d3-array";
+import { max, merge } from "d3-array";
 import { axisBottom, axisLeft } from "d3-axis";
+import { nest } from "d3-collection";
 import { json } from "d3-fetch";
 import { format } from "d3-format";
 import { scaleLinear, scaleOrdinal, scaleTime } from "d3-scale";
@@ -22,7 +23,8 @@ const d3 = {
   line,
   merge,
   selectAll,
-  voronoi
+  voronoi,
+  nest
 };
 
 export class VisUnemploymentRate {
@@ -123,14 +125,23 @@ export class VisUnemploymentRate {
         );
 
         this.data = jsonPlace.concat(jsonAutonomousRegion, jsonCountry);
-
-        this.nest = Array.from(
-          group(this.data, d => d.location_type),
-          ([key, values]) => ({
-            key,
-            values
+        // d3v5
+        //
+        this.nest = d3
+          .nest()
+          .key(function(d) {
+            return d.location_type;
           })
-        );
+          .entries(this.data);
+        // d3v6
+        //
+        // this.nest = Array.from(
+        //   group(this.data, d => d.location_type),
+        //   ([key, values]) => ({
+        //     key,
+        //     values
+        //   })
+        // );
 
         this.updateRender();
         this._renderLines();
@@ -309,7 +320,10 @@ export class VisUnemploymentRate {
           return this.yScale(d.value);
         }.bind(this)
       )
-      .extent([[0, 0], [this.width, this.height]]);
+      .extent([
+        [0, 0],
+        [this.width, this.height]
+      ]);
 
     this.voronoiGroup = this.svg.append("g").attr("class", "voronoi");
 
@@ -333,7 +347,7 @@ export class VisUnemploymentRate {
       .on("mouseout", this._mouseout.bind(this));
   }
 
-  _mouseover(_, d) {
+  _mouseover(d) {
     this.focus
       .select("circle")
       .attr("stroke", this.color(d.data.location_type));
@@ -494,7 +508,10 @@ export class VisUnemploymentRate {
       }.bind(this)
     );
 
-    this.voronoi.extent([[0, 0], [this.width, this.height]]);
+    this.voronoi.extent([
+      [0, 0],
+      [this.width, this.height]
+    ]);
 
     this.voronoiGroup
       .selectAll("path")

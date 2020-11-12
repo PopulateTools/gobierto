@@ -1,4 +1,4 @@
-import { rollup } from "d3-array";
+import { nest } from "d3-collection";
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { Card } from "./card.js";
 
@@ -122,21 +122,42 @@ export class BirthRateCard extends Card {
           birthsCountry.data
         );
 
-        this.nest = rollup(
-          this.data,
-          v => ({
-            value: v[0].figure,
-            diff: ((v[0].figure - v[1].figure) / v[1].figure) * 100
-          }),
-          d => d.location_type
+        // d3v5
+        //
+        this.nest = nest()
+          .key(function(d) {
+            return d.location_type;
+          })
+          .rollup(function(v) {
+            return {
+              value: v[0].figure,
+              diff: ((v[0].figure - v[1].figure) / v[1].figure) * 100
+            };
+          })
+          .entries(this.data);
+
+        this.nest.forEach(
+          function(d) {
+            (d.key = d.key), (d.diff = d.value.diff), (d.value = d.value.value);
+          }.bind(this)
         );
 
-        // Convert map to specific array
-        this.nest = Array.from(this.nest, ([key, { value, diff }]) => ({
-          key,
-          value,
-          diff
-        }));
+        // d3v6
+        //
+        // this.nest = rollup(
+        //   this.data,
+        //   v => ({
+        //     value: v[0].figure,
+        //     diff: ((v[0].figure - v[1].figure) / v[1].figure) * 100
+        //   }),
+        //   d => d.location_type
+        // );
+        // // Convert map to specific array
+        // this.nest = Array.from(this.nest, ([key, { value, diff }]) => ({
+        //   key,
+        //   value,
+        //   diff
+        // }));
 
         new SparklineTableCard(
           this.container,

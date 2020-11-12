@@ -1,4 +1,4 @@
-import { rollup } from "d3-array";
+import { nest } from "d3-collection";
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { Card } from "./card.js";
 
@@ -18,21 +18,37 @@ export class UnemplBySectorCard extends Card {
     data.then(jsonData => {
       this.data = jsonData.data;
 
-      this.nest = rollup(
-        this.data,
-        v => ({
-          value: v[0].value,
-          diff: ((v[0].value - v[1].value) / v[1].value) * 100
-        }),
-        d => d.sector
-      );
+      // d3v5
+      //
+      this.nest = nest()
+        .key(function(d) {
+          return d.sector;
+        })
+        .rollup(function(v) {
+          return {
+            value: v[0].value,
+            diff: ((v[0].value - v[1].value) / v[1].value) * 100
+          };
+        })
+        .entries(this.data);
 
-      // Convert map to specific array
-      this.nest = Array.from(this.nest, ([key, { value, diff }]) => ({
-        key,
-        value,
-        diff
-      }));
+      // d3v6
+      //
+      // this.nest = rollup(
+      //   this.data,
+      //   v => ({
+      //     value: v[0].value,
+      //     diff: ((v[0].value - v[1].value) / v[1].value) * 100
+      //   }),
+      //   d => d.sector
+      // );
+
+      // // Convert map to specific array
+      // this.nest = Array.from(this.nest, ([key, { value, diff }]) => ({
+      //   key,
+      //   value,
+      //   diff
+      // }));
 
       this.nest = this.nest.filter(d => d.key !== "Sin empleo anterior");
 

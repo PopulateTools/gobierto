@@ -153,8 +153,6 @@ GEM
       js_cookie_rails (~> 2.2.0)
     crack (0.4.4)
     crass (1.0.6)
-    d3-rails (4.13.0)
-      railties (>= 3.1)
     dalli (2.7.11)
     declarative (0.0.20)
     declarative-option (0.1.0)
@@ -545,7 +543,6 @@ DEPENDENCIES
   cloudinary
   codecov (~> 0.2.0)
   cookies_eu
-  d3-rails (~> 4.8)
   dalli
   elasticsearch (~> 6.0, >= 6.0.2)
   elasticsearch-extensions (~> 0.0.27)

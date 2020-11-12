@@ -1,4 +1,5 @@
-import { rollup, sum } from "d3-array";
+import { sum } from "d3-array";
+import { nest } from "d3-collection";
 import { timeParse } from "d3-time-format";
 import { Card } from "./card.js";
 
@@ -23,22 +24,65 @@ export class GetUnemploymentAgeData extends Card {
     var unemployed = this.handlePromise(this.unemplUrl);
 
     Promise.all([pop, unemployed]).then(([jsonData, unemployed]) => {
-      // Get population for each group & year
-      var nested = rollup(
-        jsonData,
-        v => ({
-          "<25": sum(v.filter(d => d.age >= 16 && d.age < 25), d => d.value),
-          "25-44": sum(v.filter(d => d.age >= 25 && d.age < 45), d => d.value),
-          ">=45": sum(v.filter(d => d.age >= 45 && d.age < 65), d => d.value)
-        }),
-        d => d.date
-      );
+      // d3v5
+      //
+      var nested = nest()
+        .key(function(d) {
+          return d.date;
+        })
+        .rollup(function(v) {
+          return {
+            "<25": sum(
+              v.filter(function(d) {
+                return d.age >= 16 && d.age < 25;
+              }),
+              function(d) {
+                return d.value;
+              }
+            ),
+            "25-44": sum(
+              v.filter(function(d) {
+                return d.age >= 25 && d.age < 45;
+              }),
+              function(d) {
+                return d.value;
+              }
+            ),
+            ">=45": sum(
+              v.filter(function(d) {
+                return d.age >= 45 && d.age < 65;
+              }),
+              function(d) {
+                return d.value;
+              }
+            )
+          };
+        })
+        .entries(jsonData);
 
-      // Convert Map to Object
-      nested = Array.from(nested.entries()).reduce(
-        (main, [key, value]) => ({ ...main, [key]: value }),
-        {}
-      );
+      var temp = {};
+      nested.forEach(function(k) {
+        temp[k.key] = k.value;
+      });
+      nested = temp;
+
+      // d3v6
+      //
+      // Get population for each group & year
+      // var nested = rollup(
+      //   jsonData,
+      //   v => ({
+      //     "<25": sum(v.filter(d => d.age >= 16 && d.age < 25), d => d.value),
+      //     "25-44": sum(v.filter(d => d.age >= 25 && d.age < 45), d => d.value),
+      //     ">=45": sum(v.filter(d => d.age >= 45 && d.age < 65), d => d.value)
+      //   }),
+      //   d => d.date
+      // );
+      // // Convert Map to Object
+      // nested = Array.from(nested.entries()).reduce(
+      //   (main, [key, value]) => ({ ...main, [key]: value }),
+      //   {}
+      // );
 
       // Get the last year from the array
       var lastYear = unemployed[unemployed.length - 1].date.slice(0, 4);

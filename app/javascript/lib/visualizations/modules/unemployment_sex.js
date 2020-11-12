@@ -1,5 +1,6 @@
-import { group, max, merge, rollup, sum } from "d3-array";
+import { max, merge, sum } from "d3-array";
 import { axisBottom, axisLeft } from "d3-axis";
+import { nest } from "d3-collection";
 import { json } from "d3-fetch";
 import { format } from "d3-format";
 import { scaleLinear, scaleOrdinal, scaleTime } from "d3-scale";
@@ -23,7 +24,8 @@ const d3 = {
   line,
   merge,
   selectAll,
-  voronoi
+  voronoi,
+  nest
 };
 
 export class VisUnemploymentSex {
@@ -106,17 +108,38 @@ export class VisUnemploymentSex {
         });
       }
 
-      var nested = rollup(
-        population,
-        v => d3.sum(v, d => d.value),
-        d => d.date
-      );
+      // d3v5
+      //
+      var nested = d3
+        .nest()
+        .key(function(d) {
+          return d.date;
+        })
+        .rollup(function(v) {
+          return d3.sum(v, function(d) {
+            return d.value;
+          });
+        })
+        .entries(population);
 
-      // Convert map to specific array
-      nested = Array.from(nested.entries()).reduce(
-        (main, [key, value]) => ({ ...main, [key]: value }),
-        {}
-      );
+      var temp = {};
+      nested.forEach(function(k) {
+        temp[k.key] = k.value;
+      });
+      nested = temp;
+
+      // d3v6
+      //
+      // var nested = rollup(
+      //   population,
+      //   v => d3.sum(v, d => d.value),
+      //   d => d.date
+      // );
+      // // Convert map to specific array
+      // nested = Array.from(nested.entries()).reduce(
+      //   (main, [key, value]) => ({ ...main, [key]: value }),
+      //   {}
+      // );
 
       // Get the last year from the array
       var lastYear = unemployment[unemployment.length - 1].date.slice(0, 4);
@@ -138,10 +161,24 @@ export class VisUnemploymentSex {
       // Filtering values to start from the first data points
       this.data = unemployment.filter(d => d.date >= this.parseTime("2011-01"));
 
-      this.nest = Array.from(group(this.data, d => d.sex), ([key, values]) => ({
-        key,
-        values
-      }));
+      // d3v5
+      //
+      this.nest = d3
+        .nest()
+        .key(function(d) {
+          return d.sex;
+        })
+        .entries(this.data);
+
+      // d3v6
+      //
+      // this.nest = Array.from(
+      //   group(this.data, d => d.sex),
+      //   ([key, values]) => ({
+      //     key,
+      //     values
+      //   })
+      // );
 
       this.updateRender();
       this._renderLines();
@@ -317,7 +354,10 @@ export class VisUnemploymentSex {
           return this.yScale(d.pct);
         }.bind(this)
       )
-      .extent([[0, 0], [this.width, this.height]]);
+      .extent([
+        [0, 0],
+        [this.width, this.height]
+      ]);
 
     this.voronoiGroup = this.svg.append("g").attr("class", "voronoi");
 
@@ -496,7 +536,10 @@ export class VisUnemploymentSex {
       }.bind(this)
     );
 
-    this.voronoi.extent([[0, 0], [this.width, this.height]]);
+    this.voronoi.extent([
+      [0, 0],
+      [this.width, this.height]
+    ]);
 
     this.voronoiGroup
       .selectAll("path")

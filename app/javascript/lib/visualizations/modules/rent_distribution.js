@@ -4,7 +4,7 @@ import { json } from "d3-fetch";
 import { format, formatDefaultLocale } from "d3-format";
 import { scaleLinear, scaleLog, scaleSequential } from "d3-scale";
 import { interpolatePlasma } from "d3-scale-chromatic";
-import { pointer, select, selectAll } from "d3-selection";
+import { mouse, select, selectAll } from "d3-selection";
 import { accounting, d3locale } from "lib/shared";
 import { distanceLimitedVoronoi } from "./d3-distance-limited-voronoi.js";
 
@@ -22,7 +22,7 @@ const d3 = {
   distanceLimitedVoronoi,
   extent,
   selectAll,
-  pointer
+  mouse
 };
 
 export class VisRentDistribution {
@@ -219,14 +219,14 @@ export class VisRentDistribution {
       .style("fill", "none")
       .attr("class", "voronoiPath")
       .attr("d", d => (d || {}).path)
-      .style("pointer-events", "all")
+      .style("mouse-events", "all")
       .on("mousemove", this._mousemove.bind(this))
       .on("mouseout", this._mouseout.bind(this));
 
     // Attach hover circle
     this.svg
       .append("circle")
-      .style("pointer-events", "none")
+      .style("mouse-events", "none")
       .attr("class", "hover")
       .attr("fill", "none")
       .attr("transform", "translate(-100,-100)")
@@ -274,7 +274,7 @@ export class VisRentDistribution {
     if (this.isMobile) {
       this.tooltip.style("opacity", 0);
     } else {
-      var coords = d3.pointer(event);
+      var coords = d3.mouse(event);
       var x = coords[0],
         y = coords[1];
 

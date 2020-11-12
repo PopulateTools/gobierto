@@ -347,7 +347,7 @@ export class VisUnemploymentRate {
       .on("mouseout", this._mouseout.bind(this));
   }
 
-  _mouseover(_, d) {
+  _mouseover(d) {
     this.focus
       .select("circle")
       .attr("stroke", this.color(d.data.location_type));

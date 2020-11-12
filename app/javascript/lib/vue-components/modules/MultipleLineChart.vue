@@ -99,6 +99,9 @@ export default {
     },
     buildMultipleLine(data) {
 
+      //Check if showLabels is true, if it's false reduce the size of the margin right
+      this.marginRight = !this.showRightLabels ? 30 : this.marginRight
+
       const parseTime = d3.timeParse('%Y');
 
       data.forEach(d => {
@@ -163,7 +166,9 @@ export default {
           .style('left', `${this.svgWidth - this.margin.right + 18}px`)
           .style('top', d => `${scaleY(d[value]) + this.margin.bottom}px`)
           .html(d => {
-            return this.buildLenged(d, value)
+            if (this.showRightLabels) {
+              return this.buildLenged(d, value)
+            }
           })
       }
 

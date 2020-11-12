@@ -17,7 +17,7 @@
       :height="600"
       :array-line-values="valuesForLineChart"
       :array-circle-values="valuesForCircleChart"
-      :show-right-labels="true"
+      :show-right-labels="false"
       :values-legend="valuesLegendObject"
     />
     <div
@@ -305,17 +305,15 @@ export default {
 
       return reducedArray
     },
-    showTooltip(event, d) {
+    showTooltip(event) {
 
-      const { assignee, final_amount_no_taxes, initial_amount_no_taxes } = d
+      const { assignee, final_amount_no_taxes, initial_amount_no_taxes, x, y } = event
       const tooltip = d3.select('.beeswarm-tooltip')
-
-      const { layerX, layerY } = event
 
       tooltip
         .style("display", "block")
-        .style('left', `${layerX - 50}px`)
-        .style('top', `${layerY + 10}px`)
+        .style('left', `${x}px`)
+        .style('top', `${y}px`)
         .html(`
           <span class="beeswarm-tooltip-header-title">
             ${assignee}

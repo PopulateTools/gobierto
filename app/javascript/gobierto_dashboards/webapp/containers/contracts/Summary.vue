@@ -17,7 +17,7 @@
       :height="600"
       :array-line-values="valuesForLineChart"
       :array-circle-values="valuesForCircleChart"
-      :show-right-labels="false"
+      :show-right-labels="true"
       :values-legend="valuesLegendObject"
     />
     <div

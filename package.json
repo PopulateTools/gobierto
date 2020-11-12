@@ -27,8 +27,8 @@
     "d3-interpolate": "^2.0.1",
     "d3-jetpack": "^2.0.16",
     "d3-path": "^2.0.0",
-    "d3-quadtree": "^1.0.7",
-    "d3-random": "^1.1.2",
+    "d3-quadtree": "^2.0.0",
+    "d3-random": "^2.2.2",
     "d3-scale": "^3.2.3",
     "d3-scale-chromatic": "^2.0.0",
     "d3-selection": "^2.0.0",
@@ -106,5 +106,39 @@
     "hooks": {
       "pre-commit": "npm run pre_commit_i18n_check"
     }
-  }
+  },
+  "resolutions": {
+    "@finos/perspective-viewer-d3fc/**/d3-array": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-axis": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-brush": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-chord": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-collection": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-color": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-contour": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-dispatch": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-drag": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-dsv": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-ease": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-fetch": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-force": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-format": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-geo": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-hierarchy": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-interpolate": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-path": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-polygon": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-quadtree": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-random": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-scale": "2",
+    "@finos/perspective-viewer-d3fc/**/d3-scale-chromatic": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-selection": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-shape": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-time": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-time-format": "2",
+    "@finos/perspective-viewer-d3fc/**/d3-timer": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-transition": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-voronoi": "1",
+    "@finos/perspective-viewer-d3fc/**/d3-zoom": "1"
+  },
+  "version": "0.0.0"
 }

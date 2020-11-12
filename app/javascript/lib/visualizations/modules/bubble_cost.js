@@ -9,14 +9,14 @@ import {
 import { formatDefaultLocale } from "d3-format";
 import { wordwrap } from "d3-jetpack";
 import { scaleLinear, scaleSqrt, scaleThreshold } from "d3-scale";
-import { mouse, select, selectAll } from "d3-selection";
+import { pointer, select, selectAll } from "d3-selection";
 import { transition } from "d3-transition";
 import { accounting, d3locale } from "lib/shared";
 
 const d3 = {
   select,
   selectAll,
-  mouse,
+  pointer,
   scaleThreshold,
   scaleLinear,
   scaleSqrt,
@@ -301,7 +301,7 @@ export class VisBubble {
   }
 
   _mousemoved(d) {
-    var coordinates = d3.mouse(this.containerWidth);
+    var coordinates = d3.pointer(this.containerWidth);
     var x = coordinates[0],
       y = coordinates[1];
 

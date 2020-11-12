@@ -10,7 +10,7 @@ import { formatDefaultLocale } from "d3-format";
 import { wordwrap } from "d3-jetpack";
 import tspans from "d3-jetpack/src/tspans";
 import { scaleLinear, scaleSqrt, scaleThreshold } from "d3-scale";
-import { mouse, select, selectAll, selection } from "d3-selection";
+import { pointer, select, selectAll, selection } from "d3-selection";
 import { transition } from "d3-transition";
 import { accounting, d3locale } from "lib/shared";
 
@@ -19,7 +19,7 @@ selection.prototype.tspans = tspans;
 const d3 = {
   select,
   selectAll,
-  mouse,
+  pointer,
   scaleThreshold,
   scaleLinear,
   scaleSqrt,
@@ -304,7 +304,7 @@ export class VisBubbles {
   }
 
   _mousemoved(d) {
-    var coordinates = d3.mouse(this.selectionNode);
+    var coordinates = d3.pointer(this.selectionNode);
     var x = coordinates[0],
       y = coordinates[1];
 

@@ -5,7 +5,7 @@ import { scaleBand, scaleOrdinal, scaleThreshold } from "d3-scale";
 import { select } from "d3-selection";
 import { timeMonth } from "d3-time";
 import { timeFormatLocale } from "d3-time-format";
-import { barChart, rowChart, units } from "dc";
+import { barChart, rowChart, units, version } from "dc";
 import "jsgrid";
 import { d3locale } from "lib/shared";
 import { AmountDistributionBars } from "lib/visualizations";
@@ -21,7 +21,9 @@ const d3 = {
   timeMonth,
   timeFormatLocale
 };
-const dc = { barChart, rowChart, units };
+const dc = { version, barChart, rowChart, units };
+
+console.log("dc.version", dc.version);
 
 window.GobiertoBudgets.InvoicesController = (function() {
   function InvoicesController() {}

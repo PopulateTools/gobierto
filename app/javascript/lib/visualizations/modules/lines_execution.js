@@ -10,7 +10,7 @@ import {
   scaleOrdinal,
   scaleTime
 } from "d3-scale";
-import { mouse, select, selectAll } from "d3-selection";
+import { pointer, select, selectAll } from "d3-selection";
 import { timeFormat, timeFormatDefaultLocale, timeParse } from "d3-time-format";
 import { transition } from "d3-transition";
 import { accounting, d3locale } from "lib/shared";
@@ -18,7 +18,7 @@ import { accounting, d3locale } from "lib/shared";
 const d3 = {
   select,
   selectAll,
-  mouse,
+  pointer,
   format,
   formatDefaultLocale,
   timeFormatDefaultLocale,
@@ -355,7 +355,7 @@ export class VisLinesExecution {
         .style("font-weight", d => (d.level === 1 ? "600" : "400"))
         .style("fill", "#4A4A4A")
         .text(d => d["name_" + this.localeFallback])
-        .style("mouse-events", "none");
+        .style("pointer-events", "none");
     }
 
     this.svg
@@ -531,7 +531,7 @@ export class VisLinesExecution {
   }
 
   _mousemoved(d) {
-    var coordinates = d3.mouse(this.selectionNode);
+    var coordinates = d3.pointer(this.selectionNode);
     var x = coordinates[0],
       y = coordinates[1];
 

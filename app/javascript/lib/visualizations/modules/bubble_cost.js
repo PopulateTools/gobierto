@@ -300,7 +300,6 @@ export class VisBubble {
     this.bubbles.attr("transform", d => `translate(${d.x},${d.y})`);
   }
 
-  // WARNING: replace mouse event in d3v6
   _mousemoved(d) {
     var coordinates = d3.mouse(this.containerWidth);
     var x = coordinates[0],

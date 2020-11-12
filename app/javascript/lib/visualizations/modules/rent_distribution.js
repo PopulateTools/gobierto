@@ -234,7 +234,6 @@ export class VisRentDistribution {
   }
 
   _mousemove(event, d) {
-    console.log('hol');
     d3.select(".circle").attr("stroke", "none");
 
     d3.selectAll(".hover")

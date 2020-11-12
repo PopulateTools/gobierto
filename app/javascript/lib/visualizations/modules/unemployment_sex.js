@@ -341,8 +341,7 @@ export class VisUnemploymentSex {
       .on("mouseout", this._mouseout.bind(this));
   }
 
-// WARNING: replace arguments in d3v6
-  _mouseover(d) {
+  _mouseover(_, d) {
     this.focus.select("circle").attr("stroke", this.color(d.data.sex));
     this.focus.attr(
       "transform",

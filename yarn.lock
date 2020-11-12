@@ -3117,7 +3117,7 @@ d3-dispatch@1.0.3:
   resolved "https://registry.yarnpkg.com/d3-dispatch/-/d3-dispatch-1.0.3.tgz"
   integrity sha1-RuFJHqqbWMNY/OW+TovtYm54cfg=
 
-d3-drag@1, d3-drag@^1.2.0:
+d3-drag@1:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/d3-drag/-/d3-drag-1.2.5.tgz#2537f451acd39d31406677b7dc77c82f7d988f70"
   integrity sha512-rD1ohlkKQwMZYkQlYVCrSFxsWPzI97+W+PaEIBNTMxRuxz9RF0Hi5nJWHGVJ3Om9d2fRTe1yOBINJyy/ahV95w==
@@ -3133,7 +3133,7 @@ d3-drag@1.2.1:
     d3-dispatch "1"
     d3-selection "1"
 
-d3-drag@2:
+d3-drag@2, d3-drag@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/d3-drag/-/d3-drag-2.0.0.tgz"
   integrity sha512-g9y9WbMnF5uqB9qKqwIIa/921RYWzlUDv9Jl1/yONQwxbOfszAWTCm8u7HOTgJgRDXiRZN56cHT9pd24dmXs8w==

@@ -530,7 +530,6 @@ export class VisLinesExecution {
       .attr("y2", d => this.y1(d.id) + this.y1.bandwidth());
   }
 
-  // WARNING: replace mouse event in d3v6
   _mousemoved(d) {
     var coordinates = d3.mouse(this.selectionNode);
     var x = coordinates[0],

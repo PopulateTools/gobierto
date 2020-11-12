@@ -218,7 +218,6 @@ export default {
     this.dataBeesWarm = dataBeesWarm
 
     const { data: { data: dataLineChart } } = await this.getData(this.queryLineChart)
-    console.log("dataLineChart", dataLineChart);
     this.transformDataContractsLine(dataLineChart)
 
   },
@@ -228,10 +227,9 @@ export default {
         d.final_amount_no_taxes = +d.final_amount_no_taxes
         d.initial_amount_no_taxes = +d.initial_amount_no_taxes
         //Calculate percentage median between initial amount and final amount to obtain the difference.
-        d.percentage_total = Math.abs(((d.final_amount_no_taxes - d.initial_amount_no_taxes) / d.initial_amount_no_taxes) * 100)
         d.year = new Date(d.start_date).getFullYear()
 
-        if (d.status === "Formalizado" || d.status === "Adjudicado" && d.final_amount_no_taxes !== 0) {
+        if (d.status === "Formalizado" || d.status === "Adjudicado") {
           d.formalized = 1
         } else {
           d.formalized = 0
@@ -242,19 +240,20 @@ export default {
         } else {
           d.anulled = 0
         }
-      })
 
-      console.log("data", data);
-      let dataFormalizeContracts = data.filter(({ formalized }) => formalized === 1)
-      console.log("dataFormalizeContracts", dataFormalizeContracts);
-
-      dataFormalizeContracts.forEach(d => {
-        d.percentage_total = Math.abs(((d.final_amount_no_taxes - d.initial_amount_no_taxes) / d.initial_amount_no_taxes) * 100)
+        if (d.final_amount_no_taxes === 0) {
+          d.formalized = 0
+          d.anulled = 1
+        }
       })
 
       //JS convert null years to 1970
       data = data.filter(({ year }) => year !== 1970 && year !== 2021)
 
+      let dataFormalizeContracts = data.filter(({ formalized }) => formalized === 1)
+      dataFormalizeContracts.forEach(d => {
+        d.percentage_total = Math.abs(((d.final_amount_no_taxes - d.initial_amount_no_taxes) / d.initial_amount_no_taxes) * 100)
+      })
       //We need to group and sum by year and value
       const finalAmountTotal = this.sumDataByGroupKey(data, 'year', 'final_amount_no_taxes')
       const formalizedTotal = this.sumDataByGroupKey(data, 'year', 'formalized')
@@ -265,12 +264,11 @@ export default {
       //Create a new object with the sum of the properties
       let dataContractsLine = finalAmountTotal.map((item, i) => Object.assign({}, item, initialAmountTotal[i], percentageTotal[i], formalizedTotal[i], anulledTotal[i]));
 
-      console.log("dataContractsLine", dataContractsLine);
       dataContractsLine.forEach(d => {
         //Get the total of contracts
         d.total_contracts = (d.anulled + d.formalized)
 
-        d.percentage_year = (d.percentage_total / d.formalized)
+        d.percentage_year = (d.percentage_total / d.total_contracts)
       })
 
       this.dataLineChart = dataContractsLine

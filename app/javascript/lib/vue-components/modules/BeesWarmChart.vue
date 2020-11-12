@@ -45,16 +45,33 @@ export default {
     scaleXProperty: {
       default: '',
       type: String,
+    },
+    marginLeft: {
+      type: Number,
+      default: 100
+    },
+    marginRight: {
+      type: Number,
+      default: 30
+    },
+    marginTop: {
+      type: Number,
+      default: 50
+    },
+    marginBottom: {
+      type: Number,
+      default: 30
     }
+
   },
   data() {
     return {
       svgWidth: 0,
-      margin:{
-        left: 140,
-        right: 30,
-        top: 50,
-        bottom: 30
+      margin: {
+        left: this.marginLeft,
+        right: this.marginRight,
+        top: this.marginTop,
+        bottom: this.marginBottom
       },
       padding: 1.5
     }
@@ -155,7 +172,7 @@ export default {
 
         svg.selectAll('circle')
           .data(filterData)
-          .attr('cx', (d) => d.x)
+          .attr('cx', (d) => d.x - this.margin.right)
           .attr('cy', (d) => d.y);
 
       }

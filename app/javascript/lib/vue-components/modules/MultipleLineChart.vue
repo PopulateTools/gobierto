@@ -47,6 +47,22 @@ export default {
     valuesLegend: {
       type: Array,
       default: () => []
+    },
+    marginLeft: {
+      type: Number,
+      default: 30
+    },
+    marginRight: {
+      type: Number,
+      default: 250
+    },
+    marginTop: {
+      type: Number,
+      default: 50
+    },
+    marginBottom: {
+      type: Number,
+      default: 30
     }
   },
   data() {
@@ -54,10 +70,10 @@ export default {
       svgWidth: 0,
       svgHeight: 0,
       margin: {
-        left: 30,
-        right: 250,
-        top: 50,
-        bottom: 30
+        left: this.marginLeft,
+        right: this.marginRight,
+        top: this.marginTop,
+        bottom: this.marginBottom
       }
     }
   },

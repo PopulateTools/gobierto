@@ -18,12 +18,13 @@ import { scaleOrdinal } from 'd3-scale'
 const d3 = { select, selectAll, treemap, stratify, scaleOrdinal }
 
 import { getDataMixin } from "../lib/getData";
+import { money } from "lib/shared";
 export default {
   name: 'TreeMap',
   mixins: [getDataMixin],
   data() {
     return {
-      query: "?sql=SELECT contract_type, sum(initial_amount) as TOTAL FROM contratos WHERE contract_type != 'Patrimonial' GROUP BY contract_type",
+      query: "?sql=SELECT contract_type, sum(initial_amount_no_taxes) as TOTAL FROM contratos WHERE contract_type != 'Patrimonial' GROUP BY contract_type",
       svgWidth: 0,
       svgHeight: 400
     }
@@ -94,7 +95,7 @@ export default {
           .attr('class', 'value')
           .attr("x", d => d.x0 + 10)
           .attr("y", d => d.y0 + 45)
-          .text(d => `${d.value.toFixed(0)} €`)
+          .text(d => `${money(d.value)}`)
           .attr("fill", "white")
 
     }

@@ -16,8 +16,10 @@ import { line, curveCardinal } from 'd3-shape';
 import { scaleTime, scaleLinear, scaleOrdinal } from 'd3-scale';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { timeFormat, timeParse } from 'd3-time-format';
+import { format, formatDefaultLocale } from 'd3-format';
+import { d3locale } from "lib/shared";
 
-const d3 = { select, selectAll, nest, min, max, line, scaleOrdinal, scaleTime, scaleLinear, axisBottom, axisLeft, timeFormat, timeParse, extent, curveCardinal }
+const d3 = { select, selectAll, nest, min, max, line, scaleOrdinal, scaleTime, scaleLinear, axisBottom, axisLeft, timeFormat, timeParse, extent, curveCardinal, format, formatDefaultLocale }
 
 export default {
   name: 'MultipleLineChart',
@@ -30,10 +32,22 @@ export default {
       default: 400,
       type: Number,
     },
-    arrayValues: {
+    arrayLineValues: {
       type: Array,
       default: () => []
     },
+    arrayCircleValues: {
+      type: Array,
+      default: () => []
+    },
+    showRightLabels: {
+      type: Boolean,
+      default: false
+    },
+    valuesLegend: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
@@ -41,7 +55,7 @@ export default {
       svgHeight: 0,
       margin: {
         left: 30,
-        right: 30,
+        right: 250,
         top: 50,
         bottom: 30
       }
@@ -79,9 +93,6 @@ export default {
         return new Date(b.year) - new Date(a.year);
       });
 
-      const arrayGobiertoColors = ['#12365B', '#008E9C', '#FF776D', '#F8B205']
-      const color = d3.scaleOrdinal(arrayGobiertoColors);
-
       const svg = d3.select('.multiple-line-chart')
 
       const translate = `translate(${this.margin.left},${this.margin.top})`
@@ -91,7 +102,7 @@ export default {
       g.attr('transform', translate)
 
       const scaleY = d3.scaleLinear()
-        .domain([0, d3.max(data, d => Math.max(d[this.arrayValues[0]], d[this.arrayValues[1]], d[this.arrayValues[2]]))])
+        .domain([0, d3.max(data, d => Math.max(d[this.arrayLineValues[0]], d[this.arrayLineValues[1]], d[this.arrayLineValues[2]]))])
         .range([this.height, 0]);
 
       const scaleX = d3.scaleTime()
@@ -110,33 +121,56 @@ export default {
       const axisY = d3
         .axisLeft(scaleY)
         .tickFormat(d => d)
-        .tickSize(-this.svgWidth)
-        .ticks(6)
+        .tickSize(-(this.svgWidth - (this.margin.left + this.margin.right)))
+        .ticks(10)
 
       g.select('.axis-y')
         .call(axisY)
 
-      for (let index = 0; index < this.arrayValues.length; index++) {
+      for (let index = 0; index < this.arrayLineValues.length; index++) {
 
-       let valueline = d3.line()
-         .x(d => scaleX(d.year))
-         .y(d => scaleY(d[this.arrayValues[index]]))
-         .curve(d3.curveCardinal);
+        let value = this.arrayLineValues[index]
+        let valueline = d3.line()
+          .x(d => scaleX(d.year))
+          .y(d => scaleY(d[value]))
+          .curve(d3.curveCardinal);
 
         g.append("path")
           .data([data])
-          .attr("class", `lines-multiple-lines line-${this.arrayValues[index]}`)
-          .attr("d", valueline);
+          .attr("class", `lines-multiple-lines line-${value}`)
+          .attr("d", valueline)
 
-        g.selectAll(`circle-${this.arrayValues[index]}`)
+        d3.select('.multiple-line-chart-container')
+          .append('div')
+          .data(data)
+          .attr('class', `tooltip-multiple-line tooltip-${value}`)
+          .style('left', `${this.svgWidth - this.margin.right + 18}px`)
+          .style('top', d => `${scaleY(d[value]) + this.margin.bottom}px`)
+          .html(d => {
+            return this.buildLenged(d, value)
+          })
+      }
+
+      for (let index = 0; index < this.arrayCircleValues.length; index++) {
+
+        g.selectAll(`circle-${this.arrayCircleValues[index]}`)
           .data(data)
           .enter()
           .append('circle')
-          .attr("class", `circle-${this.arrayValues[index]}`)
+          .attr("class", `circle-${this.arrayCircleValues[index]}`)
           .attr('cx', d => scaleX(d.year))
-          .attr('cy', d => scaleY(d[this.arrayValues[index]]))
-          .attr('r', 4)
+          .attr('cy', d => scaleY(d[this.arrayCircleValues[index]]))
+          .attr('r', 6)
       }
+
+    },
+    buildLenged(d, value) {
+      const locale = d3.formatDefaultLocale(d3locale[I18n.locale]);
+      const localeFormat = locale.format(',.0f')
+      const filterData = this.valuesLegend.filter(d => d.key === value)
+
+      let tooltipText = eval('`'+filterData[0].legend+'`');
+      return tooltipText
     }
   }
 }

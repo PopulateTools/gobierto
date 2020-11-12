@@ -319,6 +319,7 @@
 
   #treemap-contracts {
     font-family: $font_headings;
+
     .name {
       font-size: 16px;
       font-weight: bold;
@@ -332,39 +333,92 @@
   }
 
   .multiple-line-chart-container {
+    position: relative;
 
-    .line-formalizado,
+    .tooltip-formalized {
+      margin-top: 1rem;
+      .first-row {
+        font-size: 18px;
+        font-weight: bold;
+        color: #d89b05;
+        display: block;
+      }
+
+      .second-row {
+        font-size: 16px;
+        color: #d89b05;
+        display: block;
+      }
+    }
+
+    .tooltip-total_contracts {
+      .first-row {
+        font-size: 18px;
+        font-weight: bold;
+        color: #008e9c;
+        display: block;
+      }
+
+      .second-row {
+        font-size: 16px;
+        color: #008e9c;
+        display: block;
+      }
+    }
+
+    .tooltip-percentage_year {
+      .first-row {
+        font-size: 14px;
+        font-weight: bold;
+        color: #0072bc;
+        display: block;
+      }
+
+      .second-row {
+        font-size: 20px;
+        color: #0072bc;
+        display: block;
+      }
+    }
+
+    .tooltip-multiple-line {
+      display: block;
+      position: absolute;
+      padding: .25rem;
+      width: max-content;
+      height: auto;
+      z-index: 1;
+      color: #111;
+    }
+
+    .line-formalized,
     .line-total_contracts {
       stroke-width: 4px;
     }
 
-    .line-formalizado {
-      stroke: #F8B205;
+    .line-formalized {
+      stroke: #f8b205;
     }
 
-    .circle-formalizado {
-      fill: #F8B205;
+    .circle-formalized {
+      fill: #f8b205;
     }
 
     .line-total_contracts {
-      stroke: #008E9C;
+      stroke: #008e9c;
     }
 
     .circle-total_contracts {
-      fill: #008E9C;
+      fill: #008e9c;
     }
 
-    .line-percentageYear {
+    .line-percentage_year {
       stroke-width: 2px;
-      stroke: #1F78B4;
-    }
-
-    .circle-percentageYear {
-      fill: #1F78B4;
+      stroke: #1f78b4;
     }
 
     .domain {
-      stroke: none;
+      stroke: #f0f0f0;
     }
 
     .axis-x {
@@ -374,19 +428,22 @@
         }
 
         text {
-          font-size: 14px;
-          color: #c4c4c4; }
+          font-size: 12px;
+          color: #a3a3a3;
+        }
       }
     }
 
     .axis-y {
       .tick {
-        stroke-dasharray: 1px;
+
+        line {
+          stroke: #f0f0f0;
+        }
 
         text {
-          font-size: 14px;
-          text-transform: uppercase;
-          color: #0072bc;
+          font-size: 12px;
+          color: #a3a3a3;
         }
       }
     }

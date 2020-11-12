@@ -5,7 +5,7 @@
       v-if="dataBeesWarm"
       :data="dataBeesWarm"
       :height="600"
-      :radius-property="'initial_amount'"
+      :radius-property="'initial_amount_no_taxes'"
       :scale-x-property="'start_date'"
       :scale-y-property="'contract_type'"
       @showTooltip="showTooltip"
@@ -15,7 +15,10 @@
       v-if="dataLineChart"
       :data="dataLineChart"
       :height="600"
-      :array-values="valuesForLineChart"
+      :array-line-values="valuesForLineChart"
+      :array-circle-values="valuesForCircleChart"
+      :show-right-labels="true"
+      :values-legend="valuesLegendObject"
     />
     <div
       id="tendersContractsSummary"
@@ -201,11 +204,12 @@ export default {
       labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
       labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution'),
       labelMainAssignees: I18n.t('gobierto_dashboards.dashboards.contracts.main_assignees'),
-      queryBeesWarmChart:"?sql=SELECT EXTRACT(YEAR FROM start_date), initial_amount, final_amount, contract_type, id, assignee, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
-      queryLineChart: "?sql=SELECT EXTRACT(YEAR FROM start_date), final_amount, status, initial_amount, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
+      queryBeesWarmChart:"?sql=SELECT EXTRACT(YEAR FROM start_date), initial_amount_no_taxes, final_amount_no_taxes, contract_type, id, assignee, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
+      queryLineChart: "?sql=SELECT final_amount_no_taxes, status, initial_amount_no_taxes, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
       dataBeesWarm: undefined,
       dataLineChart: undefined,
-      valuesForLineChart: undefined
+      valuesForLineChart: undefined,
+      valuesForCircleChart: undefined
     }
   },
   async created() {
@@ -219,61 +223,83 @@ export default {
   },
   methods: {
     transformDataContractsLine(data) {
-      data = data.filter(({ date_part }) => date_part !== null)
-
       data.forEach(d => {
-        d.final_amount = +d.final_amount
-        d.initial_amount = +d.initial_amount
-        d.percentage_total = Math.abs(((d.final_amount - d.initial_amount) / d.initial_amount) * 100)
+        d.final_amount_no_taxes = +d.final_amount_no_taxes
+        d.initial_amount_no_taxes = +d.initial_amount_no_taxes
+        //Calculate percentage median between initial amount and final amount to obtain the difference.
+        d.percentage_total = Math.abs(((d.final_amount_no_taxes - d.initial_amount_no_taxes) / d.initial_amount_no_taxes) * 100)
         d.year = new Date(d.start_date).getFullYear()
 
         if (d.status === "Formalizado" || d.status === "Adjudicado") {
-          d.formalizado = 1
+          d.formalized = 1
         } else {
-          d.formalizado = 0
+          d.formalized = 0
         }
 
         if (d.status === "Desierto") {
-          d.desierto = 1
+          d.anulled = 1
         } else {
-          d.desierto = 0
+          d.anulled = 0
         }
       })
 
-      const sumFinalAmount = Array.from(data.reduce(
-        (m, { year, final_amount }) => m.set(year, (m.get(year) || 0) + final_amount), new Map
-      ), ([year, final_amount]) => ({ year, final_amount }));
+      //JS convert null years to 1970
+      data = data.filter(({ year }) => year !== 1970 && year !== 2021)
 
-      const formalizadoCount = Array.from(data.reduce(
-        (m, { year, formalizado }) => m.set(year, (m.get(year) || 0) + formalizado), new Map
-      ), ([year, formalizado]) => ({ year, formalizado }));
+      //We need to group and sum by year and value
+      const finalAmountTotal = this.sumDataByGroupKey(data, 'year', 'final_amount_no_taxes')
+      const formalizedTotal = this.sumDataByGroupKey(data, 'year', 'formalized')
+      const anulledTotal = this.sumDataByGroupKey(data, 'year', 'anulled')
+      const initialAmountTotal = this.sumDataByGroupKey(data, 'year', 'initial_amount_no_taxes')
+      const percentageTotal = this.sumDataByGroupKey(data, 'year', 'percentage_total')
 
-      const formalizadoNotCount = Array.from(data.reduce(
-        (m, { year, desierto }) => m.set(year, (m.get(year) || 0) + desierto), new Map
-      ), ([year, desierto]) => ({ year, desierto }));
-
-      const sumInitialAmount = Array.from(data.reduce(
-        (m, { year, initial_amount }) => m.set(year, (m.get(year) || 0) + initial_amount), new Map
-      ), ([year, initial_amount]) => ({ year, initial_amount }));
-
-      const sumPercentage = Array.from(data.reduce(
-        (m, { year, percentage_total }) => m.set(year, (m.get(year) || 0) + percentage_total), new Map
-      ), ([year, percentage_total]) => ({ year, percentage_total }));
-
-      let dataContractsLine = sumFinalAmount.map((item, i) => Object.assign({}, item, sumInitialAmount[i], sumPercentage[i], formalizadoCount[i], formalizadoNotCount[i]));
+      //Create a new object with the sum of the properties
+      let dataContractsLine = finalAmountTotal.map((item, i) => Object.assign({}, item, initialAmountTotal[i], percentageTotal[i], formalizedTotal[i], anulledTotal[i]));
 
       dataContractsLine.forEach(d => {
-        d.total_contracts = (d.desierto + d.formalizado)
-        d.percentageYear = (d.percentage_total / d.total_contracts)
+        //Get the total of contracts
+        d.total_contracts = (d.anulled + d.formalized)
+
+        d.percentage_year = (d.percentage_total / d.total_contracts)
       })
 
       this.dataLineChart = dataContractsLine
 
-      this.valuesForLineChart = ['formalizado', 'percentageYear', 'total_contracts']
+      //Values for build lines in the chart
+      this.valuesForLineChart = ['formalized', 'percentage_year', 'total_contracts']
+
+      this.valuesLegendObject = [{
+        key: 'formalized',
+        legend:'<span class="first-row">${d[value]} ADJUDICACIONES</span><span class="second-row">por importe de ${localeFormat((d["final_amount_no_taxes"] / 1000000))}M</span>'
+      },
+      {
+        key: 'total_contracts',
+        legend:'<span class="first-row">${d[value]} LICITACIONES</span><span class="second-row">por importe de ${localeFormat((d["initial_amount_no_taxes"] / 1000000))}M</span>'
+      },
+      {
+        key: 'percentage_year',
+        legend:'<span class="first-row">% DIFERENCIA IMPORTE </span><span class="first-row">LICITACIÓN/adjudicación</span><span class="second-row">${d["percentage_year"].toFixed(0)}%</span>'
+      }
+      ]
+      //Values for build circles in the chart
+      this.valuesForCircleChart = ['formalized', 'total_contracts']
+    },
+    sumDataByGroupKey(data, group, value) {
+      let counts = data.reduce((prev, curr) => {
+        let count = prev.get(curr[group]) || 0;
+        prev.set(curr[group], curr[value] + count);
+        return prev;
+      }, new Map());
+
+      let reducedArray = [...counts].map(([key, val]) => {
+        return { [group]: key, [value]: val }
+      })
+
+      return reducedArray
     },
     showTooltip(event, d) {
 
-      const { assignee, final_amount, initial_amount } = d
+      const { assignee, final_amount_no_taxes, initial_amount_no_taxes } = d
       const tooltip = d3.select('.beeswarm-tooltip')
 
       const { layerX, layerY } = event
@@ -291,7 +317,7 @@ export default {
               Importe inicial:
             </span>
             <span class="beeswarm-tooltip-table-element-text">
-              ${initial_amount}
+              ${initial_amount_no_taxes}
             </span>
           </div>
           <div class="beeswarm-tooltip-table-element">
@@ -299,7 +325,7 @@ export default {
               Importe final:
             </span>
             <span class="beeswarm-tooltip-table-element-text">
-              ${final_amount}
+              ${final_amount_no_taxes}
             </span>
           </div>
         `)

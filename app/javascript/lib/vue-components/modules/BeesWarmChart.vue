@@ -79,7 +79,6 @@ export default {
         .attr('class', 'axis axis-y')
     },
    buildBeesWarm(data) {
-      
       let filterData = this.transformData(data)
 
       const arrayGobiertoColors = ['#12365B', '#008E9C', '#FF776D', '#F8B205']

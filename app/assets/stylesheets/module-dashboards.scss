@@ -334,8 +334,8 @@
 
   .multiple-line-chart-container {
     position: relative;
-
     .tooltip-formalized {
+      line-height: 1.1;
       margin-top: 1rem;
       .first-row {
         font-size: 18px;
@@ -352,6 +352,16 @@
     }
 
     .tooltip-total_contracts {
+      margin-top: -2rem;
+      .title {
+        font-size: 18px;
+        color: #828282;
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+        margin-bottom: .5rem;
+        padding-bottom: .25rem;
+        display: inline-block;
+      }
+
       .first-row {
         font-size: 18px;
         font-weight: bold;
@@ -367,6 +377,7 @@
     }
 
     .tooltip-percentage_year {
+      line-height: 1.1;
       .first-row {
         font-size: 14px;
         font-weight: bold;
@@ -376,7 +387,7 @@
 
       .second-row {
         font-size: 20px;
-        color: #0072bc;
+        color: rgba(0, 114, 188, .5);
         display: block;
       }
     }
@@ -414,7 +425,7 @@
 
     .line-percentage_year {
       stroke-width: 2px;
-      stroke: #1f78b4;
+      stroke: rgba(31, 120, 180, .3);
     }
 
     .domain {

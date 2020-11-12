@@ -218,6 +218,7 @@ export default {
     this.dataBeesWarm = dataBeesWarm
 
     const { data: { data: dataLineChart } } = await this.getData(this.queryLineChart)
+    console.log("dataLineChart", dataLineChart);
     this.transformDataContractsLine(dataLineChart)
 
   },
@@ -230,7 +231,7 @@ export default {
         d.percentage_total = Math.abs(((d.final_amount_no_taxes - d.initial_amount_no_taxes) / d.initial_amount_no_taxes) * 100)
         d.year = new Date(d.start_date).getFullYear()
 
-        if (d.status === "Formalizado" || d.status === "Adjudicado") {
+        if (d.status === "Formalizado" || d.status === "Adjudicado" && d.final_amount_no_taxes !== 0) {
           d.formalized = 1
         } else {
           d.formalized = 0
@@ -243,6 +244,14 @@ export default {
         }
       })
 
+      console.log("data", data);
+      let dataFormalizeContracts = data.filter(({ formalized }) => formalized === 1)
+      console.log("dataFormalizeContracts", dataFormalizeContracts);
+
+      dataFormalizeContracts.forEach(d => {
+        d.percentage_total = Math.abs(((d.final_amount_no_taxes - d.initial_amount_no_taxes) / d.initial_amount_no_taxes) * 100)
+      })
+
       //JS convert null years to 1970
       data = data.filter(({ year }) => year !== 1970 && year !== 2021)
 
@@ -251,16 +260,17 @@ export default {
       const formalizedTotal = this.sumDataByGroupKey(data, 'year', 'formalized')
       const anulledTotal = this.sumDataByGroupKey(data, 'year', 'anulled')
       const initialAmountTotal = this.sumDataByGroupKey(data, 'year', 'initial_amount_no_taxes')
-      const percentageTotal = this.sumDataByGroupKey(data, 'year', 'percentage_total')
+      const percentageTotal = this.sumDataByGroupKey(dataFormalizeContracts, 'year', 'percentage_total')
 
       //Create a new object with the sum of the properties
       let dataContractsLine = finalAmountTotal.map((item, i) => Object.assign({}, item, initialAmountTotal[i], percentageTotal[i], formalizedTotal[i], anulledTotal[i]));
 
+      console.log("dataContractsLine", dataContractsLine);
       dataContractsLine.forEach(d => {
         //Get the total of contracts
         d.total_contracts = (d.anulled + d.formalized)
 
-        d.percentage_year = (d.percentage_total / d.total_contracts)
+        d.percentage_year = (d.percentage_total / d.formalized)
       })
 
       this.dataLineChart = dataContractsLine
@@ -274,7 +284,7 @@ export default {
       },
       {
         key: 'total_contracts',
-        legend:'<span class="first-row">${d[value]} LICITACIONES</span><span class="second-row">por importe de ${localeFormat((d["initial_amount_no_taxes"] / 1000000))}M</span>'
+        legend:'<span class="title">EN LO QUE VA DE 2020</span><span class="first-row">${d[value]} LICITACIONES</span><span class="second-row">por importe de ${localeFormat((d["initial_amount_no_taxes"] / 1000000))}M</span>'
       },
       {
         key: 'percentage_year',

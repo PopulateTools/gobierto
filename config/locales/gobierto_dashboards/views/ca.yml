@@ -156,6 +156,18 @@ ca:
           subsidies: Subvencions
           subsidies_for: subvencions per import de
         title: Subvencions
+      visualizations:
+        by_amount: per import de
+        contract: Adjudicació
+        contracts: Adjudicacions
+        difference_import: Diferència Import
+        tender: licitació
+        tenders: licitacions
+        title_beeswarm: Contractes per tipus, volum, mida i data
+        title_legend: En el que va d'2020
+        title_multiple: Evolució de l'volum de licitacions i adjudicacions
+        tooltip_beeswarm: Import de adjudicació
+        tooltip_treemap: Total contractes
     layouts:
       application:
         gobierto_dashboards:

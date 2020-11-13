@@ -159,6 +159,18 @@ es:
           subsidies: Subvenciones
           subsidies_for: subvenciones por importe de
         title: Subvenciones
+      visualizations:
+        by_amount: por importe de
+        contract: Adjudicación
+        contracts: Adjudicaciones
+        difference_import: Diferencia Importe
+        tender: Licitación
+        tenders: Licitaciones
+        title_beeswarm: Contratos por tipo, volumen, tamaño y fecha
+        title_legend: En lo que va de 2020
+        title_multiple: Evolución del volumen de licitaciones y adjudicaciones
+        tooltip_beeswarm: Importe de adjudicación
+        tooltip_treemap: Total contratos
     layouts:
       application:
         gobierto_dashboards:

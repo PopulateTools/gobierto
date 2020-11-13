@@ -183,6 +183,7 @@ export default {
       const option = filter.options.find(option => option.id === id)
       EventBus.$emit('filter-changed', { all: false, title: option.title, id: filter.id });
       EventBus.$emit("update-filters");
+      EventBus.$emit("update-data-charts", id);
     },
     toggle(filter){
       this.filters.forEach(_filter => {

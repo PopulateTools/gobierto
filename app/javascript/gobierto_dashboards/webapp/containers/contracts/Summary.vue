@@ -1,20 +1,29 @@
 <template>
   <div>
+    <h3 class="mt1 graph-title">
+      {{ labelContractType }}
+    </h3>
     <TreeMap />
+    <h3 class="mt4 graph-title">
+      {{ labelBeesWarm }}
+    </h3>
     <BeesWarmChart
-      v-if="dataBeesWarm"
-      :data="dataBeesWarm"
+      v-if="dataBeesWarmFilter"
+      :data="dataBeesWarmFilter"
       :height="600"
-      :radius-property="'initial_amount_no_taxes'"
+      :radius-property="'final_amount_no_taxes'"
       :x-axis-prop="'start_date'"
       :y-axis-prop="'contract_type'"
       @showTooltip="showTooltip"
       @goesToItem="goesToItem"
     />
+    <h3 class="mt4 graph-title">
+      {{ labelMultipleLine }}
+    </h3>
     <MultipleLineChart
       v-if="dataLineChart"
       :data="dataLineChart"
-      :height="600"
+      :height="350"
       :array-line-values="valuesForLineChart"
       :array-circle-values="valuesForCircleChart"
       :show-right-labels="true"
@@ -22,7 +31,7 @@
     />
     <div
       id="tendersContractsSummary"
-      class="metric_boxes"
+      class="metric_boxes mt4"
     >
       <div class="metric_box">
         <div class="inner nomargin ">
@@ -162,13 +171,16 @@
   </div>
 </template>
 <script>
+
+import { EventBus } from "../../mixins/event_bus";
 import { BeesWarmChart, MultipleLineChart } from "lib/vue-components";
 import TreeMap from "../../visualizations/treeMap.vue";
-import { getDataMixin } from "../../lib/getData";
 import Table from "../../components/Table.vue";
 import { dashboardsMixins } from "../../mixins/dashboards_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
 import { select } from 'd3-selection'
+import { getQueryData, sumDataByGroupKey } from "../../lib/utils";
+import { money } from "lib/shared";
 
 const d3 = { select }
 
@@ -180,7 +192,7 @@ export default {
     BeesWarmChart,
     MultipleLineChart
   },
-  mixins: [dashboardsMixins, getDataMixin],
+  mixins: [dashboardsMixins],
   data(){
     return {
       dashboardsData: this.$root.$data.contractsData,
@@ -204,9 +216,13 @@ export default {
       labelProcessType: I18n.t('gobierto_dashboards.dashboards.contracts.process_type'),
       labelAmountDistribution: I18n.t('gobierto_dashboards.dashboards.contracts.amount_distribution'),
       labelMainAssignees: I18n.t('gobierto_dashboards.dashboards.contracts.main_assignees'),
+      labelBeesWarm: I18n.t('gobierto_dashboards.dashboards.visualizations.title_beeswarm'),
+      labelTooltipBeesWarm: I18n.t('gobierto_dashboards.dashboards.visualizations.tooltip_beeswarm'),
+      labelMultipleLine: I18n.t('gobierto_dashboards.dashboards.visualizations.title_multiple'),
       queryBeesWarmChart:"?sql=SELECT EXTRACT(YEAR FROM start_date), initial_amount_no_taxes, final_amount_no_taxes, contract_type, id, assignee, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
       queryLineChart: "?sql=SELECT final_amount_no_taxes, status, initial_amount_no_taxes, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
       dataBeesWarm: undefined,
+      dataBeesWarmFilter: undefined,
       dataLineChart: undefined,
       valuesForLineChart: undefined,
       valuesForCircleChart: undefined
@@ -214,14 +230,22 @@ export default {
   },
   async created() {
     this.columns = assigneesColumns;
-    const { data: { data: dataBeesWarm } } = await this.getData(this.queryBeesWarmChart)
+    const { data: { data: dataBeesWarm } } = await getQueryData(this.queryBeesWarmChart)
     this.dataBeesWarm = dataBeesWarm
+    this.dataBeesWarmFilter = dataBeesWarm
 
-    const { data: { data: dataLineChart } } = await this.getData(this.queryLineChart)
+    const { data: { data: dataLineChart } } = await getQueryData(this.queryLineChart)
     this.transformDataContractsLine(dataLineChart)
+
+    EventBus.$on("update-data-charts", id => {
+      this.updateCharts(id);
+    });
 
   },
   methods: {
+    updateCharts(id) {
+      this.dataBeesWarmFilter = this.dataBeesWarm.filter(({ date_part }) => date_part === id)
+    },
     transformDataContractsLine(data) {
       data.forEach(d => {
         d.final_amount_no_taxes = +d.final_amount_no_taxes
@@ -255,11 +279,11 @@ export default {
         d.percentage_total = Math.abs(((d.final_amount_no_taxes - d.initial_amount_no_taxes) / d.initial_amount_no_taxes) * 100)
       })
       //We need to group and sum by year and value
-      const finalAmountTotal = this.sumDataByGroupKey(data, 'year', 'final_amount_no_taxes')
-      const formalizedTotal = this.sumDataByGroupKey(data, 'year', 'formalized')
-      const anulledTotal = this.sumDataByGroupKey(data, 'year', 'anulled')
-      const initialAmountTotal = this.sumDataByGroupKey(data, 'year', 'initial_amount_no_taxes')
-      const percentageTotal = this.sumDataByGroupKey(dataFormalizeContracts, 'year', 'percentage_total')
+      const finalAmountTotal = sumDataByGroupKey(data, 'year', 'final_amount_no_taxes')
+      const formalizedTotal = sumDataByGroupKey(data, 'year', 'formalized')
+      const anulledTotal = sumDataByGroupKey(data, 'year', 'anulled')
+      const initialAmountTotal = sumDataByGroupKey(data, 'year', 'initial_amount_no_taxes')
+      const percentageTotal = sumDataByGroupKey(dataFormalizeContracts, 'year', 'percentage_total')
 
       //Create a new object with the sum of the properties
       let dataContractsLine = finalAmountTotal.map((item, i) => Object.assign({}, item, initialAmountTotal[i], percentageTotal[i], formalizedTotal[i], anulledTotal[i]));
@@ -276,62 +300,49 @@ export default {
       //Values for build lines in the chart
       this.valuesForLineChart = ['formalized', 'percentage_year', 'total_contracts']
 
-      this.valuesLegendObject = [{
-        key: 'formalized',
-        legend:'<span class="first-row">${d[value]} ADJUDICACIONES</span><span class="second-row">por importe de ${localeFormat((d["final_amount_no_taxes"] / 1000000))}M</span>'
-      },
+      this.valuesLegendObject = [
       {
         key: 'total_contracts',
-        legend:'<span class="title">EN LO QUE VA DE 2020</span><span class="first-row">${d[value]} LICITACIONES</span><span class="second-row">por importe de ${localeFormat((d["initial_amount_no_taxes"] / 1000000))}M</span>'
+        legend:'<span class="title">${I18n.t("gobierto_dashboards.dashboards.visualizations.title_legend")}</span><span class="first-row">${d[value]} ${I18n.t("gobierto_dashboards.dashboards.contracts.summary.tenders")}</span><span class="second-row">${I18n.t("gobierto_dashboards.dashboards.visualizations.by_amount")} ${localeFormat((d["initial_amount_no_taxes"] / 1000000))}M</span>'
+      },
+      {
+        key: 'formalized',
+        legend:'<span class="first-row">${d[value]} ${I18n.t("gobierto_dashboards.dashboards.visualizations.contracts")}</span><span class="second-row">${I18n.t("gobierto_dashboards.dashboards.visualizations.by_amount")} ${localeFormat((d["final_amount_no_taxes"] / 1000000))}M</span>'
       },
       {
         key: 'percentage_year',
-        legend:'<span class="first-row">% DIFERENCIA IMPORTE </span><span class="first-row">LICITACIÓN/adjudicación</span><span class="second-row">${d["percentage_year"].toFixed(0)}%</span>'
+        legend:'<span class="first-row">% ${I18n.t("gobierto_dashboards.dashboards.visualizations.difference_import")} </span><span class="first-row">${I18n.t("gobierto_dashboards.dashboards.contracts.summary.tenders")}/${I18n.t("gobierto_dashboards.dashboards.visualizations.contracts")}</span><span class="second-row">${d["percentage_year"].toFixed(0)}%</span>'
       }
       ]
       //Values for build circles in the chart
       this.valuesForCircleChart = ['formalized', 'total_contracts']
     },
-    sumDataByGroupKey(data, group, value) {
-      let counts = data.reduce((prev, curr) => {
-        let count = prev.get(curr[group]) || 0;
-        prev.set(curr[group], curr[value] + count);
-        return prev;
-      }, new Map());
-
-      let reducedArray = [...counts].map(([key, val]) => {
-        return { [group]: key, [value]: val }
-      })
-
-      return reducedArray
-    },
     showTooltip(event) {
-
-      const { assignee, final_amount_no_taxes, initial_amount_no_taxes, x, y } = event
+      const { assignee, final_amount_no_taxes, x, y } = event
       const tooltip = d3.select('.beeswarm-tooltip')
+
+      const container = document.getElementsByClassName('multiple-line-chart-container')[0];
+      const containerWidth = container.offsetWidth
+      const tooltipWidth = 300
+      const positionWidthTooltip = x + tooltipWidth
+      const positionTop = `${y - 20}px`
+      const positionLeft = `${x + 10}px`
+      const positionRight = `${x - tooltipWidth - 30}px`
 
       tooltip
         .style("display", "block")
-        .style('left', `${x}px`)
-        .style('top', `${y}px`)
+        .style('top', positionTop)
+        .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
         .html(`
           <span class="beeswarm-tooltip-header-title">
             ${assignee}
           </span>
           <div class="beeswarm-tooltip-table-element">
             <span class="beeswarm-tooltip-table-element-text">
-              Importe inicial:
+              ${this.labelTooltipBeesWarm}:
             </span>
             <span class="beeswarm-tooltip-table-element-text">
-              ${initial_amount_no_taxes}
-            </span>
-          </div>
-          <div class="beeswarm-tooltip-table-element">
-            <span class="beeswarm-tooltip-table-element-text">
-              Importe final:
-            </span>
-            <span class="beeswarm-tooltip-table-element-text">
-              ${final_amount_no_taxes}
+               ${money(final_amount_no_taxes)}
             </span>
           </div>
         `)

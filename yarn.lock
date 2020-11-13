@@ -1012,7 +1012,7 @@
     d3-scale "^3.2.1"
     d3-shape "^1.3.7"
 
-"@finos/perspective-viewer-d3fc@^0.5.6":
+"@finos/perspective-viewer-d3fc@^0.5.1":
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/@finos/perspective-viewer-d3fc/-/perspective-viewer-d3fc-0.5.6.tgz#b6cdb1e862ac7d48cb633ecacdcad3d7a4f4ee99"
   integrity sha512-eniSshlfX/PT3IqWcU/FtQA462GHEsAG49nDKXh+laHmhI4aWFv7o8CQC/ucUPN3WYt148OHrDiSDSbPBN6yGg==
@@ -1027,7 +1027,7 @@
     d3fc "14.0.40"
     gradient-parser "0.1.5"
 
-"@finos/perspective-viewer-datagrid@^0.5.6":
+"@finos/perspective-viewer-datagrid@^0.5.1":
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/@finos/perspective-viewer-datagrid/-/perspective-viewer-datagrid-0.5.6.tgz#d57590097cce5432ec5962f34955ae41b25e6fde"
   integrity sha512-JBgXhws+eOtACiwf7NoIVeRAofmhPP3HfKMAvREtSJhkN+9ISWieNFRGH6caG0OcLqK9bbX2aGrn3eRgWdK4fw==
@@ -1036,7 +1036,7 @@
     "@finos/perspective-viewer" "^0.5.6"
     regular-table "=0.1.5"
 
-"@finos/perspective-viewer@^0.5.6":
+"@finos/perspective-viewer@^0.5.1", "@finos/perspective-viewer@^0.5.6":
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/@finos/perspective-viewer/-/perspective-viewer-0.5.6.tgz#484044deaa2ccf6a547dbc0e0f99493850197b9f"
   integrity sha512-0sW46SZBAToK1fJvSiJcqkt5QH2yDsRI9Vo1owtAUqiAsAvCKaQlPLnz3yYnkgIYba97TyBt/HWEflu/HYQEPA==
@@ -1055,7 +1055,7 @@
     lodash "^4.17.4"
     mobile-drag-drop "^2.3.0-rc.2"
 
-"@finos/perspective-webpack-plugin@^0.5.6":
+"@finos/perspective-webpack-plugin@^0.5.1":
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/@finos/perspective-webpack-plugin/-/perspective-webpack-plugin-0.5.6.tgz#a5b50db2848779cf5e8b7556a89f11cfa2729b70"
   integrity sha512-ABdwBYEsePGxYW6YwN7wNhwi6tos3+ohx+Nocx/+VrlBSwegJ1OHm0mft3oJyBAACEblcTEbYzZGk8/+C3g53Q==

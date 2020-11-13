@@ -47,7 +47,7 @@ export default {
     },
     marginLeft: {
       type: Number,
-      default: 100
+      default: 140
     },
     marginRight: {
       type: Number,
@@ -73,6 +73,13 @@ export default {
         bottom: this.marginBottom
       },
       padding: 1.5
+    }
+  },
+  watch: {
+    data(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.buildBeesWarm(newValue)
+      }
     }
   },
   mounted() {
@@ -152,7 +159,6 @@ export default {
         .attr('cx', (d) => scaleX(d[this.xAxisProp]))
         .attr('cy', (d) => scaleY(d[this.yAxisProp]))
         .attr('r', (d) => d.radius)
-        .attr('stroke', '#111')
         .attr('fill-opacity', 0.9)
         .style('fill', d => d.color = color(d[this.yAxisProp]))
         .on("mouseover", (event, d) => {
@@ -168,17 +174,16 @@ export default {
 
       for (let i = 0; i < 120; i++) {
         simulation.tick();
-
         svg.selectAll('circle')
           .data(filterData)
-          .attr('cx', (d) => d.x - this.margin.right)
+          .attr('cx', (d) => d.x - (this.margin.right / 2))
           .attr('cy', (d) => d.y);
 
       }
     },
     transformData(data) {
       let dataScaleRadius = data.map((d) => +d[this.radiusProperty])
-      const arrayScaleRadius = chroma.limits(dataScaleRadius, 'q', 4);
+      const arrayScaleRadius = chroma.limits(dataScaleRadius, 'q', 10);
 
       const parseTime = d3.timeParse('%Y-%m-%d');
 
@@ -186,13 +191,27 @@ export default {
         d[this.radiusProperty] = +d[this.radiusProperty]
         d[this.xAxisProp] = parseTime(d[this.xAxisProp])
         if (d[this.radiusProperty] > arrayScaleRadius[0] && d[this.radiusProperty] <= arrayScaleRadius[1]) {
-          d.radius = 4
+          d.radius = 2
         } else if (d[this.radiusProperty] >= arrayScaleRadius[1] && d[this.radiusProperty] <= arrayScaleRadius[2]) {
-          d.radius = 6
+          d.radius = 3.25
         } else if (d[this.radiusProperty] >= arrayScaleRadius[2] && d[this.radiusProperty] <= arrayScaleRadius[3]) {
-          d.radius = 8
-        } else if (d[this.radiusProperty] >= arrayScaleRadius[4]) {
-          d.radius = 10
+          d.radius = 4.5
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[3] && d[this.radiusProperty] <= arrayScaleRadius[4]) {
+          d.radius = 5.75
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[4] && d[this.radiusProperty] <= arrayScaleRadius[5]) {
+          d.radius = 7
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[5] && d[this.radiusProperty] <= arrayScaleRadius[6]) {
+          d.radius = 8.25
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[6] && d[this.radiusProperty] <= arrayScaleRadius[7]) {
+          d.radius = 9.5
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[7] && d[this.radiusProperty] <= arrayScaleRadius[8]) {
+          d.radius = 10.75
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[8] && d[this.radiusProperty] <= arrayScaleRadius[9]) {
+          d.radius = 12
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[9] && d[this.radiusProperty] <= arrayScaleRadius[10]) {
+          d.radius = 13.25
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[10]) {
+          d.radius = 14.5
         }
       })
 
@@ -208,7 +227,7 @@ export default {
             lineHeight = 0.75,
             y = text.attr("y"),
             dy = 0.2,
-            tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+            tspan = text.text(null).append("tspan").attr("x", -30).attr("y", y).attr("dy", dy + "em");
         while (word = words.pop()) {
           line.push(word);
           tspan.text(line.join(" "));
@@ -216,7 +235,7 @@ export default {
             line.pop();
             tspan.text(line.join(" "));
             line = [word];
-            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+            tspan = text.append("tspan").attr("x", -30).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
           }
         }
       });

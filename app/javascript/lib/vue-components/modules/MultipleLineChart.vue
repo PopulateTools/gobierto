@@ -140,6 +140,7 @@ export default {
 
       const axisY = d3
         .axisLeft(scaleY)
+        .tickPadding(10)
         .tickFormat(d => d)
         .tickSize(-(this.svgWidth - (this.margin.left + this.margin.right)))
         .ticks(10)
@@ -164,7 +165,7 @@ export default {
           .append('div')
           .data(data)
           .attr('class', `tooltip-multiple-line tooltip-${value}`)
-          .style('left', `${this.svgWidth - this.margin.right + 18}px`)
+          .style('left', `${this.svgWidth - this.margin.right + 24}px`)
           .style('top', d => `${scaleY(d[value]) + this.margin.bottom}px`)
           .html(d => {
             if (this.showRightLabels) {

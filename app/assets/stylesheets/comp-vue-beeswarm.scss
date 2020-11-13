@@ -43,7 +43,8 @@
   display: none;
   position: absolute;
   padding: .5rem;
-  width: 300px;
+  width: max-content;
+  max-width: 300px;
   height: auto;
   z-index: 1;
   right: 1rem;

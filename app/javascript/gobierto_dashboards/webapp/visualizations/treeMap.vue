@@ -99,7 +99,7 @@ export default {
                   ${I18n.t('gobierto_dashboards.dashboards.visualizations.tooltip_treemap')}:
                 </span>
                 <span class="beeswarm-tooltip-table-element-text">
-                   ${total_contracts}
+                   <b>${total_contracts}</b>
                 </span>
               </div>
             `)

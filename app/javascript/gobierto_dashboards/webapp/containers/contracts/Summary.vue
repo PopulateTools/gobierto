@@ -342,7 +342,7 @@ export default {
               ${this.labelTooltipBeesWarm}:
             </span>
             <span class="beeswarm-tooltip-table-element-text">
-               ${money(final_amount_no_taxes)}
+               <b>${money(final_amount_no_taxes)}</b>
             </span>
           </div>
         `)

@@ -6,8 +6,8 @@
       :data="dataBeesWarm"
       :height="600"
       :radius-property="'initial_amount_no_taxes'"
-      :scale-x-property="'start_date'"
-      :scale-y-property="'contract_type'"
+      :x-axis-prop="'start_date'"
+      :y-axis-prop="'contract_type'"
       @showTooltip="showTooltip"
       @goesToItem="goesToItem"
     />
@@ -336,8 +336,8 @@ export default {
           </div>
         `)
     },
-    goesToItem(d) {
-      const { id } = d
+    goesToItem(event) {
+      const { id } = event
       this.$router.push(`adjudicaciones/${id}`).catch(err => {})
     },
     refreshSummaryData() {

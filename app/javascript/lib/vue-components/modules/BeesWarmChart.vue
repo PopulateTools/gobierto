@@ -1,6 +1,5 @@
 <template>
   <div class="beeswarm-container">
-    <p>Contratos por tipo, volumen, tamaño y fecha</p>
     <div class="beeswarm-tooltip"></div>
     <svg
       class="beeswarm-plot"
@@ -38,11 +37,11 @@ export default {
       default: '',
       type: String,
     },
-    scaleYProperty: {
+    xAxisProp: {
       default: '',
       type: String,
     },
-    scaleXProperty: {
+    yAxisProp: {
       default: '',
       type: String,
     },
@@ -81,6 +80,7 @@ export default {
     this.svgWidth = containerChart.offsetWidth
     this.setupElements()
     this.buildBeesWarm(this.data)
+    /*this.resizeListener()*/
   },
   methods: {
     setupElements() {
@@ -110,11 +110,11 @@ export default {
       g.attr('transform', translate)
 
       const scaleY = d3.scaleBand()
-        .domain(filterData.map((d) => d[this.scaleYProperty]))
+        .domain(filterData.map((d) => d[this.yAxisProp]))
         .range([this.height + this.margin.bottom, this.margin.top])
 
       const scaleX = d3.scaleTime()
-        .domain(d3.extent(filterData, d => d.date))
+        .domain(d3.extent(filterData, d => d[this.xAxisProp]))
         .nice()
         .range([this.margin.left, this.svgWidth])
 
@@ -133,29 +133,28 @@ export default {
         .axisLeft(scaleY)
         .tickFormat(d => d)
         .tickSize(-this.svgWidth)
-        .ticks(6)
 
       g.select('.axis-y')
         .attr('transform', `translate(0,${-(this.margin.bottom + this.margin.top)})`)
         .call(axisY)
       .selectAll(".tick text")
-            .call(this.wrapTextLabel, 150);
+        .call(this.wrapTextLabel, 150);
 
       const simulation = d3.forceSimulation(filterData)
-        .force('x', d3.forceX((d) => scaleX(d.date)).strength(0.5))
-        .force('y', d3.forceY((d) => scaleY(d[this.scaleYProperty])))
+        .force('x', d3.forceX((d) => scaleX(d[this.xAxisProp])).strength(0.5))
+        .force('y', d3.forceY((d) => scaleY(d[this.yAxisProp])))
         .force('collide', d3.forceCollide().strength(0.3).radius(d => d.radius + this.padding))
 
       svg.selectAll('circle')
         .data(filterData)
         .join('circle')
         .attr('class', 'beeswarm-circle')
-        .attr('cx', (d) => scaleX(d.date))
-        .attr('cy', (d) => scaleY(d[this.scaleYProperty]))
+        .attr('cx', (d) => scaleX(d[this.xAxisProp]))
+        .attr('cy', (d) => scaleY(d[this.yAxisProp]))
         .attr('r', (d) => d.radius)
         .attr('stroke', '#111')
         .attr('fill-opacity', 0.9)
-        .style('fill', d => d.color = color(d[this.scaleYProperty]))
+        .style('fill', d => d.color = color(d[this.yAxisProp]))
         .on("mouseover", (event, d) => {
           this.$emit("showTooltip", event, d)
         })
@@ -164,7 +163,7 @@ export default {
             .style('display', 'none')
         })
         .on("click", (event, d) => {
-          this.$emit("goesToItem", d)
+          this.$emit("goesToItem", event)
         })
 
       for (let i = 0; i < 120; i++) {
@@ -185,14 +184,14 @@ export default {
 
       data.forEach(d => {
         d[this.radiusProperty] = +d[this.radiusProperty]
-        d.date = parseTime(d[this.scaleXProperty])
+        d[this.xAxisProp] = parseTime(d[this.xAxisProp])
         if (d[this.radiusProperty] > arrayScaleRadius[0] && d[this.radiusProperty] <= arrayScaleRadius[1]) {
           d.radius = 4
         } else if (d[this.radiusProperty] >= arrayScaleRadius[1] && d[this.radiusProperty] <= arrayScaleRadius[2]) {
           d.radius = 6
         } else if (d[this.radiusProperty] >= arrayScaleRadius[2] && d[this.radiusProperty] <= arrayScaleRadius[3]) {
           d.radius = 8
-        } else if (d[this.radiusProperty] >= arrayScaleRadius[4] ) {
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[4]) {
           d.radius = 10
         }
       })
@@ -206,7 +205,7 @@ export default {
             word,
             line = [],
             lineNumber = 0,
-            lineHeight = 0.75, // ems
+            lineHeight = 0.75,
             y = text.attr("y"),
             dy = 0.2,
             tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
@@ -221,6 +220,14 @@ export default {
           }
         }
       });
+    },
+    resizeListener() {
+      window.addEventListener("resize", () => {
+        const containerChart = document.getElementsByClassName('beeswarm-container')[0];
+        this.svgWidth = containerChart.offsetWidth
+        this.setupElements()
+        this.buildBeesWarm(this.data)
+      })
     }
   }
 }

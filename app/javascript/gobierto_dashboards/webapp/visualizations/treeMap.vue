@@ -1,6 +1,7 @@
 <template>
   <div class="container-tree-map">
     <p>Tipos de contrato</p>
+    <div class="treemap-tooltip"></div>
     <svg
       id="treemap-contracts"
       :width="svgWidth"
@@ -34,6 +35,7 @@ export default {
   },
   async created() {
     const { data: { data } } = await this.getData(this.query)
+    console.log("data", data);
     this.buildTreeMap(data)
   },
   methods: {
@@ -73,8 +75,16 @@ export default {
           .attr('y', d => d.y0)
           .attr('width', d => d.x1 - d.x0)
           .attr('height', d => d.y1 - d.y0)
-          .style("stroke", "black")
-          .style('fill', d => d.color = color(d.id));
+          .style('fill', d => d.color = color(d.id))
+        .on("mouseover", (event, d) => {
+          console.log("d", d);
+          console.log("event", event);
+          tooltip
+            .style("display", "block")
+            .style('left', `${x}px`)
+            .style('top', `${y}px`)
+            .html(`<h2>test</h2>`)
+        })
 
       svg
         .selectAll(".name")
@@ -82,7 +92,7 @@ export default {
         .enter()
         .append("text")
           .attr('class', 'name')
-          .attr("x", d => d.x0 + 10)
+          .attr("x", d => d.x0 + 12)
           .attr("y", d => d.y0 + 20)
           .text(d => d.id)
           .attr("fill", "white")

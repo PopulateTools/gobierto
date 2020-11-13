@@ -16,13 +16,18 @@
 
       text {
         font-size: 14px;
-        color: #c4c4c4; }
+        color: #c4c4c4; 
+      }
     }
   }
 
   .axis-y {
     .tick {
       stroke-dasharray: 1px;
+
+      line {
+        stroke: #c4c4c4;
+      }
 
       text {
         font-size: 14px;

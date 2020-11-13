@@ -83,6 +83,7 @@ export default {
     this.svgHeight = this.height + this.margin.top + this.margin.bottom
     this.setupElements()
     this.buildMultipleLine(this.data)
+    /*this.resizeListener()*/
   },
   methods: {
     setupElements() {
@@ -192,6 +193,14 @@ export default {
 
       let tooltipText = eval('`'+filterData[0].legend+'`');
       return tooltipText
+    },
+    resizeListener() {
+      window.addEventListener("resize", () => {
+        const containerChart = document.getElementsByClassName('multiple-line-chart-container')[0];
+        this.svgWidth = containerChart.offsetWidth
+        this.setupElements()
+        this.buildMultipleLine(this.data)
+      })
     }
   }
 }

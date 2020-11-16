@@ -14,30 +14,56 @@
 import { select, selectAll, mouse } from 'd3-selection'
 import { treemap, stratify } from 'd3-hierarchy'
 import { scaleOrdinal } from 'd3-scale'
-import { getQueryData } from "../lib/utils";
+import { getQueryData, sumDataByGroupKey } from "../lib/utils";
 import { money } from "lib/shared";
 
 const d3 = { select, selectAll, treemap, stratify, scaleOrdinal, mouse }
 
 export default {
   name: 'TreeMap',
+  props: {
+    data: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
-      query: "?sql=SELECT contract_type, sum(initial_amount_no_taxes) as total_sum, count(contract_type) as total_contracts FROM contratos WHERE contract_type != 'Patrimonial' GROUP BY contract_type",
       svgWidth: 0,
       svgHeight: 400
     }
   },
+  watch: {
+    data(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.deepCloneData(newValue)
+      }
+    }
+  },
   mounted() {
     this.svgWidth = document.getElementsByClassName("dashboards-home-main")[0].offsetWidth;
-  },
-  async created() {
-    const { data: { data } } = await getQueryData(this.query)
-    this.buildTreeMap(data)
+    this.transformDataTreemap(this.data)
   },
   methods: {
-    buildTreeMap(typeOfContracts) {
+    deepCloneData(data) {
+      const dataTreeMap = JSON.parse(JSON.stringify(data));
+      this.transformDataTreemap(dataTreeMap)
+    },
+    transformDataTreemap(data) {
+      data.forEach(d => {
+        d.final_amount_no_taxes = +d.final_amount_no_taxes
+        d.value = 1
+      })
 
+      const finalAmountTotal = sumDataByGroupKey(data, 'contract_type', 'final_amount_no_taxes')
+      const countTotalContractsByType = sumDataByGroupKey(data, 'contract_type', 'value')
+
+      let dataContractsLine = finalAmountTotal.map((item, i) => Object.assign({}, item, countTotalContractsByType[i]));
+
+      this.buildTreeMap(dataContractsLine)
+
+    },
+    buildTreeMap(typeOfContracts) {
       typeOfContracts.forEach(d => {
         d.parent = 'contract'
       })
@@ -58,17 +84,21 @@ export default {
       const rootTreeMap = d3.stratify()
         .id(d => d.contract_type)
         .parentId(d => d.parent)(typeOfContracts)
-        .sum(d => +d.total_contracts)
+        .sum(d => +d.value)
 
       d3.treemap()
         .size([this.svgWidth, this.svgHeight])
         .padding(4)(rootTreeMap)
 
-      svg
-        .selectAll("rect")
+      const rectsTreeMap = svg
+        .selectAll(".rect-treemap")
+
+      rectsTreeMap
+        .remove().exit()
         .data(rootTreeMap.leaves())
         .enter()
         .append("rect")
+        .attr('class', 'rect-treemap')
           .attr('x', d => d.x0)
           .attr('y', d => d.y0)
           .attr('width', d => d.x1 - d.x0)
@@ -87,7 +117,7 @@ export default {
           const positionLeft = `${x + 10}px`
           const positionRight = `${x - tooltipWidth - 30}px`
 
-          const { data: { contract_type, total_contracts } } = d
+          const { data: { contract_type, value } } = d
           tooltip
             .style("display", "block")
             .html(`
@@ -99,7 +129,7 @@ export default {
                   ${I18n.t('gobierto_dashboards.dashboards.visualizations.tooltip_treemap')}:
                 </span>
                 <span class="beeswarm-tooltip-table-element-text">
-                   <b>${total_contracts}</b>
+                   <b>${value}</b>
                 </span>
               </div>
             `)
@@ -110,21 +140,24 @@ export default {
           tooltip.style('display', 'none')
         })
 
-      svg
+      const legendsName = svg
         .selectAll(".name")
+        .remove().exit()
+
+      legendsName
         .data(rootTreeMap.leaves())
         .enter()
         .append("text")
           .attr('class', (d) => {
-            if (d.data.total_contracts > 30) {
-              return 'name-max'
+            if (d.data.value > 30) {
+              return 'name name-max'
             } else {
-              return 'name-min'
+              return 'name name-min'
             }
           })
           .attr("x", d => d.x0 + 6)
           .attr('y', (d) => {
-            if (d.data.total_contracts < 30) {
+            if (d.data.value < 30) {
               return d.y0 + 17
             } else {
               return d.y0 + 20
@@ -133,27 +166,30 @@ export default {
           .text(d => d.id)
           .attr("fill", "white")
 
-      svg
+      const legendsValue = svg
         .selectAll(".value")
+        .remove().exit()
+
+      legendsValue
         .data(rootTreeMap.leaves())
         .enter()
         .append("text")
           .attr('class', (d) => {
-            if (d.data.total_contracts > 30) {
-              return 'value-max'
+            if (d.data.value > 30) {
+              return 'value value-max'
             } else {
-              return 'value-min'
+              return 'value value-min'
             }
           })
           .attr("x", d => d.x0 + 6)
           .attr('y', (d) => {
-            if (d.data.total_contracts < 30) {
+            if (d.data.value < 30) {
               return d.y0 + 30
             } else {
               return d.y0 + 40
             }
           })
-          .text(d => `${money(d.data.total_sum, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`)
+          .text(d => `${money(d.data.final_amount_no_taxes, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`)
           .attr("fill", "white")
 
     }

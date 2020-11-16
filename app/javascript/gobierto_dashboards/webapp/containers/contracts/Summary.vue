@@ -3,7 +3,10 @@
     <h3 class="mt1 graph-title">
       {{ labelContractType }}
     </h3>
-    <TreeMap />
+    <TreeMap
+      v-if="dashboardsData"
+      :data="dashboardsData"
+    />
     <h3 class="mt4 graph-title">
       {{ labelBeesWarm }}
     </h3>
@@ -219,7 +222,6 @@ export default {
       labelBeesWarm: I18n.t('gobierto_dashboards.dashboards.visualizations.title_beeswarm'),
       labelTooltipBeesWarm: I18n.t('gobierto_dashboards.dashboards.visualizations.tooltip_beeswarm'),
       labelMultipleLine: I18n.t('gobierto_dashboards.dashboards.visualizations.title_multiple'),
-      queryBeesWarmChart:"?sql=SELECT EXTRACT(YEAR FROM start_date), initial_amount_no_taxes, final_amount_no_taxes, contract_type, id, assignee, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
       queryLineChart: "?sql=SELECT final_amount_no_taxes, status, initial_amount_no_taxes, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
       dataBeesWarm: undefined,
       dataBeesWarmFilter: undefined,
@@ -228,23 +230,24 @@ export default {
       valuesForCircleChart: undefined
     }
   },
+  watch: {
+    dashboardsData(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.updateDataBeesWarm(newValue)
+      }
+    }
+  },
   async created() {
     this.columns = assigneesColumns;
-    const { data: { data: dataBeesWarm } } = await getQueryData(this.queryBeesWarmChart)
-    this.dataBeesWarm = dataBeesWarm
-    this.dataBeesWarmFilter = dataBeesWarm
+    this.dataBeesWarmFilter = JSON.parse(JSON.stringify(this.dashboardsData));
 
     const { data: { data: dataLineChart } } = await getQueryData(this.queryLineChart)
     this.transformDataContractsLine(dataLineChart)
-
-    EventBus.$on("update-data-charts", id => {
-      this.updateCharts(id);
-    });
-
   },
   methods: {
-    updateCharts(id) {
-      this.dataBeesWarmFilter = this.dataBeesWarm.filter(({ date_part }) => date_part === id)
+    updateDataBeesWarm(data){
+      const dataBeesWarm = JSON.parse(JSON.stringify(data));
+      this.dataBeesWarmFilter = dataBeesWarm
     },
     transformDataContractsLine(data) {
       data.forEach(d => {
@@ -379,7 +382,6 @@ export default {
         groupedByAssignee[assignee].sum += parseFloat(final_amount_no_taxes)
         groupedByAssignee[assignee].count++;
       });
-
 
       // Sort grouped elements by number of contracts
       const sortedAndGrouped = Object.values(groupedByAssignee).sort((a, b) => { return a.count < b.count ? 1 : -1 });

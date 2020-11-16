@@ -38,7 +38,7 @@
         :data="groupData"
         :year="yearFiltered"
         :years="years"
-        :yearsMultiple="yearsMultiple"
+        :years-multiple="yearsMultiple"
         @preventReload="injectRouter"
       />
       <Table

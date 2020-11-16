@@ -47,7 +47,7 @@ export default {
     },
     marginLeft: {
       type: Number,
-      default: 140
+      default: 120
     },
     marginRight: {
       type: Number,
@@ -55,13 +55,12 @@ export default {
     },
     marginTop: {
       type: Number,
-      default: 50
+      default: 70
     },
     marginBottom: {
       type: Number,
       default: 30
     }
-
   },
   data() {
     return {
@@ -72,13 +71,15 @@ export default {
         top: this.marginTop,
         bottom: this.marginBottom
       },
-      padding: 1.5
+      padding: 1.5,
+      updateCircles: false
     }
   },
   watch: {
     data(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.buildBeesWarm(newValue)
+        this.deepCloneData(newValue)
+        this.updateCircles = true
       }
     }
   },
@@ -90,6 +91,10 @@ export default {
     /*this.resizeListener()*/
   },
   methods: {
+    deepCloneData(data) {
+      const dataBeesWarm = JSON.parse(JSON.stringify(data));
+      this.buildBeesWarm(dataBeesWarm)
+    },
     setupElements() {
       const svg = d3.select('.beeswarm-plot')
 
@@ -117,13 +122,34 @@ export default {
       g.attr('transform', translate)
 
       const scaleY = d3.scaleBand()
-        .domain(filterData.map((d) => d[this.yAxisProp]))
+        .domain(Array.from(new Set(filterData.map((d) => d[this.yAxisProp]))))
         .range([this.height + this.margin.bottom, this.margin.top])
 
       const scaleX = d3.scaleTime()
         .domain(d3.extent(filterData, d => d[this.xAxisProp]))
         .nice()
         .range([this.margin.left, this.svgWidth])
+
+      svg.selectAll('.label-y')
+        .data(Array.from(new Set(filterData.map((d) => d[this.yAxisProp]))))
+        .join('text')
+        .attr('class', 'label-y')
+        .attr('x', 0)
+        .attr('y', d => scaleY(d))
+        .attr('alignment-baseline', 'middle')
+        .text(d => d);
+
+      svg.selectAll('.line-y')
+          .data(Array.from(new Set(filterData.map((d) => d[this.yAxisProp]))))
+          .join('line')
+          .attr('class', 'line-y')
+          .attr('x1', this.margin.left)
+          .attr('x2', this.svgWidth + this.margin.left + this.margin.right)
+          .attr('y1', d => scaleY(d))
+          .attr('y2', d => scaleY(d))
+
+      svg.selectAll('.label-y')
+        .call(this.wrapTextLabel, 120);
 
       const axisX = d3
         .axisBottom(scaleX)
@@ -134,33 +160,27 @@ export default {
 
       g.select('.axis-x')
         .attr('transform', `translate(${-this.margin.left},${this.height - this.margin.top})`)
+        .transition()
+        .duration(200)
         .call(axisX)
 
       const axisY = d3
         .axisLeft(scaleY)
-        .tickFormat(d => d)
-        .tickSize(-this.svgWidth)
 
       g.select('.axis-y')
         .attr('transform', `translate(0,${-(this.margin.bottom + this.margin.top)})`)
         .call(axisY)
-      .selectAll(".tick text")
-        .call(this.wrapTextLabel, 150);
 
-      const simulation = d3.forceSimulation(filterData)
-        .force('x', d3.forceX((d) => scaleX(d[this.xAxisProp])).strength(0.5))
-        .force('y', d3.forceY((d) => scaleY(d[this.yAxisProp])))
-        .force('collide', d3.forceCollide().strength(0.3).radius(d => d.radius + this.padding))
-
-      svg.selectAll('circle')
+      const circlesBees = svg
+        .selectAll('.beeswarm-circle')
+        .remove()
+        .exit()
         .data(filterData)
-        .join('circle')
+        .enter()
+        .append('circle')
         .attr('class', 'beeswarm-circle')
-        .attr('cx', (d) => scaleX(d[this.xAxisProp]))
-        .attr('cy', (d) => scaleY(d[this.yAxisProp]))
-        .attr('r', (d) => d.radius)
-        .attr('fill-opacity', 0.9)
         .style('fill', d => d.color = color(d[this.yAxisProp]))
+        .attr('r', d => d.radius)
         .on("mouseover", (event, d) => {
           this.$emit("showTooltip", event, d)
         })
@@ -172,14 +192,19 @@ export default {
           this.$emit("goesToItem", event)
         })
 
-      for (let i = 0; i < 120; i++) {
-        simulation.tick();
-        svg.selectAll('circle')
-          .data(filterData)
-          .attr('cx', (d) => d.x - (this.margin.right / 2))
-          .attr('cy', (d) => d.y);
+      const simulation = d3
+        .forceSimulation()
+        .force('x', d3.forceX((d) => scaleX(d[this.xAxisProp])).strength(0.5))
+        .force('y', d3.forceY((d) => scaleY(d[this.yAxisProp])))
+        .force('collide', d3.forceCollide().strength(0.3).radius(d => d.radius))
 
-      }
+      simulation
+        .nodes(filterData)
+        .on("tick", () =>
+            circlesBees
+              .attr('cx', (d) => d.x - (this.margin.right / 2))
+              .attr('cy', (d) => d.y)
+        )
     },
     transformData(data) {
       let dataScaleRadius = data.map((d) => +d[this.radiusProperty])
@@ -224,10 +249,10 @@ export default {
             word,
             line = [],
             lineNumber = 0,
-            lineHeight = 0.75,
+            lineHeight = 1,
             y = text.attr("y"),
             dy = 0.2,
-            tspan = text.text(null).append("tspan").attr("x", -30).attr("y", y).attr("dy", dy + "em");
+            tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
         while (word = words.pop()) {
           line.push(word);
           tspan.text(line.join(" "));
@@ -235,7 +260,7 @@ export default {
             line.pop();
             tspan.text(line.join(" "));
             line = [word];
-            tspan = text.append("tspan").attr("x", -30).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
           }
         }
       });

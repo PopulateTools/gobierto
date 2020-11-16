@@ -4,7 +4,7 @@
     <svg
       class="beeswarm-plot"
       :width="svgWidth"
-      :height="height"
+      :height="svgHeight"
     >
     </svg>
   </div>
@@ -65,6 +65,7 @@ export default {
   data() {
     return {
       svgWidth: 0,
+      svgHeight: 0,
       margin: {
         left: this.marginLeft,
         right: this.marginRight,
@@ -72,7 +73,8 @@ export default {
         bottom: this.marginBottom
       },
       padding: 1.5,
-      updateCircles: false
+      updateCircles: false,
+      dataWithoutCoordinates: undefined
     }
   },
   watch: {
@@ -84,11 +86,13 @@ export default {
     }
   },
   mounted() {
+    this.dataWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
     const containerChart = document.getElementsByClassName('beeswarm-container')[0];
     this.svgWidth = containerChart.offsetWidth
+    this.svgHeight = this.height
     this.setupElements()
     this.buildBeesWarm(this.data)
-    /*this.resizeListener()*/
+    this.resizeListener()
   },
   methods: {
     deepCloneData(data) {
@@ -121,9 +125,13 @@ export default {
 
       g.attr('transform', translate)
 
+      const arrayValuesScaleY = Array.from(new Set(filterData.map((d) => d[this.yAxisProp])))
+
+      this.svgHeight = arrayValuesScaleY.length === 1 ? 300 : this.height
+
       const scaleY = d3.scaleBand()
-        .domain(Array.from(new Set(filterData.map((d) => d[this.yAxisProp]))))
-        .range([this.height + this.margin.bottom, this.margin.top])
+        .domain(arrayValuesScaleY)
+        .range([this.svgHeight + this.margin.bottom, this.margin.top])
 
       const scaleX = d3.scaleTime()
         .domain(d3.extent(filterData, d => d[this.xAxisProp]))
@@ -155,11 +163,11 @@ export default {
         .axisBottom(scaleX)
         .tickPadding(20)
         .tickFormat(d3.timeFormat("%Y"))
-        .tickSize(-this.height)
+        .tickSize(-this.svgHeight)
         .ticks(5)
 
       g.select('.axis-x')
-        .attr('transform', `translate(${-this.margin.left},${this.height - this.margin.top})`)
+        .attr('transform', `translate(${-this.margin.left},${this.svgHeight - this.margin.top})`)
         .transition()
         .duration(200)
         .call(axisX)
@@ -267,10 +275,11 @@ export default {
     },
     resizeListener() {
       window.addEventListener("resize", () => {
+        let dataResponsive = JSON.parse(JSON.stringify(this.dataWithoutCoordinates));
         const containerChart = document.getElementsByClassName('beeswarm-container')[0];
         this.svgWidth = containerChart.offsetWidth
         this.setupElements()
-        this.buildBeesWarm(this.data)
+        this.deepCloneData(dataResponsive)
       })
     }
   }

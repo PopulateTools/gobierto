@@ -326,6 +326,7 @@
     position: absolute;
     padding: .5rem;
     width: max-content;
+    max-width: 350px;
     height: auto;
     z-index: 1;
     right: 1rem;
@@ -337,29 +338,93 @@
     background: rgba(255, 255, 255, 0.98);
   }
 
+  .treemap-button-group {
+    padding-left: 4px;
+  }
+
+  .tooltip-table-treemap {
+    width: 100%;
+    font-size: 14px;
+    color: #767168;
+    margin-top: .5rem;
+  }
+
+  .tooltip-table-treemap-header,
+  .tooltip-table-treemap-element {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tooltip-table-treemap-header {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .tooltip-table-treemap-element {
+    flex: 100%;
+
+    &:not(:last-child) {
+      padding: 0 0 .35rem;
+    }
+  }
+
+  .tooltip-table-treemap-header-element,
+  .tooltip-table-treemap-element-text {
+    flex: 0 50%;
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  .tooltip-table-treemap-element-assignee {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tooltip-table-treemap-element-amount {
+    font-weight: bold;
+  }
+
+  .tooltip-treemap-header-title {
+    font-size: 1rem;
+    color: #0178a8;
+    font-weight: bold;
+    display: block;
+  }
+
+  .tooltip-treemap-element {
+    border-top: 1px solid #ccc;
+    padding-top: .25rem;
+    padding-top: .25rem;
+  }
+
+  .tooltip-treemap-element-text {
+    display: block;
+    font-size: 14px;
+    color: #767168;
+  }
+
   #treemap-contracts {
     font-family: $font_headings;
 
-    .name-max,
-    .name-min {
+    .name-max {
       font-size: 16px;
       text-transform: uppercase;
       font-weight: bold;
       font-family: $font_headings;
+      fill: #fff;
     }
 
-    .name-min {
-      font-size: 7px;
-    }
-
-    .value-max,
-    .value-min {
+    .value-max {
       font-size: 18px;
       font-family: $font_headings;
+      fill: #fff;
     }
 
-    .value-min {
-      font-size: 10px;
+    .value-hide,
+    .name-hide {
+      display: none;
     }
   }
 
@@ -368,6 +433,7 @@
     .tooltip-formalized {
       line-height: 1.1;
       margin-top: 1rem;
+
       .first-row {
         text-transform: uppercase;
         font-size: 18px;
@@ -385,6 +451,7 @@
 
     .tooltip-total_contracts {
       margin-top: -2rem;
+
       .title {
         font-size: 18px;
         text-transform: uppercase;
@@ -515,6 +582,7 @@
   }
 
   .beeswarm-tooltip-table-element-text {
+    display: block;
     font-size: 14px;
     color: #767168;
   }

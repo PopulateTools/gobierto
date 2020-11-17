@@ -370,10 +370,6 @@ export class ContractsController {
           chart.filters(),
           "contract_type"
         );
-        EventBus.$emit("dc-filter-selected", {
-          title: filter,
-          id: "contract_types"
-        });
       }
     };
 
@@ -392,10 +388,6 @@ export class ContractsController {
           chart.filters(),
           "process_type"
         );
-        EventBus.$emit("dc-filter-selected", {
-          title: filter,
-          id: "process_types"
-        });
       }
     };
 

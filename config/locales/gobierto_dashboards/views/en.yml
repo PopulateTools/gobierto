@@ -157,11 +157,8 @@ en:
         title: Subsidies
       visualizations:
         by_amount: by amount of
-        contract: Contract
         contracts: Contracts
         difference_import: difference import
-        tender: Tender
-        tenders: Tenders
         title_beeswarm: Contracts by type, volume, size and date
         title_legend: So far this 2020
         title_multiple: Evolution of the volume of tenders and contracts

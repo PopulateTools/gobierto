@@ -161,11 +161,8 @@ es:
         title: Subvenciones
       visualizations:
         by_amount: por importe de
-        contract: Adjudicación
         contracts: Adjudicaciones
         difference_import: Diferencia Importe
-        tender: Licitación
-        tenders: Licitaciones
         title_beeswarm: Contratos por tipo, volumen, tamaño y fecha
         title_legend: En lo que va de 2020
         title_multiple: Evolución del volumen de licitaciones y adjudicaciones

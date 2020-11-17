@@ -339,7 +339,12 @@
   }
 
   .treemap-button-group {
-    padding-left: 4px;
+    padding: 0 0 4px 4px;
+
+    .active {
+      background: #f4f4f4;
+      box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, .25);
+    }
   }
 
   .tooltip-table-treemap {
@@ -425,6 +430,12 @@
     .value-hide,
     .name-hide {
       display: none;
+    }
+
+    .value-contracts {
+      font-weight: normal;
+      font-size: 16px;
+      text-transform: lowercase;
     }
   }
 

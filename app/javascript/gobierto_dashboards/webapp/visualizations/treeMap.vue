@@ -1,26 +1,27 @@
 <template>
   <div class="container-tree-map">
-    <div class="treemap-tooltip"></div>
+    <div class="treemap-tooltip" />
     <div class="treemap-button-group button-group">
       <button
         class="button-grouped sort-G"
+        :class="{ active : selected_size == 'final_amount_no_taxes' }"
         @click="handleTreeMapValue('final_amount_no_taxes')"
       >
-      {{ labelContractAmount }}
+        {{ labelContractAmount }}
       </button>
       <button
         class="button-grouped sort-G"
+        :class="{ active : selected_size == 'value' }"
         @click="handleTreeMapValue('value')"
       >
-      {{ labelContractTotal }}
+        {{ labelContractTotal }}
       </button>
     </div>
     <svg
       id="treemap-contracts"
       :width="svgWidth"
       :height="svgHeight"
-    >
-    </svg>
+    />
   </div>
 </template>
 <script>
@@ -52,6 +53,7 @@ export default {
       dataForTableTooltip: undefined,
       dataNewValues: undefined,
       sizeForTreemap: 'value',
+      selected_size: '',
       labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
       labelContractTotal: I18n.t('gobierto_dashboards.dashboards.visualizations.tooltip_treemap')
     }
@@ -76,6 +78,7 @@ export default {
   },
   methods: {
     handleTreeMapValue(value) {
+      this.selected_size = value
       this.sizeForTreemap = value
       if (this.updateData) {
         this.deepCloneData(this.dataNewValues)
@@ -214,7 +217,7 @@ export default {
                 </span>
                 <div class="beeswarm-tooltip-table-element">
                   <span class="beeswarm-tooltip-table-element-text">
-                    <b>${value}</b> ${I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts_for')}  <b>${money(final_amount_no_taxes)}</b>
+                    <b>${value}</b> ${I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts_for')} <b>${money(final_amount_no_taxes)}</b>
                   </span>
                   <span class="beeswarm-tooltip-table-element-text">
                      ${I18n.t('gobierto_dashboards.dashboards.contracts.summary.mean_amount')}: <b>${money(filterDataTableTooltip[0].mean)}</b>
@@ -303,6 +306,29 @@ export default {
               return 'value value-max'
             } else {
               return 'value value-hide'
+            }
+          })
+
+      const legendsValueContracts = svg
+        .selectAll(".value-contracts")
+        .remove().exit()
+
+      legendsValueContracts
+        .data(rootTreeMap.leaves())
+        .enter()
+        .append("text")
+          .attr('id', d => `value-${d.id}`)
+          .attr("x", d => d.x0 + 6)
+          .attr('y', d => d.y0 + 60)
+          .text(d => `${d.data.value} ${I18n.t('gobierto_dashboards.dashboards.contracts.contracts')}`)
+          .attr('class', (d) => {
+            let widthRect = d.x1 - d.x0
+            let widthText = document.getElementById(`name-${d.id}`).getBoundingClientRect().width
+            //Compare with of the text element with the width of the rect, to hide/show the literals
+            if (widthText < widthRect && widthText !== 0) {
+              return 'value-contracts value value-max'
+            } else {
+              return 'value-contracts value value-hide'
             }
           })
     },

@@ -1,0 +1,15 @@
+<% content_for :javascript_module_link do %>
+  <%= javascript_packs_with_chunks_tag 'TEMP' %>
+<% end %>
+
+<% content_for :stylesheet_module_link do %>
+  <%= stylesheet_packs_with_chunks_tag 'TEMP' %>
+<% end %>
+
+Lanzar modal:
+<a class="button open_remote_modal" href="/admin/gobierto_temp/index">Editar</a>
+
+<hr>
+
+Ejemplo del visor (usar el id <i>dashboard-viewer-app</i>)
+<div id="dashboard-viewer-app" data-context="CONTEXTO" data-path="PATH"></div>

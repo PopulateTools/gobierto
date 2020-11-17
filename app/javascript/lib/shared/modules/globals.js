@@ -24,6 +24,7 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
     mainClass: "mfp-move-horizontal",
     callbacks: {
       ajaxContentAdded: function() {
+        // This conditionals are always true ¬¬
         if (window.GobiertoAdmin && window.GobiertoAdmin.process_stages_controller) {
           window.GobiertoAdmin.process_stages_controller.form();
         }
@@ -42,6 +43,9 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
 
         // autofocus on the first modal input field
         $(".modal .form_item input[type=text]:visible").first().focus()
+
+const event = new Event('create-dashboard-maker')
+document.dispatchEvent(event)
       }
     }
   });

@@ -21,6 +21,15 @@
     }
   }
 
+  &.modal-full-width {
+    max-width: 95%;
+    box-sizing: border-box;
+  }
+
+  &.modal-no-padding {
+    padding: 0;
+  }
+
   .disclaimer {
     font-size: 0.8em;
     text-align: center;
@@ -32,13 +41,6 @@
 .cropper-container {
   border: 1px solid red;
   padding: 1em;
-}
-
-.modal-full-width {
-  .modal {
-    max-width: 95%;
-    box-sizing: border-box;
-  }
 }
 
 .mfp-container {

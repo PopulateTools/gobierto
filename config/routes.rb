@@ -266,6 +266,10 @@ Rails.application.routes.draw do
           resource :settings, only: [:edit, :update], path: :settings
         end
       end
+
+      namespace :gobierto_temp, as: :temp do
+        get "index" => "temp#index"
+      end
     end
 
     # User module

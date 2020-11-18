@@ -5,7 +5,7 @@
       :checked="checked"
       type="checkbox"
       class="gobierto-filter-checkbox--input"
-      @change="marked = !marked"
+      @change="onChange"
     >
     <label
       :for="`checkbox-${id}-${seed}`"
@@ -47,7 +47,6 @@ export default {
   },
   data() {
     return {
-      marked: this.checked,
       seed: Math.random().toString(36).substring(7)
     }
   },
@@ -56,9 +55,9 @@ export default {
       return this.counter !== null
     }
   },
-  watch: {
-    marked(value) {
-      this.$emit("checkbox-change", { id: this.id, value })
+  methods: {
+    onChange({ target: { checked } }) {
+      this.$emit("checkbox-change", { id: this.id, value: checked })
     }
   }
 };

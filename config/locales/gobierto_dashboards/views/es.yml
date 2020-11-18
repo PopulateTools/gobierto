@@ -27,7 +27,7 @@ es:
           Público
         process_type: Tipo de proceso
         search: Buscar
-        search_placeholder: Busca por beneficiario
+        search_placeholder: Busca por adjudicatario
         status: Estado
         submission_date: Fecha
         summary:

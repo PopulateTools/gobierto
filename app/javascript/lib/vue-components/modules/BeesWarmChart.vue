@@ -16,11 +16,13 @@ import { scaleOrdinal, scaleBand, scaleTime } from 'd3-scale'
 import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force'
 import { axisBottom, axisLeft } from 'd3-axis'
 import { extent } from 'd3-array';
-import { timeParse, timeFormat } from 'd3-time-format'
+import { timeParse, timeFormat, timeFormatLocale } from 'd3-time-format'
 import { min, max } from 'd3-array'
 import * as chroma from 'chroma-js';
+import { d3locale } from "lib/shared";
+import { easeLinear } from 'd3-ease'
 
-const d3 = { select, selectAll, scaleBand, scaleOrdinal, scaleTime, forceSimulation, forceX, forceY, forceCollide, axisBottom, axisLeft, extent, timeParse, timeFormat, min, max }
+const d3 = { select, selectAll, scaleBand, scaleOrdinal, scaleTime, forceSimulation, forceX, forceY, forceCollide, axisBottom, axisLeft, extent, timeParse, timeFormat, min, max, timeFormatLocale, easeLinear }
 
 export default {
   name: 'BeesWarmChart',
@@ -162,7 +164,10 @@ export default {
       const axisX = d3
         .axisBottom(scaleX)
         .tickPadding(20)
-        .tickFormat(d3.timeFormat("%Y"))
+        .tickFormat(d => {
+          let _mf = Array.from(new Set(filterData.map((d) => d.start_date_year))).length === 1 ? d3.timeFormatLocale(d3locale[I18n.locale]).format("%b-%Y") : d3.timeFormatLocale(d3locale[I18n.locale]).format("%Y");
+          return _mf(d);
+        })
         .tickSize(-this.svgHeight)
         .ticks(5)
 
@@ -187,14 +192,32 @@ export default {
         .enter()
         .append('circle')
         .attr('class', 'beeswarm-circle')
+        .attr('id', d => `${d.slug}`)
         .style('fill', d => d.color = color(d[this.yAxisProp]))
         .attr('r', d => d.radius)
         .on("mouseover", (event, d) => {
           this.$emit("showTooltip", event, d)
+          d3.selectAll(`.beeswarm-circle`)
+            .transition()
+            .duration(200)
+            .style('opacity', 0.1)
+          d3.selectAll(`#${event.slug}`)
+            .filter((e, d) => e.slug !== d.slug)
+            .transition()
+            .duration(200)
+            .ease(d3.easeLinear)
+            .style('opacity', 1)
         })
         .on("mouseout", () => {
           d3.select('.beeswarm-tooltip')
+            //TODO uses opacity instead display because opacity is animatable
             .style('display', 'none')
+
+          d3.selectAll(`.beeswarm-circle`)
+            .transition()
+            .duration(200)
+            .style('opacity', 1)
+
         })
         .on("click", (event, d) => {
           this.$emit("goesToItem", event)
@@ -210,45 +233,59 @@ export default {
         .nodes(filterData)
         .on("tick", () =>
             circlesBees
-              .attr('cx', (d) => d.x - (this.margin.right / 2))
+              .attr('cx', (d) => d.x)
               .attr('cy', (d) => d.y)
         )
     },
     transformData(data) {
-      let dataScaleRadius = data.map((d) => +d[this.radiusProperty])
-      const arrayScaleRadius = chroma.limits(dataScaleRadius, 'q', 10);
+      //Remove zeros because we need a logarithmic scale
+      let dataScaleRadius = data.map((d) => +d[this.radiusProperty]).filter(value => value !== 0)
+      const arrayScaleRadius = chroma.limits(dataScaleRadius, 'e', 100);
 
       const parseTime = d3.timeParse('%Y-%m-%d');
 
       data.forEach(d => {
+        if (d.assignee) {
+          //Normalize assignee to create a slug for select ID's on mouseover
+          d.slug = d.assignee
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(" ", "-")
+            .replace( /[.,()\s]/g, '')
+            .toLowerCase()
+        }
         d[this.radiusProperty] = +d[this.radiusProperty]
         d[this.xAxisProp] = parseTime(d[this.xAxisProp])
-        if (d[this.radiusProperty] > arrayScaleRadius[0] && d[this.radiusProperty] <= arrayScaleRadius[1]) {
-          d.radius = 2
+        if (d[this.radiusProperty] > 0 && d[this.radiusProperty] <= arrayScaleRadius[1]) {
+          d.radius = 4
         } else if (d[this.radiusProperty] >= arrayScaleRadius[1] && d[this.radiusProperty] <= arrayScaleRadius[2]) {
-          d.radius = 3.25
+          d.radius = 5.5
         } else if (d[this.radiusProperty] >= arrayScaleRadius[2] && d[this.radiusProperty] <= arrayScaleRadius[3]) {
-          d.radius = 4.5
+          d.radius = 6
         } else if (d[this.radiusProperty] >= arrayScaleRadius[3] && d[this.radiusProperty] <= arrayScaleRadius[4]) {
-          d.radius = 5.75
+          d.radius = 7.5
         } else if (d[this.radiusProperty] >= arrayScaleRadius[4] && d[this.radiusProperty] <= arrayScaleRadius[5]) {
-          d.radius = 7
+          d.radius = 9
         } else if (d[this.radiusProperty] >= arrayScaleRadius[5] && d[this.radiusProperty] <= arrayScaleRadius[6]) {
-          d.radius = 8.25
+          d.radius = 10.5
         } else if (d[this.radiusProperty] >= arrayScaleRadius[6] && d[this.radiusProperty] <= arrayScaleRadius[7]) {
-          d.radius = 9.5
-        } else if (d[this.radiusProperty] >= arrayScaleRadius[7] && d[this.radiusProperty] <= arrayScaleRadius[8]) {
-          d.radius = 10.75
-        } else if (d[this.radiusProperty] >= arrayScaleRadius[8] && d[this.radiusProperty] <= arrayScaleRadius[9]) {
           d.radius = 12
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[7] && d[this.radiusProperty] <= arrayScaleRadius[8]) {
+          d.radius = 13.5
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[8] && d[this.radiusProperty] <= arrayScaleRadius[9]) {
+          d.radius = 15
         } else if (d[this.radiusProperty] >= arrayScaleRadius[9] && d[this.radiusProperty] <= arrayScaleRadius[10]) {
-          d.radius = 13.25
-        } else if (d[this.radiusProperty] >= arrayScaleRadius[10]) {
-          d.radius = 14.5
+          d.radius = 16.5
+        } else if (d[this.radiusProperty] >= arrayScaleRadius[10] && d[this.radiusProperty] <= arrayScaleRadius[10]) {
+          d.radius = 18
+        } else {
+          d.radius = 20
         }
       })
 
-      return data
+      let filterData = data.filter(({ final_amount_no_taxes }) => final_amount_no_taxes !== 0 )
+
+      return filterData
     },
     wrapTextLabel(text, width) {
       text.each(function() {

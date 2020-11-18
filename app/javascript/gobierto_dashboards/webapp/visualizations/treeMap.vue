@@ -269,12 +269,14 @@ export default {
         })
         .attr('x', d => d.x0)
         .attr('y', d => d.y0)
-        .attr('width', d => (d.x1 - d.x0) / 3)
-        .attr('height', d => (d.y1 - d.y0) / 3)
+        .attr('width', d => d.x1 - d.x0)
+        .attr('height', d => d.y1 - d.y0)
         .style('fill', d => d.color = color(d.id))
         .transition()
-        .duration(350)
+        .duration(30050)
         .ease(d3.easeLinear)
+
+      rectsTreeMap
         .attr('x', d => d.x0)
         .attr('y', d => d.y0)
         .attr('width', d => d.x1 - d.x0)

@@ -27,7 +27,7 @@ ca:
           Sector Públic
         process_type: Tipus de procés
         search: Cerca
-        search_placeholder: Cerqueu per beneficiari
+        search_placeholder: Cerqueu per adjudicatari
         status: Estat
         submission_date: Data
         summary:

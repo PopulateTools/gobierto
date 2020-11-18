@@ -1,8 +1,5 @@
 <template>
   <div class="gobierto_dashboards-search-container">
-    <label class="gobierto_dashboards-search-container-label">
-      {{ labelSearch }}:
-    </label>
     <div class="gobierto_dashboards-search-container-wrapper-input">
       <div class="search-box">
         <i class="fas fa-search gobierto_dashboards-search-btn-search" />
@@ -40,7 +37,6 @@ export default {
   data() {
     return {
       search: '',
-      labelSearch: I18n.t('gobierto_dashboards.dashboards.contracts.search'),
       labelPlaceholder: I18n.t('gobierto_dashboards.dashboards.contracts.search_placeholder')
     }
   },

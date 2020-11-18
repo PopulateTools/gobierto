@@ -83,6 +83,16 @@ export default {
     this.initFilterOptions();
     this.updateCounters(true);
 
+    EventBus.$on('treemap-filter', ({ title, id }) => {
+      const typeOfContracts = this.filters.filter(options => options.id === 'contract_types')
+      const { options } = typeOfContracts[0]
+      options.forEach(element => {
+        if(element.id === id) {
+          element.isOptionChecked = true
+        }
+      })
+      this.handleCheckboxStatus( { id: id, filter: typeOfContracts[0]})
+    })
     EventBus.$on('dc-filter-selected', ({ title, id }) => {
       const { options = [] } = this.filters.find(( { id: i } ) => id === i) || {};
 

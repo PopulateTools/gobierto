@@ -61,9 +61,9 @@ export default {
       this.$emit("checkbox-change", { id: this.id, value })
     },
     //If the user uses selectAll from BlockHeader component, the state of 'marked' doesn't change, so we need to add a 'watcher' for 'checked' and update 'marked' when 'checked' changes.
-    checked(value) {
+   /* checked(value) {
       this.marked = value
-    }
+    }*/
   }
 };
 </script>

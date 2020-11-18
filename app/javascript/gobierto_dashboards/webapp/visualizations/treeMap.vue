@@ -33,6 +33,7 @@ import { sumDataByGroupKey } from "../lib/utils";
 import { easeLinear } from 'd3-ease'
 import { mean, median } from "d3-array";
 import { money } from "lib/shared";
+import { EventBus } from "../mixins/event_bus";
 
 const d3 = { select, selectAll, treemap, stratify, scaleOrdinal, mouse, easeLinear, mean, median }
 
@@ -248,6 +249,13 @@ export default {
         })
         .on('mouseout', function() {
           tooltip.style('display', 'none')
+        })
+        .on('click', function(d, event) {
+          const { id: filter } = d
+          EventBus.$emit("treemap-filter", {
+            title: filter,
+            id: event
+          });
         })
         .attr('x', d => d.x0)
         .attr('y', d => d.y0)

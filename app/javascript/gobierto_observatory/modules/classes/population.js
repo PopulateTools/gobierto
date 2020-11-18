@@ -1,29 +1,23 @@
-import { json } from "d3-request";
-import { queue } from "d3-queue";
-import { Card } from './card.js'
-import { SimpleCard } from 'lib/visualizations'
-
-const d3 = { json, queue }
+import { SimpleCard } from "lib/visualizations";
+import { Card } from "./card.js";
 
 export class PopulationCard extends Card {
   constructor(divClass, city_id) {
-    super(divClass)
+    super(divClass);
 
-    this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=' + city_id;
+    this.url =
+      window.populateData.endpoint +
+      "/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
+      city_id;
   }
 
   getData() {
-    var pop = d3.json(this.popUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken)
+    var data = this.handlePromise(this.url);
 
-    d3.queue()
-      .defer(pop.get)
-      .await(function (error, jsonData) {
-        if (error) throw error;
+    data.then(jsonData => {
+      var value = jsonData.data[0].value;
 
-        var value = jsonData.data[0].value;
-
-        new SimpleCard(this.container, jsonData, value, 'population');
-      }.bind(this));
+      new SimpleCard(this.container, jsonData, value, "population");
+    });
   }
 }

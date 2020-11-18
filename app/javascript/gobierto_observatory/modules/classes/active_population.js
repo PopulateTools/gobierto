@@ -1,36 +1,29 @@
-import { json } from "d3-request";
-import { queue } from "d3-queue";
-import { Card } from './card.js'
-import { ComparisonCard } from 'lib/visualizations'
-
-const d3 = { json, queue }
-
+import { ComparisonCard } from "lib/visualizations";
+import { Card } from "./card.js";
 
 export class ActivePopulationCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.activePopUrl = window.populateData.endpoint + '/datasets/ds-poblacion-activa-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=' + city_id;
-    this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=' + city_id;
+    this.activePopUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-poblacion-activa-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
+      city_id;
+    this.popUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
+      city_id;
   }
 
   getData() {
-    var active = d3.json(this.activePopUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+    var active = this.handlePromise(this.activePopUrl);
+    var pop = this.handlePromise(this.popUrl);
 
-    var pop = d3.json(this.popUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+    Promise.all([active, pop]).then(([jsonActive, jsonPop]) => {
+      var value = jsonActive.data[0].value;
+      var rate = (value / jsonPop.data[0].value) * 100;
 
-    d3.queue()
-      .defer(active.get)
-      .defer(pop.get)
-      .await(function (error, jsonActive, jsonPop) {
-        if (error) throw error;
-
-        var value = jsonActive.data[0].value;
-        var rate = value / jsonPop.data[0].value * 100;
-
-        new ComparisonCard(this.container, jsonActive, rate, value, 'active_pop');
-      }.bind(this));
+      new ComparisonCard(this.container, jsonActive, rate, value, "active_pop");
+    });
   }
 }

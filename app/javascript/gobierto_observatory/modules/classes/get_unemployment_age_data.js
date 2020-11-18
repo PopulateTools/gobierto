@@ -1,75 +1,114 @@
-import { json } from "d3-request";
-import { queue } from "d3-queue";
+import { sum } from "d3-array";
 import { nest } from "d3-collection";
-import { timeParse } from 'd3-time-format';
-import { sum } from 'd3-array';
-import { Card } from './card.js'
-
-const d3 = { json, queue, nest }
+import { timeParse } from "d3-time-format";
+import { Card } from "./card.js";
 
 export class GetUnemploymentAgeData extends Card {
   constructor(city_id) {
-    super()
+    super();
 
-    this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
-    this.unemplUrl = window.populateData.endpoint + '/datasets/ds-personas-paradas-municipio-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
-    this.parseTime = timeParse('%Y-%m');
+    this.popUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=" +
+      city_id;
+    this.unemplUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-personas-paradas-municipio-edad.json?sort_asc_by=date&filter_by_location_id=" +
+      city_id;
+    this.parseTime = timeParse("%Y-%m");
     this.data = null;
   }
 
   getData(callback) {
-    var pop = d3.json(this.popUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken)
+    var pop = this.handlePromise(this.popUrl);
+    var unemployed = this.handlePromise(this.unemplUrl);
 
-    var unemployed = d3.json(this.unemplUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken)
+    Promise.all([pop, unemployed]).then(([jsonData, unemployed]) => {
+      // d3v5
+      //
+      var nested = nest()
+        .key(function(d) {
+          return d.date;
+        })
+        .rollup(function(v) {
+          return {
+            "<25": sum(
+              v.filter(function(d) {
+                return d.age >= 16 && d.age < 25;
+              }),
+              function(d) {
+                return d.value;
+              }
+            ),
+            "25-44": sum(
+              v.filter(function(d) {
+                return d.age >= 25 && d.age < 45;
+              }),
+              function(d) {
+                return d.value;
+              }
+            ),
+            ">=45": sum(
+              v.filter(function(d) {
+                return d.age >= 45 && d.age < 65;
+              }),
+              function(d) {
+                return d.value;
+              }
+            )
+          };
+        })
+        .entries(jsonData);
 
-    d3.queue()
-      .defer(pop.get)
-      .defer(unemployed.get)
-      .await(function (error, jsonData, unemployed) {
-        if (error) throw error;
+      var temp = {};
+      nested.forEach(function(k) {
+        temp[k.key] = k.value;
+      });
+      nested = temp;
 
-        // Get population for each group & year
-        var nested = d3.nest()
-          .key(function(d) { return d.date; })
-          .rollup(function(v) { return {
-              '<25': sum(v.filter(function(d) {return d.age >= 16 && d.age < 25}), function(d) { return d.value; }),
-              '25-44': sum(v.filter(function(d) {return d.age >= 25 && d.age < 45}), function(d) { return d.value; }),
-              '>=45': sum(v.filter(function(d) {return d.age >= 45 && d.age < 65}), function(d) { return d.value; }),
-            };
-          })
-          .entries(jsonData);
+      // d3v6
+      //
+      // Get population for each group & year
+      // var nested = rollup(
+      //   jsonData,
+      //   v => ({
+      //     "<25": sum(v.filter(d => d.age >= 16 && d.age < 25), d => d.value),
+      //     "25-44": sum(v.filter(d => d.age >= 25 && d.age < 45), d => d.value),
+      //     ">=45": sum(v.filter(d => d.age >= 45 && d.age < 65), d => d.value)
+      //   }),
+      //   d => d.date
+      // );
+      // // Convert Map to Object
+      // nested = Array.from(nested.entries()).reduce(
+      //   (main, [key, value]) => ({ ...main, [key]: value }),
+      //   {}
+      // );
 
-        var temp = {};
-        nested.forEach(function(k) {
-          temp[k.key] = k.value
-        });
-        nested = temp;
+      // Get the last year from the array
+      var lastYear = unemployed[unemployed.length - 1].date.slice(0, 4);
 
-        // Get the last year from the array
-        var lastYear = unemployed[unemployed.length - 1].date.slice(0,4);
+      unemployed.forEach(d => {
+        var year = d.date.slice(0, 4);
 
-        unemployed.forEach(function(d) {
-          var year = d.date.slice(0,4);
+        if (nested.hasOwnProperty(year)) {
+          d.pct = d.value / nested[year][d.age_range];
+        } else if (year === lastYear) {
+          // If we are in the last year, divide the unemployment by last year's population
+          d.pct = d.value / nested[year - 1][d.age_range];
+        } else {
+          d.pct = null;
+        }
+        d.date = this.parseTime(d.date);
+      });
 
-          if (nested.hasOwnProperty(year)) {
-            d.pct = d.value / nested[year][d.age_range];
-          } else if(year === lastYear) {
-            // If we are in the last year, divide the unemployment by last year's population
-            d.pct = d.value / nested[year - 1][d.age_range];
-          } else {
-            d.pct = null;
-          }
-          d.date = this.parseTime(d.date);
-        }.bind(this));
+      // Filtering values to start from the first data points
+      this.data = unemployed.filter(
+        d => d.age_range != "<25" && d.date >= this.parseTime("2011-01")
+      );
 
-        // Filtering values to start from the first data points
-        this.data = unemployed.filter(function(d) { return d.age_range != '<25' && d.date >=this.parseTime('2011-01') }.bind(this));
+      window.unemplAgeData = this.data;
 
-        window.unemplAgeData = this.data;
-
-        if (callback) callback();
-      }.bind(this));
+      if (callback) callback();
+    });
   }
 }

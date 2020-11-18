@@ -1,36 +1,28 @@
-import * as d3 from 'd3'
+import { csv } from "d3-fetch";
 
 export function getRemoteData(endpoint) {
-  return new Promise((resolve) => {
-    d3.csv(endpoint)
-      .mimeType("text/csv")
-      .get(function(error, csv) {
-        if (error) throw error;
-
-        resolve(csv);
-      });
-  })
+  return csv(endpoint);
 }
 
 export function sortByField(dateField) {
-  return function(a, b){
+  return function(a, b) {
     const aDate = a[dateField],
-          bDate = b[dateField];
+      bDate = b[dateField];
 
-    if (aDate == '') {
+    if (aDate == "") {
       return 1;
     }
 
-    if (bDate == '') {
+    if (bDate == "") {
       return -1;
     }
 
-    if ( aDate < bDate ){
+    if (aDate < bDate) {
       return 1;
-    } else if ( aDate > bDate ){
+    } else if (aDate > bDate) {
       return -1;
     } else {
       return 0;
     }
-  }
+  };
 }

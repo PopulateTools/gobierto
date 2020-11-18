@@ -251,9 +251,8 @@ export default {
           tooltip.style('display', 'none')
         })
         .on('click', function(d, event) {
-          const { id: filter } = d
           EventBus.$emit("treemap-filter", {
-            title: filter,
+            category: "contract_types",
             id: event
           });
         })

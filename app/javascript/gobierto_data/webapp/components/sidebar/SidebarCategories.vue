@@ -74,7 +74,6 @@ export default {
       labelCategories: I18n.t("gobierto_data.projects.categories") || '',
       labelAll: I18n.t("gobierto_common.vue_components.block_header.all") || '',
       labelNone: I18n.t("gobierto_common.vue_components.block_header.none") || '',
-      isPermalinkActive: false,
       routeItemsFrequency: [],
       routeItemsCategory: []
     }
@@ -92,7 +91,6 @@ export default {
   created() {
     if (this.$route.params.pathMatch !== undefined) {
       let paramsRouter = this.$route.params.pathMatch.split(':')
-      this.isPermalinkActive = true
       this.selectedCheckbox(paramsRouter)
     }
   },
@@ -111,14 +109,12 @@ export default {
       this.checkSelectedCheckbox()
     },
     updateURLwithSelectedCategories(values) {
-
       const { options: optionsChecked } = values
       const { key } = values
       //We filter by selected elements
       const isItemSelected = optionsChecked.filter(({ isOptionChecked, counter }) => isOptionChecked === true && counter > 0)
       //Now we get only the id of them
       const getIdFromItems = [...new Set(isItemSelected.map(({ id }) => id))]
-      this.selectedCheckbox(getIdFromItems)
 
       //Create an array which contains only the id from selected elements
       let routeItems = []

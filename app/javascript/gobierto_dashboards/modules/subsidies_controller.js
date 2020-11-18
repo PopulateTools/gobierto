@@ -315,7 +315,7 @@ export class SubsidiesController {
       range: this._amountRange,
       labelMore: I18n.t("gobierto_dashboards.dashboards.subsidies.more"),
       labelFromTo: I18n.t("gobierto_dashboards.dashboards.subsidies.fromto"),
-      onFilteredFunction: (chart, filter) => {
+      onFilteredFunction: () => {
         this._refreshData(dimension.top(Infinity));
       }
     };

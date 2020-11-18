@@ -111,6 +111,11 @@ export default {
           transformColumns[key] = 'float'
         } else if (transformColumns[key] === 'inet') {
           transformColumns[key] = 'integer'
+        //In some cases, Perspective throw an error when tried to convert column with date format, so we need to change the date to datetime
+        } else if (transformColumns[key] === 'date') {
+          transformColumns[key] = 'datetime'
+        } else if (transformColumns[key] === 'tsvector') {
+          transformColumns[key] = 'string'
         }
       });
 

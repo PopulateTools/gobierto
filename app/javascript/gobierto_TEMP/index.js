@@ -1,4 +1,4 @@
-// import "../../assets/stylesheets/module-TEMP.scss";
+import { GobiertoEvents } from "lib/shared"
 import { GobiertoDashboardMakerController } from "./modules/dashboard_maker_controller.js";
 import { GobiertoDashboardViewerController } from "./modules/dashboard_viewer_controller.js";
 
@@ -19,4 +19,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // create elements on custom-events
-document.addEventListener('create-dashboard-maker', () => create(makerSelector, GobiertoDashboardMakerController))
+document.addEventListener(GobiertoEvents.CREATE_DASHBOARD_EVENT, () => create(makerSelector, GobiertoDashboardMakerController))

@@ -1,0 +1,11 @@
+<% content_for :javascript_module_link do %>
+  <%= javascript_packs_with_chunks_tag 'TEMP' %>
+<% end %>
+
+<% content_for :stylesheet_module_link do %>
+  <%= stylesheet_packs_with_chunks_tag 'TEMP' %>
+<% end %>
+
+
+Ejemplo del visor (usar el id <i>dashboard-viewer-app</i>)
+<div id="dashboard-viewer-app" data-context="CONTEXTO" data-path="PATH"></div>

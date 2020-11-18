@@ -9,4 +9,5 @@
 
 import 'lib/commons'
 import 'gobierto_admin'
+import 'gobierto_TEMP'
 import 'lib/i18n'

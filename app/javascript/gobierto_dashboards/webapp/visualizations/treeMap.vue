@@ -54,7 +54,7 @@ export default {
       dataForTableTooltip: undefined,
       dataNewValues: undefined,
       sizeForTreemap: 'value',
-      selected_size: '',
+      selected_size: 'final_amount_no_taxes',
       labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
       labelContractTotal: I18n.t('gobierto_dashboards.dashboards.visualizations.tooltip_treemap')
     }

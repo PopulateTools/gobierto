@@ -250,10 +250,21 @@ export default {
         .on('mouseout', function() {
           tooltip.style('display', 'none')
         })
-        .on('click', function(d, event) {
+        .on('click', function(d) {
+          const { data: { contract_type } } = d
+          let categoryID
+          if (contract_type === 'Servicios') {
+            categoryID = 0
+          } else if (contract_type === 'Suministros') {
+            categoryID = 1
+          } else if (contract_type === 'Obras') {
+            categoryID = 2
+          } else if (contract_type === 'Gestión de servicios públicos') {
+            categoryID = 3
+          }
           EventBus.$emit("treemap-filter", {
             category: "contract_types",
-            id: event
+            id: categoryID
           });
         })
         .attr('x', d => d.x0)

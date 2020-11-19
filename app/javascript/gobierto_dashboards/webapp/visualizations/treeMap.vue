@@ -171,15 +171,35 @@ export default {
         .padding(4)
         .round(true)(rootTreeMap)
 
-      const rectsTreeMap = svg
-        .selectAll(".rect-treemap")
-        .remove().exit()
+      const t = svg.transition()
+        .duration(250)
+        .ease(d3.easeLinear);
 
-      rectsTreeMap
+      svg
+        .selectAll(".rect-treemap")
         .data(rootTreeMap.leaves())
-        .enter()
-        .append("rect")
-        .attr('class', 'rect-treemap')
+        .join(
+          enter => enter.append("rect")
+            .attr('class', 'rect-treemap')
+            .attr('x', d => d.x0)
+            .attr('y', d => d.y0)
+            .attr('width', d => d.x1 - d.x0)
+            .attr('height', d => d.y1 - d.y0)
+            .style('fill', d => d.color = color(d.id))
+            .call(enter => enter.transition(t)),
+          update => update
+            .attr('x', d => d.x0)
+            .attr('y', d => d.y0)
+            .attr('width', d => d.x1 - d.x0)
+            .attr('height', d => d.y1 - d.y0)
+            .style('fill', d => d.color = color(d.id))
+            .call(update => update.transition(t)),
+          exit => exit
+            .attr('width', 0)
+            .attr('height', 0)
+            .call(exit => exit.transition(t)
+            .remove())
+        )
         .on("mousemove", function(d) {
           const coordinates = d3.mouse(this);
           const x = coordinates[0];
@@ -267,44 +287,25 @@ export default {
             id: categoryID
           });
         })
-        .attr('x', d => d.x0)
-        .attr('y', d => d.y0)
-        .attr('width', d => d.x1 - d.x0)
-        .attr('height', d => d.y1 - d.y0)
-        .style('fill', d => d.color = color(d.id))
-        .transition()
-        .duration(30050)
-        .ease(d3.easeLinear)
 
-      rectsTreeMap
-        .attr('x', d => d.x0)
-        .attr('y', d => d.y0)
-        .attr('width', d => d.x1 - d.x0)
-        .attr('height', d => d.y1 - d.y0)
-        .style('fill', d => d.color = color(d.id))
-
-      const legendsName = svg
+      svg
         .selectAll(".name")
-        .remove().exit()
-
-      legendsName
         .data(rootTreeMap.leaves())
-        .enter()
-        .append("text")
-          .attr('id', d => `name-${d.id}`)
-          .attr("x", d => d.x0 + 6)
-          .attr('y', d => d.y0 + 20)
-          .text(d => d.id)
-          .attr('class', (d) => {
-            let widthRect = d.x1 - d.x0
-            let widthText = document.getElementById(`name-${d.id}`).getBoundingClientRect().width
-            //Compare with of the text element with the width of the rect, to hide/show the literals
-            if (widthText < widthRect) {
-              return 'name name-max'
-            } else {
-              return 'name name-hide'
-            }
-          })
+        .join("text")
+        .attr('id', d => `name-${d.id}`)
+        .attr("x", d => d.x0 + 6)
+        .attr('y', d => d.y0 + 20)
+        .text(d => d.id)
+        .attr('class', (d) => {
+          let widthRect = d.x1 - d.x0
+          let widthText = document.getElementById(`name-${d.id}`).getBoundingClientRect().width
+          //Compare with of the text element with the width of the rect, to hide/show the literals
+          if (widthText < widthRect) {
+            return 'name name-max'
+          } else {
+            return 'name name-hide'
+          }
+        })
 
       const legendsValue = svg
         .selectAll(".value")
@@ -354,7 +355,7 @@ export default {
     },
     resizeListener() {
       window.addEventListener("resize", () => {
-        let dataResponsive = JSON.parse(JSON.stringify(this.dataTreeMapWithoutCoordinates));
+        let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
         const containerChart = document.getElementsByClassName('container-tree-map')[0];
         this.svgWidth = containerChart.offsetWidth
         this.deepCloneData(dataResponsive)

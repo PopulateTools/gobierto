@@ -12,8 +12,7 @@ import { axisBottom, axisLeft } from 'd3-axis';
 import { extent } from 'd3-array';
 import { timeParse, timeFormat, timeFormatLocale } from 'd3-time-format';
 import { min, max } from 'd3-array';
-import * as ss from 'simple-statistics'
-import { equalIntervalBreaks } from "simple-statistics";
+import * as chroma from 'chroma-js';
 import { d3locale } from 'lib/shared';
 import { easeLinear } from 'd3-ease';
 
@@ -268,8 +267,7 @@ export default {
       let dataScaleRadius = data
         .map(d => +d[this.radiusProperty])
         .filter(value => value !== 0 && value > 10000 && value < 2000000);
-      const arrayScaleRadius = ss.equalIntervalBreaks(dataScaleRadius, 20);
-      console.log("arrayScaleRadius", arrayScaleRadius);
+      const arrayScaleRadius = chroma.limits(dataScaleRadius, 'e', 20);
 
       const parseTime = d3.timeParse('%Y-%m-%d');
 

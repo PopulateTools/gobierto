@@ -180,19 +180,16 @@ export default {
         .data(rootTreeMap.leaves())
         .join(
           enter => enter.append("rect")
-            .attr('class', 'rect-treemap')
             .attr('x', d => d.x0)
             .attr('y', d => d.y0)
             .attr('width', d => d.x1 - d.x0)
             .attr('height', d => d.y1 - d.y0)
-            .style('fill', d => d.color = color(d.id))
             .call(enter => enter.transition(t)),
           update => update
             .attr('x', d => d.x0)
             .attr('y', d => d.y0)
             .attr('width', d => d.x1 - d.x0)
             .attr('height', d => d.y1 - d.y0)
-            .style('fill', d => d.color = color(d.id))
             .call(update => update.transition(t)),
           exit => exit
             .attr('width', 0)
@@ -200,6 +197,12 @@ export default {
             .call(exit => exit.transition(t)
             .remove())
         )
+        .attr('class', d => {
+          d.id = d.id.normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/ /g, '-')
+          return `rect-treemap treemap-${d.id}`
+        })
         .on("mousemove", function(d) {
           const coordinates = d3.mouse(this);
           const x = coordinates[0];

@@ -88,15 +88,17 @@ export default {
         bottom: this.marginBottom
       },
       padding: 1.5,
-      updateCircles: false,
-      dataWithoutCoordinates: undefined
+      updateData: false,
+      dataWithoutCoordinates: undefined,
+      dataNewValues: undefined,
     };
   },
   watch: {
     data(newValue, oldValue) {
       if (newValue !== oldValue) {
+        this.dataNewValues = newValue
         this.deepCloneData(newValue);
-        this.updateCircles = true;
+        this.updateData = true;
       }
     }
   },
@@ -275,7 +277,7 @@ export default {
           d.slug = d.assignee
             .normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '')
-            .replace(' ', '-')
+            .replace(/ /g, '-')
             .replace(/[.,()\s]/g, '')
             .toLowerCase();
         }
@@ -389,9 +391,7 @@ export default {
     },
     resizeListener() {
       window.addEventListener('resize', () => {
-        let dataResponsive = JSON.parse(
-          JSON.stringify(this.dataWithoutCoordinates)
-        );
+        let dataResponsive = this.updateData ? this.dataNewValues : this.data;
         const containerChart = document.getElementsByClassName(
           'beeswarm-container'
         )[0];

@@ -17,7 +17,7 @@
       :radius-property="'final_amount_no_taxes'"
       :x-axis-prop="'start_date'"
       :y-axis-prop="'contract_type'"
-      @showTooltip="showTooltip"
+      @showTooltip="showTooltipBeesWarm"
       @goesToItem="goesToItem"
     />
     <h3 class="mt4 graph-title">
@@ -31,7 +31,9 @@
       :array-circle-values="valuesForCircleChart"
       :show-right-labels="true"
       :values-legend="valuesLegendObject"
+      @showTooltip="showTooltipMultipleLine"
     />
+    <!-- <TreeMapNested :data="dashboardsData" /> -->
     <div
       id="tendersContractsSummary"
       class="metric_boxes mt4"
@@ -175,17 +177,17 @@
 </template>
 <script>
 
-import { EventBus } from "../../mixins/event_bus";
 import { BeesWarmChart, MultipleLineChart } from "lib/vue-components";
 import TreeMap from "../../visualizations/treeMap.vue";
+import TreeMapNested from "../../visualizations/treeMapNested.vue";
 import Table from "../../components/Table.vue";
 import { dashboardsMixins } from "../../mixins/dashboards_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
-import { select } from 'd3-selection'
+import { select, mouse } from 'd3-selection'
 import { getQueryData, sumDataByGroupKey } from "../../lib/utils";
 import { money } from "lib/shared";
 
-const d3 = { select }
+const d3 = { select, mouse }
 
 export default {
   name: 'Summary',
@@ -193,7 +195,8 @@ export default {
     Table,
     TreeMap,
     BeesWarmChart,
-    MultipleLineChart
+    MultipleLineChart,
+    TreeMapNested
   },
   mixins: [dashboardsMixins],
   data(){
@@ -320,7 +323,36 @@ export default {
       //Values for build circles in the chart
       this.valuesForCircleChart = ['formalized', 'total_contracts']
     },
-    showTooltip(event) {
+    showTooltipMultipleLine(d, e, event) {
+      const { total_contracts, formalized, final_amount_no_taxes, year } = d
+      const getRect = event[e]
+      const x = getRect.getBBox().x
+      const y = getRect.getBBox().y
+      const tooltip = d3.select('.multiple-line-tooltip-bars')
+      const container = document.getElementsByClassName('multiple-line-chart-container')[0];
+      const containerWidth = container.offsetWidth
+      const tooltipWidth = 300
+      const positionWidthTooltip = x + tooltipWidth
+      const positionTop = `${y - 20}px`
+      const positionLeft = `${x + 10}px`
+      const positionRight = `${x - tooltipWidth - 30}px`
+
+      tooltip
+        .style("display", "block")
+        .style('top', positionTop)
+        .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+        //TODO: locales
+        .html(`
+          <span class="beeswarm-tooltip-header-title">
+            ${year.getFullYear()}
+          </span>
+          <span class="multiple-line-tooltip-bars-text">Total de licitaciones: <b>${total_contracts}</b></span>
+          <span class="multiple-line-tooltip-bars-text">Total de adjudicaciones: <b>${formalized}</b></span>
+          <span class="multiple-line-tooltip-bars-text">Importe total de las adjudicaciones: <b>${money(final_amount_no_taxes)}</b></span>
+        `)
+
+    },
+    showTooltipBeesWarm(event) {
       const { assignee, final_amount_no_taxes, x, y } = event
       const tooltip = d3.select('.beeswarm-tooltip')
 

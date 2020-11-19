@@ -391,7 +391,7 @@ export default {
     },
     resizeListener() {
       window.addEventListener('resize', () => {
-        let dataResponsive = this.updateData ? this.dataNewValues : this.data;
+        let dataResponsive = this.updateData ? this.dataNewValues : this.dataWithoutCoordinates;
         const containerChart = document.getElementsByClassName(
           'beeswarm-container'
         )[0];

@@ -1,5 +1,6 @@
 <template>
   <div class="multiple-line-chart-container">
+    <div class="multiple-line-tooltip-bars"></div>
     <svg
       class="multiple-line-chart"
       :width="svgWidth"
@@ -13,13 +14,13 @@ import { select, selectAll } from 'd3-selection';
 import { nest } from 'd3-collection';
 import { min, max, extent } from 'd3-array';
 import { line, curveCardinal } from 'd3-shape';
-import { scaleTime, scaleLinear, scaleOrdinal } from 'd3-scale';
+import { scaleTime, scaleLinear, scaleOrdinal, scaleBand } from 'd3-scale';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { timeFormat, timeParse } from 'd3-time-format';
 import { format, formatDefaultLocale } from 'd3-format';
 import { d3locale } from "lib/shared";
 
-const d3 = { select, selectAll, nest, min, max, line, scaleOrdinal, scaleTime, scaleLinear, axisBottom, axisLeft, timeFormat, timeParse, extent, curveCardinal, format, formatDefaultLocale }
+const d3 = { select, selectAll, nest, min, max, line, scaleOrdinal, scaleBand, scaleTime, scaleLinear, axisBottom, axisLeft, timeFormat, timeParse, extent, curveCardinal, format, formatDefaultLocale }
 
 export default {
   name: 'MultipleLineChart',
@@ -129,6 +130,10 @@ export default {
         .domain(d3.extent(data, d => d.year))
         .range([0, this.svgWidth - (this.margin.left + this.margin.right)]);
 
+      const scaleYBarCharts = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.final_amount_no_taxes)])
+        .range([this.height, 0]);
+
       const axisX = d3
         .axisBottom(scaleX)
         .tickPadding(10)
@@ -142,11 +147,28 @@ export default {
         .axisLeft(scaleY)
         .tickPadding(10)
         .tickFormat(d => d)
-        .tickSize(-(this.svgWidth - (this.margin.left + this.margin.right)))
+        .tickSize(-(this.svgWidth - (this.margin.right)))
         .ticks(10)
 
       g.select('.axis-y')
         .call(axisY)
+
+      g.selectAll("bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .style("fill", "#12365B")
+        .attr("x", d => scaleX(d.year))
+        .attr("width", 20)
+        .attr("y", d => scaleYBarCharts(d.final_amount_no_taxes))
+        .attr('height', (d) => this.height - scaleYBarCharts(d.final_amount_no_taxes))
+        .on('mouseover', (d, e, event) => {
+          this.$emit('showTooltip', d, e, event);
+        })
+        .on('mouseout', () => {
+          d3.select('.multiple-line-tooltip-bars')
+            .style('display', 'none');
+        })
 
       for (let index = 0; index < this.arrayLineValues.length; index++) {
 
@@ -165,7 +187,7 @@ export default {
           .append('div')
           .data(data)
           .attr('class', `tooltip-multiple-line tooltip-${value}`)
-          .style('left', `${this.svgWidth - this.margin.right + 24}px`)
+          .style('left', `${this.svgWidth - this.margin.right + 36}px`)
           .style('top', d => `${scaleY(d[value]) + this.margin.bottom}px`)
           .html(d => {
             if (this.showRightLabels) {
@@ -185,7 +207,6 @@ export default {
           .attr('cy', d => scaleY(d[this.arrayCircleValues[index]]))
           .attr('r', 6)
       }
-
     },
     buildLenged(d, value) {
       const locale = d3.formatDefaultLocale(d3locale[I18n.locale]);

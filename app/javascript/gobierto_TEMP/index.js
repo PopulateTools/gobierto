@@ -4,6 +4,7 @@ import { GobiertoDashboardViewerController } from "./modules/dashboard_viewer_co
 
 const makerSelector = "#dashboard-maker-app"
 const dashboardSelector = "#dashboard-viewer-app"
+// factory pattern
 const create = (selector, Instance) => {
   const node = document.querySelector(selector);
 

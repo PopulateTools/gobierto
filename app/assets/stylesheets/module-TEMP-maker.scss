@@ -1,0 +1,167 @@
+@import "css-conf";
+@import "mixins";
+
+:root {
+  --bg-dark-grey: #616161;
+  --bg-grey: #ddd;
+  --bg-soft-grey: #f2f2f2;
+  --padding: 1em;
+  --color-grey: #828282;
+  --color-dark-grey: $color_headers;
+  --font-family: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
+  --font-family-alt: 'Source Sans Pro', 'Helvetica Neue', 'Arial', 'sans-serif';
+}
+
+.dashboards-maker {
+  .layout-header {
+    @include flex-align(space-between, stretch);
+
+    &-editable {
+      padding: var(--padding);
+      background-color: var(--bg-grey);
+      box-sizing: border-box;
+      flex: 1;
+    }
+    
+    &-shadow {
+      background-color: var(--bg-dark-grey);
+      flex: 0 0 42px;
+    }
+  }
+
+  .layout-main {
+    @include flex-align(space-between, stretch);
+
+    aside {
+      flex: 0 0 20%;
+      background-color: var(--bg-soft-grey);
+      padding: var(--padding);
+    }
+
+    article {
+      flex: 1;
+      padding: var(--padding);
+    }
+  }
+
+  &--header {
+    @include flex-align(space-between);
+
+    &__buttons {
+      white-space: nowrap;
+      flex: 0 0 150px;
+    }
+  }
+
+  &--button {
+    @include flex-align(space-between, baseline);
+    @include border-radius(4px);
+
+    font-size: $f8;
+    font-family: var(--font-family);
+    line-height: 15px;
+    padding: 0.45em 1em 0.3em;
+
+    &__link {
+      padding: 0;
+      text-transform: none;
+      font-weight: normal;
+      text-align: initial;
+      color: inherit;
+      background: none;
+      text-decoration: underline;
+  
+      &:hover,
+      &:focus {
+        background: none;
+        box-shadow: none;
+        border: 0;
+      }
+    }
+
+    &:not(:first-child) {
+      margin-left: 1em;
+    }
+  }
+
+  &--editable {
+    @include flex-align(space-between);
+
+    cursor: pointer;
+    max-width: 75vw;
+
+    > :first-child {
+      flex: 1;
+      margin: 0;
+      padding: 0;
+      min-width: 20px;
+      max-width: 75vw;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: var(--font-family);
+
+      &:focus {
+        @include border-radius(4px);
+
+        margin: -5px;
+        padding: 5px;
+        background-color: white;
+        outline: none;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      }
+    }
+
+    > :last-child {
+      margin-left: 1em;
+    }
+  }
+
+  &--checkbox {
+    @include flex-align(space-between);
+
+    cursor: pointer;
+    font-family: var(--font-family);
+
+    input[type="checkbox"] {
+      display: block;
+      margin-right: 0.5em;
+    }
+  }
+
+  &--aside {
+    &__title {
+      font-weight: bold;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: $f8;
+      color: var(--color-dark-grey);
+      font-family: var(--font-family);
+    }
+
+    &__footer {
+      white-space: pre-line;
+      font-size: $f7;
+      font-weight: 400;
+      color: var(--color-grey);
+      font-family: var(--font-family-alt);
+    }
+  }
+
+  &--small-card {
+    background-color: $color_main_negative;
+    border: 2px dashed #BDBDBD;
+    color: var(--color-dark-grey);
+    font-family: var(--font-family);
+    font-size: $f7;
+    font-weight: 700;
+    padding: var(--padding);
+    box-sizing: border-box;
+    min-height: 60px;
+    cursor: pointer;
+
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+}

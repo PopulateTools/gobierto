@@ -9,6 +9,7 @@
   width: auto;
   max-width: 750px;
   margin: 20px auto;
+  overflow: hidden;
 
   @include border-radius(5px);
 

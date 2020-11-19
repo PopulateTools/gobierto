@@ -1,11 +1,9 @@
 import "magnific-popup";
 import { GobiertoEvents } from "lib/shared"
 
-document.addEventListener("DOMContentLoaded", ({ type }) => {
-  console.log(type);
-})
-
 $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
+  const isDashboardsSelector = !!document.querySelector("[data-dashboards-maker]")
+
   $(".open_remote_modal").magnificPopup({
     type: "ajax",
     removalDelay: 300,
@@ -32,10 +30,10 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
         // autofocus on the first modal input field
         $(".modal .form_item input[type=text]:visible").first().focus()
 
-        console.log('hola');
-
-        const event = new Event(GobiertoEvents.CREATE_DASHBOARD_EVENT)
-        document.dispatchEvent(event)
+        if (isDashboardsSelector) {
+          const event = new Event(GobiertoEvents.CREATE_DASHBOARD_EVENT)
+          document.dispatchEvent(event)
+        }
       }
     }
   });

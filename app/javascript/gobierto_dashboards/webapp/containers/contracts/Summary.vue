@@ -33,7 +33,10 @@
       :values-legend="valuesLegendObject"
       @showTooltip="showTooltipMultipleLine"
     />
-    <!-- <TreeMapNested :data="dashboardsData" /> -->
+    <h3 class="mt1 graph-title">
+      {{ labelContractType }}
+    </h3>
+    <TreeMapNested :data="dashboardsData" />
     <div
       id="tendersContractsSummary"
       class="metric_boxes mt4"

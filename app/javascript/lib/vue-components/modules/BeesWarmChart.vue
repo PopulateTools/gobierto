@@ -6,13 +6,12 @@
 </template>
 <script>
 import { select, selectAll } from 'd3-selection';
-import { scaleOrdinal, scaleBand, scaleTime } from 'd3-scale';
+import { scaleOrdinal, scaleBand, scaleTime, scalePow } from 'd3-scale';
 import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { extent } from 'd3-array';
 import { timeParse, timeFormat, timeFormatLocale } from 'd3-time-format';
 import { min, max } from 'd3-array';
-import * as chroma from 'chroma-js';
 import { d3locale } from 'lib/shared';
 import { easeLinear } from 'd3-ease';
 
@@ -22,6 +21,7 @@ const d3 = {
   scaleBand,
   scaleOrdinal,
   scaleTime,
+  scalePow,
   forceSimulation,
   forceX,
   forceY,
@@ -212,10 +212,22 @@ export default {
         )
         .call(axisY);
 
-      const circlesBees = svg
+      const simulation = d3
+        .forceSimulation(filterData)
+        .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])).strength(0.5))
+        .force('y', d3.forceY(d => scaleY(d[this.yAxisProp])))
+        .force('collide', d3.forceCollide().strength(0.3).radius(d => d.radius + this.padding));
+
+
+      let circlesBees = svg
         .selectAll('.beeswarm-circle')
+        .remove()
+        .exit()
         .data(filterData)
-        .join('circle')
+
+      const circlesBeesEnter = circlesBees
+        .enter()
+        .append('circle')
         .attr('class', 'beeswarm-circle')
         .attr('id', d => `${d.slug}`)
         .style('fill', d => (d.color = color(d[this.yAxisProp])))
@@ -248,26 +260,28 @@ export default {
           this.$emit('goesToItem', event);
         });
 
-      const simulation = d3
-        .forceSimulation(filterData)
-        .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])).strength(0.5))
-        .force('y', d3.forceY(d => scaleY(d[this.yAxisProp])))
-        .force('collide', d3.forceCollide().strength(0.3).radius(d => d.radius + this.padding));
+      circlesBees = circlesBees.merge(circlesBeesEnter)
+
+      circlesBees.transition()
+        .duration(2000)
+        .ease(d3.easeLinear)
+        .attr('r', d => d.radius)
 
       simulation
         .nodes(filterData)
         .on('tick', () =>
           circlesBees
-            .attr('cx', d => d.x - this.margin.right / 2)
+            .attr('cx', d => d.x)
             .attr('cy', d => d.y)
         );
     },
     transformData(data) {
-      //Remove zeros because we need a logarithmic scale
-      let dataScaleRadius = data
-        .map(d => +d[this.radiusProperty])
-        .filter(value => value !== 0 && value > 10000 && value < 2000000);
-      const arrayScaleRadius = chroma.limits(dataScaleRadius, 'e', 20);
+      const maxFinalAmount = d3.max(data, d => d.final_amount_no_taxes)
+
+      const radiusScale = d3.scalePow()
+        .exponent(0.5)
+        .range([3, 28])
+        .domain([0, maxFinalAmount]);
 
       const parseTime = d3.timeParse('%Y-%m-%d');
 
@@ -281,75 +295,12 @@ export default {
             .replace(/[.,()\s]/g, '')
             .toLowerCase();
         }
-        d[this.radiusProperty] = +d[this.radiusProperty];
         d[this.xAxisProp] = parseTime(d[this.xAxisProp]);
-        if (
-          d[this.radiusProperty] > 0 &&
-          d[this.radiusProperty] <= arrayScaleRadius[1]
-        ) {
-          d.radius = 4;
-        } else if (
-          d[this.radiusProperty] >= arrayScaleRadius[1] &&
-          d[this.radiusProperty] <= arrayScaleRadius[2]
-        ) {
-          d.radius = 5.25;
-        } else if (
-          d[this.radiusProperty] >= arrayScaleRadius[2] &&
-          d[this.radiusProperty] <= arrayScaleRadius[3]
-        ) {
-          d.radius = 6.5;
-        } else if (
-          d[this.radiusProperty] >= arrayScaleRadius[3] &&
-          d[this.radiusProperty] <= arrayScaleRadius[4]
-        ) {
-          d.radius = 7.75;
-        } else if (
-          d[this.radiusProperty] >= arrayScaleRadius[4] &&
-          d[this.radiusProperty] <= arrayScaleRadius[5]
-        ) {
-          d.radius = 9;
-        } else if (
-          d[this.radiusProperty] >= arrayScaleRadius[5] &&
-          d[this.radiusProperty] <= arrayScaleRadius[6]
-        ) {
-          d.radius = 10.25;
-        } else if (
-          d[this.radiusProperty] >= arrayScaleRadius[6] &&
-          d[this.radiusProperty] <= arrayScaleRadius[7]
-        ) {
-          d.radius = 11.5;
-        } else if (
-          d[this.radiusProperty] >= arrayScaleRadius[7] &&
-          d[this.radiusProperty] <= arrayScaleRadius[8]
-        ) {
-          d.radius = 12.75;
-        } else if (
-          d[this.radiusProperty] >= arrayScaleRadius[8] &&
-          d[this.radiusProperty] <= arrayScaleRadius[9]
-        ) {
-          d.radius = 14;
-        } else if (
-          d[this.radiusProperty] >= arrayScaleRadius[9] &&
-          d[this.radiusProperty] <= arrayScaleRadius[10]
-        ) {
-          d.radius = 15.25;
-        } else if (
-          d[this.radiusProperty] >= arrayScaleRadius[10] &&
-          d[this.radiusProperty] <= arrayScaleRadius[10]
-        ) {
-          d.radius = 16.5;
-        } else if (d[this.radiusProperty] >= arrayScaleRadius[11] && d[this.radiusProperty] <= arrayScaleRadius[12]) {
-          d.radius = 17.75;
-        } else if (d[this.radiusProperty] >= arrayScaleRadius[12] && d[this.radiusProperty] <= arrayScaleRadius[13]) {
-          d.radius = 19;
-        } else if (d[this.radiusProperty] >= arrayScaleRadius[13]) {
-          d.radius = 20.25;
-        }
+        d.radius = radiusScale(d[this.radiusProperty])
       });
 
       let filterData = data.filter(
-        ({ final_amount_no_taxes }) => final_amount_no_taxes !== 0
-      );
+        ({ final_amount_no_taxes }) => final_amount_no_taxes !== 0);
 
       return filterData;
     },

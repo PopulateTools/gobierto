@@ -312,6 +312,168 @@
     left: 6%;
   }
 
+  .container-tree-map-nested {
+    position: relative;
+  }
+
+  .tree-map-nested-nav {
+    padding: .5rem;
+    margin-left: 1px;
+    margin-bottom: .75rem;
+    background-color: rgba(var(--color-base-string), .15);
+    color: rgba(var(--color-base-string), .8);
+    width: max-content;
+    cursor: pointer;
+    .nav-breadcrumbs {
+      margin: 0;
+    }
+  }
+
+  #treemap-nested {
+
+    text {
+      pointer-events: none;
+    }
+
+    .grandparent text {
+      font-weight: bold;
+    }
+
+    .Obras {
+      .child,
+      .parent {
+        fill: #ff776d;
+      }
+    }
+
+    .Servicios {
+      .child,
+      .parent {
+        fill: #12365b;
+      }
+    }
+
+    .Suministros {
+      .child,
+      .parent {
+        fill: #008e9c;
+      }
+    }
+
+    .Gestion-de-servicios-publicos {
+      .child,
+      .parent {
+        fill: #f8b205;
+      }
+    }
+
+    rect {
+      stroke: #fff;
+      stroke-width: 1px;
+    }
+
+    rect.parent,
+    .grandparent rect {
+      stroke-width: 3px;
+    }
+
+    .children rect.parent,
+    .grandparent rect {
+      cursor: pointer;
+    }
+
+    .children rect.child {
+      opacity: 0;
+    }
+
+    .children {
+      &.Obras {
+        > rect {
+          fill: #ff776d;
+        }
+      }
+
+      &.Servicios {
+        > rect {
+          fill: #12365b;
+        }
+      }
+
+      &.Suministros {
+        > rect {
+          fill: #008e9c;
+        }
+      }
+
+      &.Gestion-de-servicios-publicos {
+        > rect {
+          fill: #f8b205;
+        }
+      }
+
+      &:hover {
+        rect.child {
+          opacity: 1;
+          stroke-width: 1px;
+        }
+        rect.parent {
+          opacity: 0;
+        }
+      }
+    }
+
+    .legend {
+      margin-bottom: 8px;
+      rect {
+        stroke-width: 0;
+      }
+      text {
+        text-anchor: middle;
+        pointer-events: auto;
+        font-size: 13px;
+        fill: black;
+      }
+    }
+
+    .form-group {
+      text-align: left;
+    }
+
+    .treemap-nested-container-text,
+    .foreignobj {
+      color: #fff;
+      padding: 7px;
+      cursor: pointer;
+      overflow: none;
+      .title {
+        margin: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+      .text {
+        margin: 0;
+        font-size: 18px;
+      }
+      .text-depth-third {
+        margin: 0;
+        font-size: 14px;
+      }
+    }
+
+    .treemap-nested-container-text {
+      height: 100%;
+    }
+  }
+
+  .tree-map-nested-tooltip-contracts {
+    .text-depth-third {
+      margin: 0;
+      font-size: 14px;
+      color: #767168;
+    }
+  }
+
   .container-tree-map {
     position: relative;
   }
@@ -333,7 +495,8 @@
   }
 
   .treemap-tooltip,
-  .multiple-line-tooltip-bars {
+  .multiple-line-tooltip-bars,
+  .tree-map-nested-tooltip-contracts {
     display: none;
     position: absolute;
     padding: .5rem;

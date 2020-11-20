@@ -273,7 +273,6 @@ export default {
 
             let title = d.data.name === undefined ? d.data.title : d.data.name;
             const coordinates = d3.mouse(this);
-            console.log("d3.mouse(this)", d3.mouse(this));
             const x = coordinates[0];
             const y = coordinates[1];
 
@@ -369,7 +368,6 @@ export default {
       }
 
       function name(d) {
-        console.log("d", d);
         return breadcrumbs(d) +
           (d.parent ?
            //TODO: LOCALES

@@ -1,6 +1,23 @@
 <template>
   <div class="container-tree-map-nested">
+    <div class="treemap-button-group button-group">
+      <button
+        class="button-grouped sort-G"
+        :class="{ active : selected_size == 'final_amount_no_taxes' }"
+        @click="handleTreeMapValue('final_amount_no_taxes')"
+      >
+        {{ labelContractAmount }}
+      </button>
+      <button
+        class="button-grouped sort-G"
+        :class="{ active : selected_size == 'number_of_contract' }"
+        @click="handleTreeMapValue('number_of_contract')"
+      >
+        {{ labelContractTotal }}
+      </button>
+    </div>
     <div class="tree-map-nested-nav" />
+    <div class="tree-map-nested-tooltip-assignee" />
     <div class="tree-map-nested-tooltip-contracts" />
     <svg
       id="treemap-nested"
@@ -15,6 +32,7 @@ import { select, selectAll, mouse } from 'd3-selection'
 import { treemap, stratify, hierarchy } from 'd3-hierarchy'
 import { scaleLinear } from 'd3-scale'
 import { easeLinear } from 'd3-ease'
+import { normalizeString } from "../lib/utils";
 import { mean, median } from "d3-array";
 import { nest } from "d3-collection";
 import { money } from "lib/shared";
@@ -43,6 +61,10 @@ export default {
     marginBottom: {
       type: Number,
       default: 30
+    },
+    labelRootKey: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -53,18 +75,18 @@ export default {
       updateData: false,
       dataForTableTooltip: undefined,
       dataNewValues: undefined,
-      sizeForTreemap: 'value',
-      selected_size: 'value',
+      sizeForTreemap: 'final_amount_no_taxes',
+      selected_size: 'final_amount_no_taxes',
       labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
-      labelContractTotal: I18n.t('gobierto_dashboards.dashboards.visualizations.tooltip_treemap')
+      labelContractTotal: I18n.t('gobierto_dashboards.dashboards.visualizations.tooltip_treemap'),
     }
   },
   watch: {
     data(newValue, oldValue) {
       if (newValue !== oldValue) {
-        /*this.dataNewValues = newValue
+        this.updateData = true
+        this.dataNewValues = newValue
         this.deepCloneData(newValue)
-        this.updateData = true*/
       }
     }
   },
@@ -76,11 +98,30 @@ export default {
     /*this.resizeListener()*/
   },
   methods: {
+    handleTreeMapValue(value) {
+      if (this.selected_size === value) return;
+      this.selected_size = value
+      this.sizeForTreemap = value
+      d3.select('.treemap-container')
+        .remove()
+        .exit();
+      d3.select('.nav-breadcrumbs')
+      .remove()
+      .exit();
+      if (this.updateData) {
+        this.deepCloneData(this.dataNewValues)
+      } else {
+        this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
+      }
+    },
     transformDataTreemap(data) {
 
       let dataFilter = data
       dataFilter.filter(contract => contract.final_amount_no_taxes !== 0)
 
+      dataFilter.forEach(d => {
+        d.number_of_contract = 1
+      })
       // d3v6
       //
       // const dataGroupTreeMap = Array.from(
@@ -92,11 +133,10 @@ export default {
         .entries(dataFilter);
       let rootData = {};
 
-      //TODO: LOCALE
-      rootData.key = "Adjudicataries";
+      rootData.key = this.labelRootKey
       rootData.values = nested_data;
 
-      rootData = replaceDeepKeys(rootData, "final_amount_no_taxes");
+      rootData = replaceDeepKeys(rootData, this.sizeForTreemap);
 
       //d3 Nest add names to the keys that are not valid to build a treemap, we need to replace them
       function replaceDeepKeys(root, value_key) {
@@ -124,13 +164,22 @@ export default {
     },
     deepCloneData(data) {
       const dataTreeMap = JSON.parse(JSON.stringify(data));
-      this.dataForTooltips(dataTreeMap)
       this.transformDataTreemap(dataTreeMap)
     },
     buildTreeMap(rootData) {
+      if (this.updateData) {
+        d3.select('.treemap-container')
+          .remove()
+          .exit();
+        d3.select('.nav-breadcrumbs')
+        .remove()
+        .exit();
+      }
+
       let transitioning;
       this.height = 600 - this.marginTop - this.marginBottom
       const tooltip = d3.select('.tree-map-nested-tooltip-contracts')
+      const tooltipAssignee = d3.select('.tree-map-nested-tooltip-assignee')
 
       const x = d3.scaleLinear()
         .domain([0, this.svgWidth])
@@ -149,6 +198,7 @@ export default {
         .style("margin-left", `${-this.marginLeft}px`)
         .style("margin.right", `${-this.marginRight}px`)
         .append("g")
+        .attr('class', 'treemap-container')
         .attr("transform", `translate(${this.marginLeft},${this.marginTop})`)
         .style("shape-rendering", "crispEdges");
 
@@ -169,9 +219,6 @@ export default {
           .on("click", transition)
           .html(name(d));
 
-        navBreadcrumbs
-          .datum(d.parent)
-
         const g1 = svg
           .insert("g", ".nav-breadcrumbs")
           .datum(d)
@@ -186,9 +233,7 @@ export default {
               parentNameContract = name
             }
             //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid class
-            parentNameContract = parentNameContract.normalize('NFD')
-              .replace(/[\u0300-\u036f]/g, '')
-              .replace(/ /g, '-')
+            parentNameContract = normalizeString(parentNameContract)
             return `depth ${parentNameContract}`
           })
 
@@ -204,9 +249,7 @@ export default {
             let parentNameContract = parentName
             let sectionName = name
             //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
-            sectionName = sectionName.normalize('NFD')
-              .replace(/[\u0300-\u036f]/g, '')
-              .replace(/ /g, '-')
+            sectionName = normalizeString(sectionName)
             return `children ${sectionName} ${parentNameContract}`
           })
           .on("click", transition);
@@ -234,17 +277,19 @@ export default {
             d.depth = 2 is the second level, beneficiaries by type of contracts
             d.depth = 3 is the last level, contracts of beneficiaries*/
             let title = d.data.name === undefined ? d.data.title : d.data.name;
+            let labelTotalContracts = `${I18n.t('gobierto_dashboards.dashboards.contracts.contracts')}`
             let htmlForRect = ''
             const { depth } = d
             if (depth === 1 || depth === 2) {
               let totalContracts = d.children === undefined ? '' : d.children
               if (totalContracts) {
                 totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
+                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_dashboards.dashboards.contracts.contract')}`
               }
               htmlForRect = `<p class="title">${title}</p>
                 <p class="text">${money(d.value)}</p>
                 <span class="text">
-                  <b>${totalContracts}</b> ${I18n.t('gobierto_dashboards.dashboards.contracts.contracts')}</b>
+                  <b>${totalContracts}</b> ${labelTotalContracts}</b>
                 </span>
                 `
             } else if (depth === 3) {
@@ -256,21 +301,21 @@ export default {
             return htmlForRect
           })
           .attr('class', d => {
-            const { depth } = d
-            if (depth === 3) {
+            const { depth, y1, y0 } = d
+            //y1 - y0 returns the height of the rect, if it's less than the 100 hide the text
+            if (depth === 2 && (y1 - y0) < 100) {
+              return 'treemap-nested-container-text hide-text'
+            } else if (depth === 3) {
               let contractType = d.data.contract_type || ''
               //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
-              contractType = contractType.normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/ /g, '-')
+              contractType = normalizeString(contractType)
               return `treemap-nested-container-text ${contractType}`
             }
             return 'treemap-nested-container-text'
           })
           .on('mousemove', function(d) {
             const { depth } = d
-            if (depth !== 3) return;
-
+            if (depth === 1) return;
             let title = d.data.name === undefined ? d.data.title : d.data.name;
             const coordinates = d3.mouse(this);
             const x = coordinates[0];
@@ -285,33 +330,57 @@ export default {
             const positionLeft = `${x + 10}px`
             const positionRight = `${x - tooltipWidth - 10}px`
 
-            const { data: { initial_amount_no_taxes, status } } = d
+            if (depth === 2) {
+              let labelTotalContracts = `${I18n.t('gobierto_dashboards.dashboards.contracts.contracts')}`
+              let totalContracts = d.children === undefined ? '' : d.children
+              if (totalContracts) {
+                totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
+                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_dashboards.dashboards.contracts.contract')}`
+              }
 
-            tooltip
-              .style("display", "block")
-              .html(() => {
-                return `
-                  <span class="beeswarm-tooltip-header-title">
-                    ${title}
-                  </span>
-                  <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')}: <b>${money(d.value)}</b></p>
-                  <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
-                  <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.status')}: <b>${status}</b></p>
-                `
-              })
-              .style('top', positionTop)
-              .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+              tooltipAssignee
+                .style("display", "block")
+                .html(() => {
+                  return `
+                    <span class="beeswarm-tooltip-header-title">
+                      ${title}
+                    </span>
+                    <p class="text-depth-third"><b>${totalContracts}</b> ${labelTotalContracts}</b></p>
+                  `
+                })
+                .style('top', positionTop)
+                .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+
+            } else if (depth === 3) {
+              const { data: { initial_amount_no_taxes, status } } = d
+
+              tooltip
+                .style("display", "block")
+                .html(() => {
+                  return `
+                    <span class="beeswarm-tooltip-header-title">
+                      ${title}
+                    </span>
+                    <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')}: <b>${money(d.value)}</b></p>
+                    <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
+                    <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.status')}: <b>${status}</b></p>
+                  `
+                })
+                .style('top', positionTop)
+                .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+            }
           })
           .on('mouseout', function() {
             tooltip.style('display', 'none')
+            tooltipAssignee.style('display', 'none')
           })
 
         function transition(d) {
           if (transitioning || !d) return;
           transitioning = true;
           const g2 = display(d);
-          const t1 = g1.transition().duration(450).ease(d3.easeLinear);;
-          const t2 = g2.transition().duration(450).ease(d3.easeLinear);;
+          const t1 = g1.transition().duration(450).ease(d3.easeLinear);
+          const t2 = g2.transition().duration(450).ease(d3.easeLinear);
           // Update the domain only after entering new elements.
           x.domain([d.x0, d.x1]);
           y.domain([d.y0, d.y1]);
@@ -369,10 +438,7 @@ export default {
 
       function name(d) {
         return breadcrumbs(d) +
-          (d.parent ?
-           //TODO: LOCALES
-            " -  Click to zoom out" :
-            " - Click inside square to zoom in");
+          (d.parent ? ` - ${I18n.t('gobierto_dashboards.dashboards.visualizations.zoom_out_treemap')}` : ` - ${I18n.t('gobierto_dashboards.dashboards.visualizations.zoom_in_treemap')}`);
       }
 
       function breadcrumbs(d) {

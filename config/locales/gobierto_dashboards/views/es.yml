@@ -5,6 +5,8 @@ es:
       contracts:
         amount_distribution: Distribución por importes
         assignee: Adjudicatario
+        assignees: Adjudicatarios
+        contract: Contrato
         contract_amount: Imp. adjudicación
         contract_type: Tipo de contrato
         contractor: Contrato
@@ -26,7 +28,6 @@ es:
         permalink: Consulta este contrato en la Plataforma de Contratación del Sector
           Público
         process_type: Tipo de proceso
-        search: Buscar
         search_placeholder: Busca por adjudicatario
         status: Estado
         submission_date: Fecha
@@ -168,6 +169,8 @@ es:
         title_multiple: Evolución del volumen de licitaciones y adjudicaciones
         tooltip_beeswarm: Importe de adjudicación
         tooltip_treemap: Total contratos
+        zoom_in_treemap: Haga clic dentro del cuadrado para acercar
+        zoom_out_treemap: Haga clic para alejar
     layouts:
       application:
         gobierto_dashboards:

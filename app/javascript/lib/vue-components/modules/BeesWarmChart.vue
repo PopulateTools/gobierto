@@ -6,7 +6,7 @@
 </template>
 <script>
 import { select, selectAll } from 'd3-selection';
-import { scaleOrdinal, scaleBand, scaleTime, scalePow } from 'd3-scale';
+import { scaleBand, scaleTime, scalePow } from 'd3-scale';
 import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { extent } from 'd3-array';
@@ -14,12 +14,12 @@ import { timeParse, timeFormat, timeFormatLocale } from 'd3-time-format';
 import { min, max } from 'd3-array';
 import { d3locale } from 'lib/shared';
 import { easeLinear } from 'd3-ease';
+import { normalizeString } from "../../../gobierto_dashboards/webapp/lib/utils";
 
 const d3 = {
   select,
   selectAll,
   scaleBand,
-  scaleOrdinal,
   scaleTime,
   scalePow,
   forceSimulation,
@@ -130,9 +130,6 @@ export default {
     buildBeesWarm(data) {
       let filterData = this.transformData(data);
 
-      const arrayGobiertoColors = ['#12365B', '#008E9C', '#FF776D', '#F8B205'];
-      const color = d3.scaleOrdinal(arrayGobiertoColors);
-
       const svg = d3.select('.beeswarm-plot');
 
       const translate = `translate(${this.margin.left},${this.margin.bottom})`;
@@ -228,9 +225,11 @@ export default {
       const circlesBeesEnter = circlesBees
         .enter()
         .append('circle')
-        .attr('class', 'beeswarm-circle')
+        .attr('class', d => {
+          d.id = normalizeString(d.id)
+          return `beeswarm-circle beeswarm-circle-${d.id} beeswarm-circle-${d.slug_contract_type}`
+        })
         .attr('id', d => `${d.slug}`)
-        .style('fill', d => (d.color = color(d[this.yAxisProp])))
         .attr('r', d => d.radius)
         .attr('cx', this.svgWidth / 2)
         .attr('cy', this.svgHeight / 2)
@@ -286,14 +285,10 @@ export default {
       const parseTime = d3.timeParse('%Y-%m-%d');
 
       data.forEach(d => {
+        d.slug_contract_type = normalizeString(d.contract_type)
         if (d.assignee) {
           //Normalize assignee to create a slug for select ID's on mouseover
-          d.slug = d.assignee
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/ /g, '-')
-            .replace(/[.,()\s]/g, '')
-            .toLowerCase();
+          d.slug = normalizeString(d.assignee)
         }
         d[this.xAxisProp] = parseTime(d[this.xAxisProp]);
         d.radius = radiusScale(d[this.radiusProperty])

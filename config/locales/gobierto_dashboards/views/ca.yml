@@ -5,6 +5,8 @@ ca:
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
+        assignees: Adjudicataries
+        contract: Contracte
         contract_amount: Imp. adjudicació
         contract_type: Tipus de contracte
         contractor: Contractor
@@ -26,7 +28,6 @@ ca:
         permalink: Consulteu aquest contracte a la Plataforma de Contractació del
           Sector Públic
         process_type: Tipus de procés
-        search: Cerca
         search_placeholder: Cerqueu per adjudicatari
         status: Estat
         submission_date: Data
@@ -165,6 +166,8 @@ ca:
         title_multiple: Evolució de l'volum de licitacions i adjudicacions
         tooltip_beeswarm: Import de adjudicació
         tooltip_treemap: Total contractes
+        zoom_in_treemap: Feu clic dins de l'quadrat per apropar
+        zoom_out_treemap: Feu clic per allunyar
     layouts:
       application:
         gobierto_dashboards:

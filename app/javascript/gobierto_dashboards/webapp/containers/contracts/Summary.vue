@@ -36,7 +36,10 @@
     <h3 class="mt1 graph-title">
       {{ labelContractType }}
     </h3>
-    <TreeMapNested :data="dashboardsData" />
+    <TreeMapNested
+      :data="dashboardsData"
+      :label-root-key="labelRootKey"
+    />
     <div
       id="tendersContractsSummary"
       class="metric_boxes mt4"
@@ -233,7 +236,8 @@ export default {
       dataBeesWarmFilter: undefined,
       dataLineChart: undefined,
       valuesForLineChart: undefined,
-      valuesForCircleChart: undefined
+      valuesForCircleChart: undefined,
+      labelRootKey: I18n.t('gobierto_dashboards.dashboards.contracts.assignees'),
     }
   },
   watch: {
@@ -359,18 +363,20 @@ export default {
       const { assignee, final_amount_no_taxes, x, y } = event
       const tooltip = d3.select('.beeswarm-tooltip')
 
-      const container = document.getElementsByClassName('multiple-line-chart-container')[0];
+      /*const container = document.getElementsByClassName('multiple-line-chart-container')[0];
       const containerWidth = container.offsetWidth
       const tooltipWidth = 300
       const positionWidthTooltip = x + tooltipWidth
-      const positionTop = `${y - 20}px`
-      const positionLeft = `${x + 10}px`
-      const positionRight = `${x - tooltipWidth - 30}px`
+      const positionRight = `${x - tooltipWidth - 30}px`*/
+
+      const positionTop = '-10'
+      const positionLeft = '110'
 
       tooltip
         .style("display", "block")
-        .style('top', positionTop)
-        .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+        .style('top', `${positionTop}px`)
+        .style('left', `${positionLeft}px`)
+        /*.style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)*/
         .html(`
           <span class="beeswarm-tooltip-header-title">
             ${assignee}

@@ -5,6 +5,8 @@ en:
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee
+        assignees: Assignees
+        contract: Contract
         contract_amount: Contract Amount
         contract_type: Type of contract
         contractor: Contractor
@@ -25,7 +27,6 @@ en:
           tenders: Tenders
         permalink: Check this contract on the Public Sector Contracting Platform
         process_type: Type of process
-        search: Search
         search_placeholder: Search by assignee
         status: Status
         submission_date: Date
@@ -164,6 +165,8 @@ en:
         title_multiple: Evolution of the volume of tenders and contracts
         tooltip_beeswarm: Contract Amount
         tooltip_treemap: total contracts
+        zoom_in_treemap: Click inside square to zoom in
+        zoom_out_treemap: Click to zoom out
     layouts:
       application:
         gobierto_dashboards:

@@ -317,10 +317,8 @@
   }
 
   .tree-map-nested-nav {
-    padding: .5rem;
     margin-left: 1px;
     margin-bottom: .75rem;
-    background-color: rgba(var(--color-base-string), .15);
     color: rgba(var(--color-base-string), .8);
     width: max-content;
     cursor: pointer;
@@ -339,28 +337,28 @@
       font-weight: bold;
     }
 
-    .Obras {
+    .obras {
       .child,
       .parent {
         fill: #ff776d;
       }
     }
 
-    .Servicios {
+    .servicios {
       .child,
       .parent {
         fill: #12365b;
       }
     }
 
-    .Suministros {
+    .suministros {
       .child,
       .parent {
         fill: #008e9c;
       }
     }
 
-    .Gestion-de-servicios-publicos {
+    .gestion-de-servicios-publicos {
       .child,
       .parent {
         fill: #f8b205;
@@ -387,25 +385,25 @@
     }
 
     .children {
-      &.Obras {
+      &.obras {
         > rect {
           fill: #ff776d;
         }
       }
 
-      &.Servicios {
+      &.servicios {
         > rect {
           fill: #12365b;
         }
       }
 
-      &.Suministros {
+      &.suministros {
         > rect {
           fill: #008e9c;
         }
       }
 
-      &.Gestion-de-servicios-publicos {
+      &.gestion-de-servicios-publicos {
         > rect {
           fill: #f8b205;
         }
@@ -463,10 +461,18 @@
 
     .treemap-nested-container-text {
       height: 100%;
+      &.hide-text {
+        .title,
+        .text-depth-third,
+        .text {
+          font-size: 0;
+        }
+      }
     }
   }
 
-  .tree-map-nested-tooltip-contracts {
+  .tree-map-nested-tooltip-contracts,
+  .tree-map-nested-tooltip-assignee {
     .text-depth-third {
       margin: 0;
       font-size: 14px;
@@ -478,25 +484,30 @@
     position: relative;
   }
 
-  .treemap-Servicios {
+  .treemap-servicios,
+  .beeswarm-circle-servicios {
     fill: #12365b;
   }
 
-  .treemap-Suministros {
+  .treemap-suministros,
+  .beeswarm-circle-suministros {
     fill: #008e9c;
   }
 
-  .treemap-Obras {
+  .treemap-obras,
+  .beeswarm-circle-obras {
     fill: #ff776d;
   }
 
-  .treemap-Gestion-de-servicios-publicos {
+  .treemap-gestion-de-servicios-publicos,
+  .beeswarm-circle-gestion-de-servicios-publicos {
     fill: #f8b205;
   }
 
   .treemap-tooltip,
   .multiple-line-tooltip-bars,
-  .tree-map-nested-tooltip-contracts {
+  .tree-map-nested-tooltip-contracts,
+  .tree-map-nested-tooltip-assignee {
     display: none;
     position: absolute;
     padding: .5rem;
@@ -786,7 +797,7 @@
   }
 
   .beeswarm-tooltip-table-element-text {
-    display: block;
+    display: inline-block;
     font-size: 14px;
     color: #767168;
   }

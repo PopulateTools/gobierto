@@ -28,14 +28,13 @@
 
 import { select, selectAll, mouse } from 'd3-selection'
 import { treemap, stratify } from 'd3-hierarchy'
-import { scaleOrdinal } from 'd3-scale'
-import { sumDataByGroupKey } from "../lib/utils";
+import { sumDataByGroupKey, normalizeString } from "../lib/utils";
 import { easeLinear } from 'd3-ease'
 import { mean, median } from "d3-array";
 import { money } from "lib/shared";
 import { EventBus } from "../mixins/event_bus";
 
-const d3 = { select, selectAll, treemap, stratify, scaleOrdinal, mouse, easeLinear, mean, median }
+const d3 = { select, selectAll, treemap, stratify, mouse, easeLinear, mean, median }
 
 export default {
   name: 'TreeMap',
@@ -79,6 +78,7 @@ export default {
   },
   methods: {
     handleTreeMapValue(value) {
+      if (this.selected_size === value) return;
       this.selected_size = value
       this.sizeForTreemap = value
       if (this.updateData) {
@@ -152,9 +152,6 @@ export default {
         total: ''
       });
 
-      const arrayGobiertoColors = ['#12365B', '#008E9C', '#FF776D', '#F8B205']
-      const color = d3.scaleOrdinal(arrayGobiertoColors);
-
       const tooltip = d3.select('.treemap-tooltip')
 
       const svg = d3.select('#treemap-contracts')
@@ -198,9 +195,7 @@ export default {
             .remove())
         )
         .attr('class', d => {
-          d.id = d.id.normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/ /g, '-')
+          d.id = normalizeString(d.id)
           return `rect-treemap treemap-${d.id}`
         })
         .on("mousemove", function(d) {

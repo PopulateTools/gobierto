@@ -38,7 +38,7 @@ module GobiertoData
     end
 
     def available_formats
-      [:csv, :json, :xlsx]
+      [:csv]
     end
 
     def rails_model

@@ -1,54 +1,46 @@
-import { json } from "d3-request";
-import { queue } from "d3-queue";
-import { Card } from './card.js'
-import { BarsCard } from 'lib/visualizations'
-
-const d3 = { json, queue }
+import { BarsCard } from "lib/visualizations";
+import { Card } from "./card.js";
 
 export class DebtByInhabitantCard extends Card {
   constructor(divClass, city_id) {
-    super(divClass)
+    super(divClass);
 
-    this.url = window.populateData.endpoint + '/datasets/ds-deuda-municipal.json?divided_by=ds-poblacion-municipal&sort_desc_by=date&with_metadata=true&filter_by_location_id=' + city_id;
-    this.bcnUrl = window.populateData.endpoint + '/datasets/ds-deuda-municipal.json?divided_by=ds-poblacion-municipal&sort_desc_by=date&with_metadata=true&filter_by_location_id=08019';  // TODO: Use Populate Data's related cities API
-    this.vlcUrl = window.populateData.endpoint + '/datasets/ds-deuda-municipal.json?divided_by=ds-poblacion-municipal&sort_desc_by=date&with_metadata=true&filter_by_location_id=46250';  // TODO: Use Populate Data's related cities API
+    this.url =
+      window.populateData.endpoint +
+      "/datasets/ds-deuda-municipal.json?divided_by=ds-poblacion-municipal&sort_desc_by=date&with_metadata=true&filter_by_location_id=" +
+      city_id;
+    this.bcnUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-deuda-municipal.json?divided_by=ds-poblacion-municipal&sort_desc_by=date&with_metadata=true&filter_by_location_id=08019"; // TODO: Use Populate Data's related cities API
+    this.vlcUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-deuda-municipal.json?divided_by=ds-poblacion-municipal&sort_desc_by=date&with_metadata=true&filter_by_location_id=46250"; // TODO: Use Populate Data's related cities API
   }
 
   getData() {
-    var data = d3.json(this.url)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+    var data = this.handlePromise(this.url);
+    var bcn = this.handlePromise(this.bcnUrl);
+    var vlc = this.handlePromise(this.vlcUrl);
 
-    var bcn = d3.json(this.bcnUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+    Promise.all([data, bcn, vlc]).then(([json, bcn, vlc]) => {
+      json.data.forEach(function(d) {
+        d.figure = d.divided_by_value;
+        d.key = window.populateData.municipalityName;
+      });
 
-    var vlc = d3.json(this.vlcUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+      bcn.data.forEach(function(d) {
+        d.figure = d.divided_by_value;
+        d.key = "Barcelona";
+      });
 
-    d3.queue()
-      .defer(data.get)
-      .defer(bcn.get)
-      .defer(vlc.get)
-      .await(function (error, json, bcn, vlc) {
-        if (error) throw error;
+      vlc.data.forEach(function(d) {
+        d.figure = d.divided_by_value;
+        d.key = "Valencia";
+      });
 
-        json.data.forEach(function(d) {
-          d.figure = d.divided_by_value;
-          d.key = window.populateData.municipalityName;
-        });
+      this.data = [json.data[0], bcn.data[0], vlc.data[0]];
 
-        bcn.data.forEach(function(d) {
-          d.figure = d.divided_by_value;
-          d.key = 'Barcelona';
-        });
-
-        vlc.data.forEach(function(d) {
-          d.figure = d.divided_by_value;
-          d.key = 'Valencia';
-        });
-
-        this.data = [json.data[0], bcn.data[0], vlc.data[0]];
-
-        new BarsCard(this.container, json, this.data, 'debt_by_inhabitant');
-      }.bind(this));
+      new BarsCard(this.container, json, this.data, "debt_by_inhabitant");
+    });
   }
 }

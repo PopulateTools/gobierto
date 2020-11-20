@@ -1,9 +1,8 @@
-import { select } from 'd3-selection'
-import { timeFormatDefaultLocale } from 'd3-time-format'
+import { select } from "d3-selection";
+import { timeFormatDefaultLocale } from "d3-time-format";
+import { accounting, d3locale } from "lib/shared";
 
-const d3 = { timeFormatDefaultLocale, select }
-
-import { d3locale, accounting } from 'lib/shared'
+const d3 = { timeFormatDefaultLocale, select };
 
 export class Card {
   constructor(divClass) {
@@ -15,16 +14,24 @@ export class Card {
   _printData(data) {
     // Switch between different figure types
     switch (this.dataType) {
-      case 'percentage':
-        return accounting.formatNumber(data, 1) + '%';
-      case 'percentage_by_thousand':
-        return accounting.formatNumber(data, 1) + '‰';
-      case 'currency':
-        return accounting.formatNumber(data, 0) + '€';
-      case 'currency_per_person':
-        return accounting.formatNumber(data, 0) + '€/' + I18n.t('gobierto_common.visualizations.inhabitants');
-      case 'per_inhabitant':
-        return accounting.formatNumber(data, 2) + '/' + I18n.t('gobierto_common.visualizations.inhabitants');
+      case "percentage":
+        return accounting.formatNumber(data, 1) + "%";
+      case "percentage_by_thousand":
+        return accounting.formatNumber(data, 1) + "‰";
+      case "currency":
+        return accounting.formatNumber(data, 0) + "€";
+      case "currency_per_person":
+        return (
+          accounting.formatNumber(data, 0) +
+          "€/" +
+          I18n.t("gobierto_common.visualizations.inhabitants")
+        );
+      case "per_inhabitant":
+        return (
+          accounting.formatNumber(data, 2) +
+          "/" +
+          I18n.t("gobierto_common.visualizations.inhabitants")
+        );
       default:
         return accounting.formatNumber(data, 0);
     }
@@ -33,23 +40,24 @@ export class Card {
   _printFreq(json) {
     // Switch between different figure types
     switch (json) {
-      case 'yearly':
-        return I18n.t('gobierto_common.visualizations.frequency.yearly')
-      case 'monthly':
-        return I18n.t('gobierto_common.visualizations.frequency.monthly')
-      case 'weekly':
-        return I18n.t('gobierto_common.visualizations.frequency.weekly')
-      case 'daily':
-        return I18n.t('gobierto_common.visualizations.frequency.dailt')
+      case "yearly":
+        return I18n.t("gobierto_common.visualizations.frequency.yearly");
+      case "monthly":
+        return I18n.t("gobierto_common.visualizations.frequency.monthly");
+      case "weekly":
+        return I18n.t("gobierto_common.visualizations.frequency.weekly");
+      case "daily":
+        return I18n.t("gobierto_common.visualizations.frequency.dailt");
       default:
-        return ''
+        return "";
     }
   }
 
   _normalize(str) {
-    var from = "1234567890ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ‘/&().!,'",
-        to = "izeasgtogoAAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_______",
-        mapping = {};
+    var from =
+        "1234567890ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ‘/&().!,'",
+      to = "izeasgtogoAAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_______",
+      mapping = {};
 
     for (let i = 0, j = from.length; i < j; i++) {
       mapping[from.charAt(i)] = to.charAt(i);
@@ -60,12 +68,11 @@ export class Card {
       var c = str.charAt(i);
       if (mapping.hasOwnProperty(str.charAt(i))) {
         ret.push(mapping[c]);
-      }
-      else {
+      } else {
         ret.push(c);
       }
     }
 
-    return ret.join('').toLowerCase();
+    return ret.join("").toLowerCase();
   }
 }

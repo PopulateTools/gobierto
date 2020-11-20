@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
-import { getRemoteData } from '../webapp/lib/utils'
+import { getRemoteData } from "../webapp/lib/utils";
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -21,44 +20,49 @@ export class CostsController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () => import("../webapp/containers/costs/Home.vue");
-      const TableFirstLevel = () => import("../webapp/containers/costs/table/TableFirstLevel.vue");
-      const TableSecondLevel = () => import("../webapp/containers/costs/table/TableSecondLevel.vue");
-      const TableItem = () => import("../webapp/containers/costs/table/TableItem.vue");
+      const TableFirstLevel = () =>
+        import("../webapp/containers/costs/table/TableFirstLevel.vue");
+      const TableSecondLevel = () =>
+        import("../webapp/containers/costs/table/TableSecondLevel.vue");
+      const TableItem = () =>
+        import("../webapp/containers/costs/table/TableItem.vue");
 
-      Promise.resolve(getRemoteData(options.costsEndpoint)).then((rawData) => {
-        this.setGlobalVariables(rawData)
+      Promise.resolve(getRemoteData(options.costsEndpoint)).then(rawData => {
+        this.setGlobalVariables(rawData);
 
         const router = new VueRouter({
           mode: "history",
           routes: [
             {
               path: "/dashboards/costes/",
-              name: 'Home',
+              name: "Home",
               component: Home,
               children: [
-              {
-                path: "/dashboards/costes/:year?",
-                component: TableFirstLevel,
-                name: 'TableFirstLevel'
-              },
-              {
-                path: "/dashboards/costes/:year?/:id?",
-                component: TableSecondLevel,
-                name: 'TableSecondLevel'
-              },
-              {
-                path: "/dashboards/costes/:year?/:id?/:item?",
-                component: TableItem,
-                name: 'TableItem'
-              }
+                {
+                  path: "/dashboards/costes/:year?",
+                  component: TableFirstLevel,
+                  name: "TableFirstLevel"
+                },
+                {
+                  path: "/dashboards/costes/:year?/:id?",
+                  component: TableSecondLevel,
+                  name: "TableSecondLevel"
+                },
+                {
+                  path: "/dashboards/costes/:year?/:id?/:item?",
+                  component: TableItem,
+                  name: "TableItem"
+                }
               ]
-            },
+            }
           ],
           scrollBehavior(to) {
-            let element
+            let element;
             //Get a different position scroll
-            if (to.name !== 'TableFirstLevel') {
-              element = document.getElementById('gobierto-dashboards-title-detail');
+            if (to.name !== "TableFirstLevel") {
+              element = document.getElementById(
+                "gobierto-dashboards-title-detail"
+              );
               element.scrollIntoView({ behavior: "smooth" });
             }
           }
@@ -95,99 +99,126 @@ export class CostsController {
 
         const loadingElement = document.querySelector(".js-loading");
         if (loadingElement) {
-          loadingElement.classList.add('hidden')
+          loadingElement.classList.add("hidden");
         }
       });
     }
   }
 
   setGlobalVariables(rawData) {
-
     //Convert strings with some format to Numbers without format
     function convertStringToNumbers(amount) {
-      if (amount === '') {
-        return nanToZero(amount)
+      if (amount === "") {
+        return nanToZero(amount);
       } else {
-        return Number(parseFloat(amount))
+        return Number(parseFloat(amount));
       }
     }
 
     //Some values are empty, so we need to transform to zero
     function nanToZero(val) {
-       val = +val || 0
-       return val;
+      val = +val || 0;
+      return val;
     }
 
     //Array with all the strings that we've to convert to Number
-    const amountStrings = [ 'costdirecte', 'costindirecte', 'costtotal', 'costperhabit', 'costpersonal', 'costrestadir', 'ingressos', 'taxapreupub', 'subvencions', 'ingressos_cost', 'costdirectepers', 'costdirebens', 'costdirservext', 'costdirtransf', 'costdirequip', 'costdirfin']
+    const amountStrings = [
+      "costdirecte",
+      "costindirecte",
+      "costtotal",
+      "costperhabit",
+      "costpersonal",
+      "costrestadir",
+      "ingressos",
+      "taxapreupub",
+      "subvencions",
+      "ingressos_cost",
+      "costdirectepers",
+      "costdirebens",
+      "costdirservext",
+      "costdirtransf",
+      "costdirequip",
+      "costdirfin"
+    ];
 
-    const population = ['126988']
+    const population = ["126988"];
 
     for (let index = 0; index < rawData.length; index++) {
-      let d = rawData[index]
+      let d = rawData[index];
 
-      if (d['any_'] === '2019') {
-        d['population'] = population[0]
+      if (d["any_"] === "2019") {
+        d["population"] = population[0];
       }
 
       for (let amounts = 0; amounts < amountStrings.length; amounts++) {
-        d[amountStrings[amounts]] = convertStringToNumbers(d[amountStrings[amounts]])
+        d[amountStrings[amounts]] = convertStringToNumbers(
+          d[amountStrings[amounts]]
+        );
       }
     }
 
-    let yearsCosts = [...new Set(rawData.map(item => item.any_))]
+    let yearsCosts = [...new Set(rawData.map(item => item.any_))];
 
-    let groupDataByYears = []
+    let groupDataByYears = [];
 
     //Create an array of objects with all years
     for (let index = 0; index < yearsCosts.length; index++) {
       const data = rawData.reduce((acc, item) => {
         if (item.any_ === yearsCosts[index]) {
-          acc.push({ ...item, population: population[index] })
+          acc.push({ ...item, population: population[index] });
         }
-        return acc
-      }, [])
-      const dataGroup = groupDataByYear(data, yearsCosts[index])
-      groupDataByYears.push(dataGroup)
+        return acc;
+      }, []);
+      const dataGroup = groupDataByYear(data, yearsCosts[index]);
+      groupDataByYears.push(dataGroup);
     }
 
     function groupDataByYear(data, year) {
       //Filter groupData by "sumadatos": https://github.com/PopulateTools/issues/issues/1097
-      let dataFilterSum = data.filter(({ sumadatos }) => sumadatos === '')
-      let groupData = [...dataFilterSum.reduce((r, o) => {
-        const key = o.agrupacio
+      let dataFilterSum = data.filter(({ sumadatos }) => sumadatos === "");
+      let groupData = [
+        ...dataFilterSum
+          .reduce((r, o) => {
+            const key = o.agrupacio;
 
-        const item = r.get(key) || Object.assign({}, o, {
-          costdirecte: 0,
-          costindirecte: 0,
-          costtotal: 0,
-          ingressos: 0,
-          total: 0,
-          totalPerHabitant: 0,
-          coverage: 0,
-        });
+            const item =
+              r.get(key) ||
+              Object.assign({}, o, {
+                costdirecte: 0,
+                costindirecte: 0,
+                costtotal: 0,
+                ingressos: 0,
+                total: 0,
+                totalPerHabitant: 0,
+                coverage: 0
+              });
 
-        item.costdirecte += o.costdirecte
-        item.costindirecte += o.costindirecte
-        item.costtotal += o.costtotal
-        item.ingressos += o.ingressos
-        //New item with the sum of values of each agrupacio
-        item.total += (o.total || 0) + 1
-        item.coverage = (item.ingressos * 100) / item.costtotal
-        item.totalPerHabitant = item.costtotal / o.population
+            item.costdirecte += o.costdirecte;
+            item.costindirecte += o.costindirecte;
+            item.costtotal += o.costtotal;
+            item.ingressos += o.ingressos;
+            //New item with the sum of values of each agrupacio
+            item.total += (o.total || 0) + 1;
+            item.coverage = (item.ingressos * 100) / item.costtotal;
+            item.totalPerHabitant = item.costtotal / o.population;
 
-        return r.set(key, item);
-      }, new Map).values()];
-      return groupData = groupData.filter(({ agrupacio, any_ }) => agrupacio !== '' && any_ === year)
+            return r.set(key, item);
+          }, new Map())
+          .values()
+      ];
+      return (groupData = groupData.filter(
+        ({ agrupacio, any_ }) => agrupacio !== "" && any_ === year
+      ));
     }
 
-    groupDataByYears = groupDataByYears.flat().sort(({ costtotal: a }, { costtotal: b }) => (a > b) ? -1 : 1)
+    groupDataByYears = groupDataByYears
+      .flat()
+      .sort(({ costtotal: a }, { costtotal: b }) => (a > b ? -1 : 1));
 
     this.data = {
       costData: rawData,
       groupData: groupDataByYears,
       yearsCosts: yearsCosts
-    }
+    };
   }
-
 }

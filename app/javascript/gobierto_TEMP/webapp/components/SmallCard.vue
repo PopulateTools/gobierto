@@ -1,5 +1,8 @@
 <template>
-  <div class="dashboards-maker--small-card">
+  <div
+    class="dashboards-maker--small-card"
+    draggable
+  >
     <span>{{ name }}</span>
   </div>
 </template>

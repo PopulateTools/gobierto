@@ -1,6 +1,6 @@
 <template>
   <GridLayout
-    :layout.sync="layout"
+    :layout.sync="widgets"
     :col-num="columns"
     :row-height="itemHeight"
     :margin="margin"
@@ -13,8 +13,8 @@
     class="dashboards-viewer"
   >
     <GridItem
-      v-for="{ x, y, w, h, i, template } in layout"
-      :key="`${Math.random()}-${i}`"
+      v-for="{ i, x, y, w, h, template, attributes } in widgets"
+      :key="i"
       :x="x"
       :y="y"
       :w="w"
@@ -22,7 +22,10 @@
       :i="i"
       @move="moveEvent"
     >
-      <component :is="template" />
+      <component
+        :is="template"
+        v-bind="attributes"
+      />
     </GridItem>
   </GridLayout>
 </template>
@@ -31,7 +34,8 @@
 // add the styles here, because this element can be inserted both as a component or standalone
 import "../../../assets/stylesheets/module-TEMP-viewer.scss";
 import { GridLayout, GridItem } from "vue-grid-layout";
-// import { Widgets } from "./lib/widgets";
+import { Widgets } from "./lib/widgets";
+import { DashboardFactoryMixin } from "./lib/factories";
 
 export default {
   name: "Viewer",
@@ -39,20 +43,23 @@ export default {
     GridLayout,
     GridItem
   },
+  mixins: [DashboardFactoryMixin],
   props: {
-    itemDragged: {
+    item: {
+      type: Object,
+      default: () => {}
+    },
+    config: {
       type: Object,
       default: () => {}
     },
     isDraggable: {
       type: Boolean,
-      default: true
-      // default: false
+      default: false
     },
     isResizable: {
       type: Boolean,
-      default: true
-      // default: false
+      default: false
     }
   },
   data() {
@@ -60,20 +67,10 @@ export default {
       columns: 12,
       itemHeight: 30,
       margin: [10, 10],
-      emptyLayout: [ ]
+      widgets: []
     };
   },
   computed: {
-    layout() {
-      const layout = [...this.emptyLayout];
-      if (this.itemDragged) {
-        const { i } = this.itemDragged;
-        if (!layout.some(d => d.i === i)) {
-          layout.push({ x: 0, y: 0, ...this.itemDragged });
-        }
-      }
-      return layout;
-    },
     adjustMargins() {
       const [x, y] = this.margin;
       return {
@@ -84,20 +81,45 @@ export default {
       };
     }
   },
+  watch: {
+    item(newItem) {
+      if (newItem) {
+        const { i } = newItem
+        if (!this.widgets.some(d => d.i === i)) {
+          this.widgets.push({ x: 0, y: 0, ...newItem });
+        }
+      }
+    }
+  },
+  async mounted() {
+    this.getConfiguration();
+  },
   methods: {
-    moveEvent(i, newX, newY) {
-        console.log("MOVE i=" + i + ", X=" + newX + ", Y=" + newY);
+    async getConfiguration() {
+      const {
+        data: {
+          attributes: { widget_configuration } = {}
+        } = {}
+      } = this.config || await this.getDashboard(0); // TODO: el ID se define en la vista?
+      this.widgets = this.parseWidgets(widget_configuration);
     },
+    parseWidgets(conf = []) {
+      return conf.map(({ id, type, layout, ...options }) => {
+        const match = Widgets[type];
+        if (!match) throw new Error("Widget does not exist");
+
+        // Once we have a matched widget, we flat all necessary properties
+        const { layout: defaultLayout, ...widgetCommons } = match;
+        return {
+          ...widgetCommons,
+          ...defaultLayout,
+          ...layout,
+          ...options,
+          i: id
+        };
+      });
+    },
+    moveEvent() {}
   }
 };
 </script>
-
-<style scoped>
-.vue-grid-layout {
-  background: #eee;
-}
-
-.vue-grid-item:not(.vue-grid-placeholder) {
-    background: #ccc;
-}
-</style>

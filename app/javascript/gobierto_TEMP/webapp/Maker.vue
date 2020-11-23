@@ -1,23 +1,25 @@
 <template>
   <div class="dashboards-maker">
-    <HeaderContent />
+    <HeaderContent :title="title" />
     <Main>
       <template #aside>
         <Aside>
           <SmallCard
-            v-for="{ type } in cards"
-            :key="type"
+            v-for="({ type }, key) in cards"
+            :key="key"
             :name="type"
-            @drag.native="drag"
+            @drag.native="drag(key)"
+            @dragend.native="dragend"
           />
         </Aside>
       </template>
 
       <Viewer
-        ref="viewer"
+        v-if="configuration"
         :is-draggable="true"
         :is-resizable="true"
-        :item-dragged="item"
+        :item="item"
+        :config="configuration"
       />
     </Main>
   </div>
@@ -32,6 +34,7 @@ import Aside from "./layouts/Aside";
 import Main from "./layouts/Main";
 import SmallCard from "./components/SmallCard";
 import { Widgets } from "./lib/widgets";
+import { DashboardFactoryMixin } from "./lib/factories";
 
 export default {
   name: "Maker",
@@ -42,20 +45,44 @@ export default {
     Aside,
     SmallCard
   },
+  mixins: [DashboardFactoryMixin],
   data() {
     return {
       cards: Widgets,
-      item: null
+      item: null,
+      configuration: null,
     };
   },
+  computed: {
+    title() {
+      return this.configuration?.attributes?.title
+    }
+  },
+  created() {
+    this.getConfiguration()
+  },
   methods: {
-    drag() {
-      this.item = {
-        i: `${Widgets.HTML.type}-${Math.random().toString(36).substring(7)}`,
-        template: Widgets.HTML.template,
-        ...Widgets.HTML.layout
-      };
+    async getConfiguration() {
+      const { id } = this.$root.$data;
+      this.configuration = (id !== undefined) ? await this.getDashboard(+id) : {}
     },
+    drag(key) {
+      if (!this.item) {
+        const match = Widgets[key]
+        if (match) {
+          this.item = {
+            i: `${match.type.replaceAll(" ", "_")}-${Math.random().toString(36).substring(7)}`,
+            template: match.template,
+            ...match.layout
+          };
+        }
+      } else {
+        // TODO: mover el item
+      }
+    },
+    dragend() {
+      this.item = null
+    }
   }
 };
 </script>

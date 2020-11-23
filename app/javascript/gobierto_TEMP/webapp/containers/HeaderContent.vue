@@ -5,7 +5,7 @@
         tag="h1"
         @input="handleInputTitle"
       >
-        {{ title }}
+        {{ currentTitle }}
       </Editable>
       <div class="dashboards-maker--header dashboards-maker--header__buttons">
         <Button
@@ -55,9 +55,14 @@ export default {
     Editable,
     Button
   },
+  props: {
+    title: {
+      type: String,
+      default: null
+    }
+  },
   data() {
     return {
-      title: "Título del dashboard",
       status: false,
       deleteLabel: "Eliminar",
       saveLabel: "Guardar",
@@ -65,9 +70,14 @@ export default {
       seeItemLabel: "Ver ítem"
     };
   },
+  computed: {
+    currentTitle() {
+      return this.title || "Título del dashboard"
+    }
+  },
   methods: {
     handleInputTitle(title) {
-      this.title = title;
+      this.currentTitle = title;
     },
     handleInputStatus({ target }) {
       this.status = target.checked;

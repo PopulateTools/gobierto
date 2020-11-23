@@ -8,6 +8,11 @@ module GobiertoAdmin
       def index
 
       end
+
+      def show
+        # dashboard ID example
+        @id = 0 
+      end
     end
   end
 end

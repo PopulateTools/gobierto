@@ -1,14 +1,28 @@
 @import "css-conf";
+@import "mixins";
 
 .dashboards-viewer {
-
-  .widget-text {
+  .widget {
     background-color: rgba(var(--color-base-string), 0.1);
     padding: var(--padding);
     height: 100%;
     box-sizing: border-box;
     user-select: none;
-    
+    position: relative;
+
+    @include border-radius(3px);
+
+    &::after {
+      content: "";
+      position: absolute;
+      background-color: white;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
     > * {
       user-select: none;
       margin: 0;

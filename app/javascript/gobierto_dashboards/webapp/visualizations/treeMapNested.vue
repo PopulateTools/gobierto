@@ -16,17 +16,7 @@
         {{ labelContractTotal }}
       </button>
     </div>
-    <div class="tree-map-nested-nav">
-      <div class="tree-map-nested-nav-first">
-
-      </div>
-      <div class="tree-map-nested-nav-second">
-
-      </div>
-      <div class="tree-map-nested-nav-third">
-
-      </div>
-    </div>
+    <div class="tree-map-nested-nav" />
     <div class="tree-map-nested-tooltip-assignee" />
     <div class="tree-map-nested-tooltip-contracts" />
     <svg
@@ -43,7 +33,7 @@ import { treemap, stratify, hierarchy, treemapBinary } from 'd3-hierarchy'
 import { scaleLinear } from 'd3-scale'
 import { easeLinear } from 'd3-ease'
 import { interpolate } from 'd3-interpolate';
-import { normalizeString } from "../lib/utils";
+import { sumDataByGroupKey, normalizeString } from "../lib/utils";
 import { mean, median } from "d3-array";
 import { nest } from "d3-collection";
 import { money } from "lib/shared";
@@ -104,6 +94,7 @@ export default {
   mounted() {
     this.svgWidth = document.getElementsByClassName("dashboards-home-main")[0].offsetWidth;
     this.dataTreeMapWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
+    this.dataTreeMapSumFinalAmount = JSON.parse(JSON.stringify(this.data));
 
     this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
     /*this.resizeListener()*/
@@ -113,6 +104,9 @@ export default {
       if (this.selected_size === value) return;
       this.selected_size = value
       this.sizeForTreemap = value
+      d3.select('.treemap-container')
+      .remove()
+      .exit();
       d3.select('.nav-breadcrumbs')
       .remove()
       .exit();
@@ -182,6 +176,8 @@ export default {
       }
 
       let transitioning;
+      let dataTreeMapSumFinalAmount = this.dataTreeMapSumFinalAmount
+      const selected_size = this.selected_size;
       this.height = 600 - this.marginTop - this.marginBottom
       const tooltip = d3.select('.tree-map-nested-tooltip-contracts')
       const tooltipAssignee = d3.select('.tree-map-nested-tooltip-assignee')
@@ -204,8 +200,7 @@ export default {
         .attr("height", this.height + this.marginBottom + this.marginTop)
         .style("margin-left", `${-this.marginLeft}px`)
         .style("margin.right", `${-this.marginRight}px`)
-
-      svg.join("g")
+        .append("g")
         .attr('class', 'treemap-container')
         .attr("transform", `translate(${this.marginLeft},${this.marginTop})`)
         .style("shape-rendering", "crispEdges");
@@ -336,14 +331,48 @@ export default {
             let labelTotalContracts = `${I18n.t('gobierto_dashboards.dashboards.contracts.contracts')}`
             let htmlForRect = ''
             const { depth } = d
-            if (depth === 1 || depth === 2) {
+            if (depth === 1) {
+              let valueTotalAmount
+              if (typeof d.data !== "function") {
+                let contractType = d.data.name !== undefined ? d.data.name : ''
+                const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'contract_type', 'final_amount_no_taxes')
+                let totalAmount = finalAmountTotal.filter(contract => contract.contract_type === contractType)
+                totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
+                valueTotalAmount = totalAmount[0].final_amount_no_taxes
+              }
+
+              valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
+
               let totalContracts = d.children === undefined ? '' : d.children
               if (totalContracts) {
                 totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
                 labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_dashboards.dashboards.contracts.contract')}`
               }
               htmlForRect = `<p class="title">${title}</p>
-                <p class="text">${money(d.value)}</p>
+                <p class="text">${money(valueTotalAmount)}</p>
+                <span class="text">
+                  <b>${totalContracts}</b> ${labelTotalContracts}</b>
+                </span>
+                `
+            } else if (depth === 2 && typeof d.data !== "function") {
+
+              if (typeof d.data !== "function") {
+                let contractType = d.data.name !== undefined ? d.data.name : ''
+                const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'assignee', 'final_amount_no_taxes')
+                let totalAmount = finalAmountTotal.filter(contract => contract.assignee === contractType)
+                totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
+                valueTotalAmount = totalAmount[0].final_amount_no_taxes
+              }
+
+              let valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
+
+              let totalContracts = d.children === undefined ? '' : d.children
+              if (totalContracts) {
+                totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
+                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_dashboards.dashboards.contracts.contract')}`
+              }
+              htmlForRect = `<p class="title">${title}</p>
+                <p class="text">${money(valueTotalAmount)}</p>
                 <span class="text">
                   <b>${totalContracts}</b> ${labelTotalContracts}</b>
                 </span>
@@ -351,7 +380,6 @@ export default {
             } else if (depth === 3) {
               htmlForRect = `
                 <p class="title">${title}</p>
-                <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')}: <b>${money(d.value)}</b></p>
                 `
             }
             return htmlForRect
@@ -359,8 +387,8 @@ export default {
           .attr('class', d => {
             const { depth, y1, y0 } = d
             //y1 - y0 returns the height of the rect, if it's less than the 100 hide the text
-            if (depth === 2 && (y1 - y0) < 100) {
-              return 'treemap-nested-container-text'
+            if (depth === 2 && (y(y1) - y(y0)) < 100) {
+              return 'treemap-nested-container-text hide-text'
             } else if (depth === 3) {
               let contractType = d.data.contract_type || ''
               //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
@@ -409,8 +437,17 @@ export default {
               .style('top', positionTop)
               .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
 
-          } else if (depth === 3) {
+          } else if (depth === 3 && typeof d.data !== "function") {
             const { data: { initial_amount_no_taxes, status } } = d
+            let valueTotalAmount
+            if (typeof d.data !== "function") {
+              let contractId = d.data.id !== undefined ? d.data.id : ''
+              const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'id', 'final_amount_no_taxes')
+              let totalAmount = finalAmountTotal.filter(contract => contract.id === contractId)
+              valueTotalAmount = totalAmount[0].final_amount_no_taxes
+            }
+
+            valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
 
             tooltip
               .style("display", "block")
@@ -419,7 +456,7 @@ export default {
                   <span class="beeswarm-tooltip-header-title">
                     ${title}
                   </span>
-                  <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')}: <b>${money(d.value)}</b></p>
+                  <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')}: <b>${money(valueTotalAmount)}</b></p>
                   <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
                   <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.status')}: <b>${status}</b></p>
                 `
@@ -520,7 +557,7 @@ export default {
             if (res.includes('<b>')) {
               res = res.replace(/<b>/g, '').replace(/<\/b>/g, '')
             }
-            res += `<span id="${data.name}"><b>${data.name}</b></span>` + sep;
+            res += `<span><b>${data.name}</b></span>` + sep;
           });
           return res.split(sep).filter(i => i !== "").join(sep);
         }

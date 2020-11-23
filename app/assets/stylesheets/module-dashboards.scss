@@ -324,10 +324,6 @@
     cursor: pointer;
     .nav-breadcrumbs {
       margin: 0;
-      pointer-events: none;
-      > span {
-        pointer-events: visible;
-      }
     }
   }
 

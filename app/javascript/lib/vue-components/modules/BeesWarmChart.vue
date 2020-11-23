@@ -209,30 +209,37 @@ export default {
         )
         .call(axisY);
 
-      const simulation = d3
+      let simulation = d3
         .forceSimulation(filterData)
-        .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])).strength(0.5))
+        .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])).strength(2))
         .force('y', d3.forceY(d => scaleY(d[this.yAxisProp])))
-        .force('collide', d3.forceCollide().strength(0.3).radius(d => d.radius + this.padding));
+        .force('collide', d3.forceCollide().radius(d => d.radius + this.padding))
+        .stop();
 
+      for (let i = 0; i < (filterData.length / 3); ++i) {
+        simulation.tick(5);
+      }
 
       let circlesBees = svg
         .selectAll('.beeswarm-circle')
-        .remove()
-        .exit()
         .data(filterData)
 
-      const circlesBeesEnter = circlesBees
+      circlesBees.exit()
+        .transition()
+        .duration(450)
+        .ease(d3.easeLinear)
+        .attr('cx', this.svgWidth / 2)
+        .attr('cy', this.svgHeight / 2)
+        .remove();
+
+      circlesBees
         .enter()
         .append('circle')
-        .attr('class', d => {
-          d.id = normalizeString(d.id)
-          return `beeswarm-circle beeswarm-circle-${d.id} beeswarm-circle-${d.slug_contract_type}`
-        })
         .attr('id', d => `${d.slug}`)
         .attr('r', d => d.radius)
         .attr('cx', this.svgWidth / 2)
         .attr('cy', this.svgHeight / 2)
+        .merge(circlesBees)
         .on('mouseover', (event, d) => {
           this.$emit('showTooltip', event, d);
           d3.selectAll(`.beeswarm-circle`)
@@ -252,27 +259,22 @@ export default {
 
           d3.selectAll(`.beeswarm-circle`)
             .transition()
-            .duration(200)
+            .duration(450)
             .style('opacity', 1);
         })
         .on('click', (event, d) => {
           this.$emit('goesToItem', event);
-        });
-
-      circlesBees = circlesBees.merge(circlesBeesEnter)
-
-      circlesBees.transition()
-        .duration(2000)
+        })
+        .transition()
+        .duration(450)
         .ease(d3.easeLinear)
+        .attr('class', d => {
+          d.id = normalizeString(d.id)
+          return `beeswarm-circle beeswarm-circle-${d.id} beeswarm-circle-${d.slug_contract_type}`
+        })
+        .attr('cx', d => d.x - 5)
+        .attr('cy', d => d.y)
         .attr('r', d => d.radius)
-
-      simulation
-        .nodes(filterData)
-        .on('tick', () =>
-          circlesBees
-            .attr('cx', d => d.x)
-            .attr('cy', d => d.y)
-        );
     },
     transformData(data) {
       const maxFinalAmount = d3.max(data, d => d.final_amount_no_taxes)

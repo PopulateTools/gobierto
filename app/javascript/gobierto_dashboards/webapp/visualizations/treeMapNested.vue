@@ -16,7 +16,17 @@
         {{ labelContractTotal }}
       </button>
     </div>
-    <div class="tree-map-nested-nav" />
+    <div class="tree-map-nested-nav">
+      <div class="tree-map-nested-nav-first">
+
+      </div>
+      <div class="tree-map-nested-nav-second">
+
+      </div>
+      <div class="tree-map-nested-nav-third">
+
+      </div>
+    </div>
     <div class="tree-map-nested-tooltip-assignee" />
     <div class="tree-map-nested-tooltip-contracts" />
     <svg
@@ -29,15 +39,16 @@
 <script>
 
 import { select, selectAll, mouse } from 'd3-selection'
-import { treemap, stratify, hierarchy } from 'd3-hierarchy'
+import { treemap, stratify, hierarchy, treemapBinary } from 'd3-hierarchy'
 import { scaleLinear } from 'd3-scale'
 import { easeLinear } from 'd3-ease'
+import { interpolate } from 'd3-interpolate';
 import { normalizeString } from "../lib/utils";
 import { mean, median } from "d3-array";
 import { nest } from "d3-collection";
 import { money } from "lib/shared";
 
-const d3 = { select, selectAll, treemap, stratify, scaleLinear, mouse, easeLinear, mean, median, nest, hierarchy }
+const d3 = { select, selectAll, treemap, stratify, scaleLinear, mouse, easeLinear, mean, median, nest, hierarchy, treemapBinary, interpolate }
 
 export default {
   name: 'TreeMapNested',
@@ -56,7 +67,7 @@ export default {
     },
     marginTop: {
       type: Number,
-      default: 0
+      default: 30
     },
     marginBottom: {
       type: Number,
@@ -102,16 +113,13 @@ export default {
       if (this.selected_size === value) return;
       this.selected_size = value
       this.sizeForTreemap = value
-      d3.select('.treemap-container')
-        .remove()
-        .exit();
       d3.select('.nav-breadcrumbs')
       .remove()
       .exit();
       if (this.updateData) {
         this.deepCloneData(this.dataNewValues)
       } else {
-        this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
+        this.deepCloneData(this.dataTreeMapWithoutCoordinates)
       }
     },
     transformDataTreemap(data) {
@@ -168,9 +176,6 @@ export default {
     },
     buildTreeMap(rootData) {
       if (this.updateData) {
-        d3.select('.treemap-container')
-          .remove()
-          .exit();
         d3.select('.nav-breadcrumbs')
         .remove()
         .exit();
@@ -184,9 +189,11 @@ export default {
       const x = d3.scaleLinear()
         .domain([0, this.svgWidth])
         .range([0, this.svgWidth]);
+
       const y = d3.scaleLinear()
         .domain([0, this.height])
         .range([0, this.height]);
+
       const treemap = d3.treemap()
         .size([this.svgWidth, this.height])
         .paddingInner(0)
@@ -197,7 +204,8 @@ export default {
         .attr("height", this.height + this.marginBottom + this.marginTop)
         .style("margin-left", `${-this.marginLeft}px`)
         .style("margin.right", `${-this.marginRight}px`)
-        .append("g")
+
+      svg.join("g")
         .attr('class', 'treemap-container')
         .attr("transform", `translate(${this.marginLeft},${this.marginTop})`)
         .style("shape-rendering", "crispEdges");
@@ -216,11 +224,20 @@ export default {
       function display(d) {
         navBreadcrumbs
           .datum(d.parent)
-          .on("click", transition)
           .html(name(d));
 
+        navBreadcrumbs.selectAll("span")
+          .datum(d)
+          .on("click", function(d, event) {
+            //If user clicked on the first breadcrumb goes to init from the second or third level.
+            const firstDataBreadcrumb = root
+            const secondDataBreadcrumb = d.parent
+            const value = event === 0 ? firstDataBreadcrumb : secondDataBreadcrumb
+            transition(value)
+          })
+
         const g1 = svg
-          .insert("g", ".nav-breadcrumbs")
+          .append("g")
           .datum(d)
           .attr('class', d => {
             let parentNameContract = ''
@@ -237,12 +254,30 @@ export default {
             return `depth ${parentNameContract}`
           })
 
-        const g = g1.selectAll("g")
+        const g = g1.selectAll(".children")
           .data(d.children)
-          .enter()
-          .append("g");
+          .join("g")
 
         g.filter(d => d.children)
+          .join(
+            enter => enter.append("rect")
+              .attr("x", ({ x0 }) => x(x0))
+              .attr("y", ({ y0 }) => y(y0))
+              .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
+              .attr("height", ({ y1, y0 }) => y(y1) - y(y0))
+              .call(enter => enter.transition(t)),
+            update => update
+              .attr("x", ({ x0 }) => x(x0))
+              .attr("y", ({ y0 }) => y(y0))
+              .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
+              .attr("height", ({ y1, y0 }) => y(y1) - y(y0))
+              .call(update => update.transition(t)),
+            exit => exit
+              .attr('width', 0)
+              .attr('height', 0)
+              .call(exit => exit.transition(t)
+              .remove())
+          )
           .attr('class', d => {
             //The name can be the contractor or the type of contract so we have to extract the names of the object, and its parent
             const { data: { name }, parent: { data: { name: parentName = '' } } } = d
@@ -250,16 +285,37 @@ export default {
             let sectionName = name
             //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
             sectionName = normalizeString(sectionName)
+            parentNameContract = normalizeString(parentNameContract)
             return `children ${sectionName} ${parentNameContract}`
           })
           .on("click", transition);
 
+        const t = svg.transition()
+          .duration(250)
+          .ease(d3.easeLinear);
+
         g.selectAll(".child")
           .data(d => d.children || [d])
-          .enter()
-          .append("rect")
+          .join(
+            enter => enter.append("rect")
+              .attr("x", ({ x0 }) => x(x0))
+              .attr("y", ({ y0 }) => y(y0))
+              .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
+              .attr("height", ({ y1, y0 }) => y(y1) - y(y0))
+              .call(enter => enter.transition(t)),
+            update => update
+              .attr("x", ({ x0 }) => x(x0))
+              .attr("y", ({ y0 }) => y(y0))
+              .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
+              .attr("height", ({ y1, y0 }) => y(y1) - y(y0))
+              .call(update => update.transition(t)),
+            exit => exit
+              .attr('width', 0)
+              .attr('height', 0)
+              .call(exit => exit.transition(t)
+              .remove())
+          )
           .attr("class", "child")
-          .call(rect);
 
         g.append("rect")
           .attr("class", "parent")
@@ -304,7 +360,7 @@ export default {
             const { depth, y1, y0 } = d
             //y1 - y0 returns the height of the rect, if it's less than the 100 hide the text
             if (depth === 2 && (y1 - y0) < 100) {
-              return 'treemap-nested-container-text hide-text'
+              return 'treemap-nested-container-text'
             } else if (depth === 3) {
               let contractType = d.data.contract_type || ''
               //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
@@ -313,67 +369,69 @@ export default {
             }
             return 'treemap-nested-container-text'
           })
-          .on('mousemove', function(d) {
-            const { depth } = d
-            if (depth === 1) return;
-            let title = d.data.name === undefined ? d.data.title : d.data.name;
-            const coordinates = d3.mouse(this);
-            const x = coordinates[0];
-            const y = coordinates[1];
 
-            //Elements to determinate the position of tooltip
-            const container = document.getElementsByClassName('container-tree-map-nested')[0];
-            const containerWidth = container.offsetWidth
-            const tooltipWidth = tooltip.node().offsetWidth
-            const positionWidthTooltip = x + tooltipWidth
-            const positionTop = `${y - 20}px`
-            const positionLeft = `${x + 10}px`
-            const positionRight = `${x - tooltipWidth - 10}px`
+        g.selectAll(".foreignobj")
+        .on('mousemove', function(d) {
+          const { depth } = d
+          if (depth === 1) return;
+          let title = d.data.name === undefined ? d.data.title : d.data.name;
+          const coordinates = d3.mouse(this);
+          const x = coordinates[0];
+          const y = coordinates[1];
 
-            if (depth === 2) {
-              let labelTotalContracts = `${I18n.t('gobierto_dashboards.dashboards.contracts.contracts')}`
-              let totalContracts = d.children === undefined ? '' : d.children
-              if (totalContracts) {
-                totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_dashboards.dashboards.contracts.contract')}`
-              }
+          //Elements to determinate the position of tooltip
+          const container = document.getElementsByClassName('container-tree-map-nested')[0];
+          const containerWidth = container.offsetWidth
+          const tooltipWidth = tooltip.node().offsetWidth
+          const positionWidthTooltip = x + tooltipWidth
+          const positionTop = `${y - 20}px`
+          const positionLeft = `${x + 10}px`
+          const positionRight = `${x - tooltipWidth - 10}px`
 
-              tooltipAssignee
-                .style("display", "block")
-                .html(() => {
-                  return `
-                    <span class="beeswarm-tooltip-header-title">
-                      ${title}
-                    </span>
-                    <p class="text-depth-third"><b>${totalContracts}</b> ${labelTotalContracts}</b></p>
-                  `
-                })
-                .style('top', positionTop)
-                .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
-
-            } else if (depth === 3) {
-              const { data: { initial_amount_no_taxes, status } } = d
-
-              tooltip
-                .style("display", "block")
-                .html(() => {
-                  return `
-                    <span class="beeswarm-tooltip-header-title">
-                      ${title}
-                    </span>
-                    <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')}: <b>${money(d.value)}</b></p>
-                    <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
-                    <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.status')}: <b>${status}</b></p>
-                  `
-                })
-                .style('top', positionTop)
-                .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+          if (depth === 2) {
+            let labelTotalContracts = `${I18n.t('gobierto_dashboards.dashboards.contracts.contracts')}`
+            let totalContracts = d.children === undefined ? '' : d.children
+            if (totalContracts) {
+              totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
+              labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_dashboards.dashboards.contracts.contract')}`
             }
-          })
-          .on('mouseout', function() {
-            tooltip.style('display', 'none')
-            tooltipAssignee.style('display', 'none')
-          })
+
+            tooltipAssignee
+              .style("display", "block")
+              .html(() => {
+                return `
+                  <span class="beeswarm-tooltip-header-title">
+                    ${title}
+                  </span>
+                  <p class="text-depth-third"><b>${totalContracts}</b> ${labelTotalContracts}</b></p>
+                `
+              })
+              .style('top', positionTop)
+              .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+
+          } else if (depth === 3) {
+            const { data: { initial_amount_no_taxes, status } } = d
+
+            tooltip
+              .style("display", "block")
+              .html(() => {
+                return `
+                  <span class="beeswarm-tooltip-header-title">
+                    ${title}
+                  </span>
+                  <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')}: <b>${money(d.value)}</b></p>
+                  <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
+                  <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.status')}: <b>${status}</b></p>
+                `
+              })
+              .style('top', positionTop)
+              .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+          }
+        })
+        .on('mouseout', function() {
+          tooltip.style('display', 'none')
+          tooltipAssignee.style('display', 'none')
+        })
 
         function transition(d) {
           if (transitioning || !d) return;
@@ -426,10 +484,24 @@ export default {
           .attr("y", ({ y0 }) => y(y0))
           .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
           .attr("height", ({ y1, y0 }) => y(y1) - y(y0))
+          .transition()
+          .duration(500)
+          .ease(d3.easeLinear)
+          .attr("x", ({ x0 }) => x(x0))
+          .attr("y", ({ y0 }) => y(y0))
+          .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
+          .attr("height", ({ y1, y0 }) => y(y1) - y(y0))
       }
 
       function foreign(foreign) {
         foreign
+          .attr("x", ({ x0 }) => x(x0))
+          .attr("y", ({ y0 }) => y(y0))
+          .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
+          .attr("height", ({ y1, y0 }) => y(y1) - y(y0))
+          .transition()
+          .duration(500)
+          .ease(d3.easeLinear)
           .attr("x", ({ x0 }) => x(x0))
           .attr("y", ({ y0 }) => y(y0))
           .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
@@ -448,7 +520,7 @@ export default {
             if (res.includes('<b>')) {
               res = res.replace(/<b>/g, '').replace(/<\/b>/g, '')
             }
-            res += `<b>${data.name}</b>` + sep;
+            res += `<span id="${data.name}"><b>${data.name}</b></span>` + sep;
           });
           return res.split(sep).filter(i => i !== "").join(sep);
         }
@@ -456,7 +528,7 @@ export default {
     resizeListener() {
       window.addEventListener("resize", () => {
         let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
-        const containerChart = document.getElementsByClassName('container-tree-map')[0];
+        const containerChart = document.getElementsByClassName('container-tree-map-nested')[0];
         this.svgWidth = containerChart.offsetWidth
         this.deepCloneData(dataResponsive)
       })

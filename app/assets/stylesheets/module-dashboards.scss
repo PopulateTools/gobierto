@@ -324,6 +324,10 @@
     cursor: pointer;
     .nav-breadcrumbs {
       margin: 0;
+      pointer-events: none;
+      > span {
+        pointer-events: visible;
+      }
     }
   }
 
@@ -360,7 +364,8 @@
 
     .gestion-de-servicios-publicos {
       .child,
-      .parent {
+      .parent,
+      rect {
         fill: #f8b205;
       }
     }
@@ -461,6 +466,8 @@
 
     .treemap-nested-container-text {
       height: 100%;
+      position: relative;
+      z-index: 1;
       &.hide-text {
         .title,
         .text-depth-third,

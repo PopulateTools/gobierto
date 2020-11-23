@@ -37,6 +37,7 @@ import { sumDataByGroupKey, normalizeString } from "../lib/utils";
 import { mean, median } from "d3-array";
 import { nest } from "d3-collection";
 import { money } from "lib/shared";
+import { EventBus } from "../mixins/event_bus";
 
 const d3 = { select, selectAll, treemap, stratify, scaleLinear, mouse, easeLinear, mean, median, nest, hierarchy, treemapBinary, interpolate }
 
@@ -387,7 +388,9 @@ export default {
           .attr('class', d => {
             const { depth, y1, y0 } = d
             //y1 - y0 returns the height of the rect, if it's less than the 100 hide the text
-            if (depth === 2 && (y(y1) - y(y0)) < 100) {
+            if (depth === 2 && (y(y1) - y(y0)) < 100 && selected_size === 'final_amount_no_taxes') {
+              return 'treemap-nested-container-text hide-text'
+            } else if (depth === 2 && (y1 - y0) < 40 && selected_size !== 'final_amount_no_taxes') {
               return 'treemap-nested-container-text hide-text'
             } else if (depth === 3) {
               let contractType = d.data.contract_type || ''

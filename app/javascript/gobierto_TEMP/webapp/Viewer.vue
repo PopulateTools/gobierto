@@ -22,10 +22,12 @@
       :i="i"
       @move="moveEvent"
     >
-      <component
-        :is="template"
-        v-bind="attributes"
-      />
+      <CardEditable>
+        <component
+          :is="template"
+          v-bind="attributes"
+        />
+      </CardEditable>
     </GridItem>
   </GridLayout>
 </template>
@@ -36,12 +38,14 @@ import "../../../assets/stylesheets/module-TEMP-viewer.scss";
 import { GridLayout, GridItem } from "vue-grid-layout";
 import { Widgets } from "./lib/widgets";
 import { DashboardFactoryMixin } from "./lib/factories";
+import CardEditable from "./components/CardEditable"
 
 export default {
   name: "Viewer",
   components: {
     GridLayout,
-    GridItem
+    GridItem,
+    CardEditable
   },
   mixins: [DashboardFactoryMixin],
   props: {

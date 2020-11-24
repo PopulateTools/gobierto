@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "Editable",
+  name: "TextEditable",
   props: {
     tag: {
       type: String,
@@ -27,7 +27,12 @@ export default {
       document.activeElement.blur()
     },
     handleFocus() {
-      document.execCommand('selectAll', false, null);
+      // https://javascript.info/selection-range
+      const range = new Range()
+      range.setStart(document.activeElement, 0)
+      range.setEnd(document.activeElement, 1)
+      document.getSelection().removeAllRanges();
+      document.getSelection().addRange(range);
     },
     handleInput({ target }) {
       this.$emit('input', target.innerText);

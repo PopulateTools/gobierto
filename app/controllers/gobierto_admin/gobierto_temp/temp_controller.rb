@@ -6,7 +6,6 @@ module GobiertoAdmin
       layout false
 
       def index
-
       end
 
       def show

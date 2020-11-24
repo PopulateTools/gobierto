@@ -9,6 +9,7 @@
     box-sizing: border-box;
     user-select: none;
     position: relative;
+    box-sizing: border-box;
 
     @include border-radius(3px);
 

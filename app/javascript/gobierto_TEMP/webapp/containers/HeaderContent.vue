@@ -1,12 +1,12 @@
 <template>
   <Header>
     <div class="dashboards-maker--header m_b_1">
-      <Editable
+      <TextEditable
         tag="h1"
         @input="handleInputTitle"
       >
         {{ currentTitle }}
-      </Editable>
+      </TextEditable>
       <div class="dashboards-maker--header dashboards-maker--header__buttons">
         <Button
           icon="trash"
@@ -36,23 +36,29 @@
         >
         {{ publicLabel }}
       </label>
-      <Button @click.native="handleSaveButton">
-        {{ saveLabel }}
-      </Button>
+      <div class="dashboards-maker--button">
+        <i v-if="isDirty">{{ changesLabel }}</i>
+        <Button
+          :disabled="!isDirty"
+          @click.native="handleSaveButton"
+        >
+          {{ saveLabel }}
+        </Button>
+      </div>
     </div>
   </Header>
 </template>
 
 <script>
 import Header from "../layouts/Header.vue";
-import Editable from "../components/Editable.vue";
+import TextEditable from "../components/TextEditable.vue";
 import Button from "../components/Button.vue";
 
 export default {
   name: "HeaderContent",
   components: {
     Header,
-    Editable,
+    TextEditable,
     Button
   },
   props: {
@@ -63,11 +69,13 @@ export default {
   },
   data() {
     return {
+      isDirty: false,
       status: false,
       deleteLabel: "Eliminar",
       saveLabel: "Guardar",
       publicLabel: "Público",
-      seeItemLabel: "Ver ítem"
+      seeItemLabel: "Ver ítem",
+      changesLabel: "Dashboard modificado"
     };
   },
   computed: {
@@ -78,18 +86,20 @@ export default {
   methods: {
     handleInputTitle(title) {
       this.currentTitle = title;
+      this.isDirty = true
     },
     handleInputStatus({ target }) {
       this.status = target.checked;
+      this.isDirty = true
     },
     handleDeleteButton() {
-      console.log("not implemented button");
+      console.warn("not implemented button");
     },
     handleSeeItemButton() {
-      console.log("not implemented button");
+      console.warn("not implemented button");
     },
     handleSaveButton() {
-      console.log("not implemented button");
+      console.warn("not implemented button");
     },
   }
 };

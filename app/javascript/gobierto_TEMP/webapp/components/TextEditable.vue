@@ -9,7 +9,10 @@
     >
       <slot />
     </component>
-    <i class="fas fa-edit" />
+    <i
+      v-if="icon"
+      class="fas fa-edit"
+    />
   </div>
 </template>
 
@@ -20,6 +23,10 @@ export default {
     tag: {
       type: String,
       default: "p"
+    },
+    icon: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

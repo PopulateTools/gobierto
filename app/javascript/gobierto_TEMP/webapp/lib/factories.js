@@ -9,6 +9,8 @@ const headers = new Headers({
 
 // DEBUG
 import { Mock } from "./mock__DELETABLE";
+axios.interceptors.response.use(() => {}, () => new Mock().dashboard);
+// END DEBUG
 
 export const DashboardFactoryMixin = {
   methods: {
@@ -19,7 +21,7 @@ export const DashboardFactoryMixin = {
       return axios.get(`${endPointDashboard}?${this.searchParams(params).toString()}`, { headers })
     },
     getDashboard(id, params) {
-      return axios.get(`${endPointDashboard}/${id}?${this.searchParams(params).toString()}`, { headers }).catch(() => new Mock().dashboard)
+      return axios.get(`${endPointDashboard}/${id}?${this.searchParams(params).toString()}`, { headers })
     },
     postDashboard(data, params) {
       return axios.post(`${endPointDashboard}?${this.searchParams(params).toString()}`, data, { headers })

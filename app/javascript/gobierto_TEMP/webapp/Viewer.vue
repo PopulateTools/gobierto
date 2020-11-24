@@ -8,26 +8,32 @@
     :is-resizable="isResizable"
     :auto-size="true"
     :use-css-transforms="true"
-    :prevent-collision="true"
+    :prevent-collision="false"
     :style="adjustMargins"
     class="dashboards-viewer"
+    @layout-updated="handleLayoutUpdate"
+    @layout-ready="handleLayoutReady"
   >
     <GridItem
-      v-for="{ i, x, y, w, h, template, attributes } in widgets"
+      v-for="({ i, x, y, w, h, template, edition, attributes }, ix) in widgets"
       :key="i"
       :x="x"
       :y="y"
       :w="w"
       :h="h"
       :i="i"
-      @move="moveEvent"
     >
-      <CardEditable>
+      <WidgetEditable
+        :disabled="!isEditionMode"
+        @edit="handleWidgetEdit(ix)"
+        @delete="handleWidgetDelete(ix)"
+      >
         <component
           :is="template"
+          :edition="edition"
           v-bind="attributes"
         />
-      </CardEditable>
+      </WidgetEditable>
     </GridItem>
   </GridLayout>
 </template>
@@ -38,14 +44,14 @@ import "../../../assets/stylesheets/module-TEMP-viewer.scss";
 import { GridLayout, GridItem } from "vue-grid-layout";
 import { Widgets } from "./lib/widgets";
 import { DashboardFactoryMixin } from "./lib/factories";
-import CardEditable from "./components/CardEditable"
+import WidgetEditable from "./components/WidgetEditable"
 
 export default {
   name: "Viewer",
   components: {
     GridLayout,
     GridItem,
-    CardEditable
+    WidgetEditable
   },
   mixins: [DashboardFactoryMixin],
   props: {
@@ -75,6 +81,10 @@ export default {
     };
   },
   computed: {
+    isEditionMode() {
+      // if there's config prop, it comes from Maker
+      return !!this.config
+    },
     adjustMargins() {
       const [x, y] = this.margin;
       return {
@@ -119,11 +129,30 @@ export default {
           ...defaultLayout,
           ...layout,
           ...options,
+          edition: false,
           i: id
         };
       });
     },
-    moveEvent() {}
+    handleWidgetEdit(ix) {
+      const item = this.widgets[ix]
+      // TODO: refactor
+      item.edition = !item.edition
+      this.widgets.splice(ix, 1, item)
+    },
+    handleWidgetDelete(ix) {
+      this.widgets.splice(ix, 1)
+    },
+    handleLayoutUpdate(layout) {
+      if (this.isEditionMode) {
+        this.$emit('layout-updated', layout)
+      }
+    },
+    handleLayoutReady(layout) {
+      if (this.isEditionMode) {
+        this.$emit('layout-ready', layout)
+      }
+    }
   }
 };
 </script>

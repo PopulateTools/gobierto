@@ -10,6 +10,7 @@
     user-select: none;
     position: relative;
     box-sizing: border-box;
+    overflow-y: auto;
 
     @include border-radius(3px);
 
@@ -28,6 +29,11 @@
       user-select: none;
       margin: 0;
       padding: 0;
+    }
+
+    &__textarea {
+      height: 100%;
+      width: 100%;
     }
   }
 }

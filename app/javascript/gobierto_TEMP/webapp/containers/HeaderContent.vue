@@ -1,12 +1,7 @@
 <template>
   <Header>
     <div class="dashboards-maker--header m_b_1">
-      <TextEditable
-        tag="h1"
-        @input="handleInputTitle"
-      >
-        {{ currentTitle }}
-      </TextEditable>
+      <slot />
       <div class="dashboards-maker--header dashboards-maker--header__buttons">
         <Button
           icon="trash"
@@ -51,25 +46,22 @@
 
 <script>
 import Header from "../layouts/Header.vue";
-import TextEditable from "../components/TextEditable.vue";
 import Button from "../components/Button.vue";
 
 export default {
   name: "HeaderContent",
   components: {
     Header,
-    TextEditable,
     Button
   },
   props: {
-    title: {
-      type: String,
-      default: null
+    isDirty: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      isDirty: false,
       status: false,
       deleteLabel: "Eliminar",
       saveLabel: "Guardar",
@@ -78,28 +70,18 @@ export default {
       changesLabel: "Dashboard modificado"
     };
   },
-  computed: {
-    currentTitle() {
-      return this.title || "Título del dashboard"
-    }
-  },
   methods: {
-    handleInputTitle(title) {
-      this.currentTitle = title;
-      this.isDirty = true
-    },
     handleInputStatus({ target }) {
       this.status = target.checked;
-      this.isDirty = true
     },
     handleDeleteButton() {
-      console.warn("not implemented button");
+      this.$emit('delete')
     },
     handleSeeItemButton() {
-      console.warn("not implemented button");
+      this.$emit('view')
     },
     handleSaveButton() {
-      console.warn("not implemented button");
+      this.$emit('save')
     },
   }
 };

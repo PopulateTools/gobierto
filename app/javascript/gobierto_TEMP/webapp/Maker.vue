@@ -1,6 +1,21 @@
 <template>
   <div class="dashboards-maker">
-    <HeaderContent :title="title" />
+    <HeaderContent
+      :is-dirty="dirty"
+      @save="handleSave"
+      @edit="handleEdit"
+      @delete="handleDelete"
+      @view="handleView"
+    >
+      <TextEditable
+        tag="h1"
+        :icon="true"
+        @input="handleInputTitle"
+      >
+        {{ title }}
+      </TextEditable>
+    </HeaderContent>
+
     <Main>
       <template #aside>
         <Aside>
@@ -20,6 +35,8 @@
         :is-resizable="true"
         :item="item"
         :config="configuration"
+        @layout-updated="handleViewerUpdated"
+        @layout-ready="handleViewerReady"
       />
     </Main>
   </div>
@@ -33,6 +50,7 @@ import HeaderContent from "./containers/HeaderContent";
 import Aside from "./layouts/Aside";
 import Main from "./layouts/Main";
 import SmallCard from "./components/SmallCard";
+import TextEditable from "./components/TextEditable.vue";
 import { Widgets } from "./lib/widgets";
 import { DashboardFactoryMixin } from "./lib/factories";
 
@@ -41,6 +59,7 @@ export default {
   components: {
     Viewer,
     HeaderContent,
+    TextEditable,
     Main,
     Aside,
     SmallCard
@@ -48,30 +67,48 @@ export default {
   mixins: [DashboardFactoryMixin],
   data() {
     return {
+      dirty: false,
       cards: Widgets,
       item: null,
       configuration: null,
+      viewerLoaded: false
     };
   },
   computed: {
+    id() {
+      return this.$root.$data?.id;
+    },
     title() {
-      return this.configuration?.attributes?.title
+      return this.configuration?.data?.attributes?.title || "Título del dashboard";
+    },
+  },
+  watch: {
+    configuration: {
+      deep: true,
+      handler(newVal) {
+        if (this.viewerLoaded) {
+          this.configuration = newVal
+          this.dirty = true
+        }
+      }
     }
   },
   created() {
-    this.getConfiguration()
+    this.getConfiguration();
   },
   methods: {
     async getConfiguration() {
-      const { id } = this.$root.$data;
-      this.configuration = (id !== undefined) ? await this.getDashboard(+id) : {}
+      this.configuration = this.id ? await this.getDashboard(this.id) : {};
+      this.dirty = false
     },
     drag(key) {
       if (!this.item) {
-        const match = Widgets[key]
+        const match = Widgets[key];
         if (match) {
           this.item = {
-            i: `${match.type.replaceAll(" ", "_")}-${Math.random().toString(36).substring(7)}`,
+            i: `${match.type.replaceAll(" ", "_")}-${Math.random()
+              .toString(36)
+              .substring(7)}`,
             template: match.template,
             ...match.layout
           };
@@ -81,7 +118,34 @@ export default {
       }
     },
     dragend() {
-      this.item = null
+      this.item = null;
+    },
+    handleViewerUpdated(widgets) {
+      if (this.viewerLoaded) {
+        this.configuration.data.attributes.widget_configuration = widgets
+      }
+    },
+    handleViewerReady() {
+      this.viewerLoaded = true
+    },
+    handleInputTitle(title) {
+      this.configuration.data.attributes.title = title
+    },
+    handleSave() {
+      this.id
+        ? this.putDashboard(this.id, this.configuration)
+        : this.postDashboard(this.configuration);
+    },
+    handleDelete() {
+      if (this.id) {
+        this.deleteDashboard(this.id);
+      }
+    },
+    handleView() {
+      // open new location
+    },
+    handleEdit() {
+      // edit this.configuration attrs
     }
   }
 };

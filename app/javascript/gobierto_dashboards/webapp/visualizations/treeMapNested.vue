@@ -37,7 +37,6 @@ import { sumDataByGroupKey, normalizeString } from "../lib/utils";
 import { mean, median } from "d3-array";
 import { nest } from "d3-collection";
 import { money } from "lib/shared";
-import { EventBus } from "../mixins/event_bus";
 
 const d3 = { select, selectAll, treemap, stratify, scaleLinear, mouse, easeLinear, mean, median, nest, hierarchy, treemapBinary, interpolate }
 
@@ -203,7 +202,7 @@ export default {
         .style("margin.right", `${-this.marginRight}px`)
         .append("g")
         .attr('class', 'treemap-container')
-        .attr("transform", `translate(${this.marginLeft},${this.marginTop})`)
+        .attr("transform", `translate(${this.marginLeft},0)`)
         .style("shape-rendering", "crispEdges");
 
       const navBreadcrumbs = d3.select('.tree-map-nested-nav')

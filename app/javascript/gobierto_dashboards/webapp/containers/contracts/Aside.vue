@@ -181,19 +181,16 @@ export default {
       const titles = filter.options.map(option => option.title);
       filter.options.forEach(option => option.isOptionChecked = true)
 
+      filter.isEverythingChecked = !filter.isEverythingChecked;
+      filter.options.map(d => (d.isOptionChecked = filter.isEverythingChecked));
 
       EventBus.$emit('filter-changed', { all: true, titles: titles, id: filter.id });
       EventBus.$emit("update-filters");
-
-      filter.isEverythingChecked = !filter.isEverythingChecked;
-      filter.options.map(d => (d.isOptionChecked = filter.isEverythingChecked));
-      this.handleCheckboxFilter(filter);
     },
     handleCheckboxStatus({ id, filter }) {
       const option = filter.options.find(option => option.id === id)
       EventBus.$emit('filter-changed', { all: false, title: option.title, id: filter.id });
       EventBus.$emit("update-filters");
-      /*this.handleCheckboxFilter(filter);*/
     },
     toggle(filter){
       this.filters.forEach(_filter => {

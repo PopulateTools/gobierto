@@ -34,7 +34,7 @@ export default {
   methods: {
     handleChange({ target: { value } }) {
       this.$emit('change', { raw: value })
-    }
+    },
   }
 }
 </script>

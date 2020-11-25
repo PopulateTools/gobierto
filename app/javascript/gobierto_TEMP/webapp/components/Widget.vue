@@ -8,6 +8,7 @@
     :static="edit"
   >
     <WidgetEditable
+      v-clickoutside="handleClickOutside"
       :disabled="!editionMode"
       @edit="handleWidgetEdit"
       @delete="handleWidgetDelete"
@@ -24,6 +25,7 @@
 <script>
 import { GridItem } from "vue-grid-layout";
 import WidgetEditable from "./WidgetEditable";
+import { clickoutside } from "lib/shared"
 
 export default {
   name: "Widget",
@@ -31,6 +33,7 @@ export default {
     GridItem,
     WidgetEditable
   },
+  directives: { clickoutside },
   props: {
     x: {
       type: Number,
@@ -78,8 +81,13 @@ export default {
       this.$emit('delete', this.i)
     },
     handleWidgetChange(value) {
-      this.handleWidgetEdit()
+      this.edit = false
       this.$emit('change', this.i, value)
+    },
+    handleClickOutside() {
+      if (this.edit) {
+        this.edit = false
+      }
     }
   }
 };

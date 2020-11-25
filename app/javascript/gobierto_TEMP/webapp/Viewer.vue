@@ -19,6 +19,7 @@
       :key="widget.i"
       :edition-mode="isEditionMode"
       v-bind="widget"
+      @change="handleWidgetChange"
       @delete="handleWidgetDelete"
     />
   </GridLayout>
@@ -121,6 +122,11 @@ export default {
     },
     handleWidgetDelete(i) {
       this.widgets.splice(this.widgets.findIndex(d => d.i === i), 1)
+    },
+    handleWidgetChange(i, value) {
+      const ix = this.widgets.findIndex(d => d.i === i)
+      this.widgets[ix].attributes = { ...this.widgets[ix].attributes, ...value }
+      this.widgets.splice(ix, 1, this.widgets[ix])
     },
     handleLayoutUpdate(layout) {
       if (this.isEditionMode) {

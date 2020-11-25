@@ -15,6 +15,7 @@
       <component
         :is="template"
         v-bind="{ ...attributes, edit }"
+        @change="handleWidgetChange"
       />
     </WidgetEditable>
   </GridItem>
@@ -75,6 +76,10 @@ export default {
     },
     handleWidgetDelete() {
       this.$emit('delete', this.i)
+    },
+    handleWidgetChange(value) {
+      this.handleWidgetEdit()
+      this.$emit('change', this.i, value)
     }
   }
 };

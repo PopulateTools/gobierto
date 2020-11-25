@@ -6,8 +6,10 @@
     />
     <textarea
       v-else
+      v-model="text"
       class="widget__textarea"
-    >{{ raw }}</textarea>
+      @change="handleChange"
+    />
   </div>
 </template>
 
@@ -22,6 +24,16 @@ export default {
     edit: {
       type: Boolean,
       default: false
+    }
+  },
+  data() {
+    return {
+      text: this.raw
+    }
+  },
+  methods: {
+    handleChange({ target: { value } }) {
+      this.$emit('change', { raw: value })
     }
   }
 }

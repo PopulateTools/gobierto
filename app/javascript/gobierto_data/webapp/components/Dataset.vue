@@ -327,10 +327,11 @@ export default {
       formats: arrayFormats
     } = attributes;
 
+    const { csv: csvURL } = arrayFormats
     this.titleDataset = titleDataset;
     this.tableName = tableName;
     this.objectColumns = objectColumns;
-    this.arrayFormats = arrayFormats;
+    this.arrayFormats = { csv: csvURL }
 
     // Once we have the dataset info, we request both kind of queries
     const queriesPromises = [];

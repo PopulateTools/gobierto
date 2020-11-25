@@ -13,9 +13,14 @@ export const Widgets = {
     type: "Indicador",
     template: () => import("../components/WidgetIndicator"),
     layout: {
-      w: 4,
-      h: 2,
-      minW: 2,
+      w: 6,
+      h: 6,
+      minW: 4,
+      minH: 4,
+    },
+    subtypes: {
+      individual: () => import("../components/WidgetIndicatorIndividual"),
+      table: () => import("../components/WidgetIndicatorTable")
     }
   }
 };

@@ -5,7 +5,7 @@
   --bg-dark-grey: #616161;
   --bg-grey: #ddd;
   --bg-soft-grey: #f2f2f2;
-  --padding: 1em;
+  --space: 1em;
   --color-grey: #828282;
   --color-dark-grey: $color_headers;
   --font-family: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
@@ -17,7 +17,7 @@
     @include flex-align(space-between, stretch);
 
     &-editable {
-      padding: var(--padding);
+      padding: var(--space);
       background-color: var(--bg-grey);
       box-sizing: border-box;
       flex: 1;
@@ -35,12 +35,12 @@
     aside {
       flex: 0 0 20%;
       background-color: var(--bg-soft-grey);
-      padding: var(--padding);
+      padding: var(--space);
     }
 
     article {
       flex: 1;
-      padding: var(--padding);
+      padding: var(--space);
     }
   }
 
@@ -163,7 +163,7 @@
     font-family: var(--font-family);
     font-size: $f7;
     font-weight: 700;
-    padding: var(--padding);
+    padding: var(--space);
     box-sizing: border-box;
     min-height: 60px;
     cursor: pointer;

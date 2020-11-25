@@ -59,8 +59,6 @@ const dashboards = [
               "h": 3
             },
             "attributes": {
-              "name": "ex",
-              "template": "",
               "raw": "<h1>Exercitation commodo eiusmod cupidatat non eu magna esse qui sint.</h1><p>Nulla consectetur ea et id pariatur aliqua amet. Adipisicing excepteur commodo amet exercitation est voluptate adipisicing dolor irure aute commodo. Adipisicing tempor aliquip proident nisi deserunt velit sint reprehenderit. Dolor consectetur reprehenderit ut magna. Eu in velit nisi nostrud occaecat occaecat incididunt est non officia.\r\n</p>"
             }
           },
@@ -70,27 +68,38 @@ const dashboards = [
             "layout": {
               "x": 0,
               "y": 2,
-              "w": 2,
-              "h": 2
+              "w": 6,
+              "h": 7
             },
             "attributes": {
               "name": "fugiat",
-              "template": "",
-              "raw": "<h1>Duis consectetur mollit voluptate mollit irure reprehenderit.</h1><p>Dolore non et ea enim nulla quis dolore nostrud. Do Lorem et veniam Lorem est laboris nulla cillum excepteur nostrud ad reprehenderit aliqua. Et voluptate amet eiusmod aute incididunt culpa eiusmod dolore ex nulla anim. Consectetur proident enim ad magna exercitation officia est ullamco cillum magna incididunt ea incididunt.\r\n</p>"
+              "template": "individual",
+            }
+          },
+          {
+            "id": "93fcb19a-8513-484e-8038-fb00a44452a7",
+            "type": "INDICATOR",
+            "layout": {
+              "x": 0,
+              "y": 10,
+              "w": 6,
+              "h": 10
+            },
+            "attributes": {
+              "name": "fugiat",
+              "template": "table",
             }
           },
           {
             "id": "f6c63a8c-8eb6-4ed4-9b2a-23b58739daf4",
             "type": "HTML",
             "layout": {
-              "x": 4,
-              "y": 5,
+              "x": 6,
+              "y": 3,
               "w": 6,
               "h": 8
             },
             "attributes": {
-              "name": "consectetur",
-              "template": "",
               "raw": "<h1>Deserunt sunt ipsum laborum enim minim deserunt deserunt est.</h1><p>Quis eu pariatur excepteur incididunt ullamco minim do. Ullamco ad sit excepteur laborum culpa nisi. Aute laboris nostrud ad sint velit eiusmod ex consectetur. Commodo et eiusmod in ea nostrud officia nisi proident eiusmod consequat.\r\n</p>"
             }
           }

@@ -1,10 +1,17 @@
 @import "css-conf";
 @import "mixins";
 
+:root {
+  --space: 1em;
+  --color-grey: #666;
+  --font-family: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
+  --font-family-alt: 'Source Sans Pro', 'Helvetica Neue', 'Arial', 'sans-serif';
+}
+
 .dashboards-viewer {
   .widget {
     background-color: rgba(var(--color-base-string), 0.1);
-    padding: var(--padding);
+    padding: var(--space);
     height: 100%;
     box-sizing: border-box;
     user-select: none;
@@ -35,6 +42,138 @@
       height: 100%;
       width: 100%;
       resize: none;
+    }
+  }
+
+  .graph-individual {
+    font-family: var(--font-family-alt);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &__barchart {
+      position: relative;
+      background-color: rgba(var(--color-base-string), 0.2);
+      overflow: hidden;
+      height: 1rem;
+      margin: 0 0 var(--space);
+
+      @include border-radius(2px);
+      
+      &--active {
+        @include border-radius(2px);
+
+        background-color: var(--color-base);
+        height: 100%;
+      }
+    }
+
+    &__title {
+      font-size: $f6;
+      margin: 0 0 calc(2 * var(--space));
+    }
+
+    &__metric {
+      &--container {
+        @include flex-align(space-between);
+
+        margin: 0 0 var(--space);
+      }
+
+      &--title {
+        font-weight: bold;
+        font-size: $f7;
+        color: var(--color-base);
+        opacity: .75;
+      }
+
+      &--value {
+        font-size: $f1;
+        line-height: 53px;
+        font-weight: 300;
+        color: var(--color-grey);
+      }
+    }
+
+    &__date {
+      font-family: var(--font-family);
+      font-size: $f7;
+      opacity: 0.5;
+      margin-top: auto;
+    }
+  }
+
+  .graph-table {
+    font-family: var(--font-family-alt);
+
+    &__title {
+      font-weight: bold;
+      font-size: $f5;
+      margin: 0 0 var(--space);
+    }
+
+    &__table {
+      &--tr,
+      &--tr:hover td,
+      &--tr:nth-child(2n-1) td,
+      &--td,
+      &--th {
+        background: none;
+        font-size: $f7;
+      }
+
+      &--th,
+      &--td:first-child {
+        font-weight: bold;
+      }
+
+      &--th {
+        color: var(--color-gray);
+      }
+
+      &--tr {
+        border-top: 1px dashed #e0e0e0;
+
+        &:first-child {
+          border-top-style: solid;
+        }
+      }
+
+      &--th:not(:first-child),
+      &--td:not(:first-child) {
+        text-align: right;
+      }
+
+      &--th span,
+      &--tr:last-child {
+        opacity: 0.5;
+      }
+    }
+
+    &__barchart {
+      position: relative;
+      background-color: rgba(var(--color-base-string), 0.2);
+      overflow: hidden;
+      width: 33%;
+      max-width: 100px;
+      height: 120px;
+      transform: rotateX(180deg);
+      margin: 0 0 var(--space);
+
+      @include border-radius(2px);
+
+      &--wrapper {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+      }
+      
+      &--active {
+        @include border-radius(2px);
+
+        background-color: var(--color-base);
+        width: 100%;
+      }
     }
   }
 }

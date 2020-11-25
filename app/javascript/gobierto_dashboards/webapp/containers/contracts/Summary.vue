@@ -285,7 +285,9 @@ export default {
       })
 
       //JS convert null years to 1970
-      data = data.filter(({ year }) => year !== 1970 && year !== 2021)
+      let NEXT_YEAR = new Date()
+      let GET_NEXT_YEAR = NEXT_YEAR.getFullYear() + 1
+      data = data.filter(({ year }) => year !== 1970 && year !== GET_NEXT_YEAR)
 
       let dataFormalizeContracts = data.filter(({ formalized }) => formalized === 1)
       dataFormalizeContracts.forEach(d => {
@@ -348,7 +350,6 @@ export default {
         .style("display", "block")
         .style('top', positionTop)
         .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
-        //TODO: locales
         .html(`
           <span class="beeswarm-tooltip-header-title">
             ${year.getFullYear()}

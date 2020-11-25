@@ -1,8 +1,7 @@
 import { csv } from "d3-fetch";
 import axios from "axios";
 
-//TODO changes to location.origin
-const endPointGobiertoData = `https://getafe.gobify.net/api/v1/data/data.json`
+const endPointGobiertoData = `/api/v1/data/data.json`
 
 export function getRemoteData(endpoint) {
   return csv(endpoint);

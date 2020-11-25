@@ -647,8 +647,10 @@ export default {
       });
     },
     setPrivateQueries(response) {
+
       const {
         data: { data: items },
+        status
       } = response;
       this.privateQueries = items;
     },
@@ -708,13 +710,31 @@ export default {
       if (name === this.queryName && userId === this.queryUserId) {
         const { queryId } = this.$route.params;
         // factory method
-        ({ status } = await this.putQuery(queryId, { data }));
+        try {
+          ({ status } = await this.putQuery(queryId, { data }));
+        } catch (error) {
+          const {
+            response: {
+              statusText
+            }
+          } = error;
+          this.queryError = statusText
+        }
 
         //Update revert query
         this.queryRevert = this.currentQuery
       } else {
         // factory method
-        ({ status, data: { data: newQuery } } = await this.postQuery({ data }));
+        try {
+          ({ status, data: { data: newQuery } } = await this.postQuery({ data }));
+        } catch (error) {
+          const {
+            response: {
+              statusText
+            }
+          } = error;
+          this.queryError = statusText
+        }
       }
 
       // reload the queries if the response was successfull

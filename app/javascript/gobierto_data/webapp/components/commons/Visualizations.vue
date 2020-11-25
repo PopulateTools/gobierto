@@ -92,10 +92,12 @@ export default {
       /* We compare the columns, if it returns true we pass the schema to Perspective, if false Perspective will convert the columns*/
       const sameColumns = arrayColumnsFromAPI.length === arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
 
+      //Postgresql returns booleans values as "t" and "f", so we need to transform them, "t" as "true" and "f" as false.
+      const replaceBooleanValues = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
       if (sameColumns) {
-        this.initPerspectiveWithSchema(this.items)
+        this.initPerspectiveWithSchema(replaceBooleanValues)
       } else {
-        this.initPerspective(this.items)
+        this.initPerspective(replaceBooleanValues)
       }
     },
     initPerspectiveWithSchema(data) {

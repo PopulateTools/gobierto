@@ -1,7 +1,7 @@
 <template>
   <div class="widget">
     <div
-      v-if="!edition"
+      v-if="!edit"
       v-html="raw"
     />
     <textarea
@@ -17,9 +17,9 @@ export default {
   props: {
     raw: {
       type: String,
-      default: "<h3>Nuevo dashboard - escribe aquí el texto de cabecera</h3><p>También puedes escribir una descripción</p>"
+      default: "<h3>Nuevo widget HTML - escribe aquí el texto de cabecera</h3>\n<p>También puedes escribir una descripción</p>"
     },
-    edition: {
+    edit: {
       type: Boolean,
       default: false
     }

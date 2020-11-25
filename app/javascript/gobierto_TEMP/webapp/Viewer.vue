@@ -14,44 +14,29 @@
     @layout-updated="handleLayoutUpdate"
     @layout-ready="handleLayoutReady"
   >
-    <GridItem
-      v-for="({ i, x, y, w, h, template, edition, attributes }, ix) in widgets"
-      :key="i"
-      :x="x"
-      :y="y"
-      :w="w"
-      :h="h"
-      :i="i"
-    >
-      <WidgetEditable
-        :disabled="!isEditionMode"
-        @edit="handleWidgetEdit(ix)"
-        @delete="handleWidgetDelete(ix)"
-      >
-        <component
-          :is="template"
-          :edition="edition"
-          v-bind="attributes"
-        />
-      </WidgetEditable>
-    </GridItem>
+    <Widget
+      v-for="widget in widgets"
+      :key="widget.i"
+      :edition-mode="isEditionMode"
+      v-bind="widget"
+      @delete="handleWidgetDelete"
+    />
   </GridLayout>
 </template>
 
 <script>
 // add the styles here, because this element can be inserted both as a component or standalone
 import "../../../assets/stylesheets/module-TEMP-viewer.scss";
-import { GridLayout, GridItem } from "vue-grid-layout";
+import { GridLayout } from "vue-grid-layout";
 import { Widgets } from "./lib/widgets";
 import { DashboardFactoryMixin } from "./lib/factories";
-import WidgetEditable from "./components/WidgetEditable"
+import Widget from "./components/Widget"
 
 export default {
   name: "Viewer",
   components: {
     GridLayout,
-    GridItem,
-    WidgetEditable
+    Widget
   },
   mixins: [DashboardFactoryMixin],
   props: {
@@ -134,14 +119,8 @@ export default {
         };
       });
     },
-    handleWidgetEdit(ix) {
-      const item = this.widgets[ix]
-      // TODO: refactor
-      item.edition = !item.edition
-      this.widgets.splice(ix, 1, item)
-    },
-    handleWidgetDelete(ix) {
-      this.widgets.splice(ix, 1)
+    handleWidgetDelete(i) {
+      this.widgets.splice(this.widgets.findIndex(d => d.i === i), 1)
     },
     handleLayoutUpdate(layout) {
       if (this.isEditionMode) {

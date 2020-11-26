@@ -37,9 +37,18 @@ jobs:
           key: gobierto-bundler-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+      - restore_cache:
+          name: "[Yarn] Restore cache"
+          keys:
+            - gobierto-yarn-{{ checksum "yarn.lock" }}
       - run:
           name: "[Yarn] Install dependencies"
           command: yarn install
+      - save_cache:
+          name: "[Yarn] Cache dependencies"
+          key: gobierto-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
@@ -50,8 +59,22 @@ jobs:
       # Compile I18n JS file
       - run: bin/rails i18n:js:export
 
-      # Compile assets
+      # Precompile assets
+      - restore_cache:
+          name: "Restore cached assets"
+          keys:
+            - v3-asset-cache-{{ .Branch }}
+            - v3-asset-cache-
+
       - run: bin/rails assets:precompile
+
+      - save_cache:
+          name: "Cache assets"
+          key: v3-asset-cache-{{ .Branch }}
+          paths:
+            - public/assets
+            - public/packs-test
+            - tmp/cache
 
       - persist_to_workspace:
           root: ~/gobierto

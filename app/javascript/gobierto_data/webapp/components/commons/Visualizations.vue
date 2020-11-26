@@ -92,8 +92,10 @@ export default {
       /* We compare the columns, if it returns true we pass the schema to Perspective, if false Perspective will convert the columns*/
       const sameColumns = arrayColumnsFromAPI.length === arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
 
-      const datasetsHasBoleanColumns = this.checkIfBoleeanExist(this.objectColumns)
+      //Check if any columns contains Boolean values
+      const datasetsHasBoleanColumns = this.checkIfBooleanExist(this.objectColumns)
 
+      //If columns contains Boolean values goes to replace them
       let replaceItems = datasetsHasBoleanColumns.length > 0 ? this.replaceBooleanValues(datasetsHasBoleanColumns) : this.items
 
       if (sameColumns) {
@@ -199,7 +201,7 @@ export default {
         this.viewer.setAttribute(attributesTopMenu[index], null)
       }
     },
-    checkIfBoleeanExist(columns) {
+    checkIfBooleanExist(columns) {
       let columnsBoolean = []
       Object.keys(columns).forEach(key => {
         const value = columns[key]
@@ -210,7 +212,11 @@ export default {
       return columnsBoolean
     },
     replaceBooleanValues(values) {
+      //Values is an array with the Boolean values
+      //First convert the response(now is a sad string) to JSON
       const jsonItems = this.csvToJson(this.items)
+      /*Search if a key is a boolean value, it is true, and the key-value is a T(PostgreSQL true)
+      converts T to TRUE, same for F(PostgreSQL FALSE) */
       jsonItems.forEach((element) => {
         for (let key in element) {
           if (values.some(v => key.includes(v)) && element[key] === 't' ) {
@@ -222,14 +228,17 @@ export default {
         }
       });
 
+      //The last step, converts again, in this case, JSON to CSV with the Boolean values as TRUE or FALSE
       const csvBooleans = this.convertToCSV(jsonItems)
       return csvBooleans
     },
     csvToJson(str, headerList, quotechar = '"', delimiter = ','){
+      //https://stackoverflow.com/questions/59218548/what-is-the-best-way-to-convert-from-csv-to-json-when-commas-and-quotations-may/59219146#59219146
       const cutlast = (_, i, a) => i < a.length - 1;
       const regex = new RegExp(`(?:[\\t ]?)+(${quotechar}+)?(.*?)\\1(?:[\\t ]?)+(?:${delimiter}|$)`, 'gm');
       const lines = str.split('\n');
       let headers = headerList || lines.splice(0, 1)[0].match(regex).filter(cutlast);
+      // @jorge: remove commas
       headers = headers.map(item => item.replace(',',''));
 
       const list = [];

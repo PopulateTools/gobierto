@@ -715,10 +715,14 @@ export default {
         } catch (error) {
           const {
             response: {
-              statusText
+              data: {
+                errors: arrayError
+              }
             }
           } = error;
-          this.queryError = statusText
+          const [ sqlError ] = arrayError
+          const { detail } = sqlError
+          this.queryError = detail
         }
 
         //Update revert query
@@ -730,10 +734,14 @@ export default {
         } catch (error) {
           const {
             response: {
-              statusText
+              data: {
+                errors: arrayError
+              }
             }
           } = error;
-          this.queryError = statusText
+          const [ sqlError ] = arrayError
+          const { detail } = sqlError
+          this.queryError = detail
         }
       }
 

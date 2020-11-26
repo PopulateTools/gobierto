@@ -648,10 +648,7 @@ export default {
     },
     setPrivateQueries(response) {
 
-      const {
-        data: { data: items },
-        status
-      } = response;
+      const { data: { data: items } } = response;
       this.privateQueries = items;
     },
     async getPublicQueries() {

@@ -92,12 +92,14 @@ export default {
       /* We compare the columns, if it returns true we pass the schema to Perspective, if false Perspective will convert the columns*/
       const sameColumns = arrayColumnsFromAPI.length === arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
 
-      //Postgresql returns booleans values as "t" and "f", so we need to transform them, "t" as "true" and "f" as false.
-      const replaceBooleanValues = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
+      const datasetsHasBoleanColumns = this.checkIfBoleeanExist(this.objectColumns)
+
+      let replaceItems = datasetsHasBoleanColumns.length > 0 ? this.replaceBooleanValues(datasetsHasBoleanColumns) : this.items
+
       if (sameColumns) {
-        this.initPerspectiveWithSchema(replaceBooleanValues)
+        this.initPerspectiveWithSchema(replaceItems)
       } else {
-        this.initPerspective(replaceBooleanValues)
+        this.initPerspective(replaceItems)
       }
     },
     initPerspectiveWithSchema(data) {
@@ -196,6 +198,58 @@ export default {
       for (let index = 0; index < attributesTopMenu.length; index++) {
         this.viewer.setAttribute(attributesTopMenu[index], null)
       }
+    },
+    checkIfBoleeanExist(columns) {
+      let columnsBoolean = []
+      Object.keys(columns).forEach(key => {
+        const value = columns[key]
+        if (value === 'boolean') {
+          columnsBoolean.push(key)
+        }
+      });
+      return columnsBoolean
+    },
+    replaceBooleanValues(values) {
+      const jsonItems = this.csvToJson(this.items)
+      jsonItems.forEach((element) => {
+        for (let key in element) {
+          if (values.some(v => key.includes(v)) && element[key] === 't' ) {
+              element[key] = 'true'
+          }
+          if (values.some(v => key.includes(v)) && element[key] === 'f' ) {
+              element[key] = 'false'
+          }
+        }
+      });
+
+      const csvBooleans = this.convertToCSV(jsonItems)
+      return csvBooleans
+    },
+    csvToJson(str, headerList, quotechar = '"', delimiter = ','){
+      const cutlast = (_, i, a) => i < a.length - 1;
+      const regex = new RegExp(`(?:[\\t ]?)+(${quotechar}+)?(.*?)\\1(?:[\\t ]?)+(?:${delimiter}|$)`, 'gm');
+      const lines = str.split('\n');
+      let headers = headerList || lines.splice(0, 1)[0].match(regex).filter(cutlast);
+      headers = headers.map(item => item.replace(',',''));
+
+      const list = [];
+
+      for (const line of lines) {
+        const val = {};
+        for (const [i, m] of [...line.matchAll(regex)].filter(cutlast).entries()) {
+          // Attempt to convert to Number if possible, also use null if blank
+          val[headers[i]] = (m[2].length > 0) ? Number(m[2]) || m[2] : null;
+        }
+        list.push(val);
+      }
+
+      return list;
+    },
+    convertToCSV(arr) {
+      const array = [Object.keys(arr[0])].concat(arr)
+      return array.map(it => {
+        return Object.values(it).toString()
+      }).join('\n')
     }
   }
 };

@@ -79,12 +79,12 @@ export default {
     }
   },
   mounted() {
-    const containerChart = document.getElementsByClassName('multiple-line-chart-container')[0];
-    this.svgWidth = containerChart.offsetWidth
+    const containerChart = document.querySelector('.multiple-line-chart-container');
+    this.svgWidth = containerChart.offsetWidth;
     this.svgHeight = this.height + this.margin.top + this.margin.bottom
     this.setupElements()
     this.buildMultipleLine(this.data)
-    /*this.resizeListener()*/
+    this.resizeListener()
   },
   methods: {
     setupElements() {

@@ -159,7 +159,7 @@ en:
       visualizations:
         by_amount: by amount of
         contracts: Contracts
-        difference_import: difference import
+        difference_import: DIFFERENCE IMPORT
         title_beeswarm: Contracts by type, volume, size and date
         title_legend: So far this 2020
         title_multiple: Evolution of the volume of tenders and contracts

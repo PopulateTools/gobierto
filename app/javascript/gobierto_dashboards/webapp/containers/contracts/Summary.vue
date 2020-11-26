@@ -330,7 +330,8 @@ export default {
       }
       ]
       //Values for build circles in the chart
-      this.valuesForCircleChart = ['formalized', 'total_contracts']
+      const valuesForCircleChart = ['formalized', 'total_contracts']
+      this.valuesForCircleChart = valuesForCircleChart
     },
     showTooltipMultipleLine(d, e, event) {
       const { total_contracts, formalized, final_amount_no_taxes, year } = d
@@ -361,14 +362,8 @@ export default {
 
     },
     showTooltipBeesWarm(event) {
-      const { assignee, final_amount_no_taxes, x, y } = event
+      const { assignee, final_amount_no_taxes } = event
       const tooltip = d3.select('.beeswarm-tooltip')
-
-      /*const container = document.getElementsByClassName('multiple-line-chart-container')[0];
-      const containerWidth = container.offsetWidth
-      const tooltipWidth = 300
-      const positionWidthTooltip = x + tooltipWidth
-      const positionRight = `${x - tooltipWidth - 30}px`*/
 
       const positionTop = '-10'
       const positionLeft = '110'
@@ -377,7 +372,6 @@ export default {
         .style("display", "block")
         .style('top', `${positionTop}px`)
         .style('left', `${positionLeft}px`)
-        /*.style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)*/
         .html(`
           <span class="beeswarm-tooltip-header-title">
             ${assignee}

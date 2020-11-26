@@ -3,14 +3,14 @@
     <div class="treemap-button-group button-group">
       <button
         class="button-grouped sort-G"
-        :class="{ active : selected_size == 'final_amount_no_taxes' }"
+        :class="{ active : selected_size === 'final_amount_no_taxes' }"
         @click="handleTreeMapValue('final_amount_no_taxes')"
       >
         {{ labelContractAmount }}
       </button>
       <button
         class="button-grouped sort-G"
-        :class="{ active : selected_size == 'number_of_contract' }"
+        :class="{ active : selected_size === 'number_of_contract' }"
         @click="handleTreeMapValue('number_of_contract')"
       >
         {{ labelContractTotal }}

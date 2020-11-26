@@ -104,9 +104,7 @@ export default {
   },
   mounted() {
     this.dataWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
-    const containerChart = document.getElementsByClassName(
-      'beeswarm-container'
-    )[0];
+    const containerChart = document.querySelector('.beeswarm-container');
     this.svgWidth = containerChart.offsetWidth;
     this.svgHeight = this.height;
     this.setupElements();

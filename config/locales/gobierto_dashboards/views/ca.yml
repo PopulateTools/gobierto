@@ -160,7 +160,7 @@ ca:
       visualizations:
         by_amount: per import de
         contracts: Adjudicacions
-        difference_import: Diferència Import
+        difference_import: DIFERÈNCIA IMPORT
         title_beeswarm: Contractes per tipus, volum, mida i data
         title_legend: En el que va d'2020
         title_multiple: Evolució de l'volum de licitacions i adjudicacions

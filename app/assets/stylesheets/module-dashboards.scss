@@ -5,6 +5,8 @@
 @import "comp-vue-dropdown";
 @import "comp-vue-pagination";
 @import "comp-vue-beeswarm";
+@import "comp-vue-treemap-nested";
+@import "comp-vue-multiple-lines";
 
 :root {
   --green-table--first: rgba(33, 150, 83, .1);
@@ -13,6 +15,10 @@
   --border-grey: rgba(102, 102, 102, .5);
   --table-item-cost: rgba(1, 120, 168, .2);
   --border-separator: rgba(151, 151, 151, .5);
+  --gobierto-gold: #f8b205;
+  --gobierto-red: #ff776d;
+  --gobierto-blue: #12365b;
+  --gobierto-turquoise: #008e9c;
 }
 
 .dashboards {
@@ -316,195 +322,28 @@
     position: relative;
   }
 
-  .tree-map-nested-nav {
-    margin-left: 1px;
-    margin-bottom: .75rem;
-    color: rgba(var(--color-base-string), .8);
-    width: max-content;
-    cursor: pointer;
-    .nav-breadcrumbs {
-      margin: 0;
-    }
-  }
-
-  #treemap-nested {
-
-    text {
-      pointer-events: none;
-    }
-
-    .grandparent text {
-      font-weight: bold;
-    }
-
-    .obras {
-      .child,
-      .parent {
-        fill: #ff776d;
-      }
-    }
-
-    .servicios {
-      .child,
-      .parent {
-        fill: #12365b;
-      }
-    }
-
-    .suministros {
-      .child,
-      .parent {
-        fill: #008e9c;
-      }
-    }
-
-    .gestion-de-servicios-publicos {
-      .child,
-      .parent,
-      rect {
-        fill: #f8b205;
-      }
-    }
-
-    rect {
-      stroke: #fff;
-      stroke-width: 1px;
-    }
-
-    rect.parent,
-    .grandparent rect {
-      stroke-width: 3px;
-    }
-
-    .children rect.parent,
-    .grandparent rect {
-      cursor: pointer;
-    }
-
-    .children rect.child {
-      opacity: 0;
-    }
-
-    .children {
-      &.obras {
-        > rect {
-          fill: #ff776d;
-        }
-      }
-
-      &.servicios {
-        > rect {
-          fill: #12365b;
-        }
-      }
-
-      &.suministros {
-        > rect {
-          fill: #008e9c;
-        }
-      }
-
-      &.gestion-de-servicios-publicos {
-        > rect {
-          fill: #f8b205;
-        }
-      }
-
-      &:hover {
-        rect.child {
-          opacity: 1;
-          stroke-width: 1px;
-        }
-        rect.parent {
-          opacity: 0;
-        }
-      }
-    }
-
-    .legend {
-      margin-bottom: 8px;
-      rect {
-        stroke-width: 0;
-      }
-      text {
-        text-anchor: middle;
-        pointer-events: auto;
-        font-size: 13px;
-        fill: black;
-      }
-    }
-
-    .form-group {
-      text-align: left;
-    }
-
-    .treemap-nested-container-text,
-    .foreignobj {
-      color: #fff;
-      padding: 7px;
-      cursor: pointer;
-      overflow: none;
-      .title {
-        margin: 0;
-        font-size: 1rem;
-        text-transform: uppercase;
-        font-weight: bold;
-      }
-      .text {
-        margin: 0;
-        font-size: 18px;
-      }
-      .text-depth-third {
-        margin: 0;
-        font-size: 14px;
-      }
-    }
-
-    .treemap-nested-container-text {
-      height: 100%;
-      position: relative;
-      z-index: 1;
-      &.hide-text {
-        .title,
-        .text-depth-third,
-        .text {
-          font-size: 0;
-        }
-      }
-    }
-  }
-
-  .tree-map-nested-tooltip-contracts,
-  .tree-map-nested-tooltip-assignee {
-    .text-depth-third {
-      margin: 0;
-      font-size: 14px;
-      color: #767168;
-    }
-  }
-
-  .container-tree-map {
+  .tree-map-container {
     position: relative;
   }
 
   .treemap-servicios,
   .beeswarm-circle-servicios {
-    fill: #12365b;
+    fill: var(--gobierto-blue);
   }
 
   .treemap-suministros,
   .beeswarm-circle-suministros {
-    fill: #008e9c;
+    fill: var(--gobierto-turquoise);
   }
 
   .treemap-obras,
   .beeswarm-circle-obras {
-    fill: #ff776d;
+    fill: var(--gobierto-red);
   }
 
   .treemap-gestion-de-servicios-publicos,
   .beeswarm-circle-gestion-de-servicios-publicos {
-    fill: #f8b205;
+    fill: var(--gobierto-gold);
   }
 
   .treemap-tooltip,
@@ -527,19 +366,10 @@
     background: rgba(255, 255, 255, 0.98);
   }
 
-  .multiple-line-tooltip-bars {
-    z-index: 3;
-  }
-
-  .multiple-line-tooltip-bars-text {
-    font-size: 14px;
-    color: #767168;
-    display: block;
-  }
-
   .rect-treemap {
     cursor: pointer;
     transition: all ease-in .3s;
+
     &:hover {
       fill-opacity: .95;
     }
@@ -646,146 +476,6 @@
     }
   }
 
-  .multiple-line-chart-container {
-    position: relative;
-    .tooltip-formalized {
-      line-height: 1.1;
-      margin-top: 1rem;
-
-      .first-row {
-        text-transform: uppercase;
-        font-size: 18px;
-        font-weight: bold;
-        color: #d89b05;
-        display: block;
-      }
-
-      .second-row {
-        font-size: 16px;
-        color: #d89b05;
-        display: block;
-      }
-    }
-
-    .tooltip-total_contracts {
-      margin-top: -2rem;
-
-      .title {
-        font-size: 18px;
-        text-transform: uppercase;
-        color: #828282;
-        border-bottom: 1px solid rgba(0, 0, 0, .1);
-        margin-bottom: .5rem;
-        padding-bottom: .25rem;
-        display: inline-block;
-      }
-
-      .first-row {
-        font-size: 18px;
-        text-transform: uppercase;
-        font-weight: bold;
-        color: #008e9c;
-        display: block;
-      }
-
-      .second-row {
-        font-size: 16px;
-        color: #008e9c;
-        display: block;
-      }
-    }
-
-    .tooltip-percentage_year {
-      line-height: 1.1;
-      .first-row {
-        font-size: 14px;
-        font-weight: bold;
-        text-transform: uppercase;
-        color: #0072bc;
-        display: block;
-      }
-
-      .second-row {
-        font-size: 20px;
-        color: rgba(0, 114, 188, .5);
-        display: block;
-      }
-    }
-
-    .tooltip-multiple-line {
-      display: block;
-      position: absolute;
-      padding: .25rem;
-      width: max-content;
-      height: auto;
-      z-index: 2;
-      color: #111;
-    }
-
-    .line-formalized,
-    .line-total_contracts {
-      stroke-width: 4px;
-    }
-
-    .line-formalized {
-      stroke: #f8b205;
-    }
-
-    .circle-formalized {
-      fill: #f8b205;
-    }
-
-    .line-total_contracts {
-      stroke: #008e9c;
-    }
-
-    .circle-total_contracts {
-      fill: #008e9c;
-    }
-
-    .line-percentage_year {
-      stroke-width: 2px;
-      stroke: rgba(31, 120, 180, .3);
-    }
-
-    .domain {
-      stroke: #f0f0f0;
-    }
-
-    .axis-x {
-      .tick {
-        line {
-          stroke: none;
-        }
-
-        text {
-          font-size: 12px;
-          color: #a3a3a3;
-        }
-      }
-    }
-
-    .axis-y {
-      .tick {
-
-        line {
-          stroke: #f0f0f0;
-        }
-
-        text {
-          font-size: 12px;
-          color: #a3a3a3;
-        }
-      }
-    }
-  }
-
-  .lines-multiple-lines {
-    fill: none;
-    stroke: #111;
-  }
-
-
   .beeswarm-tooltip-header-title {
     font-size: 1rem;
     color: #0178a8;
@@ -800,7 +490,7 @@
   }
 
   .beeswarm-tooltip-table-element-text {
-    display: inline-block;
+    display: block;
     font-size: 14px;
     color: #767168;
   }

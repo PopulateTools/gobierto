@@ -4,7 +4,6 @@
       <i
         :class="rotate ? '' : 'rotate-caret'"
         class="fas fa-caret-down gobierto-block-header--icon"
-        style="color: var(--color-base); pointer-events: none;"
         @click="toggle"
       />
       {{ title }}</strong>

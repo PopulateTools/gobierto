@@ -1,0 +1,150 @@
+.multiple-line-chart-container {
+  position: relative;
+
+  .tooltip-formalized {
+    line-height: 1.1;
+    margin-top: 1rem;
+
+    .first-row {
+      text-transform: uppercase;
+      font-size: 18px;
+      font-weight: bold;
+      color: #d89b05;
+      display: block;
+    }
+
+    .second-row {
+      font-size: 16px;
+      color: #d89b05;
+      display: block;
+    }
+  }
+
+  .tooltip-total_contracts {
+    margin-top: -2rem;
+
+    .title {
+      font-size: 18px;
+      text-transform: uppercase;
+      color: #828282;
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+      margin-bottom: .5rem;
+      padding-bottom: .25rem;
+      display: inline-block;
+    }
+
+    .first-row {
+      font-size: 18px;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: var(--gobierto-turquoise);
+      display: block;
+    }
+
+    .second-row {
+      font-size: 16px;
+      color: var(--gobierto-turquoise);
+      display: block;
+    }
+  }
+
+  .tooltip-percentage_year {
+    line-height: 1.1;
+
+    .first-row {
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #0072bc;
+      display: block;
+    }
+
+    .second-row {
+      font-size: 20px;
+      color: rgba(0, 114, 188, .5);
+      display: block;
+    }
+  }
+
+  .tooltip-multiple-line {
+    display: block;
+    position: absolute;
+    padding: .25rem;
+    width: max-content;
+    height: auto;
+    z-index: 2;
+    color: #111;
+  }
+
+  .line-formalized,
+  .line-total_contracts {
+    stroke-width: 4px;
+  }
+
+  .line-formalized {
+    stroke: var(--gobierto-gold);
+  }
+
+  .circle-formalized {
+    fill: var(--gobierto-gold);
+  }
+
+  .line-total_contracts {
+    stroke: var(--gobierto-turquoise);
+  }
+
+  .circle-total_contracts {
+    fill: var(--gobierto-turquoise);
+  }
+
+  .line-percentage_year {
+    stroke-width: 2px;
+    stroke: rgba(31, 120, 180, .3);
+  }
+
+  .domain {
+    stroke: #f0f0f0;
+  }
+
+  .axis-x {
+    .tick {
+      line {
+        stroke: none;
+      }
+
+      text {
+        font-size: 12px;
+        color: #a3a3a3;
+      }
+    }
+  }
+
+  .axis-y {
+    .tick {
+
+      line {
+        stroke: #f0f0f0;
+      }
+
+      text {
+        font-size: 12px;
+        color: #a3a3a3;
+      }
+    }
+  }
+}
+
+.lines-multiple-lines {
+  fill: none;
+  stroke: #111;
+}
+
+.multiple-line-tooltip-bars {
+  z-index: 3;
+}
+
+.multiple-line-tooltip-bars-text {
+  font-size: 14px;
+  color: #767168;
+  display: block;
+}

@@ -1,17 +1,17 @@
 <template>
-  <div class="container-tree-map">
+  <div class="tree-map-container">
     <div class="treemap-tooltip" />
     <div class="treemap-button-group button-group">
       <button
         class="button-grouped sort-G"
-        :class="{ active : selected_size == 'final_amount_no_taxes' }"
+        :class="{ active : selected_size === 'final_amount_no_taxes' }"
         @click="handleTreeMapValue('final_amount_no_taxes')"
       >
         {{ labelContractAmount }}
       </button>
       <button
         class="button-grouped sort-G"
-        :class="{ active : selected_size == 'value' }"
+        :class="{ active : selected_size === 'value' }"
         @click="handleTreeMapValue('value')"
       >
         {{ labelContractTotal }}
@@ -68,7 +68,8 @@ export default {
     }
   },
   mounted() {
-    this.svgWidth = document.getElementsByClassName("dashboards-home-main")[0].offsetWidth;
+    const containerChart = document.querySelector('.tree-map-container');
+    this.svgWidth = containerChart.offsetWidth;
     this.dataTreeMapWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
     this.dataTooltips = JSON.parse(JSON.stringify(this.data));
 
@@ -204,7 +205,7 @@ export default {
           const y = coordinates[1];
 
           //Elements to determinate the position of tooltip
-          const container = document.getElementsByClassName('container-tree-map')[0];
+          const container = document.querySelector('.tree-map-container');
           const containerWidth = container.offsetWidth
           const tooltipWidth = tooltip.node().offsetWidth
           const positionWidthTooltip = x + tooltipWidth
@@ -216,7 +217,8 @@ export default {
 
           //Create a template string with the top five of contracts by the final amount
           let filterDataTableTooltip = dataForTableTooltip.filter(({ contract_type }) => contract_type === type_of_contract)
-          const topFiveContracts = filterDataTableTooltip[0].top_contracts
+          filterDataTableTooltip = Object.assign({}, ...filterDataTableTooltip);
+          const { mean, median, top_contracts: topFiveContracts } = filterDataTableTooltip
 
           let templateStringTopFiveContracts = ''
           for (let index = 0; index < topFiveContracts.length; index++) {
@@ -239,10 +241,10 @@ export default {
                     <b>${value}</b> ${I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts_for')} <b>${money(final_amount_no_taxes)}</b>
                   </span>
                   <span class="beeswarm-tooltip-table-element-text">
-                     ${I18n.t('gobierto_dashboards.dashboards.contracts.summary.mean_amount')}: <b>${money(filterDataTableTooltip[0].mean)}</b>
+                     ${I18n.t('gobierto_dashboards.dashboards.contracts.summary.mean_amount')}: <b>${money(mean)}</b>
                   </span>
                   <span class="beeswarm-tooltip-table-element-text">
-                     ${I18n.t('gobierto_dashboards.dashboards.contracts.summary.median_amount')}: <b>${money(filterDataTableTooltip[0].median)}</b>
+                     ${I18n.t('gobierto_dashboards.dashboards.contracts.summary.median_amount')}: <b>${money(median)}</b>
                   </span>
                 </div>
                 <div class="tooltip-table-treemap">

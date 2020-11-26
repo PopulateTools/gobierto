@@ -657,7 +657,7 @@ export default {
     },
     setPublicQueries(response) {
       const {
-        data: { data: items = [] },
+        data: { data: items = [] }
       } = response;
 
       this.publicQueries = items
@@ -710,16 +710,7 @@ export default {
         try {
           ({ status } = await this.putQuery(queryId, { data }));
         } catch (error) {
-          const {
-            response: {
-              data: {
-                errors: arrayError
-              }
-            }
-          } = error;
-          const [ sqlError ] = arrayError
-          const { detail } = sqlError
-          this.queryError = detail
+          this.queryError = this.destructuringStoreQueryError(error)
         }
 
         //Update revert query
@@ -729,16 +720,7 @@ export default {
         try {
           ({ status, data: { data: newQuery } } = await this.postQuery({ data }));
         } catch (error) {
-          const {
-            response: {
-              data: {
-                errors: arrayError
-              }
-            }
-          } = error;
-          const [ sqlError ] = arrayError
-          const { detail } = sqlError
-          this.queryError = detail
+          this.queryError = this.destructuringStoreQueryError(error)
         }
       }
 
@@ -784,16 +766,7 @@ export default {
         this.isQueryRunning = false;
         this.getColumnsQuery(this.items)
         this.queryError = null
-      } catch (error) {
-        const {
-          response: {
-            data: {
-              errors: arrayError
-            }
-          }
-        } = error;
-        const [ sqlError ] = arrayError
-        const { sql: stringError } = sqlError
+      } catch ({ response: { data: { errors: [{ sql: stringError } = {}] = [] } } } ) {
         this.queryError = stringError
         this.isQueryRunning = false;
         this.enabledQuerySavedButton = false
@@ -1085,6 +1058,10 @@ export default {
       this.isVizModified = false
       this.activatedSavedVizButton(value)
       this.showPrivatePublicIconViz = true
+    },
+    destructuringStoreQueryError(error) {
+      const { response: { data: { errors: [{ detail } = {}] = [] } } } = error
+      return detail
     }
   },
 };

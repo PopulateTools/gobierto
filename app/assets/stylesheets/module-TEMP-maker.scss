@@ -5,6 +5,7 @@
   --bg-dark-grey: #616161;
   --bg-grey: #ddd;
   --bg-soft-grey: #f2f2f2;
+  --bg-yellow: #fef7e6;
   --space: 1em;
   --color-grey: #828282;
   --color-dark-grey: $color_headers;
@@ -199,6 +200,34 @@
       transform: translateY(-100%);
       background-color: var(--color-base);
       color: $color_main_negative;
+    }
+
+    &__form {
+      background-color: var(--bg-yellow);
+      margin: calc(-1 * var(--space));
+      padding: var(--space);
+      height: 100%;
+
+      &-title {
+        font-weight: bold;
+        display: block;
+      }
+
+      &-text[type=text] {
+        display: block;
+        height: 30px;
+        width: 100%;
+
+        @include border-radius(3px);
+      }
+
+      &-label {
+        display: block;
+      }
+
+      &-radio[type=radio] {
+        display: inline-block;
+      }
     }
   }
 }

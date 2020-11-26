@@ -1,7 +1,7 @@
 // TODO: traducir con I18n
 export const Widgets = {
   HTML: {
-    type: "Contenido HTML",
+    name: "Contenido HTML",
     template: () => import("../components/WidgetHTML"),
     layout: {
       w: 6,
@@ -10,7 +10,7 @@ export const Widgets = {
     }
   },
   INDICATOR: {
-    type: "Indicador",
+    name: "Indicador",
     template: () => import("../components/WidgetIndicator"),
     layout: {
       w: 6,
@@ -19,8 +19,14 @@ export const Widgets = {
       minH: 4,
     },
     subtypes: {
-      individual: () => import("../components/WidgetIndicatorIndividual"),
-      table: () => import("../components/WidgetIndicatorTable")
+      individual: {
+        name: "Individual",
+        template: () => import("../components/WidgetIndicatorIndividual")
+      },
+      table: {
+        name: "Tabla",
+        template: () => import("../components/WidgetIndicatorTable")
+      }
     }
   }
 };

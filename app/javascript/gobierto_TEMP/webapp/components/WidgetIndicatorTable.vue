@@ -26,7 +26,7 @@
       <tbody>
         <tr
           v-for="metric in metrics"
-          :key="metric"
+          :key="metric.metric"
           class="graph-table__table--tr"
         >
           <td

@@ -20,9 +20,9 @@
       <template #aside>
         <Aside>
           <SmallCard
-            v-for="({ type }, key) in cards"
+            v-for="({ name }, key) in cards"
             :key="key"
-            :name="type"
+            :name="name"
             @drag.native="drag(key)"
             @dragend.native="dragend"
           />
@@ -106,7 +106,7 @@ export default {
         const match = Widgets[key];
         if (match) {
           this.item = {
-            i: `${match.type.replaceAll(" ", "_")}-${Math.random()
+            i: `${match.name.replaceAll(" ", "_")}-${Math.random()
               .toString(36)
               .substring(7)}`,
             template: match.template,

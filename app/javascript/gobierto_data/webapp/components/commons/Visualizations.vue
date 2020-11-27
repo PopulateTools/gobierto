@@ -93,10 +93,10 @@ export default {
       const sameColumns = arrayColumnsFromAPI.length === arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
 
       //Check if any columns contains Boolean values
-      const datasetsHasBoleanColumns = this.checkIfBooleanExist(this.objectColumns)
+      const datasetsHasBooleanColumns = this.checkIfBooleanExist(this.objectColumns)
 
       //If columns contains Boolean values goes to replace them
-      let replaceItems = datasetsHasBoleanColumns.length > 0 ? this.replaceBooleanValues(datasetsHasBoleanColumns) : this.items
+      let replaceItems = datasetsHasBooleanColumns.length > 0 ? this.replaceBooleanValues(this.items) : this.items
 
       if (sameColumns) {
         this.initPerspectiveWithSchema(replaceItems)
@@ -211,54 +211,9 @@ export default {
       });
       return columnsBoolean
     },
-    replaceBooleanValues(values) {
-      //Values is an array with the Boolean values
-      //First convert the response(now is a sad string) to JSON
-      const jsonItems = this.csvToJson(this.items)
-      /*Search if a key is a boolean value, it is true, and the key-value is a T(PostgreSQL true)
-      converts T to TRUE, same for F(PostgreSQL FALSE) */
-      jsonItems.forEach((element) => {
-        for (let key in element) {
-          if (values.some(v => key.includes(v)) && element[key] === 't' ) {
-              element[key] = 'true'
-          }
-          if (values.some(v => key.includes(v)) && element[key] === 'f' ) {
-              element[key] = 'false'
-          }
-        }
-      });
-
-      //The last step, converts again, in this case, JSON to CSV with the Boolean values as TRUE or FALSE
-      const csvBooleans = this.convertToCSV(jsonItems)
-      return csvBooleans
-    },
-    csvToJson(str, headerList, quotechar = '"', delimiter = ','){
-      //https://stackoverflow.com/questions/59218548/what-is-the-best-way-to-convert-from-csv-to-json-when-commas-and-quotations-may/59219146#59219146
-      const cutlast = (_, i, a) => i < a.length - 1;
-      const regex = new RegExp(`(?:[\\t ]?)+(${quotechar}+)?(.*?)\\1(?:[\\t ]?)+(?:${delimiter}|$)`, 'gm');
-      const lines = str.split('\n');
-      let headers = headerList || lines.splice(0, 1)[0].match(regex).filter(cutlast);
-      // @jorge: remove commas
-      headers = headers.map(item => item.replace(',',''));
-
-      const list = [];
-
-      for (const line of lines) {
-        const val = {};
-        for (const [i, m] of [...line.matchAll(regex)].filter(cutlast).entries()) {
-          // Attempt to convert to Number if possible, also use null if blank
-          val[headers[i]] = (m[2].length > 0) ? Number(m[2]) || m[2] : null;
-        }
-        list.push(val);
-      }
-
-      return list;
-    },
-    convertToCSV(arr) {
-      const array = [Object.keys(arr[0])].concat(arr)
-      return array.map(it => {
-        return Object.values(it).toString()
-      }).join('\n')
+    replaceBooleanValues(columns) {
+      const replaceBooleanValues = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
+      return replaceBooleanValues
     }
   }
 };

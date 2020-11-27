@@ -101,22 +101,19 @@ export default {
           attributes: { widget_configuration } = {}
         } = {}
       } = this.config || await this.getDashboard(0); // TODO: el ID se define en la vista?
+
       this.widgets = this.parseWidgets(widget_configuration);
+      this.defaultWidgets = [...this.widgets];
     },
     parseWidgets(conf = []) {
-      return conf.map(({ id, type, layout, ...options }) => {
-        const match = Widgets[type];
-        if (!match) throw new Error("Widget does not exist");
+      return conf.map(({ type, ...options }) => {
+        const defaults = Widgets[type];
+        if (!defaults) throw new Error("Widget does not exist");
 
-        // Once we have a matched widget, we flat all necessary properties
-        const { layout: defaultLayout, ...widgetCommons } = match;
         return {
-          ...widgetCommons,
-          ...defaultLayout,
-          ...layout,
+          ...defaults,
           ...options,
-          edition: false,
-          i: id
+          edition: false
         };
       });
     },
@@ -124,6 +121,7 @@ export default {
       this.widgets.splice(this.widgets.findIndex(d => d.i === i), 1)
     },
     handleWidgetChange(i, value) {
+      // TODO: refactor
       const ix = this.widgets.findIndex(d => d.i === i)
       this.widgets[ix].attributes = { ...this.widgets[ix].attributes, ...value }
       this.widgets.splice(ix, 1, this.widgets[ix])

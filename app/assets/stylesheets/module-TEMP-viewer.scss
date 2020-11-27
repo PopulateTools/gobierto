@@ -4,8 +4,8 @@
 :root {
   --space: 1em;
   --color-grey: #666;
-  --font-family: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
-  --font-family-alt: 'Source Sans Pro', 'Helvetica Neue', 'Arial', 'sans-serif';
+  --font-family: "Libre Franklin", "Helvetica Neue", "Arial", "sans-serif";
+  --font-family-alt: "Source Sans Pro", "Helvetica Neue", "Arial", "sans-serif";
 }
 
 .dashboards-viewer {
@@ -45,44 +45,48 @@
 
   .graph-individual {
     font-family: var(--font-family-alt);
-    display: flex;
-    flex-direction: column;
     height: 100%;
+
+    @include flexbox(calc(2 * var(--space)), column);
 
     &__barchart {
       position: relative;
       background-color: rgba(var(--color-base-string), 0.2);
       overflow: hidden;
-      height: 1rem;
-      margin: 0 0 var(--space);
+      height: 20px;
+      width: 100%;
+      flex: 0 0 20px;
 
       @include border-radius(2px);
-      
+
       &--active {
         @include border-radius(2px);
 
         background-color: var(--color-base);
         height: 100%;
+        animation: progress-x 500ms ease-in-out;
+
+        @keyframes progress-x {
+          from { width: 0; }
+        }
       }
     }
 
     &__title {
       font-size: $f6;
-      margin: 0 0 calc(2 * var(--space));
     }
 
     &__metric {
       &--container {
+        @include flexbox();
         @include flex-align(space-between);
-
-        margin: 0 0 var(--space);
       }
 
       &--title {
         font-weight: bold;
         font-size: $f7;
         color: var(--color-base);
-        opacity: .75;
+        opacity: 0.75;
       }
 
       &--value {
@@ -161,16 +165,21 @@
       @include border-radius(2px);
 
       &--wrapper {
-        display: flex;
-        align-items: flex-end;
-        flex-direction: column;
+        @include flexbox($dir: column);
+        @include flex-align($vertical: flex-end);
       }
-      
+
       &--active {
         @include border-radius(2px);
 
         background-color: var(--color-base);
         width: 100%;
+
+        animation: progress-y 500ms ease-in-out;
+
+        @keyframes progress-y {
+          from { height: 0; }
+        }
       }
     }
   }

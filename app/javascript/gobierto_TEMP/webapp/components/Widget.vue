@@ -15,7 +15,7 @@
     >
       <component
         :is="template"
-        v-bind="{ ...attributes, edit }"
+        v-bind="{ ...$attrs, edit }"
         @change="handleWidgetChange"
       />
     </WidgetEditable>
@@ -55,10 +55,6 @@ export default {
       type: [String, Number],
       required: true
     },
-    attributes: {
-      type: Object,
-      default: () => {}
-    },
     template: {
       type: Function,
       default: () => {}
@@ -66,7 +62,7 @@ export default {
     editionMode: {
       type: Boolean,
       default: false
-    }
+    },
   },
   data() {
     return {

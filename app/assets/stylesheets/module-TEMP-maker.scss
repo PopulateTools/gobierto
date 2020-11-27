@@ -208,6 +208,8 @@
       padding: var(--space);
       height: 100%;
 
+      @include flexbox(calc(3 * var(--space)), column);
+
       &-title {
         font-weight: bold;
         display: block;
@@ -222,11 +224,20 @@
       }
 
       &-label {
-        display: block;
+        @include flex-align(flex-start, baseline);
+        @include flexbox(0.5em);
+
+        cursor: pointer;
       }
 
       &-radio[type=radio] {
         display: inline-block;
+        cursor: auto;
+      }
+
+      &-submit {
+        margin-top: auto;
+        align-self: flex-end;
       }
     }
   }

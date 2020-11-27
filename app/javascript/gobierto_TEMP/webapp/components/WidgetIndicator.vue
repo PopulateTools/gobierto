@@ -1,14 +1,15 @@
 <template>
   <div class="widget">
     <component
-      :is="indicator"
-      v-if="!edit"
+      :is="indicatorTemplate"
+      v-if="!isEditing"
     />
     <form
       v-else
       class="dashboards-maker--widget__form"
+      @submit.prevent="handleSubmit"
     >
-      <div class="m_b_1">
+      <div>
         <label
           class="dashboards-maker--widget__form-title"
           for="widget-indicator-input-text"
@@ -17,35 +18,41 @@
         </label>
         <input
           id="widget-indicator-input-text"
+          name="indicator"
           type="text"
+          list="indicators"
           :placeholder="placeholderLabel"
           class="dashboards-maker--widget__form-text"
+          required
         >
+        <datalist id="indicators">
+          <option
+            v-for="item in items"
+            :key="item"
+            :value="item"
+          />
+        </datalist>
       </div>
-      <div class="m_b_1">
-        <label
-          for=""
-          class="dashboards-maker--widget__form-title"
-        > {{ typeLabel }}
-        </label>
-        <template v-for="{ name } in subtypes">
+      <div>
+        <label class="dashboards-maker--widget__form-title">{{ typeLabel }}</label>
+        <template v-for="({ name }, key) in subtypes">
           <label
-            :key="name"
-            :for="`widget-indicator-input-radio-${name}`"
+            :key="key"
             name="widget-indicator-input-radio"
             class="dashboards-maker--widget__form-label"
           >
             <input
-              id="widget-indicator-input-radio"
               type="radio"
-              name="widget-indicator-input-radio"
+              name="subtype"
               class="dashboards-maker--widget__form-radio"
+              :value="key"
+              required
             >
-            {{ name }}
+            <span>{{ name }}</span>
           </label>
         </template>
       </div>
-      <div>
+      <div class="dashboards-maker--widget__form-submit">
         <Button>
           {{ saveLabel }}
         </Button>
@@ -64,7 +71,7 @@ export default {
     Button
   },
   props: {
-    template: {
+    subtype: {
       type: String,
       default: null
     },
@@ -76,15 +83,26 @@ export default {
   data() {
     return {
       subtypes: Widgets.INDICATOR.subtypes,
-      indicator: null,
       selectLabel: "Selecciona el indicador",
       typeLabel: "Tipo",
       saveLabel: "Guardar",
       placeholderLabel: "Escribe el título del indicador o proyecto",
+      // dummy
+      items: Array.from({ length: 10 }, (_, i) => `indicator-${i}`),
     }
   },
-  created() {
-    this.indicator = this.subtypes[this.template].template
+  computed: {
+    isEditing() {
+      return this.edit || !this.indicatorTemplate
+    },
+    indicatorTemplate() {
+      return this.subtypes[this.subtype].template
+    }
+  },
+  methods: {
+    handleSubmit({ target }) {
+      this.$emit('change', Object.fromEntries(new FormData(target)))
+    }
   }
 }
 </script>

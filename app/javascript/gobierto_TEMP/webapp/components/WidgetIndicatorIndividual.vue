@@ -27,6 +27,7 @@
     <div class="graph-individual__date">
       {{ dateLabel }} {{ year }}
     </div>
+    </meter>
   </div>
 </template>
 
@@ -48,3 +49,11 @@ export default {
   }
 }
 </script>
+
+<style>
+progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+   appearance: none;
+}
+</style>

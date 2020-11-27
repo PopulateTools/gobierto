@@ -121,9 +121,9 @@ export default {
       this.widgets.splice(this.widgets.findIndex(d => d.i === i), 1)
     },
     handleWidgetChange(i, value) {
-      // TODO: refactor
       const ix = this.widgets.findIndex(d => d.i === i)
-      this.widgets[ix].attributes = { ...this.widgets[ix].attributes, ...value }
+      this.widgets[ix] = { ...this.widgets[ix], ...value }
+      console.log(this.widgets[ix]);
       this.widgets.splice(ix, 1, this.widgets[ix])
     },
     handleLayoutUpdate(layout) {

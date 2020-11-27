@@ -46,7 +46,7 @@
 
 <script>
 import Header from "../layouts/Header.vue";
-import Button from "../components/Button.vue";
+import Button from "./Button.vue";
 
 export default {
   name: "HeaderContent",

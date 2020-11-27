@@ -46,7 +46,7 @@
 // add the styles here, because this element can be inserted both as a component or standalone
 import "../../../assets/stylesheets/module-TEMP-maker.scss";
 import Viewer from "./Viewer";
-import HeaderContent from "./containers/HeaderContent";
+import HeaderContent from "./components/HeaderContent";
 import Aside from "./layouts/Aside";
 import Main from "./layouts/Main";
 import SmallCard from "./components/SmallCard";

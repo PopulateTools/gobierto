@@ -6,7 +6,7 @@
     "@finos/perspective-viewer-d3fc": "0.5.1",
     "@finos/perspective-viewer-datagrid": "0.5.1",
     "@finos/perspective-webpack-plugin": "0.5.0",
-    "@rails/webpacker": "^4.0.2",
+    "@rails/webpacker": "^5.2.1",
     "accounting": "^0.4.1",
     "air-datepicker": "^2.2.3",
     "axios": "^0.19.0",

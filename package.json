@@ -73,6 +73,7 @@
     "eslint-plugin-vue": "^5.2.3",
     "husky": "^4.2.5",
     "sass-lint": "^1.13.1",
+    "speed-measure-webpack-plugin": "^1.3.3",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.3.1"
@@ -81,7 +82,8 @@
     "jslint": "eslint $(git diff --name-status master | grep -E '.js$|.vue$' | cut -f 2)",
     "jslint:fix": "yarn run jslint --fix",
     "csslint": "sass-lint -v $(git diff --name-status master | grep -E '.css$|.scss$' | cut -f 2)",
-    "pre_commit_i18n_check": "script/check_i18n.sh"
+    "pre_commit_i18n_check": "script/check_i18n.sh",
+    "build-report": "webpack --config config/webpack/production.js --profile --json | xargs webpack-bundle-analyzer"
   },
   "husky": {
     "hooks": {

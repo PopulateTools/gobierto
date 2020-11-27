@@ -92,11 +92,11 @@ export default {
       /* We compare the columns, if it returns true we pass the schema to Perspective, if false Perspective will convert the columns*/
       const sameColumns = arrayColumnsFromAPI.length === arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
 
-      //Check if any columns contains Boolean values
-      const datasetsHasBooleanColumns = this.checkIfBooleanExist(this.objectColumns)
-
       //If columns contains Boolean values goes to replace them
-      let replaceItems = datasetsHasBooleanColumns.length > 0 ? this.replaceBooleanValues(this.items) : this.items
+      let replaceItems = this.items
+      if (Object.values(this.objectColumns).some(value => value === "boolean")) {
+        replaceItems = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
+      }
 
       if (sameColumns) {
         this.initPerspectiveWithSchema(replaceItems)
@@ -200,20 +200,6 @@ export default {
       for (let index = 0; index < attributesTopMenu.length; index++) {
         this.viewer.setAttribute(attributesTopMenu[index], null)
       }
-    },
-    checkIfBooleanExist(columns) {
-      let columnsBoolean = []
-      Object.keys(columns).forEach(key => {
-        const value = columns[key]
-        if (value === 'boolean') {
-          columnsBoolean.push(key)
-        }
-      });
-      return columnsBoolean
-    },
-    replaceBooleanValues(columns) {
-      const replaceBooleanValues = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
-      return replaceBooleanValues
     }
   }
 };

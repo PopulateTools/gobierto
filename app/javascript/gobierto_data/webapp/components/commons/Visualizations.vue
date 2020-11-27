@@ -92,10 +92,16 @@ export default {
       /* We compare the columns, if it returns true we pass the schema to Perspective, if false Perspective will convert the columns*/
       const sameColumns = arrayColumnsFromAPI.length === arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
 
+      //If columns contains Boolean values goes to replace them
+      let replaceItems = this.items
+      if (Object.values(this.objectColumns).some(value => value === "boolean")) {
+        replaceItems = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
+      }
+
       if (sameColumns) {
-        this.initPerspectiveWithSchema(this.items)
+        this.initPerspectiveWithSchema(replaceItems)
       } else {
-        this.initPerspective(this.items)
+        this.initPerspective(replaceItems)
       }
     },
     initPerspectiveWithSchema(data) {

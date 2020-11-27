@@ -1,22 +1,24 @@
 <template>
   <div class="container-tree-map-nested">
-    <div class="treemap-button-group button-group">
-      <button
-        class="button-grouped sort-G"
-        :class="{ active : selected_size === 'final_amount_no_taxes' }"
-        @click="handleTreeMapValue('final_amount_no_taxes')"
-      >
-        {{ labelContractAmount }}
-      </button>
-      <button
-        class="button-grouped sort-G"
-        :class="{ active : selected_size === 'number_of_contract' }"
-        @click="handleTreeMapValue('number_of_contract')"
-      >
-        {{ labelContractTotal }}
-      </button>
+    <div class="treemap-nested-sidebar">
+      <div class="tree-map-nested-nav" />
+      <div class="treemap-button-group button-group">
+        <button
+          class="button-grouped sort-G"
+          :class="{ active : selected_size === 'final_amount_no_taxes' }"
+          @click="handleTreeMapValue('final_amount_no_taxes')"
+        >
+          {{ labelContractAmount }}
+        </button>
+        <button
+          class="button-grouped sort-G"
+          :class="{ active : selected_size === 'number_of_contract' }"
+          @click="handleTreeMapValue('number_of_contract')"
+        >
+          {{ labelContractTotal }}
+        </button>
+      </div>
     </div>
-    <div class="tree-map-nested-nav" />
     <div class="tree-map-nested-tooltip-assignee" />
     <div class="tree-map-nested-tooltip-contracts" />
     <svg
@@ -66,12 +68,16 @@ export default {
     labelRootKey: {
       type: String,
       default: ''
+    },
+    height: {
+      type: Number,
+      default: 600
     }
   },
   data() {
     return {
       svgWidth: 0,
-      svgHeight: 800,
+      svgHeight: this.height,
       dataTreeMapWithoutCoordinates: undefined,
       updateData: false,
       dataForTableTooltip: undefined,
@@ -97,19 +103,13 @@ export default {
     this.dataTreeMapSumFinalAmount = JSON.parse(JSON.stringify(this.data));
 
     this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
-    /*this.resizeListener()*/
+    this.resizeListener()
   },
   methods: {
     handleTreeMapValue(value) {
       if (this.selected_size === value) return;
       this.selected_size = value
       this.sizeForTreemap = value
-      d3.select('.treemap-container')
-      .remove()
-      .exit();
-      d3.select('.nav-breadcrumbs')
-      .remove()
-      .exit();
       if (this.updateData) {
         this.deepCloneData(this.dataNewValues)
       } else {
@@ -169,16 +169,16 @@ export default {
       this.transformDataTreemap(dataTreeMap)
     },
     buildTreeMap(rootData) {
-      if (this.updateData) {
-        d3.select('.nav-breadcrumbs')
+      d3.select('.treemap-container')
         .remove()
         .exit();
-      }
+      d3.select('.nav-breadcrumbs')
+        .remove()
+        .exit();
 
       let transitioning;
       let dataTreeMapSumFinalAmount = this.dataTreeMapSumFinalAmount
       const selected_size = this.selected_size;
-      this.height = 600 - this.marginTop - this.marginBottom
       const tooltip = d3.select('.tree-map-nested-tooltip-contracts')
       const tooltipAssignee = d3.select('.tree-map-nested-tooltip-assignee')
 
@@ -196,13 +196,8 @@ export default {
         .round(false);
 
       const svg = d3.select('#treemap-nested')
-        .attr("width", this.svgWidth + this.marginLeft + this.marginRight)
-        .attr("height", this.height + this.marginBottom + this.marginTop)
-        .style("margin-left", `${-this.marginLeft}px`)
-        .style("margin.right", `${-this.marginRight}px`)
         .append("g")
         .attr('class', 'treemap-container')
-        .attr("transform", `translate(${this.marginLeft},0)`)
         .style("shape-rendering", "crispEdges");
 
       const navBreadcrumbs = d3.select('.tree-map-nested-nav')
@@ -219,7 +214,7 @@ export default {
       function display(d) {
         navBreadcrumbs
           .datum(d.parent)
-          .html(name(d));
+          .html(breadcrumbs(d));
 
         navBreadcrumbs.selectAll("span")
           .datum(d)
@@ -254,25 +249,7 @@ export default {
           .join("g")
 
         g.filter(d => d.children)
-          .join(
-            enter => enter.append("rect")
-              .attr("x", ({ x0 }) => x(x0))
-              .attr("y", ({ y0 }) => y(y0))
-              .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
-              .attr("height", ({ y1, y0 }) => y(y1) - y(y0))
-              .call(enter => enter.transition(t)),
-            update => update
-              .attr("x", ({ x0 }) => x(x0))
-              .attr("y", ({ y0 }) => y(y0))
-              .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
-              .attr("height", ({ y1, y0 }) => y(y1) - y(y0))
-              .call(update => update.transition(t)),
-            exit => exit
-              .attr('width', 0)
-              .attr('height', 0)
-              .call(exit => exit.transition(t)
-              .remove())
-          )
+          .join('rect')
           .attr('class', d => {
             //The name can be the contractor or the type of contract so we have to extract the names of the object, and its parent
             const { data: { name }, parent: { data: { name: parentName = '' } } } = d
@@ -350,12 +327,11 @@ export default {
               }
               htmlForRect = `<p class="title">${title}</p>
                 <p class="text">${money(valueTotalAmount)}</p>
-                <span class="text">
+                <p class="text">
                   <b>${totalContracts}</b> ${labelTotalContracts}</b>
-                </span>
+                </p>
                 `
             } else if (depth === 2 && typeof d.data !== "function") {
-
               if (typeof d.data !== "function") {
                 let contractType = d.data.name !== undefined ? d.data.name : ''
                 const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'assignee', 'final_amount_no_taxes')
@@ -545,11 +521,6 @@ export default {
           .attr("y", ({ y0 }) => y(y0))
           .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
           .attr("height", ({ y1, y0 }) => y(y1) - y(y0));
-      }
-
-      function name(d) {
-        return breadcrumbs(d) +
-          (d.parent ? ` - ${I18n.t('gobierto_dashboards.dashboards.visualizations.zoom_out_treemap')}` : ` - ${I18n.t('gobierto_dashboards.dashboards.visualizations.zoom_in_treemap')}`);
       }
 
       function breadcrumbs(d) {

@@ -169,8 +169,6 @@ es:
         title_multiple: Evolución del volumen de licitaciones y adjudicaciones
         tooltip_beeswarm: Importe de adjudicación
         tooltip_treemap: Total contratos
-        zoom_in_treemap: Haga clic dentro del cuadrado para acercar
-        zoom_out_treemap: Haga clic para alejar
     layouts:
       application:
         gobierto_dashboards:

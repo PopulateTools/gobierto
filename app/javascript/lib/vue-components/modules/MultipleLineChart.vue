@@ -1,12 +1,11 @@
 <template>
   <div class="multiple-line-chart-container">
-    <div class="multiple-line-tooltip-bars"></div>
+    <div class="multiple-line-tooltip-bars" />
     <svg
       class="multiple-line-chart"
       :width="svgWidth"
       :height="svgHeight"
-    >
-    </svg>
+    />
   </div>
 </template>
 <script>
@@ -84,7 +83,7 @@ export default {
     this.svgHeight = this.height + this.margin.top + this.margin.bottom
     this.setupElements()
     this.buildMultipleLine(this.data)
-    this.resizeListener()
+    /*this.resizeListener()*/
   },
   methods: {
     setupElements() {
@@ -153,7 +152,7 @@ export default {
       g.select('.axis-y')
         .call(axisY)
 
-      g.selectAll("bar")
+      g.selectAll(".bar")
         .data(data)
         .enter()
         .append("rect")
@@ -161,6 +160,7 @@ export default {
         .attr("x", d => scaleX(d.year))
         .attr("width", 20)
         .attr("y", d => scaleYBarCharts(d.final_amount_no_taxes))
+        .attr('class', 'bar')
         .attr('height', (d) => this.height - scaleYBarCharts(d.final_amount_no_taxes))
         .on('mouseover', (d, e, event) => {
           this.$emit('showTooltip', d, e, event);
@@ -198,10 +198,9 @@ export default {
 
       for (let index = 0; index < this.arrayCircleValues.length; index++) {
 
-        g.selectAll(`circle-${this.arrayCircleValues[index]}`)
+        g.selectAll(`.circle-${this.arrayCircleValues[index]}`)
           .data(data)
-          .enter()
-          .append('circle')
+          .join('circle')
           .attr("class", `circle-${this.arrayCircleValues[index]}`)
           .attr('cx', d => scaleX(d.year))
           .attr('cy', d => scaleY(d[this.arrayCircleValues[index]]))
@@ -218,9 +217,11 @@ export default {
     },
     resizeListener() {
       window.addEventListener("resize", () => {
+        d3.selectAll('.tooltip-multiple-line')
+          .remove()
+          .exit();
         const containerChart = document.getElementsByClassName('multiple-line-chart-container')[0];
         this.svgWidth = containerChart.offsetWidth
-        this.setupElements()
         this.buildMultipleLine(this.data)
       })
     }

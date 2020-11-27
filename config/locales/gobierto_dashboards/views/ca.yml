@@ -5,7 +5,7 @@ ca:
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
-        assignees: Adjudicataries
+        assignees: Adjudicataris
         contract: Contracte
         contract_amount: Imp. adjudicació
         contract_type: Tipus de contracte
@@ -166,8 +166,6 @@ ca:
         title_multiple: Evolució de l'volum de licitacions i adjudicacions
         tooltip_beeswarm: Import de adjudicació
         tooltip_treemap: Total contractes
-        zoom_in_treemap: Feu clic dins de l'quadrat per apropar
-        zoom_out_treemap: Feu clic per allunyar
     layouts:
       application:
         gobierto_dashboards:

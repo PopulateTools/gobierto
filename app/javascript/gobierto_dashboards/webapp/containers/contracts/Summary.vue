@@ -1,11 +1,8 @@
 <template>
   <div>
-    <h3 class="mt1 graph-title">
-      {{ labelContractType }}
-    </h3>
-    <TreeMap
-      v-if="dashboardsData"
+    <TreeMapNested
       :data="dashboardsData"
+      :label-root-key="labelRootKey"
     />
     <h3 class="mt4 graph-title">
       {{ labelBeesWarm }}
@@ -32,13 +29,6 @@
       :show-right-labels="true"
       :values-legend="valuesLegendObject"
       @showTooltip="showTooltipMultipleLine"
-    />
-    <h3 class="mt1 graph-title">
-      {{ labelContractType }}
-    </h3>
-    <TreeMapNested
-      :data="dashboardsData"
-      :label-root-key="labelRootKey"
     />
     <div
       id="tendersContractsSummary"
@@ -184,7 +174,6 @@
 <script>
 
 import { BeesWarmChart, MultipleLineChart } from "lib/vue-components";
-import TreeMap from "../../visualizations/treeMap.vue";
 import TreeMapNested from "../../visualizations/treeMapNested.vue";
 import Table from "../../components/Table.vue";
 import { dashboardsMixins } from "../../mixins/dashboards_mixins";
@@ -199,7 +188,6 @@ export default {
   name: 'Summary',
   components: {
     Table,
-    TreeMap,
     BeesWarmChart,
     MultipleLineChart,
     TreeMapNested

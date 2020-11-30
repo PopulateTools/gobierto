@@ -2,10 +2,7 @@ const { environment } = require('@rails/webpacker')
 
 // config
 const alias = require('./config/alias')
-// const terser = require('./config/terser')
-
 environment.config.merge(alias)
-// environment.config.merge(terser)
 environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: { name: "commons", minChunks: 5 } } }))
 
 // loaders

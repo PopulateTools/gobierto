@@ -55,6 +55,7 @@ module GobiertoBudgets
 
     def percentage_of_total
       total_amount = total || GobiertoBudgets::BudgetTotal.for(@attributes[:organization_id], @attributes[:year])
+      return 0 if total_amount == 0
       ((amount.to_f / total_amount.to_f)*100).round(2)
     end
 

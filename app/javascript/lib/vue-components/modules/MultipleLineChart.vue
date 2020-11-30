@@ -85,7 +85,7 @@ export default {
     this.svgHeight = this.height + this.margin.top + this.margin.bottom
     this.setupElements()
     this.buildMultipleLine(this.data)
-    /*this.resizeListener()*/
+    this.resizeListener()
   },
   methods: {
     setupElements() {
@@ -157,7 +157,7 @@ export default {
         .attr("x", d => scaleX(d.year))
         .attr("width", 20)
         .attr("y", d => scaleYBarCharts(d.final_amount_no_taxes))
-        .attr('class', 'bar')
+        .attr('class', 'multiple-line-chart-bars')
         .attr('height', (d) => this.height - scaleYBarCharts(d.final_amount_no_taxes))
         .on('mouseover', (d, e, event) => {
           this.$emit('showTooltip', d, e, event);

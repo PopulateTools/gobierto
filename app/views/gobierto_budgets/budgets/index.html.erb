@@ -39,8 +39,8 @@
                 tooltip: t(".expenses_per_inhabitant_tooltip"),
                 data_box: "expenses_per_inhabitant",
                 explanation: {
-                  if: @site_stats.total_budget_per_inhabitant_updated(fallback: false).present?,
-                  text: "#{t('.expenses_per_inhabitant_updated')}: #{format_currency(@site_stats.total_budget_per_inhabitant_updated(fallback: true))}"
+                  if: @site_stats.total_budget_per_inhabitant(fallback: false).present?,
+                  text: "#{t('.expenses_per_inhabitant_updated')}: #{format_currency(@site_stats.total_budget_per_inhabitant(fallback: true))}"
                 }
               ) %>
         <% end %>
@@ -51,8 +51,8 @@
               tooltip: t(".total_expenses_tooltip"),
               data_box: "total_expenses",
               explanation: {
-                if: @site_stats.total_budget_updated(fallback: false).present?,
-                text: "#{t('.total_expenses_updated')}: #{format_currency(@site_stats.total_budget_updated(fallback: true))}"
+                if: @site_stats.total_budget(fallback: false).present?,
+                text: "#{t('.total_expenses_updated')}: #{format_currency(@site_stats.total_budget(fallback: true))}"
               }
             ) %>
 

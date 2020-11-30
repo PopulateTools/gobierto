@@ -30,9 +30,6 @@
       :values-legend="valuesLegendObject"
       @showTooltip="showTooltipMultipleLine"
     />
-    <h3 class="mt1 graph-title">
-      {{ labelContractType }}
-    </h3>
     <div
       id="tendersContractsSummary"
       class="metric_boxes mt4"
@@ -177,7 +174,6 @@
 <script>
 
 import { BeesWarmChart, MultipleLineChart } from "lib/vue-components";
-import TreeMap from "../../visualizations/treeMap.vue";
 import TreeMapNested from "../../visualizations/treeMapNested.vue";
 import Table from "../../components/Table.vue";
 import { dashboardsMixins } from "../../mixins/dashboards_mixins";
@@ -193,7 +189,6 @@ export default {
   name: 'Summary',
   components: {
     Table,
-    TreeMap,
     BeesWarmChart,
     MultipleLineChart,
     TreeMapNested

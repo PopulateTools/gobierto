@@ -20,6 +20,11 @@
   }
 }
 
+.treemap-nested-sidebar {
+  display: flex;
+  justify-content: space-between;
+}
+
 #treemap-nested {
 
   text {
@@ -137,7 +142,7 @@
   .treemap-nested-container-text,
   .foreignobj {
     color: var(--white);
-    padding: 7px;
+    padding: 12px;
     cursor: pointer;
     overflow: none;
 
@@ -146,17 +151,16 @@
       font-size: $f6;
       text-transform: uppercase;
       font-weight: bold;
+      line-height: 1;
     }
 
-    .text {
-      margin: 0;
-      font-size: $f5;
-    }
-
+    .text,
     .text-depth-third {
-      margin: 0;
-      font-size: $f7;
+      margin: .25rem 0;
+      font-size: $f6;
+      line-height: 1;
     }
+
   }
 
   .treemap-nested-container-text {

@@ -1,7 +1,8 @@
 <template>
   <Header>
     <div class="dashboards-maker--header m_b_1">
-      <slot />
+      <slot name="title" />
+
       <div class="dashboards-maker--header dashboards-maker--header__buttons">
         <Button
           icon="trash"
@@ -20,17 +21,8 @@
       </div>
     </div>
     <div class="dashboards-maker--header">
-      <label
-        class="dashboards-maker--checkbox"
-        for="dashboard-status"
-      >
-        <input
-          id="dashboard-status"
-          type="checkbox"
-          @input="handleInputStatus"
-        >
-        {{ publicLabel }}
-      </label>
+      <slot name="checkbox" />
+
       <div class="dashboards-maker--button">
         <i v-if="isDirty">{{ changesLabel }}</i>
         <Button
@@ -49,7 +41,7 @@ import Header from "../layouts/Header.vue";
 import Button from "./Button.vue";
 
 export default {
-  name: "HeaderContent",
+  name: "HeaderForm",
   components: {
     Header,
     Button
@@ -58,22 +50,21 @@ export default {
     isDirty: {
       type: Boolean,
       default: false
-    }
+    },
+    config: {
+      type: Object,
+      default: () => {}
+    },
   },
   data() {
     return {
-      status: false,
       deleteLabel: "Eliminar",
       saveLabel: "Guardar",
-      publicLabel: "Público",
       seeItemLabel: "Ver ítem",
       changesLabel: "Dashboard modificado"
     };
   },
   methods: {
-    handleInputStatus({ target }) {
-      this.status = target.checked;
-    },
     handleDeleteButton() {
       this.$emit('delete')
     },

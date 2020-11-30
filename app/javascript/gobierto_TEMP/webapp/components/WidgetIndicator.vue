@@ -96,7 +96,7 @@ export default {
       return this.edit || !this.indicatorTemplate
     },
     indicatorTemplate() {
-      return this.subtypes[this.subtype].template
+      return this.subtype ? this.subtypes[this.subtype].template : null
     }
   },
   methods: {

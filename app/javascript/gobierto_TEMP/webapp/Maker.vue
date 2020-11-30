@@ -1,20 +1,37 @@
 <template>
   <div class="dashboards-maker">
-    <HeaderContent
+    <HeaderForm
       :is-dirty="dirty"
+      :config="configuration"
       @save="handleSave"
       @edit="handleEdit"
       @delete="handleDelete"
       @view="handleView"
     >
-      <TextEditable
-        tag="h1"
-        :icon="true"
-        @input="handleInputTitle"
-      >
-        {{ title }}
-      </TextEditable>
-    </HeaderContent>
+      <template #title>
+        <TextEditable
+          tag="h1"
+          :icon="true"
+          @input="handleInputTitle"
+        >
+          {{ title }}
+        </TextEditable>
+      </template>
+
+      <template #checkbox>
+        <label
+          class="dashboards-maker--checkbox"
+          for="dashboard-status"
+        >
+          <input
+            id="dashboard-status"
+            type="checkbox"
+            @input="handleInputStatus"
+          >
+          {{ publicLabel }}
+        </label>
+      </template>
+    </HeaderForm>
 
     <Main>
       <template #aside>
@@ -46,7 +63,7 @@
 // add the styles here, because this element can be inserted both as a component or standalone
 import "../../../assets/stylesheets/module-TEMP-maker.scss";
 import Viewer from "./Viewer";
-import HeaderContent from "./components/HeaderContent";
+import HeaderForm from "./components/HeaderForm";
 import Aside from "./layouts/Aside";
 import Main from "./layouts/Main";
 import SmallCard from "./components/SmallCard";
@@ -58,11 +75,11 @@ export default {
   name: "Maker",
   components: {
     Viewer,
-    HeaderContent,
-    TextEditable,
+    HeaderForm,
     Main,
     Aside,
-    SmallCard
+    SmallCard,
+    TextEditable,
   },
   mixins: [DashboardFactoryMixin],
   data() {
@@ -71,7 +88,8 @@ export default {
       cards: Widgets,
       item: null,
       configuration: null,
-      viewerLoaded: false
+      viewerLoaded: false,
+      publicLabel: "Público",
     };
   },
   computed: {
@@ -81,17 +99,9 @@ export default {
     title() {
       return this.configuration?.data?.attributes?.title || "Título del dashboard";
     },
-  },
-  watch: {
-    configuration: {
-      deep: true,
-      handler(newVal) {
-        if (this.viewerLoaded) {
-          this.configuration = newVal
-          this.dirty = true
-        }
-      }
-    }
+    status() {
+      return this.configuration?.data?.attributes?.visibility_level === "active";
+    },
   },
   created() {
     this.getConfiguration();
@@ -106,30 +116,39 @@ export default {
         const match = Widgets[key];
         if (match) {
           this.item = {
-            i: `${match.name.replaceAll(" ", "_")}-${Math.random()
-              .toString(36)
-              .substring(7)}`,
-            template: match.template,
-            ...match.layout
+            i: `${key}-${Math.random().toString(36).substring(7)}`,
+            ...match
           };
         }
       } else {
+        const currentWidget = this.configuration?.data?.attributes?.widget_configuration?.find(({ i }) => i === this.item.i)
         // TODO: mover el item
       }
     },
     dragend() {
       this.item = null;
     },
+    setConfiguration(attr, value) {
+      if (!this.configuration) this.configuration = {}
+      if (!this.configuration.data) this.configuration.data = {}
+      if (!this.configuration.data.attributes) this.configuration.data.attributes = {}
+
+      this.configuration.data.attributes[attr] = value
+      this.dirty = true
+    },
+    handleInputStatus({ target }) {
+      this.setConfiguration('visibility_level', target.checked ? "active" : "draft")
+    },
+    handleInputTitle(title) {
+      this.setConfiguration('title', title)
+    },
     handleViewerUpdated(widgets) {
       if (this.viewerLoaded) {
-        this.configuration.data.attributes.widget_configuration = widgets
+        this.setConfiguration('widget_configuration', widgets)
       }
     },
     handleViewerReady() {
       this.viewerLoaded = true
-    },
-    handleInputTitle(title) {
-      this.configuration.data.attributes.title = title
     },
     handleSave() {
       this.id

@@ -123,7 +123,6 @@ export default {
     handleWidgetChange(i, value) {
       const ix = this.widgets.findIndex(d => d.i === i)
       this.widgets[ix] = { ...this.widgets[ix], ...value }
-      console.log(this.widgets[ix]);
       this.widgets.splice(ix, 1, this.widgets[ix])
     },
     handleLayoutUpdate(layout) {

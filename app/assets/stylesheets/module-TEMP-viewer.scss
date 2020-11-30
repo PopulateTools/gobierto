@@ -65,9 +65,10 @@
         background-color: var(--color-base);
         height: 100%;
         animation: progress-x 500ms ease-in-out;
+        transform: translateX(0);
 
         @keyframes progress-x {
-          from { width: 0; }
+          from { transform: translateX(-100%); }
         }
       }
     }
@@ -165,8 +166,8 @@
       @include border-radius(2px);
 
       &--wrapper {
-        @include flexbox($dir: column);
         @include flex-align($vertical: flex-end);
+        @include flexbox(var(--space), column);
       }
 
       &--active {
@@ -176,9 +177,10 @@
         width: 100%;
 
         animation: progress-y 500ms ease-in-out;
+        transform: translateY(0);
 
         @keyframes progress-y {
-          from { height: 0; }
+          from { transform: translateY(-100%); }
         }
       }
     }

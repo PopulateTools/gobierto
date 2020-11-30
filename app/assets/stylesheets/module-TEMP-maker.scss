@@ -75,7 +75,11 @@
       color: inherit;
       background: none;
       text-decoration: underline;
-  
+
+      > :first-child {
+        margin-right: 0.5em;
+      }
+
       &:hover,
       &:focus {
         background: none;

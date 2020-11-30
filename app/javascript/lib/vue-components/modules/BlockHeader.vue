@@ -2,8 +2,8 @@
   <div class="gobierto-block-header">
     <strong class="gobierto-block-header--title">
       <i
+        :class="rotate ? '' : 'rotate-caret'"
         class="fas fa-caret-down gobierto-block-header--icon"
-        style="color: var(--color-base);"
         @click="toggle"
       />
       {{ title }}</strong>
@@ -32,7 +32,11 @@ export default {
     labelAlt: {
       type: Boolean,
       default: false
-    }
+    },
+    rotate: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {

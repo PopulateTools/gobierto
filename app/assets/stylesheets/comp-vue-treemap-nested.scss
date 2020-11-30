@@ -1,0 +1,188 @@
+:root {
+  --gobierto-gold: #f8b205;
+  --gobierto-red: #ff776d;
+  --gobierto-blue: #12365b;
+  --gobierto-turquoise: #008e9c;
+  --white: #fff;
+  --black: #000;
+  --grey-text: #767168;
+}
+
+.tree-map-nested-nav {
+  margin-left: 1px;
+  margin-bottom: $f8;
+  color: rgba(var(--color-base-string), .8);
+  width: max-content;
+  cursor: pointer;
+
+  .nav-breadcrumbs {
+    margin: 0;
+  }
+}
+
+.treemap-nested-sidebar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#treemap-nested {
+
+  text {
+    pointer-events: none;
+  }
+
+  .grandparent text {
+    font-weight: bold;
+  }
+
+  .obras {
+    .child,
+    .parent {
+      fill: var(--gobierto-red);
+    }
+  }
+
+  .servicios {
+    .child,
+    .parent {
+      fill: var(--gobierto-blue);
+    }
+  }
+
+  .suministros {
+    .child,
+    .parent {
+      fill: var(--gobierto-turquoise);
+    }
+  }
+
+  .gestion-de-servicios-publicos {
+    .child,
+    .parent,
+    rect {
+      fill: var(--gobierto-gold);
+    }
+  }
+
+  rect {
+    stroke: var(--white);
+    stroke-width: 1px;
+  }
+
+  rect.parent,
+  .grandparent rect {
+    stroke-width: 3px;
+  }
+
+  .children rect.parent,
+  .grandparent rect {
+    cursor: pointer;
+  }
+
+  .children rect.child {
+    opacity: 0;
+  }
+
+  .children {
+    &.obras {
+      > rect {
+        fill: var(--gobierto-red);
+      }
+    }
+
+    &.servicios {
+      > rect {
+        fill: var(--gobierto-blue);
+      }
+    }
+
+    &.suministros {
+      > rect {
+        fill: var(--gobierto-turquoise);
+      }
+    }
+
+    &.gestion-de-servicios-publicos {
+      > rect {
+        fill: var(--gobierto-gold);
+      }
+    }
+
+    &:hover {
+      rect.child {
+        opacity: 1;
+        stroke-width: 1px;
+      }
+
+      rect.parent {
+        opacity: 0;
+      }
+    }
+  }
+
+  .legend {
+    margin-bottom: 8px;
+
+    rect {
+      stroke-width: 0;
+    }
+
+    text {
+      text-anchor: middle;
+      pointer-events: auto;
+      font-size: 13px;
+      fill: var(--black);
+    }
+  }
+
+  .form-group {
+    text-align: left;
+  }
+
+  .treemap-nested-container-text,
+  .foreignobj {
+    color: var(--white);
+    padding: 12px;
+    cursor: pointer;
+    overflow: none;
+
+    .title {
+      margin: 0;
+      font-size: $f6;
+      text-transform: uppercase;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    .text,
+    .text-depth-third {
+      margin: .25rem 0;
+      font-size: $f6;
+      line-height: 1;
+    }
+
+  }
+
+  .treemap-nested-container-text {
+    height: 100%;
+    position: relative;
+    z-index: 1;
+
+    &.hide-text {
+      .title,
+      .text-depth-third,
+      .text {
+        font-size: 0;
+      }
+    }
+  }
+}
+
+.tree-map-nested-tooltip-contracts,
+.tree-map-nested-tooltip-assignee {
+  .text-depth-third {
+    margin: 0;
+    font-size: $f7;
+    color: var(--grey-text);
+  }
+}

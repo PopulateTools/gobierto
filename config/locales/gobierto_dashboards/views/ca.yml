@@ -5,6 +5,8 @@ ca:
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
+        assignees: Adjudicataris
+        contract: Contracte
         contract_amount: Imp. adjudicació
         contract_type: Tipus de contracte
         contractor: Contractor
@@ -26,8 +28,7 @@ ca:
         permalink: Consulteu aquest contracte a la Plataforma de Contractació del
           Sector Públic
         process_type: Tipus de procés
-        search: Cerca
-        search_placeholder: Cerqueu per beneficiari
+        search_placeholder: Cerqueu per adjudicatari
         status: Estat
         submission_date: Data
         summary:
@@ -156,6 +157,15 @@ ca:
           subsidies: Subvencions
           subsidies_for: subvencions per import de
         title: Subvencions
+      visualizations:
+        by_amount: per import de
+        contracts: Adjudicacions
+        difference_import: DIFERÈNCIA IMPORT
+        title_beeswarm: Contractes per tipus, volum, mida i data
+        title_legend: En el que va del 2020
+        title_multiple: Evolució del volum de licitacions i adjudicacions
+        tooltip_beeswarm: Import d'adjudicació
+        tooltip_treemap: Total contractes
     layouts:
       application:
         gobierto_dashboards:

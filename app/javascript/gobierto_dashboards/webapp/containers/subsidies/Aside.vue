@@ -16,6 +16,8 @@
               :title="filter.title"
               class="dashboards-home-aside--block-header"
               see-link
+              :rotate="filter.isToggle"
+              :label-alt="filter.isEverythingChecked"
               @select-all="e => handleIsEverythingChecked({ ...e, filter })"
               @toggle="toggle(filter)"
             />
@@ -159,6 +161,9 @@ export default {
     handleIsEverythingChecked({ filter }) {
       const titles = filter.options.map(option => option.title);
       filter.options.forEach(option => option.isOptionChecked = true)
+
+      filter.isEverythingChecked = !filter.isEverythingChecked;
+      filter.options.map(d => (d.isOptionChecked = filter.isEverythingChecked));
 
       EventBus.$emit('filter-changed', { all: true, titles: titles, id: filter.id });
       EventBus.$emit("update-filters");

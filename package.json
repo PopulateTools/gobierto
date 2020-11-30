@@ -82,8 +82,7 @@
     "jslint": "eslint $(git diff --name-status master | grep -E '.js$|.vue$' | cut -f 2)",
     "jslint:fix": "yarn run jslint --fix",
     "csslint": "sass-lint -v $(git diff --name-status master | grep -E '.css$|.scss$' | cut -f 2)",
-    "pre_commit_i18n_check": "script/check_i18n.sh",
-    "build-report": "webpack --config config/webpack/production.js --profile --json | xargs webpack-bundle-analyzer"
+    "pre_commit_i18n_check": "script/check_i18n.sh"
   },
   "husky": {
     "hooks": {

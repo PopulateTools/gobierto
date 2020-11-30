@@ -16,11 +16,11 @@ import { min, max, extent } from 'd3-array';
 import { line, curveCardinal } from 'd3-shape';
 import { scaleTime, scaleLinear, scaleOrdinal, scaleBand } from 'd3-scale';
 import { axisBottom, axisLeft } from 'd3-axis';
-import { timeFormat, timeParse } from 'd3-time-format';
+import { timeFormat } from 'd3-time-format';
 import { format, formatDefaultLocale } from 'd3-format';
 import { d3locale } from "lib/shared";
 
-const d3 = { select, selectAll, nest, min, max, line, scaleOrdinal, scaleBand, scaleTime, scaleLinear, axisBottom, axisLeft, timeFormat, timeParse, extent, curveCardinal, format, formatDefaultLocale }
+const d3 = { select, selectAll, nest, min, max, line, scaleOrdinal, scaleBand, scaleTime, scaleLinear, axisBottom, axisLeft, timeFormat, extent, curveCardinal, format, formatDefaultLocale }
 
 export default {
   name: 'MultipleLineChart',
@@ -75,12 +75,14 @@ export default {
         right: this.marginRight,
         top: this.marginTop,
         bottom: this.marginBottom
-      }
+      },
+      dataMultipleLineWithoutCoordinates: undefined,
+      containerChart: undefined
     }
   },
   mounted() {
-    const containerChart = document.querySelector('.multiple-line-chart-container');
-    this.svgWidth = containerChart.offsetWidth;
+    this.containerChart = document.querySelector('.multiple-line-chart-container');
+    this.svgWidth = this.containerChart.offsetWidth;
     this.svgHeight = this.height + this.margin.top + this.margin.bottom
     this.setupElements()
     this.buildMultipleLine(this.data)
@@ -91,7 +93,7 @@ export default {
       const svg = d3.select('.multiple-line-chart')
 
       const g = svg.append('g')
-        .attr('class', 'multiple-line-chart-container')
+        .attr('class', 'multiple-line-chart-container-g')
 
       g.append('g')
         .attr('class', 'axis axis-x')
@@ -100,25 +102,20 @@ export default {
         .attr('class', 'axis axis-y')
     },
     buildMultipleLine(data) {
-
       //Check if showLabels is true, if it's false reduce the size of the margin right
       this.marginRight = !this.showRightLabels ? 30 : this.marginRight
-
-      const parseTime = d3.timeParse('%Y');
-
-      data.forEach(d => {
-        d.year = parseTime(d.year)
-      })
 
       data.sort(function(a,b){
         return new Date(b.year) - new Date(a.year);
       });
 
+      this.dataMultipleLineWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
+
       const svg = d3.select('.multiple-line-chart')
 
       const translate = `translate(${this.margin.left},${this.margin.top})`
 
-      const g = svg.select('.multiple-line-chart-container')
+      const g = svg.select('.multiple-line-chart-container-g')
 
       g.attr('transform', translate)
 
@@ -157,7 +154,7 @@ export default {
         .data(data)
         .enter()
         .append("rect")
-        .style("fill", "#12365B")
+        .attr('class', 'multiple-line-chart-bars')
         .attr("x", d => scaleX(d.year))
         .attr("width", 20)
         .attr("y", d => scaleYBarCharts(d.final_amount_no_taxes))
@@ -213,13 +210,19 @@ export default {
       const localeFormat = locale.format(',.0f')
       const filterData = this.valuesLegend.filter(d => d.key === value)
 
-      let tooltipText = eval('`'+filterData[0].legend+'`');
+      let tooltipText = new Function('d', 'value', 'localeFormat', 'return `' + filterData[0].legend + '`;')(d, value, localeFormat);
       return tooltipText
     },
     resizeListener() {
       window.addEventListener("resize", () => {
-        const containerChart = document.getElementsByClassName('multiple-line-chart-container')[0];
-        this.svgWidth = containerChart.offsetWidth
+        d3.select('.multiple-line-chart-container-g')
+          .remove()
+          .exit()
+        d3.selectAll('.tooltip-multiple-line')
+          .remove()
+          .exit()
+        this.containerChart = document.querySelector('.multiple-line-chart-container');
+        this.svgWidth = this.containerChart.offsetWidth;
         this.setupElements()
         this.buildMultipleLine(this.data)
       })

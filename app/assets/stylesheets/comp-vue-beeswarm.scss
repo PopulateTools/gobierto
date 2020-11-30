@@ -1,3 +1,12 @@
+:root {
+  --grey-line: #c4c4c4;
+  --blue-text: #0072bc;
+  --white: #fff;
+  --black: #000;
+  --grey: #ccc;
+  --shadow: 0 0 3px rgba(0, 0, 0, .2);
+}
+
 .beeswarm-container {
   position: relative;
 }
@@ -15,8 +24,8 @@
       }
 
       text {
-        font-size: 14px;
-        color: #c4c4c4;
+        font-size: $f7;
+        color: var(--grey-line);
       }
     }
   }
@@ -26,7 +35,7 @@
       stroke-dasharray: 1px;
 
       line {
-        stroke: #c4c4c4;
+        stroke: var(--grey-line);
       }
 
       text {
@@ -37,14 +46,14 @@
   }
 
   .line-y {
-    stroke: #c4c4c4;
+    stroke: var(--grey-line);
     stroke-dasharray: 1px;
   }
 
   .label-y {
-    font-size: 14px;
+    font-size: $f7;
     text-transform: uppercase;
-    fill: #0072bc;
+    fill: var(--blue-text);
   }
 
 }
@@ -57,17 +66,17 @@
   max-width: 300px;
   height: auto;
   z-index: 1;
-  right: 1rem;
-  color: #111;
-  background-color: #fff;
+  right: $f6;
+  color: var(--black);
+  background-color: var(--white);
   border-radius: 4px;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, .98);
+  border: 1px solid var(--grey);
+  box-shadow: var(--shadow);
 }
 
 .beeswarm-circle {
   cursor: pointer;
+
   &:hover {
     fill-opacity: 1;
   }

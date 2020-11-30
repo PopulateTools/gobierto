@@ -200,9 +200,7 @@ export default {
           return `rect-treemap treemap-${d.id}`
         })
         .on("mousemove", function(d) {
-          const coordinates = d3.mouse(this);
-          const x = coordinates[0];
-          const y = coordinates[1];
+          const [x, y] = d3.mouse(this);
 
           //Elements to determinate the position of tooltip
           const container = document.querySelector('.tree-map-container');
@@ -358,7 +356,7 @@ export default {
     resizeListener() {
       window.addEventListener("resize", () => {
         let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
-        const containerChart = document.getElementsByClassName('container-tree-map')[0];
+        const containerChart = document.querySelector('.tree-map-container');
         this.svgWidth = containerChart.offsetWidth
         this.deepCloneData(dataResponsive)
       })

@@ -1,21 +1,35 @@
+:root {
+  --treemap-text-green: #d89b05;
+  --black: #111;
+  --grey-axis-text: #a3a3a3;
+  --grey-axis-line: #f0f0f0;
+  --grey-color-tooltip-text: #767168;
+  --grey-color-title: #828282;
+  --gobierto-turquoise: #008e9c;
+  --blue-text-legend: #0072bc;
+  --blue-text-legend-opacity-5: rgba(0, 114, 188, .5);
+  --blue-line-opacity-3: rgba(31, 120, 180, .3);
+  --blue-bars: #12365b;
+}
+
 .multiple-line-chart-container {
   position: relative;
 
   .tooltip-formalized {
     line-height: 1.1;
-    margin-top: 1rem;
+    margin-top: $f6;
 
     .first-row {
       text-transform: uppercase;
-      font-size: 18px;
+      font-size: $f4;
       font-weight: bold;
-      color: #d89b05;
+      color: var(--treemap-text-green);
       display: block;
     }
 
     .second-row {
-      font-size: 16px;
-      color: #d89b05;
+      font-size: $f6;
+      color: var(--treemap-text-green);
       display: block;
     }
   }
@@ -24,9 +38,9 @@
     margin-top: -2rem;
 
     .title {
-      font-size: 18px;
+      font-size: $f4;
       text-transform: uppercase;
-      color: #828282;
+      color: var(--grey-color-title);
       border-bottom: 1px solid rgba(0, 0, 0, .1);
       margin-bottom: .5rem;
       padding-bottom: .25rem;
@@ -34,7 +48,7 @@
     }
 
     .first-row {
-      font-size: 18px;
+      font-size: $f4;
       text-transform: uppercase;
       font-weight: bold;
       color: var(--gobierto-turquoise);
@@ -42,7 +56,7 @@
     }
 
     .second-row {
-      font-size: 16px;
+      font-size: $f6;
       color: var(--gobierto-turquoise);
       display: block;
     }
@@ -52,16 +66,16 @@
     line-height: 1.1;
 
     .first-row {
-      font-size: 14px;
+      font-size: $f7;
       font-weight: bold;
       text-transform: uppercase;
-      color: #0072bc;
+      color: var(--blue-text-legend);
       display: block;
     }
 
     .second-row {
-      font-size: 20px;
-      color: rgba(0, 114, 188, .5);
+      font-size: $f3;
+      color: var(--blue-text-legend-opacity-5);
       display: block;
     }
   }
@@ -73,7 +87,7 @@
     width: max-content;
     height: auto;
     z-index: 2;
-    color: #111;
+    color: var(--black);
   }
 
   .line-formalized,
@@ -99,11 +113,11 @@
 
   .line-percentage_year {
     stroke-width: 2px;
-    stroke: rgba(31, 120, 180, .3);
+    stroke: var(--blue-line-opacity-3);
   }
 
   .domain {
-    stroke: #f0f0f0;
+    stroke: var(--grey-axis-line);
   }
 
   .axis-x {
@@ -114,7 +128,7 @@
 
       text {
         font-size: 12px;
-        color: #a3a3a3;
+        color: var(--grey-axis-text);
       }
     }
   }
@@ -123,28 +137,29 @@
     .tick {
 
       line {
-        stroke: #f0f0f0;
+        stroke: var(--grey-axis-line);
       }
 
       text {
         font-size: 12px;
-        color: #a3a3a3;
+        color: var(--grey-axis-text);
       }
     }
   }
+
+  .multiple-line-chart-bars {
+    fill: var(--blue-bars);
+  }
+
 }
 
 .lines-multiple-lines {
   fill: none;
-  stroke: #111;
-}
-
-.multiple-line-tooltip-bars {
-  z-index: 3;
+  stroke: var(--black);
 }
 
 .multiple-line-tooltip-bars-text {
-  font-size: 14px;
-  color: #767168;
+  font-size: $f7;
+  color: var(--grey-color-tooltip-text);
   display: block;
 }

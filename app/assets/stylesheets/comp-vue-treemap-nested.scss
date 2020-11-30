@@ -3,11 +3,14 @@
   --gobierto-red: #ff776d;
   --gobierto-blue: #12365b;
   --gobierto-turquoise: #008e9c;
+  --white: #fff;
+  --black: #000;
+  --grey-text: #767168;
 }
 
 .tree-map-nested-nav {
   margin-left: 1px;
-  margin-bottom: .75rem;
+  margin-bottom: $f8;
   color: rgba(var(--color-base-string), .8);
   width: max-content;
   cursor: pointer;
@@ -57,7 +60,7 @@
   }
 
   rect {
-    stroke: #fff;
+    stroke: var(--white);
     stroke-width: 1px;
   }
 
@@ -123,7 +126,7 @@
       text-anchor: middle;
       pointer-events: auto;
       font-size: 13px;
-      fill: black;
+      fill: var(--black);
     }
   }
 
@@ -133,26 +136,26 @@
 
   .treemap-nested-container-text,
   .foreignobj {
-    color: #fff;
+    color: var(--white);
     padding: 7px;
     cursor: pointer;
     overflow: none;
 
     .title {
       margin: 0;
-      font-size: 1rem;
+      font-size: $f6;
       text-transform: uppercase;
       font-weight: bold;
     }
 
     .text {
       margin: 0;
-      font-size: 18px;
+      font-size: $f5;
     }
 
     .text-depth-third {
       margin: 0;
-      font-size: 14px;
+      font-size: $f7;
     }
   }
 
@@ -175,7 +178,7 @@
 .tree-map-nested-tooltip-assignee {
   .text-depth-third {
     margin: 0;
-    font-size: 14px;
-    color: #767168;
+    font-size: $f7;
+    color: var(--grey-text);
   }
 }

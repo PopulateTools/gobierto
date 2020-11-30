@@ -219,7 +219,7 @@ export default {
       function display(d) {
         navBreadcrumbs
           .datum(d.parent)
-          .html(name(d));
+          .html(breadcrumbs(d));
 
         navBreadcrumbs.selectAll("span")
           .datum(d)
@@ -545,11 +545,6 @@ export default {
           .attr("y", ({ y0 }) => y(y0))
           .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
           .attr("height", ({ y1, y0 }) => y(y1) - y(y0));
-      }
-
-      function name(d) {
-        return breadcrumbs(d) +
-          (d.parent ? ` - ${I18n.t('gobierto_dashboards.dashboards.visualizations.zoom_out_treemap')}` : ` - ${I18n.t('gobierto_dashboards.dashboards.visualizations.zoom_in_treemap')}`);
       }
 
       function breadcrumbs(d) {

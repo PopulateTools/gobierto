@@ -1,11 +1,8 @@
 <template>
   <div>
-    <h3 class="mt1 graph-title">
-      {{ labelContractType }}
-    </h3>
-    <TreeMap
-      v-if="dashboardsData"
+    <TreeMapNested
       :data="dashboardsData"
+      :label-root-key="labelRootKey"
     />
     <h3 class="mt4 graph-title">
       {{ labelBeesWarm }}
@@ -36,10 +33,6 @@
     <h3 class="mt1 graph-title">
       {{ labelContractType }}
     </h3>
-    <TreeMapNested
-      :data="dashboardsData"
-      :label-root-key="labelRootKey"
-    />
     <div
       id="tendersContractsSummary"
       class="metric_boxes mt4"
@@ -190,10 +183,11 @@ import Table from "../../components/Table.vue";
 import { dashboardsMixins } from "../../mixins/dashboards_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
 import { select, mouse } from 'd3-selection'
+import { timeParse } from 'd3-time-format';
 import { getQueryData, sumDataByGroupKey } from "../../lib/utils";
 import { money } from "lib/shared";
 
-const d3 = { select, mouse }
+const d3 = { select, mouse, timeParse }
 
 export default {
   name: 'Summary',
@@ -260,6 +254,7 @@ export default {
       this.dataBeesWarmFilter = dataBeesWarm
     },
     transformDataContractsLine(data) {
+      const parseTime = d3.timeParse('%Y');
       data.forEach(d => {
         d.final_amount_no_taxes = +d.final_amount_no_taxes
         d.initial_amount_no_taxes = +d.initial_amount_no_taxes
@@ -285,13 +280,12 @@ export default {
       })
 
       //JS convert null years to 1970
-      let NEXT_YEAR = new Date()
-      let GET_NEXT_YEAR = NEXT_YEAR.getFullYear() + 1
-      data = data.filter(({ year }) => year !== 1970 && year !== GET_NEXT_YEAR)
+      const NEXT_YEAR = new Date().getFullYear() + 1
+      data = data.filter(({ year }) => year !== 1970 && year !== NEXT_YEAR)
 
       let dataFormalizeContracts = data.filter(({ formalized }) => formalized === 1)
       dataFormalizeContracts.forEach(d => {
-        d.percentage_total = Math.abs(((d.final_amount_no_taxes - d.initial_amount_no_taxes) / d.initial_amount_no_taxes) * 100)
+        d.percentage_total = d.initial_amount_no_taxes > 0 ? Math.abs(((d.final_amount_no_taxes - d.initial_amount_no_taxes) / d.initial_amount_no_taxes) * 100) : ''
       })
       //We need to group and sum by year and value
       const finalAmountTotal = sumDataByGroupKey(data, 'year', 'final_amount_no_taxes')
@@ -307,10 +301,13 @@ export default {
         //Get the total of contracts
         d.total_contracts = (d.anulled + d.formalized)
 
-        d.percentage_year = (d.percentage_total / d.total_contracts)
+        d.percentage_year = d.total_contracts ? (d.percentage_total / d.total_contracts) : 0
+
+        d.year = parseTime(d.year)
       })
 
       this.dataLineChart = dataContractsLine
+      console.log("dataContractsLine", dataContractsLine);
 
       //Values for build lines in the chart
       this.valuesForLineChart = ['formalized', 'percentage_year', 'total_contracts']

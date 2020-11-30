@@ -137,7 +137,7 @@ module GobiertoBudgets
           type: @area,
           variable: field,
           organization_id: params[:organization_id],
-          updated_forecast: true
+          updated_forecast: false
         )
 
         result ? { value: result[field] } : nil

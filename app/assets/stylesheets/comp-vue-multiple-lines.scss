@@ -7,8 +7,10 @@
   --grey-color-title: #828282;
   --gobierto-turquoise: #008e9c;
   --blue-text-legend: #0072bc;
-  --blue-text-legend-opacity-5: rgba(0, 114, 188, .5);
-  --blue-line-opacity-3: rgba(31, 120, 180, .3);
+  --blue-text-legend-str: 0, 114, 188;
+  --blue-text-legend: rgb(var(--blue-text-str), .5);
+  --blue-line-str: 31, 120, 180;
+  --blue-line: rgb(var(--blue-line-str), .3);
   --blue-bars: #12365b;
 }
 
@@ -113,7 +115,7 @@
 
   .line-percentage_year {
     stroke-width: 2px;
-    stroke: var(--blue-line-opacity-3);
+    stroke: var(--blue-text-legend);
   }
 
   .domain {

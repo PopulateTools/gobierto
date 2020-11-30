@@ -21,6 +21,7 @@
   --gobierto-turquoise: #008e9c;
   --button-grey-active: #f4f4f4;
   --white: #fff;
+  --black: #111;
   --blue-title-header: #0178a8;
   --grey-text: #767168;
 }
@@ -362,7 +363,7 @@
     height: auto;
     z-index: 1;
     right: 1rem;
-    color: #111;
+    color: var(--black);
     background-color: var(--white);
     border-radius: 4px;
     border: 1px solid #ccc;
@@ -394,7 +395,7 @@
 
   .tooltip-table-treemap {
     width: 100%;
-    font-size: 14px;
+    font-size: $f8;
     color: var(--grey-text);
     margin-top: .5rem;
   }
@@ -437,7 +438,7 @@
   }
 
   .tooltip-treemap-header-title {
-    font-size: 1rem;
+    font-size: $f6;
     color: var(--blue-title-header);
     font-weight: bold;
     display: block;
@@ -451,7 +452,7 @@
 
   .tooltip-treemap-element-text {
     display: block;
-    font-size: 14px;
+    font-size: $f8;
     color: var(--grey-text);
   }
 
@@ -479,13 +480,13 @@
 
     .value-contracts {
       font-weight: normal;
-      font-size: 16px;
+      font-size: $f6;
       text-transform: lowercase;
     }
   }
 
   .beeswarm-tooltip-header-title {
-    font-size: 1rem;
+    font-size: $f6;
     color: var(--blue-title-header);
     font-weight: bold;
     display: block;
@@ -499,7 +500,7 @@
 
   .beeswarm-tooltip-table-element-text {
     display: block;
-    font-size: 14px;
+    font-size: $f8;
     color: var(--grey-text);
   }
 
@@ -635,7 +636,7 @@
       .gobierto-dashboards-table-header--nav-text {
         font-weight: bold;
         display: inline-block;
-        font-size: 1rem;
+        font-size: $f6;
       }
 
       .gobierto-dashboards-table-header--nav-has-children,
@@ -752,7 +753,7 @@
       font-size: 12px;
 
       @include min-screen(740) {
-        font-size: 1rem;
+        font-size: $f6;
       }
     }
   }
@@ -792,13 +793,13 @@
   &-table-first-level {
     .gobierto-dashboards-table-header--link,
     .gobierto-dashboards-table-header--link-top {
-      font-size: 18px;
+      font-size: $f5;
     }
   }
 
   &-table-header--link,
   &-table-header--link-top {
-    font-size: 1rem;
+    font-size: $f6;
     color: var(--color-base);
     text-decoration: underline;
   }
@@ -826,7 +827,7 @@
     .gobierto-dashboards-table-header--nav-text,
     .gobierto-dashboards-table-header--elements {
       color: var(--white);
-      font-size: 18px;
+      font-size: $f5;
       text-decoration: none;
       font-weight: bold;
       background-color: transparent;
@@ -848,7 +849,7 @@
       .gobierto-dashboards-table-header--nav-text,
       .gobierto-dashboards-table-header--elements {
         color: var(--white);
-        font-size: 18px;
+        font-size: $f5;
         text-decoration: none;
         font-weight: bold;
         background-color: transparent;
@@ -914,7 +915,7 @@
 
   &-table-item-title,
   &-table-item-text {
-    font-size: 1rem;
+    font-size: $f6;
     font-weight: normal;
     color: var(--grey);
     display: block;
@@ -948,7 +949,7 @@
   }
 
   &-table-item-right-section-title {
-    font-size: 1rem;
+    font-size: $f6;
     color: var(--border-grey);
     text-align: right;
     display: inline-block;
@@ -993,7 +994,7 @@
 
   &-table-item-right-table-text,
   &-table-item-right-table-amount {
-    font-size: 1rem;
+    font-size: $f6;
     color: var(--grey);
     width: 49%;
     display: inline-block;

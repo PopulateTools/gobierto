@@ -143,6 +143,7 @@ export default {
       return subDataTooltip
     },
     buildTreeMap(typeOfContracts) {
+      let categoryID
       typeOfContracts.forEach(d => {
         d.parent = 'contract'
       })
@@ -270,7 +271,6 @@ export default {
         })
         .on('click', function(d) {
           const { data: { contract_type } } = d
-          let categoryID
           if (contract_type === 'Servicios') {
             categoryID = 0
           } else if (contract_type === 'Suministros') {

@@ -624,7 +624,12 @@ Rails.application.routes.draw do
         namespace :api, path: "/" do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1/data" do
             get "data" => "query#index", as: :root, defaults: { format: "json" }
-            resources :datasets, param: :slug, defaults: { format: "json" } do
+            resources :datasets, only: [:show], param: :slug, defaults: { format: "csv" } do
+              member do
+                get :download, format: true
+              end
+            end
+            resources :datasets, except: [:show], param: :slug, defaults: { format: "json" } do
               resource :favorite, only: [:create, :destroy]
               resources :favorites, only: [:index]
               collection do
@@ -633,7 +638,6 @@ Rails.application.routes.draw do
               member do
                 get "meta" => "datasets#dataset_meta"
                 get "stats" => "datasets#stats"
-                get :download, format: true
               end
             end
             resources :queries, except: [:edit], defaults: { format: "json" } do

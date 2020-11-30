@@ -647,9 +647,8 @@ export default {
       });
     },
     setPrivateQueries(response) {
-      const {
-        data: { data: items },
-      } = response;
+
+      const { data: { data: items } } = response;
       this.privateQueries = items;
     },
     async getPublicQueries() {
@@ -658,7 +657,7 @@ export default {
     },
     setPublicQueries(response) {
       const {
-        data: { data: items = [] },
+        data: { data: items = [] }
       } = response;
 
       this.publicQueries = items
@@ -708,13 +707,21 @@ export default {
       if (name === this.queryName && userId === this.queryUserId) {
         const { queryId } = this.$route.params;
         // factory method
-        ({ status } = await this.putQuery(queryId, { data }));
+        try {
+          ({ status } = await this.putQuery(queryId, { data }));
+        } catch (error) {
+          this.queryError = this.destructuringStoreQueryError(error)
+        }
 
         //Update revert query
         this.queryRevert = this.currentQuery
       } else {
         // factory method
-        ({ status, data: { data: newQuery } } = await this.postQuery({ data }));
+        try {
+          ({ status, data: { data: newQuery } } = await this.postQuery({ data }));
+        } catch (error) {
+          this.queryError = this.destructuringStoreQueryError(error)
+        }
       }
 
       // reload the queries if the response was successfull
@@ -759,16 +766,7 @@ export default {
         this.isQueryRunning = false;
         this.getColumnsQuery(this.items)
         this.queryError = null
-      } catch (error) {
-        const {
-          response: {
-            data: {
-              errors: arrayError
-            }
-          }
-        } = error;
-        const [ sqlError ] = arrayError
-        const { sql: stringError } = sqlError
+      } catch ({ response: { data: { errors: [{ sql: stringError } = {}] = [] } } } ) {
         this.queryError = stringError
         this.isQueryRunning = false;
         this.enabledQuerySavedButton = false
@@ -1060,6 +1058,10 @@ export default {
       this.isVizModified = false
       this.activatedSavedVizButton(value)
       this.showPrivatePublicIconViz = true
+    },
+    destructuringStoreQueryError(error) {
+      const { response: { data: { errors: [{ detail } = {}] = [] } } } = error
+      return detail
     }
   },
 };

@@ -302,7 +302,6 @@ export default {
       })
 
       this.dataLineChart = dataContractsLine
-      console.log("dataContractsLine", dataContractsLine);
 
       //Values for build lines in the chart
       this.valuesForLineChart = ['formalized', 'percentage_year', 'total_contracts']

@@ -6,7 +6,7 @@
         :class="{ 'is-active': activeTab === 0 }"
         tag="li"
         class="dashboards-home-nav--tab"
-        @click.native="markTabAsActive(0)"
+        @click.native="markTabAsActive(0, true)"
       >
         <i class="fas fa-chart-bar" />
         <i class="far fa-chart-bar" />
@@ -17,7 +17,7 @@
         :class="{ 'is-active': activeTab === 1 }"
         tag="li"
         class="dashboards-home-nav--tab"
-        @click.native="markTabAsActive(1)"
+        @click.native="markTabAsActive(1, true)"
       >
         <i class="fas fa-clone" />
         <i class="far fa-clone" />
@@ -49,14 +49,20 @@ export default {
   },
   created(){
     const currentTabIndex = this.tabIndexFromRouteName();
-    this.markTabAsActive(currentTabIndex);
+    this.markTabAsActive(currentTabIndex, false);
   },
   methods: {
-    markTabAsActive(index) {
+    markTabAsActive(index, scrollTo) {
       this.$emit("active-tab", index);
+      if (scrollTo) this.scrollBehavior();
     },
     tabIndexFromRouteName(name=this.$router.currentRoute.name){
       return this.$options.routesToNavBarMapping[name];
+    },
+    scrollBehavior() {
+      const selector = "gobierto-dashboards-subsidies-app";
+      const element = document.getElementById(selector);
+      window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
     }
   }
 }

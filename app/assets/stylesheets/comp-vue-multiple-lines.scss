@@ -8,9 +8,7 @@
   --gobierto-turquoise: #008e9c;
   --blue-text-legend: #0072bc;
   --blue-text-legend-str: 0, 114, 188;
-  --blue-text-legend: rgb(var(--blue-text-str), .5);
   --blue-line-str: 31, 120, 180;
-  --blue-line: rgb(var(--blue-line-str), .3);
   --blue-bars: #12365b;
 }
 
@@ -77,7 +75,7 @@
 
     .second-row {
       font-size: $f3;
-      color: var(--blue-text-legend-opacity-5);
+      color: rgba(var(--blue-text-legend-str), .5);
       display: block;
     }
   }
@@ -115,7 +113,7 @@
 
   .line-percentage_year {
     stroke-width: 2px;
-    stroke: var(--blue-text-legend);
+    stroke: rgba(var(--blue-line-str), .3);
   }
 
   .domain {

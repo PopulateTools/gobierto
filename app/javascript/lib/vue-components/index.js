@@ -8,6 +8,8 @@ import ReadMore from "./modules/ReadMore.vue"
 import Dropdown from "./modules/Dropdown.vue"
 import SkeletonSpinner from "./modules/SkeletonSpinner.vue"
 import Pagination from "./modules/Pagination.vue"
+import BeesWarmChart from "./modules/BeesWarmChart.vue"
+import MultipleLineChart from "./modules/MultipleLineChart.vue"
 
 export {
   BlockHeader,
@@ -19,5 +21,7 @@ export {
   ReadMore,
   Dropdown,
   SkeletonSpinner,
-  Pagination
+  Pagination,
+  BeesWarmChart,
+  MultipleLineChart
 }

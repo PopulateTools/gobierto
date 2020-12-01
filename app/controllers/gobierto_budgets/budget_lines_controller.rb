@@ -63,8 +63,9 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
     { site: current_site, year: @year, kind: @kind, area_name: @area_name }
   end
 
+  # TODO: rename?
   def updated_forecast(params = {})
-    GobiertoBudgets::BudgetLine.all(where: common_params.merge(params), updated_forecast: true)
+    GobiertoBudgets::BudgetLine.all(where: common_params.merge(params), updated_forecast: false)
   end
 
   def budget_line_composition

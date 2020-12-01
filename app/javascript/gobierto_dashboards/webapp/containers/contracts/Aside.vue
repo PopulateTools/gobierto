@@ -16,6 +16,8 @@
               :title="filter.title"
               class="dashboards-home-aside--block-header"
               see-link
+              :rotate="filter.isToggle"
+              :label-alt="filter.isEverythingChecked"
               @select-all="e => handleIsEverythingChecked({ ...e, filter })"
               @toggle="toggle(filter)"
             />
@@ -83,6 +85,10 @@ export default {
     this.initFilterOptions();
     this.updateCounters(true);
 
+    EventBus.$on('treemap-filter', ({ category, id }) => {
+      let filters = this.filters.find(( { id: i } ) => category === i) || {};
+      this.handleCheckboxStatus( { id: id, filter: filters })
+    })
     EventBus.$on('dc-filter-selected', ({ title, id }) => {
       const { options = [] } = this.filters.find(( { id: i } ) => id === i) || {};
 
@@ -170,11 +176,13 @@ export default {
           filter.options = filter.options.sort((a, b) => a.counter > b.counter ? -1 : 1)
         }
       })
-
     },
     handleIsEverythingChecked({ filter }) {
       const titles = filter.options.map(option => option.title);
       filter.options.forEach(option => option.isOptionChecked = true)
+
+      filter.isEverythingChecked = !filter.isEverythingChecked;
+      filter.options.map(d => (d.isOptionChecked = filter.isEverythingChecked));
 
       EventBus.$emit('filter-changed', { all: true, titles: titles, id: filter.id });
       EventBus.$emit("update-filters");

@@ -17,7 +17,6 @@
         :class="{ 'is-active': activeTab === 1 }"
         tag="li"
         class="visualizations-home-nav--tab"
-        class="dashboards-home-nav--tab"
         @click.native="markTabAsActive(1, true)"
       >
         <i class="fas fa-clone" />
@@ -61,7 +60,7 @@ export default {
       return this.$options.routesToNavBarMapping[name];
     },
     scrollBehavior() {
-      const selector = "gobierto-dashboards-subsidies-app";
+      const selector = "gobierto-visualizations-subsidies-app";
       const element = document.getElementById(selector);
       window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
     }

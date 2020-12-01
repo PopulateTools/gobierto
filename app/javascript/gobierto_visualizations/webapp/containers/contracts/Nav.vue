@@ -73,7 +73,7 @@ export default {
       return this.$options.routesToNavBarMapping[name];
     },
     scrollBehavior() {
-      const selector = "gobierto-dashboards-contracts-app";
+      const selector = "gobierto-visualizations-contracts-app";
       const element = document.getElementById(selector);
       window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
     }

@@ -67,7 +67,7 @@ module GobiertoAdmin
         @invalid_main_key_settings_form ||= SettingsForm.new(invalid_main_key_settings_attributes)
       end
 
-      # Invalid visualization names settings (it should have any value from GobiertoAdmin::GobiertoVisualizations::SettingsForm::VALID_DASHBOARDS_NAMES)
+      # Invalid visualization names settings (it should have any value from GobiertoAdmin::GobiertoVisualizations::SettingsForm::VALID_VISUALIZATION_NAMES)
       def invalid_visualizations_names_visualization_config
         {
           "visualizations": {

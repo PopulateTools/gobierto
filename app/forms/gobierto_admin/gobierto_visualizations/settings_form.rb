@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoVisualizations
     class SettingsForm < BaseForm
 
-      VALID_DASHBOARDS_NAMES = %w(contracts subsidies costs)
+      VALID_VISUALIZATION_NAMES = %w(contracts subsidies costs)
 
       attr_writer(
         :site_id,
@@ -66,7 +66,7 @@ module GobiertoAdmin
           errors.add :visualizations_config, :invalid_values
         end
 
-        if parsed_visualizations_config.fetch('visualizations', {}).keys.any?{|name| !VALID_DASHBOARDS_NAMES.include?(name) }
+        if parsed_visualizations_config.fetch('visualizations', {}).keys.any?{|name| !VALID_VISUALIZATION_NAMES.include?(name) }
           errors.add :visualizations_config, :invalid_values
         end
       end

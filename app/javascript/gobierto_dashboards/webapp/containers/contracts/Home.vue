@@ -21,7 +21,6 @@
     </div>
   </main>
 </template>
-
 <script>
 import Nav from "./Nav.vue";
 import Aside from "./Aside.vue";

@@ -77,7 +77,7 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
       area_name: @area_name
     }
 
-    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions, updated_forecast: true)
+    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: conditions, updated_forecast: false)
   end
 
   def load_interesting_expenses
@@ -89,7 +89,7 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
       area_name: @interesting_area
     }
 
-    @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: conditions, updated_forecast: true)
+    @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: conditions, updated_forecast: false)
   end
 
 end

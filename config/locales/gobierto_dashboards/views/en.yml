@@ -5,6 +5,8 @@ en:
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee
+        assignees: Assignees
+        contract: Contract
         contract_amount: Contract Amount
         contract_type: Type of contract
         contractor: Contractor
@@ -25,8 +27,7 @@ en:
           tenders: Tenders
         permalink: Check this contract on the Public Sector Contracting Platform
         process_type: Type of process
-        search: Search
-        search_placeholder: Search by beneficiary
+        search_placeholder: Search by assignee
         status: Status
         submission_date: Date
         summary:
@@ -155,6 +156,15 @@ en:
           subsidies: Subsidies
           subsidies_for: subsidies for a total amount of
         title: Subsidies
+      visualizations:
+        by_amount: by amount of
+        contracts: Contracts
+        difference_import: DIFFERENCE IMPORT
+        title_beeswarm: Contracts by type, volume, size and date
+        title_legend: So far this 2020
+        title_multiple: Evolution of the volume of tenders and contracts
+        tooltip_beeswarm: Contract Amount
+        tooltip_treemap: total contracts
     layouts:
       application:
         gobierto_dashboards:

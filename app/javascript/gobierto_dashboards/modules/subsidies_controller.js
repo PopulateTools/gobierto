@@ -62,11 +62,7 @@ export class SubsidiesController {
                 }
               ]
             }
-          ],
-          scrollBehavior() {
-            const element = document.getElementById(selector);
-            window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
-          }
+          ]
         });
 
         const baseTitle = document.title;

@@ -85,7 +85,7 @@ export default {
     const years = [...[y1, y2, y3, y4]]
 
     // add percentage
-    const valuesCalculated = years.map(x => ({ ...x, percentage: x.objective ? 100 * (x.value / x.objective) : 0 }))
+    const valuesCalculated = years.map(x => ({ ...x, percentage: x.objective ? 100 * (x.value / x.objective) : 0 })).reverse()
 
     this.years.push(...valuesCalculated.map(({ date: d, percentage }) => ({ year: date(d, { year: 'numeric' }), percentage })));
     this.metrics = [

@@ -1,5 +1,7 @@
 <template>
   <GridLayout
+    v-if="widgets.length"
+    ref="grid"
     :layout.sync="widgets"
     :col-num="columns"
     :row-height="itemHeight"
@@ -18,7 +20,7 @@
       v-for="widget in widgets"
       :key="widget.i"
       :edition-mode="isEditionMode"
-      v-bind="widget"
+      v-bind="{ ...widget, widgetsData }"
       @change="handleWidgetChange"
       @delete="handleWidgetDelete"
     />
@@ -62,8 +64,9 @@ export default {
     return {
       columns: 12,
       itemHeight: 30,
-      margin: [10, 10],
-      widgets: []
+      margin: [24, 24],
+      widgets: [],
+      widgetsData: []
     };
   },
   computed: {
@@ -111,6 +114,7 @@ export default {
 
       const { data: widgets_data } = await this.getData({ context: this.id, data_pipe: this.pipe });
 
+      this.widgetsData = widgets_data
       this.widgets = this.parseWidgets(widget_configuration, widgets_data);
     },
     parseWidgets(conf = [], data = []) {

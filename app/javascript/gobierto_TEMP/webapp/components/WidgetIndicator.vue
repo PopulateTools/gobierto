@@ -28,9 +28,9 @@
         >
         <datalist id="indicators">
           <option
-            v-for="item in items"
-            :key="item"
-            :value="item"
+            v-for="{ name } in widgetsData"
+            :key="name"
+            :value="name"
           />
         </datalist>
       </div>
@@ -81,6 +81,10 @@ export default {
     edit: {
       type: Boolean,
       default: false
+    },
+    widgetsData: {
+      type: Array,
+      default: () => []
     }
   },
   data() {

@@ -321,7 +321,7 @@ export class VisBubble {
       I18n.t("number.currency.format.separator")
     )}</div>
                         ${d.costperhabit}€ ${I18n.t(
-      "gobierto_dashboards.dashboards.costs.per_inhabitant"
+      "gobierto_visualizations.visualizations.costs.per_inhabitant"
     )}`);
   }
 
@@ -333,3 +333,4 @@ export class VisBubble {
     return -Math.pow(d.radius, 2) * 0.06;
   }
 }
+

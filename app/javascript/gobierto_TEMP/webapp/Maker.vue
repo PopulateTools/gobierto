@@ -40,7 +40,7 @@
             v-for="({ name }, key) in cards"
             :key="key"
             :name="name"
-            @drag.native="drag(key)"
+            @drag.native="drag(key, $event)"
             @dragend.native="dragend"
           />
         </Aside>
@@ -48,6 +48,7 @@
 
       <Viewer
         v-if="configuration"
+        ref="viewer"
         :is-draggable="true"
         :is-resizable="true"
         :item="item"
@@ -106,10 +107,20 @@ export default {
   created() {
     this.getConfiguration();
   },
+  mounted() {
+    document.addEventListener('dragover', this.dragoverPosition)
+  },
+  destroyed() {
+    document.removeEventListener('dragover', this.dragoverPosition)
+  },
   methods: {
     async getConfiguration() {
       this.configuration = this.id ? await this.getDashboard(this.id) : {};
       this.dirty = false
+    },
+    dragoverPosition({ clientX, clientY }) {
+      this.x = clientX
+      this.y = clientY
     },
     drag(key) {
       if (!this.item) {
@@ -121,11 +132,27 @@ export default {
           };
         }
       } else {
-        const currentWidget = this.configuration?.data?.attributes?.widget_configuration?.find(({ i }) => i === this.item.i)
-        // TODO: mover el item
+//         const ix = this.configuration?.data?.attributes?.widget_configuration?.findIndex(({ i }) => i === this.item.i)
+//         const item = this.configuration?.data?.attributes?.widget_configuration[ix]
+
+//         const el = this.$refs.viewer.$children[0].$children[ix]
+//         const { top, left } = this.$refs.viewer.$el.getBoundingClientRect()
+
+// console.log(el);
+//         // el.dragging = { "top": this.y - top, "left": this.x - left };
+//         const { x, y } = el.calcXY(this.y - top, this.x - left);
+
+//         this.$refs.viewer.$children[0].dragEvent('dragstart', item.i, x, y, 1, 1);
+
+//         this.fakeItem = {
+//           i: item.i,
+//           x,
+//           y
+//         }
       }
     },
     dragend() {
+      // this.$refs.viewer.$children[0].dragEvent('dragend', this.fakeItem.i, this.fakeItem.x, this.fakeItem.y, 1, 1);
       this.item = null;
     },
     setConfiguration(attr, value) {

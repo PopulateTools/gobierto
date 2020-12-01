@@ -9,7 +9,7 @@ const headers = new Headers({
 
 // DEBUG
 import { Mock } from "./mock__DELETABLE";
-axios.interceptors.response.use(() => {}, () => new Mock().dashboard);
+axios.interceptors.response.use(() => {}, (err) => err.config.url.includes("dashboard_data") ? new Mock().dashboardData : new Mock().dashboard);
 // END DEBUG
 
 export const DashboardFactoryMixin = {

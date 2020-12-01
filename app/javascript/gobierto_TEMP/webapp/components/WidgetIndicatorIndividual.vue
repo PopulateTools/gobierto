@@ -27,33 +27,47 @@
     <div class="graph-individual__date">
       {{ dateLabel }} {{ year }}
     </div>
-    </meter>
   </div>
 </template>
 
 <script>
+import { date, percent } from "lib/shared"
+
 export default {
   name: "WidgetIndicatorIndividual",
+  props: {
+    title: {
+      type: String,
+      default: null
+    },
+    values: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
-      percentage: 78,
-      title: "Recusandae aperiam obcaecati quam cumque? Voluptatum minima dolorum quidem perspiciatis",
-      year: 2020,
-      metrics: [
-        { metric: "Alcanzado", value: 30 },
-        { metric: "Objetivo", value: 30 },
-        { metric: "Consecución", value: "30%" },
-      ],
-      dateLabel: "Fecha: "
+      percentage: 0,
+      year: null,
+      metrics: [],
+      dateLabel: "Fecha: ",
+      valueLabel: "Alcanzado",
+      objectiveLabel: "Objetivo",
+      percentageLabel: "Consecución",
+    }
+  },
+  created() {
+    const [indicator] = this.values.sort(({ date: a }, { date: b }) => new Date(a) < new Date(b)) // first position will have the most up to date item
+
+    if (indicator) {
+      this.year = date(indicator.date, { year: 'numeric' })
+      this.percentage = indicator.objective ? 100 * (indicator.value / indicator.objective) : 0
+      this.metrics = [
+        { metric: this.valueLabel, value: indicator.value },
+        { metric: this.objectiveLabel, value: indicator.objective },
+        { metric: this.percentageLabel, value: percent(this.percentage) },
+      ]
     }
   }
 }
 </script>
-
-<style>
-progress[value] {
-  /* Reset the default appearance */
-  -webkit-appearance: none;
-   appearance: none;
-}
-</style>

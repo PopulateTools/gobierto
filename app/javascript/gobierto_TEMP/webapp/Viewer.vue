@@ -67,6 +67,12 @@ export default {
     };
   },
   computed: {
+    id() {
+      return this.$root.$data?.id;
+    },
+    pipe() {
+      return this.$root.$data?.pipe;
+    },
     isEditionMode() {
       // if there's config prop, it comes from Maker
       return !!this.config
@@ -83,6 +89,7 @@ export default {
   },
   watch: {
     item(newItem) {
+      // ff user drags a new item inside the grid
       if (newItem) {
         const { i } = newItem
         if (!this.widgets.some(d => d.i === i)) {
@@ -100,19 +107,22 @@ export default {
         data: {
           attributes: { widget_configuration } = {}
         } = {}
-      } = this.config || await this.getDashboard(0); // TODO: el ID se define en la vista?
+      } = this.config || await this.getDashboard(this.id);
 
-      this.widgets = this.parseWidgets(widget_configuration);
-      this.defaultWidgets = [...this.widgets];
+      const { data: widgets_data } = await this.getData({ context: this.id, data_pipe: this.pipe });
+
+      this.widgets = this.parseWidgets(widget_configuration, widgets_data);
     },
-    parseWidgets(conf = []) {
-      return conf.map(({ type, ...options }) => {
-        const defaults = Widgets[type];
+    parseWidgets(conf = [], data = []) {
+      return conf.map(({ type = "", ...options }) => {
+        const defaults = Widgets[type.toUpperCase()];
         if (!defaults) throw new Error("Widget does not exist");
 
         return {
           ...defaults,
           ...options,
+          // if there is a property called indicator, append the data related
+          ...(options.indicator && { data: data.find(({ name }) => name === options.indicator) }),
           edition: false
         };
       });

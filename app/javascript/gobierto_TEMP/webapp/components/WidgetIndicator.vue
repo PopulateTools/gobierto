@@ -3,6 +3,7 @@
     <component
       :is="indicatorTemplate"
       v-if="!isEditing"
+      v-bind="indicatorAttrs"
     />
     <form
       v-else
@@ -34,7 +35,9 @@
         </datalist>
       </div>
       <div>
-        <label class="dashboards-maker--widget__form-title">{{ typeLabel }}</label>
+        <label class="dashboards-maker--widget__form-title">{{
+          typeLabel
+        }}</label>
         <template v-for="({ name }, key) in subtypes">
           <label
             :key="key"
@@ -62,8 +65,8 @@
 </template>
 
 <script>
-import { Widgets } from "../lib/widgets"
-import Button from "./Button"
+import { Widgets } from "../lib/widgets";
+import Button from "./Button";
 
 export default {
   name: "WidgetIndicator",
@@ -86,23 +89,27 @@ export default {
       selectLabel: "Selecciona el indicador",
       typeLabel: "Tipo",
       saveLabel: "Guardar",
-      placeholderLabel: "Escribe el título del indicador o proyecto",
-      // dummy
-      items: Array.from({ length: 10 }, (_, i) => `indicator-${i}`),
-    }
+      placeholderLabel: "Escribe el título del indicador o proyecto"
+    };
   },
   computed: {
     isEditing() {
-      return this.edit || !this.indicatorTemplate
+      return this.edit || !this.indicatorTemplate;
     },
     indicatorTemplate() {
-      return this.subtype ? this.subtypes[this.subtype].template : null
+      return this.subtype ? this.subtypes[this.subtype].template : null;
+    },
+    indicatorAttrs() {
+      return {
+        title: this.$attrs.data?.name,
+        values: this.$attrs.data?.values
+      };
     }
   },
   methods: {
     handleSubmit({ target }) {
-      this.$emit('change', Object.fromEntries(new FormData(target)))
+      this.$emit("change", Object.fromEntries(new FormData(target)));
     }
   }
-}
+};
 </script>

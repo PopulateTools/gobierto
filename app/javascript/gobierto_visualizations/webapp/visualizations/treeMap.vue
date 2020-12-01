@@ -54,8 +54,8 @@ export default {
       dataNewValues: undefined,
       sizeForTreemap: 'value',
       selected_size: 'value',
-      labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
-      labelContractTotal: I18n.t('gobierto_dashboards.dashboards.visualizations.tooltip_treemap')
+      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
+      labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap')
     }
   },
   watch: {
@@ -237,22 +237,22 @@ export default {
                 </span>
                 <div class="beeswarm-tooltip-table-element">
                   <span class="beeswarm-tooltip-table-element-text">
-                    <b>${value}</b> ${I18n.t('gobierto_dashboards.dashboards.contracts.summary.contracts_for')} <b>${money(final_amount_no_taxes)}</b>
+                    <b>${value}</b> ${I18n.t('gobierto_visualizations.visualizations.contracts.summary.contracts_for')} <b>${money(final_amount_no_taxes)}</b>
                   </span>
                   <span class="beeswarm-tooltip-table-element-text">
-                     ${I18n.t('gobierto_dashboards.dashboards.contracts.summary.mean_amount')}: <b>${money(mean)}</b>
+                     ${I18n.t('gobierto_visualizations.visualizations.contracts.summary.mean_amount')}: <b>${money(mean)}</b>
                   </span>
                   <span class="beeswarm-tooltip-table-element-text">
-                     ${I18n.t('gobierto_dashboards.dashboards.contracts.summary.median_amount')}: <b>${money(median)}</b>
+                     ${I18n.t('gobierto_visualizations.visualizations.contracts.summary.median_amount')}: <b>${money(median)}</b>
                   </span>
                 </div>
                 <div class="tooltip-table-treemap">
                   <div class="tooltip-table-treemap-header">
                     <div class="tooltip-table-treemap-header-element">
-                      <b>${I18n.t('gobierto_dashboards.dashboards.contracts.assignee')}</b>
+                      <b>${I18n.t('gobierto_visualizations.visualizations.contracts.assignee')}</b>
                     </div>
                     <div class="tooltip-table-treemap-header-element">
-                      <b>${I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')}</b>
+                      <b>${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}</b>
                     </div>
                   </div>
                   <div class="tooltip-table-treemap-body">
@@ -341,7 +341,7 @@ export default {
           .attr('id', d => `value-${d.id}`)
           .attr("x", d => d.x0 + 6)
           .attr('y', d => d.y0 + 60)
-          .text(d => `${d.data.value} ${I18n.t('gobierto_dashboards.dashboards.contracts.contracts')}`)
+          .text(d => `${d.data.value} ${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}`)
           .attr('class', (d) => {
             let widthRect = d.x1 - d.x0
             let widthText = document.getElementById(`name-${d.id}`).getBoundingClientRect().width

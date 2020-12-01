@@ -84,8 +84,8 @@ export default {
       dataNewValues: undefined,
       sizeForTreemap: 'final_amount_no_taxes',
       selected_size: 'final_amount_no_taxes',
-      labelContractAmount: I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount'),
-      labelContractTotal: I18n.t('gobierto_dashboards.dashboards.visualizations.tooltip_treemap'),
+      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
+      labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
     }
   },
   watch: {
@@ -98,7 +98,7 @@ export default {
     }
   },
   mounted() {
-    this.svgWidth = document.getElementsByClassName("dashboards-home-main")[0].offsetWidth;
+    this.svgWidth = document.getElementsByClassName("visualizations-home-main")[0].offsetWidth;
     this.dataTreeMapWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
     this.dataTreeMapSumFinalAmount = JSON.parse(JSON.stringify(this.data));
 
@@ -305,7 +305,7 @@ export default {
             d.depth = 2 is the second level, beneficiaries by type of contracts
             d.depth = 3 is the last level, contracts of beneficiaries*/
             let title = d.data.name === undefined ? d.data.title : d.data.name;
-            let labelTotalContracts = `${I18n.t('gobierto_dashboards.dashboards.contracts.contracts')}`
+            let labelTotalContracts = `${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}`
             let htmlForRect = ''
             const { depth } = d
             if (depth === 1) {
@@ -323,7 +323,7 @@ export default {
               let totalContracts = d.children === undefined ? '' : d.children
               if (totalContracts) {
                 totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_dashboards.dashboards.contracts.contract')}`
+                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
               }
               htmlForRect = `<p class="title">${title}</p>
                 <p class="text">${money(valueTotalAmount)}</p>
@@ -345,7 +345,7 @@ export default {
               let totalContracts = d.children === undefined ? '' : d.children
               if (totalContracts) {
                 totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_dashboards.dashboards.contracts.contract')}`
+                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
               }
               htmlForRect = `<p class="title">${title}</p>
                 <p class="text">${money(valueTotalAmount)}</p>
@@ -395,11 +395,11 @@ export default {
           const positionRight = `${x - tooltipWidth - 10}px`
 
           if (depth === 2) {
-            let labelTotalContracts = `${I18n.t('gobierto_dashboards.dashboards.contracts.contracts')}`
+            let labelTotalContracts = `${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}`
             let totalContracts = d.children === undefined ? '' : d.children
             if (totalContracts) {
               totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-              labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_dashboards.dashboards.contracts.contract')}`
+              labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
             }
 
             tooltipAssignee
@@ -434,9 +434,9 @@ export default {
                   <span class="beeswarm-tooltip-header-title">
                     ${title}
                   </span>
-                  <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.contract_amount')}: <b>${money(valueTotalAmount)}</b></p>
-                  <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
-                  <p class="text-depth-third">${I18n.t('gobierto_dashboards.dashboards.contracts.status')}: <b>${status}</b></p>
+                  <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(valueTotalAmount)}</b></p>
+                  <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
+                  <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.status')}: <b>${status}</b></p>
                 `
               })
               .style('top', positionTop)

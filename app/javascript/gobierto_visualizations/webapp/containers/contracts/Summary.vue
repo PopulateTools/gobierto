@@ -1,7 +1,7 @@
 <template>
   <div>
     <TreeMapNested
-      :data="dashboardsData"
+      :data="visualizationsData"
       :label-root-key="labelRootKey"
     />
     <h3 class="mt4 graph-title">
@@ -230,7 +230,7 @@ export default {
     }
   },
   watch: {
-    dashboardsData(newValue, oldValue) {
+    visualizationsData(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.updateDataBeesWarm(newValue)
       }
@@ -238,7 +238,7 @@ export default {
   },
   async created() {
     this.columns = assigneesColumns;
-    this.dataBeesWarmFilter = JSON.parse(JSON.stringify(this.dashboardsData));
+    this.dataBeesWarmFilter = JSON.parse(JSON.stringify(this.visualizationsData));
 
     const { data: { data: dataLineChart } } = await getQueryData(this.queryLineChart)
     this.transformDataContractsLine(dataLineChart)
@@ -309,15 +309,15 @@ export default {
       this.valuesLegendObject = [
       {
         key: 'total_contracts',
-        legend:'<span class="title">${I18n.t("gobierto_dashboards.dashboards.visualizations.title_legend")}</span><span class="first-row">${d[value]} ${I18n.t("gobierto_dashboards.dashboards.contracts.summary.tenders")}</span><span class="second-row">${I18n.t("gobierto_dashboards.dashboards.visualizations.by_amount")} ${localeFormat((d["initial_amount_no_taxes"] / 1000000))}M</span>'
+        legend:'<span class="title">${I18n.t("gobierto_visualizations.visualizations.visualizations.title_legend")}</span><span class="first-row">${d[value]} ${I18n.t("gobierto_visualizations.visualizations.contracts.summary.tenders")}</span><span class="second-row">${I18n.t("gobierto_visualizations.visualizations.visualizations.by_amount")} ${localeFormat((d["initial_amount_no_taxes"] / 1000000))}M</span>'
       },
       {
         key: 'formalized',
-        legend:'<span class="first-row">${d[value]} ${I18n.t("gobierto_dashboards.dashboards.visualizations.contracts")}</span><span class="second-row">${I18n.t("gobierto_dashboards.dashboards.visualizations.by_amount")} ${localeFormat((d["final_amount_no_taxes"] / 1000000))}M</span>'
+        legend:'<span class="first-row">${d[value]} ${I18n.t("gobierto_visualizations.visualizations.visualizations.contracts")}</span><span class="second-row">${I18n.t("gobierto_visualizations.visualizations.visualizations.by_amount")} ${localeFormat((d["final_amount_no_taxes"] / 1000000))}M</span>'
       },
       {
         key: 'percentage_year',
-        legend:'<span class="first-row">% ${I18n.t("gobierto_dashboards.dashboards.visualizations.difference_import")} </span><span class="first-row">${I18n.t("gobierto_dashboards.dashboards.contracts.summary.tenders")}/${I18n.t("gobierto_dashboards.dashboards.visualizations.contracts")}</span><span class="second-row">${d["percentage_year"].toFixed(0)}%</span>'
+        legend:'<span class="first-row">% ${I18n.t("gobierto_visualizations.visualizations.visualizations.difference_import")} </span><span class="first-row">${I18n.t("gobierto_visualizations.visualizations.contracts.summary.tenders")}/${I18n.t("gobierto_visualizations.visualizations.visualizations.contracts")}</span><span class="second-row">${d["percentage_year"].toFixed(0)}%</span>'
       }
       ]
       //Values for build circles in the chart

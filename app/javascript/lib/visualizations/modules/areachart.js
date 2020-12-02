@@ -1,12 +1,24 @@
-import { select, selectAll } from "d3-selection";
-import { scaleTime, scaleLinear } from "d3-scale";
 import { extent, max } from "d3-array";
-import { area, line } from "d3-shape";
 import { axisBottom } from "d3-axis";
+import { scaleLinear, scaleTime } from "d3-scale";
+import { select, selectAll } from "d3-selection";
+import { area, line } from "d3-shape";
 import { timeMonth } from "d3-time";
 import { timeFormat } from "d3-time-format";
 
-const d3 = { select, selectAll, scaleTime, scaleLinear, extent, max, area, line, axisBottom, timeMonth, timeFormat };
+const d3 = {
+  select,
+  selectAll,
+  scaleTime,
+  scaleLinear,
+  extent,
+  max,
+  area,
+  line,
+  axisBottom,
+  timeMonth,
+  timeFormat
+};
 
 export class Areachart {
   constructor(props) {
@@ -54,8 +66,16 @@ export class Areachart {
 
   setElements() {
     // Dimensions
-    this.width = Math.min(this.maxWidth, +this.container.node().getBoundingClientRect().width - this.margin.left - this.margin.right);
-    this.height = Math.max(this.minHeight, this.width / this.aspectRatio - this.margin.top - this.margin.bottom);
+    this.width = Math.min(
+      this.maxWidth,
+      +this.container.node().getBoundingClientRect().width -
+        this.margin.left -
+        this.margin.right
+    );
+    this.height = Math.max(
+      this.minHeight,
+      this.width / this.aspectRatio - this.margin.top - this.margin.bottom
+    );
 
     // Scales & Ranges
     this.x = d3
@@ -72,7 +92,10 @@ export class Areachart {
     this.svg
       .attr("width", this.width + this.margin.left + this.margin.right)
       .attr("height", this.height + this.margin.top + this.margin.bottom);
-    this.g.attr("transform", `translate(${this.margin.left},${this.margin.top})`);
+    this.g.attr(
+      "transform",
+      `translate(${this.margin.left},${this.margin.top})`
+    );
 
     // Axes
     this.g
@@ -145,7 +168,9 @@ export class Areachart {
       .attr("r", this.circleSize);
 
     if (this.circleSize < 5) {
-      const hoverCircles = this.g.selectAll(`circle.hover-circle`).data(this.data);
+      const hoverCircles = this.g
+        .selectAll(`circle.hover-circle`)
+        .data(this.data);
 
       hoverCircles.exit().remove();
 
@@ -175,7 +200,10 @@ export class Areachart {
       .style("transform", "translate(-50%, -100%)")
       .style("transition", "opacity 250ms")
       .style("left", `${this.x(d.key) + this.margin.left}px`)
-      .style("top", `${this.y(d.value) + this.margin.top - this.circleSize * 3}px`);
+      .style(
+        "top",
+        `${this.y(d.value) + this.margin.top - this.circleSize * 3}px`
+      );
   }
 
   onCircleMouseout() {
@@ -196,10 +224,15 @@ export class Areachart {
     // remove default formats
     g.attr("font-family", null);
     // align last item
-    g.select(".x.axis .tick:last-of-type:not(:only-child) text").attr("text-anchor", "end");
+    g.select(".x.axis .tick:last-of-type:not(:only-child) text").attr(
+      "text-anchor",
+      "end"
+    );
   }
 
   defaultTooltip(d) {
-    return `<span>${d.key.toLocaleDateString()}</span>: <span>${d.value}</span>`;
+    return `<span>${d.key.toLocaleDateString()}</span>: <span>${
+      d.value
+    }</span>`;
   }
 }

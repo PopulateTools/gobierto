@@ -1,13 +1,25 @@
-import { select, selectAll } from "d3-selection";
 import { extent, max, min } from "d3-array";
-import { scaleTime, scaleBand, scaleSqrt } from "d3-scale";
-import { axisTop, axisLeft } from "d3-axis";
+import { axisLeft, axisTop } from "d3-axis";
+import { scaleBand, scaleSqrt, scaleTime } from "d3-scale";
+import { select, selectAll } from "d3-selection";
 import { timeMonth } from "d3-time";
 import { transition } from "d3-transition";
-
-const d3 = { select, selectAll, scaleTime, scaleBand, scaleSqrt, extent, max, min, axisTop, axisLeft, timeMonth, transition };
-
 import moment from "moment";
+
+const d3 = {
+  select,
+  selectAll,
+  scaleTime,
+  scaleBand,
+  scaleSqrt,
+  extent,
+  max,
+  min,
+  axisTop,
+  axisLeft,
+  timeMonth,
+  transition
+};
 
 export class Punchcard {
   constructor(context, data, options = {}) {
@@ -55,8 +67,11 @@ export class Punchcard {
     // dimensions
     let container = d3.select(context);
     let containerNode = container.node() || document.createElement("div");
-    let width = fixedWidth || +containerNode.getBoundingClientRect().width - margin.left - margin.right;
-    let height = fixedHeight || data.length * itemHeight + margin.top + margin.bottom;
+    let width =
+      fixedWidth ||
+      +containerNode.getBoundingClientRect().width - margin.left - margin.right;
+    let height =
+      fixedHeight || data.length * itemHeight + margin.top + margin.bottom;
     let svg = container
       .append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -68,11 +83,19 @@ export class Punchcard {
     let r = d3.scaleSqrt().range([3, 15]); // tamaño de las bolas
 
     // domains
-    x.domain([d3.min(data.map(d => d3.min(d.value.map(v => v.key)))), d3.max(data.map(d => d3.max(d.value.map(v => v.key))))]);
+    x.domain([
+      d3.min(data.map(d => d3.min(d.value.map(v => v.key)))),
+      d3.max(data.map(d => d3.max(d.value.map(v => v.key))))
+    ]);
     y.domain(data.map(d => d.key)).padding(0);
-    r.domain([d3.min(data.map(d => d3.min(d.value.map(v => v.value)))), d3.max(data.map(d => d3.max(d.value.map(v => v.value))))]);
+    r.domain([
+      d3.min(data.map(d => d3.min(d.value.map(v => v.value)))),
+      d3.max(data.map(d => d3.max(d.value.map(v => v.value))))
+    ]);
 
-    let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    let g = svg
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // circles
     let _g = g
@@ -124,7 +147,12 @@ export class Punchcard {
         tooltip
           .style("opacity", "1")
           .style("left", `${coords.x + margin.left + x(d.key)}px`)
-          .style("top", `${coords.y + margin.top + y(d3.select(this.parentNode.parentNode).data()[0].key)}px`)
+          .style(
+            "top",
+            `${coords.y +
+              margin.top +
+              y(d3.select(this.parentNode.parentNode).data()[0].key)}px`
+          )
           .html(content);
       })
       .on("mouseout", () => tooltip.style("opacity", "0"))

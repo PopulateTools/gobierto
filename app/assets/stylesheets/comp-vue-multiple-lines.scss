@@ -1,0 +1,165 @@
+:root {
+  --treemap-text-green: #d89b05;
+  --black: #111;
+  --grey-axis-text: #a3a3a3;
+  --grey-axis-line: #f0f0f0;
+  --grey-color-tooltip-text: #767168;
+  --grey-color-title: #828282;
+  --gobierto-turquoise: #008e9c;
+  --blue-text-legend: #0072bc;
+  --blue-text-legend-str: 0, 114, 188;
+  --blue-line-str: 31, 120, 180;
+  --blue-bars: #12365b;
+}
+
+.multiple-line-chart-container {
+  position: relative;
+
+  .tooltip-formalized {
+    line-height: 1.1;
+    margin-top: $f6;
+
+    .first-row {
+      text-transform: uppercase;
+      font-size: $f4;
+      font-weight: bold;
+      color: var(--treemap-text-green);
+      display: block;
+    }
+
+    .second-row {
+      font-size: $f6;
+      color: var(--treemap-text-green);
+      display: block;
+    }
+  }
+
+  .tooltip-total_contracts {
+    margin-top: -2rem;
+
+    .title {
+      font-size: $f4;
+      text-transform: uppercase;
+      color: var(--grey-color-title);
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+      margin-bottom: .5rem;
+      padding-bottom: .25rem;
+      display: inline-block;
+    }
+
+    .first-row {
+      font-size: $f4;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: var(--gobierto-turquoise);
+      display: block;
+    }
+
+    .second-row {
+      font-size: $f6;
+      color: var(--gobierto-turquoise);
+      display: block;
+    }
+  }
+
+  .tooltip-percentage_year {
+    line-height: 1.1;
+
+    .first-row {
+      font-size: $f7;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: var(--blue-text-legend);
+      display: block;
+    }
+
+    .second-row {
+      font-size: $f3;
+      color: rgba(var(--blue-text-legend-str), .5);
+      display: block;
+    }
+  }
+
+  .tooltip-multiple-line {
+    display: block;
+    position: absolute;
+    padding: .25rem;
+    width: max-content;
+    height: auto;
+    z-index: 2;
+    color: var(--black);
+  }
+
+  .line-formalized,
+  .line-total_contracts {
+    stroke-width: 4px;
+  }
+
+  .line-formalized {
+    stroke: var(--gobierto-gold);
+  }
+
+  .circle-formalized {
+    fill: var(--gobierto-gold);
+  }
+
+  .line-total_contracts {
+    stroke: var(--gobierto-turquoise);
+  }
+
+  .circle-total_contracts {
+    fill: var(--gobierto-turquoise);
+  }
+
+  .line-percentage_year {
+    stroke-width: 2px;
+    stroke: rgba(var(--blue-line-str), .3);
+  }
+
+  .domain {
+    stroke: var(--grey-axis-line);
+  }
+
+  .axis-x {
+    .tick {
+      line {
+        stroke: none;
+      }
+
+      text {
+        font-size: 12px;
+        color: var(--grey-axis-text);
+      }
+    }
+  }
+
+  .axis-y {
+    .tick {
+
+      line {
+        stroke: var(--grey-axis-line);
+      }
+
+      text {
+        font-size: 12px;
+        color: var(--grey-axis-text);
+      }
+    }
+  }
+
+  .multiple-line-chart-bars {
+    fill: var(--blue-bars);
+  }
+
+}
+
+.lines-multiple-lines {
+  fill: none;
+  stroke: var(--black);
+}
+
+.multiple-line-tooltip-bars-text {
+  font-size: $f7;
+  color: var(--grey-color-tooltip-text);
+  display: block;
+}

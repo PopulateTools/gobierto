@@ -19,8 +19,9 @@
 }
 
 .gobierto-block-header--icon {
-  cursor: pointer;
   transition: transform ease-in .1s;
+  pointer-events: none;
+  color: var(--color-base);
 }
 
 .gobierto-rotate-icon {

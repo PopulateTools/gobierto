@@ -1,0 +1,18 @@
+<% title t('gobierto_visualizations.layouts.application.gobierto_visualizations.costs') %>
+
+<div class="column">
+
+  <div class="js-loading">
+    <i class="fas fa-spinner fa-spin"></i> <%= t("gobierto_visualizations.shared.loading") %>
+  </div>
+
+  <div id="gobierto-visualizations-costs-app"
+       data-site-name="<%= @site.name %>"
+       data-year="2018"
+       data-logo-url="<%= @site.configuration.logo_with_fallback %>"
+       data-home-url="<%= gobierto_visualizations_costs_summary_url %>"
+       data-costs-endpoint="<%= @visualizations_config.dig('data_urls', 'costs') %>"
+  >
+  </div>
+
+</div>

@@ -160,9 +160,9 @@ class Site < ApplicationRecord
                                 end
   end
 
-  def gobierto_dashboards_settings
-    @gobierto_dashboard_settings ||= if configuration.available_module?("GobiertoDashboards") && configuration.gobierto_dashboards_enabled?
-                                       module_settings.find_by(module_name: "GobiertoDashboards")
+  def gobierto_visualizations_settings
+    @gobierto_visualizations_settings ||= if configuration.available_module?("GobiertoVisualizations") && configuration.gobierto_visualizations_enabled?
+                                       module_settings.find_by(module_name: "GobiertoVisualizations")
                                      end
   end
 

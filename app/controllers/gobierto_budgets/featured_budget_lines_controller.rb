@@ -11,7 +11,7 @@ module GobiertoBudgets
           level: { ge: 3 },
           amount: { gt: 0 }
         },
-        updated_forecast: true
+        updated_forecast: false
       )['hits']
 
       if results.any?

@@ -1,0 +1,13 @@
+---
+en:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_visualizations/settings_form:
+        visualizations_config: Visualizations configuration
+    errors:
+      models:
+        gobierto_admin/gobierto_visualizations/settings_form:
+          attributes:
+            visualizations_config:
+              invalid_format: The configuration does not have a valid JSON format
+              invalid_values: The configuration does not have valid values

@@ -47,7 +47,7 @@ export class VisBubble {
     //Get container from Vue Template
     this.containerWidth = document.querySelector(".vis-costs");
     const containerNode = document.getElementById(
-      "gobierto-dashboards-bubble-container"
+      "gobierto-visualizations-bubble-container"
     );
     this.width =
       this.containerWidth.offsetWidth - this.margin.left - this.margin.right;
@@ -251,7 +251,7 @@ export class VisBubble {
       .attr(
         "xlink:href",
         function(d) {
-          return `/dashboards/costes/${d.year}/${d.ordreagrup}`;
+          return `/visualizations/costes/${d.year}/${d.ordreagrup}`;
         }.bind(this)
       )
       .attr("target", "_top")
@@ -312,7 +312,7 @@ export class VisBubble {
 
     this.tooltip.html(`<div class="line-name"><strong>${d.id}</strong></div>
                       <div>${I18n.t(
-                        "gobierto_dashboards.dashboards.costs.total_cost"
+                        "gobierto_visualizations.visualizations.costs.total_cost"
                       )}: ${accounting.formatMoney(
       d.costtotal,
       "€",
@@ -321,7 +321,7 @@ export class VisBubble {
       I18n.t("number.currency.format.separator")
     )}</div>
                         ${d.costperhabit}€ ${I18n.t(
-      "gobierto_dashboards.dashboards.costs.per_inhabitant"
+      "gobierto_visualizations.visualizations.costs.per_inhabitant"
     )}`);
   }
 
@@ -333,3 +333,4 @@ export class VisBubble {
     return -Math.pow(d.radius, 2) * 0.06;
   }
 }
+

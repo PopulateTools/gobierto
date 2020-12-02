@@ -14,7 +14,7 @@ import { timeParse, timeFormat, timeFormatLocale } from 'd3-time-format';
 import { min, max } from 'd3-array';
 import { d3locale } from 'lib/shared';
 import { easeLinear } from 'd3-ease';
-import { normalizeString } from "../../../gobierto_dashboards/webapp/lib/utils";
+import { normalizeString } from "../../../gobierto_visualizations/webapp/lib/utils";
 
 const d3 = {
   select,

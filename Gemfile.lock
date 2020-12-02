@@ -338,7 +338,7 @@ GEM
       activerecord (>= 5.2)
       activesupport (>= 5.2)
     public_suffix (4.0.6)
-    puma (5.0.4)
+    puma (5.1.0)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-cors (1.1.1)
@@ -347,6 +347,7 @@ GEM
       rack
     rack-proxy (0.6.5)
       rack
+    rack-rewrite (1.5.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.3.4)
@@ -582,6 +583,7 @@ DEPENDENCIES
   pg_search (= 2.3.5)
   puma
   rack-cors
+  rack-rewrite
   rails (~> 6.0)
   rails-html-sanitizer
   rake (~> 13.0)

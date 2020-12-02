@@ -261,7 +261,7 @@ Rails.application.routes.draw do
         end
       end
 
-      namespace :gobierto_dashboards, as: :dashboards do
+      namespace :gobierto_visualizations, as: :visualizations do
         namespace :configuration do
           resource :settings, only: [:edit, :update], path: :settings
         end
@@ -629,7 +629,7 @@ Rails.application.routes.draw do
         namespace :api, path: "/" do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1/data" do
             get "data" => "query#index", as: :root, defaults: { format: "json" }
-            resources :datasets, param: :slug, defaults: { format: "json" } do
+            resources :datasets, except: [:show], param: :slug, defaults: { format: "json" } do
               resource :favorite, only: [:create, :destroy]
               resources :favorites, only: [:index]
               collection do
@@ -638,6 +638,10 @@ Rails.application.routes.draw do
               member do
                 get "meta" => "datasets#dataset_meta"
                 get "stats" => "datasets#stats"
+              end
+            end
+            resources :datasets, only: [:show], param: :slug, defaults: { format: "csv" } do
+              member do
                 get :download, format: true
               end
             end
@@ -658,22 +662,22 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :gobierto_dashboards, path: 'dashboards' do
+    namespace :gobierto_visualizations, path: 'visualizaciones' do
       constraints GobiertoSiteConstraint.new do
         # Front
-        get "contratos" => "dashboards#contracts", as: :contracts_summary
-        get "contratos/adjudicaciones" => "dashboards#contracts", as: :contracts
-        get "contratos/adjudicaciones/:id" => "dashboards#contracts"
-        get "contratos/adjudicatario/:id" => "dashboards#contracts"
+        get "contratos" => "visualizations#contracts", as: :contracts_summary
+        get "contratos/adjudicaciones" => "visualizations#contracts", as: :contracts
+        get "contratos/adjudicaciones/:id" => "visualizations#contracts"
+        get "contratos/adjudicatario/:id" => "visualizations#contracts"
 
-        get "subvenciones" => "dashboards#subsidies", as: :subsidies_summary
-        get "subvenciones/subvenciones" => "dashboards#subsidies", as: :subsidies
-        get "subvenciones/subvenciones/:id" => "dashboards#subsidies"
+        get "subvenciones" => "visualizations#subsidies", as: :subsidies_summary
+        get "subvenciones/subvenciones" => "visualizations#subsidies", as: :subsidies
+        get "subvenciones/subvenciones/:id" => "visualizations#subsidies"
 
-        get "costes/" => "dashboards#costs", as: :costs_summary
-        get "costes/:year" => "dashboards#costs", as: :costs
-        get "costes/:year/:id/" => "dashboards#costs"
-        get "costes/:year/:id/:item" => "dashboards#costs"
+        get "costes/" => "visualizations#costs", as: :costs_summary
+        get "costes/:year" => "visualizations#costs", as: :costs
+        get "costes/:year/:id/" => "visualizations#costs"
+        get "costes/:year/:id/:item" => "visualizations#costs"
       end
     end
 

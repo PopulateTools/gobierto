@@ -95,7 +95,7 @@ module GobiertoAdmin
                                                                       gobierto_plans: [:manage],
                                                                       gobierto_investments: [:manage],
                                                                       gobierto_data: [:manage],
-                                                                      gobierto_dashboards: [:manage] }))
+                                                                      gobierto_visualizations: [:manage] }))
 
       assert_equal 6, tony.modules_permissions.size
 

@@ -116,7 +116,7 @@ module GobiertoData
         # GET /api/v1/data/datasets/dataset-slug.json
         def test_draft_dataset_data_without_preview_token
           with(site: site) do
-            get gobierto_data_api_v1_dataset_path(draft_dataset.slug), as: :json
+            get gobierto_data_api_v1_dataset_path(draft_dataset.slug), as: :csv
 
             assert_response :not_found
           end
@@ -125,7 +125,7 @@ module GobiertoData
         # GET /api/v1/data/datasets/dataset-slug.json
         def test_draft_dataset_data_with_valid_preview_token
           with(site: site) do
-            get gobierto_data_api_v1_dataset_path(draft_dataset.slug, preview_token: admin.preview_token), as: :json
+            get gobierto_data_api_v1_dataset_path(draft_dataset.slug, preview_token: admin.preview_token), as: :csv
 
             assert_response :success
           end

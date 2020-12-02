@@ -159,15 +159,21 @@
       overflow: hidden;
       width: 33%;
       max-width: 100px;
-      height: 120px;
       transform: rotateX(180deg);
-      margin: 0 0 var(--space);
 
       @include border-radius(2px);
 
       &--wrapper {
-        @include flex-align($vertical: flex-end);
-        @include flexbox(var(--space), column);
+        @include flex-align(flex-end, flex-end);
+        @include flexbox(var(--space), $dir: column);
+      }
+
+      &--wrapper-relative {
+        @include flex-align(flex-end, flex-end);
+        @include flexbox($dir: column);
+
+        height: 120px;
+        width: 100%;
       }
 
       &--active {
@@ -175,7 +181,6 @@
 
         background-color: var(--color-base);
         width: 100%;
-
         animation: progress-y 500ms ease-in-out;
         transform: translateY(0);
 

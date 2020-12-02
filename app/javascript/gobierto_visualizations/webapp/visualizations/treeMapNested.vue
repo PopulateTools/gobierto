@@ -82,6 +82,7 @@ export default {
       updateData: false,
       dataForTableTooltip: undefined,
       dataNewValues: undefined,
+      arrayValuesContractTypes: undefined,
       sizeForTreemap: 'final_amount_no_taxes',
       selected_size: 'final_amount_no_taxes',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
@@ -102,6 +103,10 @@ export default {
     this.dataTreeMapWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
     this.dataTreeMapSizeContracts = JSON.parse(JSON.stringify(this.data));
     this.dataTreeMapSumFinalAmount = JSON.parse(JSON.stringify(this.data));
+    /*To avoid add/remove colors in every update use Object.freeze(this.data)
+    to create a scale/domain color persistent with the original keys*/
+    const freezeObjectColors = Object.freeze(this.data);
+    this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => d.contract_type)))
 
     this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
     this.resizeListener()
@@ -168,6 +173,15 @@ export default {
       const dataTreeMap = JSON.parse(JSON.stringify(data));
       this.transformDataTreemap(dataTreeMap)
     },
+    createScaleColors(values) {
+      let colorsGobiertoExtend = ["#12365b", "#118e9c", "#ff766c", "#f7b200", "#158a2c", "#94d2cf", "#3a78c3", "#15dec5", "#6a7f2f", "#55f17b"]
+      colorsGobiertoExtend = colorsGobiertoExtend.slice(0, values)
+
+      const colors = d3.scaleOrdinal()
+        .domain(this.arrayValuesContractTypes)
+        .range(colorsGobiertoExtend);
+      return colors;
+    },
     buildTreeMap(rootData) {
       d3.select('.treemap-container')
         .remove()
@@ -176,14 +190,12 @@ export default {
         .remove()
         .exit();
 
+      const colors = this.createScaleColors(this.arrayValuesContractTypes.length);
       let transitioning;
       let dataTreeMapSumFinalAmount = this.dataTreeMapSumFinalAmount
       const selected_size = this.selected_size;
       const tooltip = d3.select('.tree-map-nested-tooltip-contracts')
       const tooltipAssignee = d3.select('.tree-map-nested-tooltip-assignee')
-
-      const arrayGobiertoColors = ['#12365B', '#008E9C', '#FF776D', '#F8B205']
-      const colors = d3.scaleOrdinal(arrayGobiertoColors);
 
       const x = d3.scaleLinear()
         .domain([0, this.svgWidth])

@@ -91,6 +91,7 @@ export default {
       updateData: false,
       dataWithoutCoordinates: undefined,
       dataNewValues: undefined,
+      arrayValuesContractTypes: undefined,
     };
   },
   watch: {
@@ -107,6 +108,11 @@ export default {
     const containerChart = document.querySelector('.beeswarm-container');
     this.svgWidth = containerChart.offsetWidth;
     this.svgHeight = this.height;
+
+    /*To avoid add/remove colors in every update use Object.freeze(this.data)
+    to create a scale/domain color persistent with the original keys*/
+    const freezeObjectColors = Object.freeze(this.data);
+    this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => d.contract_type)))
     this.setupElements();
     this.buildBeesWarm(this.data);
     this.resizeListener();
@@ -125,8 +131,18 @@ export default {
 
       g.append('g').attr('class', 'axis axis-y');
     },
+    createScaleColors(values) {
+      let colorsGobiertoExtend = ["#12365b", "#118e9c", "#ff766c", "#f7b200", "#158a2c", "#94d2cf", "#3a78c3", "#15dec5", "#6a7f2f", "#55f17b"]
+      colorsGobiertoExtend = colorsGobiertoExtend.slice(0, values)
+
+      const colors = d3.scaleOrdinal()
+        .domain(this.arrayValuesContractTypes)
+        .range(colorsGobiertoExtend);
+      return colors;
+    },
     buildBeesWarm(data) {
       let filterData = this.transformData(data);
+      const colors = this.createScaleColors(this.arrayValuesContractTypes.length);
 
       const svg = d3.select('.beeswarm-plot');
 

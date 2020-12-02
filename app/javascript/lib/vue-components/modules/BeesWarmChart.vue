@@ -113,7 +113,7 @@ export default {
     /*To avoid add/remove colors in every update use Object.freeze(this.data)
     to create a scale/domain color persistent with the original keys*/
     const freezeObjectColors = Object.freeze(this.data);
-    this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => d.contract_type)))
+    this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => normalizeString(d.contract_type))))
     this.setupElements();
     this.buildBeesWarm(this.data);
     this.resizeListener();
@@ -198,7 +198,7 @@ export default {
         .tickFormat(d => {
           let _mf =
             Array.from(new Set(filterData.map(d => d.start_date_year)))
-              .length === 1
+              .length <= 2
               ? d3.timeFormatLocale(d3locale[I18n.locale]).format('%b-%Y')
               : d3.timeFormatLocale(d3locale[I18n.locale]).format('%Y');
           return _mf(d);
@@ -245,6 +245,7 @@ export default {
         .ease(d3.easeLinear)
         .attr('cx', this.svgWidth / 2)
         .attr('cy', this.svgHeight / 2)
+        .attr('fill', d => colors(d.slug_contract_type))
         .remove();
 
       circlesBees
@@ -254,6 +255,7 @@ export default {
         .attr('r', d => d.radius)
         .attr('cx', this.svgWidth / 2)
         .attr('cy', this.svgHeight / 2)
+        .attr('fill', d => colors(d.slug_contract_type))
         .merge(circlesBees)
         .on('mouseover', (event, d) => {
           this.$emit('showTooltip', event, d);
@@ -293,6 +295,7 @@ export default {
         .attr('cx', d => d.x - 5)
         .attr('cy', d => d.y)
         .attr('r', d => d.radius)
+        .attr('fill', d => colors(d.slug_contract_type))
     },
     transformData(data) {
       const maxFinalAmount = d3.max(data, d => d.final_amount_no_taxes)

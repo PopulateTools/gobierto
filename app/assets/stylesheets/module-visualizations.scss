@@ -15,10 +15,6 @@
   --border-grey: rgba(102, 102, 102, .5);
   --table-item-cost: rgba(1, 120, 168, .2);
   --border-separator: rgba(151, 151, 151, .5);
-  --gobierto-gold: #f8b205;
-  --gobierto-red: #ff776d;
-  --gobierto-blue: #12365b;
-  --gobierto-turquoise: #008e9c;
   --button-grey-active: #f4f4f4;
   --white: #fff;
   --black: #111;
@@ -330,26 +326,6 @@
 
   .tree-map-container {
     position: relative;
-  }
-
-  .treemap-servicios,
-  .beeswarm-circle-servicios {
-    fill: var(--gobierto-blue);
-  }
-
-  .treemap-suministros,
-  .beeswarm-circle-suministros {
-    fill: var(--gobierto-turquoise);
-  }
-
-  .treemap-obras,
-  .beeswarm-circle-obras {
-    fill: var(--gobierto-red);
-  }
-
-  .treemap-gestion-de-servicios-publicos,
-  .beeswarm-circle-gestion-de-servicios-publicos {
-    fill: var(--gobierto-gold);
   }
 
   .treemap-tooltip,

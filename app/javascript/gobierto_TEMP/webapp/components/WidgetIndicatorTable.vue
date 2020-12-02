@@ -26,17 +26,6 @@
               <span>{{ year }}</span>
             </div>
           </template>
-          <!-- <template v-if="ix !== 0">
-            <div class="graph-table__barchart--wrapper">
-              <div class="graph-table__barchart">
-                <div
-                  class="graph-table__barchart--active"
-                  :style="{ height: `${percentage}%` }"
-                />
-              </div>
-              <span>{{ year }}</span>
-            </div>
-          </template> -->
         </th>
       </thead>
       <tbody>

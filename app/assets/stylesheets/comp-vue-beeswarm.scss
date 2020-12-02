@@ -1,9 +1,8 @@
 :root {
   --grey-line: #c4c4c4;
-  --blue-text: #0072bc;
   --white: #fff;
   --black: #000;
-  --grey: #ccc;
+  --grey-border: #ccc;
   --shadow: 0 0 3px rgba(0, 0, 0, .2);
 }
 
@@ -53,7 +52,7 @@
   .label-y {
     font-size: $f7;
     text-transform: uppercase;
-    fill: var(--blue-text);
+    fill: var(--color-base);
   }
 
 }
@@ -70,7 +69,7 @@
   color: var(--black);
   background-color: var(--white);
   border-radius: 4px;
-  border: 1px solid var(--grey);
+  border: 1px solid var(--grey-border);
   box-shadow: var(--shadow);
 }
 

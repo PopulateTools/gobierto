@@ -357,9 +357,10 @@ export default {
                   <b>${totalContracts}</b> ${labelTotalContracts}</b>
                 </span>
                 `
-            } else if (depth === 3) {
+            } else if (depth === 3 && typeof d.data !== "function") {
               htmlForRect = `
-                <p class="title">${title}</p>
+                <p class="title">${d.parent.data.name}</p>
+                <p class="text">${title}</p>
                 `
             }
             return htmlForRect
@@ -391,9 +392,11 @@ export default {
           const container = document.getElementsByClassName('container-tree-map-nested')[0];
           const containerWidth = container.offsetWidth
           const tooltipWidth = depth === 2 ? tooltipAssignee.node().offsetWidth : tooltip.node().offsetWidth
+          const tooltipHeight = depth === 2 ? tooltipAssignee.node().offsetHeight : tooltip.node().offsetHeight
           const positionWidthTooltip = x + tooltipWidth
           const positionRight = `${x - tooltipWidth - 20}px`
-          const positionTop = `${y - 20}px`
+          const windowHeight = window.innerHeight
+          const positionTop = tooltipHeight + y > windowHeight ? `${y - (tooltipHeight / 2)}px` : `${y}px`
           const positionLeft = `${x + 20}px`
 
           if (depth === 2) {
@@ -414,9 +417,6 @@ export default {
                 i++
               }
             }
-            tooltip
-              .style("opacity", 0)
-              .style("display", "none")
 
             tooltipAssignee
               .style("display", "block")
@@ -448,22 +448,18 @@ export default {
 
             valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
 
-            tooltipAssignee
-              .style("opacity", 0)
-              .style("display", "none")
-
             tooltip
               .style('display', 'block')
               .transition()
               .duration(200)
               .style("opacity", 1)
+                  /*<span class="treemap-nested-tooltip-header-title">
+                    ${title}
+                  </span>*/
 
             tooltip
               .html(() => {
                 return `
-                  <span class="treemap-nested-tooltip-header-title">
-                    ${title}
-                  </span>
                   <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(valueTotalAmount)}</b></p>
                   <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
                   <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.status')}: <b>${status}</b></p>
@@ -479,12 +475,14 @@ export default {
             .transition()
             .duration(200)
             .style("opacity", 0)
+            .style("display", "none")
 
           tooltipAssignee
             .style("opacity", 1)
             .transition()
             .duration(200)
             .style("opacity", 0)
+            .style("display", "none")
         })
 
         function transition(d) {

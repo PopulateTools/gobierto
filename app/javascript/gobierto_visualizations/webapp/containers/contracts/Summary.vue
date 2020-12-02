@@ -339,7 +339,12 @@ export default {
       const positionRight = `${x - tooltipWidth - 30}px`
 
       tooltip
-        .style("display", "block")
+        .style("opacity", 0)
+        .transition()
+        .duration(400)
+        .style("opacity", 1)
+
+      tooltip
         .style('top', positionTop)
         .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
         .html(`
@@ -353,20 +358,26 @@ export default {
 
     },
     showTooltipBeesWarm(event) {
-      const { assignee, final_amount_no_taxes } = event
+      const { assignee, final_amount_no_taxes, x, y } = event
       const tooltip = d3.select('.beeswarm-tooltip')
 
-      const positionTop = '-10'
-      const positionLeft = '110'
+      const container = document.getElementsByClassName('multiple-line-chart-container')[0];
+      const containerWidth = container.offsetWidth
+      const tooltipWidth = 300
+      const positionTop = `${y}px`
+      const positionWidthTooltip = x + tooltipWidth
+      const positionRight = `${x - tooltipWidth - 30}px`
+
 
       tooltip
+        .style("opacity", 0)
         .transition()
         .duration(400)
         .style("opacity", 1)
 
       tooltip
-        .style('top', `${positionTop}px`)
-        .style('left', `${positionLeft}px`)
+        .style('top', positionTop)
+        .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
         .html(`
           <span class="beeswarm-tooltip-header-title">
             ${assignee}

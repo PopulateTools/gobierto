@@ -144,53 +144,27 @@ export default {
     buildBeesWarm(data) {
       let filterData = this.transformData(data);
       const colors = this.createScaleColors(this.arrayValuesContractTypes.length);
+      const arrayValuesScaleY = Array.from(new Set(filterData.map(d => d[this.yAxisProp])));
+      this.svgHeight = arrayValuesScaleY.length === 1 ? 300 : this.height;
 
       const svg = d3.select('.beeswarm-plot');
 
-      const translate = `translate(${this.margin.left},${this.margin.bottom})`;
+      const translate = arrayValuesScaleY.length === 1 ? `translate(0,${this.margin.bottom})` : 'translate(0,0)';
 
       const g = svg.select('.beeswarm-plot-container');
 
       g.attr('transform', translate);
 
-      const arrayValuesScaleY = Array.from(
-        new Set(filterData.map(d => d[this.yAxisProp]))
-      );
-
-      this.svgHeight = arrayValuesScaleY.length === 1 ? 300 : this.height;
-
       const scaleY = d3
         .scaleBand()
         .domain(arrayValuesScaleY)
-        .range([this.svgHeight + this.margin.bottom, this.margin.top]);
+        .range([this.svgHeight , this.margin.top]);
 
       const scaleX = d3
         .scaleTime()
         .domain(d3.extent(filterData, d => d[this.xAxisProp]))
         .nice()
         .range([this.margin.left, this.svgWidth]);
-
-      svg
-        .selectAll('.label-y')
-        .data(Array.from(new Set(filterData.map(d => d[this.yAxisProp]))))
-        .join('text')
-        .attr('class', 'label-y')
-        .attr('x', 0)
-        .attr('y', d => scaleY(d))
-        .attr('alignment-baseline', 'middle')
-        .text(d => d);
-
-      svg
-        .selectAll('.line-y')
-        .data(Array.from(new Set(filterData.map(d => d[this.yAxisProp]))))
-        .join('line')
-        .attr('class', 'line-y')
-        .attr('x1', this.margin.left)
-        .attr('x2', this.svgWidth + this.margin.left + this.margin.right)
-        .attr('y1', d => scaleY(d))
-        .attr('y2', d => scaleY(d));
-
-      svg.selectAll('.label-y').call(this.wrapTextLabel, 120);
 
       const axisX = d3
         .axisBottom(scaleX)
@@ -207,10 +181,7 @@ export default {
         .ticks(5);
 
       g.select('.axis-x')
-        .attr(
-          'transform',
-          `translate(${-this.margin.left},${this.svgHeight - this.margin.top})`
-        )
+        .attr('transform', `translate(0,${this.svgHeight - this.margin.top})`)
         .transition()
         .duration(200)
         .call(axisX);
@@ -224,6 +195,28 @@ export default {
         )
         .call(axisY);
 
+      g
+        .selectAll('.label-y')
+        .data(Array.from(new Set(filterData.map(d => d[this.yAxisProp]))))
+        .join('text')
+        .attr('class', 'label-y')
+        .attr('x', 0)
+        .attr('y', d => scaleY(d))
+        .attr('alignment-baseline', 'middle')
+        .text(d => d);
+
+      g
+        .selectAll('.line-y')
+        .data(Array.from(new Set(filterData.map(d => d[this.yAxisProp]))))
+        .join('line')
+        .attr('class', 'line-y')
+        .attr('x1', this.margin.left)
+        .attr('x2', this.svgWidth + this.margin.left + this.margin.right)
+        .attr('y1', d => scaleY(d))
+        .attr('y2', d => scaleY(d));
+
+      g.selectAll('.label-y').call(this.wrapTextLabel, 120);
+
       let simulation = d3
         .forceSimulation(filterData)
         .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])).strength(2))
@@ -231,11 +224,14 @@ export default {
         .force('collide', d3.forceCollide().radius(d => d.radius + this.padding))
         .stop();
 
-      for (let i = 0; i < (filterData.length / 3); ++i) {
-        simulation.tick(5);
+      /*Reduces the simulation to prevent brokes the browser*/
+      let simulationIteration = 85
+
+      for (let i = 0; i < (simulationIteration); ++i) {
+        simulation.tick(3);
       }
 
-      let circlesBees = svg
+      let circlesBees = g
         .selectAll('.beeswarm-circle')
         .data(filterData)
 
@@ -245,6 +241,7 @@ export default {
         .ease(d3.easeLinear)
         .attr('cx', this.svgWidth / 2)
         .attr('cy', this.svgHeight / 2)
+        .attr('r', d => 0)
         .attr('fill', d => colors(d.slug_contract_type))
         .remove();
 
@@ -296,6 +293,7 @@ export default {
         .attr('cy', d => d.y)
         .attr('r', d => d.radius)
         .attr('fill', d => colors(d.slug_contract_type))
+
     },
     transformData(data) {
       const maxFinalAmount = d3.max(data, d => d.final_amount_no_taxes)
@@ -317,8 +315,9 @@ export default {
         d.radius = radiusScale(d[this.radiusProperty])
       });
 
-      let filterData = data.filter(
-        ({ final_amount_no_taxes }) => final_amount_no_taxes !== 0);
+      let filterData = data.filter(({ final_amount_no_taxes }) => final_amount_no_taxes !== 0);
+
+      filterData = filterData.sort((a, b) => b.contract_type.localeCompare(a.contract_type))
 
       return filterData;
     },

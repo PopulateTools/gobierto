@@ -204,6 +204,10 @@
         cursor: pointer;
       }
 
+      &-result {
+        font-weight: bold;
+      }
+
       &-radio[type=radio] {
         display: inline-block;
         cursor: auto;

@@ -16,7 +16,7 @@
     <input
       id="autocomplete-input"
       v-model="search"
-      name="autocomplete"
+      :name="name"
       autocomplete="off"
       :placeholder="placeholder"
       type="text"
@@ -25,7 +25,8 @@
       @input="onChange"
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
-      @keydown.enter="onEnter"
+      @keydown.enter.prevent="onEnter"
+      @dblclick="isOpen = !isOpen"
     >
 
     <transition name="slide">
@@ -62,6 +63,10 @@ export default {
       type: String,
       default: ""
     },
+    name: {
+      type: String,
+      default: "autocomplete"
+    },
     items: {
       type: Array,
       default: () => []
@@ -76,10 +81,13 @@ export default {
       results: this.items,
       isOpen: false,
       search: "",
-      arrowCounter: -1
+      arrowCounter: -1,
+      containObjects: this.items.some(x => typeof x === "object" && x !== null)
     };
   },
   mounted() {
+    if (this.containObjects && !this.searchKey) throw new Error("search-key prop is not provided")
+
     document.addEventListener("click", this.handleClickOutside);
   },
   destroyed() {
@@ -91,9 +99,7 @@ export default {
 
       this.isOpen = true;
       this.results = this.items.filter(item => {
-        if (typeof item === "object" && item !== null) {
-          if (!this.searchKey) throw new Error("search-key prop is not provided")
-
+        if (this.containObjects) {
           return (""+item[this.searchKey])
               .toLowerCase()
               .indexOf(this.search.toLowerCase()) > -1
@@ -105,18 +111,15 @@ export default {
     },
     onArrowDown() {
       this.isOpen = true;
-      if (this.arrowCounter < this.results.length) {
-        this.arrowCounter = this.arrowCounter + 1;
-      }
+      this.arrowCounter = (this.arrowCounter < this.results.length - 1) ? this.arrowCounter + 1 : 0
     },
     onArrowUp() {
       this.isOpen = true;
-      if (this.arrowCounter > 0) {
-        this.arrowCounter = this.arrowCounter - 1;
-      }
+      this.arrowCounter = (this.arrowCounter > 0) ? this.arrowCounter - 1 : this.results.length - 1
     },
     onEnter() {
-      this.search = this.results[this.arrowCounter];
+      const element = this.results[this.arrowCounter];
+      this.search = this.containObjects ? element[this.searchKey] : element;
       this.isOpen = false;
       this.arrowCounter = -1;
     },
@@ -127,7 +130,7 @@ export default {
       }
     },
     setResult(result) {
-      this.search = result;
+      this.search = this.containObjects ? result[this.searchKey] : result;
       this.isOpen = false;
     }
   }

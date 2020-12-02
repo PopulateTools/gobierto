@@ -114,7 +114,7 @@ export default {
 
       const { data: widgets_data } = await this.getData({ context: this.id, data_pipe: this.pipe });
 
-      this.widgetsData = widgets_data
+      this.widgetsData = widgets_data;
       this.widgets = this.parseWidgets(widget_configuration, widgets_data);
     },
     parseWidgets(conf = [], data = []) {
@@ -127,6 +127,7 @@ export default {
           ...options,
           // if there is a property called indicator, append the data related
           ...(options.indicator && { data: data.find(({ name }) => name === options.indicator) }),
+          type,
           edition: false
         };
       });

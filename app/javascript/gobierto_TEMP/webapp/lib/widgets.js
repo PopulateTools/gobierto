@@ -4,16 +4,16 @@ export const Widgets = {
     name: "Contenido HTML",
     template: () => import("../components/WidgetHTML"),
     w: 6,
-    h: 4,
+    h: 3,
     minW: 4,
   },
   INDICATOR: {
     name: "Indicador",
     template: () => import("../components/WidgetIndicator"),
     w: 6,
-    h: 6,
+    h: 5,
     minW: 4,
-    minH: 4,
+    minH: 3,
     subtypes: {
       individual: {
         name: "Individual",

@@ -68,9 +68,9 @@ import HeaderForm from "./components/HeaderForm";
 import Aside from "./layouts/Aside";
 import Main from "./layouts/Main";
 import SmallCard from "./components/SmallCard";
-import TextEditable from "./components/TextEditable.vue";
 import { Widgets } from "./lib/widgets";
 import { DashboardFactoryMixin } from "./lib/factories";
+import { TextEditable } from "lib/vue-components";
 
 export default {
   name: "Maker",

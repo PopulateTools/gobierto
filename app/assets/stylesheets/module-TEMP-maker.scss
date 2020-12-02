@@ -1,5 +1,6 @@
 @import "css-conf";
 @import "mixins";
+@import "comp-vue-text-editable";
 
 :root {
   --bg-dark-grey: #616161;
@@ -94,39 +95,6 @@
       &:not(:first-child) {
         margin-left: 0;
       }
-    }
-  }
-
-  &--editable {
-    @include flex-align(space-between);
-
-    cursor: pointer;
-    max-width: 75vw;
-
-    > :first-child {
-      flex: 1;
-      margin: 0;
-      padding: 0;
-      min-width: 20px;
-      max-width: 75vw;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-family: var(--font-family);
-
-      &:focus {
-        @include border-radius(4px);
-
-        margin: -5px;
-        padding: 5px;
-        background-color: white;
-        outline: none;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-      }
-    }
-
-    > :last-child:not(:only-child) {
-      margin-left: 1em;
     }
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboards-maker--editable">
+  <div class="gobierto-text-editable">
     <component
       :is="tag"
       contenteditable

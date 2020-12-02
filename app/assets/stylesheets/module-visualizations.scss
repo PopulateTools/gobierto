@@ -356,7 +356,8 @@
   .multiple-line-tooltip-bars,
   .tree-map-nested-tooltip-contracts,
   .tree-map-nested-tooltip-assignee {
-    display: none;
+    display: block;
+    opacity: 0;
     position: absolute;
     padding: .5rem;
     width: max-content;

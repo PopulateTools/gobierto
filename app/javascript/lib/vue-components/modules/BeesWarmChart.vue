@@ -6,7 +6,7 @@
 </template>
 <script>
 import { select, selectAll } from 'd3-selection';
-import { scaleBand, scaleTime, scalePow } from 'd3-scale';
+import { scaleBand, scaleTime, scalePow, scaleOrdinal} from 'd3-scale';
 import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { extent } from 'd3-array';
@@ -22,6 +22,7 @@ const d3 = {
   scaleBand,
   scaleTime,
   scalePow,
+  scaleOrdinal,
   forceSimulation,
   forceX,
   forceY,
@@ -269,7 +270,10 @@ export default {
         })
         .on('mouseout', () => {
           d3.select('.beeswarm-tooltip')
-            .style('display', 'none');
+            .style("opacity", 1)
+            .transition()
+            .duration(400)
+            .style("opacity", 0)
 
           d3.selectAll(`.beeswarm-circle`)
             .transition()

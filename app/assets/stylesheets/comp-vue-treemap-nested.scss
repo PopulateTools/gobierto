@@ -63,6 +63,19 @@
     opacity: 0;
   }
 
+  .children {
+    &:hover {
+      rect.child {
+        opacity: 1;
+        stroke-width: 1px;
+      }
+
+      rect.parent {
+        opacity: 0;
+      }
+    }
+  }
+
   .legend {
     margin-bottom: 8px;
 

@@ -360,7 +360,11 @@ export default {
       const positionLeft = '110'
 
       tooltip
-        .style("display", "block")
+        .transition()
+        .duration(400)
+        .style("opacity", 1)
+
+      tooltip
         .style('top', `${positionTop}px`)
         .style('left', `${positionLeft}px`)
         .html(`

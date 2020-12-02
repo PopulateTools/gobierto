@@ -278,14 +278,12 @@ export default {
               .attr("y", ({ y0 }) => y(y0))
               .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
               .attr("height", ({ y1, y0 }) => y(y1) - y(y0))
-              .attr('fill', 'currentColor')
               .call(enter => enter.transition(t)),
             update => update
               .attr("x", ({ x0 }) => x(x0))
               .attr("y", ({ y0 }) => y(y0))
               .attr("width", ({ x1, x0 }) => x(x1) - x(x0))
               .attr("height", ({ y1, y0 }) => y(y1) - y(y0))
-              .attr('fill', 'currentColor')
               .call(update => update.transition(t)),
             exit => exit
               .attr('width', 0)
@@ -392,11 +390,11 @@ export default {
           //Elements to determinate the position of tooltip
           const container = document.getElementsByClassName('container-tree-map-nested')[0];
           const containerWidth = container.offsetWidth
-          const tooltipWidth = tooltip.node().offsetWidth
+          const tooltipWidth = depth === 2 ? tooltipAssignee.node().offsetWidth : tooltip.node().offsetWidth
           const positionWidthTooltip = x + tooltipWidth
+          const positionRight = `${x - tooltipWidth - 20}px`
           const positionTop = `${y - 20}px`
-          const positionLeft = `${x + 10}px`
-          const positionRight = `${x - tooltipWidth - 10}px`
+          const positionLeft = `${x + 20}px`
 
           if (depth === 2) {
             let totalContracts = d.children === undefined ? '' : d.children
@@ -416,9 +414,17 @@ export default {
                 i++
               }
             }
+            tooltip
+              .style("opacity", 0)
+              .style("display", "none")
 
             tooltipAssignee
               .style("display", "block")
+              .transition()
+              .duration(200)
+              .style("opacity", 1)
+
+            tooltipAssignee
               .html(() => {
                 return `
                   <span class="treemap-nested-tooltip-header-title">
@@ -442,8 +448,17 @@ export default {
 
             valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
 
+            tooltipAssignee
+              .style("opacity", 0)
+              .style("display", "none")
+
             tooltip
-              .style("display", "block")
+              .style('display', 'block')
+              .transition()
+              .duration(200)
+              .style("opacity", 1)
+
+            tooltip
               .html(() => {
                 return `
                   <span class="treemap-nested-tooltip-header-title">
@@ -459,8 +474,17 @@ export default {
           }
         })
         .on('mouseout', function() {
-          tooltip.style('display', 'none')
-          tooltipAssignee.style('display', 'none')
+          tooltip
+            .style("opacity", 1)
+            .transition()
+            .duration(200)
+            .style("opacity", 0)
+
+          tooltipAssignee
+            .style("opacity", 1)
+            .transition()
+            .duration(200)
+            .style("opacity", 0)
         })
 
         function transition(d) {

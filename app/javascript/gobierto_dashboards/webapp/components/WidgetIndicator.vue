@@ -79,11 +79,11 @@ export default {
   },
   data() {
     return {
-      subtypes: Widgets.INDICATOR.subtypes,
-      selectLabel: "Selecciona el indicador",
-      typeLabel: "Tipo",
-      saveLabel: "Guardar",
-      placeholderLabel: "Escribe el título del indicador o proyecto"
+      subtypes: Widgets.INDICATOR.subtypes, // load async
+      selectLabel: I18n.t("gobierto_dashboards.select") || "",
+      typeLabel: I18n.t("gobierto_dashboards.type") || "",
+      saveLabel: I18n.t("gobierto_dashboards.save") || "",
+      placeholderLabel: I18n.t("gobierto_dashboards.placeholder") || ""
     };
   },
   computed: {

@@ -1,0 +1,27 @@
+---
+es:
+  gobierto_dashboards:
+    available_cards: Tarjetas disponibles
+    changes: Dashboard modificado
+    date: 'Fecha: '
+    default_title: Título del dashboard
+    delete: Eliminar
+    instructions: |
+      "⇧ Selecciona un tipo de tarjeta e incluyela en el área central ➞
+
+      Luego podrás configurarla."
+    objective: Objetivo
+    percentage: Consecución
+    percentage_alt: "% consecución"
+    placeholder: Escribe el título del indicador o proyecto
+    public: Público
+    save: Guardar
+    select: Selecciona el indicador
+    type: Tipo
+    value: Alcanzado
+    view_item: Ver ítem
+    widgets:
+      html: Contenido HTML
+      indicator: Indicador
+      individual: Individual
+      table: Tabla

@@ -358,16 +358,11 @@ export default {
 
     },
     showTooltipBeesWarm(event) {
-      const { assignee, final_amount_no_taxes, x, y } = event
+      const { assignee, final_amount_no_taxes, y } = event
       const tooltip = d3.select('.beeswarm-tooltip')
 
-      const container = document.getElementsByClassName('multiple-line-chart-container')[0];
-      const containerWidth = container.offsetWidth
-      const tooltipWidth = 300
       const positionTop = `${y}px`
-      const positionWidthTooltip = x + tooltipWidth
-      const positionRight = `${x - tooltipWidth - 30}px`
-
+      const positionLeft = '0px'
 
       tooltip
         .style("opacity", 0)
@@ -377,7 +372,7 @@ export default {
 
       tooltip
         .style('top', positionTop)
-        .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+        .style('left', positionLeft)
         .html(`
           <span class="beeswarm-tooltip-header-title">
             ${assignee}

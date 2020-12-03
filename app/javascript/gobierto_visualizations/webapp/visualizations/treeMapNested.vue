@@ -99,7 +99,8 @@ export default {
     }
   },
   mounted() {
-    this.svgWidth = document.getElementsByClassName("visualizations-home-main")[0].offsetWidth;
+    this.containerChart = document.querySelector(".container-tree-map-nested");
+    this.svgWidth = this.containerChart.offsetWidth;
     this.dataTreeMapWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
     this.dataTreeMapSizeContracts = JSON.parse(JSON.stringify(this.data));
     this.dataTreeMapSumFinalAmount = JSON.parse(JSON.stringify(this.data));
@@ -591,7 +592,7 @@ export default {
     resizeListener() {
       window.addEventListener("resize", () => {
         let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
-        const containerChart = document.getElementsByClassName('container-tree-map-nested')[0];
+        const containerChart = document.querySelector(".container-tree-map-nested");
         this.svgWidth = containerChart.offsetWidth
         this.deepCloneData(dataResponsive)
       })

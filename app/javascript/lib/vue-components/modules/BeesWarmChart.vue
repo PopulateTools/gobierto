@@ -6,7 +6,7 @@
 </template>
 <script>
 import { select, selectAll } from 'd3-selection';
-import { scaleBand, scaleTime, scalePow, scaleOrdinal} from 'd3-scale';
+import { scaleBand, scaleTime, scalePow, scaleOrdinal } from 'd3-scale';
 import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { extent } from 'd3-array';
@@ -163,8 +163,7 @@ export default {
       const scaleX = d3
         .scaleTime()
         .domain(d3.extent(filterData, d => d[this.xAxisProp]))
-        .nice()
-        .range([this.margin.left, this.svgWidth]);
+        .rangeRound([this.margin.left, this.svgWidth - this.margin.right])
 
       const axisX = d3
         .axisBottom(scaleX)
@@ -241,18 +240,15 @@ export default {
         .ease(d3.easeLinear)
         .attr('cx', this.svgWidth / 2)
         .attr('cy', this.svgHeight / 2)
-        .attr('r', d => 0)
-        .attr('fill', d => colors(d.slug_contract_type))
+        .attr('r', 0)
         .remove();
 
       circlesBees
         .enter()
         .append('circle')
-        .attr('id', d => `${d.slug}`)
-        .attr('r', d => d.radius)
+        .attr('r', 0)
         .attr('cx', this.svgWidth / 2)
         .attr('cy', this.svgHeight / 2)
-        .attr('fill', d => colors(d.slug_contract_type))
         .merge(circlesBees)
         .on('mouseover', (event, d) => {
           this.$emit('showTooltip', event, d);
@@ -289,6 +285,7 @@ export default {
           d.id = normalizeString(d.id)
           return `beeswarm-circle beeswarm-circle-${d.id} beeswarm-circle-${d.slug_contract_type}`
         })
+        .attr('id', d => `${d.slug}`)
         .attr('cx', d => d.x - 5)
         .attr('cy', d => d.y)
         .attr('r', d => d.radius)

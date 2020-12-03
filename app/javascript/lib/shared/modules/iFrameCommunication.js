@@ -6,11 +6,13 @@ function sendMessageToIframe() {
     hash: window.location.hash,
     title: window.document.title
   };
+  console.log(message);
   window.parent.postMessage(message, '*');
 }
 
 // Static initialization
 $(document).on("turbolinks:load", function() {
+  console.log(window.location !== window.parent.location, window.location, window.parent.location);
   if (window.location !== window.parent.location) {
     sendMessageToIframe();
   }

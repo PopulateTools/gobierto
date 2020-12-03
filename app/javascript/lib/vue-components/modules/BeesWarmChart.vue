@@ -315,7 +315,7 @@ export default {
 
       let filterData = data.filter(({ final_amount_no_taxes }) => final_amount_no_taxes !== 0);
 
-      filterData = filterData.sort((a, b) => b.contract_type.localeCompare(a.contract_type))
+      filterData = filterData.sort((a, b) => a.contract_type.localeCompare(b.contract_type))
 
       return filterData;
     },

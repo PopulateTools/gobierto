@@ -454,9 +454,6 @@ export default {
               .transition()
               .duration(200)
               .style("opacity", 1)
-                  /*<span class="treemap-nested-tooltip-header-title">
-                    ${title}
-                  </span>*/
 
             tooltip
               .html(() => {

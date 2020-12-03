@@ -1,3 +1,5 @@
+import "tipsy-1a";
+
 $(document).on('turbolinks:load', function() {
 
   $('.open-other-statements').click(function(e) {

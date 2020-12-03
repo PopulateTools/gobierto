@@ -35,7 +35,7 @@ $units: 1px !default;
 
   @if $dir == row {
     & > * {
-      margin: 0 $gap / 2;
+      margin: 0 calc(#{$gap} / 2);
     }
 
     & > :first-child {
@@ -47,7 +47,7 @@ $units: 1px !default;
     }
   } @else if $dir == column {
     & > * {
-      margin-bottom: $gap / 2;
+      margin-bottom: calc(#{$gap} / 2);
     }
 
     & > :first-child {

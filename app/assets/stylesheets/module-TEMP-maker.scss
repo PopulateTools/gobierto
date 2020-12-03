@@ -68,7 +68,7 @@
     padding: 0.45em 1em 0.3em;
 
     &:not(:first-child) {
-      margin-left: 1em;
+      margin-left: var(--space);
     }
 
     &__link {
@@ -81,7 +81,7 @@
       text-decoration: underline;
 
       > :first-child {
-        margin-right: 0.5em;
+        margin-right: calc(0.5 * var(--space));
       }
 
       &:hover,
@@ -109,7 +109,7 @@
 
     input[type="checkbox"] {
       display: block;
-      margin-right: 0.5em;
+      margin-right: calc(0.5 * var(--space));
     }
   }
 

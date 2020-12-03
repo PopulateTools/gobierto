@@ -77,7 +77,14 @@ export class ContractsController {
                 }
               ]
             }
-          ]
+          ],
+          scrollBehavior(to) {
+            let element;
+            if (to.name === "contracts_show") {
+              const element = document.getElementById(selector);
+              window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
+            }
+          }
         });
 
         const baseTitle = document.title;

@@ -1,6 +1,7 @@
 <template>
   <div>
     <TreeMapNested
+      v-if="visualizationsData"
       :data="visualizationsData"
       :label-root-key="labelRootKey"
     />

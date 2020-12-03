@@ -106,7 +106,7 @@ export default {
   },
   mounted() {
     this.dataWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
-    const containerChart = document.querySelector('.beeswarm-container');
+    const containerChart = document.querySelector('.visualizations-home-main');
     this.svgWidth = containerChart.offsetWidth;
     this.svgHeight = this.height;
 
@@ -249,6 +249,7 @@ export default {
         .attr('r', 0)
         .attr('cx', this.svgWidth / 2)
         .attr('cy', this.svgHeight / 2)
+        .attr('fill', 'transparent')
         .merge(circlesBees)
         .on('mouseover', (event, d) => {
           this.$emit('showTooltip', event, d);
@@ -357,9 +358,7 @@ export default {
     resizeListener() {
       window.addEventListener('resize', () => {
         let dataResponsive = this.updateData ? this.dataNewValues : this.dataWithoutCoordinates;
-        const containerChart = document.getElementsByClassName(
-          'beeswarm-container'
-        )[0];
+        const containerChart = document.querySelector('.visualizations-home-main');
         this.svgWidth = containerChart.offsetWidth;
         this.setupElements();
         this.deepCloneData(dataResponsive);

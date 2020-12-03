@@ -9,10 +9,11 @@
   --bg-grey: #ddd;
   --bg-soft-grey: #f2f2f2;
   --bg-yellow: #fef7e6;
-  --space: 1em;
+  --space: #{$f6};
   --color-grey: #828282;
-  --color-dark-grey: $color_headers;
-  --font-family: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
+  --color-dark-grey: #{$color_headers};
+  --font-family: #{$font_text};
+  // --font-family-alt has to be like this because admin overwrites the font_text SASS var
   --font-family-alt: 'Source Sans Pro', 'Helvetica Neue', 'Arial', 'sans-serif';
 }
 
@@ -198,7 +199,7 @@
 
       &-label {
         @include flex-align(flex-start, baseline);
-        @include flexbox(0.5em);
+        @include flexbox(calc(0.5 * var(--space)));
 
         cursor: pointer;
       }

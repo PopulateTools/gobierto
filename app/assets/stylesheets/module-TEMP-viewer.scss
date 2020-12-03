@@ -2,10 +2,10 @@
 @import "mixins";
 
 :root {
-  --space: 1em;
+  --space: #{$f6};
   --color-grey: #666;
   --font-family: "Libre Franklin", "Helvetica Neue", "Arial", "sans-serif";
-  --font-family-alt: "Source Sans Pro", "Helvetica Neue", "Arial", "sans-serif";
+  --font-family-alt: #{$font_text};
 }
 
 .dashboards-viewer {

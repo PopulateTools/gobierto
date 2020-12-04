@@ -1,0 +1,15 @@
+<% content_for :javascript_module_link do %>
+  <!-- No es necesario adjuntarlo xq ya está DENTRO del pack 'admin' -->
+  <!-- <%= javascript_packs_with_chunks_tag 'TEMP' %> -->
+<% end %>
+
+<% content_for :stylesheet_module_link do %>
+  <%= stylesheet_packs_with_chunks_tag 'TEMP' %>
+<% end %>
+
+<a data-dashboards-maker class="button open_remote_modal" href="/admin/gobierto_temp/index">Nuevo</a>
+<a data-dashboards-maker class="button open_remote_modal" href="/admin/gobierto_temp/show">Editar</a>
+
+<hr>
+
+<div id="dashboard-viewer-app" data-context="CONTEXTO"></div>

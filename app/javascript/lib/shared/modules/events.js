@@ -1,0 +1,1 @@
+export const CREATE_DASHBOARD_EVENT = "create-dashboard-maker"

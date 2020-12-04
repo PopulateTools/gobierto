@@ -1,0 +1,222 @@
+@import "css-conf";
+@import "mixins";
+@import "comp-vue-transitions";
+@import "comp-vue-text-editable";
+@import "comp-vue-autocomplete";
+
+:root {
+  --bg-dark-grey: #616161;
+  --bg-grey: #ddd;
+  --bg-soft-grey: #f2f2f2;
+  --bg-yellow: #fef7e6;
+  --space: #{$f6};
+  --color-grey: #828282;
+  --color-dark-grey: #{$color_headers};
+  --font-family: #{$font_text};
+  // --font-family-alt has to be like this because admin overwrites the font_text SASS var
+  --font-family-alt: 'Source Sans Pro', 'Helvetica Neue', 'Arial', 'sans-serif';
+}
+
+.dashboards-maker {
+  .layout-header {
+    @include flex-align(space-between, stretch);
+
+    &-editable {
+      padding: var(--space);
+      background-color: var(--bg-grey);
+      box-sizing: border-box;
+      flex: 1;
+    }
+    
+    &-shadow {
+      background-color: var(--bg-dark-grey);
+      flex: 0 0 42px;
+    }
+  }
+
+  .layout-main {
+    @include flex-align(space-between, stretch);
+
+    aside {
+      flex: 0 0 20%;
+      background-color: var(--bg-soft-grey);
+      padding: 12px;
+    }
+
+    article {
+      flex: 1;
+      padding: 32px;
+    }
+  }
+
+  &--header {
+    @include flex-align(space-between);
+
+    &__buttons {
+      white-space: nowrap;
+      flex: 0 0 150px;
+    }
+  }
+
+  &--button {
+    @include flex-align(space-between, baseline);
+    @include border-radius(4px);
+
+    font-size: $f8;
+    font-family: var(--font-family);
+    line-height: 15px;
+    padding: 0.45em 1em 0.3em;
+
+    &:not(:first-child) {
+      margin-left: var(--space);
+    }
+
+    &__link {
+      padding: 0;
+      text-transform: none;
+      font-weight: normal;
+      text-align: initial;
+      color: inherit;
+      background: none;
+      text-decoration: underline;
+
+      > :first-child {
+        margin-right: calc(0.5 * var(--space));
+      }
+
+      &:hover,
+      &:focus {
+        background: none;
+        box-shadow: none;
+        border: 0;
+      }
+    }
+
+    &__square {
+      padding: 10px;
+
+      &:not(:first-child) {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &--checkbox {
+    @include flex-align(space-between);
+
+    cursor: pointer;
+    font-family: var(--font-family);
+
+    input[type="checkbox"] {
+      display: block;
+      margin-right: calc(0.5 * var(--space));
+    }
+  }
+
+  &--aside {
+    &__title {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: $f8;
+      color: var(--color-dark-grey);
+      font-family: var(--font-family);
+    }
+
+    &__footer {
+      white-space: pre-line;
+      font-size: $f7;
+      font-weight: 400;
+      color: var(--color-grey);
+      font-family: var(--font-family-alt);
+    }
+  }
+
+  &--small-card {
+    background-color: $color_main_negative;
+    border: 2px dashed #BDBDBD;
+    color: var(--color-dark-grey);
+    font-family: var(--font-family);
+    font-size: $f7;
+    font-weight: 700;
+    padding: var(--space);
+    box-sizing: border-box;
+    min-height: 60px;
+    cursor: pointer;
+
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+
+  &--widget {
+    --border-width: 4px;
+
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+    border: var(--border-width) solid transparent;
+    transition: all 250ms;
+
+    &__editing {
+      border: var(--border-width) solid var(--color-base);
+  
+      @include border-radius(4px);
+    }
+
+    &__toolbox {
+      @include flex-align(space-between);
+      @include border-radius($top: 4px);
+
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      right: calc(-1 * var(--border-width));
+      transform: translateY(-100%);
+      background-color: var(--color-base);
+      color: $color_main_negative;
+    }
+
+    &__form {
+      background-color: var(--bg-yellow);
+      margin: calc(-1 * var(--space));
+      padding: var(--space);
+      height: 100%;
+
+      @include flexbox(calc(3 * var(--space)), column);
+
+      &-title {
+        font-weight: bold;
+        display: block;
+      }
+
+      &-text[type=text] {
+        display: block;
+        height: 30px;
+        width: 100%;
+
+        @include border-radius(3px);
+      }
+
+      &-label {
+        @include flex-align(flex-start, baseline);
+        @include flexbox(calc(0.5 * var(--space)));
+
+        cursor: pointer;
+      }
+
+      &-result {
+        font-weight: bold;
+      }
+
+      &-radio[type=radio] {
+        display: inline-block;
+        cursor: auto;
+      }
+
+      &-submit {
+        margin-top: auto;
+        align-self: flex-end;
+      }
+    }
+  }
+}

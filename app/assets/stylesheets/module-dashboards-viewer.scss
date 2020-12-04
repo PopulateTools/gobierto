@@ -189,4 +189,40 @@
       }
     }
   }
+
+  &__card {
+    @include border-radius(8px);
+
+    padding: var(--space);
+    border: 1px solid #E6E6E6;
+    
+    @include min-screen(768) {
+      padding: calc(2 * var(--space));
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 24px;
+      
+      @include min-screen(768) {
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 42px;
+      }
+    }
+
+    &-title {
+      text-decoration: underline;
+      font-weight: 700;
+      font-size: $f3;
+      margin: 0 0 var(--space);
+      cursor: pointer;
+    }
+
+    &-subtitle {
+      color: $color_text;
+      font-size: $f7;
+      line-height: 1.25;
+    }
+  }
 }

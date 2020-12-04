@@ -12,7 +12,6 @@
     :use-css-transforms="true"
     :prevent-collision="false"
     :style="adjustMargins"
-    class="dashboards-viewer"
     @layout-updated="handleLayoutUpdate"
     @layout-ready="handleLayoutReady"
   >
@@ -28,11 +27,9 @@
 </template>
 
 <script>
-// add the styles here, because this element can be inserted both as a component or standalone
-import "../../../assets/stylesheets/module-dashboards-viewer.scss";
 import { GridLayout } from "vue-grid-layout";
 import { Widgets } from "./lib/widgets";
-import { DashboardFactoryMixin } from "./lib/factories";
+import { FactoryMixin } from "./lib/factories";
 import Widget from "./components/Widget"
 
 export default {
@@ -41,7 +38,7 @@ export default {
     GridLayout,
     Widget
   },
-  mixins: [DashboardFactoryMixin],
+  mixins: [FactoryMixin],
   props: {
     item: {
       type: Object,
@@ -92,7 +89,7 @@ export default {
   },
   watch: {
     item(newItem) {
-      // ff user drags a new item inside the grid
+      // if user drags a new item inside the grid
       if (newItem) {
         const { i } = newItem
         if (!this.widgets.some(d => d.i === i)) {
@@ -101,7 +98,7 @@ export default {
       }
     }
   },
-  async mounted() {
+  created() {
     this.getConfiguration();
   },
   methods: {

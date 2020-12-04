@@ -69,7 +69,7 @@ import Aside from "./layouts/Aside";
 import Main from "./layouts/Main";
 import SmallCard from "./components/SmallCard";
 import { Widgets } from "./lib/widgets";
-import { DashboardFactoryMixin } from "./lib/factories";
+import { FactoryMixin } from "./lib/factories";
 import { TextEditable } from "lib/vue-components";
 
 export default {
@@ -82,7 +82,7 @@ export default {
     SmallCard,
     TextEditable,
   },
-  mixins: [DashboardFactoryMixin],
+  mixins: [FactoryMixin],
   data() {
     return {
       dirty: false,

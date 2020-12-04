@@ -134,6 +134,7 @@ export class SubsidiesController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
+    console.log("subsidiesData", subsidiesData);
     for (let i = 0; i < subsidiesData.length; i++) {
       const subsidy = subsidiesData[i];
       const amount =
@@ -141,9 +142,7 @@ export class SubsidiesController {
           ? parseFloat(subsidy.amount)
           : 0.0;
 
-      let [beneficiary_id, ...beneficiary_name] = subsidy.beneficiary.split(
-        " "
-      );
+      let [beneficiary_id, ...beneficiary_name] = subsidy.beneficiary.split(" ");
 
       subsidy.amount = amount;
       subsidy.range = rangeFormat(+amount);

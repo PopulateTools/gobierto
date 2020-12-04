@@ -47,9 +47,9 @@ export default {
     updateFilteredItems(value) {
       this.value = value
       if (!this.value) {
-        this.items = this.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase()))
+        this.items = this.subsidiesData.filter(contract => contract.beneficiary.toLowerCase().includes(this.value.toLowerCase()))
       } else {
-        this.items = this.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase())).slice(0, 25)
+        this.items = this.subsidiesData.filter(contract => contract.beneficiary.toLowerCase().includes(this.value.toLowerCase())).slice(0, 25)
       }
     }
   }

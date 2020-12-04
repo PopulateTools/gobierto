@@ -196,10 +196,8 @@ export default {
     refreshSummaryData(){
       if (!this.value) {
         this.visualizationsData = this.$root.$data.subsidiesData;
-        console.log("this.visualizationsData", this.visualizationsData);
       } else {
         this.subsivisualizationsDatadiesData = this.$root.$data.subsidiesData.filter(contract => contract.beneficiary_name.toLowerCase().includes(this.value.toLowerCase()))
-        console.log("this.subsivisualizationsDatadiesData", this.subsivisualizationsDatadiesData);
       }
       this.items = this.buildItems();
     },

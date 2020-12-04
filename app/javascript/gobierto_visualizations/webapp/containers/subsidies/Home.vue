@@ -58,9 +58,11 @@ export default {
     isSubsidiesShow() { return this.$route.name === 'subsidies_show' },
   },
   created() {
+    EventBus.$on('refresh-summary-data', () => {
+      this.subsidiesData = this.$root.$data.subsidiesData;
+    });
     EventBus.$on("update-tab", () => this.updateTab());
     EventBus.$on("update-filters", () => this.updateFilters());
-    console.log("this.$root.$data.subsidiesData", this.$root.$data.subsidiesData);
   },
   methods: {
     setActiveTab(tabIndex) {

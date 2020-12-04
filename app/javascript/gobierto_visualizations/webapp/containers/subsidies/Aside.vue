@@ -77,7 +77,7 @@ export default {
     }
   },
   watch: {
-    subsidiesData() {
+    subsidiesData(newValue, oldValue) {
       this.updateCounters();
     }
   },

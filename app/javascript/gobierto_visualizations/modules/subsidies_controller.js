@@ -8,7 +8,7 @@ import {
 } from "lib/visualizations";
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { getRemoteData, sortByField } from "../webapp/lib/utils";
+import { getRemoteData } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/mixins/event_bus";
 
 const d3 = { scaleThreshold, sum, mean, median, max };
@@ -118,6 +118,12 @@ export class SubsidiesController {
   setGlobalVariables(rawData) {
     let subsidiesData = rawData[0];
 
+    subsidiesData.sort(function(a,b) {
+      a = a.grant_date.replace(/-/g, '');
+      b = b.grant_date.replace(/-/g, '');
+      return a.localeCompare(b)
+    });
+
     // Precalculations and normalizations
     this._amountRange = {
       domain: [501, 1001, 5001, 10001, 15001],
@@ -147,13 +153,12 @@ export class SubsidiesController {
 
       //To avoid generating repeated id's we concatenate the index to the generation of ID's
       if (!subsidy.id) {
-        subsidy.id = `${subsidy.grant_date.replace(/\D+/g,"")}
-        ${subsidy.beneficiary_id.replace(/\D+/g, "")}${parseInt(subsidy.amount) || 0}${$i}`;
+        subsidy.id = `${subsidy.grant_date.replace(/\D+/g,"")}${subsidy.beneficiary_id.replace(/\D+/g, "")}${parseInt(subsidy.amount) || 0}${i}`;
       }
     }
 
     this.data = {
-      subsidiesData: subsidiesData.sort(sortByField("grant_date"))
+      subsidiesData: subsidiesData
     };
   }
 

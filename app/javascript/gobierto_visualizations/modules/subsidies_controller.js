@@ -205,19 +205,19 @@ export class SubsidiesController {
 
     // Calculations box items
     const numberSubsidies = subsidiesData.length;
-    const sumSubsidies = d3.sum(amountsArray);
+    const sumSubsidies = d3.sum(amountsArray) || 0;
     const meanSubsidies = d3.mean(amountsArray) || 0;
     const medianSubsidies = d3.median(amountsArray) || 0;
 
     const pctCollectivesSubsidies =
-      parseFloat(collectivesData.length) / numberSubsidies;
-    const sumCollectivesSubsidies = d3.sum(amountsCollectivesArray);
+      (parseFloat(collectivesData.length) / numberSubsidies) || 0;
+    const sumCollectivesSubsidies = d3.sum(amountsCollectivesArray)|| 0;
     const meanCollectivesSubsidies = d3.mean(amountsCollectivesArray) || 0;
     const medianCollectivesSubsidies = d3.median(amountsCollectivesArray) || 0;
 
     const pctIndividualsSubsidies =
-      parseFloat(individualsData.length) / numberSubsidies;
-    const sumIndividualsSubsidies = d3.sum(amountsIndividualsArray);
+      (parseFloat(individualsData.length) / numberSubsidies) || 0;
+    const sumIndividualsSubsidies = d3.sum(amountsIndividualsArray) || 0;
     const meanIndividualsSubsidies = d3.mean(amountsIndividualsArray) || 0;
     const medianIndividualsSubsidies = d3.median(amountsIndividualsArray) || 0;
 
@@ -263,7 +263,7 @@ export class SubsidiesController {
     });
     document.getElementById("sum-collectives-subsidies").innerText = money(
       sumCollectivesSubsidies
-    );
+    ) ;
     document.getElementById("mean-collectives-subsidies").innerText = money(
       meanCollectivesSubsidies
     );

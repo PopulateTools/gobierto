@@ -223,12 +223,12 @@ export class SubsidiesController {
     const lessThan1000Total = subsidiesData.filter(
       ({ amount = 0 }) => parseFloat(amount) < 1000
     ).length;
-    const lessThan1000Pct = lessThan1000Total / numberSubsidies;
+    const lessThan1000Pct = (lessThan1000Total / numberSubsidies) || 0;
 
     const largerSubsidyAmount = d3.max(subsidiesData, ({ amount = 0 }) =>
       parseFloat(amount)
     );
-    const largerSubsidyAmountPct = largerSubsidyAmount / sumSubsidies;
+    const largerSubsidyAmountPct = (largerSubsidyAmount / sumSubsidies) || 0;
 
     let iteratorAmountsSum = 0,
       numberSubsidiesHalfSpendings = 0;
@@ -240,8 +240,7 @@ export class SubsidiesController {
         break;
       }
     }
-    const halfSpendingsSubsidiesPct =
-      numberSubsidiesHalfSpendings / numberSubsidies;
+    const halfSpendingsSubsidiesPct = (numberSubsidiesHalfSpendings / numberSubsidies) || 0;
 
     // Updating the DOM
     document.getElementById(

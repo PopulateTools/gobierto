@@ -79,7 +79,7 @@ export default {
   },
   data() {
     return {
-      subtypes: Widgets.INDICATOR.subtypes, // load async
+      subtypes: Widgets.INDICATOR.subtypes,
       selectLabel: I18n.t("gobierto_dashboards.select") || "",
       typeLabel: I18n.t("gobierto_dashboards.type") || "",
       saveLabel: I18n.t("gobierto_dashboards.save") || "",

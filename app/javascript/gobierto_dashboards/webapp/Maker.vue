@@ -39,7 +39,7 @@
           <SmallCard
             v-for="({ name }, key) in cards"
             :key="key"
-            :name="name"
+            :name="name()"
             @drag.native="drag(key, $event)"
             @dragend.native="dragend"
           />
@@ -72,8 +72,6 @@ import { Widgets } from "./lib/widgets";
 import { DashboardFactoryMixin } from "./lib/factories";
 import { TextEditable } from "lib/vue-components";
 
-const loadWidgets = () => import("./lib/widgets")
-
 export default {
   name: "Maker",
   components: {
@@ -88,7 +86,7 @@ export default {
   data() {
     return {
       dirty: false,
-      cards: Widgets, // load async
+      cards: Widgets,
       item: null,
       configuration: null,
       viewerLoaded: false,

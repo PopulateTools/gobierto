@@ -1,7 +1,7 @@
 ---
 en:
   gobierto_dashboards:
-    available_cards: Tarjetas disponibles
+    available_cards: Available cards
     changes: Dashboard changed
     date: 'Date: '
     default_title: Dashboard title

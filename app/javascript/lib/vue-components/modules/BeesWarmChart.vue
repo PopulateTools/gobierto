@@ -6,7 +6,7 @@
 </template>
 <script>
 import { select, selectAll } from 'd3-selection';
-import { scaleBand, scaleTime, scalePow } from 'd3-scale';
+import { scaleBand, scaleTime, scalePow, scaleOrdinal } from 'd3-scale';
 import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { extent } from 'd3-array';
@@ -22,6 +22,7 @@ const d3 = {
   scaleBand,
   scaleTime,
   scalePow,
+  scaleOrdinal,
   forceSimulation,
   forceX,
   forceY,
@@ -91,6 +92,7 @@ export default {
       updateData: false,
       dataWithoutCoordinates: undefined,
       dataNewValues: undefined,
+      arrayValuesContractTypes: undefined,
     };
   },
   watch: {
@@ -104,9 +106,14 @@ export default {
   },
   mounted() {
     this.dataWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
-    const containerChart = document.querySelector('.beeswarm-container');
+    const containerChart = document.querySelector('.visualizations-home-main');
     this.svgWidth = containerChart.offsetWidth;
     this.svgHeight = this.height;
+
+    /*To avoid add/remove colors in every update use Object.freeze(this.data)
+    to create a scale/domain color persistent with the original keys*/
+    const freezeObjectColors = Object.freeze(this.data);
+    this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => normalizeString(d.contract_type))))
     this.setupElements();
     this.buildBeesWarm(this.data);
     this.resizeListener();
@@ -125,55 +132,38 @@ export default {
 
       g.append('g').attr('class', 'axis axis-y');
     },
+    createScaleColors(values) {
+      let colorsGobiertoExtend = ["#12365b", "#118e9c", "#ff766c", "#f7b200", "#158a2c", "#94d2cf", "#3a78c3", "#15dec5", "#6a7f2f", "#55f17b"]
+      colorsGobiertoExtend = colorsGobiertoExtend.slice(0, values)
+
+      const colors = d3.scaleOrdinal()
+        .domain(this.arrayValuesContractTypes)
+        .range(colorsGobiertoExtend);
+      return colors;
+    },
     buildBeesWarm(data) {
       let filterData = this.transformData(data);
+      const colors = this.createScaleColors(this.arrayValuesContractTypes.length);
+      const arrayValuesScaleY = Array.from(new Set(filterData.map(d => d[this.yAxisProp])));
+      this.svgHeight = arrayValuesScaleY.length === 1 ? 300 : this.height;
 
       const svg = d3.select('.beeswarm-plot');
 
-      const translate = `translate(${this.margin.left},${this.margin.bottom})`;
+      const translate = arrayValuesScaleY.length === 1 ? `translate(0,${this.margin.bottom})` : 'translate(0,0)';
 
       const g = svg.select('.beeswarm-plot-container');
 
       g.attr('transform', translate);
 
-      const arrayValuesScaleY = Array.from(
-        new Set(filterData.map(d => d[this.yAxisProp]))
-      );
-
-      this.svgHeight = arrayValuesScaleY.length === 1 ? 300 : this.height;
-
       const scaleY = d3
         .scaleBand()
         .domain(arrayValuesScaleY)
-        .range([this.svgHeight + this.margin.bottom, this.margin.top]);
+        .range([this.svgHeight , this.margin.top]);
 
       const scaleX = d3
         .scaleTime()
         .domain(d3.extent(filterData, d => d[this.xAxisProp]))
-        .nice()
-        .range([this.margin.left, this.svgWidth]);
-
-      svg
-        .selectAll('.label-y')
-        .data(Array.from(new Set(filterData.map(d => d[this.yAxisProp]))))
-        .join('text')
-        .attr('class', 'label-y')
-        .attr('x', 0)
-        .attr('y', d => scaleY(d))
-        .attr('alignment-baseline', 'middle')
-        .text(d => d);
-
-      svg
-        .selectAll('.line-y')
-        .data(Array.from(new Set(filterData.map(d => d[this.yAxisProp]))))
-        .join('line')
-        .attr('class', 'line-y')
-        .attr('x1', this.margin.left)
-        .attr('x2', this.svgWidth + this.margin.left + this.margin.right)
-        .attr('y1', d => scaleY(d))
-        .attr('y2', d => scaleY(d));
-
-      svg.selectAll('.label-y').call(this.wrapTextLabel, 120);
+        .rangeRound([this.margin.left, this.svgWidth - this.margin.right])
 
       const axisX = d3
         .axisBottom(scaleX)
@@ -181,7 +171,7 @@ export default {
         .tickFormat(d => {
           let _mf =
             Array.from(new Set(filterData.map(d => d.start_date_year)))
-              .length === 1
+              .length <= 2
               ? d3.timeFormatLocale(d3locale[I18n.locale]).format('%b-%Y')
               : d3.timeFormatLocale(d3locale[I18n.locale]).format('%Y');
           return _mf(d);
@@ -190,10 +180,7 @@ export default {
         .ticks(5);
 
       g.select('.axis-x')
-        .attr(
-          'transform',
-          `translate(${-this.margin.left},${this.svgHeight - this.margin.top})`
-        )
+        .attr('transform', `translate(0,${this.svgHeight - this.margin.top})`)
         .transition()
         .duration(200)
         .call(axisX);
@@ -207,6 +194,28 @@ export default {
         )
         .call(axisY);
 
+      g
+        .selectAll('.label-y')
+        .data(Array.from(new Set(filterData.map(d => d[this.yAxisProp]))))
+        .join('text')
+        .attr('class', 'label-y')
+        .attr('x', 0)
+        .attr('y', d => scaleY(d))
+        .attr('alignment-baseline', 'middle')
+        .text(d => d);
+
+      g
+        .selectAll('.line-y')
+        .data(Array.from(new Set(filterData.map(d => d[this.yAxisProp]))))
+        .join('line')
+        .attr('class', 'line-y')
+        .attr('x1', this.margin.left)
+        .attr('x2', this.svgWidth + this.margin.left + this.margin.right)
+        .attr('y1', d => scaleY(d))
+        .attr('y2', d => scaleY(d));
+
+      g.selectAll('.label-y').call(this.wrapTextLabel, 120);
+
       let simulation = d3
         .forceSimulation(filterData)
         .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])).strength(2))
@@ -214,11 +223,14 @@ export default {
         .force('collide', d3.forceCollide().radius(d => d.radius + this.padding))
         .stop();
 
-      for (let i = 0; i < (filterData.length / 3); ++i) {
-        simulation.tick(5);
+      /*Reduces the simulation to prevent brokes the browser*/
+      let simulationIteration = 85
+
+      for (let i = 0; i < (simulationIteration); ++i) {
+        simulation.tick(3);
       }
 
-      let circlesBees = svg
+      let circlesBees = g
         .selectAll('.beeswarm-circle')
         .data(filterData)
 
@@ -228,15 +240,16 @@ export default {
         .ease(d3.easeLinear)
         .attr('cx', this.svgWidth / 2)
         .attr('cy', this.svgHeight / 2)
+        .attr('r', 0)
         .remove();
 
       circlesBees
         .enter()
         .append('circle')
-        .attr('id', d => `${d.slug}`)
-        .attr('r', d => d.radius)
+        .attr('r', 0)
         .attr('cx', this.svgWidth / 2)
         .attr('cy', this.svgHeight / 2)
+        .attr('fill', 'transparent')
         .merge(circlesBees)
         .on('mouseover', (event, d) => {
           this.$emit('showTooltip', event, d);
@@ -253,7 +266,10 @@ export default {
         })
         .on('mouseout', () => {
           d3.select('.beeswarm-tooltip')
-            .style('display', 'none');
+            .style("opacity", 1)
+            .transition()
+            .duration(400)
+            .style("opacity", 0)
 
           d3.selectAll(`.beeswarm-circle`)
             .transition()
@@ -270,9 +286,12 @@ export default {
           d.id = normalizeString(d.id)
           return `beeswarm-circle beeswarm-circle-${d.id} beeswarm-circle-${d.slug_contract_type}`
         })
+        .attr('id', d => `${d.slug}`)
         .attr('cx', d => d.x - 5)
         .attr('cy', d => d.y)
         .attr('r', d => d.radius)
+        .attr('fill', d => colors(d.slug_contract_type))
+
     },
     transformData(data) {
       const maxFinalAmount = d3.max(data, d => d.final_amount_no_taxes)
@@ -294,8 +313,9 @@ export default {
         d.radius = radiusScale(d[this.radiusProperty])
       });
 
-      let filterData = data.filter(
-        ({ final_amount_no_taxes }) => final_amount_no_taxes !== 0);
+      let filterData = data.filter(({ final_amount_no_taxes }) => final_amount_no_taxes !== 0);
+
+      filterData = filterData.sort((a, b) => a.contract_type.localeCompare(b.contract_type))
 
       return filterData;
     },
@@ -338,9 +358,7 @@ export default {
     resizeListener() {
       window.addEventListener('resize', () => {
         let dataResponsive = this.updateData ? this.dataNewValues : this.dataWithoutCoordinates;
-        const containerChart = document.getElementsByClassName(
-          'beeswarm-container'
-        )[0];
+        const containerChart = document.querySelector('.visualizations-home-main');
         this.svgWidth = containerChart.offsetWidth;
         this.setupElements();
         this.deepCloneData(dataResponsive);

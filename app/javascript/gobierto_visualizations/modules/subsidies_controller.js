@@ -145,13 +145,10 @@ export class SubsidiesController {
       subsidy.beneficiary_id = beneficiary_id;
       subsidy.beneficiary_name = beneficiary_name.join(" ");
 
+      //To avoid generating repeated id's we concatenate the index to the generation of ID's
       if (!subsidy.id) {
-        subsidy.id = `${subsidy.grant_date.replace(
-          /\D+/g,
-          ""
-        )}${subsidy.beneficiary_id.replace(/\D+/g, "")}${parseInt(
-          subsidy.amount
-        ) || 0}`;
+        subsidy.id = `${subsidy.grant_date.replace(/\D+/g,"")}
+        ${subsidy.beneficiary_id.replace(/\D+/g, "")}${parseInt(subsidy.amount) || 0}${$i}`;
       }
     }
 

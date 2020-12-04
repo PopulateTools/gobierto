@@ -60,6 +60,7 @@ export default {
   created() {
     EventBus.$on("update-tab", () => this.updateTab());
     EventBus.$on("update-filters", () => this.updateFilters());
+    console.log("this.$root.$data.subsidiesData", this.$root.$data.subsidiesData);
   },
   methods: {
     setActiveTab(tabIndex) {

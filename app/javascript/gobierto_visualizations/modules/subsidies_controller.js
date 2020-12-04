@@ -8,7 +8,7 @@ import {
 } from "lib/visualizations";
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { getRemoteData } from "../webapp/lib/utils";
+import { getRemoteData, sortByField } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/mixins/event_bus";
 
 const d3 = { scaleThreshold, sum, mean, median, max };
@@ -156,7 +156,7 @@ export class SubsidiesController {
     }
 
     this.data = {
-      subsidiesData: subsidiesData
+      subsidiesData: subsidiesData.sort(sortByField("grant_date"))
     };
   }
 

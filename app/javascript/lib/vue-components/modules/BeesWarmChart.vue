@@ -6,7 +6,7 @@
 </template>
 <script>
 import { select, selectAll } from 'd3-selection';
-import { scaleBand, scaleTime, scalePow, scaleOrdinal } from 'd3-scale';
+import { scaleBand, scaleTime, scalePow } from 'd3-scale';
 import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { extent } from 'd3-array';
@@ -14,7 +14,7 @@ import { timeParse, timeFormat, timeFormatLocale } from 'd3-time-format';
 import { min, max } from 'd3-array';
 import { d3locale } from 'lib/shared';
 import { easeLinear } from 'd3-ease';
-import { normalizeString } from "../../../gobierto_visualizations/webapp/lib/utils";
+import { normalizeString, createScaleColors } from "../../../gobierto_visualizations/webapp/lib/utils";
 
 const d3 = {
   select,
@@ -22,7 +22,6 @@ const d3 = {
   scaleBand,
   scaleTime,
   scalePow,
-  scaleOrdinal,
   forceSimulation,
   forceX,
   forceY,
@@ -132,18 +131,9 @@ export default {
 
       g.append('g').attr('class', 'axis axis-y');
     },
-    createScaleColors(values) {
-      let colorsGobiertoExtend = ["#12365b", "#118e9c", "#ff766c", "#f7b200", "#158a2c", "#94d2cf", "#3a78c3", "#15dec5", "#6a7f2f", "#55f17b"]
-      colorsGobiertoExtend = colorsGobiertoExtend.slice(0, values)
-
-      const colors = d3.scaleOrdinal()
-        .domain(this.arrayValuesContractTypes)
-        .range(colorsGobiertoExtend);
-      return colors;
-    },
     buildBeesWarm(data) {
       let filterData = this.transformData(data);
-      const colors = this.createScaleColors(this.arrayValuesContractTypes.length);
+      const colors = createScaleColors(this.arrayValuesContractTypes.length, this.arrayValuesContractTypes);
       const arrayValuesScaleY = Array.from(new Set(filterData.map(d => d[this.yAxisProp])));
       this.svgHeight = arrayValuesScaleY.length === 1 ? 300 : this.height;
 

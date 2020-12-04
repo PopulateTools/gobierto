@@ -35,7 +35,7 @@ import { treemap, stratify, hierarchy, treemapBinary } from 'd3-hierarchy'
 import { scaleLinear, scaleOrdinal } from 'd3-scale'
 import { easeLinear } from 'd3-ease'
 import { interpolate } from 'd3-interpolate';
-import { sumDataByGroupKey, normalizeString } from "../lib/utils";
+import { sumDataByGroupKey, normalizeString, createScaleColors } from "../lib/utils";
 import { mean, median } from "d3-array";
 import { nest } from "d3-collection";
 import { money } from "lib/shared";
@@ -191,7 +191,7 @@ export default {
         .remove()
         .exit();
 
-      const colors = this.createScaleColors(this.arrayValuesContractTypes.length);
+      const colors = createScaleColors(this.arrayValuesContractTypes.length, this.arrayValuesContractTypes);
       let transitioning;
       let dataTreeMapSumFinalAmount = this.dataTreeMapSumFinalAmount
       const selected_size = this.selected_size;

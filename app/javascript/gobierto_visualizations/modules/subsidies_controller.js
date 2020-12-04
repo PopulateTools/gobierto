@@ -118,7 +118,7 @@ export class SubsidiesController {
   setGlobalVariables(rawData) {
     let subsidiesData = rawData[0];
 
-    subsidiesData.sort(function(a,b) {
+    subsidiesData.sort((a, b) => {
       a = a.grant_date.replace(/-/g, '');
       b = b.grant_date.replace(/-/g, '');
       return a.localeCompare(b)
@@ -134,7 +134,6 @@ export class SubsidiesController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
-    console.log("subsidiesData", subsidiesData);
     for (let i = 0; i < subsidiesData.length; i++) {
       const subsidy = subsidiesData[i];
       const amount =

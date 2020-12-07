@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module GobiertoAdmin
-  module GobiertoTemp
-    class TempController < GobiertoAdmin::BaseController
+  module GobiertoDashboards
+    class DashboardsController < GobiertoAdmin::BaseController
       layout false
 
       def index

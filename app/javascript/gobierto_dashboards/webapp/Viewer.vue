@@ -29,7 +29,7 @@
 
 <script>
 // add the styles here, because this element can be inserted both as a component or standalone
-import "../../../assets/stylesheets/module-TEMP-viewer.scss";
+import "../../../assets/stylesheets/module-dashboards-viewer.scss";
 import { GridLayout } from "vue-grid-layout";
 import { Widgets } from "./lib/widgets";
 import { DashboardFactoryMixin } from "./lib/factories";

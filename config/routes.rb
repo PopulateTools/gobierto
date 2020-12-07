@@ -267,9 +267,9 @@ Rails.application.routes.draw do
         end
       end
 
-      namespace :gobierto_temp, as: :temp do
-        get "index" => "temp#index"
-        get "show" => "temp#show"
+      namespace :gobierto_dashboards, as: :dashboards do
+        get "index" => "dashboards#index"
+        get "show" => "dashboards#show"
       end
     end
 

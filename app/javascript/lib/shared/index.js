@@ -34,7 +34,6 @@ import {
   clickoutside
 } from "./modules/vue-directives.js";
 import { Middleware } from "./modules/middleware.js";
-import "./modules/iFrameCommunication.js";
 
 export {
   AUTOCOMPLETE_DEFAULTS,

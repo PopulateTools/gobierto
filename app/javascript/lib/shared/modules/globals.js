@@ -58,6 +58,20 @@ $(document).on("ajax:complete ajaxSuccess", function() {
 $(document).on("turbolinks:load", function() {
   // Include here common callbacks and behaviours
 
+  // iFrame communication
+  console.log(window.location !== window.parent.location, window.location, window.parent.location);
+  if (window.location !== window.parent.location) {
+    // Send a message to the iframe container with the URL (href + hash) and
+    // the title of the document
+    let message = {
+      href: window.location.href,
+      hash: window.location.hash,
+      title: window.document.title
+    };
+    console.log("Posting message:", message);
+    window.parent.postMessage(message, '*');
+  }
+
   // Tabs navigation
   $("[data-tab-target]").on("click", function(e) {
     e.preventDefault();

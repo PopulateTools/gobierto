@@ -30,7 +30,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!disableTurbolinks) {
     Turbolinks.start()
   }
-});
-
-// TODO: Esto podría ser dividido en pequeños módulos para inyectar solo las cosas necesarias
-import 'lib/shared'
+})

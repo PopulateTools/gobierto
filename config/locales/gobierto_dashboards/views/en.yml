@@ -11,8 +11,8 @@ en:
 
       Then you can configure it."
     objective: Goal
-    percentage: Achievement
-    percentage_alt: "% achievement"
+    percentage: Attainment
+    percentage_alt: "% Attainment"
     placeholder: Write the title of the indicator or project
     public: Public
     save: Save

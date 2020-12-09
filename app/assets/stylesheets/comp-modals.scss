@@ -9,6 +9,7 @@
   width: auto;
   max-width: 750px;
   margin: 20px auto;
+  overflow: hidden;
 
   @include border-radius(5px);
 
@@ -19,6 +20,15 @@
     .button {
       padding: 0 1em;
     }
+  }
+
+  &.modal-full-width {
+    max-width: 95%;
+    box-sizing: border-box;
+  }
+
+  &.modal-no-padding {
+    padding: 0;
   }
 
   .disclaimer {
@@ -32,13 +42,6 @@
 .cropper-container {
   border: 1px solid red;
   padding: 1em;
-}
-
-.modal-full-width {
-  .modal {
-    max-width: 95%;
-    box-sizing: border-box;
-  }
 }
 
 .mfp-container {

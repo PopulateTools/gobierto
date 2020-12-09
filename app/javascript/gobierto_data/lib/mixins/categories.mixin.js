@@ -15,15 +15,6 @@ export const CategoriesMixin = {
         name: this.translate(attr.name_translations),
         value: value
       };
-    },
-    setItem(element) {
-      return {
-        ...element,
-
-      };
-    },
-    setData(data) {
-      return data.map(element => this.setItem(element));
-    },
+    }
   }
 }

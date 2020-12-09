@@ -92,10 +92,16 @@ export default {
       /* We compare the columns, if it returns true we pass the schema to Perspective, if false Perspective will convert the columns*/
       const sameColumns = arrayColumnsFromAPI.length === arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
 
+      //If columns contains Boolean values goes to replace them
+      let replaceItems = this.items
+      if (Object.values(this.objectColumns).some(value => value === "boolean")) {
+        replaceItems = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
+      }
+
       if (sameColumns) {
-        this.initPerspectiveWithSchema(this.items)
+        this.initPerspectiveWithSchema(replaceItems)
       } else {
-        this.initPerspective(this.items)
+        this.initPerspective(replaceItems)
       }
     },
     initPerspectiveWithSchema(data) {
@@ -111,6 +117,11 @@ export default {
           transformColumns[key] = 'float'
         } else if (transformColumns[key] === 'inet') {
           transformColumns[key] = 'integer'
+        //In some cases, Perspective throw an error when tried to convert column with date format, so we need to change the date to datetime
+        } else if (transformColumns[key] === 'date') {
+          transformColumns[key] = 'datetime'
+        } else if (transformColumns[key] === 'tsvector') {
+          transformColumns[key] = 'string'
         }
       });
 

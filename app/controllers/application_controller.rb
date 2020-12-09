@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionController::UnknownFormat, with: :render_404
+  rescue_from Errors::InvalidParameters, with: :render_bad_request
 
   helper_method(
     :helpers,
@@ -25,7 +26,11 @@ class ApplicationController < ActionController::Base
   before_action :apply_engines_overrides, :authenticate_user_in_site
 
   def render_404
-    render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
+    render file: Rails.root.join("public/404.html"), status: 404, layout: false, handlers: [:erb], formats: [:html]
+  end
+
+  def render_bad_request
+    render status: :bad_request, file: Rails.root.join("public/404.html"), layout: false, handlers: [:erb], format: [:html]
   end
 
   def helpers

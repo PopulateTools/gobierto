@@ -3,7 +3,7 @@
 <% tabs = ["total_budget"].tap { |this| this.unshift("per_person") if @site_stats.population_data? } %>
 <% i18n_scope ||= "gobierto_budgets.budgets.index" %>
 
-<%= content_tag :div, id: wrapper_id, class: "pure-g", role: "tabpanel", "aria-controlledby": tabs.join(", "), data: {"vis-lines": ""} do -%>
+<%= content_tag :div, id: wrapper_id, class: "pure-g", role: "tabpanel", data: {"vis-lines": ""} do -%>
   <div class=" pure-u-1 pure-u-md-1-2 block" >
     <h2><%= t(:at_a_glance, scope: i18n_scope) %></h2>
 
@@ -34,7 +34,6 @@
           role: "tab",
           tabindex: 0,
           "aria-selected": "true",
-          id: "per_person",
           "aria-controls": "lines_chart_wrapper" %>
       <% end %>
       <%= link_to t(:in_total, scope: i18n_scope), "#",
@@ -45,7 +44,6 @@
         role: "tab",
         tabindex:-1,
         "aria-selected": !@site_stats.population_data?,
-        id: "total_budget",
         "aria-controls": "lines_chart_comparison_wrapper" %>
     </div>
   </div>

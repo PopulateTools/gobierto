@@ -20,11 +20,17 @@ export const router = new VueRouter({
       name: 'Visualizations'
     },
     {
-      path: '/datos',
+      path: '/datos/',
       component: Main,
       children: [
         {
           path: '',
+          name:'index',
+          component: Index
+        },
+        {
+          path: '/datos/terms/*',
+          name:' terms',
           component: Index
         },
         {

@@ -79,7 +79,7 @@ export default {
         // properties of the key
         const {
           id,
-          attributes: { name, slug, level }
+          attributes: { name, slug, level } = {}
         } = vocabulary_terms.find(({ id }) => id === key) || {};
         // items by key
         const children = groupedProjects[key] || [];

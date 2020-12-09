@@ -4,9 +4,11 @@ const merge = require('webpack-merge')
 const { VueLoaderPlugin } = require('vue-loader')
 const vue = require('./loaders/vue')
 const less = require('./loaders/less')
+const terser = require('./optimization/terser')
 
 environment.loaders.append('less', less)
 environment.loaders.append('vue', vue)
+environment.config.merge(terser)
 environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin())
 environment.plugins.append(
   'Provide',

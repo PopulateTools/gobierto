@@ -116,9 +116,7 @@ class Site < ApplicationRecord
   end
 
   def self.find_by_allowed_domain(domain)
-    unless reserved_domains.include?(domain)
-      find_by(domain: domain)
-    end
+    find_by(domain: domain) unless reserved_domains.include?(domain)
   end
 
   def issues
@@ -163,9 +161,15 @@ class Site < ApplicationRecord
                                 end
   end
 
-  def gobierto_dashboards_settings
-    @gobierto_dashboard_settings ||= if configuration.available_module?("GobiertoDashboards") && configuration.gobierto_dashboards_enabled?
-                                       module_settings.find_by(module_name: "GobiertoDashboards")
+  def gobierto_visualizations_settings
+    @gobierto_visualizations_settings ||= if configuration.available_module?("GobiertoVisualizations") && configuration.gobierto_visualizations_enabled?
+                                       module_settings.find_by(module_name: "GobiertoVisualizations")
+                                     end
+  end
+
+  def gobierto_observatory_settings
+    @gobierto_observatory_settings ||= if configuration.available_module?("GobiertoObservatory") && configuration.gobierto_observatory_enabled?
+                                       module_settings.find_by(module_name: "GobiertoObservatory")
                                      end
   end
 
@@ -185,10 +189,6 @@ class Site < ApplicationRecord
 
   def configuration
     @configuration ||= SiteConfiguration.new(site_configuration_attributes)
-  end
-
-  def basic_auth_token
-    Base64.encode64("#{configuration.password_protection_username}:#{configuration.password_protection_password}").strip
   end
 
   def password_protected?

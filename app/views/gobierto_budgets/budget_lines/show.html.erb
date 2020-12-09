@@ -15,7 +15,7 @@
         </div>
 
         <div class="col" data-level="0">
-          <table class="med_bg">
+          <table class="med_bg" role="presentation">
             <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
               <tr>
                 <td data-code="<%= year %>"><%= link_to year, gobierto_budgets_budgets_path %></td>
@@ -25,27 +25,27 @@
         </div>
 
         <div class="col" data-level="1">
-          <table class="med_bg" data-current-code=""></table>
+          <table class="med_bg" data-current-code="" role="presentation"></table>
         </div>
 
         <div class="col" data-level="2">
-          <table class="med_bg" data-current-code=""></table>
+          <table class="med_bg" data-current-code="" role="presentation"></table>
         </div>
 
         <div class="col" data-level="3">
-          <table class="med_bg" data-current-code=""></table>
+          <table class="med_bg" data-current-code="" role="presentation"></table>
         </div>
 
         <div class="col" data-level="4">
-          <table class="med_bg" data-current-code=""></table>
+          <table class="med_bg" data-current-code="" role="presentation"></table>
         </div>
 
         <div class="col" data-level="5">
-          <table class="med_bg" data-current-code=""></table>
+          <table class="med_bg" data-current-code="" role="presentation"></table>
         </div>
 
         <div class="col" data-level="6">
-          <table class="med_bg" data-current-code=""></table>
+          <table class="med_bg" data-current-code="" role="presentation"></table>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
       <% if in_elaboration? %>
         <div class="pure-u-1-1 metric_box">
           <div class="highlight-proposal">
-            <p><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: Date.current.year) %></p>
+            <p><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: Date.current.year + 1) %></p>
           </div>
         </div>
       <% end %>
@@ -72,15 +72,15 @@
         <% if @budget_line_stats.amount_per_inhabitant.present? %>
           <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.planned_per_inhabitant_tooltip') %>" data-box="planned_per_inhabitant">
             <div class="inner">
-              <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.planned_per_inhabitant') %></h3>
+              <h3><%= t('.planned_per_inhabitant') %></h3>
 
               <div class="metric">
-                <%= number_to_currency(@budget_line_stats.amount_per_inhabitant_updated || @budget_line_stats.amount_per_inhabitant, precision: 2) %>
+                <%= number_to_currency(@budget_line_stats.amount_per_inhabitant, precision: 2) %>
               </div>
 
               <% if @budget_line_stats.amount_per_inhabitant_updated.present? %>
                 <div class="explanation">
-                  <%= t(".initial_estimate") %>: <%= number_to_currency(@budget_line_stats.amount_per_inhabitant, precision: 2) %>
+                  <%= t(".current_amount_per_inhabitant") %>: <%= number_to_currency(@budget_line_stats.amount_per_inhabitant_updated, precision: 2) %>
                 </div>
               <% end %>
             </div>
@@ -89,15 +89,15 @@
 
         <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.planned_tooltip') %>" data-box="planned">
           <div class="inner">
-            <h3><%= kind_literal(@kind, false).capitalize %> <%= planned(@kind) %> </h3>
+            <h3><%= t(".initial_estimate") %></h3>
 
             <div class="metric">
-              <%= format_currency @budget_line_stats.amount_updated || @budget_line_stats.amount %>
+              <%= format_currency @budget_line_stats.amount %>
             </div>
 
             <% if @budget_line_stats.amount_updated.present? %>
               <div class="explanation">
-                 <%= t(".initial_estimate") %>: <%= format_currency(@budget_line_stats.amount) %>
+                 <%= t(".current_amount") %>: <%= format_currency(@budget_line_stats.amount_updated) %>
               </div>
             <% end %>
           </div>
@@ -231,10 +231,10 @@
         </div>
       </div>
 
-      <div id="lines_chart_wrapper_separator" class="separator"></div>
+      <div class="separator"></div>
 
       <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name && budgets_comparison_context_table_enabled %>
-        <div id="lines_chart_wrapper" class="pure-g block" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
+        <div id="lines_chart_wrapper" class="pure-g block" data-vis-lines role="tabpanel">
           <div class="pure-u-1 pure-u-md-1-2 p_h_l_1">
             <h2><%= t('.evolution') %></h2>
             <div id="lines_chart"></div>
@@ -258,7 +258,7 @@
       <% end %>
 
       <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name && budgets_comparison_compare_municipalities.any? %>
-        <div id="lines_chart_comparison_wrapper" class="pure-g block" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
+        <div id="lines_chart_comparison_wrapper" class="pure-g block" data-vis-lines role="tabpanel">
           <div class="pure-u-1 pure-u-md-1-2 p_h_l_1">
             <h2><%= t('.evolution') %></h2>
             <div id="lines_chart_comparison"></div>

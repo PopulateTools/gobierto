@@ -55,6 +55,10 @@ module GobiertoData
           @attachment ||= gobierto_attachments_attachments(:txt_pdf_attachment)
         end
 
+        def delete_cached_files
+          FileUtils.rm_rf(Rails.root.join(GobiertoData::Cache::BASE_PATH))
+        end
+
         def array_data(dataset)
           [
             dataset.id.to_s,
@@ -75,6 +79,14 @@ module GobiertoData
           end
         end
 
+        def token_with_domain
+          @token_with_domain ||= gobierto_admin_api_tokens(:tony_domain)
+        end
+
+        def token_with_other_domain
+          @token_with_other_domain ||= gobierto_admin_api_tokens(:tony_other_domain)
+        end
+
         # GET /api/v1/data/datasets.json
         def test_index_with_password_protected_site
           site.draft!
@@ -86,10 +98,9 @@ module GobiertoData
               with(site: site) do
                 get gobierto_data_api_v1_datasets_path, as: :json
                 assert_response :unauthorized
-                assert_includes response.parsed_body, "HTTP Basic: Access denied."
 
                 get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
-                assert_response :success
+                assert_response :unauthorized
 
                 admin.regular!
                 admin.admin_sites.create(site: site)
@@ -102,6 +113,63 @@ module GobiertoData
 
                 admin.manager!
                 get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => admin_auth_header }
+                assert_response :success
+              end
+            end
+          end
+        end
+
+        def test_index_with_internal_site_request
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                self.host = "santander.gobierto.test"
+                get gobierto_data_api_v1_datasets_path, as: :json
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                assert_response :success
+              end
+            end
+          end
+        end
+
+        def test_index_with_domain_token
+          site.draft!
+          site.configuration.password_protection_username = "username"
+          site.configuration.password_protection_password = "password"
+
+          %w(staging production).each do |environment|
+            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
+              with(site: site) do
+                get gobierto_data_api_v1_datasets_path, as: :json
+                assert_response :unauthorized
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                assert_response :unauthorized
+
+                self.host = token_with_domain.domain
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :success
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                assert_response :unauthorized
+
+                self.host = token_with_other_domain.domain
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                assert_response :unauthorized
+
+                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
                 assert_response :success
               end
             end
@@ -206,23 +274,6 @@ module GobiertoData
           end
         end
 
-        # GET /api/v1/data/datasets/dataset-slug.json
-        def test_dataset_data
-          with(site: site) do
-            get gobierto_data_api_v1_dataset_path(dataset.slug), as: :json
-
-            assert_response :success
-            response_data = response.parsed_body
-            assert response_data.has_key? "data"
-            assert_equal dataset.rails_model.count, response_data["data"].count
-            assert_equal dataset.rails_model.all.map(&:id).sort, response_data["data"].map { |row| row["id"] }.sort
-
-            assert response_data.has_key? "links"
-            assert_includes response_data["links"].values, gobierto_data_api_v1_datasets_path
-            assert_includes response_data["links"].values, meta_gobierto_data_api_v1_datasets_path
-          end
-        end
-
         # GET /api/v1/data/datasets/dataset-slug.csv
         def test_dataset_data_as_csv
           with(site: site) do
@@ -234,22 +285,6 @@ module GobiertoData
             parsed_csv = CSV.parse(response_data)
 
             assert_equal dataset.rails_model.count + 1, parsed_csv.count
-          end
-        end
-
-        # GET /api/v1/data/datasets/dataset-slug.xlsx
-        def test_dataset_data_as_xlsx
-          with(site: site) do
-            get gobierto_data_api_v1_dataset_path(dataset.slug, format: :xlsx), as: :xlsx
-
-            assert_response :success
-
-            parsed_xlsx = RubyXL::Parser.parse_buffer response.parsed_body
-
-            assert_equal 1, parsed_xlsx.worksheets.count
-            sheet = parsed_xlsx.worksheets.first
-            refute_nil sheet[dataset.rails_model.count]
-            assert_nil sheet[dataset.rails_model.count + 1]
           end
         end
 
@@ -295,47 +330,19 @@ module GobiertoData
           end
         end
 
-        # GET /api/v1/data/datasets/dataset-slug/download.json
-        def test_dataset_download_as_json
-          with(site: site) do
-            get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :json), as: :json
-
-            assert_response :success
-            assert_match(/attachment; filename="?#{dataset.slug}.json"?/, response.headers["content-disposition"])
-            response_data = response.parsed_body
-
-            assert_equal dataset.rails_model.count, response_data.count
-            assert_equal dataset.rails_model.all.map(&:id).sort, response_data.map { |row| row["id"] }.sort
-          end
-        end
-
         # GET /api/v1/data/datasets/dataset-slug/download.csv
         def test_dataset_download_as_csv
           with(site: site) do
             get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :csv), as: :csv
 
             assert_response :success
-            assert_match(/attachment; filename="?#{dataset.slug}.csv"?/, response.headers["content-disposition"])
             response_data = response.parsed_body
             parsed_csv = CSV.parse(response_data)
 
             assert_equal dataset.rails_model.count + 1, parsed_csv.count
-          end
-        end
 
-        # GET /api/v1/data/datasets/dataset-slug/download.xlsx
-        def test_dataset_download_as_xlsx
-          with(site: site) do
-            get download_gobierto_data_api_v1_dataset_path(dataset.slug, format: :xlsx), as: :xlsx
-
-            assert_response :success
-            assert_match(/attachment; filename="?#{dataset.slug}.xlsx"?/, response.headers["content-disposition"])
-            parsed_xlsx = RubyXL::Parser.parse_buffer response.parsed_body
-
-            assert_equal 1, parsed_xlsx.worksheets.count
-            sheet = parsed_xlsx.worksheets.first
-            refute_nil sheet[dataset.rails_model.count]
-            assert_nil sheet[dataset.rails_model.count + 1]
+            assert File.exist? Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/datasets/#{dataset.id}.csv")
+            delete_cached_files
           end
         end
 

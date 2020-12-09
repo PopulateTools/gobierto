@@ -25,6 +25,25 @@
       <!-- Only is mounted where there are attributes -->
       <SummaryTab
         v-if="activeDatasetTab === 0 && attributes"
+        :dataset-id="datasetId"
+        :is-viz-modified="isVizModified"
+        :is-viz-item-modified="isVizItemModified"
+        :is-viz-saved="isVizSaved"
+        :is-private-viz-loading="isPrivateVizLoading"
+        :is-public-viz-loading="isPublicVizLoading"
+        :public-visualizations="publicVisualizations"
+        :private-visualizations="privateVisualizations"
+        :enabled-viz-saved-button="enabledVizSavedButton"
+        :current-viz-tab="currentVizTab"
+        :enabled-fork-viz-button="enabledForkVizButton"
+        :viz-input-focus="vizInputFocus"
+        :viz-id="vizID"
+        :user-save-viz="userSaveViz"
+        :show-private-public-icon-viz="showPrivatePublicIconViz"
+        :show-private="showPrivate"
+        :show-private-viz="showPrivateViz"
+        :show-label-edit="showLabelEdit"
+        :reset-private="resetPrivate"
         :private-queries="privateQueries"
         :public-queries="publicQueries"
         :array-formats="arrayFormats"
@@ -628,9 +647,8 @@ export default {
       });
     },
     setPrivateQueries(response) {
-      const {
-        data: { data: items },
-      } = response;
+
+      const { data: { data: items } } = response;
       this.privateQueries = items;
     },
     async getPublicQueries() {
@@ -639,7 +657,7 @@ export default {
     },
     setPublicQueries(response) {
       const {
-        data: { data: items = [] },
+        data: { data: items = [] }
       } = response;
 
       this.publicQueries = items
@@ -689,13 +707,21 @@ export default {
       if (name === this.queryName && userId === this.queryUserId) {
         const { queryId } = this.$route.params;
         // factory method
-        ({ status } = await this.putQuery(queryId, { data }));
+        try {
+          ({ status } = await this.putQuery(queryId, { data }));
+        } catch (error) {
+          this.queryError = this.destructuringStoreQueryError(error)
+        }
 
         //Update revert query
         this.queryRevert = this.currentQuery
       } else {
         // factory method
-        ({ status, data: { data: newQuery } } = await this.postQuery({ data }));
+        try {
+          ({ status, data: { data: newQuery } } = await this.postQuery({ data }));
+        } catch (error) {
+          this.queryError = this.destructuringStoreQueryError(error)
+        }
       }
 
       // reload the queries if the response was successfull
@@ -740,16 +766,7 @@ export default {
         this.isQueryRunning = false;
         this.getColumnsQuery(this.items)
         this.queryError = null
-      } catch (error) {
-        const {
-          response: {
-            data: {
-              errors: arrayError
-            }
-          }
-        } = error;
-        const [ sqlError ] = arrayError
-        const { sql: stringError } = sqlError
+      } catch ({ response: { data: { errors: [{ sql: stringError } = {}] = [] } } } ) {
         this.queryError = stringError
         this.isQueryRunning = false;
         this.enabledQuerySavedButton = false
@@ -1041,6 +1058,10 @@ export default {
       this.isVizModified = false
       this.activatedSavedVizButton(value)
       this.showPrivatePublicIconViz = true
+    },
+    destructuringStoreQueryError(error) {
+      const { response: { data: { errors: [{ detail } = {}] = [] } } } = error
+      return detail
     }
   },
 };

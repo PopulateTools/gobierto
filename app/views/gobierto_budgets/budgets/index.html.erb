@@ -34,25 +34,25 @@
 
         <% if @site_stats.population_data? %>
           <%= render("metric_box",
-                title: t(".expenses_per_inhabitant"),
-                value: @site_stats.total_budget_per_inhabitant_updated(fallback: true),
+                title: t(".initial_estimate_per_inhabitant"),
+                value: @site_stats.total_budget_per_inhabitant,
                 tooltip: t(".expenses_per_inhabitant_tooltip"),
                 data_box: "expenses_per_inhabitant",
                 explanation: {
-                  if: @site_stats.total_budget_per_inhabitant_updated(fallback: false).present?,
-                  text: "#{t('.initial_estimate')}: #{format_currency(@site_stats.total_budget_per_inhabitant)}"
+                  if: @site_stats.total_budget_per_inhabitant(fallback: false).present?,
+                  text: "#{t('.expenses_per_inhabitant_updated')}: #{format_currency(@site_stats.total_budget_per_inhabitant_updated(fallback: true))}"
                 }
               ) %>
         <% end %>
 
         <%= render("metric_box",
-              title: t(".total_expenses"),
-              value: @site_stats.total_budget_updated(fallback: true),
+              title: t(".initial_estimate"),
+              value: @site_stats.total_budget,
               tooltip: t(".total_expenses_tooltip"),
               data_box: "total_expenses",
               explanation: {
-                if: @site_stats.total_budget_updated(fallback: false).present?,
-                text: "#{t('.initial_estimate')}: #{format_currency(@site_stats.total_budget)}"
+                if: @site_stats.total_budget(fallback: false).present?,
+                text: "#{t('.total_expenses_updated')}: #{format_currency(@site_stats.total_budget_updated(fallback: true))}"
               }
             ) %>
 
@@ -300,7 +300,7 @@
 
 
   <% if budgets_comparison_context_table_enabled %>
-    <div id="lines_chart_wrapper_separator" class="separator"></div>
+    <div class="separator"></div>
     <%= render partial: "comparison_chart", locals: { wrapper_id: "lines_chart_wrapper",
                                                       chart_id: "lines_chart",
                                                       tooltip_id: "lines_tooltip",
@@ -311,7 +311,7 @@
   <% end %>
 
   <% if budgets_comparison_compare_municipalities.any? %>
-    <div id="lines_chart_wrapper_separator" class="separator"></div>
+    <div class="separator"></div>
     <%= render partial: "comparison_chart", locals: { wrapper_id: "lines_chart_comparison_wrapper",
                                                       chart_id: "lines_chart_comparison",
                                                       tooltip_id: "lines_tooltip_comparison",

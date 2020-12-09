@@ -1,10 +1,19 @@
-import { select, selectAll } from "d3-selection";
 import { max } from "d3-array";
-import { scaleLinear, scaleBand } from "d3-scale";
 import { axisBottom, axisLeft } from "d3-axis";
+import { scaleBand, scaleLinear } from "d3-scale";
+import { select, selectAll } from "d3-selection";
 import { transition } from "d3-transition";
 
-const d3 = { select, selectAll, scaleLinear, scaleBand, max, axisBottom, axisLeft, transition };
+const d3 = {
+  select,
+  selectAll,
+  scaleLinear,
+  scaleBand,
+  max,
+  axisBottom,
+  axisLeft,
+  transition
+};
 
 export class Rowchart {
   constructor(context, data, options = {}) {
@@ -27,7 +36,10 @@ export class Rowchart {
 
     // dimensions
     let container = d3.select(context);
-    let width = +container.node().getBoundingClientRect().width - margin.left - margin.right;
+    let width =
+      +container.node().getBoundingClientRect().width -
+      margin.left -
+      margin.right;
     let height = data.length * itemHeight + margin.top + margin.bottom;
     let svg = container
       .append("svg")
@@ -46,7 +58,9 @@ export class Rowchart {
     let x = d3.scaleLinear().range([0, width]);
     let y = d3.scaleBand().range([height, 0]);
 
-    let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    let g = svg
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     x.domain([0, d3.max(data, d => d.value)]);
     y.domain(data.map(d => d.key)).padding(0.1);

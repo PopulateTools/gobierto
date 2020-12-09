@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_calendars"
-
 module GobiertoCalendars
   class Event < ApplicationRecord
     acts_as_paranoid column: :archived_at

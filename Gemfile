@@ -28,7 +28,6 @@ gem "rake", "~> 13.0"
 # Frontend
 gem "bourbon", "~> 7.0.0"
 gem "sass", "~> 3.4"
-gem "d3-rails", "~> 4.8"
 gem "flight-for-rails"
 gem "i18n-js", ">= 3.0.0.rc11"
 gem "jquery-rails"
@@ -54,13 +53,13 @@ gem "sidekiq-monitor-stats"
 gem "aws-sdk-s3", "~> 1"
 
 # AWS SES client
-gem "aws-ses", "~> 0.7.0"
+gem "aws-ses", "= 0.7.0"
 
 # Calendar view component
 gem "simple_calendar", "~> 2.2"
 
 # Search client
-gem "pg_search"
+gem "pg_search", "2.3.5"
 
 # Search client indexing sanitizer
 gem "rails-html-sanitizer"
@@ -111,6 +110,12 @@ gem "ladle"
 # Detect encoding
 gem "charlock_holmes"
 
+# CORS support
+gem "rack-cors"
+
+# Redirections
+gem 'rack-rewrite'
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
@@ -129,7 +134,6 @@ group :test do
   gem "minitest-stub_any_instance"
   gem "minitest-stub-const"
   gem "mocha"
-  gem "rack-cors"
   gem "selenium-webdriver"
   gem "spy"
   gem "timecop"

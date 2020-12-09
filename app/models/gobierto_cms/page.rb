@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_cms"
-
 module GobiertoCms
   class Page < ApplicationRecord
     acts_as_paranoid column: :archived_at

@@ -1,10 +1,10 @@
 ---
 staging:
-  :concurrency: 2
+  :concurrency: 5
 production:
-  :concurrency: 2
+  :concurrency: 5
 :queues:
   - default
   - user_verifications
   - mailers
-  - algoliasearch
+  - cached_data

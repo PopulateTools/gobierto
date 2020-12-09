@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_plans"
-
 module GobiertoPlans
   class Plan < ApplicationRecord
     acts_as_paranoid column: :archived_at

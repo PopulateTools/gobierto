@@ -1,6 +1,5 @@
 class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationController
   before_action :load_params
-  before_action :check_elaboration, only: [:show]
 
   caches_action(
     :show,
@@ -60,18 +59,13 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
     @code = params[:id]
   end
 
-  def check_elaboration
-    if @year > Date.today.year && !budgets_elaboration_active?
-      raise GobiertoBudgets::BudgetLine::RecordNotFound
-    end
-  end
-
   def common_params
     { site: current_site, year: @year, kind: @kind, area_name: @area_name }
   end
 
+  # TODO: rename?
   def updated_forecast(params = {})
-    GobiertoBudgets::BudgetLine.all(where: common_params.merge(params), updated_forecast: true)
+    GobiertoBudgets::BudgetLine.all(where: common_params.merge(params), updated_forecast: false)
   end
 
   def budget_line_composition

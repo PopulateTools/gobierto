@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_data"
+require_relative "../gobierto_data"
 
 module GobiertoData
   class Connection < ActiveRecord::Base
@@ -52,6 +52,31 @@ module GobiertoData
           return csv.join('')
         end
       rescue ActiveRecord::StatementInvalid, PG::Error => e
+        failed_query(e.message)
+      end
+
+      def execute_query_output_xlsx(site, query, xlsx_options_params, include_draft: false)
+        result = execute_query(site, query, include_draft: include_draft)
+
+        return result if result.is_a?(Hash) && result.has_key?(:errors)
+
+        row_index = 0
+        book = RubyXL::Workbook.new
+
+        sheet = book.worksheets.first
+        sheet.sheet_name = xlsx_options_params.fetch(:name, "data")
+        result.fields.each_with_index do |value, col_index|
+          sheet.add_cell(row_index, col_index, value)
+        end
+        result.each_row do |row|
+          row_index += 1
+          row.each_with_index do |value, col_index|
+            sheet.add_cell(row_index, col_index, value)
+          end
+        end
+
+        book.stream.read
+      rescue ActiveRecord::StatementInvalid => e
         failed_query(e.message)
       end
 

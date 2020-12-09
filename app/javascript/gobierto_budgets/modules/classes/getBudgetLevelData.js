@@ -1,25 +1,23 @@
-import * as d3 from 'd3'
-import { Card } from './card.js'
+import { Card } from "./card.js";
 
 export class getBudgetLevelData extends Card {
   constructor() {
-    super()
+    super();
 
     this.data = null;
-    this.dataUrl = $('body').data('bubbles-data');
+    this.url = $("body").data("bubbles-data");
   }
 
   getData(callback) {
-    if (this.dataUrl) {      
-      d3.json(this.dataUrl, function(error, data) {
-        if (error) throw error;
-
+    if (this.url) {
+      // empty the Authorization header
+      this.handlePromise(this.url, { headers: new Headers() }).then(data => {
         this.data = data;
 
         window.budgetLevels = this.data;
 
         if (callback) callback();
-      }.bind(this));
+      });
     }
   }
 }

@@ -7,6 +7,10 @@ export var shareContent = flight.component(function(){
   });
 
   this.after('initialize', function() {
+
+    var twitterElement = document.querySelector(".twitter");
+    var facebookElement = document.querySelector(".facebook");
+
     if(this.$node.find('[data-share-url]').length > 0){
       this.attr.url = this.$node.find('[data-share-url]').data('share-url');
     }
@@ -15,9 +19,19 @@ export var shareContent = flight.component(function(){
       this.attr.url += '#' + this.$node.data('anchor');
     }
 
-    this.attr.twitterHandle = document.head.querySelector("[name='twitter:site']").content;
+    var twitterHandleContent = document.head.querySelector("[name='twitter:site']")
 
-    if(this.attr.url === "") {
+    if (twitterHandleContent === null && twitterElement) {
+      twitterElement.style.display = 'none'
+    } else if (twitterElement) {
+      twitterElement.style.display = 'inline-block'
+      facebookElement.style.display = 'inline-block'
+    }
+
+    this.attr.twitterHandle = twitterHandleContent === null ? '' : twitterHandleContent.content
+
+
+    if (this.attr.url === "") {
       this.attr.url = window.location.href;
     }
 

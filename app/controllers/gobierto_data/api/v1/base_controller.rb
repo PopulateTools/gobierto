@@ -37,25 +37,6 @@ module GobiertoData
           end.force_encoding("utf-8")
         end
 
-        def xlsx_from_query_result(result, options = {})
-          row_index = 0
-          book = RubyXL::Workbook.new
-
-          sheet = book.worksheets.first
-          sheet.sheet_name = options.fetch(:name, "data")
-          result.fields.each_with_index do |value, col_index|
-            sheet.add_cell(row_index, col_index, value)
-          end
-          result.each_row do |row|
-            row_index += 1
-            row.each_with_index do |value, col_index|
-              sheet.add_cell(row_index, col_index, value)
-            end
-          end
-
-          book.stream
-        end
-
         def csv_from_relation(relation, options = {})
           with_serialized_data_from_relation(relation) do |data, new|
             return "" if data.blank?

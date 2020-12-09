@@ -1,26 +1,23 @@
-import * as d3 from 'd3'
-import { Card } from './card.js'
-import { SimpleCard } from 'lib/visualizations'
+import { SimpleCard } from "lib/visualizations";
+import { Card } from "./card.js";
 
 export class FreelancersCard extends Card {
   constructor(divClass, city_id) {
-    super(divClass)
+    super(divClass);
 
-    this.url = window.populateData.endpoint + '/datasets/ds-autonomos-municipio.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=' + city_id;
+    this.url =
+      window.populateData.endpoint +
+      "/datasets/ds-autonomos-municipio.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
+      city_id;
   }
 
   getData() {
-    var data = d3.json(this.url)
-      .header('authorization', 'Bearer ' + this.tbiToken)
+    var data = this.handlePromise(this.url);
 
-    d3.queue()
-      .defer(data.get)
-      .await(function (error, jsonData) {
-        if (error) throw error;
+    data.then(jsonData => {
+      var value = jsonData.data[0].value;
 
-        var value = jsonData.data[0].value;
-
-        new SimpleCard(this.container, jsonData, value, 'freelancers');
-      }.bind(this));
+      new SimpleCard(this.container, jsonData, value, "freelancers");
+    });
   }
 }

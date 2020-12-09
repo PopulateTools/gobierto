@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "gobierto_data"
+require_relative "../gobierto_data"
 
 module GobiertoData
   class Dataset < ApplicationRecord
@@ -31,13 +31,14 @@ module GobiertoData
     validates :slug, :table_name, uniqueness: { scope: :site_id }
 
     before_save :set_schema, if: :will_save_change_to_visibility_level?
+    before_destroy :delete_cached_data
 
     def attributes_for_slug
       [name]
     end
 
     def available_formats
-      [:csv, :json, :xlsx]
+      [:csv]
     end
 
     def rails_model
@@ -84,7 +85,11 @@ module GobiertoData
 
       query_result = Connection.execute_write_query_from_file_using_stdin(site, statements.sql_code, file_path: file_path)
       set_schema
-      touch(:data_updated_at) unless query_result.blank? || query_result.has_key?(:errors)
+      unless query_result.blank? || query_result.has_key?(:errors)
+        touch(:data_updated_at)
+        refresh_cached_downloads
+      end
+
       {
         db_result: query_result,
         schema: statements.schema,
@@ -101,6 +106,14 @@ module GobiertoData
     end
 
     private
+
+    def delete_cached_data
+      GobiertoData::Cache.expire_dataset_cache(self)
+    end
+
+    def refresh_cached_downloads
+      CacheDatasetsDownloads.perform_later self
+    end
 
     def schema_from_file(schema_file, append)
       if schema_file.blank?

@@ -9,15 +9,7 @@ module ApplicationConcern
   end
 
   def current_site
-    @current_site ||= begin
-                        site = if request.env["gobierto_site"].present?
-                                 request.env["gobierto_site"]
-                               elsif Rails.env.test?
-                                 Site.first
-                               end
-                        ::GobiertoCore::CurrentScope.current_site = site
-                        site
-                      end
+    GobiertoCore::CurrentScope.current_site
   end
 
   private
@@ -52,8 +44,12 @@ module ApplicationConcern
     "site-#{current_site.id}-#{params.to_unsafe_h.sort.flatten.join("-")}"
   end
 
+  def site_protected?
+   (Rails.env.production? || Rails.env.staging?) && @site && @site.password_protected?
+  end
+
   def authenticate_user_in_site
-    if (Rails.env.production? || Rails.env.staging?) && @site && @site.password_protected?
+    if site_protected?
       authenticate_or_request_with_http_basic("Gobierto") do |username, password|
         username == @site.configuration.password_protection_username && password == @site.configuration.password_protection_password
       end

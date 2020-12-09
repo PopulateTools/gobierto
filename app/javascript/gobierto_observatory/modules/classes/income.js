@@ -1,101 +1,131 @@
-import * as d3 from 'd3'
-import { Card } from './card.js'
-import { TableCard } from 'lib/visualizations'
+import { nest } from "d3-collection";
+import { TableCard } from "lib/visualizations";
+import { Card } from "./card.js";
 
 export class IncomeCard extends Card {
   constructor(divClass, city_id) {
-    super(divClass)
+    super(divClass);
 
-    this.placeGrossUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + city_id;
-    this.bcnGrossUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=08019'; // TODO: Use Populate Data's related cities API
-    this.vlcGrossUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=46250';  // TODO: Use Populate Data's related cities API
-    this.placeNetUrl = window.populateData.endpoint + '/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + city_id;
-    this.bcnNetUrl = window.populateData.endpoint + '/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=08019'; // TODO: Use Populate Data's related cities API
-    this.vlcNetUrl = window.populateData.endpoint + '/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=46250'; // TODO: Use Populate Data's related cities API
+    this.placeGrossUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
+      city_id;
+    this.bcnGrossUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=08019"; // TODO: Use Populate Data's related cities API
+    this.vlcGrossUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=46250"; // TODO: Use Populate Data's related cities API
+    this.placeNetUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
+      city_id;
+    this.bcnNetUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=08019"; // TODO: Use Populate Data's related cities API
+    this.vlcNetUrl =
+      window.populateData.endpoint +
+      "/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=46250"; // TODO: Use Populate Data's related cities API
   }
 
   getData() {
-    var placeGross = d3.json(this.placeGrossUrl)
-    .header('authorization', 'Bearer ' + this.tbiToken);
+    var placeGross = this.handlePromise(this.placeGrossUrl);
+    var bcnGross = this.handlePromise(this.bcnGrossUrl);
+    var vlcGross = this.handlePromise(this.vlcGrossUrl);
+    var placeNet = this.handlePromise(this.placeNetUrl);
+    var bcnNet = this.handlePromise(this.bcnNetUrl);
+    var vlcNet = this.handlePromise(this.vlcNetUrl);
 
-    var bcnGross = d3.json(this.bcnGrossUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+    Promise.all([
+      placeGross,
+      bcnGross,
+      vlcGross,
+      placeNet,
+      bcnNet,
+      vlcNet
+    ]).then(([placeGross, bcnGross, vlcGross, placeNet, bcnNet, vlcNet]) => {
+      // Gross
+      placeGross.data.forEach(function(d) {
+        d.column = "first_column";
+        d.location_name = window.populateData.municipalityName;
+        d.kind = "gross";
+      });
 
-    var vlcGross = d3.json(this.vlcGrossUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+      bcnGross.data.forEach(function(d) {
+        d.column = "second_column";
+        d.location_name = "Barcelona";
+        d.kind = "gross";
+      });
 
-    var placeNet = d3.json(this.placeNetUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+      vlcGross.data.forEach(function(d) {
+        d.column = "third_column";
+        d.location_name = "Valencia";
+        d.kind = "gross";
+      });
 
-    var bcnNet = d3.json(this.bcnNetUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+      // Net
+      placeNet.data.forEach(function(d) {
+        d.column = "first_column";
+        d.location_name = window.populateData.municipalityName;
+        d.kind = "net";
+      });
 
-    var vlcNet = d3.json(this.vlcNetUrl)
-      .header('authorization', 'Bearer ' + this.tbiToken);
+      bcnNet.data.forEach(function(d) {
+        d.column = "second_column";
+        d.location_name = "Barcelona";
+        d.kind = "net";
+      });
 
-    d3.queue()
-      .defer(placeGross.get)
-      .defer(bcnGross.get)
-      .defer(vlcGross.get)
-      .defer(placeNet.get)
-      .defer(bcnNet.get)
-      .defer(vlcNet.get)
-      .await(function (error, placeGross, bcnGross, vlcGross, placeNet, bcnNet, vlcNet) {
-        if (error) throw error;
+      vlcNet.data.forEach(function(d) {
+        d.column = "third_column";
+        d.location_name = "Valencia";
+        d.kind = "net";
+      });
 
-        // Gross
-        placeGross.data.forEach(function(d) {
-          d.column = 'first_column';
-          d.location_name = window.populateData.municipalityName;
-          d.kind = 'gross';
-        });
+      this.data = placeGross.data.concat(
+        bcnGross.data,
+        vlcGross.data,
+        placeNet.data,
+        bcnNet.data,
+        vlcNet.data
+      );
 
-        bcnGross.data.forEach(function(d) {
-          d.column = 'second_column';
-          d.location_name = 'Barcelona'
-          d.kind = 'gross';
-        });
+      // d3v5
+      //
+      this.nest = nest()
+        .key(function(d) {
+          return d.location_id;
+        })
+        .rollup(function(v) {
+          return {
+            column: v[0].column,
+            key: v[0].location_name,
+            valueOne: v.filter(function(d) {
+              return d.kind === "gross";
+            })[0].value,
+            valueTwo: v.filter(function(d) {
+              return d.kind === "net";
+            })[0].value
+          };
+        })
+        .entries(this.data);
 
-        vlcGross.data.forEach(function(d) {
-          d.column = 'third_column';
-          d.location_name = 'Valencia'
-          d.kind = 'gross';
-        });
+      // d3v6
+      //
+      // this.nest = rollup(
+      //   this.data,
+      //   v => ({
+      //     column: v[0].column,
+      //     key: v[0].location_name,
+      //     valueOne: v.filter(d => d.kind === "gross")[0].value,
+      //     valueTwo: v.filter(d => d.kind === "net")[0].value
+      //   }),
+      //   d => d.location_id
+      // );
+      // // Convert map to specific array
+      // this.nest = Array.from(this.nest, ([key, value]) => ({ key, value }));
 
-        // Net
-        placeNet.data.forEach(function(d) {
-          d.column = 'first_column';
-          d.location_name = window.populateData.municipalityName;
-          d.kind = 'net';
-        });
-
-        bcnNet.data.forEach(function(d) {
-          d.column = 'second_column';
-          d.location_name = 'Barcelona';
-          d.kind = 'net';
-        });
-
-        vlcNet.data.forEach(function(d) {
-          d.column = 'third_column';
-          d.location_name = 'Valencia'
-          d.kind = 'net';
-        });
-
-        this.data = placeGross.data.concat(bcnGross.data, vlcGross.data, placeNet.data, bcnNet.data, vlcNet.data);
-
-        this.nest = d3.nest()
-          .key(function(d) { return d.location_id; })
-          .rollup(function(v) {
-            return {
-              column: v[0].column,
-              key: v[0].location_name,
-              valueOne: v.filter(function(d) { return d.kind === 'gross' })[0].value,
-              valueTwo: v.filter(function(d) { return d.kind === 'net' })[0].value,
-            }
-          })
-          .entries(this.data);
-
-        new TableCard(this.container, placeGross, this.nest, 'income');
-      }.bind(this));
+      new TableCard(this.container, placeGross, this.nest, "income");
+    });
   }
 }

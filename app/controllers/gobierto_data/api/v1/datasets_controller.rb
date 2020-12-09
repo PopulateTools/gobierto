@@ -22,7 +22,7 @@ module GobiertoData
           respond_to do |format|
             format.json do
               json = if base_relation.exists?
-                       Rails.cache.fetch("#{filtered_relation.cache_key}/#{valid_preview_token? ? "all" : "active"}/datasets_collection") do
+                       Rails.cache.fetch("#{filtered_relation.cache_key_with_version}/#{valid_preview_token? ? "all" : "active"}/datasets_collection") do
                          json_from_relation(relation, :index)
                        end
                      else
@@ -42,46 +42,32 @@ module GobiertoData
         end
 
         # GET /api/v1/data/datasets/dataset-slug
-        # GET /api/v1/data/datasets/dataset-slug.json
         # GET /api/v1/data/datasets/dataset-slug.csv
-        # GET /api/v1/data/datasets/dataset-slug.xlsx
         def show
           find_item
           return unless stale? @item
 
           respond_to do |format|
-            format.json do
-              render json: cached_item_json
-            end
-
             format.csv do
               render_csv cached_item_csv
-            end
-
-            format.xlsx do
-              send_data cached_item_xlsx, filename: "#{@item.slug}.xlsx"
             end
           end
         end
 
-        # GET /api/v1/data/datasets/dataset-slug/download.json
         # GET /api/v1/data/datasets/dataset-slug/download.csv
-        # GET /api/v1/data/datasets/dataset-slug/download.xlsx
         def download
           find_item
-          basename = @item.slug
+          return if @item.draft? && !valid_preview_token?
+
+          filename = "#{@item.slug}.#{request.format.symbol}"
 
           respond_to do |format|
-            format.json do
-              send_download(cached_item_download_json, :json, basename)
-            end
-
             format.csv do
-              send_download(cached_item_csv, :csv, basename)
-            end
-
-            format.xlsx do
-              send_download(cached_item_xlsx, :xlsx, basename)
+              # Download cache only supports comma separated CSVs
+              cache_file = GobiertoData::Cache.dataset_cache(@item, format: 'csv') do
+                GobiertoData::Connection.execute_query_output_csv(current_site, @item.rails_model.all.to_sql, { col_sep: "," })
+              end
+              send_file cache_file.path, x_sendfile: true, type: 'text/csv', filename: filename
             end
           end
         end
@@ -164,32 +150,9 @@ module GobiertoData
 
         private
 
-        def cached_item_json
-          Rails.cache.fetch("#{@item.cache_key}/show.json") do
-            query_result = execute_query @item.rails_model.all, include_stats: true
-            {
-              data: query_result.delete(:result),
-              meta: query_result,
-              links: links(:data)
-            }.to_json
-          end
-        end
-
-        def cached_item_download_json
-          Rails.cache.fetch("#{@item.cache_key}/download.json") do
-            execute_query(@item.rails_model.all).to_json
-          end
-        end
-
         def cached_item_csv
-          Rails.cache.fetch("#{@item.cache_key}/show.csv?#{csv_options_params.to_json}") do
+          Rails.cache.fetch("#{@item.cache_key_with_version}/show.csv?#{csv_options_params.to_json}") do
             GobiertoData::Connection.execute_query_output_csv(current_site, @item.rails_model.all.to_sql, csv_options_params)
-          end
-        end
-
-        def cached_item_xlsx
-          Rails.cache.fetch("#{@item.cache_key}/show.xlsx") do
-            xlsx_from_query_result(execute_query(@item.rails_model.all), name: @item.name).read
           end
         end
 

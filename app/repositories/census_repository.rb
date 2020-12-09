@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency 'secret_attribute'
-
 class CensusRepository
   attr_reader(
     :site_id,

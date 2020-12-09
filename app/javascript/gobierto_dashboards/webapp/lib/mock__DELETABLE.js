@@ -185,8 +185,14 @@ const dashboardData = {
 
 export class Mock {
   constructor() {
-    this.dashboard = dashboards.data[0]
+    const { data } = dashboards
+    this.dashboard = data[0]
     // this.dashboard = dashboards.data[Math.floor(Math.random() * dashboards.data.length)]
+
+    // const randomElements = data.slice(0, Math.floor(Math.random() * data.length) + 1)
+    // dashboards.data = randomElements
+    dashboards.data = this.dashboard
+
     this.dashboards = dashboards
     this.dashboardData = dashboardData
   }

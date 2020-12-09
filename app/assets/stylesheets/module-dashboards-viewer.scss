@@ -191,11 +191,11 @@
   }
 
   &__card {
-    @include border-radius(8px);
-
     padding: var(--space);
     border: 1px solid #E6E6E6;
-    
+    position: relative;
+
+    @include border-radius(8px);
     @include min-screen(768) {
       padding: calc(2 * var(--space));
     }
@@ -209,6 +209,10 @@
         grid-template-columns: 1fr 1fr;
         grid-gap: 42px;
       }
+    }
+
+    &-container {
+      @include aspect-ratio(3, 1);
     }
 
     &-title {

@@ -5,6 +5,9 @@ es:
       configuration:
         settings:
           edit:
+            api_settings: Configuración de la API
+            api_settings_exposed_in_public_api: Configuración públicamente expuesta
+              por la API
             db_config_placeholder: '{"pool":5, "adapter":"postgresql", "database":"gobierto_test",
               "encoding":"unicode", "password":"gobierto", "username":"gobierto"}'
             frontend: Interfaz pública

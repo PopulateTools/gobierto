@@ -3,11 +3,21 @@
 module GobiertoAdmin
   module GobiertoData
     class SettingsForm < BaseForm
+      DEFAULT_API_SETTINGS = {
+        "exposed_in_public_api" => true,
+        "max_dataset_size_for_queries" => 0,
+        "default_limit_for_queries" => 50
+      }.freeze
+
+      def self.api_settings_keys
+        @api_settings_keys ||= DEFAULT_API_SETTINGS.keys.map { |key| "api_settings_#{key}" }
+      end
 
       attr_writer(
         :site_id,
         :db_config,
-        :frontend_enabled
+        :frontend_enabled,
+        *api_settings_keys
       )
 
       delegate :persisted?, to: :gobierto_module_settings
@@ -38,7 +48,23 @@ module GobiertoAdmin
         @frontend_enabled ||= !gobierto_module_settings.frontend_disabled
       end
 
+      def api_settings_exposed_in_public_api
+        ["0", false].exclude? api_setting_for("exposed_in_public_api")
+      end
+
+      def api_settings_max_dataset_size_for_queries
+        api_setting_for("max_dataset_size_for_queries").to_i
+      end
+
+      def api_settings_default_limit_for_queries
+        api_setting_for("default_limit_for_queries").to_i
+      end
+
       private
+
+      def api_setting_for(setting_key)
+        instance_variable_get("@api_settings_#{setting_key}") || gobierto_module_settings.api_settings&.fetch(setting_key, DEFAULT_API_SETTINGS[setting_key])
+      end
 
       def db_config_format
         return if db_config.blank?
@@ -78,6 +104,9 @@ module GobiertoAdmin
           settings_attributes.site_id = site_id
           settings_attributes.db_config = db_config_clean
           settings_attributes.frontend_disabled = frontend_enabled != "1"
+          settings_attributes.api_settings = DEFAULT_API_SETTINGS.keys.each_with_object({}) do |key, settings|
+            settings[key] = send("api_settings_#{key}")
+          end
         end
 
         if @gobierto_module_settings.save

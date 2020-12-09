@@ -21,7 +21,7 @@ module GobiertoAdmin
         private
 
         def settings_params
-          params.require(:gobierto_data_settings).permit(:db_config, :frontend_enabled)
+          params.require(:gobierto_data_settings).permit(:db_config, :frontend_enabled, *SettingsForm.api_settings_keys)
         end
       end
     end

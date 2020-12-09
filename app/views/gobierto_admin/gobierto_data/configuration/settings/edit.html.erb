@@ -46,6 +46,31 @@
         </div>
       </div>
 
+      <div class="form_block">
+        <h2><%= t(".api_settings") %></h2>
+
+        <div class="form_item site-module-check-boxes">
+          <div class="options compact">
+            <div class="option">
+              <%= f.check_box :api_settings_exposed_in_public_api %>
+              <%= f.label :api_settings_exposed_in_public_api do %>
+                <span></span>
+                <%= t(".api_settings_exposed_in_public_api")  %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="form_item textarea">
+          <%= f.label :api_settings_max_dataset_size_for_queries %>
+          <%= f.number_field :api_settings_max_dataset_size_for_queries, min: 0 %>
+        </div>
+
+        <div class="form_item textarea">
+          <%= f.label :api_settings_default_limit_for_queries %>
+          <%= f.number_field :api_settings_default_limit_for_queries, min: 0 %>
+        </div>
+       </div>
+
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

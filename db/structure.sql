@@ -1743,6 +1743,42 @@ ALTER SEQUENCE public.gobierto_module_settings_id_seq OWNED BY public.gobierto_m
 
 
 --
+-- Name: gp_charges; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.gp_charges (
+    id bigint NOT NULL,
+    person_id bigint NOT NULL,
+    department_id bigint NOT NULL,
+    name_translations jsonb,
+    start_date date,
+    end_date date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    external_id character varying
+);
+
+
+--
+-- Name: gp_charges_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.gp_charges_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: gp_charges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.gp_charges_id_seq OWNED BY public.gp_charges.id;
+
+
+--
 -- Name: gp_departments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3411,6 +3447,13 @@ ALTER TABLE ONLY public.gobierto_module_settings ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: gp_charges id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.gp_charges ALTER COLUMN id SET DEFAULT nextval('public.gp_charges_id_seq'::regclass);
+
+
+--
 -- Name: gp_departments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4036,6 +4079,14 @@ ALTER TABLE ONLY public.ginv_projects
 
 ALTER TABLE ONLY public.gobierto_module_settings
     ADD CONSTRAINT gobierto_module_settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: gp_charges gp_charges_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.gp_charges
+    ADD CONSTRAINT gp_charges_pkey PRIMARY KEY (id);
 
 
 --
@@ -5109,6 +5160,20 @@ CREATE INDEX index_gobierto_module_settings_on_site_id ON public.gobierto_module
 --
 
 CREATE UNIQUE INDEX index_gobierto_module_settings_on_site_id_and_module_name ON public.gobierto_module_settings USING btree (site_id, module_name);
+
+
+--
+-- Name: index_gp_charges_on_department_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_gp_charges_on_department_id ON public.gp_charges USING btree (department_id);
+
+
+--
+-- Name: index_gp_charges_on_person_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_gp_charges_on_person_id ON public.gp_charges USING btree (person_id);
 
 
 --
@@ -6315,6 +6380,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200421114115'),
 ('20200423142619'),
 ('20200515093807'),
+('20200520103945'),
+('20200601185920'),
 ('20200713143051'),
 ('20200715172832'),
 ('20200722180617'),

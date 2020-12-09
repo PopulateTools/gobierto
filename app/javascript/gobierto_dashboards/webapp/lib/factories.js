@@ -10,12 +10,12 @@ const headers = new Headers({
 // DEBUG
 import { Mock } from "./mock__DELETABLE";
 axios.interceptors.response.use(() => {}, ({ config: { url } }) => {
-  const { dashboard, dashboardData, dashboards } = new Mock()
+  const { dashboardData, dashboards, getDashboard } = new Mock()
   switch (true) {
     case url.includes("dashboard_data"):
       return dashboardData
     case /dashboards\/.+/.test(url):
-      return dashboard
+      return getDashboard(+url[url.length - 1])
     default:
       return dashboards
   }

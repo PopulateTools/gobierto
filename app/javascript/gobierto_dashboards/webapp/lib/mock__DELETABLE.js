@@ -1,5 +1,5 @@
-const dashboards = {
-  data: [{
+const dashboards = [
+  {
     id: 0,
     type: "gobierto_dashboards-dashboards",
     attributes: {
@@ -43,7 +43,8 @@ const dashboards = {
         foo: null
       }
     }
-  },{
+  },
+  {
     id: 1,
     type: "gobierto_dashboards-dashboards",
     attributes: {
@@ -75,7 +76,8 @@ const dashboards = {
       ],
       links: { foo: null }
     }
-  },{
+  },
+  {
     id: 2,
     type: "gobierto_dashboards-dashboards",
     attributes: {
@@ -92,7 +94,7 @@ const dashboards = {
           y: 0,
           type: "HTML",
           raw:
-            "<h1>Nulla irure minim minim aliqua ex occaecat aliqua laborum minim laborum anim aute id magna.</h1><p>Sunt minim dolore occaecat ut consequat non mollit. Ea non eiusmod anim laborum sint aute tempor nisi adipisicing ex consectetur consequat. Ex ullamco Lorem aliqua incididunt culpa labore dolor dolor dolor magna sit. Laborum sint sit nostrud nostrud laboris quis eiusmod duis exercitation magna consequat ex cupidatat exercitation. Elit fugiat aliqua est elit proident veniam commodo commodo qui cupidatat fugiat esse. Mollit velit indicator-0 commodo proident nisi excepteur labore laboris. Enim et aute elit nulla elit laborum sit laboris eiusmod voluptate consequat dolor laborum laborum.\r\n</p>",
+            "<h1>Nulla irure minim minim aliqua ex occaecat aliqua laborum minim laborum anim aute id magna.</h1><p>Sunt minim dolore occaecat ut consequat non mollit. Ea non eiusmod anim laborum sint aute tempor nisi adipisicing ex consectetur consequat. Ex ullamco Lorem aliqua incididunt culpa labore dolor dolor dolor magna sit. Laborum sint sit nostrud nostrud laboris quis eiusmod duis exercitation magna consequat ex cupidatat exercitation. Elit fugiat aliqua est elit proident veniam commodo commodo qui cupidatat fugiat esse. Mollit velit indicator-0 commodo proident nisi excepteur labore laboris. Enim et aute elit nulla elit laborum sit laboris eiusmod voluptate consequat dolor laborum laborum.\r\n</p>"
         },
         {
           x: 6,
@@ -107,93 +109,93 @@ const dashboards = {
       ],
       links: { foo: null }
     }
-  }],
+  }
+]
+
+const api = (subset = dashboards) => ({
+  data: subset,
   links: {
     self: null
   }
-};
+});
 
 const dashboardData = {
-  "data": [
+  data: [
     {
-      "name": "indicator-0",
-      "values": [
+      name: "indicator-0",
+      values: [
         {
-          "value": 28,
-          "objective": 55,
-          "date": "2018-07-30"
+          value: 28,
+          objective: 55,
+          date: "2018-07-30"
         },
         {
-          "value": 13,
-          "objective": 95,
-          "date": "2017-08-10"
+          value: 13,
+          objective: 95,
+          date: "2017-08-10"
         },
         {
-          "value": 37,
-          "objective": 74,
-          "date": "2016-08-04"
+          value: 37,
+          objective: 74,
+          date: "2016-08-04"
         },
         {
-          "value": 32,
-          "objective": 98,
-          "date": "2015-05-08"
+          value: 32,
+          objective: 98,
+          date: "2015-05-08"
         },
         {
-          "value": 48,
-          "objective": 57,
-          "date": "2019-12-07"
+          value: 48,
+          objective: 57,
+          date: "2019-12-07"
         }
       ]
     },
     {
-      "name": "indicator-1",
-      "values": [
+      name: "indicator-1",
+      values: [
         {
-          "value": 19,
-          "objective": 97,
-          "date": "2015-08-15"
+          value: 19,
+          objective: 97,
+          date: "2015-08-15"
         },
         {
-          "value": 30,
-          "objective": 87,
-          "date": "2016-09-13"
+          value: 30,
+          objective: 87,
+          date: "2016-09-13"
         },
         {
-          "value": 32,
-          "objective": 76,
-          "date": "2020-08-28"
+          value: 32,
+          objective: 76,
+          date: "2020-08-28"
         },
         {
-          "value": 16,
-          "objective": 58,
-          "date": "2015-01-01"
+          value: 16,
+          objective: 58,
+          date: "2015-01-01"
         },
         {
-          "value": 45,
-          "objective": 59,
-          "date": "2020-09-05"
+          value: 45,
+          objective: 59,
+          date: "2020-09-05"
         },
         {
-          "value": 27,
-          "objective": 68,
-          "date": "2017-03-24"
+          value: 27,
+          objective: 68,
+          date: "2017-03-24"
         }
       ]
     }
   ]
-}
+};
 
 export class Mock {
   constructor() {
-    const { data } = dashboards
-    this.dashboard = data[0]
-    // this.dashboard = dashboards.data[Math.floor(Math.random() * dashboards.data.length)]
+    this.dashboards = api();
+    this.dashboardData = dashboardData;
+  }
 
-    // const randomElements = data.slice(0, Math.floor(Math.random() * data.length) + 1)
-    // dashboards.data = randomElements
-    dashboards.data = this.dashboard
-
-    this.dashboards = dashboards
-    this.dashboardData = dashboardData
+  getDashboard(int) {
+    return api(dashboards[int])
   }
 }

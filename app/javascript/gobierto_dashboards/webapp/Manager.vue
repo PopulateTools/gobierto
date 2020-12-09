@@ -18,8 +18,6 @@
 </template>
 
 <script>
-// add the styles here, because this element can be inserted both as a component or standalone
-import "../../../assets/stylesheets/module-dashboards-viewer.scss";
 import Viewer from "./Viewer";
 import ListCard from "./components/ListCard";
 import { FactoryMixin } from "./lib/factories";

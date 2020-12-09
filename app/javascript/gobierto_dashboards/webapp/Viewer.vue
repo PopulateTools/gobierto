@@ -2,6 +2,7 @@
   <GridLayout
     v-if="widgets.length"
     ref="grid"
+    class="dashboards-viewer"
     :layout.sync="widgets"
     :col-num="columns"
     :row-height="itemHeight"
@@ -27,6 +28,8 @@
 </template>
 
 <script>
+// add the styles here, because this element can be inserted both as a component or standalone
+import "../../../assets/stylesheets/module-dashboards-viewer.scss";
 import { GridLayout } from "vue-grid-layout";
 import { Widgets } from "./lib/widgets";
 import { FactoryMixin } from "./lib/factories";
@@ -73,6 +76,9 @@ export default {
     pipe() {
       return this.$root.$data?.pipe;
     },
+    context() {
+      return this.$root.$data?.context;
+    },
     isEditionMode() {
       // if there's config prop, it comes from Maker
       return !!this.config
@@ -107,9 +113,9 @@ export default {
         data: {
           attributes: { widget_configuration } = {}
         } = {}
-      } = this.config || await this.getDashboard(this.id);
+      } = this.config || await this.getDashboard(this.id, { context: this.context, data_pipe: this.pipe });
 
-      const { data: widgets_data } = await this.getData({ context: this.id, data_pipe: this.pipe });
+      const { data: widgets_data } = await this.getData({ context: this.context, data_pipe: this.pipe });
 
       this.widgetsData = widgets_data;
       this.widgets = this.parseWidgets(widget_configuration, widgets_data);

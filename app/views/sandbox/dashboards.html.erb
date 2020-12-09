@@ -7,7 +7,9 @@
 <% end %>
 
 <div class="column">
-  Ejemplo del visor (usar el id <i>dashboard-viewer-app</i>)
+  Ejemplo del visor (usar la directiva <i>dashboard-viewer-app</i>)
   <br>
-  <div id="dashboard-viewer-app" data-context="<%= @context %>"></div>
+  <div dashboard-viewer-app data-context="<%= @context %>" data-id="<%= 0 %>"></div>
+  <hr>
+  <div dashboard-viewer-app data-context="<%= @context %>" data-id="<%= 2 %>"></div>
 </div>

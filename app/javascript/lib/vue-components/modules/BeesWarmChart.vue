@@ -1,7 +1,11 @@
 <template>
   <div class="beeswarm-container">
-    <div class="beeswarm-tooltip"></div>
-    <svg class="beeswarm-plot" :width="svgWidth" :height="svgHeight"></svg>
+    <div class="beeswarm-tooltip" />
+    <svg
+      class="beeswarm-plot"
+      :width="svgWidth"
+      :height="svgHeight"
+    />
   </div>
 </template>
 <script>
@@ -91,7 +95,7 @@ export default {
       updateData: false,
       dataWithoutCoordinates: undefined,
       dataNewValues: undefined,
-      arrayValuesContractTypes: undefined,
+      arrayValuesContractTypes: [],
     };
   },
   watch: {
@@ -206,19 +210,12 @@ export default {
 
       g.selectAll('.label-y').call(this.wrapTextLabel, 120);
 
-      let simulation = d3
+      d3
         .forceSimulation(filterData)
         .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])).strength(2))
         .force('y', d3.forceY(d => scaleY(d[this.yAxisProp])))
         .force('collide', d3.forceCollide().radius(d => d.radius + this.padding))
-        .stop();
-
-      /*Reduces the simulation to prevent brokes the browser*/
-      let simulationIteration = 85
-
-      for (let i = 0; i < (simulationIteration); ++i) {
-        simulation.tick(3);
-      }
+        .tick(80);
 
       let circlesBees = g
         .selectAll('.beeswarm-circle')
@@ -303,9 +300,8 @@ export default {
         d.radius = radiusScale(d[this.radiusProperty])
       });
 
-      let filterData = data.filter(({ final_amount_no_taxes }) => final_amount_no_taxes !== 0);
+      let filterData = data.filter(({ final_amount_no_taxes }) => final_amount_no_taxes !== 0).sort(({ contract_type: a = "" }, { contract_type: b = "" }) => a.localeCompare(b));
 
-      filterData = filterData.sort((a, b) => a.contract_type.localeCompare(b.contract_type))
 
       return filterData;
     },

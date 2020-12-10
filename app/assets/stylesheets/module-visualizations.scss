@@ -20,7 +20,7 @@
   --black: #111;
   --blue-title-header: #0178a8;
   --grey-text: #767168;
-  --grey-border: #ccc;
+  --border-color-grey: #ccc;
 }
 
 .visualizations {
@@ -344,7 +344,7 @@
     color: var(--black);
     background-color: var(--white);
     border-radius: 4px;
-    border: 1px solid var(--grey-border);
+    border: 1px solid var(--border-color-grey);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     background: rgba(255, 255, 255, 0.98);
   }
@@ -352,8 +352,9 @@
   .tree-map-nested-tooltip-assignee {
     .depth-second-container {
       padding: .75rem 0;
+
       &:not(:last-child) {
-        border-bottom: 1px solid var(--grey-border);
+        border-bottom: 1px solid var(--border-color-grey);
       }
     }
 
@@ -405,7 +406,7 @@
   }
 
   .tooltip-table-treemap-header {
-    border-bottom: 1px solid var(--grey-border);
+    border-bottom: 1px solid var(--border-color-grey);
   }
 
   .tooltip-table-treemap-element {
@@ -443,7 +444,7 @@
   }
 
   .tooltip-treemap-element {
-    border-top: 1px solid var(--grey-border);
+    border-top: 1px solid var(--border-color-grey);
     padding-top: .25rem;
     padding-top: .25rem;
   }
@@ -489,11 +490,11 @@
     color: var(--blue-title-header);
     font-weight: bold;
     display: block;
-    border-bottom: 1px solid var(--grey-border);
+    border-bottom: 1px solid var(--border-color-grey);
   }
 
   .beeswarm-tooltip-table-element {
-    border-top: 1px solid var(--grey-border);
+    border-top: 1px solid var(--border-color-grey);
     padding-top: .25rem;
     padding-top: .25rem;
   }

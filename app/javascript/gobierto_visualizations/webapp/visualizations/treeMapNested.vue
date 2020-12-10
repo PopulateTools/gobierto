@@ -82,7 +82,7 @@ export default {
       updateData: false,
       dataForTableTooltip: undefined,
       dataNewValues: undefined,
-      arrayValuesContractTypes: undefined,
+      arrayValuesContractTypes: [],
       sizeForTreemap: 'final_amount_no_taxes',
       selected_size: 'final_amount_no_taxes',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
@@ -173,15 +173,6 @@ export default {
     deepCloneData(data) {
       const dataTreeMap = JSON.parse(JSON.stringify(data));
       this.transformDataTreemap(dataTreeMap)
-    },
-    createScaleColors(values) {
-      let colorsGobiertoExtend = ["#12365b", "#118e9c", "#ff766c", "#f7b200", "#158a2c", "#94d2cf", "#3a78c3", "#15dec5", "#6a7f2f", "#55f17b"]
-      colorsGobiertoExtend = colorsGobiertoExtend.slice(0, values)
-
-      const colors = d3.scaleOrdinal()
-        .domain(this.arrayValuesContractTypes)
-        .range(colorsGobiertoExtend);
-      return colors;
     },
     buildTreeMap(rootData) {
       d3.select('.treemap-container')
@@ -386,7 +377,6 @@ export default {
         .on('mousemove', function(d, i) {
           const { depth } = d
           if (depth === 1) return;
-          let title = d.data.name === undefined ? d.data.title : d.data.name;
           const [x, y] = d3.mouse(this);
 
           //Elements to determinate the position of tooltip
@@ -396,13 +386,12 @@ export default {
           const tooltipHeight = depth === 2 ? tooltipAssignee.node().offsetHeight : tooltip.node().offsetHeight
           const positionWidthTooltip = x + tooltipWidth
           const positionRight = `${x - tooltipWidth - 20}px`
-          const windowHeight = window.innerHeight
-          const positionTop = tooltipHeight + y > windowHeight ? `${y - (tooltipHeight / 2)}px` : `${y}px`
+          const positionTop = tooltipHeight + y > window.innerHeight ? `${y - (tooltipHeight / 2)}px` : `${y}px`
           const positionLeft = `${x + 20}px`
 
           if (depth === 2) {
             let totalContracts = d.children === undefined ? '' : d.children
-            let totalContractsLength
+            let totalContractsLength = 0
             let contractsString = ''
             if (totalContracts) {
               totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")

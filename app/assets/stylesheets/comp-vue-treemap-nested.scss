@@ -4,13 +4,13 @@
   --grey-text: #767168;
 }
 
-.treemap-nested-sidebar-nav{
+.treemap-nested-sidebar-nav {
   margin-left: 1px;
   color: rgba(var(--color-base-string), .8);
   width: max-content;
   cursor: pointer;
 
-  .treemap-nested-sidebar-nav-breadcumb {
+  &-breadcumb {
     margin: 0;
 
     &.ellipsis {

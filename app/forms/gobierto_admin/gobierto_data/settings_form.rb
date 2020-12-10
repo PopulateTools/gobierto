@@ -63,7 +63,11 @@ module GobiertoAdmin
       private
 
       def api_setting_for(setting_key)
-        instance_variable_get("@api_settings_#{setting_key}") || gobierto_module_settings.api_settings&.fetch(setting_key, DEFAULT_API_SETTINGS[setting_key])
+        instance_variable_get("@api_settings_#{setting_key}") || module_api_settings.fetch(setting_key, DEFAULT_API_SETTINGS[setting_key])
+      end
+
+      def module_api_settings
+        @module_api_settings ||= gobierto_module_settings.api_settings || {}
       end
 
       def db_config_format

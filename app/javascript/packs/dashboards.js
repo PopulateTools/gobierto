@@ -8,4 +8,4 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'lib/commons';
-import 'gobierto_TEMP';
+import 'gobierto_dashboards';

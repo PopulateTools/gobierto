@@ -10,6 +10,7 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <!-- vendor libraries -->
   <%= javascript_pack_tag 'commons', 'data-turbolinks-track': true %>
+  
   <!-- module libraries -->
   <%= yield(:javascript_module_link) %>
 
@@ -24,6 +25,8 @@
 
   <script type="text/javascript">
     window.tbiToken = "<%= current_site.configuration.populate_data_api_token %>";
+    I18n.defaultLocale = "<%= I18n.default_locale %>";
+    I18n.locale = "<%= I18n.locale %>";
   </script>
 </head>
 

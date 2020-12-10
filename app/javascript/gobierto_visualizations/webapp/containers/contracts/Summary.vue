@@ -1,11 +1,7 @@
 <template>
   <div>
-    <TreeMapNested
+    <AssigneesTreeMapNested
       :data="visualizationsData"
-      :label-root-key="labelRootKey"
-      :size-for-treemap="'final_amount_no_taxes'"
-      :first-depth-for-tree-map="'contract_type'"
-      :second-depth-for-tree-map="'assignee'"
     />
     <h3 class="mt4 graph-title">
       {{ labelBeesWarm }}
@@ -177,7 +173,7 @@
 <script>
 
 import { BeesWarmChart, MultipleLineChart } from "lib/vue-components";
-import TreeMapNested from "../../visualizations/treeMapNested.vue";
+import AssigneesTreeMapNested from "./AssigneesTreeMapNested.vue";
 import Table from "../../components/Table.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
@@ -194,7 +190,7 @@ export default {
     Table,
     BeesWarmChart,
     MultipleLineChart,
-    TreeMapNested
+    AssigneesTreeMapNested
   },
   mixins: [visualizationsMixins],
   data(){
@@ -228,8 +224,7 @@ export default {
       dataBeesWarmFilter: undefined,
       dataLineChart: undefined,
       valuesForLineChart: undefined,
-      valuesForCircleChart: undefined,
-      labelRootKey: I18n.t('gobierto_visualizations.visualizations.contracts.assignees'),
+      valuesForCircleChart: undefined
     }
   },
   watch: {

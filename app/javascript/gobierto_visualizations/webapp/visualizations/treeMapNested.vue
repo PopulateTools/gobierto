@@ -1,26 +1,5 @@
 <template>
   <div class="container-tree-map-nested">
-    <div class="treemap-nested-sidebar">
-      <div class="tree-map-nested-nav" />
-      <div class="treemap-button-group button-group">
-        <button
-          class="button-grouped sort-G"
-          :class="{ active : selected_size === 'final_amount_no_taxes' }"
-          @click="handleTreeMapValue('final_amount_no_taxes')"
-        >
-          {{ labelContractAmount }}
-        </button>
-        <button
-          class="button-grouped sort-G"
-          :class="{ active : selected_size === 'number_of_contract' }"
-          @click="handleTreeMapValue('number_of_contract')"
-        >
-          {{ labelContractTotal }}
-        </button>
-      </div>
-    </div>
-    <div class="tree-map-nested-tooltip-assignee" />
-    <div class="tree-map-nested-tooltip-contracts" />
     <svg
       id="treemap-nested"
       :width="svgWidth"
@@ -84,6 +63,10 @@ export default {
     secondDepthForTreeMap: {
       type: String,
       default: ''
+    },
+    selectedSize: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -107,6 +90,16 @@ export default {
         this.dataNewValues = newValue
         this.deepCloneData(newValue)
       }
+    },
+    selectedSize(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.valueForTreemap = newValue
+        if (this.updateData) {
+          this.deepCloneData(this.dataNewValues)
+        } else {
+          this.deepCloneData(this.dataTreeMapWithoutCoordinates)
+        }
+      }
     }
   },
   mounted() {
@@ -118,16 +111,6 @@ export default {
     this.resizeListener()
   },
   methods: {
-    handleTreeMapValue(value) {
-      if (this.selected_size === value) return;
-      this.selected_size = value
-      this.valueForTreemap = value
-      if (this.updateData) {
-        this.deepCloneData(this.dataNewValues)
-      } else {
-        this.deepCloneData(this.dataTreeMapWithoutCoordinates)
-      }
-    },
     transformDataTreemap(data) {
 
       let dataFilter = data

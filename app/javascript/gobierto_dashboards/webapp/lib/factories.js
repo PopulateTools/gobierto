@@ -34,10 +34,10 @@ export const FactoryMixin = {
       return axios.get(`${endPointDashboard}/${id}`, { headers, params: this.searchParams(params) })
     },
     postDashboard(data, params) {
-      return axios.post(endPointDashboard, data, { headers, params: this.searchParams(params) })
+      return axios.post(endPointDashboard, { data }, { headers, params: this.searchParams(params) })
     },
     putDashboard(id, data, params) {
-      return axios.put(`${endPointDashboard}/${id}`, data, { headers, params: this.searchParams(params) })
+      return axios.put(`${endPointDashboard}/${id}`, { data }, { headers, params: this.searchParams(params) })
     },
     deleteDashboard(id, params) {
       return axios.delete(`${endPointDashboard}/${id}`, { headers, params: this.searchParams(params) })

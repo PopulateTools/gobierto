@@ -33,7 +33,7 @@ import "../../../assets/stylesheets/module-dashboards-viewer.scss";
 import { GridLayout } from "vue-grid-layout";
 import { Widgets } from "./lib/widgets";
 import { FactoryMixin } from "./lib/factories";
-import Widget from "./components/Widget"
+import Widget from "./components/Widget";
 
 export default {
   name: "Viewer",
@@ -70,9 +70,6 @@ export default {
     };
   },
   computed: {
-    id() {
-      return this.$root.$data?.id;
-    },
     pipe() {
       return this.$root.$data?.pipe;
     },
@@ -81,7 +78,7 @@ export default {
     },
     isEditionMode() {
       // if there's config prop, it comes from Maker
-      return !!this.config
+      return !!this.config;
     },
     adjustMargins() {
       const [x, y] = this.margin;
@@ -97,7 +94,7 @@ export default {
     item(newItem) {
       // if user drags a new item inside the grid
       if (newItem) {
-        const { i } = newItem
+        const { i } = newItem;
         if (!this.widgets.some(d => d.i === i)) {
           this.widgets.push({ x: 0, y: 0, ...newItem });
         }
@@ -109,13 +106,11 @@ export default {
   },
   methods: {
     async getConfiguration() {
-      const {
-        data: {
-          attributes: { widget_configuration } = {}
-        } = {}
-      } = this.config || await this.getDashboard(this.id, { context: this.context, data_pipe: this.pipe });
-
-      const { data: widgets_data } = await this.getData({ context: this.context, data_pipe: this.pipe });
+      const { attributes: { widget_configuration } = {} } = this.config;
+      const { data: widgets_data } = await this.getData({
+        context: this.context,
+        data_pipe: this.pipe
+      });
 
       this.widgetsData = widgets_data;
       this.widgets = this.parseWidgets(widget_configuration, widgets_data);
@@ -129,28 +124,33 @@ export default {
           ...defaults,
           ...options,
           // if there is a property called indicator, append the data related
-          ...(options.indicator && { data: data.find(({ name }) => name === options.indicator) }),
+          ...(options.indicator && {
+            data: data.find(({ name }) => name === options.indicator)
+          }),
           type,
           edition: false
         };
       });
     },
     handleWidgetDelete(i) {
-      this.widgets.splice(this.widgets.findIndex(d => d.i === i), 1)
+      this.widgets.splice(
+        this.widgets.findIndex(d => d.i === i),
+        1
+      );
     },
     handleWidgetChange(i, value) {
-      const ix = this.widgets.findIndex(d => d.i === i)
-      this.widgets[ix] = { ...this.widgets[ix], ...value }
-      this.widgets.splice(ix, 1, this.widgets[ix])
+      const ix = this.widgets.findIndex(d => d.i === i);
+      this.widgets[ix] = { ...this.widgets[ix], ...value };
+      this.widgets.splice(ix, 1, this.widgets[ix]);
     },
     handleLayoutUpdate(layout) {
       if (this.isEditionMode) {
-        this.$emit('layout-updated', layout)
+        this.$emit("layout-updated", layout);
       }
     },
     handleLayoutReady(layout) {
       if (this.isEditionMode) {
-        this.$emit('layout-ready', layout)
+        this.$emit("layout-ready", layout);
       }
     }
   }

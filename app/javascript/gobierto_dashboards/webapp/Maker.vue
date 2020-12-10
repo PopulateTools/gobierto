@@ -98,10 +98,10 @@ export default {
       return this.$root.$data?.id;
     },
     title() {
-      return this.configuration?.data?.attributes?.title || I18n.t("gobierto_dashboards.default_title") || "";
+      return this.configuration?.attributes?.title || I18n.t("gobierto_dashboards.default_title") || "";
     },
     status() {
-      return this.configuration?.data?.attributes?.visibility_level === "active";
+      return this.configuration?.attributes?.visibility_level === "active";
     },
   },
   created() {
@@ -115,7 +115,7 @@ export default {
   },
   methods: {
     async getConfiguration() {
-      this.configuration = this.id ? await this.getDashboard(this.id) : {};
+      ({ data: this.configuration } = this.id ? await this.getDashboard(this.id) : {});
       this.dirty = false
     },
     dragoverPosition({ clientX, clientY }) {
@@ -157,10 +157,9 @@ export default {
     },
     setConfiguration(attr, value) {
       if (!this.configuration) this.configuration = {}
-      if (!this.configuration.data) this.configuration.data = {}
-      if (!this.configuration.data.attributes) this.configuration.data.attributes = {}
+      if (!this.configuration.attributes) this.configuration.attributes = {}
 
-      this.configuration.data.attributes[attr] = value
+      this.configuration.attributes[attr] = value
       this.dirty = true
     },
     handleInputStatus({ target }) {

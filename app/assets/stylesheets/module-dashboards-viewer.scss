@@ -3,7 +3,7 @@
 
 :root {
   --space: #{$f6};
-  --color-grey: #666;
+  --color-grey-str: 102, 102, 102;
   --font-family: "Libre Franklin", "Helvetica Neue", "Arial", "sans-serif";
   --font-family-alt: #{$font_text};
 }
@@ -93,7 +93,7 @@
         font-size: $f1;
         line-height: 1.1;
         font-weight: 300;
-        color: var(--color-grey);
+        color: rgba(var(--color-grey-str), 1);
       }
     }
 
@@ -192,12 +192,18 @@
 
   &__card {
     padding: var(--space);
-    border: 1px solid #E6E6E6;
+    border: 1px solid rgba(var(--color-grey-str), 0.2);
     position: relative;
+    cursor: pointer;
+    transition: background-color 250ms;
 
     @include border-radius(8px);
     @include min-screen(768) {
       padding: calc(2 * var(--space));
+    }
+
+    &:hover {
+      background-color: rgba(var(--color-grey-str), 0.1);
     }
 
     &-grid {
@@ -220,7 +226,6 @@
       font-weight: 700;
       font-size: $f3;
       margin: 0 0 var(--space);
-      cursor: pointer;
     }
 
     &-subtitle {

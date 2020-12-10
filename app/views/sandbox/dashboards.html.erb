@@ -7,9 +7,14 @@
 <% end %>
 
 <div class="column">
-  Ejemplo del visor (usar la directiva <i>dashboard-viewer-app</i>)
-  <br>
+  <p>Para utilizar el visor, añade la directiva <em>dashboard-viewer-app</em> al bloque de HTML.</p>
+  <pre>&lt;&#x64;&#x69;&#x76;&#x20;&#x64;&#x61;&#x73;&#x68;&#x62;&#x6f;&#x61;&#x72;&#x64;&#x2d;&#x76;&#x69;&#x65;&#x77;&#x65;&#x72;&#x2d;&#x61;&#x70;&#x70;&#x20;&#x64;&#x61;&#x74;&#x61;&#x2d;&#x63;&#x6f;&#x6e;&#x74;&#x65;&#x78;&#x74;&equals;&quot;&#x63;&#x6f;&#x6e;&#x74;&#x65;&#x78;&#x74;&quot;&gt;&lt;&sol;&#x64;&#x69;&#x76;&gt;</pre>
+  <p>Si el dataset de dicho bloque contiene <code>data-id</code>, muestra un solo dashboard, de otro modo, muestra un listado de dashboards existentes, a no ser que sólo exista un único dashboard, en tal caso, este se mostrará automáticamente.</p>
+  <pre>&lt;&#x64;&#x69;&#x76;&#x20;&#x64;&#x61;&#x73;&#x68;&#x62;&#x6f;&#x61;&#x72;&#x64;&#x2d;&#x76;&#x69;&#x65;&#x77;&#x65;&#x72;&#x2d;&#x61;&#x70;&#x70;&#x20;&#x64;&#x61;&#x74;&#x61;&#x2d;&#x63;&#x6f;&#x6e;&#x74;&#x65;&#x78;&#x74;&equals;&quot;&#x63;&#x6f;&#x6e;&#x74;&#x65;&#x78;&#x74;&quot;&#x20;&#x64;&#x61;&#x74;&#x61;&#x2d;&#x69;&#x64;&equals;&quot;&#x30;&quot;&gt;&lt;&sol;&#x64;&#x69;&#x76;&gt;</pre>
+
+  <p>Ejemplo listado de dashboards:</p>
+  <div dashboard-viewer-app data-context="<%= @context %>"></div>
+  
+  <p>Ejemplo de dashboard con <code>data-id</code>:</p>
   <div dashboard-viewer-app data-context="<%= @context %>" data-id="<%= 0 %>"></div>
-  <hr>
-  <div dashboard-viewer-app data-context="<%= @context %>" data-id="<%= 2 %>"></div>
 </div>

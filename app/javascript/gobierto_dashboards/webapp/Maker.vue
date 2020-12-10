@@ -61,8 +61,6 @@
 </template>
 
 <script>
-// add the styles here, because this element can be inserted both as a component or standalone
-import "../../../assets/stylesheets/module-dashboards-maker.scss";
 import Viewer from "./Viewer";
 import HeaderForm from "./components/HeaderForm";
 import Aside from "./layouts/Aside";

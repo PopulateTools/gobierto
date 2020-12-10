@@ -14,12 +14,19 @@
       </template>
     </Header>
 
-    <ButtonFilters :options="options" />
+    <Tabs :tabs="['Indicadores', 'Dashboards']">
+      <template #tab-0>
+        <ButtonFilters :options="options" />
 
-    <router-view
-      :json="json"
-      :options="options"
-    />
+        <router-view
+          :json="json"
+          :options="options"
+        />
+      </template>
+      <template #tab-1>
+        ¿Qué pasa, tab1?
+      </template>
+    </Tabs>
   </div>
 </template>
 
@@ -27,6 +34,7 @@
 import Header from "./components/Header.vue";
 import NumberLabel from "./components/NumberLabel.vue";
 import ButtonFilters from "./components/ButtonFilters.vue";
+import Tabs from "./components/Tabs.vue";
 import { PlansFactoryMixin } from "./lib/factory";
 import { groupBy } from "./lib/helpers";
 import { PlansStore } from "./lib/store";
@@ -38,7 +46,8 @@ export default {
     Header,
     NumberLabel,
     ButtonFilters,
-    Loading
+    Loading,
+    Tabs
   },
   mixins: [PlansFactoryMixin],
   data() {

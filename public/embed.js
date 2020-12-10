@@ -53,15 +53,15 @@ function toURLWithoutEmbedParameter(url) {
 }
 
 // Adds embed parameter to an URL
-function addEmbedParameter(url) {
+function addEmbedParameter(url, appendContent) {
   const parsedURL = parseURL(url);
 
   if (parsedURL.searchObject.hasOwnProperty("embed")) {
     return url;
   } else if (parsedURL.search === "") {
-    return url + "?embed";
+    return url + "?embed=" + escape(appendContent);
   } else {
-    return url + "&embed";
+    return url + "&embed=" + escape(appendContent);
   }
 }
 
@@ -88,7 +88,7 @@ function postMessageHandler(event) {
   window.scrollTo(0, 0);
 }
 
-function getIFrameSrc(embedHost, embedPath, basePath) {
+function getIFrameSrc(embedHost, embedPath, basePath, appendContent) {
   // embedPath: [http://madrid.gobierto.test]/agendas
   // basePath:  [http://demo.alcobendas.org]/altos-cargos/
   // currentPath:
@@ -107,7 +107,7 @@ function getIFrameSrc(embedHost, embedPath, basePath) {
     iFramePath = currentPath.replace(basePath, "");
   }
 
-  return addEmbedParameter(embedHost + iFramePath);
+  return addEmbedParameter(embedHost + iFramePath, appendContent);
 }
 
 // The pathname of the page containing the iframe
@@ -131,10 +131,10 @@ window.addEventListener('DOMContentLoaded', function(){
   const iframe = document.createElement('iframe');
   // The src attribute of the iFrame needs to have a "embed" parameter
   // so Gobierto won't render the layout and will send postMessages to update the URL
-  iframe.src = getIFrameSrc(embedHost, embedPath, basePath);
+  iframe.src = getIFrameSrc(embedHost, embedPath, basePath, gobiertoEmbed.innerHTML);
   iframe.id = 'gobierto-embed';
   iframe.allowfullscreen = true;
-  iframe.style = "width:100%; height:1400px;border:0px;";
+  iframe.style = "width:100%;height:1400px;border:0px;";
 
   gobiertoEmbed.appendChild(iframe)
 });

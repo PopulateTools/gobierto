@@ -1513,7 +1513,8 @@ CREATE TABLE public.gdata_datasets (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     data_updated_at timestamp without time zone,
-    visibility_level integer DEFAULT 0 NOT NULL
+    visibility_level integer DEFAULT 0 NOT NULL,
+    size jsonb
 );
 
 
@@ -6324,6 +6325,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200915105712'),
 ('20200915105848'),
 ('20200915105920'),
-('20200921171234');
+('20200921171234'),
+('20201210114223');
 
 

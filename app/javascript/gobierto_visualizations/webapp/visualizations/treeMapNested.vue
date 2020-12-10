@@ -72,6 +72,18 @@ export default {
     height: {
       type: Number,
       default: 600
+    },
+    sizeForTreemap: {
+      type: String,
+      default: ''
+    },
+    firstDepthForTreeMap: {
+      type: String,
+      default: ''
+    },
+    secondDepthForTreeMap: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -82,7 +94,7 @@ export default {
       updateData: false,
       dataForTableTooltip: undefined,
       dataNewValues: undefined,
-      sizeForTreemap: 'final_amount_no_taxes',
+      valueForTreemap: '',
       selected_size: 'final_amount_no_taxes',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
       labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
@@ -101,7 +113,7 @@ export default {
     this.svgWidth = document.getElementsByClassName("visualizations-home-main")[0].offsetWidth;
     this.dataTreeMapWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
     this.dataTreeMapSumFinalAmount = JSON.parse(JSON.stringify(this.data));
-
+    this.valueForTreemap = this.sizeForTreemap
     this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
     this.resizeListener()
   },
@@ -109,7 +121,7 @@ export default {
     handleTreeMapValue(value) {
       if (this.selected_size === value) return;
       this.selected_size = value
-      this.sizeForTreemap = value
+      this.valueForTreemap = value
       if (this.updateData) {
         this.deepCloneData(this.dataNewValues)
       } else {
@@ -130,15 +142,15 @@ export default {
       //   d3.group(data, d =>  d.contract_type, d.assignee),
       // );
       const nested_data = d3.nest()
-        .key(d => d.contract_type)
-        .key(d => d.assignee)
+        .key(d => d[this.firstDepthForTreeMap])
+        .key(d => d[this.secondDepthForTreeMap])
         .entries(dataFilter);
       let rootData = {};
 
       rootData.key = this.labelRootKey
       rootData.values = nested_data;
 
-      rootData = replaceDeepKeys(rootData, this.sizeForTreemap);
+      rootData = replaceDeepKeys(rootData, this.valueForTreemap);
 
       //d3 Nest add names to the keys that are not valid to build a treemap, we need to replace them
       function replaceDeepKeys(root, value_key) {

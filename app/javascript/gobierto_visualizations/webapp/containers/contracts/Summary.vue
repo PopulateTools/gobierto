@@ -3,6 +3,9 @@
     <TreeMapNested
       :data="visualizationsData"
       :label-root-key="labelRootKey"
+      :size-for-treemap="'final_amount_no_taxes'"
+      :first-depth-for-tree-map="'contract_type'"
+      :second-depth-for-tree-map="'assignee'"
     />
     <h3 class="mt4 graph-title">
       {{ labelBeesWarm }}

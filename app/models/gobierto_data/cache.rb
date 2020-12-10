@@ -42,7 +42,8 @@ module GobiertoData
       filename = "#{dirname}/#{dataset.id}.#{format}"
       if !File.file?(filename) || update
         result = yield
-        File.write(filename, result, mode: "wb+")
+        size = File.write(filename, result, mode: "wb+")
+        dataset.update_attribute(:size, (dataset.size || {}).merge(format => size))
       end
 
       File.open(filename, "rb")

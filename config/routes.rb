@@ -266,6 +266,11 @@ Rails.application.routes.draw do
           resource :settings, only: [:edit, :update], path: :settings
         end
       end
+
+      namespace :gobierto_dashboards, as: :dashboards do
+        get "index" => "dashboards#index"
+        get "show" => "dashboards#show"
+      end
     end
 
     # User module

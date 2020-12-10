@@ -10,6 +10,8 @@ import SkeletonSpinner from "./modules/SkeletonSpinner.vue"
 import Pagination from "./modules/Pagination.vue"
 import BeesWarmChart from "./modules/BeesWarmChart.vue"
 import MultipleLineChart from "./modules/MultipleLineChart.vue"
+import TextEditable from "./modules/TextEditable.vue"
+import Autocomplete from "./modules/Autocomplete.vue"
 
 export {
   BlockHeader,
@@ -23,5 +25,7 @@ export {
   SkeletonSpinner,
   Pagination,
   BeesWarmChart,
-  MultipleLineChart
+  MultipleLineChart,
+  TextEditable,
+  Autocomplete
 }

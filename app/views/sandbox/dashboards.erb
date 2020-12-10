@@ -1,0 +1,13 @@
+<% content_for :javascript_module_link do %>
+  <%= javascript_packs_with_chunks_tag 'dashboards' %>
+<% end %>
+
+<% content_for :stylesheet_module_link do %>
+  <%= stylesheet_packs_with_chunks_tag 'dashboards' %>
+<% end %>
+
+<div class="column">
+  Ejemplo del visor (usar el id <i>dashboard-viewer-app</i>)
+  <br>
+  <div id="dashboard-viewer-app" data-context="CONTEXTO"></div>
+</div>

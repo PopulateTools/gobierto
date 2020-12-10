@@ -52,10 +52,8 @@ module ApplicationHelper
   end
 
   def full_layout?
-    params.has_key?(:embed) || (
-      (current_module == "gobierto_participation") &&
-        ((controller_name == "contribution_containers" && action_name == "show") || (controller_name == "poll_answers" && action_name == "new"))
-    )
+    (current_module == "gobierto_participation") &&
+      ((controller_name == "contribution_containers" && action_name == "show") || (controller_name == "poll_answers" && action_name == "new"))
   end
 
   def filetype_icon(attachment)

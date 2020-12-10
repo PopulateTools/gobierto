@@ -78,10 +78,10 @@ export default {
     return {
       years: [{ year: "metric" }],
       metrics: [],
-      dateLabel: "Fecha: ",
-      valueLabel: "Alcanzado",
-      objectiveLabel: "Objetivo",
-      percentageLabel: "% consecución"
+      dateLabel: I18n.t("gobierto_dashboards.date") || "",
+      valueLabel: I18n.t("gobierto_dashboards.value") || "",
+      objectiveLabel: I18n.t("gobierto_dashboards.objective") || "",
+      percentageLabel: I18n.t("gobierto_dashboards.percentage_alt") || ""
     };
   },
   created() {

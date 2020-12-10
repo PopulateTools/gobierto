@@ -10,7 +10,7 @@ function removeSlice(path) {
 
 // From https://www.abeautifulsite.net/parsing-urls-in-javascript
 function parseURL(url) {
-  let parser = document.createElement('a'),
+  var parser = document.createElement('a'),
       searchObject = {},
       queries, split, i;
   // Let the browser do the work
@@ -35,10 +35,10 @@ function parseURL(url) {
 
 // Removes embed parameter from an URL
 function toURLWithoutEmbedParameter(url) {
-  const parsedURL = parseURL(url);
-  let queryString = "";
+  var parsedURL = parseURL(url);
+  var queryString = "";
   if (parsedURL.search !== "") {
-    let parameters = [];
+    var parameters = [];
     Object.keys(parsedURL.searchObject).forEach(function(key) {
       if (key !== "embed") {
         parameters.push(key + "=" + parsedURL.searchObject[key]);
@@ -53,23 +53,27 @@ function toURLWithoutEmbedParameter(url) {
 }
 
 // Adds embed parameter to an URL
-function addEmbedParameter(url, appendContent) {
-  const parsedURL = parseURL(url);
+function addEmbedParameter(url) {
+  var parsedURL = parseURL(url);
 
   if (parsedURL.searchObject.hasOwnProperty("embed")) {
     return url;
   } else if (parsedURL.search === "") {
-    return url + "?embed=" + escape(appendContent);
+    return url + "?embed";
   } else {
-    return url + "&embed=" + escape(appendContent);
+    return url + "&embed";
   }
 }
 
 
 function postMessageHandler(event) {
+  if(event.data.type !== 'gobiertoIframeUrl') {
+    return;
+  }
+
   messages++;
   // Uncomment to debug
-  // console.log("We've got a message!");
+  // console.log("We've got a message in embed!");
   // console.log("* Message:", event.data);
   // console.log("* Origin:", event.origin);
   // console.log("* Source:", event.source);
@@ -78,8 +82,8 @@ function postMessageHandler(event) {
   window.document.title = event.data.title;
 
   // Calculate new path based on the iframe src and the url provided in the message
-  const iFramePath = toURLWithoutEmbedParameter(event.data.href);
-  const newPath = basePath.replace(iFramePath, "") + iFramePath + event.data.hash;
+  var iFramePath = toURLWithoutEmbedParameter(event.data.href);
+  var newPath = basePath.replace(iFramePath, "") + iFramePath + event.data.hash;
   if (messages > 1) {
     history.replaceState(event.data, event.data.title, newPath);
   }
@@ -88,7 +92,7 @@ function postMessageHandler(event) {
   window.scrollTo(0, 0);
 }
 
-function getIFrameSrc(embedHost, embedPath, basePath, appendContent) {
+function getIFrameSrc(embedHost, embedPath, basePath) {
   // embedPath: [http://madrid.gobierto.test]/agendas
   // basePath:  [http://demo.alcobendas.org]/altos-cargos/
   // currentPath:
@@ -97,8 +101,8 @@ function getIFrameSrc(embedHost, embedPath, basePath, appendContent) {
   //  3 - [http://demo.alcobendas.org]/altos-cargos/agendas/persona-1
   //  4 - [http://demo.alcobendas.org]/altos-cargos/partidos/
 
-  let currentPath = removeSlice(window.location.pathname);
-  let iFramePath;
+  var currentPath = removeSlice(window.location.pathname);
+  var iFramePath;
 
   // scenarios 1 and 2
   if (currentPath === basePath || currentPath === basePath + embedPath) {
@@ -107,34 +111,46 @@ function getIFrameSrc(embedHost, embedPath, basePath, appendContent) {
     iFramePath = currentPath.replace(basePath, "");
   }
 
-  return addEmbedParameter(embedHost + iFramePath, appendContent);
+  return addEmbedParameter(embedHost + iFramePath);
 }
 
 // The pathname of the page containing the iframe
-let basePath;
-let messages = 0;
+var basePath;
+var messages = 0;
 // Listen for messages sent by the iFrame to update the URL
 window.addEventListener("message", postMessageHandler, false);
 
 window.addEventListener('DOMContentLoaded', function(){
   // Build the iFrame
-  const gobiertoEmbed = document.querySelector("[gobierto-embed]");
+  var gobiertoEmbed = document.querySelector("[gobierto-embed]");
   if (gobiertoEmbed === null) {
     throw "Div gobierto-embed not found!";
   }
-
   basePath = removeSlice(parseURL(gobiertoEmbed.attributes["base-path"].nodeValue).pathname);
-  const parsedEmbedURL = parseURL(gobiertoEmbed.attributes["gobierto-embed"].nodeValue);
-  const embedHost = parsedEmbedURL.protocol + "//" + parsedEmbedURL.host;
-  const embedPath = removeSlice(parsedEmbedURL.pathname);
+  var parsedEmbedURL = parseURL(gobiertoEmbed.attributes["gobierto-embed"].nodeValue);
+  var embedHost = parsedEmbedURL.protocol + "//" + parsedEmbedURL.host;
+  var embedPath = removeSlice(parsedEmbedURL.pathname);
 
-  const iframe = document.createElement('iframe');
+  var iframe = document.createElement('iframe');
   // The src attribute of the iFrame needs to have a "embed" parameter
   // so Gobierto won't render the layout and will send postMessages to update the URL
-  iframe.src = getIFrameSrc(embedHost, embedPath, basePath, gobiertoEmbed.innerHTML);
+  iframe.src = getIFrameSrc(embedHost, embedPath, basePath);
   iframe.id = 'gobierto-embed';
   iframe.allowfullscreen = true;
+  iframe.setAttribute('onLoad', 'notifyCustomCss()');
   iframe.style = "width:100%;height:1400px;border:0px;";
 
   gobiertoEmbed.appendChild(iframe)
 });
+
+function notifyCustomCss() {
+  var gobiertoEmbed = document.querySelector("[gobierto-embed]");
+  if (gobiertoEmbed !== null) {
+
+    var message = {
+      type: 'gobiertoIframeStyles',
+      styles: gobiertoEmbed.innerHTML
+    };
+    window.frames["gobierto-embed"].contentWindow.postMessage(message, '*');
+  }
+}

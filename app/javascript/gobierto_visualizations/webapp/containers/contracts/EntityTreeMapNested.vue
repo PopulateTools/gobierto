@@ -5,14 +5,14 @@
       <div class="treemap-button-group button-group">
         <button
           class="button-grouped sort-G"
-          :class="{ active : selected_size === 'final_amount_no_taxes' }"
+          :class="{ active : selected_size_entity === 'final_amount_no_taxes' }"
           @click="handleTreeMapValue('final_amount_no_taxes')"
         >
           {{ labelContractAmount }}
         </button>
         <button
           class="button-grouped sort-G"
-          :class="{ active : selected_size === 'number_of_contract' }"
+          :class="{ active : selected_size_entity === 'number_of_contract' }"
           @click="handleTreeMapValue('number_of_contract')"
         >
           {{ labelContractTotal }}
@@ -25,9 +25,9 @@
       :data="data"
       :label-root-key="labelRootKey"
       :size-for-treemap="'final_amount_no_taxes'"
-      :first-depth-for-tree-map="'category_title'"
+      :first-depth-for-tree-map="'contract_type'"
       :second-depth-for-tree-map="'assignee'"
-      :selected-size="selected_size"
+      :selected-size="selected_size_entity"
     />
   </div>
 </template>
@@ -36,7 +36,7 @@
 import TreeMapNested from "../../visualizations/treeMapNested.vue";
 
 export default {
-  name: 'AssigneesTreeMapNested',
+  name: 'EntityTreeMapNested',
   components: {
     TreeMapNested
   },
@@ -55,7 +55,7 @@ export default {
       dataForTableTooltip: undefined,
       dataNewValues: undefined,
       valueForTreemap: '',
-      selected_size: 'final_amount_no_taxes',
+      selected_size_entity: 'final_amount_no_taxes',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
       labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
       labelRootKey: I18n.t('gobierto_visualizations.visualizations.contracts.assignees'),
@@ -63,8 +63,9 @@ export default {
   },
   methods: {
     handleTreeMapValue(value) {
-      if (this.selected_size === value) return;
-      this.selected_size = value
+      if (this.selected_size_entity === value) return;
+      this.selected_size_entity = value
+      console.log("this.selected_size_entity", this.selected_size_entity);
     }
   }
 }

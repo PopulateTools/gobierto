@@ -3,6 +3,9 @@
     <AssigneesTreeMapNested
       :data="visualizationsData"
     />
+    <!-- <EntityTreeMapNested
+      :data="visualizationsData"
+    /> -->
     <h3 class="mt4 graph-title">
       {{ labelBeesWarm }}
     </h3>
@@ -174,6 +177,7 @@
 
 import { BeesWarmChart, MultipleLineChart } from "lib/vue-components";
 import AssigneesTreeMapNested from "./AssigneesTreeMapNested.vue";
+import EntityTreeMapNested from "./EntityTreeMapNested.vue";
 import Table from "../../components/Table.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
@@ -190,7 +194,8 @@ export default {
     Table,
     BeesWarmChart,
     MultipleLineChart,
-    AssigneesTreeMapNested
+    AssigneesTreeMapNested,
+    EntityTreeMapNested
   },
   mixins: [visualizationsMixins],
   data(){

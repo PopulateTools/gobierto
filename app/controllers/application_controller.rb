@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
   )
 
   before_action :apply_engines_overrides, :authenticate_user_in_site, :allow_iframe_embed
+  after_action :inject_iframe_code
 
   def render_404
     render file: Rails.root.join("public/404.html"), status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -39,15 +40,28 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Setups the headers to allow being embed from an iFrame. More info at:
+  # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors
+  #
+  # Reads the allowed domain from the site configuration
   def allow_iframe_embed
+    if params.has_key?(:embed) and current_site.configuration.configuration_variables["allowed_iframe_origin"].present?
+      # To support IE
+      response.headers["X-Frame-Options"] = "ALLOW-FROM #{current_site.configuration.configuration_variables["allowed_iframe_origin"]}"
+      # Rest of modern browsers
+      response.headers["Content-Security-Policy"] = "frame-ancestors #{current_site.configuration.configuration_variables["allowed_iframe_origin"]};"
+    end
+  end
+
+  def inject_iframe_code
     if params.has_key?(:embed)
-      response.headers.delete "X-Frame-Options"
+      response.body = response.body.gsub(/<\/html>/, CGI.unescape(params[:embed]) + "</html>")
     end
   end
 
   def default_url_options
     if params.has_key?(:embed)
-      { embed: true }
+      { embed: params[:embed] }
     else
       {}
     end

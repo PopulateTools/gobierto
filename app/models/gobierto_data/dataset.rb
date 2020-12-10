@@ -105,6 +105,12 @@ module GobiertoData
       }
     end
 
+    def format_size(format = "csv")
+      return unless size&.has_key?(format)
+
+      size[format] / 1.0.megabyte
+    end
+
     private
 
     def delete_cached_data

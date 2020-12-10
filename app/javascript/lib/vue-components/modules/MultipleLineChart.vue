@@ -80,7 +80,7 @@ export default {
     }
   },
   mounted() {
-    this.containerChart = document.querySelector('.multiple-line-chart-container');
+    this.containerChart = document.querySelector('.visualizations-home-main');
     this.svgWidth = this.containerChart.offsetWidth;
     this.svgHeight = this.height + this.margin.top + this.margin.bottom
     this.setupElements()
@@ -164,7 +164,10 @@ export default {
         })
         .on('mouseout', () => {
           d3.select('.multiple-line-tooltip-bars')
-            .style('display', 'none');
+            .style("opacity", 1)
+            .transition()
+            .duration(400)
+            .style("opacity", 0)
         })
 
       for (let index = 0; index < this.arrayLineValues.length; index++) {
@@ -220,7 +223,7 @@ export default {
         d3.selectAll('.tooltip-multiple-line')
           .remove()
           .exit()
-        this.containerChart = document.querySelector('.multiple-line-chart-container');
+        this.containerChart = document.querySelector('.visualizations-home-main');
         this.svgWidth = this.containerChart.offsetWidth;
         this.setupElements()
         this.buildMultipleLine(this.data)

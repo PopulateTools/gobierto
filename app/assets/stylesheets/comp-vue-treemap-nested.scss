@@ -1,28 +1,37 @@
 :root {
-  --gobierto-gold: #f8b205;
-  --gobierto-red: #ff776d;
-  --gobierto-blue: #12365b;
-  --gobierto-turquoise: #008e9c;
   --white: #fff;
   --black: #000;
   --grey-text: #767168;
 }
 
-.tree-map-nested-nav {
+.treemap-nested-sidebar-nav{
   margin-left: 1px;
-  margin-bottom: $f8;
   color: rgba(var(--color-base-string), .8);
   width: max-content;
   cursor: pointer;
 
-  .nav-breadcrumbs {
+  .treemap-nested-sidebar-nav-breadcumb {
     margin: 0;
+
+    &.ellipsis {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 200px;
+    }
+  }
+
+  .treemap-nested-breadcrumb {
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 
 .treemap-nested-sidebar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: .5rem;
 }
 
 #treemap-nested {
@@ -33,35 +42,6 @@
 
   .grandparent text {
     font-weight: bold;
-  }
-
-  .obras {
-    .child,
-    .parent {
-      fill: var(--gobierto-red);
-    }
-  }
-
-  .servicios {
-    .child,
-    .parent {
-      fill: var(--gobierto-blue);
-    }
-  }
-
-  .suministros {
-    .child,
-    .parent {
-      fill: var(--gobierto-turquoise);
-    }
-  }
-
-  .gestion-de-servicios-publicos {
-    .child,
-    .parent,
-    rect {
-      fill: var(--gobierto-gold);
-    }
   }
 
   rect {
@@ -84,30 +64,6 @@
   }
 
   .children {
-    &.obras {
-      > rect {
-        fill: var(--gobierto-red);
-      }
-    }
-
-    &.servicios {
-      > rect {
-        fill: var(--gobierto-blue);
-      }
-    }
-
-    &.suministros {
-      > rect {
-        fill: var(--gobierto-turquoise);
-      }
-    }
-
-    &.gestion-de-servicios-publicos {
-      > rect {
-        fill: var(--gobierto-gold);
-      }
-    }
-
     &:hover {
       rect.child {
         opacity: 1;

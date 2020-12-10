@@ -51,6 +51,18 @@ module GobiertoData
       end
     end
 
+    attribute :size do
+      object.available_formats.inject({}) do |sizes, format|
+        sizes.update(
+          format => object.format_size(format)
+        )
+      end
+    end
+
+    attribute :default_limit do
+      object.default_limit
+    end
+
     def current_site
       Site.find_by(id: object.site_id) || instance_options[:site]
     end

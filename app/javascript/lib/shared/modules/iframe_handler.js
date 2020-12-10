@@ -12,17 +12,3 @@ export function handleIFramePageLoaded() {
     window.parent.postMessage(message, '*');
   }
 }
-
-export function iFrameGobiertoMessageHandler(event) {
-  if(event.data.type !== 'gobiertoIframeStyles') {
-    return;
-  }
-
-  // Uncomment to debug
-  // console.log("We've got a message in Gobierto!");
-  // console.log("* Message:", event.data);
-  // console.log("* Origin:", event.origin);
-  // console.log("* Source:", event.source);
-  let head = document.getElementsByTagName("head")[0]
-  head.innerHTML += event.data.styles;
-}

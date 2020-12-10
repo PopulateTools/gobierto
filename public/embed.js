@@ -92,18 +92,6 @@ function postMessageHandler(event) {
   window.scrollTo(0, 0);
 }
 
-function notifyCustomCss() {
-  var gobiertoEmbed = document.querySelector("[gobierto-embed]");
-  if (gobiertoEmbed !== null) {
-
-    var message = {
-      type: 'gobiertoIframeStyles',
-      styles: gobiertoEmbed.innerHTML
-    };
-    window.frames["gobierto-embed"].contentWindow.postMessage(message, '*');
-  }
-}
-
 function getIFrameSrc(embedHost, embedPath, basePath) {
   // embedPath: [http://madrid.gobierto.test]/agendas
   // basePath:  [http://demo.alcobendas.org]/altos-cargos/
@@ -149,7 +137,6 @@ window.addEventListener('DOMContentLoaded', function(){
   iframe.src = getIFrameSrc(embedHost, embedPath, basePath);
   iframe.id = 'gobierto-embed';
   iframe.allowfullscreen = true;
-  iframe.setAttribute('onLoad', 'notifyCustomCss()');
   iframe.style = "width:100%;height:1400px;border:0px;";
 
   gobiertoEmbed.appendChild(iframe)

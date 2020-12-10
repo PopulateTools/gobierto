@@ -10,7 +10,7 @@ es:
         api_settings_default_limit_for_queries: Límite por defecto para las queries
           sobre datasets que exceden el tamaño máximo
         api_settings_max_dataset_size_for_queries: Tamaño máximo de dataset sin limitar
-          el número de resutlados de las consultas (MB)
+          el número de resultados de las consultas (MB)
         db_config: Configuración de la conexión a la base de datos
         frontend_enabled: Interfaz pública visible
     errors:

@@ -1,0 +1,5 @@
+{
+  "id":{"type":"integer"},
+  "name":{"type":"text"},
+  "is_cool":{"type":"boolean", "optional_params": { "false_value": "Pues no me gusta", "true_value": "Me encanta"}}
+}

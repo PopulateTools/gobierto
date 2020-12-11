@@ -116,7 +116,7 @@ module GobiertoData
       return 50 unless api_settings.present?
 
       max_size = api_settings.max_dataset_size_for_queries
-      return api_settings.default_limit_for_queries if max_size.present? && max_size.positive? && max_size <= format_size
+      return api_settings.default_limit_for_queries if max_size.present? && format_size.present? && max_size.positive? && max_size <= format_size
     end
 
     private

@@ -1,4 +1,5 @@
 import Lightbox from 'lightbox2'
+import 'velocity-animate/velocity.ui'
 
 window.GobiertoParticipation.ProcessPollsController = (function() {
 

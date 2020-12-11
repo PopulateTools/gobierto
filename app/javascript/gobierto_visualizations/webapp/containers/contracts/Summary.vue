@@ -1,11 +1,17 @@
 <template>
   <div>
+    <h3 class="graph-title">
+      {{ labelEntitiesTreemap }}
+    </h3>
     <AssigneesTreeMapNested
       :data="visualizationsData"
     />
-    <!-- <EntityTreeMapNested
+    <h3 class="mt4 graph-title">
+      {{ labelEntitiesTreemap }}
+    </h3>
+    <EntityTreeMapNested
       :data="visualizationsData"
-    /> -->
+    />
     <h3 class="mt4 graph-title">
       {{ labelBeesWarm }}
     </h3>
@@ -221,6 +227,7 @@ export default {
       labelProcessType: I18n.t('gobierto_visualizations.visualizations.contracts.process_type'),
       labelAmountDistribution: I18n.t('gobierto_visualizations.visualizations.contracts.amount_distribution'),
       labelMainAssignees: I18n.t('gobierto_visualizations.visualizations.contracts.main_assignees'),
+      labelEntitiesTreemap: I18n.t('gobierto_visualizations.visualizations.contracts.entities_treemap'),
       labelBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.title_beeswarm'),
       labelTooltipBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm'),
       labelMultipleLine: I18n.t('gobierto_visualizations.visualizations.visualizations.title_multiple'),

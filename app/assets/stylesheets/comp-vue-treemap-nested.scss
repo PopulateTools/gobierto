@@ -4,6 +4,10 @@
   --grey-text: #767168;
 }
 
+.tree-map-nested-container {
+  position: relative;
+}
+
 .treemap-nested-sidebar-nav {
   margin-left: 1px;
   color: rgba(var(--color-base-string), .8);
@@ -34,7 +38,7 @@
   margin-bottom: .5rem;
 }
 
-#treemap-nested {
+.treemap-nested {
 
   text {
     pointer-events: none;

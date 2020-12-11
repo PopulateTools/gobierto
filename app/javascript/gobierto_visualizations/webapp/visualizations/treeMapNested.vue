@@ -1,9 +1,46 @@
 <template>
-  <div class="container-tree-map-nested">
+  <div :class="`tree-map-nested-container tree-map-nested-container-${treemapId}`">
+    <div
+      :id="`treemap-nested-sidebar-${treemapId}`"
+      class="treemap-nested-sidebar"
+    >
+      <div
+        :id="`treemap-nested-sidebar-nav-${treemapId}`"
+        class="treemap-nested-sidebar-nav"
+      />
+      <div
+        :id="`treemap-nested-sidebar-button-group-${treemapId}`"
+        class="treemap-nested-sidebar-button-group button-group"
+      >
+        <button
+          class="button-grouped sort-G"
+          :class="{ active : selected_size === 'final_amount_no_taxes' }"
+          @click="handleTreeMapValue('final_amount_no_taxes')"
+        >
+          {{ labelContractAmount }}
+        </button>
+        <button
+          class="button-grouped sort-G"
+          :class="{ active : selected_size === 'number_of_contract' }"
+          @click="handleTreeMapValue('number_of_contract')"
+        >
+          {{ labelContractTotal }}
+        </button>
+      </div>
+    </div>
+    <div
+      :id="`treemap-nested-tooltip-first-depth-${treemapId}`"
+      class="tree-map-nested-tooltip-assignee"
+    />
+    <div
+      :id="`treemap-nested-tooltip-second-depth-${treemapId}`"
+      class="tree-map-nested-tooltip-contracts"
+    />
     <svg
-      id="treemap-nested"
+      :id="`treemap-nested-${treemapId}`"
       :width="svgWidth"
       :height="svgHeight"
+      class="treemap-nested"
     />
   </div>
 </template>
@@ -52,10 +89,6 @@ export default {
       type: Number,
       default: 600
     },
-    sizeForTreemap: {
-      type: String,
-      default: ''
-    },
     firstDepthForTreeMap: {
       type: String,
       default: ''
@@ -64,7 +97,11 @@ export default {
       type: String,
       default: ''
     },
-    selectedSize: {
+    treemapId: {
+      type: String,
+      default: ''
+    },
+    scaleColorKey: {
       type: String,
       default: ''
     }
@@ -77,9 +114,9 @@ export default {
       updateData: false,
       dataForTableTooltip: undefined,
       dataNewValues: undefined,
-      valueForTreemap: '',
       arrayValuesContractTypes: [],
       selected_size: 'final_amount_no_taxes',
+      sizeForTreemap: 'final_amount_no_taxes',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
       labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
     }
@@ -90,16 +127,6 @@ export default {
         this.updateData = true
         this.dataNewValues = newValue
         this.deepCloneData(newValue)
-      }
-    },
-    selectedSize(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.valueForTreemap = newValue
-        if (this.updateData) {
-          this.deepCloneData(this.dataNewValues)
-        } else {
-          this.deepCloneData(this.dataTreeMapWithoutCoordinates)
-        }
       }
     }
   },
@@ -112,13 +139,22 @@ export default {
     /*To avoid add/remove colors in every update use Object.freeze(this.data)
     to create a scale/domain color persistent with the original keys*/
     const freezeObjectColors = Object.freeze(this.data);
-    this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => d.contract_type)))
+    this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => d[this.scaleColorKey])))
 
-    this.valueForTreemap = this.sizeForTreemap
     this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
     this.resizeListener()
   },
   methods: {
+    handleTreeMapValue(value) {
+      if (this.selected_size === value) return;
+      this.selected_size = value
+      this.sizeForTreemap = value
+      if (this.updateData) {
+        this.deepCloneData(this.dataNewValues)
+      } else {
+        this.deepCloneData(this.dataTreeMapSizeContracts)
+      }
+    },
     transformDataTreemap(data) {
 
       let dataFilter = data
@@ -140,7 +176,7 @@ export default {
       rootData.key = this.labelRootKey
       rootData.values = nested_data;
 
-      rootData = replaceDeepKeys(rootData, this.valueForTreemap);
+      rootData = replaceDeepKeys(rootData, this.sizeForTreemap);
 
       //d3 Nest add names to the keys that are not valid to build a treemap, we need to replace them
       function replaceDeepKeys(root, value_key) {
@@ -171,19 +207,22 @@ export default {
       this.transformDataTreemap(dataTreeMap)
     },
     buildTreeMap(rootData) {
-      d3.select('.treemap-container')
+      d3.select(`.treemap-container-${this.treemapId}`)
         .remove()
         .exit();
-      d3.select('.treemap-nested-sidebar-nav-breadcumb')
+      d3.select(`.treemap-nested-sidebar-nav-breadcumb-${this.treemapId}`)
         .remove()
         .exit();
 
       const colors = createScaleColors(this.arrayValuesContractTypes.length, this.arrayValuesContractTypes);
       let transitioning;
       let dataTreeMapSumFinalAmount = this.dataTreeMapSumFinalAmount
+      let firstDepthForTreeMap = this.firstDepthForTreeMap;
+      let secondDepthForTreeMap = this.secondDepthForTreeMap;
       const selected_size = this.selected_size;
-      const tooltip = d3.select('.tree-map-nested-tooltip-contracts')
-      const tooltipAssignee = d3.select('.tree-map-nested-tooltip-assignee')
+      const treemapId = this.treemapId;
+      const tooltipFirstDepth = d3.select(`#treemap-nested-tooltip-first-depth-${treemapId}`)
+      const tooltipSecondDepth = d3.select(`#treemap-nested-tooltip-second-depth-${treemapId}`)
 
       const x = d3.scaleLinear()
         .domain([0, this.svgWidth])
@@ -198,14 +237,14 @@ export default {
         .paddingInner(0)
         .round(false);
 
-      const svg = d3.select('#treemap-nested')
+      const svg = d3.select(`#treemap-nested-${treemapId}`)
         .append("g")
-        .attr('class', 'treemap-container')
+        .attr('class', `treemap-container-${treemapId}`)
         .style("shape-rendering", "crispEdges");
 
-      const navBreadcrumbs = d3.select('.treemap-nested-sidebar-nav')
+      const navBreadcrumbs = d3.select(`#treemap-nested-sidebar-nav-${treemapId}`)
         .append('p')
-        .attr("class", "treemap-nested-sidebar-nav-breadcumb")
+        .attr("class", `treemap-nested-sidebar-nav-breadcumb treemap-nested-sidebar-nav-breadcumb-${treemapId}`)
 
       const root = d3.hierarchy(rootData);
       treemap(root
@@ -304,8 +343,8 @@ export default {
               let valueTotalAmount
               if (typeof d.data !== "function") {
                 let contractType = d.data.name !== undefined ? d.data.name : ''
-                const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'contract_type', 'final_amount_no_taxes')
-                let totalAmount = finalAmountTotal.filter(contract => contract.contract_type === contractType)
+                const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, firstDepthForTreeMap, 'final_amount_no_taxes')
+                let totalAmount = finalAmountTotal.filter(contract => contract[firstDepthForTreeMap] === contractType)
                 totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
                 valueTotalAmount = totalAmount[0].final_amount_no_taxes
               }
@@ -324,15 +363,16 @@ export default {
                 </p>
                 `
             } else if (depth === 2 && typeof d.data !== "function") {
+              let valueTotalAmount
               if (typeof d.data !== "function") {
                 let contractType = d.data.name !== undefined ? d.data.name : ''
-                const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'assignee', 'final_amount_no_taxes')
-                let totalAmount = finalAmountTotal.filter(contract => contract.assignee === contractType)
+                const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, secondDepthForTreeMap, 'final_amount_no_taxes')
+                let totalAmount = finalAmountTotal.filter(contract => contract[secondDepthForTreeMap] === contractType)
                 totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
                 valueTotalAmount = totalAmount[0].final_amount_no_taxes
               }
 
-              let valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
+              valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
 
               let totalContracts = d.children === undefined ? '' : d.children
               if (totalContracts) {
@@ -376,10 +416,10 @@ export default {
           const [x, y] = d3.mouse(this);
 
           //Elements to determinate the position of tooltip
-          const container = document.getElementsByClassName('container-tree-map-nested')[0];
+          const container = document.querySelector(`.tree-map-nested-container-${treemapId}`);
           const containerWidth = container.offsetWidth
-          const tooltipWidth = depth === 2 ? tooltipAssignee.node().offsetWidth : tooltip.node().offsetWidth
-          const tooltipHeight = depth === 2 ? tooltipAssignee.node().offsetHeight : tooltip.node().offsetHeight
+          const tooltipWidth = depth === 2 ? tooltipFirstDepth.node().offsetWidth : tooltipSecondDepth.node().offsetWidth
+          const tooltipHeight = depth === 2 ? tooltipFirstDepth.node().offsetHeight : tooltipSecondDepth.node().offsetHeight
           const positionWidthTooltip = x + tooltipWidth
           const positionRight = `${x - tooltipWidth - 20}px`
           const positionTop = tooltipHeight + y > window.innerHeight ? `${y - (tooltipHeight / 2)}px` : `${y}px`
@@ -404,13 +444,13 @@ export default {
               }
             }
 
-            tooltipAssignee
+            tooltipFirstDepth
               .style("display", "block")
               .transition()
               .duration(200)
               .style("opacity", 1)
 
-            tooltipAssignee
+            tooltipFirstDepth
               .html(() => {
                 return `
                   <span class="treemap-nested-tooltip-header-title">
@@ -434,13 +474,13 @@ export default {
 
             valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
 
-            tooltip
+            tooltipSecondDepth
               .style('display', 'block')
               .transition()
               .duration(200)
               .style("opacity", 1)
 
-            tooltip
+            tooltipSecondDepth
               .html(() => {
                 return `
                   <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(valueTotalAmount)}</b></p>
@@ -453,14 +493,14 @@ export default {
           }
         })
         .on('mouseout', function() {
-          tooltip
+          tooltipSecondDepth
             .style("opacity", 1)
             .transition()
             .duration(200)
             .style("opacity", 0)
             .style("display", "none")
 
-          tooltipAssignee
+          tooltipFirstDepth
             .style("opacity", 1)
             .transition()
             .duration(200)
@@ -556,19 +596,21 @@ export default {
       }
 
       function checkSizeBreadcumbs() {
-        const treeMapSidebar = document.querySelector('.treemap-nested-sidebar');
+        const treeMapSidebar = document.querySelector(`#treemap-nested-sidebar-${treemapId}`);
         const treeMapSidebarWidth = treeMapSidebar.offsetWidth
 
-        const treeMapSidebarButton = document.querySelector('.treemap-nested-sidebar-button-group');
+        const treeMapSidebarButton = document.querySelector(`#treemap-nested-sidebar-button-group-${treemapId}`);
         const treeMapSidebarButtonWidth = treeMapSidebarButton.offsetWidth
 
         const treeMapAvailableWidth = treeMapSidebarWidth - treeMapSidebarButtonWidth
 
-        const treeMapSidebarNav = document.querySelector('.treemap-nested-sidebar-nav');
+        const treeMapSidebarNav = document.querySelector(`#treemap-nested-sidebar-nav-${treemapId}`);
         const treeMapSidebarNavWidth = treeMapSidebarNav.offsetWidth
 
-        const treeMapSidebarNavContainer = document.querySelector('.treemap-nested-sidebar-nav-breadcumb');
-        if (treeMapSidebarNavWidth > treeMapAvailableWidth) treeMapSidebarNavContainer.classList.add('ellipsis')
+        const treeMapSidebarNavContainer = document.querySelector(`.treemap-nested-sidebar-nav-breadcumb-${treemapId}`);
+        if (treeMapSidebarNavWidth > treeMapAvailableWidth) {
+          treeMapSidebarNavContainer.classList.add('ellipsis')
+        }
       }
     },
     resizeListener() {

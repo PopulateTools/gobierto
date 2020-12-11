@@ -109,7 +109,7 @@ export default {
   },
   mounted() {
     this.dataWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
-    const containerChart = document.querySelector('.visualizations-home-main');
+    const containerChart = document.querySelector('.beeswarm-container');
     this.svgWidth = containerChart.offsetWidth;
     this.svgHeight = this.height;
 
@@ -344,7 +344,7 @@ export default {
     resizeListener() {
       window.addEventListener('resize', () => {
         let dataResponsive = this.updateData ? this.dataNewValues : this.dataWithoutCoordinates;
-        const containerChart = document.querySelector('.visualizations-home-main');
+        const containerChart = document.querySelector('.beeswarm-container');
         this.svgWidth = containerChart.offsetWidth;
         this.setupElements();
         this.deepCloneData(dataResponsive);

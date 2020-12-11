@@ -99,7 +99,7 @@ export default {
     }
   },
   mounted() {
-    this.containerChart = document.querySelector('.visualizations-home-main');
+    this.containerChart = document.querySelector('.container-tree-map-nested');
     this.svgWidth = this.containerChart.offsetWidth;
     this.dataTreeMapWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
     this.dataTreeMapSizeContracts = JSON.parse(JSON.stringify(this.data));
@@ -395,8 +395,7 @@ export default {
             let contractsString = ''
             if (totalContracts) {
               totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
-              totalContractsLength = totalContracts.length
-              while (i < totalContractsLength) {
+              while (i < totalContracts.length) {
                 let contractAmount = selected_size === 'final_amount_no_taxes' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.final_amount_no_taxes}`
                 contractsString = `${contractsString}
                 <div class="depth-second-container">
@@ -578,7 +577,7 @@ export default {
     resizeListener() {
       window.addEventListener("resize", () => {
         let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
-        const containerChart = document.querySelector('.visualizations-home-main');
+        const containerChart = document.querySelector('.container-tree-map-nested');
         this.svgWidth = containerChart.offsetWidth
         this.deepCloneData(dataResponsive)
       })

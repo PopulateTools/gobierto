@@ -39,7 +39,7 @@
           <SmallCard
             v-for="({ name }, key) in cards"
             :key="key"
-            :name="name"
+            :name="name()"
             @drag.native="drag(key, $event)"
             @dragend.native="dragend"
           />
@@ -90,7 +90,7 @@ export default {
       item: null,
       configuration: null,
       viewerLoaded: false,
-      publicLabel: "Público",
+      publicLabel: I18n.t("gobierto_dashboards.public") || "",
     };
   },
   computed: {
@@ -98,7 +98,7 @@ export default {
       return this.$root.$data?.id;
     },
     title() {
-      return this.configuration?.data?.attributes?.title || "Título del dashboard";
+      return this.configuration?.data?.attributes?.title || I18n.t("gobierto_dashboards.default_title") || "";
     },
     status() {
       return this.configuration?.data?.attributes?.visibility_level === "active";
@@ -124,7 +124,7 @@ export default {
     },
     drag(key) {
       if (!this.item) {
-        const match = Widgets[key];
+        const match = this.cards[key];
         if (match) {
           this.item = {
             i: `${key}-${Math.random().toString(36).substring(7)}`,

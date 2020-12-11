@@ -50,10 +50,10 @@ export default {
       percentage: 0,
       year: null,
       metrics: [],
-      dateLabel: "Fecha: ",
-      valueLabel: "Alcanzado",
-      objectiveLabel: "Objetivo",
-      percentageLabel: "Consecución",
+      dateLabel: I18n.t("gobierto_dashboards.date") || "",
+      valueLabel: I18n.t("gobierto_dashboards.value") || "",
+      objectiveLabel: I18n.t("gobierto_dashboards.objective") || "",
+      percentageLabel: I18n.t("gobierto_dashboards.percentage") || "",
     }
   },
   created() {

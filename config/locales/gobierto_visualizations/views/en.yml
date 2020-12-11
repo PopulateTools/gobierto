@@ -17,7 +17,7 @@ en:
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee
-        assignees: Assignees
+        categories: Categories
         contract: Contract
         contract_amount: Contract Amount
         contract_type: Type of contract
@@ -29,6 +29,8 @@ en:
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
         empty_table: There is no available data
+        entities: Entities
+        entities_treemap: Contracts per Entities
         final_amount_no_taxes: Amount
         fromto: From To No Contr.
         main_assignees: Main assignees

@@ -17,7 +17,7 @@ ca:
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
-        assignees: Adjudicataris
+        categories: Categories
         contract: Contracte
         contract_amount: Imp. adjudicació
         contract_type: Tipus de contracte
@@ -29,6 +29,8 @@ ca:
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
         empty_table: No hi ha dades disponibles
+        entities: Entitats
+        entities_treemap: Contractes per Entitats
         final_amount_no_taxes: Quantitat
         fromto: De a Nº Contr.
         main_assignees: Principals adjudicataris

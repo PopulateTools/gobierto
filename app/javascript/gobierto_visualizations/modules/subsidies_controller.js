@@ -118,12 +118,6 @@ export class SubsidiesController {
   setGlobalVariables(rawData) {
     let subsidiesData = rawData[0];
 
-    subsidiesData.sort((a, b) => {
-      a = a.grant_date.replace(/-/g, '');
-      b = b.grant_date.replace(/-/g, '');
-      return a.localeCompare(b)
-    });
-
     // Precalculations and normalizations
     this._amountRange = {
       domain: [501, 1001, 5001, 10001, 15001],
@@ -152,6 +146,10 @@ export class SubsidiesController {
       //To avoid generating repeated id's we concatenate the index to the generation of ID's
       if (!subsidy.id) {
         subsidy.id = `${subsidy.grant_date.replace(/\D+/g,"")}${subsidy.beneficiary_id.replace(/\D+/g, "")}${parseInt(subsidy.amount) || 0}${i}`;
+      }
+
+      if (subsidy.beneficiary === '' && subsidy.beneficiary_type === 'persona') {
+        subsidy.beneficiary = I18n.t('gobierto_visualizations.visualizations.subsidies.person')
       }
     }
 

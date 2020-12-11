@@ -156,6 +156,11 @@ gobierto_data_settings_madrid:
       read_draft_db_config: Rails.configuration.database_configuration["test"],
       write_db_config: Rails.configuration.database_configuration["test"]
     },
+    api_settings: {
+      exposed_in_public_api: true,
+      max_dataset_size_for_queries: 10,
+      default_limit_for_queries: 42
+    },
     api_configuration: {
       "exposed_in_public_api" => true,
       "availableFilters" => [

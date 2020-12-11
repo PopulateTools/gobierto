@@ -38,10 +38,12 @@ module GobiertoData
         def dataset
           @dataset ||= gobierto_data_datasets(:users_dataset)
         end
+        alias big_dataset dataset
 
         def other_dataset
           @other_dataset ||= gobierto_data_datasets(:events_dataset)
         end
+        alias small_dataset other_dataset
 
         def datasets_category
           @datasets_category ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_category)
@@ -53,6 +55,10 @@ module GobiertoData
 
         def attachment
           @attachment ||= gobierto_attachments_attachments(:txt_pdf_attachment)
+        end
+
+        def api_settings
+          @api_settings ||= gobierto_module_settings(:gobierto_data_settings_madrid).api_settings
         end
 
         def delete_cached_files
@@ -303,7 +309,7 @@ module GobiertoData
 
             # attributes
             attributes_keys = resource_data["attributes"].keys
-            %w(name slug data_updated_at data_summary columns formats).each do |attribute|
+            %w(name slug data_updated_at data_summary columns formats size default_limit).each do |attribute|
               assert_includes attributes_keys, attribute
             end
             assert resource_data["attributes"].has_key?(datasets_category.uid)
@@ -327,6 +333,22 @@ module GobiertoData
             assert response_data.has_key? "links"
             assert_includes response_data["links"].values, gobierto_data_api_v1_datasets_path
             assert_includes response_data["links"].values, meta_gobierto_data_api_v1_datasets_path
+          end
+        end
+
+        # GET /api/v1/data/datasets/dataset-slug/metadata
+        def test_size_and_default_limit_meta_attributes
+          with(site: site) do
+            get meta_gobierto_data_api_v1_dataset_path(big_dataset.slug), as: :json
+            big_dataset_response_data = response.parsed_body
+            get meta_gobierto_data_api_v1_dataset_path(small_dataset.slug), as: :json
+            small_dataset_response_data = response.parsed_body
+
+            assert_equal api_settings["default_limit_for_queries"], big_dataset_response_data["data"]["attributes"]["default_limit"]
+            assert_nil small_dataset_response_data["data"]["attributes"]["default_limit"]
+
+            assert_equal 15, big_dataset_response_data["data"]["attributes"]["size"]["csv"]
+            assert_equal 3, small_dataset_response_data["data"]["attributes"]["size"]["csv"]
           end
         end
 

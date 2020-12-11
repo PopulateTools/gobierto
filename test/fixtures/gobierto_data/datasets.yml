@@ -6,6 +6,7 @@ users_dataset:
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
+  size: <%= { csv: 15.megabytes, json: 25.megabytes }.to_json %>
 
 events_dataset:
   site: madrid
@@ -15,6 +16,7 @@ events_dataset:
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
+  size: <%= { csv: 3.megabytes, json: 4.megabytes }.to_json %>
 
 draft_dataset:
   site: madrid

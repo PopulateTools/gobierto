@@ -49,7 +49,6 @@ class ApplicationController < ActionController::Base
       response.headers["X-Frame-Options"] = "ALLOW-FROM #{current_site.configuration.configuration_variables["allowed_iframe_origin"]}"
       # Rest of modern browsers
       response.headers["Content-Security-Policy"] = "frame-ancestors #{current_site.configuration.configuration_variables["allowed_iframe_origin"]};"
-      #response.headers["Access-Control-Allow-Origin"] = current_site.configuration.configuration_variables["allowed_iframe_origin"]
     end
   end
 

@@ -1,0 +1,27 @@
+---
+ca:
+  gobierto_dashboards:
+    available_cards: Targetes disponibles
+    changes: Dashboard modificat
+    date: 'Data: '
+    default_title: Títol del dashboard
+    delete: Esborrar
+    instructions: |
+      "⇧ Selecciona un tipus de targeta i inclou-la en l'àrea central ➞
+
+      Després podràs configurar-la."
+    objective: Objectiu
+    percentage: Consecució
+    percentage_alt: "% consecució"
+    placeholder: Escriu el títol de l'indicador o projecte
+    public: Públic
+    save: Guardar
+    select: Selecciona l'indicador
+    type: Tipus
+    value: Aconseguit
+    view_item: Veure ítem
+    widgets:
+      html: Contingut HTML
+      indicator: Indicador
+      individual: Individual
+      table: Taula

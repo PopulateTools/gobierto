@@ -100,7 +100,9 @@ module Gobierto
 
     # Redirections
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
-      r301 %r{/dashboards/(.*)}, '/visualizaciones/$1'
+      r301 %r{^/dashboards/contratos(.*)}, '/visualizaciones/contratos$1'
+      r301 %r{^/dashboards/subvenciones(.*)}, '/visualizaciones/subvenciones$1'
+      r301 %r{^/dashboards/costes(.*)}, '/visualizaciones/costes$1'
     end
   end
 end

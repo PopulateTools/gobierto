@@ -1,14 +1,14 @@
-// TODO: traducir con I18n
 export const Widgets = {
   HTML: {
-    name: "Contenido HTML",
+    // name is a function to be resolved only when is mounted
+    name: () => I18n.t("gobierto_dashboards.widgets.html") || "",
     template: () => import("../components/WidgetHTML"),
     w: 6,
     h: 3,
     minW: 4,
   },
   INDICATOR: {
-    name: "Indicador",
+    name: () => I18n.t("gobierto_dashboards.widgets.indicator") || "",
     template: () => import("../components/WidgetIndicator"),
     w: 6,
     h: 5,
@@ -16,11 +16,11 @@ export const Widgets = {
     minH: 3,
     subtypes: {
       individual: {
-        name: "Individual",
+        name: () => I18n.t("gobierto_dashboards.widgets.individual") || "",
         template: () => import("../components/WidgetIndicatorIndividual")
       },
       table: {
-        name: "Tabla",
+        name: () => I18n.t("gobierto_dashboards.widgets.table") || "",
         template: () => import("../components/WidgetIndicatorTable")
       }
     }

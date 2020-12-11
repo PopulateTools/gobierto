@@ -15,8 +15,8 @@ export default {
   name: "Aside",
   data() {
     return {
-      titleLabel: "Tarjetas disponibles",
-      instructionsLabel: "⇧ Selecciona un tipo de tarjeta e incluyela en el área central ➞ \n\nLuego podrás configurarla.",
+      titleLabel: I18n.t("gobierto_dashboards.available_cards") || "",
+      instructionsLabel: I18n.t("gobierto_dashboards.instructions") || "",
     }
   }
 }

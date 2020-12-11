@@ -16,7 +16,7 @@
           template="link"
           @click.native="handleSeeItemButton"
         >
-          {{ seeItemLabel }}
+          {{ viewItemLabel }}
         </Button>
       </div>
     </div>
@@ -58,10 +58,10 @@ export default {
   },
   data() {
     return {
-      deleteLabel: "Eliminar",
-      saveLabel: "Guardar",
-      seeItemLabel: "Ver ítem",
-      changesLabel: "Dashboard modificado"
+      deleteLabel: I18n.t("gobierto_dashboards.delete") || "",
+      saveLabel: I18n.t("gobierto_dashboards.save") || "",
+      viewItemLabel: I18n.t("gobierto_dashboards.view_item") || "",
+      changesLabel: I18n.t("gobierto_dashboards.changes") || ""
     };
   },
   methods: {

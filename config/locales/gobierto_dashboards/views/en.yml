@@ -1,0 +1,27 @@
+---
+en:
+  gobierto_dashboards:
+    available_cards: Available cards
+    changes: Dashboard changed
+    date: 'Date: '
+    default_title: Dashboard title
+    delete: Delete
+    instructions: |
+      "⇧ Select a card type and include it in the central area ➞
+
+      Then you can configure it."
+    objective: Goal
+    percentage: Attainment
+    percentage_alt: "% Attainment"
+    placeholder: Write the title of the indicator or project
+    public: Public
+    save: Save
+    select: Select indicator
+    type: Type
+    value: Reached
+    view_item: See item
+    widgets:
+      html: HTML Content
+      indicator: Indicator
+      individual: Individual
+      table: Table

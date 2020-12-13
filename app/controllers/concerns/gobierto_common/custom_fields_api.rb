@@ -40,7 +40,7 @@ module GobiertoCommon
       md_uids = md_custom_fields.pluck(:uid)
       raw_values.transform_values do |attributes|
         transform(attributes, localized_uids, :translate)
-        transform(attributes, md_uids, :markdown)
+        transform(attributes, md_uids, :safe_markdown)
         attributes
       end
 
@@ -85,7 +85,15 @@ module GobiertoCommon
       custom_fields_save
     end
 
+    # This function prevents errors when a md custom field is passed
+    # as a Hash because it is localized
+    def safe_markdown(value)
+      markdown(value.is_a?(Hash) ? translate(value) : value)
+    end
+
     def translate(hash)
+      return hash.to_s unless hash.is_a?(Hash)
+
       hash = hash.with_indifferent_access
       hash[I18n.locale] || hash[I18n.default_locale] || hash.slice(I18n.available_locales).values&.first || ""
     end

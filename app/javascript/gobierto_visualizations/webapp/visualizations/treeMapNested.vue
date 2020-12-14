@@ -140,7 +140,7 @@ export default {
     }
   },
   mounted() {
-    this.containerChart = document.querySelector('.visualizations-home-main');
+    this.containerChart = document.querySelector('.tree-map-nested-container');
     this.svgWidth = this.containerChart.offsetWidth;
     this.dataTreeMapWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
     this.dataTreeMapSizeContracts = JSON.parse(JSON.stringify(this.data));

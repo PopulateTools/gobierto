@@ -79,7 +79,6 @@ export class ContractsController {
             }
           ],
           scrollBehavior(to) {
-            let element;
             if (to.name === "contracts_show") {
               const element = document.getElementById(selector);
               window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
@@ -236,6 +235,8 @@ export class ContractsController {
     this._renderContractTypeChart();
     this._renderProcessTypeChart();
     this._renderDateChart();
+    this._renderCategoriesChart();
+    this._renderEntitiesChart();
   }
 
   _refreshData(reducedContractsData, filters, tendersAttribute) {
@@ -422,6 +423,44 @@ export class ContractsController {
     };
 
     this.charts["dates"] = new GroupPctDistributionBars(renderOptions);
+  }
+
+  _renderCategoriesChart() {
+    const dimension = this.ndx.dimension(contract => contract.category_title);
+
+    const renderOptions = {
+      containerSelector: "#category-bars",
+      dimension: dimension,
+      onFilteredFunction: (chart, filter) => {
+        this._refreshData(
+          dimension.top(Infinity),
+          chart.filters(),
+          "category_title"
+        );
+        EventBus.$emit("dc-filter-selected", { title: filter, id: "category_title" });
+      }
+    };
+
+    this.charts["category_title"] = new GroupPctDistributionBars(renderOptions);
+  }
+
+  _renderEntitiesChart() {
+    const dimension = this.ndx.dimension(contract => contract.contractor);
+
+    const renderOptions = {
+      containerSelector: "#contractor-bars",
+      dimension: dimension,
+      onFilteredFunction: (chart, filter) => {
+        this._refreshData(
+          dimension.top(Infinity),
+          chart.filters(),
+          "contractor"
+        );
+        EventBus.$emit("dc-filter-selected", { title: filter, id: "contractor" });
+      }
+    };
+
+    this.charts["contractor"] = new GroupPctDistributionBars(renderOptions);
   }
 
   _updateChartsFromFilter(options) {

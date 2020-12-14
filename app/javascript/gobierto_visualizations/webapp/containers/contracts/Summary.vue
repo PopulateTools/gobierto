@@ -1,9 +1,9 @@
 <template>
   <div>
     <h3 class="graph-title">
-      {{ labelEntitiesTreemap }}
+      {{ labelCategoriesTreemap }}
     </h3>
-    <AssigneesTreeMapNested
+    <CategoriesTreeMapNested
       :data="visualizationsData"
     />
     <h3 class="mt4 graph-title">
@@ -156,13 +156,6 @@
           </h3>
           <div id="amount-distribution-bars"></div>
         </div>
-        <div>
-          <div
-            id="date-bars"
-            class="hidden"
-          >
-          </div>
-        </div>
       </div>
     </div>
 
@@ -182,7 +175,7 @@
 <script>
 
 import { BeesWarmChart, MultipleLineChart } from "lib/vue-components";
-import AssigneesTreeMapNested from "./AssigneesTreeMapNested.vue";
+import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import EntityTreeMapNested from "./EntityTreeMapNested.vue";
 import Table from "../../components/Table.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
@@ -200,7 +193,7 @@ export default {
     Table,
     BeesWarmChart,
     MultipleLineChart,
-    AssigneesTreeMapNested,
+    CategoriesTreeMapNested,
     EntityTreeMapNested
   },
   mixins: [visualizationsMixins],
@@ -228,6 +221,7 @@ export default {
       labelAmountDistribution: I18n.t('gobierto_visualizations.visualizations.contracts.amount_distribution'),
       labelMainAssignees: I18n.t('gobierto_visualizations.visualizations.contracts.main_assignees'),
       labelEntitiesTreemap: I18n.t('gobierto_visualizations.visualizations.contracts.entities_treemap'),
+      labelCategoriesTreemap: I18n.t('gobierto_visualizations.visualizations.contracts.categories_treemap'),
       labelBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.title_beeswarm'),
       labelTooltipBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm'),
       labelMultipleLine: I18n.t('gobierto_visualizations.visualizations.visualizations.title_multiple'),

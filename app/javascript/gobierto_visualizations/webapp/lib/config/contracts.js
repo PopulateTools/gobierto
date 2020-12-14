@@ -43,5 +43,17 @@ export const contractsFiltersConfig = [
     title: I18n.t('gobierto_visualizations.visualizations.contracts.process_type'),
     isToggle: true,
     options: []
+  },
+  {
+    id: 'category_title',
+    title: I18n.t('gobierto_visualizations.visualizations.contracts.categories'),
+    isToggle: true,
+    options: []
+  },
+  {
+    id: 'contractor',
+    title: I18n.t('gobierto_visualizations.visualizations.contracts.entities'),
+    isToggle: true,
+    options: []
   }
 ]

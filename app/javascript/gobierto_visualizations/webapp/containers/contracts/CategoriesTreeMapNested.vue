@@ -15,7 +15,7 @@
 import TreeMapNested from "../../visualizations/treeMapNested.vue";
 
 export default {
-  name: 'AssigneesTreeMapNested',
+  name: 'CategoriesTreeMapNested',
   components: {
     TreeMapNested
   },

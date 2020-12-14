@@ -18,6 +18,7 @@ es:
         amount_distribution: Distribución por importes
         assignee: Adjudicatario
         categories: Categorías
+        categories_treemap: Contratos por Categorias
         contract: Contrato
         contract_amount: Imp. adjudicación
         contract_type: Tipo de contrato

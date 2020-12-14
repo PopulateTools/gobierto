@@ -18,6 +18,7 @@ en:
         amount_distribution: Amount distribution
         assignee: Assignee
         categories: Categories
+        categories_treemap: Contracts per Categories
         contract: Contract
         contract_amount: Contract Amount
         contract_type: Type of contract

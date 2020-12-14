@@ -328,6 +328,22 @@ madrid_data_datasets_custom_field_category:
     vocabulary_id: ActiveRecord::FixtureSet.identify(:issues_vocabulary)
   }.to_json %>
 
+madrid_data_datasets_custom_field_md_without_translations:
+  site: madrid
+  class_name: GobiertoData::Dataset
+  position: 2
+  name_translations: <%= { en: "MD without translations", es: "MD sin traducciones" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:paragraph] %>
+  uid: md-without-translations
+
+madrid_data_datasets_custom_field_md_with_translations:
+  site: madrid
+  class_name: GobiertoData::Dataset
+  position: 3
+  name_translations: <%= { en: "MD with translations", es: "MD con traducciones" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:localized_paragraph] %>
+  uid: md-with-translations
+
 madrid_custom_field_human_resources_table_plugin:
   site: madrid
   class_name: GobiertoPlans::Node

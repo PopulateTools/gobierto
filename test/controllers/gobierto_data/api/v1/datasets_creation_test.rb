@@ -81,6 +81,44 @@ module GobiertoData
 
         # POST /api/v1/data/datasets
         #
+        def test_dataset_creation_with_blank_csv_separator
+          with(site: site) do
+            assert_no_difference "GobiertoData::Dataset.count" do
+              post(
+                gobierto_data_api_v1_datasets_path,
+                params: multipart_form_params("dataset1.csv", csv_separator: ""),
+                headers: { "Authorization" => auth_header }
+              )
+
+              assert_response :unprocessable_entity
+              response_data = response.parsed_body
+              assert_match(/wrong length \(should be 1 character\)/, response_data.to_s)
+              refute site.activities.where(subject_type: "GobiertoData::Dataset").exists?
+            end
+          end
+        end
+
+        # POST /api/v1/data/datasets
+        #
+        def test_dataset_creation_with_upload_missing
+          with(site: site) do
+            assert_no_difference "GobiertoData::Dataset.count" do
+              post(
+                gobierto_data_api_v1_datasets_path,
+                params: multipart_form_params("dataset1.csv", data_file: "/User/local/file.csv"),
+                headers: { "Authorization" => auth_header }
+              )
+
+              assert_response :unprocessable_entity
+              response_data = response.parsed_body
+              assert_match(/The file hasn't been uploaded/, response_data.to_s)
+              refute site.activities.where(subject_type: "GobiertoData::Dataset").exists?
+            end
+          end
+        end
+
+        # POST /api/v1/data/datasets
+        #
         def test_dataset_creation_with_password_protected_site_and_admin_auth_header
           site.draft!
           site.configuration.password_protection_username = "username"

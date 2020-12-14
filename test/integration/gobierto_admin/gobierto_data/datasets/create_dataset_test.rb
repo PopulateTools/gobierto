@@ -59,9 +59,11 @@ module GobiertoAdmin
           with(site: site, admin: admin, js: true) do
             visit @path
 
-            fill_in "dataset_name_translations_en", with: "Vocabularies"
-            switch_locale "ES"
-            fill_in "dataset_name_translations_es", with: "Vocabularios"
+            within "div.globalized_fields", match: :first do
+              fill_in "dataset_name_translations_en", with: "Vocabularies"
+              switch_locale "ES"
+              fill_in "dataset_name_translations_es", with: "Vocabularios"
+            end
             select "vocabularies", from: "dataset_table_name"
             fill_in "dataset_slug", with: "vocabularies-slug"
 
@@ -72,9 +74,11 @@ module GobiertoAdmin
             click_button "Create"
 
             assert has_message?("Dataset created correctly.")
-            assert has_field?("dataset_name_translations_en", with: "Vocabularies")
-            switch_locale "ES"
-            assert has_field?("dataset_name_translations_es", with: "Vocabularios")
+            within "div.globalized_fields", match: :first do
+              assert has_field?("dataset_name_translations_en", with: "Vocabularies")
+              switch_locale "ES"
+              assert has_field?("dataset_name_translations_es", with: "Vocabularios")
+            end
             assert has_field?("dataset_slug", with: "vocabularies-slug")
             assert has_select?("Table name", selected: "vocabularies")
           end

@@ -108,6 +108,10 @@ export default {
     scaleColorKey: {
       type: String,
       default: ''
+    },
+    amount: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -119,8 +123,8 @@ export default {
       dataForTableTooltip: undefined,
       dataNewValues: undefined,
       arrayValuesContractTypes: [],
-      selected_size: 'final_amount_no_taxes',
-      sizeForTreemap: 'final_amount_no_taxes',
+      selected_size: this.amount,
+      sizeForTreemap: this.amount,
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
       labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
     }
@@ -184,6 +188,7 @@ export default {
       let dataTreeMapSumFinalAmount = this.dataTreeMapSumFinalAmount
       let firstDepthForTreeMap = this.firstDepthForTreeMap;
       let secondDepthForTreeMap = this.secondDepthForTreeMap;
+      let amountKey = this.amount
       const selected_size = this.selected_size;
       const treemapId = this.treemapId;
       const tooltipFirstDepth = d3.select(`#treemap-nested-tooltip-first-depth-${treemapId}`)
@@ -216,9 +221,8 @@ export default {
         .sum(d => d.value)
         .sort((a, b) => b.height - a.height || b.value - a.value)
       );
-      display(root);
 
-      function display(d) {
+      const display = (d) => {
         navBreadcrumbs
           .datum(d.parent)
           .html(breadcrumbs(d))
@@ -308,13 +312,13 @@ export default {
               let valueTotalAmount
               if (typeof d.data !== "function") {
                 let contractType = d.data.name !== undefined ? d.data.name : ''
-                const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, firstDepthForTreeMap, 'final_amount_no_taxes')
+                const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, firstDepthForTreeMap, amountKey)
                 let totalAmount = finalAmountTotal.filter(contract => contract[firstDepthForTreeMap] === contractType)
                 totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
-                valueTotalAmount = totalAmount[0].final_amount_no_taxes
+                valueTotalAmount = totalAmount[0][amountKey]
               }
 
-              valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
+              valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
 
               let totalContracts = d.children === undefined ? '' : d.children
               if (totalContracts) {
@@ -331,13 +335,13 @@ export default {
               let valueTotalAmount
               if (typeof d.data !== "function") {
                 let contractType = d.data.name !== undefined ? d.data.name : ''
-                const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, secondDepthForTreeMap, 'final_amount_no_taxes')
+                const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, secondDepthForTreeMap, amountKey)
                 let totalAmount = finalAmountTotal.filter(contract => contract[secondDepthForTreeMap] === contractType)
                 totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
-                valueTotalAmount = totalAmount[0].final_amount_no_taxes
+                valueTotalAmount = totalAmount[0][amountKey]
               }
 
-              valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
+              valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
 
               let totalContracts = d.children === undefined ? '' : d.children
               if (totalContracts) {
@@ -361,9 +365,9 @@ export default {
           .attr('class', d => {
             const { depth, y1, y0 } = d
             //y1 - y0 returns the height of the rect, if it's less than the 100 hide the text
-            if (depth === 2 && (y(y1) - y(y0)) < 100 && selected_size === 'final_amount_no_taxes') {
+            if (depth === 2 && (y(y1) - y(y0)) < 100 && selected_size === amountKey) {
               return 'treemap-nested-container-text hide-text'
-            } else if (depth === 2 && (y1 - y0) < 40 && selected_size !== 'final_amount_no_taxes') {
+            } else if (depth === 2 && (y1 - y0) < 40 && selected_size !== amountKey) {
               return 'treemap-nested-container-text hide-text'
             } else if (depth === 3) {
               let contractType = d.data.contract_type || ''
@@ -375,103 +379,24 @@ export default {
           })
 
         g.selectAll(".foreignobj")
-        .on('mousemove', function(d, i) {
-          const { depth } = d
-          if (depth === 1) return;
-          const [x, y] = d3.mouse(this);
-
-          //Elements to determinate the position of tooltip
-          const container = document.querySelector(`.tree-map-nested-container-${treemapId}`);
-          const containerWidth = container.offsetWidth
-          const tooltipWidth = depth === 2 ? tooltipFirstDepth.node().offsetWidth : tooltipSecondDepth.node().offsetWidth
-          const tooltipHeight = depth === 2 ? tooltipFirstDepth.node().offsetHeight : tooltipSecondDepth.node().offsetHeight
-          const positionWidthTooltip = x + tooltipWidth
-          const positionRight = `${x - tooltipWidth - 20}px`
-          const positionTop = tooltipHeight + y > window.innerHeight ? `${y - (tooltipHeight / 2)}px` : `${y}px`
-          const positionLeft = `${x + 20}px`
-
-          if (depth === 2) {
-            let totalContracts = d.children === undefined ? '' : d.children
-            let totalContractsLength = 0
-            let contractsString = ''
-            if (totalContracts) {
-              totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
-              totalContractsLength = totalContracts.length
-              while (i < totalContractsLength) {
-                let contractAmount = selected_size === 'final_amount_no_taxes' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.final_amount_no_taxes}`
-                contractsString = `${contractsString}
-                <div class="depth-second-container">
-                  <p class="depth-second-title">${totalContracts[i].data.title}</p>
-                  <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
-                  <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(totalContracts[i].data.initial_amount_no_taxes)}</b></p>
-                </div>`
-                i++
-              }
-            }
-
-            tooltipFirstDepth
-              .style("display", "block")
+          .on('mousemove', (d, i) => {
+            this.$emit('showTooltip', d, i, selected_size)
+          })
+          .on('mouseout', function() {
+            tooltipSecondDepth
+              .style("opacity", 1)
               .transition()
               .duration(200)
-              .style("opacity", 1)
+              .style("opacity", 0)
+              .style("display", "none")
 
             tooltipFirstDepth
-              .html(() => {
-                return `
-                  <span class="treemap-nested-tooltip-header-title">
-                    ${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}
-                  </span>
-                  ${contractsString}
-                `
-              })
-              .style('top', positionTop)
-              .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
-
-          } else if (depth === 3 && typeof d.data !== "function") {
-            const { data: { initial_amount_no_taxes, status } } = d
-            let valueTotalAmount
-            if (typeof d.data !== "function") {
-              let contractId = d.data.id !== undefined ? d.data.id : ''
-              const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'id', 'final_amount_no_taxes')
-              let totalAmount = finalAmountTotal.filter(contract => contract.id === contractId)
-              valueTotalAmount = totalAmount[0].final_amount_no_taxes
-            }
-
-            valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
-
-            tooltipSecondDepth
-              .style('display', 'block')
+              .style("opacity", 1)
               .transition()
               .duration(200)
-              .style("opacity", 1)
-
-            tooltipSecondDepth
-              .html(() => {
-                return `
-                  <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(valueTotalAmount)}</b></p>
-                  <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
-                  <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.status')}: <b>${status}</b></p>
-                `
-              })
-              .style('top', positionTop)
-              .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
-          }
-        })
-        .on('mouseout', function() {
-          tooltipSecondDepth
-            .style("opacity", 1)
-            .transition()
-            .duration(200)
-            .style("opacity", 0)
-            .style("display", "none")
-
-          tooltipFirstDepth
-            .style("opacity", 1)
-            .transition()
-            .duration(200)
-            .style("opacity", 0)
-            .style("display", "none")
-        })
+              .style("opacity", 0)
+              .style("display", "none")
+          })
 
         function transition(d) {
           if (transitioning || !d) return;
@@ -512,6 +437,8 @@ export default {
         }
         return g;
       }
+
+      display(root);
 
       function text(text) {
         text.attr("x", d => x(d.x) + 6)
@@ -581,7 +508,7 @@ export default {
     resizeListener() {
       window.addEventListener("resize", () => {
         let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
-        const containerChart = document.querySelector('.visualizations-home-main');
+        const containerChart = document.querySelector('.container-tree-map-nested');
         this.svgWidth = containerChart.offsetWidth
         this.deepCloneData(dataResponsive)
       })

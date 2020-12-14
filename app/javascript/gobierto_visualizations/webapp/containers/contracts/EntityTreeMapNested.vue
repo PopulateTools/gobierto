@@ -8,6 +8,7 @@
       :second-depth-for-tree-map="'assignee'"
       :scale-color-key="'contractor'"
       :treemap-id="'entity'"
+      :amount="'final_amount_no_taxes'"
       @transformData="nestedData"
     />
   </div>

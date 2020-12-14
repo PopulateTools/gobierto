@@ -27,6 +27,7 @@ module GobiertoData
       :visibility_level
     )
 
+    validates :csv_separator, length: { is: 1 }
     validates :table_name, :name, :visibility_level, presence: true
     validates :name_translations, translated_attribute_presence: true
     validates :visibility_level, inclusion: { in: Dataset.visibility_levels.keys }

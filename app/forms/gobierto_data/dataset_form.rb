@@ -30,6 +30,7 @@ module GobiertoData
     validates :table_name, :name, :visibility_level, presence: true
     validates :name_translations, translated_attribute_presence: true
     validates :visibility_level, inclusion: { in: Dataset.visibility_levels.keys }
+    validate :data_file_upload
 
     delegate :persisted?, :data_updated_at, to: :resource
 
@@ -192,6 +193,12 @@ module GobiertoData
       Publishers::AdminGobiertoDataActivity.broadcast_event(
         "dataset_data_updated", event_payload.merge(subject: resource)
       )
+    end
+
+    def data_file_upload
+      unless data_file.is_a? ActionDispatch::Http::UploadedFile
+        errors.add :data_file, I18n.t("activemodel.errors.models.gobierto_data/dataset_form.attributes.data_file.no_file_included")
+      end
     end
   end
 end

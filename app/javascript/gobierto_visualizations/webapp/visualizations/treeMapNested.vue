@@ -65,6 +65,10 @@ export default {
       type: Array,
       default: () => []
     },
+    rootData: {
+      type: Object,
+      default: () => {}
+    },
     marginLeft: {
       type: Number,
       default: 0
@@ -128,6 +132,11 @@ export default {
         this.dataNewValues = newValue
         this.deepCloneData(newValue)
       }
+    },
+    rootData(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.buildTreeMap(newValue)
+      }
     }
   },
   mounted() {
@@ -156,51 +165,7 @@ export default {
       }
     },
     transformDataTreemap(data) {
-
-      let dataFilter = data
-      dataFilter.filter(contract => contract.final_amount_no_taxes !== 0)
-      dataFilter.forEach(d => {
-        d.number_of_contract = 1
-      })
-      // d3v6
-      //
-      // const dataGroupTreeMap = Array.from(
-      //   d3.group(data, d =>  d.contract_type, d.assignee),
-      // );
-      const nested_data = d3.nest()
-        .key(d => d[this.firstDepthForTreeMap])
-        .key(d => d[this.secondDepthForTreeMap])
-        .entries(dataFilter);
-      let rootData = {};
-
-      rootData.key = this.labelRootKey
-      rootData.values = nested_data;
-
-      rootData = replaceDeepKeys(rootData, this.sizeForTreemap);
-
-      //d3 Nest add names to the keys that are not valid to build a treemap, we need to replace them
-      function replaceDeepKeys(root, value_key) {
-        for (var key in root) {
-          if (key === "key") {
-            root.name = root.key;
-            delete root.key;
-          }
-          if (key === "values") {
-            root.children = [];
-            for (key in root.values) {
-              root.children.push(replaceDeepKeys(root.values[key], value_key));
-            }
-            delete root.values;
-          }
-          if (key === value_key) {
-            root.value = parseFloat(root[value_key]);
-            delete root[value_key];
-          }
-        }
-        return root;
-      }
-
-      this.buildTreeMap(rootData)
+      this.$emit('transformData', data, this.sizeForTreemap)
     },
     deepCloneData(data) {
       const dataTreeMap = JSON.parse(JSON.stringify(data));

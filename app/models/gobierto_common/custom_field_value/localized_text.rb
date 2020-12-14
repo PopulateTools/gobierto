@@ -20,7 +20,7 @@ module GobiertoCommon::CustomFieldValue
     end
 
     def raw_value
-      super || {}
+      super.is_a?(Hash) ? super : { I18n.locale.to_s => super.to_s }
     end
   end
 end

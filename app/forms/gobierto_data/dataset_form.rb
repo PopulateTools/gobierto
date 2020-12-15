@@ -32,6 +32,7 @@ module GobiertoData
     validates :name_translations, translated_attribute_presence: true
     validates :visibility_level, inclusion: { in: Dataset.visibility_levels.keys }
     validate :data_file_upload
+    validate :module_configuration_presence
 
     delegate :persisted?, :data_updated_at, to: :resource
 
@@ -200,6 +201,10 @@ module GobiertoData
       unless data_file.is_a? ActionDispatch::Http::UploadedFile
         errors.add :data_file, I18n.t("activemodel.errors.models.gobierto_data/dataset_form.attributes.data_file.no_file_included")
       end
+    end
+
+    def module_configuration_presence
+      errors.add(:base, I18n.t("activerecord.errors.models.gobierto_data/connection.missing_configuration")) if Connection.db_config(site).blank?
     end
   end
 end

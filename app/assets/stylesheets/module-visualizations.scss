@@ -34,7 +34,10 @@
   }
 
   &-home-aside--gap {
-    height: 100%;
+    position: sticky;
+    top: 0;
+    overflow-y: scroll;
+    height: 100vh;
   }
 
   &-home-nav {

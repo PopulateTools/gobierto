@@ -145,6 +145,13 @@ export default {
       if (newValue !== oldValue) {
         this.buildTreeMap(newValue)
       }
+    },
+    $route(to, from) {
+      if (to !== from) {
+        this.containerChart = document.querySelector('.tree-map-nested-container');
+        this.svgWidth = this.containerChart.offsetWidth;
+        this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
+      }
     }
   },
   mounted() {

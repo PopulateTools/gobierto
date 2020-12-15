@@ -25,9 +25,6 @@
       @showTooltip="showTooltipBeesWarm"
       @goesToItem="goesToItem"
     />
-    <h3 class="mt4 graph-title">
-      {{ labelMultipleLine }}
-    </h3>
     <div
       id="tendersContractsSummary"
       class="metric_boxes mt4"
@@ -172,7 +169,6 @@ import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
 import { select, mouse } from 'd3-selection'
 import { timeParse } from 'd3-time-format';
-import { getQueryData, sumDataByGroupKey } from "../../lib/utils";
 import { money } from "lib/shared";
 
 const d3 = { select, mouse, timeParse }
@@ -213,13 +209,8 @@ export default {
       labelCategoriesTreemap: I18n.t('gobierto_visualizations.visualizations.contracts.categories_treemap'),
       labelBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.title_beeswarm'),
       labelTooltipBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm'),
-      labelMultipleLine: I18n.t('gobierto_visualizations.visualizations.visualizations.title_multiple'),
-      queryLineChart: "?sql=SELECT final_amount_no_taxes, status, initial_amount_no_taxes, start_date FROM contratos WHERE contract_type != 'Patrimonial'",
       dataBeesWarm: undefined,
-      dataBeesWarmFilter: undefined,
-      dataLineChart: undefined,
-      valuesForLineChart: undefined,
-      valuesForCircleChart: undefined
+      dataBeesWarmFilter: undefined
     }
   },
   watch: {

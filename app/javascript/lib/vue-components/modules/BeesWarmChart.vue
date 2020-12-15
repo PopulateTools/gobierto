@@ -110,7 +110,7 @@ export default {
       if (to !== from) {
         this.containerChart = document.querySelector('.beeswarm-container');
         this.svgWidth = this.containerChart.offsetWidth;
-        this.buildBeesWarm(this.dataWithoutCoordinates);
+        this.deepCloneData(this.dataWithoutCoordinates);
       }
     }
   },

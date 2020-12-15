@@ -9,7 +9,7 @@ const headers = new Headers({
 
 // DEBUG
 import { Mock } from "./mock__DELETABLE";
-axios.interceptors.response.use(() => {}, ({ config: { url } }) => {
+axios.interceptors.response.use(x => x, ({ config: { url } }) => {
   const { dashboardData, dashboards, getDashboard } = new Mock()
   switch (true) {
     case url.includes("dashboard_data"):

@@ -10,16 +10,17 @@ const dashboardSelector = "[dashboard-viewer-app]"
 const create = (selector, Instance) => {
   const nodes = document.querySelectorAll(selector);
 
-  if (nodes && typeof Instance === "function") {
+  if (nodes.length && typeof Instance === "function") {
     nodes.forEach(node => new Instance({ ...node.dataset, selector }).mount());
   }
 }
 
 // create elements onload
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   create(makerSelector, GobiertoDashboardMakerController)
   create(dashboardSelector, GobiertoDashboardViewerController)
 });
 
 // create elements on custom-events
 document.addEventListener(GobiertoEvents.CREATE_DASHBOARD_EVENT, () => create(makerSelector, GobiertoDashboardMakerController))
+document.addEventListener(GobiertoEvents.LOAD_DASHBOARD_EVENT, () => create(dashboardSelector, GobiertoDashboardViewerController))

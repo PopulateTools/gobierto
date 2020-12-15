@@ -1,17 +1,21 @@
 <template>
   <div>
-    <nav>
-      <router-link
-        v-for="(tab, i) in tabs"
-        :key="tab"
-        :to="{}"
-        @click.native="activeTab = i"
-      >
-        {{ tab }}
-      </router-link>
+    <nav class="planification-tabs__container">
+      <div class="planification-tabs">
+        <router-link
+          v-for="(tab, i) in tabs"
+          :key="tab.title"
+          :to="{ params: { ...$route.params }, ...tab }"
+          class="planification-tabs__item"
+          :class="{ 'is-active': activeTab === i }"
+          @click.native="activeTab = i"
+        >
+          {{ tab.title }}
+        </router-link>
+      </div>
     </nav>
 
-    <template v-for="(_ , i) in tabs">
+    <template v-for="(_, i) in tabs">
       <slot
         v-if="activeTab === i"
         :name="`tab-${i}`"

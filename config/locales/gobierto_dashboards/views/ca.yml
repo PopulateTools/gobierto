@@ -11,6 +11,9 @@ ca:
       "⇧ Selecciona un tipus de targeta i inclou-la en l'àrea central ➞
 
       Després podràs configurar-la."
+    layouts:
+      application:
+        gobierto_dashboards: Gobierto Dashboards
     objective: Objectiu
     percentage: Consecució
     percentage_alt: "% consecució"

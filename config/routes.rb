@@ -693,6 +693,13 @@ Rails.application.routes.draw do
       end
     end
 
+    # Gobierto Dashboards module
+    namespace :gobierto_dashboards, path: "dashboards" do
+      constraints GobiertoSiteConstraint.new do
+        get "/" => "welcome#index", as: :root
+      end
+    end
+
     # Add new modules before this line
 
     # Sidekiq Web UI

@@ -105,6 +105,14 @@ export default {
 
       const childrenElement = event[0].children[0].className
       if (depth === 1 && childrenElement.includes('hide')) {
+        let valueTotalAmount
+        if (typeof d.data !== "function") {
+          let contractType = d.data.name !== undefined ? d.data.name : ''
+          const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'category_title', 'final_amount_no_taxes')
+          let totalAmount = finalAmountTotal.filter(contract => contract['category_title'] === contractType)
+          totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
+          valueTotalAmount = totalAmount[0]['final_amount_no_taxes']
+        }
         tooltipFirstDepth
           .style("display", "block")
           .transition()
@@ -114,13 +122,14 @@ export default {
         tooltipFirstDepth
           .html(() => {
             let labelTotalContracts = `${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}`
+            let contractAmount = selected_size === 'final_amount_no_taxes' ? `${d.value}` : valueTotalAmount
             labelTotalContracts = d.children.length > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
             return `
               <span class="treemap-nested-tooltip-header-title">
                 ${d.data.name}
               </span>
               <div class="depth-first-container">
-                <p class="text-depth-first">${money(d.value)}</b></p>
+                <p class="text-depth-first">${money(contractAmount)}</b></p>
                 <p class="text-depth-first"><b>${d.children.length}</b> ${labelTotalContracts}</b></p>
               </div>
             `

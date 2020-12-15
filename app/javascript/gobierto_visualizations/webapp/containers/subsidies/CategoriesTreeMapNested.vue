@@ -85,11 +85,11 @@ export default {
       }
       this.rootData = rootData
     },
-    showTooltipTreemap(d, i, selected_size) {
+    showTooltipTreemap(d, i, selected_size, event) {
       const dataTreeMapSumFinalAmount = JSON.parse(JSON.stringify(this.data));
       const { depth } = d
       if (depth === 1) return;
-      const [x, y] = d3.mouse(this);
+      const [x, y] = d3.mouse(event[0]);
 
       //Elements to determinate the position of tooltip
       const tooltipFirstDepth = d3.select('#treemap-nested-tooltip-first-depth-categories')

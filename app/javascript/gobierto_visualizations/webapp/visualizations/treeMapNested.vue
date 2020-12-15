@@ -379,8 +379,8 @@ export default {
           })
 
         g.selectAll(".foreignobj")
-          .on('mousemove', (d, i) => {
-            this.$emit('showTooltip', d, i, selected_size)
+          .on('mousemove', (d, i, event) => {
+            this.$emit('showTooltip', d, i, selected_size, event)
           })
           .on('mouseout', function() {
             tooltipSecondDepth

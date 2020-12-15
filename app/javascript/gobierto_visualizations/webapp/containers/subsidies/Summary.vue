@@ -1,5 +1,8 @@
 <template>
   <div>
+    <CategoriesTreeMapNested
+      :data="visualizationsData"
+    />
     <div
       id="subsidiesSummary"
       class="metric_boxes"
@@ -157,6 +160,7 @@
 </template>
 
 <script>
+import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import Table from "../../components/Table.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { grantedColumns } from "../../lib/config/subsidies.js";
@@ -164,7 +168,8 @@ import { grantedColumns } from "../../lib/config/subsidies.js";
 export default {
   name: 'Summary',
   components: {
-    Table
+    Table,
+    CategoriesTreeMapNested
   },
   mixins: [visualizationsMixins],
   data(){

@@ -309,6 +309,17 @@ export default {
             let htmlForRect = ''
             const { depth } = d
             if (depth === 1) {
+              const children = d.children
+              let totalContracts = 0;
+              if (children) {
+                children.forEach(d => {
+                  if (d.data.children !== undefined) {
+                    let elementLength = d.data.children
+                    elementLength = elementLength.filter(children => children.value >= 0)
+                    totalContracts += elementLength.length;
+                  }
+                })
+              }
               let valueTotalAmount
               if (typeof d.data !== "function") {
                 let contractType = d.data.name !== undefined ? d.data.name : ''
@@ -320,9 +331,7 @@ export default {
 
               valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
 
-              let totalContracts = d.children === undefined ? '' : d.children
               if (totalContracts) {
-                totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
                 labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
               }
               htmlForRect = `<p class="title">${title}</p>

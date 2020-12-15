@@ -9,6 +9,7 @@
       :scale-color-key="'contractor'"
       :treemap-id="'entity'"
       :amount="'final_amount_no_taxes'"
+      :scale-color="true"
       @transformData="nestedData"
       @showTooltip="showTooltipTreemap"
     />

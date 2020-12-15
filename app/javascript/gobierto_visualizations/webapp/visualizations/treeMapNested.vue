@@ -109,6 +109,10 @@ export default {
       type: String,
       default: ''
     },
+    scaleColor: {
+      type: Boolean,
+      default: false
+    },
     amount: {
       type: String,
       default: ''
@@ -189,6 +193,7 @@ export default {
       let firstDepthForTreeMap = this.firstDepthForTreeMap;
       let secondDepthForTreeMap = this.secondDepthForTreeMap;
       let amountKey = this.amount
+      let scaleColor = this.scaleColor
       const selected_size = this.selected_size;
       const treemapId = this.treemapId;
       const tooltipFirstDepth = d3.select(`#treemap-nested-tooltip-first-depth-${treemapId}`)
@@ -242,9 +247,13 @@ export default {
           .append("g")
           .datum(d)
           .attr('fill', d => {
-            const { depth } = d
-            const valueColor = depth === 2 ? d.color = colors(d.parent.data.name) : ''
-            return valueColor
+            if (scaleColor) {
+              const { depth } = d
+              const valueColor = depth === 2 ? d.color = colors(d.parent.data.name) : ''
+              return valueColor
+            } else {
+              return '#12365b'
+            }
           })
           .attr('class', 'depth')
 
@@ -256,9 +265,13 @@ export default {
           .join('rect')
           .attr('class', 'children')
           .attr('fill', d => {
-            const { depth } = d
-            const valueColor = depth === 1 ? d.color = colors(d.data.name) : d.color = colors(d.parent.data.name)
-            return valueColor
+            if (scaleColor) {
+              const { depth } = d
+              const valueColor = depth === 1 ? d.color = colors(d.data.name) : d.color = colors(d.parent.data.name)
+              return valueColor
+            } else {
+              return '#12365b'
+            }
           })
           .on("click", transition);
 
@@ -371,12 +384,16 @@ export default {
             }
             return htmlForRect
           })
-          .attr('class', d => {
-            const { depth, y1, y0 } = d
+          .attr('class', 'treemap-nested-container-text')
+
+        g.selectAll('.treemap-nested-container-text')
+          .attr('class', function(d) {
+            const element = this
+            const { depth } = d
             //y1 - y0 returns the height of the rect, if it's less than the 100 hide the text
-            if (depth === 2 && (y(y1) - y(y0)) < 100 && selected_size === amountKey) {
+            if (depth === 1 && element.clientHeight < 100 || element.clientWidth < 100) {
               return 'treemap-nested-container-text hide-text'
-            } else if (depth === 2 && (y1 - y0) < 40 && selected_size !== amountKey) {
+            } else if (depth === 1 && element.clientHeight < 100 || element.clientWidth < 100) {
               return 'treemap-nested-container-text hide-text'
             } else if (depth === 3) {
               let contractType = d.data.contract_type || ''

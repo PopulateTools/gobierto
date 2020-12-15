@@ -9,6 +9,7 @@
       :scale-color-key="'contract_type'"
       :treemap-id="'categories'"
       :amount="'amount'"
+      :scale-color="false"
       @transformData="nestedData"
       @showTooltip="showTooltipTreemap"
     />

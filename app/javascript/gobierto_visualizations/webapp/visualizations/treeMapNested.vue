@@ -451,7 +451,21 @@ export default {
           /* added */
           t1.selectAll(".foreignobj").call(foreign);
           /* added */
-          t2.selectAll(".treemap-nested-container-text").style("display", "block");
+          t2.selectAll(".treemap-nested-container-text").style("display", "block").attr('class', function(d) {
+            const { depth, x0, x1, y0, y1 } = d
+            //y1 - y0 returns the height of the rect, if it's less than the 100 hide the text
+            if (depth === 1 && (y(y1) - y(y0)) < 100 || (x(x1) - x(x0)) < 100) {
+              return 'treemap-nested-container-text hide-text'
+            } else if (depth === 1 && (y(y1) - y(y0)) < 100 || (x(x1) - x(x0)) < 150) {
+              return 'treemap-nested-container-text hide-text'
+            } else if (depth === 3) {
+              let contractType = d.data.contract_type || ''
+              //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
+              contractType = normalizeString(contractType)
+              return `treemap-nested-container-text ${contractType}`
+            }
+            return 'treemap-nested-container-text'
+          });
           /* added */
           t2.selectAll(".foreignobj").call(foreign);
           /* added */

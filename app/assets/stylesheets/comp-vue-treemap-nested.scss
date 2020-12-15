@@ -18,10 +18,12 @@
     margin: 0;
 
     &.ellipsis {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 200px;
+      .treemap-nested-breadcrumb:last-child {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 200px;
+      }
     }
   }
 

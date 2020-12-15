@@ -535,6 +535,9 @@ export default {
       }
 
       function checkSizeBreadcumbs() {
+        const treeMapSidebarNavContainer = document.querySelector(`.treemap-nested-sidebar-nav-breadcumb-${treemapId}`);
+        treeMapSidebarNavContainer.classList.remove('ellipsis')
+
         const treeMapSidebar = document.querySelector(`#treemap-nested-sidebar-${treemapId}`);
         const treeMapSidebarWidth = treeMapSidebar.offsetWidth
 
@@ -544,9 +547,8 @@ export default {
         const treeMapAvailableWidth = treeMapSidebarWidth - treeMapSidebarButtonWidth
 
         const treeMapSidebarNav = document.querySelector(`#treemap-nested-sidebar-nav-${treemapId}`);
-        const treeMapSidebarNavWidth = treeMapSidebarNav.offsetWidth
+        const treeMapSidebarNavWidth = treeMapSidebarNav.offsetWidth + 30
 
-        const treeMapSidebarNavContainer = document.querySelector(`.treemap-nested-sidebar-nav-breadcumb-${treemapId}`);
         if (treeMapSidebarNavWidth > treeMapAvailableWidth) {
           treeMapSidebarNavContainer.classList.add('ellipsis')
         }

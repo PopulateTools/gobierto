@@ -1,6 +1,10 @@
 ---
 ca:
   activerecord:
+    errors:
+      models:
+        gobierto_data/connection:
+          missing_configuration: La base de dades no està configurada
     models:
       gobierto_data/dataset:
         one: Conjunt de dades

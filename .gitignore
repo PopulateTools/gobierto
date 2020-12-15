@@ -12,7 +12,11 @@
 !/log/.keep
 /tmp
 public/capybara_test_assets
+
+# Database
 config/database.yml
+db/structure.sql
+db/schema.rb
 
 # IDEs
 .vscode
@@ -20,14 +24,18 @@ config/database.yml
 # Byebug
 .byebug_history
 
+# Cache and assets
 public/cache
 public/assets
+
+# Mach trash
 **/.DS_Store
 
 # Environment
 .env
 .rbenv-vars
 
+# Configs
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
@@ -42,6 +50,8 @@ config/deploy/production.rb
 /public/system/attachments
 /public/packs
 /public/packs-test
+
+# Javascript and node
 /node_modules
 yarn-debug.log*
 yarn-error.log*

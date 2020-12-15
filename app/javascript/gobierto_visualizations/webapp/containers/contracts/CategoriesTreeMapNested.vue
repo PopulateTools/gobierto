@@ -89,7 +89,6 @@ export default {
     showTooltipTreemap(d, i, selected_size, event) {
       const dataTreeMapSumFinalAmount = JSON.parse(JSON.stringify(this.data));
       const { depth } = d
-      if (depth === 1) return;
       const [x, y] = d3.mouse(event[0]);
 
       //Elements to determinate the position of tooltip
@@ -97,14 +96,39 @@ export default {
       const tooltipSecondDepth = d3.select('#treemap-nested-tooltip-second-depth-contracts')
       const container = document.querySelector('.tree-map-nested-container-contracts');
       const containerWidth = container.offsetWidth
-      const tooltipWidth = depth === 2 ? tooltipFirstDepth.node().offsetWidth : tooltipSecondDepth.node().offsetWidth
-      const tooltipHeight = depth === 2 ? tooltipFirstDepth.node().offsetHeight : tooltipSecondDepth.node().offsetHeight
+      const tooltipWidth = depth !== 3 ? tooltipFirstDepth.node().offsetWidth : tooltipSecondDepth.node().offsetWidth
+      const tooltipHeight = depth !== 3 ? tooltipFirstDepth.node().offsetHeight : tooltipSecondDepth.node().offsetHeight
       const positionWidthTooltip = x + tooltipWidth
       const positionRight = `${x - tooltipWidth - 20}px`
       const positionTop = tooltipHeight + y > window.innerHeight ? `${y - (tooltipHeight / 2)}px` : `${y}px`
       const positionLeft = `${x + 20}px`
 
-      if (depth === 2) {
+      const childrenElement = event[0].children[0].className
+      if (depth === 1 && childrenElement.includes('hide')) {
+        tooltipFirstDepth
+          .style("display", "block")
+          .transition()
+          .duration(200)
+          .style("opacity", 1)
+
+        tooltipFirstDepth
+          .html(() => {
+            let labelTotalContracts = `${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}`
+            labelTotalContracts = d.children.length > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
+            return `
+              <span class="treemap-nested-tooltip-header-title">
+                ${d.data.name}
+              </span>
+              <div class="depth-first-container">
+                <p class="text-depth-first">${money(d.value)}</b></p>
+                <p class="text-depth-first"><b>${d.children.length}</b> ${labelTotalContracts}</b></p>
+              </div>
+            `
+          })
+          .style('top', positionTop)
+          .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+
+      } else if (depth === 2) {
         let totalContracts = d.children === undefined ? '' : d.children
         let contractsString = ''
         if (totalContracts) {

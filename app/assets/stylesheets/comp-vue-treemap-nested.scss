@@ -140,11 +140,22 @@
   }
 }
 
-.tree-map-nested-tooltip-contracts,
-.tree-map-nested-tooltip-assignee {
+.tree-map-nested-tooltip-first,
+.tree-map-nested-tooltip-second {
   .text-depth-third {
     margin: 0;
     font-size: $f7;
     color: var(--grey-text);
+  }
+}
+
+.tree-map-nested-tooltip-first {
+  .depth-first-container {
+    padding: .25rem 0;
+  }
+
+  .text-depth-first {
+    margin: 0;
+    font-size: $f6;
   }
 }

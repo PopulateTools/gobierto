@@ -30,11 +30,11 @@
     </div>
     <div
       :id="`treemap-nested-tooltip-first-depth-${treemapId}`"
-      class="tree-map-nested-tooltip-assignee"
+      class="tree-map-nested-tooltip-first"
     />
     <div
       :id="`treemap-nested-tooltip-second-depth-${treemapId}`"
-      class="tree-map-nested-tooltip-contracts"
+      class="tree-map-nested-tooltip-second"
     />
     <svg
       :id="`treemap-nested-${treemapId}`"

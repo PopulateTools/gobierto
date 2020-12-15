@@ -28,6 +28,10 @@ module GobiertoData
           @admin_without_last_sign_in_ip_auth_header ||= "Bearer #{gobierto_admin_admins(:steve).primary_api_token}"
         end
 
+        def module_settings
+          @module_settings ||= gobierto_module_settings(:gobierto_data_settings_madrid)
+        end
+
         def multipart_form_params(file = "dataset1.csv", **opts)
           {
             dataset: {
@@ -55,6 +59,27 @@ module GobiertoData
               assert_response :unprocessable_entity
               response_data = response.parsed_body
               assert_match(/can't be blank/, response_data.to_s)
+              refute site.activities.where(subject_type: "GobiertoData::Dataset").exists?
+            end
+          end
+        end
+
+        # POST /api/v1/data/datasets
+        #
+        def test_dataset_creation_with_module_database_configuration_missing
+          module_settings.update_attribute(:settings, {})
+
+          with(site: site) do
+            assert_no_difference "GobiertoData::Dataset.count" do
+              post(
+                gobierto_data_api_v1_datasets_path,
+                params: multipart_form_params("dataset1.csv"),
+                headers: { "Authorization" => auth_header }
+              )
+
+              assert_response :unprocessable_entity
+              response_data = response.parsed_body
+              assert_match(/Database configuration missing/, response_data.to_s)
               refute site.activities.where(subject_type: "GobiertoData::Dataset").exists?
             end
           end

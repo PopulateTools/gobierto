@@ -14,6 +14,9 @@
       :second-button-value="'number_of_contract'"
       :first-button-label="labelContractAmount"
       :second-button-label="labelContractTotal"
+      :label-total-plural="labelContractsPlural"
+      :label-total-unique="labelContractsUnique"
+      :key-for-third-depth="'title'"
       @transformData="nestedData"
       @showTooltip="showTooltipTreemap"
     />
@@ -44,6 +47,8 @@ export default {
       labelRootKey: I18n.t('gobierto_visualizations.visualizations.contracts.categories'),
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
       labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
+      labelContractsPlural: I18n.t('gobierto_visualizations.visualizations.contracts.contracts'),
+      labelContractsUnique: I18n.t('gobierto_visualizations.visualizations.contracts.contract'),
       rootData: {}
     }
   },

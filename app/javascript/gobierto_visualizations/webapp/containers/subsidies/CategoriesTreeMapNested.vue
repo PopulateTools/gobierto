@@ -14,6 +14,9 @@
       :second-button-value="'number_of_contract'"
       :first-button-label="labelSubsidies"
       :second-button-label="labelContractTotal"
+      :label-total-plural="labelContractsPlural"
+      :label-total-unique="labelContractsUnique"
+      :key-for-third-depth="'call'"
       @transformData="nestedData"
       @showTooltip="showTooltipTreemap"
     />
@@ -23,7 +26,6 @@
 import { nest } from "d3-collection";
 import { select, mouse } from 'd3-selection';
 import TreeMapNested from "../../visualizations/treeMapNested.vue";
-import { sumDataByGroupKey } from "../../lib/utils";
 import { money } from "lib/shared";
 
 const d3 = { nest, select, mouse }
@@ -44,6 +46,8 @@ export default {
       labelRootKey: I18n.t('gobierto_visualizations.visualizations.contracts.categories'),
       labelSubsidies: I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies_amount'),
       labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
+      labelContractsPlural: I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies'),
+      labelContractsUnique: I18n.t('gobierto_visualizations.visualizations.subsidies.subsidie'),
       rootData: {}
     }
   },
@@ -93,7 +97,6 @@ export default {
       this.rootData = rootData
     },
     showTooltipTreemap(d, i, selected_size, event) {
-      const dataTreeMapSumFinalAmount = JSON.parse(JSON.stringify(this.data));
       const { depth } = d
       if (depth === 1) return;
       const [x, y] = d3.mouse(event[0]);

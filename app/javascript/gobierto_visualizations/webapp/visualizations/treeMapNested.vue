@@ -132,6 +132,18 @@ export default {
     secondButtonLabel: {
       type: String,
       default: ''
+    },
+    labelTotalUnique: {
+      type: String,
+      default: ''
+    },
+    labelTotalPlural: {
+      type: String,
+      default: ''
+    },
+    keyForThirdDepth: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -215,6 +227,9 @@ export default {
       let secondDepthForTreeMap = this.secondDepthForTreeMap;
       let amountKey = this.amount
       let scaleColor = this.scaleColor
+      let labelTotalContracts = this.labelTotalPlural
+      let labelTotalUnique = this.labelTotalUnique
+      let keyForThirdDepth = this.keyForThirdDepth
       const selected_size = this.selected_size;
       const treemapId = this.treemapId;
       const tooltipFirstDepth = d3.select(`#treemap-nested-tooltip-first-depth-${treemapId}`)
@@ -326,8 +341,6 @@ export default {
         g.append("rect")
           .attr("class", "parent")
           .call(rect)
-          .append("title")
-          .text(d => d.data.name);
 
         g.append("foreignObject")
           .call(rect)
@@ -338,8 +351,7 @@ export default {
             d.depth = 1 is the first level, type of contracts
             d.depth = 2 is the second level, beneficiaries by type of contracts
             d.depth = 3 is the last level, contracts of beneficiaries*/
-            let title = d.data.name === undefined ? d.data.title : d.data.name;
-            let labelTotalContracts = `${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}`
+            let title = d.data.name === undefined ? d.data[keyForThirdDepth] : d.data.name;
             let htmlForRect = ''
             const { depth } = d
             if (depth === 1) {
@@ -366,7 +378,7 @@ export default {
               valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
 
               if (totalContracts) {
-                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
+                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : labelTotalUnique
               }
               htmlForRect = `<p class="title">${title}</p>
                 <p class="text">${money(valueTotalAmount)}</p>
@@ -389,7 +401,7 @@ export default {
               let totalContracts = d.children === undefined ? '' : d.children
               if (totalContracts) {
                 totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
+                labelTotalContracts = totalContracts > 1 ? labelTotalContracts : labelTotalUnique
               }
               htmlForRect = `<p class="title">${title}</p>
                 <p class="text">${money(valueTotalAmount)}</p>

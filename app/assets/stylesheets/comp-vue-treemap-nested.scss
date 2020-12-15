@@ -142,6 +142,9 @@
 
 .tree-map-nested-tooltip-first,
 .tree-map-nested-tooltip-second {
+  max-height: 90vh;
+  overflow-y: auto;
+
   .text-depth-third {
     margin: 0;
     font-size: $f7;

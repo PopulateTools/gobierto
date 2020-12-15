@@ -79,7 +79,7 @@ export class ContractsController {
             }
           ],
           scrollBehavior(to) {
-            if (to.name === "contracts_show") {
+            if (to.name === "contracts_show" || to.name === "assignees_show") {
               const element = document.getElementById(selector);
               window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
             }

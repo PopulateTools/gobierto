@@ -157,6 +157,7 @@ ca:
           summary: Resum
         regulatory_bases: Bases reguladores
         subsidies: Subvencions
+        subsidies_amount: Imp. Subvencion
         summary:
           collective_subsidies_for: a col·lectius per import de
           individual_subsidies_for: a particulars per import de

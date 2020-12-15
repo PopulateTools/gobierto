@@ -156,6 +156,7 @@ en:
           summary: Summary
         regulatory_bases: Regulatory bases
         subsidies: Subsidies
+        subsidies_amount: Imp. Subsidie
         summary:
           collective_subsidies_for: to collectives for a total amount of
           individual_subsidies_for: to individuals for a total amount of

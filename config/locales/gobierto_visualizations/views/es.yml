@@ -160,6 +160,7 @@ es:
           summary: Resumen
         regulatory_bases: Bases reguladoras
         subsidies: Subvenciones
+        subsidies_amount: Imp. Subvención
         summary:
           collective_subsidies_for: a colectivos por importe de
           individual_subsidies_for: a particulares por importe de

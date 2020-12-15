@@ -14,17 +14,17 @@
       >
         <button
           class="button-grouped sort-G"
-          :class="{ active : selected_size === 'final_amount_no_taxes' }"
-          @click="handleTreeMapValue('final_amount_no_taxes')"
+          :class="{ active : selected_size === firstButtonValue }"
+          @click="handleTreeMapValue(firstButtonValue)"
         >
-          {{ labelContractAmount }}
+          {{ firstButtonLabel }}
         </button>
         <button
           class="button-grouped sort-G"
-          :class="{ active : selected_size === 'number_of_contract' }"
-          @click="handleTreeMapValue('number_of_contract')"
+          :class="{ active : selected_size === secondButtonValue }"
+          @click="handleTreeMapValue(secondButtonValue)"
         >
-          {{ labelContractTotal }}
+          {{ secondButtonLabel }}
         </button>
       </div>
     </div>
@@ -116,6 +116,22 @@ export default {
     amount: {
       type: String,
       default: ''
+    },
+    firstButtonValue: {
+      type: String,
+      default: ''
+    },
+    secondButtonValue: {
+      type: String,
+      default: ''
+    },
+    firstButtonLabel: {
+      type: String,
+      default: ''
+    },
+    secondButtonLabel: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -128,9 +144,7 @@ export default {
       dataNewValues: undefined,
       arrayValuesContractTypes: [],
       selected_size: this.amount,
-      sizeForTreemap: this.amount,
-      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
-      labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
+      sizeForTreemap: this.amount
     }
   },
   watch: {

@@ -10,6 +10,10 @@
       :treemap-id="'categories'"
       :amount="'amount'"
       :scale-color="false"
+      :first-button-value="'amount'"
+      :second-button-value="'number_of_contract'"
+      :first-button-label="labelSubsidies"
+      :second-button-label="labelContractTotal"
       @transformData="nestedData"
       @showTooltip="showTooltipTreemap"
     />
@@ -38,6 +42,8 @@ export default {
   data() {
     return {
       labelRootKey: I18n.t('gobierto_visualizations.visualizations.contracts.categories'),
+      labelSubsidies: I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies_amount'),
+      labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
       rootData: {}
     }
   },
@@ -110,12 +116,11 @@ export default {
         if (totalContracts) {
           totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
           while (i < totalContracts.length) {
-            let contractAmount = selected_size === 'amount' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.final_amount_no_taxes}`
+            let contractAmount = selected_size === 'amount' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.amount}`
             contractsString = `${contractsString}
             <div class="depth-second-container">
-              <p class="depth-second-title">${totalContracts[i].data.title}</p>
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(totalContracts[i].data.initial_amount_no_taxes)}</b></p>
+              <p class="depth-second-title">${totalContracts[i].data.beneficiary}</p>
+              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies_amount')}: <b>${money(contractAmount)}</b></p>
             </div>`
             i++
           }
@@ -131,7 +136,7 @@ export default {
           .html(() => {
             return `
               <span class="treemap-nested-tooltip-header-title">
-                ${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}
+                ${I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies')}
               </span>
               ${contractsString}
             `
@@ -140,16 +145,8 @@ export default {
           .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
 
       } else if (depth === 3 && typeof d.data !== "function") {
-        const { data: { initial_amount_no_taxes, status } } = d
-        let valueTotalAmount
-        if (typeof d.data !== "function") {
-          let contractId = d.data.id !== undefined ? d.data.id : ''
-          const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'id', 'amount')
-          let totalAmount = finalAmountTotal.filter(contract => contract.id === contractId)
-          valueTotalAmount = totalAmount[0].final_amount_no_taxes
-        }
-
-        valueTotalAmount = selected_size === 'amount' ? d.value : valueTotalAmount
+        const { data: { amount, value } } = d
+        let contractAmount = selected_size === 'amount' ? `${value}` : `${amount}`
 
         tooltipSecondDepth
           .style('display', 'block')
@@ -160,9 +157,7 @@ export default {
         tooltipSecondDepth
           .html(() => {
             return `
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(valueTotalAmount)}</b></p>
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.status')}: <b>${status}</b></p>
+              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies_amount')}: <b>${money(contractAmount)}</b></p>
             `
           })
           .style('top', positionTop)

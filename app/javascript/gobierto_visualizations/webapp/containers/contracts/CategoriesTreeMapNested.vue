@@ -10,6 +10,10 @@
       :treemap-id="'contracts'"
       :amount="'final_amount_no_taxes'"
       :scale-color="false"
+      :first-button-value="'final_amount_no_taxes'"
+      :second-button-value="'number_of_contract'"
+      :first-button-label="labelContractAmount"
+      :second-button-label="labelContractTotal"
       @transformData="nestedData"
       @showTooltip="showTooltipTreemap"
     />
@@ -38,6 +42,8 @@ export default {
   data() {
     return {
       labelRootKey: I18n.t('gobierto_visualizations.visualizations.contracts.categories'),
+      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
+      labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
       rootData: {}
     }
   },

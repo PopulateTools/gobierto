@@ -49,8 +49,7 @@
       <Viewer
         v-if="configuration"
         ref="viewer"
-        :is-draggable="true"
-        :is-resizable="true"
+        :is-edition-mode="true"
         :item="item"
         :config="configuration"
         @layout-updated="handleViewerUpdated"

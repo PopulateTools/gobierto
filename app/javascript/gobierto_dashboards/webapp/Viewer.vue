@@ -7,8 +7,8 @@
     :col-num="columns"
     :row-height="itemHeight"
     :margin="margin"
-    :is-draggable="isDraggable"
-    :is-resizable="isResizable"
+    :is-draggable="isEditionMode"
+    :is-resizable="isEditionMode"
     :auto-size="true"
     :use-css-transforms="true"
     :prevent-collision="false"
@@ -49,11 +49,7 @@ export default {
       type: Object,
       default: () => {}
     },
-    isDraggable: {
-      type: Boolean,
-      default: false
-    },
-    isResizable: {
+    isEditionMode: {
       type: Boolean,
       default: false
     }
@@ -73,10 +69,6 @@ export default {
     },
     context() {
       return this.$root.$data?.context;
-    },
-    isEditionMode() {
-      // if there's config prop, it comes from Maker
-      return !!this.config;
     },
     adjustMargins() {
       const [x, y] = this.margin;

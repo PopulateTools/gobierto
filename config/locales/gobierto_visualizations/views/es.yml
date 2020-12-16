@@ -18,7 +18,6 @@ es:
         amount_distribution: Distribución por importes
         assignee: Adjudicatario
         categories: Categorías
-        categories_treemap: Contratos por Categorias
         contract: Contrato
         contract_amount: Imp. adjudicación
         contract_type: Tipo de contrato
@@ -31,7 +30,6 @@ es:
           del %{entity_name}
         empty_table: No hay datos disponibles
         entities: Entidades
-        entities_treemap: Contratos por Entidades
         final_amount_no_taxes: Importe
         fromto: Desde A Nº. Contr.
         main_assignees: Principales adjudicatarios

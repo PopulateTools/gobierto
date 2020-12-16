@@ -18,7 +18,6 @@ en:
         amount_distribution: Amount distribution
         assignee: Assignee
         categories: Categories
-        categories_treemap: Contracts per Categories
         contract: Contract
         contract_amount: Contract Amount
         contract_type: Type of contract
@@ -31,7 +30,6 @@ en:
           to %{entity_name}
         empty_table: There is no available data
         entities: Entities
-        entities_treemap: Contracts per Entities
         final_amount_no_taxes: Amount
         fromto: From To No Contr.
         main_assignees: Main assignees

@@ -198,7 +198,7 @@ module GobiertoData
     end
 
     def data_file_upload
-      unless data_file.is_a? ActionDispatch::Http::UploadedFile
+      unless data_file.nil? || data_file.is_a?(ActionDispatch::Http::UploadedFile)
         errors.add :data_file, I18n.t("activemodel.errors.models.gobierto_data/dataset_form.attributes.data_file.no_file_included")
       end
     end

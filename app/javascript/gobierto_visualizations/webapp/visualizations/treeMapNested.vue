@@ -436,10 +436,13 @@ export default {
               </span>
               `
           } else if (depth === 3 && typeof d.data !== "function") {
-            htmlForRect = `
-              <p class="title">${d.parent.data.name}</p>
+            const { data: { permalink }, parent: { data: { name } } } = d
+            let hasPermalink = permalink !== undefined ? `<a class="permalink" href="${permalink}">${I18n.t('gobierto_visualizations.visualizations.contracts.permalink')}</a>` : ''
+            let textForRect = `
+              <p class="title">${name}</p>
               <p class="text">${title}</p>
               `
+            htmlForRect = `${textForRect}${hasPermalink}`
           }
           return htmlForRect
         }
@@ -535,10 +538,13 @@ export default {
               </span>
               `
           } else if (depth === 4 && typeof d.data !== "function") {
-            htmlForRect = `
-              <p class="title">${d.parent.data.name}</p>
+            const { data: { permalink }, parent: { data: { name } } } = d
+            let hasPermalink = permalink !== undefined ? `<a class="permalink" href="${permalink}">${I18n.t('gobierto_visualizations.visualizations.contracts.permalink')}</a>` : ''
+            let textForRect = `
+              <p class="title">${name}</p>
               <p class="text">${title}</p>
               `
+            htmlForRect = `${textForRect}${hasPermalink}`
           }
           return htmlForRect
         }

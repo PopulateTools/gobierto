@@ -80,7 +80,7 @@ export default {
     }
   },
   mounted() {
-    this.containerChart = document.querySelector('.visualizations-home-main');
+    this.containerChart = document.querySelector('.multiple-line-chart-container');
     this.svgWidth = this.containerChart.offsetWidth;
     this.svgHeight = this.height + this.margin.top + this.margin.bottom
     this.setupElements()
@@ -223,7 +223,7 @@ export default {
         d3.selectAll('.tooltip-multiple-line')
           .remove()
           .exit()
-        this.containerChart = document.querySelector('.visualizations-home-main');
+        this.containerChart = document.querySelector('.multiple-line-chart-container');
         this.svgWidth = this.containerChart.offsetWidth;
         this.setupElements()
         this.buildMultipleLine(this.data)

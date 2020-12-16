@@ -105,6 +105,13 @@ export default {
         this.deepCloneData(newValue);
         this.updateData = true;
       }
+    },
+    $route(to, from) {
+      if (to !== from) {
+        this.containerChart = document.querySelector('.beeswarm-container');
+        this.svgWidth = this.containerChart.offsetWidth;
+        this.deepCloneData(this.dataWithoutCoordinates);
+      }
     }
   },
   mounted() {

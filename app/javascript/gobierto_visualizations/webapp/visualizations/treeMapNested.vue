@@ -391,7 +391,6 @@ export default {
 
           if (depth === 2) {
             let totalContracts = d.children === undefined ? '' : d.children
-            let totalContractsLength = 0
             let contractsString = ''
             if (totalContracts) {
               totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")

@@ -2,6 +2,7 @@
 es:
   gobierto_dashboards:
     available_cards: Tarjetas disponibles
+    back: atrás
     changes: Dashboard modificado
     date: 'Fecha: '
     default_title: Título del dashboard

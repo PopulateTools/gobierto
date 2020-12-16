@@ -17,6 +17,13 @@
         <Viewer :config="currentDashboard" />
       </template>
     </transition>
+    <span
+      v-if="showBackBtn"
+      class="dashboards-viewer__button"
+      @click="handleClick"
+    >
+      <i class="fas fa-arrow-left" /> {{ backLabel }}
+    </span>
   </div>
 </template>
 
@@ -36,7 +43,8 @@ export default {
   data() {
     return {
       dashboards: [],
-      currentDashboard: null
+      currentDashboard: null,
+      backLabel: I18n.t("gobierto_dashboards.back") | ""
     }
   },
   computed: {
@@ -51,15 +59,17 @@ export default {
     },
     isList() {
       return !this.currentDashboard && this.dashboards.length > 1
+    },
+    showBackBtn() {
+      return this.currentDashboard && this.dashboards.length > 1
     }
   },
   async created() {
+    // request all dashboards
+    ({ data: this.dashboards } = await this.getDashboards({ context: this.context, data_pipe: this.pipe }))
+
     if (this.id) {
-      const { data } = await this.getDashboard(this.id, { context: this.context, data_pipe: this.pipe })
-      this.dashboards.push(data)
-      this.currentDashboard = data
-    } else {
-      ({ data: this.dashboards } = await this.getDashboards({ context: this.context, data_pipe: this.pipe }))
+      this.currentDashboard = this.dashboards.find(({ id }) => id === this.id)
     }
 
     // Emit to his parent, if any
@@ -70,6 +80,7 @@ export default {
   },
   methods: {
     handleClick(uid) {
+      // if uid is null, no selected dashboard, i.e. show the list
       this.currentDashboard = this.dashboards.find(({ id }) => id === uid)
 
       // Emit to his parent, if any

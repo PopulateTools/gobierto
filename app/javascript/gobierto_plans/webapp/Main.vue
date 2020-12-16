@@ -16,15 +16,13 @@
 
     <Tabs :tabs="tabs">
       <template #tab-0>
-        <ButtonFilters :options="options" />
-
         <router-view
           :json="json"
           :options="options"
         />
       </template>
       <template #tab-1>
-        <Dashboards />
+        <router-view />
       </template>
     </Tabs>
   </div>
@@ -33,9 +31,7 @@
 <script>
 import Header from "./components/Header.vue";
 import NumberLabel from "./components/NumberLabel.vue";
-import ButtonFilters from "./components/ButtonFilters.vue";
 import Tabs from "./components/Tabs.vue";
-import Dashboards from "./pages/Dashboards.vue";
 import { PlansFactoryMixin } from "./lib/factory";
 import { groupBy } from "./lib/helpers";
 import { PlansStore } from "./lib/store";
@@ -46,10 +42,8 @@ export default {
   components: {
     Header,
     NumberLabel,
-    ButtonFilters,
     Loading,
-    Tabs,
-    Dashboards
+    Tabs
   },
   mixins: [PlansFactoryMixin],
   data() {
@@ -60,7 +54,7 @@ export default {
       isFetchingData: true,
       labelLoading: I18n.t("gobierto_plans.plan_types.show.loading") || "",
       tabs: [
-        { title: I18n.t("gobierto_plans.plan_types.show.plan") || "", name: "home" },
+        { title: I18n.t("gobierto_plans.plan_types.show.plan") || "", name: "plan" },
         { title: I18n.t("gobierto_plans.plan_types.show.dashboards") || "", name: "dashboards" },
       ]
     };

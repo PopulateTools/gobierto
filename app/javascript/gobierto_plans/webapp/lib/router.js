@@ -4,13 +4,15 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const Main = () => import("../Main.vue");
-const Home = () => import("../pages/Home.vue");
+const Plan = () => import("../pages/Plan.vue");
+const PlanB = () => import("../pages/PlanB.vue");
 const Categories = () => import("../pages/Categories.vue");
 const Projects = () => import("../pages/Projects.vue");
 const Groups = () => import("../pages/Groups.vue");
 const GroupsByTerm = () => import("../pages/GroupsByTerm.vue");
 const ProjectsByTerm = () => import("../pages/ProjectsByTerm.vue");
-const Dashboards = () => import("../pages/Dashboards.vue");
+const PlanTab = () => import("../pages/PlanTab.vue");
+const DashboardsTab = () => import("../pages/DashboardsTab.vue");
 
 // https://router.vuejs.org/guide/essentials/nested-routes.html
 export const router = new VueRouter({
@@ -23,41 +25,53 @@ export const router = new VueRouter({
       children: [
         {
           path: "/",
-          name: "home",
-          component: Home
-        },
-        {
-          path: "categoria/:id",
-          name: "categories",
-          component: Categories
-        },
-        {
-          path: "proyecto/:id",
-          name: "projects",
-          component: Projects
-        },
-        {
-          path: "tabla/:id",
-          component: Groups,
+          component: PlanTab,
           children: [
             {
               path: "/",
-              name: "table",
-              component: GroupsByTerm
+              component: PlanB,
+              children: [
+                {
+                  path: "/",
+                  name: "plan",
+                  component: Plan
+                },
+                {
+                  path: "categoria/:id",
+                  name: "categories",
+                  component: Categories
+                },
+                {
+                  path: "proyecto/:id",
+                  name: "projects",
+                  component: Projects
+                }
+              ]
             },
             {
-              path: ":term",
-              name: "term",
-              component: ProjectsByTerm
-            },
-          ]
+              path: "tabla/:id",
+              component: Groups,
+              children: [
+                {
+                  path: "/",
+                  name: "table",
+                  component: GroupsByTerm
+                },
+                {
+                  path: ":term",
+                  name: "term",
+                  component: ProjectsByTerm
+                },
+              ]
+            }
+          ],
         },
         {
-          path: "dashboards/:dashboardid?",
+          path: "dashboards/:dashboardId?",
           name: "dashboards",
-          component: Dashboards
+          component: DashboardsTab
         }
-      ],
+      ]
     },
   ],
   scrollBehavior() {

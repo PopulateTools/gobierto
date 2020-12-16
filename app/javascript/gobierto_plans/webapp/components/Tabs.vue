@@ -8,7 +8,6 @@
           :to="{ params: { ...$route.params }, ...tab }"
           class="planification-tabs__item"
           :class="{ 'is-active': activeTab === i }"
-          @click.native="activeTab = i"
         >
           {{ tab.title }}
         </router-link>
@@ -16,10 +15,7 @@
     </nav>
 
     <template v-for="(_, i) in tabs">
-      <slot
-        v-if="activeTab === i"
-        :name="`tab-${i}`"
-      />
+      <slot :name="`tab-${i}`" />
     </template>
   </div>
 </template>
@@ -33,9 +29,10 @@ export default {
       default: () => []
     }
   },
-  data() {
-    return {
-      activeTab: 0
+  computed: {
+    activeTab() {
+      const { name: current } = this.$route
+      return this.tabs.findIndex(({ name }) => name === current)
     }
   }
 };

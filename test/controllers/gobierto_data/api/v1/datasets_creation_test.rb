@@ -126,6 +126,8 @@ module GobiertoData
         # POST /api/v1/data/datasets
         #
         def test_dataset_creation_with_upload_missing
+          ::Mime::Type.any_instance.stubs(:symbol).returns(:multipart_form)
+
           with(site: site) do
             assert_no_difference "GobiertoData::Dataset.count" do
               post(

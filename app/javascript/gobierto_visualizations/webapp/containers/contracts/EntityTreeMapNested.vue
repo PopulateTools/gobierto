@@ -5,7 +5,7 @@
       :root-data="rootData"
       :label-root-key="labelRootKey"
       :first-depth-for-tree-map="'contractor'"
-      :second-depth-for-tree-map="'category_title'"
+      :second-depth-for-tree-map="'contract_type'"
       :third-depth-for-tree-map="'assignee'"
       :scale-color-key="'contractor'"
       :treemap-id="'entity'"
@@ -54,6 +54,9 @@ export default {
       rootData: {}
     }
   },
+  created() {
+    let contractorArray = [...new Set(this.data.map(item => item.any_))];
+  },
   methods: {
     nestedData(data, sizeForTreemap) {
       let dataFilter = data
@@ -68,7 +71,7 @@ export default {
       // );
       const nested_data = d3.nest()
         .key(d => d['contractor'])
-        .key(d => d['category_title'])
+        .key(d => d['contract_type'])
         .key(d => d['assignee'])
         .entries(dataFilter);
       let rootData = {};

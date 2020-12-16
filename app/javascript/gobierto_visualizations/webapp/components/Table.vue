@@ -64,7 +64,7 @@ export default {
     return {
       labelEmpty: I18n.t("gobierto_visualizations.visualizations.contracts.empty_table"),
       displayedData: [],
-      containerPagination: 'main.visualizations-home-main'
+      containerPagination: '.visualizations-home-main--table'
     };
   },
   watch: {

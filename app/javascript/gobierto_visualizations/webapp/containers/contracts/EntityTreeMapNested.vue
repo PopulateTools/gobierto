@@ -5,7 +5,8 @@
       :root-data="rootData"
       :label-root-key="labelRootKey"
       :first-depth-for-tree-map="'contractor'"
-      :second-depth-for-tree-map="'assignee'"
+      :second-depth-for-tree-map="'category_title'"
+      :third-depth-for-tree-map="'assignee'"
       :scale-color-key="'contractor'"
       :treemap-id="'entity'"
       :amount="'final_amount_no_taxes'"
@@ -16,6 +17,7 @@
       :second-button-label="labelContractTotal"
       :label-total-plural="labelContractsPlural"
       :label-total-unique="labelContractsUnique"
+      :depth-entity="true"
       :key-for-third-depth="'title'"
       @transformData="nestedData"
       @showTooltip="showTooltipTreemap"
@@ -66,6 +68,7 @@ export default {
       // );
       const nested_data = d3.nest()
         .key(d => d['contractor'])
+        .key(d => d['category_title'])
         .key(d => d['assignee'])
         .entries(dataFilter);
       let rootData = {};
@@ -107,8 +110,8 @@ export default {
       const tooltipSecondDepth = d3.select('#treemap-nested-tooltip-second-depth-entity')
       const container = document.querySelector('.tree-map-nested-container-entity');
       const containerWidth = container.offsetWidth
-      const tooltipWidth = depth !== 3 ? tooltipFirstDepth.node().offsetWidth : tooltipSecondDepth.node().offsetWidth
-      const tooltipHeight = depth !== 3 ? tooltipFirstDepth.node().offsetHeight : tooltipSecondDepth.node().offsetHeight
+      const tooltipWidth = depth !== 4 ? tooltipFirstDepth.node().offsetWidth : tooltipSecondDepth.node().offsetWidth
+      const tooltipHeight = depth !== 4 ? tooltipFirstDepth.node().offsetHeight : tooltipSecondDepth.node().offsetHeight
       const positionWidthTooltip = x + tooltipWidth
       const positionRight = `${x - tooltipWidth - 20}px`
       const positionTop = tooltipHeight + y > window.innerHeight ? `${y - (tooltipHeight / 2)}px` : `${y}px`
@@ -154,12 +157,12 @@ export default {
         if (totalContracts) {
           totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
           while (i < totalContracts.length) {
-            let contractAmount = selected_size === 'final_amount_no_taxes' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.final_amount_no_taxes}`
+            let contractAmount = selected_size === 'final_amount_no_taxes' ? `${totalContracts[i].data.children[0].value}` : `${totalContracts[i].data.children[0].final_amount_no_taxes}`
             contractsString = `${contractsString}
             <div class="depth-second-container">
-              <p class="depth-second-title">${totalContracts[i].data.title}</p>
+              <p class="depth-second-title">${totalContracts[i].data.children[0].title}</p>
               <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(totalContracts[i].data.initial_amount_no_taxes)}</b></p>
+              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(totalContracts[i].data.children[0].initial_amount_no_taxes)}</b></p>
             </div>`
             i++
           }
@@ -184,6 +187,41 @@ export default {
           .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
 
       } else if (depth === 3 && typeof d.data !== "function") {
+       let totalContracts = d.children === undefined ? '' : d.children
+       let contractsString = ''
+       if (totalContracts) {
+         totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
+         while (i < totalContracts.length) {
+           let contractAmount = selected_size === 'final_amount_no_taxes' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.final_amount_no_taxes}`
+           contractsString = `${contractsString}
+           <div class="depth-second-container">
+             <p class="depth-second-title">${totalContracts[i].data.title}</p>
+             <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
+             <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(totalContracts[i].data.initial_amount_no_taxes)}</b></p>
+           </div>`
+           i++
+         }
+       }
+
+       tooltipFirstDepth
+         .style("display", "block")
+         .transition()
+         .duration(200)
+         .style("opacity", 1)
+
+       tooltipFirstDepth
+         .html(() => {
+           return `
+             <span class="treemap-nested-tooltip-header-title">
+               ${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}
+             </span>
+             ${contractsString}
+           `
+         })
+         .style('top', positionTop)
+         .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+
+      } else if (depth === 4 && typeof d.data !== "function") {
         const { data: { initial_amount_no_taxes, status } } = d
         let valueTotalAmount
         if (typeof d.data !== "function") {

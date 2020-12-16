@@ -582,10 +582,13 @@ export default {
     },
     resizeListener() {
       window.addEventListener("resize", () => {
-        let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
-        const containerChart = document.querySelector('.container-tree-map-nested');
+        const containerChart = document.querySelector('.tree-map-nested-container');
         this.svgWidth = containerChart.offsetWidth
-        this.deepCloneData(dataResponsive)
+        if (this.updateData) {
+          this.deepCloneData(this.dataNewValues)
+        } else {
+          this.transformDataTreemap(this.data);
+        }
       })
     }
   }

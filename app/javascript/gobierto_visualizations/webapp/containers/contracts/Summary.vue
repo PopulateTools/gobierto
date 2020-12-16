@@ -13,7 +13,6 @@
     <BeesWarmChart
       v-if="dataBeesWarmFilter"
       :data="dataBeesWarmFilter"
-      :height="600"
       :radius-property="'final_amount_no_taxes'"
       :x-axis-prop="'start_date'"
       :y-axis-prop="'contract_type'"

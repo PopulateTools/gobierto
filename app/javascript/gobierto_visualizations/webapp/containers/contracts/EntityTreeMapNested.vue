@@ -4,9 +4,9 @@
       :data="data"
       :root-data="rootData"
       :label-root-key="labelRootKey"
-      :first-depth-for-tree-map="'contractor'"
-      :second-depth-for-tree-map="'contract_type'"
-      :third-depth-for-tree-map="'assignee'"
+      :first-depth-for-tree-map="firstDepthForTreemap"
+      :second-depth-for-tree-map="secondDepthForTreemap"
+      :third-depth-for-tree-map="thirdDepthForTreemap"
       :scale-color-key="'contractor'"
       :treemap-id="'entity'"
       :amount="'final_amount_no_taxes'"
@@ -18,6 +18,7 @@
       :label-total-plural="labelContractsPlural"
       :label-total-unique="labelContractsUnique"
       :depth-entity="true"
+      :deep-level="deepLevel"
       :key-for-third-depth="'title'"
       @transformData="nestedData"
       @showTooltip="showTooltipTreemap"
@@ -46,19 +47,23 @@ export default {
   },
   data() {
     return {
-      labelRootKey: I18n.t('gobierto_visualizations.visualizations.contracts.entities') || '',
-      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
-      labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
-      labelContractsPlural: I18n.t('gobierto_visualizations.visualizations.contracts.contracts'),
-      labelContractsUnique: I18n.t('gobierto_visualizations.visualizations.contracts.contract'),
-      rootData: {}
+      labelRootKey: '',
+      labelRootKeyEntities: I18n.t('gobierto_visualizations.visualizations.contracts.entities') || '',
+      labelRootKeyContractType: I18n.t('gobierto_visualizations.visualizations.contracts.contract_type') || '',
+      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount') || '',
+      labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap') || '',
+      labelContractsPlural: I18n.t('gobierto_visualizations.visualizations.contracts.contracts') || '',
+      labelContractsUnique: I18n.t('gobierto_visualizations.visualizations.contracts.contract') || '',
+      rootData: {},
+      deepLevel: 3,
+      firstDepthForTreemap: '',
+      secondDepthForTreemap: '',
+      thirdDepthForTreemap: ''
     }
-  },
-  created() {
-    let contractorArray = [...new Set(this.data.map(item => item.any_))];
   },
   methods: {
     nestedData(data, sizeForTreemap) {
+      let contractorArray = [...new Set(this.data.map(item => item.any_))];
       let dataFilter = data
       dataFilter.filter(contract => contract.final_amount_no_taxes !== 0)
       dataFilter.forEach(d => {
@@ -69,11 +74,30 @@ export default {
       // const dataGroupTreeMap = Array.from(
       //   d3.group(data, d =>  d.contract_type, d.assignee),
       // );
-      const nested_data = d3.nest()
-        .key(d => d['contractor'])
-        .key(d => d['contract_type'])
-        .key(d => d['assignee'])
-        .entries(dataFilter);
+      let nested_data
+      if (contractorArray.length === 1) {
+        this.labelRootKey = this.labelRootKeyContractType
+        this.deepLevel = 3
+        this.firstDepthForTreemap = 'contract_type'
+        this.secondDepthForTreemap = 'assignee'
+        this.thirdDepthForTreemap = ''
+        nested_data = d3.nest()
+          .key(d => d[this.firstDepthForTreemap])
+          .key(d => d[this.secondDepthForTreemap])
+          .entries(dataFilter);
+      } else {
+        this.labelRootKey = this.labelRootKeyEntities
+        this.deepLevel = 4
+        this.firstDepthForTreemap = 'contractor'
+        this.secondDepthForTreemap = 'contract_type'
+        this.thirdDepthForTreemap = 'assignee'
+        nested_data = d3.nest()
+          .key(d => d[this.firstDepthForTreemap])
+          .key(d => d[this.secondDepthForTreemap])
+          .key(d => d[this.thirdDepthForTreemap])
+          .entries(dataFilter);
+      }
+
       let rootData = {};
 
       rootData.key = this.labelRootKey
@@ -121,137 +145,237 @@ export default {
       const positionLeft = `${x + 20}px`
 
       const childrenElement = event[0].children[0].className
-      if (depth === 1 && childrenElement.includes('hide')) {
-        let valueTotalAmount
-        if (typeof d.data !== "function") {
-          let contractType = d.data.name !== undefined ? d.data.name : ''
-          const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'contractor', 'final_amount_no_taxes')
-          let totalAmount = finalAmountTotal.filter(contract => contract['contractor'] === contractType)
-          totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
-          valueTotalAmount = totalAmount[0]['final_amount_no_taxes']
-        }
-        tooltipFirstDepth
-          .style("display", "block")
-          .transition()
-          .duration(200)
-          .style("opacity", 1)
-
-        tooltipFirstDepth
-          .html(() => {
-            let labelTotalContracts = `${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}`
-            let contractAmount = selected_size === 'final_amount_no_taxes' ? `${d.value}` : valueTotalAmount
-            labelTotalContracts = d.children.length > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
-            return `
-              <span class="treemap-nested-tooltip-header-title">
-                ${d.data.name}
-              </span>
-              <div class="depth-first-container">
-                <p class="text-depth-first">${money(contractAmount)}</b></p>
-                <p class="text-depth-first"><b>${d.children.length}</b> ${labelTotalContracts}</b></p>
-              </div>
-            `
-          })
-          .style('top', positionTop)
-          .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
-
-      } else if (depth === 2) {
-        let totalContracts = d.children === undefined ? '' : d.children
-        let contractsString = ''
-        if (totalContracts) {
-          totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
-          while (i < totalContracts.length) {
-            let contractAmount = selected_size === 'final_amount_no_taxes' ? `${totalContracts[i].data.children[0].value}` : `${totalContracts[i].data.children[0].final_amount_no_taxes}`
-            contractsString = `${contractsString}
-            <div class="depth-second-container">
-              <p class="depth-second-title">${totalContracts[i].data.children[0].title}</p>
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(totalContracts[i].data.children[0].initial_amount_no_taxes)}</b></p>
-            </div>`
-            i++
+      if (this.deepLevel === 4) {
+        if (depth === 1 && childrenElement.includes('hide')) {
+          let valueTotalAmount
+          if (typeof d.data !== "function") {
+            let contractType = d.data.name !== undefined ? d.data.name : ''
+            const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'contractor', 'final_amount_no_taxes')
+            let totalAmount = finalAmountTotal.filter(contract => contract['contractor'] === contractType)
+            totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
+            valueTotalAmount = totalAmount[0]['final_amount_no_taxes']
           }
-        }
+          tooltipFirstDepth
+            .style("display", "block")
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
 
-        tooltipFirstDepth
-          .style("display", "block")
-          .transition()
-          .duration(200)
-          .style("opacity", 1)
+          tooltipFirstDepth
+            .html(() => {
+              let labelTotalContracts = `${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}`
+              let contractAmount = selected_size === 'final_amount_no_taxes' ? `${d.value}` : valueTotalAmount
+              labelTotalContracts = d.children.length > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
+              return `
+                <span class="treemap-nested-tooltip-header-title">
+                  ${d.data.name}
+                </span>
+                <div class="depth-first-container">
+                  <p class="text-depth-first">${money(contractAmount)}</b></p>
+                  <p class="text-depth-first"><b>${d.children.length}</b> ${labelTotalContracts}</b></p>
+                </div>
+              `
+            })
+            .style('top', positionTop)
+            .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
 
-        tooltipFirstDepth
-          .html(() => {
-            return `
-              <span class="treemap-nested-tooltip-header-title">
-                ${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}
-              </span>
-              ${contractsString}
-            `
-          })
-          .style('top', positionTop)
-          .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+        } else if (depth === 2) {
+          let totalContracts = d.children === undefined ? '' : d.children
+          let contractsString = ''
+          if (totalContracts) {
+            totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
+            while (i < totalContracts.length) {
+              let contractAmount = selected_size === 'final_amount_no_taxes' ? `${totalContracts[i].data.children[0].value}` : `${totalContracts[i].data.children[0].final_amount_no_taxes}`
+              contractsString = `${contractsString}
+              <div class="depth-second-container">
+                <p class="depth-second-title">${totalContracts[i].data.children[0].title}</p>
+                <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
+                <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(totalContracts[i].data.children[0].initial_amount_no_taxes)}</b></p>
+              </div>`
+              i++
+            }
+          }
 
-      } else if (depth === 3 && typeof d.data !== "function") {
-       let totalContracts = d.children === undefined ? '' : d.children
-       let contractsString = ''
-       if (totalContracts) {
-         totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
-         while (i < totalContracts.length) {
-           let contractAmount = selected_size === 'final_amount_no_taxes' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.final_amount_no_taxes}`
-           contractsString = `${contractsString}
-           <div class="depth-second-container">
-             <p class="depth-second-title">${totalContracts[i].data.title}</p>
-             <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
-             <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(totalContracts[i].data.initial_amount_no_taxes)}</b></p>
-           </div>`
-           i++
+          tooltipFirstDepth
+            .style("display", "block")
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
+
+          tooltipFirstDepth
+            .html(() => {
+              return `
+                <span class="treemap-nested-tooltip-header-title">
+                  ${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}
+                </span>
+                ${contractsString}
+              `
+            })
+            .style('top', positionTop)
+            .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+
+        } else if (depth === 3 && typeof d.data !== "function") {
+         let totalContracts = d.children === undefined ? '' : d.children
+         let contractsString = ''
+         if (totalContracts) {
+           totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
+           while (i < totalContracts.length) {
+             let contractAmount = selected_size === 'final_amount_no_taxes' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.final_amount_no_taxes}`
+             contractsString = `${contractsString}
+             <div class="depth-second-container">
+               <p class="depth-second-title">${totalContracts[i].data.title}</p>
+               <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
+               <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(totalContracts[i].data.initial_amount_no_taxes)}</b></p>
+             </div>`
+             i++
+           }
          }
-       }
 
-       tooltipFirstDepth
-         .style("display", "block")
-         .transition()
-         .duration(200)
-         .style("opacity", 1)
+         tooltipFirstDepth
+           .style("display", "block")
+           .transition()
+           .duration(200)
+           .style("opacity", 1)
 
-       tooltipFirstDepth
-         .html(() => {
-           return `
-             <span class="treemap-nested-tooltip-header-title">
-               ${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}
-             </span>
-             ${contractsString}
-           `
-         })
-         .style('top', positionTop)
-         .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+         tooltipFirstDepth
+           .html(() => {
+             return `
+               <span class="treemap-nested-tooltip-header-title">
+                 ${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}
+               </span>
+               ${contractsString}
+             `
+           })
+           .style('top', positionTop)
+           .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
 
-      } else if (depth === 4 && typeof d.data !== "function") {
-        const { data: { initial_amount_no_taxes, status } } = d
-        let valueTotalAmount
-        if (typeof d.data !== "function") {
-          let contractId = d.data.id !== undefined ? d.data.id : ''
-          const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'id', 'final_amount_no_taxes')
-          let totalAmount = finalAmountTotal.filter(contract => contract.id === contractId)
-          valueTotalAmount = totalAmount[0].final_amount_no_taxes
+        } else if (depth === 4 && typeof d.data !== "function") {
+          const { data: { initial_amount_no_taxes, status } } = d
+          let valueTotalAmount
+          if (typeof d.data !== "function") {
+            let contractId = d.data.id !== undefined ? d.data.id : ''
+            const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'id', 'final_amount_no_taxes')
+            let totalAmount = finalAmountTotal.filter(contract => contract.id === contractId)
+            valueTotalAmount = totalAmount[0].final_amount_no_taxes
+          }
+
+          valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
+
+          tooltipSecondDepth
+            .style('display', 'block')
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
+
+          tooltipSecondDepth
+            .html(() => {
+              return `
+                <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(valueTotalAmount)}</b></p>
+                <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
+                <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.status')}: <b>${status}</b></p>
+              `
+            })
+            .style('top', positionTop)
+            .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
         }
+      } else if (this.deepLevel === 3) {
+        if (depth === 1 && childrenElement.includes('hide')) {
+          let valueTotalAmount
+          if (typeof d.data !== "function") {
+            let contractType = d.data.name !== undefined ? d.data.name : ''
+            const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'category_title', 'final_amount_no_taxes')
+            let totalAmount = finalAmountTotal.filter(contract => contract['category_title'] === contractType)
+            totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
+            valueTotalAmount = totalAmount[0]['final_amount_no_taxes']
+          }
+          tooltipFirstDepth
+            .style("display", "block")
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
 
-        valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
+          tooltipFirstDepth
+            .html(() => {
+              let labelTotalContracts = `${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}`
+              let contractAmount = selected_size === 'final_amount_no_taxes' ? `${d.value}` : valueTotalAmount
+              labelTotalContracts = d.children.length > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
+              return `
+                <span class="treemap-nested-tooltip-header-title">
+                  ${d.data.name}
+                </span>
+                <div class="depth-first-container">
+                  <p class="text-depth-first">${money(contractAmount)}</b></p>
+                  <p class="text-depth-first"><b>${d.children.length}</b> ${labelTotalContracts}</b></p>
+                </div>
+              `
+            })
+            .style('top', positionTop)
+            .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
 
-        tooltipSecondDepth
-          .style('display', 'block')
-          .transition()
-          .duration(200)
-          .style("opacity", 1)
+        } else if (depth === 2) {
+          let totalContracts = d.children === undefined ? '' : d.children
+          let contractsString = ''
+          if (totalContracts) {
+            totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
+            while (i < totalContracts.length) {
+              let contractAmount = selected_size === 'final_amount_no_taxes' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.final_amount_no_taxes}`
+              contractsString = `${contractsString}
+              <div class="depth-second-container">
+                <p class="depth-second-title">${totalContracts[i].data.title}</p>
+                <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
+                <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(totalContracts[i].data.initial_amount_no_taxes)}</b></p>
+              </div>`
+              i++
+            }
+          }
 
-        tooltipSecondDepth
-          .html(() => {
-            return `
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(valueTotalAmount)}</b></p>
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.status')}: <b>${status}</b></p>
-            `
-          })
-          .style('top', positionTop)
-          .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+          tooltipFirstDepth
+            .style("display", "block")
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
+
+          tooltipFirstDepth
+            .html(() => {
+              return `
+                <span class="treemap-nested-tooltip-header-title">
+                  ${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}
+                </span>
+                ${contractsString}
+              `
+            })
+            .style('top', positionTop)
+            .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+
+        } else if (depth === 3 && typeof d.data !== "function") {
+          const { data: { initial_amount_no_taxes, status } } = d
+          let valueTotalAmount
+          if (typeof d.data !== "function") {
+            let contractId = d.data.id !== undefined ? d.data.id : ''
+            const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, 'id', 'final_amount_no_taxes')
+            let totalAmount = finalAmountTotal.filter(contract => contract.id === contractId)
+            valueTotalAmount = totalAmount[0].final_amount_no_taxes
+          }
+
+          valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
+
+          tooltipSecondDepth
+            .style('display', 'block')
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
+
+          tooltipSecondDepth
+            .html(() => {
+              return `
+                <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(valueTotalAmount)}</b></p>
+                <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
+                <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.status')}: <b>${status}</b></p>
+              `
+            })
+            .style('top', positionTop)
+            .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+        }
       }
     }
   }

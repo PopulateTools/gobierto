@@ -152,6 +152,10 @@ export default {
     depthEntity: {
       type: Boolean,
       default: false
+    },
+    deepLevel: {
+      type: Number,
+      default: 3
     }
   },
   data() {
@@ -240,6 +244,7 @@ export default {
       let labelTotalUnique = this.labelTotalUnique
       let keyForThirdDepth = this.keyForThirdDepth
       let depthEntity = this.depthEntity
+      let deepLevel = this.deepLevel
       const selected_size = this.selected_size;
       const treemapId = this.treemapId;
       const tooltipFirstDepth = d3.select(`#treemap-nested-tooltip-first-depth-${treemapId}`)
@@ -363,7 +368,7 @@ export default {
           .append("xhtml:div")
           .html(d => {
             let htmlTreeMap
-            if (depthEntity) {
+            if (depthEntity && deepLevel === 4) {
               htmlTreeMap = treeMapThreeDepth(d)
             } else {
               htmlTreeMap = treeMapTwoDepth(d)

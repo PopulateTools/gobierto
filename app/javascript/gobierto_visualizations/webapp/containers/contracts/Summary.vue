@@ -5,6 +5,7 @@
     />
     <EntityTreeMapNested
       :data="visualizationsData"
+      class="mt4"
     />
     <h3 class="mt4 graph-title">
       {{ labelBeesWarm }}

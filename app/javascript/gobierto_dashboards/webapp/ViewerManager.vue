@@ -2,7 +2,7 @@
   <div class="dashboards-viewer">
     <transition name="fade">
       <!-- show list if there's more than one -->
-      <template v-if="!currentDashboard && dashboards.length > 1">
+      <template v-if="isList">
         <div class="dashboards-viewer__card-grid">
           <ListCard
             v-for="{ id: uid, attributes } in dashboards"
@@ -48,6 +48,9 @@ export default {
     },
     context() {
       return this.$root.$data?.context;
+    },
+    isList() {
+      return !this.currentDashboard && this.dashboards.length > 1
     }
   },
   async created() {

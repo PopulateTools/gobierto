@@ -1,4 +1,5 @@
 import { VisLinesExecution } from 'lib/visualizations'
+import { GOBIERTO_BUDGETS } from 'lib/events'
 
 $(document).on('turbolinks:load', function() {
 
@@ -21,7 +22,7 @@ $(document).on('turbolinks:load', function() {
 
     // Avoid changing the chart meanwhile previous is loading
     $('.expenses_switcher').not('.active').prop('disabled', true);
-    window.addEventListener('chartloaded', function () {
+    window.addEventListener(GOBIERTO_BUDGETS.LOADED, function () {
       $('.expenses_switcher').not('.active').prop('disabled', false);
     })
 
@@ -56,7 +57,7 @@ $(document).on('turbolinks:load', function() {
 
     // Avoid changing the chart meanwhile previous is loading
     $('.income_switcher').not('.active').prop('disabled', true);
-    window.addEventListener('chartloaded', function () {
+    window.addEventListener(GOBIERTO_BUDGETS.LOADED, function () {
       $('.income_switcher').not('.active').prop('disabled', false);
     })
 
@@ -72,17 +73,17 @@ $(document).on('turbolinks:load', function() {
     });
   }
 
-  if($('body.budgets_execution_index').length) {
+  if ($('body.budgets_execution_index').length) {
 
     var validValues = ['economic', 'functional', 'custom'];
-    if(window.location.hash === "") {
+    if (window.location.hash === "") {
       var expensesKind = $('.expenses_switcher').data('toggle');
       var incomeKind = $('.income_switcher').data('toggle');
       window.location.hash = "#" + expensesKind + "," + incomeKind;
     }
 
-    if(validValues.indexOf(expensesKind) === -1) expensesKind = validValues[0];
-    if(validValues.indexOf(incomeKind) === -1) incomeKind = validValues[0];
+    if (validValues.indexOf(expensesKind) === -1) expensesKind = validValues[0];
+    if (validValues.indexOf(incomeKind) === -1) incomeKind = validValues[0];
 
     $('.execution_vs_budget_table tr:nth-of-type(n+6)').hide()
 
@@ -101,7 +102,7 @@ $(document).on('turbolinks:load', function() {
       $('.expenses_switcher').on('click', function (e) {
         expensesKind = $(e.target).attr('data-toggle');
         var newHash = '#' + [expensesKind, incomeKind].join(',');
-        history.pushState({'expense': expensesKind, 'income': incomeKind}, {kind: 'expense', hash: newHash}, newHash);
+        history.pushState({ 'expense': expensesKind, 'income': incomeKind }, { kind: 'expense', hash: newHash }, newHash);
         updateExpenses(expensesKind);
       });
     }
@@ -112,18 +113,18 @@ $(document).on('turbolinks:load', function() {
       $('.income_switcher').on('click', function (e) {
         incomeKind = $(e.target).attr('data-toggle');
         var newHash = '#' + [expensesKind, incomeKind].join(',');
-        history.pushState({'expense': expensesKind, 'income': incomeKind}, {kind: 'income', hash: newHash}, newHash);
+        history.pushState({ 'expense': expensesKind, 'income': incomeKind }, { kind: 'income', hash: newHash }, newHash);
         updateIncome(incomeKind);
       });
     }
 
     window.onpopstate = function(event) {
-      if(event.state !== null && event.state.expense !== undefined) {
-        if(expensesKind !== event.state.expense) {
+      if (event.state !== null && event.state.expense !== undefined) {
+        if (expensesKind !== event.state.expense) {
           expensesKind = event.state.expense;
           updateExpenses(expensesKind);
         }
-        if(incomeKind !== event.state.income) {
+        if (incomeKind !== event.state.income) {
           incomeKind = event.state.income;
           updateIncome(incomeKind);
         }

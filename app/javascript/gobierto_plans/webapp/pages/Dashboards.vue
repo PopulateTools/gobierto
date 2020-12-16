@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { GobiertoEvents } from "lib/shared";
+import { GOBIERTO_DASHBOARDS } from "lib/events";
 import { Loading } from "lib/vue-components";
 
 export default {
@@ -35,17 +35,17 @@ export default {
     }
   },
   destroyed() {
-    document.removeEventListener(GobiertoEvents.DASHBOARD_LOADED, this.dashboardViewerLoaded)
-    document.removeEventListener(GobiertoEvents.DASHBOARD_SELECTED, this.dashboardViewerSelected)
+    document.removeEventListener(GOBIERTO_DASHBOARDS.LOADED, this.dashboardViewerLoaded)
+    document.removeEventListener(GOBIERTO_DASHBOARDS.SELECTED, this.dashboardViewerSelected)
   },
   mounted() {
     // Ask for the dashboard-viewer
-    const event = new Event(GobiertoEvents.LOAD_DASHBOARD_EVENT)
+    const event = new Event(GOBIERTO_DASHBOARDS.LOAD)
     document.dispatchEvent(event)
 
     // Add the listeners here, since the dashboard-viewer have to be created first
-    document.addEventListener(GobiertoEvents.DASHBOARD_LOADED, this.dashboardViewerLoaded)
-    document.addEventListener(GobiertoEvents.DASHBOARD_SELECTED, this.dashboardViewerSelected)
+    document.addEventListener(GOBIERTO_DASHBOARDS.LOADED, this.dashboardViewerLoaded)
+    document.addEventListener(GOBIERTO_DASHBOARDS.SELECTED, this.dashboardViewerSelected)
   },
   methods: {
     dashboardViewerLoaded({ detail }) {

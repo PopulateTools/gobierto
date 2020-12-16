@@ -7,7 +7,7 @@
       :first-depth-for-tree-map="firstDepthForTreemap"
       :second-depth-for-tree-map="secondDepthForTreemap"
       :third-depth-for-tree-map="thirdDepthForTreemap"
-      :scale-color-key="'contractor'"
+      :scale-color-key="scaleColorKey"
       :treemap-id="'entity'"
       :amount="'final_amount_no_taxes'"
       :scale-color="true"
@@ -58,12 +58,13 @@ export default {
       deepLevel: 3,
       firstDepthForTreemap: '',
       secondDepthForTreemap: '',
-      thirdDepthForTreemap: ''
+      thirdDepthForTreemap: '',
+      scaleColorKey: 'contractor'
     }
   },
   methods: {
     nestedData(data, sizeForTreemap) {
-      let contractorArray = [...new Set(this.data.map(item => item.any_))];
+      let contractorArray = [...new Set(this.data.map(item => item.contractor))];
       let dataFilter = data
       dataFilter.filter(contract => contract.final_amount_no_taxes !== 0)
       dataFilter.forEach(d => {
@@ -78,6 +79,7 @@ export default {
       if (contractorArray.length === 1) {
         this.labelRootKey = this.labelRootKeyContractType
         this.deepLevel = 3
+        this.scaleColorKey = 'contract_type'
         this.firstDepthForTreemap = 'contract_type'
         this.secondDepthForTreemap = 'assignee'
         this.thirdDepthForTreemap = ''
@@ -88,6 +90,7 @@ export default {
       } else {
         this.labelRootKey = this.labelRootKeyEntities
         this.deepLevel = 4
+        this.scaleColorKey = 'contractor'
         this.firstDepthForTreemap = 'contractor'
         this.secondDepthForTreemap = 'contract_type'
         this.thirdDepthForTreemap = 'assignee'

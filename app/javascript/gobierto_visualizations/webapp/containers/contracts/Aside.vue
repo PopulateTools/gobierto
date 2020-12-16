@@ -169,6 +169,8 @@ export default {
           filter.options = contractorTypesOptions;
         }
       })
+
+      this.filters = this.filters.filter(({ options }) => options.length > 1)
     },
     updateCounters(firstUpdate=false) {
       const counter = { process_types: {}, contract_types: {}, dates: {}, category_title: {}, contractor: {} };

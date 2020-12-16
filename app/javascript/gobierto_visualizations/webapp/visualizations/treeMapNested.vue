@@ -168,7 +168,8 @@ export default {
       dataNewValues: undefined,
       arrayValuesContractTypes: [],
       selected_size: this.amount,
-      sizeForTreemap: this.amount
+      sizeForTreemap: this.amount,
+      colors: []
     }
   },
   watch: {
@@ -188,6 +189,14 @@ export default {
       if (to !== from) {
         this.containerChart = document.querySelector('.tree-map-nested-container');
         this.svgWidth = this.containerChart.offsetWidth;
+        this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
+      }
+    },
+    scaleColorKey(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        const freezeObjectColors = Object.freeze(this.data);
+        this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => d[newValue])))
+        this.colors = createScaleColors(this.arrayValuesContractTypes.length, this.arrayValuesContractTypes);
         this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
       }
     }
@@ -232,7 +241,7 @@ export default {
         .remove()
         .exit();
 
-      const colors = createScaleColors(this.arrayValuesContractTypes.length, this.arrayValuesContractTypes);
+      this.colors = createScaleColors(this.arrayValuesContractTypes.length, this.arrayValuesContractTypes);
       let transitioning;
       let dataTreeMapSumFinalAmount = this.dataTreeMapSumFinalAmount
       let firstDepthForTreeMap = this.firstDepthForTreeMap;
@@ -302,9 +311,9 @@ export default {
             if (scaleColor) {
               const { depth } = d
               if (depth === 2) {
-                valueColor = d.color = colors(d.parent.data.name)
+                valueColor = d.color = this.colors(d.parent.data.name)
               } else if (depth === 3) {
-                valueColor = d.color = colors(d.data.children[0].contractor)
+                valueColor = d.color = this.colors(d.data.children[0].contractor)
               }
             } else {
               valueColor = '#12365b'
@@ -323,7 +332,7 @@ export default {
           .attr('fill', d => {
             if (scaleColor) {
               const { depth } = d
-              const valueColor = depth === 1 ? d.color = colors(d.data.name) : d.color = colors(d.parent.data.name)
+              const valueColor = depth === 1 ? d.color = this.colors(d.data.name) : d.color = this.colors(d.parent.data.name)
               return valueColor
             } else {
               return '#12365b'

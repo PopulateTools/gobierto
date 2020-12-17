@@ -450,13 +450,12 @@ export default {
               </span>
               `
           } else if (depth === 3 && typeof d.data !== "function") {
-            const { data: { permalink }, parent: { data: { name } } } = d
-            let hasPermalink = permalink !== undefined ? `<a class="permalink" href="${permalink}">${I18n.t('gobierto_visualizations.visualizations.contracts.permalink')}</a>` : ''
-            let textForRect = `
-              <p class="title">${name}</p>
+            const { data: { assignee_routing_id }, parent: { data: { name } } } = d
+            let heading = assignee_routing_id !== undefined ? `<a class="title" href="/visualizaciones/contratos/adjudicatario/${assignee_routing_id}">${name}</a>` : `<p class="title">${name}</p>`
+            htmlForRect = `
+              ${heading}
               <p class="text">${title}</p>
               `
-            htmlForRect = `${textForRect}${hasPermalink}`
           }
           return htmlForRect
         }
@@ -552,13 +551,12 @@ export default {
               </span>
               `
           } else if (depth === 4 && typeof d.data !== "function") {
-            const { data: { permalink }, parent: { data: { name } } } = d
-            let hasPermalink = permalink !== undefined ? `<a class="permalink" href="${permalink}">${I18n.t('gobierto_visualizations.visualizations.contracts.permalink')}</a>` : ''
-            let textForRect = `
-              <p class="title">${name}</p>
+            const { data: { assignee_routing_id }, parent: { data: { name } } } = d
+            let heading = assignee_routing_id !== undefined ? `<a class="title" href="/visualizaciones/contratos/adjudicatario/${assignee_routing_id}">${name}</a>` : `<p class="title">${name}</p>`
+            htmlForRect = `
+              ${heading}
               <p class="text">${title}</p>
               `
-            htmlForRect = `${textForRect}${hasPermalink}`
           }
           return htmlForRect
         }

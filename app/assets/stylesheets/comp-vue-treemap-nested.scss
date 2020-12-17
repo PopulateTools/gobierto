@@ -114,6 +114,7 @@
       text-transform: uppercase;
       font-weight: bold;
       line-height: 1;
+      color: var(--white);
     }
 
     .text,
@@ -121,10 +122,6 @@
       margin: .25rem 0;
       font-size: $f6;
       line-height: 1;
-    }
-
-    .permalink {
-      color: var(--white);
     }
 
   }

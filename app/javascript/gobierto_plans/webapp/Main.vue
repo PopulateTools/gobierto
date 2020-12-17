@@ -36,6 +36,7 @@ import { PlansFactoryMixin } from "./lib/factory";
 import { groupBy } from "./lib/helpers";
 import { PlansStore } from "./lib/store";
 import { Loading } from "lib/vue-components";
+import { routes } from "./lib/router";
 
 export default {
   name: "Main",
@@ -54,8 +55,8 @@ export default {
       isFetchingData: true,
       labelLoading: I18n.t("gobierto_plans.plan_types.show.loading") || "",
       tabs: [
-        { title: I18n.t("gobierto_plans.plan_types.show.plan") || "", name: "plan" },
-        { title: I18n.t("gobierto_plans.plan_types.show.dashboards") || "", name: "dashboards" },
+        { title: I18n.t("gobierto_plans.plan_types.show.plan") || "", name: routes.PLAN },
+        { title: I18n.t("gobierto_plans.plan_types.show.dashboards") || "", name: routes.DASHBOARDS },
       ]
     };
   },

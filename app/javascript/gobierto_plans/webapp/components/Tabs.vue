@@ -15,7 +15,10 @@
     </nav>
 
     <template v-for="(_, i) in tabs">
-      <slot :name="`tab-${i}`" />
+      <slot
+        v-if="activeTab === i"
+        :name="`tab-${i}`"
+      />
     </template>
   </div>
 </template>
@@ -31,8 +34,8 @@ export default {
   },
   computed: {
     activeTab() {
-      const { name: current } = this.$route
-      return this.tabs.findIndex(({ name }) => name === current)
+      const { name: current, meta: { tab } } = this.$route
+      return this.tabs.findIndex(({ name }) => [current, tab].includes(name))
     }
   }
 };

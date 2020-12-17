@@ -26,6 +26,7 @@
 <script>
 import { GOBIERTO_DASHBOARDS } from "lib/events";
 import { Loading } from "lib/vue-components";
+import { routes } from "../lib/router";
 
 export default {
   name: "DashboardsTab",
@@ -47,7 +48,6 @@ export default {
     }
   },
   mounted() {
-    console.log('hey');
     // Ask for the dashboard-viewer
     const event = new Event(GOBIERTO_DASHBOARDS.LOAD)
     document.dispatchEvent(event)
@@ -65,9 +65,7 @@ export default {
       this.isLoading = false
     },
     dashboardViewerSelected({ detail }) {
-      if (detail) {
-        this.$router.push({ name: "dashboards", params: { ...this.$route.params, dashboardid: detail.id } })
-      }
+      this.$router.push({ name: routes.DASHBOARDS, params: { ...this.$route.params, dashboardId: detail?.id } })
     },
   }
 };

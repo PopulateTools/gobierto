@@ -44,7 +44,7 @@ export default {
     return {
       dashboards: [],
       currentDashboard: null,
-      backLabel: I18n.t("gobierto_dashboards.back") | ""
+      backLabel: I18n.t("gobierto_dashboards.back") || ""
     }
   },
   computed: {
@@ -69,10 +69,10 @@ export default {
     ({ data: this.dashboards } = await this.getDashboards({ context: this.context, data_pipe: this.pipe }))
 
     if (this.id) {
-      this.currentDashboard = this.dashboards.find(({ id }) => id === this.id)
+      this.currentDashboard = this.dashboards.find(({ id }) => id === +this.id)
     }
 
-    // Emit to his parent, if any
+    // Emit to his parent, if there was any
     this.$emit(GOBIERTO_DASHBOARDS.LOADED, this.dashboards)
     // Otherwise, dispatch a general event (CustomEvent in order to send payload)
     const event = new CustomEvent(GOBIERTO_DASHBOARDS.LOADED, { detail: this.dashboards })
@@ -81,9 +81,9 @@ export default {
   methods: {
     handleClick(uid) {
       // if uid is null, no selected dashboard, i.e. show the list
-      this.currentDashboard = this.dashboards.find(({ id }) => id === uid)
+      this.currentDashboard = this.dashboards.find(({ id }) => id === +uid)
 
-      // Emit to his parent, if any
+      // Emit to his parent, if there was any
       this.$emit(GOBIERTO_DASHBOARDS.SELECTED, this.currentDashboard)
       // Otherwise, dispatch a general event (CustomEvent in order to send payload)
       const event = new CustomEvent(GOBIERTO_DASHBOARDS.SELECTED, { detail: this.currentDashboard })

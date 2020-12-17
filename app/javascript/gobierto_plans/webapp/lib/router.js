@@ -5,7 +5,6 @@ Vue.use(VueRouter);
 
 const Main = () => import("../Main.vue");
 const Plan = () => import("../pages/Plan.vue");
-const PlanB = () => import("../pages/PlanB.vue");
 const Categories = () => import("../pages/Categories.vue");
 const Projects = () => import("../pages/Projects.vue");
 const Groups = () => import("../pages/Groups.vue");
@@ -13,6 +12,16 @@ const GroupsByTerm = () => import("../pages/GroupsByTerm.vue");
 const ProjectsByTerm = () => import("../pages/ProjectsByTerm.vue");
 const PlanTab = () => import("../pages/PlanTab.vue");
 const DashboardsTab = () => import("../pages/DashboardsTab.vue");
+
+// routes enumeration names
+export const routes = {
+  PLAN: "plan",
+  CATEGORIES: "categories",
+  PROJECTS: "projects",
+  TABLE: "table",
+  TERM: "term",
+  DASHBOARDS: "dashboards"
+}
 
 // https://router.vuejs.org/guide/essentials/nested-routes.html
 export const router = new VueRouter({
@@ -29,24 +38,30 @@ export const router = new VueRouter({
           children: [
             {
               path: "/",
-              component: PlanB,
-              children: [
-                {
-                  path: "/",
-                  name: "plan",
-                  component: Plan
-                },
-                {
-                  path: "categoria/:id",
-                  name: "categories",
-                  component: Categories
-                },
-                {
-                  path: "proyecto/:id",
-                  name: "projects",
-                  component: Projects
-                }
-              ]
+              name: routes.PLAN,
+              component: Plan,
+              meta: {
+                tab: routes.PLAN,
+                button: routes.PLAN
+              }
+            },
+            {
+              path: "categoria/:id",
+              name: routes.CATEGORIES,
+              component: Categories,
+              meta: {
+                tab: routes.PLAN,
+                button: routes.PLAN
+              }
+            },
+            {
+              path: "proyecto/:id",
+              name: routes.PROJECTS,
+              component: Projects,
+              meta: {
+                tab: routes.PLAN,
+                button: routes.PLAN
+              }
             },
             {
               path: "tabla/:id",
@@ -54,13 +69,19 @@ export const router = new VueRouter({
               children: [
                 {
                   path: "/",
-                  name: "table",
-                  component: GroupsByTerm
+                  name: routes.TABLE,
+                  component: GroupsByTerm,
+                  meta: {
+                    tab: routes.PLAN
+                  }
                 },
                 {
                   path: ":term",
-                  name: "term",
-                  component: ProjectsByTerm
+                  name: routes.TERM,
+                  component: ProjectsByTerm,
+                  meta: {
+                    tab: routes.PLAN
+                  }
                 },
               ]
             }
@@ -68,7 +89,7 @@ export const router = new VueRouter({
         },
         {
           path: "dashboards/:dashboardId?",
-          name: "dashboards",
+          name: routes.DASHBOARDS,
           component: DashboardsTab
         }
       ]

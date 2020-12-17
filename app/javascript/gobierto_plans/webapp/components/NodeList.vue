@@ -26,6 +26,7 @@
 <script>
 import { percent } from "lib/shared";
 import { PlansFactoryMixin } from "../lib/factory";
+import { routes } from "../lib/router";
 
 export default {
   name: "NodeList",
@@ -61,7 +62,7 @@ export default {
       const { id, level } = this.model;
 
       if (level !== this.maxCategoryLevel) {
-        this.$router.push({ path: `${this.$root.$data.baseurl}/categoria/${id}` })
+        this.$router.push({ name: routes.CATEGORIES, params: { ...this.$route.params, id } })
       } else {
         this.$emit("toggle");
         this.isOpen = !this.isOpen;

@@ -33,11 +33,11 @@ export const router = new VueRouter({
       component: Main,
       children: [
         {
-          path: "/",
+          path: "",
           component: PlanTab,
           children: [
             {
-              path: "/",
+              path: "",
               name: routes.PLAN,
               component: Plan,
               meta: {

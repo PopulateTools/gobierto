@@ -104,7 +104,6 @@
   .treemap-nested-container-text,
   .foreignobj {
     color: var(--white);
-    padding: 12px;
     cursor: pointer;
     overflow: none;
 
@@ -130,6 +129,7 @@
     height: 100%;
     position: relative;
     z-index: 1;
+    padding: 12px;
 
     &.hide-text {
       .title,

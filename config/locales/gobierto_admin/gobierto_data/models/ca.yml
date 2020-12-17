@@ -21,3 +21,9 @@ ca:
               invalid_connection: 'No es pot connectar amb les dades de configuració.
                 Missatge d''error: "%{error_message}"'
               invalid_format: La configuració no té un format JSON vàlid
+        gobierto_data/dataset_form:
+          attributes:
+            data_file:
+              no_file_included: L'arxiu no s'ha pogut carregar. Si us plau, revisa
+                la petició i assegura't que el contingut de l'arxiu s'hagi inclòs
+                en ella

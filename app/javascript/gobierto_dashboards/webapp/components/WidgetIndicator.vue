@@ -102,7 +102,10 @@ export default {
   },
   methods: {
     handleSubmit({ target }) {
-      this.$emit("change", Object.fromEntries(new FormData(target)));
+      const config = Object.fromEntries(new FormData(target))
+      // assign the corresponding data
+      const data = this.widgetsData.find(({ name }) => name === config?.indicator)
+      this.$emit("change", { ...config, data });
     }
   }
 };

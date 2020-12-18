@@ -39,7 +39,7 @@
               :value="key"
               required
             >
-            <span>{{ name }}</span>
+            <span>{{ name() }}</span>
           </label>
         </template>
       </div>

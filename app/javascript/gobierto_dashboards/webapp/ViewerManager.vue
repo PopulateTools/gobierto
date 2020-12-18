@@ -24,6 +24,7 @@
 import Viewer from "./Viewer";
 import ListCard from "./components/ListCard";
 import { FactoryMixin } from "./lib/factories";
+import { GobiertoEvents } from "lib/shared"
 
 export default {
   name: "ViewerManager",
@@ -60,11 +61,22 @@ export default {
     } else {
       ({ data: this.dashboards } = await this.getDashboards({ context: this.context, data_pipe: this.pipe }))
     }
+
+    // Emit to his parent, if any
+    this.$emit(GobiertoEvents.DASHBOARD_LOADED, this.dashboards)
+    // Otherwise, dispatch a general event (CustomEvent in order to send payload)
+    const event = new CustomEvent(GobiertoEvents.DASHBOARD_LOADED, { detail: this.dashboards })
+    document.dispatchEvent(event)
   },
   methods: {
     handleClick(uid) {
       this.currentDashboard = this.dashboards.find(({ id }) => id === uid)
-      this.$emit('current-dashboard', this.currentDashboard)
+
+      // Emit to his parent, if any
+      this.$emit(GobiertoEvents.DASHBOARD_SELECTED, this.currentDashboard)
+      // Otherwise, dispatch a general event (CustomEvent in order to send payload)
+      const event = new CustomEvent(GobiertoEvents.DASHBOARD_SELECTED, { detail: this.currentDashboard })
+      document.dispatchEvent(event)
     }
   }
 };

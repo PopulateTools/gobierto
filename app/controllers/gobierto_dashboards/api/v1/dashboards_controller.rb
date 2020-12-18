@@ -32,6 +32,18 @@ module GobiertoDashboards
           )
         end
 
+        # GET /api/v1/dashboard/1/data
+        # GET /api/v1/dashboard/1/data.json
+        def data
+          find_item
+
+          render(
+            json: @item,
+            serializer: ::GobiertoDashboards::DashboardDataSerializer,
+            adapter: :json_api
+          )
+        end
+
         private
 
         def find_item

@@ -706,7 +706,11 @@ Rails.application.routes.draw do
         namespace :api do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true) do
             get "/dashboards" => "dashboards#index", as: :root
-            resources :dashboards, defaults: { format: "json" }
+            resources :dashboards, defaults: { format: "json" } do
+              member do
+                get :data, defaults: { format: "json" }
+              end
+            end
           end
         end
       end

@@ -129,28 +129,21 @@ export default {
           };
         }
       } else {
-//         const ix = this.configuration?.data?.attributes?.widget_configuration?.findIndex(({ i }) => i === this.item.i)
-//         const item = this.configuration?.data?.attributes?.widget_configuration[ix]
+        const { i, ix } = this.item
 
-//         const el = this.$refs.viewer.$children[0].$children[ix]
-//         const { top, left } = this.$refs.viewer.$el.getBoundingClientRect()
-
-// console.log(el);
-//         // el.dragging = { "top": this.y - top, "left": this.x - left };
-//         const { x, y } = el.calcXY(this.y - top, this.x - left);
-
-//         this.$refs.viewer.$children[0].dragEvent('dragstart', item.i, x, y, 1, 1);
-
-//         this.fakeItem = {
-//           i: item.i,
-//           x,
-//           y
-//         }
+        // https://jbaysolutions.github.io/vue-grid-layout/guide/10-drag-from-outside.html
+        const el = this.$refs.viewer.$children[0].$children[ix]
+        const { top, left } = this.$refs.viewer.$el.getBoundingClientRect()
+        el.dragging = { "top": this.y - top, "left": this.x - left };
+        const { x, y } = el.calcXY(this.y - top, this.x - left);
+        this.$refs.viewer.$refs.grid.dragEvent('dragstart', i, x, y, 1, 1);
       }
     },
     dragend() {
-      // this.$refs.viewer.$children[0].dragEvent('dragend', this.fakeItem.i, this.fakeItem.x, this.fakeItem.y, 1, 1);
+      const { i, x, y } = this.item
+      this.$refs.viewer.$refs.grid.dragEvent('dragend', i, x, y, 1, 1);
       this.item = null;
+      // Hay que comunicar al grid que sus widgets se han actualizado
     },
     setConfiguration(attr, value) {
       if (!this.configuration) this.configuration = {}
@@ -168,6 +161,14 @@ export default {
     handleViewerUpdated(widgets) {
       if (this.viewerLoaded) {
         this.setConfiguration('widget_configuration', widgets)
+
+        // when dragging an external element to the canvas, this.item will exists
+        if (this.item) {
+          const ix = widgets.findIndex(d => d.i === this.item.i)
+          this.item = { ...this.item, ...widgets[ix], ix }
+        }
+        // DEBUG
+          this.widgets = widgets
       }
     },
     handleViewerReady() {

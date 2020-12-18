@@ -84,7 +84,7 @@ export default {
       if (this.edit) {
         this.edit = false
       }
-    }
+    },
   }
 };
 </script>

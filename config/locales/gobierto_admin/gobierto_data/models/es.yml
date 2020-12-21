@@ -23,3 +23,9 @@ es:
               invalid_connection: 'No se puede conectar con los datos de configuración.
                 Mensaje de error: "%{error_message}"'
               invalid_format: La configuración no tiene un formato JSON válido
+        gobierto_data/dataset_form:
+          attributes:
+            data_file:
+              no_file_included: El archivo no se ha podido cargar. Por favor, revisa
+                la petición y asegúrate de que el contenido del archivo se haya incluido
+                en ella

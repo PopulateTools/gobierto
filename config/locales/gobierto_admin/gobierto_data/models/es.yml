@@ -7,8 +7,8 @@ es:
         slug: Slug
         table_name: Nombre de la tabla
       gobierto_admin/gobierto_data/settings_form:
-        api_settings_max_dataset_size_for_queries: Tamaño máximo de dataset sin limitar
-          el número de resultados de las consultas (MB)
+        api_settings_max_dataset_size_for_queries: Máximo tamaño de datasets sin limitar
+          la vista previa (MB)
         db_config: Configuración de la conexión a la base de datos
         frontend_enabled: Interfaz pública visible
     errors:

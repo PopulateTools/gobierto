@@ -310,11 +310,7 @@ export default {
             let valueColor
             if (scaleColor) {
               const { depth } = d
-              if (depth === 2) {
-                valueColor = d.color = this.colors(d.parent.data.name)
-              } else if (depth === 3) {
-                valueColor = d.color = this.colors(d.data.children[0].contractor)
-              }
+              valueColor = depth === 2 ? d.color = d.color = this.colors(d.parent.data.name) : depth === 3 || depth === 4 ? d.color = this.colors(d.data.children[0].contractor) : ''
             } else {
               valueColor = '#12365b'
             }
@@ -330,9 +326,9 @@ export default {
           .join('rect')
           .attr('class', 'children')
           .attr('fill', d => {
-            if (scaleColor) {
+             if (scaleColor) {
               const { depth } = d
-              const valueColor = depth === 1 ? d.color = this.colors(d.data.name) : d.color = this.colors(d.parent.data.name)
+              const valueColor = depth === 1 ? d.color = this.colors(d.data.name) : depth === 2 ? d.color = this.colors(d.parent.data.name) : ''
               return valueColor
             } else {
               return '#12365b'
@@ -385,6 +381,96 @@ export default {
             return htmlTreeMap
           })
           .attr('class', 'treemap-nested-container-text')
+
+        g.selectAll('.treemap-nested-container-text')
+          .attr('class', function(d) {
+            const element = this
+            const { depth } = d
+            //y1 - y0 returns the height of the rect, if it's less than the 100 hide the text
+            if (depth === 1 && element.clientHeight < 100 || element.clientWidth < 100) {
+              return 'treemap-nested-container-text hide-text'
+            } else if (depth === 1 && element.clientHeight < 100 || element.clientWidth < 100) {
+              return 'treemap-nested-container-text hide-text'
+            } else if (depth === 3) {
+              let contractType = d.data.contract_type || ''
+              //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
+              contractType = normalizeString(contractType)
+              return `treemap-nested-container-text ${contractType}`
+            }
+            return 'treemap-nested-container-text'
+          })
+
+        g.selectAll(".foreignobj")
+          .on('mousemove', (d, i, event) => {
+            this.$emit('showTooltip', d, i, selected_size, event)
+          })
+          .on('mouseout', function() {
+            tooltipSecondDepth
+              .style("opacity", 1)
+              .transition()
+              .duration(200)
+              .style("opacity", 0)
+              .style("display", "none")
+
+            tooltipFirstDepth
+              .style("opacity", 1)
+              .transition()
+              .duration(200)
+              .style("opacity", 0)
+              .style("display", "none")
+          })
+
+        function transition(d) {
+          if (transitioning || !d) return;
+          transitioning = true;
+          const g2 = display(d);
+          const t1 = g1.transition().duration(450).ease(d3.easeLinear);
+          const t2 = g2.transition().duration(450).ease(d3.easeLinear);
+          // Update the domain only after entering new elements.
+          x.domain([d.x0, d.x1]);
+          y.domain([d.y0, d.y1]);
+          // Enable anti-aliasing during the transition.
+          svg.style("shape-rendering", null);
+          // Draw child nodes on top of parent nodes.
+          svg.selectAll(".depth").sort((a, b) => a.depth - b.depth);
+          // Fade-in entering text.
+          g2.selectAll("text").style("fill-opacity", 0);
+          g2.selectAll("foreignObject div").style("display", "none");
+          /*added*/
+          // Transition to the new view.
+          t1.selectAll("text").call(text).style("fill-opacity", 0);
+          t2.selectAll("text").call(text).style("fill-opacity", 1);
+          t1.selectAll("rect").call(rect);
+          t2.selectAll("rect").call(rect);
+          /* Foreign object */
+          t1.selectAll(".treemap-nested-container-text").style("display", "none");
+          /* added */
+          t1.selectAll(".foreignobj").call(foreign);
+          /* added */
+          t2.selectAll(".treemap-nested-container-text").style("display", "block").attr('class', function(d) {
+            const { depth, x0, x1, y0, y1 } = d
+            //y1 - y0 returns the height of the rect, if it's less than the 100 hide the text
+            if (depth === 1 && (y(y1) - y(y0)) < 100 || (x(x1) - x(x0)) < 100) {
+              return 'treemap-nested-container-text hide-text'
+            } else if (depth === 1 && (y(y1) - y(y0)) < 100 || (x(x1) - x(x0)) < 150) {
+              return 'treemap-nested-container-text hide-text'
+            } else if (depth === 3) {
+              let contractType = d.data.contract_type || ''
+              //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
+              contractType = normalizeString(contractType)
+              return `treemap-nested-container-text ${contractType}`
+            }
+            return 'treemap-nested-container-text'
+          });
+          /* added */
+          t2.selectAll(".foreignobj").call(foreign);
+          /* added */
+          // Remove the old node when the transition is finished.
+          t1.on("end.remove", function() {
+            this.remove();
+            transitioning = false;
+          });
+        }
 
         function treeMapTwoDepth(d) {
           /*We can changes the text content of every rect with d.depth
@@ -561,95 +647,6 @@ export default {
           return htmlForRect
         }
 
-        g.selectAll('.treemap-nested-container-text')
-          .attr('class', function(d) {
-            const element = this
-            const { depth } = d
-            //y1 - y0 returns the height of the rect, if it's less than the 100 hide the text
-            if (depth === 1 && element.clientHeight < 100 || element.clientWidth < 100) {
-              return 'treemap-nested-container-text hide-text'
-            } else if (depth === 1 && element.clientHeight < 100 || element.clientWidth < 100) {
-              return 'treemap-nested-container-text hide-text'
-            } else if (depth === 3) {
-              let contractType = d.data.contract_type || ''
-              //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
-              contractType = normalizeString(contractType)
-              return `treemap-nested-container-text ${contractType}`
-            }
-            return 'treemap-nested-container-text'
-          })
-
-        g.selectAll(".foreignobj")
-          .on('mousemove', (d, i, event) => {
-            this.$emit('showTooltip', d, i, selected_size, event)
-          })
-          .on('mouseout', function() {
-            tooltipSecondDepth
-              .style("opacity", 1)
-              .transition()
-              .duration(200)
-              .style("opacity", 0)
-              .style("display", "none")
-
-            tooltipFirstDepth
-              .style("opacity", 1)
-              .transition()
-              .duration(200)
-              .style("opacity", 0)
-              .style("display", "none")
-          })
-
-        function transition(d) {
-          if (transitioning || !d) return;
-          transitioning = true;
-          const g2 = display(d);
-          const t1 = g1.transition().duration(450).ease(d3.easeLinear);
-          const t2 = g2.transition().duration(450).ease(d3.easeLinear);
-          // Update the domain only after entering new elements.
-          x.domain([d.x0, d.x1]);
-          y.domain([d.y0, d.y1]);
-          // Enable anti-aliasing during the transition.
-          svg.style("shape-rendering", null);
-          // Draw child nodes on top of parent nodes.
-          svg.selectAll(".depth").sort((a, b) => a.depth - b.depth);
-          // Fade-in entering text.
-          g2.selectAll("text").style("fill-opacity", 0);
-          g2.selectAll("foreignObject div").style("display", "none");
-          /*added*/
-          // Transition to the new view.
-          t1.selectAll("text").call(text).style("fill-opacity", 0);
-          t2.selectAll("text").call(text).style("fill-opacity", 1);
-          t1.selectAll("rect").call(rect);
-          t2.selectAll("rect").call(rect);
-          /* Foreign object */
-          t1.selectAll(".treemap-nested-container-text").style("display", "none");
-          /* added */
-          t1.selectAll(".foreignobj").call(foreign);
-          /* added */
-          t2.selectAll(".treemap-nested-container-text").style("display", "block").attr('class', function(d) {
-            const { depth, x0, x1, y0, y1 } = d
-            //y1 - y0 returns the height of the rect, if it's less than the 100 hide the text
-            if (depth === 1 && (y(y1) - y(y0)) < 100 || (x(x1) - x(x0)) < 100) {
-              return 'treemap-nested-container-text hide-text'
-            } else if (depth === 1 && (y(y1) - y(y0)) < 100 || (x(x1) - x(x0)) < 150) {
-              return 'treemap-nested-container-text hide-text'
-            } else if (depth === 3) {
-              let contractType = d.data.contract_type || ''
-              //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
-              contractType = normalizeString(contractType)
-              return `treemap-nested-container-text ${contractType}`
-            }
-            return 'treemap-nested-container-text'
-          });
-          /* added */
-          t2.selectAll(".foreignobj").call(foreign);
-          /* added */
-          // Remove the old node when the transition is finished.
-          t1.on("end.remove", function() {
-            this.remove();
-            transitioning = false;
-          });
-        }
         return g;
       }
 

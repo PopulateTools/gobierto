@@ -59,12 +59,15 @@ export default {
       firstDepthForTreemap: '',
       secondDepthForTreemap: '',
       thirdDepthForTreemap: '',
-      scaleColorKey: 'contractor'
+      scaleColorKey: 'contractor',
+      contractorArray: []
     }
+  },
+  mounted() {
+    this.contractorArray = [...new Set(this.data.map(item => item.contractor))];
   },
   methods: {
     nestedData(data, sizeForTreemap) {
-      let contractorArray = [...new Set(this.data.map(item => item.contractor))];
       let dataFilter = data
       dataFilter.filter(contract => contract.final_amount_no_taxes !== 0)
       dataFilter.forEach(d => {
@@ -76,7 +79,7 @@ export default {
       //   d3.group(data, d =>  d.contract_type, d.assignee),
       // );
       let nested_data
-      if (contractorArray.length === 1) {
+      if (this.contractorArray.length === 1) {
         this.labelRootKey = this.labelRootKeyContractType
         this.deepLevel = 3
         this.scaleColorKey = 'contract_type'

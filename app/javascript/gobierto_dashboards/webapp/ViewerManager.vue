@@ -24,7 +24,7 @@
 import Viewer from "./Viewer";
 import ListCard from "./components/ListCard";
 import { FactoryMixin } from "./lib/factories";
-import { GobiertoEvents } from "lib/shared"
+import { GOBIERTO_DASHBOARDS } from "lib/events"
 
 export default {
   name: "ViewerManager",
@@ -63,9 +63,9 @@ export default {
     }
 
     // Emit to his parent, if any
-    this.$emit(GobiertoEvents.DASHBOARD_LOADED, this.dashboards)
+    this.$emit(GOBIERTO_DASHBOARDS.LOADED, this.dashboards)
     // Otherwise, dispatch a general event (CustomEvent in order to send payload)
-    const event = new CustomEvent(GobiertoEvents.DASHBOARD_LOADED, { detail: this.dashboards })
+    const event = new CustomEvent(GOBIERTO_DASHBOARDS.LOADED, { detail: this.dashboards })
     document.dispatchEvent(event)
   },
   methods: {
@@ -73,9 +73,9 @@ export default {
       this.currentDashboard = this.dashboards.find(({ id }) => id === uid)
 
       // Emit to his parent, if any
-      this.$emit(GobiertoEvents.DASHBOARD_SELECTED, this.currentDashboard)
+      this.$emit(GOBIERTO_DASHBOARDS.SELECTED, this.currentDashboard)
       // Otherwise, dispatch a general event (CustomEvent in order to send payload)
-      const event = new CustomEvent(GobiertoEvents.DASHBOARD_SELECTED, { detail: this.currentDashboard })
+      const event = new CustomEvent(GOBIERTO_DASHBOARDS.SELECTED, { detail: this.currentDashboard })
       document.dispatchEvent(event)
     }
   }

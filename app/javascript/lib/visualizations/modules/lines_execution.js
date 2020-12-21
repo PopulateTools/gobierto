@@ -15,6 +15,7 @@ import { mouse, select, selectAll } from "d3-selection";
 import { timeFormat, timeFormatDefaultLocale, timeParse } from "d3-time-format";
 import { transition } from "d3-transition";
 import { accounting, d3locale } from "lib/shared";
+import { GOBIERTO_BUDGETS } from 'lib/events'
 
 const d3 = {
   select,
@@ -102,10 +103,10 @@ export class VisLinesExecution {
 
       var event;
       if (typeof Event === "function") {
-        event = new Event("chartloaded");
+        event = new Event(GOBIERTO_BUDGETS.LOADED);
       } else {
         event = document.createEvent("Event");
-        event.initEvent("chartloaded", true, true);
+        event.initEvent(GOBIERTO_BUDGETS.LOADED, true, true);
       }
 
       window.dispatchEvent(event);

@@ -1,4 +1,4 @@
-import { GobiertoEvents } from "lib/shared"
+import { GOBIERTO_DASHBOARDS } from "lib/events"
 import { GobiertoDashboardMakerController } from "./modules/dashboard_maker_controller.js";
 import { GobiertoDashboardViewerController } from "./modules/dashboard_viewer_controller.js";
 
@@ -22,5 +22,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // create elements on custom-events
-document.addEventListener(GobiertoEvents.CREATE_DASHBOARD_EVENT, () => create(makerSelector, GobiertoDashboardMakerController))
-document.addEventListener(GobiertoEvents.LOAD_DASHBOARD_EVENT, () => create(dashboardSelector, GobiertoDashboardViewerController))
+document.addEventListener(GOBIERTO_DASHBOARDS.CREATE, () => create(makerSelector, GobiertoDashboardMakerController))
+document.addEventListener(GOBIERTO_DASHBOARDS.LOAD, () => create(dashboardSelector, GobiertoDashboardViewerController))

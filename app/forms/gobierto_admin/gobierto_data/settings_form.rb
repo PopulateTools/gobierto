@@ -105,6 +105,7 @@ module GobiertoAdmin
 
         if @gobierto_module_settings.save
           true
+          touch_datasets
         else
           promote_errors(@gobierto_module_settings.errors)
           false
@@ -116,6 +117,10 @@ module GobiertoAdmin
         return config if config.blank?
 
         config.has_key?(:read_db_config) ? config.slice(:read_db_config, :read_draft_db_config, :write_db_config) : { read_db_config: config }
+      end
+
+      def touch_datasets
+        site.datasets.each(&:touch)
       end
 
     end

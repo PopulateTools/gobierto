@@ -116,11 +116,13 @@ export default {
       this.dirty = false
     },
     dragoverPosition({ clientX, clientY }) {
+      // current mouse position
       this.x = clientX
       this.y = clientY
     },
     drag(key) {
       if (!this.item) {
+        // If no item, it means a new item is being dragged
         const match = this.cards[key];
         if (match) {
           this.item = {
@@ -129,21 +131,28 @@ export default {
           };
         }
       } else {
-        const { i, ix } = this.item
+        // If there is item while dragging, you've to update the current positions
+        const { i, ix, x: oldX, y: oldY } = this.item
 
         // https://jbaysolutions.github.io/vue-grid-layout/guide/10-drag-from-outside.html
-        const el = this.$refs.viewer.$children[0].$children[ix]
+        // this block has been copied and adapted from the library example (quite a botch)
+        const el = this.$refs.viewer.$refs.widget[ix].$refs.item
         const { top, left } = this.$refs.viewer.$el.getBoundingClientRect()
         el.dragging = { "top": this.y - top, "left": this.x - left };
         const { x, y } = el.calcXY(this.y - top, this.x - left);
         this.$refs.viewer.$refs.grid.dragEvent('dragstart', i, x, y, 1, 1);
+
+        // finally, update the item after its calculations, if changes
+        if (x !== oldX || y !== oldY) {
+          this.item = { ...this.item, x, y }
+        }
       }
     },
     dragend() {
       const { i, x, y } = this.item
       this.$refs.viewer.$refs.grid.dragEvent('dragend', i, x, y, 1, 1);
+      // once the drag event finishes, nullish the item
       this.item = null;
-      // Hay que comunicar al grid que sus widgets se han actualizado
     },
     setConfiguration(attr, value) {
       if (!this.configuration) this.configuration = {}

@@ -1,5 +1,6 @@
 <template>
   <GridItem
+    ref="item"
     :x="x"
     :y="y"
     :w="w"

@@ -18,8 +18,8 @@
   >
     <Widget
       v-for="widget in widgets"
+      ref="widget"
       :key="widget.i"
-      ref="item"
       :edition-mode="isEditionMode"
       v-bind="{ ...widget, widgetsData }"
       @change="handleWidgetChange"

@@ -344,7 +344,7 @@ module GobiertoData
             get meta_gobierto_data_api_v1_dataset_path(small_dataset.slug), as: :json
             small_dataset_response_data = response.parsed_body
 
-            assert_equal api_settings["default_limit_for_queries"], big_dataset_response_data["data"]["attributes"]["default_limit"]
+            assert_equal 50, big_dataset_response_data["data"]["attributes"]["default_limit"]
             assert_nil small_dataset_response_data["data"]["attributes"]["default_limit"]
 
             assert_equal 15, big_dataset_response_data["data"]["attributes"]["size"]["csv"]

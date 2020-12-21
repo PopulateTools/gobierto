@@ -7,8 +7,6 @@ ca:
         slug: Slug
         table_name: Nom de la taula
       gobierto_admin/gobierto_data/settings_form:
-        api_settings_default_limit_for_queries: Límit per defecte per a les queries
-          sobre datasets que excedeixen la mida màxima
         api_settings_max_dataset_size_for_queries: Mida màxima de dataset sense limitar
           el nombre de resutlados de les consultes (MB)
         db_config: Configuració de la connexió a la base de dades

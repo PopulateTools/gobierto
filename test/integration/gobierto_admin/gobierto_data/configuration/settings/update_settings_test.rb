@@ -99,9 +99,7 @@ module GobiertoAdmin
             with(site: site, admin: admin) do
               visit @path
 
-              assert has_checked_field? "gobierto_data_settings_api_settings_exposed_in_public_api"
               assert has_field? "gobierto_data_settings_api_settings_max_dataset_size_for_queries", with: 0
-              assert has_field? "gobierto_data_settings_api_settings_default_limit_for_queries", with: 50
             end
           end
 
@@ -110,14 +108,8 @@ module GobiertoAdmin
               visit @path
 
               fill_in "gobierto_data_settings_api_settings_max_dataset_size_for_queries", with: 100
-              fill_in "gobierto_data_settings_api_settings_default_limit_for_queries", with: 250
               click_button "Update"
-
-              visit gobierto_common_api_v1_configuration_path("gobierto_data")
-
-              response = JSON.parse(page.text)
-              assert_equal 100, response.dig("api_settings", "max_dataset_size_for_queries")
-              assert_equal 250, response.dig("api_settings", "default_limit_for_queries")
+              assert has_field? "gobierto_data_settings_api_settings_max_dataset_size_for_queries", with: 100
             end
           end
         end

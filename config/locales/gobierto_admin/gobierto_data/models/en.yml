@@ -7,8 +7,6 @@ en:
         slug: Slug
         table_name: Table name
       gobierto_admin/gobierto_data/settings_form:
-        api_settings_default_limit_for_queries: Default limit for queries on datasets
-          bigger than the maximum dataset size
         api_settings_max_dataset_size_for_queries: Maximum dataset size to not use
           default limit on queries (MB)
         db_config: Database connection configuration

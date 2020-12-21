@@ -40,7 +40,7 @@
             v-for="({ name }, key) in cards"
             :key="key"
             :name="name()"
-            @drag.native="drag(key, $event)"
+            @drag.native="debounce(drag(key, $event), 1000)"
             @dragend.native="dragend"
           />
         </Aside>
@@ -77,7 +77,7 @@ export default {
     Main,
     Aside,
     SmallCard,
-    TextEditable,
+    TextEditable
   },
   mixins: [FactoryMixin],
   data() {
@@ -87,7 +87,7 @@ export default {
       item: null,
       configuration: null,
       viewerLoaded: false,
-      publicLabel: I18n.t("gobierto_dashboards.public") || "",
+      publicLabel: I18n.t("gobierto_dashboards.public") || ""
     };
   },
   computed: {
@@ -95,30 +95,46 @@ export default {
       return this.$root.$data?.id;
     },
     title() {
-      return this.configuration?.attributes?.title || I18n.t("gobierto_dashboards.default_title") || "";
+      return (
+        this.configuration?.attributes?.title ||
+        I18n.t("gobierto_dashboards.default_title") ||
+        ""
+      );
     },
     status() {
       return this.configuration?.attributes?.visibility_level === "active";
-    },
+    }
   },
   created() {
     this.getConfiguration();
   },
   mounted() {
-    document.addEventListener('dragover', this.dragoverPosition)
+    document.addEventListener("dragover", this.dragoverPosition);
   },
   destroyed() {
-    document.removeEventListener('dragover', this.dragoverPosition)
+    document.removeEventListener("dragover", this.dragoverPosition);
   },
   methods: {
     async getConfiguration() {
-      ({ data: this.configuration } = this.id ? await this.getDashboard(this.id) : { data: {} });
-      this.dirty = false
+      ({ data: this.configuration } = this.id
+        ? await this.getDashboard(this.id)
+        : { data: {} });
+      this.dirty = false;
     },
     dragoverPosition({ clientX, clientY }) {
       // current mouse position
-      this.x = clientX
-      this.y = clientY
+      this.x = clientX;
+      this.y = clientY;
+    },
+    debounce(func, timeout) {
+      let timer = undefined;
+      return (...args) => {
+        const next = () => func(...args);
+        if (timer) {
+          clearTimeout(timer);
+        }
+        timer = setTimeout(next, timeout > 0 ? timeout : 300);
+      };
     },
     drag(key) {
       if (!this.item) {
@@ -126,62 +142,67 @@ export default {
         const match = this.cards[key];
         if (match) {
           this.item = {
-            i: `${key}-${Math.random().toString(36).substring(7)}`,
+            i: `${key}-${Math.random()
+              .toString(36)
+              .substring(7)}`,
             ...match
           };
         }
       } else {
         // If there is item while dragging, you've to update the current positions
-        const { i, ix, x: oldX, y: oldY } = this.item
+        const { i, ix, x: oldX, y: oldY } = this.item;
 
         // https://jbaysolutions.github.io/vue-grid-layout/guide/10-drag-from-outside.html
         // this block has been copied and adapted from the library example (quite a botch)
-        const el = this.$refs.viewer.$refs.widget[ix].$refs.item
-        const { top, left } = this.$refs.viewer.$el.getBoundingClientRect()
-        el.dragging = { "top": this.y - top, "left": this.x - left };
+        const el = this.$refs.viewer.$refs.widget[ix].$refs.item;
+        const { top, left } = this.$refs.viewer.$el.getBoundingClientRect();
+        el.dragging = { top: this.y - top, left: this.x - left };
         const { x, y } = el.calcXY(this.y - top, this.x - left);
-        this.$refs.viewer.$refs.grid.dragEvent('dragstart', i, x, y, 1, 1);
+        this.$refs.viewer.$refs.grid.dragEvent("dragstart", i, x, y, 1, 1);
 
         // finally, update the item after its calculations, if changes
         if (x !== oldX || y !== oldY) {
-          this.item = { ...this.item, x, y }
+          this.item = { ...this.item, x, y };
         }
       }
     },
     dragend() {
-      const { i, x, y } = this.item
-      this.$refs.viewer.$refs.grid.dragEvent('dragend', i, x, y, 1, 1);
+      const { i, x, y } = this.item;
+      this.$refs.viewer.$refs.grid.dragEvent("dragend", i, x, y, 1, 1);
       // once the drag event finishes, nullish the item
       this.item = null;
     },
     setConfiguration(attr, value) {
-      if (!this.configuration) this.configuration = {}
-      if (!this.configuration.attributes) this.configuration.attributes = {}
+      if (!this.configuration) this.configuration = {};
+      if (!this.configuration.attributes) this.configuration.attributes = {};
 
-      this.configuration.attributes[attr] = value
-      this.dirty = true
+      this.configuration.attributes[attr] = value;
+      this.dirty = true;
     },
     handleInputStatus({ target }) {
-      this.setConfiguration('visibility_level', target.checked ? "active" : "draft")
+      this.setConfiguration(
+        "visibility_level",
+        target.checked ? "active" : "draft"
+      );
     },
     handleInputTitle(title) {
-      this.setConfiguration('title', title)
+      this.setConfiguration("title", title);
     },
     handleViewerUpdated(widgets) {
       if (this.viewerLoaded) {
-        this.setConfiguration('widget_configuration', widgets)
+        this.setConfiguration("widget_configuration", widgets);
 
         // when dragging an external element to the canvas, this.item will exists
         if (this.item) {
-          const ix = widgets.findIndex(d => d.i === this.item.i)
-          this.item = { ...this.item, ...widgets[ix], ix }
+          const ix = widgets.findIndex(d => d.i === this.item.i);
+          this.item = { ...this.item, ...widgets[ix], ix };
         }
         // DEBUG
-          this.widgets = widgets
+        this.widgets = widgets;
       }
     },
     handleViewerReady() {
-      this.viewerLoaded = true
+      this.viewerLoaded = true;
     },
     handleSave() {
       this.id

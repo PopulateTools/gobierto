@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :stylesheet_link do %>
-  <%= stylesheet_pack_tag 'plans', 'data-turbolinks-track': true %>
+  <%= stylesheet_packs_with_chunks_tag 'plans', 'data-turbolinks-track': true %>
 <% end %>
 
 <% content_for :body_attributes  do %>

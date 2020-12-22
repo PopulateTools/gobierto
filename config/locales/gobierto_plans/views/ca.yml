@@ -30,11 +30,13 @@ ca:
       show:
         category: Categoria
         customize_columns: Personalitzeu columnes
+        dashboards: Dashboards
         desc: Descripció
         ends: Fi
         global_execution: Estat d'execució global
         latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
         loading: Carregant...
+        plan: Plan
         progress: Progrés
         read_less: Llegiu menys
         read_more: Llegiu més

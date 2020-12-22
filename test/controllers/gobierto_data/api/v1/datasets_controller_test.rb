@@ -47,6 +47,14 @@ module GobiertoData
           @datasets_category ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_category)
         end
 
+        def datasets_md_without_translations
+          @datasets_md_without_translations ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_md_without_translations)
+        end
+
+        def datasets_md_with_translations
+          @datasets_md_with_translations ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_md_with_translations)
+        end
+
         def other_site_dataset
           @other_site_dataset ||= gobierto_data_datasets(:santander_dataset)
         end
@@ -67,7 +75,9 @@ module GobiertoData
             dataset.table_name,
             dataset.data_updated_at.to_s,
             dataset.rails_model&.columns_hash&.transform_values(&:type)&.to_s,
-            GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_category)&.value_string
+            GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_category)&.value_string,
+            GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_md_without_translations)&.value_string,
+            GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_md_with_translations)&.value_string
           ]
         end
 
@@ -231,7 +241,7 @@ module GobiertoData
             parsed_csv = CSV.parse(response_data).map { |row| row.map(&:to_s) }
 
             assert_equal active_datasets_count + 1, parsed_csv.count
-            assert_equal %w(id name slug table_name data_updated_at columns category), parsed_csv.first
+            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations), parsed_csv.first
             assert_includes parsed_csv, array_data(dataset)
             refute_includes parsed_csv, array_data(other_site_dataset)
           end
@@ -265,7 +275,7 @@ module GobiertoData
             assert_equal 1, parsed_xlsx.worksheets.count
             sheet = parsed_xlsx.worksheets.first
             assert_nil sheet[active_datasets_count + 1]
-            assert_equal %w(id name slug table_name data_updated_at columns category), sheet[0].cells.map(&:value)
+            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations), sheet[0].cells.map(&:value)
             values = (1..active_datasets_count).map do |row_number|
               sheet[row_number].cells.map { |cell| cell.value.to_s }
             end
@@ -343,6 +353,25 @@ module GobiertoData
 
             assert File.exist? Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/datasets/#{dataset.id}.csv")
             delete_cached_files
+          end
+        end
+
+        def test_index_when_md_custom_field_changes_translations_availability
+          datasets_md_with_translations.update_attribute(:field_type, GobiertoCommon::CustomField.field_types[:paragraph])
+          datasets_md_without_translations.update_attribute(:field_type, GobiertoCommon::CustomField.field_types[:localized_paragraph])
+
+          with(site: site) do
+            get gobierto_data_api_v1_datasets_path(format: :csv), as: :csv
+
+            assert_response :success
+
+            response_data = response.parsed_body
+            parsed_csv = CSV.parse(response_data).map { |row| row.map(&:to_s) }
+
+            assert_equal active_datasets_count + 1, parsed_csv.count
+            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations), parsed_csv.first
+            assert_includes parsed_csv, array_data(dataset)
+            refute_includes parsed_csv, array_data(other_site_dataset)
           end
         end
 

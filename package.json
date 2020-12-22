@@ -76,9 +76,6 @@
     "sass-lint": "^1.13.1",
     "stylelint": "^13.8.0",
     "stylelint-config-recommended": "^3.0.0",
-    "stylelint-config-sass-guidelines": "^7.1.0",
-    "stylelint-config-standard": "^20.0.0",
-    "stylelint-scss": "^3.18.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.3.1"
@@ -87,7 +84,7 @@
     "jslint": "eslint $(git diff --name-status master | grep -E '.js$|.vue$' | cut -f 2)",
     "jslint:fix": "yarn run jslint --fix",
     "csslint": "sass-lint -v $(git diff --name-status master | grep -E '.s*(a|c)ss$' | cut -f 2)",
-    "stylelint": "stylelint '**/*.{css,scss}'",
+    "stylelint": "stylelint 'app/**/*.{css,scss}'",
     "pre_commit_i18n_check": "script/check_i18n.sh"
   },
   "husky": {

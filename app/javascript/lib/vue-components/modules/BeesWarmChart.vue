@@ -2,9 +2,9 @@
   <div class="beeswarm-container">
     <div class="beeswarm-tooltip" />
     <svg
-      class="beeswarm-plot"
       :width="svgWidth"
       :height="svgHeight"
+      class="beeswarm-plot"
     />
   </div>
 </template>

@@ -71,7 +71,7 @@ export default {
     $route(to) {
       if (to.name === "summary") {
         this.containerPagination = '.visualizations-home-main--table'
-      } else if (to.name === "contracts_index") {
+      } else if (to.name === "contracts_index" || to.name === 'subsidies_index') {
         this.containerPagination = 'main.visualizations-home-main'
       }
     }

@@ -197,7 +197,8 @@ export default {
   },
   computed: {
     checkFilterCategoryLength() {
-      return this.filters.filter(({ id }) => id === 'Categories')
+      const filterCategories = this.filters.filter(({ id }) => id === 'categories')
+      return filterCategories[0].options.length > 0 ? true : false
     }
   },
   created() {

@@ -160,6 +160,7 @@ es:
         subsidie: Subvención
         subsidies: Subvenciones
         subsidies_amount: Imp. Subvención
+        subsidies_total: Total Subvenciones
         summary:
           collective_subsidies_for: a colectivos por importe de
           individual_subsidies_for: a particulares por importe de

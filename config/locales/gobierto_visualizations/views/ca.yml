@@ -157,6 +157,7 @@ ca:
         subsidie: Subvencion
         subsidies: Subvencions
         subsidies_amount: Imp. Subvencion
+        subsidies_total: Total Subvencions
         summary:
           collective_subsidies_for: a col·lectius per import de
           individual_subsidies_for: a particulars per import de

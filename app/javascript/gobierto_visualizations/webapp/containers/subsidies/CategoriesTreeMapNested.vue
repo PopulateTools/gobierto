@@ -13,7 +13,7 @@
       :first-button-value="'amount'"
       :second-button-value="'number_of_contract'"
       :first-button-label="labelSubsidies"
-      :second-button-label="labelContractTotal"
+      :second-button-label="labelSubsidiesTotal"
       :label-total-plural="labelContractsPlural"
       :label-total-unique="labelContractsUnique"
       :key-for-third-depth="'call'"
@@ -45,6 +45,7 @@ export default {
     return {
       labelRootKey: I18n.t('gobierto_visualizations.visualizations.contracts.categories'),
       labelSubsidies: I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies_amount'),
+      labelSubsidiesTotal: I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies_total'),
       labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
       labelContractsPlural: I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies'),
       labelContractsUnique: I18n.t('gobierto_visualizations.visualizations.subsidies.subsidie'),

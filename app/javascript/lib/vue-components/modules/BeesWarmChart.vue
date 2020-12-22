@@ -16,9 +16,8 @@ import { axisBottom, axisLeft } from 'd3-axis';
 import { extent } from 'd3-array';
 import { timeParse, timeFormat, timeFormatLocale } from 'd3-time-format';
 import { min, max } from 'd3-array';
-import { d3locale, createScaleColors } from 'lib/shared';
+import { d3locale, createScaleColors, normalizeString } from 'lib/shared';
 import { easeLinear } from 'd3-ease';
-import { normalizeString } from "../../../gobierto_visualizations/webapp/lib/utils";
 
 const d3 = {
   select,

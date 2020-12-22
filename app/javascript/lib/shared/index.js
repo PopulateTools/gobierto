@@ -13,6 +13,7 @@ import "./modules/velocity_settings.js";
 import "./modules/shareContent.js";
 import "./modules/separate-tabs.js";
 import { createScaleColors } from "./modules/createScaleColors.js";
+import { normalizeString } from "./modules/normalizeString.js";
 import accounting from "accounting";
 import { SETTINGS } from "./modules/accounting_settings.js";
 accounting.settings = SETTINGS;
@@ -58,5 +59,6 @@ export {
   truncate,
   percent,
   VueDirectivesMixin,
-  clickoutside
+  clickoutside,
+  normalizeString
 };

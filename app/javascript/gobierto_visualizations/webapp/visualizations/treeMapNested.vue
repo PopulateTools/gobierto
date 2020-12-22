@@ -35,10 +35,10 @@ import { treemap, stratify, hierarchy, treemapBinary } from 'd3-hierarchy'
 import { scaleLinear, scaleOrdinal } from 'd3-scale'
 import { easeLinear } from 'd3-ease'
 import { interpolate } from 'd3-interpolate';
-import { sumDataByGroupKey, normalizeString } from "../lib/utils";
+import { sumDataByGroupKey } from "../lib/utils";
 import { mean, median } from "d3-array";
 import { nest } from "d3-collection";
-import { money, createScaleColors } from "lib/shared";
+import { money, createScaleColors, normalizeString } from "lib/shared";
 
 const d3 = { select, selectAll, treemap, stratify, scaleLinear, scaleOrdinal, mouse, easeLinear, mean, median, nest, hierarchy, treemapBinary, interpolate }
 
@@ -248,7 +248,7 @@ export default {
           .attr('class', 'children')
           .attr('fill', d => {
             const { depth, data: { name = '' }, parent: { data: { name: parentName = '' } } } = d
-            return depth === 1 ? d.color = colors(name) : d.color = colors(parentName)
+            return depth === 1 ? colors(name) : colors(parentName)
           })
           .on("click", transition);
 

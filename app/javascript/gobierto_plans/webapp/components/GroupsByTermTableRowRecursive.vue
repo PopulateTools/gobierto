@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { percent } from "lib/shared";
+import { percent } from "lib/vue/filters";
 import GroupsByTermTableRow from "../components/GroupsByTermTableRow";
 
 export default {

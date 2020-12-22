@@ -60,7 +60,8 @@
 </template>
 <script>
 import TableHeader from './TableHeader.vue'
-import { VueFiltersMixin } from "lib/shared"
+import { VueFiltersMixin } from "lib/vue/filters"
+
 export default {
   name: "TableFirstLevel",
   components: {

@@ -31,7 +31,7 @@ import { treemap, stratify } from 'd3-hierarchy'
 import { sumDataByGroupKey, normalizeString } from "../lib/utils";
 import { easeLinear } from 'd3-ease'
 import { mean, median } from "d3-array";
-import { money } from "lib/shared";
+import { money } from "lib/vue/filters";
 import { EventBus } from "../mixins/event_bus";
 
 const d3 = { select, selectAll, treemap, stratify, mouse, easeLinear, mean, median }

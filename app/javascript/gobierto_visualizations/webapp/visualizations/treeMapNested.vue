@@ -38,7 +38,7 @@ import { interpolate } from 'd3-interpolate';
 import { sumDataByGroupKey, normalizeString } from "../lib/utils";
 import { mean, median } from "d3-array";
 import { nest } from "d3-collection";
-import { money } from "lib/shared";
+import { money } from "lib/vue/filters";
 
 const d3 = { select, selectAll, treemap, stratify, scaleLinear, mouse, easeLinear, mean, median, nest, hierarchy, treemapBinary, interpolate }
 

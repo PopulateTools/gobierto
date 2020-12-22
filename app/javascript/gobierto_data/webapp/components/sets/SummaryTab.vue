@@ -118,7 +118,7 @@ import DownloadButton from "./../commons/DownloadButton.vue";
 import Button from "./../commons/Button.vue";
 import { tabs } from '../../../lib/router'
 import { Dropdown } from "lib/vue-components";
-import { translate } from "lib/shared"
+import { translate } from "lib/vue/filters"
 
 export default {
   name: "SummaryTab",

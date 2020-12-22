@@ -54,7 +54,7 @@
   </div>
 </template>
 <script>
-import { date, truncate } from "lib/shared"
+import { date, truncate } from "lib/vue/filters"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
 //Parse markdown to HTML
 const marked = require('marked');

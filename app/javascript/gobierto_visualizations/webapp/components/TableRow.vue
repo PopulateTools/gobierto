@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { money, truncate } from 'lib/shared'
+import { money, truncate } from "lib/vue/filters"
 
 export default {
   name: "TableRow",

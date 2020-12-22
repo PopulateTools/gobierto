@@ -10,6 +10,7 @@ const Projects = () => import("../pages/Projects.vue");
 const Groups = () => import("../pages/Groups.vue");
 const GroupsByTerm = () => import("../pages/GroupsByTerm.vue");
 const ProjectsByTerm = () => import("../pages/ProjectsByTerm.vue");
+const Dashboards = () => import("../pages/Dashboards.vue");
 
 // https://router.vuejs.org/guide/essentials/nested-routes.html
 export const router = new VueRouter({
@@ -51,8 +52,13 @@ export const router = new VueRouter({
             },
           ]
         },
+        {
+          path: "dashboards/:dashboardid?",
+          name: "dashboards",
+          component: Dashboards
+        }
       ],
-    }
+    },
   ],
   scrollBehavior() {
     const element = document.getElementById('gobierto-planification');

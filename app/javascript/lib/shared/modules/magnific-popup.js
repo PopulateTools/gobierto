@@ -1,5 +1,5 @@
 import "magnific-popup";
-import { GobiertoEvents } from "lib/shared"
+import { GOBIERTO_DASHBOARDS } from "lib/events"
 
 $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
   const isDashboardsSelector = !!document.querySelector("[data-dashboards-maker]")
@@ -31,7 +31,7 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
         $(".modal .form_item input[type=text]:visible").first().focus()
 
         if (isDashboardsSelector) {
-          const event = new Event(GobiertoEvents.CREATE_DASHBOARD_EVENT)
+          const event = new Event(GOBIERTO_DASHBOARDS.CREATE)
           document.dispatchEvent(event)
         }
       }

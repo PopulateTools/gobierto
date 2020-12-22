@@ -14,12 +14,19 @@
       </template>
     </Header>
 
-    <ButtonFilters :options="options" />
+    <Tabs :tabs="tabs">
+      <template #tab-0>
+        <ButtonFilters :options="options" />
 
-    <router-view
-      :json="json"
-      :options="options"
-    />
+        <router-view
+          :json="json"
+          :options="options"
+        />
+      </template>
+      <template #tab-1>
+        <Dashboards />
+      </template>
+    </Tabs>
   </div>
 </template>
 
@@ -27,6 +34,8 @@
 import Header from "./components/Header.vue";
 import NumberLabel from "./components/NumberLabel.vue";
 import ButtonFilters from "./components/ButtonFilters.vue";
+import Tabs from "./components/Tabs.vue";
+import Dashboards from "./pages/Dashboards.vue";
 import { PlansFactoryMixin } from "./lib/factory";
 import { groupBy } from "./lib/helpers";
 import { PlansStore } from "./lib/store";
@@ -38,7 +47,9 @@ export default {
     Header,
     NumberLabel,
     ButtonFilters,
-    Loading
+    Loading,
+    Tabs,
+    Dashboards
   },
   mixins: [PlansFactoryMixin],
   data() {
@@ -47,20 +58,27 @@ export default {
       options: {},
       summary: [],
       isFetchingData: true,
-      labelLoading: I18n.t("gobierto_plans.plan_types.show.loading") || ""
+      labelLoading: I18n.t("gobierto_plans.plan_types.show.loading") || "",
+      tabs: [
+        { title: I18n.t("gobierto_plans.plan_types.show.plan") || "", name: "home" },
+        { title: I18n.t("gobierto_plans.plan_types.show.dashboards") || "", name: "dashboards" },
+      ]
     };
   },
+  computed: {
+    planId() {
+      return this.$root?.$data?.planId
+    }
+  },
   async created() {
-    const PLAN_ID = this.$root.$data.planId;
-
     const [
       { data: { data: plan } = {} } = {},
       { data: { data: projects } = {} } = {},
       { data: { data: meta } = {} } = {}
     ] = await Promise.all([
-      this.getPlan(PLAN_ID),
-      this.getProjects(PLAN_ID),
-      this.getMeta(PLAN_ID)
+      this.getPlan(this.planId),
+      this.getProjects(this.planId),
+      this.getMeta(this.planId)
     ]);
 
     const {

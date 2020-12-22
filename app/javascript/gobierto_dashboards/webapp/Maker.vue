@@ -49,8 +49,7 @@
       <Viewer
         v-if="configuration"
         ref="viewer"
-        :is-draggable="true"
-        :is-resizable="true"
+        :is-edition-mode="true"
         :item="item"
         :config="configuration"
         @layout-updated="handleViewerUpdated"
@@ -61,15 +60,13 @@
 </template>
 
 <script>
-// add the styles here, because this element can be inserted both as a component or standalone
-import "../../../assets/stylesheets/module-dashboards-maker.scss";
 import Viewer from "./Viewer";
 import HeaderForm from "./components/HeaderForm";
 import Aside from "./layouts/Aside";
 import Main from "./layouts/Main";
 import SmallCard from "./components/SmallCard";
 import { Widgets } from "./lib/widgets";
-import { DashboardFactoryMixin } from "./lib/factories";
+import { FactoryMixin } from "./lib/factories";
 import { TextEditable } from "lib/vue-components";
 
 export default {
@@ -82,7 +79,7 @@ export default {
     SmallCard,
     TextEditable,
   },
-  mixins: [DashboardFactoryMixin],
+  mixins: [FactoryMixin],
   data() {
     return {
       dirty: false,
@@ -98,10 +95,10 @@ export default {
       return this.$root.$data?.id;
     },
     title() {
-      return this.configuration?.data?.attributes?.title || I18n.t("gobierto_dashboards.default_title") || "";
+      return this.configuration?.attributes?.title || I18n.t("gobierto_dashboards.default_title") || "";
     },
     status() {
-      return this.configuration?.data?.attributes?.visibility_level === "active";
+      return this.configuration?.attributes?.visibility_level === "active";
     },
   },
   created() {
@@ -115,7 +112,7 @@ export default {
   },
   methods: {
     async getConfiguration() {
-      this.configuration = this.id ? await this.getDashboard(this.id) : {};
+      ({ data: this.configuration } = this.id ? await this.getDashboard(this.id) : {});
       this.dirty = false
     },
     dragoverPosition({ clientX, clientY }) {
@@ -157,10 +154,9 @@ export default {
     },
     setConfiguration(attr, value) {
       if (!this.configuration) this.configuration = {}
-      if (!this.configuration.data) this.configuration.data = {}
-      if (!this.configuration.data.attributes) this.configuration.data.attributes = {}
+      if (!this.configuration.attributes) this.configuration.attributes = {}
 
-      this.configuration.data.attributes[attr] = value
+      this.configuration.attributes[attr] = value
       this.dirty = true
     },
     handleInputStatus({ target }) {

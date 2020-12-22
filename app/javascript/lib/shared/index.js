@@ -35,7 +35,6 @@ import {
   clickoutside
 } from "./modules/vue-directives.js";
 import { Middleware } from "./modules/middleware.js";
-import * as GobiertoEvents from "./modules/events.js";
 
 export {
   AUTOCOMPLETE_DEFAULTS,
@@ -57,6 +56,5 @@ export {
   truncate,
   percent,
   VueDirectivesMixin,
-  clickoutside,
-  GobiertoEvents
+  clickoutside
 };

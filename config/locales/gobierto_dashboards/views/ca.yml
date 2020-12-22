@@ -6,6 +6,7 @@ ca:
     date: 'Data: '
     default_title: Títol del dashboard
     delete: Esborrar
+    indicators_amount: "➞ %{amount} indicadors"
     instructions: |
       "⇧ Selecciona un tipus de targeta i inclou-la en l'àrea central ➞
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseUrl = location.origin;
-const endPointDashboard = `${baseUrl}/api/v1/dashboard`;
+const endPointDashboard = `${baseUrl}/api/v1/dashboards`;
 const endPointData = `${baseUrl}/api/v1/dashboard_data`;
 const headers = new Headers({
   "Content-type": "application/json"
@@ -9,31 +9,41 @@ const headers = new Headers({
 
 // DEBUG
 import { Mock } from "./mock__DELETABLE";
-axios.interceptors.response.use(() => {}, (err) => err.config.url.includes("dashboard_data") ? new Mock().dashboardData : new Mock().dashboard);
+axios.interceptors.response.use(x => x, ({ config: { url } }) => {
+  const { dashboardData, dashboards, getDashboard } = new Mock()
+  switch (true) {
+    case url.includes("dashboard_data"):
+      return dashboardData
+    case /dashboards\/.+/.test(url):
+      return getDashboard(+url[url.length - 1])
+    default:
+      return dashboards
+  }
+});
 // END DEBUG
 
-export const DashboardFactoryMixin = {
+export const FactoryMixin = {
   methods: {
     searchParams(params) {
       return new URLSearchParams({ locale: I18n.locale, ...params })
     },
     getDashboards(params) {
-      return axios.get(`${endPointDashboard}?${this.searchParams(params).toString()}`, { headers })
+      return axios.get(endPointDashboard, { headers, params: this.searchParams(params) })
     },
     getDashboard(id, params) {
-      return axios.get(`${endPointDashboard}/${id}?${this.searchParams(params).toString()}`, { headers })
+      return axios.get(`${endPointDashboard}/${id}`, { headers, params: this.searchParams(params) })
     },
     postDashboard(data, params) {
-      return axios.post(`${endPointDashboard}?${this.searchParams(params).toString()}`, data, { headers })
+      return axios.post(endPointDashboard, { data }, { headers, params: this.searchParams(params) })
     },
     putDashboard(id, data, params) {
-      return axios.put(`${endPointDashboard}/${id}?${this.searchParams(params).toString()}`, data, { headers })
+      return axios.put(`${endPointDashboard}/${id}`, { data }, { headers, params: this.searchParams(params) })
     },
     deleteDashboard(id, params) {
-      return axios.delete(`${endPointDashboard}/${id}?${this.searchParams(params).toString()}`, { headers })
+      return axios.delete(`${endPointDashboard}/${id}`, { headers, params: this.searchParams(params) })
     },
     getData(params) {
-      return axios.get(`${endPointData}?${this.searchParams(params).toString()}`, { headers })
+      return axios.get(endPointData, { headers, params: this.searchParams(params) })
     },
   }
 };

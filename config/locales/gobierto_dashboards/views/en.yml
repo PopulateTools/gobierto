@@ -2,6 +2,7 @@
 en:
   gobierto_dashboards:
     available_cards: Available cards
+    back: back
     changes: Dashboard changed
     date: 'Date: '
     default_title: Dashboard title

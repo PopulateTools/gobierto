@@ -82,7 +82,7 @@ export default {
       updateData: false,
       dataForTableTooltip: undefined,
       dataNewValues: undefined,
-      arrayValuesContractTypes: undefined,
+      arrayValuesContractTypes: [],
       sizeForTreemap: 'final_amount_no_taxes',
       selected_size: 'final_amount_no_taxes',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
@@ -99,7 +99,7 @@ export default {
     }
   },
   mounted() {
-    this.containerChart = document.querySelector('.visualizations-home-main');
+    this.containerChart = document.querySelector('.container-tree-map-nested');
     this.svgWidth = this.containerChart.offsetWidth;
     this.dataTreeMapWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
     this.dataTreeMapSizeContracts = JSON.parse(JSON.stringify(this.data));
@@ -174,15 +174,6 @@ export default {
       const dataTreeMap = JSON.parse(JSON.stringify(data));
       this.transformDataTreemap(dataTreeMap)
     },
-    createScaleColors(values) {
-      let colorsGobiertoExtend = ["#12365b", "#118e9c", "#ff766c", "#f7b200", "#158a2c", "#94d2cf", "#3a78c3", "#15dec5", "#6a7f2f", "#55f17b"]
-      colorsGobiertoExtend = colorsGobiertoExtend.slice(0, values)
-
-      const colors = d3.scaleOrdinal()
-        .domain(this.arrayValuesContractTypes)
-        .range(colorsGobiertoExtend);
-      return colors;
-    },
     buildTreeMap(rootData) {
       d3.select('.treemap-container')
         .remove()
@@ -246,11 +237,6 @@ export default {
         const g1 = svg
           .append("g")
           .datum(d)
-          .attr('fill', d => {
-            const { depth } = d
-            const valueColor = depth === 2 ? d.color = colors(d.parent.data.name) : ''
-            return valueColor
-          })
           .attr('class', 'depth')
 
         const g = g1.selectAll(".children")
@@ -261,8 +247,8 @@ export default {
           .join('rect')
           .attr('class', 'children')
           .attr('fill', d => {
-            const { depth } = d
-            const valueColor = depth === 1 ? d.color = colors(d.data.name) : d.color = colors(d.parent.data.name)
+            const { depth, data: { name = '' }, parent: { data: { name: parentName = '' } } } = d
+            const valueColor = depth === 1 ? d.color = colors(name) : d.color = colors(parentName)
             return valueColor
           })
           .on("click", transition);
@@ -386,7 +372,6 @@ export default {
         .on('mousemove', function(d, i) {
           const { depth } = d
           if (depth === 1) return;
-          let title = d.data.name === undefined ? d.data.title : d.data.name;
           const [x, y] = d3.mouse(this);
 
           //Elements to determinate the position of tooltip
@@ -396,28 +381,14 @@ export default {
           const tooltipHeight = depth === 2 ? tooltipAssignee.node().offsetHeight : tooltip.node().offsetHeight
           const positionWidthTooltip = x + tooltipWidth
           const positionRight = `${x - tooltipWidth - 20}px`
-          const windowHeight = window.innerHeight
-          const positionTop = tooltipHeight + y > windowHeight ? `${y - (tooltipHeight / 2)}px` : `${y}px`
+          const positionTop = tooltipHeight + y > window.innerHeight ? `${y - (tooltipHeight / 2)}px` : `${y}px`
           const positionLeft = `${x + 20}px`
 
           if (depth === 2) {
             let totalContracts = d.children === undefined ? '' : d.children
-            let totalContractsLength
-            let contractsString = ''
-            if (totalContracts) {
-              totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
-              totalContractsLength = totalContracts.length
-              while (i < totalContractsLength) {
-                let contractAmount = selected_size === 'final_amount_no_taxes' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.final_amount_no_taxes}`
-                contractsString = `${contractsString}
-                <div class="depth-second-container">
-                  <p class="depth-second-title">${totalContracts[i].data.title}</p>
-                  <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
-                  <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(totalContracts[i].data.initial_amount_no_taxes)}</b></p>
-                </div>`
-                i++
-              }
-            }
+            let contractsString = totalContracts
+              .filter(contract => typeof contract.data !== "function")
+              .map(contract => createDepthSecondHTML(contract))
 
             tooltipAssignee
               .style("display", "block")
@@ -431,7 +402,7 @@ export default {
                   <span class="treemap-nested-tooltip-header-title">
                     ${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}
                   </span>
-                  ${contractsString}
+                  ${contractsString.join('')}
                 `
               })
               .style('top', positionTop)
@@ -482,6 +453,18 @@ export default {
             .style("opacity", 0)
             .style("display", "none")
         })
+
+        function createDepthSecondHTML(contract) {
+          const { data: { title, initial_amount_no_taxes, value, final_amount_no_taxes } } = contract
+          let contractAmount = selected_size === 'final_amount_no_taxes' ? `${value}` : `${final_amount_no_taxes}`
+          let contractsString = `
+          <div class="depth-second-container">
+            <p class="depth-second-title">${title}</p>
+            <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
+            <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
+          </div>`
+          return contractsString
+        }
 
         function transition(d) {
           if (transitioning || !d) return;
@@ -571,25 +554,18 @@ export default {
       }
 
       function checkSizeBreadcumbs() {
-        const treeMapSidebar = document.querySelector('.treemap-nested-sidebar');
-        const treeMapSidebarWidth = treeMapSidebar.offsetWidth
+        const sidebarAvailableWidth = (document.querySelector('.treemap-nested-sidebar').offsetWidth - document.querySelector('.treemap-nested-sidebar-button-group').offsetWidth)
 
-        const treeMapSidebarButton = document.querySelector('.treemap-nested-sidebar-button-group');
-        const treeMapSidebarButtonWidth = treeMapSidebarButton.offsetWidth
-
-        const treeMapAvailableWidth = treeMapSidebarWidth - treeMapSidebarButtonWidth
-
-        const treeMapSidebarNav = document.querySelector('.treemap-nested-sidebar-nav');
-        const treeMapSidebarNavWidth = treeMapSidebarNav.offsetWidth
+        const sidebarNav = document.querySelector('.treemap-nested-sidebar-nav').offsetWidth;
 
         const treeMapSidebarNavContainer = document.querySelector('.treemap-nested-sidebar-nav-breadcumb');
-        if (treeMapSidebarNavWidth > treeMapAvailableWidth) treeMapSidebarNavContainer.classList.add('ellipsis')
+        if (sidebarNav > sidebarAvailableWidth) treeMapSidebarNavContainer.classList.add('ellipsis')
       }
     },
     resizeListener() {
       window.addEventListener("resize", () => {
         let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
-        const containerChart = document.querySelector('.visualizations-home-main');
+        const containerChart = document.querySelector('.container-tree-map-nested');
         this.svgWidth = containerChart.offsetWidth
         this.deepCloneData(dataResponsive)
       })

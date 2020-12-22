@@ -2,7 +2,7 @@
   --grey-line: #c4c4c4;
   --white: #fff;
   --black: #000;
-  --grey-border: #ccc;
+  --border-color-grey: #ccc;
   --shadow: 0 0 3px rgba(0, 0, 0, .2);
 }
 
@@ -69,7 +69,7 @@
   color: var(--black);
   background-color: var(--white);
   border-radius: 4px;
-  border: 1px solid var(--grey-border);
+  border: 1px solid var(--border-color-grey);
   box-shadow: var(--shadow);
 }
 

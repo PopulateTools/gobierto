@@ -263,9 +263,9 @@ export class ContractsController {
     );
 
     const numberTenders = _tendersData.length;
-    const sumTenders = d3.sum(amountsArray);
-    const meanTenders = d3.mean(amountsArray);
-    const medianTenders = d3.median(amountsArray);
+    const sumTenders = d3.sum(amountsArray) || 0;
+    const meanTenders = d3.mean(amountsArray) || 0;
+    const medianTenders = d3.median(amountsArray) || 0;
 
     // Updating the DOM
     document.getElementById(
@@ -302,7 +302,7 @@ export class ContractsController {
       _contractsData,
       ({ final_amount_no_taxes = 0 }) => parseFloat(final_amount_no_taxes)
     );
-    const largerContractAmountPct = largerContractAmount / sumContracts;
+    const largerContractAmountPct = (largerContractAmount / sumContracts) || 0;
 
     let iteratorAmountsSum = 0,
       numberContractsHalfSpendings = 0;

@@ -138,11 +138,11 @@ export class SubsidiesController {
       return {
         amount: amount && !Number.isNaN(amount) ? parseFloat(amount) : 0.0,
         range: rangeFormat(+amount),
-        beneficiary: beneficiary,
-        beneficiary_type: beneficiary_type,
-        beneficiary_id: beneficiary_id,
-        beneficiary_name: beneficiary_name,
-        grant_date: grant_date,
+        beneficiary,
+        beneficiary_type,
+        beneficiary_id,
+        beneficiary_name,
+        grant_date,
         id: `${grant_date.replace(/\D+/g,"")}${beneficiary_id.replace(/\D+/g, "")}${parseInt(amount) || 0}${index}`,
         ...rest,
       }
@@ -198,24 +198,23 @@ export class SubsidiesController {
     const numberSubsidies = subsidiesData.length;
     const [ sumSubsidies, meanSubsidies, medianSubsidies ] = calculateSumMeanMedian(amountsArray)
 
-    const pctCollectivesSubsidies =
-      (parseFloat(collectivesData.length) / numberSubsidies) || 0;
+    const pctCollectivesSubsidies = numberSubsidies ? (parseFloat(collectivesData.length) / numberSubsidies) : 0;
     const [ sumCollectivesSubsidies, meanCollectivesSubsidies, medianCollectivesSubsidies ] = calculateSumMeanMedian(amountsCollectivesArray)
 
-    const pctIndividualsSubsidies =
-      (parseFloat(individualsData.length) / numberSubsidies) || 0;
+    const pctIndividualsSubsidies = numberSubsidies ? (parseFloat(individualsData.length) / numberSubsidies) : 0;
     const [ sumIndividualsSubsidies, meanIndividualsSubsidies, medianIndividualsSubsidies ] = calculateSumMeanMedian(amountsIndividualsArray)
 
     // Calculations headlines
     const lessThan1000Total = subsidiesData.filter(
       ({ amount = 0 }) => parseFloat(amount) < 1000
     ).length;
-    const lessThan1000Pct = (lessThan1000Total / numberSubsidies) || 0;
+    const lessThan1000Pct = numberSubsidies ? (lessThan1000Total / numberSubsidies) : 0;
 
     const largerSubsidyAmount = d3.max(subsidiesData, ({ amount = 0 }) =>
       parseFloat(amount)
     );
-    const largerSubsidyAmountPct = (largerSubsidyAmount / sumSubsidies) || 0;
+
+    const largerSubsidyAmountPct = numberSubsidies ? (largerSubsidyAmount / numberSubsidies) : 0;
 
     let iteratorAmountsSum = 0,
       numberSubsidiesHalfSpendings = 0;
@@ -227,7 +226,7 @@ export class SubsidiesController {
         break;
       }
     }
-    const halfSpendingsSubsidiesPct = (numberSubsidiesHalfSpendings / numberSubsidies) || 0;
+    const halfSpendingsSubsidiesPct = numberSubsidies ? (numberSubsidiesHalfSpendings / numberSubsidies) : 0;
 
     // Updating the DOM
     document.getElementById(

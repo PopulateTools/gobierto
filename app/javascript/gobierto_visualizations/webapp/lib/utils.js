@@ -1,6 +1,5 @@
 import { csv } from "d3-fetch";
 import { mean, median, sum } from "d3-array";
-import { scaleOrdinal } from 'd3-scale';
 import axios from "axios";
 
 const endPointGobiertoData = `/api/v1/data/data.json`
@@ -58,16 +57,6 @@ export function normalizeString(string) {
     .replace(/[.,()\s]/g, '')
     .toLowerCase();
   return slug
-}
-
-export function createScaleColors(values, arrayDomain) {
-  let colorsGobiertoExtend = ["#12365b", "#118e9c", "#ff766c", "#f7b200", "#158a2c", "#94d2cf", "#3a78c3", "#15dec5", "#6a7f2f", "#55f17b"]
-  colorsGobiertoExtend = colorsGobiertoExtend.slice(0, values)
-
-  const colors = scaleOrdinal()
-    .domain(arrayDomain)
-    .range(colorsGobiertoExtend);
-  return colors;
 }
 
 export function calculateSumMeanMedian(value) {

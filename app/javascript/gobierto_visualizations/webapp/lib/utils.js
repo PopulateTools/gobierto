@@ -1,4 +1,5 @@
 import { csv } from "d3-fetch";
+import { mean, median, sum } from "d3-array";
 import { scaleOrdinal } from 'd3-scale';
 import axios from "axios";
 
@@ -69,4 +70,14 @@ export function createScaleColors(values, arrayDomain) {
     .domain(arrayDomain)
     .range(colorsGobiertoExtend);
   return colors;
+}
+
+export function calculateSumMeanMedian(value) {
+  let sumValue = sum(value) || 0
+  let meanValue = mean(value) || 0
+  let medianValue = median(value) || 0
+
+  let values = [sumValue, meanValue, medianValue]
+
+  return values
 }

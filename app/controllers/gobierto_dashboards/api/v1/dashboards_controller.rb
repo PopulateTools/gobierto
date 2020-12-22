@@ -21,24 +21,24 @@ module GobiertoDashboards
           end
         end
 
-        # GET /api/v1/dashboard/1
-        # GET /api/v1/dashboard/1.json
+        # GET /api/v1/dashboards/1
+        # GET /api/v1/dashboards/1.json
         def show
-          find_item
+          find_resource
 
           render(
-            json: @item,
+            json: @resource,
             adapter: :json_api
           )
         end
 
-        # GET /api/v1/dashboard/1/data
-        # GET /api/v1/dashboard/1/data.json
+        # GET /api/v1/dashboards/1/data
+        # GET /api/v1/dashboards/1/data.json
         def data
-          find_item
+          find_resource
 
           render(
-            json: @item,
+            json: @resource,
             serializer: ::GobiertoDashboards::DashboardDataSerializer,
             adapter: :json_api
           )
@@ -46,8 +46,8 @@ module GobiertoDashboards
 
         private
 
-        def find_item
-          @item = base_relation.find(params[:id])
+        def find_resource
+          @resource = base_relation.find(params[:id])
         end
 
         def base_relation

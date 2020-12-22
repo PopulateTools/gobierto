@@ -483,6 +483,7 @@ export default {
           if (depth === 1) {
             const children = d.children
             let totalContracts = 0;
+
             if (children) {
               children.forEach(d => {
                 if (d.data.children !== undefined) {
@@ -504,7 +505,7 @@ export default {
             valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
 
             if (totalContracts) {
-              labelTotalContracts = totalContracts > 1 ? labelTotalContracts : labelTotalUnique
+              labelTotalContracts = totalContracts.length <= 1 ? labelTotalUnique : labelTotalContracts
             }
             htmlForRect = `<p class="title">${title}</p>
               <p class="text">${money(valueTotalAmount)}</p>
@@ -525,10 +526,8 @@ export default {
             valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
 
             let totalContracts = d.children === undefined ? '' : d.children
-            if (totalContracts) {
-              totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-              labelTotalContracts = totalContracts > 1 ? labelTotalContracts : labelTotalUnique
-            }
+            totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
+            labelTotalContracts = totalContracts <= 1 ? labelTotalUnique : labelTotalContracts
             htmlForRect = `<p class="title">${title}</p>
               <p class="text">${money(valueTotalAmount)}</p>
               <span class="text">
@@ -582,7 +581,7 @@ export default {
             valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
 
             if (totalContracts) {
-              labelTotalContracts = totalContracts > 1 ? labelTotalContracts : labelTotalUnique
+              labelTotalContracts = totalContracts.length < 1 ? labelTotalUnique : labelTotalContracts
             }
             htmlForRect = `<p class="title">${title}</p>
               <p class="text">${money(valueTotalAmount)}</p>
@@ -605,7 +604,7 @@ export default {
             let totalContracts = d.children === undefined ? '' : d.children
             if (totalContracts) {
               totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-              labelTotalContracts = totalContracts > 1 ? labelTotalContracts : labelTotalUnique
+              labelTotalContracts = totalContracts <= 1 ? labelTotalUnique : labelTotalContracts
             }
             htmlForRect = `<p class="title">${title}</p>
               <p class="text">${money(valueTotalAmount)}</p>
@@ -628,7 +627,7 @@ export default {
             let totalContracts = d.children === undefined ? '' : d.children
             if (totalContracts) {
               totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-              labelTotalContracts = totalContracts > 1 ? labelTotalContracts : labelTotalUnique
+              labelTotalContracts = totalContracts <= 1 ? labelTotalUnique : labelTotalContracts
             }
             htmlForRect = `<p class="title">${title}</p>
               <p class="text">${money(valueTotalAmount)}</p>

@@ -141,7 +141,7 @@ export class SubsidiesController {
         beneficiary,
         beneficiary_type,
         beneficiary_id,
-        beneficiary_name,
+        beneficiary_name: beneficiary_name.join(" "),
         grant_date,
         id: `${grant_date.replace(/\D+/g,"")}${beneficiary_id.replace(/\D+/g, "")}${parseInt(amount) || 0}${index}`,
         ...rest,

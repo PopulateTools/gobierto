@@ -158,13 +158,65 @@ module GobiertoDashboards
             assert_equal active_dashboards_count, response_data["data"].count
             dashboards_titles = response_data["data"].map { |item| item.dig("attributes", "title") }
             assert_includes dashboards_titles, dashboard.title
-            first_item = response_data["data"].first["attributes"]
+            item = response_data["data"][dashboards_titles.index(dashboard.title)]["attributes"]
             %w(title context visibility_level widgets_configuration).each do |attribute|
-              assert_equal dashboard.send(attribute), first_item[attribute]
+              assert_equal dashboard.send(attribute), item[attribute]
             end
+
             # assert response_data.has_key? "links"
             # assert_includes response_data["links"].values, gobierto_dashboards_api_v1_dashboards_path
             # assert_includes response_data["links"].values, meta_gobierto_dashboards_api_v1_dashboards_path
+          end
+        end
+
+        # GET /api/v1/dashboards?context=Module::Model/ID
+        def test_index_with_context
+          with(site: site) do
+            get gobierto_dashboards_api_v1_dashboards_path, params: { context: "GobiertoPlans::Plan/#{plan.id}" }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            assert_equal 1, response_data["data"].count
+            dashboards_titles = response_data["data"].map { |item| item.dig("attributes", "title") }
+            assert_includes dashboards_titles, plan_dashboard.title
+          end
+        end
+
+        # GET /api/v1/dashboards?context=gobierto/Module::Model/ID
+        # GET /api/v1/dashboards?context=gid://gobierto/Module::Model/ID
+        def test_index_with_full_global_id_context
+          with(site: site) do
+            get gobierto_dashboards_api_v1_dashboards_path, params: { context: "gobierto/GobiertoPlans::Node/#{project.id}" }, as: :json
+            assert_response :success
+            response_data = response.parsed_body
+
+            get gobierto_dashboards_api_v1_dashboards_path, params: { context: "gobierto/GobiertoPlans::Node/#{project.id}" }, as: :json
+            assert_response :success
+            full_gid_response_data = response.parsed_body
+
+            assert_equal full_gid_response_data, response_data
+
+            assert response_data.has_key? "data"
+            assert_equal 1, response_data["data"].count
+            dashboards_titles = response_data["data"].map { |item| item.dig("attributes", "title") }
+            assert_includes dashboards_titles, project_dashboard.title
+          end
+        end
+
+        # GET /api/v1/dashboards?context=wadus
+        def test_index_with_not_existing_context
+          with(site: site) do
+            get gobierto_dashboards_api_v1_dashboards_path, params: { context: "wadus" }, as: :json
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            assert response_data.has_key? "data"
+            assert_equal [], response_data["data"]
           end
         end
 

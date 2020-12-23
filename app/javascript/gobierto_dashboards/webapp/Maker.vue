@@ -112,7 +112,7 @@ export default {
   },
   methods: {
     async getConfiguration() {
-      ({ data: this.configuration } = this.id ? await this.getDashboard(this.id) : {});
+      ({ data: this.configuration } = this.id ? await this.getDashboard(this.id) : { data: {} });
       this.dirty = false
     },
     dragoverPosition({ clientX, clientY }) {

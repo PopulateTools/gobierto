@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="gobierto-autocomplete">
     <slot
       v-if="label.length"
       name="label"

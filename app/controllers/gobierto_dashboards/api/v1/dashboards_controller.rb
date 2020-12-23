@@ -11,14 +11,10 @@ module GobiertoDashboards
         # GET /api/v1/dashboards
         # GET /api/v1/dashboards.json
         def index
-          respond_to do |format|
-            format.json do
-              render(
-                json: base_relation,
-                adapter: :json_api
-              )
-            end
-          end
+          render(
+            json: filtered_relation,
+            adapter: :json_api
+          )
         end
 
         # GET /api/v1/dashboards/1
@@ -102,8 +98,16 @@ module GobiertoDashboards
           @resource = base_relation.find(params[:id])
         end
 
+        def context_resource
+          @context_resource ||= GobiertoCommon::ContextService.new(params[:context])
+        end
+
         def base_relation
           current_site.dashboards.active
+        end
+
+        def filtered_relation
+          params[:context].present? ? base_relation.where(context: context_resource.context) : base_relation
         end
 
         def form_class

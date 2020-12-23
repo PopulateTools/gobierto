@@ -31,11 +31,7 @@ module GobiertoDashboards
     end
 
     def context_resource
-      @context_resource ||= begin
-                              GlobalID::Locator.locate context
-                            rescue ActiveRecord::RecordNotFound
-                              nil
-                            end
+      @context_resource ||= GobiertoCommon::ContextService.new(context).resource
     end
   end
 end

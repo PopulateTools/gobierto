@@ -86,7 +86,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pre_commit_i18n_check"
+      "pre-commit": "npm run eslint && npm run stylelint && npm run pre_commit_i18n_check"
     }
   },
   "resolutions": {

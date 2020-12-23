@@ -1,6 +1,7 @@
 <template>
   <div>
     <TreeMapNested
+      v-if="visualizationsData"
       :data="visualizationsData"
       :label-root-key="labelRootKey"
     />
@@ -338,7 +339,12 @@ export default {
       const positionRight = `${x - tooltipWidth - 30}px`
 
       tooltip
-        .style("display", "block")
+        .style("opacity", 0)
+        .transition()
+        .duration(400)
+        .style("opacity", 1)
+
+      tooltip
         .style('top', positionTop)
         .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
         .html(`
@@ -352,16 +358,21 @@ export default {
 
     },
     showTooltipBeesWarm(event) {
-      const { assignee, final_amount_no_taxes } = event
+      const { assignee, final_amount_no_taxes, y } = event
       const tooltip = d3.select('.beeswarm-tooltip')
 
-      const positionTop = '-10'
-      const positionLeft = '110'
+      const positionTop = `${y}px`
+      const positionLeft = '0px'
 
       tooltip
-        .style("display", "block")
-        .style('top', `${positionTop}px`)
-        .style('left', `${positionLeft}px`)
+        .style("opacity", 0)
+        .transition()
+        .duration(400)
+        .style("opacity", 1)
+
+      tooltip
+        .style('top', positionTop)
+        .style('left', positionLeft)
         .html(`
           <span class="beeswarm-tooltip-header-title">
             ${assignee}

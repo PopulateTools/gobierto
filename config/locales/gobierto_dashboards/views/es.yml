@@ -11,9 +11,6 @@ es:
       "⇧ Selecciona un tipo de tarjeta e incluyela en el área central ➞
 
       Luego podrás configurarla."
-    layouts:
-      application:
-        gobierto_dashboards: Gobierto Dashboards
     objective: Objetivo
     percentage: Consecución
     percentage_alt: "% consecución"

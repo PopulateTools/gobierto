@@ -31,7 +31,7 @@
 <script>
 import { NamesMixin } from "../lib/mixins/names";
 import { Checkbox } from "lib/vue-components";
-import { clickoutside } from "lib/shared"
+import { clickoutside } from "lib/vue/directives"
 
 export default {
   name: "TableColumnsSelector",

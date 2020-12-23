@@ -7,7 +7,7 @@
       <thead>
         <th
           v-for="({ year, percentageRelative, percentageAbsolute }, ix) in years"
-          :key="year"
+          :key="`${year}-${ix}`"
           class="graph-table__table--th"
         >
           <template v-if="ix !== 0">
@@ -23,7 +23,7 @@
                   />
                 </div>
               </div>
-              <span>{{ year }}</span>
+              <span>{{ year | date({ year: "numeric" }) }}</span>
             </div>
           </template>
         </th>
@@ -35,8 +35,8 @@
           class="graph-table__table--tr"
         >
           <td
-            v-for="{ year } in years"
-            :key="year"
+            v-for="({ year }, ix) in years"
+            :key="`${year}-${ix}`"
             class="graph-table__table--td"
           >
             {{ metric[year] }}
@@ -54,7 +54,7 @@ const formatValues = (arr, prop, transform = x => x) =>
   arr.reduce(
     (acc, item) => ({
       ...acc,
-      [date(item.date, { year: "numeric" })]: transform(item[prop])
+      [item.date]: transform(item[prop])
     }),
     {}
   );
@@ -62,7 +62,8 @@ const formatValues = (arr, prop, transform = x => x) =>
 export default {
   name: "WidgetIndicatorTable",
   filters: {
-    percent
+    percent,
+    date
   },
   props: {
     title: {
@@ -89,7 +90,8 @@ export default {
     const [y1, y2, y3, y4] = this.values.sort(
       ({ date: a }, { date: b }) => new Date(a) < new Date(b)
     );
-    const years = [...[y1, y2, y3, y4]];
+    // remove null/undefined, if there were < 4 years
+    const years = [...[y1, y2, y3, y4]].filter(Boolean);
 
     // add percentage absolutes and relative. And reverse array to show years ascendently
     const highestObjective = Math.max(
@@ -105,7 +107,7 @@ export default {
 
     this.years.push(
       ...valuesCalculated.map(({ date: d, percentageRelative, percentageAbsolute }) => ({
-        year: date(d, { year: "numeric" }),
+        year: d,
         percentageRelative,
         percentageAbsolute
       }))

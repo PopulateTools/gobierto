@@ -1,5 +1,6 @@
 <template>
   <GridItem
+    ref="item"
     :x="x"
     :y="y"
     :w="w"
@@ -25,7 +26,7 @@
 <script>
 import { GridItem } from "vue-grid-layout";
 import WidgetEditable from "./WidgetEditable";
-import { clickoutside } from "lib/shared"
+import { clickoutside } from "lib/vue/directives"
 
 export default {
   name: "Widget",
@@ -84,7 +85,7 @@ export default {
       if (this.edit) {
         this.edit = false
       }
-    }
+    },
   }
 };
 </script>

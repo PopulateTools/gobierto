@@ -57,7 +57,7 @@
 </template>
 <script>
 import Button from "./Button.vue";
-import { VueDirectivesMixin } from "lib/shared";
+import { VueDirectivesMixin } from "lib/vue/directives";
 import { DownloadFilesFactoryMixin } from "./../../../lib/factories/download";
 
 export default {

@@ -102,7 +102,7 @@
   </div>
 </template>
 <script>
-import { VueDirectivesMixin } from "lib/shared";
+import { VueDirectivesMixin } from "lib/vue/directives";
 import { closableMixin } from "./../../../../lib/commons.js";
 import { tabs } from '../../../../lib/router';
 

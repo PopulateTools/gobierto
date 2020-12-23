@@ -1,8 +1,8 @@
 <template>
   <div class="container-tree-map-nested">
     <div class="treemap-nested-sidebar">
-      <div class="tree-map-nested-nav" />
-      <div class="treemap-button-group button-group">
+      <div class="treemap-nested-sidebar-nav" />
+      <div class="treemap-nested-sidebar-button-group button-group">
         <button
           class="button-grouped sort-G"
           :class="{ active : selected_size === 'final_amount_no_taxes' }"
@@ -32,15 +32,15 @@
 
 import { select, selectAll, mouse } from 'd3-selection'
 import { treemap, stratify, hierarchy, treemapBinary } from 'd3-hierarchy'
-import { scaleLinear } from 'd3-scale'
+import { scaleLinear, scaleOrdinal } from 'd3-scale'
 import { easeLinear } from 'd3-ease'
 import { interpolate } from 'd3-interpolate';
-import { sumDataByGroupKey, normalizeString } from "../lib/utils";
+import { sumDataByGroupKey, normalizeString, createScaleColors } from "../lib/utils";
 import { mean, median } from "d3-array";
 import { nest } from "d3-collection";
 import { money } from "lib/shared";
 
-const d3 = { select, selectAll, treemap, stratify, scaleLinear, mouse, easeLinear, mean, median, nest, hierarchy, treemapBinary, interpolate }
+const d3 = { select, selectAll, treemap, stratify, scaleLinear, scaleOrdinal, mouse, easeLinear, mean, median, nest, hierarchy, treemapBinary, interpolate }
 
 export default {
   name: 'TreeMapNested',
@@ -82,6 +82,7 @@ export default {
       updateData: false,
       dataForTableTooltip: undefined,
       dataNewValues: undefined,
+      arrayValuesContractTypes: [],
       sizeForTreemap: 'final_amount_no_taxes',
       selected_size: 'final_amount_no_taxes',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
@@ -98,9 +99,15 @@ export default {
     }
   },
   mounted() {
-    this.svgWidth = document.getElementsByClassName("visualizations-home-main")[0].offsetWidth;
+    this.containerChart = document.querySelector('.container-tree-map-nested');
+    this.svgWidth = this.containerChart.offsetWidth;
     this.dataTreeMapWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
+    this.dataTreeMapSizeContracts = JSON.parse(JSON.stringify(this.data));
     this.dataTreeMapSumFinalAmount = JSON.parse(JSON.stringify(this.data));
+    /*To avoid add/remove colors in every update use Object.freeze(this.data)
+    to create a scale/domain color persistent with the original keys*/
+    const freezeObjectColors = Object.freeze(this.data);
+    this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => d.contract_type)))
 
     this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
     this.resizeListener()
@@ -113,14 +120,13 @@ export default {
       if (this.updateData) {
         this.deepCloneData(this.dataNewValues)
       } else {
-        this.deepCloneData(this.dataTreeMapWithoutCoordinates)
+        this.deepCloneData(this.dataTreeMapSizeContracts)
       }
     },
     transformDataTreemap(data) {
 
       let dataFilter = data
       dataFilter.filter(contract => contract.final_amount_no_taxes !== 0)
-
       dataFilter.forEach(d => {
         d.number_of_contract = 1
       })
@@ -172,10 +178,11 @@ export default {
       d3.select('.treemap-container')
         .remove()
         .exit();
-      d3.select('.nav-breadcrumbs')
+      d3.select('.treemap-nested-sidebar-nav-breadcumb')
         .remove()
         .exit();
 
+      const colors = createScaleColors(this.arrayValuesContractTypes.length, this.arrayValuesContractTypes);
       let transitioning;
       let dataTreeMapSumFinalAmount = this.dataTreeMapSumFinalAmount
       const selected_size = this.selected_size;
@@ -200,9 +207,9 @@ export default {
         .attr('class', 'treemap-container')
         .style("shape-rendering", "crispEdges");
 
-      const navBreadcrumbs = d3.select('.tree-map-nested-nav')
+      const navBreadcrumbs = d3.select('.treemap-nested-sidebar-nav')
         .append('p')
-        .attr("class", "nav-breadcrumbs")
+        .attr("class", "treemap-nested-sidebar-nav-breadcumb")
 
       const root = d3.hierarchy(rootData);
       treemap(root
@@ -214,7 +221,8 @@ export default {
       function display(d) {
         navBreadcrumbs
           .datum(d.parent)
-          .html(breadcrumbs(d));
+          .html(breadcrumbs(d))
+          .call(checkSizeBreadcumbs)
 
         navBreadcrumbs.selectAll("span")
           .datum(d)
@@ -229,20 +237,7 @@ export default {
         const g1 = svg
           .append("g")
           .datum(d)
-          .attr('class', d => {
-            let parentNameContract = ''
-            const { depth } = d
-            if (depth === 1) {
-              const { data: { name = '' } } = d
-              parentNameContract = name
-            } else if (depth === 2) {
-              const { parent: { data: { name = '' } } } = d
-              parentNameContract = name
-            }
-            //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid class
-            parentNameContract = normalizeString(parentNameContract)
-            return `depth ${parentNameContract}`
-          })
+          .attr('class', 'depth')
 
         const g = g1.selectAll(".children")
           .data(d.children)
@@ -250,15 +245,11 @@ export default {
 
         g.filter(d => d.children)
           .join('rect')
-          .attr('class', d => {
-            //The name can be the contractor or the type of contract so we have to extract the names of the object, and its parent
-            const { data: { name }, parent: { data: { name: parentName = '' } } } = d
-            let parentNameContract = parentName
-            let sectionName = name
-            //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
-            sectionName = normalizeString(sectionName)
-            parentNameContract = normalizeString(parentNameContract)
-            return `children ${sectionName} ${parentNameContract}`
+          .attr('class', 'children')
+          .attr('fill', d => {
+            const { depth, data: { name = '' }, parent: { data: { name: parentName = '' } } } = d
+            const valueColor = depth === 1 ? d.color = colors(name) : d.color = colors(parentName)
+            return valueColor
           })
           .on("click", transition);
 
@@ -353,9 +344,10 @@ export default {
                   <b>${totalContracts}</b> ${labelTotalContracts}</b>
                 </span>
                 `
-            } else if (depth === 3) {
+            } else if (depth === 3 && typeof d.data !== "function") {
               htmlForRect = `
-                <p class="title">${title}</p>
+                <p class="title">${d.parent.data.name}</p>
+                <p class="text">${title}</p>
                 `
             }
             return htmlForRect
@@ -377,39 +369,40 @@ export default {
           })
 
         g.selectAll(".foreignobj")
-        .on('mousemove', function(d) {
+        .on('mousemove', function(d, i) {
           const { depth } = d
           if (depth === 1) return;
-          let title = d.data.name === undefined ? d.data.title : d.data.name;
-          const coordinates = d3.mouse(this);
-          const x = coordinates[0];
-          const y = coordinates[1];
+          const [x, y] = d3.mouse(this);
 
           //Elements to determinate the position of tooltip
           const container = document.getElementsByClassName('container-tree-map-nested')[0];
           const containerWidth = container.offsetWidth
-          const tooltipWidth = tooltip.node().offsetWidth
+          const tooltipWidth = depth === 2 ? tooltipAssignee.node().offsetWidth : tooltip.node().offsetWidth
+          const tooltipHeight = depth === 2 ? tooltipAssignee.node().offsetHeight : tooltip.node().offsetHeight
           const positionWidthTooltip = x + tooltipWidth
-          const positionTop = `${y - 20}px`
-          const positionLeft = `${x + 10}px`
-          const positionRight = `${x - tooltipWidth - 10}px`
+          const positionRight = `${x - tooltipWidth - 20}px`
+          const positionTop = tooltipHeight + y > window.innerHeight ? `${y - (tooltipHeight / 2)}px` : `${y}px`
+          const positionLeft = `${x + 20}px`
 
           if (depth === 2) {
-            let labelTotalContracts = `${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}`
             let totalContracts = d.children === undefined ? '' : d.children
-            if (totalContracts) {
-              totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-              labelTotalContracts = totalContracts > 1 ? labelTotalContracts : `${I18n.t('gobierto_visualizations.visualizations.contracts.contract')}`
-            }
+            let contractsString = totalContracts
+              .filter(contract => typeof contract.data !== "function")
+              .map(contract => createDepthSecondHTML(contract))
 
             tooltipAssignee
               .style("display", "block")
+              .transition()
+              .duration(200)
+              .style("opacity", 1)
+
+            tooltipAssignee
               .html(() => {
                 return `
-                  <span class="beeswarm-tooltip-header-title">
-                    ${title}
+                  <span class="treemap-nested-tooltip-header-title">
+                    ${I18n.t('gobierto_visualizations.visualizations.contracts.contracts')}
                   </span>
-                  <p class="text-depth-third"><b>${totalContracts}</b> ${labelTotalContracts}</b></p>
+                  ${contractsString.join('')}
                 `
               })
               .style('top', positionTop)
@@ -428,12 +421,14 @@ export default {
             valueTotalAmount = selected_size === 'final_amount_no_taxes' ? d.value : valueTotalAmount
 
             tooltip
-              .style("display", "block")
+              .style('display', 'block')
+              .transition()
+              .duration(200)
+              .style("opacity", 1)
+
+            tooltip
               .html(() => {
                 return `
-                  <span class="beeswarm-tooltip-header-title">
-                    ${title}
-                  </span>
                   <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(valueTotalAmount)}</b></p>
                   <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
                   <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.status')}: <b>${status}</b></p>
@@ -444,9 +439,32 @@ export default {
           }
         })
         .on('mouseout', function() {
-          tooltip.style('display', 'none')
-          tooltipAssignee.style('display', 'none')
+          tooltip
+            .style("opacity", 1)
+            .transition()
+            .duration(200)
+            .style("opacity", 0)
+            .style("display", "none")
+
+          tooltipAssignee
+            .style("opacity", 1)
+            .transition()
+            .duration(200)
+            .style("opacity", 0)
+            .style("display", "none")
         })
+
+        function createDepthSecondHTML(contract) {
+          const { data: { title, initial_amount_no_taxes, value, final_amount_no_taxes } } = contract
+          let contractAmount = selected_size === 'final_amount_no_taxes' ? `${value}` : `${final_amount_no_taxes}`
+          let contractsString = `
+          <div class="depth-second-container">
+            <p class="depth-second-title">${title}</p>
+            <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
+            <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
+          </div>`
+          return contractsString
+        }
 
         function transition(d) {
           if (transitioning || !d) return;
@@ -524,21 +542,30 @@ export default {
       }
 
       function breadcrumbs(d) {
-          let res = "";
-          const sep = ` <i style="display: inline-block; vertical-align: middle;" class="fas fa-angle-right"></i> `;
-          d.ancestors().reverse().forEach(({ data }) => {
-            if (res.includes('<b>')) {
-              res = res.replace(/<b>/g, '').replace(/<\/b>/g, '')
-            }
-            res += `<span><b>${data.name}</b></span>` + sep;
-          });
-          return res.split(sep).filter(i => i !== "").join(sep);
-        }
+        let res = "";
+        const sep = ` <i style="display: inline-block; vertical-align: middle;" class="fas fa-angle-right"></i> `;
+        d.ancestors().reverse().forEach(({ data }) => {
+          if (res.includes('<b>')) {
+            res = res.replace(/<b>/g, '').replace(/<\/b>/g, '')
+          }
+          res += `<span class="treemap-nested-breadcrumb"><b>${data.name}</b></span>` + sep;
+        });
+        return res.split(sep).filter(i => i !== "").join(sep);
+      }
+
+      function checkSizeBreadcumbs() {
+        const sidebarAvailableWidth = (document.querySelector('.treemap-nested-sidebar').offsetWidth - document.querySelector('.treemap-nested-sidebar-button-group').offsetWidth)
+
+        const sidebarNav = document.querySelector('.treemap-nested-sidebar-nav').offsetWidth;
+
+        const treeMapSidebarNavContainer = document.querySelector('.treemap-nested-sidebar-nav-breadcumb');
+        if (sidebarNav > sidebarAvailableWidth) treeMapSidebarNavContainer.classList.add('ellipsis')
+      }
     },
     resizeListener() {
       window.addEventListener("resize", () => {
         let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
-        const containerChart = document.getElementsByClassName('container-tree-map-nested')[0];
+        const containerChart = document.querySelector('.container-tree-map-nested');
         this.svgWidth = containerChart.offsetWidth
         this.deepCloneData(dataResponsive)
       })

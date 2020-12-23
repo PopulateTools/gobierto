@@ -164,7 +164,10 @@ export default {
         })
         .on('mouseout', () => {
           d3.select('.multiple-line-tooltip-bars')
-            .style('display', 'none');
+            .style("opacity", 1)
+            .transition()
+            .duration(400)
+            .style("opacity", 0)
         })
 
       for (let index = 0; index < this.arrayLineValues.length; index++) {

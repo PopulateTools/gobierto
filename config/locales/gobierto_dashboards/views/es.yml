@@ -12,7 +12,9 @@ es:
       "⇧ Selecciona un tipo de tarjeta e incluyela en el área central ➞
 
       Luego podrás configurarla."
+    noseusa: malcolocaldo
     objective: Objetivo
+    ole: 1
     percentage: Consecución
     percentage_alt: "% consecución"
     placeholder: Escribe el título del indicador o proyecto
@@ -27,4 +29,3 @@ es:
       indicator: Indicador
       individual: Individual
       table: Tabla
-    noseusa: malcolocaldo

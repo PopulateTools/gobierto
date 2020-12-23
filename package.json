@@ -73,6 +73,7 @@
     "eslint": "^6.4.0",
     "eslint-plugin-vue": "^5.2.3",
     "husky": "^4.2.5",
+    "lint-staged": "^10.5.3",
     "stylelint": "^13.8.0",
     "stylelint-config-recommended": "^3.0.0",
     "webpack-bundle-analyzer": "^3.3.2",
@@ -86,8 +87,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run eslint && npm run stylelint && npm run pre_commit_i18n_check"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "app/javascript/**/*.{js,vue}": ["eslint --fix"],
+    "app/**/*.{css,scss}": ["stylelint --fix"],
+    "config/locales/**/*.yml": ["i18n-tasks normalize", "i18n-tasks health"]
   },
   "resolutions": {
     "perspective-viewer-d3fc/**/d3-selection": "1.4.2",

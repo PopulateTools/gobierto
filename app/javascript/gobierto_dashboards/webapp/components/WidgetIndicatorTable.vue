@@ -90,6 +90,7 @@ export default {
     const [y1, y2, y3, y4] = this.values.sort(
       ({ date: a }, { date: b }) => new Date(a) < new Date(b)
     );
+    // remove null/undefined, if there were < 4 years
     const years = [...[y1, y2, y3, y4]].filter(Boolean);
 
     // add percentage absolutes and relative. And reverse array to show years ascendently

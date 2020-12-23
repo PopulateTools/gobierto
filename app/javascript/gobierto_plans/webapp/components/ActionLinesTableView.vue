@@ -23,6 +23,7 @@
 <script>
 import NumberLabel from "./NumberLabel";
 import ActionLinesTableViewRow from "./ActionLinesTableViewRow";
+import { routes } from "../lib/router";
 
 export default {
   name: "ActionLinesTableView",
@@ -62,7 +63,7 @@ export default {
   methods: {
     getProject(row) {
       if (this.open) {
-        this.$router.push({ path: `${this.$root.$data.baseurl}/proyecto/${row.id}` })
+        this.$router.push({ name: routes.PROJECTS, params: { ...this.$route.params, id: row.id } })
       }
     }
   }

@@ -32,10 +32,6 @@ import {
   truncate,
   percent
 } from "./modules/vue-filters.js";
-import {
-  VueDirectivesMixin,
-  clickoutside
-} from "./modules/vue-directives.js";
 import { Middleware } from "./modules/middleware.js";
 
 export {
@@ -58,7 +54,5 @@ export {
   date,
   truncate,
   percent,
-  VueDirectivesMixin,
-  clickoutside,
   normalizeString
 };

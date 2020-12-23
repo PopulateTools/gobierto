@@ -235,4 +235,11 @@
       line-height: 1.25;
     }
   }
+
+  &__button {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
 }

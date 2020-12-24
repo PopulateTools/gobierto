@@ -6,7 +6,7 @@ module GobiertoDashboards
       class DashboardsController < BaseController
         include ::GobiertoCommon::SecuredWithAdminToken
 
-        skip_before_action :set_admin_with_token, only: [:index, :show, :data]
+        skip_before_action :set_admin_with_token, only: [:index, :show, :data, :dashboards_data]
 
         # GET /api/v1/dashboards
         # GET /api/v1/dashboards.json
@@ -25,6 +25,16 @@ module GobiertoDashboards
           render(
             json: @resource,
             adapter: :json_api
+          )
+        end
+
+        # GET /api/v1/dashboards_data?context=GobiertoPlans::Plan/1&data_pipe=project_metrics
+        # GET /api/v1/dashboards_data?context=GobiertoPlans::Plan/1&data_pipe=project_metrics.json
+        def dashboards_data
+          data = context_resource.present? && data_pipe.present? ? data_pipe.new(context_resource, site: current_site).output_data : []
+
+          render(
+            json: data
           )
         end
 
@@ -96,6 +106,14 @@ module GobiertoDashboards
 
         def find_resource
           @resource = base_relation.find(params[:id])
+        end
+
+        def data_pipe
+          return if params[:data_pipe].blank?
+
+          "GobiertoDashboards::DataPipes::#{ params[:data_pipe].camelize }".constantize
+        rescue NameError
+          nil
         end
 
         def context_resource

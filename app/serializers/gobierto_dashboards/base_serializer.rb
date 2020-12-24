@@ -3,7 +3,7 @@
 module GobiertoDashboards
   class BaseSerializer < ActiveModel::Serializer
     def current_site
-      Site.find(object.site.id)
+      object.site
     end
 
     def exclude_links?

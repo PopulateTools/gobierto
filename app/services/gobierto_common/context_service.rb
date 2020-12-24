@@ -21,7 +21,7 @@ module GobiertoCommon
     private
 
     def fill_missing_parts(context)
-      return context if context =~ %r{^gid://gobierto//}
+      return context if context =~ %r{^gid://gobierto/}
 
       missing_part = "gid://"
       missing_part += "gobierto/" unless context =~ %r{^gobierto/}

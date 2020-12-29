@@ -6,7 +6,7 @@ module GobiertoDashboards
       class DashboardsController < BaseController
         include ::GobiertoCommon::SecuredWithAdminToken
 
-        skip_before_action :set_admin_with_token, only: [:index, :show, :data, :dashboards_data]
+        skip_before_action :set_admin_with_token, only: [:index, :show, :data, :dashboard_data]
 
         # GET /api/v1/dashboards
         # GET /api/v1/dashboards.json
@@ -28,9 +28,9 @@ module GobiertoDashboards
           )
         end
 
-        # GET /api/v1/dashboards_data?context=GobiertoPlans::Plan/1&data_pipe=project_metrics
-        # GET /api/v1/dashboards_data?context=GobiertoPlans::Plan/1&data_pipe=project_metrics.json
-        def dashboards_data
+        # GET /api/v1/dashboard_data?context=GobiertoPlans::Plan/1&data_pipe=project_metrics
+        # GET /api/v1/dashboard_data?context=GobiertoPlans::Plan/1&data_pipe=project_metrics.json
+        def dashboard_data
           data = context_resource.present? && data_pipe.present? ? data_pipe.new(context_resource, site: current_site).output_data : []
 
           render(

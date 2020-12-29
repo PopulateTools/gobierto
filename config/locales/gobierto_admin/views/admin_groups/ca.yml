@@ -19,7 +19,9 @@ ca:
         action_names:
           edit: Editar
           manage: Administrar
+          manage_dashboards: Administrar dashboards
           moderate: Moderar
+          view_dashboards: Veure dashboards
         actions: Accions
         all: Tots
         members:

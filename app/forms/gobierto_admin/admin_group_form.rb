@@ -4,7 +4,7 @@ module GobiertoAdmin
   class AdminGroupForm < BaseForm
     PERMISSION_TYPES = {
       site_options: { scope: :site_options_permissions, attribute: :resource_type },
-      modules_actions: { scope: :modules_permissions, attribute: :resource_type, action_names: { gobierto_plans: [:manage, :edit, :moderate] } },
+      modules_actions: { scope: :modules_permissions, attribute: :resource_type, action_names: { gobierto_plans: :plans_action_names } },
       people: { scope: :people_permissions, attribute: :resource_id, parent_type: :modules_actions, parent: :gobierto_people, allow_all: true }
     }.freeze
 
@@ -55,7 +55,8 @@ module GobiertoAdmin
     def action_names(permission_type, resource_type = nil)
       return unless PERMISSION_TYPES.has_key? permission_type
 
-      PERMISSION_TYPES.dig(permission_type, :action_names, resource_type.to_sym) || [:manage]
+      names = PERMISSION_TYPES.dig(permission_type, :action_names, resource_type.to_sym) || [:manage]
+      names.is_a?(Symbol) ? send(names) : names
     end
 
     def resource_type
@@ -67,6 +68,12 @@ module GobiertoAdmin
     end
 
     private
+
+    def plans_action_names
+      [:manage, :edit, :moderate].tap do |names|
+        names.append(:manage_dashboards, :view_dashboards) if site.configuration.modules.include?("GobiertoDashboards")
+      end
+    end
 
     def site
       Site.find_by(id: site_id)

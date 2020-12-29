@@ -36,9 +36,18 @@ module GobiertoDashboards
         def admin_auth_header
           @admin_auth_header ||= "Bearer #{admin.primary_api_token}"
         end
+        alias admin_with_write_permissions_auth_header admin_auth_header
+
+        def admin_without_write_permissions_auth_header
+          @admin_without_write_permissions_auth_header ||= "Bearer #{admin_without_write_permissions.primary_api_token}"
+        end
 
         def admin
           @admin ||= gobierto_admin_admins(:tony)
+        end
+
+        def admin_without_write_permissions
+          @admin_without_write_permissions ||= gobierto_admin_admins(:steve)
         end
 
         def site_with_module_disabled
@@ -333,6 +342,16 @@ module GobiertoDashboards
 
             delete gobierto_dashboards_api_v1_dashboard_path(dashboard), headers: { Authorization: user_auth_header }
             assert_response :unauthorized
+          end
+        end
+
+        def test_permissions_of_regular_admin_without_write_permissions
+          with(site: site) do
+            post gobierto_dashboards_api_v1_dashboards_path, headers: { Authorization: admin_without_write_permissions_auth_header }, params: valid_params
+            assert_response :unauthorized
+
+            post gobierto_dashboards_api_v1_dashboards_path, headers: { Authorization: admin_with_write_permissions_auth_header }, params: valid_params
+            assert_response :created
           end
         end
 

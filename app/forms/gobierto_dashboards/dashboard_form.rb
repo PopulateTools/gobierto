@@ -47,7 +47,7 @@ module GobiertoDashboards
     end
 
     def title
-      title_translations.with_indifferent_access[I18n.locale]
+      title_translations.with_indifferent_access[I18n.locale].presence || title_translations.values.find(&:present?)
     end
 
     def visibility_level
@@ -73,6 +73,8 @@ module GobiertoDashboards
     end
 
     def transformed_widgets_configuration
+      return if widgets_configuration.blank?
+
       widgets_configuration_json_format if widgets_configuration.is_a?(String)
 
       @widgets_configuration.map do |widget_configuration|

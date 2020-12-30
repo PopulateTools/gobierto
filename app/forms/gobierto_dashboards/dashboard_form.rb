@@ -19,11 +19,11 @@ module GobiertoDashboards
       :visibility_level
     )
 
-    validates :title, :context, :visibility_level, :site, presence: true
+    validate :context_presence
+    validates :title, :visibility_level, :site, presence: true
     validates :title_translations, translated_attribute_presence: true
     validates :visibility_level, inclusion: { in: Dashboard.visibility_levels.keys }
     validate :widgets_configuration_json_format
-    validate :context_presence
 
     delegate :persisted?, to: :resource
 
@@ -54,6 +54,10 @@ module GobiertoDashboards
       @visibility_level ||= resource.visibility_level || :draft
     end
 
+    def context_service
+      @context_service ||= GobiertoCommon::ContextService.new(context)
+    end
+
     def save
       save_resource if valid?
     end
@@ -77,9 +81,7 @@ module GobiertoDashboards
     end
 
     def context_presence
-      GlobalID::Locator.locate context
-    rescue ActiveRecord::RecordNotFound
-      errors.add :context, I18n.t("errors.messages.not_found")
+      errors.add(:context, I18n.t("errors.messages.not_found")) unless context_service.present?
     end
 
     def build_resource
@@ -94,7 +96,7 @@ module GobiertoDashboards
       @resource = resource.tap do |attributes|
         attributes.site_id = site.id
         attributes.title_translations = title_translations
-        attributes.context = context
+        attributes.context = context_service.context
         attributes.visibility_level = visibility_level
         attributes.widgets_configuration = transformed_widgets_configuration
       end

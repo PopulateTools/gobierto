@@ -192,6 +192,7 @@ Rails.application.routes.draw do
               get :accumulated_values
             end
           end
+          resources :dashboards
           resources :projects do
             member do
               post :publish
@@ -268,8 +269,7 @@ Rails.application.routes.draw do
       end
 
       namespace :gobierto_dashboards, as: :dashboards do
-        get "index" => "dashboards#index"
-        get "show" => "dashboards#show"
+        resources :dashboards
       end
     end
 

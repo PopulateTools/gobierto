@@ -1,0 +1,10 @@
+---
+en:
+  gobierto_admin:
+    gobierto_dashboards:
+      dashboards:
+        form:
+          placeholders:
+            title: Indicators
+        new_modal:
+          title: New dashboard

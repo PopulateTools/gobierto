@@ -1,0 +1,6 @@
+---
+ca:
+  activemodel:
+    attributes:
+      gobierto_dashboards/dashboard_form:
+        title: Títol

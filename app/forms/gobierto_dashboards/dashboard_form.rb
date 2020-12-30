@@ -62,6 +62,10 @@ module GobiertoDashboards
       save_resource if valid?
     end
 
+    def available_visibility_levels
+      Dashboard.visibility_levels
+    end
+
     private
 
     def widgets_configuration_json_format

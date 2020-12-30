@@ -7,6 +7,7 @@ module GobiertoDashboards
     belongs_to :site
 
     scope :sorted, -> { order(data_updated_at: :desc) }
+    scope :for_context, ->(resource) { where(context: resource.is_a?(String) ? GobiertoCommon::ContextService.new(resource).context : resource.to_global_id.to_s) }
 
     translates :title
 

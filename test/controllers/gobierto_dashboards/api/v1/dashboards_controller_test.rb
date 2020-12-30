@@ -12,6 +12,9 @@ module GobiertoDashboards
         def setup
           super
 
+          admin_without_write_permissions.admin_groups << view_dashboards_admin_group
+          admin_with_write_permissions.admin_groups << manage_dashboards_admin_group
+
           setup_api_protection_test(
             path: gobierto_dashboards_api_v1_dashboards_path,
             site: site,
@@ -27,6 +30,14 @@ module GobiertoDashboards
 
         def user
           @user ||= users(:dennis)
+        end
+
+        def view_dashboards_admin_group
+          @view_dashboards_admin_group ||= gobierto_admin_admin_groups(:madrid_view_plans_dashboards_group)
+        end
+
+        def manage_dashboards_admin_group
+          @manage_dashboards_admin_group ||= gobierto_admin_admin_groups(:madrid_manage_plans_dashboards_group)
         end
 
         def user_auth_header
@@ -45,6 +56,7 @@ module GobiertoDashboards
         def admin
           @admin ||= gobierto_admin_admins(:tony)
         end
+        alias admin_with_write_permissions admin
 
         def admin_without_write_permissions
           @admin_without_write_permissions ||= gobierto_admin_admins(:steve)

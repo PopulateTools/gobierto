@@ -91,12 +91,12 @@ module GobiertoDashboards
           end
         end
 
-        def valid_params(except: [])
+        def valid_params(except: [], with_custom_attributes: {})
           {
             data:
             {
               type: "gobierto_dashboards-dashboards",
-              attributes: valid_attributes.except(*except)
+              attributes: valid_attributes.except(*except).merge(with_custom_attributes)
             }
           }
         end
@@ -354,10 +354,38 @@ module GobiertoDashboards
         end
 
         # POST /api/v1/dashboards
+        def test_create_without_context
+          with(site: site) do
+            assert_no_difference "GobiertoDashboards::Dashboard.count" do
+              post gobierto_dashboards_api_v1_dashboards_path, headers: { Authorization: admin_auth_header }, params: valid_params(except: [:context])
+              assert_response :unprocessable_entity
+              assert_match "not found", response.parsed_body.to_json
+            end
+          end
+        end
+
+        def test_create_with_invalid_context
+          with(site: site) do
+            assert_no_difference "GobiertoDashboards::Dashboard.count" do
+              post(
+                gobierto_dashboards_api_v1_dashboards_path,
+                headers: { Authorization: admin_auth_header },
+                params: valid_params(with_custom_attributes: { context: "GobiertoPlans::Plan/123456" })
+              )
+              assert_response :unprocessable_entity
+              assert_match "not found", response.parsed_body.to_json
+            end
+          end
+        end
+
         def test_create
           with(site: site) do
             assert_difference "GobiertoDashboards::Dashboard.count", 1 do
-              post gobierto_dashboards_api_v1_dashboards_path, headers: { Authorization: admin_auth_header }, params: valid_params
+              post(
+                gobierto_dashboards_api_v1_dashboards_path,
+                headers: { Authorization: admin_auth_header },
+                params: valid_params
+              )
               assert_response :created
             end
 
@@ -370,6 +398,19 @@ module GobiertoDashboards
               assert_equal stored_widget.sort, original_widget.deep_stringify_keys.sort
             end
             assert new_dashboard.active?
+          end
+        end
+
+        def test_create_with_incomplete_valid_gid
+          with(site: site) do
+            assert_difference "GobiertoDashboards::Dashboard.count", 1 do
+              post(
+                gobierto_dashboards_api_v1_dashboards_path,
+                headers: { Authorization: admin_auth_header },
+                params: valid_params(with_custom_attributes: { context: "GobiertoPlans::Plan/#{plan.id}" })
+              )
+              assert_response :created
+            end
           end
         end
 

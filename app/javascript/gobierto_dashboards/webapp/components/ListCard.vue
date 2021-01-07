@@ -18,19 +18,19 @@ export default {
       default: null
     },
     // eslint-disable-next-line vue/prop-name-casing
-    widget_configuration: {
+    widgets_configuration: {
       type: Array,
       default: () => []
     },
   },
   data() {
     return {
-      indicators: this.widget_configuration.map(({ indicator }) => indicator).length
+      indicators: this.widgets_configuration.map(({ indicator }) => indicator).length
     }
   },
   computed: {
     indicatorsLabel() {
-      return I18n.t("gobierto_dashboards.indicators_amount", { amount: this.indicators })
+      return I18n.t("gobierto_dashboards.indicators_amount", { amount: this.indicators || 0 })
     }
   },
 };

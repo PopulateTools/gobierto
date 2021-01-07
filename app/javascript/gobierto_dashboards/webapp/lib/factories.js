@@ -3,24 +3,7 @@ import axios from "axios";
 const baseUrl = location.origin;
 const endPointDashboard = `${baseUrl}/api/v1/dashboards`;
 const endPointData = `${baseUrl}/api/v1/dashboard_data`;
-const headers = new Headers({
-  "Content-type": "application/json"
-});
-
-// DEBUG
-import { Mock } from "./mock__DELETABLE";
-axios.interceptors.response.use(x => x, ({ config: { url } }) => {
-  const { dashboardData, dashboards, getDashboard } = new Mock()
-  switch (true) {
-    case url.includes("dashboard_data"):
-      return dashboardData
-    case /dashboards\/.+/.test(url):
-      return getDashboard(+url[url.length - 1])
-    default:
-      return dashboards
-  }
-});
-// END DEBUG
+const headers = {};
 
 export const FactoryMixin = {
   methods: {

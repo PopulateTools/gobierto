@@ -10,12 +10,14 @@
         <div
           dashboard-viewer-app
           :data-context="context"
+          :data-pipe="pipe"
         />
       </template>
       <template v-else>
         <div
           dashboard-viewer-app
           :data-context="context"
+          :data-pipe="pipe"
           :data-id="dashboardId"
         />
       </template>
@@ -42,6 +44,9 @@ export default {
   computed: {
     context() {
       return this.$root?.$data?.context
+    },
+    pipe() {
+      return this.$root?.$data?.pipe
     },
     dashboardId() {
       return this.$route.params?.dashboardId

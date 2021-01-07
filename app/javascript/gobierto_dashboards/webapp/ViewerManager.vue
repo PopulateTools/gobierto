@@ -66,10 +66,10 @@ export default {
   },
   async created() {
     // request all dashboards
-    ({ data: this.dashboards } = await this.getDashboards({ context: this.context, data_pipe: this.pipe }))
+    ({ data: { data: this.dashboards } = {} } = await this.getDashboards({ context: this.context, data_pipe: this.pipe }))
 
     if (this.id) {
-      this.currentDashboard = this.dashboards.find(({ id }) => id === +this.id)
+      this.currentDashboard = this.dashboards.find(({ id }) => +id === +this.id)
     }
 
     // Emit to his parent, if there was any
@@ -81,7 +81,7 @@ export default {
   methods: {
     handleClick(uid) {
       // if uid is null, no selected dashboard, i.e. show the list
-      this.currentDashboard = this.dashboards.find(({ id }) => id === +uid)
+      this.currentDashboard = this.dashboards.find(({ id }) => +id === +uid)
 
       // Emit to his parent, if there was any
       this.$emit(GOBIERTO_DASHBOARDS.SELECTED, this.currentDashboard)

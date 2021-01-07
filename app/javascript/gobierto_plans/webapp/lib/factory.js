@@ -2,9 +2,7 @@ import axios from "axios";
 
 const baseUrl = location.origin;
 const endPoint = `${baseUrl}/api/v1/plans`;
-const headers = new Headers({
-  "Content-type": "application/json"
-});
+const headers = {};
 
 // Plans-endpoint factory to get/post/put/delete API data
 export const PlansFactoryMixin = {

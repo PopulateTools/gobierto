@@ -190,7 +190,7 @@ export default {
     },
     handleViewerUpdated(widgets) {
       if (this.viewerLoaded) {
-        this.setConfiguration("widget_configuration", widgets);
+        this.setConfiguration("widgets_configuration", widgets);
 
         // when dragging an external element to the canvas, this.item will exists
         if (this.item) {

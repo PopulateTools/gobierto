@@ -1,6 +1,6 @@
 <template>
   <div class="planification-table__breadcrumb">
-    <router-link :to="{ name: 'table', params: { ...params } }">
+    <router-link :to="{ name: routes.TABLE, params: { ...params } }">
       <span class="planification-table__breadcrumb-group">
         {{ uid }}
       </span>
@@ -14,6 +14,7 @@
 
 <script>
 import { NamesMixin } from "../lib/mixins/names";
+import { routes } from "../lib/router";
 
 export default {
   name: "TableBreadcrumb",
@@ -31,6 +32,9 @@ export default {
     }
   },
   computed: {
+    routes() {
+      return routes
+    },
     params() {
       return this.$route.params;
     },

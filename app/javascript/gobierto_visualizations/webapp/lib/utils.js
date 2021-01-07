@@ -1,4 +1,5 @@
 import { csv } from "d3-fetch";
+import { mean, median, sum } from "d3-array";
 import axios from "axios";
 
 const endPointGobiertoData = `/api/v1/data/data.json`
@@ -49,11 +50,12 @@ export function getQueryData(params) {
   return axios.get(`${endPointGobiertoData}?${qs.toString()}`);
 }
 
-export function normalizeString(string) {
-  let slug = string.normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/ /g, '-')
-    .replace(/[.,()\s]/g, '')
-    .toLowerCase();
-  return slug
+export function calculateSumMeanMedian(value) {
+  let sumValue = sum(value) || 0
+  let meanValue = mean(value) || 0
+  let medianValue = median(value) || 0
+
+  let values = [sumValue, meanValue, medianValue]
+
+  return values
 }

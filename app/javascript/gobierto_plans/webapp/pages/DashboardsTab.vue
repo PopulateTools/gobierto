@@ -6,10 +6,19 @@
     />
     <div v-show="!isLoading">
       <!-- markup mandatory markup to build the dashboards app -->
-      <div
-        dashboard-viewer-app
-        :data-context="context"
-      />
+      <template v-if="dashboardId === null">
+        <div
+          dashboard-viewer-app
+          :data-context="context"
+        />
+      </template>
+      <template v-else>
+        <div
+          dashboard-viewer-app
+          :data-context="context"
+          :data-id="dashboardId"
+        />
+      </template>
     </div>
   </div>
 </template>
@@ -17,9 +26,10 @@
 <script>
 import { GOBIERTO_DASHBOARDS } from "lib/events";
 import { Loading } from "lib/vue-components";
+import { routes } from "../lib/router";
 
 export default {
-  name: "Dashboards",
+  name: "DashboardsTab",
   components: {
     Loading
   },
@@ -32,11 +42,10 @@ export default {
   computed: {
     context() {
       return this.$root?.$data?.context
+    },
+    dashboardId() {
+      return this.$route.params?.dashboardId
     }
-  },
-  destroyed() {
-    document.removeEventListener(GOBIERTO_DASHBOARDS.LOADED, this.dashboardViewerLoaded)
-    document.removeEventListener(GOBIERTO_DASHBOARDS.SELECTED, this.dashboardViewerSelected)
   },
   mounted() {
     // Ask for the dashboard-viewer
@@ -47,16 +56,16 @@ export default {
     document.addEventListener(GOBIERTO_DASHBOARDS.LOADED, this.dashboardViewerLoaded)
     document.addEventListener(GOBIERTO_DASHBOARDS.SELECTED, this.dashboardViewerSelected)
   },
+  destroyed() {
+    document.removeEventListener(GOBIERTO_DASHBOARDS.LOADED, this.dashboardViewerLoaded)
+    document.removeEventListener(GOBIERTO_DASHBOARDS.SELECTED, this.dashboardViewerSelected)
+  },
   methods: {
-    dashboardViewerLoaded({ detail }) {
+    dashboardViewerLoaded() {
       this.isLoading = false
-      // if (detail)
-      // TODO: count number
     },
     dashboardViewerSelected({ detail }) {
-      if (detail) {
-        this.$router.push({ name: "dashboards", params: { ...this.$route.params, dashboardid: detail.id } })
-      }
+      this.$router.push({ name: routes.DASHBOARDS, params: { ...this.$route.params, dashboardId: detail?.id } })
     },
   }
 };

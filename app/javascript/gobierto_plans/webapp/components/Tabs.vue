@@ -8,7 +8,6 @@
           :to="{ params: { ...$route.params }, ...tab }"
           class="planification-tabs__item"
           :class="{ 'is-active': activeTab === i }"
-          @click.native="activeTab = i"
         >
           {{ tab.title }}
         </router-link>
@@ -33,9 +32,10 @@ export default {
       default: () => []
     }
   },
-  data() {
-    return {
-      activeTab: 0
+  computed: {
+    activeTab() {
+      const { name: current, meta: { tab } } = this.$route
+      return this.tabs.findIndex(({ name }) => [current, tab].includes(name))
     }
   }
 };

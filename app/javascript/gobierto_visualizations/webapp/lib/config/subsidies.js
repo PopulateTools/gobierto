@@ -1,6 +1,6 @@
 // table columns
 export const subsidiesColumns = [
-  { field: 'beneficiary_name', translation: I18n.t('gobierto_visualizations.visualizations.subsidies.beneficiary'), format: null, cssClass: '' },
+  { field: 'beneficiary', translation: I18n.t('gobierto_visualizations.visualizations.subsidies.beneficiary'), format: null, cssClass: '' },
   { field: 'amount', translation: I18n.t('gobierto_visualizations.visualizations.subsidies.amount'), format: 'currency', cssClass: 'right' },
   { field: 'grant_date', translation: I18n.t('gobierto_visualizations.visualizations.subsidies.date'), format: null, cssClass: '' },
 ];

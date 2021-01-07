@@ -32,10 +32,6 @@
       z-index: -1;
     }
 
-    > * {
-      user-select: none;
-    }
-
     &__textarea {
       height: 100%;
       width: 100%;
@@ -234,5 +230,12 @@
       font-size: $f7;
       line-height: 1.25;
     }
+  }
+
+  &__button {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    margin-top: 1rem;
   }
 }

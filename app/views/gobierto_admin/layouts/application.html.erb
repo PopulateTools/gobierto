@@ -5,6 +5,8 @@
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
   <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
 
+  <%= yield(:stylesheet_module_link) %>
+
   <%= csrf_meta_tags %>
 
   <% if Rails.env.production? %>

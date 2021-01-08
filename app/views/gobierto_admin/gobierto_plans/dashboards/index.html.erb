@@ -26,6 +26,7 @@
     <th></th>
     <th></th>
   </tr>
+
   <% @dashboards.each do |dashboard| %>
     <tr id="<%= "dashboard-item-#{dashboard.id}" %>">
       <td>
@@ -36,8 +37,10 @@
         <% end %>
       </td>
       <td>
-        <%= link_to admin_dashboards_dashboard_path(dashboard), data: { turbolinks: false }, class: "open_remote_modal" do %>
-          <%= dashboard.title %>
+        <% if current_admin_actions.include?(:edit) %>
+          <%= link_to edit_admin_dashboards_dashboard_path(dashboard), data: { turbolinks: false, "dashboards-maker": true }, class: "open_remote_modal" do %>
+            <%= dashboard.title %>
+          <% end %>
         <% end %>
       </td>
       <td>

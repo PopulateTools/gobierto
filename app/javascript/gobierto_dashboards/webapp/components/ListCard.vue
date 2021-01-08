@@ -23,14 +23,10 @@ export default {
       default: () => []
     },
   },
-  data() {
-    return {
-      indicators: this.widgets_configuration.map(({ indicator }) => indicator).length
-    }
-  },
   computed: {
     indicatorsLabel() {
-      return I18n.t("gobierto_dashboards.indicators_amount", { amount: this.indicators || 0 })
+      const amount = this.widgets_configuration ? this.widgets_configuration.map(({ indicator } = {}) => indicator).length : 0
+      return I18n.t("gobierto_dashboards.indicators_amount", { amount })
     }
   },
 };

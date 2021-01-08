@@ -2,8 +2,6 @@ import "magnific-popup";
 import { GOBIERTO_DASHBOARDS } from "lib/events"
 
 $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
-  const isDashboardsSelector = !!document.querySelector("[data-dashboards-maker]")
-
   $(".open_remote_modal").magnificPopup({
     type: "ajax",
     removalDelay: 300,
@@ -30,7 +28,10 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
         // autofocus on the first modal input field
         $(".modal .form_item input[type=text]:visible").first().focus()
 
-        if (isDashboardsSelector) {
+        // launch modal only if the target has data-dashboards-maker directive
+        // public properties: https://dimsemenov.com/plugins/magnific-popup/documentation.html#api
+        const { dataset } = this.st.el[0] || {}
+        if (dataset && !!dataset.dashboardsMaker) {
           const event = new Event(GOBIERTO_DASHBOARDS.CREATE)
           document.dispatchEvent(event)
         }

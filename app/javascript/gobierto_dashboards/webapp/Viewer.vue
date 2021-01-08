@@ -18,6 +18,7 @@
   >
     <Widget
       v-for="widget in widgets"
+      ref="widget"
       :key="widget.i"
       :edition-mode="isEditionMode"
       v-bind="{ ...widget, widgetsData }"

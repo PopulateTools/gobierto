@@ -1,5 +1,6 @@
 <template>
   <GridItem
+    ref="item"
     :x="x"
     :y="y"
     :w="w"
@@ -84,7 +85,7 @@ export default {
       if (this.edit) {
         this.edit = false
       }
-    }
+    },
   }
 };
 </script>

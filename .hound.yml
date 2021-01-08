@@ -1,6 +1,6 @@
-sass-lint:
+stylelint:
   enabled: true
-  config_file: .sass-lint.yml
+  config_file: .stylelintrc.yml
 
 eslint:
   enabled: true

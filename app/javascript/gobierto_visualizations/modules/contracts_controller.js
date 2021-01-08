@@ -8,7 +8,7 @@ import {
 } from "lib/visualizations";
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { getRemoteData } from "../webapp/lib/utils";
+import { getRemoteData, calculateSumMeanMedian } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/mixins/event_bus";
 
 const d3 = { scaleThreshold, sum, mean, median, max };
@@ -79,7 +79,6 @@ export class ContractsController {
             }
           ],
           scrollBehavior(to) {
-            let element;
             if (to.name === "contracts_show") {
               const element = document.getElementById(selector);
               window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
@@ -263,9 +262,7 @@ export class ContractsController {
     );
 
     const numberTenders = _tendersData.length;
-    const sumTenders = d3.sum(amountsArray) || 0;
-    const meanTenders = d3.mean(amountsArray) || 0;
-    const medianTenders = d3.median(amountsArray) || 0;
+    const [ sumTenders, meanTenders, medianTenders ] = calculateSumMeanMedian(amountsArray)
 
     // Updating the DOM
     document.getElementById(
@@ -287,9 +284,7 @@ export class ContractsController {
 
     // Calculations box items
     const numberContracts = _contractsData.length;
-    const sumContracts = d3.sum(amountsArray);
-    const meanContracts = d3.mean(amountsArray);
-    const medianContracts = d3.median(amountsArray);
+    const [ sumContracts, meanContracts, medianContracts ] = calculateSumMeanMedian(amountsArray)
 
     // Calculations headlines
     const lessThan1000Total = _contractsData.filter(
@@ -302,7 +297,7 @@ export class ContractsController {
       _contractsData,
       ({ final_amount_no_taxes = 0 }) => parseFloat(final_amount_no_taxes)
     );
-    const largerContractAmountPct = (largerContractAmount / sumContracts) || 0;
+    const largerContractAmountPct = sumContracts ? (largerContractAmount / sumContracts) : 0;
 
     let iteratorAmountsSum = 0,
       numberContractsHalfSpendings = 0;

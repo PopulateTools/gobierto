@@ -35,10 +35,10 @@ import { treemap, stratify, hierarchy, treemapBinary } from 'd3-hierarchy'
 import { scaleLinear, scaleOrdinal } from 'd3-scale'
 import { easeLinear } from 'd3-ease'
 import { interpolate } from 'd3-interpolate';
-import { sumDataByGroupKey, normalizeString, createScaleColors } from "../lib/utils";
+import { sumDataByGroupKey } from "../lib/utils";
 import { mean, median } from "d3-array";
 import { nest } from "d3-collection";
-import { money } from "lib/shared";
+import { money, createScaleColors, normalizeString } from "lib/shared";
 
 const d3 = { select, selectAll, treemap, stratify, scaleLinear, scaleOrdinal, mouse, easeLinear, mean, median, nest, hierarchy, treemapBinary, interpolate }
 
@@ -248,8 +248,7 @@ export default {
           .attr('class', 'children')
           .attr('fill', d => {
             const { depth, data: { name = '' }, parent: { data: { name: parentName = '' } } } = d
-            const valueColor = depth === 1 ? d.color = colors(name) : d.color = colors(parentName)
-            return valueColor
+            return depth === 1 ? colors(name) : colors(parentName)
           })
           .on("click", transition);
 
@@ -369,7 +368,7 @@ export default {
           })
 
         g.selectAll(".foreignobj")
-        .on('mousemove', function(d, i) {
+        .on('mousemove', function(d) {
           const { depth } = d
           if (depth === 1) return;
           const [x, y] = d3.mouse(this);

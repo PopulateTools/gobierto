@@ -2,9 +2,9 @@
   <div class="beeswarm-container">
     <div class="beeswarm-tooltip" />
     <svg
-      class="beeswarm-plot"
       :width="svgWidth"
       :height="svgHeight"
+      class="beeswarm-plot"
     />
   </div>
 </template>
@@ -16,9 +16,8 @@ import { axisBottom, axisLeft } from 'd3-axis';
 import { extent } from 'd3-array';
 import { timeParse, timeFormat, timeFormatLocale } from 'd3-time-format';
 import { min, max } from 'd3-array';
-import { d3locale } from 'lib/shared';
+import { d3locale, createScaleColors, normalizeString } from 'lib/shared';
 import { easeLinear } from 'd3-ease';
-import { normalizeString, createScaleColors } from "../../../gobierto_visualizations/webapp/lib/utils";
 
 const d3 = {
   select,
@@ -107,7 +106,7 @@ export default {
       }
     },
     $route(to, from) {
-      if (to !== from) {
+      if (to.path !== from.path) {
         this.containerChart = document.querySelector('.beeswarm-container');
         this.svgWidth = this.containerChart.offsetWidth;
         this.deepCloneData(this.dataWithoutCoordinates);
@@ -280,7 +279,7 @@ export default {
           d.id = normalizeString(d.id)
           return `beeswarm-circle beeswarm-circle-${d.id} beeswarm-circle-${d.slug_contract_type}`
         })
-        .attr('id', d => `${d.slug}`)
+        .attr('id', d => d.slug)
         .attr('cx', d => d.x - 5)
         .attr('cy', d => d.y)
         .attr('r', d => d.radius)

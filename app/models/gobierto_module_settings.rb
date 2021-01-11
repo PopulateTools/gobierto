@@ -18,7 +18,7 @@ class GobiertoModuleSettings < ApplicationRecord
     self.settings ||= {}
 
     self.settings.select do |_, value|
-      value.is_a?(Hash) && value.fetch("exposed_in_public_api", false)
+      value.is_a?(Hash) && value.delete("exposed_in_public_api")
     end
   end
 

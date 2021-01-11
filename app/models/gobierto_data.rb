@@ -21,6 +21,10 @@ module GobiertoData
     attachments_collection(current_site) || create_attachments_collection(current_site)
   end
 
+  def self.api_settings(current_site)
+    OpenStruct.new(::GobiertoModuleSettings.find_by(site: current_site, module_name: "GobiertoData")&.api_settings)
+  end
+
   def self.create_attachments_collection(current_site)
     current_site.collections.create!(
       container_type: "GobiertoData",

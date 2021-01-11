@@ -122,7 +122,10 @@
     </div>
 
     <div class="pure-g block">
-      <div v-if="checkFilterCategoryLength" class="pure-u-1 pure-u-lg-1-2 p_h_r_3">
+      <div
+        v-if="checkFilterCategoryLength"
+        class="pure-u-1 pure-u-lg-1-2 p_h_r_3"
+      >
         <div class="m_b_3">
           <h3 class="mt1 graph-title">
             {{ labelCategory }}

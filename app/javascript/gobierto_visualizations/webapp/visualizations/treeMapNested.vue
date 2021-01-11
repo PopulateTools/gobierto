@@ -13,15 +13,15 @@
         class="treemap-nested-sidebar-button-group button-group"
       >
         <button
-          class="button-grouped sort-G"
           :class="{ active : selected_size === firstButtonValue }"
+          class="button-grouped sort-G"
           @click="handleTreeMapValue(firstButtonValue)"
         >
           {{ firstButtonLabel }}
         </button>
         <button
-          class="button-grouped sort-G"
           :class="{ active : selected_size === secondButtonValue }"
+          class="button-grouped sort-G"
           @click="handleTreeMapValue(secondButtonValue)"
         >
           {{ secondButtonLabel }}
@@ -420,18 +420,6 @@ export default {
               .style("opacity", 0)
               .style("display", "none")
           })
-
-        function createDepthSecondHTML(contract) {
-          const { data: { title, initial_amount_no_taxes, value, final_amount_no_taxes } } = contract
-          let contractAmount = selected_size === 'final_amount_no_taxes' ? `${value}` : `${final_amount_no_taxes}`
-          let contractsString = `
-          <div class="depth-second-container">
-            <p class="depth-second-title">${title}</p>
-            <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
-            <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
-          </div>`
-          return contractsString
-        }
 
         function transition(d) {
           if (transitioning || !d) return;

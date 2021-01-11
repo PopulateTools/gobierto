@@ -308,10 +308,10 @@ export default {
           .append("g")
           .datum(d)
           .attr('fill', d => {
+            const { depth } = d
             let valueColor
-            if (scaleColor) {
-              const { depth } = d
-              valueColor = depth === 2 ? this.colors(d.parent.data.name) : depth === 3 || depth === 4 ? this.colors(d.data.children[0].contractor) : ''
+            if (scaleColor && depth === 3) {
+              valueColor = this.colors(d.data.children[0].contractor)
             } else {
               valueColor = '#12365b'
             }
@@ -327,13 +327,14 @@ export default {
           .join('rect')
           .attr('class', 'children')
           .attr('fill', d => {
+            let valueColor
             if (scaleColor) {
               const { depth } = d
-              const valueColor = depth === 1 ? this.colors(d.data.name) : this.colors(d.parent.data.name)
-              return valueColor
+              valueColor = depth === 1 ? this.colors(d.data.name) : depth === 2 ? this.colors(d.parent.data.name) : depth === 3 || depth === 4 ? this.colors(d.data.children[0].contractor) : ''
             } else {
-              return '#12365b'
+              valueColor = '#12365b'
             }
+            return valueColor
           })
           .on("click", transition);
 

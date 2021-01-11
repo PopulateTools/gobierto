@@ -30,7 +30,7 @@ import { nest } from "d3-collection";
 import { select, mouse } from 'd3-selection';
 import TreeMapNested from "../../visualizations/treeMapNested.vue";
 import { sumDataByGroupKey } from "../../lib/utils";
-import { money } from "lib/shared";
+import { money } from "lib/vue/filters";
 
 const d3 = { nest, select, mouse }
 

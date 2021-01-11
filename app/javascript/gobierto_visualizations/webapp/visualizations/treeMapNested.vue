@@ -445,7 +445,8 @@ export default {
               .duration(200)
               .style("opacity", 0)
               .style("display", "none")
-          })
+          }
+        })
 
         function createDepthSecondHTML(contract) {
           const { data: { title, initial_amount_no_taxes, value, final_amount_no_taxes } } = contract

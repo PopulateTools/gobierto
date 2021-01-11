@@ -93,6 +93,25 @@ module GobiertoAdmin
             end
           end
 
+          def test_api_settings_defaults
+            site.gobierto_data_settings.destroy
+
+            with(site: site, admin: admin) do
+              visit @path
+
+              assert has_field? "gobierto_data_settings_api_settings_max_dataset_size_for_queries", with: 0
+            end
+          end
+
+          def test_api_settings_update
+            with(site: site, admin: admin) do
+              visit @path
+
+              fill_in "gobierto_data_settings_api_settings_max_dataset_size_for_queries", with: 100
+              click_button "Update"
+              assert has_field? "gobierto_data_settings_api_settings_max_dataset_size_for_queries", with: 100
+            end
+          end
         end
       end
     end

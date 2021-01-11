@@ -48,7 +48,7 @@ import Layout from "./../layouts/Layout.vue";
 import Sidebar from "./../components/Sidebar.vue";
 import { CategoriesMixin } from "./../../lib/mixins/categories.mixin";
 import { FiltersMixin } from "./../../lib/mixins/filters.mixin";
-import { VueFiltersMixin } from "lib/shared";
+import { VueFiltersMixin } from "lib/vue/filters";
 
 export default {
   name: "Dataset",

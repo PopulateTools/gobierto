@@ -1,7 +1,7 @@
 import crossfilter from "crossfilter2";
 import { max, mean, median, sum } from "d3-array";
 import { scaleThreshold } from "d3-scale";
-import { money } from "lib/shared";
+import { money } from "lib/vue/filters";
 import {
   AmountDistributionBars,
   GroupPctDistributionBars

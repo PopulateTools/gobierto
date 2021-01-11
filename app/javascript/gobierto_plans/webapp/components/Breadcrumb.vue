@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { translate } from "lib/shared"
+import { translate } from "lib/vue/filters"
 import { PlansStore } from "../lib/store";
 import { routes } from "../lib/router";
 

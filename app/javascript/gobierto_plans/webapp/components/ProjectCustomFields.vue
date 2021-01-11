@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { translate } from "lib/shared";
+import { translate } from "lib/vue/filters";
 import { FieldTypeMixin } from "../lib/mixins/field-type";
 import CustomFieldParagraph from "./CustomFieldParagraph.vue";
 import CustomFieldPluginRawIndicators from "./CustomFieldPluginRawIndicators.vue";

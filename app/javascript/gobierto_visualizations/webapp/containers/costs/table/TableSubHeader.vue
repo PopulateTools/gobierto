@@ -5,8 +5,9 @@
   />
 </template>
 <script>
-import { VueFiltersMixin } from "lib/shared"
+import { VueFiltersMixin } from "lib/vue/filters"
 import TableRow from './TableRow.vue'
+
 export default {
   name: "TableSubHeader",
   components: {

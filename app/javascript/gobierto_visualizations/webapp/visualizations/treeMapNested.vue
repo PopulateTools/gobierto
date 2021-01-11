@@ -311,7 +311,7 @@ export default {
             let valueColor
             if (scaleColor) {
               const { depth } = d
-              valueColor = depth === 2 ? d.color = d.color = this.colors(d.parent.data.name) : depth === 3 || depth === 4 ? d.color = this.colors(d.data.children[0].contractor) : ''
+              valueColor = depth === 2 ? this.colors(d.parent.data.name) : depth === 3 || depth === 4 ? this.colors(d.data.children[0].contractor) : ''
             } else {
               valueColor = '#12365b'
             }
@@ -329,7 +329,7 @@ export default {
           .attr('fill', d => {
             if (scaleColor) {
               const { depth } = d
-              const valueColor = depth === 1 ? d.color = this.colors(d.data.name) : d.color = this.colors(d.parent.data.name)
+              const valueColor = depth === 1 ? this.colors(d.data.name) : this.colors(d.parent.data.name)
               return valueColor
             } else {
               return '#12365b'

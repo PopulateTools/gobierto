@@ -173,45 +173,28 @@ export class ContractsController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
-    for (let i = 0; i < contractsData.length; i++) {
-      const contract = contractsData[i];
-      const final_amount_no_taxes =
-        contract.final_amount_no_taxes &&
-        !Number.isNaN(contract.final_amount_no_taxes)
-          ? parseFloat(contract.final_amount_no_taxes)
-          : 0.0;
-      const initial_amount_no_taxes =
-        contract.initial_amount_no_taxes &&
-        !Number.isNaN(contract.initial_amount_no_taxes)
-          ? parseFloat(contract.initial_amount_no_taxes)
-          : 0.0;
-
-      contract.final_amount_no_taxes = final_amount_no_taxes;
-      contract.initial_amount_no_taxes = initial_amount_no_taxes;
-      contract.range = rangeFormat(+final_amount_no_taxes);
-      contract.start_date_year = contract.start_date
-        ? new Date(contract.start_date).getFullYear()
-        : contract.start_date;
-      if (!contract.assignee_routing_id) {
-        contract.assignee_routing_id = contract.assignee_id;
+    contractsData = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, start_date, assignee_id, ...rest }) => {
+      return {
+        final_amount_no_taxes: final_amount_no_taxes && !Number.isNaN(final_amount_no_taxes) ? parseFloat(final_amount_no_taxes): 0.0,
+        initial_amount_no_taxes: initial_amount_no_taxes && !Number.isNaN(initial_amount_no_taxes) ? parseFloat(initial_amount_no_taxes): 0.0,
+        range: rangeFormat(+final_amount_no_taxes),
+        assignee_routing_id: assignee_id,
+        start_date_year: start_date ? new Date(start_date).getFullYear() : start_date,
+        start_date,
+        ...rest
       }
-    }
 
-    for (let i = 0; i < tendersData.length; i++) {
-      const tender = tendersData[i];
-      const initial_amount_no_taxes = tender.initial_amount_no_taxes
-        ? parseFloat(tender.initial_amount_no_taxes)
-        : 0.0;
+    })
 
-      tender.initial_amount_no_taxes = initial_amount_no_taxes;
-      tender.submission_date_year = tender.submission_date
-        ? new Date(tender.submission_date).getFullYear()
-        : tender.submission_date;
+    tendersData = tendersData.map(({ initial_amount_no_taxes = 0, submission_date, ...rest }) => {
 
-      if (tender.submission_date_year) {
-        tender.submission_date_year = tender.submission_date_year.toString();
+      return {
+        initial_amount_no_taxes: initial_amount_no_taxes ? parseFloat(initial_amount_no_taxes) : 0.0,
+        submission_date_year: submission_date ? new Date(submission_date).getFullYear().toString() : submission_date.toString(),
+        ...rest
       }
-    }
+
+    })
 
     this.unfilteredTendersData = tendersData.sort(
       sortByField("submission_date")

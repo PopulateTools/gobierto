@@ -72,7 +72,7 @@
 
 <script>
 
-import { VueFiltersMixin } from "lib/shared"
+import { VueFiltersMixin } from "lib/vue/filters"
 import { EventBus } from "../../mixins/event_bus";
 
 export default {

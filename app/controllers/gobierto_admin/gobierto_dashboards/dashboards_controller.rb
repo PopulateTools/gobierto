@@ -6,11 +6,13 @@ module GobiertoAdmin
       layout false
 
       def index
+        @context = "context"
       end
 
       def show
-        # dashboard ID example
-        @id = 0 
+        # dashboard ID/context example
+        @id = 0
+        @context = "context"
       end
     end
   end

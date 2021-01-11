@@ -24,16 +24,6 @@
             </th>
             <td>{{ grant_date }}</td>
           </tr>
-          <tr>
-            <th class="left">
-              <a
-                :href="regulatory_bases"
-                target="_blank"
-              >
-                {{ labelRegulatoryBases }}
-              </a>
-            </th>
-          </tr>
         </table>
       </div>
     </div>
@@ -42,7 +32,7 @@
 
 <script>
 
-import { VueFiltersMixin } from "lib/shared"
+import { VueFiltersMixin } from "lib/vue/filters"
 
 export default {
   name: 'SubsidiesShow',
@@ -53,7 +43,6 @@ export default {
       call: '',
       beneficiary: '',
       labelBeneficiary: I18n.t('gobierto_visualizations.visualizations.subsidies.beneficiary'),
-      labelRegulatoryBases: I18n.t('gobierto_visualizations.visualizations.subsidies.regulatory_bases'),
       labelAmount: I18n.t('gobierto_visualizations.visualizations.subsidies.amount'),
       labelGrantDate: I18n.t('gobierto_visualizations.visualizations.subsidies.date'),
     }
@@ -67,15 +56,13 @@ export default {
         call,
         beneficiary,
         amount,
-        grant_date,
-        regulatory_bases
+        grant_date
       } = subsidy
 
       this.call = call
       this.beneficiary = beneficiary
       this.amount = amount
       this.grant_date = grant_date
-      this.regulatory_bases = regulatory_bases
     }
   }
 }

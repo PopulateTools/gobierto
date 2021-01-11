@@ -1,9 +1,10 @@
 @import "css-conf";
 @import "mixins";
+@import "comp-vue-transitions";
 
 :root {
   --space: #{$f6};
-  --color-grey: #666;
+  --color-grey-str: 102, 102, 102;
   --font-family: "Libre Franklin", "Helvetica Neue", "Arial", "sans-serif";
   --font-family-alt: #{$font_text};
 }
@@ -29,10 +30,6 @@
       top: 0;
       left: 0;
       z-index: -1;
-    }
-
-    > * {
-      user-select: none;
     }
 
     &__textarea {
@@ -93,7 +90,7 @@
         font-size: $f1;
         line-height: 1.1;
         font-weight: 300;
-        color: var(--color-grey);
+        color: rgba(var(--color-grey-str), 1);
       }
     }
 
@@ -188,5 +185,57 @@
         }
       }
     }
+  }
+
+  &__card {
+    padding: var(--space);
+    border: 1px solid rgba(var(--color-grey-str), 0.2);
+    position: relative;
+    cursor: pointer;
+    transition: background-color 250ms;
+
+    @include border-radius(8px);
+    @include min-screen(768) {
+      padding: calc(2 * var(--space));
+    }
+
+    &:hover {
+      background-color: rgba(var(--color-grey-str), 0.1);
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 24px;
+      
+      @include min-screen(768) {
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 42px;
+      }
+    }
+
+    &-container {
+      @include aspect-ratio(3, 1);
+    }
+
+    &-title {
+      text-decoration: underline;
+      font-weight: 700;
+      font-size: $f3;
+      margin: 0 0 var(--space);
+    }
+
+    &-subtitle {
+      color: $color_text;
+      font-size: $f7;
+      line-height: 1.25;
+    }
+  }
+
+  &__button {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    margin-top: 1rem;
   }
 }

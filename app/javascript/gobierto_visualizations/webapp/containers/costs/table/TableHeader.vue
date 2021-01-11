@@ -34,7 +34,8 @@
 </template>
 
 <script>
-import { VueFiltersMixin } from "lib/shared"
+import { VueFiltersMixin } from "lib/vue/filters"
+
 export default {
   name: 'TableHeader',
   mixins: [VueFiltersMixin],

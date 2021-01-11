@@ -68,7 +68,7 @@ class GobiertoVisualizations::VisualizationsSubsidiesTest < ActionDispatch::Inte
 
       ## Headlines
       assert page.has_content?("El 70 % de las subvenciones son menores de 1.000 €")
-      assert page.has_content?("La mayor subvención supone un 24 % de todo el gasto en subvenciones")
+      assert page.has_content?("La mayor subvención supone un 31.667 % de todo el gasto en subvenciones")
       assert page.has_content?("El 10 % de subvenciones concentran el 50% de todo el gasto")
 
       ## Charts
@@ -119,7 +119,7 @@ class GobiertoVisualizations::VisualizationsSubsidiesTest < ActionDispatch::Inte
       assert find(".visualizations-home-nav--tab.is-active").text, 'SUBSIDIES'
 
       # Url is updated
-      assert_equal current_path, "/visualizaciones/subvenciones/subvenciones/20161227146"
+      assert_equal current_path, "/visualizaciones/subvenciones/subvenciones/2016122714613"
 
       # Title
       assert page.has_content?('CONVOCATORIA DE AYUDAS PARA LA ESCOLARIZACIÓN DE NIÑOS Y NIÑAS EN EL PRIMER CICLO DE EDUCACIÓN INFANTIL DE 0 A 3 AÑOS, EN ESCUELAS INFANTILES Y CASAS DE NIÑOS PÚBLICAS DE GETAFE 2016/2017')

@@ -38,13 +38,23 @@ module GobiertoData
         def dataset
           @dataset ||= gobierto_data_datasets(:users_dataset)
         end
+        alias big_dataset dataset
 
         def other_dataset
           @other_dataset ||= gobierto_data_datasets(:events_dataset)
         end
+        alias small_dataset other_dataset
 
         def datasets_category
           @datasets_category ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_category)
+        end
+
+        def datasets_md_without_translations
+          @datasets_md_without_translations ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_md_without_translations)
+        end
+
+        def datasets_md_with_translations
+          @datasets_md_with_translations ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_md_with_translations)
         end
 
         def other_site_dataset
@@ -53,6 +63,10 @@ module GobiertoData
 
         def attachment
           @attachment ||= gobierto_attachments_attachments(:txt_pdf_attachment)
+        end
+
+        def api_settings
+          @api_settings ||= gobierto_module_settings(:gobierto_data_settings_madrid).api_settings
         end
 
         def delete_cached_files
@@ -67,7 +81,9 @@ module GobiertoData
             dataset.table_name,
             dataset.data_updated_at.to_s,
             dataset.rails_model&.columns_hash&.transform_values(&:type)&.to_s,
-            GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_category)&.value_string
+            GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_category)&.value_string,
+            GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_md_without_translations)&.value_string,
+            GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_md_with_translations)&.value_string
           ]
         end
 
@@ -231,7 +247,7 @@ module GobiertoData
             parsed_csv = CSV.parse(response_data).map { |row| row.map(&:to_s) }
 
             assert_equal active_datasets_count + 1, parsed_csv.count
-            assert_equal %w(id name slug table_name data_updated_at columns category), parsed_csv.first
+            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations), parsed_csv.first
             assert_includes parsed_csv, array_data(dataset)
             refute_includes parsed_csv, array_data(other_site_dataset)
           end
@@ -265,7 +281,7 @@ module GobiertoData
             assert_equal 1, parsed_xlsx.worksheets.count
             sheet = parsed_xlsx.worksheets.first
             assert_nil sheet[active_datasets_count + 1]
-            assert_equal %w(id name slug table_name data_updated_at columns category), sheet[0].cells.map(&:value)
+            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations), sheet[0].cells.map(&:value)
             values = (1..active_datasets_count).map do |row_number|
               sheet[row_number].cells.map { |cell| cell.value.to_s }
             end
@@ -303,7 +319,7 @@ module GobiertoData
 
             # attributes
             attributes_keys = resource_data["attributes"].keys
-            %w(name slug data_updated_at data_summary columns formats).each do |attribute|
+            %w(name slug data_updated_at data_summary columns formats size default_limit).each do |attribute|
               assert_includes attributes_keys, attribute
             end
             assert resource_data["attributes"].has_key?(datasets_category.uid)
@@ -330,6 +346,22 @@ module GobiertoData
           end
         end
 
+        # GET /api/v1/data/datasets/dataset-slug/metadata
+        def test_size_and_default_limit_meta_attributes
+          with(site: site) do
+            get meta_gobierto_data_api_v1_dataset_path(big_dataset.slug), as: :json
+            big_dataset_response_data = response.parsed_body
+            get meta_gobierto_data_api_v1_dataset_path(small_dataset.slug), as: :json
+            small_dataset_response_data = response.parsed_body
+
+            assert_equal 50, big_dataset_response_data["data"]["attributes"]["default_limit"]
+            assert_nil small_dataset_response_data["data"]["attributes"]["default_limit"]
+
+            assert_equal 15, big_dataset_response_data["data"]["attributes"]["size"]["csv"]
+            assert_equal 3, small_dataset_response_data["data"]["attributes"]["size"]["csv"]
+          end
+        end
+
         # GET /api/v1/data/datasets/dataset-slug/download.csv
         def test_dataset_download_as_csv
           with(site: site) do
@@ -343,6 +375,25 @@ module GobiertoData
 
             assert File.exist? Rails.root.join("#{GobiertoData::Cache::BASE_PATH}/datasets/#{dataset.id}.csv")
             delete_cached_files
+          end
+        end
+
+        def test_index_when_md_custom_field_changes_translations_availability
+          datasets_md_with_translations.update_attribute(:field_type, GobiertoCommon::CustomField.field_types[:paragraph])
+          datasets_md_without_translations.update_attribute(:field_type, GobiertoCommon::CustomField.field_types[:localized_paragraph])
+
+          with(site: site) do
+            get gobierto_data_api_v1_datasets_path(format: :csv), as: :csv
+
+            assert_response :success
+
+            response_data = response.parsed_body
+            parsed_csv = CSV.parse(response_data).map { |row| row.map(&:to_s) }
+
+            assert_equal active_datasets_count + 1, parsed_csv.count
+            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations), parsed_csv.first
+            assert_includes parsed_csv, array_data(dataset)
+            refute_includes parsed_csv, array_data(other_site_dataset)
           end
         end
 

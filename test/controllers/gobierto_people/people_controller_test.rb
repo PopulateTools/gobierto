@@ -88,9 +88,10 @@ gobierto_people_default_filter_end_date: "#{options[:end_date]}"
       person.invitations.destroy_all
       person.trips.destroy_all
 
-      get gobierto_people_person_path(person.slug, start_date: "2012-01-01", end_date: "2019-01-01")
+      last_year = Date.today.year - 1
+      get gobierto_people_person_path(person.slug, start_date: "2012-01-01", end_date: "#{last_year}-01-01")
       assert_response :redirect
-      assert_redirected_to(gobierto_people_person_gifts_path(@person.slug, start_date: "2012-01-01", end_date: "2019-01-01"))
+      assert_redirected_to(gobierto_people_person_gifts_path(@person.slug, start_date: "2012-01-01", end_date: "#{last_year}-01-01"))
     end
   end
 end

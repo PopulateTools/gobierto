@@ -207,6 +207,7 @@ export default {
       isVizSavingPromptVisible: false,
       showPrivate: false,
       tableName: '',
+      defaultLimit: 50,
       enabledQuerySavedButton: false,
       enabledVizSavedButton: false,
       enabledRevertButton: false,
@@ -245,6 +246,9 @@ export default {
     },
     isDatasetLoaded() {
       return this.attributes && this.publicQueries && this.publicVisualizations
+    },
+    queryLimit() {
+      return this.defaultLimit !== null && this.defaultLimit > 0 ? ` LIMIT ${this.defaultLimit}` : ""
     }
   },
   watch: {
@@ -324,13 +328,15 @@ export default {
       name: titleDataset,
       table_name: tableName,
       columns: objectColumns,
-      formats: arrayFormats
+      formats: arrayFormats,
+      default_limit: defaultLimit
     } = attributes;
 
     this.titleDataset = titleDataset;
     this.tableName = tableName;
     this.objectColumns = objectColumns;
     this.arrayFormats = arrayFormats;
+    this.defaultLimit = defaultLimit;
 
     // Once we have the dataset info, we request both kind of queries
     const queriesPromises = [];
@@ -361,7 +367,7 @@ export default {
       this.parseUrl({ queryId, sql });
     } else {
       // update the editor text content by default
-      this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
+      this.currentQuery = `SELECT * FROM ${this.tableName}${this.queryLimit}`;
     }
 
     this.queryOrVizIsNotMine();
@@ -750,7 +756,7 @@ export default {
       let params = { sql: this.currentQuery };
 
       if (this.currentQuery === null) {
-        this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
+        this.currentQuery = `SELECT * FROM ${this.tableName}${this.queryLimit}`;
         params = { sql: this.currentQuery };
       }
       //
@@ -876,7 +882,7 @@ export default {
     },
     resetQuery() {
       this.isQuerySavingPromptVisible = false
-      this.currentQuery = `SELECT * FROM ${this.tableName} LIMIT 50`;
+      this.currentQuery = `SELECT * FROM ${this.tableName}${this.queryLimit}`;
       this.isQueryModified = false
       this.runCurrentQuery()
       this.disabledSavedButton()

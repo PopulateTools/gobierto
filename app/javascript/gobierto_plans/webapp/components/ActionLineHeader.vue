@@ -14,7 +14,7 @@
 
 <script>
 import NumberLabel from "./NumberLabel";
-import { percent } from "lib/shared";
+import { percent } from "lib/vue/filters";
 
 export default {
   name: "ActionLineHeader",

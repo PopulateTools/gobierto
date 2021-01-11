@@ -8,7 +8,7 @@
 import SectionZero from "../components/SectionZero";
 
 export default {
-  name: "Home",
+  name: "Plan",
   components: {
     SectionZero
   },

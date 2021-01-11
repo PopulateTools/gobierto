@@ -2,10 +2,12 @@
 en:
   gobierto_dashboards:
     available_cards: Available cards
+    back: back
     changes: Dashboard changed
     date: 'Date: '
     default_title: Dashboard title
     delete: Delete
+    indicators_amount: "➞ %{amount} indicators"
     instructions: |
       "⇧ Select a card type and include it in the central area ➞
 

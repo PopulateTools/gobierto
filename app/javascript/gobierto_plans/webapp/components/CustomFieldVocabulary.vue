@@ -10,7 +10,7 @@
       <router-link
         v-if="hasLink"
         :key="id"
-        :to="{ name: 'term', params: { ...params, id: group, term } }"
+        :to="{ name: routes.TERM, params: { ...params, id: group, term } }"
         class="project-description__link"
       >
         {{ name }}
@@ -28,6 +28,7 @@
 <script>
 import { PlansStore } from "../lib/store";
 import CustomFieldVocabularySDG from "./CustomFieldVocabularySDG.vue";
+import { routes } from "../lib/router";
 
 export default {
   name: "CustomFieldVocabulary",
@@ -47,6 +48,9 @@ export default {
     };
   },
   computed: {
+    routes() {
+      return routes
+    },
     params() {
       return this.$route.params;
     }

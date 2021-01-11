@@ -7,6 +7,8 @@ en:
         slug: Slug
         table_name: Table name
       gobierto_admin/gobierto_data/settings_form:
+        api_settings_max_dataset_size_for_queries: Datasets maximum size without limiting
+          the preview (MB)
         db_config: Database connection configuration
         frontend_enabled: Front-end visible
     errors:
@@ -21,3 +23,8 @@ en:
               invalid_connection: 'Unable to connect using configuration data. Error
                 message: "%{error_message}"'
               invalid_format: The configuration does not have a valid JSON format
+        gobierto_data/dataset_form:
+          attributes:
+            data_file:
+              no_file_included: The file hasn't been uploaded. Please, review the
+                request and ensure the file content has been sent in the request

@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { translate } from "lib/shared";
+import { translate } from "lib/vue/filters";
 import { groupBy } from "../lib/helpers";
 
 export default {

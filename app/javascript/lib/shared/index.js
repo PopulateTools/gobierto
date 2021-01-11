@@ -12,6 +12,8 @@ import "./modules/tabs.js";
 import "./modules/velocity_settings.js";
 import "./modules/shareContent.js";
 import "./modules/separate-tabs.js";
+import { createScaleColors } from "./modules/createScaleColors.js";
+import { normalizeString } from "./modules/normalizeString.js";
 import accounting from "accounting";
 import { SETTINGS } from "./modules/accounting_settings.js";
 accounting.settings = SETTINGS;
@@ -22,24 +24,12 @@ import { readMore } from "./modules/read-more.js";
 import { HorizontalCarousel } from "./modules/horizontal-carousel.js";
 import { ImageLightbox } from "./modules/image-lightbox.js";
 import { RangeSlider } from "./modules/range-slider.js";
-import {
-  VueFiltersMixin,
-  translate,
-  money,
-  date,
-  truncate,
-  percent
-} from "./modules/vue-filters.js";
-import {
-  VueDirectivesMixin,
-  clickoutside
-} from "./modules/vue-directives.js";
 import { Middleware } from "./modules/middleware.js";
-import * as GobiertoEvents from "./modules/events.js";
 
 export {
   AUTOCOMPLETE_DEFAULTS,
   accounting,
+  createScaleColors,
   d3locale,
   isDesktop,
   isMobile,
@@ -49,14 +39,6 @@ export {
   readMore,
   HorizontalCarousel,
   ImageLightbox,
-  VueFiltersMixin,
   Middleware,
-  translate,
-  money,
-  date,
-  truncate,
-  percent,
-  VueDirectivesMixin,
-  clickoutside,
-  GobiertoEvents
+  normalizeString
 };

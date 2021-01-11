@@ -58,7 +58,7 @@
 </template>
 <script>
 import { VisBubble } from "lib/visualizations";
-import { VueFiltersMixin } from "lib/shared";
+import { VueFiltersMixin } from "lib/vue/filters";
 
 export default {
   name: 'Distribution',

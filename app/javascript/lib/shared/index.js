@@ -24,14 +24,6 @@ import { readMore } from "./modules/read-more.js";
 import { HorizontalCarousel } from "./modules/horizontal-carousel.js";
 import { ImageLightbox } from "./modules/image-lightbox.js";
 import { RangeSlider } from "./modules/range-slider.js";
-import {
-  VueFiltersMixin,
-  translate,
-  money,
-  date,
-  truncate,
-  percent
-} from "./modules/vue-filters.js";
 import { Middleware } from "./modules/middleware.js";
 
 export {
@@ -47,12 +39,6 @@ export {
   readMore,
   HorizontalCarousel,
   ImageLightbox,
-  VueFiltersMixin,
   Middleware,
-  translate,
-  money,
-  date,
-  truncate,
-  percent,
   normalizeString
 };

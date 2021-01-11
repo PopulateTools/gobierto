@@ -131,14 +131,14 @@
           <h3 class="mt1 graph-title">
             {{ labelContractType }}
           </h3>
-          <div id="contract-type-bars"></div>
+          <div id="contract-type-bars" />
         </div>
 
         <div>
           <h3 class="mt1 graph-title">
             {{ labelProcessType }}
           </h3>
-          <div id="process-type-bars"></div>
+          <div id="process-type-bars" />
         </div>
       </div>
 
@@ -147,14 +147,13 @@
           <h3 class="mt1 graph-title">
             {{ labelAmountDistribution }}
           </h3>
-          <div id="amount-distribution-bars"></div>
+          <div id="amount-distribution-bars" />
         </div>
         <div>
           <div
             id="date-bars"
             class="hidden"
-          >
-          </div>
+          />
         </div>
       </div>
     </div>
@@ -182,7 +181,7 @@ import { assigneesColumns } from "../../lib/config/contracts.js";
 import { select, mouse } from 'd3-selection'
 import { timeParse } from 'd3-time-format';
 import { getQueryData, sumDataByGroupKey } from "../../lib/utils";
-import { money } from "lib/shared";
+import { money } from "lib/vue/filters";
 
 const d3 = { select, mouse, timeParse }
 

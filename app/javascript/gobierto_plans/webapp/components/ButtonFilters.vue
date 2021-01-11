@@ -24,7 +24,7 @@
 
 <script>
 import { PlansStore } from "../lib/store";
-import { translate } from "lib/shared";
+import { translate } from "lib/vue/filters";
 import { routes } from "../lib/router";
 
 export default {

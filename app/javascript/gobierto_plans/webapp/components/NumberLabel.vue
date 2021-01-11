@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { translate } from "lib/shared";
+import { translate } from "lib/vue/filters";
 import { NamesMixin } from "../lib/mixins/names";
 
 export default {

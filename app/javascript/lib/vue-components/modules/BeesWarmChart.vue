@@ -48,7 +48,7 @@ export default {
       default: () => []
     },
     height: {
-      default: 400,
+      default: 600,
       type: Number
     },
     radiusProperty: {
@@ -146,6 +146,7 @@ export default {
       const colors = createScaleColors(this.arrayValuesContractTypes.length, this.arrayValuesContractTypes);
       const arrayValuesScaleY = Array.from(new Set(filterData.map(d => d[this.yAxisProp])));
       this.svgHeight = arrayValuesScaleY.length === 1 ? 300 : this.height;
+      this.svgHeight = this.data.length > 400 ? 820 : this.height;
 
       const svg = d3.select('.beeswarm-plot');
 
@@ -288,10 +289,11 @@ export default {
     },
     transformData(data) {
       const maxFinalAmount = d3.max(data, d => d.final_amount_no_taxes)
+      const rangeMax = data.length > 600 ? 15 : 28
 
       const radiusScale = d3.scalePow()
         .exponent(0.5)
-        .range([3, 28])
+        .range([3, rangeMax])
         .domain([0, maxFinalAmount]);
 
       const parseTime = d3.timeParse('%Y-%m-%d');

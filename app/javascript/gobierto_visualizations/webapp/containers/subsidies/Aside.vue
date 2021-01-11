@@ -129,6 +129,8 @@ export default {
           filter.options = categoriesOptions;
         }
       })
+
+      this.filters = this.filters.filter(({ options }) => options.length > 1)
     },
     updateCounters(firstUpdate=false) {
       const counter = { categories: {}, dates: {} };

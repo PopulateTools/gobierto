@@ -23,7 +23,7 @@
     <Pagination
       :data="items"
       :items-per-page="15"
-      :container-pagination="'main.visualizations-home-main'"
+      :container-pagination="containerPagination"
       @showData="updateData"
     />
   </div>
@@ -64,7 +64,17 @@ export default {
     return {
       labelEmpty: I18n.t("gobierto_visualizations.visualizations.contracts.empty_table"),
       displayedData: [],
+      containerPagination: '.visualizations-home-main--table'
     };
+  },
+  watch: {
+    $route(to) {
+      if (to.name === "summary") {
+        this.containerPagination = '.visualizations-home-main--table'
+      } else if (to.name === "contracts_index" || to.name === 'subsidies_index') {
+        this.containerPagination = 'main.visualizations-home-main'
+      }
+    }
   },
   methods: {
     updateData(values) {

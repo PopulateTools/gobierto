@@ -17,7 +17,7 @@ en:
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee
-        assignees: Assignees
+        categories: Categories
         contract: Contract
         contract_amount: Contract Amount
         contract_type: Type of contract
@@ -29,6 +29,7 @@ en:
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
         empty_table: There is no available data
+        entities: Entities
         final_amount_no_taxes: Amount
         fromto: From To No Contr.
         main_assignees: Main assignees
@@ -152,7 +153,10 @@ en:
           subsidies: Subsidies
           summary: Summary
         person: Individual person
+        subsidie: Subsidie
         subsidies: Subsidies
+        subsidies_amount: Imp. Subsidie
+        subsidies_total: Total Subsidies
         summary:
           collective_subsidies_for: to collectives for a total amount of
           individual_subsidies_for: to individuals for a total amount of
@@ -169,11 +173,6 @@ en:
           subsidies_for: subsidies for a total amount of
         title: Subsidies
       visualizations:
-        by_amount: by amount of
-        contracts: Contracts
-        difference_import: DIFFERENCE IMPORT
         title_beeswarm: Contracts by type, volume, size and date
-        title_legend: So far this 2020
-        title_multiple: Evolution of the volume of tenders and contracts
         tooltip_beeswarm: Contract Amount
         tooltip_treemap: total contracts

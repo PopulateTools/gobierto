@@ -25,6 +25,7 @@
           <input
             id="dashboard-status"
             type="checkbox"
+            :checked="status"
             @input="handleInputStatus"
           >
           {{ publicLabel }}

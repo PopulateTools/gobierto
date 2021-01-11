@@ -105,7 +105,25 @@ module GobiertoData
       }
     end
 
+    def format_size(format = "csv")
+      format = format.to_s
+      return unless size&.has_key?(format)
+
+      size[format] / 1.0.megabyte
+    end
+
+    def default_limit
+      return 50 unless api_settings.present?
+
+      max_size = api_settings.max_dataset_size_for_queries
+      return 50 if max_size.present? && format_size.present? && max_size.positive? && max_size <= format_size
+    end
+
     private
+
+    def api_settings
+      @api_settings ||= GobiertoData.api_settings(site)
+    end
 
     def delete_cached_data
       GobiertoData::Cache.expire_dataset_cache(self)

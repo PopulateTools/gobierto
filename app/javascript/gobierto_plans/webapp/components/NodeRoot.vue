@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { percent } from "lib/shared"
+import { percent } from "lib/vue/filters"
 import { routes } from "../lib/router";
 
 export default {

@@ -9,7 +9,7 @@
 
 <script>
 import { PlansStore } from "../lib/store";
-import { percent, date } from "lib/shared";
+import { percent, date } from "lib/vue/filters";
 
 export default {
   name: "ActionLinesTableViewRow",

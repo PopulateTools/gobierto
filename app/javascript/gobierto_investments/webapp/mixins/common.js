@@ -1,4 +1,4 @@
-import { VueFiltersMixin } from "lib/shared";
+import { VueFiltersMixin } from "lib/vue/filters";
 
 // TODO: This configuration should come from API request, not from file
 import CONFIGURATION from "../conf/mataro.conf.js";

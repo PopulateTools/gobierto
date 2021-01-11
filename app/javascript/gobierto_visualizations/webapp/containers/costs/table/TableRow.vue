@@ -1,4 +1,4 @@
-  <template>
+<template>
   <table
     class="gobierto-visualizations-table"
     :class="{'gobierto-visualizations-table--subheader': blueHeader }"
@@ -152,7 +152,8 @@
   </table>
 </template>
 <script>
-import { VueFiltersMixin } from "lib/shared"
+import { VueFiltersMixin } from "lib/vue/filters"
+
 export default {
   name: "TableRow",
   mixins: [VueFiltersMixin],

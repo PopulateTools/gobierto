@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import { RangeSlider, VueFiltersMixin } from "lib/shared";
+import { VueFiltersMixin } from "lib/vue/filters";
+import { RangeSlider } from "lib/shared";
 
 export default {
   name: "RangeBars",

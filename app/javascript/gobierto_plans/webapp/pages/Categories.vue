@@ -52,7 +52,7 @@ import ActionLineHeader from "../components/ActionLineHeader";
 import ActionLines from "../components/ActionLines";
 import RecursiveHeader from "../components/RecursiveHeader";
 import RecursiveLines from "../components/RecursiveLines";
-import { translate } from "lib/shared";
+import { translate } from "lib/vue/filters";
 import { ActiveNodeMixin } from "../lib/mixins/active-node";
 import { PlansStore } from "../lib/store";
 

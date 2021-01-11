@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { percent } from "lib/shared";
+import { percent } from "lib/vue/filters";
 import { PlansFactoryMixin } from "../lib/factory";
 import { routes } from "../lib/router";
 

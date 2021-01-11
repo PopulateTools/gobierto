@@ -1,14 +1,3 @@
-/**
- * This Vue filters are widely used throughtout the application.
- * They're could be reused importing this module:
- *
- * import { VueFiltersMixin } from "lib/shared";
- *
- * and then, in a Vue App, like so:
- *
- * mixins: [VueFiltersMixin],
- *
- */
 export const translate = (value = {}) => {
   const lang = I18n.locale || "es";
   // Look for the language key, fallback to the first found key

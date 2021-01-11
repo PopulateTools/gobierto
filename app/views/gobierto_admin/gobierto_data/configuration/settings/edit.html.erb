@@ -46,6 +46,13 @@
         </div>
       </div>
 
+      <div class="form_block">
+        <h2><%= t(".api_settings") %></h2>
+        <div class="form_item textarea">
+          <%= f.label :api_settings_max_dataset_size_for_queries %>
+          <%= f.number_field :api_settings_max_dataset_size_for_queries, min: 0 %>
+        </div>
+      </div>
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

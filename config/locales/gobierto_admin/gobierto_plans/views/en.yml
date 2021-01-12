@@ -125,6 +125,8 @@ en:
             sent: Sent
           total: Total
         form:
+          button:
+            add_dashboard: Add to dashboard
           placeholders:
             name: Project title
         index:

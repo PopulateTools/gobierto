@@ -127,6 +127,8 @@ ca:
             sent: Sent
           total: Total
         form:
+          button:
+            add_dashboard: Afegir a un dashboard
           placeholders:
             name: Títol del projecte
         index:

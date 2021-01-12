@@ -253,7 +253,8 @@ export default {
     },
     goesToItem(event) {
       const { id } = event
-      this.$router.push(`adjudicaciones/${id}`).catch(err => {console.log(err)})
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push(`adjudicaciones/${id}`).catch(err => {})
     },
     refreshSummaryData() {
       if (!this.value) {

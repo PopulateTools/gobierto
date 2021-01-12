@@ -270,8 +270,8 @@ export default {
             .duration(450)
             .style('opacity', 1);
         })
-        .on('click', (event, d) => {
-          this.$emit('goesToItem', event);
+        .on('click', (d) => {
+          this.$emit('goesToItem', d);
         })
         .transition()
         .duration(450)
@@ -296,7 +296,7 @@ export default {
         .range([3, rangeMax])
         .domain([0, maxFinalAmount]);
 
-      const parseTime = d3.timeParse('%Y-%m-%d');
+      const parseTime = d3.timeParse('%Y-%m-%d %H:%M:%S');
 
       data.forEach(d => {
         d.slug_contract_type = normalizeString(d.contract_type)

@@ -218,6 +218,7 @@ export default {
   },
   methods: {
     handleTreeMapValue(value) {
+      this.closeTooltips()
       if (this.selected_size === value) return;
       this.selected_size = value
       this.sizeForTreemap = value
@@ -257,8 +258,6 @@ export default {
       let deepLevel = this.deepLevel
       const selected_size = this.selected_size;
       const treemapId = this.treemapId;
-      const tooltipFirstDepth = d3.select(`#treemap-nested-tooltip-first-depth-${treemapId}`)
-      const tooltipSecondDepth = d3.select(`#treemap-nested-tooltip-second-depth-${treemapId}`)
 
       const x = d3.scaleLinear()
         .domain([0, this.svgWidth])
@@ -281,7 +280,7 @@ export default {
         .style("shape-rendering", "crispEdges");
 
       containerChart.on('mouseleave', function() {
-        closeTooltips()
+        self.this.closeTooltips()
       })
 
       const navBreadcrumbs = d3.select(`#treemap-nested-sidebar-nav-${treemapId}`)
@@ -418,7 +417,7 @@ export default {
         function transition(d) {
           if (transitioning || !d) return;
 
-          closeTooltips()
+          self.closeTooltips()
 
           transitioning = true;
           const g2 = display(d);
@@ -650,22 +649,6 @@ export default {
 
       display(root);
 
-      function closeTooltips() {
-        tooltipSecondDepth
-          .style("opacity", 1)
-          .transition()
-          .duration(200)
-          .style("opacity", 0)
-          .style("display", "none")
-
-        tooltipFirstDepth
-          .style("opacity", 1)
-          .transition()
-          .duration(200)
-          .style("opacity", 0)
-          .style("display", "none")
-      }
-
       function text(text) {
         text.attr("x", d => x(d.x) + 6)
           .attr("y", d => y(d.y) + 6);
@@ -732,6 +715,24 @@ export default {
           this.transformDataTreemap(this.data);
         }
       })
+    },
+    closeTooltips() {
+      const tooltipFirstDepth = d3.select(`#treemap-nested-tooltip-first-depth-${this.treemapId}`)
+      const tooltipSecondDepth = d3.select(`#treemap-nested-tooltip-second-depth-${this.treemapId}`)
+
+      tooltipSecondDepth
+        .style("opacity", 1)
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
+        .style("display", "none")
+
+      tooltipFirstDepth
+        .style("opacity", 1)
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
+        .style("display", "none")
     }
   }
 }

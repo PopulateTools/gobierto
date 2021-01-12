@@ -4,7 +4,7 @@
   --grey-text: #767168;
 }
 
-.tree-map-nested-container {
+.treemap-nested-container {
   position: relative;
 }
 
@@ -140,9 +140,9 @@
   }
 }
 
-.tree-map-nested-tooltip-first,
-.tree-map-nested-tooltip-second {
-  max-height: 90vh;
+.treemap-nested-tooltip-first,
+.treemap-nested-tooltip-second {
+  max-height: 450px;
   overflow-y: auto;
 
   .text-depth-third {
@@ -152,7 +152,7 @@
   }
 }
 
-.tree-map-nested-tooltip-first {
+.treemap-nested-tooltip-first {
   .depth-first-container {
     padding: .25rem 0;
   }

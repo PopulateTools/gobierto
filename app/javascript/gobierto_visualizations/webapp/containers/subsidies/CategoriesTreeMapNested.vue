@@ -105,7 +105,7 @@ export default {
       //Elements to determinate the position of tooltip
       const tooltipFirstDepth = d3.select('#treemap-nested-tooltip-first-depth-categories')
       const tooltipSecondDepth = d3.select('#treemap-nested-tooltip-second-depth-categories')
-      const container = document.querySelector('.tree-map-nested-container-categories');
+      const container = document.querySelector('.treemap-nested-container-categories');
       const containerWidth = container.offsetWidth
       const tooltipWidth = depth === 2 ? tooltipFirstDepth.node().offsetWidth : tooltipSecondDepth.node().offsetWidth
       const tooltipHeight = depth === 2 ? tooltipFirstDepth.node().offsetHeight : tooltipSecondDepth.node().offsetHeight

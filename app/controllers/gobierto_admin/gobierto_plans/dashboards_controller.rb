@@ -17,6 +17,10 @@ module GobiertoAdmin
         ).allowed_actions
       end
 
+      def list
+        render("gobierto_admin/gobierto_dashboards/dashboards/list", layout: request.xhr? ? false : "gobierto_admin/layouts/application")
+      end
+
       private
 
       def plan

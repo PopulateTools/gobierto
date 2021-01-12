@@ -192,7 +192,11 @@ Rails.application.routes.draw do
               get :accumulated_values
             end
           end
-          resources :dashboards
+          resources :dashboards do
+            collection do
+              get :list
+            end
+          end
           resources :projects do
             member do
               post :publish

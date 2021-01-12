@@ -1,17 +1,23 @@
 <% record_configuration = record.custom_field.configuration %>
 
 <div class="<%= record.class_names %> <%= record_configuration ? record_configuration["plugin_type"] : nil %>"
-     id="<%= "custom_field_#{ record.uid }" %>"
-     data-uid="<%= record.uid %>"
-     data-vocabulary-id="<%= record.custom_field.vocabulary_id %>"
-     data-organization-id="<%= current_site.organization_id %>"
-     data-configuration="<%= record.custom_field.configuration.plugin_configuration.to_json %>">
-     <%= label_tag :custom_field_id, record.custom_field.name %>
-     <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
-     <div class="custom_field_value">
-       <%= send(record.field_tag, "#{ input_base_name }[#{ record.uid }][value]", record.payload.to_json, record.tag_attributes) %>
-       <div class="data-container"></div>
-     </div>
+    id="<%= "custom_field_#{ record.uid }" %>"
+    data-uid="<%= record.uid %>"
+    data-vocabulary-id="<%= record.custom_field.vocabulary_id %>"
+    data-organization-id="<%= current_site.organization_id %>"
+    data-configuration="<%= record.custom_field.configuration.plugin_configuration.to_json %>">
+    <%= label_tag :custom_field_id, record.custom_field.name %>
+    <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
+    
+    <div class="custom_field_value">
+      <%= send(record.field_tag, "#{ input_base_name }[#{ record.uid }][value]", record.payload.to_json, record.tag_attributes) %>
+
+      <div class="data-container"></div>
+
+      <a href="/admin/plans/<%= record.custom_field.instance_id %>/dashboards/list" add-dashboard-btn class="open_remote_modal">
+        <i class="fas fa-plus-circle"></i><span>Añadir a un dashboard</span>
+      </a>
+    </div>
 </div>
 
 <% content_for :javascript_hook do %>

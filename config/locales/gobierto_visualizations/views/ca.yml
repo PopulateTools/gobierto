@@ -17,7 +17,7 @@ ca:
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
-        assignees: Adjudicataris
+        categories: Categories
         contract: Contracte
         contract_amount: Imp. adjudicació
         contract_type: Tipus de contracte
@@ -29,6 +29,7 @@ ca:
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
         empty_table: No hi ha dades disponibles
+        entities: Entitats
         final_amount_no_taxes: Quantitat
         fromto: De a Nº Contr.
         main_assignees: Principals adjudicataris
@@ -153,7 +154,10 @@ ca:
           subsidies: Subvencions
           summary: Resum
         person: Persona individual
+        subsidie: Subvencion
         subsidies: Subvencions
+        subsidies_amount: Imp. Subvencion
+        subsidies_total: Total Subvencions
         summary:
           collective_subsidies_for: a col·lectius per import de
           individual_subsidies_for: a particulars per import de
@@ -170,11 +174,6 @@ ca:
           subsidies_for: subvencions per import de
         title: Subvencions
       visualizations:
-        by_amount: per import de
-        contracts: Adjudicacions
-        difference_import: DIFERÈNCIA IMPORT
         title_beeswarm: Contractes per tipus, volum, mida i data
-        title_legend: En el que va del 2020
-        title_multiple: Evolució del volum de licitacions i adjudicacions
         tooltip_beeswarm: Import d'adjudicació
         tooltip_treemap: Total contractes

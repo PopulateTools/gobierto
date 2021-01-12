@@ -1,5 +1,8 @@
 <template>
   <div>
+    <CategoriesTreeMapNested
+      :data="visualizationsData"
+    />
     <div
       id="subsidiesSummary"
       class="metric_boxes"
@@ -119,7 +122,10 @@
     </div>
 
     <div class="pure-g block">
-      <div class="pure-u-1 pure-u-lg-1-2 p_h_r_3">
+      <div
+        v-if="checkFilterCategoryLength"
+        class="pure-u-1 pure-u-lg-1-2 p_h_r_3"
+      >
         <div class="m_b_3">
           <h3 class="mt1 graph-title">
             {{ labelCategory }}
@@ -157,14 +163,16 @@
 </template>
 
 <script>
+import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import Table from "../../components/Table.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
-import { grantedColumns } from "../../lib/config/subsidies.js";
+import { grantedColumns, subsidiesFiltersConfig } from "../../lib/config/subsidies.js";
 
 export default {
   name: 'Summary',
   components: {
-    Table
+    Table,
+    CategoriesTreeMapNested
   },
   mixins: [visualizationsMixins],
   data(){
@@ -186,7 +194,14 @@ export default {
       labelHalfSpendingsSubsidies_2: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_half_spendings_subsidies_2'),
       labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category'),
       labelAmountDistribution: I18n.t('gobierto_visualizations.visualizations.subsidies.amount_distribution'),
-      labelMainBeneficiaries: I18n.t('gobierto_visualizations.visualizations.subsidies.main_beneficiaries')
+      labelMainBeneficiaries: I18n.t('gobierto_visualizations.visualizations.subsidies.main_beneficiaries'),
+      filters: subsidiesFiltersConfig
+    }
+  },
+  computed: {
+    checkFilterCategoryLength() {
+      const filterCategories = this.filters.filter(({ id }) => id === 'categories')
+      return filterCategories[0].options.length > 0 ? true : false
     }
   },
   created() {

@@ -17,7 +17,7 @@ es:
       contracts:
         amount_distribution: Distribución por importes
         assignee: Adjudicatario
-        assignees: Adjudicatarios
+        categories: Categorías
         contract: Contrato
         contract_amount: Imp. adjudicación
         contract_type: Tipo de contrato
@@ -29,6 +29,7 @@ es:
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
           del %{entity_name}
         empty_table: No hay datos disponibles
+        entities: Entidades
         final_amount_no_taxes: Importe
         fromto: Desde A Nº. Contr.
         main_assignees: Principales adjudicatarios
@@ -156,7 +157,10 @@ es:
           subsidies: Subvenciones
           summary: Resumen
         person: Persona individual
+        subsidie: Subvención
         subsidies: Subvenciones
+        subsidies_amount: Imp. Subvención
+        subsidies_total: Total Subvenciones
         summary:
           collective_subsidies_for: a colectivos por importe de
           individual_subsidies_for: a particulares por importe de
@@ -173,11 +177,6 @@ es:
           subsidies_for: subvenciones por importe de
         title: Subvenciones
       visualizations:
-        by_amount: por importe de
-        contracts: Adjudicaciones
-        difference_import: DIFERENCIA IMPORTE
         title_beeswarm: Contratos por tipo, volumen, tamaño y fecha
-        title_legend: En lo que va de 2020
-        title_multiple: Evolución del volumen de licitaciones y adjudicaciones
         tooltip_beeswarm: Importe de adjudicación
         tooltip_treemap: Total contratos

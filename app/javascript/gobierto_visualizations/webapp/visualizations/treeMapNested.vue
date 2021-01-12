@@ -422,6 +422,9 @@ export default {
               .style("display", "none")
           })
 
+
+        const self = this
+
         function transition(d) {
           if (transitioning || !d) return;
           transitioning = true;
@@ -472,6 +475,7 @@ export default {
             this.remove();
             transitioning = false;
           });
+          labelTotalContracts = self.labelTotalPlural
         }
 
         function treeMapTwoDepth(d) {
@@ -583,7 +587,7 @@ export default {
             valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
 
             if (totalContracts) {
-              labelTotalContracts = totalContracts.length < 1 ? labelTotalUnique : labelTotalContracts
+              labelTotalContracts = totalContracts.length <= 1 ? labelTotalUnique : labelTotalContracts
             }
             htmlForRect = `<p class="title">${title}</p>
               <p class="text">${money(valueTotalAmount)}</p>

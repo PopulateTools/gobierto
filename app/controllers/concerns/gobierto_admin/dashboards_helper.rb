@@ -23,7 +23,7 @@ module GobiertoAdmin
         admin_id: current_admin.id
       )
       @context = context_resource.to_global_id.to_s
-      render("gobierto_admin/gobierto_dashboards/dashboards/new_modal", layout: false) && return if request.xhr?
+      render("gobierto_admin/gobierto_dashboards/dashboards/new_modal", layout: request.xhr? ? false : "gobierto_admin/layouts/application")
     end
   end
 end

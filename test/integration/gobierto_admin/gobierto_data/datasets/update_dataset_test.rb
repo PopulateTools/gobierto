@@ -60,18 +60,22 @@ module GobiertoAdmin
           with(site: site, admin: admin, js: true) do
             visit @path
 
-            fill_in "dataset_name_translations_en", with: "Vocabulary updated"
-            switch_locale "ES"
-            fill_in "dataset_name_translations_es", with: "Vocabulario actualizado"
+            within "div.globalized_fields", match: :first do
+              fill_in "dataset_name_translations_en", with: "Vocabulary updated"
+              switch_locale "ES"
+              fill_in "dataset_name_translations_es", with: "Vocabulario actualizado"
+            end
             select "terms", from: "dataset_table_name"
             fill_in "dataset_slug", with: "vocabularies-updated-slug"
 
             click_button "Update"
 
             assert has_message?("Dataset updated correctly.")
-            assert has_field? "dataset_name_translations_en", with: "Vocabulary updated"
-            switch_locale "ES"
-            assert has_field?("dataset_name_translations_es", with: "Vocabulario actualizado")
+            within "div.globalized_fields", match: :first do
+              assert has_field? "dataset_name_translations_en", with: "Vocabulary updated"
+              switch_locale "ES"
+              assert has_field?("dataset_name_translations_es", with: "Vocabulario actualizado")
+            end
             assert has_field?("dataset_slug", with: "vocabularies-updated-slug")
             assert has_select?("Table name", selected: "terms")
           end
@@ -89,9 +93,11 @@ module GobiertoAdmin
               with_current_site(site) do
                 visit @path
 
-                fill_in "dataset_name_translations_en", with: ""
-                switch_locale "ES"
-                fill_in "dataset_name_translations_es", with: ""
+                within "div.globalized_fields", match: :first do
+                  fill_in "dataset_name_translations_en", with: ""
+                  switch_locale "ES"
+                  fill_in "dataset_name_translations_es", with: ""
+                end
 
                 click_button "Update"
 

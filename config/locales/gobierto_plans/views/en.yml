@@ -28,11 +28,13 @@ en:
       show:
         category: Category
         customize_columns: Customize columns
+        dashboards: Dashboards
         desc: Description
         ends: End
         global_execution: State of global execution
         latest_update_html: "<strong>Latest update:</strong> %{date}"
         loading: Loading...
+        plan: Plan
         progress: Progress
         read_less: Read more
         read_more: Read less

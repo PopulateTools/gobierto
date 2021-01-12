@@ -8,7 +8,7 @@ module Integration
 
     def switch_locale(new_locale)
       if javascript_driver?
-        page.find("[data-toggle-edit-locale='#{new_locale.downcase}']", visible: false).execute_script("this.click()")
+        find("[data-toggle-edit-locale='#{new_locale.downcase}']", visible: false).execute_script("this.click()")
       else
         begin
           within(".language_selector") { click_link new_locale.upcase }

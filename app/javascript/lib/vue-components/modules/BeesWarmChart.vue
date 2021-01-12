@@ -296,7 +296,7 @@ export default {
         .range([3, rangeMax])
         .domain([0, maxFinalAmount]);
 
-      const parseTime = d3.timeParse('%Y-%m-%d %H:%M:%S');
+      const parseTime = d3.timeParse('%Y-%m-%d');
 
       data.forEach(d => {
         d.slug_contract_type = normalizeString(d.contract_type)

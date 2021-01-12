@@ -14,7 +14,7 @@
       v-if="dataBeesWarmFilter"
       :data="dataBeesWarmFilter"
       :radius-property="'final_amount_no_taxes'"
-      :x-axis-prop="'start_date'"
+      :x-axis-prop="'award_date'"
       :y-axis-prop="'contract_type'"
       @showTooltip="showTooltipBeesWarm"
       @goesToItem="goesToItem"
@@ -163,7 +163,6 @@ import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
 import { select, mouse } from 'd3-selection'
 import { timeParse } from 'd3-time-format';
-import { getQueryData, sumDataByGroupKey } from "../../lib/utils";
 import { money } from "lib/vue/filters";
 
 const d3 = { select, mouse, timeParse }
@@ -254,6 +253,7 @@ export default {
     },
     goesToItem(event) {
       const { id } = event
+      // eslint-disable-next-line no-unused-vars
       this.$router.push(`adjudicaciones/${id}`).catch(err => {})
     },
     refreshSummaryData() {

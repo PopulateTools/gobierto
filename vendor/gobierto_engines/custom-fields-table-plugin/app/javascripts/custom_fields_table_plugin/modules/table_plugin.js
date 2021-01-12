@@ -114,6 +114,33 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
       });
 
       _grid.registerPlugin(checkboxSelector);
+
+      const selectorId = "btn-add-dashboard"
+      _grid.onMouseEnter.subscribe((e, { grid }) => {
+        const container = grid.getContainerNode()
+        const element = container.parentElement.querySelector(`#${selectorId}`)
+        if (element) {
+          element.remove()
+        }
+
+        const data = grid.getDataItem(grid.getCellFromEvent(e).row);
+        if (data) {
+          const { top: rowTop } = e.target.parentElement.getBoundingClientRect()
+          const { top: containerTop } = container.getBoundingClientRect()
+
+          container.parentElement.style.position = "relative"
+          const btn = `<a id="${selectorId}" data-turbolinks="false" style="position:absolute;left:100%;top:${rowTop - containerTop}px" class="open_remote_modal button" href="/admin/plans/41/dashboards/new">Nou</a>`
+          container.insertAdjacentHTML('afterend', btn)
+        }
+      })
+
+      _grid.onMouseLeave.subscribe(() => {
+        // TODO: keep element
+        // const element = document.querySelector(`#${selectorId}`)
+        // if (element) {
+        //   element.remove()
+        // }
+      })
     }
 
     let customSlickGridOptions = { itemsCountId: `${id}_items` }

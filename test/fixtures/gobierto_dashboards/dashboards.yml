@@ -62,7 +62,7 @@ indicators:
         y: 3,
         w: 6,
         h: 9,
-        indicator: "indicator-0",
+        indicator: "Decretos Emitidos",
         subtype: "table"
       },
       {
@@ -72,8 +72,20 @@ indicators:
         type: "INDICATOR",
         w: 6,
         h: 9,
-        indicator: "indicator-1",
-        subtype: "table"
+        indicator: "Camas UCI",
+        subtype: "individual"
+      },
+      {
+        h: 9,
+        i: "INDICATOR-7f8zl1",
+        w: 6,
+        x: 0,
+        y: 9,
+        type: "indicator",
+        min_h: 3,
+        min_w: 4,
+        subtype: "table",
+        indicator: "Dashboards alternative project - Expedientes cerrados"
       }
     ].to_json
   %>

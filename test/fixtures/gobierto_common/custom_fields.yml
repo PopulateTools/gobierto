@@ -464,20 +464,28 @@ madrid_users_custom_field_issues:
   }.to_json %>
 
 # Dashboards plan
-dashboards_plan_indicator_0:
+dashboards_plan_project_metrics:
   site: madrid
   class_name: "GobiertoPlans::Node"
   instance: dashboards_plan (GobiertoPlans::Plan)
   mandatory: false
   position: 1
-  name_translations: <%= { en: "Decrees issued", es: "Decretos emitidos" }.to_json %>
+  name_translations: <%= { en: "Indicators", es: "Indicadores" }.to_json %>
   field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
-  uid: indicator-0
+  uid: project-metrics
   options: <%= {
     configuration: {
       plugin_type: "table",
       plugin_configuration: {
         "columns": [
+          {
+            "id": "indicator",
+            "type": "text",
+            "name_translations": {
+              "en": "Indicator",
+              "es": "Indicador"
+            }
+          },
           {
             "id": "value",
             "type": "integer",
@@ -486,61 +494,18 @@ dashboards_plan_indicator_0:
               "es": "Valor"
             }
           },
-           {
-            "id": "objective",
-            "type": "integer",
-            "name_translations": {
-              "en": "Objective",
-              "es": "Objetivo"
-            }
-          },
-         {
-            "id": "date",
-            "type": "text",
-            "name_translations": {
-              "en": "Date",
-              "es": "Fecha"
-            }
-          }
-        ]
-      }
-    }
-  }.to_json %>
-
-dashboards_plan_indicator_1:
-  site: madrid
-  class_name: "GobiertoPlans::Node"
-  instance: dashboards_plan (GobiertoPlans::Plan)
-  mandatory: false
-  position: 2
-  name_translations: <%= { en: "Notifications sent", es: "Notificaciones enviadas" }.to_json %>
-  field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
-  uid: indicator-1
-  options: <%= {
-    configuration: {
-      plugin_type: "table",
-      plugin_configuration: {
-        "columns": [
           {
-            "id": "value",
-            "type": "integer",
-            "name_translations": {
-              "en": "Value",
-              "es": "Valor"
-            }
-          },
-           {
             "id": "objective",
             "type": "integer",
-            "name_translations": {
+            " name_translations": {
               "en": "Objective",
               "es": "Objetivo"
             }
           },
-         {
+          {
             "id": "date",
             "type": "text",
-            "name_translations": {
+             "name_translations": {
               "en": "Date",
               "es": "Fecha"
             }

@@ -104,6 +104,14 @@ module GobiertoDashboards
           @other_project_custom_fields_records ||= site.custom_field_records.where(item: other_project)
         end
 
+        def single_indicator_name
+          @single_indicator_name ||= "Decretos Emitidos"
+        end
+
+        def indicator_name_present_in_different_processes
+          @indicator_name_present_in_different_processes ||= "Expedientes cerrados"
+        end
+
         def test_index_with_module_disabled
           with(site: site_with_module_disabled) do
             get gobierto_dashboards_api_v1_dashboards_path
@@ -149,7 +157,7 @@ module GobiertoDashboards
                 y: 3,
                 w: 6,
                 h: 7,
-                indicator: "indicator-0",
+                indicator: "Decretos Emitidos",
                 subtype: "individual"
               },
               {
@@ -159,7 +167,7 @@ module GobiertoDashboards
                 y: 3,
                 w: 6,
                 h: 7,
-                indicator: "directory",
+                indicator: "Camas UCI",
                 subtype: "individual"
               }
             ]
@@ -280,6 +288,42 @@ module GobiertoDashboards
               assert_includes plan_custom_fields_record_values, record["values"]
               assert_includes plan_custom_fields_uids, record["name"]
               assert_includes plan_projects, GlobalID::Locator.locate(record["item"])
+            end
+          end
+        end
+
+        # GET /api/v1/dashboard_data?context=GobiertoPlans::Plan/1&data_pipe=project_metrics
+        def test_dashboard_data_project_metrics_data_pipe
+          with(site: site) do
+            get gobierto_dashboards_api_v1_dashboard_data_path, params: { context: "GobiertoPlans::Plan/#{plan.id}", data_pipe: "project_metrics" }
+
+            assert_response :success
+
+            response_data = response.parsed_body
+
+            # pending to add the data key:
+            # assert response_data.has_key? "data"
+
+            indicator_names = response_data.map { |indicator| indicator["name"] }
+            indicator_ids = response_data.map { |indicator| indicator["id"] }
+
+            assert_includes indicator_names, single_indicator_name
+            assert_includes indicator_ids, single_indicator_name.parameterize
+            refute_includes indicator_names, indicator_name_present_in_different_processes
+            assert_includes indicator_ids, indicator_name_present_in_different_processes.parameterize
+
+            single_indicator_name_values = response_data.find { |indicator| indicator["id"] == single_indicator_name.parameterize }["values"]
+
+            project_custom_field_record_single_indicator_name_values = project_custom_fields_records.map do |record|
+              record.value.select do |row|
+                /decretos\s*emitidos/i =~ row["indicator"]
+              end
+            end.flatten
+
+            assert_equal project_custom_field_record_single_indicator_name_values.length, single_indicator_name_values.length
+
+            project_custom_field_record_single_indicator_name_values.each do |value|
+              assert_includes single_indicator_name_values, value.except("indicator")
             end
           end
         end

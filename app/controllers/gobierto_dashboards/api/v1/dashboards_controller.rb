@@ -13,7 +13,7 @@ module GobiertoDashboards
         # GET /api/v1/dashboards.json
         def index
           render(
-            json: filtered_relation,
+            json: filtered_relation.active,
             adapter: :json_api
           )
         end
@@ -21,7 +21,7 @@ module GobiertoDashboards
         # GET /api/v1/dashboards/1
         # GET /api/v1/dashboards/1.json
         def show
-          find_resource
+          find_active_resource
 
           render(
             json: @resource,
@@ -42,7 +42,7 @@ module GobiertoDashboards
         # GET /api/v1/dashboards/1/data
         # GET /api/v1/dashboards/1/data.json
         def data
-          find_resource
+          find_active_resource
 
           render(
             json: @resource,
@@ -55,7 +55,7 @@ module GobiertoDashboards
         # GET /api/v1/dashboards/new.json
         def new
           render(
-            json: base_relation.new,
+            json: base_relation.active.new,
             adapter: :json_api
           )
         end
@@ -105,6 +105,10 @@ module GobiertoDashboards
 
         private
 
+        def find_active_resource
+          @resource = base_relation.active.find(params[:id])
+        end
+
         def find_resource
           @resource = base_relation.find(params[:id])
         end
@@ -122,7 +126,7 @@ module GobiertoDashboards
         end
 
         def base_relation
-          current_site.dashboards.active
+          current_site.dashboards
         end
 
         def filtered_relation

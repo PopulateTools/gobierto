@@ -189,9 +189,9 @@ export class ContractsController {
       contract.final_amount_no_taxes = final_amount_no_taxes;
       contract.initial_amount_no_taxes = initial_amount_no_taxes;
       contract.range = rangeFormat(+final_amount_no_taxes);
-      contract.start_date_year = contract.start_date
-        ? new Date(contract.start_date).getFullYear()
-        : contract.start_date;
+      contract.award_date_year = contract.award_date
+        ? new Date(contract.award_date).getFullYear()
+        : contract.award_date;
       if (!contract.assignee_routing_id) {
         contract.assignee_routing_id = contract.assignee_id;
       }
@@ -219,7 +219,7 @@ export class ContractsController {
 
     this.data = {
       contractsData: this._formalizedContractsData(contractsData).sort(
-        sortByField("start_date")
+        sortByField("award_date")
       ),
       tendersData: this.unfilteredTendersData
     };
@@ -403,7 +403,7 @@ export class ContractsController {
   }
 
   _renderDateChart() {
-    const dimension = this.ndx.dimension(contract => contract.start_date_year);
+    const dimension = this.ndx.dimension(contract => contract.award_date_year);
 
     const renderOptions = {
       containerSelector: "#date-bars",

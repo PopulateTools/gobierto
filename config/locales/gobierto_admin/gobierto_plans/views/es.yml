@@ -127,6 +127,8 @@ es:
             sent: Enviados
           total: Total
         form:
+          button:
+            add_dashboard: Añadir a un dashboard
           placeholders:
             name: Título del proyecto
         index:

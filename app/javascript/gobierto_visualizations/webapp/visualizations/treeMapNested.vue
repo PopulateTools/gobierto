@@ -295,7 +295,7 @@ export default {
         navBreadcrumbs
           .datum(d.parent)
           .html(breadcrumbs(d))
-          .call(checkSizeBreadcumbs)
+          .call(checkSizeBreadcrumbs)
 
         navBreadcrumbs.selectAll("span")
           .datum(d)
@@ -681,18 +681,34 @@ export default {
           if (res.includes('<b>')) {
             res = res.replace(/<b>/g, '').replace(/<\/b>/g, '')
           }
-          res += `<span class="treemap-nested-breadcrumb"><b>${data.name}</b></span>` + sep;
+          res += `<span class="treemap-nested-breadcrumb treemap-nested-breadcrumb-${treemapId}"><b>${data.name}</b></span>` + sep;
         });
         return res.split(sep).filter(i => i !== "").join(sep);
       }
 
-      function checkSizeBreadcumbs() {
+      function checkSizeBreadcrumbs() {
+
+        /*In breadcrumbs, any level can be the largest, so we have to know which element is the largest to add the ellipsis class.*/
+
+        //Get all elements
+        const sizeBreadcrumbs = document.querySelectorAll(`.treemap-nested-breadcrumb-${treemapId}`)
+        //Convert nodeList into array
+        const breadcrumbsArr = Array.prototype.slice.call(sizeBreadcrumbs);
+        //Sum offsetWidth
+        const sidebarNav = breadcrumbsArr.map(item => item.offsetWidth).reduce((prev, next) => prev + next);
+
+        //Create an array only with the offsetWidth
+        const breacumbWidth = breadcrumbsArr.map(({ offsetWidth }) => offsetWidth);
+        //Get the max value
+        const maxValue = Math.max.apply(Math, breacumbWidth);
+        //Get the index of the max value
+        const indexBreadcumb = breacumbWidth.indexOf(maxValue);
+
         const sidebarAvailableWidth = (document.querySelector('.treemap-nested-sidebar').offsetWidth - document.querySelector('.treemap-nested-sidebar-button-group').offsetWidth)
 
-        const sidebarNav = document.querySelector('.treemap-nested-sidebar-nav').offsetWidth;
-
-        const treeMapSidebarNavContainer = document.querySelector('.treemap-nested-sidebar-nav-breadcumb');
-        if (sidebarNav > sidebarAvailableWidth) treeMapSidebarNavContainer.classList.add('ellipsis')
+        if (sidebarNav > sidebarAvailableWidth) {
+          sizeBreadcrumbs[indexBreadcumb].classList.add('ellipsis')
+        }
       }
     },
     resizeListener() {

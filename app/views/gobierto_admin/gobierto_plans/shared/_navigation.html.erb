@@ -1,5 +1,10 @@
 <% project_policy = GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(current_admin: current_admin, current_site: current_site, project: @plan.nodes.new) %>
 
+<% content_for :stylesheet_module_link do %>
+<!-- Mover a una especie layout -->
+  <%= stylesheet_packs_with_chunks_tag 'dashboards' %>
+<% end %>
+
 <div class="tabs">
   <ul>
     <% if @plan.categories_vocabulary.present? && current_admin.module_allowed_action?("GobiertoPlans", current_site, :manage) %>

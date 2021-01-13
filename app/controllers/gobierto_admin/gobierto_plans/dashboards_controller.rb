@@ -18,7 +18,7 @@ module GobiertoAdmin
       end
 
       def list
-        render("gobierto_admin/gobierto_dashboards/dashboards/list", layout: request.xhr? ? false : "gobierto_admin/layouts/application")
+        render("gobierto_admin/gobierto_dashboards/dashboards/list_modal", layout: request.xhr? ? false : "gobierto_admin/layouts/application")
       end
 
       protected

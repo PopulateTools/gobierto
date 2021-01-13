@@ -80,6 +80,10 @@ module GobiertoDashboards
         end
         alias plan_dashboard other_dashboard
 
+        def draft_dashboard
+          @draft_dashboard ||= gobierto_dashboards_dashboards(:draft_dashboard)
+        end
+
         def plan
           @plan ||= gobierto_plans_plans(:dashboards_plan)
         end
@@ -256,6 +260,18 @@ module GobiertoDashboards
             %w(title context visibility_level widgets_configuration).each do |attribute|
               assert_equal dashboard.send(attribute), item[attribute]
             end
+          end
+        end
+
+        def test_show_draft
+          with(site: site) do
+            get gobierto_dashboards_api_v1_dashboard_path(draft_dashboard)
+
+            assert_response :not_found
+
+            get gobierto_dashboards_api_v1_dashboard_path(draft_dashboard), headers: { Authorization: admin_auth_header }
+
+            assert_response :success
           end
         end
 

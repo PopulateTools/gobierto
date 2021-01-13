@@ -279,9 +279,7 @@ export default {
         .attr('class', `treemap-container-${treemapId}`)
         .style("shape-rendering", "crispEdges");
 
-      containerChart.on('mouseleave', function() {
-        self.this.closeTooltips()
-      })
+      containerChart.on('mouseleave', this.closeTooltips)
 
       const navBreadcrumbs = d3.select(`#treemap-nested-sidebar-nav-${treemapId}`)
         .append('p')
@@ -313,14 +311,10 @@ export default {
           .append("g")
           .datum(d)
           .attr('fill', d => {
-            const { depth } = d
-            let valueColor
-            if (scaleColor && depth === 3) {
-              valueColor = this.colors(d.data.children[0].contractor)
-            } else {
-              valueColor = '#12365b'
-            }
-            return valueColor
+            const { depth, data } = d
+            const [ contracts ] = data?.children || []
+            const { contractor } = contracts || {}
+            return scaleColor && depth === 3 ? this.colors(contractor) : '#12365b'
           })
           .attr('class', 'depth')
 
@@ -332,14 +326,10 @@ export default {
           .join('rect')
           .attr('class', 'children')
           .attr('fill', d => {
-            let valueColor
-            if (scaleColor) {
-              const { depth } = d
-              valueColor = depth === 1 ? this.colors(d.data.name) : depth === 2 ? this.colors(d.parent.data.name) : depth === 3 || depth === 4 ? this.colors(d.data.children[0].contractor) : ''
-            } else {
-              valueColor = '#12365b'
-            }
-            return valueColor
+            const { depth, data, parent } = d
+            const [ contracts ] = data?.children || []
+            const { contractor } = contracts || {}
+            return scaleColor && depth === 1 ? this.colors(data?.name) : scaleColor && depth === 2 ? this.colors(parent?.data?.name) : scaleColor && depth === 3 || depth === 4 ? this.colors(contractor) : '#12365b'
           })
           .on("click", transition);
 

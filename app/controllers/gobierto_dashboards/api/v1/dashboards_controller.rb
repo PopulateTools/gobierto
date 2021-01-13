@@ -106,7 +106,7 @@ module GobiertoDashboards
         private
 
         def find_active_resource
-          @resource = base_relation.active.find(params[:id])
+          @resource = (current_admin.present? ? base_relation : base_relation.active).find(params[:id])
         end
 
         def find_resource

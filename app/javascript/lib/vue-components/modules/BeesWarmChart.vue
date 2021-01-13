@@ -270,8 +270,8 @@ export default {
             .duration(450)
             .style('opacity', 1);
         })
-        .on('click', (event, d) => {
-          this.$emit('goesToItem', event);
+        .on('click', (d) => {
+          this.$emit('goesToItem', d);
         })
         .transition()
         .duration(450)

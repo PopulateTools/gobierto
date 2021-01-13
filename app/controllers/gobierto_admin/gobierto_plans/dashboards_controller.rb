@@ -7,7 +7,7 @@ module GobiertoAdmin
 
       before_action :plan
 
-      helper_method :current_admin_actions
+      helper_method :current_admin_actions, :dashboard_preview_path
 
       def current_admin_actions
         @current_admin_actions ||= DashboardPolicy.new(
@@ -15,6 +15,20 @@ module GobiertoAdmin
           current_site: current_site,
           dashboard: @dashboard_form&.dashboard || @dashboard
         ).allowed_actions
+      end
+
+      protected
+
+      def dashboard_preview_path(dashboard, options = {})
+        plan = dashboard.context_resource
+
+        return unless plan.is_a?(::GobiertoPlans::Plan)
+
+        if plan.draft?
+          options.merge!(preview_token: current_admin.preview_token)
+        end
+
+        gobierto_plans_plan_dashboards_path(slug: plan.plan_type.slug, year: plan.year, dashboard_id: dashboard.id, **options)
       end
 
       private

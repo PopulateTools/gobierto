@@ -687,14 +687,6 @@ export default {
       }
 
       function checkSizeBreadcumbs() {
-        const sizeBreadcumbs = document.querySelectorAll('.treemap-nested-breadcrumb')
-        console.log("sizeBreadcumbs", sizeBreadcumbs);
-        let totalWidth = 0
-        for (var i = 0; i < sizeBreadcumbs.length; i++) {
-          console.log("sizeBreadcumbs[i].offsetWidth", sizeBreadcumbs[i].offsetWidth);
-          totalWidth += sizeBreadcumbs[i].offsetWidth;
-        }
-        console.log("totalWidth", totalWidth);
         const sidebarAvailableWidth = (document.querySelector('.treemap-nested-sidebar').offsetWidth - document.querySelector('.treemap-nested-sidebar-button-group').offsetWidth)
 
         const sidebarNav = document.querySelector('.treemap-nested-sidebar-nav').offsetWidth;

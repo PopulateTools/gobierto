@@ -116,19 +116,9 @@ export default {
 
       if (depth === 2) {
         let totalContracts = d.children === undefined ? '' : d.children
-        let contractsString = ''
-        if (totalContracts) {
-          totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
-          while (i < totalContracts.length) {
-            let contractAmount = selected_size === 'amount' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.amount}`
-            contractsString = `${contractsString}
-            <div class="depth-second-container">
-              <p class="depth-second-title">${totalContracts[i].data.beneficiary}</p>
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies_amount')}: <b>${money(contractAmount)}</b></p>
-            </div>`
-            i++
-          }
-        }
+        let contractsString = totalContracts
+          .filter(contract => typeof contract.data !== "function")
+          .map(contract => createDepthSecondHTML(contract))
 
         tooltipFirstDepth
           .style("display", "block")
@@ -142,7 +132,7 @@ export default {
               <span class="treemap-nested-tooltip-header-title">
                 ${I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies')}
               </span>
-              ${contractsString}
+              ${contractsString.join('')}
             `
           })
           .style('top', positionTop)
@@ -166,6 +156,17 @@ export default {
           })
           .style('top', positionTop)
           .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
+      }
+
+      function createDepthSecondHTML(contract) {
+        const { data: { beneficiary, value, amount } } = contract
+        let contractAmount = selected_size === 'amount' ? `${value}` : `${amount}`
+        let contractsString = `
+        <div class="depth-second-container">
+          <p class="depth-second-title">${beneficiary}</p>
+          <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
+        </div>`
+        return contractsString
       }
     }
   }

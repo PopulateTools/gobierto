@@ -2,16 +2,18 @@
   <h2><%= t(".title") %></h2>
   <div class="pure-g">
     <div class="pure-u-1">
+      <!-- TODO: listar los dashboards -->
       <%= select_tag(:progress, [["hola", 0], ["adios", 1]]) %>
     </div>
     <div class="pure-u-1 right m_b_2">
-      <%= link_to(edit_admin_dashboards_dashboard_path(1, params.permit!.slice(:date)), data: { "dashboards-maker": true }, class: "open_remote_modal button") do %>
+      <!-- TODO: sacar el plan del path -->
+      <%= link_to(edit_admin_dashboards_dashboard_path(1, params.permit!.slice(:indicator)), data: { "dashboards-maker": true }, class: "open_remote_modal button") do %>
         <%= t(".add") %>
       <% end %>
     </div>
     <div class="pure-u-1">
       <hr>
-      <%= link_to(admin_dashboards_dashboards_path(params.permit!.slice(:date)), data: { "dashboards-maker": true }, class: "open_remote_modal") do %>
+      <%= link_to(admin_dashboards_dashboards_path(params.permit!.slice(:indicator)), data: { "dashboards-maker": true }, class: "open_remote_modal") do %>
         <%= t(".new") %>
       <% end %>
     </div>

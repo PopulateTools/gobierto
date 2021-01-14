@@ -10,8 +10,6 @@ const dashboardSelector = "[dashboard-viewer-app]"
 const create = (selector, Instance) => {
   const nodes = document.querySelectorAll(selector);
 
-  console.log('hola', nodes);
-
   if (nodes.length && typeof Instance === "function") {
     nodes.forEach(node => new Instance({ ...node.dataset, selector }).mount());
   }

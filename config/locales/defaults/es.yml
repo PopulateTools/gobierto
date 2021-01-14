@@ -134,6 +134,7 @@ es:
       less_than_or_equal_to: debe ser menor que o igual a %{count}
       not_a_number: no es un número
       not_an_integer: debe ser un entero
+      not_found: no se encuentra
       odd: debe ser impar
       other_than: debe ser distinto de %{count}
       page_as_homepage: No se ha podido guardar los cambios en la página porque no

@@ -694,6 +694,30 @@ Rails.application.routes.draw do
       end
     end
 
+    # Gobierto Dashboards module
+    namespace :gobierto_dashboards, path: "dashboards" do
+      constraints GobiertoSiteConstraint.new do
+        get "/" => "welcome#index", as: :root
+      end
+    end
+
+    # API
+    namespace :gobierto_dashboards, path: "/" do
+      constraints GobiertoSiteConstraint.new do
+        namespace :api do
+          namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true) do
+            get "/dashboards" => "dashboards#index", as: :root
+            get "dashboard_data" => "dashboards#dashboard_data"
+            resources :dashboards, defaults: { format: "json" } do
+              member do
+                get :data, defaults: { format: "json" }
+              end
+            end
+          end
+        end
+      end
+    end
+
     # Add new modules before this line
 
     # Sidekiq Web UI

@@ -65,3 +65,11 @@ economic_plan_categories_vocabulary:
     en: "New Economic Plan"
   }.to_json %>
   slug: economic-plan
+
+dashboards_plan_categories_vocabulary:
+  site: madrid
+  name_translations: <%= {
+    en: "Dashboards plan",
+    es: "Plan de cuadros de mando"
+  }.to_json %>
+  slug: dashboards-plan

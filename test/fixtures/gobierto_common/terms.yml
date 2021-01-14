@@ -467,3 +467,16 @@ economy_economic_plan_term:
   level: 0
   position: 0
   external_id: 1
+
+## dashboards_plan_categories_vocabulary
+
+dashboards_plan_term:
+  vocabulary: dashboards_plan_categories_vocabulary
+  name_translations: <%= {
+    en: "Dashboards plan",
+    es: "Plan de cuadros de mando"
+  }.to_json %>
+  slug: dashboards-plan-term
+  level: 0
+  position: 0
+  external_id: 1

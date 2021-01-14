@@ -41,6 +41,9 @@ default: &default
     -
       name: Gobierto Visualizations
       namespace: GobiertoVisualizations
+    -
+      name: Gobierto Dashboards
+      namespace: GobiertoDashboards
   site_modules_with_root_path:
     -
       name: Gobierto Budgets

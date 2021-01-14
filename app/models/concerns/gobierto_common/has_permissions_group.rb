@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module GobiertoAdmin
+module GobiertoCommon
   module HasPermissionsGroup
     extend ActiveSupport::Concern
 

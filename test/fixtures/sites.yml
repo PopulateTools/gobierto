@@ -17,7 +17,8 @@ madrid:
       "GobiertoObservatory",
       "GobiertoInvestments",
       "GobiertoData",
-      "GobiertoVisualizations"
+      "GobiertoVisualizations",
+      "GobiertoDashboards"
     ],
     "default_locale" => "en",
     "available_locales" => ["en", "es"],

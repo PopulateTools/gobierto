@@ -191,10 +191,6 @@ module GobiertoDashboards
             %w(title context visibility_level widgets_configuration).each do |attribute|
               assert_equal dashboard.send(attribute), item[attribute]
             end
-
-            # assert response_data.has_key? "links"
-            # assert_includes response_data["links"].values, gobierto_dashboards_api_v1_dashboards_path
-            # assert_includes response_data["links"].values, meta_gobierto_dashboards_api_v1_dashboards_path
           end
         end
 

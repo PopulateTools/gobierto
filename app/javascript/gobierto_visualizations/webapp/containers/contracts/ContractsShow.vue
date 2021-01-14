@@ -11,7 +11,7 @@
     <div class="pure-g p_2 bg-gray visualizations-contracts-show">
       <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__header__group">
         <i class="fas fa-building visualizations-contracts-show__icon" />
-        <span class="visualizations-contracts-show__text">Entidad Adjudicadora</span>
+        <span class="visualizations-contracts-show__text">{{ labelAwardingEntity }}</span>
         <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ contractor }}</span>
       </div>
       <div class="pure-u-1 pure-u-lg-1-1">
@@ -22,58 +22,62 @@
         </div>
         <div class="visualizations-contracts-show__header__group__element">
           <i class="fas fa-clipboard-list visualizations-contracts-show__icon" />
-          <span class="visualizations-contracts-show__text">Estado</span>
+          <span class="visualizations-contracts-show__text">{{ labelType }}</span>
           <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ contract_type }}</span>
         </div>
         <div class="visualizations-contracts-show__header__group__element">
           <i class="fas fa-archive visualizations-contracts-show__icon" />
-          <span class="visualizations-contracts-show__text">Estado</span>
+          <span class="visualizations-contracts-show__text">{{ labelProcess }}</span>
           <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ process_type }}</span>
         </div>
       </div>
       <div class="visualizations-contracts-show__body">
-        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
-          <span class="visualizations-contracts-show__text__header">Licitación</span>
-          <span class="visualizations-contracts-show__text">{{ start_date }}</span>
-          <i class="fas fa-arrow-right" />
-          <span class="visualizations-contracts-show__text">{{ end_date }}</span>
+        <div class="pure-u-1 pure-u-lg-1-2">
+          <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
+            <span class="visualizations-contracts-show__text__header">{{ labelTender }}</span>
+            <span class="visualizations-contracts-show__text">{{ start_date }}</span>
+            <i class="fas fa-arrow-right" />
+            <span class="visualizations-contracts-show__text">{{ end_date }}</span>
+          </div>
+          <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
+            <span class="visualizations-contracts-show__text__header">{{ labelBidDescription }}</span>
+            <span class="visualizations-contracts-show__text">{{ initial_amount_no_taxes | money }}</span>
+          </div>
+          <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
+            {{ labelBidders }}
+          </div>
         </div>
-        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
-          <span class="visualizations-contracts-show__text__header">Licitación</span>
-          <span class="visualizations-contracts-show__text">{{ award_date }}</span>
-        </div>
-        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
-          <span class="visualizations-contracts-show__text__header">Presupuesto base de licitación sin impuestos</span>
-          <span class="visualizations-contracts-show__text">{{ initial_amount_no_taxes | money }}</span>
-        </div>
-        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
-          <span class="visualizations-contracts-show__text__header">Importe de adjudicación</span>
-          <span class="visualizations-contracts-show__text">{{ final_amount_no_taxes | money }}</span>
-        </div>
-        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
-          Licitadores
-        </div>
-        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
-          <span class="visualizations-contracts-show__text__header">Adjudicatario</span>
-          <router-link
-            id="assignee_show_link"
-            :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
-          >
-            <strong class="d_block">{{ assignee }}</strong>
-          </router-link>
+        <div class="pure-u-1 pure-u-lg-1-2">
+          <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
+            <span class="visualizations-contracts-show__text__header">{{ labelAwarding }}</span>
+            <span class="visualizations-contracts-show__text">{{ award_date }}</span>
+          </div>
+          <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
+            <span class="visualizations-contracts-show__text__header">{{ labelContractAmount }}</span>
+            <span class="visualizations-contracts-show__text">{{ final_amount_no_taxes | money }}</span>
+          </div>
+          <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
+            <span class="visualizations-contracts-show__text__header">{{ labelAssignee }}</span>
+            <router-link
+              id="assignee_show_link"
+              :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
+            >
+              <strong class="d_block">{{ assignee }}</strong>
+            </router-link>
+          </div>
         </div>
         <div class="pure-u-1 pure-u-lg-1-2" />
         <div
           v-if="hasBatch"
           class="pure-u-1 pure-u-lg-1-2"
         >
-          Adjudicatarios
+          <span class="visualizations-contracts-show__text__header">{{ labelAssignees }}</span>
           <table class="visualizations-contracts-show-table">
             <thead>
               <tr>
                 <th>Lote</th>
                 <th>Importe Adjudicación</th>
-                <th>Adjudicatario</th>
+                <th>{{ labelAssignee }}</th>
               </tr>
             </thead>
             <tbody>
@@ -156,13 +160,20 @@ export default {
       end_date: '',
       award_date: '',
       batch_number: '',
-      labelAsignee: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'),
-      labelTenderAmount: I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount'),
-      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
+      labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
+      labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
+      labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
+      labelTender: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.tender') || '',
+      labelAwarding: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding') || '',
+      labelBidDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bid_description') || '',
+      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount') || '',
+      labelBidders: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bidders') || '',
+      labelAssignees: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignees') || '',
+      labelBatch: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.batch') || '',
+      labelEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.entity') || '',
+      labelQuestionDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.question_description') || '',
+      labelAssignee: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'),
       labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status'),
-      labelProcessType: I18n.t('gobierto_visualizations.visualizations.contracts.process_type'),
-      labelContractType: I18n.t('gobierto_visualizations.visualizations.contracts.contract_type'),
-      labelPermalink: I18n.t('gobierto_visualizations.visualizations.contracts.permalink'),
       filterContractsBatchs: []
     }
   },
@@ -225,7 +236,7 @@ export default {
     calculatePercentage(value) {
       const filterByContractor = this.contractsData.filter((contract) => contract[value] === this[value])
       const totalAmount = filterByContractor.map(({ final_amount_no_taxes }) => final_amount_no_taxes).reduce((prev, next) => prev + next);
-      return ((this.final_amount_no_taxes * 100) / totalAmount).toFixed(0)
+      return ((this.final_amount_no_taxes * 100) / totalAmount).toFixed(2)
     },
   }
 }

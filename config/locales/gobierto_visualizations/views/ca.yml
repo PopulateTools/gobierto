@@ -24,6 +24,19 @@ ca:
         contractor: Contractor
         contracts: Contractes
         contracts_assigned_to: Contractes adjudicats a
+        contracts_show:
+          assignees: Adjudicataris
+          awarding: Adjudicació
+          awarding_entity: Entitat adjudicadora
+          batch: Lot
+          bid_description: Pressupost base de licitació sense impostos
+          bidders: Licitadors
+          contract_amount: Import d'adjudicació
+          entity: Entitat
+          process: Procés
+          question_description: "¿Que % de l'pressupost suposa aquest contracte?"
+          tender: Licitació
+          type: Tipu
         date: Data
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
@@ -38,8 +51,6 @@ ca:
           contracts: Contracts
           summary: Resum
           tenders: Licitacions
-        permalink: Consulteu aquest contracte a la Plataforma de Contractació del
-          Sector Públic
         process_type: Tipus de procés
         search_placeholder: Cerqueu per adjudicatari
         status: Estat

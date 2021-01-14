@@ -24,6 +24,19 @@ en:
         contractor: Contractor
         contracts: Contracts
         contracts_assigned_to: Contracts assigned to
+        contracts_show:
+          assignees: Assignees
+          awarding: Awarding
+          awarding_entity: Awarding entity
+          batch: Batch
+          bid_description: Bid base budget without taxes
+          bidders: Bidders
+          contract_amount: Contract amount
+          entity: Entity
+          process: Process
+          question_description: What % of the budget is this contract?
+          tender: Tender
+          type: Type
         date: Date
         dates: Dates
         description: Visualizations and analisys for the awarded contracts and tenders
@@ -38,7 +51,6 @@ en:
           contracts: Contracts
           summary: Summary
           tenders: Tenders
-        permalink: Check this contract on the Public Sector Contracting Platform
         process_type: Type of process
         search_placeholder: Search by assignee
         status: Status

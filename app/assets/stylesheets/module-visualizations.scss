@@ -547,9 +547,13 @@
   }
 
   &-contracts-show-table {
-    td {
+    td,
+    th {
       padding: .25rem 0;
       border: 0;
+      text-align: left;
+      font-weight: 400;
+      font-size: 1rem;
     }
   }
 

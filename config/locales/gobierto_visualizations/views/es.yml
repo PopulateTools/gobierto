@@ -24,6 +24,19 @@ es:
         contractor: Contrato
         contracts: Contratos
         contracts_assigned_to: Contratos adjudicados a
+        contracts_show:
+          assignees: Adjudicatarios
+          awarding: Adjudicación
+          awarding_entity: Entidad adjudicadora
+          batch: Lote
+          bid_description: Presupuesto base de licitación sin impuestos
+          bidders: Licitadores
+          contract_amount: Importe de adjudicación
+          entity: Entidad
+          process: Proceso
+          question_description: "¿Qué % del presupuesto supone este contrato?"
+          tender: Licitación
+          type: Tipo
         date: Fecha
         dates: Fechas
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
@@ -38,8 +51,6 @@ es:
           contracts: Contratos
           summary: Resumen
           tenders: Licitaciones
-        permalink: Consulta este contrato en la Plataforma de Contratación del Sector
-          Público
         process_type: Tipo de proceso
         search_placeholder: Busca por adjudicatario
         status: Estado

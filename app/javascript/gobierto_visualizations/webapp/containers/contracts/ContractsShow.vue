@@ -32,7 +32,10 @@
         </div>
       </div>
       <div class="visualizations-contracts-show__body">
-        <div class="pure-u-1 pure-u-lg-1-2">
+        <div
+          v-show="minorContract"
+          class="pure-u-1 pure-u-lg-1-2"
+        >
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
             <span class="visualizations-contracts-show__text__header">{{ labelTender }}</span>
             <span class="visualizations-contracts-show__text">{{ start_date }}</span>
@@ -160,6 +163,7 @@ export default {
       end_date: '',
       award_date: '',
       batch_number: '',
+      minor_contract: '',
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
       labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
       labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
@@ -180,6 +184,9 @@ export default {
   computed: {
     hasBatch() {
       return this.batch_number > 0
+    },
+    minorContract() {
+      return this.minor_contract === 'f'
     }
   },
   created() {
@@ -205,7 +212,8 @@ export default {
         assignee_routing_id,
         start_date,
         end_date,
-        award_date
+        award_date,
+        minor_contract
       } = contract
 
       this.title = title
@@ -225,6 +233,7 @@ export default {
       this.end_date = end_date
       this.award_date = award_date
       this.batch_number = +batch_number
+      this.minor_contract = minor_contract
     }
 
     if (this.hasBatch) this.groupBatchs()

@@ -295,10 +295,10 @@ module GobiertoDashboards
 
             assert_response :success
 
-            response_data = response.parsed_body
+            response_body = response.parsed_body
 
-            # pending to add the data key:
-            # assert response_data.has_key? "data"
+            assert response_body.has_key? "data"
+            response_data = response_body["data"]
 
             indicator_names = response_data.map { |indicator| indicator["name"] }
             indicator_ids = response_data.map { |indicator| indicator["id"] }

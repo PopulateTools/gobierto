@@ -151,6 +151,8 @@ export default {
       } else if (depth === 2) {
         let totalContracts = d.children === undefined ? '' : d.children
         let contractsString = totalContracts
+        /*When we transform our dataset with d3.nest(), it adds to each dataset element a function.
+        We need to filter it so that it does not give errors when building the tooltip's text.*/
           .filter(contract => typeof contract.data !== "function")
           .map(contract => createDepthSecondHTML(contract))
 

@@ -179,7 +179,7 @@ export class ContractsController {
         initial_amount_no_taxes: initial_amount_no_taxes && !Number.isNaN(initial_amount_no_taxes) ? parseFloat(initial_amount_no_taxes): 0.0,
         range: rangeFormat(+final_amount_no_taxes),
         assignee_routing_id: assignee_id,
-        award_date_year: award_date ? new Date(award_date).getFullYear() : award_date,
+        award_date_year: award_date ? new Date(award_date).getFullYear().toString() : '',
         award_date,
         ...rest
       }
@@ -190,7 +190,7 @@ export class ContractsController {
 
       return {
         initial_amount_no_taxes: initial_amount_no_taxes ? parseFloat(initial_amount_no_taxes) : 0.0,
-        submission_date_year: submission_date ? new Date(submission_date).getFullYear().toString() : submission_date.toString(),
+        submission_date_year: submission_date ? new Date(submission_date).getFullYear().toString() : '',
         ...rest
       }
 

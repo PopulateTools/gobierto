@@ -544,7 +544,9 @@
   }
 
   &-contracts-show__body__group {
-    padding-bottom: 35px;
+    &:not(:last-child) {
+      padding-bottom: 35px;
+    }
   }
 
   &-contracts-show-table {

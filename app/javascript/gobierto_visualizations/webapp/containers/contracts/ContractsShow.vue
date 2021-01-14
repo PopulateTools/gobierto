@@ -47,7 +47,7 @@
             <span class="visualizations-contracts-show__text">{{ initial_amount_no_taxes | money }}</span>
           </div>
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
-            {{ labelBidders }}
+            <span class="visualizations-contracts-show__text__header">{{ labelBidders }}</span>
           </div>
         </div>
         <div class="pure-u-1 pure-u-lg-1-2">

@@ -75,8 +75,8 @@
           <table class="visualizations-contracts-show-table">
             <thead>
               <tr>
-                <th>Lote</th>
-                <th>Importe Adjudicación</th>
+                <th>{{ labelBatch }}</th>
+                <th>{{ labelContractAmount }}</th>
                 <th>{{ labelAssignee }}</th>
               </tr>
             </thead>
@@ -101,11 +101,11 @@
         </div>
       </div>
       <div class="pure-u-1 pure-u-lg-1-2">
-        <span class="visualizations-contracts-show__text__header">¿Qué % de presupuesto supone este contrato?</span>
+        <span class="visualizations-contracts-show__text__header">{{ labelQuestionDescription }}</span>
         <table class="visualizations-contracts-show-table">
           <tr>
             <td>
-              <span class="visualizations-contracts-show__text">Órgano</span>
+              <span class="visualizations-contracts-show__text">{{ labelEntity }}</span>
             </td>
             <td>
               <span class="visualizations-contracts-show__text"><b>{{ calculatePercentage('contractor') }} %</b></span>
@@ -113,7 +113,7 @@
           </tr>
           <tr>
             <td>
-              <span class="visualizations-contracts-show__text">Tipo</span>
+              <span class="visualizations-contracts-show__text">{{ labelType }}</span>
             </td>
             <td>
               <span class="visualizations-contracts-show__text"><b>{{ calculatePercentage('contract_type') }} %</b></span>
@@ -121,7 +121,7 @@
           </tr>
           <tr>
             <td>
-              <span class="visualizations-contracts-show__text">Proceso</span>
+              <span class="visualizations-contracts-show__text">{{ labelProcess }}</span>
             </td>
             <td>
               <span class="visualizations-contracts-show__text"><b>{{ calculatePercentage('process_type') }} %</b></span>
@@ -172,8 +172,8 @@ export default {
       labelBatch: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.batch') || '',
       labelEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.entity') || '',
       labelQuestionDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.question_description') || '',
-      labelAssignee: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'),
-      labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status'),
+      labelAssignee: I18n.t('gobierto_visualizations.visualizations.contracts.assignee') || '',
+      labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status') || '',
       filterContractsBatchs: []
     }
   },

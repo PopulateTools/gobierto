@@ -6,7 +6,9 @@ module GobiertoDashboards
   module DataPipes
     class ProjectMetrics < Base
       def output_data
-        indicator_names_disambiguation(custom_field_records.map { |record| indicators(record) }.compact.flatten).to_json
+        {
+          data: indicator_names_disambiguation(custom_field_records.map { |record| indicators(record) }.compact.flatten)
+        }.to_json
       end
 
       private

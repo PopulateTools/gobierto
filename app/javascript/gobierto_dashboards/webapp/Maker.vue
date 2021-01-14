@@ -94,6 +94,9 @@ export default {
     id() {
       return this.$root.$data?.id;
     },
+    previewPath() {
+      return this.$root.$data?.previewPath;
+    },
     title() {
       return (
         this.configuration?.attributes?.title ||
@@ -223,7 +226,10 @@ export default {
       }
     },
     handleView() {
-      // open new location
+      if (this.previewPath) {
+        // open new location
+        window.open(this.previewPath, '_blank');
+      }
     }
   }
 };

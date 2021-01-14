@@ -15,9 +15,10 @@
   --border-grey: rgba(102, 102, 102, .5);
   --table-item-cost: rgba(1, 120, 168, .2);
   --border-separator: rgba(151, 151, 151, .5);
+  --border-separator-contracts: rgba(0, 0, 0, .1);
   --button-grey-active: #f4f4f4;
   --white: #fff;
-  --black: #111;
+  --black: #000;
   --blue-title-header: #0178a8;
   --grey-text: #767168;
   --border-color-grey: #ccc;
@@ -338,7 +339,6 @@
     z-index: 1;
     right: 1rem;
     color: var(--black);
-    background-color: var(--white);
     border-radius: 4px;
     border: 1px solid var(--border-color-grey);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
@@ -443,7 +443,6 @@
   .tooltip-treemap-element {
     border-top: 1px solid var(--border-color-grey);
     padding-top: .25rem;
-    padding-top: .25rem;
   }
 
   .tooltip-treemap-element-text {
@@ -493,13 +492,65 @@
   .beeswarm-tooltip-table-element {
     border-top: 1px solid var(--border-color-grey);
     padding-top: .25rem;
-    padding-top: .25rem;
   }
 
   .beeswarm-tooltip-table-element-text {
     display: inline-block;
     font-size: $f8;
     color: var(--grey-text);
+  }
+
+  &-contracts-show__title {
+    font-size: 2rem;
+  }
+
+  &-contracts-show__header__group {
+    margin-bottom: .75rem;
+  }
+
+  &-contracts-show__header__group__element {
+    padding-right: 2rem;
+    display: inline-block;
+  }
+
+  &-contracts-show__icon {
+    color: var(--color-base);
+  }
+
+  &-contracts-show__text,
+  &-contracts-show__text__header {
+    font-size: 1rem;
+    color: var(--grey);
+    font-weight: 400;
+  }
+
+  &-contracts-show__text__header {
+    font-weight: bold;
+    display: block;
+    padding-bottom: .25rem;
+  }
+
+  &-contracts-show__body {
+    padding: 1.5rem 0;
+    margin: 1.5rem 0;
+    border-top: 1px solid var(--border-separator-contracts);
+    border-bottom: 1px solid var(--border-separator-contracts);
+  }
+
+  &-contracts-show__text__bold {
+    font-weight: bold;
+    padding-left: .25rem;
+  }
+
+  &-contracts-show__body__group {
+    padding-bottom: 35px;
+  }
+
+  &-contracts-show-table {
+    td {
+      padding: .25rem 0;
+      border: 0;
+    }
   }
 
 }
@@ -1029,7 +1080,6 @@
   &-item--tooltip {
     position: absolute;
     background: white;
-    padding: 10px;
     z-index: 4;
     min-width: 200px;
     max-width: 250px;
@@ -1073,7 +1123,6 @@
 
   &-select {
     display: inline-block;
-    width: auto;
     vertical-align: middle;
     font-size: 1.15em;
     font-weight: 200;

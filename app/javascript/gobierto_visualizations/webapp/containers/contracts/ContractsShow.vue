@@ -1,95 +1,129 @@
 <template>
   <div>
-    <h1>{{ title }}</h1>
+    <h1 class="visualizations-contracts-show__title">
+      {{ title }}
+    </h1>
 
     <p v-if="description">
       {{ description }}
     </p>
 
     <div class="pure-g p_2 bg-gray visualizations-contracts-show">
-      <div class="pure-u-1 pure-u-lg-1-1">
+      <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__header__group">
         <i class="fas fa-building visualizations-contracts-show__icon" />
         <span class="visualizations-contracts-show__text">Entidad Adjudicadora</span>
-        <span class="visualizations-contracts-show__text">{{ contractor }}</span>
+        <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ contractor }}</span>
       </div>
       <div class="pure-u-1 pure-u-lg-1-1">
-        <i class="fas fa-columns visualizations-contracts-show__icon" />
-        <span class="visualizations-contracts-show__text">{{ labelStatus }}</span>
-        <span class="visualizations-contracts-show__text">{{ status }}</span>
-        <i class="fas fa-clipboard-list visualizations-contracts-show__icon" />
-        <span class="visualizations-contracts-show__text">Estado</span>
-        <span class="visualizations-contracts-show__text">{{ contract_type }}</span>
-        <i class="fas fa-archive visualizations-contracts-show__icon" />
-        <span class="visualizations-contracts-show__text">Estado</span>
-        <span class="visualizations-contracts-show__text">{{ process_type }}</span>
+        <div class="visualizations-contracts-show__header__group__element">
+          <i class="fas fa-columns visualizations-contracts-show__icon" />
+          <span class="visualizations-contracts-show__text">{{ labelStatus }}</span>
+          <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ status }}</span>
+        </div>
+        <div class="visualizations-contracts-show__header__group__element">
+          <i class="fas fa-clipboard-list visualizations-contracts-show__icon" />
+          <span class="visualizations-contracts-show__text">Estado</span>
+          <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ contract_type }}</span>
+        </div>
+        <div class="visualizations-contracts-show__header__group__element">
+          <i class="fas fa-archive visualizations-contracts-show__icon" />
+          <span class="visualizations-contracts-show__text">Estado</span>
+          <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ process_type }}</span>
+        </div>
       </div>
-      <div class="pure-u-1 pure-u-lg-1-2">
-        <span class="visualizations-contracts-show__text__header">Licitación</span>
-        <span class="visualizations-contracts-show__text">{{ start_date }}</span>
-        <i class="fas fa-arrow-right" />
-        <span class="visualizations-contracts-show__text">{{ end_date }}</span>
-      </div>
-      <div class="pure-u-1 pure-u-lg-1-2">
-        <span class="visualizations-contracts-show__text__header">Licitación</span>
-        <span class="visualizations-contracts-show__text">{{ award_date }}</span>
-      </div>
-      <div class="pure-u-1 pure-u-lg-1-2">
-        <span class="visualizations-contracts-show__text__header">Presupuesto base de licitación sin impuestos</span>
-        <span class="visualizations-contracts-show__text">{{ initial_amount_no_taxes | money }}</span>
-      </div>
-      <div class="pure-u-1 pure-u-lg-1-2">
-        <span class="visualizations-contracts-show__text__header">Importe de adjudicación</span>
-        <span class="visualizations-contracts-show__text">{{ final_amount_no_taxes | money }}</span>
-      </div>
-      <div class="pure-u-1 pure-u-lg-1-2">
-        Licitadores
-      </div>
-      <div class="pure-u-1 pure-u-lg-1-2">
-        <router-link
-          id="assignee_show_link"
-          :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
+      <div class="visualizations-contracts-show__body">
+        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
+          <span class="visualizations-contracts-show__text__header">Licitación</span>
+          <span class="visualizations-contracts-show__text">{{ start_date }}</span>
+          <i class="fas fa-arrow-right" />
+          <span class="visualizations-contracts-show__text">{{ end_date }}</span>
+        </div>
+        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
+          <span class="visualizations-contracts-show__text__header">Licitación</span>
+          <span class="visualizations-contracts-show__text">{{ award_date }}</span>
+        </div>
+        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
+          <span class="visualizations-contracts-show__text__header">Presupuesto base de licitación sin impuestos</span>
+          <span class="visualizations-contracts-show__text">{{ initial_amount_no_taxes | money }}</span>
+        </div>
+        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
+          <span class="visualizations-contracts-show__text__header">Importe de adjudicación</span>
+          <span class="visualizations-contracts-show__text">{{ final_amount_no_taxes | money }}</span>
+        </div>
+        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
+          Licitadores
+        </div>
+        <div class="pure-u-1 pure-u-lg-1-2 visualizations-contracts-show__body__group">
+          <span class="visualizations-contracts-show__text__header">Adjudicatario</span>
+          <router-link
+            id="assignee_show_link"
+            :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
+          >
+            <strong class="d_block">{{ assignee }}</strong>
+          </router-link>
+        </div>
+        <div class="pure-u-1 pure-u-lg-1-2" />
+        <div
+          v-if="hasBatch"
+          class="pure-u-1 pure-u-lg-1-2"
         >
-          <strong class="d_block">{{ assignee }}</strong>
-        </router-link>
-      </div>
-      <div class="pure-u-1 pure-u-lg-1-2" />
-      <div
-        v-if="hasBatch"
-        class="pure-u-1 pure-u-lg-1-2"
-      >
-        Adjudicatarios
-        <table>
-          <thead>
-            <tr>
-              <th>Lote</th>
-              <th>Importe Adjudicación</th>
-              <th>Adjudicatario</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="{ batch_number, final_amount_no_taxes, assignee } in filterContractsBatchs"
-              :key="batch_number"
-            >
-              <td>{{ batch_number }}</td>
-              <td>{{ final_amount_no_taxes | money }}</td>
-              <td>
-                <router-link
-                  id="assignee_show_link"
-                  :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
-                >
-                  <strong class="d_block">{{ assignee }}</strong>
-                </router-link>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+          Adjudicatarios
+          <table class="visualizations-contracts-show-table">
+            <thead>
+              <tr>
+                <th>Lote</th>
+                <th>Importe Adjudicación</th>
+                <th>Adjudicatario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="{ batch_number, final_amount_no_taxes, assignee } in filterContractsBatchs"
+                :key="batch_number"
+              >
+                <td>{{ batch_number }}</td>
+                <td>{{ final_amount_no_taxes | money }}</td>
+                <td>
+                  <router-link
+                    id="assignee_show_link"
+                    :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
+                  >
+                    <strong class="d_block">{{ assignee }}</strong>
+                  </router-link>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="pure-u-1 pure-u-lg-1-2">
-        <span>¿Qué % de presupuesto supone este contrato?</span>
-        <span>Órgano {{ calculatePercentage('contractor') }} %</span>
-        <span>Tipo {{ calculatePercentage('contract_type') }} %</span>
-        <span>Proceso {{ calculatePercentage('process_type') }} %</span>
+        <span class="visualizations-contracts-show__text__header">¿Qué % de presupuesto supone este contrato?</span>
+        <table class="visualizations-contracts-show-table">
+          <tr>
+            <td>
+              <span class="visualizations-contracts-show__text">Órgano</span>
+            </td>
+            <td>
+              <span class="visualizations-contracts-show__text"><b>{{ calculatePercentage('contractor') }} %</b></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="visualizations-contracts-show__text">Tipo</span>
+            </td>
+            <td>
+              <span class="visualizations-contracts-show__text"><b>{{ calculatePercentage('contract_type') }} %</b></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="visualizations-contracts-show__text">Proceso</span>
+            </td>
+            <td>
+              <span class="visualizations-contracts-show__text"><b>{{ calculatePercentage('process_type') }} %</b></span>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>

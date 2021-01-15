@@ -17,10 +17,5 @@ module GobiertoAdmin
       @dashboards = base_relation
       @context = context_resource.to_global_id.to_s
     end
-
-    def new
-      @context = context_resource.to_global_id.to_s
-      render("gobierto_admin/gobierto_dashboards/dashboards/modal", layout: false) && return if request.xhr?
-    end
   end
 end

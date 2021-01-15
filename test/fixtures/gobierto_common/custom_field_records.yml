@@ -208,32 +208,37 @@ scholarships_in_school_cateens_custom_field_global_level:
 
 ## Dashboards plan node
 
-indicator_0_project_value:
+project_metrics_project_value:
   item: dashboard_project (GobiertoPlans::Node)
-  custom_field: dashboards_plan_indicator_0
+  custom_field: dashboards_plan_project_metrics
   payload: <%= {
-    "indicator-0" => [
+    "project-metrics" => [
       {
+        indicator: "Decretos Emitidos",
         value: 28,
         objective: 55,
         date: "2018-07-30"
       },
       {
+        indicator: "decretos emitidos",
         value: 13,
         objective: 95,
         date: "2017-08-10"
       },
       {
+        indicator: "decretos   emitidos",
         value: 37,
         objective: 74,
         date: "2016-08-04"
       },
       {
+        indicator: "Notificaciones enviadas",
         value: 32,
         objective: 98,
         date: "2015-05-08"
       },
       {
+        indicator: "Expedientes cerrados",
         value: 48,
         objective: 57,
         date: "2019-12-07"
@@ -241,91 +246,34 @@ indicator_0_project_value:
     ]
   }.to_json %>
 
-indicator_1_project_value:
-  item: dashboard_project (GobiertoPlans::Node)
-  custom_field: dashboards_plan_indicator_1
-  payload: <%= {
-    "indicator-1" => [
-      {
-        value: 19,
-        objective: 97,
-        date: "2015-08-15"
-      },
-      {
-        value: 30,
-        objective: 87,
-        date: "2016-09-13"
-      },
-      {
-        value: 32,
-        objective: 76,
-        date: "2020-08-28"
-      },
-      {
-        value: 16,
-        objective: 58,
-        date: "2015-01-01"
-      },
-      {
-        value: 45,
-        objective: 59,
-        date: "2020-09-05"
-      },
-      {
-        value: 27,
-        objective: 68,
-        date: "2017-03-24"
-      }
-    ]
-  }.to_json %>
-
-indicator_0_alternative_project_value:
+project_metrics_alternative_project_value:
   item: dashboard_alternative_project (GobiertoPlans::Node)
-  custom_field: dashboards_plan_indicator_0
+  custom_field: dashboards_plan_project_metrics
   payload: <%= {
-    "indicator-0" => [
+    "project-metrics" => [
       {
+        indicator: "Expedientes cerrados",
         value: 10,
         objective: 20,
         date: "2020-01-01"
       },
       {
+        indicator: "Camas UCI",
         value: 15,
         objective: 20,
         date: "2019-08-10"
       },
       {
+        indicator: "Expedientes cerrados",
         value: 50,
         objective: 40,
         date: "2018-08-04"
-      }
-    ]
-  }.to_json %>
-
-indicator_1_alternative_project_value:
-  item: dashboard_alternative_project (GobiertoPlans::Node)
-  custom_field: dashboards_plan_indicator_1
-  payload: <%= {
-    "indicator-1" => [
-      {
-        value: 56,
-        objective: 58,
-        date: "2010-08-15"
       },
       {
-        value: 11,
-        objective: 22,
-        date: "2010-01-13"
-      },
-      {
-        value: 76,
-        objective: 100,
-        date: "2010-01-28"
-      },
-      {
-        value: 50,
-        objective: 50,
-        date: "2015-01-01"
+        indicator: "camas uci",
+        value: 356,
+        objective: 270,
+        date: "2021-12-31"
       }
     ]
   }.to_json %>

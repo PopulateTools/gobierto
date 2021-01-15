@@ -38,10 +38,6 @@ module GobiertoAdmin
       end
       alias context_resource plan
 
-      def index_path
-        @index_path ||= admin_plans_plan_dashboards_path(plan)
-      end
-
       def base_relation
         current_site.dashboards.for_context(@plan)
       end

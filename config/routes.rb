@@ -192,7 +192,7 @@ Rails.application.routes.draw do
               get :accumulated_values
             end
           end
-          resources :dashboards
+          resources :dashboards, only: [:index]
           resources :projects do
             member do
               post :publish
@@ -269,7 +269,7 @@ Rails.application.routes.draw do
       end
 
       namespace :gobierto_dashboards, as: :dashboards do
-        resources :dashboards
+        get "/modal" => "dashboards#modal"
       end
     end
 

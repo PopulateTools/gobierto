@@ -101,16 +101,14 @@
   },
   "lint-staged": {
     "app/javascript/**/*.{js,vue}": [
-      "eslint --fix"
+      "eslint --fix",
+      "jest --bail --findRelatedTests"
     ],
     "app/**/*.{css,scss}": [
       "stylelint --fix"
     ],
     "config/locales/**/*.yml": [
       "npm run check_i18n"
-    ],
-    "*.js": [
-      "jest --bail --findRelatedTests"
     ]
   },
   "resolutions": {

@@ -12,7 +12,7 @@ module GobiertoCommon
 
     def resource
       @resource ||= begin
-                      GlobalID::Locator.locate @context
+                      GlobalID::Locator.locate context
                     rescue ActiveRecord::RecordNotFound
                       nil
                     end

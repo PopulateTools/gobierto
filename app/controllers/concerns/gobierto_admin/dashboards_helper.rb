@@ -7,8 +7,6 @@ module GobiertoAdmin
     included do
       attr_reader :base_relation, :context_resource
 
-      helper_method :index_path
-
       before_action { module_enabled!(current_site, "GobiertoDashboards") }
       before_action { module_allowed!(current_admin, "GobiertoDashboards") }
       before_action -> { module_allowed_action!(current_admin, current_admin_module, [:manage_dashboards, :view_dashboards]) }, only: [:index, :show]
@@ -17,15 +15,7 @@ module GobiertoAdmin
 
     def index
       @dashboards = base_relation
-    end
-
-    def new
-      @dashboard_form = ::GobiertoDashboards::DashboardForm.new(
-        site_id: current_site.id,
-        admin_id: current_admin.id
-      )
       @context = context_resource.to_global_id.to_s
-      render("gobierto_admin/gobierto_dashboards/dashboards/new_modal", layout: request.xhr? ? false : "gobierto_admin/layouts/application")
     end
   end
 end

@@ -192,11 +192,13 @@ Rails.application.routes.draw do
               get :accumulated_values
             end
           end
-          resources :dashboards do
+
+          resources :dashboards, only: [:index] do
             collection do
               get :list
             end
           end
+
           resources :projects do
             member do
               post :publish
@@ -273,7 +275,7 @@ Rails.application.routes.draw do
       end
 
       namespace :gobierto_dashboards, as: :dashboards do
-        resources :dashboards
+        get "/modal" => "dashboards#modal"
       end
     end
 
@@ -464,7 +466,7 @@ Rails.application.routes.draw do
         get ":slug(/:year)/proyecto/:id" => "plan_types#show", as: :project
         get ":slug(/:year)/tabla/:uid" => "plan_types#show"
         get ":slug(/:year)/tabla/:uid/:term_id" => "plan_types#show"
-        get ":slug(/:year)/dashboards(/:dashboard_id)" => "plan_types#show"
+        get ":slug(/:year)/dashboards(/:dashboard_id)" => "plan_types#show", as: :plan_dashboards
 
         # API
         namespace :api, path: "gobierto_plans/api" do

@@ -3,49 +3,13 @@
 module GobiertoAdmin
   module GobiertoDashboards
     class DashboardsController < GobiertoAdmin::BaseController
+      before_action { module_enabled!(current_site, "GobiertoDashboards") }
+      before_action { module_allowed!(current_admin, "GobiertoDashboards") }
+      before_action -> { module_allowed_action!(current_admin, current_admin_module, [:manage_dashboards, :view_dashboards]) }
+
       layout false
-      helper_method :index_path
 
-      def index
-        @context = "context"
-      end
-
-      def show
-        # dashboard ID/context example
-        find_dashboard
-      end
-
-      def edit
-        find_dashboard
-      end
-
-      def create
-        @dashboard_form = ::GobiertoDashboards::DashboardForm.new(dashboard_params.merge(site_id: current_site.id))
-
-        if @dashboard_form.save
-          redirect_to(
-            index_path,
-            notice: t(".success")
-          )
-        else
-          @context = dashboard_params[:context]
-          render("gobierto_admin/gobierto_dashboards/dashboards/new_modal", layout: "gobierto_admin/layouts/application")
-        end
-      end
-
-      private
-
-      def find_dashboard
-        @dashboard = current_site.dashboards.find(params[:id])
-      end
-
-      def dashboard_params
-        params.require(:dashboard).permit(:visibility_level, :context, title_translations: [*I18n.available_locales])
-      end
-
-      def index_path
-        params.require(:index_path)
-      end
+      def modal; end
     end
   end
 end

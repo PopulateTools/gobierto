@@ -98,7 +98,7 @@ export default {
   methods: {
     async getConfiguration() {
       const { attributes: { widgets_configuration } = {} } = this.config;
-      const { data: widgets_data } = await this.getData({
+      const { data: { data: widgets_data } = {} } = await this.getData({
         context: this.context,
         data_pipe: this.pipe
       });

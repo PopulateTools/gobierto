@@ -65,7 +65,7 @@ import HeaderForm from "./components/HeaderForm";
 import Aside from "./layouts/Aside";
 import Main from "./layouts/Main";
 import SmallCard from "./components/SmallCard";
-import { Widgets } from "./lib/widgets";
+import { Widgets, RequiredFields } from "./lib/widgets";
 import { FactoryMixin } from "./lib/factories";
 import { TextEditable } from "lib/vue-components";
 
@@ -93,6 +93,9 @@ export default {
   computed: {
     id() {
       return this.$root.$data?.id;
+    },
+    previewPath() {
+      return this.$root.$data?.previewPath;
     },
     title() {
       return (
@@ -205,10 +208,23 @@ export default {
     handleViewerReady() {
       this.viewerLoaded = true;
     },
+    subset(x) {
+      // purge those unwanted props
+      return Object.keys(x).reduce((acc, key) => { if (RequiredFields.includes(key)) acc[key] = x[key]; return acc }, {})
+    },
     handleSave() {
+      const widgetsConfigurationReduced = this.configuration?.attributes?.widgets_configuration.map(this.subset)
+      const configuration = {
+        ...this.configuration,
+        attributes: {
+          ...this.configuration?.attributes,
+          widgets_configuration: widgetsConfigurationReduced
+        }
+      }
+
       this.id
-        ? this.putDashboard(this.id, this.configuration)
-        : this.postDashboard(this.configuration);
+        ? this.putDashboard(this.id, configuration)
+        : this.postDashboard(configuration);
 
       this.dirty = false;
     },
@@ -223,7 +239,10 @@ export default {
       }
     },
     handleView() {
-      // open new location
+      if (this.previewPath) {
+        // open new location
+        window.open(this.previewPath, '_blank');
+      }
     }
   }
 };

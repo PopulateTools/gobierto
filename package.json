@@ -92,7 +92,8 @@
     "eslint": "eslint 'app/javascript/**/*.{js,vue}'",
     "stylelint": "stylelint 'app/**/*.{css,scss}'",
     "check_i18n": "script/check_i18n.sh",
-    "test:vue": "jest"
+    "test:vue": "jest",
+    "test:watch": "jest --watch"
   },
   "husky": {
     "hooks": {

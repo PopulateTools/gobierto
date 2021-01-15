@@ -11,6 +11,11 @@
       <p>test lint-staged v2</p>
       <p>test lint-staged v2</p>
       <p>test lint-staged v2</p>
+      <p>test lint-staged v2</p>
+      <p>test lint-staged v2</p>
+      <p>test lint-staged v2</p>
+      <p>test lint-staged v2</p>
+      <p>test lint-staged v2</p>
     </div>
   </div>
 </template>

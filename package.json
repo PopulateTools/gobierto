@@ -109,8 +109,8 @@
     "config/locales/**/*.yml": [
       "npm run check_i18n"
     ],
-    "app/javascript/test/*.js": [
-      "yarn test:vue"
+    "*.js": [
+      "jest --bail --findRelatedTests"
     ]
   },
   "resolutions": {

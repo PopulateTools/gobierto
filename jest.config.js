@@ -9,6 +9,6 @@ module.exports = {
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/app/javascript/lib/vue-components/modules/$1',
-    '^tests/(.*)$': '<rootDir>/app/javascript/lib/vue-components/test/$1',
+    '^tests/(.*)$': '<rootDir>/app/javascript/*/test/$1',
   },
 };

@@ -109,7 +109,7 @@
     "config/locales/**/*.yml": [
       "npm run check_i18n"
     ],
-    "app/javascript/lib/vue-components/test/*.js": [
+    "app/javascript/test/*.js": [
       "jest"
     ]
   },

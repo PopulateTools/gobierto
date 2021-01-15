@@ -1,18 +1,32 @@
 <template>
   <div class="gobierto-table">
-    <h1>Table</h1>
+    <table />
+    <button @click="toggleModal">
+      showModal
+    </button>
+    <div v-show="showModal">
+      <p>Modal and checkboxes</p>
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: 'Table',
   props: {
+    data: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
+      showModal: false
     }
   },
   methods: {
+    toggleModal() {
+      this.showModal = true
+    }
   }
 }
 

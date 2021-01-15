@@ -12,6 +12,9 @@ module GobiertoDashboards
         def setup
           super
 
+          admin_without_write_permissions.admin_groups << view_dashboards_admin_group
+          admin_with_write_permissions.admin_groups << manage_dashboards_admin_group
+
           setup_api_protection_test(
             path: gobierto_dashboards_api_v1_dashboards_path,
             site: site,
@@ -29,6 +32,14 @@ module GobiertoDashboards
           @user ||= users(:dennis)
         end
 
+        def view_dashboards_admin_group
+          @view_dashboards_admin_group ||= gobierto_admin_admin_groups(:madrid_view_plans_dashboards_group)
+        end
+
+        def manage_dashboards_admin_group
+          @manage_dashboards_admin_group ||= gobierto_admin_admin_groups(:madrid_manage_plans_dashboards_group)
+        end
+
         def user_auth_header
           @user_auth_header ||= "Bearer #{user_api_tokens(:dennis_primary_api_token)}"
         end
@@ -36,9 +47,19 @@ module GobiertoDashboards
         def admin_auth_header
           @admin_auth_header ||= "Bearer #{admin.primary_api_token}"
         end
+        alias admin_with_write_permissions_auth_header admin_auth_header
+
+        def admin_without_write_permissions_auth_header
+          @admin_without_write_permissions_auth_header ||= "Bearer #{admin_without_write_permissions.primary_api_token}"
+        end
 
         def admin
           @admin ||= gobierto_admin_admins(:tony)
+        end
+        alias admin_with_write_permissions admin
+
+        def admin_without_write_permissions
+          @admin_without_write_permissions ||= gobierto_admin_admins(:steve)
         end
 
         def site_with_module_disabled
@@ -333,6 +354,16 @@ module GobiertoDashboards
 
             delete gobierto_dashboards_api_v1_dashboard_path(dashboard), headers: { Authorization: user_auth_header }
             assert_response :unauthorized
+          end
+        end
+
+        def test_permissions_of_regular_admin_without_write_permissions
+          with(site: site) do
+            post gobierto_dashboards_api_v1_dashboards_path, headers: { Authorization: admin_without_write_permissions_auth_header }, params: valid_params
+            assert_response :unauthorized
+
+            post gobierto_dashboards_api_v1_dashboards_path, headers: { Authorization: admin_with_write_permissions_auth_header }, params: valid_params
+            assert_response :created
           end
         end
 

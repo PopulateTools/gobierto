@@ -72,6 +72,18 @@ moderate_plans_madrid:
   resource_type: gobierto_plans
   action_name: moderate
 
+manage_plans_dashboards_madrid:
+  admin_group: madrid_manage_plans_dashboards_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: manage_dashboards
+
+view_plans_dashboards_madrid:
+  admin_group: madrid_view_plans_dashboards_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: view_dashboards
+
 edit_political_agendas:
   admin_group: political_agendas_permissions_group
   namespace: gobierto_plans

@@ -36,7 +36,9 @@
   <% if @plan.nodes.any? || @plan.categories.any? %>
     <div id="gobierto-planification" class="gobierto_planification"
       data-baseurl="<%= gobierto_plans_plan_path(slug: @plan.plan_type.slug, year: @year) %>"
-      data-plan-id="<%= @plan.id %>">
+      data-plan-id="<%= @plan.id %>"
+      data-context="GobiertoPlans::Plan/46"
+      data-pipe="project_metrics">
     </div>
   <% end %>
 

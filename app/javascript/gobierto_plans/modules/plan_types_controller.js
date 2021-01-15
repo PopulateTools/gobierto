@@ -19,7 +19,7 @@ export class GobiertoPlansController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const { dataset: { baseurl, planId } } = entryPoint
+      const { dataset: { baseurl, ...attrs } } = entryPoint
 
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match#Using_named_capturing_groups
       const { groups: { slug, year } = {} } = baseurl.match(/planes\/(?<slug>.*)\/(?<year>.*)/)
@@ -32,7 +32,7 @@ export class GobiertoPlansController {
 
       new Vue({
         router,
-        data: { ...options, baseurl, planId },
+        data: { ...options, ...attrs, baseurl },
       }).$mount(entryPoint);
     }
   }

@@ -6,6 +6,7 @@ export const Widgets = {
     w: 6,
     h: 3,
     minW: 4,
+    type: "html",
   },
   INDICATOR: {
     name: () => I18n.t("gobierto_dashboards.widgets.indicator") || "",
@@ -14,6 +15,7 @@ export const Widgets = {
     h: 5,
     minW: 4,
     minH: 3,
+    type: "indicator",
     subtypes: {
       individual: {
         name: () => I18n.t("gobierto_dashboards.widgets.individual") || "",

@@ -7,6 +7,7 @@ module GobiertoDashboards
         include ::GobiertoCommon::SecuredWithAdminToken
 
         skip_before_action :set_admin_with_token, only: [:index, :show, :data, :dashboard_data]
+        before_action :check_manage_dashboards, except: [:index, :show, :data, :dashboard_data]
 
         # GET /api/v1/dashboards
         # GET /api/v1/dashboards.json
@@ -134,6 +135,12 @@ module GobiertoDashboards
 
         def resource_params
           ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:title_translations, :title, :context, :widgets_configuration, :visibility_level])
+        end
+
+        def check_manage_dashboards
+          return if current_admin.manager? || current_admin.permissions.can?(:manage_dashboards)
+
+          render(json: { message: "Unauthorized" }, status: :unauthorized, adapter: :json_api)
         end
       end
     end

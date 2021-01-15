@@ -1,3 +1,16 @@
+// fields to persist in DB
+export const RequiredFields = [
+  "i",
+  "x",
+  "y",
+  "w",
+  "h",
+  "type",
+  "subtype",
+  "raw",
+  "indicator"
+]
+
 export const Widgets = {
   HTML: {
     // name is a function to be resolved only when is mounted

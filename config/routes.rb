@@ -460,7 +460,7 @@ Rails.application.routes.draw do
         get ":slug(/:year)/proyecto/:id" => "plan_types#show", as: :project
         get ":slug(/:year)/tabla/:uid" => "plan_types#show"
         get ":slug(/:year)/tabla/:uid/:term_id" => "plan_types#show"
-        get ":slug(/:year)/dashboards(/:dashboard_id)" => "plan_types#show"
+        get ":slug(/:year)/dashboards(/:dashboard_id)" => "plan_types#show", as: :plan_dashboards
 
         # API
         namespace :api, path: "gobierto_plans/api" do

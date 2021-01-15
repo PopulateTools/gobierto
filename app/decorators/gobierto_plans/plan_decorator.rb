@@ -6,6 +6,14 @@ module GobiertoPlans
       @object = plan
     end
 
+    def context
+      "GobiertoPlans::Plan/#{id}"
+    end
+
+    def data_pipe
+      "project_metrics"
+    end
+
     def level_keys
       @level_keys ||= begin
                         level_keys = configuration_data&.select { |k| k =~ /level\d\z/ } || {}

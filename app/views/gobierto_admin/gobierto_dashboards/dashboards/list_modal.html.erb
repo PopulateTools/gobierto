@@ -2,20 +2,42 @@
   <h2><%= t(".title") %></h2>
   <div class="pure-g">
     <div class="pure-u-1">
-      <!-- TODO: listar los dashboards -->
-      <%= select_tag(:progress, [["hola", 0], ["adios", 1]]) %>
+      <%= select_tag(
+            :dashboard,
+            options_for_select(@dashboards.map do |dashboard|
+              [dashboard.title, dashboard.id, data: { preview_path: dashboard_preview_path(dashboard) }]
+            end),
+            data: { behavior: "select2" }
+          )
+      %>
     </div>
     <div class="pure-u-1 right m_b_2">
-      <!-- TODO: sacar el plan del path -->
-      <%= link_to(edit_admin_dashboards_dashboard_path(1, params.permit!.slice(:indicator)), data: { "dashboards-maker": true }, class: "open_remote_modal button") do %>
-        <%= t(".add") %>
-      <% end %>
+      <!-- TODO: El id viene dado por los valores del select y los preview paths están en "data-preview-path" también en el select -->
+      <%= link_to(
+            t(".add"),
+            admin_dashboards_modal_path(
+              id: "dasbhoard.id", # Provided by the previous select in the value
+              context: @context,
+              pipe: @data_pipe,
+              indicator: params[:indicator],
+              preview_path: "preview_path" # Provided by the previous select in data-preview-path
+            ),
+            data: { "dashboards-maker": true },
+            class: "open_remote_modal button"
+          ) %>
     </div>
     <div class="pure-u-1">
       <hr>
-      <%= link_to(admin_dashboards_dashboards_path(params.permit!.slice(:indicator)), data: { "dashboards-maker": true }, class: "open_remote_modal") do %>
-        <%= t(".new") %>
-      <% end %>
+      <%= link_to(
+            t(".new"),
+            admin_dashboards_modal_path(
+              context: @context,
+              pipe: @data_pipe,
+              indicator: params[:indicator]
+            ),
+            data: { "dashboards-maker": true },
+            class: "open_remote_modal"
+          ) %>
     </div>
   </div>
 </div>

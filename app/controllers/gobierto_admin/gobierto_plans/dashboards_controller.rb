@@ -18,6 +18,9 @@ module GobiertoAdmin
       end
 
       def list
+        @dashboards = base_relation
+        @context = context_resource.to_global_id.to_s
+        @data_pipe = "project_metrics"
         render("gobierto_admin/gobierto_dashboards/dashboards/list_modal", layout: request.xhr? ? false : "gobierto_admin/layouts/application")
       end
 

@@ -1,0 +1,9 @@
+---
+en:
+  gobierto_admin:
+    gobierto_dashboards:
+      dashboards:
+        list_modal:
+          add: Add
+          new: Do you need to create a new dashboard?
+          title: Select the dashboard to include this indicator

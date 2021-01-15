@@ -6,6 +6,11 @@
     </button>
     <div v-show="showModal">
       <p>Modal and checkboxes</p>
+      <p>test lint-staged</p>
+      <p>test lint-staged</p>
+      <p>test lint-staged</p>
+      <p>test lint-staged</p>
+      <p>test lint-staged</p>
     </div>
   </div>
 </template>

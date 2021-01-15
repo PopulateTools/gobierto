@@ -110,7 +110,7 @@
       "npm run check_i18n"
     ],
     "app/javascript/test/*.js": [
-      "jest"
+      "yarn test:vue"
     ]
   },
   "resolutions": {

@@ -375,6 +375,8 @@ export default {
             } else {
               htmlTreeMap = treeMapTwoDepth(d)
             }
+            const self = this
+            self.injectRouter()
             return htmlTreeMap
           })
           .attr('class', 'treemap-nested-container-text')
@@ -524,7 +526,7 @@ export default {
               `
           } else if (depth === 3 && typeof d.data !== "function") {
             const { data: { assignee_routing_id }, parent: { data: { name } } } = d
-            let heading = assignee_routing_id !== undefined ? `<a class="title" href="/visualizaciones/contratos/adjudicatario/${assignee_routing_id}">${name}</a>` : `<p class="title">${name}</p>`
+            let heading = assignee_routing_id !== undefined ? `<a href="#" class="title">${name}</a>` : `<p class="title">${name}</p>`
             htmlForRect = `
               ${heading}
               <p class="text">${title}</p>
@@ -625,7 +627,7 @@ export default {
               `
           } else if (depth === 4 && typeof d.data !== "function") {
             const { data: { assignee_routing_id }, parent: { data: { name } } } = d
-            let heading = assignee_routing_id !== undefined ? `<a class="title" href="/visualizaciones/contratos/adjudicatario/${assignee_routing_id}">${name}</a>` : `<p class="title">${name}</p>`
+            let heading = assignee_routing_id !== undefined ? `<a href="#" class="title">${name}</a>` : `<p class="title">${name}</p>`
             htmlForRect = `
               ${heading}
               <p class="text">${title}</p>
@@ -721,6 +723,25 @@ export default {
           this.transformDataTreemap(this.data);
         }
       })
+    },
+    injectRouter() {
+      const contractsLink = document.querySelectorAll('a.title')
+      contractsLink.forEach(contract => contract.addEventListener('click', (e) => {
+        const {
+          target: {
+            parentNode: {
+              __data__: {
+                data: {
+                  assignee_routing_id
+                }
+              }
+            }
+          }
+        } = e
+        e.preventDefault()
+        // eslint-disable-next-line no-unused-vars
+        this.$router.push(`/visualizaciones/contratos/adjudicatario/${assignee_routing_id}`).catch(err => {})
+      }))
     },
     closeTooltips() {
       const tooltipFirstDepth = d3.select(`#treemap-nested-tooltip-first-depth-${this.treemapId}`)

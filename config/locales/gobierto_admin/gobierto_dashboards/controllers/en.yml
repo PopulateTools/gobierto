@@ -1,7 +1,0 @@
----
-en:
-  gobierto_admin:
-    gobierto_dashboards:
-      dashboards:
-        create:
-          success: Dashboard created successfully.

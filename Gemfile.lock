@@ -150,7 +150,8 @@ GEM
     connection_pool (2.2.3)
     cookies_eu (1.7.7)
       js_cookie_rails (~> 2.2.0)
-    crack (0.4.4)
+    crack (0.4.5)
+      rexml
     crass (1.0.6)
     dalli (2.7.11)
     declarative (0.0.20)
@@ -507,7 +508,7 @@ GEM
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
-    webmock (3.11.0)
+    webmock (3.11.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)

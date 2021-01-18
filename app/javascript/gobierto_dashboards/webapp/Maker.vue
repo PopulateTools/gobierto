@@ -102,6 +102,9 @@ export default {
     indicator() {
       return this.$root.$data?.indicator;
     },
+    context() {
+      return this.$root.$data?.context;
+    },
     title() {
       return (
         this.configuration?.attributes?.title ||
@@ -228,18 +231,13 @@ export default {
       return Object.keys(x).reduce((acc, key) => { if (RequiredFields.includes(key)) acc[key] = x[key]; return acc }, {})
     },
     handleSave() {
-      const widgetsConfigurationReduced = this.configuration?.attributes?.widgets_configuration?.map(this.subset)
-      const configuration = {
-        ...this.configuration,
-        attributes: {
-          ...this.configuration?.attributes,
-          widgets_configuration: widgetsConfigurationReduced
-        }
-      }
+      this.setConfiguration("context", this.context);
+      this.setConfiguration("title", this.title);
+      this.setConfiguration("widgets_configuration", this.configuration?.attributes?.widgets_configuration?.map(this.subset));
 
       this.id
-        ? this.putDashboard(this.id, configuration)
-        : this.postDashboard(configuration);
+        ? this.putDashboard(this.id, this.configuration)
+        : this.postDashboard(this.configuration);
 
       this.dirty = false;
     },

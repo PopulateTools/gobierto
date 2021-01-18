@@ -38,9 +38,9 @@
         >
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
             <span class="visualizations-contracts-show__text__header">{{ labelTender }}</span>
-            <span class="visualizations-contracts-show__text">{{ start_date }}</span>
+            <span class="visualizations-contracts-show__text">{{ open_proposals_date }}</span>
             <i class="fas fa-arrow-right" />
-            <span class="visualizations-contracts-show__text">{{ end_date }}</span>
+            <span class="visualizations-contracts-show__text">{{ submission_date }}</span>
           </div>
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
             <span class="visualizations-contracts-show__text__header">{{ labelBidDescription }}</span>
@@ -164,6 +164,8 @@ export default {
       award_date: '',
       batch_number: '',
       minor_contract: '',
+      open_proposals_date: '',
+      submission_date: '',
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
       labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
       labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
@@ -213,7 +215,9 @@ export default {
         start_date,
         end_date,
         award_date,
-        minor_contract
+        minor_contract,
+        open_proposals_date,
+        submission_date
       } = contract
 
       this.title = title
@@ -234,6 +238,8 @@ export default {
       this.award_date = award_date
       this.batch_number = +batch_number
       this.minor_contract = minor_contract
+      this.open_proposals_date = open_proposals_date || ''
+      this.submission_date = submission_date || ''
     }
 
     if (this.hasBatch) this.groupBatchs()

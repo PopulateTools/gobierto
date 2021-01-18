@@ -97,6 +97,9 @@ export default {
     previewPath() {
       return this.$root.$data?.previewPath;
     },
+    indicator() {
+      return this.$root.$data?.indicator;
+    },
     title() {
       return (
         this.configuration?.attributes?.title ||
@@ -122,6 +125,17 @@ export default {
       ({ data: { data: this.configuration } = {} } = this.id
         ? await this.getDashboard(this.id)
         : { data: {} });
+
+      if (this.indicator) {
+        this.setConfiguration("widgets_configuration", [...(this.configuration?.attributes?.widgets_configuration || []), {
+          ...this.cards['INDICATOR'],
+          i: "toosie",
+          x: 0,
+          y: 0,
+          indicator: this.indicator
+        }]);
+      }
+
       this.dirty = false;
     },
     dragoverPosition({ clientX, clientY }) {

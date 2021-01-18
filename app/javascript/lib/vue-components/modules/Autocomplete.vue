@@ -74,13 +74,17 @@ export default {
     searchKey: {
       type: String,
       default: null
+    },
+    defaultValue: {
+      type: String,
+      default: null
     }
   },
   data() {
     return {
       results: this.items,
       isOpen: false,
-      search: "",
+      search: this.defaultValue || "",
       arrowCounter: -1,
       containObjects: this.items.some(x => typeof x === "object" && x !== null)
     };

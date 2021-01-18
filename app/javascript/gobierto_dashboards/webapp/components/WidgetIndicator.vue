@@ -14,6 +14,7 @@
         :label="selectLabel"
         :placeholder="placeholderLabel"
         :items="widgetsData"
+        :default-value="indicator"
         search-key="name"
         name="indicator"
       >
@@ -64,6 +65,10 @@ export default {
     Autocomplete
   },
   props: {
+    indicator: {
+      type: String,
+      default: null
+    },
     subtype: {
       type: String,
       default: null

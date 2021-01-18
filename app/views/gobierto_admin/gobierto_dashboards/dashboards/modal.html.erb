@@ -6,5 +6,8 @@
     data-pipe="<%= params[:pipe] %>"
     <% if params[:id].present? %>
       data-id="<%= params[:id] %>"
+    <% end %>
+    <% if params[:indicator].present? %>
+      data-indicator="<%= params[:indicator] %>"
     <% end %> />
 </div>

@@ -25,7 +25,8 @@ es:
         contracts: Contratos
         contracts_assigned_to: Contratos adjudicados a
         contracts_show:
-          assignees_description: Empresa que ha ganado el contracto (Adjudicatario)
+          assignee_description: Empresa que ha ganado el contracto (Adjudicatario)
+          assignees_description: Empresas que han ganado el contracto (Adjudicatario)
           awarding: Adjudicación
           awarding_entity: Entidad adjudicadora
           batch: Lote

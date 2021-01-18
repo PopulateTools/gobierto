@@ -12,7 +12,7 @@
 <script>
 
 export default {
-  name: 'ContractsShowLabel',
+  name: 'ContractsShowLabelHeader',
   props: {
     label: {
       type: String,

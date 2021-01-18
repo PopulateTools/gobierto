@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="{ batch_number, final_amount_no_taxes, assignee, assignee_routing_id } in filterContractsBatchs"
+          v-for="{ batch_number, final_amount_no_taxes, assignee, assignee_routing_id } in data"
           :key="batch_number"
         >
           <td>{{ batch_number }}</td>

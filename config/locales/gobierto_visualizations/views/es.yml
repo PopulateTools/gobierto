@@ -25,13 +25,13 @@ es:
         contracts: Contratos
         contracts_assigned_to: Contratos adjudicados a
         contracts_show:
-          assignees_description: Empresa que ha guanyat el contracte (Adjudicatari)
+          assignees_description: Empresa que ha ganado el contracto (Adjudicatario)
           awarding: Adjudicación
           awarding_entity: Entidad adjudicadora
           batch: Lote
           bid_description: Presupuesto base de licitación sin impuestos
-          bidders_description: Number of companies that have submitted to the process
-            (Bidders)
+          bidders_description: Número de empresas que se han presentado al proceso
+            (Licitadores)
           contract_amount: Importe de adjudicación
           entity: Entidad
           process: Proceso

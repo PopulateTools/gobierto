@@ -25,7 +25,7 @@ ca:
         contracts: Contractes
         contracts_assigned_to: Contractes adjudicats a
         contracts_show:
-          assignees_description: Company that has won the contract (Assignees)
+          assignees_description: Empresa que ha guanyat el contracte (Adjudicatari)
           awarding: Adjudicació
           awarding_entity: Entitat adjudicadora
           batch: Lot

@@ -25,13 +25,13 @@ en:
         contracts: Contracts
         contracts_assigned_to: Contracts assigned to
         contracts_show:
-          assignees_description: Empresa que ha guanyat el contracte (Adjudicatari)
+          assignees_description: Company that has won the contract (Assignees)
           awarding: Awarding
           awarding_entity: Awarding entity
           batch: Batch
           bid_description: Bid base budget without taxes
-          bidders_description: Número de empresas que se han presentado al proceso
-            (Licitadores)
+          bidders_description: Number of companies that have submitted to the process
+            (Bidders)
           contract_amount: Contract amount
           entity: Entity
           process: Process

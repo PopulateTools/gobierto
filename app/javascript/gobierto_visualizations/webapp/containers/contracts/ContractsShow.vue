@@ -38,9 +38,12 @@
         >
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
             <span class="visualizations-contracts-show__text__header">{{ labelTender }}</span>
-            <span class="visualizations-contracts-show__text">{{ open_proposals_date }}</span>
-            <i class="fas fa-arrow-right" />
-            <span class="visualizations-contracts-show__text">{{ submission_date }}</span>
+            <span class="visualizations-contracts-show__text">{{ parseDate(submission_date) }}</span>
+            <i
+              v-show="showArrowDate"
+              class="fas fa-arrow-right"
+            />
+            <span class="visualizations-contracts-show__text">{{ parseDate(open_proposals_date) }}</span>
           </div>
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
             <span class="visualizations-contracts-show__text__header">{{ labelBidDescription }}</span>
@@ -53,54 +56,52 @@
         <div class="pure-u-1 pure-u-lg-1-2">
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
             <span class="visualizations-contracts-show__text__header">{{ labelAwarding }}</span>
-            <span class="visualizations-contracts-show__text">{{ award_date }}</span>
+            <span class="visualizations-contracts-show__text">{{ parseDate(award_date) }}</span>
           </div>
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
             <span class="visualizations-contracts-show__text__header">{{ labelContractAmount }}</span>
             <span class="visualizations-contracts-show__text">{{ final_amount_no_taxes | money }}</span>
           </div>
-          <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
-            <span class="visualizations-contracts-show__text__header">{{ labelAssignee }}</span>
-            <router-link
-              id="assignee_show_link"
-              :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
-            >
-              <strong class="d_block">{{ assignee }}</strong>
-            </router-link>
-          </div>
-        </div>
-        <div class="pure-u-1 pure-u-lg-1-2" />
-        <div
-          v-if="hasBatch"
-          class="pure-u-1 pure-u-lg-1-2"
-        >
-          <span class="visualizations-contracts-show__text__header">{{ labelAssignees }}</span>
-          <table class="visualizations-contracts-show-table">
-            <thead>
-              <tr>
-                <th>{{ labelBatch }}</th>
-                <th>{{ labelContractAmount }}</th>
-                <th>{{ labelAssignee }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="{ batch_number, final_amount_no_taxes, assignee } in filterContractsBatchs"
-                :key="batch_number"
+          <template v-if="!hasBatch">
+            <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
+              <span class="visualizations-contracts-show__text__header">{{ labelAssignee }}</span>
+              <router-link
+                id="assignee_show_link"
+                :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
               >
-                <td>{{ batch_number }}</td>
-                <td>{{ final_amount_no_taxes | money }}</td>
-                <td>
-                  <router-link
-                    id="assignee_show_link"
-                    :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
-                  >
-                    <strong class="d_block">{{ assignee }}</strong>
-                  </router-link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                <strong class="d_block">{{ assignee }}</strong>
+              </router-link>
+            </div>
+          </template>
+          <template v-else>
+            <span class="visualizations-contracts-show__text__header">{{ labelAssignees }}</span>
+            <table class="visualizations-contracts-show-table">
+              <thead>
+                <tr>
+                  <th>{{ labelBatch }}</th>
+                  <th>{{ labelContractAmount }}</th>
+                  <th>{{ labelAssignee }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="{ batch_number, final_amount_no_taxes, assignee } in filterContractsBatchs"
+                  :key="batch_number"
+                >
+                  <td>{{ batch_number }}</td>
+                  <td>{{ final_amount_no_taxes | money }}</td>
+                  <td>
+                    <router-link
+                      id="assignee_show_link"
+                      :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
+                    >
+                      <strong class="d_block">{{ assignee }}</strong>
+                    </router-link>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </template>
         </div>
       </div>
       <div class="pure-u-1 pure-u-lg-1-2">
@@ -189,6 +190,9 @@ export default {
     },
     minorContract() {
       return this.minor_contract === 'f'
+    },
+    showArrowDate() {
+      return this.submission_date && this.open_proposals_date
     }
   },
   created() {
@@ -238,8 +242,8 @@ export default {
       this.award_date = award_date
       this.batch_number = +batch_number
       this.minor_contract = minor_contract
-      this.open_proposals_date = open_proposals_date || ''
-      this.submission_date = submission_date || ''
+      this.open_proposals_date = open_proposals_date || null
+      this.submission_date = submission_date || null
     }
 
     if (this.hasBatch) this.groupBatchs()
@@ -253,6 +257,15 @@ export default {
       const totalAmount = filterByContractor.map(({ final_amount_no_taxes }) => final_amount_no_taxes).reduce((prev, next) => prev + next);
       return ((this.final_amount_no_taxes * 100) / totalAmount).toFixed(2)
     },
+    parseDate(value) {
+      if (!value) return
+      const convertDate = new Date(value)
+      const year = convertDate.getFullYear()
+      const day = convertDate.getDate()
+      const month = convertDate.toLocaleString('default', { month: 'short' });
+
+      return `${day} ${month} ${year}`
+    }
   }
 }
 </script>

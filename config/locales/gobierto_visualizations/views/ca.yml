@@ -25,12 +25,12 @@ ca:
         contracts: Contractes
         contracts_assigned_to: Contractes adjudicats a
         contracts_show:
-          assignees: Adjudicataris
+          assignees_description: Company that has won the contract (Assignees)
           awarding: Adjudicació
           awarding_entity: Entitat adjudicadora
           batch: Lot
           bid_description: Pressupost base de licitació sense impostos
-          bidders: Licitadors
+          bidders_description: Numero d'empreses que s'han presentat al procés (Licitadors)
           contract_amount: Import d'adjudicació
           entity: Entitat
           process: Procés

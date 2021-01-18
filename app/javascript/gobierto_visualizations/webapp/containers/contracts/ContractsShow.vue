@@ -14,7 +14,7 @@
         <span class="visualizations-contracts-show__text">{{ labelAwardingEntity }}</span>
         <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ contractor }}</span>
       </div>
-      <div class="pure-u-1 pure-u-lg-1-1">
+      <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__header__group">
         <div class="visualizations-contracts-show__header__group__element">
           <i class="fas fa-columns visualizations-contracts-show__icon" />
           <span class="visualizations-contracts-show__text">{{ labelStatus }}</span>
@@ -29,6 +29,13 @@
           <i class="fas fa-archive visualizations-contracts-show__icon" />
           <span class="visualizations-contracts-show__text">{{ labelProcess }}</span>
           <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ process_type }}</span>
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-lg-1-1">
+        <div class="visualizations-contracts-show__header__group__element">
+          <i class="fas fa-tag visualizations-contracts-show__icon" />
+          <span class="visualizations-contracts-show__text">{{ labelCategory }}</span>
+          <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ category_title }}</span>
         </div>
       </div>
       <div class="visualizations-contracts-show__body">
@@ -53,7 +60,7 @@
             v-show="numberOfProposals"
             class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group"
           >
-            <span class="visualizations-contracts-show__text__header">{{ labelBidders }}</span>
+            <span class="visualizations-contracts-show__text__header">{{ labelBiddersDescription }}</span>
             <span class="visualizations-contracts-show__text">{{ numberOfProposals }}</span>
           </div>
         </div>
@@ -78,7 +85,7 @@
             </div>
           </template>
           <template v-else>
-            <span class="visualizations-contracts-show__text__header">{{ labelAssignees }}</span>
+            <span class="visualizations-contracts-show__text__header">{{ labelAssigneesDescription }}</span>
             <table class="visualizations-contracts-show-table">
               <thead>
                 <tr>
@@ -174,6 +181,7 @@ export default {
       open_proposals_date: '',
       submission_date: '',
       cpvs: '',
+      category_title: '',
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
       labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
       labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
@@ -181,13 +189,14 @@ export default {
       labelAwarding: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding') || '',
       labelBidDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bid_description') || '',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount') || '',
-      labelBidders: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bidders') || '',
-      labelAssignees: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignees') || '',
+      labelBiddersDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bidders_description') || '',
+      labelAssigneesDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignees_description') || '',
       labelBatch: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.batch') || '',
       labelEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.entity') || '',
       labelQuestionDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.question_description') || '',
       labelAssignee: I18n.t('gobierto_visualizations.visualizations.contracts.assignee') || '',
       labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status') || '',
+      labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category') || '',
       filterContractsBatchs: []
     }
   },
@@ -217,6 +226,7 @@ export default {
         title,
         cpvs,
         batch_number,
+        category_title,
         contractor,
         description,
         assignee,
@@ -257,6 +267,7 @@ export default {
       this.open_proposals_date = open_proposals_date || null
       this.submission_date = submission_date || null
       this.cpvs = cpvs
+      this.category_title = category_title
     }
 
     if (this.hasBatch) this.groupBatchs()

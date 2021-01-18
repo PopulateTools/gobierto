@@ -276,8 +276,8 @@ export default {
       const year = convertDate.getFullYear()
       const day = convertDate.getDate()
       const indexMonth = convertDate.getMonth()
-      const months = d3locale.[I18n.locale].shortMonths
-      const month = months.filter((d, index) => index === indexMonth)
+      const { [I18n.locale]: { shortMonths } } = d3locale
+      const month = shortMonths.filter((d, index) => index === indexMonth)
 
       return `${day} ${month} ${year}`
     }

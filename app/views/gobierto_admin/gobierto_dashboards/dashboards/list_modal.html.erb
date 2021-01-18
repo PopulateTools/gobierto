@@ -1,7 +1,7 @@
 <div class="modal">
   <h2><%= t(".title") %></h2>
   <div class="pure-g">
-    <div class="pure-u-1">
+    <div class="pure-u-1 m_b_2">
       <%= select_tag(
             :dashboard,
             options_for_select(@dashboards.map do |dashboard|
@@ -12,16 +12,16 @@
       %>
     </div>
     <div class="pure-u-1 right m_b_2">
-      <!-- TODO: El id viene dado por los valores del select y los preview paths están en "data-preview-path" también en el select -->
       <%= link_to(
             t(".add"),
             admin_dashboards_modal_path(
-              id: "dasbhoard.id", # Provided by the previous select in the value
+              id: @dashboards[0].id,
               context: @context,
               pipe: @data_pipe,
               indicator: params[:indicator],
-              preview_path: "preview_path" # Provided by the previous select in data-preview-path
+              preview_path: dashboard_preview_path(@dashboards[0])
             ),
+            id: "add-current-dashboard-btn",
             data: { "dashboards-maker": true },
             class: "open_remote_modal button"
           ) %>

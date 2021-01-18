@@ -9,34 +9,34 @@
     </p>
 
     <div class="pure-g p_2 bg-gray visualizations-contracts-show">
-      <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__header__group">
-        <i class="fas fa-building visualizations-contracts-show__icon" />
-        <span class="visualizations-contracts-show__text">{{ labelAwardingEntity }}</span>
-        <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ contractor }}</span>
-      </div>
-      <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__header__group">
-        <div class="visualizations-contracts-show__header__group__element">
-          <i class="fas fa-columns visualizations-contracts-show__icon" />
-          <span class="visualizations-contracts-show__text">{{ labelStatus }}</span>
-          <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ status }}</span>
-        </div>
-        <div class="visualizations-contracts-show__header__group__element">
-          <i class="fas fa-clipboard-list visualizations-contracts-show__icon" />
-          <span class="visualizations-contracts-show__text">{{ labelType }}</span>
-          <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ contract_type }}</span>
-        </div>
-        <div class="visualizations-contracts-show__header__group__element">
-          <i class="fas fa-archive visualizations-contracts-show__icon" />
-          <span class="visualizations-contracts-show__text">{{ labelProcess }}</span>
-          <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ process_type }}</span>
-        </div>
-      </div>
       <div class="pure-u-1 pure-u-lg-1-1">
-        <div class="visualizations-contracts-show__header__group__element">
-          <i class="fas fa-tag visualizations-contracts-show__icon" />
-          <span class="visualizations-contracts-show__text">{{ labelCategory }}</span>
-          <span class="visualizations-contracts-show__text visualizations-contracts-show__text__bold">{{ category_title }}</span>
-        </div>
+        <ContractsShowLabel
+          :label="labelAwardingEntity"
+          :value="contractor"
+          :icon="'building'"
+        />
+      </div>
+      <ContractsShowLabel
+        :label="labelStatus"
+        :value="status"
+        :icon="'columns'"
+      />
+      <ContractsShowLabel
+        :label="labelType"
+        :value="contract_type"
+        :icon="'clipboard-list'"
+      />
+      <ContractsShowLabel
+        :label="labelProcess"
+        :value="process_type"
+        :icon="'archive'"
+      />
+      <div class="pure-u-1 pure-u-lg-1-1">
+        <ContractsShowLabel
+          :label="labelCategory"
+          :value="category_title"
+          :icon="'tag'"
+        />
       </div>
       <div class="visualizations-contracts-show__body">
         <div
@@ -75,7 +75,7 @@
           </div>
           <template v-if="!hasBatch">
             <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
-              <span class="visualizations-contracts-show__text__header">{{ labelAssignee }}</span>
+              <span class="visualizations-contracts-show__text__header">{{ labelAssigneesDescription }}</span>
               <router-link
                 id="assignee_show_link"
                 :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
@@ -85,33 +85,9 @@
             </div>
           </template>
           <template v-else>
-            <span class="visualizations-contracts-show__text__header">{{ labelAssigneesDescription }}</span>
-            <table class="visualizations-contracts-show-table">
-              <thead>
-                <tr>
-                  <th>{{ labelBatch }}</th>
-                  <th>{{ labelContractAmount }}</th>
-                  <th>{{ labelAssignee }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="{ batch_number, final_amount_no_taxes, assignee, assignee_routing_id } in filterContractsBatchs"
-                  :key="batch_number"
-                >
-                  <td>{{ batch_number }}</td>
-                  <td>{{ final_amount_no_taxes | money }}</td>
-                  <td>
-                    <router-link
-                      id="assignee_show_link"
-                      :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
-                    >
-                      <strong class="d_block">{{ assignee }}</strong>
-                    </router-link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <ContractsShowTable
+              :data="filterContractsBatchs"
+            />
           </template>
         </div>
       </div>
@@ -153,9 +129,15 @@
 import { VueFiltersMixin } from "lib/vue/filters"
 import { EventBus } from "../../mixins/event_bus";
 import { d3locale } from "lib/shared";
+import ContractsShowLabel from "./ContractsShowLabel.vue";
+import ContractsShowTable from "./ContractsShowTable.vue";
 
 export default {
   name: 'ContractsShow',
+  components: {
+    ContractsShowLabel,
+    ContractsShowTable
+  },
   mixins: [VueFiltersMixin],
   data() {
     return {
@@ -183,18 +165,16 @@ export default {
       cpvs: '',
       category_title: '',
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
+      labelAssigneesDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignees_description') || '',
+      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount') || '',
       labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
       labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
       labelTender: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.tender') || '',
       labelAwarding: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding') || '',
       labelBidDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bid_description') || '',
-      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount') || '',
       labelBiddersDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bidders_description') || '',
-      labelAssigneesDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignees_description') || '',
-      labelBatch: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.batch') || '',
       labelEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.entity') || '',
       labelQuestionDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.question_description') || '',
-      labelAssignee: I18n.t('gobierto_visualizations.visualizations.contracts.assignee') || '',
       labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status') || '',
       labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category') || '',
       filterContractsBatchs: []
@@ -278,7 +258,7 @@ export default {
     },
     calculatePercentage(value) {
       const filterByContractor = this.contractsData.filter((contract) => contract[value] === this[value])
-      const totalAmount = filterByContractor.map(({ final_amount_no_taxes }) => final_amount_no_taxes).reduce((prev, next) => prev + next);
+      const totalAmount = filterByContractor.reduce((acc, { final_amount_no_taxes } ) => acc + final_amount_no_taxes, 0)
       return ((this.final_amount_no_taxes * 100) / totalAmount).toFixed(2)
     },
     parseDate(value) {

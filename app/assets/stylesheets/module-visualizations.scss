@@ -506,11 +506,9 @@
 
   &-contracts-show__header__group {
     margin-bottom: .75rem;
-  }
-
-  &-contracts-show__header__group__element {
-    padding-right: 2rem;
     display: inline-block;
+    letter-spacing: initial;
+    padding-right: 2rem;
   }
 
   &-contracts-show__icon {
@@ -519,7 +517,7 @@
 
   &-contracts-show__text,
   &-contracts-show__text__header {
-    font-size: 1rem;
+    font-size: $f6;
     color: var(--grey);
     font-weight: 400;
   }
@@ -556,7 +554,7 @@
       border: 0;
       text-align: left;
       font-weight: 400;
-      font-size: 1rem;
+      font-size: $f6;
     }
   }
 

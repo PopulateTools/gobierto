@@ -34,9 +34,9 @@ ca:
           contract_amount: Import d'adjudicació
           entity: Entitat
           process: Procés
-          question_description: "¿Que % de l'pressupost suposa aquest contracte?"
+          question_description: Què % del pressupost suposa aquest contracte?
           tender: Licitació
-          type: Tipu
+          type: Tipus
         date: Data
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions

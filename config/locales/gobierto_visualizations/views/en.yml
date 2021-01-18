@@ -25,6 +25,7 @@ en:
         contracts: Contracts
         contracts_assigned_to: Contracts assigned to
         contracts_show:
+          assignee_description: Company that has won the contract (Assignee)
           assignees_description: Companies that have won the contract (Assignees)
           awarding: Awarding
           awarding_entity: Awarding entity

@@ -49,8 +49,12 @@
             <span class="visualizations-contracts-show__text__header">{{ labelBidDescription }}</span>
             <span class="visualizations-contracts-show__text">{{ initial_amount_no_taxes | money }}</span>
           </div>
-          <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
+          <div
+            v-show="numberOfProposals"
+            class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group"
+          >
             <span class="visualizations-contracts-show__text__header">{{ labelBidders }}</span>
+            <span class="visualizations-contracts-show__text">{{ numberOfProposals }}</span>
           </div>
         </div>
         <div class="pure-u-1 pure-u-lg-1-2">
@@ -149,6 +153,7 @@ export default {
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
+      tendersData: this.$root.$data.tendersData,
       title: '',
       description: '',
       assignee: '',
@@ -168,6 +173,7 @@ export default {
       minor_contract: '',
       open_proposals_date: '',
       submission_date: '',
+      cpvs: '',
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
       labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
       labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
@@ -194,6 +200,10 @@ export default {
     },
     showArrowDate() {
       return this.submission_date && this.open_proposals_date
+    },
+    numberOfProposals() {
+      const tenderContract = this.tendersData.filter(({ cpvs }) => cpvs === this.cpvs)
+      return tenderContract[0]?.number_of_proposals
     }
   },
   created() {
@@ -205,6 +215,7 @@ export default {
     if (contract) {
       const {
         title,
+        cpvs,
         batch_number,
         contractor,
         description,
@@ -245,6 +256,7 @@ export default {
       this.minor_contract = minor_contract
       this.open_proposals_date = open_proposals_date || null
       this.submission_date = submission_date || null
+      this.cpvs = cpvs
     }
 
     if (this.hasBatch) this.groupBatchs()

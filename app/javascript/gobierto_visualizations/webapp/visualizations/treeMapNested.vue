@@ -725,6 +725,7 @@ export default {
       })
     },
     injectRouter() {
+      this.closeTooltips()
       const contractsLink = document.querySelectorAll('a.title')
       contractsLink.forEach(contract => contract.addEventListener('click', (e) => {
         const {

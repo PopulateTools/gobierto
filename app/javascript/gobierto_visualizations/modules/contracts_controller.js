@@ -79,7 +79,8 @@ export class ContractsController {
             }
           ],
           scrollBehavior(to) {
-            if (to.name === "contracts_show") {
+            const scrollRoutes = ['contracts_show', 'assignees_show']
+            if (scrollRoutes.includes(to.name)) {
               const element = document.getElementById(selector);
               window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
             }

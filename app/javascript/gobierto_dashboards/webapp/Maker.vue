@@ -69,6 +69,8 @@ import { Widgets, RequiredFields } from "./lib/widgets";
 import { FactoryMixin } from "./lib/factories";
 import { TextEditable } from "lib/vue-components";
 
+const seed = () => Math.random().toString(36).substring(7)
+
 export default {
   name: "Maker",
   components: {
@@ -127,12 +129,13 @@ export default {
         : { data: {} });
 
       if (this.indicator) {
+        // autoloads the indicator provided via props
         this.setConfiguration("widgets_configuration", [...(this.configuration?.attributes?.widgets_configuration || []), {
           ...this.cards['INDICATOR'],
-          i: "toosie",
+          indicator: this.indicator,
+          i: `INDICATOR-${seed()}`,
           x: 0,
-          y: 0,
-          indicator: this.indicator
+          y: 0
         }]);
       }
 
@@ -159,9 +162,7 @@ export default {
         const match = this.cards[key];
         if (match) {
           this.item = {
-            i: `${key}-${Math.random()
-              .toString(36)
-              .substring(7)}`,
+            i: `${key}-${seed()}`,
             ...match
           };
         }
@@ -227,7 +228,7 @@ export default {
       return Object.keys(x).reduce((acc, key) => { if (RequiredFields.includes(key)) acc[key] = x[key]; return acc }, {})
     },
     handleSave() {
-      const widgetsConfigurationReduced = this.configuration?.attributes?.widgets_configuration.map(this.subset)
+      const widgetsConfigurationReduced = this.configuration?.attributes?.widgets_configuration?.map(this.subset)
       const configuration = {
         ...this.configuration,
         attributes: {

@@ -141,6 +141,7 @@
 
 import { VueFiltersMixin } from "lib/vue/filters"
 import { EventBus } from "../../mixins/event_bus";
+import { d3locale } from "lib/shared";
 
 export default {
   name: 'ContractsShow',
@@ -262,7 +263,9 @@ export default {
       const convertDate = new Date(value)
       const year = convertDate.getFullYear()
       const day = convertDate.getDate()
-      const month = convertDate.toLocaleString('default', { month: 'short' });
+      const indexMonth = convertDate.getMonth()
+      const months = d3locale.[I18n.locale].shortMonths
+      const month = months.filter((d, index) => index === indexMonth)
 
       return `${day} ${month} ${year}`
     }

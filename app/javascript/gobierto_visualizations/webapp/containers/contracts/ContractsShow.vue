@@ -9,13 +9,12 @@
     </p>
 
     <div class="pure-g p_2 bg-gray visualizations-contracts-show">
-      <div class="pure-u-1 pure-u-lg-1-1">
-        <ContractsShowLabelHeader
-          :label="labelAwardingEntity"
-          :value="contractor"
-          :icon="'building'"
-        />
-      </div>
+      <ContractsShowLabelHeader
+        class="visualizations-contracts-show__block"
+        :label="labelAwardingEntity"
+        :value="contractor"
+        :icon="'building'"
+      />
       <ContractsShowLabelHeader
         :label="labelStatus"
         :value="status"
@@ -31,13 +30,12 @@
         :value="process_type"
         :icon="'archive'"
       />
-      <div class="pure-u-1 pure-u-lg-1-1">
-        <ContractsShowLabelHeader
-          :label="labelCategory"
-          :value="category_title"
-          :icon="'tag'"
-        />
-      </div>
+      <ContractsShowLabelHeader
+        class="visualizations-contracts-show__block"
+        :label="labelCategory"
+        :value="category_title"
+        :icon="'tag'"
+      />
       <div class="visualizations-contracts-show__body">
         <div
           v-show="minorContract"

@@ -515,6 +515,11 @@
     color: var(--color-base);
   }
 
+  &-contracts-show__block {
+    display: block;
+    width: 100%;
+  }
+
   &-contracts-show__text,
   &-contracts-show__text__header {
     font-size: $f6;

@@ -4,19 +4,19 @@ import { render, screen, fireEvent } from '@testing-library/vue';
 
 describe('table vue-component', () => {
   test('should render component', () => {
-    const { container } = render(Table)
+    render(Table)
 
-    expect(container.firstChild.firstChild.tagName).toBe('TABLE')
+    expect(screen.queryByTestId('table-component')).toBeTruthy()
 
   });
 
   test('should show a modal', async () => {
     render(Table)
-    const button = screen.getByText('showModal')
+    const button = screen.getByTestId('table-button-modal')
 
     await fireEvent.click(button)
 
-    expect(screen.queryByText('Modal and checkboxes')).toBeTruthy()
+    expect(screen.queryByTestId('table-modal')).toBeTruthy()
   })
 
 });

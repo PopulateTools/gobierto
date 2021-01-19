@@ -1,27 +1,30 @@
 <template>
-  <div class="gobierto-table">
-    <table />
-    <button @click="toggleModal">
-      showModal
-    </button>
-    <div v-show="showModal">
-      <p>Modal and checkboxes</p>
-      <p>test lint-staged v2</p>
-      <p>test lint-staged v2</p>
-      <p>test lint-staged v2</p>
-      <p>test lint-staged v2</p>
-      <p>test lint-staged v2</p>
-      <p>test lint-staged v2</p>
-      <p>test lint-staged v2</p>
-      <p>test lint-staged v2</p>
-      <p>test lint-staged v2</p>
-      <p>test lint-staged v2</p>
+  <div
+    data-testid="table-component"
+    class="gobierto-table"
+  >
+    <div class="gobierto-table__header">
+      <span class="gobierto-table__header-title">Title</span>
+      <button
+        data-testid="table-button-modal"
+        class="gobierto-table__header-button"
+        @click="toggleModal"
+      />
+      <TableColumnSelector
+        v-show="showModal"
+        data-testid="table-modal"
+      />
     </div>
+    <table />
   </div>
 </template>
 <script>
+import TableColumnSelector from "./TableColumnSelector.vue";
 export default {
   name: 'Table',
+  components: {
+    TableColumnSelector
+  },
   props: {
     data: {
       type: Array,
@@ -33,9 +36,15 @@ export default {
       showModal: false
     }
   },
+  created() {
+    this.getColumns()
+  },
   methods: {
     toggleModal() {
       this.showModal = true
+    },
+    getColumns() {
+
     }
   }
 }

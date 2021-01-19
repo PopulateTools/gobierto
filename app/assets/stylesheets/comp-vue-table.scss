@@ -1,0 +1,204 @@
+.gobierto-table {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  &__li:not(:last-child) {
+    border-bottom: 1px solid $separator;
+  }
+
+  &__li--content {
+    display: flex;
+    flex: 1;
+  }
+
+  &__th {
+    padding: 0 .5rem .25rem 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: $f6;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex: 1;
+
+    .sort-icon {
+      color: var(--color-base);
+      margin-left: .5rem;
+    }
+
+    &:first-child {
+      flex: 0 0 50%;
+    }
+
+    &:last-child {
+      padding: 0 0 .25rem;
+      flex-direction: row-reverse;
+      margin-left: auto;
+
+      .sort-icon {
+        margin-right: .5rem;
+      }
+    }
+  }
+
+  &__td {
+    border: 0;
+    font-size: $f5;
+    padding: .5rem .5rem .5rem 0;
+
+    i {
+      color: var(--color-base);
+    }
+
+    &:first-child {
+      flex: 0 0 50%;
+    }
+
+    &:last-child {
+      margin-left: auto;
+      padding: .5rem 0;
+    }
+  }
+
+  &__td--alt {
+    border: 0;
+    font-size: $f7;
+    padding: .5rem .5rem .5rem 0;
+    font-weight: normal;
+    flex: 1;
+
+    &.is-selected {
+      font-weight: 900;
+    }
+
+    &:first-child {
+      flex: 0 0 50%;
+    }
+
+    &:last-child {
+      text-align: right;
+      padding: .5rem 0;
+    }
+  }
+
+  &__td-name {
+    text-decoration: underline;
+    color: var(--color-base);
+    cursor: pointer;
+  }
+
+  &__td-link {
+    display: flex;
+    align-items: baseline;
+    color: var(--color-base);
+    cursor: pointer;
+
+    i {
+      flex: 0 0 12px;
+    }
+
+    a {
+      max-width: 80%;
+    }
+  }
+
+  &__container {
+    width: 100%;
+  }
+
+  &__wrapper {
+    width: 100%;
+    position: relative;
+
+    > div {
+      overflow-x: auto;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 2rem;
+    align-items: center;
+  }
+
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    padding-right: .5rem;
+
+    > :not(:last-child) {
+      margin-right: 1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 35vw;
+    }
+
+    &-group {
+      text-transform: uppercase;
+      font-size: $f6;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    &-term {
+      text-transform: uppercase;
+      font-size: $f5;
+      text-decoration: none;
+      color: var(--color-base);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 40vw;
+    }
+
+    &-arrow {
+      opacity: .5;
+    }
+  }
+
+  &__column-selector {
+    position: relative;
+    color: var(--color-base);
+    font-size: $f7;
+    cursor: pointer;
+
+    &__trigger {
+      display: flex;
+      align-items: baseline;
+
+      span {
+        text-decoration: underline;
+        white-space: nowrap;
+      }
+    }
+
+    &__icon {
+      margin-left: .5rem;
+    }
+
+    &__content {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: $color_main_negative;
+      padding: 2em;
+      box-sizing: border-box;
+      width: 25vw;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, .25);
+      border-radius: 3px;
+      z-index: 3;
+    }
+  }
+
+  &--inner {
+    margin-left: 1rem;
+    width: calc(100% - 1rem);
+  }
+}

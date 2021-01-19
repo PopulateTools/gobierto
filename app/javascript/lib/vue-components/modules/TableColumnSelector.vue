@@ -1,19 +1,19 @@
 <template>
   <div
     v-clickoutside="showModal"
-    class="planification-table__column-selector"
+    class="gobierto-table__column-selector"
   >
     <div
-      class="planification-table__column-selector__trigger"
+      class="gobierto-table__column-selector__trigger"
       @click="showColumnsModal = !showColumnsModal"
     >
       <span>{{ labelCustomizeColumns }}</span>
-      <i class="planification-table__column-selector__icon fas fa-columns" />
+      <i class="gobierto-table__column-selector__icon fas fa-columns" />
     </div>
     <transition name="fade">
       <div
         v-if="showColumnsModal"
-        class="planification-table__column-selector__content"
+        class="gobierto-table__column-selector__content"
       >
         <Checkbox
           v-for="[id, { name, visibility }] in columns"
@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import { NamesMixin } from "../lib/mixins/names";
-import { Checkbox } from "lib/vue-components";
-import { clickoutside } from "lib/vue/directives"
+import Checkbox from "./Checkbox.vue";
+import { clickoutside } from "./../../../lib/vue/directives"
+import * as I18n from 'i18n-js'
 
 export default {
   name: "TableColumnsSelector",
@@ -41,7 +41,6 @@ export default {
   directives: {
     clickoutside
   },
-  mixins: [NamesMixin],
   props: {
     columns: {
       type: Array,

@@ -231,8 +231,14 @@ export default {
       return Object.keys(x).reduce((acc, key) => { if (RequiredFields.includes(key)) acc[key] = x[key]; return acc }, {})
     },
     handleSave() {
-      this.setConfiguration("context", this.context);
-      this.setConfiguration("title", this.title);
+      if (!this.configuration?.attributes?.context) {
+        this.setConfiguration("context", this.context);
+      }
+
+      if (!this.configuration?.attributes?.title) {
+        this.setConfiguration("title", this.title);
+      }
+
       this.setConfiguration("widgets_configuration", this.configuration?.attributes?.widgets_configuration?.map(this.subset));
 
       this.id

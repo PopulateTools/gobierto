@@ -5,10 +5,16 @@ require_relative "../../gobierto_dashboards"
 module GobiertoDashboards
   module DataPipes
     class ProjectMetrics < Base
+      delegate :safe_parameterize, to: :class
+
       def output_data
         {
           data: indicator_names_disambiguation(custom_field_records.map { |record| indicators(record) }.compact.flatten)
         }.to_json
+      end
+
+      def self.safe_parameterize(text)
+        ActiveSupport::Inflector.transliterate(text).parameterize
       end
 
       private
@@ -52,7 +58,7 @@ module GobiertoDashboards
 
       def grouped_values(values)
         values.group_by do |row|
-          ActiveSupport::Inflector.transliterate(row["indicator"]).parameterize
+          safe_parameterize(row["indicator"])
         end
       end
     end

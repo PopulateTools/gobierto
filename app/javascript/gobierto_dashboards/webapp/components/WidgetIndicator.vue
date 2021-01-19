@@ -13,13 +13,13 @@
       <Autocomplete
         :label="selectLabel"
         :placeholder="placeholderLabel"
-        :items="widgetsData"
-        :default-value="indicator"
-        search-key="name"
+        :items="autocompleteItems"
+        :default-value="defaultValue"
         name="indicator"
+        @change="handleChange"
       >
         <template v-slot:default="{ result }">
-          <span class="dashboards-maker--widget__form-result">{{ result.name }}</span>
+          <span class="dashboards-maker--widget__form-result">{{ result }}</span>
         </template>
       </Autocomplete>
 
@@ -65,10 +65,6 @@ export default {
     Autocomplete
   },
   props: {
-    indicator: {
-      type: String,
-      default: null
-    },
     subtype: {
       type: String,
       default: null
@@ -88,7 +84,9 @@ export default {
       selectLabel: I18n.t("gobierto_dashboards.select") || "",
       typeLabel: I18n.t("gobierto_dashboards.type") || "",
       saveLabel: I18n.t("gobierto_dashboards.save") || "",
-      placeholderLabel: I18n.t("gobierto_dashboards.placeholder") || ""
+      placeholderLabel: I18n.t("gobierto_dashboards.placeholder") || "",
+      id: 0,
+      project: ""
     };
   },
   computed: {
@@ -103,14 +101,25 @@ export default {
         title: this.$attrs.data?.name,
         values: this.$attrs.data?.values
       };
+    },
+    autocompleteItems() {
+      return this.widgetsData.map(({ name }) => name)
+    },
+    defaultValue() {
+
+      return null //this.$attrs.data?.name
     }
   },
   methods: {
+    handleChange(value) {
+      ({ id: this.id , project: this.project } = this.widgetsData.find(({ name }) => name === value)) || {}
+    },
     handleSubmit({ target }) {
       const config = Object.fromEntries(new FormData(target))
-      // assign the corresponding data
-      const data = this.widgetsData.find(({ name }) => name === config?.indicator)
-      this.$emit("change", { ...config, data });
+      // assign the corresponding data, built from their props
+      const data = this.widgetsData.find(({ id, project }) => `${id}---${project}` === `${this.id}---${this.project}`)
+      // overwrite indicator value, since the displayed input text diverges from the actual value
+      this.$emit("change", { ...config, indicator: `${this.id}---${this.project}`, data });
     }
   }
 };

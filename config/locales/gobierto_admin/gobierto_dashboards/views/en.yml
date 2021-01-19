@@ -6,4 +6,5 @@ en:
         list_modal:
           add: Add
           new: Do you need to create a new dashboard?
+          no_dashboards: No dashboards
           title: Select the dashboard to include this indicator

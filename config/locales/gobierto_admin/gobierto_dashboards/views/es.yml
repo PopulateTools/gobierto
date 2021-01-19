@@ -6,4 +6,5 @@ es:
         list_modal:
           add: Añadir
           new: "¿Necesitas crear un nuevo dashboard?"
+          no_dashboards: No hay dashboards
           title: Selecciona el dashboard donde incluir este indicador

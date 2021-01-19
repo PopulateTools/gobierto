@@ -6,4 +6,5 @@ ca:
         list_modal:
           add: Afegiu-hi
           new: "¿Necessiteu crear un nou dashboard?"
+          no_dashboards: No hi ha cap dashboard
           title: Seleccioneu el dashboard on incloure aquest indicador

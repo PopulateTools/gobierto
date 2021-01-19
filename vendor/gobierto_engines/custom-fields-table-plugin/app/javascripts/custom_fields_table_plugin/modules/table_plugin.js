@@ -121,8 +121,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
         _grid.onMouseEnter.subscribe((e, { grid }) => {
           const container = grid.getContainerNode()
 
-          const data = grid.getDataItem(grid.getCellFromEvent(e).row);
+          let data = grid.getDataItem(grid.getCellFromEvent(e).row);
           if (data) {
+            data.indicator_context = addDashboardBtn.dataset.indicatorContext;
             const { top: rowTop } = e.target.parentElement.getBoundingClientRect()
             const { top: containerTop } = container.getBoundingClientRect()
 

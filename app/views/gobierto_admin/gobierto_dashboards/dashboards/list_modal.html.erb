@@ -20,6 +20,7 @@
                 context: @context,
                 pipe: @data_pipe,
                 indicator: GobiertoDashboards::DataPipes::ProjectMetrics.safe_parameterize(params[:indicator]),
+                indicator_context: params[:indicator_context],
                 preview_path: dashboard_preview_path(@dashboards.first)
               ),
               id: "add-current-dashboard-btn",
@@ -39,7 +40,8 @@
             admin_dashboards_modal_path(
               context: @context,
               pipe: @data_pipe,
-              indicator: GobiertoDashboards::DataPipes::ProjectMetrics.safe_parameterize(params[:indicator])
+              indicator: GobiertoDashboards::DataPipes::ProjectMetrics.safe_parameterize(params[:indicator]),
+              indicator_context: params[:indicator_context]
             ),
             data: { "dashboards-maker": true },
             class: "open_remote_modal"

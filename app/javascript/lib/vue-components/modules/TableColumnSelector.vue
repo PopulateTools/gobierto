@@ -5,6 +5,7 @@
   >
     <div
       class="gobierto-table__column-selector__trigger"
+      data-testid="table-button-modal"
       @click="showColumnsModal = !showColumnsModal"
     >
       <span>{{ labelCustomizeColumns }}</span>
@@ -16,7 +17,7 @@
         class="gobierto-table__column-selector__content"
       >
         <Checkbox
-          v-for="[id, { name, visibility }] in columns"
+          v-for="{ name, visibility, id } in columns"
           :id="id"
           :key="id"
           :title="name"

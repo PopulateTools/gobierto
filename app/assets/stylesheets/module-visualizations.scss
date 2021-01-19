@@ -7,6 +7,7 @@
 @import "comp-vue-beeswarm";
 @import "comp-vue-treemap-nested";
 @import "comp-vue-multiple-lines";
+@import "comp-vue-table";
 
 :root {
   --green-table--first: rgba(33, 150, 83, .1);
@@ -338,7 +339,6 @@
     z-index: 1;
     right: 1rem;
     color: var(--black);
-    background-color: var(--white);
     border-radius: 4px;
     border: 1px solid var(--border-color-grey);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
@@ -443,7 +443,6 @@
   .tooltip-treemap-element {
     border-top: 1px solid var(--border-color-grey);
     padding-top: .25rem;
-    padding-top: .25rem;
   }
 
   .tooltip-treemap-element-text {
@@ -492,7 +491,6 @@
 
   .beeswarm-tooltip-table-element {
     border-top: 1px solid var(--border-color-grey);
-    padding-top: .25rem;
     padding-top: .25rem;
   }
 
@@ -1029,7 +1027,6 @@
   &-item--tooltip {
     position: absolute;
     background: white;
-    padding: 10px;
     z-index: 4;
     min-width: 200px;
     max-width: 250px;
@@ -1073,7 +1070,6 @@
 
   &-select {
     display: inline-block;
-    width: auto;
     vertical-align: middle;
     font-size: 1.15em;
     font-weight: 200;

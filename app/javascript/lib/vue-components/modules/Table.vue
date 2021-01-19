@@ -5,14 +5,10 @@
   >
     <div class="gobierto-table__header">
       <span class="gobierto-table__header-title">Title</span>
-      <button
-        data-testid="table-button-modal"
-        class="gobierto-table__header-button"
-        @click="toggleModal"
-      />
       <TableColumnSelector
-        v-show="showModal"
         data-testid="table-modal"
+        :columns="columns"
+        @toggle-visibility="toggleVisibility"
       />
     </div>
     <table />
@@ -29,22 +25,36 @@ export default {
     data: {
       type: Array,
       default: () => []
+    },
+    visibilityColumns: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      showModal: false
+      columns: [],
+      columnsArray: [],
+      elementsTable: []
     }
   },
   created() {
     this.getColumns()
   },
   methods: {
-    toggleModal() {
-      this.showModal = true
+    renderTable() {
+
     },
     getColumns() {
-
+      this.columnsArray = this.data.reduce((s, o) => [...new Set([...s, ...Object.keys(o)])], []);
+      this.columns = this.columnsArray.map((column, index) => ({
+        name: column,
+        visibility: this.visibilityColumns.includes(column),
+        id: index
+      }))
+    },
+    toggleVisibility({ id }) {
+      this.visibilityColumns.push(this.columnsArray[this.columnsArray.findIndex((x, index) => index === id)])
     }
   }
 }

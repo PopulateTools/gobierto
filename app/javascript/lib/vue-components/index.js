@@ -12,6 +12,7 @@ import BeesWarmChart from "./modules/BeesWarmChart.vue"
 import MultipleLineChart from "./modules/MultipleLineChart.vue"
 import TextEditable from "./modules/TextEditable.vue"
 import Autocomplete from "./modules/Autocomplete.vue"
+import Table from "./modules/Table.vue"
 
 export {
   BlockHeader,
@@ -27,5 +28,6 @@ export {
   BeesWarmChart,
   MultipleLineChart,
   TextEditable,
-  Autocomplete
+  Autocomplete,
+  Table
 }

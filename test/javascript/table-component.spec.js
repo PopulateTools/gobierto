@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import Table from './../vue-components/modules/Table.vue';
+import Table from './../../app/javascript/lib/vue-components/modules/Table.vue';
 import { render, screen, fireEvent } from '@testing-library/vue';
 
 describe('table vue-component', () => {

@@ -525,12 +525,14 @@
     font-size: $f6;
     color: var(--grey);
     font-weight: 400;
+    font-family: $font_headings;
   }
 
   &-contracts-show__text__header {
     font-weight: bold;
     display: block;
     padding-bottom: .25rem;
+    padding-right: 2rem;
   }
 
   &-contracts-show__body {

@@ -14,7 +14,7 @@
         :label="selectLabel"
         :placeholder="placeholderLabel"
         :items="autocompleteItems"
-        :default-value="defaultValue"
+        :default-value="indicatorAttrs.title"
         name="indicator"
         @change="handleChange"
       >
@@ -90,11 +90,11 @@ export default {
     };
   },
   computed: {
-    isEditing() {
-      return this.edit || !this.indicatorTemplate;
-    },
     indicatorTemplate() {
       return this.subtype ? this.subtypes[this.subtype].template : null;
+    },
+    isEditing() {
+      return this.edit || !this.indicatorTemplate;
     },
     indicatorAttrs() {
       return {
@@ -104,10 +104,14 @@ export default {
     },
     autocompleteItems() {
       return this.widgetsData.map(({ name }) => name)
-    },
-    defaultValue() {
-
-      return null //this.$attrs.data?.name
+    }
+  },
+  created() {
+    if (this.$attrs.indicator) {
+      // if indicator is present, it means there's a preloaded widget pointing to the hash id---project
+      const [id, project] = this.$attrs.indicator.split("---")
+      this.id = id
+      this.project = project
     }
   },
   methods: {

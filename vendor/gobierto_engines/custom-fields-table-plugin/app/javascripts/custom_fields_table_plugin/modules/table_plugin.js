@@ -121,9 +121,8 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
         _grid.onMouseEnter.subscribe((e, { grid }) => {
           const container = grid.getContainerNode()
 
-          let data = grid.getDataItem(grid.getCellFromEvent(e).row);
+          const data = grid.getDataItem(grid.getCellFromEvent(e).row);
           if (data) {
-            data.indicator_context = addDashboardBtn.dataset.indicatorContext;
             const { top: rowTop } = e.target.parentElement.getBoundingClientRect()
             const { top: containerTop } = container.getBoundingClientRect()
 
@@ -132,7 +131,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
             addDashboardBtn.classList.add("is-active")
 
             const url = new URL(addDashboardBtn.href)
-            url.search = new URLSearchParams(data).toString()
+            url.search = new URLSearchParams({ ...data, indicator_context: addDashboardBtn.dataset?.indicatorContext }).toString()
             addDashboardBtn.href = url
           }
         })

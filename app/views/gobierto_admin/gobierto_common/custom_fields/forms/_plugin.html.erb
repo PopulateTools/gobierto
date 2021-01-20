@@ -15,8 +15,13 @@
     <div class="data-container"></div>
 
     <% if @dashboards_list_path.present? %>
-      <a href="<%= @dashboards_list_path %>" add-dashboard-btn class="open_remote_modal", data-indicator-context="<%= record.item.to_global_id.to_s %>">
-        <i class="fas fa-plus-circle"></i><span><%= t("gobierto_admin.gobierto_plans.projects.form.button.add_dashboard") %></span>
+    <a class="open_remote_modal"
+        href="<%= @dashboards_list_path %>"
+        add-dashboard-btn
+        data-indicator-context="<%= record.item.to_global_id.to_s %>"
+      >
+        <i class="fas fa-plus-circle"></i>
+        <span><%= t("gobierto_admin.gobierto_plans.projects.form.button.add_dashboard") %></span>
       </a>
     <% end %>
   </div>

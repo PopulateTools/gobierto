@@ -4,6 +4,8 @@ require_relative "../gobierto_data"
 
 module GobiertoData
   class Dataset < ApplicationRecord
+    DEFAULT_LIMIT = 50
+
     include GobiertoCommon::Sluggable
     include GobiertoData::Favoriteable
     include GobiertoAttachments::Attachable
@@ -113,10 +115,11 @@ module GobiertoData
     end
 
     def default_limit
-      return 50 unless api_settings.present?
+      return DEFAULT_LIMIT unless api_settings.present?
+      return DEFAULT_LIMIT if format_size.nil?
 
       max_size = api_settings.max_dataset_size_for_queries
-      return 50 if max_size.present? && format_size.present? && max_size.positive? && max_size <= format_size
+      return DEFAULT_LIMIT if max_size.present? && max_size.positive? && max_size <= format_size
     end
 
     private

@@ -92,7 +92,7 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     ansi (1.5.0)
-    appsignal (2.11.2)
+    appsignal (2.11.3)
       rack
     ast (2.4.1)
     aws-eventstream (1.1.0)

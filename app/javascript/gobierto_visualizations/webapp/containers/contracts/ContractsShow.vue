@@ -55,9 +55,8 @@
             :value="initial_amount_no_taxes | money"
           />
           <ContractsShowLabelGroup
-            v-show="numberOfProposals"
             :label="labelBiddersDescription"
-            :value="numberOfProposals"
+            :value="number_of_proposals"
           />
         </div>
         <div class="pure-u-1 pure-u-lg-1-2">
@@ -134,6 +133,7 @@ export default {
       minor_contract: '',
       open_proposals_date: '',
       submission_date: '',
+      number_of_proposals: '',
       cpvs: '',
       category_title: '',
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
@@ -159,11 +159,6 @@ export default {
     },
     showArrowDate() {
       return this.submission_date && this.open_proposals_date
-    },
-    numberOfProposals() {
-      const tenderContract = this.tendersData.filter(({ cpvs }) => cpvs === this.cpvs)
-      const [{ number_of_proposals }] = tenderContract
-      return number_of_proposals
     }
   },
   created() {
@@ -194,7 +189,8 @@ export default {
         award_date,
         minor_contract,
         open_proposals_date,
-        submission_date
+        submission_date,
+        number_of_proposals
       } = this.contract
 
       this.title = title
@@ -219,6 +215,7 @@ export default {
       this.submission_date = submission_date || null
       this.cpvs = cpvs
       this.category_title = category_title
+      this.number_of_proposals = number_of_proposals
     }
 
     if (this.hasBatch) this.groupBatches()

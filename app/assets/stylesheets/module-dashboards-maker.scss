@@ -18,6 +18,10 @@
 }
 
 .dashboards-maker {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+
   .layout-header {
     @include flex-align(space-between, stretch);
 
@@ -37,6 +41,8 @@
   .layout-main {
     @include flex-align(space-between, stretch);
 
+    flex: 1;
+
     aside {
       flex: 0 0 20%;
       background-color: var(--bg-soft-grey);
@@ -55,6 +61,8 @@
     &__buttons {
       white-space: nowrap;
       flex: 0 0 150px;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 

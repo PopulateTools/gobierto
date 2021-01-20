@@ -12,6 +12,7 @@
           {{ deleteLabel }}
         </Button>
         <Button
+          v-if="showViewItem"
           icon="external-link-alt"
           template="link"
           @click.native="handleSeeItemButton"
@@ -51,9 +52,9 @@ export default {
       type: Boolean,
       default: false
     },
-    config: {
-      type: Object,
-      default: () => {}
+    showViewItem: {
+      type: Boolean,
+      default: true
     },
   },
   data() {

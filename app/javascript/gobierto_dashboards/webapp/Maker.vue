@@ -2,7 +2,7 @@
   <div class="dashboards-maker">
     <HeaderForm
       :is-dirty="dirty"
-      :config="configuration"
+      :show-view-item="!!previewPath.length"
       @save="handleSave"
       @delete="handleDelete"
       @view="handleView"

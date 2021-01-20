@@ -112,7 +112,6 @@ export default {
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
-      tendersData: this.$root.$data.tendersData,
       contract: {},
       title: '',
       description: '',

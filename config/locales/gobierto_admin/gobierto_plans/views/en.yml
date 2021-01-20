@@ -15,8 +15,6 @@ en:
             status: Visibility
             title: Title
           new: New
-          view_dashboard: View dashboard
-          view_public_dashboard: Public view
           visibility_level:
             active: Public
             draft: Private

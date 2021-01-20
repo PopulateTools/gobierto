@@ -15,8 +15,6 @@ ca:
             status: Visibilitat
             title: Títol
           new: Nou
-          view_dashboard: Veure dashboard
-          view_public_dashboard: Vista pública
           visibility_level:
             active: Públic
             draft: Privat

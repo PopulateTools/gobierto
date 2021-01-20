@@ -38,17 +38,17 @@
       />
       <div class="visualizations-contracts-show__body">
         <div
-          v-show="minorContract"
+          v-show="isNotAMinorContract"
           class="pure-u-1 pure-u-lg-1-2"
         >
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
             <span class="visualizations-contracts-show__text__header">{{ labelTender }}</span>
-            <span class="visualizations-contracts-show__text">{{ parseDate(submission_date) }}</span>
+            <span class="visualizations-contracts-show__text">{{ parseDate(open_proposals_date) }}</span>
             <i
               v-show="showArrowDate"
               class="fas fa-arrow-right"
             />
-            <span class="visualizations-contracts-show__text">{{ parseDate(open_proposals_date) }}</span>
+            <span class="visualizations-contracts-show__text">{{ parseDate(submission_date) }}</span>
           </div>
           <ContractsShowLabelGroup
             :label="labelBidDescription"
@@ -82,40 +82,12 @@
           </template>
           <template v-else>
             <ContractsShowTable
-              :data="filterContractsBatchs"
+              :data="filterContractsBatches"
             />
           </template>
         </div>
       </div>
-      <div class="pure-u-1 pure-u-lg-1-2">
-        <span class="visualizations-contracts-show__text__header">{{ labelQuestionDescription }}</span>
-        <table class="visualizations-contracts-show-table">
-          <tr>
-            <td>
-              <span class="visualizations-contracts-show__text">{{ labelEntity }}</span>
-            </td>
-            <td>
-              <span class="visualizations-contracts-show__text"><b>{{ calculatePercentage('contractor') }} %</b></span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <span class="visualizations-contracts-show__text">{{ labelType }}</span>
-            </td>
-            <td>
-              <span class="visualizations-contracts-show__text"><b>{{ calculatePercentage('contract_type') }} %</b></span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <span class="visualizations-contracts-show__text">{{ labelProcess }}</span>
-            </td>
-            <td>
-              <span class="visualizations-contracts-show__text"><b>{{ calculatePercentage('process_type') }} %</b></span>
-            </td>
-          </tr>
-        </table>
-      </div>
+      <ContractsShowTableFooter :data="contract" />
     </div>
   </div>
 </template>
@@ -124,23 +96,25 @@
 
 import { VueFiltersMixin } from "lib/vue/filters"
 import { EventBus } from "../../mixins/event_bus";
-import { d3locale } from "lib/shared";
-import ContractsShowLabelHeader from "./ContractsShowLabelHeader.vue";
-import ContractsShowLabelGroup from "./ContractsShowLabelGroup.vue";
-import ContractsShowTable from "./ContractsShowTable.vue";
+import ContractsShowLabelHeader from "./../../components/ContractsShowLabelHeader.vue";
+import ContractsShowLabelGroup from "./../../components/ContractsShowLabelGroup.vue";
+import ContractsShowTable from "./../../components/ContractsShowTable.vue";
+import ContractsShowTableFooter from "./../../components/ContractsShowTableFooter.vue";
 
 export default {
   name: 'ContractsShow',
   components: {
     ContractsShowLabelHeader,
     ContractsShowLabelGroup,
-    ContractsShowTable
+    ContractsShowTable,
+    ContractsShowTableFooter
   },
   mixins: [VueFiltersMixin],
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
       tendersData: this.$root.$data.tendersData,
+      contract: {},
       title: '',
       description: '',
       assignee: '',
@@ -165,24 +139,22 @@ export default {
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
       labelAssigneeDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignee_description') || '',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount') || '',
-      labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
-      labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
       labelTender: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.tender') || '',
       labelAwarding: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding') || '',
       labelBidDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bid_description') || '',
       labelBiddersDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bidders_description') || '',
-      labelEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.entity') || '',
-      labelQuestionDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.question_description') || '',
       labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status') || '',
       labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category') || '',
-      filterContractsBatchs: []
+      labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
+      labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
+      filterContractsBatches: []
     }
   },
   computed: {
     hasBatch() {
       return this.batch_number > 0
     },
-    minorContract() {
+    isNotAMinorContract() {
       return this.minor_contract === 'f'
     },
     showArrowDate() {
@@ -190,16 +162,17 @@ export default {
     },
     numberOfProposals() {
       const tenderContract = this.tendersData.filter(({ cpvs }) => cpvs === this.cpvs)
-      return tenderContract[0]?.number_of_proposals
+      const [{ number_of_proposals }] = tenderContract
+      return number_of_proposals
     }
   },
   created() {
     const itemId = this.$route.params.id;
-    const contract = this.contractsData.find(({ id }) => id === itemId ) || {};
+    this.contract = this.contractsData.find(({ id }) => id === itemId ) || {};
 
     EventBus.$emit("refresh-active-tab");
 
-    if (contract) {
+    if (this.contract) {
       const {
         title,
         cpvs,
@@ -222,7 +195,7 @@ export default {
         minor_contract,
         open_proposals_date,
         submission_date
-      } = contract
+      } = this.contract
 
       this.title = title
       this.description = description
@@ -248,27 +221,19 @@ export default {
       this.category_title = category_title
     }
 
-    if (this.hasBatch) this.groupBatchs()
+    if (this.hasBatch) this.groupBatches()
   },
   methods: {
-    groupBatchs() {
-      this.filterContractsBatchs = this.contractsData.filter(({ title }) => title === this.title).sort((a, b) => a.batch_number - b.batch_number);
-    },
-    calculatePercentage(value) {
-      const filterByContractor = this.contractsData.filter((contract) => contract[value] === this[value])
-      const totalAmount = filterByContractor.reduce((acc, { final_amount_no_taxes } ) => acc + final_amount_no_taxes, 0)
-      return ((this.final_amount_no_taxes * 100) / totalAmount).toFixed(2)
+    groupBatches() {
+      this.filterContractsBatches = this.contractsData.filter(({ title }) => title === this.title).sort((a, b) => a.batch_number - b.batch_number);
     },
     parseDate(value) {
       if (!value) return
       const convertDate = new Date(value)
-      const year = convertDate.getFullYear()
-      const day = convertDate.getDate()
-      const indexMonth = convertDate.getMonth()
-      const { [I18n.locale]: { shortMonths } } = d3locale
-      const month = shortMonths.filter((d, index) => index === indexMonth)
+      const lang = I18n.locale || 'es';
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
 
-      return `${day} ${month} ${year}`
+      return convertDate.toLocaleDateString(lang, options)
     }
   }
 }

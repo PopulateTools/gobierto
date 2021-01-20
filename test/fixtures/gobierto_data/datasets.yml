@@ -35,3 +35,13 @@ santander_dataset:
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
+
+no_size_dataset:
+  site: madrid
+  name_translations: <%= { en: "No size", es: "No se el size" }.to_json %>
+  table_name: sites
+  slug: no-size
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+  visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
+

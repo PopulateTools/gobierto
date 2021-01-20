@@ -23,6 +23,7 @@
     <th class="icon"></th>
     <th><%= t(".headers.title") %></th>
     <th><%= t(".headers.status") %></th>
+    <th><%= t(".headers.updated") %></th>
     <th></th>
     <th class="icon_col"></th>
   </tr>
@@ -52,6 +53,7 @@
         <% end %>
         <%= t(".visibility_level.#{dashboard.visibility_level}") %>
       </td>
+      <td><%= time_ago_in_words(dashboard.updated_at) %></td>
       <td>
         <% unless dashboard.draft? %>
           <%= link_to preview_path, target: "_blank", class: "view_item" do %>

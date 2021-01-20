@@ -17,6 +17,9 @@ ca:
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
+        assignee_type: Tipus d'adjudicatari
+        award_date_year: Any de concessió
+        batches: Lots
         categories: Categories
         contract: Contracte
         contract_amount: Imp. adjudicació
@@ -28,20 +31,30 @@ ca:
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
+        duration: Duració
         empty_table: No hi ha dades disponibles
+        end_date: Data de finalització
         entities: Entitats
-        final_amount_no_taxes: Quantitat
+        final_amount: Import final
+        final_amount_no_taxes: Import final sense impostos
         fromto: De a Nº Contr.
+        initial_amount: Import inicial
+        initial_amount_no_taxes: Import inicial sense impostos
         main_assignees: Principals adjudicataris
+        minor_contract: Contracte menor
         more: Més de
         nav:
           contracts: Contracts
           summary: Resum
           tenders: Licitacions
+        number_of_proposals: Número de propostes
+        open_proposals_date: Data de propostes
         permalink: Consulteu aquest contracte a la Plataforma de Contractació del
           Sector Públic
         process_type: Tipus de procés
+        range: Rang
         search_placeholder: Cerqueu per adjudicatari
+        start_date: Data d'inici
         status: Estat
         submission_date: Data
         summary:

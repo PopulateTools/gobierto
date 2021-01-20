@@ -14,10 +14,11 @@
     <transition name="fade">
       <div
         v-if="showColumnsModal"
+        data-testid="table-modal"
         class="gobierto-table__column-selector__content"
       >
         <Checkbox
-          v-for="{ name, visibility, id } in columns"
+          v-for="{ name, visibility, id } in columnsArray"
           :id="id"
           :key="id"
           :title="name"
@@ -30,6 +31,9 @@
 </template>
 
 <script>
+//TODO&FIX:ME search another way to avoid error's in jest with dynamics import
+// import { Checkbox } from "./lib/vue-components"
+// import { clickoutside } from "./lib/vue/directives"
 import Checkbox from "./Checkbox.vue";
 import { clickoutside } from "./../../../lib/vue/directives"
 import * as I18n from 'i18n-js'
@@ -43,16 +47,25 @@ export default {
     clickoutside
   },
   props: {
-    columns: {
+    visibilityColumns: {
       type: Array,
       default: () => []
     },
+    data: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
       showColumnsModal: false,
-      labelCustomizeColumns: I18n.t("gobierto_plans.plan_types.show.customize_columns") || ''
+      labelCustomizeColumns: I18n.t("gobierto_plans.plan_types.show.customize_columns") || '',
+      columnsArray: [],
+      columns: Object.keys(this.data[0]),
     }
+  },
+  created() {
+    this.getColumns()
   },
   methods: {
     showModal() {
@@ -62,7 +75,14 @@ export default {
     },
     toggleVisibility(column) {
       this.$emit('toggle-visibility', column)
-    }
+    },
+    getColumns() {
+      this.columnsArray = this.columns.map((column, index) => ({
+        name: column,
+        visibility: this.visibilityColumns.includes(column),
+        id: index
+      }))
+    },
   }
 }
 </script>

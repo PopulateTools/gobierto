@@ -191,7 +191,7 @@
       padding: 2em;
       box-sizing: border-box;
       width: 25vw;
-      box-shadow: 0px 0px 20px rgba(0, 0, 0, .25);
+      box-shadow: 0 0 20px rgba(0, 0, 0, .25);
       border-radius: 3px;
       z-index: 3;
     }
@@ -200,5 +200,9 @@
   &--inner {
     margin-left: 1rem;
     width: calc(100% - 1rem);
+  }
+
+  .table-th-money {
+    text-align: right;
   }
 }

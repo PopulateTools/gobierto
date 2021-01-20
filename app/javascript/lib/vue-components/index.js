@@ -13,6 +13,7 @@ import MultipleLineChart from "./modules/MultipleLineChart.vue"
 import TextEditable from "./modules/TextEditable.vue"
 import Autocomplete from "./modules/Autocomplete.vue"
 import Table from "./modules/Table.vue"
+import TableColumnsSelector from "./modules/TableColumnsSelector.vue"
 
 export {
   BlockHeader,
@@ -29,5 +30,6 @@ export {
   MultipleLineChart,
   TextEditable,
   Autocomplete,
-  Table
+  Table,
+  TableColumnsSelector
 }

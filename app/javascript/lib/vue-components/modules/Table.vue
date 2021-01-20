@@ -4,23 +4,71 @@
     class="gobierto-table"
   >
     <div class="gobierto-table__header">
-      <span class="gobierto-table__header-title">Title</span>
-      <TableColumnSelector
-        data-testid="table-modal"
-        :columns="columns"
-        @toggle-visibility="toggleVisibility"
+      <slot name="title" />
+      <slot
+        name="columns"
+        :toggle-visibility="toggleVisibility"
       />
     </div>
-    <table />
+    <table>
+      <thead>
+        <th
+          v-for="(col, index) in showColumns"
+          :key="index"
+        >
+          {{ col }}
+        </th>
+      </thead>
+
+      <tbody>
+        <tr
+          v-for="(item, index) in data"
+          :key="index"
+        >
+          <template
+            v-for="(col, _index) in showColumns"
+          >
+            <template v-if="item[col].type === 'money'">
+              <td
+                :key="_index"
+                :class="item[col].cssClass"
+              >
+                {{ money(item[col].value) }}
+              </td>
+            </template>
+            <template v-else-if="item[col].type === 'date'">
+              <td
+                :key="_index"
+                :class="item[col].cssClass"
+              >
+                {{ item[col].value }}
+              </td>
+            </template>
+            <template v-else-if="item[col].type === 'link'">
+              <td
+                :key="_index"
+                :class="item[col].cssClass"
+              >
+                <a href="#">{{ item[col].value }}</a>
+              </td>
+            </template>
+            <template v-else>
+              <td :key="_index">
+                {{ item[col] }}
+              </td>
+            </template>
+          </template>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 <script>
-import TableColumnSelector from "./TableColumnSelector.vue";
+
+import { VueFiltersMixin, TableHeaderMixin } from "lib/vue/filters";
 export default {
   name: 'Table',
-  components: {
-    TableColumnSelector
-  },
+  mixins: [VueFiltersMixin, TableHeaderMixin],
   props: {
     data: {
       type: Array,
@@ -29,32 +77,26 @@ export default {
     visibilityColumns: {
       type: Array,
       default: () => []
+    },
+    orderColumn: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
-      columns: [],
-      columnsArray: [],
-      elementsTable: []
+      columns: Object.keys(this.data[0]),
+      showColumns: []
     }
   },
   created() {
-    this.getColumns()
+    this.showColumns = this.visibilityColumns
   },
   methods: {
-    renderTable() {
-
-    },
-    getColumns() {
-      this.columnsArray = this.data.reduce((s, o) => [...new Set([...s, ...Object.keys(o)])], []);
-      this.columns = this.columnsArray.map((column, index) => ({
-        name: column,
-        visibility: this.visibilityColumns.includes(column),
-        id: index
-      }))
-    },
-    toggleVisibility({ id }) {
-      this.visibilityColumns.push(this.columnsArray[this.columnsArray.findIndex((x, index) => index === id)])
+    toggleVisibility({ id, value }) {
+      let pushOrPop = value ? 'push' : 'pop'
+      this.showColumns.[pushOrPop](this.columns[this.columns.findIndex((x, index) => index === id)])
+      this.$emit('update-show-columns', this.showColumns)
     }
   }
 }

@@ -111,6 +111,10 @@ module GobiertoCommon
       custom_field.mandatory
     end
 
+    def dashboards?
+      ["project-metrics"].include?(custom_field.uid)
+    end
+
     [:class_names, :field_tag, :tag_attributes, :partial].each do |name|
       define_method(name) do
         TAG_ATTRIBUTES[field_type.to_sym][name].is_a?(Proc) ? TAG_ATTRIBUTES[field_type.to_sym][name].call(self) : TAG_ATTRIBUTES[field_type.to_sym][name]

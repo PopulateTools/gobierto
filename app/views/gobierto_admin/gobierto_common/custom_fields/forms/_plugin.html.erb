@@ -14,7 +14,7 @@
 
     <div class="data-container"></div>
 
-    <% if @dashboards_list_path.present? %>
+    <% if @dashboards_list_path.present? && record.dashboards? %>
     <a class="open_remote_modal"
         href="<%= @dashboards_list_path %>"
         add-dashboard-btn

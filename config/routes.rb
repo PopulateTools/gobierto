@@ -192,7 +192,9 @@ Rails.application.routes.draw do
               get :accumulated_values
             end
           end
-          resources :dashboards, only: [:index]
+
+          resources :dashboards, only: [:index, :destroy]
+
           resources :projects do
             member do
               post :publish

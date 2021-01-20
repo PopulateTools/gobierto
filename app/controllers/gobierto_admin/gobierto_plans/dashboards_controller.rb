@@ -17,6 +17,13 @@ module GobiertoAdmin
         ).allowed_actions
       end
 
+      def destroy
+        dashboard = base_relation.find(params[:id])
+        dashboard.destroy
+
+        redirect_to admin_plans_plan_dashboards_path(plan), notice: t("gobierto_admin.gobierto_dashboards.dashboards.destroy.success")
+      end
+
       protected
 
       def dashboard_preview_path(dashboard, options = {})

@@ -689,22 +689,20 @@ export default {
       }
 
       function checkSizeBreadcrumbs() {
-
         /*In breadcrumbs, any level can be the largest, so we have to know which element is the largest to add the ellipsis class.*/
-
         //Get all elements
         const sizeBreadcrumbs = document.querySelectorAll(`.treemap-nested-breadcrumb-${treemapId}`)
         //Convert nodeList into array
-        const breadcrumbsArr = Array.prototype.slice.call(sizeBreadcrumbs);
+        const breadcrumbsArr = [...sizeBreadcrumbs];
         //Sum offsetWidth
-        const sidebarNav = breadcrumbsArr.map(item => item.offsetWidth).reduce((prev, next) => prev + next);
+        const sidebarNav = breadcrumbsArr.reduce((prev, { offsetWidth }) => prev + offsetWidth, 0);
 
         //Create an array only with the offsetWidth
-        const breacumbWidth = breadcrumbsArr.map(({ offsetWidth }) => offsetWidth);
+        const breadcrumbWidth = breadcrumbsArr.map(({ offsetWidth }) => offsetWidth);
         //Get the max value
-        const maxValue = Math.max.apply(Math, breacumbWidth);
+        const maxValue = Math.max(...breadcrumbWidth);
         //Get the index of the max value
-        const indexBreadcumb = breacumbWidth.indexOf(maxValue);
+        const indexBreadcumb = breadcrumbWidth.indexOf(maxValue);
 
         const sidebarAvailableWidth = (document.querySelector('.treemap-nested-sidebar').offsetWidth - document.querySelector('.treemap-nested-sidebar-button-group').offsetWidth)
 

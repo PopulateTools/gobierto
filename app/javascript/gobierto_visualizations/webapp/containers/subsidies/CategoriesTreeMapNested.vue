@@ -117,8 +117,13 @@ export default {
       if (depth === 2) {
         let totalContracts = d.children === undefined ? '' : d.children
         let contractsString = totalContracts
-          .filter(contract => typeof contract.data !== "function")
-          .map(contract => createDepthSecondHTML(contract))
+          .reduce((acc, contract) => {
+            if (typeof contract.data !== "function") {
+              acc.push(this.createDepthHTML(contract.data, selected_size))
+            }
+
+            return acc
+          }, [])
 
         tooltipFirstDepth
           .style("display", "block")
@@ -157,17 +162,15 @@ export default {
           .style('top', positionTop)
           .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
       }
-
-      function createDepthSecondHTML(contract) {
-        const { data: { beneficiary, value, amount } } = contract
-        let contractAmount = selected_size === 'amount' ? `${value}` : `${amount}`
-        let contractsString = `
-        <div class="depth-second-container">
-          <p class="depth-second-title">${beneficiary}</p>
-          <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
-        </div>`
-        return contractsString
-      }
+    },
+    createDepthHTML(data, selected_size) {
+      const { beneficiary, value, amount } = data
+      let contractAmount = selected_size === 'amount' ? value : amount
+      return `
+      <div class="depth-second-container">
+        <p class="depth-second-title">${beneficiary}</p>
+        <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
+      </div>`
     }
   }
 }

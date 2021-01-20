@@ -1,29 +1,27 @@
 <template>
-  <div>
-    <TreeMapNested
-      :data="data"
-      :root-data="rootData"
-      :label-root-key="labelRootKey"
-      :first-depth-for-tree-map="firstDepthForTreemap"
-      :second-depth-for-tree-map="secondDepthForTreemap"
-      :third-depth-for-tree-map="thirdDepthForTreemap"
-      :scale-color-key="scaleColorKey"
-      :treemap-id="'entity'"
-      :amount="'final_amount_no_taxes'"
-      :scale-color="true"
-      :first-button-value="'final_amount_no_taxes'"
-      :second-button-value="'number_of_contract'"
-      :first-button-label="labelContractAmount"
-      :second-button-label="labelContractTotal"
-      :label-total-plural="labelContractsPlural"
-      :label-total-unique="labelContractsUnique"
-      :depth-entity="true"
-      :deep-level="deepLevel"
-      :key-for-third-depth="'title'"
-      @transformData="nestedData"
-      @showTooltip="showTooltipTreemap"
-    />
-  </div>
+  <TreeMapNested
+    :data="data"
+    :root-data="rootData"
+    :label-root-key="labelRootKey"
+    :first-depth-for-tree-map="firstDepthForTreemap"
+    :second-depth-for-tree-map="secondDepthForTreemap"
+    :third-depth-for-tree-map="thirdDepthForTreemap"
+    :scale-color-key="scaleColorKey"
+    :treemap-id="'entity'"
+    :amount="'final_amount_no_taxes'"
+    :scale-color="true"
+    :first-button-value="'final_amount_no_taxes'"
+    :second-button-value="'number_of_contract'"
+    :first-button-label="labelContractAmount"
+    :second-button-label="labelContractTotal"
+    :label-total-plural="labelContractsPlural"
+    :label-total-unique="labelContractsUnique"
+    :depth-entity="true"
+    :deep-level="deepLevel"
+    :key-for-third-depth="'title'"
+    @transformData="nestedData"
+    @showTooltip="showTooltipTreemap"
+  />
 </template>
 <script>
 import { nest } from "d3-collection";
@@ -187,7 +185,7 @@ export default {
             /*When we transform our dataset with d3.nest(), it adds to each dataset element a function.
             We need to filter it so that it does not give errors when building the tooltip's text.*/
             .filter(contract => typeof contract.data !== "function")
-            .map(contract => createDepthSecondHTML(contract))
+            .map(contract => createDepthHTML(contract.children?.[0]?.data))
 
           tooltipFirstDepth
             .style("display", "block")
@@ -210,8 +208,12 @@ export default {
         } else if (depth === 3 && typeof d.data !== "function") {
          let totalContracts = d.children === undefined ? '' : d.children
          let contractsString = totalContracts
-           .filter(contract => typeof contract.data !== "function")
-           .map(contract => createDepthThirdHTML(contract))
+           .reduce((acc, contract) => {
+             if (typeof contract.data !== "function") {
+               acc.push(createDepthHTML(contract.data))
+             }
+             return acc
+           }, [])
 
          tooltipFirstDepth
            .style("display", "block")
@@ -360,29 +362,17 @@ export default {
         }
       }
 
-      function createDepthSecondHTML(contract) {
-        const { data } = contract
-        let contractAmount = selected_size === 'final_amount_no_taxes' ? `${data.children[0].value}` : `${data.children[0].final_amount_no_taxes}`
-        let contractsString = `
-        <div class="depth-second-container">
-          <p class="depth-second-title">${data.children[0].title}</p>
-          <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
-          <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(data.children[0].initial_amount_no_taxes)}</b></p>
-        </div>`
-        return contractsString
-      }
-
-      function createDepthThirdHTML(contract) {
-        const { data: { title, initial_amount_no_taxes, value, final_amount_no_taxes } } = contract
-        let contractAmount = selected_size === 'final_amount_no_taxes' ? `${value}` : `${final_amount_no_taxes}`
-        let contractsString = `
+      function createDepthHTML(data) {
+        const { value, final_amount_no_taxes, title, initial_amount_no_taxes } = data
+        const contractAmount = selected_size === 'final_amount_no_taxes' ? value : final_amount_no_taxes
+        return `
         <div class="depth-second-container">
           <p class="depth-second-title">${title}</p>
           <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
           <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
         </div>`
-        return contractsString
       }
+
     }
   }
 }

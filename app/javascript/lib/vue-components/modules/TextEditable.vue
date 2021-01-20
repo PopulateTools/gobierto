@@ -34,10 +34,12 @@ export default {
       document.activeElement.blur()
     },
     handleFocus() {
+      // assure no white-space remaining
+      document.activeElement.textContent = document.activeElement.textContent.trim()
+
       // https://javascript.info/selection-range
       const range = new Range()
-      range.setStart(document.activeElement, 0)
-      range.setEnd(document.activeElement, 1)
+      range.selectNodeContents(document.activeElement)
       document.getSelection().removeAllRanges();
       document.getSelection().addRange(range);
     },

@@ -1,5 +1,5 @@
+import { GOBIERTO_DASHBOARDS } from "lib/events";
 import "magnific-popup";
-import { GOBIERTO_DASHBOARDS } from "lib/events"
 
 function addMagnificPopups() {
   // flag storing whether the modal trigger is a dashboard initializer or not
@@ -9,6 +9,8 @@ function addMagnificPopups() {
     type: "ajax",
     removalDelay: 300,
     mainClass: "mfp-move-horizontal",
+    // closeOnContentClick: !isDashboardTrigger,
+    // closeOnBgClick: !isDashboardTrigger,
     callbacks: {
       change: function({ el }) {
         const { dataset } = el[0] || {} // 0 is a jQuery value, not array index

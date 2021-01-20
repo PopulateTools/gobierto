@@ -46,7 +46,7 @@ module GobiertoAdmin
       alias context_resource plan
 
       def base_relation
-        current_site.dashboards.for_context(@plan)
+        current_site.dashboards.for_context(@plan).order(id: :desc)
       end
 
       def raise_action_not_allowed

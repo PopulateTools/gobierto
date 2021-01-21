@@ -4,6 +4,7 @@ ca:
     available_cards: Targetes disponibles
     back: enrere
     changes: Dashboard modificat
+    close_no_save: tancar sense guardar
     date: 'Data: '
     default_title: Títol del dashboard
     delete: Esborrar

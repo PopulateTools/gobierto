@@ -4,6 +4,7 @@ es:
     available_cards: Tarjetas disponibles
     back: atrás
     changes: Dashboard modificado
+    close_no_save: cerrar sin guardar
     date: 'Fecha: '
     default_title: Título del dashboard
     delete: Eliminar

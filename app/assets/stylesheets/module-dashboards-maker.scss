@@ -9,6 +9,7 @@
   --bg-grey: #ddd;
   --bg-soft-grey: #f2f2f2;
   --bg-yellow: #fef7e6;
+  --bg-dark-yellow: #f1e4c5;
   --space: #{$f6};
   --color-grey: #828282;
   --color-dark-grey: #{$color_headers};
@@ -30,6 +31,10 @@
       background-color: var(--bg-grey);
       box-sizing: border-box;
       flex: 1;
+
+      &.is-highlight {
+        background-color: var(--bg-dark-yellow);
+      }
     }
     
     &-shadow {

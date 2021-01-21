@@ -19,8 +19,9 @@
     <th class="icon"></th>
     <th><%= t(".headers.title") %></th>
     <th><%= t(".headers.status") %></th>
+    <th><%= t(".headers.updated") %></th>
     <th></th>
-    <th></th>
+    <th class="icon_col"></th>
   </tr>
 
   <% @dashboards.each do |dashboard| %>
@@ -48,18 +49,21 @@
         <% end %>
         <%= t(".visibility_level.#{dashboard.visibility_level}") %>
       </td>
-      <td>
-        <%= link_to admin_dashboards_modal_path(id: dashboard.id, context: @context, pipe: "project_metrics", preview_path: preview_path), data: { turbolinks: false, dashboards_maker: false }, class: "open_remote_modal" do %>
-          <i class="fas fa-eye"></i>
-          <%= t(".view_dashboard") %>
-        <% end %>
-      </td>
+      <td><%= time_ago_in_words(dashboard.updated_at) %></td>
       <td>
         <% unless dashboard.draft? %>
           <%= link_to preview_path, target: "_blank", class: "view_item" do %>
             <i class="fas fa-eye"></i>
-            <%= t(".view_public_dashboard") %>
+            <%= t("gobierto_dashboards.view_item") %>
           <% end %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to admin_plans_plan_dashboard_path(@plan.id, dashboard.id),
+                    title: t("gobierto_dashboards.delete"),
+                    method: :delete,
+                    data: { confirm: t("views.delete_confirm") } do %>
+          <i class="fas fa-trash"></i>
         <% end %>
       </td>
     </tr>

@@ -193,7 +193,7 @@ Rails.application.routes.draw do
             end
           end
 
-          resources :dashboards, only: [:index] do
+          resources :dashboards, only: [:index, :destroy] do
             collection do
               get :list
             end

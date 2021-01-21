@@ -1,0 +1,7 @@
+---
+es:
+  gobierto_admin:
+    gobierto_dashboards:
+      dashboards:
+        destroy:
+          success: El dashboard ha sido eliminado correctamente.

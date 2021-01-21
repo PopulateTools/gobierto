@@ -24,6 +24,13 @@ module GobiertoAdmin
         render("gobierto_admin/gobierto_dashboards/dashboards/list_modal", layout: request.xhr? ? false : "gobierto_admin/layouts/application")
       end
 
+      def destroy
+        dashboard = base_relation.find(params[:id])
+        dashboard.destroy
+
+        redirect_to admin_plans_plan_dashboards_path(plan), notice: t("gobierto_admin.gobierto_dashboards.dashboards.destroy.success")
+      end
+
       protected
 
       def dashboard_preview_path(dashboard, options = {})
@@ -46,7 +53,7 @@ module GobiertoAdmin
       alias context_resource plan
 
       def base_relation
-        current_site.dashboards.for_context(@plan)
+        current_site.dashboards.for_context(@plan).order(id: :desc)
       end
 
       def raise_action_not_allowed

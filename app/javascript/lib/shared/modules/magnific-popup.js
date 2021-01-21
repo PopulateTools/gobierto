@@ -20,11 +20,6 @@ function addMagnificPopups() {
         // it must be done in this callback, due to next one does not provide access to "el" object
         isDashboardTrigger = (!!dataset?.dashboardsMaker)
       },
-      afterClose: function () {
-        if (isDashboardTrigger) {
-          window.location.reload();
-        }
-      },
       ajaxContentAdded: function() {
         // This conditionals are always true ¬¬
         if (window.GobiertoAdmin && window.GobiertoAdmin.process_stages_controller) {

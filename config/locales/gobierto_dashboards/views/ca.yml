@@ -4,10 +4,11 @@ ca:
     available_cards: Targetes disponibles
     back: enrere
     changes: Dashboard modificat
-    close_no_save: tancar sense guardar
     date: 'Data: '
     default_title: Títol del dashboard
     delete: Esborrar
+    delete_dialog: Desitjeu esborrar el dashboard?
+    discard: tancar sense guardar
     indicators_amount: "➞ %{amount} indicadors"
     instructions: |
       "⇧ Selecciona un tipus de targeta i inclou-la en l'àrea central ➞

@@ -2,7 +2,7 @@
   <div>
     <Table
       :data="displayedData"
-      :order-column="'assignee'"
+      :order-column="'final_amount_no_taxes'"
       :columns="contractsColumns"
       :show-columns="showColumns"
       @update-show-columns="updateShowColumns"
@@ -19,7 +19,7 @@
     </Table>
     <Pagination
       :data="items"
-      :items-per-page="15"
+      :items-per-page="25"
       :container-pagination="containerPagination"
       @showData="updateData"
     />

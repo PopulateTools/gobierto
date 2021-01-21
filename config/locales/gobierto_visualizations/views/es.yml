@@ -17,45 +17,31 @@ es:
       contracts:
         amount_distribution: Distribución por importes
         assignee: Adjudicatario
-        assignee_type: Tipo de adjudicatario
-        award_date_year: Año de concesión
-        batches: Lotes
         categories: Categorías
         contract: Contrato
         contract_amount: Imp. adjudicación
         contract_type: Tipo de contrato
         contractor: Contrato
-        contractor_id: ID del contrato
         contracts: Contratos
         contracts_assigned_to: Contratos adjudicados a
         date: Fecha
         dates: Fechas
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
           del %{entity_name}
-        duration: Duración
         empty_table: No hay datos disponibles
-        end_date: Fecha final
         entities: Entidades
-        final_amount: Imp. final
-        final_amount_no_taxes: Imp. final sin impuestos
+        final_amount_no_taxes: Importe
         fromto: Desde A Nº. Contr.
-        initial_amount: Imp. inicial
-        initial_amount_no_taxes: Imp. inicial sin impuestos
         main_assignees: Principales adjudicatarios
-        minor_contract: Contrato menor
         more: Más de
         nav:
           contracts: Contratos
           summary: Resumen
           tenders: Licitaciones
-        number_of_proposals: Número de propuestas
-        open_proposals_date: Fecha de propuestas
         permalink: Consulta este contrato en la Plataforma de Contratación del Sector
           Público
         process_type: Tipo de proceso
-        range: Rango
         search_placeholder: Busca por adjudicatario
-        start_date: Fecha de inicio
         status: Estado
         submission_date: Fecha
         summary:

@@ -132,7 +132,7 @@ export default {
       return this.data || []
     },
     rowsSorted() {
-      const id = this.currentSortColumn.field;
+      const id = this.currentSortColumn.field || this.orderColumn;
       const sort = this.currentSort;
       return this.tmpRows
         .slice()
@@ -170,6 +170,7 @@ export default {
     },
     prepareTable() {
       this.filterColumns = this.columns.filter(({ field }) => this.visibleColumns.includes(field))
+      console.log("this.filterColumns", this.filterColumns);
       this.map.clear();
       for (let index = 0; index < this.filterColumns.length; index++) {
         const column = this.filterColumns[index];

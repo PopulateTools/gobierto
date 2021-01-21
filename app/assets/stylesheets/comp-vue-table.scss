@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   list-style-type: none;
+  margin-top: -3.5rem;
 
   table {
     max-width: 100%;
@@ -25,6 +26,7 @@
 
     td.bold {
       font-weight: bold;
+      white-space: normal;
     }
   }
 
@@ -32,7 +34,7 @@
     padding: 0 .5rem .25rem 0;
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: .75rem;
     cursor: pointer;
     text-align: left;
     border-top: 0;
@@ -187,7 +189,9 @@
     }
 
     &__icon {
-      margin-left: .5rem;
+      &.fas {
+        margin-right: .5rem;
+      }
     }
 
     &__content {
@@ -202,7 +206,6 @@
       border-radius: 3px;
       z-index: 3;
       max-height: 250px;
-      overflow-y: scroll;
     }
   }
 

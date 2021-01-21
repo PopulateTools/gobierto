@@ -17,43 +17,30 @@ en:
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee
-        assignee_type: Type of assignee
-        award_date_year: Year of award
-        batches: Batches
         categories: Categories
         contract: Contract
         contract_amount: Contract Amount
         contract_type: Type of contract
-        contractor: Contractor ID
+        contractor: Contractor
         contracts: Contracts
         contracts_assigned_to: Contracts assigned to
         date: Date
         dates: Dates
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
-        duration: Duration
         empty_table: There is no available data
-        end_date: End date
         entities: Entities
-        final_amount: Final amount
-        final_amount_no_taxes: Final amount without taxes
+        final_amount_no_taxes: Amount
         fromto: From To No Contr.
-        initial_amount: Initial amount
-        initial_amount_no_taxes: Initial amount without taxes
         main_assignees: Main assignees
-        minor_contract: Minor contract
         more: More than
         nav:
           contracts: Contracts
           summary: Summary
           tenders: Tenders
-        number_of_proposals: Number of proposals
-        open_proposals_date: Open proposals date
         permalink: Check this contract on the Public Sector Contracting Platform
         process_type: Type of process
-        range: range
         search_placeholder: Search by assignee
-        start_date: Start date
         status: Status
         submission_date: Date
         summary:

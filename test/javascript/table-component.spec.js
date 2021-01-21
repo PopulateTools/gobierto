@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import Table from './../../app/javascript/lib/vue-components/modules/Table.vue';
+import TableColumnsSelector from './../../app/javascript/lib/vue-components/modules/TableColumnsSelector.vue';
 import { render, screen, fireEvent } from '@testing-library/vue';
 
 describe('table vue-component', () => {
@@ -11,7 +12,7 @@ describe('table vue-component', () => {
   });
 
   test('should show a modal', async () => {
-    render(Table)
+    render(TableColumnsSelector)
     const button = screen.getByTestId('table-button-modal')
 
     await fireEvent.click(button)

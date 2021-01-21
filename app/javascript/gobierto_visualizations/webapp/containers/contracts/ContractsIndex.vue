@@ -1,27 +1,32 @@
 <template>
   <div>
     <Table
-      :data="tableData"
-      :visibility-columns="showColumns"
-      :order-column="'award_date'"
-      :columns="columns"
-      @updateShowColumns="updateShowColumns"
+      :data="displayedData"
+      :order-column="'assignee'"
+      :columns="contractsColumns"
+      :show-columns="showColumns"
     >
       <template
         #columns="{ toggleVisibility }"
       >
         <TableColumnsSelector
-          :data="tableData"
-          :visibility-columns="showColumns"
+          :columns="contractsColumns"
+          :show-columns="showColumns"
           @toggle-visibility="toggleVisibility"
         />
       </template>
     </Table>
+    <Pagination
+      :data="items"
+      :items-per-page="15"
+      :container-pagination="containerPagination"
+      @showData="updateData"
+    />
   </div>
 </template>
 
 <script>
-import { Table, TableColumnsSelector } from "lib/vue-components";
+import { Table, TableColumnsSelector, Pagination } from "lib/vue-components";
 import { EventBus } from "../../mixins/event_bus";
 import { contractsColumns } from "../../lib/config/contracts.js";
 
@@ -29,15 +34,19 @@ export default {
   name: 'ContractsIndex',
   components: {
     Table,
-    TableColumnsSelector
+    TableColumnsSelector,
+    Pagination
   },
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
+      contractsColumns: contractsColumns,
       tableData: [],
       items: [],
       showColumns: [],
-      columns: {}
+      columns: [],
+      allColumns: [],
+      displayedData: []
     }
   },
   watch: {
@@ -57,8 +66,7 @@ export default {
 
     this.items = this.contractsData
     this.columns = contractsColumns;
-    this.createTypesForTable()
-    this.showColumns = ['assignee', 'award_date', 'final_amount_no_taxes']
+    this.showColumns = ['assignee', 'title', 'award_date', 'final_amount_no_taxes']
   },
   beforeDestroy(){
     EventBus.$off('refresh-summary-data');
@@ -69,41 +77,8 @@ export default {
 
       this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()) || contract.title.toLowerCase().includes(this.value.toLowerCase()))
     },
-    createTypesForTable() {
-      const typesLinks = ['id', 'permalink']
-      const typesDates = ['award_date', 'end_date', 'open_proposals_date', 'submission_date', 'start_date']
-      const typesMoney = ['final_amount', 'final_amount_no_taxes', 'initial_amount_no_taxes', 'initial_amount']
-      this.tableData = JSON.parse(JSON.stringify(this.contractsData));
-      this.tableData.forEach(contract => {
-        Object.keys(contract).forEach((key) => {
-          if (typesLinks.includes(key)) {
-            contract.[key] = {
-              "type": "link",
-              "cssClass": "table-th-link",
-              "value": contract[key]
-            }
-          }
-
-          if (typesDates.includes(key)) {
-            contract.[key] = {
-              "type": "date",
-              "cssClass": "table-th-date",
-              "value": contract[key] || ''
-            }
-          }
-
-          if (typesMoney.includes(key)) {
-            contract.[key] = {
-              "type": "money",
-              "cssClass": "table-th-money",
-              "value": +contract[key]
-            }
-          }
-        })
-      })
-    },
-    updateShowColumns(value) {
-      this.showColumns = value
+    updateData(values) {
+      this.displayedData = values
     }
   }
 }

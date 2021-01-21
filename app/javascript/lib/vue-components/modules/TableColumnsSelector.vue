@@ -18,7 +18,7 @@
         class="gobierto-table__column-selector__content"
       >
         <Checkbox
-          v-for="{ name, visibility, id } in columnsArray"
+          v-for="{ name, visibility, id } in filterColumns"
           :id="id"
           :key="id"
           :title="name"
@@ -47,11 +47,11 @@ export default {
     clickoutside
   },
   props: {
-    visibilityColumns: {
+    columns: {
       type: Array,
       default: () => []
     },
-    data: {
+    showColumns: {
       type: Array,
       default: () => []
     }
@@ -59,13 +59,18 @@ export default {
   data() {
     return {
       showColumnsModal: false,
-      labelCustomizeColumns: I18n.t("gobierto_plans.plan_types.show.customize_columns") || '',
-      columnsArray: [],
-      columns: Object.keys(this.data[0]),
+      labelCustomizeColumns: I18n.t("gobierto_plans.plan_types.show.customize_columns") || ''
     }
   },
-  created() {
-    this.getColumns()
+  computed: {
+    filterColumns() {
+      return this.columns.map(({ field, ...rest }, index) => ({
+        visibility: this.showColumns.includes(field),
+        id: index,
+        field,
+        ...rest
+      }))
+    }
   },
   methods: {
     showModal() {
@@ -75,14 +80,7 @@ export default {
     },
     toggleVisibility(column) {
       this.$emit('toggle-visibility', column)
-    },
-    getColumns() {
-      this.columnsArray = this.columns.map((column, index) => ({
-        name: column,
-        visibility: this.visibilityColumns.includes(column),
-        id: index
-      }))
-    },
+    }
   }
 }
 </script>

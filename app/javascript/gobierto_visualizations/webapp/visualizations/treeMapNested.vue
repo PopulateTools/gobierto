@@ -1,5 +1,5 @@
 <template>
-  <div :class="`tree-map-nested-container tree-map-nested-container-${treemapId}`">
+  <div :class="`treemap-nested-container treemap-nested-container-${treemapId}`">
     <div
       :id="`treemap-nested-sidebar-${treemapId}`"
       class="treemap-nested-sidebar"
@@ -30,11 +30,11 @@
     </div>
     <div
       :id="`treemap-nested-tooltip-first-depth-${treemapId}`"
-      class="tree-map-nested-tooltip-first"
+      class="treemap-nested-tooltip-first"
     />
     <div
       :id="`treemap-nested-tooltip-second-depth-${treemapId}`"
-      class="tree-map-nested-tooltip-second"
+      class="treemap-nested-tooltip-second"
     />
     <svg
       :id="`treemap-nested-${treemapId}`"
@@ -188,7 +188,7 @@ export default {
     },
     $route(to, from) {
       if (to !== from) {
-        this.containerChart = document.querySelector('.tree-map-nested-container');
+        this.containerChart = document.querySelector('.treemap-nested-container');
         this.svgWidth = this.containerChart.offsetWidth;
         this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
       }
@@ -203,7 +203,7 @@ export default {
     }
   },
   mounted() {
-    this.containerChart = document.querySelector('.tree-map-nested-container');
+    this.containerChart = document.querySelector('.treemap-nested-container');
     this.svgWidth = this.containerChart.offsetWidth;
     this.dataTreeMapWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
     this.dataTreeMapSizeContracts = JSON.parse(JSON.stringify(this.data));
@@ -218,6 +218,7 @@ export default {
   },
   methods: {
     handleTreeMapValue(value) {
+      this.closeTooltips()
       if (this.selected_size === value) return;
       this.selected_size = value
       this.sizeForTreemap = value
@@ -257,8 +258,6 @@ export default {
       let deepLevel = this.deepLevel
       const selected_size = this.selected_size;
       const treemapId = this.treemapId;
-      const tooltipFirstDepth = d3.select(`#treemap-nested-tooltip-first-depth-${treemapId}`)
-      const tooltipSecondDepth = d3.select(`#treemap-nested-tooltip-second-depth-${treemapId}`)
 
       const x = d3.scaleLinear()
         .domain([0, this.svgWidth])
@@ -273,10 +272,14 @@ export default {
         .paddingInner(0)
         .round(false);
 
+      const containerChart = d3.select(`.treemap-nested-container-${treemapId}`)
+
       const svg = d3.select(`#treemap-nested-${treemapId}`)
         .append("g")
         .attr('class', `treemap-container-${treemapId}`)
         .style("shape-rendering", "crispEdges");
+
+      containerChart.on('mouseleave', this.closeTooltips)
 
       const navBreadcrumbs = d3.select(`#treemap-nested-sidebar-nav-${treemapId}`)
         .append('p')
@@ -292,7 +295,7 @@ export default {
         navBreadcrumbs
           .datum(d.parent)
           .html(breadcrumbs(d))
-          .call(checkSizeBreadcumbs)
+          .call(checkSizeBreadcrumbs)
 
         navBreadcrumbs.selectAll("span")
           .datum(d)
@@ -308,14 +311,10 @@ export default {
           .append("g")
           .datum(d)
           .attr('fill', d => {
-            let valueColor
-            if (scaleColor) {
-              const { depth } = d
-              valueColor = depth === 2 ? d.color = d.color = this.colors(d.parent.data.name) : depth === 3 || depth === 4 ? d.color = this.colors(d.data.children[0].contractor) : ''
-            } else {
-              valueColor = '#12365b'
-            }
-            return valueColor
+            const { depth, data } = d
+            const [ contracts ] = data?.children || []
+            const { contractor } = contracts || {}
+            return scaleColor && depth === 3 ? this.colors(contractor) : '#12365b'
           })
           .attr('class', 'depth')
 
@@ -327,13 +326,10 @@ export default {
           .join('rect')
           .attr('class', 'children')
           .attr('fill', d => {
-            if (scaleColor) {
-              const { depth } = d
-              const valueColor = depth === 1 ? d.color = this.colors(d.data.name) : d.color = this.colors(d.parent.data.name)
-              return valueColor
-            } else {
-              return '#12365b'
-            }
+            const { depth, data, parent } = d
+            const [ contracts ] = data?.children || []
+            const { contractor } = contracts || {}
+            return scaleColor && depth === 1 ? this.colors(data?.name) : scaleColor && depth === 2 ? this.colors(parent?.data?.name) : scaleColor && depth === 3 || depth === 4 ? this.colors(contractor) : '#12365b'
           })
           .on("click", transition);
 
@@ -379,6 +375,8 @@ export default {
             } else {
               htmlTreeMap = treeMapTwoDepth(d)
             }
+            const self = this
+            self.injectRouter()
             return htmlTreeMap
           })
           .attr('class', 'treemap-nested-container-text')
@@ -405,24 +403,14 @@ export default {
           .on('mousemove', (d, i, event) => {
             this.$emit('showTooltip', d, i, selected_size, event)
           })
-          .on('mouseout', function() {
-            tooltipSecondDepth
-              .style("opacity", 1)
-              .transition()
-              .duration(200)
-              .style("opacity", 0)
-              .style("display", "none")
 
-            tooltipFirstDepth
-              .style("opacity", 1)
-              .transition()
-              .duration(200)
-              .style("opacity", 0)
-              .style("display", "none")
-          })
+        const self = this
 
         function transition(d) {
           if (transitioning || !d) return;
+
+          self.closeTooltips()
+
           transitioning = true;
           const g2 = display(d);
           const t1 = g1.transition().duration(450).ease(d3.easeLinear);
@@ -471,6 +459,7 @@ export default {
             this.remove();
             transitioning = false;
           });
+          labelTotalContracts = self.labelTotalPlural
         }
 
         function treeMapTwoDepth(d) {
@@ -537,7 +526,7 @@ export default {
               `
           } else if (depth === 3 && typeof d.data !== "function") {
             const { data: { assignee_routing_id }, parent: { data: { name } } } = d
-            let heading = assignee_routing_id !== undefined ? `<a class="title" href="/visualizaciones/contratos/adjudicatario/${assignee_routing_id}">${name}</a>` : `<p class="title">${name}</p>`
+            let heading = assignee_routing_id !== undefined ? `<a href="#" class="title">${name}</a>` : `<p class="title">${name}</p>`
             htmlForRect = `
               ${heading}
               <p class="text">${title}</p>
@@ -582,7 +571,7 @@ export default {
             valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
 
             if (totalContracts) {
-              labelTotalContracts = totalContracts.length < 1 ? labelTotalUnique : labelTotalContracts
+              labelTotalContracts = totalContracts.length <= 1 ? labelTotalUnique : labelTotalContracts
             }
             htmlForRect = `<p class="title">${title}</p>
               <p class="text">${money(valueTotalAmount)}</p>
@@ -638,7 +627,7 @@ export default {
               `
           } else if (depth === 4 && typeof d.data !== "function") {
             const { data: { assignee_routing_id }, parent: { data: { name } } } = d
-            let heading = assignee_routing_id !== undefined ? `<a class="title" href="/visualizaciones/contratos/adjudicatario/${assignee_routing_id}">${name}</a>` : `<p class="title">${name}</p>`
+            let heading = assignee_routing_id !== undefined ? `<a href="#" class="title">${name}</a>` : `<p class="title">${name}</p>`
             htmlForRect = `
               ${heading}
               <p class="text">${title}</p>
@@ -694,23 +683,37 @@ export default {
           if (res.includes('<b>')) {
             res = res.replace(/<b>/g, '').replace(/<\/b>/g, '')
           }
-          res += `<span class="treemap-nested-breadcrumb"><b>${data.name}</b></span>` + sep;
+          res += `<span class="treemap-nested-breadcrumb treemap-nested-breadcrumb-${treemapId}"><b>${data.name}</b></span>` + sep;
         });
         return res.split(sep).filter(i => i !== "").join(sep);
       }
 
-      function checkSizeBreadcumbs() {
+      function checkSizeBreadcrumbs() {
+        /*In breadcrumbs, any level can be the largest, so we have to know which element is the largest to add the ellipsis class.*/
+        //Get all elements
+        const sizeBreadcrumbs = document.querySelectorAll(`.treemap-nested-breadcrumb-${treemapId}`)
+        //Convert nodeList into array
+        const breadcrumbsArr = [...sizeBreadcrumbs];
+        //Sum offsetWidth
+        const sidebarNav = breadcrumbsArr.reduce((prev, { offsetWidth }) => prev + offsetWidth, 0);
+
+        //Create an array only with the offsetWidth
+        const breadcrumbWidth = breadcrumbsArr.map(({ offsetWidth }) => offsetWidth);
+        //Get the max value
+        const maxValue = Math.max(...breadcrumbWidth);
+        //Get the index of the max value
+        const indexBreadcumb = breadcrumbWidth.indexOf(maxValue);
+
         const sidebarAvailableWidth = (document.querySelector('.treemap-nested-sidebar').offsetWidth - document.querySelector('.treemap-nested-sidebar-button-group').offsetWidth)
 
-        const sidebarNav = document.querySelector('.treemap-nested-sidebar-nav').offsetWidth;
-
-        const treeMapSidebarNavContainer = document.querySelector('.treemap-nested-sidebar-nav-breadcumb');
-        if (sidebarNav > sidebarAvailableWidth) treeMapSidebarNavContainer.classList.add('ellipsis')
+        if (sidebarNav > sidebarAvailableWidth) {
+          sizeBreadcrumbs[indexBreadcumb].classList.add('ellipsis')
+        }
       }
     },
     resizeListener() {
       window.addEventListener("resize", () => {
-        const containerChart = document.querySelector('.tree-map-nested-container');
+        const containerChart = document.querySelector('.treemap-nested-container');
         this.svgWidth = containerChart.offsetWidth
         if (this.updateData) {
           this.deepCloneData(this.dataNewValues)
@@ -718,6 +721,44 @@ export default {
           this.transformDataTreemap(this.data);
         }
       })
+    },
+    injectRouter() {
+      this.closeTooltips()
+      const contractsLink = document.querySelectorAll('a.title')
+      contractsLink.forEach(contract => contract.addEventListener('click', (e) => {
+        const {
+          target: {
+            parentNode: {
+              __data__: {
+                data: {
+                  assignee_routing_id
+                }
+              }
+            }
+          }
+        } = e
+        e.preventDefault()
+        // eslint-disable-next-line no-unused-vars
+        this.$router.push(`/visualizaciones/contratos/adjudicatario/${assignee_routing_id}`).catch(err => {})
+      }))
+    },
+    closeTooltips() {
+      const tooltipFirstDepth = d3.select(`#treemap-nested-tooltip-first-depth-${this.treemapId}`)
+      const tooltipSecondDepth = d3.select(`#treemap-nested-tooltip-second-depth-${this.treemapId}`)
+
+      tooltipSecondDepth
+        .style("opacity", 1)
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
+        .style("display", "none")
+
+      tooltipFirstDepth
+        .style("opacity", 1)
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
+        .style("display", "none")
     }
   }
 }

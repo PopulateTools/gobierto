@@ -51,6 +51,10 @@ module GobiertoData
         end
         alias small_dataset other_dataset
 
+        def no_size_dataset
+          @no_size_dataset ||= gobierto_data_datasets(:no_size_dataset)
+        end
+
         def datasets_category
           @datasets_category ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_category)
         end
@@ -142,14 +146,14 @@ module GobiertoData
             get gobierto_data_api_v1_datasets_path, as: :json
             response_data = response.parsed_body
             datasets_names = response_data["data"].map { |item| item.dig("attributes", "name") }
-            assert_equal [dataset.name, other_dataset.name], datasets_names
+            assert_equal [no_size_dataset.name, dataset.name, other_dataset.name], datasets_names
 
             other_dataset.update_attribute(:data_updated_at, 1.second.ago)
 
             get gobierto_data_api_v1_datasets_path, as: :json
             response_data = response.parsed_body
             datasets_names = response_data["data"].map { |item| item.dig("attributes", "name") }
-            assert_equal [other_dataset.name, dataset.name], datasets_names
+            assert_equal [no_size_dataset.name, other_dataset.name, dataset.name], datasets_names
           end
         end
 
@@ -270,8 +274,11 @@ module GobiertoData
             big_dataset_response_data = response.parsed_body
             get meta_gobierto_data_api_v1_dataset_path(small_dataset.slug), as: :json
             small_dataset_response_data = response.parsed_body
+            get meta_gobierto_data_api_v1_dataset_path(no_size_dataset.slug), as: :json
+            no_size_dataset_response_data = response.parsed_body
 
             assert_equal 50, big_dataset_response_data["data"]["attributes"]["default_limit"]
+            assert_equal 50, no_size_dataset_response_data["data"]["attributes"]["default_limit"]
             assert_nil small_dataset_response_data["data"]["attributes"]["default_limit"]
 
             assert_equal 15, big_dataset_response_data["data"]["attributes"]["size"]["csv"]

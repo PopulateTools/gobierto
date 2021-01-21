@@ -105,7 +105,7 @@ export default {
       //Elements to determinate the position of tooltip
       const tooltipFirstDepth = d3.select('#treemap-nested-tooltip-first-depth-categories')
       const tooltipSecondDepth = d3.select('#treemap-nested-tooltip-second-depth-categories')
-      const container = document.querySelector('.tree-map-nested-container-categories');
+      const container = document.querySelector('.treemap-nested-container-categories');
       const containerWidth = container.offsetWidth
       const tooltipWidth = depth === 2 ? tooltipFirstDepth.node().offsetWidth : tooltipSecondDepth.node().offsetWidth
       const tooltipHeight = depth === 2 ? tooltipFirstDepth.node().offsetHeight : tooltipSecondDepth.node().offsetHeight
@@ -116,19 +116,14 @@ export default {
 
       if (depth === 2) {
         let totalContracts = d.children === undefined ? '' : d.children
-        let contractsString = ''
-        if (totalContracts) {
-          totalContracts = totalContracts.filter(contract => typeof contract.data !== "function")
-          while (i < totalContracts.length) {
-            let contractAmount = selected_size === 'amount' ? `${totalContracts[i].data.value}` : `${totalContracts[i].data.amount}`
-            contractsString = `${contractsString}
-            <div class="depth-second-container">
-              <p class="depth-second-title">${totalContracts[i].data.beneficiary}</p>
-              <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies_amount')}: <b>${money(contractAmount)}</b></p>
-            </div>`
-            i++
-          }
-        }
+        let contractsString = totalContracts
+          .reduce((acc, contract) => {
+            if (typeof contract.data !== "function") {
+              acc.push(this.createDepthHTML(contract.data, selected_size))
+            }
+
+            return acc
+          }, [])
 
         tooltipFirstDepth
           .style("display", "block")
@@ -142,7 +137,7 @@ export default {
               <span class="treemap-nested-tooltip-header-title">
                 ${I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies')}
               </span>
-              ${contractsString}
+              ${contractsString.join('')}
             `
           })
           .style('top', positionTop)
@@ -167,6 +162,15 @@ export default {
           .style('top', positionTop)
           .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
       }
+    },
+    createDepthHTML(data, selected_size) {
+      const { beneficiary, value, amount } = data
+      let contractAmount = selected_size === 'amount' ? value : amount
+      return `
+      <div class="depth-second-container">
+        <p class="depth-second-title">${beneficiary}</p>
+        <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
+      </div>`
     }
   }
 }

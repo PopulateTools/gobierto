@@ -12,17 +12,18 @@
     </div>
     <table>
       <thead>
-        <template v-for="[id, { name, index }] in columnsMapArr">
+        <template v-for="[id, { name, index, cssClass }] in columnsMapArr">
           <th
             :key="index"
             class="gobierto-table__th"
+            :class="cssClass"
             @click="handleTableHeaderClick(id)"
           >
+            {{ name }}
             <SortIcon
               v-if="currentSortColumn === id"
               :direction="getSorting(id)"
             />
-            {{ name }}
           </th>
         </template>
       </thead>
@@ -73,6 +74,7 @@
             <template v-else>
               <td
                 :key="key"
+                :class="cssClass"
                 class="gobierto-table__td"
               >
                 {{ item[field] }}
@@ -175,7 +177,8 @@ export default {
           visibility: this.visibleColumns.includes(column.field),
           name: column.name,
           sort: undefined,
-          type: column.type
+          type: column.type,
+          cssClass: column.cssClass
         });
       }
       this.columnsMapArr = Array.from(this.map);
@@ -189,6 +192,7 @@ export default {
         this.visibleColumns = this.visibleColumns.filter(item => item !== columnName)
       }
       this.prepareTable()
+      this.$emit('update-show-columns', this.visibleColumns)
     },
   }
 }

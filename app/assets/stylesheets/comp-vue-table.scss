@@ -12,6 +12,19 @@
 
     th {
       font-weight: bold;
+      color: var(--color-base);
+    }
+
+    i {
+      color: var(--color-base);
+    }
+
+    td.right {
+      text-align: right;
+    }
+
+    td.bold {
+      font-weight: bold;
     }
   }
 
@@ -37,7 +50,7 @@
 
   &__td {
     border: 0;
-    font-size: $f5;
+    font-size: $f6;
     padding: .5rem .5rem .5rem 0;
 
     i {

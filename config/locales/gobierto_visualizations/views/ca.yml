@@ -25,6 +25,7 @@ ca:
         contract_amount: Imp. adjudicació
         contract_type: Tipus de contracte
         contractor: Contractor
+        contractor_id: ID Contractor
         contracts: Contractes
         contracts_assigned_to: Contractes adjudicats a
         date: Data
@@ -35,11 +36,11 @@ ca:
         empty_table: No hi ha dades disponibles
         end_date: Data de finalització
         entities: Entitats
-        final_amount: Import final
-        final_amount_no_taxes: Import final sense impostos
+        final_amount: Imp. final
+        final_amount_no_taxes: Imp. final sense impostos
         fromto: De a Nº Contr.
-        initial_amount: Import inicial
-        initial_amount_no_taxes: Import inicial sense impostos
+        initial_amount: Imp. inicial
+        initial_amount_no_taxes: Imp. inicial sense impostos
         main_assignees: Principals adjudicataris
         minor_contract: Contracte menor
         more: Més de

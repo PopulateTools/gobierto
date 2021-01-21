@@ -25,6 +25,7 @@ es:
         contract_amount: Imp. adjudicación
         contract_type: Tipo de contrato
         contractor: Contrato
+        contractor_id: ID del contrato
         contracts: Contratos
         contracts_assigned_to: Contratos adjudicados a
         date: Fecha
@@ -35,11 +36,11 @@ es:
         empty_table: No hay datos disponibles
         end_date: Fecha final
         entities: Entidades
-        final_amount: Importe final
-        final_amount_no_taxes: Importe final sin impuestos
+        final_amount: Imp. final
+        final_amount_no_taxes: Imp. final sin impuestos
         fromto: Desde A Nº. Contr.
-        initial_amount: Importe inicial
-        initial_amount_no_taxes: Importe inicial sin impuestos
+        initial_amount: Imp. inicial
+        initial_amount_no_taxes: Imp. inicial sin impuestos
         main_assignees: Principales adjudicatarios
         minor_contract: Contrato menor
         more: Más de

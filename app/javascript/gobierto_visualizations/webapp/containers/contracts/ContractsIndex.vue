@@ -5,6 +5,7 @@
       :order-column="'assignee'"
       :columns="contractsColumns"
       :show-columns="showColumns"
+      @update-show-columns="updateShowColumns"
     >
       <template
         #columns="{ toggleVisibility }"
@@ -46,7 +47,8 @@ export default {
       showColumns: [],
       columns: [],
       allColumns: [],
-      displayedData: []
+      displayedData: [],
+      containerPagination: '.visualizations-home-main'
     }
   },
   watch: {
@@ -79,6 +81,9 @@ export default {
     },
     updateData(values) {
       this.displayedData = values
+    },
+    updateShowColumns(values) {
+      this.showColumns = values
     }
   }
 }

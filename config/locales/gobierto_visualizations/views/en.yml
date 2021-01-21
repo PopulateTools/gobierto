@@ -24,7 +24,7 @@ en:
         contract: Contract
         contract_amount: Contract Amount
         contract_type: Type of contract
-        contractor: Contractor
+        contractor: Contractor ID
         contracts: Contracts
         contracts_assigned_to: Contracts assigned to
         date: Date

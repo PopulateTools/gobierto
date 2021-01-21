@@ -14,9 +14,8 @@ es:
           headers:
             status: Visibilidad
             title: Título
+            updated: Actualizado
           new: Nuevo
-          view_dashboard: Ver dashboard
-          view_public_dashboard: Vista pública
           visibility_level:
             active: Público
             draft: Privado

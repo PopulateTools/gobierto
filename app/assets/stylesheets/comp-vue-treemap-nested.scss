@@ -1,31 +1,44 @@
 :root {
-  --gobierto-gold: #f8b205;
-  --gobierto-red: #ff776d;
-  --gobierto-blue: #12365b;
-  --gobierto-turquoise: #008e9c;
   --white: #fff;
   --black: #000;
   --grey-text: #767168;
 }
 
-.tree-map-nested-nav {
+.treemap-nested-container {
+  position: relative;
+}
+
+.treemap-nested-sidebar-nav {
   margin-left: 1px;
-  margin-bottom: $f8;
   color: rgba(var(--color-base-string), .8);
   width: max-content;
   cursor: pointer;
 
-  .nav-breadcrumbs {
+  &-breadcumb {
     margin: 0;
+
+    .treemap-nested-breadcrumb.ellipsis {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 200px;
+    }
+  }
+
+  .treemap-nested-breadcrumb {
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 
 .treemap-nested-sidebar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: .5rem;
 }
 
-#treemap-nested {
+.treemap-nested {
 
   text {
     pointer-events: none;
@@ -33,35 +46,6 @@
 
   .grandparent text {
     font-weight: bold;
-  }
-
-  .obras {
-    .child,
-    .parent {
-      fill: var(--gobierto-red);
-    }
-  }
-
-  .servicios {
-    .child,
-    .parent {
-      fill: var(--gobierto-blue);
-    }
-  }
-
-  .suministros {
-    .child,
-    .parent {
-      fill: var(--gobierto-turquoise);
-    }
-  }
-
-  .gestion-de-servicios-publicos {
-    .child,
-    .parent,
-    rect {
-      fill: var(--gobierto-gold);
-    }
   }
 
   rect {
@@ -84,30 +68,6 @@
   }
 
   .children {
-    &.obras {
-      > rect {
-        fill: var(--gobierto-red);
-      }
-    }
-
-    &.servicios {
-      > rect {
-        fill: var(--gobierto-blue);
-      }
-    }
-
-    &.suministros {
-      > rect {
-        fill: var(--gobierto-turquoise);
-      }
-    }
-
-    &.gestion-de-servicios-publicos {
-      > rect {
-        fill: var(--gobierto-gold);
-      }
-    }
-
     &:hover {
       rect.child {
         opacity: 1;
@@ -142,9 +102,7 @@
   .treemap-nested-container-text,
   .foreignobj {
     color: var(--white);
-    padding: 12px;
     cursor: pointer;
-    overflow: none;
 
     .title {
       margin: 0;
@@ -152,6 +110,7 @@
       text-transform: uppercase;
       font-weight: bold;
       line-height: 1;
+      color: var(--white);
     }
 
     .text,
@@ -167,6 +126,7 @@
     height: 100%;
     position: relative;
     z-index: 1;
+    padding: 12px;
 
     &.hide-text {
       .title,
@@ -178,11 +138,25 @@
   }
 }
 
-.tree-map-nested-tooltip-contracts,
-.tree-map-nested-tooltip-assignee {
+.treemap-nested-tooltip-first,
+.treemap-nested-tooltip-second {
+  max-height: 450px;
+  overflow-y: auto;
+
   .text-depth-third {
     margin: 0;
     font-size: $f7;
     color: var(--grey-text);
+  }
+}
+
+.treemap-nested-tooltip-first {
+  .depth-first-container {
+    padding: .25rem 0;
+  }
+
+  .text-depth-first {
+    margin: 0;
+    font-size: $f6;
   }
 }

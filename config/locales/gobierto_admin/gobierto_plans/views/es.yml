@@ -9,6 +9,17 @@ es:
         plan_summary:
           global_progress: Progreso global
           projects: Proyectos
+      dashboards:
+        index:
+          headers:
+            status: Visibilidad
+            title: Título
+          new: Nuevo
+          view_dashboard: Ver dashboard
+          view_public_dashboard: Vista pública
+          visibility_level:
+            active: Público
+            draft: Privado
       plan_types:
         edit:
           title: Editar tipo de plan
@@ -132,5 +143,6 @@ es:
       shared:
         navigation:
           configuration_tab: Configuración
+          dashboards_tab: Dashboards
           plan_terms_tab: Plan
           projects_tab: Proyectos

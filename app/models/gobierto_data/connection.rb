@@ -83,7 +83,7 @@ module GobiertoData
       def execute_write_query_from_file_using_stdin(site, query, file_path: nil, include_draft: false)
         return unless file_path.present?
 
-        with_connection(db_config(site), fallback: null_query, connection_key: :write_db_config) do
+        with_connection(db_config(site), fallback: configuration_missing_error, connection_key: :write_db_config) do
           connection_pool.connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if include_draft
 
           raw_connection = connection_pool.connection.raw_connection
@@ -140,6 +140,10 @@ module GobiertoData
 
       def failed_query(message)
         { errors: [{ sql: message }] }
+      end
+
+      def configuration_missing_error
+        failed_query(I18n.t("activerecord.errors.models.gobierto_data/connection.missing_configuration"))
       end
 
     end

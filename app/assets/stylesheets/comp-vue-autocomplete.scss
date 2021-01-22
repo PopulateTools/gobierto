@@ -1,0 +1,62 @@
+:root {
+  --background-color: #{$color_main_negative};
+  --border-color: #{$color_separator};
+  --space: 1em;
+  --border-radius: 3px;
+  --height: calc(2.5 * var(--space))
+}
+
+.gobierto-autocomplete {
+  position: relative;
+
+  &__label {
+    font-weight: bold;
+  }
+
+  &__input,
+  &__input[type="text"] {
+    display: block;
+    height: var(--height);
+    width: 100%;
+    border-radius: var(--border-radius);
+    padding: 0 var(--space);
+
+    &.is-active {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:focus {
+      border-color: var(--border-color);
+      box-shadow: none;
+    }
+  }
+
+  &__results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin: -1px 0 0;
+    padding: 0;
+    box-sizing: border-box;
+    z-index: 1;
+    list-style-type: none;
+    border: 1px solid var(--border-color);
+    background-color: var(--background-color);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+  }
+
+  &__result {
+    padding: 0 var(--space);
+    height: var(--height);
+    line-height: var(--height);
+
+    &:hover,
+    &.is-active {
+      background-color: #efefef;
+      cursor: pointer;
+    }
+  }
+}

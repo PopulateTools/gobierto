@@ -113,6 +113,9 @@ gem "charlock_holmes"
 # CORS support
 gem "rack-cors"
 
+# Redirections
+gem 'rack-rewrite'
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
@@ -123,9 +126,9 @@ end
 group :test do
   gem "capybara"
   gem "capybara-email"
-  gem "codecov", "~> 0.2.0", require: false
+  gem "codecov", "~> 0.3.0", require: false
   gem "launchy"
-  gem "minitest", "5.14.2"
+  gem "minitest", "5.14.3"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"

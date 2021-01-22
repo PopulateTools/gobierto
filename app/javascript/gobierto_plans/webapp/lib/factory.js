@@ -2,26 +2,22 @@ import axios from "axios";
 
 const baseUrl = location.origin;
 const endPoint = `${baseUrl}/api/v1/plans`;
-
-const headers = {
-  "Content-type": "application/json"
-};
+const headers = {};
 
 // Plans-endpoint factory to get/post/put/delete API data
 export const PlansFactoryMixin = {
-  locale: I18n.locale,
   methods: {
+    searchParams(params) {
+      return new URLSearchParams({ locale: I18n.locale, ...params })
+    },
     getPlan(id, params) {
-      const qs = new URLSearchParams({ locale: this.$options.locale, ...params })
-      return axios.get(`${endPoint}/${id}?${qs.toString()}`, { headers })
+      return axios.get(`${endPoint}/${id}`, { headers, params: this.searchParams(params) })
     },
     getProjects(id, params) {
-      const qs = new URLSearchParams({ locale: this.$options.locale, ...params })
-      return axios.get(`${endPoint}/${id}/projects?${qs.toString()}`, { headers })
+      return axios.get(`${endPoint}/${id}/projects`, { headers, params: this.searchParams(params) })
     },
     getMeta(id, params) {
-      const qs = new URLSearchParams({ locale: this.$options.locale, ...params })
-      return axios.get(`${endPoint}/${id}/meta?${qs.toString()}`, { headers })
+      return axios.get(`${endPoint}/${id}/meta`, { headers, params: this.searchParams(params) })
     }
   }
 };

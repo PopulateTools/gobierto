@@ -206,6 +206,78 @@ scholarships_in_school_cateens_custom_field_global_level:
   custom_field: madrid_node_global
   payload: <%= { "status" => "not_started" }.to_json %>
 
+## Dashboards plan node
+
+project_metrics_project_value:
+  item: dashboard_project (GobiertoPlans::Node)
+  custom_field: dashboards_plan_project_metrics
+  payload: <%= {
+    "project-metrics" => [
+      {
+        indicator: "Decretos Emitidos",
+        value: 28,
+        objective: 55,
+        date: "2018-07-30"
+      },
+      {
+        indicator: "decretos emitidos",
+        value: 13,
+        objective: 95,
+        date: "2017-08-10"
+      },
+      {
+        indicator: "decretos   emitidos",
+        value: 37,
+        objective: 74,
+        date: "2016-08-04"
+      },
+      {
+        indicator: "Notificaciones enviadas",
+        value: 32,
+        objective: 98,
+        date: "2015-05-08"
+      },
+      {
+        indicator: "Expedientes cerrados",
+        value: 48,
+        objective: 57,
+        date: "2019-12-07"
+      }
+    ]
+  }.to_json %>
+
+project_metrics_alternative_project_value:
+  item: dashboard_alternative_project (GobiertoPlans::Node)
+  custom_field: dashboards_plan_project_metrics
+  payload: <%= {
+    "project-metrics" => [
+      {
+        indicator: "Expedientes cerrados",
+        value: 10,
+        objective: 20,
+        date: "2020-01-01"
+      },
+      {
+        indicator: "Camas UCI",
+        value: 15,
+        objective: 20,
+        date: "2019-08-10"
+      },
+      {
+        indicator: "Expedientes cerrados",
+        value: 50,
+        objective: 40,
+        date: "2018-08-04"
+      },
+      {
+        indicator: "camas uci",
+        value: 356,
+        objective: 270,
+        date: "2021-12-31"
+      }
+    ]
+  }.to_json %>
+
 ## Investments projects
 
 sports_center_cost_custom_field_record:
@@ -303,6 +375,20 @@ users_dataset_category_custom_field_record:
   custom_field: madrid_data_datasets_custom_field_category
   payload: <%= {
      "category" => ActiveRecord::FixtureSet.identify(:culture_term).to_s
+   }.to_json %>
+
+users_dataset_md_without_translations_custom_field_record:
+  item: users_dataset (GobiertoData::Dataset)
+  custom_field: madrid_data_datasets_custom_field_md_without_translations
+  payload: <%= {
+    "md-without-translations" => "Paragraph without translations!"
+   }.to_json %>
+
+users_dataset_md_with_translations_custom_field_record:
+  item: users_dataset (GobiertoData::Dataset)
+  custom_field: madrid_data_datasets_custom_field_md_with_translations
+  payload: <%= {
+    "md-with-translations" => { en: "Paragraph with translations!", es: "¡Párrafo con traducciones!" }
    }.to_json %>
 
 ## Users

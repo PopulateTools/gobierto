@@ -5,6 +5,8 @@
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
   <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
 
+  <%= yield(:stylesheet_module_link) %>
+
   <%= csrf_meta_tags %>
 
   <% if Rails.env.production? %>
@@ -203,6 +205,7 @@
     window.GobiertoAdmin.dirty_forms_component.handle("<%= t(".dirty_forms.message") %>");
     window.GobiertoAdmin.globalized_forms_component.handle();
     window.GobiertoAdmin.color_picker_component.handle();
+    window.GobiertoAdmin.token = "<%= current_admin.primary_api_token %>";
   <% end %>
 
   <%= yield :javascript_hook %>

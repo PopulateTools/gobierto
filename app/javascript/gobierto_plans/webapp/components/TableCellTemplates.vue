@@ -39,7 +39,7 @@ import CustomFieldSelection from "../components/CustomFieldSelection.vue";
 import CustomFieldParagraph from "../components/CustomFieldParagraph.vue";
 import CustomFieldPluginRawIndicators from "../components/CustomFieldPluginRawIndicators.vue";
 import { FieldTypeMixin } from "../lib/mixins/field-type";
-import { percent } from "lib/shared";
+import { percent } from "lib/vue/filters";
 
 export default {
   name: "TableCellTemplates",

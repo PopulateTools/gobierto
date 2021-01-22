@@ -94,6 +94,9 @@ class Site < ApplicationRecord
   has_many :queries, through: :datasets, class_name: "GobiertoData::Query"
   has_many :visualizations, through: :datasets, class_name: "GobiertoData::Visualization"
 
+  # GobiertoDashboards integration
+  has_many :dashboards, dependent: :destroy, class_name: "GobiertoDashboards::Dashboard"
+
   serialize :configuration_data
 
   before_save :store_configuration
@@ -160,9 +163,9 @@ class Site < ApplicationRecord
                                 end
   end
 
-  def gobierto_dashboards_settings
-    @gobierto_dashboard_settings ||= if configuration.available_module?("GobiertoDashboards") && configuration.gobierto_dashboards_enabled?
-                                       module_settings.find_by(module_name: "GobiertoDashboards")
+  def gobierto_visualizations_settings
+    @gobierto_visualizations_settings ||= if configuration.available_module?("GobiertoVisualizations") && configuration.gobierto_visualizations_enabled?
+                                       module_settings.find_by(module_name: "GobiertoVisualizations")
                                      end
   end
 

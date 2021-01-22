@@ -5,6 +5,7 @@ en:
       configuration:
         settings:
           edit:
+            api_settings: API settings
             db_config_placeholder: '{"pool":5, "adapter":"postgresql", "database":"gobierto_test",
               "encoding":"unicode", "password":"gobierto", "username":"gobierto"}'
             frontend: Front-end

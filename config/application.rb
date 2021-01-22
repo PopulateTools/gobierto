@@ -97,5 +97,12 @@ module Gobierto
     if ENV["GOBIERTO_ROOT_URL_PATH"].present?
       Rails.application.config.relative_url_root = ENV["GOBIERTO_ROOT_URL_PATH"]
     end
+
+    # Redirections
+    config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
+      r301 %r{^/dashboards/contratos(.*)}, '/visualizaciones/contratos$1'
+      r301 %r{^/dashboards/subvenciones(.*)}, '/visualizaciones/subvenciones$1'
+      r301 %r{^/dashboards/costes(.*)}, '/visualizaciones/costes$1'
+    end
   end
 end

@@ -7,12 +7,20 @@ class GobiertoCommon::CustomFieldRecordTest < ActiveSupport::TestCase
     @custom_field_single_option ||= gobierto_common_custom_fields(:madrid_custom_field_country)
   end
 
+  def custom_field_string
+    @custom_field_string ||= gobierto_common_custom_fields(:madrid_site_custom_field)
+  end
+
   def custom_field_localized_string
     @custom_field_localized_string ||= gobierto_common_custom_fields(:madrid_custom_field_position)
   end
 
   def custom_field_paragraph
     @custom_field_paragraph ||= gobierto_common_custom_fields(:madrid_custom_field_bio)
+  end
+
+  def custom_field_localized_paragraph
+    @custom_field_localized_paragraph ||= gobierto_common_custom_fields(:madrid_custom_field_localized_bio)
   end
 
   def custom_field_multiple_options
@@ -40,7 +48,7 @@ class GobiertoCommon::CustomFieldRecordTest < ActiveSupport::TestCase
   end
 
   def test_raw_value
-    [custom_field_localized_string,
+    [custom_field_string,
      custom_field_paragraph,
      custom_field_single_option,
      custom_field_multiple_options,
@@ -51,6 +59,16 @@ class GobiertoCommon::CustomFieldRecordTest < ActiveSupport::TestCase
        subject.value = "randomstring1"
        assert_equal "randomstring1", subject.raw_value
      end
+  end
+
+  def test_raw_value_localized
+    [custom_field_localized_string,
+     custom_field_localized_paragraph].each do |custom_field|
+      subject = GobiertoCommon::CustomFieldRecord.new
+      subject.custom_field = custom_field
+      subject.value = "randomstring1"
+      assert_equal({ "en" => "randomstring1" }, subject.raw_value)
+    end
   end
 
   def test_values

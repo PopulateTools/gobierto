@@ -64,7 +64,6 @@ module GobiertoAdmin
         @invalid_main_key_settings_form ||= SettingsForm.new(invalid_main_key_settings_attributes)
       end
 
-      # Invalid observatory names settings (it should have any value from GobiertoAdmin::GobiertoObservatory::SettingsForm::VALID_DASHBOARDS_NAMES)
       def invalid_observatory_names_observatory_config
         {
           "observatory": {

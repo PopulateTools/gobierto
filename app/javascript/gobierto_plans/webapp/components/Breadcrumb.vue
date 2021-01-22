@@ -1,13 +1,13 @@
 <template>
   <div class="node-breadcrumb mb2">
-    <router-link :to="{ name: 'home', params: { ...$route.params } }">
+    <router-link :to="{ name: routes.PLAN, params: { ...$route.params } }">
       {{ labelStarts }}
     </router-link>
 
     <template v-for="{ id, attributes: { name } = {}} in parents">
       <router-link
         :key="id"
-        :to="{ name: 'categories', params: { ...params, id } }"
+        :to="{ name: routes.CATEGORIES, params: { ...params, id } }"
       >
         <i class="fas fa-caret-right" />
         {{ name }}
@@ -17,8 +17,9 @@
 </template>
 
 <script>
-import { translate } from "lib/shared"
+import { translate } from "lib/vue/filters"
 import { PlansStore } from "../lib/store";
+import { routes } from "../lib/router";
 
 export default {
   name: "Breadcrumb",
@@ -38,6 +39,9 @@ export default {
     }
   },
   computed: {
+    routes() {
+      return routes
+    },
     params() {
       return this.$route.params
     }

@@ -10,7 +10,7 @@
       >
         <i :class="['fas', nestedGroups.length ? `fa-caret-${isOpen ? 'down' : 'right'}` : '']" />
         <router-link
-          :to="{ name: 'term', params: { ...params, term: slug } }"
+          :to="{ name: routes.TERM, params: { ...params, term: slug } }"
         >
           {{ name }}
         </router-link>
@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import { percent } from "lib/shared";
+import { percent } from "lib/vue/filters";
+import { routes } from "../lib/router";
 
 export default {
   name: "GroupsByTermTableRow",
@@ -54,6 +55,9 @@ export default {
     }
   },
   computed: {
+    routes() {
+      return routes
+    },
     params() {
       return this.$route.params;
     },

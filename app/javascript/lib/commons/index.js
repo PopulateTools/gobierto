@@ -18,6 +18,7 @@ import $ from 'jquery'
 import 'jquery-ujs'
 import * as I18n from 'i18n-js'
 import Turbolinks from 'turbolinks'
+import { handleIFramePageLoaded } from "../shared/modules/iframe_handler.js";
 
 // NOTE: jQuery exposed to global (window for node environment) due to script directly in the view
 global.$ = global.jQuery = $
@@ -32,5 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 })
 
-// TODO: Esto podría ser dividido en pequeños módulos para inyectar solo las cosas necesarias
-import 'lib/shared'
+$(document).on("turbolinks:load", () => {
+  handleIFramePageLoaded()
+})
+

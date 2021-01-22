@@ -1,6 +1,10 @@
 ---
 en:
   activerecord:
+    errors:
+      models:
+        gobierto_data/connection:
+          missing_configuration: Database configuration missing
     models:
       gobierto_data/dataset:
         one: Dataset

@@ -328,6 +328,22 @@ madrid_data_datasets_custom_field_category:
     vocabulary_id: ActiveRecord::FixtureSet.identify(:issues_vocabulary)
   }.to_json %>
 
+madrid_data_datasets_custom_field_md_without_translations:
+  site: madrid
+  class_name: GobiertoData::Dataset
+  position: 2
+  name_translations: <%= { en: "MD without translations", es: "MD sin traducciones" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:paragraph] %>
+  uid: md-without-translations
+
+madrid_data_datasets_custom_field_md_with_translations:
+  site: madrid
+  class_name: GobiertoData::Dataset
+  position: 3
+  name_translations: <%= { en: "MD with translations", es: "MD con traducciones" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:localized_paragraph] %>
+  uid: md-with-translations
+
 madrid_custom_field_human_resources_table_plugin:
   site: madrid
   class_name: GobiertoPlans::Node
@@ -445,4 +461,56 @@ madrid_users_custom_field_issues:
       vocabulary_type: "single_select"
     },
     vocabulary_id: ActiveRecord::FixtureSet.identify(:issues_vocabulary)
+  }.to_json %>
+
+# Dashboards plan
+dashboards_plan_project_metrics:
+  site: madrid
+  class_name: "GobiertoPlans::Node"
+  instance: dashboards_plan (GobiertoPlans::Plan)
+  mandatory: false
+  position: 1
+  name_translations: <%= { en: "Indicators", es: "Indicadores" }.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:plugin] %>
+  uid: project-metrics
+  options: <%= {
+    configuration: {
+      plugin_type: "table",
+      plugin_configuration: {
+        "columns": [
+          {
+            "id": "indicator",
+            "type": "text",
+            "name_translations": {
+              "en": "Indicator",
+              "es": "Indicador"
+            }
+          },
+          {
+            "id": "value",
+            "type": "integer",
+            "name_translations": {
+              "en": "Value",
+              "es": "Valor"
+            }
+          },
+          {
+            "id": "objective",
+            "type": "integer",
+            " name_translations": {
+              "en": "Objective",
+              "es": "Objetivo"
+            }
+          },
+          {
+            "id": "date",
+            "type": "text",
+             "name_translations": {
+              "en": "Date",
+              "es": "Fecha"
+            }
+          }
+        ]
+      }
+    }
   }.to_json %>

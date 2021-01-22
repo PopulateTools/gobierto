@@ -59,7 +59,7 @@ module GobiertoData
         boolean: {
           input_type: "text",
           output_type: "boolean",
-          sql: "select (case\n  when trim($1) = '#true_value' then true\n  when trim($1) = '#false_value' then false\n  else NULL\nend)",
+          sql: "select (case\n  when trim($1) = '#true_value' then 'true'\n  when trim($1) = '#false_value' then 'false'\n else trim($1)\nend)::boolean",
           optional_params: { false_value: "0", true_value: "1" }
         }
       }.freeze

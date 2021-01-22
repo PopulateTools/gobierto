@@ -134,6 +134,7 @@ ca:
       less_than_or_equal_to: ha de ser menor o igual a %{count}
       not_a_number: no és un número
       not_an_integer: ha de ser un enter
+      not_found: No es troba
       odd: ha de ser senar
       other_than: ha de ser diferent de %{count}
       page_as_homepage: No s'ha pogut desar els canvis en la pàgina perquè no es pot

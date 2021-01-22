@@ -10,6 +10,12 @@
     &:not(:last-child) {
       border-bottom: 1px solid rgba(var(--color-base-string), .1);
     }
+    &:first-child {
+      border-top: 1px solid #ccc;
+    }
+    &:hover {
+      background-color: rgba(var(--color-base-string), .1);
+    }
   }
 
   &__th {
@@ -20,8 +26,7 @@
     font-size: $f8;
     cursor: pointer;
     text-align: left;
-    border-top: 0;
-    border-bottom: 1px solid #ccc;
+    border: 0;
 
     &:last-child {
       padding: 0 0 .25rem;
@@ -35,7 +40,7 @@
 
   &__td {
     border-top: 0;
-    padding: .5rem 0;
+    padding: 1rem .75rem 1rem 0;
     font-size: $f6;
     &.bold {
       font-weight: bold;
@@ -43,13 +48,13 @@
     &.right {
       text-align: right;
     }
+    &:last-child {
+      padding-right: 0;
+    }
   }
 
   table {
     max-width: 100%;
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
 
     i {
       color: var(--color-base);

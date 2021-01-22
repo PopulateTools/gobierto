@@ -46,7 +46,9 @@
                   :class="cssClass"
                   class="gobierto-table__td"
                 >
-                  {{ money(item[field]) }}
+                  <span>
+                    {{ money(item[field]) }}
+                  </span>
                 </td>
               </template>
               <template v-else-if="type === 'date'">
@@ -55,7 +57,9 @@
                   :class="cssClass"
                   class="gobierto-table__td"
                 >
-                  {{ item[field] }}
+                  <span>
+                    {{ item[field] }}
+                  </span>
                 </td>
               </template>
               <template v-else-if="type === 'link'">
@@ -64,13 +68,14 @@
                   :class="cssClass"
                   class="gobierto-table__td"
                 >
-                  <a href="#">{{ item[field] }}</a>
+                  <span>
+                    <a href="#">{{ item[field] }}</a>
+                  </span>
                 </td>
               </template>
               <template v-else-if="type === 'truncate'">
                 <td
                   :key="key"
-                  :class="cssClass"
                   class="gobierto-table__td"
                 >
                   <span :class="cssClass">
@@ -84,7 +89,7 @@
                   :class="cssClass"
                   class="gobierto-table__td"
                 >
-                  {{ item[field] }}
+                  <span>{{ item[field] }}</span>
                 </td>
               </template>
             </template>
@@ -221,5 +226,4 @@ export default {
     },
   }
 }
-
 </script>

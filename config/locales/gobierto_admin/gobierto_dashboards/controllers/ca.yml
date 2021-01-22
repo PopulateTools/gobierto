@@ -1,7 +1,0 @@
----
-ca:
-  gobierto_admin:
-    gobierto_dashboards:
-      dashboards:
-        create:
-          success: El dashboard s'ha creat correctament.

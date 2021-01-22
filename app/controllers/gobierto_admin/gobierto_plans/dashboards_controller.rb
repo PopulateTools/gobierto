@@ -7,7 +7,7 @@ module GobiertoAdmin
 
       before_action :plan
 
-      helper_method :current_admin_actions
+      helper_method :current_admin_actions, :dashboard_preview_path
 
       def current_admin_actions
         @current_admin_actions ||= DashboardPolicy.new(
@@ -17,16 +17,26 @@ module GobiertoAdmin
         ).allowed_actions
       end
 
+      protected
+
+      def dashboard_preview_path(dashboard, options = {})
+        plan = dashboard.context_resource
+
+        return unless plan.is_a?(::GobiertoPlans::Plan)
+
+        if plan.draft?
+          options.merge!(preview_token: current_admin.preview_token)
+        end
+
+        gobierto_plans_plan_dashboards_path(slug: plan.plan_type.slug, year: plan.year, dashboard_id: dashboard.id, **options)
+      end
+
       private
 
       def plan
         @plan = current_site.plans.find params[:plan_id]
       end
       alias context_resource plan
-
-      def index_path
-        @index_path ||= admin_plans_plan_dashboards_path(plan)
-      end
 
       def base_relation
         current_site.dashboards.for_context(@plan)

@@ -176,16 +176,16 @@ module GobiertoInvestments
             Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
               with(site: site) do
                 self.host = "santander.gobierto.test"
-                get gobierto_investments_api_v1_projects_path, as: :json
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "HTTP_REFERER" => "http://#{site.domain}/wadus.html" }
                 assert_response :success
 
-                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => basic_auth_header }
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => basic_auth_header, "HTTP_REFERER" => "http://#{site.domain}/wadus.html" }
                 assert_response :success
 
-                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}", "HTTP_REFERER" => "http://#{site.domain}/wadus.html" }
                 assert_response :success
 
-                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}", "HTTP_REFERER" => "http://#{site.domain}/wadus.html"  }
                 assert_response :success
               end
             end

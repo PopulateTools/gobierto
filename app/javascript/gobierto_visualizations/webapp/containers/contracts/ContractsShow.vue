@@ -1,86 +1,123 @@
 <template>
   <div>
-    <h1>{{ title }}</h1>
+    <h1 class="visualizations-contracts-show__title">
+      {{ title }}
+    </h1>
 
     <p v-if="description">
       {{ description }}
     </p>
 
-    <div class="pure-g p_2 bg-gray">
-      <div class="pure-u-1 pure-u-lg-1-2">
-        <label class="soft">{{ labelAsignee }}</label>
-        <div class="">
-          <router-link
-            id="assignee_show_link"
-            :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
-          >
-            <strong class="d_block">{{ assignee }}</strong>
-          </router-link>
-          <span v-if="assignee_id">
-            {{ assignee_id }}
-          </span>
+    <div class="pure-g p_2 bg-gray visualizations-contracts-show">
+      <ContractsShowLabelHeader
+        class="visualizations-contracts-show__block"
+        :label="labelAwardingEntity"
+        :value="contractor"
+        :icon="'building'"
+      />
+      <ContractsShowLabelHeader
+        :label="labelStatus"
+        :value="status"
+        :icon="'columns'"
+      />
+      <ContractsShowLabelHeader
+        :label="labelType"
+        :value="contract_type"
+        :icon="'clipboard-list'"
+      />
+      <ContractsShowLabelHeader
+        :label="labelProcess"
+        :value="process_type"
+        :icon="'archive'"
+      />
+      <ContractsShowLabelHeader
+        class="visualizations-contracts-show__block"
+        :label="labelCategory"
+        :value="category_title"
+        :icon="'tag'"
+      />
+      <div class="visualizations-contracts-show__body">
+        <div
+          v-show="!isMinorContract"
+          class="pure-u-1 pure-u-lg-1-2"
+        >
+          <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
+            <span class="visualizations-contracts-show__text__header">{{ labelTender }}</span>
+            <span class="visualizations-contracts-show__text">{{ open_proposals_date | fmtdate }}</span>
+            <i
+              v-show="showArrowDate"
+              class="fas fa-arrow-right"
+            />
+            <span class="visualizations-contracts-show__text">{{ submission_date | fmtdate }}</span>
+          </div>
+          <ContractsShowLabelGroup
+            :label="labelBidDescription"
+            :value="initial_amount_no_taxes | money"
+          />
+          <ContractsShowLabelGroup
+            :label="labelBiddersDescription"
+            :value="number_of_proposals"
+          />
+        </div>
+        <div class="pure-u-1 pure-u-lg-1-2">
+          <ContractsShowLabelGroup
+            :label="labelAwarding"
+            :value="award_date | fmtdate"
+          />
+          <ContractsShowLabelGroup
+            :label="labelContractAmount"
+            :value="final_amount_no_taxes | money"
+          />
+          <template v-if="!hasBatch">
+            <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
+              <span class="visualizations-contracts-show__text__header">{{ labelAssigneeDescription }}</span>
+              <router-link
+                id="assignee_show_link"
+                :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
+              >
+                <strong class="d_block">{{ assignee }}</strong>
+              </router-link>
+            </div>
+          </template>
+          <template v-else>
+            <ContractsShowTable
+              :data="filterContractsBatches"
+            />
+          </template>
         </div>
       </div>
-
-      <div class="pure-u-1 pure-u-lg-1-2">
-        <table>
-          <tr>
-            <th class="left">
-              {{ labelContractAmount }}
-            </th>
-            <td>{{ final_amount_no_taxes | money }}</td>
-          </tr>
-          <tr>
-            <th class="left">
-              {{ labelTenderAmount }}
-            </th>
-            <td>{{ initial_amount_no_taxes | money }}</td>
-          </tr>
-          <tr>
-            <th class="left">
-              {{ labelStatus }}
-            </th>
-            <td>{{ status }}</td>
-          </tr>
-          <tr>
-            <th class="left">
-              {{ labelContractType }}
-            </th>
-            <td>{{ contract_type }}</td>
-          </tr>
-          <tr>
-            <th class="left">
-              {{ labelProcessType }}
-            </th>
-            <td>{{ process_type }}</td>
-          </tr>
-          <tr>
-            <th class="left">
-              <a
-                :href="permalink"
-                target="_blank"
-              >
-                {{ labelPermalink }}
-              </a>
-            </th>
-          </tr>
-        </table>
-      </div>
+      <ContractsShowTableFooter :data="contract" />
     </div>
   </div>
 </template>
 
 <script>
 
-import { VueFiltersMixin } from "lib/vue/filters"
+import { VueFiltersMixin, date as fmdDate } from "lib/vue/filters"
 import { EventBus } from "../../mixins/event_bus";
+import ContractsShowLabelHeader from "./../../components/ContractsShowLabelHeader.vue";
+import ContractsShowLabelGroup from "./../../components/ContractsShowLabelGroup.vue";
+import ContractsShowTable from "./../../components/ContractsShowTable.vue";
+import ContractsShowTableFooter from "./../../components/ContractsShowTableFooter.vue";
 
 export default {
   name: 'ContractsShow',
+  components: {
+    ContractsShowLabelHeader,
+    ContractsShowLabelGroup,
+    ContractsShowTable,
+    ContractsShowTableFooter
+  },
+  filters: {
+    fmtdate(value) {
+      return value ? fmdDate(value, { year: 'numeric', month: 'short', day: 'numeric' }) : null
+    }
+  },
   mixins: [VueFiltersMixin],
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
+      contract: {},
       title: '',
       description: '',
       assignee: '',
@@ -91,24 +128,56 @@ export default {
       process_type: '',
       permalink: '',
       assignee_routing_id: '',
-      labelAsignee: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'),
-      labelTenderAmount: I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount'),
-      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount'),
-      labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status'),
-      labelProcessType: I18n.t('gobierto_visualizations.visualizations.contracts.process_type'),
-      labelContractType: I18n.t('gobierto_visualizations.visualizations.contracts.contract_type'),
-      labelPermalink: I18n.t('gobierto_visualizations.visualizations.contracts.permalink')
+      contractor: '',
+      contract_type: '',
+      start_date: '',
+      end_date: '',
+      award_date: '',
+      batch_number: '',
+      minor_contract: '',
+      open_proposals_date: '',
+      submission_date: '',
+      number_of_proposals: '',
+      cpvs: '',
+      category_title: '',
+      labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
+      labelAssigneeDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignee_description') || '',
+      labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount') || '',
+      labelTender: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.tender') || '',
+      labelAwarding: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding') || '',
+      labelBidDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bid_description') || '',
+      labelBiddersDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bidders_description') || '',
+      labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status') || '',
+      labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category') || '',
+      labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
+      labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
+      filterContractsBatches: []
+    }
+  },
+  computed: {
+    hasBatch() {
+      return this.batch_number > 0
+    },
+    isMinorContract() {
+      return this.minor_contract === 't'
+    },
+    showArrowDate() {
+      return this.submission_date && this.open_proposals_date
     }
   },
   created() {
     const itemId = this.$route.params.id;
-    const contract = this.contractsData.find(({ id }) => id === itemId ) || {};
+    this.contract = this.contractsData.find(({ id }) => id === itemId ) || {};
 
     EventBus.$emit("refresh-active-tab");
 
-    if (contract) {
+    if (this.contract) {
       const {
         title,
+        cpvs,
+        batch_number,
+        category_title,
+        contractor,
         description,
         assignee,
         assignee_id,
@@ -118,8 +187,15 @@ export default {
         process_type,
         contract_type,
         permalink,
-        assignee_routing_id
-      } = contract
+        assignee_routing_id,
+        start_date,
+        end_date,
+        award_date,
+        minor_contract,
+        open_proposals_date,
+        submission_date,
+        number_of_proposals
+      } = this.contract
 
       this.title = title
       this.description = description
@@ -132,6 +208,25 @@ export default {
       this.contract_type = contract_type
       this.permalink = permalink
       this.assignee_routing_id = assignee_routing_id
+      this.contractor = contractor
+      this.contract_type = contract_type
+      this.start_date = start_date
+      this.end_date = end_date
+      this.award_date = award_date
+      this.batch_number = +batch_number
+      this.minor_contract = minor_contract
+      this.open_proposals_date = open_proposals_date || null
+      this.submission_date = submission_date || null
+      this.cpvs = cpvs
+      this.category_title = category_title
+      this.number_of_proposals = number_of_proposals
+    }
+
+    if (this.hasBatch) this.groupBatches()
+  },
+  methods: {
+    groupBatches() {
+      this.filterContractsBatches = this.contractsData.filter(({ title }) => title === this.title).sort((a, b) => a.batch_number - b.batch_number);
     }
   }
 }

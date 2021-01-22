@@ -9,7 +9,7 @@
       :routing-id="'id'"
       :pagination-id="'.visualizations-home-main'"
       :items-per-page="25"
-      class="gobierto-table-margin-top"
+      class="gobierto-table-margin-top visualizations-table-contracts"
       @update-show-columns="updateShowColumns"
     >
       <template

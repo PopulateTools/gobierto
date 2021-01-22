@@ -14,9 +14,8 @@ en:
           headers:
             status: Visibility
             title: Title
+            updated: Updated
           new: New
-          view_dashboard: View dashboard
-          view_public_dashboard: Public view
           visibility_level:
             active: Public
             draft: Private
@@ -125,6 +124,8 @@ en:
             sent: Sent
           total: Total
         form:
+          button:
+            add_dashboard: Add to dashboard
           placeholders:
             name: Project title
         index:

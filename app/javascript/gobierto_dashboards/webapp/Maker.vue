@@ -2,10 +2,12 @@
   <div class="dashboards-maker">
     <HeaderForm
       :is-dirty="dirty"
-      :config="configuration"
+      :show-view-item="!!previewPath.length"
+      :shaking="shaking"
       @save="handleSave"
       @delete="handleDelete"
       @view="handleView"
+      @close="handleClose"
     >
       <template #title>
         <TextEditable
@@ -69,6 +71,11 @@ import { Widgets, RequiredFields } from "./lib/widgets";
 import { FactoryMixin } from "./lib/factories";
 import { TextEditable } from "lib/vue-components";
 
+const seed = () =>
+  Math.random()
+    .toString(36)
+    .substring(7);
+
 export default {
   name: "Maker",
   components: {
@@ -87,7 +94,9 @@ export default {
       item: null,
       configuration: null,
       viewerLoaded: false,
-      publicLabel: I18n.t("gobierto_dashboards.public") || ""
+      shaking: false,
+      publicLabel: I18n.t("gobierto_dashboards.public") || "",
+      deleteDialogLabel: I18n.t("gobierto_dashboards.delete_dialog") || ""
     };
   },
   computed: {
@@ -96,6 +105,15 @@ export default {
     },
     previewPath() {
       return this.$root.$data?.previewPath;
+    },
+    indicator() {
+      return this.$root.$data?.indicator;
+    },
+    indicatorContext() {
+      return this.$root.$data?.indicatorContext;
+    },
+    context() {
+      return this.$root.$data?.context;
     },
     title() {
       return (
@@ -110,6 +128,28 @@ export default {
   },
   created() {
     this.getConfiguration();
+
+    if (window.$ && window.$.magnificPopup) {
+      const self = this;
+
+      // invalidate autoclose stuff for magnificPopup
+      $.magnificPopup.instance.st.closeOnContentClick = false
+      $.magnificPopup.instance.st.closeOnBgClick = false
+      $.magnificPopup.instance.st.enableEscapeKey = false
+
+      // modifiy the original magnificPopup close function
+      $.magnificPopup.instance.close = function() {
+        if (self.dirty) {
+          // if form is dirty, it shakes the button during 1.5s
+          self.shaking = true
+          setTimeout(() => (self.shaking = false), 1500);
+          return;
+        }
+
+        window.location.reload()
+        $.magnificPopup.proto.close.call(this);
+      };
+    }
   },
   mounted() {
     document.addEventListener("dragover", this.dragoverPosition);
@@ -121,7 +161,22 @@ export default {
     async getConfiguration() {
       ({ data: { data: this.configuration } = {} } = this.id
         ? await this.getDashboard(this.id)
-        : { data: {} });
+        : { data: { data: {} } });
+
+      if (this.indicator) {
+        // autoloads the indicator provided via props
+        this.setConfiguration("widgets_configuration", [
+          ...(this.configuration?.attributes?.widgets_configuration || []),
+          {
+            ...this.cards["INDICATOR"],
+            indicator: `${this.indicator}---${this.indicatorContext}`,
+            i: `INDICATOR-${seed()}`,
+            x: 0,
+            y: 0
+          }
+        ]);
+      }
+
       this.dirty = false;
     },
     dragoverPosition({ clientX, clientY }) {
@@ -145,9 +200,7 @@ export default {
         const match = this.cards[key];
         if (match) {
           this.item = {
-            i: `${key}-${Math.random()
-              .toString(36)
-              .substring(7)}`,
+            i: `${key}-${seed()}`,
             ...match
           };
         }
@@ -210,38 +263,54 @@ export default {
     },
     subset(x) {
       // purge those unwanted props
-      return Object.keys(x).reduce((acc, key) => { if (RequiredFields.includes(key)) acc[key] = x[key]; return acc }, {})
+      return Object.keys(x).reduce((acc, key) => {
+        if (RequiredFields.includes(key)) acc[key] = x[key];
+        return acc;
+      }, {});
     },
     handleSave() {
-      const widgetsConfigurationReduced = this.configuration?.attributes?.widgets_configuration.map(this.subset)
-      const configuration = {
-        ...this.configuration,
-        attributes: {
-          ...this.configuration?.attributes,
-          widgets_configuration: widgetsConfigurationReduced
-        }
+      if (!this.configuration?.attributes?.context) {
+        this.setConfiguration("context", this.context);
       }
 
+      if (!this.configuration?.attributes?.title) {
+        this.setConfiguration("title", this.title);
+      }
+
+      this.setConfiguration(
+        "widgets_configuration",
+        this.configuration?.attributes?.widgets_configuration?.map(this.subset)
+      );
+
       this.id
-        ? this.putDashboard(this.id, configuration)
-        : this.postDashboard(configuration);
+        ? this.putDashboard(this.id, this.configuration)
+        : this.postDashboard(this.configuration);
 
       this.dirty = false;
     },
     async handleDelete() {
+      if (!confirm(this.deleteDialogLabel)) {
+        return;
+      }
+
       if (this.id) {
         const { status } = await this.deleteDashboard(this.id);
 
         // if properly deleted, close the current popup, if exists
         if (status === 204 && window.$ && window.$.magnificPopup) {
-          $.magnificPopup.close()
+          $.magnificPopup.close();
         }
       }
     },
     handleView() {
       if (this.previewPath) {
         // open new location
-        window.open(this.previewPath, '_blank');
+        window.open(this.previewPath, "_blank");
+      }
+    },
+    handleClose() {
+      if (window.$ && window.$.magnificPopup) {
+        $.magnificPopup.proto.close.call(this);
       }
     }
   }

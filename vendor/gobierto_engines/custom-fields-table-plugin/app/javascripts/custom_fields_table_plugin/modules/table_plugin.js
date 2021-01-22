@@ -114,6 +114,31 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
       });
 
       _grid.registerPlugin(checkboxSelector);
+
+      const gridHTML = document.getElementById(id)
+      const addDashboardBtn = gridHTML.querySelector("[add-dashboard-btn]")
+      if (addDashboardBtn) {
+        _grid.onMouseEnter.subscribe((e, { grid }) => {
+          const container = grid.getContainerNode()
+
+          const data = grid.getDataItem(grid.getCellFromEvent(e).row);
+          if (data) {
+            const { top: rowTop } = e.target.parentElement.getBoundingClientRect()
+            const { top: containerTop } = container.getBoundingClientRect()
+
+            container.parentElement.style.position = "relative"
+            addDashboardBtn.style.top = `${rowTop - containerTop}px`
+            addDashboardBtn.classList.add("is-active")
+
+            const url = new URL(addDashboardBtn.href)
+            url.search = new URLSearchParams({ ...data, indicator_context: addDashboardBtn.dataset?.indicatorContext }).toString()
+            addDashboardBtn.href = url
+          }
+        })
+
+        // it cannot be done from _grid.onMouseLeave because the btn is outside of the grid
+        gridHTML.addEventListener("mouseleave", () => addDashboardBtn.classList.remove("is-active"))
+      }
     }
 
     let customSlickGridOptions = { itemsCountId: `${id}_items` }

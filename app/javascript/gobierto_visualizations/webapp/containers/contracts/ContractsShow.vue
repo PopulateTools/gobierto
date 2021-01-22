@@ -62,7 +62,7 @@
         <div class="pure-u-1 pure-u-lg-1-2">
           <ContractsShowLabelGroup
             :label="labelAwarding"
-            :value="parseDate(award_date)"
+            :value="award_date | fmtdate"
           />
           <ContractsShowLabelGroup
             :label="labelContractAmount"
@@ -93,7 +93,7 @@
 
 <script>
 
-import { VueFiltersMixin } from "lib/vue/filters"
+import { VueFiltersMixin, date as fmdDate } from "lib/vue/filters"
 import { EventBus } from "../../mixins/event_bus";
 import ContractsShowLabelHeader from "./../../components/ContractsShowLabelHeader.vue";
 import ContractsShowLabelGroup from "./../../components/ContractsShowLabelGroup.vue";
@@ -110,7 +110,7 @@ export default {
   },
   filters: {
     fmtdate(value) {
-      return value ? this.$options.filters.date(value, { year: 'numeric', month: 'short', day: 'numeric' }) : null
+      return value ? fmdDate(value, { year: 'numeric', month: 'short', day: 'numeric' }) : null
     }
   },
   mixins: [VueFiltersMixin],
@@ -164,9 +164,6 @@ export default {
     showArrowDate() {
       return this.submission_date && this.open_proposals_date
     }
-  },
-  beforeCreate() {
-   this.$options.filters.fmtdate = this.$options.filters.fmtdate.bind(this)
   },
   created() {
     const itemId = this.$route.params.id;
@@ -230,14 +227,6 @@ export default {
   methods: {
     groupBatches() {
       this.filterContractsBatches = this.contractsData.filter(({ title }) => title === this.title).sort((a, b) => a.batch_number - b.batch_number);
-    },
-    parseDate(value) {
-      if (!value) return
-      const convertDate = new Date(value)
-      const lang = I18n.locale || 'es';
-      const options = { year: 'numeric', month: 'short', day: 'numeric' };
-
-      return convertDate.toLocaleDateString(lang, options)
     }
   }
 }

@@ -33,7 +33,7 @@
         >
           <router-link
             :key="index"
-            :to="{ name: routingMember, params: {id: item.id } }"
+            :to="{ name: routingMember, params: {id: item[routingId] } }"
             tag="tr"
             class="gobierto-table__tr"
           >
@@ -139,6 +139,10 @@ export default {
       default: () => []
     },
     routingMember: {
+      type: String,
+      default: ''
+    },
+    routingId: {
       type: String,
       default: ''
     }

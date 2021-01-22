@@ -13,9 +13,9 @@ export const tendersColumns = [
 ];
 
 export const assigneesColumns = [
-  { field: 'name', translation: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), format: null, cssClass: '' },
-  { field: 'count', translation: I18n.t('gobierto_visualizations.visualizations.contracts.contracts'), format: null, cssClass: 'right' },
-  { field: 'sum', translation: I18n.t('gobierto_visualizations.visualizations.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'right' },
+  { field: 'name', name: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), format: null, cssClass: 'bold' },
+  { field: 'count', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts'), format: null, cssClass: 'right' },
+  { field: 'sum', name: I18n.t('gobierto_visualizations.visualizations.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'right', type: 'money' },
 ];
 
 export const assigneesShowColumns = [

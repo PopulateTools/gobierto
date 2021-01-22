@@ -6,6 +6,7 @@
       :columns="contractsColumns"
       :show-columns="showColumns"
       :routing-member="'contracts_show'"
+      :routing-id="'id'"
       @update-show-columns="updateShowColumns"
     >
       <template

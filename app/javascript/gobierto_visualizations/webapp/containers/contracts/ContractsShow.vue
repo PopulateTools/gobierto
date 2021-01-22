@@ -43,12 +43,12 @@
         >
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
             <span class="visualizations-contracts-show__text__header">{{ labelTender }}</span>
-            <span class="visualizations-contracts-show__text">{{ open_proposals_date | fmtdate }}</span>
+            <span class="visualizations-contracts-show__text">{{ open_proposals_date | formatDate }}</span>
             <i
               v-show="showArrowDate"
               class="fas fa-arrow-right"
             />
-            <span class="visualizations-contracts-show__text">{{ submission_date | fmtdate }}</span>
+            <span class="visualizations-contracts-show__text">{{ submission_date | formatDate }}</span>
           </div>
           <ContractsShowLabelGroup
             :label="labelBidDescription"
@@ -62,7 +62,7 @@
         <div class="pure-u-1 pure-u-lg-1-2">
           <ContractsShowLabelGroup
             :label="labelAwarding"
-            :value="award_date | fmtdate"
+            :value="award_date | formatDate"
           />
           <ContractsShowLabelGroup
             :label="labelContractAmount"
@@ -93,7 +93,7 @@
 
 <script>
 
-import { VueFiltersMixin, date as fmdDate } from "lib/vue/filters"
+import { VueFiltersMixin, date } from "lib/vue/filters"
 import { EventBus } from "../../mixins/event_bus";
 import ContractsShowLabelHeader from "./../../components/ContractsShowLabelHeader.vue";
 import ContractsShowLabelGroup from "./../../components/ContractsShowLabelGroup.vue";
@@ -109,8 +109,8 @@ export default {
     ContractsShowTableFooter
   },
   filters: {
-    fmtdate(value) {
-      return value ? fmdDate(value, { year: 'numeric', month: 'short', day: 'numeric' }) : null
+    formatDate(value) {
+      return date(value, { year: 'numeric', month: 'short', day: 'numeric' })
     }
   },
   mixins: [VueFiltersMixin],

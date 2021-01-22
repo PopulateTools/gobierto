@@ -18,6 +18,24 @@
         :columns="columns"
         :routing-member="'contracts_show'"
       />
+      <TableComponent
+        :data="items"
+        :order-column="'final_amount_no_taxes'"
+        :columns="contractsColumns"
+        :show-columns="showColumns"
+        :routing-member="'contracts_show'"
+        @update-show-columns="updateShowColumns"
+      >
+        <template
+          #columns="{ toggleVisibility }"
+        >
+          <TableColumnsSelector
+            :columns="contractsColumns"
+            :show-columns="showColumns"
+            @toggle-visibility="toggleVisibility"
+          />
+        </template>
+      </TableComponent>
     </div>
   </div>
 </template>
@@ -27,13 +45,16 @@
 import { VueFiltersMixin } from "lib/vue/filters"
 
 import Table from "../../components/Table.vue";
+import { Table as TableComponent, TableColumnsSelector } from "lib/vue-components";
 import { EventBus } from "../../mixins/event_bus";
 import { assigneesShowColumns } from "../../lib/config/contracts.js";
 
 export default {
   name: 'AssigneesShow',
   components: {
-    Table
+    Table,
+    TableColumnsSelector,
+    TableComponent
   },
   mixins: [VueFiltersMixin],
   data() {

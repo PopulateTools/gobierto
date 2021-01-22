@@ -36,11 +36,9 @@ export default {
     return {
       contractsData: this.$root.$data.contractsData,
       contractsColumns: contractsColumns,
-      tableData: [],
       items: [],
       showColumns: [],
-      columns: [],
-      allColumns: []
+      columns: []
     }
   },
   watch: {

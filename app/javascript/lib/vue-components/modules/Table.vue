@@ -183,12 +183,11 @@ export default {
   methods: {
     handleTableHeaderClick(id) {
       const { sort } = this.map.get(id);
-      this.currentSortColumn = sort !== "down" ? id : this.$options.defaults.sortColumn;
-      // toggle sort order: up -> down -> undefined
-      let sortDirection = typeof sort === "undefined" ? "up" : sort === "up" ? "down" : undefined;
-      this.currentSort = sortDirection ? sortDirection : this.$options.defaults.sortDirection
+      this.currentSortColumn = id;
+      // toggle sort order
+      this.currentSort = sort === "up" ? "down" : "up";
       // update the order for the item clicked
-      this.map.set(id, { ...this.map.get(id), sort: sortDirection });
+      this.map.set(id, { ...this.map.get(id), sort: this.currentSort });
     },
     getSorting(column) {
       // ignore the first item of the tuple

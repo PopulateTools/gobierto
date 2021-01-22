@@ -4,6 +4,7 @@ madrid_group_tony:
   created_at: 2017-01-01
   updated_at: 2017-01-01
 
+
 santander_group_tony:
   admin_group_id: <%= ActiveRecord::FixtureSet.identify(:santander_group) %>
   admin_id: <%= ActiveRecord::FixtureSet.identify(:tony) %>

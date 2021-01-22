@@ -36,7 +36,13 @@ module User::ApiAuthenticationHelper
   end
 
   def internal_site_request?
-    @internal_site_request ||= request.host == current_site.domain || Site.where(domain: request.host).exists?
+    @internal_site_request ||= begin
+                                 if request.referrer.present? && (referrer_host = URI.parse(request.referrer)&.host)
+                                   referrer_host == current_site.domain || Site.where(domain: referrer_host).exists?
+                                 else
+                                   false
+                                 end
+                               end
   end
 
   def find_current_user

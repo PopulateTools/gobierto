@@ -1,0 +1,6 @@
+---
+es:
+  activemodel:
+    attributes:
+      gobierto_dashboards/dashboard_form:
+        title: Título

@@ -1,22 +1,28 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/api/api_protection_test"
 
 module GobiertoData
   module Api
     module V1
       class DatasetsControllerTest < GobiertoControllerTest
+        include ::Api::ApiProtectionTest
+
+        def setup
+          super
+
+          setup_api_protection_test(
+            path: gobierto_data_api_v1_datasets_path,
+            site: site,
+            admin: admin,
+            token_with_domain: gobierto_admin_api_tokens(:tony_domain),
+            token_with_other_domain: gobierto_admin_api_tokens(:tony_other_domain)
+          )
+        end
 
         def site
           @site ||= sites(:madrid)
-        end
-
-        def admin_auth_header
-          @admin_auth_header ||= "Bearer #{admin.primary_api_token}"
-        end
-
-        def basic_auth_header
-          @basic_auth_header ||= "Basic #{Base64.encode64("username:password")}"
         end
 
         def admin
@@ -44,6 +50,10 @@ module GobiertoData
           @other_dataset ||= gobierto_data_datasets(:events_dataset)
         end
         alias small_dataset other_dataset
+
+        def no_size_dataset
+          @no_size_dataset ||= gobierto_data_datasets(:no_size_dataset)
+        end
 
         def datasets_category
           @datasets_category ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_category)
@@ -104,95 +114,6 @@ module GobiertoData
         end
 
         # GET /api/v1/data/datasets.json
-        def test_index_with_password_protected_site
-          site.draft!
-          site.configuration.password_protection_username = "username"
-          site.configuration.password_protection_password = "password"
-
-          %w(staging production).each do |environment|
-            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
-              with(site: site) do
-                get gobierto_data_api_v1_datasets_path, as: :json
-                assert_response :unauthorized
-
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
-                assert_response :unauthorized
-
-                admin.regular!
-                admin.admin_sites.create(site: site)
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => admin_auth_header }
-                assert_response :success
-
-                admin.admin_sites.destroy_all
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => admin_auth_header }
-                assert_response :unauthorized
-
-                admin.manager!
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => admin_auth_header }
-                assert_response :success
-              end
-            end
-          end
-        end
-
-        def test_index_with_internal_site_request
-          site.draft!
-          site.configuration.password_protection_username = "username"
-          site.configuration.password_protection_password = "password"
-
-          %w(staging production).each do |environment|
-            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
-              with(site: site) do
-                self.host = "santander.gobierto.test"
-                get gobierto_data_api_v1_datasets_path, as: :json
-                assert_response :success
-
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
-                assert_response :success
-
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
-                assert_response :success
-
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
-                assert_response :success
-              end
-            end
-          end
-        end
-
-        def test_index_with_domain_token
-          site.draft!
-          site.configuration.password_protection_username = "username"
-          site.configuration.password_protection_password = "password"
-
-          %w(staging production).each do |environment|
-            Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
-              with(site: site) do
-                get gobierto_data_api_v1_datasets_path, as: :json
-                assert_response :unauthorized
-
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => basic_auth_header }
-                assert_response :unauthorized
-
-                self.host = token_with_domain.domain
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
-                assert_response :success
-
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
-                assert_response :unauthorized
-
-                self.host = token_with_other_domain.domain
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
-                assert_response :unauthorized
-
-                get gobierto_data_api_v1_datasets_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
-                assert_response :success
-              end
-            end
-          end
-        end
-
-        # GET /api/v1/data/datasets.json
         def test_index_as_json
           with(site: site) do
             get gobierto_data_api_v1_datasets_path, as: :json
@@ -225,14 +146,14 @@ module GobiertoData
             get gobierto_data_api_v1_datasets_path, as: :json
             response_data = response.parsed_body
             datasets_names = response_data["data"].map { |item| item.dig("attributes", "name") }
-            assert_equal [dataset.name, other_dataset.name], datasets_names
+            assert_equal [no_size_dataset.name, dataset.name, other_dataset.name], datasets_names
 
             other_dataset.update_attribute(:data_updated_at, 1.second.ago)
 
             get gobierto_data_api_v1_datasets_path, as: :json
             response_data = response.parsed_body
             datasets_names = response_data["data"].map { |item| item.dig("attributes", "name") }
-            assert_equal [other_dataset.name, dataset.name], datasets_names
+            assert_equal [no_size_dataset.name, other_dataset.name, dataset.name], datasets_names
           end
         end
 
@@ -353,8 +274,11 @@ module GobiertoData
             big_dataset_response_data = response.parsed_body
             get meta_gobierto_data_api_v1_dataset_path(small_dataset.slug), as: :json
             small_dataset_response_data = response.parsed_body
+            get meta_gobierto_data_api_v1_dataset_path(no_size_dataset.slug), as: :json
+            no_size_dataset_response_data = response.parsed_body
 
             assert_equal 50, big_dataset_response_data["data"]["attributes"]["default_limit"]
+            assert_equal 50, no_size_dataset_response_data["data"]["attributes"]["default_limit"]
             assert_nil small_dataset_response_data["data"]["attributes"]["default_limit"]
 
             assert_equal 15, big_dataset_response_data["data"]["attributes"]["size"]["csv"]

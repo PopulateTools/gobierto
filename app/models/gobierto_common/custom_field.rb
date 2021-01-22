@@ -8,7 +8,7 @@ module GobiertoCommon
     belongs_to :instance, polymorphic: true, optional: true
     has_many :records, dependent: :destroy, class_name: "CustomFieldRecord"
     validates :name, presence: true
-    validates :uid, uniqueness: { scope: [:site_id, :class_name] }
+    validates :uid, uniqueness: { scope: [:site_id, :class_name, :instance] }
 
     enum field_type: { localized_string: 0,
                        string: 1,

@@ -18,6 +18,14 @@ madrid_moderate_plans_group:
   name: madrid moderate plans group
   site: madrid
 
+madrid_manage_plans_dashboards_group:
+  name: madrid manage plans dashboards group
+  site: madrid
+
+madrid_view_plans_dashboards_group:
+  name: madrid view plans dashboards group
+  site: madrid
+
 political_agendas_permissions_group:
   name: <%= "resource_group_GobiertoPlans::Node_#{ActiveRecord::FixtureSet.identify(:political_agendas)}"  %>
   site: madrid

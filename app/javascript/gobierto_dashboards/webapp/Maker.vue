@@ -4,7 +4,6 @@
       :is-dirty="dirty"
       :config="configuration"
       @save="handleSave"
-      @edit="handleEdit"
       @delete="handleDelete"
       @view="handleView"
     >
@@ -26,6 +25,7 @@
           <input
             id="dashboard-status"
             type="checkbox"
+            :checked="status"
             @input="handleInputStatus"
           >
           {{ publicLabel }}
@@ -65,7 +65,7 @@ import HeaderForm from "./components/HeaderForm";
 import Aside from "./layouts/Aside";
 import Main from "./layouts/Main";
 import SmallCard from "./components/SmallCard";
-import { Widgets } from "./lib/widgets";
+import { Widgets, RequiredFields } from "./lib/widgets";
 import { FactoryMixin } from "./lib/factories";
 import { TextEditable } from "lib/vue-components";
 
@@ -94,6 +94,9 @@ export default {
     id() {
       return this.$root.$data?.id;
     },
+    previewPath() {
+      return this.$root.$data?.previewPath;
+    },
     title() {
       return (
         this.configuration?.attributes?.title ||
@@ -116,7 +119,7 @@ export default {
   },
   methods: {
     async getConfiguration() {
-      ({ data: this.configuration } = this.id
+      ({ data: { data: this.configuration } = {} } = this.id
         ? await this.getDashboard(this.id)
         : { data: {} });
       this.dirty = false;
@@ -152,17 +155,20 @@ export default {
         // If there is item while dragging, you've to update the current positions
         const { i, ix, x: oldX, y: oldY } = this.item;
 
-        // https://jbaysolutions.github.io/vue-grid-layout/guide/10-drag-from-outside.html
-        // this block has been copied and adapted from the library example (quite a botch)
-        const el = this.$refs.viewer.$refs.widget[ix].$refs.item;
-        const { top, left } = this.$refs.viewer.$el.getBoundingClientRect();
-        el.dragging = { top: this.y - top, left: this.x - left };
-        const { x, y } = el.calcXY(this.y - top, this.x - left);
-        this.$refs.viewer.$refs.grid.dragEvent("dragstart", i, x, y, 1, 1);
+        // drag events triggers even before this.item has been updated
+        if (Number.isInteger(ix)) {
+          // https://jbaysolutions.github.io/vue-grid-layout/guide/10-drag-from-outside.html
+          // this block has been copied and adapted from the library example (quite a botch)
+          const el = this.$refs.viewer.$refs.widget[ix].$refs.item;
+          const { top, left } = this.$refs.viewer.$el.getBoundingClientRect();
+          el.dragging = { top: this.y - top, left: this.x - left };
+          const { x, y } = el.calcXY(this.y - top, this.x - left);
+          this.$refs.viewer.$refs.grid.dragEvent("dragstart", i, x, y, 1, 1);
 
-        // finally, update the item after its calculations, if changes
-        if (x !== oldX || y !== oldY) {
-          this.item = { ...this.item, x, y };
+          // finally, update the item after its calculations, if changes
+          if (x !== oldX || y !== oldY) {
+            this.item = { ...this.item, x, y };
+          }
         }
       }
     },
@@ -190,35 +196,53 @@ export default {
     },
     handleViewerUpdated(widgets) {
       if (this.viewerLoaded) {
-        this.setConfiguration("widget_configuration", widgets);
+        this.setConfiguration("widgets_configuration", widgets);
 
         // when dragging an external element to the canvas, this.item will exists
         if (this.item) {
           const ix = widgets.findIndex(d => d.i === this.item.i);
           this.item = { ...this.item, ...widgets[ix], ix };
         }
-        // DEBUG
-        this.widgets = widgets;
       }
     },
     handleViewerReady() {
       this.viewerLoaded = true;
     },
-    handleSave() {
-      this.id
-        ? this.putDashboard(this.id, this.configuration)
-        : this.postDashboard(this.configuration);
+    subset(x) {
+      // purge those unwanted props
+      return Object.keys(x).reduce((acc, key) => { if (RequiredFields.includes(key)) acc[key] = x[key]; return acc }, {})
     },
-    handleDelete() {
+    handleSave() {
+      const widgetsConfigurationReduced = this.configuration?.attributes?.widgets_configuration.map(this.subset)
+      const configuration = {
+        ...this.configuration,
+        attributes: {
+          ...this.configuration?.attributes,
+          widgets_configuration: widgetsConfigurationReduced
+        }
+      }
+
+      this.id
+        ? this.putDashboard(this.id, configuration)
+        : this.postDashboard(configuration);
+
+      this.dirty = false;
+    },
+    async handleDelete() {
       if (this.id) {
-        this.deleteDashboard(this.id);
+        const { status } = await this.deleteDashboard(this.id);
+
+        // if properly deleted, close the current popup, if exists
+        if (status === 204 && window.$ && window.$.magnificPopup) {
+          $.magnificPopup.close()
+        }
       }
     },
     handleView() {
-      // open new location
-    },
-    handleEdit() {
-      // edit this.configuration attrs
+      if (this.previewPath) {
+        // open new location
+        window.open(this.previewPath, '_blank');
+      }
     }
   }
 };

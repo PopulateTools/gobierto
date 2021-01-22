@@ -19,7 +19,9 @@ en:
         action_names:
           edit: Edit
           manage: Manage
+          manage_dashboards: Manage dashboards
           moderate: Moderate
+          view_dashboards: View dashboards
         actions: Actions
         all: All
         members:

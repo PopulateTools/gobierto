@@ -6,6 +6,9 @@
     :show-columns="showColumns"
     :routing-member="'subsidies_show'"
     :routing-id="'id'"
+    :pagination-id="'main'"
+    :items-per-page="25"
+    class="gobierto-table-margin-top"
     @update-show-columns="updateShowColumns"
   >
     <template

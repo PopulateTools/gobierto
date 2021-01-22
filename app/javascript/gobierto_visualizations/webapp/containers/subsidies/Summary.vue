@@ -159,6 +159,9 @@
         :order-column="'name'"
         :columns="grantedColumns"
         :show-columns="showColumns"
+        :pagination-id="'.gobierto-table'"
+        :items-per-page="15"
+        class="gobierto-table-margin-top"
         @update-show-columns="updateShowColumns"
       >
         <template

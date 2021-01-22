@@ -145,6 +145,14 @@ export default {
     routingId: {
       type: String,
       default: ''
+    },
+    paginationId: {
+      type: String,
+      default: ''
+    },
+    itemsPerPage: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -155,7 +163,7 @@ export default {
       visibleColumns: this.showColumns,
       filterColumns: [],
       dataTable: [],
-      containerPagination: '.visualizations-home-main'
+      containerPagination: this.paginationId
     };
   },
   computed: {

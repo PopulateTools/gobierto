@@ -7,6 +7,9 @@
       :show-columns="showColumns"
       :routing-member="'contracts_show'"
       :routing-id="'id'"
+      :pagination-id="'.visualizations-home-main'"
+      :items-per-page="25"
+      class="gobierto-table-margin-top"
       @update-show-columns="updateShowColumns"
     >
       <template

@@ -151,6 +151,9 @@
         :show-columns="showColumns"
         :routing-member="'assignees_show'"
         :routing-id="'assignee_routing_id'"
+        :pagination-id="'.gobierto-table'"
+        :items-per-page="15"
+        class="gobierto-table-margin-top"
         @update-show-columns="updateShowColumns"
       >
         <template

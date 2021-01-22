@@ -3,7 +3,10 @@
   margin: 0;
   padding: 0;
   list-style-type: none;
-  margin-top: -3.5rem;
+
+  &-margin-top {
+    margin-top: -3.5rem;
+  }
 
   &__tr {
     cursor: pointer;
@@ -37,7 +40,7 @@
 
   &__td {
     border-top: 0;
-    padding: 1rem .75rem 1rem 0;
+    padding: .75rem .75rem .75rem .25rem;
     font-size: $f6;
     &.bold {
       font-weight: bold;

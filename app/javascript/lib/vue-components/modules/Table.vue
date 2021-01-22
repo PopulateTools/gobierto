@@ -28,62 +28,68 @@
         </template>
       </thead>
       <tbody>
-        <tr
+        <template
           v-for="(item, index) in dataTable"
-          :key="index"
         >
-          <template
-            v-for="{key, field, type, cssClass} in filterColumns"
+          <router-link
+            :key="index"
+            :to="{ name: routingMember, params: {id: item.id } }"
+            tag="tr"
+            class="gobierto-table__tr"
           >
-            <template v-if="type === 'money'">
-              <td
-                :key="key"
-                :class="cssClass"
-                class="gobierto-table__td"
-              >
-                {{ money(item[field]) }}
-              </td>
-            </template>
-            <template v-else-if="type === 'date'">
-              <td
-                :key="key"
-                :class="cssClass"
-                class="gobierto-table__td"
-              >
-                {{ item[field] }}
-              </td>
-            </template>
-            <template v-else-if="type === 'link'">
-              <td
-                :key="key"
-                :class="cssClass"
-                class="gobierto-table__td"
-              >
-                <a href="#">{{ item[field] }}</a>
-              </td>
-            </template>
-            <template v-else-if="type === 'truncate'">
-              <td
-                :key="key"
-                :class="cssClass"
-                class="gobierto-table__td"
-              >
-                <span :class="cssClass">
+            <template
+              v-for="{key, field, type, cssClass} in filterColumns"
+            >
+              <template v-if="type === 'money'">
+                <td
+                  :key="key"
+                  :class="cssClass"
+                  class="gobierto-table__td"
+                >
+                  {{ money(item[field]) }}
+                </td>
+              </template>
+              <template v-else-if="type === 'date'">
+                <td
+                  :key="key"
+                  :class="cssClass"
+                  class="gobierto-table__td"
+                >
                   {{ item[field] }}
-                </span>
-              </td>
+                </td>
+              </template>
+              <template v-else-if="type === 'link'">
+                <td
+                  :key="key"
+                  :class="cssClass"
+                  class="gobierto-table__td"
+                >
+                  <a href="#">{{ item[field] }}</a>
+                </td>
+              </template>
+              <template v-else-if="type === 'truncate'">
+                <td
+                  :key="key"
+                  :class="cssClass"
+                  class="gobierto-table__td"
+                >
+                  <span :class="cssClass">
+                    {{ item[field] }}
+                  </span>
+                </td>
+              </template>
+              <template v-else>
+                <td
+                  :key="key"
+                  :class="cssClass"
+                  class="gobierto-table__td"
+                >
+                  {{ item[field] }}
+                </td>
+              </template>
             </template>
-            <template v-else>
-              <td
-                :key="key"
-                :class="cssClass"
-                class="gobierto-table__td"
-              >
-                {{ item[field] }}
-              </td>
-            </template>
-          </template>
-        </tr>
+          </router-link>
+        </template>
       </tbody>
     </table>
     <Pagination
@@ -126,6 +132,10 @@ export default {
     showColumns: {
       type: Array,
       default: () => []
+    },
+    routingMember: {
+      type: String,
+      default: ''
     }
   },
   data() {

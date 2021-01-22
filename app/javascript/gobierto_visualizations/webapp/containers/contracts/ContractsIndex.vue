@@ -5,6 +5,7 @@
       :order-column="'final_amount_no_taxes'"
       :columns="contractsColumns"
       :show-columns="showColumns"
+      :routing-member="'contracts_show'"
       @update-show-columns="updateShowColumns"
     >
       <template

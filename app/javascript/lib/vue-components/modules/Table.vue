@@ -99,7 +99,7 @@
     </table>
     <Pagination
       :data="rowsSorted"
-      :items-per-page="25"
+      :items-per-page="itemsPerPage"
       :container-pagination="containerPagination"
       @showData="updateData"
     />

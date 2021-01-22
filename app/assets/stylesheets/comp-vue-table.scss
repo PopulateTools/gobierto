@@ -3,6 +3,13 @@
   margin: 0;
   padding: 0;
 
+  &.gobierto-table-scroll {
+    table {
+      display: block;
+      overflow-x: scroll;
+    }
+  }
+
   &-margin-top {
     margin-top: -3.5rem;
   }

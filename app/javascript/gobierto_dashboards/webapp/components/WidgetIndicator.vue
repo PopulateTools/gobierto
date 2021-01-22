@@ -38,6 +38,7 @@
               name="subtype"
               class="dashboards-maker--widget__form-radio"
               :value="key"
+              :checked="isChecked(key)"
               required
             >
             <span>{{ name() }}</span>
@@ -115,6 +116,10 @@ export default {
     }
   },
   methods: {
+    isChecked(key) {
+      // check the current subtype, if none, default to the first subtype
+      return this.subtype ? key === this.subtype : key === Object.keys(this.subtypes)[0]
+    },
     handleChange(value) {
       ({ id: this.id , project: this.project } = this.widgetsData.find(({ name }) => name === value)) || {}
     },

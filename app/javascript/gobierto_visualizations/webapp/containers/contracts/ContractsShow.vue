@@ -110,7 +110,7 @@ export default {
   },
   filters: {
     fmtdate(value) {
-      return this.$options.filters.date(value, { year: 'numeric', month: 'short', day: 'numeric' })
+      return value ? this.$options.filters.date(value, { year: 'numeric', month: 'short', day: 'numeric' }) : null
     }
   },
   mixins: [VueFiltersMixin],

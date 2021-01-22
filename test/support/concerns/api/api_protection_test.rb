@@ -52,17 +52,24 @@ module Api
       %w(staging production).each do |environment|
         Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
           with(site: @api_protection_test_site) do
-            self.host = "santander.gobierto.test"
-            get @api_protection_test_path, as: :json
+            # Nil referrer and no authorization provides unauthorized
+            get @api_protection_test_path, as: :json, headers: { "HTTP_REFERER" => "" }
+            assert_response :unauthorized
+
+            # Nil referrer authorized should success
+            get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_domain}", "HTTP_REFERER" => "" }
             assert_response :success
 
-            get @api_protection_test_path, as: :json, headers: { "Authorization" => @api_protection_test_basic_auth_header }
+            get @api_protection_test_path, as: :json, headers: { "HTTP_REFERER" => "http://#{@api_protection_test_site.domain}/wadus.html" }
             assert_response :success
 
-            get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_domain}" }
+            get @api_protection_test_path, as: :json, headers: { "Authorization" => @api_protection_test_basic_auth_header, "HTTP_REFERER" => "http://#{@api_protection_test_site.domain}/wadus.html" }
             assert_response :success
 
-            get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_other_domain}" }
+            get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_domain}", "HTTP_REFERER" => "http://#{@api_protection_test_site.domain}/wadus.html" }
+            assert_response :success
+
+            get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_other_domain}", "HTTP_REFERER" => "http://#{@api_protection_test_site.domain}/wadus.html" }
             assert_response :success
           end
         end

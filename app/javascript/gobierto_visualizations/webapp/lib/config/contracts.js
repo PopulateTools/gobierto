@@ -1,7 +1,7 @@
 // table columns
 export const contractsColumns = [
   { field: 'assignee', name: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), format: null, cssClass: 'bold' },
-  { field: 'title', name: I18n.t('gobierto_visualizations.visualizations.contracts.contractor'), format: 'truncate', cssClass: 'largest-width-td' },
+  { field: 'title', name: I18n.t('gobierto_visualizations.visualizations.contracts.contractor'), format: 'truncate', cssClass: 'largest-width-td ellipsis' },
   { field: 'final_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'right nowrap pr1', type: 'money' },
   { field: 'award_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.date'), format: null, cssClass: 'nowrap pl1 right' }
 ];

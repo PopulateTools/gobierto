@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import * as I18n from 'i18n-js'
 
 export default {
   name: "Pagination",

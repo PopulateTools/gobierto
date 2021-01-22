@@ -29,11 +29,11 @@
       </thead>
       <tbody>
         <tr
-          v-for="(item, index) in rowsSorted"
+          v-for="(item, index) in dataTable"
           :key="index"
         >
           <template
-            v-for="{key, field, type, cssClass, format} in filterColumns"
+            v-for="{key, field, type, cssClass} in filterColumns"
           >
             <template v-if="type === 'money'">
               <td
@@ -62,13 +62,15 @@
                 <a href="#">{{ item[field] }}</a>
               </td>
             </template>
-            <template v-else-if="format === 'truncate'">
+            <template v-else-if="type === 'truncate'">
               <td
                 :key="key"
                 :class="cssClass"
                 class="gobierto-table__td"
               >
-                {{ truncate(item[field]) }}
+                <span :class="cssClass">
+                  {{ item[field] }}
+                </span>
               </td>
             </template>
             <template v-else>
@@ -84,16 +86,24 @@
         </tr>
       </tbody>
     </table>
+    <Pagination
+      :data="rowsSorted"
+      :items-per-page="25"
+      :container-pagination="containerPagination"
+      @showData="updateData"
+    />
   </div>
 </template>
 <script>
 
+import Pagination from "./Pagination.vue";
 import { VueFiltersMixin } from "./../../../lib/vue/filters"
 import SortIcon from "./SortIcon.vue"
 export default {
   name: 'Table',
   components: {
-    SortIcon
+    SortIcon,
+    Pagination
   },
   mixins: [VueFiltersMixin],
   defaults: {
@@ -124,7 +134,9 @@ export default {
       currentSortColumn: this.$options.defaults.sortColumn,
       currentSort: this.$options.defaults.sortDirection,
       visibleColumns: this.showColumns,
-      filterColumns: []
+      filterColumns: [],
+      dataTable: [],
+      containerPagination: '.visualizations-home-main'
     };
   },
   computed: {
@@ -170,7 +182,6 @@ export default {
     },
     prepareTable() {
       this.filterColumns = this.columns.filter(({ field }) => this.visibleColumns.includes(field))
-      console.log("this.filterColumns", this.filterColumns);
       this.map.clear();
       for (let index = 0; index < this.filterColumns.length; index++) {
         const column = this.filterColumns[index];
@@ -194,6 +205,9 @@ export default {
       }
       this.prepareTable()
       this.$emit('update-show-columns', this.visibleColumns)
+    },
+    updateData(values) {
+      this.dataTable = values
     },
   }
 }

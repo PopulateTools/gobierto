@@ -1,7 +1,7 @@
 <template>
   <div>
     <Table
-      :data="displayedData"
+      :data="items"
       :order-column="'final_amount_no_taxes'"
       :columns="contractsColumns"
       :show-columns="showColumns"
@@ -17,17 +17,11 @@
         />
       </template>
     </Table>
-    <Pagination
-      :data="items"
-      :items-per-page="25"
-      :container-pagination="containerPagination"
-      @showData="updateData"
-    />
   </div>
 </template>
 
 <script>
-import { Table, TableColumnsSelector, Pagination } from "lib/vue-components";
+import { Table, TableColumnsSelector } from "lib/vue-components";
 import { EventBus } from "../../mixins/event_bus";
 import { contractsColumns } from "../../lib/config/contracts.js";
 
@@ -35,8 +29,7 @@ export default {
   name: 'ContractsIndex',
   components: {
     Table,
-    TableColumnsSelector,
-    Pagination
+    TableColumnsSelector
   },
   data() {
     return {
@@ -46,9 +39,7 @@ export default {
       items: [],
       showColumns: [],
       columns: [],
-      allColumns: [],
-      displayedData: [],
-      containerPagination: '.visualizations-home-main'
+      allColumns: []
     }
   },
   watch: {
@@ -78,9 +69,6 @@ export default {
       this.value = value || ''
 
       this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()) || contract.title.toLowerCase().includes(this.value.toLowerCase()))
-    },
-    updateData(values) {
-      this.displayedData = values
     },
     updateShowColumns(values) {
       this.showColumns = values

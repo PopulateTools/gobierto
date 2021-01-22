@@ -16,6 +16,10 @@
       color: var(--color-base);
     }
 
+    tr:not(:last-child) {
+      border-bottom: 1px solid rgba(var(--color-base-string), 0.1);
+    }
+
     i {
       color: var(--color-base);
     }
@@ -27,6 +31,14 @@
     td.bold {
       font-weight: bold;
       white-space: normal;
+    }
+
+    .ellipsis {
+      width: 430px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
     }
   }
 

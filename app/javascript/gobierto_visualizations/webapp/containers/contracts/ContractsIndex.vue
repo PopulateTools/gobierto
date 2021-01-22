@@ -2,7 +2,7 @@
   <div>
     <Table
       :data="items"
-      :order-column="'final_amount_no_taxes'"
+      :order-column="'assignee'"
       :columns="contractsColumns"
       :show-columns="showColumns"
       :routing-member="'contracts_show'"

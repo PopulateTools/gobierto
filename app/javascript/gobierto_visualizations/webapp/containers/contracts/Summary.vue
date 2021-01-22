@@ -146,7 +146,7 @@
       </h3>
       <Table
         :data="items"
-        :order-column="'final_amount_no_taxes'"
+        :order-column="'count'"
         :columns="assigneesColumns"
         :show-columns="showColumns"
         :routing-member="'assignees_show'"

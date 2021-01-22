@@ -38,17 +38,17 @@
       />
       <div class="visualizations-contracts-show__body">
         <div
-          v-show="isNotAMinorContract"
+          v-show="!isMinorContract"
           class="pure-u-1 pure-u-lg-1-2"
         >
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
             <span class="visualizations-contracts-show__text__header">{{ labelTender }}</span>
-            <span class="visualizations-contracts-show__text">{{ parseDate(open_proposals_date) }}</span>
+            <span class="visualizations-contracts-show__text">{{ open_proposals_date | fmtdate }}</span>
             <i
               v-show="showArrowDate"
               class="fas fa-arrow-right"
             />
-            <span class="visualizations-contracts-show__text">{{ parseDate(submission_date) }}</span>
+            <span class="visualizations-contracts-show__text">{{ submission_date | fmtdate }}</span>
           </div>
           <ContractsShowLabelGroup
             :label="labelBidDescription"
@@ -108,6 +108,11 @@ export default {
     ContractsShowTable,
     ContractsShowTableFooter
   },
+  filters: {
+    fmtdate(value) {
+      return this.$options.filters.date(value, { year: 'numeric', month: 'short', day: 'numeric' })
+    }
+  },
   mixins: [VueFiltersMixin],
   data() {
     return {
@@ -153,12 +158,15 @@ export default {
     hasBatch() {
       return this.batch_number > 0
     },
-    isNotAMinorContract() {
-      return this.minor_contract === 'f'
+    isMinorContract() {
+      return this.minor_contract === 't'
     },
     showArrowDate() {
       return this.submission_date && this.open_proposals_date
     }
+  },
+  beforeCreate() {
+   this.$options.filters.fmtdate = this.$options.filters.fmtdate.bind(this)
   },
   created() {
     const itemId = this.$route.params.id;

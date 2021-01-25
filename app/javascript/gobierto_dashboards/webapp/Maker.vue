@@ -70,6 +70,7 @@ import SmallCard from "./components/SmallCard";
 import { Widgets, RequiredFields } from "./lib/widgets";
 import { FactoryMixin } from "./lib/factories";
 import { TextEditable } from "lib/vue-components";
+import { debounce } from "lib/shared";
 
 const seed = () =>
   Math.random()
@@ -158,6 +159,7 @@ export default {
     document.removeEventListener("dragover", this.dragoverPosition);
   },
   methods: {
+    debounce, // add external func to the vue-this context
     async getConfiguration() {
       ({ data: { data: this.configuration } = {} } = this.id
         ? await this.getDashboard(this.id)
@@ -183,16 +185,6 @@ export default {
       // current mouse position
       this.x = clientX;
       this.y = clientY;
-    },
-    debounce(func, timeout) {
-      let timer = undefined;
-      return (...args) => {
-        const next = () => func(...args);
-        if (timer) {
-          clearTimeout(timer);
-        }
-        timer = setTimeout(next, timeout > 0 ? timeout : 300);
-      };
     },
     drag(key) {
       if (!this.item) {

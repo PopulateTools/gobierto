@@ -24,6 +24,15 @@ module GobiertoDashboards
           )
         end
 
+        def publish_last_version_on_all_projects!
+          plan.nodes.each do |project|
+            project.touch
+            project.published_version = project.versions.count
+            project.published!
+          end
+          plan.touch
+        end
+
         def site
           @site ||= sites(:madrid)
         end
@@ -306,6 +315,7 @@ module GobiertoDashboards
 
         # GET /api/v1/dashboard_data?context=GobiertoPlans::Plan/1&data_pipe=project_metrics
         def test_dashboard_data_project_metrics_data_pipe
+          publish_last_version_on_all_projects!
           with(site: site) do
             get gobierto_dashboards_api_v1_dashboard_data_path, params: { context: "GobiertoPlans::Plan/#{plan.id}", data_pipe: "project_metrics" }
 
@@ -337,6 +347,35 @@ module GobiertoDashboards
             project_custom_field_record_single_indicator_name_values.each do |value|
               assert_includes single_indicator_name_values, value.except("indicator")
             end
+          end
+        end
+
+        def test_dashboard_data_project_metrics_data_pipe_with_versions
+          with(site: site) do
+            get gobierto_dashboards_api_v1_dashboard_data_path, params: { context: "GobiertoPlans::Plan/#{plan.id}", data_pipe: "project_metrics" }
+
+            assert_response :success
+
+            response_body = response.parsed_body
+
+            assert response_body.has_key? "data"
+            response_data = response_body["data"]
+            assert_equal [], response_data
+
+            publish_last_version_on_all_projects!
+
+            get gobierto_dashboards_api_v1_dashboard_data_path, params: { context: "GobiertoPlans::Plan/#{plan.id}", data_pipe: "project_metrics" }
+
+            assert_response :success
+
+            response_body = response.parsed_body
+
+            assert response_body.has_key? "data"
+            response_data = response_body["data"]
+            refute_equal [], response_data
+            indicator_names = response_data.map { |indicator| indicator["name"] }
+
+            assert_includes indicator_names, single_indicator_name
           end
         end
 

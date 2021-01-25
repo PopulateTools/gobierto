@@ -54,6 +54,12 @@
             :label="labelBidDescription"
             :value="initial_amount_no_taxes | money"
           />
+          <template v-if="showEstimatedValue">
+            <ContractsShowLabelGroup
+              :label="labelEstimatedValue"
+              :value="estimated_value | money"
+            />
+          </template>
           <ContractsShowLabelGroup
             :label="labelBiddersDescription"
             :value="number_of_proposals"
@@ -140,6 +146,7 @@ export default {
       number_of_proposals: '',
       cpvs: '',
       category_title: '',
+      estimated_value: '',
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
       labelAssigneeDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignee_description') || '',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount') || '',
@@ -151,6 +158,7 @@ export default {
       labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category') || '',
       labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
       labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
+      labelEstimatedValue: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.estimated_value') || '',
       filterContractsBatches: []
     }
   },
@@ -163,6 +171,9 @@ export default {
     },
     showArrowDate() {
       return this.submission_date && this.open_proposals_date
+    },
+    showEstimatedValue() {
+      return this.initial_amount_no_taxes !== this.final_amount_no_taxes
     }
   },
   created() {
@@ -194,7 +205,8 @@ export default {
         minor_contract,
         open_proposals_date,
         submission_date,
-        number_of_proposals
+        number_of_proposals,
+        estimated_value
       } = this.contract
 
       this.title = title
@@ -220,6 +232,7 @@ export default {
       this.cpvs = cpvs
       this.category_title = category_title
       this.number_of_proposals = number_of_proposals
+      this.estimated_value = estimated_value
     }
 
     if (this.hasBatch) this.groupBatches()

@@ -24,6 +24,20 @@ ca:
         contractor: Contractor
         contracts: Contractes
         contracts_assigned_to: Contractes adjudicats a
+        contracts_show:
+          assignee_description: Empresa que ha guanyat el contracte (Adjudicatari)
+          assignees_description: Empreses que han guanyat el contracte (Adjudicataris)
+          awarding: Adjudicació
+          awarding_entity: Entitat adjudicadora
+          batch: Lot
+          bid_description: Pressupost base de licitació sense impostos
+          bidders_description: Numero d'empreses que s'han presentat al procés (Licitadors)
+          contract_amount: Import d'adjudicació
+          entity: Entitat
+          process: Procés
+          question_description: Què % del pressupost suposa aquest contracte?
+          tender: Licitació
+          type: Tipus
         date: Data
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
@@ -38,8 +52,6 @@ ca:
           contracts: Contracts
           summary: Resum
           tenders: Licitacions
-        permalink: Consulteu aquest contracte a la Plataforma de Contractació del
-          Sector Públic
         process_type: Tipus de procés
         search_placeholder: Cerqueu per adjudicatari
         status: Estat

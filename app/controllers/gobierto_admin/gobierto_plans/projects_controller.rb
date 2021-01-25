@@ -28,6 +28,7 @@ module GobiertoAdmin
           ).merge(versions_defaults)
         )
         initialize_custom_field_form
+        set_dashboards_list_path
       end
 
       def update
@@ -51,6 +52,7 @@ module GobiertoAdmin
             notice: success_message
           )
         else
+          set_dashboards_list_path
           render :edit
         end
       end
@@ -190,6 +192,13 @@ module GobiertoAdmin
         redirect_to(edit_admin_plans_plan_project_path(@plan, @project), alert: t(".unavailable_version")) and return if version_number < 1 || @version_index >= 0
 
         @project = @project.versions[@version_index].reify
+      end
+
+      def set_dashboards_list_path
+        return unless current_site.configuration.gobierto_dashboards_enabled? &&
+                      current_admin.module_allowed_action?(current_admin_module, current_site, :manage_dashboards)
+
+        @dashboards_list_path ||= list_admin_plans_plan_dashboards_path(@plan)
       end
 
       def suggest_unpublish?

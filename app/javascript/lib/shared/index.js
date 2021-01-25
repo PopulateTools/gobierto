@@ -25,6 +25,7 @@ import { HorizontalCarousel } from "./modules/horizontal-carousel.js";
 import { ImageLightbox } from "./modules/image-lightbox.js";
 import { RangeSlider } from "./modules/range-slider.js";
 import { Middleware } from "./modules/middleware.js";
+import { debounce } from "./modules/debounce.js";
 
 export {
   AUTOCOMPLETE_DEFAULTS,
@@ -40,5 +41,6 @@ export {
   HorizontalCarousel,
   ImageLightbox,
   Middleware,
-  normalizeString
+  normalizeString,
+  debounce
 };

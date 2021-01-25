@@ -116,7 +116,7 @@ export default {
           ...options,
           // if there is a property called indicator, append the data related
           ...(options.indicator && {
-            data: data.find(({ name }) => name === options.indicator)
+            data: data.find(({ id, project }) => `${id}---${project}` === options.indicator)
           }),
           type,
           edition: false

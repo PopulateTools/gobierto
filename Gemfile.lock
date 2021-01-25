@@ -92,7 +92,7 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     ansi (1.5.0)
-    appsignal (2.11.3)
+    appsignal (2.11.4)
       rack
     ast (2.4.1)
     aws-eventstream (1.1.0)
@@ -146,7 +146,7 @@ GEM
       rest-client
     codecov (0.3.0)
       simplecov (>= 0.15, < 0.22)
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.8)
     connection_pool (2.2.3)
     cookies_eu (1.7.7)
       js_cookie_rails (~> 2.2.0)
@@ -251,7 +251,7 @@ GEM
       activesupport (>= 4.2)
     invisible_captcha (1.1.0)
       rails (>= 4.2)
-    jbuilder (2.10.1)
+    jbuilder (2.11.0)
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
     jquery-rails (4.3.5)

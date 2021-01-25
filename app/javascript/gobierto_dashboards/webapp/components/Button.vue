@@ -6,7 +6,10 @@
     <i
       v-if="icon"
       :class="`fas fa-${icon}`"
-    /><slot />
+    />
+    <div>
+      <slot />
+    </div>
   </button>
 </template>
 

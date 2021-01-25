@@ -7,6 +7,8 @@ en:
     date: 'Date: '
     default_title: Dashboard title
     delete: Delete
+    delete_dialog: Do you wish to delete dashboard?
+    discard: discard changes
     indicators_amount: "➞ %{amount} indicators"
     instructions: |
       "⇧ Select a card type and include it in the central area ➞

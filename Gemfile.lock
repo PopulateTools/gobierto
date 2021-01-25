@@ -251,7 +251,7 @@ GEM
       activesupport (>= 4.2)
     invisible_captcha (1.1.0)
       rails (>= 4.2)
-    jbuilder (2.11.0)
+    jbuilder (2.11.1)
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
     jquery-rails (4.3.5)

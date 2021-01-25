@@ -173,7 +173,7 @@ export default {
       return this.submission_date && this.open_proposals_date
     },
     showEstimatedValue() {
-      return this.initial_amount_no_taxes !== this.final_amount_no_taxes
+      return this.initial_amount_no_taxes !== this.estimated_value
     }
   },
   created() {
@@ -232,7 +232,7 @@ export default {
       this.cpvs = cpvs
       this.category_title = category_title
       this.number_of_proposals = number_of_proposals
-      this.estimated_value = estimated_value
+      this.estimated_value = +estimated_value
     }
 
     if (this.hasBatch) this.groupBatches()

@@ -27,8 +27,8 @@ export const assigneesColumns = [
 ];
 
 export const assigneesShowColumns = [
-  { field: 'title', name: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), format: null, cssClass: '' },
-  { field: 'final_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'nowrap pr1' },
+  { field: 'title', name: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), format: null, cssClass: 'bold' },
+  { field: 'final_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'nowrap pr1 right', type: 'money' },
   { field: 'award_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.date'), format: null, cssClass: 'nowrap pl1' },
 ];
 

@@ -31,12 +31,8 @@
 </template>
 
 <script>
-//TODO&FIX:ME search another way to avoid error's in jest with dynamics import
-// import { Checkbox } from "./lib/vue-components"
-// import { clickoutside } from "./lib/vue/directives"
-import Checkbox from "./Checkbox.vue";
-import { clickoutside } from "./../../../lib/vue/directives"
-import * as I18n from 'i18n-js'
+import { Checkbox } from "lib/vue-components";
+import { clickoutside } from "lib/vue/directives"
 
 export default {
   name: "TableColumnsSelector",

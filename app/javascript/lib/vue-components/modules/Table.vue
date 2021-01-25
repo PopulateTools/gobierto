@@ -108,8 +108,8 @@
 <script>
 
 import Pagination from "./Pagination.vue";
-import { VueFiltersMixin } from "./../../../lib/vue/filters"
 import SortIcon from "./SortIcon.vue"
+import { VueFiltersMixin } from "lib/vue/filters"
 export default {
   name: 'Table',
   components: {

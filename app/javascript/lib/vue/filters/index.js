@@ -15,6 +15,7 @@ export const money = (value, opts = {}) => {
 };
 
 export const date = (value, opts = {}) => {
+  if (!value) return null
   const lang = I18n.locale || "es";
   return value instanceof Date
     ? value.toLocaleDateString(lang, opts)

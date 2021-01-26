@@ -21,6 +21,7 @@ export const router = new VueRouter({
     },
     {
       path: '/datos/',
+      alias: "/",
       component: Main,
       children: [
         {

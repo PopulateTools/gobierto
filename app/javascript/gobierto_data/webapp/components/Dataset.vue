@@ -144,15 +144,14 @@ import QueriesTab from "./sets/QueriesTab.vue";
 import VisualizationsTab from "./sets/VisualizationsTab.vue";
 import DownloadsTab from "./sets/DownloadsTab.vue";
 import { getUserId, convertToCSV } from "./../../lib/helpers";
+import { ROUTE_NAMES, tabs } from "./../../lib/router";
 import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
 import { QueriesFactoryMixin } from "./../../lib/factories/queries";
 import { DataFactoryMixin } from "./../../lib/factories/data";
 import { VisualizationFactoryMixin } from "./../../lib/factories/visualizations";
 
-// THIS IS THE COMPONENT WHO KNOWS WHAT THE DATA IS ABOUT
-// EVERY SINGLE API REQUEST IS DONE THROUGHOUT THIS ONE
 export default {
-  name: "Main",
+  name: "Dataset",
   components: {
     SummaryTab,
     DataTab,
@@ -185,8 +184,8 @@ export default {
       arrayFormats: {},
       objectColumns: {},
       attributes: null,
-      privateQueries: [],
-      publicQueries: [],
+      privateQueries: undefined,
+      publicQueries: undefined,
       recentQueries: [],
       resourcesList: [],
       publicVisualizations: [],
@@ -245,7 +244,7 @@ export default {
         .reverse() : [];
     },
     isDatasetLoaded() {
-      return this.attributes && this.publicQueries && this.publicVisualizations
+      return this.attributes && (this.publicQueries || this.publicVisualizations)
     },
     queryLimit() {
       return this.defaultLimit !== null && this.defaultLimit > 0 ? ` LIMIT ${this.defaultLimit}` : ""
@@ -253,38 +252,41 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if (to) {
-        const {
-          params: { queryId },
-          query: { sql },
-        } = to;
+      const {
+        path,
+        name,
+        params: { queryId }
+      } = to;
 
-        this.parseUrl({ queryId, sql });
-      }
+      this.parseUrl(queryId);
 
-      if (to.path !== from.path) {
+      if (path !== from.path) {
         this.isQueryModified = false;
         this.setDefaultQuery()
         this.queryOrVizIsNotMine()
         this.disabledRevertButton()
       }
 
-      if (to.name === 'Dataset') {
+      if (name === ROUTE_NAMES.Dataset) {
         this.currentVizTab = 0
         this.vizName = null
-      } else if (to.name === 'Visualization') {
+      } else if (name === ROUTE_NAMES.Visualization) {
         this.currentVizTab = 1
         this.showLabelEdit = true
       }
 
       //Update only the baseTitle of the dataset that is active
-      if (to.name === 'Dataset' && this._inactive === false) {
+      if (name === ROUTE_NAMES.Dataset && this._inactive === false) {
         this.updateBaseTitle()
       }
       //FIXME: Hugo, we need to talk about this hack
       // https://stackoverflow.com/questions/50295985/how-to-tell-if-a-vue-component-is-active-or-not
-      if (to.name === 'Query' && this._inactive === false) {
+      if (name === ROUTE_NAMES.Query && this._inactive === false) {
         this.runCurrentQuery()
+      }
+
+      if (name === ROUTE_NAMES.Dataset) {
+        this.handleDatasetTabs(this.$route)
       }
     }
   },
@@ -297,10 +299,7 @@ export default {
     })
   },
   async created() {
-    const {
-      params: { id, queryId },
-      query: { sql },
-    } = this.$route;
+    const { name, params: { id } } = this.$route;
 
     let responseMetaData
 
@@ -338,43 +337,15 @@ export default {
     this.arrayFormats = arrayFormats;
     this.defaultLimit = defaultLimit;
 
-    // Once we have the dataset info, we request both kind of queries
-    const queriesPromises = [];
-    queriesPromises.push(this.getPublicQueries());
-
-    const userId = getUserId();
-    if (userId) {
-      // Do not request private queries if the user is not logged
-      queriesPromises.push(this.getPrivateQueries(userId));
-    }
-
+    const userId = getUserId()
     this.isUserLogged = !!(userId && userId.length)
 
-    // In order to update from the url, we need both public and private queries
-    const [publicResponse, privateResponse] = await Promise.all(
-      queriesPromises
-    );
-    this.setPublicQueries(publicResponse);
-
-    // Only update data if there's any response
-    if (privateResponse) {
-      this.setPrivateQueries(privateResponse);
-    }
-
-    // Once we have the queries we can parse the url
-    if (queryId || sql) {
-      // update the sql editor if the url contains a query
-      this.parseUrl({ queryId, sql });
-    } else {
-      // update the editor text content by default
-      this.currentQuery = `SELECT * FROM ${this.tableName}${this.queryLimit}`;
+    if ([ROUTE_NAMES.Dataset, ROUTE_NAMES.Query, ROUTE_NAMES.Visualization].includes(name)) {
+      this.handleDatasetTabs(this.$route)
     }
 
     this.queryOrVizIsNotMine();
-    this.runCurrentQuery();
-    this.setDefaultQuery();
     this.checkIfUserIsLogged();
-    this.getAllVisualizations()
     this.updateBaseTitle()
   },
   mounted() {
@@ -469,6 +440,41 @@ export default {
     this.$root.$off('showSavingDialogEvent')
   },
   methods: {
+    async handleDatasetTabs(path) {
+      const { name, params: { queryId, tab = tabs[0] } } = path
+
+      switch (true) {
+        // resumen
+        case tab === tab[0]: {
+          await this.getAllQueries()
+          await this.getAllVisualizations()
+          break;
+        }
+        // datos or /q/:id
+        case tab === tabs[1]:
+        case name === ROUTE_NAMES.Query: {
+          await this.getAllQueries()
+          this.parseUrl(queryId)
+          this.runCurrentQuery()
+          this.setDefaultQuery()
+          break;
+        }
+        // consultas
+        case tab === tabs[2]: {
+          await this.getAllQueries()
+          break;
+        }
+        // visualizaciones or /v/:id
+        case tab === tabs[3]:
+        case name === ROUTE_NAMES.Visualization: {
+          await this.getAllVisualizations()
+          break;
+        }
+
+        default:
+          break;
+      }
+    },
     updateBaseTitle() {
       const {
         name: nameComponent,
@@ -476,7 +482,7 @@ export default {
           tab: tabName
         }
       } = this.$route
-      if (nameComponent === "Dataset" && this.titleDataset) {
+      if (nameComponent === ROUTE_NAMES.Dataset && this.titleDataset) {
         let title
         let tabTitle
 
@@ -484,13 +490,13 @@ export default {
           ? `${this.titleDataset} · `
           : "";
 
-        if (tabName === 'editor') {
+        if (tabName === tabs[1]) {
           tabTitle = `${this.labelData} · `
-        } else if (tabName === 'consultas') {
+        } else if (tabName === tabs[2]) {
           tabTitle = `${this.labelQueries} · `
-        } else if (tabName === 'visualizaciones') {
+        } else if (tabName === tabs[3]) {
           tabTitle = `${this.labelVisualizations} · `
-        } else if (tabName === 'descarga') {
+        } else if (tabName === tabs[4]) {
           tabTitle = `${this.labelDownload} · `
         } else {
           tabTitle = `${this.labelSummary} · `
@@ -504,14 +510,11 @@ export default {
         this.isVizSavingPromptVisible = true
       }
     },
-    parseUrl({ queryId, sql }) {
+    parseUrl(queryId) {
       let item = null;
       if (queryId) {
         // if has id it's an stored query
         item = [...this.privateQueries, ...this.publicQueries].find(({ id }) => id === queryId);
-      } else if (sql) {
-        // FIXME: run normal
-        // item = this.publicQueries.find((d) => d.attributes.sql === sql);
       }
 
       if (item) {
@@ -536,15 +539,15 @@ export default {
       //We need to keep this query separate from the editor query
       //When load a saved query we use the queryId to find inside privateQueries or publicQueries
       const items = !this.showPrivate ? this.publicQueries : this.privateQueries
-      const { attributes: { sql: queryRevert } = {} } = items.find(({ id }) => id === queryId) || {}
+      const { attributes: { sql: queryRevert } = {} } = items?.find(({ id }) => id === queryId) || {}
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert
     },
     isQueryStored(query = this.currentQuery) {
       // check if the query passed belongs to public/private arrays, if there's no args, it uses currentQuery
-      return (
-        this.publicQueries.some(({ attributes: { sql } }) => sql === query) ||
-        this.privateQueries.some(({ attributes: { sql } }) => sql === query)
+      return !!(
+        this.publicQueries?.some(({ attributes: { sql } }) => sql === query) ||
+        this.privateQueries?.some(({ attributes: { sql } }) => sql === query)
       );
     },
     async getPublicVisualizations() {
@@ -678,7 +681,6 @@ export default {
       }
     },
     async storeCurrentQuery({ name, privacy }) {
-
       this.savingViz = false
       this.savingQuery = true
 
@@ -759,7 +761,7 @@ export default {
         this.currentQuery = `SELECT * FROM ${this.tableName}${this.queryLimit}`;
         params = { sql: this.currentQuery };
       }
-      //
+
       const startTime = new Date().getTime();
       // factory method
       try {
@@ -852,7 +854,7 @@ export default {
         this.enabledVizSavedButton = false
         /* Check if the user saved a viz from another user, we need to wait to obtain the private visualizations to avoid error because it's possible which this Visualization is the first Visualization which user save */
         /*Update URL only when saved a query from editor or a viz from Visualizations tabs*/
-        if ((user !== userId || newViz) && nameComponent === 'Visualization') {
+        if ((user !== userId || newViz) && nameComponent === ROUTE_NAMES.Visualization) {
           this.updateURL(newViz)
         }
         this.getAllVisualizations()
@@ -918,7 +920,7 @@ export default {
         name: name
       } = this.$route;
 
-      if (name === 'Query') {
+      if (name === ROUTE_NAMES.Query) {
         this.showRevertQuery = true
       }
 
@@ -949,10 +951,10 @@ export default {
       } = this.$route;
 
       //Find which query is loaded
-      if (userId !== 0 && nameComponent === 'Query') {
+      if (userId !== 0 && nameComponent === ROUTE_NAMES.Query) {
 
         const items = !this.showPrivate ? this.publicQueries : this.privateQueries
-        const { attributes: { user_id: checkUserId } = {} } = items.find(({ id }) => id === queryId) || {}
+        const { attributes: { user_id: checkUserId } = {} } = items?.find(({ id }) => id === queryId) || {}
 
         //Check if the user who loaded the query is the same user who created the query
         if (userId !== checkUserId) {
@@ -963,7 +965,7 @@ export default {
           this.showPrivatePublicIcon = true
           this.disabledForkButton()
         }
-      } else if (userId !== 0 && nameComponent === 'Visualization') {
+      } else if (userId !== 0 && nameComponent === ROUTE_NAMES.Visualization) {
 
         this.showLabelEdit = true
 
@@ -1019,19 +1021,31 @@ export default {
     setVizName(vizName) {
       this.vizName = vizName
     },
+    async getAllQueries() {
+      const queriesPromises = [];
+
+      // Even though there was no publicQueries,
+      // we need to keep the position of the publicResponse in the promises array
+      queriesPromises.push(!this.publicQueries ? this.getPublicQueries() : Promise.resolve());
+
+      const userId = getUserId();
+      // Do not request private queries if the user is not logged
+      // OR if the privateQueries has been already fetched
+      queriesPromises.push(userId && !this.privateQueries ? this.getPrivateQueries(userId) : Promise.resolve());
+
+      // In order to update from the url, we need both public and private queries
+      const [publicResponse, privateResponse] = await Promise.all(queriesPromises);
+
+      // Only update data if there's any response
+      if (publicResponse) {
+        this.setPublicQueries(publicResponse);
+      }
+
+      if (privateResponse) {
+        this.setPrivateQueries(privateResponse);
+      }
+    },
     async getAllVisualizations() {
-      const {
-        params: { id }
-      } = this.$route;
-
-      // factory method
-      const {
-        data: {
-          data: { id: datasetId }
-        }
-      } = await this.getDatasetMetadata(id);
-      this.datasetId = parseInt(datasetId)
-
       await this.getPrivateVisualizations()
       await this.getPublicVisualizations()
       this.queryOrVizIsNotMine()

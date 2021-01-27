@@ -9,6 +9,14 @@ const Dataset = () => import("../webapp/components/Dataset.vue");
 const Visualizations = () => import("../webapp/pages/Visualizations.vue");
 
 export const tabs = ['resumen', 'editor', 'consultas', 'visualizaciones', 'descarga']
+export const ROUTE_NAMES = {
+  Visualizations: 'Visualizations',
+  Index: 'index',
+  Terms: 'terms',
+  Dataset: 'Dataset',
+  Query: 'Query',
+  Visualization: 'Visualization'
+}
 
 // https://router.vuejs.org/guide/essentials/nested-routes.html
 export const router = new VueRouter({
@@ -17,7 +25,7 @@ export const router = new VueRouter({
     {
       path: '/datos/v/visualizaciones',
       component: Visualizations,
-      name: 'Visualizations'
+      name: ROUTE_NAMES.Visualizations
     },
     {
       path: '/datos/',
@@ -25,18 +33,18 @@ export const router = new VueRouter({
       children: [
         {
           path: '',
-          name:'index',
+          name: ROUTE_NAMES.Index,
           component: Index
         },
         {
           path: '/datos/terms/*',
-          name:' terms',
+          name: ROUTE_NAMES.Terms,
           component: Index
         },
         {
           path: ':id/:tab?',
           component: Dataset,
-          name: 'Dataset',
+          name: ROUTE_NAMES.Dataset,
           // send props as a function, default to tab[0], otherwise take the index
           props: ({ params: { tab = tabs[0] } }) => ({
             activeDatasetTab: tabs.indexOf(tab)
@@ -45,13 +53,13 @@ export const router = new VueRouter({
         {
           path: ':id/q/:queryId?',
           component: Dataset,
-          name: 'Query',
+          name: ROUTE_NAMES.Query,
           props: { activeDatasetTab: 1 }
         },
         {
           path: ':id/v/:queryId?',
           component: Dataset,
-          name: 'Visualization',
+          name: ROUTE_NAMES.Visualization,
           props: { activeDatasetTab: 3 }
         }
       ]

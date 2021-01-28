@@ -16,7 +16,7 @@
           </template>
           <template v-else>
             <template v-if="privateVisualizations.length">
-              <template v-for="{ items, queryData, config, name, privacy_status, id, user_id } in privateVisualizations">
+              <template v-for="{ items, config, name, privacy_status, id, user_id } in privateVisualizations">
                 <div
                   :key="id"
                   class="gobierto-data-visualization--container"

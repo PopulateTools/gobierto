@@ -1087,7 +1087,7 @@ export default {
         this.showLabelEdit = true;
 
         const objectViz =
-          this.privateVisualizations.find(({ id }) => id === queryId) || {};
+          this.privateVisualizations?.find(({ id }) => id === queryId) || {};
         const { privacy_status: privacyStatus } = objectViz;
 
         this.showPrivateViz = privacyStatus === "closed" ? true : false;
@@ -1097,7 +1097,7 @@ export default {
 
         //Find which viz is loaded
         const { user_id: checkUserId = {} } =
-          items.find(({ id }) => id === queryId) || {};
+          items?.find(({ id }) => id === queryId) || {};
 
         this.vizUserId = checkUserId;
 

@@ -39,7 +39,7 @@
       data-plan-id="<%= @plan.id %>"
       data-context="<%= @plan.context %>"
       data-pipe="<%= @plan.data_pipe %>"
-      data-dashboards="<%= 'false' %>">
+      data-dashboards="<%= dashboards_enabled? %>">
     </div>
   <% end %>
 

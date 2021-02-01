@@ -4,8 +4,13 @@ module GobiertoCommon
 
     private
 
+    def module_enabled?(module_namespace, site = nil)
+      site ||= current_site
+      site.configuration.modules.include?(module_namespace.to_s)
+    end
+
     def module_enabled!(site, module_namespace, redirect = true)
-      raise_module_not_enabled(redirect) unless site.configuration.modules.include?(module_namespace.to_s)
+      raise_module_not_enabled(redirect) unless module_enabled?(module_namespace, site)
     end
 
     def module_frontend_enabled!(site, module_namespace, redirect = true)

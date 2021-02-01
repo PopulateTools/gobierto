@@ -53,17 +53,19 @@ export default {
       options: {},
       summary: [],
       isFetchingData: true,
-      labelLoading: I18n.t("gobierto_plans.plan_types.show.loading") || "",
-      tabs: [
-        { title: I18n.t("gobierto_plans.plan_types.show.plan") || "", name: routes.PLAN },
-        { title: I18n.t("gobierto_plans.plan_types.show.dashboards") || "", name: routes.DASHBOARDS },
-      ]
+      labelLoading: I18n.t("gobierto_plans.plan_types.show.loading") || ""
     };
   },
   computed: {
     planId() {
       return this.$root?.$data?.planId
-    }
+    },
+    tabs() {
+      return [
+        { title: I18n.t("gobierto_plans.plan_types.show.plan") || "", name: routes.PLAN },
+        (!!this.$root?.$data?.dashboards && { title: I18n.t("gobierto_plans.plan_types.show.dashboards") || "", name: routes.DASHBOARDS }),
+      ].filter(Boolean)
+    },
   },
   async created() {
     const [

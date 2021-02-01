@@ -38,7 +38,8 @@
       data-baseurl="<%= gobierto_plans_plan_path(slug: @plan.plan_type.slug, year: @year) %>"
       data-plan-id="<%= @plan.id %>"
       data-context="<%= @plan.context %>"
-      data-pipe="<%= @plan.data_pipe %>">
+      data-pipe="<%= @plan.data_pipe %>"
+      data-dashboards="<%= dashboards_enabled? %>">
     </div>
   <% end %>
 

@@ -458,7 +458,7 @@ export default {
     async handleDatasetTabs(path) {
       const {
         name,
-        params: { queryId, tab = tabs[0] },
+        params: { queryId, tab },
         query: { sql }
       } = path;
 
@@ -529,7 +529,7 @@ export default {
       let item = null;
       if (queryId) {
         // if has id it's an stored query
-        item = [...this.privateQueries, ...this.publicQueries].find(
+        item = [...this.privateQueries || [], ...this.publicQueries || []].find(
           ({ id }) => id === queryId
         );
       }

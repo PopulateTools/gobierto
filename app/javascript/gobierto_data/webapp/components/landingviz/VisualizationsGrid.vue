@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="publicVisualizations.length"
+    v-if="publicVisualizations && publicVisualizations.length"
     class="gobierto-data-visualization--grid"
   >
     <template v-for="{ items, config, name, id, columns, slug, datasetName } in publicVisualizations">

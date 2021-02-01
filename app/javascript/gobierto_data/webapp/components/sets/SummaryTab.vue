@@ -40,7 +40,7 @@
     />
 
     <Dropdown
-      v-if="privateQueries.length || publicQueries.length"
+      v-if="hasQueries"
       class="gobierto-data-summary-separator"
       @is-content-visible="showYourQueries = !showYourQueries"
     >
@@ -66,7 +66,7 @@
     </template>
     <template v-else>
       <Dropdown
-        v-if="privateVisualizations.length || publicVisualizations.length"
+        v-if="hasVisualizations"
         @is-content-visible="showYourVizs = !showYourVizs"
       >
         <template v-slot:trigger>
@@ -256,6 +256,12 @@ export default {
   computed: {
     isVizLoading() {
       return this.publicVisualizations.length || !this.isPublicVizLoading
+    },
+    hasQueries() {
+      return this.privateQueries?.length || this.publicQueries?.length
+    },
+    hasVisualizations() {
+      return this.privateVisualizations?.length || this.publicVisualizations?.length
     }
   },
   created() {

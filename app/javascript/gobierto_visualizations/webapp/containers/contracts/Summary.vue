@@ -2,7 +2,7 @@
   <div>
     <CategoriesTreeMapNested
       v-if="activeTab === 0"
-      :data="visualizationsData"
+      :data="visualizationsDataExcludeNoCategory"
     />
     <EntityTreeMapNested
       v-if="activeTab === 0"
@@ -212,6 +212,9 @@ export default {
     }
   },
   computed: {
+    visualizationsDataExcludeNoCategory() {
+      return this.visualizationsData.filter(({ category_id }) => !!category_id)
+    },
     visualizationsDataExcludeMinorContract() {
       return this.visualizationsData.filter(({ minor_contract: minor }) => minor === 'f')
     }

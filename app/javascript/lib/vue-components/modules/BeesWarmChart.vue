@@ -14,7 +14,7 @@ import { scaleBand, scaleTime, scalePow } from 'd3-scale';
 import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { extent } from 'd3-array';
-import { timeParse, timeFormat, timeFormatLocale } from 'd3-time-format';
+import { timeFormat, timeFormatLocale } from 'd3-time-format';
 import { min, max } from 'd3-array';
 import { d3locale, createScaleColors, normalizeString } from 'lib/shared';
 import { easeLinear } from 'd3-ease';
@@ -32,7 +32,6 @@ const d3 = {
   axisBottom,
   axisLeft,
   extent,
-  timeParse,
   timeFormat,
   min,
   max,
@@ -91,30 +90,17 @@ export default {
         bottom: this.marginBottom
       },
       padding: 1.5,
-      updateData: false,
-      dataWithoutCoordinates: undefined,
-      dataNewValues: undefined,
       arrayValuesContractTypes: [],
     };
   },
   watch: {
     data(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.dataNewValues = newValue
-        this.deepCloneData(newValue);
-        this.updateData = true;
+        this.buildBeesWarm(newValue);
       }
     },
-    $route(to, from) {
-      if (to.path !== from.path) {
-        this.containerChart = document.querySelector('.beeswarm-container');
-        this.svgWidth = this.containerChart.offsetWidth;
-        this.deepCloneData(this.dataWithoutCoordinates);
-      }
-    }
   },
   mounted() {
-    this.dataWithoutCoordinates = JSON.parse(JSON.stringify(this.data));
     const containerChart = document.querySelector('.beeswarm-container');
     this.svgWidth = containerChart.offsetWidth;
     this.svgHeight = this.height;
@@ -122,7 +108,8 @@ export default {
     /*To avoid add/remove colors in every update use Object.freeze(this.data)
     to create a scale/domain color persistent with the original keys*/
     const freezeObjectColors = Object.freeze(this.data);
-    this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => normalizeString(d.contract_type))))
+    const arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => normalizeString(d.contract_type))))
+    this.colors = createScaleColors(arrayValuesContractTypes.length, arrayValuesContractTypes);
 
     this.setupElements();
     this.buildBeesWarm(this.data);
@@ -132,10 +119,6 @@ export default {
     window.removeEventListener("resize", this.resizeListener)
   },
   methods: {
-    deepCloneData(data) {
-      const dataBeesWarm = JSON.parse(JSON.stringify(data));
-      this.buildBeesWarm(dataBeesWarm);
-    },
     setupElements() {
       const svg = d3.select('.beeswarm-plot');
 
@@ -147,9 +130,7 @@ export default {
     },
     buildBeesWarm(data) {
       let filterData = this.transformData(data);
-      const colors = createScaleColors(this.arrayValuesContractTypes.length, this.arrayValuesContractTypes);
       const arrayValuesScaleY = Array.from(new Set(filterData.map(d => d[this.yAxisProp])));
-      this.svgHeight = arrayValuesScaleY.length === 1 ? 300 : this.height;
       this.svgHeight = this.data.length > 400 ? 820 : this.height;
 
       const svg = d3.select('.beeswarm-plot');
@@ -223,10 +204,10 @@ export default {
 
       d3
         .forceSimulation(filterData)
-        .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])).strength(0.5))
+        .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])))
         .force('y', d3.forceY(d => scaleY(d[this.yAxisProp])))
         .force('collide', d3.forceCollide().radius(d => d.radius + this.padding))
-        .tick(20)
+        .tick(filterData.length * 0.25)
 
       let circlesBees = g
         .selectAll('.beeswarm-circle')
@@ -288,7 +269,7 @@ export default {
         .attr('cx', d => d.x - 5)
         .attr('cy', d => d.y)
         .attr('r', d => d.radius)
-        .attr('fill', d => colors(d.slug_contract_type))
+        .attr('fill', d => this.colors(d.slug_contract_type))
     },
     transformData(data) {
       const maxFinalAmount = d3.max(data, d => d.final_amount_no_taxes)
@@ -299,22 +280,19 @@ export default {
         .range([3, rangeMax])
         .domain([0, maxFinalAmount]);
 
-      const parseTime = d3.timeParse('%Y-%m-%d');
-
       data.forEach(d => {
         d.slug_contract_type = normalizeString(d.contract_type)
         if (d.assignee) {
           //Normalize assignee to create a slug for select ID's on mouseover
           d.slug = normalizeString(d.assignee)
         }
-        d[this.xAxisProp] = parseTime(d[this.xAxisProp]);
+
         d.radius = radiusScale(d[this.radiusProperty])
       });
 
-      let filterData = data.filter(({ final_amount_no_taxes }) => final_amount_no_taxes !== 0).sort(({ contract_type: a = "" }, { contract_type: b = "" }) => a.localeCompare(b));
-
-
-      return filterData;
+      return data
+        .filter(({ final_amount_no_taxes }) => final_amount_no_taxes !== 0)
+        .sort(({ contract_type: a = "" }, { contract_type: b = "" }) => a.localeCompare(b));
     },
     wrapTextLabel(text, width) {
       text.each(function() {
@@ -353,11 +331,9 @@ export default {
       });
     },
     resizeListener() {
-      let dataResponsive = this.updateData ? this.dataNewValues : this.dataWithoutCoordinates;
       const containerChart = document.querySelector('.beeswarm-container');
       this.svgWidth = containerChart.offsetWidth;
-      this.setupElements();
-      this.deepCloneData(dataResponsive);
+      this.buildBeesWarm(this.data)
     }
   }
 };

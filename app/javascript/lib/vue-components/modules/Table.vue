@@ -55,7 +55,7 @@
                   class="gobierto-table__td"
                 >
                   <span>
-                    {{ item[field] }}
+                    {{ item[field] | date }}
                   </span>
                 </td>
               </template>
@@ -157,7 +157,6 @@ export default {
       return this.data || []
     },
     rowsSorted() {
-      console.log("this.currentSortColumn", this.currentSortColumn);
       const id = this.currentSortColumn.field;
       const sort = this.currentSort;
       return this.tmpRows

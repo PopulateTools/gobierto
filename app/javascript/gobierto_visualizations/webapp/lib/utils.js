@@ -5,7 +5,7 @@ import axios from "axios";
 const endPointGobiertoData = `/api/v1/data/data.json`
 
 export function getRemoteData(endpoint) {
-  return csv(endpoint, { headers: { Authorization: "Bearer FmC7jKbXJbzLn1UnmWMXbNXe" } });
+  return csv(endpoint);
 }
 
 export function sortByField(dateField) {

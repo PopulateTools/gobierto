@@ -39,6 +39,10 @@
     top: 0;
     overflow-y: auto;
     height: 100vh;
+    @media (max-width: 768px) {
+      height: auto;
+      position: relative;
+    }
   }
 
   &-home-nav {

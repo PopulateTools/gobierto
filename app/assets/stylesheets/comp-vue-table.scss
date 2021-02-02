@@ -38,9 +38,7 @@
     border: 0;
 
     &:last-child {
-      .sort-icon {
-        margin-right: .5rem;
-      }
+      margin-right: .5rem;
     }
   }
 
@@ -86,42 +84,6 @@
     }
   }
 
-  &__breadcrumb {
-    display: flex;
-    align-items: center;
-    padding-right: .5rem;
-
-    > :not(:last-child) {
-      margin-right: 1rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 35vw;
-    }
-
-    &-group {
-      text-transform: uppercase;
-      font-size: $f6;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    &-term {
-      text-transform: uppercase;
-      font-size: $f5;
-      text-decoration: none;
-      color: var(--color-base);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 40vw;
-    }
-
-    &-arrow {
-      opacity: .5;
-    }
-  }
-
   &__column-selector {
     position: relative;
     color: var(--color-base);
@@ -140,7 +102,7 @@
     }
 
     &__icon {
-      &.fas {
+      i {
         margin-right: .5rem;
       }
     }

@@ -24,7 +24,7 @@ export const routes = {
 }
 
 // https://router.vuejs.org/guide/essentials/nested-routes.html
-export const router = new VueRouter({
+export const createRouter = ({ dashboards = false }) => new VueRouter({
   mode: "history",
   routes: [
     {
@@ -87,12 +87,13 @@ export const router = new VueRouter({
             }
           ],
         },
-        {
+        // optional route
+        (dashboards && {
           path: "dashboards/:dashboardId?",
           name: routes.DASHBOARDS,
           component: DashboardsTab
-        }
-      ]
+        })
+      ].filter(Boolean)
     },
   ],
   scrollBehavior() {
@@ -102,4 +103,4 @@ export const router = new VueRouter({
       behavior: 'smooth'
     });
   }
-});
+})

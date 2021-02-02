@@ -54,8 +54,7 @@ export default {
   },
   methods: {
     nestedData(data, sizeForTreemap) {
-      let dataFilter = data
-      dataFilter.filter(contract => contract.amount !== 0)
+      const dataFilter = data.filter(contract => contract.amount !== 0)
       dataFilter.forEach(d => {
         d.number_of_contract = 1
       })

@@ -123,9 +123,13 @@ export default {
     to create a scale/domain color persistent with the original keys*/
     const freezeObjectColors = Object.freeze(this.data);
     this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => normalizeString(d.contract_type))))
+
     this.setupElements();
     this.buildBeesWarm(this.data);
-    this.resizeListener();
+    window.addEventListener("resize", this.resizeListener)
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.resizeListener)
   },
   methods: {
     deepCloneData(data) {
@@ -197,7 +201,7 @@ export default {
 
       g
         .selectAll('.label-y')
-        .data(Array.from(new Set(filterData.map(d => d[this.yAxisProp]))))
+        .data(arrayValuesScaleY)
         .join('text')
         .attr('class', 'label-y')
         .attr('x', 0)
@@ -207,7 +211,7 @@ export default {
 
       g
         .selectAll('.line-y')
-        .data(Array.from(new Set(filterData.map(d => d[this.yAxisProp]))))
+        .data(arrayValuesScaleY)
         .join('line')
         .attr('class', 'line-y')
         .attr('x1', this.margin.left)
@@ -219,10 +223,10 @@ export default {
 
       d3
         .forceSimulation(filterData)
-        .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])).strength(2))
+        .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])).strength(0.5))
         .force('y', d3.forceY(d => scaleY(d[this.yAxisProp])))
         .force('collide', d3.forceCollide().radius(d => d.radius + this.padding))
-        .tick(80);
+        .tick(20)
 
       let circlesBees = g
         .selectAll('.beeswarm-circle')
@@ -285,7 +289,6 @@ export default {
         .attr('cy', d => d.y)
         .attr('r', d => d.radius)
         .attr('fill', d => colors(d.slug_contract_type))
-
     },
     transformData(data) {
       const maxFinalAmount = d3.max(data, d => d.final_amount_no_taxes)
@@ -350,13 +353,11 @@ export default {
       });
     },
     resizeListener() {
-      window.addEventListener('resize', () => {
-        let dataResponsive = this.updateData ? this.dataNewValues : this.dataWithoutCoordinates;
-        const containerChart = document.querySelector('.beeswarm-container');
-        this.svgWidth = containerChart.offsetWidth;
-        this.setupElements();
-        this.deepCloneData(dataResponsive);
-      });
+      let dataResponsive = this.updateData ? this.dataNewValues : this.dataWithoutCoordinates;
+      const containerChart = document.querySelector('.beeswarm-container');
+      this.svgWidth = containerChart.offsetWidth;
+      this.setupElements();
+      this.deepCloneData(dataResponsive);
     }
   }
 };

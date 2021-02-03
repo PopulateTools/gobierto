@@ -7,6 +7,7 @@
 @import "comp-vue-beeswarm";
 @import "comp-vue-treemap-nested";
 @import "comp-vue-multiple-lines";
+@import "comp-vue-table";
 
 :root {
   --green-table--first: rgba(33, 150, 83, .1);
@@ -30,8 +31,11 @@
   }
 
   &-home-aside--block {
-    padding-bottom: 1em;
+    padding-bottom: 1rem;
     border-bottom: 1px solid var(--border-separator);
+    @media (max-width: 768px) {
+      padding-bottom: .5rem;
+    }
   }
 
   &-home-aside--gap {
@@ -261,6 +265,9 @@
   &-home-aside {
     &--download-open-data {
       padding: 2rem 0;
+      @media (max-width: 768px) {
+        padding: .75rem 0;
+      }
 
       .visualizations-home-aside--download-open-data-link {
         color: var(--color-base);
@@ -309,6 +316,9 @@
     height: auto;
     padding: .5rem 1rem .5rem 1.75rem;
     width: 100%;
+    @media (max-width: 768px) {
+      margin-bottom: 0;
+    }
   }
 
   .gobierto_visualizations-search-btn-clear,
@@ -323,6 +333,9 @@
     cursor: pointer;
     opacity: .3;
     left: 6%;
+    @media (max-width: 768px) {
+      left: 4%;
+    }
   }
 
   .tree-map-container {

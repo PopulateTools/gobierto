@@ -46,6 +46,7 @@
     @include screen(769) {
       height: auto;
       position: relative;
+      padding-bottom: 0;
     }
   }
 
@@ -334,7 +335,7 @@
     opacity: .3;
     left: 6%;
     @include screen(769) {
-      left: 4%;
+      left: 3%;
     }
   }
 

@@ -373,6 +373,10 @@ window.addEventListener("resize", this.resizeListener)
           .attr("class", "foreignobj")
           .append("xhtml:div")
           .html(d => {
+            const { x0, x1, y0, y1 } = d
+            const rectWidth = x1 - x0
+            const rectHeight = y1 - y0
+            if (rectWidth < 100 || rectHeight < 100) return
             let htmlTreeMap
             if (depthEntity && deepLevel === 4) {
               htmlTreeMap = treeMapThreeDepth(d)
@@ -721,7 +725,7 @@ window.addEventListener("resize", this.resizeListener)
       if (this.updateData) {
         this.deepCloneData(this.dataNewValues)
       } else {
-        this.transformDataTreemap(this.data);
+        this.transformDataTreemap(this.dataTreeMapWithoutCoordinates);
       }
     },
     injectRouter() {

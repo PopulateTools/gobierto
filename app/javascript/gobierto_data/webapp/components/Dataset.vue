@@ -248,7 +248,11 @@ export default {
         : [];
     },
     isDatasetLoaded() {
-      return !!(
+      // When loading, show skeleton if:
+      // 1. Any tab but download OR
+      // 2a. Dataset has no attibutes (getDatasetMetadata empty or error) AND
+      // 2b. publicQueries or publicVisualization are undefined (getPublicQueries or getPublicVisualizations have fetched no answer)
+      return this.activeDatasetTab === 4 || !!(
         this.attributes && !!(this.publicQueries || this.publicVisualizations)
       );
     },
@@ -464,7 +468,7 @@ export default {
 
       switch (true) {
         // resumen
-        case tab === tabs[0]: {
+        case (!tab && !queryId) || tab === tabs[0]: {
           await this.getAllQueries();
           await this.getAllVisualizations();
           break;

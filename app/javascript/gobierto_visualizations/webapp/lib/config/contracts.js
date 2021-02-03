@@ -3,7 +3,7 @@ export const contractsColumns = [
   { field: 'assignee', translation: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), format: null, cssClass: '' },
   { field: 'title', translation: I18n.t('gobierto_visualizations.visualizations.contracts.contractor'), format: 'truncated', cssClass: 'largest-width-td' },
   { field: 'final_amount_no_taxes', translation: I18n.t('gobierto_visualizations.visualizations.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'right nowrap pr1' },
-  { field: 'award_date', translation: I18n.t('gobierto_visualizations.visualizations.contracts.date'), format: null, cssClass: 'nowrap pl1' },
+  { field: 'award_date', translation: I18n.t('gobierto_visualizations.visualizations.contracts.date'), format: 'date', cssClass: 'nowrap pl1' },
 ];
 
 export const tendersColumns = [
@@ -21,7 +21,7 @@ export const assigneesColumns = [
 export const assigneesShowColumns = [
   { field: 'title', translation: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), format: null, cssClass: '' },
   { field: 'final_amount_no_taxes', translation: I18n.t('gobierto_visualizations.visualizations.contracts.final_amount_no_taxes'), format: 'currency', cssClass: 'nowrap pr1' },
-  { field: 'award_date', translation: I18n.t('gobierto_visualizations.visualizations.contracts.date'), format: null, cssClass: 'nowrap pl1' },
+  { field: 'award_date', translation: I18n.t('gobierto_visualizations.visualizations.contracts.date'), format: 'date', cssClass: 'nowrap pl1' },
 ];
 
 // filters config

@@ -75,7 +75,11 @@ export default {
 
     this.dataForTooltips(this.dataTooltips)
     this.transformDataTreemap(this.data)
-    this.resizeListener()
+
+    window.addEventListener("resize", this.resizeListener)
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.resizeListener)
   },
   methods: {
     handleTreeMapValue(value) {
@@ -354,12 +358,10 @@ export default {
           })
     },
     resizeListener() {
-      window.addEventListener("resize", () => {
-        let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
-        const containerChart = document.querySelector('.tree-map-container');
-        this.svgWidth = containerChart.offsetWidth
-        this.deepCloneData(dataResponsive)
-      })
+      let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
+      const containerChart = document.querySelector('.tree-map-container');
+      this.svgWidth = containerChart.offsetWidth
+      this.deepCloneData(dataResponsive)
     }
   }
 }

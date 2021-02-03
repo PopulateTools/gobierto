@@ -5,7 +5,7 @@
     class="visualizations-home-main--tr"
   >
     <td
-      v-for="{ field, format, cssClass } in columns"
+      v-for="{ field, cssClass } in columns"
       :key="field"
       class="visualizations-home-main--td"
       :class="cssClass"
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { money, truncate } from "lib/vue/filters"
+import { money, truncate, date } from "lib/vue/filters"
 
 export default {
   name: "TableRow",
@@ -54,6 +54,8 @@ export default {
           this.formattedItem[field] = money(this.item[field]);
         } else if (format == 'truncated'){
           this.formattedItem[field] = truncate(this.item[field], { length: 60 });
+        } else if (format == 'date') {
+          this.formattedItem[field] = date(this.item[field]);
         } else {
           this.formattedItem[field] = this.item[field];
         }

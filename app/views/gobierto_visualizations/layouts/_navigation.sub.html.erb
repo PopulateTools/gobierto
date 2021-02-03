@@ -1,8 +1,0 @@
-<div class="sub-nav-item<%= class_if(' active', controller_name == 'visualizations') %>">
-  <% content_for(:current_submodule_link) do %>
-    <%= link_to t('gobierto_visualizations.layouts.menu_subsections.contracts'),
-          gobierto_visualizations_contracts_path, data: { turbolinks: false } %>
-    <%= link_to t('gobierto_visualizations.layouts.menu_subsections.subsidies'),
-          gobierto_visualizations_contracts_path, data: { turbolinks: false } %>
-  <% end %>
-</div>

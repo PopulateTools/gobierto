@@ -248,7 +248,11 @@ export default {
         : [];
     },
     isDatasetLoaded() {
-      return !!(
+      // When loading, show skeleton if:
+      // 1. Any tab but download OR
+      // 2a. Dataset has no attibutes (getDatasetMetadata empty or error) AND
+      // 2b. publicQueries or publicVisualization are undefined (getPublicQueries or getPublicVisualizations have fetched no answer)
+      return this.activeDatasetTab === 4 || !!(
         this.attributes && !!(this.publicQueries || this.publicVisualizations)
       );
     },
@@ -266,6 +270,9 @@ export default {
         params: { queryId }
       } = to;
 
+      // do nothing if the component is inactive
+      if (this._inactive) return null
+
       this.parseUrl(queryId);
 
       if (path !== from.path) {
@@ -278,23 +285,12 @@ export default {
       if (name === ROUTE_NAMES.Dataset) {
         this.currentVizTab = 0;
         this.vizName = null;
+
+        this.updateBaseTitle();
+        this.handleDatasetTabs(this.$route);
       } else if (name === ROUTE_NAMES.Visualization) {
         this.currentVizTab = 1;
         this.showLabelEdit = true;
-      }
-
-      //Update only the baseTitle of the dataset that is active
-      if (name === ROUTE_NAMES.Dataset && this._inactive === false) {
-        this.updateBaseTitle();
-      }
-      //FIXME: Hugo, we need to talk about this hack
-      // https://stackoverflow.com/questions/50295985/how-to-tell-if-a-vue-component-is-active-or-not
-      if (name === ROUTE_NAMES.Query && this._inactive === false) {
-        this.runCurrentQuery();
-      }
-
-      if (name === ROUTE_NAMES.Dataset) {
-        this.handleDatasetTabs(this.$route);
       }
     }
   },
@@ -314,10 +310,10 @@ export default {
 
     try {
       responseMetaData = await this.getDatasetMetadata(id);
-    } catch (error) {
-      if (error.response.status === 404) {
-        this.$router.push("/datos/");
-        throw error;
+    } catch ({ response }) {
+      if (response.status === 404) {
+        this.$router.push({ name: ROUTE_NAMES.Index });
+        throw response;
       }
     }
 
@@ -356,12 +352,12 @@ export default {
         ROUTE_NAMES.Visualization
       ].includes(name)
     ) {
+      this.updateBaseTitle();
       this.handleDatasetTabs(this.$route);
     }
 
     this.queryOrVizIsNotMine();
-    this.checkIfUserIsLogged();
-    this.updateBaseTitle();
+    this.displayVizSavingPrompt();
   },
   mounted() {
     const recentQueries = localStorage.getItem("recentQueries");
@@ -451,7 +447,6 @@ export default {
     this.$root.$off("disabledRevertButton");
     this.$root.$off("isQuerySavingPromptVisible");
     this.$root.$off("eventToEnabledInputQueries");
-
     this.$root.$off("isVizSavingPromptVisible");
     this.$root.$off("enableSavedVizButton");
     this.$root.$off("showSavedVizString");
@@ -467,12 +462,13 @@ export default {
     async handleDatasetTabs(path) {
       const {
         name,
-        params: { queryId, tab = tabs[0] }
+        params: { queryId, tab },
+        query: { sql }
       } = path;
 
       switch (true) {
         // resumen
-        case tab === tabs[0]: {
+        case (!tab && !queryId) || tab === tabs[0]: {
           await this.getAllQueries();
           await this.getAllVisualizations();
           break;
@@ -481,7 +477,7 @@ export default {
         case tab === tabs[1]:
         case name === ROUTE_NAMES.Query: {
           await this.getAllQueries();
-          this.parseUrl(queryId);
+          this.parseUrl(queryId, sql);
           this.runCurrentQuery();
           this.setDefaultQuery();
           break;
@@ -528,32 +524,32 @@ export default {
         document.title = title;
       }
     },
-    checkIfUserIsLogged() {
+    displayVizSavingPrompt() {
       if (this.isUserLogged) {
         this.isVizSavingPromptVisible = true;
       }
     },
-    parseUrl(queryId) {
+    parseUrl(queryId, queryText) {
       let item = null;
       if (queryId) {
         // if has id it's an stored query
-        item = [...this.privateQueries, ...this.publicQueries].find(
+        item = [...this.privateQueries || [], ...this.publicQueries || []].find(
           ({ id }) => id === queryId
         );
       }
 
       if (item) {
         const {
-          attributes: { sql: itemSql, name, user_id, privacy_status }
+          attributes: { sql, name, user_id, privacy_status }
         } = item;
 
         this.queryName = name;
         this.queryUserId = user_id;
+        this.showPrivate = (privacy_status === "closed");
 
-        this.showPrivate = privacy_status === "closed" ? true : false;
-
-        // update the editor text content
-        this.setCurrentQuery(itemSql);
+        this.setCurrentQuery(sql);
+      } else if (queryText) {
+        this.setCurrentQuery(decodeURIComponent(queryText));
       }
     },
     setDefaultQuery() {
@@ -872,6 +868,9 @@ export default {
         params = { sql: this.currentQuery };
       }
 
+      // update url with a temporal parameter
+      this.$router.push({ ...this.$route, query: { ...this.$route.query, sql: encodeURIComponent(this.currentQuery) } }).catch(()=>{})
+
       const startTime = new Date().getTime();
       // factory method
       try {
@@ -981,15 +980,11 @@ export default {
       }
     },
     updateURL(element) {
-      const {
-        params: { id: slugDataset }
-      } = this.$route;
-
-      const { id: newId } = element;
-      //Changes the path depending on if we save a query or viz.
-      const pathQueryOrViz = this.savingViz ? "v" : "q";
-
-      this.$router.push(`/datos/${slugDataset}/${pathQueryOrViz}/${newId}`);
+      const { id: queryId } = element;
+      this.$router.push({
+        name: this.savingViz ? ROUTE_NAMES.Visualization : ROUTE_NAMES.Query,
+        params: { ...this.$route.params, queryId }
+      });
 
       this.enabledForkButton = false;
       this.queryInputFocus = false;

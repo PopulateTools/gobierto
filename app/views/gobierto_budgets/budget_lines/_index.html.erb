@@ -83,7 +83,7 @@
         <td class="qty big_qty">
           <%= number_to_currency(
                 kind == GobiertoBudgets::BudgetLine::INCOME ? @site_stats.total_income_budget(fallback: true) : @site_stats.total_budget(fallback: true),
-                precision: 0
+                precision: 2
               ) %></td>
         <%= content_tag :td, number_to_currency(kind == GobiertoBudgets::BudgetLine::INCOME ? @site_stats.total_income_budget_per_inhabitant : @site_stats.total_budget_per_inhabitant, precision: 2), class: "qty big_qty" if @site_stats.population_data? %>
         <td class="qty"></td>

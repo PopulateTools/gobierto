@@ -145,20 +145,36 @@
         {{ labelMainAssignees }}
       </h3>
       <Table
-        :items="items"
-        :columns="columns"
+        :data="items"
+        :order-column="'count'"
+        :columns="assigneesColumns"
+        :show-columns="showColumns"
         :routing-member="'assignees_show'"
-        :routing-attribute="'assignee_routing_id'"
-      />
+        :routing-id="'assignee_routing_id'"
+        :pagination-id="'.gobierto-table'"
+        :items-per-page="15"
+        class="gobierto-table-margin-top"
+        @update-show-columns="updateShowColumns"
+      >
+        <template
+          #columns="{ toggleVisibility }"
+        >
+          <TableColumnsSelector
+            :columns="assigneesColumns"
+            :show-columns="showColumns"
+            @toggle-visibility="toggleVisibility"
+          />
+        </template>
+      </Table>
     </div>
   </div>
 </template>
 <script>
 
+import { Table, TableColumnsSelector } from "lib/vue-components";
 import { BeesWarmChart } from "lib/vue-components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import EntityTreeMapNested from "./EntityTreeMapNested.vue";
-import Table from "../../components/Table.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
 import { select, mouse } from 'd3-selection'
@@ -173,14 +189,17 @@ export default {
     Table,
     BeesWarmChart,
     CategoriesTreeMapNested,
-    EntityTreeMapNested
+    EntityTreeMapNested,
+    TableColumnsSelector
   },
   mixins: [visualizationsMixins],
   data(){
     return {
       visualizationsData: this.$root.$data.contractsData,
+      assigneesColumns: assigneesColumns,
       items: [],
       columns: [],
+      showColumns: [],
       value: '',
       labelTenders: I18n.t('gobierto_visualizations.visualizations.contracts.summary.tenders'),
       labelTendersFor: I18n.t('gobierto_visualizations.visualizations.contracts.summary.tenders_for'),
@@ -212,9 +231,10 @@ export default {
       }
     }
   },
-  async created() {
+  created() {
     this.columns = assigneesColumns;
     this.dataBeesWarmFilter = JSON.parse(JSON.stringify(this.visualizationsData));
+    this.showColumns = ['count', 'name', 'sum']
   },
   methods: {
     updateDataBeesWarm(data){
@@ -292,6 +312,9 @@ export default {
       sortedAndGrouped.forEach(contract => contract.id = `${contract.name}-${contract.count}`)
 
       return sortedAndGrouped.slice(0, 30);
+    },
+    updateShowColumns(values) {
+      this.showColumns = values
     }
   }
 }

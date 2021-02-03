@@ -36,15 +36,16 @@ es:
           contract_amount: Importe de adjudicación
           entity: Entidad
           estimated_value: Valor estimado
+          open_proposals_date: Fecha de licitación
           process: Proceso
           question_description: "¿Qué % del presupuesto supone este contrato?"
+          submission_date: Fecha de entrega
           tender: Licitación
           type: Tipo
         date: Fecha
         dates: Fechas
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
           del %{entity_name}
-        empty_table: No hay datos disponibles
         entities: Entidades
         final_amount_no_taxes: Importe
         fromto: Desde A Nº. Contr.

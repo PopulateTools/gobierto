@@ -119,7 +119,6 @@ export default {
           }
           if (key === value_key) {
             root.value = parseFloat(root[value_key]);
-            delete root[value_key];
           }
         }
         return root;

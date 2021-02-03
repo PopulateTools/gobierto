@@ -24,7 +24,7 @@ import { axisBottom, axisLeft } from 'd3-axis';
 import { extent } from 'd3-array';
 import { timeFormat, timeFormatLocale } from 'd3-time-format';
 import { min, max } from 'd3-array';
-import { d3locale, createScaleColors, normalizeString } from 'lib/shared';
+import { d3locale, createScaleColors, slugString } from 'lib/shared';
 import { easeLinear } from 'd3-ease';
 
 const d3 = {
@@ -116,7 +116,7 @@ export default {
     /*To avoid add/remove colors in every update use Object.freeze(this.data)
     to create a scale/domain color persistent with the original keys*/
     const freezeObjectColors = Object.freeze(this.data);
-    const arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => normalizeString(d.contract_type))))
+    const arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => slugString(d.contract_type))))
     this.colors = createScaleColors(arrayValuesContractTypes.length, arrayValuesContractTypes);
 
     this.setupElements();
@@ -270,7 +270,7 @@ export default {
         .duration(450)
         .ease(d3.easeLinear)
         .attr('class', d => {
-          d.id = normalizeString(d.id)
+          d.id = slugString(d.id)
           return `beeswarm-circle beeswarm-circle-${d.id} beeswarm-circle-${d.slug_contract_type}`
         })
         .attr('id', d => d.slug)
@@ -289,10 +289,10 @@ export default {
         .domain([0, maxFinalAmount]);
 
       data.forEach(d => {
-        d.slug_contract_type = normalizeString(d.contract_type)
+        d.slug_contract_type = slugString(d.contract_type)
         if (d.assignee) {
           //Normalize assignee to create a slug for select ID's on mouseover
-          d.slug = normalizeString(d.assignee)
+          d.slug = slugString(d.assignee)
         }
 
         d.radius = radiusScale(d[this.radiusProperty])

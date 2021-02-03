@@ -1,4 +1,4 @@
-export function normalizeString(string) {
+export function slugString(string) {
   return string
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "") // remove accents

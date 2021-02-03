@@ -23,6 +23,10 @@ export default {
       isContentVisible: true
     }
   },
+  created() {
+    const widthMobile = window.innerWidth > 0 ? window.innerWidth : screen.width
+    this.isContentVisible = widthMobile <= 700 ? false : true
+  },
   methods: {
     show() {
       this.isContentVisible = !this.isContentVisible

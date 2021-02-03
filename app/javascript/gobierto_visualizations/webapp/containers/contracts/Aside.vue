@@ -224,20 +224,11 @@ export default {
       EventBus.$emit("update-filters");
     },
     toggle(filter){
-      const widthMobile = window.innerWidth > 0 ? window.innerWidth : screen.width
-      if (widthMobile <= 700) {
-        this.filters.forEach(_filter => {
-          if (_filter.id === filter.id) {
-            _filter.isToggle = true;
-          }
-        })
-      } else {
-        this.filters.forEach(_filter => {
-          if (_filter.id === filter.id) {
-            _filter.isToggle = !_filter.isToggle;
-          }
-        })
-      }
+      this.filters.forEach(_filter => {
+        if (_filter.id === filter.id) {
+          _filter.isToggle = !_filter.isToggle;
+        }
+      })
     }
   }
 }

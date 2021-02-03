@@ -12,17 +12,18 @@ export const grantedColumns = [
 ];
 
 // filters config
+const widthMobile = window.innerWidth > 0 ? window.innerWidth : screen.width
 export const subsidiesFiltersConfig = [
   {
     id: 'dates',
     title: I18n.t('gobierto_visualizations.visualizations.subsidies.dates'),
-    isToggle: true,
+    isToggle: widthMobile <= 700 ? false : true,
     options: []
   },
   {
     id: 'categories',
     title: I18n.t('gobierto_visualizations.visualizations.subsidies.category'),
-    isToggle: true,
+    isToggle: widthMobile <= 700 ? false : true,
     options: []
   }
 ]

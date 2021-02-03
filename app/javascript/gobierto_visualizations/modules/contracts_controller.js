@@ -137,10 +137,7 @@ export class ContractsController {
     }
   }
 
-  setGlobalVariables(rawData) {
-    let contractsData, tendersData;
-    [contractsData, tendersData] = rawData;
-
+  setGlobalVariables([contractsData, tendersData]) {
     const sortByField = dateField => {
       return function(a, b) {
         const aDate = a[dateField],
@@ -174,20 +171,20 @@ export class ContractsController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
-    contractsData = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, award_date, assignee_id, ...rest }) => {
+    const contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, award_date, assignee_id, ...rest }) => {
       return {
-        final_amount_no_taxes: final_amount_no_taxes && !Number.isNaN(final_amount_no_taxes) ? parseFloat(final_amount_no_taxes): 0.0,
-        initial_amount_no_taxes: initial_amount_no_taxes && !Number.isNaN(initial_amount_no_taxes) ? parseFloat(initial_amount_no_taxes): 0.0,
+        final_amount_no_taxes: (final_amount_no_taxes && !Number.isNaN(final_amount_no_taxes)) ? parseFloat(final_amount_no_taxes): 0.0,
+        initial_amount_no_taxes: (initial_amount_no_taxes && !Number.isNaN(initial_amount_no_taxes)) ? parseFloat(initial_amount_no_taxes): 0.0,
         range: rangeFormat(+final_amount_no_taxes),
         assignee_routing_id: assignee_id,
         award_date_year: award_date ? new Date(award_date).getFullYear().toString() : '',
-        award_date,
+        award_date: new Date(award_date),
         ...rest
       }
 
     })
 
-    tendersData = tendersData.map(({ initial_amount_no_taxes = 0, submission_date, ...rest }) => {
+    const tendersDataMap = tendersData.map(({ initial_amount_no_taxes = 0, submission_date, ...rest }) => {
 
       return {
         initial_amount_no_taxes: initial_amount_no_taxes ? parseFloat(initial_amount_no_taxes) : 0.0,
@@ -197,12 +194,12 @@ export class ContractsController {
 
     })
 
-    this.unfilteredTendersData = tendersData.sort(
+    this.unfilteredTendersData = tendersDataMap.sort(
       sortByField("submission_date")
     );
 
     this.data = {
-      contractsData: this._formalizedContractsData(contractsData).sort(
+      contractsData: this._formalizedContractsData(contractsDataMap).sort(
         sortByField("award_date")
       ),
       tendersData: this.unfilteredTendersData

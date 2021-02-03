@@ -9,6 +9,14 @@
   </div>
 </template>
 <script>
+
+// TODO: BE CAREFUL, THIS IS NOT A REAL COMPONENT
+// There are some fields depending on the dataset:
+// - contract_type
+// - start_date_year
+// - final_amount_no_taxes
+// - assignee
+
 import { select, selectAll } from 'd3-selection';
 import { scaleBand, scaleTime, scalePow } from 'd3-scale';
 import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';

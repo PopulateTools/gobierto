@@ -33,35 +33,35 @@ export const assigneesShowColumns = [
 ];
 
 // filters config
-const widthMobile = window.innerWidth > 0 ? window.innerWidth : screen.width
+const responsiveSize = window.innerWidth <= 769 ? false : true
 export const contractsFiltersConfig = [{
     id: 'dates',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.dates'),
-    isToggle: widthMobile <= 700 ? false : true,
+    isToggle: responsiveSize,
     options: []
   },
   {
     id: 'category_title',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.categories'),
-    isToggle: widthMobile <= 700 ? false : true,
+    isToggle: responsiveSize,
     options: []
   },
   {
     id: 'contract_types',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.contract_type'),
-    isToggle: widthMobile <= 700 ? false : true,
+    isToggle: responsiveSize,
     options: []
   },
   {
     id: 'process_types',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.process_type'),
-    isToggle: widthMobile <= 700 ? false : true,
+    isToggle: responsiveSize,
     options: []
   },
   {
     id: 'contractor',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.entities'),
-    isToggle: widthMobile <= 700 ? false : true,
+    isToggle: responsiveSize,
     options: []
   }
 ]

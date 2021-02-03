@@ -24,8 +24,7 @@ export default {
     }
   },
   created() {
-    const widthMobile = window.innerWidth > 0 ? window.innerWidth : screen.width
-    this.isContentVisible = widthMobile <= 700 ? false : true
+    this.isContentVisible = window.innerWidth <= 769 ? false : true
   },
   methods: {
     show() {

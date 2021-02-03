@@ -12,7 +12,7 @@
 
   &-margin-top {
     margin-top: -3.5rem;
-    @media (max-width: 768px) {
+    @include screen(769) {
       margin-top: 0;
     }
   }
@@ -159,8 +159,11 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, .25);
       border-radius: 3px;
       z-index: 3;
-      @media (max-width: 768px) {
-        width: 75vw;
+      @include screen(769) {
+        width: 50vw;
+      }
+      @include screen(700) {
+        width: 70vw;
       }
     }
   }

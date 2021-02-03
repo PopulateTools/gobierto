@@ -102,11 +102,10 @@
   </div>
 </template>
 <script>
-import { Loading } from "lib/vue-components";
+import { Loading, Dropdown } from "lib/vue/components";
 import Caret from "./../commons/Caret.vue";
 import Visualizations from "./../commons/Visualizations.vue";
 import PrivateIcon from './../commons/PrivateIcon.vue';
-import { Dropdown } from "lib/vue-components";
 import { getUserId } from "./../../../lib/helpers";
 import CardVisualization from "./../../layouts/CardVisualization.vue";
 

@@ -157,7 +157,7 @@
 </template>
 <script>
 
-import { BeesWarmChart } from "lib/vue-components";
+import { BeesWarmChart } from "lib/vue/components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import EntityTreeMapNested from "./EntityTreeMapNested.vue";
 import Table from "../../components/Table.vue";

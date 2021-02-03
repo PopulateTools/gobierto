@@ -136,7 +136,7 @@
 </template>
 
 <script>
-import { SkeletonSpinner } from "lib/vue-components";
+import { SkeletonSpinner } from "lib/vue/components";
 import DatasetNav from "./sets/DatasetNav.vue";
 import SummaryTab from "./sets/SummaryTab.vue";
 import DataTab from "./sets/DataTab.vue";

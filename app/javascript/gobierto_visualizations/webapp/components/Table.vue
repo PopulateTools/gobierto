@@ -34,7 +34,7 @@
 
 <script>
 import TableRow from "./TableRow.vue";
-import { Pagination } from "lib/vue-components";
+import { Pagination } from "lib/vue/components";
 
 export default {
   name: "Table",

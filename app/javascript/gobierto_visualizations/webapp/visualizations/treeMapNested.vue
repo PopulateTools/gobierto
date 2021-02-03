@@ -214,7 +214,11 @@ export default {
     this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => d[this.scaleColorKey])))
 
     this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
-    this.resizeListener()
+
+window.addEventListener("resize", this.resizeListener)
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.resizeListener)
   },
   methods: {
     handleTreeMapValue(value) {
@@ -712,15 +716,13 @@ export default {
       }
     },
     resizeListener() {
-      window.addEventListener("resize", () => {
-        const containerChart = document.querySelector('.treemap-nested-container');
-        this.svgWidth = containerChart.offsetWidth
-        if (this.updateData) {
-          this.deepCloneData(this.dataNewValues)
-        } else {
-          this.transformDataTreemap(this.data);
-        }
-      })
+      const containerChart = document.querySelector('.treemap-nested-container');
+      this.svgWidth = containerChart.offsetWidth
+      if (this.updateData) {
+        this.deepCloneData(this.dataNewValues)
+      } else {
+        this.transformDataTreemap(this.data);
+      }
     },
     injectRouter() {
       this.closeTooltips()

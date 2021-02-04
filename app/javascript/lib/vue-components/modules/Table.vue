@@ -159,7 +159,7 @@ export default {
   data() {
     return {
       mapColumns: new Map(),
-      currentSortColumn: this.$options.defaults.sortColumn,
+      currentSortColumn: this.orderColumn,
       currentSort: this.$options.defaults.sortDirection,
       visibleColumns: this.showColumns,
       dataTable: [],
@@ -191,9 +191,6 @@ export default {
   },
   created() {
     this.prepareTable()
-  },
-  mounted() {
-    this.handleTableHeaderClick(this.orderColumn)
   },
   methods: {
     handleTableHeaderClick(id) {

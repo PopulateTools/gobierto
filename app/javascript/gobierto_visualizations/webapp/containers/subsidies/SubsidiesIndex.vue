@@ -4,35 +4,20 @@
     :order-column="'beneficiary'"
     :columns="subsidiesColumns"
     :show-columns="showColumns"
-    :routing-member="'subsidies_show'"
-    :routing-id="'id'"
-    :pagination-id="'main'"
-    :items-per-page="25"
+    :on-row-click="goesToItem"
     class="gobierto-table-margin-top"
-    @update-show-columns="updateShowColumns"
-  >
-    <template
-      #columns="{ toggleVisibility }"
-    >
-      <TableColumnsSelector
-        :columns="subsidiesColumns"
-        :show-columns="showColumns"
-        @toggle-visibility="toggleVisibility"
-      />
-    </template>
-  </Table>
+  />
 </template>
 
 <script>
-import { Table, TableColumnsSelector } from "lib/vue-components";
+import { Table } from "lib/vue-components";
 import { EventBus } from "../../mixins/event_bus";
 import { subsidiesColumns } from "../../lib/config/subsidies.js";
 
 export default {
   name: 'SubsidiesIndex',
   components: {
-    Table,
-    TableColumnsSelector
+    Table
   },
   data() {
     return {
@@ -75,6 +60,10 @@ export default {
     },
     updateShowColumns(values) {
       this.showColumns = values
+    },
+    goesToItem(item) {
+      const { id: routingId } = item
+      this.$router.push({ name: 'subsidies_show', params: { id: routingId } })
     }
   }
 }

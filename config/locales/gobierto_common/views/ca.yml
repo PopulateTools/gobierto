@@ -199,3 +199,5 @@ ca:
       read_more:
         less: Vegeu-ne menys
         more: Vegeu-ne mès
+      table:
+        customize_columns: Personalitzeu columnes

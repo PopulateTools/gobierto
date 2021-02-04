@@ -1,6 +1,6 @@
 <template>
   <div
-    v-clickoutside="showModal"
+    v-clickoutside="closeModal"
     class="gobierto-table__column-selector"
   >
     <div
@@ -18,7 +18,7 @@
         class="gobierto-table__column-selector__content"
       >
         <Checkbox
-          v-for="{ name, visibility, id } in filterColumns"
+          v-for="[id, { name, visibility } ] in columns"
           :id="id"
           :key="id"
           :title="name"
@@ -44,12 +44,8 @@ export default {
   },
   props: {
     columns: {
-      type: Array,
-      default: () => []
-    },
-    showColumns: {
-      type: Array,
-      default: () => []
+      type: Map,
+      default: () => new Map()
     }
   },
   data() {
@@ -58,25 +54,14 @@ export default {
       labelCustomizeColumns: I18n.t("gobierto_plans.plan_types.show.customize_columns") || ''
     }
   },
-  computed: {
-    filterColumns() {
-      return this.columns.map(({ field, ...rest }, index) => ({
-        visibility: this.showColumns.includes(field),
-        id: index,
-        field,
-        ...rest
-      }))
-    }
-  },
   methods: {
-    showModal() {
-      if (this.showColumnsModal) {
-        this.showColumnsModal = false
-      }
+    closeModal() {
+      this.showColumnsModal = false
     },
-    toggleVisibility(column) {
-      this.$emit('toggle-visibility', column)
-    }
+    toggleVisibility({ id, value }) {
+      this.columns.set(id, { ...this.columns.get(id), visibility: value });
+      this.$emit('visible-columns', this.columns)
+    },
   }
 }
 </script>

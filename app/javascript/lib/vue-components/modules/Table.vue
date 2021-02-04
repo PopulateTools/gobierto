@@ -1,15 +1,24 @@
 <template>
-  <div class="gobierto-table">
+  <div
+    ref="table"
+    class="gobierto-table"
+  >
     <div class="gobierto-table__header">
       <slot name="title" />
-      <slot
-        name="columns"
-        :toggle-visibility="toggleVisibility"
-      />
+      <template v-if="showColumnSelector">
+        <slot
+          name="columns"
+        >
+          <TableColumnsSelector
+            :columns="mapColumns"
+            @visible-columns="filterColumns"
+          />
+        </slot>
+      </template>
     </div>
     <table>
       <thead>
-        <template v-for="[id, { name, index, cssClass }] in columnsMapArr">
+        <template v-for="[id, { name, index, cssClass }] in arrayColumnsFiltered">
           <th
             :key="index"
             class="gobierto-table__th"
@@ -28,79 +37,85 @@
         <template
           v-for="(item, index) in dataTable"
         >
-          <router-link
+          <tr
             :key="index"
-            :to="{ name: routingMember, params: {id: item[routingId] } }"
-            tag="tr"
+            :class="{ 'is-clickable': rowClickable }"
             class="gobierto-table__tr"
+            @click="onRowClick(item)"
           >
-            <template
-              v-for="{key, field, type, cssClass} in filterColumns"
-            >
+            <template v-for="[id, { name, index, type, cssClass }] in arrayColumnsFiltered">
               <template v-if="type === 'money'">
                 <td
-                  :key="key"
+                  :key="id"
                   :class="cssClass"
                   class="gobierto-table__td"
                 >
                   <span>
-                    {{ item[field] | money }}
+                    {{ item[id] | money }}
                   </span>
                 </td>
               </template>
               <template v-else-if="type === 'date'">
                 <td
-                  :key="key"
+                  :key="id"
                   :class="cssClass"
                   class="gobierto-table__td"
                 >
                   <span>
-                    {{ item[field] | date }}
+                    {{ item[id] | date }}
                   </span>
                 </td>
               </template>
               <template v-else-if="type === 'truncate'">
                 <td
-                  :key="key"
+                  :key="id"
                   class="gobierto-table__td"
                 >
                   <span :class="cssClass">
-                    {{ item[field] }}
+                    {{ item[id] }}
                   </span>
                 </td>
               </template>
               <template v-else>
                 <td
-                  :key="key"
+                  :key="id"
                   :class="cssClass"
                   class="gobierto-table__td"
                 >
-                  <span>{{ item[field] }}</span>
+                  <span>{{ item[id] }}</span>
                 </td>
               </template>
             </template>
-          </router-link>
+          </tr>
         </template>
       </tbody>
     </table>
-    <Pagination
-      :data="rowsSorted"
-      :items-per-page="itemsPerPage"
-      :container-pagination="containerPagination"
-      @showData="updateData"
-    />
+    <template v-if="showPagination">
+      <slot
+        name="pagination"
+        :show-data="updateData"
+      >
+        <Pagination
+          :data="rowsSorted"
+          :items-per-page="25"
+          :container-pagination="'main'"
+          @showData="updateData"
+        />
+      </slot>
+    </template>
   </div>
 </template>
 <script>
-
-import Pagination from "./Pagination.vue";
-import SortIcon from "./SortIcon.vue"
+import { Pagination } from "lib/vue-components";
+import TableColumnsSelector from './TableColumnsSelector'
+import SortIcon from './SortIcon'
 import { VueFiltersMixin } from "lib/vue/filters"
 export default {
   name: 'Table',
   components: {
     SortIcon,
-    Pagination
+    TableColumnsSelector,
+    Pagination,
   },
   mixins: [VueFiltersMixin],
   defaults: {
@@ -124,32 +139,31 @@ export default {
       type: Array,
       default: () => []
     },
-    routingMember: {
-      type: String,
-      default: ''
+    showColumnSelector: {
+      type: Boolean,
+      default: true
     },
-    routingId: {
-      type: String,
-      default: ''
+    showPagination: {
+      type: Boolean,
+      default: true
     },
-    paginationId: {
-      type: String,
-      default: ''
+    rowClickable: {
+      type: Boolean,
+      default: true
     },
-    itemsPerPage: {
-      type: Number,
-      default: 0
+    onRowClick: {
+      type: Function,
+      default: x => x
     }
   },
   data() {
     return {
-      map: new Map(),
+      mapColumns: new Map(),
       currentSortColumn: this.$options.defaults.sortColumn,
       currentSort: this.$options.defaults.sortDirection,
       visibleColumns: this.showColumns,
-      filterColumns: [],
       dataTable: [],
-      containerPagination: this.paginationId
+      arrayColumnsFiltered: []
     };
   },
   computed: {
@@ -157,7 +171,7 @@ export default {
       return this.data || []
     },
     rowsSorted() {
-      const id = this.currentSortColumn.field;
+      const id = this.currentSortColumn;
       const sort = this.currentSort;
       return this.tmpRows
         .slice()
@@ -178,49 +192,44 @@ export default {
   created() {
     this.prepareTable()
   },
+  mounted() {
+    this.handleTableHeaderClick(this.orderColumn)
+  },
   methods: {
     handleTableHeaderClick(id) {
-      const { sort } = this.map.get(id);
+      const { sort } = this.mapColumns.get(id);
       this.currentSortColumn = id;
       // toggle sort order
       this.currentSort = sort === "up" ? "down" : "up";
       // update the order for the item clicked
-      this.map.set(id, { ...this.map.get(id), sort: this.currentSort });
+      this.mapColumns.set(id, { ...this.mapColumns.get(id), sort: this.currentSort });
     },
     getSorting(column) {
       // ignore the first item of the tuple
-      const { sort } = this.map.get(column)
+      const { sort } = this.mapColumns.get(column)
       return sort;
     },
     prepareTable() {
-      this.filterColumns = this.columns.filter(({ field }) => this.visibleColumns.includes(field))
-      this.map.clear();
-      for (let index = 0; index < this.filterColumns.length; index++) {
-        const column = this.filterColumns[index];
-        this.map.set(column, {
-          visibility: this.visibleColumns.includes(column.field),
-          name: column.name,
+      this.mapColumns.clear();
+      for (let index = 0; index < this.columns.length; index++) {
+        const { field, name, type, cssClass = '' } = this.columns[index];
+        this.mapColumns.set(field, {
+          visibility: this.visibleColumns.includes(field),
+          name: name,
           sort: undefined,
-          type: column.type,
-          cssClass: column.cssClass
+          type: type,
+          cssClass: cssClass
         });
       }
-      this.columnsMapArr = Array.from(this.map);
-    },
-    toggleVisibility({ id, value }) {
-      const columns = this.columns.map(({ field }) => field)
-      const columnName = columns[columns.findIndex((x, index) => index === id)]
-      if (value) {
-        this.visibleColumns.push(columnName)
-      } else {
-        this.visibleColumns = this.visibleColumns.filter(item => item !== columnName)
-      }
-      this.prepareTable()
-      this.$emit('update-show-columns', this.visibleColumns)
+      this.arrayColumnsFiltered = Array.from(this.mapColumns).filter(([,{ visibility }]) => !!visibility)
     },
     updateData(values) {
       this.dataTable = values
     },
+    filterColumns(columns) {
+      this.mapColumns = columns
+      this.arrayColumnsFiltered = Array.from(this.mapColumns).filter(([,{ visibility }]) => !!visibility)
+    }
   }
 }
 </script>

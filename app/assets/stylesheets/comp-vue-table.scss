@@ -4,10 +4,8 @@
   padding: 0;
 
   &.gobierto-table-scroll {
-    table {
-      display: block;
-      overflow-x: scroll;
-    }
+    display: block;
+    overflow-x: scroll;
   }
 
   &-margin-top {
@@ -15,15 +13,11 @@
   }
 
   &__tr {
-    cursor: pointer;
     &:not(:last-child) {
       border-bottom: 1px solid rgba(var(--color-base-string), .1);
     }
     &:first-child {
       border-top: 1px solid #ccc;
-    }
-    &:hover {
-      background-color: rgba(var(--color-base-string), .1);
     }
   }
 
@@ -123,5 +117,12 @@
 
   .table-th-money {
     text-align: right;
+  }
+
+  .is-clickable {
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(var(--color-base-string), .1);
+    }
   }
 }

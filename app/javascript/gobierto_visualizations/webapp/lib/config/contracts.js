@@ -33,34 +33,35 @@ export const assigneesShowColumns = [
 ];
 
 // filters config
+const responsiveSize = window.innerWidth <= 769 ? false : true
 export const contractsFiltersConfig = [{
     id: 'dates',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.dates'),
-    isToggle: true,
+    isToggle: responsiveSize,
     options: []
   },
   {
     id: 'category_title',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.categories'),
-    isToggle: true,
+    isToggle: responsiveSize,
     options: []
   },
   {
     id: 'contract_types',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.contract_type'),
-    isToggle: true,
+    isToggle: responsiveSize,
     options: []
   },
   {
     id: 'process_types',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.process_type'),
-    isToggle: true,
+    isToggle: responsiveSize,
     options: []
   },
   {
     id: 'contractor',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.entities'),
-    isToggle: true,
+    isToggle: responsiveSize,
     options: []
   }
 ]

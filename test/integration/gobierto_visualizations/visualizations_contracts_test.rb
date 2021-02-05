@@ -97,8 +97,8 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       # Assignees table
       first_contract = find(".visualizations-home-main--tr", match: :first)
 
-      assert first_contract.has_content?('LIDER SYSTEM, S.L.')
-      assert first_contract.has_content?('40.261,50 €')
+      assert first_contract.has_content?('FLODI, S.L.')
+      assert first_contract.has_content?('599.015,70 €')
     end
   end
 
@@ -127,7 +127,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert first_contract.has_content?('€28,400.00')
 
       # Date
-      assert first_contract.has_content?('2020-07-01')
+      assert first_contract.has_content?('7/1/2020')
 
       # Contracts Show
       ################

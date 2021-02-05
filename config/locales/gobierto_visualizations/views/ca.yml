@@ -45,7 +45,6 @@ ca:
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
-        empty_table: No hi ha dades disponibles
         entities: Entitats
         final_amount_no_taxes: Import
         fromto: De a Nº Contr.

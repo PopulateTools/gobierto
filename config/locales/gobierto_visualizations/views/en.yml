@@ -46,7 +46,6 @@ en:
         dates: Dates
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
-        empty_table: There is no available data
         entities: Entities
         final_amount_no_taxes: Amount
         fromto: From To No Contr.

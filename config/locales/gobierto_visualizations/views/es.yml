@@ -46,7 +46,6 @@ es:
         dates: Fechas
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
           del %{entity_name}
-        empty_table: No hay datos disponibles
         entities: Entidades
         final_amount_no_taxes: Importe
         fromto: Desde A Nº. Contr.

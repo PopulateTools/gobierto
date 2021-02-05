@@ -39,9 +39,9 @@
         >
           <tr
             :key="index"
-            :class="{ 'is-clickable': rowClickable }"
+            :class="{ 'is-clickable': isRowClickable }"
             class="gobierto-table__tr"
-            @click="onRowClick(item)"
+            @click="isRowClickable ? onRowClick(item) : null"
           >
             <template v-for="[id, { name, index, type, cssClass }] in arrayColumnsFiltered">
               <template v-if="type === 'money'">
@@ -147,13 +147,9 @@ export default {
       type: Boolean,
       default: true
     },
-    rowClickable: {
-      type: Boolean,
-      default: true
-    },
     onRowClick: {
       type: Function,
-      default: x => x
+      default: null
     }
   },
   data() {
@@ -187,6 +183,9 @@ export default {
     },
     icon() {
       return this.direction === 'down' ? 'down' : 'down-alt'
+    },
+    isRowClickable() {
+      return !!this.onRowClick
     }
   },
   created() {

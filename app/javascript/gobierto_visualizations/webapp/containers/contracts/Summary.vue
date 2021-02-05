@@ -301,7 +301,7 @@ export default {
       return sortedAndGrouped.slice(0, 30);
     },
     goesToTableItem(item) {
-      const { id: routingId } = item
+      const { assignee_routing_id: routingId } = item
       this.$router.push({ name: 'assignees_show', params: { id: routingId } })
     }
   }

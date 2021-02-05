@@ -159,7 +159,6 @@
         :order-column="'name'"
         :columns="grantedColumns"
         :show-columns="showColumns"
-        :row-clickable="false"
         class="gobierto-table-margin-top"
       />
     </div>
@@ -251,9 +250,6 @@ export default {
       sortedAndGrouped.forEach(subsidy => subsidy.id = `${subsidy.name}-${subsidy.count}`)
 
       return sortedAndGrouped.slice(0, 30);
-    },
-    updateShowColumns(values) {
-      this.showColumns = values
     }
   }
 }

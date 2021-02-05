@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       showColumnsModal: false,
-      labelCustomizeColumns: I18n.t("gobierto_plans.plan_types.show.customize_columns") || ''
+      labelCustomizeColumns: I18n.t("gobierto_common.vue_components.table.customize_columns") || ''
     }
   },
   methods: {

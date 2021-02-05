@@ -6,7 +6,6 @@
       :columns="contractsColumns"
       :show-columns="showColumns"
       :on-row-click="goesToItem"
-      :row-clickable="true"
       class="gobierto-table-margin-top gobierto-table-scroll"
     />
   </div>

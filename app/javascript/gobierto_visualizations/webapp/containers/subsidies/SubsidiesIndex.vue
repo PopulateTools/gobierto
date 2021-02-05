@@ -58,9 +58,6 @@ export default {
         this.items = this.subsidiesData.filter(({ beneficiary = "" }) => beneficiary.toLowerCase().includes(this.value.toLowerCase())).slice(0, 25)
       }
     },
-    updateShowColumns(values) {
-      this.showColumns = values
-    },
     goesToItem(item) {
       const { id: routingId } = item
       this.$router.push({ name: 'subsidies_show', params: { id: routingId } })

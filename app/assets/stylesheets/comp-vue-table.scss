@@ -75,6 +75,8 @@
     justify-content: flex-end;
     margin: 0 0 2rem;
     align-items: center;
+    position: sticky;
+    left: 0%;
 
     th {
       cursor: pointer;

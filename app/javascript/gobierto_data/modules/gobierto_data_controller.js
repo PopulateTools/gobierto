@@ -3,6 +3,7 @@ import { router } from "../lib/router";
 import 'codemirror/lib/codemirror.css'
 
 Vue.config.productionTip = false;
+Vue.config.devtools = true;
 
 export class GobiertoDataController {
   constructor(options) {

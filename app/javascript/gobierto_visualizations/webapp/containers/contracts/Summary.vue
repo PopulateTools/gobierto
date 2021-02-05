@@ -1,9 +1,11 @@
 <template>
   <div>
     <CategoriesTreeMapNested
-      :data="visualizationsData"
+      v-if="activeTab === 0"
+      :data="visualizationsDataExcludeNoCategory"
     />
     <EntityTreeMapNested
+      v-if="activeTab === 0"
       :data="visualizationsData"
       class="mt4"
     />
@@ -11,8 +13,8 @@
       {{ labelBeesWarm }}
     </h3>
     <BeesWarmChart
-      v-if="dataBeesWarmFilter"
-      :data="dataBeesWarmFilter"
+      v-if="activeTab === 0"
+      :data="visualizationsDataExcludeMinorContract"
       :radius-property="'final_amount_no_taxes'"
       :x-axis-prop="'award_date'"
       :y-axis-prop="'contract_type'"
@@ -178,6 +180,12 @@ export default {
     EntityTreeMapNested
   },
   mixins: [visualizationsMixins],
+  props: {
+    activeTab: {
+      type: Number,
+      default: 0
+    }
+  },
   data(){
     return {
       visualizationsData: this.$root.$data.contractsData,
@@ -204,28 +212,22 @@ export default {
       labelAmountDistribution: I18n.t('gobierto_visualizations.visualizations.contracts.amount_distribution'),
       labelMainAssignees: I18n.t('gobierto_visualizations.visualizations.contracts.main_assignees'),
       labelBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.title_beeswarm'),
-      labelTooltipBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm'),
-      dataBeesWarm: undefined,
-      dataBeesWarmFilter: undefined
+      labelTooltipBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm')
     }
   },
-  watch: {
-    visualizationsData(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.updateDataBeesWarm(newValue)
-      }
+  computed: {
+    visualizationsDataExcludeNoCategory() {
+      return this.visualizationsData.filter(({ category_id }) => !!category_id)
+    },
+    visualizationsDataExcludeMinorContract() {
+      return this.visualizationsData.filter(({ minor_contract: minor }) => minor === 'f')
     }
   },
   created() {
     this.columns = assigneesColumns;
-    this.dataBeesWarmFilter = JSON.parse(JSON.stringify(this.visualizationsData));
     this.showColumns = ['count', 'name', 'sum']
   },
   methods: {
-    updateDataBeesWarm(data){
-      const dataBeesWarm = JSON.parse(JSON.stringify(data));
-      this.dataBeesWarmFilter = dataBeesWarm
-    },
     showTooltipBeesWarm(event) {
       const { assignee, final_amount_no_taxes, y } = event
       const tooltip = d3.select('.beeswarm-tooltip')

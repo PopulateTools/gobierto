@@ -34,6 +34,7 @@ ca:
           bidders_description: Numero d'empreses que s'han presentat al procés (Licitadors)
           contract_amount: Import d'adjudicació
           entity: Entitat
+          estimated_value: Valor estimat
           open_proposals_date: Data de licitació
           process: Procés
           question_description: Què % del pressupost suposa aquest contracte?

@@ -36,14 +36,7 @@ export default {
   },
   data() {
     return {
-      directionLeft: true,
-      filesDataset: [{
-          file: {
-            name: 'Actuaciones Bomberos Enero 2019.xls',
-            size: '232kb'
-          }
-        }
-      ]
+      directionLeft: true
     }
   }
 }

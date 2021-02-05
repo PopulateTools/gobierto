@@ -35,6 +35,7 @@ en:
             (Bidders)
           contract_amount: Contract amount
           entity: Entity
+          estimated_value: Estimated value
           open_proposals_date: Open proposals
           process: Process
           question_description: What % of the budget is this contract?

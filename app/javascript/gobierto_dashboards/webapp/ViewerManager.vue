@@ -70,6 +70,9 @@ export default {
 
     if (this.id) {
       this.currentDashboard = this.dashboards.find(({ id }) => +id === +this.id)
+    } else if (this.dashboards.length === 1) {
+      const [{ id }] = this.dashboards
+      this.handleClick(id)
     }
 
     // Emit to his parent, if there was any

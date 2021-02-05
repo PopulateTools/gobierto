@@ -51,7 +51,7 @@ import { FiltersMixin } from "./../../lib/mixins/filters.mixin";
 import { VueFiltersMixin } from "lib/vue/filters";
 
 export default {
-  name: "Dataset",
+  name: "Main",
   components: {
     Layout,
     Sidebar,

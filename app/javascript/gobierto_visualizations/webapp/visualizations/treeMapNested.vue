@@ -54,7 +54,7 @@ import { interpolate } from 'd3-interpolate';
 import { sumDataByGroupKey } from "../lib/utils";
 import { mean, median } from "d3-array";
 import { nest } from "d3-collection";
-import { createScaleColors, normalizeString } from "lib/shared";
+import { createScaleColors, slugString } from "lib/shared";
 import { money } from "lib/vue/filters";
 
 const d3 = { select, selectAll, treemap, stratify, scaleLinear, scaleOrdinal, mouse, easeLinear, mean, median, nest, hierarchy, treemapBinary, interpolate }
@@ -214,7 +214,11 @@ export default {
     this.arrayValuesContractTypes = Array.from(new Set(freezeObjectColors.map((d) => d[this.scaleColorKey])))
 
     this.transformDataTreemap(this.dataTreeMapWithoutCoordinates)
-    this.resizeListener()
+
+window.addEventListener("resize", this.resizeListener)
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.resizeListener)
   },
   methods: {
     handleTreeMapValue(value) {
@@ -393,7 +397,7 @@ export default {
             } else if (depth === 3) {
               let contractType = d.data.contract_type || ''
               //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
-              contractType = normalizeString(contractType)
+              contractType = slugString(contractType)
               return `treemap-nested-container-text ${contractType}`
             }
             return 'treemap-nested-container-text'
@@ -446,7 +450,7 @@ export default {
             } else if (depth === 3) {
               let contractType = d.data.contract_type || ''
               //Normalize and create an slug because Servicios de Gestión Públicos isn't a valid css class
-              contractType = normalizeString(contractType)
+              contractType = slugString(contractType)
               return `treemap-nested-container-text ${contractType}`
             }
             return 'treemap-nested-container-text'
@@ -712,15 +716,13 @@ export default {
       }
     },
     resizeListener() {
-      window.addEventListener("resize", () => {
-        const containerChart = document.querySelector('.treemap-nested-container');
-        this.svgWidth = containerChart.offsetWidth
-        if (this.updateData) {
-          this.deepCloneData(this.dataNewValues)
-        } else {
-          this.transformDataTreemap(this.data);
-        }
-      })
+      const containerChart = document.querySelector('.treemap-nested-container');
+      this.svgWidth = containerChart.offsetWidth
+      if (this.updateData) {
+        this.deepCloneData(this.dataNewValues)
+      } else {
+        this.transformDataTreemap(this.data);
+      }
     },
     injectRouter() {
       this.closeTooltips()

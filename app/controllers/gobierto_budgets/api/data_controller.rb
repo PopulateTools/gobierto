@@ -32,7 +32,7 @@ module GobiertoBudgets
             value: format_currency(budget_data[:value]),
             delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
             ranking_position: position,
-            ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
+            ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 2),
             ranking_url: ''
           }
         else
@@ -84,7 +84,7 @@ module GobiertoBudgets
             value: format_currency(budget_data[:value]),
             delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
             ranking_position: position,
-            ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
+            ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 2),
             ranking_url: ''
           }
         else

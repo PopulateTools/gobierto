@@ -35,6 +35,7 @@ es:
             (Licitadores)
           contract_amount: Importe de adjudicación
           entity: Entidad
+          estimated_value: Valor estimado
           open_proposals_date: Fecha de licitación
           process: Proceso
           question_description: "¿Qué % del presupuesto supone este contrato?"

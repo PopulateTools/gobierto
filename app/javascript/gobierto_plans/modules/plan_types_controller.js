@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { router } from "../webapp/lib/router";
+import { createRouter } from "../webapp/lib/router";
 
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
@@ -19,7 +19,8 @@ export class GobiertoPlansController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const { dataset: { baseurl, ...attrs } } = entryPoint
+      const { dataset: { baseurl, dashboards, ...attrs } } = entryPoint
+      const router = createRouter({ dashboards: dashboards === 'true' })
 
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match#Using_named_capturing_groups
       const { groups: { slug, year } = {} } = baseurl.match(/planes\/(?<slug>.*)\/(?<year>.*)/)
@@ -32,7 +33,7 @@ export class GobiertoPlansController {
 
       new Vue({
         router,
-        data: { ...options, ...attrs, baseurl },
+        data: { ...options, ...attrs, baseurl, dashboards: dashboards === 'true' },
       }).$mount(entryPoint);
     }
   }

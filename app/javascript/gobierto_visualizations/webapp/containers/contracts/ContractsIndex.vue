@@ -1,25 +1,48 @@
 <template>
-  <Table
-    :items="items"
-    :routing-member="'contracts_show'"
-    :columns="columns"
-  />
+  <div>
+    <Table
+      :data="items"
+      :order-column="'assignee'"
+      :columns="contractsColumns"
+      :show-columns="showColumns"
+      :routing-member="'contracts_show'"
+      :routing-id="'id'"
+      :pagination-id="'.visualizations-home-main'"
+      :items-per-page="25"
+      class="gobierto-table-margin-top gobierto-table-scroll"
+      @update-show-columns="updateShowColumns"
+    >
+      <template
+        #columns="{ toggleVisibility }"
+      >
+        <TableColumnsSelector
+          :columns="contractsColumns"
+          :show-columns="showColumns"
+          @toggle-visibility="toggleVisibility"
+        />
+      </template>
+    </Table>
+  </div>
 </template>
 
 <script>
-import Table from "../../components/Table.vue";
+import { Table, TableColumnsSelector } from "lib/vue-components";
 import { EventBus } from "../../mixins/event_bus";
 import { contractsColumns } from "../../lib/config/contracts.js";
 
 export default {
   name: 'ContractsIndex',
   components: {
-    Table
+    Table,
+    TableColumnsSelector
   },
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
-      items: []
+      contractsColumns: contractsColumns,
+      items: [],
+      showColumns: [],
+      columns: []
     }
   },
   watch: {
@@ -39,6 +62,7 @@ export default {
 
     this.items = this.contractsData
     this.columns = contractsColumns;
+    this.showColumns = ['assignee', 'title', 'award_date', 'final_amount_no_taxes']
   },
   beforeDestroy(){
     EventBus.$off('refresh-summary-data');
@@ -48,6 +72,9 @@ export default {
       this.value = value || ''
 
       this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()) || contract.title.toLowerCase().includes(this.value.toLowerCase()))
+    },
+    updateShowColumns(values) {
+      this.showColumns = values
     }
   }
 }

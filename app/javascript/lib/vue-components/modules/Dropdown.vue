@@ -23,6 +23,9 @@ export default {
       isContentVisible: true
     }
   },
+  created() {
+    this.isContentVisible = window.innerWidth <= 769 ? false : true
+  },
   methods: {
     show() {
       this.isContentVisible = !this.isContentVisible

@@ -39,7 +39,7 @@
       <div class="visualizations-contracts-show__body">
         <div
           v-show="!isMinorContract"
-          class="pure-u-1 pure-u-lg-1-2"
+          class="pure-u-1 pure-u-lg-1-2 pure-u-md-1-2"
         >
           <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
             <span class="visualizations-contracts-show__text__header">{{ labelTender }}</span>
@@ -65,7 +65,7 @@
             :value="number_of_proposals"
           />
         </div>
-        <div class="pure-u-1 pure-u-lg-1-2">
+        <div class="pure-u-1 pure-u-lg-1-2 pure-u-md-1-2">
           <ContractsShowLabelGroup
             :label="labelAwarding"
             :value="award_date | formatDate"

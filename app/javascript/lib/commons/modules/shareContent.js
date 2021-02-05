@@ -11,11 +11,11 @@ export var shareContent = flight.component(function(){
     var twitterElement = document.querySelector(".twitter");
     var facebookElement = document.querySelector(".facebook");
 
-    if(this.$node.find('[data-share-url]').length > 0){
+    if (this.$node.find('[data-share-url]').length > 0){
       this.attr.url = this.$node.find('[data-share-url]').data('share-url');
     }
 
-    if(this.$node.data('anchor') !== undefined){
+    if (this.$node.data('anchor') !== undefined){
       this.attr.url += '#' + this.$node.data('anchor');
     }
 
@@ -41,16 +41,16 @@ export var shareContent = flight.component(function(){
     this.emailLink = this.$node.find('[data-share-network=email]');
     this.codeLink = this.$node.find('[data-share-network=code]');
 
-    if(this.twitterLink)
+    if (this.twitterLink)
       this.twitterLink.on('click', this.clickTwitterHandle.bind(this));
 
-    if(this.facebookLink)
+    if (this.facebookLink)
       this.facebookLink.on('click', this.clickFacebookHandle.bind(this));
 
-    if(this.linkedinLink)
+    if (this.linkedinLink)
       this.linkedinLink.on('click', this.clickLinkedinHandle.bind(this));
 
-    if(this.emailLink.length)
+    if (this.emailLink.length)
       this.emailLink.on('click', this.clickEmailHandle.bind(this));
   });
 
@@ -68,7 +68,7 @@ export var shareContent = flight.component(function(){
 
       window.open(twitter_intent_url, '', this.attr.modalOptions);
 
-    } catch(missingShareTextNode) {
+    } catch (missingShareTextNode) {
       console.warn('Error: missing share Text Node');
     }
   };
@@ -88,7 +88,7 @@ export var shareContent = flight.component(function(){
     e.preventDefault();
     try {
       window.location.href = 'mailto:?subject=Recommended article from ICIJ&body=' + this.shareText() + ' ' + encodeURIComponent(this.attr.url);
-    } catch(missingShareTextNode) {
+    } catch (missingShareTextNode) {
       console.warn('Error: missing share Text Node');
     }
   };
@@ -97,7 +97,7 @@ export var shareContent = flight.component(function(){
     var text;
     var textNode = this.$node.find('[data-share-text]');
 
-    if(textNode.length && textNode.data('share-text') !== undefined) {
+    if (textNode.length && textNode.data('share-text') !== undefined) {
       text = textNode.data('share-text');
     } else {
       if (!textNode.length)
@@ -105,11 +105,11 @@ export var shareContent = flight.component(function(){
       if (!textNode.length)
         textNode = $('h1');
       text = $.trim(textNode.text());
-      if(!text.length)
+      if (!text.length)
         text = window.document.title;
     }
 
-    if(text.length > 101) {
+    if (text.length > 101) {
       text = text.substring(0,101) + '…';
     }
     return text;

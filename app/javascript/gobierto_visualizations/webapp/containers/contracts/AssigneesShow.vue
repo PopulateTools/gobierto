@@ -14,10 +14,26 @@
 
     <div class="m_t_4">
       <Table
-        :items="items"
-        :columns="columns"
+        :data="items"
+        :order-column="'title'"
+        :columns="assigneesShowColumns"
+        :show-columns="showColumns"
         :routing-member="'contracts_show'"
-      />
+        :routing-id="'id'"
+        :pagination-id="'.visualizations-home-main'"
+        :items-per-page="25"
+        @update-show-columns="updateShowColumns"
+      >
+        <template
+          #columns="{ toggleVisibility }"
+        >
+          <TableColumnsSelector
+            :columns="assigneesShowColumns"
+            :show-columns="showColumns"
+            @toggle-visibility="toggleVisibility"
+          />
+        </template>
+      </Table>
     </div>
   </div>
 </template>
@@ -26,21 +42,24 @@
 
 import { VueFiltersMixin } from "lib/vue/filters"
 
-import Table from "../../components/Table.vue";
+import { Table, TableColumnsSelector } from "lib/vue-components";
 import { EventBus } from "../../mixins/event_bus";
 import { assigneesShowColumns } from "../../lib/config/contracts.js";
 
 export default {
   name: 'AssigneesShow',
   components: {
-    Table
+    Table,
+    TableColumnsSelector
   },
   mixins: [VueFiltersMixin],
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
+      assigneesShowColumns: assigneesShowColumns,
       items: [],
       columns: [],
+      showColumns: [],
       labelContractsAsignedTo: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_assigned_to'),
     }
   },
@@ -53,6 +72,7 @@ export default {
     EventBus.$emit("refresh-active-tab");
 
     this.buildItems();
+    this.showColumns = ['title', 'final_amount_no_taxes', 'award_date',]
   },
   methods: {
     buildItems(){
@@ -67,6 +87,9 @@ export default {
         this.assignee = contract.assignee
         this.assignee_id = contract.assignee_id
       }
+    },
+    updateShowColumns(values) {
+      this.showColumns = values
     }
   }
 }

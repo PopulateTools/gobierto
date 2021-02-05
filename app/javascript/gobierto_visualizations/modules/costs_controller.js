@@ -19,7 +19,8 @@ export class CostsController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () => import("../webapp/containers/costs/Home.vue");
+      const Home = () =>
+        import("../webapp/containers/costs/Home.vue");
       const TableFirstLevel = () =>
         import("../webapp/containers/costs/table/TableFirstLevel.vue");
       const TableSecondLevel = () =>

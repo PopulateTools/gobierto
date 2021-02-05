@@ -35,7 +35,8 @@ export class ContractsController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () => import("../webapp/containers/contracts/Home.vue");
+      const Home = () =>
+        import("../webapp/containers/contracts/Home.vue");
       const Summary = () =>
         import("../webapp/containers/contracts/Summary.vue");
       const ContractsIndex = () =>

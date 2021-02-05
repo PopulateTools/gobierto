@@ -1,7 +1,10 @@
 import 'velocity-animate'
 
-$(document).on('turbolinks:load', function() {
+document.addEventListener("DOMContentLoaded", function() {
+  menuResponsive()
+})
 
+function menuResponsive() {
   $('.nav_control, .close').click(function(e) {
     e.preventDefault();
 
@@ -13,10 +16,11 @@ $(document).on('turbolinks:load', function() {
 
     // Style itself
     var $selector;
-    if ($(this).hasClass('nav_control'))
+    if ($(this).hasClass('nav_control')) {
       $selector = $('.nav_control');
-    else
+    } else {
       $selector = $('.close');
+    }
 
     $selector.find('i').toggleClass('fa-bars fa-times');
     $selector.parent().toggleClass('hamburger_container--transparent');
@@ -86,5 +90,4 @@ $(document).on('turbolinks:load', function() {
     //   $('.js-secondary_nav').removeClass('is-open');
     // }
   });
-
-});
+}

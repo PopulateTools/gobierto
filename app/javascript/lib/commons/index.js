@@ -20,6 +20,16 @@ import * as I18n from 'i18n-js'
 import Turbolinks from 'turbolinks'
 import { handleIFramePageLoaded } from "../shared/modules/iframe_handler.js";
 
+//NOTE: these modules are required
+import "./modules/module-search.js";
+import "./modules/module-sessions.js";
+import "./modules/module-site_header.js";
+import "./modules/magnific-popup.js";
+import "./modules/tabs.js";
+import "./modules/velocity_settings.js";
+import "./modules/shareContent.js";
+import "./modules/separate-tabs.js";
+
 // NOTE: jQuery exposed to global (window for node environment) due to script directly in the view
 global.$ = global.jQuery = $
 global.I18n = I18n

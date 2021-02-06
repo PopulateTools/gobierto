@@ -199,3 +199,5 @@ en:
       read_more:
         less: See less
         more: See more
+      table:
+        customize_columns: Customize columns

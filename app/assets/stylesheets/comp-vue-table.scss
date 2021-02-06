@@ -4,10 +4,8 @@
   padding: 0;
 
   &.gobierto-table-scroll {
-    table {
-      display: block;
-      overflow-x: scroll;
-    }
+    display: block;
+    overflow-x: scroll;
   }
 
   &-margin-top {
@@ -18,15 +16,11 @@
   }
 
   &__tr {
-    cursor: pointer;
     &:not(:last-child) {
       border-bottom: 1px solid rgba(var(--color-base-string), .1);
     }
     &:first-child {
       border-top: 1px solid #ccc;
-    }
-    &:hover {
-      background-color: rgba(var(--color-base-string), .1);
     }
   }
 
@@ -41,9 +35,7 @@
     border: 0;
 
     &:last-child {
-      .sort-icon {
-        margin-right: .5rem;
-      }
+      margin-right: .5rem;
     }
   }
 
@@ -83,45 +75,11 @@
     justify-content: flex-end;
     margin: 0 0 2rem;
     align-items: center;
+    position: sticky;
+    left: 0%;
 
     th {
       cursor: pointer;
-    }
-  }
-
-  &__breadcrumb {
-    display: flex;
-    align-items: center;
-    padding-right: .5rem;
-
-    > :not(:last-child) {
-      margin-right: 1rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 35vw;
-    }
-
-    &-group {
-      text-transform: uppercase;
-      font-size: $f6;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    &-term {
-      text-transform: uppercase;
-      font-size: $f5;
-      text-decoration: none;
-      color: var(--color-base);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 40vw;
-    }
-
-    &-arrow {
-      opacity: .5;
     }
   }
 
@@ -143,9 +101,7 @@
     }
 
     &__icon {
-      &.fas {
-        margin-right: .5rem;
-      }
+      margin-right: .5rem;
     }
 
     &__content {
@@ -170,5 +126,12 @@
 
   .table-th-money {
     text-align: right;
+  }
+
+  .is-clickable {
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(var(--color-base-string), .1);
+    }
   }
 }

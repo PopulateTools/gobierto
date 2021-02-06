@@ -2,39 +2,24 @@
   <div>
     <Table
       :data="items"
-      :order-column="'assignee'"
+      :order-column="'final_amount_no_taxes'"
       :columns="contractsColumns"
       :show-columns="showColumns"
-      :routing-member="'contracts_show'"
-      :routing-id="'id'"
-      :pagination-id="'.visualizations-home-main'"
-      :items-per-page="25"
+      :on-row-click="goesToItem"
       class="gobierto-table-margin-top gobierto-table-scroll"
-      @update-show-columns="updateShowColumns"
-    >
-      <template
-        #columns="{ toggleVisibility }"
-      >
-        <TableColumnsSelector
-          :columns="contractsColumns"
-          :show-columns="showColumns"
-          @toggle-visibility="toggleVisibility"
-        />
-      </template>
-    </Table>
+    />
   </div>
 </template>
 
 <script>
-import { Table, TableColumnsSelector } from "lib/vue-components";
+import { Table } from "lib/vue-components";
 import { EventBus } from "../../mixins/event_bus";
 import { contractsColumns } from "../../lib/config/contracts.js";
 
 export default {
   name: 'ContractsIndex',
   components: {
-    Table,
-    TableColumnsSelector
+    Table
   },
   data() {
     return {
@@ -73,8 +58,9 @@ export default {
 
       this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()) || contract.title.toLowerCase().includes(this.value.toLowerCase()))
     },
-    updateShowColumns(values) {
-      this.showColumns = values
+    goesToItem(item) {
+      const { id: routingId } = item
+      this.$router.push({ name: 'contracts_show', params: { id: routingId } })
     }
   }
 }

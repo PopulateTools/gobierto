@@ -656,6 +656,10 @@
   &-sql-editor-toolbar {
     padding: .5rem 0;
     display: flex;
+    position: sticky;
+    top: 0;
+    background-color: $color_main_negative;
+    z-index: 3;
   }
 
   &-sql-editor-container-save {

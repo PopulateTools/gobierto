@@ -6,6 +6,7 @@ module GobiertoPlans
     include User::SessionHelper
 
     before_action :overrided_root_redirect, only: [:show]
+    helper_method :dashboards_enabled?
 
     def index
       redirect_to GobiertoPlans.root_path(current_site)
@@ -39,6 +40,10 @@ module GobiertoPlans
     end
 
     private
+
+    def dashboards_enabled?
+      @dashboards_enabled ||= module_enabled?("GobiertoDashboards") && current_site.dashboards.active.for_context(@plan).exists?
+    end
 
     def find_plan_type
       return PlanType.site_plan_types_with_years(current_site).first unless params[:slug]

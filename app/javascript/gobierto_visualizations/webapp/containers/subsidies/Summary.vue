@@ -155,16 +155,19 @@
         {{ labelMainBeneficiaries }}
       </h3>
       <Table
-        :items="items"
-        :columns="columns"
+        :data="items"
+        :order-column="'name'"
+        :columns="grantedColumns"
+        :show-columns="showColumns"
+        class="gobierto-table-margin-top"
       />
     </div>
   </div>
 </template>
 
 <script>
+import { Table } from "lib/vue-components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
-import Table from "../../components/Table.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { grantedColumns, subsidiesFiltersConfig } from "../../lib/config/subsidies.js";
 
@@ -179,6 +182,8 @@ export default {
     return {
       visualizationsData: this.$root.$data.subsidiesData,
       items: [],
+      grantedColumns: grantedColumns,
+      showColumns: [],
       value: '',
       labelSubsidies: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.subsidies'),
       labelSubsidiesFor: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.subsidies_for'),
@@ -206,6 +211,7 @@ export default {
   },
   created() {
     this.columns = grantedColumns;
+    this.showColumns = ['name', 'count', 'sum']
   },
   methods: {
     refreshSummaryData(){

@@ -7,6 +7,8 @@ es:
     date: 'Fecha: '
     default_title: Título del dashboard
     delete: Eliminar
+    delete_dialog: Desea borrar el dashboard?
+    discard: cerrar sin guardar
     indicators_amount: "➞ %{amount} indicadores"
     instructions: |
       "⇧ Selecciona un tipo de tarjeta e incluyela en el área central ➞

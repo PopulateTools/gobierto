@@ -1,9 +1,11 @@
 <template>
   <div>
     <CategoriesTreeMapNested
-      :data="visualizationsData"
+      v-if="activeTab === 0"
+      :data="visualizationsDataExcludeNoCategory"
     />
     <EntityTreeMapNested
+      v-if="activeTab === 0"
       :data="visualizationsData"
       class="mt4"
     />
@@ -11,8 +13,8 @@
       {{ labelBeesWarm }}
     </h3>
     <BeesWarmChart
-      v-if="dataBeesWarmFilter"
-      :data="dataBeesWarmFilter"
+      v-if="activeTab === 0"
+      :data="visualizationsDataExcludeMinorContract"
       :radius-property="'final_amount_no_taxes'"
       :x-axis-prop="'award_date'"
       :y-axis-prop="'contract_type'"
@@ -145,20 +147,22 @@
         {{ labelMainAssignees }}
       </h3>
       <Table
-        :items="items"
-        :columns="columns"
-        :routing-member="'assignees_show'"
-        :routing-attribute="'assignee_routing_id'"
+        :data="items"
+        :order-column="'count'"
+        :columns="assigneesColumns"
+        :show-columns="showColumns"
+        class="gobierto-table-margin-top"
+        :on-row-click="goesToTableItem"
       />
     </div>
   </div>
 </template>
 <script>
 
+import { Table } from "lib/vue-components";
 import { BeesWarmChart } from "lib/vue-components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import EntityTreeMapNested from "./EntityTreeMapNested.vue";
-import Table from "../../components/Table.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
 import { select, mouse } from 'd3-selection'
@@ -176,11 +180,19 @@ export default {
     EntityTreeMapNested
   },
   mixins: [visualizationsMixins],
+  props: {
+    activeTab: {
+      type: Number,
+      default: 0
+    }
+  },
   data(){
     return {
       visualizationsData: this.$root.$data.contractsData,
+      assigneesColumns: assigneesColumns,
       items: [],
       columns: [],
+      showColumns: [],
       value: '',
       labelTenders: I18n.t('gobierto_visualizations.visualizations.contracts.summary.tenders'),
       labelTendersFor: I18n.t('gobierto_visualizations.visualizations.contracts.summary.tenders_for'),
@@ -200,27 +212,22 @@ export default {
       labelAmountDistribution: I18n.t('gobierto_visualizations.visualizations.contracts.amount_distribution'),
       labelMainAssignees: I18n.t('gobierto_visualizations.visualizations.contracts.main_assignees'),
       labelBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.title_beeswarm'),
-      labelTooltipBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm'),
-      dataBeesWarm: undefined,
-      dataBeesWarmFilter: undefined
+      labelTooltipBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm')
     }
   },
-  watch: {
-    visualizationsData(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.updateDataBeesWarm(newValue)
-      }
+  computed: {
+    visualizationsDataExcludeNoCategory() {
+      return this.visualizationsData.filter(({ category_id }) => !!category_id)
+    },
+    visualizationsDataExcludeMinorContract() {
+      return this.visualizationsData.filter(({ minor_contract: minor }) => minor === 'f')
     }
   },
-  async created() {
+  created() {
     this.columns = assigneesColumns;
-    this.dataBeesWarmFilter = JSON.parse(JSON.stringify(this.visualizationsData));
+    this.showColumns = ['count', 'name', 'sum']
   },
   methods: {
-    updateDataBeesWarm(data){
-      const dataBeesWarm = JSON.parse(JSON.stringify(data));
-      this.dataBeesWarmFilter = dataBeesWarm
-    },
     showTooltipBeesWarm(event) {
       const { assignee, final_amount_no_taxes, y } = event
       const tooltip = d3.select('.beeswarm-tooltip')
@@ -292,6 +299,10 @@ export default {
       sortedAndGrouped.forEach(contract => contract.id = `${contract.name}-${contract.count}`)
 
       return sortedAndGrouped.slice(0, 30);
+    },
+    goesToTableItem(item) {
+      const { assignee_routing_id: routingId } = item
+      this.$router.push({ name: 'assignees_show', params: { id: routingId } })
     }
   }
 }

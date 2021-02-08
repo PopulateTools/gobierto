@@ -14,9 +14,11 @@
 
     <div class="m_t_4">
       <Table
-        :items="items"
-        :columns="columns"
-        :routing-member="'contracts_show'"
+        :data="items"
+        :order-column="'title'"
+        :columns="assigneesShowColumns"
+        :show-columns="showColumns"
+        :on-row-click="goesToItem"
       />
     </div>
   </div>
@@ -26,7 +28,7 @@
 
 import { VueFiltersMixin } from "lib/vue/filters"
 
-import Table from "../../components/Table.vue";
+import { Table } from "lib/vue-components";
 import { EventBus } from "../../mixins/event_bus";
 import { assigneesShowColumns } from "../../lib/config/contracts.js";
 
@@ -39,8 +41,10 @@ export default {
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
+      assigneesShowColumns: assigneesShowColumns,
       items: [],
       columns: [],
+      showColumns: [],
       labelContractsAsignedTo: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_assigned_to'),
     }
   },
@@ -53,6 +57,7 @@ export default {
     EventBus.$emit("refresh-active-tab");
 
     this.buildItems();
+    this.showColumns = ['title', 'final_amount_no_taxes', 'award_date',]
   },
   methods: {
     buildItems(){
@@ -67,6 +72,10 @@ export default {
         this.assignee = contract.assignee
         this.assignee_id = contract.assignee_id
       }
+    },
+    goesToItem(item) {
+      const { id: routingId } = item
+      this.$router.push({ name: 'contracts_show', params: { id: routingId } })
     }
   }
 }

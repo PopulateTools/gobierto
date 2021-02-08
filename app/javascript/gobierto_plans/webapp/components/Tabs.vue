@@ -1,6 +1,9 @@
 <template>
   <div>
-    <nav class="planification-tabs__container">
+    <nav
+      v-if="displayNavbar"
+      class="planification-tabs__container"
+    >
       <div class="planification-tabs">
         <router-link
           v-for="(tab, i) in tabs"
@@ -36,6 +39,9 @@ export default {
     activeTab() {
       const { name: current, meta: { tab } } = this.$route
       return this.tabs.findIndex(({ name }) => [current, tab].includes(name))
+    },
+    displayNavbar() {
+      return this.tabs.length > 1
     }
   }
 };

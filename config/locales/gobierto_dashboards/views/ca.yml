@@ -7,6 +7,8 @@ ca:
     date: 'Data: '
     default_title: Títol del dashboard
     delete: Esborrar
+    delete_dialog: Desitjeu esborrar el dashboard?
+    discard: tancar sense guardar
     indicators_amount: "➞ %{amount} indicadors"
     instructions: |
       "⇧ Selecciona un tipus de targeta i inclou-la en l'àrea central ➞

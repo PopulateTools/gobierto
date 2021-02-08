@@ -5,10 +5,16 @@ require_relative "../../gobierto_dashboards"
 module GobiertoDashboards
   module DataPipes
     class ProjectMetrics < Base
+      delegate :safe_parameterize, to: :class
+
       def output_data
         {
           data: indicator_names_disambiguation(custom_field_records.map { |record| indicators(record) }.compact.flatten)
         }.to_json
+      end
+
+      def self.safe_parameterize(text)
+        ActiveSupport::Inflector.transliterate(text).parameterize
       end
 
       private
@@ -26,14 +32,21 @@ module GobiertoDashboards
       end
 
       def indicators(record)
-        return unless record.value.is_a? Array
+        published_version = record.item.published_version
+        return unless published_version.present?
 
-        grouped_values(record.value).map do |key, values|
+        published_value = ::GobiertoCommon::CustomFieldFunctions::Indicator.new(record, version: published_version).value
+        return unless published_value.is_a? Array
+
+        published_project = ::GobiertoPlans::ProjectDecorator.new(record.item, opts: { plan: @context.resource }).at_current_version
+        project = published_project.to_global_id.to_s
+        project_name = published_project.name
+        grouped_values(published_value).map do |key, values|
           {
             name: values.first["indicator"].strip.squeeze(" "),
             id: key,
-            project: record.item.to_global_id.to_s,
-            project_name: record.item.name,
+            project: project,
+            project_name: project_name,
             values: values.map { |value| value.except("indicator") }
           }
         end
@@ -52,7 +65,7 @@ module GobiertoDashboards
 
       def grouped_values(values)
         values.group_by do |row|
-          ActiveSupport::Inflector.transliterate(row["indicator"]).parameterize
+          safe_parameterize(row["indicator"])
         end
       end
     end

@@ -19,11 +19,15 @@ export class VisSlider {
 
     var currentYear = d3.select("body").attr("data-year");
     var maxYear = parseInt(d3.select("body").attr("data-max-year"));
-    var years = [];
-    Object.keys(this.data[0].values).forEach(function(year) {
-      year = parseInt(year);
-      if (year <= maxYear) years.push(year);
-    });
+    var years = this.data
+      .reduce((acc, { values }) => {
+        // add the keys, if they're not included, up to maxYear
+        Object.keys(values).forEach(x => {
+          if (!acc.includes(+x) && +x <= maxYear) acc.push(+x);
+        });
+        return acc;
+      }, [])
+      .sort();
 
     var margin = {
       right: 20,
@@ -165,7 +169,7 @@ export class VisSlider {
           .on("end", endDrag)
       );
 
-    function dragged(e) {
+    function dragged() {
       var year = x.invert(d3.mouse(this)[0]);
       handle.attr("cx", x(year));
 
@@ -175,7 +179,7 @@ export class VisSlider {
         .classed("active", d => d === year);
     }
 
-    function endDrag(e) {
+    function endDrag() {
       var year = x.invert(d3.mouse(this)[0]);
       $(document).trigger("visSlider:yearChanged", year);
     }

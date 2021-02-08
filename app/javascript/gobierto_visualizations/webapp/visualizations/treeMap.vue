@@ -28,7 +28,7 @@
 
 import { select, selectAll, mouse } from 'd3-selection'
 import { treemap, stratify } from 'd3-hierarchy'
-import { sumDataByGroupKey, normalizeString } from "../lib/utils";
+import { sumDataByGroupKey, slugString } from "../lib/utils";
 import { easeLinear } from 'd3-ease'
 import { mean, median } from "d3-array";
 import { money } from "lib/vue/filters";
@@ -75,7 +75,11 @@ export default {
 
     this.dataForTooltips(this.dataTooltips)
     this.transformDataTreemap(this.data)
-    this.resizeListener()
+
+    window.addEventListener("resize", this.resizeListener)
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.resizeListener)
   },
   methods: {
     handleTreeMapValue(value) {
@@ -197,7 +201,7 @@ export default {
             .remove())
         )
         .attr('class', d => {
-          d.id = normalizeString(d.id)
+          d.id = slugString(d.id)
           return `rect-treemap treemap-${d.id}`
         })
         .on("mousemove", function(d) {
@@ -354,12 +358,10 @@ export default {
           })
     },
     resizeListener() {
-      window.addEventListener("resize", () => {
-        let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
-        const containerChart = document.querySelector('.tree-map-container');
-        this.svgWidth = containerChart.offsetWidth
-        this.deepCloneData(dataResponsive)
-      })
+      let dataResponsive = this.updateData ? this.deepCloneData(this.dataNewValues) : this.transformDataTreemap(this.data);
+      const containerChart = document.querySelector('.tree-map-container');
+      this.svgWidth = containerChart.offsetWidth
+      this.deepCloneData(dataResponsive)
     }
   }
 }

@@ -2,6 +2,7 @@ $(document).on('turbolinks:load', function() {
   (function () {
     var tablist = document.querySelectorAll('[role="tablist"]')[0];
     var tabs;
+    // eslint-disable-next-line
     var panels;
 
     generateArrays();
@@ -191,6 +192,7 @@ $(document).on('turbolinks:load', function() {
 
     // Determine whether there should be a delay
     // when user navigates with the arrow keys
+    // eslint-disable-next-line
     function determineDelay () {
       var hasDelay = tablist.hasAttribute('data-delay');
       var delay = 0;

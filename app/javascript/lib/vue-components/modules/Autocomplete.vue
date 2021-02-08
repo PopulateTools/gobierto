@@ -25,7 +25,7 @@
       @input="onChange"
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
-      @keydown.enter.prevent="onEnter"
+      @keydown.enter.prevent="setResult()"
       @dblclick="isOpen = !isOpen"
     >
 
@@ -71,7 +71,7 @@ export default {
       type: Array,
       default: () => []
     },
-    searchKey: {
+    defaultValue: {
       type: String,
       default: null
     }
@@ -80,14 +80,11 @@ export default {
     return {
       results: this.items,
       isOpen: false,
-      search: "",
-      arrowCounter: -1,
-      containObjects: this.items.some(x => typeof x === "object" && x !== null)
+      search: this.defaultValue || "",
+      arrowCounter: -1
     };
   },
   mounted() {
-    if (this.containObjects && !this.searchKey) throw new Error("search-key prop is not provided")
-
     document.addEventListener("click", this.handleClickOutside);
   },
   destroyed() {
@@ -98,16 +95,7 @@ export default {
       this.$emit("input", this.search);
 
       this.isOpen = true;
-      this.results = this.items.filter(item => {
-        if (this.containObjects) {
-          return (""+item[this.searchKey])
-              .toLowerCase()
-              .indexOf(this.search.toLowerCase()) > -1
-        }
-
-        return (""+item).toLowerCase().indexOf((""+this.search).toLowerCase()) > -1
-      }
-      );
+      this.results = this.items.filter(item => (""+item).toLowerCase().indexOf((""+this.search).toLowerCase()) > -1);
     },
     onArrowDown() {
       this.isOpen = true;
@@ -117,12 +105,6 @@ export default {
       this.isOpen = true;
       this.arrowCounter = (this.arrowCounter > 0) ? this.arrowCounter - 1 : this.results.length - 1
     },
-    onEnter() {
-      const element = this.results[this.arrowCounter];
-      this.search = this.containObjects ? element[this.searchKey] : element;
-      this.isOpen = false;
-      this.arrowCounter = -1;
-    },
     handleClickOutside(evt) {
       if (!this.$el.contains(evt.target)) {
         this.isOpen = false;
@@ -130,8 +112,11 @@ export default {
       }
     },
     setResult(result) {
-      this.search = this.containObjects ? result[this.searchKey] : result;
+      this.search = result || this.results[this.arrowCounter];
       this.isOpen = false;
+      this.arrowCounter = -1;
+
+      this.$emit("change", this.search);
     }
   }
 };

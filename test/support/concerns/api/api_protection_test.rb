@@ -56,9 +56,9 @@ module Api
             get @api_protection_test_path, as: :json, headers: { "HTTP_REFERER" => "" }
             assert_response :unauthorized
 
-            # Nil referrer authorized should success
+            # Nil referrer and token with domain should fail
             get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_domain}", "HTTP_REFERER" => "" }
-            assert_response :success
+            assert_response :unauthorized
 
             get @api_protection_test_path, as: :json, headers: { "HTTP_REFERER" => "http://#{@api_protection_test_site.domain}/wadus.html" }
             assert_response :success
@@ -90,18 +90,16 @@ module Api
             get @api_protection_test_path, as: :json, headers: { "Authorization" => @api_protection_test_basic_auth_header }
             assert_response :unauthorized
 
-            self.host = @api_protection_test_token_with_domain.domain
-            get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_domain}" }
+            get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_domain}", "HTTP_REFERER" => "http://#{@api_protection_test_site.domain}/wadus.html"  }
             assert_response :success
 
             get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_other_domain}" }
             assert_response :unauthorized
 
-            self.host = @api_protection_test_token_with_other_domain.domain
             get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_domain}" }
             assert_response :unauthorized
 
-            get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_other_domain}" }
+            get @api_protection_test_path, as: :json, headers: { "Authorization" => "Bearer #{@api_protection_test_token_with_other_domain}", "HTTP_REFERER" => "http://#{@api_protection_test_site.domain}/wadus.html"   }
             assert_response :success
           end
         end

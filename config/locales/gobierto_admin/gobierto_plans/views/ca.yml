@@ -14,9 +14,8 @@ ca:
           headers:
             status: Visibilitat
             title: Títol
+            updated: Actualitzat
           new: Nou
-          view_dashboard: Veure dashboard
-          view_public_dashboard: Vista pública
           visibility_level:
             active: Públic
             draft: Privat
@@ -127,6 +126,8 @@ ca:
             sent: Sent
           total: Total
         form:
+          button:
+            add_dashboard: Afegir a un dashboard
           placeholders:
             name: Títol del projecte
         index:

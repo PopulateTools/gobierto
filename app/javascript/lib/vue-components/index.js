@@ -12,6 +12,9 @@ import BeesWarmChart from "./modules/BeesWarmChart.vue"
 import MultipleLineChart from "./modules/MultipleLineChart.vue"
 import TextEditable from "./modules/TextEditable.vue"
 import Autocomplete from "./modules/Autocomplete.vue"
+import Table from "./modules/Table.vue"
+import TableColumnsSelector from "./modules/TableColumnsSelector.vue"
+import SortIcon from "./modules/SortIcon.vue"
 
 export {
   BlockHeader,
@@ -27,5 +30,8 @@ export {
   BeesWarmChart,
   MultipleLineChart,
   TextEditable,
-  Autocomplete
+  Autocomplete,
+  Table,
+  TableColumnsSelector,
+  SortIcon
 }

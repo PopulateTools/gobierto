@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { Table, TableColumnsSelector } from "lib/vue-components";
+import { Table, TableColumnsSelector } from "lib/vue/components";
 import { EventBus } from "../../mixins/event_bus";
 import { contractsColumns } from "../../lib/config/contracts.js";
 

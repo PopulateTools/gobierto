@@ -179,7 +179,7 @@
 </template>
 
 <script>
-import { Table, TableColumnsSelector } from "lib/vue-components";
+import { Table, TableColumnsSelector } from "lib/vue/components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { grantedColumns, subsidiesFiltersConfig } from "../../lib/config/subsidies.js";

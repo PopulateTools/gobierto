@@ -147,20 +147,34 @@
         {{ labelMainAssignees }}
       </h3>
       <Table
-        :items="items"
-        :columns="columns"
+        :data="items"
+        :order-column="'count'"
+        :columns="assigneesColumns"
+        :show-columns="showColumns"
         :routing-member="'assignees_show'"
-        :routing-attribute="'assignee_routing_id'"
-      />
+        :routing-id="'assignee_routing_id'"
+        :pagination-id="'.gobierto-table'"
+        :items-per-page="15"
+        class="gobierto-table-margin-top"
+        @update-show-columns="updateShowColumns"
+      >
+        <template
+          #columns="{ toggleVisibility }"
+        >
+          <TableColumnsSelector
+            :columns="assigneesColumns"
+            :show-columns="showColumns"
+            @toggle-visibility="toggleVisibility"
+          />
+        </template>
+      </Table>
     </div>
   </div>
 </template>
 <script>
-
-import { BeesWarmChart } from "lib/vue/components";
+import { BeesWarmChart, Table, TableColumnsSelector } from "lib/vue/components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import EntityTreeMapNested from "./EntityTreeMapNested.vue";
-import Table from "../../components/Table.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { assigneesColumns } from "../../lib/config/contracts.js";
 import { select, mouse } from 'd3-selection'
@@ -175,7 +189,8 @@ export default {
     Table,
     BeesWarmChart,
     CategoriesTreeMapNested,
-    EntityTreeMapNested
+    EntityTreeMapNested,
+    TableColumnsSelector
   },
   mixins: [visualizationsMixins],
   props: {
@@ -187,8 +202,10 @@ export default {
   data(){
     return {
       visualizationsData: this.$root.$data.contractsData,
+      assigneesColumns: assigneesColumns,
       items: [],
       columns: [],
+      showColumns: [],
       value: '',
       labelTenders: I18n.t('gobierto_visualizations.visualizations.contracts.summary.tenders'),
       labelTendersFor: I18n.t('gobierto_visualizations.visualizations.contracts.summary.tenders_for'),
@@ -219,8 +236,9 @@ export default {
       return this.visualizationsData.filter(({ minor_contract: minor }) => minor === 'f')
     }
   },
-  async created() {
+  created() {
     this.columns = assigneesColumns;
+    this.showColumns = ['count', 'name', 'sum']
   },
   methods: {
     showTooltipBeesWarm(event) {
@@ -294,6 +312,9 @@ export default {
       sortedAndGrouped.forEach(contract => contract.id = `${contract.name}-${contract.count}`)
 
       return sortedAndGrouped.slice(0, 30);
+    },
+    updateShowColumns(values) {
+      this.showColumns = values
     }
   }
 }

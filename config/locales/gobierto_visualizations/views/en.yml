@@ -36,15 +36,16 @@ en:
           contract_amount: Contract amount
           entity: Entity
           estimated_value: Estimated value
+          open_proposals_date: Open proposals
           process: Process
           question_description: What % of the budget is this contract?
+          submission_date: Submission date
           tender: Tender
           type: Type
         date: Date
         dates: Dates
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
-        empty_table: There is no available data
         entities: Entities
         final_amount_no_taxes: Amount
         fromto: From To No Contr.

@@ -91,9 +91,15 @@
     }
   },
   "lint-staged": {
-    "app/javascript/**/*.{js,vue}": ["eslint --fix"],
-    "app/**/*.{css,scss}": ["stylelint --fix"],
-    "config/locales/**/*.yml": ["npm run check_i18n"]
+    "app/javascript/**/*.{js,vue}": [
+      "eslint --fix"
+    ],
+    "app/**/*.{css,scss}": [
+      "stylelint --fix"
+    ],
+    "config/locales/**/*.yml": [
+      "npm run check_i18n"
+    ]
   },
   "resolutions": {
     "perspective-viewer-d3fc/**/d3-selection": "1.4.2",

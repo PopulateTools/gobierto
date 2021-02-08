@@ -1,22 +1,24 @@
 <template>
   <div
     v-clickoutside="showModal"
-    class="planification-table__column-selector"
+    class="gobierto-table__column-selector"
   >
     <div
-      class="planification-table__column-selector__trigger"
+      class="gobierto-table__column-selector__trigger"
+      data-testid="table-button-modal"
       @click="showColumnsModal = !showColumnsModal"
     >
       <span>{{ labelCustomizeColumns }}</span>
-      <i class="planification-table__column-selector__icon fas fa-columns" />
+      <i class="gobierto-table__column-selector__icon fas fa-columns" />
     </div>
     <transition name="fade">
       <div
         v-if="showColumnsModal"
-        class="planification-table__column-selector__content"
+        data-testid="table-modal"
+        class="gobierto-table__column-selector__content"
       >
         <Checkbox
-          v-for="[id, { name, visibility }] in columns"
+          v-for="{ name, visibility, id } in filterColumns"
           :id="id"
           :key="id"
           :title="name"
@@ -29,8 +31,7 @@
 </template>
 
 <script>
-import { NamesMixin } from "../lib/mixins/names";
-import { Checkbox } from "lib/vue/components";
+import { Checkbox } from "lib/vue-components";
 import { clickoutside } from "lib/vue/directives"
 
 export default {
@@ -41,17 +42,30 @@ export default {
   directives: {
     clickoutside
   },
-  mixins: [NamesMixin],
   props: {
     columns: {
       type: Array,
       default: () => []
     },
+    showColumns: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
       showColumnsModal: false,
       labelCustomizeColumns: I18n.t("gobierto_plans.plan_types.show.customize_columns") || ''
+    }
+  },
+  computed: {
+    filterColumns() {
+      return this.columns.map(({ field, ...rest }, index) => ({
+        visibility: this.showColumns.includes(field),
+        id: index,
+        field,
+        ...rest
+      }))
     }
   },
   methods: {

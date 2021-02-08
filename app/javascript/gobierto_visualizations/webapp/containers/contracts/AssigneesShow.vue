@@ -18,37 +18,22 @@
         :order-column="'title'"
         :columns="assigneesShowColumns"
         :show-columns="showColumns"
-        :routing-member="'contracts_show'"
-        :routing-id="'id'"
-        :pagination-id="'.visualizations-home-main'"
-        :items-per-page="25"
-        @update-show-columns="updateShowColumns"
-      >
-        <template
-          #columns="{ toggleVisibility }"
-        >
-          <TableColumnsSelector
-            :columns="assigneesShowColumns"
-            :show-columns="showColumns"
-            @toggle-visibility="toggleVisibility"
-          />
-        </template>
-      </Table>
+        :on-row-click="goesToItem"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { VueFiltersMixin } from "lib/vue/filters"
-import { Table, TableColumnsSelector } from "lib/vue/components";
+import { Table } from "lib/vue/components";
 import { EventBus } from "../../mixins/event_bus";
 import { assigneesShowColumns } from "../../lib/config/contracts.js";
 
 export default {
   name: 'AssigneesShow',
   components: {
-    Table,
-    TableColumnsSelector
+    Table
   },
   mixins: [VueFiltersMixin],
   data() {
@@ -86,8 +71,9 @@ export default {
         this.assignee_id = contract.assignee_id
       }
     },
-    updateShowColumns(values) {
-      this.showColumns = values
+    goesToItem(item) {
+      const { id: routingId } = item
+      this.$router.push({ name: 'contracts_show', params: { id: routingId } })
     }
   }
 }

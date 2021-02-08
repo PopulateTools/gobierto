@@ -159,27 +159,14 @@
         :order-column="'name'"
         :columns="grantedColumns"
         :show-columns="showColumns"
-        :pagination-id="'.gobierto-table'"
-        :items-per-page="15"
         class="gobierto-table-margin-top"
-        @update-show-columns="updateShowColumns"
-      >
-        <template
-          #columns="{ toggleVisibility }"
-        >
-          <TableColumnsSelector
-            :columns="grantedColumns"
-            :show-columns="showColumns"
-            @toggle-visibility="toggleVisibility"
-          />
-        </template>
-      </Table>
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { Table, TableColumnsSelector } from "lib/vue/components";
+import { Table } from "lib/vue/components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { grantedColumns, subsidiesFiltersConfig } from "../../lib/config/subsidies.js";
@@ -188,8 +175,7 @@ export default {
   name: 'Summary',
   components: {
     Table,
-    CategoriesTreeMapNested,
-    TableColumnsSelector
+    CategoriesTreeMapNested
   },
   mixins: [visualizationsMixins],
   data(){
@@ -264,9 +250,6 @@ export default {
       sortedAndGrouped.forEach(subsidy => subsidy.id = `${subsidy.name}-${subsidy.count}`)
 
       return sortedAndGrouped.slice(0, 30);
-    },
-    updateShowColumns(values) {
-      this.showColumns = values
     }
   }
 }

@@ -151,28 +151,14 @@
         :order-column="'count'"
         :columns="assigneesColumns"
         :show-columns="showColumns"
-        :routing-member="'assignees_show'"
-        :routing-id="'assignee_routing_id'"
-        :pagination-id="'.gobierto-table'"
-        :items-per-page="15"
         class="gobierto-table-margin-top"
-        @update-show-columns="updateShowColumns"
-      >
-        <template
-          #columns="{ toggleVisibility }"
-        >
-          <TableColumnsSelector
-            :columns="assigneesColumns"
-            :show-columns="showColumns"
-            @toggle-visibility="toggleVisibility"
-          />
-        </template>
-      </Table>
+        :on-row-click="goesToTableItem"
+      />
     </div>
   </div>
 </template>
 <script>
-import { BeesWarmChart, Table, TableColumnsSelector } from "lib/vue/components";
+import { BeesWarmChart, Table } from "lib/vue/components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import EntityTreeMapNested from "./EntityTreeMapNested.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
@@ -189,8 +175,7 @@ export default {
     Table,
     BeesWarmChart,
     CategoriesTreeMapNested,
-    EntityTreeMapNested,
-    TableColumnsSelector
+    EntityTreeMapNested
   },
   mixins: [visualizationsMixins],
   props: {
@@ -313,8 +298,9 @@ export default {
 
       return sortedAndGrouped.slice(0, 30);
     },
-    updateShowColumns(values) {
-      this.showColumns = values
+    goesToTableItem(item) {
+      const { assignee_routing_id: routingId } = item
+      this.$router.push({ name: 'assignees_show', params: { id: routingId } })
     }
   }
 }

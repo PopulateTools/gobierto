@@ -505,7 +505,7 @@ GEM
       ref
     thor (1.0.1)
     thread_safe (0.3.6)
-    timecop (0.9.2)
+    timecop (0.9.3)
     truncate_html (0.9.3)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)

@@ -106,10 +106,11 @@
   </div>
 </template>
 <script>
-import { Pagination } from "lib/vue-components";
+import { Pagination } from "lib/vue/components"
+import { VueFiltersMixin } from "lib/vue/filters"
 import TableColumnsSelector from './TableColumnsSelector'
 import SortIcon from './SortIcon'
-import { VueFiltersMixin } from "lib/vue/filters"
+
 export default {
   name: 'Table',
   components: {

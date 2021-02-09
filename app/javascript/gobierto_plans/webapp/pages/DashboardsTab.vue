@@ -27,7 +27,7 @@
 
 <script>
 import { GOBIERTO_DASHBOARDS } from "lib/events";
-import { Loading } from "lib/vue-components";
+import { Loading } from "lib/vue/components";
 import { routes } from "../lib/router";
 
 export default {

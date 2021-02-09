@@ -107,7 +107,6 @@
 </template>
 
 <script>
-import { SkeletonSpinner } from "lib/vue-components";
 import VisualizationsTab from "./VisualizationsTab.vue";
 import Resources from "./../commons/Resources.vue";
 import Info from "./../commons/Info.vue";
@@ -117,8 +116,8 @@ import Description from "./../commons/Description.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
 import Button from "./../commons/Button.vue";
 import { tabs } from '../../../lib/router'
-import { Dropdown } from "lib/vue-components";
 import { translate } from "lib/vue/filters"
+import { Dropdown, SkeletonSpinner } from "lib/vue/components";
 
 export default {
   name: "SummaryTab",

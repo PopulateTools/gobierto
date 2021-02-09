@@ -25,10 +25,8 @@
 </template>
 
 <script>
-
 import { VueFiltersMixin } from "lib/vue/filters"
-
-import { Table } from "lib/vue-components";
+import { Table } from "lib/vue/components";
 import { EventBus } from "../../mixins/event_bus";
 import { assigneesShowColumns } from "../../lib/config/contracts.js";
 

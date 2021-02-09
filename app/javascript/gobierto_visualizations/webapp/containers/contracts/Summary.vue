@@ -158,9 +158,7 @@
   </div>
 </template>
 <script>
-
-import { Table } from "lib/vue-components";
-import { BeesWarmChart } from "lib/vue-components";
+import { BeesWarmChart, Table } from "lib/vue/components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import EntityTreeMapNested from "./EntityTreeMapNested.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";

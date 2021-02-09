@@ -90,7 +90,7 @@
   </div>
 </template>
 <script>
-import { Dropdown } from "lib/vue-components";
+import { Dropdown } from "lib/vue/components";
 import Caret from "./Caret.vue";
 import PrivateIcon from './PrivateIcon.vue';
 import CodeMirror from "codemirror";

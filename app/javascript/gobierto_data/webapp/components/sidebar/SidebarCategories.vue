@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import { Checkbox, Dropdown } from "lib/vue-components";
+import { Checkbox, Dropdown } from "lib/vue/components";
 import Caret from "./../commons/Caret.vue";
 export default {
   name: "SidebarCategories",

@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { SkeletonSpinner } from "lib/vue-components";
+import { SkeletonSpinner } from "lib/vue/components";
 import Layout from "./../layouts/Layout.vue";
 import Sidebar from "./../components/Sidebar.vue";
 import { CategoriesMixin } from "./../../lib/mixins/categories.mixin";

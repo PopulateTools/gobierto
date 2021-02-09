@@ -69,7 +69,7 @@ import Main from "./layouts/Main";
 import SmallCard from "./components/SmallCard";
 import { Widgets, RequiredFields } from "./lib/widgets";
 import { FactoryMixin } from "./lib/factories";
-import { TextEditable } from "lib/vue-components";
+import { TextEditable } from "lib/vue/components";
 import { debounce } from "lib/shared";
 
 const seed = () =>

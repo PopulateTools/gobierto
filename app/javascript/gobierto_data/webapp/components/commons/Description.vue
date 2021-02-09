@@ -28,7 +28,7 @@
 </template>
 <script>
 import Caret from "./../commons/Caret.vue";
-import { Dropdown } from "lib/vue-components";
+import { Dropdown } from "lib/vue/components";
 export default {
   name: 'Description',
   components: {

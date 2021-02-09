@@ -30,7 +30,7 @@ import { FiltersMixin } from "./../../lib/mixins/filters.mixin";
 import { VisualizationFactoryMixin } from "./../../lib/factories/visualizations";
 import { DataFactoryMixin } from "./../../lib/factories/data";
 import { QueriesFactoryMixin } from "./../../lib/factories/queries";
-import { SkeletonSpinner } from "lib/vue-components";
+import { SkeletonSpinner } from "lib/vue/components";
 
 export default {
   name: "Visualizations",

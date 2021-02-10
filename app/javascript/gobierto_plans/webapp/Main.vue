@@ -35,7 +35,7 @@ import Tabs from "./components/Tabs.vue";
 import { PlansFactoryMixin } from "./lib/factory";
 import { groupBy } from "./lib/helpers";
 import { PlansStore } from "./lib/store";
-import { Loading } from "lib/vue-components";
+import { Loading } from "lib/vue/components";
 import { routes } from "./lib/router";
 
 export default {

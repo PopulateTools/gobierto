@@ -116,7 +116,7 @@ import Nav from "./Nav.vue";
 import Article from "./Article.vue";
 import axios from "axios";
 
-import { BlockHeader, Calendar, Loading, Checkbox, RangeBars } from "lib/vue-components";
+import { BlockHeader, Calendar, Loading, Checkbox, RangeBars } from "lib/vue/components";
 import { Middleware } from "lib/shared";
 import { CommonsMixin, baseUrl } from "../../mixins/common.js";
 import { store } from "../../mixins/store";

@@ -95,7 +95,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert process_type_container.has_content?(/Negociado con publicidad\d*0,4 %/)
 
       # Assignees table
-      first_contract = find(".visualizations-home-main--tr", match: :first)
+      first_contract = find(".gobierto-table__tr", match: :first)
 
       assert first_contract.has_content?('FLODI, S.L.')
       assert first_contract.has_content?('599.015,70 €')
@@ -115,19 +115,19 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       # Active tab is Contracts
       assert find(".visualizations-home-nav--tab.is-active").text, 'CONTRACTS'
 
-      first_contract = find(".visualizations-home-main--tr", match: :first)
+      first_contract = find(".gobierto-table__tr", match: :first)
 
       # Assignee
-      assert first_contract.has_content?('Grupo Conforsa Análisis, Desarrollo y Formación , S.A.')
+      assert first_contract.has_content?('UTE ABALA - FACTO -ORTHEM')
 
       # Contract
-      assert first_contract.has_content?('Prestación del servicio de plataforma de formación online "E...')
+      assert first_contract.has_content?('Construcción de dos edificios de viviendas con protección púb')
 
       # Amount
-      assert first_contract.has_content?('€28,400.00')
+      assert first_contract.has_content?('€12,207,444.40')
 
       # Date
-      assert first_contract.has_content?('7/1/2020')
+      assert first_contract.has_content?('12/16/2019')
 
       # Contracts Show
       ################
@@ -137,41 +137,41 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert find(".visualizations-home-nav--tab.is-active").text, 'CONTRACTS'
 
       # Url is updated
-      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/807094"
+      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/260522"
 
       # Title
-      assert page.has_content?('Prestación del servicio de plataforma de formación online "Escuela Virtual Formalef Getafe".')
+      assert page.has_content?('Construcción de dos edificios de viviendas con protección pública, garajes y trasteros de consumo energético casi nulo.')
 
       # Assignee
-      assert page.has_content?('Grupo Conforsa Análisis, Desarrollo y Formación , S.A.')
+      assert page.has_content?('UTE ABALA - FACTO -ORTHEM')
 
       # Contract amount
-      assert page.has_content?('€28,400.00')
+      assert page.has_content?('€12,459,118.59')
 
-      # Tender amount
-      assert page.has_content?('€40,000.00')
+      # Contract amount no taxes
+      assert page.has_content?('€12,207,444.40')
 
       # Status
       assert page.has_content?('Formalizado')
 
       # Type
-      assert page.has_content?('Abierto simplificado')
+      assert page.has_content?('Abierto')
 
       # Assignees Show
       ################
       find("#assignee_show_link").click
 
       # Url is updated
-      assert_equal current_path, "/visualizaciones/contratos/adjudicatario/0d25ed58b4e09e6985b0d5cf27e7fa98"
+      assert_equal current_path, "/visualizaciones/contratos/adjudicatario/cd0db88d9c0da8d17bc82cbad2b3a235"
 
       assert page.has_content?("Contracts assigned to")
-      assert page.has_content?('Prestación del servicio de plataforma de formación online "Escuela Virtual Formalef Getafe".')
+      assert page.has_content?('Construcción de dos edificios de viviendas con protección pública, garajes y trasteros de consumo energético casi nulo.')
 
       # We can go back to the contract page
-      first_contract = find(".visualizations-home-main--tr", match: :first)
+      first_contract = find(".gobierto-table__tr", match: :first)
       first_contract.click
 
-      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/807094"
+      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/260522"
 
     end
   end

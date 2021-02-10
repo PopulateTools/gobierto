@@ -166,7 +166,7 @@
 </template>
 
 <script>
-import { Table } from "lib/vue-components";
+import { Table } from "lib/vue/components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import { visualizationsMixins } from "../../mixins/visualizations_mixins";
 import { grantedColumns, subsidiesFiltersConfig } from "../../lib/config/subsidies.js";

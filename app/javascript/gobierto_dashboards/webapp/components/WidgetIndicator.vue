@@ -57,7 +57,7 @@
 <script>
 import { Widgets } from "../lib/widgets";
 import Button from "./Button";
-import { Autocomplete } from "lib/vue-components";
+import { Autocomplete } from "lib/vue/components";
 
 export default {
   name: "WidgetIndicator",

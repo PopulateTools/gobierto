@@ -7,9 +7,6 @@ ca:
           contracts: Contractes i licitacions
           costs: Costos
           subsidies: Subvencions
-      menu_subsections:
-        contracts: Contractes
-        subsidies: Subvencions
     shared:
       download_data: Descarregueu les dades en format reutilitzable
       loading: Carregant dades...
@@ -51,7 +48,7 @@ ca:
         main_assignees: Principals adjudicataris
         more: Més de
         nav:
-          contracts: Contracts
+          contracts: Contractes
           summary: Resum
           tenders: Licitacions
         process_type: Tipus de procés

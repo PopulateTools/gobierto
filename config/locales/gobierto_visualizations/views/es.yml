@@ -7,9 +7,6 @@ es:
           contracts: Contratos y licitaciones
           costs: Costes
           subsidies: Subvenciones
-      menu_subsections:
-        contracts: Contratos
-        subsidies: Subvenciones
     shared:
       download_data: Descarga los datos completos en formatos reutilizables
       loading: Cargando datos...

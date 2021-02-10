@@ -132,7 +132,6 @@ export default {
       initial_amount_no_taxes: '',
       status: '',
       process_type: '',
-      permalink: '',
       assignee_routing_id: '',
       contractor: '',
       contract_type: '',
@@ -197,7 +196,6 @@ export default {
         status,
         process_type,
         contract_type,
-        permalink,
         assignee_routing_id,
         start_date,
         end_date,
@@ -218,7 +216,6 @@ export default {
       this.status = status
       this.process_type = process_type
       this.contract_type = contract_type
-      this.permalink = permalink
       this.assignee_routing_id = assignee_routing_id
       this.contractor = contractor
       this.contract_type = contract_type

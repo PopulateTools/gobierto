@@ -79,10 +79,10 @@ class GobiertoVisualizations::VisualizationsSubsidiesTest < ActionDispatch::Inte
       assert category_container.has_content?("3,3 %")
 
       # Beneficiaries table
-      first_beneficiary = find(".visualizations-home-main--tr", match: :first)
+      first_beneficiary = find(".gobierto-table__tr", match: :first)
 
-      assert first_beneficiary.has_content?('REGIONAL DE EXTREMADURA')
-      assert first_beneficiary.has_content?('756,00 €')
+      assert first_beneficiary.has_content?('1')
+      assert first_beneficiary.has_content?('146,00 €')
     end
   end
 
@@ -99,17 +99,16 @@ class GobiertoVisualizations::VisualizationsSubsidiesTest < ActionDispatch::Inte
       # Active tab is Subsidies
       assert find(".visualizations-home-nav--tab.is-active").text, 'SUBSIDIES'
 
-      first_subsidy = find(".visualizations-home-main--tr", match: :first)
+      first_subsidy = find(".gobierto-table__tr", match: :first)
 
       # Beneficiary
       assert first_subsidy.has_content?('1')
 
       # Amount
-      assert first_subsidy.has_content?('€146.00')
+      assert first_subsidy.has_content?('€1,305.05')
 
       # Date
-      assert first_subsidy.has_content?('2016-12-27')
-
+      assert first_subsidy.has_content?('2016-08-02')
 
       # Subsidies Show
       ################
@@ -119,13 +118,13 @@ class GobiertoVisualizations::VisualizationsSubsidiesTest < ActionDispatch::Inte
       assert find(".visualizations-home-nav--tab.is-active").text, 'SUBSIDIES'
 
       # Url is updated
-      assert_equal current_path, "/visualizaciones/subvenciones/subvenciones/2016122714613"
+      assert_equal current_path, "/visualizaciones/subvenciones/subvenciones/2016080213050"
 
       # Title
-      assert page.has_content?('CONVOCATORIA DE AYUDAS PARA LA ESCOLARIZACIÓN DE NIÑOS Y NIÑAS EN EL PRIMER CICLO DE EDUCACIÓN INFANTIL DE 0 A 3 AÑOS, EN ESCUELAS INFANTILES Y CASAS DE NIÑOS PÚBLICAS DE GETAFE 2016/2017')
+      assert page.has_content?('CONVOCATORIA DE SUBVENCIONES DIRIGIDAS A ASOCIACIONES DE VECINOS DE GETAFE PARA LA REALIZACIÓN DE SUS PROGRAMAS DE ACTIVIDADES DURANTE EL AÑO 2016')
 
       # Beneficiary
-      assert page.has_content?('1')
+      assert page.has_content?('AA.VV. CASERIO DE PERALES')
     end
   end
 

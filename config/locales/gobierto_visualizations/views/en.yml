@@ -7,9 +7,6 @@ en:
           contracts: Contracts and tenders
           costs: Costs
           subsidies: Subsidies
-      menu_subsections:
-        contracts: Contracts
-        subsidies: Subsidies
     shared:
       download_data: Download the full dataset in a reusable format
       loading: Loading data...

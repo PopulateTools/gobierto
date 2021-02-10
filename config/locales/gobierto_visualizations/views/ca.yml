@@ -35,7 +35,7 @@ ca:
           contract_amount: Import d'adjudicació
           entity: Entitat
           estimated_value: Valor estimat
-          external_source: Enllaç
+          external_source: Font
           open_proposals_date: Data de licitació
           process: Procés
           question_description: Què % del pressupost suposa aquest contracte?

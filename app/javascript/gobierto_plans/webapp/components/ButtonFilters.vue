@@ -2,9 +2,9 @@
   <div class="planification-buttons">
     <router-link
       v-if="buttons.length"
-      :to="{ path: $root.$data.baseurl }"
+      :to="{ name: routes.PLAN, params: { ...$route.params } }"
       class="planification-buttons__button"
-      :class="{ 'is-active': isComponentHome }"
+      :class="{ 'is-active': isActiveButton }"
       tag="button"
     >
       {{ labelViewBy }} <strong>{{ labelCategory }}</strong>
@@ -12,7 +12,7 @@
     <router-link
       v-for="{ id, name } in buttons"
       :key="id"
-      :to="{ path: `${$root.$data.baseurl}/tabla/${id}` }"
+      :to="{ name: routes.TABLE, params: { ...$route.params, id } }"
       class="planification-buttons__button"
       :class="{ 'is-active': id === currentId }"
       tag="button"
@@ -24,7 +24,8 @@
 
 <script>
 import { PlansStore } from "../lib/store";
-import { translate } from "lib/shared";
+import { translate } from "lib/vue/filters";
+import { routes } from "../lib/router";
 
 export default {
   name: "ButtonFilters",
@@ -45,12 +46,16 @@ export default {
     }
   },
   computed: {
+    routes() {
+      return routes
+    },
     currentId() {
       const { id } = this.$route.params
       return id
     },
-    isComponentHome() {
-      return ['home', 'categories', 'projects'].includes(this.$route.name)
+    isActiveButton() {
+      const { name: current, meta: { button } } = this.$route
+      return [current, button].includes(routes.PLAN)
     }
   },
   created() {

@@ -1,14 +1,14 @@
 import crossfilter from "crossfilter2";
 import { max, mean, median, sum } from "d3-array";
 import { scaleThreshold } from "d3-scale";
-import { money } from "lib/shared";
+import { money } from "lib/vue/filters";
 import {
   AmountDistributionBars,
   GroupPctDistributionBars
 } from "lib/visualizations";
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { getRemoteData } from "../webapp/lib/utils";
+import { getRemoteData, calculateSumMeanMedian } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/mixins/event_bus";
 
 const d3 = { scaleThreshold, sum, mean, median, max };
@@ -35,7 +35,8 @@ export class ContractsController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () => import("../webapp/containers/contracts/Home.vue");
+      const Home = () =>
+        import("../webapp/containers/contracts/Home.vue");
       const Summary = () =>
         import("../webapp/containers/contracts/Summary.vue");
       const ContractsIndex = () =>
@@ -77,7 +78,14 @@ export class ContractsController {
                 }
               ]
             }
-          ]
+          ],
+          scrollBehavior(to) {
+            const scrollRoutes = ['contracts_show', 'assignees_show']
+            if (scrollRoutes.includes(to.name)) {
+              const element = document.getElementById(selector);
+              window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
+            }
+          }
         });
 
         const baseTitle = document.title;
@@ -130,10 +138,7 @@ export class ContractsController {
     }
   }
 
-  setGlobalVariables(rawData) {
-    let contractsData, tendersData;
-    [contractsData, tendersData] = rawData;
-
+  setGlobalVariables([contractsData, tendersData]) {
     const sortByField = dateField => {
       return function(a, b) {
         const aDate = a[dateField],
@@ -167,53 +172,36 @@ export class ContractsController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
-    for (let i = 0; i < contractsData.length; i++) {
-      const contract = contractsData[i];
-      const final_amount_no_taxes =
-        contract.final_amount_no_taxes &&
-        !Number.isNaN(contract.final_amount_no_taxes)
-          ? parseFloat(contract.final_amount_no_taxes)
-          : 0.0;
-      const initial_amount_no_taxes =
-        contract.initial_amount_no_taxes &&
-        !Number.isNaN(contract.initial_amount_no_taxes)
-          ? parseFloat(contract.initial_amount_no_taxes)
-          : 0.0;
-
-      contract.final_amount_no_taxes = final_amount_no_taxes;
-      contract.initial_amount_no_taxes = initial_amount_no_taxes;
-      contract.range = rangeFormat(+final_amount_no_taxes);
-      contract.start_date_year = contract.start_date
-        ? new Date(contract.start_date).getFullYear()
-        : contract.start_date;
-      if (!contract.assignee_routing_id) {
-        contract.assignee_routing_id = contract.assignee_id;
+    const contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, award_date, assignee_id, ...rest }) => {
+      return {
+        final_amount_no_taxes: (final_amount_no_taxes && !Number.isNaN(final_amount_no_taxes)) ? parseFloat(final_amount_no_taxes): 0.0,
+        initial_amount_no_taxes: (initial_amount_no_taxes && !Number.isNaN(initial_amount_no_taxes)) ? parseFloat(initial_amount_no_taxes): 0.0,
+        range: rangeFormat(+final_amount_no_taxes),
+        assignee_routing_id: assignee_id,
+        award_date_year: award_date ? new Date(award_date).getFullYear().toString() : '',
+        award_date: new Date(award_date),
+        ...rest
       }
-    }
 
-    for (let i = 0; i < tendersData.length; i++) {
-      const tender = tendersData[i];
-      const initial_amount_no_taxes = tender.initial_amount_no_taxes
-        ? parseFloat(tender.initial_amount_no_taxes)
-        : 0.0;
+    })
 
-      tender.initial_amount_no_taxes = initial_amount_no_taxes;
-      tender.submission_date_year = tender.submission_date
-        ? new Date(tender.submission_date).getFullYear()
-        : tender.submission_date;
+    const tendersDataMap = tendersData.map(({ initial_amount_no_taxes = 0, submission_date, ...rest }) => {
 
-      if (tender.submission_date_year) {
-        tender.submission_date_year = tender.submission_date_year.toString();
+      return {
+        initial_amount_no_taxes: initial_amount_no_taxes ? parseFloat(initial_amount_no_taxes) : 0.0,
+        submission_date_year: submission_date ? new Date(submission_date).getFullYear().toString() : '',
+        ...rest
       }
-    }
 
-    this.unfilteredTendersData = tendersData.sort(
+    })
+
+    this.unfilteredTendersData = tendersDataMap.sort(
       sortByField("submission_date")
     );
 
     this.data = {
-      contractsData: this._formalizedContractsData(contractsData).sort(
-        sortByField("start_date")
+      contractsData: this._formalizedContractsData(contractsDataMap).sort(
+        sortByField("award_date")
       ),
       tendersData: this.unfilteredTendersData
     };
@@ -229,6 +217,8 @@ export class ContractsController {
     this._renderContractTypeChart();
     this._renderProcessTypeChart();
     this._renderDateChart();
+    this._renderCategoriesChart();
+    this._renderEntitiesChart();
   }
 
   _refreshData(reducedContractsData, filters, tendersAttribute) {
@@ -256,9 +246,7 @@ export class ContractsController {
     );
 
     const numberTenders = _tendersData.length;
-    const sumTenders = d3.sum(amountsArray);
-    const meanTenders = d3.mean(amountsArray);
-    const medianTenders = d3.median(amountsArray);
+    const [ sumTenders, meanTenders, medianTenders ] = calculateSumMeanMedian(amountsArray)
 
     // Updating the DOM
     document.getElementById(
@@ -280,9 +268,7 @@ export class ContractsController {
 
     // Calculations box items
     const numberContracts = _contractsData.length;
-    const sumContracts = d3.sum(amountsArray);
-    const meanContracts = d3.mean(amountsArray);
-    const medianContracts = d3.median(amountsArray);
+    const [ sumContracts, meanContracts, medianContracts ] = calculateSumMeanMedian(amountsArray)
 
     // Calculations headlines
     const lessThan1000Total = _contractsData.filter(
@@ -295,7 +281,7 @@ export class ContractsController {
       _contractsData,
       ({ final_amount_no_taxes = 0 }) => parseFloat(final_amount_no_taxes)
     );
-    const largerContractAmountPct = largerContractAmount / sumContracts;
+    const largerContractAmountPct = sumContracts ? (largerContractAmount / sumContracts) : 0;
 
     let iteratorAmountsSum = 0,
       numberContractsHalfSpendings = 0;
@@ -399,7 +385,7 @@ export class ContractsController {
   }
 
   _renderDateChart() {
-    const dimension = this.ndx.dimension(contract => contract.start_date_year);
+    const dimension = this.ndx.dimension(contract => contract.award_date_year);
 
     const renderOptions = {
       containerSelector: "#date-bars",
@@ -415,6 +401,44 @@ export class ContractsController {
     };
 
     this.charts["dates"] = new GroupPctDistributionBars(renderOptions);
+  }
+
+  _renderCategoriesChart() {
+    const dimension = this.ndx.dimension(contract => contract.category_title);
+
+    const renderOptions = {
+      containerSelector: "#category-bars",
+      dimension: dimension,
+      onFilteredFunction: (chart, filter) => {
+        this._refreshData(
+          dimension.top(Infinity),
+          chart.filters(),
+          "category_title"
+        );
+        EventBus.$emit("dc-filter-selected", { title: filter, id: "category_title" });
+      }
+    };
+
+    this.charts["category_title"] = new GroupPctDistributionBars(renderOptions);
+  }
+
+  _renderEntitiesChart() {
+    const dimension = this.ndx.dimension(contract => contract.contractor);
+
+    const renderOptions = {
+      containerSelector: "#contractor-bars",
+      dimension: dimension,
+      onFilteredFunction: (chart, filter) => {
+        this._refreshData(
+          dimension.top(Infinity),
+          chart.filters(),
+          "contractor"
+        );
+        EventBus.$emit("dc-filter-selected", { title: filter, id: "contractor" });
+      }
+    };
+
+    this.charts["contractor"] = new GroupPctDistributionBars(renderOptions);
   }
 
   _updateChartsFromFilter(options) {

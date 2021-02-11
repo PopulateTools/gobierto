@@ -4,6 +4,8 @@ require_relative "../gobierto_data"
 
 module GobiertoData
   class Dataset < ApplicationRecord
+    DEFAULT_LIMIT = 50
+
     include GobiertoCommon::Sluggable
     include GobiertoData::Favoriteable
     include GobiertoAttachments::Attachable
@@ -105,7 +107,26 @@ module GobiertoData
       }
     end
 
+    def format_size(format = "csv")
+      format = format.to_s
+      return unless size&.has_key?(format)
+
+      size[format] / 1.0.megabyte
+    end
+
+    def default_limit
+      return DEFAULT_LIMIT unless api_settings.present?
+      return DEFAULT_LIMIT if format_size.nil?
+
+      max_size = api_settings.max_dataset_size_for_queries
+      return DEFAULT_LIMIT if max_size.present? && max_size.positive? && max_size <= format_size
+    end
+
     private
+
+    def api_settings
+      @api_settings ||= GobiertoData.api_settings(site)
+    end
 
     def delete_cached_data
       GobiertoData::Cache.expire_dataset_cache(self)

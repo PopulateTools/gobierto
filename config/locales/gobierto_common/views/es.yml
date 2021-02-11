@@ -199,3 +199,5 @@ es:
       read_more:
         less: Ver menos
         more: Ver más
+      table:
+        customize_columns: Personalizar columnas

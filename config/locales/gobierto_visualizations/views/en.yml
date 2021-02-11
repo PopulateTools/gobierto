@@ -7,9 +7,6 @@ en:
           contracts: Contracts and tenders
           costs: Costs
           subsidies: Subsidies
-      menu_subsections:
-        contracts: Contracts
-        subsidies: Subsidies
     shared:
       download_data: Download the full dataset in a reusable format
       loading: Loading data...
@@ -17,18 +14,37 @@ en:
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee
-        assignees: Assignees
+        categories: Categories
         contract: Contract
         contract_amount: Contract Amount
         contract_type: Type of contract
         contractor: Contractor
         contracts: Contracts
         contracts_assigned_to: Contracts assigned to
+        contracts_show:
+          assignee_description: Company that has won the contract (Assignee)
+          assignees_description: Companies that have won the contract (Assignees)
+          awarding: Awarding
+          awarding_entity: Awarding entity
+          batch: Batch
+          bid_description: Bid base budget without taxes
+          bidders_description: Number of companies that have submitted to the process
+            (Bidders)
+          contract_amount: Contract amount
+          entity: Entity
+          estimated_value: Estimated value
+          external_source: Source
+          open_proposals_date: Open proposals
+          process: Process
+          question_description: What % of the budget is this contract?
+          submission_date: Submission date
+          tender: Tender
+          type: Type
         date: Date
         dates: Dates
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
-        empty_table: There is no available data
+        entities: Entities
         final_amount_no_taxes: Amount
         fromto: From To No Contr.
         main_assignees: Main assignees
@@ -37,9 +53,8 @@ en:
           contracts: Contracts
           summary: Summary
           tenders: Tenders
-        permalink: Check this contract on the Public Sector Contracting Platform
         process_type: Type of process
-        search_placeholder: Search by assignee
+        search_placeholder: Search by assignee or by contract title
         status: Status
         submission_date: Date
         summary:
@@ -151,8 +166,11 @@ en:
         nav:
           subsidies: Subsidies
           summary: Summary
-        regulatory_bases: Regulatory bases
+        person: Individual person
+        subsidie: Subsidie
         subsidies: Subsidies
+        subsidies_amount: Imp. Subsidie
+        subsidies_total: Total Subsidies
         summary:
           collective_subsidies_for: to collectives for a total amount of
           individual_subsidies_for: to individuals for a total amount of
@@ -169,11 +187,6 @@ en:
           subsidies_for: subsidies for a total amount of
         title: Subsidies
       visualizations:
-        by_amount: by amount of
-        contracts: Contracts
-        difference_import: DIFFERENCE IMPORT
         title_beeswarm: Contracts by type, volume, size and date
-        title_legend: So far this 2020
-        title_multiple: Evolution of the volume of tenders and contracts
         tooltip_beeswarm: Contract Amount
         tooltip_treemap: total contracts

@@ -126,9 +126,9 @@ end
 group :test do
   gem "capybara"
   gem "capybara-email"
-  gem "codecov", "~> 0.2.0", require: false
+  gem "codecov", "~> 0.4.2", require: false
   gem "launchy"
-  gem "minitest", "5.14.2"
+  gem "minitest", "5.14.3"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"

@@ -9,6 +9,16 @@ en:
         plan_summary:
           global_progress: Global progress
           projects: Projects
+      dashboards:
+        index:
+          headers:
+            status: Visibility
+            title: Title
+            updated: Updated
+          new: New
+          visibility_level:
+            active: Public
+            draft: Private
       plan_types:
         edit:
           title: Edit plan type
@@ -114,6 +124,8 @@ en:
             sent: Sent
           total: Total
         form:
+          button:
+            add_dashboard: Add to dashboard
           placeholders:
             name: Project title
         index:
@@ -130,5 +142,6 @@ en:
       shared:
         navigation:
           configuration_tab: Configuration
+          dashboards_tab: Dashboards
           plan_terms_tab: Plan
           projects_tab: Projects

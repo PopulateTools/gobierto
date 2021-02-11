@@ -240,6 +240,9 @@
 
   &-info-list-element {
     width: 100%;
+    border: 1px solid rgba(var(--color-base-string), 0.3);
+    border-radius: 3px;
+    padding: 1em 1.25em;
 
     &:not(:last-child) {
       margin-bottom: 2rem;
@@ -653,6 +656,10 @@
   &-sql-editor-toolbar {
     padding: .5rem 0;
     display: flex;
+    position: sticky;
+    top: 0;
+    background-color: $color_main_negative;
+    z-index: 3;
   }
 
   &-sql-editor-container-save {

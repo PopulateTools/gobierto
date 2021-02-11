@@ -88,7 +88,8 @@ import ProjectsByTermTableRow from "../components/ProjectsByTermTableRow";
 import TableBreadcrumb from "../components/TableBreadcrumb";
 import TableColumnsSelector from "../components/TableColumnsSelector";
 import TableCellTemplates from "../components/TableCellTemplates";
-import { percent, clickoutside } from "lib/shared"
+import { percent } from "lib/vue/filters"
+import { clickoutside } from "lib/vue/directives"
 
 export default {
   name: "ProjectsByTerm",

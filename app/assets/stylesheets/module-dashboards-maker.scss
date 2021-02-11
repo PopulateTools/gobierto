@@ -9,15 +9,20 @@
   --bg-grey: #ddd;
   --bg-soft-grey: #f2f2f2;
   --bg-yellow: #fef7e6;
+  --bg-dark-yellow: #f1e4c5;
   --space: #{$f6};
   --color-grey: #828282;
   --color-dark-grey: #{$color_headers};
   --font-family: #{$font_text};
   // --font-family-alt has to be like this because admin overwrites the font_text SASS var
-  --font-family-alt: 'Source Sans Pro', 'Helvetica Neue', 'Arial', 'sans-serif';
+  --font-family-alt: "Source Sans Pro", "Helvetica Neue", "Arial", "sans-serif";
 }
 
 .dashboards-maker {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+
   .layout-header {
     @include flex-align(space-between, stretch);
 
@@ -26,8 +31,12 @@
       background-color: var(--bg-grey);
       box-sizing: border-box;
       flex: 1;
+
+      &.is-highlight {
+        background-color: var(--bg-dark-yellow);
+      }
     }
-    
+
     &-shadow {
       background-color: var(--bg-dark-grey);
       flex: 0 0 42px;
@@ -36,6 +45,13 @@
 
   .layout-main {
     @include flex-align(space-between, stretch);
+
+    flex: 1;
+    flex-direction: column;
+
+    @include min-screen(768) {
+      flex-direction: row;
+    }
 
     aside {
       flex: 0 0 20%;
@@ -54,7 +70,8 @@
 
     &__buttons {
       white-space: nowrap;
-      flex: 0 0 150px;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 
@@ -68,7 +85,165 @@
     padding: 0.45em 1em 0.3em;
 
     &:not(:first-child) {
-      margin-left: var(--space);
+      margin-left: calc(2 * var(--space));
+    }
+
+    &.is-shaking {
+      animation: shake 250ms infinite;
+    }
+
+    @keyframes shake {
+      2% {
+        transform: translate(1.5px, 1.5px) rotate(1.5deg);
+      }
+      4% {
+        transform: translate(0.5px, -0.5px) rotate(0.5deg);
+      }
+      6% {
+        transform: translate(1.5px, 2.5px) rotate(1.5deg);
+      }
+      8% {
+        transform: translate(0.5px, 2.5px) rotate(0.5deg);
+      }
+      10% {
+        transform: translate(2.5px, 1.5px) rotate(0.5deg);
+      }
+      12% {
+        transform: translate(-0.5px, -1.5px) rotate(-0.5deg);
+      }
+      14% {
+        transform: translate(1.5px, 2.5px) rotate(-0.5deg);
+      }
+      16% {
+        transform: translate(2.5px, -1.5px) rotate(1.5deg);
+      }
+      18% {
+        transform: translate(2.5px, 2.5px) rotate(-0.5deg);
+      }
+      20% {
+        transform: translate(-0.5px, -1.5px) rotate(1.5deg);
+      }
+      22% {
+        transform: translate(-1.5px, -0.5px) rotate(0.5deg);
+      }
+      24% {
+        transform: translate(2.5px, -1.5px) rotate(1.5deg);
+      }
+      26% {
+        transform: translate(0.5px, 2.5px) rotate(1.5deg);
+      }
+      28% {
+        transform: translate(-0.5px, 2.5px) rotate(-0.5deg);
+      }
+      30% {
+        transform: translate(0.5px, 2.5px) rotate(1.5deg);
+      }
+      32% {
+        transform: translate(-1.5px, -0.5px) rotate(-0.5deg);
+      }
+      34% {
+        transform: translate(0.5px, -0.5px) rotate(0.5deg);
+      }
+      36% {
+        transform: translate(-1.5px, 0.5px) rotate(1.5deg);
+      }
+      38% {
+        transform: translate(-1.5px, 1.5px) rotate(1.5deg);
+      }
+      40% {
+        transform: translate(2.5px, 0.5px) rotate(0.5deg);
+      }
+      42% {
+        transform: translate(0.5px, 0.5px) rotate(1.5deg);
+      }
+      44% {
+        transform: translate(-0.5px, 0.5px) rotate(0.5deg);
+      }
+      46% {
+        transform: translate(2.5px, 1.5px) rotate(1.5deg);
+      }
+      48% {
+        transform: translate(2.5px, 1.5px) rotate(-0.5deg);
+      }
+      50% {
+        transform: translate(-1.5px, 2.5px) rotate(-0.5deg);
+      }
+      52% {
+        transform: translate(0.5px, -1.5px) rotate(1.5deg);
+      }
+      54% {
+        transform: translate(0.5px, -1.5px) rotate(0.5deg);
+      }
+      56% {
+        transform: translate(1.5px, -1.5px) rotate(-0.5deg);
+      }
+      58% {
+        transform: translate(1.5px, 0.5px) rotate(0.5deg);
+      }
+      60% {
+        transform: translate(-0.5px, 0.5px) rotate(0.5deg);
+      }
+      62% {
+        transform: translate(0.5px, 0.5px) rotate(-0.5deg);
+      }
+      64% {
+        transform: translate(-1.5px, -0.5px) rotate(1.5deg);
+      }
+      66% {
+        transform: translate(-1.5px, 2.5px) rotate(-0.5deg);
+      }
+      68% {
+        transform: translate(-1.5px, 1.5px) rotate(0.5deg);
+      }
+      70% {
+        transform: translate(0.5px, 1.5px) rotate(0.5deg);
+      }
+      72% {
+        transform: translate(-1.5px, 2.5px) rotate(0.5deg);
+      }
+      74% {
+        transform: translate(2.5px, 0.5px) rotate(-0.5deg);
+      }
+      76% {
+        transform: translate(0.5px, -1.5px) rotate(1.5deg);
+      }
+      78% {
+        transform: translate(0.5px, 1.5px) rotate(0.5deg);
+      }
+      80% {
+        transform: translate(-0.5px, -0.5px) rotate(0.5deg);
+      }
+      82% {
+        transform: translate(1.5px, 1.5px) rotate(1.5deg);
+      }
+      84% {
+        transform: translate(0.5px, 0.5px) rotate(0.5deg);
+      }
+      86% {
+        transform: translate(-0.5px, 0.5px) rotate(1.5deg);
+      }
+      88% {
+        transform: translate(1.5px, 0.5px) rotate(1.5deg);
+      }
+      90% {
+        transform: translate(-0.5px, 2.5px) rotate(-0.5deg);
+      }
+      92% {
+        transform: translate(-1.5px, -1.5px) rotate(1.5deg);
+      }
+      94% {
+        transform: translate(-1.5px, 2.5px) rotate(1.5deg);
+      }
+      96% {
+        transform: translate(-1.5px, -1.5px) rotate(1.5deg);
+      }
+      98% {
+        transform: translate(1.5px, -1.5px) rotate(1.5deg);
+      }
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(0);
+      }
     }
 
     &__link {
@@ -82,6 +257,14 @@
 
       > :first-child {
         margin-right: calc(0.5 * var(--space));
+      }
+
+      > :not(:first-child) {
+        display: none;
+
+        @include min-screen(768) {
+          display: block;
+        }
       }
 
       &:hover,
@@ -133,7 +316,7 @@
 
   &--small-card {
     background-color: $color_main_negative;
-    border: 2px dashed #BDBDBD;
+    border: 2px dashed #bdbdbd;
     color: var(--color-dark-grey);
     font-family: var(--font-family);
     font-size: $f7;
@@ -159,7 +342,7 @@
 
     &__editing {
       border: var(--border-width) solid var(--color-base);
-  
+
       @include border-radius(4px);
     }
 
@@ -189,7 +372,7 @@
         display: block;
       }
 
-      &-text[type=text] {
+      &-text[type="text"] {
         display: block;
         height: 30px;
         width: 100%;
@@ -206,9 +389,14 @@
 
       &-result {
         font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        display: block;
       }
 
-      &-radio[type=radio] {
+      &-radio[type="radio"] {
         display: inline-block;
         cursor: auto;
       }

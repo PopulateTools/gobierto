@@ -40,7 +40,7 @@
     />
 
     <Dropdown
-      v-if="privateQueries.length || publicQueries.length"
+      v-if="hasQueries"
       class="gobierto-data-summary-separator"
       @is-content-visible="showYourQueries = !showYourQueries"
     >
@@ -66,7 +66,7 @@
     </template>
     <template v-else>
       <Dropdown
-        v-if="privateVisualizations.length || publicVisualizations.length"
+        v-if="hasVisualizations"
         @is-content-visible="showYourVizs = !showYourVizs"
       >
         <template v-slot:trigger>
@@ -107,7 +107,6 @@
 </template>
 
 <script>
-import { SkeletonSpinner } from "lib/vue-components";
 import VisualizationsTab from "./VisualizationsTab.vue";
 import Resources from "./../commons/Resources.vue";
 import Info from "./../commons/Info.vue";
@@ -117,8 +116,8 @@ import Description from "./../commons/Description.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
 import Button from "./../commons/Button.vue";
 import { tabs } from '../../../lib/router'
-import { Dropdown } from "lib/vue-components";
-import { translate } from "lib/shared"
+import { translate } from "lib/vue/filters"
+import { Dropdown, SkeletonSpinner } from "lib/vue/components";
 
 export default {
   name: "SummaryTab",
@@ -256,6 +255,12 @@ export default {
   computed: {
     isVizLoading() {
       return this.publicVisualizations.length || !this.isPublicVizLoading
+    },
+    hasQueries() {
+      return this.privateQueries?.length || this.publicQueries?.length
+    },
+    hasVisualizations() {
+      return this.privateVisualizations?.length || this.publicVisualizations?.length
     }
   },
   created() {

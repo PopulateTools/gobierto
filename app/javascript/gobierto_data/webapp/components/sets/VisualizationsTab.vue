@@ -53,7 +53,7 @@
   </div>
 </template>
 <script>
-import { SkeletonSpinner } from "lib/vue-components";
+import { SkeletonSpinner } from "lib/vue/components";
 import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
 
 const COMPONENTS = [

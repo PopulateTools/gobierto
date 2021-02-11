@@ -36,7 +36,13 @@ module User::ApiAuthenticationHelper
   end
 
   def internal_site_request?
-    @internal_site_request ||= request.host == current_site.domain || Site.where(domain: request.host).exists?
+    @internal_site_request ||= begin
+                                 if referrer_host.present?
+                                   referrer_host == current_site.domain || Site.where(domain: referrer_host).exists?
+                                 else
+                                   false
+                                 end
+                               end
   end
 
   def find_current_user
@@ -61,6 +67,10 @@ module User::ApiAuthenticationHelper
   # The ApiToken associated domain must be blank or coincident with the host
   # request
   def api_token_with_host
-    @api_token_with_host ||= ::User::ApiToken.where(domain: [nil, request.host]).find_by(token: token) || ::GobiertoAdmin::ApiToken.where(domain: [nil, request.host]).find_by(token: token)
+    @api_token_with_host ||= ::User::ApiToken.where(domain: [nil, referrer_host]).find_by(token: token) || ::GobiertoAdmin::ApiToken.where(domain: [nil, referrer_host]).find_by(token: token)
+  end
+
+  def referrer_host
+    @referrer_host ||= URI.parse(request.referrer)&.host if request.referrer.present?
   end
 end

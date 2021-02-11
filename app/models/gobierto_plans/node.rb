@@ -4,7 +4,7 @@ module GobiertoPlans
   class Node < ApplicationRecord
     include GobiertoCommon::Moderable
     include GobiertoCommon::HasVocabulary
-    include GobiertoAdmin::HasPermissionsGroup
+    include GobiertoCommon::HasPermissionsGroup
     include GobiertoCommon::HasCustomFieldRecords
     include GobiertoCommon::HasExternalId
     include GobiertoCommon::UrlBuildable

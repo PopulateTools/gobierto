@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { BlockHeader, Checkbox, Dropdown } from "lib/vue-components";
+import { BlockHeader, Checkbox, Dropdown } from "lib/vue/components";
 import DownloadButton from "../../components/DownloadButton.vue";
 import SearchFilter from "../../components/SearchFilter.vue";
 import { EventBus } from "../../mixins/event_bus";
@@ -129,6 +129,8 @@ export default {
           filter.options = categoriesOptions;
         }
       })
+
+      this.filters = this.filters.filter(({ options }) => options.length > 1)
     },
     updateCounters(firstUpdate=false) {
       const counter = { categories: {}, dates: {} };

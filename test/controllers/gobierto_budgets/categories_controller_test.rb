@@ -32,13 +32,13 @@ class GobiertoBudgets::Api::CategoriesControllerTest < GobiertoControllerTest
 
   def test_index_json_with_data
     with_current_site(site) do
-      get gobierto_budgets_api_categories_path, as: :json, params: { with_data: 2016 }
+      get gobierto_budgets_api_categories_path, as: :json, params: { with_data: Date.today.year - 4 }
       assert_response :success
       response_data = JSON.parse(response.body)
       assert_equal "Gastos de personal", response_data["economic"]["G"]["1"]
       assert_nil response_data["economic"]["I"]["10"]
 
-      get gobierto_budgets_api_categories_path, as: :json, params: { with_data: 2018 }
+      get gobierto_budgets_api_categories_path, as: :json, params: { with_data: Date.today.year - 2 }
       assert_response :success
       response_data = JSON.parse(response.body)
       assert_equal "Gastos de personal", response_data["economic"]["G"]["1"]

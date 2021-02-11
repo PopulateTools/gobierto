@@ -1,14 +1,14 @@
 import crossfilter from "crossfilter2";
 import { max, mean, median, sum } from "d3-array";
 import { scaleThreshold } from "d3-scale";
-import { money } from "lib/shared";
+import { money } from "lib/vue/filters";
 import {
   AmountDistributionBars,
   GroupPctDistributionBars
 } from "lib/visualizations";
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { getRemoteData, sortByField } from "../webapp/lib/utils";
+import { getRemoteData, sortByField, calculateSumMeanMedian } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/mixins/event_bus";
 
 const d3 = { scaleThreshold, sum, mean, median, max };
@@ -62,7 +62,14 @@ export class SubsidiesController {
                 }
               ]
             }
-          ]
+          ],
+          scrollBehavior(to) {
+            const components = ['subsidies_show']
+            if (components.includes(to.name)) {
+              const element = document.getElementById(selector);
+              window.scrollTo({ top: element.offsetTop, behavior: "smooth" });
+            }
+          }
         });
 
         const baseTitle = document.title;
@@ -128,32 +135,25 @@ export class SubsidiesController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
-    for (let i = 0; i < subsidiesData.length; i++) {
-      const subsidy = subsidiesData[i];
-      const amount =
-        subsidy.amount && !Number.isNaN(subsidy.amount)
-          ? parseFloat(subsidy.amount)
-          : 0.0;
+    subsidiesData = subsidiesData.map(({ amount = 0, beneficiary = "", beneficiary_type = "", grant_date, ...rest }, index) => {
+      let [beneficiary_id, ...beneficiary_name] = beneficiary.split(" ");
 
-      let [beneficiary_id, ...beneficiary_name] = subsidy.beneficiary.split(
-        " "
-      );
-
-      subsidy.amount = amount;
-      subsidy.range = rangeFormat(+amount);
-
-      subsidy.beneficiary_id = beneficiary_id;
-      subsidy.beneficiary_name = beneficiary_name.join(" ");
-
-      if (!subsidy.id) {
-        subsidy.id = `${subsidy.grant_date.replace(
-          /\D+/g,
-          ""
-        )}${subsidy.beneficiary_id.replace(/\D+/g, "")}${parseInt(
-          subsidy.amount
-        ) || 0}`;
+      if (beneficiary === '' && beneficiary_type === 'persona') {
+        beneficiary = I18n.t('gobierto_visualizations.visualizations.subsidies.person')
       }
-    }
+
+      return {
+        amount: amount && !Number.isNaN(amount) ? parseFloat(amount) : 0.0,
+        range: rangeFormat(+amount),
+        beneficiary,
+        beneficiary_type,
+        beneficiary_id,
+        beneficiary_name: beneficiary_name.join(" "),
+        grant_date,
+        id: `${grant_date.replace(/\D+/g,"")}${beneficiary_id.replace(/\D+/g, "")}${parseInt(amount) || 0}${index}`,
+        ...rest,
+      }
+    })
 
     this.data = {
       subsidiesData: subsidiesData.sort(sortByField("grant_date"))
@@ -203,32 +203,25 @@ export class SubsidiesController {
 
     // Calculations box items
     const numberSubsidies = subsidiesData.length;
-    const sumSubsidies = d3.sum(amountsArray);
-    const meanSubsidies = d3.mean(amountsArray) || 0;
-    const medianSubsidies = d3.median(amountsArray) || 0;
+    const [ sumSubsidies, meanSubsidies, medianSubsidies ] = calculateSumMeanMedian(amountsArray)
 
-    const pctCollectivesSubsidies =
-      parseFloat(collectivesData.length) / numberSubsidies;
-    const sumCollectivesSubsidies = d3.sum(amountsCollectivesArray);
-    const meanCollectivesSubsidies = d3.mean(amountsCollectivesArray) || 0;
-    const medianCollectivesSubsidies = d3.median(amountsCollectivesArray) || 0;
+    const pctCollectivesSubsidies = numberSubsidies ? (parseFloat(collectivesData.length) / numberSubsidies) : 0;
+    const [ sumCollectivesSubsidies, meanCollectivesSubsidies, medianCollectivesSubsidies ] = calculateSumMeanMedian(amountsCollectivesArray)
 
-    const pctIndividualsSubsidies =
-      parseFloat(individualsData.length) / numberSubsidies;
-    const sumIndividualsSubsidies = d3.sum(amountsIndividualsArray);
-    const meanIndividualsSubsidies = d3.mean(amountsIndividualsArray) || 0;
-    const medianIndividualsSubsidies = d3.median(amountsIndividualsArray) || 0;
+    const pctIndividualsSubsidies = numberSubsidies ? (parseFloat(individualsData.length) / numberSubsidies) : 0;
+    const [ sumIndividualsSubsidies, meanIndividualsSubsidies, medianIndividualsSubsidies ] = calculateSumMeanMedian(amountsIndividualsArray)
 
     // Calculations headlines
     const lessThan1000Total = subsidiesData.filter(
       ({ amount = 0 }) => parseFloat(amount) < 1000
     ).length;
-    const lessThan1000Pct = lessThan1000Total / numberSubsidies;
+    const lessThan1000Pct = numberSubsidies ? (lessThan1000Total / numberSubsidies) : 0;
 
     const largerSubsidyAmount = d3.max(subsidiesData, ({ amount = 0 }) =>
       parseFloat(amount)
     );
-    const largerSubsidyAmountPct = largerSubsidyAmount / sumSubsidies;
+
+    const largerSubsidyAmountPct = numberSubsidies ? (largerSubsidyAmount / numberSubsidies) : 0;
 
     let iteratorAmountsSum = 0,
       numberSubsidiesHalfSpendings = 0;
@@ -240,8 +233,7 @@ export class SubsidiesController {
         break;
       }
     }
-    const halfSpendingsSubsidiesPct =
-      numberSubsidiesHalfSpendings / numberSubsidies;
+    const halfSpendingsSubsidiesPct = numberSubsidies ? (numberSubsidiesHalfSpendings / numberSubsidies) : 0;
 
     // Updating the DOM
     document.getElementById(
@@ -261,7 +253,7 @@ export class SubsidiesController {
     });
     document.getElementById("sum-collectives-subsidies").innerText = money(
       sumCollectivesSubsidies
-    );
+    ) ;
     document.getElementById("mean-collectives-subsidies").innerText = money(
       meanCollectivesSubsidies
     );

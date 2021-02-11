@@ -3,17 +3,12 @@
 module GobiertoAdmin
   module GobiertoDashboards
     class DashboardsController < GobiertoAdmin::BaseController
+      before_action { module_enabled!(current_site, "GobiertoDashboards") }
+      before_action -> { module_allowed_action!(current_admin, "GobiertoPlans", [:manage_dashboards, :view_dashboards]) }
+
       layout false
 
-      def index
-        @context = "context"
-      end
-
-      def show
-        # dashboard ID/context example
-        @id = 0
-        @context = "context"
-      end
+      def modal; end
     end
   end
 end

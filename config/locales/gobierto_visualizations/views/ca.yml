@@ -7,9 +7,6 @@ ca:
           contracts: Contractes i licitacions
           costs: Costos
           subsidies: Subvencions
-      menu_subsections:
-        contracts: Contractes
-        subsidies: Subvencions
     shared:
       download_data: Descarregueu les dades en format reutilitzable
       loading: Carregant dades...
@@ -17,30 +14,46 @@ ca:
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
-        assignees: Adjudicataris
+        categories: Categories
         contract: Contracte
         contract_amount: Imp. adjudicació
         contract_type: Tipus de contracte
         contractor: Contractor
         contracts: Contractes
         contracts_assigned_to: Contractes adjudicats a
+        contracts_show:
+          assignee_description: Empresa que ha guanyat el contracte (Adjudicatari)
+          assignees_description: Empreses que han guanyat el contracte (Adjudicataris)
+          awarding: Adjudicació
+          awarding_entity: Entitat adjudicadora
+          batch: Lot
+          bid_description: Pressupost base de licitació sense impostos
+          bidders_description: Numero d'empreses que s'han presentat al procés (Licitadors)
+          contract_amount: Import d'adjudicació
+          entity: Entitat
+          estimated_value: Valor estimat
+          external_source: Font
+          open_proposals_date: Data de licitació
+          process: Procés
+          question_description: Què % del pressupost suposa aquest contracte?
+          submission_date: Data de lliurament
+          tender: Licitació
+          type: Tipus
         date: Data
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
-        empty_table: No hi ha dades disponibles
-        final_amount_no_taxes: Quantitat
+        entities: Entitats
+        final_amount_no_taxes: Import
         fromto: De a Nº Contr.
         main_assignees: Principals adjudicataris
         more: Més de
         nav:
-          contracts: Contracts
+          contracts: Contractes
           summary: Resum
           tenders: Licitacions
-        permalink: Consulteu aquest contracte a la Plataforma de Contractació del
-          Sector Públic
         process_type: Tipus de procés
-        search_placeholder: Cerqueu per adjudicatari
+        search_placeholder: Cerqueu per adjudicatari o per títol del contracte
         status: Estat
         submission_date: Data
         summary:
@@ -152,8 +165,11 @@ ca:
         nav:
           subsidies: Subvencions
           summary: Resum
-        regulatory_bases: Bases reguladores
+        person: Persona individual
+        subsidie: Subvencion
         subsidies: Subvencions
+        subsidies_amount: Imp. Subvencion
+        subsidies_total: Total Subvencions
         summary:
           collective_subsidies_for: a col·lectius per import de
           individual_subsidies_for: a particulars per import de
@@ -170,11 +186,6 @@ ca:
           subsidies_for: subvencions per import de
         title: Subvencions
       visualizations:
-        by_amount: per import de
-        contracts: Adjudicacions
-        difference_import: DIFERÈNCIA IMPORT
         title_beeswarm: Contractes per tipus, volum, mida i data
-        title_legend: En el que va del 2020
-        title_multiple: Evolució del volum de licitacions i adjudicacions
         tooltip_beeswarm: Import d'adjudicació
         tooltip_treemap: Total contractes

@@ -18,6 +18,7 @@
   >
     <Widget
       v-for="widget in widgets"
+      ref="widget"
       :key="widget.i"
       :edition-mode="isEditionMode"
       v-bind="{ ...widget, widgetsData }"
@@ -96,16 +97,16 @@ export default {
   },
   methods: {
     async getConfiguration() {
-      const { attributes: { widget_configuration } = {} } = this.config;
-      const { data: widgets_data } = await this.getData({
+      const { attributes: { widgets_configuration } = {} } = this.config;
+      const { data: { data: widgets_data } = {} } = await this.getData({
         context: this.context,
         data_pipe: this.pipe
       });
 
       this.widgetsData = widgets_data;
-      this.widgets = this.parseWidgets(widget_configuration, widgets_data);
+      this.widgets = this.parseWidgets(widgets_configuration || [], widgets_data || []);
     },
-    parseWidgets(conf = [], data = []) {
+    parseWidgets(conf, data) {
       return conf.map(({ type = "", ...options }) => {
         const defaults = Widgets[type.toUpperCase()];
         if (!defaults) throw new Error("Widget does not exist");
@@ -115,7 +116,7 @@ export default {
           ...options,
           // if there is a property called indicator, append the data related
           ...(options.indicator && {
-            data: data.find(({ name }) => name === options.indicator)
+            data: data.find(({ id, project }) => `${id}---${project}` === options.indicator)
           }),
           type,
           edition: false

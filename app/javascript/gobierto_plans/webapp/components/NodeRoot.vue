@@ -27,7 +27,8 @@
 </template>
 
 <script>
-import { percent } from "lib/shared"
+import { percent } from "lib/vue/filters"
+import { routes } from "../lib/router";
 
 export default {
   name: "NodeRoot",
@@ -71,7 +72,7 @@ export default {
   methods: {
     open() {
       this.$emit("open-menu-mobile");
-      this.$router.push({ path: `${this.$root.$data.baseurl}/categoria/${this.model.id}` })
+      this.$router.push({ name: routes.CATEGORIES, params: { ...this.$route.params, id: this.model.id } })
     }
   }
 };

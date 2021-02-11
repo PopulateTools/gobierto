@@ -58,7 +58,8 @@ fixtures_to_load = [
   "gobierto_citizens_charters/services",
   "gobierto_citizens_charters/charters",
   "gobierto_citizens_charters/commitments",
-  "gobierto_citizens_charters/editions"
+  "gobierto_citizens_charters/editions",
+  "gobierto_dashboards/dashboards"
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")

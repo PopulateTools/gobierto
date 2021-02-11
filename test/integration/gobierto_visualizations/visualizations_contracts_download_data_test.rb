@@ -5,7 +5,25 @@ require "test_helper"
 class GobiertoVisualizations::VisualizationsContractsDownloadDataTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @summary_path = gobierto_visualizations_contracts_summary_path(locale: 'es')
+    @summary_path = gobierto_visualizations_contracts_summary_path
+    copy_mock_csv_files
+  end
+
+  def teardown
+    remove_mock_csv_files
+  end
+
+  def copy_mock_csv_files
+    FileUtils.cp File.join(Rails.root, 'test', 'fixtures', 'files', 'gobierto_visualizations', 'contracts.csv'),
+      File.join(Rails.root, 'public', 'contracts.csv')
+
+    FileUtils.cp File.join(Rails.root, 'test', 'fixtures', 'files', 'gobierto_visualizations', 'tenders.csv'),
+      File.join(Rails.root, 'public', 'tenders.csv')
+  end
+
+  def remove_mock_csv_files
+    FileUtils.rm File.join(Rails.root, 'public', 'contracts.csv')
+    FileUtils.rm File.join(Rails.root, 'public', 'tenders.csv')
   end
 
   def site
@@ -22,7 +40,10 @@ class GobiertoVisualizations::VisualizationsContractsDownloadDataTest < ActionDi
         "visualizations" => {
           "contracts" => {
             "enabled" => true,
-            "data_urls" => {},
+            "data_urls" => {
+              "tenders" => "/tenders.csv",
+              "contracts" => "/contracts.csv"
+            },
             "data_download_source" => data_download_source
           }
         }
@@ -36,7 +57,10 @@ class GobiertoVisualizations::VisualizationsContractsDownloadDataTest < ActionDi
         "visualizations" => {
           "contracts" => {
             "enabled" => true,
-            "data_urls" => {}
+            "data_urls" => {
+              "tenders" => "/tenders.csv",
+              "contracts" => "/contracts.csv"
+            }
           }
         }
       }
@@ -52,7 +76,7 @@ class GobiertoVisualizations::VisualizationsContractsDownloadDataTest < ActionDi
 
     with(site: site, js: true) do
       visit @summary_path
-      assert page.has_content?("Descarga los datos completos")
+      assert page.has_content?("Download the full dataset in a reusable format")
 
       link = find(".visualizations-home-aside--download-open-data a", match: :first)
       assert_equal link[:href], data_download_source
@@ -68,7 +92,7 @@ class GobiertoVisualizations::VisualizationsContractsDownloadDataTest < ActionDi
 
     with(site: site, js: true) do
       visit @summary_path
-      refute page.has_content?("Descarga los datos completos")
+      assert page.has_no_content?("Download the full dataset in a reusable format")
     end
   end
 

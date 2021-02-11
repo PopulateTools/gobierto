@@ -15,7 +15,7 @@ en:
     - Fri
     - Sat
     abbr_month_names:
-    -
+    - 
     - Jan
     - Feb
     - Mar
@@ -43,7 +43,7 @@ en:
       short: "%b %d %Y"
       shortest: "%d %b %y"
     month_names:
-    -
+    - 
     - January
     - February
     - March
@@ -134,6 +134,7 @@ en:
       less_than_or_equal_to: must be less than or equal to %{count}
       not_a_number: is not a number
       not_an_integer: must be an integer
+      not_found: not found
       odd: must be odd
       other_than: must be other than %{count}
       page_as_homepage: The changes to the page could not be saved because You can't

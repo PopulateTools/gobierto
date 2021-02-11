@@ -192,6 +192,13 @@ Rails.application.routes.draw do
               get :accumulated_values
             end
           end
+
+          resources :dashboards, only: [:index, :destroy] do
+            collection do
+              get :list
+            end
+          end
+
           resources :projects do
             member do
               post :publish
@@ -268,8 +275,7 @@ Rails.application.routes.draw do
       end
 
       namespace :gobierto_dashboards, as: :dashboards do
-        get "index" => "dashboards#index"
-        get "show" => "dashboards#show"
+        get "/modal" => "dashboards#modal"
       end
     end
 
@@ -460,6 +466,7 @@ Rails.application.routes.draw do
         get ":slug(/:year)/proyecto/:id" => "plan_types#show", as: :project
         get ":slug(/:year)/tabla/:uid" => "plan_types#show"
         get ":slug(/:year)/tabla/:uid/:term_id" => "plan_types#show"
+        get ":slug(/:year)/dashboards(/:dashboard_id)" => "plan_types#show", as: :plan_dashboards
 
         # API
         namespace :api, path: "gobierto_plans/api" do
@@ -688,6 +695,30 @@ Rails.application.routes.draw do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1" do
             get ":module_name/configuration" => "configuration#show", as: :configuration
             get "search" => "search#query", as: :search
+          end
+        end
+      end
+    end
+
+    # Gobierto Dashboards module
+    namespace :gobierto_dashboards, path: "dashboards" do
+      constraints GobiertoSiteConstraint.new do
+        get "/" => "welcome#index", as: :root
+      end
+    end
+
+    # API
+    namespace :gobierto_dashboards, path: "/" do
+      constraints GobiertoSiteConstraint.new do
+        namespace :api do
+          namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true) do
+            get "/dashboards" => "dashboards#index", as: :root
+            get "dashboard_data" => "dashboards#dashboard_data"
+            resources :dashboards, defaults: { format: "json" } do
+              member do
+                get :data, defaults: { format: "json" }
+              end
+            end
           end
         end
       end

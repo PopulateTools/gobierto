@@ -95,6 +95,9 @@ class Site < ApplicationRecord
   has_many :queries, through: :datasets, class_name: "GobiertoData::Query"
   has_many :visualizations, through: :datasets, class_name: "GobiertoData::Visualization"
 
+  # GobiertoDashboards integration
+  has_many :dashboards, dependent: :destroy, class_name: "GobiertoDashboards::Dashboard"
+
   serialize :configuration_data
 
   before_save :store_configuration

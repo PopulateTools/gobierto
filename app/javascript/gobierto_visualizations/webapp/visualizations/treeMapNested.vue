@@ -357,9 +357,24 @@ export default {
           .attr("class", "foreignobj")
           .append("xhtml:div")
           .html(d => {
+            if (typeof d.data === "function") {
+              return
+            }
+            const { x0, x1, y0, y1, depth } = d
+            const rectWidth = x1 - x0
+            const rectHeight = y1 - y0
+            let controlDepth = deepLevel === 4 ? 0 : deepLevel === 3 ? 1 : deepLevel === 2 ? 2 : 0
+            if (deepLevel === 4 && depth === 3) {
+              controlDepth = 3
+            }
+            if (rectWidth < 100 && rectHeight < 100 && depth === controlDepth) {
+              return
+            }
             let htmlTreeMap
             if (depthEntity && deepLevel === 4) {
               htmlTreeMap = treeMapThreeDepth(d)
+            } else if (deepLevel === 2) {
+              htmlTreeMap = treeMapFirsthDepth(d)
             } else {
               htmlTreeMap = treeMapTwoDepth(d)
             }
@@ -389,7 +404,10 @@ export default {
 
         g.selectAll(".foreignobj")
           .on('mousemove', (d, i, event) => {
-            this.$emit('showTooltip', d, i, selected_size, event)
+            const { depth } = d
+            if (depth !== 1) {
+              this.$emit('showTooltip', d, i, selected_size, event)
+            }
           })
 
         const self = this
@@ -448,6 +466,53 @@ export default {
             transitioning = false;
           });
           labelTotalContracts = self.labelTotalPlural
+        }
+
+        function treeMapFirsthDepth(d) {
+          /*We can changes the text content of every rect with d.depth
+          d.depth = 1 is the first level, type of contracts
+          d.depth = 2 is the second level, beneficiaries by type of contracts
+          d.depth = 3 is the last level, contracts of beneficiaries*/
+          let title = d.data.name === undefined ? d.data[keyForThirdDepth] : d.data.name;
+          let htmlForRect = ''
+          const { depth } = d
+          if (depth === 1) {
+            const children = d.children
+            let totalContracts = 0;
+
+            if (children) {
+              totalContracts = children.length
+            }
+            let valueTotalAmount
+            if (typeof d.data !== "function") {
+              let contractType = d.data.name !== undefined ? d.data.name : ''
+              const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, firstDepthForTreeMap, amountKey)
+              let totalAmount = finalAmountTotal.filter(contract => contract[firstDepthForTreeMap] === contractType)
+              totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
+              valueTotalAmount = totalAmount[0][amountKey]
+            }
+
+            valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
+
+            if (totalContracts) {
+              labelTotalContracts = totalContracts.length <= 1 ? labelTotalUnique : labelTotalContracts
+            }
+            htmlForRect = `<p class="title">${title}</p>
+              <p class="text">${money(valueTotalAmount)}</p>
+              <p class="text">
+                <b>${totalContracts}</b> ${labelTotalContracts}</b>
+              </p>
+              `
+          } else if (depth === 2 && typeof d.data !== "function") {
+
+            const { data: { assignee_routing_id }, parent: { data: { name } } } = d
+            let heading = assignee_routing_id !== undefined ? `<a href="#" class="title">${name}</a>` : `<p class="title">${name}</p>`
+            htmlForRect = `
+              ${heading}
+              <p class="text">${title}</p>
+              `
+          }
+          return htmlForRect
         }
 
         function treeMapTwoDepth(d) {

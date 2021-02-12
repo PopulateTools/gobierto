@@ -4,8 +4,9 @@
       :data="data"
       :root-data="rootData"
       :label-root-key="labelRootKey"
-      :first-depth-for-tree-map="'category'"
-      :second-depth-for-tree-map="'beneficiary'"
+      :first-depth-for-tree-map="firstDepthString"
+      :second-depth-for-tree-map="secondDepthString"
+      :deep-level="deepLevel"
       :scale-color-key="'contract_type'"
       :treemap-id="'categories'"
       :amount="'amount'"
@@ -49,7 +50,10 @@ export default {
       labelContractTotal: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap'),
       labelContractsPlural: I18n.t('gobierto_visualizations.visualizations.subsidies.subsidies'),
       labelContractsUnique: I18n.t('gobierto_visualizations.visualizations.subsidies.subsidie'),
-      rootData: {}
+      rootData: {},
+      firstDepthString: '',
+      secondDepthString: '',
+      deepLevel: 3
     }
   },
   methods: {
@@ -63,13 +67,29 @@ export default {
       // const dataGroupTreeMap = Array.from(
       //   d3.group(data, d =>  d.contract_type, d.assignee),
       // );
-      const nested_data = d3.nest()
-        .key(d => d['category'])
-        .key(d => d['beneficiary'])
-        .entries(dataFilter);
+
+      /* WARNING:
+      Be careful, on the day(12.02.2021) I am doing this we only have grants from Espluges,
+      Getafe gives error, so we should check that this does not break Getafe. */
+      const hasCategory = data.some(({ category }) => category !== '')
+      let nested_data
+      if (!hasCategory) {
+        nested_data = d3.nest()
+          .key(d => d['beneficiary'])
+          .entries(dataFilter);
+          this.firstDepthString = 'beneficiary';
+          this.deepLevel = 2
+      } else {
+        nested_data = d3.nest()
+          .key(d => d['category'])
+          .key(d => d['beneficiary'])
+          .entries(dataFilter);
+          this.firstDepthString = 'category';
+          this.secondDepthString = 'beneficiary';
+      }
       let rootData = {};
 
-      rootData.key = this.labelRootKey
+      rootData.key = hasCategory ? this.labelRootKey : this.labelContractsPlural
       rootData.values = nested_data;
 
       rootData = replaceDeepKeys(rootData, sizeForTreemap);
@@ -112,7 +132,7 @@ export default {
       const positionTop = tooltipHeight + y > window.innerHeight ? `${y - (tooltipHeight / 2)}px` : `${y}px`
       const positionLeft = `${x + 20}px`
 
-      if (depth === 2) {
+      if (depth === 2 && this.deepLevel > 2) {
         let totalContracts = d.children === undefined ? '' : d.children
         let contractsString = totalContracts
           .reduce((acc, contract) => {
@@ -141,7 +161,7 @@ export default {
           .style('top', positionTop)
           .style('left', positionWidthTooltip > containerWidth ? positionRight : positionLeft)
 
-      } else if (depth === 3 && typeof d.data !== "function") {
+      } else if (depth === 3 && typeof d.data !== "function" || this.deepLevel === 2 && typeof d.data !== "function") {
         const { data: { amount, value } } = d
         let contractAmount = selected_size === 'amount' ? `${value}` : `${amount}`
 

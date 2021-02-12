@@ -439,7 +439,7 @@ GEM
       parser (>= 2.7.1.5)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.4)
-    rubyXL (3.4.16)
+    rubyXL (3.4.17)
       nokogiri (>= 1.10.8)
       rubyzip (>= 1.3.0)
     ruby_px (0.5.0)

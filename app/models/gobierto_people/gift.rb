@@ -5,9 +5,10 @@ module GobiertoPeople
 
     include GobiertoCommon::Metadatable
     include GobiertoCommon::UrlBuildable
+    include BelongsToPersonWithCharge
 
-    belongs_to :person
     belongs_to :department, optional: true
+    belongs_to_person_with_historical_charge date_attribute: :date
 
     scope :sorted, -> { order(date: :desc, name: :asc) }
     scope :between_dates, lambda { |start_date, end_date|

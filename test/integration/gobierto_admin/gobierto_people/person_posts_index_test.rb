@@ -60,7 +60,7 @@ module GobiertoAdmin
             assert preview_link_excludes_token?
             click_preview_link
 
-            assert has_content? "#{person.name}, Avenger's blog"
+            assert has_content? "#{person.name}, #{person.charge}'s blog"
 
             person.draft!
 
@@ -69,7 +69,7 @@ module GobiertoAdmin
             assert preview_link_includes_token?
             click_preview_link
 
-            assert has_content? "#{person.name}, Avenger's blog"
+            assert has_content? "#{person.name}, #{person.charge}'s blog"
           end
         end
       end

@@ -13,7 +13,6 @@ module GobiertoPeople
       def justice_department
         @justice_department ||= gobierto_people_departments(:justice_department)
       end
-      alias department_with_trips justice_department
 
       def culture_department
         @culture_department ||= gobierto_people_departments(:culture_department)
@@ -28,6 +27,7 @@ module GobiertoPeople
       def tourism_department_very_old
         @tourism_department_very_old ||= gobierto_people_departments(:tourism_department_very_old)
       end
+      alias department_with_trips tourism_department_very_old
 
       def immigration_department_mixed
         @immigration_department_mixed ||= gobierto_people_departments(:immigration_department_mixed)
@@ -53,15 +53,15 @@ YAML
       end
 
       def departments_with_trips
-        @departments_with_trips ||= [department_with_trips]
+        @departments_with_trips ||= [department_with_trips, culture_department]
       end
 
       def departments_with_gifts
-        @departments_with_gifts ||= [department_with_gifts]
+        @departments_with_gifts ||= [department_with_gifts, tourism_department_very_old]
       end
 
       def departments_with_invitations
-        @departments_with_invitations ||= [department_with_invitations]
+        @departments_with_invitations ||= [department_with_invitations, tourism_department_very_old]
       end
 
       def richard
@@ -72,10 +72,10 @@ YAML
       alias person_with_invitations_and_department richard
       alias person_with_trips_and_department richard
 
-      def tamara
-        @tamara ||= gobierto_people_people(:tamara)
+      def juana
+        @juana ||= gobierto_people_people(:juana)
       end
-      alias justice_department_person tamara
+      alias justice_department_person juana
 
       def neil
         @neil ||= gobierto_people_people(:neil)
@@ -97,7 +97,7 @@ YAML
 
       def test_sidebar_contents
         clear_activities
-        culture_department.events.destroy_all
+        culture_department.events.each(&:destroy)
 
         with_current_site(site) do
           # without date filtering configured
@@ -144,10 +144,9 @@ YAML
         clear_activities
         site.events.where.not(id: neil.events.pluck(:id)).destroy_all
 
-        departments = [
-          ecology_department_old,
-          tourism_department_very_old,
-          immigration_department_mixed
+        departments_with_activities = [
+          immigration_department_mixed,
+          justice_department
         ]
 
         with_current_site(site) do
@@ -187,7 +186,7 @@ YAML
           )
 
           within departments_sidebar do
-            departments.each do |department|
+            departments_with_activities.each do |department|
               assert has_link? department.name
               assert has_link_to? gobierto_people_department_people_path(department.slug, start_date: start_date, end_date: end_date)
             end
@@ -217,8 +216,9 @@ YAML
 
           within departments_sidebar do
             assert has_no_link? ecology_department_old.name
-            assert has_link? tourism_department_very_old.name
+            assert has_no_link? tourism_department_very_old.name
             assert has_no_link? immigration_department_mixed.name
+            assert has_link? justice_department.name
           end
         end
       end

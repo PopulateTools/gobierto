@@ -12,6 +12,7 @@ module GobiertoPeople
       :other_department,
       :other_site,
       :department_trips_query,
+      :other_department_trips_query,
       :site_trips_query,
       :other_site_person,
       :other_site_department
@@ -25,7 +26,7 @@ module GobiertoPeople
       @other_site = sites(:santander)
 
       @department = gobierto_people_departments(:culture_department)
-      @other_department = gobierto_people_departments(:justice_department)
+      @other_department = gobierto_people_departments(:tourism_department_very_old)
 
       @site_trips_query = GobiertoPeople::TripsQuery.new(
         site: @site,
@@ -36,6 +37,12 @@ module GobiertoPeople
       @department_trips_query = GobiertoPeople::TripsQuery.new(
         department: @department,
         start_date: date_range_start,
+        end_date: date_range_end
+      )
+
+      @other_department_trips_query = GobiertoPeople::TripsQuery.new(
+        department: @other_department,
+        start_date: date_range_start - 10.years,
         end_date: date_range_end
       )
 
@@ -62,9 +69,9 @@ module GobiertoPeople
     def test_site_count
       assert site_trips_query.count.zero?
 
-      GobiertoPeople::Factory.trip(site: site, department: department)
-      GobiertoPeople::Factory.trip(site: site, department: department, start_date: date_range_start - 10.years)
-      GobiertoPeople::Factory.trip(site: other_site, department: other_site_department, person: other_site_person)
+      GobiertoPeople::Factory.trip(site: site)
+      GobiertoPeople::Factory.trip(site: site, start_date: date_range_start - 10.years) # Other department
+      GobiertoPeople::Factory.trip(site: other_site, person: other_site_person)
 
       assert_equal 1, site_trips_query.count
     end
@@ -72,33 +79,37 @@ module GobiertoPeople
     def test_site_unique_destinations_count
       assert site_trips_query.unique_destinations_count.zero?
 
-      GobiertoPeople::Factory.trip(site: site, department: department, destinations_meta: destinations(%w(Paris London)))
-      GobiertoPeople::Factory.trip(site: site, department: department, destinations_meta: destinations(%w(Paris)))
-      GobiertoPeople::Factory.trip(site: site, department: department, start_date: date_range_start - 10.years, destinations_meta: destinations(%w(Brussels)))
-      GobiertoPeople::Factory.trip(site: other_site, department: other_site_department, person: other_site_person, destinations_meta: destinations(%w(Madrid)))
+      GobiertoPeople::Factory.trip(site: site, destinations_meta: destinations(%w(Paris London)))
+      GobiertoPeople::Factory.trip(site: site, destinations_meta: destinations(%w(Paris)))
+      GobiertoPeople::Factory.trip(site: site, destinations_meta: destinations(%w(London)))
+      GobiertoPeople::Factory.trip(site: site, start_date: date_range_start - 10.years, destinations_meta: destinations(%w(Brussels))) # Other department
+      GobiertoPeople::Factory.trip(site: other_site, person: other_site_person, destinations_meta: destinations(%w(Madrid)))
 
+      assert_equal 3, site_trips_query.count
       assert_equal 2, site_trips_query.unique_destinations_count
     end
 
     def test_department_count
       assert department_trips_query.count.zero?
 
-      GobiertoPeople::Factory.trip(department: department)
-      GobiertoPeople::Factory.trip(department: department, start_date: date_range_start - 10.years)
-      GobiertoPeople::Factory.trip(department: other_site_department)
+      GobiertoPeople::Factory.trip
+      GobiertoPeople::Factory.trip(start_date: date_range_start - 10.years) # Other department
+      GobiertoPeople::Factory.trip(site: other_site, person: other_site_person)
 
       assert_equal 1, department_trips_query.count
+      assert_equal 1, other_department_trips_query.count
     end
 
     def test_department_unique_destinations_count
       assert department_trips_query.unique_destinations_count.zero?
 
-      GobiertoPeople::Factory.trip(department: department, destinations_meta: destinations(%w(Paris London)))
-      GobiertoPeople::Factory.trip(department: department, destinations_meta: destinations(%w(Paris)))
-      GobiertoPeople::Factory.trip(department: department, start_date: date_range_start - 10.years, destinations_meta: destinations(%w(Brussels)))
-      GobiertoPeople::Factory.trip(department: other_site_department, person: other_site_person, destinations_meta: destinations(%w(Madrid)))
+      GobiertoPeople::Factory.trip(destinations_meta: destinations(%w(Paris London)))
+      GobiertoPeople::Factory.trip(destinations_meta: destinations(%w(Paris)))
+      GobiertoPeople::Factory.trip(start_date: date_range_start - 10.years, destinations_meta: destinations(%w(Brussels))) # Other department
+      GobiertoPeople::Factory.trip(person: other_site_person, destinations_meta: destinations(%w(Madrid)))
 
       assert_equal 2, department_trips_query.unique_destinations_count
+      assert_equal 1, other_department_trips_query.unique_destinations_count
     end
 
   end

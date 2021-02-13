@@ -30,8 +30,20 @@ module GobiertoPeople
           @culture_department ||= gobierto_people_departments(:culture_department)
         end
 
+        def tourism_department
+          @tourism_department ||= gobierto_people_departments(:tourism_department_very_old)
+        end
+
+        def ecology_department
+          @ecology_department ||= gobierto_people_departments(:ecology_department_old)
+        end
+
         def coca_cola
           @coca_cola ||= gobierto_people_interest_groups(:coca_cola)
+        end
+
+        def richard
+          @richard ||= gobierto_people_people(:richard)
         end
 
         def tamara
@@ -43,7 +55,7 @@ module GobiertoPeople
         end
 
         def departments_with_events_count
-          ::GobiertoCalendars::Event.select(:department_id).distinct.count
+          madrid.events.map(&:historical_department).compact.uniq.count
         end
 
         def short_date(date)
@@ -78,8 +90,8 @@ module GobiertoPeople
               params: {
                 interest_group_id: coca_cola.id,
                 person_id: tamara.id,
-                from_date: FAR_PAST,
-                to_date: FAR_FUTURE
+                start_date: FAR_PAST,
+                end_date: FAR_FUTURE
               }
             )
 
@@ -88,7 +100,7 @@ module GobiertoPeople
             departments = JSON.parse(response.body)
 
             assert_equal 1, departments.size
-            assert_equal departments.first["key"], justice_department.name
+            assert_equal departments.first["key"], tourism_department.name
             assert_match "?end_date=#{ short_date(FAR_FUTURE) }&start_date=#{ short_date(FAR_PAST) }", departments.first["properties"]["url"]
           end
         end
@@ -97,8 +109,8 @@ module GobiertoPeople
           ::GobiertoCalendars::Event.destroy_all
           culture_department.update!(name: "Departament de Cultura")
 
-          create_event(person: tamara, starts_at: "15-01-2017", department: justice_department)
-          create_event(person: tamara, starts_at: "16-01-2017", department: culture_department)
+          create_event(person: richard, starts_at: "15-01-1970") # As alien doctor in ecology department old
+          create_event(person: richard, starts_at: "16-01-2000") # As avenger in tourism department very old
 
           with_current_site(madrid) do
 
@@ -111,27 +123,27 @@ module GobiertoPeople
 
             departments = JSON.parse(response.body)
 
-            assert_equal [justice_department, culture_department].size, departments.size
+            assert_equal [ecology_department, tourism_department].size, departments.size
 
-            justice_department_data = departments.detect { |item| item["key"] == justice_department.short_name }
+            tourism_department_data = departments.detect { |item| item["key"] == tourism_department.short_name }
 
-            expected_justice_department_data = {
-              "key" => justice_department.short_name,
+            expected_tourism_department_data = {
+              "key" => tourism_department.short_name,
               "value" => [
                 {
-                  "key" => Time.zone.parse("2017/01"),
+                  "key" => Time.zone.parse("2000/01"),
                   "value" => 1,
                   "properties" => {
-                    "url" => "/en/departments/justice-department?end_date=2017-02-01&start_date=2017-01-01"
+                    "url" => "/en/departments/toursim-department-very-old?end_date=2000-02-01&start_date=2000-01-01"
                   }
                 }
               ],
               "properties" => {
-                "url" => "/en/departments/justice-department?page=false"
+                "url" => "/en/departments/toursim-department-very-old?page=false"
               }
             }
 
-            assert_equal expected_justice_department_data, justice_department_data
+            assert_equal expected_tourism_department_data, tourism_department_data
           end
         end
 

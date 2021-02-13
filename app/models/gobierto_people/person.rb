@@ -39,6 +39,7 @@ module GobiertoPeople
     has_many :received_gifts, class_name: "Gift", dependent: :destroy
     has_many :invitations, dependent: :destroy
     has_many :trips, dependent: :destroy
+    has_many :historical_charges, dependent: :destroy, class_name: "GobiertoPeople::Charge"
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
     scope :by_site, ->(site) { where(site_id: site.id) }
@@ -67,6 +68,24 @@ module GobiertoPeople
 
     def owned_attending_events
       attending_events.person_events.where(collection_items: { container_id: id })
+    end
+
+    def historical_charge(date = nil)
+      if date.present?
+        historical_charges.on_date(date).take
+      else
+        historical_charge(Date.current) || historical_charges.reverse_sorted.first
+      end
+    end
+
+    def charge(date = nil)
+      if historical_charges.exists?
+        historical_charge(date)&.name
+      else
+        return if charge_translations.blank?
+
+        charge_translations.fetch(I18n.locale, charge_translations&.values&.first)
+      end
     end
 
     def as_csv

@@ -5,18 +5,19 @@ module GobiertoPeople
 
     include GobiertoCommon::Metadatable
     include GobiertoCommon::UrlBuildable
+    include BelongsToPersonWithCharge
 
-    belongs_to :person
     belongs_to :department, optional: true
+    belongs_to_person_with_historical_charge date_attribute: :start_date
 
     scope :sorted, -> { order(start_date: :desc, end_date: :asc, title: :asc) }
     scope :between_dates, lambda { |start_date, end_date|
       if start_date && end_date
-        where("start_date >= ? AND end_date <= ?", start_date, end_date)
+        where("#{table_name}.start_date >= ? AND #{table_name}.end_date <= ?", start_date, end_date)
       elsif start_date
-        where("start_date >= ?", start_date)
+        where("#{table_name}.start_date >= ?", start_date)
       elsif end_date
-        where("end_date <= ?", end_date)
+        where("#{table_name}.end_date <= ?", end_date)
       end
     }
 

@@ -30,7 +30,7 @@ module GobiertoPeople
       protected
 
       def find_person
-        @people_scope.find_by!(slug: params[:container_slug] || params[:person_slug])
+        @people_scope.includes(:historical_charges).find_by!(slug: params[:container_slug] || params[:person_slug])
       end
 
       def admin_permissions_for_person?

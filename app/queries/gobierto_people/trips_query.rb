@@ -31,36 +31,16 @@ module GobiertoPeople
 
     def unique_destinations_sql
       %{
-SELECT
-  DISTINCT
-  (destination->>'city_name') AS destination_city_name,
-  (destination->>'country_code') AS country_code
-FROM
-  #{Trip.table_name}, jsonb_array_elements(destinations_meta->'destinations') destination
-WHERE
-  #{date_range_scope_sql}
-  #{department_filter_sql}
-  #{site_filter_sql}
-  (destination->>'city_name') IS NOT NULL
+      SELECT DISTINCT
+        (destination->>'city_name') AS destination_city_name,
+        (destination->>'country_code') AS country_code
+      FROM
+      ( SELECT
+          jsonb_array_elements(destinations_meta->'destinations') as destination
+        FROM
+        (#{base_trips.between_dates(start_date, end_date).to_sql}) trips_subquery
+        ) destinations
       }
-    end
-
-    def date_range_scope_sql
-      if start_date && end_date
-        "start_date >= #{db_date(start_date)} AND end_date <= #{db_date(end_date)} AND"
-      elsif start_date
-        "start_date >= #{db_date(start_date)} AND"
-      elsif end_date
-        "end_date <= #{db_date(end_date)} AND"
-      end
-    end
-
-    def department_filter_sql
-      "department_id = #{Trip.sanitize_sql department.id} AND" if department.present?
-    end
-
-    def site_filter_sql
-      "person_id IN (SELECT id FROM gp_people WHERE site_id = #{Trip.sanitize_sql site.id}) AND" if department.blank?
     end
 
     def db_date(date)

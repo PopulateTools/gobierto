@@ -48,6 +48,7 @@ class Site < ApplicationRecord
   has_many :gifts, through: :people, source: :received_gifts, class_name: "GobiertoPeople::Gift"
   has_many :invitations, through: :people, class_name: "GobiertoPeople::Invitation"
   has_many :trips, through: :people, class_name: "GobiertoPeople::Trip"
+  has_many :historical_charges, through: :people, class_name: "GobiertoPeople::Charge"
 
   # GobiertoCalendars integration
   has_many :events, class_name: "GobiertoCalendars::Event", dependent: :destroy

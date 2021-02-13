@@ -5,7 +5,7 @@ class GobiertoCalendars::EventAttendeeSerializer < ActiveModel::Serializer
     object.name.presence || object.person.try(:name)
   end
 
-    def attendee_position
-    object.charge.presence || object.person.try(:charge)
+  def attendee_position
+    object.charge.presence || object.person&.charge(object.event&.starts_at)
   end
 end

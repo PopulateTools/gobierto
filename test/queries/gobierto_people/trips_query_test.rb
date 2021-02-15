@@ -26,7 +26,7 @@ module GobiertoPeople
       @other_site = sites(:santander)
 
       @department = gobierto_people_departments(:culture_department)
-      @other_department = gobierto_people_departments(:tourism_department_very_old)
+      @other_department = gobierto_people_departments(:cosmogony_department)
 
       @site_trips_query = GobiertoPeople::TripsQuery.new(
         site: @site,

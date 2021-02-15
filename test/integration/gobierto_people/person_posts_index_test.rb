@@ -50,6 +50,8 @@ module GobiertoPeople
     end
 
     def test_subscription_block
+      skip "Subscription boxes are disabled"
+
       with_current_site(site) do
         visit @path
 

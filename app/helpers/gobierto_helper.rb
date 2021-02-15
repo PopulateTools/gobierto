@@ -4,6 +4,9 @@ module GobiertoHelper
     yield if controller_name == 'sandbox'
   end
 
+  def disabled(&block)
+  end
+
   def todo_link_to(&block)
     anchor_text = yield
     "#{anchor_text} 🛠".html_safe

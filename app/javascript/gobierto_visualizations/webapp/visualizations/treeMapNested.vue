@@ -361,9 +361,9 @@ export default {
             }
             const { x0, x1, y0, y1, depth, parent: { children } } = d
             const calculateActualDepth = deepLevel - depth
-            const childrenLength = calculateActualDepth === 0 ? children.length : 0
+            const childrenLength = children.length ? children.length : 0
             const dimensionsElement = (x1 - x0) < 100 && (y1 - y0) < 100
-            if (dimensionsElement && calculateActualDepth > 0) {
+            if (dimensionsElement && calculateActualDepth > 0 && childrenLength > 40) {
               return
             } else if (dimensionsElement && calculateActualDepth === 0 && childrenLength > 20) {
               return

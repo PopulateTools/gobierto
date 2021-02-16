@@ -153,10 +153,6 @@ export default {
     depthEntity: {
       type: Boolean,
       default: false
-    },
-    deepLevel: {
-      type: Number,
-      default: 3
     }
   },
   data() {
@@ -243,7 +239,7 @@ export default {
       let labelTotalUnique = this.labelTotalUnique
       let keyForThirdDepth = this.keyForThirdDepth
       let depthEntity = this.depthEntity
-      let deepLevel = this.deepLevel
+      let deepLevel
       const selected_size = this.selected_size;
       const treemapId = this.treemapId;
 
@@ -280,6 +276,9 @@ export default {
       );
 
       const display = (d) => {
+        if (d.parent === null) {
+          deepLevel = d.height
+        }
         navBreadcrumbs
           .datum(d.parent)
           .html(breadcrumbs(d))
@@ -360,14 +359,13 @@ export default {
             if (typeof d.data === "function") {
               return
             }
-            const { x0, x1, y0, y1, depth } = d
-            const rectWidth = x1 - x0
-            const rectHeight = y1 - y0
-            let controlDepth = deepLevel === 4 ? 0 : deepLevel === 3 ? 1 : deepLevel === 2 ? 2 : 0
-            if (deepLevel === 4 && depth === 3) {
-              controlDepth = 3
-            }
-            if (rectWidth < 100 && rectHeight < 100 && depth === controlDepth) {
+            const { x0, x1, y0, y1, depth, parent: { children } } = d
+            const calculateActualDepth = deepLevel - depth
+            const childrenLength = calculateActualDepth === 0 ? children.length : 0
+            const dimensionsElement = (x1 - x0) < 100 && (y1 - y0) < 100
+            if (dimensionsElement && calculateActualDepth > 0) {
+              return
+            } else if (dimensionsElement && calculateActualDepth === 0 && childrenLength > 20) {
               return
             }
             let htmlTreeMap
@@ -428,13 +426,8 @@ export default {
           svg.style("shape-rendering", null);
           // Draw child nodes on top of parent nodes.
           svg.selectAll(".depth").sort((a, b) => a.depth - b.depth);
-          // Fade-in entering text.
-          g2.selectAll("text").style("fill-opacity", 0);
           g2.selectAll("foreignObject div").style("display", "none");
           /*added*/
-          // Transition to the new view.
-          t1.selectAll("text").call(text).style("fill-opacity", 0);
-          t2.selectAll("text").call(text).style("fill-opacity", 1);
           t1.selectAll("rect").call(rect);
           t2.selectAll("rect").call(rect);
           /* Foreign object */
@@ -693,11 +686,6 @@ export default {
       }
 
       display(root);
-
-      function text(text) {
-        text.attr("x", d => x(d.x) + 6)
-          .attr("y", d => y(d.y) + 6);
-      }
 
       function rect(rect) {
         rect

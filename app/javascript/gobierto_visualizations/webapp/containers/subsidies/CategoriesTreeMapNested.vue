@@ -6,7 +6,6 @@
       :label-root-key="labelRootKey"
       :first-depth-for-tree-map="firstDepthString"
       :second-depth-for-tree-map="secondDepthString"
-      :deep-level="deepLevel"
       :scale-color-key="'contract_type'"
       :treemap-id="'categories'"
       :amount="'amount'"
@@ -68,16 +67,13 @@ export default {
       //   d3.group(data, d =>  d.contract_type, d.assignee),
       // );
 
-      /* WARNING:
-      Be careful, on the day(12.02.2021) I am doing this we only have grants from Espluges,
-      Getafe gives error, so we should check that this does not break Getafe. */
       const hasCategory = data.some(({ category }) => category !== '')
       let nested_data
       if (!hasCategory) {
         nested_data = d3.nest()
-          .key(d => d['beneficiary'])
+          .key(d => d['beneficiary_type'])
           .entries(dataFilter);
-          this.firstDepthString = 'beneficiary';
+          this.firstDepthString = 'beneficiary_type';
           this.deepLevel = 2
       } else {
         nested_data = d3.nest()

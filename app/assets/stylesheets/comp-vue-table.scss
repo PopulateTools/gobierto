@@ -130,6 +130,10 @@
 
   .is-clickable {
     cursor: pointer;
+    display: table-row;
+    vertical-align: middle;
+    text-decoration: none;
+    color: $color_text;
     &:hover {
       background-color: rgba(var(--color-base-string), .1);
     }

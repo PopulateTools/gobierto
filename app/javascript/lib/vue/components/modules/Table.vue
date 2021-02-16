@@ -37,11 +37,13 @@
         <template
           v-for="(item, index) in dataTable"
         >
-          <tr
+          <component
+            :is="dynamicHTMLElement()"
             :key="index"
             :class="{ 'is-clickable': isRowClickable }"
             class="gobierto-table__tr"
-            @click="isRowClickable ? onRowClick(item) : null"
+            :href="isRowClickable ? `adjudicaciones/${item.id}` : null"
+            @click.prevent="isRowClickable ? onRowClick(item) : null"
           >
             <template v-for="[id, { name, index, type, cssClass }] in arrayColumnsFiltered">
               <template v-if="type === 'money'">
@@ -86,7 +88,7 @@
                 </td>
               </template>
             </template>
-          </tr>
+          </component>
         </template>
       </tbody>
     </table>
@@ -226,7 +228,15 @@ export default {
     filterColumns(columns) {
       this.mapColumns = columns
       this.arrayColumnsFiltered = Array.from(this.mapColumns).filter(([,{ visibility }]) => !!visibility)
-    }
+    },
+    dynamicHTMLElement() {
+      return this.onRowClick !== null ? 'a' : 'tr'
+    },
+    goesToItem(event) {
+      const { id } = event
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push(`adjudicaciones/${id}`).catch(err => {})
+    },
   }
 }
 </script>

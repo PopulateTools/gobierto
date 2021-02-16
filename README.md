@@ -76,7 +76,7 @@ Gobierto es un producto de Populate, un estudio de diseño y tecnología entorno
 
 ## Comienza a usarlo
 
-* Puedes instalar Gobierto y personalizarlo para tu organización: [Instalación](#instalación) (inglés). Si te encuetras con alguna dificultad, [crea una _issue_](issues/new).
+* Puedes instalar Gobierto y personalizarlo para tu organización: [Instalación](#instalación) (inglés). Si te encuentras con alguna dificultad, [crea una _issue_](issues/new).
 * Populate ofrece servicios comerciales para la implementación de Gobierto. Si nos necesitas, [danos un toque](https://populate.tools/es/about/#como-trabajamos).
 
 

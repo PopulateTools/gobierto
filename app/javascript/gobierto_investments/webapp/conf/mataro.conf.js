@@ -25,7 +25,11 @@ export default {
       flat: true
     },
     {
-      id: "nom-servei-gestor",
+      id: "any-partida",
+      flat: true
+    },
+    {
+      id: "tipus",
       flat: true
     },
     {

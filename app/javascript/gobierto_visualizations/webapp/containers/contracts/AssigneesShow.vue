@@ -18,7 +18,9 @@
         :order-column="'title'"
         :columns="assigneesShowColumns"
         :show-columns="showColumns"
-        :on-row-click="goesToItem"
+        :routing-id="'id'"
+        :routing-name="'adjudicaciones'"
+        :routing-component="'contracts_show'"
       />
     </div>
   </div>
@@ -70,10 +72,6 @@ export default {
         this.assignee = contract.assignee
         this.assignee_id = contract.assignee_id
       }
-    },
-    goesToItem(item) {
-      const { id: routingId } = item
-      this.$router.push({ name: 'contracts_show', params: { id: routingId } })
     }
   }
 }

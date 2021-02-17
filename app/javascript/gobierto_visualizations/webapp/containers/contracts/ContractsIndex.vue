@@ -5,7 +5,9 @@
       :order-column="'final_amount_no_taxes'"
       :columns="contractsColumns"
       :show-columns="showColumns"
-      :on-row-click="goesToItem"
+      :routing-id="'id'"
+      :routing-name="'adjudicaciones'"
+      :routing-component="'contracts_show'"
       class="gobierto-table-margin-top gobierto-table-scroll"
     />
   </div>
@@ -57,10 +59,6 @@ export default {
       this.value = value || ''
 
       this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()) || contract.title.toLowerCase().includes(this.value.toLowerCase()))
-    },
-    goesToItem(item) {
-      const { id: routingId } = item
-      this.$router.push({ name: 'contracts_show', params: { id: routingId } })
     }
   }
 }

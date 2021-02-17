@@ -38,12 +38,12 @@
           v-for="(item, index) in dataTable"
         >
           <component
-            :is="dynamicHTMLElement()"
+            :is="selectHTMLTag"
             :key="index"
             :class="{ 'is-clickable': isRowClickable }"
             class="gobierto-table__tr"
-            :href="isRowClickable ? `adjudicaciones/${item.id}` : null"
-            @click.prevent="isRowClickable ? onRowClick(item) : null"
+            :href="isRowClickable ? `${routingName}/${item[routingId]}` : null"
+            @click.prevent="isRowClickable ? goesToTableItem(item) : null"
           >
             <template v-for="[id, { name, index, type, cssClass }] in arrayColumnsFiltered">
               <template v-if="type === 'money'">
@@ -150,9 +150,17 @@ export default {
       type: Boolean,
       default: true
     },
-    onRowClick: {
-      type: Function,
-      default: null
+    routingId: {
+      type: String,
+      default: ''
+    },
+    routingName: {
+      type: String,
+      default: ''
+    },
+    routingComponent: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -188,7 +196,10 @@ export default {
       return this.direction === 'down' ? 'down' : 'down-alt'
     },
     isRowClickable() {
-      return !!this.onRowClick
+      return !!this.routingName && !!this.routingId
+    },
+    selectHTMLTag() {
+      return this.isRowClickable ? 'a' : 'tr'
     }
   },
   created() {
@@ -229,14 +240,9 @@ export default {
       this.mapColumns = columns
       this.arrayColumnsFiltered = Array.from(this.mapColumns).filter(([,{ visibility }]) => !!visibility)
     },
-    dynamicHTMLElement() {
-      return this.onRowClick !== null ? 'a' : 'tr'
-    },
-    goesToItem(event) {
-      const { id } = event
-      // eslint-disable-next-line no-unused-vars
-      this.$router.push(`adjudicaciones/${id}`).catch(err => {})
-    },
+    goesToTableItem(item) {
+      this.$router.push({ name: this.routingComponent, params: { id: item[this.routingId] } })
+    }
   }
 }
 </script>

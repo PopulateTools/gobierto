@@ -4,7 +4,9 @@
     :order-column="'beneficiary'"
     :columns="subsidiesColumns"
     :show-columns="showColumns"
-    :on-row-click="goesToItem"
+    :routing-id="'id'"
+    :routing-name="'subvenciones'"
+    :routing-component="'subsidies_show'"
     class="gobierto-table-margin-top"
   />
 </template>

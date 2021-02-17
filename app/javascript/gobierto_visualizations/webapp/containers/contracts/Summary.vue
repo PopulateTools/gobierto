@@ -151,8 +151,10 @@
         :order-column="'count'"
         :columns="assigneesColumns"
         :show-columns="showColumns"
+        :routing-id="'assignee_routing_id'"
+        :routing-name="'adjudicaciones'"
+        :routing-component="'assignees_show'"
         class="gobierto-table-margin-top"
-        :on-row-click="goesToTableItem"
       />
     </div>
   </div>
@@ -297,10 +299,6 @@ export default {
       sortedAndGrouped.forEach(contract => contract.id = `${contract.name}-${contract.count}`)
 
       return sortedAndGrouped.slice(0, 30);
-    },
-    goesToTableItem(item) {
-      const { assignee_routing_id: routingId } = item
-      this.$router.push({ name: 'assignees_show', params: { id: routingId } })
     }
   }
 }

@@ -36,10 +36,11 @@
         <% end %>
       </div>
 
-      <%= render("user/subscriptions/subscribable_box",
-                 subscribable: GobiertoCalendars::Event,
-                 title: t(".subscribable_box.title")) %>
-
+      <% disabled do %>
+        <%= render("user/subscriptions/subscribable_box",
+                   subscribable: GobiertoCalendars::Event,
+                   title: t(".subscribable_box.title")) %>
+      <% end %>
     </div>
 
     <div id="person-agenda" class="pure-u-1 pure-u-md-17-24 main_people_content">

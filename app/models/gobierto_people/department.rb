@@ -9,10 +9,66 @@ module GobiertoPeople
     include ActiveRecord::Sanitization::ClassMethods
 
     belongs_to :site
-    has_many :events, class_name: "GobiertoCalendars::Event"
-    has_many :gifts
-    has_many :invitations
-    has_many :trips
+    has_many :charges
+    has_many :people_with_charge, through: :charges, source: :person
+    has_many(
+      :events,
+      lambda {
+        where(
+          %{
+            (#{Charge.table_name}.start_date is NULL OR #{Charge.table_name}.start_date <= #{GobiertoCalendars::Event.table_name}.starts_at)
+            AND
+            (#{Charge.table_name}.end_date is null or #{Charge.table_name}.end_date >= #{GobiertoCalendars::Event.table_name}.starts_at)
+          }
+        )
+      },
+      through: :people_with_charge,
+      source: :attending_events
+    )
+    has_many(
+      :gifts,
+      lambda {
+        where(
+          %{
+            (#{Charge.table_name}.start_date is NULL OR #{Charge.table_name}.start_date <= #{Gift.table_name}.date)
+            AND
+            (#{Charge.table_name}.end_date is null or #{Charge.table_name}.end_date >= #{Gift.table_name}.date)
+          }
+        )
+      },
+      through: :people_with_charge,
+      source: :received_gifts
+    )
+    has_many(
+      :trips,
+      lambda {
+        where(
+          %{
+            (#{Charge.table_name}.start_date is NULL OR #{Charge.table_name}.start_date <= #{Trip.table_name}.start_date)
+            AND
+            (#{Charge.table_name}.end_date is null or #{Charge.table_name}.end_date >= #{Trip.table_name}.start_date)
+          }
+        )
+      },
+      through: :people_with_charge,
+      source: :trips
+    )
+    has_many(
+      :invitations,
+      lambda {
+        where(
+          %{
+            (#{Charge.table_name}.start_date is NULL OR #{Charge.table_name}.start_date <= #{Invitation.table_name}.start_date)
+            AND
+            (#{Charge.table_name}.end_date is null or #{Charge.table_name}.end_date >= #{Invitation.table_name}.start_date)
+          }
+        )
+      },
+      through: :people_with_charge,
+      source: :invitations
+    )
+
+    has_many :gift_receivers
 
     scope :sorted, -> { order(name: :asc) }
 
@@ -41,10 +97,7 @@ module GobiertoPeople
     end
 
     def people(params = {})
-      self.class.filter_department_people(
-        params.slice(:from_date, :to_date)
-              .merge(people_relation: site.people, department_id: id)
-      ).distinct
+      people_with_charge.where(Charge.date_range_sql(params), params).distinct
     end
 
     def short_name
@@ -53,52 +106,9 @@ module GobiertoPeople
     end
 
     def self.filter_department_people(params = {})
-      params[:people_relation].left_outer_joins(attending_person_events: :event)
-                              .where(%{
-        #{department_people_linked_throught_events_sql(params)} OR
-        gp_people.id IN (#{department_people_linked_through_trips_sql(params)}) OR
-        gp_people.id IN (#{department_people_linked_through_invitations_sql(params)}) OR
-        gp_people.id IN (#{department_people_linked_through_gifts_sql(params)})
-      })
-    end
+      people_relation = params.delete(:people_relation)
 
-    ## private
-
-    def self.department_people_linked_throught_events_sql(params = {})
-      sql = sanitize_sql(["(gc_events.department_id = ?", params[:department_id]])
-      sql += sanitize_sql([" AND gc_events.starts_at >= ?", params[:from_date]]) if params[:from_date]
-      sql += sanitize_sql([" AND gc_events.ends_at < ?", params[:to_date]]) if params[:to_date]
-      "#{sql})"
+      people_relation.joins(:historical_charges).where(Charge.date_range_sql(params), params).where("#{Charge.table_name}.department_id = :department_id", params).distinct
     end
-
-    def self.department_people_linked_through_trips_sql(params = {})
-      people = GobiertoPeople::Trip.select("DISTINCT(person_id)")
-                                   .where(department_id: params[:department_id])
-                                   .reorder("")
-      people = people.where("start_date >= ?", params[:from_date]) if params[:from_date]
-      people = people.where("end_date < ?", params[:to_date]) if params[:to_date]
-      people.to_sql
-    end
-    private_class_method :department_people_linked_through_trips_sql
-
-    def self.department_people_linked_through_invitations_sql(params = {})
-      people = GobiertoPeople::Invitation.select("DISTINCT(person_id)")
-                                         .where(department_id: params[:department_id])
-                                         .reorder("")
-      people = people.where("start_date >= ?", params[:from_date]) if params[:from_date]
-      people = people.where("end_date < ?", params[:to_date]) if params[:to_date]
-      people.to_sql
-    end
-    private_class_method :department_people_linked_through_invitations_sql
-
-    def self.department_people_linked_through_gifts_sql(params = {})
-      people = GobiertoPeople::Gift.select("DISTINCT(person_id)")
-                                   .where(department_id: params[:department_id])
-                                   .reorder("")
-      people = people.where("date >= ?", params[:from_date]) if params[:from_date]
-      people = people.where("date < ?", params[:to_date]) if params[:to_date]
-      people.to_sql
-    end
-    private_class_method :department_people_linked_through_gifts_sql
   end
 end

@@ -120,6 +120,7 @@ ca:
       scopes_scope_created: Àmbit creat
       scopes_scope_updated: Àmbit actualitzat
   shared:
+    currently: actualment
     download_open_data:
       exports: Descarregueu les dades en format reutilitzable
     jsgrid:

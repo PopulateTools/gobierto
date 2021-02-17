@@ -18,7 +18,8 @@ module GobiertoPeople
           :justice_department,
           :coca_cola_group,
           :tamara,
-          :richard
+          :richard,
+          :neil
         )
 
         def setup
@@ -28,14 +29,16 @@ module GobiertoPeople
           @coca_cola_group = gobierto_people_interest_groups(:coca_cola)
           @tamara = gobierto_people_people(:tamara)
           @richard = gobierto_people_people(:richard)
+          @neil = gobierto_people_people(:neil)
 
           enable_submodule(madrid, :agendas)
         end
 
         def person_attributes
           %w(
-            id name email position bio bio_url avatar_url category political_group
-            party url created_at updated_at content_block_records
+            id name email position filtered_positions filtered_positions_str
+            filtered_positions_html filtered_positions_tooltip bio bio_url
+            avatar_url category political_group party url created_at updated_at
           )
         end
 
@@ -46,11 +49,19 @@ module GobiertoPeople
         end
 
         def people_with_activity_on_justice_department
-          [tamara, richard]
+          [neil]
         end
 
         def people_with_events_on_coca_cola_group
           [tamara]
+        end
+
+        def people_with_gifts_invitations_or_trips
+          [richard, tamara]
+        end
+
+        def people_with_old_gifts_invitations_or_trips
+          [richard]
         end
 
         def short_date(date)
@@ -79,8 +90,8 @@ module GobiertoPeople
               gobierto_people_api_v1_people_path,
               params: {
                 department_id: justice_department.id,
-                from_date: FAR_PAST,
-                to_date: FAR_FUTURE
+                start_date: FAR_PAST,
+                end_date: FAR_FUTURE
               }
             )
 
@@ -89,8 +100,42 @@ module GobiertoPeople
             people = JSON.parse(response.body)
 
             assert_equal people_with_activity_on_justice_department.size, people.size
-            assert_equal richard.name, people.first["name"]
+            assert_equal neil.name, people.first["name"]
             assert_match "?end_date=#{ short_date(FAR_FUTURE) }&start_date=#{ short_date(FAR_PAST) }", people.first["url"]
+          end
+        end
+
+        def test_people_index_including_all_activities
+          with(site: madrid) do
+            GobiertoCalendars::Event.destroy_all
+
+            get(
+              gobierto_people_api_v1_people_path,
+              params: {
+                include_all_activities: true,
+                start_date: 3.years.ago.iso8601,
+                end_date: 1.year.ago.iso8601
+              }
+            )
+
+            assert_response :success
+
+            people = JSON.parse(response.body)
+
+            assert_equal people_with_old_gifts_invitations_or_trips.map(&:name).sort, people.map { |person| person["name"] }.sort
+
+            get(
+              gobierto_people_api_v1_people_path,
+              params: {
+                include_all_activities: true
+              }
+            )
+
+            assert_response :success
+
+            people = JSON.parse(response.body)
+
+            assert_equal people_with_gifts_invitations_or_trips.map(&:name).sort, people.map { |person| person["name"] }.sort
           end
         end
 

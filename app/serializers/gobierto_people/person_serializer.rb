@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PersonSerializer < ActiveModel::Serializer
 
@@ -6,6 +8,10 @@ module GobiertoPeople
       :name,
       :email,
       :position,
+      :filtered_positions,
+      :filtered_positions_str,
+      :filtered_positions_html,
+      :filtered_positions_tooltip,
       :bio,
       :bio_url,
       :avatar_url,
@@ -17,7 +23,7 @@ module GobiertoPeople
       :updated_at
     )
 
-    has_many :content_block_records
+    has_many :content_block_records, unless: :exclude_content_block_records?
 
     def url
       "#{object.to_url}#{date_range_query}"
@@ -28,10 +34,38 @@ module GobiertoPeople
     end
 
     def position
-      object.charge
+      filtered_positions.first&.name
+    end
+
+    def filtered_positions
+      @filtered_positions ||= charges[object.id] || []
+    end
+
+    def filtered_positions_html
+      filtered_positions.map { |pos| "<span>#{pos}</span>" }.join
+    end
+
+    def filtered_positions_tooltip
+      "<ul>" + filtered_positions.map { |pos| "<li>#{pos}</li>" }.join + "</ul>"
+    end
+
+    def filtered_positions_str
+      filtered_positions.join(" ")
+    end
+
+    def exclude_content_block_records?
+      instance_options[:exclude_content_block_records]
     end
 
     private
+
+    def charges
+      instance_options[:charges].presence || charges_query
+    end
+
+    def charges_query
+      { object.id => object.historical_charges.between_dates(instance_options[:date_range_params]).with_department(instance_options[:department]).reverse_sorted }
+    end
 
     def date_range_query
       "?#{instance_options[:date_range_query]}" if instance_options[:date_range_query].present?

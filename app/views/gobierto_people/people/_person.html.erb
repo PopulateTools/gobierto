@@ -16,7 +16,9 @@
     <%= link_to gobierto_people_person_path(person.slug, date_range_params) do %>
       <h2><%= person.name %></h2>
     <% end %>
-    <div class="soft"><%= person.charge %></div>
+    <div class="soft tipsit" title="<%= person.historical_charges_names.join("<br>") %>">
+      <%= person.charge %>
+    </div>
   </div>
 
 </div>

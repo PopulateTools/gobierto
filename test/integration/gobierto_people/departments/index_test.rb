@@ -27,7 +27,7 @@ YAML
       end
 
       def setup
-        culture_department.events.destroy_all
+        culture_department.events.each(&:destroy)
         super
       end
 

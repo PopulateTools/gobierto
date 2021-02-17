@@ -4,7 +4,7 @@ module GobiertoPeople
     before_action :check_active_submodules
 
     def index
-      @people = current_site.people.active
+      @people = CollectionDecorator.new(current_site.people.includes(:historical_charges).active, decorator: PersonDecorator)
       @statements = current_site.person_statements.active.sorted_by_person_position
 
       respond_to do |format|

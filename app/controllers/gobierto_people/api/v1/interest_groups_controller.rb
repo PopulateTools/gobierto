@@ -25,8 +25,8 @@ module GobiertoPeople
 
         def parsed_parameters
           @parsed_parameters ||= begin
-                                   params[:from_date] = Time.zone.parse(params[:from_date]) if params[:from_date]
-                                   params[:to_date] = Time.zone.parse(params[:to_date]) if params[:to_date]
+                                   params[:start_date] = Time.zone.parse(params[:start_date]) if params[:start_date]
+                                   params[:end_date] = Time.zone.parse(params[:end_date]) if params[:end_date]
                                    params
                                  end
         end
@@ -35,13 +35,13 @@ module GobiertoPeople
           parsed_parameters.permit(
             :department_id,
             :person_id,
-            :from_date,
-            :to_date
+            :start_date,
+            :end_date
           ).to_h
         end
 
         def date_range_params
-          parsed_parameters.slice(:from_date, :to_date).permit!.transform_keys{ |k| {"from_date" => "start_date", "to_date" => "end_date"}[k] }.transform_values{ |v| v&.strftime("%Y-%m-%d") }
+          parsed_parameters.slice(:start_date, :end_date).permit!.transform_values { |v| v&.strftime("%Y-%m-%d") }
         end
 
         def check_active_submodules

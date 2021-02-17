@@ -9,7 +9,10 @@ module GobiertoPeople
     before_action :check_active_submodules
 
     def index
-      @people = current_site.people.active.politician.government.sorted
+      @people = CollectionDecorator.new(
+        current_site.people.includes(:historical_charges).active.politician.government.sorted,
+        decorator: PersonDecorator
+      )
       @posts  = current_site.person_posts.active.sorted.last(10)
       @political_groups = get_political_groups
       @home_text = load_home_text
@@ -55,18 +58,22 @@ module GobiertoPeople
       )
 
       # home statistics
-      people = QueryWithEvents.new(source: current_site.event_attendances,
+      people = QueryWithEvents.new(source: current_site.event_attendances.with_department,
                                    start_date: filter_start_date,
-                                   end_date: filter_end_date,
-                                   not_null: [:department_id])
+                                   end_date: filter_end_date)
       interest_groups = QueryWithEvents.new(source: current_site.interest_groups,
                                             start_date: filter_start_date,
                                             end_date: filter_end_date)
+      people_query = PeopleWithActivitiesQuery.new(
+        site: current_site,
+        relation: current_site.people,
+        conditions: { start_date: filter_start_date, end_date: filter_end_date }
+      )
 
       @home_statistics = {
         total_events: people.count,
         total_interest_groups: interest_groups.count,
-        total_people_with_attendances: people.select(:person_id).distinct.count,
+        total_people_with_attendances: people_query.people_with_activities.count,
         total_trips: site_trips_query.count,
         total_unique_destinations: site_trips_query.unique_destinations_count
       }

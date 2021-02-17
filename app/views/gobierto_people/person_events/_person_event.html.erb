@@ -21,7 +21,7 @@
         <i class="fas fa-user"></i>
         <% if person %>
           <%= link_to person.name, gobierto_people_person_path(person.slug)%>
-          <%= person.charge %>
+          <%= person.charge(person_event.starts_at) %>
         <% end %>
       </div>
 

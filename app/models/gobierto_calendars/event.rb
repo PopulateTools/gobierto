@@ -17,6 +17,9 @@ module GobiertoCalendars
     include GobiertoCommon::Collectionable
     include GobiertoCommon::Metadatable
     include GobiertoAttachments::Attachable
+    include GobiertoPeople::BelongsToPersonWithCharge
+
+    belongs_to_person_with_historical_charge date_attribute: :starts_at
 
     validates :site, :collection, presence: true
     validates :slug, uniqueness: { scope: :site_id }

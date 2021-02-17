@@ -8,11 +8,12 @@ module GobiertoPeople
         before_action :check_active_submodules
 
         def index
-          top_people = PeopleQuery.new(
-            relation: current_site.people,
-            conditions: permitted_conditions,
-            limit: params[:limit]
-          ).results
+          department = current_site.departments.find_by(id: permitted_conditions[:department_id])
+          charges = if params[:filter_positions] == "true"
+                      current_site.historical_charges.with_department(department).between_dates(permitted_conditions).reverse_sorted.group_by(&:person_id)
+                    else
+                      current_site.historical_charges.where(person_id: top_people.map(&:id)).reverse_sorted.group_by(&:person_id)
+                    end
 
           if params[:include_history] == "true"
             records = PeopleEventsHistoryQuery.new(
@@ -49,15 +50,38 @@ module GobiertoPeople
             render json: result
           else
             serializer = params[:serializer] == "rowchart" ? GobiertoPeople::RowchartItemSerializer : GobiertoPeople::PersonSerializer
-            render json: top_people, each_serializer: serializer, date_range_query: date_range_params.to_query
+            render(
+              json: top_people,
+              each_serializer: serializer,
+              date_range_query: date_range_params.to_query,
+              date_range_params: date_range_params.to_h,
+              charges: charges,
+              exclude_content_block_records: true
+            )
           end
         end
 
         private
 
+        def top_people
+          @top_people ||= begin
+                            query = PeopleWithActivitiesQuery.new(
+                              site: current_site,
+                              relation: current_site.people,
+                              conditions: permitted_conditions,
+                              limit: params[:limit]
+                            )
+                            if params[:include_all_activities]
+                              GobiertoPeople::Person.where(id: query.people_with_activities)
+                            else
+                              query.results
+                            end
+                          end
+        end
+
         def parsed_parameters
-          params[:from_date] = Time.zone.parse(params[:from_date]) if params[:from_date].is_a?(String)
-          params[:to_date] = Time.zone.parse(params[:to_date]) if params[:to_date].is_a?(String)
+          params[:start_date] = Time.zone.parse(params[:start_date]) if params[:start_date].is_a?(String)
+          params[:end_date] = Time.zone.parse(params[:end_date]) if params[:end_date].is_a?(String)
           params
         end
 
@@ -65,13 +89,13 @@ module GobiertoPeople
           parsed_parameters.permit(
             :interest_group_id,
             :department_id,
-            :from_date,
-            :to_date
+            :start_date,
+            :end_date
           ).to_h
         end
 
         def date_range_params
-          parsed_parameters.slice(:from_date, :to_date).permit!.transform_keys{ |k| {"from_date" => "start_date", "to_date" => "end_date"}[k] }.transform_values{ |v| v&.strftime("%Y-%m-%d") }
+          parsed_parameters.slice(:start_date, :end_date).permit!.transform_values { |v| v&.strftime("%Y-%m-%d") }
         end
 
         def check_active_submodules

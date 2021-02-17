@@ -10,11 +10,10 @@ module GobiertoPeople
       include FilterByActivitiesHelper
 
       def index
-        @people = DepartmentPeopleWithActivities.new(
-          department: current_department,
-          start_date: filter_start_date,
-          end_date: filter_end_date,
-        ).sorted
+        @people = CollectionDecorator.new(
+          current_department.people(start_date: filter_start_date, end_date: filter_end_date).includes(:historical_charges),
+          decorator: GobiertoPeople::PersonDecorator
+        )
 
         @sidebar_departments = current_site.departments
 

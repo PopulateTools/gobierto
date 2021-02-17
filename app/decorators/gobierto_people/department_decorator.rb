@@ -16,22 +16,16 @@ module GobiertoPeople
     end
 
     def gifts
-      @gifts ||= site.gifts
-                     .where(person_id: people.pluck(:id))
-                     .between_dates(filter_start_date, filter_end_date)
-                     .limit(4)
+      @gifts ||= object.gifts.between_dates(filter_start_date, filter_end_date).limit(4)
     end
 
     def invitations
-      @invitations ||= site.invitations
-                           .where(person_id: people.pluck(:id))
-                           .between_dates(filter_start_date, filter_end_date)
-                           .limit(4)
+      @invitations ||= object.invitations.between_dates(filter_start_date, filter_end_date).limit(4)
     end
 
     def people
       @people ||= QueryWithEvents.new(
-        source: object.people(from_date: filter_start_date, to_date: filter_end_date)
+        source: object.people(start_date: filter_start_date, end_date: filter_end_date)
                       .active.with_event_attendances(site),
         start_date: filter_start_date,
         end_date: filter_end_date

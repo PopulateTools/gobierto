@@ -18,7 +18,7 @@
         :order-column="'title'"
         :columns="assigneesShowColumns"
         :show-columns="showColumns"
-        @send-item="goesToTableItem"
+        @on-href-click="goesToTableItem"
       />
     </div>
   </div>

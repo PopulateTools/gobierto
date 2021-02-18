@@ -51,7 +51,7 @@
                 >
                   <template v-if="hasPermalink">
                     <a
-                      :href="item.href"
+                      :href="item[href]"
                       class="gobierto-table__a"
                       @click.prevent="handleTableItem(item)"
                     >
@@ -73,7 +73,7 @@
                 >
                   <template v-if="hasPermalink">
                     <a
-                      :href="item.href"
+                      :href="item[href]"
                       class="gobierto-table__a"
                       @click.prevent="handleTableItem(item)"
                     >
@@ -94,7 +94,7 @@
                 >
                   <template v-if="hasPermalink">
                     <a
-                      :href="item.href"
+                      :href="item[href]"
                       class="gobierto-table__a"
                       :class="cssClass"
                       @click.prevent="handleTableItem(item)"
@@ -117,7 +117,7 @@
                 >
                   <template v-if="hasPermalink">
                     <a
-                      :href="item.href"
+                      :href="item[href]"
                       class="gobierto-table__a"
                       @click.prevent="handleTableItem(item)"
                     >
@@ -194,18 +194,10 @@ export default {
       type: Boolean,
       default: true
     },
-    routingId: {
+    href: {
       type: String,
-      default: ''
+      default: 'href'
     },
-    routingName: {
-      type: String,
-      default: ''
-    },
-    routingComponent: {
-      type: String,
-      default: ''
-    }
   },
   data() {
     return {
@@ -282,7 +274,7 @@ export default {
       this.arrayColumnsFiltered = Array.from(this.mapColumns).filter(([,{ visibility }]) => !!visibility)
     },
     handleTableItem(item) {
-      this.$emit('send-item', item)
+      this.$emit('on-href-click', item)
     }
   }
 }

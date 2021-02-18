@@ -6,7 +6,7 @@
       :columns="contractsColumns"
       :show-columns="showColumns"
       class="gobierto-table-margin-top gobierto-table-scroll"
-      @send-item="goesToTableItem"
+      @on-href-click="goesToTableItem"
     />
   </div>
 </template>

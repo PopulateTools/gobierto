@@ -5,7 +5,7 @@
     :columns="subsidiesColumns"
     :show-columns="showColumns"
     class="gobierto-table-margin-top"
-    @send-item="goesToTableItem"
+    @on-href-click="goesToTableItem"
   />
 </template>
 

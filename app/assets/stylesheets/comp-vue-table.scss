@@ -131,7 +131,6 @@
   .is-clickable {
     cursor: pointer;
     text-decoration: none;
-    color: $color_text;
     &:hover {
       background-color: rgba(var(--color-base-string), .1);
       .gobierto-table__a {
@@ -145,7 +144,9 @@
     }
     .gobierto-table__a {
       text-decoration: none;
+      padding: .75rem .75rem .75rem .25rem;
       display: block;
+      color: $color_text;
       height: 100%;
     }
     .ellipsis {

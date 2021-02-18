@@ -85,7 +85,7 @@ jobs:
             - public/packs-test
             - tmp/cache
 
-  tests:
+  tests_admin:
     <<: *defaults
     parallelism: 4
     steps:
@@ -118,7 +118,623 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(circleci tests glob "test/**/*_test.rb" "vendor/gobierto_engines/*/test/**/*_test.rb" | circleci tests split --split-by=timings)"
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_admin*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_indicators:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_indicators*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_plans:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_plans*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_attachments:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_attachments*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_participation:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_participation*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_observatory:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_observatory*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_exports:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_exports*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_budget_consultations:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_budget_consultations*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_cms:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_cms*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_data:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_data*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_citizens_charters:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_citizens_charters*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_budgets:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_budgets*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_admin:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_admin*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_visualizations:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_visualizations*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_people:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -path '*gobierto_people*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+            bin/rails test $TEST_FILES
+
+  tests_others:
+    <<: *defaults
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/gobierto
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            FILES: $(find test vendor/gobierto_engines/ -not -path '*gobierto_*' -name '*_test.rb')
+            TEST_FILES="$(circleci tests $FILES | circleci tests split --split-by=timings)"
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load

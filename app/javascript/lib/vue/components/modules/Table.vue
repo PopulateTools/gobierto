@@ -211,7 +211,7 @@ export default {
   },
   computed: {
     hasPermalink() {
-      return this.data.some(element => element['href'])
+      return this.data.some(element => element[this.href])
     },
     tmpRows() {
       return this.data || []

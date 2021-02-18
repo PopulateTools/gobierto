@@ -149,14 +149,12 @@
       color: $color_text;
       height: 100%;
     }
-    .ellipsis {
-      .gobierto-table__a {
-        width: 430px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: inline-block;
-      }
+    .ellipsis .gobierto-table__a {
+      width: 430px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
     }
   }
 }

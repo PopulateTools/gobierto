@@ -14,13 +14,11 @@
 
     <div class="m_t_4">
       <Table
-        :data="items"
+        :data="tableItems"
         :order-column="'title'"
         :columns="assigneesShowColumns"
         :show-columns="showColumns"
-        :routing-id="'id'"
-        :routing-name="'adjudicaciones'"
-        :routing-component="'contracts_show'"
+        @send-item="goesToTableItem"
       />
     </div>
   </div>
@@ -43,6 +41,7 @@ export default {
       contractsData: this.$root.$data.contractsData,
       assigneesShowColumns: assigneesShowColumns,
       items: [],
+      tableItems: [],
       columns: [],
       showColumns: [],
       labelContractsAsignedTo: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_assigned_to'),
@@ -67,11 +66,17 @@ export default {
       this.items = contracts
       this.columns = assigneesShowColumns;
 
+      this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
+
       if (contracts.length > 0) {
         const contract = contracts[0]
         this.assignee = contract.assignee
         this.assignee_id = contract.assignee_id
       }
+    },
+    goesToTableItem(item) {
+      const { id: routingId } = item
+      this.$router.push({ name: 'contracts_show', params: { id: routingId } })
     }
   }
 }

@@ -130,12 +130,32 @@
 
   .is-clickable {
     cursor: pointer;
-    display: table-row;
-    vertical-align: middle;
     text-decoration: none;
     color: $color_text;
     &:hover {
       background-color: rgba(var(--color-base-string), .1);
+      .gobierto-table__a {
+        color: $color_text;
+      }
+    }
+    .gobierto-table__td {
+      height: auto;
+      padding: 0;
+      min-height: 30px;
+    }
+    .gobierto-table__a {
+      text-decoration: none;
+      display: block;
+      height: 100%;
+    }
+    .ellipsis {
+      .gobierto-table__a {
+        width: 430px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+      }
     }
   }
 }

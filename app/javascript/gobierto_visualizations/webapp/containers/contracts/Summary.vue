@@ -147,14 +147,12 @@
         {{ labelMainAssignees }}
       </h3>
       <Table
-        :data="items"
+        :data="tableItems"
         :order-column="'count'"
         :columns="assigneesColumns"
         :show-columns="showColumns"
-        :routing-id="'assignee_routing_id'"
-        :routing-name="'adjudicaciones'"
-        :routing-component="'assignees_show'"
         class="gobierto-table-margin-top"
+        @send-item="goesToTableItem"
       />
     </div>
   </div>
@@ -191,6 +189,7 @@ export default {
       visualizationsData: this.$root.$data.contractsData,
       assigneesColumns: assigneesColumns,
       items: [],
+      tableItems: [],
       columns: [],
       showColumns: [],
       value: '',
@@ -226,6 +225,7 @@ export default {
   created() {
     this.columns = assigneesColumns;
     this.showColumns = ['count', 'name', 'sum']
+    this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
   },
   methods: {
     showTooltipBeesWarm(event) {
@@ -270,6 +270,7 @@ export default {
         this.visualizationsData = this.$root.$data.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()))
       }
       this.items = this.buildItems();
+      this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
     },
     buildItems() {
       const groupedByAssignee = {}
@@ -299,6 +300,10 @@ export default {
       sortedAndGrouped.forEach(contract => contract.id = `${contract.name}-${contract.count}`)
 
       return sortedAndGrouped.slice(0, 30);
+    },
+    goesToTableItem(item) {
+      const { assignee_routing_id: routingId } = item
+      this.$router.push({ name: 'assignees_show', params: { id: routingId } })
     }
   }
 }

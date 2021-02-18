@@ -37,13 +37,10 @@
         <template
           v-for="(item, index) in dataTable"
         >
-          <component
-            :is="selectHTMLTag"
+          <tr
             :key="index"
-            :class="{ 'is-clickable': isRowClickable }"
+            :class="{ 'is-clickable': hasPermalink }"
             class="gobierto-table__tr"
-            :href="isRowClickable ? `${routingName}/${item[routingId]}` : null"
-            @click.prevent="isRowClickable ? goesToTableItem(item) : null"
           >
             <template v-for="[id, { name, index, type, cssClass }] in arrayColumnsFiltered">
               <template v-if="type === 'money'">
@@ -52,9 +49,20 @@
                   :class="cssClass"
                   class="gobierto-table__td"
                 >
-                  <span>
-                    {{ item[id] | money }}
-                  </span>
+                  <template v-if="hasPermalink">
+                    <a
+                      :href="item.href"
+                      class="gobierto-table__a"
+                      @click.prevent="handleTableItem(item)"
+                    >
+                      {{ item[id] | money }}
+                    </a>
+                  </template>
+                  <template v-else>
+                    <span>
+                      {{ item[id] | money }}
+                    </span>
+                  </template>
                 </td>
               </template>
               <template v-else-if="type === 'date'">
@@ -63,9 +71,20 @@
                   :class="cssClass"
                   class="gobierto-table__td"
                 >
-                  <span>
-                    {{ item[id] | date }}
-                  </span>
+                  <template v-if="hasPermalink">
+                    <a
+                      :href="item.href"
+                      class="gobierto-table__a"
+                      @click.prevent="handleTableItem(item)"
+                    >
+                      {{ item[id] | date }}
+                    </a>
+                  </template>
+                  <template v-else>
+                    <span>
+                      {{ item[id] | date }}
+                    </span>
+                  </template>
                 </td>
               </template>
               <template v-else-if="type === 'truncate'">
@@ -73,9 +92,21 @@
                   :key="id"
                   class="gobierto-table__td"
                 >
-                  <span :class="cssClass">
-                    {{ item[id] }}
-                  </span>
+                  <template v-if="hasPermalink">
+                    <a
+                      :href="item.href"
+                      class="gobierto-table__a"
+                      :class="cssClass"
+                      @click.prevent="handleTableItem(item)"
+                    >
+                      {{ item[id] }}
+                    </a>
+                  </template>
+                  <template v-else>
+                    <span :class="cssClass">
+                      {{ item[id] }}
+                    </span>
+                  </template>
                 </td>
               </template>
               <template v-else>
@@ -84,11 +115,24 @@
                   :class="cssClass"
                   class="gobierto-table__td"
                 >
-                  <span>{{ item[id] }}</span>
+                  <template v-if="hasPermalink">
+                    <a
+                      :href="item.href"
+                      class="gobierto-table__a"
+                      @click.prevent="handleTableItem(item)"
+                    >
+                      {{ item[id] }}
+                    </a>
+                  </template>
+                  <template v-else>
+                    <span>
+                      {{ item[id] }}
+                    </span>
+                  </template>
                 </td>
               </template>
             </template>
-          </component>
+          </tr>
         </template>
       </tbody>
     </table>
@@ -174,6 +218,9 @@ export default {
     };
   },
   computed: {
+    hasPermalink() {
+      return this.data.some(element => element['href'])
+    },
     tmpRows() {
       return this.data || []
     },
@@ -194,12 +241,6 @@ export default {
     },
     icon() {
       return this.direction === 'down' ? 'down' : 'down-alt'
-    },
-    isRowClickable() {
-      return !!this.routingName && !!this.routingId
-    },
-    selectHTMLTag() {
-      return this.isRowClickable ? 'a' : 'tr'
     }
   },
   created() {
@@ -240,8 +281,8 @@ export default {
       this.mapColumns = columns
       this.arrayColumnsFiltered = Array.from(this.mapColumns).filter(([,{ visibility }]) => !!visibility)
     },
-    goesToTableItem(item) {
-      this.$router.push({ name: this.routingComponent, params: { id: item[this.routingId] } })
+    handleTableItem(item) {
+      this.$emit('send-item', item)
     }
   }
 }

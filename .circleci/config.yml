@@ -733,14 +733,42 @@ workflows:
       - staging-deploy:
           requires:
             - bundle_dependencies
-            - tests
+            - tests_indicators
+            - tests_plans
+            - tests_attachments
+            - tests_participation
+            - tests_observatory
+            - tests_exports
+            - tests_budget_consultations
+            - tests_cms
+            - tests_data
+            - tests_citizens_charters
+            - tests_budgets
+            - tests_admin
+            - tests_visualizations
+            - tests_people
+            - tests_others
           filters:
             branches:
               only: staging
       - production-deploy:
           requires:
             - bundle_dependencies
-            - tests
+            - tests_indicators
+            - tests_plans
+            - tests_attachments
+            - tests_participation
+            - tests_observatory
+            - tests_exports
+            - tests_budget_consultations
+            - tests_cms
+            - tests_data
+            - tests_citizens_charters
+            - tests_budgets
+            - tests_admin
+            - tests_visualizations
+            - tests_people
+            - tests_others
           filters:
             branches:
               only: master

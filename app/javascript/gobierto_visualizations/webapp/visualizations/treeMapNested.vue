@@ -276,6 +276,8 @@ export default {
       );
 
       const display = (d) => {
+        /*If the level has no parent, it means that we are in the first level,
+        so we can know correctly the height of the treemap.*/
         if (d.parent === null) {
           deepLevel = d.height
         }
@@ -356,10 +358,16 @@ export default {
           .attr("class", "foreignobj")
           .append("xhtml:div")
           .html(d => {
-            if (typeof d.data === "function") {
+            const { x0, x1, y0, y1, depth, data, parent: { children } } = d
+            if (typeof data === "function") {
               return
             }
-            const { x0, x1, y0, y1, depth, parent: { children } } = d
+            /*
+              deepLevel: it's the depth or height that the treemap has
+              depth: is the level we are at.
+              calculateActualDepth: To know at which level of the treemap we are in
+              regardless of the depth (it can be 2, 3, or 4), we subtract (deepLevel - depth).
+            */
             const calculateActualDepth = deepLevel - depth
             const childrenLength = children.length ? children.length : 0
             const dimensionsElement = (x1 - x0) < 100 && (y1 - y0) < 100
@@ -476,16 +484,7 @@ export default {
             if (children) {
               totalContracts = children.length
             }
-            let valueTotalAmount
-            if (typeof d.data !== "function") {
-              let contractType = d.data.name !== undefined ? d.data.name : ''
-              const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, firstDepthForTreeMap, amountKey)
-              let totalAmount = finalAmountTotal.filter(contract => contract[firstDepthForTreeMap] === contractType)
-              totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
-              valueTotalAmount = totalAmount[0][amountKey]
-            }
-
-            valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
+            const valueTotalAmount = calculateTotalAmount(d)
 
             if (totalContracts) {
               labelTotalContracts = totalContracts.length <= 1 ? labelTotalUnique : labelTotalContracts
@@ -497,13 +496,7 @@ export default {
               </p>
               `
           } else if (depth === 2 && typeof d.data !== "function") {
-
-            const { data: { assignee_routing_id }, parent: { data: { name } } } = d
-            let heading = assignee_routing_id !== undefined ? `<a href="#" class="title">${name}</a>` : `<p class="title">${name}</p>`
-            htmlForRect = `
-              ${heading}
-              <p class="text">${title}</p>
-              `
+            htmlForRect = buildLastDepth(d)
           }
           return htmlForRect
         }
@@ -529,20 +522,13 @@ export default {
                 }
               })
             }
-            let valueTotalAmount
-            if (typeof d.data !== "function") {
-              let contractType = d.data.name !== undefined ? d.data.name : ''
-              const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, firstDepthForTreeMap, amountKey)
-              let totalAmount = finalAmountTotal.filter(contract => contract[firstDepthForTreeMap] === contractType)
-              totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
-              valueTotalAmount = totalAmount[0][amountKey]
-            }
-
-            valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
 
             if (totalContracts) {
               labelTotalContracts = totalContracts.length <= 1 ? labelTotalUnique : labelTotalContracts
             }
+
+            const valueTotalAmount = calculateTotalAmount(d)
+
             htmlForRect = `<p class="title">${title}</p>
               <p class="text">${money(valueTotalAmount)}</p>
               <p class="text">
@@ -550,33 +536,9 @@ export default {
               </p>
               `
           } else if (depth === 2 && typeof d.data !== "function") {
-            let valueTotalAmount
-            if (typeof d.data !== "function") {
-              let contractType = d.data.name !== undefined ? d.data.name : ''
-              const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, secondDepthForTreeMap, amountKey)
-              let totalAmount = finalAmountTotal.filter(contract => contract[secondDepthForTreeMap] === contractType)
-              totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
-              valueTotalAmount = totalAmount[0][amountKey]
-            }
-
-            valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
-
-            let totalContracts = d.children === undefined ? '' : d.children
-            totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-            labelTotalContracts = totalContracts <= 1 ? labelTotalUnique : labelTotalContracts
-            htmlForRect = `<p class="title">${title}</p>
-              <p class="text">${money(valueTotalAmount)}</p>
-              <span class="text">
-                <b>${totalContracts}</b> ${labelTotalContracts}</b>
-              </span>
-              `
+            htmlForRect = buildMiddleDepth(d, secondDepthForTreeMap)
           } else if (depth === 3 && typeof d.data !== "function") {
-            const { data: { assignee_routing_id }, parent: { data: { name } } } = d
-            let heading = assignee_routing_id !== undefined ? `<a href="#" class="title">${name}</a>` : `<p class="title">${name}</p>`
-            htmlForRect = `
-              ${heading}
-              <p class="text">${title}</p>
-              `
+            htmlForRect = buildLastDepth(d)
           }
           return htmlForRect
         }
@@ -605,16 +567,7 @@ export default {
                 }
               })
             }
-            let valueTotalAmount
-            if (typeof d.data !== "function") {
-              let contractType = d.data.name !== undefined ? d.data.name : ''
-              const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, firstDepthForTreeMap, amountKey)
-              let totalAmount = finalAmountTotal.filter(contract => contract[firstDepthForTreeMap] === contractType)
-              totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
-              valueTotalAmount = totalAmount[0][amountKey]
-            }
-
-            valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
+            const valueTotalAmount = calculateTotalAmount(d)
 
             if (totalContracts) {
               labelTotalContracts = totalContracts.length <= 1 ? labelTotalUnique : labelTotalContracts
@@ -626,60 +579,62 @@ export default {
               </p>
               `
           } else if (depth === 2 && typeof d.data !== "function") {
-            let valueTotalAmount
-            if (typeof d.data !== "function") {
-              let contractType = d.data.name !== undefined ? d.data.name : ''
-              const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, secondDepthForTreeMap, amountKey)
-              let totalAmount = finalAmountTotal.filter(contract => contract[secondDepthForTreeMap] === contractType)
-              totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
-              valueTotalAmount = totalAmount[0][amountKey]
-            }
-
-            valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
-
-            let totalContracts = d.children === undefined ? '' : d.children
-            if (totalContracts) {
-              totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-              labelTotalContracts = totalContracts <= 1 ? labelTotalUnique : labelTotalContracts
-            }
-            htmlForRect = `<p class="title">${title}</p>
-              <p class="text">${money(valueTotalAmount)}</p>
-              <span class="text">
-                <b>${totalContracts}</b> ${labelTotalContracts}</b>
-              </span>
-              `
+            htmlForRect = buildMiddleDepth(d, secondDepthForTreeMap)
           } else if (depth === 3 && typeof d.data !== "function") {
-            let valueTotalAmount
-            if (typeof d.data !== "function") {
-              let contractType = d.data.name !== undefined ? d.data.name : ''
-              const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, thirdDepthForTreeMap, amountKey)
-              let totalAmount = finalAmountTotal.filter(contract => contract[thirdDepthForTreeMap] === contractType)
-              totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
-              valueTotalAmount = totalAmount[0][amountKey]
-            }
-
-            valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
-
-            let totalContracts = d.children === undefined ? '' : d.children
-            if (totalContracts) {
-              totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
-              labelTotalContracts = totalContracts <= 1 ? labelTotalUnique : labelTotalContracts
-            }
-            htmlForRect = `<p class="title">${title}</p>
-              <p class="text">${money(valueTotalAmount)}</p>
-              <span class="text">
-                <b>${totalContracts}</b> ${labelTotalContracts}</b>
-              </span>
-              `
+            htmlForRect = buildMiddleDepth(d, thirdDepthForTreeMap)
           } else if (depth === 4 && typeof d.data !== "function") {
-            const { data: { assignee_routing_id }, parent: { data: { name } } } = d
-            let heading = assignee_routing_id !== undefined ? `<a href="#" class="title">${name}</a>` : `<p class="title">${name}</p>`
-            htmlForRect = `
-              ${heading}
-              <p class="text">${title}</p>
-              `
+            htmlForRect = buildLastDepth(d)
           }
           return htmlForRect
+        }
+
+        function calculateTotalAmount(d) {
+          let valueTotalAmount
+          if (typeof d.data !== "function") {
+            let contractType = d.data.name !== undefined ? d.data.name : ''
+            const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, firstDepthForTreeMap, amountKey)
+            let totalAmount = finalAmountTotal.filter(contract => contract[firstDepthForTreeMap] === contractType)
+            totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
+            valueTotalAmount = totalAmount[0][amountKey]
+          }
+
+          return valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
+        }
+
+        function buildMiddleDepth(d, property) {
+          let title = d.data.name === undefined ? d.data[keyForThirdDepth] : d.data.name;
+          let valueTotalAmount
+          if (typeof d.data !== "function") {
+            let contractType = d.data.name !== undefined ? d.data.name : ''
+            const finalAmountTotal = sumDataByGroupKey(dataTreeMapSumFinalAmount, property, amountKey)
+            let totalAmount = finalAmountTotal.filter(contract => contract[property] === contractType)
+            totalAmount = totalAmount.filter(contract => typeof contract.data !== "function")
+            valueTotalAmount = totalAmount[0][amountKey]
+          }
+
+          valueTotalAmount = selected_size === amountKey ? d.value : valueTotalAmount
+
+          let totalContracts = d.children === undefined ? '' : d.children
+          if (totalContracts) {
+            totalContracts = totalContracts.filter(contract => typeof contract.data !== "function").length
+            labelTotalContracts = totalContracts <= 1 ? labelTotalUnique : labelTotalContracts
+          }
+          return `<p class="title">${title}</p>
+            <p class="text">${money(valueTotalAmount)}</p>
+            <span class="text">
+              <b>${totalContracts}</b> ${labelTotalContracts}</b>
+            </span>
+            `
+        }
+
+        function buildLastDepth(d) {
+          let title = d.data.name === undefined ? d.data[keyForThirdDepth] : d.data.name;
+          const { data: { assignee_routing_id }, parent: { data: { name } } } = d
+          let heading = assignee_routing_id !== undefined ? `<a href="#" class="title">${name}</a>` : `<p class="title">${name}</p>`
+          return `
+            ${heading}
+            <p class="text">${title}</p>
+            `
         }
 
         return g;

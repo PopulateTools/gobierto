@@ -85,6 +85,7 @@ jobs:
             - public/packs-test
             - tmp/cache
 
+
   tests_indicators:
     <<: *defaults
     parallelism: 4
@@ -122,11 +123,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/indicators/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/indicators/
+          path: test/reports
 
   tests_plans:
     <<: *defaults
@@ -165,11 +165,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/plans/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/plans/
+          path: test/reports
 
   tests_attachments:
     <<: *defaults
@@ -208,11 +207,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/attachments/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/attachments/
+          path: test/reports
 
   tests_participation:
     <<: *defaults
@@ -251,11 +249,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/participation/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/participation/
+          path: test/reports
 
   tests_observatory:
     <<: *defaults
@@ -294,11 +291,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/observatory/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/observatory/
+          path: test/reports
 
   tests_exports:
     <<: *defaults
@@ -337,11 +333,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/exports/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/exports/
+          path: test/reports
 
   tests_budget_consultations:
     <<: *defaults
@@ -380,11 +375,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/budget_consultations/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/budget_consultations/
+          path: test/reports
 
   tests_cms:
     <<: *defaults
@@ -423,11 +417,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/cms/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/cms/
+          path: test/reports
 
   tests_data:
     <<: *defaults
@@ -466,11 +459,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/data/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/data/
+          path: test/reports
 
   tests_citizens_charters:
     <<: *defaults
@@ -509,11 +501,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/citizens_charters/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/citizens_charters/
+          path: test/reports
 
   tests_budgets:
     <<: *defaults
@@ -552,11 +543,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/budgets/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/budgets/
+          path: test/reports
 
   tests_admin:
     <<: *defaults
@@ -595,11 +585,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/admin/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/admin/
+          path: test/reports
 
   tests_visualizations:
     <<: *defaults
@@ -638,11 +627,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/visualizations/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/visualizations/
+          path: test/reports
 
   tests_people:
     <<: *defaults
@@ -681,11 +669,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/people/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/people/
+          path: test/reports
 
   tests_others:
     <<: *defaults
@@ -724,11 +711,10 @@ jobs:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
-            mkdir -p ~/test-results/others/
             echo '::BudgetsSeeder.seed!' | bin/rails c
             bin/rails test $TEST_FILES
       - store_test_results:
-          path: ~/test-results/others/
+          path: test/reports
 
   staging-deploy:
     working_directory: ~/gobierto

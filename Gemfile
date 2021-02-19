@@ -133,6 +133,7 @@ group :test do
   gem "minitest-retry"
   gem "minitest-stub_any_instance"
   gem "minitest-stub-const"
+  gem "minitest-ci"
   gem "mocha"
   gem "selenium-webdriver"
   gem "spy"

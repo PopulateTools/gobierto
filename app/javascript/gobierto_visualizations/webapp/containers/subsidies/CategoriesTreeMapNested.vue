@@ -19,6 +19,7 @@
       :key-for-third-depth="'call'"
       @transformData="nestedData"
       @showTooltip="showTooltipTreemap"
+      @on-treemap-click="goesToTreemapItem"
     />
   </div>
 </template>
@@ -185,6 +186,11 @@ export default {
         <p class="depth-second-title">${beneficiary}</p>
         <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
       </div>`
+    },
+    goesToTreemapItem(data) {
+      const { id } = data
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push(`/visualizaciones/subvenciones/subvenciones/${id}`).catch(err => {})
     }
   }
 }

@@ -384,8 +384,6 @@ export default {
             } else {
               htmlTreeMap = treeMapTwoDepth(d)
             }
-            const self = this
-            self.injectRouter()
             return htmlTreeMap
           })
           .attr('class', 'treemap-nested-container-text')
@@ -467,6 +465,12 @@ export default {
             transitioning = false;
           });
           labelTotalContracts = self.labelTotalPlural
+
+          const { depth } = d
+          const calculateActualDepth = deepLevel - depth
+          if (calculateActualDepth === 1) {
+            self.injectRouter()
+          }
         }
 
         function treeMapFirsthDepth(d) {
@@ -629,11 +633,12 @@ export default {
 
         function buildLastDepth(d) {
           let title = d.data.name === undefined ? d.data[keyForThirdDepth] : d.data.name;
-          const { data: { assignee_routing_id }, parent: { data: { name } } } = d
-          let heading = assignee_routing_id !== undefined ? `<a href="#" class="title">${name}</a>` : `<p class="title">${name}</p>`
+          const { parent: { data: { name } } } = d
           return `
-            ${heading}
-            <p class="text">${title}</p>
+            <a class="link-last-depth">
+              <p class="title">${name}</p>
+              <p class="text">${title}</p>
+            </a>
             `
         }
 
@@ -714,22 +719,18 @@ export default {
     },
     injectRouter() {
       this.closeTooltips()
-      const contractsLink = document.querySelectorAll('a.title')
+      const contractsLink = document.querySelectorAll(`.treemap-nested-container-${this.treemapId} a.link-last-depth`)
       contractsLink.forEach(contract => contract.addEventListener('click', (e) => {
         const {
           target: {
             parentNode: {
               __data__: {
-                data: {
-                  assignee_routing_id
-                }
+                data
               }
             }
           }
         } = e
-        e.preventDefault()
-        // eslint-disable-next-line no-unused-vars
-        this.$router.push(`${location.pathname}/adjudicatario/${assignee_routing_id}`).catch(err => {})
+        this.$emit('on-treemap-click', data)
       }))
     },
     closeTooltips() {

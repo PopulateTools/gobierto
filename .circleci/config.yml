@@ -16,9 +16,9 @@ defaults: &defaults
         POSTGRES_PASSWORD: gobierto
     - image: elasticsearch:2.4.1
     - image: redis:4.0.9
-  resource_class: xlarge
 
 version: 2
+
 jobs:
   bundle_dependencies:
     <<: *defaults
@@ -100,12 +100,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
 
@@ -140,12 +134,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
@@ -182,12 +170,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
 
@@ -222,12 +204,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
@@ -264,12 +240,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
 
@@ -304,12 +274,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
@@ -346,12 +310,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
 
@@ -386,12 +344,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
@@ -428,12 +380,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
 
@@ -469,12 +415,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
 
@@ -509,12 +449,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
@@ -552,12 +486,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
 
@@ -592,12 +520,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
@@ -634,12 +556,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
 
@@ -675,12 +591,6 @@ jobs:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml

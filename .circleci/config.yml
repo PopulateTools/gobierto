@@ -89,7 +89,6 @@ jobs:
 
   tests_indicators:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -131,7 +130,6 @@ jobs:
 
   tests_plans:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -173,7 +171,6 @@ jobs:
 
   tests_attachments:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -215,7 +212,6 @@ jobs:
 
   tests_participation:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -257,7 +253,6 @@ jobs:
 
   tests_observatory:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -299,7 +294,6 @@ jobs:
 
   tests_exports:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -341,7 +335,6 @@ jobs:
 
   tests_budget_consultations:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -383,7 +376,6 @@ jobs:
 
   tests_cms:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -425,7 +417,6 @@ jobs:
 
   tests_data:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -467,7 +458,6 @@ jobs:
 
   tests_citizens_charters:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -509,7 +499,6 @@ jobs:
 
   tests_budgets:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -551,7 +540,7 @@ jobs:
 
   tests_admin:
     <<: *defaults
-    parallelism: 4
+    parallelism: 2
     steps:
       - checkout
       - attach_workspace:
@@ -593,7 +582,6 @@ jobs:
 
   tests_visualizations:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -635,7 +623,6 @@ jobs:
 
   tests_people:
     <<: *defaults
-    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -677,7 +664,7 @@ jobs:
 
   tests_others:
     <<: *defaults
-    parallelism: 4
+    parallelism: 2
     steps:
       - checkout
       - attach_workspace:

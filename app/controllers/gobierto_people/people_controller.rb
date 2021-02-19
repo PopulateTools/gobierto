@@ -22,7 +22,9 @@ module GobiertoPeople
       set_present_groups
 
       respond_to do |format|
-        format.html
+        format.html do
+          @people = CollectionDecorator.new(@people, decorator: PersonDecorator)
+        end
         format.js
         format.json { render json: @people }
         format.csv  { render csv: GobiertoExports::CSVRenderer.new(@people).to_csv, filename: 'people' }
@@ -101,7 +103,7 @@ module GobiertoPeople
     end
 
     def set_people
-      @people = current_site.people.active.sorted
+      @people = current_site.people.includes(:historical_charges).active.sorted
 
       if current_site.date_filter_configured?
         @people = PeopleWithActivities.new(

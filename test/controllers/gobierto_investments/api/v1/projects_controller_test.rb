@@ -175,7 +175,6 @@ module GobiertoInvestments
           %w(staging production).each do |environment|
             Rails.stub(:env, ActiveSupport::StringInquirer.new(environment)) do
               with(site: site) do
-                self.host = "santander.gobierto.test"
                 get gobierto_investments_api_v1_projects_path, as: :json, headers: { "HTTP_REFERER" => "http://#{site.domain}/wadus.html" }
                 assert_response :success
 
@@ -206,18 +205,16 @@ module GobiertoInvestments
                 get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => basic_auth_header }
                 assert_response :unauthorized
 
-                self.host = token_with_domain.domain
-                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}", "HTTP_REFERER" => "http://#{token_with_domain.domain}/wadus.html" }
                 assert_response :success
 
                 get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
                 assert_response :unauthorized
 
-                self.host = token_with_other_domain.domain
-                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}" }
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_domain}", "HTTP_REFERER" => "http://#{token_with_other_domain.domain}/wadus.html" }
                 assert_response :unauthorized
 
-                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}" }
+                get gobierto_investments_api_v1_projects_path, as: :json, headers: { "Authorization" => "Bearer #{token_with_other_domain}", "HTTP_REFERER" => "http://#{token_with_other_domain.domain}/wadus.html" }
                 assert_response :success
               end
             end

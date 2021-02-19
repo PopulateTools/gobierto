@@ -72,7 +72,7 @@
           />
           <ContractsShowLabelGroup
             :label="labelContractAmount"
-            :value="final_amount_no_taxes | money"
+            :value="calculateFinalAmount | money"
           />
           <template v-if="!hasBatch">
             <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
@@ -173,6 +173,11 @@ export default {
     },
     showEstimatedValue() {
       return this.initial_amount_no_taxes !== this.estimated_value
+    },
+    calculateFinalAmount() {
+      return this.batch_number > 0
+        ? this.filterContractsBatches.reduce((acc, { final_amount_no_taxes }) => acc + final_amount_no_taxes, 0)
+        : this.final_amount_no_taxes
     }
   },
   created() {

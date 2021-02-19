@@ -120,6 +120,7 @@ es:
       scopes_scope_created: Ámbito creado
       scopes_scope_updated: Ámbito actualizado
   shared:
+    currently: actualmente
     download_open_data:
       exports: Descargue los datos en formato reutilizable
     jsgrid:

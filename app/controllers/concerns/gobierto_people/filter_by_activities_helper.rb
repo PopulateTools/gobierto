@@ -16,17 +16,17 @@ module GobiertoPeople
         invitations = item.invitations
 
         if start_date.present?
-          events = events.where("starts_at >= ?", start_date)
-          gifts = gifts.where("date >= ?", start_date)
-          trips = trips.where("start_date >= ?", start_date)
-          invitations = invitations.where("start_date >= ?", start_date)
+          events = events.where("#{events.table_name}.starts_at >= ?", start_date)
+          gifts = gifts.where("#{gifts.table_name}.date >= ?", start_date)
+          trips = trips.where("#{trips.table_name}.start_date >= ?", start_date)
+          invitations = invitations.where("#{invitations.table_name}.start_date >= ?", start_date)
         end
 
         if end_date.present?
-          events = events.where("ends_at <= ?", end_date)
-          gifts = gifts.where("date <= ?", end_date)
-          trips = trips.where("end_date <= ?", end_date)
-          invitations = invitations.where("end_date <= ?", end_date)
+          events = events.where("#{events.table_name}.ends_at <= ?", end_date)
+          gifts = gifts.where("#{gifts.table_name}.date <= ?", end_date)
+          trips = trips.where("#{trips.table_name}.end_date <= ?", end_date)
+          invitations = invitations.where("#{invitations.table_name}.end_date <= ?", end_date)
         end
         events.exists? || gifts.exists? || trips.exists? || invitations.exists?
       end

@@ -4,8 +4,8 @@
     :order-column="'beneficiary'"
     :columns="subsidiesColumns"
     :show-columns="showColumns"
-    :on-row-click="goesToItem"
     class="gobierto-table-margin-top"
+    @on-href-click="goesToTableItem"
   />
 </template>
 
@@ -38,11 +38,11 @@ export default {
   created() {
     EventBus.$on('refresh-summary-data', () => {
       this.subsidiesData = this.$root.$data.subsidiesData
-      this.items = this.subsidiesData
+      this.items = this.subsidiesData.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
     });
     EventBus.$on('filtered-items', (value) => this.updateFilteredItems(value))
 
-    this.items = this.subsidiesData
+    this.items = this.subsidiesData.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
     this.columns = subsidiesColumns;
     this.showColumns = ['beneficiary', 'amount', 'grant_date']
   },
@@ -57,8 +57,9 @@ export default {
       } else {
         this.items = this.subsidiesData.filter(({ beneficiary = "" }) => beneficiary.toLowerCase().includes(this.value.toLowerCase())).slice(0, 25)
       }
+      this.items = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
     },
-    goesToItem(item) {
+    goesToTableItem(item) {
       const { id: routingId } = item
       this.$router.push({ name: 'subsidies_show', params: { id: routingId } })
     }

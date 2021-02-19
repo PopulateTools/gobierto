@@ -15,12 +15,12 @@ module GobiertoPeople
         append_condition(:collection_id, person.calendar.id)
       end
 
-      if conditions[:from_date]
-        append_condition(:starts_at, conditions[:from_date], ">=")
+      if conditions[:start_date]
+        append_condition(:starts_at, conditions[:start_date], ">=")
       end
 
-      if conditions[:to_date]
-        append_condition(:ends_at, conditions[:to_date], "<=")
+      if conditions[:end_date]
+        append_condition(:ends_at, conditions[:end_date], "<=")
       end
     end
 

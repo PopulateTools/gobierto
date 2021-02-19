@@ -769,6 +769,9 @@ workflows:
       - tests_people:
           requires:
             - bundle_dependencies
+      - tests_others:
+          requires:
+            - bundle_dependencies
       - staging-deploy:
           requires:
             - bundle_dependencies

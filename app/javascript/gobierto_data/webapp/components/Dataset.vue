@@ -469,14 +469,14 @@ export default {
       switch (true) {
         // resumen
         case (!tab && !queryId) || tab === tabs[0]: {
-          await this.getAllQueries();
+          await this.setQueries();
           await this.getAllVisualizations();
           break;
         }
         // datos or /q/:id
         case tab === tabs[1]:
         case name === ROUTE_NAMES.Query: {
-          await this.getAllQueries();
+          await this.setQueries();
           this.parseUrl(queryId, sql);
           this.runCurrentQuery();
           this.setDefaultQuery();
@@ -484,7 +484,7 @@ export default {
         }
         // consultas
         case tab === tabs[2]: {
-          await this.getAllQueries();
+          await this.setQueries();
           break;
         }
         // visualizaciones or /v/:id
@@ -600,66 +600,69 @@ export default {
         );
       }
     },
-    async getAllQueries() {
-      const queriesPromises = [];
+    async setQueries() {
+      // factory method
+      const { data: { data } = {} } = await this.getQueries({ "filter[dataset_id]": this.datasetId }) || {}
+      this.publicQueries = data
 
-      // Even though there was no publicQueries,
-      // we need to keep the position of the publicResponse in the promises array
-      queriesPromises.push(
-        !this.publicQueries ? this.getPublicQueries() : Promise.resolve()
-      );
+      // const queriesPromises = [];
 
-      const userId = getUserId();
-      // Do not request private queries if the user is not logged
-      // OR if the privateQueries has been already fetched
-      queriesPromises.push(
-        userId && !this.privateQueries
-          ? this.getPrivateQueries(userId)
-          : Promise.resolve()
-      );
+      // // Even though there was no publicQueries,
+      // // we need to keep the position of the publicResponse in the promises array
+      // queriesPromises.push(
+      //   !this.publicQueries ? this.getPublicQueries() : Promise.resolve()
+      // );
 
-      // In order to update from the url, we need both public and private queries
-      const [publicResponse, privateResponse] = await Promise.all(
-        queriesPromises
-      );
+      // const userId = getUserId();
+      // // Do not request private queries if the user is not logged
+      // // OR if the privateQueries has been already fetched
+      // queriesPromises.push(
+      //   userId && !this.privateQueries
+      //     ? this.getPrivateQueries(userId)
+      //     : Promise.resolve()
+      // );
+
+      // // In order to update from the url, we need both public and private queries
+      // const [publicResponse, privateResponse] = await Promise.all(
+      //   queriesPromises
+      // );
 
       // Only update data if there's any response
-      if (publicResponse) {
-        this.setPublicQueries(publicResponse);
-      }
+      // if (data) {
+      // }
 
-      if (privateResponse) {
-        this.setPrivateQueries(privateResponse);
-      }
+      // if (privateResponse) {
+      //   this.setPrivateQueries(privateResponse);
+      // }
     },
-    getPrivateQueries(id) {
-      // factory method
-      return this.getQueries({
-        "filter[dataset_id]": this.datasetId,
-        "filter[user_id]": id
-      });
-    },
-    setPrivateQueries(response) {
-      const {
-        data: { data }
-      } = response;
-      this.privateQueries = data;
-    },
-    getPublicQueries() {
-      // factory method
-      return this.getQueries({ "filter[dataset_id]": this.datasetId });
-    },
-    setPublicQueries(response) {
-      const {
-        data: { data }
-      } = response;
-      this.publicQueries = data;
-    },
-    async reloadQueries() {
-      // getAllQueries DOES NOT update, then we enforce it
-      this.setPrivateQueries(await this.getPrivateQueries(getUserId()));
-      this.setPublicQueries(await this.getPublicQueries());
-    },
+    // getPrivateQueries(id) {
+    //   // factory method
+    //   return this.getQueries({
+    //     "filter[dataset_id]": this.datasetId,
+    //     "filter[user_id]": id
+    //   });
+    // },
+    // setPrivateQueries(response) {
+    //   const {
+    //     data: { data }
+    //   } = response;
+    //   this.privateQueries = data;
+    // },
+    // getPublicQueries() {
+    //   // factory method
+    //   return this.getQueries({ "filter[dataset_id]": this.datasetId });
+    // },
+    // setPublicQueries(response) {
+    //   const {
+    //     data: { data }
+    //   } = response;
+    //   this.publicQueries = data;
+    // },
+    // async reloadQueries() {
+    //   // getAllQueries DOES NOT update, then we enforce it
+    //   // this.setPrivateQueries(await this.getPrivateQueries(getUserId()));
+    //   this.setPublicQueries(await this.getQueries({ "filter[dataset_id]": this.datasetId }));
+    // },
     async getAllVisualizations() {
       const visualizationsPromises = [];
 
@@ -783,7 +786,7 @@ export default {
       const { status } = await this.deleteQuery(id);
 
       if (status === 204) {
-        this.reloadQueries()
+        this.setQueries()
       }
     },
     async storeCurrentQuery({ name, privacy }) {
@@ -848,7 +851,7 @@ export default {
         this.isQueryModified = false;
         this.isQuerySavingPromptVisible = false;
 
-        this.reloadQueries()
+        this.setQueries()
 
         if (userId !== this.queryUserId || newQuery) {
           this.updateURL(newQuery);

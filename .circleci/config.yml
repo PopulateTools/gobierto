@@ -16,7 +16,6 @@ defaults: &defaults
         POSTGRES_PASSWORD: gobierto
     - image: elasticsearch:2.4.1
     - image: redis:4.0.9
-  resource_class: medium+
 
 version: 2
 jobs:
@@ -135,6 +134,7 @@ jobs:
 
   tests_plans:
     <<: *defaults
+    parallelism: 2
     steps:
       - checkout
       - attach_workspace:
@@ -217,6 +217,7 @@ jobs:
 
   tests_participation:
     <<: *defaults
+    parallelism: 2
     steps:
       - checkout
       - attach_workspace:
@@ -545,7 +546,7 @@ jobs:
 
   tests_admin:
     <<: *defaults
-    parallelism: 2
+    parallelism: 4
     steps:
       - checkout
       - attach_workspace:
@@ -628,6 +629,7 @@ jobs:
 
   tests_people:
     <<: *defaults
+    parallelism: 2
     steps:
       - checkout
       - attach_workspace:
@@ -669,7 +671,6 @@ jobs:
 
   tests_others:
     <<: *defaults
-    parallelism: 2
     steps:
       - checkout
       - attach_workspace:

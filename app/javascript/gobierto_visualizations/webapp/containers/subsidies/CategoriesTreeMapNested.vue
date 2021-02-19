@@ -61,6 +61,9 @@ export default {
       const dataFilter = data.filter(contract => contract.amount !== 0)
       dataFilter.forEach(d => {
         d.number_of_contract = 1
+        if (d.beneficiary_type === 'persona') {
+          d.beneficiary_type = 'persona física'
+        }
       })
       // d3v6
       //

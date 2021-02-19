@@ -16,7 +16,7 @@ defaults: &defaults
         POSTGRES_PASSWORD: gobierto
     - image: elasticsearch:2.4.1
     - image: redis:4.0.9
-  resource_class: large
+  resource_class: medium+
 
 version: 2
 jobs:
@@ -115,7 +115,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -156,7 +156,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -197,7 +197,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -238,7 +238,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -279,7 +279,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -320,7 +320,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -361,7 +361,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -402,7 +402,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -443,7 +443,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -484,7 +484,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -525,7 +525,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -567,7 +567,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -608,7 +608,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -649,7 +649,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -691,7 +691,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:structure:load
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup

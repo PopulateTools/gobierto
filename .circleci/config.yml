@@ -77,6 +77,18 @@ jobs:
             - public/packs-test
             - tmp/cache
 
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:structure:load
+
       - persist_to_workspace:
           root: ~/gobierto
           paths:
@@ -104,7 +116,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -139,7 +151,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -174,7 +186,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -209,7 +221,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -244,7 +256,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -279,7 +291,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -314,7 +326,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -349,7 +361,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -384,7 +396,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -419,7 +431,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -454,7 +466,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -490,7 +502,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -525,7 +537,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -560,7 +572,7 @@ jobs:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup
@@ -592,11 +604,17 @@ jobs:
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:structure:load
 
       # Install custom engines
       - run: script/custom_engines_ci_setup

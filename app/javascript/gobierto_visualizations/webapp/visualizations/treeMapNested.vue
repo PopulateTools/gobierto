@@ -721,7 +721,7 @@ export default {
         } = e
         e.preventDefault()
         // eslint-disable-next-line no-unused-vars
-        this.$router.push(`/visualizaciones/contratos/adjudicatario/${assignee_routing_id}`).catch(err => {})
+        this.$router.push(`${location.pathname}/adjudicatario/${assignee_routing_id}`).catch(err => {})
       }))
     },
     closeTooltips() {

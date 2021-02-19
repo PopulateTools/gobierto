@@ -28,8 +28,8 @@ require "minitest/retry"
 require "vcr"
 require "mocha/minitest"
 require "selenium/webdriver"
-require "codecov"
 require "simplecov"
+require "simplecov-cobertura"
 
 I18n.default_locale = :en
 Time.zone = "Madrid"

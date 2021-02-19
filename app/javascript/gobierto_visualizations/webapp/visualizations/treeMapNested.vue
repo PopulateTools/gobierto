@@ -227,6 +227,8 @@ export default {
         .remove()
         .exit();
 
+      this.closeTooltips()
+
       this.colors = createScaleColors(this.arrayValuesContractTypes.length, this.arrayValuesContractTypes);
       let transitioning;
       let dataTreeMapSumFinalAmount = this.data
@@ -302,8 +304,13 @@ export default {
           .attr('fill', d => {
             const { depth, data } = d
             const [ contracts ] = data?.children || []
-            const { contractor } = contracts || {}
-            return scaleColor && depth === 3 ? this.colors(contractor) : '#12365b'
+            if (deepLevel === 4 && scaleColor && depth === 3) {
+              return this.colors(contracts[this.firstDepthForTreeMap])
+            } else if (deepLevel === 3 && scaleColor && depth === 2) {
+              return this.colors(contracts[this.firstDepthForTreeMap])
+            } else {
+              return '#12365b'
+            }
           })
           .attr('class', 'depth')
 
@@ -371,12 +378,12 @@ export default {
             const calculateActualDepth = deepLevel - depth
             const childrenLength = children.length ? children.length : 0
             const dimensionsElement = (x1 - x0) < 100 && (y1 - y0) < 100
+            let htmlTreeMap
             if (dimensionsElement && calculateActualDepth > 0 && childrenLength > 40) {
               return
             } else if (dimensionsElement && calculateActualDepth === 0 && childrenLength > 20) {
-              return
+              return htmlTreeMap = buildLastDepthOnlyLink(d)
             }
-            let htmlTreeMap
             if (depthEntity && deepLevel === 4) {
               htmlTreeMap = treeMapThreeDepth(d)
             } else if (deepLevel === 2) {
@@ -633,12 +640,19 @@ export default {
 
         function buildLastDepth(d) {
           let title = d.data.name === undefined ? d.data[keyForThirdDepth] : d.data.name;
-          const { parent: { data: { name } } } = d
+          const { parent: { data: { name, href } } } = d
           return `
-            <a class="link-last-depth">
+            <a href="${href}" class="link-last-depth">
               <p class="title">${name}</p>
               <p class="text">${title}</p>
             </a>
+            `
+        }
+
+        function buildLastDepthOnlyLink(d) {
+          const { parent: { data: { href } } } = d
+          return `
+            <a href="${href}" class="link-last-depth"></a>
             `
         }
 
@@ -721,6 +735,7 @@ export default {
       this.closeTooltips()
       const contractsLink = document.querySelectorAll(`.treemap-nested-container-${this.treemapId} a.link-last-depth`)
       contractsLink.forEach(contract => contract.addEventListener('click', (e) => {
+        e.preventDefault();
         const {
           target: {
             parentNode: {

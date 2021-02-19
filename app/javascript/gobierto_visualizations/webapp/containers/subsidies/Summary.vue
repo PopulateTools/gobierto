@@ -212,6 +212,8 @@ export default {
   created() {
     this.columns = grantedColumns;
     this.showColumns = ['name', 'count', 'sum']
+    this.visualizationsData = this.visualizationsData
+      .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
   },
   methods: {
     refreshSummaryData(){

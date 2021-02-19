@@ -123,10 +123,17 @@
     .link-last-depth {
       display: block;
       height: 100%;
+      color: var(--white);
+      text-decoration: none;
+      &:hover {
+        .text,
+        .title {
+          text-decoration: underline;
+        }
+      }
       .text,
       .title {
         text-decoration: none;
-        color: var(--white);
         pointer-events: none;
       }
     }
@@ -140,6 +147,7 @@
     padding: 12px;
 
     &.hide-text {
+      padding: 0;
       .title,
       .text-depth-third,
       .text {

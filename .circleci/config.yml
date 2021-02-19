@@ -77,9 +77,9 @@ jobs:
             - v3-asset-cache-
 
       # Clean old assets
-      - run: find ~/gobierto/public/assets -mtime +30 | xargs rm
-      - run: find ~/gobierto/public/packs-test -mtime +30 | xargs rm
-      - run: find ~/gobierto/tmp/cache -mtime +30 | xargs rm
+      - run: find ~/gobierto/public/assets -mtime +30 -type f | xargs rm
+      - run: find ~/gobierto/public/packs-test -mtime +30 -type f | xargs rm
+      - run: find ~/gobierto/tmp/cache -mtime +30 -type f | xargs rm
 
       - run: bin/rails assets:precompile
 

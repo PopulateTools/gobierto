@@ -36,16 +36,7 @@ module GobiertoData
           find_item
           respond_to do |format|
             format.json do
-              query_result = @item.result(include_draft: valid_preview_token?, include_stats: true)
-              render(
-                json:
-                {
-                  data: query_result.delete(:result),
-                  meta: query_result,
-                  links: links(:data)
-                },
-                adapter: :json_api
-              )
+              render json: cached_item_json, adapter: :json_api
             end
 
             format.csv do
@@ -175,6 +166,17 @@ module GobiertoData
         def cached_item_csv
           Rails.cache.fetch("#{@item.cache_key_with_version}/show.csv?#{csv_options_params.to_json}") do
             @item.csv_result(csv_options_params, include_draft: valid_preview_token?)
+          end
+        end
+
+        def cached_item_json
+          Rails.cache.fetch("#{@item.cache_key_with_version}/show.json") do
+            query_result = @item.result(include_draft: valid_preview_token?, include_stats: true)
+            {
+              data: query_result.delete(:result).to_a,
+              meta: query_result,
+              links: links(:data)
+            }
           end
         end
 

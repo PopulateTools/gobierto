@@ -34,22 +34,13 @@ module GobiertoData
         # GET /api/v1/data/queries/1.xlsx
         def show
           find_item
-          query_result = @item.result(include_draft: valid_preview_token?, include_stats: request.format.json?)
           respond_to do |format|
             format.json do
-              render(
-                json:
-                {
-                  data: query_result.delete(:result),
-                  meta: query_result,
-                  links: links(:data)
-                },
-                adapter: :json_api
-              )
+              render json: cached_item_json, adapter: :json_api
             end
 
             format.csv do
-              render_csv(csv_from_query_result(query_result, csv_options_params))
+              render_csv cached_item_csv
             end
 
             format.xlsx do
@@ -71,15 +62,14 @@ module GobiertoData
         # GET /api/v1/data/queries/1/download.xlsx
         def download
           find_item
-          query_result = @item.result(include_draft: valid_preview_token?)
           basename = @item.file_basename
           respond_to do |format|
             format.json do
-              send_download(query_result, :json, basename)
+              send_download(@item.result(include_draft: valid_preview_token?), :json, basename)
             end
 
             format.csv do
-              send_download(csv_from_query_result(query_result, csv_options_params), :csv, basename)
+              send_download(cached_item_csv, :csv, basename)
             end
 
             format.xlsx do
@@ -172,6 +162,23 @@ module GobiertoData
         end
 
         private
+
+        def cached_item_csv
+          Rails.cache.fetch("#{@item.cache_key_with_version}/show.csv?#{csv_options_params.to_json}") do
+            @item.csv_result(csv_options_params, include_draft: valid_preview_token?)
+          end
+        end
+
+        def cached_item_json
+          Rails.cache.fetch("#{@item.cache_key_with_version}/show.json") do
+            query_result = @item.result(include_draft: valid_preview_token?, include_stats: true)
+            {
+              data: query_result.delete(:result).to_a,
+              meta: query_result,
+              links: links(:data)
+            }
+          end
+        end
 
         def base_relation
           if find_dataset.present?

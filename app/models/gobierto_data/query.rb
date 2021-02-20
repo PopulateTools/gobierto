@@ -21,6 +21,10 @@ module GobiertoData
       Connection.execute_query(site, sql, include_draft: include_draft, include_stats: include_stats)
     end
 
+    def csv_result(csv_options_params, include_draft: false)
+      GobiertoData::Connection.execute_query_output_csv(site, sql, csv_options_params, include_draft: include_draft)
+    end
+
     def file_basename
       [dataset.slug, name].join("-").tr("_", " ").parameterize
     end

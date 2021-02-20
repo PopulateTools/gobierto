@@ -26,17 +26,6 @@ module GobiertoData
           end
         end
 
-        def csv_from_query_result(result, options = {})
-          return if result.blank?
-
-          CSV.generate(**options) do |csv|
-            csv << result.fields
-            result.each_row do |row|
-              csv << row
-            end
-          end.force_encoding("utf-8")
-        end
-
         def csv_from_relation(relation, options = {})
           with_serialized_data_from_relation(relation) do |data, new|
             return "" if data.blank?

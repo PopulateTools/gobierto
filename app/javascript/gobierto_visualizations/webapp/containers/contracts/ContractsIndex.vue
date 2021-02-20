@@ -5,8 +5,8 @@
       :order-column="'final_amount_no_taxes'"
       :columns="contractsColumns"
       :show-columns="showColumns"
-      :on-row-click="goesToItem"
       class="gobierto-table-margin-top gobierto-table-scroll"
+      @on-href-click="goesToTableItem"
     />
   </div>
 </template>
@@ -45,7 +45,7 @@ export default {
 
     EventBus.$on('filtered-items', (value) => this.updateFilteredItems(value))
 
-    this.items = this.contractsData
+    this.items = this.contractsData.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
     this.columns = contractsColumns;
     this.showColumns = ['assignee', 'title', 'award_date', 'final_amount_no_taxes']
   },
@@ -56,9 +56,13 @@ export default {
     updateFilteredItems(value) {
       this.value = value || ''
 
-      this.items = this.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()) || contract.title.toLowerCase().includes(this.value.toLowerCase()))
+      this.items = this.contractsData
+        .filter(contract => contract.assignee.toLowerCase()
+        .includes(this.value.toLowerCase()) || contract.title.toLowerCase()
+        .includes(this.value.toLowerCase()))
+        .map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
     },
-    goesToItem(item) {
+    goesToTableItem(item) {
       const { id: routingId } = item
       this.$router.push({ name: 'contracts_show', params: { id: routingId } })
     }

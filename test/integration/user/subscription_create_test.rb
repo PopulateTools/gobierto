@@ -17,6 +17,8 @@ class User::SubscriptionCreateTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_subscription
+    skip "Subscription boxes are disabled"
+
     with_current_site(site) do
       visit root_path
 
@@ -29,6 +31,8 @@ class User::SubscriptionCreateTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_spam_subscription
+    skip "Subscription boxes are disabled"
+
     with_current_site(site) do
       visit root_path
 
@@ -44,6 +48,8 @@ class User::SubscriptionCreateTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_with_referer
+    skip "Subscription boxes are disabled"
+
     with_current_site(site) do
       visit gobierto_people_root_path
 
@@ -57,6 +63,8 @@ class User::SubscriptionCreateTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_without_referer
+    skip "Subscription boxes are disabled"
+
     ActionDispatch::Http::Headers.any_instance.expects(:[]).with("Referer").returns(nil)
     ActionDispatch::Http::Headers.any_instance.expects(:[]).with("Turbolinks-Referrer").at_least_once.returns(nil)
 

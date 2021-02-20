@@ -28,6 +28,21 @@ commands:
       - checkout
       - attach_workspace:
           at: *working_directory
+      - restore_cache:
+          name: "[Bundler] Restore cache"
+          keys:
+            - gobierto-bundler-{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          name: "[Yarn] Restore cache"
+          keys:
+            - gobierto-yarn-{{ checksum "yarn.lock" }}
+      # Precompile assets
+      - restore_cache:
+          name: "Restore cached assets"
+          keys:
+            - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-{{ .Branch }}
+            - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-
+
       - run: bundle --path vendor/bundle
       - run: yarn install
       # Wait for DB containers to be ready
@@ -106,23 +121,17 @@ jobs:
           paths:
             - public/assets
             - public/packs-test
-            - tmp/cache
 
       - persist_to_workspace:
           root: *working_directory
           paths:
             - db
             - tmp/cache
-            - vendor/bundle
-            - node_modules
-            - public/assets
-            - public/packs-test
 
   tests_indicators:
     <<: *defaults
     steps:
       - prepare_workspace
-      # Run tests
       - run:
           name: Run tests
           command: |
@@ -140,8 +149,6 @@ jobs:
     parallelism: 2
     steps:
       - prepare_workspace
-
-      # Run tests
       - run:
           name: Run tests
           command: |
@@ -158,8 +165,6 @@ jobs:
     <<: *defaults
     steps:
       - prepare_workspace
-
-      # Run tests
       - run:
           name: Run tests
           command: |
@@ -177,8 +182,6 @@ jobs:
     parallelism: 2
     steps:
       - prepare_workspace
-
-      # Run tests
       - run:
           name: Run tests
           command: |
@@ -195,8 +198,6 @@ jobs:
     <<: *defaults
     steps:
       - prepare_workspace
-
-      # Run tests
       - run:
           name: Run tests
           command: |

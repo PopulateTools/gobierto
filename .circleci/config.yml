@@ -1,6 +1,11 @@
 ---
+version: 2.1
+
+aliases:
+  - &working_directory ~/gobierto
+
 defaults: &defaults
-  working_directory: ~/gobierto
+  working_directory: *working_directory
   docker:
     - image: circleci/ruby:2.7.1-node-browsers
       environment:
@@ -17,14 +22,41 @@ defaults: &defaults
     - image: elasticsearch:2.4.1
     - image: redis:4.0.9
 
-version: 2
+commands:
+  prepare_workspace:
+    steps:
+      - checkout
+      - attach_workspace:
+          at: *working_directory
+      - run: bundle --path vendor/bundle
+      - run: yarn install
+      # Wait for DB containers to be ready
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      # Install postgres 12
+      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: sudo apt update
+      - run: sudo apt -y install postgresql-12 postgresql-client-12
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Setup the database
+      - run: bin/rails db:create db:migrate
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
 jobs:
   bundle_dependencies:
     <<: *defaults
     steps:
       - checkout
       - attach_workspace:
-          at: ~/gobierto
+          at: *working_directory
       - restore_cache:
           name: "[Bundler] Restore cache"
           keys:
@@ -63,26 +95,21 @@ jobs:
       - restore_cache:
           name: "Restore cached assets"
           keys:
-            - v3-asset-cache-{{ .Branch }}
-            - v3-asset-cache-
-
-      # Clean old assets
-      - run: find ~/gobierto/public/assets -mtime +30 -type f | xargs rm
-      - run: find ~/gobierto/public/packs-test -mtime +30 -type f | xargs rm
-      - run: find ~/gobierto/tmp/cache -mtime +30 -type f | xargs rm
+            - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-{{ .Branch }}
+            - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-
 
       - run: bin/rails assets:precompile
 
       - save_cache:
           name: "Cache assets"
-          key: v3-asset-cache-{{ .Branch }}
+          key: gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-{{ .Branch }}
           paths:
             - public/assets
             - public/packs-test
             - tmp/cache
 
       - persist_to_workspace:
-          root: ~/gobierto
+          root: *working_directory
           paths:
             - db
             - tmp/cache
@@ -94,31 +121,7 @@ jobs:
   tests_indicators:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
+      - prepare_workspace
       # Run tests
       - run:
           name: Run tests
@@ -136,30 +139,7 @@ jobs:
     <<: *defaults
     parallelism: 2
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
+      - prepare_workspace
 
       # Run tests
       - run:
@@ -177,30 +157,7 @@ jobs:
   tests_attachments:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
+      - prepare_workspace
 
       # Run tests
       - run:
@@ -219,30 +176,7 @@ jobs:
     <<: *defaults
     parallelism: 2
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
+      - prepare_workspace
 
       # Run tests
       - run:
@@ -260,30 +194,7 @@ jobs:
   tests_observatory:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
+      - prepare_workspace
 
       # Run tests
       - run:
@@ -301,32 +212,7 @@ jobs:
   tests_exports:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Run tests
+      - prepare_workspace
       - run:
           name: Run tests
           command: |
@@ -342,32 +228,7 @@ jobs:
   tests_budget_consultations:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Run tests
+      - prepare_workspace
       - run:
           name: Run tests
           command: |
@@ -383,32 +244,7 @@ jobs:
   tests_cms:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Run tests
+      - prepare_workspace
       - run:
           name: Run tests
           command: |
@@ -424,32 +260,7 @@ jobs:
   tests_data:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Run tests
+      - prepare_workspace
       - run:
           name: Run tests
           command: |
@@ -465,32 +276,7 @@ jobs:
   tests_citizens_charters:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Run tests
+      - prepare_workspace
       - run:
           name: Run tests
           command: |
@@ -506,32 +292,7 @@ jobs:
   tests_budgets:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Run tests
+      - prepare_workspace
       - run:
           name: Run tests
           command: |
@@ -548,32 +309,7 @@ jobs:
     <<: *defaults
     parallelism: 4
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Run tests
+      - prepare_workspace
       - run:
           name: Run tests
           command: |
@@ -589,32 +325,7 @@ jobs:
   tests_visualizations:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Run tests
+      - prepare_workspace
       - run:
           name: Run tests
           command: |
@@ -631,32 +342,7 @@ jobs:
     <<: *defaults
     parallelism: 2
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Run tests
+      - prepare_workspace
       - run:
           name: Run tests
           command: |
@@ -672,32 +358,7 @@ jobs:
   tests_others:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
-      - run: bundle --path vendor/bundle
-      - run: yarn install
-      # Wait for DB containers to be ready
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
-      - run: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      # Install postgres 12
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-      - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Setup the database
-      - run: bin/rails db:create db:migrate
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Run tests
+      - prepare_workspace
       - run:
           name: Run tests
           command: |
@@ -711,7 +372,7 @@ jobs:
           path: test/reports
 
   staging-deploy:
-    working_directory: ~/gobierto
+    working_directory: *working_directory
     machine:
       enabled: true
     steps:
@@ -722,7 +383,7 @@ jobs:
           command: script/staging_deploy.sh
 
   production-deploy:
-    working_directory: ~/gobierto
+    working_directory: *working_directory
     machine:
       enabled: true
     steps:

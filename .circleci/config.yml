@@ -144,7 +144,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(ind test -path '*gobierto_admin*' -name '*_test.rb' | grep -v 'gobierto_admin\/gobierto_' | circleci tests split --split-by=timings)"
+            TEST_FILES="$(find test -path '*gobierto_admin*' -name '*_test.rb' | grep -v 'gobierto_admin\/gobierto_' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports

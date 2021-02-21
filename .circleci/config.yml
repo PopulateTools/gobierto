@@ -65,6 +65,14 @@ commands:
       # Install custom engines
       - run: script/custom_engines_ci_setup
 
+      - run:
+          name: Setup budgets seeds
+          command: |
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
+            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets:fixtures:load
+            echo '::BudgetsSeeder.seed!' | bin/rails c
+
 jobs:
   bundle_dependencies:
     <<: *defaults
@@ -135,11 +143,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_indicators*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_indicators*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -152,11 +156,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_plans*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_plans*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -168,11 +168,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_attachments*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_attachments*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -185,11 +181,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_participation*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_participation*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -201,11 +193,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_observatory*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_observatory*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -217,11 +205,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_exports*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_exports*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -233,11 +217,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_budget_consultations*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_budget_consultations*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -249,11 +229,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_cms*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_cms*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -265,11 +241,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_data*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_data*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -281,11 +253,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_citizens_charters*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_citizens_charters*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -297,11 +265,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_budgets*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_budgets*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -314,11 +278,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_admin*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_admin*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -330,11 +290,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_visualizations*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_visualizations*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -347,11 +303,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -path '*gobierto_people*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -path '*gobierto_people*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -363,11 +315,19 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test vendor/gobierto_engines/ -not -path '*gobierto_*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
-            bin/rails gobierto_budgets:fixtures:load
-            echo '::BudgetsSeeder.seed!' | bin/rails c
+            TEST_FILES="$(find test -not -path '*gobierto_*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_engines:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find -L vendor/gobierto_engines/ -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -444,6 +404,9 @@ workflows:
       - tests_others:
           requires:
             - bundle_dependencies
+      - tests_engines:
+          requires:
+            - bundle_dependencies
       - staging-deploy:
           requires:
             - bundle_dependencies
@@ -462,6 +425,7 @@ workflows:
             - tests_visualizations
             - tests_people
             - tests_others
+            - tests_engines
           filters:
             branches:
               only: staging
@@ -483,6 +447,7 @@ workflows:
             - tests_visualizations
             - tests_people
             - tests_others
+            - tests_engines
           filters:
             branches:
               only: master

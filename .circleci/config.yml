@@ -23,26 +23,33 @@ defaults: &defaults
     - image: redis:4.0.9
 
 commands:
-  prepare_workspace:
+  restore_bundler_cache:
     steps:
-      - checkout
-      - attach_workspace:
-          at: *working_directory
       - restore_cache:
           name: "[Bundler] Restore cache"
           keys:
             - gobierto-bundler-{{ checksum "Gemfile.lock" }}
+  restore_yarn_cache:
+    steps:
       - restore_cache:
           name: "[Yarn] Restore cache"
           keys:
             - gobierto-yarn-{{ checksum "yarn.lock" }}
-      # Precompile assets
+  restore_assets_cache:
+    steps:
       - restore_cache:
           name: "Restore cached assets"
           keys:
             - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-{{ .Branch }}
             - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-
-
+  prepare_workspace:
+    steps:
+      - checkout
+      - attach_workspace:
+          at: *working_directory
+      - restore_bundler_cache
+      - restore_yarn_cache
+      - restore_assets_cache
       - run: bundle --path vendor/bundle
       - run: yarn install
       # Wait for DB containers to be ready
@@ -80,10 +87,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: *working_directory
-      - restore_cache:
-          name: "[Bundler] Restore cache"
-          keys:
-            - gobierto-bundler-{{ checksum "Gemfile.lock" }}
+
+      - restore_bundler_cache
       - run:
           name: "[Bundler] Install dependencies"
           command: bundle install --path vendor/bundle --jobs=4 --retry=3  --without development
@@ -92,10 +97,8 @@ jobs:
           key: gobierto-bundler-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - restore_cache:
-          name: "[Yarn] Restore cache"
-          keys:
-            - gobierto-yarn-{{ checksum "yarn.lock" }}
+
+      - restore_yarn_cache
       - run:
           name: "[Yarn] Install dependencies"
           command: yarn install
@@ -114,15 +117,9 @@ jobs:
       # Compile I18n JS file
       - run: bin/rails i18n:js:export
 
-      # Precompile assets
-      - restore_cache:
-          name: "Restore cached assets"
-          keys:
-            - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-{{ .Branch }}
-            - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-
-
+      # Compile assets
+      - restore_assets_cache
       - run: bin/rails assets:precompile
-
       - save_cache:
           name: "Cache assets"
           key: gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-{{ .Branch }}

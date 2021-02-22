@@ -17,7 +17,6 @@
     :label-total-plural="labelContractsPlural"
     :label-total-unique="labelContractsUnique"
     :depth-entity="true"
-    :deep-level="deepLevel"
     :key-for-third-depth="'title'"
     @transformData="nestedData"
     @showTooltip="showTooltipTreemap"

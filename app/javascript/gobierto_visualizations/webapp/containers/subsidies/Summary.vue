@@ -232,6 +232,10 @@ export default {
           return;
         }
 
+        if (beneficiary_name === 'física') {
+          beneficiary_name = 'PERSONA FÍSICA'
+        }
+
         if (groupedByBeneficiary[beneficiary_name] === undefined) {
           groupedByBeneficiary[beneficiary_name] = {
             name: beneficiary_name,

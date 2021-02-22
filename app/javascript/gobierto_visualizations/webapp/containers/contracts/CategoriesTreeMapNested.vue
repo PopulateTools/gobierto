@@ -18,6 +18,7 @@
     :key-for-third-depth="'title'"
     @transformData="nestedData"
     @showTooltip="showTooltipTreemap"
+    @on-treemap-click="goesToTreemapItem"
   />
 </template>
 <script>
@@ -215,6 +216,11 @@ export default {
         <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.contract_amount')}: <b>${money(contractAmount)}</b></p>
         <p class="text-depth-third">${I18n.t('gobierto_visualizations.visualizations.contracts.tender_amount')}: <b>${money(initial_amount_no_taxes)}</b></p>
       </div>`
+    },
+    goesToTreemapItem(data) {
+      const { assignee_routing_id } = data
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push(`/visualizaciones/contratos/adjudicatario/${assignee_routing_id}`).catch(err => {})
     }
   }
 }

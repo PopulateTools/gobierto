@@ -120,6 +120,24 @@
       line-height: 1;
     }
 
+    .link-last-depth {
+      display: block;
+      height: 100%;
+      color: var(--white);
+      text-decoration: none;
+      &:hover {
+        .text,
+        .title {
+          text-decoration: underline;
+        }
+      }
+      .text,
+      .title {
+        text-decoration: none;
+        pointer-events: none;
+      }
+    }
+
   }
 
   .treemap-nested-container-text {
@@ -129,6 +147,7 @@
     padding: 12px;
 
     &.hide-text {
+      padding: 0;
       .title,
       .text-depth-third,
       .text {

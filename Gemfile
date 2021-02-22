@@ -126,13 +126,15 @@ end
 group :test do
   gem "capybara"
   gem "capybara-email"
-  gem "codecov", "~> 0.4.2", require: false
+  gem "simplecov"
+  gem "simplecov-cobertura"
   gem "launchy"
-  gem "minitest", "5.14.3"
+  gem "minitest"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"
   gem "minitest-stub-const"
+  gem "minitest-ci"
   gem "mocha"
   gem "selenium-webdriver"
   gem "spy"

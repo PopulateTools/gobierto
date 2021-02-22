@@ -412,7 +412,7 @@ export default {
     //Show the name of the visualization
     this.$root.$on("loadVizName", this.setVizName);
     //Reload a list of private and public visualizations
-    this.$root.$on("reloadVisualizations", this.reloadVisualizations);
+    this.$root.$on("reloadVisualizations", this.setVisualizations);
     //Check if the visualization is ours if it isn't ours show a button to fork
     this.$root.$on("enabledForkVizButton", this.activateForkVizButton);
     //Update the name of Visualization
@@ -469,14 +469,23 @@ export default {
       switch (true) {
         // resumen
         case (!tab && !queryId) || tab === tabs[0]: {
-          await this.setQueries();
-          await this.getAllVisualizations();
+          // Only request for the queries/vizzs when their arrays are undefined
+          if (!this.publicQueries) {
+            this.setQueries();
+          }
+          if (!this.publicVisualizations) {
+            this.setVisualizations();
+          }
           break;
         }
         // datos or /q/:id
         case tab === tabs[1]:
         case name === ROUTE_NAMES.Query: {
-          await this.setQueries();
+          // Only request for the queries/vizzs when their arrays are undefined
+          // Furthermore, AWAIT queries results in order to parse url
+          if (!this.publicQueries) {
+            await this.setQueries();
+          }
           this.parseUrl(queryId, sql);
           this.runCurrentQuery();
           this.setDefaultQuery();
@@ -484,13 +493,19 @@ export default {
         }
         // consultas
         case tab === tabs[2]: {
-          await this.setQueries();
+          // Only request for the queries/vizzs when their arrays are undefined
+          if (!this.publicQueries) {
+            this.setQueries();
+          }
           break;
         }
         // visualizaciones or /v/:id
         case tab === tabs[3]:
         case name === ROUTE_NAMES.Visualization: {
-          await this.getAllVisualizations();
+          // Only request for the queries/vizzs when their arrays are undefined
+          if (!this.publicVisualizations) {
+            this.setVisualizations();
+          }
           break;
         }
 
@@ -533,9 +548,7 @@ export default {
       let item = null;
       if (queryId) {
         // if has id it's an stored query
-        item = [...this.privateQueries || [], ...this.publicQueries || []].find(
-          ({ id }) => id === queryId
-        );
+        item = this.publicQueries.find(({ id }) => id === queryId);
       }
 
       if (item) {
@@ -569,10 +582,7 @@ export default {
     },
     isQueryStored(query = this.currentQuery) {
       // check if the query passed belongs to public/private arrays, if there's no args, it uses currentQuery
-      return !!(
-        this.publicQueries?.some(({ attributes: { sql } }) => sql === query) ||
-        this.privateQueries?.some(({ attributes: { sql } }) => sql === query)
-      );
+      return this.publicQueries?.some(({ attributes: { sql } }) => sql === query);
     },
     setCurrentQuery(sql) {
       // trigger the modified label:
@@ -602,171 +612,44 @@ export default {
     },
     async setQueries() {
       // factory method
-      const { data: { data } = {} } = await this.getQueries({ "filter[dataset_id]": this.datasetId }) || {}
+      const { data: { data = [] } = {} } = await this.getQueries({ "filter[dataset_id]": this.datasetId }) || {};
+
       this.publicQueries = data
-
-      // const queriesPromises = [];
-
-      // // Even though there was no publicQueries,
-      // // we need to keep the position of the publicResponse in the promises array
-      // queriesPromises.push(
-      //   !this.publicQueries ? this.getPublicQueries() : Promise.resolve()
-      // );
-
-      // const userId = getUserId();
-      // // Do not request private queries if the user is not logged
-      // // OR if the privateQueries has been already fetched
-      // queriesPromises.push(
-      //   userId && !this.privateQueries
-      //     ? this.getPrivateQueries(userId)
-      //     : Promise.resolve()
-      // );
-
-      // // In order to update from the url, we need both public and private queries
-      // const [publicResponse, privateResponse] = await Promise.all(
-      //   queriesPromises
-      // );
-
-      // Only update data if there's any response
-      // if (data) {
-      // }
-
-      // if (privateResponse) {
-      //   this.setPrivateQueries(privateResponse);
-      // }
+      // privateQueries is always a subset of the publicQueries
+      this.privateQueries = data.filter(({ attributes }) => +attributes?.user_id === +getUserId())
     },
-    // getPrivateQueries(id) {
-    //   // factory method
-    //   return this.getQueries({
-    //     "filter[dataset_id]": this.datasetId,
-    //     "filter[user_id]": id
-    //   });
-    // },
-    // setPrivateQueries(response) {
-    //   const {
-    //     data: { data }
-    //   } = response;
-    //   this.privateQueries = data;
-    // },
-    // getPublicQueries() {
-    //   // factory method
-    //   return this.getQueries({ "filter[dataset_id]": this.datasetId });
-    // },
-    // setPublicQueries(response) {
-    //   const {
-    //     data: { data }
-    //   } = response;
-    //   this.publicQueries = data;
-    // },
-    // async reloadQueries() {
-    //   // getAllQueries DOES NOT update, then we enforce it
-    //   // this.setPrivateQueries(await this.getPrivateQueries(getUserId()));
-    //   this.setPublicQueries(await this.getQueries({ "filter[dataset_id]": this.datasetId }));
-    // },
-    async getAllVisualizations() {
-      const visualizationsPromises = [];
-
-      // Even though there was no publicVisualizations,
-      // we need to keep the position of the publicResponse in the promises array
-      visualizationsPromises.push(
-        !this.publicVisualizations
-          ? this.getPublicVisualizations()
-          : Promise.resolve()
-      );
-
-      const userId = getUserId();
-      // Do not request private visualizations if the user is not logged
-      // OR if the privateVisualizations has been already fetched
-      visualizationsPromises.push(
-        userId && !this.privateVisualizations
-          ? this.getPrivateVisualizations(userId)
-          : Promise.resolve()
-      );
-
-      // In order to update from the url, we need both public and private visualizations
-      const [publicResponse, privateResponse] = await Promise.all(
-        visualizationsPromises
-      );
-
-      // Only update data if there's any response
-      if (publicResponse) {
-        this.setPublicVisualizations(publicResponse);
-      }
-
-      if (privateResponse) {
-        this.setPrivateVisualizations(privateResponse);
-      }
-    },
-    getPrivateVisualizations(id) {
-      this.isPrivateVizLoading = true;
-      // factory method
-      return this.getVisualizations({
-        "filter[dataset_id]": this.datasetId,
-        "filter[user_id]": id
-      });
-    },
-    async setPrivateVisualizations(response) {
-      const {
-        data: { data }
-      } = response;
-      this.privateVisualizations = await this.getDataFromVisualizations(data);
-
-      this.isPrivateVizLoading = false;
-    },
-    getPublicVisualizations() {
+    async setVisualizations() {
       this.isPublicVizLoading = true;
+      this.isPrivateVizLoading = true;
+
       // factory method
-      return this.getVisualizations({ "filter[dataset_id]": this.datasetId });
-    },
-    async setPublicVisualizations(response) {
-      const {
-        data: { data }
-      } = response;
+      const { data: { data = [] } = {} } = await this.getVisualizations({ "filter[dataset_id]": this.datasetId }) || {};
       this.publicVisualizations = await this.getDataFromVisualizations(data);
+      // privateVisualizations is always a subset of the publicVisualizations
+      this.privateVisualizations = this.publicVisualizations.filter(({ user_id }) => +user_id === +getUserId())
 
       this.isPublicVizLoading = false;
-    },
-    async reloadVisualizations() {
-      // getAllVisualizations DOES NOT update, then we enforce it
-      this.setPrivateVisualizations(await this.getPrivateVisualizations(getUserId()));
-      this.setPublicVisualizations(await this.getPublicVisualizations());
+      this.isPrivateVizLoading = false;
     },
     async getDataFromVisualizations(data) {
-      const visualizations = [];
-      for (let index = 0; index < data.length; index++) {
-        const { attributes = {}, id } = data[index];
-        const {
+
+      const queryPromises = new Map()
+      const visualizations = data.map(x => {
+        const { attributes: {
           query_id,
           user_id,
           sql = "",
           spec = {},
           name = "",
           privacy_status = "open"
-        } = attributes;
+        } = {}, id } = x;
 
-        let queryData = null;
-
-        if (query_id) {
-          // Get my queries, if they're stored
-          const { data } = await this.getQuery(query_id);
-          queryData = data;
-        } else {
-          // Otherwise, run the sql
-          const { sql } = attributes;
-          const { data } = await this.getData({ sql });
-          queryData = data;
+        // only store new (different) queries (promises)
+        if (!queryPromises.has(query_id || sql)) {
+          queryPromises.set(query_id || sql, query_id ? this.getQuery(query_id) : this.getData({ sql }))
         }
 
-        let items = "";
-        if (typeof queryData === "object") {
-          items = convertToCSV(queryData.data);
-        } else {
-          items = queryData;
-        }
-
-        // Append the visualization configuration
-        const visualization = {
-          items,
+        return {
           config: spec,
           name,
           privacy_status,
@@ -774,12 +657,19 @@ export default {
           id,
           user_id,
           sql
-        };
+        }
+      })
 
-        visualizations.push(visualization);
-      }
+      // wait for queries to be solved
+      const responses = await Promise.all([...queryPromises.values()]);
+      [...queryPromises].forEach((item, i) => {
+        const { data } = responses[i]
+        // in the map, replace each promise with its respective response (formatting the results)
+        return queryPromises.set(item[0], typeof data === "object" ? convertToCSV(data.data) : data)
+      })
 
-      return visualizations;
+      // finally update all existing visualizations with the properly results
+      return visualizations.map(x => ({ ...x, items: queryPromises.get(x.query_id || x.sql) }))
     },
     async deleteSavedQuery(id) {
       // factory method
@@ -872,6 +762,7 @@ export default {
       }
 
       // update url with a temporal parameter
+      // TODO: si estoy en una query ya guardada, esta se restaura
       this.$router.push({ ...this.$route, query: { ...this.$route.query, sql: encodeURIComponent(this.currentQuery) } }).catch(()=>{})
 
       const startTime = new Date().getTime();
@@ -979,7 +870,7 @@ export default {
           this.updateURL(newViz);
         }
 
-        this.reloadVisualizations()
+        this.setVisualizations()
       }
     },
     updateURL(element) {

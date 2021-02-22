@@ -1,6 +1,14 @@
 ---
+version: 2.1
+
+# To get the list of Gobierto modules
+# find test/ -name '*_test.rb' -type f | awk -v FS='/' '{print $3}' | grep gobierto | grep -v test | sort | uniq
+
+aliases:
+  - &working_directory ~/gobierto
+
 defaults: &defaults
-  working_directory: ~/gobierto
+  working_directory: *working_directory
   docker:
     - image: circleci/ruby:2.7.1-node-browsers
       environment:
@@ -17,81 +25,34 @@ defaults: &defaults
     - image: elasticsearch:2.4.1
     - image: redis:4.0.9
 
-version: 2
-jobs:
-  bundle_dependencies:
-    <<: *defaults
+commands:
+  restore_bundler_cache:
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/gobierto
       - restore_cache:
           name: "[Bundler] Restore cache"
           keys:
             - gobierto-bundler-{{ checksum "Gemfile.lock" }}
-      - run:
-          name: "[Bundler] Install dependencies"
-          command: bundle install --path vendor/bundle --jobs=4 --retry=3  --without development
-      - save_cache:
-          name: "[Bundler] Cache dependencies"
-          key: gobierto-bundler-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
+  restore_yarn_cache:
+    steps:
       - restore_cache:
           name: "[Yarn] Restore cache"
           keys:
             - gobierto-yarn-{{ checksum "yarn.lock" }}
-      - run:
-          name: "[Yarn] Install dependencies"
-          command: yarn install
-      - save_cache:
-          name: "[Yarn] Cache dependencies"
-          key: gobierto-yarn-{{ checksum "yarn.lock" }}
-          paths:
-            - node_modules
-
-      # Copy database config
-      - run: cp config/database.yml.example config/database.yml
-
-      # Install custom engines
-      - run: script/custom_engines_ci_setup
-
-      # Compile I18n JS file
-      - run: bin/rails i18n:js:export
-
-      # Precompile assets
+  restore_assets_cache:
+    steps:
       - restore_cache:
           name: "Restore cached assets"
           keys:
-            - v3-asset-cache-{{ .Branch }}
-            - v3-asset-cache-
-
-      - run: bin/rails assets:precompile
-
-      - save_cache:
-          name: "Cache assets"
-          key: v3-asset-cache-{{ .Branch }}
-          paths:
-            - public/assets
-            - public/packs-test
-            - tmp/cache
-
-      - persist_to_workspace:
-          root: ~/gobierto
-          paths:
-            - vendor/bundle
-            - node_modules
-            - public/assets
-            - public/packs-test
-            - tmp/cache
-
-  tests:
-    <<: *defaults
-    parallelism: 4
+            - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-{{ .Branch }}
+            - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-
+  prepare_workspace:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/gobierto
+          at: *working_directory
+      - restore_bundler_cache
+      - restore_yarn_cache
+      - restore_assets_cache
       - run: bundle --path vendor/bundle
       - run: yarn install
       # Wait for DB containers to be ready
@@ -114,19 +75,325 @@ jobs:
       # Install custom engines
       - run: script/custom_engines_ci_setup
 
-      # Run tests
       - run:
-          name: Run tests
+          name: Setup budgets seeds
           command: |
-            TEST_FILES="$(circleci tests glob "test/**/*_test.rb" "vendor/gobierto_engines/*/test/**/*_test.rb" | circleci tests split --split-by=timings)"
             bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
             echo '::BudgetsSeeder.seed!' | bin/rails c
+
+jobs:
+  bundle_dependencies:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: *working_directory
+
+      - restore_bundler_cache
+      - run:
+          name: "[Bundler] Install dependencies"
+          command: bundle install --path vendor/bundle --jobs=4 --retry=3  --without development
+      - save_cache:
+          name: "[Bundler] Cache dependencies"
+          key: gobierto-bundler-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - restore_yarn_cache
+      - run:
+          name: "[Yarn] Install dependencies"
+          command: yarn install
+      - save_cache:
+          name: "[Yarn] Cache dependencies"
+          key: gobierto-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+
+      # Copy database config
+      - run: cp config/database.yml.example config/database.yml
+
+      # Install custom engines
+      - run: script/custom_engines_ci_setup
+
+      # Compile I18n JS file
+      - run: bin/rails i18n:js:export
+
+      # Compile assets
+      - restore_assets_cache
+      - run: bin/rails assets:precompile
+      - save_cache:
+          name: "Cache assets"
+          key: gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-{{ .Branch }}
+          paths:
+            - public/assets
+            - public/packs-test
+
+      - persist_to_workspace:
+          root: *working_directory
+          paths:
+            - db
+            - tmp/cache
+
+  tests_admin:
+    <<: *defaults
+    parallelism: 2
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_admin*' -name '*_test.rb' | grep -v 'gobierto_admin\/gobierto_' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_attachments:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_attachments*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_budget_consultations:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_budget_consultations*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_budgets:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_budgets*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_calendars:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_calendars*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_citizens_charters:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_citizens_charters*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_cms:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_cms*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_common:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_common*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_core:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_core*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_dashboards:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_dashboards*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_data:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_data*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_exports:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_exports*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_indicators:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_indicators*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_investments:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_investments*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_observatory:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_observatory*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_participation:
+    <<: *defaults
+    parallelism: 2
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_participation*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_people:
+    <<: *defaults
+    parallelism: 2
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_people*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_plans:
+    <<: *defaults
+    parallelism: 2
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_plans*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_visualizations:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -path '*gobierto_visualizations*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_others:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find test -not -path '*gobierto_*' -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
+
+  tests_engines:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST_FILES="$(find -L vendor/gobierto_engines/ -name '*_test.rb' | circleci tests split --split-by=timings)"
+            bin/rails test $TEST_FILES
+      - store_test_results:
+          path: test/reports
 
   staging-deploy:
-    working_directory: ~/gobierto
+    working_directory: *working_directory
     machine:
       enabled: true
     steps:
@@ -137,7 +404,7 @@ jobs:
           command: script/staging_deploy.sh
 
   production-deploy:
-    working_directory: ~/gobierto
+    working_directory: *working_directory
     machine:
       enabled: true
     steps:
@@ -152,20 +419,120 @@ workflows:
   build-and-deploy:
     jobs:
       - bundle_dependencies
-      - tests:
+      - tests_admin:
+          requires:
+            - bundle_dependencies
+      - tests_attachments:
+          requires:
+            - bundle_dependencies
+      - tests_budget_consultations:
+          requires:
+            - bundle_dependencies
+      - tests_budgets:
+          requires:
+            - bundle_dependencies
+      - tests_calendars:
+          requires:
+            - bundle_dependencies
+      - tests_citizens_charters:
+          requires:
+            - bundle_dependencies
+      - tests_cms:
+          requires:
+            - bundle_dependencies
+      - tests_common:
+              requires:
+                - bundle_dependencies
+      - tests_core:
+          requires:
+            - bundle_dependencies
+      - tests_dashboards:
+            requires:
+              - bundle_dependencies
+      - tests_data:
+          requires:
+            - bundle_dependencies
+      - tests_exports:
+          requires:
+            - bundle_dependencies
+      - tests_indicators:
+          requires:
+            - bundle_dependencies
+      - tests_investments:
+          requires:
+            - bundle_dependencies
+      - tests_observatory:
+          requires:
+            - bundle_dependencies
+      - tests_participation:
+          requires:
+            - bundle_dependencies
+      - tests_people:
+          requires:
+            - bundle_dependencies
+      - tests_plans:
+          requires:
+            - bundle_dependencies
+      - tests_visualizations:
+          requires:
+            - bundle_dependencies
+      - tests_others:
+          requires:
+            - bundle_dependencies
+      - tests_engines:
           requires:
             - bundle_dependencies
       - staging-deploy:
           requires:
             - bundle_dependencies
-            - tests
+            - tests_admin
+            - tests_attachments
+            - tests_budget_consultations
+            - tests_budgets
+            - tests_calendars
+            - tests_citizens_charters
+            - tests_cms
+            - tests_common
+            - tests_core
+            - tests_dashboards
+            - tests_data
+            - tests_exports
+            - tests_indicators
+            - tests_investments
+            - tests_observatory
+            - tests_participation
+            - tests_people
+            - tests_plans
+            - tests_visualizations
+            - tests_others
+            - tests_engines
           filters:
             branches:
               only: staging
       - production-deploy:
           requires:
             - bundle_dependencies
-            - tests
+            - tests_admin
+            - tests_attachments
+            - tests_budget_consultations
+            - tests_budgets
+            - tests_calendars
+            - tests_citizens_charters
+            - tests_cms
+            - tests_common
+            - tests_core
+            - tests_dashboards
+            - tests_data
+            - tests_exports
+            - tests_indicators
+            - tests_investments
+            - tests_observatory
+            - tests_participation
+            - tests_people
+            - tests_plans
+            - tests_visualizations
+            - tests_others
+            - tests_engines
           filters:
             branches:
               only: master

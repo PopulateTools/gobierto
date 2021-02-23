@@ -69,4 +69,32 @@ namespace :dev do
     end
   end
 
+  # bin/rails dev:reset_passwords[user]
+  # bin/rails dev:reset_passwords[admin]
+  # bin/rails dev:reset_passwords
+  desc "Reset passwords"
+  task :reset_passwords, [:category] do |_t, args|
+    raise "Can't run this task in the #{Rails.env} environment" if Rails.env.staging? || Rails.env.production?
+    
+    category = args.category
+
+    if category.nil? || category == "user"
+      puts "Resetting user passwords..."
+
+      User.all.each do |user|
+        user.password = user.password_confirmation = "gobierto"
+        user.save
+      end
+    end
+
+    if category.nil? || category == "admin"
+      puts "Resetting admin passwords..."
+
+      GobiertoAdmin::Admin.all.each do |admin|
+        admin.password = admin.password_confirmation = "gobierto"
+        admin.save
+      end
+    end
+  end
+
 end

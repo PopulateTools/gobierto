@@ -267,13 +267,12 @@ export default {
       const {
         path,
         name,
-        params: { queryId }
+        params: { queryId },
+        query: { sql }
       } = to;
 
       // do nothing if the component is inactive
       if (this._inactive) return null
-
-      this.parseUrl(queryId);
 
       if (path !== from.path) {
         this.isQueryModified = false;
@@ -291,6 +290,8 @@ export default {
       } else if (name === ROUTE_NAMES.Visualization) {
         this.currentVizTab = 1;
         this.showLabelEdit = true;
+      } else if (name === ROUTE_NAMES.Query) {
+        this.parseUrl(queryId, sql)
       }
     }
   },
@@ -546,16 +547,11 @@ export default {
       }
     },
     parseUrl(queryId, queryText) {
-      let item = null;
-      if (queryId) {
+      if (queryId && !queryText) {
         // if has id it's an stored query
-        item = this.publicQueries.find(({ id }) => id === queryId);
-      }
-
-      if (item) {
         const {
           attributes: { sql, name, user_id, privacy_status }
-        } = item;
+        } = this.publicQueries.find(({ id }) => id === queryId);
 
         this.queryName = name;
         this.queryUserId = user_id;

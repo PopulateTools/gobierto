@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :dev do
 
   # bin/rails dev:load_data[staging]
@@ -73,9 +75,9 @@ namespace :dev do
   # bin/rails dev:reset_passwords[admin]
   # bin/rails dev:reset_passwords
   desc "Reset passwords"
-  task :reset_passwords, [:category] do |_t, args|
+  task :reset_passwords, [:category] => :environment do |_t, args|
     raise "Can't run this task in the #{Rails.env} environment" if Rails.env.staging? || Rails.env.production?
-    
+
     category = args.category
 
     if category.nil? || category == "user"

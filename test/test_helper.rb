@@ -4,33 +4,6 @@ ENV["RAILS_ENV"] = "test"
 ENV["DISABLE_DATABASE_ENVIRONMENT_CHECK"] = "1"
 ENV["HOST"] = "www.example.com"
 
-if ENV["CI"] || ENV["RUN_COVERAGE"]
-  require "simplecov"
-  SimpleCov.start "rails" do
-    add_filter "app/models/concerns"
-    add_filter "app/controllers/concerns"
-
-    add_group "Controllers", "app/controllers"
-    add_group "Models", "app/models"
-    add_group "Forms", "app/forms"
-    add_group "Services", "app/services"
-    add_group "Decorators", "app/decorators"
-    add_group "Presenters", "app/presenters"
-    add_group "Repositories", "app/repositories"
-    add_group "Publishers", "app/publishers"
-    add_group "Jobs", "app/jobs"
-    add_group "Policies", "app/policies"
-    add_group "Helpers", "app/helpers"
-    add_group "Mailers", "app/mailers"
-    add_group "Views", "app/views"
-  end
-end
-
-if ENV["CI"]
-  require "codecov"
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov
-end
-
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 require "minitest/mock"
@@ -55,6 +28,8 @@ require "minitest/retry"
 require "vcr"
 require "mocha/minitest"
 require "selenium/webdriver"
+require "simplecov"
+require "simplecov-cobertura"
 
 I18n.default_locale = :en
 Time.zone = "Madrid"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :dev do
 
   # bin/rails dev:load_data[staging]
@@ -66,6 +68,34 @@ namespace :dev do
 
       puts "#{original_domain} => #{site.domain}"
       site.save
+    end
+  end
+
+  # bin/rails dev:reset_passwords
+  # bin/rails dev:reset_passwords[user]
+  # bin/rails dev:reset_passwords[admin]
+  desc "Reset passwords"
+  task :reset_passwords, [:category] => :environment do |_t, args|
+    raise "Can't run this task in the #{Rails.env} environment" if Rails.env.staging? || Rails.env.production?
+
+    category = args.category
+
+    if category.nil? || category == "user"
+      puts "Setting all user passwords as \"gobierto\"..."
+
+      User.all.each do |user|
+        user.password = user.password_confirmation = "gobierto"
+        user.save
+      end
+    end
+
+    if category.nil? || category == "admin"
+      puts "Setting all admin passwords as \"gobierto\"..."
+
+      GobiertoAdmin::Admin.all.each do |admin|
+        admin.password = admin.password_confirmation = "gobierto"
+        admin.save
+      end
     end
   end
 

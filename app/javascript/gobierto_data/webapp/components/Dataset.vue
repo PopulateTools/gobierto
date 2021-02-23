@@ -353,7 +353,9 @@ export default {
       ].includes(name)
     ) {
       this.updateBaseTitle();
-      this.handleDatasetTabs(this.$route);
+      await this.handleDatasetTabs(this.$route);
+      // wait for the async elements
+      this.runCurrentQuery()
     }
 
     this.queryOrVizIsNotMine();
@@ -487,7 +489,6 @@ export default {
             await this.setQueries();
           }
           this.parseUrl(queryId, sql);
-          this.runCurrentQuery();
           this.setDefaultQuery();
           break;
         }
@@ -571,12 +572,8 @@ export default {
       } = this.$route;
 
       //We need to keep this query separate from the editor query
-      //When load a saved query we use the queryId to find inside privateQueries or publicQueries
-      const items = !this.showPrivate
-        ? this.publicQueries
-        : this.privateQueries;
       const { attributes: { sql: queryRevert } = {} } =
-        items?.find(({ id }) => id === queryId) || {};
+        this.publicQueries?.find(({ id }) => id === queryId) || {};
       //QueryRevert: if the user loads a saved query, there can reset to the initial query or reset to the saved query.
       this.queryRevert = queryRevert;
     },
@@ -632,7 +629,6 @@ export default {
       this.isPrivateVizLoading = false;
     },
     async getDataFromVisualizations(data) {
-
       const queryPromises = new Map()
       const visualizations = data.map(x => {
         const { attributes: {
@@ -762,8 +758,10 @@ export default {
       }
 
       // update url with a temporal parameter
-      // TODO: si estoy en una query ya guardada, esta se restaura
-      this.$router.push({ ...this.$route, query: { ...this.$route.query, sql: encodeURIComponent(this.currentQuery) } }).catch(()=>{})
+      this.$router.push({
+        ...this.$route,
+        query: { ...this.$route.query, sql: encodeURIComponent(this.currentQuery) }
+      }).catch(()=>{})
 
       const startTime = new Date().getTime();
       // factory method

@@ -92,6 +92,8 @@
       text-align: center;
       margin-left: 20px;
       flex: 1 0 auto;
+      position: relative;
+      z-index: 2;
 
       @include min-screen(768) {
         flex: 0 0 auto;

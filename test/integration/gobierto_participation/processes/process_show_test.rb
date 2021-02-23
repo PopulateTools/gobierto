@@ -148,6 +148,8 @@ module GobiertoParticipation
     end
 
     def test_site_subscription
+      skip "Subscription boxes are disabled"
+
       with_signed_in_user(user) do
 
         visit process_path(gender_violence_process)

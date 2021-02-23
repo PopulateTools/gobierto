@@ -17,10 +17,10 @@
     :label-total-plural="labelContractsPlural"
     :label-total-unique="labelContractsUnique"
     :depth-entity="true"
-    :deep-level="deepLevel"
     :key-for-third-depth="'title'"
     @transformData="nestedData"
     @showTooltip="showTooltipTreemap"
+    @on-treemap-click="goesToTreemapItem"
   />
 </template>
 <script>
@@ -371,6 +371,11 @@ export default {
         </div>`
       }
 
+    },
+    goesToTreemapItem(data) {
+      const { assignee_routing_id } = data
+      // eslint-disable-next-line no-unused-vars
+      this.$router.push(`/visualizaciones/contratos/adjudicatario/${assignee_routing_id}`).catch(err => {})
     }
   }
 }

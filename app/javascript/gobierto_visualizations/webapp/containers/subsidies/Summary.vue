@@ -212,6 +212,8 @@ export default {
   created() {
     this.columns = grantedColumns;
     this.showColumns = ['name', 'count', 'sum']
+    this.visualizationsData = this.visualizationsData
+      .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
   },
   methods: {
     refreshSummaryData(){
@@ -228,6 +230,10 @@ export default {
       this.visualizationsData.forEach(({ beneficiary_name, amount }) => {
         if (beneficiary_name === '' || beneficiary_name === undefined) {
           return;
+        }
+
+        if (beneficiary_name === 'física') {
+          beneficiary_name = 'PERSONA FÍSICA'
         }
 
         if (groupedByBeneficiary[beneficiary_name] === undefined) {

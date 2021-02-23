@@ -44,9 +44,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      assert has_link?("By signing up you agree to the Privacy Policy")
-      privacy_page_link = find("a", text: "By signing up you agree to the Privacy Policy")
-      assert privacy_page_link[:href].include?(gobierto_cms_page_path(privacy_page.slug))
+      assert has_no_link?("By signing up you agree to the Privacy Policy")
     end
   end
 end

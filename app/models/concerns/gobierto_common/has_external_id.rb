@@ -27,7 +27,7 @@ module GobiertoCommon
     def new_external_id
       table_name = self.class.table_name
 
-      base_id = id || self.class.maximum(:id) + 1
+      base_id = id || self.class.maximum(:id).to_i + 1
       if (related_external_ids = self.class.where("#{table_name}.external_id ~* ?", "#{base_id}-\\d+$")).exists?
         max_count = related_external_ids.pluck(:external_id).map { |related_id| related_id.scan(/\d+$/).first.to_i }.max
         "#{base_id}-#{max_count + 1}"

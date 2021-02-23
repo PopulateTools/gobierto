@@ -147,12 +147,12 @@
         {{ labelMainAssignees }}
       </h3>
       <Table
-        :data="items"
+        :data="tableItems"
         :order-column="'count'"
         :columns="assigneesColumns"
         :show-columns="showColumns"
         class="gobierto-table-margin-top"
-        :on-row-click="goesToTableItem"
+        @on-href-click="goesToTableItem"
       />
     </div>
   </div>
@@ -189,6 +189,7 @@ export default {
       visualizationsData: this.$root.$data.contractsData,
       assigneesColumns: assigneesColumns,
       items: [],
+      tableItems: [],
       columns: [],
       showColumns: [],
       value: '',
@@ -215,15 +216,20 @@ export default {
   },
   computed: {
     visualizationsDataExcludeNoCategory() {
-      return this.visualizationsData.filter(({ category_id }) => !!category_id)
+      return this.visualizationsData
+        .filter(({ category_id }) => !!category_id)
+        .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
     },
     visualizationsDataExcludeMinorContract() {
-      return this.visualizationsData.filter(({ minor_contract: minor }) => minor === 'f')
+      return this.visualizationsData
+        .filter(({ minor_contract: minor }) => minor === 'f')
+        .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
     }
   },
   created() {
     this.columns = assigneesColumns;
     this.showColumns = ['count', 'name', 'sum']
+    this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
   },
   methods: {
     showTooltipBeesWarm(event) {
@@ -268,6 +274,7 @@ export default {
         this.visualizationsData = this.$root.$data.contractsData.filter(contract => contract.assignee.toLowerCase().includes(this.value.toLowerCase()))
       }
       this.items = this.buildItems();
+      this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
     },
     buildItems() {
       const groupedByAssignee = {}

@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_common/has_external_id_test"
 
 module GobiertoPlans
   class NodeTest < ActiveSupport::TestCase
+    include GobiertoCommon::HasExternalIdTest
 
     def setup
       super
@@ -15,6 +17,10 @@ module GobiertoPlans
 
       @instance_custom_field = gobierto_common_custom_fields(:madrid_economic_plan_node_instance_level)
       @instance_custom_field_record = gobierto_common_custom_field_records(:scholarships_in_school_cateens_custom_field_instance_level)
+    end
+
+    def subject
+      ::GobiertoPlans::Node
     end
 
     def node_custom_fields

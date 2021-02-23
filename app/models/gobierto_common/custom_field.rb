@@ -76,6 +76,10 @@ module GobiertoCommon
       [:date, :datetime]
     end
 
+    def self.unit_options
+      [:generic, :currency]
+    end
+
     def allow_multiple?
       self.class.field_types_with_multiple_setting.include? field_type
     end

@@ -68,7 +68,7 @@
         <div class="pure-u-1 pure-u-lg-1-2 pure-u-md-1-2">
           <ContractsShowLabelGroup
             :label="labelAwarding"
-            :value="award_date | formatDate"
+            :value="gobierto_start_date | formatDate"
           />
           <ContractsShowLabelGroup
             :label="labelContractAmount"
@@ -137,7 +137,7 @@ export default {
       contract_type: '',
       start_date: '',
       end_date: '',
-      award_date: '',
+      gobierto_start_date: '',
       batch_number: '',
       minor_contract: '',
       open_proposals_date: '',
@@ -204,7 +204,7 @@ export default {
         assignee_routing_id,
         start_date,
         end_date,
-        award_date,
+        gobierto_start_date,
         minor_contract,
         open_proposals_date,
         submission_date,
@@ -226,7 +226,7 @@ export default {
       this.contract_type = contract_type
       this.start_date = start_date
       this.end_date = end_date
-      this.award_date = award_date
+      this.gobierto_start_date = gobierto_start_date
       this.batch_number = +batch_number
       this.minor_contract = minor_contract
       this.open_proposals_date = open_proposals_date || null

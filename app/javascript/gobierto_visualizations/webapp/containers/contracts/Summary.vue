@@ -16,7 +16,7 @@
       v-if="activeTab === 0"
       :data="visualizationsDataExcludeMinorContract"
       :radius-property="'final_amount_no_taxes'"
-      :x-axis-prop="'award_date'"
+      :x-axis-prop="'gobierto_start_date'"
       :y-axis-prop="'contract_type'"
       @showTooltip="showTooltipBeesWarm"
       @goesToItem="goesToItem"

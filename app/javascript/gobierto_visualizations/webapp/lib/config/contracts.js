@@ -3,7 +3,7 @@ export const contractsColumns = [
   { field: 'assignee', name: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), cssClass: 'bold' },
   { field: 'title', name: I18n.t('gobierto_visualizations.visualizations.contracts.contractor'), cssClass: 'largest-width-td ellipsis' },
   { field: 'final_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount'), cssClass: 'right nowrap pr1', type: 'money' },
-  { field: 'award_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding'), cssClass: 'nowrap pl1 right', type: 'date' },
+  { field: 'gobierto_start_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding'), cssClass: 'nowrap pl1 right', type: 'date' },
   { field: 'contractor', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity'), cssClass: 'nowrap pl1' },
   { field: 'status', name: I18n.t('gobierto_visualizations.visualizations.contracts.status'), cssClass: 'nowrap pl1' },
   { field: 'contract_type', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type'), cssClass: 'nowrap pl1' },
@@ -29,7 +29,7 @@ export const assigneesColumns = [
 export const assigneesShowColumns = [
   { field: 'title', name: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), cssClass: 'bold' },
   { field: 'final_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.final_amount_no_taxes'), cssClass: 'nowrap pr1 right', type: 'money' },
-  { field: 'award_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.date'), cssClass: 'nowrap pl1 right', type: 'date' },
+  { field: 'gobierto_start_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.date'), cssClass: 'nowrap pl1 right', type: 'date' },
 ];
 
 // filters config

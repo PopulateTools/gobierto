@@ -47,7 +47,7 @@ export default {
 
     this.items = this.contractsData.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
     this.columns = contractsColumns;
-    this.showColumns = ['assignee', 'title', 'award_date', 'final_amount_no_taxes']
+    this.showColumns = ['assignee', 'title', 'gobierto_start_date', 'final_amount_no_taxes']
   },
   beforeDestroy(){
     EventBus.$off('refresh-summary-data');

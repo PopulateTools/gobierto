@@ -56,7 +56,7 @@ export default {
     EventBus.$emit("refresh-active-tab");
 
     this.buildItems();
-    this.showColumns = ['title', 'final_amount_no_taxes', 'award_date',]
+    this.showColumns = ['title', 'final_amount_no_taxes', 'gobierto_start_date',]
   },
   methods: {
     buildItems(){

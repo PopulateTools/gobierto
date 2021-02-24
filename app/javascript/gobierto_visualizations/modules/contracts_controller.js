@@ -172,14 +172,14 @@ export class ContractsController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
-    const contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, award_date, assignee_id, ...rest }) => {
+    const contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, ...rest }) => {
       return {
         final_amount_no_taxes: (final_amount_no_taxes && !Number.isNaN(final_amount_no_taxes)) ? parseFloat(final_amount_no_taxes): 0.0,
         initial_amount_no_taxes: (initial_amount_no_taxes && !Number.isNaN(initial_amount_no_taxes)) ? parseFloat(initial_amount_no_taxes): 0.0,
         range: rangeFormat(+final_amount_no_taxes),
         assignee_routing_id: assignee_id,
-        award_date_year: award_date ? new Date(award_date).getFullYear().toString() : '',
-        award_date: new Date(award_date),
+        gobierto_start_date_year: gobierto_start_date ? new Date(gobierto_start_date).getFullYear().toString() : '',
+        gobierto_start_date: new Date(gobierto_start_date),
         ...rest
       }
 
@@ -201,7 +201,7 @@ export class ContractsController {
 
     this.data = {
       contractsData: this._formalizedContractsData(contractsDataMap).sort(
-        sortByField("award_date")
+        sortByField("gobierto_start_date")
       ),
       tendersData: this.unfilteredTendersData
     };
@@ -385,7 +385,7 @@ export class ContractsController {
   }
 
   _renderDateChart() {
-    const dimension = this.ndx.dimension(contract => contract.award_date_year);
+    const dimension = this.ndx.dimension(contract => contract.gobierto_start_date_year);
 
     const renderOptions = {
       containerSelector: "#date-bars",

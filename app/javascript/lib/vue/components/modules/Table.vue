@@ -3,19 +3,17 @@
     ref="table"
     class="gobierto-table"
   >
-    <div class="gobierto-table__header">
-      <slot name="title" />
-      <template v-if="showColumnSelector">
-        <slot
-          name="columns"
-        >
+    <template v-if="showColumnSelector">
+      <slot name="columns">
+        <div class="gobierto-table__header">
           <TableColumnsSelector
             :columns="mapColumns"
             @visible-columns="filterColumns"
           />
-        </slot>
-      </template>
-    </div>
+        </div>
+      </slot>
+    </template>
+
     <table>
       <thead>
         <template v-for="[id, { name, index, cssClass }] in arrayColumnsFiltered">
@@ -34,15 +32,13 @@
         </template>
       </thead>
       <tbody>
-        <template
-          v-for="(item, index) in dataTable"
-        >
+        <template v-for="(item, index) in visibleRows">
           <tr
             :key="index"
             :class="{ 'is-clickable': hasPermalink }"
             class="gobierto-table__tr"
           >
-            <template v-for="[id, { name, index, type, cssClass }] in arrayColumnsFiltered">
+            <template v-for="[id, { type, cssClass }] in arrayColumnsFiltered">
               <template v-if="type === 'money'">
                 <td
                   :key="id"
@@ -139,7 +135,8 @@
     <template v-if="showPagination">
       <slot
         name="pagination"
-        :show-data="updateData"
+        :paginator="updateData"
+        :data="rowsSorted"
       >
         <Pagination
           :data="rowsSorted"
@@ -204,8 +201,8 @@ export default {
       mapColumns: new Map(),
       currentSortColumn: this.orderColumn,
       currentSort: this.$options.defaults.sortDirection,
-      visibleColumns: this.showColumns,
-      dataTable: [],
+      visibleColumns: this.showColumns.length ? this.showColumns : this.columns.map(({ field }) => field),
+      visiblePaginatedRows: null,
       arrayColumnsFiltered: []
     };
   },
@@ -213,27 +210,28 @@ export default {
     hasPermalink() {
       return this.data.some(element => element[this.href])
     },
-    tmpRows() {
-      return this.data || []
-    },
     rowsSorted() {
       const id = this.currentSortColumn;
       const sort = this.currentSort;
-      return this.tmpRows
+      return this.data
         .slice()
         .sort(({ [id]: termA }, { [id]: termB }) =>
           sort === "up"
             ? typeof termA === "string"
               ? termA.localeCompare(termB, undefined, { numeric: true })
-              : termA > termB ? -1 : 1
+              : termA > termB ? 1 : -1
             : typeof termA === "string"
               ? termB.localeCompare(termA, undefined, { numeric: true })
-              : termA < termB ? -1 : 1
+              : termA < termB ? 1 : -1
         );
+    },
+    visibleRows() {
+      // if there's pagination, display only such subset, otherwise show everything
+      return this.visiblePaginatedRows || this.rowsSorted
     },
     icon() {
       return this.direction === 'down' ? 'down' : 'down-alt'
-    }
+    },
   },
   created() {
     this.prepareTable()
@@ -267,7 +265,7 @@ export default {
       this.arrayColumnsFiltered = Array.from(this.mapColumns).filter(([,{ visibility }]) => !!visibility)
     },
     updateData(values) {
-      this.dataTable = values
+      this.visiblePaginatedRows = values
     },
     filterColumns(columns) {
       this.mapColumns = columns

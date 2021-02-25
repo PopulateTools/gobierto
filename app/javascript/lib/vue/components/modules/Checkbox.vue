@@ -29,7 +29,7 @@ export default {
   name: "Checkbox",
   props: {
     title: {
-      type: String,
+      type: [Number, String],
       default: ""
     },
     id: {

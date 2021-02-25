@@ -15,17 +15,15 @@
 </template>
 
 <script>
-import Map from "../../components/Map.vue";
-import Gallery from "../../components/Gallery.vue";
-import Table from "../../components/Table.vue";
+// define the components as dynamic
+const COMPONENTS = [
+  () => import("../../components/Map.vue"),
+  () => import("../../components/Gallery.vue"),
+  () => import("../../components/List.vue")
+];
 
 export default {
   name: "HomeMain",
-  components: {
-    Map,
-    Gallery,
-    Table
-  },
   props: {
     activeTab: {
       type: Number,
@@ -38,7 +36,7 @@ export default {
   },
   data() {
     return {
-      tabs: [],
+      tabs: COMPONENTS,
       currentTabComponent: null
     };
   },
@@ -48,7 +46,6 @@ export default {
     }
   },
   created() {
-    this.tabs = [Map, Gallery, Table];
     this.currentTabComponent = this.tabs[this.activeTab];
   }
 };

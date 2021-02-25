@@ -13,16 +13,24 @@
 <script>
 export default {
   name: "ShowMore",
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       labelShowAll: "",
       labelShowLess: "",
-      isShowingAll: false
+      isShowingAll: this.show
     };
   },
   created() {
     this.labelShowAll = I18n.t("gobierto_investments.projects.showall");
     this.labelShowLess = I18n.t("gobierto_investments.projects.showless");
+
+    this.$emit("show-all", this.isShowingAll);
   },
   methods: {
     showAll() {

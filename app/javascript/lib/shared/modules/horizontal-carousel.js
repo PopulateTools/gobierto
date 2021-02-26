@@ -1,3 +1,5 @@
+import { ImageLightbox } from "lib/shared";
+
 export class HorizontalCarousel {
   constructor(carousel) {
     if (carousel) {
@@ -6,12 +8,25 @@ export class HorizontalCarousel {
       this.prev = carousel.querySelector("[data-prev]");
 
       // initializations
-      this.visibleItems = parseInt(carousel.dataset.visibleItems) || 1;
+      const { visibleItems, thumbnails } = carousel.dataset
+      this.visibleItems = parseInt(visibleItems) || 1;
       this.maxValue = (this.content.children.length - this.visibleItems) * (100 / this.visibleItems);
       this.start = 0;
+      this.thumbnails = thumbnails;
+
+      if (this.thumbnails && this.content.children.length > 1) {
+        carousel.parentNode.insertBefore(document.createElement("div"), carousel.parentNode.firstElementChild)
+        this.setActiveThumbnail(this.content.firstElementChild)
+
+        // event handling for thumbnails
+        this.content.children.forEach(child => {
+          child.addEventListener("click", this.onThumbnailClick.bind(this))
+          child.classList.add("is-thumbnail")
+        })
+      }
 
       // update custom CSS
-      document.body.style.setProperty("--visible-items", this.visibleItems);
+      this.content.children.forEach(child => (child.style.flex = `0 0 calc(100% / ${this.visibleItems})`));
 
       // init frames
       this.setVisibility(this.next, this.start < this.maxValue);
@@ -31,6 +46,19 @@ export class HorizontalCarousel {
 
   setVisibility(element, visible = true) {
     element.style.visibility = visible ? "visible" : "hidden";
+  }
+
+  setActiveThumbnail(node) {
+    const carousel = this.content.parentNode
+    const copy = node.cloneNode(true)
+    copy.classList.remove("is-thumbnail")
+    copy.classList.add("is-active")
+    copy.style = "position:relative;"
+    carousel.parentNode.replaceChild(copy, carousel.parentNode.firstElementChild)
+
+    new ImageLightbox(copy)
+
+    copy.querySelector("img").addEventListener("load", this.onImageLoad.bind(this))
   }
 
   onNextClick() {
@@ -53,9 +81,24 @@ export class HorizontalCarousel {
     this.setVisibility(this.next, Math.abs(this.start) < this.maxValue);
   }
 
+  onThumbnailClick({ currentTarget }) {
+    this.setActiveThumbnail(currentTarget)
+  }
+
+  onImageLoad({ target }) {
+    const { naturalHeight, naturalWidth } = target;
+    if (naturalHeight > naturalWidth) {
+      target.classList.add("is-portrait");
+    }
+  }
+
   destroy() {
     this.next.removeEventListener("click", this.onNextClick.bind(this));
     this.prev.removeEventListener("click", this.onPrevClick.bind(this));
+
+    if (this.thumbnails && this.content.children.length > 1) {
+      this.content.children.forEach(child => child.removeEventListener("click", this.onThumbnailClick.bind(this)))
+    }
   }
 }
 

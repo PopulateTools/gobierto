@@ -6,9 +6,9 @@
       </h1>
     </section>
 
-    <section v-if="project.gallery">
+    <section v-if="hasGallery">
       <div class="investments-project-main--carousel">
-        <HorizontalCarousel :visible-items="visibleItems">
+        <HorizontalCarousel :thumbnails="true">
           <div
             v-for="photo in gallery"
             :key="photo"
@@ -16,11 +16,9 @@
           >
             <img
               :src="photo"
-              class="investments-project-main--carousel-img js-image-lightbox"
-              @load="onload"
+              class="investments-project-main--carousel-img"
             >
             <img
-              v-if="gallery.length <= 1"
               :src="photo"
               class="investments-project-main--carousel-blur"
             >
@@ -29,7 +27,7 @@
       </div>
     </section>
 
-    <section v-if="attributes.length">
+    <section v-if="hasAttributes">
       <h4 class="investments-project-main--subheading">
         {{ labelTechs }}
       </h4>
@@ -89,11 +87,9 @@
 </template>
 
 <script>
-import DictionaryItem from "../../components/DictionaryItem.vue";
-
 import { HorizontalCarousel, ReadMore } from "lib/vue/components";
-import { ImageLightbox } from "lib/shared";
 import { CommonsMixin } from "../../mixins/common.js";
+import DictionaryItem from "../../components/DictionaryItem.vue";
 
 export default {
   name: "ProjectMain",
@@ -113,20 +109,24 @@ export default {
     return {
       attributes: {},
       gallery: [],
-      visibleItems: 3,
+      visibleItems: 1,
       labelDesc: I18n.t("gobierto_investments.projects.description") || "",
       labelTechs: I18n.t("gobierto_investments.projects.tech_sheet") || "",
     };
+  },
+  computed: {
+    hasGallery() {
+      return !!this.gallery.length
+    },
+    hasAttributes() {
+      return !!this.attributes.length
+    }
   },
   created() {
     this.setDisplay();
   },
   updated() {
     this.setDisplay();
-  },
-  mounted() {
-    const lightboxes = this.$el.querySelectorAll(".js-image-lightbox");
-    lightboxes.forEach(lightbox => new ImageLightbox(lightbox));
   },
   methods: {
     setDisplay() {
@@ -138,17 +138,6 @@ export default {
           type === "separator" ||
           (!(value instanceof Array && value.length === 0))
       );
-
-      if (gallery.length < this.visibleItems) {
-        this.visibleItems = gallery.length;
-      }
-    },
-    onload({ target }) {
-      const { naturalHeight, naturalWidth } = target;
-
-      if (this.gallery.length <= 1 && naturalHeight > naturalWidth) {
-        target.classList.add("is-portrait");
-      }
     }
   }
 };

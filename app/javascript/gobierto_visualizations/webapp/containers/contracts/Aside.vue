@@ -109,7 +109,7 @@ export default {
       const dateOptions = [];
       const categoryTypesOptions = [];
       const contractorTypesOptions = [];
-      const years = new Set(this.contractsData.map(({ award_date_year }) => award_date_year));
+      const years = new Set(this.contractsData.map(({ gobierto_start_date_year }) => gobierto_start_date_year));
       const contractTypes = new Set(this.contractsData.map(({ contract_type }) => contract_type));
       const processTypes = new Set(this.contractsData.map(({ process_type }) => process_type));
       const categoryTypes = new Set(this.contractsData.map(({ category_title }) => category_title));
@@ -178,15 +178,15 @@ export default {
       // It iterates over the contracts to get the number of items for each year, process type and contract type
       // In the end, it populates counter with something like:
       // {process_types: {'Abierto': 12, 'Abierto Simplificado': 43,...}, dates: {2020: '12'...}}
-      this.contractsData.forEach(({ process_type, contract_type, award_date_year, category_title, contractor }) => {
+      this.contractsData.forEach(({ process_type, contract_type, gobierto_start_date_year, category_title, contractor }) => {
         counter.process_types[process_type] = counter.process_types[process_type] || 0
         counter.process_types[process_type]++
 
         counter.contract_types[contract_type] = counter.contract_types[contract_type] || 0
         counter.contract_types[contract_type]++
 
-        counter.dates[award_date_year] = counter.dates[award_date_year] || 0
-        counter.dates[award_date_year]++
+        counter.dates[gobierto_start_date_year] = counter.dates[gobierto_start_date_year] || 0
+        counter.dates[gobierto_start_date_year]++
 
         counter.category_title[category_title] = counter.category_title[category_title] || 0
         counter.category_title[category_title]++

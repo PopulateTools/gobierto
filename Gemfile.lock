@@ -92,7 +92,7 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     ansi (1.5.0)
-    appsignal (2.11.8)
+    appsignal (2.11.9)
       rack
     ast (2.4.2)
     aws-eventstream (1.1.0)
@@ -231,9 +231,9 @@ GEM
     httpi (2.4.4)
       rack
       socksify
-    i18n (1.8.8)
+    i18n (1.8.9)
       concurrent-ruby (~> 1.0)
-    i18n-js (3.8.0)
+    i18n-js (3.8.1)
       i18n (>= 0.6.6)
     i18n-tasks (0.9.33)
       activesupport (>= 4.0.2)
@@ -310,7 +310,7 @@ GEM
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
-    minitest (5.14.3)
+    minitest (5.14.4)
     minitest-ci (3.4.0)
       minitest (>= 5.0.6)
     minitest-reporters (1.4.3)
@@ -525,7 +525,7 @@ GEM
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
-    webmock (3.11.2)
+    webmock (3.11.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)

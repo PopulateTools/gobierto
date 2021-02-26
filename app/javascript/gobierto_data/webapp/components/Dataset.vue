@@ -354,9 +354,7 @@ export default {
       ].includes(name)
     ) {
       this.updateBaseTitle();
-      await this.handleDatasetTabs(this.$route);
-      // wait for the async elements
-      this.runCurrentQuery()
+      this.handleDatasetTabs(this.$route);
     }
 
     this.queryOrVizIsNotMine();
@@ -491,6 +489,8 @@ export default {
           }
           this.parseUrl(queryId, sql);
           this.setDefaultQuery();
+          // run queries just in the editor tab
+          this.runCurrentQuery()
           break;
         }
         // consultas

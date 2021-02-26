@@ -13,6 +13,7 @@ es:
           marcha.
     projects:
       back: ver todo
+      description: Descripción
       detail_title: Detalle del proyecto
       empty: Sin resultados
       exit: Salir
@@ -25,4 +26,5 @@ es:
       showall: Ver todo
       showless: Ver menos
       summary: Resumen por estados
+      tech_sheet: Ficha técnica
       tour: Tour virtual

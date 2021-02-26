@@ -1,79 +1,90 @@
 <template>
-  <main>
-    <h1 class="investments-project-main--heading">
-      {{ project.title }}
-    </h1>
+  <main class="investments-project-main">
+    <section>
+      <h1 class="investments-project-main--heading">
+        {{ project.title }}
+      </h1>
+    </section>
 
-    <div
-      v-if="project.description"
-      class="investments-project-main--intro"
-    >
-      <ReadMore :round-chars="300">
-        {{ project.description }}
-      </ReadMore>
-    </div>
-
-    <div class="investments-project-main--carousel">
-      <HorizontalCarousel :visible-items="visibleItems">
-        <div
-          v-for="photo in gallery"
-          :key="photo"
-          class="investments-project-main--carousel-element"
-        >
-          <img
-            :src="photo"
-            class="investments-project-main--carousel-img js-image-lightbox"
-            @load="onload"
+    <section v-if="project.gallery">
+      <div class="investments-project-main--carousel">
+        <HorizontalCarousel :visible-items="visibleItems">
+          <div
+            v-for="photo in gallery"
+            :key="photo"
+            class="investments-project-main--carousel-element"
           >
-          <img
-            v-if="gallery.length <= 1"
-            :src="photo"
-            class="investments-project-main--carousel-blur"
-          >
-        </div>
-      </HorizontalCarousel>
-    </div>
+            <img
+              :src="photo"
+              class="investments-project-main--carousel-img js-image-lightbox"
+              @load="onload"
+            >
+            <img
+              v-if="gallery.length <= 1"
+              :src="photo"
+              class="investments-project-main--carousel-blur"
+            >
+          </div>
+        </HorizontalCarousel>
+      </div>
+    </section>
 
-    <div>
-      <template v-for="(attr, i) in attributes">
+    <section v-if="attributes.length">
+      <h4 class="investments-project-main--subheading">
+        {{ labelTechs }}
+      </h4>
+
+      <template v-for="({ id, type, field_type, name, icon, table, value }, i) in attributes">
         <!-- Separator -->
-        <hr
-          v-if="attr.type === 'separator'"
-          :key="`${attr.type}-${i}`"
-          class="investments-project-main--hr"
-        >
+        <div
+          v-if="type === 'separator'"
+          :key="`${id}-${i}`"
+          class="p_v_2"
+        />
 
         <template v-else>
           <DictionaryItem
-            v-if="attr.filter === 'money'"
-            :key="`${attr.id}-${i}`"
-            :name="attr.name"
-            :value="attr.value | money"
-            :type="attr.type"
-            :icon="attr.icon"
-            :table="attr.table"
+            v-if="field_type === 'money'"
+            :key="`${id}-${i}`"
+            :name="name"
+            :value="value | money"
+            :type="type"
+            :icon="icon"
+            :table="table"
           />
           <DictionaryItem
-            v-else-if="attr.filter === 'date'"
-            :key="`${attr.id}-${i}`"
-            :name="attr.name"
-            :value="attr.value | date"
-            :type="attr.type"
-            :icon="attr.icon"
-            :table="attr.table"
+            v-else-if="field_type === 'date'"
+            :key="`${id}-${i}`"
+            :name="name"
+            :value="value | date"
+            :type="type"
+            :icon="icon"
+            :table="table"
           />
           <DictionaryItem
             v-else
-            :key="`${attr.id}-${i}`"
-            :name="attr.name"
-            :value="attr.value"
-            :type="attr.type"
-            :icon="attr.icon"
-            :table="attr.table"
+            :key="`${id}-${i}`"
+            :name="name"
+            :value="value"
+            :type="type"
+            :icon="icon"
+            :table="table"
           />
         </template>
       </template>
-    </div>
+    </section>
+
+    <section v-if="project.description">
+      <div class="investments-project-main--intro">
+        <h4 class="investments-project-main--subheading">
+          {{ labelDesc }}
+        </h4>
+
+        <ReadMore :round-chars="300">
+          {{ project.description }}
+        </ReadMore>
+      </div>
+    </section>
   </main>
 </template>
 
@@ -102,7 +113,9 @@ export default {
     return {
       attributes: {},
       gallery: [],
-      visibleItems: 3
+      visibleItems: 3,
+      labelDesc: I18n.t("gobierto_investments.projects.description") || "",
+      labelTechs: I18n.t("gobierto_investments.projects.tech_sheet") || "",
     };
   },
   created() {
@@ -123,9 +136,7 @@ export default {
       this.attributes = availableProjectFields.filter(
         ({ type, value }) =>
           type === "separator" ||
-          (value !== null &&
-            value !== undefined &&
-            !(value instanceof Array && value.length === 0))
+          (!(value instanceof Array && value.length === 0))
       );
 
       if (gallery.length < this.visibleItems) {

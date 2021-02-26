@@ -135,10 +135,23 @@
   }
 
   &-project-main {
+    & section + section {
+      padding: 1.5rem 0;
+
+      &:not(:nth-child(2)) {
+        border-top: 1.5rem solid $separator;
+      }
+    }
+
     &--heading {
       font-size: 26px;
       font-weight: 300;
       line-height: 31px;
+      margin-top: 0;
+    }
+
+    &--subheading {
+      font-size: 20px;
       margin-top: 0;
     }
 
@@ -184,27 +197,13 @@
       }
     }
 
-    &--hr {
-      border: 0;
-      border-top: 1px solid $separator;
-      margin-bottom: 2rem;
-
-      &:last-child {
-        display: none;
-      }
-    }
-
-    &--hr + &--hr {
-      display: none;
-    }
-
     &--table-row {
       display: flex;
       align-items: baseline;
       color: $color_text;
 
       &:not(:last-child) {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
       }
 
       > :last-child {

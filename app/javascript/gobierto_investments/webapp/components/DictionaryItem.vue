@@ -58,7 +58,7 @@
 
     <!-- Simple type -->
     <div v-else>
-      {{ value }}
+      {{ value || "--" }}
     </div>
   </div>
 </template>

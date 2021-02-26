@@ -61,16 +61,10 @@ export default {
   ],
   availableProjectFields: [
     {
-      id: "nom-servei-gestor"
-    },
-    {
       id: "tipus"
     },
     {
       id: "element"
-    },
-    {
-      id: "tipus-projecte"
     },
     {
       id: "adreca"
@@ -79,10 +73,16 @@ export default {
       id: "adjudicatari"
     },
     {
-      id: "estat"
+      type: "separator"
     },
     {
-      type: "separator"
+      id: "data-inici-redaccio"
+    },
+    {
+      id: "data-aprovacio"
+    },
+    {
+      id: "data-adjudicacio"
     },
     {
       id: "data-inici"
@@ -91,75 +91,19 @@ export default {
       id: "data-final"
     },
     {
-      id: "data-adjudicacio"
-    },
-    {
-      id: "data-inici-redaccio"
-    },
-    {
-      id: "data-fi-redaccio"
-    },
-    {
       type: "separator"
     },
     {
-      id: "import",
-      filter: "money"
+      id: "import"
     },
     {
-      id: "import-adjudicacio",
-      filter: "money"
+      id: "import-adjudicacio"
     },
     {
-      id: "import-liquidacio",
-      filter: "money"
+      id: "import-liquidacio"
     },
     {
-      id: "budget",
-      type: "link",
-      composite: true,
-      template: "/presupuestos/partidas/:BUDGETLINE/:YEAR/custom/G",
-      params: [
-        {
-          key: "BUDGETLINE",
-          value: "partida",
-          pattern: "[\\S]+\\.(\\d+)\\w\\.[\\S]+"
-        },
-        {
-          key: "YEAR",
-          value: "any-partida"
-        }
-      ]
-    },
-    {
-      type: "separator"
-    },
-    {
-      id: "documents",
-      type: "icon",
-      icon: {
-        title: "nom",
-        href: "url",
-        name: "file"
-      }
-    },
-    {
-      id: "tasques",
-      type: "table",
-      table: {
-        columns: [
-          {
-            id: "nomactuacio"
-          },
-          {
-            id: "data"
-          },
-          {
-            id: "nimport",
-            filter: "money"
-          }
-        ]
-      }
+      id: "partida"
     }
   ]
 };

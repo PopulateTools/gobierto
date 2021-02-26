@@ -97,8 +97,8 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       # Assignees table
       first_contract = find(".gobierto-table__tr", match: :first)
 
-      assert first_contract.has_content?('FLODI, S.L.')
-      assert first_contract.has_content?('599.015,70 €')
+      assert first_contract.has_content?('LIDER SYSTEM')
+      assert first_contract.has_content?('40.261,50 €')
     end
   end
 

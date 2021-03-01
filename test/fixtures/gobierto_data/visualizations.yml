@@ -81,6 +81,14 @@ events_count_closed_visualization:
   privacy_status: <%= GobiertoData::Visualization.privacy_statuses["closed"] %>
   spec: "{}"
 
+peter_events_count_closed_visualization:
+  query: events_count_query
+  dataset: events_dataset
+  user: peter
+  name_translations: <%= { en: "Peter events count visualization closed", es: "Visualización de cuenta de eventos cerrada de Peter" }.to_json %>
+  privacy_status: <%= GobiertoData::Visualization.privacy_statuses["closed"] %>
+  spec: "{}"
+
 draft_dataset_visualization:
   query: draft_dataset_query
   dataset: draft_dataset

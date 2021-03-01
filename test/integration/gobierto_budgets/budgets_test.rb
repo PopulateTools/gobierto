@@ -92,7 +92,7 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
         all("circle.x#{last_year - 2}").first.hover
 
         within("#lines_tooltip") { assert has_content?(last_year - 2) }
-      rescue
+      rescue Minitest::Assertion
         puts "Flaky test failure..."
       end
     end

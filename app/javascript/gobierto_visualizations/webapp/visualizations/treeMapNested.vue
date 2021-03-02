@@ -325,7 +325,7 @@ export default {
             const { depth, data, parent } = d
             const [ contracts ] = data?.children || []
             const { contractor } = contracts || {}
-            return scaleColor && depth === 1 ? this.colors(data?.name) : scaleColor && depth === 2 ? this.colors(parent?.data?.name) : scaleColor && depth === 3 || depth === 4 ? this.colors(contractor) : '#12365b'
+            return scaleColor && depth === 1 ? this.colors(data?.name) : scaleColor && depth === 2 ? this.colors(parent?.data?.name) : scaleColor && depth === 3 || depth === 4 ? this.colors(contractor) : '#118e9c'
           })
           .on("click", transition);
 

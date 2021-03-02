@@ -15,14 +15,14 @@ export class BudgetByInhabitantCard extends Card {
     var data = this.handlePromise(this.url);
 
     data.then(jsonData => {
-      var value = jsonData.data[0].value_per_inhabitant;
+      var value = jsonData.data[0].total_budget_per_inhabitant;
 
       new SimpleCard(
         this.container,
         jsonData,
         value,
         "budget_by_inhabitant",
-        "value_per_inhabitant"
+        "total_budget_per_inhabitant"
       );
     });
   }

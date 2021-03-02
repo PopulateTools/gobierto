@@ -13,6 +13,7 @@ export class SimpleCard extends Card {
 
     var trend = this.div.attr("data-trend");
     var freq = this.div.attr("data-freq");
+    var parsedDate
 
     var parseDate =
       freq === "daily"
@@ -21,13 +22,14 @@ export class SimpleCard extends Card {
         ? d3.timeParse("%Y-%m")
         : d3.timeParse("%Y");
     var date = json.data[0].date;
-    // There are some datasets where the date comes as year
     if (date === undefined) {
+      // There are some datasets where the date comes as year
       if ('year' in json.data[0]) {
-        date = json.data[0].year;
+        parseDate = new Date(json.data[0].year, 0, 1);
       }
+    } else {
+      parsedDate = parseDate(date);
     }
-    var parsedDate = parseDate(date);
     var formatDate = d3.timeFormat("%b %Y");
 
     var divCard = $('div[class*="' + divClass.replace(".", "") + '"]');

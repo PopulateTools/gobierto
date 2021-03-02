@@ -9,6 +9,7 @@ import {
 import Vue from "vue";
 import VueRouter from "vue-router";
 import { getRemoteData, calculateSumMeanMedian } from "../webapp/lib/utils";
+import { categoryTitleEng, categoryTitlesCat, categoryTitlesEsp } from "../webapp/lib/config/category_titles";
 import { EventBus } from "../webapp/mixins/event_bus";
 
 const d3 = { scaleThreshold, sum, mean, median, max };
@@ -172,7 +173,7 @@ export class ContractsController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
-    const contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, ...rest }) => {
+    let contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, ...rest }) => {
       return {
         final_amount_no_taxes: (final_amount_no_taxes && !Number.isNaN(final_amount_no_taxes)) ? parseFloat(final_amount_no_taxes): 0.0,
         initial_amount_no_taxes: (initial_amount_no_taxes && !Number.isNaN(initial_amount_no_taxes)) ? parseFloat(initial_amount_no_taxes): 0.0,
@@ -184,6 +185,11 @@ export class ContractsController {
       }
 
     })
+
+    const santFeliu = contractsDataMap.some(({ contractor }) => contractor === 'Ajuntament de Sant Feliu de Llobregat')
+    if (santFeliu) {
+      contractsDataMap = this._translateCategoriesTitle(contractsDataMap)
+    }
 
     const tendersDataMap = tendersData.map(({ initial_amount_no_taxes = 0, submission_date, ...rest }) => {
 
@@ -205,6 +211,22 @@ export class ContractsController {
       ),
       tendersData: this.unfilteredTendersData
     };
+  }
+
+  _translateCategoriesTitle(contractsDataMap) {
+    const categoriesLanguage = I18n.locale === 'es' ? categoryTitlesEsp : categoryTitlesCat
+
+    contractsDataMap.map(d => {
+      const { category_title } = d
+
+      const indexCategoriesEng = categoryTitleEng.findIndex(title => title === category_title);
+
+      d.category_title = categoriesLanguage[indexCategoriesEng]
+
+    })
+
+    return contractsDataMap
+
   }
 
   _renderSummary() {

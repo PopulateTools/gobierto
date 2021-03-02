@@ -7,7 +7,7 @@ export class BudgetByInhabitantCard extends Card {
 
     this.url =
       window.populateData.endpoint +
-      "/datasets/ds-presupuestos-municipales-total.json?sort_desc_by=year&with_metadata=true&limit=5&filter_by_organization_id=" +
+      "/datasets/ds-presupuestos-municipales-total.json?filter_by_kind=G&sort_desc_by=year&with_metadata=true&limit=5&filter_by_organization_id=" +
       city_id;
   }
 
@@ -16,6 +16,11 @@ export class BudgetByInhabitantCard extends Card {
 
     data.then(jsonData => {
       var value = jsonData.data[0].total_budget_per_inhabitant;
+
+      jsonData.data.forEach(function(d) {
+        d.date = `${d.year}-01-01`
+        d.value = d.total_budget_per_inhabitant
+      });
 
       new SimpleCard(
         this.container,

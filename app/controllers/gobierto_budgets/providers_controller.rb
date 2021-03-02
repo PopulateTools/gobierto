@@ -13,14 +13,10 @@ class GobiertoBudgets::ProvidersController < GobiertoBudgets::ApplicationControl
         @budgets_data_updated_at = site_stats.providers_data_updated_at
       end
       format.csv do
-        render csv: GobiertoBudgets::Data::Invoices.dump_csv({
-          location_id: current_site.organization_id,
-          limit: params[:limit],
-          sort_desc_by: params[:sort_desc_by],
-          sort_asc_by: params[:sort_asc_by],
-          date_date_range: params[:date_date_range],
-          except_columns: params[:except_columns]
-        }), filename: 'invoices.csv'
+        render csv: csv, filename: 'invoices.csv'
+      end
+      format.json do
+        render json: json
       end
     end
   end
@@ -29,6 +25,23 @@ class GobiertoBudgets::ProvidersController < GobiertoBudgets::ApplicationControl
 
   def check_setting_enabled
     render_404 unless budgets_providers_active?
+  end
+
+  def csv
+    GobiertoBudgets::Data::Invoices.dump_csv({
+      location_id: current_site.organization_id,
+      limit: params[:limit],
+      sort_desc_by: params[:sort_desc_by],
+      sort_asc_by: params[:sort_asc_by],
+      date_date_range: params[:date_date_range],
+      except_columns: params[:except_columns]
+    })
+  end
+
+  def json
+    rows = []
+    CSV.parse(csv, headers: true){|row| rows << row.to_hash }
+    rows.to_json
   end
 
 end

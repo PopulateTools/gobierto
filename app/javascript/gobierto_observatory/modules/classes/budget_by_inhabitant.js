@@ -7,7 +7,7 @@ export class BudgetByInhabitantCard extends Card {
 
     this.url =
       window.populateData.endpoint +
-      "/datasets/ds-presupuestos-municipales-total.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_municipality_id=" +
+      "/datasets/ds-presupuestos-municipales-total.json?sort_desc_by=year&with_metadata=true&limit=5&filter_by_organization_id=" +
       city_id;
   }
 

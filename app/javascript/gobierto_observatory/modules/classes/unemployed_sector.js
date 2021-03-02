@@ -58,7 +58,6 @@ export class UnemplBySectorCard extends Card {
 
       this.nest = this.nest.filter(d => d.key !== "Sin empleo anterior");
 
-      console.log(this.nest)
       new SparklineTableCard(
         this.container,
         jsonData,

@@ -38,8 +38,8 @@ environment.plugins.append(
 environment.loaders.delete("nodeModules");
 
 // Persperctive webpack
-const PerspectivePlugin = require("@finos/perspective-webpack-plugin");
-environment.plugins.append("Perspective", new PerspectivePlugin());
+// const PerspectivePlugin = require("@finos/perspective-webpack-plugin");
+// environment.plugins.append("Perspective", new PerspectivePlugin());
 
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 // environment.plugins.insert("BundleAnalyzerPlugin", new BundleAnalyzerPlugin());
@@ -53,7 +53,5 @@ const aliasConfig = (module.exports = {
     }
   }
 });
-
-console.log(JSON.stringify(environment.config, null, 2));
 
 module.exports = merge(envConfig.toWebpackConfig(), aliasConfig);

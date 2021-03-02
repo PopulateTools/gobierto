@@ -32,6 +32,12 @@ export class UnemplBySectorCard extends Card {
         })
         .entries(this.data);
 
+      this.nest.forEach(function(d) {
+          d.diff = d.value.diff;
+          d.value = d.value.value;
+        }.bind(this)
+      );
+
       // d3v6
       //
       // this.nest = rollup(
@@ -52,6 +58,7 @@ export class UnemplBySectorCard extends Card {
 
       this.nest = this.nest.filter(d => d.key !== "Sin empleo anterior");
 
+      console.log(this.nest)
       new SparklineTableCard(
         this.container,
         jsonData,

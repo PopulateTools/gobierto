@@ -9,7 +9,7 @@ import "../../assets/stylesheets/comp-perspective-viewer.scss";
 document.querySelectorAll("[data-gobierto-visualization]").forEach(async container => {
   const { gobiertoVisualization: id, site, token } = container.dataset
   const { "embeds.css": cssUrl } = await fetch(`${site}/packs/manifest.json`).then(r => r.json())
-  const headers = { Authorization: `Bearer ${token}` }
+  const headers = token ? { Authorization: `Bearer ${token}` } : {}
 
   // Include the styles if they're not included yet
   if (!([...document.getElementsByTagName("link")].some(({ href }) => href.match(cssUrl)))) {
@@ -39,18 +39,29 @@ document.querySelectorAll("[data-gobierto-visualization]").forEach(async contain
         const viewer = document.createElement("perspective-viewer")
         viewer.setAttribute("columns", spec.columns)
         viewer.setAttribute("plugin", spec.plugin)
+
+        if (spec.column_pivots) {
+          viewer.setAttribute("column-pivots", JSON.stringify(spec.column_pivots))
+        }
+
+        if (spec.row_pivots) {
+          viewer.setAttribute("row-pivots", JSON.stringify(spec.row_pivots))
+        }
+
+        if (spec.computed_columns) {
+          viewer.setAttribute("computed-columns", JSON.stringify(spec.computed_columns))
+        }
+
         container.appendChild(viewer)
 
-        // TODO: el tema de parsear los datos
+        // hide configuration
+        const configButtonPerspective = viewer.shadowRoot.getElementById('config_button')
+        configButtonPerspective.style.display = "none"
 
         // run perspective
         viewer.clear();
         viewer.restore(spec);
         viewer.load(data);
-
-        // hide configuration
-        const configButtonPerspective = viewer.shadowRoot.getElementById('config_button')
-        configButtonPerspective.style.display = "none"
       }
     }
   }

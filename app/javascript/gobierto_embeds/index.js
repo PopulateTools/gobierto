@@ -7,45 +7,51 @@ import "../../assets/stylesheets/comp-perspective-viewer.scss";
 
 // Look for all possible vizzs in the site
 document.querySelectorAll("[data-gobierto-visualization]").forEach(async container => {
-  const { gobiertoVisualization: id, site } = container.dataset
+  const { gobiertoVisualization: id, site, token } = container.dataset
   const { "embeds.css": cssUrl } = await fetch(`${site}/packs/manifest.json`).then(r => r.json())
-  const cssHref = `${site}${cssUrl}`
+  const headers = { Authorization: `Bearer ${token}` }
 
   // Include the styles if they're not included yet
-  if (!([...document.getElementsByTagName("link")].some(({ href }) => href === cssHref))) {
+  if (!([...document.getElementsByTagName("link")].some(({ href }) => href.match(cssUrl)))) {
     const link = document.createElement("link");
-    link.href = cssHref;
+    link.href = `${site}${cssUrl}`;
     link.type = "text/css";
     link.rel = "stylesheet";
     link.media = "screen,print";
     document.getElementsByTagName("head")[0].appendChild(link);
   }
 
-  const response = await fetch(`${site}/api/v1/data/visualizations/${id}`).then(r => r.json())
-  const { attributes: { query_id, sql, spec } } = response?.data
+  const { data: visualization } = await fetch(`${site}/api/v1/data/visualizations/${id}`, { headers }).then(r => r.json()) || {}
+  if (visualization) {
+    const { attributes: { query_id, sql, spec } } = visualization || {}
 
-  let url = null
-  if (query_id) {
-    url = `${site}/api/v1/data/queries/${query_id}.csv`
-  } else if (sql) {
-    url = `${site}/api/v1/data/data.csv?sql=${encodeURIComponent(sql)}`
-  }
+    let url = null
+    if (query_id) {
+      url = `${site}/api/v1/data/queries/${query_id}.csv`
+    } else if (sql) {
+      url = `${site}/api/v1/data/data.csv?sql=${encodeURIComponent(sql)}`
+    }
 
-  if (url) {
-    const responseQuery = await fetch(url).then(r => r.text())
+    if (url) {
+      const data = await fetch(url, { headers }).then(r => r.text())
 
-    const viewer = document.createElement("perspective-viewer")
-    viewer.setAttribute("columns", spec.columns)
-    viewer.setAttribute("plugin", spec.plugin)
-    container.appendChild(viewer)
+      if (data) {
+        const viewer = document.createElement("perspective-viewer")
+        viewer.setAttribute("columns", spec.columns)
+        viewer.setAttribute("plugin", spec.plugin)
+        container.appendChild(viewer)
 
-    // run perspective
-    viewer.clear();
-    viewer.restore(spec);
-    viewer.load(responseQuery);
+        // TODO: el tema de parsear los datos
 
-    // hide configuration
-    const configButtonPerspective = viewer.shadowRoot.getElementById('config_button')
-    configButtonPerspective.style.display = "none"
+        // run perspective
+        viewer.clear();
+        viewer.restore(spec);
+        viewer.load(data);
+
+        // hide configuration
+        const configButtonPerspective = viewer.shadowRoot.getElementById('config_button')
+        configButtonPerspective.style.display = "none"
+      }
+    }
   }
 })

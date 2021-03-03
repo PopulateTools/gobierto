@@ -2,6 +2,7 @@
 @import "mixins";
 @import "comp-block-checkbox";
 @import "comp-block-header";
+@import "comp-perspective-viewer";
 @import "comp-vue-dropdown";
 @import "comp-vue-skeleton-spinner";
 
@@ -1150,31 +1151,6 @@
     margin: 0 0 1rem;
   }
 
-  perspective-viewer {
-    --plugin--background: transparent;
-
-    overflow: hidden;
-    width: 95%;
-    height: 100%;
-    background-color: transparent;
-
-    table {
-      width: auto;
-    }
-
-    ::-webkit-scrollbar {
-      -webkit-appearance: none;
-      width: 7px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      border-radius: 4px;
-      background-color: rgba(0, 0, 0, .5);
-      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-    }
-
-  }
-
   &-description {
     height: auto;
     columns: 3;
@@ -1291,27 +1267,4 @@
     padding: 0 1rem 1rem 1rem;
   }
 
-}
-
-perspective-viewer regular-table {
-  overflow: scroll;
-  -ms-overflow-style: none;
-
-  ::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-  }
-
-  th {
-    width: auto !important;
-
-    span {
-      font-weight: bold;
-    }
-  }
-
-  td,
-  th {
-    padding: .25rem;
-  }
 }

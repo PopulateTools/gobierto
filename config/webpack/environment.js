@@ -1,4 +1,5 @@
 const { environment } = require("@rails/webpacker");
+
 const webpack = require("webpack");
 const merge = require("webpack-merge");
 const { VueLoaderPlugin } = require("vue-loader");
@@ -36,10 +37,6 @@ environment.plugins.append(
 );
 
 environment.loaders.delete("nodeModules");
-
-// Persperctive webpack
-// const PerspectivePlugin = require("@finos/perspective-webpack-plugin");
-// environment.plugins.append("Perspective", new PerspectivePlugin());
 
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 // environment.plugins.insert("BundleAnalyzerPlugin", new BundleAnalyzerPlugin());

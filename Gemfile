@@ -101,7 +101,7 @@ gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 gem "rubyXL"
 
 # Performance
-gem "appsignal"
+gem "appsignal", "~> 2.11.9"
 
 # Auth strategies
 gem "net-ldap"

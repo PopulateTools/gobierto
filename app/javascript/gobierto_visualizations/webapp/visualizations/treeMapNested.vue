@@ -309,7 +309,7 @@ export default {
             } else if (deepLevel === 3 && scaleColor && depth === 2) {
               return this.colors(contracts[this.firstDepthForTreeMap])
             } else {
-              return '#12365b'
+              return '#118e9c'
             }
           })
           .attr('class', 'depth')

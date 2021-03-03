@@ -9,7 +9,6 @@ import {
 import Vue from "vue";
 import VueRouter from "vue-router";
 import { getRemoteData, calculateSumMeanMedian } from "../webapp/lib/utils";
-import { categoryTitleEng, categoryTitlesCat, categoryTitlesEsp } from "../webapp/lib/config/category_titles";
 import { EventBus } from "../webapp/mixins/event_bus";
 
 const d3 = { scaleThreshold, sum, mean, median, max };
@@ -210,18 +209,10 @@ export class ContractsController {
 
   _translateCategoriesTitle(contractsDataMap) {
 
-    const categoriesLanguage = I18n.locale === 'es' ? categoryTitlesEsp : categoryTitlesCat
-
     contractsDataMap.map(d => {
       const { category_title } = d
-      /*If the contract isn't categorized, we include it in other*/
-      if (!category_title) {
-        d.category_title = 'other'
-        d.category_id = '23'
-      }
-      const indexCategoriesEng = categoryTitleEng.findIndex(title => title === d.category_title);
 
-      d.category_title = categoriesLanguage[indexCategoriesEng]
+      d.category_title = I18n.t(`gobierto_visualizations.visualizations.categories.${category_title}`)
 
     })
     return contractsDataMap

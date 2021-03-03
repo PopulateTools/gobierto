@@ -119,6 +119,7 @@ ignore_unused:
   - 'gobierto_admin.layouts.application.modules.*'
   - 'gobierto_admin.layouts.application.global'
   - 'gobierto_data.data_type.*'
+  - 'gobierto_visualizations.visualizations.categories.*'
   - 'routes.*'
 
 translation:

@@ -52,7 +52,7 @@ document.querySelectorAll("[data-gobierto-visualization]").forEach(async contain
           viewer.setAttribute("computed-columns", JSON.stringify(spec.computed_columns))
         }
 
-        container.appendChild(viewer)
+        container.parentNode.replaceChild(viewer, container)
 
         // hide configuration
         const configButtonPerspective = viewer.shadowRoot.getElementById('config_button')

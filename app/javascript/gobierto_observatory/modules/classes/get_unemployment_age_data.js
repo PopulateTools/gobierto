@@ -91,10 +91,18 @@ export class GetUnemploymentAgeData extends Card {
         var year = d.date.slice(0, 4);
 
         if (nested.hasOwnProperty(year)) {
-          d.pct = d.value / nested[year][d.age_range];
-        } else if (year === lastYear) {
+          if(nested[year] === undefined) {
+            d.pct = d.value / nested[year1][d.age_range];
+          } else {
+            d.pct = d.value / nested[year][d.age_range];
+          }
+        } else if (year >= lastYear - 2){
           // If we are in the last year, divide the unemployment by last year's population
-          d.pct = d.value / nested[year - 1][d.age_range];
+          if(nested[year - 1] === undefined) {
+            d.pct = d.value / nested[year - 2][d.age_range];
+          } else {
+            d.pct = d.value / nested[year - 1][d.age_range];
+          }
         } else {
           d.pct = null;
         }

@@ -11,6 +11,29 @@ en:
       download_data: Download the full dataset in a reusable format
       loading: Loading data...
     visualizations:
+      categories:
+        agriculture: Agriculture
+        architecture: Architecture
+        audiovisual: Audiovisual
+        catering: Catering
+        construction: Construction
+        culture: Culture
+        education: Education
+        electrical: Electrical
+        environment: Environment
+        finance: Finance
+        furniture: Furniture
+        health: Health
+        industry: Industry
+        legal: Legal
+        other: Other
+        print: Print
+        security: Security
+        social_services: Social services
+        software: Software
+        telecom: Telecom
+        textile: Textile
+        transportation: Transportation
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee

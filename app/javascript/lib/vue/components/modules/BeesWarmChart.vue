@@ -278,6 +278,7 @@ export default {
         .attr('cy', d => d.y)
         .attr('r', d => d.radius)
         .attr('fill', d => this.colors(d.slug_contract_type))
+
     },
     transformData(data) {
       const maxFinalAmount = d3.max(data, d => d.final_amount_no_taxes)

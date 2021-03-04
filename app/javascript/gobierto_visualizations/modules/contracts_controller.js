@@ -139,6 +139,7 @@ export class ContractsController {
   }
 
   setGlobalVariables([contractsData, tendersData]) {
+    let contractsDataMap = this._translateCategoriesTitle(contractsData)
     const sortByField = dateField => {
       return function(a, b) {
         const aDate = a[dateField],
@@ -172,7 +173,7 @@ export class ContractsController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
-    const contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, ...rest }) => {
+    contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, ...rest }) => {
       return {
         final_amount_no_taxes: (final_amount_no_taxes && !Number.isNaN(final_amount_no_taxes)) ? parseFloat(final_amount_no_taxes): 0.0,
         initial_amount_no_taxes: (initial_amount_no_taxes && !Number.isNaN(initial_amount_no_taxes)) ? parseFloat(initial_amount_no_taxes): 0.0,
@@ -182,7 +183,6 @@ export class ContractsController {
         gobierto_start_date: new Date(gobierto_start_date),
         ...rest
       }
-
     })
 
     const tendersDataMap = tendersData.map(({ initial_amount_no_taxes = 0, submission_date, ...rest }) => {
@@ -205,6 +205,17 @@ export class ContractsController {
       ),
       tendersData: this.unfilteredTendersData
     };
+  }
+
+  _translateCategoriesTitle(contractsDataMap) {
+
+    contractsDataMap.map(d => {
+      const { category_title } = d
+
+      d.category_title = I18n.t(`gobierto_visualizations.visualizations.categories.${category_title}`)
+
+    })
+    return contractsDataMap
   }
 
   _renderSummary() {

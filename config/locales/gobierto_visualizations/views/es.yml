@@ -11,6 +11,29 @@ es:
       download_data: Descarga los datos completos en formatos reutilizables
       loading: Cargando datos...
     visualizations:
+      categories:
+        agriculture: Servicios agrícolas y forestales
+        architecture: Arquitectura e ingeniería
+        audiovisual: Audiovisual
+        catering: Hostelería y restauración
+        construction: Construcción y mantenimiento
+        culture: Cultura y deporte
+        education: Enseñanza y formación
+        electrical: Equipos eléctricos y de iluminación
+        environment: Medio ambiente
+        finance: Servicios financieros y seguros
+        furniture: Mobiliario
+        health: Salud
+        industry: Industria y maquinaria
+        legal: Jurídico, contabilidad, mercadotecnia...
+        other: Otros
+        print: Impresión y material de oficina
+        security: Seguridad
+        social_services: Servicios sociales
+        software: Consultoría y desarrollo de software, equipos y licencias
+        telecom: Telecomunicaciones y correos
+        textile: Textil
+        transportation: Transporte
       contracts:
         amount_distribution: Distribución por importes
         assignee: Adjudicatario

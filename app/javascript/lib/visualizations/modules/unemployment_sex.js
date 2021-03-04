@@ -149,9 +149,13 @@ export class VisUnemploymentSex {
 
         if (Object.prototype.hasOwnProperty.call(nested, year)) {
           d.pct = d.value / nested[year];
-        } else if (year === lastYear) {
+        } else if (year >= lastYear - 2) {
           // If we are in the last year, divide the unemployment by last year's population
-          d.pct = d.value / nested[year - 1];
+          if (nested[year - 1] === undefined) {
+            d.pct = d.value / nested[year - 2];
+          } else {
+            d.pct = d.value / nested[year - 1];
+          }
         } else {
           d.pct = null;
         }

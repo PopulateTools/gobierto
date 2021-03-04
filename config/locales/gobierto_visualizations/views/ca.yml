@@ -11,6 +11,29 @@ ca:
       download_data: Descarregueu les dades en format reutilitzable
       loading: Carregant dades...
     visualizations:
+      categories:
+        agriculture: Serveis agrícoles i forestals
+        architecture: Arquitectura i enginyeria
+        audiovisual: Audiovisual
+        catering: Hostaleria i restauració
+        construction: Construcció i manteniment
+        culture: Cultura i esport
+        education: Ensenyament i formació
+        electrical: Equips elèctrics i d'il·luminació
+        environment: Medi ambient
+        finance: Serveis financers i assegurances
+        furniture: Mobiliari
+        health: Salut
+        industry: Indústria i maquinària
+        legal: Jurídic, comptabilitat, màrqueting ...
+        other: Altres
+        print: Impressió i material d'oficina
+        security: Seguretat
+        social_services: Serveis socials
+        software: Consultoria i desenvolupament de programari, equips i llicències
+        telecom: Telecomunicacions i correus
+        textile: Tèxtil
+        transportation: Transport
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari

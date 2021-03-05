@@ -9,8 +9,6 @@ export class HorizontalCarousel {
 
       // initializations
       const { visibleItems, thumbnails } = carousel.dataset
-      this.visibleItems = parseInt(visibleItems) || 1;
-      this.maxValue = (this.content.children.length - this.visibleItems) * (100 / this.visibleItems);
       this.start = 0;
       this.thumbnails = thumbnails;
 
@@ -23,10 +21,16 @@ export class HorizontalCarousel {
           child.addEventListener("click", this.onThumbnailClick.bind(this))
           child.classList.add("is-thumbnail")
         })
+
+        const avg = [...this.content.children].reduce((acc, b) => acc + b.getBoundingClientRect().width, 0) / this.content.children.length
+        // const [{ width: totalWidth }, { width }] = [, this.content.children[1].getBoundingClientRect()]
+        this.visibleItems = this.content.getBoundingClientRect().width / avg
+      } else {
+        this.visibleItems = parseInt(visibleItems) || 1;
+        this.content.children.forEach(child => (child.style.flex = `0 0 calc(100% / ${this.visibleItems})`));
       }
 
-      // update custom CSS
-      this.content.children.forEach(child => (child.style.flex = `0 0 calc(100% / ${this.visibleItems})`));
+      this.maxValue = (this.content.children.length - this.visibleItems) * (100 / this.visibleItems);
 
       // init frames
       this.setVisibility(this.next, this.start < this.maxValue);
@@ -64,6 +68,7 @@ export class HorizontalCarousel {
   onNextClick() {
     if (Math.abs(this.start) < this.maxValue) {
       this.start -= 100 / this.visibleItems;
+      this.start = Math.ceil(Math.abs(this.start)) > this.maxValue ? -1 * this.maxValue : this.start
       this.setTransform(this.start);
     }
 
@@ -74,6 +79,7 @@ export class HorizontalCarousel {
   onPrevClick() {
     if (this.start < 0) {
       this.start += 100 / this.visibleItems;
+      this.start = Math.ceil(this.start) > 0 ? 0 : this.start
       this.setTransform(this.start);
     }
 

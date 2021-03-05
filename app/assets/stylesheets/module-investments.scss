@@ -1,6 +1,7 @@
 @import "css-conf";
 @import "mixins";
 @import "comp-vue-table";
+@import "comp-horizontal-carousel.scss";
 
 .investments {
   @include min-screen(768) {
@@ -170,7 +171,17 @@
         height: 300px;
 
         &.is-thumbnail {
-          height: 150px;
+          height: 100px;
+          width: 150px;
+          flex: 0 0 150px;
+
+          & + & {
+            padding-left: 1rem;
+          }
+
+          .investments-project-main--carousel-blur {
+            display: none;
+          }
         }
 
         &.is-active {

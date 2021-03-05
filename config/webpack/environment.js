@@ -1,56 +1,54 @@
-const { environment } = require('@rails/webpacker')
-const webpack = require('webpack')
-const merge = require('webpack-merge')
-const { VueLoaderPlugin } = require('vue-loader')
-const vue = require('./loaders/vue')
-const less = require('./loaders/less')
-const terser = require('./optimization/terser')
+const { environment } = require("@rails/webpacker");
 
-environment.loaders.append('less', less)
-environment.loaders.append('vue', vue)
-environment.config.merge(terser)
-environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin())
+const webpack = require("webpack");
+const merge = require("webpack-merge");
+const { VueLoaderPlugin } = require("vue-loader");
+const vue = require("./loaders/vue");
+const less = require("./loaders/less");
+const terser = require("./optimization/terser");
+const splitChunks = require("./optimization/splitChunks");
+const output = require('./config/output')
+
+environment.loaders.append("less", less);
+environment.loaders.append("vue", vue);
+environment.config.merge(terser);
+environment.config.merge(splitChunks);
+environment.config.merge(output)
+
+environment.plugins.prepend("VueLoaderPlugin", new VueLoaderPlugin());
 environment.plugins.append(
-  'Provide',
+  "Provide",
   new webpack.ProvidePlugin({
-    $: 'jquery',
-    'window.$': 'jquery',
-    jQuery: 'jquery',
-    'window.jQuery': 'jquery',
-    _: 'lodash'
+    $: "jquery",
+    "window.$": "jquery",
+    jQuery: "jquery",
+    "window.jQuery": "jquery",
+    _: "lodash"
   })
-)
+);
 
 // NOTE: Must be updated if add a new locale files - https://yarnpkg.com/es-ES/package/moment-locales-webpack-plugin
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
+const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 environment.plugins.append(
-  'MomentLocales',
+  "MomentLocales",
   new MomentLocalesPlugin({
-    localesToKeep: ['es', 'ca']
+    localesToKeep: ["es", "ca"]
   })
-)
+);
 
-// Persperctive webpack
-const PerspectivePlugin = require('@finos/perspective-webpack-plugin')
-environment.plugins.append(
-  'Perspective',
-  new PerspectivePlugin()
-)
+environment.loaders.delete("nodeModules");
 
-environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: { name: "commons", minChunks: 5 } } }))
-environment.loaders.delete('nodeModules')
+// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+// environment.plugins.insert("BundleAnalyzerPlugin", new BundleAnalyzerPlugin());
 
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-// environment.plugins.insert('BundleAnalyzerPlugin', new BundleAnalyzerPlugin())
-
-const envConfig = module.exports = environment
-const aliasConfig = module.exports = {
+const envConfig = (module.exports = environment);
+const aliasConfig = (module.exports = {
   resolve: {
     symlinks: false,
     alias: {
-      vue: 'vue/dist/vue.esm.js'
+      vue: "vue/dist/vue.esm.js"
     }
   }
-}
+});
 
-module.exports = merge(envConfig.toWebpackConfig(), aliasConfig)
+module.exports = merge(envConfig.toWebpackConfig(), aliasConfig);

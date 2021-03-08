@@ -98,7 +98,7 @@ ca:
         title: Contractes i licitacions
       contracts_types:
         others: Altres
-        private: Privadot
+        private: Privat
         public_services: Gestió de serveis públics
         services: Serveis
         supplies: Subministraments

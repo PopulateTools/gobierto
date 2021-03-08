@@ -97,6 +97,13 @@ es:
           tenders_for: licitaciones por importe de
         tender_amount: Imp. licitación
         title: Contratos y licitaciones
+      contracts_types:
+        others: Otros
+        private: Privado
+        public_services: Gestión de servicios públicos
+        services: Servicios
+        supplies: Suministros
+        works: Obras
       costs:
         activities: Actividades
         cost_direct: Coste directo
@@ -178,6 +185,14 @@ es:
             en concepto de subvención previamente concedida.
         total: Total
         total_cost: Coste total
+      process_type:
+        based_marco: Basado en Acuerdo Marco
+        minor_contract: Contrato menor
+        negotiated_publicity: Negociado sin publicidad
+        open: Abierto
+        others: Otros
+        restricted: Restringido
+        tender: Licitación con negociación
       subsidies:
         amount: Importe
         amount_distribution: Distribución por importes

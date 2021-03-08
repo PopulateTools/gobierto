@@ -96,6 +96,13 @@ ca:
           tenders_for: licitacions per un import de
         tender_amount: Imp. licitació
         title: Contractes i licitacions
+      contracts_types:
+        others: Altres
+        private: Privadot
+        public_services: Gestió de serveis públics
+        services: Serveis
+        supplies: Subministraments
+        works: Obres
       costs:
         activities: activitats
         cost_direct: Cost directe
@@ -174,6 +181,14 @@ ca:
             en concepte de subvenció prèviament concedida.
         total: Total
         total_cost: Cost total
+      process_type:
+        based_marco: Basat en Acord Marco
+        minor_contract: Contracte menor
+        negotiated_publicity: Negociat sense publicitat
+        open: Obert
+        others: Altres
+        restricted: Restringit
+        tender: Licitació amb negociació
       subsidies:
         amount: Import
         amount_distribution: Distribució per imports

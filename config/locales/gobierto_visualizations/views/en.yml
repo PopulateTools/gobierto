@@ -97,6 +97,13 @@ en:
           tenders_for: tenders for a total amount of
         tender_amount: Tender Amount
         title: Contracts and tenders
+      contracts_types:
+        others: Others
+        private: Private
+        public_services: Management of public services
+        services: Services
+        supplies: Supplies
+        works: Works
       costs:
         activities: Activities
         cost_direct: Direct cost
@@ -175,6 +182,14 @@ en:
             as a previously granted subsidy.
         total: Total cost
         total_cost: Total cost
+      process_type:
+        based_marco: Based on Marco agreement
+        minor_contract: Minor contract
+        negotiated_publicity: Negotiated without advertising
+        open: Open
+        others: Other
+        restricted: Restricted
+        tender: Tender with negotiation
       subsidies:
         amount: Amount
         amount_distribution: Amount distribution

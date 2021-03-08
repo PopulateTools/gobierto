@@ -140,6 +140,7 @@ export class ContractsController {
 
   setGlobalVariables([contractsData, tendersData]) {
     let contractsDataMap = this._translateCategoriesTitle(contractsData)
+    let tendersDataMap = this._translateCategoriesTitle(tendersData)
     const sortByField = dateField => {
       return function(a, b) {
         const aDate = a[dateField],
@@ -185,7 +186,7 @@ export class ContractsController {
       }
     })
 
-    const tendersDataMap = tendersData.map(({ initial_amount_no_taxes = 0, submission_date, ...rest }) => {
+    tendersDataMap = tendersData.map(({ initial_amount_no_taxes = 0, submission_date, ...rest }) => {
 
       return {
         initial_amount_no_taxes: initial_amount_no_taxes ? parseFloat(initial_amount_no_taxes) : 0.0,
@@ -207,15 +208,45 @@ export class ContractsController {
     };
   }
 
-  _translateCategoriesTitle(contractsDataMap) {
+  _translateCategoriesTitle(contractsData) {
 
-    contractsDataMap.map(d => {
+    contractsData.map(d => {
       const { category_title } = d
 
       d.category_title = I18n.t(`gobierto_visualizations.visualizations.categories.${category_title}`)
 
+      if (d.contract_type === 'Servicios') {
+        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.services')
+      } else if (d.contract_type === 'Suministros') {
+        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.supplies')
+      } else if (d.contract_type === 'Obras') {
+        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.works')
+      } else if (d.contract_type === 'Otros') {
+        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.others')
+      } else if (d.contract_type === 'Privado') {
+        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.private')
+      } else if (d.contract_type === 'Gestión de servicios públicos') {
+        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.public_services')
+      }
+
+      if (d.process_type === 'Contrato menor') {
+        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.minor_contract')
+      } else if (d.process_type === 'Abierto') {
+        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.open')
+      } else if (d.process_type === 'Negociado sin publicidad') {
+        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.negotiated_publicity')
+      } else if (d.process_type === 'Basado en Acuerdo Marco') {
+        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.based_marco')
+      } else if (d.process_type === 'Otros') {
+        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.others')
+      } else if (d.process_type === 'Licitación con negociación') {
+        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.tender')
+      } else if (d.process_type === 'Restringido') {
+        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.restricted')
+      }
+
     })
-    return contractsDataMap
+    return contractsData
   }
 
   _renderSummary() {

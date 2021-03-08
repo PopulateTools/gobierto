@@ -57,7 +57,7 @@ ca:
           estimated_value: Valor estimat
           external_source: Font
           open_proposals_date: Data de licitació
-          process: Procés
+          process: Procediment
           question_description: Què % del pressupost suposa aquest contracte?
           submission_date: Data de lliurament
           tender: Licitació
@@ -189,6 +189,11 @@ ca:
         others: Altres
         restricted: Restringit
         tender: Licitació amb negociació
+      status_types:
+        awarded: Adjudicat
+        deserted: Desert
+        formalized: Formalizat
+        renunciation: Rebutjat
       subsidies:
         amount: Import
         amount_distribution: Distribució per imports

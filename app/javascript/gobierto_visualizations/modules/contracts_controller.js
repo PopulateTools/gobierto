@@ -245,6 +245,16 @@ export class ContractsController {
         d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.restricted')
       }
 
+      if (d.status === 'Adjudicado') {
+        d.status = I18n.t('gobierto_visualizations.visualizations.status_types.awarded')
+      } else if (d.status === 'Rechazado') {
+        d.status = I18n.t('gobierto_visualizations.visualizations.status_types.renunciation')
+      } else if (d.status === 'Formalizado') {
+        d.status = I18n.t('gobierto_visualizations.visualizations.status_types.formalized')
+      } else if (d.status === 'Desierto') {
+        d.status = I18n.t('gobierto_visualizations.visualizations.status_types.deserted')
+      }
+
     })
     return contractsData
   }
@@ -528,7 +538,7 @@ export class ContractsController {
 
   _formalizedContractsData(contractsData) {
     return contractsData.filter(
-      ({ status }) => status === "Formalizado" || status === "Adjudicado"
+      ({ status }) => status === I18n.t('gobierto_visualizations.visualizations.status_types.formalized') || status === I18n.t('gobierto_visualizations.visualizations.status_types.awarded')
     );
   }
 }

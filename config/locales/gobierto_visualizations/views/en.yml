@@ -58,7 +58,7 @@ en:
           estimated_value: Estimated value
           external_source: Source
           open_proposals_date: Open proposals
-          process: Process
+          process: Procedure
           question_description: What % of the budget is this contract?
           submission_date: Submission date
           tender: Tender
@@ -190,6 +190,11 @@ en:
         others: Other
         restricted: Restricted
         tender: Tender with negotiation
+      status_types:
+        awarded: Awarded
+        deserted: Deserted
+        formalized: Formalized
+        renunciation: Renunciation
       subsidies:
         amount: Amount
         amount_distribution: Amount distribution

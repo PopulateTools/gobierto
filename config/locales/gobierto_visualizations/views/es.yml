@@ -58,7 +58,7 @@ es:
           estimated_value: Valor estimado
           external_source: Fuente
           open_proposals_date: Fecha de licitación
-          process: Proceso
+          process: Procedimiento
           question_description: "¿Qué % del presupuesto supone este contrato?"
           submission_date: Fecha de entrega
           tender: Licitación
@@ -193,6 +193,11 @@ es:
         others: Otros
         restricted: Restringido
         tender: Licitación con negociación
+      status_types:
+        awarded: Adjudicado
+        deserted: Desierto
+        formalized: Formalizado
+        renunciation: Rechazado
       subsidies:
         amount: Importe
         amount_distribution: Distribución por importes

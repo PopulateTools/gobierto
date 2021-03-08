@@ -76,7 +76,7 @@ es:
           contracts: Contratos
           summary: Resumen
           tenders: Licitaciones
-        process_type: Tipo de proceso
+        process_type: Tipo de procedimiento
         search_placeholder: Busca por adjudicatario o por título del contrato
         status: Estado
         submission_date: Fecha

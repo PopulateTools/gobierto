@@ -76,7 +76,7 @@ en:
           contracts: Contracts
           summary: Summary
           tenders: Tenders
-        process_type: Type of process
+        process_type: Type of procedure
         search_placeholder: Search by assignee or by contract title
         status: Status
         submission_date: Date

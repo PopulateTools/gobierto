@@ -75,7 +75,7 @@ ca:
           contracts: Contractes
           summary: Resum
           tenders: Licitacions
-        process_type: Tipus de procés
+        process_type: Tipus de procediment
         search_placeholder: Cerqueu per adjudicatari o per títol del contracte
         status: Estat
         submission_date: Data

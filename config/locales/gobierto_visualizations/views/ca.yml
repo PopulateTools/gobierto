@@ -57,7 +57,7 @@ ca:
           estimated_value: Valor estimat
           external_source: Font
           open_proposals_date: Data de licitació
-          process: Procés
+          process: Procediment
           question_description: Què % del pressupost suposa aquest contracte?
           submission_date: Data de lliurament
           tender: Licitació
@@ -75,7 +75,7 @@ ca:
           contracts: Contractes
           summary: Resum
           tenders: Licitacions
-        process_type: Tipus de procés
+        process_type: Tipus de procediment
         search_placeholder: Cerqueu per adjudicatari o per títol del contracte
         status: Estat
         submission_date: Data
@@ -96,6 +96,13 @@ ca:
           tenders_for: licitacions per un import de
         tender_amount: Imp. licitació
         title: Contractes i licitacions
+      contracts_types:
+        others: Altres
+        private: Privat
+        public_services: Gestió de serveis públics
+        services: Serveis
+        supplies: Subministraments
+        works: Obres
       costs:
         activities: activitats
         cost_direct: Cost directe
@@ -174,6 +181,19 @@ ca:
             en concepte de subvenció prèviament concedida.
         total: Total
         total_cost: Cost total
+      process_type:
+        based_marco: Basat en Acord Marco
+        minor_contract: Contracte menor
+        negotiated_publicity: Negociat sense publicitat
+        open: Obert
+        others: Altres
+        restricted: Restringit
+        tender: Licitació amb negociació
+      status_types:
+        awarded: Adjudicat
+        deserted: Desert
+        formalized: Formalizat
+        renunciation: Rebutjat
       subsidies:
         amount: Import
         amount_distribution: Distribució per imports

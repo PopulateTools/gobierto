@@ -152,10 +152,10 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert page.has_content?('€12,207,444.40')
 
       # Status
-      assert page.has_content?('Formalizado')
+      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.status_types.formalized')
 
       # Type
-      assert page.has_content?('Abierto')
+      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.process_type.open')
 
       # Assignees Show
       ################

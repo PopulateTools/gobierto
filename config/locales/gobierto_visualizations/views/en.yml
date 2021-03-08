@@ -58,7 +58,7 @@ en:
           estimated_value: Estimated value
           external_source: Source
           open_proposals_date: Open proposals
-          process: Process
+          process: Procedure
           question_description: What % of the budget is this contract?
           submission_date: Submission date
           tender: Tender
@@ -76,7 +76,7 @@ en:
           contracts: Contracts
           summary: Summary
           tenders: Tenders
-        process_type: Type of process
+        process_type: Type of procedure
         search_placeholder: Search by assignee or by contract title
         status: Status
         submission_date: Date
@@ -97,6 +97,13 @@ en:
           tenders_for: tenders for a total amount of
         tender_amount: Tender Amount
         title: Contracts and tenders
+      contracts_types:
+        others: Others
+        private: Private
+        public_services: Management of public services
+        services: Services
+        supplies: Supplies
+        works: Works
       costs:
         activities: Activities
         cost_direct: Direct cost
@@ -175,6 +182,19 @@ en:
             as a previously granted subsidy.
         total: Total cost
         total_cost: Total cost
+      process_type:
+        based_marco: Based on Marco agreement
+        minor_contract: Minor contract
+        negotiated_publicity: Negotiated without advertising
+        open: Open
+        others: Other
+        restricted: Restricted
+        tender: Tender with negotiation
+      status_types:
+        awarded: Awarded
+        deserted: Deserted
+        formalized: Formalized
+        renunciation: Renunciation
       subsidies:
         amount: Amount
         amount_distribution: Amount distribution

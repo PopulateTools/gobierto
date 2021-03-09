@@ -89,9 +89,9 @@ ca:
           label_larger_contract_amount_2: " de tota la despesa en contractes"
           label_less_than_1000_1: 'El '
           label_less_than_1000_2: " dels contractes són menors de "
-          mean_amount: Import mitjà
+          mean_amount: Import mig
           mean_savings: Estalvi mitjà de licitació a adjudicació
-          median_amount: Import mitjana
+          median_amount: Mediana dels imports
           tenders: Licitacions
           tenders_for: licitacions per un import de
         tender_amount: Imp. licitació
@@ -223,8 +223,8 @@ ca:
           label_larger_subsidy_amount_2: " de tota la despesa en subvencions"
           label_less_than_1000_1: 'El '
           label_less_than_1000_2: " de les subvencions són menors de "
-          mean_amount: Import mitjà
-          median_amount: Import mitjana
+          mean_amount: Import mig
+          median_amount: Mediana dels imports
           subsidies: Subvencions
           subsidies_for: subvencions per import de
         title: Subvencions

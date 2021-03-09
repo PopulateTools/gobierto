@@ -109,7 +109,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       visit @contracts_path
 
       assert page.has_content?('ASSIGNEE')
-      assert page.has_content?('CONTRACTOR')
+      assert page.has_content?('CONTRACT')
       assert page.has_content?('AMOUNT')
 
       # Active tab is Contracts

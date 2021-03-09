@@ -1,5 +1,8 @@
 <template>
-  <div class="gobierto-filter-checkbox">
+  <div
+    :id="createIdCheckbox()"
+    class="gobierto-filter-checkbox"
+  >
     <input
       :id="`checkbox-${id}-${seed}`"
       :checked="checked"
@@ -25,10 +28,15 @@
 </template>
 
 <script>
+import { slugString } from "lib/shared";
 export default {
   name: "Checkbox",
   props: {
     title: {
+      type: String,
+      default: ""
+    },
+    category: {
       type: String,
       default: ""
     },
@@ -58,6 +66,10 @@ export default {
   methods: {
     onChange({ target: { checked } }) {
       this.$emit("checkbox-change", { id: this.id, value: checked })
+    },
+    createIdCheckbox() {
+      const parseCategoryFilter = slugString(this.category)
+      return `container-checkbox-${parseCategoryFilter}-${this.id}`
     }
   }
 };

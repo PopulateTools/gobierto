@@ -47,7 +47,6 @@ ca:
         contracts_show:
           assignee_description: Empresa que ha guanyat el contracte (Adjudicatari)
           assignees_description: Empreses que han guanyat el contracte (Adjudicataris)
-          awarding: Adjudicació
           awarding_entity: Entitat adjudicadora
           batch: Lot
           bid_description: Pressupost base de licitació sense impostos
@@ -56,10 +55,9 @@ ca:
           entity: Entitat
           estimated_value: Valor estimat
           external_source: Font
-          open_proposals_date: Data de licitació
+          formalization: Formalització
           process: Procediment
           question_description: Què % del pressupost suposa aquest contracte?
-          submission_date: Data de lliurament
           tender: Licitació
           type: Tipus
         date: Data
@@ -68,6 +66,7 @@ ca:
           del %{entity_name}
         entities: Entitats
         final_amount_no_taxes: Import
+        formalization_date: Data de formalització
         fromto: De a Nº Contr.
         main_assignees: Principals adjudicataris
         more: Més de
@@ -95,6 +94,7 @@ ca:
           tenders: Licitacions
           tenders_for: licitacions per un import de
         tender_amount: Imp. licitació
+        tender_date: Data de licitació
         title: Contractes i licitacions
       contracts_types:
         others: Altres

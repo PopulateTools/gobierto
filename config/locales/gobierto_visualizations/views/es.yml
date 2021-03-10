@@ -47,7 +47,6 @@ es:
         contracts_show:
           assignee_description: Empresa que ha ganado el contrato (Adjudicatario)
           assignees_description: Empresas que han ganado el contrato (Adjudicatarios)
-          awarding: Adjudicación
           awarding_entity: Entidad adjudicadora
           batch: Lote
           bid_description: Presupuesto base de licitación sin impuestos
@@ -57,10 +56,9 @@ es:
           entity: Entidad
           estimated_value: Valor estimado
           external_source: Fuente
-          open_proposals_date: Fecha de licitación
+          formalization: Formalización
           process: Procedimiento
           question_description: "¿Qué % del presupuesto supone este contrato?"
-          submission_date: Fecha de entrega
           tender: Licitación
           type: Tipo
         date: Fecha
@@ -69,6 +67,7 @@ es:
           del %{entity_name}
         entities: Entidades
         final_amount_no_taxes: Importe
+        formalization_date: Fecha de formalización
         fromto: Desde A Nº. Contr.
         main_assignees: Principales adjudicatarios
         more: Más de
@@ -96,6 +95,7 @@ es:
           tenders: Licitaciones
           tenders_for: licitaciones por importe de
         tender_amount: Imp. licitación
+        tender_date: Fecha de licitación
         title: Contratos y licitaciones
       contracts_types:
         others: Otros

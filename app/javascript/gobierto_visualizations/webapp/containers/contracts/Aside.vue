@@ -7,6 +7,7 @@
     <aside>
       <div
         v-for="filter in filters"
+        :id="createIdBlockHeader(filter.title)"
         :key="filter.id"
         class="visualizations-home-aside--block"
       >
@@ -28,6 +29,7 @@
               :id="option.id"
               :key="option.id"
               :title="option.title"
+              :category="filter.title"
               :checked="option.isOptionChecked"
               :counter="option.counter"
               class="visualizations-home-aside--checkbox"
@@ -50,6 +52,7 @@ import DownloadButton from "../../components/DownloadButton.vue";
 import { EventBus } from "../../mixins/event_bus";
 import { contractsFiltersConfig } from "../../lib/config/contracts.js";
 import SearchFilter from "../../components/SearchFilter.vue";
+import { slugString } from "lib/shared";
 
 export default {
   name: 'Aside',
@@ -103,6 +106,10 @@ export default {
     EventBus.$off('dc-filter-selected');
   },
   methods: {
+    createIdBlockHeader(filterName) {
+      const parseFilterName = slugString(filterName)
+      return `filters-${parseFilterName}`
+    },
     initFilterOptions(){
       const contractTypesOptions = [];
       const processTypesOptions = [];

@@ -150,7 +150,7 @@ export default {
       labelAssigneeDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignee_description') || '',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount') || '',
       labelTender: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.tender') || '',
-      labelAwarding: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding') || '',
+      labelAwarding: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.formalization') || '',
       labelBidDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bid_description') || '',
       labelBiddersDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bidders_description') || '',
       labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status') || '',

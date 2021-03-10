@@ -47,7 +47,6 @@ en:
         contracts_show:
           assignee_description: Company that has won the contract (Assignee)
           assignees_description: Companies that have won the contract (Assignees)
-          awarding: Awarding
           awarding_entity: Awarding entity
           batch: Batch
           bid_description: Bid base budget without taxes
@@ -57,10 +56,9 @@ en:
           entity: Entity
           estimated_value: Estimated value
           external_source: Source
-          open_proposals_date: Open proposals
+          formalization: Formalization
           process: Procedure
           question_description: What % of the budget is this contract?
-          submission_date: Submission date
           tender: Tender
           type: Type
         date: Date
@@ -69,6 +67,7 @@ en:
           to %{entity_name}
         entities: Entities
         final_amount_no_taxes: Amount
+        formalization_date: Date of formalization
         fromto: From To No Contr.
         main_assignees: Main assignees
         more: More than
@@ -96,6 +95,7 @@ en:
           tenders: Tenders
           tenders_for: tenders for a total amount of
         tender_amount: Tender Amount
+        tender_date: Date of tender
         title: Contracts and tenders
       contracts_types:
         others: Others

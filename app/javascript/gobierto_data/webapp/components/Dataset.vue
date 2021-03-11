@@ -560,11 +560,13 @@ export default {
         this.showPrivate = (privacy_status === "closed");
 
         this.setCurrentQuery(sql);
-      } else if (queryText) {
+      } else if (queryId && queryText) {
         const {
           attributes: { name }
         } = this.publicQueries.find(({ id }) => id === queryId);
         this.queryName = name;
+        this.setCurrentQuery(decodeURIComponent(queryText));
+      } else if (!queryId && queryText) {
         this.setCurrentQuery(decodeURIComponent(queryText));
       }
     },
@@ -749,7 +751,6 @@ export default {
       }
     },
     async runCurrentQuery() {
-      console.log("runCurrentQuery");
       this.isQueryRunning = true;
 
       // save the query executed

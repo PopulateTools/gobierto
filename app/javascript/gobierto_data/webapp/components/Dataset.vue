@@ -357,7 +357,6 @@ export default {
       this.handleDatasetTabs(this.$route);
     }
 
-    this.queryOrVizIsNotMine();
     this.displayVizSavingPrompt();
   },
   mounted() {
@@ -508,6 +507,10 @@ export default {
           if (!this.publicVisualizations) {
             this.setVisualizations();
           }
+          // Request for the queries because we need them to show in visualization
+          if (!this.publicQueries || !this.privateQueries) {
+            this.setQueries();
+          }
           break;
         }
 
@@ -610,6 +613,7 @@ export default {
       this.publicQueries = data
       // privateQueries is always a subset of the publicQueries
       this.privateQueries = data.filter(({ attributes }) => +attributes?.user_id === +getUserId())
+      this.queryOrVizIsNotMine();
     },
     async setVisualizations() {
       this.isPublicVizLoading = true;
@@ -756,7 +760,7 @@ export default {
       // update url with a temporal parameter
       this.$router.push({
         ...this.$route,
-        query: { ...this.$route.query, sql: encodeURIComponent(this.currentQuery) }
+        query: { ...this.$route.query }
       }).catch(()=>{})
 
       const startTime = new Date().getTime();

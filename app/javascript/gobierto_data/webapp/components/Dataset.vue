@@ -594,6 +594,7 @@ export default {
       }
 
       this.currentQuery = sql;
+      this.runCurrentQuery();
     },
     storeRecentQuery() {
       // if the currentQuery does not exist, nor recent, nor in stored queries neither
@@ -748,6 +749,7 @@ export default {
       }
     },
     async runCurrentQuery() {
+      console.log("runCurrentQuery");
       this.isQueryRunning = true;
 
       // save the query executed

@@ -356,7 +356,7 @@ export default {
       this.updateBaseTitle();
       this.handleDatasetTabs(this.$route);
     }
-
+    this.queryOrVizIsNotMine();
     this.displayVizSavingPrompt();
   },
   mounted() {
@@ -555,13 +555,16 @@ export default {
         const {
           attributes: { sql, name, user_id, privacy_status }
         } = this.publicQueries.find(({ id }) => id === queryId);
-
         this.queryName = name;
         this.queryUserId = user_id;
         this.showPrivate = (privacy_status === "closed");
 
         this.setCurrentQuery(sql);
       } else if (queryText) {
+        const {
+          attributes: { name }
+        } = this.publicQueries.find(({ id }) => id === queryId);
+        this.queryName = name;
         this.setCurrentQuery(decodeURIComponent(queryText));
       }
     },

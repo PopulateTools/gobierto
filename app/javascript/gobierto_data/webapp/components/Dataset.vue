@@ -760,7 +760,7 @@ export default {
       // update url with a temporal parameter
       this.$router.push({
         ...this.$route,
-        query: { ...this.$route.query }
+        query: { ...this.$route.query, sql: encodeURIComponent(this.currentQuery) }
       }).catch(()=>{})
 
       const startTime = new Date().getTime();
@@ -946,7 +946,7 @@ export default {
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value;
     },
-    queryOrVizIsNotMine() {
+    async queryOrVizIsNotMine() {
       const userId = Number(getUserId());
       const {
         params: { queryId },
@@ -972,6 +972,10 @@ export default {
         }
       } else if (userId !== 0 && nameComponent === ROUTE_NAMES.Visualization) {
         this.showLabelEdit = true;
+
+        if (!this.privateVisualizations || !this.publicVisualizations) {
+          await this.setVisualizations();
+        }
 
         const objectViz =
           this.privateVisualizations?.find(({ id }) => id === queryId) || {};

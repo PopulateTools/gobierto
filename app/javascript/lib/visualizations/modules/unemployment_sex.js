@@ -44,7 +44,7 @@ export class VisUnemploymentSex {
       "/datasets/ds-personas-paradas-municipio-sexo.json?sort_asc_by=date&filter_by_location_id=" +
       city_id;
     this.parseTime = d3.timeParse("%Y-%m");
-    this.pctFormat = d3.format(".3n");
+    this.pctFormat = d3.format(".1%");
     this.isMobile = window.innerWidth <= 768;
 
     // Chart dimensions
@@ -160,7 +160,6 @@ export class VisUnemploymentSex {
           d.pct = null;
         }
         d.date = this.parseTime(d.date);
-        d.pct = d.pct * 100
       });
 
       // Filtering values to start from the first data points
@@ -209,7 +208,7 @@ export class VisUnemploymentSex {
 
     this.yScale.rangeRound([this.height, 0]).domain([
       0.0,
-      d3.max(this.data, function(d) {
+      d3.max(this.unemplAgeData, function(d) {
         return d.pct;
       })
     ]);
@@ -442,10 +441,7 @@ export class VisUnemploymentSex {
     this.yAxis
       .tickSize(-this.width)
       .scale(this.yScale)
-      .tickFormat(function(d) {
-        return d + '%';
-      })
-      .ticks(3);
+      .ticks(3, "%")
 
     this.svg.select(".y.axis").call(this.yAxis);
 

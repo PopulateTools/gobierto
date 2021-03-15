@@ -26,6 +26,9 @@ export class GetUnemploymentAgeData extends Card {
     Promise.all([pop, unemployed]).then(([jsonData, unemployed]) => {
       // d3v5
       //
+      jsonData.forEach(function(d) {
+        d.age = parseInt(d.age)
+      })
       var nested = nest()
         .key(function(d) {
           return d.date;
@@ -90,15 +93,15 @@ export class GetUnemploymentAgeData extends Card {
       unemployed.forEach(d => {
         var year = d.date.slice(0, 4);
 
-        if (nested.hasOwnProperty(year)) {
-          if(nested[year] === undefined) {
-            d.pct = d.value / nested[year1][d.age_range];
+        if (Object.prototype.hasOwnProperty.call(nested, year)) {
+          if (nested[year] === undefined) {
+            d.pct = d.value / nested[year - 1][d.age_range];
           } else {
             d.pct = d.value / nested[year][d.age_range];
           }
         } else if (year >= lastYear - 2){
           // If we are in the last year, divide the unemployment by last year's population
-          if(nested[year - 1] === undefined) {
+          if (nested[year - 1] === undefined) {
             d.pct = d.value / nested[year - 2][d.age_range];
           } else {
             d.pct = d.value / nested[year - 1][d.age_range];

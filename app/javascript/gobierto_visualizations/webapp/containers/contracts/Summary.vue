@@ -2,25 +2,29 @@
   <div>
     <CategoriesTreeMapNested
       v-if="activeTab === 0"
+      id="gobierto-visualizations-treemap-categories"
       :data="visualizationsDataExcludeNoCategory"
     />
     <EntityTreeMapNested
       v-if="activeTab === 0"
+      id="gobierto-visualizations-treemap-entity"
       :data="visualizationsData"
       class="mt4"
     />
-    <h3 class="mt4 graph-title">
-      {{ labelBeesWarm }}
-    </h3>
-    <BeesWarmChart
-      v-if="activeTab === 0"
-      :data="visualizationsDataExcludeMinorContract"
-      :radius-property="'final_amount_no_taxes'"
-      :x-axis-prop="'gobierto_start_date'"
-      :y-axis-prop="'contract_type'"
-      @showTooltip="showTooltipBeesWarm"
-      @goesToItem="goesToItem"
-    />
+    <div id="gobierto-visualizations-beeswarm">
+      <h3 class="mt4 graph-title">
+        {{ labelBeesWarm }}
+      </h3>
+      <BeesWarmChart
+        v-if="activeTab === 0"
+        :data="visualizationsDataExcludeMinorContract"
+        :radius-property="'final_amount_no_taxes'"
+        :x-axis-prop="'gobierto_start_date'"
+        :y-axis-prop="'contract_type'"
+        @showTooltip="showTooltipBeesWarm"
+        @goesToItem="goesToItem"
+      />
+    </div>
     <div
       id="tendersContractsSummary"
       class="metric_boxes mt4"

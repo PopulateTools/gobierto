@@ -404,7 +404,7 @@ export class VisUnemploymentSex {
     this.focus.select("tspan").text(
       `${this._getLabel(d.data.sex)}: ${this.pctFormat(
         d.data.pct
-      )} (${d.data.date.toLocaleString(I18n.locale, {
+      )}% (${d.data.date.toLocaleString(I18n.locale, {
         month: "short"
       })} ${d.data.date.getFullYear()})`
     );
@@ -441,7 +441,7 @@ export class VisUnemploymentSex {
     this.yAxis
       .tickSize(-this.width)
       .scale(this.yScale)
-      .ticks(3, "%");
+      .ticks(3, "%")
 
     this.svg.select(".y.axis").call(this.yAxis);
 

@@ -101,7 +101,8 @@ gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 gem "rubyXL"
 
 # Performance
-gem "appsignal", "~> 2.11.9"
+# TODO: v3 raises a middleware error
+gem "appsignal", "= 2.11.9"
 
 # Auth strategies
 gem "net-ldap"

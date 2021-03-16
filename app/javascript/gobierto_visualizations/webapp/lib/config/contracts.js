@@ -1,16 +1,15 @@
 // table columns
 export const contractsColumns = [
   { field: 'assignee', name: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), cssClass: 'bold' },
-  { field: 'title', name: I18n.t('gobierto_visualizations.visualizations.contracts.contractor'), cssClass: 'largest-width-td ellipsis' },
+  { field: 'title', name: I18n.t('gobierto_visualizations.visualizations.contracts.contract'), cssClass: 'largest-width-td ellipsis' },
   { field: 'final_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount'), cssClass: 'right nowrap pr1', type: 'money' },
-  { field: 'gobierto_start_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding'), cssClass: 'nowrap pl1 right', type: 'date' },
+  { field: 'gobierto_start_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.formalization_date'), cssClass: 'nowrap pl1 right', type: 'date' },
   { field: 'contractor', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity'), cssClass: 'nowrap pl1' },
   { field: 'status', name: I18n.t('gobierto_visualizations.visualizations.contracts.status'), cssClass: 'nowrap pl1' },
   { field: 'contract_type', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type'), cssClass: 'nowrap pl1' },
   { field: 'process_type', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process'), cssClass: 'nowrap pl1' },
   { field: 'category_title', name: I18n.t('gobierto_visualizations.visualizations.subsidies.category'), cssClass: 'nowrap pl1' },
-  { field: 'open_proposals_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.open_proposals_date'), cssClass: 'nowrap pl1', type: 'date' },
-  { field: 'submission_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.submission_date'), cssClass: 'nowrap pl1', type: 'date' },
+  { field: 'open_proposals_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.tender_date'), cssClass: 'nowrap pl1 right', type: 'date' },
   { field: 'initial_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bid_description'), cssClass: 'nowrap pl1 right', type: 'money' }
 ];
 

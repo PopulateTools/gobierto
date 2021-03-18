@@ -179,7 +179,7 @@ export default {
     },
     $route(to, from) {
       if (to !== from) {
-        this.containerChart = document.querySelector('.treemap-nested-container');
+        this.containerChart = document.querySelector(`.treemap-nested-container-${this.treemapId}`);
         this.svgWidth = this.containerChart.offsetWidth;
         this.transformDataTreemap(this.data)
       }
@@ -194,7 +194,7 @@ export default {
     }
   },
   mounted() {
-    this.containerChart = document.querySelector('.treemap-nested-container');
+    this.containerChart = document.querySelector(`.treemap-nested-container-${this.treemapId}`);
     this.svgWidth = this.containerChart.offsetWidth;
     /*To avoid add/remove colors in every update use Object.freeze(this.data)
     to create a scale/domain color persistent with the original keys*/
@@ -727,8 +727,7 @@ export default {
       }
     },
     resizeListener() {
-      const containerChart = document.querySelector('.treemap-nested-container');
-      this.svgWidth = containerChart.offsetWidth
+      this.svgWidth = this.containerChart.offsetWidth
       this.transformDataTreemap(this.data)
     },
     injectRouter() {

@@ -508,7 +508,7 @@ export default {
             this.setVisualizations();
           }
           // Request for the queries because we need them to show in visualization
-          if (!this.publicQueries || !this.privateQueries) {
+          if (!this.publicQueries) {
             this.setQueries();
           }
           break;
@@ -979,7 +979,7 @@ export default {
       } else if (userId !== 0 && nameComponent === ROUTE_NAMES.Visualization) {
         this.showLabelEdit = true;
 
-        if (!this.privateVisualizations || !this.publicVisualizations) {
+        if (!this.publicVisualizations) {
           await this.setVisualizations();
         }
 

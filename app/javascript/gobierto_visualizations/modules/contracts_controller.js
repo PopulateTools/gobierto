@@ -174,14 +174,7 @@ export class ContractsController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
-    contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, award_date, formalized_date, ...rest }) => {
-      if (!gobierto_start_date && formalized_date) {
-        gobierto_start_date = formalized_date
-      }
-
-      if (!gobierto_start_date && !formalized_date) {
-        gobierto_start_date = award_date
-      }
+    contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, ...rest }) => {
 
       return {
         final_amount_no_taxes: (final_amount_no_taxes && !Number.isNaN(final_amount_no_taxes)) ? parseFloat(final_amount_no_taxes): 0.0,
@@ -190,8 +183,6 @@ export class ContractsController {
         assignee_routing_id: assignee_id,
         gobierto_start_date_year: gobierto_start_date ? new Date(gobierto_start_date).getFullYear().toString() : '',
         gobierto_start_date: new Date(gobierto_start_date),
-        award_date,
-        formalized_date,
         ...rest
       }
     })

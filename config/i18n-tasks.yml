@@ -120,6 +120,10 @@ ignore_unused:
   - 'gobierto_admin.layouts.application.global'
   - 'gobierto_data.data_type.*'
   - 'gobierto_visualizations.visualizations.categories.*'
+  - 'gobierto_visualizations.visualizations.tender_statuses.*'
+  - 'gobierto_visualizations.visualizations.contract_types.*'
+  - 'gobierto_visualizations.visualizations.contract_statuses.*'
+  - 'gobierto_visualizations.visualizations.process_types.*'
   - 'routes.*'
 
 translation:

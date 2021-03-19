@@ -155,7 +155,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert page.has_content? I18n.t('gobierto_visualizations.visualizations.status_types.formalized')
 
       # Type
-      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.process_type.open')
+      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.process_types.open')
 
       # Assignees Show
       ################

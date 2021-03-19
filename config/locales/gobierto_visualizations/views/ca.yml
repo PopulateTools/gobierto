@@ -34,6 +34,29 @@ ca:
         telecom: Telecomunicacions i correus
         textile: Tèxtil
         transportation: Transport
+      contract_statuses:
+        abandoned: Desistiment
+        awarded: Adjudicat
+        finally_awarded: Finalment adjudicat
+        finally_void: Desert
+        formalized: Formalitzat
+        highest_rated: Millor valorat
+        provisionally_awarded: Provisionalment adjudicat
+        provisionally_void: Provisionalment desert
+        revoked: Revocat
+        void: Desert
+      contract_types:
+        construction: Obres
+        other: Altres
+        patrimonial: Patrimonial
+        private_contract: Privat
+        public_private_collaboration: Col·laboració entre el sector públic i sector
+          privat
+        public_services_management: Gestió de Serveis Públics
+        public_works: Concessió d'Obres públiques
+        services: Serveis
+        special_administrative: Administratiu especial
+        supplies: Subministraments
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
@@ -96,13 +119,6 @@ ca:
         tender_amount: Imp. licitació
         tender_date: Data de licitació
         title: Contractes i licitacions
-      contracts_types:
-        others: Altres
-        private: Privat
-        public_services: Gestió de serveis públics
-        services: Serveis
-        supplies: Subministraments
-        works: Obres
       costs:
         activities: activitats
         cost_direct: Cost directe
@@ -181,19 +197,22 @@ ca:
             en concepte de subvenció prèviament concedida.
         total: Total
         total_cost: Cost total
-      process_type:
-        based_marco: Basat en Acord Marco
+      process_types:
+        based_on_agreement: Basat en Acord Marc
+        competitive_dialogue: Diàleg competitiu
+        dynamic_acquisition: Basat en sistema dinàmic d'adquisició
+        innovation: Associació per a la innovació
+        innovation_derived: Derivat d'associació per a la innovació
+        internal_rules: Normes Internes
         minor_contract: Contracte menor
-        negotiated_publicity: Negociat sense publicitat
+        negotiated: Licitació amb negociació
+        negotiated_with_publicity: Negociat amb publicitat
+        negotiated_without_publicity: Negociat sense publicitat
         open: Obert
+        open_simplified: Obert simplificat
         others: Altres
+        project_competition: Concurs de projectes
         restricted: Restringit
-        tender: Licitació amb negociació
-      status_types:
-        awarded: Adjudicat
-        deserted: Desert
-        formalized: Formalizat
-        renunciation: Rebutjat
       subsidies:
         amount: Import
         amount_distribution: Distribució per imports
@@ -228,6 +247,18 @@ ca:
           subsidies: Subvencions
           subsidies_for: subvencions per import de
         title: Subvencions
+      tender_statuses:
+        awarded: Adjudicat
+        cancelled: Desistida
+        evaluation: Avaluació
+        modified: Anul·lada
+        partially_awarded: Parcialment adjudicada
+        partially_resolved: Parcialment resolta
+        prior_announcement: Anunci previ
+        prior_evaluation: Avaluació prèvia
+        provisionally_resolved: Adjudicació provisional
+        published: Publicada
+        resolved: Resolta
       visualizations:
         title_beeswarm: Contractes per tipus, volum, mida i data
         tooltip_beeswarm: Import d'adjudicació

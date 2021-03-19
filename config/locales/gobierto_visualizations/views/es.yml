@@ -34,6 +34,29 @@ es:
         telecom: Telecomunicaciones y correos
         textile: Textil
         transportation: Transporte
+      contract_statuses:
+        abandoned: Desistimiento
+        awarded: Adjudicado
+        finally_awarded: Finalmente adjudicado
+        finally_void: Desierto
+        formalized: Formalizado
+        highest_rated: Mejor valorado
+        provisionally_awarded: Provisionalmente adjudicado
+        provisionally_void: Provisionalmente desierto
+        revoked: Revocado
+        void: Desierto
+      contract_types:
+        construction: Obras
+        other: Otros
+        patrimonial: Patrimonial
+        private_contract: Privado
+        public_private_collaboration: Colaboración entre el sector público y sector
+          privado
+        public_services_management: Gestión de Servicios Públicos
+        public_works: Concesión de Obras públicas
+        services: Servicios
+        special_administrative: Administrativo especial
+        supplies: Suministros
       contracts:
         amount_distribution: Distribución por importes
         assignee: Adjudicatario
@@ -97,13 +120,6 @@ es:
         tender_amount: Imp. licitación
         tender_date: Fecha de licitación
         title: Contratos y licitaciones
-      contracts_types:
-        others: Otros
-        private: Privado
-        public_services: Gestión de servicios públicos
-        services: Servicios
-        supplies: Suministros
-        works: Obras
       costs:
         activities: Actividades
         cost_direct: Coste directo
@@ -185,19 +201,22 @@ es:
             en concepto de subvención previamente concedida.
         total: Total
         total_cost: Coste total
-      process_type:
-        based_marco: Basado en Acuerdo Marco
+      process_types:
+        based_on_agreement: Basado en Acuerdo Marco
+        competitive_dialogue: Diálogo competitivo
+        dynamic_acquisition: Basado en sistema dinámico de adquisición
+        innovation: Asociación para la innovación
+        innovation_derived: Derivado de asociación para la innovación
+        internal_rules: Normas Internas
         minor_contract: Contrato menor
-        negotiated_publicity: Negociado sin publicidad
+        negotiated: Licitación con negociación
+        negotiated_with_publicity: Negociado con publicidad
+        negotiated_without_publicity: Negociado sin publicidad
         open: Abierto
+        open_simplified: Abierto simplificado
         others: Otros
+        project_competition: Concurso de proyectos
         restricted: Restringido
-        tender: Licitación con negociación
-      status_types:
-        awarded: Adjudicado
-        deserted: Desierto
-        formalized: Formalizado
-        renunciation: Rechazado
       subsidies:
         amount: Importe
         amount_distribution: Distribución por importes
@@ -232,6 +251,18 @@ es:
           subsidies: Subvenciones
           subsidies_for: subvenciones por importe de
         title: Subvenciones
+      tender_statuses:
+        awarded: Adjudicada
+        cancelled: Desistida
+        evaluation: Evaluación
+        modified: Anulada
+        partially_awarded: Parcialmente adjudicada
+        partially_resolved: Parcialmente resuelta
+        prior_announcement: Anuncio previo
+        prior_evaluation: Evaluación previa
+        provisionally_resolved: Adjudicación provisional
+        published: Publicada
+        resolved: Resuelta
       visualizations:
         title_beeswarm: Contratos por tipo, volumen, tamaño y fecha
         tooltip_beeswarm: Importe de adjudicación

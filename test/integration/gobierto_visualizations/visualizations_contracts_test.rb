@@ -5,7 +5,6 @@ require "test_helper"
 class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @summary_path = gobierto_visualizations_contracts_summary_path(locale: 'es')
     @contracts_path = gobierto_visualizations_contracts_path
 
     ::GobiertoModuleSettings.create!({
@@ -56,49 +55,52 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
 
   def test_summary
     with(site: site, js: true) do
-      visit @summary_path
+      visit @contracts_path
+
+      find("li.visualizations-home-nav--tab", match: :first).click #Click on Summary
+
 
       ## Active tab is Summary
-      assert find(".visualizations-home-nav--tab.is-active").text, 'RESUMEN'
+      assert find(".visualizations-home-nav--tab.is-active").text, 'SUMMARY'
 
       # Box
       metrics_box = find(".metric_box", match: :first)
 
-      assert metrics_box.has_content?("Licitaciones\n252")
-      assert metrics_box.has_content?("licitaciones por importe de\n113.122.855,23 €")
+      assert metrics_box.has_content?("Tenders\n250")
+      assert metrics_box.has_content?("tenders for a total amount of\n€93,114,128.27")
 
-      assert metrics_box.has_content?("Importe medio\n448.900,22 €")
-      assert metrics_box.has_content?("Importe mediano\n72.500,00 €")
+      assert metrics_box.has_content?("Average amount\n€372,456.51")
+      assert metrics_box.has_content?("Median amount\n€72,049.81")
 
-      assert metrics_box.has_content?("Contratos adjudicados\n223")
-      assert metrics_box.has_content?("contratos por importe de\n61.990.830,68 €")
+      assert metrics_box.has_content?("Assigned contracts\n25")
+      assert metrics_box.has_content?("contracts for a total amount of\n€2,437,973.97")
 
-      assert metrics_box.has_content?("Importe medio\n277.985,79 €")
-      assert metrics_box.has_content?("Importe mediano\n28.400,00 €")
+      assert metrics_box.has_content?("Average amount\n€97,518.96")
+      assert metrics_box.has_content?("Median amount\n€8,719.01")
 
       ## Headlines
-      assert page.has_content?("El 5 % de los contratos son menores de 1.000 €")
-      assert page.has_content?("El mayor contrato supone un 20 % de todo el gasto en contratos")
-      assert page.has_content?("El 2 % de contratos concentran el 50% de todo el gasto")
+      assert page.has_content?("16% of contracts are less than 1.000 €")
+      assert page.has_content?("The largest contract means a 41% of all the spending")
+      assert page.has_content?("8% of contracts accumulate the 50% of all the spending")
 
       ## Charts
       # Contract type
       contract_type_container = find("#contract-type-bars", match: :first)
 
-      assert contract_type_container.has_content?(/Gestión de servicios públ...\d*1,3 %/)
-      assert contract_type_container.has_content?(/Servicios\d*56,5 %/)
+      assert contract_type_container.has_content?(/Supplies\d*60.0/)
+      assert contract_type_container.has_content?(/Services\d*40.0/)
 
       # # Process type
       process_type_container = find("#process-type-bars", match: :first)
 
-      assert process_type_container.has_content?(/Abierto simplificado\d*30,0 %/)
-      assert process_type_container.has_content?(/Negociado con publicidad\d*0,4 %/)
+      assert process_type_container.has_content?(/Open\d*76.0/)
+      assert process_type_container.has_content?(/Open simplified\d*16.0/)
 
       # Assignees table
-      first_contract = find(".gobierto-table__tr", match: :first)
+      first_assignee = find(".gobierto-table__tr", match: :first)
 
-      assert first_contract.has_content?('LIDER SYSTEM')
-      assert first_contract.has_content?('40.261,50 €')
+      assert first_assignee.has_content?('CONTENUR SL')
+      assert first_assignee.has_content?('30,750.00')
     end
   end
 
@@ -115,64 +117,64 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       # Active tab is Contracts
       assert find(".visualizations-home-nav--tab.is-active").text, 'CONTRACTS'
 
-      first_contract = find(".gobierto-table__tr", match: :first)
+      sample_contract = all("tr.gobierto-table__tr")[4]
 
       # Assignee
-      assert first_contract.has_content?('UTE ABALA - FACTO -ORTHEM')
+      assert sample_contract.has_content?('Eva Casado Jiménez')
 
       # Contract
-      assert first_contract.has_content?('Construcción de dos edificios de viviendas con protección púb')
+      assert sample_contract.has_content?('Servicios veterinarios del centro de protección de animales')
 
       # Amount
-      assert first_contract.has_content?('€12,207,444.40')
+      assert sample_contract.has_content?('€50,000.00')
 
       # Date
-      assert first_contract.has_content?('12/16/2019')
+      assert sample_contract.has_content?('4/1/2001')
 
       # Contracts Show
       ################
-      first_contract.click
+      sample_contract = all("tr.gobierto-table__tr")[6]
+      sample_contract.click
 
       # Active tab is still Contracts
       assert find(".visualizations-home-nav--tab.is-active").text, 'CONTRACTS'
 
       # Url is updated
-      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/260522"
+      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/1386359"
 
       # Title
-      assert page.has_content?('Construcción de dos edificios de viviendas con protección pública, garajes y trasteros de consumo energético casi nulo.')
+      assert page.has_content?('Dotación de monitores para el desarrollo del proyecto "Camino escolar seguro".')
 
       # Assignee
-      assert page.has_content?('UTE ABALA - FACTO -ORTHEM')
+      assert page.has_content?('ASOCIACIÓN TIEMPO LIBRE ALTERNATIVO DEL SUR')
 
       # Contract amount
-      assert page.has_content?('€12,459,118.59')
+      assert page.has_content?('€24,576.66')
 
       # Contract amount no taxes
-      assert page.has_content?('€12,207,444.40')
+      assert page.has_content?('€29,614.00')
 
       # Status
-      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.contract_statuses.formalized')
+      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.contract_statuses.awarded')
 
       # Type
-      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.process_types.open')
+      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.process_types.open_simplified')
 
       # Assignees Show
       ################
       find("#assignee_show_link").click
 
       # Url is updated
-      assert_equal current_path, "/visualizaciones/contratos/adjudicatario/cd0db88d9c0da8d17bc82cbad2b3a235"
+      assert_equal current_path, "/visualizaciones/contratos/adjudicatario/e1d4a7e1138d5b042a54d4fee5bf7a49"
 
       assert page.has_content?("Contracts assigned to")
-      assert page.has_content?('Construcción de dos edificios de viviendas con protección pública, garajes y trasteros de consumo energético casi nulo.')
+      assert page.has_content?('Dotación de monitores para el desarrollo del proyecto "Camino escolar seguro"')
 
       # We can go back to the contract page
       first_contract = find(".gobierto-table__tr", match: :first)
       first_contract.click
 
-      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/260522"
-
+      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/1386359"
     end
   end
 

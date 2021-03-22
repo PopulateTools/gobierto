@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite time='36.475137' skipped='0' failures='0' errors='0' name="GobiertoVisualizations::VisualizationsContractsTest" assertions='38' tests='2' timestamp="2021-03-08T16:15:45+01:00">
-  <testcase time='34.215846' file="test/integration/gobierto_visualizations/visualizations_contracts_test.rb" name="test_contracts" assertions='20'>
-  </testcase>
-  <testcase time='2.259291' file="test/integration/gobierto_visualizations/visualizations_contracts_test.rb" name="test_summary" assertions='18'>
-  </testcase>
-</testsuite>

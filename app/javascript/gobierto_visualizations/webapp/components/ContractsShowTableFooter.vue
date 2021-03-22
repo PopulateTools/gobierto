@@ -17,7 +17,10 @@
         />
       </table>
     </div>
-    <div class="visualizations-contracts-show__footer_link">
+    <div
+      v-if="showPermalink"
+      class="visualizations-contracts-show__footer_link"
+    >
       <a :href="permalink">
         <i
           class="fas fa-external-link-alt"
@@ -55,6 +58,11 @@ export default {
       labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
       labelQuestionDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.question_description') || '',
       labelLink: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.external_source') || '',
+    }
+  },
+  computed: {
+    showPermalink() {
+      return !this.permalink.includes('.gobierto.es')
     }
   },
   created() {

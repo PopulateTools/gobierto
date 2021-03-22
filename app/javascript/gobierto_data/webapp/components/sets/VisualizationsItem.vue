@@ -216,6 +216,9 @@ export default {
       this.getDataVisualization(this.privateVisualizations);
     }
   },
+  mounted() {
+    this.currentConfigChart = this.$refs.viewer.getConfig()
+  },
   beforeDestroy() {
     //Hide the string, and the buttons return to their initial state.
     this.$root.$emit("isVizModified", false);
@@ -235,6 +238,16 @@ export default {
       const config = this.$refs.viewer.getConfig()
       this.$root.$emit("storeCurrentVisualization", config, opts);
       this.hidePromptSaveViz()
+
+      const { plugin: updateConfigPlugin } = config
+      const { plugin: currentConfigPlugin } = this.currentConfigChart
+      /* When saving a query, checks if the type of chart is changed.
+        If the chart change, we need to reload the visualization to
+        show the new type of chart.*/
+      if (updateConfigPlugin !== currentConfigPlugin) {
+        this.$root.$emit("reloadVisualizations")
+        this.saveLoader = false
+      }
     },
     updateVizName(value) {
       const {

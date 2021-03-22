@@ -99,8 +99,8 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       # Assignees table
       first_assignee = find(".gobierto-table__tr", match: :first)
 
-      assert first_assignee.has_content?('CONTENUR SL')
-      assert first_assignee.has_content?('30,750.00')
+      assert first_assignee.has_content?('PREVING CONSULTORES S.L.U.')
+      assert first_assignee.has_content?('15,100.00')
     end
   end
 
@@ -129,7 +129,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert sample_contract.has_content?('€50,000.00')
 
       # Date
-      assert sample_contract.has_content?('4/1/2001')
+      assert sample_contract.has_content?('2/15/2020')
 
       # Contracts Show
       ################

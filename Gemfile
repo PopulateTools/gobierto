@@ -53,7 +53,7 @@ gem "sidekiq-monitor-stats"
 gem "aws-sdk-s3", "~> 1"
 
 # AWS SES client
-gem "aws-ses", "= 0.7.0"
+gem "aws-ses", git: "https://github.com/zebitex/aws-ses.git", ref: "78-sigv4-problem"
 
 # Calendar view component
 gem "simple_calendar", "~> 2.2"
@@ -102,7 +102,7 @@ gem "rubyXL"
 
 # Performance
 # TODO: v3 raises a middleware error
-gem "appsignal", "= 2.11.9"
+gem "appsignal", "= 3.0.2"
 
 # Auth strategies
 gem "net-ldap"

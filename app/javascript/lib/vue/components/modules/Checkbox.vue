@@ -17,7 +17,9 @@
       <div
         class="gobierto-filter-checkbox--label-title"
       >
-        {{ title }}
+        <p class="gobierto-filter-checkbox--label-title-text">
+          {{ title }}
+        </p>
         <i
           v-if="hasCounter"
           class="gobierto-filter-checkbox--label-counter"

@@ -2,6 +2,7 @@
 @import "mixins";
 @import "comp-vue-table";
 @import "comp-horizontal-carousel.scss";
+@import "comp-block-checkbox";
 
 .investments {
   @include min-screen(768) {

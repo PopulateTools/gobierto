@@ -31,9 +31,7 @@
         :scroll-zoom="scrollZoom"
         @load="onMapLoaded"
       >
-        <MglMarker
-          :coordinates="coordinatesMarker"
-        >
+        <MglMarker :coordinates="coordinatesMarker">
           <img
             slot="marker"
             src="/packs/media/images/marker-icon-2273e3d8.png"
@@ -76,6 +74,7 @@ import {
   MglMap,
   MglMarker
 } from "vue-mapbox";
+import "mapbox-gl/src/css/mapbox-gl.css"
 import Wkt from "wicket";
 import axios from "axios";
 import { Middleware } from "lib/shared";
@@ -100,12 +99,10 @@ export default {
       buttonReload: I18n.t("gobierto_investments.projects.see"),
       scrollZoom: false,
       geojsons: [],
-      zoomDefault: 15,
       mapbox: null,
       activeCardId: 0,
       titleCard: null,
       photoCard: null,
-      projectId: null,
       item: null,
       coordinatesMarker: [2.445,41.542],
       homeUrl: this.$root.$data.homeUrl,
@@ -116,9 +113,6 @@ export default {
     };
   },
   computed: {
-    center() {
-      return this.geojsons.length !== 0 ? Object.values(this.geojsons).reverse() : this.coordinatesMarker;
-    },
     combinedMapData(){
       return this.loadData && this.loadMap
     }
@@ -131,14 +125,12 @@ export default {
     }
   },
   created() {
-    this.labelSummary = I18n.t("gobierto_investments.projects.summary");
-
     axios.all([axios.get(baseUrl), axios.get(`${baseUrl}/meta?stats=true`)]).then(responses => {
       const [{
           data: { data: items = [] }
         },
         {
-          data: { data: attributesDictionary = [], meta: filtersFromConfiguration }
+          data: { data: attributesDictionary = [] }
         }
       ] = responses;
 
@@ -152,6 +144,7 @@ export default {
       this.subsetItems = this.items;
 
       this.setGeoJSONs(this.items);
+
       this.loadData = true
     })
   },
@@ -193,34 +186,34 @@ export default {
       this.photoCard = this.geojsons[card].photo
       this.item = this.geojsons[card].id
 
-      const [lat, lng] = Object.values(this.geojsons[card].coordinates)
-
       if (this.geojsons[card].coordinates.length <= 1) {
+        // polygons
         this.coordinatesMarker = this.geojsons[card].coordinates[0][0]
-        const [lat, lng] = Object.values(this.geojsons[card].coordinates[0][0])
+
         this.map.flyTo({
-          center: [lat, lng],
+          center: this.coordinatesMarker,
           zoom: this.randomNumbers(15, 17),
           bearing: this.randomNumbers(-60, 60),
           pitch: this.randomNumbers(10, 60),
           speed: 0.75
         });
-
       } else {
+        // points
         this.coordinatesMarker = this.geojsons[card].coordinates
+
         this.map.flyTo({
-          center: [lat, lng],
+          center: this.coordinatesMarker,
           zoom: this.randomNumbers(15, 17),
           bearing: this.randomNumbers(-60, 60),
           pitch: this.randomNumbers(10, 60),
           speed: 0.75
         });
-
       }
+
       this.activeCardId += 1
+
       if (this.activeCardId < this.geojsons.length) {
         this.activeTour = setTimeout(() => { this.cardsOnScreen(this.activeCardId) }, 3000)
-        this.activeTour
       }
     },
     reloadTour() {

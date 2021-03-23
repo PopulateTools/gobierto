@@ -20,6 +20,9 @@ en:
       list: List
       loading: Loading data...
       map: Map
+      project:
+        one: "%{count} project"
+        other: "%{count} projects"
       reset: Clean filters
       see: See again
       showall: Show all

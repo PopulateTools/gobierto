@@ -24,7 +24,7 @@ export default {
       id: "estat"
     },
     {
-      id: "any-partida"
+      id: "any-estat"
     },
     {
       id: "tipus"
@@ -56,12 +56,13 @@ export default {
       id: "estat"
     },
     {
-      id: "import"
+      id: "import",
+      sort: "desc"
     }
   ],
   availableProjectFields: [
     {
-      id: "tipus"
+      id: "tipus-projecte-tipus-concatenation"
     },
     {
       id: "element"

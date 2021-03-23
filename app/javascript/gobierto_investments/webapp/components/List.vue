@@ -4,6 +4,8 @@
       :data="itemsParsed"
       :columns="columns"
       :show-column-selector="false"
+      :order-column="orderColumn"
+      :order-sort="orderSort"
       class="investments-home-main--table"
       @on-href-click="handleClick"
     >
@@ -43,6 +45,8 @@ export default {
   data() {
     return {
       columns: [],
+      orderColumn: null,
+      orderSort: null,
       labelEmpty: "",
       isAllVisible: false,
       maxItems: 24
@@ -66,7 +70,8 @@ export default {
       ? this.items[0]
       : {};
 
-    this.columns = availableTableFields.map(({ name, id, field_type: type }) => ({ name, field: id, type }));
+    this.columns = availableTableFields.map(({ name, id, field_type: type, sort }) => ({ name, field: id, type, sort }));
+    ({ field: this.orderColumn, sort: this.orderSort } = this.columns.find(({ sort }) => !!sort ) || {})
   },
   methods: {
     showAll(isAllVisible, paginator, data) {

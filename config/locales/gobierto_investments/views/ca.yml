@@ -20,6 +20,9 @@ ca:
       list: Llista
       loading: Carregant dades...
       map: Mapa
+      project:
+        one: "%{count} projecte"
+        other: "%{count} projectes"
       reset: Netejeu filtres
       see: Vegeu-ho de nou
       showall: Vegeu-ho tot

@@ -164,7 +164,7 @@ export default {
   mixins: [VueFiltersMixin],
   defaults: {
     sortColumn: "id",
-    sortDirection: "up",
+    sortDirection: "asc",
   },
   props: {
     data: {
@@ -177,7 +177,11 @@ export default {
     },
     orderColumn: {
       type: String,
-      default: ''
+      default: null
+    },
+    orderSort: {
+      type: String,
+      default: null
     },
     showColumns: {
       type: Array,
@@ -199,8 +203,8 @@ export default {
   data() {
     return {
       mapColumns: new Map(),
-      currentSortColumn: this.orderColumn,
-      currentSort: this.$options.defaults.sortDirection,
+      currentSortColumn: this.orderColumn || this.$options.defaults.sortColumn,
+      currentSort: this.orderSort || this.$options.defaults.sortDirection,
       visibleColumns: this.showColumns.length ? this.showColumns : this.columns.map(({ field }) => field),
       visiblePaginatedRows: null,
       arrayColumnsFiltered: []
@@ -216,7 +220,7 @@ export default {
       return this.data
         .slice()
         .sort(({ [id]: termA }, { [id]: termB }) =>
-          sort === "up"
+          sort === "asc"
             ? typeof termA === "string"
               ? termA.localeCompare(termB, undefined, { numeric: true })
               : termA > termB ? 1 : -1
@@ -229,9 +233,6 @@ export default {
       // if there's pagination, display only such subset, otherwise show everything
       return this.visiblePaginatedRows || this.rowsSorted
     },
-    icon() {
-      return this.direction === 'down' ? 'down' : 'down-alt'
-    },
   },
   created() {
     this.prepareTable()
@@ -241,7 +242,7 @@ export default {
       const { sort } = this.mapColumns.get(id);
       this.currentSortColumn = id;
       // toggle sort order
-      this.currentSort = sort === "up" ? "down" : "up";
+      this.currentSort = sort === "asc" ? "desc" : "asc";
       // update the order for the item clicked
       this.mapColumns.set(id, { ...this.mapColumns.get(id), sort: this.currentSort });
     },
@@ -257,7 +258,7 @@ export default {
         this.mapColumns.set(field, {
           visibility: this.visibleColumns.includes(field),
           name: name,
-          sort: undefined,
+          sort: field === this.currentSortColumn ? this.currentSort : undefined,
           type: type,
           cssClass: cssClass
         });

@@ -37,7 +37,7 @@
         <div
           v-if="type === 'separator'"
           :key="`${id}-${i}`"
-          class="p_v_2"
+          class="p_v_1"
         />
 
         <template v-else>

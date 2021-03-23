@@ -21,6 +21,9 @@ es:
       list: Lista
       loading: Cargando datos...
       map: Mapa
+      project:
+        one: "%{count} proyecto"
+        other: "%{count} proyectos"
       reset: Limpiar filtros
       see: Ver de nuevo
       showall: Ver todo

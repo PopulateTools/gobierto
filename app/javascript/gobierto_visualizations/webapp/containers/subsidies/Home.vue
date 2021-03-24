@@ -11,11 +11,11 @@
           :active-tab="activeTabIndex"
           @active-tab="setActiveTab"
         />
-        <main class="visualizations-home-main">
+        <div class="visualizations-home-main">
           <Summary v-show="isSummary" />
           <SubsidiesIndex v-show="isSubsidiesIndex" />
           <SubsidiesShow v-if="isSubsidiesShow" />
-        </main>
+        </div>
       </div>
     </div>
   </main>

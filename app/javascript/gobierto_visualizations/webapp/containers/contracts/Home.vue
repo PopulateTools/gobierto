@@ -11,7 +11,7 @@
           :active-tab="activeTabIndex"
           @active-tab="setActiveTab"
         />
-        <main class="visualizations-home-main">
+        <div class="visualizations-home-main">
           <Summary
             v-show="isSummary"
             :active-tab="activeTabIndex"
@@ -19,7 +19,7 @@
           <ContractsIndex v-show="isContractsIndex" />
           <ContractsShow v-if="isContractsShow" />
           <AssigneesShow v-if="isAssigneesShow" />
-        </main>
+        </div>
       </div>
     </div>
   </main>

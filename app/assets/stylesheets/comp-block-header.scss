@@ -15,7 +15,16 @@
 
 .gobierto-block-header--link {
   font-weight: 400;
+  background: none;
   cursor: pointer;
+  color: var(--color-base);
+  padding: 0;
+  font-size: .75rem;
+  text-transform: none;
+  &:hover {
+    background: none;
+    text-decoration: underline;
+  }
 }
 
 .gobierto-block-header--icon {

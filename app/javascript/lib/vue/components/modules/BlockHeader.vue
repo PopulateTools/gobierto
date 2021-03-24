@@ -7,14 +7,14 @@
         @click="toggle"
       />
       {{ title }}</strong>
-    <a
+    <button
       v-if="seeLink"
       tabindex="0"
       class="gobierto-block-header--link"
       @click.stop="selectAll"
-    >{{
-      labelAlt ? labelNone : labelAll
-    }}</a>
+    >
+      {{ labelAlt ? labelNone : labelAll }}
+    </button>
   </div>
 </template>
 

@@ -52,14 +52,15 @@ export default {
   },
   methods: {
     setGroups(id) {
-      const { projects, meta } = PlansStore.state;
-      const {
-        attributes: { vocabulary_terms }
-      } = meta.find(({ attributes: { uid } = {} }) => uid === id);
+      const { projects, meta, status } = PlansStore.state;
+
+      // if there's no matching in meta fields, use the status
+      const { attributes: { vocabulary_terms = status } = {} } = meta.find(({ attributes: { uid } = {} }) => uid === id) || {};
 
       // get the projects with the differentiate attribute informed, and move it to the first level for easier aggrupation
       const projectsWithUid = projects.reduce((acc, item) => {
-        const { [id]: uid } = item.attributes;
+        const { [id]: uid, status_id } = item.attributes;
+
         if (uid && uid.length) {
           // to handle multiple keys
           const uids = Array.isArray(uid) ? uid : [uid];
@@ -67,6 +68,9 @@ export default {
             const element = uids[index];
             acc.push({ ...item, uid: element });
           }
+        } else if (status_id) {
+          // handle status as a custom field
+          acc.push({ ...item, uid: status_id });
         }
         return acc;
       }, []);

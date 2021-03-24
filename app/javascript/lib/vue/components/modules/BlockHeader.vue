@@ -9,6 +9,7 @@
       {{ title }}</strong>
     <a
       v-if="seeLink"
+      tabindex="0"
       class="gobierto-block-header--link"
       @click.stop="selectAll"
     >{{

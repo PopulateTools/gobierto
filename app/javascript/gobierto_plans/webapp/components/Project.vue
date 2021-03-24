@@ -53,7 +53,8 @@ export default {
       const { uid } = item.attributes;
       const value = attributes[uid];
 
-      if (show_empty_fields || (value && value.length)) {
+      // hide "estat" custom_field on purpose (it's a vocabulary also)
+      if ((uid !== "estat") && (show_empty_fields || (value && value.length)) ){
         acc.push({
           ...item,
           attributes: { ...item.attributes, value }

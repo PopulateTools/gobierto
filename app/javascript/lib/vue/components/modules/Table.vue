@@ -175,11 +175,11 @@ export default {
       type: Array,
       default: () => []
     },
-    orderColumn: {
+    sortColumn: {
       type: String,
       default: null
     },
-    orderSort: {
+    sortDirection: {
       type: String,
       default: null
     },
@@ -203,8 +203,8 @@ export default {
   data() {
     return {
       mapColumns: new Map(),
-      currentSortColumn: this.orderColumn || this.$options.defaults.sortColumn,
-      currentSort: this.orderSort || this.$options.defaults.sortDirection,
+      currentSortColumn: this.sortColumn || this.$options.defaults.sortColumn,
+      currentSort: this.sortDirection || this.$options.defaults.sortDirection,
       visibleColumns: this.showColumns.length ? this.showColumns : this.columns.map(({ field }) => field),
       visiblePaginatedRows: null,
       arrayColumnsFiltered: []

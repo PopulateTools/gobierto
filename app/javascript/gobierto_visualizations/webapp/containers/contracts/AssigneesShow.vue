@@ -15,7 +15,7 @@
     <div class="m_t_4">
       <Table
         :data="tableItems"
-        :order-column="'title'"
+        :sort-column="'title'"
         :columns="assigneesShowColumns"
         :show-columns="showColumns"
         @on-href-click="goesToTableItem"

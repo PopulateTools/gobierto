@@ -152,7 +152,7 @@
       </h3>
       <Table
         :data="tableItems"
-        :order-column="'count'"
+        :sort-column="'count'"
         :columns="assigneesColumns"
         :show-columns="showColumns"
         class="gobierto-table-margin-top"

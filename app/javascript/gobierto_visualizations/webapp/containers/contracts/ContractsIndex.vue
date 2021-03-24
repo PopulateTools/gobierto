@@ -2,7 +2,7 @@
   <div>
     <Table
       :data="items"
-      :order-column="'final_amount_no_taxes'"
+      :sort-column="'final_amount_no_taxes'"
       :columns="contractsColumns"
       :show-columns="showColumns"
       class="gobierto-table-margin-top gobierto-table-scroll"

@@ -2,8 +2,8 @@ const { environment } = require('@rails/webpacker')
 
 // config
 const alias = require('./config/alias')
-const terser = require("./optimization/terser");
-const splitChunks = require("./optimization/splitChunks");
+const terser = require("./config/terser");
+const splitChunks = require("./config/splitChunks");
 const output = require('./config/output')
 
 environment.config.merge(alias)
@@ -23,7 +23,6 @@ environment.loaders.delete('nodeModules')
 const webpack = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
-const PerspectivePlugin = require('@finos/perspective-webpack-plugin')
 
 environment.plugins.append('VueLoaderPlugin', new VueLoaderPlugin())
 environment.plugins.append(
@@ -42,11 +41,6 @@ environment.plugins.append(
   new MomentLocalesPlugin({
     localesToKeep: ["es", "ca"]
   })
-)
-// Persperctive webpack
-environment.plugins.append(
-  'Perspective',
-  new PerspectivePlugin()
 )
 
 module.exports = environment

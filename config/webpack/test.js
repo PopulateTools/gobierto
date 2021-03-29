@@ -6,7 +6,7 @@ environment.config.merge(terser)
 
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const smp = new SpeedMeasurePlugin({
-  outputFormat: "humanVerbose",
+  outputFormat: "human",
   loaderTopFiles: 10,
   compareLoadersBuild: {
     filePath: "./tmp/build-info.json",

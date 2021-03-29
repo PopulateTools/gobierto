@@ -11,10 +11,10 @@ environment.plugins.append('BundleAnalyzerPlugin', new BundleAnalyzerPlugin({
 }))
 
 const smp = new SpeedMeasurePlugin({
-  outputFormat: "humanVerbose",
+  outputFormat: "human",
   loaderTopFiles: 10,
-  compareLoadersBuild: {
-    filePath: "./tmp/build-info.json",
-  },
+  // compareLoadersBuild: {
+  //   filePath: "./tmp/build-info.json",
+  // },
 });
 module.exports = smp.wrap(environment.toWebpackConfig())

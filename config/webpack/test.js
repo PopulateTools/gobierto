@@ -4,13 +4,4 @@ const environment = require('./environment')
 const terser = require('./config/terser')
 environment.config.merge(terser)
 
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-const smp = new SpeedMeasurePlugin({
-  outputFormat: "human",
-  loaderTopFiles: 10,
-  compareLoadersBuild: {
-    filePath: "./tmp/build-info.json",
-  },
-});
-
-module.exports = smp.wrap(environment.toWebpackConfig())
+module.exports = environment.toWebpackConfig()

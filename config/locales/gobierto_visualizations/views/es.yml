@@ -11,6 +11,29 @@ es:
       download_data: Descarga los datos completos en formatos reutilizables
       loading: Cargando datos...
     visualizations:
+      categories:
+        agriculture: Servicios agrícolas y forestales
+        architecture: Arquitectura e ingeniería
+        audiovisual: Audiovisual
+        catering: Hostelería y restauración
+        construction: Construcción y mantenimiento
+        culture: Cultura y deporte
+        education: Enseñanza y formación
+        electrical: Equipos eléctricos y de iluminación
+        environment: Medio ambiente
+        finance: Servicios financieros y seguros
+        furniture: Mobiliario
+        health: Salud
+        industry: Industria y maquinaria
+        legal: Jurídico, contabilidad, mercadotecnia...
+        other: Otros
+        print: Impresión y material de oficina
+        security: Seguridad
+        social_services: Servicios sociales
+        software: Consultoría y desarrollo de software, equipos y licencias
+        telecom: Telecomunicaciones y correos
+        textile: Textil
+        transportation: Transporte
       contracts:
         amount_distribution: Distribución por importes
         assignee: Adjudicatario
@@ -24,7 +47,6 @@ es:
         contracts_show:
           assignee_description: Empresa que ha ganado el contrato (Adjudicatario)
           assignees_description: Empresas que han ganado el contrato (Adjudicatarios)
-          awarding: Adjudicación
           awarding_entity: Entidad adjudicadora
           batch: Lote
           bid_description: Presupuesto base de licitación sin impuestos
@@ -34,10 +56,9 @@ es:
           entity: Entidad
           estimated_value: Valor estimado
           external_source: Fuente
-          open_proposals_date: Fecha de licitación
-          process: Proceso
+          formalization: Formalización
+          process: Procedimiento
           question_description: "¿Qué % del presupuesto supone este contrato?"
-          submission_date: Fecha de entrega
           tender: Licitación
           type: Tipo
         date: Fecha
@@ -46,6 +67,7 @@ es:
           del %{entity_name}
         entities: Entidades
         final_amount_no_taxes: Importe
+        formalization_date: Fecha de formalización
         fromto: Desde A Nº. Contr.
         main_assignees: Principales adjudicatarios
         more: Más de
@@ -53,7 +75,7 @@ es:
           contracts: Contratos
           summary: Resumen
           tenders: Licitaciones
-        process_type: Tipo de proceso
+        process_type: Tipo de procedimiento
         search_placeholder: Busca por adjudicatario o por título del contrato
         status: Estado
         submission_date: Fecha
@@ -73,7 +95,15 @@ es:
           tenders: Licitaciones
           tenders_for: licitaciones por importe de
         tender_amount: Imp. licitación
+        tender_date: Fecha de licitación
         title: Contratos y licitaciones
+      contracts_types:
+        others: Otros
+        private: Privado
+        public_services: Gestión de servicios públicos
+        services: Servicios
+        supplies: Suministros
+        works: Obras
       costs:
         activities: Actividades
         cost_direct: Coste directo
@@ -155,6 +185,19 @@ es:
             en concepto de subvención previamente concedida.
         total: Total
         total_cost: Coste total
+      process_type:
+        based_marco: Basado en Acuerdo Marco
+        minor_contract: Contrato menor
+        negotiated_publicity: Negociado sin publicidad
+        open: Abierto
+        others: Otros
+        restricted: Restringido
+        tender: Licitación con negociación
+      status_types:
+        awarded: Adjudicado
+        deserted: Desierto
+        formalized: Formalizado
+        renunciation: Rechazado
       subsidies:
         amount: Importe
         amount_distribution: Distribución por importes

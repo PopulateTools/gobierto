@@ -28,7 +28,7 @@ const d3 = {
 
 export class VisUnemploymentAge {
   constructor(divId, city_id, unemplAgeData) {
-    this.data = unemplAgeData;
+    this.data = unemplAgeData.filter(function(d) { return d.pct !== Infinity});
     this.container = divId;
     this.parseTime = d3.timeParse("%Y-%m");
     this.pctFormat = d3.format(".1%");

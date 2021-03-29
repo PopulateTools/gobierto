@@ -11,6 +11,29 @@ en:
       download_data: Download the full dataset in a reusable format
       loading: Loading data...
     visualizations:
+      categories:
+        agriculture: Agriculture
+        architecture: Architecture
+        audiovisual: Audiovisual
+        catering: Catering
+        construction: Construction
+        culture: Culture
+        education: Education
+        electrical: Electrical
+        environment: Environment
+        finance: Finance
+        furniture: Furniture
+        health: Health
+        industry: Industry
+        legal: Legal
+        other: Other
+        print: Print
+        security: Security
+        social_services: Social services
+        software: Software
+        telecom: Telecom
+        textile: Textile
+        transportation: Transportation
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee
@@ -24,7 +47,6 @@ en:
         contracts_show:
           assignee_description: Company that has won the contract (Assignee)
           assignees_description: Companies that have won the contract (Assignees)
-          awarding: Awarding
           awarding_entity: Awarding entity
           batch: Batch
           bid_description: Bid base budget without taxes
@@ -34,10 +56,9 @@ en:
           entity: Entity
           estimated_value: Estimated value
           external_source: Source
-          open_proposals_date: Open proposals
-          process: Process
+          formalization: Formalization
+          process: Procedure
           question_description: What % of the budget is this contract?
-          submission_date: Submission date
           tender: Tender
           type: Type
         date: Date
@@ -46,6 +67,7 @@ en:
           to %{entity_name}
         entities: Entities
         final_amount_no_taxes: Amount
+        formalization_date: Date of formalization
         fromto: From To No Contr.
         main_assignees: Main assignees
         more: More than
@@ -53,7 +75,7 @@ en:
           contracts: Contracts
           summary: Summary
           tenders: Tenders
-        process_type: Type of process
+        process_type: Type of procedure
         search_placeholder: Search by assignee or by contract title
         status: Status
         submission_date: Date
@@ -73,7 +95,15 @@ en:
           tenders: Tenders
           tenders_for: tenders for a total amount of
         tender_amount: Tender Amount
+        tender_date: Date of tender
         title: Contracts and tenders
+      contracts_types:
+        others: Others
+        private: Private
+        public_services: Management of public services
+        services: Services
+        supplies: Supplies
+        works: Works
       costs:
         activities: Activities
         cost_direct: Direct cost
@@ -152,6 +182,19 @@ en:
             as a previously granted subsidy.
         total: Total cost
         total_cost: Total cost
+      process_type:
+        based_marco: Based on Marco agreement
+        minor_contract: Minor contract
+        negotiated_publicity: Negotiated without advertising
+        open: Open
+        others: Other
+        restricted: Restricted
+        tender: Tender with negotiation
+      status_types:
+        awarded: Awarded
+        deserted: Deserted
+        formalized: Formalized
+        renunciation: Renunciation
       subsidies:
         amount: Amount
         amount_distribution: Amount distribution

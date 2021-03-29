@@ -24,6 +24,7 @@ module GobiertoAdmin
         :vocabulary_type,
         :plugin_type,
         :date_type,
+        :unit_type,
         :plugin_configuration,
         :multiple
       )
@@ -91,6 +92,10 @@ module GobiertoAdmin
         ::GobiertoCommon::CustomField.date_options
       end
 
+      def available_unit_options
+        ::GobiertoCommon::CustomField.unit_options
+      end
+
       def options
         @options ||= {}.tap do |opts|
           opts[:configuration] ||= {}
@@ -101,6 +106,9 @@ module GobiertoAdmin
           end
           if custom_field.date?
             opts[:configuration][:date_type] = date_type
+          end
+          if custom_field.numeric?
+            opts[:configuration][:unit_type] = unit_type
           end
           if custom_field.plugin?
             opts[:configuration][:plugin_type] = plugin_type
@@ -166,6 +174,10 @@ module GobiertoAdmin
 
       def plugin
         ::GobiertoCommon::CustomFieldPlugin.find(plugin_type)
+      end
+
+      def unit_type
+        @unit_type ||= custom_field.configuration.unit_type || :generic
       end
 
       def date_type

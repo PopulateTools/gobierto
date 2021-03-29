@@ -2,8 +2,14 @@ const { environment } = require('@rails/webpacker')
 
 // config
 const alias = require('./config/alias')
+const terser = require("./optimization/terser");
+const splitChunks = require("./optimization/splitChunks");
+const output = require('./config/output')
+
 environment.config.merge(alias)
-environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: { name: "commons", minChunks: 5 } } }))
+environment.config.merge(terser)
+environment.config.merge(splitChunks)
+environment.config.merge(output)
 
 // loaders
 const vue = require('./loaders/vue')
@@ -21,20 +27,20 @@ const PerspectivePlugin = require('@finos/perspective-webpack-plugin')
 
 environment.plugins.append('VueLoaderPlugin', new VueLoaderPlugin())
 environment.plugins.append(
-  'Provide',
+  "Provide",
   new webpack.ProvidePlugin({
-    $: 'jquery',
-    'window.$': 'jquery',
-    jQuery: 'jquery',
-    'window.jQuery': 'jquery',
-    _: 'lodash'
+    $: "jquery",
+    "window.$": "jquery",
+    jQuery: "jquery",
+    "window.jQuery": "jquery",
+    _: "lodash"
   })
 )
 // NOTE: Must be updated if add a new locale files - https://yarnpkg.com/es-ES/package/moment-locales-webpack-plugin
 environment.plugins.append(
-  'MomentLocales',
+  "MomentLocales",
   new MomentLocalesPlugin({
-    localesToKeep: ['es', 'ca']
+    localesToKeep: ["es", "ca"]
   })
 )
 // Persperctive webpack

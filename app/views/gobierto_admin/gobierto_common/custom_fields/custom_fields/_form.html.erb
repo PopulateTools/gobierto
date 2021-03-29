@@ -93,6 +93,11 @@
           <% end %>
         <% end %>
         <%= content_tag :div, class: "form_block" do %>
+          <%= content_tag :div, id: "numeric", class: "form_item", style: @custom_field_form.custom_field.numeric? ? nil : "display: none;" do %>
+            <%= render partial: "numeric_options", locals: { f: f } %>
+          <% end %>
+        <% end %>
+        <%= content_tag :div, class: "form_block" do %>
           <%= content_tag :div, id: "configuration", class: "form_item", style: @custom_field_form.plugin&.has_configuration? ? nil : "display: none;", data: {
                 defaults: @custom_field_form.plugin_configuration_defaults,
                 type: @custom_field_form.plugin_type,

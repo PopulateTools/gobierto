@@ -43,6 +43,10 @@ module GobiertoData
           @closed_visualization ||= gobierto_data_visualizations(:events_count_closed_visualization)
         end
 
+        def other_user_closed_visualization
+          @other_user_closed_visualization ||= gobierto_data_visualizations(:peter_events_count_closed_visualization)
+        end
+
         def other_dataset_visualization
           @other_dataset_visualization ||= gobierto_data_visualizations(:events_count_open_visualization)
         end
@@ -262,6 +266,57 @@ module GobiertoData
             assert_includes visualizations_names, other_query_visualization.name
             refute_includes visualizations_names, other_dataset_visualization.name
             refute_includes visualizations_names, closed_visualization.name
+          end
+        end
+
+        def test_closed_visualizations_visibility
+          with(site: site) do
+            # Not logged in users can't see closed visualizations
+            visualizations_names = []
+
+            # Unfiltered
+            get gobierto_data_api_v1_visualizations_path, as: :json
+            response.parsed_body["data"].each { |item| visualizations_names << item.dig("attributes", "name") }
+
+            # Filtered by dataset
+            get gobierto_data_api_v1_visualizations_path(filter: { dataset_id: dataset.id }), as: :json
+            response.parsed_body["data"].each { |item| visualizations_names << item.dig("attributes", "name") }
+
+            # Filtered by user and dataset
+            get gobierto_data_api_v1_visualizations_path(filter: { user_id: user.id, dataset_id: dataset.id }), as: :json
+            response.parsed_body["data"].each { |item| visualizations_names << item.dig("attributes", "name") }
+
+            refute_includes visualizations_names, closed_visualization.name
+            refute_includes visualizations_names, other_user_closed_visualization.name
+
+            # Logged in users can see owned closed visualizations compatible
+            # with the filter
+
+            # Unfiltered
+            get gobierto_data_api_v1_visualizations_path, headers: { Authorization: user_token }, as: :json
+            visualizations_names = response.parsed_body["data"].map { |item| item.dig("attributes", "name") }
+            assert_includes visualizations_names, closed_visualization.name
+            refute_includes visualizations_names, other_user_closed_visualization.name
+
+            # Filtered by dataset
+            get gobierto_data_api_v1_visualizations_path(filter: { dataset_id: other_dataset.id }), headers: { Authorization: user_token }, as: :json
+            visualizations_names = response.parsed_body["data"].map { |item| item.dig("attributes", "name") }
+            assert_includes visualizations_names, closed_visualization.name
+            refute_includes visualizations_names, other_user_closed_visualization.name
+
+            # Filtered by user and dataset
+            get gobierto_data_api_v1_visualizations_path(filter: { user_id: user.id, dataset_id: other_dataset.id }), headers: { Authorization: user_token }, as: :json
+            visualizations_names = response.parsed_body["data"].map { |item| item.dig("attributes", "name") }
+
+            assert_includes visualizations_names, closed_visualization.name
+            refute_includes visualizations_names, other_user_closed_visualization.name
+
+            # Filtered by other user and dataset
+            get gobierto_data_api_v1_visualizations_path(filter: { user_id: other_user.id, dataset_id: other_dataset.id }), headers: { Authorization: user_token }, as: :json
+            visualizations_names = response.parsed_body["data"].map { |item| item.dig("attributes", "name") }
+
+            refute_includes visualizations_names, closed_visualization.name
+            refute_includes visualizations_names, other_user_closed_visualization.name
           end
         end
 

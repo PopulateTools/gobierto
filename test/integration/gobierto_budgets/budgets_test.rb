@@ -72,8 +72,6 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
         # Check default tooltip
 
         within("#lines_tooltip") do
-          # assert has_content?(last_year.to_s)
-
           assert has_content?("Madrid")
           assert has_content?("National mean")
           assert has_content?("Province mean")
@@ -92,7 +90,7 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
         all("circle.x#{last_year - 2}").first.hover
 
         within("#lines_tooltip") { assert has_content?(last_year - 2) }
-      rescue
+      rescue Minitest::Assertion
         puts "Flaky test failure..."
       end
     end

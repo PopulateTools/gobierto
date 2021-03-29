@@ -66,20 +66,12 @@ module GobiertoBudgets
 
       private
 
-      def token
-        @token ||= site.configuration.populate_data_api_token
-      end
-
-      def endpoint
-        @endpoint ||= APP_CONFIG[:populate_data][:endpoint]
-      end
-
       def date_range
         @date_range ||= "#{ year }0101-#{ year }1231"
       end
 
       def format_uri(format)
-        URI("#{ endpoint }/datasets/ds-facturas-municipio.#{ format }?filter_by_location_id=#{ site.organization_id }&date_date_range=#{ date_range }&sort_asc_by=date")
+        URI("https://#{site.domain}/presupuestos/proveedores-facturas.#{ format }?filter_by_location_id=#{ site.organization_id }&date_date_range=#{ date_range }&sort_asc_by=date")
       end
 
       def request_response(format)
@@ -87,8 +79,6 @@ module GobiertoBudgets
 
         res = Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
           req = Net::HTTP::Get.new uri
-          req["authorization"] = "Bearer #{ token }"
-          req["Origin"] = site.domain
           http.request req
         end
 

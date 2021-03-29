@@ -29,6 +29,10 @@ es:
             cancel_new_option: Cancelar
             create: Crear opción
             new: Nueva opción
+          numeric_options:
+            currency: Monetaria
+            generic: Genérica
+            unit_type: Tipo de unidad
           options_form:
             add_option: Añadir opción
           plugin:

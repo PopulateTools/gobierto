@@ -179,7 +179,7 @@ export default {
     },
     $route(to, from) {
       if (to !== from) {
-        this.containerChart = document.querySelector('.treemap-nested-container');
+        this.containerChart = document.querySelector(`.treemap-nested-container-${this.treemapId}`);
         this.svgWidth = this.containerChart.offsetWidth;
         this.transformDataTreemap(this.data)
       }
@@ -194,7 +194,7 @@ export default {
     }
   },
   mounted() {
-    this.containerChart = document.querySelector('.treemap-nested-container');
+    this.containerChart = document.querySelector(`.treemap-nested-container-${this.treemapId}`);
     this.svgWidth = this.containerChart.offsetWidth;
     /*To avoid add/remove colors in every update use Object.freeze(this.data)
     to create a scale/domain color persistent with the original keys*/
@@ -309,7 +309,7 @@ export default {
             } else if (deepLevel === 3 && scaleColor && depth === 2) {
               return this.colors(contracts[this.firstDepthForTreeMap])
             } else {
-              return '#12365b'
+              return this.colors(d)
             }
           })
           .attr('class', 'depth')
@@ -325,7 +325,7 @@ export default {
             const { depth, data, parent } = d
             const [ contracts ] = data?.children || []
             const { contractor } = contracts || {}
-            return scaleColor && depth === 1 ? this.colors(data?.name) : scaleColor && depth === 2 ? this.colors(parent?.data?.name) : scaleColor && depth === 3 || depth === 4 ? this.colors(contractor) : '#12365b'
+            return scaleColor && depth === 1 ? this.colors(data?.name) : scaleColor && depth === 2 ? this.colors(parent?.data?.name) : scaleColor && depth === 3 || depth === 4 ? this.colors(contractor) : this.colors(d)
           })
           .on("click", transition);
 
@@ -379,7 +379,7 @@ export default {
             const childrenLength = children.length ? children.length : 0
             const dimensionsElement = (x1 - x0) < 100 && (y1 - y0) < 100
             let htmlTreeMap
-            if (dimensionsElement && calculateActualDepth > 0 && childrenLength > 40) {
+            if (dimensionsElement && calculateActualDepth > 0 && childrenLength > 100) {
               return
             } else if (dimensionsElement && calculateActualDepth === 0 && childrenLength > 20) {
               return htmlTreeMap = buildLastDepthOnlyLink(d)
@@ -727,8 +727,7 @@ export default {
       }
     },
     resizeListener() {
-      const containerChart = document.querySelector('.treemap-nested-container');
-      this.svgWidth = containerChart.offsetWidth
+      this.svgWidth = this.containerChart.offsetWidth
       this.transformDataTreemap(this.data)
     },
     injectRouter() {

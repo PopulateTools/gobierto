@@ -29,6 +29,10 @@ ca:
             cancel_new_option: Cancel·lar
             create: Crear opció
             new: Nova opció
+          numeric_options:
+            currency: Monetària
+            generic: Genèrica
+            unit_type: Tipus d'unitat
           options_form:
             add_option: Afegir opció
           plugin:

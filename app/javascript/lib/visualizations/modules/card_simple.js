@@ -20,7 +20,8 @@ export class SimpleCard extends Card {
         : freq === "monthly"
         ? d3.timeParse("%Y-%m")
         : d3.timeParse("%Y");
-    var parsedDate = parseDate(json.data[0].date);
+    var date = json.data[0].date;
+    var parsedDate = parseDate(date);
     var formatDate = d3.timeFormat("%b %Y");
 
     var divCard = $('div[class*="' + divClass.replace(".", "") + '"]');

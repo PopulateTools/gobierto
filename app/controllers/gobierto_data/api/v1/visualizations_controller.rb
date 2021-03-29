@@ -143,8 +143,10 @@ module GobiertoData
         end
 
         def filtered_relation
-          if user_authenticated? && filter_params[:user_id].present? && current_user.id == filter_params[:user_id].to_i
-            base_relation.unscope(where: :privacy_status).where(filter_params).order(order_params)
+          if user_authenticated? && (filter_params[:user_id].nil? || filter_params[:user_id].to_i == current_user.id)
+            base_relation.where(filter_params).or(
+              base_relation.unscope(where: :privacy_status).where(filter_params.merge(user_id: current_user.id))
+            ).order(order_params)
           else
             base_relation.where(filter_params).order(order_params)
           end

@@ -133,6 +133,7 @@ module GobiertoAdmin
             :vocabulary_type,
             :plugin_type,
             :date_type,
+            :unit_type,
             :instance_class_name,
             :instance_id,
             :plugin_configuration,

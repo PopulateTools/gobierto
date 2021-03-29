@@ -11,6 +11,29 @@ ca:
       download_data: Descarregueu les dades en format reutilitzable
       loading: Carregant dades...
     visualizations:
+      categories:
+        agriculture: Serveis agrícoles i forestals
+        architecture: Arquitectura i enginyeria
+        audiovisual: Audiovisual
+        catering: Hostaleria i restauració
+        construction: Construcció i manteniment
+        culture: Cultura i esport
+        education: Ensenyament i formació
+        electrical: Equips elèctrics i d'il·luminació
+        environment: Medi ambient
+        finance: Serveis financers i assegurances
+        furniture: Mobiliari
+        health: Salut
+        industry: Indústria i maquinària
+        legal: Jurídic, comptabilitat, màrqueting ...
+        other: Altres
+        print: Impressió i material d'oficina
+        security: Seguretat
+        social_services: Serveis socials
+        software: Consultoria i desenvolupament de programari, equips i llicències
+        telecom: Telecomunicacions i correus
+        textile: Tèxtil
+        transportation: Transport
       contracts:
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
@@ -24,7 +47,6 @@ ca:
         contracts_show:
           assignee_description: Empresa que ha guanyat el contracte (Adjudicatari)
           assignees_description: Empreses que han guanyat el contracte (Adjudicataris)
-          awarding: Adjudicació
           awarding_entity: Entitat adjudicadora
           batch: Lot
           bid_description: Pressupost base de licitació sense impostos
@@ -33,10 +55,9 @@ ca:
           entity: Entitat
           estimated_value: Valor estimat
           external_source: Font
-          open_proposals_date: Data de licitació
-          process: Procés
+          formalization: Formalització
+          process: Procediment
           question_description: Què % del pressupost suposa aquest contracte?
-          submission_date: Data de lliurament
           tender: Licitació
           type: Tipus
         date: Data
@@ -45,6 +66,7 @@ ca:
           del %{entity_name}
         entities: Entitats
         final_amount_no_taxes: Import
+        formalization_date: Data de formalització
         fromto: De a Nº Contr.
         main_assignees: Principals adjudicataris
         more: Més de
@@ -52,7 +74,7 @@ ca:
           contracts: Contractes
           summary: Resum
           tenders: Licitacions
-        process_type: Tipus de procés
+        process_type: Tipus de procediment
         search_placeholder: Cerqueu per adjudicatari o per títol del contracte
         status: Estat
         submission_date: Data
@@ -66,13 +88,21 @@ ca:
           label_larger_contract_amount_2: " de tota la despesa en contractes"
           label_less_than_1000_1: 'El '
           label_less_than_1000_2: " dels contractes són menors de "
-          mean_amount: Import mitjà
+          mean_amount: Import mig
           mean_savings: Estalvi mitjà de licitació a adjudicació
-          median_amount: Import mitjana
+          median_amount: Mediana dels imports
           tenders: Licitacions
           tenders_for: licitacions per un import de
         tender_amount: Imp. licitació
+        tender_date: Data de licitació
         title: Contractes i licitacions
+      contracts_types:
+        others: Altres
+        private: Privat
+        public_services: Gestió de serveis públics
+        services: Serveis
+        supplies: Subministraments
+        works: Obres
       costs:
         activities: activitats
         cost_direct: Cost directe
@@ -151,6 +181,19 @@ ca:
             en concepte de subvenció prèviament concedida.
         total: Total
         total_cost: Cost total
+      process_type:
+        based_marco: Basat en Acord Marco
+        minor_contract: Contracte menor
+        negotiated_publicity: Negociat sense publicitat
+        open: Obert
+        others: Altres
+        restricted: Restringit
+        tender: Licitació amb negociació
+      status_types:
+        awarded: Adjudicat
+        deserted: Desert
+        formalized: Formalizat
+        renunciation: Rebutjat
       subsidies:
         amount: Import
         amount_distribution: Distribució per imports
@@ -180,8 +223,8 @@ ca:
           label_larger_subsidy_amount_2: " de tota la despesa en subvencions"
           label_less_than_1000_1: 'El '
           label_less_than_1000_2: " de les subvencions són menors de "
-          mean_amount: Import mitjà
-          median_amount: Import mitjana
+          mean_amount: Import mig
+          median_amount: Mediana dels imports
           subsidies: Subvencions
           subsidies_for: subvencions per import de
         title: Subvencions

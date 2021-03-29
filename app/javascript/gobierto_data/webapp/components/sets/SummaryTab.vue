@@ -52,6 +52,7 @@
       </template>
       <Queries
         v-if="showYourQueries"
+        :is-user-logged="isUserLogged"
         :private-queries="privateQueries"
         :public-queries="publicQueries"
       />

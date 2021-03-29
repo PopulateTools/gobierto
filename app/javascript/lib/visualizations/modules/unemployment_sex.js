@@ -149,9 +149,13 @@ export class VisUnemploymentSex {
 
         if (Object.prototype.hasOwnProperty.call(nested, year)) {
           d.pct = d.value / nested[year];
-        } else if (year === lastYear) {
+        } else if (year >= lastYear - 2) {
           // If we are in the last year, divide the unemployment by last year's population
-          d.pct = d.value / nested[year - 1];
+          if (nested[year - 1] === undefined) {
+            d.pct = d.value / nested[year - 2];
+          } else {
+            d.pct = d.value / nested[year - 1];
+          }
         } else {
           d.pct = null;
         }
@@ -400,7 +404,7 @@ export class VisUnemploymentSex {
     this.focus.select("tspan").text(
       `${this._getLabel(d.data.sex)}: ${this.pctFormat(
         d.data.pct
-      )} (${d.data.date.toLocaleString(I18n.locale, {
+      )}% (${d.data.date.toLocaleString(I18n.locale, {
         month: "short"
       })} ${d.data.date.getFullYear()})`
     );
@@ -437,7 +441,7 @@ export class VisUnemploymentSex {
     this.yAxis
       .tickSize(-this.width)
       .scale(this.yScale)
-      .ticks(3, "%");
+      .ticks(3, "%")
 
     this.svg.select(".y.axis").call(this.yAxis);
 

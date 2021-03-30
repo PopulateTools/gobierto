@@ -11,6 +11,9 @@
     <template v-else-if="column === 'progress'">
       {{ value | percent }}
     </template>
+    <template v-else-if="column === 'starts_at' || column === 'ends_at'">
+      {{ value | date }}
+    </template>
     <template v-else-if="vocabularyType">
       <CustomFieldVocabulary :attributes="attributes" />
     </template>
@@ -39,7 +42,7 @@ import CustomFieldSelection from "../components/CustomFieldSelection.vue";
 import CustomFieldParagraph from "../components/CustomFieldParagraph.vue";
 import CustomFieldPluginRawIndicators from "../components/CustomFieldPluginRawIndicators.vue";
 import { FieldTypeMixin } from "../lib/mixins/field-type";
-import { percent } from "lib/vue/filters";
+import { percent, date } from "lib/vue/filters";
 
 export default {
   name: "TableCellTemplates",
@@ -51,7 +54,8 @@ export default {
     CustomFieldPluginRawIndicators
   },
   filters: {
-    percent
+    percent,
+    date
   },
   mixins: [FieldTypeMixin],
   props: {

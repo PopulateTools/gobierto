@@ -6,13 +6,15 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
 environment.config.merge(stats)
+
+environment.plugins.delete('CaseSensitivePaths')
 environment.plugins.append('BundleAnalyzerPlugin', new BundleAnalyzerPlugin({
   openAnalyzer: false
 }))
 
 const smp = new SpeedMeasurePlugin({
   outputFormat: "human",
-  loaderTopFiles: 10,
+  loaderTopFiles: 5,
   // compareLoadersBuild: {
   //   filePath: "./tmp/build-info.json",
   // },

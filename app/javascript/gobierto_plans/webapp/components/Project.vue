@@ -50,10 +50,10 @@ export default {
     this.title = name;
     // Expand the META object with the matching values for this project
     this.customFields = meta.reduce((acc, item) => {
-      const { uid } = item.attributes;
+      const { uid, hidden } = item.attributes;
       const value = attributes[uid];
 
-      if (show_empty_fields || (value && value.length)) {
+      if (!hidden && (show_empty_fields || (value && value.length)) ){
         acc.push({
           ...item,
           attributes: { ...item.attributes, value }

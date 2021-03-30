@@ -86,6 +86,28 @@ export default {
       }
     } = plan;
 
+    // Fake status custom_field
+    // https://github.com/PopulateTools/gobierto/pull/3781
+    if (status) {
+      const sample = meta.find(({ attributes }) => attributes.field_type === "vocabulary_options")
+      // copy translations
+      const name_translations = { ...sample.attributes.name_translations }
+      // force i18n values
+      Object.keys(name_translations).forEach(k => ( name_translations[k] = I18n.t("gobierto_plans.plan_types.show.status") || "" ))
+      // append the "new" custom field
+      meta.push({
+        ...sample,
+        id: -1,
+        attributes: {
+          ...sample.attributes,
+          uid: "status",
+          vocabulary_terms: status,
+          hidden: true,
+          name_translations
+        }
+      })
+    }
+
     PlansStore.setProjects(projects);
     PlansStore.setPlainItems([...categories, ...projects]);
     PlansStore.setMeta(meta);

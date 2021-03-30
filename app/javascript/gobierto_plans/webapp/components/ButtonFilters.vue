@@ -64,7 +64,7 @@ export default {
 
     this.buttons = meta.reduce((acc, { attributes }) => {
       const { uid, field_type, name_translations } = attributes
-      if (field_type === 'vocabulary_options' && fields_to_show_as_filters.includes(uid)) {
+      if (field_type === "vocabulary_options" && fields_to_show_as_filters.includes(uid)) {
         acc.push({ id: uid, name: name_translations })
       }
       return acc

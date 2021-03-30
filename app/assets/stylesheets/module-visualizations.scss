@@ -1,13 +1,13 @@
 @import "css-conf";
 @import "mixins";
-@import "comp-block-checkbox";
-@import "comp-block-header";
-@import "comp-vue-dropdown";
-@import "comp-vue-pagination";
-@import "comp-vue-beeswarm";
-@import "comp-vue-treemap-nested";
-@import "comp-vue-multiple-lines";
-@import "comp-vue-table";
+@use "comp-block-checkbox";
+@use "comp-block-header";
+@use "comp-vue-dropdown";
+@use "comp-vue-pagination";
+@use "comp-vue-beeswarm";
+@use "comp-vue-treemap-nested";
+@use "comp-vue-multiple-lines";
+@use "comp-vue-table";
 
 :root {
   --green-table--first: rgba(33, 150, 83, .1);

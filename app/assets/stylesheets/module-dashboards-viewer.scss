@@ -1,6 +1,6 @@
 @import "css-conf";
 @import "mixins";
-@import "comp-vue-transitions";
+@use "comp-vue-transitions";
 
 :root {
   --space: #{$f6};

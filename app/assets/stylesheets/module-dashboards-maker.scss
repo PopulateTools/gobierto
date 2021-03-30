@@ -1,8 +1,8 @@
 @import "css-conf";
 @import "mixins";
-@import "comp-vue-transitions";
-@import "comp-vue-text-editable";
-@import "comp-vue-autocomplete";
+@use "comp-vue-transitions";
+@use "comp-vue-text-editable";
+@use "comp-vue-autocomplete";
 
 :root {
   --bg-dark-grey: #616161;

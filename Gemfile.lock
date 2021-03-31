@@ -273,7 +273,6 @@ GEM
       open4 (~> 1.0)
     launchy (2.5.0)
       addressable (~> 2.7)
-    libv8 (3.16.14.19)
     liquid (4.0.3)
     listen (3.5.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -396,7 +395,6 @@ GEM
     rb-readline (0.5.5)
     redcarpet (3.5.1)
     redis (4.2.5)
-    ref (2.0.0)
     regexp_parser (2.1.1)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -490,9 +488,6 @@ GEM
     spy (1.0.1)
     terminal-table (3.0.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thor (1.1.0)
     thread_safe (0.3.6)
     timecop (0.9.4)
@@ -606,7 +601,6 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   spy
-  therubyracer
   timecop
   truncate_html
   vcr

@@ -497,9 +497,6 @@ GEM
     thread_safe (0.3.6)
     timecop (0.9.4)
     truncate_html (0.9.3)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     uber (0.1.0)
@@ -612,7 +609,6 @@ DEPENDENCIES
   therubyracer
   timecop
   truncate_html
-  turbolinks
   vcr
   webmock
   webpacker (~> 5.0)

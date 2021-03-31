@@ -29,7 +29,6 @@ gem "rake", "~> 13.0"
 gem "i18n-js", ">= 3.0.0.rc11"
 gem "therubyracer"
 gem "turbolinks"
-gem "uglifier", ">= 1.3.0"
 gem "font-awesome-sass", "~> 5.6"
 
 # Webpack

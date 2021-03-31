@@ -450,11 +450,6 @@ GEM
       activesupport (>= 4.2.5)
     rubyntlm (0.6.2)
     rubyzip (2.3.0)
-    sass (3.7.3)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
     sassc (2.4.0)
       ffi (~> 1.9)
     savon (2.12.0)
@@ -621,7 +616,6 @@ DEPENDENCIES
   rubocop
   rubyXL
   ruby_px
-  sass (~> 3.4)
   sassc
   savon (~> 2.12.0)
   selenium-webdriver

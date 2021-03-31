@@ -185,9 +185,6 @@ GEM
       ruby2_keywords
     faraday-net_http (1.0.1)
     ffi (1.15.0)
-    flight-for-rails (1.5.1)
-      jquery-rails (>= 2.1.4)
-      rails (>= 3.1.0)
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
     foreman (0.87.2)
@@ -562,7 +559,6 @@ DEPENDENCIES
   elasticsearch (~> 6.0, >= 6.0.2)
   elasticsearch-extensions (~> 0.0.27)
   exchanger
-  flight-for-rails
   font-awesome-sass (~> 5.6)
   foreman
   geocoder

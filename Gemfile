@@ -26,7 +26,6 @@ gem "truncate_html"
 gem "rake", "~> 13.0"
 
 # Frontend
-gem "bourbon", "~> 7.0.0"
 gem "flight-for-rails"
 gem "i18n-js", ">= 3.0.0.rc11"
 gem "jquery-rails"

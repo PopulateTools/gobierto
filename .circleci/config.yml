@@ -129,12 +129,12 @@ jobs:
           paths:
             - public/assets
             - public/packs-test
+            - tmp/cache/webpacker
 
       - persist_to_workspace:
           root: *working_directory
           paths:
             - db
-            - tmp/cache
 
   tests_admin:
     <<: *defaults

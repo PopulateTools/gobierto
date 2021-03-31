@@ -36,6 +36,15 @@
             <CustomFieldImage :attributes="attributes" />
           </template>
 
+          <template v-else-if="currencyType">
+            <div
+              v-for="value in values"
+              :key="value"
+            >
+              {{ value | money }}
+            </div>
+          </template>
+
           <template v-else>
             <div
               v-for="value in values"
@@ -51,7 +60,7 @@
 </template>
 
 <script>
-import { translate } from "lib/vue/filters";
+import { translate, money } from "lib/vue/filters";
 import { FieldTypeMixin } from "../lib/mixins/field-type";
 import CustomFieldParagraph from "./CustomFieldParagraph.vue";
 import CustomFieldPluginRawIndicators from "./CustomFieldPluginRawIndicators.vue";
@@ -69,7 +78,8 @@ export default {
     CustomFieldImage
   },
   filters: {
-    translate
+    translate,
+    money
   },
   mixins: [FieldTypeMixin],
   props: {

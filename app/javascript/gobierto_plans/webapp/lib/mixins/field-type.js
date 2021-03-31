@@ -2,7 +2,8 @@ export const FieldTypeMixin = {
   data() {
     return {
       fieldType: null,
-      termDecorator: null
+      termDecorator: null,
+      unitType: null,
     };
   },
   computed: {
@@ -28,18 +29,23 @@ export const FieldTypeMixin = {
     },
     rawIndicatorsType() {
       return this.termDecorator === "raw_indicators";
-    }
+    },
+    currencyType() {
+      return this.fieldType === "numeric" && this.unitType === "currency";
+    },
   },
   created() {
     const {
       field_type,
       options: {
         configuration: {
-          plugin_configuration: { category_term_decorator } = {}
+          plugin_configuration: { category_term_decorator } = {},
+          unit_type
         } = {}
       } = {}
     } = this.attributes;
     this.fieldType = field_type;
     this.termDecorator = category_term_decorator;
+    this.unitType = unit_type;
   }
 };

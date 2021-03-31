@@ -611,7 +611,6 @@ DEPENDENCIES
   rubocop
   rubyXL
   ruby_px
-  sassc
   savon (~> 2.12.0)
   selenium-webdriver
   sidekiq (~> 5.2.7)

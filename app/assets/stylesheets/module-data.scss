@@ -1,10 +1,10 @@
 @import "css-conf";
 @import "mixins";
-@use "comp-block-checkbox";
-@use "comp-block-header";
-@use "comp-perspective-viewer";
-@use "comp-vue-dropdown";
-@use "comp-vue-skeleton-spinner";
+@import "comp-block-checkbox";
+@import "comp-block-header";
+@import "comp-perspective-viewer";
+@import "comp-vue-dropdown";
+@import "comp-vue-skeleton-spinner";
 
 :root {
   --transition: .1s ease-in;

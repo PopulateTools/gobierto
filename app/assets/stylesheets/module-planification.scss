@@ -1,7 +1,7 @@
 @import "css-conf";
 @import "mixins";
-@use "comp-block-checkbox";
-@use "comp-vue-transitions";
+@import "comp-block-checkbox";
+@import "comp-vue-transitions";
 
 // Vars
 $nodeLevel1IllustrationWidth: 33%;

@@ -1,6 +1,6 @@
 @import "css-conf";
 @import "mixins";
-@use "comp-block-checkbox";
+@import "comp-block-checkbox";
 
 .investments {
   @include min-screen(768) {

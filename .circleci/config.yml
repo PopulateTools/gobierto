@@ -12,7 +12,7 @@ defaults: &defaults
   docker:
     - image: circleci/ruby:2.7.1-node-browsers
       environment:
-        NODE_OPTIONS: --max_old_space_size=4096
+        NODE_OPTIONS: --max-old-space-size=4096
         RAILS_ENV: test
         PGHOST: localhost
         PGUSER: gobierto

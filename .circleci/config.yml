@@ -131,7 +131,7 @@ jobs:
       - run: bin/rails i18n:js:export
 
       # Compile assets
-      - restore_assets_cache
+      # - restore_assets_cache
       - run: bin/rails assets:precompile
       - save_cache:
           name: "Cache assets"

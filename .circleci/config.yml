@@ -88,6 +88,14 @@ jobs:
     <<: *defaults
     resource_class: xlarge
     steps:
+      - run:
+          command: |
+            while true; do
+              sleep 5
+              ps auxwwf
+              echo "======"
+            done
+          background: true
       - checkout
       - attach_workspace:
           at: *working_directory

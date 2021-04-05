@@ -86,7 +86,16 @@ commands:
 jobs:
   bundle_dependencies:
     <<: *defaults
+    resource_class: xlarge
     steps:
+      - run:
+          command: |
+            while true; do
+              sleep 5
+              ps auxwwf
+              echo "======"
+            done
+          background: true
       - checkout
       - attach_workspace:
           at: *working_directory
@@ -129,12 +138,16 @@ jobs:
           paths:
             - public/assets
             - public/packs-test
+            - tmp/cache/webpacker
 
       - persist_to_workspace:
           root: *working_directory
           paths:
             - db
-            - tmp/cache
+
+      - run:
+          command: numfmt --to iec --format "%8.4f" $(cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes)
+          when: always
 
   tests_admin:
     <<: *defaults

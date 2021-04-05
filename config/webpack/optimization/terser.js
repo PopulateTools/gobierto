@@ -1,12 +1,11 @@
-// const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   optimization: {
-    minimize: false
-    // minimizer: [
-    //   new TerserPlugin({
-    //     parallel: 8
-    //   })
-    // ]
+    minimizer: [
+      new TerserPlugin({
+        parallel: 2
+      })
+    ]
   }
 };

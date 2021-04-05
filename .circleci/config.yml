@@ -9,7 +9,6 @@ aliases:
 
 defaults: &defaults
   working_directory: *working_directory
-  resource_class: xlarge
   docker:
     - image: circleci/ruby:2.7.1-node-browsers
       environment:
@@ -87,6 +86,7 @@ commands:
 jobs:
   bundle_dependencies:
     <<: *defaults
+    resource_class: xlarge
     steps:
       - checkout
       - attach_workspace:

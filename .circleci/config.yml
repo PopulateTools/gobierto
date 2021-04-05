@@ -13,7 +13,7 @@ defaults: &defaults
     - image: circleci/ruby:2.7.1-node-browsers
       environment:
         # Up to circle-ci plan max. RAM
-        NODE_OPTIONS: --max-old-space-size=16384
+        NODE_OPTIONS: --max-old-space-size=6144
         RAILS_ENV: test
         PGHOST: localhost
         PGUSER: gobierto
@@ -88,7 +88,7 @@ commands:
 jobs:
   bundle_dependencies:
     <<: *defaults
-    resource_class: xlarge
+    resource_class: medium+
     steps:
       - checkout
       - attach_workspace:

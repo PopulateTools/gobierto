@@ -87,16 +87,8 @@ commands:
 jobs:
   bundle_dependencies:
     <<: *defaults
-    # resource_class: xlarge
+    resource_class: xlarge
     steps:
-      - run:
-          command: |
-            while true; do
-              sleep 5
-              ps auxwwf
-              echo "======"
-            done
-          background: true
       - checkout
       - attach_workspace:
           at: *working_directory
@@ -131,7 +123,7 @@ jobs:
       - run: bin/rails i18n:js:export
 
       # Compile assets
-      # - restore_assets_cache
+      - restore_assets_cache
       - run: bin/rails assets:precompile
       - save_cache:
           name: "Cache assets"
@@ -145,10 +137,6 @@ jobs:
           root: *working_directory
           paths:
             - db
-
-      - run:
-          command: numfmt --to iec --format "%8.4f" $(cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes)
-          when: always
 
   tests_admin:
     <<: *defaults

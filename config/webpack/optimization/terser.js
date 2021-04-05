@@ -4,7 +4,7 @@ module.exports = {
   optimization: {
     minimizer: [
       new TerserPlugin({
-        parallel: 8
+        parallel: 3
       })
     ]
   }

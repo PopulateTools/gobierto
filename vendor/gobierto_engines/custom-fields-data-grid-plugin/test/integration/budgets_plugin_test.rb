@@ -31,7 +31,19 @@ class BudgetsPluginTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def seed_budget_lines
+    common_args = {
+      kind: GobiertoData::GobiertoBudgets::EXPENSE,
+      indexes: [:forecast]
+    }
+
+    BudgetLineFactory.new(common_args.merge(code: "1", year: 2014, area: GobiertoData::GobiertoBudgets::CUSTOM_AREA_NAME))
+  end
+
   def test_show
+    skip "Front integration pending"
+    seed_budget_lines
+
     with(site: site, js: true, admin: admin) do
       visit edit_admin_plans_plan_project_path(plan, project)
 

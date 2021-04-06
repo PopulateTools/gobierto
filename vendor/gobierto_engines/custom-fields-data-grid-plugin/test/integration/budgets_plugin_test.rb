@@ -34,7 +34,6 @@ class BudgetsPluginTest < ActionDispatch::IntegrationTest
   def test_show
     with(site: site, js: true, admin: admin) do
       visit edit_admin_plans_plan_project_path(plan, project)
-      debugger
 
       within_plugin do
         assert has_content?("1 - Servicios públicos básicos")

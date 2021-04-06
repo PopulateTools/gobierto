@@ -45,6 +45,7 @@ config/deploy/production.rb
 
 # Coverage reports
 /coverage
+test/reports
 
 # Uploaded files
 /public/system/attachments

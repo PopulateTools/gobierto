@@ -31,23 +31,13 @@ class BudgetsPluginTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def seed_budget_lines
-    common_args = {
-      kind: GobiertoData::GobiertoBudgets::EXPENSE,
-      indexes: [:forecast]
-    }
-
-    BudgetLineFactory.new(common_args.merge(code: "1", year: 2014, area: GobiertoData::GobiertoBudgets::CUSTOM_AREA_NAME))
-  end
-
   def test_show
-    seed_budget_lines
-
     with(site: site, js: true, admin: admin) do
       visit edit_admin_plans_plan_project_path(plan, project)
+      debugger
 
       within_plugin do
-        assert has_content?("1 - Servicios")
+        assert has_content?("1 - Servicios públicos básicos")
         assert has_content?("123,457")
         assert has_content?("10")
         assert has_content?("12,346")

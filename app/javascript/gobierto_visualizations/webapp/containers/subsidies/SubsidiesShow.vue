@@ -49,7 +49,7 @@ export default {
   },
   created() {
     const itemId = this.$route.params.id;
-    const subsidy = this.subsidiesData.find(({ id }) => id === itemId ) || {};
+    const subsidy = this.subsidiesData.find(({ id }) => id === itemId ) || {};
 
     if (subsidy) {
       const {

@@ -105,8 +105,7 @@ export class DemographyMapController {
     const center = [options.mapLat, options.mapLon];
 
     // Datasets contain the history of all the months, but we only require the last month of data
-    const studiesEndpointFiltered =
-      options.studiesEndpoint + getSQLMonthFilter();
+    const studiesEndpointFiltered = options.studiesEndpoint + getSQLMonthFilter();
     const originEndpointFiltered = options.originEndpoint + getSQLMonthFilter();
 
     if (entryPoint) {
@@ -168,7 +167,7 @@ export class DemographyMapController {
         // Don't know why we need to do this
         renderAll("main");
 
-        document.querySelectorAll(".close").forEach(button =>
+        document.querySelectorAll(".filter-close").forEach(button =>
           button.addEventListener("click", () => {
             this.clearFilters(event);
           })
@@ -795,11 +794,9 @@ export class DemographyMapController {
   }
 
   //Remove filters when the user click on close button
-  clearFilters(event) {
-    //Get the container parent from the chart
-    const target = event.target;
-    const parent = target.parentElement;
-    const chart = parent.parentElement;
+  clearFilters({ currentTarget }) {
+    // Get the container parent from the chart
+    const chart = currentTarget.parentElement;
     if (chart.id === "container-bar-by-studies") {
       //Pass the number of the chart in chartRegisterList
       this.clearFilterList(4);
@@ -831,8 +828,7 @@ export class DemographyMapController {
     //Get the chart from the register list
     const chartFromList = chartRegistry.list("main")[chart];
     //Get the container
-    const containerChartId = chartFromList.root()._groups[0][0].parentElement
-      .id;
+    const containerChartId = chartFromList.root()._groups[0][0].parentElement.id;
     //Get active filters
     // const activeFilters = chartFromList.filters().length;
     //Remove active filters

@@ -8,12 +8,12 @@ import { schemeCategory10 } from "d3-scale-chromatic";
 import { select, selectAll } from "d3-selection";
 import { transition } from "d3-transition";
 import { DataCount, RowChart, chartRegistry, renderAll, redrawAll, pluck } from "dc";
-import pairedRow from "dc-addons-paired-row";
 import * as dc_leaflet from "dc.leaflet";
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import stackedVertical from "./charts/stacked_vertical";
+import pairedRow from "./charts/dc-addons-paired-row";
 
 const d3 = {
   csv,
@@ -159,7 +159,7 @@ export class DemographyMapController {
         this.chart1 = this.renderInhabitants("#inhabitants");
         this.chart2 = this.renderBarNationality("#bar-nationality");
         this.chart3 = this.renderBarSex("#bar-sex");
-        // this.chart4 = this.renderPyramid("#piramid-age-sex");
+        this.chart4 = this.renderPyramid("#piramid-age-sex");
         this.chart5 = this.renderStudies("#bar-by-studies");
         this.chart6 = this.renderOriginNational("#bar-by-origin-spaniards");
         this.chart7 = this.renderOriginOthers("#bar-by-origin-others");

@@ -1,21 +1,21 @@
-<% charter_color = custom_field_by_uid(@charter, "background-color") || "#00909e" %>
+<% charter_color = custom_field_by_uid(@charter, "background-color").present? ? custom_field_by_uid(@charter, "background-color")[1..-1].scan(/../).map {|color| color.hex}.join(",") : "var(--color-base-string)" %>
 <%= content_for :gobierto_head_content do %>
   <style type="text/css">
     .gobierto_citizens-charters .charter-header {
-      background-color: <%= charter_color %>;
+      background-color: rgb(<%= charter_color %>);
     }
     .gobierto_citizens-charters .charter-inner,
     .gobierto_citizens-charters .sparkline svg {
-      background-color: <%= charter_color.paint.opacity(0.1).to_rgb %>;
+      background-color: rgba(<%= charter_color %>, 0.1);
     }
     .gobierto_citizens-charters .charter-inner:hover {
-      background-color: <%= charter_color.paint.opacity(0.2).to_rgb %>;
+      background-color: rgba(<%= charter_color %>, 0.2);
     }
     .gobierto_citizens-charters .sparkline path {
-      stroke: <%= charter_color %>;
+      stroke: rgb(<%= charter_color %>);
     }
     .gobierto_citizens-charters .sparkline .axis line {
-      stroke: <%= charter_color.paint.opacity(0.1).to_rgb %>;
+      stroke: rgb(<%= charter_color %>, 0.1);
     }
   </style>
 <% end %>

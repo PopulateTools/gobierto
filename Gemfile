@@ -26,17 +26,8 @@ gem "truncate_html"
 gem "rake", "~> 13.0"
 
 # Frontend
-gem "bourbon", "~> 7.0.0"
-gem "sass", "~> 3.4"
-gem "flight-for-rails"
-gem "i18n-js", ">= 3.0.0.rc11"
-gem "jquery-rails"
-gem "sassc"
-gem "therubyracer"
-gem "turbolinks"
-gem "uglifier", ">= 1.3.0"
-gem "chroma"
-gem "font-awesome-sass", "~> 5.6"
+gem "i18n-js", ">= 3.0.0.rc11" # required to i18n-tasks
+gem "font-awesome-sass", "~> 5.6" # required until FA moved to npm
 
 # Webpack
 gem "webpacker", "~> 5.0"

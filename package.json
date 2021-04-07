@@ -73,6 +73,7 @@
     "eslint-plugin-vue": "^5.2.3",
     "husky": "^4.2.5",
     "lint-staged": "^10.5.3",
+    "speed-measure-webpack-plugin": "^1.5.0",
     "stylelint": "^13.8.0",
     "stylelint-config-recommended": "^3.0.0",
     "webpack-bundle-analyzer": "^3.3.2",

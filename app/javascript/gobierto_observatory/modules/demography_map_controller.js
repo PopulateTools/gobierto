@@ -504,8 +504,7 @@ export class DemographyMapController {
   renderStudies(selector) {
     const chart = new RowChart(selector, "main");
     const sumAllValues = this.ndx.groups.studies.all.value();
-    const widthContainer = document.getElementById("container-bar-by-studies")
-      .offsetWidth;
+    const widthContainer = document.getElementById("container-bar-by-studies").offsetWidth;
     const widthContainerLabelPosition = widthContainer - 240;
     chart
       .useViewBoxResizing(true)
@@ -741,12 +740,11 @@ export class DemographyMapController {
       })
       .popup(d => `Habitantes: ${d.value}`);
 
-    const that = this;
-    chart.on("filtered", function() {
-      that.updateOriginFilters("byCusec", chart.filters());
+    chart.on("filtered", () => {
+      this.updateOriginFilters("byCusec", chart.filters());
       const buttonReset = document.getElementById("reset-filters");
-      const chartFromList = chartRegistry.list("main")[7];
-      const activeFilters = chartFromList.filters().length;
+
+      const activeFilters = this.getChartById("#map").filters().length;
       if (activeFilters !== 0) {
         buttonReset.classList.remove("disabled");
       } else {
@@ -761,8 +759,8 @@ export class DemographyMapController {
   resetMapSelection() {
     //Remove the selection of 'sección censal'
     const buttonReset = document.getElementById("reset-filters");
-    buttonReset.addEventListener("click", function() {
-      const chartFromList = chartRegistry.list("main")[7];
+    buttonReset.addEventListener("click", () => {
+      const chartFromList = this.getChartById("#map")
       chartFromList.filter(null);
       chartFromList.redrawGroup();
       chartFromList._doRedraw();
@@ -796,56 +794,51 @@ export class DemographyMapController {
   //Remove filters when the user click on close button
   clearFilters({ currentTarget }) {
     // Get the container parent from the chart
-    const chart = currentTarget.parentElement;
-    if (chart.id === "container-bar-by-studies") {
-      //Pass the number of the chart in chartRegisterList
-      this.clearFilterList(4);
-    } else if (chart.id === "container-bar-nationality") {
-      this.clearFilterList(1);
-    } else if (chart.id === "container-bar-by-origin-spaniards") {
-      this.clearFilterList(5);
-    } else if (chart.id === "container-bar-by-origin-others") {
-      this.clearFilterList(6);
-    } else if (chart.id === "container-bar-sex") {
-      this.clearFilterList(2);
-    } else if (chart.id === "container-piramid-age-sex") {
-      //Piramid Chart is compose by two children rowChart()
-      //We need to reset filters from both charts
-      const chartFromList = chartRegistry.list("main")[3];
-      const chartFromListLeft = chartFromList.leftChart();
-      const chartFromListRight = chartFromList.rightChart();
-      chartFromListLeft.filter(null);
-      chartFromListRight.filter(null);
-      //Redraw
-      setTimeout(() => {
-        chart.classList.remove("active-filtered");
-      }, 0);
-      chartFromList.redrawGroup();
-    }
-  }
+    const containerChart = currentTarget.parentElement;
 
-  clearFilterList(chart) {
-    //Get the chart from the register list
-    const chartFromList = chartRegistry.list("main")[chart];
-    //Get the container
-    const containerChartId = chartFromList.root()._groups[0][0].parentElement.id;
-    //Get active filters
-    // const activeFilters = chartFromList.filters().length;
-    //Remove active filters
-    chartFromList.filter(null);
-    //Redraw charts
-    chartFromList.redrawGroup();
+    let chart;
+    if (containerChart.id === "container-bar-by-studies") {
+      //Pass the number of the chart in chartRegisterList
+      chart = this.getChartById("#bar-by-studies");
+      //Remove active filters
+      chart.filter(null);
+    } else if (containerChart.id === "container-bar-nationality") {
+      chart = this.getChartById("#bar-nationality");
+      chart.filter(null);
+    } else if (containerChart.id === "container-bar-by-origin-spaniards") {
+      chart = this.getChartById("#bar-by-origin-spaniards");
+      chart.filter(null);
+    } else if (containerChart.id === "container-bar-by-origin-others") {
+      chart = this.getChartById("#bar-by-origin-others");
+      chart.filter(null);
+    } else if (containerChart.id === "container-bar-sex") {
+      chart = this.getChartById("#bar-sex");
+      chart.filter(null);
+    } else if (containerChart.id === "container-piramid-age-sex") {
+      //Piramid Chart is compose by two children rowChart()
+      chart = this.getChartById("#piramid-age-sex");
+      //We need to reset filters from both charts
+      chart.leftChart().filter(null);
+      chart.rightChart().filter(null);
+    }
+
+    //Redraw
+    chart.redrawGroup();
+
     setTimeout(() => {
-      //Finally remove the class
-      const containerChart = document.getElementById(`${containerChartId}`);
       containerChart.classList.remove("active-filtered");
     }, 0);
+  }
+
+  getChartById(id) {
+    // Search the chart based on its #id
+    return chartRegistry.list("main").find(({ _anchor }) => id === _anchor)
   }
 
   //When the user interactive with the filter we need to rebuild color domain for update choroplethChart
   rebuildChoroplethColorDomain() {
     //Get the Map from the register list
-    const choroplethChart = chartRegistry.list("main")[7];
+    const choroplethChart = this.getChartById("#map");
     //Rebuild color domain with the selected values.
     if (this.currentFilter === "studies") {
       choroplethChart

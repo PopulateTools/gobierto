@@ -23,28 +23,28 @@
      <aside class="pure-u-1 pure-u-lg-7-24 gobierto_observatory-sidebar">
        <span class="gobierto_observatory-date-update"><%= t('.data_updated', date: I18n.l(Date.today.beginning_of_month, format: '%d de %B de %Y')) %></span>
        <div id="container-inhabitants" class="gobierto_observatory-container-charts">
-         <div class="close">
+         <div class="filter-close">
            <i class="fas fa-times"></i>
          </div>
          <div id="inhabitants"></div>
        </div>
 
        <div id="container-bar-nationality" class="gobierto_observatory-container-charts">
-         <div class="close">
+         <div class="filter-close">
            <i class="fas fa-times"></i>
          </div>
          <div id="bar-nationality"></div>
        </div>
 
        <div id="container-bar-sex" class="gobierto_observatory-container-charts">
-         <div class="close">
+         <div class="filter-close">
            <i class="fas fa-times"></i>
          </div>
          <div id="bar-sex"></div>
        </div>
 
        <div id="container-piramid-age-sex" class="gobierto_observatory-container-charts">
-         <div class="close">
+         <div class="filter-close">
            <i class="fas fa-times"></i>
          </div>
          <h3 class="mt1 graph-title"><%= t('.age_distribution') %></h3>
@@ -52,7 +52,7 @@
        </div>
 
        <div id="container-bar-by-studies" class="gobierto_observatory-container-charts">
-         <div class="close">
+         <div class="filter-close">
            <i class="fas fa-times"></i>
          </div>
          <h3 class="mt1 graph-title"><%= t('.studies_level') %></h3>
@@ -60,7 +60,7 @@
        </div>
 
        <div id="container-bar-by-origin-spaniards" class="gobierto_observatory-container-charts">
-         <div class="close">
+         <div class="filter-close">
            <i class="fas fa-times"></i>
          </div>
          <h3 class="mt1 graph-title"><%= t('.origin_locals') %></h3>
@@ -69,7 +69,7 @@
        </div>
 
        <div id="container-bar-by-origin-others" class="gobierto_observatory-container-charts">
-         <div class="close">
+         <div class="filter-close">
            <i class="fas fa-times"></i>
          </div>
 

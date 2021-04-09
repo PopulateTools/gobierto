@@ -99,17 +99,12 @@ export default {
       const schema = this.objectColumns
 
       Object.keys(schema).forEach((key) => {
-        if (['text', 'hstore', 'jsonb', 'tsvector'].includes(schema[key])) {
+        if (['text', 'hstore', 'jsonb', 'tsvector', 'date'].includes(schema[key])) {
           schema[key] = 'string'
         } else if (schema[key] === 'decimal') {
           schema[key] = 'float'
         } else if (schema[key] === 'inet') {
           schema[key] = 'integer'
-        //In some cases, Perspective throw an error when tried to convert column with date format, so we need to change the date to datetime
-        } else if (schema[key] === 'date') {
-          // TESTING
-          schema[key] = 'string'
-          // schema[key] = 'datetime'
         }
       });
 

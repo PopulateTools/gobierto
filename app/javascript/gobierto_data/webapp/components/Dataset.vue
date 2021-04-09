@@ -596,7 +596,6 @@ export default {
       }
 
       this.currentQuery = sql;
-      this.runCurrentQuery();
     },
     storeRecentQuery() {
       // if the currentQuery does not exist, nor recent, nor in stored queries neither

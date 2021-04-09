@@ -5,7 +5,7 @@
   />
 </template>
 <script>
-import perspective from "@finos/perspective";
+import "@finos/perspective";
 import "@finos/perspective-viewer";
 import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
@@ -84,64 +84,38 @@ export default {
       }
     },
     checkPerspectiveTypes() {
-      //Get columns generates from query
-      const arrayColumnsFromQuery = this.arrayColumnsQuery
-      //Get columns from API
-      const arrayColumnsFromAPI = Object.keys(this.objectColumns)
-
-      /* We compare the columns, if it returns true we pass the schema to Perspective, if false Perspective will convert the columns*/
-      const sameColumns = arrayColumnsFromAPI.length === arrayColumnsFromQuery.length && arrayColumnsFromAPI.every(column => arrayColumnsFromQuery.includes(column))
-
       //If columns contains Boolean values goes to replace them
       let replaceItems = this.items
       if (Object.values(this.objectColumns).some(value => value === "boolean")) {
         replaceItems = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
       }
 
-      if (sameColumns) {
-        this.initPerspectiveWithSchema(replaceItems)
-      } else {
-        this.initPerspective(replaceItems)
-      }
+      this.initPerspectiveWithSchema(replaceItems)
     },
     initPerspectiveWithSchema(data) {
       this.viewer.setAttribute('plugin', this.typeChart)
       this.viewer.clear();
 
-      const transformColumns = this.objectColumns
+      const schema = this.objectColumns
 
-      Object.keys(transformColumns).forEach((key) => {
-        if (transformColumns[key] === 'hstore' || transformColumns[key] === 'jsonb' || transformColumns[key] === 'text') {
-          transformColumns[key] = 'string'
-        } else if (transformColumns[key] === 'decimal') {
-          transformColumns[key] = 'float'
-        } else if (transformColumns[key] === 'inet') {
-          transformColumns[key] = 'integer'
+      Object.keys(schema).forEach((key) => {
+        if (['text', 'hstore', 'jsonb', 'tsvector'].includes(schema[key])) {
+          schema[key] = 'string'
+        } else if (schema[key] === 'decimal') {
+          schema[key] = 'float'
+        } else if (schema[key] === 'inet') {
+          schema[key] = 'integer'
         //In some cases, Perspective throw an error when tried to convert column with date format, so we need to change the date to datetime
-        } else if (transformColumns[key] === 'date') {
-          transformColumns[key] = 'datetime'
-        } else if (transformColumns[key] === 'tsvector') {
-          transformColumns[key] = 'string'
+        } else if (schema[key] === 'date') {
+          // TESTING
+          schema[key] = 'string'
+          // schema[key] = 'datetime'
         }
       });
-
-      let schema = transformColumns
 
       const loadSchema = this.viewer.worker.table(schema);
       this.viewer.load(loadSchema)
       this.viewer.update(data)
-
-      if (this.config) {
-        this.loadConfig()
-      }
-
-      this.listenerPerspective()
-    },
-    initPerspective(data) {
-      this.viewer.setAttribute('plugin', this.typeChart)
-      this.viewer.clear();
-
-      this.viewer.load(data)
 
       if (this.config) {
         this.loadConfig()

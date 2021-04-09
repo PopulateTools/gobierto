@@ -640,7 +640,7 @@ export default {
 
         function buildLastDepth(d) {
           let title = d.data.name === undefined ? d.data[keyForThirdDepth] : d.data.name;
-          const { parent: { data: { name, href } } } = d
+          const { parent: { data: { name } }, data: { href } } = d
           return `
             <a href="${href}" class="link-last-depth">
               <p class="title">${name}</p>

@@ -99,12 +99,14 @@ export default {
       const schema = this.objectColumns
 
       Object.keys(schema).forEach((key) => {
-        if (['text', 'hstore', 'jsonb', 'tsvector', 'date'].includes(schema[key])) {
+        if (['text', 'hstore', 'jsonb', 'tsvector'].includes(schema[key])) {
           schema[key] = 'string'
         } else if (schema[key] === 'decimal') {
           schema[key] = 'float'
         } else if (schema[key] === 'inet') {
           schema[key] = 'integer'
+        } else if (schema[key] === 'date') {
+          schema[key] = 'datetime'
         }
       });
 

@@ -5,7 +5,7 @@
   />
 </template>
 <script>
-import "@finos/perspective";
+import perspective from "@finos/perspective";
 import "@finos/perspective-viewer";
 import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
@@ -63,6 +63,9 @@ export default {
       }
     }
   },
+  created() {
+    this.worker = perspective.worker();
+  },
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.checkIfQueryResultIsEmpty(this.items)
@@ -110,15 +113,14 @@ export default {
         }
       });
 
-      const loadSchema = this.viewer.worker.table(schema);
-      this.viewer.load(loadSchema)
-      this.viewer.update(data)
-
       if (this.config) {
         this.loadConfig()
       }
 
       this.listenerPerspective()
+
+      this.worker.table(schema);
+      this.viewer.load(data)
     },
     loadConfig() {
       this.viewer.restore(this.config);

@@ -10,7 +10,7 @@
 import { registerPlugin } from "@finos/perspective-viewer/dist/esm/utils.js";
 import L from "leaflet"
 
-const VIEWER_MAP = new WeakMap();
+const VIEWER_MAP = new Map();
 
 /**
  * <perspective-viewer> plugin.
@@ -18,78 +18,52 @@ const VIEWER_MAP = new WeakMap();
  * @class MapPlugin
  */
 
- /* eslint-disable */
- function get_or_create_datagrid(element, div) {
-     let datagrid;
-     if (!VIEWER_MAP.has(div)) {
-         datagrid = document.createElement("regular-table");
-         div.innerHTML = "";
-         div.appendChild(document.createElement("slot"));
-         element.appendChild(datagrid);
-         VIEWER_MAP.set(div, datagrid);
-     } else {
-         datagrid = VIEWER_MAP.get(div);
-         if (!datagrid.isConnected) {
-             datagrid.clear();
-             div.innerHTML = "";
-             div.appendChild(document.createElement("slot"));
-             element.appendChild(datagrid);
-         }
-     }
+/* eslint-disable */
+function get_or_create_map(element, div) {
+  let map;
+  if (!VIEWER_MAP.has(div)) {
+    const mapElement = document.createElement("div");
+    mapElement.id = "map"
+    element.appendChild(mapElement);
 
-     return datagrid;
- }
- /* eslint-enable */
-export class MapPlugin {
-  constructor(data) {
-    this.data = data
+    map = L.map('map');
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    VIEWER_MAP.set(div, map);
+  } else {
+    map = VIEWER_MAP.get(div);
   }
+
+  return map;
+}
+/* eslint-enable */
+export class MapPlugin {
   /*static name = "MapPlugin";
   static selectMode = "toggle";
   static deselectMode = "pivots";*/
 
-  /* eslint-disable */
-  static async update(div) {
-    console.log("update");
-    /* eslint-enable */
-    /*try {
-        const datagrid = VIEWER_MAP.get(div);
-        const model = INSTALLED.get(datagrid);
-        model._num_rows = await model._view.num_rows();
-        await datagrid.draw();
-    } catch (e) {
-        if (e.message !== "View is not initialized") {
-            throw e;
-        }
-    }*/
-  }
+  static async update() {}
 
   /* eslint-disable */
   static async create(div, view) {
-  /* eslint-enable */
+    /* eslint-enable */
     try {
-      const mapElement = document.createElement("div");
-      mapElement.id = "map"
-      this.appendChild(mapElement);
-      var map = L.map('map');
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map);
-      const testDataMap = await view.to_json()
-      const geojson = L.featureGroup(testDataMap.map(d => L.geoJSON(JSON.parse(d.geometry)))).addTo(map)
-      console.log("geojson", geojson);
-      /*geojson.properties = testDataMap.map(({ geometry }) => geometry)
-      console.log("geojson", geojson);*/
+      const map = get_or_create_map(this, div);
+      map.eachLayer(layer => map.removeLayer(layer))
+      const dataMap = await view.to_json()
+      const geojson = L.featureGroup(dataMap.map(d => L.geoJSON(JSON.parse(d.geometry)))).addTo(map)
+      map.fitBounds(geojson.getBounds());
+      /*geojson.properties = dataMap.map(({ geometry }) => geometry)
       /*const geojsonData = {
         type: "FeatureCollection",
-        features: testDataMap.map(({ geometry,...properties }) => ({
+        features: dataMap.map(({ geometry,...properties }) => ({
           type: "Feature",
           geometry: JSON.parse(geometry),
           properties
         }))
       };*/
       /*const geojson = L.geoJSON(geojsonData).addTo(map)*/
-      map.fitBounds(geojson.getBounds());
 
     } catch (e) {
       if (e.message !== "View is not initialized") {
@@ -99,25 +73,19 @@ export class MapPlugin {
   }
 
   static async resize() {
-    console.log("resize");
-    /*if (this.view && VIEWER_MAP.has(this._datavis)) {
-        const datagrid = VIEWER_MAP.get(this._datavis);
-        try {
-            await datagrid.draw();
-        } catch (e) {
-            if (e.message !== "View is not initialized") {
-                throw e;
-            }
+    if (this.view && VIEWER_MAP.has(this._datavis)) {
+      const datagrid = VIEWER_MAP.get(this._datavis);
+      try {
+        await datagrid.draw();
+      } catch (e) {
+        if (e.message !== "View is not initialized") {
+          throw e;
         }
-    }*/
+      }
+    }
   }
 
-  static delete() {
-    /*if (this.view && VIEWER_MAP.has(this._datavis)) {
-        const datagrid = VIEWER_MAP.get(this._datavis);
-        datagrid.clear();
-    }*/
-  }
+  static delete() {}
 
   static save() {}
 

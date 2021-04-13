@@ -5,7 +5,7 @@
   />
 </template>
 <script>
-import "@finos/perspective";
+import perspective from "@finos/perspective";
 import "@finos/perspective-viewer";
 import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
@@ -72,7 +72,6 @@ export default {
   },
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
-    console.log("this.viewer", this.viewer);
     this.checkIfQueryResultIsEmpty(this.items)
   },
   methods: {

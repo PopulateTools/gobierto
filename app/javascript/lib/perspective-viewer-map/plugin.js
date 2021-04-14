@@ -10,61 +10,72 @@
 import { registerPlugin } from "@finos/perspective-viewer/dist/esm/utils.js";
 import L from "leaflet"
 
-const VIEWER_MAP = new Map();
+/*const VIEWER_MAP = new Map();*/
+const geomColumn = "geometry"
+const idMap = "map"
 
-/**
- * <perspective-viewer> plugin.
- *
- * @class MapPlugin
- */
-
-/* eslint-disable */
 function get_or_create_map(element, div) {
-  let map;
-  if (!VIEWER_MAP.has(div)) {
-    const mapElement = document.createElement("div");
-    mapElement.id = "map"
-    element.appendChild(mapElement);
-
-    map = L.map('map');
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-    VIEWER_MAP.set(div, map);
-  } else {
-    map = VIEWER_MAP.get(div);
+  if (document.getElementById(idMap)) {
+    document.getElementById(idMap).remove()
   }
+  // Attach the container div to the DOM
+  const mapElement = document.createElement("div");
+  mapElement.id = idMap
+  div.innerHTML = ""
+  div.appendChild(document.createElement("slot"))
+  element.appendChild(mapElement);
+
+  // Initialize Leaflet
+  const map = L.map(idMap);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  // if (!VIEWER_MAP.has(idMap)) {
+
+
+  //   // Save the map to fetch it later
+  //   VIEWER_MAP.set(idMap, map);
+  // } else {
+  //   // Fetch the map form the store
+  //   map = VIEWER_MAP.get(idMap);
+
+  //   // Attach the container div to the DOM
+  //   const mapElement = document.createElement("div");
+  //   mapElement.id = idMap
+  //   div.innerHTML = ""
+  //   div.appendChild(document.createElement("slot"))
+  //   element.appendChild(mapElement);
+  // }
 
   return map;
 }
-/* eslint-enable */
+
 export class MapPlugin {
-  /*static name = "MapPlugin";
-  static selectMode = "toggle";
-  static deselectMode = "pivots";*/
+  static async update() { }
 
-  static async update() {}
-
-  /* eslint-disable */
   static async create(div, view) {
-    /* eslint-enable */
     try {
-      const map = get_or_create_map(this, div);
-      map.eachLayer(layer => map.removeLayer(layer))
-      const dataMap = await view.to_json()
-      const geojson = L.featureGroup(dataMap.map(d => L.geoJSON(JSON.parse(d.geometry)))).addTo(map)
-      map.fitBounds(geojson.getBounds());
-      /*geojson.properties = dataMap.map(({ geometry }) => geometry)
-      /*const geojsonData = {
-        type: "FeatureCollection",
-        features: dataMap.map(({ geometry,...properties }) => ({
-          type: "Feature",
-          geometry: JSON.parse(geometry),
-          properties
-        }))
-      };*/
-      /*const geojson = L.geoJSON(geojsonData).addTo(map)*/
+      const columns = JSON.parse(this.getAttribute("columns"))
+      if (!columns.includes(geomColumn)) {
+        columns.push(geomColumn)
+        this.setAttribute('columns', JSON.stringify(columns))
+      }
 
+      const map = get_or_create_map(this, div);
+      map.eachLayer(layer => {
+        // Delete all GeoJSON layers
+        layer instanceof L.FeatureGroup ? map.removeLayer(layer) : null
+      })
+
+      const dataMap = await view.to_json() || []
+      if (dataMap.some(x => !!x[geomColumn])) {
+        const geojson = L.featureGroup(dataMap.map(({ [geomColumn]: geometry = "{}", ...properties }) => {
+          return L.geoJSON({ type: "Feature", geometry: JSON.parse(geometry), properties })
+        })).addTo(map)
+
+        map.fitBounds(geojson.getBounds());
+      }
     } catch (e) {
       if (e.message !== "View is not initialized") {
         throw e;
@@ -73,28 +84,27 @@ export class MapPlugin {
   }
 
   static async resize() {
-    if (this.view && VIEWER_MAP.has(this._datavis)) {
-      const datagrid = VIEWER_MAP.get(this._datavis);
-      try {
-        await datagrid.draw();
-      } catch (e) {
-        if (e.message !== "View is not initialized") {
-          throw e;
-        }
-      }
-    }
+    // if (this.view && VIEWER_MAP.has(this._datavis)) {
+    //   const datagrid = VIEWER_MAP.get(this._datavis);
+    //   try {
+    //     await datagrid.draw();
+    //   } catch (e) {
+    //     if (e.message !== "View is not initialized") {
+    //       throw e;
+    //     }
+    //   }
+    // }
   }
 
-  static delete() {}
+  static delete() {
+    console.log("map delete");
+  }
 
   static save() {}
 
-  static restore() {}
+  static restore() {
+    console.log("map restore");
+  }
 }
-/******************************************************************************
- *
- * Main
- *
- */
 
 registerPlugin("map", MapPlugin);

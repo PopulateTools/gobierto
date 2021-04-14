@@ -1,20 +1,12 @@
-/******************************************************************************
- *
- * Copyright (c) 2017, the Perspective Authors.
- *
- * This file is part of the Perspective library, distributed under the terms of
- * the Apache License 2.0.  The full license can be found in the LICENSE file.
- *
- */
-
 import { registerPlugin } from "@finos/perspective-viewer/dist/esm/utils.js";
 import L from "leaflet"
 
-/*const VIEWER_MAP = new Map();*/
+// default geoJSON column name
 const geomColumn = "geometry"
+// default HTML id
 const idMap = "map"
 
-function get_or_create_map(element, div) {
+function createMapNode(element, div) {
   if (document.getElementById(idMap)) {
     document.getElementById(idMap).remove()
   }
@@ -31,23 +23,6 @@ function get_or_create_map(element, div) {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
-  // if (!VIEWER_MAP.has(idMap)) {
-
-
-  //   // Save the map to fetch it later
-  //   VIEWER_MAP.set(idMap, map);
-  // } else {
-  //   // Fetch the map form the store
-  //   map = VIEWER_MAP.get(idMap);
-
-  //   // Attach the container div to the DOM
-  //   const mapElement = document.createElement("div");
-  //   mapElement.id = idMap
-  //   div.innerHTML = ""
-  //   div.appendChild(document.createElement("slot"))
-  //   element.appendChild(mapElement);
-  // }
-
   return map;
 }
 
@@ -57,22 +32,31 @@ export class MapPlugin {
   static async create(div, view) {
     try {
       const columns = JSON.parse(this.getAttribute("columns"))
+
+      // Enforces to have a geometry column
       if (!columns.includes(geomColumn)) {
         columns.push(geomColumn)
-        this.setAttribute('columns', JSON.stringify(columns))
+        this.setAttribute("columns", JSON.stringify(columns))
       }
 
-      const map = get_or_create_map(this, div);
+      const map = createMapNode(this, div);
       map.eachLayer(layer => {
-        // Delete all GeoJSON layers
+        // Delete all previous GeoJSON layers
         layer instanceof L.FeatureGroup ? map.removeLayer(layer) : null
       })
 
+      // fetch the current displayed data
       const dataMap = await view.to_json() || []
-      if (dataMap.some(x => !!x[geomColumn])) {
-        const geojson = L.featureGroup(dataMap.map(({ [geomColumn]: geometry = "{}", ...properties }) => {
-          return L.geoJSON({ type: "Feature", geometry: JSON.parse(geometry), properties })
-        })).addTo(map)
+      if (dataMap.some(({ [geomColumn]: geometry }) => !!geometry)) {
+        const geojson = L.featureGroup(
+          dataMap.map(({ [geomColumn]: geometry = "{}", ...properties }) =>
+            L.geoJSON({
+              type: "Feature",
+              geometry: JSON.parse(geometry),
+              properties
+            })
+          )
+        ).addTo(map);
 
         map.fitBounds(geojson.getBounds());
       }
@@ -96,15 +80,11 @@ export class MapPlugin {
     // }
   }
 
-  static delete() {
-    console.log("map delete");
-  }
+  static delete() {}
 
   static save() {}
 
-  static restore() {
-    console.log("map restore");
-  }
+  static restore() {}
 }
 
 registerPlugin("map", MapPlugin);

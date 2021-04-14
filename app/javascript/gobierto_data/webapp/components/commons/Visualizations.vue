@@ -97,7 +97,8 @@ export default {
       this.initPerspectiveWithSchema(replaceItems)
     },
     initPerspectiveWithSchema(data) {
-      this.viewer.setAttribute('plugin', this.typeChart)
+      // if no typeChart has been defined, and the dataset contains a gemetry column, loads the map-plugin by default
+      this.viewer.setAttribute('plugin', this.typeChart || this.arrayColumnsQuery.includes('geometry') ? 'map' : null)
       this.viewer.clear();
 
       const schema = this.objectColumns

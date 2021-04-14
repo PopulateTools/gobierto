@@ -1,5 +1,6 @@
 import { registerPlugin } from "@finos/perspective-viewer/dist/esm/utils.js";
 import L from "leaflet"
+import "../../../assets/stylesheets/comp-perspective-viewer-map.css"
 
 // default geoJSON column name
 const geomColumn = "geometry"
@@ -26,42 +27,23 @@ function createMapNode(element, div) {
   return map;
 }
 
-// DEBUG
-function getColor(d) {
-  return d > 1000 ? '#800026' :
-         d > 500 ? '#BD0026' :
-         d > 200 ? '#E31A1C' :
-         d > 100 ? '#FC4E2A' :
-         d > 50 ? '#FD8D3C' :
-         d > 20 ? '#FEB24C' :
-         d > 10 ? '#FED976' :
-                    '#FFEDA0';
-}
+function createLegend({ grades = [], getColor = d => d, fmt = d => d.toLocaleString() }) {
+  const legend = L.control({ position: 'bottomright' });
 
-// DEBUG
-function createLegend(map) {
-  var legend = L.control({ position: 'bottomright' });
-
-  legend.onAdd = function (map) {
-
-    console.log(map);
-
-      var div = L.DomUtil.create('div', 'info legend'),
-          grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-          // eslint-disable-next-line no-unused-vars
-          labels = [];
+  legend.onAdd = function () {
+      const div = L.DomUtil.create('div', 'info legend')
 
       // loop through our density intervals and generate a label with a colored square for each interval
       for (var i = 0; i < grades.length; i++) {
           div.innerHTML +=
               '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-              grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+              fmt(grades[i]) + (grades[i + 1] ? '&ndash;' + fmt(grades[i + 1]) + '<br>' : '+');
       }
 
       return div;
   };
 
-  legend.addTo(map);
+  return legend;
 }
 
 export class MapPlugin {
@@ -82,21 +64,48 @@ export class MapPlugin {
       })
 
       // fetch the current displayed data
-      const dataMap = await view.to_json() || []
-      if (dataMap.some(({ [geomColumn]: geometry }) => !!geometry)) {
+      const data = await view.to_json() || []
+      if (data.some(({ [geomColumn]: geometry }) => !!geometry)) {
+
+        // find first numeric field
+        const [numericField] = (Object.entries(data[0]) || []).find(([, value]) => Number.isFinite(value))
+        const mappedData = data.map(d => d[numericField])
+        const isInteger = mappedData.every(x => Number.isInteger(x))
+
+        // get range array
+        const [min, max] = [Math.min(...mappedData), Math.max(...mappedData)]
+        // max. categories
+        const length = 5
+        const step = (max - min) / length
+        const grades = Array.from({ length }, (_, i) => isInteger ? Math.floor(min + (i * step)) : min + (i * step))
+
+        const getColor = (value) => {
+          // if don't substract 1, you'll never get the first index
+          const ix = grades.findIndex(x => value < x) - 1
+          // categories begins as of 1
+          return ix >= 0 ? `var(--category-${ix + 1})` : "var(--category-1)"
+        }
+
+        const style = ({ properties = {} }) => ({
+          fillColor: getColor(properties[numericField]),
+          fillOpacity: 0.7,
+          color: getColor(properties[numericField]),
+          opacity: 1,
+        })
+
         const geojson = L.featureGroup(
-          dataMap.map(({ [geomColumn]: geometry = "{}", ...properties }) =>
+          data.map(({ [geomColumn]: geometry = "{}", ...properties }) =>
             L.geoJSON({
               type: "Feature",
               geometry: JSON.parse(geometry),
               properties
-            })
+            }, { style })
           )
         ).addTo(map);
 
         map.fitBounds(geojson.getBounds());
 
-        createLegend(map)
+        createLegend({ grades, getColor }).addTo(map)
       }
     } catch (e) {
       if (e.message !== "View is not initialized") {

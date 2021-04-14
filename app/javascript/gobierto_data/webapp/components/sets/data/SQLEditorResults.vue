@@ -164,7 +164,7 @@ export default {
       removeLabelBtn: false,
       perspectiveChanged: false,
       resetConfigViz: false,
-      typeChart: 'datagrid',
+      typeChart: null,
     };
   },
   watch: {

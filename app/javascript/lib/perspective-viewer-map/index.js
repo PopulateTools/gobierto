@@ -93,19 +93,31 @@ export class MapPlugin {
           opacity: 1,
         })
 
-        const geojson = L.featureGroup(
+        // creates features ONLY if they're plane strings
+        const features =
           data.map(({ [geomColumn]: geometry = "{}", ...properties }) =>
-            L.geoJSON({
-              type: "Feature",
-              geometry: JSON.parse(geometry),
-              properties
-            }, { style })
-          )
-        ).addTo(map);
+            typeof geometry === "string" || geometry instanceof String
+              ? L.geoJSON(
+                  {
+                    type: "Feature",
+                    geometry: JSON.parse(geometry),
+                    properties
+                  },
+                  { style }
+                )
+              : null
+          ).filter(Boolean) || [];
 
-        map.fitBounds(geojson.getBounds());
+        if (features.length) {
+          const geojson = L.featureGroup(features).addTo(map);
+          map.fitBounds(geojson.getBounds());
+          createLegend({ grades, getColor }).addTo(map)
+        } else {
+          // if there's nothing to display, you must set the default view
+          // TODO: parametrize
+          map.setView([40.3, -3.7], 13)
+        }
 
-        createLegend({ grades, getColor }).addTo(map)
       }
     } catch (e) {
       if (e.message !== "View is not initialized") {

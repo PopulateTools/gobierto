@@ -67,18 +67,7 @@ export class MapPlugin {
     }
   }
 
-  static async resize() {
-    // if (this.view && VIEWER_MAP.has(this._datavis)) {
-    //   const datagrid = VIEWER_MAP.get(this._datavis);
-    //   try {
-    //     await datagrid.draw();
-    //   } catch (e) {
-    //     if (e.message !== "View is not initialized") {
-    //       throw e;
-    //     }
-    //   }
-    // }
-  }
+  static resize() {}
 
   static delete() {}
 

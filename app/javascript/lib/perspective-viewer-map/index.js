@@ -26,9 +26,45 @@ function createMapNode(element, div) {
   return map;
 }
 
-export class MapPlugin {
-  static async update() { }
+// DEBUG
+function getColor(d) {
+  return d > 1000 ? '#800026' :
+         d > 500 ? '#BD0026' :
+         d > 200 ? '#E31A1C' :
+         d > 100 ? '#FC4E2A' :
+         d > 50 ? '#FD8D3C' :
+         d > 20 ? '#FEB24C' :
+         d > 10 ? '#FED976' :
+                    '#FFEDA0';
+}
 
+// DEBUG
+function createLegend(map) {
+  var legend = L.control({ position: 'bottomright' });
+
+  legend.onAdd = function (map) {
+
+    console.log(map);
+
+      var div = L.DomUtil.create('div', 'info legend'),
+          grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+          // eslint-disable-next-line no-unused-vars
+          labels = [];
+
+      // loop through our density intervals and generate a label with a colored square for each interval
+      for (var i = 0; i < grades.length; i++) {
+          div.innerHTML +=
+              '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+              grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+      }
+
+      return div;
+  };
+
+  legend.addTo(map);
+}
+
+export class MapPlugin {
   static async create(div, view) {
     try {
       const columns = JSON.parse(this.getAttribute("columns"))
@@ -59,6 +95,8 @@ export class MapPlugin {
         ).addTo(map);
 
         map.fitBounds(geojson.getBounds());
+
+        createLegend(map)
       }
     } catch (e) {
       if (e.message !== "View is not initialized") {
@@ -66,6 +104,8 @@ export class MapPlugin {
       }
     }
   }
+
+  static update() {}
 
   static resize() {}
 

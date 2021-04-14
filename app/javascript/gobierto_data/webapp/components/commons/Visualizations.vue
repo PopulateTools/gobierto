@@ -10,10 +10,7 @@ import "@finos/perspective-viewer";
 import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
 import "@finos/perspective-viewer/themes/all-themes.css";
-/* eslint-disable */
-import { MapPlugin } from "../../../../lib/perspective-viewer-map/plugin.js";
-/* eslint-enable */
-
+import "lib/perspective-viewer-map";
 
 export default {
   name: "Visualizations",
@@ -101,7 +98,6 @@ export default {
     },
     initPerspectiveWithSchema(data) {
       this.viewer.setAttribute('plugin', this.typeChart)
-      /*this.viewer.setAttribute('plugin', 'MapPlugin')*/
       this.viewer.clear();
 
       const schema = this.objectColumns

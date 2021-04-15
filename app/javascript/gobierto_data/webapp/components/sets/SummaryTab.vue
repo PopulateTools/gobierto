@@ -4,6 +4,7 @@
       :description-dataset="description"
       :category-dataset="category | translate"
       :frequency-dataset="frequency | translate"
+      :source-dataset="license"
       :date-updated="dateUpdated"
       :array-formats="arrayFormats"
     />
@@ -245,6 +246,7 @@ export default {
       category: {},
       frequency: {},
       dateUpdated: null,
+      license: null,
       showYourQueries: true,
       showYourVizs: true,
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
@@ -269,6 +271,7 @@ export default {
       data_updated_at: this.dateUpdated,
       category: [{ name_translations: this.category } = {}] = [],
       frequency: [{ name_translations: this.frequency } = {}] = [],
+      source_license: this.license,
       description: this.description
     } = this.datasetAttributes) // Ouh yes, destructuring FTW 😎
   }

@@ -22,6 +22,13 @@
         :label="labelSubject"
         :text="categoryDataset"
       />
+      <InfoBlockText
+        v-if="sourceDataset"
+        icon="link"
+        opacity=".25"
+        :label="labelSource"
+        :text="sourceDataset"
+      />
     </div>
     <div class="pure-u-1-2">
       <div
@@ -79,6 +86,10 @@ export default {
       type: String,
       default: ''
     },
+    sourceDataset: {
+      type: String,
+      default: ''
+    },
     categoryDataset: {
       type: String,
       default: ''
@@ -102,6 +113,7 @@ export default {
       labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
       labelSubject: I18n.t("gobierto_data.projects.subject") || '',
       labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',
+      labelSource: I18n.t("gobierto_data.projects.license") || '',
       seeMore: I18n.t("gobierto_common.vue_components.read_more.more") || '',
       seeLess: I18n.t("gobierto_common.vue_components.read_more.less") || '',
       truncateIsActive: true

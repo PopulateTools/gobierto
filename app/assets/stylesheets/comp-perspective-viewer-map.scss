@@ -1,0 +1,24 @@
+:root {
+  --perspective-map-category-1: rgb(var(--color-base-string), 0.2);
+  --perspective-map-category-2: rgb(var(--color-base-string), 0.4);
+  --perspective-map-category-3: rgb(var(--color-base-string), 0.6);
+  --perspective-map-category-4: rgb(var(--color-base-string), 0.8);
+  --perspective-map-category-5: rgb(var(--color-base-string));
+}
+
+.legend {
+  line-height: 18px;
+  color: #555;
+  background-color: #fff;
+  padding: 1em;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}

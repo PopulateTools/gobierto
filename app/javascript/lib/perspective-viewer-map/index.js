@@ -1,6 +1,6 @@
 import { registerPlugin } from "@finos/perspective-viewer/dist/esm/utils.js";
 import L from "leaflet"
-import "../../../assets/stylesheets/comp-perspective-viewer-map.css"
+import "../../../assets/stylesheets/comp-perspective-viewer-map.scss"
 
 // default geoJSON column name
 const geomColumn = "geometry"
@@ -36,7 +36,7 @@ function createLegend({ grades = [], getColor = d => d, fmt = d => d.toLocaleStr
       // loop through our density intervals and generate a label with a colored square for each interval
       for (var i = 0; i < grades.length; i++) {
           div.innerHTML +=
-              '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+              '<i style="background:' + getColor(grades[i]) + '"></i> ' +
               fmt(grades[i]) + (grades[i + 1] ? '&ndash;' + fmt(grades[i + 1]) + '<br>' : '+');
       }
 
@@ -47,6 +47,8 @@ function createLegend({ grades = [], getColor = d => d, fmt = d => d.toLocaleStr
 }
 
 export class MapPlugin {
+  // static name = "Map"
+
   static async create(div, view) {
     try {
       const columns = JSON.parse(this.getAttribute("columns"))
@@ -75,15 +77,17 @@ export class MapPlugin {
         // get range array
         const [min, max] = [Math.min(...mappedData), Math.max(...mappedData)]
         // max. categories
-        const length = 5
-        const step = (max - min) / length
-        const grades = Array.from({ length }, (_, i) => isInteger ? Math.floor(min + (i * step)) : min + (i * step))
+        const maxCategories = 5
+        // substract one to maxCategories in order to keep the max. value INSIDE the range
+        const step = (max - min) / (maxCategories - 1)
+        const grades = Array.from({ length: maxCategories - 1 }, (_, i) => isInteger ? Math.floor(min + (i * step)) : min + (i * step))
+        grades.push(max)
 
         const getColor = (value) => {
           // if don't substract 1, you'll never get the first index
-          const ix = grades.findIndex(x => value < x) - 1
+          const ix = grades.findIndex(x => value <= x)
           // categories begins as of 1
-          return ix >= 0 ? `var(--category-${ix + 1})` : "var(--category-1)"
+          return ix >= 0 ? `var(--perspective-map-category-${ix + 1})` : ''
         }
 
         const style = ({ properties = {} }) => ({

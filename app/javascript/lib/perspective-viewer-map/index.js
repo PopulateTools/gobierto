@@ -1,6 +1,6 @@
 import { registerPlugin } from "@finos/perspective-viewer/dist/esm/utils.js";
 import L from "leaflet"
-import "../../../assets/stylesheets/comp-perspective-viewer-map.scss"
+import "../../../assets/stylesheets/comp-perspective-viewer-map.css"
 
 // default geoJSON column name
 const geomColumn = "geometry"
@@ -92,7 +92,7 @@ export class MapPlugin {
 
         const style = ({ properties = {} }) => ({
           fillColor: getColor(properties[numericField]),
-          fillOpacity: 0.7,
+          fillOpacity: 1,
           color: getColor(properties[numericField]),
           opacity: 1,
         })

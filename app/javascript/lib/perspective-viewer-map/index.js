@@ -177,4 +177,9 @@ export class MapPlugin {
   static restore() {}
 }
 
+Object.defineProperty(MapPlugin, 'name', {
+  writable: true,
+  value: 'Map'
+});
+
 registerPlugin("map", MapPlugin);

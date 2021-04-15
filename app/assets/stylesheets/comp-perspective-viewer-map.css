@@ -6,7 +6,7 @@
   --perspective-map-category-5: rgb(var(--color-base-string), 0.9);
 }
 
-.legend {
+.perspective-map-legend {
   line-height: 18px;
   color: #555;
   background-color: #fff;
@@ -15,9 +15,20 @@
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-.legend i {
+.perspective-map-legend i {
   width: 18px;
   height: 18px;
   float: left;
   margin-right: 8px;
+}
+
+.perspective-map-tooltip {
+  background-color: #fff;
+  padding: 1em;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.perspective-map-tooltip:empty {
+  display: none;
 }

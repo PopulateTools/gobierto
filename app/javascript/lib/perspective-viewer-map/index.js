@@ -1,5 +1,6 @@
 import { registerPlugin } from "@finos/perspective-viewer/dist/esm/utils.js";
 import L from "leaflet"
+import { feature } from "topojson-client"
 import "../../../assets/stylesheets/comp-perspective-viewer-map.css"
 
 // default geoJSON column name
@@ -24,14 +25,30 @@ function createMapNode(element, div) {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
+  // Add Topojson handlers
+  L.TopoJSON = L.GeoJSON.extend({
+    addData: function (jsonData) {
+      if (jsonData.type === 'Topology') {
+        for (let key in jsonData.objects) {
+          L.GeoJSON.prototype.addData.call(this, feature(jsonData, jsonData.objects[key]));
+        }
+      } else {
+        L.GeoJSON.prototype.addData.call(this, jsonData);
+      }
+    },
+  });
+  L.topoJSON = function (data, options) {
+    return new L.TopoJSON(data, options);
+  };
+
   return map;
 }
 
 function createLegend({ grades = [], getColor = d => d, fmt = d => d.toLocaleString() }) {
-  const legend = L.control({ position: 'bottomright' });
+  const legend = L.control({ position: 'bottomleft' });
 
   legend.onAdd = function () {
-      const div = L.DomUtil.create('div', 'info legend')
+      const div = L.DomUtil.create('div', 'perspective-map-legend')
 
       // loop through our density intervals and generate a label with a colored square for each interval
       for (var i = 0; i < grades.length; i++) {
@@ -44,6 +61,23 @@ function createLegend({ grades = [], getColor = d => d, fmt = d => d.toLocaleStr
   };
 
   return legend;
+}
+
+function createTooltip() {
+  const info = L.control();
+
+  info.onAdd = function () {
+      this._div = L.DomUtil.create('div', 'perspective-map-tooltip');
+      this.update();
+      return this._div;
+  };
+
+  // method that we will use to update the control based on feature properties passed
+  info.update = function (props = {}) {
+      this._div.innerHTML = Object.entries(props).map(([key, value]) => `<div><b>${key}</b>: ${value}</div>`).join("");
+  };
+
+  return info;
 }
 
 export class MapPlugin {
@@ -60,10 +94,6 @@ export class MapPlugin {
       }
 
       const map = createMapNode(this, div);
-      map.eachLayer(layer => {
-        // Delete all previous GeoJSON layers
-        layer instanceof L.FeatureGroup ? map.removeLayer(layer) : null
-      })
 
       // fetch the current displayed data
       const data = await view.to_json() || []
@@ -99,23 +129,29 @@ export class MapPlugin {
 
         // creates features ONLY if they're plane strings
         const features =
-          data.map(({ [geomColumn]: geometry = "{}", ...properties }) =>
-            typeof geometry === "string" || geometry instanceof String
-              ? L.geoJSON(
-                  {
-                    type: "Feature",
-                    geometry: JSON.parse(geometry),
-                    properties
-                  },
-                  { style }
-                )
-              : null
-          ).filter(Boolean) || [];
+          data
+            .map(({ [geomColumn]: geometry = "{}", ...properties }) => {
+              // parse all the geoms as topojson, even they're not
+              const { features: [ feature ] } = L.topoJSON(JSON.parse(geometry)).toGeoJSON()
+              return { ...feature, properties };
+            })
+            .filter(Boolean) || [];
 
         if (features.length) {
-          const geojson = L.featureGroup(features).addTo(map);
-          map.fitBounds(geojson.getBounds());
           createLegend({ grades, getColor }).addTo(map)
+
+          const tooltip = createTooltip({ grades, getColor })
+          tooltip.addTo(map)
+
+          const onEachFeature = (feature, layer) => {
+            layer.on({
+              mouseover: () => tooltip.update(feature.properties),
+              mouseout: () => tooltip.update()
+            });
+          };
+
+          const geojson = L.geoJSON(features, { style, onEachFeature }).addTo(map);
+          map.fitBounds(geojson.getBounds());
         } else {
           // if there's nothing to display, you must set the default view
           // TODO: parametrize

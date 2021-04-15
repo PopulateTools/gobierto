@@ -2,12 +2,10 @@ const { environment } = require('@rails/webpacker')
 
 // config
 const alias = require('./config/alias')
-const terser = require("./config/terser");
 const splitChunks = require("./config/splitChunks");
 const output = require('./config/output')
 
 environment.config.merge(alias)
-environment.config.merge(terser)
 environment.config.merge(splitChunks)
 environment.config.merge(output)
 

@@ -98,7 +98,9 @@ export class MapPlugin {
 
       // fetch the current displayed data
       const data = await view.to_json() || []
-      if (data.some(({ [geomColumn]: geometry }) => !!geometry)) {
+      if (data.some(({
+          [geomColumn]: geometry
+        }) => !!geometry)) {
 
         // find first numeric field
         const [numericField] = (Object.entries(data[0]) || []).find(([, value]) => Number.isFinite(value))
@@ -129,14 +131,23 @@ export class MapPlugin {
         })
 
         // creates features ONLY if they're plane strings
-        const features =
-          data
-            .map(({ [geomColumn]: geometry = "{}", ...properties }) => {
+        const features = data.reduce(
+          (acc, {
+            [geomColumn]: geometry = "{}",
+            ...properties
+          }) => {
+            if (typeof geometry === "string" || geometry instanceof String) {
               // parse all the geoms as topojson, even they're not
-              const { features: [ feature ] } = L.topoJSON(JSON.parse(geometry)).toGeoJSON()
-              return { ...feature, properties };
-            })
-            .filter(Boolean) || [];
+              const {
+                features: [feature]
+              } = L.topoJSON(JSON.parse(geometry)).toGeoJSON();
+              acc.push({ ...feature, properties });
+            }
+
+            return acc;
+          },
+          []
+        );
 
         if (features.length) {
           createLegend({ grades, getColor }).addTo(map)
@@ -153,10 +164,6 @@ export class MapPlugin {
 
           const geojson = L.geoJSON(features, { style, onEachFeature }).addTo(map);
           map.fitBounds(geojson.getBounds());
-        } else {
-          // if there's nothing to display, you must set the default view
-          // TODO: parametrize
-          map.setView([40.3, -3.7], 13)
         }
 
       }

@@ -789,6 +789,8 @@ export default {
       }
     },
     async storeCurrentVisualization(config, opts) {
+      console.log("opts", opts);
+      console.log("config", config);
       const {
         params: { queryId },
         name: nameComponent

@@ -218,6 +218,7 @@ export default {
     }
   },
   mounted() {
+    console.log("this.$refs.viewer", this.$refs.viewer);
     this.currentConfigChart = this.$refs.viewer.getConfig()
   },
   beforeDestroy() {
@@ -265,6 +266,7 @@ export default {
       this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
     },
     getDataVisualization(data) {
+      console.log("data", data);
       const {
         params: { queryId }
       } = this.$route;
@@ -292,6 +294,7 @@ export default {
       this.name = name
       this.config = config
       this.items = elements
+      console.log("this.items", this.items);
       this.queryViz = sql
     },
     handlerForkViz() {

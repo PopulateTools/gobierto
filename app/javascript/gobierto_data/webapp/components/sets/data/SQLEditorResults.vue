@@ -49,7 +49,7 @@
         mode="out-in"
       >
         <div
-          v-if="vizName"
+          v-if="vizName && isVizSaved"
           class="gobierto-data-visualization-query-container"
         >
           <span class="gobierto-data-summary-queries-panel-title">{{ labelLink }}: </span>

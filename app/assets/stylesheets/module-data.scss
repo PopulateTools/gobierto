@@ -1111,6 +1111,7 @@
   &-visualization--aspect-ratio-16-9 {
     @include aspect-ratio(16, 9);
     min-height: 350px;
+    z-index: 1;
 
     .gobierto-data-visualization--item {
       margin-top: 1rem;

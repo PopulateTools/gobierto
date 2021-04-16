@@ -5,10 +5,11 @@ import "../../../assets/stylesheets/comp-perspective-viewer-map.css"
 
 // default geoJSON column name
 const geomColumn = "geometry"
-// default HTML id
-const idMap = "map"
 
 function createMapNode(element, div) {
+  /*Create a different ID to avoid errors when we show more than one map on the same page, for example: summary tab.*/
+  const seed = Math.random().toString(36).substring(7)
+  const idMap = `map-${seed}`;
   if (document.getElementById(idMap)) {
     document.getElementById(idMap).remove()
   }

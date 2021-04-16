@@ -21,10 +21,7 @@ function createMapNode(element, div) {
   element.appendChild(mapElement);
 
   // Initialize Leaflet
-  const map = L.map(idMap, {
-    center: [0, 0],
-    zoom: 1
- });
+  const map = L.map(idMap);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
@@ -85,6 +82,8 @@ function createTooltip() {
 }
 
 export class MapPlugin {
+  // static name = "Map"
+
   static async create(div, view) {
     try {
       const columns = JSON.parse(this.getAttribute("columns"))
@@ -130,20 +129,14 @@ export class MapPlugin {
         })
 
         // creates features ONLY if they're plane strings
-        const features = data.reduce(
-          (acc, { [geomColumn]: geometry = "{}", ...properties }) => {
-            if (typeof geometry === "string" || geometry instanceof String) {
+        const features =
+          data
+            .map(({ [geomColumn]: geometry = "{}", ...properties }) => {
               // parse all the geoms as topojson, even they're not
-              const {
-                features: [feature]
-              } = L.topoJSON(JSON.parse(geometry)).toGeoJSON();
-              acc.push({ ...feature, properties });
-            }
-
-            return acc;
-          },
-          []
-        );
+              const { features: [ feature ] } = L.topoJSON(JSON.parse(geometry)).toGeoJSON()
+              return { ...feature, properties };
+            })
+            .filter(Boolean) || [];
 
         if (features.length) {
           createLegend({ grades, getColor }).addTo(map)
@@ -160,7 +153,12 @@ export class MapPlugin {
 
           const geojson = L.geoJSON(features, { style, onEachFeature }).addTo(map);
           map.fitBounds(geojson.getBounds());
+        } else {
+          // if there's nothing to display, you must set the default view
+          // TODO: parametrize
+          map.setView([40.3, -3.7], 13)
         }
+
       }
     } catch (e) {
       if (e.message !== "View is not initialized") {

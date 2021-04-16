@@ -52,6 +52,7 @@
         <Visualizations
           v-if="items"
           ref="viewer"
+          class="gobierto-data-visualization--item"
           :items="items"
           :config="config"
           :object-columns="objectColumns"

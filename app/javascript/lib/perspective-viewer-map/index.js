@@ -7,12 +7,13 @@ import "../../../assets/stylesheets/comp-perspective-viewer-map.css"
 const geomColumn = "geometry"
 
 function createMapNode(element, div) {
+  const { children } = element
   /*Create a different ID to avoid errors when we show more than one map on the same page, for example: summary tab.*/
   const seed = Math.random().toString(36).substring(7)
   const idMap = `map-${seed}`;
-  if (document.getElementById(idMap)) {
-    document.getElementById(idMap).remove()
-  }
+  let childrenMaps = [...children];
+  childrenMaps.map(({ id }) => document.getElementById(id).remove())
+
   // Attach the container div to the DOM
   const mapElement = document.createElement("div");
   mapElement.id = idMap
@@ -21,14 +22,17 @@ function createMapNode(element, div) {
   element.appendChild(mapElement);
 
   // Initialize Leaflet
-  const map = L.map(idMap);
+  const map = L.map(idMap, {
+    center: [0, 0],
+    zoom: 1
+  });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
   // Add Topojson handlers
   L.TopoJSON = L.GeoJSON.extend({
-    addData: function (jsonData) {
+    addData: function(jsonData) {
       if (jsonData.type === 'Topology') {
         for (let key in jsonData.objects) {
           L.GeoJSON.prototype.addData.call(this, feature(jsonData, jsonData.objects[key]));
@@ -38,7 +42,7 @@ function createMapNode(element, div) {
       }
     },
   });
-  L.topoJSON = function (data, options) {
+  L.topoJSON = function(data, options) {
     return new L.TopoJSON(data, options);
   };
 
@@ -48,17 +52,17 @@ function createMapNode(element, div) {
 function createLegend({ grades = [], getColor = d => d, fmt = d => d.toLocaleString() }) {
   const legend = L.control({ position: 'bottomleft' });
 
-  legend.onAdd = function () {
-      const div = L.DomUtil.create('div', 'perspective-map-legend')
+  legend.onAdd = function() {
+    const div = L.DomUtil.create('div', 'perspective-map-legend')
 
-      // loop through our density intervals and generate a label with a colored square for each interval
-      for (var i = 0; i < grades.length; i++) {
-          div.innerHTML +=
-              '<i style="background:' + getColor(grades[i]) + '"></i> ' +
-              fmt(grades[i]) + (grades[i + 1] ? '&ndash;' + fmt(grades[i + 1]) + '<br>' : '+');
-      }
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+      div.innerHTML +=
+        '<i style="background:' + getColor(grades[i]) + '"></i> ' +
+        fmt(grades[i]) + (grades[i + 1] ? '&ndash;' + fmt(grades[i + 1]) + '<br>' : '+');
+    }
 
-      return div;
+    return div;
   };
 
   return legend;
@@ -67,22 +71,21 @@ function createLegend({ grades = [], getColor = d => d, fmt = d => d.toLocaleStr
 function createTooltip() {
   const info = L.control();
 
-  info.onAdd = function () {
-      this._div = L.DomUtil.create('div', 'perspective-map-tooltip');
-      this.update();
-      return this._div;
+  info.onAdd = function() {
+    this._div = L.DomUtil.create('div', 'perspective-map-tooltip');
+    this.update();
+    return this._div;
   };
 
   // method that we will use to update the control based on feature properties passed
-  info.update = function (props = {}) {
-      this._div.innerHTML = Object.entries(props).map(([key, value]) => `<div><b>${key}</b>: ${value}</div>`).join("");
+  info.update = function(props = {}) {
+    this._div.innerHTML = Object.entries(props).map(([key, value]) => `<div><b>${key}</b>: ${value}</div>`).join("");
   };
 
   return info;
 }
 
 export class MapPlugin {
-  // static name = "Map"
 
   static async create(div, view) {
     try {

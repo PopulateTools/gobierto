@@ -24,10 +24,24 @@
       />
       <InfoBlockText
         v-if="sourceDataset"
-        icon="link"
+        icon="building"
         opacity=".25"
         :label="labelSource"
         :text="sourceDataset"
+      />
+      <InfoBlockText
+        v-if="sourceDatasetUrl"
+        icon="link"
+        opacity=".25"
+        :label="labelSourceUrl"
+        :text="sourceDatasetUrl"
+      />
+      <InfoBlockText
+        v-if="licenseDataset"
+        icon="certificate"
+        opacity=".25"
+        :label="labelLicense"
+        :text="licenseDataset"
       />
     </div>
     <div class="pure-u-1-2">
@@ -86,15 +100,23 @@ export default {
       type: String,
       default: ''
     },
-    sourceDataset: {
-      type: String,
-      default: ''
-    },
     categoryDataset: {
       type: String,
       default: ''
     },
     frequencyDataset: {
+      type: String,
+      default: ''
+    },
+    licenseDataset: {
+      type: String,
+      default: ''
+    },
+    sourceDataset: {
+      type: String,
+      default: ''
+    },
+    sourceDatasetUrl: {
       type: String,
       default: ''
     },
@@ -113,7 +135,9 @@ export default {
       labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
       labelSubject: I18n.t("gobierto_data.projects.subject") || '',
       labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',
-      labelSource: I18n.t("gobierto_data.projects.license") || '',
+      labelSource: I18n.t("gobierto_data.projects.sourceDataset") || '',
+      labelSourceUrl: I18n.t("gobierto_data.projects.sourceDatasetUrl") || '',
+      labelLicense: I18n.t("gobierto_data.projects.license") || '',
       seeMore: I18n.t("gobierto_common.vue_components.read_more.more") || '',
       seeLess: I18n.t("gobierto_common.vue_components.read_more.less") || '',
       truncateIsActive: true

@@ -69,6 +69,8 @@ ca:
       sets: Conjunts
       showAll: Vegeu-ho tot
       showLess: Vegeu-ne menys
+      sourceDataset: Font
+      sourceDatasetUrl: Font url
       subject: Tema
       summary: Resum
       updated: Actualizat

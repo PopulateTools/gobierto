@@ -40,6 +40,26 @@ module GobiertoSeeds
           description.save
         end
 
+        frequency = site.custom_fields.vocabulary_options.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: "frequency")
+        if frequency.new_record?
+          vocabulary = site.vocabularies.find_or_initialize_by(slug: "datasets-frequency")
+          if vocabulary.new_record?
+            vocabulary.name_translations = { ca: "Freqüència de conjunt de dades", en: "Dataset frequency", es: "Frecuencia de conjunto de datos" }
+            vocabulary.save
+            vocabulary.terms.create(name_translations: { ca: "Anual", en: "Annual", es: "Anual" }, position: 1)
+            vocabulary.terms.create(name_translations: { ca: "Trimestral", en: "Quarterly", es: "Trimestral" }, position: 2)
+            vocabulary.terms.create(name_translations: { ca: "Mensual", en: "Monthly", es: "Mensual" }, position: 3)
+            vocabulary.terms.create(name_translations: { ca: "Diària", en: "Daily", es: "Diaria" }, position: 4)
+          end
+          frequency.name_translations = { ca: "Freqüència", en: "Frequency", es: "Frecuencia" }
+          frequency.position = 2
+          frequency.options = {
+            configuration: { vocabulary_type: "single_select" },
+            vocabulary_id: vocabulary.id.to_s
+          }
+          frequency.save
+        end
+
         category = site.custom_fields.vocabulary_options.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: "category")
         if category.new_record?
           vocabulary = site.vocabularies.find_or_initialize_by(slug: "datasets-category")
@@ -62,35 +82,40 @@ module GobiertoSeeds
           category.save
         end
 
-        dataset_source_license = site.custom_fields.string.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: "source-license")
+        dataset_source_license = site.custom_fields.string.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: "dataset-source")
         if dataset_source_license.new_record?
-          dataset_source_license.name_translations = { ca: "Llicència", en: "License", es: "Licencia" }
-          dataset_source_license.position = 6
+          dataset_source_license.name_translations = { ca: "Origen", en: "Source", es: "Fuente" }
+          dataset_source_license.position = 4
           dataset_source_license.options = { configuration: {} }
           dataset_source_license.save
         end
 
-        frequency = site.custom_fields.vocabulary_options.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: "frequency")
-        return unless frequency.new_record?
-
-        vocabulary = site.vocabularies.find_or_initialize_by(slug: "datasets-frequency")
-        if vocabulary.new_record?
-          vocabulary.name_translations = { ca: "Freqüència de conjunt de dades", en: "Dataset frequency", es: "Frecuencia de conjunto de datos" }
-          vocabulary.save
-          vocabulary.terms.create(name_translations: { ca: "Anual", en: "Annual", es: "Anual" }, position: 1)
-          vocabulary.terms.create(name_translations: { ca: "Trimestral", en: "Quarterly", es: "Trimestral" }, position: 2)
-          vocabulary.terms.create(name_translations: { ca: "Mensual", en: "Monthly", es: "Mensual" }, position: 3)
-          vocabulary.terms.create(name_translations: { ca: "Diària", en: "Daily", es: "Diaria" }, position: 4)
+        dataset_source_url = site.custom_fields.string.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: "dataset-source-url")
+        if dataset_source_url.new_record?
+          dataset_source_url.name_translations = { ca: "Enllaç a llicència", en: "Link to License", es: "Enlace a Licencia" }
+          dataset_source_url.position = 5
+          dataset_source_url.options = { configuration: {} }
+          dataset_source_url.save
         end
-        frequency.name_translations = { ca: "Freqüència", en: "Frequency", es: "Frecuencia" }
-        frequency.position = 2
-        frequency.options = {
-          configuration: { vocabulary_type: "single_select" },
-          vocabulary_id: vocabulary.id.to_s
-        }
-        frequency.save
 
-
+        licenses = site.custom_fields.vocabulary_options.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: 'dataset-license')
+        if licenses.new_record?
+          vocabulary = site.vocabularies.find_or_initialize_by(slug: "dataset-license")
+          if vocabulary.new_record?
+            vocabulary.name_translations = { ca: "Llicència", en: "License", es: "Licencia" }
+            vocabulary.save
+            vocabulary.terms.create(name_translations: { ca: "Open Data (ODbl)",   en: "Open Data (ODbl)",   es: "Open Data (ODbl)" }, position: 1)
+            vocabulary.terms.create(name_translations: { ca: "Open Data (ODC-By)", en: "Open Data (ODC-By)", es: "Open Data (ODC-By)" }, position: 2)
+            vocabulary.terms.create(name_translations: { ca: "Open Data (PDDL)",   en: "Open Data (PDDL)",   es: "Open Data (PDDL)" }, position: 3)
+          end
+          licenses.name_translations =  { ca: "Llicència", en: "License", es: "Licencia" }
+          licenses.position = 6
+          licenses.options = {
+            configuration: { vocabulary_type: "single_select" },
+            vocabulary_id: vocabulary.id.to_s
+          }
+          licenses.save
+        end
       end
     end
   end

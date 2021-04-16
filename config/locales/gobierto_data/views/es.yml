@@ -69,6 +69,8 @@ es:
       sets: Conjuntos
       showAll: Ver todo
       showLess: Ver menos
+      sourceDataset: Fuente
+      sourceDatasetUrl: Link Fuente
       subject: Tema
       summary: Resumen
       updated: Actualizado

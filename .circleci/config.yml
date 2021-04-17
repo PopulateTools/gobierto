@@ -358,17 +358,6 @@ jobs:
       - store_test_results:
           path: test/reports
 
-  staging-deploy:
-    working_directory: *working_directory
-    machine:
-      enabled: true
-    steps:
-      # deploy script is in the repository
-      - checkout
-      - run:
-          name: Deploy staging branch
-          command: script/staging_deploy.sh
-
   production-deploy:
     working_directory: *working_directory
     machine:
@@ -383,6 +372,9 @@ jobs:
 workflows:
   version: 2
   build-and-deploy:
+    branches:
+      ignore:
+        - staging
     jobs:
       - bundle_dependencies
       - tests_admin:
@@ -439,30 +431,6 @@ workflows:
       - tests_engines:
           requires:
             - bundle_dependencies
-      - staging-deploy:
-          requires:
-            - bundle_dependencies
-            - tests_admin
-            - tests_attachments
-            - tests_budgets
-            - tests_calendars
-            - tests_cms
-            - tests_common
-            - tests_core
-            - tests_dashboards
-            - tests_data
-            - tests_exports
-            - tests_indicators
-            - tests_investments
-            - tests_observatory
-            - tests_people
-            - tests_plans
-            - tests_visualizations
-            - tests_others
-            - tests_engines
-          filters:
-            branches:
-              only: staging
       - production-deploy:
           requires:
             - bundle_dependencies

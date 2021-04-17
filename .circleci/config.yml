@@ -27,6 +27,9 @@ defaults: &defaults
     - image: elasticsearch:2.4.1
     - image: redis:4.0.9
 
+orbs:
+  bye-github-draft: whyayen/bye-github-draft@0.0.1
+
 commands:
   restore_bundler_cache:
     steps:
@@ -90,6 +93,7 @@ jobs:
     <<: *defaults
     resource_class: medium+
     steps:
+      - bye-github-draft/check-skippable-pr
       - checkout
       - attach_workspace:
           at: *working_directory

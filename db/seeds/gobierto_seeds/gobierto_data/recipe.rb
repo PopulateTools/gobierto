@@ -92,29 +92,35 @@ module GobiertoSeeds
 
         dataset_source_url = site.custom_fields.string.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: "dataset-source-url")
         if dataset_source_url.new_record?
-          dataset_source_url.name_translations = { ca: "Enllaç a llicència", en: "Link to License", es: "Enlace a Licencia" }
+          dataset_source_url.name_translations = { ca: "Enllaç a origen", en: "Link to Source", es: "Enlace a la Fuente" }
           dataset_source_url.position = 5
           dataset_source_url.options = { configuration: {} }
           dataset_source_url.save
         end
 
-        licenses = site.custom_fields.vocabulary_options.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: 'dataset-license')
-        if licenses.new_record?
+        license = site.custom_fields.vocabulary_options.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: 'dataset-license')
+        if license.new_record?
           vocabulary = site.vocabularies.find_or_initialize_by(slug: "dataset-license")
           if vocabulary.new_record?
             vocabulary.name_translations = { ca: "Llicència", en: "License", es: "Licencia" }
             vocabulary.save
-            vocabulary.terms.create(name_translations: { ca: "Open Data (ODbl)",   en: "Open Data (ODbl)",   es: "Open Data (ODbl)" }, position: 1)
-            vocabulary.terms.create(name_translations: { ca: "Open Data (ODC-By)", en: "Open Data (ODC-By)", es: "Open Data (ODC-By)" }, position: 2)
-            vocabulary.terms.create(name_translations: { ca: "Open Data (PDDL)",   en: "Open Data (PDDL)",   es: "Open Data (PDDL)" }, position: 3)
+            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY",       en: "Creative Commons BY",       es: "Creative Commons BY"       }, position: 1)
+            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY-SA",    en: "Creative Commons BY-SA",    es: "Creative Commons BY-SA"    }, position: 2)
+            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY-ND",    en: "Creative Commons BY-ND",    es: "Creative Commons BY-ND"    }, position: 3)
+            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY-NC",    en: "Creative Commons BY-NC",    es: "Creative Commons BY-NC"    }, position: 4)
+            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY-NC-SA", en: "Creative Commons BY-NC-SA", es: "Creative Commons BY-NC-SA" }, position: 5)
+            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY-NC-ND", en: "Creative Commons BY-NC-ND", es: "Creative Commons BY-NC-ND" }, position: 6)
+            vocabulary.terms.create(name_translations: { ca: "Open Data (ODbl)",          en: "Open Data (ODbl)",          es: "Open Data (ODbl)"          }, position: 7)
+            vocabulary.terms.create(name_translations: { ca: "Open Data (ODC-BY)",        en: "Open Data (ODC-BY)",        es: "Open Data (ODC-BY)"        }, position: 8)
+            vocabulary.terms.create(name_translations: { ca: "Open Data (PDDL)",          en: "Open Data (PDDL)",          es: "Open Data (PDDL)"          }, position: 9)
           end
-          licenses.name_translations =  { ca: "Llicència", en: "License", es: "Licencia" }
-          licenses.position = 6
-          licenses.options = {
+          license.name_translations =  { ca: "Llicència", en: "License", es: "Licencia" }
+          license.position = 6
+          license.options = {
             configuration: { vocabulary_type: "single_select" },
             vocabulary_id: vocabulary.id.to_s
           }
-          licenses.save
+          license.save
         end
       end
     end

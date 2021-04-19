@@ -266,7 +266,6 @@ export class VisBubbles {
             : "/presupuestos/partidas/" + d.id + "/" + d.year + "/functional/G";
         }.bind(this)
       )
-      .attr("target", "_top")
       .append("circle")
       .attr("class", d => `${d.year} bubble`)
       .attr("r", d => d.radius)

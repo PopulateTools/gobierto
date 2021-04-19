@@ -61,7 +61,10 @@
   }
 
   &-tabs-sidebar {
-    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    margin-bottom: 1rem;
   }
 
   &-tab-sidebar--tab {
@@ -69,7 +72,7 @@
     font-size: $f7;
     color: #666;
     cursor: pointer;
-    width: 32%;
+    width: 100%;
     display: inline-block;
     text-align: center;
     padding-bottom: .25rem;
@@ -79,6 +82,10 @@
     &.is-active {
       opacity: 1;
       font-weight: bold;
+    }
+
+    &:not(:last-child) {
+      margin-right: .25rem;
     }
 
   }

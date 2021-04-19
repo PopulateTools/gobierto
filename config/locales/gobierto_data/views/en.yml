@@ -69,8 +69,8 @@ en:
       sets: Sets
       showAll: Show all
       showLess: Show less
-      sourceDataset: Font
-      sourceDatasetUrl: Font url
+      sourceDataset: Source
+      sourceDatasetUrl: Source url
       subject: Subject
       summary: Summary
       updated: Updated

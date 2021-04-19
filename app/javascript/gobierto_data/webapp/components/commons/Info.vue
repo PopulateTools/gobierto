@@ -22,19 +22,13 @@
         :label="labelSubject"
         :text="categoryDataset"
       />
-      <InfoBlockText
+      <InfoBlockLink
         v-if="sourceDataset"
         icon="building"
         opacity=".25"
         :label="labelSource"
         :text="sourceDataset"
-      />
-      <InfoBlockText
-        v-if="sourceDatasetUrl"
-        icon="link"
-        opacity=".25"
-        :label="labelSourceUrl"
-        :text="sourceDatasetUrl"
+        :url="sourceDatasetUrl"
       />
       <InfoBlockText
         v-if="licenseDataset"
@@ -77,6 +71,7 @@
 <script>
 import { date, truncate } from "lib/vue/filters"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
+import InfoBlockLink from "./../commons/InfoBlockLink.vue";
 //Parse markdown to HTML
 const marked = require('marked');
 const TurndownService = require('turndown').default;
@@ -84,7 +79,8 @@ const TurndownService = require('turndown').default;
 export default {
   name: "Info",
   components: {
-    InfoBlockText
+    InfoBlockText,
+    InfoBlockLink,
   },
   filters: {
     convertDate(valueDate) {

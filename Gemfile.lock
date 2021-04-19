@@ -188,7 +188,7 @@ GEM
       sassc (>= 1.11)
     foreman (0.87.2)
     gems (1.2.0)
-    geocoder (1.6.6)
+    geocoder (1.6.7)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     google-api-client (0.53.0)
@@ -311,7 +311,7 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    minitest-retry (0.2.1)
+    minitest-retry (0.2.2)
       minitest (>= 5.0)
     minitest-stub-const (0.6)
     minitest-stub_any_instance (1.0.2)

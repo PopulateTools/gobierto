@@ -217,9 +217,9 @@ export class ContractsController {
       d.process_type = I18n.t(`gobierto_visualizations.visualizations.process_types.${process_type}`)
 
       if (dataForTenders) {
-        d.status = I18n.t(`gobierto_visualizations.visualizations.status_types.${status}`)
-      } else {
         d.status = I18n.t(`gobierto_visualizations.visualizations.tender_statuses.${status}`)
+      } else {
+        d.status = I18n.t(`gobierto_visualizations.visualizations.contract_statuses.${status}`)
       }
 
     })

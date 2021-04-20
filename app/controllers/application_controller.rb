@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
   #
   # Reads the allowed domain from the site configuration
   def allow_iframe_embed
-    if params.has_key?(:embed) and current_site.configuration.configuration_variables["allowed_iframe_origin"].present?
+    if current_site.configuration.configuration_variables["allowed_iframe_origin"].present?
       # To support IE
       response.headers["X-Frame-Options"] = "ALLOW-FROM #{current_site.configuration.configuration_variables["allowed_iframe_origin"]}"
       # Rest of modern browsers

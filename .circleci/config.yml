@@ -12,6 +12,8 @@ defaults: &defaults
   docker:
     - image: circleci/ruby:2.7.1-node-browsers
       environment:
+        # Up to circle-ci plan max. RAM
+        NODE_OPTIONS: --max-old-space-size=6144
         RAILS_ENV: test
         PGHOST: localhost
         PGUSER: gobierto
@@ -86,6 +88,7 @@ commands:
 jobs:
   bundle_dependencies:
     <<: *defaults
+    resource_class: medium+
     steps:
       - checkout
       - attach_workspace:
@@ -129,12 +132,12 @@ jobs:
           paths:
             - public/assets
             - public/packs-test
+            - tmp/cache/webpacker
 
       - persist_to_workspace:
           root: *working_directory
           paths:
             - db
-            - tmp/cache
 
   tests_admin:
     <<: *defaults
@@ -161,18 +164,6 @@ jobs:
       - store_test_results:
           path: test/reports
 
-  tests_budget_consultations:
-    <<: *defaults
-    steps:
-      - prepare_workspace
-      - run:
-          name: Run tests
-          command: |
-            TEST_FILES="$(find test -path '*gobierto_budget_consultations*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
-      - store_test_results:
-          path: test/reports
-
   tests_budgets:
     <<: *defaults
     steps:
@@ -193,18 +184,6 @@ jobs:
           name: Run tests
           command: |
             TEST_FILES="$(find test -path '*gobierto_calendars*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
-      - store_test_results:
-          path: test/reports
-
-  tests_citizens_charters:
-    <<: *defaults
-    steps:
-      - prepare_workspace
-      - run:
-          name: Run tests
-          command: |
-            TEST_FILES="$(find test -path '*gobierto_citizens_charters*' -name '*_test.rb' | circleci tests split --split-by=timings)"
             bin/rails test $TEST_FILES
       - store_test_results:
           path: test/reports
@@ -317,19 +296,6 @@ jobs:
       - store_test_results:
           path: test/reports
 
-  tests_participation:
-    <<: *defaults
-    parallelism: 2
-    steps:
-      - prepare_workspace
-      - run:
-          name: Run tests
-          command: |
-            TEST_FILES="$(find test -path '*gobierto_participation*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
-      - store_test_results:
-          path: test/reports
-
   tests_people:
     <<: *defaults
     parallelism: 2
@@ -392,17 +358,6 @@ jobs:
       - store_test_results:
           path: test/reports
 
-  staging-deploy:
-    working_directory: *working_directory
-    machine:
-      enabled: true
-    steps:
-      # deploy script is in the repository
-      - checkout
-      - run:
-          name: Deploy staging branch
-          command: script/staging_deploy.sh
-
   production-deploy:
     working_directory: *working_directory
     machine:
@@ -418,23 +373,21 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - bundle_dependencies
+      - bundle_dependencies:
+          filters:
+            branches:
+              ignore:
+                - staging
       - tests_admin:
           requires:
             - bundle_dependencies
       - tests_attachments:
           requires:
             - bundle_dependencies
-      - tests_budget_consultations:
-          requires:
-            - bundle_dependencies
       - tests_budgets:
           requires:
             - bundle_dependencies
       - tests_calendars:
-          requires:
-            - bundle_dependencies
-      - tests_citizens_charters:
           requires:
             - bundle_dependencies
       - tests_cms:
@@ -464,9 +417,6 @@ workflows:
       - tests_observatory:
           requires:
             - bundle_dependencies
-      - tests_participation:
-          requires:
-            - bundle_dependencies
       - tests_people:
           requires:
             - bundle_dependencies
@@ -482,42 +432,13 @@ workflows:
       - tests_engines:
           requires:
             - bundle_dependencies
-      - staging-deploy:
-          requires:
-            - bundle_dependencies
-            - tests_admin
-            - tests_attachments
-            - tests_budget_consultations
-            - tests_budgets
-            - tests_calendars
-            - tests_citizens_charters
-            - tests_cms
-            - tests_common
-            - tests_core
-            - tests_dashboards
-            - tests_data
-            - tests_exports
-            - tests_indicators
-            - tests_investments
-            - tests_observatory
-            - tests_participation
-            - tests_people
-            - tests_plans
-            - tests_visualizations
-            - tests_others
-            - tests_engines
-          filters:
-            branches:
-              only: staging
       - production-deploy:
           requires:
             - bundle_dependencies
             - tests_admin
             - tests_attachments
-            - tests_budget_consultations
             - tests_budgets
             - tests_calendars
-            - tests_citizens_charters
             - tests_cms
             - tests_common
             - tests_core
@@ -527,7 +448,6 @@ workflows:
             - tests_indicators
             - tests_investments
             - tests_observatory
-            - tests_participation
             - tests_people
             - tests_plans
             - tests_visualizations

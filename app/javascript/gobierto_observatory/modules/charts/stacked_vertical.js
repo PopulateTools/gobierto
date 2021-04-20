@@ -1,4 +1,8 @@
-import dc from 'dc'
+import { CapMixin, MarginMixin, ColorMixin, transition } from "dc"
+import { axisBottom } from "d3-axis";
+import { extent } from "d3-array";
+import { select } from "d3-selection";
+import { scaleLinear } from "d3-scale";
 
 //Extends dc.rowChart to create a rowChartStackedVertical
 //Add changes to two functions: updateElements and updateLabels()
@@ -10,7 +14,7 @@ export default function (parent, chartGroup) {
     var _labelOffsetX = 10;
     var _labelOffsetY = 15;
     var _hasLabelOffsetY = false;
-    var _dyOffset = '0.35em';  // this helps center labels https://github.com/d3/d3-3.x-api-reference/blob/master/SVG-Shapes.md#svg_text
+    var _dyOffset = '0.35em'; // this helps center labels https://github.com/d3/d3-3.x-api-reference/blob/master/SVG-Shapes.md#svg_text
     var _titleLabelOffsetX = 2;
 
     var _gap = 5;
@@ -20,28 +24,33 @@ export default function (parent, chartGroup) {
     var _titleRowCssClass = 'titlerow';
     var _renderTitleLabel = false;
 
-    var _chart = dc.capMixin(dc.marginMixin(dc.colorMixin(dc.baseMixin({}))));
+    // https://github.com/dc-js/dc.js/blob/develop/docs/dc-v4-upgrade-guide.md#steps-to-upgrade
+    var _chart = new (CapMixin(ColorMixin(MarginMixin)))()
 
     var _x;
 
     var _elasticX;
 
-    var _xAxis = d3.axisBottom();
+    var _xAxis = axisBottom();
 
     var _rowData;
 
     _chart.rowsCap = _chart.cap;
 
-    function calculateAxisScale () {
+    function calculateAxisScale() {
         if (!_x || _elasticX) {
-            var extent = d3.extent(_rowData, _chart.cappedValueAccessor);
-            if (extent[0] > 0) {
-                extent[0] = 0;
+
+            var extentValues = extent(_rowData, function() {
+                return _chart.cappedValueAccessor
+            });
+
+            if (extentValues[0] > 0) {
+                extentValues[0] = 0;
             }
-            if (extent[1] < 0) {
-                extent[1] = 0;
+            if (extentValues[1] < 0) {
+                extentValues[1] = 0;
             }
-            _x = d3.scaleLinear().domain(extent)
+            _x = scaleLinear().domain(extentValues)
                 .range([0, _chart.effectiveWidth()]);
         }
         _xAxis.scale(_x);
@@ -57,7 +66,7 @@ export default function (parent, chartGroup) {
         }
         axisG.attr('transform', 'translate(0, ' + _chart.effectiveHeight() + ')');
 
-        dc.transition(axisG, _chart.transitionDuration(), _chart.transitionDelay())
+        transition(axisG, _chart.transitionDuration(), _chart.transitionDelay())
             .call(_xAxis);
     }
 
@@ -77,7 +86,9 @@ export default function (parent, chartGroup) {
         return _chart.cappedKeyAccessor(d) + ': ' + _chart.cappedValueAccessor(d);
     });
 
-    _chart.label(_chart.cappedKeyAccessor);
+    _chart.label(function (d) {
+        return _chart.cappedKeyAccessor(d)
+    });
 
     /**
      * Gets or sets the x scale. The x scale can be any d3
@@ -167,7 +178,7 @@ export default function (parent, chartGroup) {
         }
 
         //Every row in the same X/Y coordinate
-        var rect = rows.attr('transform', function (d, i) {
+        var rect = rows.attr('transform', function () {
             return 'translate(0,0)';
         }).select('rect')
             .attr('height', height)
@@ -186,7 +197,7 @@ export default function (parent, chartGroup) {
         //Calculate total values
         const totalValues = _rowData[0].value + _rowData[1].value - 6
 
-        dc.transition(rect, _chart.transitionDuration(), _chart.transitionDelay())
+        transition(rect, _chart.transitionDuration(), _chart.transitionDelay())
             .attr('width', function (d) {
               //Transform values to pixels
               return (((d.value * 100) / totalValues).toFixed(1) * widthSvg) / 100
@@ -249,7 +260,7 @@ export default function (parent, chartGroup) {
               .attr('x', translateLabel1)
               .attr('y', 20)
 
-            dc.transition(lab, _chart.transitionDuration(), _chart.transitionDelay())
+            transition(lab, _chart.transitionDuration(), _chart.transitionDelay())
                 .attr('transform', translateX);
         }
         if (_chart.renderTitleLabel()) {
@@ -271,7 +282,7 @@ export default function (parent, chartGroup) {
 
             //Move title to new positions
             //Position for title row is equal
-            const widthLabelText0 = d3.select('#text-label_0').node().getBoundingClientRect().width;
+            const widthLabelText0 = select('#text-label_0').node().getBoundingClientRect().width;
             const widthLabelTitle0 = rows.select('#titlerow_0').node().getBoundingClientRect().width;
 
             rows.select('.row._0 .titlerow._0')
@@ -285,14 +296,14 @@ export default function (parent, chartGroup) {
             _g = _chart.svg()
             const widthSvg = _g._groups[0][0].clientWidth
             const widthLabelText1 = rows.select('#text-label_1').node().getBoundingClientRect().width;
-            const widthLabelTitle1 = rows.select('#titlerow_1').node().getBoundingClientRect().width;
+            // const widthLabelTitle1 = rows.select('#titlerow_1').node().getBoundingClientRect().width;
             const translateTitleRow1 = widthSvg - widthLabelText1
 
             rows.select('.row._1 .titlerow._1')
               .attr('x', translateTitleRow1)
               .attr('y', 20)
 
-            dc.transition(titlelab, _chart.transitionDuration(), _chart.transitionDelay())
+            transition(titlelab, _chart.transitionDuration(), _chart.transitionDelay())
                 .attr('transform', translateX);
         }
     }
@@ -313,7 +324,7 @@ export default function (parent, chartGroup) {
         return _chart;
     };
 
-    function onClick (d) {
+    function onClick (_, d) {
         _chart.onClick(d);
     }
 
@@ -463,4 +474,4 @@ export default function (parent, chartGroup) {
     }
 
     return _chart.anchor(parent, chartGroup);
-};
+}

@@ -232,7 +232,7 @@ export class VisBubble {
       .append("g")
       .attr("class", "bubble-g");
 
-    var bubblesG = this.bubbles
+    this.bubbles
       .append("circle")
       .attr("class", d => `${d.year} bubble`)
       .attr("r", d => d.radius)

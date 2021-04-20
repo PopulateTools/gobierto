@@ -356,7 +356,6 @@ export default {
       this.updateBaseTitle();
       this.handleDatasetTabs(this.$route);
     }
-
     this.queryOrVizIsNotMine();
     this.displayVizSavingPrompt();
   },
@@ -508,6 +507,10 @@ export default {
           if (!this.publicVisualizations) {
             this.setVisualizations();
           }
+          // Request for the queries because we need them to show in visualization
+          if (!this.publicQueries) {
+            this.setQueries();
+          }
           break;
         }
 
@@ -552,13 +555,18 @@ export default {
         const {
           attributes: { sql, name, user_id, privacy_status }
         } = this.publicQueries.find(({ id }) => id === queryId);
-
         this.queryName = name;
         this.queryUserId = user_id;
         this.showPrivate = (privacy_status === "closed");
 
         this.setCurrentQuery(sql);
-      } else if (queryText) {
+      } else if (queryId && queryText) {
+        const {
+          attributes: { name }
+        } = this.publicQueries.find(({ id }) => id === queryId);
+        this.queryName = name;
+        this.setCurrentQuery(decodeURIComponent(queryText));
+      } else if (!queryId && queryText) {
         this.setCurrentQuery(decodeURIComponent(queryText));
       }
     },
@@ -610,6 +618,7 @@ export default {
       this.publicQueries = data
       // privateQueries is always a subset of the publicQueries
       this.privateQueries = data.filter(({ attributes }) => +attributes?.user_id === +getUserId())
+      this.queryOrVizIsNotMine();
     },
     async setVisualizations() {
       this.isPublicVizLoading = true;
@@ -942,7 +951,7 @@ export default {
     isSavingPromptVisibleHandler(value) {
       this.isSavingPromptVisible = value;
     },
-    queryOrVizIsNotMine() {
+    async queryOrVizIsNotMine() {
       const userId = Number(getUserId());
       const {
         params: { queryId },
@@ -968,6 +977,10 @@ export default {
         }
       } else if (userId !== 0 && nameComponent === ROUTE_NAMES.Visualization) {
         this.showLabelEdit = true;
+
+        if (!this.publicVisualizations) {
+          await this.setVisualizations();
+        }
 
         const objectViz =
           this.privateVisualizations?.find(({ id }) => id === queryId) || {};

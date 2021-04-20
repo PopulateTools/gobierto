@@ -1,9 +1,14 @@
 :root {
-  --perspective-map-category-1: rgb(var(--color-base-string), 0.1);
-  --perspective-map-category-2: rgb(var(--color-base-string), 0.3);
-  --perspective-map-category-3: rgb(var(--color-base-string), 0.5);
-  --perspective-map-category-4: rgb(var(--color-base-string), 0.7);
-  --perspective-map-category-5: rgb(var(--color-base-string), 0.9);
+  --perspective-map-range-1: #f1eef6;
+  --perspective-map-range-2: #bdc9e1;
+  --perspective-map-range-3: #74a9cf;
+  --perspective-map-range-4: #2b8cbe;
+  --perspective-map-range-5: #045a8d;
+  --perspective-map-category-1: #a6cee3;
+  --perspective-map-category-2: #1f78b4;
+  --perspective-map-category-3: #b2df8a;
+  --perspective-map-category-4: #33a02c;
+  --perspective-map-category-5: #fb9a99;
 }
 
 .perspective-map-legend {

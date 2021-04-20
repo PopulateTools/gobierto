@@ -46,7 +46,7 @@ function createMapNode(element, div) {
   return map;
 }
 
-function createLegend({ grades = [], getColor = d => d, fmt = d => d.toLocaleString() }) {
+function createLegend({ grades = [], getColor = d => d, fmt = d => d.toLocaleString(), continuous = true }) {
   const legend = L.control({ position: 'bottomleft' });
 
   legend.onAdd = function() {
@@ -54,9 +54,12 @@ function createLegend({ grades = [], getColor = d => d, fmt = d => d.toLocaleStr
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
-      div.innerHTML +=
-        '<i style="background:' + getColor(grades[i]) + '"></i> ' +
-        fmt(grades[i]) + (grades[i + 1] ? '&ndash;' + fmt(grades[i + 1]) + '<br>' : '+');
+      if (continuous) {
+        div.innerHTML +=
+          `<i style="background:${getColor(grades[i])}"></i>${fmt(grades[i])}${(grades[i + 1] ? "&ndash;" + fmt(grades[i + 1]) + "<br>" : "+")}`;
+        } else {
+          div.innerHTML += `<i style="background:${getColor(grades[i])}"></i>${fmt(grades[i])}<br>`;
+      }
     }
 
     return div;
@@ -87,6 +90,7 @@ export class MapPlugin {
     try {
       const columns = JSON.parse(this.getAttribute("columns"))
       const geomColumn = this.getAttribute("geom") || "geometry" // default geoJSON column name
+      const mapAccessor = this.getAttribute("map-accessor") // default column prop accessor
 
       // Enforces to have a geometry column
       if (!columns.includes(geomColumn)) {
@@ -98,44 +102,55 @@ export class MapPlugin {
 
       // fetch the current displayed data
       const data = await view.to_json() || []
-      if (data.some(({
-          [geomColumn]: geometry
-        }) => !!geometry)) {
+      if (data.some(({ [geomColumn]: geometry }) => !!geometry)) {
 
-        // find first numeric field
-        const [numericField] = (Object.entries(data[0]) || []).find(([, value]) => Number.isFinite(value))
-        const mappedData = data.map(d => d[numericField])
-        const isInteger = mappedData.every(x => Number.isInteger(x))
+        // get the first [key, value] from the dataset to determine its type
+        const [key, value] = mapAccessor ? [mapAccessor, data[0][mapAccessor]] : Object.entries(data[0])[0]
+        const isVarContinuous = Number.isFinite(value)
+        const mappedData = data.map(d => d[key])
 
-        // get range array
-        const [min, max] = [Math.min(...mappedData), Math.max(...mappedData)]
-        // max. categories
-        const maxCategories = 5
-        // substract one to maxCategories in order to keep the max. value INSIDE the range
-        const step = (max - min) / (maxCategories - 1)
-        const grades = Array.from({ length: maxCategories - 1 }, (_, i) => isInteger ? Math.floor(min + (i * step)) : min + (i * step))
-        grades.push(max)
+        let grades = []
+        if (isVarContinuous) {
+          // if they're integers, apply Math.round
+          const isInteger = mappedData.every(x => Number.isInteger(x))
+          // get range array
+          const [min, max] = [Math.min(...mappedData), Math.max(...mappedData)]
+          // max. categories
+          const maxCategories = 5
+          // substract one to maxCategories in order to keep the max. value INSIDE the range
+          const step = (max - min) / (maxCategories - 1)
+          grades = Array.from({ length: maxCategories - 1 }, (_, i) => isInteger ? Math.floor(min + (i * step)) : min + (i * step))
+          grades.push(max)
+        } else {
+          // discrete variables
+          grades = [...new Set(mappedData)]
+        }
 
         const getColor = (value) => {
-          // if don't substract 1, you'll never get the first index
-          const ix = grades.findIndex(x => value <= x)
-          // categories begins as of 1
-          return ix >= 0 ? `var(--perspective-map-category-${ix + 1})` : ''
+          if (isVarContinuous) {
+            // if don't substract 1, you'll never get the first index
+            const ix = grades.findIndex(x => value <= x)
+            // categories begins as of 1
+            return ix >= 0 ? `var(--perspective-map-range-${ix + 1})` : ''
+          }
+
+          const ix = grades.findIndex(x => value === x)
+          return `var(--perspective-map-category-${ix + 1})`
         }
 
         const style = ({ properties = {} }) => ({
-          fillColor: getColor(properties[numericField]),
-          fillOpacity: 1,
-          color: getColor(properties[numericField]),
-          opacity: 1,
+          fillColor: getColor(properties[key]),
+          fillOpacity: 0.7,
+          weight: 1,
+          color: getColor(properties[key])
         })
 
-        // creates features ONLY if they're plane strings
         const features = data.reduce(
           (acc, {
             [geomColumn]: geometry = "{}",
             ...properties
           }) => {
+            // creates features ONLY if they're plane strings
             if (typeof geometry === "string" || geometry instanceof String) {
               // parse all the geoms as topojson, even they're not
               const {
@@ -150,7 +165,7 @@ export class MapPlugin {
         );
 
         if (features.length) {
-          createLegend({ grades, getColor }).addTo(map)
+          createLegend({ grades, getColor, continuous: isVarContinuous }).addTo(map)
 
           const tooltip = createTooltip({ grades, getColor })
           tooltip.addTo(map)

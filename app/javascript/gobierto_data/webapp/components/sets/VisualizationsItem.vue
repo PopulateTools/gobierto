@@ -56,8 +56,8 @@
           :items="items"
           :config="config"
           :object-columns="objectColumns"
+          :geom-column="geomColumn"
           @showSaving="showSavingDialog"
-          @selectedChart="typeChart = $event"
         />
       </template>
     </div>
@@ -160,7 +160,11 @@ export default {
     objectColumns: {
       type: Object,
       default: () => {}
-    }
+    },
+    geomColumn: {
+      type: String,
+      default: ''
+    },
   },
   data() {
     return {

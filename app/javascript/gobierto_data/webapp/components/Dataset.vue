@@ -59,6 +59,7 @@
         :public-queries="publicQueries"
         :recent-queries="recentQueriesFiltered"
         :object-columns="objectColumns"
+        :geom-column="geomColumn"
         :array-formats="arrayFormats"
         :array-columns-query="arrayColumnsQuery"
         :items="items"
@@ -124,6 +125,7 @@
         :show-label-edit="showLabelEdit"
         :reset-private="resetPrivate"
         :object-columns="objectColumns"
+        :geom-column="geomColumn"
       />
 
       <DownloadsTab
@@ -183,6 +185,7 @@ export default {
       titleDataset: "",
       arrayFormats: {},
       objectColumns: {},
+      geomColumn: null,
       attributes: null,
       privateQueries: undefined,
       publicQueries: undefined,
@@ -334,12 +337,14 @@ export default {
       table_name: tableName,
       columns: objectColumns,
       formats: arrayFormats,
-      default_limit: defaultLimit
+      default_limit: defaultLimit,
+      geom: geomColumn,
     } = attributes;
 
     this.titleDataset = titleDataset;
     this.tableName = tableName;
     this.objectColumns = objectColumns;
+    this.geomColumn = geomColumn;
     this.arrayFormats = arrayFormats;
     this.defaultLimit = defaultLimit;
 

@@ -69,6 +69,7 @@
         ref="viewer"
         :items="items"
         :object-columns="objectColumns"
+        :geom-column="geomColumn"
         :type-chart="typeChart"
         :reset-config-viz="resetConfigViz"
         :array-columns-query="arrayColumnsQuery"
@@ -104,6 +105,10 @@ export default {
     objectColumns: {
       type: Object,
       default: () => {}
+    },
+    geomColumn: {
+      type: String,
+      default: ''
     },
     items: {
       type: String,
@@ -188,7 +193,6 @@ export default {
       this.$root.$emit("eventIsVizModified", true);
     },
     resetViz() {
-
       this.showVisualize = true
       this.perspectiveChanged = false
       this.showResetViz = false

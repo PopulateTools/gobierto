@@ -3,9 +3,6 @@ import L from "leaflet"
 import { feature } from "topojson-client"
 import "../../../assets/stylesheets/comp-perspective-viewer-map.css"
 
-// default geoJSON column name
-const geomColumn = "geometry"
-
 function createMapNode(element, div) {
   const { children } = element
   /*Create a different ID to avoid errors when we show more than one map on the same page, for example: summary tab.*/
@@ -86,10 +83,10 @@ function createTooltip() {
 }
 
 export class MapPlugin {
-
   static async create(div, view) {
     try {
       const columns = JSON.parse(this.getAttribute("columns"))
+      const geomColumn = this.getAttribute("geom") || "geometry" // default geoJSON column name
 
       // Enforces to have a geometry column
       if (!columns.includes(geomColumn)) {

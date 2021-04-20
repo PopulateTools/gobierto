@@ -31,6 +31,10 @@ export default {
       type: Object,
       default: () => {}
     },
+    geomColumn: {
+      type: String,
+      default: ''
+    },
     config: {
       type: Object,
       default: () => {}
@@ -99,6 +103,7 @@ export default {
     initPerspectiveWithSchema(data) {
       // if no typeChart has been defined, and the dataset contains a gemetry column, loads the map-plugin by default
       this.viewer.setAttribute('plugin', this.typeChart)
+      this.viewer.setAttribute('geom', this.geomColumn)
       this.viewer.clear();
 
       const schema = this.objectColumns
@@ -160,12 +165,12 @@ export default {
       const selectVizPerspective = shadowRootPerspective.getElementById('vis_selector')
 
       selectVizPerspective.addEventListener('change', () => {
-        const selectedValue = selectVizPerspective.options[selectVizPerspective.selectedIndex].value;
         this.$emit("showSaving")
-        this.$emit("selectedChart", selectedValue)
+        this.$emit("selectedChart", selectVizPerspective.options[selectVizPerspective.selectedIndex].value)
       })
     },
     setColumns() {
+      // Invoked from SQLEditorResults.vue
       this.viewer.setAttribute('columns', this.arrayColumnsQuery)
     },
     clearColumnPivots() {

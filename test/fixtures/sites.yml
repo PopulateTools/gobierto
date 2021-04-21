@@ -24,6 +24,7 @@ madrid:
     "available_locales" => ["en", "es"],
     "home_page" => "GobiertoParticipation",
     "privacy_page_id" => "58988811",
+    "raw_configuration_variables" => "allowed_iframe_origin\: \"https://populate.tools\"",
     "google_analytics_id" => "UA-000000-01" }.to_yaml.inspect %>
   organization_name: Madrid
   organization_id: <%= INE::Places::Place.find_by_slug("madrid").id %>

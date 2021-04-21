@@ -86,21 +86,20 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       ## Charts
       # Contract type
       contract_type_container = find("#contract-type-bars", match: :first)
-
-      assert contract_type_container.has_content?(/Supplies\d*60.0/)
-      assert contract_type_container.has_content?(/Services\d*40.0/)
+      assert contract_type_container.has_content?(/Supplies\d*42.5/)
+      assert contract_type_container.has_content?(/Services\d*47.9/)
 
       # # Process type
       process_type_container = find("#process-type-bars", match: :first)
 
-      assert process_type_container.has_content?(/Open\d*76.0/)
-      assert process_type_container.has_content?(/Open simplified\d*16.0/)
+      assert process_type_container.has_content?(/Open\d*60.3/)
+      assert process_type_container.has_content?(/Open simplified\d*34.7/)
 
       # Assignees table
       first_assignee = find(".gobierto-table__tr", match: :first)
 
-      assert first_assignee.has_content?('PREVING CONSULTORES S.L.U.')
-      assert first_assignee.has_content?('15,100.00')
+      assert first_assignee.has_content?('CONTENUR SL')
+      assert first_assignee.has_content?('773,050.80')
     end
   end
 

@@ -72,16 +72,17 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert metrics_box.has_content?("Average amount\n€372,456.51")
       assert metrics_box.has_content?("Median amount\n€72,049.81")
 
-      assert metrics_box.has_content?("Assigned contracts\n25")
-      assert metrics_box.has_content?("contracts for a total amount of\n€2,437,973.97")
+      assert metrics_box.has_content?("Assigned contracts\n219")
+      assert metrics_box.has_content?("contracts for a total amount of\n€46,065,307.46")
 
-      assert metrics_box.has_content?("Average amount\n€97,518.96")
-      assert metrics_box.has_content?("Median amount\n€8,719.01")
+      assert metrics_box.has_content?("Average amount\n€210,343.87")
+      assert metrics_box.has_content?("Median amount\n€27,225.00")
 
       ## Headlines
-      assert page.has_content?("16% of contracts are less than 1.000 €")
-      assert page.has_content?("The largest contract means a 41% of all the spending")
-      assert page.has_content?("8% of contracts accumulate the 50% of all the spending")
+      assert page.has_content?("8% of contracts are less than 1.000 €")
+      assert page.has_content?("The largest contract means a 27% of all the spending")
+      assert page.has_content?("2% of contracts accumulate the 50% of all the spending")
+      debugger
 
       ## Charts
       # Contract type
@@ -120,16 +121,16 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       sample_contract = all("tr.gobierto-table__tr")[4]
 
       # Assignee
-      assert sample_contract.has_content?('Eva Casado Jiménez')
+      assert sample_contract.has_content?('SANIVIDA, S.L.')
 
       # Contract
-      assert sample_contract.has_content?('Servicios veterinarios del centro de protección de animales')
+      assert sample_contract.has_content?('Servicio de ayuda a domicilio')
 
       # Amount
-      assert sample_contract.has_content?('€50,000.00')
+      assert sample_contract.has_content?('€2,292,724.39')
 
       # Date
-      assert sample_contract.has_content?('2/15/2020')
+      assert sample_contract.has_content?('4/1/2021')
 
       # Contracts Show
       ################
@@ -140,41 +141,41 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert find(".visualizations-home-nav--tab.is-active").text, 'CONTRACTS'
 
       # Url is updated
-      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/1386359"
+      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/38947"
 
       # Title
-      assert page.has_content?('Dotación de monitores para el desarrollo del proyecto "Camino escolar seguro".')
+      assert page.has_content?('Servicios de monitores deportivos, socorristas acuáticos y sanitarios, en diferentes instalaciones deportivas municipales de Getafe.')
 
       # Assignee
-      assert page.has_content?('ASOCIACIÓN TIEMPO LIBRE ALTERNATIVO DEL SUR')
+      assert page.has_content?('EULEN, SA')
 
       # Contract amount
-      assert page.has_content?('€24,576.66')
+      assert page.has_content?('€1,647,851.24')
 
       # Contract amount no taxes
-      assert page.has_content?('€29,614.00')
+      assert page.has_content?('€1,793,677.20')
 
       # Status
-      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.contract_statuses.awarded')
+      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.contract_statuses.formalized')
 
-      # Type
-      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.process_types.open_simplified')
+      # Process type
+      assert page.has_content? I18n.t('gobierto_visualizations.visualizations.process_types.open')
 
       # Assignees Show
       ################
       find("#assignee_show_link").click
 
       # Url is updated
-      assert_equal current_path, "/visualizaciones/contratos/adjudicatario/e1d4a7e1138d5b042a54d4fee5bf7a49"
+      assert_equal current_path, "/visualizaciones/contratos/adjudicatario/14137c94986f1d4616e6d17e639a3330"
 
       assert page.has_content?("Contracts assigned to")
-      assert page.has_content?('Dotación de monitores para el desarrollo del proyecto "Camino escolar seguro"')
+      assert page.has_content?('Servicios de monitores deportivos, socorristas acuáticos y sanitarios, en diferentes instalaciones deportivas municipales de Getafe.')
 
       # We can go back to the contract page
       first_contract = find(".gobierto-table__tr", match: :first)
       first_contract.click
 
-      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/1386359"
+      assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/38947"
     end
   end
 

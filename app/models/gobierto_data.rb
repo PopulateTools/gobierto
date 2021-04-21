@@ -37,4 +37,8 @@ module GobiertoData
       }.slice(*current_site.configuration.available_locales)
     )
   end
+
+  def self.searchable_models
+    [ GobiertoData::Dataset ]
+  end
 end

@@ -82,7 +82,6 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert page.has_content?("8% of contracts are less than 1.000 €")
       assert page.has_content?("The largest contract means a 27% of all the spending")
       assert page.has_content?("2% of contracts accumulate the 50% of all the spending")
-      debugger
 
       ## Charts
       # Contract type

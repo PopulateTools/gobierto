@@ -284,7 +284,6 @@ export class VisLinesExecution {
           this.executionKind
         );
       })
-      .attr("target", "_top");
 
     var barGroup = lineGroup
       .append("g")

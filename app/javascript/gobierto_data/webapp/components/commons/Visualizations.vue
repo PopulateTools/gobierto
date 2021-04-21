@@ -127,7 +127,7 @@ export default {
       this.listenerPerspective()
 
       this.worker.table(schema);
-      this.viewer.load(data)
+      this.viewer.load(data) // TODO: este metodo es asyncrono, cuando termina es cuando se renderiza todo
     },
     loadConfig() {
       this.viewer.restore(this.config);
@@ -149,6 +149,9 @@ export default {
     toggleConfigPerspective() {
       this.$root.$emit('showSavedVizString', false)
       this.viewer.toggleConfig()
+
+      // TODO: he intentado sacar estos listeners de aquí (se crean muchísimos, desde varias partes, y no se destruyen)
+
       //Enable save button when user interacts with Perspective columns
       const itemPerspective = document.querySelector('perspective-viewer').shadowRoot
       const rowPerspective = itemPerspective.querySelectorAll("perspective-row");
@@ -163,6 +166,8 @@ export default {
       const configButtonPerspective = shadowRootPerspective.getElementById('config_button')
       configButtonPerspective.style.display = "none"
       const selectVizPerspective = shadowRootPerspective.getElementById('vis_selector')
+
+      // TODO: lo mismo habria que hacer con este
 
       selectVizPerspective.addEventListener('change', () => {
         this.$emit("showSaving")

@@ -41,6 +41,14 @@
       >
         <span>{{ labelDownload }}</span>
       </router-link>
+      <router-link
+        :to="`/datos/${$route.params.id}/${tabs[5]}`"
+        :class="{ 'is-active': activeDatasetTab === 5 }"
+        tag="li"
+        class="gobierto-data-sets-nav--tab"
+      >
+        <span>{{ 'Mapa' }}</span>
+      </router-link>
     </ul>
   </nav>
 </template>

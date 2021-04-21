@@ -133,6 +133,13 @@
         :array-formats="arrayFormats"
         :resources-list="resourcesList"
       />
+
+      <MapTab
+        v-else-if="activeDatasetTab === 5 && items.length"
+        :items="items"
+        :object-columns="objectColumns"
+        :geom-column="geomColumn"
+      />
     </template>
   </div>
 </template>
@@ -145,6 +152,7 @@ import DataTab from "./sets/DataTab.vue";
 import QueriesTab from "./sets/QueriesTab.vue";
 import VisualizationsTab from "./sets/VisualizationsTab.vue";
 import DownloadsTab from "./sets/DownloadsTab.vue";
+import MapTab from "./sets/MapTab.vue";
 import { getUserId, convertToCSV } from "./../../lib/helpers";
 import { ROUTE_NAMES, tabs } from "./../../lib/router";
 import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
@@ -160,6 +168,7 @@ export default {
     QueriesTab,
     VisualizationsTab,
     DownloadsTab,
+    MapTab,
     DatasetNav,
     SkeletonSpinner
   },
@@ -517,6 +526,14 @@ export default {
             this.setQueries();
           }
           break;
+        }
+
+        case tab === tabs[5]:
+        case name === ROUTE_NAMES.Map: {
+          this.setDefaultQuery();
+          // run queries just in the editor tab
+          this.runCurrentQuery()
+          break
         }
 
         default:

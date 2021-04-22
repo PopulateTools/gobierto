@@ -39,8 +39,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$refs.viewer);
-    this.$nextTick(() => this.$refs.viewer.toggleConfigPerspective());
+    // this.$nextTick(() => this.$refs.viewer.toggleConfigPerspective());
     // this.$refs.viewer._side_panel.style = "block"
   }
 };

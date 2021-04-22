@@ -2,6 +2,7 @@
   <perspective-viewer
     v-if="items"
     ref="perspective-viewer"
+    :plugin="typeChart"
   />
 </template>
 <script>
@@ -50,15 +51,11 @@ export default {
         this.checkIfQueryResultIsEmpty(newValue)
       }
     },
-    typeChart(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.viewer.setAttribute('plugin', newValue)
-      }
-    },
     arrayColumnsQuery(newValue, oldValue) {
       if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
         this.viewer.clear()
         this.viewer.update(this.items)
+        console.log(JSON.stringify(newValue));
         this.viewer.setAttribute('columns', JSON.stringify(newValue))
       }
     },
@@ -93,14 +90,11 @@ export default {
     },
     checkPerspectiveTypes() {
       //If columns contains Boolean values goes to replace them
-      let replaceItems = this.items
+      let data = this.items
       if (Object.values(this.objectColumns).some(value => value === "boolean")) {
-        replaceItems = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
+        data = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
       }
 
-      this.initPerspectiveWithSchema(replaceItems)
-    },
-    initPerspectiveWithSchema(data) {
       // if no typeChart has been defined, and the dataset contains a gemetry column, loads the map-plugin by default
       this.viewer.setAttribute('plugin', this.typeChart)
       this.viewer.setAttribute('geom', this.geomColumn)
@@ -176,6 +170,7 @@ export default {
     },
     setColumns() {
       // Invoked from SQLEditorResults.vue
+      console.log('setcol');
       this.viewer.setAttribute('columns', this.arrayColumnsQuery)
     },
     clearColumnPivots() {

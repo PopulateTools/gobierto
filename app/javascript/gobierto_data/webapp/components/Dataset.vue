@@ -368,7 +368,11 @@ export default {
       ].includes(name)
     ) {
       this.updateBaseTitle();
-      this.handleDatasetTabs(this.$route);
+      await this.handleDatasetTabs(this.$route);
+
+      if (this.currentQuery) {
+        this.runCurrentQuery()
+      }
     }
     this.queryOrVizIsNotMine();
     this.displayVizSavingPrompt();
@@ -502,8 +506,6 @@ export default {
           }
           this.parseUrl(queryId, sql);
           this.setDefaultQuery();
-          // run queries just in the editor tab
-          this.runCurrentQuery()
           break;
         }
         // consultas
@@ -617,6 +619,7 @@ export default {
         this.isQueryModified = true;
       }
 
+console.log('sc', sql);
       this.currentQuery = sql;
     },
     storeRecentQuery() {

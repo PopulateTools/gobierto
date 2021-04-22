@@ -45,6 +45,7 @@ en:
       favs: Favorites
       frequency: Frequency
       guide: Guide to using the SQL editor
+      license: License
       link: Link
       modifiedQuery: Modified Query
       modifiedVisualization: Modified visualization
@@ -68,6 +69,8 @@ en:
       sets: Sets
       showAll: Show all
       showLess: Show less
+      sourceDataset: Source
+      sourceDatasetUrl: Source url
       subject: Subject
       summary: Summary
       updated: Updated

@@ -6,8 +6,7 @@ class GobiertoCommon::GobiertoSeeder::ModuleSeederTest < ActiveSupport::TestCase
   def setup
     super
     @subject = GobiertoCommon::GobiertoSeeder::ModuleSeeder
-    require seeds_path
-    @recipe_spy = Spy.on(::GobiertoSeeds::Recipe, :run)
+    @recipe_spy = Spy.on(::GobiertoSeeds::GobiertoPeople::Recipe, :run)
   end
 
   attr_reader :recipe_spy
@@ -17,7 +16,7 @@ class GobiertoCommon::GobiertoSeeder::ModuleSeederTest < ActiveSupport::TestCase
   end
 
   def seeds_path
-    @seeds_path ||= Rails.root.join("db/seeds/modules/gobierto_people/seeds")
+    @seeds_path ||= Rails.root.join("db/seeds/gobierto_seeds/sites/gobierto_populate/gobierto_people/recipe")
   end
 
   def site

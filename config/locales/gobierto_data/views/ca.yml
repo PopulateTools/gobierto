@@ -45,6 +45,7 @@ ca:
       favs: Favorites
       frequency: Freqüència
       guide: Guia per utilitzar l'editor SQL
+      license: Llicència
       link: Enllaç
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualització modificada
@@ -68,6 +69,8 @@ ca:
       sets: Conjunts
       showAll: Vegeu-ho tot
       showLess: Vegeu-ne menys
+      sourceDataset: Font
+      sourceDatasetUrl: Font url
       subject: Tema
       summary: Resum
       updated: Actualizat

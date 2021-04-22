@@ -56,7 +56,7 @@
           :items="items"
           :config="config"
           :object-columns="objectColumns"
-          :geom-column="geomColumn"
+          :metric-map="metricMap"
           @showSaving="showSavingDialog"
         />
       </template>
@@ -161,7 +161,7 @@ export default {
       type: Object,
       default: () => {}
     },
-    geomColumn: {
+    metricMap: {
       type: String,
       default: ''
     },

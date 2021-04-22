@@ -59,9 +59,8 @@
         :public-queries="publicQueries"
         :recent-queries="recentQueriesFiltered"
         :object-columns="objectColumns"
-        :geom-column="geomColumn"
+        :metric-map="metricMap"
         :array-formats="arrayFormats"
-        :array-columns-query="arrayColumnsQuery"
         :items="items"
         :is-query-saved="isQuerySaved"
         :is-viz-saved="isVizSaved"
@@ -125,7 +124,7 @@
         :show-label-edit="showLabelEdit"
         :reset-private="resetPrivate"
         :object-columns="objectColumns"
-        :geom-column="geomColumn"
+        :metric-map="metricMap"
       />
 
       <DownloadsTab
@@ -138,7 +137,7 @@
         v-else-if="activeDatasetTab === 5 && items.length"
         :items="items"
         :object-columns="objectColumns"
-        :geom-column="geomColumn"
+        :metric-map="metricMap"
       />
     </template>
   </div>
@@ -194,7 +193,7 @@ export default {
       titleDataset: "",
       arrayFormats: {},
       objectColumns: {},
-      geomColumn: null,
+      metricMap: null,
       attributes: null,
       privateQueries: undefined,
       publicQueries: undefined,
@@ -202,7 +201,6 @@ export default {
       publicVisualizations: undefined,
       privateVisualizations: undefined,
       resourcesList: [],
-      arrayColumnsQuery: [],
       currentQuery: null,
       currentVizTab: null,
       queryRevert: null,
@@ -261,10 +259,10 @@ export default {
     },
     isDatasetLoaded() {
       // When loading, show skeleton if:
-      // 1. Any tab but download OR
+      // 1. Any tab but download and map OR
       // 2a. Dataset has no attibutes (getDatasetMetadata empty or error) AND
       // 2b. publicQueries or publicVisualization are undefined (getPublicQueries or getPublicVisualizations have fetched no answer)
-      return this.activeDatasetTab === 4 || !!(
+      return [4, 5].includes(this.activeDatasetTab) || !!(
         this.attributes && !!(this.publicQueries || this.publicVisualizations)
       );
     },
@@ -347,13 +345,13 @@ export default {
       columns: objectColumns,
       formats: arrayFormats,
       default_limit: defaultLimit,
-      geom: geomColumn,
+      geom: metricMap, // TODO: cambiar por el nombre que nos digan del back
     } = attributes;
 
     this.titleDataset = titleDataset;
     this.tableName = tableName;
     this.objectColumns = objectColumns;
-    this.geomColumn = geomColumn;
+    this.metricMap = metricMap;
     this.arrayFormats = arrayFormats;
     this.defaultLimit = defaultLimit;
 
@@ -534,6 +532,7 @@ export default {
           break;
         }
 
+        // mapa
         case tab === tabs[5]:
         case name === ROUTE_NAMES.Map: {
           this.setDefaultQuery();
@@ -804,7 +803,6 @@ export default {
         this.items = items;
         this.queryDuration = new Date().getTime() - startTime;
         this.isQueryRunning = false;
-        this.getColumnsQuery(this.items);
         this.queryError = null;
       } catch ({
         response: {
@@ -915,10 +913,6 @@ export default {
       this.queryInputFocus = false;
       this.enabledForkVizButton = false;
       this.isVizSaved = true;
-    },
-    getColumnsQuery(csv = "") {
-      const [columns = ""] = csv.split("\n");
-      this.arrayColumnsQuery = columns.split(",");
     },
     resetQuery() {
       this.isQuerySavingPromptVisible = false;

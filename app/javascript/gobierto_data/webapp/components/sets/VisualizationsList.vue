@@ -34,7 +34,7 @@
                         :items="items"
                         :config="config"
                         :object-columns="objectColumns"
-                        :geom-column="geomColumn"
+                        :metric-map="metricMap"
                       />
                     </CardVisualization>
                   </router-link>
@@ -88,7 +88,7 @@
                     :items="items"
                     :config="config"
                     :object-columns="objectColumns"
-                    :geom-column="geomColumn"
+                    :metric-map="metricMap"
                   />
                 </CardVisualization>
               </router-link>
@@ -150,7 +150,7 @@ export default {
       type: Object,
       default: () => {}
     },
-    geomColumn: {
+    metricMap: {
       type: String,
       default: ''
     },

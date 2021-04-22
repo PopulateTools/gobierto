@@ -19,29 +19,17 @@ export default {
       type: String,
       default: ''
     },
-    typeChart: {
-      type: String,
-      default: ''
-    },
-    arrayColumnsQuery: {
-      type: Array,
-      default: () => []
-    },
     objectColumns: {
       type: Object,
       default: () => {}
     },
-    geomColumn: {
+    metricMap: {
       type: String,
       default: ''
     },
     config: {
       type: Object,
       default: () => {}
-    },
-    resetConfigViz: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -55,23 +43,8 @@ export default {
         this.checkIfQueryResultIsEmpty(newValue)
       }
     },
-    typeChart(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        // perspective doesn't accept reactive props
-        this.viewer.setAttribute('plugin', newValue)
-      }
-    },
-    arrayColumnsQuery(newValue, oldValue) {
-      if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
-        this.viewer.clear()
-        this.viewer.update(this.items)
-        this.viewer.setAttribute('columns', JSON.stringify(newValue))
-      }
-    },
-    resetConfigViz(newValue) {
-      if (newValue) {
-        this.clearColumnPivots()
-      }
+    config() {
+      this.setConfig()
     }
   },
   created() {
@@ -89,31 +62,32 @@ export default {
   methods: {
     // You can run a query that gets an empty result, and this isn't an error. But if the result comes empty Perspective has no data to build the table, so console returns an error. We need to check if the result of the query is equal to the columns
     checkIfQueryResultIsEmpty(items) {
-      //The result of the query, if returns empty only contains the columns.
+      // The result of the query, if returns empty only contains the columns.
       const data = items.trim()
-      //Only the columns of the query.
-      const arrayColumnsQueryString = this.arrayColumnsQuery.toString()
+      // Only the columns of the query.
+      const [columns = ""] = items.split("\n");
 
       // Clean any previous config
-      this.viewer.clear();
+      this.resetConfig();
 
-      if (arrayColumnsQueryString !== data) {
+      this.viewer.setAttribute('columns', JSON.stringify(columns.split(",")))
+      if (this.metricMap) {
+        this.viewer.setAttribute('metric', this.metricMap)
+      }
+
+      if (columns !== data) {
         this.checkPerspectiveTypes()
       } else {
         // Well, it's a bit tricky, but reset the table with .clear() only responds when trigger an event, if not trigger an event .clear() isn't fired
         window.dispatchEvent(new Event('resize'))
       }
     },
-    checkPerspectiveTypes() {
+    async checkPerspectiveTypes() {
       //If columns contains Boolean values goes to replace them
       let data = this.items
       if (Object.values(this.objectColumns).some(value => value === "boolean")) {
         data = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
       }
-
-      // if no typeChart has been defined, and the dataset contains a gemetry column, loads the map-plugin by default
-      this.viewer.setAttribute('plugin', this.typeChart)
-      this.viewer.setAttribute('geom', this.geomColumn)
 
       const schema = this.objectColumns
 
@@ -130,7 +104,8 @@ export default {
       });
 
       if (this.config) {
-        this.loadConfig()
+        // requires wait for the config to be loaded
+        await this.setConfig()
       }
 
       this.hideConfigButton()
@@ -138,22 +113,15 @@ export default {
       this.worker.table(schema);
       this.viewer.load(data)
     },
-    loadConfig() {
-      this.viewer.restore(this.config);
-      //Perspective can't restore row_pivots, column_pivots and computed_columns, so we need to check if visualization config contains some of these values, if contain them we've need to include these values to viewer
-      this.loadPivots('column-pivots', this.config.column_pivots)
-      this.loadPivots('row-pivots', this.config.row_pivots)
-      this.loadPivots('computed-columns', this.config.computed_columns)
-    },
-    loadPivots(pivot, data) {
-      // Check if config contains row_pivots, column_pivots or computed_columns
-      if (data) {
-        this.viewer.setAttribute(pivot, JSON.stringify(data))
-      }
-    },
     getConfig() {
       // export the visualization configuration object
       return this.viewer.save()
+    },
+    async setConfig() {
+      this.viewer.restore(this.config);
+    },
+    resetConfig() {
+      this.viewer.reset();
     },
     handleConfigUpdates() {
       // NOTE: instead of compare the full object, we can destructure it and trigger the event only on those changing values we care
@@ -173,18 +141,6 @@ export default {
     hideConfigButton() {
       const configButtonPerspective = this.viewer.shadowRoot?.getElementById('config_button')
       configButtonPerspective.style.display = "none"
-    },
-    setColumns() {
-      // Invoked from SQLEditorResults.vue
-      this.viewer.setAttribute('columns', this.arrayColumnsQuery)
-    },
-    clearColumnPivots() {
-      /* These properties belong to Perspective's top menu, and we can't clear with this.viewer.clear() or this.viewer.reset(), so, we need it to reset values */
-      const attributesTopMenu = ['column-pivots', 'row-pivots', 'computed-columns', 'sort', 'filters']
-
-      for (let index = 0; index < attributesTopMenu.length; index++) {
-        this.viewer.setAttribute(attributesTopMenu[index], null)
-      }
     }
   }
 };

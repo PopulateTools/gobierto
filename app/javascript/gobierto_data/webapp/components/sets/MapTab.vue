@@ -4,10 +4,10 @@
       ref="viewer"
       class="gobierto-data-visualization--item"
       :items="items"
-      :type-chart="'map'"
       :config="config"
       :object-columns="objectColumns"
-      :geom-column="geomColumn"
+      :metric-map="metricMap"
+      @showSaving="handleConfig"
     />
   </div>
 </template>
@@ -28,19 +28,32 @@ export default {
       type: Object,
       default: () => {}
     },
-    geomColumn: {
+    metricMap: {
       type: String,
       default: ""
     }
   },
   data() {
     return {
-      config: {}
+      config: {
+        plugin: 'map'
+      }
     }
   },
   mounted() {
-    // this.$nextTick(() => this.$refs.viewer.toggleConfigPerspective());
-    // this.$refs.viewer._side_panel.style = "block"
+    if (sessionStorage.getItem("map-tab")) {
+      this.config = JSON.parse(sessionStorage.getItem("map-tab"))
+      // sessionStorage.removeItem("map-tab")
+    }
+
+    // otherwise, it won't work ¬¬
+    setTimeout(() => this.$refs.viewer.toggleConfigPerspective(), 20);
+  },
+  methods: {
+    handleConfig() {
+      const config = this.$refs.viewer.getConfig()
+      sessionStorage.setItem("map-tab", JSON.stringify(config))
+    }
   }
 };
 </script>

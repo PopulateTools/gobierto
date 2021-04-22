@@ -46,7 +46,7 @@
         :viz-id="vizId"
         :user-save-viz="userSaveViz"
         :object-columns="objectColumns"
-        :geom-column="geomColumn"
+        :metric-map="metricMap"
         @changeViz="showVizElement"
         @emitDelete="deleteHandlerVisualization"
       />
@@ -167,7 +167,7 @@ export default {
       type: Object,
       default: () => {}
     },
-    geomColumn: {
+    metricMap: {
       type: String,
       default: ''
     },

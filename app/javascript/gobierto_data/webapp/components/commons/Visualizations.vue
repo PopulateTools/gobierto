@@ -2,7 +2,6 @@
   <perspective-viewer
     v-if="items"
     ref="perspective-viewer"
-    :plugin="typeChart"
   />
 </template>
 <script>
@@ -51,11 +50,16 @@ export default {
         this.checkIfQueryResultIsEmpty(newValue)
       }
     },
+    typeChart(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        // perspective doesn't accept reactive props
+        this.viewer.setAttribute('plugin', newValue)
+      }
+    },
     arrayColumnsQuery(newValue, oldValue) {
       if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
         this.viewer.clear()
         this.viewer.update(this.items)
-        console.log(JSON.stringify(newValue));
         this.viewer.setAttribute('columns', JSON.stringify(newValue))
       }
     },
@@ -80,10 +84,12 @@ export default {
       //Only the columns of the query.
       const arrayColumnsQueryString = this.arrayColumnsQuery.toString()
 
+      // Clean any previous config
+      this.viewer.clear();
+
       if (arrayColumnsQueryString !== data) {
         this.checkPerspectiveTypes()
       } else {
-        this.viewer.clear()
         // Well, it's a bit tricky, but reset the table with .clear() only responds when trigger an event, if not trigger an event .clear() isn't fired
         window.dispatchEvent(new Event('resize'))
       }
@@ -98,7 +104,6 @@ export default {
       // if no typeChart has been defined, and the dataset contains a gemetry column, loads the map-plugin by default
       this.viewer.setAttribute('plugin', this.typeChart)
       this.viewer.setAttribute('geom', this.geomColumn)
-      this.viewer.clear();
 
       const schema = this.objectColumns
 
@@ -170,7 +175,6 @@ export default {
     },
     setColumns() {
       // Invoked from SQLEditorResults.vue
-      console.log('setcol');
       this.viewer.setAttribute('columns', this.arrayColumnsQuery)
     },
     clearColumnPivots() {

@@ -370,10 +370,14 @@ export default {
       this.updateBaseTitle();
       await this.handleDatasetTabs(this.$route);
 
-      if (this.currentQuery) {
+      // wait for the query be resolved
+      if (ROUTE_NAMES.Dataset === name) {
+        // run the query directly in the editor
         this.runCurrentQuery()
       }
     }
+
+
     this.queryOrVizIsNotMine();
     this.displayVizSavingPrompt();
   },
@@ -619,7 +623,6 @@ export default {
         this.isQueryModified = true;
       }
 
-console.log('sc', sql);
       this.currentQuery = sql;
     },
     storeRecentQuery() {

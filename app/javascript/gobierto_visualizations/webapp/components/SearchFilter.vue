@@ -61,7 +61,7 @@ export default {
     },
     handlerClearSearch() {
       this.search = ''
-      EventBus.$emit('filtered-items', this.search)
+      EventBus.$emit('filtered-items', this.data)
       EventBus.$emit('filtered-items-grouped', this.data)
     }
   }

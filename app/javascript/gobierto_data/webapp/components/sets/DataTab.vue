@@ -32,7 +32,7 @@
         v-if="items.length"
         :array-formats="arrayFormats"
         :object-columns="objectColumns"
-        :metric-map="metricMap"
+        :config-map="configMap"
         :enabled-viz-saved-button="enabledVizSavedButton"
         :is-viz-modified="isVizModified"
         :is-query-saved="isQuerySaved"
@@ -75,9 +75,9 @@ export default {
       type: Object,
       default: () => {}
     },
-    metricMap: {
-      type: String,
-      default: ''
+    configMap: {
+      type: Object,
+      default: () => {}
     },
     publicQueries: {
       type: Array,

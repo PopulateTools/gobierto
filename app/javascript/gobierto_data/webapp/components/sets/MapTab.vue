@@ -6,7 +6,7 @@
       :items="items"
       :config="config"
       :object-columns="objectColumns"
-      :metric-map="metricMap"
+      :config-map="configMapZoom"
       @showSaving="handleConfig"
     />
   </div>
@@ -28,22 +28,23 @@ export default {
       type: Object,
       default: () => {}
     },
-    metricMap: {
-      type: String,
-      default: ""
-    }
+    configMap: {
+      type: Object,
+      default: () => {}
+    },
   },
   data() {
     return {
       config: {
         plugin: 'map'
-      }
+      },
+      configMapZoom: { ...this.configMap, zoom: true }
     }
   },
   mounted() {
     if (sessionStorage.getItem("map-tab")) {
       this.config = JSON.parse(sessionStorage.getItem("map-tab"))
-      // sessionStorage.removeItem("map-tab")
+      sessionStorage.removeItem("map-tab")
     }
 
     // otherwise, it won't work ¬¬

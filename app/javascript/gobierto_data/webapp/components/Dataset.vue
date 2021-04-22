@@ -59,7 +59,7 @@
         :public-queries="publicQueries"
         :recent-queries="recentQueriesFiltered"
         :object-columns="objectColumns"
-        :metric-map="metricMap"
+        :config-map="configMap"
         :array-formats="arrayFormats"
         :items="items"
         :is-query-saved="isQuerySaved"
@@ -124,7 +124,7 @@
         :show-label-edit="showLabelEdit"
         :reset-private="resetPrivate"
         :object-columns="objectColumns"
-        :metric-map="metricMap"
+        :config-map="configMap"
       />
 
       <DownloadsTab
@@ -137,7 +137,7 @@
         v-else-if="activeDatasetTab === 5 && items.length"
         :items="items"
         :object-columns="objectColumns"
-        :metric-map="metricMap"
+        :config-map="configMap"
       />
     </template>
   </div>
@@ -193,7 +193,7 @@ export default {
       titleDataset: "",
       arrayFormats: {},
       objectColumns: {},
-      metricMap: null,
+      configMap: null,
       attributes: null,
       privateQueries: undefined,
       publicQueries: undefined,
@@ -345,13 +345,13 @@ export default {
       columns: objectColumns,
       formats: arrayFormats,
       default_limit: defaultLimit,
-      geom: metricMap, // TODO: cambiar por el nombre que nos digan del back
+      geom: metric, // TODO: cambiar por el nombre que nos digan del back
     } = attributes;
 
     this.titleDataset = titleDataset;
     this.tableName = tableName;
     this.objectColumns = objectColumns;
-    this.metricMap = metricMap;
+    this.configMap = { metric };
     this.arrayFormats = arrayFormats;
     this.defaultLimit = defaultLimit;
 

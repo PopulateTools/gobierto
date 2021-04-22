@@ -23,14 +23,14 @@ export default {
       type: Object,
       default: () => {}
     },
-    metricMap: {
-      type: String,
-      default: ''
-    },
     config: {
       type: Object,
       default: () => {}
-    }
+    },
+    configMap: {
+      type: Object,
+      default: () => {}
+    },
   },
   data() {
     return {
@@ -70,16 +70,18 @@ export default {
       // Clean any previous config
       this.resetConfig();
 
-      this.viewer.setAttribute('columns', JSON.stringify(columns.split(",")))
-      if (this.metricMap) {
-        this.viewer.setAttribute('metric', this.metricMap)
+      this.viewer.setAttribute("columns", JSON.stringify(columns.split(",")))
+      if (this.configMap) {
+        const { metric, zoom = false } = this.configMap
+        this.viewer.setAttribute("metric", metric || "")
+        this.viewer.setAttribute("zoom", zoom || "")
       }
 
       if (columns !== data) {
         this.checkPerspectiveTypes()
       } else {
         // Well, it's a bit tricky, but reset the table with .clear() only responds when trigger an event, if not trigger an event .clear() isn't fired
-        window.dispatchEvent(new Event('resize'))
+        window.dispatchEvent(new Event("resize"))
       }
     },
     async checkPerspectiveTypes() {

@@ -3,8 +3,9 @@ import L from "leaflet"
 import { feature } from "topojson-client"
 import "../../../assets/stylesheets/comp-perspective-viewer-map.css"
 
-function createMapNode(element, div) {
+function createMapNode(element, div, { zoom }) {
   const { children } = element
+
   /*Create a different ID to avoid errors when we show more than one map on the same page, for example: summary tab.*/
   const seed = Math.random().toString(36).substring(7)
   const idMap = `map-${seed}`;
@@ -18,11 +19,22 @@ function createMapNode(element, div) {
   div.appendChild(document.createElement("slot"))
   element.appendChild(mapElement);
 
+  let extraOptions = {}
+  // by default, zoom is enabled
+  if (!zoom) {
+    extraOptions = {
+      zoomControl: false,
+      scrollWheelZoom: false
+    }
+  }
+
   // Initialize Leaflet
   const map = L.map(idMap, {
     center: [0, 0],
-    zoom: 1
+    zoom: 1,
+    ...extraOptions
   });
+
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
@@ -90,7 +102,8 @@ export class MapPlugin {
     try {
       const columns = JSON.parse(this.getAttribute("columns"))
       const geomColumn = this.getAttribute("geom") || "geometry" // default geoJSON column name
-      const mapAccessor = this.getAttribute("metric") // default column prop accessor
+      const mapMetric = this.getAttribute("metric") // default column prop accessor
+      const mapZoom = this.getAttribute("zoom") === "true" // default column prop accessor
 
       // Enforces to have a geometry column
       if (!columns.includes(geomColumn)) {
@@ -98,14 +111,14 @@ export class MapPlugin {
         this.setAttribute("columns", JSON.stringify(columns))
       }
 
-      const map = createMapNode(this, div);
+      const map = createMapNode(this, div, { zoom: mapZoom });
 
       // fetch the current displayed data
       const data = await view.to_json() || []
       if (data.some(({ [geomColumn]: geometry }) => !!geometry)) {
 
         // get the first [key, value] from the dataset to determine its type
-        const [key, value] = mapAccessor ? [mapAccessor, data[0][mapAccessor]] : Object.entries(data[0])[0]
+        const [key, value] = mapMetric ? [mapMetric, data[0][mapMetric]] : Object.entries(data[0])[0]
         const isVarContinuous = Number.isFinite(value)
         const mappedData = data.map(d => d[key])
 

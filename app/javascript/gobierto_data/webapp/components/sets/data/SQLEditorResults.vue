@@ -69,7 +69,7 @@
         ref="viewer"
         :items="items"
         :object-columns="objectColumns"
-        :metric-map="metricMap"
+        :config-map="configMapZoom"
         :config="config"
         @showSaving="showSavingDialog"
       />
@@ -99,9 +99,9 @@ export default {
       type: Object,
       default: () => {}
     },
-    metricMap: {
-      type: String,
-      default: ''
+    configMap: {
+      type: Object,
+      default: () => {}
     },
     items: {
       type: String,
@@ -161,7 +161,8 @@ export default {
       showVisualize: true,
       removeLabelBtn: false,
       perspectiveChanged: false,
-      config: null
+      config: null,
+      configMapZoom: { ...this.configMap, zoom: true }
     };
   },
   watch: {
@@ -174,7 +175,7 @@ export default {
   mounted() {
     if (sessionStorage.getItem("map-tab")) {
       this.config = JSON.parse(sessionStorage.getItem("map-tab"))
-      // sessionStorage.removeItem("map-tab")
+      sessionStorage.removeItem("map-tab")
 
       // otherwise, it won't work ¬¬
       setTimeout(() => this.$refs.viewer.toggleConfigPerspective(), 20);

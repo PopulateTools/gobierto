@@ -44,6 +44,11 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      prevConfig: this.config
+    }
+  },
   watch: {
     items(newValue, oldValue) {
       if (newValue !== oldValue) {
@@ -75,6 +80,11 @@ export default {
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.checkIfQueryResultIsEmpty(this.items)
+
+    this.viewer.addEventListener('perspective-config-update', this.handleConfigUpdates)
+  },
+  beforeDestroy() {
+    this.viewer.removeEventListener('perspective-config-update', this.handleConfigUpdates)
   },
   methods: {
     // You can run a query that gets an empty result, and this isn't an error. But if the result comes empty Perspective has no data to build the table, so console returns an error. We need to check if the result of the query is equal to the columns
@@ -123,10 +133,10 @@ export default {
         this.loadConfig()
       }
 
-      this.listenerPerspective()
+      this.hideConfigButton()
 
       this.worker.table(schema);
-      this.viewer.load(data) // TODO: este metodo es asyncrono, cuando termina es cuando se renderiza todo
+      this.viewer.load(data)
     },
     loadConfig() {
       this.viewer.restore(this.config);
@@ -145,33 +155,24 @@ export default {
       // export the visualization configuration object
       return this.viewer.save()
     },
+    handleConfigUpdates() {
+      // NOTE: instead of compare the full object, we can destructure it and trigger the event only on those changing values we care
+      const config = this.getConfig()
+      if (JSON.stringify(this.prevConfig) !== JSON.stringify(config)) {
+        // don't emit event on the first load
+        if (this.prevConfig) {
+          this.$emit("showSaving")
+        }
+        this.prevConfig = config
+      }
+    },
     toggleConfigPerspective() {
       this.$root.$emit('showSavedVizString', false)
       this.viewer.toggleConfig()
-
-      // TODO: he intentado sacar estos listeners de aquí (se crean muchísimos, desde varias partes, y no se destruyen)
-
-      //Enable save button when user interacts with Perspective columns
-      const itemPerspective = document.querySelector('perspective-viewer').shadowRoot
-      const rowPerspective = itemPerspective.querySelectorAll("perspective-row");
-
-      rowPerspective.forEach(rowMenu => {
-        rowMenu.addEventListener('drag', () => this.$emit("showSaving"))
-        rowMenu.addEventListener('click', () => this.$emit("showSaving"))
-      });
     },
-    listenerPerspective() {
-      const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot
-      const configButtonPerspective = shadowRootPerspective.getElementById('config_button')
+    hideConfigButton() {
+      const configButtonPerspective = this.viewer.shadowRoot?.getElementById('config_button')
       configButtonPerspective.style.display = "none"
-      const selectVizPerspective = shadowRootPerspective.getElementById('vis_selector')
-
-      // TODO: lo mismo habria que hacer con este
-
-      selectVizPerspective.addEventListener('change', () => {
-        this.$emit("showSaving")
-        this.$emit("selectedChart", selectVizPerspective.options[selectVizPerspective.selectedIndex].value)
-      })
     },
     setColumns() {
       // Invoked from SQLEditorResults.vue

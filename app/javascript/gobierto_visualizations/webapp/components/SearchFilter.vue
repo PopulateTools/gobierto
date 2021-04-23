@@ -63,6 +63,7 @@ export default {
       this.search = ''
       EventBus.$emit('filtered-items', this.search)
       EventBus.$emit('filtered-items-grouped', this.data)
+      EventBus.$emit('update-tab')
     }
   }
 }

@@ -56,7 +56,7 @@
           :items="items"
           :config="config"
           :object-columns="objectColumns"
-          :config-map="configMap"
+          :config-map="configMapZoom"
           @showSaving="showSavingDialog"
         />
       </template>
@@ -184,7 +184,8 @@ export default {
       isVizElementSavingVisible: false,
       name: '',
       isQuerySavingPromptVisible: false,
-      saveLoader: false
+      saveLoader: false,
+      configMapZoom: { ...this.configMap, zoom: true }
     }
   },
   watch: {

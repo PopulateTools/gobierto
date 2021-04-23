@@ -89,7 +89,7 @@ module GobiertoAdmin
       end
 
       def set_attachments_collection
-        @dataset_attachments_collection = ::GobiertoData.attachments_collection!(current_site)
+        @dataset_attachments_collection = ::GobiertoData::Attachment.attachments_collection!(current_site)
       end
 
       def preview_url(dataset, options = {})

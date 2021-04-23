@@ -254,7 +254,6 @@ export class VisBubble {
           return `/visualizations/costes/${d.year}/${d.ordreagrup}`;
         }.bind(this)
       )
-      .attr("target", "_top")
       .attr("class", "bubbles-links")
       .append("circle")
       .attr("class", d => `${d.year} bubble`)

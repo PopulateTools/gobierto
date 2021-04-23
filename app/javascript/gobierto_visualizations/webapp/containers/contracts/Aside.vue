@@ -1,5 +1,5 @@
 <template>
-  <div class="pure-u-1 pure-u-lg-1-4 visualizations-home-aside--gap">
+  <div class="pure-u-1 pure-u-md-1-4 visualizations-home-aside--gap">
     <SearchFilter
       :data="contractsData"
       :search-type="type"

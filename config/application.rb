@@ -49,6 +49,7 @@ module Gobierto
 
     # Required code paths
     required_paths = [
+      "#{config.root}/db/seeds",
       "#{config.root}/lib",
       "#{config.root}/lib/validators",
       "#{config.root}/lib/constraints",

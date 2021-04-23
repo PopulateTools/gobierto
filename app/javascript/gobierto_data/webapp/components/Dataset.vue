@@ -20,9 +20,12 @@
         </div>
       </div>
 
-      <DatasetNav :active-dataset-tab="activeDatasetTab" />
+      <DatasetNav
+        :active-dataset-tab="activeDatasetTab"
+        :tabs="currentTabs"
+      />
 
-      <!-- Only is mounted where there are attributes -->
+      <!-- Only is mounted when there are attributes -->
       <SummaryTab
         v-if="activeDatasetTab === 0 && attributes"
         :dataset-id="datasetId"
@@ -133,8 +136,9 @@
         :resources-list="resourcesList"
       />
 
+      <!-- Only is mounted when exists geometry -->
       <MapTab
-        v-else-if="activeDatasetTab === 5 && items.length"
+        v-else-if="activeDatasetTab === 5 && hasGeometryColumn"
         :items="items"
         :object-columns="objectColumns"
         :config-map="configMap"
@@ -270,6 +274,13 @@ export default {
       return this.defaultLimit !== null && this.defaultLimit > 0
         ? ` LIMIT ${this.defaultLimit}`
         : "";
+    },
+    hasGeometryColumn() {
+      return this.items.length && Object.keys(this.objectColumns).some(x => x === "geometry")
+    },
+    currentTabs() {
+      const commonTabs = tabs.filter(x => x !== 'mapa')
+      return this.hasGeometryColumn ? tabs : commonTabs
     }
   },
   watch: {

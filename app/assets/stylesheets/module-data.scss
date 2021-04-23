@@ -161,6 +161,10 @@
       bottom: -1px;
     }
 
+    & + & {
+      margin-left: 0.25rem;
+    }
+
   }
 
   &-sets-nav {

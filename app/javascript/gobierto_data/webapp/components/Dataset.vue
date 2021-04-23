@@ -54,6 +54,8 @@
         :resources-list="resourcesList"
         :dataset-attributes="attributes"
         :is-user-logged="isUserLogged"
+        :items="items"
+        :config-map="configMap"
       />
 
       <DataTab
@@ -356,7 +358,7 @@ export default {
       columns: objectColumns,
       formats: arrayFormats,
       default_limit: defaultLimit,
-      geom: metric, // TODO: cambiar por el nombre que nos digan del back
+      metric, // TODO: cambiar por el nombre que nos digan del back
     } = attributes;
 
     this.titleDataset = titleDataset;

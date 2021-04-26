@@ -253,7 +253,7 @@ GEM
     jmespath (1.4.0)
     js_cookie_rails (2.2.0)
       railties (>= 3.1)
-    json_translate (4.0.0)
+    json_translate (4.0.1)
       activerecord (>= 4.2.0)
     jsonapi-renderer (0.2.2)
     jwt (2.2.2)

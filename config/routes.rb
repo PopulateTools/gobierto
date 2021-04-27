@@ -664,6 +664,7 @@ Rails.application.routes.draw do
               resource :favorite, only: [:create, :destroy]
               resources :favorites, only: [:index]
             end
+            get "catalog" => "datasets#catalog"
           end
         end
       end

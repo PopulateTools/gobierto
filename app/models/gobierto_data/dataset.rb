@@ -10,6 +10,7 @@ module GobiertoData
     include GobiertoData::Favoriteable
     include GobiertoAttachments::Attachable
     include GobiertoCommon::Collectionable
+    include GobiertoCommon::HasCustomFieldRecords
 
     belongs_to :site
     has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"

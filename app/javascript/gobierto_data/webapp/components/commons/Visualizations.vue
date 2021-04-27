@@ -5,7 +5,6 @@
   />
 </template>
 <script>
-import perspective from "@finos/perspective";
 import "@finos/perspective-viewer";
 import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
@@ -47,9 +46,6 @@ export default {
       this.setConfig()
     }
   },
-  created() {
-    this.worker = perspective.worker();
-  },
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.checkIfQueryResultIsEmpty(this.items)
@@ -80,7 +76,9 @@ export default {
       if (columns !== data) {
         this.checkPerspectiveTypes()
       } else {
-        // Well, it's a bit tricky, but reset the table with .clear() only responds when trigger an event, if not trigger an event .clear() isn't fired
+        this.viewer.clear()
+        // Well, it's a bit tricky, but reset the table with .clear() only responds when trigger an event,
+        // if not trigger an event .clear() isn't fired
         window.dispatchEvent(new Event("resize"))
       }
     },
@@ -91,19 +89,17 @@ export default {
         data = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
       }
 
-      const schema = this.objectColumns
+      // const schema = this.objectColumns
 
-      Object.keys(schema).forEach((key) => {
-        if (['text', 'hstore', 'jsonb', 'tsvector'].includes(schema[key])) {
-          schema[key] = 'string'
-        } else if (schema[key] === 'decimal') {
-          schema[key] = 'float'
-        } else if (schema[key] === 'inet') {
-          schema[key] = 'integer'
-        } else if (schema[key] === 'date') {
-          schema[key] = 'datetime'
-        }
-      });
+      // Object.keys(schema).forEach((key) => {
+      //   if (['text', 'hstore', 'jsonb', 'tsvector'].includes(schema[key])) {
+      //     schema[key] = 'string'
+      //   } else if (schema[key] === 'decimal') {
+      //     schema[key] = 'float'
+      //   } else if (schema[key] === 'inet') {
+      //     schema[key] = 'integer'
+      //   }
+      // });
 
       if (this.config) {
         // requires wait for the config to be loaded
@@ -112,7 +108,6 @@ export default {
 
       this.hideConfigButton()
 
-      this.worker.table(schema);
       this.viewer.load(data)
     },
     getConfig() {

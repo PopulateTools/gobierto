@@ -129,11 +129,6 @@ export class ContractsController {
         EventBus.$once("moved-to-summary", () => {
           this._redrawCharts();
         });
-
-        const loadingElement = document.querySelector(".js-loading");
-        if (loadingElement) {
-          loadingElement.classList.add("hidden");
-        }
       });
     }
   }

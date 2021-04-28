@@ -40,6 +40,10 @@ module GobiertoCommon
           @pending_event ||= gobierto_calendars_events(:richard_pending)
         end
 
+        def dataset
+          @dataset ||= gobierto_data_datasets(:users_dataset)
+        end
+
         def results_include?(response_data, resource)
           response_data["data"].find do |hit|
             hit["attributes"]["searchable_type"] == resource.class.name && hit["attributes"]["searchable_id"] == resource.id
@@ -100,6 +104,18 @@ module GobiertoCommon
             assert results_include?(total_response_data, person_statement)
             refute results_include?(filtered_response_data, person)
             assert results_include?(filtered_response_data, person_statement)
+          end
+        end
+
+        def test_query_filtered_by_type_datasets
+          with(site: site, dataset: dataset) do
+            get gobierto_common_api_v1_search_path(query: "Users")
+            total_response_data = response.parsed_body
+            get gobierto_common_api_v1_search_path(query: "Users", filters: { searchable_type: ["GobiertoData::Dataset"] })
+            filtered_response_data = response.parsed_body
+
+            assert results_include?(total_response_data, dataset)
+            assert results_include?(filtered_response_data, dataset)
           end
         end
 

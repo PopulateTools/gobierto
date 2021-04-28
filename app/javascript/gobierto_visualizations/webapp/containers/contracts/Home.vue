@@ -6,7 +6,7 @@
         :data-download-endpoint="dataDownloadEndpoint"
       />
 
-      <div class="pure-u-1 pure-u-lg-3-4">
+      <div class="pure-u-1 pure-u-md-3-4">
         <Nav
           :active-tab="activeTabIndex"
           @active-tab="setActiveTab"

@@ -60,7 +60,7 @@ export default {
         .filter(contract => contract.assignee.toLowerCase()
         .includes(this.value.toLowerCase()) || contract.title.toLowerCase()
         .includes(this.value.toLowerCase()))
-        .map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
+        .map(d => ({ ...d, href: `${location.origin}/visualizaciones/contratos/adjudicaciones/${d.id}` } ))
     },
     goesToTableItem(item) {
       const { id: routingId } = item

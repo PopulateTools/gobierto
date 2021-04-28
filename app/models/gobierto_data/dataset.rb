@@ -61,10 +61,6 @@ module GobiertoData
       url_helpers.gobierto_data_datasets_path(id: slug)
     end
 
-    def dataset_url
-      url_helpers.gobierto_data_datasets_url(id: slug, only_path: true)
-    end
-
     def rails_model
       @rails_model ||= begin
                          return unless internal_rails_class_name

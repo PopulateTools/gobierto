@@ -391,6 +391,11 @@ users_dataset_md_with_translations_custom_field_record:
     "md-with-translations" => { en: "Paragraph with translations!", es: "¡Párrafo con traducciones!" }
    }.to_json %>
 
+users_dataset_md_with_translations_custom_field_record:
+  item: users_dataset (GobiertoData::Dataset)
+  custom_field: madrid_data_datasets_custom_field_description
+  payload: <%= {"description": {"en": "This dataset contains the council' persons related.", "es": "Este dataset contiene las personas relaccionadas con el ayuntamiento."}}.to_json %>
+
 ## Users
 
 peter_custom_field_issue:

@@ -34,6 +34,8 @@ madrid:
   organization_address: Fake St., 123
   organization_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["active"] %>
+  created_at: <%= 1.year.ago %>
+  updated_at: <%= 1.week.ago %>
 
 santander:
   title_translations: <%= { 'en' => 'Transparencia Ciudadana', 'es' => 'Transparencia Ciudadana' }.to_json %>

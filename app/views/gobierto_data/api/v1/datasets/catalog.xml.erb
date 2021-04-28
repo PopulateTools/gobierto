@@ -6,45 +6,45 @@
  xmlns:foaf="http://xmlns.com/foaf/0.1/"
  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
- xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><% cache @catalog do %>
  <dcat:Catalog rdf:about="https://data.some.org/catalog">
-   <dct:identifier><%= @identifier_uri %></dct:identifier>
-   <dct:title><%= @catalog_title %></dct:title>
-   <dct:description><%= @catalog_description %></dct:description>
-   <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= @catalog_issued %></dct:issued>
-   <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= @catalog_modified %></dct:modified>
-   <%= @catalog_languages.map { |locale| "<dct:language>#{locale}</dct:language>" }.join.html_safe %>
-   <foaf:homepage rdf:resource="<%= @catalog_homepage %>"/>
-   <dct:license rdf:resource="<%= @catalog_license_url %>"/>
-   <% @catalog_datasets.each do |dataset| %><dcat:dataset>
-     <dcat:Dataset rdf:about="<%= dataset[:dataset_url]%>">
-       <dct:identifier><%= dataset[:dataset_url] %></dct:identifier>
-       <dct:title><%= dataset[:dataset_title] %></dct:title>
-       <dct:description><%= dataset[:dataset_description] %></dct:description>
-       <%= dataset[:dataset_keywords].map { |keyword| "<dct:keyword>#{locale}</dct:keyword>" }.join.html_safe %>
-       <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= dataset[:dataset_issued] %></dct:issued>
-       <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= dataset[:dataset_modified] %></dct:modified>
-       <%= dataset[:dataset_languages].map { |lang| "<dct:language>#{lang}</dct:language>" }.join.html_safe %>
-       <dct:license rdf:resource="<%= dataset[:dataset_title] %>"/>
+   <dct:identifier><%= @catalog[:identifier_uri] %></dct:identifier>
+   <dct:title><%= @catalog[:title] %></dct:title>
+   <dct:description><%= @catalog[:description] %></dct:description>
+   <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= @catalog[:issued] %></dct:issued>
+   <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= @catalog[:modified] %></dct:modified>
+   <%= @catalog[:languages].map { |locale| "<dct:language>#{locale}</dct:language>" }.join.html_safe %>
+   <foaf:homepage rdf:resource="<%= @catalog[:homepage] %>"/>
+   <dct:license rdf:resource="<%= @catalog[:license_url] %>"/>
+   <% @catalog[:datasets].each do |dataset| %><dcat:dataset>
+     <dcat:Dataset rdf:about="<%= dataset[:url]%>">
+       <dct:identifier><%= dataset[:url] %></dct:identifier>
+       <dct:title><%= dataset[:title] %></dct:title>
+       <dct:description><%= dataset[:description] %></dct:description>
+       <%= dataset[:keywords].map { |keyword| "<dct:keyword>#{locale}</dct:keyword>" }.join.html_safe %>
+       <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= dataset[:issued] %></dct:issued>
+       <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= dataset[:modified] %></dct:modified>
+       <%= dataset[:languages].map { |lang| "<dct:language>#{lang}</dct:language>" }.join.html_safe %>
+       <dct:license rdf:resource="<%= dataset[:title] %>"/>
        <dct:publisher>
          <foaf:Organization>
-             <foaf:name><%= dataset[:dataset_publisher] %></foaf:name>
-             <foaf:mbox><%= dataset[:dataset_publisher_mbox] %></foaf:mbox>
+             <foaf:name><%= dataset[:publisher] %></foaf:name>
+             <foaf:mbox><%= dataset[:publisher_mbox] %></foaf:mbox>
          </foaf:Organization>
        </dct:publisher>
-       <% dataset[:dataset_distribution].each do |distribution| %>
+       <% dataset[:distributions].each do |distribution| %>
        <dcat:distribution>
          <dcat:Distribution>
            <dct:identifier><%= @identifier_uri %></dct:identifier>
-           <dct:title><%= dataset[:dataset_title] %> in CSV format</dct:title>
-           <dct:description><%= dataset[:dataset_description] %></dct:description>
+           <dct:title><%= dataset[:title] %> in CSV format</dct:title>
+           <dct:description><%= dataset[:description] %></dct:description>
            <dcat:downloadURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"><%= distribution[:download_url] %></dcat:downloadURL>
            <dcat:mediaType><%= distribution[:format] %></dcat:mediaType>
-           <dct:license rdf:resource="<%= dataset[:dataset_title] %>"/>
+           <dct:license rdf:resource="<%= dataset[:license_url] %>"/>
          </dcat:Distribution>
        </dcat:distribution>
        <% end %>
      </dcat:Dataset>
    </dcat:dataset><% end %>
- </dcat:Catalog>
+ </dcat:Catalog><% end %>
  </rdf:RDF>

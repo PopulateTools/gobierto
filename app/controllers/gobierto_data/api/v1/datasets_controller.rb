@@ -11,41 +11,13 @@ module GobiertoData
         skip_before_action :authenticate_in_site, only: [:new, :create, :update, :destroy]
         skip_before_action :set_admin_with_token, except: [:new, :create, :update, :destroy]
 
+        # GET /api/v1/data/catalog.xml
         def catalog
-          @catalog_identifier_uri = gobierto_data_root_url
-          @catalog_title = "dcat catalog for #{current_site}"
-          @catalog_description = "this is catalog published by #{@catalog_identifier_uri} which contains datasets"
-          @catalog_issued = current_site.created_at
-          @catalog_modified = GobiertoData::Dataset.where(site_id: current_site.id).maximum(:created_at) || current_site.created_at
-          @catalog_languages = current_site.configuration.available_locales
-          @catalog_homepage = gobierto_data_root_url
-          @catalog_license_url = "https://opendatacommons.org/licenses/odbl/"
-
-          @catalog_datasets = []
-          GobiertoData::Dataset.where(site_id: current_site.id).each do |dataset|
-            @catalog_datasets << {
-              dataset_url: gobierto_data_datasets_url(id: dataset.slug),
-              dataset_title: dataset.name,
-              dataset_description: dataset.custom_field_record_with_uid("description").payload["description"][preferred_locale],
-              dataset_keywords: [],
-              dataset_issued: dataset.created_at,
-              dataset_modified: dataset.updated_at,
-              dataset_languages: [preferred_locale],
-              dataset_license_url: "https://opendatacommons.org/licenses/odbl/",  # FIX license belongs to datase
-              dataset_publisher:  current_site.name,
-              dataset_publisher_mbox: current_site.reply_to_email,
-              dataset_distribution: [ {
-                format: 'application/csv',
-                download_url: download_gobierto_data_api_v1_dataset_url(dataset) # FIX link don't work directly
-              } ]
-            }
-          end
-
+          @catalog = DatasetPresenter.new(current_site).build_catalog
           respond_to do |format|
-            format.xml
-          end
+              format.xml
+            end
         end
-
 
         # GET /api/v1/data/datasets
         # GET /api/v1/data/datasets.json

@@ -1,6 +1,5 @@
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { nest as nestFn } from "d3-collection";
 
 export class DeathRateCard extends Card {
   constructor(divClass, city_id) {
@@ -124,7 +123,8 @@ export class DeathRateCard extends Card {
 
         // d3v5
         //
-        this.nest = nestFn()
+        this.nest = d3
+          .nest()
           .key(function(d) {
             return d.location_type;
           })
@@ -138,7 +138,7 @@ export class DeathRateCard extends Card {
 
         this.nest.forEach(
           function(d) {
-            (d.diff = d.value.diff), (d.value = d.value.value);
+            (d.key = d.key), (d.diff = d.value.diff), (d.value = d.value.value);
           }.bind(this)
         );
 

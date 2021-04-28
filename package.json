@@ -70,7 +70,6 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^6.4.0",
     "eslint-plugin-vue": "^5.2.3",
-    "glob-all": "^3.2.1",
     "husky": "^4.2.5",
     "lint-staged": "^10.5.3",
     "purgecss-webpack-plugin": "^4.0.3",

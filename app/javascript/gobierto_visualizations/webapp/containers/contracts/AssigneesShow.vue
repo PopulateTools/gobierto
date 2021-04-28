@@ -65,8 +65,7 @@ export default {
 
       this.items = contracts
       this.columns = assigneesShowColumns;
-
-      this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
+      this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}/visualizaciones/contratos/adjudicaciones/${d.id}` } ))
 
       if (contracts.length > 0) {
         const contract = contracts[0]

@@ -22,6 +22,21 @@
         :label="labelSubject"
         :text="categoryDataset"
       />
+      <InfoBlockLink
+        v-if="sourceDataset"
+        icon="building"
+        opacity=".25"
+        :label="labelSource"
+        :text="sourceDataset"
+        :url="sourceDatasetUrl"
+      />
+      <InfoBlockText
+        v-if="licenseDataset"
+        icon="certificate"
+        opacity=".25"
+        :label="labelLicense"
+        :text="licenseDataset"
+      />
     </div>
     <div class="pure-u-1-2">
       <div
@@ -56,6 +71,7 @@
 <script>
 import { date, truncate } from "lib/vue/filters"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
+import InfoBlockLink from "./../commons/InfoBlockLink.vue";
 //Parse markdown to HTML
 const marked = require('marked');
 const TurndownService = require('turndown').default;
@@ -63,7 +79,8 @@ const TurndownService = require('turndown').default;
 export default {
   name: "Info",
   components: {
-    InfoBlockText
+    InfoBlockText,
+    InfoBlockLink,
   },
   filters: {
     convertDate(valueDate) {
@@ -87,6 +104,18 @@ export default {
       type: String,
       default: ''
     },
+    licenseDataset: {
+      type: String,
+      default: ''
+    },
+    sourceDataset: {
+      type: String,
+      default: ''
+    },
+    sourceDatasetUrl: {
+      type: String,
+      default: ''
+    },
     dateUpdated: {
       type: String,
       default: ''
@@ -102,6 +131,9 @@ export default {
       labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
       labelSubject: I18n.t("gobierto_data.projects.subject") || '',
       labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',
+      labelSource: I18n.t("gobierto_data.projects.sourceDataset") || '',
+      labelSourceUrl: I18n.t("gobierto_data.projects.sourceDatasetUrl") || '',
+      labelLicense: I18n.t("gobierto_data.projects.license") || '',
       seeMore: I18n.t("gobierto_common.vue_components.read_more.more") || '',
       seeLess: I18n.t("gobierto_common.vue_components.read_more.less") || '',
       truncateIsActive: true

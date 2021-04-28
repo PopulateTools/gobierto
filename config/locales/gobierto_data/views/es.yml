@@ -45,6 +45,7 @@ es:
       favs: Favoritas
       frequency: Frecuencia
       guide: Guía para usar el editor SQL
+      license: Licencia
       link: Enlace
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualización modificada
@@ -68,6 +69,8 @@ es:
       sets: Conjuntos
       showAll: Ver todo
       showLess: Ver menos
+      sourceDataset: Fuente
+      sourceDatasetUrl: Fuente url
       subject: Tema
       summary: Resumen
       updated: Actualizado

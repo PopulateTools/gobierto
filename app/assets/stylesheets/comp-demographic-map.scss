@@ -197,9 +197,6 @@
   font-weight: normal;
 }
 
-// NOTE: PurgeCSS removes d3 stuff dynamically generated
-
-/* purgecss start ignore */
 #bar-nationality.dc-chart {
   g.row {
 
@@ -369,7 +366,6 @@
   }
 }
 /* stylelint-enable */
-/* purgecss end ignore */
 
 #map {
   height: 100%;

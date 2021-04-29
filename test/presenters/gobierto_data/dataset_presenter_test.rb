@@ -15,7 +15,7 @@ module GobiertoData
 
     def test_structure_catalog_building_do_not_show_draft_datasets
       catalog = @subject.build_catalog
-      datasets_published = GobiertoData::Dataset.by_site(@site.id).visibles.size
+      datasets_published = @site.datasets.visibles.size
       assert_equal datasets_published, catalog[:datasets].size
     end
 

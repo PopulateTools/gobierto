@@ -4,5 +4,5 @@ ca:
     gobierto_data:
       catalog:
         description: Catàleg public de dades dels conjunts de dades publicades per%
-          {site}, a través de la URL% {publisher_url}
+          {site}, a través de la URL %{publisher_url}
         title: Catàleg DCAT de conjunts de dades de %{site} en format rdf/xml dcat

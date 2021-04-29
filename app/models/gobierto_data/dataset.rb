@@ -18,7 +18,6 @@ module GobiertoData
 
     scope :sorted, -> { order(data_updated_at: :desc) }
     scope :visibles, -> { where(visibility_level: "active") }
-    scope :by_site, ->(site_id) { where(site_id: site_id) }
 
     translates :name
 

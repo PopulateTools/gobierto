@@ -6,7 +6,7 @@
  xmlns:foaf="http://xmlns.com/foaf/0.1/"
  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
- xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><% cache @catalog do %>
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
  <dcat:Catalog rdf:about="https://data.some.org/catalog">
    <dct:identifier><%= @catalog[:identifier_uri] %></dct:identifier>
    <dct:title><%= @catalog[:title] %></dct:title>
@@ -34,7 +34,7 @@
        <dcat:distribution>
          <dcat:Distribution>
            <dct:identifier><%= @identifier_uri %></dct:identifier>
-           <dct:title><%= dataset[:title] %> in CSV format</dct:title>
+           <dct:title><%= dataset[:title] %></dct:title>
            <dct:description><%= dataset[:description] %></dct:description>
            <dcat:downloadURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"><%= distribution[:download_url] %></dcat:downloadURL>
            <dcat:mediaType><%= distribution[:format] %></dcat:mediaType>
@@ -43,5 +43,5 @@
        <% end %>
      </dcat:Dataset>
    </dcat:dataset><% end %>
- </dcat:Catalog><% end %>
+ </dcat:Catalog>
  </rdf:RDF>

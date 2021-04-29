@@ -58,7 +58,7 @@ module GobiertoData
     end
 
     def site_locale
-      site.configuration_data["default_locale"]
+      site.configuration.default_locale
     end
 
     def description_custom_field_record(dataset)

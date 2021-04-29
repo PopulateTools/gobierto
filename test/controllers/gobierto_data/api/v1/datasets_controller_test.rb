@@ -67,6 +67,10 @@ module GobiertoData
           @datasets_md_with_translations ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_md_with_translations)
         end
 
+        def datasets_descriptions
+          @datasets_descriptions ||= gobierto_common_custom_fields(:madrid_data_datasets_custom_field_description)
+        end
+
         def other_site_dataset
           @other_site_dataset ||= gobierto_data_datasets(:santander_dataset)
         end
@@ -93,7 +97,8 @@ module GobiertoData
             dataset.rails_model&.columns_hash&.transform_values(&:type)&.to_s,
             GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_category)&.value_string,
             GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_md_without_translations)&.value_string,
-            GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_md_with_translations)&.value_string
+            GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_md_with_translations)&.value_string || "",
+            GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_descriptions)&.value_string
           ]
         end
 
@@ -168,8 +173,9 @@ module GobiertoData
             parsed_csv = CSV.parse(response_data).map { |row| row.map(&:to_s) }
 
             assert_equal active_datasets_count + 1, parsed_csv.count
-            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations), parsed_csv.first
-            assert_includes parsed_csv, array_data(dataset)
+            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations description-datasets), parsed_csv.first
+
+            assert_includes parsed_csv.drop(1).take(1), array_data(dataset)
             refute_includes parsed_csv, array_data(other_site_dataset)
           end
         end
@@ -202,7 +208,7 @@ module GobiertoData
             assert_equal 1, parsed_xlsx.worksheets.count
             sheet = parsed_xlsx.worksheets.first
             assert_nil sheet[active_datasets_count + 1]
-            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations), sheet[0].cells.map(&:value)
+            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations description-datasets), sheet[0].cells.map(&:value)
             values = (1..active_datasets_count).map do |row_number|
               sheet[row_number].cells.map { |cell| cell.value.to_s }
             end
@@ -315,9 +321,31 @@ module GobiertoData
             parsed_csv = CSV.parse(response_data).map { |row| row.map(&:to_s) }
 
             assert_equal active_datasets_count + 1, parsed_csv.count
-            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations), parsed_csv.first
+            assert_equal %w(id name slug table_name data_updated_at columns category md-without-translations md-with-translations description-datasets), parsed_csv.first
             assert_includes parsed_csv, array_data(dataset)
             refute_includes parsed_csv, array_data(other_site_dataset)
+          end
+        end
+
+        def test_catalog
+          with(site: site) do
+            get catalog_gobierto_data_api_v1_datasets_path(format: :xml), as: :xml
+            assert_response :success
+
+            response_xml = response.parsed_body
+            expected =  File.read("test/fixtures/gobierto_data/catalog.xml")
+            assert_equal response_xml, expected
+          end
+        end
+
+        def test_catalog_dont_show_draft_dataset
+          with(site: site) do
+            get catalog_gobierto_data_api_v1_datasets_path(format: :xml), as: :xml
+            assert_response :success
+            response_xml = response.parsed_body
+
+            refute_includes response_xml, 'Interest Groups'
+            refute_includes response_xml, 'Grupos de Interés'
           end
         end
 

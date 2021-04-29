@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import { getRemoteData } from "../webapp/lib/utils";
+import { EventBus } from "../webapp/mixins/event_bus";
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -97,6 +98,14 @@ export class CostsController {
           router,
           data: Object.assign(options, this.data)
         }).$mount(entryPoint);
+
+        EventBus.$on("mounted", () => {
+          // Hide the external loader once the vueApp has been mounted in the DOM
+          const loadingElement = document.querySelector(".js-loading");
+          if (loadingElement) {
+            loadingElement.classList.add("hidden");
+          }
+        });
       });
     }
   }

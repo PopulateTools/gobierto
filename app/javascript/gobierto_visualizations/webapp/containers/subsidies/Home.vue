@@ -12,8 +12,8 @@
           @active-tab="setActiveTab"
         />
         <main class="visualizations-home-main">
-          <Summary v-show="isSummary" />
-          <SubsidiesIndex v-show="isSubsidiesIndex" />
+          <Summary v-if="isSummary" />
+          <SubsidiesIndex v-if="isSubsidiesIndex" />
           <SubsidiesShow v-if="isSubsidiesShow" />
         </main>
       </div>
@@ -63,6 +63,13 @@ export default {
     });
     EventBus.$on("update-tab", () => this.updateTab());
     EventBus.$on("update-filters", () => this.updateFilters());
+  },
+  mounted() {
+    // Hide the external loader once the vueApp has been mounted in the DOM
+    const loadingElement = document.querySelector(".js-loading");
+    if (loadingElement) {
+      loadingElement.classList.add("hidden");
+    }
   },
   methods: {
     setActiveTab(tabIndex) {

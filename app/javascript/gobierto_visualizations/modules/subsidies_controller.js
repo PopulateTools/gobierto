@@ -113,6 +113,14 @@ export class SubsidiesController {
         EventBus.$once("moved-to-summary", () => {
           this._redrawCharts();
         });
+
+        EventBus.$on("mounted", () => {
+          // Hide the external loader once the vueApp has been mounted in the DOM
+          const loadingElement = document.querySelector(".js-loading");
+          if (loadingElement) {
+            loadingElement.classList.add("hidden");
+          }
+        });
       });
     }
   }

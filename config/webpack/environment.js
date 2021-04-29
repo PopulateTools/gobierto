@@ -21,21 +21,10 @@ environment.loaders.delete('nodeModules')
 
 // plugins
 const webpack = require('webpack')
-const glob = require('glob-all')
-const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
-const PurgeCSSPlugin = require('purgecss-webpack-plugin')
 
 environment.plugins.append('VueLoaderPlugin', new VueLoaderPlugin())
-environment.plugins.append('PurgeCSSPlugin', new PurgeCSSPlugin({
-  paths: glob.sync([
-    path.join(__dirname, '../../app/views/**/*.erb'),
-    path.join(__dirname, '../../app/javascript/**/*.js'),
-    path.join(__dirname, '../../app/javascript/**/*.vue')
-  ]),
-  safelist: [/leaflet/, /marker/]
-}))
 environment.plugins.append(
   "Provide",
   new webpack.ProvidePlugin({

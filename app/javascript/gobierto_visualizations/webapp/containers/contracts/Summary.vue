@@ -153,6 +153,7 @@
       <Table
         :data="tableItems"
         :sort-column="'count'"
+        :sort-direction="'desc'"
         :columns="assigneesColumns"
         :show-columns="showColumns"
         class="gobierto-table-margin-top"

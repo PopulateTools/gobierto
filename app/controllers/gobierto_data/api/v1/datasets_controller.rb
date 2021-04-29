@@ -15,8 +15,8 @@ module GobiertoData
         def catalog
           @catalog = DatasetPresenter.new(current_site).build_catalog
           respond_to do |format|
-              format.xml
-            end
+            format.xml
+          end
         end
 
         # GET /api/v1/data/datasets

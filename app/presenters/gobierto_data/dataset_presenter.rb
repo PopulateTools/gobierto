@@ -1,6 +1,7 @@
 module GobiertoData
   class DatasetPresenter
     include ActionView::Helpers::UrlHelper
+    include ActionView::Helpers::TranslationHelper
 
     attr_reader :site
 
@@ -11,13 +12,12 @@ module GobiertoData
     def build_catalog
       catalog = {
         identifier_uri: url_helpers.gobierto_data_root_url(host: site.domain),
-        title:          "dcat catalog for #{site}",
-        description:    "this is catalog published by #{@catalog_identifier_uri} which contains datasets",
+        title:          I18n.t('presenters.gobierto_data.catalog.title',site: site),
+        description:    I18n.t('presenters.gobierto_data.catalog.description',site: site, publisher_url: url_helpers.gobierto_data_root_url(host: site.domain)),
         issued:         site.created_at,
-        modified:       GobiertoData::Dataset.where(site_id: site.id).maximum(:created_at) || site.created_at,
-        languages:      site["configuration_data"]["available_locales"],
+        modified:       site.updated_at,
+        language:       site_locale,
         homepage:       url_helpers.gobierto_data_root_url(host: site.domain),
-        license_url:    "https://opendatacommons.org/licenses/odbl/",
         datasets:       build_datasets_for_catalog
       }
     end
@@ -25,34 +25,30 @@ module GobiertoData
     private
 
     def build_datasets_for_catalog
-      datasets = []
-      Dataset.where(site_id: site.id).visibles.each do |dataset|
-        datasets <<  build_dataset_for_catalog(dataset)
+      site.datasets.visibles.map do |dataset|
+        build_dataset_for_catalog(dataset)
       end
-      datasets
     end
 
     def build_dataset_for_catalog(dataset)
       {
-        url: url_helpers.gobierto_data_datasets_url(host: site.domain, id: dataset.slug),
-        title: dataset.name,
-        description: description_custom_field_record(dataset),
-        keywords: [],
-        issued: dataset.created_at,
-        modified: dataset.updated_at,
-        languages: [site_locale],
-        license_url: "https://opendatacommons.org/licenses/odbl/",
-        publisher:  site.name,
+        url:            url_helpers.gobierto_data_datasets_url(host: site.domain, id: dataset.slug),
+        title:          dataset.name,
+        description:    description_custom_field_record(dataset),
+        issued:         dataset.created_at,
+        modified:       dataset.updated_at,
+        languages:      [site_locale],
+        publisher:      site.name,
         publisher_mbox: site.reply_to_email,
-        distributions: build_distribution_for_catalog(dataset)
+        distributions:  build_distribution_for_catalog(dataset)
       }
     end
 
     def build_distribution_for_catalog(dataset)
       [
         {
-          format: 'application/csv',
-          download_url: url_helpers.download_gobierto_data_api_v1_dataset_url(dataset, host: site.domain)
+          format:       'application/csv',
+          download_url: url_helpers.download_gobierto_data_api_v1_dataset_url(slug: dataset.slug, host: site.domain)
         }
       ]
     end

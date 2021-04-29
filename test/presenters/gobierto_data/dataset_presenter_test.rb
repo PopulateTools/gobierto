@@ -26,19 +26,16 @@ module GobiertoData
       assert catalog.has_key? :description
       assert catalog.has_key? :issued
       assert catalog.has_key? :modified
-      assert catalog.has_key? :languages
+      assert catalog.has_key? :language
       assert catalog.has_key? :homepage
-      assert catalog.has_key? :license_url
       assert catalog.has_key? :datasets
       catalog[:datasets].each do |dataset|
         assert dataset.has_key? :url
         assert dataset.has_key? :title
         assert dataset.has_key? :description
-        assert dataset.has_key? :keywords
         assert dataset.has_key? :issued
         assert dataset.has_key? :modified
         assert dataset.has_key? :languages
-        assert dataset.has_key? :license_url
         assert dataset.has_key? :publisher
         assert dataset.has_key? :publisher_mbox
         assert dataset.has_key? :distributions

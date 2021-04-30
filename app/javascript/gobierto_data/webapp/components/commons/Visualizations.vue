@@ -10,7 +10,7 @@ import "@finos/perspective-viewer";
 import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
 import "@finos/perspective-viewer/themes/all-themes.css";
-import "perspective-map-plugin";
+import "perspective-map";
 
 export default {
   name: "Visualizations",

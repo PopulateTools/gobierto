@@ -11,6 +11,7 @@ import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
 import "@finos/perspective-viewer/themes/all-themes.css";
 import "perspective-map";
+import "leaflet/dist/leaflet.css";
 
 export default {
   name: "Visualizations",

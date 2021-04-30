@@ -13,10 +13,10 @@
         />
         <main class="visualizations-home-main">
           <Summary
-            v-show="isSummary"
+            v-if="isSummary"
             :active-tab="activeTabIndex"
           />
-          <ContractsIndex v-show="isContractsIndex" />
+          <ContractsIndex v-if="isContractsIndex" />
           <ContractsShow v-if="isContractsShow" />
           <AssigneesShow v-if="isAssigneesShow" />
         </main>

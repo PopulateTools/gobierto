@@ -2,6 +2,10 @@
   <%= javascript_packs_with_chunks_tag 'budgets', 'data-turbolinks-track': true %>
 <% end %>
 
+<% content_for :stylesheet_module_link do %>
+  <%= stylesheet_packs_with_chunks_tag 'budgets' %>
+<% end %>
+
 <% content_for :body_attributes do %>
   <%= data_attributes %>
 <% end %>

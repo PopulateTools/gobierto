@@ -1,6 +1,6 @@
 import 'velocity-animate'
-import "../../assets/stylesheets/module-planification.scss"
-import "../../assets/stylesheets/module-planification-custom.scss"
+import "../../assets/stylesheets/module-plans.scss"
+import "../../assets/stylesheets/module-plans-custom.scss"
 
 import { GobiertoPlansController } from "./modules/plan_types_controller";
 

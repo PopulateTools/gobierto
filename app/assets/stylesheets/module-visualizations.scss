@@ -1,6 +1,7 @@
 @import "css-conf";
 @import "mixins";
 @import "dc/dist/style/dc.css";
+@import "comp-metric_boxes";
 @import "comp-graph-dc";
 @import "comp-block-checkbox";
 @import "comp-block-header";
@@ -10,6 +11,8 @@
 @import "comp-vue-treemap-nested";
 @import "comp-vue-multiple-lines";
 @import "comp-vue-table";
+@import "comp-vue-transitions";
+@import "comp-graph-vis_bubbles";
 
 :root {
   --green-table--first: rgba(33, 150, 83, .1);

@@ -1,6 +1,7 @@
 @import "css-conf";
 @import "mixins";
 @import "comp-block-checkbox";
+@import "comp-vue-transitions";
 
 .investments {
   @include min-screen(768) {

@@ -10,7 +10,21 @@ module GobiertoData
     include GobiertoData::Favoriteable
     include GobiertoAttachments::Attachable
     include GobiertoCommon::Collectionable
+    include GobiertoCommon::Searchable
     include GobiertoCommon::HasCustomFieldRecords
+
+    multisearchable(
+      against: [:name_translations ,:name_en, :name_es],
+      additional_attributes: lambda { |item|
+        {
+          site_id: item.site_id,
+          title_translations: item.truncated_translations(:name),
+          resource_path: item.dataset_path,
+          searchable_updated_at: item.updated_at
+        }
+      },
+      if: :searchable?
+    )
 
     belongs_to :site
     has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"
@@ -43,6 +57,10 @@ module GobiertoData
 
     def available_formats
       [:csv]
+    end
+
+    def dataset_path
+      url_helpers.gobierto_data_datasets_path(id: slug)
     end
 
     def rails_model

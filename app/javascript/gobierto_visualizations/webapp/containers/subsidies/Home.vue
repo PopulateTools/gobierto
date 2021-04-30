@@ -12,8 +12,8 @@
           @active-tab="setActiveTab"
         />
         <main class="visualizations-home-main">
-          <Summary v-show="isSummary" />
-          <SubsidiesIndex v-show="isSubsidiesIndex" />
+          <Summary v-if="isSummary" />
+          <SubsidiesIndex v-if="isSubsidiesIndex" />
           <SubsidiesShow v-if="isSubsidiesShow" />
         </main>
       </div>
@@ -63,6 +63,9 @@ export default {
     });
     EventBus.$on("update-tab", () => this.updateTab());
     EventBus.$on("update-filters", () => this.updateFilters());
+  },
+  mounted() {
+    EventBus.$emit("mounted");
   },
   methods: {
     setActiveTab(tabIndex) {

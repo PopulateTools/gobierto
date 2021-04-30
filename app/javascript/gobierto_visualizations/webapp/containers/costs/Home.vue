@@ -53,6 +53,8 @@
 <script>
 import Distribution from './Distribution.vue'
 import Table from './table/Table.vue'
+import { EventBus } from "../../mixins/event_bus";
+
 export default {
   name: 'Home',
   components: {
@@ -107,6 +109,7 @@ export default {
   },
   mounted() {
     this.injectRouter()
+    EventBus.$emit("mounted");
   },
   methods: {
     onChangeFilterYear(value) {

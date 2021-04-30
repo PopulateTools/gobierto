@@ -1,11 +1,14 @@
+@import "css-conf";
+@import "mixins";
+@import "populities";
 @import "comp-text_content";
 @import "comp-timeline";
 @import "comp-content";
+@import "comp-contributions";
+@import "comp-agenda";
+@import "comp-activity";
+@import "comp-modals";
 
-/*
- * Consultations
- *
- */
 .consultation_list {
   .consultation {
     width: 48%;

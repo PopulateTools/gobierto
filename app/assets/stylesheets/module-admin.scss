@@ -1,8 +1,14 @@
+@import "css-conf";
+@import "mixins";
+@import "populities";
 @import "comp-indicator_widget";
 @import "comp-tabs";
 @import "jsgrid/dist/jsgrid.css";
 @import "jsgrid/dist/jsgrid-theme.css";
 @import "comp-jsgrid";
+@import "comp-activity";
+@import "comp-modals";
+@import "comp-magnific-popup-animations";
 
 /* colors */
 header.main,

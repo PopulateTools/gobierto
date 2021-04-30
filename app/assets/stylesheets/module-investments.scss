@@ -2,6 +2,10 @@
 @import "mixins";
 @import "comp-block-checkbox";
 @import "comp-vue-transitions";
+@import "comp-magnific-popup-animations";
+@import "comp-horizontal-carousel";
+@import "comp-range-slider";
+@import "comp-read-more";
 
 .investments {
   @include min-screen(768) {

@@ -1,4 +1,9 @@
+@import "css-conf";
+@import "populities";
 @import "comp-tabs";
+@import "comp-lists";
+@import "comp-agenda";
+@import "comp-modals";
 
 body.gobierto_people {
   .block + .person-item {

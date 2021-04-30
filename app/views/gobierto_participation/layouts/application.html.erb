@@ -8,6 +8,10 @@
   <%= javascript_packs_with_chunks_tag 'participation', 'data-turbolinks-track': true %>
 <% end %>
 
+<% content_for :stylesheet_module_link do %>
+  <%= stylesheet_packs_with_chunks_tag 'participation' %>
+<% end %>
+
 <% unless try(:current_process).nil? %>
   <% content_for :subscribable_button do %>
     <%= render 'user/subscriptions/subscribable_button', subscribable: current_process %>

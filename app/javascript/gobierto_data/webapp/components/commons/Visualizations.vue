@@ -5,11 +5,12 @@
   />
 </template>
 <script>
+import perspective from "@finos/perspective";
 import "@finos/perspective-viewer";
 import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
 import "@finos/perspective-viewer/themes/all-themes.css";
-import "lib/perspective-viewer-map";
+import "perspective-map-plugin";
 
 export default {
   name: "Visualizations",
@@ -108,7 +109,8 @@ export default {
 
       this.hideConfigButton()
 
-      this.viewer.load(data)
+      const table = perspective.worker().table(data);
+      this.viewer.load(table)
     },
     getConfig() {
       // export the visualization configuration object

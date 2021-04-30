@@ -1,4 +1,4 @@
-import { registerPlugin } from "@finos/perspective-viewer/dist/esm/utils.js";
+import { registerPlugin } from "@finos/perspective-viewer/src/js/utils.js";
 import L from "leaflet"
 import { feature } from "topojson-client"
 import "../../../assets/stylesheets/comp-perspective-viewer-map.css"

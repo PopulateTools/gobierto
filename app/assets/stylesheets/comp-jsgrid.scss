@@ -1,0 +1,17 @@
+.jsgrid {
+  .jsgrid-filter-row {
+    input {
+      height: 30px;
+    }
+  }
+
+  .jsgrid-cell {
+    &.break {
+      word-break: break-all;
+    }
+  }
+
+  input[type="checkbox"] {
+    display: inline-block;
+  }
+}

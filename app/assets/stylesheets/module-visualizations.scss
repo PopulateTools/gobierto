@@ -1,5 +1,7 @@
 @import "css-conf";
 @import "mixins";
+@import "dc/dist/style/dc.css";
+@import "comp-graph-dc";
 @import "comp-block-checkbox";
 @import "comp-block-header";
 @import "comp-vue-dropdown";

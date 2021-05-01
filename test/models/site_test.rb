@@ -6,10 +6,9 @@ class SiteTest < ActiveSupport::TestCase
   def setup
     super
     @module_seeder_spy = Spy.on(GobiertoCommon::GobiertoSeeder::ModuleSeeder, :seed)
-    @module_site_seeder_spy = Spy.on(GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder, :seed)
   end
 
-  attr_reader :module_seeder_spy, :module_site_seeder_spy
+  attr_reader :module_seeder_spy
 
   def first_call_arguments
     recipe_spy.calls.first.args
@@ -107,9 +106,7 @@ class SiteTest < ActiveSupport::TestCase
     site.save!
 
     assert module_seeder_spy.has_been_called?
-    assert module_site_seeder_spy.has_been_called?
     assert_equal ["GobiertoBudgets", site], module_seeder_spy.calls.first.args
-    assert_equal ["gobierto_populate", "GobiertoBudgets", site], module_site_seeder_spy.calls.first.args
   end
 
   def test_seeder_called_after_modules_updated
@@ -118,9 +115,7 @@ class SiteTest < ActiveSupport::TestCase
     santander.configuration_data = configuration_data
     santander.save!
     assert module_seeder_spy.has_been_called?
-    assert module_site_seeder_spy.has_been_called?
     assert_equal ["GobiertoObservatory", santander], module_seeder_spy.calls.first.args
-    assert_equal ["gobierto_populate", "GobiertoObservatory", santander], module_site_seeder_spy.calls.first.args
   end
 
   def test_invalid_if_municipality_blank

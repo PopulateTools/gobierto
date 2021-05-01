@@ -6,15 +6,14 @@ Capybara.register_driver :chrome do |app|
 end
 
 Capybara.register_driver :headless_chrome do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w(headless disable-gpu) }
-  )
+  options = ::Selenium::WebDriver::Chrome::Options.new
+  options.args << "--headless"
+  options.args << "--no-sandbox"
+  options.args << "--window-size=1920,3000"
 
   Capybara::Selenium::Driver.new(
     app,
     browser: :chrome,
-    desired_capabilities: capabilities,
-    clear_local_storage: true,
-    clear_session_storage: true
+    options: options
   )
 end

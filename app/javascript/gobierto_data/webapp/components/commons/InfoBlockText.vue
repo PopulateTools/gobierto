@@ -17,7 +17,7 @@
       </a>
     </template>
     <template v-else-if="hasSource">
-      <template v-if="sourceUrl !== undefined">
+      <template v-if="hasSourceUrl">
         <a
           :href="sourceUrl"
           class="gobierto-data-summary-header-container-text"
@@ -90,6 +90,9 @@ export default {
     },
     hasSource(){
       return this.source !== undefined
+    },
+    hasSourceUrl() {
+      return this.source.url !== undefined && this.source.url !== ""
     }
   },
   created() {

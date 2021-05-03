@@ -22,20 +22,19 @@
         :label="labelSubject"
         :text="categoryDataset"
       />
-      <InfoBlockLink
-        v-if="sourceDataset"
+      <InfoBlockText
+        v-if="hasSourceDataset"
         icon="building"
         opacity=".25"
         :label="labelSource"
-        :text="sourceDataset"
-        :url="sourceDatasetUrl"
+        :license="sourceDataset"
       />
       <InfoBlockText
         v-if="licenseDataset"
         icon="certificate"
         opacity=".25"
         :label="labelLicense"
-        :text="licenseDataset"
+        :license="licenseDataset"
       />
     </div>
     <div class="pure-u-1-2">
@@ -71,7 +70,6 @@
 <script>
 import { date, truncate } from "lib/vue/filters"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
-import InfoBlockLink from "./../commons/InfoBlockLink.vue";
 //Parse markdown to HTML
 const marked = require('marked');
 const TurndownService = require('turndown').default;
@@ -79,8 +77,7 @@ const TurndownService = require('turndown').default;
 export default {
   name: "Info",
   components: {
-    InfoBlockText,
-    InfoBlockLink,
+    InfoBlockText
   },
   filters: {
     convertDate(valueDate) {
@@ -105,16 +102,12 @@ export default {
       default: ''
     },
     licenseDataset: {
-      type: String,
-      default: ''
+      type: Object,
+      default: () => {}
     },
     sourceDataset: {
-      type: String,
-      default: ''
-    },
-    sourceDatasetUrl: {
-      type: String,
-      default: ''
+      type: Object,
+      default: () => {}
     },
     dateUpdated: {
       type: String,
@@ -155,6 +148,9 @@ export default {
     },
     checkStringLength() {
       return this.descriptionDataset.length > 250
+    },
+    hasSourceDataset() {
+      return this.sourceDataset.es !== '' || this.sourceDataset.url !== ''
     }
   },
   methods: {

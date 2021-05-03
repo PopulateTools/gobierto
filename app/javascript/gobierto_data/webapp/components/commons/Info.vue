@@ -150,7 +150,7 @@ export default {
       return this.descriptionDataset.length > 250
     },
     hasSourceDataset() {
-      return this.sourceDataset?.text !== '' || (this.sourceDataset?.text !== '' && this.sourceDataset?.url !== '')
+      return this.sourceDataset?.text !== undefined || (this.sourceDataset?.text !== undefined && this.sourceDataset?.url !== '')
     },
     hasLicenseDataset() {
       return this.licenseDataset?.text !== undefined && this.licenseDataset?.url !== undefined

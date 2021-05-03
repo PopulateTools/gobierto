@@ -28,7 +28,6 @@
         :category-dataset="category"
         :frequency-dataset="frequency"
         :date-updated="data_updated_at"
-        :license-dataset="datasetLicense"
       />
     </div>
   </div>

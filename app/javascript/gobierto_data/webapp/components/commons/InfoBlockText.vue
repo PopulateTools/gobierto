@@ -8,18 +8,26 @@
     <span class="gobierto-data-summary-header-container-label">
       {{ label }}
     </span>
-    <template v-if="isAnObject">
-      <template v-if="hasUrl">
+    <template v-if="hasLicense">
+      <a
+        :href="licenseUrl | translate"
+        class="gobierto-data-summary-header-container-text"
+      >
+        {{ licenseText | translate }}
+      </a>
+    </template>
+    <template v-else-if="hasSource">
+      <template v-if="sourceUrl !== undefined">
         <a
-          :href="url"
+          :href="sourceUrl"
           class="gobierto-data-summary-header-container-text"
         >
-          {{ license | translate }}
+          {{ sourceText }}
         </a>
       </template>
       <template v-else>
         <span class="gobierto-data-summary-header-container-text">
-          {{ license | translate }}
+          {{ sourceText }}
         </span>
       </template>
     </template>
@@ -60,27 +68,44 @@ export default {
       default: 'inherit'
     },
     license: {
-      type: [String, Object],
-      default: ''
+      type: Object,
+      default: () => {}
+    },
+    source: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
     return {
-      url: null
+      licenseText: '',
+      licenseUrl: '',
+      sourceText: '',
+      sourceUrl: '',
     }
   },
   computed: {
-    isAnObject(){
-      return typeof this.license === 'object'
+    hasLicense(){
+      return this.license !== undefined
     },
-    hasUrl(){
-      return this.license.url !== ''
+    hasSource(){
+      return this.source !== undefined
     }
   },
   created() {
-    ({
-      url: this.url
-    } = this.license)
+    if (this.license) {
+      ({
+        text: this.licenseText,
+        url: this.licenseUrl,
+      } = this.license )
+    }
+
+    if (this.source) {
+      ({
+        text: this.sourceText,
+        url: this.sourceUrl,
+      } = this.source)
+    }
   }
 }
 </script>

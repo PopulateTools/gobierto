@@ -12,62 +12,23 @@
  * Vendor libraries
  *
  */
-@import "pure-min";
-@import "pure-grids-responsive-min";
-@import "magnific-popup";
-@import "jquery-ui";
-@import "datepicker.min";
-@import "simplemde.min";
-@import "jqtree";
-@import "codemirror/addon/fold/foldgutter";
-@import "select2.min";
-@import "cropper";
-@import "cropper.min";
-@import "jquery.minicolors";
-@import "slick.grid.variables";
-@import "slick-default-theme";
-@import "slick.grid";
+@import "vendor/pure-min";
+@import "vendor/pure-grids-responsive-min";
+
+// @import "codemirror/addon/fold/foldgutter";
 
 /*
- * Gobierto libraries
- *
- */
-@import "populities";
-
-/*
- * Helpers
- *
- */
-@import "mixins";
-
-/*
- * Gobierto components
+ * Gobierto base and themes configuration
  *
  */
 @import "css-conf";
-@import "comp-breadcrumbs";
-@import "comp-flash_messages";
-@import "comp-filters";
-@import "comp-forms";
-@import "comp-headings_blocks";
-@import "comp-layout";
-@import "comp-lists";
-@import "comp-metric_boxes";
-@import "comp-modals";
-@import "comp-site_header";
-@import "comp-social_buttons";
-@import "comp-tables";
-@import "comp-tabs";
-@import "comp-text_content";
-@import "comp-sortable";
-@import "comp-dyna_block";
-@import "comp-indicator_widget";
-@import "comp-simplemde_editor";
-@import "comp-magnific-popup-animations";
-@import "comp-tipsy";
-@import "module-admin";
-@import "module-consultations";
-@import "css-print";
+@import "mixins";
+
+/*
+ * Print styles
+ *
+ */
+ @import "css-print";
 
 /*
  * Fonts

@@ -12,24 +12,8 @@
  * Vendor libraries
  *
  */
-@import "pure-min"; // general? 
-@import "pure-grids-responsive-min"; // general? 
-
-/*
-DEBUG
-
-@import "magnific-popup"; // admin, dashboards, investments 
-@import "datepicker.min"; // admin, gencat, plans, participation, people, investments 
-@import "simple_calendar"; // unused? 
-@import "fullcalendar.min"; // people 
-@import "lightbox"; // investments, participation 
-*/
-
-/*
- * Helpers
- *
- @import "mixins";
- */
+@import "vendor/pure-min";
+@import "vendor/pure-grids-responsive-min";
 
 /*
  * Gobierto base and themes configuration
@@ -38,25 +22,25 @@ DEBUG
 @import "css-conf";
 
 /*
- * Gobierto components
+ * Gobierto base
  *
  */
 @import "populities";
-@import "comp-breadcrumbs"; // general? 
-@import "comp-forms"; // admin, user (general?) 
-@import "comp-headings_blocks"; // general? 
-@import "comp-layout"; // general? 
-@import "comp-site_header"; // general? 
-@import "comp-search"; // general? 
-@import "comp-tables"; // general? 
-@import "comp-header_block_inline"; // general? 
+@import "comp-breadcrumbs";
+@import "comp-forms";
+@import "comp-headings_blocks";
+@import "comp-layout";
+@import "comp-site_header";
+@import "comp-search";
+@import "comp-tables";
+@import "comp-header_block_inline";
 @import "comp-social_buttons";
 @import "comp-tipsy";
+@import "comp-flash_messages";
 
 /*
 DEBUG
 
-@import "comp-flash_messages"; // unused? 
 @import "comp-cms"; // unused? 
 */
 

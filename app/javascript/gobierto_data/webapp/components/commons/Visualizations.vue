@@ -91,18 +91,6 @@ export default {
         data = this.items.replace(/"t"/g, '"true"').replace(/"f"/g, '"false"')
       }
 
-      // const schema = this.objectColumns
-
-      // Object.keys(schema).forEach((key) => {
-      //   if (['text', 'hstore', 'jsonb', 'tsvector'].includes(schema[key])) {
-      //     schema[key] = 'string'
-      //   } else if (schema[key] === 'decimal') {
-      //     schema[key] = 'float'
-      //   } else if (schema[key] === 'inet') {
-      //     schema[key] = 'integer'
-      //   }
-      // });
-
       if (this.config) {
         // requires wait for the config to be loaded
         await this.setConfig()

@@ -11,6 +11,7 @@
     <template v-if="hasLicense">
       <a
         :href="licenseUrl | translate"
+        target="_blank"
         class="gobierto-data-summary-header-container-text"
       >
         {{ licenseText | translate }}
@@ -20,6 +21,7 @@
       <template v-if="hasSourceUrl">
         <a
           :href="sourceUrl"
+          target="_blank"
           class="gobierto-data-summary-header-container-text"
         >
           {{ sourceText }}

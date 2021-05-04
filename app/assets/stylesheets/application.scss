@@ -36,9 +36,6 @@ DEBUG
  *
  */
 @import "css-conf";
-<% Rails.application.config.engine_sass_config_overrides.each do |config| %>
-  @import "<%= config %>";
-<% end %>
 
 /*
  * Gobierto components
@@ -61,11 +58,6 @@ DEBUG
 
 @import "comp-flash_messages"; // unused? 
 @import "comp-cms"; // unused? 
-@import "comp-graph-rowchart"; // gencat 
-@import "comp-graph-punchcard"; // gencat 
-@import "comp-graph-tooltip"; // gencat 
-@import "comp-graph-areachart"; // gencat 
-@import "module-people"; // gencat 
 */
 
 /*

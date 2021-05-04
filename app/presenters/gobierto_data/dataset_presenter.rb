@@ -34,10 +34,12 @@ module GobiertoData
       {
         url:            url_helpers.gobierto_data_datasets_url(host: site.domain, id: dataset.slug),
         title:          dataset.name,
-        description:    description_custom_field_record(dataset),
+        description:    description_from_custom_field_record(dataset),
+        keyword:        category_from_custom_field_record(dataset),
         issued:         dataset.created_at,
         modified:       dataset.updated_at,
         languages:      [site_locale],
+        license_url:    license_url_from_custom_field_record(dataset),
         publisher:      site.name,
         publisher_mbox: site.reply_to_email,
         distributions:  build_distribution_for_catalog(dataset)
@@ -61,12 +63,31 @@ module GobiertoData
       site.configuration.default_locale
     end
 
-    def description_custom_field_record(dataset)
+    def description_from_custom_field_record(dataset)
       if dataset.custom_field_record_with_uid("description")
         dataset.custom_field_record_with_uid("description").payload["description"][site_locale]
       else
         ""
       end
     end
+
+    def license_url_from_custom_field_record(dataset)
+      custom_field_record = dataset.custom_field_record_with_uid('dataset-license')
+      if !custom_field_record.nil? && !custom_field_record.payload["dataset-license"].blank?
+        site.terms.find_by(id: custom_field_record.payload["dataset-license"])[:description_translations][site_locale]
+      else
+        ""
+      end
+    end
+
+    def category_from_custom_field_record(dataset)
+      custom_field_record = dataset.custom_field_record_with_uid("category")
+      if !custom_field_record.nil? && !custom_field_record.payload["category"].blank?
+        site.terms.find_by(id: custom_field_record.payload["category"])[:name_translations][site_locale]
+      else
+        ""
+      end
+    end
+
   end
 end

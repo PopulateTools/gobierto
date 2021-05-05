@@ -70,9 +70,7 @@ export default {
 
       this.viewer.setAttribute("columns", JSON.stringify(columns.split(",")))
       if (this.configMap) {
-        const { metric, zoom = false } = this.configMap
-        this.viewer.setAttribute("metric", metric || "")
-        this.viewer.setAttribute("zoom", zoom || "")
+        this.viewer.setAttribute("config-map", JSON.stringify(this.configMap))
       }
 
       if (columns !== data) {

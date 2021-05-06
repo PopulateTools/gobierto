@@ -20,9 +20,9 @@ module GobiertoData
           catalog[:issued] = site.created_at.iso8601
           catalog[:modified] = site.updated_at.iso8601
           catalog[:homepage] = url_helpers.gobierto_data_root_url(host: site.domain)
-          catalog[:publisher] = catalog_record_from_custom_field("catalog-publisher")
-          catalog[:spatials] = catalog_record_from_custom_field("catalog-spatials")
-          catalog[:theme] =  catalog_record_from_custom_field("catalog-theme-taxonomy")
+          catalog[:publisher] = site.configuration.configuration_variables["gobierto_data_catalog_organism"] || ""
+          catalog[:spatials] = site.configuration.configuration_variables["gobierto_data_spatials"] || []
+          catalog[:theme] =  site.configuration.configuration_variables["gobierto_data_theme_taxonomy"] || ""
           catalog[:datasets] = build_datasets_for_catalog
       end
     end
@@ -111,15 +111,5 @@ module GobiertoData
         ["", ""]
       end
     end
-
-    def catalog_record_from_custom_field(uid)
-      custom_field = site.custom_fields.find_by(uid: uid)
-      if custom_field
-        site.custom_field_records.find_by(custom_field_id: custom_field.id)&.payload["no-translatable"]
-      else
-        []
-      end
-    end
-
   end
 end

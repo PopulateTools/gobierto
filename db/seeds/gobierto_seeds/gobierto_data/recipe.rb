@@ -123,54 +123,20 @@ module GobiertoSeeds
           license.save
         end
 
-        publisher_organism = site.custom_fields.string.where(class_name: "Site").find_or_initialize_by(uid: "catalog-publisher")
-        if publisher_organism.new_record?
-          publisher_organism.name_translations = { ca: "URL Organisme publicador", en: "Organism publisher URL", es: "URL Organisme publicador" }
-          publisher_organism.position = 1
-          publisher_organism.options = { configuration: {} }
-          publisher_organism.save
-
-          custom_field_record = GobiertoCommon::CustomFieldRecord.new
-          custom_field_record.item_type = "Site"
-          custom_field_record.item_id = site.id
-          custom_field_record.custom_field_id =  publisher_organism.id
-          custom_field_record.payload = { "no-translatable": "http://datos.gob.es/recurso/sector-publico/org/Organismo/L01280650" } # https://datos.gob.es/recurso/sector-publico/org/Organismo#search
-          custom_field_record.save
+        unless site.configuration.configuration_variables["gobierto_data_catalog_organism"].present?
+          extra_conf = {"gobierto_data_catalog_organism" => "https://datos.gob.es/es/recurso/sector-publico/org/Organismo/"}
+          site.configuration.raw_configuration_variables = YAML.load(site.configuration.raw_configuration_variables).merge(extra_conf).to_yaml
+          site.save
         end
-
-        publisher_spatial = site.custom_fields.string.where(class_name: "Site").find_or_initialize_by(uid: "catalog-spatials")
-        if publisher_spatial.new_record?
-          publisher_spatial.name_translations = { ca: "Organisme publicador spatials", en: "Organism publisher spatials", es: "URL Organisme spatials" }
-          publisher_spatial.position = 2
-          publisher_spatial.options = { configuration: {} }
-          publisher_spatial.save
-
-          custom_field_record = GobiertoCommon::CustomFieldRecord.new
-          custom_field_record.item_type = "Site"
-          custom_field_record.item_id = site.id
-          custom_field_record.custom_field_id = publisher_spatial.id
-          custom_field_record.payload = {"no-translatable": [
-            "http://datos.gob.es/recurso/sector-publico/territorio/Pais/España",
-            "http://datos.gob.es/recurso/sector-publico/territorio/Autonomia/Madrid",
-            "http://datos.gob.es/recurso/sector-publico/territorio/Provincia/Madrid",
-            "https://datos.gob.es/recurso/sector-publico/territorio/Ciudad/Getafe"       #FIXME
-          ]}
-          custom_field_record.save
+        unless site.configuration.configuration_variables["gobierto_data_spatials"].present?
+          extra_conf = { "gobierto_data_spatials" => [ "http://datos.gob.es/recurso/sector-publico/territorio/Pais/España", "http://datos.gob.es/recurso/sector-publico/territorio/Autonomia/Madrid", "http://datos.gob.es/recurso/sector-publico/territorio/Provincia/Madrid", "https://datos.gob.es/recurso/sector-publico/territorio/Ciudad/Getafe" ] }
+          site.configuration.raw_configuration_variables = YAML.load(site.configuration.raw_configuration_variables).merge(extra_conf).to_yaml
+          site.save
         end
-
-        publisher_taxonomy = site.custom_fields.string.where(class_name: "Site").find_or_initialize_by(uid: "catalog-theme-taxonomy")
-        if publisher_taxonomy.new_record?
-          publisher_taxonomy.name_translations = { ca: "Tema (taxonomia gob.es)", en: "Theme (taxonomia gob.es)", es: "Tema (taxonomia gob.es)" }
-          publisher_taxonomy.position = 3
-          publisher_taxonomy.options = { configuration: {} }
-          publisher_taxonomy.save
-
-          custom_field_record = GobiertoCommon::CustomFieldRecord.new
-          custom_field_record.item_type = "Site"
-          custom_field_record.item_id = site.id
-          custom_field_record.custom_field_id = publisher_taxonomy.id
-          custom_field_record.payload = { "no-translatable": "http://datos.gob.es/kos/sector-publico/sector/sector-publico" }
-          custom_field_record.save
+        unless site.configuration.configuration_variables["gobierto_data_theme_taxonomy"].present?
+          extra_conf = { "gobierto_data_theme_taxonomy" => "http://datos.gob.es/kos/sector-publico/sector/sector-publico"}
+          site.configuration.raw_configuration_variables = YAML.load(site.configuration.raw_configuration_variables).merge(extra_conf).to_yaml
+          site.save
         end
       end
 

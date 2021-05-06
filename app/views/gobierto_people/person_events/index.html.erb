@@ -51,7 +51,7 @@
           <div class="box">
             <div class="inner">
               <%= t(".displaying_events_of", date: l(@filtering_date, format: :short)) %>
-              <%= link_to t(".go_back"), [:gobierto_people, @person_event_scope, :events] %>
+              <%= link_to t(".go_back"), eval([:gobierto_people, @person_event_scope, :events, :path].compact.join("_")) %>
             </div>
           </div>
         <% end %>
@@ -67,7 +67,7 @@
             <div class="pure-u-1 pure-u-md-1-2">
 
               <h2 class="filter-option <%= class_if("active", !controller_name.include?("past_person_events")) %>">
-                <%= link_to_unless_current t(".upcoming_events"), [:gobierto_people, @person_event_scope, :events] %>
+                <%= link_to_unless_current t(".upcoming_events"), eval([:gobierto_people, @person_event_scope, :events, :path].compact.join("_")) %>
               </h2>
 
             </div>
@@ -75,7 +75,7 @@
             <div class="pure-u-1 pure-u-md-1-2 right">
 
               <h2 class="filter-option <%= class_if("active", controller_name.include?("past_person_events")) %>">
-                <%= link_to_unless_current t(".past_events"), [:gobierto_people, @person_event_scope, :past_events] %>
+                <%= link_to_unless_current t(".past_events"), eval([:gobierto_people, @person_event_scope, :past_events, :path].compact.join("_")) %>
               </h2>
 
             </div>

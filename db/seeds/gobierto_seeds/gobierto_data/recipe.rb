@@ -46,10 +46,10 @@ module GobiertoSeeds
           if vocabulary.new_record?
             vocabulary.name_translations = { ca: "Freqüència de conjunt de dades", en: "Dataset frequency", es: "Frecuencia de conjunto de datos" }
             vocabulary.save
-            vocabulary.terms.create(name_translations: { ca: "Anual", en: "Annual", es: "Anual" }, position: 1)
-            vocabulary.terms.create(name_translations: { ca: "Trimestral", en: "Quarterly", es: "Trimestral" }, position: 2)
-            vocabulary.terms.create(name_translations: { ca: "Mensual", en: "Monthly", es: "Mensual" }, position: 3)
-            vocabulary.terms.create(name_translations: { ca: "Diària", en: "Daily", es: "Diaria" }, position: 4)
+            vocabulary.terms.create(name_translations: { ca: "Anual",      en: "Annual",    es: "Anual" },      description_translations: { ca: 365, en: 365, es:  365 }, position: 1)
+            vocabulary.terms.create(name_translations: { ca: "Trimestral", en: "Quarterly", es: "Trimestral" }, description_translations: { ca: 120, en: 120, es: 120 }, position: 2)
+            vocabulary.terms.create(name_translations: { ca: "Mensual",    en: "Monthly",   es: "Mensual" },    description_translations: { ca:  30, en:  30, es:   30 }, position: 3)
+            vocabulary.terms.create(name_translations: { ca: "Diària",     en: "Daily",     es: "Diaria" },     description_translations: { ca:   1, en:   1, es:    1 }, position: 4)
           end
           frequency.name_translations = { ca: "Freqüència", en: "Frequency", es: "Frecuencia" }
           frequency.position = 2
@@ -122,7 +122,58 @@ module GobiertoSeeds
           }
           license.save
         end
+
+        publisher_organism = site.custom_fields.string.where(class_name: "Site").find_or_initialize_by(uid: "catalog-publisher")
+        if publisher_organism.new_record?
+          publisher_organism.name_translations = { ca: "URL Organisme publicador", en: "Organism publisher URL", es: "URL Organisme publicador" }
+          publisher_organism.position = 1
+          publisher_organism.options = { configuration: {} }
+          publisher_organism.save
+
+          custom_field_record = GobiertoCommon::CustomFieldRecord.new
+          custom_field_record.item_type = "Site"
+          custom_field_record.item_id = site.id
+          custom_field_record.custom_field_id =  publisher_organism.id
+          custom_field_record.payload = { "no-translatable": "http://datos.gob.es/recurso/sector-publico/org/Organismo/L01280650" } # https://datos.gob.es/recurso/sector-publico/org/Organismo#search
+          custom_field_record.save
+        end
+
+        publisher_spatial = site.custom_fields.string.where(class_name: "Site").find_or_initialize_by(uid: "catalog-spatials")
+        if publisher_spatial.new_record?
+          publisher_spatial.name_translations = { ca: "Organisme publicador spatials", en: "Organism publisher spatials", es: "URL Organisme spatials" }
+          publisher_spatial.position = 2
+          publisher_spatial.options = { configuration: {} }
+          publisher_spatial.save
+
+          custom_field_record = GobiertoCommon::CustomFieldRecord.new
+          custom_field_record.item_type = "Site"
+          custom_field_record.item_id = site.id
+          custom_field_record.custom_field_id = publisher_spatial.id
+          custom_field_record.payload = {"no-translatable": [
+            "http://datos.gob.es/recurso/sector-publico/territorio/Pais/España",
+            "http://datos.gob.es/recurso/sector-publico/territorio/Autonomia/Madrid",
+            "http://datos.gob.es/recurso/sector-publico/territorio/Provincia/Madrid",
+            "https://datos.gob.es/recurso/sector-publico/territorio/Ciudad/Getafe"       #FIXME
+          ]}
+          custom_field_record.save
+        end
+
+        publisher_taxonomy = site.custom_fields.string.where(class_name: "Site").find_or_initialize_by(uid: "catalog-theme-taxonomy")
+        if publisher_taxonomy.new_record?
+          publisher_taxonomy.name_translations = { ca: "Tema (taxonomia gob.es)", en: "Theme (taxonomia gob.es)", es: "Tema (taxonomia gob.es)" }
+          publisher_taxonomy.position = 3
+          publisher_taxonomy.options = { configuration: {} }
+          publisher_taxonomy.save
+
+          custom_field_record = GobiertoCommon::CustomFieldRecord.new
+          custom_field_record.item_type = "Site"
+          custom_field_record.item_id = site.id
+          custom_field_record.custom_field_id = publisher_taxonomy.id
+          custom_field_record.payload = { "no-translatable": "http://datos.gob.es/kos/sector-publico/sector/sector-publico" }
+          custom_field_record.save
+        end
       end
+
     end
   end
 end

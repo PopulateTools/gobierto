@@ -3,6 +3,7 @@ es:
   presenters:
     gobierto_data:
       catalog:
+        at_format: en formato
         description: Catalogo publico de datos los conjuntos de datos publicados por
           %{site}, a través de la URL %{publisher_url}
         title: Catalogo DCAT para los conjuntos de datos de %{site} en formato rdf/xml

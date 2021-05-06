@@ -1,89 +1,125 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF
- xmlns:time="http://www.w3.org/2006/time#"
- xmlns:dct="http://purl.org/dc/terms/"
- xmlns:dcat="http://www.w3.org/ns/dcat#"
- xmlns:foaf="http://xmlns.com/foaf/0.1/"
- xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
- xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
- xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<dcat:Catalog rdf:about="http://madrid.gobierto.test/datos">
+  xmlns:time="http://www.w3.org/2006/time#"
+  xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xmlns:tema="http://datos.gob.es/kos/sector-publico/sector/"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <dcat:Catalog rdf:about="http://madrid.gobierto.test/datos">
   <dct:identifier>http://madrid.gobierto.test/datos</dct:identifier>
-  <dct:title>Catalog for datasets of Ayuntamiento de Madrid into format rdf/xml dcat</dct:title>
-  <dct:description>Public catalog with datasets published by Ayuntamiento de Madrid, through URL http://madrid.gobierto.test/datos</dct:description>
+  <dct:title xml:lang="en">Catalog for datasets of Ayuntamiento de Madrid into format rdf/xml dcat</dct:title>
+  <dct:description xml:lang="en">Public catalog with datasets published by Ayuntamiento de Madrid, through URL http://madrid.gobierto.test/datos</dct:description>
+  <dct:title xml:lang="es">Catalogo DCAT para los conjuntos de datos de Ayuntamiento de Madrid en formato rdf/xml dcat</dct:title>
+  <dct:description xml:lang="es">Catalogo publico de datos los conjuntos de datos publicados por Ayuntamiento de Madrid, a través de la URL http://madrid.gobierto.test/datos</dct:description>
+  <dct:publisher rdf:resource="[]" />
   <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2019-01-01T08:00:00+01:00</dct:issued>
   <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2019-01-01T08:00:00+01:00</dct:modified>
-  <dct:language>en</dct:language>
-  <foaf:homepage rdf:resource="http://madrid.gobierto.test/datos"/>
-  <dct:publisher rdf:resource="http://madrid.gobierto.test/datos"/>
+  <dc:language>en</dc:language><dc:language>es</dc:language>
+  
+  <dcat:themeTaxonomy rdf:resource="[]" /><!-- search at: http://datos.gob.es/kos/sector-publico/sector/ -->
+  <foaf:homepage rdf:resource="http://madrid.gobierto.test/datos" />
   <dcat:dataset>
-    <dcat:Dataset rdf:about="http://madrid.gobierto.test/datos/users-dataset">
-      <dct:identifier>http://madrid.gobierto.test/datos/users-dataset</dct:identifier>
-      <dct:title>Users</dct:title>
-      <dct:description></dct:description>
-      <dct:keyword>Culture</dct:keyword>
-      <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-02T08:00:00+01:00</dct:issued>
-      <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-02T08:00:00+01:00</dct:modified>
-      <dct:language>en</dct:language>
-      <dct:license rdf:resource=""/>
-      <dct:publisher rdf:resource="http://madrid.gobierto.test/datos"/>
-      <dcat:distribution>
-        <dcat:Distribution>
-          <dct:identifier>http://madrid.gobierto.test/datos/users-dataset</dct:identifier>
-          <dct:title>Users</dct:title>
-          <dct:description></dct:description>
-          <dcat:downloadURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://madrid.gobierto.test/api/v1/data/datasets/users-dataset/download.csv</dcat:downloadURL>
-          <dcat:mediaType>application/csv</dcat:mediaType>
-          <dct:license rdf:resource=""/>
-        </dcat:Distribution>
-      </dcat:distribution>
+    <dcat:Dataset rdf:about="http://madrid.gobierto.test/datos/no-size">
+    <dct:identifier>http://madrid.gobierto.test/datos/no-size</dct:identifier>
+    <dct:title xml:lang="en">No size</dct:title>
+    <dct:description xml:lang="en"></dct:description>
+    <dct:title xml:lang="es">No se el size</dct:title>
+    <dct:description xml:lang="es"></dct:description>
+    <dcat:keyword xml:lang="en"></dcat:keyword>
+    <dcat:keyword xml:lang="es"></dcat:keyword>
+    <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-06T08:00:00+01:00</dct:issued> <!-- Formato YYYY-MM-DDTHH:MM:SS -->
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-06T08:00:00+01:00</dct:modified> <!-- Formato YYYY-MM-DDTHH:MM:SS -->
+    <dc:language>en</dc:language>
+    <dc:language>es</dc:language>
+    <dct:publisher rdf:resource="[]" />
+    <dct:license rdf:resource="" />
+    
+    <dcat:distribution>
+      <dcat:Distribution>
+      <dct:identifier>http://madrid.gobierto.test/datos/no-size</dct:identifier><!-- La url de la identificacion de la distribucion no puede ser la misma que la de accessURL -->
+      <dct:title xml:lang="en"></dct:title>
+      <dct:title xml:lang="es"></dct:title>
+      <dcat:accessURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://madrid.gobierto.test/api/v1/data/datasets/no-size/download.csv</dcat:accessURL>
+      
+      <dct:format>
+        <dct:IMT>
+          <rdf:value>application/csv</rdf:value>
+          <rdfs:label>Comma-separated values (CSV)</rdfs:label>
+        </dct:IMT> <!-- Formato MIME -->
+      </dct:format>
+      </dcat:Distribution>
+    </dcat:distribution>
     </dcat:Dataset>
   </dcat:dataset>
   <dcat:dataset>
     <dcat:Dataset rdf:about="http://madrid.gobierto.test/datos/events-dataset">
-      <dct:identifier>http://madrid.gobierto.test/datos/events-dataset</dct:identifier>
-      <dct:title>Events</dct:title>
-      <dct:description></dct:description>
+    <dct:identifier>http://madrid.gobierto.test/datos/events-dataset</dct:identifier>
+    <dct:title xml:lang="en">Events</dct:title>
+    <dct:description xml:lang="en"></dct:description>
+    <dct:title xml:lang="es">Eventos</dct:title>
+    <dct:description xml:lang="es"></dct:description>
+    <dcat:keyword xml:lang="en"></dcat:keyword>
+    <dcat:keyword xml:lang="es"></dcat:keyword>
+    <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-03T08:00:00+01:00</dct:issued> <!-- Formato YYYY-MM-DDTHH:MM:SS -->
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-03T08:00:00+01:00</dct:modified> <!-- Formato YYYY-MM-DDTHH:MM:SS -->
+    <dc:language>en</dc:language>
+    <dc:language>es</dc:language>
+    <dct:publisher rdf:resource="[]" />
+    <dct:license rdf:resource="" />
+    
+    <dcat:distribution>
+      <dcat:Distribution>
+      <dct:identifier>http://madrid.gobierto.test/datos/events-dataset</dct:identifier><!-- La url de la identificacion de la distribucion no puede ser la misma que la de accessURL -->
+      <dct:title xml:lang="en"></dct:title>
+      <dct:title xml:lang="es"></dct:title>
+      <dcat:accessURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://madrid.gobierto.test/api/v1/data/datasets/events-dataset/download.csv</dcat:accessURL>
       
-      <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-03T08:00:00+01:00</dct:issued>
-      <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-03T08:00:00+01:00</dct:modified>
-      <dct:language>en</dct:language>
-      <dct:license rdf:resource=""/>
-      <dct:publisher rdf:resource="http://madrid.gobierto.test/datos"/>
-      <dcat:distribution>
-        <dcat:Distribution>
-          <dct:identifier>http://madrid.gobierto.test/datos/events-dataset</dct:identifier>
-          <dct:title>Events</dct:title>
-          <dct:description></dct:description>
-          <dcat:downloadURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://madrid.gobierto.test/api/v1/data/datasets/events-dataset/download.csv</dcat:downloadURL>
-          <dcat:mediaType>application/csv</dcat:mediaType>
-          <dct:license rdf:resource=""/>
-        </dcat:Distribution>
-      </dcat:distribution>
+      <dct:format>
+        <dct:IMT>
+          <rdf:value>application/csv</rdf:value>
+          <rdfs:label>Comma-separated values (CSV)</rdfs:label>
+        </dct:IMT> <!-- Formato MIME -->
+      </dct:format>
+      </dcat:Distribution>
+    </dcat:distribution>
     </dcat:Dataset>
   </dcat:dataset>
   <dcat:dataset>
-    <dcat:Dataset rdf:about="http://madrid.gobierto.test/datos/no-size">
-      <dct:identifier>http://madrid.gobierto.test/datos/no-size</dct:identifier>
-      <dct:title>No size</dct:title>
-      <dct:description></dct:description>
+    <dcat:Dataset rdf:about="http://madrid.gobierto.test/datos/users-dataset">
+    <dct:identifier>http://madrid.gobierto.test/datos/users-dataset</dct:identifier>
+    <dct:title xml:lang="en">Users</dct:title>
+    <dct:description xml:lang="en"></dct:description>
+    <dct:title xml:lang="es">Usuarios</dct:title>
+    <dct:description xml:lang="es"></dct:description>
+    <dcat:keyword xml:lang="en">Culture</dcat:keyword>
+    <dcat:keyword xml:lang="es">Cultura</dcat:keyword>
+    <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-02T08:00:00+01:00</dct:issued> <!-- Formato YYYY-MM-DDTHH:MM:SS -->
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-02T08:00:00+01:00</dct:modified> <!-- Formato YYYY-MM-DDTHH:MM:SS -->
+    <dc:language>en</dc:language>
+    <dc:language>es</dc:language>
+    <dct:publisher rdf:resource="[]" />
+    <dct:license rdf:resource="" />
+    
+    <dcat:distribution>
+      <dcat:Distribution>
+      <dct:identifier>http://madrid.gobierto.test/datos/users-dataset</dct:identifier><!-- La url de la identificacion de la distribucion no puede ser la misma que la de accessURL -->
+      <dct:title xml:lang="en"></dct:title>
+      <dct:title xml:lang="es"></dct:title>
+      <dcat:accessURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://madrid.gobierto.test/api/v1/data/datasets/users-dataset/download.csv</dcat:accessURL>
       
-      <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-06T08:00:00+01:00</dct:issued>
-      <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-06T08:00:00+01:00</dct:modified>
-      <dct:language>en</dct:language>
-      <dct:license rdf:resource=""/>
-      <dct:publisher rdf:resource="http://madrid.gobierto.test/datos"/>
-      <dcat:distribution>
-        <dcat:Distribution>
-          <dct:identifier>http://madrid.gobierto.test/datos/no-size</dct:identifier>
-          <dct:title>No size</dct:title>
-          <dct:description></dct:description>
-          <dcat:downloadURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://madrid.gobierto.test/api/v1/data/datasets/no-size/download.csv</dcat:downloadURL>
-          <dcat:mediaType>application/csv</dcat:mediaType>
-          <dct:license rdf:resource=""/>
-        </dcat:Distribution>
-      </dcat:distribution>
+      <dct:format>
+        <dct:IMT>
+          <rdf:value>application/csv</rdf:value>
+          <rdfs:label>Comma-separated values (CSV)</rdfs:label>
+        </dct:IMT> <!-- Formato MIME -->
+      </dct:format>
+      </dcat:Distribution>
+    </dcat:distribution>
     </dcat:Dataset>
   </dcat:dataset>
-</dcat:Catalog>
+  </dcat:Catalog>
 </rdf:RDF>

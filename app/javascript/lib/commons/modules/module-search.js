@@ -65,6 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return I18n.t("layouts.search.charter_commitment");
       case 'GobiertoPlans::Node':
         return I18n.t("layouts.search.plan_project_item");
+      case 'GobiertoData::Dataset':
+        return I18n.t("layouts.search.dataset_item");
     }
   }
 

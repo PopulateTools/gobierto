@@ -7,7 +7,7 @@
       <div class="investments-home-article--title">
         {{ title }}
       </div>
-      <div>{{ count }} proyectos</div>
+      <div>{{ labelProject }}</div>
       <div v-if="budget">
         {{ budget }}
       </div>
@@ -51,6 +51,11 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      labelProject: I18n.t("gobierto_investments.projects.project", { count: this.count })
+    }
+  }
 };
 </script>
 

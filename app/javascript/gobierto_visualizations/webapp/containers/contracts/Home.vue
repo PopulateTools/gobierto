@@ -13,10 +13,10 @@
         />
         <main class="visualizations-home-main">
           <Summary
-            v-show="isSummary"
+            v-if="isSummary"
             :active-tab="activeTabIndex"
           />
-          <ContractsIndex v-show="isContractsIndex" />
+          <ContractsIndex v-if="isContractsIndex" />
           <ContractsShow v-if="isContractsShow" />
           <AssigneesShow v-if="isAssigneesShow" />
         </main>
@@ -69,6 +69,9 @@ export default {
     });
     EventBus.$on("update-filters", () => this.updateFilters());
     EventBus.$on("update-tab", () => this.updateTab());
+  },
+  mounted() {
+    EventBus.$emit("mounted");
   },
   methods: {
     setActiveTab(tabIndex) {

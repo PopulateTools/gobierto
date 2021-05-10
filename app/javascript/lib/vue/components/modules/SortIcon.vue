@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     icon() {
-      return this.direction === 'down' ? 'down' : 'down-alt'
+      return this.direction === "desc" ? "down" : "down-alt"
     }
   }
 };

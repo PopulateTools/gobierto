@@ -125,17 +125,20 @@ module GobiertoSeeds
 
         unless site.configuration.configuration_variables["gobierto_data_catalog_organism"].present?
           extra_conf = {"gobierto_data_catalog_organism" => "https://datos.gob.es/es/recurso/sector-publico/org/Organismo/"}
-          site.configuration.raw_configuration_variables = YAML.load(site.configuration.raw_configuration_variables).merge(extra_conf).to_yaml
+          existing_conf = YAML.load(site.configuration.raw_configuration_variables) || {}
+          site.configuration.raw_configuration_variables = existing_conf.merge(extra_conf).to_yaml
           site.save
         end
         unless site.configuration.configuration_variables["gobierto_data_spatials"].present?
           extra_conf = { "gobierto_data_spatials" => [ "http://datos.gob.es/recurso/sector-publico/territorio/Pais/España", "http://datos.gob.es/recurso/sector-publico/territorio/Autonomia/Madrid", "http://datos.gob.es/recurso/sector-publico/territorio/Provincia/Madrid", "https://datos.gob.es/recurso/sector-publico/territorio/Ciudad/Getafe" ] }
-          site.configuration.raw_configuration_variables = YAML.load(site.configuration.raw_configuration_variables).merge(extra_conf).to_yaml
+          existing_conf = YAML.load(site.configuration.raw_configuration_variables) || {}
+          site.configuration.raw_configuration_variables = existing_conf.merge(extra_conf).to_yaml
           site.save
         end
         unless site.configuration.configuration_variables["gobierto_data_theme_taxonomy"].present?
           extra_conf = { "gobierto_data_theme_taxonomy" => "http://datos.gob.es/kos/sector-publico/sector/sector-publico"}
-          site.configuration.raw_configuration_variables = YAML.load(site.configuration.raw_configuration_variables).merge(extra_conf).to_yaml
+          existing_conf = YAML.load(site.configuration.raw_configuration_variables) || {}
+          site.configuration.raw_configuration_variables = existing_conf.merge(extra_conf).to_yaml
           site.save
         end
       end

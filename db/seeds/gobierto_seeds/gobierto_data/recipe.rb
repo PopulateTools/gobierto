@@ -122,6 +122,14 @@ module GobiertoSeeds
           }
           license.save
         end
+
+        dataset_default_geometry = site.custom_fields.string.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: 'gobierto-default-geometry-data-column')
+        if dataset_default_geometry.new_record?
+          dataset_default_geometry.name_translations = { ca: "Columna per llegir dades de geometria", en: "Column to read geometry data", es: "Columna para leer datos de geometría" }
+          dataset_default_geometry.position = 7
+          dataset_default_geometry.options = { configuration: {} }
+          dataset_default_geometry.save
+        end
       end
     end
   end

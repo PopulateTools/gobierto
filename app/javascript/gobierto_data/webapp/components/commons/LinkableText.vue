@@ -3,23 +3,33 @@
     v-if="hasUrl"
     :href="url"
     target="_blank"
-  >{{ text }}</a>
-  <span v-else-if="hasText">{{ text }}</span>
+  >
+    {{ text }}
+  </a>
+  <span v-else-if="hasText">
+    {{ text }}
+  </span>
 </template>
 <script>
 export default {
     name: "TextOrLink",
     props: {
-        text: String,
-        url: String,
+      text: {
+        type: String,
+        default: ''
+      },
+      url: {
+        type: String,
+        default: ''
+      }
     },
     computed: {
-        hasText(){
-            return this.text !== undefined && this.text !== ""
-        },
-        hasUrl(){
-            return this.url !== undefined && this.url !== ""
-        }
+      hasText(){
+        return this.text !== undefined && this.text !== ""
+      },
+      hasUrl(){
+        return this.url !== undefined && this.url !== ""
+      }
     }
 }
 </script>

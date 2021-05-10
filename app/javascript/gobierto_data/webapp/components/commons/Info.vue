@@ -27,16 +27,16 @@
         icon="building"
         opacity=".25"
         :label="labelSource"
-        :text="this.sourceDataset.text"
-        :url="this.sourceDataset.url"
+        :text="sourceDatasetText"
+        :url="sourceDatasetUrl"
       />
       <InfoBlockText
         v-if="hasDatasetLicense"
         icon="certificate"
         opacity=".25"
         :label="labelLicense"
-        :text="this.licenseDataset.text"
-        :url="this.licenseDataset.url"
+        :text="licenseDatasetText"
+        :url="licenseDatasetUrl"
       />
     </div>
     <div class="pure-u-1-2">
@@ -133,6 +133,10 @@ export default {
       seeMore: I18n.t("gobierto_common.vue_components.read_more.more") || '',
       seeLess: I18n.t("gobierto_common.vue_components.read_more.less") || '',
       truncateIsActive: true,
+      sourceDatasetText: '',
+      sourceDatasetUrl: '',
+      licenseDatasetText: '',
+      licenseDatasetUrl: ''
     }
   },
   computed: {
@@ -153,13 +157,23 @@ export default {
       return this.descriptionDataset.length > 250
     },
     hasDatasetSource() {
-      return this.sourceDataset !== undefined && this.sourceDataset?.text !== ""
+      return this.sourceDataset?.text !== ""
     },
     hasDatasetLicense() {
-      return this.licenseDataset !== undefined
-        && this.licenseDataset?.text !== undefined
-        && this.licenseDataset?.url !== undefined
+      return this.licenseDataset?.text !== undefined && this.licenseDataset?.url !== undefined
     },
+  },
+  created(){
+    if (this.sourceDataset) {
+      const { text: sourceDatasetText, url: sourceDatasetUrl } = this.sourceDataset
+      this.sourceDatasetText = sourceDatasetText
+      this.sourceDatasetUrl = sourceDatasetUrl
+    }
+    if (this.licenseDataset) {
+      const { text: licenseDatasetText, url: licenseDatasetUrl } = this.licenseDataset
+      this.licenseDatasetText = licenseDatasetText
+      this.licenseDatasetUrl = licenseDatasetUrl
+    }
   },
   methods: {
     scrollDetail() {

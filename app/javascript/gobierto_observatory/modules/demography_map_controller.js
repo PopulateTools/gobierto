@@ -7,13 +7,13 @@ import { scaleLinear } from "d3-scale";
 import { schemeCategory10 } from "d3-scale-chromatic";
 import { select, selectAll } from "d3-selection";
 import { transition } from "d3-transition";
+import populationPyramid from "dc-population-pyramid";
+import stackedVertical from "dc-vertical-stacked-bar-chart";
 import { DataCount, RowChart, chartRegistry, renderAll, redrawAll, pluck } from "dc";
 import * as dc_leaflet from "dc.leaflet";
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import stackedVertical from "./charts/stacked_vertical";
-import pairedRow from "./charts/dc-addons-paired-row";
 
 const d3 = {
   csv,
@@ -319,6 +319,7 @@ export class DemographyMapController {
 
   renderBarNationality(selector) {
     const chart = stackedVertical(selector, "main");
+    chartRegistry.register(chart, "main");
     const container = document.getElementById("container-bar-nationality");
     const sumAllValues = this.ndx.groups.studies.all.value();
     chart
@@ -355,6 +356,7 @@ export class DemographyMapController {
 
   renderBarSex(selector) {
     const chart = stackedVertical(selector, "main");
+    chartRegistry.register(chart, "main");
     const sumAllValues = this.ndx.groups.studies.all.value();
     chart
       .useViewBoxResizing(true)
@@ -393,7 +395,7 @@ export class DemographyMapController {
   }
 
   renderPyramid(selector) {
-    const chart = pairedRow(selector, "main");
+    const chart = populationPyramid(selector, "main");
     chartRegistry.register(chart, "main");
     const that = this;
 

@@ -286,10 +286,9 @@ export default {
       text: this.datasetSource,
       url: this.datasetSourceUrl
     }
-
     this.datasetLicenseObject = {
-      text: this.datasetLicense,
-      url: this.datasetLicenseUrl
+      text: translate(this.datasetLicense),
+      url: translate(this.datasetLicenseUrl)
     }
   }
 };

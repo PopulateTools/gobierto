@@ -23,18 +23,20 @@
         :text="categoryDataset"
       />
       <InfoBlockText
-        v-if="hasSourceDataset"
+        v-if="hasDatasetSource"
         icon="building"
         opacity=".25"
         :label="labelSource"
-        :source="sourceDataset"
+        :text="this.sourceDataset.text"
+        :url="this.sourceDataset.url"
       />
       <InfoBlockText
-        v-if="hasLicenseDataset"
+        v-if="hasDatasetLicense"
         icon="certificate"
         opacity=".25"
         :label="labelLicense"
-        :license="licenseDataset"
+        :text="this.licenseDataset.text"
+        :url="this.licenseDataset.url"
       />
     </div>
     <div class="pure-u-1-2">
@@ -70,6 +72,7 @@
 <script>
 import { date, truncate } from "lib/vue/filters"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
+
 //Parse markdown to HTML
 const marked = require('marked');
 const TurndownService = require('turndown').default;
@@ -77,7 +80,7 @@ const TurndownService = require('turndown').default;
 export default {
   name: "Info",
   components: {
-    InfoBlockText
+    InfoBlockText,
   },
   filters: {
     convertDate(valueDate) {
@@ -129,7 +132,7 @@ export default {
       labelLicense: I18n.t("gobierto_data.projects.license") || '',
       seeMore: I18n.t("gobierto_common.vue_components.read_more.more") || '',
       seeLess: I18n.t("gobierto_common.vue_components.read_more.less") || '',
-      truncateIsActive: true
+      truncateIsActive: true,
     }
   },
   computed: {
@@ -149,12 +152,14 @@ export default {
     checkStringLength() {
       return this.descriptionDataset.length > 250
     },
-    hasSourceDataset() {
-      return this.sourceDataset?.text !== undefined && this.sourceDataset?.text !== ""
+    hasDatasetSource() {
+      return this.sourceDataset !== undefined && this.sourceDataset?.text !== ""
     },
-    hasLicenseDataset() {
-      return this.licenseDataset?.text !== undefined && this.licenseDataset?.url !== undefined
-    }
+    hasDatasetLicense() {
+      return this.licenseDataset !== undefined
+        && this.licenseDataset?.text !== undefined
+        && this.licenseDataset?.url !== undefined
+    },
   },
   methods: {
     scrollDetail() {

@@ -1,7 +1,7 @@
 <template>
   <Table
     :data="items"
-    :order-column="'beneficiary'"
+    :sort-column="'beneficiary'"
     :columns="subsidiesColumns"
     :show-columns="showColumns"
     class="gobierto-table-margin-top"

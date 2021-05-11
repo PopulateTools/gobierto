@@ -9,14 +9,19 @@
       {{ label }}
     </span>
     <span class="gobierto-data-summary-header-container-text">
-      {{ text }}
+      <LinkableText
+        :text="text"
+        :url="url"
+      />
     </span>
   </div>
 </template>
 <script>
+import LinkableText from './../commons/LinkableText.vue'
 
 export default {
   name: "InfoBlockText",
+  components: { LinkableText },
   props: {
     icon: {
       type: String,
@@ -25,6 +30,10 @@ export default {
     text: {
       type: String,
       default: ''
+    },
+    url: {
+      type: String,
+      default: ""
     },
     label: {
       type: String,
@@ -37,7 +46,7 @@ export default {
     iconColor: {
       type: String,
       default: 'inherit'
-    }
+    },
   }
 }
 </script>

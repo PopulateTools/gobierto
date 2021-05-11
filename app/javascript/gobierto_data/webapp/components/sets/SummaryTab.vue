@@ -4,9 +4,8 @@
       :description-dataset="description"
       :category-dataset="category | translate"
       :frequency-dataset="frequency | translate"
-      :license-dataset="datasetLicense | translate"
-      :source-dataset="datasetSource"
-      :source-dataset-url="datasetSourceUrl"
+      :license-dataset="datasetLicenseObject"
+      :source-dataset="datasetSourceObject"
       :date-updated="dateUpdated"
       :array-formats="arrayFormats"
     />
@@ -249,8 +248,11 @@ export default {
       frequency: {},
       dateUpdated: null,
       datasetLicense: null,
+      datasetLicenseUrl: null,
       datasetSource: null,
       datasetSourceUrl: null,
+      datasetSourceObject: {},
+      datasetLicenseObject: {},
       showYourQueries: true,
       showYourVizs: true,
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
@@ -275,11 +277,19 @@ export default {
       data_updated_at: this.dateUpdated,
       category: [{ name_translations: this.category } = {}] = [],
       frequency: [{ name_translations: this.frequency } = {}] = [],
-      "dataset-license": [{ name_translations: this.datasetLicense } = {}] = [],
+      "dataset-license": [{ name_translations: this.datasetLicense, description_translations: this.datasetLicenseUrl } = {}] = [],
       "dataset-source": this.datasetSource,
       "dataset-source-url": this.datasetSourceUrl,
       description: this.description
     } = this.datasetAttributes) // Ouh yes, destructuring FTW 😎
+    this.datasetSourceObject = {
+      text: this.datasetSource,
+      url: this.datasetSourceUrl
+    }
+    this.datasetLicenseObject = {
+      text: translate(this.datasetLicense),
+      url: translate(this.datasetLicenseUrl)
+    }
   }
 };
 </script>

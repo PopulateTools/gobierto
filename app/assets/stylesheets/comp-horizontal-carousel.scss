@@ -5,10 +5,6 @@
   &-content {
     display: flex;
     transition: transform 300ms ease-out;
-
-    > * {
-      flex: 0 0 calc(100% / var(--visible-items, 1));
-    }
   }
 
   [data-prev],

@@ -32,14 +32,11 @@ export const CommonsMixin = {
       });
     },
     getItem(element, attributes) {
-      const { id, flat, composite } = element;
+      const { id, composite } = element;
       const attr = this.middleware.getAttributesByKey(id);
 
+      // by default
       let value = attributes[id];
-
-      if (flat) {
-        value = this.translate(attributes[id][0].name_translations);
-      }
 
       if (composite) {
         const { template, params } = element;
@@ -70,6 +67,16 @@ export const CommonsMixin = {
         value = `${location.origin}${paramsReplaced}`;
       }
 
+      if (attr.field_type === "vocabulary_options") {
+        // this field_type must search which term is using
+        const { name_translations } = attr?.vocabulary_terms.find(term => +term?.id === +attributes[id])
+        value = this.translate(name_translations)
+      }
+
+      if (attr.field_type === "numeric" && attr.options?.configuration?.unit_type === "currency") {
+        attr.field_type = "money"
+      }
+
       return {
         ...attr,
         ...element,
@@ -95,6 +102,7 @@ export const CommonsMixin = {
       }) || [];
 
       return {
+        ...CONFIGURATION,
         ...element,
         title: this.translate(attributes[title.id]),
         description: attributes[description.id] || "",

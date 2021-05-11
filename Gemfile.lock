@@ -59,7 +59,7 @@ GEM
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.2.0)
-    actionpack-action_caching (1.2.1)
+    actionpack-action_caching (1.2.2)
       actionpack (>= 4.0.0)
     actiontext (6.0.3.7)
       actionpack (= 6.0.3.7)

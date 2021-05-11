@@ -22,20 +22,21 @@
         :label="labelSubject"
         :text="categoryDataset"
       />
-      <InfoBlockLink
-        v-if="sourceDataset"
+      <InfoBlockText
+        v-if="hasDatasetSource"
         icon="building"
         opacity=".25"
         :label="labelSource"
-        :text="sourceDataset"
+        :text="sourceDatasetText"
         :url="sourceDatasetUrl"
       />
       <InfoBlockText
-        v-if="licenseDataset"
+        v-if="hasDatasetLicense"
         icon="certificate"
         opacity=".25"
         :label="labelLicense"
-        :text="licenseDataset"
+        :text="licenseDatasetText"
+        :url="licenseDatasetUrl"
       />
     </div>
     <div class="pure-u-1-2">
@@ -71,7 +72,7 @@
 <script>
 import { date, truncate } from "lib/vue/filters"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
-import InfoBlockLink from "./../commons/InfoBlockLink.vue";
+
 //Parse markdown to HTML
 const marked = require('marked');
 const TurndownService = require('turndown').default;
@@ -80,7 +81,6 @@ export default {
   name: "Info",
   components: {
     InfoBlockText,
-    InfoBlockLink,
   },
   filters: {
     convertDate(valueDate) {
@@ -105,16 +105,12 @@ export default {
       default: ''
     },
     licenseDataset: {
-      type: String,
-      default: ''
+      type: Object,
+      default: () => {}
     },
     sourceDataset: {
-      type: String,
-      default: ''
-    },
-    sourceDatasetUrl: {
-      type: String,
-      default: ''
+      type: Object,
+      default: () => {}
     },
     dateUpdated: {
       type: String,
@@ -136,7 +132,11 @@ export default {
       labelLicense: I18n.t("gobierto_data.projects.license") || '',
       seeMore: I18n.t("gobierto_common.vue_components.read_more.more") || '',
       seeLess: I18n.t("gobierto_common.vue_components.read_more.less") || '',
-      truncateIsActive: true
+      truncateIsActive: true,
+      sourceDatasetText: '',
+      sourceDatasetUrl: '',
+      licenseDatasetText: '',
+      licenseDatasetUrl: ''
     }
   },
   computed: {
@@ -155,6 +155,24 @@ export default {
     },
     checkStringLength() {
       return this.descriptionDataset.length > 250
+    },
+    hasDatasetSource() {
+      return this.sourceDataset && this.sourceDataset?.text !== ""
+    },
+    hasDatasetLicense() {
+      return this.licenseDataset?.text !== undefined && this.licenseDataset?.url !== undefined
+    },
+  },
+  created(){
+    if (this.sourceDataset) {
+      const { text: sourceDatasetText, url: sourceDatasetUrl } = this.sourceDataset
+      this.sourceDatasetText = sourceDatasetText
+      this.sourceDatasetUrl = sourceDatasetUrl
+    }
+    if (this.licenseDataset) {
+      const { text: licenseDatasetText, url: licenseDatasetUrl } = this.licenseDataset
+      this.licenseDatasetText = licenseDatasetText
+      this.licenseDatasetUrl = licenseDatasetUrl
     }
   },
   methods: {

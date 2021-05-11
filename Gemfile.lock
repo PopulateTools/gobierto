@@ -148,7 +148,7 @@ GEM
       aws_cf_signer
       rest-client (>= 2.0.0)
     concurrent-ruby (1.1.8)
-    connection_pool (2.2.3)
+    connection_pool (2.2.5)
     cookies_eu (1.7.7)
       js_cookie_rails (~> 2.2.0)
     crack (0.4.5)
@@ -283,7 +283,7 @@ GEM
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (1.0.1)
-    mechanize (2.8.0)
+    mechanize (2.8.1)
       addressable (~> 2.7)
       domain_name (~> 0.5, >= 0.5.20190701)
       http-cookie (~> 1.0, >= 1.0.3)

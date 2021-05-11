@@ -154,6 +154,8 @@ import { VueFiltersMixin } from "lib/vue/filters"
 import TableColumnsSelector from './TableColumnsSelector'
 import SortIcon from './SortIcon'
 
+const collator = new Intl.Collator(I18n.locale)
+
 export default {
   name: 'Table',
   components: {
@@ -222,16 +224,16 @@ export default {
         .sort(({ [id]: termA }, { [id]: termB }) =>
           sort === "asc"
             ? typeof termA === "string"
-              ? termA.localeCompare(termB, undefined, { numeric: true })
+              ? collator.compare(termA, termB)
               : termA > termB ? 1 : -1
             : typeof termA === "string"
-              ? termB.localeCompare(termA, undefined, { numeric: true })
+              ? collator.compare(termB, termA)
               : termA < termB ? 1 : -1
         );
     },
     visibleRows() {
       // if there's pagination, display only such subset, otherwise show everything
-      return this.visiblePaginatedRows || this.rowsSorted
+      return this.showPagination ? this.visiblePaginatedRows : this.rowsSorted
     },
   },
   created() {

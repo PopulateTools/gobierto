@@ -93,7 +93,7 @@ gem "rubyXL"
 
 # Performance
 # TODO: v3 raises a middleware error
-gem "appsignal", "= 3.0.3"
+gem "appsignal", "= 3.0.4"
 
 # Auth strategies
 gem "net-ldap"

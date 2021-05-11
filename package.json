@@ -41,7 +41,7 @@
     "moment": "^2.21.0",
     "moment-locales-webpack-plugin": "^1.0.7",
     "mustache": "^2.3.0",
-    "perspective-map": "^1.0.1",
+    "perspective-map": "^1.0.2",
     "regenerator-runtime": "^0.13.3",
     "select2": "4.0.8",
     "simplemde": "^1.11.2",

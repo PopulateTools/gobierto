@@ -358,7 +358,7 @@ export default {
       columns: objectColumns,
       formats: arrayFormats,
       default_limit: defaultLimit,
-      gobiertoDefaultGeometryDataColumn: metric
+      "gobierto-default-geometry-data-column": metric
     } = attributes;
 
     this.titleDataset = titleDataset;

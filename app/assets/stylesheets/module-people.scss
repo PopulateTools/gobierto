@@ -1,7 +1,11 @@
-/*
- * People
- *
- */
+@import "css-conf";
+@import "populities";
+@import "comp-tabs";
+@import "comp-lists";
+@import "comp-agenda";
+@import "comp-modals";
+@import "fullcalendar/dist/fullcalendar.css";
+@import "air-datepicker/dist/css/datepicker.css";
 
 body.gobierto_people {
   .block + .person-item {

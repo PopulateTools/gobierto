@@ -1,0 +1,62 @@
+/*
+ * Master CSS file for Gobierto. In this file we include:
+ *
+ * - Vendor & Gobierto libraries
+ * - Gobierto components
+ * - CSS conf (fonts, colors)
+ * - Fonts
+ *
+ */
+
+/*
+ * Vendor libraries
+ *
+ */
+@import "vendor/pure-min";
+@import "vendor/pure-grids-responsive-min";
+
+/*
+ * Gobierto base and themes configuration
+ *
+ */
+@import "css-conf";
+
+/*
+ * Gobierto base
+ *
+ */
+@import "populities";
+@import "comp-breadcrumbs";
+@import "comp-forms";
+@import "comp-headings_blocks";
+@import "comp-layout";
+@import "comp-site_header";
+@import "comp-search";
+@import "comp-tables";
+@import "comp-header_block_inline";
+@import "comp-social_buttons";
+@import "comp-tipsy";
+@import "comp-flash_messages";
+
+/*
+DEBUG
+
+@import "comp-cms"; // unused? 
+*/
+
+/*
+ * Print styles
+ *
+ */
+@import "css-print";
+
+/*
+ * Fonts
+ *
+ */
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+@import "defaults";
+@import "responsive";

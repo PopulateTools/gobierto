@@ -81,13 +81,13 @@ $(document).on('turbolinks:load', function() {
         }))
       }
     },
-    formatResult: function(suggestion){
+    formatResult: function(){
       return ''
     },
     onSearchComplete: function(query, suggestions){
       $("div.autocomplete-suggestions").hide()
       $resultsContainerAdmin.html('')
-      if(suggestions.length > 0 ) {
+      if (suggestions.length > 0 ) {
 
         suggestions.forEach(function(suggestion){
           let result = formattedResult(suggestion.data)

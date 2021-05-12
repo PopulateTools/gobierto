@@ -3,6 +3,13 @@
 @import "comp-vue-table";
 @import "comp-horizontal-carousel.scss";
 @import "comp-block-checkbox";
+@import "comp-vue-transitions";
+@import "magnific-popup/dist/magnific-popup.css";
+@import "comp-magnific-popup-animations";
+@import "comp-horizontal-carousel";
+@import "comp-range-slider";
+@import "comp-read-more";
+@import "air-datepicker/dist/css/datepicker.css";
 
 .investments {
   @include min-screen(768) {

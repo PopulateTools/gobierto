@@ -1,51 +1,29 @@
 <template>
   <nav class="gobierto-data-sets-nav">
     <ul>
-      <router-link
-        :to="`/datos/${$route.params.id}/${tabs[0]}`"
-        :class="{ 'is-active': activeDatasetTab === 0 }"
-        tag="li"
-        class="gobierto-data-sets-nav--tab"
-      >
-        <span>{{ labelSummary }}</span>
-      </router-link>
-      <router-link
-        :to="`/datos/${$route.params.id}/${tabs[1]}`"
-        :class="{ 'is-active': activeDatasetTab === 1 }"
-        tag="li"
-        class="gobierto-data-sets-nav--tab"
-      >
-        <span>{{ labelData }}</span>
-      </router-link>
-      <router-link
-        :to="`/datos/${$route.params.id}/${tabs[2]}`"
-        :class="{ 'is-active': activeDatasetTab === 2 }"
-        tag="li"
-        class="gobierto-data-sets-nav--tab"
-      >
-        <span>{{ labelQueries }}</span>
-      </router-link>
-      <router-link
-        :to="`/datos/${$route.params.id}/${tabs[3]}`"
-        :class="{ 'is-active': activeDatasetTab === 3 }"
-        tag="li"
-        class="gobierto-data-sets-nav--tab"
-      >
-        <span>{{ labelVisualizations }}</span>
-      </router-link>
-      <router-link
-        :to="`/datos/${$route.params.id}/${tabs[4]}`"
-        :class="{ 'is-active': activeDatasetTab === 4 }"
-        tag="li"
-        class="gobierto-data-sets-nav--tab"
-      >
-        <span>{{ labelDownload }}</span>
-      </router-link>
+      <template v-for="({ path, label }, i) in routes">
+        <router-link
+          :key="path"
+          :to="path"
+          :class="{ 'is-active': activeDatasetTab === i }"
+          tag="li"
+          class="gobierto-data-sets-nav--tab"
+        >
+          <span>{{ label }}</span>
+        </router-link>
+      </template>
     </ul>
   </nav>
 </template>
 <script>
-import { tabs } from '../../../lib/router'
+const LABELS = {
+  'resumen': I18n.t("gobierto_data.projects.summary") || "",
+  'editor': I18n.t("gobierto_data.projects.data") || "",
+  'consultas': I18n.t("gobierto_data.projects.queries") || "",
+  'visualizaciones': I18n.t("gobierto_data.projects.visualizations") || "",
+  'descarga': I18n.t("gobierto_data.projects.download") || "",
+  'mapa': I18n.t("gobierto_data.projects.map") || ""
+}
 
 export default {
   name: "DatasetNav",
@@ -53,17 +31,19 @@ export default {
     activeDatasetTab: {
       type: Number,
       default: 0
+    },
+    tabs: {
+      type: Array,
+      default: () => []
     }
   },
-  data() {
-    return {
-      labelSummary: I18n.t("gobierto_data.projects.summary") || "",
-      labelData: I18n.t("gobierto_data.projects.data") || "",
-      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
-      labelVisualizations: I18n.t("gobierto_data.projects.visualizations") || "",
-      labelDownload: I18n.t("gobierto_data.projects.download") || "",
-      tabs
-    };
+  computed: {
+    routes() {
+      return this.tabs.map(tab => ({
+        path: `/datos/${this.$route.params.id}/${tab}`,
+        label: LABELS[tab]
+      }))
+    }
   }
 };
 </script>

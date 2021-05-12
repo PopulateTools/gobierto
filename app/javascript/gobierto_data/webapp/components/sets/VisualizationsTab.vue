@@ -46,6 +46,7 @@
         :viz-id="vizId"
         :user-save-viz="userSaveViz"
         :object-columns="objectColumns"
+        :config-map="configMap"
         @changeViz="showVizElement"
         @emitDelete="deleteHandlerVisualization"
       />
@@ -165,7 +166,11 @@ export default {
     objectColumns: {
       type: Object,
       default: () => {}
-    }
+    },
+    configMap: {
+      type: Object,
+      default: () => {}
+    },
   },
   data() {
     return {

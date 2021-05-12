@@ -161,6 +161,10 @@
       bottom: -1px;
     }
 
+    & + & {
+      margin-left: 0.25rem;
+    }
+
   }
 
   &-sets-nav {
@@ -563,49 +567,49 @@
     font-family: monospace;
   }
 
+  .btn-sql-editor {
+    text-transform: none;
+    min-height: 31px;
+    border: 1px solid rgba(var(--color-base-string), .2);
+    font-weight: 600;
+    font-size: $f7;
+    margin: 0;
+
+    &.isDisabled {
+      opacity: .4;
+      pointer-events: none;
+    }
+
+    &.remove-label {
+      font-size: 0;
+
+      i {
+        font-size: $f7;
+      }
+    }
+
+    &.btn-sql-editor-run {
+      position: relative;
+      margin-left: auto;
+    }
+
+    &.btn-sql-editor-queries {
+      background-color: #fff;
+      color: var(--color-base);
+    }
+  }
+
+  .btn-sql-revert-query {
+    vertical-align: top;
+    margin-left: .5rem;
+  }
+
+  .btn-sql-revert-viz {
+    vertical-align: top;
+  }
+
   &-sql-editor {
     margin-bottom: 1rem;
-
-    .btn-sql-editor {
-      text-transform: none;
-      min-height: 31px;
-      border: 1px solid rgba(var(--color-base-string), .2);
-      font-weight: 600;
-      font-size: $f7;
-      margin: 0;
-
-      &.isDisabled {
-        opacity: .4;
-        pointer-events: none;
-      }
-
-      &.remove-label {
-        font-size: 0;
-
-        i {
-          font-size: $f7;
-        }
-      }
-
-      &.btn-sql-editor-run {
-        position: relative;
-        margin-left: auto;
-      }
-
-      &.btn-sql-editor-queries {
-        background-color: #fff;
-        color: var(--color-base);
-      }
-    }
-
-    .btn-sql-revert-query {
-      vertical-align: top;
-      margin-left: .5rem;
-    }
-
-    .btn-sql-revert-viz {
-      vertical-align: top;
-    }
 
     input[type="text"] {
       background: #f9f9f9;
@@ -1118,6 +1122,11 @@
   &-visualization--aspect-ratio-16-9 {
     @include aspect-ratio(16, 9);
     min-height: 350px;
+    z-index: 1;
+
+    .gobierto-data-visualization--item {
+      margin-top: 1rem;
+    }
   }
 
   &-visualization--container {
@@ -1138,8 +1147,8 @@
 
   &-visualization--icons {
     position: absolute;
-    left: 93%;
-    top: 10%;
+    left: 92%;
+    top: .75rem;
     z-index: 2;
   }
 

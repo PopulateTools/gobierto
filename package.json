@@ -18,6 +18,8 @@
     "d3": "5.16.0",
     "d3-jetpack": "^2.1.0",
     "dc": "^4.2.0",
+    "dc-population-pyramid": "^1.0.0",
+    "dc-vertical-stacked-bar-chart": "^1.0.0",
     "dc.leaflet": "0.5.1",
     "devbridge-autocomplete": "^1.4.7",
     "flightjs": "^1.5.2",

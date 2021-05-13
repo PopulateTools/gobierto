@@ -12,8 +12,8 @@
           @active-tab="setActiveTab"
         />
         <main class="visualizations-home-main">
-          <Summary v-if="isSummary" />
-          <SubsidiesIndex v-if="isSubsidiesIndex" />
+          <Summary v-show="isSummary" />
+          <SubsidiesIndex v-show="isSubsidiesIndex" />
           <SubsidiesShow v-if="isSubsidiesShow" />
         </main>
       </div>

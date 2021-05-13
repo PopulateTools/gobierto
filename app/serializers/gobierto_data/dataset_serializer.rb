@@ -7,7 +7,7 @@ module GobiertoData
 
     cache key: "dataset"
 
-    attributes :id, :name, :slug, :table_name, :data_updated_at
+    attributes :id, :name, :slug, :table_name, :geometry, :data_updated_at
 
     attribute :links, unless: :exclude_links? do
       slug = object.slug
@@ -26,6 +26,10 @@ module GobiertoData
           )
         end
       end
+    end
+
+    def geometry
+      object.neighbourhood&.geometry
     end
 
     def current_site

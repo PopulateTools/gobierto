@@ -28,6 +28,7 @@ module GobiertoData
     belongs_to :site
     has_many :queries, dependent: :destroy, class_name: "GobiertoData::Query"
     has_many :visualizations, dependent: :destroy, class_name: "GobiertoData::Visualization"
+    has_one :neighbourhood, dependent: :destroy, class_name: "GobiertoData::Neighbourhood"
 
     scope :sorted, -> { order(data_updated_at: :desc) }
 

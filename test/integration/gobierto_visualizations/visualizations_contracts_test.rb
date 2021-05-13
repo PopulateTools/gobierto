@@ -177,4 +177,39 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
     end
   end
 
+  def test_filters
+    with(site: site, js: true) do
+      # Contracts Index
+      #################
+      visit @contracts_path
+
+      assert page.has_content?("2021 (24)")
+      assert page.has_content?("2020 (57)")
+      assert page.has_content?("2019 (67)")
+      assert page.has_content?("2018 (34)")
+      assert page.has_content?("2017 (3)")
+
+      table_rows = find_all(".gobierto-table tbody tr")
+      assert table_rows.size, 25
+
+      rows_years = table_rows.map{|tr| tr.find_all("td").last.text.split("/").last }.uniq
+      assert_equal rows_years, ["2019", "2021", "2020", "2018", "Invalid Date"]
+
+      # Let's filter by 2021 year
+      find("#container-checkbox-dates-2021").click
+
+      assert page.has_content?("2021 (24)")
+      assert page.has_no_content?("2020 (57)")
+      assert page.has_no_content?("2019 (67)")
+      assert page.has_no_content?("2018 (34)")
+      assert page.has_no_content?("2017 (3)")
+
+      table_rows = find_all(".gobierto-table tbody tr")
+      assert table_rows.size, 24
+
+      rows_years = table_rows.map{|tr| tr.find_all("td").last.text.split("/").last }.uniq
+      assert_equal rows_years, ["2021"]
+    end
+  end
+
 end

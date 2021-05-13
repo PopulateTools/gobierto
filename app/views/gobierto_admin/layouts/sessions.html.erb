@@ -4,6 +4,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+
+  <!-- admin chunks (code-splitting) -->
+  <%= javascript_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
+  <%= stylesheet_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
+
   <%= csrf_meta_tags %>
   <% if Rails.env.production? %>
     <%= render 'layouts/analytics_header_site' %>

@@ -2,6 +2,10 @@
   <%= javascript_packs_with_chunks_tag 'people', 'data-turbolinks-track': true %>
 <% end %>
 
+<% content_for :stylesheet_module_link do %>
+  <%= stylesheet_packs_with_chunks_tag 'people' %>
+<% end %>
+
 <% content_for(:current_submodule_link) do %>
   <% if controller_name == "welcome" %>
     <%= link_to t("layouts.application.start"), gobierto_people_root_path %>

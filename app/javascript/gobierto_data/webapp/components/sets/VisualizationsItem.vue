@@ -52,11 +52,12 @@
         <Visualizations
           v-if="items"
           ref="viewer"
+          class="gobierto-data-visualization--item"
           :items="items"
           :config="config"
           :object-columns="objectColumns"
+          :config-map="configMapZoom"
           @showSaving="showSavingDialog"
-          @selectedChart="typeChart = $event"
         />
       </template>
     </div>
@@ -159,7 +160,11 @@ export default {
     objectColumns: {
       type: Object,
       default: () => {}
-    }
+    },
+    configMap: {
+      type: Object,
+      default: () => {}
+    },
   },
   data() {
     return {
@@ -179,7 +184,8 @@ export default {
       isVizElementSavingVisible: false,
       name: '',
       isQuerySavingPromptVisible: false,
-      saveLoader: false
+      saveLoader: false,
+      configMapZoom: { ...this.configMap, zoom: true }
     }
   },
   watch: {

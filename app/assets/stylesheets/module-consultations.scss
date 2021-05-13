@@ -1,3 +1,6 @@
+@import "css-conf";
+@import "mixins";
+
 /* Hide header and footer */
 .consultations.show,
 .consultations.budget_summary,
@@ -305,7 +308,7 @@ img.side_50 {
 .consultation-card.active::after {
   /* Desktop */
   @include min-screen(768) {
-    font-family: "FontAwesome";
+    font-family: "FontAwesome", sans-serif;
     content: "\f105";
     position: absolute;
     z-index: 1;

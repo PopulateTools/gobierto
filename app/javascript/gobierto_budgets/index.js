@@ -1,3 +1,4 @@
+import "../../assets/stylesheets/module-budgets.scss"
 import "./modules/init.js";
 // init.js must be first
 import "./modules/application.js";

@@ -9,7 +9,6 @@ window.GobiertoAdmin.SitesController = (function() {
     var municipalityFieldHandler = "#site_organization_id";
     var autocompleteOptions = {
       source: function(request, response) {
-        var element = $(this)[0].element;
         $.ajax({
           url: municipalities_suggestion_url,
           crossDomain: true,
@@ -52,7 +51,7 @@ window.GobiertoAdmin.SitesController = (function() {
   function populateHomePage(site_modules_with_root_path) {
     var selectedModules = [];
     $.each($("input[name='site[site_modules][]']:checked"), function(){
-      if(site_modules_with_root_path.includes($(this).val())){
+      if (site_modules_with_root_path.includes($(this).val())){
         selectedModules.push($(this).val());
       }
     });
@@ -64,7 +63,7 @@ window.GobiertoAdmin.SitesController = (function() {
     for (var i=0; i<selectedModules.length; i++){
        $('<option/>').val(selectedModules[i]).html(selectedModules[i]).appendTo('#site_home_page');
     }
-    if(selected){
+    if (selected){
       $('#site_home_page').val(selected);
     }
 
@@ -72,7 +71,7 @@ window.GobiertoAdmin.SitesController = (function() {
   }
 
   function selectHomePageItem() {
-    if($('#site_home_page').val() == "GobiertoCms") {
+    if ($('#site_home_page').val() == "GobiertoCms") {
       $('#home_page_item').show();
     } else {
       $('#home_page_item').hide();

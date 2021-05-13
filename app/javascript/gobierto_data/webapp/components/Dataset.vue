@@ -20,9 +20,12 @@
         </div>
       </div>
 
-      <DatasetNav :active-dataset-tab="activeDatasetTab" />
+      <DatasetNav
+        :active-dataset-tab="activeDatasetTab"
+        :tabs="currentTabs"
+      />
 
-      <!-- Only is mounted where there are attributes -->
+      <!-- Only is mounted when there are attributes -->
       <SummaryTab
         v-if="activeDatasetTab === 0 && attributes"
         :dataset-id="datasetId"
@@ -51,6 +54,8 @@
         :resources-list="resourcesList"
         :dataset-attributes="attributes"
         :is-user-logged="isUserLogged"
+        :items="items"
+        :config-map="configMap"
       />
 
       <DataTab
@@ -59,8 +64,8 @@
         :public-queries="publicQueries"
         :recent-queries="recentQueriesFiltered"
         :object-columns="objectColumns"
+        :config-map="configMap"
         :array-formats="arrayFormats"
-        :array-columns-query="arrayColumnsQuery"
         :items="items"
         :is-query-saved="isQuerySaved"
         :is-viz-saved="isVizSaved"
@@ -124,12 +129,21 @@
         :show-label-edit="showLabelEdit"
         :reset-private="resetPrivate"
         :object-columns="objectColumns"
+        :config-map="configMap"
       />
 
       <DownloadsTab
         v-else-if="activeDatasetTab === 4"
         :array-formats="arrayFormats"
         :resources-list="resourcesList"
+      />
+
+      <!-- Only is mounted when exists geometry -->
+      <MapTab
+        v-else-if="activeDatasetTab === 5 && hasGeometryColumn"
+        :items="items"
+        :object-columns="objectColumns"
+        :config-map="configMap"
       />
     </template>
   </div>
@@ -143,6 +157,7 @@ import DataTab from "./sets/DataTab.vue";
 import QueriesTab from "./sets/QueriesTab.vue";
 import VisualizationsTab from "./sets/VisualizationsTab.vue";
 import DownloadsTab from "./sets/DownloadsTab.vue";
+import MapTab from "./sets/MapTab.vue";
 import { getUserId, convertToCSV } from "./../../lib/helpers";
 import { ROUTE_NAMES, tabs } from "./../../lib/router";
 import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
@@ -158,6 +173,7 @@ export default {
     QueriesTab,
     VisualizationsTab,
     DownloadsTab,
+    MapTab,
     DatasetNav,
     SkeletonSpinner
   },
@@ -183,6 +199,7 @@ export default {
       titleDataset: "",
       arrayFormats: {},
       objectColumns: {},
+      configMap: null,
       attributes: null,
       privateQueries: undefined,
       publicQueries: undefined,
@@ -190,7 +207,6 @@ export default {
       publicVisualizations: undefined,
       privateVisualizations: undefined,
       resourcesList: [],
-      arrayColumnsQuery: [],
       currentQuery: null,
       currentVizTab: null,
       queryRevert: null,
@@ -249,10 +265,10 @@ export default {
     },
     isDatasetLoaded() {
       // When loading, show skeleton if:
-      // 1. Any tab but download OR
+      // 1. Any tab but download and map OR
       // 2a. Dataset has no attibutes (getDatasetMetadata empty or error) AND
       // 2b. publicQueries or publicVisualization are undefined (getPublicQueries or getPublicVisualizations have fetched no answer)
-      return this.activeDatasetTab === 4 || !!(
+      return [4, 5].includes(this.activeDatasetTab) || !!(
         this.attributes && !!(this.publicQueries || this.publicVisualizations)
       );
     },
@@ -260,6 +276,13 @@ export default {
       return this.defaultLimit !== null && this.defaultLimit > 0
         ? ` LIMIT ${this.defaultLimit}`
         : "";
+    },
+    hasGeometryColumn() {
+      return this.items.length && Object.keys(this.objectColumns).some(x => x === "geometry")
+    },
+    currentTabs() {
+      const commonTabs = tabs.filter(x => x !== 'mapa')
+      return this.hasGeometryColumn ? tabs : commonTabs
     }
   },
   watch: {
@@ -334,12 +357,14 @@ export default {
       table_name: tableName,
       columns: objectColumns,
       formats: arrayFormats,
-      default_limit: defaultLimit
+      default_limit: defaultLimit,
+      "gobierto-default-geometry-data-column": metric
     } = attributes;
 
     this.titleDataset = titleDataset;
     this.tableName = tableName;
     this.objectColumns = objectColumns;
+    this.configMap = { metric };
     this.arrayFormats = arrayFormats;
     this.defaultLimit = defaultLimit;
 
@@ -354,8 +379,16 @@ export default {
       ].includes(name)
     ) {
       this.updateBaseTitle();
-      this.handleDatasetTabs(this.$route);
+      await this.handleDatasetTabs(this.$route);
+
+      // wait for the query be resolved
+      if (ROUTE_NAMES.Dataset === name) {
+        // run the query directly in the editor
+        this.runCurrentQuery()
+      }
     }
+
+
     this.queryOrVizIsNotMine();
     this.displayVizSavingPrompt();
   },
@@ -488,8 +521,6 @@ export default {
           }
           this.parseUrl(queryId, sql);
           this.setDefaultQuery();
-          // run queries just in the editor tab
-          this.runCurrentQuery()
           break;
         }
         // consultas
@@ -512,6 +543,15 @@ export default {
             this.setQueries();
           }
           break;
+        }
+
+        // mapa
+        case tab === tabs[5]:
+        case name === ROUTE_NAMES.Map: {
+          this.setDefaultQuery();
+          // run queries just in the editor tab
+          this.runCurrentQuery()
+          break
         }
 
         default:
@@ -776,7 +816,6 @@ export default {
         this.items = items;
         this.queryDuration = new Date().getTime() - startTime;
         this.isQueryRunning = false;
-        this.getColumnsQuery(this.items);
         this.queryError = null;
       } catch ({
         response: {
@@ -887,10 +926,6 @@ export default {
       this.queryInputFocus = false;
       this.enabledForkVizButton = false;
       this.isVizSaved = true;
-    },
-    getColumnsQuery(csv = "") {
-      const [columns = ""] = csv.split("\n");
-      this.arrayColumnsQuery = columns.split(",");
     },
     resetQuery() {
       this.isQuerySavingPromptVisible = false;

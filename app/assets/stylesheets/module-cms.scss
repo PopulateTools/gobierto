@@ -1,4 +1,9 @@
-div.home-cms {
+@import "css-conf";
+@import "mixins";
+@import "populities";
+@import "comp-text_content";
+
+.home-cms {
   #transparency .block-title {
     background-size: cover;
     background-position-y: 40%;

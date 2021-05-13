@@ -5,9 +5,13 @@
  */
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import cssVars from "css-vars-ponyfill"
 
-cssVars() // Allow IE use CSS custom variables. Initialization
+// https://attacomsian.com/blog/javascript-dom-detect-internet-explorer-browser
+if (document.documentMode) {
+  import("css-vars-ponyfill").then(({ default: cssVars }) => {
+    cssVars() // Allow IE use CSS custom variables. Initialization
+  })
+}
 
 /**
  *

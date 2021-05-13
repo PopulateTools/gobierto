@@ -216,10 +216,6 @@
   padding: 0 0.25em 0 0;
   box-sizing: border-box;
 }
-.p_h_r_0_5 {
-  padding: 0 0.5em 0 0;
-  box-sizing: border-box;
-}
 .p_h_r_1 {
   padding: 0 1em 0 0;
   box-sizing: border-box;
@@ -461,14 +457,12 @@ $units: 1px !default;
     padding: 0;
     list-style: none;
   }
-  li {
-    display: inline-block;
-  }
   ul {
     border-bottom: 1px solid $border;
     padding: 0 10px;
   }
   li {
+    display: inline-block;
     height: 25px;
     a {
       display: block;

@@ -630,6 +630,7 @@ Rails.application.routes.draw do
         get "/datos/:id/visualizaciones" => "welcome#index"
         get "/datos/:id/v/(:queryId)" => "welcome#index"
         get "/datos/:id/descarga" => "welcome#index"
+        get "/datos/:id/mapa" => "welcome#index"
         get "/datos/terms/(:vocabId)" => "welcome#index"
 
         # API

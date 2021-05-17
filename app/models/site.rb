@@ -266,7 +266,6 @@ class Site < ApplicationRecord
     if self.saved_change_to_attribute?('configuration_data') && added_modules_after_update.any?
       added_modules_after_update.each do |module_name|
         GobiertoCommon::GobiertoSeeder::ModuleSeeder.seed(module_name, self)
-        GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG[:site][:name], module_name, self)
       end
     end
   end

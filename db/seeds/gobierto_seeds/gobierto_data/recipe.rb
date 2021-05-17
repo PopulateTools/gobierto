@@ -104,15 +104,97 @@ module GobiertoSeeds
           if vocabulary.new_record?
             vocabulary.name_translations = { ca: "Llicència", en: "License", es: "Licencia" }
             vocabulary.save
-            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY",       en: "Creative Commons BY",       es: "Creative Commons BY"       }, position: 1)
-            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY-SA",    en: "Creative Commons BY-SA",    es: "Creative Commons BY-SA"    }, position: 2)
-            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY-ND",    en: "Creative Commons BY-ND",    es: "Creative Commons BY-ND"    }, position: 3)
-            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY-NC",    en: "Creative Commons BY-NC",    es: "Creative Commons BY-NC"    }, position: 4)
-            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY-NC-SA", en: "Creative Commons BY-NC-SA", es: "Creative Commons BY-NC-SA" }, position: 5)
-            vocabulary.terms.create(name_translations: { ca: "Creative Commons BY-NC-ND", en: "Creative Commons BY-NC-ND", es: "Creative Commons BY-NC-ND" }, position: 6)
-            vocabulary.terms.create(name_translations: { ca: "Open Data (ODbl)",          en: "Open Data (ODbl)",          es: "Open Data (ODbl)"          }, position: 7)
-            vocabulary.terms.create(name_translations: { ca: "Open Data (ODC-BY)",        en: "Open Data (ODC-BY)",        es: "Open Data (ODC-BY)"        }, position: 8)
-            vocabulary.terms.create(name_translations: { ca: "Open Data (PDDL)",          en: "Open Data (PDDL)",          es: "Open Data (PDDL)"          }, position: 9)
+            vocabulary.terms.create(
+              name_translations: {
+                ca: "Creative Commons BY",
+                en: "Creative Commons BY",
+                es: "Creative Commons BY"
+              },
+              description_translations: {
+                ca: "https://creativecommons.org/licenses/by/4.0/deed.cat",
+                en: "https://creativecommons.org/licenses/by/4.0/deed.en",
+                es: "https://creativecommons.org/licenses/by/4.0/deed.es"},
+              position: 1)
+            vocabulary.terms.create(
+              name_translations: {
+                ca: "Creative Commons BY-SA",
+                en: "Creative Commons BY-SA",
+                es: "Creative Commons BY-SA"},
+              description_translations: {
+                ca: "https://creativecommons.org/licenses/by-sa/3.0/deed.cat",
+                en: "https://creativecommons.org/licenses/by-sa/3.0/deed.en",
+                es: "https://creativecommons.org/licenses/by-sa/3.0/deed.es"},
+              position: 2)
+            vocabulary.terms.create(
+              name_translations: {
+                ca: "Creative Commons BY-ND",
+                en: "Creative Commons BY-ND",
+                es: "Creative Commons BY-ND"},
+              description_translations: {
+                ca: "https://creativecommons.org/licenses/by-nd/2.0/deed.cat",
+                en: "https://creativecommons.org/licenses/by-nd/2.0/deed.en",
+                es: "https://creativecommons.org/licenses/by-nd/2.0/deed.es"},
+              position: 3)
+            vocabulary.terms.create(
+              name_translations: {
+                ca: "Creative Commons BY-NC",
+                en: "Creative Commons BY-NC",
+                es: "Creative Commons BY-NC"},
+              description_translations: {
+                ca: "https://creativecommons.org/licenses/by-nc/2.0/deed.cat",
+                en: "https://creativecommons.org/licenses/by-nc/2.0/deed.en",
+                es: "https://creativecommons.org/licenses/by-nc/2.0/deed.es"},
+              position: 4)
+            vocabulary.terms.create(
+              name_translations: {
+                ca: "Creative Commons BY-NC-SA",
+                en: "Creative Commons BY-NC-SA",
+                es: "Creative Commons BY-NC-SA"},
+              description_translations: {
+                ca: "https://creativecommons.org/licenses/by-nc-sa/3.0/deed.cat",
+                en: "https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en",
+                es: "https://creativecommons.org/licenses/by-nc-sa/3.0/deed.es"},
+              position: 5)
+            vocabulary.terms.create(
+              name_translations: {
+                ca: "Creative Commons BY-NC-ND",
+                en: "Creative Commons BY-NC-ND",
+                es: "Creative Commons BY-NC-ND"},
+              description_translations: {
+                ca: "https://creativecommons.org/licenses/by-nc-nd/3.0/deed.cat",
+                en: "https://creativecommons.org/licenses/by-nc-nd/3.0/deed.en",
+                es: "https://creativecommons.org/licenses/by-nc-nd/3.0/deed.es"},
+              position: 6)
+            vocabulary.terms.create(
+              name_translations: {
+                ca: "Open Data (ODbl)",
+                en: "Open Data (ODbl)",
+                es: "Open Data (ODbl)"},
+            description_translations: {
+              ca: "https://opendatacommons.org/licenses/odbl/1-0/",
+              en: "https://opendatacommons.org/licenses/odbl/1-0/",
+              es: "https://opendatacommons.org/licenses/odbl/1-0/"},
+            position: 7)
+            vocabulary.terms.create(
+              name_translations: {
+                ca: "Open Data (ODC-BY)",
+                en: "Open Data (ODC-BY)",
+                es: "Open Data (ODC-BY)"},
+              description_translations: {
+                ca: "https://opendatacommons.org/licenses/by/1-0/",
+                en: "https://opendatacommons.org/licenses/by/1-0/",
+                es: "https://opendatacommons.org/licenses/by/1-0/"},
+              position: 8)
+            vocabulary.terms.create(
+              name_translations: {
+                ca: "Open Data (PDDL)",
+                en: "Open Data (PDDL)",
+                es: "Open Data (PDDL)"},
+              description_translations: {
+                ca: "https://opendatacommons.org/licenses/pddl/",
+                en: "https://opendatacommons.org/licenses/pddl/",
+                es: "https://opendatacommons.org/licenses/pddl/"},
+              position: 9)
           end
           license.name_translations =  { ca: "Llicència", en: "License", es: "Licencia" }
           license.position = 6
@@ -121,6 +203,14 @@ module GobiertoSeeds
             vocabulary_id: vocabulary.id.to_s
           }
           license.save
+        end
+
+        dataset_default_geometry = site.custom_fields.string.where(class_name: "GobiertoData::Dataset").find_or_initialize_by(uid: 'gobierto-default-geometry-data-column')
+        if dataset_default_geometry.new_record?
+          dataset_default_geometry.name_translations = { ca: "Columna per llegir dades de geometria", en: "Column to read geometry data", es: "Columna para leer datos de geometría" }
+          dataset_default_geometry.position = 7
+          dataset_default_geometry.options = { configuration: {} }
+          dataset_default_geometry.save
         end
 
         unless site.configuration.configuration_variables["gobierto_data_catalog_organism"].present?
@@ -141,6 +231,7 @@ module GobiertoSeeds
           site.configuration.raw_configuration_variables = existing_conf.merge(extra_conf).to_yaml
           site.save
         end
+
       end
 
     end

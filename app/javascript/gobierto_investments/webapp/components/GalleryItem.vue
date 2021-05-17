@@ -18,20 +18,34 @@
         >{{ item.title }}</a>
         <div>
           <div
-            v-for="attr in attributes"
-            :key="attr.id"
+            v-for="{ id, name, field_type, value } in attributes"
+            :key="id"
             class="investments-home-main--property"
           >
-            <div>{{ attr.name }}</div>
+            <div
+              v-if="displayGalleryFieldTags"
+              class="investments-home-main--property__tag"
+            >
+              {{ name }}
+            </div>
 
-            <div v-if="attr.filter === 'money'">
-              {{ attr.value | money }}
+            <div
+              v-if="field_type === 'money'"
+              class="investments-home-main--property__value"
+            >
+              {{ value | money }}
             </div>
-            <div v-else-if="attr.filter === 'date'">
-              {{ attr.value | date }}
+            <div
+              v-else-if="field_type === 'date'"
+              class="investments-home-main--property__value"
+            >
+              {{ value | date }}
             </div>
-            <div v-else>
-              {{ attr.value }}
+            <div
+              v-else
+              class="investments-home-main--property__value"
+            >
+              {{ value }}
             </div>
           </div>
         </div>
@@ -54,11 +68,13 @@ export default {
   },
   data() {
     return {
-      attributes: {}
+      attributes: {},
+      displayGalleryFieldTags: true
     };
   },
   created() {
-    const { availableGalleryFields = {} } = this.item;
+    const { availableGalleryFields = {}, displayGalleryFieldTags } = this.item;
+    this.displayGalleryFieldTags = !!displayGalleryFieldTags
     this.attributes = availableGalleryFields.filter(
       ({ type, value }) => type === "separator" || (value !== null && value !== undefined && !(value instanceof Array && value.length === 0))
     );

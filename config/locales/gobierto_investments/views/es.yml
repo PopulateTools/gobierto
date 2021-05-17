@@ -13,6 +13,7 @@ es:
           marcha.
     projects:
       back: ver todo
+      description: Descripción
       detail_title: Detalle del proyecto
       empty: Sin resultados
       exit: Salir
@@ -20,9 +21,13 @@ es:
       list: Lista
       loading: Cargando datos...
       map: Mapa
+      project:
+        one: "%{count} proyecto"
+        other: "%{count} proyectos"
       reset: Limpiar filtros
       see: Ver de nuevo
       showall: Ver todo
       showless: Ver menos
       summary: Resumen por estados
+      tech_sheet: Ficha técnica
       tour: Tour virtual

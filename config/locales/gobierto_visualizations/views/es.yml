@@ -221,6 +221,7 @@ es:
         amount: Importe
         amount_distribution: Distribución por importes
         beneficiary: Beneficiario
+        call: Convocatoria
         category: Categoría
         date: Fecha
         dates: Fechas

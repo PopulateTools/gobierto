@@ -8113,10 +8113,10 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-perspective-map@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/perspective-map/-/perspective-map-1.0.1.tgz#ed1c09240f616a7e0445efe5cc84cc77a948efc0"
-  integrity sha512-IhmTL2EZBEo1q6BCcDsIsDpzkYBONE2oNu04cibBOnhRNHAdBPVEiv8ahbGzsEfBzZq/ShQ3cxVr+9jB3Yqmlw==
+perspective-map@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/perspective-map/-/perspective-map-1.0.4.tgz#8de24a2fc35365943048f97859874b6eb06a62ac"
+  integrity sha512-U4cTxhbtCd1Lz9rAQs0Due6g7uNfTCkzIeNQeBrL+Ae32xS9+LodBohWRiwhWvjVvZf0gpVtp/urXN2DUjO+/w==
   dependencies:
     "@finos/perspective-viewer" "0.6.2"
     leaflet "^1.5.1"

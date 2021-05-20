@@ -218,6 +218,7 @@ en:
         amount: Amount
         amount_distribution: Amount distribution
         beneficiary: Beneficiary
+        call: Call
         category: Category
         date: Date
         dates: Dates

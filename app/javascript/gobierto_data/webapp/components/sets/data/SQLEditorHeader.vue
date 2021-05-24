@@ -39,6 +39,7 @@
       <button
         ref="buttonYourQueries"
         class="btn-sql-editor btn-sql-editor-queries gobierto-data-btn-blue"
+        aria-label="Tus queries"
         @click="isQueriesModalActive = !isQueriesModalActive"
       >
         <i

@@ -1,6 +1,13 @@
 <template>
   <div>
-    <textarea ref="queryEditor" />
+    <label
+      class="helper-screenreader"
+      for="queryEditor"
+    >Editor de Queries</label>
+    <textarea
+      id="queryEditor"
+      ref="queryEditor"
+    />
     <div class="gobierto-data-sql-editor-footer">
       <template v-if="queryError">
         <span class="gobierto-data-sql-error-message">
@@ -97,7 +104,8 @@ export default {
       autoIndent: true,
       extraKeys: {
         Ctrl: "autocomplete"
-      }
+      },
+      screenReaderLabel: "queryEditor"
     };
 
     this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, cmOption);

@@ -11,6 +11,12 @@ import VueRouter from "vue-router";
 import { getRemoteData, sortByField, calculateSumMeanMedian } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/mixins/event_bus";
 
+
+if (process.env.NODE_ENV === 'development') {
+  const VueAxe = require('vue-axe').default
+  Vue.use(VueAxe)
+}
+
 const d3 = { scaleThreshold, sum, mean, median, max };
 
 Vue.use(VueRouter);

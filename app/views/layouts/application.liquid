@@ -2,7 +2,7 @@
 <html lang="{% i18n_locale %}">
 
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0">
     {% render_partial 'layouts/gobierto_head' %}
   </head>
 
@@ -10,10 +10,10 @@
 
     {% render_partial 'layouts/header' %}
 
-    <div class="container">
+    <main class="container">
       {% render_partial "user/shared/flash_messages" %}
       {{ content_for_layout }}
-    </div>
+    </main>
 
     {% render_partial 'layouts/footer' %}
 

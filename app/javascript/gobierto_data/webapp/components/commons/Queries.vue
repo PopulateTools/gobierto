@@ -83,7 +83,14 @@
 
       <div class="pure-u-1-2 border-color-queries">
         <p class="gobierto-data-summary-queries-sql-code">
-          <textarea ref="querySnippet" />
+          <label
+            class="helper-screenreader"
+            for="queryEditorQueries"
+          >Editor de Queries</label>
+          <textarea
+            id="queryEditorQueries"
+            ref="querySnippet"
+          />
         </p>
       </div>
     </div>
@@ -140,7 +147,8 @@ export default {
       mode: "text/x-sql",
       showCursorWhenSelecting: true,
       theme: "default",
-      autoIndent: true
+      autoIndent: true,
+      screenReaderLabel: "queryEditorQueries"
     };
 
     this.editor = CodeMirror.fromTextArea(this.$refs.querySnippet, cmOption);

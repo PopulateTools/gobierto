@@ -5,6 +5,11 @@ import 'codemirror/lib/codemirror.css'
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
 
+if (process.env.NODE_ENV === 'development') {
+  const VueAxe = require('vue-axe').default
+  Vue.use(VueAxe)
+}
+
 export class GobiertoDataController {
   constructor(options) {
     const selector = "gobierto-datos-app";

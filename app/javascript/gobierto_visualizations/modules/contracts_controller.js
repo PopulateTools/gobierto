@@ -12,12 +12,9 @@ import { getRemoteData, calculateSumMeanMedian } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/mixins/event_bus";
 
 const d3 = { scaleThreshold, sum, mean, median, max };
+import { accesibilityAxe } from "lib/vue/accesibility";
 
-
-if (process.env.NODE_ENV === 'development') {
-  const VueAxe = require('vue-axe').default
-  Vue.use(VueAxe)
-}
+accesibilityAxe()
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;

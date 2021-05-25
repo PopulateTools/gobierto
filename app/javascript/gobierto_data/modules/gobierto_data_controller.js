@@ -1,6 +1,9 @@
 import Vue from "vue";
 import { router } from "../lib/router";
-import 'codemirror/lib/codemirror.css'
+import 'codemirror/lib/codemirror.css';
+import { accesibilityAxe } from "lib/vue/accesibility";
+
+accesibilityAxe()
 
 Vue.config.productionTip = false;
 Vue.config.devtools = true;

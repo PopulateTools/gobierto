@@ -5,28 +5,20 @@
 
     <div class="tabs m_v_2">
       <ul role="tablist" aria-label="<%= t('.explore_the_detail') %>">
-        <li role="presentation" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::INCOME) %>">
+        <li role="tab" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::INCOME) %>">
           <%= link_to(
                 t('.income'),
                 gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name),
                 data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::INCOME, remote: true },
-                id: "ingresos",
-                "aria-controls" => "detail_tab",
-                role:"tab",
-                tabindex:"0",
-                "aria-selected" => (@kind == GobiertoBudgets::BudgetLine::INCOME)
+                id: "ingresos"
           )%>
         </li>
-        <li role="presentation" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::EXPENSE) %>">
+        <li role="tab" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::EXPENSE) %>">
           <%= link_to(
                 t('.expenses'),
                 gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name),
                 data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::EXPENSE, remote: true },
-                id:"gastos",
-                "aria-controls" => "detail_tab",
-                role:"tab",
-                tabindex:"-1",
-                "aria-selected" => (@kind == GobiertoBudgets::BudgetLine::INCOME)
+                id:"gastos"
           )%>
         </li>
       </ul>

@@ -7,7 +7,7 @@
       </div>
 
       <div class="pure-u-1 pure-u-md-12-24 right">
-        <%= image_tag('illustrations/presupuestos.jpg', class: 'medium_img') %>
+        <%= image_tag('illustrations/presupuestos.jpg', class: 'medium_img', alt: '') %>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
               <div class="pure-u-1 receipt_item" :class="[ manual ? 'pure-u-md-13-24' : 'pure-u-md-6-24' ]">{{ localizedName(row) }}</div>
 
               <div class="pure-u-1 pure-u-md-7-24 receipt_dropdown" v-if="!manual">
-                <select name="select" v-model="selected[index]">
+                <select name="select" v-model="selected[index]" aria-label="receipt">
                   <option :value="0.0"><%= t('.pick_to_calculate') %></option>
                   <option :value="option.value" v-for="option in row.options">{{ localizedName(option) }}</option>
                 </select>

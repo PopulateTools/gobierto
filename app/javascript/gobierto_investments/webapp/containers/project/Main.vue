@@ -1,5 +1,5 @@
 <template>
-  <main class="investments-project-main">
+  <div class="investments-project-main">
     <section>
       <h1 class="investments-project-main--heading">
         {{ project.title }}
@@ -16,10 +16,12 @@
           >
             <img
               :src="photo"
+              :alt="project.description"
               class="investments-project-main--carousel-img"
             >
             <img
               :src="photo"
+              :alt="project.description"
               class="investments-project-main--carousel-blur"
             >
           </div>
@@ -83,7 +85,7 @@
         </ReadMore>
       </div>
     </section>
-  </main>
+  </div>
 </template>
 
 <script>

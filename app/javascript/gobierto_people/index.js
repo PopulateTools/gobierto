@@ -6,6 +6,8 @@ import { checkAndReportAccessibility } from 'lib/shared'
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  checkAndReportAccessibility()
+  if (process.env.NODE_ENV === 'development') {
+    checkAndReportAccessibility()
+  }
 
 });

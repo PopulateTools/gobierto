@@ -5,7 +5,9 @@ import { checkAndReportAccessibility } from 'lib/shared'
 document.addEventListener('DOMContentLoaded', () => {
   const demographyMapAppNode = document.getElementById("gobierto-observatory-demography-map-app");
 
-  checkAndReportAccessibility()
+  if (process.env.NODE_ENV === 'development') {
+    checkAndReportAccessibility()
+  }
 
   if (demographyMapAppNode !== null) {
     // load only the module in the "/observatorio/mapa" path

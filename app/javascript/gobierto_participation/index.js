@@ -6,3 +6,12 @@ import "./modules/contribution_containers_controller.js";
 import "./modules/poll_teaser_controller.js";
 import "./modules/processes_controller.js";
 import "./modules/process_polls_controller.js";
+import { checkAndReportAccessibility } from 'lib/shared'
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  if (process.env.NODE_ENV === 'development') {
+    checkAndReportAccessibility()
+  }
+
+});

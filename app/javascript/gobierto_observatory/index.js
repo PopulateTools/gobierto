@@ -1,8 +1,11 @@
 import "../../assets/stylesheets/module-observatory.scss"
 import "./modules/application.js"
+import { checkAndReportAccessibility } from 'lib/shared'
 
 document.addEventListener('DOMContentLoaded', () => {
   const demographyMapAppNode = document.getElementById("gobierto-observatory-demography-map-app");
+
+  checkAndReportAccessibility()
 
   if (demographyMapAppNode !== null) {
     // load only the module in the "/observatorio/mapa" path
@@ -17,5 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ineCode: demographyMapAppNode.dataset.ineCode
       });
     })
+
   }
 });

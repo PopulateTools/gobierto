@@ -7,7 +7,7 @@ let lastNotification = ''
 const deferred = {}
 const impacts = [...axeCore.constants.impact].reverse()
 
-export function checkAndReport (node, label) {
+export function checkAndReportAccessibility (node, label) {
   const deferred = createDeferred()
   style = { ...defaultOptions.style }
 

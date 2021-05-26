@@ -17,7 +17,7 @@ import { ImageLightbox } from "./modules/image-lightbox.js";
 import { RangeSlider } from "./modules/range-slider.js";
 import { Middleware } from "./modules/middleware.js";
 import { debounce } from "./modules/debounce.js";
-import { checkAndReport } from "./modules/accessibility.js";
+import { checkAndReportAccessibility } from "./modules/accessibility.js";
 
 export {
   AUTOCOMPLETE_DEFAULTS,
@@ -35,5 +35,5 @@ export {
   Middleware,
   slugString,
   debounce,
-  checkAndReport
+  checkAndReportAccessibility
 };

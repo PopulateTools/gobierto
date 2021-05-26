@@ -6,3 +6,10 @@ import "./modules/execution.js";
 import "./modules/indicators_controller.js";
 import "./modules/invoices_controller.js";
 import "./modules/receipt_controller.js";
+import { checkAndReportAccessibility } from 'lib/shared'
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  checkAndReportAccessibility()
+
+});

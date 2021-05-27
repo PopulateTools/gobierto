@@ -8,7 +8,7 @@
   </div>
 
   <% if page.main_image %>
-    <%= image_tag page.main_image, title: page.title, width: "221px", class: "pure-img m_v_1" %>
+    <%= image_tag page.main_image, title: page.title, width: "221px", class: "pure-img m_v_1", alt: '' %>
     <p>
       <%= truncate(strip_tags(page.body), length: 60, escape: false) %>
     </p>

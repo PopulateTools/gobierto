@@ -1,9 +1,9 @@
 import Vue from "vue";
 import { router } from "../lib/router";
 import 'codemirror/lib/codemirror.css';
-import { accesibilityAxe } from "lib/vue/accesibility";
+import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
-accesibilityAxe()
+checkAndReportAccessibility()
 
 Vue.config.productionTip = false;
 Vue.config.devtools = true;

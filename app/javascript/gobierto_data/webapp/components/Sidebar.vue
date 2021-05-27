@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div
+    <nav
       class="gobierto-data-tabs-sidebar"
       role="navigation"
+      aria-label="sidebar navigation"
     >
       <div
         :class="{ 'is-active': activeTab === 0 }"
@@ -26,7 +27,7 @@
       >
         <span>{{ labelQueries }}</span>
       </div> -->
-    </div>
+    </nav>
 
     <keep-alive>
       <component

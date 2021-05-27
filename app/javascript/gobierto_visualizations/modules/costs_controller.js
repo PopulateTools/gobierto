@@ -2,9 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { getRemoteData } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/mixins/event_bus";
-import { accesibilityAxe } from "lib/vue/accesibility";
+import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
-accesibilityAxe()
+checkAndReportAccessibility()
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 

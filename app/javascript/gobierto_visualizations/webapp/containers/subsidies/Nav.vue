@@ -1,5 +1,9 @@
 <template>
-  <nav class="visualizations-home-nav">
+  <nav
+    class="visualizations-home-nav"
+    role="navigation"
+    aria-label="tabs navigation"
+  >
     <ul>
       <router-link
         :to="{ name: 'summary' }"

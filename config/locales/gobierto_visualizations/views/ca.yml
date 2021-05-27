@@ -217,6 +217,7 @@ ca:
         amount: Import
         amount_distribution: Distribució per imports
         beneficiary: beneficiari
+        call: Convocatòria
         category: Categoria
         date: Data
         dates: Dates

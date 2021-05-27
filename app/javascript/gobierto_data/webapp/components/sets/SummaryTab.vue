@@ -4,14 +4,15 @@
       :description-dataset="description"
       :category-dataset="category | translate"
       :frequency-dataset="frequency | translate"
-      :license-dataset="datasetLicense | translate"
-      :source-dataset="datasetSource"
-      :source-dataset-url="datasetSourceUrl"
+      :license-dataset="datasetLicenseObject"
+      :source-dataset="datasetSourceObject"
       :date-updated="dateUpdated"
       :array-formats="arrayFormats"
     />
 
-    <div class="gobierto-data-summary-header-btns gobierto-data-summary-separator">
+    <div
+      class="gobierto-data-summary-header-btns gobierto-data-summary-separator"
+    >
       <DownloadButton
         :array-formats="arrayFormats"
         class="arrow-top modal-left"
@@ -41,6 +42,28 @@
       :object-columns="objectColumns"
       class="gobierto-data-summary-separator"
     />
+
+    <Dropdown
+      v-if="hasGeometry && items.length"
+      class="gobierto-data-summary-separator"
+      @is-content-visible="showMap = !showMap"
+    >
+      <template v-slot:trigger>
+        <h2 class="gobierto-data-tabs-section-title">
+          <Caret :rotate="showMap" />
+          {{ labelMap }}
+        </h2>
+      </template>
+      <div class="gobierto-data-visualization--aspect-ratio-16-9">
+        <Visualizations
+          v-if="showMap"
+          :items="items"
+          :config="config"
+          :object-columns="objectColumns"
+          :config-map="configMap"
+        />
+      </div>
+    </Dropdown>
 
     <Dropdown
       v-if="hasQueries"
@@ -112,6 +135,7 @@
 
 <script>
 import VisualizationsTab from "./VisualizationsTab.vue";
+import Visualizations from "./../commons/Visualizations.vue";
 import Resources from "./../commons/Resources.vue";
 import Info from "./../commons/Info.vue";
 import Queries from "./../commons/Queries.vue";
@@ -119,8 +143,8 @@ import Caret from "./../commons/Caret.vue";
 import Description from "./../commons/Description.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
 import Button from "./../commons/Button.vue";
-import { tabs } from '../../../lib/router'
-import { translate } from "lib/vue/filters"
+import { tabs } from "../../../lib/router";
+import { translate } from "lib/vue/filters";
 import { Dropdown, SkeletonSpinner } from "lib/vue/components";
 
 export default {
@@ -135,7 +159,8 @@ export default {
     Button,
     Description,
     VisualizationsTab,
-    SkeletonSpinner
+    SkeletonSpinner,
+    Visualizations
   },
   filters: {
     translate
@@ -167,27 +192,27 @@ export default {
     },
     privateQueries: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     publicQueries: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     arrayFormats: {
       type: Object,
-      default: () => {},
+      default: () => {}
     },
     objectColumns: {
       type: Object,
-      default: () => {},
+      default: () => {}
     },
     datasetAttributes: {
       type: Object,
-      default: () => {},
+      default: () => {}
     },
     resourcesList: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     isUserLogged: {
       type: Boolean,
@@ -240,6 +265,14 @@ export default {
     userSaveViz: {
       type: Number,
       default: 0
+    },
+    items: {
+      type: String,
+      default: ""
+    },
+    configMap: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -249,25 +282,39 @@ export default {
       frequency: {},
       dateUpdated: null,
       datasetLicense: null,
+      datasetLicenseUrl: null,
       datasetSource: null,
       datasetSourceUrl: null,
+      datasetSourceObject: {},
+      datasetLicenseObject: {},
       showYourQueries: true,
       showYourVizs: true,
+      showMap: true,
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelPreview: I18n.t("gobierto_data.projects.preview") || "",
-      labelVisualizations: I18n.t("gobierto_data.projects.visualizations") || "",
-      tabs
+      labelVisualizations:
+        I18n.t("gobierto_data.projects.visualizations") || "",
+      labelMap: I18n.t("gobierto_data.projects.map") || "",
+      tabs,
+      config: {
+        plugin: "map"
+      }
     };
   },
   computed: {
     isVizLoading() {
-      return this.publicVisualizations.length || !this.isPublicVizLoading
+      return this.publicVisualizations.length || !this.isPublicVizLoading;
     },
     hasQueries() {
-      return this.privateQueries?.length || this.publicQueries?.length
+      return this.privateQueries?.length || this.publicQueries?.length;
     },
     hasVisualizations() {
-      return this.privateVisualizations?.length || this.publicVisualizations?.length
+      return (
+        this.privateVisualizations?.length || this.publicVisualizations?.length
+      );
+    },
+    hasGeometry() {
+      return Object.keys(this.objectColumns).some(x => x === "geometry");
     }
   },
   created() {
@@ -275,11 +322,19 @@ export default {
       data_updated_at: this.dateUpdated,
       category: [{ name_translations: this.category } = {}] = [],
       frequency: [{ name_translations: this.frequency } = {}] = [],
-      "dataset-license": [{ name_translations: this.datasetLicense } = {}] = [],
+      "dataset-license": [{ name_translations: this.datasetLicense, description_translations: this.datasetLicenseUrl } = {}] = [],
       "dataset-source": this.datasetSource,
       "dataset-source-url": this.datasetSourceUrl,
       description: this.description
     } = this.datasetAttributes) // Ouh yes, destructuring FTW 😎
+    this.datasetSourceObject = {
+      text: this.datasetSource,
+      url: this.datasetSourceUrl
+    }
+    this.datasetLicenseObject = {
+      text: translate(this.datasetLicense),
+      url: translate(this.datasetLicenseUrl)
+    }
   }
 };
 </script>

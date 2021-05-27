@@ -1,6 +1,15 @@
 @import "css-conf";
 @import "mixins";
+@import "comp-vue-table";
+@import "comp-horizontal-carousel.scss";
 @import "comp-block-checkbox";
+@import "comp-vue-transitions";
+@import "magnific-popup/dist/magnific-popup.css";
+@import "comp-magnific-popup-animations";
+@import "comp-horizontal-carousel";
+@import "comp-range-slider";
+@import "comp-read-more";
+@import "air-datepicker/dist/css/datepicker.css";
 
 .investments {
   @include min-screen(768) {
@@ -135,10 +144,23 @@
   }
 
   &-project-main {
+    & section + section {
+      padding: 1.5rem 0;
+
+      &:not(:nth-child(2)) {
+        border-top: 1.5rem solid $separator;
+      }
+    }
+
     &--heading {
       font-size: 26px;
-      font-weight: 300;
+      font-weight: 600;
       line-height: 31px;
+      margin-top: 0;
+    }
+
+    &--subheading {
+      font-size: 20px;
       margin-top: 0;
     }
 
@@ -154,21 +176,35 @@
 
       &-element {
         position: relative;
-        max-height: 300px;
+        height: 450px;
+
+        &.is-thumbnail {
+          height: 100px;
+          width: 150px;
+          flex: 0 0 150px;
+
+          & + & {
+            padding-left: 1rem;
+          }
+
+          .investments-project-main--carousel-blur {
+            display: none;
+          }
+        }
+
+        &.is-active {
+          margin-bottom: 1rem;
+        }
       }
 
       &-img {
-        object-fit: cover;
+        object-fit: contain;
         cursor: pointer;
         width: 100%;
         height: 100%;
 
         &:not(:first-child) {
           margin-left: 5px;
-        }
-
-        &.is-portrait {
-          object-fit: contain;
         }
       }
 
@@ -181,31 +217,14 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        opacity: 0.2;
       }
-    }
-
-    &--hr {
-      border: 0;
-      border-top: 1px solid $separator;
-      margin-bottom: 2rem;
-
-      &:last-child {
-        display: none;
-      }
-    }
-
-    &--hr + &--hr {
-      display: none;
     }
 
     &--table-row {
       display: flex;
       align-items: baseline;
       color: $color_text;
-
-      &:not(:last-child) {
-        margin-bottom: 2rem;
-      }
 
       > :last-child {
         flex: 1;
@@ -217,7 +236,6 @@
       font-size: $f6;
       font-weight: 700;
       line-height: 19px;
-      text-transform: uppercase;
       padding-right: 1rem;
     }
 
@@ -572,7 +590,7 @@
       justify-content: flex-start;
       align-items: center;
 
-      > :first-child {
+      &__tag {
         font-size: $f8;
         font-weight: 700;
         line-height: 14px;
@@ -582,7 +600,7 @@
         box-sizing: border-box;
       }
 
-      > :last-child {
+      &__value {
         font-size: $f7;
         font-weight: 400;
         line-height: 16px;
@@ -594,96 +612,18 @@
       }
     }
 
-    &--th {
-      font-size: $f8;
-      font-weight: 700;
-      line-height: 14px;
-      text-align: left;
-      border-top: 0;
-      text-transform: uppercase;
-      padding: 0 0 0.5em;
-      color: var(--color-base);
-
-      @include min-screen(768) {
-        &:first-child > * {
-          padding-left: 20px;
-        }
-      }
-
-      &:last-child > * {
-        text-align: right;
-        padding-right: 0;
-
-        @include min-screen(768) {
-          padding-right: 20px;
-        }
-      }
-    }
-
-    &--td {
-      padding: 0;
-      font-size: $f6;
-      font-weight: 400;
-      line-height: 28px;
-      text-align: left;
-      border-top: 0;
-      cursor: pointer;
-
-      > * {
-        border-top: 1px solid;
-        border-top-color: rgba(var(--color-base-string), 0.1);
-        padding: 0.5em 0;
-      }
-
-      &:first-child > * {
-        font-weight: 700;
-        margin-left: 0;
-        padding-right: 8px;
-
-        @include min-screen(768) {
-          margin-left: 20px;
-        }
-      }
-
-      &:last-child > * {
-        text-align: right;
-        margin-right: 0;
-        padding-left: 8px;
-
-        @include min-screen(768) {
-          margin-right: 20px;
-        }
-      }
-
-      &:not(:first-child) {
+    &--table {
+      th:last-child {
         white-space: nowrap;
       }
 
-      &:not(:first-child):not(:last-child) > *::first-letter {
-        text-transform: uppercase;
-      }
-    }
-
-    &--tr:hover > * {
-      background-color: rgba(var(--color-base-string), 0.1);
-
-      > * {
-        border-top-color: transparent;
+      td:first-child {
+        font-weight: bold;
       }
 
-      &:first-child {
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
+      td:last-child {
+        text-align: right;
       }
-
-      &:last-child {
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
-      }
-    }
-
-    &--tr:hover + &--tr > * > * {
-      border-top-color: transparent;
     }
   }
 

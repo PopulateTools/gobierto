@@ -22,6 +22,7 @@ namespace :common do
 
     reindex_model(GobiertoAttachments::Attachment, force_reset)
     reindex_model(GobiertoCalendars::Event, force_reset)
+    reindex_model(GobiertoData::Dataset, force_reset)
   end
 
   def reindex_model(searchable_model, force_reset)

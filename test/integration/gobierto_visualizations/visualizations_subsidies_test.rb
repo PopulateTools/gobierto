@@ -105,10 +105,10 @@ class GobiertoVisualizations::VisualizationsSubsidiesTest < ActionDispatch::Inte
       assert first_subsidy.has_content?('1')
 
       # Amount
-      assert first_subsidy.has_content?('€1,305.05')
+      assert first_subsidy.has_content?('€9,500.00')
 
       # Date
-      assert first_subsidy.has_content?('2016-08-02')
+      assert first_subsidy.has_content?('2016-12-01')
 
       # Subsidies Show
       ################
@@ -118,13 +118,13 @@ class GobiertoVisualizations::VisualizationsSubsidiesTest < ActionDispatch::Inte
       assert find(".visualizations-home-nav--tab.is-active").text, 'SUBSIDIES'
 
       # Url is updated
-      assert_equal current_path, "/visualizaciones/subvenciones/subvenciones/2016080213050"
+      assert_equal current_path, "/visualizaciones/subvenciones/subvenciones/2016120195008"
 
       # Title
-      assert page.has_content?('CONVOCATORIA DE SUBVENCIONES DIRIGIDAS A ASOCIACIONES DE VECINOS DE GETAFE PARA LA REALIZACIÓN DE SUS PROGRAMAS DE ACTIVIDADES DURANTE EL AÑO 2016')
+      assert page.has_content?('CONCESIÓN DE SUBVENCIONES PARA INSTALACIÓN DE ASCENSORES PARA 2012')
 
       # Beneficiary
-      assert page.has_content?('AA.VV. CASERIO DE PERALES')
+      assert page.has_content?('COMUNIDAD DE PROPIETARIOS C/RUIZ DE ALARNES')
     end
   end
 

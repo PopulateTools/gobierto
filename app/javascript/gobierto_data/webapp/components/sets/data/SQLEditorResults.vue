@@ -49,7 +49,7 @@
         mode="out-in"
       >
         <div
-          v-if="vizName"
+          v-if="vizName && isVizSaved"
           class="gobierto-data-visualization-query-container"
         >
           <span class="gobierto-data-summary-queries-panel-title">{{ labelLink }}: </span>
@@ -69,11 +69,9 @@
         ref="viewer"
         :items="items"
         :object-columns="objectColumns"
-        :type-chart="typeChart"
-        :reset-config-viz="resetConfigViz"
-        :array-columns-query="arrayColumnsQuery"
+        :config-map="configMapZoom"
+        :config="config"
         @showSaving="showSavingDialog"
-        @selectedChart="typeChart = $event"
       />
     </div>
   </div>
@@ -97,11 +95,11 @@ export default {
       type: Object,
       required: true
     },
-    arrayColumnsQuery: {
-      type: Array,
-      default: () => []
-    },
     objectColumns: {
+      type: Object,
+      default: () => {}
+    },
+    configMap: {
       type: Object,
       default: () => {}
     },
@@ -163,8 +161,8 @@ export default {
       showVisualize: true,
       removeLabelBtn: false,
       perspectiveChanged: false,
-      resetConfigViz: false,
-      typeChart: 'datagrid',
+      config: null,
+      configMapZoom: { ...this.configMap, zoom: true }
     };
   },
   watch: {
@@ -172,6 +170,15 @@ export default {
       if (newValue) {
         this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
       }
+    }
+  },
+  mounted() {
+    if (sessionStorage.getItem("map-tab")) {
+      this.config = JSON.parse(sessionStorage.getItem("map-tab"))
+      sessionStorage.removeItem("map-tab")
+
+      // otherwise, it won't work ¬¬
+      setTimeout(() => this.$refs.viewer.toggleConfigPerspective(), 20);
     }
   },
   methods: {
@@ -188,20 +195,16 @@ export default {
       this.$root.$emit("eventIsVizModified", true);
     },
     resetViz() {
-
       this.showVisualize = true
       this.perspectiveChanged = false
       this.showResetViz = false
-      this.resetConfigViz = true
-      this.typeChart = 'datagrid'
 
       this.$refs.viewer.toggleConfigPerspective();
-      this.$refs.viewer.setColumns();
+      this.$refs.viewer.resetConfig()
       this.$root.$emit('resetVizEvent')
     },
     showChart() {
       this.showVisualization = true
-      this.resetConfigViz = false
       this.$refs.viewer.toggleConfigPerspective();
     },
     showSavingDialog() {

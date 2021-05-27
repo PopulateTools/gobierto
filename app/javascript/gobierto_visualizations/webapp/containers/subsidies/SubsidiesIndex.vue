@@ -1,7 +1,7 @@
 <template>
   <Table
     :data="items"
-    :order-column="'beneficiary'"
+    :sort-column="'call'"
     :columns="subsidiesColumns"
     :show-columns="showColumns"
     class="gobierto-table-margin-top"
@@ -44,7 +44,7 @@ export default {
 
     this.items = this.subsidiesData.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
     this.columns = subsidiesColumns;
-    this.showColumns = ['beneficiary', 'amount', 'grant_date']
+    this.showColumns = ['beneficiary', 'call','amount', 'grant_date']
   },
   beforeDestroy(){
     EventBus.$off('refresh-summary-data');

@@ -12,6 +12,7 @@ ca:
           el pla anual d'inversions i mecanismes de seguiment de les obres en marxa.
     projects:
       back: vegeu-ho tot
+      description: Descripció
       detail_title: Detall del projecte
       empty: Sense resultats
       exit: Sortir
@@ -19,9 +20,13 @@ ca:
       list: Llista
       loading: Carregant dades...
       map: Mapa
+      project:
+        one: "%{count} projecte"
+        other: "%{count} projectes"
       reset: Netejeu filtres
       see: Vegeu-ho de nou
       showall: Vegeu-ho tot
       showless: Vegeu-ne menys
       summary: Resum per estats
+      tech_sheet: Fitxa tècnica
       tour: Tour virtual

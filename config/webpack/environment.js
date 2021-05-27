@@ -19,6 +19,12 @@ environment.loaders.delete('moduleCss')
 environment.loaders.delete('moduleSass')
 environment.loaders.delete('nodeModules')
 
+// This is required while the style imports are being done through CSS files, instead of JS
+// https://github.com/rails/webpacker/blob/5-x-stable/docs/css.md#resolve-url-loader
+environment.loaders.get('sass').use.splice(-1, 0, {
+  loader: 'resolve-url-loader'
+});
+
 // plugins
 const webpack = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')

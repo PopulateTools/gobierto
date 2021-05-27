@@ -8,14 +8,15 @@ const Index = () => import("../webapp/components/Index.vue");
 const Dataset = () => import("../webapp/components/Dataset.vue");
 const Visualizations = () => import("../webapp/pages/Visualizations.vue");
 
-export const tabs = ['resumen', 'editor', 'consultas', 'visualizaciones', 'descarga']
+export const tabs = ['resumen', 'editor', 'consultas', 'visualizaciones', 'descarga', 'mapa']
 export const ROUTE_NAMES = {
   Visualizations: 'Visualizations',
   Index: 'index',
   Terms: 'terms',
   Dataset: 'Dataset',
   Query: 'Query',
-  Visualization: 'Visualization'
+  Visualization: 'Visualization',
+  Map: 'Map',
 }
 
 // https://router.vuejs.org/guide/essentials/nested-routes.html

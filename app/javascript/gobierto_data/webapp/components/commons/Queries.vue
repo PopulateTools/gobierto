@@ -150,6 +150,7 @@ export default {
   },
   methods: {
     closeYourQueriesModal() {
+      this.$root.$emit('runCurrentQuery')
       this.$emit('closeQueriesModal')
       this.$root.$emit('disabledStringSavedQuery')
     },

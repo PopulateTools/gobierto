@@ -156,7 +156,7 @@
       </h3>
       <Table
         :data="items"
-        :order-column="'name'"
+        :sort-column="'name'"
         :columns="grantedColumns"
         :show-columns="showColumns"
         class="gobierto-table-margin-top"

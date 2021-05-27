@@ -114,10 +114,13 @@ export class SubsidiesController {
           this._redrawCharts();
         });
 
-        const loadingElement = document.querySelector(".js-loading");
-        if (loadingElement) {
-          loadingElement.classList.add("hidden");
-        }
+        EventBus.$on("mounted", () => {
+          // Hide the external loader once the vueApp has been mounted in the DOM
+          const loadingElement = document.querySelector(".js-loading");
+          if (loadingElement) {
+            loadingElement.classList.add("hidden");
+          }
+        });
       });
     }
   }

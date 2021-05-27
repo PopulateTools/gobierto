@@ -21,12 +21,13 @@ export default {
       endKey: "data-final"
     },
     {
-      id: "estat",
-      flat: true
+      id: "estat"
     },
     {
-      id: "nom-servei-gestor",
-      flat: true
+      id: "any-estat"
+    },
+    {
+      id: "tipus"
     },
     {
       id: "tipus-projecte"
@@ -35,57 +36,36 @@ export default {
       id: "import"
     }
   ],
+  displayGalleryFieldTags: false,
   availableGalleryFields: [
-    {
-      id: "estat",
-      flat: true
-    },
-    {
-      id: "data-inici",
-      filter: "date"
-    },
-    {
-      id: "data-final",
-      filter: "date"
-    },
-    {
-      id: "import",
-      filter: "money"
-    },
-    {
-      id: "tipus"
-    },
     {
       id: "element"
     },
+    {
+      id: "any-estat"
+    },
+    {
+      id: "estat"
+    }
   ],
   availableTableFields: [
     {
       id: "nom-projecte"
     },
     {
-      id: "estat",
-      flat: true
+      id: "estat"
     },
     {
       id: "import",
-      filter: "money"
+      sort: "desc"
     }
   ],
   availableProjectFields: [
     {
-      id: "nom-servei-gestor",
-      flat: true
-    },
-    {
-      id: "tipus"
+      id: "tipus-projecte-tipus-concatenation"
     },
     {
       id: "element"
-    },
-    {
-      id: "tipus-projecte",
-      flat: true
     },
     {
       id: "adreca"
@@ -94,86 +74,37 @@ export default {
       id: "adjudicatari"
     },
     {
-      id: "estat",
-      flat: true
+      type: "separator"
+    },
+    {
+      id: "data-inici-redaccio"
+    },
+    {
+      id: "data-aprovacio"
+    },
+    {
+      id: "data-adjudicacio"
+    },
+    {
+      id: "data-inici"
+    },
+    {
+      id: "data-final"
     },
     {
       type: "separator"
     },
     {
-      id: "data-inici",
-      filter: "date"
+      id: "import"
     },
     {
-      id: "data-final",
-      filter: "date"
+      id: "import-adjudicacio"
     },
     {
-      id: "data-adjudicacio",
-      filter: "date"
+      id: "import-liquidacio"
     },
     {
-      id: "data-inici-redaccio",
-      filter: "date"
-    },
-    {
-      id: "data-fi-redaccio",
-      filter: "date"
-    },
-    {
-      type: "separator"
-    },
-    {
-      id: "import",
-      filter: "money"
-    },
-    {
-      id: "import-adjudicacio",
-      filter: "money"
-    },
-    {
-      id: "import-liquidacio",
-      filter: "money"
-    },
-    {
-      id: "budget",
-      type: "link",
-      composite: true,
-      template: "/presupuestos/partidas/:BUDGETLINE/:YEAR/custom/G",
-      params: [{
-        key: "BUDGETLINE",
-        value: "partida",
-        pattern: "[\\S]+\\.(\\d+)\\w\\.[\\S]+"
-      },{
-        key: "YEAR",
-        value: "any-partida"
-      }]
-    },
-    {
-      type: "separator"
-    },
-    {
-      id: "documents",
-      type: "icon",
-      icon: {
-        title: "nom",
-        href: "url",
-        name: "file"
-      }
-    },
-    {
-      id: "tasques",
-      type: "table",
-      table: {
-        columns: [{
-          id: "nomactuacio"
-        }, {
-          id: "data"
-        }, {
-          id: "nimport",
-          filter: "money"
-        }]
-      }
+      id: "partida"
     }
   ]
 };

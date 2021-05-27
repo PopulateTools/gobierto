@@ -64,6 +64,9 @@ export default {
     EventBus.$on("update-tab", () => this.updateTab());
     EventBus.$on("update-filters", () => this.updateFilters());
   },
+  mounted() {
+    EventBus.$emit("mounted");
+  },
   methods: {
     setActiveTab(tabIndex) {
       this.activeTabIndex = tabIndex;

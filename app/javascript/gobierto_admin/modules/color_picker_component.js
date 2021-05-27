@@ -1,15 +1,11 @@
 import '@claviska/jquery-minicolors'
-
+import '@claviska/jquery-minicolors/jquery.minicolors.css'
 
 window.GobiertoAdmin.ColorPickerComponent = (function() {
   function ColorPickerComponent() {}
 
   ColorPickerComponent.prototype.handle = function() {
     $(document).on("turbolinks:load", _handleGlobalizedForm);
-  };
-
-  ColorPickerComponent.prototype.handleColorPicker = function() {
-    _handleColorPicker();
   };
 
   function _handleGlobalizedForm() {

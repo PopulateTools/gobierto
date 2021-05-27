@@ -34,6 +34,29 @@ en:
         telecom: Telecom
         textile: Textile
         transportation: Transportation
+      contract_statuses:
+        abandoned: Abandoned
+        awarded: Awarded
+        finally_awarded: Finally awarded
+        finally_void: Void
+        formalized: Formalized
+        highest_rated: Highest rated
+        provisionally_awarded: Provisionally awarded
+        provisionally_void: Provisionally void
+        revoked: Revoked
+        void: Void
+      contract_types:
+        construction: Construction
+        other: Others
+        patrimonial: Patrimonial
+        private_contract: Private
+        public_private_collaboration: Collaboration between the public and private
+          sectors
+        public_services_management: Management of public services
+        public_works: Concession of public services
+        services: Services
+        special_administrative: Special administrative
+        supplies: Supplies
       contracts:
         amount_distribution: Amount distribution
         assignee: Assignee
@@ -97,13 +120,6 @@ en:
         tender_amount: Tender Amount
         tender_date: Date of tender
         title: Contracts and tenders
-      contracts_types:
-        others: Others
-        private: Private
-        public_services: Management of public services
-        services: Services
-        supplies: Supplies
-        works: Works
       costs:
         activities: Activities
         cost_direct: Direct cost
@@ -182,19 +198,22 @@ en:
             as a previously granted subsidy.
         total: Total cost
         total_cost: Total cost
-      process_type:
-        based_marco: Based on Marco agreement
+      process_types:
+        based_on_agreement: Based on Marco agreement
+        competitive_dialogue: Competitive dialogue
+        dynamic_acquisition: Based on dynamic acquisition system
+        innovation: Association for innovation
+        innovation_derived: Derived from association for innovation
+        internal_rules: Internal rules
         minor_contract: Minor contract
-        negotiated_publicity: Negotiated without advertising
+        negotiated: Negotiated
+        negotiated_with_publicity: Negotiated with publicity
+        negotiated_without_publicity: Negotiated without publicity
         open: Open
-        others: Other
+        open_simplified: Open simplified
+        others: Others
+        project_competition: Project competition
         restricted: Restricted
-        tender: Tender with negotiation
-      status_types:
-        awarded: Awarded
-        deserted: Deserted
-        formalized: Formalized
-        renunciation: Renunciation
       subsidies:
         amount: Amount
         amount_distribution: Amount distribution
@@ -229,6 +248,18 @@ en:
           subsidies: Subsidies
           subsidies_for: subsidies for a total amount of
         title: Subsidies
+      tender_statuses:
+        awarded: Awarded
+        cancelled: Cancelled
+        evaluation: Evaluation
+        modified: Modified
+        partially_awarded: Partially awarded
+        partially_resolved: Partially resolved
+        prior_announcement: Prior announcement
+        prior_evaluation: Prior evaluation
+        provisionally_resolved: Provisionally resolved
+        published: Oublished
+        resolved: Resolved
       visualizations:
         title_beeswarm: Contracts by type, volume, size and date
         tooltip_beeswarm: Contract Amount

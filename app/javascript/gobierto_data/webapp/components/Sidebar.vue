@@ -1,30 +1,28 @@
 <template>
   <div>
     <nav class="gobierto-data-tabs-sidebar">
-      <ul>
-        <li
-          :class="{ 'is-active': activeTab === 0 }"
-          class="gobierto-data-tab-sidebar--tab"
-          @click="activateTab(0)"
-        >
-          <span>{{ labelCategories }}</span>
-        </li>
-        <li
-          :class="{ 'is-active': activeTab === 1 }"
-          class="gobierto-data-tab-sidebar--tab"
-          @click="activateTab(1)"
-        >
-          <span>{{ labelSets }}</span>
-        </li>
+      <div
+        :class="{ 'is-active': activeTab === 0 }"
+        class="gobierto-data-tab-sidebar--tab"
+        @click="activateTab(0)"
+      >
+        <span>{{ labelCategories }}</span>
+      </div>
+      <div
+        :class="{ 'is-active': activeTab === 1 }"
+        class="gobierto-data-tab-sidebar--tab"
+        @click="activateTab(1)"
+      >
+        <span>{{ labelSets }}</span>
+      </div>
 
-        <li
-          :class="{ 'is-active': activeTab === 2 }"
-          class="gobierto-data-tab-sidebar--tab"
-          @click="activateTab(2)"
-        >
-          <span>{{ labelQueries }}</span>
-        </li>
-      </ul>
+      <!-- <div
+        :class="{ 'is-active': activeTab === 2 }"
+        class="gobierto-data-tab-sidebar--tab"
+        @click="activateTab(2)"
+      >
+        <span>{{ labelQueries }}</span>
+      </div> -->
     </nav>
 
     <keep-alive>
@@ -63,7 +61,7 @@ export default {
   data() {
     return {
       labelSets: I18n.t("gobierto_data.projects.sets") || "",
-      labelQueries: I18n.t("gobierto_data.projects.queries") || "",
+      /*labelQueries: I18n.t("gobierto_data.projects.queries") || "",*/
       labelCategories: I18n.t("gobierto_data.projects.categories") || "",
       currentTabComponent: null,
       mutatedFilters: []

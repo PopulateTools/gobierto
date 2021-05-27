@@ -139,8 +139,8 @@ export class ContractsController {
   }
 
   setGlobalVariables([contractsData, tendersData]) {
-    let contractsDataMap = this._translateCategoriesTitle(contractsData)
-    let tendersDataMap = this._translateCategoriesTitle(tendersData)
+    let contractsDataMap = this._translateContracts(contractsData, false)
+    let tendersDataMap = this._translateContracts(tendersData, true)
     const sortByField = dateField => {
       return function(a, b) {
         const aDate = a[dateField],
@@ -208,55 +208,22 @@ export class ContractsController {
     };
   }
 
-  _translateCategoriesTitle(contractsData) {
-
-    contractsData.map(d => {
-      const { category_title } = d
+  _translateContracts(data, dataForTenders) {
+    data.map(d => {
+      const { category_title, contract_type, process_type, status } = d
 
       d.category_title = I18n.t(`gobierto_visualizations.visualizations.categories.${category_title}`)
+      d.contract_type = I18n.t(`gobierto_visualizations.visualizations.contract_types.${contract_type}`)
+      d.process_type = I18n.t(`gobierto_visualizations.visualizations.process_types.${process_type}`)
 
-      if (d.contract_type === 'Servicios') {
-        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.services')
-      } else if (d.contract_type === 'Suministros') {
-        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.supplies')
-      } else if (d.contract_type === 'Obras') {
-        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.works')
-      } else if (d.contract_type === 'Otros') {
-        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.others')
-      } else if (d.contract_type === 'Privado') {
-        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.private')
-      } else if (d.contract_type === 'Gestión de servicios públicos') {
-        d.contract_type = I18n.t('gobierto_visualizations.visualizations.contracts_types.public_services')
-      }
-
-      if (d.process_type === 'Contrato menor') {
-        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.minor_contract')
-      } else if (d.process_type === 'Abierto') {
-        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.open')
-      } else if (d.process_type === 'Negociado sin publicidad') {
-        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.negotiated_publicity')
-      } else if (d.process_type === 'Basado en Acuerdo Marco') {
-        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.based_marco')
-      } else if (d.process_type === 'Otros') {
-        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.others')
-      } else if (d.process_type === 'Licitación con negociación') {
-        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.tender')
-      } else if (d.process_type === 'Restringido') {
-        d.process_type = I18n.t('gobierto_visualizations.visualizations.process_type.restricted')
-      }
-
-      if (d.status === 'Adjudicado') {
-        d.status = I18n.t('gobierto_visualizations.visualizations.status_types.awarded')
-      } else if (d.status === 'Rechazado') {
-        d.status = I18n.t('gobierto_visualizations.visualizations.status_types.renunciation')
-      } else if (d.status === 'Formalizado') {
-        d.status = I18n.t('gobierto_visualizations.visualizations.status_types.formalized')
-      } else if (d.status === 'Desierto') {
-        d.status = I18n.t('gobierto_visualizations.visualizations.status_types.deserted')
+      if (dataForTenders) {
+        d.status = I18n.t(`gobierto_visualizations.visualizations.tender_statuses.${status}`)
+      } else {
+        d.status = I18n.t(`gobierto_visualizations.visualizations.contract_statuses.${status}`)
       }
 
     })
-    return contractsData
+    return data
   }
 
   _renderSummary() {
@@ -538,7 +505,7 @@ export class ContractsController {
 
   _formalizedContractsData(contractsData) {
     return contractsData.filter(
-      ({ status }) => status === I18n.t('gobierto_visualizations.visualizations.status_types.formalized') || status === I18n.t('gobierto_visualizations.visualizations.status_types.awarded')
+      ({ status }) => status === I18n.t('gobierto_visualizations.visualizations.contract_statuses.formalized') || status === I18n.t('gobierto_visualizations.visualizations.contract_statuses.awarded')
     );
   }
 }

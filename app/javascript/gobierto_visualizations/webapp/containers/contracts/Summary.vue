@@ -8,7 +8,7 @@
     <EntityTreeMapNested
       v-if="activeTab === 0"
       id="gobierto-visualizations-treemap-entity"
-      :data="visualizationsData"
+      :data="visualizationsDataEntity"
       class="mt4"
     />
     <div id="gobierto-visualizations-beeswarm">
@@ -228,6 +228,10 @@ export default {
       return this.visualizationsData
         .filter(({ minor_contract: minor }) => minor === 'f')
         .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
+    },
+    visualizationsDataEntity() {
+      return this.visualizationsData
+        .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
     }
   },
   created() {
@@ -269,7 +273,7 @@ export default {
     goesToItem(event) {
       const { id } = event
       // eslint-disable-next-line no-unused-vars
-      this.$router.push(`adjudicaciones/${id}`).catch(err => {})
+      this.$router.push(`/visualizaciones/contratos/adjudicaciones/${id}`).catch(err => {})
     },
     refreshSummaryData() {
       if (!this.value) {

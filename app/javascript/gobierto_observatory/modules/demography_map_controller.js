@@ -6,13 +6,14 @@ import { format, formatDefaultLocale } from "d3-format";
 import { scaleLinear } from "d3-scale";
 import { schemeCategory10 } from "d3-scale-chromatic";
 import { select, selectAll } from "d3-selection";
-import dc from "dc";
-import pairedRow from "dc-addons-paired-row";
+import { transition } from "d3-transition";
+import { DataCount, RowChart, chartRegistry, renderAll, redrawAll, pluck } from "dc";
 import * as dc_leaflet from "dc.leaflet";
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import stackedVertical from "./charts/stacked_vertical";
+import pairedRow from "./charts/dc-addons-paired-row";
 
 const d3 = {
   csv,
@@ -26,7 +27,8 @@ const d3 = {
   sum,
   axisBottom,
   extent,
-  scaleLinear
+  scaleLinear,
+  transition
 };
 
 const locale = d3.formatDefaultLocale({
@@ -34,8 +36,6 @@ const locale = d3.formatDefaultLocale({
   thousands: ".",
   grouping: [3]
 });
-
-const zeroPad = (num, places) => String(num).padStart(places, "0");
 
 function getSQLMonthFilter() {
   //FIXME: JavaScript date
@@ -103,11 +103,9 @@ export class DemographyMapController {
   constructor(options) {
     const entryPoint = document.getElementById(options.selector);
     const center = [options.mapLat, options.mapLon];
-    const ineCode = options.ineCode;
 
     // Datasets contain the history of all the months, but we only require the last month of data
-    const studiesEndpointFiltered =
-      options.studiesEndpoint + getSQLMonthFilter();
+    const studiesEndpointFiltered = options.studiesEndpoint + getSQLMonthFilter();
     const originEndpointFiltered = options.originEndpoint + getSQLMonthFilter();
 
     if (entryPoint) {
@@ -167,9 +165,9 @@ export class DemographyMapController {
         this.chart7 = this.renderOriginOthers("#bar-by-origin-others");
         this.chart8 = this.renderChoroplethMap("#map", geojson, center);
         // Don't know why we need to do this
-        dc.renderAll("main");
+        renderAll("main");
 
-        document.querySelectorAll(".close").forEach(button =>
+        document.querySelectorAll(".filter-close").forEach(button =>
           button.addEventListener("click", () => {
             this.clearFilters(event);
           })
@@ -300,7 +298,7 @@ export class DemographyMapController {
   }
 
   renderInhabitants(selector) {
-    const chart = new dc.dataCount(selector, "main");
+    const chart = new DataCount(selector, "main");
     chart
       .crossfilter(this.ndx.filters.studies.all)
       .groupAll(this.ndx.groups.studies.all)
@@ -396,7 +394,7 @@ export class DemographyMapController {
 
   renderPyramid(selector) {
     const chart = pairedRow(selector, "main");
-    dc.chartRegistry.register(chart, "main");
+    chartRegistry.register(chart, "main");
     const that = this;
 
     let group = {
@@ -478,7 +476,7 @@ export class DemographyMapController {
 
     window.addEventListener("resize", function() {
       pyramidResponsive();
-      dc.redrawAll("main");
+      redrawAll("main");
     });
 
     chart.rightChart().on("filtered", function() {
@@ -487,7 +485,7 @@ export class DemographyMapController {
       that.rebuildChoroplethColorDomain();
       that.updateOriginFilters("byAge", chart.rightChart().filters());
 
-      dc.redrawAll("main");
+      redrawAll("main");
     });
 
     chart.leftChart().on("filtered", function() {
@@ -496,7 +494,7 @@ export class DemographyMapController {
       that.rebuildChoroplethColorDomain();
       that.updateOriginFilters("byAge", chart.leftChart().filters());
 
-      dc.redrawAll("main");
+      redrawAll("main");
     });
 
     chart.render();
@@ -504,10 +502,9 @@ export class DemographyMapController {
   }
 
   renderStudies(selector) {
-    const chart = new dc.rowChart(selector, "main");
+    const chart = new RowChart(selector, "main");
     const sumAllValues = this.ndx.groups.studies.all.value();
-    const widthContainer = document.getElementById("container-bar-by-studies")
-      .offsetWidth;
+    const widthContainer = document.getElementById("container-bar-by-studies").offsetWidth;
     const widthContainerLabelPosition = widthContainer - 240;
     chart
       .useViewBoxResizing(true)
@@ -563,14 +560,14 @@ export class DemographyMapController {
           "container-bar-by-origin-others"
         ).style.visibility = "visible";
       }
-      dc.redrawAll("main");
+      redrawAll("main");
     });
     chart.render();
     return chart;
   }
 
   renderOriginNational(selector) {
-    const chart = new dc.rowChart(selector, "main");
+    const chart = new RowChart(selector, "main");
     const sumAllValues = this.ndx.groups.studies.all.value();
 
     const widthContainer = document.getElementById("container-bar-by-studies")
@@ -619,13 +616,13 @@ export class DemographyMapController {
           "visible";
       }
       that.rebuildChoroplethColorDomain();
-      dc.redrawAll("main");
+      redrawAll("main");
     });
     return chart;
   }
 
   renderOriginOthers(selector) {
-    const chart = new dc.rowChart(selector, "main");
+    const chart = new RowChart(selector, "main");
     const sumAllValues = this.ndx.groups.studies.all.value();
     const widthContainer = document.getElementById("container-bar-by-studies")
       .offsetWidth;
@@ -672,7 +669,7 @@ export class DemographyMapController {
           "visible";
       }
       that.rebuildChoroplethColorDomain();
-      dc.redrawAll("main");
+      redrawAll("main");
     });
     return chart;
   }
@@ -681,7 +678,7 @@ export class DemographyMapController {
     const zoom = 13.65;
     this.resetMapSelection();
     const chart = new dc_leaflet.choroplethChart(selector, "main");
-    dc.chartRegistry.register(chart, "main");
+    chartRegistry.register(chart, "main");
     const legendMap = new dc_leaflet.legend(selector).position("topright");
     const mapboxAccessToken =
       "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ";
@@ -719,8 +716,8 @@ export class DemographyMapController {
       .colors(scaleColors)
       .colorAccessor(d => d.value)
       .colorDomain([
-        d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck("value")),
-        d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck("value"))
+        d3.min(this.ndx.groups.studies.byCusec.all(), pluck("value")),
+        d3.max(this.ndx.groups.studies.byCusec.all(), pluck("value"))
       ])
       .featureKeyAccessor(feature => feature.properties.cusec)
       .legend(legendMap)
@@ -743,18 +740,17 @@ export class DemographyMapController {
       })
       .popup(d => `Habitantes: ${d.value}`);
 
-    const that = this;
-    chart.on("filtered", function() {
-      that.updateOriginFilters("byCusec", chart.filters());
+    chart.on("filtered", () => {
+      this.updateOriginFilters("byCusec", chart.filters());
       const buttonReset = document.getElementById("reset-filters");
-      const chartFromList = dc.chartRegistry.list("main")[7];
-      const activeFilters = chartFromList.filters().length;
+
+      const activeFilters = this.getChartById("#map").filters().length;
       if (activeFilters !== 0) {
         buttonReset.classList.remove("disabled");
       } else {
         buttonReset.classList.add("disabled");
       }
-      dc.redrawAll("main");
+      redrawAll("main");
     });
 
     return chart;
@@ -763,8 +759,8 @@ export class DemographyMapController {
   resetMapSelection() {
     //Remove the selection of 'sección censal'
     const buttonReset = document.getElementById("reset-filters");
-    buttonReset.addEventListener("click", function() {
-      const chartFromList = dc.chartRegistry.list("main")[7];
+    buttonReset.addEventListener("click", () => {
+      const chartFromList = this.getChartById("#map")
       chartFromList.filter(null);
       chartFromList.redrawGroup();
       chartFromList._doRedraw();
@@ -796,77 +792,69 @@ export class DemographyMapController {
   }
 
   //Remove filters when the user click on close button
-  clearFilters(event) {
-    //Get the container parent from the chart
-    const target = event.target;
-    const parent = target.parentElement;
-    const chart = parent.parentElement;
-    if (chart.id === "container-bar-by-studies") {
-      //Pass the number of the chart in chartRegisterList
-      this.clearFilterList(4);
-    } else if (chart.id === "container-bar-nationality") {
-      this.clearFilterList(1);
-    } else if (chart.id === "container-bar-by-origin-spaniards") {
-      this.clearFilterList(5);
-    } else if (chart.id === "container-bar-by-origin-others") {
-      this.clearFilterList(6);
-    } else if (chart.id === "container-bar-sex") {
-      this.clearFilterList(2);
-    } else if (chart.id === "container-piramid-age-sex") {
-      //Piramid Chart is compose by two children rowChart()
-      //We need to reset filters from both charts
-      const chartFromList = dc.chartRegistry.list("main")[3];
-      const chartFromListLeft = chartFromList.leftChart();
-      const chartFromListRight = chartFromList.rightChart();
-      chartFromListLeft.filter(null);
-      chartFromListRight.filter(null);
-      //Redraw
-      setTimeout(() => {
-        chart.classList.remove("active-filtered");
-      }, 0);
-      chartFromList.redrawGroup();
-    }
-  }
+  clearFilters({ currentTarget }) {
+    // Get the container parent from the chart
+    const containerChart = currentTarget.parentElement;
 
-  clearFilterList(chart) {
-    //Get the chart from the register list
-    const chartFromList = dc.chartRegistry.list("main")[chart];
-    //Get the container
-    const containerChartId = chartFromList.root()._groups[0][0].parentElement
-      .id;
-    //Get active filters
-    const activeFilters = chartFromList.filters().length;
-    //Remove active filters
-    chartFromList.filter(null);
-    //Redraw charts
-    chartFromList.redrawGroup();
+    let chart;
+    if (containerChart.id === "container-bar-by-studies") {
+      //Pass the number of the chart in chartRegisterList
+      chart = this.getChartById("#bar-by-studies");
+      //Remove active filters
+      chart.filter(null);
+    } else if (containerChart.id === "container-bar-nationality") {
+      chart = this.getChartById("#bar-nationality");
+      chart.filter(null);
+    } else if (containerChart.id === "container-bar-by-origin-spaniards") {
+      chart = this.getChartById("#bar-by-origin-spaniards");
+      chart.filter(null);
+    } else if (containerChart.id === "container-bar-by-origin-others") {
+      chart = this.getChartById("#bar-by-origin-others");
+      chart.filter(null);
+    } else if (containerChart.id === "container-bar-sex") {
+      chart = this.getChartById("#bar-sex");
+      chart.filter(null);
+    } else if (containerChart.id === "container-piramid-age-sex") {
+      //Piramid Chart is compose by two children rowChart()
+      chart = this.getChartById("#piramid-age-sex");
+      //We need to reset filters from both charts
+      chart.leftChart().filter(null);
+      chart.rightChart().filter(null);
+    }
+
+    //Redraw
+    chart.redrawGroup();
+
     setTimeout(() => {
-      //Finally remove the class
-      const containerChart = document.getElementById(`${containerChartId}`);
       containerChart.classList.remove("active-filtered");
     }, 0);
+  }
+
+  getChartById(id) {
+    // Search the chart based on its #id
+    return chartRegistry.list("main").find(({ _anchor }) => id === _anchor)
   }
 
   //When the user interactive with the filter we need to rebuild color domain for update choroplethChart
   rebuildChoroplethColorDomain() {
     //Get the Map from the register list
-    const choroplethChart = dc.chartRegistry.list("main")[7];
+    const choroplethChart = this.getChartById("#map");
     //Rebuild color domain with the selected values.
     if (this.currentFilter === "studies") {
       choroplethChart
         .dimension(this.ndx.filters.studies.byCusec)
         .group(this.ndx.groups.studies.byCusec)
         .colorDomain([
-          d3.min(this.ndx.groups.studies.byCusec.all(), dc.pluck("value")),
-          d3.max(this.ndx.groups.studies.byCusec.all(), dc.pluck("value"))
+          d3.min(this.ndx.groups.studies.byCusec.all(), pluck("value")),
+          d3.max(this.ndx.groups.studies.byCusec.all(), pluck("value"))
         ]);
     } else {
       choroplethChart
         .dimension(this.ndx.filters.origin.byCusec)
         .group(this.ndx.groups.origin.byCusec)
         .colorDomain([
-          d3.min(this.ndx.groups.origin.byCusec.all(), dc.pluck("value")),
-          d3.max(this.ndx.groups.origin.byCusec.all(), dc.pluck("value"))
+          d3.min(this.ndx.groups.origin.byCusec.all(), pluck("value")),
+          d3.max(this.ndx.groups.origin.byCusec.all(), pluck("value"))
         ]);
     }
   }

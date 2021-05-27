@@ -232,7 +232,7 @@ export class VisBubble {
       .append("g")
       .attr("class", "bubble-g");
 
-    var bubblesG = this.bubbles
+    this.bubbles
       .append("circle")
       .attr("class", d => `${d.year} bubble`)
       .attr("r", d => d.radius)
@@ -254,7 +254,6 @@ export class VisBubble {
           return `/visualizations/costes/${d.year}/${d.ordreagrup}`;
         }.bind(this)
       )
-      .attr("target", "_top")
       .attr("class", "bubbles-links")
       .append("circle")
       .attr("class", d => `${d.year} bubble`)

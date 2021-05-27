@@ -86,7 +86,7 @@
           <label
             class="helper-screenreader"
             for="queryEditorQueries"
-          >Editor de Queries</label>
+          >{{ labelEditor }}</label>
           <textarea
             id="queryEditorQueries"
             ref="querySnippet"
@@ -131,6 +131,7 @@ export default {
       labelFavs: I18n.t("gobierto_data.projects.favs") || "",
       labelAll: I18n.t("gobierto_data.projects.all") || "",
       labelDeleteQuery: I18n.t("gobierto_data.projects.deleteQuery") || "",
+      labelEditor: I18n.t("gobierto_data.accessibility.editor") || "",
       sqlCode: null,
       showPrivateQueries: true,
       showPublicQueries: true,

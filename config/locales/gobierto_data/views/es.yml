@@ -1,6 +1,8 @@
 ---
 es:
   gobierto_data:
+    accessibility:
+      editor: Editor SQL
     data_type:
       boolean: boolean
       date: fecha

@@ -3,7 +3,7 @@
     <label
       class="helper-screenreader"
       for="queryEditor"
-    >Editor de Queries</label>
+    >{{ labelEditor }}</label>
     <textarea
       id="queryEditor"
       ref="queryEditor"
@@ -68,6 +68,7 @@ export default {
       labelGuide: I18n.t("gobierto_data.projects.guide") || "",
       labelQueryExecuted: I18n.t("gobierto_data.projects.queryExecuted") || "",
       labelRecords: I18n.t("gobierto_data.projects.records") || "",
+      labelEditor: I18n.t("gobierto_data.accessibility.editor") || "",
       sqlAutocomplete: sqlKeywords,
       arrayMutated: [],
       autoCompleteKeys: [],

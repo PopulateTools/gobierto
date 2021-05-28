@@ -80,12 +80,3 @@ $f8: 0.75rem;
   --color-gobierto-red: #ff776d;
   --color-gobierto-yellow: #f8b205;
 }
-
-.helper-screenreader {
-  position: absolute;
-  left: -10000px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}

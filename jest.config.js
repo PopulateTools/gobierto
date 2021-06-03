@@ -3,8 +3,8 @@ module.exports = {
     "js"
   ],
   transform: {
-     "^.+\\.js$": "babel-jest"
-   },
+    "^.+\\.js$": "babel-jest"
+  },
   testMatch: [
     '<rootDir>/test/**/*.spec.js'
   ]

@@ -358,6 +358,18 @@ jobs:
       - store_test_results:
           path: test/reports
 
+  tests_javascript:
+    <<: *defaults
+    steps:
+      - prepare_workspace
+      - run:
+          name: Run tests
+          command: |
+            TEST="$(find test -path '*javascript*' -name '*.spec.js' | circleci tests split --split-by=timings)"
+            yarn run test
+      - store_test_results:
+          path: test/reports
+
   production-deploy:
     working_directory: *working_directory
     machine:

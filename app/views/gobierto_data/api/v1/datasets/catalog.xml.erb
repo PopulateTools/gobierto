@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+  xmlns:time="http://www.w3.org/2006/time#"
+  xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xmlns:tema="http://datos.gob.es/kos/sector-publico/sector/"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <dcat:Catalog rdf:about="<%= @catalog[:identifier_uri] %>">
+  <dct:identifier><%= @catalog[:identifier_uri] %></dct:identifier>
+  <% @catalog[:languages].each do |locale| -%>
+    <dct:title xml:lang="<%= locale %>"><%= @catalog["title_#{locale}".to_sym] %></dct:title>
+    <dct:description xml:lang="<%= locale %>"><%= @catalog["description_#{locale}".to_sym] %></dct:description>
+  <% end -%>
+  <dct:publisher rdf:resource="<%= @catalog[:publisher] %>" />
+  <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= @catalog[:issued] %></dct:issued>
+  <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= @catalog[:modified] %></dct:modified>
+  <% @catalog[:languages].each do |locale| -%>
+    <dc:language><%= locale %></dc:language>
+  <% end -%>
+  <% @catalog[:spatials].each do |spatial| -%>
+  <dct:spatial rdf:resource="<%= spatial%>" />
+  <% end -%>
+  <dcat:themeTaxonomy rdf:resource="<%= @catalog[:theme] %>" /><!-- search at: http://datos.gob.es/kos/sector-publico/sector/ -->
+  <foaf:homepage rdf:resource="<%= @catalog[:homepage] %>" />
+  <% @catalog[:datasets].each do |dataset| -%>
+    <dcat:dataset>
+      <dcat:Dataset rdf:about="<%= dataset[:url]%>">
+      <dct:identifier><%= dataset[:url]%></dct:identifier>
+      <% @catalog[:languages].each do |locale| -%>
+        <dct:title xml:lang="<%= locale %>"><%= dataset["title_#{locale}".to_sym] %></dct:title>
+        <dct:description xml:lang="<%= locale %>"><%= dataset["description_#{locale}".to_sym] %></dct:description>
+        <dcat:keyword xml:lang="<%= locale %>"><%= dataset[:keywords][locale] %></dcat:keyword>
+      <% end -%>
+      <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= dataset[:issued] %></dct:issued> <!-- Formato YYYY-MM-DDTHH:MM:SS -->
+      <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"><%= dataset[:modified] %></dct:modified> <!-- Formato YYYY-MM-DDTHH:MM:SS -->
+      <% if !dataset[:update_frequency].blank? && !dataset[:update_in_days].blank? -%>
+        <dct:accrualPeriodicity>
+          <dct:Frequency>
+          <rdf:value>
+            <time:DurationDescription>
+              <rdfs:label><%= dataset[:update_frequency] %></rdfs:label>
+              <time:days rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"><%= dataset[:update_frequency_in_days] %></time:days> <!-- puede ser days, weeks, months, years,...-->
+            </time:DurationDescription>
+          </rdf:value>
+          </dct:Frequency>
+        </dct:accrualPeriodicity>
+      <% end -%>
+      <% @catalog[:languages].each do |locale| -%>
+        <dc:language><%= locale %></dc:language>
+      <% end -%>
+      <dct:publisher rdf:resource="<%= @catalog[:publisher] %>" />
+      <dct:license rdf:resource="<%= dataset[:license_url] %>" />
+      <% @catalog[:spatials].each do |spatial| -%>
+        <dct:spatial rdf:resource="<%= spatial%>" />
+      <% end -%>
+      <% dataset[:distributions].each do |distribution| -%>
+      <dcat:distribution>
+        <dcat:Distribution>
+        <dct:identifier><%= dataset[:url] %></dct:identifier><!-- La url de la identificacion de la distribucion no puede ser la misma que la de accessURL -->
+        <% @catalog[:languages].each do |locale| -%>
+          <dct:title xml:lang="<%= locale %>"><%= dataset["title_#{locale}_extended"] %></dct:title>
+        <% end -%>
+        <dcat:accessURL rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"><%= distribution[:download_url] %></dcat:accessURL>
+        <% unless distribution[:csv_size].blank? -%>
+          <dcat:byteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal"><%= distribution[:csv_size] %></dcat:byteSize>
+        <% end -%>
+        <dct:format>
+          <dct:IMT>
+            <rdf:value><%= distribution[:format] %></rdf:value>
+            <rdfs:label>Comma-separated values (CSV)</rdfs:label>
+          </dct:IMT>
+        </dct:format>
+        </dcat:Distribution>
+      </dcat:distribution>
+      <% end -%>
+      </dcat:Dataset>
+    </dcat:dataset>
+  <% end -%>
+  </dcat:Catalog>
+</rdf:RDF>

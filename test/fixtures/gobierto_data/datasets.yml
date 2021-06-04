@@ -3,8 +3,8 @@ users_dataset:
   name_translations: <%= { en: "Users", es: "Usuarios" }.to_json %>
   table_name: users
   slug: users-dataset
-  created_at: <%= Time.current %>
-  updated_at: <%= Time.current %>
+  created_at: <%= Time.zone.parse('2020-01-02 8:00') %>
+  updated_at: <%= Time.zone.parse('2020-01-02 8:00') %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
   size: <%= { csv: 15.megabytes, json: 25.megabytes }.to_json %>
 
@@ -13,8 +13,8 @@ events_dataset:
   name_translations: <%= { en: "Events", es: "Eventos" }.to_json %>
   table_name: gc_events
   slug: events-dataset
-  created_at: <%= Time.current %>
-  updated_at: <%= Time.current %>
+  created_at: <%= Time.zone.parse('2020-01-03 8:00') %>
+  updated_at: <%= Time.zone.parse('2020-01-03 8:00') %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
   size: <%= { csv: 3.megabytes, json: 4.megabytes }.to_json %>
 
@@ -23,8 +23,8 @@ draft_dataset:
   name_translations: <%= { en: "Interest Groups", es: "Grupos de Interés" }.to_json %>
   table_name: gp_interest_groups
   slug: interest-groups-dataset
-  created_at: <%= Time.current %>
-  updated_at: <%= Time.current %>
+  created_at: <%= Time.zone.parse('2020-01-04 8:00') %>
+  updated_at: <%= Time.zone.parse('2020-01-04 8:00') %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["draft"] %>
 
 santander_dataset:
@@ -32,8 +32,8 @@ santander_dataset:
   name_translations: <%= { en: "Santander dataset", es: "Dataset de Santander" }.to_json %>
   table_name: activities
   slug: santander-dataset
-  created_at: <%= Time.current %>
-  updated_at: <%= Time.current %>
+  created_at: <%= Time.zone.parse('2020-01-05 8:00') %>
+  updated_at: <%= Time.zone.parse('2020-01-05 8:00') %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
 
 no_size_dataset:
@@ -41,7 +41,6 @@ no_size_dataset:
   name_translations: <%= { en: "No size", es: "No se el size" }.to_json %>
   table_name: sites
   slug: no-size
-  created_at: <%= Time.current %>
-  updated_at: <%= Time.current %>
+  created_at: <%= Time.zone.parse('2020-01-06 8:00') %>
+  updated_at: <%= Time.zone.parse('2020-01-06 8:00') %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
-

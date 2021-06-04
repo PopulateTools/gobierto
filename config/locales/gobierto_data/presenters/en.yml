@@ -1,0 +1,9 @@
+---
+en:
+  presenters:
+    gobierto_data:
+      catalog:
+        at_format: at format
+        description: Public catalog with datasets published by %{site}, through URL
+          %{publisher_url}
+        title: Catalog for datasets of %{site} into format rdf/xml dcat

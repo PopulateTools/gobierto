@@ -11,6 +11,14 @@ module GobiertoData
         skip_before_action :authenticate_in_site, only: [:new, :create, :update, :destroy]
         skip_before_action :set_admin_with_token, except: [:new, :create, :update, :destroy]
 
+        # GET /api/v1/data/catalog.xml
+        def catalog
+          @catalog = DatasetPresenter.new(current_site).build_catalog
+          respond_to do |format|
+            format.xml
+          end
+        end
+
         # GET /api/v1/data/datasets
         # GET /api/v1/data/datasets.json
         # GET /api/v1/data/datasets.csv

@@ -1,0 +1,9 @@
+---
+ca:
+  presenters:
+    gobierto_data:
+      catalog:
+        at_format: en format
+        description: Catàleg public de dades dels conjunts de dades publicades per%
+          {site}, a través de la URL %{publisher_url}
+        title: Catàleg DCAT de conjunts de dades de %{site} en format rdf/xml dcat

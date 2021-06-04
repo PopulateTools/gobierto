@@ -344,6 +344,14 @@ madrid_data_datasets_custom_field_md_with_translations:
   field_type: <%= GobiertoCommon::CustomField.field_types[:localized_paragraph] %>
   uid: md-with-translations
 
+madrid_data_datasets_custom_field_description:
+  site: madrid
+  class_name: GobiertoData::Dataset
+  position: 4
+  name_translations: <%= {"en": "Description", "es": "Descripción"}.to_json %>
+  field_type: <%= GobiertoCommon::CustomField.field_types[:localized_paragraph] %>
+  uid: description-datasets
+
 madrid_custom_field_human_resources_table_plugin:
   site: madrid
   class_name: GobiertoPlans::Node

@@ -11,6 +11,7 @@ module GobiertoData
     include GobiertoAttachments::Attachable
     include GobiertoCommon::Collectionable
     include GobiertoCommon::Searchable
+    include GobiertoCommon::HasCustomFieldRecords
 
     multisearchable(
       against: [:name_translations ,:name_en, :name_es],
@@ -30,6 +31,8 @@ module GobiertoData
     has_many :visualizations, dependent: :destroy, class_name: "GobiertoData::Visualization"
 
     scope :sorted, -> { order(data_updated_at: :desc) }
+    scope :sorted_by_creation, -> { order(created_at: :desc) }
+    scope :visibles, -> { where(visibility_level: "active") }
 
     translates :name
 

@@ -46,10 +46,10 @@ module GobiertoSeeds
           if vocabulary.new_record?
             vocabulary.name_translations = { ca: "Freqüència de conjunt de dades", en: "Dataset frequency", es: "Frecuencia de conjunto de datos" }
             vocabulary.save
-            vocabulary.terms.create(name_translations: { ca: "Anual", en: "Annual", es: "Anual" }, position: 1)
-            vocabulary.terms.create(name_translations: { ca: "Trimestral", en: "Quarterly", es: "Trimestral" }, position: 2)
-            vocabulary.terms.create(name_translations: { ca: "Mensual", en: "Monthly", es: "Mensual" }, position: 3)
-            vocabulary.terms.create(name_translations: { ca: "Diària", en: "Daily", es: "Diaria" }, position: 4)
+            vocabulary.terms.create(name_translations: { ca: "Anual",      en: "Annual",    es: "Anual" },      description_translations: { ca: 365, en: 365, es:  365 }, position: 1)
+            vocabulary.terms.create(name_translations: { ca: "Trimestral", en: "Quarterly", es: "Trimestral" }, description_translations: { ca: 120, en: 120, es: 120 }, position: 2)
+            vocabulary.terms.create(name_translations: { ca: "Mensual",    en: "Monthly",   es: "Mensual" },    description_translations: { ca:  30, en:  30, es:   30 }, position: 3)
+            vocabulary.terms.create(name_translations: { ca: "Diària",     en: "Daily",     es: "Diaria" },     description_translations: { ca:   1, en:   1, es:    1 }, position: 4)
           end
           frequency.name_translations = { ca: "Freqüència", en: "Frequency", es: "Frecuencia" }
           frequency.position = 2
@@ -212,7 +212,28 @@ module GobiertoSeeds
           dataset_default_geometry.options = { configuration: {} }
           dataset_default_geometry.save
         end
+
+        unless site.configuration.configuration_variables["gobierto_data_catalog_organism"].present?
+          extra_conf = {"gobierto_data_catalog_organism" => "https://datos.gob.es/es/recurso/sector-publico/org/Organismo/"}
+          existing_conf = YAML.load(site.configuration.raw_configuration_variables) || {}
+          site.configuration.raw_configuration_variables = existing_conf.merge(extra_conf).to_yaml
+          site.save
+        end
+        unless site.configuration.configuration_variables["gobierto_data_spatials"].present?
+          extra_conf = { "gobierto_data_spatials" => [ "http://datos.gob.es/recurso/sector-publico/territorio/Pais/España", "http://datos.gob.es/recurso/sector-publico/territorio/Autonomia/Madrid", "http://datos.gob.es/recurso/sector-publico/territorio/Provincia/Madrid", "https://datos.gob.es/recurso/sector-publico/territorio/Ciudad/Getafe" ] }
+          existing_conf = YAML.load(site.configuration.raw_configuration_variables) || {}
+          site.configuration.raw_configuration_variables = existing_conf.merge(extra_conf).to_yaml
+          site.save
+        end
+        unless site.configuration.configuration_variables["gobierto_data_theme_taxonomy"].present?
+          extra_conf = { "gobierto_data_theme_taxonomy" => "http://datos.gob.es/kos/sector-publico/sector/sector-publico"}
+          existing_conf = YAML.load(site.configuration.raw_configuration_variables) || {}
+          site.configuration.raw_configuration_variables = existing_conf.merge(extra_conf).to_yaml
+          site.save
+        end
+
       end
+
     end
   end
 end

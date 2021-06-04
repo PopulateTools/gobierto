@@ -21,8 +21,6 @@ beforeAll(async () => {
 
 describe('visualization', () => {
   test('render perspective', () => {
-    const perspectiveViz = document.querySelector('perspective-viewer')
-    perspectiveViz.setAttribute('plugin', 'datagrid')
     expect(document.querySelector('perspective-viewer')).not.toBeNull();
   })
 })

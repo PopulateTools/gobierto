@@ -113,7 +113,7 @@ group :development, :test do
   gem "i18n-tasks"
   gem "spring"
   gem "puma"
-    gem "open3", "~> 0.1.1"
+  gem "open3", "~> 0.1.1"
 end
 
 group :test do

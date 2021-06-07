@@ -931,6 +931,10 @@ a .global_menu {
   }
 }
 
+ul.select2-results__options li.select2-results__option:first-child {
+  min-height: 16px;
+}
+
 .gobierto_admin .select2-container .select2-selection--single {
   position: relative;
 }

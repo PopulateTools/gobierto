@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'open3'
+
 namespace :test do
   modules = %w{
     gobierto_admin
@@ -26,8 +28,16 @@ namespace :test do
     task "#{mod}".to_sym, [:fail_fast_enable] => :environment do |_t, args|
       files = `find test -path '*#{mod}*' -name '*_test.rb' | grep -v '#{mod}\/gobierto_'`.gsub("\n"," ")
       cmd = "bin/rails test #{files} #{"--fail-fast" if args[:fail_fast_enable]}"
-      puts cmd
-      puts `#{cmd}`
+
+      Open3::popen3(cmd) do |std_in, std_out, std_err|
+        std_err.each_line do |line|
+          puts line
+        end
+        std_out.each_line do |line|
+          puts line
+        end
+      end
+
     end
   end
 end

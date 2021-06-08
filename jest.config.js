@@ -6,6 +6,6 @@ module.exports = {
     "^.+\\.js$": "babel-jest"
   },
   testMatch: [
-    '<rootDir>/test/**/*.spec.js'
+    '<rootDir>/test/**/*.test.js'
   ]
 };

@@ -2,18 +2,10 @@
  * @jest-environment jsdom
  */
 
+import data from '__mocks__/data.json'
 import { renderPerspective } from "../../../app/javascript/gobierto_embeds/render.js";
 import "@finos/perspective-viewer/dist/umd/perspective-viewer.js";
 import "@finos/perspective-viewer-datagrid/dist/umd/perspective-viewer-datagrid.js";
-
-const data = [{
-  "fecha": "2021-06-01",
-  "barrio": "Buenavista",
-  "formacion": "Menores de 16",
-  "total": 102,
-  "mujer": 55,
-  "varon": 47
-}]
 
 test('render perspective', () => {
   const container = document.createElement('section')
@@ -21,6 +13,6 @@ test('render perspective', () => {
   const element = document.createElement('div');
   container.appendChild(element)
   renderPerspective(data, element)
-
+  const testVIewer = document.querySelector('perspective-viewer')
   expect(document.querySelector('perspective-viewer')).not.toBeNull();
 })

@@ -2,7 +2,7 @@ import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
 import "@finos/perspective-viewer/themes/all-themes.css";
 import "../../assets/stylesheets/comp-perspective-viewer.scss";
-import { getVisualizationList } from "./getVisualizationList.js";
+import { getData } from "./render.js";
 
 const appendStyle = async () => {
   const { src } = document.querySelector('script[src*="embeds.js"]');
@@ -24,4 +24,4 @@ appendStyle();
 // Look for all possible vizzs in the site
 document
   .querySelectorAll("[data-gobierto-visualization]")
-  .forEach(getVisualizationList);
+  .forEach(getData);

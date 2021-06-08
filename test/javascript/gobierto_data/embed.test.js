@@ -13,6 +13,5 @@ test('render perspective', () => {
   const element = document.createElement('div');
   container.appendChild(element)
   renderPerspective(data, element)
-  const testVIewer = document.querySelector('perspective-viewer')
   expect(document.querySelector('perspective-viewer')).not.toBeNull();
 })

@@ -15,6 +15,8 @@ en:
             if_subdomain: If it is a subdomain
             instructions: 'Important: this domain must be created to ensure the site
               works perfectly.'
+          organization_id_html: You can search for the code <a href="https://populatetools.github.io/ine-places/places.html"
+            target="_blank">in this table</a>.
         modules_enabled: Modules enabled for this site
         password: Password
         placeholders:

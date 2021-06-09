@@ -15,6 +15,8 @@ ca:
             if_subdomain: Si es un subdomini
             instructions: 'Important: aquest domini deurà estar creant previament
               per a que el lloc funcione correctament.'
+          organization_id_html: Pots buscar el codi <a href="https://populatetools.github.io/ine-places/places.html"
+            target="_blank">en aquesta taula</a>.
         modules_enabled: Móduls actius para aquest lloc
         password: Contrasenya
         placeholders:

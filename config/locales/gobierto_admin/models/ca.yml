@@ -41,7 +41,7 @@ ca:
         links_markup: HTML de Enllaços
         logo_file: Logotip
         name: Nom de l'entitat
-        organization_id: Identificador de l'organització
+        organization_id: Identificador de l'organització (codi INE)
         organization_name: Organització
         populate_data_api_token: API token Populate Data
         privacy_page_id: Pàgina privacitat

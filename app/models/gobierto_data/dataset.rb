@@ -47,7 +47,7 @@ module GobiertoData
     validates :slug, :table_name, uniqueness: { scope: :site_id }
 
     before_save :set_schema, if: :will_save_change_to_visibility_level?
-    before_destroy :delete_cached_data
+    before_destroy :delete_cached_data, :delete_dataset_table_gobierto_data
 
     def attributes_for_slug
       [name]
@@ -148,6 +148,10 @@ module GobiertoData
 
     def delete_cached_data
       GobiertoData::Cache.expire_dataset_cache(self)
+    end
+
+    def delete_dataset_table_gobierto_data
+      GobiertoData::Connection.execute_query(site, "drop table #{table_name}")
     end
 
     def refresh_cached_downloads

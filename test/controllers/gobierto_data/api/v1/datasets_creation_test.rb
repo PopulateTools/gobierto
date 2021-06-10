@@ -5,7 +5,7 @@ require "test_helper"
 module GobiertoData
   module Api
     module V1
-      class DatasetsControllerTest < GobiertoControllerTest
+      class DatasetsCreationControllerTest < GobiertoControllerTest
         self.use_transactional_tests = false
 
         def auth_header

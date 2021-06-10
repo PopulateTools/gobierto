@@ -75,3 +75,15 @@ draft_visualization_favorite:
   favorited: draft_dataset_visualization (GobiertoData::Visualization)
   created_at: <%= 1.day.ago %>
   updated_at: <%= 1.day.ago %>
+
+dataset_to_delete_favorite_query_to_delete:
+  user: dennis
+  favorited: dataset_to_delete_visualization_to_delete (GobiertoData::Visualization)
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+
+dataset_to_delete_favorite_visualization_to_delete:
+  user: dennis
+  favorited: dataset_to_delete_query_to_delete (GobiertoData::Query)
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>

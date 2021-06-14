@@ -42,7 +42,7 @@ module GobiertoData
             assert_equal 1, ::GobiertoData::Visualization.where(query_id: query.id).count
             assert_equal 1, ::GobiertoData::Favorite.where(favorited_type: "GobiertoData::Visualization",favorited_id: visualization.id).count
             assert_equal 1, ::GobiertoData::Favorite.where(favorited_type: "GobiertoData::Query",favorited_id: query.id).count
-            assert_equal true, exists_table_for_dataset?
+            assert exists_table_for_dataset?
 
             delete(
               gobierto_data_api_v1_dataset_path(slug: dataset.slug),
@@ -55,7 +55,7 @@ module GobiertoData
             assert_equal 0, ::GobiertoData::Visualization.where(query_id: query.id).count
             assert_equal 0, ::GobiertoData::Favorite.where(favorited_type: "GobiertoData::Visualization",favorited_id: visualization.id).count
             assert_equal 0, ::GobiertoData::Favorite.where(favorited_type: "GobiertoData::Query",favorited_id: query.id).count
-            assert_equal false, exists_table_for_dataset?
+            refute exists_table_for_dataset?
           end
         end
 

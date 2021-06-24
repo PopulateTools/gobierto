@@ -143,8 +143,8 @@ module GobiertoCalendars
         event_attributes.site_id = site_id
         event_attributes.state = state
         event_attributes.title_translations = title_translations
-        event_attributes.description_translations = description_translations
-        event_attributes.description_source_translations = description_source_translations
+        event_attributes.description_translations = description_translations.transform_values { |value| sanitize(value) }
+        event_attributes.description_source_translations = description_translations.transform_values { |value| sanitize(value) }
         event_attributes.starts_at = starts_at
         event_attributes.ends_at = ends_at
         event_attributes.meta = meta
@@ -170,6 +170,16 @@ module GobiertoCalendars
 
         false
       end
+    end
+
+    private
+
+    def sanitizer
+      @sanitizer ||= Rails::Html::FullSanitizer.new
+    end
+
+    def sanitize(value)
+      sanitizer.sanitize(value)
     end
   end
 end

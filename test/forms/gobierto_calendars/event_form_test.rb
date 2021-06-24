@@ -90,5 +90,17 @@ module GobiertoCalendars
         assert_equal initial_slug, event.slug
       end
     end
+
+    def test_update_with_nil_descriptions
+      initial_slug = existing_event.slug
+
+      form = EventForm.new(valid_attributes.merge(id: existing_event.id, description_translations: nil , description_source_translations: nil))
+      assert form.save
+
+      event = form.event
+      assert event.persisted?
+      assert_equal initial_slug, event.slug
+
+    end
   end
 end

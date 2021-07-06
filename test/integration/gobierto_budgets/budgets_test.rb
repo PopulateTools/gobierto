@@ -20,7 +20,7 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
   end
 
   def last_year
-    GobiertoBudgets::SearchEngineConfiguration::Year.last
+    @last_year ||= GobiertoBudgets::SearchEngineConfiguration::Year.last
   end
 
   def test_greeting

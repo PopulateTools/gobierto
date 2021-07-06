@@ -190,7 +190,7 @@ module GobiertoAdmin
 
             assert has_link?('Sync now')
             assert has_no_text? 'Last sync:'
-            assert_difference 'Activity.where(subject: person, action: "admin_gobierto_calendars.calendars_synchronized").count', 11 do # FIXME
+            assert_difference 'Activity.where(subject: person, action: "admin_gobierto_calendars.calendars_synchronized").count', 1 do
               click_link 'Sync now'
             end
 

@@ -26,7 +26,6 @@ Rails.application.config.to_prepare do
   Subscribers::UserActivity.attach_to("activities/users")
   Subscribers::SiteActivity.attach_to("activities/sites")
   Subscribers::AdminGobiertoCalendarsActivity.attach_to("activities/admin_gobierto_calendars")
-  Subscribers::AdminGobiertoCitizensChartersActivity.attach_to("activities/admin_gobierto_citizens_charters")
   Subscribers::AdminGobiertoInvestmentsActivity.attach_to("activities/admin_gobierto_investments")
   Subscribers::AdminGobiertoDataActivity.attach_to("activities/admin_gobierto_data")
 end

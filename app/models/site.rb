@@ -81,12 +81,6 @@ class Site < ApplicationRecord
   has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
   has_many :votes, dependent: :destroy, class_name: "GobiertoParticipation::Vote"
 
-  # GobiertoCitizensCharters integration
-  has_many :services, dependent: :destroy, class_name: "GobiertoCitizensCharters::Service"
-  has_many :charters, through: :services, class_name: "GobiertoCitizensCharters::Charter"
-  has_many :commitments, through: :charters, class_name: "GobiertoCitizensCharters::Commitment"
-  has_many :editions, through: :commitments, class_name: "GobiertoCitizensCharters::Edition"
-
   # Gobierto Investments integration
   has_many :projects, dependent: :destroy, class_name: "GobiertoInvestments::Project"
 
@@ -152,11 +146,6 @@ class Site < ApplicationRecord
                                          end
   end
 
-  def gobierto_citizens_charters_settings
-    @gobierto_citizens_charters_settings ||= if configuration.available_module?("GobiertoCitizensCharters") && configuration.gobierto_citizens_charters_enabled?
-                                               module_settings.find_by(module_name: "GobiertoCitizensCharters")
-                                             end
-  end
 
   def gobierto_data_settings
     @gobierto_data_settings ||= if configuration.available_module?("GobiertoData") && configuration.gobierto_data_enabled?

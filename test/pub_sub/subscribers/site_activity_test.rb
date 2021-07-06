@@ -142,7 +142,6 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
     site.people.update_all(political_group_id: nil)
     site.plans.update_all(vocabulary_id: nil)
     GobiertoPlans::Node.update_all(status_id: nil)
-    site.services.update_all(category_id: nil)
 
     assert_difference "Activity.count" do
       site.destroy

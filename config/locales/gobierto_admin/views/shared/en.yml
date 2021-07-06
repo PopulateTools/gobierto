@@ -72,8 +72,6 @@ en:
       recover:
         confirm: If you recover an element, it will be listed again
         element: Recover element
-        not_recoverable: This element can't be recovered because it belongs to archived
-          elements
       resource_admin_permissions_button:
         permissions: Permissions
       save_widget:

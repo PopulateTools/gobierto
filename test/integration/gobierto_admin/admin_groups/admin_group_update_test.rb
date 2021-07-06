@@ -38,7 +38,6 @@ module GobiertoAdmin
             within "form.edit_admin_group" do
               fill_in "admin_group_name", with: "Admin Group changed name"
 
-              find("label[for='admin_group_modules_gobiertoparticipation']").click
               find("label[for='admin_group_site_options_vocabularies']").click
               find("label[for='admin_group_site_options_templates']").click
 
@@ -49,7 +48,6 @@ module GobiertoAdmin
 
             within "form.edit_admin_group" do
               assert has_field?("admin_group_name", with: "Admin Group changed name")
-              assert find("#admin_group_modules_gobiertoparticipation", visible: false).checked?
               refute find("#admin_group_modules_gobiertobudgets", visible: false).checked?
               refute find("#admin_group_site_options_vocabularies", visible: false).checked?
               assert find("#admin_group_site_options_templates", visible: false).checked?
@@ -142,7 +140,7 @@ module GobiertoAdmin
               refute find("#admin_group_people_#{richard.id}", visible: false).checked?
             end
 
-            assert_equal 12, madrid_group.permissions.count
+            assert_equal 11, madrid_group.permissions.count
             assert GobiertoAdmin::Permission::GobiertoPlans.where(admin_group: madrid_group, action_name: "moderate").exists?
             assert madrid_group.permissions.for_people.where(action_name: "manage_all").exists?
           end

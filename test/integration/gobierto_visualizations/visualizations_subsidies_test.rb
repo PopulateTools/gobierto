@@ -98,7 +98,6 @@ class GobiertoVisualizations::VisualizationsSubsidiesTest < ActionDispatch::Inte
 
       # Active tab is Subsidies
       assert find(".visualizations-home-nav--tab.is-active").text, 'SUBSIDIES'
-
       first_subsidy = find(".gobierto-table__tr", match: :first)
 
       # Beneficiary
@@ -112,7 +111,7 @@ class GobiertoVisualizations::VisualizationsSubsidiesTest < ActionDispatch::Inte
 
       # Subsidies Show
       ################
-      first_subsidy.click
+      first_subsidy.find(".gobierto-table__td", match: :first).find("a.gobierto-table__a").click
 
       # Active tab is still Subsidies
       assert find(".visualizations-home-nav--tab.is-active").text, 'SUBSIDIES'

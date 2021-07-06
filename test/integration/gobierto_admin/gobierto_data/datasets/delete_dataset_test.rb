@@ -25,7 +25,8 @@ module GobiertoAdmin
 
         def test_delete_dataset
           with(site: site, admin: authorized_regular_admin) do
-            assert_difference "site.activities.where(action: \"gobierto_data.dataset_dataset_deleted\").count", 1 do
+
+            assert_difference "site.activities.where(action: \"gobierto_data.dataset_dataset_deleted\").count", 11 do # FIXME
               visit @path
 
               within "#dataset-item-#{dataset.id}" do

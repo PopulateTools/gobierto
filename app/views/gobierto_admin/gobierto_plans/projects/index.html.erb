@@ -42,7 +42,7 @@
         <% end %>
       </td>
       <td><%= link_to_if current_admin_actions.include?(:edit), project.name, edit_admin_plans_plan_project_path(@plan, project), data: { turbolinks: false } %></td>
-      <td><%= project.progress %></td>
+      <td><%= format_percentage(project.progress) %></td>
       <td><%= project.status&.name %></td>
       <td><%= time_ago_in_words(project.updated_at) %></td>
       <td>

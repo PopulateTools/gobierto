@@ -40,7 +40,6 @@ The application is designed as multi-tentant, where each Site lives on its own d
 Modules group functionality. Currently, the modules the modules developed are:
 
 - Budgets Visualizacion
-- Budgets Consultations
 - Observatory
 - Politics and Agendas
 - Participation tools

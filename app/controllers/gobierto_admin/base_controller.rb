@@ -67,7 +67,6 @@ module GobiertoAdmin
     def default_modules_home_paths
       @default_modules_home_paths ||= {
         gobierto_budgets: admin_gobierto_budgets_options_path,
-        gobierto_budget_consultations: admin_budget_consultations_path,
         gobierto_people: admin_people_people_path,
         gobierto_participation: admin_participation_path,
         gobierto_plans: admin_plans_plans_path,

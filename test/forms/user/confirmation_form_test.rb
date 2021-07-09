@@ -72,7 +72,13 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
 
     valid_user_confirmation_form.save
     assert unconfirmed_user.reload.confirmed?
-    assert unconfirmed_user.census_verified?
+  end
+
+  def test_user_users_fails_census_verification_because_was_disabled
+    # this is disabled after removal of the old module. Previously, it was used to obtain an additional
+    # verification specific to some modules, taking the user.referrer_entity, which points to the module
+    # that required these steps. like set to true census_verified?
+    refute unconfirmed_user.census_verified?
   end
 
   def test_false_password_enabled_attribute

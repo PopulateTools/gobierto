@@ -142,7 +142,7 @@ module GobiertoAdmin
               refute find("#admin_group_people_#{richard.id}", visible: false).checked?
             end
 
-            assert_equal 12, madrid_group.permissions.count
+            assert_equal 11, madrid_group.permissions.count
             assert GobiertoAdmin::Permission::GobiertoPlans.where(admin_group: madrid_group, action_name: "moderate").exists?
             assert madrid_group.permissions.for_people.where(action_name: "manage_all").exists?
           end

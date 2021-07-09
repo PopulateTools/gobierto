@@ -19,7 +19,6 @@ es:
         hey_admin: Hola, %{admin_name}
         manage_sites: Gestionar sites
         modules:
-          budget_consultations: Consultas de presupuestos
           budgets: Presupuestos
           citizens_charters: Servicios y cartas de servicios
           data: Datos

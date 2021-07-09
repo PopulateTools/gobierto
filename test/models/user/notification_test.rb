@@ -4,23 +4,23 @@ require "test_helper"
 
 class User::NotificationTest < ActiveSupport::TestCase
   def notification
-    @notification ||= user_notifications(:dennis_consultation_created)
+    @notification ||= user_notifications(:dennis_post_published_sent_and_seen)
   end
 
   def sent_user_notification
-    @sent_user_notification ||= user_notifications(:dennis_consultation_created)
+    @sent_user_notification ||= user_notifications(:dennis_post_published_sent_and_seen)
   end
 
   def unsent_user_notification
-    @unsent_user_notification ||= user_notifications(:dennis_consultation_updated)
+    @unsent_user_notification ||= user_notifications(:dennis_post_published)
   end
 
   def seen_user_notification
-    @seen_user_notification ||= user_notifications(:dennis_consultation_created)
+    @seen_user_notification ||= user_notifications(:dennis_post_published_sent_and_seen)
   end
 
   def unseen_user_notification
-    @unseen_user_notification ||= user_notifications(:dennis_consultation_updated)
+    @unseen_user_notification ||= user_notifications(:dennis_post_published)
   end
 
   def test_valid

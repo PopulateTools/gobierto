@@ -4,7 +4,7 @@ require "test_helper"
 
 class User::Subscription::FinderTest < ActiveSupport::TestCase
   def user_subscription
-    @user_subscription ||= user_subscriptions(:dennis_consultation_madrid_open)
+    @user_subscription ||= user_subscriptions(:dennis_subscription_specific_term_updated)
   end
 
   def subject

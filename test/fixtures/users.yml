@@ -29,8 +29,6 @@ reed:
   date_of_birth: <%= Date.parse("1996-01-01") %>
   gender: <%= User.genders["male"] %>
   notification_frequency: <%= User.notification_frequencies["disabled"] %>
-  referrer_url: /
-  referrer_entity: GobiertoBudgetConsultations::Consultation
 
 susan:
   email: susan@gobierto.dev

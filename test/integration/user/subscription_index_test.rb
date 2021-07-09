@@ -77,7 +77,6 @@ class User::SubscriptionIndexTest < ActionDispatch::IntegrationTest
 
   def test_site_subscription
     element_names = ["user_subscription_preferences_modules_gobierto_people",
-                     "user_subscription_preferences_modules_gobierto_budget_consultations",
                      "user_subscription_preferences_gobierto_people_people_#{person.id}"]
     with_javascript do
       with_signed_in_user(user) do

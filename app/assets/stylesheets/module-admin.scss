@@ -617,45 +617,6 @@ pre {
   }
 }
 
-/* Consultations report */
-.consultation_report {
-  #age_report {
-    h2 {
-      margin-top: 0;
-    }
-
-    .axis {
-      font-family: $font_text;
-      font-size: 0.85rem;
-    }
-
-    .y.axis {
-      .domain {
-        display: none;
-      }
-
-      .tick line {
-        stroke-dasharray: 2, 2;
-        stroke: $text_soft;
-      }
-    }
-
-    .bars rect {
-      fill: #00909e;
-    }
-  }
-
-  .widget_figure {
-    @include min-screen(768) {
-      font-size: 1.5rem;
-    }
-
-    @include min-screen(1400) {
-      font-size: 2rem;
-    }
-  }
-}
-
 .globalized_fields {
   margin-bottom: 5em;
 

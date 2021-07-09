@@ -53,20 +53,6 @@ ca:
         sign_out: Tancar sessió
         title: El vostre compte
       start: Inici
-    gobierto_budget_consultations:
-      application:
-        about_the_data: Sobre les dades
-        disclaimer: Aquesta web es una demostració de Gobierto, un programari de transparència
-          i participació
-        is_open_source: es software lliure creat per
-        more_information: Més informació en gobierto.es
-        session:
-          admin: Administració
-          alerts: Les teves alertes
-          notifications: Notificacions
-          sign_in: Iniciar sessió
-          sign_out: Tancar sessió
-          title: El teu compte
     gobierto_budgets:
       application:
         about_the_data: Sobre les dades

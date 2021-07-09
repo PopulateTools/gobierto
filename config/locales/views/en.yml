@@ -51,19 +51,6 @@ en:
         sign_out: Sign out
         title: Your account
       start: Home
-    gobierto_budget_consultations:
-      application:
-        about_the_data: About the data
-        disclaimer: This is a demo of Gobierto, transparency and participation software
-        is_open_source: is open source created by
-        more_information: More info in gobierto.es
-        session:
-          admin: Administration
-          alerts: Your alerts
-          notifications: Notifications
-          sign_in: Sign in
-          sign_out: Sign out
-          title: Your account
     gobierto_budgets:
       application:
         about_the_data: About the data

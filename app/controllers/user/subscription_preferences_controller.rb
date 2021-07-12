@@ -26,8 +26,6 @@ class User::SubscriptionPreferencesController < User::BaseController
       :site_to_subscribe,
       modules: [],
       gobierto_people_people: [],
-      gobierto_participation_issue: [],
-      gobierto_participation_processes: []
     )
   end
 end

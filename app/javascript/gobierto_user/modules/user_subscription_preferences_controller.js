@@ -4,7 +4,6 @@ window.User.SubscriptionPreferencesController = (function() {
   SubscriptionPreferencesController.prototype.index = function(){
     _handleSiteSelected();
     _handleAreaSelected('gobierto_people');
-    _handleAreaSelected('gobierto_participation');
   };
 
   function _handleSiteSelected(){

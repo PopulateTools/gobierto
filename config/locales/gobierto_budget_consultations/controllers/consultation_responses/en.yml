@@ -1,9 +1,0 @@
----
-en:
-  gobierto_budget_consultations:
-    consultations:
-      consultation_responses:
-        new:
-          user_not_signed_in_html: The participation in this consultation is reserved
-            to people registered in %{place_name}.<br><br>Signup or login if you already
-            have an account (and verify you are registered) to participate.

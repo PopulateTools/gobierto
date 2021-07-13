@@ -12,9 +12,6 @@ default: &default
       name: Gobierto Budgets
       namespace: GobiertoBudgets
     -
-      name: Gobierto Budget Consultations
-      namespace: GobiertoBudgetConsultations
-    -
       name: Gobierto People
       namespace: GobiertoPeople
     -

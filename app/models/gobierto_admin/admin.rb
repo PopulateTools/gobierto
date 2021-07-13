@@ -21,7 +21,6 @@ module GobiertoAdmin
 
     has_many :gobierto_development_permissions, through: :admin_groups, class_name: "Permission::GobiertoDevelopment", source: :permissions
     has_many :gobierto_budgets_permissions, through: :admin_groups, class_name: "Permission::GobiertoBudgets", source: :permissions
-    has_many :gobierto_budget_consultations_permissions, through: :admin_groups, class_name: "Permission::GobiertoBudgetConsultations", source: :permissions
     has_many :gobierto_people_permissions, through: :admin_groups, class_name: "Permission::GobiertoPeople", source: :permissions
     has_many :gobierto_plans_permissions, through: :admin_groups, class_name: "Permission::GobiertoPlans", source: :permissions
     has_many :gobierto_plans_projects, class_name: "::GobiertoPlans::Node", dependent: :nullify

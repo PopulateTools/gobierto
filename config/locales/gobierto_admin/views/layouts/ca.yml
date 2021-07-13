@@ -19,7 +19,6 @@ ca:
         hey_admin: Hola, %{admin_name}
         manage_sites: Gestionar sites
         modules:
-          budget_consultations: Consultes de pressupostos
           budgets: Pressupostos
           citizens_charters: Serveis i cartes de serveis
           data: Dades

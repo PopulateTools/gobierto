@@ -97,7 +97,6 @@ module GobiertoAdmin
 
     def module_allowed?(_module_namespace)
       refute admin.module_allowed?("GobiertoCms")
-      assert admin.module_allowed?("GobiertoBudgetConsultations")
     end
   end
 end

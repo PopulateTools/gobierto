@@ -53,20 +53,6 @@ es:
         sign_out: Cerrar sesión
         title: Tu cuenta
       start: Inicio
-    gobierto_budget_consultations:
-      application:
-        about_the_data: Sobre los datos
-        disclaimer: Esta web es una demostración de Gobierto, software de transparencia
-          y participación
-        is_open_source: es software libre creado por
-        more_information: Más información en gobierto.es
-        session:
-          admin: Administración
-          alerts: Tus alertas
-          notifications: Notificaciones
-          sign_in: Iniciar sesión
-          sign_out: Cerrar sesión
-          title: Tu cuenta
     gobierto_budgets:
       application:
         about_the_data: Sobre los datos

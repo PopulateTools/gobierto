@@ -75,15 +75,6 @@ Rails.application.routes.draw do
         resources :feedback, only: [:index]
       end
 
-      namespace :gobierto_budget_consultations, as: :budget, path: :budgets do
-        resources :consultations, only: [:index, :show, :new, :create, :edit, :update] do
-          resources :consultation_items, controller: "consultations/consultation_items", path: :items
-          resource :consultation_items_sort, only: [:create], controller: "consultations/consultation_items_sort", path: :items_sort
-          resources :consultation_responses, only: [:index, :show, :new, :create, :destroy], controller: "consultations/consultation_responses", path: :responses
-          resource :consultation_reports, only: [:show], controller: "consultations/consultation_reports", path: :report
-        end
-      end
-
       namespace :gobierto_people, as: :people, path: :people do
         resources :people, only: [:index, :new, :create, :edit, :update] do
           collection do
@@ -299,20 +290,6 @@ Rails.application.routes.draw do
 
         resources :subscriptions, only: [:index, :create, :destroy]
         resources :notifications, only: [:index]
-      end
-    end
-
-    # Gobierto Budget Consultations module
-    namespace :gobierto_budget_consultations, path: "consultas-presupuestos" do
-      constraints GobiertoSiteConstraint.new do
-        resources :consultations, only: [:index, :show], path: "" do
-          get "partidas", to: "consultations/consultation_items#index", as: :item_summary
-          get "participa", to: "consultations/consultation_responses#new", as: :new_response
-          post "participa", to: "consultations/consultation_responses#create", as: :response, via: [:post]
-          get "terminado", to: "consultations/consultation_confirmations#show", as: :show_confirmation
-        end
-
-        resources :consultation_participations, only: [:show], path: "participaciones"
       end
     end
 

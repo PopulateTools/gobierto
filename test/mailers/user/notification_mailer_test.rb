@@ -12,7 +12,7 @@ class User::NotificationMailerTest < ActionMailer::TestCase
 
   def setup
     super
-    @user_notification = user_notifications(:dennis_consultation_created)
+    @user_notification = user_notifications(:dennis_post_published_sent_and_seen)
     @user = user_notification.user
     @site = sites(:madrid)
   end
@@ -25,7 +25,7 @@ class User::NotificationMailerTest < ActionMailer::TestCase
     assert_equal ["no-reply@gobierto.dev"], email.from
     assert_equal [site.reply_to_email], email.reply_to
     assert_equal [user.email], email.to
-    assert_equal "New activity in Ayuntamiento de Madrid: Consulta sobre los presupuestos de Madrid", email.subject
+    assert_equal "New activity in Ayuntamiento de Madrid: About me", email.subject
   end
 
   def test_notification_digest

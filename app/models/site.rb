@@ -35,10 +35,6 @@ class Site < ApplicationRecord
   # GobiertoBudgets integration
   has_many :custom_budget_lines_categories, dependent: :destroy, class_name: "GobiertoBudgets::Category"
 
-  # GobiertoBudgetConsultations integration
-  has_many :budget_consultations, dependent: :destroy, class_name: "GobiertoBudgetConsultations::Consultation"
-  has_many :budget_consultation_responses, through: :budget_consultations, source: :consultation_responses, class_name: "GobiertoBudgetConsultations::ConsultationResponse"
-
   # GobiertoPeople integration
   has_many :people, dependent: :destroy, class_name: "GobiertoPeople::Person"
   has_many :person_posts, through: :people, source: :posts, class_name: "GobiertoPeople::PersonPost"
@@ -286,7 +282,7 @@ class Site < ApplicationRecord
   end
 
   def organization_required
-    if (self.configuration.modules & %W{ GobiertoBudgetConsultations GobiertoBudgets GobiertoObservatory }).any?
+    if (self.configuration.modules & %W{ GobiertoBudgets GobiertoObservatory }).any?
       if organization_id.blank?
         errors[:base] << I18n.t('errors.messages.blank_for_modules')
       end

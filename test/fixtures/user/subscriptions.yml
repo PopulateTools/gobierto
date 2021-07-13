@@ -1,10 +1,14 @@
-dennis_consultation_madrid_open:
-  user: dennis
+reed_subscription_generic_site_updated:
+  user: reed
   site: madrid
-  subscribable: madrid_open (GobiertoBudgetConsultations::Consultation)
+  subscribable_type: Subscribers::SiteActivity
 
-dennis_consultations:
+dennis_subscription_generic_site_updated:
   user: dennis
   site: madrid
-  subscribable_type: GobiertoBudgetConsultations::Consultation
-  subscribable_id:
+  subscribable_type: Subscribers::SiteActivity
+
+dennis_subscription_specific_term_updated:
+  user: dennis
+  site: madrid
+  subscribable: cat (GobiertoCommon::Term)

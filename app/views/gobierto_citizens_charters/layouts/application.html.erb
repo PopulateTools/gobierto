@@ -1,9 +1,0 @@
-<% content_for :javascript_module_link do %>
-  <%= javascript_packs_with_chunks_tag 'charters', 'data-turbolinks-track': true %>
-<% end %>
-
-<% content_for :stylesheet_module_link do %>
-  <%= stylesheet_packs_with_chunks_tag 'charters' %>
-<% end %>
-
-<%= render template: "layouts/application" %>

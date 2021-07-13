@@ -27,9 +27,6 @@ default: &default
       name: Gobierto Plans
       namespace: GobiertoPlans
     -
-      name: Gobierto Citizens Charters
-      namespace: GobiertoCitizensCharters
-    -
       name: Gobierto Investments
       namespace: GobiertoInvestments
     -
@@ -60,9 +57,6 @@ default: &default
     -
       name: Gobierto Indicators
       namespace: GobiertoIndicators
-    -
-      name: Gobierto Citizens Charters
-      namespace: GobiertoCitizensCharters
     -
       name: Gobierto Investments
       namespace: GobiertoInvestments

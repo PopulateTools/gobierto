@@ -187,7 +187,7 @@ module GobiertoAdmin
         if @project.published?
           @preview_item_url = gobierto_plans_project_path(slug: params[:plan_id], id: params[:id])
         else
-          @preview_item_url = nil
+          @preview_item_url = gobierto_plans_project_path(slug: params[:plan_id], id: params[:id], preview_token: current_admin.preview_token )
         end
 
         return if params[:version].blank?

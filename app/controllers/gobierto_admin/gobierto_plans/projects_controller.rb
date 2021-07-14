@@ -184,6 +184,11 @@ module GobiertoAdmin
 
       def find_versioned_project
         @project = base_relation.find params[:id]
+        if @project.published?
+          @preview_item_url = gobierto_plans_project_path(slug: params[:plan_id], id: params[:id])
+        else
+          @preview_item_url = nil
+        end
 
         return if params[:version].blank?
 

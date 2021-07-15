@@ -72,7 +72,7 @@ module GobiertoAdmin
         def preview_test_conf
           {
             item_admin_path: @path,
-            item_public_url: gobierto_plans_project_path(slug: @plan.slug, year: @plan.year, id: @published_project.id, host: site.domain),
+            item_public_url: gobierto_plans_project_path(slug: @plan.plan_type.slug, year: @plan.year, id: @published_project.id, host: site.domain),
             publish_proc: -> { @published_project.published! },
             unpublish_proc: -> { @published_project.draft! }
           }

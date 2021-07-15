@@ -121,7 +121,6 @@ module GobiertoCms
         other_section = gobierto_cms_sections(:other_section_santander)
         other_page = gobierto_cms_pages(:other_page_for_other_section)
 
-        section_cms = gobierto_cms_sections(:cms_pages_santander)
         cms_page = gobierto_cms_pages(:cms_section_l0_p0_page)
 
         get gobierto_cms_section_item_path(slug_section: other_section.slug, id: other_page.slug)

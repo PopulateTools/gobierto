@@ -96,11 +96,4 @@ export const createRouter = ({ dashboards = false }) => new VueRouter({
       ].filter(Boolean)
     },
   ],
-  scrollBehavior() {
-    const element = document.getElementById('gobierto-planification');
-    window.scrollTo({
-      top: element.offsetTop - 24,
-      behavior: 'smooth'
-    });
-  }
 })

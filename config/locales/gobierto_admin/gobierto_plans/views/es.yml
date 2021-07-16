@@ -42,6 +42,7 @@ es:
           delete_contents_confirm: Confirma que quieres borrar los proyectos de este
             plan
           export_csv: Exportar a CSV
+          export_indicators_csv: Exportar indicadores a CSV
           import_csv: Importar desde CSV
           placeholders:
             configuration_data: '{ "open_node": true }'

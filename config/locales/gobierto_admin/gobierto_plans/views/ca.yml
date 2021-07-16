@@ -42,6 +42,7 @@ ca:
           delete_contents_confirm: Confirma que vols eliminar els projectes d'aquest
             pla
           export_csv: Exportar a CSV
+          export_indicators_csv: Exportar indicadors a CSV
           import_csv: Importar des CSV
           placeholders:
             configuration_data: '{ "open_node": true }'

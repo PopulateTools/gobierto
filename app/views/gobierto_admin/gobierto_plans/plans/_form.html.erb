@@ -133,6 +133,12 @@
                 <%= t(".export_csv") %>
               <% end %>
             </div>
+            <div class="m_v_1">
+              <%= link_to admin_plans_plan_export_indicator_csv_path(@plan), target: "_blank" do %>
+                <i class="fas fa-table"></i>
+                <%= t(".export_indicators_csv") %>
+              <% end %>
+            </div>
           </div>
           <div class="m_v_1">
             <%= link_to admin_plans_plan_delete_contents_path(@plan),

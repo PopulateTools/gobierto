@@ -148,6 +148,11 @@ module GobiertoData
           end
         end
 
+        # DELETE /api/v1/data/datasets/:dataset_slug
+        def destroy
+          find_item.destroy
+        end
+
         private
 
         def cached_item_csv

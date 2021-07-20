@@ -10,7 +10,7 @@ Este README está disponible [en Español](README.md)
 
 Gobierto is a Rails app that provides a set of tools to power efforts from public administrations towards transparency and citizen engagement, to enable them to communicate better with their constituents and put public open data to work. We are getting started and many things will change. The first working module is for budget visualization. Things you can currently do with Gobierto:
 
-1. **Single-Site for a public body (ie municipality)**: Setup a site for a municipality (such as madrid.gobierto.es) to publish their budgets in a well designed, easy to understand way. We'll be adding other modules such as budget consultations, indicators, stories...
+1. **Single-Site for a public body (ie municipality)**: Setup a site for a municipality (such as madrid.gobierto.es) to publish their budgets in a well designed, easy to understand way. We'll be adding other modules such as budget, indicators, stories...
 2. **Multi-site for public bodies**: #1, but to provide service for many bodies with the same software installation in separate URLs (madrid.gobierto.es, barcelona.gobierto.es, etc).
 3. **Budget comparison**: A budgets comparison tool to enable citizens to explore, visualize, compare and contextualize the budgets of multiple municipalities/public bodies at the same time (such as those of a given Province, Autonomous Region or Country). You can check a live instance at [presupuestos.gobierto.es](http://presupuestos.gobierto.es) (it contains municipal budget data for almost 8.000 spanish municipalities). Now, this source code has been extracted from Gobierto and lives in a separated repository: [Gobierto Comparador Presupuestos](https://github.com/PopulateTools/gobierto-comparador-presupuestos).
 
@@ -40,7 +40,6 @@ The application is designed as multi-tentant, where each Site lives on its own d
 Modules group functionality. Currently, the modules the modules developed are:
 
 - Budgets Visualizacion
-- Budgets Consultations
 - Observatory
 - Politics and Agendas
 - Participation tools

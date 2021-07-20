@@ -51,19 +51,6 @@ en:
         sign_out: Sign out
         title: Your account
       start: Home
-    gobierto_budget_consultations:
-      application:
-        about_the_data: About the data
-        disclaimer: This is a demo of Gobierto, transparency and participation software
-        is_open_source: is open source created by
-        more_information: More info in gobierto.es
-        session:
-          admin: Administration
-          alerts: Your alerts
-          notifications: Notifications
-          sign_in: Sign in
-          sign_out: Sign out
-          title: Your account
     gobierto_budgets:
       application:
         about_the_data: About the data
@@ -95,8 +82,6 @@ en:
     search:
       budget_line_item_expense: Budget line - Expense
       budget_line_item_income: Budget line - Income
-      charter: Services charter
-      charter_commitment: Services charter - Indicator
       contribution_item: Contribution
       dataset_item: Dataset
       drag_drop_instructions: Drag and drop on the left side to place this page in
@@ -119,17 +104,6 @@ en:
     currently: currently
     download_open_data:
       exports: Download data in a reusable format
-    jsgrid:
-      cancel_edit: Cancel edition
-      delete: Delete
-      delete_confirm: Are you sure? This operation cannot be undone
-      edit: Edit
-      insert: Create
-      insert_switch: Add...
-      invalid_message: Invalid data entered
-      load_message: Please, wait...
-      not_found: No nodes were found
-      update: Update
     poll_question:
       multiple_choice_msg: You can choose several options
     poll_teaser:

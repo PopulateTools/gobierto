@@ -7,7 +7,6 @@ ca:
           account: El teu compte
           sign_out: Tancar sessió
         calendars: Agendes
-        citizens_charters: Serveis i cartes de serveis
         cms: CMS
         collapse_menu: Colapsar menú
         custom_fields: Camps personalitzats
@@ -19,9 +18,7 @@ ca:
         hey_admin: Hola, %{admin_name}
         manage_sites: Gestionar sites
         modules:
-          budget_consultations: Consultes de pressupostos
           budgets: Pressupostos
-          citizens_charters: Serveis i cartes de serveis
           data: Dades
           investments: Inversions
           observatory: Observatori

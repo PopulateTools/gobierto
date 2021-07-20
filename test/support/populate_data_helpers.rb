@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
 module PopulateDataHelpers
-  def with_stubbed_budget_line_collection
-    GobiertoAdmin::GobiertoBudgetConsultations::BudgetLineCollectionBuilder.stub_any_instance(:call, [populate_data_budget_line_summary]) do
-      yield
-    end
-  end
-
   def with_stubbed_budget_lines
     PopulateData::Gobierto::BudgetLine.stub_any_instance(:fetch, [populate_data_budget_line]) do
       yield

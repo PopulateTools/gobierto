@@ -1,5 +1,0 @@
----
-en:
-  activerecord:
-    models:
-      gobierto_budget_consultations/consultation: Consultation

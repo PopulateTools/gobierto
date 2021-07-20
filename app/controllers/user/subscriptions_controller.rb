@@ -14,7 +14,6 @@ class User::SubscriptionsController < User::BaseController
     @user_notification_frequencies = get_user_notification_frequencies
     @user_notification_modules = get_user_notification_modules
     @user_notification_gobierto_people_people = get_user_notification_gobierto_people_people
-    @user_notification_gobierto_budget_consultations_consultations = get_user_notification_gobierto_budget_consultations_consultations
     @user_notification_gobierto_participation_processes = get_user_notification_gobierto_participation_processes
     @user_subscription_preferences_form = User::SubscriptionPreferencesForm.new(
       user: current_user,
@@ -23,7 +22,6 @@ class User::SubscriptionsController < User::BaseController
       site_to_subscribe: get_current_user_subsciption_to_site,
       modules: get_current_user_subscribed_modules,
       gobierto_people_people: get_current_user_subscribed_gobierto_people_people,
-      gobierto_budget_consultations_consultations: get_current_user_subscribed_gobierto_budet_consultations_consultations,
       gobierto_participation_processes: get_current_user_subscribed_gobierto_participation_processes
     )
   end
@@ -120,18 +118,8 @@ class User::SubscriptionsController < User::BaseController
     end
   end
 
-  def get_user_notification_gobierto_budget_consultations_consultations
-    current_site.budget_consultations.active
-  end
-
   def get_user_notification_gobierto_participation_processes
     current_site.processes.active
-  end
-
-  def get_current_user_subscribed_gobierto_budet_consultations_consultations
-    get_user_notification_gobierto_budget_consultations_consultations.select do |consultation|
-      current_user.subscribed_to?(consultation, current_site)
-    end.map(&:id)
   end
 
   def get_current_user_subscribed_gobierto_participation_processes

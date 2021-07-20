@@ -4,12 +4,6 @@ madrid_create:
   resource_type: global
   action_name: create
 
-admin_gobierto_budget_consultations:
-  admin_group: madrid_group
-  resource_type: gobierto_budget_consultations
-  namespace: site_module
-  action_name: manage
-
 admin_gobierto_people:
   admin_group: madrid_group
   resource_type: gobierto_people

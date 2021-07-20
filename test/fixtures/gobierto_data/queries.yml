@@ -25,3 +25,10 @@ draft_dataset_query:
   name_translations: <%= { en: "Interest Groups by domain", es: "Grupos de interés por dominio" }.to_json %>
   privacy_status: <%= GobiertoData::Query.privacy_statuses["open"] %>
   sql: "select sites.domain, count(*) from gp_interest_groups join sites on gp_interest_groups.site_id = sites.id group by sites.domain"
+
+dataset_to_delete_query_to_delete:
+  dataset: dataset_to_delete
+  user: dennis
+  name_translations: <%= { en: "Query to delete", es: "Consulta para borrar" }.to_json %>
+  privacy_status: <%= GobiertoData::Query.privacy_statuses["open"] %>
+  sql: "select count(*) from delete_me_table "

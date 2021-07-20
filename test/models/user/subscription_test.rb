@@ -3,52 +3,52 @@
 require "test_helper"
 
 class User::SubscriptionTest < ActiveSupport::TestCase
-  def user_subscription
-    @user_subscription ||= user_subscriptions(:dennis_consultation_madrid_open)
+
+  def generic_subscription
+    @generic_subscription ||= user_subscriptions(:reed_subscription_generic_site_updated)
   end
 
-  def user
-    @user ||= users(:dennis)
+  def specific_subscription
+    @specific_subscription ||= user_subscriptions(:dennis_subscription_specific_term_updated)
   end
 
-  def other_user
-    @other_user ||= users(:reed)
+  def user_generic_subscription
+    @user_generic_subscription ||= users(:reed)
+  end
+
+  def user_specific_subscription
+    @user_specific_subscription ||= users(:dennis)
   end
 
   def site
     @site ||= sites(:madrid)
   end
 
-  def person
-    @person ||= gobierto_people_people(:richard)
-  end
-
-  def person_event
-    @person_event ||= gobierto_calendars_events(:richard_published)
-  end
-
-  def generic_user_subscription
-    @generic_user_subscription ||= user_subscriptions(:dennis_consultations)
+  def term
+    @term ||= gobierto_common_term(:cat)
   end
 
   def test_valid
-    assert user_subscription.valid?
+    assert generic_subscription.valid?
+    assert specific_subscription.valid?
   end
 
-  def test_specific?
-    assert user_subscription.specific?
-    refute generic_user_subscription.specific?
+  def test_specific
+    refute generic_subscription.specific?
+    assert specific_subscription.specific?
   end
 
-  def test_generic?
-    assert generic_user_subscription.generic?
-    refute user_subscription.generic?
+  def test_generic
+    assert generic_subscription.generic?
+    refute specific_subscription.generic?
   end
 
   def test_subscribable
-    refute_equal GobiertoBudgetConsultations::Consultation, user_subscription.subscribable
-    assert user_subscription.subscribable.is_a?(GobiertoBudgetConsultations::Consultation)
+    refute_equal GobiertoCommon::Term,      generic_subscription.subscribable
+    assert_equal Subscribers::SiteActivity, generic_subscription.subscribable
 
-    assert_equal GobiertoBudgetConsultations::Consultation, generic_user_subscription.subscribable
+    assert_equal "GobiertoCommon::Term",    specific_subscription.subscribable_type
+    refute_equal Subscribers::SiteActivity, specific_subscription.subscribable
   end
+
 end

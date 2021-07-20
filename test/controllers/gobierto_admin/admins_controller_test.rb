@@ -35,7 +35,7 @@ module GobiertoAdmin
           name: admin.name,
           email: admin.email,
           password: "wadus",
-          site_modules: %w(GobiertoBudgetConsultations GobiertoPeople),
+          site_modules: %w(GobiertoPeople),
           site_ids: ["", site.id]
         }
       }
@@ -48,7 +48,7 @@ module GobiertoAdmin
           email: "newadmin@example.com",
           password: "wadus",
           password_confirmation: "wadus",
-          site_modules: %w(GobiertoBudgetConsultations GobiertoPeople),
+          site_modules: %w(GobiertoPeople),
           site_ids: ["", site.id]
         }
       }

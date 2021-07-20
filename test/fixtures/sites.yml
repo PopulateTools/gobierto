@@ -7,13 +7,11 @@ madrid:
     "logo" => "http://www.madrid.es/assets/images/logo-madrid.png",
     "modules" => [
       "GobiertoBudgets",
-      "GobiertoBudgetConsultations",
       "GobiertoPeople",
       "GobiertoCms",
       "GobiertoParticipation",
       "GobiertoIndicators",
       "GobiertoPlans",
-      "GobiertoCitizensCharters",
       "GobiertoObservatory",
       "GobiertoInvestments",
       "GobiertoData",

@@ -39,7 +39,10 @@ class User::ConfirmationForm < BaseForm
   end
 
   def require_user_verification?
-    user.present? && user.referrer_entity == "GobiertoBudgetConsultations::Consultation"
+    # this is disabled after removal of the old module. Previously, it was used to obtain an additional
+    # verification specific to some modules, taking the user.referrer_entity, which points to the module
+    # that required these steps.
+    false
   end
 
   def save
@@ -143,6 +146,7 @@ class User::ConfirmationForm < BaseForm
       @user.save
     end
 
+    @user.save
     @user
   end
 

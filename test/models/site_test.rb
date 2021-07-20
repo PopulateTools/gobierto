@@ -80,7 +80,7 @@ class SiteTest < ActiveSupport::TestCase
     site.configuration_data = {
       "links_markup" => %(<a href="http://madrid.es">Ayuntamiento de Madrid</a>),
       "logo" => "http://www.madrid.es/assets/images/logo-madrid.png",
-      "modules" => %w(GobiertoBudgets GobiertoBudgetConsultations GobiertoPeople),
+      "modules" => %w(GobiertoBudgets GobiertoPeople),
       "locale" => "en",
       "google_analytics_id" => "UA-000000-01"
     }
@@ -99,7 +99,7 @@ class SiteTest < ActiveSupport::TestCase
     site.configuration_data = {
       "links_markup" => %(<a href="http://madrid.es">Ayuntamiento de Madrid</a>),
       "logo" => "http://www.madrid.es/assets/images/logo-madrid.png",
-      "modules" => %w(GobiertoBudgets GobiertoBudgetConsultations GobiertoPeople),
+      "modules" => %w(GobiertoBudgets GobiertoPeople),
       "locale" => "en",
       "google_analytics_id" => "UA-000000-01"
     }

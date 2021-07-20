@@ -53,20 +53,6 @@ ca:
         sign_out: Tancar sessió
         title: El vostre compte
       start: Inici
-    gobierto_budget_consultations:
-      application:
-        about_the_data: Sobre les dades
-        disclaimer: Aquesta web es una demostració de Gobierto, un programari de transparència
-          i participació
-        is_open_source: es software lliure creat per
-        more_information: Més informació en gobierto.es
-        session:
-          admin: Administració
-          alerts: Les teves alertes
-          notifications: Notificacions
-          sign_in: Iniciar sessió
-          sign_out: Tancar sessió
-          title: El teu compte
     gobierto_budgets:
       application:
         about_the_data: Sobre les dades
@@ -100,8 +86,6 @@ ca:
     search:
       budget_line_item_expense: Partida pressupostària - Despesa
       budget_line_item_income: Partida pressupostària - Ingrés
-      charter: Carta de serveis
-      charter_commitment: Carta de serveis - Indicador
       contribution_item: Aportacions
       dataset_item: Dades
       drag_drop_instructions: Arrossegueu i deixeu anar al costat esquerre per a col·locar
@@ -124,17 +108,6 @@ ca:
     currently: actualment
     download_open_data:
       exports: Descarregueu les dades en format reutilitzable
-    jsgrid:
-      cancel_edit: Cancel actualització
-      delete: Eliminar
-      delete_confirm: Estàs segur? Aquesta operació no es pot desfer
-      edit: Editar
-      insert: Crear
-      insert_switch: Afegeix...
-      invalid_message: Les dades introduïdes són invàlids
-      load_message: Espera, si us plau...
-      not_found: No hi ha dades
-      update: Actualitzar
     poll_question:
       multiple_choice_msg: Podeu triar diverses opcions
     poll_teaser:

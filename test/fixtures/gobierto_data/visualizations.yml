@@ -96,3 +96,11 @@ draft_dataset_visualization:
   name_translations: <%= { en: "Interest Groups by domain visualization", es: "Visualización de grupos de interés por dominio" }.to_json %>
   privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
   spec: "{}"
+
+dataset_to_delete_visualization_to_delete:
+  query: dataset_to_delete_query_to_delete
+  dataset: dataset_to_delete
+  user: dennis
+  name_translations: <%= { en: "a fake visualization", es: "una visualization falsa" }.to_json %>
+  privacy_status: <%= GobiertoData::Visualization.privacy_statuses["open"] %>
+  spec: "{}"

@@ -9,6 +9,7 @@
     "accounting": "^0.4.1",
     "air-datepicker": "^2.2.3",
     "axios": "^0.21.1",
+    "babel-jest": "^27.0.2",
     "cleave.js": "^1.1.3",
     "codemirror": "^5.35.0",
     "core-js": "^3.2.1",
@@ -26,6 +27,7 @@
     "fullcalendar": "^3.9.0",
     "geocomplete": "^1.7.0",
     "i18n-js": "^3.0.3",
+    "jest": "^27.0.3",
     "jqtree": "^1.4.5",
     "jquery": "^3.5.0",
     "jquery-ui": "^1.12.1",
@@ -79,6 +81,7 @@
     "eslint-plugin-vue": "^5.2.3",
     "husky": "^4.2.5",
     "lint-staged": "^10.5.3",
+    "node-fetch": "^2.6.1",
     "speed-measure-webpack-plugin": "^1.5.0",
     "stylelint": "^13.8.0",
     "stylelint-config-recommended": "^3.0.0",
@@ -89,7 +92,9 @@
   "scripts": {
     "eslint": "eslint 'app/javascript/**/*.{js,vue}'",
     "stylelint": "stylelint 'app/**/*.{css,scss}'",
-    "check_i18n": "script/check_i18n.sh"
+    "check_i18n": "script/check_i18n.sh",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "husky": {
     "hooks": {
@@ -98,7 +103,8 @@
   },
   "lint-staged": {
     "app/javascript/**/*.{js,vue}": [
-      "eslint --fix"
+      "eslint --fix",
+      "jest --bail --findRelatedTests"
     ],
     "app/**/*.{css,scss}": [
       "stylelint --fix"

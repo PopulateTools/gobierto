@@ -3,12 +3,14 @@
     "es6": true,
     "browser": true,
     "jquery": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "globals": {
     "_": true,
     "Vue": true,
-    "I18n": true
+    "I18n": true,
+    "jest/globals": true
   },
   "extends": ["eslint:recommended", "plugin:vue/recommended"],
   "parserOptions": {

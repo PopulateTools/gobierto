@@ -3,8 +3,7 @@ import { router } from "../lib/router";
 import 'codemirror/lib/codemirror.css';
 import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
-checkAndReportAccessibility()
-
+Vue.use(checkAndReportAccessibility)
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
 

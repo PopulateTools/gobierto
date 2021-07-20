@@ -12,11 +12,10 @@ import { getRemoteData, sortByField, calculateSumMeanMedian } from "../webapp/li
 import { EventBus } from "../webapp/mixins/event_bus";
 import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
-checkAndReportAccessibility()
-
 const d3 = { scaleThreshold, sum, mean, median, max };
 
 Vue.use(VueRouter);
+Vue.use(checkAndReportAccessibility)
 Vue.config.productionTip = false;
 
 export class SubsidiesController {

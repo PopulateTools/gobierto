@@ -4,8 +4,8 @@ import { getRemoteData } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/mixins/event_bus";
 import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
-checkAndReportAccessibility()
 Vue.use(VueRouter);
+Vue.use(checkAndReportAccessibility);
 Vue.config.productionTip = false;
 
 export class CostsController {

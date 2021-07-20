@@ -2,9 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
-checkAndReportAccessibility()
-
 Vue.use(VueRouter);
+Vue.use(checkAndReportAccessibility)
 Vue.config.productionTip = false;
 
 export class InvestmentsController {

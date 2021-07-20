@@ -42,7 +42,6 @@ module GobiertoPlans
       @columns = current_columns if current_columns > @columns
 
       values = object.payload[object.custom_field.uid.to_s].map(&:values)
-
       values.map do |value|
         [
           plan.title_translations["en"],

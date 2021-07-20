@@ -242,3 +242,26 @@ dashboards_plan:
   plan_type: pam
   visibility_level: <%= ::GobiertoPlans::Plan.visibility_levels["published"] %>
   configuration_data: <%= JSON.pretty_generate({}).inspect %>
+
+multiple_indicators_plan:
+  title_translations: <%= {
+    en: "Indicator example plan",
+    es: "Ejemplo indicadores plan"
+  }.to_json %>
+  introduction_translations: <%= {
+    en: "this is a plan for show examples about indicator",
+    es: "este es un plan de ejmplo para mostrar indicadores"
+  }.to_json %>
+  footer_translations: <%= {
+    en: "indicator plan",
+    es: "plan con indicadores"
+  }.to_json %>
+  css:
+  year: 2021
+  slug: multiple-indicators-plan
+  site: madrid
+  categories_vocabulary: multiple_indicators_plan_vocabulary
+  statuses_vocabulary: plan_projects_statuses_vocabulary
+  plan_type: pam
+  visibility_level: <%= ::GobiertoPlans::Plan.visibility_levels["published"] %>
+  configuration_data: <%= JSON.pretty_generate({}).inspect %>

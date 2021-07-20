@@ -2,8 +2,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
-Vue.use(checkAndReportAccessibility)
+if (Vue.config.devtools) {
+  Vue.use(checkAndReportAccessibility)
+}
 Vue.use(VueRouter);
+Vue.config.devtools
 
 const Main = () => import("../Main.vue");
 const Plan = () => import("../pages/Plan.vue");

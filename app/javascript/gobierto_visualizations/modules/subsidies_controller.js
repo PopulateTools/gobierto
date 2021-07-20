@@ -14,8 +14,10 @@ import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
 const d3 = { scaleThreshold, sum, mean, median, max };
 
+if (Vue.config.devtools) {
+  Vue.use(checkAndReportAccessibility)
+}
 Vue.use(VueRouter);
-Vue.use(checkAndReportAccessibility)
 Vue.config.productionTip = false;
 
 export class SubsidiesController {

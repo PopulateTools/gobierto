@@ -14,7 +14,7 @@ political_agendas:
   categories: center_basic_needs_plan_term
   visibility_level: <%= GobiertoPlans::Node.visibility_levels["published"] %>
   published_version: 1
-  external_id: 1
+  external_id: 2
 
 scholarships_kindergartens:
   name_translations: <%= {
@@ -27,7 +27,7 @@ scholarships_kindergartens:
   ends_at: 2019-11-01
   categories: center_scholarships_plan_term
   visibility_level: <%= GobiertoPlans::Node.visibility_levels["draft"] %>
-  external_id: 2
+  external_id: 1
 
 scholarships_in_school_cateens:
   name_translations: <%= {

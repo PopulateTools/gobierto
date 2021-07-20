@@ -1,8 +1,0 @@
-<% if @consultation_response_form.persisted? %>
-    Turbolinks.visit('<%= gobierto_budget_consultations_consultation_show_confirmation_path(@consultation) %>');
-<% else %>
-  var $container = $('[data-messages-container]');
-  $container.html('');
-  if($container.length)
-    $('<div id="errors"><%= @consultation_response_form.errors.full_messages.to_sentence %></div>').appendTo($container);
-<% end %>

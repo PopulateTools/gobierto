@@ -35,10 +35,6 @@ class Site < ApplicationRecord
   # GobiertoBudgets integration
   has_many :custom_budget_lines_categories, dependent: :destroy, class_name: "GobiertoBudgets::Category"
 
-  # GobiertoBudgetConsultations integration
-  has_many :budget_consultations, dependent: :destroy, class_name: "GobiertoBudgetConsultations::Consultation"
-  has_many :budget_consultation_responses, through: :budget_consultations, source: :consultation_responses, class_name: "GobiertoBudgetConsultations::ConsultationResponse"
-
   # GobiertoPeople integration
   has_many :people, dependent: :destroy, class_name: "GobiertoPeople::Person"
   has_many :person_posts, through: :people, source: :posts, class_name: "GobiertoPeople::PersonPost"
@@ -80,12 +76,6 @@ class Site < ApplicationRecord
   has_many :comments, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
   has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
   has_many :votes, dependent: :destroy, class_name: "GobiertoParticipation::Vote"
-
-  # GobiertoCitizensCharters integration
-  has_many :services, dependent: :destroy, class_name: "GobiertoCitizensCharters::Service"
-  has_many :charters, through: :services, class_name: "GobiertoCitizensCharters::Charter"
-  has_many :commitments, through: :charters, class_name: "GobiertoCitizensCharters::Commitment"
-  has_many :editions, through: :commitments, class_name: "GobiertoCitizensCharters::Edition"
 
   # Gobierto Investments integration
   has_many :projects, dependent: :destroy, class_name: "GobiertoInvestments::Project"
@@ -152,11 +142,6 @@ class Site < ApplicationRecord
                                          end
   end
 
-  def gobierto_citizens_charters_settings
-    @gobierto_citizens_charters_settings ||= if configuration.available_module?("GobiertoCitizensCharters") && configuration.gobierto_citizens_charters_enabled?
-                                               module_settings.find_by(module_name: "GobiertoCitizensCharters")
-                                             end
-  end
 
   def gobierto_data_settings
     @gobierto_data_settings ||= if configuration.available_module?("GobiertoData") && configuration.gobierto_data_enabled?
@@ -286,7 +271,7 @@ class Site < ApplicationRecord
   end
 
   def organization_required
-    if (self.configuration.modules & %W{ GobiertoBudgetConsultations GobiertoBudgets GobiertoObservatory }).any?
+    if (self.configuration.modules & %W{ GobiertoBudgets GobiertoObservatory }).any?
       if organization_id.blank?
         errors[:base] << I18n.t('errors.messages.blank_for_modules')
       end

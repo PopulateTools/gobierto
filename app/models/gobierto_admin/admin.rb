@@ -21,13 +21,11 @@ module GobiertoAdmin
 
     has_many :gobierto_development_permissions, through: :admin_groups, class_name: "Permission::GobiertoDevelopment", source: :permissions
     has_many :gobierto_budgets_permissions, through: :admin_groups, class_name: "Permission::GobiertoBudgets", source: :permissions
-    has_many :gobierto_budget_consultations_permissions, through: :admin_groups, class_name: "Permission::GobiertoBudgetConsultations", source: :permissions
     has_many :gobierto_people_permissions, through: :admin_groups, class_name: "Permission::GobiertoPeople", source: :permissions
     has_many :gobierto_plans_permissions, through: :admin_groups, class_name: "Permission::GobiertoPlans", source: :permissions
     has_many :gobierto_plans_projects, class_name: "::GobiertoPlans::Node", dependent: :nullify
     has_many :gobierto_observatory_permissions, through: :admin_groups, class_name: "Permission::GobiertoObservatory", source: :permissions
     has_many :gobierto_participation_permissions, through: :admin_groups, class_name: "Permission::GobiertoParticipation", source: :permissions
-    has_many :gobierto_citizens_charters_permissions, through: :admin_groups, class_name: "Permission::GobiertoCitizensCharters", source: :permissions
     has_many :gobierto_investments_permissions, through: :admin_groups, class_name: "Permission::GobiertoInvestments", source: :permissions
     has_many :gobierto_data_permissions, through: :admin_groups, class_name: "Permission::GobiertoData", source: :permissions
     has_many :gobierto_visualizations_permissions, through: :admin_groups, class_name: "Permission::GobiertoVisualizations", source: :permissions

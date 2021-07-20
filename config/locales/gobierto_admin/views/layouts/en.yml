@@ -7,7 +7,6 @@ en:
           account: Account
           sign_out: Sign out
         calendars: Calendars
-        citizens_charters: Services and services charters
         cms: CMS
         collapse_menu: Collapse menu
         custom_fields: Custom fields
@@ -19,9 +18,7 @@ en:
         hey_admin: Hey, %{admin_name}
         manage_sites: Manage sites
         modules:
-          budget_consultations: Budget consultations
           budgets: Budgets
-          citizens_charters: Services and services charters
           data: Data
           investments: Investments
           observatory: Observatory

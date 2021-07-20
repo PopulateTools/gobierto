@@ -4,10 +4,8 @@ ca:
     subscriptions:
       index:
         areas: Àrees
-        consultations: Consultes pressupostos
         frequency: Freqüència
         modules:
-          gobierto_budget_consultations: Consultes de pressupostos
           gobierto_budgets: Pressupostos
           gobierto_observatory: Observatori
           gobierto_participation: Participació

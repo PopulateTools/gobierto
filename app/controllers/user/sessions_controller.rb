@@ -58,11 +58,15 @@ class User::SessionsController < User::BaseController
   end
 
   def referrer_entity
-    if request.referrer.present?
-      if request.referrer.include?("consultas-presupuestos")
-        "GobiertoBudgetConsultations::Consultation"
-      end
-    end
+    # this is disabled after removal of the old module. Previously, it was used to obtain an additional
+    # verification specific to some modules, taking the user.referrer_entity, which points to the module
+    # that required these steps.
+    #
+    # if request.referrer.present?
+    #   if request.referrer.include?("gobierto-module-name-path")
+    #     "GobiertoModuleName::ControllerName"
+    #   end
+    # end
   end
 
   def define_referrer_url

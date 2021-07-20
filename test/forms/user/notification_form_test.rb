@@ -47,7 +47,7 @@ class User::NotificationFormTest < ActiveSupport::TestCase
   end
 
   def subject
-    @subject ||= gobierto_budget_consultations_consultations(:madrid_open)
+    @subject ||= gobierto_people_person_posts(:richard_about_me)
   end
 
   def test_validation

@@ -4,10 +4,8 @@ es:
     subscriptions:
       index:
         areas: Áreas
-        consultations: Consultas presupuestos
         frequency: Cada cuánto
         modules:
-          gobierto_budget_consultations: Consultas de presupuestos
           gobierto_budgets: Presupuestos
           gobierto_observatory: Observatorio
           gobierto_participation: Participación

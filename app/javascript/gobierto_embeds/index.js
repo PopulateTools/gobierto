@@ -1,4 +1,4 @@
-import "@finos/perspective";
+import perspective from "@finos/perspective";
 import "@finos/perspective-viewer";
 import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
@@ -44,8 +44,6 @@ const getVisualizationList = async container => {
 
       if (data) {
         const viewer = document.createElement("perspective-viewer");
-        viewer.setAttribute("columns", spec.columns);
-        viewer.setAttribute("plugin", spec.plugin);
 
         if (spec.column_pivots) {
           viewer.setAttribute(
@@ -74,9 +72,9 @@ const getVisualizationList = async container => {
         configButtonPerspective.style.display = "none";
 
         // run perspective
-        viewer.clear();
+        const table = perspective.worker().table(data);
         viewer.restore(spec);
-        viewer.load(data);
+        viewer.load(table);
       }
     }
   }

@@ -7,7 +7,6 @@ es:
           account: Tu cuenta
           sign_out: Cerrar sesión
         calendars: Agendas
-        citizens_charters: Servicios y cartas de servicios
         cms: CMS
         collapse_menu: Colapsar menú
         custom_fields: Campos personalizados
@@ -19,9 +18,7 @@ es:
         hey_admin: Hola, %{admin_name}
         manage_sites: Gestionar sites
         modules:
-          budget_consultations: Consultas de presupuestos
           budgets: Presupuestos
-          citizens_charters: Servicios y cartas de servicios
           data: Datos
           investments: Inversiones
           observatory: Observatorio

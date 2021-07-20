@@ -41,7 +41,7 @@ en:
         links_markup: Links HTML
         logo_file: Logo
         name: Entity ame
-        organization_id: Organization identifier
+        organization_id: Organization identifier (INE code)
         organization_name: Organization
         populate_data_api_token: API token Populate Data
         privacy_page_id: Privacy page

@@ -142,11 +142,6 @@ gobierto_budgets_settings_madrid:
   ]}
 }.to_json %>
 
-gobierto_citizens_charters_settings_madrid:
-  site: madrid
-  module_name: "GobiertoCitizensCharters"
-  settings: <%= { "categories_vocabulary_id": ActiveRecord::FixtureSet.identify(:citizens_services_categories) }.to_json %>
-
 gobierto_data_settings_madrid:
   site: madrid
   module_name: "GobiertoData"

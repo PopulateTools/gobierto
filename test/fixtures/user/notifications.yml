@@ -1,15 +1,16 @@
-dennis_consultation_created:
+dennis_post_published_sent_and_seen:
   user: dennis
   site: madrid
-  action: gobierto_budget_consultations.consultation.published
-  subject: madrid_open (GobiertoBudgetConsultations::Consultation)
+  action: gobierto_people.person_post.published
+  subject: richard_about_me (GobiertoPeople::PersonPost)
   is_sent: true
   is_seen: true
 
-dennis_consultation_updated:
+dennis_post_published:
   user: dennis
   site: madrid
-  action: gobierto_budget_consultations.consultation.updated
-  subject: madrid_open (GobiertoBudgetConsultations::Consultation)
+  action: gobierto_people.person_post.published
+  subject: richard_about_me (GobiertoPeople::PersonPost)
   is_sent: false
   is_seen: false
+

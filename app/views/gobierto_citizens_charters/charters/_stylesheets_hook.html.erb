@@ -1,9 +1,0 @@
-<%= content_for :gobierto_head_content do %>
-  <style type="text/css">
-    <% @charters.each do |charter| %>
-      <% if color = custom_field_by_uid(charter, "background-color") %>
-        #charter-<%= charter.id %> { background-color: <%= color %> }
-      <% end %>
-    <% end %>
-  </style>
-<% end %>

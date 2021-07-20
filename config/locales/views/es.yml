@@ -53,20 +53,6 @@ es:
         sign_out: Cerrar sesión
         title: Tu cuenta
       start: Inicio
-    gobierto_budget_consultations:
-      application:
-        about_the_data: Sobre los datos
-        disclaimer: Esta web es una demostración de Gobierto, software de transparencia
-          y participación
-        is_open_source: es software libre creado por
-        more_information: Más información en gobierto.es
-        session:
-          admin: Administración
-          alerts: Tus alertas
-          notifications: Notificaciones
-          sign_in: Iniciar sesión
-          sign_out: Cerrar sesión
-          title: Tu cuenta
     gobierto_budgets:
       application:
         about_the_data: Sobre los datos
@@ -100,8 +86,6 @@ es:
     search:
       budget_line_item_expense: Partida presupuestaria - Gasto
       budget_line_item_income: Partida presupuestaria - Ingreso
-      charter: Carta de servicios
-      charter_commitment: Carta de servicios - Indicador
       contribution_item: Aportaciones
       dataset_item: Datos
       drag_drop_instructions: Arrastre y suelte en la parte izquierda para colocar
@@ -124,17 +108,6 @@ es:
     currently: actualmente
     download_open_data:
       exports: Descargue los datos en formato reutilizable
-    jsgrid:
-      cancel_edit: Cancelar actualización
-      delete: Eliminar
-      delete_confirm: "¿Estás seguro? No se puede deshacer"
-      edit: Editar
-      insert: Crear
-      insert_switch: Añadir...
-      invalid_message: Los datos introducidos son inválidos
-      load_message: Espera, por favor...
-      not_found: No hay datos
-      update: Actualizar
     poll_question:
       multiple_choice_msg: Puede elegir varias opciones
     poll_teaser:

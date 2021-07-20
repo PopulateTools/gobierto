@@ -3,8 +3,9 @@ users_dataset:
   name_translations: <%= { en: "Users", es: "Usuarios" }.to_json %>
   table_name: users
   slug: users-dataset
-  created_at: <%= Time.current %>
-  updated_at: <%= Time.current %>
+  created_at: <%= 10.minutes.ago %>
+  updated_at: <%= 10.minutes.ago %>
+  data_updated_at: <%= 10.minute.ago %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
   size: <%= { csv: 15.megabytes, json: 25.megabytes }.to_json %>
 
@@ -13,8 +14,9 @@ events_dataset:
   name_translations: <%= { en: "Events", es: "Eventos" }.to_json %>
   table_name: gc_events
   slug: events-dataset
-  created_at: <%= Time.current %>
-  updated_at: <%= Time.current %>
+  created_at: <%= 9.minutes.ago %>
+  updated_at: <%= 9.minutes.ago %>
+  data_updated_at: <%= 9.minute.ago %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
   size: <%= { csv: 3.megabytes, json: 4.megabytes }.to_json %>
 
@@ -23,8 +25,9 @@ draft_dataset:
   name_translations: <%= { en: "Interest Groups", es: "Grupos de Interés" }.to_json %>
   table_name: gp_interest_groups
   slug: interest-groups-dataset
-  created_at: <%= Time.current %>
-  updated_at: <%= Time.current %>
+  created_at: <%= 8.minutes.ago %>
+  updated_at: <%= 8.minutes.ago %>
+  data_updated_at: <%= 8.minute.ago %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["draft"] %>
 
 santander_dataset:
@@ -32,8 +35,9 @@ santander_dataset:
   name_translations: <%= { en: "Santander dataset", es: "Dataset de Santander" }.to_json %>
   table_name: activities
   slug: santander-dataset
-  created_at: <%= Time.current %>
-  updated_at: <%= Time.current %>
+  created_at: <%= 7.minutes.ago %>
+  updated_at: <%= 7.minutes.ago %>
+  data_updated_at: <%= 7.minute.ago %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
 
 no_size_dataset:
@@ -41,7 +45,18 @@ no_size_dataset:
   name_translations: <%= { en: "No size", es: "No se el size" }.to_json %>
   table_name: sites
   slug: no-size
-  created_at: <%= Time.current %>
-  updated_at: <%= Time.current %>
+  created_at: <%= 6.minutes.ago %>
+  updated_at: <%= 6.minutes.ago %>
+  data_updated_at: <%= 6.minute.ago %>
   visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
 
+dataset_to_delete:
+  site: madrid
+  name_translations: <%= { en: "to delete", es: "para borrar" }.to_json %>
+  table_name: delete_me_table
+  slug: delete-me-dataset
+  created_at: <%= 5.minute.ago %>
+  updated_at: <%= 5.minute.ago %>
+  data_updated_at: <%= 5.minute.ago %>
+  visibility_level: <%= GobiertoData::Dataset.visibility_levels["active"] %>
+  size: <%= { csv: 15.megabytes, json: 25.megabytes }.to_json %>

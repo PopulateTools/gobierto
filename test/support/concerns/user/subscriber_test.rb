@@ -1,51 +1,63 @@
 # frozen_string_literal: true
 
 module User::SubscriberTest
-  def user_subscription
-    @user_subscription ||= gobierto_budget_consultations_consultations(:madrid_open)
+
+  def subscription_subject
+    @subscription_subject ||= gobierto_common_terms(:cat)
   end
 
-  def user_subscription_site
-    @user_subscription_site ||= sites(:madrid)
+  def subscription_site
+    @subscription_site ||= sites(:madrid)
+  end
+
+  def user_without_subscriptions
+    @user_without_subscriptions ||= users(:peter)
+  end
+
+  def user_other
+    @user_other ||= users(:janet)
   end
 
   def test_subscribed_to?
-    assert subscribed_user.subscribed_to?(user_subscription, user_subscription_site)
+    assert subscribed_user.subscribed_to?(subscription_subject, subscription_site)
   end
 
   def test_subscribe_to!
-    User::Subscription.delete_all
-
-    assert subscribed_user.subscribe_to!(user_subscription, user_subscription_site)
+    refute user_without_subscriptions.subscribed_to?(subscription_subject, subscription_site)
+    assert user_without_subscriptions.subscribe_to!(subscription_subject, subscription_site)
+    assert user_without_subscriptions.subscribed_to?(subscription_subject, subscription_site)
   end
 
   def test_subscribe_to_when_already_subscribed
-    assert subscribed_user.subscribe_to!(user_subscription, user_subscription_site)
+    assert subscribed_user.subscribe_to!(subscription_subject, subscription_site)
+    assert subscribed_user.subscribed_to?(subscription_subject, subscription_site)
   end
 
   def test_unsubscribe_from!
-    assert subscribed_user.unsubscribe_from!(user_subscription, user_subscription_site)
+    assert user_other.subscribe_to!(subscription_subject, subscription_site)
+    assert user_other.unsubscribe_from!(subscription_subject, subscription_site)
+    refute user_other.subscribed_to?(subscription_subject, subscription_site)
   end
 
   def test_unsubscribe_from_when_not_subscribed
-    User::Subscription.delete_all
-
-    assert_nil subscribed_user.unsubscribe_from!(user_subscription, user_subscription_site)
+    user_other.unsubscribe_from!(subscription_subject, subscription_site)
+    assert_nil user_other.unsubscribe_from!(subscription_subject, subscription_site)
   end
 
   def test_toggle_subscription_when_already_subscribed
+    subscribed_user.subscribe_to!(subscription_subject, subscription_site)
     assert_equal(
       [:delete, true],
-      subscribed_user.toggle_subscription!(user_subscription, user_subscription_site)
+      subscribed_user.toggle_subscription!(subscription_subject, subscription_site)
     )
   end
 
   def test_toggle_subscription_when_not_subscribed
-    User::Subscription.delete_all
+    subscribed_user.unsubscribe_from!(subscription_subject, subscription_site)
 
     assert_equal(
       [:create, true],
-      subscribed_user.toggle_subscription!(user_subscription, user_subscription_site)
+      subscribed_user.toggle_subscription!(subscription_subject, subscription_site)
     )
   end
 end

@@ -2,6 +2,12 @@
 
 module ApplicationHelper
 
+  SIGNIFICATIVE_DECIMALS = 1
+
+  def format_percentage(number)
+    helpers.number_to_percentage(number, precision: SIGNIFICATIVE_DECIMALS, strip_insignificant_zeros: true)
+  end
+
   def body_css_classes
     classes = []
     if current_site&.configuration&.engine_overrides&.any?

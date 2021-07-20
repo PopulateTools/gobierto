@@ -617,45 +617,6 @@ pre {
   }
 }
 
-/* Consultations report */
-.consultation_report {
-  #age_report {
-    h2 {
-      margin-top: 0;
-    }
-
-    .axis {
-      font-family: $font_text;
-      font-size: 0.85rem;
-    }
-
-    .y.axis {
-      .domain {
-        display: none;
-      }
-
-      .tick line {
-        stroke-dasharray: 2, 2;
-        stroke: $text_soft;
-      }
-    }
-
-    .bars rect {
-      fill: #00909e;
-    }
-  }
-
-  .widget_figure {
-    @include min-screen(768) {
-      font-size: 1.5rem;
-    }
-
-    @include min-screen(1400) {
-      font-size: 2rem;
-    }
-  }
-}
-
 .globalized_fields {
   margin-bottom: 5em;
 
@@ -929,6 +890,10 @@ a .global_menu {
       border-bottom: 1px solid #cdcdcd;
     }
   }
+}
+
+ul.select2-results__options li.select2-results__option:first-child {
+  min-height: 16px;
 }
 
 .gobierto_admin .select2-container .select2-selection--single {

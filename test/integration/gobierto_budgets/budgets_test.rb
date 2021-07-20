@@ -3,6 +3,8 @@
 require "test_helper"
 
 class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
+
+
   def setup
     super
     @path = gobierto_budgets_budgets_path(last_year)

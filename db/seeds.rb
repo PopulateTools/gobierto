@@ -11,9 +11,6 @@ fixtures_to_load = [
   "user/subscriptions",
   "user/notifications",
   "gobierto_budgets/categories",
-  "gobierto_budget_consultations/consultations",
-  "gobierto_budget_consultations/consultation_items",
-  "gobierto_budget_consultations/consultation_responses",
   "gobierto_people/departments",
   "gobierto_people/gifts",
   "gobierto_people/interest_groups",
@@ -55,10 +52,6 @@ fixtures_to_load = [
   "gobierto_plans/nodes",
   "gobierto_indicators/indicators",
   "gobierto_core/templates",
-  "gobierto_citizens_charters/services",
-  "gobierto_citizens_charters/charters",
-  "gobierto_citizens_charters/commitments",
-  "gobierto_citizens_charters/editions",
   "gobierto_dashboards/dashboards"
 ]
 

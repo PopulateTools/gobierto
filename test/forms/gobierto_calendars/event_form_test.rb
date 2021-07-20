@@ -31,8 +31,8 @@ module GobiertoCalendars
         site_id: site.id,
         person_id: person.id,
         title_translations: { es: "Nuevo evento", en: "New event" },
-        description_translations: { es: "Descripción de nuevo evento", en: "New event description" },
-        description_source_translations: { es: "Descripción de nuevo evento", en: "New event description" },
+        description_translations: { es: "<span>Descripción de <b>nuevo evento</b></span>", en: "<span><b>New event</b> description</span>" },
+        description_source_translations: { es: "<span>Descripción de <b>nuevo evento</b></span>", en: "<span><b>New event</b> description</span>" },
         starts_at: 1.day.from_now,
         ends_at: 2.days.from_now,
         notify: false,
@@ -51,6 +51,12 @@ module GobiertoCalendars
       attendees.each do |attendee|
         assert event_attendees.include? attendee.person
       end
+
+      expected = {
+        "es" => "Descripción de nuevo evento",
+        "en" => "New event description"
+      }
+      assert_equal expected, event.description_translations
     end
 
     def test_update_with_valid_attributes
@@ -83,6 +89,18 @@ module GobiertoCalendars
         assert event.persisted?
         assert_equal initial_slug, event.slug
       end
+    end
+
+    def test_update_with_nil_descriptions
+      initial_slug = existing_event.slug
+
+      form = EventForm.new(valid_attributes.merge(id: existing_event.id, description_translations: nil , description_source_translations: nil))
+      assert form.save
+
+      event = form.event
+      assert event.persisted?
+      assert_equal initial_slug, event.slug
+
     end
   end
 end

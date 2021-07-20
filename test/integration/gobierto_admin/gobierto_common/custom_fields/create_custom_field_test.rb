@@ -17,7 +17,7 @@ module GobiertoAdmin
         end
 
         def resource_class
-          @resource_class ||= ::GobiertoCitizensCharters::Service
+          @resource_class ||= ::GobiertoInvestments::Project
         end
 
         def resource_param

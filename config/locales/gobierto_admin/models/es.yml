@@ -41,7 +41,7 @@ es:
         links_markup: HTML de Enlaces
         logo_file: Logotipo
         name: Nombre de la entidad
-        organization_id: Identificador de la organización
+        organization_id: Identificador de la organización (código INE)
         organization_name: Organización
         populate_data_api_token: API token Populate Data
         privacy_page_id: Página de privacidad

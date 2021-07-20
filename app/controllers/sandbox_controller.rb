@@ -52,7 +52,6 @@ class SandboxController < ApplicationController
 
     case params[:template].split("_").first
     when "admin"        then "sandbox/gobierto_admin/application"
-    when "consultation" then "sandbox/gobierto_budget_consultations/application"
     when "budget"       then "sandbox/gobierto_budgets/application"
     else "sandbox/application"
     end

@@ -12,8 +12,10 @@ import { getRemoteData, calculateSumMeanMedian } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/mixins/event_bus";
 
 const d3 = { scaleThreshold, sum, mean, median, max };
+import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
 Vue.use(VueRouter);
+Vue.use(checkAndReportAccessibility);
 Vue.config.productionTip = false;
 
 export class ContractsController {

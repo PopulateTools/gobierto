@@ -8,6 +8,7 @@
         <img
           v-if="item.photo"
           :src="item.photo"
+          :alt="item.title"
         >
       </div>
       <div class="investments-home-main--data">

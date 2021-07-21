@@ -1,6 +1,10 @@
 <template>
   <div>
-    <nav class="gobierto-data-tabs-sidebar">
+    <nav
+      class="gobierto-data-tabs-sidebar"
+      role="navigation"
+      aria-label="sidebar navigation"
+    >
       <div
         :class="{ 'is-active': activeTab === 0 }"
         class="gobierto-data-tab-sidebar--tab"

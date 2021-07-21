@@ -4,10 +4,10 @@
 
   <div class="tabs m_v_2">
     <ul role="tablist" aria-label="<%= t('gobierto_budgets.budgets_elaboration.index.explore_the_detail') %>">
-      <li role="presentation" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::INCOME) %>">
-        <%= link_to(t('gobierto_budgets.budget_lines.explorer.income'), gobierto_budgets_budgets_elaboration_path(kind: GobiertoBudgets::BudgetLine::INCOME), remote: true) %>
+      <li role="tab" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::INCOME) %>">
+        <%= link_to(t('gobierto_budgets.budget_lines.explorer.income'), gobierto_budgets_budgets_elaboration_path(kind: GobiertoBudgets::BudgetLine::INCOME), remote: true,) %>
       </li>
-      <li role="presentation" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::EXPENSE) %>">
+      <li role="tab" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::EXPENSE) %>">
         <%= link_to(t('gobierto_budgets.budget_lines.explorer.expenses'), gobierto_budgets_budgets_elaboration_path(kind: GobiertoBudgets::BudgetLine::EXPENSE), remote: true) %>
       </li>
     </ul>

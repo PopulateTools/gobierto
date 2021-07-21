@@ -1,6 +1,13 @@
 <template>
   <div>
-    <textarea ref="queryEditor" />
+    <label
+      class="helper-screenreader"
+      for="queryEditor"
+    >{{ labelEditor }}</label>
+    <textarea
+      id="queryEditor"
+      ref="queryEditor"
+    />
     <div class="gobierto-data-sql-editor-footer">
       <template v-if="queryError">
         <span class="gobierto-data-sql-error-message">
@@ -61,6 +68,7 @@ export default {
       labelGuide: I18n.t("gobierto_data.projects.guide") || "",
       labelQueryExecuted: I18n.t("gobierto_data.projects.queryExecuted") || "",
       labelRecords: I18n.t("gobierto_data.projects.records") || "",
+      labelEditor: I18n.t("gobierto_data.accessibility.editor") || "",
       sqlAutocomplete: sqlKeywords,
       arrayMutated: [],
       autoCompleteKeys: [],
@@ -97,7 +105,8 @@ export default {
       autoIndent: true,
       extraKeys: {
         Ctrl: "autocomplete"
-      }
+      },
+      screenReaderLabel: "queryEditor"
     };
 
     this.editor = CodeMirror.fromTextArea(this.$refs.queryEditor, cmOption);

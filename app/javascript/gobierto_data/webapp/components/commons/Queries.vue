@@ -83,7 +83,14 @@
 
       <div class="pure-u-1-2 border-color-queries">
         <p class="gobierto-data-summary-queries-sql-code">
-          <textarea ref="querySnippet" />
+          <label
+            class="helper-screenreader"
+            for="queryEditorQueries"
+          >{{ labelEditor }}</label>
+          <textarea
+            id="queryEditorQueries"
+            ref="querySnippet"
+          />
         </p>
       </div>
     </div>
@@ -124,6 +131,7 @@ export default {
       labelFavs: I18n.t("gobierto_data.projects.favs") || "",
       labelAll: I18n.t("gobierto_data.projects.all") || "",
       labelDeleteQuery: I18n.t("gobierto_data.projects.deleteQuery") || "",
+      labelEditor: I18n.t("gobierto_data.accessibility.editor") || "",
       sqlCode: null,
       showPrivateQueries: true,
       showPublicQueries: true,
@@ -140,7 +148,8 @@ export default {
       mode: "text/x-sql",
       showCursorWhenSelecting: true,
       theme: "default",
-      autoIndent: true
+      autoIndent: true,
+      screenReaderLabel: "queryEditorQueries"
     };
 
     this.editor = CodeMirror.fromTextArea(this.$refs.querySnippet, cmOption);

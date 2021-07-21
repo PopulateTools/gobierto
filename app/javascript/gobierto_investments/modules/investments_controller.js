@@ -1,6 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
+if (Vue.config.devtools) {
+  Vue.use(checkAndReportAccessibility)
+}
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 

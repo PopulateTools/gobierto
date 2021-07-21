@@ -39,6 +39,7 @@
       <button
         ref="buttonYourQueries"
         class="btn-sql-editor btn-sql-editor-queries gobierto-data-btn-blue"
+        :aria-label="labelYourQueries"
         @click="isQueriesModalActive = !isQueriesModalActive"
       >
         <i
@@ -200,6 +201,7 @@ export default {
     return {
       labelRecents: I18n.t("gobierto_data.projects.recents") || "",
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
+      labelYourQueries: I18n.t("gobierto_data.projects.yourQueries") || "",
       labelRunQuery: I18n.t("gobierto_data.projects.runQuery") || "",
       labelResetQuery: I18n.t("gobierto_data.projects.resetQuery") || "",
       labelSaved: I18n.t("gobierto_data.projects.savedQuery") || "",

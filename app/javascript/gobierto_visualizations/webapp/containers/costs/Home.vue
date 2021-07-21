@@ -1,5 +1,5 @@
 <template>
-  <main class="gobierto-visualizations">
+  <div class="gobierto-visualizations">
     <div class="pure-g block header_block_inline m_b_1">
       <div class="pure-u-1 pure-u-md-12-24">
         <div class="gobierto-visualizations-container-title">
@@ -48,7 +48,7 @@
         :base-title="baseTitle"
       />
     </div>
-  </main>
+  </div>
 </template>
 <script>
 import Distribution from './Distribution.vue'

@@ -1,5 +1,5 @@
 <template>
-  <main class="investments-home-main">
+  <div class="investments-home-main">
     <transition
       name="fade"
       mode="out-in"
@@ -11,7 +11,7 @@
         />
       </keep-alive>
     </transition>
-  </main>
+  </div>
 </template>
 
 <script>

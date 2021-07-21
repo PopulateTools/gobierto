@@ -35,12 +35,20 @@ module GobiertoPlans
       header
     end
 
+    def values_keeping_order(object,record)
+      attributes_in_order = object.custom_field.options.dig("configuration","plugin_configuration","columns").map { |r| r["id"] }
+      attributes_in_order.map do |key|
+        record[key]
+      end
+    end
+
     def csv_row(object)
       current_columns = object.payload[object.custom_field.uid.to_s].first&.size
-      values = object.payload[object.custom_field.uid.to_s].map(&:values)
       @columns = current_columns if current_columns > @columns
+      values = object.payload[object.custom_field.uid.to_s].map do |record|
+        values_keeping_order(object,record)
+      end
 
-      values = object.payload[object.custom_field.uid.to_s].map(&:values)
       values.map do |value|
         [
           plan.title_translations["en"],
@@ -48,7 +56,6 @@ module GobiertoPlans
           object.custom_field.uid
         ].concat(value)
       end
-
     end
 
   end

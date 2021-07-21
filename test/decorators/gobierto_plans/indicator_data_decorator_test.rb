@@ -14,15 +14,15 @@ module GobiertoPlans
       plan = gobierto_plans_plans(:dashboards_plan)
       expected = [
           "Node.Title,Node.external_id,custom_field,col_1,col_2,col_3,col_4",
-          "Dashboards plan,4,project-metrics,2018-07-30,28,Decretos Emitidos,55",
-          "Dashboards plan,4,project-metrics,2017-08-10,13,decretos emitidos,95",
-          "Dashboards plan,4,project-metrics,2016-08-04,37,decretos   emitidos,74",
-          "Dashboards plan,4,project-metrics,2015-05-08,32,Notificaciones enviadas,98",
-          "Dashboards plan,4,project-metrics,2019-12-07,48,Expedientes cerrados,57",
-          "Dashboards plan,5,project-metrics,2020-01-01,10,Expedientes cerrados,20",
-          "Dashboards plan,5,project-metrics,2019-08-10,15,Camas UCI,20",
-          "Dashboards plan,5,project-metrics,2018-08-04,50,Expedientes cerrados,40",
-          "Dashboards plan,5,project-metrics,2021-12-31,356,camas uci,270",
+          "Dashboards plan,4,project-metrics,Decretos Emitidos,28,55,2018-07-30",
+          "Dashboards plan,4,project-metrics,decretos emitidos,13,95,2017-08-10",
+          "Dashboards plan,4,project-metrics,decretos   emitidos,37,74,2016-08-04",
+          "Dashboards plan,4,project-metrics,Notificaciones enviadas,32,98,2015-05-08",
+          "Dashboards plan,4,project-metrics,Expedientes cerrados,48,57,2019-12-07",
+          "Dashboards plan,5,project-metrics,Expedientes cerrados,10,20,2020-01-01",
+          "Dashboards plan,5,project-metrics,Camas UCI,15,20,2019-08-10",
+          "Dashboards plan,5,project-metrics,Expedientes cerrados,50,40,2018-08-04",
+          "Dashboards plan,5,project-metrics,camas uci,356,270,2021-12-31",
           ""
         ]
       assert_equal expected.join("\n"), IndicatorDataDecorator.new(plan).csv
@@ -32,12 +32,12 @@ module GobiertoPlans
       plan = gobierto_plans_plans(:multiple_indicators_plan)
       expected = [
         "Node.Title,Node.external_id,custom_field,col_1,col_2,col_3,col_4,col_5,col_6,col_7",
-        "Indicator example plan,6,multiple-indicators-statistical,2019-01-01,3,20,5,10,1,95",
-        "Indicator example plan,6,multiple-indicators-statistical,2020-01-01,2,20,2,5,3,90",
-        "Indicator example plan,6,multiple-indicators-statistical,2021-01-01,0,20,1,3,4,99",
-        "Indicator example plan,7,multiple-indicators-opinion,2019-01-01,40,60,,,,",
-        "Indicator example plan,7,multiple-indicators-opinion,2020-01-01,50,50,,,,",
-        "Indicator example plan,7,multiple-indicators-opinion,2021-01-01,70,30,,,,",
+        "Indicator example plan,6,multiple-indicators-statistical,1,95,10,5,3,20,2019-01-01",
+        "Indicator example plan,6,multiple-indicators-statistical,3,90,5,2,2,20,2020-01-01",
+        "Indicator example plan,6,multiple-indicators-statistical,4,99,3,1,0,20,2021-01-01",
+        "Indicator example plan,7,multiple-indicators-opinion,60,40,2019-01-01,,,,",
+        "Indicator example plan,7,multiple-indicators-opinion,50,50,2020-01-01,,,,",
+        "Indicator example plan,7,multiple-indicators-opinion,30,70,2021-01-01,,,,",
         ""
       ]
       assert_equal expected.join("\n"), IndicatorDataDecorator.new(plan).csv

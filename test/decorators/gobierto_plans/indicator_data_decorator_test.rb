@@ -5,9 +5,6 @@ require "test_helper"
 module GobiertoPlans
   class PlanDataDecoratorTest < ActiveSupport::TestCase
 
-    def setup
-    end
-
     def test_export_plan_to_csv_without_indicators
       plan = gobierto_plans_plans(:strategic_plan) # plan_categories_vocabulary [people_and_families_plan_term welfare_payments_plan_term center_scholarships_plan_term center_basic_needs_plan_term economy_plan_term city_plan_term]
       assert_equal "Node.Title,Node.external_id,custom_field\n", IndicatorDataDecorator.new(plan).csv
@@ -38,17 +35,13 @@ module GobiertoPlans
         "Indicator example plan,6,multiple-indicators-statistical,2019-01-01,3,20,5,10,1,95",
         "Indicator example plan,6,multiple-indicators-statistical,2020-01-01,2,20,2,5,3,90",
         "Indicator example plan,6,multiple-indicators-statistical,2021-01-01,0,20,1,3,4,99",
-        "Indicator example plan,7,multiple-indicators-opinion,2019-01-01,40,60",
-        "Indicator example plan,7,multiple-indicators-opinion,2020-01-01,50,50",
-        "Indicator example plan,7,multiple-indicators-opinion,2021-01-01,70,30",
+        "Indicator example plan,7,multiple-indicators-opinion,2019-01-01,40,60,,,,",
+        "Indicator example plan,7,multiple-indicators-opinion,2020-01-01,50,50,,,,",
+        "Indicator example plan,7,multiple-indicators-opinion,2021-01-01,70,30,,,,",
         ""
       ]
       assert_equal expected.join("\n"), IndicatorDataDecorator.new(plan).csv
     end
 
-    def test_csv_with_different_columns_length
-    end
-
   end
-
 end

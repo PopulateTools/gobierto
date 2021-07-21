@@ -20,8 +20,7 @@ module GobiertoPlans
         # need iterate again because header length is dynamic
         csv << csv_header
         lines.each do |line|
-          # TODO: add extra commas ?
-          csv << line
+          csv << line.concat(Array.new(csv_header.size - line.size, nil))
         end
       end.force_encoding('utf-8')
     end

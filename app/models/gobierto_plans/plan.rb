@@ -36,7 +36,7 @@ module GobiertoPlans
     end
 
     def indicators
-      GobiertoCommon::CustomFieldRecord.includes(:custom_field).where(custom_fields: {instance: self})
+      GobiertoCommon::CustomFieldRecord.includes(:custom_field).where(custom_fields: { instance_id: id, field_type: 10 })
     end
 
     def levels

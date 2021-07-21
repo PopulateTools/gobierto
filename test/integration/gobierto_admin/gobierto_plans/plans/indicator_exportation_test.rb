@@ -25,7 +25,7 @@ module GobiertoAdmin
       end
 
       def plan_without_indicators
-        @plan_without_indicators ||= gobierto_plans_plans(:strategic_plan)
+        @plan_without_indicators ||= gobierto_plans_plans(:government_plan)
       end
 
       def test_download_indicator_from_project_without_indicators_in_plan
@@ -34,7 +34,9 @@ module GobiertoAdmin
 
             visit path_with_indicators
 
-            assert has_content? "Export indicators to CSV"
+            within ".admin_side_actions" do
+              assert has_content? "Indicators"
+            end
             # test payload after click are into decorator
           end
         end
@@ -46,7 +48,9 @@ module GobiertoAdmin
 
             visit path_without_indicators
 
-            assert has_content? "Export indicators to CSV"
+            within ".admin_side_actions" do
+              refute has_content? "Indicators"
+            end
             # test payload after click are into decorator
           end
         end

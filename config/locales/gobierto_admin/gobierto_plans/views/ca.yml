@@ -42,8 +42,8 @@ ca:
           delete_contents_confirm: Confirma que vols eliminar els projectes d'aquest
             pla
           export_csv: Exportar a CSV
-          export_indicators_csv: Exportar indicadors a CSV
           import_csv: Importar des CSV
+          indicators: indicadors
           placeholders:
             configuration_data: '{ "open_node": true }'
             css: ".gobierto_planification section.level_0 .cat_1 { background-color:
@@ -53,6 +53,7 @@ ca:
             slug: sobre-de-aquest-pla
             title: Titol del pla
             year: 2018
+          projects: Projectes
           publish_last_version_automatically: Publicar les versions noves dels projectes
             automàticament
         import_csv:

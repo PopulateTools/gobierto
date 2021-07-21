@@ -53,6 +53,8 @@ module GobiertoAdmin
 
               # create new indicator
               visit @path_new_indicator
+              sleep 2
+
               assert has_content? plan.title_translations["en"]
               click_on plan.title_translations["en"]
 

@@ -43,7 +43,7 @@ module GobiertoPlans
     end
 
     def csv_row(object)
-      current_columns = object.payload[object.custom_field.uid.to_s].first&.size
+      current_columns = object.payload[object.custom_field.uid.to_s].first&.size || 0
       @columns = current_columns if current_columns > @columns
       values = object.payload[object.custom_field.uid.to_s].map do |record|
         values_keeping_order(object,record)

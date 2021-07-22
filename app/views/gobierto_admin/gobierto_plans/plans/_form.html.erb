@@ -128,8 +128,10 @@
               <% end %>
             </div>
             <div class="m_v_1">
-                <i class="fas fa-table"></i>
-                <%= t(".export_csv") %>
+                <span class="simulate-a">
+                  <i class="fas fa-table"></i>
+                  <%= t(".export_csv") %>:
+                </span>
                 <%= link_to admin_plans_plan_export_csv_path(@plan), target: "_blank" do %>
                   <%= t(".projects") %>
                 <% end %>

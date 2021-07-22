@@ -418,6 +418,10 @@ body.gobierto_admin {
   margin-top: 220px;
 }
 
+.admin_side_actions .simulate-a {
+  color: var(--color-base);
+}
+
 .sep_top_bot {
   border-top: 1px solid $color_separator;
   border-bottom: 1px solid $color_separator;

@@ -17,10 +17,6 @@ export function checkAndReportAccessibility (node, label) {
     if (results && !results.violations.length) return
     if (JSON.stringify(results.violations) === lastNotification) return
 
-    if (defaultOptions.clearConsoleOnUpdate) {
-      console.clear()
-    }
-
     defaultOptions.customResultHandler ? defaultOptions.customResultHandler(error, results) : standardResultHandler(error, results, label)
     deferred.resolve()
     lastNotification = JSON.stringify(results.violations)

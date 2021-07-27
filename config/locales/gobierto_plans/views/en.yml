@@ -34,6 +34,7 @@ en:
         global_execution: State of global execution
         latest_update_html: "<strong>Latest update:</strong> %{date}"
         loading: Loading...
+        percent_out_of_total: "% out of total"
         plan: Plan
         progress: Progress
         read_less: Read more

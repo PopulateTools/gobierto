@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="planification-table__td">
-      {{ progress | percent }}
+      {{ percentOutOfTotal | percent }}
     </div>
     <div class="planification-table__td">
       {{ length }}
@@ -51,7 +51,8 @@ export default {
       progress: 0,
       length: 0,
       level: 0,
-      nestedGroups: []
+      nestedGroups: [],
+      percentOutOfTotal: 0
     }
   },
   computed: {
@@ -66,7 +67,7 @@ export default {
     }
   },
   created() {
-    const { key, name, slug, progress, length, level, nestedGroups } = this.term
+    const { key, name, slug, progress, length, level, nestedGroups, percentOutOfTotal } = this.term
     this.key = key
     this.name = name
     this.slug = slug
@@ -74,6 +75,7 @@ export default {
     this.length = length
     this.level = level
     this.nestedGroups = nestedGroups
+    this.percentOutOfTotal = percentOutOfTotal
   },
   methods: {
     showNestedGroups() {

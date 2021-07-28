@@ -120,21 +120,6 @@ class Site < ApplicationRecord
                                    end
   end
 
-<<<<<<< HEAD
-  def gobierto_participation_settings
-    @gobierto_participation_settings ||= if configuration.available_module?("GobiertoParticipation") && configuration.gobierto_participation_enabled?
-                                           module_settings.find_by(module_name: "GobiertoParticipation")
-                                         end
-  end
-
-=======
-  def gobierto_citizens_charters_settings
-    @gobierto_citizens_charters_settings ||= if configuration.available_module?("GobiertoCitizensCharters") && configuration.gobierto_citizens_charters_enabled?
-                                               module_settings.find_by(module_name: "GobiertoCitizensCharters")
-                                             end
-  end
->>>>>>> da8ab6588 (update file & passing test)
-
   def gobierto_data_settings
     @gobierto_data_settings ||= if configuration.available_module?("GobiertoData") && configuration.gobierto_data_enabled?
                                   module_settings.find_by(module_name: "GobiertoData")

@@ -103,7 +103,10 @@ export default {
             return acc
           }, []);
 
-        return { key, name, slug, length, children, progress, level, nestedGroups };
+        // percent out of total
+        const percentOutOfTotal = 100 * (length / projectsWithUid.length)
+
+        return { key, name, slug, length, children, progress, level, nestedGroups, percentOutOfTotal };
       })
 
       this.groups = parseProjects(Object.keys(groupedProjects));

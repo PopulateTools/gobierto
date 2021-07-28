@@ -36,6 +36,7 @@ ca:
         global_execution: Estat d'execució global
         latest_update_html: "<strong>Darrera actualització:</strong> %{date}"
         loading: Carregant...
+        percent_out_of_total: "% sobre total"
         plan: Plan
         progress: Progrés
         read_less: Llegiu menys

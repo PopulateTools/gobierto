@@ -16,9 +16,16 @@
         </router-link>
       </div>
     </div>
-    <div class="planification-table__td">
-      {{ percentOutOfTotal | percent }}
-    </div>
+    <template v-if="isStatus">
+      <div class="planification-table__td">
+        {{ percentOutOfTotal | percent }}
+      </div>
+    </template>
+    <template v-else>
+      <div class="planification-table__td">
+        {{ progress | percent }}
+      </div>
+    </template>
     <div class="planification-table__td">
       {{ length }}
     </div>
@@ -61,6 +68,10 @@ export default {
     },
     params() {
       return this.$route.params;
+    },
+    isStatus() {
+      const { id } = this.$route.params;
+      return id === "status"
     },
     tdFirstChildWidth() {
       return `flex: 0 0 calc(50% - ${this.level / 2}rem)`

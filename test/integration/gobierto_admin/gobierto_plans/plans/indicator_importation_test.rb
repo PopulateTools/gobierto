@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -5,15 +7,12 @@ module GobiertoAdmin
     class IndicatorImportationTest < ActionDispatch::IntegrationTest
       include Integration::AdminGroupsConcern
 
-      attr_reader :plan, :path
-
-      def setup
-        super
-        @path = edit_admin_plans_plan_path(plan.id)
-      end
-
       def site
         @site ||= sites(:madrid)
+      end
+
+      def path
+        @path ||= edit_admin_plans_plan_path(plan.id)
       end
 
       def admin

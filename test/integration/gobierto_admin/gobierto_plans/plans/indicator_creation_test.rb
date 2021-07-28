@@ -7,14 +7,6 @@ module GobiertoAdmin
     class IndicatorsCreationTest < ActionDispatch::IntegrationTest
       include Integration::AdminGroupsConcern
 
-      attr_reader :plan, :site, :admin, :path_new_indicator, :plan_project_edit_path
-
-      def setup
-        super
-        @path_new_indicator = admin_common_custom_fields_module_resources_path
-        @plan_project_edit_path = edit_admin_plans_plan_project_path(plan_id: plan.id, id: project.id)
-      end
-
       def admin
         @admin ||= gobierto_admin_admins(:nick)
       end
@@ -31,17 +23,25 @@ module GobiertoAdmin
         @project ||= gobierto_plans_nodes(:scholarships_kindergartens)
       end
 
+      def path_new_indicator
+        @path_new_indicator ||= admin_common_custom_fields_module_resources_path
+      end
+
+      def plan_project_edit_path
+        @plan_project_edit_path ||= edit_admin_plans_plan_project_path(plan_id: plan.id, id: project.id)
+      end
+
       def indicator_configuration
         {
           columns: [
-              {
-                id: "indicator_name",
-                type: "text",
-                name_translations: {
-                  en: "Annotation indicator",
-                  es: "Anotacion Indicador"
-                }
+            {
+              id: "indicator_name",
+              type: "text",
+              name_translations: {
+                en: "Annotation indicator",
+                es: "Anotacion Indicador"
               }
+            }
           ]
         }
       end

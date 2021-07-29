@@ -26,6 +26,14 @@ module GobiertoAdmin
         @plan_with_projects_with_blank_status ||= gobierto_plans_plans(:economic_plan)
       end
 
+      def plan_with_indicators
+        @plan_with_indicators ||= gobierto_plans_plans(:multiple_indicators_plan)
+      end
+
+      def plan_without_indicators
+        @plan_without_indicators ||= gobierto_plans_plans(:government_plan)
+      end
+
       def project
         @project ||= gobierto_plans_nodes(:political_agendas)
       end
@@ -102,6 +110,31 @@ module GobiertoAdmin
           parsed_response = CSV.parse(response.body, headers: true)
           assert_equal 1, parsed_response.length
           assert_equal "0.0", parsed_response[0]["Node.Progress"]
+        end
+      end
+
+      def test_export_csv_indicator_with_with_indicators
+        with(site: site, admin: admin) do
+          get admin_plans_plan_export_indicator_csv_path(plan_with_indicators)
+
+          assert_response :success
+          assert_equal "text/csv", response.content_type
+
+          parsed_response = CSV.parse(response.body, headers: true)
+          assert_equal 6, parsed_response.length
+          assert_equal "Government Statistical", parsed_response[0]["Node.Title"]
+        end
+      end
+
+      def test_export_csv_indicator_without_indicators
+        with(site: site, admin: admin) do
+          get admin_plans_plan_export_indicator_csv_path(plan_without_indicators)
+
+          assert_response :success
+          assert_equal "text/csv", response.content_type
+
+          parsed_response = CSV.parse(response.body, headers: true)
+          assert_equal 0, parsed_response.length
         end
       end
 

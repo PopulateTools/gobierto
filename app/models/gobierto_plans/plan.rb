@@ -35,6 +35,17 @@ module GobiertoPlans
       @nodes ||= Node.joins(categories: [:vocabulary]).where(terms: { vocabulary_id: categories_vocabulary&.id }).order(position: :asc, id: :asc)
     end
 
+    def indicators?
+      indicators.exists?
+    end
+
+    def indicators
+      GobiertoCommon::CustomFieldRecord
+        .includes(:custom_field)
+        .where(custom_fields: { instance_id: id, field_type: :plugin })
+        .where("#{GobiertoCommon::CustomField.table_name}.options @> ?", { configuration: { plugin_type: :table } }.to_json)
+    end
+
     def levels
       categories.maximum("level") || 0
     end

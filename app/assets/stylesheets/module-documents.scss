@@ -1,0 +1,197 @@
+:root {
+  --bgc-green: #60AD5F;
+  --color-grey: rgba(0, 0, 0, .5);
+  --color-text: #4F4F4F;
+  --grey-color-title: #828282;
+  --blue-federacion: #4DA1C0;
+  --grey-document: #F2F2F2;
+}
+
+.gobierto-documents {
+  margin-top: 2rem;
+
+  .gobierto-documents-header-left {
+    position: relative;
+  }
+
+  .gobierto-documents-header-title {
+    font-size: 2rem;
+    font-weight: normal;
+    color: $color_main_negative;
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    max-width: 22rem;
+    margin-top: 0;
+  }
+
+  .gobierto-documents-header-left-bgc {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .gobierto-documents-header-left-image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .gobierto-documents-header-right {
+    position: relative;
+    background: var(--bgc-green);
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .gobierto-documents-header-right-text {
+    color: $color_main_negative;
+    font-size: 18px;
+    margin-top: 0;
+  }
+
+  .gobierto-documents-header-right-about {
+    color: $color_main_negative;
+    font-weight: bold;
+    text-decoration: none;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  button.gobierto-documents-header-btn {
+    background: none;
+    padding: 0;
+    position: absolute;
+    bottom: 1rem;
+    text-transform: none;
+    &:hover {
+      background: none;
+      text-decoration: underline;
+    }
+
+    &.gobierto-documents-header-btn-left {
+      left: 2rem;
+    }
+
+    &.gobierto-documents-header-btn-right {
+      right: 2rem;
+    }
+
+  }
+
+  .gobierto-documents-sort {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .gobierto-documents-sort-btn {
+    margin-right: 1.5rem;
+    display: inline-block;
+    text-decoration: underline;
+    color: var(--color-grey);
+  }
+
+  .gobierto-documents-element {
+    border-radius: 4px;
+    padding: 1rem;
+    display: inline-block;
+    text-decoration: none;
+    border: 1px solid rgba(63, 88, 177, 0.14);
+    margin-bottom: 3.5rem;
+  }
+
+  .gobierto-documents-element-title {
+    font-size: 18px;
+    color: var(--blue-federacion);
+    margin-top: 0;
+  }
+
+  .gobierto-documents-element-text {
+    color: var(--color-text);
+  }
+
+  .gobierto-documents-element-topics-element-title {
+    color: var(--grey-color-title);
+    font-size: 14px;
+    width: 40%;
+    display: inline-block;
+  }
+  .gobierto-documents-element-topics-element-text {
+    color: var(--color-text);
+    font-size: 14px;
+    width: 40%;
+    display: inline-block;
+  }
+
+  .gobierto-documents-item-element-title {
+    font-size: 2rem;
+    color: var(--blue-federacion);
+  }
+
+  .gobierto-documents-item-element-text {
+    font-size: 18px;
+  }
+
+  .gobierto-documents-item-element-topics {
+    margin-top: 3rem;
+  }
+
+  .gobierto-documents-item-element-topics-element {
+    margin-bottom: 1rem;
+  }
+  .gobierto-documents-item-element-topics-element-title {
+    width: 40%;
+    font-size: 14px;
+    display: inline-block;
+  }
+
+  .gobierto-documents-item-element-topics-element-text {
+    width: 40%;
+    font-size: 14px;
+    display: inline-block;
+    color: var(--blue-federacion);
+  }
+
+  .gobierto-documents-document-title {
+    font-size: 20px;
+    color: var(--blue-federacion);
+  }
+
+  .gobierto-documents-document-element {
+    background-color: var(--grey-document);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .gobierto-documents-document-element-download-text {
+    display: block;
+    color: var(--blue-federacion);
+  }
+
+  .gobierto-documents-document-element-download-size {
+    display: block;
+    color: var(--grey-color-title);
+    font-size: 12px;
+  }
+
+  .gobierto-documents-document-element-source-text {
+    color: var(--grey-color-title);
+    font-size: 12px;
+    display: block;
+    font-weight: bold;
+  }
+
+  .gobierto-documents-document-element-source-link {
+    color: var(--grey-color-title);
+    display: block;
+    font-size: 12px;
+  }
+
+  #gobierto-documents-viewer-pdf-container {
+    height: 600px;
+  }
+
+}

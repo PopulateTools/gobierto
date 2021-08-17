@@ -254,7 +254,7 @@ module GobiertoAdmin
         if module_name.blank?
           ::GobiertoCore.classes_with_custom_fields.include?(klass)
         else
-          site.configuration.modules.include?(module_name) && module_name.constantize.try(:classes_with_custom_fields)&.include?(klass)
+          enabled_modules.include?(module_name) && module_name.constantize.try(:classes_with_custom_fields)&.include?(klass)
         end
       end
 
@@ -264,6 +264,10 @@ module GobiertoAdmin
 
       def classes_with_custom_fields_at_instance_level
         @classes_with_custom_fields_at_instance_level ||= class_name.deconstantize.constantize.try(:classes_with_custom_fields_at_instance_level) || []
+      end
+
+      def enabled_modules
+        site.configuration.modules.union(%w(GobiertoCms))
       end
 
       def plugin_configuration_format

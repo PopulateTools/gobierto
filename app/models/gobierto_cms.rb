@@ -2,11 +2,11 @@
 
 module GobiertoCms
   def self.table_name_prefix
-    'gcms_'
+    "gcms_"
   end
 
   def self.searchable_models
-    [ GobiertoCms::Page ]
+    [GobiertoCms::Page]
   end
 
   def self.classes_with_custom_fields

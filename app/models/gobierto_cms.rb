@@ -17,6 +17,10 @@ module GobiertoCms
     [GobiertoCms::PagesCollection]
   end
 
+  def self.custom_fields_at_instance_level_only?
+    true
+  end
+
   def self.doc_url
     "https://gobierto.readme.io/docs/cms"
   end

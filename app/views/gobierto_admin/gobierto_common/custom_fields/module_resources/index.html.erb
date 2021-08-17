@@ -11,10 +11,12 @@
   <% @available_resources.each do |module_name, resources| %>
     <div class="m_b_4">
       <h3><%= t("gobierto_admin.layouts.application.#{ module_name.underscore.gsub("gobierto_", "") }") %></h3>
-      <% resources.each do |resource| %>
-        <div class="list_item">
-          <%= link_to resource.model_name.human, admin_common_custom_fields_module_resource_custom_fields_path(module_resource_name: resource.name.underscore.gsub("/", "-")) %>
-        </div>
+      <% if module_name == "global" || !module_name.constantize.try(:custom_fields_at_instance_level_only?) %>
+        <% resources.each do |resource| %>
+          <div class="list_item">
+            <%= link_to resource.model_name.human, admin_common_custom_fields_module_resource_custom_fields_path(module_resource_name: resource.name.underscore.gsub("/", "-")) %>
+          </div>
+        <% end %>
       <% end %>
       <% if @available_instances.has_key?(module_name) %>
         <% @available_instances[module_name].each do |klass, instances| %>

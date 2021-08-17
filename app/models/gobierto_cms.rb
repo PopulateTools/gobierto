@@ -9,6 +9,14 @@ module GobiertoCms
     [ GobiertoCms::Page ]
   end
 
+  def self.classes_with_custom_fields
+    [GobiertoCms::Page]
+  end
+
+  def self.classes_with_custom_fields_at_instance_level
+    [GobiertoCms::PagesCollection]
+  end
+
   def self.doc_url
     "https://gobierto.readme.io/docs/cms"
   end

@@ -94,13 +94,13 @@ module GobiertoCommon
     def instance_type_options
       return [nil] unless instance
 
-      [nil, instance.class.name]
+      [instance.class.name]
     end
 
     def instance_id_options
       return [nil] unless instance
 
-      [nil, instance.id]
+      [instance.id]
     end
 
     def site

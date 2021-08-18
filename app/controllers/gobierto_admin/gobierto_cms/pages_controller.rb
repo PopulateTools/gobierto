@@ -19,6 +19,7 @@ module GobiertoAdmin
         @page_visibility_levels = get_page_visibility_levels
         @section_id = nil
         @parent_id = nil
+        @page = @page_form.page
         initialize_custom_field_form
       end
 
@@ -37,6 +38,7 @@ module GobiertoAdmin
 
       def create
         @page_form = PageForm.new(page_params.merge(site_id: current_site.id, admin_id: current_admin.id, collection_id: @collection))
+        @page = @page_form.page
         initialize_custom_field_form
 
         if @page_form.save

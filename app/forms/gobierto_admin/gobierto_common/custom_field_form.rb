@@ -199,7 +199,7 @@ module GobiertoAdmin
       private
 
       def instance_type_is_enabled
-        return if instance.blank? || classes_with_custom_fields_at_instance_level.include?(instance_class)
+        return if instance.blank? || classes_with_custom_fields_at_instance_level.any? { |k| k <= instance_class }
 
         errors.add(:instance_class_name, I18n.t("errors.messages.invalid"))
       end
@@ -242,7 +242,7 @@ module GobiertoAdmin
                               return unless instance_type
 
                               klass = instance_type.constantize
-                              return unless classes_with_custom_fields_at_instance_level.include? klass
+                              return unless classes_with_custom_fields_at_instance_level.any? { |k| k <= klass }
 
                               klass
                             rescue NameError

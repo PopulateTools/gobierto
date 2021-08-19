@@ -9,6 +9,7 @@
   <%= t(".empty") %>
 <% else %>
   <% @available_resources.each do |module_name, resources| %>
+    <% direct_link_resource = single_class_with_custom_fields(module_name) %>
     <div class="m_b_4">
       <h3><%= t("gobierto_admin.layouts.application.#{ module_name.underscore.gsub("gobierto_", "") }") %></h3>
       <% if module_name == "global" || !module_name.constantize.try(:custom_fields_at_instance_level_only?) %>
@@ -23,7 +24,17 @@
           <h4><%= t(".custom_fields_for_instances_of", name: klass.model_name.human) %></h4>
           <% instances.each do |instance| %>
             <div class="list_item">
-              <%= link_to instance.name, admin_common_custom_fields_module_resource_instance_level_resource_path(instance.model_param, instance.id) %> &nbsp;(<%= GobiertoCommon::CustomField.where(instance: instance).count %>)
+              <%= link_to(
+                instance.name,
+                direct_link_resource ? admin_common_custom_fields_module_resource_custom_fields_path(
+                  module_resource_name: direct_link_resource.name.underscore.gsub("/", "-"),
+                  instance_type: instance.model_param,
+                  instance_id: instance.id
+                ) : admin_common_custom_fields_module_resource_instance_level_resource_path(
+                  instance.model_param,
+                  instance.id
+                )
+              ) %> &nbsp;(<%= GobiertoCommon::CustomField.where(instance: instance).count %>)
             </div>
           <% end %>
 
@@ -32,4 +43,3 @@
     </div>
   <% end %>
 <% end %>
-

@@ -2,11 +2,23 @@
 
 module GobiertoCms
   def self.table_name_prefix
-    'gcms_'
+    "gcms_"
   end
 
   def self.searchable_models
-    [ GobiertoCms::Page ]
+    [GobiertoCms::Page]
+  end
+
+  def self.classes_with_custom_fields
+    [GobiertoCms::Page]
+  end
+
+  def self.classes_with_custom_fields_at_instance_level
+    [GobiertoCms::PagesCollection]
+  end
+
+  def self.custom_fields_at_instance_level_only?
+    true
   end
 
   def self.doc_url

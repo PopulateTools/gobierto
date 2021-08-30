@@ -30,7 +30,7 @@ module GobiertoAdmin
       end
 
       def attachment_attributes
-        @attachment_attributes ||= %w(id site_id name description file_name file_digest url human_readable_url file_size current_version created_at)
+        @attachment_attributes ||= %w(id site_id name description file_name file_digest url human_readable_url human_readable_path file_size current_version created_at)
       end
 
       def test_attachings_create_success

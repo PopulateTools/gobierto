@@ -10,6 +10,13 @@ export const ItemsFilterMixin = {
       defaultFilters: new Map(),
     }
   },
+  watch: {
+    items() {
+      // when the array of items is informed (usually delayed due to XHR)
+      // set both subset (equal to items at startup) and the counters
+      this.updateDOM()
+    }
+  },
   methods: {
     createFilters({ filters, dictionary, stats = {} }) {
       // Middleware receives both the dictionary of all possible attributes, and the selected filters for the site

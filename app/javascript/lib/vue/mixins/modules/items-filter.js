@@ -8,6 +8,7 @@ export const ItemsFilterMixin = {
       filters: [],
       activeFilters: new Map(),
       defaultFilters: new Map(),
+      isDirty: false
     }
   },
   watch: {
@@ -27,14 +28,11 @@ export const ItemsFilterMixin = {
 
       if (filters.length) {
         this.activeFilters = new Map();
-
-        // initialize active filters
-        this.filters.forEach(filter =>
-          this.activeFilters.set(filter.key, undefined)
-        );
+        this.initializeFilters()
       }
     },
     filterItems(filter, key) {
+      this.isDirty = true
       this.activeFilters.set(key, filter);
       this.updateDOM();
     },
@@ -52,13 +50,17 @@ export const ItemsFilterMixin = {
 
       return results;
     },
+    initializeFilters() {
+      this.isDirty = false
+      this.filters.forEach(({ key }) => this.activeFilters.set(key, undefined));
+    },
     cleanFilters() {
       this.filters.splice(
         0,
         this.filters.length,
         ...this.clone(this.defaultFilters)
       );
-      this.activeFilters.clear();
+      this.initializeFilters()
       this.updateDOM();
     },
     handleIsEverythingChecked({ filter }) {

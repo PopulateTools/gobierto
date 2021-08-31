@@ -18,10 +18,6 @@ export const ItemsFilterMixin = {
       this.updateItems()
     },
   },
-  mounted() {
-    // wait for the window object
-    this.parseUrlParams()
-  },
   methods: {
     createFilters({ filters, dictionary, stats = {} }) {
       // Middleware receives both the dictionary of all possible attributes, and the selected filters for the site
@@ -33,6 +29,7 @@ export const ItemsFilterMixin = {
       if (filters.length) {
         this.activeFilters = new Map();
         this.initializeFilters()
+        this.parseQueryParams(this.$route)
       }
     },
     filterItems(filterFn, key) {
@@ -64,23 +61,22 @@ export const ItemsFilterMixin = {
 
       this.initializeFilters()
       this.updateItems();
-
-      // clean url params
-      this.$router?.push({ ...this.$route, query: {} })
-      // TODO: puede borrar más parámetros de los deseados.
-      // Sólo habría que borrar aquellos que pueden ser filtros
     },
     handleIsEverythingChecked({ filter }) {
       filter.isEverythingChecked = !filter.isEverythingChecked;
       filter.options.map(d => (d.isOptionChecked = filter.isEverythingChecked));
       this.handleCheckboxFilter(filter);
+
+      // url updates must be done only in functions triggered by the user
+      this.updateURL(filter)
     },
     handleCheckboxStatus({ id, value, filter }) {
       const index = filter.options.findIndex(d => d.id === id);
       filter.options[index].isOptionChecked = value;
-
       this.handleCheckboxFilter(filter);
-      this.updateURL({ filter, value, index })
+
+      // url updates must be done only in functions triggered by the user
+      this.updateURL(filter)
     },
     handleCheckboxFilter(filter) {
       const { key, options } = filter;
@@ -138,26 +134,27 @@ export const ItemsFilterMixin = {
     convertToArrayOfIds(items) {
       return Array.isArray(items) ? items.map(item => (+item)) : [+items]
     },
-    updateURL({ filter, value, index }) {
-      const { slug } = filter.options[index]
+    updateURL(filter = {}) {
       const param = this.$route?.query[filter.key]?.split(",") || []
 
-      if (value) {
-        // when value is true, ignore param if exists, otherwise append it
-        if (!param.includes(slug)) {
-          param.push(slug)
+      filter.options.forEach(({ slug, isOptionChecked }) => {
+        if (isOptionChecked) {
+          // when value is true, ignore param if exists, otherwise append it
+          if (!param.includes(slug)) {
+            param.push(slug)
+          }
+        } else if (param.includes(slug)) {
+          // remove param if false
+          param.splice(param.indexOf(slug), 1)
         }
-      } else {
-        // remove param if false
-        param.splice(param.indexOf(slug), 1)
-      }
+      })
 
       const query = { ...this.$route?.query, [filter.key]: param.length ? param.join(",") : undefined }
-      this.$router?.push({ ...this.$route, query })
+      // "replace" to not trigger the vue-router hooks
+      this.$router?.replace({ ...this.$route, query })
     },
-    parseUrlParams() {
-      const { searchParams } = new URL(window.location.href)
-      Array.from(searchParams).forEach(([k, values]) => {
+    parseQueryParams({ query }) {
+      Object.entries(query).forEach(([k, values]) => {
         const ix = this.filters.findIndex(({ key }) => k === key)
         const filter = this.filters[ix]
 

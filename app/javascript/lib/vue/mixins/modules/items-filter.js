@@ -19,6 +19,7 @@ export const ItemsFilterMixin = {
     },
   },
   mounted() {
+    // wait for the window object
     this.parseUrlParams()
   },
   methods: {
@@ -66,6 +67,8 @@ export const ItemsFilterMixin = {
 
       // clean url params
       this.$router?.push({ ...this.$route, query: {} })
+      // TODO: puede borrar más parámetros de los deseados.
+      // Sólo habría que borrar aquellos que pueden ser filtros
     },
     handleIsEverythingChecked({ filter }) {
       filter.isEverythingChecked = !filter.isEverythingChecked;

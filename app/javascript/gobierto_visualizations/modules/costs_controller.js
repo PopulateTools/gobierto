@@ -153,23 +153,18 @@ export class CostsController {
     const population = ["128291", "129661"];
 
     let yearsCosts = [...new Set(rawData.map(item => item.any_))];
+    console.log("yearsCosts", yearsCosts);
 
     for (let index = 0; index < rawData.length; index++) {
       let d = rawData[index];
 
-      d["population"] = getPopulation(d["any_"]);
+      const ix = yearsCosts.findIndex(x => x === d["any_"])
+      d.population = population[ix]
+
       for (let amounts = 0; amounts < amountStrings.length; amounts++) {
         d[amountStrings[amounts]] = convertStringToNumbers(
           d[amountStrings[amounts]]
         );
-      }
-    }
-
-    function getPopulation(year) {
-      for (let index = 0; index < yearsCosts.length; index++) {
-        if (year === yearsCosts[index]) {
-          return population[index];
-        }
       }
     }
 

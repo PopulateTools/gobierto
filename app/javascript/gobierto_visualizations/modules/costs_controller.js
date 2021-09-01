@@ -153,7 +153,6 @@ export class CostsController {
     const population = ["128291", "129661"];
 
     let yearsCosts = [...new Set(rawData.map(item => item.any_))];
-    console.log("yearsCosts", yearsCosts);
 
     for (let index = 0; index < rawData.length; index++) {
       let d = rawData[index];

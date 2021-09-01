@@ -33,7 +33,7 @@
         <p class="gobierto-visualizations-description">
           {{ labelDescription3 }}
         </p>
-        <p class="gobierto-visualizations-description">
+        <p class="gobierto-visualizations-description-color-base">
           {{ labelDescriptionCovid }}
         </p>
       </div>
@@ -74,6 +74,7 @@ export default {
       labelDescription: '',
       labelDescription2: I18n.t("gobierto_visualizations.visualizations.costs.description_2") || "",
       labelDescription3: I18n.t("gobierto_visualizations.visualizations.costs.description_3") || "",
+      labelDescriptionCovid: I18n.t("gobierto_visualizations.visualizations.costs.description_covid") || "",
       yearFiltered: this.$root.$data.yearsCosts[0],
       years: this.$root.$data.yearsCosts,
       costDataFilter: [],

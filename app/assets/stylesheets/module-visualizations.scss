@@ -1120,6 +1120,10 @@
     margin-top: 0;
   }
 
+  &-description-color-base {
+    color: var(--color-base);
+  }
+
   .vis-costs {
     position: relative;
     background-color: #f0f0f0;

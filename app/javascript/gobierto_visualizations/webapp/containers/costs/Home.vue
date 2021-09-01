@@ -33,6 +33,9 @@
         <p class="gobierto-visualizations-description">
           {{ labelDescription3 }}
         </p>
+        <p class="gobierto-visualizations-description">
+          {{ labelDescriptionCovid }}
+        </p>
       </div>
       <Distribution
         :data="groupData"
@@ -40,6 +43,7 @@
         :years="years"
         :years-multiple="yearsMultiple"
         @preventReload="injectRouter"
+        @updateYear="updateData"
       />
       <Table
         :items-filter="groupDataFilter"
@@ -89,21 +93,15 @@ export default {
     }
   },
   created() {
-      this.labelDescription = I18n.t("gobierto_visualizations.visualizations.costs.description", { entity_name: this.getSiteName }) || "";
+    this.labelDescription = I18n.t("gobierto_visualizations.visualizations.costs.description", { entity_name: this.getSiteName }) || "";
     const {
       params: {
         year: year
       }
     } = this.$route
-    let yearFiltered = year
-    if (!year) yearFiltered = '2019'
-    this.yearFiltered = yearFiltered
-
-    const costDataFilter = this.costData.filter(element => element.any_ === yearFiltered).sort((a, b) => (a.costtotal > b.costtotal) ? -1 : 1)
-    const groupDataFilter = this.groupData.filter(element => element.any_ === yearFiltered).sort((a, b) => (a.costtotal > b.costtotal) ? -1 : 1)
-
-    this.costDataFilter = costDataFilter
-    this.groupDataFilter = groupDataFilter
+    this.yearFiltered = year ? year : this.yearFiltered
+    this.costDataFilter = this.costData.filter(({ any_ }) => any_ === this.yearFiltered).sort(({ costtotal: a }, { costtotal: b }) => (a > b ? -1 : 1))
+    this.groupDataFilter = this.groupData.filter(({ any_ }) => any_ === this.yearFiltered).sort(({ costtotal: a }, { costtotal: b }) => (a > b ? -1 : 1))
 
     this.baseTitle = document.title;
   },
@@ -113,22 +111,22 @@ export default {
   },
   methods: {
     onChangeFilterYear(value) {
-      this.injectRouter()
-      let year
-      if (value === '2019') {
-        year = value
-      } else {
-        year = value.target.value
-        this.yearFiltered = value.target.value
-      }
-      const costDataFilter = this.costData.filter(element => element.any_ === year)
-      const groupDataFilter = this.groupData.filter(element => element.any_ === year)
+      const {
+        params: {
+          year: year
+        }
+      } = this.$route
+      this.yearFiltered = value.target ? value.target.value : year
 
-      this.costDataFilter = costDataFilter
-      this.groupDataFilter = groupDataFilter
+      this.updateData(this.yearFiltered)
+    },
+    updateData(year) {
+      this.yearFiltered = year
+      this.costDataFilter = this.costData.filter(({ any_ }) => any_ === this.yearFiltered)
+      this.groupDataFilter = this.groupData.filter(({ any_ }) => any_ === this.yearFiltered)
 
       // eslint-disable-next-line no-unused-vars
-      this.$router.push(`/visualizaciones/costes/${year}`).catch(err => {})
+      this.$router.push(`/visualizaciones/costes/${this.yearFiltered}`).catch(err => {})
     },
     injectRouter() {
       const bubbleLinks = document.querySelectorAll('.bubbles-links')

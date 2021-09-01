@@ -16,9 +16,16 @@
         </router-link>
       </div>
     </div>
-    <div class="planification-table__td">
-      {{ progress | percent }}
-    </div>
+    <template v-if="isStatus">
+      <div class="planification-table__td">
+        {{ percentOutOfTotal | percent }}
+      </div>
+    </template>
+    <template v-else>
+      <div class="planification-table__td">
+        {{ progress | percent }}
+      </div>
+    </template>
     <div class="planification-table__td">
       {{ length }}
     </div>
@@ -51,7 +58,8 @@ export default {
       progress: 0,
       length: 0,
       level: 0,
-      nestedGroups: []
+      nestedGroups: [],
+      percentOutOfTotal: 0
     }
   },
   computed: {
@@ -61,12 +69,16 @@ export default {
     params() {
       return this.$route.params;
     },
+    isStatus() {
+      const { id } = this.$route.params;
+      return id === "status"
+    },
     tdFirstChildWidth() {
       return `flex: 0 0 calc(50% - ${this.level / 2}rem)`
     }
   },
   created() {
-    const { key, name, slug, progress, length, level, nestedGroups } = this.term
+    const { key, name, slug, progress, length, level, nestedGroups, percentOutOfTotal } = this.term
     this.key = key
     this.name = name
     this.slug = slug
@@ -74,6 +86,7 @@ export default {
     this.length = length
     this.level = level
     this.nestedGroups = nestedGroups
+    this.percentOutOfTotal = percentOutOfTotal
   },
   methods: {
     showNestedGroups() {

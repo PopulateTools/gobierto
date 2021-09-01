@@ -22,16 +22,11 @@ export const date = (value, opts = {}) => {
     : new Date(value).toLocaleDateString(lang, opts);
 };
 
-export const truncate = (value, opts = {}) => {
-  const length = opts["length"] || 30;
-  const str = `${value || ""}`;
-
-  if (str.length <= length) {
-    return str;
-  } else {
-    const omission = opts["omission"] || "...";
-    return `${str.substring(0, length)}${omission}`;
-  }
+export const truncate = (value = "", opts = {}) => {
+  const { length = 30, omission = "…" } = opts
+  return value.length <= length
+    ? value
+    : `${value.substring(0, length)}${omission}`
 };
 
 export const percent = value => {

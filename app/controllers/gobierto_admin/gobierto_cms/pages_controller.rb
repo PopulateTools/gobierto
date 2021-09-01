@@ -3,6 +3,8 @@
 module GobiertoAdmin
   module GobiertoCms
     class PagesController < BaseController
+      include CustomFieldsHelper
+
       before_action :load_collection, only: [:new, :edit, :create, :update]
       before_action :load_site_attachments_collection, only: [:new, :edit, :create, :update]
 
@@ -17,6 +19,8 @@ module GobiertoAdmin
         @page_visibility_levels = get_page_visibility_levels
         @section_id = nil
         @parent_id = nil
+        @page = @page_form.page
+        initialize_custom_field_form
       end
 
       def edit
@@ -29,12 +33,16 @@ module GobiertoAdmin
         @page_form = PageForm.new(
           @page.attributes.except(*ignored_page_attributes).merge(collection_id: @collection)
         )
+        initialize_custom_field_form
       end
 
       def create
         @page_form = PageForm.new(page_params.merge(site_id: current_site.id, admin_id: current_admin.id, collection_id: @collection))
+        @page = @page_form.page
+        initialize_custom_field_form
 
         if @page_form.save
+          custom_fields_save
           track_create_activity
 
           redirect_to(
@@ -50,8 +58,9 @@ module GobiertoAdmin
       def update
         load_page(preview: true)
         @page_form = PageForm.new(page_params.merge(id: @page.id, admin_id: current_admin.id, site_id: current_site.id, collection_id: @collection.id))
+        initialize_custom_field_form
 
-        if @page_form.save
+        if @page_form.save && custom_fields_save
           track_update_activity
 
           redirect_to(
@@ -131,7 +140,7 @@ module GobiertoAdmin
           :parent,
           :published_on,
           title_translations: [*I18n.available_locales],
-          body_translations:  [*I18n.available_locales],
+          body_translations: [*I18n.available_locales],
           body_source_translations: [*I18n.available_locales]
         )
       end
@@ -174,6 +183,17 @@ module GobiertoAdmin
         t("gobierto_admin.gobierto_cms.pages.destroy.error_associated_items", links: associated_items_html).html_safe
       end
 
+      def initialize_custom_field_form
+        @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(
+          site_id: current_site.id,
+          item: @page,
+          instance: @collection
+        )
+        custom_params_key = self.class.name.demodulize.gsub("Controller", "").underscore.singularize
+        return if request.get? || !params.has_key?(custom_params_key)
+
+        @custom_fields_form.custom_field_records = params.require(custom_params_key).permit(custom_records: {})
+      end
     end
   end
 end

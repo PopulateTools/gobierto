@@ -65,6 +65,7 @@ export default {
   data() {
     return {
       labelProgress: I18n.t("gobierto_plans.plan_types.show.progress") || "",
+      labelPercentOutOfTotal: I18n.t("gobierto_plans.plan_types.show.percent_out_of_total") || "",
       columns: [],
       lastLevel: 0
     };
@@ -104,7 +105,13 @@ export default {
 
     // set table columns
     this.map.set("name", { name: this.getName(id), sort: this.currentSort });
-    this.map.set("progress", { name: this.labelProgress, sort:this.currentSort });
+
+    if (id === "status") {
+      this.map.set("percentOutOfTotal", { name: this.labelPercentOutOfTotal, sort: this.currentSort });
+    } else {
+      this.map.set("progress", { name: this.labelProgress, sort:this.currentSort });
+    }
+
     this.map.set("length", { name: null, sort:this.currentSort });
 
     this.columns = Array.from(this.map);

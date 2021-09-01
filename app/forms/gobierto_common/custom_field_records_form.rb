@@ -17,7 +17,7 @@ module GobiertoCommon
     validates :site, presence: true
 
     def available_custom_fields
-      if instance # GobiertoPlans
+      if instance.is_a?(GobiertoPlans::Plan) # GobiertoPlans
         ::GobiertoPlans::Node.node_custom_fields(instance, item).sorted
       else
         site.custom_fields.sorted.where(class_name: item.class.name, instance_type: instance_type_options, instance_id: instance_id_options)
@@ -94,13 +94,13 @@ module GobiertoCommon
     def instance_type_options
       return [nil] unless instance
 
-      [nil, instance.class.name]
+      [instance.class.name]
     end
 
     def instance_id_options
       return [nil] unless instance
 
-      [nil, instance.id]
+      [instance.id]
     end
 
     def site

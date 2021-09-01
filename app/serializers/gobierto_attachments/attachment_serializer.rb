@@ -9,6 +9,7 @@ module GobiertoAttachments
       :file_digest,
       :url,
       :human_readable_url,
+      :human_readable_path,
       :file_size,
       :current_version,
       :created_at,

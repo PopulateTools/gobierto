@@ -47,6 +47,14 @@
         %>
       </div>
 
+      <%= render(
+        partial: "gobierto_admin/gobierto_common/custom_fields/forms/custom_fields",
+        locals: {
+          f: f,
+          item: @custom_fields_form,
+          form_name: "page"
+        }
+      ) %>
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

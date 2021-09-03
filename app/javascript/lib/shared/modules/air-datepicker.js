@@ -1,4 +1,5 @@
 import "air-datepicker";
+import "air-datepicker/dist/css/datepicker.css";
 
 $.fn.datepicker.language["en"] = {
   days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],

@@ -33,7 +33,7 @@
 
 <script>
 import { VueFiltersMixin } from "lib/vue/filters";
-import { RangeSlider } from "lib/shared";
+import { RangeSlider, debounce } from "lib/shared";
 
 export default {
   name: "RangeBars",
@@ -136,7 +136,7 @@ export default {
         min: slider.min,
         max: slider.max,
         defaultRange: slider.selectedRange,
-        rangeCallback: callback
+        rangeCallback: debounce(callback, 750)
       });
 
       // Initialize range bars if present

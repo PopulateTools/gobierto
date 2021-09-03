@@ -55,12 +55,16 @@ export const ItemsFilterMixin = {
 
       return results;
     },
-    cleanFilters() {
+    clearFilters() {
       this.filters = []
       this.filters = JSON.parse(JSON.stringify(this.defaultFilters))
 
       this.initializeFilters()
       this.updateItems();
+
+      const query = { ...this.$route?.query, ...this.filters.reduce((acc, { key }) => ({ ...acc, [key]: undefined }), {}) }
+      // "replace" to not trigger the vue-router hooks
+      this.$router?.push({ ...this.$route, query })
     },
     handleIsEverythingChecked({ filter }) {
       filter.isEverythingChecked = !filter.isEverythingChecked;
@@ -107,6 +111,63 @@ export const ItemsFilterMixin = {
       const callback = size ? checkboxFilterFn : undefined;
       this.filterItems(callback, key);
     },
+    handleRangeFilterStatus({ min, max, filter }) {
+      // this function mutates filter, therefore updateURL receives the mutated filter obj
+      this.handleRangeFilter({ min, max, filter })
+
+      // url updates must be done only in functions triggered by the user
+      this.updateURL(filter)
+    },
+    handleRangeFilter({ min, max, filter }) {
+      const { key, min: __min__, max: __max__ } = filter;
+      const rangeFilterFn = attrs => attrs[key] >= min && attrs[key] <= max;
+
+      filter.savedMin = min;
+      filter.savedMax = max;
+
+      const index = this.filters.findIndex(d => d.key === key);
+      this.filters.splice(index, 1, filter); // To detect array mutations
+
+      const callback =
+        Math.floor(min) <= Math.floor(+__min__) &&
+        Math.floor(max) >= Math.floor(+__max__)
+          ? undefined
+          : rangeFilterFn;
+      this.filterItems(callback, key);
+    },
+    handleCalendarFilterStatus({ start, end, filter }) {
+      // this function mutates filter, therefore updateURL receives the mutated filter obj
+      this.handleCalendarFilter({ start, end, filter })
+
+      // url updates must be done only in functions triggered by the user
+      this.updateURL(filter)
+    },
+    handleCalendarFilter({ start, end, filter }) {
+      const { key, startKey = key, endKey = startKey } = filter;
+      const calendarFilterFn = attrs => {
+        if (start && end && attrs[startKey] && attrs[endKey]) {
+          return !(
+            end < new Date(attrs[startKey]) || start > new Date(attrs[endKey])
+          );
+        } else if (start && !end && attrs[endKey]) {
+          return !(start > new Date(attrs[endKey]));
+        } else if (!start && end && attrs[startKey]) {
+          return !(end < new Date(attrs[startKey]));
+        } else {
+          return false;
+        }
+      };
+
+      // Update object
+      filter.savedStartDate = start;
+      filter.savedEndDate = end;
+
+      const index = this.filters.findIndex(d => d.key === key);
+      this.filters.splice(index, 1, filter); // To detect array mutations
+
+      const callback = !start && !end ? undefined : calendarFilterFn;
+      this.filterItems(callback, key);
+    },
     calculateOptionCounters(filter) {
       const counter = ({ key, id }) => {
         // Clone current filters
@@ -137,17 +198,30 @@ export const ItemsFilterMixin = {
     updateURL(filter = {}) {
       const param = this.$route?.query[filter.key]?.split(",") || []
 
-      filter.options.forEach(({ slug, isOptionChecked }) => {
-        if (isOptionChecked) {
-          // when value is true, ignore param if exists, otherwise append it
-          if (!param.includes(slug)) {
-            param.push(slug)
+      if (filter.type === "vocabulary_options") {
+        filter.options.forEach(({ slug, isOptionChecked }) => {
+          if (isOptionChecked) {
+            // when value is true, ignore param if exists, otherwise append it
+            if (!param.includes(slug)) {
+              param.push(slug)
+            }
+          } else if (param.includes(slug)) {
+            // remove param if false
+            param.splice(param.indexOf(slug), 1)
           }
-        } else if (param.includes(slug)) {
-          // remove param if false
-          param.splice(param.indexOf(slug), 1)
-        }
-      })
+        })
+      }
+
+      if (filter.type === "numeric") {
+        param[0] = filter.savedMin
+        param[1] = filter.savedMax
+      }
+
+      if (filter.type === "date") {
+        // set only the date part
+        param[0] = filter.savedStartDate?.toISOString().substr(0, 10)
+        param[1] = filter.savedEndDate?.toISOString().substr(0, 10)
+      }
 
       const query = { ...this.$route?.query, [filter.key]: param.length ? param.join(",") : undefined }
       // "replace" to not trigger the vue-router hooks
@@ -167,7 +241,15 @@ export const ItemsFilterMixin = {
           this.handleCheckboxFilter(filter)
         }
 
-        // TODO: faltaría completar los que no son checkboxes
+        if (filter && filter.type === "numeric") {
+          const [min, max] = values.split(",")
+          this.handleRangeFilter({ min: +min, max: +max, filter })
+        }
+
+        if (filter && filter.type === "date") {
+          const [start, end] = values.split(",")
+          this.handleCalendarFilter({ start: new Date(start), end: end ? new Date(end) : undefined, filter })
+        }
       })
     }
   }

@@ -1,6 +1,6 @@
 @import "css-conf";
 @import "mixins";
-@import "comp-block-checkbox";
+@import "comp-vue-block-checkbox";
 @import "comp-vue-transitions";
 @import "comp-sdg";
 @import "air-datepicker/dist/css/datepicker.css";
@@ -716,7 +716,7 @@ $nodeLevel1HeightMobile: 20vh;
       display: flex;
       flex: 1;
     }
-    
+
     &__th {
       padding: 0 0.5rem 0.25rem 0;
       text-transform: uppercase;
@@ -1007,7 +1007,7 @@ $nodeLevel1HeightMobile: 20vh;
       flex-wrap: wrap;
       margin: -5px;
     }
-  
+
     &__content {
       padding: 5px;
       display: inline-flex;
@@ -1017,7 +1017,7 @@ $nodeLevel1HeightMobile: 20vh;
     @function zerofill($i) {
       @return #{str-slice("00", 0, 2 - str-length(#{$i}))}#{$i};
     }
-  
+
     @for $num from 1 through 17 {
       @each $lang in (ca es) {
         $num: zerofill($num);

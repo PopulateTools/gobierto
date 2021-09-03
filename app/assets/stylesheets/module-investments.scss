@@ -2,14 +2,13 @@
 @import "mixins";
 @import "comp-vue-table";
 @import "comp-horizontal-carousel.scss";
-@import "comp-block-checkbox";
+@import "comp-vue-block-checkbox";
 @import "comp-vue-transitions";
 @import "magnific-popup/dist/magnific-popup.css";
 @import "comp-magnific-popup-animations";
 @import "comp-horizontal-carousel";
 @import "comp-range-slider";
 @import "comp-read-more";
-@import "air-datepicker/dist/css/datepicker.css";
 
 .investments {
   @include min-screen(768) {
@@ -373,6 +372,7 @@
       }
     }
 
+    // TODO: eliminar cuando se use el componente filtros
     &--calendar-button {
       background-color: rgba(var(--color-base-string), 0.1);
       border-radius: 4px;
@@ -405,6 +405,7 @@
       }
     }
 
+    // TODO: eliminar cuando se use el componente filtros
     &--calendar-button input {
       position: absolute;
       top: 0;

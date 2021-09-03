@@ -193,6 +193,8 @@ ca:
         none: Cap
       calendar:
         date: Escolliu data
+      filters:
+        clear: Netejar filtres
       pagination:
         next: Següent
         previous: Anterior

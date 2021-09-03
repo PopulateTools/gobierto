@@ -15,6 +15,7 @@ import Autocomplete from "./modules/Autocomplete.vue"
 import Table from "./modules/Table.vue"
 import TableColumnsSelector from "./modules/TableColumnsSelector.vue"
 import SortIcon from "./modules/SortIcon.vue"
+import Filters from "./modules/Filters.vue"
 
 export {
   BlockHeader,
@@ -33,5 +34,6 @@ export {
   Autocomplete,
   Table,
   TableColumnsSelector,
-  SortIcon
+  SortIcon,
+  Filters
 }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="gobierto-calendar">
     <div>
       <strong>{{ labelDate }}</strong>
       <i class="fas fa-caret-down" />
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      labelDate: "",
+      labelDate: I18n.t("gobierto_common.vue_components.calendar.date") || "",
       startDate: this.savedStartDate,
       endDate: this.savedEndDate
     };
@@ -54,9 +54,6 @@ export default {
     savedEndDate(n) {
       this.endDate = n;
     }
-  },
-  created() {
-    this.labelDate = I18n.t("gobierto_common.vue_components.calendar.date");
   },
   mounted() {
     this.setDatePicker();

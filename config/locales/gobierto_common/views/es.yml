@@ -193,6 +193,8 @@ es:
         none: Ninguna
       calendar:
         date: Seleccione fecha
+      filters:
+        clear: Limpiar filtros
       pagination:
         next: Siguiente
         previous: Anterior

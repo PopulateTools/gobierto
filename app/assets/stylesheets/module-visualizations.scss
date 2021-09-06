@@ -3,8 +3,8 @@
 @import "dc/dist/style/dc.css";
 @import "comp-metric_boxes";
 @import "comp-graph-dc";
-@import "comp-block-checkbox";
-@import "comp-block-header";
+@import "comp-vue-block-checkbox";
+@import "comp-vue-block-header";
 @import "comp-vue-dropdown";
 @import "comp-vue-pagination";
 @import "comp-vue-beeswarm";
@@ -1272,4 +1272,3 @@
   }
 
 }
-

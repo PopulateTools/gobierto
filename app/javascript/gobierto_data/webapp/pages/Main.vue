@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <template v-slot:sidebar>
+    <template #sidebar>
       <template v-if="!isDatasetLoaded">
         <SkeletonSpinner
           height-square="20px"
@@ -12,33 +12,29 @@
           lines="4"
         />
       </template>
-      <template v-else>
-        <Sidebar
-          :active-tab="activeSidebarTab"
-          :filters="filters"
-          :items="items"
-          @active-tab="activeSidebarTab = $event"
-        />
-      </template>
+      <Sidebar
+        v-else
+        :active-tab="activeSidebarTab"
+        :filters="filters"
+        :items="items"
+        @active-tab="activeSidebarTab = $event"
+      />
     </template>
-    <template v-slot:main>
-      <template v-if="!isDatasetLoaded">
-        <SkeletonSpinner
-          height-square="200px"
-          squares-rows="3"
-          squares="1"
-        />
-      </template>
-      <template v-else>
-        <keep-alive>
-          <router-view
-            :key="$route.params.id"
-            :datasets="parsedSubsetItems"
-            :page-title="pageTitle"
-          />
-        </keep-alive>
-      </template>
+
+    <template v-if="!isDatasetLoaded">
+      <SkeletonSpinner
+        height-square="200px"
+        squares-rows="3"
+        squares="1"
+      />
     </template>
+    <keep-alive v-else>
+      <router-view
+        :key="$route.params.id"
+        :datasets="parsedSubsetItems"
+        :page-title="pageTitle"
+      />
+    </keep-alive>
   </Layout>
 </template>
 

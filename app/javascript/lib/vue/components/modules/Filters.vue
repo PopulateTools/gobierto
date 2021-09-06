@@ -17,9 +17,12 @@
     >
       <!-- Filter type: calendar -->
       <template v-if="filter.type === 'date'">
-        <Dropdown>
+        <Dropdown @is-content-visible="filter.rotate = !filter.rotate">
           <template #trigger>
-            <BlockHeader :title="filter.title" />
+            <BlockHeader
+              :rotate="filter.rotate"
+              :title="filter.title"
+            />
           </template>
           <Calendar
             :saved-start-date="filter.savedStartDate"
@@ -31,9 +34,10 @@
 
       <!-- Filter type: checkbox -->
       <template v-else-if="filter.type === 'vocabulary_options'">
-        <Dropdown>
+        <Dropdown @is-content-visible="filter.rotate = !filter.rotate">
           <template #trigger>
             <BlockHeader
+              :rotate="filter.rotate"
               :title="filter.title"
               :label-alt="filter.isEverythingChecked"
               see-link
@@ -56,9 +60,12 @@
 
       <!-- Filter type: numeric range -->
       <template v-else-if="filter.type === 'numeric'">
-        <Dropdown>
+        <Dropdown @is-content-visible="filter.rotate = !filter.rotate">
           <template #trigger>
-            <BlockHeader :title="filter.title" />
+            <BlockHeader
+              :rotate="filter.rotate"
+              :title="filter.title"
+            />
           </template>
           <RangeBars
             :histogram="

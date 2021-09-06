@@ -41,7 +41,8 @@
 <script>
 // define the components as dynamic
 const COMPONENTS = [
-  () => import("./sidebar/SidebarCategories.vue"),
+  // () => import("./sidebar/SidebarCategories.vue"),
+  () => import("./sidebar/SidebarCategoriesDOS.vue"),
   () => import("./sidebar/SidebarDatasets.vue"),
   () => import("./sidebar/SidebarQueries.vue")
 ];

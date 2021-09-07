@@ -44,6 +44,8 @@ import Sidebar from "./../components/Sidebar.vue";
 import { CategoriesMixin } from "./../../lib/mixins/categories.mixin";
 import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
 import { translate } from "lib/vue/filters";
+import CONFIGURATION from "../../lib/filters.conf"
+const { availableFilters: fields } = CONFIGURATION
 
 export default {
   name: "Main",
@@ -163,21 +165,11 @@ export default {
       this.getDatasetsMetadata({ stats: true })
     ]);
 
-    // TODO: completar los fields de manera adecuada
     this.attrs = {
       items,
+      fields,
       metadata,
       stats,
-      fields: [
-        {
-          id: "category",
-          flat: true
-        },
-        {
-          id: "frequency",
-          flat: true
-        }
-      ]
     };
 
     this.isDatasetLoaded = true;

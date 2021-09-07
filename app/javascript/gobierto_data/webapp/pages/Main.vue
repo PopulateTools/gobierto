@@ -43,7 +43,7 @@ import Layout from "./../layouts/Layout.vue";
 import Sidebar from "./../components/Sidebar.vue";
 import { CategoriesMixin } from "./../../lib/mixins/categories.mixin";
 import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
-// import { translate } from "lib/vue/filters";
+import { translate } from "lib/vue/filters";
 
 export default {
   name: "Main",
@@ -58,92 +58,87 @@ export default {
       activeSidebarTab: 0,
       pageTitle: "",
       attrs: {},
-      items: []
+      items: [],
+      isDatasetLoaded: false
     };
   },
   computed: {
     categories() {
-      const { dictionary = [] } = this.middleware || {};
       // We need to extract the human-readable elements from the dictionary
       const { attributes: { vocabulary_terms: categories = [] } = {} } =
-        dictionary.find(({ attributes: { uid } = {} }) => uid === "category") ||
-        {};
+        this.attrs.metadata.find(
+          ({ attributes: { uid } = {} }) => uid === "category"
+        ) || {};
 
       return categories;
     },
     frequencies() {
-      const { dictionary = [] } = this.middleware || {};
       // We need to extract the human-readable elements from the dictionary
       const { attributes: { vocabulary_terms: frequencies = [] } = {} } =
-        dictionary.find(
+        this.attrs.metadata.find(
           ({ attributes: { uid } = {} }) => uid === "frequency"
         ) || {};
 
       return frequencies;
     },
     parsedSubsetItems() {
-      return this.items;
-      // return this.subsetItems.map(
-      //   ({
-      //     id,
-      //     attributes: {
-      //       slug,
-      //       name,
-      //       description,
-      //       data_updated_at,
-      //       category: category_id,
-      //       frequency: frequency_id
-      //     }
-      //   }) => {
-      //     let category = null;
-      //     let frequency = null;
+      return this.items.map(
+        ({
+          id,
+          attributes: {
+            slug,
+            name,
+            description,
+            data_updated_at,
+            category: category_id,
+            frequency: frequency_id
+          }
+        }) => {
+          let category = null;
+          let frequency = null;
 
-      //     if (category_id) {
-      //       // convert into arrays
-      //       const selectedCategories = Array.isArray(category_id)
-      //         ? category_id
-      //         : [category_id];
-      //       // get only the translated strings, separated by commas
-      //       category = (
-      //         this.categories.reduce((acc, { id, name_translations }) => {
-      //           if (selectedCategories.includes(id.toString())) {
-      //             acc.push(translate(name_translations));
-      //           }
-      //           return acc;
-      //         }, []) || []
-      //       ).join(", ");
-      //     }
+          if (category_id) {
+            // convert into arrays
+            const selectedCategories = Array.isArray(category_id)
+              ? category_id
+              : [category_id];
+            // get only the translated strings, separated by commas
+            category = (
+              this.categories.reduce((acc, { id, name_translations }) => {
+                if (selectedCategories.includes(id.toString())) {
+                  acc.push(translate(name_translations));
+                }
+                return acc;
+              }, []) || []
+            ).join(", ");
+          }
 
-      //     if (frequency_id) {
-      //       const selectedFrequencies = Array.isArray(frequency_id)
-      //         ? frequency_id
-      //         : [frequency_id];
+          if (frequency_id) {
+            const selectedFrequencies = Array.isArray(frequency_id)
+              ? frequency_id
+              : [frequency_id];
 
-      //       frequency = (
-      //         this.frequencies.reduce((acc, { id, name_translations }) => {
-      //           if (selectedFrequencies.includes(id.toString())) {
-      //             acc.push(translate(name_translations));
-      //           }
-      //           return acc;
-      //         }, []) || []
-      //       ).join(", ");
-      //     }
+            frequency = (
+              this.frequencies.reduce((acc, { id, name_translations }) => {
+                if (selectedFrequencies.includes(id.toString())) {
+                  acc.push(translate(name_translations));
+                }
+                return acc;
+              }, []) || []
+            ).join(", ");
+          }
 
-      //     return {
-      //       id,
-      //       slug,
-      //       name,
-      //       description,
-      //       data_updated_at,
-      //       category,
-      //       frequency
-      //     };
-      //   }
-      // );
-    },
-    isDatasetLoaded() {
-      // return this.items.length && this.subsetItems.length;
-      return true;
+          return {
+            id,
+            slug,
+            name,
+            description,
+            data_updated_at,
+            category,
+            frequency
+          };
+        }
+      );
     }
   },
   watch: {
@@ -184,10 +179,12 @@ export default {
         }
       ]
     };
+
+    this.isDatasetLoaded = true;
   },
   methods: {
     handleUpdate(items) {
-      this.items = items
+      this.items = items;
     }
   }
 };

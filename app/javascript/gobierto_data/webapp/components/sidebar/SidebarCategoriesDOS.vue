@@ -6,6 +6,7 @@
       :fields="fields"
       :metadata="metadata"
       :stats="stats"
+      :no-empty-options="true"
       @update="handleUpdate"
     />
   </div>

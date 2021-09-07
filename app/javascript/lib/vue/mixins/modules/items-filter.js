@@ -11,6 +11,12 @@ export const ItemsFilterMixin = {
       isDirty: false
     }
   },
+  props: {
+    noEmptyOptions: {
+      type: Boolean,
+      default: false
+    }
+  },
   methods: {
     createFilters({ filters, dictionary, stats = {} }) {
       // Middleware receives both the dictionary of all possible attributes, and the selected filters for the site
@@ -23,20 +29,29 @@ export const ItemsFilterMixin = {
         this.activeFilters = new Map();
         this.initializeFilters()
         this.parseQueryParams(this.$route)
+        this.updateItems()
       }
     },
     filterItems(filterFn, key) {
       this.isDirty = true
       this.activeFilters.set(key, filterFn);
-      this.updateItems();
     },
     updateItems() {
       this.subsetItems = this.applyFiltersCallbacks(this.activeFilters);
-      this.filters.forEach(filter => this.calculateOptionCounters(filter));
+      this.filters = this.filters.map(this.calculateOptionCounters);
     },
     initializeFilters() {
       this.isDirty = false
-      this.filters.forEach(({ key }) => this.activeFilters.set(key, undefined));
+      this.activeFilters.clear()
+      this.filters = this.filters.map(filter => {
+        const __filter = this.calculateOptionCounters(filter)
+
+        if (this.noEmptyOptions) {
+          __filter.options = __filter.options.filter(({ counter }) => counter > 0)
+        }
+
+        return __filter
+      });
     },
     applyFiltersCallbacks(activeFilters) {
       let results = this.items;
@@ -50,7 +65,7 @@ export const ItemsFilterMixin = {
     },
     clearFilters() {
       this.filters = []
-      this.filters = JSON.parse(JSON.stringify(this.defaultFilters))
+      this.filters = JSON.parse(JSON.stringify(this.defaultFilters.slice(0)))
 
       this.initializeFilters()
       this.updateItems();
@@ -71,6 +86,7 @@ export const ItemsFilterMixin = {
       const index = filter.options.findIndex(d => d.id === id);
       filter.options[index].isOptionChecked = value;
       this.handleCheckboxFilter(filter);
+      this.updateItems();
 
       // url updates must be done only in functions triggered by the user
       this.updateURL(filter)
@@ -107,6 +123,7 @@ export const ItemsFilterMixin = {
     handleRangeFilterStatus({ min, max, filter }) {
       // this function mutates filter, therefore updateURL receives the mutated filter obj
       this.handleRangeFilter({ min, max, filter })
+      this.updateItems();
 
       // url updates must be done only in functions triggered by the user
       this.updateURL(filter)
@@ -131,6 +148,7 @@ export const ItemsFilterMixin = {
     handleCalendarFilterStatus({ start, end, filter }) {
       // this function mutates filter, therefore updateURL receives the mutated filter obj
       this.handleCalendarFilter({ start, end, filter })
+      this.updateItems();
 
       // url updates must be done only in functions triggered by the user
       this.updateURL(filter)
@@ -161,29 +179,29 @@ export const ItemsFilterMixin = {
       const callback = !start && !end ? undefined : calendarFilterFn;
       this.filterItems(callback, key);
     },
-    calculateOptionCounters(filter) {
-      const counter = ({ key, id }) => {
-        // Clone current filters
-        const __activeFilters__ = new Map(this.activeFilters);
-        // Ignore same key callbacks (as if none of the same category are selected)
-        __activeFilters__.set(key, undefined);
-        // Get the items based on these new active filters
-        const __items__ = this.applyFiltersCallbacks(__activeFilters__);
+    counter({ key, id }) {
+      // Clone current filters
+      const __activeFilters__ = new Map(this.activeFilters);
+      // Ignore same key callbacks (as if none of the same category are selected)
+      __activeFilters__.set(key, undefined);
+      // Get the items based on these new active filters
+      const __items__ = this.applyFiltersCallbacks(__activeFilters__);
 
-        return __items__.filter(({ attributes }) =>
-          this.convertToArrayOfIds(attributes[key]).includes(id)
-        ).length;
-      };
+      return __items__.filter(({ attributes }) =>
+        this.convertToArrayOfIds(attributes[key]).includes(id)
+      ).length;
+    },
+    calculateOptionCounters(filter) {
       const { key, options = [] } = filter;
+
       if (options.length) {
         filter.options = options.map(o => ({
           ...o,
-          counter: counter({ id: o.id, key })
+          counter: this.counter({ id: o.id, key })
         }));
-
-        const index = this.filters.findIndex(d => d.key === key);
-        this.filters.splice(index, 1, filter);
       }
+
+      return filter
     },
     convertToArrayOfIds(items) {
       return Array.isArray(items) ? items.map(item => (+item)) : [+items]
@@ -240,13 +258,6 @@ export const ItemsFilterMixin = {
           this.handleCalendarFilter({ start: new Date(start), end: end ? new Date(end) : undefined, filter })
         }
       })
-
-      // If none query string is a filter, call updateItems to set the counters
-      // Otherwise, they're be called in the previous loop
-      const filterKeys = this.filters.map(x => x.key)
-      if (!Object.keys(query).some(x => filterKeys.includes(x))) {
-        this.updateItems()
-      }
     }
   }
 }

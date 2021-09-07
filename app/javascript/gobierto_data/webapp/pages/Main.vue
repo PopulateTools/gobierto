@@ -15,19 +15,18 @@
       <Sidebar
         v-else
         :active-tab="activeSidebarTab"
-        :filters="filters"
-        :items="items"
+        v-bind="attrs"
         @active-tab="activeSidebarTab = $event"
+        @update="handleUpdate"
       />
     </template>
 
-    <template v-if="!isDatasetLoaded">
-      <SkeletonSpinner
-        height-square="200px"
-        squares-rows="3"
-        squares="1"
-      />
-    </template>
+    <SkeletonSpinner
+      v-if="!isDatasetLoaded"
+      height-square="200px"
+      squares-rows="3"
+      squares="1"
+    />
     <keep-alive v-else>
       <router-view
         :key="$route.params.id"
@@ -43,8 +42,8 @@ import { SkeletonSpinner } from "lib/vue/components";
 import Layout from "./../layouts/Layout.vue";
 import Sidebar from "./../components/Sidebar.vue";
 import { CategoriesMixin } from "./../../lib/mixins/categories.mixin";
-import { FiltersMixin } from "./../../lib/mixins/filters.mixin";
-import { VueFiltersMixin } from "lib/vue/filters";
+import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
+// import { translate } from "lib/vue/filters";
 
 export default {
   name: "Main",
@@ -53,89 +52,98 @@ export default {
     Sidebar,
     SkeletonSpinner
   },
-  mixins: [CategoriesMixin, FiltersMixin, VueFiltersMixin],
+  mixins: [CategoriesMixin, DatasetFactoryMixin],
   data() {
     return {
       activeSidebarTab: 0,
-      pageTitle: ""
+      pageTitle: "",
+      attrs: {},
+      items: []
     };
   },
   computed: {
     categories() {
       const { dictionary = [] } = this.middleware || {};
       // We need to extract the human-readable elements from the dictionary
-      const { attributes: { vocabulary_terms: categories = [] } = {} } = dictionary.find(
-        ({ attributes: { uid } = {} }) => uid === "category"
-      ) || {};
+      const { attributes: { vocabulary_terms: categories = [] } = {} } =
+        dictionary.find(({ attributes: { uid } = {} }) => uid === "category") ||
+        {};
 
-      return categories
+      return categories;
     },
     frequencies() {
       const { dictionary = [] } = this.middleware || {};
       // We need to extract the human-readable elements from the dictionary
-      const { attributes:{ vocabulary_terms: frequencies = [] } = {} } = dictionary.find(
-        ({ attributes: { uid } = {} }) => uid === "frequency"
-      ) || {};
+      const { attributes: { vocabulary_terms: frequencies = [] } = {} } =
+        dictionary.find(
+          ({ attributes: { uid } = {} }) => uid === "frequency"
+        ) || {};
 
-      return frequencies
+      return frequencies;
     },
     parsedSubsetItems() {
-      return this.subsetItems.map(
-        ({
-          id,
-          attributes: {
-            slug,
-            name,
-            description,
-            data_updated_at,
-            category: category_id,
-            frequency: frequency_id
-          }
-        }) => {
-          let category = null;
-          let frequency = null;
+      return this.items;
+      // return this.subsetItems.map(
+      //   ({
+      //     id,
+      //     attributes: {
+      //       slug,
+      //       name,
+      //       description,
+      //       data_updated_at,
+      //       category: category_id,
+      //       frequency: frequency_id
+      //     }
+      //   }) => {
+      //     let category = null;
+      //     let frequency = null;
 
-          if (category_id) {
-            // convert into arrays
-            const selectedCategories = Array.isArray(category_id)
-              ? category_id
-              : [category_id];
-            // get only the translated strings, separated by commas
-            category = (this.categories.reduce((acc, { id, name_translations }) => {
-              if (selectedCategories.includes(id.toString())) {
-                acc.push(this.translate(name_translations))
-              }
-              return acc
-            }, []) || []).join(", ");
-          }
+      //     if (category_id) {
+      //       // convert into arrays
+      //       const selectedCategories = Array.isArray(category_id)
+      //         ? category_id
+      //         : [category_id];
+      //       // get only the translated strings, separated by commas
+      //       category = (
+      //         this.categories.reduce((acc, { id, name_translations }) => {
+      //           if (selectedCategories.includes(id.toString())) {
+      //             acc.push(translate(name_translations));
+      //           }
+      //           return acc;
+      //         }, []) || []
+      //       ).join(", ");
+      //     }
 
-          if (frequency_id) {
-            const selectedFrequencies = Array.isArray(frequency_id)
-              ? frequency_id
-              : [frequency_id];
+      //     if (frequency_id) {
+      //       const selectedFrequencies = Array.isArray(frequency_id)
+      //         ? frequency_id
+      //         : [frequency_id];
 
-            frequency = (this.frequencies.reduce((acc, { id, name_translations }) => {
-              if (selectedFrequencies.includes(id.toString())) {
-                acc.push(this.translate(name_translations))
-              }
-              return acc
-            }, []) || []).join(", ");
-          }
+      //       frequency = (
+      //         this.frequencies.reduce((acc, { id, name_translations }) => {
+      //           if (selectedFrequencies.includes(id.toString())) {
+      //             acc.push(translate(name_translations));
+      //           }
+      //           return acc;
+      //         }, []) || []
+      //       ).join(", ");
+      //     }
 
-          return {
-            id,
-            slug,
-            name,
-            description,
-            data_updated_at,
-            category,
-            frequency
-          };
-        }
-      );
+      //     return {
+      //       id,
+      //       slug,
+      //       name,
+      //       description,
+      //       data_updated_at,
+      //       category,
+      //       frequency
+      //     };
+      //   }
+      // );
     },
     isDatasetLoaded() {
-      return this.items.length && this.subsetItems.length;
+      // return this.items.length && this.subsetItems.length;
+      return true;
     }
   },
   watch: {
@@ -145,16 +153,42 @@ export default {
       }
     }
   },
-  created() {
-    this.$root.$on("sendCheckbox_TEMP", this.handleCheckboxStatus);
-    this.$root.$on("selectAll_TEMP", this.handleIsEverythingChecked);
-    this.$root.$on("selectCheckboxPermalink_TEMP", this.handleCheckboxFilter);
+  async created() {
     this.pageTitle = document.title;
+
+    const [
+      {
+        data: { data: items = [] }
+      },
+      {
+        data: { data: metadata = [], meta: stats = {} }
+      }
+    ] = await Promise.all([
+      this.getDatasets(),
+      this.getDatasetsMetadata({ stats: true })
+    ]);
+
+    // TODO: completar los fields de manera adecuada
+    this.attrs = {
+      items,
+      metadata,
+      stats,
+      fields: [
+        {
+          id: "category",
+          flat: true
+        },
+        {
+          id: "frequency",
+          flat: true
+        }
+      ]
+    };
   },
-  deactivated() {
-    this.$root.$off("sendCheckbox_TEMP");
-    this.$root.$off("selectAll_TEMP");
-    this.$root.$off("selectCheckboxPermalink_TEMP");
+  methods: {
+    handleUpdate(items) {
+      this.items = items
+    }
   }
 };
 </script>

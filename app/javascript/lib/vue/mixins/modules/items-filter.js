@@ -11,13 +11,6 @@ export const ItemsFilterMixin = {
       isDirty: false
     }
   },
-  watch: {
-    items() {
-      // when the array of items is informed (usually delayed due to XHR)
-      // set both subset (equal to items at startup) and the counters
-      this.updateItems()
-    },
-  },
   methods: {
     createFilters({ filters, dictionary, stats = {} }) {
       // Middleware receives both the dictionary of all possible attributes, and the selected filters for the site
@@ -239,18 +232,21 @@ export const ItemsFilterMixin = {
           })
           this.filters.splice(ix, 1, filter)
           this.handleCheckboxFilter(filter)
-        }
-
-        if (filter && filter.type === "numeric") {
+        } else if (filter && filter.type === "numeric") {
           const [min, max] = values.split(",")
           this.handleRangeFilter({ min: +min, max: +max, filter })
-        }
-
-        if (filter && filter.type === "date") {
+        } else if (filter && filter.type === "date") {
           const [start, end] = values.split(",")
           this.handleCalendarFilter({ start: new Date(start), end: end ? new Date(end) : undefined, filter })
         }
       })
+
+      // If none query string is a filter, call updateItems to set the counters
+      // Otherwise, they're be called in the previous loop
+      const filterKeys = this.filters.map(x => x.key)
+      if (!Object.keys(query).some(x => filterKeys.includes(x))) {
+        this.updateItems()
+      }
     }
   }
 }

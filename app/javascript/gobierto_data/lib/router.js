@@ -12,7 +12,6 @@ export const tabs = ['resumen', 'editor', 'consultas', 'visualizaciones', 'desca
 export const ROUTE_NAMES = {
   Visualizations: 'Visualizations',
   Index: 'index',
-  Terms: 'terms',
   Dataset: 'Dataset',
   Query: 'Query',
   Visualization: 'Visualization',
@@ -36,11 +35,6 @@ export const router = new VueRouter({
         {
           path: '',
           name: ROUTE_NAMES.Index,
-          component: Index
-        },
-        {
-          path: '/datos/terms/*',
-          name: ROUTE_NAMES.Terms,
           component: Index
         },
         {

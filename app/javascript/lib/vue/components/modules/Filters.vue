@@ -126,11 +126,8 @@ export default {
     };
   },
   watch: {
-    subsetItems: {
-      handler(items) {
-        this.$emit("update", items);
-      },
-      immediate: true
+    subsetItems(items) {
+      this.$emit("update", items);
     }
   },
   created() {

@@ -1,5 +1,8 @@
 <template>
-  <div class="pure-u-1 pure-u-lg-4-4">
+  <div
+    class="pure-u-1 pure-u-lg-4-4"
+    @click="handleClick"
+  >
     <Filters
       v-if="items.length"
       :data="items"
@@ -13,6 +16,7 @@
 </template>
 <script>
 import { Filters } from "lib/vue/components";
+import { ROUTE_NAMES } from "../../../lib/router";
 
 export default {
   name: "SidebarCategories",
@@ -30,16 +34,21 @@ export default {
     },
     metadata: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     stats: {
       type: Object,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
   methods: {
     handleUpdate(items) {
-      this.$emit("update", items)
+      this.$emit("update", items);
+    },
+    handleClick() {
+      if (this.$route.name !== ROUTE_NAMES.Index) {
+        this.$router.push({ name: ROUTE_NAMES.Index });
+      }
     }
   }
 };

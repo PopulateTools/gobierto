@@ -11,7 +11,7 @@ const Visualizations = () => import("../webapp/pages/Visualizations.vue");
 export const tabs = ['resumen', 'editor', 'consultas', 'visualizaciones', 'descarga', 'mapa']
 export const ROUTE_NAMES = {
   Visualizations: 'Visualizations',
-  Index: 'index',
+  Index: 'Index',
   Dataset: 'Dataset',
   Query: 'Query',
   Visualization: 'Visualization',

@@ -11,7 +11,7 @@ module GobiertoVisualizations
     private
 
     def visualization_enabled!
-      render_404 unless visualizations_config.fetch('enabled', false)
+      render_404 unless visualizations_config&.fetch("enabled", false)
     end
 
     def visualizations_config

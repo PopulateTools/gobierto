@@ -43,6 +43,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
         "visualizations" => {
           "contracts" => {
             "enabled" => true,
+            "home" => true,
             "data_urls" => {
               "tenders" => "/tenders.csv",
               "contracts" => "/contracts.csv"
@@ -51,6 +52,18 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
         }
       }
     }
+  end
+
+  def test_root_path
+    site.configuration.home_page = "GobiertoVisualizations"
+
+    with(site: site, js: true) do
+      visit @root_path
+
+      assert page.has_content?("ASSIGNEE")
+      assert page.has_content?("CONTRACT")
+      assert page.has_content?("AMOUNT")
+    end
   end
 
   def test_summary

@@ -32,13 +32,14 @@
     <keep-alive>
       <component
         :is="currentTabComponent"
-        :filters="mutatedFilters"
-        :items="items"
+        v-bind="$attrs"
+        @update="handleUpdate"
       />
     </keep-alive>
   </div>
 </template>
 <script>
+
 // define the components as dynamic
 const COMPONENTS = [
   () => import("./sidebar/SidebarCategories.vue"),
@@ -48,27 +49,19 @@ const COMPONENTS = [
 
 export default {
   name: "Sidebar",
+  inheritAttrs: false,
   props: {
     activeTab: {
       type: Number,
       default: 0
     },
-    filters: {
-      type: Array,
-      default: () => []
-    },
-    items: {
-      type: Array,
-      default: () => []
-    }
   },
   data() {
     return {
       labelSets: I18n.t("gobierto_data.projects.sets") || "",
-      /*labelQueries: I18n.t("gobierto_data.projects.queries") || "",*/
+      // labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelCategories: I18n.t("gobierto_data.projects.categories") || "",
       currentTabComponent: null,
-      mutatedFilters: []
     };
   },
   watch: {
@@ -80,14 +73,13 @@ export default {
   },
   created() {
     this.currentTabComponent = COMPONENTS[this.activeTab];
-
-    this.mutatedFilters = this.filters.map((element) => {
-      return { ...element, options: element.options.filter((subElement) => subElement.counter > 0) }
-    })
   },
   methods: {
     activateTab(index) {
-      this.$emit('active-tab', index)
+      this.$emit("active-tab", index)
+    },
+    handleUpdate(items) {
+      this.$emit("update", items)
     }
   }
 };

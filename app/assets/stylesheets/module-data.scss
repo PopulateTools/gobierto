@@ -1,11 +1,8 @@
 @import "css-conf";
 @import "mixins";
-@import "comp-vue-block-checkbox";
-@import "comp-vue-block-header";
+@import "comp-vue-filters";
 @import "comp-perspective-viewer";
-@import "comp-vue-dropdown";
 @import "comp-vue-skeleton-spinner";
-@import "comp-vue-transitions";
 
 :root {
   --transition: .1s ease-in;
@@ -1063,10 +1060,6 @@
     display: inline-block;
     width: max-content;
     max-width: 80%;
-  }
-
-  &-filters {
-    width: 100%;
   }
 
   &-filters-element {

@@ -2,7 +2,7 @@
   <div class="gobierto-block-header">
     <strong class="gobierto-block-header--title">
       <i
-        :class="rotate ? '' : 'rotate-caret'"
+        :class="rotate ? 'rotate-caret' : ''"
         class="fas fa-caret-down gobierto-block-header--icon"
         @click="toggle"
       />

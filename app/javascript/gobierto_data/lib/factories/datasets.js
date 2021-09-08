@@ -12,6 +12,14 @@ const headers = {
 // Dataset-endpoint factory to get/post/put/delete API data
 export const DatasetFactoryMixin = {
   methods: {
+    getDatasets(params) {
+      const qs = new URLSearchParams(params);
+      return axios.get(`${endPoint}?${qs.toString()}`, { headers });
+    },
+    getDatasetsMetadata(params) {
+      const qs = new URLSearchParams(params);
+      return axios.get(`${endPoint}/meta?${qs.toString()}`, { headers });
+    },
     getDatasetMetadata(id) {
       return axios.get(`${endPoint}/${id}/meta`, { headers })
     }

@@ -41,11 +41,20 @@
 import { SkeletonSpinner } from "lib/vue/components";
 import Layout from "./../layouts/Layout.vue";
 import Sidebar from "./../components/Sidebar.vue";
-import { CategoriesMixin } from "./../../lib/mixins/categories.mixin";
 import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
 import { translate } from "lib/vue/filters";
-import CONFIGURATION from "../../lib/filters.conf"
-const { availableFilters: fields } = CONFIGURATION
+
+// availableFilters on https://gobierto.readme.io/docs/inversiones-configuration
+const fields = [
+  {
+    id: "category",
+    flat: true
+  },
+  {
+    id: "frequency",
+    flat: true
+  }
+];
 
 export default {
   name: "Main",
@@ -54,7 +63,7 @@ export default {
     Sidebar,
     SkeletonSpinner
   },
-  mixins: [CategoriesMixin, DatasetFactoryMixin],
+  mixins: [DatasetFactoryMixin],
   data() {
     return {
       activeSidebarTab: 0,
@@ -169,7 +178,7 @@ export default {
       items,
       fields,
       metadata,
-      stats,
+      stats
     };
 
     this.isDatasetLoaded = true;

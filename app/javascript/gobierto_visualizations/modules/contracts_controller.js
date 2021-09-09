@@ -11,11 +11,11 @@ import VueRouter from "vue-router";
 import { getRemoteData, calculateSumMeanMedian } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/lib/mixins/event_bus";
 
-// import { checkAndReportAccessibility } from "lib/vue/accesibility";
+import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
-// if (Vue.config.devtools) {
-//   Vue.use(checkAndReportAccessibility)
-// }
+if (Vue.config.devtools) {
+  Vue.use(checkAndReportAccessibility)
+}
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;

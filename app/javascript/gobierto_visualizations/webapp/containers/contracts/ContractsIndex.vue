@@ -1,20 +1,19 @@
 <template>
-  <div>
-    <Table
-      :data="items"
-      :sort-column="'final_amount_no_taxes'"
-      :sort-direction="'desc'"
-      :columns="contractsColumns"
-      :show-columns="showColumns"
-      class="gobierto-table-margin-top gobierto-table-scroll"
-      @on-href-click="goesToTableItem"
-    />
-  </div>
+  <Table
+    v-if="false"
+    :data="items"
+    :sort-column="'final_amount_no_taxes'"
+    :sort-direction="'desc'"
+    :columns="contractsColumns"
+    :show-columns="showColumns"
+    class="gobierto-table-margin-top gobierto-table-scroll"
+    @on-href-click="goesToTableItem"
+  />
 </template>
 
 <script>
 import { Table } from "lib/vue/components";
-import { EventBus } from "../../mixins/event_bus";
+import { EventBus } from "../../lib/mixins/event_bus";
 import { contractsColumns } from "../../lib/config/contracts.js";
 
 export default {

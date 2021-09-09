@@ -26,7 +26,7 @@
 <script>
 import { nest } from "d3-collection";
 import { select, mouse } from 'd3-selection';
-import TreeMapNested from "../../visualizations/treeMapNested.vue";
+import TreeMapNested from "../../components/TreeMapNested.vue";
 import { sumDataByGroupKey } from "../../lib/utils";
 import { money } from "lib/vue/filters";
 

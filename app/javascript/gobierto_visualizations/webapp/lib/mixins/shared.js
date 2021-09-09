@@ -1,6 +1,6 @@
 import { EventBus } from "./event_bus";
 
-export const visualizationsMixins = {
+export const SharedMixin = {
   created() {
     this.items = this.buildItems();
   },

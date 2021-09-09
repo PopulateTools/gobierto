@@ -100,7 +100,7 @@
 <script>
 
 import { VueFiltersMixin, date } from "lib/vue/filters"
-import { EventBus } from "../../mixins/event_bus";
+import { EventBus } from "../../lib/mixins/event_bus";
 import ContractsShowLabelHeader from "./../../components/ContractsShowLabelHeader.vue";
 import ContractsShowLabelGroup from "./../../components/ContractsShowLabelGroup.vue";
 import ContractsShowTable from "./../../components/ContractsShowTable.vue";

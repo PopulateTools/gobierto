@@ -212,12 +212,14 @@ export default {
 
       const ticksLength = filterData.length > 100 ? filterData.length : 100
 
+console.time('sim');
       d3
         .forceSimulation(filterData)
         .force('x', d3.forceX(d => scaleX(d[this.xAxisProp])))
         .force('y', d3.forceY(d => scaleY(d[this.yAxisProp])))
         .force('collide', d3.forceCollide().radius(d => d.radius + this.padding))
         .tick(ticksLength)
+console.timeEnd('sim');
 
       let circlesBees = g
         .selectAll('.beeswarm-circle')

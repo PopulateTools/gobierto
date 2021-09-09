@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { EventBus } from "../../mixins/event_bus";
+import { EventBus } from "../../lib/mixins/event_bus";
 
 export default {
   name: 'Nav',

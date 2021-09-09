@@ -11,7 +11,7 @@
 
 <script>
 import { Table } from "lib/vue/components";
-import { EventBus } from "../../mixins/event_bus";
+import { EventBus } from "../../lib/mixins/event_bus";
 import { subsidiesColumns } from "../../lib/config/subsidies.js";
 
 export default {

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import { getRemoteData } from "../webapp/lib/utils";
-import { EventBus } from "../webapp/mixins/event_bus";
+import { EventBus } from "../webapp/lib/mixins/event_bus";
 // import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
 // if (Vue.config.devtools) {

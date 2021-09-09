@@ -220,20 +220,18 @@ export default {
     }
   },
   computed: {
-    visualizationsDataExcludeNoCategory() {
-      return this.visualizationsData
-        .filter(({ category_id }) => !!category_id)
-        .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
-    },
-    visualizationsDataExcludeMinorContract() {
-      return this.visualizationsData
-        .filter(({ minor_contract: minor }) => minor === 'f')
-        .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
-    },
     visualizationsDataEntity() {
       return this.visualizationsData
         .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
-    }
+    },
+    visualizationsDataExcludeNoCategory() {
+      return this.visualizationsDataEntity
+        .filter(({ category_id }) => !!category_id)
+    },
+    visualizationsDataExcludeMinorContract() {
+      return this.visualizationsDataEntity
+        .filter(({ minor_contract: minor }) => minor === 'f')
+    },
   },
   created() {
     this.columns = assigneesColumns;

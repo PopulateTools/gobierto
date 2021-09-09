@@ -200,7 +200,7 @@ module GobiertoAdmin
       end
 
       def set_dashboards_list_path
-        return unless current_site.configuration.gobierto_dashboards_enabled? &&
+        return unless current_site.configuration.available_module?("GobiertoDashboards") &&
                       current_admin.module_allowed_action?(current_admin_module, current_site, :manage_dashboards)
 
         @dashboards_list_path ||= list_admin_plans_plan_dashboards_path(@plan)

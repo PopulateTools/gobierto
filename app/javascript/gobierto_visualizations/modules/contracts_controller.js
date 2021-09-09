@@ -11,12 +11,15 @@ import VueRouter from "vue-router";
 import { getRemoteData, calculateSumMeanMedian } from "../webapp/lib/utils";
 import { EventBus } from "../webapp/mixins/event_bus";
 
-const d3 = { scaleThreshold, sum, mean, median, max };
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+// import { checkAndReportAccessibility } from "lib/vue/accesibility";
+
+// if (Vue.config.devtools) {
+//   Vue.use(checkAndReportAccessibility)
+// }
 
 Vue.use(VueRouter);
-Vue.use(checkAndReportAccessibility);
 Vue.config.productionTip = false;
+const d3 = { scaleThreshold, sum, mean, median, max };
 
 export class ContractsController {
   constructor(options) {

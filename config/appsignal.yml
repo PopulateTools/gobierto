@@ -10,6 +10,13 @@ default: &defaults
     - ActionController::UnknownFormat
   enable_frontend_error_catching: true
   enable_gc_instrumentation: true
+  ignore_actions:
+    - "GobiertoPeople::People::PersonEventsController#index"
+    - "GobiertoPeople::PersonEventsController#index"
+    - "GobiertoPeople::PastPersonEventsController#index"
+    - "GobiertoPeople::People::PastPersonEventsController#index"
+    - "GobiertoPeople::People::PersonEventsController#show"
+    - "GobiertoPeople::GovernmentPartyPastPersonEventsController#index"
 
 development:
   <<: *defaults

@@ -59,6 +59,7 @@ export class ContractsController {
           routes: [
             {
               path: "/visualizaciones/contratos",
+              alias: '/',
               component: Home,
               props: { dataDownloadEndpoint: options.dataDownloadEndpoint },
               children: [

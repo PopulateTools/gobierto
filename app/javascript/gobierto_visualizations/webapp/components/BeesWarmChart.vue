@@ -105,6 +105,7 @@ export default {
 
     this.setupElements();
     this.buildBeesWarm(this.data);
+
     window.addEventListener("resize", this.resizeListener);
   },
   destroyed() {
@@ -195,22 +196,21 @@ export default {
         .force("x", forceX(d => scaleX(d[this.xAxisProp])))
         .force("y", forceY(d => scaleY(d[this.yAxisProp])))
         .force("collide", forceCollide().radius(d => d.radius + this.padding))
-        .on("tick", () => {
-          g.selectAll(".beeswarm-circle")
-            .attr("cx", (d) => {
-              // if (k[0] === 0) console.log(d, k);
-              return d.x
-            })
-            .attr("cy", d => d.y);
-        });
+        .on("tick", () => g.selectAll(".beeswarm-circle")
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y));
 
       g.selectAll(".beeswarm-circle")
         .data(filterData, d => d.slug)
         .join(
-          enter => enter.append("circle"),
-          update => {
-            return update;
-          }
+          enter => enter.append("circle")
+            .attr(
+              "class",
+              d => `beeswarm-circle beeswarm-circle-${slugString(d.id)} beeswarm-circle-${d.slug_contract_type}`
+            )
+            .attr("id", d => d.slug)
+            .attr("r", d => d.radius)
+            .attr("fill", d => this.colors(d.slug_contract_type)),
         )
         .on("mouseover", (event, d) => {
           this.$emit("showTooltip", event, d);
@@ -238,16 +238,6 @@ export default {
             .style("opacity", 1);
         })
         .on("click", d => this.$emit("goesToItem", d))
-        .attr(
-          "class",
-          d =>
-            `beeswarm-circle beeswarm-circle-${slugString(
-              d.id
-            )} beeswarm-circle-${d.slug_contract_type}`
-        )
-        .attr("id", d => d.slug)
-        .attr("r", d => d.radius)
-        .attr("fill", d => this.colors(d.slug_contract_type));
     },
     transformData(data) {
       const maxFinalAmount = max(data, d => d.final_amount_no_taxes);

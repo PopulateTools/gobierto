@@ -191,48 +191,27 @@ export default {
 
       g.selectAll(".label-y").call(this.wrapTextLabel, 120);
 
-      const SIMULATION_UPPER_LIMIT = 150
-      const maxDataSimulation = filterData
-        .sort((a, b) =>
-          a.final_amount_no_taxes < b.final_amount_no_taxes ? 1 : -1
-        )
-        .slice(0, SIMULATION_UPPER_LIMIT);
+      forceSimulation(filterData)
+        .force("x", forceX(d => scaleX(d[this.xAxisProp])))
+        .force("y", forceY(d => scaleY(d[this.yAxisProp])))
+        .force("collide", forceCollide().radius(d => d.radius + this.padding))
+        .on("tick", () => {
+          g.selectAll(".beeswarm-circle")
+            .attr("cx", (d) => {
+              // if (k[0] === 0) console.log(d, k);
+              return d.x
+            })
+            .attr("cy", d => d.y);
+        });
 
-      forceSimulation(maxDataSimulation)
-        .force(
-          "x",
-          forceX(d => scaleX(d[this.xAxisProp]))
+      g.selectAll(".beeswarm-circle")
+        .data(filterData, d => d.slug)
+        .join(
+          enter => enter.append("circle"),
+          update => {
+            return update;
+          }
         )
-        .force(
-          "y",
-          forceY(d => scaleY(d[this.yAxisProp]))
-        )
-        .force(
-          "collide",
-          forceCollide().radius(d => d.radius + this.padding)
-        )
-        .tick(filterData.length);
-
-      let circlesBees = g.selectAll(".beeswarm-circle").data(filterData);
-
-      circlesBees
-        .exit()
-        .transition()
-        .duration(450)
-        .ease(easeLinear)
-        .attr("cx", this.svgWidth / 2)
-        .attr("cy", this.svgHeight / 2)
-        .attr("r", 0)
-        .remove();
-
-      circlesBees
-        .enter()
-        .append("circle")
-        .attr("r", 0)
-        .attr("cx", this.svgWidth / 2)
-        .attr("cy", this.svgHeight / 2)
-        .attr("fill", "transparent")
-        .merge(circlesBees)
         .on("mouseover", (event, d) => {
           this.$emit("showTooltip", event, d);
           selectAll(`.beeswarm-circle`)
@@ -258,19 +237,15 @@ export default {
             .duration(450)
             .style("opacity", 1);
         })
-        .on("click", d => {
-          this.$emit("goesToItem", d);
-        })
-        .transition()
-        .duration(450)
-        .ease(easeLinear)
-        .attr("class", d => {
-          d.id = slugString(d.id);
-          return `beeswarm-circle beeswarm-circle-${d.id} beeswarm-circle-${d.slug_contract_type}`;
-        })
+        .on("click", d => this.$emit("goesToItem", d))
+        .attr(
+          "class",
+          d =>
+            `beeswarm-circle beeswarm-circle-${slugString(
+              d.id
+            )} beeswarm-circle-${d.slug_contract_type}`
+        )
         .attr("id", d => d.slug)
-        .attr("cx", d => d.x - 5)
-        .attr("cy", d => d.y)
         .attr("r", d => d.radius)
         .attr("fill", d => this.colors(d.slug_contract_type));
     },
@@ -294,7 +269,10 @@ export default {
       });
 
       return data
-        .filter(({ final_amount_no_taxes }) => final_amount_no_taxes !== 0)
+        .filter(
+          ({ final_amount_no_taxes, [this.xAxisProp]: date }) =>
+            final_amount_no_taxes !== 0 && !!date.getDate()
+        )
         .sort(({ contract_type: a = "" }, { contract_type: b = "" }) =>
           a.localeCompare(b)
         );

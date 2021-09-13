@@ -25,6 +25,7 @@
         @goesToItem="goesToItem"
       />
     </div>
+
     <div
       id="tendersContractsSummary"
       class="metric_boxes mt4"
@@ -163,10 +164,11 @@
   </div>
 </template>
 <script>
-import { BeesWarmChart, Table } from "lib/vue/components";
+import { Table } from "lib/vue/components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import EntityTreeMapNested from "./EntityTreeMapNested.vue";
-import { visualizationsMixins } from "../../mixins/visualizations_mixins";
+import BeesWarmChart from "../../components/BeesWarmChart.vue";
+import { SharedMixin } from "../../lib/mixins/shared";
 import { assigneesColumns } from "../../lib/config/contracts.js";
 import { select, mouse } from 'd3-selection'
 import { timeParse } from 'd3-time-format';
@@ -182,7 +184,7 @@ export default {
     CategoriesTreeMapNested,
     EntityTreeMapNested
   },
-  mixins: [visualizationsMixins],
+  mixins: [SharedMixin],
   props: {
     activeTab: {
       type: Number,
@@ -220,20 +222,18 @@ export default {
     }
   },
   computed: {
-    visualizationsDataExcludeNoCategory() {
-      return this.visualizationsData
-        .filter(({ category_id }) => !!category_id)
-        .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
-    },
-    visualizationsDataExcludeMinorContract() {
-      return this.visualizationsData
-        .filter(({ minor_contract: minor }) => minor === 'f')
-        .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
-    },
     visualizationsDataEntity() {
       return this.visualizationsData
         .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
-    }
+    },
+    visualizationsDataExcludeNoCategory() {
+      return this.visualizationsDataEntity
+        .filter(({ category_id }) => !!category_id)
+    },
+    visualizationsDataExcludeMinorContract() {
+      return this.visualizationsDataEntity
+        .filter(({ minor_contract: minor }) => minor === 'f')
+    },
   },
   created() {
     this.columns = assigneesColumns;

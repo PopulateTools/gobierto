@@ -49,7 +49,7 @@
 <script>
 import { BlockHeader, Checkbox, Dropdown } from "lib/vue/components";
 import DownloadButton from "../../components/DownloadButton.vue";
-import { EventBus } from "../../mixins/event_bus";
+import { EventBus } from "../../lib/mixins/event_bus";
 import { contractsFiltersConfig } from "../../lib/config/contracts.js";
 import SearchFilter from "../../components/SearchFilter.vue";
 import { slugString } from "lib/shared";

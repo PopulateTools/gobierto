@@ -28,8 +28,8 @@ import Summary from "./Summary.vue";
 import SubsidiesIndex from "./SubsidiesIndex.vue";
 import SubsidiesShow from "./SubsidiesShow.vue";
 
-import { EventBus } from "../../mixins/event_bus";
-import { store } from "../../mixins/store";
+import { EventBus } from "../../lib/mixins/event_bus";
+import { store } from "../../lib/mixins/store";
 
 export default {
   name: 'Home',

@@ -190,7 +190,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert page.has_content?("2017 (3)")
 
       table_rows = find_all(".gobierto-table tbody tr")
-      assert table_rows.size, 25
+      assert_equal table_rows.size, 25
 
       rows_years = table_rows.map{|tr| tr.find_all("td").last.text.split("/").last }.uniq
       assert_equal rows_years, ["2019", "2021", "2020", "2018", "Invalid Date"]

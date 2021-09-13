@@ -168,7 +168,7 @@
 <script>
 import { Table } from "lib/vue/components";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
-import { visualizationsMixins } from "../../mixins/visualizations_mixins";
+import { SharedMixin } from "../../lib/mixins/shared";
 import { grantedColumns, subsidiesFiltersConfig } from "../../lib/config/subsidies.js";
 
 export default {
@@ -177,7 +177,7 @@ export default {
     Table,
     CategoriesTreeMapNested
   },
-  mixins: [visualizationsMixins],
+  mixins: [SharedMixin],
   data(){
     return {
       visualizationsData: this.$root.$data.subsidiesData,

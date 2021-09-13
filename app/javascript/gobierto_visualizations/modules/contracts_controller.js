@@ -147,8 +147,8 @@ export class ContractsController {
   }
 
   setGlobalVariables([contractsData, tendersData]) {
-    let contractsDataMap = this._translateContracts(contractsData, false)
-    let tendersDataMap = this._translateContracts(tendersData, true)
+    let contractsDataMap = this._translate(contractsData, false)
+    let tendersDataMap = this._translate(tendersData, true)
     const sortByField = dateField => {
       return function(a, b) {
         const aDate = a[dateField],
@@ -216,13 +216,21 @@ export class ContractsController {
     };
   }
 
-  _translateContracts(data, dataForTenders) {
-    data.map(d => {
+  _translate(data, dataForTenders) {
+    return data.map(d => {
       const { category_title, contract_type, process_type, status } = d
 
-      d.category_title = I18n.t(`gobierto_visualizations.visualizations.categories.${category_title}`)
-      d.contract_type = I18n.t(`gobierto_visualizations.visualizations.contract_types.${contract_type}`)
-      d.process_type = I18n.t(`gobierto_visualizations.visualizations.process_types.${process_type}`)
+      if (category_title) {
+        d.category_title = I18n.t(`gobierto_visualizations.visualizations.categories.${category_title}`)
+      }
+
+      if (contract_type) {
+        d.contract_type = I18n.t(`gobierto_visualizations.visualizations.contract_types.${contract_type}`)
+      }
+
+      if (process_type) {
+        d.process_type = I18n.t(`gobierto_visualizations.visualizations.process_types.${process_type}`)
+      }
 
       if (dataForTenders) {
         d.status = I18n.t(`gobierto_visualizations.visualizations.tender_statuses.${status}`)
@@ -230,8 +238,8 @@ export class ContractsController {
         d.status = I18n.t(`gobierto_visualizations.visualizations.contract_statuses.${status}`)
       }
 
+      return d
     })
-    return data
   }
 
   _renderSummary() {

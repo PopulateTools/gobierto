@@ -1,6 +1,5 @@
 <template>
   <Table
-    v-if="false"
     :data="items"
     :sort-column="'final_amount_no_taxes'"
     :sort-direction="'desc'"

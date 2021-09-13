@@ -193,7 +193,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert table_rows.size, 25
 
       rows_years = table_rows.map{|tr| tr.find_all("td").last.text.split("/").last }.uniq
-      assert_equal rows_years, ["2019", "2021", "2020", "2018", "Invalid Date"]
+      assert_equal rows_years, ["2019", "2021", "2020", "2018"]
 
       # Let's filter by 2021 year
       find("#container-checkbox-dates-2021").click

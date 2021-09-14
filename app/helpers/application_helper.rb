@@ -13,6 +13,7 @@ module ApplicationHelper
     if current_site&.configuration&.engine_overrides&.any?
       classes.push(Rails.configuration.gobierto_engines_themes[current_site.configuration.engine_overrides.first])
     end
+    classes.push current_module
     classes.push controller_name
     classes.push action_name
     classes.push "#{controller_name}_#{action_name}"

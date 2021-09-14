@@ -49,6 +49,7 @@ export class SubsidiesController {
           routes: [
             {
               path: "/visualizaciones/subvenciones",
+              alias: "/",
               component: Home,
               props: { dataDownloadEndpoint: options.dataDownloadEndpoint },
               children: [

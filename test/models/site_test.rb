@@ -10,6 +10,23 @@ class SiteTest < ActiveSupport::TestCase
 
   attr_reader :module_seeder_spy
 
+  def visualizations_settings
+    {
+      "visualizations_config" => {
+        "visualizations" => {
+          "contracts" => {
+            "enabled" => true,
+            "home" => true,
+            "data_urls" => {
+              "tenders" => "/tenders.csv",
+              "contracts" => "/contracts.csv"
+            }
+          }
+        }
+      }
+    }
+  end
+
   def first_call_arguments
     recipe_spy.calls.first.args
   end
@@ -37,6 +54,17 @@ class SiteTest < ActiveSupport::TestCase
 
   def test_root_path
     assert_equal "/participacion", site.root_path
+  end
+
+  def test_visualizations_root_path
+    ::GobiertoModuleSettings.create!({
+      site_id: site.id,
+      module_name: "GobiertoVisualizations",
+      settings: visualizations_settings
+    })
+    site.configuration.home_page = "GobiertoVisualizations"
+
+    assert_equal Rails.application.routes.url_helpers.gobierto_visualizations_contracts_path, site.root_path
   end
 
   # -- Initialization

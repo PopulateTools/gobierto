@@ -15,7 +15,7 @@ gem "meta-tags"
 gem "paper_trail"
 gem "paranoia"
 gem "pg", "~> 1.1"
-gem "rails", "~> 6.0"
+gem "rails", "~> 6.0.4.1"
 gem "redcarpet", require: true
 gem "responders"
 gem "rollbar"

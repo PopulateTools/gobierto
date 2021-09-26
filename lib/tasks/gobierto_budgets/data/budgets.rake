@@ -5,6 +5,7 @@ namespace :gobierto_budgets do
     desc "Import budgets from CSV with gobierto_budgets_data format"
     task :import_gobierto_budgets_data, [:csv_path] => :environment do |_t, args|
 
+      # Import budgets
       csv_path = args[:csv_path]
       unless File.file?(csv_path)
         puts "[ERROR] No CSV file found: #{csv_path}"
@@ -19,6 +20,32 @@ namespace :gobierto_budgets do
       nitems = importer.import!
       puts "[SUCCESS] Imported #{nitems}"
 
+      # Calculate total amounts
+      TOTAL_BUDGET_INDEXES = [
+        GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST,
+        GobiertoData::GobiertoBudgets::ES_INDEX_EXECUTED,
+        GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST_UPDATED
+      ].freeze
+
+      if organization_ids.any?
+        organization_ids.each do |organization_id|
+          GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
+            TOTAL_BUDGET_INDEXES.each do |index|
+              puts " - Calculating totals for #{organization_id} in year #{year} for index #{index}"
+
+              total_budget_calculator = GobiertoData::GobiertoBudgets::TotalBudgetCalculator.new(
+                organization_id: organization_id,
+                year: year,
+                index: index
+              )
+              total_budget_calculator.calculate!
+            end
+          end
+          puts "[SUCCESS] Calculated total budgets for organization #{organization_id}"
+        end
+      end
+
+      # Publish updated activity
       action = "budgets_updated"
       sites.each do |site|
         Publishers::GobiertoBudgetsActivity.broadcast_event(action, {
@@ -26,10 +53,19 @@ namespace :gobierto_budgets do
           site_id: site.id
         })
       end
+      puts "[SUCCESS] Published activity budgets_updated"
 
+      # Recalculate bubbles
+      if organization_ids.any?
+        organization_ids.each do |organization_id|
+          GobiertoData::GobiertoBudgets::Bubbles.dump(organization_id)
+          puts "[SUCCESS] Calculated bubbles for organization #{organization_id}"
         end
       end
 
+      # Expire Rails cache
+      Rails.cache.clear
+      puts "[SUCCESS] Expired Rails cache"
     end
   end
 end

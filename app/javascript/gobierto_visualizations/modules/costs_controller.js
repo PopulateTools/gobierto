@@ -150,14 +150,15 @@ export class CostsController {
       "costdirfin"
     ];
 
-    const population = ["126988"];
+    const population = ["128291", "129661"];
+
+    let yearsCosts = [...new Set(rawData.map(item => item.any_))];
 
     for (let index = 0; index < rawData.length; index++) {
       let d = rawData[index];
 
-      if (d["any_"] === "2019") {
-        d["population"] = population[0];
-      }
+      const ix = yearsCosts.findIndex(x => x === d["any_"])
+      d.population = population[ix]
 
       for (let amounts = 0; amounts < amountStrings.length; amounts++) {
         d[amountStrings[amounts]] = convertStringToNumbers(
@@ -165,8 +166,6 @@ export class CostsController {
         );
       }
     }
-
-    let yearsCosts = [...new Set(rawData.map(item => item.any_))];
 
     let groupDataByYears = [];
 

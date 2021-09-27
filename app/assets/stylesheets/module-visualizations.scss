@@ -1120,6 +1120,10 @@
     margin-top: 0;
   }
 
+  &-description-color-base {
+    color: var(--color-base);
+  }
+
   .vis-costs {
     position: relative;
     background-color: #f0f0f0;
@@ -1200,7 +1204,7 @@
   }
 
   &-container-title {
-    margin-bottom: 1rem;
+    margin: 2rem 0 1rem;
     display: inline-block;
     vertical-align: middle;
     width: 100%;

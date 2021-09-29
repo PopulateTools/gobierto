@@ -107,7 +107,13 @@ module GobiertoBudgets
     end
 
     def area_name
-      area.area_name
+      if @attributes[:custom_code].present?
+        "economic-custom"
+      elsif @attributes[:functional_code].present?
+        "economic-functional"
+      else
+        area.area_name
+      end
     end
 
     def year

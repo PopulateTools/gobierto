@@ -51,6 +51,12 @@ module GobiertoData
           ]
         end
 
+        # In testing environment the draft schema doesn't exist
+        def setup
+          ActiveRecord::Base.connection.execute "CREATE SCHEMA IF NOT EXISTS draft"
+          super
+        end
+
         def test_query_draft_dataset_table_without_preview_token
           active_dataset.update_attribute(:visibility_level, "draft")
 

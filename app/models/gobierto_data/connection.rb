@@ -10,7 +10,6 @@ module GobiertoData
 
       def execute_query(site, query, include_stats: false, write: false, include_draft: false)
         with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(write, include_draft)) do
-          connection_pool.connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if write
           connection_pool.connection.execute("SET search_path TO draft, public") if write || include_draft
 
           event = nil

@@ -94,6 +94,14 @@ module GobiertoBudgets
       @attributes[:code]
     end
 
+    def custom_code
+      @attributes[:custom_code]
+    end
+
+    def functional_code
+      @attributes[:functional_code]
+    end
+
     def level
       @attributes[:level]
     end

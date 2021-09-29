@@ -54,26 +54,52 @@ module GobiertoBudgets
         presenter = GobiertoBudgets::BudgetLineExportPresenter
         indexes = presenter::INDEX_KEYS
 
-        @organization_budget_lines = []
         GobiertoBudgets::BudgetLine.all_kinds. each do |kind|
-          GobiertoBudgets::BudgetArea.all_areas.each do |area|
-            indexes.each_key do |index|
+          indexes.each_key do |index|
+            GobiertoBudgets::BudgetArea.all_areas.each do |area|
               next unless area.available_kinds.include?(kind)
-              index_budget_lines = GobiertoBudgets::BudgetLine.all(where: { year: year,
-                                                                            site: site,
-                                                                            area_name: area.area_name,
-                                                                            kind: kind,
-                                                                            index: index },
-                                                                   include: [:index, :updated_at],
-                                                                   presenter: presenter)
-              index_budget_lines.each do |line|
-                if (idx = @organization_budget_lines.index { |global_line| global_line.id == line.id })
-                  @organization_budget_lines[idx].merge!(line)
-                else
-                  @organization_budget_lines << line
-                end
-              end
+
+              budget_lines = GobiertoBudgets::BudgetLine.all(where: { year: year,
+                                                                      site: site,
+                                                                      area_name: area.area_name,
+                                                                      kind: kind,
+                                                                      index: index },
+                                                                      include: [:index, :updated_at],
+                                                                      presenter: presenter)
+              merge_budget_lines(budget_lines)
             end
+
+            functional_code_budget_lines = GobiertoBudgets::BudgetLine.all(where: { year: year,
+                                                                                    site: site,
+                                                                                    area_name: GobiertoBudgets::FunctionalArea.area_name,
+                                                                                    kind: kind,
+                                                                                    index: index,
+                                                                                    functional_code: nil },
+                                                                                    include: [:index, :updated_at],
+                                                                                    presenter: presenter)
+
+            custom_code_budget_lines = GobiertoBudgets::BudgetLine.all(where: { year: year,
+                                                                                site: site,
+                                                                                area_name: GobiertoBudgets::CustomArea.area_name,
+                                                                                kind: kind,
+                                                                                index: index,
+                                                                                custom_code: nil },
+                                                                                include: [:index, :updated_at],
+                                                                                presenter: presenter)
+              merge_budget_lines(functional_code_budget_lines)
+              merge_budget_lines(custom_code_budget_lines)
+          end
+        end
+      end
+
+      def merge_budget_lines(budget_lines)
+        @organization_budget_lines ||= []
+
+        budget_lines.each do |line|
+          if (idx = @organization_budget_lines.index { |global_line| global_line.id == line.id })
+            @organization_budget_lines[idx].merge!(line)
+          else
+            @organization_budget_lines << line
           end
         end
       end

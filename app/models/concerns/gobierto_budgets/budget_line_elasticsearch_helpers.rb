@@ -115,18 +115,26 @@ module GobiertoBudgets
         terms.push({term: { code: conditions[:code] }}) if conditions[:code]
         terms.push({term: { level: conditions[:level] }}) if conditions[:level]
         terms.push({term: { parent_code: conditions[:parent_code] }}) if conditions[:parent_code]
-        if conditions[:functional_code]
+        if conditions.has_key?(:functional_code)
           if conditions[:area_name] == FunctionalArea.area_name
             conditions[:area_name] = EconomicArea.area_name
-            terms.push({term: { functional_code: conditions[:functional_code] }})
+            if conditions[:functional_code].present?
+              terms.push(term: { functional_code: conditions[:functional_code] })
+            else
+              terms.push(exists: { field: "functional_code" })
+            end
           else
             conditions[:area_name] = FunctionalArea.area_name
-            return functional_codes_for_economic_budget_line(conditions)
+            return functional_codes_for_economic_budget_line(where: conditions)
           end
-        elsif conditions[:custom_code]
+        elsif conditions.has_key?(:custom_code)
           if conditions[:area_name] == CustomArea.area_name
             conditions[:area_name] = EconomicArea.area_name
-            terms.push({term: { custom_code: conditions[:custom_code] }})
+            if conditions[:custom_code].present?
+              terms.push(term: { custom_code: conditions[:custom_code] })
+            else
+              terms.push(exists: { field: "custom_code" })
+            end
           # else
           #   conditions[:area_name] = CustomArea.area_name
           #   return functional_codes_for_economic_budget_line(conditions)

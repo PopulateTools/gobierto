@@ -20,7 +20,22 @@ module GobiertoBudgets
     end
 
     def id
-      (@attributes.values_at(:organization_id, :year, :code, :kind) + [@attributes[:area].area_name]).join("/")
+      [
+        @attributes[:organization_id],
+        @attributes[:year],
+        area_code,
+        @attributes[:kind]
+      ].join("/")
+    end
+
+    def area_code
+      if @attributes[:custom_code].present?
+        [@attributes[:custom_code], @attributes[:code], "c"].join("/")
+      elsif @attributes[:functional_code].present?
+        [@attributes[:functional_code], @attributes[:code], "f"].join("/")
+      else
+        code
+      end
     end
 
     def category

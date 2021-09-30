@@ -40,7 +40,7 @@ class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
 
   def test_execution_summary_boxes
     f1 = TotalBudgetFactory.new(year: last_year)
-    f2 = TotalBudgetFactory.new(year: last_year, kind: GobiertoData::GobiertoBudgets::INCOME)
+    f2 = TotalBudgetFactory.new(year: last_year, kind: GobiertoBudgetsData::GobiertoBudgets::INCOME)
 
     with(factories: [f1, f2], js: true) do
       with_current_site(placed_site) do
@@ -60,8 +60,8 @@ class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
   end
 
   def test_execution_graphs
-    f1 = BudgetLineFactory.new(year: last_year, area: GobiertoData::GobiertoBudgets::CUSTOM_AREA_NAME)
-    f2 = BudgetLineFactory.new(year: last_year, area: GobiertoData::GobiertoBudgets::CUSTOM_AREA_NAME, kind: GobiertoData::GobiertoBudgets::INCOME)
+    f1 = BudgetLineFactory.new(year: last_year, area: GobiertoBudgetsData::GobiertoBudgets::CUSTOM_AREA_NAME)
+    f2 = BudgetLineFactory.new(year: last_year, area: GobiertoBudgetsData::GobiertoBudgets::CUSTOM_AREA_NAME, kind: GobiertoBudgetsData::GobiertoBudgets::INCOME)
 
     with(site: placed_site, js: true, factories: [f1, f2]) do
       visit @path

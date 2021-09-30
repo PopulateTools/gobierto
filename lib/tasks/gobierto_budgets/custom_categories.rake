@@ -19,7 +19,7 @@ namespace :gobierto_budgets do
         exit(-1)
       end
 
-      importer = GobiertoData::GobiertoBudgets::CustomCategoriesCsvImporter.new(CSV.read(csv_path, headers: true), site: site)
+      importer = GobiertoBudgetsData::GobiertoBudgets::CustomCategoriesCsvImporter.new(CSV.read(csv_path, headers: true), site: site)
 
       nitems = importer.import!
       puts "[SUCCESS] Imported #{nitems}"

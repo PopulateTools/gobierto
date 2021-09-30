@@ -8,11 +8,11 @@ module GobiertoBudgets
       end
 
       def self.index
-        GobiertoData::GobiertoBudgets::ES_INDEX_INVOICES
+        GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_INVOICES
       end
 
       def self.type
-        GobiertoData::GobiertoBudgets::INVOICE_TYPE
+        GobiertoBudgetsData::GobiertoBudgets::INVOICE_TYPE
       end
     end
   end

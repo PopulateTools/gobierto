@@ -9,19 +9,19 @@ module GobiertoBudgets
       end
 
       def self.index_forecast
-        GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST
+        GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_FORECAST
       end
 
       def self.index_executed
-        GobiertoData::GobiertoBudgets::ES_INDEX_EXECUTED
+        GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_EXECUTED
       end
 
       def self.index_executed_series
-        GobiertoData::GobiertoBudgets::ES_INDEX_EXECUTED_SERIES
+        GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_EXECUTED_SERIES
       end
 
       def self.index_forecast_updated
-        GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST_UPDATED
+        GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_FORECAST_UPDATED
       end
     end
   end

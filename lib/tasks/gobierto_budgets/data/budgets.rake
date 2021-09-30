@@ -12,7 +12,7 @@ namespace :gobierto_budgets do
         exit(-1)
       end
 
-      importer = GobiertoData::GobiertoBudgets::BudgetLinesCsvImporter.new(CSV.read(csv_path, headers: true))
+      importer = GobiertoBudgetsData::GobiertoBudgets::BudgetLinesCsvImporter.new(CSV.read(csv_path, headers: true))
 
       organization_ids = importer.csv.map { |row| row.field("organization_id") }.uniq
       sites = Site.where(organization_id: organization_ids)
@@ -22,9 +22,9 @@ namespace :gobierto_budgets do
 
       # Calculate total amounts
       TOTAL_BUDGET_INDEXES = [
-        GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST,
-        GobiertoData::GobiertoBudgets::ES_INDEX_EXECUTED,
-        GobiertoData::GobiertoBudgets::ES_INDEX_FORECAST_UPDATED
+        GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_FORECAST,
+        GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_EXECUTED,
+        GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_FORECAST_UPDATED
       ].freeze
 
       if organization_ids.any?
@@ -33,7 +33,7 @@ namespace :gobierto_budgets do
             TOTAL_BUDGET_INDEXES.each do |index|
               puts " - Calculating totals for #{organization_id} in year #{year} for index #{index}"
 
-              total_budget_calculator = GobiertoData::GobiertoBudgets::TotalBudgetCalculator.new(
+              total_budget_calculator = GobiertoBudgetsData::GobiertoBudgets::TotalBudgetCalculator.new(
                 organization_id: organization_id,
                 year: year,
                 index: index
@@ -58,7 +58,7 @@ namespace :gobierto_budgets do
       # Recalculate bubbles
       if organization_ids.any?
         organization_ids.each do |organization_id|
-          GobiertoData::GobiertoBudgets::Bubbles.dump(organization_id)
+          GobiertoBudgetsData::GobiertoBudgets::Bubbles.dump(organization_id)
           puts "[SUCCESS] Calculated bubbles for organization #{organization_id}"
         end
       end

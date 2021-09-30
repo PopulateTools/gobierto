@@ -39,7 +39,7 @@ module GobiertoBudgets
 
     def total_income(params = {})
       TotalBudgetFactory.new(
-        factory_params(params).merge(kind: GobiertoData::GobiertoBudgets::INCOME)
+        factory_params(params).merge(kind: GobiertoBudgetsData::GobiertoBudgets::INCOME)
       )
     end
 

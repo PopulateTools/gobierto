@@ -39,15 +39,15 @@ namespace :gobierto_budgets do
         debt_data = [
           {
             index: {
-              _index: GobiertoData::GobiertoBudgets::ES_INDEX_DATA,
-              _type: GobiertoData::GobiertoBudgets::DEBT_TYPE,
+              _index: GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_DATA,
+              _type: GobiertoBudgetsData::GobiertoBudgets::DEBT_TYPE,
               _id: id,
               data: item
             }
           }
         ]
 
-        GobiertoData::GobiertoBudgets::SearchEngineWriting.client.bulk(body: debt_data)
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk(body: debt_data)
         puts "[SUCCESS] Debt #{debt} for #{year}"
 
         item = {
@@ -62,14 +62,14 @@ namespace :gobierto_budgets do
         population_data = [
           {
             index: {
-              _index: GobiertoData::GobiertoBudgets::ES_INDEX_DATA,
-              _type: GobiertoData::GobiertoBudgets::POPULATION_TYPE,
+              _index: GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_DATA,
+              _type: GobiertoBudgetsData::GobiertoBudgets::POPULATION_TYPE,
               _id: id,
               data: item
             }
           }
         ]
-        GobiertoData::GobiertoBudgets::SearchEngineWriting.client.bulk(body: population_data)
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk(body: population_data)
 
         puts "[SUCCESS] Population #{population} for #{year}"
       end

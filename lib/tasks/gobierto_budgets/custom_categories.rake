@@ -2,6 +2,29 @@
 
 namespace :gobierto_budgets do
   namespace :custom_categories do
+    desc "Import custom categories from CSV with gobierto_budgets_data format. Site domain is required"
+    task :import_gobierto_budgets_data, [:site_domain, :csv_path] => :environment do |_t, args|
+
+      csv_path = args[:csv_path]
+      site_domain = args[:site_domain]
+      unless File.file?(csv_path)
+        puts "[ERROR] No CSV file found: #{csv_path}"
+        exit(-1)
+      end
+
+      site = Site.find_by(domain: site_domain)
+
+      unless site.present?
+        puts "[ERROR] No site found for domain #{site_domain}"
+        exit(-1)
+      end
+
+      importer = GobiertoData::GobiertoBudgets::CustomCategoriesCsvImporter.new(CSV.read(csv_path, headers: true), site: site)
+
+      nitems = importer.import!
+      puts "[SUCCESS] Imported #{nitems}"
+    end
+
     desc "Import categories, providing the site_domain, the file path to the categories and the locale"
     task :import, [:site_domain, :file_path, :locale] => [:environment] do |_t, args|
       def area_name(area)

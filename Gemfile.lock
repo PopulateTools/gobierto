@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_data.git
-  revision: 7aeedde45d783a9ef6ae9d6b3e0987d1bd1af9ce
+  revision: b17e76f7a4480ade0ff206ea777aacd2efdc40fc
   branch: 1346-csv_budgets_data_format
   specs:
     gobierto_data (0.1.0)
@@ -108,7 +108,7 @@ GEM
       rack
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.507.0)
+    aws-partitions (1.508.0)
     aws-sdk-core (3.121.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)

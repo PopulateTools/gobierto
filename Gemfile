@@ -86,7 +86,7 @@ gem "savon", "~> 2.12.0"
 gem "cloudinary"
 
 # Gobierto data
-gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git", branch: "1346-csv_budgets_data_format"
+gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 
 # API
 gem "rubyXL"

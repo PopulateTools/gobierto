@@ -58,14 +58,20 @@ export default {
   },
   computed: {
     planId() {
-      return this.$root?.$data?.planId
+      return this.$root?.$data?.planId;
     },
     tabs() {
       return [
-        { title: I18n.t("gobierto_plans.plan_types.show.plan") || "", name: routes.PLAN },
-        (!!this.$root?.$data?.dashboards && { title: I18n.t("gobierto_plans.plan_types.show.dashboards") || "", name: routes.DASHBOARDS }),
-      ].filter(Boolean)
-    },
+        {
+          title: I18n.t("gobierto_plans.plan_types.show.plan") || "",
+          name: routes.PLAN
+        },
+        !!this.$root?.$data?.dashboards && {
+          title: I18n.t("gobierto_plans.plan_types.show.dashboards") || "",
+          name: routes.DASHBOARDS
+        }
+      ].filter(Boolean);
+    }
   },
   async created() {
     const [
@@ -89,11 +95,11 @@ export default {
     // Fake status custom_field
     // https://github.com/PopulateTools/gobierto/pull/3781
     if (status) {
-      const sample = meta.find(({ attributes }) => attributes.field_type === "vocabulary_options")
-      // copy translations
-      const name_translations = { ...sample.attributes.name_translations }
-      // force i18n values
-      Object.keys(name_translations).forEach(k => ( name_translations[k] = I18n.t("gobierto_plans.plan_types.show.status") || "" ))
+      const sample =
+        meta.find(
+          ({ attributes }) => attributes.field_type === "vocabulary_options"
+        ) || {};
+
       // append the "new" custom field
       meta.push({
         ...sample,
@@ -101,11 +107,18 @@ export default {
         attributes: {
           ...sample.attributes,
           uid: "status",
+          field_type: "vocabulary_options",
           vocabulary_terms: status,
           hidden: true,
-          name_translations
+          name_translations: Object.keys(I18n.translations).reduce(
+            (acc, key) => ({
+              ...acc,
+              [key]: I18n.t("gobierto_plans.plan_types.show.status", { locale: key }) || ""
+            }),
+            {}
+          )
         }
-      })
+      });
     }
 
     PlansStore.setProjects(projects);
@@ -201,7 +214,10 @@ export default {
                 ? 1
                 : item.level === lastLevel - 1
                 ? children
-                : children.reduce((acc, { projects }) => [...acc, ...projects], [])
+                : children.reduce(
+                    (acc, { projects }) => [...acc, ...projects],
+                    []
+                  );
 
             /**
              * calculate which are its progress

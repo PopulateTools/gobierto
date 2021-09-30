@@ -251,7 +251,7 @@ export class VisBubble {
       .attr(
         "xlink:href",
         function(d) {
-          return `/visualizations/costes/${d.year}/${d.ordreagrup}`;
+          return `/visualizaciones/costes/${d.year}/${d.ordreagrup}`;
         }.bind(this)
       )
       .attr("class", "bubbles-links")

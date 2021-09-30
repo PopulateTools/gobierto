@@ -108,7 +108,7 @@ export default {
       if (newValue !== oldValue) {
         this.updateYear(newValue)
         this.updateBubbles()
-        this.selectYearHandler(newValue)
+        this.activeYear = newValue
       }
     },
     activeYear(newValue, oldValue) {
@@ -122,14 +122,12 @@ export default {
   },
   mounted() {
     this.createBubbleViz()
-    this.selectYearHandler(this.year)
   },
   methods: {
-    updateYear(value) {
-      this.dataFilter = this.data.filter(element => element.any_ === value)
-      const [{
-        population: population
-      }] = this.dataFilter
+    updateYear(year) {
+      this.activeYear = year
+      this.dataFilter = this.data.filter(({ any_ }) => any_ === year)
+      const [{ population: population }] = this.dataFilter
       this.population = population
       this.populationNumber = Number(population).toLocaleString(I18n.locale)
     },
@@ -144,9 +142,10 @@ export default {
       this.visBubblesCosts.resize(this.year)
       this.$emit('preventReload')
     },
-    selectYearHandler(item) {
-      this.activeYear = item
-      this.visBubblesCosts.resize(item)
+    selectYearHandler(year) {
+      this.activeYear = year
+      this.visBubblesCosts.resize(year)
+      this.$emit('updateYear', year)
       this.$emit('preventReload')
     },
   }

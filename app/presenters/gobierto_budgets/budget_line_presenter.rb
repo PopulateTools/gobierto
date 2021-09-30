@@ -3,7 +3,21 @@ module GobiertoBudgets
 
     def self.load(id, site)
       return nil if id.nil?
-      organization_id, year, code, kind, area_name = id.split("/")
+
+      id_split = id.split("/")
+      decomposition_bit = id_split.length == 7 ? id_split[4] : nil
+
+      case decomposition_bit
+      when "c"
+        organization_id, year, custom_code, code, decomposition_bit, kind, area_name = id_split
+        decomposition_attrs = { custom_code: custom_code }
+      when "f"
+        organization_id, year, functional_code, code, decomposition_bit, kind, area_name = id_split
+        decomposition_attrs = { functional_code: functional_code }
+      else
+        organization_id, year, code, kind, area_name = id_split
+        decomposition_attrs = {}
+      end
       area = case area_name
              when EconomicArea.area_name
                EconomicArea
@@ -12,7 +26,7 @@ module GobiertoBudgets
              when CustomArea.area_name
                CustomArea
              end
-      self.new(organization_id: organization_id, year: year, code: code, kind: kind, area: area, site: site)
+      self.new({ organization_id: organization_id, year: year, code: code, kind: kind, area: area, site: site }.merge(decomposition_attrs))
     end
 
     def initialize(attributes)
@@ -29,12 +43,21 @@ module GobiertoBudgets
     end
 
     def area_code
-      if @attributes[:custom_code].present?
-        [@attributes[:custom_code], @attributes[:code], "c"].join("/")
-      elsif @attributes[:functional_code].present?
-        [@attributes[:functional_code], @attributes[:code], "f"].join("/")
+      case decomposition_type
+      when :custom
+        [custom_code, code, "c"].join("/")
+      when :functional
+        [functional_code, code, "f"].join("/")
       else
         code
+      end
+    end
+
+    def decomposition_type
+      if custom_code.present?
+        :custom
+      elsif functional_code.present?
+        :functional
       end
     end
 
@@ -115,9 +138,10 @@ module GobiertoBudgets
     end
 
     def area_name
-      if @attributes[:custom_code].present?
+      case decomposition_type
+      when :custom
         "economic-custom"
-      elsif @attributes[:functional_code].present?
+      when :functional
         "economic-functional"
       else
         area.area_name

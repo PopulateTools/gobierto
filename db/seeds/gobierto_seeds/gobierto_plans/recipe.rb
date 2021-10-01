@@ -3,12 +3,13 @@
 module GobiertoSeeds
   module GobiertoPlans
     class Recipe
+      include GobiertoCommon::ModuleNamePrefixable
 
       def self.run(site)
         # Create vocabulary
         vocabulary = site.vocabularies.find_or_initialize_by(slug: "sdgs-vocabulary")
         if vocabulary.new_record?
-          vocabulary.name_translations = { ca: "Vocabulari d'ODSs", en: "SDGs vocabulary", es: "Vocabulario de ODSs" }
+          vocabulary.name_translations = prefix_translations({ ca: "Vocabulari d'ODSs", en: "SDGs vocabulary", es: "Vocabulario de ODSs" })
           vocabulary.save
         end
 

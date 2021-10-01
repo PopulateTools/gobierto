@@ -32,11 +32,11 @@ module BudgetsFactory
     end
 
     def default_kind
-      GobiertoData::GobiertoBudgets::EXPENSE
+      GobiertoBudgetsData::GobiertoBudgets::EXPENSE
     end
 
     def default_area
-      GobiertoData::GobiertoBudgets::ECONOMIC_AREA_NAME
+      GobiertoBudgetsData::GobiertoBudgets::ECONOMIC_AREA_NAME
     end
 
     def default_year

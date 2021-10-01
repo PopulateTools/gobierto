@@ -12,7 +12,7 @@ class BudgetsSeeder
         default_args = {
           area: area_name,
           year: year,
-          kind: GobiertoData::GobiertoBudgets::EXPENSE
+          kind: GobiertoBudgetsData::GobiertoBudgets::EXPENSE
         }
 
         %w(1 2 3).each do |code|

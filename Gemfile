@@ -85,8 +85,8 @@ gem "savon", "~> 2.12.0"
 # Image management
 gem "cloudinary"
 
-# Gobierto data
-gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
+# Gobierto budgets data
+gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
 
 # API
 gem "rubyXL"

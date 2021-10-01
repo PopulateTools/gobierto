@@ -1,8 +1,8 @@
 GIT
-  remote: https://github.com/PopulateTools/gobierto_data.git
-  revision: 7db1fa4d63f08ca30d334255469144bdbc246673
+  remote: https://github.com/PopulateTools/gobierto_budgets_data.git
+  revision: 17761ea394fdb07418ee89a751482da4c6ebdaaf
   specs:
-    gobierto_data (0.1.0)
+    gobierto_budgets_data (0.1.0)
       actionpack
       activesupport
       aws-sdk-s3
@@ -561,7 +561,7 @@ DEPENDENCIES
   font-awesome-sass (~> 5.6)
   foreman
   geocoder
-  gobierto_data!
+  gobierto_budgets_data!
   google-api-client
   hashie
   i18n-js (>= 3.0.0.rc11)

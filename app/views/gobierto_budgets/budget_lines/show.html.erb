@@ -155,7 +155,7 @@
         <% if budget_lines_feedback_active? %>
           <div class="pure-u-1-2 pure-u-md-1-5 metric_box cta open_budget_line_feedback tipsit" title="<%= t('.give_your_opinion_cta') %>" data-box="feedback">
             <div class="inner">
-              <%= link_to gobierto_budgets_feedback_step1_path(year: @year, id: @budget_line.id), remote: true do %>
+              <%= link_to gobierto_budgets_feedback_step1_path(year: @year, id: @budget_line.loadable_id), remote: true do %>
                 <div class="main"><%= t('.raise_hand') %> <i class="fas fa-hand-paper-o"></i></div>
                 <div class="lite"><%= t('.give_your_opinion') %></div>
               <% end %>

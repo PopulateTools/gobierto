@@ -9,10 +9,10 @@ module GobiertoBudgets
 
       case decomposition_bit
       when "c"
-        organization_id, year, custom_code, code, decomposition_bit, kind, area_name = id_split
+        organization_id, year, custom_code, code, _decomposition_bit, kind, area_name = id_split
         decomposition_attrs = { custom_code: custom_code }
       when "f"
-        organization_id, year, functional_code, code, decomposition_bit, kind, area_name = id_split
+        organization_id, year, functional_code, code, _decomposition_bit, kind, area_name = id_split
         decomposition_attrs = { functional_code: functional_code }
       else
         organization_id, year, code, kind, area_name = id_split
@@ -26,11 +26,15 @@ module GobiertoBudgets
              when CustomArea.area_name
                CustomArea
              end
-      self.new({ organization_id: organization_id, year: year, code: code, kind: kind, area: area, site: site }.merge(decomposition_attrs))
+      new({ organization_id: organization_id, year: year, code: code, kind: kind, area: area, site: site }.merge(decomposition_attrs))
     end
 
     def initialize(attributes)
       @attributes = attributes.symbolize_keys
+    end
+
+    def loadable_id
+      [id, area_name].join("/")
     end
 
     def id

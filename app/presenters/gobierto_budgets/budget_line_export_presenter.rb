@@ -13,20 +13,7 @@ module GobiertoBudgets
     end
 
     def self.csv_columns
-      ['ID',
-       'code',
-       'year',
-       'area',
-       'income/expense',
-       'name',
-       'description',
-       'value_budget_initial',
-       'value_budget_modified',
-       'value_execution',
-       'level',
-       'parent_code',
-       'updated_at',
-       'organization_id']
+      %w(year code area kind name description initial_value modified_value executed_value organization_id functional_code custom_code ID parent_code level updated_atorganization_id)
     end
 
     def index_values
@@ -61,9 +48,11 @@ module GobiertoBudgets
         code: code,
         year: year,
         area: area_name,
-        income_expense: kind,
+        kind: kind,
         name: name,
         description: description,
+        functional_code: functional_code,
+        custom_code: custom_code,
         level: level,
         parent_code: parent_code,
         updated_at: updated_at,
@@ -71,9 +60,8 @@ module GobiertoBudgets
     end
 
     def as_csv
-      [id,
+      [year,
        code,
-       year,
        area_name,
        kind,
        name,
@@ -81,10 +69,13 @@ module GobiertoBudgets
        index_values[:value_budget_initial],
        index_values[:value_budget_modified],
        index_values[:value_budget_execution],
-       level,
+       organization_id,
+       functional_code,
+       custom_code,
+       id,
        parent_code,
-       updated_at,
-       organization_id]
+       level,
+       updated_at]
     end
   end
 end

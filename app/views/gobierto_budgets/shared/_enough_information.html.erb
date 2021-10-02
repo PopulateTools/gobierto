@@ -4,7 +4,7 @@
 
     <p><%= t('.enough_information_desc') %></p>
 
-    <%= link_to t('.enough_information_cta', to_your_organization_name: @site.determined_organization_name(:to_your)), gobierto_budgets_feedback_load_ask_more_information_path(id: @budget_line.try(:id)), remote: true, class: 'button' %>
+    <%= link_to t('.enough_information_cta', to_your_organization_name: @site.determined_organization_name(:to_your)), gobierto_budgets_feedback_load_ask_more_information_path(id: @budget_line.try(:loadable_id)), remote: true, class: 'button' %>
 
     <div id="load_ask_more_information"></div>
   </div>

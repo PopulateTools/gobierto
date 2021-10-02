@@ -3,7 +3,21 @@ module GobiertoBudgets
 
     def self.load(id, site)
       return nil if id.nil?
-      organization_id, year, code, kind, area_name = id.split("/")
+
+      id_split = id.split("/")
+      decomposition_bit = id_split.length == 7 ? id_split[4] : nil
+
+      case decomposition_bit
+      when "c"
+        organization_id, year, custom_code, code, _decomposition_bit, kind, area_name = id_split
+        decomposition_attrs = { custom_code: custom_code }
+      when "f"
+        organization_id, year, functional_code, code, _decomposition_bit, kind, area_name = id_split
+        decomposition_attrs = { functional_code: functional_code }
+      else
+        organization_id, year, code, kind, area_name = id_split
+        decomposition_attrs = {}
+      end
       area = case area_name
              when EconomicArea.area_name
                EconomicArea
@@ -12,15 +26,43 @@ module GobiertoBudgets
              when CustomArea.area_name
                CustomArea
              end
-      self.new(organization_id: organization_id, year: year, code: code, kind: kind, area: area, site: site)
+      new({ organization_id: organization_id, year: year, code: code, kind: kind, area: area, site: site }.merge(decomposition_attrs))
     end
 
     def initialize(attributes)
       @attributes = attributes.symbolize_keys
     end
 
+    def loadable_id
+      [id, area_name].join("/")
+    end
+
     def id
-      (@attributes.values_at(:organization_id, :year, :code, :kind) + [@attributes[:area].area_name]).join("/")
+      [
+        @attributes[:organization_id],
+        @attributes[:year],
+        area_code,
+        @attributes[:kind]
+      ].join("/")
+    end
+
+    def area_code
+      case decomposition_type
+      when :custom
+        [custom_code, code, "c"].join("/")
+      when :functional
+        [functional_code, code, "f"].join("/")
+      else
+        code
+      end
+    end
+
+    def decomposition_type
+      if custom_code.present?
+        :custom
+      elsif functional_code.present?
+        :functional
+      end
     end
 
     def category
@@ -79,6 +121,14 @@ module GobiertoBudgets
       @attributes[:code]
     end
 
+    def custom_code
+      @attributes[:custom_code]
+    end
+
+    def functional_code
+      @attributes[:functional_code]
+    end
+
     def level
       @attributes[:level]
     end
@@ -92,7 +142,14 @@ module GobiertoBudgets
     end
 
     def area_name
-      area.area_name
+      case decomposition_type
+      when :custom
+        "economic-custom"
+      when :functional
+        "economic-functional"
+      else
+        area.area_name
+      end
     end
 
     def year

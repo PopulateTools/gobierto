@@ -3,6 +3,8 @@
 module GobiertoSeeds
   module GobiertoData
     class Recipe
+      include GobiertoCommon::ModuleNamePrefixable
+
       DEFAULT_CATEGORY_NAMES = [
         "Ciencia y tecnología",
         "Comercio",
@@ -44,7 +46,7 @@ module GobiertoSeeds
         if frequency.new_record?
           vocabulary = site.vocabularies.find_or_initialize_by(slug: "datasets-frequency")
           if vocabulary.new_record?
-            vocabulary.name_translations = { ca: "Freqüència de conjunt de dades", en: "Dataset frequency", es: "Frecuencia de conjunto de datos" }
+            vocabulary.name_translations = prefix_translations({ ca: "Freqüència", en: "Frequency", es: "Frecuencia" })
             vocabulary.save
             vocabulary.terms.create(name_translations: { ca: "Anual", en: "Annual", es: "Anual" }, position: 1)
             vocabulary.terms.create(name_translations: { ca: "Trimestral", en: "Quarterly", es: "Trimestral" }, position: 2)
@@ -64,7 +66,7 @@ module GobiertoSeeds
         if category.new_record?
           vocabulary = site.vocabularies.find_or_initialize_by(slug: "datasets-category")
           if vocabulary.new_record?
-            vocabulary.name_translations = { ca: "Categoria de conjunt de dades", en: "Dataset Category", es: "Categoría de conjunto de datos" }
+            vocabulary.name_translations = prefix_translations({ ca: "Categoria", en: "Category", es: "Categoría" })
             vocabulary.save
             DEFAULT_CATEGORY_NAMES.each_with_index do |category_name, index|
               vocabulary.terms.create(
@@ -102,7 +104,7 @@ module GobiertoSeeds
         if license.new_record?
           vocabulary = site.vocabularies.find_or_initialize_by(slug: "dataset-license")
           if vocabulary.new_record?
-            vocabulary.name_translations = { ca: "Llicència", en: "License", es: "Licencia" }
+            vocabulary.name_translations = prefix_translations({ ca: "Llicència", en: "License", es: "Licencia" })
             vocabulary.save
             vocabulary.terms.create(
               name_translations: {

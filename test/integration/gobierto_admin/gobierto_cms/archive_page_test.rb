@@ -7,7 +7,6 @@ module GobiertoAdmin
     class ArchivePageTest < ActionDispatch::IntegrationTest
       def setup
         super
-        # @path = admin_participation_process_pages_path(process_id: process.id)
         @path = admin_cms_pages_path
       end
 

@@ -26,13 +26,4 @@ class Activity < ApplicationRecord
   def self.admin_activities(admin)
     where(author_type: admin.class.name, author_id: admin.id).sorted.includes(:subject, :author, :recipient)
   end
-
-  def self.in_participation(current_site)
-    processes = current_site.processes.open_process
-    Activity.no_admin.where(recipient: processes)
-  end
-
-  def self.in_process(process)
-    Activity.no_admin.where(recipient: process)
-  end
 end

@@ -90,7 +90,7 @@ module GobiertoAdmin
 
     def test_grant_module_permissions
       form = subject.new(madrid_group_params.merge(modules_actions: { gobierto_people: [:manage],
-                                                                      gobierto_participation: [:manage],
+                                                                      gobierto_dashboards: [:manage],
                                                                       gobierto_plans: [:manage],
                                                                       gobierto_investments: [:manage],
                                                                       gobierto_data: [:manage],

@@ -388,21 +388,3 @@ intervention_with_children_on_scope:
   collection: gender_violence_process_calendar
   item: intervention_with_children (GobiertoCalendars::Event)
   container: old_town_term (GobiertoCommon::Term)
-
-# participation_calendar
-
-presentation_participation_event_on_site:
-  collection: participation_calendar
-  item: presentation_participation (GobiertoCalendars::Event)
-  container: madrid (Site)
-
-presentation_participation_event_on_participation:
-  collection: participation_calendar
-  item: presentation_participation (GobiertoCalendars::Event)
-
-# participation_calendar
-
-innovation_event_on_site:
-  collection: participation_calendar
-  item: innovation_event (GobiertoCalendars::Event)
-  container: madrid (Site)

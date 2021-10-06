@@ -33,10 +33,3 @@ xlsx_attachment_event_on_scope:
   collection: site_attachments
   item: xlsx_attachment_event (GobiertoAttachments::Attachment)
   container: old_town_term (GobiertoCommon::Term)
-
-# participation_documents
-
-pdf_on_participation_on_site:
-  collection: participation_documents
-  item: pdf_on_participation (GobiertoAttachments::Attachment)
-  container: madrid (Site)

@@ -43,23 +43,11 @@ cookies_collection_item:
 
 # themes
 
-themes_on_process:
-  collection: news
-  item: themes
-  item_type: 'GobiertoCms::News'
-  container: sport_city_process (GobiertoParticipation::Process)
-
 themes_on_site:
   collection: news
   item: themes
   item_type: 'GobiertoCms::News'
   container: madrid (Site)
-
-themes_on_participation:
-  collection: news
-  item: themes
-  item_type: 'GobiertoCms::News'
-  container_type: GobiertoParticipation
 
 themes_on_issue:
   collection: news
@@ -75,23 +63,11 @@ themes_on_scope:
 
 # themes_draft
 
-themes_draft_on_process:
-  collection: news
-  item: themes_draft
-  item_type: 'GobiertoCms::News'
-  container: sport_city_process (GobiertoParticipation::Process)
-
 themes_draft_on_site:
   collection: news
   item: themes_draft
   item_type: 'GobiertoCms::News'
   container: madrid (Site)
-
-themes_draft_on_participation:
-  collection: news
-  item: themes_draft
-  item_type: 'GobiertoCms::News'
-  container_type: GobiertoParticipation
 
 themes_draft_on_issue:
   collection: news

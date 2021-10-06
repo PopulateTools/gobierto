@@ -17,20 +17,17 @@ module GobiertoCms
       @santander_cms_collection ||= gobierto_common_collections(:santander_cms_pages)
     end
 
-
-
     def madrid_cms_collection
-      @participation_collection ||= gobierto_common_collections(:site_pages)
+      @madrid_cms_collection ||= gobierto_common_collections(:site_pages)
     end
 
     def madrid_cms_collection_pages
-      @participation_collection_pages ||= madrid.pages.where(collection_id: madrid_cms_collection.id).active
+      @madrid_cms_collection_pages ||= madrid.pages.where(collection_id: madrid_cms_collection.id).active
     end
 
     def madrid_cms_collection_page
       @madrid_cms_collection_page ||= madrid_cms_collection_pages.first
     end
-
 
     def test_visit_collection
       collection_public_pages = [
@@ -84,6 +81,5 @@ module GobiertoCms
 
       end
     end
-
   end
 end

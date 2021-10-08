@@ -215,12 +215,28 @@
 
           <h2><%= t('.budget_lines_distribution') %></h2>
           <% if @budget_line_composition.any? %>
-            <table>
+            <table class="table-breakdown">
               <% @budget_line_composition.each do |budget_line| %>
                 <tr>
-                  <td><%= link_to truncate(budget_line.name, length: 75), gobierto_budgets_budget_line_path(budget_line.to_param), title: budget_line.name %></td>
+                  <td><i class="fas fa-angle-right"></i><span class="table-breakdown-element"><%= budget_line.name %></span>
+                  </td>
                   <td class="qty"><%= percentage_fraction_format(budget_line.percentage_compared_with(@budget_line.amount)) %></td>
                   <td class="amount"><%= format_currency(budget_line.amount) %></td>
+                </tr>
+                <tr class="container-breakdown-sublevel">
+                  <td class="container-breakdown-sublevel-td" colspan="3">
+                    <div>
+                      <table>
+                        <% @budget_line_composition.each do |budget_line| %>
+                          <tr>
+                            <td class="container-breakdown-sublevel-td-element"></i><span class="table-breakdown-element"><%= budget_line.name %></span></td>
+                            <td class="container-breakdown-sublevel-td-element align-right" class="qty"><%= percentage_fraction_format(budget_line.percentage_compared_with(@budget_line.amount)) %></td>
+                            <td class="container-breakdown-sublevel-td-element" class="amount"><%= format_currency(budget_line.amount) %></td>
+                          </tr>
+                        <% end %>
+                      </table>
+                    </div>
+                  </td>
                 </tr>
               <% end %>
             </table>

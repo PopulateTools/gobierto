@@ -71,9 +71,9 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
   def budget_line_composition
     case @area_name
     when GobiertoBudgets::FunctionalArea.area_name
-      updated_forecast(functional_code: @code)
+      updated_forecast(functional_code: @code).group_by(&:first_level_parent_code)
     when GobiertoBudgets::CustomArea.area_name
-      updated_forecast(custom_code: @code)
+      updated_forecast(custom_code: @code).group_by(&:first_level_parent_code)
     else
       []
     end

@@ -8,7 +8,6 @@ class User::SubscriptionPreferencesForm < BaseForm
     :notification_frequency,
     :modules,
     :gobierto_people_people,
-    :gobierto_participation_processes,
     :site_to_subscribe
   )
 
@@ -45,7 +44,6 @@ class User::SubscriptionPreferencesForm < BaseForm
       update_subscription_to_site(site_to_subscribe) || begin
         update_subscriptions_to_modules
         update_subscriptions_to_people(gobierto_people_people)
-        update_subscriptions_to_participation
       end
 
       @user
@@ -90,15 +88,6 @@ class User::SubscriptionPreferencesForm < BaseForm
       @user.unsubscribe_from!(site, site)
     end
     site_subscription
-  end
-
-  def update_subscriptions_to_participation
-    return if broader_level_subscription_to?(GobiertoParticipation::Process.new)
-    return if gobierto_participation_processes.nil?
-
-    site.processes.active.each do |process|
-      gobierto_participation_processes.include?(process.id.to_s) ? user.subscribe_to!(process, site) : user.unsubscribe_from!(process, site)
-    end
   end
 
   def broader_level_subscription_to?(subscribable)

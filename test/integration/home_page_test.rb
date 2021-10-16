@@ -24,7 +24,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      assert has_content?("Participation")
+      assert has_content?("Budgets elaboration")
     end
   end
 

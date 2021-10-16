@@ -69,14 +69,6 @@ class Site < ApplicationRecord
   # Modules settings
   has_many :module_settings, dependent: :destroy, class_name: "GobiertoModuleSettings"
 
-  # Gobierto Participation integration
-  has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
-  has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
-  has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
-  has_many :comments, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
-  has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
-  has_many :votes, dependent: :destroy, class_name: "GobiertoParticipation::Vote"
-
   # Gobierto Investments integration
   has_many :projects, dependent: :destroy, class_name: "GobiertoInvestments::Project"
 
@@ -112,14 +104,6 @@ class Site < ApplicationRecord
     find_by(domain: domain) unless reserved_domains.include?(domain)
   end
 
-  def issues
-    GobiertoParticipation::Process.issues(self).sorted
-  end
-
-  def scopes
-    GobiertoParticipation::Process.scopes(self).sorted
-  end
-
   def political_groups
     GobiertoPeople::Person.political_groups(self).sorted
   end
@@ -135,13 +119,6 @@ class Site < ApplicationRecord
                                      module_settings.find_by(module_name: "GobiertoBudgets")
                                    end
   end
-
-  def gobierto_participation_settings
-    @gobierto_participation_settings ||= if configuration.available_module?("GobiertoParticipation") && configuration.gobierto_participation_enabled?
-                                           module_settings.find_by(module_name: "GobiertoParticipation")
-                                         end
-  end
-
 
   def gobierto_data_settings
     @gobierto_data_settings ||= if configuration.available_module?("GobiertoData") && configuration.gobierto_data_enabled?

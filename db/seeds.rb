@@ -35,17 +35,6 @@ fixtures_to_load = [
   "gobierto_attachments/attachments",
   "gobierto_attachments/attachings",
   "versions",
-  "gobierto_participation/processes",
-  "gobierto_participation/process_stages",
-  "gobierto_participation/process_stage_pages",
-  "gobierto_participation/contributions",
-  "gobierto_participation/contribution_containers",
-  "gobierto_participation/comments",
-  "gobierto_participation/votes",
-  "gobierto_participation/polls",
-  "gobierto_participation/poll_questions",
-  "gobierto_participation/poll_answer_templates",
-  "gobierto_participation/poll_answers",
   "gobierto_admin/group_permissions",
   "gobierto_plans/plan_types",
   "gobierto_plans/plans",
@@ -70,8 +59,6 @@ Site.all.each do |site|
   end
 end
 
-::GobiertoCore::Template.create template_path: "gobierto_participation/welcome/index"
-::GobiertoCore::Template.create template_path: "gobierto_participation/layouts/navigation_process"
 ::GobiertoCore::Template.create template_path: "layouts/application"
 
 ::BudgetsSeeder.seed!

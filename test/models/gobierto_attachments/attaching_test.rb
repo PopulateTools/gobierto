@@ -14,7 +14,7 @@ module GobiertoAttachments
     end
 
     def attachable
-      @attachable ||= gobierto_cms_pages(:how_to_participate)
+      @attachable ||= gobierto_cms_pages(:about_site)
     end
 
     def test_create_attaching
@@ -29,8 +29,6 @@ module GobiertoAttachments
     end
 
     def test_create_attaching_creating_collection
-      site.collections.where(item_type: "GobiertoAttachments::Attachment").each(&:destroy)
-
       attaching = GobiertoAttachments::Attaching.create!(
         attachment: pdf_attachment,
         attachable: attachable

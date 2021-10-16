@@ -6,14 +6,6 @@ pdf_attachment_create:
   object:
   created_at: <%= Time.now %>
 
-pdf_on_participation_create:
-  item_type: GobiertoAttachments::Attachment
-  item_id: <%= ActiveRecord::FixtureSet.identify(:pdf_on_participation) %>
-  event: create
-  whodunnit:
-  object:
-  created_at: <%= Time.now %>
-
 xlsx_attachment_create:
   item_type: GobiertoAttachments::Attachment
   item_id: <%= ActiveRecord::FixtureSet.identify(:xlsx_attachment) %>

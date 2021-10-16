@@ -42,7 +42,6 @@ Modules group functionality. Currently, the modules the modules developed are:
 - Budgets Visualizacion
 - Observatory
 - Politics and Agendas
-- Participation tools
 - Plan visualization
 
 ## Docs

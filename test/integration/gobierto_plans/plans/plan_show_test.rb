@@ -11,6 +11,14 @@ module GobiertoPlans
       plan.touch
     end
 
+    def admin
+      @admin ||= gobierto_admin_admins(:tony)
+    end
+
+    def admin_token
+      @admin_token ||= admin.preview_token
+    end
+
     def site
       @site ||= sites(:madrid)
     end
@@ -67,6 +75,34 @@ module GobiertoPlans
 
     def test_plan
       with(site: site, js: true) do
+        visit @path
+
+        assert has_content? "Strategic Plan introduction"
+
+        within "div.header-detail" do
+          assert has_content? "#{axes.count} axes"
+          assert has_content? "1 line of action"
+          assert has_content? "#{actions.count} actions"
+          assert has_content? "#{projects.published.count} project"
+        end
+
+        within "section.level_0" do
+          assert has_selector?("div.node-root", count: axes.count)
+
+          axes.each_with_index do |axe, index|
+            assert has_content?(axe.name.to_s)
+          end
+        end
+
+        assert has_content? "Strategic Plan footer"
+      end
+    end
+
+    def test_preview_draft_plan
+      with(site: site, js: true, admin: admin) do
+        plan.draft!
+        @path = gobierto_plans_plan_path(slug: plan_type.slug, year: plan.year, preview_token: admin_token)
+
         visit @path
 
         assert has_content? "Strategic Plan introduction"

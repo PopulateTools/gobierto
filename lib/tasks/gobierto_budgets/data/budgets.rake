@@ -16,10 +16,15 @@ namespace :gobierto_budgets do
       importer = GobiertoBudgetsData::GobiertoBudgets::BudgetLinesCsvImporter.new(csv_data)
 
       organization_ids = importer.csv.map { |row| row.field("organization_id") }.uniq
-      sites = Site.where(organization_id: organization_ids)
 
+      if organization_ids.empty?
+        puts "[ERROR] No organization_ids provided"
+        exit(-1)
+      end
+
+      sites = Site.where(organization_id: organization_ids)
       nitems = importer.import!
-      puts "[SUCCESS] Imported #{nitems}"
+      puts "[SUCCESS] Imported #{nitems} rows for sites #{sites.pluck(:domain).to_sentence}"
 
       # Calculate total amounts
       TOTAL_BUDGET_INDEXES = [

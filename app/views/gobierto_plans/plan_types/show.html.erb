@@ -39,7 +39,8 @@
       data-plan-id="<%= @plan.id %>"
       data-context="<%= @plan.context %>"
       data-pipe="<%= @plan.data_pipe %>"
-      data-dashboards="<%= dashboards_enabled? %>">
+      data-dashboards="<%= dashboards_enabled? %>"
+      data-preview-token="<%= params[:preview_token] %>">
     </div>
   <% end %>
 

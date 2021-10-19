@@ -12,7 +12,8 @@ namespace :gobierto_budgets do
         exit(-1)
       end
 
-      importer = GobiertoBudgetsData::GobiertoBudgets::BudgetLinesCsvImporter.new(CSV.read(csv_path, headers: true))
+      csv_data = CSV.read(csv_path, headers: true, header_converters: [lambda { |header| header.downcase }])
+      importer = GobiertoBudgetsData::GobiertoBudgets::BudgetLinesCsvImporter.new(csv_data)
 
       organization_ids = importer.csv.map { |row| row.field("organization_id") }.uniq
       sites = Site.where(organization_id: organization_ids)

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_budgets_data.git
-  revision: 2af01a5bc2b56fb2f690baf4ea5f6ba0d002226a
+  revision: 430cf2adcc39287ab99754a5179388d9539705b2
   specs:
     gobierto_budgets_data (0.1.0)
       actionpack
@@ -107,17 +107,17 @@ GEM
       rack
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.508.0)
-    aws-sdk-core (3.121.1)
+    aws-partitions (1.516.0)
+    aws-sdk-core (3.121.2)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.48.0)
-      aws-sdk-core (~> 3, >= 3.120.0)
+    aws-sdk-kms (1.50.0)
+      aws-sdk-core (~> 3, >= 3.121.2)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.103.0)
-      aws-sdk-core (~> 3, >= 3.120.0)
+    aws-sdk-s3 (1.104.0)
+      aws-sdk-core (~> 3, >= 3.121.2)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.4.0)
@@ -343,7 +343,7 @@ GEM
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     nori (2.6.0)
-    oj (3.13.8)
+    oj (3.13.9)
     open4 (1.3.4)
     os (1.1.1)
     paper_trail (12.0.0)

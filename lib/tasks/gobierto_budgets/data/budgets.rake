@@ -12,13 +12,19 @@ namespace :gobierto_budgets do
         exit(-1)
       end
 
-      importer = GobiertoBudgetsData::GobiertoBudgets::BudgetLinesCsvImporter.new(CSV.read(csv_path, headers: true))
+      csv_data = CSV.read(csv_path, col_sep: detect_separator(csv_path), headers: true, header_converters: [lambda { |header| header.downcase }])
+      importer = GobiertoBudgetsData::GobiertoBudgets::BudgetLinesCsvImporter.new(csv_data)
 
       organization_ids = importer.csv.map { |row| row.field("organization_id") }.uniq
-      sites = Site.where(organization_id: organization_ids)
 
+      if organization_ids.empty?
+        puts "[ERROR] No organization_ids provided"
+        exit(-1)
+      end
+
+      sites = Site.where(organization_id: organization_ids)
       nitems = importer.import!
-      puts "[SUCCESS] Imported #{nitems}"
+      puts "[SUCCESS] Imported #{nitems} rows for sites #{sites.pluck(:domain).to_sentence}"
 
       # Calculate total amounts
       TOTAL_BUDGET_INDEXES = [
@@ -67,5 +73,18 @@ namespace :gobierto_budgets do
       Rails.cache.clear
       puts "[SUCCESS] Expired Rails cache"
     end
+
+    def detect_separator(filename)
+      %w( , ; ).each do |separator|
+        return separator if separator_check(filename, separator)
+      end
+
+      raise "No separator found for #{filename}"
+    end
+
+    def separator_check(filename, separator)
+      CSV.read(filename, col_sep: separator).map(&:size).uniq.size == 1
+    end
+
   end
 end

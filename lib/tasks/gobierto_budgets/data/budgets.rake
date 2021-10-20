@@ -12,7 +12,7 @@ namespace :gobierto_budgets do
         exit(-1)
       end
 
-      csv_data = CSV.read(csv_path, headers: true, header_converters: [lambda { |header| header.downcase }])
+      csv_data = CSV.read(csv_path, col_sep: detect_separator(csv_path), headers: true, header_converters: [lambda { |header| header.downcase }])
       importer = GobiertoBudgetsData::GobiertoBudgets::BudgetLinesCsvImporter.new(csv_data)
 
       organization_ids = importer.csv.map { |row| row.field("organization_id") }.uniq
@@ -73,5 +73,18 @@ namespace :gobierto_budgets do
       Rails.cache.clear
       puts "[SUCCESS] Expired Rails cache"
     end
+
+    def detect_separator(filename)
+      %w( , ; ).each do |separator|
+        return separator if separator_check(filename, separator)
+      end
+
+      raise "No separator found for #{filename}"
+    end
+
+    def separator_check(filename, separator)
+      CSV.read(filename, col_sep: separator).map(&:size).uniq.size == 1
+    end
+
   end
 end

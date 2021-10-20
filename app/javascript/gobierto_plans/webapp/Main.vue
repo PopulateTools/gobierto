@@ -71,6 +71,9 @@ export default {
           name: routes.DASHBOARDS
         }
       ].filter(Boolean);
+    },
+    previewToken() {
+      return this.$root?.$data?.previewToken;
     }
   },
   async created() {
@@ -79,9 +82,9 @@ export default {
       { data: { data: projects } = {} } = {},
       { data: { data: meta } = {} } = {}
     ] = await Promise.all([
-      this.getPlan(this.planId),
-      this.getProjects(this.planId),
-      this.getMeta(this.planId)
+      this.getPlan(this.planId, { preview_token: this.previewToken }),
+      this.getProjects(this.planId, { preview_token: this.previewToken }),
+      this.getMeta(this.planId, { preview_token: this.previewToken })
     ]);
 
     const {

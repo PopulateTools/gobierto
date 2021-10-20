@@ -1,14 +1,14 @@
+<% content_for :javascript_module_link do %>
+  <%= javascript_packs_with_chunks_tag 'cms', 'data-turbolinks-track': true %>
+<% end %>
+
+<% content_for :stylesheet_module_link do %>
+  <%= stylesheet_packs_with_chunks_tag 'cms' %>
+<% end %>
+
 <% cache(["gobierto_cms/pages/meta_welcome", current_site, I18n.locale]) do %>
   <% title(@page.title) %>
   <% description(truncate(strip_tags(@page.body), length: 100)) %>
-
-  <% content_for :javascript_module_link do %>
-    <%= javascript_packs_with_chunks_tag 'cms', 'data-turbolinks-track': true %>
-  <% end %>
-
-  <% content_for :stylesheet_module_link do %>
-    <%= stylesheet_packs_with_chunks_tag 'cms' %>
-  <% end %>
 
   <%= render @page.template %>
 <% end %>

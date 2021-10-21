@@ -83,7 +83,8 @@ namespace :gobierto_budgets do
     end
 
     def separator_check(filename, separator)
-      CSV.read(filename, col_sep: separator).map(&:size).uniq.size == 1
+      columns_counts = CSV.read(filename, col_sep: separator).map(&:size).uniq
+      columns_counts.size == 1 && columns_counts.first > 1
     end
 
   end

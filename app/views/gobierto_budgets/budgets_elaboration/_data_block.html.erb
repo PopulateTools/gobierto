@@ -14,7 +14,7 @@
   </div>
 
   <div class="highlight-proposal">
-    <p><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: Date.current.year) %></p>
+    <p><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data) %></p>
   </div>
 
   <div class="pure-g metric_boxes">
@@ -120,7 +120,7 @@
           <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
           <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
           <th class="highlight-proposal" colspan="4">
-            <p class="left"><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: Date.current.year) %></p>
+            <p class="left"><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data) %></p>
           </th>
         </tr>
         <tr>

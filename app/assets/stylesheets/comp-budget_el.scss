@@ -184,7 +184,6 @@
   background: rgba(var(--color-base-string), 0.06);
   .table-breakdown-element {
     color: var(--color-base);
-    margin-left: .5rem;
     cursor: pointer;
   }
   tr.show-sublevel {
@@ -200,6 +199,7 @@
   }
   i {
     color: var(--color-base);
+    margin-right: .5rem;
   }
 
 }

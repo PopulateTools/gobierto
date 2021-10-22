@@ -3,6 +3,7 @@
 Rails.application.config.to_prepare do
   Subscribers::AdminActivity.attach_to("activities/admins")
   Subscribers::AdminGroupActivity.attach_to("activities/admins")
+  Subscribers::GobiertoBudgetsActivity.attach_to("activities/gobierto_budgets")
   Subscribers::CensusActivity.attach_to("activities/census")
   Subscribers::GobiertoPeopleActivity.attach_to("trackable")
   Subscribers::GobiertoCalendarsActivity.attach_to("trackable")

@@ -7,7 +7,6 @@
 @import "comp-vue-block-header";
 @import "comp-vue-dropdown";
 @import "comp-vue-pagination";
-@import "comp-vue-beeswarm";
 @import "comp-vue-treemap-nested";
 @import "comp-vue-multiple-lines";
 @import "comp-vue-table";
@@ -509,6 +508,10 @@
       font-size: $f6;
       text-transform: lowercase;
     }
+  }
+
+  .beeswarm-container {
+    color: var(--color-base);
   }
 
   .beeswarm-tooltip-header-title,

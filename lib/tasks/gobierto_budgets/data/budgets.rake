@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+
 namespace :gobierto_budgets do
   namespace :data do
     desc "Import budgets from CSV with gobierto_budgets_data format"
     task :import_gobierto_budgets_data, [:csv_path] => :environment do |_t, args|
+      require "gobierto_budgets/category"
 
       # Import budgets
       csv_path = args[:csv_path]

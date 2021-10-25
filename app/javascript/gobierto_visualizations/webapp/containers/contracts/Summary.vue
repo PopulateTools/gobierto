@@ -11,19 +11,12 @@
       :data="visualizationsDataEntity"
       class="mt4"
     />
+
     <div id="gobierto-visualizations-beeswarm">
       <h3 class="mt4 graph-title">
         {{ labelBeesWarm }}
       </h3>
-      <BeesWarmChart
-        v-if="activeTab === 0"
-        :data="visualizationsDataExcludeMinorContract"
-        :radius-property="'final_amount_no_taxes'"
-        :x-axis-prop="'gobierto_start_date'"
-        :y-axis-prop="'contract_type'"
-        @showTooltip="showTooltipBeesWarm"
-        @goesToItem="goesToItem"
-      />
+      <div ref="beeswarm" />
     </div>
 
     <div
@@ -165,22 +158,17 @@
 </template>
 <script>
 import { Table } from "lib/vue/components";
+import { BeeSwarm } from "gobierto-vizzs";
 import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import EntityTreeMapNested from "./EntityTreeMapNested.vue";
-import BeesWarmChart from "../../components/BeesWarmChart.vue";
 import { SharedMixin } from "../../lib/mixins/shared";
 import { assigneesColumns } from "../../lib/config/contracts.js";
-import { select, mouse } from 'd3-selection'
-import { timeParse } from 'd3-time-format';
 import { money } from "lib/vue/filters";
-
-const d3 = { select, mouse, timeParse }
 
 export default {
   name: 'Summary',
   components: {
     Table,
-    BeesWarmChart,
     CategoriesTreeMapNested,
     EntityTreeMapNested
   },
@@ -235,44 +223,50 @@ export default {
         .filter(({ minor_contract: minor }) => minor === 'f')
     },
   },
+  watch: {
+    visualizationsDataExcludeMinorContract(n) {
+      this.beeswarm.setData(n)
+    }
+  },
   created() {
     this.columns = assigneesColumns;
     this.showColumns = ['count', 'name', 'sum']
     this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
   },
+  mounted() {
+    this.beeswarm = new BeeSwarm(this.$refs.beeswarm, this.visualizationsDataExcludeMinorContract, {
+      x: "gobierto_start_date",
+      y: "contract_type",
+      value: "final_amount_no_taxes",
+      relation: "assignee_routing_id",
+      circleSize: [3, 28],
+      tooltip: this.tooltipBeeSwarm,
+      onClick: this.goesToItem,
+      margin: {
+        left: 120,
+        right: 30,
+        top: 70,
+        bottom: 30
+      }
+    })
+  },
   methods: {
-    showTooltipBeesWarm(event) {
-      const { assignee, final_amount_no_taxes, y } = event
-      const tooltip = d3.select('.beeswarm-tooltip')
-
-      const positionTop = `${y}px`
-      const positionLeft = '0px'
-
-      tooltip
-        .style("opacity", 0)
-        .transition()
-        .duration(400)
-        .style("opacity", 1)
-
-      tooltip
-        .style('top', positionTop)
-        .style('left', positionLeft)
-        .html(`
-          <span class="beeswarm-tooltip-header-title">
-            ${assignee}
+    tooltipBeeSwarm(d) {
+      return `
+        <span class="beeswarm-tooltip-header-title">
+          ${d.assignee}
+        </span>
+        <div class="beeswarm-tooltip-table-element">
+          <span class="beeswarm-tooltip-table-element-text">
+            ${this.labelTooltipBeesWarm}:
           </span>
-          <div class="beeswarm-tooltip-table-element">
-            <span class="beeswarm-tooltip-table-element-text">
-              ${this.labelTooltipBeesWarm}:
-            </span>
-            <span class="beeswarm-tooltip-table-element-text">
-               <b>${money(final_amount_no_taxes)}</b>
-            </span>
-          </div>
-        `)
+          <span class="beeswarm-tooltip-table-element-text">
+              <b>${money(d.final_amount_no_taxes)}</b>
+          </span>
+        </div>
+      `
     },
-    goesToItem(event) {
-      const { id } = event
+    goesToItem(_, { id }) {
       // eslint-disable-next-line no-unused-vars
       this.$router.push(`/visualizaciones/contratos/adjudicaciones/${id}`).catch(err => {})
     },

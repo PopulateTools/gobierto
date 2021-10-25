@@ -6581,7 +6581,7 @@ globule@^1.0.0:
 
 gobierto-vizzs@PopulateTools/gobierto-vizzs#main:
   version "1.0.0"
-  resolved "https://codeload.github.com/PopulateTools/gobierto-vizzs/tar.gz/e0e4a8fe2da04f53cfb8dfa756f8e4620ff66601"
+  resolved "https://codeload.github.com/PopulateTools/gobierto-vizzs/tar.gz/90c1003063383673755b584d3f9e95a575a7dd77"
   dependencies:
     d3 "^7.0.3"
 

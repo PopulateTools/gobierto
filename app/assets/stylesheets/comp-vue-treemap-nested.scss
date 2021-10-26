@@ -1,181 +1,181 @@
-:root {
-  --white: #fff;
-  --black: #000;
-  --grey-text: #767168;
-}
+// :root {
+//   --white: #fff;
+//   --black: #000;
+//   --grey-text: #767168;
+// }
 
-.treemap-nested-container {
-  position: relative;
-}
+// .treemap-nested-container {
+//   position: relative;
+// }
 
-.treemap-nested-sidebar-nav {
-  margin-left: 1px;
-  color: rgba(var(--color-base-string), .8);
-  width: max-content;
-  cursor: pointer;
+// .treemap-nested-sidebar-nav {
+//   margin-left: 1px;
+//   color: rgba(var(--color-base-string), .8);
+//   width: max-content;
+//   cursor: pointer;
 
-  &-breadcumb {
-    margin: 0;
+//   &-breadcumb {
+//     margin: 0;
 
-    .treemap-nested-breadcrumb.ellipsis {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 200px;
-    }
-  }
+//     .treemap-nested-breadcrumb.ellipsis {
+//       white-space: nowrap;
+//       overflow: hidden;
+//       text-overflow: ellipsis;
+//       width: 200px;
+//     }
+//   }
 
-  .treemap-nested-breadcrumb {
-    display: inline-block;
-    vertical-align: middle;
-  }
-}
+//   .treemap-nested-breadcrumb {
+//     display: inline-block;
+//     vertical-align: middle;
+//   }
+// }
 
-.treemap-nested-sidebar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: .5rem;
-}
+// .treemap-nested-sidebar {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin-bottom: .5rem;
+// }
 
-.treemap-nested {
+// .treemap-nested {
 
-  text {
-    pointer-events: none;
-  }
+//   text {
+//     pointer-events: none;
+//   }
 
-  .grandparent text {
-    font-weight: bold;
-  }
+//   .grandparent text {
+//     font-weight: bold;
+//   }
 
-  rect {
-    stroke: var(--white);
-    stroke-width: 1px;
-  }
+//   rect {
+//     stroke: var(--white);
+//     stroke-width: 1px;
+//   }
 
-  rect.parent,
-  .grandparent rect {
-    stroke-width: 3px;
-  }
+//   rect.parent,
+//   .grandparent rect {
+//     stroke-width: 3px;
+//   }
 
-  .children rect.parent,
-  .grandparent rect {
-    cursor: pointer;
-  }
+//   .children rect.parent,
+//   .grandparent rect {
+//     cursor: pointer;
+//   }
 
-  .children rect.child {
-    opacity: 0;
-  }
+//   .children rect.child {
+//     opacity: 0;
+//   }
 
-  .children {
-    &:hover {
-      rect.child {
-        opacity: 1;
-        stroke-width: 1px;
-      }
+//   .children {
+//     &:hover {
+//       rect.child {
+//         opacity: 1;
+//         stroke-width: 1px;
+//       }
 
-      rect.parent {
-        opacity: 0;
-      }
-    }
-  }
+//       rect.parent {
+//         opacity: 0;
+//       }
+//     }
+//   }
 
-  .legend {
-    margin-bottom: 8px;
+//   .legend {
+//     margin-bottom: 8px;
 
-    rect {
-      stroke-width: 0;
-    }
+//     rect {
+//       stroke-width: 0;
+//     }
 
-    text {
-      text-anchor: middle;
-      pointer-events: auto;
-      font-size: 13px;
-      fill: var(--black);
-    }
-  }
+//     text {
+//       text-anchor: middle;
+//       pointer-events: auto;
+//       font-size: 13px;
+//       fill: var(--black);
+//     }
+//   }
 
-  .form-group {
-    text-align: left;
-  }
+//   .form-group {
+//     text-align: left;
+//   }
 
-  .treemap-nested-container-text,
-  .foreignobj {
-    color: var(--white);
-    cursor: pointer;
+//   .treemap-nested-container-text,
+//   .foreignobj {
+//     color: var(--white);
+//     cursor: pointer;
 
-    .title {
-      margin: 0;
-      font-size: $f6;
-      text-transform: uppercase;
-      font-weight: bold;
-      line-height: 1;
-      color: var(--white);
-    }
+//     .title {
+//       margin: 0;
+//       font-size: $f6;
+//       text-transform: uppercase;
+//       font-weight: bold;
+//       line-height: 1;
+//       color: var(--white);
+//     }
 
-    .text,
-    .text-depth-third {
-      margin: .25rem 0;
-      font-size: $f6;
-      line-height: 1;
-    }
+//     .text,
+//     .text-depth-third {
+//       margin: .25rem 0;
+//       font-size: $f6;
+//       line-height: 1;
+//     }
 
-    .link-last-depth {
-      display: block;
-      height: 100%;
-      color: var(--white);
-      text-decoration: none;
-      &:hover {
-        .text,
-        .title {
-          text-decoration: underline;
-        }
-      }
-      .text,
-      .title {
-        text-decoration: none;
-        pointer-events: none;
-      }
-    }
+//     .link-last-depth {
+//       display: block;
+//       height: 100%;
+//       color: var(--white);
+//       text-decoration: none;
+//       &:hover {
+//         .text,
+//         .title {
+//           text-decoration: underline;
+//         }
+//       }
+//       .text,
+//       .title {
+//         text-decoration: none;
+//         pointer-events: none;
+//       }
+//     }
 
-  }
+//   }
 
-  .treemap-nested-container-text {
-    height: 100%;
-    position: relative;
-    z-index: 1;
-    padding: 12px;
+//   .treemap-nested-container-text {
+//     height: 100%;
+//     position: relative;
+//     z-index: 1;
+//     padding: 12px;
 
-    &.hide-text {
-      padding: 0;
-      .title,
-      .text-depth-third,
-      .text {
-        font-size: 0;
-      }
-    }
-  }
-}
+//     &.hide-text {
+//       padding: 0;
+//       .title,
+//       .text-depth-third,
+//       .text {
+//         font-size: 0;
+//       }
+//     }
+//   }
+// }
 
-.treemap-nested-tooltip-first,
-.treemap-nested-tooltip-second {
-  max-height: 450px;
-  overflow-y: auto;
+// .treemap-nested-tooltip-first,
+// .treemap-nested-tooltip-second {
+//   max-height: 450px;
+//   overflow-y: auto;
 
-  .text-depth-third {
-    margin: 0;
-    font-size: $f7;
-    color: var(--grey-text);
-  }
-}
+//   .text-depth-third {
+//     margin: 0;
+//     font-size: $f7;
+//     color: var(--grey-text);
+//   }
+// }
 
-.treemap-nested-tooltip-first {
-  .depth-first-container {
-    padding: .25rem 0;
-  }
+// .treemap-nested-tooltip-first {
+//   .depth-first-container {
+//     padding: .25rem 0;
+//   }
 
-  .text-depth-first {
-    margin: 0;
-    font-size: $f6;
-  }
-}
+//   .text-depth-first {
+//     margin: 0;
+//     font-size: $f6;
+//   }
+// }

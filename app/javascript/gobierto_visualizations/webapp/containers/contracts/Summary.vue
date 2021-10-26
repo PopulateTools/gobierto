@@ -1,10 +1,21 @@
 <template>
   <div>
-    <CategoriesTreeMapNested
+    <!-- <CategoriesTreeMapNested
       v-if="activeTab === 0"
       id="gobierto-visualizations-treemap-categories"
       :data="visualizationsDataExcludeNoCategory"
-    />
+    /> -->
+    <TreeMapButtons
+      :buttons="entityButtons"
+      :active="entityActiveButton"
+      @active-button="handleEntityActiveButton"
+    >
+      <div
+        ref="treemap-entity"
+        style="height: 400px"
+      />
+    </TreeMapButtons>
+
     <EntityTreeMapNested
       v-if="activeTab === 0"
       id="gobierto-visualizations-treemap-entity"
@@ -12,165 +23,57 @@
       class="mt4"
     />
 
-    <div id="gobierto-visualizations-beeswarm">
-      <h3 class="mt4 graph-title">
-        {{ labelBeesWarm }}
-      </h3>
-      <div ref="beeswarm" />
-    </div>
 
-    <div
-      id="tendersContractsSummary"
-      class="metric_boxes mt4"
-    >
-      <div class="metric_box">
-        <div class="inner nomargin ">
-          <div class="pure-g p_1">
-            <div class="pure-u-1 pure-u-lg-1-3">
-              <h3>{{ labelTenders }}</h3>
-
-              <div class="metric m_b_1">
-                <span id="number-tenders" />
-              </div>
-              <p class="m_t_0">
-                {{ labelTendersFor }}
-              </p>
-              <div class="metric m_b_1">
-                <small><span id="sum-tenders" /></small>
-              </div>
-
-              <div class="pure-g">
-                <div class="pure-u-1-2 explanation explanation--relative">
-                  {{ labelMeanAmount }}
-                  <strong class="d_block"><span id="mean-tenders" /></strong>
-                </div>
-
-                <div class="pure-u-1-2 explanation explanation--relative">
-                  {{ labelMedianAmount }}
-                  <strong class="d_block"><span id="median-tenders" /></strong>
-                </div>
-              </div>
-            </div> <!-- tenders block -->
-
-            <div class="pure-u-1 pure-u-lg-2-3">
-              <h3>{{ labelContracts }}</h3>
-
-              <div class="metric m_b_1">
-                <span id="number-contracts" />
-              </div>
-              <div class="pure-g">
-                <div class="pure-u-1-2">
-                  <p class="m_t_0">
-                    {{ labelContractsFor }}
-                  </p>
-                  <div class="metric m_b_1">
-                    <small><span id="sum-contracts" /></small>
-                  </div>
-
-                  <div class="pure-g">
-                    <div class="pure-u-1-2 explanation explanation--relative">
-                      {{ labelMeanAmount }}
-                      <strong class="d_block">
-                        <span id="mean-contracts" />
-                      </strong>
-                    </div>
-
-                    <div class="pure-u-1-2 explanation explanation--relative">
-                      {{ labelMedianAmount }}
-                      <strong class="d_block">
-                        <span id="median-contracts" />
-                      </strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> <!-- contracts -->
-          </div>
-        </div>
-      </div> <!-- metric_box -->
-    </div> <!-- metrix_boxes -->
-
-    <div
-      id="dccharts"
-      class="pure-g block m_b_3"
-    >
-      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator">
-          {{ labelLessThan1000_1 }}<strong><span id="less-than-1000-pct" /></strong>{{ labelLessThan1000_2 }}<strong>1.000 €</strong>
-        </p>
+    <template v-if="false">
+      <div id="gobierto-visualizations-beeswarm">
+        <h3 class="mt4 graph-title">
+          {{ labelBeesWarm }}
+        </h3>
+        <div ref="beeswarm" />
       </div>
 
-      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator">
-          {{ labelLargerContractAmount_1 }}<strong><span id="larger-contract-amount-pct" /></strong>{{ labelLargerContractAmount_2 }}
-        </p>
+      <MetricBoxes />
+
+      <DCCharts />
+
+      <div class="m_t_4">
+        <h3 class="mt1 graph-title">
+          {{ labelMainAssignees }}
+        </h3>
+        <Table
+          :data="tableItems"
+          :sort-column="'count'"
+          :sort-direction="'desc'"
+          :columns="assigneesColumns"
+          :show-columns="showColumns"
+          class="gobierto-table-margin-top"
+          @on-href-click="goesToTableItem"
+        />
       </div>
-
-      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator">
-          {{ labelHalfSpendingsContracts_1 }}<strong><span id="half-spendings-contracts-pct" /></strong>{{ labelHalfSpendingsContracts_2 }}
-        </p>
-      </div>
-    </div>
-
-    <div class="pure-g block">
-      <div class="pure-u-1 pure-u-lg-1-2 p_h_r_3">
-        <div class="m_b_3">
-          <h3 class="mt1 graph-title">
-            {{ labelContractType }}
-          </h3>
-          <div id="contract-type-bars" />
-        </div>
-
-        <div>
-          <h3 class="mt1 graph-title">
-            {{ labelProcessType }}
-          </h3>
-          <div id="process-type-bars" />
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-lg-1-2 header_block_inline">
-        <div>
-          <h3 class="mt1 graph-title">
-            {{ labelAmountDistribution }}
-          </h3>
-          <div id="amount-distribution-bars" />
-        </div>
-      </div>
-    </div>
-
-    <div class="m_t_4">
-      <h3 class="mt1 graph-title">
-        {{ labelMainAssignees }}
-      </h3>
-      <Table
-        :data="tableItems"
-        :sort-column="'count'"
-        :sort-direction="'desc'"
-        :columns="assigneesColumns"
-        :show-columns="showColumns"
-        class="gobierto-table-margin-top"
-        @on-href-click="goesToTableItem"
-      />
-    </div>
+    </template>
   </div>
 </template>
 <script>
 import { Table } from "lib/vue/components";
-import { BeeSwarm } from "gobierto-vizzs";
-import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
+import { BeeSwarm, TreeMap } from "gobierto-vizzs";
+// import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import EntityTreeMapNested from "./EntityTreeMapNested.vue";
+import TreeMapButtons from "../../components/TreeMapButtons.vue";
+import MetricBoxes from "../../components/MetricBoxes.vue";
+import DCCharts from "../../components/DCCharts.vue";
 import { SharedMixin } from "../../lib/mixins/shared";
 import { assigneesColumns } from "../../lib/config/contracts.js";
 import { money } from "lib/vue/filters";
 
 export default {
-  name: 'Summary',
+  name: "Summary",
   components: {
     Table,
-    CategoriesTreeMapNested,
-    EntityTreeMapNested
+    // CategoriesTreeMapNested,
+    EntityTreeMapNested,
+    TreeMapButtons,
+    MetricBoxes,
+    DCCharts
   },
   mixins: [SharedMixin],
   props: {
@@ -187,26 +90,18 @@ export default {
       tableItems: [],
       columns: [],
       showColumns: [],
-      value: '',
-      labelTenders: I18n.t('gobierto_visualizations.visualizations.contracts.summary.tenders'),
-      labelTendersFor: I18n.t('gobierto_visualizations.visualizations.contracts.summary.tenders_for'),
-      labelContracts: I18n.t('gobierto_visualizations.visualizations.contracts.summary.contracts'),
-      labelContractsFor: I18n.t('gobierto_visualizations.visualizations.contracts.summary.contracts_for'),
-      labelMeanAmount: I18n.t('gobierto_visualizations.visualizations.contracts.summary.mean_amount'),
-      labelMedianAmount: I18n.t('gobierto_visualizations.visualizations.contracts.summary.median_amount'),
-      labelMeanSavings: I18n.t('gobierto_visualizations.visualizations.contracts.summary.mean_savings'),
-      labelLessThan1000_1: I18n.t('gobierto_visualizations.visualizations.contracts.summary.label_less_than_1000_1'),
-      labelLessThan1000_2: I18n.t('gobierto_visualizations.visualizations.contracts.summary.label_less_than_1000_2'),
-      labelLargerContractAmount_1: I18n.t('gobierto_visualizations.visualizations.contracts.summary.label_larger_contract_amount_1'),
-      labelLargerContractAmount_2: I18n.t('gobierto_visualizations.visualizations.contracts.summary.label_larger_contract_amount_2'),
-      labelHalfSpendingsContracts_1: I18n.t('gobierto_visualizations.visualizations.contracts.summary.label_half_spendings_contracts_1'),
-      labelHalfSpendingsContracts_2: I18n.t('gobierto_visualizations.visualizations.contracts.summary.label_half_spendings_contracts_2'),
-      labelContractType: I18n.t('gobierto_visualizations.visualizations.contracts.contract_type'),
-      labelProcessType: I18n.t('gobierto_visualizations.visualizations.contracts.process_type'),
-      labelAmountDistribution: I18n.t('gobierto_visualizations.visualizations.contracts.amount_distribution'),
-      labelMainAssignees: I18n.t('gobierto_visualizations.visualizations.contracts.main_assignees'),
-      labelBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.title_beeswarm'),
-      labelTooltipBeesWarm: I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm')
+      value: "",
+      labelMainAssignees: I18n.t("gobierto_visualizations.visualizations.contracts.main_assignees"),
+      labelBeesWarm: I18n.t("gobierto_visualizations.visualizations.visualizations.title_beeswarm"),
+      labelTooltipBeesWarm: I18n.t("gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm"),
+      labelEntities: I18n.t('gobierto_visualizations.visualizations.contracts.entities') || '',
+      labelContracts: I18n.t('gobierto_visualizations.visualizations.contracts.contracts') || '',
+
+      entityButtons: [
+        ["final_amount_no_taxes", I18n.t("gobierto_visualizations.visualizations.contracts.contract_amount")],
+        ["number_of_contract", I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap')],
+      ],
+      entityActiveButton: "final_amount_no_taxes"
     }
   },
   computed: {
@@ -220,7 +115,7 @@ export default {
     },
     visualizationsDataExcludeMinorContract() {
       return this.visualizationsDataEntity
-        .filter(({ minor_contract: minor }) => minor === 'f')
+        .filter(({ minor_contract: minor }) => minor === "f")
     },
   },
   watch: {
@@ -230,30 +125,43 @@ export default {
   },
   created() {
     this.columns = assigneesColumns;
-    this.showColumns = ['count', 'name', 'sum']
+    this.showColumns = ["count", "name", "sum"]
     this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
   },
   mounted() {
-    this.beeswarm = new BeeSwarm(this.$refs.beeswarm, this.visualizationsDataExcludeMinorContract, {
-      x: "gobierto_start_date",
-      y: "contract_type",
-      value: "final_amount_no_taxes",
-      relation: "assignee_routing_id",
-      circleSize: [3, 28],
-      tooltip: this.tooltipBeeSwarm,
-      onClick: this.goesToItem,
-      margin: {
-        left: 120,
-        right: 30,
-        top: 70,
-        bottom: 30
-      }
-    })
+    if (this.$refs["treemap-entity"]) {
+      this.treemapEntity = new TreeMap(this.$refs["treemap-entity"], this.visualizationsDataEntity, {
+        rootTitle: this.labelEntities,
+        id: "contractor",
+        group: ["contractor", "contract_type", "assignee"],
+        value: "final_amount_no_taxes",
+        itemTemplate: this.treemapItemTemplate,
+        tooltip: this.tooltipTreeMap
+      })
+    }
+
+    if (this.$refs.beeswarm) {
+      this.beeswarm = new BeeSwarm(this.$refs.beeswarm, this.visualizationsDataExcludeMinorContract, {
+        x: "gobierto_start_date",
+        y: "contract_type",
+        value: "final_amount_no_taxes",
+        relation: "assignee_routing_id",
+        circleSize: [3, 28],
+        tooltip: this.tooltipBeeSwarm,
+        onClick: this.goesToItem,
+        margin: {
+          left: 120,
+          right: 30,
+          top: 70,
+          bottom: 30
+        }
+      })
+    }
   },
   methods: {
     tooltipBeeSwarm(d) {
       return `
-        <span class="beeswarm-tooltip-header-title">
+        <span class="beeswarm-tooltip-header">
           ${d.assignee}
         </span>
         <div class="beeswarm-tooltip-table-element">
@@ -266,10 +174,45 @@ export default {
         </div>
       `
     },
+    tooltipTreeMap(d) {
+      return `
+        <span class="treemap-tooltip-header">
+          ${this.labelContracts}
+        </span>
+        ${d.children.map(this.tooltipTreeMapChildren).join("")}`
+    },
+    tooltipTreeMapChildren(d) {
+      const labelContractsAmount = I18n.t("gobierto_visualizations.visualizations.contracts.contract_amount")
+      const labelTendersAmount = I18n.t("gobierto_visualizations.visualizations.contracts.tender_amount")
+      const sum = d.leaves().reduce((acc, x) => acc + x.data.initial_amount_no_taxes, 0)
+
+      return `
+      <div class="treemap-tooltip-children-container">
+        <p class="treemap-tooltip-children-title">${d.data.contractor}</p>
+        <p class="treemap-tooltip-children-text">${labelContractsAmount}: <b>${money(d.value)}</b></p>
+        <p class="treemap-tooltip-children-text">${labelTendersAmount}: <b>${money(sum)}</b></p>
+      </div>`
+    },
     goesToItem(_, { id }) {
       // eslint-disable-next-line no-unused-vars
       this.$router.push(`/visualizaciones/contratos/adjudicaciones/${id}`).catch(err => {})
     },
+    handleEntityActiveButton(value) {
+      this.entityActiveButton = value
+
+      // TODO:
+      this.treemapEntity.valueProp = undefined
+      this.treemapEntity.build()
+    },
+    treemapItemTemplate(d) {
+      return `
+        <p class="treemap-item-title">${d.data.contractor}</p>
+        <p class="treemap-item-text">${money(d.value)}</p>
+        <p class="treemap-item-text">
+          <b>${d.children.length}</b> ${this.labelContracts}</b>
+        </p>`
+    },
+    // old
     refreshSummaryData() {
       if (!this.value) {
         this.visualizationsData = this.$root.$data.contractsData;
@@ -283,7 +226,7 @@ export default {
       const groupedByAssignee = {}
       // Group contracts by assignee
       this.visualizationsData.forEach(({ assignee, assignee_routing_id, final_amount_no_taxes }) => {
-        if (assignee === '' || assignee === undefined) {
+        if (assignee === "" || assignee === undefined) {
           return;
         }
 
@@ -310,7 +253,7 @@ export default {
     },
     goesToTableItem(item) {
       const { assignee_routing_id: routingId } = item
-      this.$router.push({ name: 'assignees_show', params: { id: routingId } })
+      this.$router.push({ name: "assignees_show", params: { id: routingId } })
     }
   }
 }

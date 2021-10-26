@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 namespace :gobierto_budgets do
   namespace :data do
     desc "Import budgets from CSV with gobierto_budgets_data format"
@@ -14,7 +13,7 @@ namespace :gobierto_budgets do
         exit(-1)
       end
 
-      csv_data = CSV.read(csv_path, col_sep: detect_separator(csv_path), headers: true, header_converters: [lambda { |header| header.downcase }])
+      csv_data = CSV.read(csv_path, col_sep: Utils::CsvUtils.detect_separator(csv_path), headers: true, header_converters: [lambda { |header| header.downcase }])
       importer = GobiertoBudgetsData::GobiertoBudgets::BudgetLinesCsvImporter.new(csv_data)
 
       organization_ids = importer.csv.map { |row| row.field("organization_id") }.uniq
@@ -74,19 +73,6 @@ namespace :gobierto_budgets do
       # Expire Rails cache
       Rails.cache.clear
       puts "[SUCCESS] Expired Rails cache"
-    end
-
-    def detect_separator(filename)
-      %w( , ; ).each do |separator|
-        return separator if separator_check(filename, separator)
-      end
-
-      raise "No separator found for #{filename}"
-    end
-
-    def separator_check(filename, separator)
-      columns_counts = CSV.read(filename, col_sep: separator).map(&:size).uniq
-      columns_counts.size == 1 && columns_counts.first > 1
     end
 
   end

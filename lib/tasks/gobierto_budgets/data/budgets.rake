@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "#{Rails.root}/lib/utils/csv_utils"
+
 namespace :gobierto_budgets do
   namespace :data do
     desc "Import budgets from CSV with gobierto_budgets_data format"
@@ -13,7 +15,7 @@ namespace :gobierto_budgets do
         exit(-1)
       end
 
-      csv_data = CSV.read(csv_path, col_sep: Utils::CsvUtils.detect_separator(csv_path), headers: true, header_converters: [lambda { |header| header.downcase }])
+      csv_data = CSV.read(csv_path, col_sep: CsvUtils.detect_separator(csv_path), headers: true, header_converters: [lambda { |header| header.downcase }])
       importer = GobiertoBudgetsData::GobiertoBudgets::BudgetLinesCsvImporter.new(csv_data)
 
       organization_ids = importer.csv.map { |row| row.field("organization_id") }.uniq

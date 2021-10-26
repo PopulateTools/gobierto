@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "#{Rails.root}/lib/utils/csv_utils"
+
 namespace :gobierto_budgets do
   namespace :custom_categories do
     desc "Import custom categories from CSV with gobierto_budgets_data format. Site domain is required"
@@ -19,7 +21,7 @@ namespace :gobierto_budgets do
         exit(-1)
       end
 
-      csv_data = CSV.read(csv_path, col_sep: Utils::CsvUtils.detect_separator(csv_path), headers: true, header_converters: [lambda { |header| header.downcase }])
+      csv_data = CSV.read(csv_path, col_sep: CsvUtils.detect_separator(csv_path), headers: true, header_converters: [lambda { |header| header.downcase }])
       importer = GobiertoBudgetsData::GobiertoBudgets::CustomCategoriesCsvImporter.new(csv_data, site: site)
 
       nitems = importer.import!

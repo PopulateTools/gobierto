@@ -529,6 +529,13 @@
     }
   }
 
+  .treemap-breadcrumb {
+    color: rgba(var(--color-base-string), .8);
+    width: max-content;
+    cursor: pointer;
+    font-size: $f6;
+  }
+
   .treemap-item {
     &-title {
       margin: 0;

@@ -16,12 +16,12 @@
       />
     </TreeMapButtons>
 
-    <EntityTreeMapNested
+    <!-- <EntityTreeMapNested
       v-if="activeTab === 0"
       id="gobierto-visualizations-treemap-entity"
       :data="visualizationsDataEntity"
       class="mt4"
-    />
+    /> -->
 
 
     <template v-if="false">
@@ -57,7 +57,7 @@
 import { Table } from "lib/vue/components";
 import { BeeSwarm, TreeMap } from "gobierto-vizzs";
 // import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
-import EntityTreeMapNested from "./EntityTreeMapNested.vue";
+// import EntityTreeMapNested from "./EntityTreeMapNested.vue";
 import TreeMapButtons from "../../components/TreeMapButtons.vue";
 import MetricBoxes from "../../components/MetricBoxes.vue";
 import DCCharts from "../../components/DCCharts.vue";
@@ -70,7 +70,7 @@ export default {
   components: {
     Table,
     // CategoriesTreeMapNested,
-    EntityTreeMapNested,
+    // EntityTreeMapNested,
     TreeMapButtons,
     MetricBoxes,
     DCCharts
@@ -99,7 +99,7 @@ export default {
 
       entityButtons: [
         ["final_amount_no_taxes", I18n.t("gobierto_visualizations.visualizations.contracts.contract_amount")],
-        ["number_of_contract", I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap')],
+        ["total", I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap')],
       ],
       entityActiveButton: "final_amount_no_taxes"
     }
@@ -119,6 +119,9 @@ export default {
     },
   },
   watch: {
+    visualizationsDataEntity(n) {
+      this.treemapEntity.setData(n)
+    },
     visualizationsDataExcludeMinorContract(n) {
       this.beeswarm.setData(n)
     }
@@ -132,11 +135,12 @@ export default {
     if (this.$refs["treemap-entity"]) {
       this.treemapEntity = new TreeMap(this.$refs["treemap-entity"], this.visualizationsDataEntity, {
         rootTitle: this.labelEntities,
-        id: "contractor",
+        id: "title",
         group: ["contractor", "contract_type", "assignee"],
         value: "final_amount_no_taxes",
         itemTemplate: this.treemapItemTemplate,
-        tooltip: this.tooltipTreeMap
+        tooltip: this.tooltipTreeMap,
+        onLeafClick: this.handleEntityTreeMapClick,
       })
     }
 
@@ -148,7 +152,7 @@ export default {
         relation: "assignee_routing_id",
         circleSize: [3, 28],
         tooltip: this.tooltipBeeSwarm,
-        onClick: this.goesToItem,
+        onClick: this.handleBeeSwarmClick,
         margin: {
           left: 120,
           right: 30,
@@ -184,33 +188,36 @@ export default {
     tooltipTreeMapChildren(d) {
       const labelContractsAmount = I18n.t("gobierto_visualizations.visualizations.contracts.contract_amount")
       const labelTendersAmount = I18n.t("gobierto_visualizations.visualizations.contracts.tender_amount")
-      const sum = d.leaves().reduce((acc, x) => acc + x.data.initial_amount_no_taxes, 0)
+      const contracts = d.leaves().reduce((acc, x) => acc + x.data.final_amount_no_taxes, 0)
+      const tenders = d.leaves().reduce((acc, x) => acc + x.data.initial_amount_no_taxes, 0)
 
       return `
       <div class="treemap-tooltip-children-container">
-        <p class="treemap-tooltip-children-title">${d.data.contractor}</p>
-        <p class="treemap-tooltip-children-text">${labelContractsAmount}: <b>${money(d.value)}</b></p>
-        <p class="treemap-tooltip-children-text">${labelTendersAmount}: <b>${money(sum)}</b></p>
+        <p class="treemap-tooltip-children-title">${d.data.title}</p>
+        <p class="treemap-tooltip-children-text">${labelContractsAmount}: <b>${money(contracts)}</b></p>
+        <p class="treemap-tooltip-children-text">${labelTendersAmount}: <b>${money(tenders)}</b></p>
       </div>`
     },
-    goesToItem(_, { id }) {
-      // eslint-disable-next-line no-unused-vars
-      this.$router.push(`/visualizaciones/contratos/adjudicaciones/${id}`).catch(err => {})
+    treemapItemTemplate(d) {
+      const title = d.height === 0 ? d.data.assignee : d.data.title
+      const text = d.height === 0 ? d.data.title : money(d.leaves().reduce((acc, x) => acc + x.data.final_amount_no_taxes, 0))
+
+      return [
+        `<p class="treemap-item-title">${title}</p>`,
+        `<p class="treemap-item-text">${text}</p>`,
+        d.children && `<p class="treemap-item-text"><b>${d.leaves().length}</b> ${this.labelContracts}</b></p>`
+      ].join("")
+    },
+    handleBeeSwarmClick(_, { id }) {
+      this.$router.push(`/visualizaciones/contratos/adjudicaciones/${id}`).catch(() => {})
+    },
+    handleEntityTreeMapClick(_, { data }) {
+      const { assignee_routing_id } = data
+      this.$router.push(`/visualizaciones/contratos/adjudicatario/${assignee_routing_id}`).catch(() => {})
     },
     handleEntityActiveButton(value) {
       this.entityActiveButton = value
-
-      // TODO:
-      this.treemapEntity.valueProp = undefined
-      this.treemapEntity.build()
-    },
-    treemapItemTemplate(d) {
-      return `
-        <p class="treemap-item-title">${d.data.contractor}</p>
-        <p class="treemap-item-text">${money(d.value)}</p>
-        <p class="treemap-item-text">
-          <b>${d.children.length}</b> ${this.labelContracts}</b>
-        </p>`
+      this.treemapEntity.setValue(this.entityActiveButton === "total" ? undefined : value)
     },
     // old
     refreshSummaryData() {

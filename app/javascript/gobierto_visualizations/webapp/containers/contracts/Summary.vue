@@ -1,63 +1,61 @@
 <template>
   <div>
-    <!-- <CategoriesTreeMapNested
-      v-if="activeTab === 0"
-      id="gobierto-visualizations-treemap-categories"
-      :data="visualizationsDataExcludeNoCategory"
-    /> -->
-    <TreeMapButtons
-      :buttons="entityButtons"
-      :active="entityActiveButton"
-      @active-button="handleEntityActiveButton"
-    >
-      <div
-        ref="treemap-entity"
-        style="height: 400px"
-      />
-    </TreeMapButtons>
-
-    <!-- <EntityTreeMapNested
-      v-if="activeTab === 0"
-      id="gobierto-visualizations-treemap-entity"
-      :data="visualizationsDataEntity"
-      class="mt4"
-    /> -->
-
-
-    <template v-if="false">
-      <div id="gobierto-visualizations-beeswarm">
-        <h3 class="mt4 graph-title">
-          {{ labelBeesWarm }}
-        </h3>
-        <div ref="beeswarm" />
-      </div>
-
-      <MetricBoxes />
-
-      <DCCharts />
-
-      <div class="m_t_4">
-        <h3 class="mt1 graph-title">
-          {{ labelMainAssignees }}
-        </h3>
-        <Table
-          :data="tableItems"
-          :sort-column="'count'"
-          :sort-direction="'desc'"
-          :columns="assigneesColumns"
-          :show-columns="showColumns"
-          class="gobierto-table-margin-top"
-          @on-href-click="goesToTableItem"
+    <template v-if="activeTab === 0">
+      <TreeMapButtons
+        id="gobierto-visualizations-treemap-categories"
+        :buttons="treemapButtons"
+        :active="categoryActiveButton"
+        @active-button="handleCategoryActiveButton"
+      >
+        <div
+          ref="treemap-category"
+          style="height: 400px"
         />
-      </div>
+      </TreeMapButtons>
+
+      <TreeMapButtons
+        id="gobierto-visualizations-treemap-entity"
+        :buttons="treemapButtons"
+        :active="entityActiveButton"
+        @active-button="handleEntityActiveButton"
+      >
+        <div
+          ref="treemap-entity"
+          style="height: 400px"
+        />
+      </TreeMapButtons>
     </template>
+
+    <div id="gobierto-visualizations-beeswarm">
+      <h3 class="mt4 graph-title">
+        {{ labelBeesWarm }}
+      </h3>
+      <div ref="beeswarm" />
+    </div>
+
+    <MetricBoxes />
+
+    <DCCharts />
+
+    <div class="m_t_4">
+      <h3 class="mt1 graph-title">
+        {{ labelMainAssignees }}
+      </h3>
+      <Table
+        :data="tableItems"
+        :sort-column="'count'"
+        :sort-direction="'desc'"
+        :columns="assigneesColumns"
+        :show-columns="showColumns"
+        class="gobierto-table-margin-top"
+        @on-href-click="goesToTableItem"
+      />
+    </div>
   </div>
 </template>
 <script>
 import { Table } from "lib/vue/components";
 import { BeeSwarm, TreeMap } from "gobierto-vizzs";
-// import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
-// import EntityTreeMapNested from "./EntityTreeMapNested.vue";
 import TreeMapButtons from "../../components/TreeMapButtons.vue";
 import MetricBoxes from "../../components/MetricBoxes.vue";
 import DCCharts from "../../components/DCCharts.vue";
@@ -69,8 +67,6 @@ export default {
   name: "Summary",
   components: {
     Table,
-    // CategoriesTreeMapNested,
-    // EntityTreeMapNested,
     TreeMapButtons,
     MetricBoxes,
     DCCharts
@@ -91,17 +87,21 @@ export default {
       columns: [],
       showColumns: [],
       value: "",
-      labelMainAssignees: I18n.t("gobierto_visualizations.visualizations.contracts.main_assignees"),
-      labelBeesWarm: I18n.t("gobierto_visualizations.visualizations.visualizations.title_beeswarm"),
-      labelTooltipBeesWarm: I18n.t("gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm"),
-      labelEntities: I18n.t('gobierto_visualizations.visualizations.contracts.entities') || '',
-      labelContracts: I18n.t('gobierto_visualizations.visualizations.contracts.contracts') || '',
-
-      entityButtons: [
+      labelMainAssignees: I18n.t("gobierto_visualizations.visualizations.contracts.main_assignees") || "",
+      labelBeesWarm: I18n.t("gobierto_visualizations.visualizations.visualizations.title_beeswarm") || "",
+      labelTooltipBeesWarm: I18n.t("gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm") || "",
+      labelCategories: I18n.t('gobierto_visualizations.visualizations.contracts.categories') || "",
+      labelEntities: I18n.t('gobierto_visualizations.visualizations.contracts.entities') || "",
+      labelContracts: I18n.t('gobierto_visualizations.visualizations.contracts.contracts') || "",
+      labelContractsAmount: I18n.t("gobierto_visualizations.visualizations.contracts.contract_amount") || "",
+      labelTendersAmount: I18n.t("gobierto_visualizations.visualizations.contracts.tender_amount") || "",
+      labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status') || "",
+      treemapButtons: [
         ["final_amount_no_taxes", I18n.t("gobierto_visualizations.visualizations.contracts.contract_amount")],
-        ["total", I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap')],
+        ["total", I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap') || ""],
       ],
-      entityActiveButton: "final_amount_no_taxes"
+      categoryActiveButton: "final_amount_no_taxes",
+      entityActiveButton: "final_amount_no_taxes",
     }
   },
   computed: {
@@ -119,6 +119,9 @@ export default {
     },
   },
   watch: {
+    visualizationsDataExcludeNoCategory(n) {
+      this.treemapCategory.setData(n)
+    },
     visualizationsDataEntity(n) {
       this.treemapEntity.setData(n)
     },
@@ -132,6 +135,18 @@ export default {
     this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
   },
   mounted() {
+    if (this.$refs["treemap-category"]) {
+      this.treemapCategory = new TreeMap(this.$refs["treemap-category"], this.visualizationsDataExcludeNoCategory, {
+        rootTitle: this.labelCategories,
+        id: "title",
+        group: ["category_title", "assignee"],
+        value: "final_amount_no_taxes",
+        itemTemplate: this.treemapItemTemplate,
+        tooltip: this.tooltipTreeMap,
+        onLeafClick: this.handleTreeMapLeafClick,
+      })
+    }
+
     if (this.$refs["treemap-entity"]) {
       this.treemapEntity = new TreeMap(this.$refs["treemap-entity"], this.visualizationsDataEntity, {
         rootTitle: this.labelEntities,
@@ -140,7 +155,7 @@ export default {
         value: "final_amount_no_taxes",
         itemTemplate: this.treemapItemTemplate,
         tooltip: this.tooltipTreeMap,
-        onLeafClick: this.handleEntityTreeMapClick,
+        onLeafClick: this.handleTreeMapLeafClick,
       })
     }
 
@@ -179,41 +194,48 @@ export default {
       `
     },
     tooltipTreeMap(d) {
-      return `
-        <span class="treemap-tooltip-header">
-          ${this.labelContracts}
-        </span>
-        ${d.children.map(this.tooltipTreeMapChildren).join("")}`
+      const isLeaf = d.height === 0
+      return isLeaf ? [
+        `<p class="treemap-tooltip-children-text">${this.labelContractsAmount}: <b>${money(d.data.final_amount_no_taxes)}</b></p>`,
+        `<p class="treemap-tooltip-children-text">${this.labelTendersAmount}: <b>${money(d.data.initial_amount_no_taxes)}</b></p>`,
+        `<p class="treemap-tooltip-children-text">${this.labelStatus}: <b>${d.data.status}</b></p>`,
+      ].join("") : [
+        `<span class="treemap-tooltip-header">${this.labelContracts}</span>`,
+        d.children && d.children.map(this.tooltipTreeMapChildren).join("")
+      ].join("")
     },
     tooltipTreeMapChildren(d) {
-      const labelContractsAmount = I18n.t("gobierto_visualizations.visualizations.contracts.contract_amount")
-      const labelTendersAmount = I18n.t("gobierto_visualizations.visualizations.contracts.tender_amount")
       const contracts = d.leaves().reduce((acc, x) => acc + x.data.final_amount_no_taxes, 0)
       const tenders = d.leaves().reduce((acc, x) => acc + x.data.initial_amount_no_taxes, 0)
 
       return `
       <div class="treemap-tooltip-children-container">
         <p class="treemap-tooltip-children-title">${d.data.title}</p>
-        <p class="treemap-tooltip-children-text">${labelContractsAmount}: <b>${money(contracts)}</b></p>
-        <p class="treemap-tooltip-children-text">${labelTendersAmount}: <b>${money(tenders)}</b></p>
+        <p class="treemap-tooltip-children-text">${this.labelContractsAmount}: <b>${money(contracts)}</b></p>
+        <p class="treemap-tooltip-children-text">${this.labelTendersAmount}: <b>${money(tenders)}</b></p>
       </div>`
     },
     treemapItemTemplate(d) {
-      const title = d.height === 0 ? d.data.assignee : d.data.title
-      const text = d.height === 0 ? d.data.title : money(d.leaves().reduce((acc, x) => acc + x.data.final_amount_no_taxes, 0))
-
+      const isLeaf = d.height === 0
+      const title = isLeaf ? d.data.assignee : d.data.title
+      const text = isLeaf ? d.data.title : money(d.leaves().reduce((acc, x) => acc + x.data.final_amount_no_taxes, 0))
+      const leafClass = isLeaf && "is-leaf"
       return [
-        `<p class="treemap-item-title">${title}</p>`,
-        `<p class="treemap-item-text">${text}</p>`,
+        `<p class="treemap-item-title ${leafClass}">${title}</p>`,
+        `<p class="treemap-item-text ${leafClass}">${text}</p>`,
         d.children && `<p class="treemap-item-text"><b>${d.leaves().length}</b> ${this.labelContracts}</b></p>`
       ].join("")
     },
     handleBeeSwarmClick(_, { id }) {
       this.$router.push(`/visualizaciones/contratos/adjudicaciones/${id}`).catch(() => {})
     },
-    handleEntityTreeMapClick(_, { data }) {
+    handleTreeMapLeafClick(_, { data }) {
       const { assignee_routing_id } = data
       this.$router.push(`/visualizaciones/contratos/adjudicatario/${assignee_routing_id}`).catch(() => {})
+    },
+    handleCategoryActiveButton(value) {
+      this.categoryActiveButton = value
+      this.treemapCategory.setValue(this.categoryActiveButton === "total" ? undefined : value)
     },
     handleEntityActiveButton(value) {
       this.entityActiveButton = value

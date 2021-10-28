@@ -520,6 +520,10 @@
       > * {
         grid-area: 1 / -1;
       }
+
+      & + .treemap-nav-container {
+        margin-top: 4rem;
+      }
     }
 
     &-buttons {
@@ -537,6 +541,8 @@
   }
 
   .treemap-item {
+    height: 100%;
+
     &-title {
       margin: 0;
       font-size: $f6;
@@ -550,6 +556,10 @@
       margin: .25rem 0;
       font-size: $f6;
       line-height: 1;
+    }
+
+    &:hover .is-leaf {
+      text-decoration: underline;
     }
   }
 

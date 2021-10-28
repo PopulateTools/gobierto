@@ -6581,7 +6581,7 @@ globule@^1.0.0:
 
 "gobierto-vizzs@https://github.com/PopulateTools/gobierto-vizzs#main":
   version "1.0.0"
-  resolved "https://github.com/PopulateTools/gobierto-vizzs#b0e9f2ee2f3318b8f976e1b4f41089289d30e6f2"
+  resolved "https://github.com/PopulateTools/gobierto-vizzs#83d906e54c8d242060b566fce745f2fce63c49cd"
   dependencies:
     d3 "^7.0.3"
 

@@ -1,30 +1,28 @@
 <template>
   <div>
-    <template v-if="activeTab === 0">
-      <TreeMapButtons
-        id="gobierto-visualizations-treemap-categories"
-        :buttons="treemapButtons"
-        :active="categoryActiveButton"
-        @active-button="handleCategoryActiveButton"
-      >
-        <div
-          ref="treemap-category"
-          style="height: 400px"
-        />
-      </TreeMapButtons>
+    <TreeMapButtons
+      id="gobierto-visualizations-treemap-categories"
+      :buttons="treemapButtons"
+      :active="categoryActiveButton"
+      @active-button="handleCategoryActiveButton"
+    >
+      <div
+        ref="treemap-category"
+        style="height: 400px"
+      />
+    </TreeMapButtons>
 
-      <TreeMapButtons
-        id="gobierto-visualizations-treemap-entity"
-        :buttons="treemapButtons"
-        :active="entityActiveButton"
-        @active-button="handleEntityActiveButton"
-      >
-        <div
-          ref="treemap-entity"
-          style="height: 400px"
-        />
-      </TreeMapButtons>
-    </template>
+    <TreeMapButtons
+      id="gobierto-visualizations-treemap-entity"
+      :buttons="treemapButtons"
+      :active="entityActiveButton"
+      @active-button="handleEntityActiveButton"
+    >
+      <div
+        ref="treemap-entity"
+        style="height: 400px"
+      />
+    </TreeMapButtons>
 
     <div id="gobierto-visualizations-beeswarm">
       <h3 class="mt4 graph-title">
@@ -241,7 +239,6 @@ export default {
       this.entityActiveButton = value
       this.treemapEntity.setValue(this.entityActiveButton === "total" ? undefined : value)
     },
-    // old
     refreshSummaryData() {
       if (!this.value) {
         this.visualizationsData = this.$root.$data.contractsData;

@@ -133,8 +133,13 @@ export default {
     this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
   },
   mounted() {
-    if (this.$refs["treemap-category"]) {
-      this.treemapCategory = new TreeMap(this.$refs["treemap-category"], this.visualizationsDataExcludeNoCategory, {
+    const treemapCategory = this.$refs["treemap-category"]
+    const treemapEntity = this.$refs["treemap-entity"]
+    const beeswarm = this.$refs.beeswarm
+
+    // https://stackoverflow.com/a/21696585/5020256
+    if (treemapCategory && treemapCategory.offsetParent !== null) {
+      this.treemapCategory = new TreeMap(treemapCategory, this.visualizationsDataExcludeNoCategory, {
         rootTitle: this.labelCategories,
         id: "title",
         group: ["category_title", "assignee"],
@@ -145,8 +150,8 @@ export default {
       })
     }
 
-    if (this.$refs["treemap-entity"]) {
-      this.treemapEntity = new TreeMap(this.$refs["treemap-entity"], this.visualizationsDataEntity, {
+    if (treemapEntity && treemapEntity.offsetParent !== null) {
+      this.treemapEntity = new TreeMap(treemapEntity, this.visualizationsDataEntity, {
         rootTitle: this.labelEntities,
         id: "title",
         group: ["contractor", "contract_type", "assignee"],
@@ -157,8 +162,8 @@ export default {
       })
     }
 
-    if (this.$refs.beeswarm) {
-      this.beeswarm = new BeeSwarm(this.$refs.beeswarm, this.visualizationsDataExcludeMinorContract, {
+    if (beeswarm && beeswarm.offsetParent !== null) {
+      this.beeswarm = new BeeSwarm(beeswarm, this.visualizationsDataExcludeMinorContract, {
         x: "gobierto_start_date",
         y: "contract_type",
         value: "final_amount_no_taxes",

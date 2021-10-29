@@ -12,11 +12,13 @@
           @active-tab="setActiveTab"
         />
         <div class="visualizations-home-main">
-          <Summary
-            v-show="isSummary"
-            :active-tab="activeTabIndex"
-          />
-          <ContractsIndex v-show="isContractsIndex" />
+          <keep-alive>
+            <Summary
+              v-if="isSummary"
+              :active-tab="activeTabIndex"
+            />
+            <ContractsIndex v-if="isContractsIndex" />
+          </keep-alive>
           <ContractsShow v-if="isContractsShow" />
           <AssigneesShow v-if="isAssigneesShow" />
         </div>

@@ -16,7 +16,10 @@
           :style="{ width: progressWidth }"
         />
         <div class="info-content">
-          <h3 class="counter">
+          <h3
+            class="counter"
+            :class="{ 'hide-counter': hideCounter }"
+          >
             {{ title }}
           </h3>
           <span>{{ progress | percent }}</span>
@@ -63,11 +66,12 @@ export default {
   },
   created() {
     const { attributes: { name } = {}, progress } = this.model
-    const { logo } = this.options
+    const { logo, hideCounter } = this.options
 
     this.image = logo
     this.progress = progress
     this.title = name
+    this.hideCounter = hideCounter
   },
   methods: {
     open() {

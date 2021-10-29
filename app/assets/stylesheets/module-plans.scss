@@ -298,11 +298,13 @@ $nodeLevel1HeightMobile: 20vh;
           font-size: $f3;
         }
 
-        h3.counter {
-          &::before {
-            counter-increment: section;
-            content: counter(section) ". ";
-          }
+        .counter::before {
+          counter-increment: section;
+          content: counter(section) ". ";
+        }
+
+        .counter.hide-counter::before {
+          display: none;
         }
 
         span {

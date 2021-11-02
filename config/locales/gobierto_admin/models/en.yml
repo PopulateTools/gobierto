@@ -46,6 +46,7 @@ en:
         populate_data_api_token: API token Populate Data
         privacy_page_id: Privacy page
         raw_configuration_variables: Other configuration variables
+        registration_disabled: Disable registration
         reply_to_email: Email address for answers
         title: Site name
       gobierto_admin/user_form:

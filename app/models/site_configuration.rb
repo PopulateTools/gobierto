@@ -19,7 +19,8 @@ class SiteConfiguration
     :raw_configuration_variables,
     :auth_modules,
     :admin_auth_modules,
-    :engine_overrides
+    :engine_overrides,
+    :registration_disabled
   ].freeze
 
   DEFAULT_LOGO_PATH = "sites/logo-default.png"

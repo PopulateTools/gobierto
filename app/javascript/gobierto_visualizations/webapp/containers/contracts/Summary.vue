@@ -118,13 +118,13 @@ export default {
   },
   watch: {
     visualizationsDataExcludeNoCategory(n) {
-      this.treemapCategory.setData(n)
+      this.treemapCategory?.setData(n)
     },
     visualizationsDataEntity(n) {
-      this.treemapEntity.setData(n)
+      this.treemapEntity?.setData(n)
     },
     visualizationsDataExcludeMinorContract(n) {
-      this.beeswarm.setData(n)
+      this.beeswarm?.setData(n)
     }
   },
   created() {
@@ -137,7 +137,7 @@ export default {
     const treemapEntity = this.$refs["treemap-entity"]
     const beeswarm = this.$refs.beeswarm
 
-    // https://stackoverflow.com/a/21696585/5020256
+    // Check if element is visible in DOM - https://stackoverflow.com/a/21696585/5020256
     if (treemapCategory && treemapCategory.offsetParent !== null) {
       this.treemapCategory = new TreeMap(treemapCategory, this.visualizationsDataExcludeNoCategory, {
         rootTitle: this.labelCategories,

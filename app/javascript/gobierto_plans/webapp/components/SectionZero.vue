@@ -11,7 +11,7 @@
           { 'is-root-open': rootid === index }
         ]"
         :model="model"
-        :options="rootOptions[index] || {}"
+        :options="{ ...rootOptions[index] || {}, hideCounter }"
         :style="`--category: var(--category-${(index % json.length) + 1})`"
         @open-menu-mobile="openMenu = !openMenu"
       />
@@ -45,12 +45,14 @@ export default {
   data() {
     return {
       openMenu: false,
+      hideCounter: false,
       rootOptions: {}
     };
   },
   created() {
     const { options } = PlansStore.state
     this.rootOptions = options["level0_options"] || {};
+    this.hideCounter = options["hide_level0_counters"]
   }
 };
 </script>

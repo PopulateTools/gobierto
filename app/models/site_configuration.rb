@@ -140,4 +140,8 @@ class SiteConfiguration
       available_module?(site_module)
     end
   end
+
+  def registration_disabled?
+    @registration_disabled == "1"
+  end
 end

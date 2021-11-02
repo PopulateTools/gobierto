@@ -20,6 +20,10 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
     @other_site ||= sites(:santander)
   end
 
+  def site_with_registration_disabled
+    @site_with_registration_disabled ||= sites(:cortegada)
+  end
+
   def registration_ack_message
     "Please check your inbox to confirm your email address"
   end
@@ -112,6 +116,15 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
       click_on "Let's go"
 
       assert has_message? registration_ack_message
+    end
+  end
+
+  def test_registration_when_site_disables_registration
+    with_current_site(site_with_registration_disabled) do
+      visit @registration_path
+
+      assert has_no_content?("Create your account")
+      assert has_no_button?("Let's go")
     end
   end
 end

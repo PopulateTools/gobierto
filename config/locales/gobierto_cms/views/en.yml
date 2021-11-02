@@ -9,3 +9,7 @@ en:
       gobierto_cms_section_item_created: Page added to section
       gobierto_cms_section_item_deleted: Page deleted from section
       gobierto_cms_section_updated: Section updated
+    pages:
+      templates:
+        page:
+          documents: Documents

@@ -31,7 +31,16 @@
       <div ref="beeswarm" />
     </div>
 
-    <MetricBoxes />
+    <MetricBoxes id="tendersContractsSummary">
+      <MetricBox
+        :labels="labelsTenders"
+        type="tenders"
+      />
+      <MetricBox
+        :labels="labelsContracts"
+        type="contracts"
+      />
+    </MetricBoxes>
 
     <DCCharts />
 
@@ -56,6 +65,7 @@ import { Table } from "lib/vue/components";
 import { BeeSwarm, TreeMap } from "gobierto-vizzs";
 import TreeMapButtons from "../../components/TreeMapButtons.vue";
 import MetricBoxes from "../../components/MetricBoxes.vue";
+import MetricBox from "../../components/MetricBox.vue";
 import DCCharts from "../../components/DCCharts.vue";
 import { SharedMixin } from "../../lib/mixins/shared";
 import { assigneesColumns } from "../../lib/config/contracts.js";
@@ -67,6 +77,7 @@ export default {
     Table,
     TreeMapButtons,
     MetricBoxes,
+    MetricBox,
     DCCharts
   },
   mixins: [SharedMixin],
@@ -100,6 +111,18 @@ export default {
       ],
       categoryActiveButton: "final_amount_no_taxes",
       entityActiveButton: "final_amount_no_taxes",
+      labelsTenders: [
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.tenders") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.tenders_for") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.mean_amount") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.median_amount") || ""
+      ],
+      labelsContracts: [
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.contracts") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.contracts_for") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.mean_amount") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.median_amount") || ""
+      ],
     }
   },
   computed: {

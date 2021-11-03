@@ -253,7 +253,7 @@ export class SubsidiesController {
     );
 
     document.getElementById(
-      "pct-collectives-subsidies"
+      "number-collectives-subsidies"
     ).innerText = pctCollectivesSubsidies.toLocaleString(I18n.locale, {
       style: "percent",
       minimumFractionDigits: 2
@@ -269,7 +269,7 @@ export class SubsidiesController {
     );
 
     document.getElementById(
-      "pct-individuals-subsidies"
+      "number-individuals-subsidies"
     ).innerText = pctIndividualsSubsidies.toLocaleString(I18n.locale, {
       style: "percent",
       minimumFractionDigits: 2

@@ -30,28 +30,7 @@
       />
     </MetricBoxes>
 
-    <div
-      id="dccharts"
-      class="pure-g block m_b_3"
-    >
-      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator">
-          {{ labelLessThan1000_1 }}<strong><span id="less-than-1000-pct" /></strong>{{ labelLessThan1000_2 }}<strong>1.000 €</strong>
-        </p>
-      </div>
-
-      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator">
-          {{ labelLargerSubsidyAmount_1 }}<strong><span id="larger-subsidy-amount-pct" /></strong>{{ labelLargerSubsidyAmount_2 }}
-        </p>
-      </div>
-
-      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator">
-          {{ labelHalfSpendingsSubsidies_1 }}<strong><span id="half-spendings-subsidies-pct" /></strong>{{ labelHalfSpendingsSubsidies_2 }}
-        </p>
-      </div>
-    </div>
+    <Tips :labels="tips" />
 
     <div class="pure-g block">
       <div
@@ -104,6 +83,7 @@ import { SharedMixin } from "../../lib/mixins/shared";
 import { grantedColumns, subsidiesFiltersConfig } from "../../lib/config/subsidies.js";
 import MetricBoxes from "../../components/MetricBoxes.vue";
 import MetricBox from "../../components/MetricBox.vue";
+import Tips from "../../components/Tips.vue";
 
 export default {
   name: 'Summary',
@@ -111,6 +91,7 @@ export default {
     Table,
     MetricBoxes,
     MetricBox,
+    Tips
     // CategoriesTreeMapNested
   },
   mixins: [SharedMixin],
@@ -120,35 +101,34 @@ export default {
       items: [],
       grantedColumns: grantedColumns,
       showColumns: [],
-      value: '',
-      labelLessThan1000_1: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_less_than_1000_1'),
-      labelLessThan1000_2: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_less_than_1000_2'),
-      labelLargerSubsidyAmount_1: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_larger_subsidy_amount_1'),
-      labelLargerSubsidyAmount_2: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_larger_subsidy_amount_2'),
-      labelHalfSpendingsSubsidies_1: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_half_spendings_subsidies_1'),
-      labelHalfSpendingsSubsidies_2: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_half_spendings_subsidies_2'),
-      labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category'),
-      labelAmountDistribution: I18n.t('gobierto_visualizations.visualizations.subsidies.amount_distribution'),
-      labelMainBeneficiaries: I18n.t('gobierto_visualizations.visualizations.subsidies.main_beneficiaries'),
+      value: "",
+      labelCategory: I18n.t("gobierto_visualizations.visualizations.subsidies.category"),
+      labelAmountDistribution: I18n.t("gobierto_visualizations.visualizations.subsidies.amount_distribution"),
+      labelMainBeneficiaries: I18n.t("gobierto_visualizations.visualizations.subsidies.main_beneficiaries"),
       filters: subsidiesFiltersConfig,
       labelsSubsidies: [
-        I18n.t('gobierto_visualizations.visualizations.subsidies.summary.subsidies') || "",
-        I18n.t('gobierto_visualizations.visualizations.subsidies.summary.subsidies_for') || "",
-        I18n.t('gobierto_visualizations.visualizations.subsidies.summary.mean_amount') || "",
-        I18n.t('gobierto_visualizations.visualizations.subsidies.summary.median_amount') || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.subsidies") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.subsidies_for") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.mean_amount") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.median_amount") || "",
       ],
       labelsCollectivesSubsidies: [
         "",
-        I18n.t('gobierto_visualizations.visualizations.subsidies.summary.collective_subsidies_for') || "",
-        I18n.t('gobierto_visualizations.visualizations.subsidies.summary.mean_amount') || "",
-        I18n.t('gobierto_visualizations.visualizations.subsidies.summary.median_amount') || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.collective_subsidies_for") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.mean_amount") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.median_amount") || "",
       ],
       labelsIndividualsSubsidies: [
         "",
-        I18n.t('gobierto_visualizations.visualizations.subsidies.summary.individual_subsidies_for') || "",
-        I18n.t('gobierto_visualizations.visualizations.subsidies.summary.mean_amount') || "",
-        I18n.t('gobierto_visualizations.visualizations.subsidies.summary.median_amount') || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.individual_subsidies_for") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.mean_amount") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.median_amount") || "",
       ],
+      tips: [
+        ["less-than-1000-pct",I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_less_than_1000_1") || "", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_less_than_1000_2") || ""],
+        ["larger-subsidy-amount-pct", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_larger_subsidy_amount_1") || "", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_larger_subsidy_amount_2") || ""],
+        ["half-spendings-subsidies-pct", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_half_spendings_subsidies_1") || "", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_half_spendings_subsidies_2") || ""],
+      ]
     }
   },
   computed: {

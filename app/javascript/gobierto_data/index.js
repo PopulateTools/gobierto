@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const appNode = document.getElementById("gobierto-datos-app");
 
   if (appNode) {
-    const { siteName, logoUrl, homeUrl, tourUrl } = appNode.dataset
-    new GobiertoDataController({ siteName, logoUrl, homeUrl, tourUrl });
+    const { siteName, logoUrl, homeUrl, registrationDisabled } = appNode.dataset
+    new GobiertoDataController({ siteName, logoUrl, homeUrl, registrationDisabled });
   }
 });

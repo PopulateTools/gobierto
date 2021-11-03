@@ -41,7 +41,7 @@ key2: value2
 YAML
             select "GobiertoPeople", from: "site_home_page"
 
-            within ".site-check-boxes" do
+            within ".site-check-boxes", match: :first do
               check "site_available_locales_es"
               choose "site_default_locale_es"
             end

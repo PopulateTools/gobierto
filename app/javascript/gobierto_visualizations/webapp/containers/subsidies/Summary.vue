@@ -3,19 +3,22 @@
     <!-- <CategoriesTreeMapNested
       :data="visualizationsData"
     /> -->
-    <!-- <TreeMapButtons
+    <TreeMapButtons
       id="gobierto-visualizations-treemap-categories"
       :buttons="treemapButtons"
-      :active="categoryActiveButton"
-      @active-button="handleCategoryActiveButton"
+      :active="activeButton"
+      @active-button="handleActiveButton"
     >
       <div
-        ref="treemap-category"
+        ref="treemap"
         style="height: 400px"
       />
-    </TreeMapButtons> -->
+    </TreeMapButtons>
 
-    <MetricBoxes id="subsidiesSummary">
+    <MetricBoxes
+      id="subsidiesSummary"
+      :style="{ marginTop: '4em' }"
+    >
       <MetricBox
         :labels="labelsSubsidies"
         type="subsidies"
@@ -78,12 +81,14 @@
 
 <script>
 import { Table } from "lib/vue/components";
-// import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import { SharedMixin } from "../../lib/mixins/shared";
 import { grantedColumns, subsidiesFiltersConfig } from "../../lib/config/subsidies.js";
 import MetricBoxes from "../../components/MetricBoxes.vue";
 import MetricBox from "../../components/MetricBox.vue";
 import Tips from "../../components/Tips.vue";
+import TreeMapButtons from "../../components/TreeMapButtons.vue";
+import { TreeMap } from "gobierto-vizzs";
+import { money } from "lib/vue/filters";
 
 export default {
   name: 'Summary',
@@ -91,21 +96,28 @@ export default {
     Table,
     MetricBoxes,
     MetricBox,
-    Tips
-    // CategoriesTreeMapNested
+    Tips,
+    TreeMapButtons
   },
   mixins: [SharedMixin],
-  data(){
+  data() {
     return {
       visualizationsData: this.$root.$data.subsidiesData,
       items: [],
       grantedColumns: grantedColumns,
       showColumns: [],
       value: "",
-      labelCategory: I18n.t("gobierto_visualizations.visualizations.subsidies.category"),
-      labelAmountDistribution: I18n.t("gobierto_visualizations.visualizations.subsidies.amount_distribution"),
-      labelMainBeneficiaries: I18n.t("gobierto_visualizations.visualizations.subsidies.main_beneficiaries"),
+      labelSubsidies: I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies") || "",
+      labelCategory: I18n.t("gobierto_visualizations.visualizations.subsidies.category") || "",
+      labelAmountDistribution: I18n.t("gobierto_visualizations.visualizations.subsidies.amount_distribution") || "",
+      labelMainBeneficiaries: I18n.t("gobierto_visualizations.visualizations.subsidies.main_beneficiaries") || "",
+      labelSubsidiesAmount: I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies_amount") || "",
       filters: subsidiesFiltersConfig,
+      treemapButtons: [
+        ["amount", I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies_amount") || ""],
+        ["total", I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies_total") || ""],
+      ],
+      activeButton: "amount",
       labelsSubsidies: [
         I18n.t("gobierto_visualizations.visualizations.subsidies.summary.subsidies") || "",
         I18n.t("gobierto_visualizations.visualizations.subsidies.summary.subsidies_for") || "",
@@ -135,16 +147,69 @@ export default {
     checkFilterCategoryLength() {
       const filterCategories = this.filters.filter(({ id }) => id === 'categories')
       return filterCategories[0].options.length > 0 ? true : false
-    }
+    },
+  },
+  watch: {
+    visualizationsData(n) {
+      this.treemap?.setData(n)
+    },
   },
   created() {
     this.columns = grantedColumns;
     this.showColumns = ['name', 'count', 'sum']
-    this.visualizationsData = this.visualizationsData
-      .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
+  },
+  mounted() {
+    const treemap = this.$refs.treemap
+
+    // Check if element is visible in DOM - https://stackoverflow.com/a/21696585/5020256
+    if (treemap && treemap.offsetParent !== null) {
+      this.treemap = new TreeMap(treemap, this.visualizationsData, {
+        rootTitle: this.labelSubsidies,
+        id: "categories",
+        group: ["beneficiary_type"],
+        value: "amount",
+        itemTemplate: this.treemapItemTemplate,
+        tooltip: this.tooltipTreeMap,
+        onLeafClick: this.handleTreeMapLeafClick,
+      })
+    }
   },
   methods: {
-    refreshSummaryData(){
+    handleActiveButton(value) {
+      this.activeButton = value
+      this.treemap.setValue(this.activeButton === "total" ? undefined : value)
+    },
+    treemapItemTemplate(d) {
+      const isLeaf = d.height === 0
+      const title = isLeaf ? d.data.beneficiary_type : d.data.categories
+      const text = isLeaf ? d.data.beneficiary : money(d.leaves().reduce((acc, x) => acc + x.data.amount, 0))
+      const leafClass = isLeaf && "is-leaf"
+      return [
+        `<p class="treemap-item-title ${leafClass}">${title}</p>`,
+        `<p class="treemap-item-text ${leafClass}">${text}</p>`,
+        d.children && `<p class="treemap-item-text"><b>${d.leaves().length}</b> ${this.labelSubsidies}</b></p>`
+      ].join("")
+    },
+    handleTreeMapLeafClick(_, { data }) {
+      const { id } = data
+      this.$router.push(`/visualizaciones/subvenciones/subvenciones/${id}`).catch(() => {})
+    },
+    tooltipTreeMap(d) {
+      const isLeaf = d.height === 0
+      return isLeaf ? `<p class="treemap-tooltip-children-text">${this.labelSubsidiesAmount}: <b>${money(d.data.amount)}</b></p>`
+      : [
+        `<span class="treemap-tooltip-header">${this.labelSubsidies}</span>`,
+        d.children && d.children.map(this.tooltipTreeMapChildren).join("")
+      ].join("")
+    },
+    tooltipTreeMapChildren(d) {
+      return `
+      <div class="treemap-tooltip-children-container">
+        <p class="treemap-tooltip-children-title">${d.data.beneficiary}</p>
+        <p class="treemap-tooltip-children-text">${this.labelSubsidiesAmount}: <b>${money(d.data.amount)}</b></p>
+      </div>`
+    },
+    refreshSummaryData() {
       if (!this.value) {
         this.visualizationsData = this.$root.$data.subsidiesData;
       } else {

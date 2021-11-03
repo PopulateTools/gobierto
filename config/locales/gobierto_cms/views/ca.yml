@@ -9,3 +9,7 @@ ca:
       gobierto_cms_section_item_created: Pàgina afegida a una secció
       gobierto_cms_section_item_deleted: Pàgina esborrada de secció
       gobierto_cms_section_updated: Secció actualitzada
+    pages:
+      templates:
+        page:
+          documents: Documents

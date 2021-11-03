@@ -3195,9 +3195,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001219:
-  version "1.0.30001228"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001228.tgz#bfdc5942cd3326fa51ee0b42fbef4da9d492a7fa"
-  integrity sha512-QQmLOGJ3DEgokHbMSA8cj2a+geXqmnpyOFT0lhQV6P3/YOJvGDEwoedcwxEQ30gJIwIIunHIicunJ2rzK5gB2A==
+  version "1.0.30001271"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001271.tgz"
+  integrity sha512-BBruZFWmt3HFdVPS8kceTBIguKxu4f99n5JNp06OlPD/luoAMIaIK5ieV5YjnBLH3Nysai9sxj9rpJj4ZisXOA==
 
 case-sensitive-paths-webpack-plugin@^2.3.0:
   version "2.4.0"
@@ -6579,9 +6579,9 @@ globule@^1.0.0:
     lodash "~4.17.10"
     minimatch "~3.0.2"
 
-gobierto-vizzs@PopulateTools/gobierto-vizzs#main:
+"gobierto-vizzs@https://github.com/PopulateTools/gobierto-vizzs#main":
   version "1.0.0"
-  resolved "https://codeload.github.com/PopulateTools/gobierto-vizzs/tar.gz/90c1003063383673755b584d3f9e95a575a7dd77"
+  resolved "https://github.com/PopulateTools/gobierto-vizzs#83d906e54c8d242060b566fce745f2fce63c49cd"
   dependencies:
     d3 "^7.0.3"
 

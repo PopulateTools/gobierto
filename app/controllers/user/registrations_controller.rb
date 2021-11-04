@@ -2,7 +2,7 @@
 
 class User::RegistrationsController < User::BaseController
 
-  before_action :require_no_authentication, :check_registration_enabled
+  before_action :require_no_authentication
   invisible_captcha honeypot: :ic_email, scope: :user_registration
 
   layout "user/layouts/sessions"

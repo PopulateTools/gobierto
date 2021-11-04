@@ -25,17 +25,13 @@
 
     <div class="pure-u-md-2-24"></div>
 
-    <% unless registration_disabled? %>
+    <div class="pure-u-1 pure-u-md-11-24 padded_line_box m_v_2">
 
-      <div class="pure-u-1 pure-u-md-11-24 padded_line_box m_v_2">
+      <h2><%= t(".registration_title") %></h2>
 
-        <h2><%= t(".registration_title") %></h2>
+      <%= render "registration_form" %>
 
-        <%= render "registration_form" %>
-
-      </div>
-
-    <% end %>
+    </div>
 
   </div>
 

@@ -113,7 +113,6 @@ en:
           label_less_than_1000_1: ''
           label_less_than_1000_2: " of contracts are less than "
           mean_amount: Average amount
-          mean_savings: Average savings from tender to contract
           median_amount: Median amount
           tenders: Tenders
           tenders_for: tenders for a total amount of
@@ -236,7 +235,6 @@ en:
           subsidies: Subsidies
           summary: Summary
         person: Individual person
-        subsidie: Subsidie
         subsidies: Subsidies
         subsidies_amount: Imp. Subsidie
         subsidies_total: Total Subsidies

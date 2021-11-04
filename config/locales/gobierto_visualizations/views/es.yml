@@ -113,7 +113,6 @@ es:
           label_less_than_1000_1: 'El '
           label_less_than_1000_2: " de los contratos son menores de "
           mean_amount: Importe medio
-          mean_savings: Ahorro medio de licitación a adjudicación
           median_amount: Importe mediano
           tenders: Licitaciones
           tenders_for: licitaciones por importe de
@@ -239,7 +238,6 @@ es:
           subsidies: Subvenciones
           summary: Resumen
         person: Persona individual
-        subsidie: Subvención
         subsidies: Subvenciones
         subsidies_amount: Imp. Subvención
         subsidies_total: Total Subvenciones

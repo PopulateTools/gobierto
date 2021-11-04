@@ -224,16 +224,14 @@
       <div class="form_block">
         <h2><%= t(".registration") %></h2>
 
-        <div class="form_block">
-          <div class="form_item site-check-boxes">
-            <div class="options compact">
-              <div class="option">
-                <%= f.check_box :registration_disabled %>
-                <%= f.label :registration_disabled do %>
-                  <span></span>
-                  <%= t(".registration_disabled")  %>
-                <% end %>
-              </div>
+        <div class="form_item site-check-boxes">
+          <div class="options compact">
+            <div class="option">
+              <%= f.check_box :registration_disabled %>
+              <%= f.label :registration_disabled do %>
+                <span></span>
+                <%= t(".registration_disabled")  %>
+              <% end %>
             </div>
           </div>
         </div>

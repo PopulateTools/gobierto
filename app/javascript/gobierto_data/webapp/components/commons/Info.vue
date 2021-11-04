@@ -73,7 +73,7 @@
 import { date, truncate } from "lib/vue/filters"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
 //Parse markdown to HTML
-import marked from 'marked';
+const marked = require('marked');
 
 export default {
   name: "Info",
@@ -140,7 +140,10 @@ export default {
   computed: {
     compiledHTMLMarkdown() {
       const descriptionHTML = this.descriptionDataset.replace(/\|<br>/g, '|').replace(/<p>\|/g, '|').replace(/\|<\/p>/g, '|');
-      const mdText = marked.parse(descriptionHTML);
+      const mdText = marked(descriptionHTML, {
+        sanitize: false,
+        tables: true
+      })
       if (this.truncateIsActive) {
         return truncate(mdText, { length: 250 })
       } else {

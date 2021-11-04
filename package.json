@@ -43,7 +43,7 @@
     "magnific-popup": "^1.1.0",
     "mailcheck": "^1.1.1",
     "mapbox-gl": "^1.4.1",
-    "marked": "^4.0.0",
+    "marked": "^2.0.0",
     "moment": "^2.21.0",
     "moment-locales-webpack-plugin": "^1.0.7",
     "mustache": "^2.3.0",

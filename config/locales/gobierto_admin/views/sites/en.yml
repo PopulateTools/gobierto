@@ -28,7 +28,7 @@ en:
           reply_to_email: contact@email.com
           title: Transparencia y Participación
         registration: Users registration
-        registration_disabled: Disable registration
+        registration_disabled: Disable registration (only hides links to registration/login)
         username: Username
         visibility_level:
           active: Published

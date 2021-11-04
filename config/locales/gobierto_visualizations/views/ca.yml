@@ -112,7 +112,6 @@ ca:
           label_less_than_1000_1: 'El '
           label_less_than_1000_2: " dels contractes són menors de "
           mean_amount: Import mig
-          mean_savings: Estalvi mitjà de licitació a adjudicació
           median_amount: Mediana dels imports
           tenders: Licitacions
           tenders_for: licitacions per un import de
@@ -235,7 +234,6 @@ ca:
           subsidies: Subvencions
           summary: Resum
         person: Persona individual
-        subsidie: Subvencion
         subsidies: Subvencions
         subsidies_amount: Imp. Subvencion
         subsidies_total: Total Subvencions

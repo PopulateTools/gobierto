@@ -1,125 +1,39 @@
 <template>
   <div>
-    <CategoriesTreeMapNested
+    <!-- <CategoriesTreeMapNested
       :data="visualizationsData"
-    />
-    <div
+    /> -->
+    <TreeMapButtons
+      id="gobierto-visualizations-treemap-categories"
+      :buttons="treemapButtons"
+      :active="activeButton"
+      @active-button="handleActiveButton"
+    >
+      <div
+        ref="treemap"
+        style="height: 400px"
+      />
+    </TreeMapButtons>
+
+    <MetricBoxes
       id="subsidiesSummary"
-      class="metric_boxes"
+      :style="{ marginTop: '4em' }"
     >
-      <div class="metric_box">
-        <div class="inner nomargin">
-          <div class="p_1">
-            <h3>{{ labelSubsidies }}</h3>
-            <div class="pure-g">
-              <div class="pure-u-1 pure-u-lg-1-3">
-                <div class="metric m_b_1">
-                  <span id="number-subsidies" />
-                </div>
-                <p class="m_t_0">
-                  {{ labelSubsidiesFor }}
-                </p>
-                <div class="metric m_b_1">
-                  <small>
-                    <span id="sum-subsidies" />
-                  </small>
-                </div>
-                <div class="pure-g">
-                  <div class="pure-u-1-2 explanation explanation--relative">
-                    {{ labelMeanAmount }}
-                    <strong class="d_block">
-                      <span id="mean-subsidies" />
-                    </strong>
-                  </div>
-                  <div class="pure-u-1-2 explanation explanation--relative">
-                    {{ labelMedianAmount }}
-                    <strong class="d_block">
-                      <span id="median-subsidies" />
-                    </strong>
-                  </div>
-                </div>
-              </div>
-              <!-- subsidies block -->
-              <div class="pure-u-1 pure-u-lg-1-3">
-                <div class="metric m_b_1">
-                  <span id="pct-collectives-subsidies" />
-                </div>
-                <p class="m_t_0">
-                  {{ labelCollectiveSubsidiesFor }}
-                </p>
-                <div class="metric m_b_1">
-                  <small>
-                    <span id="sum-collectives-subsidies" />
-                  </small>
-                </div>
-                <div class="pure-g">
-                  <div class="pure-u-1-2 explanation explanation--relative">
-                    {{ labelMeanAmount }}
-                    <strong class="d_block">
-                      <span id="mean-collectives-subsidies" />
-                    </strong>
-                  </div>
-                  <div class="pure-u-1-2 explanation explanation--relative">
-                    {{ labelMedianAmount }}
-                    <strong class="d_block">
-                      <span id="median-collectives-subsidies" />
-                    </strong>
-                  </div>
-                </div>
-              </div>
-              <!-- collective subsidies block -->
-              <div class="pure-u-1 pure-u-lg-1-3">
-                <div class="metric m_b_1">
-                  <span id="pct-individuals-subsidies" />
-                </div>
-                <p class="m_t_0">
-                  {{ labelIndividualSubsidiesFor }}
-                </p>
-                <div class="metric m_b_1">
-                  <small><span id="sum-individuals-subsidies" /></small>
-                </div>
-                <div class="pure-g">
-                  <div class="pure-u-1-2 explanation explanation--relative">
-                    {{ labelMeanAmount }}
-                    <strong class="d_block"><span id="mean-individuals-subsidies" /></strong>
-                  </div>
-                  <div class="pure-u-1-2 explanation explanation--relative">
-                    {{ labelMedianAmount }}
-                    <strong class="d_block">
-                      <span id="median-individuals-subsidies" />
-                    </strong>
-                  </div>
-                </div>
-                <!-- collective subsidies block -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> <!-- metric_box -->
-    </div> <!-- metrix_boxes -->
+      <MetricBox
+        :labels="labelsSubsidies"
+        type="subsidies"
+      />
+      <MetricBox
+        :labels="labelsCollectivesSubsidies"
+        type="collectives-subsidies"
+      />
+      <MetricBox
+        :labels="labelsIndividualsSubsidies"
+        type="individuals-subsidies"
+      />
+    </MetricBoxes>
 
-    <div
-      id="dccharts"
-      class="pure-g block m_b_3"
-    >
-      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator">
-          {{ labelLessThan1000_1 }}<strong><span id="less-than-1000-pct" /></strong>{{ labelLessThan1000_2 }}<strong>1.000 €</strong>
-        </p>
-      </div>
-
-      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator">
-          {{ labelLargerSubsidyAmount_1 }}<strong><span id="larger-subsidy-amount-pct" /></strong>{{ labelLargerSubsidyAmount_2 }}
-        </p>
-      </div>
-
-      <div class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline">
-        <p class="decorator">
-          {{ labelHalfSpendingsSubsidies_1 }}<strong><span id="half-spendings-subsidies-pct" /></strong>{{ labelHalfSpendingsSubsidies_2 }}
-        </p>
-      </div>
-    </div>
+    <Tips :labels="tips" />
 
     <div class="pure-g block">
       <div
@@ -167,56 +81,135 @@
 
 <script>
 import { Table } from "lib/vue/components";
-import CategoriesTreeMapNested from "./CategoriesTreeMapNested.vue";
 import { SharedMixin } from "../../lib/mixins/shared";
 import { grantedColumns, subsidiesFiltersConfig } from "../../lib/config/subsidies.js";
+import MetricBoxes from "../../components/MetricBoxes.vue";
+import MetricBox from "../../components/MetricBox.vue";
+import Tips from "../../components/Tips.vue";
+import TreeMapButtons from "../../components/TreeMapButtons.vue";
+import { TreeMap } from "gobierto-vizzs";
+import { money } from "lib/vue/filters";
 
 export default {
   name: 'Summary',
   components: {
     Table,
-    CategoriesTreeMapNested
+    MetricBoxes,
+    MetricBox,
+    Tips,
+    TreeMapButtons
   },
   mixins: [SharedMixin],
-  data(){
+  data() {
     return {
       visualizationsData: this.$root.$data.subsidiesData,
       items: [],
       grantedColumns: grantedColumns,
       showColumns: [],
-      value: '',
-      labelSubsidies: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.subsidies'),
-      labelSubsidiesFor: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.subsidies_for'),
-      labelIndividualSubsidiesFor: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.individual_subsidies_for'),
-      labelCollectiveSubsidiesFor: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.collective_subsidies_for'),
-      labelMeanAmount: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.mean_amount'),
-      labelMedianAmount: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.median_amount'),
-      labelLessThan1000_1: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_less_than_1000_1'),
-      labelLessThan1000_2: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_less_than_1000_2'),
-      labelLargerSubsidyAmount_1: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_larger_subsidy_amount_1'),
-      labelLargerSubsidyAmount_2: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_larger_subsidy_amount_2'),
-      labelHalfSpendingsSubsidies_1: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_half_spendings_subsidies_1'),
-      labelHalfSpendingsSubsidies_2: I18n.t('gobierto_visualizations.visualizations.subsidies.summary.label_half_spendings_subsidies_2'),
-      labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category'),
-      labelAmountDistribution: I18n.t('gobierto_visualizations.visualizations.subsidies.amount_distribution'),
-      labelMainBeneficiaries: I18n.t('gobierto_visualizations.visualizations.subsidies.main_beneficiaries'),
-      filters: subsidiesFiltersConfig
+      value: "",
+      labelSubsidies: I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies") || "",
+      labelCategory: I18n.t("gobierto_visualizations.visualizations.subsidies.category") || "",
+      labelAmountDistribution: I18n.t("gobierto_visualizations.visualizations.subsidies.amount_distribution") || "",
+      labelMainBeneficiaries: I18n.t("gobierto_visualizations.visualizations.subsidies.main_beneficiaries") || "",
+      labelSubsidiesAmount: I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies_amount") || "",
+      filters: subsidiesFiltersConfig,
+      treemapButtons: [
+        ["amount", I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies_amount") || ""],
+        ["total", I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies_total") || ""],
+      ],
+      activeButton: "amount",
+      labelsSubsidies: [
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.subsidies") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.subsidies_for") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.mean_amount") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.median_amount") || "",
+      ],
+      labelsCollectivesSubsidies: [
+        "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.collective_subsidies_for") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.mean_amount") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.median_amount") || "",
+      ],
+      labelsIndividualsSubsidies: [
+        "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.individual_subsidies_for") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.mean_amount") || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.median_amount") || "",
+      ],
+      tips: [
+        ["less-than-1000-pct",I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_less_than_1000_1") || "", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_less_than_1000_2") || ""],
+        ["larger-subsidy-amount-pct", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_larger_subsidy_amount_1") || "", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_larger_subsidy_amount_2") || ""],
+        ["half-spendings-subsidies-pct", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_half_spendings_subsidies_1") || "", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_half_spendings_subsidies_2") || ""],
+      ]
     }
   },
   computed: {
     checkFilterCategoryLength() {
       const filterCategories = this.filters.filter(({ id }) => id === 'categories')
       return filterCategories[0].options.length > 0 ? true : false
-    }
+    },
+  },
+  watch: {
+    visualizationsData(n) {
+      this.treemap?.setData(n)
+    },
   },
   created() {
     this.columns = grantedColumns;
     this.showColumns = ['name', 'count', 'sum']
-    this.visualizationsData = this.visualizationsData
-      .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
+  },
+  mounted() {
+    const treemap = this.$refs.treemap
+
+    // Check if element is visible in DOM - https://stackoverflow.com/a/21696585/5020256
+    if (treemap && treemap.offsetParent !== null) {
+      this.treemap = new TreeMap(treemap, this.visualizationsData, {
+        rootTitle: this.labelSubsidies,
+        id: "categories",
+        group: ["beneficiary_type"],
+        value: "amount",
+        itemTemplate: this.treemapItemTemplate,
+        tooltip: this.tooltipTreeMap,
+        onLeafClick: this.handleTreeMapLeafClick,
+      })
+    }
   },
   methods: {
-    refreshSummaryData(){
+    handleActiveButton(value) {
+      this.activeButton = value
+      this.treemap.setValue(this.activeButton === "total" ? undefined : value)
+    },
+    treemapItemTemplate(d) {
+      const isLeaf = d.height === 0
+      const title = isLeaf ? d.data.beneficiary_type : d.data.categories
+      const text = isLeaf ? d.data.beneficiary : money(d.leaves().reduce((acc, x) => acc + x.data.amount, 0))
+      const leafClass = isLeaf && "is-leaf"
+      return [
+        `<p class="treemap-item-title ${leafClass}">${title}</p>`,
+        `<p class="treemap-item-text ${leafClass}">${text}</p>`,
+        d.children && `<p class="treemap-item-text"><b>${d.leaves().length}</b> ${this.labelSubsidies}</b></p>`
+      ].join("")
+    },
+    handleTreeMapLeafClick(_, { data }) {
+      const { id } = data
+      this.$router.push(`/visualizaciones/subvenciones/subvenciones/${id}`).catch(() => {})
+    },
+    tooltipTreeMap(d) {
+      const isLeaf = d.height === 0
+      return isLeaf ? `<p class="treemap-tooltip-children-text">${this.labelSubsidiesAmount}: <b>${money(d.data.amount)}</b></p>`
+      : [
+        `<span class="treemap-tooltip-header">${this.labelSubsidies}</span>`,
+        d.children && d.children.map(this.tooltipTreeMapChildren).join("")
+      ].join("")
+    },
+    tooltipTreeMapChildren(d) {
+      return `
+      <div class="treemap-tooltip-children-container">
+        <p class="treemap-tooltip-children-title">${d.data.beneficiary}</p>
+        <p class="treemap-tooltip-children-text">${this.labelSubsidiesAmount}: <b>${money(d.data.amount)}</b></p>
+      </div>`
+    },
+    refreshSummaryData() {
       if (!this.value) {
         this.visualizationsData = this.$root.$data.subsidiesData;
       } else {

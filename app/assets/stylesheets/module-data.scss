@@ -15,6 +15,10 @@
   /* Pure-css add display block to the summary element and the arrow/caret/icon is hide because summary must have list-item to show the arrow. */
   summary {
     display: list-item !important;
+    ul {
+      margin-top: 12px;
+      padding-left: 20px;
+    }
   }
 
   padding-top: 1rem;

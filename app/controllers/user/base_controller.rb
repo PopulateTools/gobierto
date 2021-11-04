@@ -21,8 +21,4 @@ class User::BaseController < ApplicationController
       attributes | (auth_module.read_only_user_attributes || [])
     end
   end
-
-  def check_registration_enabled
-    raise_user_not_authorized if registration_disabled?
-  end
 end

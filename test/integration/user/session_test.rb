@@ -20,6 +20,10 @@ class User::SessionTest < ActionDispatch::IntegrationTest
     @other_site ||= sites(:santander)
   end
 
+  def site_with_registration_disabled
+    @site_with_registration_disabled ||= sites(:cortegada)
+  end
+
   def other_site_user
     @other_site_user ||= users(:susan)
   end
@@ -133,5 +137,13 @@ class User::SessionTest < ActionDispatch::IntegrationTest
 
       assert has_message?("You are already signed in.")
     end
+  end
+
+  def test_disabled_registration_hides_sign_in_link
+     with_current_site(site_with_registration_disabled) do
+      visit @sign_in_path
+
+      assert has_no_link?("Sign in")
+     end
   end
 end

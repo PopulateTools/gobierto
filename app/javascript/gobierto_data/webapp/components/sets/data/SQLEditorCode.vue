@@ -61,6 +61,10 @@ export default {
     tableName: {
       type: String,
       default: ''
+    },
+    registrationDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -138,11 +142,13 @@ export default {
       }
 
       // Enabled saved and fork button while typping on editor
-      this.$root.$emit('disabledStringSavedQuery', false)
-      this.$root.$emit('enableSavedButton')
-      this.$root.$emit('enabledForkPrompt')
-      this.$root.$emit('enabledRevertButton')
-      this.$root.$emit("isQuerySavingPromptVisible", true);
+      if (!this.registrationDisabled) {
+        this.$root.$emit('disabledStringSavedQuery', false)
+        this.$root.$emit('enableSavedButton')
+        this.$root.$emit('enabledForkPrompt')
+        this.$root.$emit('enabledRevertButton')
+        this.$root.$emit("isQuerySavingPromptVisible", true);
+      }
     },
     onChange(editor) {
       this.mergeTables();

@@ -71,6 +71,7 @@
         :object-columns="objectColumns"
         :config-map="configMapZoom"
         :config="config"
+        :registration-disabled="registrationDisabled"
         @showSaving="showSavingDialog"
       />
     </div>
@@ -146,6 +147,10 @@ export default {
     vizId: {
       type: Number,
       default: 0
+    },
+    registrationDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -185,7 +190,9 @@ export default {
     onSaveEventHandler(opts) {
       // get children configuration
       const config = this.$refs.viewer.getConfig()
-      this.$root.$emit("storeCurrentVisualization", config, opts);
+      if (!this.registrationDisabled) {
+        this.$root.$emit("storeCurrentVisualization", config, opts);
+      }
     },
     updateVizNameHandler(value) {
       const {
@@ -208,14 +215,18 @@ export default {
       this.$refs.viewer.toggleConfigPerspective();
     },
     showSavingDialog() {
-      this.perspectiveChanged = true
-      this.showVisualize = false
-      this.showResetViz = true
-      this.$root.$emit('showSavingDialogEvent')
-      this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
+      if (!this.registrationDisabled) {
+        this.perspectiveChanged = true
+        this.showVisualize = false
+        this.showResetViz = true
+        this.$root.$emit('showSavingDialogEvent')
+        this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
+      }
     },
     isPrivateChecked() {
-      this.$root.$emit('eventIsVizModified', true)
+      if (!this.registrationDisabled) {
+        this.$root.$emit('eventIsVizModified', true)
+      }
     }
   },
 };

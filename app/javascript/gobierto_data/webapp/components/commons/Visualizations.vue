@@ -32,6 +32,10 @@ export default {
       type: Object,
       default: () => {}
     },
+    registrationDisabled: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -114,14 +118,16 @@ export default {
       const config = this.getConfig()
       if (JSON.stringify(this.prevConfig) !== JSON.stringify(config)) {
         // don't emit event on the first load
-        if (this.prevConfig) {
+        if (this.prevConfig && !this.registrationDisabled) {
           this.$emit("showSaving")
         }
         this.prevConfig = config
       }
     },
     toggleConfigPerspective() {
-      this.$root.$emit('showSavedVizString', false)
+      if (!this.registrationDisabled) {
+        this.$root.$emit('showSavedVizString', false)
+      }
       this.viewer.toggleConfig()
     },
     hideConfigButton() {

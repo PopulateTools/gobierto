@@ -20,6 +20,7 @@
         :query-input-focus="queryInputFocus"
         :show-private-public-icon="showPrivatePublicIcon"
         :reset-private="resetPrivate"
+        :registration-disabled="registrationDisabled"
       />
       <SQLEditorCode
         :object-columns="objectColumns"
@@ -45,6 +46,7 @@
         :viz-name="vizName"
         :viz-id="vizId"
         :show-private-public-icon-viz="showPrivatePublicIconViz"
+        :registration-disabled="registrationDisabled"
       />
     </div>
   </div>
@@ -198,6 +200,10 @@ export default {
     vizId: {
       type: Number,
       default: 0
+    },
+    registrationDisabled: {
+      type: Boolean,
+      default: false
     }
   }
 }

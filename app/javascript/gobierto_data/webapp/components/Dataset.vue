@@ -29,7 +29,6 @@
       <SummaryTab
         v-if="activeDatasetTab === 0 && attributes"
         :dataset-id="datasetId"
-        :registration-disabled="registrationDisabled"
         :is-viz-modified="isVizModified"
         :is-viz-item-modified="isVizItemModified"
         :is-viz-saved="isVizSaved"
@@ -103,7 +102,6 @@
         :private-queries="privateQueries"
         :public-queries="publicQueries"
         :is-user-logged="isUserLogged"
-        :registration-disabled="registrationDisabled"
       />
 
       <VisualizationsTab
@@ -133,7 +131,6 @@
         :reset-private="resetPrivate"
         :object-columns="objectColumns"
         :config-map="configMap"
-        :registration-disabled="registrationDisabled"
       />
 
       <DownloadsTab
@@ -257,7 +254,7 @@ export default {
       labelVisualizations:
         I18n.t("gobierto_data.projects.visualizations") || "",
       labelDownload: I18n.t("gobierto_data.projects.download") || "",
-      userRegistration: this.$root.$data.registrationDisabled
+      registrationDisabled: this.$root.$data.registrationDisabled === "true" ? true : false
     };
   },
   computed: {

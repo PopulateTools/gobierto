@@ -28,6 +28,7 @@
         :query-duration="queryDuration"
         :query-error="queryError"
         :table-name="tableName"
+        :registration-disabled="registrationDisabled"
       />
       <SQLEditorResults
         v-if="items.length"

@@ -139,7 +139,8 @@ export default {
   },
   computed: {
     compiledHTMLMarkdown() {
-      const descriptionHTML = this.descriptionDataset.replace(/\|<br>/g, '|').replace(/<p>\|/g, '|').replace(/\|<\/p>/g, '|');
+      /*This method is to remove only the <p>| |</p> and |<br> elements that CodeMirror adds when exporting from the editor. We need to remove them to convert the Markdown tables to HTML correctly.*/
+      const descriptionHTML = this.descriptionDataset.replace(/\|<br>|<p>\||\|<\/p>/g, '|');
       const mdText = marked(descriptionHTML, {
         sanitize: false,
         tables: true

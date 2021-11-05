@@ -217,17 +217,24 @@
           <% if @budget_line_composition.any? && @budget_line_composition[:root].present? %>
             <table class="table-breakdown">
               <% @budget_line_composition[:root].each do |root_budget_line| %>
+                <% has_subitems = @budget_line_composition[root_budget_line.code].present? %>
                 <tr>
-                  <td><span class="table-breakdown-element"><i class="fas fa-angle-right"></i><%= root_budget_line.name %></span>
+                  <td>
+                    <span class="<%= "table-breakdown-element" if has_subitems %>">
+                      <% if has_subitems %>
+                        <i class="fas fa-angle-right"></i>
+                      <% end %>
+                      <%= root_budget_line.name %>
+                    </span>
                   </td>
                   <td class="qty"><%= percentage_fraction_format(root_budget_line.percentage_compared_with(@budget_line.amount)) %></td>
                   <td class="amount"><%= format_currency(root_budget_line.amount) %></td>
                 </tr>
-                <tr class="container-breakdown-sublevel">
-                  <td class="container-breakdown-sublevel-td" colspan="3">
-                    <div>
-                      <table>
-                        <% if @budget_line_composition[root_budget_line.code].present? %>
+                <% if has_subitems %>
+                  <tr class="container-breakdown-sublevel">
+                    <td class="container-breakdown-sublevel-td" colspan="3">
+                      <div>
+                        <table>
                           <% @budget_line_composition[root_budget_line.code].each do |descendant_budget_line| %>
                             <tr>
                               <td class="container-breakdown-sublevel-td-element"><span class="table-breakdown-element"><%= descendant_budget_line.name %></span></td>
@@ -235,11 +242,11 @@
                               <td class="container-breakdown-sublevel-td-element" class="amount"><%= format_currency(descendant_budget_line.amount) %></td>
                             </tr>
                           <% end %>
-                        <% end %>
-                      </table>
-                    </div>
-                  </td>
-                </tr>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
               <% end %>
             </table>
           <% else %>

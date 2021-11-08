@@ -47,6 +47,7 @@
         :user-save-viz="userSaveViz"
         :object-columns="objectColumns"
         :config-map="configMap"
+        :registration-disabled="registrationDisabled"
         @changeViz="showVizElement"
         @emitDelete="deleteHandlerVisualization"
       />
@@ -171,6 +172,10 @@ export default {
       type: Object,
       default: () => {}
     },
+    registrationDisabled: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

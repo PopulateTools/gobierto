@@ -165,6 +165,10 @@ export default {
       type: Object,
       default: () => {}
     },
+    registrationDisabled: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -260,14 +264,18 @@ export default {
         name: vizName
       } = value;
       this.labelValue = vizName
-      this.$root.$emit('updateVizName')
+      if (!this.registrationDisabled || this.isUserLogged) {
+        this.$root.$emit('updateVizName')
+      }
     },
     showSavingDialog() {
-      this.showVisualize = false
-      this.showResetViz = true
-      //Enable saved button
-      this.$root.$emit('showSavingDialogEvent')
-      this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
+      if (!this.registrationDisabled || this.isUserLogged) {
+        this.showVisualize = false
+        this.showResetViz = true
+        //Enable saved button
+        this.$root.$emit('showSavingDialogEvent')
+        this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
+      }
     },
     getDataVisualization(data) {
       const {
@@ -313,13 +321,17 @@ export default {
     },
     showPromptSaveViz() {
       this.$refs.viewer.toggleConfigPerspective();
-      this.$root.$emit('showSavingDialogEventViz', true)
+      if (!this.registrationDisabled || this.isUserLogged) {
+        this.$root.$emit('showSavingDialogEventViz', true)
+      }
     },
     hidePromptSaveViz() {
       this.$refs.viewer.toggleConfigPerspective();
-      this.$root.$emit('showSavingDialogEventViz', false)
-      this.$root.$emit('enableSavedVizButton', false)
-      this.$root.$emit("isVizModified", false);
+      if (!this.registrationDisabled || this.isUserLogged) {
+        this.$root.$emit('showSavingDialogEventViz', false)
+        this.$root.$emit('enableSavedVizButton', false)
+        this.$root.$emit("isVizModified", false);
+      }
     },
   }
 };

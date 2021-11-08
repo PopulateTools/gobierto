@@ -131,6 +131,7 @@
         :reset-private="resetPrivate"
         :object-columns="objectColumns"
         :config-map="configMap"
+        :registration-disabled="registrationDisabled"
       />
 
       <DownloadsTab
@@ -631,10 +632,12 @@ export default {
       // trigger the modified label:
       // - hides if the new typed query is already stored
       // - shows if the previous query was stored
-      if (this.isQueryStored(sql)) {
-        this.isQueryModified = false;
-      } else if (this.isQueryStored()) {
-        this.isQueryModified = true;
+      if (!this.registrationDisabled) {
+        if (this.isQueryStored(sql)) {
+          this.isQueryModified = false;
+        } else if (this.isQueryStored()) {
+          this.isQueryModified = true;
+        }
       }
 
       this.currentQuery = sql;

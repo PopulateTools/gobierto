@@ -221,7 +221,7 @@
                   <td><span class="table-breakdown-element"><i class="fas fa-angle-right"></i><%= root_budget_line.name %></span>
                   </td>
                   <td class="qty"><%= percentage_fraction_format(root_budget_line.percentage_compared_with(@budget_line.amount)) %></td>
-                  <td class="amount"><%= format_currency(root_budget_line.amount) %></td>
+                  <td class="amount right"><%= format_currency(root_budget_line.amount) %></td>
                 </tr>
                 <tr class="container-breakdown-sublevel">
                   <td class="container-breakdown-sublevel-td" colspan="3">
@@ -232,7 +232,7 @@
                             <tr>
                               <td class="container-breakdown-sublevel-td-element"><span class="table-breakdown-element"><%= descendant_budget_line.name %></span></td>
                               <td class="container-breakdown-sublevel-td-element align-right" class="qty"><%= percentage_fraction_format(descendant_budget_line.percentage_compared_with(@budget_line.amount)) %></td>
-                              <td class="container-breakdown-sublevel-td-element" class="amount"><%= format_currency(descendant_budget_line.amount) %></td>
+                              <td class="container-breakdown-sublevel-td-element" class="amount right"><%= format_currency(descendant_budget_line.amount) %></td>
                             </tr>
                           <% end %>
                         <% end %>

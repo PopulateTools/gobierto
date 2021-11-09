@@ -72,10 +72,8 @@
 <script>
 import { date, truncate } from "lib/vue/filters"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
-
 //Parse markdown to HTML
 const marked = require('marked');
-const TurndownService = require('turndown').default;
 
 export default {
   name: "Info",
@@ -141,9 +139,9 @@ export default {
   },
   computed: {
     compiledHTMLMarkdown() {
-      const turndownService = new TurndownService()
-      const markdown = turndownService.turndown(this.descriptionDataset)
-      const mdText = marked(markdown, {
+      /*This method is to remove only the <p>| |</p> and |<br> elements that CodeMirror adds when exporting from the editor. We need to remove them to convert the Markdown tables to HTML correctly.*/
+      const descriptionHTML = this.descriptionDataset.replace(/\|<br>|<p>\||\|<\/p>/g, '|');
+      const mdText = marked(descriptionHTML, {
         sanitize: false,
         tables: true
       })

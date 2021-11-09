@@ -12,6 +12,16 @@
 
 .gobierto-data {
 
+  /* Pure-css add display block to the summary element and the arrow/caret/icon is hide because summary must have list-item to show the arrow. */
+  summary {
+    display: list-item;
+  }
+
+  details ul {
+    margin-top: 6px;
+    padding-left: 20px;
+  }
+
   padding-top: 1rem;
 
   @include min-screen(768) {

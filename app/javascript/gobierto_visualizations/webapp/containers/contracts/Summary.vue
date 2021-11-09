@@ -31,9 +31,45 @@
       <div ref="beeswarm" />
     </div>
 
-    <MetricBoxes />
+    <MetricBoxes id="tendersContractsSummary">
+      <MetricBox
+        :labels="labelsTenders"
+        type="tenders"
+      />
+      <MetricBox
+        :labels="labelsContracts"
+        type="contracts"
+      />
+    </MetricBoxes>
 
-    <DCCharts />
+    <Tips :labels="tips" />
+
+    <div class="pure-g block">
+      <div class="pure-u-1 pure-u-lg-1-2 p_h_r_3">
+        <div class="m_b_3">
+          <h3 class="mt1 graph-title">
+            {{ labelContractType }}
+          </h3>
+          <div id="contract-type-bars" />
+        </div>
+
+        <div>
+          <h3 class="mt1 graph-title">
+            {{ labelProcessType }}
+          </h3>
+          <div id="process-type-bars" />
+        </div>
+      </div>
+
+      <div class="pure-u-1 pure-u-lg-1-2 header_block_inline">
+        <div>
+          <h3 class="mt1 graph-title">
+            {{ labelAmountDistribution }}
+          </h3>
+          <div id="amount-distribution-bars" />
+        </div>
+      </div>
+    </div>
 
     <div class="m_t_4">
       <h3 class="mt1 graph-title">
@@ -56,7 +92,8 @@ import { Table } from "lib/vue/components";
 import { BeeSwarm, TreeMap } from "gobierto-vizzs";
 import TreeMapButtons from "../../components/TreeMapButtons.vue";
 import MetricBoxes from "../../components/MetricBoxes.vue";
-import DCCharts from "../../components/DCCharts.vue";
+import MetricBox from "../../components/MetricBox.vue";
+import Tips from "../../components/Tips.vue";
 import { SharedMixin } from "../../lib/mixins/shared";
 import { assigneesColumns } from "../../lib/config/contracts.js";
 import { money } from "lib/vue/filters";
@@ -67,7 +104,8 @@ export default {
     Table,
     TreeMapButtons,
     MetricBoxes,
-    DCCharts
+    MetricBox,
+    Tips
   },
   mixins: [SharedMixin],
   props: {
@@ -94,12 +132,32 @@ export default {
       labelContractsAmount: I18n.t("gobierto_visualizations.visualizations.contracts.contract_amount") || "",
       labelTendersAmount: I18n.t("gobierto_visualizations.visualizations.contracts.tender_amount") || "",
       labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status') || "",
+      labelContractType: I18n.t("gobierto_visualizations.visualizations.contracts.contract_type") || "",
+      labelProcessType: I18n.t("gobierto_visualizations.visualizations.contracts.process_type") || "",
+      labelAmountDistribution: I18n.t("gobierto_visualizations.visualizations.contracts.amount_distribution") || "",
       treemapButtons: [
         ["final_amount_no_taxes", I18n.t("gobierto_visualizations.visualizations.contracts.contract_amount")],
         ["total", I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap') || ""],
       ],
       categoryActiveButton: "final_amount_no_taxes",
       entityActiveButton: "final_amount_no_taxes",
+      labelsTenders: [
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.tenders") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.tenders_for") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.mean_amount") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.median_amount") || ""
+      ],
+      labelsContracts: [
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.contracts") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.contracts_for") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.mean_amount") || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.median_amount") || ""
+      ],
+      tips: [
+        ["less-than-1000-pct", I18n.t("gobierto_visualizations.visualizations.contracts.summary.label_less_than_1000_1") || "", I18n.t("gobierto_visualizations.visualizations.contracts.summary.label_less_than_1000_2") || ""],
+        ["larger-contract-amount-pct", I18n.t("gobierto_visualizations.visualizations.contracts.summary.label_larger_contract_amount_1") || "", I18n.t("gobierto_visualizations.visualizations.contracts.summary.label_larger_contract_amount_2") || ""],
+        ["half-spendings-contracts-pct", I18n.t("gobierto_visualizations.visualizations.contracts.summary.label_half_spendings_contracts_1") || "", I18n.t("gobierto_visualizations.visualizations.contracts.summary.label_half_spendings_contracts_2") || ""],
+      ]
     }
   },
   computed: {

@@ -1045,6 +1045,8 @@ export default {
           this.showPrivatePublicIconViz = true;
           this.enabledForkVizButton = false;
         }
+      } else if (nameComponent === ROUTE_NAMES.Visualization) {
+        this.showLabelEdit = true;
       }
     },
     disabledForkButton() {

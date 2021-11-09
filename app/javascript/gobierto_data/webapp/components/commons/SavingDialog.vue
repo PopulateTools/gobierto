@@ -18,7 +18,7 @@
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="showPrivateIcon">
+    <template v-if="showPrivateIcon && isUserLogged">
       <PrivateIcon
         :is-closed="isPrivate"
         :style="{ paddingRight: '.5em', margin: 0 }"
@@ -226,10 +226,6 @@ export default {
     resetPrivate: {
       type: Boolean,
       default: false
-    },
-    registrationDisabled: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -256,7 +252,7 @@ export default {
        return (this.isUserLogged && this.isQuerySavingPromptVisible) || this.labelValue || this.isVizSavingPromptVisible
     },
     showPrivateIcon() {
-      return !this.registrationDisabled && this.showPrivatePublicIcon || (this.showPrivatePublicIconViz && !this.showForkButton)
+      return this.showPrivatePublicIcon || (this.showPrivatePublicIconViz && !this.showForkButton)
     },
     isQueryOrVizModified() {
       return this.isQueryModified || this.isVizModified

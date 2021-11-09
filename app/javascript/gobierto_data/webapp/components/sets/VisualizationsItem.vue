@@ -57,7 +57,6 @@
           :config="config"
           :object-columns="objectColumns"
           :config-map="configMapZoom"
-          :registration-disabled="registrationDisabled"
           @showSaving="showSavingDialog"
         />
       </template>

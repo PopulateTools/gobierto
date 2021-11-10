@@ -190,9 +190,7 @@ export default {
     onSaveEventHandler(opts) {
       // get children configuration
       const config = this.$refs.viewer.getConfig()
-      if (!this.registrationDisabled) {
-        this.$root.$emit("storeCurrentVisualization", config, opts);
-      }
+      this.$root.$emit("storeCurrentVisualization", config, opts);
     },
     updateVizNameHandler(value) {
       const {

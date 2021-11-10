@@ -192,6 +192,11 @@ export default {
       configMapZoom: { ...this.configMap, zoom: true }
     }
   },
+  computed: {
+    registrationDisabledAndUserIsLogged() {
+      return !this.registrationDisabled || this.isUserLogged
+    }
+  },
   watch: {
     vizInputFocus(newValue) {
       if (newValue) {
@@ -264,12 +269,12 @@ export default {
         name: vizName
       } = value;
       this.labelValue = vizName
-      if (!this.registrationDisabled || this.isUserLogged) {
+      if (this.registrationDisabledAndUserIsLogged()) {
         this.$root.$emit('updateVizName')
       }
     },
     showSavingDialog() {
-      if (!this.registrationDisabled || this.isUserLogged) {
+      if (this.registrationDisabledAndUserIsLogged()) {
         this.showVisualize = false
         this.showResetViz = true
         //Enable saved button
@@ -321,13 +326,13 @@ export default {
     },
     showPromptSaveViz() {
       this.$refs.viewer.toggleConfigPerspective();
-      if (!this.registrationDisabled || this.isUserLogged) {
+      if (this.registrationDisabledAndUserIsLogged()) {
         this.$root.$emit('showSavingDialogEventViz', true)
       }
     },
     hidePromptSaveViz() {
       this.$refs.viewer.toggleConfigPerspective();
-      if (!this.registrationDisabled || this.isUserLogged) {
+      if (this.registrationDisabledAndUserIsLogged()) {
         this.$root.$emit('showSavingDialogEventViz', false)
         this.$root.$emit('enableSavedVizButton', false)
         this.$root.$emit("isVizModified", false);

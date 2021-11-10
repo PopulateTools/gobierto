@@ -65,6 +65,10 @@ export default {
     registrationDisabled: {
       type: Boolean,
       default: false
+    },
+    isUserLogged: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -142,7 +146,7 @@ export default {
       }
 
       // Enabled saved and fork button while typping on editor
-      if (!this.registrationDisabled) {
+      if (!this.registrationDisabled || this.isUserLogged) {
         this.$root.$emit('disabledStringSavedQuery', false)
         this.$root.$emit('enableSavedButton')
         this.$root.$emit('enabledForkPrompt')

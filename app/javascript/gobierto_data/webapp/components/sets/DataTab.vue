@@ -28,6 +28,7 @@
         :query-duration="queryDuration"
         :query-error="queryError"
         :table-name="tableName"
+        :is-user-logged="isUserLogged"
         :registration-disabled="registrationDisabled"
       />
       <SQLEditorResults

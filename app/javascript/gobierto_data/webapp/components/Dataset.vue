@@ -255,7 +255,7 @@ export default {
       labelVisualizations:
         I18n.t("gobierto_data.projects.visualizations") || "",
       labelDownload: I18n.t("gobierto_data.projects.download") || "",
-      registrationDisabled: this.$root.$data.registrationDisabled === "true" ? true : false
+      registrationDisabled: this.$root.$data.registrationDisabled === "true"
     };
   },
   computed: {
@@ -632,14 +632,11 @@ export default {
       // trigger the modified label:
       // - hides if the new typed query is already stored
       // - shows if the previous query was stored
-      if (!this.registrationDisabled) {
-        if (this.isQueryStored(sql)) {
-          this.isQueryModified = false;
-        } else if (this.isQueryStored()) {
-          this.isQueryModified = true;
-        }
+      if (!this.registrationDisabled && this.isQueryStored(sql)) {
+        this.isQueryModified = false;
+      } else if (!this.registrationDisabled && this.isQueryStored()) {
+        this.isQueryModified = true;
       }
-
       this.currentQuery = sql;
     },
     storeRecentQuery() {

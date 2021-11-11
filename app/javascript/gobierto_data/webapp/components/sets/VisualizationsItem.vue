@@ -269,12 +269,12 @@ export default {
         name: vizName
       } = value;
       this.labelValue = vizName
-      if (this.registrationDisabledAndUserIsLogged()) {
+      if (this.registrationDisabledAndUserIsLogged) {
         this.$root.$emit('updateVizName')
       }
     },
     showSavingDialog() {
-      if (this.registrationDisabledAndUserIsLogged()) {
+      if (this.registrationDisabledAndUserIsLogged) {
         this.showVisualize = false
         this.showResetViz = true
         //Enable saved button
@@ -326,13 +326,13 @@ export default {
     },
     showPromptSaveViz() {
       this.$refs.viewer.toggleConfigPerspective();
-      if (this.registrationDisabledAndUserIsLogged()) {
+      if (this.registrationDisabledAndUserIsLogged) {
         this.$root.$emit('showSavingDialogEventViz', true)
       }
     },
     hidePromptSaveViz() {
       this.$refs.viewer.toggleConfigPerspective();
-      if (this.registrationDisabledAndUserIsLogged()) {
+      if (this.registrationDisabledAndUserIsLogged) {
         this.$root.$emit('showSavingDialogEventViz', false)
         this.$root.$emit('enableSavedVizButton', false)
         this.$root.$emit("isVizModified", false);

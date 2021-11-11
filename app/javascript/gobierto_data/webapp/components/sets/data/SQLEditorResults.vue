@@ -33,6 +33,7 @@
           :is-user-logged="isUserLogged"
           :enabled-viz-saved-button="enabledVizSavedButton"
           :show-private-public-icon-viz="showPrivatePublicIconViz"
+          :registration-disabled="registrationDisabled"
           @save="onSaveEventHandler"
           @keyDownInput="updateVizNameHandler"
           @isPrivateChecked="isPrivateChecked"
@@ -72,6 +73,7 @@
         :config-map="configMapZoom"
         :config="config"
         :registration-disabled="registrationDisabled"
+        :is-user-logged="isUserLogged"
         @showSaving="showSavingDialog"
       />
     </div>
@@ -170,6 +172,11 @@ export default {
       configMapZoom: { ...this.configMap, zoom: true }
     };
   },
+  computed: {
+    registrationDisabledAndUserIsLogged() {
+      return !this.registrationDisabled || this.isUserLogged
+    }
+  },
   watch: {
     vizInputFocus(newValue) {
       if (newValue) {
@@ -213,7 +220,7 @@ export default {
       this.$refs.viewer.toggleConfigPerspective();
     },
     showSavingDialog() {
-      if (!this.registrationDisabled) {
+      if (this.registrationDisabledAndUserIsLogged) {
         this.perspectiveChanged = true
         this.showVisualize = false
         this.showResetViz = true
@@ -222,7 +229,7 @@ export default {
       }
     },
     isPrivateChecked() {
-      if (!this.registrationDisabled) {
+      if (this.registrationDisabledAndUserIsLogged) {
         this.$root.$emit('eventIsVizModified', true)
       }
     }

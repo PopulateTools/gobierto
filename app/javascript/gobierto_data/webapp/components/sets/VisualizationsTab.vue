@@ -202,6 +202,7 @@ export default {
     }
   },
   created() {
+    this.$root.$emit('showSavingDialogEventViz', false)
     const {
       name: nameComponent
     } = this.$route;

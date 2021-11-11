@@ -35,11 +35,20 @@ export default {
     registrationDisabled: {
       type: Boolean,
       default: false
+    },
+    isUserLogged: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       prevConfig: this.config
+    }
+  },
+  computed: {
+    registrationDisabledAndUserIsLogged() {
+      return !this.registrationDisabled || this.isUserLogged
     }
   },
   watch: {
@@ -118,14 +127,14 @@ export default {
       const config = this.getConfig()
       if (JSON.stringify(this.prevConfig) !== JSON.stringify(config)) {
         // don't emit event on the first load
-        if (this.prevConfig && !this.registrationDisabled) {
+        if (this.prevConfig && this.registrationDisabledAndUserIsLogged) {
           this.$emit("showSaving")
         }
         this.prevConfig = config
       }
     },
     toggleConfigPerspective() {
-      if (!this.registrationDisabled) {
+      if (this.registrationDisabledAndUserIsLogged) {
         this.$root.$emit('showSavedVizString', false)
       }
       this.viewer.toggleConfig()

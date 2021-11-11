@@ -66,7 +66,7 @@ commands:
       - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
       - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
       - run: sudo apt update
-      - run: sudo apt -y install postgresql-12 postgresql-client-12
+      - run: sudo apt -y install postgresql-client-12
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml
@@ -93,7 +93,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: *working_directory
-
       - restore_bundler_cache
       - run:
           name: "[Bundler] Install dependencies"

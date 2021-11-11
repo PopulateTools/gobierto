@@ -160,6 +160,13 @@ module GobiertoBudgets
       @attributes[:parent_code].to_s
     end
 
+    def first_level_parent_code
+      return unless decomposition_type.present?
+      return :root if level.blank? || level == 1
+
+      code[0]
+    end
+
     def to_param
       {
         id: code,

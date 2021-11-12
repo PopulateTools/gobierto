@@ -162,6 +162,7 @@ export default {
       this.$root.$emit('runCurrentQuery')
       this.$emit('closeQueriesModal')
       this.$root.$emit('disabledStringSavedQuery')
+      this.$root.$emit('resetVizEvent')
     },
     clickDeleteQueryHandler(id) {
       const answerDelete = confirm(this.labelDeleteQuery);

@@ -64,6 +64,7 @@ export default {
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.checkIfQueryResultIsEmpty(this.items)
+    this.$root.$emit('showSavingDialogEventViz', false)
   },
   beforeDestroy() {
     document.removeEventListener("click", this.$emit("showSaving"));

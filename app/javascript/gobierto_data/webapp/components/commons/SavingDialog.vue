@@ -74,7 +74,7 @@
       />
     </template>
 
-    <template v-if="showEditButton">
+    <template v-if="showEditButton && isUserLogged">
       <Button
         :text="labelEdit"
         class="btn-sql-editor btn-sql-revert-query"

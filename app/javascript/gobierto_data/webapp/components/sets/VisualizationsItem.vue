@@ -279,7 +279,6 @@ export default {
         this.showResetViz = true
         //Enable saved button
         this.$root.$emit('showSavingDialogEvent')
-        this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
       }
     },
     getDataVisualization(data) {
@@ -322,7 +321,9 @@ export default {
       this.$root.$emit('showSavingDialogEventViz', true)
     },
     isPrivateChecked() {
-      this.$root.$emit('isVizModified', true)
+      if (this.registrationDisabledAndUserIsLogged) {
+        this.$root.$emit('isVizModified', true)
+      }
     },
     showPromptSaveViz() {
       this.$refs.viewer.toggleConfigPerspective();

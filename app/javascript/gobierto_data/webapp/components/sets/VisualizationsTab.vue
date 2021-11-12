@@ -202,7 +202,6 @@ export default {
     }
   },
   created() {
-    this.$root.$emit('showSavingDialogEventViz', false)
     const {
       name: nameComponent
     } = this.$route;
@@ -214,6 +213,9 @@ export default {
       this.currentVizComponent = COMPONENTS[this.activeViz];
       this.listVizComponent = true
     }
+  },
+  mounted() {
+    this.$root.$emit('showSavingDialogEventViz', false)
   },
   methods: {
     showVizElement(component) {

@@ -217,7 +217,7 @@ export default {
     },
     showChart() {
       this.showVisualization = true
-      this.$refs.viewer.toggleConfigPerspective();
+      this.$refs.viewer.showVizzEditor();
     },
     showSavingDialog() {
       if (this.registrationDisabledAndUserIsLogged) {
@@ -225,7 +225,6 @@ export default {
         this.showVisualize = false
         this.showResetViz = true
         this.$root.$emit('showSavingDialogEvent')
-        this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
       }
     },
     isPrivateChecked() {

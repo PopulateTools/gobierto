@@ -18,7 +18,7 @@
     </template>
 
     <!-- only show checkbox on prompt visible -->
-    <template v-if="showPrivateIcon">
+    <template v-if="showPrivateIcon && isUserLogged">
       <PrivateIcon
         :is-closed="isPrivate"
         :style="{ paddingRight: '.5em', margin: 0 }"

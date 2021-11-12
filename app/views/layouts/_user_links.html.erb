@@ -35,14 +35,16 @@
         </li>
       </ul>
     <% else %>
-      <ul class="pure-menu-list left">
-        <li class="pure-menu-item">
-          <%= link_to new_user_sessions_path, class: "pure-menu-link" do %>
-            <i class="fas fa-sign-in"></i>
-            <%= t("layouts.application.session.sign_in") %>
-          <% end %>
-        </li>
-      </ul>
+      <% unless current_site.configuration.registration_disabled? %>
+        <ul class="pure-menu-list left">
+          <li class="pure-menu-item">
+            <%= link_to new_user_sessions_path, class: "pure-menu-link" do %>
+              <i class="fas fa-sign-in"></i>
+              <%= t("layouts.application.session.sign_in") %>
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
     <% end %>
   </div>
 </div>

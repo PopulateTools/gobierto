@@ -19,7 +19,8 @@ class SiteConfiguration
     :raw_configuration_variables,
     :auth_modules,
     :admin_auth_modules,
-    :engine_overrides
+    :engine_overrides,
+    :registration_disabled
   ].freeze
 
   DEFAULT_LOGO_PATH = "sites/logo-default.png"
@@ -138,5 +139,9 @@ class SiteConfiguration
     define_method "#{site_module.underscore}_enabled?" do
       available_module?(site_module)
     end
+  end
+
+  def registration_disabled?
+    @registration_disabled == "1"
   end
 end

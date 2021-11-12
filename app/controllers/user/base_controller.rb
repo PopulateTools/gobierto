@@ -4,7 +4,13 @@ class User::BaseController < ApplicationController
   include User::SessionHelper
   include User::VerificationHelper
 
+  helper_method :registration_disabled?
+
   layout "user/layouts/application"
+
+  def registration_disabled?
+    current_site.configuration.registration_disabled?
+  end
 
   private
 

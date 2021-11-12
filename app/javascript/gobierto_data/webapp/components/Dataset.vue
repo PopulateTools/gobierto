@@ -94,6 +94,7 @@
         :reset-private="resetPrivate"
         :show-private-public-icon="showPrivatePublicIcon"
         :show-private-public-icon-viz="showPrivatePublicIconViz"
+        :registration-disabled="registrationDisabled"
       />
 
       <QueriesTab
@@ -130,6 +131,7 @@
         :reset-private="resetPrivate"
         :object-columns="objectColumns"
         :config-map="configMap"
+        :registration-disabled="registrationDisabled"
       />
 
       <DownloadsTab
@@ -252,7 +254,8 @@ export default {
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
       labelVisualizations:
         I18n.t("gobierto_data.projects.visualizations") || "",
-      labelDownload: I18n.t("gobierto_data.projects.download") || ""
+      labelDownload: I18n.t("gobierto_data.projects.download") || "",
+      registrationDisabled: this.$root.$data.registrationDisabled === "true"
     };
   },
   computed: {
@@ -629,12 +632,11 @@ export default {
       // trigger the modified label:
       // - hides if the new typed query is already stored
       // - shows if the previous query was stored
-      if (this.isQueryStored(sql)) {
+      if (!this.registrationDisabled && this.isQueryStored(sql)) {
         this.isQueryModified = false;
-      } else if (this.isQueryStored()) {
+      } else if (!this.registrationDisabled && this.isQueryStored()) {
         this.isQueryModified = true;
       }
-
       this.currentQuery = sql;
     },
     storeRecentQuery() {
@@ -1040,6 +1042,8 @@ export default {
           this.showPrivatePublicIconViz = true;
           this.enabledForkVizButton = false;
         }
+      } else if (nameComponent === ROUTE_NAMES.Visualization) {
+        this.showLabelEdit = true;
       }
     },
     disabledForkButton() {

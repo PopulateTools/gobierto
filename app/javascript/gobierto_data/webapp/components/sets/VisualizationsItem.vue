@@ -57,6 +57,8 @@
           :config="config"
           :object-columns="objectColumns"
           :config-map="configMapZoom"
+          :registration-disabled="registrationDisabled"
+          :is-user-logged="isUserLogged"
           @showSaving="showSavingDialog"
         />
       </template>
@@ -165,6 +167,10 @@ export default {
       type: Object,
       default: () => {}
     },
+    registrationDisabled: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -186,6 +192,11 @@ export default {
       isQuerySavingPromptVisible: false,
       saveLoader: false,
       configMapZoom: { ...this.configMap, zoom: true }
+    }
+  },
+  computed: {
+    registrationDisabledAndUserIsLogged() {
+      return !this.registrationDisabled || this.isUserLogged
     }
   },
   watch: {
@@ -260,14 +271,17 @@ export default {
         name: vizName
       } = value;
       this.labelValue = vizName
-      this.$root.$emit('updateVizName')
+      if (this.registrationDisabledAndUserIsLogged) {
+        this.$root.$emit('updateVizName')
+      }
     },
     showSavingDialog() {
-      this.showVisualize = false
-      this.showResetViz = true
-      //Enable saved button
-      this.$root.$emit('showSavingDialogEvent')
-      this.$nextTick(() => this.$refs.savingDialogVizElement.inputFocus())
+      if (this.registrationDisabledAndUserIsLogged) {
+        this.showVisualize = false
+        this.showResetViz = true
+        //Enable saved button
+        this.$root.$emit('showSavingDialogEvent')
+      }
     },
     getDataVisualization(data) {
       const {
@@ -309,17 +323,23 @@ export default {
       this.$root.$emit('showSavingDialogEventViz', true)
     },
     isPrivateChecked() {
-      this.$root.$emit('isVizModified', true)
+      if (this.registrationDisabledAndUserIsLogged) {
+        this.$root.$emit('isVizModified', true)
+      }
     },
     showPromptSaveViz() {
       this.$refs.viewer.toggleConfigPerspective();
-      this.$root.$emit('showSavingDialogEventViz', true)
+      if (this.registrationDisabledAndUserIsLogged) {
+        this.$root.$emit('showSavingDialogEventViz', true)
+      }
     },
     hidePromptSaveViz() {
       this.$refs.viewer.toggleConfigPerspective();
-      this.$root.$emit('showSavingDialogEventViz', false)
-      this.$root.$emit('enableSavedVizButton', false)
-      this.$root.$emit("isVizModified", false);
+      if (this.registrationDisabledAndUserIsLogged) {
+        this.$root.$emit('showSavingDialogEventViz', false)
+        this.$root.$emit('enableSavedVizButton', false)
+        this.$root.$emit("isVizModified", false);
+      }
     },
   }
 };

@@ -36,7 +36,8 @@ module GobiertoAdmin
       :populate_data_api_token,
       :home_page,
       :home_page_item_id,
-      :raw_configuration_variables
+      :raw_configuration_variables,
+      :registration_disabled
     )
 
     attr_reader :logo_url
@@ -174,6 +175,10 @@ module GobiertoAdmin
       @raw_configuration_variables ||= site.configuration.raw_configuration_variables
     end
 
+    def registration_disabled
+      @registration_disabled ||= site.configuration.registration_disabled
+    end
+
     def logo_url
       @logo_url ||= begin
         return site.configuration.logo unless logo_file.present?
@@ -225,6 +230,7 @@ module GobiertoAdmin
         site_attributes.configuration.auth_modules = auth_modules
         site_attributes.configuration.admin_auth_modules = admin_auth_modules
         site_attributes.configuration.engine_overrides = engine_overrides
+        site_attributes.configuration.registration_disabled = registration_disabled
       end
 
       @organization_id_changed = @site.organization_id_changed?

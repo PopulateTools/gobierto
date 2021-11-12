@@ -157,9 +157,9 @@ export default {
   },
   data() {
     return {
-      labelVisName: I18n.t('gobierto_data.projects.visName') || "",
-      labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
-      labelResetViz: I18n.t('gobierto_data.projects.resetViz') || "",
+      labelVisName: I18n.t("gobierto_data.projects.visName") || "",
+      labelVisualize: I18n.t("gobierto_data.projects.visualize") || "",
+      labelResetViz: I18n.t("gobierto_data.projects.resetViz") || "",
       labelModifiedVizualition: I18n.t("gobierto_data.projects.modifiedVisualization") || "",
       labelSavedVisualization: I18n.t("gobierto_data.projects.savedVisualization") || "",
       labelLink: I18n.t("gobierto_data.projects.link") || "",
@@ -213,23 +213,23 @@ export default {
 
       this.$refs.viewer.toggleConfigPerspective();
       this.$refs.viewer.resetConfig()
-      this.$root.$emit('resetVizEvent')
+      this.$root.$emit("resetVizEvent")
     },
     showChart() {
       this.showVisualization = true
-      this.$refs.viewer.showVizzEditor();
+      this.$refs.viewer.toggleConfigPerspective();
     },
     showSavingDialog() {
       if (this.registrationDisabledAndUserIsLogged) {
         this.perspectiveChanged = true
         this.showVisualize = false
         this.showResetViz = true
-        this.$root.$emit('showSavingDialogEvent')
+        this.$root.$emit("showSavingDialogEvent")
       }
     },
     isPrivateChecked() {
       if (this.registrationDisabledAndUserIsLogged) {
-        this.$root.$emit('eventIsVizModified', true)
+        this.$root.$emit("eventIsVizModified", true)
       }
     }
   },

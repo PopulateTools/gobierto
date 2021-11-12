@@ -64,11 +64,11 @@ export default {
   mounted() {
     this.viewer = this.$refs["perspective-viewer"];
     this.checkIfQueryResultIsEmpty(this.items)
-    this.$root.$emit('showSavingDialogEventViz', false)
+    this.$root.$emit("showSavingDialogEventViz", false)
   },
   beforeDestroy() {
     document.removeEventListener("click", this.$emit("showSaving"));
-    this.$root.$emit('showSavingDialogEventViz', false)
+    this.$root.$emit("showSavingDialogEventViz", false)
   },
   methods: {
     // You can run a query that gets an empty result, and this isn't an error. But if the result comes empty Perspective has no data to build the table, so console returns an error. We need to check if the result of the query is equal to the columns
@@ -122,29 +122,23 @@ export default {
     resetConfig() {
       this.viewer.reset();
     },
-    toggleConfigPerspective() {
-      this.showVizzEditor()
-      if (this.registrationDisabledAndUserIsLogged) {
-        this.$root.$emit('showSavedVizString', false)
-      }
-    },
     hideConfigButton() {
-      const configButtonPerspective = this.viewer.shadowRoot?.getElementById('config_button')
+      const configButtonPerspective = this.viewer.shadowRoot?.getElementById("config_button")
       configButtonPerspective.style.display = "none"
     },
-    showVizzEditor() {
+    toggleConfigPerspective() {
       this.viewer.toggleConfig()
       if (this.registrationDisabledAndUserIsLogged) {
-        const shadowRootPerspective = document.querySelector('perspective-viewer').shadowRoot
-        const selectVizPerspective = shadowRootPerspective.getElementById('vis_selector')
-        selectVizPerspective.addEventListener('click', () => {
-          this.$emit("showSaving")
-          this.$root.$emit('isVizModified', true)
-        })
-        const sidePanelPerspective = shadowRootPerspective.getElementById("side_panel");
-        sidePanelPerspective.addEventListener('click', () => {
-          this.$emit("showSaving")
-          this.$root.$emit('isVizModified', true)
+        this.$root.$emit("showSavedVizString", false)
+        const shadowRootPerspective = document.querySelector(2).shadowRoot
+        const selectVizPerspective = shadowRootPerspective.getElementById("app")
+        const clickableElementsPerspective = ["row_pivots", "vis_selector", "active_columns"]
+        selectVizPerspective.addEventListener("click", (e) => {
+          const parent = e.target.parentElement?.id
+          if (clickableElementsPerspective.includes(parent)) {
+            this.$emit("showSaving")
+            this.$root.$emit("isVizModified", true)
+          }
         })
       }
     },

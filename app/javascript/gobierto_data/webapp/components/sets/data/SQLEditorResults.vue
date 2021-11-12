@@ -37,12 +37,22 @@
           @keyDownInput="updateVizNameHandler"
           @isPrivateChecked="isPrivateChecked"
         />
-        <DownloadButton
-          :editor="true"
-          :query-stored="queryStored"
-          :array-formats="arrayFormats"
-          class="arrow-top modal-right"
-        />
+        <template v-if="moreThanOneFormat">
+          <DownloadButton
+            :editor="true"
+            :query-stored="queryStored"
+            :array-formats="arrayFormats"
+            class="arrow-top modal-right"
+          />
+        </template>
+        <template v-else>
+          <DownloadLink
+            :editor="true"
+            :query-stored="queryStored"
+            :array-formats="arrayFormats"
+            :css-class="'modal-right'"
+          />
+        </template>
       </div>
       <transition
         name="fade"
@@ -79,6 +89,7 @@
 <script>
 import Button from "./../../commons/Button.vue";
 import DownloadButton from "./../../commons/DownloadButton.vue";
+import DownloadLink from "./../../commons/DownloadLink.vue";
 import SavingDialog from "./../../commons/SavingDialog.vue";
 import Visualizations from "./../../commons/Visualizations.vue";
 
@@ -88,7 +99,8 @@ export default {
     Visualizations,
     DownloadButton,
     Button,
-    SavingDialog
+    SavingDialog,
+    DownloadLink
   },
   props: {
     arrayFormats: {
@@ -164,6 +176,11 @@ export default {
       config: null,
       configMapZoom: { ...this.configMap, zoom: true }
     };
+  },
+  computed: {
+    moreThanOneFormat() {
+      return Object.keys(this.arrayFormats).length > 1
+    }
   },
   watch: {
     vizInputFocus(newValue) {

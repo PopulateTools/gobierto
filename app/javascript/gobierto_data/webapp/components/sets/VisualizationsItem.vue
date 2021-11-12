@@ -58,7 +58,7 @@
           :object-columns="objectColumns"
           :config-map="configMapZoom"
           :registration-disabled="registrationDisabled"
-          :is-user-logged="registrationDisabled"
+          :is-user-logged="isUserLogged"
           @showSaving="showSavingDialog"
         />
       </template>

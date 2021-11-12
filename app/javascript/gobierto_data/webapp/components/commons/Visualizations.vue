@@ -130,7 +130,7 @@ export default {
       this.viewer.toggleConfig()
       if (this.registrationDisabledAndUserIsLogged) {
         this.$root.$emit("showSavedVizString", false)
-        const shadowRootPerspective = document.querySelector(2).shadowRoot
+        const shadowRootPerspective = document.querySelector("perspective-viewer").shadowRoot
         const selectVizPerspective = shadowRootPerspective.getElementById("app")
         const clickableElementsPerspective = ["row_pivots", "vis_selector", "active_columns"]
         selectVizPerspective.addEventListener("click", (e) => {

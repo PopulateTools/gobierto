@@ -45,10 +45,14 @@ export default {
     return {
       publicVisualizations: [],
       isLoading: true,
-      labelVisualizations: I18n.t("gobierto_data.projects.visualizations") || ""
+      labelVisualizations: I18n.t("gobierto_data.projects.visualizations") || "",
+      listDatasets: []
     };
   },
-  created() {
+  async created() {
+    //Get all the datasets to extract the slug of those that have visualizations.
+    const { data: { data } } = await this.getDatasets();
+    this.listDatasets = data
     this.getDataVizs();
   },
   methods: {
@@ -69,6 +73,7 @@ export default {
         const {
           attributes: {
             query_id,
+            dataset_id,
             user_id,
             sql = "",
             spec = {},
@@ -86,8 +91,14 @@ export default {
           );
         }
 
+        //Filter by id to get the slug and the columns.
+        const [{ attributes: { columns, slug: slugDataset } }] = this.listDatasets.filter(({ id }) => id == dataset_id)
+
         return {
           config: spec,
+          dataset_id,
+          columns,
+          slug: slugDataset,
           name,
           privacy_status,
           query_id,

@@ -27,5 +27,13 @@ module GobiertoData
       last_modified_new = GobiertoData::Cache.last_modified(site)
       refute_equal last_modified_old, last_modified_new
     end
+
+    def test_current_site_datasets_cache_key_updated_when_dataset_updated
+      old_key = GobiertoData::Cache.current_site_datasets_cache_key(site)
+      dataset.touch
+      new_key = GobiertoData::Cache.current_site_datasets_cache_key(site)
+
+      refute_equal old_key, new_key
+    end
   end
 end

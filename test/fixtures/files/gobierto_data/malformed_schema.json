@@ -2,5 +2,6 @@
   "integer_column":{"type":"integer"}
   "decimal_column":{"type":"numeric"},
   "text_column":{"type":"text"},
-  "date_column":{"type":"date"}
+  "date_column":{"type":"date"},
+  "bigint_column":{"type":"bigint"}
 ccº}

@@ -28,10 +28,10 @@
     $space: 1em;
 
     width: calc(100% + #{$space});
-    margin-left: - $space / 2;
-    margin-right: - $space / 2;
-    padding-left: $space / 2;
-    padding-right: $space / 2;
+    margin-left: - $space * 0.5;
+    margin-right: - $space * 0.5;
+    padding-left: $space * 0.5;
+    padding-right: $space * 0.5;
     box-sizing: border-box;
     background-color: rgba(var(--color-base-string), 0.1);
   }

@@ -31,10 +31,10 @@
       $gap: 1.5rem;
 
       color: $color_main_negative;
-      padding: $gap / 2;
+      padding: $gap * 0.5;
 
       @include screen(0, $wMedium) {
-        @include flexgrid($gap: $gap / 2, $columns: 1);
+        @include flexgrid($gap: $gap * 0.5, $columns: 1);
       }
 
       @include screen($wMedium, $wExtraLarge) {

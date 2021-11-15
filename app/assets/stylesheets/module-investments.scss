@@ -357,10 +357,10 @@
         $space: 1em;
 
         width: calc(100% + #{$space});
-        margin-left: - $space / 2;
-        margin-right: - $space / 2;
-        padding-left: $space / 2;
-        padding-right: $space / 2;
+        margin-left: - $space * 0.5;
+        margin-right: - $space * 0.5;
+        padding-left: $space * 0.5;
+        padding-right: $space * 0.5;
         box-sizing: border-box;
         background-color: rgba(var(--color-base-string), 0.1);
       }
@@ -523,9 +523,9 @@
     }
 
     &--gallery {
-      @include grid($gallery-gap / 2, 2);
+      @include grid($gallery-gap * 0.5, 2);
 
-      margin-top: $gallery-gap / 4;
+      margin-top: $gallery-gap * 0.25;
 
       @include min-screen(768) {
         @include grid($gallery-gap, 3);
@@ -544,7 +544,7 @@
     }
 
     &--button-container {
-      margin: $gallery-gap / 2;
+      margin: $gallery-gap * 0.5;
     }
 
     &--button:last-child,

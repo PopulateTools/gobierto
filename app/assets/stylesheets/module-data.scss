@@ -1287,4 +1287,31 @@
     padding: 0 1rem 1rem 1rem;
   }
 
+  &-description-details {
+    margin: .5rem 0;
+  }
+
+  &-description-summary-title {
+    cursor: pointer;
+    &::marker {
+      color: var(--color-base);
+    }
+  }
+  &-description-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  &-description-summary-grid-element {
+    display: grid;
+    grid-template-columns: 75% 1fr;
+  }
+  &-description-summary-grid-element-link {
+    color: var(--color-base);
+  }
+  &-description-summary-grid-element-size {
+    /* TO_DO: Create a var/custom-property */
+    color: #9B9B9B;
+  }
+
+
 }

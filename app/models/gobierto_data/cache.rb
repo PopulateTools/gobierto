@@ -6,11 +6,11 @@ module GobiertoData
     BASE_PATH = "public/cache/gobierto_data"
 
     def self.etag(str, current_site)
-      if str.blank?
-        current_site.datasets.cache_key
-      else
-        current_site.datasets.cache_key + Digest::MD5.hexdigest(str)
+      etag = current_site_datasets_cache_key(current_site)
+      if str.present?
+        etag += Digest::MD5.hexdigest(str)
       end
+      etag
     end
 
     def self.last_modified(current_site)
@@ -21,7 +21,7 @@ module GobiertoData
       # Skip cache when setting disabled
       return yield unless Rails.application.config.action_controller.perform_caching
 
-      dirname = Rails.root.join("#{BASE_PATH}/queries/#{current_site.datasets.cache_key}")
+      dirname = Rails.root.join("#{BASE_PATH}/queries/#{current_site_datasets_cache_key(current_site)}")
       FileUtils.mkdir_p(dirname)
       filename = "#{dirname}/#{Digest::MD5.hexdigest(query)}.#{format}"
       unless File.file?(filename)
@@ -57,6 +57,11 @@ module GobiertoData
     def self.expire_queries_cache
       FileUtils.rm_r(Rails.root.join("public/cache/gobierto_data/queries/"))
     rescue Errno::ENOENT
+    end
+
+    def self.current_site_datasets_cache_key(current_site)
+      current_site.reload
+      current_site.datasets.cache_key
     end
   end
 end

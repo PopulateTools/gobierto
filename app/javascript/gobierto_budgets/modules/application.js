@@ -209,7 +209,7 @@ $(document).on("turbolinks:load", function() {
     html: true
   });
 
-  $(".table-breakdown-element").click(function() {
+  $(".table-breakdown-element-caret").click(function() {
     $('.table-breakdown-element').not(this).closest('tr').removeClass('show-sublevel')
     $(this).closest('tr').toggleClass('show-sublevel')
   });

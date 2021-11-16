@@ -222,7 +222,7 @@
                   <td>
                     <span class="<%= "table-breakdown-element" if has_subitems %>">
                       <% if has_subitems %>
-                        <i class="fas fa-angle-right"></i>
+                        <i class="fas fa-angle-right table-breakdown-element-caret"></i>
                       <% end %>
                       <%= link_to truncate(root_budget_line.name, length: 75), gobierto_budgets_budget_line_path(root_budget_line.to_param), title: root_budget_line.name %>
                     </span>

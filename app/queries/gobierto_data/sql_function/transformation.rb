@@ -14,6 +14,12 @@ module GobiertoData
           sql: "select (nullif(trim($1), '#null_value')::integer);",
           optional_params: { null_value: "" }
         },
+        bigint: {
+          input_type: "text",
+          output_type: "bigint",
+          sql: "select (nullif(trim($1), '#null_value')::bigint);",
+          optional_params: { null_value: "" }
+        },
         numeric: {
           input_type: "text",
           output_type: "numeric",

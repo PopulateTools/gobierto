@@ -1,3 +1,4 @@
+@use "sass:color";
 /*
  * Modals
  *
@@ -165,7 +166,7 @@
 
       &:hover,
       &.active {
-        background: darken(#fef0cd, 5%);
+        background: color.adjust(#fef0cd, $lightness: -5%);
       }
 
       .drag-call {

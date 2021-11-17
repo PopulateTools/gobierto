@@ -1,3 +1,5 @@
+@use "css-conf";
+
 .gobierto-calendar {
   background-color: rgba(var(--color-base-string), 0.1);
   border-radius: 4px;
@@ -12,18 +14,18 @@
   }
 
   strong {
-    font-size: $f7;
+    font-size: css-conf.$f7;
     font-weight: 700;
     line-height: 17px;
   }
 
   i {
     color: var(--color-base);
-    font-size: $f5;
+    font-size: css-conf.$f5;
   }
 
   small {
-    font-size: $f8;
+    font-size: css-conf.$f8;
     font-weight: 400;
     line-height: 14px;
     opacity: 0.5;

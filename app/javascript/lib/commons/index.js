@@ -30,7 +30,7 @@ import "./modules/disable-turbolinks";
 import "./modules/iframe_handler";
 
 // COMMON STYLES
-import "../../stylesheets/application.scss"
+// import "../../stylesheets/application.scss"
 
 // NOTE: jQuery exposed to global (window for node environment) due to script directly in the view
 global.$ = global.jQuery = $

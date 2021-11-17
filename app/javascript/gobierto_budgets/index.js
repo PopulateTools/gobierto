@@ -1,4 +1,4 @@
-import "../stylesheets/module-budgets.scss"
+import "../stylesheets/gobierto-budgets.scss"
 import "./modules/init.js";
 // init.js must be first
 import "./modules/application.js";

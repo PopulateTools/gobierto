@@ -1,3 +1,4 @@
+@use "sass:color";
 header {
   // Header weights
   $fExtraLight: 200;
@@ -63,7 +64,7 @@ header {
       color: $color_text;
 
       &:hover {
-        background: darken($color_secondary, 7.5%);
+        background: color.adjust($color_secondary, $lightness: -7.5%);
       }
     }
 
@@ -90,7 +91,7 @@ header {
           padding: 0.5em 1em;
 
           &:hover {
-            background-color: darken($color_secondary, 7.5%);
+            background-color: color.adjust($color_secondary, $lightness: -7.5%);
           }
         }
       }
@@ -182,7 +183,7 @@ header {
         }
 
         .result:hover {
-          background: darken($color_neutral_soft, 2%);
+          background: color.adjust($color_neutral_soft, $lightness: -2%);
         }
       }
     }

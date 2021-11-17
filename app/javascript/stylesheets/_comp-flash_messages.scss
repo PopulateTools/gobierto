@@ -1,3 +1,4 @@
+@use "sass:color";
 /*
  * Flash messages
  *
@@ -25,25 +26,25 @@
 
 .success {
   background: #cc0;
-  border-color: darken(#cc0, 20%);
+  border-color: color.adjust(#cc0, $lightness: -20%);
   color: #fff;
 }
 
 .error {
   background: #f96;
-  border-color: darken(#f96, 20%);
+  border-color: color.adjust(#f96, $lightness: -20%);
   color: #fff;
 }
 
 .alert {
   background: #ffebe0;
-  border-color: darken(#ffebe0, 20%);
+  border-color: color.adjust(#ffebe0, $lightness: -20%);
   color: #ae5d3b;
 }
 
 .notice {
   background: #f5f5cc;
-  border-color: darken(#f5f5cc, 20%);
+  border-color: color.adjust(#f5f5cc, $lightness: -20%);
   color: #787a03;
 }
 

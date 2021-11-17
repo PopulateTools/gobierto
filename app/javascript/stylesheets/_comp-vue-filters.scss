@@ -1,0 +1,16 @@
+@use "comp-vue-block-checkbox";
+@use "comp-vue-block-header";
+@use "comp-vue-transitions";
+@use "comp-vue-calendar";
+@use "comp-vue-dropdown";
+@use "comp-range-slider";
+
+.gobierto-filters {
+  &--clear {
+    font-size: .875rem;
+    line-height: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    color: var(--color-base)
+  }
+}

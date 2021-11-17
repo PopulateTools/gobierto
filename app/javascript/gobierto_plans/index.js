@@ -1,6 +1,5 @@
 import 'velocity-animate'
-import "../stylesheets/module-plans.scss"
-import "../stylesheets/module-plans-custom.scss"
+import "../stylesheets/gobierto-plans.scss"
 
 import { GobiertoPlansController } from "./modules/plan_types_controller";
 

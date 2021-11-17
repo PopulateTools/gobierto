@@ -1,3 +1,4 @@
+@use "sass:color";
 /*
  * CSS Conf
  *
@@ -17,7 +18,7 @@ $color_main_soft: #cce8eb;
 $color_proposal_bg: #fffad8;
 $color_proposal: #b59200;
 $color_dark: #005d67;
-$color_dark_sep: transparentize($color_dark, 0.9);
+$color_dark_sep: color.adjust($color_dark, $alpha: -0.9);
 $color_secondary: #f0f0f0;
 $color_main_negative: #fff;
 $color_separator: #d6d6d6;
@@ -39,7 +40,7 @@ $color_logo_yellow: #f8b206;
 $color_logo_pink: #f39b95;
 $color_logo_blue: #388f9c;
 
-$test_color: transparentize($color_logo_yellow, 0.8);
+$test_color: color.adjust($color_logo_yellow, $alpha: -0.8);
 $color_warn: #981f2e;
 $color_success: #2ca25f;
 
@@ -73,7 +74,7 @@ $f8: 0.75rem;
  *
  */
 :root {
-  --color-base-string: var(--color-main, #{red($color_main), green($color_main), blue($color_main)});
+  --color-base-string: var(--color-main, #{color.red($color_main), color.green($color_main), color.blue($color_main)});
   --color-base: rgb(var(--color-base-string));
   --color-gobierto-turquoise: #008e9c;
   --color-gobierto-blue: #12365b;

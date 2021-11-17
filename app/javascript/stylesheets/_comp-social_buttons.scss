@@ -1,3 +1,4 @@
+@use "sass:color";
 /*
  * Social Buttons
  *
@@ -83,11 +84,11 @@
 }
 
 .facebook:hover {
-  background: darken(#3a589a, 10%);
+  background: color.adjust(#3a589a, $lightness: -10%);
 }
 
 .twitter:hover {
-  background: darken(#00abef, 10%);
+  background: color.adjust(#00abef, $lightness: -10%);
 }
 
 .email:hover {
@@ -95,7 +96,7 @@
 }
 
 .linkedin:hover {
-  background: darken(#0074b5, 10%);
+  background: color.adjust(#0074b5, $lightness: -10%);
 }
 
 .code:hover {

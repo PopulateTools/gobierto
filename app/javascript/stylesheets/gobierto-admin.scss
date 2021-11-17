@@ -1,29 +1,42 @@
-@import "css-conf";
+@import "normalize.css";
+@import "purecss/build/pure-nr";
+@import "purecss/build/grids-responsive";
+@import "@fortawesome/fontawesome-free/css/all";
 
-@import url("https://fonts.googleapis.com/css?family=Libre+Franklin:200,400,700,600");
+@import "css-conf";
 
 /* Override front fonts (defined in css-conf) */
 $font_headings: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
 $font_text: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
 $font_serif: 'Georgia, serif';
 
-@import "mixins";
 @import "populities";
-@import "defaults-admin";
+@import "mixins";
 @import "comp-breadcrumbs";
 @import "comp-forms";
-@import "comp-flash_messages";
 @import "comp-headings_blocks";
+@import "comp-layout";
+@import "comp-site_header";
+@import "comp-search";
+@import "comp-tables";
+@import "comp-header_block_inline";
+@import "comp-social_buttons";
+@import "comp-tipsy";
+@import "comp-flash_messages";
+@import "css-print";
+@import "defaults-admin";
+@import "responsive";
+
+@import url("https://fonts.googleapis.com/css?family=Libre+Franklin:200,400,700,600");
+
 @import "comp-indicator_widget";
 @import "comp-tabs";
-@import "comp-tables";
 @import "comp-lists";
 @import "jsgrid/dist/jsgrid.css";
 @import "jsgrid/dist/jsgrid-theme.css";
 @import "comp-jsgrid";
 @import "comp-activity";
 @import "comp-modals";
-@import "comp-tipsy";
 @import "magnific-popup/dist/magnific-popup.css";
 @import "comp-magnific-popup-animations";
 @import "air-datepicker/dist/css/datepicker.css";

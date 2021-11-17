@@ -1,3 +1,4 @@
+@use "sass:color";
 // Proposals highlight style
 .highlight-proposal {
   background: $color_proposal_bg;
@@ -31,7 +32,7 @@
   }
 
   .inner:hover {
-    background: darken(#e9ad00, 10%);
+    background: color.adjust(#e9ad00, $lightness: -10%);
   }
 
   a {

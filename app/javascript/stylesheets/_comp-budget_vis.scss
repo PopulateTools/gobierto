@@ -1,3 +1,4 @@
+@use "sass:color";
 .featured_b_l {
   .cont {
     background: $color_neutral_soft;
@@ -450,7 +451,7 @@
       margin-left: -7px;
       border-width: 7px;
       border-style: solid;
-      border-color: transparent transparent darken(#979797, 20%);
+      border-color: transparent transparent color.adjust(#979797, $lightness: -20%);
       content: '';
     }
 

@@ -1,3 +1,4 @@
+@use "sass:color";
 #population_pyramid {
   display: inline-block;
   position: relative;
@@ -15,7 +16,7 @@
 
   .pyramid {
     $male-color: $color_main;
-    $female-color: invert($color_main);
+    $female-color: color.invert($color_main);
 
     .males {
       rect {
@@ -23,13 +24,13 @@
 
         &:hover {
           cursor: pointer;
-          fill: darken($male-color, 10%);
+          fill: color.adjust($male-color, $lightness: -10%);
         }
       }
 
       line {
         stroke-width: 1px;
-        stroke: lighten($male-color, 5%);
+        stroke: color.adjust($male-color, $lightness: 5%);
       }
     }
 
@@ -39,13 +40,13 @@
 
         &:hover {
           cursor: pointer;
-          fill: darken($female-color, 10%);
+          fill: color.adjust($female-color, $lightness: -10%);
         }
       }
 
       line {
         stroke-width: 1px;
-        stroke: lighten($female-color, 5%);
+        stroke: color.adjust($female-color, $lightness: 5%);
       }
     }
 
@@ -57,12 +58,12 @@
 
     .tick {
       text {
-        fill: lighten($color_text, 25%);
+        fill: color.adjust($color_text, $lightness: 25%);
         font-size: $f8;
       }
 
       line {
-        stroke: lighten($color_text, 50%);
+        stroke: color.adjust($color_text, $lightness: 50%);
       }
     }
 

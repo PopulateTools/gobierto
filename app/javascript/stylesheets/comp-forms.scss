@@ -126,9 +126,10 @@ textarea:focus {
   }
 
   textarea {
+    color: inherit;
+    font: inherit;
     box-sizing: border-box;
     height: 300px;
-    font-size: 1em;
   }
 
   input[type=password] {
@@ -402,7 +403,7 @@ input[type="radio"] {
   opacity: 0;
   pointer-events: none;
   z-index: -1;
-  
+
   &.is-active {
     z-index: 1;
     opacity: 1;

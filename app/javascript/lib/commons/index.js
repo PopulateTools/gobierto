@@ -28,9 +28,8 @@ import "./modules/shareContent";
 import "./modules/separate-tabs";
 import "./modules/disable-turbolinks";
 import "./modules/iframe_handler";
-import "@fortawesome/fontawesome-free/js/all"
 
-// STYLES
+// COMMON STYLES
 import "../../stylesheets/application.scss"
 
 // NOTE: jQuery exposed to global (window for node environment) due to script directly in the view

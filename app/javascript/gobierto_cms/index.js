@@ -1,1 +1,1 @@
-import "../../assets/stylesheets/module-cms.scss"
+import "../stylesheets/module-cms.scss"

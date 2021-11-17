@@ -1,6 +1,15 @@
 @import "css-conf";
+
+@import url("https://fonts.googleapis.com/css?family=Libre+Franklin:200,400,700,600");
+
+/* Override front fonts (defined in css-conf) */
+$font_headings: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
+$font_text: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
+$font_serif: 'Georgia, serif';
+
 @import "mixins";
 @import "populities";
+@import "defaults-admin";
 @import "comp-breadcrumbs";
 @import "comp-forms";
 @import "comp-flash_messages";

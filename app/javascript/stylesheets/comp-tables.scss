@@ -229,12 +229,6 @@ table.block_content {
     border: 0;
   }
 
-  tr:visible:nth-child(2n-1) {
-    td {
-      background: rgba(var(--color-base-string), 0.05);
-    }
-  }
-
   tr:nth-child(2n-1) {
     td {
       background: rgba(var(--color-base-string), 0.05);

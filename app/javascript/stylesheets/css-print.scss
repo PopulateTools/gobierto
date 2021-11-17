@@ -26,6 +26,7 @@
   }
 
   #consultation-desktop-app .pure-g {
+    flex-flow: column wrap;
     -webkit-flex-flow: column wrap;
     -ms-flex-flow: column wrap;
   }
@@ -120,10 +121,6 @@
     display: none;
   }
 
-  .select-pct {
-    background: white;
-  }
-
   .desktop .pct {
     padding: 0;
     font-size: 11pt;
@@ -149,6 +146,8 @@
 
   .select-pct {
     padding: 0;
+    background: white;
+    flex-flow: column wrap;
     -webkit-flex-flow: column wrap;
     -ms-flex-flow: column wrap;
   }

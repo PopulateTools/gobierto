@@ -12,3 +12,5 @@ export function handleIFramePageLoaded() {
     window.parent.postMessage(message, '*');
   }
 }
+
+$(document).on("turbolinks:load", () => handleIFramePageLoaded())

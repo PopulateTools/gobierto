@@ -14,7 +14,7 @@ import * as dc_leaflet from "dc.leaflet";
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "./../../../assets/stylesheets/comp-demographic-map.scss"
+import "./../../stylesheets/comp-demographic-map.scss"
 
 const d3 = {
   csv,

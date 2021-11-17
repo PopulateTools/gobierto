@@ -1,7 +1,7 @@
 import "@finos/perspective-viewer-datagrid";
 import "@finos/perspective-viewer-d3fc";
 import "@finos/perspective-viewer/themes/all-themes.css";
-import "../../assets/stylesheets/comp-perspective-viewer.scss";
+import "../stylesheets/comp-perspective-viewer.scss";
 import { getData } from "./render.js";
 
 const appendStyle = async () => {

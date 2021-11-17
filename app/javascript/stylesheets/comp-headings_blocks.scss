@@ -39,7 +39,7 @@ h4 {
   }
 
   .heading_breadcrumb::after {
-    font-family: "Font Awesome 5 Pro";
+    font-family: "Font Awesome 5 Pro", sans-serif;
     content: "\f105";
     height: 0;
     position: absolute;
@@ -48,7 +48,7 @@ h4 {
     margin-left: 10px;
     color: var(--color-base);
   }
-  
+
   .description {
     width: 50%;
     font-size: 0.85em;
@@ -603,7 +603,6 @@ a.content_block {
 .date_badge {
   box-sizing: border-box;
   padding: 0.3em 0;
-  background-color: var(--color-base);
   text-align: center;
   background: rgba(var(--color-base-string), 0.06);
 

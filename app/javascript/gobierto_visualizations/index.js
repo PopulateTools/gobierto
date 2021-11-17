@@ -1,4 +1,4 @@
-import "../../assets/stylesheets/module-visualizations.scss"
+import "../stylesheets/module-visualizations.scss"
 
 import { ContractsController } from "./modules/contracts_controller.js";
 import { SubsidiesController } from "./modules/subsidies_controller.js";

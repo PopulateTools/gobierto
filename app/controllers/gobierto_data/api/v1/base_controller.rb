@@ -11,6 +11,10 @@ module GobiertoData
 
         private
 
+        def cache_service
+          @cache_service ||= GobiertoCommon::CacheService.new(current_site, "GobiertoData")
+        end
+
         def csv_options_params
           separator_tr = {
             "semicolon" => ";",

@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     :cache_key_preffix
   )
 
-  before_action :apply_engines_overrides, :authenticate_user_in_site, :allow_iframe_embed
+  before_action :apply_engines_overrides, :authenticate_user_in_site, :allow_iframe_embed, :set_cache_headers
 
   def render_404
     render file: Rails.root.join("public/404.html"), status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -106,5 +106,11 @@ class ApplicationController < ActionController::Base
     if !request.env["gobierto_welcome_override"] && request.path == current_site.root_path
       redirect_to root_path and return false
     end
+  end
+
+  def set_cache_headers
+    # TODO: disable if caching is disabled
+    response.headers["Cache-Control"] = "public,#{60*60}" # 1 hour
+    response.headers["Expires"] = 1.hour.from_now
   end
 end

@@ -8,7 +8,7 @@ module GobiertoAdmin
     include ::GobiertoCms::PageHelper
 
     skip_before_action :authenticate_user_in_site
-    before_action :authenticate_admin!, :set_admin_site
+    before_action :authenticate_admin!, :set_admin_site, :set_cache_headers
 
     helper_method :current_admin, :admin_signed_in?, :current_site, :managing_site?,
                   :managed_sites, :can_manage_sites?, :gobierto_cms_page_preview_path,
@@ -103,6 +103,10 @@ module GobiertoAdmin
     def gobierto_cms_page_preview_path(page, options = {})
       options[:preview_token] = current_admin.preview_token unless page.active?
       gobierto_cms_page_or_news_path(page, options)
+    end
+
+    def set_cache_headers
+      expires_now
     end
   end
 end

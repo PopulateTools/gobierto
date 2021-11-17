@@ -5,6 +5,7 @@
 
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
 
+// TODO: revisar cuáles sobran
 @import "css-conf";
 @import "populities";
 @import "mixins";
@@ -22,6 +23,7 @@
 @import "css-print";
 @import "defaults";
 @import "responsive";
+// END TODO
 
 @import "comp-tabs";
 @import "comp-lists";

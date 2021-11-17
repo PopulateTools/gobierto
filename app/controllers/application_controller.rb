@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include ::GobiertoCommon::FileUploadHelper
   include ::GobiertoCms::GlobalNavigation
   include ApplicationConcern
+  include HttpCache
 
   protect_from_forgery with: :exception
 
@@ -106,11 +107,5 @@ class ApplicationController < ActionController::Base
     if !request.env["gobierto_welcome_override"] && request.path == current_site.root_path
       redirect_to root_path and return false
     end
-  end
-
-  def set_cache_headers
-    # TODO: disable if caching is disabled
-    response.headers["Cache-Control"] = "public,#{60*60}" # 1 hour
-    response.headers["Expires"] = 1.hour.from_now
   end
 end

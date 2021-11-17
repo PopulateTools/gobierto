@@ -6,6 +6,7 @@ class ApiBaseController < ActionController::API
   include ::GobiertoCommon::ModuleHelper
   include ApplicationConcern
   include ::User::ApiAuthenticationHelper
+  include HttpCache
 
   before_action :disable_cors, :check_host, :authenticate_in_site, :set_cache_headers
 
@@ -52,11 +53,5 @@ class ApiBaseController < ActionController::API
   def disable_cors
     response.set_header("Access-Control-Allow-Origin", "*")
     response.set_header("Access-Control-Request-Method", "*")
-  end
-
-  def set_cache_headers
-    # TODO: disable if caching is disabled
-    response.headers["Cache-Control"] = "public,#{60*60}" # 1 hour
-    response.headers["Expires"] = 1.hour.from_now
   end
 end

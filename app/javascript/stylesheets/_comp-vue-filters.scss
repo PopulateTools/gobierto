@@ -1,9 +1,9 @@
-@use "comp-vue-block-checkbox";
-@use "comp-vue-block-header";
-@use "comp-vue-transitions";
-@use "comp-vue-calendar";
-@use "comp-vue-dropdown";
-@use "comp-range-slider";
+@import "comp-vue-block-checkbox";
+@import "comp-vue-block-header";
+@import "comp-vue-transitions";
+@import "comp-vue-calendar";
+@import "comp-vue-dropdown";
+@import "comp-range-slider";
 
 .gobierto-filters {
   &--clear {

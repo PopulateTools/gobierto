@@ -1,5 +1,3 @@
-@use "css-conf";
-
 .gobierto-filter-checkbox {
   cursor: pointer;
 
@@ -10,7 +8,7 @@
 
     &::before {
       content: "";
-      border: 1px solid css-conf.$separator_dark;
+      border: 1px solid $separator_dark;
       display: inline-block;
       border-radius: 3px;
       width: 16px;
@@ -38,7 +36,7 @@
 
   input[type="checkbox"]:checked + label::before {
     background: var(--color-base);
-    color: css-conf.$color_main_negative;
+    color: $color_main_negative;
     content: "✔";
   }
 
@@ -55,7 +53,7 @@
 
   &::before {
     content: "";
-    border: 1px solid css-conf.$separator_dark;
+    border: 1px solid $separator_dark;
     display: inline-block;
     border-radius: 3px;
     width: 16px;

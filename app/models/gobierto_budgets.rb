@@ -20,4 +20,8 @@ module GobiertoBudgets
       Rails.application.routes.url_helpers.gobierto_budgets_budgets_path(GobiertoBudgets::SearchEngineConfiguration::Year.last)
     end
   end
+
+  class << self
+    alias_method :cache_base_key, :table_name_prefix
+  end
 end

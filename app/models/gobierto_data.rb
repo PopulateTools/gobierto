@@ -20,4 +20,8 @@ module GobiertoData
   def self.searchable_models
     [ GobiertoData::Dataset ]
   end
+
+  class << self
+    alias_method :cache_base_key, :table_name_prefix
+  end
 end

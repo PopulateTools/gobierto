@@ -36,4 +36,8 @@ module GobiertoPeople
   def self.root_path(_)
     Rails.application.routes.url_helpers.send("gobierto_people_root_#{I18n.locale}_path")
   end
+
+  class << self
+    alias_method :cache_base_key, :table_name_prefix
+  end
 end

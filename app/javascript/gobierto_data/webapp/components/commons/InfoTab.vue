@@ -1,0 +1,177 @@
+<template>
+  <div class="pure-g">
+    <div class="pure-u-2-3 gobierto-data-summary-header">
+      <div
+        id="gobierto-data-summary-header"
+        class="gobierto-data-summary-header-description"
+        v-html="compiledHTMLMarkdown"
+      />
+    </div>
+    <div class="pure-u-1-3">
+      <div
+        class="gobierto-data-summary-header-btns"
+      >
+        <DownloadButton
+          :array-formats="arrayFormats"
+          class="arrow-top modal-left"
+        />
+
+        <router-link
+          :to="`/datos/${$route.params.id}/${tabs[1]}`"
+          class="gobierto-data-btn-preview"
+        >
+          <Button
+            :text="labelPreview"
+            icon="table"
+            color="rgba(var(--color-base)"
+            icon-color="rgba(var(--color-base-string), .5)"
+            class="gobierto-data-btn-download-data "
+            background="#fff"
+          />
+        </router-link>
+      </div>
+      <InfoBlockText
+        v-if="dateUpdated"
+        icon="clock"
+        opacity=".25"
+        :label="labelUpdated"
+        :text="dateUpdated | convertDate"
+      />
+      <InfoBlockText
+        v-if="frequencyDataset"
+        icon="calendar"
+        opacity=".25"
+        :label="labelFrequency"
+        :text="frequencyDataset"
+      />
+      <InfoBlockText
+        v-if="categoryDataset"
+        icon="tag"
+        opacity=".25"
+        :label="labelSubject"
+        :text="categoryDataset"
+      />
+      <InfoBlockText
+        v-if="hasDatasetSource"
+        icon="building"
+        opacity=".25"
+        :label="labelSource"
+        :text="sourceDatasetText"
+        :url="sourceDatasetUrl"
+      />
+      <InfoBlockText
+        v-if="hasDatasetLicense"
+        icon="certificate"
+        opacity=".25"
+        :label="labelLicense"
+        :text="licenseDatasetText"
+        :url="licenseDatasetUrl"
+      />
+    </div>
+  </div>
+</template>
+<script>
+import { date } from "lib/vue/filters"
+import InfoBlockText from "./../commons/InfoBlockText.vue";
+import DownloadButton from "./../commons/DownloadButton.vue";
+import Button from "./../commons/Button.vue";
+import { tabs } from "../../../lib/router";
+//Parse markdown to HTML
+const marked = require('marked');
+
+export default {
+  name: "InfoTab",
+  components: {
+    InfoBlockText,
+    DownloadButton,
+    Button
+  },
+  filters: {
+    convertDate(valueDate) {
+      return date(valueDate, {
+        day : 'numeric',
+        month : 'short',
+        year : 'numeric'
+      })
+    }
+  },
+  props: {
+    descriptionDataset: {
+      type: String,
+      default: ''
+    },
+    categoryDataset: {
+      type: String,
+      default: ''
+    },
+    frequencyDataset: {
+      type: String,
+      default: ''
+    },
+    licenseDataset: {
+      type: Object,
+      default: () => {}
+    },
+    sourceDataset: {
+      type: Object,
+      default: () => {}
+    },
+    dateUpdated: {
+      type: String,
+      default: ''
+    },
+    arrayFormats: {
+      type: Object,
+      default: () => {}
+    },
+  },
+  data() {
+    return {
+      labelUpdated: I18n.t("gobierto_data.projects.updated") || '',
+      labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
+      labelSubject: I18n.t("gobierto_data.projects.subject") || '',
+      labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',
+      labelSource: I18n.t("gobierto_data.projects.sourceDataset") || '',
+      labelSourceUrl: I18n.t("gobierto_data.projects.sourceDatasetUrl") || '',
+      labelLicense: I18n.t("gobierto_data.projects.license") || '',
+      seeMore: I18n.t("gobierto_common.vue_components.read_more.more") || '',
+      seeLess: I18n.t("gobierto_common.vue_components.read_more.less") || '',
+      labelPreview: I18n.t("gobierto_data.projects.preview") || "",
+      sourceDatasetText: '',
+      sourceDatasetUrl: '',
+      licenseDatasetText: '',
+      licenseDatasetUrl: '',
+      tabs
+    }
+  },
+  computed: {
+    compiledHTMLMarkdown() {
+      /*This method is to remove only the <p>| |</p> and |<br> elements that CodeMirror adds when exporting from the editor. We need to remove them to convert the Markdown tables to HTML correctly.*/
+      const descriptionHTML = this.descriptionDataset.replace(/\|<br>|<p>\||\|<\/p>/g, '|');
+      const mdText = marked(descriptionHTML, {
+        sanitize: false,
+        tables: true
+      })
+      return mdText
+    },
+    hasDatasetSource() {
+      return this.sourceDataset && this.sourceDataset?.text !== undefined && this.sourceDataset?.text !== ""
+    },
+    hasDatasetLicense() {
+      return this.licenseDataset?.text !== undefined && this.licenseDataset?.url !== undefined
+    },
+  },
+  created(){
+    if (this.sourceDataset) {
+      const { text: sourceDatasetText, url: sourceDatasetUrl } = this.sourceDataset
+      this.sourceDatasetText = sourceDatasetText
+      this.sourceDatasetUrl = sourceDatasetUrl
+    }
+    if (this.licenseDataset) {
+      const { text: licenseDatasetText, url: licenseDatasetUrl } = this.licenseDataset
+      this.licenseDatasetText = licenseDatasetText
+      this.licenseDatasetUrl = licenseDatasetUrl
+    }
+  }
+}
+</script>

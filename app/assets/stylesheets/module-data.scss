@@ -196,6 +196,7 @@
 
   &-summary-header-description {
     margin-top: 0;
+    padding-right: 2rem;
     font-size: $f7;
     color: #666;
   }
@@ -231,6 +232,8 @@
     color: var(--color-base);
     border-radius: 3px;
     padding: 1.5rem;
+    margin: 0;
+    margin-top: .5rem;
     border: 1px solid rgba(1, 120, 168, .2);
   }
 
@@ -1178,7 +1181,6 @@
   }
 
   &-btn-preview {
-    margin-left: 1.25rem;
 
     &:hover {
       color: var(--color-base);
@@ -1188,10 +1190,6 @@
   &-columns-icon {
     font-size: 11px;
     opacity: .5;
-  }
-
-  &-summary-header-btns {
-    margin-top: 1.5rem;
   }
 
   &-columns-icon-boolean::before,

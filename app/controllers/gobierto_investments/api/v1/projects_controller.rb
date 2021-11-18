@@ -3,7 +3,7 @@
 module GobiertoInvestments
   module Api
     module V1
-      class ProjectsController < ApiBaseController
+      class ProjectsController < BaseController
 
         include ::GobiertoCommon::CustomFieldsApi
         include ::GobiertoCommon::SecuredWithAdminToken

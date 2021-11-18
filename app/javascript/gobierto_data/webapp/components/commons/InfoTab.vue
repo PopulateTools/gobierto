@@ -33,28 +33,24 @@
       <InfoBlockText
         v-if="dateUpdated"
         icon="clock"
-        opacity=".25"
         :label="labelUpdated"
         :text="dateUpdated | convertDate"
       />
       <InfoBlockText
         v-if="frequencyDataset"
         icon="calendar"
-        opacity=".25"
         :label="labelFrequency"
         :text="frequencyDataset"
       />
       <InfoBlockText
         v-if="categoryDataset"
         icon="tag"
-        opacity=".25"
         :label="labelSubject"
         :text="categoryDataset"
       />
       <InfoBlockText
         v-if="hasDatasetSource"
         icon="building"
-        opacity=".25"
         :label="labelSource"
         :text="sourceDatasetText"
         :url="sourceDatasetUrl"
@@ -62,7 +58,6 @@
       <InfoBlockText
         v-if="hasDatasetLicense"
         icon="certificate"
-        opacity=".25"
         :label="labelLicense"
         :text="licenseDatasetText"
         :url="licenseDatasetUrl"

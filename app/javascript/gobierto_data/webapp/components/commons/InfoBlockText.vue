@@ -4,6 +4,7 @@
       v-if="icon"
       :class="'fa fa-' + icon"
       :style="{'color': iconColor, 'opacity': opacity}"
+      style="margin-right: .25rem;"
     />
     <span class="gobierto-data-summary-header-container-label">
       {{ label }}

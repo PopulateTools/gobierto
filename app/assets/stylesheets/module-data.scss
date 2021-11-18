@@ -223,7 +223,7 @@
   }
 
   &-summary-header-container-label {
-    width: 110px;
+    width: 100px;
     color: rgba(102, 102, 102, .5);
   }
 
@@ -353,15 +353,19 @@
 
   &-btn-download-data {
     border: 1px solid rgba(var(--color-base-string), .2);
-    padding: 1rem;
+    padding: .5rem;
     font-size: 1rem;
     font-family: $font_text;
     font-weight: 600;
     min-width: 250px;
-    margin: 1rem 1rem .5rem .25rem;
+    margin: 0 0 .5rem 0;
     position: relative;
     text-transform: unset;
     vertical-align: top;
+  }
+
+  &-summary-header-btns {
+    margin-bottom: 1rem;
   }
 
   &-container-btn-download-data {
@@ -1287,6 +1291,11 @@
 
   &-description-details {
     margin: .5rem 0;
+  }
+
+  &-description-details-orders:first-of-type,
+  &-description-details-columns {
+    margin-top: 2rem;
   }
 
   &-description-summary-title {

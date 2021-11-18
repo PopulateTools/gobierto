@@ -11,11 +11,18 @@
       <div
         class="gobierto-data-summary-header-btns"
       >
-        <DownloadButton
-          :array-formats="arrayFormats"
-          class="arrow-top modal-left"
-        />
-
+        <template v-if="moreThanOneFormat">
+          <DownloadButton
+            :array-formats="arrayFormats"
+            class="arrow-top modal-left"
+          />
+        </template>
+        <template v-else>
+          <DownloadLink
+            :editor="false"
+            :array-formats="arrayFormats"
+          />
+        </template>
         <router-link
           :to="`/datos/${$route.params.id}/${tabs[1]}`"
           class="gobierto-data-btn-preview"
@@ -69,6 +76,7 @@
 import { date } from "lib/vue/filters"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
+import DownloadLink from "./../commons/DownloadLink.vue";
 import Button from "./../commons/Button.vue";
 import { tabs } from "../../../lib/router";
 //Parse markdown to HTML
@@ -79,6 +87,7 @@ export default {
   components: {
     InfoBlockText,
     DownloadButton,
+    DownloadLink,
     Button
   },
   filters: {
@@ -155,6 +164,9 @@ export default {
     hasDatasetLicense() {
       return this.licenseDataset?.text !== undefined && this.licenseDataset?.url !== undefined
     },
+    moreThanOneFormat() {
+      return Object.keys(this.arrayFormats).length > 1
+    }
   },
   created(){
     if (this.sourceDataset) {

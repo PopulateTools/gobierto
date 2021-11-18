@@ -60,12 +60,5 @@ export const router = new VueRouter({
         }
       ]
     }
-    ],
-    scrollBehavior() {
-      const element = document.getElementById('gobierto-datos-app');
-      window.scrollTo({
-        top: element.offsetTop,
-        behavior: 'smooth'
-      });
-    }
+    ]
   });

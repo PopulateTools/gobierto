@@ -1,6 +1,6 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
-    <InfoTab
+    <Info
       :description-dataset="description"
       :category-dataset="category | translate"
       :frequency-dataset="frequency | translate"
@@ -9,6 +9,30 @@
       :date-updated="dateUpdated"
       :array-formats="arrayFormats"
     />
+
+    <div
+      class="gobierto-data-summary-header-btns gobierto-data-summary-separator"
+    >
+      <DownloadButton
+        :array-formats="arrayFormats"
+        class="arrow-top modal-left"
+      />
+
+      <router-link
+        :to="`/datos/${$route.params.id}/${tabs[1]}`"
+        class="gobierto-data-btn-preview"
+      >
+        <Button
+          :text="labelPreview"
+          icon="table"
+          color="rgba(var(--color-base)"
+          icon-color="rgba(var(--color-base-string), .5)"
+          class="gobierto-data-btn-download-data "
+          background="#fff"
+        />
+      </router-link>
+    </div>
+
     <Resources
       :resources-list="resourcesList"
       class="gobierto-data-summary-separator"
@@ -16,7 +40,7 @@
 
     <Description
       :object-columns="objectColumns"
-      class="gobierto-data-summary-separator"
+      class="gobierto-data-summary-separator gobierto-data-description-columns"
     />
 
     <Dropdown
@@ -113,10 +137,12 @@
 import VisualizationsTab from "./VisualizationsTab.vue";
 import Visualizations from "./../commons/Visualizations.vue";
 import Resources from "./../commons/Resources.vue";
-import InfoTab from "./../commons/InfoTab.vue";
+import Info from "./../commons/Info.vue";
 import Queries from "./../commons/Queries.vue";
 import Caret from "./../commons/Caret.vue";
 import Description from "./../commons/Description.vue";
+import DownloadButton from "./../commons/DownloadButton.vue";
+import Button from "./../commons/Button.vue";
 import { tabs } from "../../../lib/router";
 import { translate } from "lib/vue/filters";
 import { Dropdown, SkeletonSpinner } from "lib/vue/components";
@@ -126,9 +152,11 @@ export default {
   components: {
     Resources,
     Queries,
-    InfoTab,
+    Info,
     Caret,
     Dropdown,
+    DownloadButton,
+    Button,
     Description,
     VisualizationsTab,
     SkeletonSpinner,
@@ -263,6 +291,7 @@ export default {
       showYourVizs: true,
       showMap: true,
       labelQueries: I18n.t("gobierto_data.projects.queries") || "",
+      labelPreview: I18n.t("gobierto_data.projects.preview") || "",
       labelVisualizations:
         I18n.t("gobierto_data.projects.visualizations") || "",
       labelMap: I18n.t("gobierto_data.projects.map") || "",
@@ -304,7 +333,7 @@ export default {
     }
     this.datasetLicenseObject = {
       text: translate(this.datasetLicense),
-      url: translate(this.datasetLicenseUrl || '')
+      url: translate(this.datasetLicenseUrl)
     }
   }
 };

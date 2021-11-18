@@ -50,6 +50,7 @@
         class="gobierto-data-summary-header-description"
         v-html="compiledHTMLMarkdown"
       />
+      <i class="fas fa-arrow-right" />
     </div>
   </div>
 </template>

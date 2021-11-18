@@ -3,32 +3,29 @@
     <h3 class="gobierto-data-index-title">
       {{ labelDatasetUpdated }}
     </h3>
-    <div
-      v-for="{
-        id,
-        slug,
-        name,
-        description,
-        data_updated_at,
-        category,
-        frequency,
-      } in datasets"
-      :key="id"
-      class="gobierto-data-info-list-element"
-    >
-      <router-link
-        :to="{ path:`/datos/${slug}`, params: { activeSidebarTab: 1 }}"
-        class="gobierto-data-title-dataset gobierto-data-title-dataset-big"
+    <div class="gobierto-data-info-list-grid">
+      <div
+        v-for="{
+          id,
+          slug,
+          name,
+          description,
+          data_updated_at,
+          category,
+          frequency,
+        } in datasets"
+        :key="id"
+        class="gobierto-data-info-list-element"
+        @click="navTo(slug)"
       >
-        {{ name }}
-      </router-link>
-
-      <Info
-        :description-dataset="description"
-        :category-dataset="category"
-        :frequency-dataset="frequency"
-        :date-updated="data_updated_at"
-      />
+        <Info
+          :description-dataset="description"
+          :category-dataset="category"
+          :frequency-dataset="frequency"
+          :date-updated="data_updated_at"
+          :title-dataset="name"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -67,7 +64,10 @@ export default {
         // eslint-disable-next-line no-unused-vars
         this.$router.push('/datos/').catch(err => {})
       })
-    }
+    },
+    navTo(slug) {
+      this.$router.push({ path: `/datos/${slug}`, params: { activeSidebarTab: 1 } }).catch(() => {})
+    },
   }
 };
 </script>

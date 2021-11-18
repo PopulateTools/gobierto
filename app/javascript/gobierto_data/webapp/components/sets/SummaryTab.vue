@@ -10,36 +10,6 @@
       :array-formats="arrayFormats"
     />
 
-    <div
-      class="gobierto-data-summary-header-btns gobierto-data-summary-separator"
-    >
-      <template v-if="moreThanOneFormat">
-        <DownloadButton
-          :array-formats="arrayFormats"
-          class="arrow-top modal-left"
-        />
-      </template>
-      <template v-else>
-        <DownloadLink
-          :editor="false"
-          :array-formats="arrayFormats"
-        />
-      </template>
-      <router-link
-        :to="`/datos/${$route.params.id}/${tabs[1]}`"
-        class="gobierto-data-btn-preview"
-      >
-        <Button
-          :text="labelPreview"
-          icon="table"
-          color="rgba(var(--color-base)"
-          icon-color="rgba(var(--color-base-string), .5)"
-          class="gobierto-data-btn-download-data "
-          background="#fff"
-        />
-      </router-link>
-    </div>
-
     <Resources
       :resources-list="resourcesList"
       class="gobierto-data-summary-separator"
@@ -148,7 +118,6 @@ import InfoTab from "./../commons/InfoTab.vue";
 import Queries from "./../commons/Queries.vue";
 import Caret from "./../commons/Caret.vue";
 import Description from "./../commons/Description.vue";
-import DownloadLink from "./../commons/DownloadLink.vue";
 import { tabs } from "../../../lib/router";
 import { translate } from "lib/vue/filters";
 import { Dropdown, SkeletonSpinner } from "lib/vue/components";
@@ -164,8 +133,7 @@ export default {
     Description,
     VisualizationsTab,
     SkeletonSpinner,
-    Visualizations,
-    DownloadLink
+    Visualizations
   },
   filters: {
     translate

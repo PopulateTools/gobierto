@@ -3,10 +3,14 @@
     v-if="hasUrl"
     :href="url"
     target="_blank"
+    :style="{'font-size': fontSize}"
   >
     {{ text }}
   </a>
-  <span v-else-if="hasText">
+  <span
+    v-else-if="hasText"
+    :style="{'font-size': fontSize}"
+  >
     {{ text }}
   </span>
 </template>
@@ -21,6 +25,10 @@ export default {
       url: {
         type: String,
         default: ''
+      },
+      fontSize: {
+        type: String,
+        default: '1rem'
       }
     },
     computed: {

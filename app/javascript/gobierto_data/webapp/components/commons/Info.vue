@@ -1,28 +1,33 @@
 <template>
   <div class="pure-g">
-    <div class="pure-u-1-2 gobierto-data-summary-header">
-      <InfoBlockText
-        v-if="dateUpdated"
-        icon="clock"
-        opacity=".25"
-        :label="labelUpdated"
-        :text="dateUpdated | convertDate"
-      />
-      <InfoBlockText
-        v-if="frequencyDataset"
-        icon="calendar"
-        opacity=".25"
-        :label="labelFrequency"
-        :text="frequencyDataset"
-      />
+    <div class="pure-u-1-1 gobierto-data-summary-header">
+      <h2 class="gobierto-data-title-dataset gobierto-data-info-list-title">
+        {{ titleDataset }}
+      </h2>
       <InfoBlockText
         v-if="categoryDataset"
         icon="tag"
-        opacity=".25"
-        :label="labelSubject"
+        :icon-size="'10px'"
+        :font-size="'14px'"
         :text="categoryDataset"
       />
-      <InfoBlockText
+      <div class="gobierto-data-info-list-top">
+        <InfoBlockText
+          v-if="dateUpdated"
+          icon="clock"
+          :icon-size="'10px'"
+          :font-size="'14px'"
+          :text="dateUpdated | convertDate"
+        />
+        <InfoBlockText
+          v-if="frequencyDataset"
+          icon="calendar"
+          :icon-size="'10px'"
+          :font-size="'14px'"
+          :text="frequencyDataset"
+        />
+      </div>
+      <!-- <InfoBlockText
         v-if="hasDatasetSource"
         icon="building"
         opacity=".25"
@@ -37,35 +42,14 @@
         :label="labelLicense"
         :text="licenseDatasetText"
         :url="licenseDatasetUrl"
-      />
+      /> -->
     </div>
-    <div class="pure-u-1-2">
+    <div class="pure-u-1-1 gobierto-data-summary-body">
       <div
         id="gobierto-data-summary-header"
         class="gobierto-data-summary-header-description"
         v-html="compiledHTMLMarkdown"
       />
-      <template v-if="checkStringLength">
-        <transition
-          name="fade"
-          mode="out-in"
-        >
-          <span
-            v-if="truncateIsActive"
-            class="gobierto-data-summary-header-description-link"
-            @click="truncateIsActive = !truncateIsActive"
-          >
-            {{ seeMore }}
-          </span>
-          <span
-            v-else
-            class="gobierto-data-summary-header-description-link"
-            @click="scrollDetail"
-          >
-            {{ seeLess }}
-          </span>
-        </transition>
-      </template>
     </div>
   </div>
 </template>
@@ -98,6 +82,10 @@ export default {
       type: String,
       default: ''
     },
+    titleDataset: {
+      type: String,
+      default: ''
+    },
     frequencyDataset: {
       type: String,
       default: ''
@@ -121,9 +109,6 @@ export default {
   },
   data() {
     return {
-      labelUpdated: I18n.t("gobierto_data.projects.updated") || '',
-      labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
-      labelSubject: I18n.t("gobierto_data.projects.subject") || '',
       labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',
       labelSource: I18n.t("gobierto_data.projects.sourceDataset") || '',
       labelSourceUrl: I18n.t("gobierto_data.projects.sourceDatasetUrl") || '',
@@ -150,9 +135,6 @@ export default {
       } else {
         return mdText
       }
-    },
-    checkStringLength() {
-      return this.descriptionDataset.length > 250
     },
     hasDatasetSource() {
       return this.sourceDataset && this.sourceDataset?.text !== undefined && this.sourceDataset?.text !== ""

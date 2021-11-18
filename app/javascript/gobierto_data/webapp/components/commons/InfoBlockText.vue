@@ -3,16 +3,21 @@
     <i
       v-if="icon"
       :class="'fa fa-' + icon"
-      :style="{'color': iconColor, 'opacity': opacity}"
+      :style="{'color': iconColor, 'opacity': opacity, 'font-size': iconSize}"
       style="margin-right: .25rem;"
     />
-    <span class="gobierto-data-summary-header-container-label">
+    <span
+      v-if="label"
+      class="gobierto-data-summary-header-container-label"
+      :style="{'font-size': fontSize}"
+    >
       {{ label }}
     </span>
     <span class="gobierto-data-summary-header-container-text">
       <LinkableText
         :text="text"
         :url="url"
+        :font-size="fontSize"
       />
     </span>
   </div>
@@ -47,6 +52,14 @@ export default {
     iconColor: {
       type: String,
       default: 'inherit'
+    },
+    iconSize: {
+      type: String,
+      default: '16px'
+    },
+    fontSize: {
+      type: String,
+      default: '1rem'
     },
   }
 }

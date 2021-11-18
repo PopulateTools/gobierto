@@ -62,10 +62,10 @@ gem "kaminari", "~> 1.2"
 gem "invisible_captcha"
 
 # Redis
-gem "redis", "~> 4.0"
+gem "redis"
 
 # Translations
-gem "json_translate", "~> 4.0"
+gem "json_translate"
 gem "route_translator"
 
 # Liquid

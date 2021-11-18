@@ -46,6 +46,8 @@ ca:
         populate_data_api_token: API token Populate Data
         privacy_page_id: Pàgina privacitat
         raw_configuration_variables: Altres variables configuració
+        registration_disabled: Deshabilitar el registre (només oculta els enllaços
+          al registre/login)
         reply_to_email: Direcció de resposta en correus-e
         title: Nom del site
       gobierto_admin/user_form:

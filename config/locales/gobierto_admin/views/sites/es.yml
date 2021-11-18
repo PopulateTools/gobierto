@@ -27,6 +27,9 @@ es:
           populate_data_api_token: Token de API de Populate Data
           reply_to_email: contacto@correo.es
           title: Transparencia y Participación
+        registration: Registro de usuarios
+        registration_disabled: Deshabilitar el registro (solo oculta los enlaces al
+          registro/login)
         username: Nombre de usuario
         visibility_level:
           active: Publicado

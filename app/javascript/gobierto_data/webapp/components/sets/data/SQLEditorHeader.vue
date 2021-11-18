@@ -195,6 +195,10 @@ export default {
     resetPrivate: {
       type: Boolean,
       default: false
+    },
+    registrationDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

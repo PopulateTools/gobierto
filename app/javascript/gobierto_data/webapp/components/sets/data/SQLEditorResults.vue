@@ -33,6 +33,7 @@
           :is-user-logged="isUserLogged"
           :enabled-viz-saved-button="enabledVizSavedButton"
           :show-private-public-icon-viz="showPrivatePublicIconViz"
+          :registration-disabled="registrationDisabled"
           @save="onSaveEventHandler"
           @keyDownInput="updateVizNameHandler"
           @isPrivateChecked="isPrivateChecked"
@@ -81,6 +82,8 @@
         :object-columns="objectColumns"
         :config-map="configMapZoom"
         :config="config"
+        :registration-disabled="registrationDisabled"
+        :is-user-logged="isUserLogged"
         @showSaving="showSavingDialog"
       />
     </div>
@@ -158,13 +161,17 @@ export default {
     vizId: {
       type: Number,
       default: 0
+    },
+    registrationDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      labelVisName: I18n.t('gobierto_data.projects.visName') || "",
-      labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
-      labelResetViz: I18n.t('gobierto_data.projects.resetViz') || "",
+      labelVisName: I18n.t("gobierto_data.projects.visName") || "",
+      labelVisualize: I18n.t("gobierto_data.projects.visualize") || "",
+      labelResetViz: I18n.t("gobierto_data.projects.resetViz") || "",
       labelModifiedVizualition: I18n.t("gobierto_data.projects.modifiedVisualization") || "",
       labelSavedVisualization: I18n.t("gobierto_data.projects.savedVisualization") || "",
       labelLink: I18n.t("gobierto_data.projects.link") || "",
@@ -180,6 +187,9 @@ export default {
   computed: {
     moreThanOneFormat() {
       return Object.keys(this.arrayFormats).length > 1
+    },
+    registrationDisabledAndUserIsLogged() {
+      return !this.registrationDisabled || this.isUserLogged
     }
   },
   watch: {
@@ -218,21 +228,24 @@ export default {
 
       this.$refs.viewer.toggleConfigPerspective();
       this.$refs.viewer.resetConfig()
-      this.$root.$emit('resetVizEvent')
+      this.$root.$emit("resetVizEvent")
     },
     showChart() {
       this.showVisualization = true
       this.$refs.viewer.toggleConfigPerspective();
     },
     showSavingDialog() {
-      this.perspectiveChanged = true
-      this.showVisualize = false
-      this.showResetViz = true
-      this.$root.$emit('showSavingDialogEvent')
-      this.$nextTick(() => this.$refs.savingDialogViz.inputFocus())
+      if (this.registrationDisabledAndUserIsLogged) {
+        this.perspectiveChanged = true
+        this.showVisualize = false
+        this.showResetViz = true
+        this.$root.$emit("showSavingDialogEvent")
+      }
     },
     isPrivateChecked() {
-      this.$root.$emit('eventIsVizModified', true)
+      if (this.registrationDisabledAndUserIsLogged) {
+        this.$root.$emit("eventIsVizModified", true)
+      }
     }
   },
 };

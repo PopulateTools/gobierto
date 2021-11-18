@@ -14,6 +14,12 @@ module GobiertoData
           sql: "select (nullif(trim($1), '#null_value')::integer);",
           optional_params: { null_value: "" }
         },
+        bigint: {
+          input_type: "text",
+          output_type: "bigint",
+          sql: "select (nullif(trim($1), '#null_value')::bigint);",
+          optional_params: { null_value: "" }
+        },
         numeric: {
           input_type: "text",
           output_type: "numeric",
@@ -48,13 +54,13 @@ module GobiertoData
           input_type: "text",
           output_type: "timestamp",
           sql: "select (to_timestamp(nullif(trim($1), '#null_value'), '#date_format')::timestamp without time zone);",
-          optional_params: { date_format: "YYY-MM-DD", null_value: "" }
+          optional_params: { date_format: "YYY-MM-DD HH24:MI:SS", null_value: "" }
         },
         timestamptz: {
           input_type: "text",
           output_type: "timestamptz",
           sql: "select (to_timestamp(nullif(trim($1), '#null_value'), '#date_format'));",
-          optional_params: { date_format: "YYY-MM-DD", null_value: "" }
+          optional_params: { date_format: "YYY-MM-DD HH24:MI:SS", null_value: "" }
         },
         boolean: {
           input_type: "text",

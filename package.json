@@ -27,7 +27,7 @@
     "flightjs": "^1.5.2",
     "fullcalendar": "^3.9.0",
     "geocomplete": "^1.7.0",
-    "gobierto-vizzs": "^0.0.4-rc.1",
+    "gobierto-vizzs": "^0.0.5",
     "i18n-js": "^3.0.3",
     "jest": "^27.0.3",
     "jqtree": "^1.4.5",
@@ -94,7 +94,10 @@
     "stylelint": "stylelint 'app/**/*.{css,scss}'",
     "check_i18n": "script/check_i18n.sh",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "start": "bin/webpack-dev-server",
+    "analyze": "WEBPACK_ANALYZE=true yarn run start",
+    "speed": "WEBPACK_SPEED=true yarn run start"
   },
   "husky": {
     "hooks": {

@@ -27,6 +27,9 @@ ca:
           populate_data_api_token: Token de API de Populate Data
           reply_to_email: contacte@email.com
           title: Transparencia i Participció
+        registration: Registre d'usuaris
+        registration_disabled: Deshabilitar el registre (només oculta els enllaços
+          al registre/login)
         username: Noe d'usuari
         visibility_level:
           active: Publicat

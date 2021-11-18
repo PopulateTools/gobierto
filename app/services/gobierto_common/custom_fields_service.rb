@@ -105,7 +105,7 @@ module GobiertoCommon
       @custom_fields ||= if resource.try(:instance_level_custom_fields).present?
                            resource.instance_level_custom_fields
                          else
-                           current_site.custom_fields.for_class(resource.class)
+                           site.custom_fields.for_class(resource.class)
                          end
     end
 

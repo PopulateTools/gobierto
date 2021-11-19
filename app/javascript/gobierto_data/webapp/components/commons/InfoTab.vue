@@ -1,13 +1,13 @@
 <template>
   <div class="pure-g">
-    <div class="pure-u-2-3 gobierto-data-summary-header">
+    <div class="pure-u-17-24 gobierto-data-summary-header">
       <div
         id="gobierto-data-summary-header"
         class="gobierto-data-summary-header-description"
         v-html="compiledHTMLMarkdown"
       />
     </div>
-    <div class="pure-u-1-3">
+    <div class="pure-u-7-24">
       <div
         class="gobierto-data-summary-header-btns"
       >

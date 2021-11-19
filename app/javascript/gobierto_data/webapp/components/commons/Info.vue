@@ -132,7 +132,7 @@ export default {
         tables: true
       })
       if (this.truncateIsActive) {
-        return truncate(mdText, { length: 250 })
+        return truncate(mdText, { length: 150 })
       } else {
         return mdText
       }

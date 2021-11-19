@@ -1395,6 +1395,10 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
+  &-description-summary-grid-two-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
   &-description-summary-grid-element {
     display: grid;
     grid-template-columns: 75% 1fr;

@@ -40,24 +40,28 @@
       <InfoBlockText
         v-if="dateUpdated"
         icon="clock"
+        :icon-size="'12px'"
         :label="labelUpdated"
         :text="dateUpdated | convertDate"
       />
       <InfoBlockText
         v-if="frequencyDataset"
         icon="calendar"
+        :icon-size="'12px'"
         :label="labelFrequency"
         :text="frequencyDataset"
       />
       <InfoBlockText
         v-if="categoryDataset"
         icon="tag"
+        :icon-size="'12px'"
         :label="labelSubject"
         :text="categoryDataset"
       />
       <InfoBlockText
         v-if="hasDatasetSource"
         icon="building"
+        :icon-size="'12px'"
         :label="labelSource"
         :text="sourceDatasetText"
         :url="sourceDatasetUrl"
@@ -65,6 +69,7 @@
       <InfoBlockText
         v-if="hasDatasetLicense"
         icon="certificate"
+        :icon-size="'12px'"
         :label="labelLicense"
         :text="licenseDatasetText"
         :url="licenseDatasetUrl"

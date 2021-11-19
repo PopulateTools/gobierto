@@ -279,12 +279,13 @@
   }
 
   &-info-list-element {
-    cursor: pointer;
+    text-decoration: none;
     background: #fff;
     border: 1px solid #F5F5F5;
     box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
     border-radius: 4px;
     &:hover {
+      text-decoration: none;
       .gobierto-data-info-list-title {
         color: #fff;
       }

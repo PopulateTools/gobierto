@@ -4,7 +4,7 @@
       {{ labelDatasetUpdated }}
     </h3>
     <div class="gobierto-data-info-list-grid">
-      <div
+      <template
         v-for="{
           id,
           slug,
@@ -13,19 +13,23 @@
           data_updated_at,
           category,
           frequency,
-        } in datasets"
-        :key="id"
-        class="gobierto-data-info-list-element"
-        @click="navTo(slug)"
+        }
+          in datasets"
       >
-        <Info
-          :description-dataset="description"
-          :category-dataset="category"
-          :frequency-dataset="frequency"
-          :date-updated="data_updated_at"
-          :title-dataset="name"
-        />
-      </div>
+        <router-link
+          :key="id"
+          :to="{ path:`/datos/${slug}`, params: { activeSidebarTab: 1 }}"
+          class="gobierto-data-info-list-element"
+        >
+          <Info
+            :description-dataset="description"
+            :category-dataset="category"
+            :frequency-dataset="frequency"
+            :date-updated="data_updated_at"
+            :title-dataset="name"
+          />
+        </router-link>
+      </template>
     </div>
   </div>
 </template>
@@ -64,10 +68,7 @@ export default {
         // eslint-disable-next-line no-unused-vars
         this.$router.push('/datos/').catch(err => {})
       })
-    },
-    navTo(slug) {
-      this.$router.push({ path: `/datos/${slug}`, params: { activeSidebarTab: 1 } }).catch(() => {})
-    },
+    }
   }
 };
 </script>

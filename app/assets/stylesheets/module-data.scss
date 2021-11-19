@@ -305,7 +305,8 @@
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       transition: background .3s ease-in;
-      max-height: 150px;
+      max-height: 140px;
+      min-height: 140px;
     }
 
     .gobierto-data-summary-header-description {

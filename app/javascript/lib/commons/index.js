@@ -26,11 +26,8 @@ import "./modules/tabs";
 import "./modules/velocity_settings";
 import "./modules/shareContent";
 import "./modules/separate-tabs";
-import "./modules/disable-turbolinks";
+import "./modules/check-start-turbolinks";
 import "./modules/iframe_handler";
-
-// COMMON STYLES
-// import "../../stylesheets/application.scss"
 
 // NOTE: jQuery exposed to global (window for node environment) due to script directly in the view
 global.$ = global.jQuery = $

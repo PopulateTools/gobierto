@@ -11,6 +11,7 @@ module GobiertoCommon
       @custom_fields = opts[:custom_fields]
       @cache_service = opts[:cache_service]
       @site = opts[:site] || @cache_service&.site
+      @cache_service ||= CacheService.new(site, resource.class.name.deconstantize) if @site.present?
       @base_cache_key = "#{relation.cache_key_with_version}/custom_fields"
     end
 

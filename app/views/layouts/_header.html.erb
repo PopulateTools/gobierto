@@ -41,7 +41,7 @@
         <div class="site_header_logo">
 
           <div class="site_header_image">
-            <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
+            <%= link_to(image_pack_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
           </div>
 
           <div class="mobile_only right">

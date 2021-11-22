@@ -44,6 +44,21 @@ table {
       padding-bottom: 1em;
     }
   }
+
+  @include screen(740) {
+    td,
+    th {
+      padding: 0.25em 0.4em;
+      line-height: 1.2em;
+    }
+
+    td.bar,
+    th.bar {
+      display: none;
+      padding: 0;
+      width: 30px;
+    }
+  }
 }
 
 tr {
@@ -125,6 +140,14 @@ table.explore_slow {
 
     a {
       display: block;
+    }
+  }
+
+  @include screen(740) {
+    td {
+      padding: 0.5em 0.5em 0.5em 0;
+      font-size: 0.7em;
+      line-height: 1.2em;
     }
   }
 

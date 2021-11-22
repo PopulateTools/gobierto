@@ -49,6 +49,15 @@
         margin-bottom: -1px;
       }
     }
+
+    @include screen(740) {
+      li {
+        a {
+          padding: 0.75em 1.5em 0.25em;
+          margin: 0 0.2em;
+        }
+      }
+    }
   }
 }
 

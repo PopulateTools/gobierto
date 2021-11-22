@@ -46,6 +46,34 @@
   small {
     line-height: 0.5em;
   }
+
+  @include screen(740) {
+    .cont {
+      padding: 2em 1em;
+      text-align: center;
+    }
+
+    .title {
+      padding: 0;
+      border: 0;
+      text-align: center;
+      margin: 0 0 1em 0;
+      font-size: 1.1em;
+    }
+
+    .ic {
+      margin: 0 0 0.5em 0;
+
+      label {
+        height: initial;
+        display: block;
+      }
+    }
+
+    .highlight {
+      margin: 0.25em 0;
+    }
+  }
 }
 
 .explore_detail {
@@ -98,6 +126,12 @@
       }
     }
   }
+
+  @include screen(740) {
+    [data-budget-lines] {
+      padding: 0;
+    }
+  }
 }
 
 /*
@@ -122,6 +156,15 @@
       margin-top: 0;
       font-size: 1em;
       line-height: 1.6em;
+    }
+  }
+
+  @include screen(740) {
+    .line_description {
+      p {
+        font-size: 0.85em;
+        line-height: 1.3em;
+      }
     }
   }
 
@@ -517,4 +560,3 @@
     margin-top: 20px;
   }
 }
-

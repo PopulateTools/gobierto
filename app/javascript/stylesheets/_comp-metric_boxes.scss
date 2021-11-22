@@ -161,3 +161,62 @@
     }
   }
 }
+
+@include screen(740) {
+  .metric_boxes {
+    margin: 0 0 2em 0;
+
+    .metric_box {
+      .inner {
+        margin: 0;
+        min-height: initial;
+        padding: 0.5em;
+      }
+
+      h3 {
+        font-size: 0.85em;
+        min-height: initial;
+        line-height: 1em;
+      }
+
+      .metric {
+        font-size: 1.6em;
+      }
+
+      .explanation {
+        bottom: 0.2em;
+      }
+
+      span.not_av {
+        font-size: 0.6em;
+      }
+    }
+
+    .metric_box:nth-child(1n) {
+      .inner {
+        margin: 0 0.5em 1em 0;
+      }
+    }
+
+    .metric_box:nth-child(2n) {
+      .inner {
+        margin: 0 0 1em 0.5em;
+      }
+    }
+
+    .metric_box:last-child {
+      width: 100%;
+
+      .inner {
+        margin: 0;
+        min-height: initial;
+      }
+    }
+
+    .metric_box.cta {
+      a {
+        padding: 0.5em;
+      }
+    }
+  }
+}

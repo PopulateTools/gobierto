@@ -118,6 +118,12 @@
     box-sizing: border-box;
     text-align: center;
   }
+
+  @include screen(740) {
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
+  }
 }
 
 @include min-screen(740) {

@@ -41,6 +41,7 @@
         v-if="dateUpdated"
         icon="clock"
         :icon-size="'12px'"
+        :icon-color="'#666'"
         :label="labelUpdated"
         :text="dateUpdated | convertDate"
       />
@@ -48,6 +49,7 @@
         v-if="frequencyDataset"
         icon="calendar"
         :icon-size="'12px'"
+        :icon-color="'#666'"
         :label="labelFrequency"
         :text="frequencyDataset"
       />
@@ -55,6 +57,7 @@
         v-if="categoryDataset"
         icon="tag"
         :icon-size="'12px'"
+        :icon-color="'#666'"
         :label="labelSubject"
         :text="categoryDataset"
       />
@@ -62,6 +65,7 @@
         v-if="hasDatasetSource"
         icon="building"
         :icon-size="'12px'"
+        :icon-color="'#666'"
         :label="labelSource"
         :text="sourceDatasetText"
         :url="sourceDatasetUrl"
@@ -70,6 +74,7 @@
         v-if="hasDatasetLicense"
         icon="certificate"
         :icon-size="'12px'"
+        :icon-color="'#666'"
         :label="labelLicense"
         :text="licenseDatasetText"
         :url="licenseDatasetUrl"

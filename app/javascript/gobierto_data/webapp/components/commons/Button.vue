@@ -7,7 +7,7 @@
       v-if="icon"
       :class="'fa-' + icon"
       :style="{'color': iconColor}"
-      style="color: inherit; margin: 0; margin-right: .25rem;"
+      style="color: inherit; margin: 0;"
       class="fas"
     />
     {{ text }}

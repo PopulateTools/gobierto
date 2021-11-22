@@ -386,6 +386,18 @@
     vertical-align: top;
   }
 
+  a.gobierto-data-btn-download-data {
+    display: inline-block;
+    background: #fff;
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-base);
+    margin-right: 0;
+    i {
+      color: rgba(var(--color-base-string), .5)
+    }
+  }
+
   &-container-btn-download-data {
     position: relative;
     width: max-content;

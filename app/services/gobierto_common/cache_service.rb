@@ -29,15 +29,16 @@ module GobiertoCommon
       "#{cache_prefix}/#{name}"
     end
 
-    # These methods are very inefficient and only work with :memory_store.
-    # They're only for testing purposes on local environment
+    # These methods are very inefficient
     def keys
-      @keys ||= Rails.cache.instance_variable_get(:@data).keys.select do |key|
+      @keys ||= Rails.cache.redis.keys.select do |key|
         /^#{cache_prefix}\//.match? key
       end
     end
 
     def clear_with_keys
+      @keys = nil
+
       keys.each do |key|
         Rails.cache.delete(key)
       end

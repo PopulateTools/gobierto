@@ -187,11 +187,6 @@
 
   &-sets-nav--tab-container {
     padding-top: 1.25rem;
-
-    .gobierto-data-summary-header-container-label {
-      color: #000;
-      font-weight: bold;
-    }
   }
 
   &-summary-header {
@@ -221,7 +216,7 @@
   &-summary-header-container-text,
   &-summary-header-container-label,
   &-summary-header-container-text-link {
-    color: #000;
+    color: #666;
     display: inline-block;
   }
 
@@ -630,7 +625,7 @@
     background-color: transparent;
     transition: background-color var(--transition);
     padding: .5rem 1rem;
-    color: #000;
+    color: #666;
     display: block;
     width: 100%;
     text-decoration: none;
@@ -1119,7 +1114,7 @@
   &-sidebar-datasets-name {
     font-size: $f7;
     cursor: pointer;
-    color: #000;
+    color: #666;
     text-decoration: none;
   }
 

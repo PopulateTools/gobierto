@@ -8,7 +8,7 @@
         v-if="categoryDataset"
         icon="tag"
         :icon-size="'10px'"
-        :font-size="'14px'"
+        :font-size="'12px'"
         :text="categoryDataset"
       />
       <div class="gobierto-data-info-list-top">
@@ -16,14 +16,14 @@
           v-if="dateUpdated"
           icon="clock"
           :icon-size="'10px'"
-          :font-size="'14px'"
+          :font-size="'12px'"
           :text="dateUpdated | convertDate"
         />
         <InfoBlockText
           v-if="frequencyDataset"
           icon="calendar"
           :icon-size="'10px'"
-          :font-size="'14px'"
+          :font-size="'12px'"
           :text="frequencyDataset"
         />
       </div>

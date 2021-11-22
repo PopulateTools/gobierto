@@ -59,7 +59,7 @@ export default {
     },
     fontSize: {
       type: String,
-      default: '1rem'
+      default: '14px'
     },
   }
 }

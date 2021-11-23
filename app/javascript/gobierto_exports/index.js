@@ -1,2 +1,2 @@
-import "../../assets/stylesheets/module-exports.scss"
+import "../stylesheets/gobierto-exports.scss"
 import './modules/application.js'

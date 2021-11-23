@@ -39,6 +39,14 @@ module GobiertoHelper
     @search_client ||= GobiertoCommon::Search.new(current_site, current_module_class)
   end
 
+  def logo_image_tag(logo_src, options = {})
+    if logo_src == SiteConfiguration::DEFAULT_LOGO_PATH
+      image_pack_tag(logo_src, options)
+    else
+      image_tag(logo_src, options)
+    end
+  end
+
   private
 
     def error_messages_for(entity)

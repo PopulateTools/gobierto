@@ -18,11 +18,9 @@
    } %>
 
 <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
-<!-- application styles -->
-<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
 <!-- module styles -->
 <%= yield(:stylesheet_module_link) %>
-<!-- commons libraries -->
+<!-- module libraries -->
 <%= yield(:javascript_module_link) %>
 <!-- turbolink hooks -->
 <%= yield(:disable_turbolinks_hook) %>

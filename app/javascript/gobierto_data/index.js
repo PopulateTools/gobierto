@@ -1,4 +1,4 @@
-import "../../assets/stylesheets/module-data.scss"
+import "../stylesheets/gobierto-data.scss"
 import { GobiertoDataController } from "./modules/gobierto_data_controller.js";
 
 document.addEventListener('DOMContentLoaded', () => {

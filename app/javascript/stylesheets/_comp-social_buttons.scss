@@ -1,0 +1,130 @@
+@use "sass:color";
+/*
+ * Social Buttons
+ *
+ */
+.social_share,
+.search_icon {
+  display: inline-block;
+  padding: 0.35em 0.75em;
+  margin: 1em 1em 0 0;
+  color: #fff;
+  text-decoration: none;
+
+  @include border-radius(3px);
+
+  .fas {
+    margin: 0;
+    display: inline-block;
+  }
+}
+
+// a.social_share {
+//   .fas {
+//     // margin: 0 .2em 0 0;
+//   }
+// }
+
+.social_share_container {
+  .social_share,
+  .search_icon {
+    @include border-radius(16px);
+
+    padding: 0.25em 2em;
+    text-decoration: none;
+
+    .fas {
+      margin: 0 0.2em 0 0;
+    }
+  }
+
+  .social_share:hover,
+  .search_icon:hover {
+    text-decoration: none;
+  }
+}
+
+.social_share {
+  &.twitter,
+  &.facebook {
+    display: none;
+  }
+}
+
+.social_share:hover {
+  color: #fff;
+}
+
+.facebook {
+  background: $color_facebook;
+}
+
+.twitter {
+  background: $color_twitter;
+}
+
+.linkedin {
+  background: #0074b5;
+}
+
+.email {
+  background: var(--color-base);
+}
+
+.whatsapp {
+  background: #0dc143;
+}
+
+.telegram {
+  background: #2da0da;
+}
+
+.code {
+  background: var(--color-base);
+}
+
+.facebook:hover {
+  background: color.adjust(#3a589a, $lightness: -10%);
+}
+
+.twitter:hover {
+  background: color.adjust(#00abef, $lightness: -10%);
+}
+
+.email:hover {
+  background: rgba(var(--color-base-string), 0.8);
+}
+
+.linkedin:hover {
+  background: color.adjust(#0074b5, $lightness: -10%);
+}
+
+.code:hover {
+  background: rgba(var(--color-base-string), 0.8);
+}
+
+.social_links_container {
+  z-index: 1;
+
+  > a {
+    @include border-radius(3em);
+
+    margin: 0 0.5em 0 0;
+    font-size: 0.85em;
+    padding: 0.2em 0.1em;
+    color: #fff;
+    display: inline-block;
+    width: 2.25em;
+    box-sizing: border-box;
+    text-align: center;
+  }
+}
+
+@include min-screen(740) {
+  .social_links_container {
+    a.whatsapp,
+    a.telegram {
+      display: none;
+    }
+  }
+}

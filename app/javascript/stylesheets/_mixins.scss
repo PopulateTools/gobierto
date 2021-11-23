@@ -1,0 +1,229 @@
+/* Responsive mixin
+   ----------------
+  @include screen(768, 1280) {
+    background: black;
+  }
+  @include min-screen(320) {
+    width: 300px;
+  }
+*/
+
+@use "sass:math";
+
+$units: 1px !default;
+
+@mixin screen($res-first, $res-last: $res-first) {
+  @if $res-first == $res-last {
+    @media screen and ( max-width: if(unitless($res-first), $res-first*$units, $res-first) ) {
+      @content;
+    }
+  } @else if $res-first < $res-last {
+    @media screen and ( min-width: if(unitless($res-first), $res-first*$units, $res-first) ) and ( max-width: if(unitless($res-last), $res-last*$units, $res-last) ) {
+      @content;
+    }
+  }
+}
+
+@mixin min-screen($res) {
+  @media screen and ( min-width: if(unitless($res), $res*$units, $res) ) {
+    @content;
+  }
+}
+
+// flexgap
+@mixin flexbox($gap: 0, $dir: row) {
+  display: flex;
+  flex-direction: $dir;
+
+  @if $dir == row {
+    & > * {
+      margin: 0 calc(#{$gap} / 2);
+    }
+
+    & > :first-child {
+      margin-left: 0;
+    }
+
+    & > :last-child {
+      margin-right: 0;
+    }
+  } @else if $dir == column {
+    & > * {
+      margin-bottom: calc(#{$gap} / 2);
+    }
+
+    & > :first-child {
+      margin-top: 0;
+    }
+
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// pure-g gutters (mixin & helper)
+@mixin gutters($size: 1) {
+  $unit: 1rem !default;
+  $size: if(unitless($size), $size * $unit, $size);
+
+  @include screen(768) {
+    .pure-g.gutters {
+      margin-top: -$size * 0.5;
+      margin-bottom: -$size * 0.5;
+    }
+
+    .pure-g.gutters > [class *=pure-u] {
+      box-sizing: border-box;
+      padding-top: $size * 0.5;
+      padding-bottom: $size * 0.5;
+    }
+  }
+
+  @include min-screen(768) {
+    .pure-g.gutters {
+      margin-left: -$size * 0.5;
+      margin-right: -$size * 0.5;
+    }
+
+    .pure-g.gutters > [class *=pure-u] {
+      box-sizing: border-box;
+      padding-left: $size * 0.5;
+      padding-right: $size * 0.5;
+    }
+  }
+}
+@include gutters;
+
+// flex alignment
+@mixin flex-align($horizontal: center, $vertical: center) {
+  display: flex;
+  justify-content: $horizontal;
+  align-items: $vertical;
+
+  > * {
+    margin: 0;
+  }
+}
+
+// Enable absolute positioning on children
+@mixin absolute-layout() {
+  position: relative;
+
+  .bottom,
+  .left,
+  .right,
+  .top {
+    position: absolute;
+  }
+
+  .left {
+    left: 0;
+  }
+
+  .right {
+    right: 0;
+  }
+
+  .top {
+    top: 0;
+  }
+
+  .bottom {
+    bottom: 0;
+  }
+}
+
+// Simulates CSS Grid
+@mixin grid($gap: 0, $columns: 3) {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -$gap * 0.5;
+
+  > * {
+    padding: $gap * 0.5;
+    box-sizing: border-box;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: calc(100% / #{$columns});
+    max-width: calc(100% / #{$columns});
+  }
+}
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+
+  &::before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: math.div($height, $width) * 100%;
+  }
+
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+// border radius; https://github.com/akorman/border-radius-sass/
+@mixin border-radius($a: false, $b: false, $c: false, $d: false, $top-left: 0, $top-right: 0, $bottom-right: 0, $bottom-left: 0, $top: false, $bottom: false, $right: false, $left: false, $radius: false) {
+
+  // Handle shorthand notation like CSS3 would
+  // You shouldn't explictly set these variables when calling the mixin
+  @if $d { $radius: $a $b $c $d; }
+  @else if $c { $radius: $a $b $c; }
+  @else if $b { $radius: $a $b; }
+  @else if $a { $radius: $a; }
+
+  @else {
+
+    // Target individual corners (or groups) instead of using CSS3 shorthand
+    @if $top { $top-left: $top; $top-right: $top; }
+    @if $bottom { $bottom-right: $bottom; $bottom-left: $bottom; }
+    @if $left { $top-left: $left; $bottom-left: $left; }
+    @if $right { $top-right: $right; $bottom-right: $right; }
+
+    // Set the radius
+    $radius: $top-left $top-right $bottom-right $bottom-left;
+  }
+
+  // Webkit, Mozilla, KHTML and standard CSS3
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -khtml-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// LEGACY, better use grid()
+// (still used in citizen-charters)
+@mixin flexgrid($gap: 0, $columns: 3) {
+  $unit: 1rem !default;
+  $gutter: if(unitless($gap), $gap * $unit, $gap);
+
+  flex: 1 0 calc((100% / #{$columns}) - #{$gutter});
+  margin: $gap * 0.5;
+  box-sizing: border-box;
+
+  &:nth-of-type(#{$columns}n + 1) {
+    margin-left: 0;
+  }
+
+  &:nth-of-type(#{$columns}n),
+  &:nth-last-of-type(1) {
+    margin-right: 0;
+  }
+
+  &:nth-of-type(-n + #{$columns}) {
+    margin-top: 0;
+  }
+
+  // targets to the last row items
+  &:nth-of-type(#{$columns}n + 1):nth-last-of-type(-n + #{$columns}),
+  &:nth-of-type(#{$columns}n + 1):nth-last-of-type(-n + #{$columns}) ~ * {
+    margin-bottom: 0;
+  }
+}

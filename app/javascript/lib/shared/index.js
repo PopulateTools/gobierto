@@ -2,7 +2,6 @@
 import { AUTOCOMPLETE_DEFAULTS } from "./modules/autocomplete_settings.js";
 import { URLParams } from "./modules/URLParams.js";
 import d3locale from "./modules/d3-locale.js";
-import { isDesktop, isMobile } from "./modules/globals.js";
 import { createScaleColors } from "./modules/createScaleColors.js";
 import { slugString } from "./modules/slugString.js";
 import accounting from "accounting";
@@ -24,8 +23,6 @@ export {
   accounting,
   createScaleColors,
   d3locale,
-  isDesktop,
-  isMobile,
   URLParams,
   RangeSlider,
   Datepicker,

@@ -6,6 +6,11 @@
   width: calc(100% - 6rem);
   max-width: 1400px;
   margin: auto;
+
+  @include screen(740) {
+    width: initial;
+    margin: auto 1em;
+  }
 }
 
 .main_content {
@@ -35,6 +40,10 @@ footer {
 
   .logo {
     max-width: 275px;
+
+    @include screen(740) {
+      max-width: 100%;
+    }
   }
 
   ul {

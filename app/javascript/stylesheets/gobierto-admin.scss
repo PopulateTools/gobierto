@@ -12,20 +12,12 @@ $font_serif: 'Georgia, serif';
 
 @import "populities";
 @import "mixins";
-@import "comp-breadcrumbs";
 @import "comp-forms";
 @import "comp-headings_blocks";
-@import "comp-layout";
-@import "comp-site_header";
-@import "comp-search";
 @import "comp-tables";
-@import "comp-header_block_inline";
-@import "comp-social_buttons";
 @import "comp-tipsy";
 @import "comp-flash_messages";
-@import "css-print";
 @import "defaults-admin";
-@import "responsive";
 
 @import url("https://fonts.googleapis.com/css?family=Libre+Franklin:200,400,700,600");
 
@@ -39,7 +31,6 @@ $font_serif: 'Georgia, serif';
 @import "comp-modals";
 @import "magnific-popup/dist/magnific-popup.css";
 @import "comp-magnific-popup-animations";
-@import "air-datepicker/dist/css/datepicker.css";
 @import "cropperjs/dist/cropper.css";
 @import "comp-simplemde_editor";
 @import "simplemde/src/css/simplemde.css";

@@ -17,6 +17,16 @@
   a:first-child {
     margin-left: 0;
   }
+
+  @include screen(740) {
+    padding: 0.75em 0;
+    margin: 0 0 0.5em 0;
+
+    .bread_links {
+      line-height: 1.3em;
+      font-size: 0.75em;
+    }
+  }
 }
 
 .breadcrumb.is_stuck {

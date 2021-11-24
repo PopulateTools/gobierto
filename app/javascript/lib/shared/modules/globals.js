@@ -1,14 +1,5 @@
 import "tipsy-1a";
 
-// Global util functions
-export function isDesktop() {
-  return $(window).width() > 740;
-}
-
-export function isMobile() {
-  return !isDesktop();
-}
-
 /* Toggle text method */
 $.fn.extend({
   toggleText: function(a, b) {

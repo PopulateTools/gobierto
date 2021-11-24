@@ -110,6 +110,17 @@ h4 {
       top: -0.5em;
     }
   }
+
+  @include screen(740) {
+    h2 {
+      margin: 0.5em 0;
+    }
+
+    .description {
+      width: 100%;
+      margin: 0 0 1em 0;
+    }
+  }
 }
 
 .with_separator {

@@ -862,6 +862,16 @@ select {
     height: 40px;
     width: 300px;
   }
+
+  @include screen(740) {
+    text-align: center;
+    margin: 0 0 1em 0;
+
+    input[type=text] {
+      width: calc(100%);
+      margin: 0;
+    }
+  }
 }
 
 .attach_file input[type=file] {

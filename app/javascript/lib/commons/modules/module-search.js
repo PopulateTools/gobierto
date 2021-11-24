@@ -1,5 +1,3 @@
-// eslint-disable-next-line
-import Turbolinks from 'turbolinks'
 import { AUTOCOMPLETE_DEFAULTS } from 'lib/shared'
 import 'devbridge-autocomplete'
 

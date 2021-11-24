@@ -1,13 +1,21 @@
 <template>
   <div class="gobierto-data-sets-nav--tab-container">
     <keep-alive>
-      <DownloadButton
-        :class="[
-          directionLeft ? 'modal-left': 'modal-right'
-        ]"
-        :array-formats="arrayFormats"
-        class="arrow-top"
-      />
+      <template v-if="moreThanOneFormat">
+        <DownloadButton
+          :class="[
+            directionLeft ? 'modal-left': 'modal-right'
+          ]"
+          :array-formats="arrayFormats"
+          class="arrow-top"
+        />
+      </template>
+      <template v-else>
+        <DownloadLink
+          :editor="false"
+          :array-formats="arrayFormats"
+        />
+      </template>
     </keep-alive>
     <Resources :resources-list="resourcesList" />
   </div>
@@ -16,12 +24,14 @@
 <script>
 import Resources from "./../commons/Resources.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
+import DownloadLink from "./../commons/DownloadLink.vue";
 
 export default {
   name: "DownloadsTab",
   components: {
     Resources,
-    DownloadButton
+    DownloadButton,
+    DownloadLink
   },
   props: {
     arrayFormats: {
@@ -37,6 +47,11 @@ export default {
   data() {
     return {
       directionLeft: true
+    }
+  },
+  computed: {
+    moreThanOneFormat() {
+      return Object.keys(this.arrayFormats).length > 1
     }
   }
 }

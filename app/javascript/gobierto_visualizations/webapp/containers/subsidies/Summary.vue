@@ -147,7 +147,7 @@ export default {
     checkFilterCategoryLength() {
       const filterCategories = this.filters.filter(({ id }) => id === 'categories')
       return filterCategories[0].options.length > 0 ? true : false
-    },
+    }
   },
   watch: {
     visualizationsData(n) {

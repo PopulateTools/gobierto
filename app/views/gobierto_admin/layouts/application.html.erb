@@ -10,9 +10,6 @@
     <%= render 'layouts/analytics_header_site' %>
   <% end %>
 
-  <!-- legacy styles -->
-  <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
-
   <!-- admin chunks (code-splitting) -->
   <%= javascript_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
   <%= stylesheet_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
@@ -29,7 +26,7 @@
 
     <div class="pure-menu-link logo">
       <%= link_to admin_root_path do %>
-        <%= image_tag 'Gobierto-Avatar@2x.png' %>
+        <%= image_pack_tag 'Gobierto-Avatar@2x.png' %>
       <% end %>
     </div>
 

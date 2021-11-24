@@ -3,7 +3,7 @@
     v-if="publicVisualizations && publicVisualizations.length"
     class="gobierto-data-visualization--grid"
   >
-    <template v-for="{ items, config, name, id, slug, datasetName } in publicVisualizations">
+    <template v-for="{ items, config, columns, name, id, slug, datasetName } in publicVisualizations">
       <router-link
         :key="id"
         :to="`/datos/${slug}/v/${id}`"
@@ -16,7 +16,7 @@
           <Visualizations
             v-if="items"
             :items="items"
-            :object-columns="config.columns"
+            :object-columns="columns"
             :config="config"
           />
           <router-link

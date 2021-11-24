@@ -1,0 +1,445 @@
+@import "normalize.css";
+@import "purecss/build/pure-nr";
+@import "purecss/build/grids-responsive";
+@import "@fortawesome/fontawesome-free/css/all";
+
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
+
+// TODO: revisar cuáles sobran
+@import "css-conf";
+@import "populities";
+@import "mixins";
+@import "comp-breadcrumbs";
+@import "comp-forms";
+@import "comp-headings_blocks";
+@import "comp-layout";
+@import "comp-site_header";
+@import "comp-search";
+@import "comp-tables";
+@import "comp-header_block_inline";
+@import "comp-social_buttons";
+@import "comp-tipsy";
+@import "comp-flash_messages";
+@import "css-print";
+@import "defaults";
+@import "responsive";
+// END TODO
+
+@import "comp-tabs";
+@import "comp-lists";
+@import "comp-agenda";
+@import "comp-modals";
+@import "fullcalendar/dist/fullcalendar.css";
+@import "air-datepicker/dist/css/datepicker.css";
+
+body.gobierto_people {
+  .block + .person-item {
+    margin-top: 2em;
+  }
+
+  .avatar-title {
+    margin: 0;
+  }
+
+  img.avatar {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .people-grid {
+    .person-item {
+      border: 1px solid $color_separator;
+      padding: 1.5em;
+      margin-right: 1.5em;
+      margin-bottom: 1.5em;
+      min-height: 150px;
+
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .person-item,
+  .item {
+    padding: 2em 0;
+    border-top: 1px solid $color_separator;
+    box-sizing: border-box;
+
+    .meta {
+      font-size: 0.85em;
+
+      img {
+        margin: 0 1em 0 0;
+        vertical-align: middle;
+      }
+    }
+
+    h2 {
+      font-size: 1.2em;
+      margin: 0 0 0.25em 0;
+    }
+
+    .person-name {
+      padding: 0 0 0 1.5em;
+      box-sizing: border-box;
+      line-height: 1;
+
+      h3 {
+        margin: 0;
+      }
+
+      .soft {
+        font-size: 0.85em;
+      }
+    }
+
+    h4 {
+      margin: 0;
+    }
+  }
+
+  .post-item {
+    h2 {
+      margin: 0 0 1em 0;
+    }
+  }
+
+  .person_header_small {
+    .person-item {
+      border: 0;
+      background: $color_neutral_soft;
+      padding: 0;
+
+      .person-name {
+        padding: 0.75em 1em;
+      }
+    }
+
+    .contact-methods {
+      display: inline-block;
+      padding: 0.7em 0;
+
+      li {
+        display: inline-block;
+
+        a {
+          display: inline-block;
+          padding: 0.25em;
+        }
+      }
+
+      span {
+        display: none;
+      }
+    }
+
+    .follow_item {
+      display: inline-block;
+      float: right;
+
+      .button {
+        padding: 0.5em 2em;
+      }
+    }
+  }
+
+  .person_post-data {
+    font-weight: 200;
+    color: $color_meta_text;
+    margin: 0 0 2em 0;
+
+    a {
+      opacity: 0.75;
+    }
+  }
+
+  .person_post-tags {
+    margin: 0 1em;
+
+    a {
+      margin: 0 0.5em 0 0;
+    }
+  }
+
+  .blog_header {
+    font-size: 0.85em;
+    font-weight: bold;
+    margin: 0 0 2em 0;
+    text-transform: uppercase;
+    text-align: center;
+    color: $color_meta_text;
+  }
+
+  .person-post-excerpt {
+    margin: 0 0 5em 0;
+  }
+
+  .person_post-title {
+    font-size: 1.5em;
+  }
+
+  .filter_boxed {
+    .pure-menu-horizontal.pure-menu-scrollable {
+      padding: 0;
+    }
+
+    .sub_filter {
+      margin: 0 0 2em 0;
+    }
+  }
+}
+
+body.gobierto_people.welcome.index {
+  .filter_boxed {
+    margin: 0;
+
+    ul {
+      li {
+        margin: 0 0.25em 1em 0;
+
+        a {
+          padding: 0.25em 0.5em 0.2em;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.main_people_content {
+  padding: 0 0 0 5em;
+  box-sizing: border-box;
+
+  .person_header {
+    margin: 0 0 2em 0;
+
+    h2 {
+      margin: 0 0 0.25em 0;
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    .person_charge,
+    .person_party,
+    .political_group {
+      display: inline-block;
+    }
+
+    .person_charge {
+      font-size: 1.5em;
+      font-weight: 200;
+      vertical-align: top;
+      margin: 0 1em 0.5em 0;
+    }
+
+    .person_party,
+    .political_group {
+      background: rgba(var(--color-base-string), 0.06);
+      font-size: 0.75em;
+      padding: 0.45em 0.75em;
+      margin: 0 1em 0 0;
+
+      @include border-radius(3px);
+
+      text-transform: uppercase;
+      color: var(--color-main);
+      font-weight: 600;
+      line-height: 1.2em;
+    }
+  }
+
+  h2.statement_header {
+    font-size: 1.6em;
+    font-weight: 300;
+  }
+
+  .bio-subtitle {
+    font-size: 1.5em;
+  }
+
+  .latest-activity {
+    li {
+      margin-bottom: 0.5em;
+
+      h4 {
+        margin: 0;
+        font-weight: 400;
+        display: inline-block;
+      }
+    }
+  }
+
+  .person_statement-item {
+    h3 {
+      margin: 0;
+    }
+  }
+}
+
+.people-navigation {
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  li {
+    h3 {
+      margin: 0;
+      font-size: 1.15em;
+
+      a {
+        padding: 0.5em 1.5em;
+        font-weight: bold;
+        display: block;
+      }
+
+      a.active,
+      a:hover {
+        background: rgba(var(--color-base-string), 0.06);
+      }
+    }
+  }
+}
+
+.contact-methods {
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  li {
+    a {
+      padding: 0.5em 1.5em;
+      display: block;
+    }
+
+    a:hover {
+      background: rgba(var(--color-base-string), 0.06);
+    }
+  }
+}
+
+.upcoming-events {
+  padding: 1em;
+  box-sizing: border-box;
+
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  ul {
+    margin: 1em 0 0.5em 0;
+
+    h4 {
+      display: inline-block;
+      margin: 0;
+    }
+  }
+}
+
+.agenda-switcher {
+  @include border-radius(5px);
+
+  border: 2px solid rgba(var(--color-base-string), 0.2);
+  padding: 1em 1em 0.65em 1em;
+  box-sizing: border-box;
+  position: relative;
+  color: var(--color-base);
+
+  transition: all 0.15s ease-out 0s;
+
+  .hidden_options {
+    display: none;
+    z-index: 100;
+
+    @include box-shadow;
+    @include border-radius(5px);
+
+    border: 1px solid rgba(var(--color-base-string), 0.2);
+    position: absolute;
+    width: calc(100% + 2px);
+    padding: 1em;
+    background: #fff;
+    left: -1px;
+    top: -1px;
+    box-sizing: border-box;
+
+    ul,
+    li {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  p {
+    margin: 0;
+    opacity: 0.5;
+  }
+}
+
+.agenda-switcher:hover {
+  .hidden_options {
+    display: block;
+  }
+}
+
+// simple-calendar overrides
+.simple-calendar {
+  .next-month,
+  .prev-month {
+    background: none;
+    opacity: 0.5;
+  }
+
+  .today {
+    background: var(--color-base);
+    color: #fff;
+  }
+
+  th {
+    text-align: center;
+    font-weight: 200;
+    opacity: 0.5;
+  }
+
+  .day {
+    height: initial;
+  }
+}
+
+.calendar-component {
+  padding: 1.5em;
+  text-align: center;
+  border: 1px solid $color_separator;
+
+  table {
+    border: 0;
+  }
+
+  th {
+    text-align: center;
+    border: 0;
+  }
+
+  td {
+    height: auto;
+    border: 0;
+  }
+}
+
+.subscribable-box {
+  .disclaimer {
+    margin-bottom: 0;
+  }
+}

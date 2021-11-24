@@ -1,0 +1,111 @@
+@import "normalize.css";
+@import "purecss/build/pure-nr";
+@import "purecss/build/grids-responsive";
+@import "@fortawesome/fontawesome-free/css/all";
+
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
+
+// TODO: revisar cuáles sobran
+@import "css-conf";
+@import "populities";
+@import "mixins";
+@import "comp-breadcrumbs";
+@import "comp-forms";
+@import "comp-headings_blocks";
+@import "comp-layout";
+@import "comp-site_header";
+@import "comp-search";
+@import "comp-tables";
+@import "comp-header_block_inline";
+@import "comp-social_buttons";
+@import "comp-tipsy";
+@import "comp-flash_messages";
+@import "css-print";
+@import "defaults";
+@import "responsive";
+// END TODO
+
+@import "comp-text_content";
+
+.home-cms {
+  #transparency .block-title {
+    background-size: cover;
+    background-position-y: 40%;
+  }
+
+  .header {
+    margin: 1em 0 3em 0;
+
+    @include min-screen(768) {
+      width: 75%;
+    }
+
+    h1 {
+      font-size: $f1;
+      font-weight: 300;
+    }
+
+    small {
+      font-size: $f3;
+      font-weight: 300;
+    }
+  }
+
+  .block {
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(#000, 0.14);
+    border-radius: 6px;
+
+    &.flexbox {
+      @include flexbox(0, column);
+    }
+
+    .block-title {
+      height: 122px;
+      display: flex;
+      align-items: flex-end;
+
+      h2 {
+        font-size: $f2;
+        color: $color_main_negative;
+        text-transform: capitalize;
+        font-weight: 700;
+        margin: 1.5em 0;
+      }
+    }
+
+    .block-content {
+      padding: 32px 0;
+
+      .flexbox {
+        @include flexbox(32px, column);
+      }
+
+      h3 {
+        font-size: $f5;
+        font-weight: 700;
+        margin: 0 auto auto;
+      }
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin: 0.5em 0;
+
+        li {
+          flex: 0 0 33%;
+          margin-bottom: 1em;
+          line-height: 1;
+
+          a {
+            color: $color_meta_text;
+            font-size: $f7;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

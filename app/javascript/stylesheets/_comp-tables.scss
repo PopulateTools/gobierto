@@ -1,0 +1,295 @@
+/*
+ * Tables
+ *
+ */
+table {
+  width: 100%;
+
+  td,
+  th {
+    border-top: 1px solid rgba(var(--color-base-string), 0.15);
+    padding: 0.4em 0.5em;
+    font-size: 0.85em;
+    line-height: 1.4em;
+
+    a {
+      display: inline-block;
+    }
+  }
+
+  th {
+    font-weight: 300;
+  }
+
+  td.qty {
+    text-align: right;
+  }
+
+  tr.summary_row {
+    td {
+      border-top: 3px solid rgba(var(--color-base-string), 0.35);
+      padding-top: 1em;
+    }
+  }
+
+  tr.no_border {
+    td {
+      border: 0;
+    }
+  }
+
+  tr.summary_row_end {
+    td {
+      border-bottom: 3px solid rgba(var(--color-base-string), 0.35);
+      padding-bottom: 1em;
+    }
+  }
+}
+
+tr {
+  vertical-align: top;
+}
+
+td.bar {
+  padding-right: 0;
+
+  div.bar {
+    background: var(--color-base);
+    height: 18px;
+
+    @include border-radius(3px);
+  }
+}
+
+td.variation {
+  padding-left: 0;
+}
+
+td.visibility_level {
+  white-space: nowrap;
+}
+
+.table_cont_round {
+  background: rgba(var(--color-base-string), 0.06);
+
+  @include border-radius(6px);
+
+  padding: 0.5em 0;
+}
+
+table.explore_slow {
+  margin-top: 50px;
+  font-size: 1.2rem;
+
+  th {
+    text-align: right;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: small;
+    border-top: 0;
+    padding: 0.5em 1em;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  tr.group {
+    td {
+      border-top: 3px solid rgba(var(--color-base-string), 0.15);
+    }
+  }
+
+  thead > tr th:last-child {
+    border-radius: 4px 4px 0 0;
+  }
+
+  tbody tr:last-child td:last-child {
+    border-radius: 0 0 4px 0;
+  }
+
+  tr td:last-child {
+    text-align: right;
+    width: 80px;
+  }
+
+  tr:hover {
+    transition: all 0.15s ease-out 0s;
+
+    td:not(.level_1) {
+      background: rgba(var(--color-base-string), 0.1) !important;
+    }
+  }
+
+  td {
+    vertical-align: top;
+    padding: 0.5em 1em;
+
+    a {
+      display: block;
+    }
+  }
+
+  td.level_1 {
+    font-size: 0.75em;
+    padding-left: 0;
+  }
+
+  td.bar {
+    width: 100px;
+    padding-right: 0;
+  }
+}
+
+table.med_bg {
+  width: 100%;
+  background: $color_main_negative;
+
+  td,
+  th {
+    border-top: 1px solid rgba(var(--color-base-string), 0.15);
+    background: rgba(var(--color-base-string), 0.06);
+    padding: 0.7em 1em 0.4em;
+    font-size: 0.85em;
+
+    a {
+      display: inline;
+    }
+  }
+
+  th {
+    background: none;
+    font-weight: normal;
+    font-size: 0.75em;
+    text-align: left;
+    text-align: right;
+    opacity: 0.5;
+    border: 0;
+  }
+
+  tr:hover {
+    transition: all 0.15s ease-out 0s;
+
+    td,
+    th {
+      background: rgba(var(--color-base-string), 0.1) !important;
+    }
+  }
+
+  td.bar,
+  td.qty {
+    width: 60px;
+  }
+
+  td.qty {
+    text-align: right;
+  }
+
+  td.big_qty {
+    width: 100px;
+  }
+
+  td.bar {
+    padding-left: 10px;
+  }
+
+  .budget_line {
+    width: 50%;
+  }
+
+  tr.child_group > td:first-child {
+    padding-right: 0;
+    padding-left: 2.5em;
+  }
+
+  tr.child_group {
+    .child_tb_cont {
+      padding: 0;
+      margin: 0 0 1em;
+    }
+  }
+}
+
+th.icon_col {
+  width: 15px;
+}
+
+table.block_content {
+  th {
+    background: rgba(var(--color-base-string), 0.15);
+    text-align: left;
+    text-transform: uppercase;
+    color: rgba(var(--color-base-string), 0.5);
+    border: 0;
+  }
+
+  th.center {
+    text-align: center;
+  }
+
+  td {
+    border: 0;
+  }
+
+  tr:nth-child(2n-1) {
+    td {
+      background: rgba(var(--color-base-string), 0.05);
+    }
+  }
+
+  tr:hover {
+    td {
+      background: rgba(var(--color-base-string), 0.1);
+    }
+  }
+
+  tr {
+    td.bg-scale--1 {
+      background: #eff3ff;
+    }
+
+    td.bg-scale--2 {
+      background: #bdd7e7;
+    }
+
+    td.bg-scale--3 {
+      color: white;
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+      background: #6baed6;
+    }
+
+    td.bg-scale--4 {
+      color: white;
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+      background: #3182bd;
+    }
+
+    td.bg-scale--5 {
+      color: white;
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+      background: #08519c;
+    }
+  }
+}
+
+.sort-handler {
+  cursor: pointer;
+}
+
+.gobierto_admin {
+  table.results_report {
+    th,
+    td {
+      border-top: 6px solid #fff;
+      border-left: 2px solid #fff;
+    }
+
+    th {
+      color: var(--color-base);
+      text-transform: none;
+      font-weight: normal;
+    }
+
+    th.question_title {
+      font-weight: bold;
+    }
+  }
+}

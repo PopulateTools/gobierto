@@ -13,11 +13,18 @@
     <div
       class="gobierto-data-summary-header-btns gobierto-data-summary-separator"
     >
-      <DownloadButton
-        :array-formats="arrayFormats"
-        class="arrow-top modal-left"
-      />
-
+      <template v-if="moreThanOneFormat">
+        <DownloadButton
+          :array-formats="arrayFormats"
+          class="arrow-top modal-left"
+        />
+      </template>
+      <template v-else>
+        <DownloadLink
+          :editor="false"
+          :array-formats="arrayFormats"
+        />
+      </template>
       <router-link
         :to="`/datos/${$route.params.id}/${tabs[1]}`"
         class="gobierto-data-btn-preview"
@@ -142,6 +149,7 @@ import Queries from "./../commons/Queries.vue";
 import Caret from "./../commons/Caret.vue";
 import Description from "./../commons/Description.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
+import DownloadLink from "./../commons/DownloadLink.vue";
 import Button from "./../commons/Button.vue";
 import { tabs } from "../../../lib/router";
 import { translate } from "lib/vue/filters";
@@ -160,7 +168,8 @@ export default {
     Description,
     VisualizationsTab,
     SkeletonSpinner,
-    Visualizations
+    Visualizations,
+    DownloadLink
   },
   filters: {
     translate
@@ -315,6 +324,9 @@ export default {
     },
     hasGeometry() {
       return Object.keys(this.objectColumns).some(x => x === "geometry");
+    },
+    moreThanOneFormat() {
+      return Object.keys(this.arrayFormats).length > 1
     }
   },
   created() {

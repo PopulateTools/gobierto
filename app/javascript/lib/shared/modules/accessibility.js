@@ -1,4 +1,5 @@
-import "../../../../assets/stylesheets/accessibility.css";
+import "../../../stylesheets/accessibility.css";
+
 import axeCore from 'axe-core'
 
 let cache = {}

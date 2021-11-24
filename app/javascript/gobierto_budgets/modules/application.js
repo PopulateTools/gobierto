@@ -1,5 +1,5 @@
 import "devbridge-autocomplete";
-import { AUTOCOMPLETE_DEFAULTS, isDesktop } from "lib/shared";
+import { AUTOCOMPLETE_DEFAULTS } from "lib/shared";
 import {
   VisBubbleLegend,
   VisBubbles,
@@ -45,7 +45,7 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
 });
 
 $(document).on("turbolinks:load", function() {
-  if (!isDesktop()) {
+  if (!($(window).width() > 740)) {
     $(".open_line_browser").hide();
   }
 

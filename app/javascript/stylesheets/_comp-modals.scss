@@ -1,0 +1,211 @@
+@use "sass:color";
+/*
+ * Modals
+ *
+ */
+.modal {
+  position: relative;
+  background: $color_main_negative;
+  padding: 3em 4em 4em;
+  width: auto;
+  max-width: 750px;
+  margin: 20px auto;
+  overflow: hidden;
+
+  @include border-radius(5px);
+
+  color: $color_headers;
+
+  &#read_later {
+    input[type=submit],
+    .button {
+      padding: 0 1em;
+    }
+  }
+
+  &.modal-full-width {
+    max-width: 95%;
+    box-sizing: border-box;
+  }
+
+  &.modal-no-padding {
+    padding: 0;
+  }
+
+  .disclaimer {
+    font-size: 0.8em;
+    text-align: center;
+    margin: 2em 0;
+    opacity: 0.6;
+  }
+}
+
+.cropper-container {
+  border: 1px solid red;
+  padding: 1em;
+}
+
+.mfp-container {
+  padding: 0;
+}
+
+.mfp-bg {
+  opacity: 0.6;
+}
+
+.mfp-close-btn-in .mfp-close:hover {
+  color: $color_main_negative;
+  border-radius: 0;
+  background: transparent;
+}
+
+.modal_background {
+  position: relative;
+  background-color: var(--color-base);
+  padding: 1em 4em;
+  width: auto;
+  max-width: 950px;
+  margin: 20px auto;
+  border-radius: 5px;
+  color: $color_headers;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.modal-attachments {
+  position: relative;
+  padding: 0;
+  min-height: 600px;
+  max-width: 1024px;
+
+  @media (min-width: 1440px) {
+    min-height: 680px;
+    max-width: 1200px;
+  }
+
+  &.bg-highlight {
+    background: #fef0cd;
+  }
+
+  .mfp-close:hover {
+    background: transparent;
+    color: #333;
+    opacity: 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: #946b04;
+  }
+
+  table {
+    tbody {
+      overflow-y: scroll;
+      max-height: 350px;
+
+      @media (min-width: 1440px) {
+        max-height: 450px;
+      }
+    }
+
+    tr td:not(:first-child) {
+      color: $text_soft;
+    }
+  }
+
+  .file-sidebar {
+    background: #fef0cd;
+    transition: 0.3s;
+    height: 100%;
+    left: 66.6667%;
+    position: absolute;
+    border-radius: 4px;
+    z-index: 1;
+
+    i {
+      cursor: pointer;
+    }
+
+    &.dragged {
+      left: 0;
+      width: 100%;
+    }
+  }
+
+  .dragged .drag-section {
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .drag-section {
+    height: calc(100% - 115px);
+
+    .drag-drop {
+      text-align: center;
+      border: 3px dotted #b4a47d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      padding: 1em;
+
+      .input-file {
+        opacity: 0;
+        width: 100%;
+        height: 200px;
+        position: absolute;
+        cursor: pointer;
+      }
+
+      @media (min-width: 1440px) {
+        height: 100%;
+      }
+
+      &:hover,
+      &.active {
+        background: color.adjust(#fef0cd, $lightness: -5%);
+      }
+
+      .drag-call {
+        margin: 0 auto;
+        text-align: center;
+        max-width: 150px;
+        color: #b4a47d;
+
+        p {
+          margin-top: 0;
+        }
+      }
+
+      button {
+        background: var(--color-base);
+        color: white;
+        text-transform: uppercase;
+        padding: 0.75em 2em;
+      }
+    }
+  }
+
+  .dragged {
+    .strong {
+      color: $color_headers;
+    }
+
+    .form_item.textarea {
+      margin-bottom: 1em;
+
+      textarea {
+        min-height: 180px;
+        height: 180px;
+
+        @media (min-width: 1440px) {
+          min-height: 280px;
+          height: 280px;
+        }
+      }
+    }
+  }
+}

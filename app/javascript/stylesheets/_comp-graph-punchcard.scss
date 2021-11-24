@@ -1,0 +1,56 @@
+@use "sass:color";
+.punchcard {
+  min-height: 500px;
+  position: relative;
+
+  circle {
+    fill: var(--color-base);
+
+    &:hover {
+      fill: rgba(var(--color-base-string), 0.9);
+      // cursor: pointer;
+    }
+  }
+
+  line {
+    stroke: color.adjust($color_meta_text, $lightness: 25%);
+  }
+
+  rect {
+    pointer-events: none;
+  }
+
+  g.row {
+    &:nth-of-type(odd) rect {
+      fill: rgba(var(--color-base-string), 0.2);
+    }
+
+    &:nth-of-type(even) rect {
+      fill: none;
+    }
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .y.axis {
+    text-anchor: start;
+
+    .tick text {
+      font-size: $f7;
+      fill: $color_meta_text;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .x.axis {
+    .tick text {
+      font-size: $f8;
+      fill: $color_meta_text;
+    }
+  }
+}

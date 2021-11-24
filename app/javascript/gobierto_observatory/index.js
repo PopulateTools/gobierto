@@ -1,4 +1,4 @@
-import "../../assets/stylesheets/module-observatory.scss"
+import "../stylesheets/gobierto-observatory.scss"
 import "./modules/application.js"
 import { checkAndReportAccessibility } from 'lib/shared'
 

@@ -1,0 +1,222 @@
+/*
+ * Metric boxes
+ *
+ */
+
+.metric_boxes {
+  margin: 0 0 3em 0;
+
+  .metric_box {
+    box-sizing: border-box;
+
+    .inner {
+      background: rgba(var(--color-base-string), 0.15);
+      margin: 0 0.5em;
+      padding: 0.8em 1em;
+      min-height: 100px;
+      position: relative;
+
+      &.nomargin {
+        margin: 0;
+      }
+    }
+
+    h3 {
+      color: var(--color-base);
+      margin: 0 0 0.75em 0;
+      font-size: 1em;
+      opacity: 0.6;
+      font-weight: 600;
+    }
+
+    .metric {
+      font-size: 2em;
+      font-weight: 600;
+
+      small {
+        display: block;
+        margin: 13px 0;
+        font-weight: initial;
+        font-size: 24px;
+      }
+
+      span.small {
+        font-weight: initial;
+      }
+    }
+
+    .explanation {
+      font-size: 0.75em;
+      opacity: 0.6;
+      position: absolute;
+      line-height: 1.4;
+      bottom: 0.8em;
+
+      @include screen(768) {
+        display: none;
+      }
+
+      &.explanation--relative {
+        position: relative;
+        bottom: auto;
+        font-size: 0.875em;
+      }
+    }
+
+    span.not_av {
+      font-size: 1em;
+      opacity: 0.5;
+    }
+
+    .explanation_bar {
+      font-size: 0.75em;
+      position: absolute;
+      bottom: 0.8em;
+      width: calc(100% - 3em);
+    }
+
+    .bar {
+      display: inline-block;
+      width: 25%;
+      opacity: 1;
+      height: 10px;
+      background: rgba(var(--color-base-string), 0.1);
+      margin-right: 0.25rem;
+
+      .line {
+        opacity: 1;
+        height: 10px;
+        background: var(--color-base);
+      }
+    }
+
+    .tooltiped {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .diff {
+      opacity: 0.6;
+      font-size: 0.75em;
+
+      @include min-screen(768) {
+        bottom: 0.8em;
+        position: absolute;
+      }
+    }
+
+    .metric_details {
+      margin: 41.2px 0 0;
+
+      &.flex {
+        display: flex;
+
+        label {
+          margin-right: 24px;
+          font-size: 0.875em;
+        }
+      }
+    }
+  }
+
+  .metric_box:first-child {
+    .inner {
+      margin-left: 0;
+    }
+  }
+
+  .metric_box:last-child {
+    .inner {
+      margin-right: 0;
+    }
+  }
+}
+
+.metric_boxes_detailed {
+  .metric_box {
+    .inner {
+      padding: 0.8em 1em 2em 1em;
+
+      .metric_details {
+        margin: 1em 0;
+
+        th {
+          text-align: left;
+        }
+
+        th,
+        td {
+          padding: 0.25em 0;
+        }
+
+        &.flex {
+          display: flex;
+
+          label {
+            margin-right: 24px;
+            font-size: 0.875em;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include screen(740) {
+  .metric_boxes {
+    margin: 0 0 2em 0;
+
+    .metric_box {
+      .inner {
+        margin: 0;
+        min-height: initial;
+        padding: 0.5em;
+      }
+
+      h3 {
+        font-size: 0.85em;
+        min-height: initial;
+        line-height: 1em;
+      }
+
+      .metric {
+        font-size: 1.6em;
+      }
+
+      .explanation {
+        bottom: 0.2em;
+      }
+
+      span.not_av {
+        font-size: 0.6em;
+      }
+    }
+
+    .metric_box:nth-child(1n) {
+      .inner {
+        margin: 0 0.5em 1em 0;
+      }
+    }
+
+    .metric_box:nth-child(2n) {
+      .inner {
+        margin: 0 0 1em 0.5em;
+      }
+    }
+
+    .metric_box:last-child {
+      width: 100%;
+
+      .inner {
+        margin: 0;
+        min-height: initial;
+      }
+    }
+
+    .metric_box.cta {
+      a {
+        padding: 0.5em;
+      }
+    }
+  }
+}

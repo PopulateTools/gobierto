@@ -33,7 +33,7 @@ commands:
       - restore_cache:
           name: "[Bundler] Restore cache"
           keys:
-            - gobierto-bundler-{{ checksum "Gemfile.lock" }}
+            - gobierto-bundler-{{ checksum "Gemfile.lock" }}-{{ checksum ".ruby-version" }}
   restore_yarn_cache:
     steps:
       - restore_cache:
@@ -99,7 +99,7 @@ jobs:
           command: bundle install --path vendor/bundle --jobs=4 --retry=3  --without development
       - save_cache:
           name: "[Bundler] Cache dependencies"
-          key: gobierto-bundler-{{ checksum "Gemfile.lock" }}
+          key: gobierto-bundler-{{ checksum "Gemfile.lock" }}-{{ checksum ".ruby-version" }}
           paths:
             - vendor/bundle
 

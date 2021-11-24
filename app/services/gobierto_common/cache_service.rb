@@ -35,13 +35,5 @@ module GobiertoCommon
         /\A#{cache_prefix}\//.match? key
       end
     end
-
-    def clear_with_keys
-      @keys = nil
-
-      keys.each do |key|
-        Rails.cache.delete(key)
-      end
-    end
   end
 end

@@ -32,7 +32,7 @@ module GobiertoCommon
     # These methods are very inefficient
     def keys
       @keys ||= Rails.cache.redis.keys.select do |key|
-        /^#{cache_prefix}\//.match? key
+        /\A#{cache_prefix}\//.match? key
       end
     end
 

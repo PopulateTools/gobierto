@@ -52,9 +52,7 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:host, :request_id]
 
-  if ENV["GOBIERTO_CACHE_TYPE"] == "mem_cache_store"
-    config.cache_store = :mem_cache_store, ENV["GOBIERTO_CACHE_MEMCACHE_HOST"]
-  end
+  config.cache_store = :redis_cache_store, { url: ENV["REDIS_CACHE_URL"] }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   config.active_job.queue_adapter = :sidekiq

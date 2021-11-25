@@ -36,4 +36,8 @@ JSON
 
     settings.find { |_key, config| config["home"] }[0]
   end
+
+  def self.cache_base_key
+    "gvisualizations_"
+  end
 end

@@ -12,4 +12,8 @@ module GobiertoInvestments
   def self.doc_url
     "https://gobierto.readme.io/docs/inversiones"
   end
+
+  class << self
+    alias_method :cache_base_key, :table_name_prefix
+  end
 end

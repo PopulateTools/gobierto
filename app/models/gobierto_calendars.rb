@@ -33,4 +33,7 @@ module GobiertoCalendars
     sync_range_start_ibm_notes..sync_range_end_ibm_notes
   end
 
+  class << self
+    alias_method :cache_base_key, :table_name_prefix
+  end
 end

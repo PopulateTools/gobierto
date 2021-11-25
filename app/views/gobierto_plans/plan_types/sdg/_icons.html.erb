@@ -1,6 +1,6 @@
 <% @sdgs.sdgs_terms.each do |sdg| %>
   <% if (icon_path = @sdgs.sdg_icon(sdg)).present? %>
-    <% if @sdgs.sdgs_with_projects.include?(sdg) %>
+    <% if @sdgs.sdg_ids_with_projects.include?(sdg.id.to_s) %>
       <%= link_to(
             gobierto_plans_plan_sdg_path(slug: @plan.plan_type.slug, year: @plan.year, sdg_slug: sdg.slug),
             class:"sdg_icon"
@@ -12,7 +12,7 @@
       <%= image_pack_tag(icon_path, class: "sdg_icon sdg_icon_inactive") %>
     <% end %>
   <% else %>
-    <% if @sdgs.sdgs_with_projects.include?(sdg) %>
+    <% if @sdgs.sdg_ids_with_projects.include?(sdg.id.to_s) %>
       <%= link_to(
             gobierto_plans_plan_sdg_path(slug: @plan.plan_type.slug, year: @plan.year, sdg_slug: sdg.slug),
             class:"sdg_icon"

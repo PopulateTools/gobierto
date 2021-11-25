@@ -164,13 +164,13 @@ module GobiertoData
         private
 
         def cached_item_csv
-          Rails.cache.fetch("#{@item.cache_key_with_version}/show.csv?#{csv_options_params.to_json}") do
+          cache_service.fetch("#{@item.cache_key_with_version}/show.csv?#{csv_options_params.to_json}") do
             @item.csv_result(csv_options_params, include_draft: valid_preview_token?)
           end
         end
 
         def cached_item_json
-          Rails.cache.fetch("#{@item.cache_key_with_version}/show.json") do
+          cache_service.fetch("#{@item.cache_key_with_version}/show.json") do
             query_result = @item.result(include_draft: valid_preview_token?, include_stats: true)
             {
               data: query_result.delete(:result).to_a,

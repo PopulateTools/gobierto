@@ -47,10 +47,8 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
-
-  # Prepend all log lines with the following tags.
-  config.log_tags = [:host, :request_id]
+  config.log_level = :info
+  config.lograge.enabled = true
 
   config.cache_store = :redis_cache_store, { url: ENV["REDIS_CACHE_URL"] }
 

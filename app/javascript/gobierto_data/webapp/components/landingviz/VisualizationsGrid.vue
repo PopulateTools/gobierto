@@ -13,7 +13,10 @@
           <template v-slot:title>
             {{ name }}
           </template>
-          <img :src="config.base64">
+          <img
+            class="gobierto-data-visualization--image"
+            :src="config.base64"
+          >
           <router-link
             :to="`/datos/${slug}/`"
             class="gobierto-data-visualizations-name"

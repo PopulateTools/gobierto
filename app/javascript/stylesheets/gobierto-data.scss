@@ -1199,6 +1199,12 @@
     margin: 0 0 1rem;
   }
 
+  &-visualization--image {
+    height: 90%;
+    width: 100%;
+    object-fit: contain;
+  }
+
   &-description {
     height: auto;
     columns: 3;

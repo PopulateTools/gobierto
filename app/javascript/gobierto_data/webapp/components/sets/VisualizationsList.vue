@@ -30,8 +30,10 @@
                       <template v-slot:title>
                         {{ name }}
                       </template>
-                      <!-- Add styles to fit image -->
-                      <img :src="config.base64">
+                      <img
+                        class="gobierto-data-visualization--image"
+                        :src="config.base64"
+                      >
                     </CardVisualization>
                   </router-link>
                   <div class="gobierto-data-visualization--icons">
@@ -80,8 +82,10 @@
                   <template v-slot:title>
                     {{ name }}
                   </template>
-                  <!-- Add styles to fit image -->
-                  <img :src="config.base64">
+                  <img
+                    class="gobierto-data-visualization--image"
+                    :src="config.base64"
+                  >
                 </CardVisualization>
               </router-link>
             </div>

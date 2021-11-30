@@ -62,8 +62,10 @@
         </h2>
       </template>
       <div class="gobierto-data-visualization--aspect-ratio-16-9">
-        <!-- Add styles to fit image -->
-        <img :src="config.base64">
+        <img
+          class="gobierto-data-visualization--image"
+          :src="config.base64"
+        >
       </div>
     </Dropdown>
 

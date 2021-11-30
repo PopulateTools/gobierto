@@ -13,12 +13,7 @@
           <template v-slot:title>
             {{ name }}
           </template>
-          <Visualizations
-            v-if="items"
-            :items="items"
-            :object-columns="columns"
-            :config="config"
-          />
+          <img :src="config.base64">
           <router-link
             :to="`/datos/${slug}/`"
             class="gobierto-data-visualizations-name"
@@ -33,12 +28,10 @@
   </div>
 </template>
 <script>
-import Visualizations from "./../commons/Visualizations.vue";
 import CardVisualization from "./../../layouts/CardVisualization.vue";
 export default {
   name: "VisualizationsGrid",
   components: {
-    Visualizations,
     CardVisualization
   },
   props: {

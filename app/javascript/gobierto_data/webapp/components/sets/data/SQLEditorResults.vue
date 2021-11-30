@@ -34,7 +34,7 @@
           :enabled-viz-saved-button="enabledVizSavedButton"
           :show-private-public-icon-viz="showPrivatePublicIconViz"
           :registration-disabled="registrationDisabled"
-          @save="onSaveEventHandler"
+          @save="convertVizToImg"
           @keyDownInput="updateVizNameHandler"
           @isPrivateChecked="isPrivateChecked"
         />
@@ -95,6 +95,7 @@ import DownloadButton from "./../../commons/DownloadButton.vue";
 import DownloadLink from "./../../commons/DownloadLink.vue";
 import SavingDialog from "./../../commons/SavingDialog.vue";
 import Visualizations from "./../../commons/Visualizations.vue";
+import * as htmlToImage from 'html-to-image';
 
 export default {
   name: "SQLEditorResults",
@@ -181,7 +182,8 @@ export default {
       removeLabelBtn: false,
       perspectiveChanged: false,
       config: null,
-      configMapZoom: { ...this.configMap, zoom: true }
+      configMapZoom: { ...this.configMap, zoom: true },
+      imageApi: null
     };
   },
   computed: {
@@ -212,7 +214,28 @@ export default {
     onSaveEventHandler(opts) {
       // get children configuration
       const config = this.$refs.viewer.getConfig()
+      config.base64 = this.imageApi
       this.$root.$emit("storeCurrentVisualization", config, opts);
+    },
+    //TODO: Extract to common.js
+    convertVizToImg(opts) {
+      let node = document.querySelector('.gobierto-data-visualization--aspect-ratio-16-9');
+      const perspectiveChart = document.querySelector("perspective-viewer").shadowRoot
+      //Hide the top filters and the left sidebar
+      const perspectiveSidePanel = perspectiveChart.getElementById("side_panel")
+      const perspectiveTopPanel = perspectiveChart.getElementById("top_panel")
+      perspectiveSidePanel.style.display = "none"
+      perspectiveTopPanel.style.display = "none"
+      htmlToImage.toPng(node)
+        .then(function (dataUrl) {
+          this.imageApi = dataUrl
+          this.onSaveEventHandler(opts)
+          perspectiveSidePanel.style.display = "flex"
+          perspectiveTopPanel.style.display = "flex"
+        }.bind(this))
+        .catch(function (error) {
+          console.error('oops, something went wrong!', error);
+        });
     },
     updateVizNameHandler(value) {
       const {

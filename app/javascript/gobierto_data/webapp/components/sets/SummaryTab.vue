@@ -62,13 +62,8 @@
         </h2>
       </template>
       <div class="gobierto-data-visualization--aspect-ratio-16-9">
-        <Visualizations
-          v-if="showMap"
-          :items="items"
-          :config="config"
-          :object-columns="objectColumns"
-          :config-map="configMap"
-        />
+        <!-- Add styles to fit image -->
+        <img :src="config.base64">
       </div>
     </Dropdown>
 
@@ -142,7 +137,6 @@
 
 <script>
 import VisualizationsTab from "./VisualizationsTab.vue";
-import Visualizations from "./../commons/Visualizations.vue";
 import Resources from "./../commons/Resources.vue";
 import Info from "./../commons/Info.vue";
 import Queries from "./../commons/Queries.vue";
@@ -168,7 +162,6 @@ export default {
     Description,
     VisualizationsTab,
     SkeletonSpinner,
-    Visualizations,
     DownloadLink
   },
   filters: {

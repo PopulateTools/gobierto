@@ -23,7 +23,7 @@
           :show-private-viz="showPrivateViz"
           :show-label-edit="showLabelEdit"
           :reset-private="resetPrivate"
-          @save="onSaveEventHandler"
+          @save="convertVizToImg"
           @keyDownInput="updateVizName"
           @handlerFork="handlerForkViz"
           @isPrivateChecked="isPrivateChecked"
@@ -70,6 +70,7 @@ import { Loading } from "lib/vue/components";
 import Visualizations from "./../commons/Visualizations.vue";
 import SavingDialog from "./../commons/SavingDialog.vue";
 import { getUserId } from "./../../../lib/helpers";
+import * as htmlToImage from 'html-to-image';
 
 export default {
   name: "VisualizationsItem",
@@ -191,7 +192,8 @@ export default {
       name: '',
       isQuerySavingPromptVisible: false,
       saveLoader: false,
-      configMapZoom: { ...this.configMap, zoom: true }
+      configMapZoom: { ...this.configMap, zoom: true },
+      imageApi: null
     }
   },
   computed: {
@@ -253,6 +255,7 @@ export default {
       opts.queryViz = this.queryViz
       // get children configuration
       const config = this.$refs.viewer.getConfig()
+      config.base64 = this.imageApi
       this.$root.$emit("storeCurrentVisualization", config, opts);
       this.hidePromptSaveViz()
 
@@ -265,6 +268,23 @@ export default {
         this.$root.$emit("reloadVisualizations")
         this.saveLoader = false
       }
+    },
+    //TODO: Extract to common.js
+    convertVizToImg(opts) {
+      let node = document.querySelector('.gobierto-data-visualization--aspect-ratio-16-9');
+      const perspectiveChart = document.querySelector("perspective-viewer").shadowRoot
+      const perspectiveSidePanel = perspectiveChart.getElementById("side_panel")
+      const perspectiveTopPanel = perspectiveChart.getElementById("top_panel")
+      perspectiveSidePanel.style.display = "none"
+      perspectiveTopPanel.style.display = "none"
+      htmlToImage.toPng(node)
+        .then(function (dataUrl) {
+          this.imageApi = dataUrl
+          this.onSaveEventHandler(opts)
+        }.bind(this))
+        .catch(function (error) {
+          console.error('oops, something went wrong!', error);
+        });
     },
     updateVizName(value) {
       const {

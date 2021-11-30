@@ -30,12 +30,8 @@
                       <template v-slot:title>
                         {{ name }}
                       </template>
-                      <Visualizations
-                        :items="items"
-                        :config="config"
-                        :object-columns="objectColumns"
-                        :config-map="configMap"
-                      />
+                      <!-- Add styles to fit image -->
+                      <img :src="config.base64">
                     </CardVisualization>
                   </router-link>
                   <div class="gobierto-data-visualization--icons">
@@ -84,12 +80,8 @@
                   <template v-slot:title>
                     {{ name }}
                   </template>
-                  <Visualizations
-                    :items="items"
-                    :config="config"
-                    :object-columns="objectColumns"
-                    :config-map="configMap"
-                  />
+                  <!-- Add styles to fit image -->
+                  <img :src="config.base64">
                 </CardVisualization>
               </router-link>
             </div>
@@ -106,15 +98,14 @@
 <script>
 import { Loading, Dropdown } from "lib/vue/components";
 import Caret from "./../commons/Caret.vue";
-import Visualizations from "./../commons/Visualizations.vue";
 import PrivateIcon from './../commons/PrivateIcon.vue';
 import { getUserId } from "./../../../lib/helpers";
 import CardVisualization from "./../../layouts/CardVisualization.vue";
 
+
 export default {
   name: "VisualizationsList",
   components: {
-    Visualizations,
     PrivateIcon,
     Dropdown,
     Caret,

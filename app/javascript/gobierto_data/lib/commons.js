@@ -1,3 +1,5 @@
+import * as htmlToImage from 'html-to-image';
+
 export const baseUrl = `${location.origin}/api/v1/data`
 
 //TODO: extract handleOutsideClick outside directive
@@ -168,3 +170,45 @@ export const sqlKeywords = [
   }
 ]
 
+export const convertVizToImgMixin = {
+  methods: {
+    data() {
+      return {
+        labelVisualize: I18n.t('gobierto_data.projects.visualize') || "",
+        labelDashboard: I18n.t('gobierto_data.projects.dashboards') || "",
+        labelSavedVisualization: I18n.t("gobierto_data.projects.savedVisualization") || "",
+        labelModifiedVizualition: I18n.t("gobierto_data.projects.modifiedVisualization") || "",
+        labelQuery: I18n.t("gobierto_data.projects.query") || "",
+        items: null,
+        config: {},
+        vizSaveID: null,
+        queryID: '',
+        queryName: '',
+        user: null,
+        queryViz: '',
+        isVizElementSavingVisible: false,
+        name: '',
+        isQuerySavingPromptVisible: false,
+        saveLoader: false,
+        configMapZoom: { ...this.configMap, zoom: true },
+        imageApi: null
+      }
+    },
+    convertVizToImg(opts) {
+      let node = document.querySelector('.gobierto-data-visualization--aspect-ratio-16-9');
+      const perspectiveChart = document.querySelector("perspective-viewer").shadowRoot
+      const perspectiveSidePanel = perspectiveChart.getElementById("side_panel")
+      const perspectiveTopPanel = perspectiveChart.getElementById("top_panel")
+      perspectiveSidePanel.style.display = "none"
+      perspectiveTopPanel.style.display = "none"
+      htmlToImage.toPng(node)
+        .then(function (dataUrl) {
+          this.imageApi = dataUrl
+          this.onSaveEventHandler(opts)
+        }.bind(this))
+        .catch(function (error) {
+          console.error('oops, something went wrong!', error);
+        });
+    }
+  }
+}

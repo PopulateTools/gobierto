@@ -1170,6 +1170,9 @@
     padding: 16px;
     border-radius: 3px;
     min-height: 350px;
+    .gobierto-data-visualization--image {
+      height: 90%;
+    }
   }
 
   &-visualization--content {
@@ -1200,7 +1203,7 @@
   }
 
   &-visualization--image {
-    height: 90%;
+    height: 80%;
     width: 100%;
     object-fit: contain;
   }

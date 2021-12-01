@@ -22,7 +22,6 @@
 </template>
 <script>
 import VisualizationsGrid from "./../components/landingviz/VisualizationsGrid";
-import { convertToCSV } from "./../../lib/helpers";
 import { VisualizationFactoryMixin } from "./../../lib/factories/visualizations";
 import { DataFactoryMixin } from "./../../lib/factories/data";
 import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
@@ -65,87 +64,32 @@ export default {
 
       this.publicVisualizations = await this.getDataFromVisualizations(data);
       this.isLoading = false;
-      this.removeAllIcons();
     },
     async getDataFromVisualizations(data) {
-      const queryPromises = new Map();
       const visualizations = data.map(x => {
         const {
           attributes: {
-            query_id,
             dataset_id,
-            user_id,
-            sql = "",
             spec = {},
             name = "",
-            privacy_status = "open"
           } = {},
           id
         } = x;
 
-        // only store new (different) queries (promises)
-        if (!queryPromises.has(query_id || sql)) {
-          queryPromises.set(
-            query_id || sql,
-            query_id ? this.getQuery(query_id) : this.getData({ sql })
-          );
-        }
-
         //Filter by id to get the slug and the columns.
-        const [{ attributes: { columns, slug: slugDataset } }] = this.listDatasets.filter(({ id }) => id == dataset_id)
+        const [{ attributes: { slug: slugDataset } }] = this.listDatasets.filter(({ id }) => id == dataset_id)
 
         return {
           config: spec,
           dataset_id,
-          columns,
           slug: slugDataset,
           name,
-          privacy_status,
-          query_id,
-          id,
-          user_id,
-          sql
+          id
         };
       });
 
-      // wait for queries to be solved
-      const responses = await Promise.all(
-        [...queryPromises.values()].map(x => x.catch(e => e.response))
-      );
+      return visualizations;
 
-      [...queryPromises].forEach((item, i) => {
-        // ignore the null, they're comes from error catch
-        if (responses[i].status !== 200) {
-          return queryPromises.delete(item[0]);
-        }
-
-        const { data } = responses[i];
-        // in the map, replace each promise with its respective response (formatting the results)
-        return queryPromises.set(
-          item[0],
-          typeof data === "object" ? convertToCSV(data.data) : data
-        );
-      });
-
-      // finally update all existing visualizations with the properly results
-      // remove those visualizations whose data is erroneus
-      return visualizations.reduce((acc, x) => {
-        const k = x.query_id || x.sql;
-        if (queryPromises.has(k))
-          acc.push({ ...x, items: queryPromises.get(k) });
-        return acc;
-      }, []);
-    },
-    removeAllIcons() {
-      /*Method to remove the config icon for all visualizations, we need to wait to load both lists when they are loaded, we select alls visualizations, and iterate over them with a loop to remove every icon.*/
-      this.$nextTick(() => {
-        let vizList = document.querySelectorAll("perspective-viewer");
-        for (let index = 0; index < vizList.length; index++) {
-          vizList[index].shadowRoot.querySelector(
-            "div#config_button"
-          ).style.display = "none";
-        }
-      });
     }
   }
 };

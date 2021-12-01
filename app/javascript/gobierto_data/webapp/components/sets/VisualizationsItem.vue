@@ -248,7 +248,6 @@ export default {
   },
   methods: {
     onSaveEventHandler(opts) {
-      this.saveLoader = true
       //Add visualization ID to opts object, we need it to update a viz saved
       opts.vizID = Number(this.vizSaveID)
       opts.user = Number(this.user)

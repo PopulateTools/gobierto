@@ -16,7 +16,7 @@
           </template>
           <template v-else>
             <template v-if="privateVisualizations.length">
-              <template v-for="{ items, config, name, privacy_status, id, user_id } in privateVisualizations">
+              <template v-for="{ config: { base64 }, name, privacy_status, id, user_id } in privateVisualizations">
                 <div
                   :key="id"
                   class="gobierto-data-visualization--container"
@@ -32,7 +32,7 @@
                       </template>
                       <img
                         class="gobierto-data-visualization--image"
-                        :src="config.base64"
+                        :src="base64"
                       >
                     </CardVisualization>
                   </router-link>
@@ -71,7 +71,7 @@
 
       <div class="gobierto-data-visualization--grid">
         <template v-if="publicVisualizations.length">
-          <template v-for="{ items, config, name, id, user_id } in publicVisualizations">
+          <template v-for="{ config: { base64 }, name, id, user_id } in publicVisualizations">
             <div :key="id">
               <router-link
                 :to="`/datos/${$route.params.id}/v/${id}`"
@@ -84,7 +84,7 @@
                   </template>
                   <img
                     class="gobierto-data-visualization--image"
-                    :src="config.base64"
+                    :src="base64"
                   >
                 </CardVisualization>
               </router-link>
@@ -164,21 +164,14 @@ export default {
   watch: {
     isPrivateVizLoading(newValue) {
       if (!newValue) {
-        this.removeAllIcons()
         this.deleteAndReload = false
       }
-    },
-    isPublicVizLoading(newValue) {
-      if (!newValue) this.removeAllIcons()
     },
     privateVisualizations(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.deleteAndReload = false
       }
     }
-  },
-  mounted() {
-    this.removeAllIcons()
   },
   methods: {
     loadViz(vizName, user) {
@@ -195,17 +188,6 @@ export default {
       const answerDelete = confirm(this.labelDeleteViz);
       if (answerDelete) {
         this.$emit('emitDelete', id)
-      }
-    },
-    removeAllIcons() {
-      /*Method to remove the config icon for all visualizations, we need to wait to load both lists when they are loaded, we select alls visualizations, and iterate over them with a loop to remove every icon.*/
-      if (!this.isPrivateVizLoading && !this.isPublicVizLoading) {
-        this.$nextTick(() => {
-          let vizList = document.querySelectorAll("perspective-viewer");
-          for (let index = 0; index < vizList.length; index++) {
-            vizList[index].shadowRoot.querySelector("div#config_button").style.display = "none";
-          }
-        })
       }
     }
   }

@@ -24,6 +24,7 @@
   --transition: .1s ease-in;
   --shadow: 0 2px 20px rgba(0, 0, 0, .3);
   --grey-dataset: rgba(51, 51, 51, .5);
+  --grey-text: #666;
 }
 
 .gobierto-data {
@@ -94,7 +95,7 @@
   &-tab-sidebar--tab {
     font-style: normal;
     font-size: $f7;
-    color: #666;
+    color: var(--grey-text);
     cursor: pointer;
     width: 100%;
     display: inline-block;
@@ -131,7 +132,6 @@
     letter-spacing: 0;
 
     &-big {
-      font-size: 24px;
       margin-bottom: 0;
     }
   }
@@ -210,10 +210,19 @@
     box-sizing: border-box;
   }
 
+  &-summary-body {
+    background: #f5f5f5;
+  }
+
   &-summary-header-description {
     margin-top: 0;
+    padding-right: 2rem;
     font-size: $f7;
-    color: #666;
+    color: var(--grey-text);
+    line-height: 1.45;
+    p {
+      margin: .25rem 0;
+    }
   }
 
   &-summary-header-description-link {
@@ -221,15 +230,10 @@
     cursor: pointer;
   }
 
-  &-summary-header-container {
-    margin: .5rem 0;
-  }
-
   &-summary-header-container-text,
   &-summary-header-container-label,
   &-summary-header-container-text-link {
-    font-size: 1rem;
-    color: #666;
+    color: var(--grey-text);
     display: inline-block;
   }
 
@@ -238,8 +242,9 @@
   }
 
   &-summary-header-container-label {
-    width: 110px;
+    width: 100px;
     color: rgba(102, 102, 102, .5);
+    font-weight: 600;
   }
 
   &-summary-btn-download-data {
@@ -247,6 +252,8 @@
     color: var(--color-base);
     border-radius: 3px;
     padding: 1.5rem;
+    margin: 0;
+    margin-top: .5rem;
     border: 1px solid rgba(1, 120, 168, .2);
   }
 
@@ -274,15 +281,72 @@
     margin-bottom: 1rem;
   }
 
-  &-info-list-element {
-    width: 100%;
-    border: 1px solid rgba(var(--color-base-string), 0.3);
-    border-radius: 3px;
-    padding: 1em 1.25em;
+  &-info-list-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
 
-    &:not(:last-child) {
-      margin-bottom: 2rem;
+  &-info-list-top {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &-info-list-title {
+    min-height: 50px;
+    transition: color .3s ease-in;
+  }
+
+  &-info-list-element {
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid #F5F5F5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+    border-radius: 4px;
+    &:hover {
+      text-decoration: none;
+      .gobierto-data-info-list-title {
+        color: #fff;
+      }
+      .gobierto-data-summary-header {
+        background: var(--color-base);
+      }
+      .gobierto-data-summary-body {
+        background: #fff;
+      }
+      .gobierto-data-summary-header-container-text {
+        color: #fff;
+      }
     }
+    .gobierto-data-summary-header {
+      padding: 1rem 1rem .5rem 1rem;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      transition: background .3s ease-in;
+      max-height: 140px;
+      min-height: 140px;
+    }
+
+    .gobierto-data-summary-header-description {
+      padding-right: 0;
+    }
+
+    .gobierto-data-summary-body {
+      padding: .5rem 1rem 1rem 1rem;
+      min-height: 115px;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      transition: background .3s ease-in;
+      position: relative;
+
+      i {
+        position: absolute;
+        top: 80%;
+        left: 90%;
+        color: var(--color-base);
+      }
+    }
+
   }
 
   &-resources-list-element-name {
@@ -359,26 +423,36 @@
     margin-top: 0;
     font-family: monospace;
     font-size: 12px;
-    color: #666;
+    color: var(--grey-text);
     position: sticky;
     top: 0;
   }
 
   &-btn-download-data {
     border: 1px solid rgba(var(--color-base-string), .2);
-    padding: 1rem;
+    padding: .5rem;
     font-size: 1rem;
     font-family: $font_text;
     font-weight: 600;
     min-width: 250px;
-    margin: 1rem 1rem .5rem .25rem;
+    margin: 0 0 .5rem 0;
     position: relative;
     text-transform: unset;
     vertical-align: top;
   }
 
+  &-summary-header-btns {
+    margin-bottom: 1rem;
+    width: 100%;
+
+    a.gobierto-data-btn-download-data {
+      width: 100%;
+    }
+  }
+
   a.gobierto-data-btn-download-data {
     display: inline-block;
+    box-sizing: border-box;
     background: #fff;
     text-align: center;
     text-decoration: none;
@@ -391,7 +465,7 @@
 
   &-container-btn-download-data {
     position: relative;
-    width: max-content;
+    width: 100%;
     display: inline-flex;
 
     &.arrow-top {
@@ -569,7 +643,7 @@
     background-color: transparent;
     transition: background-color var(--transition);
     padding: .5rem 1rem;
-    color: #000;
+    color: var(--grey-text);
     display: block;
     width: 100%;
     text-decoration: none;
@@ -599,7 +673,7 @@
 
   .CodeMirror-code {
     font-size: 12px;
-    color: #666;
+    color: var(--grey-text);
     font-family: monospace;
   }
 
@@ -725,7 +799,7 @@
 
   &-sql-editor-container-save-label {
     font-size: $f7;
-    color: #666;
+    color: var(--grey-text);
     padding-right: .5em;
     cursor: pointer;
   }
@@ -743,7 +817,7 @@
   &-sql-editor-modified-label,
   &-sql-editor-modified-event {
     font-size: $f7;
-    color: #666;
+    color: var(--grey-text);
     opacity: .5;
   }
 
@@ -759,7 +833,7 @@
   &-sql-editor-footer-guide {
     display: inline-block;
     font-size: $f7;
-    color: #666;
+    color: var(--grey-text);
     opacity: .6;
   }
 
@@ -779,6 +853,10 @@
 
   &-sql-editor-tabs {
     margin-top: 2rem;
+
+    .gobierto-data-container-btn-download-data {
+      width: max-content;
+    }
 
     .gobierto-data-btn-download-data-modal {
       margin-top: 1rem;
@@ -805,7 +883,7 @@
       border: 1px solid rgba(#666, .1);
       border-top: 0;
       font-size: $f7;
-      color: #666;
+      color: var(--grey-text);
 
       thead,
       tr,
@@ -856,7 +934,7 @@
     text-transform: none !important;
     box-sizing: border-box;
     position: relative;
-    color: #666;
+    color: var(--grey-text);
     font-family: monospace;
 
     &:hover,
@@ -948,7 +1026,7 @@
 
   &-summary-queries-container-name {
     font-size: $f7;
-    color: #666;
+    color: var(--grey-text);
     display: inline-block;
     vertical-align: middle;
     width: 78%;
@@ -962,7 +1040,7 @@
 
   &-visualizations-name {
     font-size: $f7;
-    color: #666;
+    color: var(--grey-text);
     display: inline-block;
     vertical-align: middle;
     width: 100%;
@@ -1054,7 +1132,7 @@
   &-sidebar-datasets-name {
     font-size: $f7;
     cursor: pointer;
-    color: #000;
+    color: var(--grey-text);
     text-decoration: none;
   }
 
@@ -1171,7 +1249,7 @@
     border-radius: 3px;
     min-height: 350px;
     .gobierto-data-visualization--image {
-      height: 90%;
+      height: 80%;
     }
   }
 
@@ -1203,7 +1281,7 @@
   }
 
   &-visualization--image {
-    height: 80%;
+    height: 90%;
     width: 100%;
     object-fit: contain;
   }
@@ -1215,7 +1293,12 @@
   }
 
   &-btn-preview {
-    margin-left: 1.25rem;
+    width: 100%;
+    display: inline-block;
+
+    .gobierto-data-btn-download-data {
+      width: 100%;
+    }
 
     &:hover {
       color: var(--color-base);
@@ -1225,10 +1308,6 @@
   &-columns-icon {
     font-size: 11px;
     opacity: .5;
-  }
-
-  &-summary-header-btns {
-    margin-top: 1.5rem;
   }
 
   &-columns-icon-boolean::before,
@@ -1323,5 +1402,43 @@
   &-summary-visualizations {
     padding: 0 1rem 1rem 1rem;
   }
+
+  &-description-details {
+    margin: .5rem 0;
+  }
+
+  &-description-details-orders:first-of-type,
+  &-description-details-columns {
+    margin-top: 2rem;
+  }
+
+  &-description-summary-title {
+    cursor: pointer;
+    &::marker {
+      color: var(--color-base);
+    }
+  }
+  &-description-summary-grid,
+  &-description-summary-grid-two-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 .25rem;
+  }
+  &-description-summary-grid-two-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  &-description-summary-grid-element {
+    display: grid;
+    grid-template-columns: 75% 1fr;
+    margin-bottom: .125rem;
+  }
+  &-description-summary-grid-element-link {
+    color: var(--color-base);
+  }
+  &-description-summary-grid-element-size {
+    /* TO_DO: Create a var/custom-property */
+    color: #9B9B9B;
+  }
+
 
 }

@@ -3,7 +3,7 @@
     v-if="publicVisualizations && publicVisualizations.length"
     class="gobierto-data-visualization--grid"
   >
-    <template v-for="{ items, config, columns, name, id, slug, datasetName } in publicVisualizations">
+    <template v-for="{ config, name, id, slug, nameDataset } in publicVisualizations">
       <router-link
         :key="id"
         :to="`/datos/${slug}/v/${id}`"
@@ -22,7 +22,7 @@
             class="gobierto-data-visualizations-name"
           >
             <h4 class="gobierto-data-visualization--dataset">
-              {{ datasetName }}
+              {{ nameDataset }}
             </h4>
           </router-link>
         </CardVisualization>

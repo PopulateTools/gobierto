@@ -77,13 +77,14 @@ export default {
         } = x;
 
         //Filter by id to get the slug and the columns.
-        const [{ attributes: { slug: slugDataset } }] = this.listDatasets.filter(({ id }) => id == dataset_id)
+        const [{ attributes: { slug: slugDataset, name: nameDataset } }] = this.listDatasets.filter(({ id }) => id == dataset_id)
 
         return {
           config: spec,
           dataset_id,
           slug: slugDataset,
           name,
+          nameDataset,
           id
         };
       });

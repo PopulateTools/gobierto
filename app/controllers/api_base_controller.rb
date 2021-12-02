@@ -6,8 +6,9 @@ class ApiBaseController < ActionController::API
   include ::GobiertoCommon::ModuleHelper
   include ApplicationConcern
   include ::User::ApiAuthenticationHelper
+  include HttpCache
 
-  before_action :disable_cors, :check_host, :authenticate_in_site
+  before_action :disable_cors, :check_host, :authenticate_in_site, :set_cache_headers
 
   rescue_from ActiveRecord::RecordNotFound, with: -> { send_not_found }
 
@@ -53,5 +54,4 @@ class ApiBaseController < ActionController::API
     response.set_header("Access-Control-Allow-Origin", "*")
     response.set_header("Access-Control-Request-Method", "*")
   end
-
 end

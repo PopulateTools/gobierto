@@ -9,7 +9,7 @@ module GobiertoPlans
         # GET /api/v1/plans/1/projects
         # GET /api/v1/plans/1/projects.json
         def index
-          json = Rails.cache.fetch("#{filtered_relation.cache_key_with_version}/#{@plan.cache_key}/#{I18n.locale}/projects_collection") do
+          json = cache_service.fetch("#{filtered_relation.cache_key_with_version}/#{@plan.cache_key}/#{I18n.locale}/projects_collection") do
             render_to_string(
               json: filtered_relation,
               links: links(:index),

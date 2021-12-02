@@ -198,8 +198,6 @@ GEM
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
     ffi (1.15.0)
-    font-awesome-sass (5.15.1)
-      sassc (>= 1.11)
     foreman (0.87.2)
     gems (1.2.0)
     geocoder (1.6.7)
@@ -237,6 +235,7 @@ GEM
     hashdiff (1.0.1)
     hashie (4.1.0)
     highline (2.0.3)
+    hiredis (0.6.3)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -449,8 +448,6 @@ GEM
       activesupport (>= 4.2.5)
     rubyntlm (0.6.3)
     rubyzip (2.3.0)
-    sassc (2.4.0)
-      ffi (~> 1.9)
     savon (2.12.0)
       akami (~> 1.2)
       builder (>= 2.1.2)
@@ -555,12 +552,12 @@ DEPENDENCIES
   elasticsearch (~> 6.0, >= 6.0.2)
   elasticsearch-extensions (~> 0.0.27)
   exchanger
-  font-awesome-sass (~> 5.6)
   foreman
   geocoder
   gobierto_budgets_data!
   google-api-client
   hashie
+  hiredis
   i18n-js (>= 3.0.0.rc11)
   i18n-tasks
   ine-places (= 0.3.0)

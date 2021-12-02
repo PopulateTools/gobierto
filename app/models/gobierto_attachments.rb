@@ -8,4 +8,8 @@ module GobiertoAttachments
   def self.permitted_attachable_types
     %w(GobiertoCms::Page GobiertoCalendars::Event GobiertoData::Dataset)
   end
+
+  class << self
+    alias_method :cache_base_key, :table_name_prefix
+  end
 end

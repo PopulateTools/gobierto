@@ -1,0 +1,180 @@
+/*
+ * Layout
+ *
+ */
+.column {
+  width: calc(100% - 6rem);
+  max-width: 1400px;
+  margin: auto;
+
+  @include screen(740) {
+    width: initial;
+    margin: auto 1em;
+  }
+}
+
+.main_content {
+  padding: 0 0 0 5em;
+  box-sizing: border-box;
+}
+
+.small_column {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.content_side {
+  padding-right: 25%;
+}
+
+/*
+ * Footer
+ *
+ */
+footer {
+  border-top: 1px solid;
+  border-color: $color_main_soft;
+  padding: 3em 0;
+  margin: 10em 0 0 0;
+  clear: both;
+
+  .logo {
+    max-width: 275px;
+
+    @include screen(740) {
+      max-width: 100%;
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+      margin: 0 1em 0 0;
+      display: block;
+    }
+  }
+
+  a {
+    color: var(--color-base);
+    text-decoration: none;
+  }
+
+  .copyright_notice {
+    opacity: 0.5em;
+  }
+
+  .footer_tools {
+    margin-top: 3em;
+  }
+
+  .box {
+    background: none;
+    margin: 0;
+
+    .inner {
+      padding: 0;
+
+      h3 {
+        display: none;
+      }
+    }
+  }
+
+  .gobierto_notice {
+    opacity: 0.5;
+    margin-top: 5em;
+  }
+}
+
+/*
+ * Grid paddings (for boxes)
+ *
+ */
+
+/* 2x2 grid paddings */
+.two_by_two {
+  & > div {
+    box-sizing: border-box;
+    // margin-bottom: 1em;
+
+    &:nth-child(odd) {
+      @include min-screen(740) {
+        padding: 0 0.75em 1em 0;
+      }
+    }
+
+    &:nth-child(even) {
+      @include min-screen(740) {
+        padding: 0 0 1em 0.75em;
+      }
+    }
+  }
+}
+
+/* 3x3 grid paddings */
+.three_by_three {
+  & > div {
+    box-sizing: border-box;
+
+    @include min-screen(740) {
+      padding: 0 0.75em 2em 0.75em;
+    }
+
+    &:nth-child(3n) {
+      padding-right: 0;
+    }
+
+    &:nth-child(3n+1) {
+      padding-left: 0;
+    }
+
+    &:first-child {
+      @include min-screen(740) {
+        padding: 0 0.75em 2em 0;
+      }
+    }
+
+    &:last-child {
+      @include min-screen(740) {
+        padding: 0 0 2em 0.75em;
+      }
+    }
+  }
+}
+
+.four_by_four {
+  & > div {
+    box-sizing: border-box;
+
+    @include min-screen(740) {
+      padding: 0 0.75em 2em 0.75em;
+    }
+
+    &:first-child {
+      @include min-screen(740) {
+        padding: 0 0.75em 2em 0;
+      }
+    }
+
+    &:nth-child(4n+4) {
+      @include min-screen(740) {
+        padding: 0 0 2em 0.75em;
+      }
+    }
+
+    &:nth-child(4n+1) {
+      @include min-screen(740) {
+        padding: 0 0.75em 2em 0;
+      }
+    }
+  }
+}
+
+.flex_container {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}

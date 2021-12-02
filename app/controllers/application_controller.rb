@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include ::GobiertoCommon::FileUploadHelper
   include ::GobiertoCms::GlobalNavigation
   include ApplicationConcern
+  include HttpCache
 
   protect_from_forgery with: :exception
 
@@ -23,7 +24,7 @@ class ApplicationController < ActionController::Base
     :cache_key_preffix
   )
 
-  before_action :apply_engines_overrides, :authenticate_user_in_site, :allow_iframe_embed
+  before_action :apply_engines_overrides, :authenticate_user_in_site, :allow_iframe_embed, :set_cache_headers
 
   def render_404
     render file: Rails.root.join("public/404.html"), status: 404, layout: false, handlers: [:erb], formats: [:html]

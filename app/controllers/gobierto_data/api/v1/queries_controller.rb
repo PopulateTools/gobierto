@@ -164,13 +164,13 @@ module GobiertoData
         private
 
         def cached_item_csv
-          Rails.cache.fetch("#{@item.cache_key_with_version}/show.csv?#{csv_options_params.to_json}") do
+          cache_service.fetch("#{@item.cache_key_with_version}/show.csv?#{csv_options_params.to_json}") do
             @item.csv_result(csv_options_params, include_draft: valid_preview_token?)
           end
         end
 
         def cached_item_json
-          Rails.cache.fetch("#{@item.cache_key_with_version}/show.json") do
+          cache_service.fetch("#{@item.cache_key_with_version}/show.json") do
             query_result = @item.result(include_draft: valid_preview_token?, include_stats: true)
             {
               data: query_result.delete(:result).to_a,
@@ -201,7 +201,7 @@ module GobiertoData
         end
 
         def filtered_relation
-          if user_authenticated? && (filter_params[:user_id].nil? || filter_params[:user_id].to_i == current_user.id)
+          if user_signed_in? && (filter_params[:user_id].nil? || filter_params[:user_id].to_i == current_user.id)
             base_relation.where(filter_params).or(
               base_relation.unscope(where: :privacy_status).where(filter_params.merge(user_id: current_user.id))
             )

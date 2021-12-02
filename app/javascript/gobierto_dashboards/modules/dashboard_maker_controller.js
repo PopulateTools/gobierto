@@ -1,5 +1,5 @@
-import "../../../assets/stylesheets/module-dashboards-maker.scss";
-import "../../../assets/stylesheets/module-dashboards-viewer.scss";
+import "../../stylesheets/gobierto-dashboards-maker.scss";
+import "../../stylesheets/gobierto-dashboards-viewer.scss";
 import Maker from "../webapp/Maker.vue";
 import { GobiertoDashboardCommonsController } from "./dashboard_commons_controller";
 

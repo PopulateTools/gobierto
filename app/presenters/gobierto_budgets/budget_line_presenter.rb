@@ -172,7 +172,7 @@ module GobiertoBudgets
         id: code,
         year: year,
         kind: kind,
-        area_name: area_name
+        area_name: area.area_name
       }
     end
 

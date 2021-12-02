@@ -9,7 +9,7 @@ module User::ApiAuthenticationHelper
     @current_user ||= find_current_user
   end
 
-  def user_authenticated?
+  def user_signed_in?
     current_user.present?
   end
 
@@ -18,7 +18,7 @@ module User::ApiAuthenticationHelper
   end
 
   def authenticate_user!
-    raise_unauthorized unless user_authenticated?
+    raise_unauthorized unless user_signed_in?
   end
 
   # The host is not checked if request is internal or the site is not password
@@ -30,7 +30,7 @@ module User::ApiAuthenticationHelper
   end
 
   def authenticate_in_site
-    return if token.present? && (user_authenticated? || admin_authorized?)
+    return if token.present? && (user_signed_in? || admin_authorized?)
 
     authenticate_user_in_site unless internal_site_request?
   end

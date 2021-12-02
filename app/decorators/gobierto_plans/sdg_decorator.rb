@@ -20,6 +20,18 @@ module GobiertoPlans
       @sdgs_with_projects ||= sdg_records.map(&:value).flatten.uniq
     end
 
+    def sdg_ids_with_projects
+      @sdg_ids_with_projects ||= sdgs_transformed_values.values.map(&:values).flatten.uniq
+    end
+
+    def sdgs_transformed_values
+      @sdgs_transformed_values ||= GobiertoCommon::CustomFieldsService.new(
+        relation: nodes_relation,
+        custom_fields: sdg_fields,
+        site: site
+      ).transformed_custom_field_record_values
+    end
+
     def sdgs_terms
       return unless sdg_field.vocabulary.present?
 
@@ -37,9 +49,9 @@ module GobiertoPlans
     end
 
     def sdg_percentage(sdg)
-      return if sdgs_assignations.zero?
+      return if total_sdgs_root_level_assignations.zero?
 
-      ActionController::Base.helpers.number_with_precision((projects_by_sdg(sdg).count * 100.0) / sdgs_assignations, precision: 1) + "%"
+      "#{ActionController::Base.helpers.number_with_precision((sdgs_root_level_distribution.count(sdg.id.to_s) * 100.0) / total_sdgs_root_level_assignations, precision: 1)}%"
     end
 
     def sdg_term(sdg_slug)
@@ -50,6 +62,16 @@ module GobiertoPlans
       return unless sdg.external_id.present?
 
       "ods/ods_goal_#{sdg.external_id.rjust(2, "0")}_#{I18n.locale}.png"
+    end
+
+    def sdg_fields
+      return site.custom_fields.none if configuration_data.blank?
+
+      @sdg_fields ||= if configuration_data.blank?
+                        site.custom_fields.none
+                      else
+                        site.custom_fields.where(uid: configuration_data["sdg_uid"])
+                      end
     end
 
     private
@@ -64,10 +86,17 @@ module GobiertoPlans
       @nodes_query ||= GobiertoCommon::CustomFieldsQuery.new(relation: nodes_relation, custom_fields: site.custom_fields.where(id: sdg_field.id))
     end
 
-    def sdgs_assignations
-      @sdgs_assignations ||= GobiertoCommon::CustomFieldRecord.where(custom_field: sdg_field, item: nodes_relation).map do |record|
-        record.value.where(level: 0).count
-      end.sum
+    def total_sdgs_root_level_assignations
+      @total_sdgs_root_level_assignations ||= sdgs_root_level_distribution.count
+    end
+
+    def sdgs_root_level_distribution
+      @sdgs_root_level_distribution ||= begin
+                                          root_level_ids = sdgs_terms.pluck(:id).to_s
+                                          sdgs_transformed_values.transform_values do |payload|
+                                            payload.values.flatten.select { |sdg_id| root_level_ids.include?(sdg_id) }
+                                          end
+                                        end.values.flatten
     end
 
     def nodes_count

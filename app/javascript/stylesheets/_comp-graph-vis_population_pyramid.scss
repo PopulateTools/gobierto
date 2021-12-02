@@ -1,0 +1,128 @@
+@use "sass:color";
+#population_pyramid {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  vertical-align: top;
+  overflow: hidden;
+
+  svg {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .pyramid {
+    $male-color: $color_main;
+    $female-color: color.invert($color_main);
+
+    .males {
+      rect {
+        fill: $male-color;
+
+        &:hover {
+          cursor: pointer;
+          fill: color.adjust($male-color, $lightness: -10%);
+        }
+      }
+
+      line {
+        stroke-width: 1px;
+        stroke: color.adjust($male-color, $lightness: 5%);
+      }
+    }
+
+    .females {
+      rect {
+        fill: $female-color;
+
+        &:hover {
+          cursor: pointer;
+          fill: color.adjust($female-color, $lightness: -10%);
+        }
+      }
+
+      line {
+        stroke-width: 1px;
+        stroke: color.adjust($female-color, $lightness: 5%);
+      }
+    }
+
+    .titles {
+      font-weight: 600;
+      font-size: $f7;
+      fill: $color_text;
+    }
+
+    .tick {
+      text {
+        fill: color.adjust($color_text, $lightness: 25%);
+        font-size: $f8;
+      }
+
+      line {
+        stroke: color.adjust($color_text, $lightness: 50%);
+      }
+    }
+
+    .y.axis {
+      text-anchor: end;
+    }
+
+    .tooltip {
+      font-weight: 600;
+      font-size: $f7;
+      fill: $color_text;
+    }
+  }
+
+  .areas {
+    .title {
+      font-weight: 600;
+      font-size: $f6;
+      fill: $color_text;
+    }
+
+    .subtitle {
+      font-size: $f7;
+      fill: $color_text;
+      opacity: .7;
+    }
+
+    .range {
+      &.r-0,
+      &.r-1,
+      &.r-2 {
+        rect,
+        rect.inner {
+          fill: $color_logo_yellow;
+        }
+      }
+
+      &.r-1 rect {
+        opacity: .4;
+      }
+
+      &.r-2 rect {
+        opacity: .2;
+      }
+    }
+  }
+
+  .marks {
+    .mark {
+      line {
+        stroke: $color_logo_yellow;
+        stroke-width: 2px;
+      }
+
+      text {
+        font-size: $f6;
+        fill: $color_text;
+        font-weight: 600;
+      }
+    }
+  }
+}

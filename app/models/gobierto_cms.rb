@@ -28,4 +28,8 @@ module GobiertoCms
   def self.root_path(_)
     Rails.application.routes.url_helpers.root_path
   end
+
+  class << self
+    alias_method :cache_base_key, :table_name_prefix
+  end
 end

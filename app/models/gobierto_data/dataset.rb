@@ -11,6 +11,7 @@ module GobiertoData
     include GobiertoAttachments::Attachable
     include GobiertoCommon::Collectionable
     include GobiertoCommon::Searchable
+    include GobiertoCommon::HasCacheService
 
     multisearchable(
       against: [:name_translations ,:name_en, :name_es],

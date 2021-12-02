@@ -185,11 +185,11 @@ export default {
     };
   },
   computed: {
-    registrationDisabledAndUserIsLogged() {
-      return !this.registrationDisabled || this.isUserLogged
-    },
     moreThanOneFormat() {
       return Object.keys(this.arrayFormats).length > 1
+    },
+    registrationDisabledAndUserIsLogged() {
+      return !this.registrationDisabled || this.isUserLogged
     }
   },
   watch: {

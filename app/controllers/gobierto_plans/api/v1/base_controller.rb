@@ -9,6 +9,11 @@ module GobiertoPlans
 
         before_action { module_enabled!(current_site, "GobiertoPlans", false) }
 
+        private
+
+        def cache_service
+          @cache_service ||= GobiertoCommon::CacheService.new(current_site, "GobiertoInvestments")
+        end
       end
     end
   end

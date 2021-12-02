@@ -16,7 +16,7 @@
           </template>
           <template v-else>
             <template v-if="privateVisualizations.length">
-              <template v-for="{ config: { base64 }, name, privacy_status, id, user_id } in privateVisualizations">
+              <template v-for="{ config, items, name, privacy_status, id, user_id } in privateVisualizations">
                 <div
                   :key="id"
                   class="gobierto-data-visualization--container"
@@ -30,10 +30,20 @@
                       <template v-slot:title>
                         {{ name }}
                       </template>
-                      <img
-                        class="gobierto-data-visualization--image"
-                        :src="base64"
-                      >
+                      <template v-if="config.base64">
+                        <img
+                          class="gobierto-data-visualization--image"
+                          :src="config.base64"
+                        >
+                      </template>
+                      <template v-else>
+                        <Visualizations
+                          :items="items"
+                          :config="config"
+                          :object-columns="objectColumns"
+                          :config-map="configMap"
+                        />
+                      </template>
                     </CardVisualization>
                   </router-link>
                   <div class="gobierto-data-visualization--icons">
@@ -68,10 +78,9 @@
           </template>
         </h3>
       </template>
-
       <div class="gobierto-data-visualization--grid">
         <template v-if="publicVisualizations.length">
-          <template v-for="{ config: { base64 }, name, id, user_id } in publicVisualizations">
+          <template v-for="{ config, items, name, id, user_id } in publicVisualizations">
             <div :key="id">
               <router-link
                 :to="`/datos/${$route.params.id}/v/${id}`"
@@ -82,10 +91,20 @@
                   <template v-slot:title>
                     {{ name }}
                   </template>
-                  <img
-                    class="gobierto-data-visualization--image"
-                    :src="base64"
-                  >
+                  <template v-if="config.base64">
+                    <img
+                      class="gobierto-data-visualization--image"
+                      :src="config.base64"
+                    >
+                  </template>
+                  <template v-else>
+                    <Visualizations
+                      :items="items"
+                      :config="config"
+                      :object-columns="objectColumns"
+                      :config-map="configMap"
+                    />
+                  </template>
                 </CardVisualization>
               </router-link>
             </div>
@@ -102,6 +121,7 @@
 <script>
 import { Loading, Dropdown } from "lib/vue/components";
 import Caret from "./../commons/Caret.vue";
+import Visualizations from "./../commons/Visualizations.vue";
 import PrivateIcon from './../commons/PrivateIcon.vue';
 import { getUserId } from "./../../../lib/helpers";
 import CardVisualization from "./../../layouts/CardVisualization.vue";
@@ -110,6 +130,7 @@ import CardVisualization from "./../../layouts/CardVisualization.vue";
 export default {
   name: "VisualizationsList",
   components: {
+    Visualizations,
     PrivateIcon,
     Dropdown,
     Caret,

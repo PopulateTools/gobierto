@@ -174,25 +174,20 @@ export const convertVizToImgMixin = {
   methods: {
     data() {
       return {
-        imageApi: null
+        imageApi: null,
+        saveLoader: false
       }
     },
-    convertVizToImg(opts) {
-      let node = document.querySelector('.gobierto-data-visualization--aspect-ratio-16-9');
-      const perspectiveChart = document.querySelector("perspective-viewer").shadowRoot
-      const perspectiveSidePanel = perspectiveChart.getElementById("side_panel")
-      const perspectiveTopPanel = perspectiveChart.getElementById("top_panel")
-      perspectiveSidePanel.style.display = "none"
-      perspectiveTopPanel.style.display = "none"
+    convertVizToImg(node, cb) {
       htmlToImage.toPng(node)
         .then(function (dataUrl) {
           this.saveLoader = true
           this.imageApi = dataUrl
-          this.onSaveEventHandler(opts)
+          cb()
         }.bind(this))
         .catch(function (error) {
           console.error('oops, something went wrong!', error);
         });
-    }
+    },
   }
 }

@@ -23,7 +23,7 @@
           :show-private-viz="showPrivateViz"
           :show-label-edit="showLabelEdit"
           :reset-private="resetPrivate"
-          @save="convertVizToImg"
+          @save="convertVizHandler"
           @keyDownInput="updateVizName"
           @handlerFork="handlerForkViz"
           @isPrivateChecked="isPrivateChecked"
@@ -44,7 +44,10 @@
         </router-link>
       </div>
     </div>
-    <div class="gobierto-data-visualization--aspect-ratio-16-9">
+    <div
+      ref="visualization-container"
+      class="gobierto-data-visualization--aspect-ratio-16-9"
+    >
       <template v-if="saveLoader">
         <Loading />
       </template>
@@ -193,8 +196,7 @@ export default {
       name: '',
       isQuerySavingPromptVisible: false,
       saveLoader: false,
-      configMapZoom: { ...this.configMap, zoom: true },
-      imageApi: null
+      configMapZoom: { ...this.configMap, zoom: true }
     }
   },
   computed: {
@@ -247,6 +249,13 @@ export default {
     this.$root.$emit('showSavingDialogEventViz', false)
   },
   methods: {
+    convertVizHandler(opts) {
+      const perspectiveSidePanel = this.$refs.viewer.$el.shadowRoot.getElementById("side_panel")
+      const perspectiveTopPanel = this.$refs.viewer.$el.shadowRoot.getElementById("top_panel")
+      perspectiveSidePanel.style.display = "none"
+      perspectiveTopPanel.style.display = "none"
+      this.convertVizToImg(this.$refs["visualization-container"], () => this.onSaveEventHandler(opts))
+    },
     onSaveEventHandler(opts) {
       //Add visualization ID to opts object, we need it to update a viz saved
       opts.vizID = Number(this.vizSaveID)

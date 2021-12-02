@@ -34,7 +34,7 @@
           :enabled-viz-saved-button="enabledVizSavedButton"
           :show-private-public-icon-viz="showPrivatePublicIconViz"
           :registration-disabled="registrationDisabled"
-          @save="convertVizToImg"
+          @save="convertVizHandler"
           @keyDownInput="updateVizNameHandler"
           @isPrivateChecked="isPrivateChecked"
         />
@@ -74,7 +74,10 @@
       </transition>
     </div>
 
-    <div class="gobierto-data-visualization--aspect-ratio-16-9">
+    <div
+      ref="visualization-container"
+      class="gobierto-data-visualization--aspect-ratio-16-9"
+    >
       <Visualizations
         v-if="items"
         ref="viewer"
@@ -183,6 +186,7 @@ export default {
       removeLabelBtn: false,
       perspectiveChanged: false,
       config: null,
+      saveLoader: false,
       configMapZoom: { ...this.configMap, zoom: true }
     };
   },
@@ -211,6 +215,13 @@ export default {
     }
   },
   methods: {
+    convertVizHandler(opts) {
+      const perspectiveSidePanel = this.$refs.viewer.$el.shadowRoot.getElementById("side_panel")
+      const perspectiveTopPanel = this.$refs.viewer.$el.shadowRoot.getElementById("top_panel")
+      perspectiveSidePanel.style.display = "none"
+      perspectiveTopPanel.style.display = "none"
+      this.convertVizToImg(this.$refs["visualization-container"], () => this.onSaveEventHandler(opts))
+    },
     onSaveEventHandler(opts) {
       // get children configuration
       const config = this.$refs.viewer.getConfig()

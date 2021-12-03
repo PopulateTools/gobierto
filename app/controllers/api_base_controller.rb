@@ -7,6 +7,7 @@ class ApiBaseController < ActionController::API
   include ApplicationConcern
   include ::User::ApiAuthenticationHelper
   include HttpCache
+  include LogrageHost
 
   before_action :disable_cors, :check_host, :authenticate_in_site, :set_cache_headers
 

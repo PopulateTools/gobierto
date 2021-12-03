@@ -280,7 +280,7 @@ export default {
       const isLeaf = d.height === 0
       const title = isLeaf ? d.data.assignee : d.data.title
       const text = isLeaf ? d.data.title : money(d.leaves().reduce((acc, x) => acc + x.data.final_amount_no_taxes, 0))
-      const leafClass = isLeaf && "is-leaf"
+      const leafClass = isLeaf ? "is-leaf" : ""
       return [
         `<p class="treemap-item-title ${leafClass}">${title}</p>`,
         `<p class="treemap-item-text ${leafClass}">${text}</p>`,

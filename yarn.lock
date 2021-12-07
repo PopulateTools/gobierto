@@ -6553,10 +6553,10 @@ globjoin@^0.1.4:
   resolved "https://registry.npmjs.org/globjoin/-/globjoin-0.1.4.tgz"
   integrity sha1-L0SUrIkZ43Z8XLtpHp9GMyQoXUM=
 
-gobierto-vizzs@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/gobierto-vizzs/-/gobierto-vizzs-0.0.9.tgz#ce00eac42a222cbd82edd97c8e56b06c6dfe2e55"
-  integrity sha512-Za2a4sBXdVhgmoW4cBUYj9fn/wCXEIHWM1YBJBZy/9hCv2K6Qpb6OtsRfSOnVrL+Z51HfP9JRWs6+P+2/RPSMg==
+gobierto-vizzs@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/gobierto-vizzs/-/gobierto-vizzs-0.0.10.tgz#945e37e609ebe1e06401623a320c87668472d23a"
+  integrity sha512-RsmM+1Z0HznvSO11iIWdWrlKR3T41xVoB+QtI2u0fwHveah4Pl50xTPrrbjE/RrcK8YmuafujPZSSv9wdyIoOA==
   dependencies:
     d3-array "^3.1.1"
     d3-axis "^3.0.0"

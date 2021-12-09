@@ -107,7 +107,14 @@ YAML
             assert has_link? justice_department.name
             assert has_link? culture_department.name
           end
+        end
+      end
 
+      def test_sidebar_contents_with_date_filtering
+        clear_activities
+        culture_department.events.each(&:destroy)
+
+        with_current_site(site) do
           # with date filtering configured
           set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
           visit gobierto_people_department_people_path(justice_department)
@@ -130,6 +137,13 @@ YAML
 
           assert has_link? justice_department_person.name
           assert has_no_link? culture_department_person.name
+        end
+      end
+
+      def test_sidebar_in_department_page
+        clear_activities
+        with_current_site(site) do
+          visit gobierto_people_department_people_path(justice_department)
 
           within departments_sidebar do
             click_link culture_department.name
@@ -140,14 +154,9 @@ YAML
         end
       end
 
-      def test_index_filtered_by_date
+      def test_index_filtered_by_date_visit_departments_sidebar
         clear_activities
         site.events.where.not(id: neil.events.pluck(:id)).destroy_all
-
-        departments_with_activities = [
-          immigration_department_mixed,
-          justice_department
-        ]
 
         with_current_site(site) do
           visit gobierto_people_department_people_path(immigration_department_mixed)
@@ -157,7 +166,14 @@ YAML
           within departments_sidebar do
             departments.each { |department| assert has_link? department.name }
           end
+        end
+      end
 
+      def test_index_filtered_by_date_visit_departments_people
+        clear_activities
+        site.events.where.not(id: neil.events.pluck(:id)).destroy_all
+
+        with_current_site(site) do
           set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
 
           # nothing is displayed when out of range
@@ -174,7 +190,20 @@ YAML
           end
 
           assert has_content? "There are no officials for this date range"
+        end
+      end
 
+      def test_index_filtered_by_date_visit_departments_people_check_sidebar
+        clear_activities
+        site.events.where.not(id: neil.events.pluck(:id)).destroy_all
+
+        departments_with_activities = [
+          immigration_department_mixed,
+          justice_department
+        ]
+
+        with_current_site(site) do
+          set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
           # everything is displayed with broad range
 
           start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
@@ -191,7 +220,15 @@ YAML
               assert has_link_to? gobierto_people_department_people_path(department.slug, start_date: start_date, end_date: end_date)
             end
           end
+        end
+      end
 
+      def test_index_filtered_by_date_visit_departments_people_check_sidebar_other_dates
+        clear_activities
+        site.events.where.not(id: neil.events.pluck(:id)).destroy_all
+
+        with_current_site(site) do
+          set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
           # only departments with recent events are displayed
 
           visit gobierto_people_department_people_path(
@@ -205,7 +242,15 @@ YAML
             assert has_no_link? tourism_department_very_old.name
             assert has_link? immigration_department_mixed.name
           end
+        end
+      end
 
+      def test_index_filtered_by_date_visit_departments_people_check_sidebar_other_dates_in_past
+        clear_activities
+        site.events.where.not(id: neil.events.pluck(:id)).destroy_all
+
+        with_current_site(site) do
+          set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
           # only departments with very old events are displayed
 
           visit gobierto_people_department_people_path(

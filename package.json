@@ -29,6 +29,7 @@
     "fullcalendar": "^3.9.0",
     "geocomplete": "^1.7.0",
     "gobierto-vizzs": "^0.0.10",
+    "html-to-image": "^1.9.0",
     "i18n-js": "^3.0.3",
     "jest": "^27.0.3",
     "jqtree": "^1.4.5",

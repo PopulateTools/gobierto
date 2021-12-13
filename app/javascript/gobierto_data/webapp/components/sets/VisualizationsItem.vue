@@ -23,7 +23,7 @@
           :show-private-viz="showPrivateViz"
           :show-label-edit="showLabelEdit"
           :reset-private="resetPrivate"
-          @save="onSaveEventHandler"
+          @save="convertVizHandler"
           @keyDownInput="updateVizName"
           @handlerFork="handlerForkViz"
           @isPrivateChecked="isPrivateChecked"
@@ -44,7 +44,10 @@
         </router-link>
       </div>
     </div>
-    <div class="gobierto-data-visualization--aspect-ratio-16-9">
+    <div
+      ref="visualization-container"
+      class="gobierto-data-visualization--aspect-ratio-16-9"
+    >
       <template v-if="saveLoader">
         <Loading />
       </template>
@@ -70,6 +73,7 @@ import { Loading } from "lib/vue/components";
 import Visualizations from "./../commons/Visualizations.vue";
 import SavingDialog from "./../commons/SavingDialog.vue";
 import { getUserId } from "./../../../lib/helpers";
+import { convertVizToImgMixin } from "./../../../lib/commons.js";
 
 export default {
   name: "VisualizationsItem",
@@ -78,6 +82,7 @@ export default {
     SavingDialog,
     Loading
   },
+  mixins: [convertVizToImgMixin],
   props: {
     datasetId: {
       type: Number,
@@ -244,8 +249,14 @@ export default {
     this.$root.$emit('showSavingDialogEventViz', false)
   },
   methods: {
+    convertVizHandler(opts) {
+      const perspectiveSidePanel = this.$refs.viewer.$el.shadowRoot.getElementById("side_panel")
+      const perspectiveTopPanel = this.$refs.viewer.$el.shadowRoot.getElementById("top_panel")
+      perspectiveSidePanel.style.display = "none"
+      perspectiveTopPanel.style.display = "none"
+      this.convertVizToImg(this.$refs["visualization-container"], () => this.onSaveEventHandler(opts))
+    },
     onSaveEventHandler(opts) {
-      this.saveLoader = true
       //Add visualization ID to opts object, we need it to update a viz saved
       opts.vizID = Number(this.vizSaveID)
       opts.user = Number(this.user)
@@ -253,6 +264,7 @@ export default {
       opts.queryViz = this.queryViz
       // get children configuration
       const config = this.$refs.viewer.getConfig()
+      config.base64 = this.imageApi
       this.$root.$emit("storeCurrentVisualization", config, opts);
       this.hidePromptSaveViz()
 
@@ -266,6 +278,8 @@ export default {
         this.saveLoader = false
       }
     },
+    //TODO: Extract to common.js
+
     updateVizName(value) {
       const {
         name: vizName

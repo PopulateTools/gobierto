@@ -3,7 +3,7 @@
     v-if="publicVisualizations && publicVisualizations.length"
     class="gobierto-data-visualization--grid"
   >
-    <template v-for="{ items, config, columns, name, id, slug, datasetName } in publicVisualizations">
+    <template v-for="{ config, name, id, slug, datasetName, items, columns } in publicVisualizations">
       <router-link
         :key="id"
         :to="`/datos/${slug}/v/${id}`"
@@ -13,12 +13,20 @@
           <template v-slot:title>
             {{ name }}
           </template>
-          <Visualizations
-            v-if="items"
-            :items="items"
-            :object-columns="columns"
-            :config="config"
-          />
+          <template v-if="config.base64">
+            <img
+              class="gobierto-data-visualization--image"
+              :src="config.base64"
+            >
+          </template>
+          <template v-else>
+            <Visualizations
+              v-if="items"
+              :items="items"
+              :object-columns="columns"
+              :config="config"
+            />
+          </template>
           <router-link
             :to="`/datos/${slug}/`"
             class="gobierto-data-visualizations-name"
@@ -38,8 +46,8 @@ import CardVisualization from "./../../layouts/CardVisualization.vue";
 export default {
   name: "VisualizationsGrid",
   components: {
-    Visualizations,
-    CardVisualization
+    CardVisualization,
+    Visualizations
   },
   props: {
     publicVisualizations: {

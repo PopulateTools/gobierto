@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   include ::GobiertoCms::GlobalNavigation
   include ApplicationConcern
   include HttpCache
+  include LogrageHost
 
   protect_from_forgery with: :exception
 

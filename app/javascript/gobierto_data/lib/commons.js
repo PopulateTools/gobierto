@@ -1,3 +1,5 @@
+import * as htmlToImage from 'html-to-image';
+
 export const baseUrl = `${location.origin}/api/v1/data`
 
 //TODO: extract handleOutsideClick outside directive
@@ -168,3 +170,24 @@ export const sqlKeywords = [
   }
 ]
 
+export const convertVizToImgMixin = {
+  methods: {
+    data() {
+      return {
+        imageApi: null,
+        saveLoader: false
+      }
+    },
+    convertVizToImg(node, cb) {
+      htmlToImage.toPng(node)
+        .then(function (dataUrl) {
+          this.saveLoader = true
+          this.imageApi = dataUrl
+          cb()
+        }.bind(this))
+        .catch(function (error) {
+          console.error('oops, something went wrong!', error);
+        });
+    },
+  }
+}

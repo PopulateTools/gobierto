@@ -1248,6 +1248,9 @@
     padding: 16px;
     border-radius: 3px;
     min-height: 350px;
+    .gobierto-data-visualization--image {
+      height: 80%;
+    }
   }
 
   &-visualization--content {
@@ -1275,6 +1278,12 @@
     font-weight: bold;
     line-height: 20px;
     margin: 0 0 1rem;
+  }
+
+  &-visualization--image {
+    height: 90%;
+    width: 100%;
+    object-fit: contain;
   }
 
   &-description {

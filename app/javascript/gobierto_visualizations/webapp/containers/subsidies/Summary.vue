@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!-- <CategoriesTreeMapNested
-      :data="visualizationsData"
-    /> -->
     <TreeMapButtons
       id="gobierto-visualizations-treemap-categories"
       :buttons="treemapButtons"
@@ -183,7 +180,7 @@ export default {
       const isLeaf = d.height === 0
       const title = isLeaf ? d.data.beneficiary_type : d.data.categories
       const text = isLeaf ? d.data.beneficiary : money(d.leaves().reduce((acc, x) => acc + x.data.amount, 0))
-      const leafClass = isLeaf && "is-leaf"
+      const leafClass = isLeaf ? "is-leaf" : ""
       return [
         `<p class="treemap-item-title ${leafClass}">${title}</p>`,
         `<p class="treemap-item-text ${leafClass}">${text}</p>`,

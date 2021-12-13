@@ -108,6 +108,9 @@ gem "rack-cors"
 # Redirections
 gem 'rack-rewrite'
 
+# Log
+gem "lograge"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

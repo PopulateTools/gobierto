@@ -372,7 +372,11 @@
       display: grid;
 
       > * {
-        grid-area: 1 / -1;
+        grid-area: span 1;
+
+        @include min-screen(768) {
+          grid-area: 1 / -1;
+        }
       }
 
       & + .treemap-nav-container {
@@ -381,9 +385,15 @@
     }
 
     &-buttons {
+      display: flex;
       align-self: flex-start;
-      justify-self: flex-end;
+      justify-self: auto;
       z-index: 1;
+
+      @include min-screen(768) {
+        display: block;
+        justify-self: flex-end;
+      }
     }
   }
 
@@ -395,8 +405,6 @@
   }
 
   .treemap-item {
-    height: 100%;
-
     &-title {
       margin: 0;
       font-size: $f6;

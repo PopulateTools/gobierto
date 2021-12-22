@@ -30,7 +30,7 @@ class MetaWelcomeController < ApplicationController
 
       @page = GobiertoCms::PageDecorator.new(page)
 
-      render "gobierto_cms/pages/meta_welcome"
+      render "gobierto_cms/pages/meta_welcome", layout: "gobierto_cms/layouts/application"
     end
   end
 end

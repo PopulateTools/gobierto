@@ -17,6 +17,7 @@ module GobiertoCms
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
     include GobiertoCommon::Sectionable
+    include GobiertoCommon::HasCustomFieldRecords
 
     multisearchable(
       against: [:title_en, :title_es, :title_ca, :searchable_body],

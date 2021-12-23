@@ -178,7 +178,7 @@
     }
 
     &.is-active {
-      background-color: #fff;
+      background-color: $color_main_negative;
       border: 1px solid var(--color-base);
       border-bottom: 0;
       position: relative;
@@ -248,7 +248,7 @@
   }
 
   &-summary-btn-download-data {
-    background-color: #fff;
+    background-color: $color_main_negative;
     color: var(--color-base);
     border-radius: 3px;
     padding: 1.5rem;
@@ -299,23 +299,23 @@
 
   &-info-list-element {
     text-decoration: none;
-    background: #fff;
+    background: $color_main_negative;
     border: 1px solid #F5F5F5;
     box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
     border-radius: 4px;
     &:hover {
       text-decoration: none;
       .gobierto-data-info-list-title {
-        color: #fff;
+        color: $color_main_negative;
       }
       .gobierto-data-summary-header {
         background: var(--color-base);
       }
       .gobierto-data-summary-body {
-        background: #fff;
+        background: $color_main_negative;
       }
       .gobierto-data-summary-header-container-text {
-        color: #fff;
+        color: $color_main_negative;
       }
     }
     .gobierto-data-summary-header {
@@ -453,7 +453,7 @@
   a.gobierto-data-btn-download-data {
     display: inline-block;
     box-sizing: border-box;
-    background: #fff;
+    background: $color_main_negative;
     text-align: center;
     text-decoration: none;
     color: var(--color-base);
@@ -495,7 +495,7 @@
         }
 
         &::after {
-          border-bottom-color: #fff !important;
+          border-bottom-color: $color_main_negative !important;
           margin-left: -8px;
           border-width: 8px;
         }
@@ -543,7 +543,7 @@
     display: none;
     top: 130%;
     left: 0;
-    background-color: #fff;
+    background-color: $color_main_negative;
 
     &.modal-left {
       left: 0;
@@ -559,7 +559,7 @@
 
     &.arrow-top.modal-left,
     &.arrow-top.modal-right {
-      background: #fff;
+      background: $color_main_negative;
       border: 1px solid var(--color-base);
 
       &::after,
@@ -580,7 +580,7 @@
       }
 
       &::after {
-        border-bottom-color: #fff !important;
+        border-bottom-color: $color_main_negative !important;
         margin-left: -8px;
         border-width: 8px;
       }
@@ -612,7 +612,7 @@
 
   &-sql-editor-recent-queries {
     display: none;
-    background-color: #fff;
+    background-color: $color_main_negative;
     z-index: 10;
     top: 135%;
     width: 50vw;
@@ -704,7 +704,7 @@
     }
 
     &.btn-sql-editor-queries {
-      background-color: #fff;
+      background-color: $color_main_negative;
       color: var(--color-base);
     }
   }
@@ -961,7 +961,7 @@
     position: absolute;
     top: 45px;
     left: 0;
-    background: white;
+    background: $color_main_negative;
     padding: 0;
     z-index: 10;
     width: 70vw;
@@ -995,7 +995,7 @@
       }
 
       &::after {
-        border-bottom-color: #fff !important;
+        border-bottom-color: $color_main_negative !important;
         margin-left: -8px;
         border-width: 8px;
         background-color: transparent;
@@ -1067,7 +1067,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
+    background-color: $color_main_negative;
   }
 
   .pulse-container {
@@ -1436,7 +1436,6 @@
     color: var(--color-base);
   }
   &-description-summary-grid-element-size {
-    /* TO_DO: Create a var/custom-property */
     color: #9B9B9B;
   }
 

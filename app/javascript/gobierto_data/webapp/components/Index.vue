@@ -63,11 +63,13 @@ export default {
     injectRouter() {
       //REVIEW: Inject a vue router to element outside VUE, be careful
       const topMenu = document.getElementById('gobierto-data-top-menu')
-      topMenu.addEventListener('click', (e) => {
+      if (topMenu) {
+        topMenu.addEventListener('click', (e) => {
         e.preventDefault()
         // eslint-disable-next-line no-unused-vars
         this.$router.push('/datos/').catch(err => {})
       })
+      }
     }
   }
 };

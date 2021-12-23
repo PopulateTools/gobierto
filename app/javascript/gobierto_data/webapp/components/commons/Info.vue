@@ -27,22 +27,6 @@
           :text="frequencyDataset"
         />
       </div>
-      <!-- <InfoBlockText
-        v-if="hasDatasetSource"
-        icon="building"
-        opacity=".25"
-        :label="labelSource"
-        :text="sourceDatasetText"
-        :url="sourceDatasetUrl"
-      />
-      <InfoBlockText
-        v-if="hasDatasetLicense"
-        icon="certificate"
-        opacity=".25"
-        :label="labelLicense"
-        :text="licenseDatasetText"
-        :url="licenseDatasetUrl"
-      /> -->
     </div>
     <div class="pure-u-1-1 gobierto-data-summary-body">
       <div

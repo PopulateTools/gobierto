@@ -7,7 +7,7 @@
         v-html="compiledHTMLMarkdown"
       />
     </div>
-    <div class="pure-u-7-24">
+    <div class="pure-u-7-24 gobierto-data-summary-info-tab">
       <div
         class="gobierto-data-summary-header-btns"
       >
@@ -40,7 +40,6 @@
       <InfoBlockText
         v-if="dateUpdated"
         icon="clock"
-        :icon-size="'12px'"
         :icon-color="'#666'"
         :label="labelUpdated"
         :text="dateUpdated | convertDate"
@@ -48,7 +47,6 @@
       <InfoBlockText
         v-if="frequencyDataset"
         icon="calendar"
-        :icon-size="'12px'"
         :icon-color="'#666'"
         :label="labelFrequency"
         :text="frequencyDataset"
@@ -56,7 +54,6 @@
       <InfoBlockText
         v-if="categoryDataset"
         icon="tag"
-        :icon-size="'12px'"
         :icon-color="'#666'"
         :label="labelSubject"
         :text="categoryDataset"
@@ -64,7 +61,6 @@
       <InfoBlockText
         v-if="hasDatasetSource"
         icon="building"
-        :icon-size="'12px'"
         :icon-color="'#666'"
         :label="labelSource"
         :text="sourceDatasetText"
@@ -73,7 +69,6 @@
       <InfoBlockText
         v-if="hasDatasetLicense"
         icon="certificate"
-        :icon-size="'12px'"
         :icon-color="'#666'"
         :label="labelLicense"
         :text="licenseDatasetText"

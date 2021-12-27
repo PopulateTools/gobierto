@@ -1,0 +1,212 @@
+.gobierto-data {
+
+  /* Pure-css add display block to the summary element and the arrow/caret/icon is hide because summary must have list-item to show the arrow. */
+  summary {
+    display: list-item;
+  }
+
+  &-summary-header {
+    box-sizing: border-box;
+  }
+
+  &-summary-body {
+    background: #f5f5f5;
+  }
+
+  &-summary-header-description {
+    margin-top: 0;
+    padding-right: 2rem;
+    font-size: $f7;
+    color: var(--grey-text);
+    line-height: 1.45;
+    p {
+      margin: .25rem 0;
+    }
+  }
+
+  &-summary-header-description-link {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  &-summary-header-container {
+    .gobierto-data-summary-header-container-text {
+      font-size: 12px;
+    }
+  }
+
+  &-summary-header-container-text,
+  &-summary-header-container-label,
+  &-summary-header-container-text-link {
+    color: var(--grey-text);
+    display: inline-block;
+    font-size: $f6;
+  }
+
+  &-summary-header-container-text-link {
+    color: var(--color-base);
+  }
+
+  &-summary-header-container-label {
+    width: 100px;
+    color: rgba(102, 102, 102, .5);
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  &-summary-btn-download-data {
+    background-color: $color_main_negative;
+    color: var(--color-base);
+    border-radius: 3px;
+    padding: $f3;
+    margin: 0;
+    margin-top: .5rem;
+    border: 1px solid rgba(1, 120, 168, .2);
+  }
+
+  &-summary-resources {
+    display: block;
+    width: 100%;
+    letter-spacing: 0;
+    padding: $f6 0;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(102, 102, 102, .75);
+  }
+
+  &-summary-queries {
+    width: 100%;
+    letter-spacing: 0;
+
+    .gobierto-data-summary-queries-sql-code {
+
+      .CodeMirror {
+        background-color: transparent;
+        padding: 0;
+      }
+
+      .CodeMirror-line {
+        white-space: normal;
+        width: 100%;
+      }
+
+      .CodeMirror-sizer {
+        width: 90%;
+      }
+    }
+  }
+
+  &-summary-queries-panel {
+    border: 1px solid rgba(var(--color-base-string), 0.3);
+    border-radius: 3px;
+    position: relative;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      width: 1px;
+      position: absolute;
+      left: 50%;
+      background-color: rgba(var(--color-base-string), .3);
+    }
+
+    .gobierto-vue-dropdown--content {
+      &:not(:empty) {
+        margin-bottom: 2rem;
+      }
+    }
+
+  }
+
+  &-summary-queries-panel-title {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgba(102, 102, 102, .75);
+    display: inline-block;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    padding-left: $f6;
+  }
+
+  &-summary-queries-sql-code {
+    padding: 12px $f6 $f6;
+    margin-top: 0;
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--grey-text);
+    position: sticky;
+    top: 0;
+  }
+
+  &-summary-visualizations {
+    padding: 0 $f6 $f6 $f6;
+  }
+
+  &-description-details {
+    margin: .5rem 0;
+  }
+
+  &-description-details-orders:first-of-type,
+  &-description-details-columns {
+    margin-top: 2rem;
+  }
+
+  &-description-summary-title {
+    cursor: pointer;
+    &::marker {
+      color: var(--color-base);
+    }
+  }
+
+  &-description-summary-grid,
+  &-description-summary-grid-two-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 .25rem;
+  }
+
+  &-description-summary-grid-two-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &-description-summary-grid-element {
+    display: grid;
+    grid-template-columns: 75% 1fr;
+    margin-bottom: .125rem;
+  }
+
+  &-description-summary-grid-element-link {
+    color: var(--color-base);
+  }
+
+  &-description-summary-grid-element-size {
+    color: #9B9B9B;
+  }
+
+  details ul {
+    margin-top: 6px;
+    padding-left: 20px;
+  }
+
+  &-summary-info-tab {
+    .gobierto-data-summary-header-container-label {
+      font-size: 14px;
+    }
+
+    i {
+      font-size: 12px;
+    }
+  }
+
+  &-summary-info {
+    .gobierto-data-summary-header-container-label {
+      font-size: 12px;
+    }
+
+    i {
+      font-size: 10px;
+    }
+  }
+}

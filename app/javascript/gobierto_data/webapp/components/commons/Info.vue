@@ -1,29 +1,23 @@
 <template>
   <div class="pure-g">
-    <div class="pure-u-1-1 gobierto-data-summary-header">
+    <div class="pure-u-1-1 gobierto-data-summary-header gobierto-data-summary-info">
       <h2 class="gobierto-data-title-dataset gobierto-data-info-list-title">
         {{ titleDataset }}
       </h2>
       <InfoBlockText
         v-if="categoryDataset"
         icon="tag"
-        :icon-size="'10px'"
-        :font-size="'12px'"
         :text="categoryDataset"
       />
       <div class="gobierto-data-info-list-top">
         <InfoBlockText
           v-if="dateUpdated"
           icon="clock"
-          :icon-size="'10px'"
-          :font-size="'12px'"
           :text="dateUpdated | convertDate"
         />
         <InfoBlockText
           v-if="frequencyDataset"
           icon="calendar"
-          :icon-size="'10px'"
-          :font-size="'12px'"
           :text="frequencyDataset"
         />
       </div>

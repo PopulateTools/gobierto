@@ -3,6 +3,29 @@
 module GobiertoCms
   module PageHelper
 
+    def last_collection_items(collection_slug, limit = 3)
+      @last_collection_items ||= begin
+                                   collection = current_site.collections.find_by!(slug: collection_slug, item_type: "GobiertoCms::Page")
+
+                                   current_site.
+                                     pages.
+                                     where(id: collection.pages_in_collection).
+                                     limit(limit).
+                                     active.
+                                     order(published_on: :desc)
+                                 end
+    end
+
+    def collection_item_custom_field_value(collection_item, custom_field_uid)
+      if custom_field = current_site.custom_fields.find_by(uid: custom_field_uid)
+
+       collection_item.
+         custom_field_records.
+         find_by(custom_field: custom_field).
+         value_string
+      end
+    end
+
     # TODO - Refactor
     def section_tree(nodes, viewables)
       html = ["<ul>"]

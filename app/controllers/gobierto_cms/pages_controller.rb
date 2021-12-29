@@ -8,20 +8,23 @@ module GobiertoCms
     def index
       @collection = find_collection
 
-      check_collection_type
+      @collection_items = current_site.
+        pages.
+        where(id: @collection.pages_in_collection).
+        page(params[:page]).
+        active.
+        order(published_on: :desc)
     end
 
     def show
       @page = find_page
       @section_item = find_section_item if @section
-
-      check_collection_type
     end
 
     protected
 
     def find_collection
-      current_site.collections.find_by!(slug: params[:id])
+      current_site.collections.find_by!(slug: params[:id], item_type: "GobiertoCms::Page")
     end
 
     def load_section
@@ -51,10 +54,6 @@ module GobiertoCms
       if @collection
         @pages = current_site.pages.where(id: @collection.pages_in_collection).active
       end
-    end
-
-    def check_collection_type
-      render_404 and return false if @collection.item_type != "GobiertoCms::Page"
     end
 
     def processes_scope

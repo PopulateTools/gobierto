@@ -9,7 +9,7 @@ module GobiertoCms
     end
 
     def site_collection
-      @site_collection ||= gobierto_common_collections(:site_news)
+      @site_collection ||= gobierto_common_collections(:site_pages)
     end
 
     def site_collection_pages
@@ -22,7 +22,7 @@ module GobiertoCms
 
     def test_visit_site_collection
       with_current_site(site) do
-        visit gobierto_cms_news_index_path(site_collection.slug)
+        visit gobierto_cms_pages_path(site_collection.slug)
 
         assert has_content?(site_collection.title)
 

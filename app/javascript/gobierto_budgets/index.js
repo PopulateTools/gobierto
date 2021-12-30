@@ -6,6 +6,7 @@ import "./modules/execution.js";
 import "./modules/indicators_controller.js";
 import "./modules/invoices_controller.js";
 import "./modules/receipt_controller.js";
+import setDropdowns from "./modules/dropdown.js";
 import { checkAndReportAccessibility } from 'lib/shared'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,3 +16,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+document.addEventListener("turbolinks:load", () => setDropdowns())

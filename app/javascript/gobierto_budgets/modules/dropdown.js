@@ -1,4 +1,4 @@
-function dropdown({ target }) {
+function dropdown({ currentTarget }) {
   /*
     HOW TO USE JS-DROPDOWN
 
@@ -11,7 +11,7 @@ function dropdown({ target }) {
     - Add 'js-dropdown' class to the trigger (button tag or whatever) and 'hidden' to the contents
   */
 
-  const { dropdown } = target.dataset;
+  const { dropdown } = currentTarget.dataset;
   const content = document.querySelector(`[data-dropdown="${dropdown}"]:not(.js-dropdown)`)
 
   content.classList.toggle("hidden");

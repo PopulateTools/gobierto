@@ -48,30 +48,4 @@ $(document).on("turbolinks:load", function() {
   $("[data-toggle]").click(function() {
     toggleTarget($(this));
   });
-
-  // js-disabled elements
-  $(".js-disabled").click(function(e) {
-    e.preventDefault();
-  });
-
-  // js-dropdown
-  $(".js-dropdown").on("click", function() {
-    /*
-      HOW TO USE JS-DROPDOWN
-
-      <div>
-        <button class="js-dropdown" data-dropdown="NAME"></button>
-        <div class="hidden" data-dropdown="NAME"></div>
-      </div>
-
-      - Notice that NAME property must be equal both trigger and contents
-      - Add 'js-dropdown' class to the trigger (button tag or whatever) and 'hidden' to the contents
-    */
-
-    const dropdownname = $(this).data("dropdown");
-    const $content = $('[data-dropdown="' + dropdownname + '"]:not(.js-dropdown)');
-
-    $content.toggleClass("hidden");
-    $content.parent().css("position", "relative");
-  });
 });

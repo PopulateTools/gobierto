@@ -22,6 +22,12 @@ module GobiertoBudgets
       custom_description_translations.try(:dig, I18n.locale.to_s) || default_description
     end
 
+    def parent
+      @parent ||= if parent_code.present?
+                    self.class.find_by(site: site, area_name: area_name, kind: kind, code: parent_code)
+                  end
+    end
+
     def self.default_name(area, kind, code)
       area.all_items[kind][code]
     end

@@ -73,7 +73,10 @@ namespace :gobierto_budgets do
       end
 
       # Expire Rails cache
-      Rails.cache.clear
+      sites.each do |site|
+        cache_service = GobiertoCommon::CacheService.new(site, "GobiertoBudgets")
+        cache_service.clear
+      end
       puts "[SUCCESS] Expired Rails cache"
     end
 

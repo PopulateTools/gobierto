@@ -104,13 +104,11 @@ ca:
         summary:
           contracts: Contractes adjudicats
           contracts_for: contractes per import de
-          label_half_spendings_contracts_1: 'El '
-          label_half_spendings_contracts_2: " de contractes concentren el 50% de tota
-            la despesa"
-          label_larger_contract_amount_1: 'El major contracte suposa un '
-          label_larger_contract_amount_2: " de tota la despesa en contractes"
-          label_less_than_1000_1: 'El '
-          label_less_than_1000_2: " dels contractes són menors de "
+          label_half_spendings_contracts: El %{strong} de contractes concentren el
+            50% de tota la despesa
+          label_larger_contract_amount: El major contracte suposa un %{strong} de
+            tota la despesa en contractes
+          label_less_than_1000: El %{strong1} dels contractes són menors de %{strong2}
           mean_amount: Import mig
           median_amount: Mediana dels imports
           tenders: Licitacions

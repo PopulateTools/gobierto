@@ -1,18 +1,22 @@
 <template>
   <div class="pure-g block m_b_3">
     <div
-      v-for="[id, label1, label2] in labels"
-      :key="id"
+      v-for="(element, i) in labels"
+      :key="i"
       class="pure-u-1 pure-u-lg-1-3 p_h_r_3 header_block_inline"
     >
-      <p class="decorator">
-        {{ label1 }}<strong><span :id="id" /></strong>{{ label2 }}<strong>1.000 €</strong>
-      </p>
+      <!-- eslint-disable vue/no-v-html -->
+      <p
+        class="decorator"
+        v-html="element"
+      />
+      <!-- eslint-enable vue/no-v-html -->
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable vue/no-v-html */
 export default {
   name: "Tips",
   props: {

@@ -105,13 +105,11 @@ es:
         summary:
           contracts: Contratos adjudicados
           contracts_for: contratos por importe de
-          label_half_spendings_contracts_1: 'El '
-          label_half_spendings_contracts_2: " de contratos concentran el 50% de todo
-            el gasto"
-          label_larger_contract_amount_1: 'El mayor contrato supone un '
-          label_larger_contract_amount_2: " de todo el gasto en contratos"
-          label_less_than_1000_1: 'El '
-          label_less_than_1000_2: " de los contratos son menores de "
+          label_half_spendings_contracts: El %{strong} de contratos concentran el
+            50% de todo el gasto
+          label_larger_contract_amount: El mayor contrato supone un %{strong} de todo
+            el gasto en contratos
+          label_less_than_1000: El %{strong1} de los contratos son menores de %{strong2}
           mean_amount: Importe medio
           median_amount: Importe mediano
           tenders: Licitaciones

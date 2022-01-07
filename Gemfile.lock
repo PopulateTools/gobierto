@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_budgets_data.git
-  revision: c86f02dd0201077f7116fd1c3bde5a184df73dcd
+  revision: fbeed6a726aaad40d78165609bac0c57048e1d67
   branch: sicalwin-format
   specs:
     gobierto_budgets_data (0.1.0)

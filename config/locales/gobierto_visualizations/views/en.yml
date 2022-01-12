@@ -105,11 +105,11 @@ en:
         summary:
           contracts: Assigned contracts
           contracts_for: contracts for a total amount of
-          label_half_spendings_contracts: "${strong} of contracts accumulate the 50%
+          label_half_spendings_contracts: "%{strong} of contracts accumulate the 50%
             of all the spending"
-          label_larger_contract_amount: The largest contract means a ${strong} of
+          label_larger_contract_amount: The largest contract means a %{strong} of
             all the spending
-          label_less_than_1000: "${strong1} of contracts are less than ${strong2}"
+          label_less_than_1000: "%{strong1} of contracts are less than %{strong2}"
           mean_amount: Average amount
           median_amount: Median amount
           tenders: Tenders

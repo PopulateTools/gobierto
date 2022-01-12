@@ -105,17 +105,13 @@ en:
         summary:
           contracts: Assigned contracts
           contracts_for: contracts for a total amount of
-          label_half_spendings_contracts_1: ''
-          label_half_spendings_contracts_2: " of contracts accumulate the 50% of all
-            the spending"
-          label_larger_contract_amount_1: 'The largest contract means a '
-          label_larger_contract_amount_2: " of all the spending"
-          label_less_than_1000_1: ''
-          label_less_than_1000_2: " of contracts are less than "
           mean_amount: Average amount
           median_amount: Median amount
           tenders: Tenders
           tenders_for: tenders for a total amount of
+          tip_1: The %{strong1} of contracts are less than %{strong2}
+          tip_2: The largest contract means a %{strong} of all the spending
+          tip_3: The %{strong} of contracts accumulate the 50% of all the spending
         tender_amount: Tender Amount
         tender_date: Date of tender
         title: Contracts and tenders
@@ -241,17 +237,13 @@ en:
         summary:
           collective_subsidies_for: to collectives for a total amount of
           individual_subsidies_for: to individuals for a total amount of
-          label_half_spendings_subsidies_1: ''
-          label_half_spendings_subsidies_2: " of subsidies accumulate the 50% of all
-            the spending"
-          label_larger_subsidy_amount_1: 'The largest subsidy means a '
-          label_larger_subsidy_amount_2: " of all the spending"
-          label_less_than_1000_1: ''
-          label_less_than_1000_2: " of subsidies are less than "
           mean_amount: Average amount
           median_amount: Median amount
           subsidies: Subsidies
           subsidies_for: subsidies for a total amount of
+          tip_1: The %{strong1} of subsidies are less than %{strong2}
+          tip_2: The largest subsidy means a %{strong} of all the spending
+          tip_3: The %{strong} of subsidies accumulate the 50% of all the spending
         title: Subsidies
       tender_statuses:
         awarded: Awarded

@@ -154,9 +154,9 @@ export default {
         I18n.t("gobierto_visualizations.visualizations.contracts.summary.median_amount") || ""
       ],
       tips: [
-        I18n.t("gobierto_visualizations.visualizations.contracts.summary.label_less_than_1000", { strong1: "<strong><span id=\"less-than-1000-pct\" /></strong>", strong2: "<strong>1.000 €</strong>" }) || "",
-        I18n.t("gobierto_visualizations.visualizations.contracts.summary.label_larger_contract_amount", { strong: "<strong><span id=\"larger-contract-amount-pct\" /></strong>" }) || "",
-        I18n.t("gobierto_visualizations.visualizations.contracts.summary.label_half_spendings_contracts", { strong: "<strong><span id=\"half-spendings-contracts-pct\" /></strong>" }) || ""
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.tip_1", { strong1: "<strong><span id=\"less-than-1000-pct\" /></strong>", strong2: "<strong>1.000 €</strong>" }) || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.tip_2", { strong: "<strong><span id=\"larger-contract-amount-pct\" /></strong>" }) || "",
+        I18n.t("gobierto_visualizations.visualizations.contracts.summary.tip_3", { strong: "<strong><span id=\"half-spendings-contracts-pct\" /></strong>" }) || ""
       ]
     }
   },

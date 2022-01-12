@@ -105,15 +105,13 @@ es:
         summary:
           contracts: Contratos adjudicados
           contracts_for: contratos por importe de
-          label_half_spendings_contracts: El %{strong} de contratos concentran el
-            50% de todo el gasto
-          label_larger_contract_amount: El mayor contrato supone un %{strong} de todo
-            el gasto en contratos
-          label_less_than_1000: El %{strong1} de los contratos son menores de %{strong2}
           mean_amount: Importe medio
           median_amount: Importe mediano
           tenders: Licitaciones
           tenders_for: licitaciones por importe de
+          tip_1: El %{strong1} de los contratos son menores de %{strong2}
+          tip_2: El mayor contrato supone un %{strong} de todo el gasto en contratos
+          tip_3: El %{strong} de contratos concentran el 50% de todo el gasto
         tender_amount: Imp. licitación
         tender_date: Fecha de licitación
         title: Contratos y licitaciones
@@ -242,17 +240,13 @@ es:
         summary:
           collective_subsidies_for: a colectivos por importe de
           individual_subsidies_for: a particulares por importe de
-          label_half_spendings_subsidies_1: 'El '
-          label_half_spendings_subsidies_2: " de subvenciones concentran el 50% de
-            todo el gasto"
-          label_larger_subsidy_amount_1: 'La mayor subvención supone un '
-          label_larger_subsidy_amount_2: " de todo el gasto en subvenciones"
-          label_less_than_1000_1: 'El '
-          label_less_than_1000_2: " de las subvenciones son menores de "
           mean_amount: Importe medio
           median_amount: Importe mediano
           subsidies: Subvenciones
           subsidies_for: subvenciones por importe de
+          tip_1: El %{strong1} de las subvenciones son menores de %{strong2}
+          tip_2: La mayor subvención supone un %{strong} de todo el gasto en subvenciones
+          tip_3: El %{strong} de subvenciones concentran el 50% de todo el gasto
         title: Subvenciones
       tender_statuses:
         awarded: Adjudicada

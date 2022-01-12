@@ -104,15 +104,13 @@ ca:
         summary:
           contracts: Contractes adjudicats
           contracts_for: contractes per import de
-          label_half_spendings_contracts: El %{strong} de contractes concentren el
-            50% de tota la despesa
-          label_larger_contract_amount: El major contracte suposa un %{strong} de
-            tota la despesa en contractes
-          label_less_than_1000: El %{strong1} dels contractes són menors de %{strong2}
           mean_amount: Import mig
           median_amount: Mediana dels imports
           tenders: Licitacions
           tenders_for: licitacions per un import de
+          tip_1: El %{strong1} dels contractes són menors de %{strong2}
+          tip_2: El major contracte suposa un %{strong} de tota la despesa en contractes
+          tip_3: El %{strong} de contractes concentren el 50% de tota la despesa
         tender_amount: Imp. licitació
         tender_date: Data de licitació
         title: Contractes i licitacions
@@ -238,17 +236,13 @@ ca:
         summary:
           collective_subsidies_for: a col·lectius per import de
           individual_subsidies_for: a particulars per import de
-          label_half_spendings_subsidies_1: 'El '
-          label_half_spendings_subsidies_2: " de subvencions concentren el 50% de
-            tota la despesa"
-          label_larger_subsidy_amount_1: 'La major subvenció suposa '
-          label_larger_subsidy_amount_2: " de tota la despesa en subvencions"
-          label_less_than_1000_1: 'El '
-          label_less_than_1000_2: " de les subvencions són menors de "
           mean_amount: Import mig
           median_amount: Mediana dels imports
           subsidies: Subvencions
           subsidies_for: subvencions per import de
+          tip_1: El %{strong1} de les subvencions són menors de %{strong2}
+          tip_2: La major subvenció suposa %{strong} de tota la despesa en subvencions
+          tip_3: El %{strong} de subvencions concentren el 50% de tota la despesa
         title: Subvencions
       tender_statuses:
         awarded: Adjudicat

@@ -255,6 +255,7 @@ export class ContractsController {
     this._renderDateChart();
     this._renderCategoriesChart();
     this._renderEntitiesChart();
+    this._renderProcessTypePerAmountChart();
   }
 
   _refreshData(reducedContractsData, filters, tendersAttribute) {
@@ -418,6 +419,42 @@ export class ContractsController {
     };
 
     this.charts["process_types"] = new GroupPctDistributionBars(renderOptions);
+  }
+
+  _renderProcessTypePerAmountChart() {
+    /*const _contractsData = this._currentDataSource().contractsData;
+    var result = [];
+    _contractsData.reduce(function(res, value) {
+      if (!res[value.process_type]) {
+        res[value.process_type] = { process_type: value.process_type, final_amount_no_taxes: 0 };
+        result.push(res[value.process_type])
+      }
+      res[value.process_type].final_amount_no_taxes += value.final_amount_no_taxes;
+      return res;
+    }, {});
+
+    this.ndx_process_per_amount = crossfilter(result);
+    const dimension = this.ndx_process_per_amount.dimension(contract => contract.process_type);*/
+    const dimension = this.ndx.dimension(contract => contract.process_type);
+
+    const renderOptions = {
+      containerSelector: "#process-type-per-amount-bars",
+      dimension: dimension,
+      groupValue: 'final_amount_no_taxes',
+      onFilteredFunction: (chart, filter) => {
+        this._refreshData(
+          dimension.top(Infinity),
+          chart.filters(),
+          "final_amount_no_taxes"
+        );
+        EventBus.$emit("dc-filter-selected", {
+          title: filter,
+          id: "process_types_per_amount"
+        });
+      }
+    };
+
+    this.charts["process_types_per_amount"] = new GroupPctDistributionBars(renderOptions);
   }
 
   _renderDateChart() {

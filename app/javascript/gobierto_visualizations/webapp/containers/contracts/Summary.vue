@@ -68,6 +68,12 @@
           </h3>
           <div id="amount-distribution-bars" />
         </div>
+        <div>
+          <h3 class="mt1 graph-title">
+            {{ labelAmountDistribution }}
+          </h3>
+          <div id="process-type-per-amount-bars" />
+        </div>
       </div>
     </div>
 

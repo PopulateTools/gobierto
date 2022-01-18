@@ -44,35 +44,30 @@
 
     <Tips :labels="tips" />
 
-    <div class="pure-g block">
-      <div class="pure-u-1 pure-u-lg-1-2 p_h_r_3">
-        <div class="m_b_3">
-          <h3 class="mt1 graph-title">
-            {{ labelContractType }}
-          </h3>
-          <div id="contract-type-bars" />
-        </div>
-        <div>
-          <h3 class="mt1 graph-title">
-            {{ labelAmountProcessType }}
-          </h3>
-          <div id="process-type-per-amount-bars" />
-        </div>
+    <div class="gobierto-visualizations-grid-dc-charts">
+      <div>
+        <h3 class="mt1 graph-title">
+          {{ labelContractType }}
+        </h3>
+        <div id="contract-type-bars" />
       </div>
-
-      <div class="pure-u-1 pure-u-lg-1-2 header_block_inline">
-        <div class="m_b_3">
-          <h3 class="mt1 graph-title">
-            {{ labelAmountDistribution }}
-          </h3>
-          <div id="amount-distribution-bars" />
-        </div>
-        <div>
-          <h3 class="mt1 graph-title">
-            {{ labelProcessType }}
-          </h3>
-          <div id="process-type-bars" />
-        </div>
+      <div>
+        <h3 class="mt1 graph-title">
+          {{ labelAmountDistribution }}
+        </h3>
+        <div id="amount-distribution-bars" />
+      </div>
+      <div>
+        <h3 class="mt1 graph-title">
+          {{ labelAmountProcessType }}
+        </h3>
+        <div id="process-type-per-amount-bars" />
+      </div>
+      <div>
+        <h3 class="mt1 graph-title">
+          {{ labelProcessType }}
+        </h3>
+        <div id="process-type-bars" />
       </div>
     </div>
 

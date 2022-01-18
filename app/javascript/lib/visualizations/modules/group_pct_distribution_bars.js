@@ -78,6 +78,8 @@ export class GroupPctDistributionBars {
             });
           }
 
+          // https://eslint.org/docs/rules/no-compare-neg-zero
+          labelValue = Object.is(labelValue, -0) ? 0 : labelValue
           return [label, labelValue];
         })
         .enter()

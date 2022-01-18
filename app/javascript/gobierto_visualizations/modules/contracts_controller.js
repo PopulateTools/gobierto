@@ -436,7 +436,7 @@ export class ContractsController {
         );
         EventBus.$emit("dc-filter-selected", {
           title: filter,
-          id: "process_types_per_amount"
+          id: "process_types"
         });
       }
     };

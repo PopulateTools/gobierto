@@ -52,12 +52,11 @@
           </h3>
           <div id="contract-type-bars" />
         </div>
-
         <div>
           <h3 class="mt1 graph-title">
-            {{ labelProcessType }}
+            {{ labelAmountProcessType }}
           </h3>
-          <div id="process-type-bars" />
+          <div id="process-type-per-amount-bars" />
         </div>
       </div>
 
@@ -70,9 +69,9 @@
         </div>
         <div>
           <h3 class="mt1 graph-title">
-            {{ labelAmountDistribution }}
+            {{ labelProcessType }}
           </h3>
-          <div id="process-type-per-amount-bars" />
+          <div id="process-type-bars" />
         </div>
       </div>
     </div>
@@ -141,6 +140,7 @@ export default {
       labelContractType: I18n.t("gobierto_visualizations.visualizations.contracts.contract_type") || "",
       labelProcessType: I18n.t("gobierto_visualizations.visualizations.contracts.process_type") || "",
       labelAmountDistribution: I18n.t("gobierto_visualizations.visualizations.contracts.amount_distribution") || "",
+      labelAmountProcessType: I18n.t("gobierto_visualizations.visualizations.contracts.amount_by_type_of_process") || "",
       treemapButtons: [
         ["final_amount_no_taxes", I18n.t("gobierto_visualizations.visualizations.contracts.contract_amount")],
         ["total", I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap') || ""],

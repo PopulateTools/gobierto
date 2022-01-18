@@ -55,30 +55,30 @@ export class GroupPctDistributionBars {
         .selectAll("tspan")
         .data(d => {
           let label = truncate(d.key, { length: 25 });
-          let pct;
+          let labelValue;
 
           if (this.hasFilter() && !this.hasFilter(d.key)) {
-            pct = 0.0;
+            labelValue = 0.0;
           } else if (this.hasFilter() && this.hasFilter(d.key)) {
-            pct = !groupValue ? parseFloat(d.value / dimension.top(Infinity).length) : d.value;
+            labelValue = !groupValue ? parseFloat(d.value / dimension.top(Infinity).length) : d.value;
           } else {
-            pct = !groupValue ? parseFloat(d.value / all.value()) : d.value;
+            labelValue = !groupValue ? parseFloat(d.value / all.value()) : d.value;
           }
 
           if (!groupValue) {
-            pct = pct.toLocaleString(I18n.locale, {
+            labelValue = labelValue.toLocaleString(I18n.locale, {
               style: "percent",
               minimumFractionDigits: 1
             });
           } else {
-            pct = pct.toLocaleString(I18n.locale, {
+            labelValue = labelValue.toLocaleString(I18n.locale, {
               style: "currency",
               currency: "EUR",
               maximumFractionDigits: 0
             });
           }
 
-          return [label, pct];
+          return [label, labelValue];
         })
         .enter()
         .append("tspan")

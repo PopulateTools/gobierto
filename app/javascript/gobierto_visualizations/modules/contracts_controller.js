@@ -422,19 +422,6 @@ export class ContractsController {
   }
 
   _renderProcessTypePerAmountChart() {
-    /*const _contractsData = this._currentDataSource().contractsData;
-    var result = [];
-    _contractsData.reduce(function(res, value) {
-      if (!res[value.process_type]) {
-        res[value.process_type] = { process_type: value.process_type, final_amount_no_taxes: 0 };
-        result.push(res[value.process_type])
-      }
-      res[value.process_type].final_amount_no_taxes += value.final_amount_no_taxes;
-      return res;
-    }, {});
-
-    this.ndx_process_per_amount = crossfilter(result);
-    const dimension = this.ndx_process_per_amount.dimension(contract => contract.process_type);*/
     const dimension = this.ndx.dimension(contract => contract.process_type);
 
     const renderOptions = {

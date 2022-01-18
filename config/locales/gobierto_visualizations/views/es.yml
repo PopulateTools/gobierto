@@ -58,6 +58,7 @@ es:
         special_administrative: Administrativo especial
         supplies: Suministros
       contracts:
+        amount_by_type_of_process: Importe por tipo de procedimiento
         amount_distribution: Distribución por importes
         assignee: Adjudicatario
         categories: Categorías

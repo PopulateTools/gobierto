@@ -58,6 +58,7 @@ en:
         special_administrative: Special administrative
         supplies: Supplies
       contracts:
+        amount_by_type_of_process: Amount by type of process
         amount_distribution: Amount distribution
         assignee: Assignee
         categories: Categories

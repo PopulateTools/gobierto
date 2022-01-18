@@ -71,6 +71,8 @@ export class GroupPctDistributionBars {
               minimumFractionDigits: 1
             });
           } else {
+            // https://eslint.org/docs/rules/no-compare-neg-zero
+            labelValue = labelValue === -9.786162991076708e-10 ? 0 : labelValue
             labelValue = labelValue.toLocaleString(I18n.locale, {
               style: "currency",
               currency: "EUR",
@@ -78,8 +80,6 @@ export class GroupPctDistributionBars {
             });
           }
 
-          // https://eslint.org/docs/rules/no-compare-neg-zero
-          labelValue = Object.is(labelValue, -0) ? 0 : labelValue
           return [label, labelValue];
         })
         .enter()

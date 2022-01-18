@@ -61,7 +61,7 @@
       </div>
 
       <div class="pure-u-1 pure-u-lg-1-2 header_block_inline">
-        <div>
+        <div class="m_b_3">
           <h3 class="mt1 graph-title">
             {{ labelAmountDistribution }}
           </h3>

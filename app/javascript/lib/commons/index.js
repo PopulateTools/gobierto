@@ -22,6 +22,7 @@ import "./modules/module-search";
 import "./modules/module-sessions";
 import "./modules/module-site_header";
 import "./modules/magnific-popup";
+import "./modules/globals.js";
 import "./modules/tabs";
 import "./modules/velocity_settings";
 import "./modules/shareContent";

@@ -115,7 +115,7 @@ module GobiertoData
       end
 
       def inspect_csv_schema(source_file, csv_separator:)
-        data = CSV.parse(File.open(source_file, "r").first(2).join, headers: true, col_sep: csv_separator)
+        data = CSV.parse(File.open(source_file, "r").first, headers: true, col_sep: csv_separator)
         blank_cols = 0
         data.headers.inject({}) do |cols, col|
           col_name = if col.blank?
@@ -123,7 +123,6 @@ module GobiertoData
                        "column_#{blank_cols}"
                      else
                        col.parameterize.underscore.to_sym
-
                      end
           cols.update(
             col_name => { original_name: col, type: "text" }

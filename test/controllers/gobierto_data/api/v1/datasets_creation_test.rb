@@ -98,7 +98,7 @@ module GobiertoData
 
               assert_response :unprocessable_entity
               response_data = response.parsed_body
-              assert_match(/CSV file malformed or with wrong encoding/, response_data.to_s)
+              assert_match(/Database error loading CSV/, response_data.to_s)
               refute site.activities.where(subject_type: "GobiertoData::Dataset").exists?
             end
           end

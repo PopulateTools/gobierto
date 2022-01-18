@@ -134,9 +134,9 @@ export default {
         I18n.t("gobierto_visualizations.visualizations.subsidies.summary.median_amount") || "",
       ],
       tips: [
-        ["less-than-1000-pct",I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_less_than_1000_1") || "", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_less_than_1000_2") || ""],
-        ["larger-subsidy-amount-pct", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_larger_subsidy_amount_1") || "", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_larger_subsidy_amount_2") || ""],
-        ["half-spendings-subsidies-pct", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_half_spendings_subsidies_1") || "", I18n.t("gobierto_visualizations.visualizations.subsidies.summary.label_half_spendings_subsidies_2") || ""],
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.tip_1", { strong1: "<strong><span id=\"less-than-1000-pct\" /></strong>", strong2: "<strong>1.000 €</strong>" }) || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.tip_2", { strong: "<strong><span id=\"larger-subsidy-amount-pct\" /></strong>" }) || "",
+        I18n.t("gobierto_visualizations.visualizations.subsidies.summary.tip_3", { strong: "<strong><span id=\"half-spendings-subsidies-pct\" /></strong>" }) || ""
       ]
     }
   },

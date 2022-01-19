@@ -1,47 +1,99 @@
 <template>
   <div class="pure-g">
-    <div class="pure-u-1-1 gobierto-data-summary-header gobierto-data-summary-info">
-      <h2 class="gobierto-data-title-dataset gobierto-data-info-list-title">
-        {{ titleDataset }}
-      </h2>
-      <InfoBlockText
-        v-if="categoryDataset"
-        icon="tag"
-        :text="categoryDataset"
-      />
-      <div class="gobierto-data-info-list-top">
-        <InfoBlockText
-          v-if="dateUpdated"
-          icon="clock"
-          :text="dateUpdated | convertDate"
-        />
-        <InfoBlockText
-          v-if="frequencyDataset"
-          icon="calendar"
-          :text="frequencyDataset"
-        />
-      </div>
-    </div>
-    <div class="pure-u-1-1 gobierto-data-summary-body">
+    <div class="pure-u-17-24 gobierto-data-summary-header">
       <div
         id="gobierto-data-summary-header"
         class="gobierto-data-summary-header-description"
         v-html="compiledHTMLMarkdown"
       />
-      <i class="fas fa-arrow-right" />
+    </div>
+    <div class="pure-u-7-24 gobierto-data-summary-info-tab">
+      <div
+        class="gobierto-data-summary-header-btns"
+      >
+        <template v-if="moreThanOneFormat">
+          <DownloadButton
+            :array-formats="arrayFormats"
+            class="arrow-top modal-left"
+          />
+        </template>
+        <template v-else>
+          <DownloadLink
+            :editor="false"
+            :array-formats="arrayFormats"
+          />
+        </template>
+        <router-link
+          :to="`/datos/${$route.params.id}/${tabs[1]}`"
+          class="gobierto-data-btn-preview"
+        >
+          <Button
+            :text="labelPreview"
+            icon="table"
+            color="rgba(var(--color-base)"
+            icon-color="rgba(var(--color-base-string), .5)"
+            class="gobierto-data-btn-download-data "
+            background="#fff"
+          />
+        </router-link>
+      </div>
+      <InfoBlockText
+        v-if="dateUpdated"
+        icon="clock"
+        :icon-color="'#666'"
+        :label="labelUpdated"
+        :text="dateUpdated | convertDate"
+      />
+      <InfoBlockText
+        v-if="frequencyDataset"
+        icon="calendar"
+        :icon-color="'#666'"
+        :label="labelFrequency"
+        :text="frequencyDataset"
+      />
+      <InfoBlockText
+        v-if="categoryDataset"
+        icon="tag"
+        :icon-color="'#666'"
+        :label="labelSubject"
+        :text="categoryDataset"
+      />
+      <InfoBlockText
+        v-if="hasDatasetSource"
+        icon="building"
+        :icon-color="'#666'"
+        :label="labelSource"
+        :text="sourceDatasetText"
+        :url="sourceDatasetUrl"
+      />
+      <InfoBlockText
+        v-if="hasDatasetLicense"
+        icon="certificate"
+        :icon-color="'#666'"
+        :label="labelLicense"
+        :text="licenseDatasetText"
+        :url="licenseDatasetUrl"
+      />
     </div>
   </div>
 </template>
 <script>
-import { date, truncate } from "lib/vue/filters"
+import { date } from "lib/vue/filters"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
+import DownloadButton from "./../commons/DownloadButton.vue";
+import DownloadLink from "./../commons/DownloadLink.vue";
+import Button from "./../commons/Button.vue";
+import { tabs } from "../../../lib/router";
 //Parse markdown to HTML
 const marked = require('marked');
 
 export default {
-  name: "Info",
+  name: "InfoTab",
   components: {
     InfoBlockText,
+    DownloadButton,
+    DownloadLink,
+    Button
   },
   filters: {
     convertDate(valueDate) {
@@ -58,10 +110,6 @@ export default {
       default: ''
     },
     categoryDataset: {
-      type: String,
-      default: ''
-    },
-    titleDataset: {
       type: String,
       default: ''
     },
@@ -83,22 +131,26 @@ export default {
     },
     arrayFormats: {
       type: Object,
-      default: () => {},
+      default: () => {}
     },
   },
   data() {
     return {
+      labelUpdated: I18n.t("gobierto_data.projects.updated") || '',
+      labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
+      labelSubject: I18n.t("gobierto_data.projects.subject") || '',
       labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',
       labelSource: I18n.t("gobierto_data.projects.sourceDataset") || '',
       labelSourceUrl: I18n.t("gobierto_data.projects.sourceDatasetUrl") || '',
       labelLicense: I18n.t("gobierto_data.projects.license") || '',
       seeMore: I18n.t("gobierto_common.vue_components.read_more.more") || '',
       seeLess: I18n.t("gobierto_common.vue_components.read_more.less") || '',
-      truncateIsActive: true,
+      labelPreview: I18n.t("gobierto_data.projects.preview") || "",
       sourceDatasetText: '',
       sourceDatasetUrl: '',
       licenseDatasetText: '',
-      licenseDatasetUrl: ''
+      licenseDatasetUrl: '',
+      tabs
     }
   },
   computed: {
@@ -109,11 +161,7 @@ export default {
         sanitize: false,
         tables: true
       })
-      if (this.truncateIsActive) {
-        return truncate(mdText, { length: 150 })
-      } else {
-        return mdText
-      }
+      return mdText
     },
     hasDatasetSource() {
       return this.sourceDataset && this.sourceDataset?.text !== undefined && this.sourceDataset?.text !== ""
@@ -121,6 +169,9 @@ export default {
     hasDatasetLicense() {
       return this.licenseDataset?.text !== undefined && this.licenseDataset?.url !== undefined
     },
+    moreThanOneFormat() {
+      return Object.keys(this.arrayFormats).length > 1
+    }
   },
   created(){
     if (this.sourceDataset) {
@@ -132,16 +183,6 @@ export default {
       const { text: licenseDatasetText, url: licenseDatasetUrl } = this.licenseDataset
       this.licenseDatasetText = licenseDatasetText
       this.licenseDatasetUrl = licenseDatasetUrl
-    }
-  },
-  methods: {
-    scrollDetail() {
-      const element = document.getElementById('gobierto-datos-app');
-      window.scrollTo({
-        top: element.offsetTop,
-        behavior: 'smooth'
-      });
-      this.truncateIsActive = true
     }
   }
 }

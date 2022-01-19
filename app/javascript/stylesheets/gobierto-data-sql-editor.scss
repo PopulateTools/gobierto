@@ -1,0 +1,328 @@
+.gobierto-data {
+
+  .codemirror {
+    border: 0;
+  }
+
+  .CodeMirror {
+    background-color: rgba(#666, .05);
+    border: 0;
+    padding: .5rem;
+    height: auto !important;
+    min-height: 100px !important;
+  }
+
+  .CodeMirror-code {
+    font-size: 12px;
+    color: var(--grey-text);
+    font-family: monospace;
+  }
+
+  .btn-sql-editor {
+    text-transform: none;
+    min-height: 31px;
+    border: 1px solid rgba(var(--color-base-string), .2);
+    font-weight: 600;
+    font-size: $f7;
+    margin: 0;
+
+    &.isDisabled {
+      opacity: .4;
+      pointer-events: none;
+    }
+
+    &.remove-label {
+      font-size: 0;
+
+      i {
+        font-size: $f7;
+      }
+    }
+
+    &.btn-sql-editor-run {
+      position: relative;
+      margin-left: auto;
+    }
+
+    &.btn-sql-editor-queries {
+      background-color: $color_main_negative;
+      color: var(--color-base);
+    }
+  }
+
+  .btn-sql-revert-query {
+    vertical-align: top;
+    margin-left: .5rem;
+  }
+
+  .btn-sql-revert-viz {
+    vertical-align: top;
+  }
+
+  &-sql-editor {
+    margin-bottom: $f6;
+
+    input[type="text"] {
+      background: #f9f9f9;
+      border: 1px solid rgba(0, 89, 201, .2);
+      height: auto;
+      border-radius: 3px;
+      display: inline-block;
+      padding: .25rem;
+      transition: width var(--transition);
+
+      &.disable-input-text {
+        border-color: #f9f9f9;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        cursor: pointer;
+      }
+
+      &.disable-cursor-pointer {
+        pointer-events: none;
+      }
+    }
+
+    input[type="checkbox"],
+    input[type="checkbox"]+label {
+      display: inline-block;
+    }
+
+    input[type="checkbox"]+label {
+      padding: 0 .25rem;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    input[type="checkbox"]:checked+label {
+      background-color: transparent;
+    }
+
+    .gobierto-data-tab-sidebar--tab {
+      width: auto;
+      margin-right: $f6;
+      font-weight: normal;
+
+      i {
+        color: var(--color-base);
+      }
+    }
+
+    .btn-sql-editor-revert {
+      margin-left: .5em;
+    }
+  }
+
+  &-sql-editor-toolbar {
+    padding: .5rem 0;
+    display: flex;
+    position: sticky;
+    top: 0;
+    background-color: $color_main_negative;
+    z-index: 3;
+  }
+
+  &-sql-editor-container-save {
+    display: inline-flex;
+    align-items: center;
+
+    i {
+      min-width: 20px;
+    }
+  }
+
+  &-sql-editor-container-save-text {
+    min-height: 31px;
+  }
+
+  &-sql-editor-container-save-label {
+    font-size: $f7;
+    color: var(--grey-text);
+    padding-right: .5em;
+    cursor: pointer;
+  }
+
+  &-sql-editor-container-save-label-input,
+  &-sql-editor-container-save-label-text {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &-sql-editor-modified-label-container {
+    margin: 0 .5rem;
+  }
+
+  &-sql-editor-modified-label,
+  &-sql-editor-modified-event {
+    font-size: $f7;
+    color: var(--grey-text);
+    opacity: .5;
+  }
+
+  &-sql-editor-modified-event {
+    text-transform: lowercase;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0 .25rem;
+  }
+
+  &-sql-editor-footer-records,
+  &-sql-editor-footer-time,
+  &-sql-editor-footer-guide {
+    display: inline-block;
+    font-size: $f7;
+    color: var(--grey-text);
+    opacity: .6;
+  }
+
+  &-sql-editor-footer-time {
+    opacity: .4;
+  }
+
+  &-sql-editor-footer-guide {
+    color: var(--color-base);
+    opacity: .5;
+    float: right;
+  }
+
+  &-sql-editor-footer-records {
+    padding-right: .5rem;
+  }
+
+  &-sql-editor-tabs {
+    margin-top: 2rem;
+
+    .gobierto-data-container-btn-download-data {
+      width: max-content;
+    }
+
+    .gobierto-data-btn-download-data-modal {
+      margin-top: $f6;
+    }
+
+    .gobierto-data-btn-download-data {
+      padding: .25rem;
+      min-width: auto;
+      text-transform: none;
+      margin: 0;
+      margin-left: auto;
+      font-size: $f7;
+    }
+  }
+
+  &-sql-editor-table-container {
+    width: 100%;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+
+  table {
+    &.gobierto-data-sql-editor-table {
+      border: 1px solid rgba(#666, .1);
+      border-top: 0;
+      font-size: $f7;
+      color: var(--grey-text);
+
+      thead,
+      tr,
+      th {
+        border-top: 0;
+        letter-spacing: 0;
+      }
+
+      th {
+        font-weight: 600;
+      }
+
+      td {
+        border-top: 0;
+        border-right: 1px solid rgba(#666, .1);
+      }
+    }
+  }
+
+  &-sql-editor-table-header {
+    th {
+      font-weight: bold;
+    }
+  }
+
+  &-sql-editor-table-body {
+    tr {
+
+      &:nth-child(even) {
+        background-color: rgba(#eeb33f, .05);
+      }
+
+      &:nth-child(odd) {
+        background-color: rgba(#eeb33f, .2);
+      }
+    }
+  }
+
+  &-sql-error-message {
+    font-size: $f7;
+    font-weight: 600;
+    color: #b62323;
+  }
+
+  &-sql-editor-your-queries-container {
+    @include min-screen(768) {
+      width: 50vw;
+    }
+
+    box-shadow: var(--shadow);
+    position: absolute;
+    top: 45px;
+    left: 0;
+    background: $color_main_negative;
+    padding: 0;
+    z-index: 10;
+    width: 70vw;
+
+    .gobierto-data-summary-queries-panel {
+      border-color: var(--color-base);
+      height: max-content;
+      max-height: 30vw;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+
+    &.arrow-top {
+
+      &::after,
+      &::before {
+        bottom: 100%;
+        border: solid transparent;
+        content: ' ';
+        height: 0;
+        width: 0;
+        left: 20px;
+        position: absolute;
+        border-color: rgba(255, 255, 255, 0);
+      }
+
+      &::before {
+        border-bottom-color: var(--color-base) !important;
+        margin-left: -9px;
+        border-width: 9px;
+      }
+
+      &::after {
+        border-bottom-color: $color_main_negative !important;
+        margin-left: -8px;
+        border-width: 8px;
+        background-color: transparent;
+      }
+
+      .gobierto-data-summary-queries-panel {
+        .border-color-queries {
+          border-color: var(--color-base);
+        }
+      }
+    }
+  }
+}

@@ -4,8 +4,12 @@
       v-if="icon"
       :class="'fa fa-' + icon"
       :style="{'color': iconColor, 'opacity': opacity}"
+      style="margin-right: .25rem;"
     />
-    <span class="gobierto-data-summary-header-container-label">
+    <span
+      v-if="label"
+      class="gobierto-data-summary-header-container-label"
+    >
       {{ label }}
     </span>
     <span class="gobierto-data-summary-header-container-text">
@@ -46,7 +50,7 @@ export default {
     iconColor: {
       type: String,
       default: 'inherit'
-    },
+    }
   }
 }
 </script>

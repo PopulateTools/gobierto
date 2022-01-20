@@ -72,8 +72,7 @@ export class GroupPctDistributionBars {
             });
           } else {
             //Convert negative zero to positive zero
-            labelValue = labelValue < 0 ? 0 : labelValue
-            labelValue = labelValue.toLocaleString(I18n.locale, {
+            labelValue = Math.max(0, labelValue).toLocaleString(I18n.locale, {
               style: "currency",
               currency: "EUR",
               maximumFractionDigits: 0

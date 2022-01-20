@@ -44,30 +44,30 @@
 
     <Tips :labels="tips" />
 
-    <div class="gobierto-visualizations-grid-dc-charts">
-      <div>
-        <h3 class="mt1 graph-title">
-          {{ labelContractType }}
-        </h3>
-        <div id="contract-type-bars" />
+    <div class="pure-g block">
+      <div class="pure-u-1 pure-u-lg-1-2 p_h_r_3">
+        <div class="m_b_3">
+          <h3 class="mt1 graph-title">
+            {{ labelContractType }}
+          </h3>
+          <div id="contract-type-bars" />
+        </div>
+
+        <div>
+          <h3 class="mt1 graph-title">
+            {{ labelProcessType }}
+          </h3>
+          <div id="process-type-bars" />
+        </div>
       </div>
-      <div>
-        <h3 class="mt1 graph-title">
-          {{ labelAmountDistribution }}
-        </h3>
-        <div id="amount-distribution-bars" />
-      </div>
-      <div>
-        <h3 class="mt1 graph-title">
-          {{ labelAmountProcessType }}
-        </h3>
-        <div id="process-type-per-amount-bars" />
-      </div>
-      <div>
-        <h3 class="mt1 graph-title">
-          {{ labelProcessType }}
-        </h3>
-        <div id="process-type-bars" />
+
+      <div class="pure-u-1 pure-u-lg-1-2 header_block_inline">
+        <div>
+          <h3 class="mt1 graph-title">
+            {{ labelAmountDistribution }}
+          </h3>
+          <div id="amount-distribution-bars" />
+        </div>
       </div>
     </div>
 
@@ -135,7 +135,6 @@ export default {
       labelContractType: I18n.t("gobierto_visualizations.visualizations.contracts.contract_type") || "",
       labelProcessType: I18n.t("gobierto_visualizations.visualizations.contracts.process_type") || "",
       labelAmountDistribution: I18n.t("gobierto_visualizations.visualizations.contracts.amount_distribution") || "",
-      labelAmountProcessType: I18n.t("gobierto_visualizations.visualizations.contracts.amount_by_type_of_process") || "",
       treemapButtons: [
         ["final_amount_no_taxes", I18n.t("gobierto_visualizations.visualizations.contracts.contract_amount")],
         ["total", I18n.t('gobierto_visualizations.visualizations.visualizations.tooltip_treemap') || ""],

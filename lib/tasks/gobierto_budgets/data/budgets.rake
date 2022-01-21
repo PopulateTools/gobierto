@@ -11,7 +11,9 @@ namespace :gobierto_budgets do
       GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_FORECAST_UPDATED
     ].freeze
 
-    def after_import_tasks(organization_ids, sites)
+    def after_import_tasks(sites)
+      organization_ids = sites.map(&:organization_id).uniq
+
       if organization_ids.any?
         organization_ids.each do |organization_id|
           GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
@@ -81,7 +83,7 @@ namespace :gobierto_budgets do
       nitems = importer.import!
       puts "[SUCCESS] Imported #{nitems} rows for sites #{sites.pluck(:domain).to_sentence}"
 
-      after_import_tasks(organization_ids, sites)
+      after_import_tasks(sites)
     end
 
     desc "Import budgets from CSV with SICALWIN format. Expects three arguments: csv_path, INE code and year"
@@ -116,7 +118,66 @@ namespace :gobierto_budgets do
 
       puts "[SUCCESS] Imported #{nitems} rows for sites #{sites.pluck(:domain).to_sentence}"
 
-      after_import_tasks(organization_ids, sites)
+      after_import_tasks(sites)
+    end
+
+    desc "Clear previous budgets data"
+    task :clear_previous_budgets_data, [:organization_id,:year] => :environment do |_t, args|
+      year = args[:year]
+      if year.blank? || year.to_i < 2000 || year.to_i > 2100
+        puts "[ERROR] Wrong year argument provided"
+        exit(-1)
+      end
+
+      organization_id = args[:organization_id]
+      if organization_id.blank? || organization_id !~ /\A[0-9]+\z/
+        puts "[ERROR] Wrong organization_id argument provided"
+        exit(-1)
+      end
+
+
+       puts "- Organization: #{organization_id}"
+
+       terms = [
+         {term: { organization_id: organization_id }}
+       ]
+
+       if year
+         terms.push({term: { year: year }})
+       end
+
+       query = {
+         query: {
+           filtered: {
+             filter: {
+               bool: {
+                 must: terms
+               }
+             }
+           }
+         },
+         size: 10_000
+       }
+
+       count = 0
+       GobiertoBudgetsData::GobiertoBudgets::ALL_INDEXES.each do |index|
+         GobiertoBudgetsData::GobiertoBudgets::ALL_TYPES.each do |type|
+           response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
+           while response['hits']['total'] > 0
+             delete_request_body = response['hits']['hits'].map do |h|
+               count += 1
+               { delete: h.slice("_index", "_type", "_id") }
+             end
+             GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk index: index, type: type, body: delete_request_body
+             response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
+           end
+         end
+       end
+
+       puts "-  Deleted #{count} items"
+
+       sites = Site.where(organization_id: organization_id)
+       after_import_tasks(sites)
     end
   end
 end

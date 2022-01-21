@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_budgets_data.git
-  revision: fbeed6a726aaad40d78165609bac0c57048e1d67
+  revision: e940dc459a38480fffb8c55c0a43bbf9abb6ec09
   branch: sicalwin-format
   specs:
     gobierto_budgets_data (0.1.0)
@@ -108,8 +108,8 @@ GEM
       rack
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.546.0)
-    aws-sdk-core (3.125.1)
+    aws-partitions (1.549.0)
+    aws-sdk-core (3.125.5)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
@@ -117,7 +117,7 @@ GEM
     aws-sdk-kms (1.53.0)
       aws-sdk-core (~> 3, >= 3.125.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.111.1)
+    aws-sdk-s3 (1.111.2)
       aws-sdk-core (~> 3, >= 3.125.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
@@ -195,7 +195,7 @@ GEM
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-httpclient (1.0.1)
-    faraday-multipart (1.0.2)
+    faraday-multipart (1.0.3)
       multipart-post (>= 1.2, < 3)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
@@ -206,7 +206,7 @@ GEM
     foreman (0.87.2)
     gems (1.2.0)
     geocoder (1.6.7)
-    globalid (0.5.2)
+    globalid (1.0.0)
       activesupport (>= 5.0)
     google-api-client (0.53.0)
       google-apis-core (~> 0.1)
@@ -268,7 +268,7 @@ GEM
       rails (>= 5.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
-    jmespath (1.4.0)
+    jmespath (1.5.0)
     js_cookie_rails (2.2.0)
       railties (>= 3.1)
     json_translate (4.0.1)
@@ -348,7 +348,7 @@ GEM
     net-ldap (0.17.0)
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.13.0)
+    nokogiri (1.13.1)
       mini_portile2 (~> 2.7.0)
       racc (~> 1.4)
     nori (2.6.0)
@@ -499,7 +499,7 @@ GEM
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.3.0)
+    sprockets-rails (3.4.2)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)

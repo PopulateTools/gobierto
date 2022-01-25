@@ -17,7 +17,7 @@
               :title="filter.title"
               class="visualizations-home-aside--block-header"
               see-link
-              :rotate="filter.isToggle"
+              :rotate="!filter.isToggle"
               :label-alt="filter.isEverythingChecked"
               @select-all="e => handleIsEverythingChecked({ ...e, filter })"
               @toggle="toggle(filter)"

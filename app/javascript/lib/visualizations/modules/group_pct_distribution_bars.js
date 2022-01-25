@@ -10,11 +10,11 @@ const dc = { rowChart };
 export class GroupPctDistributionBars {
   constructor(options) {
     // Declaration
-    const { containerSelector, dimension, onFilteredFunction } = options;
+    const { containerSelector, dimension, onFilteredFunction, groupValue } = options;
     this.container = dc.rowChart(containerSelector, "group");
 
     // Dimensions
-    const groupedDimension = dimension.group().reduceCount(),
+    const groupedDimension = !groupValue ? dimension.group().reduceCount() : dimension.group().reduceSum(d => d[groupValue]),
       all = dimension.groupAll();
 
     // Styling
@@ -22,8 +22,8 @@ export class GroupPctDistributionBars {
     this._gap = 10;
     this._barHeight = 18;
 
-    const _initialLabelOffset = 250,
-      _pctLabelOffset = 50;
+    const _initialLabelOffset = 250
+    const _pctLabelOffset = !groupValue ? 50 : 80;
 
     this.node = this.container.root().node() || document.createElement("div");
 
@@ -55,22 +55,31 @@ export class GroupPctDistributionBars {
         .selectAll("tspan")
         .data(d => {
           let label = truncate(d.key, { length: 25 });
-          let pct;
+          let labelValue;
 
           if (this.hasFilter() && !this.hasFilter(d.key)) {
-            pct = 0.0;
+            labelValue = 0.0;
           } else if (this.hasFilter() && this.hasFilter(d.key)) {
-            pct = parseFloat(d.value / dimension.top(Infinity).length);
+            labelValue = !groupValue ? parseFloat(d.value / dimension.top(Infinity).length) : d.value;
           } else {
-            pct = parseFloat(d.value / all.value());
+            labelValue = !groupValue ? parseFloat(d.value / all.value()) : d.value;
           }
 
-          pct = pct.toLocaleString(I18n.locale, {
-            style: "percent",
-            minimumFractionDigits: 1
-          });
+          if (!groupValue) {
+            labelValue = labelValue.toLocaleString(I18n.locale, {
+              style: "percent",
+              minimumFractionDigits: 1
+            });
+          } else {
+            //Convert negative zero to positive zero
+            labelValue = Math.max(0, labelValue).toLocaleString(I18n.locale, {
+              style: "currency",
+              currency: "EUR",
+              maximumFractionDigits: 0
+            });
+          }
 
-          return [label, pct];
+          return [label, labelValue];
         })
         .enter()
         .append("tspan")

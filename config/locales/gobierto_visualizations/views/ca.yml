@@ -58,6 +58,7 @@ ca:
         special_administrative: Administratiu especial
         supplies: Subministraments
       contracts:
+        amount_by_type_of_process: Import per tipu de procedimient
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
         categories: Categories

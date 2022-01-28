@@ -4555,9 +4555,9 @@ d3-format@1:
   integrity sha512-Ab3S6XuE/Q+flY96HXT0jOXcM4EAClYFnRGY5zsjRGNy6qCYrQsMffs7cV5Q9xejb35zxW5hf/guKw34kvIKsA==
 
 "d3-format@1 - 3":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-3.0.1.tgz#e41b81b2ab79277141ec1404aa5d05001da64084"
-  integrity sha512-hdL7+HBIohpgfolhBxr1KX47VMD6+vVD/oEFrxk5yhmzV2prk99EkFKYpXuhVkFpTgHdJ6/4bYcjdLPPXV4tIA==
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-3.1.0.tgz#9260e23a28ea5cb109e93b21a06e24e2ebd55641"
+  integrity sha512-YyUI6AEuY/Wpt8KWLgZHsIU86atmikuoOmCfommt0LYHiQSPjvX2AcFc38PX0CBpr2RCyZhjex+NS/LPOv6YqA==
 
 d3-format@1.0.2:
   version "1.0.2"
@@ -4589,9 +4589,9 @@ d3-hierarchy@2:
   integrity sha512-SwIdqM3HxQX2214EG9GTjgmCc/mbSx4mQBn+DuEETubhOw6/U3fmnji4uCVrmzOydMHSO1nZle5gh6HB/wdOzw==
 
 d3-hierarchy@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/d3-hierarchy/-/d3-hierarchy-3.0.1.tgz#0365342d54972e38ca05e9143e0ab1c60846b3b5"
-  integrity sha512-RlLTaofEoOrMK1JoXYIGhKTkJFI/6rFrYPgxy6QlZo2BcVc4HGTqEU0rPpzuMq5T/5XcMtAzv1XiLA3zRTfygw==
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/d3-hierarchy/-/d3-hierarchy-3.1.1.tgz#9cbb0ffd2375137a351e6cfeed344a06d4ff4597"
+  integrity sha512-LtAIu54UctRmhGKllleflmHalttH3zkfSi4NlKrTAoFKjC+AFBJohsCAdgCBYQwH0F8hIOGY89X1pPqAchlMkA==
 
 d3-interpolate@1:
   version "1.4.0"
@@ -4827,9 +4827,9 @@ d3-time-format@2:
     d3-time "1 - 2"
 
 "d3-time-format@2 - 4", d3-time-format@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/d3-time-format/-/d3-time-format-4.0.0.tgz#930ded86a9de761702344760d8a25753467f28b7"
-  integrity sha512-nzaCwlj+ZVBIlFuVOT1RmU+6xb/7D5IcnhHzHQcBgS/aTa5K9fWZNN5LCXA27LgF5WxoSNJqKBbLcGMtM6Ca6A==
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/d3-time-format/-/d3-time-format-4.1.0.tgz#7ab5257a5041d11ecb4fe70a5c7d16a195bb408a"
+  integrity sha512-dJxPBlzC7NugB2PDLwo9Q8JiTR3M3e4/XANkreKSUxF8vvXKqm1Yfq4Q5dl8budlunRVlUUaDUgFt7eA8D6NLg==
   dependencies:
     d3-time "1 - 3"
 
@@ -6553,10 +6553,10 @@ globjoin@^0.1.4:
   resolved "https://registry.npmjs.org/globjoin/-/globjoin-0.1.4.tgz"
   integrity sha1-L0SUrIkZ43Z8XLtpHp9GMyQoXUM=
 
-gobierto-vizzs@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/gobierto-vizzs/-/gobierto-vizzs-0.0.10.tgz#945e37e609ebe1e06401623a320c87668472d23a"
-  integrity sha512-RsmM+1Z0HznvSO11iIWdWrlKR3T41xVoB+QtI2u0fwHveah4Pl50xTPrrbjE/RrcK8YmuafujPZSSv9wdyIoOA==
+gobierto-vizzs@^0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/gobierto-vizzs/-/gobierto-vizzs-0.0.13.tgz#3f304dbb6f6de8d91fe88360163fa1b3920832f2"
+  integrity sha512-cK9zplOmZmM1yyV4SK39rKAN20u8B8noR9LjXzZC6TuysyL5tit2owJetnmjsBGfyOL5M9Zz1CvCbBjpGvzVYg==
   dependencies:
     d3-array "^3.1.1"
     d3-axis "^3.0.0"

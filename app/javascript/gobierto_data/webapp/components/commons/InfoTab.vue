@@ -84,8 +84,8 @@ import DownloadButton from "./../commons/DownloadButton.vue";
 import DownloadLink from "./../commons/DownloadLink.vue";
 import Button from "./../commons/Button.vue";
 import { tabs } from "../../../lib/router";
-//Parse markdown to HTML
-import { marked } from 'marked';
+//Parse markdown to HTML. Related: https://github.com/PopulateTools/issues/issues/1428#issuecomment-1026617835
+const marked = require('marked');
 
 export default {
   name: "InfoTab",
@@ -157,11 +157,11 @@ export default {
     compiledHTMLMarkdown() {
       /*This method is to remove only the <p>| |</p> and |<br> elements that CodeMirror adds when exporting from the editor. We need to remove them to convert the Markdown tables to HTML correctly.*/
       const descriptionHTML = this.descriptionDataset.replace(/\|<br>|<p>\||\|<\/p>/g, '|');
-      const mdText = marked.parse(descriptionHTML, {
+      const markdownText = marked(descriptionHTML, {
         sanitize: false,
         tables: true
       })
-      return mdText
+      return markdownText
     },
     hasDatasetSource() {
       return this.sourceDataset && this.sourceDataset?.text !== undefined && this.sourceDataset?.text !== ""

@@ -35,8 +35,8 @@
 <script>
 import { date, truncate } from "lib/vue/filters"
 import InfoBlockText from "./../commons/InfoBlockText.vue";
-//Parse markdown to HTML
-import { marked } from 'marked';
+//Parse markdown to HTML. Related: https://github.com/PopulateTools/issues/issues/1428#issuecomment-1026617835
+const marked = require('marked');
 
 export default {
   name: "Info",
@@ -105,14 +105,14 @@ export default {
     compiledHTMLMarkdown() {
       /*This method is to remove only the <p>| |</p> and |<br> elements that CodeMirror adds when exporting from the editor. We need to remove them to convert the Markdown tables to HTML correctly.*/
       const descriptionHTML = this.descriptionDataset.replace(/\|<br>|<p>\||\|<\/p>/g, '|');
-      const mdText = marked.parse(descriptionHTML, {
+      const markdownText = marked(descriptionHTML, {
         sanitize: false,
         tables: true
       })
       if (this.truncateIsActive) {
-        return truncate(mdText, { length: 150 })
+        return truncate(markdownText, { length: 150 })
       } else {
-        return mdText
+        return markdownText
       }
     },
     hasDatasetSource() {

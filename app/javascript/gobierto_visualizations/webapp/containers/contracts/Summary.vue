@@ -123,6 +123,7 @@ export default {
       columns: [],
       showColumns: [],
       value: "",
+      isGobiertoVizzsLoaded: false,
       labelMainAssignees: I18n.t("gobierto_visualizations.visualizations.contracts.main_assignees") || "",
       labelBeesWarm: I18n.t("gobierto_visualizations.visualizations.visualizations.title_beeswarm") || "",
       labelTooltipBeesWarm: I18n.t("gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm") || "",
@@ -184,6 +185,11 @@ export default {
     },
     visualizationsDataExcludeMinorContract(n) {
       this.beeswarm?.setData(n)
+    },
+    $route(to, from) {
+      if (to.path !== from.path && !this.isGobiertoVizzsLoaded) {
+        this.initGobiertoVizzs()
+      }
     }
   },
   created() {
@@ -192,54 +198,59 @@ export default {
     this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
   },
   mounted() {
-    const treemapCategory = this.$refs["treemap-category"]
-    const treemapEntity = this.$refs["treemap-entity"]
-    const beeswarm = this.$refs.beeswarm
-
-    // Check if element is visible in DOM - https://stackoverflow.com/a/21696585/5020256
-    if (treemapCategory && treemapCategory.offsetParent !== null) {
-      this.treemapCategory = new TreeMap(treemapCategory, this.visualizationsDataExcludeNoCategory, {
-        rootTitle: this.labelCategories,
-        id: "title",
-        group: ["category_title", "assignee"],
-        value: "final_amount_no_taxes",
-        itemTemplate: this.treemapItemTemplate,
-        tooltip: this.tooltipTreeMap,
-        onLeafClick: this.handleTreeMapLeafClick,
-      })
-    }
-
-    if (treemapEntity && treemapEntity.offsetParent !== null) {
-      this.treemapEntity = new TreeMap(treemapEntity, this.visualizationsDataEntity, {
-        rootTitle: this.labelEntities,
-        id: "title",
-        group: ["contractor", "contract_type", "assignee"],
-        value: "final_amount_no_taxes",
-        itemTemplate: this.treemapItemTemplate,
-        tooltip: this.tooltipTreeMap,
-        onLeafClick: this.handleTreeMapLeafClick,
-      })
-    }
-
-    if (beeswarm && beeswarm.offsetParent !== null) {
-      this.beeswarm = new BeeSwarm(beeswarm, this.visualizationsDataExcludeMinorContract, {
-        x: "gobierto_start_date",
-        y: "contract_type",
-        value: "final_amount_no_taxes",
-        relation: "assignee_routing_id",
-        circleSize: [3, 28],
-        tooltip: this.tooltipBeeSwarm,
-        onClick: this.handleBeeSwarmClick,
-        margin: {
-          left: 120,
-          right: 30,
-          top: 70,
-          bottom: 30
-        }
-      })
-    }
+    this.initGobiertoVizzs()
   },
   methods: {
+    initGobiertoVizzs() {
+      const treemapCategory = this.$refs["treemap-category"]
+      const treemapEntity = this.$refs["treemap-entity"]
+      const beeswarm = this.$refs.beeswarm
+
+      // Check if element is visible in DOM - https://stackoverflow.com/a/21696585/5020256
+      if (treemapCategory && treemapCategory.offsetParent !== null) {
+        this.treemapCategory = new TreeMap(treemapCategory, this.visualizationsDataExcludeNoCategory, {
+          rootTitle: this.labelCategories,
+          id: "title",
+          group: ["category_title", "assignee"],
+          value: "final_amount_no_taxes",
+          itemTemplate: this.treemapItemTemplate,
+          tooltip: this.tooltipTreeMap,
+          onLeafClick: this.handleTreeMapLeafClick,
+        })
+      }
+
+      if (treemapEntity && treemapEntity.offsetParent !== null) {
+        this.treemapEntity = new TreeMap(treemapEntity, this.visualizationsDataEntity, {
+          rootTitle: this.labelEntities,
+          id: "title",
+          group: ["contractor", "contract_type", "assignee"],
+          value: "final_amount_no_taxes",
+          itemTemplate: this.treemapItemTemplate,
+          tooltip: this.tooltipTreeMap,
+          onLeafClick: this.handleTreeMapLeafClick,
+        })
+      }
+
+      if (beeswarm && beeswarm.offsetParent !== null) {
+        this.beeswarm = new BeeSwarm(beeswarm, this.visualizationsDataExcludeMinorContract, {
+          x: "gobierto_start_date",
+          y: "contract_type",
+          value: "final_amount_no_taxes",
+          relation: "assignee_routing_id",
+          circleSize: [3, 28],
+          tooltip: this.tooltipBeeSwarm,
+          onClick: this.handleBeeSwarmClick,
+          margin: {
+            left: 120,
+            right: 30,
+            top: 70,
+            bottom: 30
+          }
+        })
+
+        this.isGobiertoVizzsLoaded = true
+      }
+    },
     tooltipBeeSwarm(d) {
       return `
         <span class="beeswarm-tooltip-header">

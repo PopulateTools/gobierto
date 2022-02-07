@@ -228,6 +228,11 @@ es:
         date: Fecha
         dates: Fechas
         description: Visualización y análisis de las subvenciones concedidas por %{entity_name}
+        details: De acuerdo con lo previsto en el artículo 7.8 del Real Decreto 130/2019,
+          la información sobre concesiones permanecerá publicada durante los cuatro
+          años naturales siguientes al año en que se concedió la subvención en el
+          caso de personas jurídicas, y en el caso de personas físicas la publicidad
+          se reduce al año de concesión y al año siguiente.
         fromto: Desde A Nº. Subv.
         main_beneficiaries: Principales beneficiarios
         more: Más de

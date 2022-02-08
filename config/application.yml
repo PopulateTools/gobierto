@@ -1,7 +1,6 @@
 default: &default
   site:
     name: 'gobierto_populate'
-    mixpanel_key: ''
     google_analytics_key: ''
     twitter_handle: 'gobierto'
   site_modules:

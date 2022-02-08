@@ -104,6 +104,7 @@ export default {
       grantedColumns: grantedColumns,
       showColumns: [],
       value: "",
+      isGobiertoVizzsLoaded: false,
       labelSubsidies: I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies") || "",
       labelCategory: I18n.t("gobierto_visualizations.visualizations.subsidies.category") || "",
       labelAmountDistribution: I18n.t("gobierto_visualizations.visualizations.subsidies.amount_distribution") || "",
@@ -150,28 +151,38 @@ export default {
     visualizationsData(n) {
       this.treemap?.setData(n)
     },
+    $route(to, from) {
+      if (to.path !== from.path && !this.isGobiertoVizzsLoaded) {
+        this.initGobiertoVizzs()
+      }
+    }
   },
   created() {
     this.columns = grantedColumns;
     this.showColumns = ['name', 'count', 'sum']
   },
   mounted() {
-    const treemap = this.$refs.treemap
-
-    // Check if element is visible in DOM - https://stackoverflow.com/a/21696585/5020256
-    if (treemap && treemap.offsetParent !== null) {
-      this.treemap = new TreeMap(treemap, this.visualizationsData, {
-        rootTitle: this.labelSubsidies,
-        id: "categories",
-        group: ["beneficiary_type"],
-        value: "amount",
-        itemTemplate: this.treemapItemTemplate,
-        tooltip: this.tooltipTreeMap,
-        onLeafClick: this.handleTreeMapLeafClick,
-      })
-    }
+    this.initGobiertoVizzs()
   },
   methods: {
+    initGobiertoVizzs() {
+      const treemap = this.$refs.treemap
+
+      // Check if element is visible in DOM - https://stackoverflow.com/a/21696585/5020256
+      if (treemap && treemap.offsetParent !== null) {
+        this.treemap = new TreeMap(treemap, this.visualizationsData, {
+          rootTitle: this.labelSubsidies,
+          id: "categories",
+          group: ["beneficiary_type"],
+          value: "amount",
+          itemTemplate: this.treemapItemTemplate,
+          tooltip: this.tooltipTreeMap,
+          onLeafClick: this.handleTreeMapLeafClick,
+        })
+        this.isGobiertoVizzsLoaded = true
+      }
+
+    },
     handleActiveButton(value) {
       this.activeButton = value
       this.treemap.setValue(this.activeButton === "total" ? undefined : value)

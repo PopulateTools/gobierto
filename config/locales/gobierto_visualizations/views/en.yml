@@ -225,6 +225,10 @@ en:
         date: Date
         dates: Dates
         description: Visualizations and analisys for the granted subsidies from %{entity_name}
+        details: In agreement with article 7.8 Real Decreto 130/2019, the information
+          on awards to legal persons will remain published during the four calendar
+          years following the year in which the aid was granted, and in the case of
+          natural persons, publicity is limited to the awarding plus one years.
         fromto: From To No Subs.
         main_beneficiaries: Main beneficiaries
         more: More than

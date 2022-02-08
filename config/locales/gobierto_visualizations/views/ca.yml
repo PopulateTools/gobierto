@@ -224,6 +224,11 @@ ca:
         date: Data
         dates: Dates
         description: Visualització i anàlisi de les subvencions concedides per %{entity_name}
+        details: D'acord amb el que preveu l'article 7.8 del Reial Decret 130/2019,
+          la informació sobre concessions romandrà publicada durant els quatre anys
+          naturals següents a l'any en què es va concedir la subvenció en el cas de
+          persones jurídiques, i en el cas de persones físiques la publicitat es redueix
+          a l'any de concessió i l'any següent.
         fromto: De a Nº Subv.
         main_beneficiaries: Principals beneficiaris
         more: Més de

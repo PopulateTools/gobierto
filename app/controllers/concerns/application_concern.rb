@@ -64,7 +64,7 @@ module ApplicationConcern
   def track(name, properties = {})
     ahoy.track name, **properties.merge(site_id: current_site.id)
   rescue StandardError => e
-    Rollbar.error(e)
+    Appsignal.send_error(e)
   end
 
   protected

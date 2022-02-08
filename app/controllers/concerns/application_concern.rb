@@ -6,6 +6,7 @@ module ApplicationConcern
   included do
     before_action :set_current_site, :set_locale
     around_action :set_locale_from_url
+    after_action :track_request
   end
 
   def current_site
@@ -13,6 +14,10 @@ module ApplicationConcern
   end
 
   private
+
+  def track_request
+    track :request, controller: controller_name, action: action_name, method: request.method
+  end
 
   def current_module?
     current_module.present?
@@ -54,6 +59,12 @@ module ApplicationConcern
         username == @site.configuration.password_protection_username && password == @site.configuration.password_protection_password
       end
     end
+  end
+
+  def track(name, properties = {})
+    ahoy.track name, **properties.merge(site_id: current_site.id)
+  rescue StandardError => e
+    Rollbar.error(e)
   end
 
   protected

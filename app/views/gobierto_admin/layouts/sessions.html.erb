@@ -9,9 +9,6 @@
   <%= stylesheet_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
 
   <%= csrf_meta_tags %>
-  <% if Rails.env.production? %>
-    <%= render 'layouts/analytics_header_site' %>
-  <% end %>
 </head>
 
 <body class="gobierto_admin">
@@ -37,9 +34,7 @@
 
 </div>
 
-<% if Rails.env.production? %>
-  <%= render 'layouts/analytics_footer_site' %>
-<% end %>
+<%= render 'layouts/analytics_footer_site' %>
 
 </body>
 </html>

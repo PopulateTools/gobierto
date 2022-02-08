@@ -1,6 +1,0 @@
-<% if APP_CONFIG[:site][:google_analytics_key].present? %>
-  <script type="text/javascript">
-    ga('create', '<%= APP_CONFIG[:site][:google_analytics_key] %>', 'auto', {'name': 'globalgobierto'});
-    gaCall('send', 'pageview');
-  </script>
-<% end %>

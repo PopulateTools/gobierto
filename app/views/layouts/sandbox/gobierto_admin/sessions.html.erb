@@ -6,9 +6,6 @@
   <%= stylesheet_pack_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <% if Rails.env.production? %>
-    <%= render 'layouts/analytics_header_site' %>
-  <% end %>
 </head>
 
 <body <%= data_attributes %> class="gobierto_admin ">
@@ -37,10 +34,6 @@
   </div>
 
 </div>
-
-<% if Rails.env.production? %>
-  <%= render 'layouts/analytics_footer_site' %>
-<% end %>
 
 </body>
 </html>

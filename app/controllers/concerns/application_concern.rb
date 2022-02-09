@@ -3,6 +3,8 @@
 module ApplicationConcern
   extend ActiveSupport::Concern
 
+  BLOCKLIST_TRACKABLE_KEYS = %w(password password_confirmation authenticity_token utf8).freeze
+
   included do
     before_action :set_current_site, :set_locale
     around_action :set_locale_from_url
@@ -14,10 +16,6 @@ module ApplicationConcern
   end
 
   private
-
-  def track_request
-    track :request, controller: controller_name, action: action_name, method: request.method
-  end
 
   def current_module?
     current_module.present?
@@ -61,10 +59,16 @@ module ApplicationConcern
     end
   end
 
-  def track(name, properties = {})
-    ahoy.track name, **properties.merge(site_id: current_site.id)
+  def track_request
+    return true if ignore_tracking_request?
+
+    GobiertoCommon::EventCreatorJob.bouncer.debounce current_user&.id, current_site.id, filtered_params(request.params.merge(method: request.method))
   rescue StandardError => e
     Appsignal.send_error(e)
+  end
+
+  def ignore_tracking_request?
+    Rails.env.development?
   end
 
   protected
@@ -73,4 +77,11 @@ module ApplicationConcern
     request.env["action_dispatch.remote_ip"].try(:calculate_ip) || request.remote_ip
   end
 
+  def filtered_params(params_hash)
+    params_hash.with_indifferent_access.except(*BLOCKLIST_TRACKABLE_KEYS).transform_values do |v|
+      next v unless v.is_a?(Hash)
+
+      filtered_params(v)
+    end
+  end
 end

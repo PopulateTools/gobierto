@@ -50,6 +50,7 @@ window.GobiertoPeople.PersonEventsController = (function() {
       height: 600,
       contentHeight: 600,
       firstDay: 1,
+      scrollTime: '7:00:00',
       timeFormat: 'H:mm',
       views: {
         week: { columnFormat: 'ddd D/M' }

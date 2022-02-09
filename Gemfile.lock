@@ -481,6 +481,7 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
+    sidekiq-bouncer (0.1.1)
     sidekiq-monitor-stats (0.0.4)
       sidekiq
     signet (0.14.0)
@@ -621,6 +622,7 @@ DEPENDENCIES
   savon (~> 2.12.0)
   selenium-webdriver
   sidekiq
+  sidekiq-bouncer
   sidekiq-monitor-stats
   simple_calendar (~> 2.2)
   simplecov

@@ -6,10 +6,6 @@ class GobiertoCommon::EventCreatorJob < ActiveJob::Base
 
   DELAY = 20
 
-  # def self.bouncer
-  #   @bouncer ||= Sidekiq::EventBouncer.new(self, DELAY)
-  # end
-
   self.bouncer ||= Sidekiq::EventBouncer.new(self, DELAY)
 
   def perform(user_id, site_id, properties)

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_budgets_data.git
-  revision: 55097c2a09830d244c7a4e84be4eb58d78823db0
+  revision: 1a67af022254bbfa3644132e951bdea211a30cc4
   specs:
     gobierto_budgets_data (0.1.0)
       actionpack

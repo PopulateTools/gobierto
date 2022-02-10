@@ -395,7 +395,9 @@ body.gobierto_people.welcome.index {
 
   .today {
     background: var(--color-base);
-    color: #fff;
+    a {
+      color: #fff;
+    }
   }
 
   th {

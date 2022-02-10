@@ -54,6 +54,23 @@ window.GobiertoPeople.PersonEventsController = (function() {
       timeFormat: 'H:mm',
       views: {
         week: { columnFormat: 'ddd D/M' }
+      },
+      eventAfterRender: function() {
+        /* What is this? It is a function created for when the calendar
+        is inside a div with display none. We wait until the calendar
+        is visible to be able to indicate the start time.*/
+        setInterval(timeScrollToTime, 1000);
+        function timeScrollToTime() {
+          if ($('#calendar').is(':visible')) {
+            setTimeout(function() {
+              window.dispatchEvent(new Event('resize'));
+              $(".fc-scroller").animate({
+                  scrollTop: $('[data-time="07:00:00"]').position().top
+              });
+            })
+            clearInterval(timeScrollToTime);
+          }
+        }
       }
     });
     nextStep();

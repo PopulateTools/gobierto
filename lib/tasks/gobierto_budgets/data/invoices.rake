@@ -44,6 +44,8 @@ namespace :gobierto_budgets do
       nitems = importer.import!
       puts "[SUCCESS] Imported #{nitems}"
 
+      sites = Site.where(organization_id: organization_id)
+      after_invoices_import_tasks(sites)
     end
 
     desc "Clear previous invoices data"
@@ -83,9 +85,6 @@ namespace :gobierto_budgets do
       end
 
       puts "[END] clear-previous-providers/run.rb. Deleted #{count} items"
-
-      sites = Site.where(organization_id: organization_id)
-      after_invoices_import_tasks(sites)
     end
   end
 end

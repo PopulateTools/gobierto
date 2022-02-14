@@ -68,7 +68,7 @@ module ApplicationConcern
   end
 
   def ignore_tracking_request?
-    Rails.env.development?
+    Rails.env.development? || Rails.env.test?
   end
 
   protected

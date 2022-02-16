@@ -62,7 +62,7 @@ module ApplicationConcern
   def track_request
     return true if ignore_tracking_request?
 
-    GobiertoCommon::EventCreatorJob.bouncer.debounce current_user&.id, current_site.id, filtered_params(request.params.merge(method: request.method))
+    GobiertoCommon::EventCreatorJob.perform_later current_user&.id, filtered_params(request.params.merge(method: request.method))
   rescue StandardError => e
     Appsignal.send_error(e)
   end

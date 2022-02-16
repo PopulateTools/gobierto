@@ -18,8 +18,3 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
     Rails.application.secrets.sidekiq_web_pwd
   ]
 end
-
-Sidekiq::Bouncer.configure do |config|
-  redis = Redis.new(REDIS_CONFIG)
-  config.redis = redis
-end

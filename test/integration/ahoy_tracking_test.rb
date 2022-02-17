@@ -107,6 +107,7 @@ class AhoyTrackingTest < ActionDispatch::IntegrationTest
           event = Ahoy::Event.last
           assert_equal user, event.user
           assert_equal event.visit, visit
+          assert_equal event.user, visit.user
         end
       end
     end

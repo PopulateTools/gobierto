@@ -5,6 +5,7 @@ class GobiertoCommon::EventCreatorJob < ActiveJob::Base
 
   def perform(site_id, user_id, visit_id, properties)
     create_event site_id, user_id, visit_id, properties
+    update_visit_user(visit_id, user_id)
   end
 
   private
@@ -18,5 +19,15 @@ class GobiertoCommon::EventCreatorJob < ActiveJob::Base
       site_id: site_id,
       properties: properties
     )
+  end
+
+  def update_visit_user(visit_id, user_id)
+    return if [visit_id, user_id].any?(&:blank?)
+
+    visit = Ahoy::Visit.find_by(id: visit_id)
+
+    return if visit.blank? || visit.user_id == user_id
+
+    visit.update_attribute(:user_id, user_id)
   end
 end

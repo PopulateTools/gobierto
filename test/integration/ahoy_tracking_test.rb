@@ -7,6 +7,10 @@ class AhoyTrackingTest < ActionDispatch::IntegrationTest
     @path ||= root_path
   end
 
+  def other_path
+    @other_path ||= gobierto_data_root_path
+  end
+
   def visit_ip
     @visit_ip ||= "81.0.32.62"
   end
@@ -29,6 +33,10 @@ class AhoyTrackingTest < ActionDispatch::IntegrationTest
 
   def site
     @site ||= sites(:madrid)
+  end
+
+  def other_site
+    @other_site ||= sites(:huesca)
   end
 
   def user
@@ -69,20 +77,83 @@ class AhoyTrackingTest < ActionDispatch::IntegrationTest
 
     ActionDispatch::Request.stub_any_instance(:remote_ip, visit_ip) do
       with_requests_tracking_enabled do
-        assert 0, Ahoy::Visit.count
-        assert 0, Ahoy::Event.count
-        assert_performed_jobs 1 do
-          visit path
+        with_current_site(site) do
+          assert 0, Ahoy::Visit.count
+          assert 0, Ahoy::Event.count
+          assert_performed_jobs 1 do
+            visit path
+          end
+
+          assert_equal 1, Ahoy::Visit.count
+          visit = Ahoy::Visit.last
+          assert_equal visit.ip, masked_visit_ip
+          assert_equal site, visit.site
+
+          assert_equal 1, Ahoy::Event.count
+          event = Ahoy::Event.last
+          assert_nil event.user_id
+          assert_equal event.visit, visit
+          assert_equal site, event.site
+        end
+      end
+    end
+  end
+
+  def test_index_with_different_sites
+    page.driver.header("user-agent", user_agent_header)
+
+    ActionDispatch::Request.stub_any_instance(:remote_ip, visit_ip) do
+      assert 0, Ahoy::Visit.count
+      assert 0, Ahoy::Event.count
+
+      with_requests_tracking_enabled do
+        with_current_site(site) do
+          # Site path visit generates a visit and an event
+          assert_performed_jobs 1 do
+            visit path
+          end
+
+          assert_equal 1, Ahoy::Visit.count
+          visit = Ahoy::Visit.last
+          assert_equal visit.ip, masked_visit_ip
+          assert_equal site, visit.site
+
+          assert_equal 1, Ahoy::Event.count
+          event = Ahoy::Event.last
+          assert_nil event.user_id
+          assert_equal event.visit, visit
+          assert_equal site, event.site
+
+          # Site other_path visit generates a new event for the same visit
+          assert_performed_jobs 1 do
+            visit other_path
+          end
+          assert_equal 1, Ahoy::Visit.count
+
+          assert_equal 2, Ahoy::Event.count
+          event = Ahoy::Event.last
+          assert_nil event.user_id
+          assert_equal event.visit, visit
+          assert_equal site, event.site
         end
 
-        assert_equal 1, Ahoy::Visit.count
-        visit = Ahoy::Visit.last
-        assert_equal visit.ip, masked_visit_ip
+        with_current_site other_site do
+          # Other site path visit generates a new visit and a new event
+          assert_performed_jobs 1 do
+            visit path
+          end
 
-        assert_equal 1, Ahoy::Event.count
-        event = Ahoy::Event.last
-        assert_nil event.user_id
-        assert_equal event.visit, visit
+          assert_equal 2, Ahoy::Visit.count
+          visit = Ahoy::Visit.last
+          assert_equal visit.ip, masked_visit_ip
+          assert_equal other_site, visit.site
+
+          assert_equal 3, Ahoy::Event.count
+          event = Ahoy::Event.last
+          assert_nil event.user_id
+          assert_equal event.visit, visit
+          assert_equal other_site, event.site
+        end
       end
     end
   end
@@ -102,12 +173,14 @@ class AhoyTrackingTest < ActionDispatch::IntegrationTest
           assert_equal 1, Ahoy::Visit.count
           visit = Ahoy::Visit.last
           assert_equal visit.ip, masked_visit_ip
+          assert_equal site, visit.site
 
           assert_equal 1, Ahoy::Event.count
           event = Ahoy::Event.last
           assert_equal user, event.user
           assert_equal event.visit, visit
           assert_equal event.user, visit.user
+          assert_equal site, event.site
         end
       end
     end

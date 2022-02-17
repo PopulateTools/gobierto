@@ -71,6 +71,10 @@ module ApplicationConcern
     Rails.env.development? || Rails.env.test?
   end
 
+  def ahoy
+    @ahoy ||= Ahoy::GobiertoTracker.new(controller: self, api: true, site: current_site)
+  end
+
   protected
 
   def remote_ip

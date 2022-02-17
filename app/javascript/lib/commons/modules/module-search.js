@@ -1,7 +1,7 @@
 import { AUTOCOMPLETE_DEFAULTS } from 'lib/shared'
 import 'devbridge-autocomplete'
 
-document.addEventListener('DOMContentLoaded', function() {
+$(document).on('turbolinks:load', function() {
   var $input = $('input#gobierto_search:visible');
   var $mobile_input = $('input#gobierto_search_mobile');
 

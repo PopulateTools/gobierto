@@ -1,9 +1,6 @@
-<% if Rails.env.production? && APP_CONFIG[:site][:google_analytics_key].present? %>
+<% if Rails.env.production? && current_site && current_site.configuration.google_analytics_id.present? %>
   <script type="text/javascript">
-    ga('create', '<%= APP_CONFIG[:site][:google_analytics_key] %>', 'auto', {'name': 'globalgobierto'});
-  <% if current_site && current_site.configuration.google_analytics_id.present? %>
     ga('create', '<%= current_site.configuration.google_analytics_id %>', 'auto');
-  <% end %>
     gaCall('send', 'pageview');
   </script>
 <% end %>

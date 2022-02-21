@@ -6,10 +6,6 @@
 
   <%= csrf_meta_tags %>
 
-  <% if Rails.env.production? %>
-    <%= render 'layouts/analytics_header_site' %>
-  <% end %>
-
   <!-- admin chunks (code-splitting) -->
   <%= javascript_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
   <%= stylesheet_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
@@ -194,10 +190,6 @@
     </div>
 
   </div>
-
-  <% if Rails.env.production? %>
-    <%= render "gobierto_admin/layouts/analytics_footer_site" %>
-  <% end %>
 
   <%= javascript_tag data: { "turbolinks-eval" => false } do %>
     I18n.defaultLocale = "<%= I18n.default_locale %>";

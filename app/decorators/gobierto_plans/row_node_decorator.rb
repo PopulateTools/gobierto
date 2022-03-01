@@ -138,7 +138,20 @@ module GobiertoPlans
     end
 
     def locale
-      @locale ||= @plan.site.configuration.default_locale
+      @locale ||= begin
+                    default_locale = if I18n.locale.present?
+                                       I18n.locale
+                                     else
+                                       @plan.site.configuration.default_locale
+                                     end.to_s
+                    locale_with_translated_name(default_locale) || default_locale
+                  end
+    end
+
+    def locale_with_translated_name(default_locale)
+      return unless @node&.name_translations.present? && @node.name_translations[default_locale].blank?
+
+      @node.name_translations.reject { |_, v| v.blank? }.keys.first
     end
 
     def node_attributes

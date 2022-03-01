@@ -184,8 +184,8 @@ module GobiertoPlans
     end
 
     def node_mandatory_columns
-      @node_mandatory_columns ||= { "Node.external_id" => :external_id,
-                                    "Node.Title" => :"name_#{ locale }",
+      @node_mandatory_columns ||= { "Node.Title" => :"name_#{ locale }",
+                                    "Node.external_id" => :external_id,
                                     "Node.Status" => :status_name,
                                     "Node.Progress" => :progress,
                                     "Node.Start" => :starts_at,

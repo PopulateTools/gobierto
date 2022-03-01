@@ -27,6 +27,10 @@ module GobiertoPlans
         )
       end
 
+      external_id_chars = collection.map { |node| node.external_id.to_s.chars.uniq }.flatten.uniq
+      transform_function = external_id_chars.all? { |e| e.match?(/\d/) } ? :to_i : :to_s
+      collection.sort! { |a, b| a.external_id.send(transform_function) <=> b.external_id.send(transform_function) }
+
       CSV.generate do |csv|
         csv << RowNodeDecorator.new(collection.first).headers
         collection.each do |item|

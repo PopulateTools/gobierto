@@ -25,7 +25,7 @@ defaults: &defaults
         POSTGRES_DB: gobierto_test
         POSTGRES_PASSWORD: gobierto
     - image: elasticsearch:2.4.1
-    - image: redis:4.0.9
+    - image: redis:6.2.5
 
 commands:
   restore_bundler_cache:
@@ -371,7 +371,7 @@ jobs:
   production-deploy:
     working_directory: *working_directory
     machine:
-      enabled: true
+      image: ubuntu-2004:202201-02
     steps:
       # deploy script is in the repository
       - checkout

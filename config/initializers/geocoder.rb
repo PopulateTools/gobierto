@@ -4,7 +4,5 @@ Geocoder.configure(
   lookup: :google,
   api_key: Rails.application.secrets.google_maps_geocoding_api_key || "",
   timeout: 5,
-  units: :km,
-  cache: Redis.new,
-  cache_prefix: "geocoder_cache"
+  units: :km
 )

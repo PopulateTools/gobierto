@@ -62,7 +62,6 @@ gem "invisible_captcha"
 
 # Redis
 gem "redis"
-gem "hiredis"
 
 # Translations
 gem "json_translate"

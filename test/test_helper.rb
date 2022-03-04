@@ -21,6 +21,7 @@ require "support/gobierto_site_constraint_helpers"
 require "support/asymmetric_encryptor_helpers"
 require "support/site_config_helpers"
 require "support/gobierto_people/submodules_helper"
+require "support/environment_helper"
 require "capybara/email"
 require "capybara/rails"
 require "capybara/minitest"
@@ -63,6 +64,7 @@ class ActiveSupport::TestCase
   include AppHostHelpers
   include SiteSessionHelpers
   include ActiveJob::TestHelper
+  include EnvironmentHelper
 
   fixtures :all
 

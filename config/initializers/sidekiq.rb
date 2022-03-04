@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
-REDIS_CONFIG = { url: ENV.fetch("REDIS_SIDEKIQ_URL", "redis://localhost:6379/0") }.freeze
+require "redis_configuration"
+redis_sidekiq_params = RedisConfiguration.new(:sidekiq).dump
 
 Sidekiq.logger.level = Rails.logger.level
 
 Sidekiq.configure_server do |config|
-  config.redis = REDIS_CONFIG
+  config.redis = redis_sidekiq_params
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = REDIS_CONFIG
+  config.redis = redis_sidekiq_params
 end
 
 Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|

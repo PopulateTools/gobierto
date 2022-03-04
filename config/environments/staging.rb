@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require "redis_configuration"
+
+redis_configuration = RedisConfiguration.new(:cache).dump
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -55,7 +59,7 @@ Rails.application.configure do
     config.log_level = :debug
   end
 
-  config.cache_store = :redis_cache_store, { url: ENV["REDIS_CACHE_URL"] }
+  config.cache_store = :redis_cache_store, redis_configuration
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   config.active_job.queue_adapter = :sidekiq

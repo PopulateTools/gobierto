@@ -138,7 +138,20 @@ module GobiertoPlans
     end
 
     def locale
-      @locale ||= @plan.site.configuration.default_locale
+      @locale ||= begin
+                    default_locale = if I18n.locale.present?
+                                       I18n.locale
+                                     else
+                                       @plan.site.configuration.default_locale
+                                     end.to_s
+                    locale_with_translated_name(default_locale) || default_locale
+                  end
+    end
+
+    def locale_with_translated_name(default_locale)
+      return unless @node&.name_translations.present? && @node.name_translations[default_locale].blank?
+
+      @node.name_translations.reject { |_, v| v.blank? }.keys.first
     end
 
     def node_attributes
@@ -171,8 +184,8 @@ module GobiertoPlans
     end
 
     def node_mandatory_columns
-      @node_mandatory_columns ||= { "Node.external_id" => :external_id,
-                                    "Node.Title" => :"name_#{ locale }",
+      @node_mandatory_columns ||= { "Node.Title" => :"name_#{ locale }",
+                                    "Node.external_id" => :external_id,
                                     "Node.Status" => :status_name,
                                     "Node.Progress" => :progress,
                                     "Node.Start" => :starts_at,

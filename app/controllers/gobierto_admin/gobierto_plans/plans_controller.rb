@@ -128,7 +128,8 @@ module GobiertoAdmin
       def export_csv
         @plan = find_plan
         respond_to do |format|
-          format.csv { render csv: ::GobiertoPlans::PlanDataDecorator.new(@plan).csv, filename: @plan.title.parameterize.dasherize }
+          title = @plan.title.presence || @plan.title_translations.values.reject(&:blank?).first.presence || "plan"
+          format.csv { render csv: ::GobiertoPlans::PlanDataDecorator.new(@plan).csv, filename: title.parameterize.dasherize }
         end
       end
 

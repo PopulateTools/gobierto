@@ -72,6 +72,7 @@ default: &default
     data_note_url: https://presupuestos.gobierto.es/about#method
   populate_data:
     endpoint: <%= ENV["POPULATE_DATA_ENDPOINT"] %>
+    max_dataset_size_for_queries: <%= ENV.fetch("MAX_DATASET_SIZE_FOR_QUERIES", 2) %>
   gobierto_observatory:
     year: 2015
   file_uploads_adapter: filesystem

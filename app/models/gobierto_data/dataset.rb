@@ -5,6 +5,7 @@ require_relative "../gobierto_data"
 module GobiertoData
   class Dataset < ApplicationRecord
     DEFAULT_LIMIT = 50
+    DEFAULT_MAX_DATASET_SIZE_FOR_QUERIES = APP_CONFIG[:populate_data][:max_dataset_size_for_queries].to_i
 
     include GobiertoCommon::Sluggable
     include GobiertoData::Favoriteable
@@ -136,15 +137,17 @@ module GobiertoData
     def default_limit
       return DEFAULT_LIMIT unless api_settings.present?
       return DEFAULT_LIMIT if format_size.nil?
-
-      max_size = api_settings.max_dataset_size_for_queries
-      return DEFAULT_LIMIT if max_size.present? && max_size.positive? && max_size <= format_size
+      return DEFAULT_LIMIT if max_size_without_limit.present? && max_size_without_limit.positive? && max_size_without_limit <= format_size
     end
 
     private
 
     def api_settings
       @api_settings ||= GobiertoData.api_settings(site)
+    end
+
+    def max_size_without_limit
+      @max_size_without_limit = api_settings.max_dataset_size_for_queries || DEFAULT_MAX_DATASET_SIZE_FOR_QUERIES
     end
 
     def delete_cached_data

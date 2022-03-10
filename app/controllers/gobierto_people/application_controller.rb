@@ -6,7 +6,7 @@ module GobiertoPeople
 
     before_action { module_enabled!(current_site, "GobiertoPeople") }
 
-    helper_method :gifts_service_url, :trips_service_url
+    helper_method :gifts_service_url, :trips_service_url, :cache_service
 
     private
 
@@ -24,5 +24,8 @@ module GobiertoPeople
       @current_site_configuration_variables ||= current_site.configuration.configuration_variables
     end
 
+    def cache_service
+      @cache_service ||= GobiertoCommon::CacheService.new(current_site, "GobiertoPeople")
+    end
   end
 end

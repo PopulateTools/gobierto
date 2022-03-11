@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoData
     class SettingsForm < BaseForm
       DEFAULT_API_SETTINGS = {
-        "max_dataset_size_for_queries" => 0
+        "max_dataset_size_for_queries" => APP_CONFIG[:populate_data][:max_dataset_size_for_queries].to_i
       }.freeze
 
       def self.api_settings_keys

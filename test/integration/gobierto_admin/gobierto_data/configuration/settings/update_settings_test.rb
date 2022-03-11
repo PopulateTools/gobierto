@@ -99,7 +99,22 @@ module GobiertoAdmin
             with(site: site, admin: admin) do
               visit @path
 
-              assert has_field? "gobierto_data_settings_api_settings_max_dataset_size_for_queries", with: 0
+              assert has_field? "gobierto_data_settings_api_settings_max_dataset_size_for_queries", with: 2
+            end
+          end
+
+          def test_api_settings_with_default_environment_setting
+            GobiertoAdmin::GobiertoData::SettingsForm.stub_const(
+              :DEFAULT_API_SETTINGS,
+              { "max_dataset_size_for_queries" => 600 }
+            ) do
+              site.gobierto_data_settings.destroy
+
+              with(site: site, admin: admin) do
+                visit @path
+
+                assert has_field? "gobierto_data_settings_api_settings_max_dataset_size_for_queries", with: 600
+              end
             end
           end
 

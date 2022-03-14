@@ -6,7 +6,7 @@
   <%= stylesheet_packs_with_chunks_tag 'cms' %>
 <% end %>
 
-<% cache(["gobierto_cms/pages/meta_welcome", current_site, I18n.locale]) do %>
+<% cache_service.fetch(["gobierto_cms/pages/meta_welcome", I18n.locale].join("/")) do %>
   <% title(@page.title) %>
   <% description(truncate(strip_tags(@page.body), length: 100)) %>
 

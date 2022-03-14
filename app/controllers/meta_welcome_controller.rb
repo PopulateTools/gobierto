@@ -3,6 +3,8 @@
 class MetaWelcomeController < ApplicationController
   include User::SessionHelper
 
+  helper_method :cache_service
+
   def index
     render_404 and return if current_site.nil?
 
@@ -32,5 +34,11 @@ class MetaWelcomeController < ApplicationController
 
       render "gobierto_cms/pages/meta_welcome", layout: "gobierto_cms/layouts/application"
     end
+  end
+
+  private
+
+  def cache_service
+    @cache_service ||= GobiertoCommon::CacheService.new(current_site, "GobiertoCms")
   end
 end

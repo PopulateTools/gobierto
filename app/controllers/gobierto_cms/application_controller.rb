@@ -5,5 +5,12 @@ module GobiertoCms
 
     layout "gobierto_cms/layouts/application"
 
+    helper_method :cache_service
+
+    private
+
+    def cache_service
+      @cache_service ||= GobiertoCommon::CacheService.new(current_site, "GobiertoCms")
+    end
   end
 end

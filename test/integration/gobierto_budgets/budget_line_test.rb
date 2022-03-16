@@ -6,6 +6,8 @@ require "factories/budget_line_factory"
 class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTest
   def setup
     super
+    ::GobiertoCommon::CacheService.new(placed_site, "GobiertoBudgets").clear
+    ::GobiertoCommon::CacheService.new(organization_site, "GobiertoBudgets").clear
     @path = gobierto_budgets_budget_line_path("1", last_year, GobiertoBudgets::EconomicArea.area_name, GobiertoBudgets::BudgetLine::EXPENSE)
     @budget_line_factory = BudgetLineFactory.new(year: last_year)
   end

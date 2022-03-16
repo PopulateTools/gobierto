@@ -1,4 +1,4 @@
-<% cache(["gobierto_budgets/budget_lines/explorer", current_site, I18n.locale, @year]) do %>
+<% cache_service.fetch(["gobierto_budgets/budget_lines/explorer", I18n.locale, @year].join("/")) do %>
   <div class="block explore_detail">
 
     <h2><%= t('.explore_the_detail') %></h2>

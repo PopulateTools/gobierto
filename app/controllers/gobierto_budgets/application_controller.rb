@@ -1,7 +1,7 @@
 class GobiertoBudgets::ApplicationController < ApplicationController
   include User::SessionHelper
 
-  helper_method :cache_path
+  helper_method :cache_path, :cache_service
 
   rescue_from GobiertoBudgets::BudgetLine::RecordNotFound, with: :render_404
   rescue_from GobiertoBudgets::BudgetLine::InvalidSearchConditions do |exception|
@@ -17,6 +17,10 @@ class GobiertoBudgets::ApplicationController < ApplicationController
   end
 
   private
+
+  def cache_service
+    @cache_service ||= GobiertoCommon::CacheService.new(current_site, "GobiertoBudgets")
+  end
 
   def cache_path
     "#{current_site.cache_key_with_version}/#{current_module}/#{self.controller_name}/#{self.action_name}/#{I18n.locale}"

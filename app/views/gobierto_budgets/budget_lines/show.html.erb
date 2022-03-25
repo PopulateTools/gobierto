@@ -1,4 +1,4 @@
-<% cache_service.fetch([cache_path, "show_partial"].join("/")) do %>
+<% cache_service_fragment([cache_path, "show_partial"].join("/")) do %>
 
   <div class="breadcrumb stick_ip" data-budget-line-breadcrumb="<%= budget_line_breadcrumb(@budget_line, @year, @kind) %>"
                                    data-budget-line-area="<%= @area_name %>" data-budget-line-categories="<%= gobierto_budgets_api_categories_path(format: :json) %>">

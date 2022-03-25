@@ -11,6 +11,7 @@ module GobiertoCommon
 
     def clear
       Rails.cache.delete_matched("#{cache_prefix}/*")
+      Rails.cache.delete_matched("*/#{cache_prefix}/*")
     end
 
     def delete(name, options = nil)

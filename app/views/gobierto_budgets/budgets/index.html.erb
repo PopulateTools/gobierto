@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <% cache_service.fetch(["gobierto_budgets/metric_boxes", I18n.locale, @year].join("/")) do %>
+    <% cache_service_fragment(["gobierto_budgets/metric_boxes", I18n.locale, @year].join("/")) do %>
       <div class="pure-g metric_boxes">
 
         <% if @site_stats.population_data? %>
@@ -227,7 +227,7 @@
     </div>
   <% end %>
 
-  <% cache_service.fetch(["gobierto_budgets/interesting_budget_lines", I18n.locale, @year].join("/")) do %>
+  <% cache_service_fragment(["gobierto_budgets/interesting_budget_lines", I18n.locale, @year].join("/")) do %>
     <div class="block">
       <h2 class="with_description"><%= t('.most_interesting_budget_lines') %></h2>
       <p class="description"><%= t('.most_interesting_budget_lines_description') %></p>

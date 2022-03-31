@@ -49,10 +49,10 @@ namespace :gobierto_budgets do
     end
 
     desc "Clear previous invoices data"
-    task :clear_previous_invoices_data, [:organization_id,:year] => :environment do |_t, args|
+    task :clear_previous_invoices_data, [:organization_id] => :environment do |_t, args|
       index = GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_INVOICES
       type =  GobiertoBudgetsData::GobiertoBudgets::INVOICE_TYPE
-      organization_id = ARGV[0].to_s
+      organization_id = args[:organization_id]
 
       puts "[START] clear-previous-providers/run.rb organization_id=#{organization_id}"
 

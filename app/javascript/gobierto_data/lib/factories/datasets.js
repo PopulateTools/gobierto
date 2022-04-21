@@ -21,7 +21,7 @@ export const DatasetFactoryMixin = {
       return axios.get(`${endPoint}/meta?${qs.toString()}`, { headers });
     },
     getDatasetMetadata(id) {
-      return axios.get(`${endPoint}/${id}/meta`, { headers })
+      return axios.get(`${endPoint}/${id}/meta/?locale=${I18n.locale}`, { headers })
     }
   }
 };

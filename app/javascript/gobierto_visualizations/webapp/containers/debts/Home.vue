@@ -13,8 +13,11 @@ export default {
   name: 'Home',
   data() {
     return {
-      contractsData: this.$root.$data.debtsData,
+      contractsData: this.$root.$data.costData,
     }
-  }
+  },
+  mounted() {
+    EventBus.$emit("mounted");
+  },
 }
 </script>

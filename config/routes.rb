@@ -591,6 +591,9 @@ Rails.application.routes.draw do
         get "costes/:year" => "visualizations#costs", as: :costs
         get "costes/:year/:id/" => "visualizations#costs"
         get "costes/:year/:id/:item" => "visualizations#costs"
+
+        get "deuda" => "visualizations#debts", as: :debts_summary
+        get "deuda/:year" => "visualizations#debts", as: :debts
       end
     end
 

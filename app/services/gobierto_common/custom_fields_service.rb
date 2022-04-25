@@ -12,7 +12,7 @@ module GobiertoCommon
       @cache_service = opts[:cache_service]
       @site = opts[:site] || @cache_service&.site
       @cache_service ||= CacheService.new(site, resource.class.name.deconstantize) if @site.present?
-      @base_cache_key = "#{relation.cache_key_with_version}/custom_fields"
+      @base_cache_key = "#{relation.cache_key_with_version}#{locale_key}/custom_fields"
     end
 
     def transformed_custom_field_record_values(reset_cache: false)
@@ -26,7 +26,7 @@ module GobiertoCommon
 
     def calculate_transformed_custom_field_record_values
         raw_values = custom_field_record_values
-        return raw_values if localized_custom_fields.blank? && md_custom_fields.blank?
+        return raw_values unless include_locale?
 
         localized_uids = localized_custom_fields.pluck(:uid)
         md_uids = md_custom_fields.pluck(:uid)
@@ -108,6 +108,14 @@ module GobiertoCommon
                          else
                            site.custom_fields.for_class(resource.class)
                          end
+    end
+
+    def locale_key
+      include_locale? ? "/#{I18n.locale}" : ""
+    end
+
+    def include_locale?
+      @include_locale ||= localized_custom_fields.present? || md_custom_fields.present?
     end
 
     def localized_custom_fields

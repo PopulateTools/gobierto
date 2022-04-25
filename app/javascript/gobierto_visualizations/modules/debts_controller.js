@@ -37,58 +37,58 @@ export class DebtsController {
         Promise.all([data1, data2, data3]).then(values => {
           [getDebtsData[0], getDebtsData[1], getDebtsData[2]] = [values[0], values[1], values[2]]
           this.setGlobalVariables(getDebtsData);
-        });
+          const router = new VueRouter({
+            mode: "history",
+            routes: [
+              {
+                path: "/visualizaciones/deuda",
+                name: "Home",
+                component: Home
+              }
+            ],
+            /*scrollBehavior(to) {
+              const element = document.getElementById(
+                "gobierto-visualizations-title-detail"
+              );
+              element.scrollIntoView({ behavior: "smooth" });
+            }*/
+          });
 
-        const router = new VueRouter({
-          mode: "history",
-          routes: [
-            {
-              path: "/visualizaciones/deuda",
-              name: "Home",
-              component: Home
-            }
-          ],
-          /*scrollBehavior(to) {
-            const element = document.getElementById(
-              "gobierto-visualizations-title-detail"
+          const baseTitle = document.title;
+          router.afterEach(to => {
+            // Wait 2 ticks
+            Vue.nextTick(() =>
+              Vue.nextTick(() => {
+                let title = baseTitle;
+                document.title = title;
+              })
             );
-            element.scrollIntoView({ behavior: "smooth" });
-          }*/
+          });
+
+          this.vueApp = new Vue({
+            router,
+            data: Object.assign(options, this.data)
+          }).$mount(entryPoint);
+
+          EventBus.$on("mounted", () => {
+            // Hide the external loader once the vueApp has been mounted in the DOM
+            const loadingElement = document.querySelector(".js-loading");
+            if (loadingElement) {
+              loadingElement.classList.add("hidden");
+            }
+          });
         });
 
-        const baseTitle = document.title;
-        router.afterEach(to => {
-          // Wait 2 ticks
-          Vue.nextTick(() =>
-            Vue.nextTick(() => {
-              let title = baseTitle;
-              document.title = title;
-            })
-          );
-        });
 
-        this.vueApp = new Vue({
-          router,
-          data: Object.assign(options, this.data)
-        }).$mount(entryPoint);
-
-        EventBus.$on("mounted", () => {
-          // Hide the external loader once the vueApp has been mounted in the DOM
-          const loadingElement = document.querySelector(".js-loading");
-          console.log("loadingElement", loadingElement);
-          if (loadingElement) {
-            loadingElement.classList.add("hidden");
-          }
-        });
       });
     }
   }
 
   setGlobalVariables(rawData) {
-    //Convert strings with some format to Numbers without format
-
     this.data = {
-      debtsData: rawData
+      debtsData: rawData[0],
+      debtsData1: rawData[1],
+      debtsData2: rawData[2]
     };
   }
 }

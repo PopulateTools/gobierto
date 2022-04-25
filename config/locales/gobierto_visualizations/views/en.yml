@@ -5,7 +5,7 @@ en:
       application:
         gobierto_visualizations:
           contracts: Contracts and tenders
-          costs: Costs
+          debts: Debt
           subsidies: Subsidies
     shared:
       download_data: Download the full dataset in a reusable format

@@ -6,6 +6,7 @@ ca:
         gobierto_visualizations:
           contracts: Contractes i licitacions
           costs: Costos
+          debts: Deute
           subsidies: Subvencions
     shared:
       download_data: Descarregueu les dades en format reutilitzable

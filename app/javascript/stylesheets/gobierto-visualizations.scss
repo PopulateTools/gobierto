@@ -1224,12 +1224,35 @@
     font-weight: 300;
   }
 
-}
-
-.gobierto_visualizations {
-
   .header_block_inline p.visualizations-text-info {
     font-size: $f7;
   }
+
+  &-table-debts {
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+  }
+
+  &-table-debts-tr,
+  &-table-debts-td {
+    font-family: $font_headings;
+    color: #666;
+    font-size: $f7;
+    border: 0;
+  }
+
+  &-table-debts-tr:not(:last-child) {
+    border-bottom: 1px dotted rgba(0, 0, 0, .15);
+  }
+
+  &-table-debts-td {
+    &:last-child {
+      background-color: rgba(var(--color-base-string), .2);
+      text-align: right;
+      padding: .5rem;
+    }
+  }
+
+
 
 }

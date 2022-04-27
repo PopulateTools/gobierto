@@ -156,7 +156,6 @@ export class CostsController {
         );
       }
     })
-    console.log("rawData", rawData);
 
     let groupDataByYears = [];
 

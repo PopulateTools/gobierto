@@ -163,12 +163,8 @@
   &-description-summary-grid,
   &-description-summary-grid-two-columns {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    padding: 0 .25rem;
-  }
-
-  &-description-summary-grid-two-columns {
     grid-template-columns: repeat(2, 1fr);
+    padding: 0 .25rem;
   }
 
   &-description-summary-grid-element {

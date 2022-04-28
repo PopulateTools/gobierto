@@ -58,5 +58,11 @@ module GobiertoCommon
     def serialize_for_search_engine?
       @serialize_for_search_engine ||= instance_options[:serialize_for_search_engine]
     end
+
+    def cache_key(arg)
+      super
+
+      @cache_key = [@cache_key, I18n.locale].join("/")
+    end
   end
 end

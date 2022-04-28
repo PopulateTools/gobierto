@@ -22,7 +22,7 @@ module GobiertoData
           respond_to do |format|
             format.json do
               json = if base_relation.exists?
-                       cache_service.fetch("#{filtered_relation.cache_key_with_version}/#{valid_preview_token? ? "all" : "active"}/datasets_collection") do
+                       cache_service.fetch("#{filtered_relation.cache_key_with_version}/#{valid_preview_token? ? "all" : "active"}/#{I18n.locale}/datasets_collection") do
                          json_from_relation(relation, :index)
                        end
                      else

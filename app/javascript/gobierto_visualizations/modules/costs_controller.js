@@ -116,14 +116,7 @@ export class CostsController {
 
   setGlobalVariables(rawData) {
     //Convert strings with some format to Numbers without format
-    function convertStringToNumbers(amount) {
-      if (amount === "") {
-        return +amount || 0;
-      } else {
-        return Number(parseFloat(amount));
-      }
-    }
-
+    const toNumber = (value) => value ? +value || 0 : +(parseFloat(value))
     //Array with all the strings that we've to convert to Number
     const amountStrings = [
       "costdirecte",
@@ -147,13 +140,15 @@ export class CostsController {
     const population = ["128291", "129661", "129120"];
 
     let yearsCosts = [...new Set(rawData.map(item => item.any_))];
+    const setPopulation = (value, item) => value[yearsCosts.findIndex(year => year === item["any_"])]
 
-    rawData.forEach((item, index) => {
-      rawData[index].population = population[yearsCosts.findIndex(year => year === rawData[index]["any_"])]
+    const data = rawData.map((item) => {
       for (let amounts of amountStrings) {
-        rawData[index][amounts] = convertStringToNumbers(
-          rawData[index][amounts]
-        );
+        item[amounts] = toNumber(item[amounts]);
+      }
+      return {
+        population: setPopulation(population, item),
+        ...item
       }
     })
 
@@ -214,7 +209,7 @@ export class CostsController {
       .sort(({ costtotal: a }, { costtotal: b }) => (a > b ? -1 : 1));
 
     this.data = {
-      costData: rawData,
+      costData: data,
       groupData: groupDataByYears,
       yearsCosts: yearsCosts
     };

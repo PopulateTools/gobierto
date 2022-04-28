@@ -43,7 +43,15 @@ module GobiertoData
       if !File.file?(filename) || update
         result = yield
         size = File.write(filename, result, mode: "wb+")
-        dataset.update_attribute(:size, (dataset.size || {}).merge(format => size))
+
+        size_attribute = dataset.size || {}
+        if result.is_a?(Hash)
+          size_attribute.delete(format)
+        else
+          size_attribute.merge!(format => size)
+        end
+
+        dataset.update_attribute(:size, size_attribute)
       end
 
       File.open(filename, "rb")

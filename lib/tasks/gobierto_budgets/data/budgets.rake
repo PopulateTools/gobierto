@@ -83,7 +83,7 @@ namespace :gobierto_budgets do
       nitems = importer.import!
       puts "[SUCCESS] Imported #{nitems} rows for sites #{sites.pluck(:domain).to_sentence}"
 
-      after_import_tasks(sites)
+      after_import_tasks(sites) if nitems > 0
     end
 
     desc "Import budgets from CSV with SICALWIN format. Expects three arguments: csv_path, INE code and year"
@@ -118,7 +118,7 @@ namespace :gobierto_budgets do
 
       puts "[SUCCESS] Imported #{nitems} rows for sites #{sites.pluck(:domain).to_sentence}"
 
-      after_import_tasks(sites)
+      after_import_tasks(sites) if nitems > 0
     end
 
     desc "Clear previous budgets data"
@@ -135,49 +135,48 @@ namespace :gobierto_budgets do
         exit(-1)
       end
 
+      puts "- Organization: #{organization_id}"
 
-       puts "- Organization: #{organization_id}"
+      terms = [
+        {term: { organization_id: organization_id }}
+      ]
 
-       terms = [
-         {term: { organization_id: organization_id }}
-       ]
+      if year
+        terms.push({term: { year: year }})
+      end
 
-       if year
-         terms.push({term: { year: year }})
-       end
+      query = {
+        query: {
+          filtered: {
+            filter: {
+              bool: {
+                must: terms
+              }
+            }
+          }
+        },
+        size: 10_000
+      }
 
-       query = {
-         query: {
-           filtered: {
-             filter: {
-               bool: {
-                 must: terms
-               }
-             }
-           }
-         },
-         size: 10_000
-       }
+      count = 0
+      GobiertoBudgetsData::GobiertoBudgets::ALL_INDEXES.each do |index|
+        GobiertoBudgetsData::GobiertoBudgets::ALL_TYPES.each do |type|
+          response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
+          while response['hits']['total'] > 0
+            delete_request_body = response['hits']['hits'].map do |h|
+              count += 1
+              { delete: h.slice("_index", "_type", "_id") }
+            end
+            GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk index: index, type: type, body: delete_request_body
+            response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
+          end
+        end
+      end
 
-       count = 0
-       GobiertoBudgetsData::GobiertoBudgets::ALL_INDEXES.each do |index|
-         GobiertoBudgetsData::GobiertoBudgets::ALL_TYPES.each do |type|
-           response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
-           while response['hits']['total'] > 0
-             delete_request_body = response['hits']['hits'].map do |h|
-               count += 1
-               { delete: h.slice("_index", "_type", "_id") }
-             end
-             GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk index: index, type: type, body: delete_request_body
-             response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
-           end
-         end
-       end
+      puts "-  Deleted #{count} items"
 
-       puts "-  Deleted #{count} items"
-
-       sites = Site.where(organization_id: organization_id)
-       after_import_tasks(sites)
+      sites = Site.where(organization_id: organization_id)
+      after_import_tasks(sites)
     end
   end
 end

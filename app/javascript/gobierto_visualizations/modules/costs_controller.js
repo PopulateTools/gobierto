@@ -116,20 +116,7 @@ export class CostsController {
 
   setGlobalVariables(rawData) {
     //Convert strings with some format to Numbers without format
-    function convertStringToNumbers(amount) {
-      if (amount === "") {
-        return nanToZero(amount);
-      } else {
-        return Number(parseFloat(amount));
-      }
-    }
-
-    //Some values are empty, so we need to transform to zero
-    function nanToZero(val) {
-      val = +val || 0;
-      return val;
-    }
-
+    const toNumber = (value) => value ? +value || 0 : +(parseFloat(value))
     //Array with all the strings that we've to convert to Number
     const amountStrings = [
       "costdirecte",
@@ -150,22 +137,20 @@ export class CostsController {
       "costdirfin"
     ];
 
-    const population = ["128291", "129661"];
+    const population = ["128291", "129661", "129120"];
 
     let yearsCosts = [...new Set(rawData.map(item => item.any_))];
+    const setPopulation = (value, item) => value[yearsCosts.findIndex(year => year === item["any_"])]
 
-    for (let index = 0; index < rawData.length; index++) {
-      let d = rawData[index];
-
-      const ix = yearsCosts.findIndex(x => x === d["any_"])
-      d.population = population[ix]
-
-      for (let amounts = 0; amounts < amountStrings.length; amounts++) {
-        d[amountStrings[amounts]] = convertStringToNumbers(
-          d[amountStrings[amounts]]
-        );
+    const data = rawData.map((item) => {
+      for (let amounts of amountStrings) {
+        item[amounts] = toNumber(item[amounts]);
       }
-    }
+      return {
+        population: setPopulation(population, item),
+        ...item
+      }
+    })
 
     let groupDataByYears = [];
 
@@ -224,7 +209,7 @@ export class CostsController {
       .sort(({ costtotal: a }, { costtotal: b }) => (a > b ? -1 : 1));
 
     this.data = {
-      costData: rawData,
+      costData: data,
       groupData: groupDataByYears,
       yearsCosts: yearsCosts
     };

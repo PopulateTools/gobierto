@@ -29,7 +29,9 @@ module GobiertoVisualizations
         "debts": {
           "enabled": false,
           "data_urls": {
-            "debts": ""
+            "debts": "",
+            "debts_total": "",
+            "evolution": ""
           }
         }
       }

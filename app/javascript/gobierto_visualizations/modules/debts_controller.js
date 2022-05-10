@@ -76,11 +76,31 @@ export class DebtsController {
   }
 
   setGlobalVariables(rawData) {
+    const debtsEvolutionParse = rawData[2].map(d => {
+      const { any, ajuntament, mataro_audiovisual, c_digital_mataro_maresme, consorci_tr_residus, pumsa, grup_tecnocampus, amsa, deute_fcc, porta_laietana, altres_pie_messa, total_endeutament_grup, total_deute_viu, rati_deute_viu } = d
+      return {
+        any: any,
+        Ajuntament: ajuntament,
+        "Mataro Audiovisual": mataro_audiovisual,
+        "Digitial Mataro Maresme": c_digital_mataro_maresme,
+        "Consorci Residus": consorci_tr_residus,
+        PUMSA: pumsa,
+        "Grup Tecnocampus": grup_tecnocampus,
+        AMSA: amsa,
+        "Deute FCC": deute_fcc,
+        "Porta Laietana": porta_laietana,
+        "Altres pie messa": altres_pie_messa,
+        "Total endeutament grup": total_endeutament_grup,
+        "Deute viu": total_deute_viu,
+        "Rati deute viu %": rati_deute_viu.split("%")[0]
+      }
+    })
 
+    console.log("debtsEvolutionParse", debtsEvolutionParse);
     this.data = {
       debtsEntitat: this.parseData(rawData[0], debtsEntitatStrings),
       debtsTotal: this.parseData(rawData[1], debtsTotalStrings),
-      debtsEvolution: this.parseData(rawData[2], debtsEvolutionString)
+      debtsEvolution: this.parseData(debtsEvolutionParse, debtsEvolutionString)
     };
   }
 }

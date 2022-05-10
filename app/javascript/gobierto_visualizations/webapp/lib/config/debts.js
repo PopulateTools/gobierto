@@ -7,16 +7,17 @@ export const debtsTotalStrings = [
 ];
 
 export const debtsEvolutionString = [
-  "ajuntament",
-  "mataro_audiovisual",
-  "c_digital_mataro_maresme",
-  "consorci_tr_residus",
-  "pumsa",
-  "grup_tecnocampus",
-  "amsa",
-  "deute_fcc",
-  "porta_laietana",
-  "altres_pie_messa",
-  "total_endeutament_grup",
-  "total_deute_viu"
+  "Ajuntament",
+  "Mataro Audiovisual",
+  "Digitial Mataro Maresme",
+  "Consorci Residus",
+  "PUMSA",
+  "Grup Tecnocampus",
+  "AMSA",
+  "Deute FCC",
+  "Porta Laietana",
+  "Altres pie messa",
+  "Total endeutament grup",
+  "Deute viu",
+  "Rati deute viu %"
 ];

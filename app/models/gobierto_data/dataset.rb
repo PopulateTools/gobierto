@@ -109,7 +109,7 @@ module GobiertoData
       set_schema
       unless query_result.blank? || query_result.has_key?(:errors)
         touch(:data_updated_at)
-        refresh_cached_downloads
+        refresh_cached_data
       end
 
       {
@@ -158,8 +158,9 @@ module GobiertoData
       GobiertoData::Connection.execute_query(site, "drop table #{table_name}")
     end
 
-    def refresh_cached_downloads
-      CacheDatasetsDownloads.perform_later self
+    def refresh_cached_data
+      GobiertoData::CacheDatasetsDownloads.perform_later self
+      GobiertoData::CacheDatasetsMetadata.perform_later self
     end
 
     def schema_from_file(schema_file, append)

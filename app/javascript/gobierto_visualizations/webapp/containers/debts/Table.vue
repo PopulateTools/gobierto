@@ -3,24 +3,28 @@
     <table class="gobierto-visualizations-table-debts">
       <tbody>
         <tr
-          v-for="{ endeutament, entitat } in data"
-          :key="entitat"
+          v-for="(item, index) in data"
+          :key="index"
           class="gobierto-visualizations-table-debts-tr"
         >
-          <td class="gobierto-visualizations-table-debts-td">
-            {{ entitat }}
-          </td>
-          <td class="gobierto-visualizations-table-debts-td">
-            {{ endeutament }}
-          </td>
+          <template v-for="(value, key) in item">
+            <td
+              :key="key"
+              class="gobierto-visualizations-table-debts-td"
+            >
+              {{ parseAmount(value) }}
+            </td>
+          </template>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
 <script>
+import { VueFiltersMixin } from "lib/vue/filters"
 export default {
   name: "Table",
+  mixins: [VueFiltersMixin],
   props: {
     data: {
       type: Array,
@@ -33,6 +37,10 @@ export default {
     }
   },
   methods: {
+    parseAmount(value) {
+      return !isNaN(value) ? this.$options.filters.money(value) : this.$options.filters.truncate(value)
+    },
   }
 }
+
 </script>

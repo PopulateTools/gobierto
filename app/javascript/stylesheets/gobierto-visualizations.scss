@@ -1245,6 +1245,10 @@
     border-bottom: 1px dotted rgba(0, 0, 0, .15);
   }
 
+  &-table-debts-tr:last-child td {
+    font-weight: bold;
+  }
+
   &-table-debts-td {
     &:last-child {
       background-color: rgba(var(--color-base-string), .2);

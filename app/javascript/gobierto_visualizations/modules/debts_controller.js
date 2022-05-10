@@ -1,21 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import { EventBus } from "../webapp/lib/mixins/event_bus";
-import { json } from 'd3-fetch';
+import { getRemoteData, toNumber } from "../webapp/lib/utils";
+import { debtsEntitatStrings, debtsTotalStrings, debtsEvolutionString } from "../webapp/lib/config/debts.js";
+import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
-function getRemoteDataJSON(endpoint) {
-  return json(endpoint);
-}
-
-const data1 = getRemoteDataJSON('../../../debts/deute_total_deutor.json');
-const data2 = getRemoteDataJSON('../../../debts/deute_entitat_creditora.json');
-const data3 = getRemoteDataJSON('../../../debts/evolucio_endeutament_GRUP_AJUNTAMENT.json');
-
-let getDebtsData = [];
-
-/*if (Vue.config.devtools) {
+if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
-}*/
+}
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
@@ -36,9 +28,12 @@ export class DebtsController {
       const Home = () =>
         import("../webapp/containers/debts/Home.vue");
 
-      Promise.all([data1, data2, data3]).then(values => {
-        [getDebtsData[0], getDebtsData[1], getDebtsData[2]] = [values[0], values[1], values[2]]
-        this.setGlobalVariables(getDebtsData);
+      Promise.all([
+        getRemoteData(options.debtsEndpoint),
+        getRemoteData(options.debtsTotalEndpoint),
+        getRemoteData(options.debtsEvolutionEndpoint)
+      ]).then(rawData => {
+        this.setGlobalVariables(rawData);
         const router = new VueRouter({
           mode: "history",
           routes: [{
@@ -46,30 +41,6 @@ export class DebtsController {
             name: "Home",
             component: Home
           }],
-          /*scrollBehavior(to) {
-            const element = document.getElementById(
-              "gobierto-visualizations-title-detail"
-            );
-            element.scrollIntoView({ behavior: "smooth" });
-          }*/
-        });
-
-        const baseTitle = document.title;
-        router.afterEach(to => {
-          // Wait 2 ticks
-          Vue.nextTick(() =>
-            Vue.nextTick(() => {
-              if (to.name === "contracts_show" || to.name === "tenders_show") {
-                const { item: { title: itemTitle } = {} } = to.params;
-
-                if (itemTitle) {
-                  title = `${itemTitle}${baseTitle}`;
-                }
-              }
-              let title = baseTitle;
-              document.title = title;
-            })
-          );
         });
 
         this.vueApp = new Vue({
@@ -88,11 +59,28 @@ export class DebtsController {
     }
   }
 
+  parseData(rawData, filter) {
+    const data = rawData.map((item) => {
+      for (let element of filter) {
+        item[element] = item[element].includes('.')
+          ? toNumber(item[element].replace(/\./g,'').replace(/,/g,'.'))
+          : item[element]
+          ? toNumber(item[element].replace(/,/g,'.'))
+          : toNumber(item[element])
+      }
+      return {
+        ...item
+      }
+    })
+    return data
+  }
+
   setGlobalVariables(rawData) {
+
     this.data = {
-      debtsData: rawData[0],
-      debtsData1: rawData[1],
-      debtsData2: rawData[2]
+      debtsEntitat: this.parseData(rawData[0], debtsEntitatStrings),
+      debtsTotal: this.parseData(rawData[1], debtsTotalStrings),
+      debtsEvolution: this.parseData(rawData[2], debtsEvolutionString)
     };
   }
 }

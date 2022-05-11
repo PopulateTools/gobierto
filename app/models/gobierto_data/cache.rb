@@ -51,7 +51,7 @@ module GobiertoData
           size_attribute.merge!(format => size)
         end
 
-        dataset.update_attribute(:size, size_attribute)
+        dataset.update_column(:size, size_attribute)
       end
 
       File.open(filename, "rb")

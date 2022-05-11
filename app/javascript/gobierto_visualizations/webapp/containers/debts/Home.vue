@@ -1,9 +1,17 @@
 <template>
   <div>
     <div class="pure-g gutters m_b_4">
-      <p>Debts</p>
+      <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
+        {{ labelTitle }}
+      </h2>
+      <p>
+        {{ labelDescription }}
+      </p>
     </div>
     <div class="pure-g gutters m_b_4">
+      <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
+        {{ labelTitleDebtor }}
+      </h2>
       <div class="pure-u-1 pure-u-md-12-24">
         <Table :data="creditorData" />
       </div>
@@ -15,6 +23,9 @@
       </div>
     </div>
     <div class="pure-g gutters m_b_4">
+      <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
+        {{ labelTitleCreditor }}
+      </h2>
       <div class="pure-u-1 pure-u-md-12-24">
         <Table :data="debtsData" />
       </div>
@@ -26,6 +37,9 @@
       </div>
     </div>
     <div class="pure-g gutters m_b_4">
+      <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
+        {{ labelTitleEvolutionDebt }}
+      </h2>
       <div class="pure-u-1 pure-u-md-24-24">
         <div
           ref="bar-chart-stacked-debts"
@@ -33,6 +47,9 @@
       </div>
     </div>
     <div class="pure-g gutters m_b_4">
+      <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
+        {{ labelTitleBreakdownDebt }}
+      </h2>
       <div class="pure-u-1 pure-u-md-24-24">
         <div
           ref="bar-chart-small-debts"
@@ -56,7 +73,13 @@ export default {
       debtsData: this.$root.$data.debtsEntitat,
       creditorData: this.$root.$data.debtsTotal,
       evolutionDebtData: this.$root.$data.debtsEvolution,
-      labelCategories: I18n.t('gobierto_visualizations.visualizations.contracts.categories') || "",
+      labelTitle: I18n.t("gobierto_visualizations.visualizations.debts.title") || "",
+      labelDescription: I18n.t("gobierto_visualizations.visualizations.debts.description") || "",
+      labelTitleDebtor: I18n.t("gobierto_visualizations.visualizations.debts.debtor") || "",
+      labelTitleCreditor: I18n.t("gobierto_visualizations.visualizations.debts.creditor") || "",
+      labelTitleEvolutionDebt: I18n.t("gobierto_visualizations.visualizations.debts.evolution_debt") || "",
+      labelTitleBreakdownDebt: I18n.t("gobierto_visualizations.visualizations.debts.breakdown_debt") || "",
+
     }
   },
   mounted() {

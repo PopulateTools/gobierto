@@ -1,59 +1,82 @@
 <template>
-  <div>
-    <div class="pure-g gutters m_b_4">
-      <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
-        {{ labelTitle }}
-      </h2>
-      <p>
-        {{ labelDescription }}
-      </p>
-    </div>
-    <div class="pure-g gutters m_b_4">
-      <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
+  <div class="gobierto-visualizations gobierto-visualizations-debts">
+    <div class="pure-g block header_block_inline m_b_1">
+      <div class="pure-u-1 pure-u-md-24-24">
+        <div class="pure-u-1 pure-u-md-12-24">
+          <div class="gobierto-visualizations-container-title">
+            <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
+              {{ labelTitle }}
+            </h2>
+          </div>
+          <p class="gobierto-visualizations-description">
+            {{ labelDescription }}
+          </p>
+          <p class="gobierto-visualizations-description">
+            {{ labelDescriptionDate }}
+          </p>
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-lg-1-4 metric_boxes">
+        <div class="pure-u-1-1 metric_box tipsit">
+          <div class="inner">
+            <h3>{{ labelTitleTotalDebt }}</h3>
+            <div class="metric">
+              {{ totalDebt }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="pure-u-1 gobierto-visualizations-title m_t_4">
         {{ labelTitleDebtor }}
       </h2>
-      <div class="pure-u-1 pure-u-md-12-24">
-        <Table :data="creditorData" />
+      <div class="pure-u-24-24">
+        <div class="pure-g  gutters">
+          <div class="pure-u-1 pure-u-md-12-24">
+            <Table :data="creditorData" />
+          </div>
+          <div class="pure-u-1 pure-u-md-12-24">
+            <div
+              ref="treemap-creditor"
+              style="height: 400px"
+            />
+          </div>
+        </div>
       </div>
-      <div class="pure-u-1 pure-u-md-12-24">
-        <div
-          ref="treemap-creditor"
-          style="height: 400px"
-        />
-      </div>
-    </div>
-    <div class="pure-g gutters m_b_4">
-      <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
+      <h2 class="pure-u-1 gobierto-visualizations-title m_t_4">
         {{ labelTitleCreditor }}
       </h2>
-      <div class="pure-u-1 pure-u-md-12-24">
-        <Table :data="debtsData" />
+      <div class="pure-u-24-24">
+        <div class="pure-g  gutters">
+          <div class="pure-u-1 pure-u-md-12-24">
+            <Table :data="debtsData" />
+          </div>
+          <div class="pure-u-1 pure-u-md-12-24">
+            <div
+              ref="treemap-debts"
+              style="height: 400px"
+            />
+          </div>
+        </div>
       </div>
-      <div class="pure-u-1 pure-u-md-12-24">
-        <div
-          ref="treemap-debts"
-          style="height: 400px"
-        />
-      </div>
-    </div>
-    <div class="pure-g gutters m_b_4">
-      <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
+      <h2 class="pure-u-1 gobierto-visualizations-title m_t_4">
         {{ labelTitleEvolutionDebt }}
       </h2>
-      <div class="pure-u-1 pure-u-md-24-24">
-        <div
-          ref="bar-chart-stacked-debts"
-        />
+      <div class="pure-u-24-24">
+        <div class="pure-u-1 pure-u-md-24-24">
+          <div
+            ref="bar-chart-stacked-debts"
+          />
+        </div>
       </div>
-    </div>
-    <div class="pure-g gutters m_b_4">
-      <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
+      <h2 class="pure-u-1 gobierto-visualizations-title m_t_4">
         {{ labelTitleBreakdownDebt }}
       </h2>
-      <div class="pure-u-1 pure-u-md-24-24">
-        <div
-          ref="bar-chart-small-debts"
-        />
+      <div class="pure-u-24-24">
+        <div class="pure-u-1 pure-u-md-24-24">
+          <div
+            ref="bar-chart-small-debts"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -75,17 +98,24 @@ export default {
       evolutionDebtData: this.$root.$data.debtsEvolution,
       labelTitle: I18n.t("gobierto_visualizations.visualizations.debts.title") || "",
       labelDescription: I18n.t("gobierto_visualizations.visualizations.debts.description") || "",
+      labelDescriptionDate: I18n.t("gobierto_visualizations.visualizations.debts.date_debt") || "",
       labelTitleDebtor: I18n.t("gobierto_visualizations.visualizations.debts.debtor") || "",
       labelTitleCreditor: I18n.t("gobierto_visualizations.visualizations.debts.creditor") || "",
       labelTitleEvolutionDebt: I18n.t("gobierto_visualizations.visualizations.debts.evolution_debt") || "",
       labelTitleBreakdownDebt: I18n.t("gobierto_visualizations.visualizations.debts.breakdown_debt") || "",
+      labelTitleTotalDebt: I18n.t("gobierto_visualizations.visualizations.debts.total_debt") || "",
 
+    }
+  },
+  computed: {
+    totalDebt() {
+      const [{ endeutament_a_31_12_2021 }] = this.creditorData.filter(({ entitat }) => entitat === "TOTAL GENERAL")
+      return (endeutament_a_31_12_2021 / 1000000).toFixed(1).replace(/\./, ',') + ' M€';
     }
   },
   mounted() {
     EventBus.$emit("mounted");
-    this.initGobiertoVizzs()
-    this.parseDataEvolution()
+    this.initGobiertoVizzs();
   },
   methods: {
     initGobiertoVizzs() {
@@ -95,17 +125,19 @@ export default {
       const barChartMultipleDebts = this.$refs["bar-chart-small-debts"]
       if (treemapCreditor && treemapCreditor.offsetParent !== null) {
         this.treemapCreditor = new TreeMap(treemapCreditor, this.creditorData, {
-          rootTitle: this.labelCategories,
           group: ["entitat"],
-          value: "endeutament_a_31_12_2021"
+          value: "endeutament_a_31_12_2021",
+          margin: { top: 0 },
+          tooltip: () => ""
         })
       }
 
       if (treemapDebts && treemapDebts.offsetParent !== null) {
         this.treemapDebts = new TreeMap(treemapDebts, this.debtsData, {
-          rootTitle: this.labelCategories,
           group: ["entitat_creditora"],
-          value: "endeutament_pendent_a_31_12_2021"
+          value: "endeutament_pendent_a_31_12_2021",
+          margin: { top: 0 },
+          tooltip: () => ""
         })
       }
 
@@ -134,7 +166,7 @@ export default {
     },
     parseDataEvolution(rawData) {
       const data = [];
-      const filteredData = rawData.map((d) => {
+      const filteredData = rawData.map(d => {
         return {
           any: d.any,
           "Ajuntament": d["Ajuntament"],
@@ -152,7 +184,6 @@ export default {
       const arrayOfYear = filteredData.map(({ any }) => any);
       for (let [index, value] of arrayOfYear.entries()) {
         for (let item in filteredData[index]) {
-          console.log("item", item);
           if (item !== "any") {
             let elementArrayOfObjects = {
               any: value,

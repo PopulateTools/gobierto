@@ -5,7 +5,7 @@ module GobiertoData
     queue_as :cached_data
 
     def perform(dataset)
-      GobiertoData::DatasetMetaSerializer.new(dataset).to_json
+      dataset.rows_count
     end
   end
 end

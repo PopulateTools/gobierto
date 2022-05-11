@@ -95,6 +95,17 @@ module GobiertoData
       end
     end
 
+    def rows_count
+      cache_service.fetch("#{cache_key_with_version}/rows_count") do
+        count_result = ::GobiertoData::Connection.execute_query(
+          site,
+          Arel.sql("SELECT COUNT(1) FROM #{table_name} LIMIT 1"),
+          include_draft: true
+        )
+        count_result.first["count"] if count_result.is_a?(PG::Result)
+      end
+    end
+
     def load_data_from_file(file_path, schema_file: nil, csv_separator: ",", append: false)
       statements = GobiertoData::Datasets::CreationStatements.new(
         self,

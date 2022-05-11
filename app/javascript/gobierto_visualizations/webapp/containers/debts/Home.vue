@@ -43,7 +43,7 @@
 </template>
 <script>
 import { EventBus } from "../../lib/mixins/event_bus";
-import { TreeMap, BarChartStacked, BarChartMultiple } from "gobierto-vizzs";
+import { TreeMap, BarChartStacked, BarChartSplit } from "gobierto-vizzs";
 import Table from './Table.vue';
 
 export default {
@@ -100,7 +100,7 @@ export default {
       }
 
       if (barChartMultipleDebts && barChartMultipleDebts.offsetParent !== null) {
-        this.barChartMultipleDebts = new BarChartMultiple(barChartMultipleDebts, this.parseDataEvolution(this.evolutionDebtData), {
+        this.barChartMultipleDebts = new BarChartSplit(barChartMultipleDebts, this.parseDataEvolution(this.evolutionDebtData), {
           rootTitle: this.labelCategories,
           y: "any",
           x: "group",

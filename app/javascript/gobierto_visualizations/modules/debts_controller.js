@@ -96,7 +96,6 @@ export class DebtsController {
       }
     })
 
-    console.log("debtsEvolutionParse", debtsEvolutionParse);
     this.data = {
       debtsEntitat: this.parseData(rawData[0], debtsEntitatStrings),
       debtsTotal: this.parseData(rawData[1], debtsTotalStrings),

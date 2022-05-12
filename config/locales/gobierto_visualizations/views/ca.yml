@@ -208,7 +208,7 @@ ca:
           englova  el deute de tots els seus ens dependents (Societats Mercantils,
           EPE’s, Fundacioóns, Consorcis).
         evolution_debt: Evolució del deute
-        title: Debt
+        title: Deute
         total_debt: Deute total
       process_types:
         based_on_agreement: Basat en Acord Marc

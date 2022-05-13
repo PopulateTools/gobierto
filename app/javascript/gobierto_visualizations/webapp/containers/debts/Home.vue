@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <h2 class="pure-u-1 gobierto-visualizations-title m_t_4">
+      <h2 class="pure-u-1">
         {{ labelTitleDebtor }}
       </h2>
       <div class="pure-u-24-24">
@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <h2 class="pure-u-1 gobierto-visualizations-title m_t_4">
+      <h2 class="pure-u-1 gobierto-visualizations-title">
         {{ labelTitleCreditor }}
       </h2>
       <div class="pure-u-24-24">
@@ -58,7 +58,7 @@
           </div>
         </div>
       </div>
-      <h2 class="pure-u-1 gobierto-visualizations-title m_t_4">
+      <h2 class="pure-u-1 gobierto-visualizations-title">
         {{ labelTitleEvolutionDebt }}
       </h2>
       <div class="pure-u-24-24">
@@ -68,13 +68,14 @@
           />
         </div>
       </div>
-      <h2 class="pure-u-1 gobierto-visualizations-title m_t_4">
+      <h2 class="pure-u-1 gobierto-visualizations-title">
         {{ labelTitleBreakdownDebt }}
       </h2>
       <div class="pure-u-24-24">
         <div class="pure-u-1 pure-u-md-24-24">
           <div
             ref="bar-chart-small-debts"
+            class="bar-chart-small-debts"
           />
         </div>
       </div>
@@ -84,6 +85,7 @@
 <script>
 import { EventBus } from "../../lib/mixins/event_bus";
 import { TreeMap, BarChartStacked, BarChartSplit } from "gobierto-vizzs";
+import { money } from "lib/vue/filters";
 import Table from './Table.vue';
 
 export default {
@@ -118,26 +120,42 @@ export default {
     this.initGobiertoVizzs();
   },
   methods: {
+    tooltipTreeMap(d) {
+      return `
+        <span class="beeswarm-tooltip-header">
+          ${d.data.title}
+        </span>
+        <span class="beeswarm-tooltip-table-element-text">
+            <b>${money(d.value)}</b>
+        </span>
+      `
+    },
     initGobiertoVizzs() {
       const treemapCreditor = this.$refs["treemap-creditor"]
       const treemapDebts = this.$refs["treemap-debts"]
       const barChartStackedDebts = this.$refs["bar-chart-stacked-debts"]
       const barChartMultipleDebts = this.$refs["bar-chart-small-debts"]
       if (treemapCreditor && treemapCreditor.offsetParent !== null) {
-        this.treemapCreditor = new TreeMap(treemapCreditor, this.creditorData, {
+        this.treemapCreditor = new TreeMap(treemapCreditor, this.creditorData.filter(({ entitat }) => entitat !== "TOTAL GENERAL"), {
+          rootTitle: "test",
+          id: "title",
           group: ["entitat"],
           value: "endeutament_a_31_12_2021",
           margin: { top: 0 },
-          tooltip: () => ""
+          locale: "es-ES",
+          tooltip: this.tooltipTreeMap
         })
       }
 
       if (treemapDebts && treemapDebts.offsetParent !== null) {
-        this.treemapDebts = new TreeMap(treemapDebts, this.debtsData, {
+        this.treemapDebts = new TreeMap(treemapDebts, this.debtsData.filter(({ entitat_creditora }) => entitat_creditora !== "TOTAL GENERAL"), {
+          rootTitle: "test",
+          id: "title",
           group: ["entitat_creditora"],
           value: "endeutament_pendent_a_31_12_2021",
           margin: { top: 0 },
-          tooltip: () => ""
+          locale: "es-ES",
+          tooltip: this.tooltipTreeMap
         })
       }
 
@@ -150,6 +168,7 @@ export default {
           extraLegends: ["Deute viu", "Rati deute viu %"],
           margin: { left: 240 },
           x: "any",
+          locale: "es-ES",
           value: "endeutament_pendent_a_31_12_2021"
         })
       }

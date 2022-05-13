@@ -1257,6 +1257,19 @@
     }
   }
 
+  .bar-chart-small-debts .title {
+    transform:translate(0, -5px);
+  }
 
+  &.gobierto-visualizations-debts .treemap-item {
+    cursor: initial;
+    .treemap-item div:last-child {
+      display: none;
+    }
+  }
+
+  &.gobierto-visualizations-debts .gobierto-visualizations-title {
+    margin-top: 6rem;
+  }
 
 }

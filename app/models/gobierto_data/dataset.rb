@@ -99,10 +99,10 @@ module GobiertoData
       cache_service.fetch("#{cache_key_with_version}/rows_count") do
         count_result = ::GobiertoData::Connection.execute_query(
           site,
-          Arel.sql("SELECT COUNT(1) FROM #{table_name} LIMIT 1"),
+          Arel.sql("SELECT reltuples::bigint AS estimate FROM pg_class WHERE oid = 'public.#{table_name}' ::regclass;"),
           include_draft: true
         )
-        count_result.first["count"] if count_result.is_a?(PG::Result)
+        count_result.first["estimate"] if count_result.is_a?(PG::Result)
       end
     end
 

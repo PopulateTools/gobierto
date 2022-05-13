@@ -1268,8 +1268,13 @@
     }
   }
 
-  &.gobierto-visualizations-debts .gobierto-visualizations-title {
-    margin-top: 6rem;
+  &.gobierto-visualizations-debts {
+    .gobierto-visualizations-title {
+      margin-top: 6rem;
+    }
+    .header_block_inline h2 {
+      margin-bottom: 1rem;
+    }
   }
 
 }

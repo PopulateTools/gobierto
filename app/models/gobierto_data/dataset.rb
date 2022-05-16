@@ -95,6 +95,17 @@ module GobiertoData
       end
     end
 
+    def rows_count
+      cache_service.fetch("#{cache_key_with_version}/rows_count") do
+        count_result = ::GobiertoData::Connection.execute_query(
+          site,
+          Arel.sql("SELECT reltuples::bigint AS estimate FROM pg_class WHERE oid = 'public.#{table_name}' ::regclass;"),
+          include_draft: true
+        )
+        count_result.first["estimate"] if count_result.is_a?(PG::Result)
+      end
+    end
+
     def load_data_from_file(file_path, schema_file: nil, csv_separator: ",", append: false)
       statements = GobiertoData::Datasets::CreationStatements.new(
         self,
@@ -109,7 +120,7 @@ module GobiertoData
       set_schema
       unless query_result.blank? || query_result.has_key?(:errors)
         touch(:data_updated_at)
-        refresh_cached_downloads
+        refresh_cached_data
       end
 
       {
@@ -158,8 +169,9 @@ module GobiertoData
       GobiertoData::Connection.execute_query(site, "drop table #{table_name}")
     end
 
-    def refresh_cached_downloads
-      CacheDatasetsDownloads.perform_later self
+    def refresh_cached_data
+      GobiertoData::CacheDatasetsDownloads.perform_later self
+      GobiertoData::CacheDatasetsMetadata.perform_later self
     end
 
     def schema_from_file(schema_file, append)

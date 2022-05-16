@@ -33,14 +33,7 @@ module GobiertoData
     end
 
     attribute :data_summary do
-      count_result = ::GobiertoData::Connection.execute_query(
-        object.site,
-        Arel.sql("SELECT COUNT(1) FROM #{object.table_name} LIMIT 1"),
-        include_draft: true
-      )
-      {
-        number_of_rows: count_result.is_a?(PG::Result) ? count_result.first.dig("count") : nil
-      }
+      { number_of_rows: object.rows_count }
     end
 
     attribute :formats do
@@ -75,5 +68,8 @@ module GobiertoData
       object.rails_model.present? && object.rails_model.table_exists?
     end
 
+    def base_cache_key
+      [object.cache_key_with_version, "dataset_meta"].join("/")
+    end
   end
 end

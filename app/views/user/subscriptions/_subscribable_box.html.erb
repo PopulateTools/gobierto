@@ -1,45 +1,47 @@
-<% user_subscription_form = User::SubscriptionForm.new(subscribable: subscribable) %>
+<% pending do %>
+  <% user_subscription_form = User::SubscriptionForm.new(subscribable: subscribable) %>
 
-<% if !user_signed_in? || !current_user.subscribed_to?(subscribable, current_site, :user_subscribed_by_broader_subscription_to?) %>
+  <% if !user_signed_in? || !current_user.subscribed_to?(subscribable, current_site, :user_subscribed_by_broader_subscription_to?) %>
 
-<div class="subscribable-box slim_box box">
-  <div class="inner">
-    <h3><%= title %>
-    <% if defined?(subtitle) %>
-      · <%= subtitle %>
-    <% end %>
-    </h3>
+    <div class="subscribable-box slim_box box">
+      <div class="inner">
+        <h3><%= title %>
+        <% if defined?(subtitle) %>
+          · <%= subtitle %>
+      <% end %>
+        </h3>
 
-    <% if user_signed_in? %>
+        <% if user_signed_in? %>
 
-      <%= button_to(
-        current_user.subscribed_to?(subscribable, current_site) ? t(".cancel") : t(".subscribe"),
-        user_subscriptions_path,
-        params: {
-          user_subscription: {
-            subscribable_type: user_subscription_form.subscribable_type,
-            subscribable_id: user_subscription_form.subscribable_id
-          }
-        },
-        class: "pure-menu-link", role: "button")
-      %>
+          <%= button_to(
+            current_user.subscribed_to?(subscribable, current_site) ? t(".cancel") : t(".subscribe"),
+            user_subscriptions_path,
+            params: {
+              user_subscription: {
+                subscribable_type: user_subscription_form.subscribable_type,
+                subscribable_id: user_subscription_form.subscribable_id
+              }
+            },
+            class: "pure-menu-link", role: "button")
+          %>
 
-    <% else %>
+      <% else %>
 
-      <%= form_for(user_subscription_form, as: :user_subscription, url: :user_subscriptions) do |f| %>
-        <%= f.hidden_field :subscribable_type %>
-        <%= f.hidden_field :subscribable_id %>
-        <label class="screen-hidden" for="user_subscription_user_email"><%= defined?(placeholder) ? placeholder : t(".form.placeholders.user_email") %></label>
-        <%= f.email_field :user_email, placeholder: defined?(placeholder) ? placeholder : t(".form.placeholders.user_email") %>
-        <%= f.invisible_captcha :ic_email %>
+        <%= form_for(user_subscription_form, as: :user_subscription, url: :user_subscriptions) do |f| %>
+          <%= f.hidden_field :subscribable_type %>
+          <%= f.hidden_field :subscribable_id %>
+          <label class="screen-hidden" for="user_subscription_user_email"><%= defined?(placeholder) ? placeholder : t(".form.placeholders.user_email") %></label>
+          <%= f.email_field :user_email, placeholder: defined?(placeholder) ? placeholder : t(".form.placeholders.user_email") %>
+          <%= f.invisible_captcha :ic_email %>
 
-        <%= f.submit t(".form.submit"), role: "button" %>
-        <div class="disclaimer"><%= privacy_policy_page_link %></div>
+          <%= f.submit t(".form.submit"), role: "button" %>
+          <div class="disclaimer"><%= privacy_policy_page_link %></div>
+        <% end %>
+
       <% end %>
 
-    <% end %>
+      </div>
+    </div>
 
-  </div>
-</div>
-
+  <% end %>
 <% end %>

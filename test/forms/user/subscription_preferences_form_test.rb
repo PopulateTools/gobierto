@@ -37,16 +37,22 @@ class User::SubscriptionPreferencesFormTest < ActiveSupport::TestCase
   end
 
   def test_validation
+    skip "User subscriptions are disabled"
+
     assert valid_user_subscription_preferences_form.valid?
   end
 
   def test_error_messages_with_invalid_attributes
+    skip "User subscriptions are disabled"
+
     refute invalid_user_subscription_preferences_form.valid?
 
     assert_equal 1, invalid_user_subscription_preferences_form.errors.messages[:notification_frequency].size
   end
 
   def test_save
+    skip "User subscriptions are disabled"
+
     refute user.subscribed_to?(GobiertoPeople, site)
     refute user.subscribed_to?(person, site)
 

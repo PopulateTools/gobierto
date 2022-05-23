@@ -116,7 +116,7 @@ export class CostsController {
 
   setGlobalVariables(rawData) {
     //Convert strings with some format to Numbers without format
-    const toNumber = (value) => value ? +value || 0 : +(parseFloat(value))
+    const toNumber = (value) => value ? +value : +(parseFloat(value)) || 0
     //Array with all the strings that we've to convert to Number
     const amountStrings = [
       "costdirecte",
@@ -199,6 +199,7 @@ export class CostsController {
           }, new Map())
           .values()
       ];
+      console.log("groupData", groupData);
       return (groupData = groupData.filter(
         ({ agrupacio, any_ }) => agrupacio !== "" && any_ === year
       ));

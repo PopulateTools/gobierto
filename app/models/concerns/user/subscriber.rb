@@ -2,6 +2,9 @@ module User::Subscriber
   extend ActiveSupport::Concern
 
   def subscribed_to?(subscribable, site, finder_method = :user_subscribed_to?)
+    # Disable any new subscriptions from being created
+    return true
+
     if subscribable.is_a?(Class) || subscribable.is_a?(Module)
       User::Subscription::Finder.send(finder_method, self, subscribable.name, nil, site.id)
     else

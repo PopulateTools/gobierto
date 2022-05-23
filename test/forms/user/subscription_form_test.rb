@@ -56,11 +56,13 @@ class User::SubscriptionFormTest < ActiveSupport::TestCase
   end
 
   def test_validation
+    skip "User subscriptions are disabled"
     assert valid_user_subscription_form.valid?
     assert valid_new_user_subscription_form.valid?
   end
 
   def test_save_when_not_created
+    skip "User subscriptions are disabled"
     assert_equal(
       [:create, true],
       valid_user_subscription_form.save
@@ -73,6 +75,7 @@ class User::SubscriptionFormTest < ActiveSupport::TestCase
   end
 
   def test_save_when_already_created
+    skip "User subscriptions are disabled"
     user.subscribe_to!(subscribable, site)
 
     assert_equal(
@@ -82,6 +85,7 @@ class User::SubscriptionFormTest < ActiveSupport::TestCase
   end
 
   def test_error_messages_with_invalid_attributes
+    skip "User subscriptions are disabled"
     invalid_user_subscription_form.save
 
     assert_equal 1, invalid_user_subscription_form.errors.messages[:email].size
@@ -90,6 +94,7 @@ class User::SubscriptionFormTest < ActiveSupport::TestCase
   end
 
   def test_error_messages_with_invalid_attributes_in_new_user_form
+    skip "User subscriptions are disabled"
     invalid_new_user_subscription_form.save
 
     assert_equal 1, invalid_new_user_subscription_form.errors.messages[:email].size
@@ -98,6 +103,7 @@ class User::SubscriptionFormTest < ActiveSupport::TestCase
   end
 
   def test_user_registration
+    skip "User subscriptions are disabled"
     assert_difference "User.count", 1 do
       valid_new_user_subscription_form.save
     end

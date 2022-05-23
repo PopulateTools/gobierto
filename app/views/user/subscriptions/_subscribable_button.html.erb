@@ -1,37 +1,38 @@
-<% user_subscription_form = User::SubscriptionForm.new(subscribable: subscribable) %>
-<% subscribed = user_signed_in? ? current_user.subscribed_to?(subscribable, current_site) : false %>
-<% subscribed_by_broader_subscription = subscribed && current_user.subscribed_to?(subscribable, current_site, :user_subscribed_by_broader_subscription_to?) %>
+<% pending do %>
+  <% user_subscription_form = User::SubscriptionForm.new(subscribable: subscribable) %>
+  <% subscribed = user_signed_in? ? current_user.subscribed_to?(subscribable, current_site) : false %>
+  <% subscribed_by_broader_subscription = subscribed && current_user.subscribed_to?(subscribable, current_site, :user_subscribed_by_broader_subscription_to?) %>
 
-<% if user_signed_in? %>
-  <% if subscribed %>
-    <% if subscribed_by_broader_subscription %>
-      <div class="pure-menu pure-menu-horizontal">
-        <ul class="pure-menu-list left">
-          <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-            <%= link_to "#", class: "button button-feed" do %>
-              <i class="fas fa-star"></i>
-              <%= subscription_message(subscribable, "followed") %>
-            <% end %>
-            <ul class="pure-menu-children">
-              <li class="pure-menu-item">
-                <%= link_to(user_subscriptions_path, class: "pure-menu-link") do %>
-                  <%= t(".manage_subscriptions") %>
-                <% end %>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    <% else %>
-      <% user_subscription = User::Subscription.find_by(user: current_user,
-                                                        subscribable_id: user_subscription_form.subscribable_id,
-                                                        subscribable_type: user_subscription_form.subscribable_type.to_s) %>
-      <%= link_to(user_subscription_path(user_subscription),
+  <% if user_signed_in? %>
+    <% if subscribed %>
+      <% if subscribed_by_broader_subscription %>
+        <div class="pure-menu pure-menu-horizontal">
+          <ul class="pure-menu-list left">
+            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+              <%= link_to "#", class: "button button-feed" do %>
+                <i class="fas fa-star"></i>
+                <%= subscription_message(subscribable, "followed") %>
+              <% end %>
+              <ul class="pure-menu-children">
+                <li class="pure-menu-item">
+                  <%= link_to(user_subscriptions_path, class: "pure-menu-link") do %>
+                    <%= t(".manage_subscriptions") %>
+                  <% end %>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      <% else %>
+        <% user_subscription = User::Subscription.find_by(user: current_user,
+                                                          subscribable_id: user_subscription_form.subscribable_id,
+                                                          subscribable_type: user_subscription_form.subscribable_type.to_s) %>
+                                                        <%= link_to(user_subscription_path(user_subscription),
         remote: true,
         method: :delete,
         class: "button button-feed") do %>
-          <i class="fas fa-star"></i>
-          <%= subscription_message(subscribable, "followed") %>
+        <i class="fas fa-star"></i>
+        <%= subscription_message(subscribable, "followed") %>
       <% end %>
     <% end %>
   <% else %>
@@ -45,15 +46,16 @@
       remote: true,
       method: :post,
       class: "button button-feed") do %>
-        <i class="fas fa-rss"></i>
+      <i class="fas fa-rss"></i>
         <%= subscription_message(subscribable, "follow") %>
+      <% end %>
     <% end %>
-  <% end %>
-<% else %>
-  <%= link_to(
-    new_user_sessions_path(open_modal: true),
-    class: "button button-feed") do %>
+  <% else %>
+    <%= link_to(
+      new_user_sessions_path(open_modal: true),
+      class: "button button-feed") do %>
       <i class="fas fa-rss"></i>
       <%= subscription_message(subscribable, "follow") %>
+    <% end %>
   <% end %>
 <% end %>

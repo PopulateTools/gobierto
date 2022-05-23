@@ -2805,7 +2805,7 @@ async-limiter@~1.0.0:
 
 async@^2.6.2:
   version "2.6.4"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.6.4.tgz#706b7ff6084664cd7eae713f6f965433b5504221"
+  resolved "https://registry.npmjs.org/async/-/async-2.6.4.tgz"
   integrity sha512-mzo5dfJYwAn29PeiJ0zvwTo04zj8HDJj0Mn8TD7sno7q12prdbnasKJHhkm2c1LgrhlJ0teaea8860oxi51mGA==
   dependencies:
     lodash "^4.17.14"
@@ -6248,7 +6248,7 @@ flush-write-stream@^1.0.0:
 
 follow-redirects@^1.0.0, follow-redirects@^1.14.0:
   version "1.14.8"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.8.tgz#016996fb9a11a100566398b1c6839337d7bfa8fc"
+  resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.8.tgz"
   integrity sha512-1x0S9UVJHsQprFcEC/qnNzBLcIxsjAV905f/UkQxbclCsoTWlacCNOpQa/anodLl2uaEKFhfWOvM2Qg77+15zA==
 
 for-in@^1.0.2:
@@ -6565,10 +6565,10 @@ globjoin@^0.1.4:
   resolved "https://registry.npmjs.org/globjoin/-/globjoin-0.1.4.tgz"
   integrity sha1-L0SUrIkZ43Z8XLtpHp9GMyQoXUM=
 
-gobierto-vizzs@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/gobierto-vizzs/-/gobierto-vizzs-1.2.0.tgz#606e5d2edf07214cf3c8c083d6624ca0d7517189"
-  integrity sha512-D2flum1aPw2hJPNWCrcC9duqn/6LxA8xIjZ9KDySBHRSF1AiI68uCTnKKL0twe9H2bw2na2WqznGlOcA2aMZUw==
+gobierto-vizzs@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/gobierto-vizzs/-/gobierto-vizzs-1.2.1.tgz#a3118f733f7a474841aa1f2472298ce69a71da95"
+  integrity sha512-VIvta0aESSA7zbF+7NYPNqu/U1jO6ph118eEZ1Lz5su6LdPGnTIaxoeUlGFR/vgOux2FHeU93b51xZ/DaufmxA==
   dependencies:
     d3-array "^3.1.1"
     d3-axis "^3.0.0"
@@ -6808,7 +6808,7 @@ html-tags@^3.1.0:
 
 html-to-image@^1.9.0:
   version "1.9.0"
-  resolved "https://registry.yarnpkg.com/html-to-image/-/html-to-image-1.9.0.tgz#cb49bf9f4b37376771c85cfdd65863ae9420b268"
+  resolved "https://registry.npmjs.org/html-to-image/-/html-to-image-1.9.0.tgz"
   integrity sha512-9gaDCIYg62Ek07F2pBk76AHgYZ2gxq2YALU7rK3gNCqXuhu6cWzsOQqM7qGbjZiOzxGzrU1deDqZpAod2NEwbA==
 
 htmlparser2@^3.10.0:
@@ -8776,7 +8776,7 @@ minimist-options@4.1.0:
 
 minimist@^1.2.0, minimist@^1.2.5:
   version "1.2.6"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
+  resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz"
   integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
 minipass-collect@^1.0.2:
@@ -8865,7 +8865,7 @@ moment-locales-webpack-plugin@^1.0.7:
 
 moment@^2.29.2:
   version "2.29.2"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.2.tgz#00910c60b20843bcba52d37d58c628b47b1f20e4"
+  resolved "https://registry.npmjs.org/moment/-/moment-2.29.2.tgz"
   integrity sha512-UgzG4rvxYpN15jgCmVJwac49h9ly9NurikMWGPdVxm8GZD6XjkKPxDTjQQ43gtGgnV3X0cAyWDdP2Wexoquifg==
 
 move-concurrently@^1.0.1:
@@ -9093,7 +9093,7 @@ normalize-url@^3.0.0:
 
 normalize.css@^8.0.1:
   version "8.0.1"
-  resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-8.0.1.tgz#9b98a208738b9cc2634caacbc42d131c97487bf3"
+  resolved "https://registry.npmjs.org/normalize.css/-/normalize.css-8.0.1.tgz"
   integrity sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==
 
 npm-run-path@^2.0.0:
@@ -10964,7 +10964,7 @@ run-queue@^1.0.0, run-queue@^1.0.3:
 
 rw@1, rw@^1.3.3:
   version "1.3.3"
-  resolved "https://registry.yarnpkg.com/rw/-/rw-1.3.3.tgz#3f862dfa91ab766b14885ef4d01124bfda074fb4"
+  resolved "https://registry.npmjs.org/rw/-/rw-1.3.3.tgz"
   integrity sha1-P4Yt+pGrdmsUiF700BEkv9oHT7Q=
 
 rxjs@^6.6.0, rxjs@^6.6.3:

@@ -212,6 +212,7 @@ es:
           la deuda de todos sus entes dependientes (Sociedades Mercantiles, EPE’s,
           Fundacioóns, Consorcios).
         evolution_debt: Evolución de la deuda
+        millions: La unidad de las cifras de este gráfico es millones de euros.
         title: Deuda
         total_debt: Deuda total
       process_types:

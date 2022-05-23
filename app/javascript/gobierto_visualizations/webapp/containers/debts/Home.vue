@@ -1,27 +1,31 @@
 <template>
   <div class="gobierto-visualizations gobierto-visualizations-debts">
+    <div class="gobierto-visualizations-container-title block">
+      <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
+        {{ labelTitle }}
+      </h2>
+    </div>
     <div class="pure-g block header_block_inline m_b_1">
       <div class="pure-u-1 pure-u-md-24-24">
-        <div class="pure-u-1 pure-u-md-12-24">
-          <div class="gobierto-visualizations-container-title">
-            <h2 class="pure-u-1 gobierto-visualizations-title gobierto-visualizations-title-select">
-              {{ labelTitle }}
-            </h2>
+        <div class="pure-g gutters">
+          <div class="pure-u-1 pure-u-md-12-24">
+            <p class="gobierto-visualizations-description">
+              {{ labelDescription }}
+            </p>
+            <p class="gobierto-visualizations-description">
+              {{ labelDescriptionDate }}
+            </p>
           </div>
-          <p class="gobierto-visualizations-description">
-            {{ labelDescription }}
-          </p>
-          <p class="gobierto-visualizations-description">
-            {{ labelDescriptionDate }}
-          </p>
-        </div>
-      </div>
-      <div class="pure-u-1 pure-u-lg-1-4 metric_boxes">
-        <div class="pure-u-1-1 metric_box tipsit">
-          <div class="inner">
-            <h3>{{ labelTitleTotalDebt }}</h3>
-            <div class="metric">
-              {{ totalDebt }}
+          <div class="pure-u-1 pure-u-md-12-24">
+            <div class="metric_boxes">
+              <div class="pure-u-1-3 metric_box tipsit">
+                <div class="inner">
+                  <h3>{{ labelTitleTotalDebt }}</h3>
+                  <div class="metric">
+                    {{ totalDebt }}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -30,7 +34,7 @@
         {{ labelTitleDebtor }}
       </h2>
       <div class="pure-u-24-24">
-        <div class="pure-g  gutters">
+        <div class="pure-g gutters">
           <div class="pure-u-1 pure-u-md-12-24">
             <Table :data="creditorData" />
           </div>
@@ -61,6 +65,9 @@
       <h2 class="pure-u-1 gobierto-visualizations-title">
         {{ labelTitleEvolutionDebt }}
       </h2>
+      <span class="gobierto-visualizations-millions">
+        {{ labelTitleMillions }}
+      </span>
       <div class="pure-u-24-24">
         <div class="pure-u-1 pure-u-md-24-24">
           <div
@@ -71,6 +78,9 @@
       <h2 class="pure-u-1 gobierto-visualizations-title">
         {{ labelTitleBreakdownDebt }}
       </h2>
+      <span class="gobierto-visualizations-millions">
+        {{ labelTitleMillions }}
+      </span>
       <div class="pure-u-24-24">
         <div class="pure-u-1 pure-u-md-24-24">
           <div
@@ -106,7 +116,7 @@ export default {
       labelTitleEvolutionDebt: I18n.t("gobierto_visualizations.visualizations.debts.evolution_debt") || "",
       labelTitleBreakdownDebt: I18n.t("gobierto_visualizations.visualizations.debts.breakdown_debt") || "",
       labelTitleTotalDebt: I18n.t("gobierto_visualizations.visualizations.debts.total_debt") || "",
-
+      labelTitleMillions: I18n.t("gobierto_visualizations.visualizations.debts.millions") || "",
     }
   },
   computed: {
@@ -130,6 +140,25 @@ export default {
         </span>
       `
     },
+    tooltipBarChartStacked(d) {
+      let tooltipContent = [];
+      const titleIsDate = d.data.any && Object.prototype.toString.call(d.data.any) === "[object Date]" && !isNaN(d.data.any)
+      const titleTooltip = titleIsDate ? d.data.any.getFullYear() : d.data.any
+      const filteredDataByKey = Object.fromEntries(Object.entries(d.data).filter(([key]) => !["Total endeutament grup", "any", "Deute viu", "Rati deute viu %"].includes(key)));
+      for (const key in filteredDataByKey) {
+        const valueContent = `
+          <div class="tooltip-barchart-stacked-grid">
+            <span class="tooltip-barchart-stacked-grid-key-color ${key.replace(/\s/g, '')}"></span>
+            <span class="tooltip-barchart-stacked-grid-key">${key}:</span>
+            <span class="tooltip-barchart-stacked-grid-value">${filteredDataByKey[key].toLocaleString()} M€</span>
+          </div>`
+        tooltipContent.push(valueContent);
+      }
+      return `
+        <span class="tooltip-barchart-stacked-title">${titleTooltip}</span>
+        ${tooltipContent.join("")}
+      `;
+    },
     initGobiertoVizzs() {
       const treemapCreditor = this.$refs["treemap-creditor"]
       const treemapDebts = this.$refs["treemap-debts"]
@@ -142,7 +171,7 @@ export default {
           group: ["entitat"],
           value: "endeutament_a_31_12_2021",
           margin: { top: 0 },
-          locale: "es-ES",
+          itemTemplate: this.treemapItemTemplate,
           tooltip: this.tooltipTreeMap
         })
       }
@@ -154,7 +183,7 @@ export default {
           group: ["entitat_creditora"],
           value: "endeutament_pendent_a_31_12_2021",
           margin: { top: 0 },
-          locale: "es-ES",
+          itemTemplate: this.treemapItemTemplate,
           tooltip: this.tooltipTreeMap
         })
       }
@@ -169,7 +198,8 @@ export default {
           margin: { left: 240 },
           x: "any",
           locale: "es-ES",
-          value: "endeutament_pendent_a_31_12_2021"
+          value: "endeutament_pendent_a_31_12_2021",
+          tooltip: this.tooltipBarChartStacked
         })
       }
 
@@ -182,6 +212,13 @@ export default {
         })
       }
       this.isGobiertoVizzsLoaded = true
+    },
+    treemapItemTemplate(d) {
+      this.disableTreemapClick()
+      return [
+        `<p class="treemap-item-title">${d.data.title}</p>`,
+        `<p class="treemap-item-text">${money(d.value)}</p>`
+      ].join("")
     },
     parseDataEvolution(rawData) {
       const data = [];
@@ -214,6 +251,14 @@ export default {
         }
       }
       return data
+    },
+    disableTreemapClick() {
+      document.querySelectorAll(".treemap-item foreignObject").forEach(box =>{
+        box.addEventListener("click", (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+        })
+      })
     }
   }
 }

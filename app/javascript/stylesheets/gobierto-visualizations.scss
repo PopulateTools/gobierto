@@ -1257,8 +1257,8 @@
     }
   }
 
-  .bar-chart-small-debts .title {
-    transform:translate(0, -5px);
+  &-millions {
+    font-size: $f8;
   }
 
   &.gobierto-visualizations-debts .treemap-item {
@@ -1274,6 +1274,58 @@
     }
     .header_block_inline h2 {
       margin-bottom: 1rem;
+    }
+    .bar-chart-small-debts {
+      text.label {
+        font-size: 14px;
+      }
+      .axis-y .tick line {
+        display: none;
+      }
+      .column .title tspan,
+      .column .wrap-text tspan {
+        font-weight: 600;
+        font-family: $font_headings;
+      }
+      .column .title {
+        transform:translate(0, 13px);
+      }
+      .column .wrap-text {
+        transform:translate(0, -2px);
+      }
+
+    }
+    .gv-tooltip-bar-stacked .tooltip-barchart-stacked-grid-key-color {
+      &.Ajuntament {
+        background-color: var(--gv-color-2);
+      }
+      &.MataroAudiovisual {
+        background-color: var(--gv-color-3);
+      }
+      &.DigitialMataroMaresme {
+        background-color: var(--gv-color-4);
+      }
+      &.ConsorciResidus {
+        background-color: var(--gv-color-5);
+      }
+      &.PUMSA {
+        background-color: var(--gv-color-6);
+      }
+      &.GrupTecnocampus {
+        background-color: var(--gv-color-7);
+      }
+      &.AMSA {
+        background-color: var(--gv-color-8);
+      }
+      &.DeuteFCC {
+        background-color: var(--gv-color-9);
+      }
+      &.PortaLaietana {
+        background-color: var(--gv-color-10);
+      }
+      &.Altrespiemessa {
+        background-color: var(--gv-color-11);
+      }
     }
   }
 

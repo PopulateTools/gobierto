@@ -208,6 +208,7 @@ ca:
           englova  el deute de tots els seus ens dependents (Societats Mercantils,
           EPE’s, Fundacioóns, Consorcis).
         evolution_debt: Evolució del deute
+        millions: La unitat de les xifres d'aquest gràfic és milions d'euros.
         title: Deute
         total_debt: Deute total
       process_types:

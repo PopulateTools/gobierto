@@ -199,7 +199,6 @@ export class CostsController {
           }, new Map())
           .values()
       ];
-      console.log("groupData", groupData);
       return (groupData = groupData.filter(
         ({ agrupacio, any_ }) => agrupacio !== "" && any_ === year
       ));

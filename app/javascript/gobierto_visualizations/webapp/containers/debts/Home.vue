@@ -144,7 +144,7 @@ export default {
       let tooltipContent = [];
       const titleIsDate = d.data.any && Object.prototype.toString.call(d.data.any) === "[object Date]" && !isNaN(d.data.any)
       const titleTooltip = titleIsDate ? d.data.any.getFullYear() : d.data.any
-      const filteredDataByKey = Object.fromEntries(Object.entries(d.data).filter(([key]) => !["Total endeutament grup", "any", "Deute viu", "Rati deute viu %"].includes(key)));
+      const filteredDataByKey = Object.fromEntries(Object.entries(d.data).filter(([key]) => !["Total endeutament grup", "any", "Deute Viu Sector Administracions Públiques", "Rati deute viu %", "Deute Viu Grup Ajuntament"].includes(key)));
       for (const key in filteredDataByKey) {
         const valueContent = `
           <div class="tooltip-barchart-stacked-grid">
@@ -193,9 +193,9 @@ export default {
           rootTitle: this.labelCategories,
           orientationLegend: "left",
           showLegend: true,
-          excludeColumns: ["Total endeutament grup", "Deute viu", "Rati deute viu %"],
-          extraLegends: ["Deute viu", "Rati deute viu %"],
-          margin: { left: 240 },
+          excludeColumns: ["Deute Viu Grup Ajuntament", "Deute Viu Sector Administracions Públiques", "Rati deute viu %"],
+          extraLegends: ["Deute Viu Grup Ajuntament","Deute Viu Sector Administracions Públiques", "Rati deute viu %"],
+          margin: { left: 340 },
           x: "any",
           locale: "es-ES",
           value: "endeutament_pendent_a_31_12_2021",

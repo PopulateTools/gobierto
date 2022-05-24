@@ -90,8 +90,8 @@ export class DebtsController {
         "Deute FCC": deute_fcc,
         "Porta Laietana": porta_laietana,
         "Altres pie messa": altres_pie_messa,
-        "Total endeutament grup": total_endeutament_grup,
-        "Deute viu": total_deute_viu,
+        "Deute Viu Grup Ajuntament": total_endeutament_grup,
+        "Deute Viu Sector Administracions Públiques": total_deute_viu,
         "Rati deute viu %": rati_deute_viu.split("%")[0]
       }
     })

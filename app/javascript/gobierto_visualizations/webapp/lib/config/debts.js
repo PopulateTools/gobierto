@@ -17,7 +17,7 @@ export const debtsEvolutionString = [
   "Deute FCC",
   "Porta Laietana",
   "Altres pie messa",
-  "Total endeutament grup",
-  "Deute viu",
+  "Deute Viu Grup Ajuntament",
+  "Deute Viu Sector Administracions Públiques",
   "Rati deute viu %"
 ];

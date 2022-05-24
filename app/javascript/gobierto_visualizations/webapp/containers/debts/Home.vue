@@ -65,7 +65,7 @@
       <h2 class="pure-u-1 gobierto-visualizations-title">
         {{ labelTitleEvolutionDebt }}
       </h2>
-      <span class="gobierto-visualizations-millions">
+      <span class="description">
         {{ labelTitleMillions }}
       </span>
       <div class="pure-u-24-24">
@@ -78,7 +78,7 @@
       <h2 class="pure-u-1 gobierto-visualizations-title">
         {{ labelTitleBreakdownDebt }}
       </h2>
-      <span class="gobierto-visualizations-millions">
+      <span class="description">
         {{ labelTitleMillions }}
       </span>
       <div class="pure-u-24-24">

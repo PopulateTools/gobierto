@@ -1257,10 +1257,6 @@
     }
   }
 
-  &-millions {
-    font-size: $f8;
-  }
-
   &.gobierto-visualizations-debts .treemap-item {
     cursor: initial;
     .treemap-item div:last-child {
@@ -1273,11 +1269,11 @@
       margin-top: 6rem;
     }
     .header_block_inline h2 {
-      margin-bottom: 1rem;
+      margin-bottom: $f6;
     }
     .bar-chart-small-debts {
       text.label {
-        font-size: 14px;
+        font-size: $f7;
       }
       .axis-y .tick line {
         display: none;
@@ -1286,6 +1282,7 @@
       .column .wrap-text tspan {
         font-weight: 600;
         font-family: $font_headings;
+        font-size: $f7;
       }
       .column .title {
         transform:translate(0, 13px);

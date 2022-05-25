@@ -6,6 +6,7 @@ ca:
         gobierto_visualizations:
           contracts: Contractes i licitacions
           costs: Costos
+          debts: Deute
           subsidies: Subvencions
     shared:
       download_data: Descarregueu les dades en format reutilitzable
@@ -193,6 +194,18 @@ ca:
             en concepte de subvenció prèviament concedida.
         total: Total
         total_cost: Cost total
+      debts:
+        breakdown_debt: Desglossament del deute
+        creditor: Per creditor
+        date_debt: Dades de deute a 31 de desembre de 2021.
+        debtor: Per deutor
+        description: EL deute financer i d’altre a llarg termini del Grup Ajuntament
+          englova  el deute de tots els seus ens dependents (Societats Mercantils,
+          EPE’s, Fundacioóns, Consorcis).
+        evolution_debt: Evolució del deute
+        millions: La unitat de les xifres d'aquest gràfic és milions d'euros.
+        title: Deute
+        total_debt: Deute total
       process_types:
         based_on_agreement: Basat en Acord Marc
         competitive_dialogue: Diàleg competitiu

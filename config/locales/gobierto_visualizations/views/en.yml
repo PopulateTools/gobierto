@@ -6,6 +6,7 @@ en:
         gobierto_visualizations:
           contracts: Contracts and tenders
           costs: Costs
+          debts: Debt
           subsidies: Subsidies
     shared:
       download_data: Download the full dataset in a reusable format
@@ -194,6 +195,18 @@ en:
             as a previously granted subsidy.
         total: Total cost
         total_cost: Total cost
+      debts:
+        breakdown_debt: Debt breakdown
+        creditor: Per creditor
+        date_debt: Debt data as of December 31, 2021.
+        debtor: Per debtor
+        description: La deuda financiera y a largo plazo del Ayuntamiento englova
+          la deuda de todos sus entes dependientes (Sociedades Mercantiles, EPE’s,
+          Fundacioóns, Consorcios).
+        evolution_debt: Debt evolution
+        millions: The unit of the numbers in this chart is millions of euros.
+        title: Debt
+        total_debt: Total debt
       process_types:
         based_on_agreement: Based on Marco agreement
         competitive_dialogue: Competitive dialogue

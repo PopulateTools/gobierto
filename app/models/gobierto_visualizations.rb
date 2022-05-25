@@ -25,6 +25,14 @@ module GobiertoVisualizations
           "data_urls": {
             "subsidies": ""
           }
+        },
+        "debts": {
+          "enabled": false,
+          "data_urls": {
+            "debts": "",
+            "debts_total": "",
+            "evolution": ""
+          }
         }
       }
     }

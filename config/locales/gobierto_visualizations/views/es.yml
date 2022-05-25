@@ -6,6 +6,7 @@ es:
         gobierto_visualizations:
           contracts: Contratos y licitaciones
           costs: Costes
+          debts: Deuda
           subsidies: Subvenciones
     shared:
       download_data: Descarga los datos completos en formatos reutilizables
@@ -197,6 +198,18 @@ es:
             en concepto de subvención previamente concedida.
         total: Total
         total_cost: Coste total
+      debts:
+        breakdown_debt: Desglose de la deuda
+        creditor: Por acreedor
+        date_debt: Datos de deuda a 31 de diciembre de 2021.
+        debtor: Por deudor
+        description: La deuda financiera y a largo plazo del Ayuntamiento englova
+          la deuda de todos sus entes dependientes (Sociedades Mercantiles, EPE’s,
+          Fundacioóns, Consorcios).
+        evolution_debt: Evolución de la deuda
+        millions: La unidad de las cifras de este gráfico es millones de euros.
+        title: Deuda
+        total_debt: Deuda total
       process_types:
         based_on_agreement: Basado en Acuerdo Marco
         competitive_dialogue: Diálogo competitivo

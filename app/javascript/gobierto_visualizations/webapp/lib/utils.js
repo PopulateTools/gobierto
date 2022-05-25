@@ -59,3 +59,5 @@ export function calculateSumMeanMedian(value) {
 
   return values
 }
+
+export const toNumber = (value) => value ? +(parseFloat(value)) : 0;

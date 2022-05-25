@@ -3,6 +3,7 @@ import "../stylesheets/gobierto-visualizations.scss"
 import { ContractsController } from "./modules/contracts_controller.js";
 import { SubsidiesController } from "./modules/subsidies_controller.js";
 import { CostsController } from "./modules/costs_controller.js";
+import { DebtsController } from "./modules/debts_controller.js";
 
 document.addEventListener('DOMContentLoaded', () => {
   const contractsAppNode = document.getElementById("gobierto-visualizations-contracts-app");
@@ -18,5 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const costsAppNode = document.getElementById("gobierto-visualizations-costs-app");
   if (costsAppNode) {
     new CostsController({ ...costsAppNode.dataset });
+  }
+
+  const debtsAppNode = document.getElementById("gobierto-visualizations-debts-app");
+  if (debtsAppNode) {
+    new DebtsController({ ...debtsAppNode.dataset });
   }
 });

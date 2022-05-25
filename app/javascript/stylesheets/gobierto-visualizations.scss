@@ -1224,12 +1224,106 @@
     font-weight: 300;
   }
 
-}
-
-.gobierto_visualizations {
-
   .header_block_inline p.visualizations-text-info {
     font-size: $f7;
+  }
+
+  &-table-debts {
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+  }
+
+  &-table-debts-tr,
+  &-table-debts-td {
+    font-family: $font_headings;
+    color: #666;
+    font-size: $f7;
+    border: 0;
+  }
+
+  &-table-debts-tr:not(:last-child) {
+    border-bottom: 1px dotted rgba(0, 0, 0, .15);
+  }
+
+  &-table-debts-tr:last-child td {
+    font-weight: bold;
+  }
+
+  &-table-debts-td {
+    &:last-child {
+      background-color: rgba(var(--color-base-string), .2);
+      text-align: right;
+      padding: .5rem;
+    }
+  }
+
+  &.gobierto-visualizations-debts .treemap-item {
+    cursor: initial;
+    .treemap-item div:last-child {
+      display: none;
+    }
+  }
+
+  &.gobierto-visualizations-debts {
+    .gobierto-visualizations-title {
+      margin-top: 6rem;
+    }
+    .header_block_inline h2 {
+      margin-bottom: $f6;
+    }
+    .bar-chart-small-debts {
+      text.label {
+        font-size: $f7;
+      }
+      .axis-y .tick line {
+        display: none;
+      }
+      .column .title tspan,
+      .column .wrap-text tspan {
+        font-weight: 600;
+        font-family: $font_headings;
+        font-size: $f7;
+      }
+      .column .title {
+        transform:translate(0, 13px);
+      }
+      .column .wrap-text {
+        transform:translate(0, -2px);
+      }
+
+    }
+    .gv-tooltip-bar-stacked .tooltip-barchart-stacked-grid-key-color {
+      &.Ajuntament {
+        background-color: var(--gv-color-2);
+      }
+      &.MataroAudiovisual {
+        background-color: var(--gv-color-3);
+      }
+      &.DigitialMataroMaresme {
+        background-color: var(--gv-color-4);
+      }
+      &.ConsorciResidus {
+        background-color: var(--gv-color-5);
+      }
+      &.PUMSA {
+        background-color: var(--gv-color-6);
+      }
+      &.GrupTecnocampus {
+        background-color: var(--gv-color-7);
+      }
+      &.AMSA {
+        background-color: var(--gv-color-8);
+      }
+      &.DeuteFCC {
+        background-color: var(--gv-color-9);
+      }
+      &.PortaLaietana {
+        background-color: var(--gv-color-10);
+      }
+      &.Altrespiemessa {
+        background-color: var(--gv-color-11);
+      }
+    }
   }
 
 }

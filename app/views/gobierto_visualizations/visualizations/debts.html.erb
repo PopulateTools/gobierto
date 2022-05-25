@@ -1,0 +1,19 @@
+<% title t('gobierto_visualizations.layouts.application.gobierto_visualizations.debts') %>
+
+<div class="column">
+
+  <div class="js-loading">
+    <i class="fas fa-spinner fa-spin"></i> <%= t("gobierto_visualizations.shared.loading") %>
+  </div>
+
+  <div id="gobierto-visualizations-debts-app"
+     data-site-name="<%= @site.name %>"
+     data-logo-url="<%= @site.configuration.logo_with_fallback %>"
+     data-home-url="<%= gobierto_visualizations_debts_summary_url %>"
+     data-debts-endpoint="<%= @visualizations_config.dig('data_urls', 'debts') %>"
+     data-debts-total-endpoint="<%= @visualizations_config.dig('data_urls', 'debts_total') %>"
+     data-debts-evolution-endpoint="<%= @visualizations_config.dig('data_urls', 'evolution') %>"
+  >
+  </div>
+
+</div>

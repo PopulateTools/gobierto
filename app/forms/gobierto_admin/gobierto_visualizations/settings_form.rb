@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoVisualizations
     class SettingsForm < BaseForm
 
-      VALID_VISUALIZATION_NAMES = %w(contracts subsidies costs)
+      VALID_VISUALIZATION_NAMES = %w(contracts subsidies costs debts)
 
       attr_writer(
         :site_id,

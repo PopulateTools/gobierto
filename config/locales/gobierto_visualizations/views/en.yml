@@ -5,6 +5,8 @@ en:
       application:
         gobierto_visualizations:
           contracts: Contracts and tenders
+          costs: Costs
+          debts: Debt
           subsidies: Subsidies
     shared:
       download_data: Download the full dataset in a reusable format
@@ -208,6 +210,7 @@ en:
           la deuda de todos sus entes dependientes (Sociedades Mercantiles, EPE’s,
           Fundacioóns, Consorcios).
         evolution_debt: Debt evolution
+        millions: The unit of the numbers in this chart is millions of euros.
         title: Debt
         total_debt: Total debt
       process_types:

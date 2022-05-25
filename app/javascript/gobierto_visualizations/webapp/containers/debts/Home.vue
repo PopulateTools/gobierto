@@ -237,7 +237,7 @@ export default {
           "Altres pie messa": d["Altres pie messa"]
         }
       })
-      const arrayOfYear = filteredData.map(({ any }) => any);
+      const arrayOfYear = filteredData.map(({ any }, i) => [i, any]);
       for (let [index, value] of arrayOfYear.entries()) {
         for (let item in filteredData[index]) {
           if (item !== "any") {

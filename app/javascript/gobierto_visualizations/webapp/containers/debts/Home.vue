@@ -130,7 +130,17 @@ export default {
     this.initGobiertoVizzs();
   },
   methods: {
-    tooltipTreeMap(d) {
+    tooltipTreeMapCreditor(d) {
+      return `
+        <span class="beeswarm-tooltip-header">
+          ${d.data.children[0].entitat_tooltip}
+        </span>
+        <span class="beeswarm-tooltip-table-element-text">
+            <b>${money(d.value)}</b>
+        </span>
+      `
+    },
+    tooltipTreeMapDebts(d) {
       return `
         <span class="beeswarm-tooltip-header">
           ${d.data.title}
@@ -165,14 +175,14 @@ export default {
       const barChartStackedDebts = this.$refs["bar-chart-stacked-debts"]
       const barChartMultipleDebts = this.$refs["bar-chart-small-debts"]
       if (treemapCreditor && treemapCreditor.offsetParent !== null) {
-        this.treemapCreditor = new TreeMap(treemapCreditor, this.creditorData.filter(({ entitat }) => entitat !== "TOTAL GENERAL"), {
+        this.treemapCreditor = new TreeMap(treemapCreditor, this.parseDataTotal(this.creditorData), {
           rootTitle: "test",
           id: "title",
           group: ["entitat"],
           value: "endeutament_a_31_12_2021",
           margin: { top: 0 },
           itemTemplate: this.treemapItemTemplate,
-          tooltip: this.tooltipTreeMap
+          tooltip: this.tooltipTreeMapCreditor
         })
       }
 
@@ -184,7 +194,7 @@ export default {
           value: "endeutament_pendent_a_31_12_2021",
           margin: { top: 0 },
           itemTemplate: this.treemapItemTemplate,
-          tooltip: this.tooltipTreeMap
+          tooltip: this.tooltipTreeMapDebts
         })
       }
 
@@ -250,6 +260,24 @@ export default {
           }
         }
       }
+      return data
+    },
+    parseDataTotal(rawData) {
+      const data = rawData.map(({ entitat, entitat_tooltip, ...rest }) => {
+        entitat_tooltip = entitat
+        if (entitat === "AJUNTAMENT - PENDENT RETORN PIE LIQ. NEGATIVA 2008 I 2009") {
+          entitat = "AJUNTAMENT - PENDENT RETORN PIE"
+        }
+        if (entitat === "FUNDACIÓ TCM") {
+          entitat = "FUND. TCM"
+        }
+
+        return {
+          entitat,
+          entitat_tooltip,
+          ...rest
+        }
+      }).filter(({ entitat }) => entitat !== "TOTAL GENERAL")
       return data
     },
     disableTreemapClick() {

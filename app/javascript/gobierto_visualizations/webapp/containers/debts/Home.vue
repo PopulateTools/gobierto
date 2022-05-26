@@ -238,7 +238,7 @@ export default {
         }
       })
       const arrayOfYear = filteredData.map(({ any }, i) => [i, any]);
-      for (let [index, value] of arrayOfYear.entries()) {
+      for (let [index, value] of arrayOfYear) {
         for (let item in filteredData[index]) {
           if (item !== "any") {
             let elementArrayOfObjects = {

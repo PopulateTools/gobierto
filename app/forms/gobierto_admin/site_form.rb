@@ -3,7 +3,7 @@
 module GobiertoAdmin
   class SiteForm < BaseForm
 
-    GOOGLE_ANALYTICS_ID_REGEXP = /\AUA-\d{4,10}-\d{1,4}\z/
+    GOOGLE_ANALYTICS_ID_REGEXP = /\A(UA|G)-(\d{4,10}-\d{1,4}|\w{10})\z/
 
     attr_accessor(
       :id,

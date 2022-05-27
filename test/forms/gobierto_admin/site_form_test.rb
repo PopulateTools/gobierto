@@ -31,18 +31,6 @@ module GobiertoAdmin
       )
     end
 
-    def valid_google_analytics_id_site_form
-      @valid_google_analytics_id_site_form ||= SiteForm.new(
-        valid_site_form.instance_values.merge(google_analytics_id: "UA-000000-01")
-      )
-    end
-
-    def invalid_google_analytics_id_site_form
-      @invalid_google_analytics_id_site_form ||= SiteForm.new(
-        valid_site_form.instance_values.merge(google_analytics_id: "UA-FOO")
-      )
-    end
-
     def site
       @site ||= sites(:madrid)
     end
@@ -64,8 +52,16 @@ module GobiertoAdmin
     end
 
     def test_google_analytics_id_validation
-      assert valid_google_analytics_id_site_form.valid?
-      refute invalid_google_analytics_id_site_form.valid?
+      assert SiteForm.new(
+        valid_site_form.instance_values.merge(google_analytics_id: "UA-000000-01")
+      ).valid?
+      assert SiteForm.new(
+        valid_site_form.instance_values.merge(google_analytics_id: "G-E2SS47LLT6")
+      ).valid?
+
+      refute SiteForm.new(
+        valid_site_form.instance_values.merge(google_analytics_id: "UA-FOO")
+      ).valid?
     end
 
     def test_save_with_valid_attributes

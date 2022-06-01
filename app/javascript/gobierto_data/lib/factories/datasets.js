@@ -14,7 +14,7 @@ export const DatasetFactoryMixin = {
   methods: {
     getDatasets(params) {
       const qs = new URLSearchParams(params);
-      return axios.get(`${endPoint}?${qs.toString()}`, { headers });
+      return axios.get(`${endPoint}?${qs.toString()}locale=${I18n.locale}`, { headers });
     },
     getDatasetsMetadata(params) {
       const qs = new URLSearchParams(params);

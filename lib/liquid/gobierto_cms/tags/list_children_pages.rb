@@ -37,6 +37,8 @@ module Liquid
             if nodes.any?
               html << "<div class='page_children'>"
               nodes.each do |node|
+                next if node.item.collection.blank?
+
                 html << "<div class='page_child'>"
                 html << ::ActionController::Base.helpers.link_to(node.item.title,
                                                                 gobierto_cms_page_or_news_path(node.item))

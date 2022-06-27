@@ -65,7 +65,6 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
     };
 
     Vue.component("file-upload", {
-      template: "#file-upload",
       data: function() {
         return {
           fileDragged: false,
@@ -92,6 +91,9 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         isFailed: function() {
           return this.currentStatus === STATUS_FAILED;
         }
+      },
+      mounted: function() {
+        this.reset();
       },
       methods: {
         dragEntered: function() {
@@ -122,7 +124,6 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           var self = this;
           $.ajax({
             url: "/admin/attachments/api/attachments",
-            dataType: "json",
             method: "POST",
             data: {
               attachment: self.attachment
@@ -167,13 +168,10 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           reader.readAsDataURL(fileList[0]);
         }
       },
-      mounted: function() {
-        this.reset();
-      }
+      template: "#file-upload"
     });
 
     Vue.component("edit-attachment", {
-      template: "#edit-attachment",
       mixins: [fileUtils, magnificPopup],
       data: function() {
         return {
@@ -192,7 +190,6 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           var self = this;
           $.ajax({
             url: "/admin/attachments/api/attachments/" + id,
-            dataType: "json",
             beforeSend: function(xhr) {
               xhr.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr("content"));
             },
@@ -215,7 +212,6 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
                 description: self.attachment !== null ? self.attachment.description : ""
               }
             },
-            dataType: "json",
             beforeSend: function(xhr) {
               xhr.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr("content"));
             },
@@ -232,11 +228,11 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           if (attachment) return attachment.file_name + " (" + this.bytesToSize(attachment.file_size) + ")";
           else return "";
         }
-      }
+      },
+      template: "#edit-attachment"
     });
 
     Vue.component("file-popover", {
-      template: "#file-popover",
       mixins: [fileUtils],
       props: ["attachableId", "attachableType"],
       data: function() {
@@ -245,12 +241,6 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           attachment: null,
           copySuccessful: false
         };
-      },
-      mounted: function() {
-        var self = this;
-        bus.$on("file-popover:load", function(data) {
-          self.fetchData(data.id);
-        });
       },
       watch: {
         copySuccessful: function(newValue) {
@@ -262,6 +252,12 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           }
         }
       },
+      mounted: function() {
+        var self = this;
+        bus.$on("file-popover:load", function(data) {
+          self.fetchData(data.id);
+        });
+      },
       methods: {
         closePopover: function() {
           this.show = false;
@@ -270,7 +266,6 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           var self = this;
           $.ajax({
             url: "/admin/attachments/api/attachments/" + id,
-            dataType: "json",
             beforeSend: function(xhr) {
               xhr.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr("content"));
             },
@@ -296,7 +291,6 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           $.ajax({
             url: "/admin/attachments/api/attachings",
             method: "DELETE",
-            dataType: "json",
             data: {
               attachment_id: self.attachment.id,
               attachable_id: self.attachableId,
@@ -355,11 +349,11 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           }
           document.body.removeChild(textArea);
         }
-      }
+      },
+      template: "#file-popover"
     });
 
     Vue.component("site-attachments", {
-      template: "#site-attachments",
       mixins: [fileUtils, magnificPopup],
       props: ["attachableId", "attachableType"],
       data: function() {
@@ -370,6 +364,15 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           showModal: false,
           fileDragged: false
         };
+      },
+      mounted: function() {
+        var self = this;
+        bus.$on("site-attachments:load", function() {
+          self.fetchData();
+        });
+        bus.$on("file-upload:fileDraggedUpdated", function(value) {
+          self.fileDragged = value;
+        });
       },
       methods: {
         searchStringParameters: function() {
@@ -384,7 +387,6 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           var self = this;
           $.ajax({
             url: "/admin/attachments/api/attachments",
-            dataType: "json",
             data: this.searchStringParameters(),
             beforeSend: function(xhr) {
               xhr.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr("content"));
@@ -406,7 +408,6 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           }
           $.ajax({
             url: "/admin/attachments/api/attachings",
-            dataType: "json",
             method: "POST",
             data: {
               attachment_id: attachment.id,
@@ -433,21 +434,12 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           this.previousQ = this.q;
         }
       },
-      mounted: function() {
-        var self = this;
-        bus.$on("site-attachments:load", function() {
-          self.fetchData();
-        });
-        bus.$on("file-upload:fileDraggedUpdated", function(value) {
-          self.fileDragged = value;
-        });
-      }
+      template: "#site-attachments"
     });
 
     Vue.component("file-list", {
-      props: ["attachableId", "attachableType"],
       mixins: [fileUtils],
-      template: "#file-list-template",
+      props: ["attachableId", "attachableType"],
       data: function() {
         return {
           attachments: [],
@@ -460,39 +452,6 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
 
           if (this.showFiles) return "fa-caret-down";
           else return "fa-caret-right";
-        }
-      },
-      methods: {
-        popover: function(e) {
-          bus.$emit("file-popover:load", { id: $(e.target).data("attachment-id") });
-        },
-        fetchData: function() {
-          var self = this;
-          if (this.attachableId === "") return;
-          $.ajax({
-            url: "/admin/attachments/api/attachments",
-            data: {
-              attachable_type: this.attachableType,
-              attachable_id: this.attachableId
-            },
-            dataType: "json",
-            beforeSend: function(xhr) {
-              xhr.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr("content"));
-            },
-            success: function(response, textStatus, jqXHR) {
-              if (jqXHR.status == 200) {
-                Vue.set(self, "attachments", response.attachments);
-                if (response.attachments.length > 0) {
-                  self.showFiles = true;
-                } else {
-                  self.showFiles = false;
-                }
-              }
-            }
-          });
-        },
-        toggleList: function() {
-          this.showFiles = !this.showFiles;
         }
       },
       mounted: function() {
@@ -515,7 +474,40 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           self.attachments.splice(index, 1);
           self.showFiles = true;
         });
-      }
+      },
+      methods: {
+        popover: function(e) {
+          bus.$emit("file-popover:load", { id: $(e.target).data("attachment-id") });
+        },
+        fetchData: function() {
+          var self = this;
+          if (this.attachableId === "") return;
+          $.ajax({
+            url: "/admin/attachments/api/attachments",
+            data: {
+              attachable_type: this.attachableType,
+              attachable_id: this.attachableId
+            },
+            beforeSend: function(xhr) {
+              xhr.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr("content"));
+            },
+            success: function(response, textStatus, jqXHR) {
+              if (jqXHR.status == 200) {
+                Vue.set(self, "attachments", response.attachments);
+                if (response.attachments.length > 0) {
+                  self.showFiles = true;
+                } else {
+                  self.showFiles = false;
+                }
+              }
+            }
+          });
+        },
+        toggleList: function() {
+          this.showFiles = !this.showFiles;
+        }
+      },
+      template: "#file-list-template"
     });
 
     // start app
@@ -527,11 +519,6 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         attachmentsIdsAfterCreatedStr: "",
         attachableType: $(selector).data("attachable-type"),
         attachableId: $(selector).data("attachable-id")
-      },
-      methods: {
-        loadAttachments: function() {
-          bus.$emit("site-attachments:load");
-        }
       },
       mounted: function() {
         var self = this;
@@ -549,6 +536,11 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           self.attachmentsIdsAfterCreatedStr = self.attachmentsIdsAfterCreated.join(",");
           $("#attachmentsIdsAfterCreated").val(self.attachmentsIdsAfterCreatedStr);
         });
+      },
+      methods: {
+        loadAttachments: function() {
+          bus.$emit("site-attachments:load");
+        }
       }
     });
   }

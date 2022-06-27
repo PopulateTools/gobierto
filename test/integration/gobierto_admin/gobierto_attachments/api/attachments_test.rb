@@ -6,6 +6,12 @@ require "base64"
 module GobiertoAdmin
   module GobiertoAttachments
     class AttachmentTest < ActionDispatch::IntegrationTest
+      def setup
+        super
+
+        PgSearch::Multisearch.rebuild(::GobiertoAttachments::Attachment)
+      end
+
       def site
         @site ||= sites(:madrid)
       end
@@ -96,10 +102,8 @@ module GobiertoAdmin
         login_admin_for_api(admin)
 
         payload = {
-          search_string: "PDF"
+          search_string: "PDF attachment available in AWS"
         }
-
-        ::GobiertoAttachments::Attachment.stubs(:search).returns([pdf_attachment])
 
         get admin_attachments_api_attachments_path(payload)
 
@@ -109,7 +113,7 @@ module GobiertoAdmin
         assert_response :success
 
         assert_equal 1, attachments.size
-        assert_equal "PDF Attachment Name", attachments.first["name"]
+        assert_equal "PDF attachment available in AWS", attachments.first["name"]
       end
 
       def test_attachments_show_success

@@ -14,7 +14,7 @@ module GobiertoAdmin
 
         def index
           attachments = if params[:search_string]
-                          ::GobiertoAttachments::Attachment.search(params[:search_string], page: params[:page])
+                          current_site.multisearch(params[:search_string]).where(searchable_type: ["GobiertoAttachments::Attachment"]).page(params[:page]).map(&:searchable)
                         elsif @attachable
                           @attachable.attachments.page(params[:page])
                         else

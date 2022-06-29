@@ -124,11 +124,8 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           var self = this;
           $.ajax({
             url: "/admin/attachments/api/attachments",
-            method: 'POST',
-            type: 'POST',
-            cache: false,
-            contentType: false,
-            processData: false,
+            dataType: "json",
+            method: "POST",
             data: {
               attachment: self.attachment
             },

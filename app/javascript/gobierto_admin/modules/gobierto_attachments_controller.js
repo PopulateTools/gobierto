@@ -122,29 +122,22 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         },
         upload: function(callback) {
           var self = this;
-          $.ajax({
-            url: "/admin/attachments/api/attachments",
-            dataType: "json",
+          window.fetch("/admin/attachments/api/attachments", {
             method: "POST",
-            data: {
-              attachment: self.attachment
+            headers: {
+              "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content"),
+              "Content-Type": "application/json",
+               Accept: "application/json",
             },
-            beforeSend: function(xhr) {
-              xhr.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr("content"));
-            },
-            success: function() {
-              bus.$emit("site-attachments:load");
-            },
-            error: function(jqXHR) {
-              self.errorMessage = jqXHR.responseJSON.error;
-              setTimeout(function() {
-                self.errorMessage = null;
-              }, 2000);
-            },
-            complete: function() {
-              self.reset();
-              bus.$emit("file-upload:fileDraggedUpdated", self.fileDragged);
-            }
+            body: JSON.stringify(self.attachment),
+          })
+          .then(() => {
+            bus.$emit("site-attachments:load");
+            self.reset();
+            bus.$emit("file-upload:fileDraggedUpdated", self.fileDragged);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
           });
           callback();
         },

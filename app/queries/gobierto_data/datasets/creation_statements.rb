@@ -44,11 +44,17 @@ module GobiertoData
       private
 
       def create_raw_temp_table
-        "CREATE TEMP TABLE #{@base_table_name}_raw(\n#{schema.map { |column, _| "\"#{column}\" TEXT" }.join(",\n")}\n);"
+        <<-SQL
+          DROP TABLE IF EXISTS #{@base_table_name}_raw;
+          CREATE TEMP TABLE #{@base_table_name}_raw(\n#{schema.map { |column, _| "\"#{column}\" TEXT" }.join(",\n")}\n);
+        SQL
       end
 
       def create_transformed_temp_table
-        "CREATE TEMP TABLE #{@base_table_name}_transformed(\n#{@transform_functions.map { |column, f| "\"#{column}\" #{f.output_type}" }.join(",\n")}\n);"
+        <<-SQL
+          DROP TABLE IF EXISTS #{@base_table_name}_transformed;
+          CREATE TEMP TABLE #{@base_table_name}_transformed(\n#{@transform_functions.map { |column, f| "\"#{column}\" #{f.output_type}" }.join(",\n")}\n);"
+        SQL
       end
 
       def complete_schema_with_defaults(source_file, schema_definition)

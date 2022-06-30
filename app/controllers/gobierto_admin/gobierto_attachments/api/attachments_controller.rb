@@ -13,8 +13,8 @@ module GobiertoAdmin
         before_action :load_collection, only: [:create, :update]
 
         def index
-          attachments = if params[:search_string] && params[:search_string].present?
-                          current_site.multisearch(params[:search_string], searchable_type: "GobiertoAttachments::Attachment", limit: 100, page: params[:page]).map(&:searchable)
+          attachments = if params[:search_string]
+                          current_site.multisearch(params[:search_string]).where(searchable_type: ["GobiertoAttachments::Attachment"]).page(params[:page]).map(&:searchable)
                         elsif @attachable
                           @attachable.attachments.page(params[:page])
                         else

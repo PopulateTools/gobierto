@@ -60,6 +60,7 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             }
           };
           $.magnificPopup.open(config);
+          $('input.slim').focus();
         }
       }
     };

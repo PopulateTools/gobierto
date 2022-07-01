@@ -22,6 +22,7 @@ module GobiertoData
             )
           )
         end
+        @session_id = Time.now.to_i.to_s + rand(100).to_s
       end
 
       def sql_code
@@ -43,12 +44,20 @@ module GobiertoData
 
       private
 
+      def raw_temp_table_name
+        "#{@base_table_name}_#{@session_id}_raw"
+      end
+
+      def transformed_temp_table_name
+        "#{@base_table_name}_#{@session_id}_transformed"
+      end
+
       def create_raw_temp_table
-        "CREATE TEMP TABLE #{@base_table_name}_raw(\n#{schema.map { |column, _| "\"#{column}\" TEXT" }.join(",\n")}\n) ON COMMIT DROP;"
+        "CREATE TEMP TABLE #{raw_temp_table_name}(\n#{schema.map { |column, _| "\"#{column}\" TEXT" }.join(",\n")}\n) ON COMMIT DROP;"
       end
 
       def create_transformed_temp_table
-        "CREATE TEMP TABLE #{@base_table_name}_transformed(\n#{@transform_functions.map { |column, f| "\"#{column}\" #{f.output_type}" }.join(",\n")}\n) ON COMMIT DROP;"
+        "CREATE TEMP TABLE #{transformed_temp_table_name}(\n#{@transform_functions.map { |column, f| "\"#{column}\" #{f.output_type}" }.join(",\n")}\n) ON COMMIT DROP;"
       end
 
       def complete_schema_with_defaults(source_file, schema_definition)
@@ -80,9 +89,9 @@ module GobiertoData
 
       def extract_csv_operation
         if @use_stdin
-          "COPY #{@base_table_name}_raw (#{quoted_columns.join(", ")}) FROM STDIN DELIMITER '#{@csv_separator}' CSV HEADER NULL '';"
+          "COPY #{raw_temp_table_name} (#{quoted_columns.join(", ")}) FROM STDIN DELIMITER '#{@csv_separator}' CSV HEADER NULL '';"
         else
-          "COPY #{@base_table_name}_raw (#{quoted_columns.join(", ")}) FROM '#{@source_file}' DELIMITER '#{@csv_separator}' CSV HEADER NULL '';"
+          "COPY #{raw_temp_table_name} (#{quoted_columns.join(", ")}) FROM '#{@source_file}' DELIMITER '#{@csv_separator}' CSV HEADER NULL '';"
         end
       end
 
@@ -96,11 +105,11 @@ module GobiertoData
 
       def transform_operation
         <<-SQL
-        INSERT INTO #{@base_table_name}_transformed (
+        INSERT INTO #{transformed_temp_table_name} (
           #{quoted_columns.join(",\n")}
         )
         SELECT #{ @transform_functions.map { |column, f| f.function_call(column) }.join(",\n")}
-        from #{@base_table_name}_raw;
+        from #{raw_temp_table_name};
         SQL
       end
 
@@ -110,7 +119,7 @@ module GobiertoData
           #{quoted_columns.join(",\n")}
         )
         SELECT *
-        from #{@base_table_name}_transformed;
+        from #{transformed_temp_table_name};
         SQL
       end
 

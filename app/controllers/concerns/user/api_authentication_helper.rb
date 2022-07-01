@@ -50,7 +50,12 @@ module User::ApiAuthenticationHelper
   end
 
   def find_current_admin
-    @current_admin ||= ::GobiertoAdmin::Admin.joins(:api_tokens).find_by(admin_api_tokens: { token: token })
+    @current_admin ||= if token.present?
+                         ::GobiertoAdmin::Admin.joins(:api_tokens).find_by(admin_api_tokens: { token: token })
+                       elsif session[:admin_id].present?
+                         # This way of loading the admin works only on API calls called from the Gobierto UI
+                         ::GobiertoAdmin::Admin.find(session[:admin_id])
+                       end
   end
 
   def raise_unauthorized

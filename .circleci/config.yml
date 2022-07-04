@@ -10,7 +10,7 @@ aliases:
 defaults: &defaults
   working_directory: *working_directory
   docker:
-    - image: circleci/ruby:2.7.4-node-browsers
+    - image: cimg/ruby:2.7.4-browsers
       environment:
         # Up to circle-ci plan max. RAM
         NODE_OPTIONS: --max-old-space-size=6144
@@ -26,6 +26,9 @@ defaults: &defaults
         POSTGRES_PASSWORD: gobierto
     - image: elasticsearch:2.4.1
     - image: redis:6.2.5
+
+orbs:
+  browser-tools: circleci/browser-tools@1.3.0
 
 commands:
   restore_bundler_cache:
@@ -52,6 +55,8 @@ commands:
       - checkout
       - attach_workspace:
           at: *working_directory
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - restore_bundler_cache
       - restore_yarn_cache
       - restore_assets_cache
@@ -72,7 +77,7 @@ commands:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate
+      - run: bin/rails db:create db:migrate db:test:prepare
 
       # Install custom engines
       - run: script/custom_engines_ci_setup

@@ -237,7 +237,8 @@ th.icon_col {
   width: 15px;
 }
 
-table.block_content {
+table.block_content,
+.gobierto_cms {
   th {
     background: rgba(var(--color-base-string), 0.15);
     text-align: left;
@@ -299,7 +300,8 @@ table.block_content {
   cursor: pointer;
 }
 
-.gobierto_admin {
+.gobierto_admin,
+.gobierto_cms {
   table.results_report {
     th,
     td {

@@ -77,7 +77,7 @@ commands:
       - run: cp config/database.yml.example config/database.yml
 
       # Setup the database
-      - run: bin/rails db:create db:migrate db:test:prepare
+      - run: bin/rails db:create db:migrate
 
       # Install custom engines
       - run: script/custom_engines_ci_setup

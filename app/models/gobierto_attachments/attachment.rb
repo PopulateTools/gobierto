@@ -4,7 +4,7 @@ module GobiertoAttachments
   class Attachment < ApplicationRecord
     acts_as_paranoid column: :archived_at
 
-    paginates_per 8
+    paginates_per 30
 
     attr_accessor :admin_id
 

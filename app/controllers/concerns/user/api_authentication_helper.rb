@@ -14,7 +14,8 @@ module User::ApiAuthenticationHelper
   end
 
   def admin_authorized?
-    find_current_admin.present? && current_admin.sites.include?(current_site)
+    (@current_admin = find_current_admin).present? &&
+      @current_admin.sites.include?(current_site)
   end
 
   def authenticate_user!

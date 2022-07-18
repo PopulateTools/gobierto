@@ -34,7 +34,7 @@
     "jest": "^27.0.3",
     "jqtree": "^1.4.5",
     "jquery": "^3.5.0",
-    "jquery-ui": "^1.13.0",
+    "jquery-ui": "^1.13.2",
     "jquery-ujs": "^1.2.2",
     "jquery-visible": "^1.2.0",
     "jsgrid": "^1.5.3",

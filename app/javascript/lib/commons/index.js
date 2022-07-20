@@ -1,7 +1,3 @@
-// POLYFILLS
-import "core-js/stable";
-import "regenerator-runtime/runtime";
-
 // https://rossta.net/blog/importing-images-with-webpacker.html#images-in-rails-views
 require.context('../../images', true)
 

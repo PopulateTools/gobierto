@@ -13,7 +13,6 @@
     "axios": "^0.21.2",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.0.2",
-    "browserlist": "^1.0.1",
     "cleave.js": "^1.1.3",
     "codemirror": "^5.35.0",
     "core-js": "^3.2.1",
@@ -123,6 +122,5 @@
     "perspective-viewer-d3fc/**/d3-selection": "1.4.2",
     "perspective-viewer-d3fc/**/d3-transition": "1.3.2",
     "marked": "3.0.8"
-  },
-  "browserslist": "last 2 versions"
+  }
 }

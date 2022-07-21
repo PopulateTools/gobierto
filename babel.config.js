@@ -29,7 +29,7 @@ module.exports = function(api) {
         '@babel/preset-env',
         {
           modules: false,
-          targets: [ 'last 2 versions' ],
+          targets: ['last 2 versions'],
           exclude: ['transform-typeof-symbol']
         }
       ]

@@ -1,3 +1,5 @@
+import "regenerator-runtime";
+
 // https://rossta.net/blog/importing-images-with-webpacker.html#images-in-rails-views
 require.context('../../images', true)
 

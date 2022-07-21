@@ -1,13 +1,6 @@
 // https://rossta.net/blog/importing-images-with-webpacker.html#images-in-rails-views
 require.context('../../images', true)
 
-// https://attacomsian.com/blog/javascript-dom-detect-internet-explorer-browser
-if (document.documentMode) {
-  import("css-vars-ponyfill").then(({ default: cssVars }) => {
-    cssVars() // Allow IE use CSS custom variables. Initialization
-  })
-}
-
 // LEGACY DEPENDENCIES
 import $ from 'jquery'
 import 'jquery-ujs'

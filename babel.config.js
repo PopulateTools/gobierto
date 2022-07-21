@@ -28,9 +28,6 @@ module.exports = function(api) {
       (isProductionEnv || isDevelopmentEnv) && [
         '@babel/preset-env',
         {
-          forceAllTransforms: true,
-          useBuiltIns: 'entry',
-          corejs: 3,
           modules: false,
           targets: [ 'last 2 versions' ],
           exclude: ['transform-typeof-symbol']
@@ -39,16 +36,8 @@ module.exports = function(api) {
     ].filter(Boolean),
     plugins: [
       'babel-plugin-macros',
-      '@babel/plugin-syntax-dynamic-import',
       isTestEnv && 'babel-plugin-dynamic-import-node',
-      '@babel/plugin-transform-destructuring',
       '@babel/plugin-proposal-class-properties'
-      [
-        '@babel/plugin-proposal-object-rest-spread',
-        {
-          useBuiltIns: true
-        }
-      ],
       [
         '@babel/plugin-transform-runtime',
         {

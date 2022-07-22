@@ -15,8 +15,10 @@ defaults: &defaults
         # Up to circle-ci plan max. RAM
         NODE_OPTIONS: --max-old-space-size=6144
         RAILS_ENV: test
+        NODE_ENV: test
         PGHOST: localhost
         PGUSER: gobierto
+        PSQL_PAGER: ''
         # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
         DISABLE_SPRING: true
     - image: postgres:12

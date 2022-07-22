@@ -27,9 +27,6 @@ defaults: &defaults
     - image: elasticsearch:2.4.1
     - image: redis:6.2.5
 
-orbs:
-  browser-tools: circleci/browser-tools@1.3.0
-
 commands:
   restore_bundler_cache:
     steps:
@@ -90,6 +87,9 @@ commands:
             bin/rails gobierto_budgets:fixtures:load
             echo '::BudgetsSeeder.seed!' | bin/rails c
 
+orbs:
+  browser-tools: circleci/browser-tools@1.3.0
+
 jobs:
   bundle_dependencies:
     <<: *defaults
@@ -126,6 +126,9 @@ jobs:
 
       # Compile I18n JS file
       - run: bin/rails i18n:js:export
+
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
 
       # Compile assets
       - restore_assets_cache

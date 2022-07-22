@@ -10,13 +10,15 @@ aliases:
 defaults: &defaults
   working_directory: *working_directory
   docker:
-    - image: circleci/ruby:2.7.4-node-browsers
+    - image: cimg/ruby:2.7.4-browsers
       environment:
         # Up to circle-ci plan max. RAM
         NODE_OPTIONS: --max-old-space-size=6144
         RAILS_ENV: test
+        NODE_ENV: test
         PGHOST: localhost
         PGUSER: gobierto
+        PSQL_PAGER: ''
         # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
         DISABLE_SPRING: true
     - image: postgres:12
@@ -52,6 +54,8 @@ commands:
       - checkout
       - attach_workspace:
           at: *working_directory
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - restore_bundler_cache
       - restore_yarn_cache
       - restore_assets_cache
@@ -84,6 +88,9 @@ commands:
             bin/rails gobierto_budgets:elastic_search_schemas:manage:create
             bin/rails gobierto_budgets:fixtures:load
             echo '::BudgetsSeeder.seed!' | bin/rails c
+
+orbs:
+  browser-tools: circleci/browser-tools@1.3.0
 
 jobs:
   bundle_dependencies:
@@ -121,6 +128,9 @@ jobs:
 
       # Compile I18n JS file
       - run: bin/rails i18n:js:export
+
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
 
       # Compile assets
       - restore_assets_cache

@@ -1,9 +1,9 @@
 {
   "env": {
-    "es6": true,
+    "es2020": true,
+    "node": true,
     "browser": true,
     "jquery": true,
-    "node": true,
     "jest": true
   },
   "globals": {
@@ -15,11 +15,8 @@
   "extends": ["eslint:recommended", "plugin:vue/recommended"],
   "parserOptions": {
     "parser": "babel-eslint", // https://vuejs.github.io/eslint-plugin-vue/user-guide/#what-is-the-use-the-latest-vue-eslint-parser-error
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true,
-      "experimentalObjectRestSpread": true
-    }
+    "ecmaVersion": 11,
+    "sourceType": "module"
   },
   "rules": {
     "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }],

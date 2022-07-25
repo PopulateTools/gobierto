@@ -516,7 +516,7 @@ GEM
     thread_safe (0.3.6)
     timecop (0.9.4)
     truncate_html (0.9.3)
-    tzinfo (1.2.9)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uber (0.1.0)
     unf (0.1.4)

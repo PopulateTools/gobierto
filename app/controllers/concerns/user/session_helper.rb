@@ -17,6 +17,10 @@ module User::SessionHelper
     current_user.present?
   end
 
+  def admin_authorized?
+    false
+  end
+
   def sign_in_user(user_id)
     session[:user_id] = user_id
   end

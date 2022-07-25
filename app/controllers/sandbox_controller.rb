@@ -70,6 +70,10 @@ class SandboxController < ApplicationController
     true
   end
 
+  def admin_authorized?
+    true
+  end
+
   def current_user
     User.first
   end

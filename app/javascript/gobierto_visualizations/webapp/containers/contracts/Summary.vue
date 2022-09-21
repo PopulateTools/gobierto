@@ -220,8 +220,9 @@ export default {
       }
 
       if (treemapEntity && treemapEntity.offsetParent !== null) {
+        let getContractors = [...new Set(this.visualizationsDataEntity.map(item => item.contractor))]
         this.treemapEntity = new TreeMap(treemapEntity, this.visualizationsDataEntity, {
-          rootTitle: this.labelEntities,
+          rootTitle: getContractors.length > 1 ? this.labelEntities : '',
           id: "title",
           group: ["contractor", "contract_type", "assignee"],
           value: "final_amount_no_taxes",

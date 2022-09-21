@@ -399,6 +399,7 @@
 
   .treemap-breadcrumb {
     color: rgba(var(--color-base-string), .8);
+    fill: rgba(var(--color-base-string), .8);
     width: max-content;
     cursor: pointer;
     font-size: $f6;

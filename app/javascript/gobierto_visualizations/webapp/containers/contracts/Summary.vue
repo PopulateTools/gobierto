@@ -173,8 +173,8 @@ export default {
     },
     visualizationsDataExcludeMinorContract() {
       return this.visualizationsDataEntity
-        .filter(({ minor_contract: minor }) => minor === "f")
-    },
+        .filter(({ minor_contract: minor, gobierto_start_date }) => minor === "f" && new Date(gobierto_start_date).toString() !== 'Invalid Date')
+    }
   },
   watch: {
     visualizationsDataExcludeNoCategory(n) {

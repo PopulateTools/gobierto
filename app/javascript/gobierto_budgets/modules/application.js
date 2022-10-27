@@ -131,22 +131,33 @@ $(document).on("turbolinks:load", function() {
       $(".bread_links").html(arr.join(sep) + sep);
     });
 
-  $(".bread_hover").hover(
-    function() {
+
+  //Show the selector of budgets with hover in desktop and with click in mobile/table
+  if ($(window).width() > 768) {
+    $(".bread_hover").hover(
+      function() {
+        $(".bread_links a").attr("aria-expanded", true);
+        $(".line_browser").velocity("fadeIn", { duration: 50 });
+      },
+      function() {
+        $(".bread_links a").attr("aria-expanded", false);
+        $(".line_browser").velocity("fadeOut", { duration: 50 });
+      }
+    );
+    $(".bread_links a").focus(function() {
+      $(this).attr("aria-expanded", true);
+      $(".bread_links").addClass("hasFocus");
+      $(".line_browser").velocity("fadeIn", { duration: 50 });
+    });
+  } else {
+    $(".bread_hover").click(function (event) {
+      if (event.target.classList.contains("selected-year")){
+        event.preventDefault();
+      }
       $(".bread_links a").attr("aria-expanded", true);
       $(".line_browser").velocity("fadeIn", { duration: 50 });
-    },
-    function() {
-      $(".bread_links a").attr("aria-expanded", false);
-      $(".line_browser").velocity("fadeOut", { duration: 50 });
-    }
-  );
-
-  $(".bread_links a").focus(function() {
-    $(this).attr("aria-expanded", true);
-    $(".bread_links").addClass("hasFocus");
-    $(".line_browser").velocity("fadeIn", { duration: 50 });
-  });
+    });
+  }
 
   // Function to make the menu accessible with the keyboard
   $("#popup-year table tr a").blur(function() {
@@ -188,8 +199,11 @@ $(document).on("turbolinks:load", function() {
     $(".line_browser").velocity("fadeOut", { duration: 150 });
   });
 
-  $(window).click(function() {
-    $(".line_browser").velocity("fadeOut", { duration: 150 });
+  $(window).click(function(e) {
+    //Close the selector of budgets when the user clickOutSide or select a year
+    if (!$(".bread_hover").has(e.target).length > 0 || e.target.nodeName === 'A' && !e.target.classList.contains("selected-year")){
+      $(".line_browser").velocity("fadeOut", { duration: 150 });
+    }
   });
 
   $(".tooltiped-budget-lines").tipsy({

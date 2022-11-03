@@ -18,6 +18,10 @@ module GobiertoCommon
       Rails.cache.delete(prefixed(name), options)
     end
 
+    def delete_including(name)
+      Rails.cache.delete_matched(clear_match_middle(prefixed(name)))
+    end
+
     def cache_prefix
       @cache_prefix ||= "#{gobierto_module.cache_base_key}#{site.id}"
     end
@@ -47,12 +51,12 @@ module GobiertoCommon
 
     private
 
-    def clear_match_prefix
-      redis_cache? ? "#{cache_prefix}/*" : /\A#{cache_prefix}\/.*/
+    def clear_match_prefix(name = cache_prefix)
+      redis_cache? ? "#{name}/*" : /\A#{name}\/.*/
     end
 
-    def clear_match_middle
-      redis_cache? ? "*/#{cache_prefix}/*" : /.*\/#{cache_prefix}\/.*/
+    def clear_match_middle(name = cache_prefix)
+      redis_cache? ? "*/#{name}/*" : /.*\/#{name}\/.*/
     end
   end
 end

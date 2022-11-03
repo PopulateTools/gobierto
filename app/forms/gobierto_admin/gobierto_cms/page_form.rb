@@ -24,7 +24,7 @@ module GobiertoAdmin
         :published_on
       )
 
-      delegate :persisted?, to: :page
+      delegate :persisted?, :cache_service, to: :page
 
       validates :site, :visibility_level, :collection_id, presence: true
       validate :confirm_presence_of_homepage
@@ -122,6 +122,7 @@ module GobiertoAdmin
           @page.save
 
           save_section_item(@page.id, section, parent)
+          cache_service.delete_including("gobierto_cms/pages/meta_welcome") if page == site.configuration.welcome_page
 
           @page
         else

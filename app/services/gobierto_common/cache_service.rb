@@ -27,7 +27,7 @@ module GobiertoCommon
     end
 
     def prefixed(name)
-      "#{cache_prefix}/#{name}"
+      "#{cache_prefix}/#{name.is_a?(Enumerable) ? name.join("/") : name}"
     end
 
     # These methods are very inefficient

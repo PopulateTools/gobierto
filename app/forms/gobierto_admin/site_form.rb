@@ -64,6 +64,8 @@ module GobiertoAdmin
     validates :organization_name, presence: true
 
     def save
+      @home_page_item_id_changed = site.configuration.home_page_item_id != home_page_item_id
+
       if valid? && save_site
         after_save_callback
         return site
@@ -252,10 +254,19 @@ module GobiertoAdmin
       @organization_id_changed
     end
 
+    def home_page_item_id_changed?
+      @home_page_item_id_changed
+    end
+
     protected
+
+    def cms_cache_service
+      ::GobiertoCommon::CacheService.new(site, ::GobiertoCms)
+    end
 
     def after_save_callback
       ::GobiertoBudgets::GenerateAnnualLinesJob.perform_later(@site) if organization_id_changed?
+      cms_cache_service.delete_including("gobierto_cms/pages/meta_welcome") if home_page_item_id_changed?
     end
 
   end

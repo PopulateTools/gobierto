@@ -101,6 +101,16 @@ class SiteConfiguration
     privacy_page.present?
   end
 
+  def welcome_page
+    return if home_page != "GobiertoCms"
+
+    home_page_item = GlobalID::Locator.locate(home_page_item_id)
+    return if home_page_item.blank?
+    return home_page_item.first_item(only_public: true) if home_page_item.is_a?(GobiertoCms::Section)
+
+    home_page_item
+  end
+
   def modules_with_notifications
     modules_with_frontend_enabled & MODULES_WITH_NOTIFICATONS
   end

@@ -26,6 +26,10 @@ module GobiertoBudgets
         cached(:all) { last.downto(first).to_a }
       end
 
+      def self.all_with_data
+        cached(:all_with_data) { last_year_with_data.downto(first).to_a }
+      end
+
       def self.with_data(params={})
         cached :with_data, params do
           all.select do |year|

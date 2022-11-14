@@ -9,7 +9,9 @@
     <%= link_to budget_line.name, gobierto_budgets_budget_line_path(budget_line.to_param) %>
   </td>
   <td class="qty big_qty"><%= number_to_currency budget_line.amount, precision: 2 %></td>
-  <%= content_tag :td, number_to_currency(budget_line.amount_per_inhabitant, precision: 2), class: "qty" if budget_line.amount_per_inhabitant %>
+  <% if @site_stats&.population_data? %>
+    <%= content_tag :td, number_to_currency(budget_line.amount_per_inhabitant, precision: 2), class: "qty" if budget_line.amount_per_inhabitant %>
+  <% end %>
   <td class="qty"><%= number_with_precision(budget_line.percentage_of_total, precision: 2) + ' %' %></td>
   <td class="bar"><div class="bar" style="width:<%= budget_line.percentage_of_total %>%"></div></td>
 </tr>

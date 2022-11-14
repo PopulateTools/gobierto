@@ -72,7 +72,7 @@
       <tr>
         <th class="budget_line"><span><%= t('.budget_line') %></span></th>
         <th class="qty big_qty"><%= t('.amount') %></th>
-        <%= content_tag :th, t('.per_inhabitant'), class: "qty" if @site_stats.population_data? %>
+        <%= content_tag :th, t('.per_inhabitant'), class: "qty" if @site_stats&.population_data? %>
         <th class="qty">%</th>
         <th class="qty bar"><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
       </tr>

@@ -153,24 +153,13 @@ module GobiertoBudgets
       end
 
       def place_hits(query, organization_id)
-        combined_hits = [default_index, SearchEngineConfiguration::TotalBudget.index_forecast_updated].map do |index|
-          SearchEngine.client.search(index: index, type: type, body: query)["hits"]["hits"].select do |hit|
-            hit_value = (hit["_source"]["amount"] || hit["_source"]["total_budget"]).to_f
-            # FIXME: production and staging indexes did not set the not_analyzed property, so we're
-            # getting undesired results from associated entities like 8121-gencat-812133051
-            # Proper fix requires re-creating index, so filter it here as a tmp solution
-            hit["_source"]["organization_id"] == organization_id && hit_value.positive?
-          end
-        end.flatten
-
-        # give preference to updated data
-        combined_hits.reject! do |hit|
-          hit["_index"] == default_index && combined_hits.any? do |h|
-            h["_index"] == SearchEngineConfiguration::TotalBudget.index_forecast_updated && hit["_source"]["year"] == h["_source"]["year"]
-          end
-        end
-
-        combined_hits.sort_by { |hit| hit["_source"]["year"] }
+        SearchEngine.client.search(index: default_index, type: type, body: query)["hits"]["hits"].select do |hit|
+          hit_value = (hit["_source"]["amount"] || hit["_source"]["total_budget"]).to_f
+          # FIXME: production and staging indexes did not set the not_analyzed property, so we're
+          # getting undesired results from associated entities like 8121-gencat-812133051
+          # Proper fix requires re-creating index, so filter it here as a tmp solution
+          hit["_source"]["organization_id"] == organization_id && hit_value.positive?
+        end.flatten.sort_by { |hit| hit["_source"]["year"] }
       end
 
       def place_values(place = nil)

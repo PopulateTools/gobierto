@@ -26,7 +26,9 @@ module GobiertoData
       if model_present?
         object.rails_model.columns.inject({}) do |columns, column|
           columns.update(
-            column.name => column.type
+            column.name => {
+              type: column.type
+            }
           )
         end
       end

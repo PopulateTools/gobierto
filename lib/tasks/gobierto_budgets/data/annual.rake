@@ -14,6 +14,7 @@ namespace :gobierto_budgets do
 
     def generate_site_annual_files_for(data_model)
       Site.all.each do |site|
+        I18n.locale = site.configuration.default_locale
         organization_id = site.organization_id
         organization_name = site.organization_name || site.place.try(name)
         next if organization_id.nil?

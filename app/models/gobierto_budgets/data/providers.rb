@@ -77,7 +77,7 @@ module GobiertoBudgets
       def request_response(format)
         uri = format_uri(format)
 
-        res = Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+        res = Net::HTTP.start(uri.host, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
           req = Net::HTTP::Get.new uri
           http.request req
         end

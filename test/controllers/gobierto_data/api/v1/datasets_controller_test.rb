@@ -94,7 +94,7 @@ module GobiertoData
             dataset.slug,
             dataset.table_name,
             dataset.data_updated_at.to_s,
-            dataset.rails_model&.columns_hash&.transform_values(&:type)&.to_s,
+            dataset.rails_model&.columns_hash&.transform_values{ |v| {type: v.type}}&.to_s,
             GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_category)&.value_string,
             GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_md_without_translations)&.value_string,
             GobiertoCommon::CustomFieldRecord.find_by(item: dataset, custom_field: datasets_md_with_translations)&.value_string

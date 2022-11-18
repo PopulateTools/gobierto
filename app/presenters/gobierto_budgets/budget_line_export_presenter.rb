@@ -13,7 +13,7 @@ module GobiertoBudgets
     end
 
     def self.csv_columns
-      %w(year code area kind name description initial_value modified_value executed_value organization_id functional_code custom_code ID parent_code level updated_atorganization_id)
+      %w(year code area kind name description initial_value modified_value executed_value organization_id functional_code custom_code ID parent_code level updated_at)
     end
 
     def index_values
@@ -27,12 +27,11 @@ module GobiertoBudgets
     end
 
     def updated_at
-      @updated_at ||=
-        begin
-          @attributes[:updated_at] ||
-            SiteStats.new(site: @attributes[:site], year: @attributes[:year]).budgets_data_updated_at ||
-            Date.new(@attributes[:year])
-        end
+      @updated_at ||= begin
+        @attributes[:updated_at] ||
+          SiteStats.new(site: @attributes[:site], year: @attributes[:year]).budgets_data_updated_at ||
+          Date.new(@attributes[:year])
+      end
     end
 
     def index

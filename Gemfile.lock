@@ -158,7 +158,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    dalli (2.7.11)
+    dalli (3.2.3)
     declarative (0.0.20)
     declarative-option (0.1.0)
     device_detector (1.0.6)

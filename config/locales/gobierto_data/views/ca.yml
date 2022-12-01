@@ -52,6 +52,7 @@ ca:
       map: Mapa
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualització modificada
+      numberOfRows: Nombre de registres
       preview: Previsualitzeu
       private: Privat
       queries: Consultes

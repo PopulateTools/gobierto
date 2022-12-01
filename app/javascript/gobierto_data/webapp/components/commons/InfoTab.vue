@@ -2,41 +2,18 @@
   <div class="pure-g">
     <div class="pure-u-17-24 gobierto-data-summary-header">
       <div
+        v-if="compiledHTMLMarkdown"
         id="gobierto-data-summary-header"
         class="gobierto-data-summary-header-description"
         v-html="compiledHTMLMarkdown"
       />
-    </div>
-    <div class="pure-u-7-24 gobierto-data-summary-info-tab">
-      <div
-        class="gobierto-data-summary-header-btns"
-      >
-        <template v-if="moreThanOneFormat">
-          <DownloadButton
-            :array-formats="arrayFormats"
-            class="arrow-top modal-left"
-          />
-        </template>
-        <template v-else>
-          <DownloadLink
-            :editor="false"
-            :array-formats="arrayFormats"
-          />
-        </template>
-        <router-link
-          :to="`/datos/${$route.params.id}/${tabs[1]}`"
-          class="gobierto-data-btn-preview"
-        >
-          <Button
-            :text="labelPreview"
-            icon="table"
-            color="rgba(var(--color-base)"
-            icon-color="rgba(var(--color-base-string), .5)"
-            class="gobierto-data-btn-download-data "
-            background="#fff"
-          />
-        </router-link>
-      </div>
+      <InfoBlockText
+        v-if="numberOfRows"
+        icon="database"
+        :icon-color="'#666'"
+        :label="labelNumberOfRows"
+        :text="numberOfRows"
+      />
       <InfoBlockText
         v-if="dateUpdated"
         icon="clock"
@@ -74,6 +51,37 @@
         :text="licenseDatasetText"
         :url="licenseDatasetUrl"
       />
+    </div>
+    <div class="pure-u-7-24 gobierto-data-summary-info-tab">
+      <div
+        class="gobierto-data-summary-header-btns"
+      >
+        <template v-if="moreThanOneFormat">
+          <DownloadButton
+            :array-formats="arrayFormats"
+            class="arrow-top modal-left"
+          />
+        </template>
+        <template v-else>
+          <DownloadLink
+            :editor="false"
+            :array-formats="arrayFormats"
+          />
+        </template>
+        <router-link
+          :to="`/datos/${$route.params.id}/${tabs[1]}`"
+          class="gobierto-data-btn-preview"
+        >
+          <Button
+            :text="labelPreview"
+            icon="table"
+            color="rgba(var(--color-base)"
+            icon-color="rgba(var(--color-base-string), .5)"
+            class="gobierto-data-btn-download-data "
+            background="#fff"
+          />
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -133,10 +141,15 @@ export default {
       type: Object,
       default: () => {}
     },
+    numberOfRows: {
+      type: Number,
+      default: 0
+    },
   },
   data() {
     return {
       labelUpdated: I18n.t("gobierto_data.projects.updated") || '',
+      labelNumberOfRows: I18n.t("gobierto_data.projects.numberOfRows") || '',
       labelFrequency: I18n.t("gobierto_data.projects.frequency") || '',
       labelSubject: I18n.t("gobierto_data.projects.subject") || '',
       labelDownloadData: I18n.t("gobierto_data.projects.downloadData") || '',

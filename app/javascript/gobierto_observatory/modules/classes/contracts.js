@@ -7,9 +7,13 @@ export class ContractsCard extends Card {
     super(divClass);
 
     this.url =
-      window.populateData.endpoint +
-      "/datasets/ds-contratos-municipio-tipo.json?sort_desc_by=date&with_metadata=true&limit=3&filter_by_location_id=" +
-      city_id;
+      window.populateData.endpoint + `
+      SELECT SUM(value::integer) AS value, type
+      FROM contratos_personas WHERE place_id = 8077
+      AND year = (SELECT year FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
+      AND month = (SELECT month FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
+      GROUP BY type
+      `;
   }
 
   getData() {
@@ -30,8 +34,8 @@ export class ContractsCard extends Card {
       //   values
       // }));
 
-      var i = nest.filter(d => d.key === "INI-I")[0].values[0].value;
-      var t = nest.filter(d => d.key === "INI-T")[0].values[0].value;
+      var i = nest.filter(d => d.key === "undefined")[0].values[0].value;
+      var t = nest.filter(d => d.key === "temporary")[0].values[0].value;
 
       new ComparisonCard(this.container, json, t, i, "contracts_comparison");
     });

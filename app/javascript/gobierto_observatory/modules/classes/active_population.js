@@ -5,14 +5,23 @@ export class ActivePopulationCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.activePopUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-poblacion-activa-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
-      city_id;
-    this.popUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
-      city_id;
+    this.activePopUrl = window.populateData.endpoint + `
+    SELECT SUM(total::integer) AS value
+    FROM poblacion_edad_sexo
+    WHERE
+      place_id = ${city_id} AND
+      year = (SELECT max(year) FROM poblacion_edad_sexo ) AND
+      age >= 16 AND
+      sex = 'Total'
+    `;
+    this.popUrl = window.populateData.endpoint + `
+    SELECT SUM(total::integer) AS value
+    FROM poblacion_edad_sexo
+    WHERE
+      place_id = ${city_id} AND
+      year = (SELECT max(year) FROM poblacion_edad_sexo ) AND
+      sex = 'Total'
+    `;
   }
 
   getData() {

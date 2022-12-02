@@ -77,7 +77,6 @@
           <Button
             :text="labelPreview"
             icon="table"
-            color="rgba(var(--color-base)"
             icon-color="rgba(var(--color-base-string), .5)"
             class="gobierto-data-btn-download-data "
             background="#fff"

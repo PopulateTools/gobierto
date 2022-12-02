@@ -4,53 +4,55 @@
       <div
         v-if="compiledHTMLMarkdown"
         id="gobierto-data-summary-header"
-        class="gobierto-data-summary-header-description"
+        class="gobierto-data-summary-header-description gobierto-data-summary-separator"
         v-html="compiledHTMLMarkdown"
       />
-      <InfoBlockText
-        v-if="numberOfRows"
-        icon="database"
-        :icon-color="'#666'"
-        :label="labelNumberOfRows"
-        :text="formatNumberOfRows"
-      />
-      <InfoBlockText
-        v-if="dateUpdated"
-        icon="clock"
-        :icon-color="'#666'"
-        :label="labelUpdated"
-        :text="dateUpdated | convertDate"
-      />
-      <InfoBlockText
-        v-if="frequencyDataset"
-        icon="calendar"
-        :icon-color="'#666'"
-        :label="labelFrequency"
-        :text="frequencyDataset"
-      />
-      <InfoBlockText
-        v-if="categoryDataset"
-        icon="tag"
-        :icon-color="'#666'"
-        :label="labelSubject"
-        :text="categoryDataset"
-      />
-      <InfoBlockText
-        v-if="hasDatasetSource"
-        icon="building"
-        :icon-color="'#666'"
-        :label="labelSource"
-        :text="sourceDatasetText"
-        :url="sourceDatasetUrl"
-      />
-      <InfoBlockText
-        v-if="hasDatasetLicense"
-        icon="certificate"
-        :icon-color="'#666'"
-        :label="labelLicense"
-        :text="licenseDatasetText"
-        :url="licenseDatasetUrl"
-      />
+      <div class="gobierto-data-summary-separator">
+        <InfoBlockText
+          v-if="numberOfRows"
+          icon="database"
+          :icon-color="'#666'"
+          :label="labelNumberOfRows"
+          :text="formatNumberOfRows"
+        />
+        <InfoBlockText
+          v-if="dateUpdated"
+          icon="clock"
+          :icon-color="'#666'"
+          :label="labelUpdated"
+          :text="dateUpdated | convertDate"
+        />
+        <InfoBlockText
+          v-if="frequencyDataset"
+          icon="calendar"
+          :icon-color="'#666'"
+          :label="labelFrequency"
+          :text="frequencyDataset"
+        />
+        <InfoBlockText
+          v-if="categoryDataset"
+          icon="tag"
+          :icon-color="'#666'"
+          :label="labelSubject"
+          :text="categoryDataset"
+        />
+        <InfoBlockText
+          v-if="hasDatasetSource"
+          icon="building"
+          :icon-color="'#666'"
+          :label="labelSource"
+          :text="sourceDatasetText"
+          :url="sourceDatasetUrl"
+        />
+        <InfoBlockText
+          v-if="hasDatasetLicense"
+          icon="certificate"
+          :icon-color="'#666'"
+          :label="labelLicense"
+          :text="licenseDatasetText"
+          :url="licenseDatasetUrl"
+        />
+      </div>
     </div>
     <div class="pure-u-7-24 gobierto-data-summary-info-tab">
       <div

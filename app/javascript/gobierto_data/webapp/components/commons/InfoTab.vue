@@ -12,7 +12,7 @@
         icon="database"
         :icon-color="'#666'"
         :label="labelNumberOfRows"
-        :text="numberOfRows"
+        :text="formatNumberOfRows"
       />
       <InfoBlockText
         v-if="dateUpdated"
@@ -86,7 +86,8 @@
   </div>
 </template>
 <script>
-import { date } from "lib/vue/filters"
+import { date } from "lib/vue/filters";
+import { formatNumbers } from "lib/shared";
 import InfoBlockText from "./../commons/InfoBlockText.vue";
 import DownloadButton from "./../commons/DownloadButton.vue";
 import DownloadLink from "./../commons/DownloadLink.vue";
@@ -184,6 +185,9 @@ export default {
     },
     moreThanOneFormat() {
       return Object.keys(this.arrayFormats).length > 1
+    },
+    formatNumberOfRows() {
+      return formatNumbers(this.numberOfRows)
     }
   },
   created(){

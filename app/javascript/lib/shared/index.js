@@ -17,6 +17,7 @@ import { RangeSlider } from "./modules/range-slider.js";
 import { Middleware } from "./modules/middleware.js";
 import { debounce } from "./modules/debounce.js";
 import { checkAndReportAccessibility } from "./modules/accessibility.js";
+import { formatNumbers } from "./modules/d3-format-numbers.js";
 
 export {
   AUTOCOMPLETE_DEFAULTS,
@@ -32,5 +33,6 @@ export {
   Middleware,
   slugString,
   debounce,
-  checkAndReportAccessibility
+  checkAndReportAccessibility,
+  formatNumbers
 };

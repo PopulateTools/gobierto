@@ -52,6 +52,7 @@ es:
       map: Mapa
       modifiedQuery: Consulta modificada
       modifiedVisualization: Visualización modificada
+      numberOfRows: Número de registros
       preview: Previsualizar
       private: Privada
       queries: Consultas

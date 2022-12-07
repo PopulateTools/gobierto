@@ -8,6 +8,7 @@
       :source-dataset="datasetSourceObject"
       :date-updated="dateUpdated"
       :array-formats="arrayFormats"
+      :number-of-rows="datasetNumberOfRows"
     />
 
     <Resources
@@ -255,6 +256,7 @@ export default {
       frequency: {},
       dateUpdated: null,
       datasetLicense: null,
+      datasetNumberOfRows: null,
       datasetLicenseUrl: null,
       datasetSource: null,
       datasetSourceUrl: null,
@@ -294,6 +296,7 @@ export default {
   },
   created() {
     ({
+      data_summary: { number_of_rows: this.datasetNumberOfRows },
       data_updated_at: this.dateUpdated,
       category: [{ name_translations: this.category } = {}] = [],
       frequency: [{ name_translations: this.frequency } = {}] = [],

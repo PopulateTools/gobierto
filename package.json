@@ -1,7 +1,7 @@
 {
   "license": "SEE LICENSE IN LICENSE-AGPLv3.txt",
   "dependencies": {
-    "@claviska/jquery-minicolors": "^2.3.2",
+    "@claviska/jquery-minicolors": "^2.3.6",
     "@finos/perspective-viewer": "0.6.2",
     "@finos/perspective-viewer-d3fc": "0.6.2",
     "@finos/perspective-viewer-datagrid": "0.6.2",

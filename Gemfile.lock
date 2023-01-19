@@ -211,7 +211,7 @@ GEM
     foreman (0.87.2)
     gems (1.2.0)
     geocoder (1.6.7)
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     google-api-client (0.53.0)
       google-apis-core (~> 0.1)
@@ -252,7 +252,7 @@ GEM
     httpi (2.4.4)
       rack
       socksify
-    i18n (1.10.0)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     i18n-js (3.8.3)
       i18n (>= 0.6.6)
@@ -544,7 +544,7 @@ GEM
     xml-simple (1.1.8)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.5.4)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby

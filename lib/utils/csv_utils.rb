@@ -12,8 +12,9 @@ class CsvUtils
   def self.separator_check(filename, separator)
     # Skip the first line just in case it contains a header
     # Does a compact, to remove empty cells
-    columns_counts = CSV.read(filename, col_sep: separator)[1..-1].map(&:compact).map(&:size).uniq
-    columns_counts.first > 1
+    data = columns_counts = CSV.read(filename, col_sep: separator)[1..-1].map(&:compact)
+    first_row_size = data.first.size
+    data.all? { |row| row.size == first_row_size }
   rescue CSV::MalformedCSVError
     false
   end

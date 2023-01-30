@@ -40,8 +40,13 @@ module GobiertoData
       dirname = Rails.root.join("#{BASE_PATH}/datasets")
       FileUtils.mkdir_p(dirname)
       filename = "#{dirname}/#{dataset.id}.#{format}"
+
       if !File.file?(filename) || update
         result = yield
+        if result.is_a?(Hash) && result.has_key?(:errors)
+          return result
+        end
+
         size = File.write(filename, result, mode: "wb+")
 
         size_attribute = dataset.size || {}
@@ -52,6 +57,8 @@ module GobiertoData
         end
 
         dataset.update_column(:size, size_attribute)
+
+        return result
       end
 
       File.open(filename, "rb")

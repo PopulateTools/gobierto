@@ -9611,10 +9611,10 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-perspective-map@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/perspective-map/-/perspective-map-1.0.4.tgz"
-  integrity sha512-U4cTxhbtCd1Lz9rAQs0Due6g7uNfTCkzIeNQeBrL+Ae32xS9+LodBohWRiwhWvjVvZf0gpVtp/urXN2DUjO+/w==
+perspective-map@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/perspective-map/-/perspective-map-1.1.0.tgz#b5a871fa82986244f56ed149f0785627294d1fe8"
+  integrity sha512-FFiKXB/yTxxnWXLP21GHABgWiqGZn2d1R5+vsaZdFU5YLnQZaZbuLq0vdQ1zUMH5CwfIc25XB3z42sWUBdQp2Q==
   dependencies:
     "@finos/perspective-viewer" "0.6.2"
     leaflet "^1.5.1"

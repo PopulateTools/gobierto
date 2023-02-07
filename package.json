@@ -51,7 +51,7 @@
     "moment-locales-webpack-plugin": "^1.0.7",
     "mustache": "^2.3.0",
     "normalize.css": "^8.0.1",
-    "perspective-map": "^1.0.4",
+    "perspective-map": "^1.1.0",
     "purecss": "^2.0.6",
     "regenerator-runtime": "^0.13.9",
     "resolve-url-loader": "^3.1.3",

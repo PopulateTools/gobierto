@@ -9611,12 +9611,11 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-perspective-map@^1.0.4:
+"perspective-map@file:.yalc/perspective-map":
   version "1.0.4"
-  resolved "https://registry.npmjs.org/perspective-map/-/perspective-map-1.0.4.tgz"
-  integrity sha512-U4cTxhbtCd1Lz9rAQs0Due6g7uNfTCkzIeNQeBrL+Ae32xS9+LodBohWRiwhWvjVvZf0gpVtp/urXN2DUjO+/w==
   dependencies:
     "@finos/perspective-viewer" "0.6.2"
+    file-loader "^6.2.0"
     leaflet "^1.5.1"
     topojson-client "^3.1.0"
 

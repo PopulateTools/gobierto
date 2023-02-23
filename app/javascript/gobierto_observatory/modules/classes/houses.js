@@ -7,12 +7,22 @@ export class HousesCard extends Card {
 
     this.famUrl =
       window.populateData.endpoint +
-      "/datasets/ds-viviendas-municipales-familiares.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
-      city_id;
+      `
+      SELECT SUM(total_viviendas_familiares ::integer) AS value
+      FROM viviendas
+      WHERE
+        place_id = ${city_id} AND
+        year = (SELECT max(year) FROM viviendas )
+      `
     this.mainUrl =
       window.populateData.endpoint +
-      "/datasets/ds-viviendas-municipales-principales.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
-      city_id;
+      `
+      SELECT SUM(total_viviendas_principales ::integer) AS value
+      FROM viviendas
+      WHERE
+        place_id = ${city_id} AND
+        year = (SELECT max(year) FROM viviendas )
+      `
   }
 
   getData() {

@@ -8,33 +8,88 @@ export class BirthRateCard extends Card {
 
     this.birthsPlaceUrl =
       window.populateData.endpoint +
-      "/datasets/ds-nacimientos-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" +
-      city_id;
+      `
+      SELECT year, SUM(value::integer) AS value,
+        CONCAT(year, '-', 1, '-', 1) AS date
+      FROM tasa_natalidad
+      WHERE
+        place_id = ${city_id}
+      GROUP BY year
+      Order BY year DESC limit 5
+      `
     this.birthsProvinceUrl =
       window.populateData.endpoint +
-      "/datasets/ds-nacimientos-provincial.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" +
-      window.populateData.provinceId;
+      `
+      SELECT year, SUM(value::integer) AS value,
+        CONCAT(year, '-', 1, '-', 1) AS date
+        FROM tasa_natalidad
+        WHERE
+          place_id = ${window.populateData.provinceId}
+        GROUP BY year
+        Order BY year DESC limit 5
+      `
     this.birthsSpainUrl =
       window.populateData.endpoint +
-      "/datasets/ds-nacimientos-nacional.json?sort_desc_by=date&with_metadata=true&limit=2";
+      `
+      SELECT year, SUM(value::integer) AS value,
+        CONCAT(year, '-', 1, '-', 1) AS date
+        FROM tasa_natalidad
+        GROUP BY year
+        Order BY year DESC limit 5
+      `
     this.popPlaceUrl =
       window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal.json?sort_desc_by=date&limit=2&filter_by_location_id=" +
-      city_id;
+      `
+      SELECT year, SUM(total::integer) AS value,
+      CONCAT(max(year), '-', 1, '-', 1) AS date
+      FROM poblacion_edad_sexo
+      WHERE
+        place_id = ${city_id} AND
+        sex = 'Total'
+      GROUP BY year
+      Order BY year DESC limit 5
+      `
     this.popProvinceOneUrl =
       window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&limit=1&filter_by_year=2015&filter_by_province_id=" +
-      window.populateData.provinceId;
+      `
+      SELECT year, AVG(total::integer) AS value,
+      CONCAT(max(year), '-', 1, '-', 1) AS date
+        FROM poblacion_edad_sexo
+        WHERE
+          place_id = ${window.populateData.provinceId} AND
+          sex = 'Total'
+        GROUP BY year
+        Order BY year DESC limit 5
+      `
     this.popProvinceTwoUrl =
       window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&limit=1&&filter_by_year=2014&filter_by_province_id=" +
-      window.populateData.provinceId;
+      `
+      SELECT year, AVG(total::integer) AS value,
+      CONCAT(max(year), '-', 1, '-', 1) AS date
+        FROM poblacion_edad_sexo
+        GROUP BY year
+        Order BY year DESC limit 5
+      `
     this.popCountryOneUrl =
       window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&limit=1&filter_by_year=2015";
+      `
+      SELECT year, SUM(total::integer) AS value,
+      CONCAT(max(year), '-', 1, '-', 1) AS date
+        FROM poblacion_edad_sexo
+        WHERE year = 2015
+        GROUP BY year
+        Order BY year DESC limit 5
+      `
     this.popCountryTwoUrl =
       window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&limit=1&filter_by_year=2014";
+      `
+      SELECT year, SUM(total::integer) AS value,
+      CONCAT(max(year), '-', 1, '-', 1) AS date
+        FROM poblacion_edad_sexo
+        WHERE year = 2014
+        GROUP BY year
+        Order BY year DESC limit 5
+      `
   }
 
   getData() {

@@ -8,13 +8,22 @@ export class GetUnemploymentAgeData extends Card {
     super();
 
     this.popUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=" +
-      city_id;
+      window.populateData.endpoint + `
+      SELECT SUM(total::integer) AS value
+          FROM poblacion_edad_sexo
+          WHERE
+            place_id = ${city_id} AND
+            year = (SELECT max(year) FROM poblacion_edad_sexo ) AND
+            sex = 'Total'
+      `
     this.unemplUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-personas-paradas-municipio-edad.json?sort_asc_by=date&filter_by_location_id=" +
-      city_id;
+      window.populateData.endpoint + `
+      SELECT CONCAT(year, '-', month)
+        AS Date,
+        SUM(value::integer) AS value,
+        sex FROM paro_personas
+          GROUP BY sex, year, month
+    `
     this.parseTime = timeParse("%Y-%m");
     this.data = null;
   }

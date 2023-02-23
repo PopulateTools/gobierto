@@ -105,7 +105,6 @@ export class SimpleCard extends Card {
       .selectAll(".js-data-desc")
       .text(json.metadata.indicator.description);
     this.div.selectAll(".js-data-freq").text(formatDate(parsedDate));
-
     if (typeof json.data[1] !== "undefined") {
       var spark = new Sparkline(divClass + " .sparkline", json.data, {
         trend,

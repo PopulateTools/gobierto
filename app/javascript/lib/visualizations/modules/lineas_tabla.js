@@ -104,7 +104,7 @@ export class VisLineasJ {
     this.softGrey = "#d6d5d1";
     this.darkGrey = "#554E41";
     this.blue = "#2A8998";
-    this.meanColorRangeArray = ["#2A8998", "#F8B419", "#B82E2E", "#66AA00"];
+    this.meanColorRange = ["#2A8998", "#F8B419", "#B82E2E", "#66AA00"];
     this.comparatorColorRange = [
       "#2A8998",
       "#F8B419",
@@ -291,7 +291,7 @@ export class VisLineasJ {
       this.colorScale
         .range(
           this.series == "means"
-            ? this.meanColorRangeArray
+            ? this.meanColorRange
             : this.comparatorColorRange
         )
         .domain(this.dataChart.map(d => d.name));

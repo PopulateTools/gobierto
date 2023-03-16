@@ -391,7 +391,7 @@ ca:
           el pressupost inicial actualitzat. Hi poden haver canvis, perquè és impossible
           preveure totes les despeses amb precisió absoluta
         economic: Econòmica
-        economic_button: Per a què es gasta
+        economic_button: En què es gasta
         euros: En euros
         execution_disclaimer: Es normal que hi haja desviacions ja que és impossible
           preveure totes les despeses amb precisió absoluta.
@@ -400,7 +400,7 @@ ca:
         expenses_executed: Despeses executades
         expenses_planned: Despeses pressupostades
         functional: Funcional
-        functional_button: En què es gasta
+        functional_button: Per a què es gasta
         higher_execution: Més execució
         income_executed: Ingressos executats
         income_planned: Ingressos pressupostats

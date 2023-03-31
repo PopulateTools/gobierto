@@ -106,7 +106,9 @@ export default {
   data() {
     return {
       debtsData: this.$root.$data.debtsEntitat,
+      debtsKey: this.$root.$data.debtsEntitatKey,
       creditorData: this.$root.$data.debtsTotal,
+      creditorKey: this.$root.$data.debtsTotalKey,
       evolutionDebtData: this.$root.$data.debtsEvolution,
       labelTitle: I18n.t("gobierto_visualizations.visualizations.debts.title") || "",
       labelDescription: I18n.t("gobierto_visualizations.visualizations.debts.description") || "",
@@ -121,8 +123,8 @@ export default {
   },
   computed: {
     totalDebt() {
-      const [{ endeutament_a_31_12_2021 }] = this.creditorData.filter(({ entitat }) => entitat === "TOTAL GENERAL")
-      return (endeutament_a_31_12_2021 / 1000000).toFixed(1).replace(/\./, ',') + ' M€';
+      const getTotal = this.creditorData.filter(({ entitat }) => entitat === "TOTAL GENERAL")
+      return (getTotal[0][this.creditorKey] / 1000000).toFixed(1).replace(/\./, ',') + ' M€';
     }
   },
   mounted() {
@@ -179,7 +181,7 @@ export default {
           rootTitle: "test",
           id: "title",
           group: ["entitat"],
-          value: "endeutament_a_31_12_2021",
+          value: this.creditorKey,
           margin: { top: 0 },
           itemTemplate: this.treemapItemTemplate,
           tooltip: this.tooltipTreeMapCreditor
@@ -191,7 +193,7 @@ export default {
           rootTitle: "test",
           id: "title",
           group: ["entitat_creditora"],
-          value: "endeutament_pendent_a_31_12_2021",
+          value: this.debtsKey,
           margin: { top: 0 },
           itemTemplate: this.treemapItemTemplate,
           tooltip: this.tooltipTreeMapDebts
@@ -208,7 +210,7 @@ export default {
           margin: { left: 340 },
           x: "any",
           locale: "es-ES",
-          value: "endeutament_pendent_a_31_12_2021",
+          value: this.debtsKey,
           tooltip: this.tooltipBarChartStacked
         })
       }

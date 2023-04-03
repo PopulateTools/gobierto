@@ -1,11 +1,3 @@
-export const debtsEntitatStrings = [
-  "endeutament_pendent_a_31_12_2021"
-];
-
-export const debtsTotalStrings = [
-  "endeutament_a_31_12_2021",
-];
-
 export const debtsEvolutionString = [
   "Ajuntament",
   "Mataro Audiovisual",

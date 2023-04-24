@@ -152,7 +152,7 @@ GEM
       aws_cf_signer
       rest-client (>= 2.0.0)
     concurrent-ruby (1.1.10)
-    connection_pool (2.2.5)
+    connection_pool (2.4.0)
     cookies_eu (1.7.7)
       js_cookie_rails (~> 2.2.0)
     crack (0.4.5)
@@ -420,6 +420,8 @@ GEM
     rb-readline (0.5.5)
     redcarpet (3.5.1)
     redis (4.5.1)
+    redis-client (0.14.1)
+      connection_pool
     regexp_parser (2.1.1)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -476,10 +478,11 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
-    sidekiq (6.4.0)
-      connection_pool (>= 2.2.2)
-      rack (~> 2.0)
-      redis (>= 4.2.0)
+    sidekiq (7.0.8)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.11.0)
     sidekiq-monitor-stats (0.0.4)
       sidekiq
     signet (0.14.0)

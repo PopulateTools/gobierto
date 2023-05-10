@@ -581,7 +581,7 @@ es:
         last_update: Datos actualizados
       enough_information:
         enough_information: "¿Suficiente información?"
-        enough_information_cta: Pide %{to_your_organization_name}
+        enough_information_cta: Pide más información
         enough_information_desc: Si considera que se tienen que incluir más información
           de estos datos para tener una visión más completa de la misma o sobre el
           uso de tus impuestos, comunicánoslo y te contestaremos

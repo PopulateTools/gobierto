@@ -1,8 +1,8 @@
 ---
 staging:
-  :concurrency: 5
+  :concurrency: 2
 production:
-  :concurrency: 5
+  :concurrency: 2
 :queues:
   - default
   - user_verifications

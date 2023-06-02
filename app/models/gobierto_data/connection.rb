@@ -8,6 +8,7 @@ module GobiertoData
 
     BLACKLISTED_TABLES = %w(
       schemata
+      information_schema.schemata
       pg_stat_activity
       pg_roles
     )
@@ -15,6 +16,10 @@ module GobiertoData
     class << self
 
       def execute_query(site, query, include_stats: false, write: false, include_draft: false)
+        unless secure_query?(query)
+          raise ActiveRecord::StatementInvalid.new("Query not allowed")
+        end
+
         with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(write, include_draft)) do
           connection_pool.connection.execute("SET search_path TO draft, public") if write || include_draft
 
@@ -25,10 +30,6 @@ module GobiertoData
                 event = ActiveSupport::Notifications::Event.new(name, start, finish, id, payload)
               end
             end
-          end
-
-          unless secure_query?(query)
-            raise ActiveRecord::StatementInvalid.new("Query not allowed")
           end
 
           execution = connection_pool.connection.execute(query) || null_query
@@ -47,6 +48,10 @@ module GobiertoData
       end
 
       def execute_query_output_csv(site, query, csv_options_params, include_draft: false)
+        unless secure_query?(query)
+          raise ActiveRecord::StatementInvalid.new("Query not allowed")
+        end
+
         with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(false, include_draft)) do
           connection_pool.connection.execute("SET search_path TO draft, public") if include_draft
 
@@ -91,6 +96,10 @@ module GobiertoData
 
       def execute_write_query_from_file_using_stdin(site, query, file_path: nil, include_draft: false)
         return unless file_path.present?
+
+        unless secure_query?(query)
+          raise ActiveRecord::StatementInvalid.new("Query not allowed")
+        end
 
         with_connection(db_config(site), fallback: configuration_missing_error, connection_key: :write_db_config) do
           connection_pool.connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if include_draft

@@ -31,7 +31,7 @@ module GobiertoData
         end
 
         def exists_table_for_dataset?
-          dataset.table_name == ::GobiertoData::Connection.execute_query(site, "SELECT to_regclass('#{dataset.table_name}')" ).first["to_regclass"]
+          dataset.table_name == ::GobiertoData::Connection.execute_query(site, "SELECT to_regclass('#{dataset.table_name}')", write: true ).first["to_regclass"]
         end
 
         # DELETE /api/v1/data/datasets/:dataset-slug

@@ -113,6 +113,9 @@ gem 'rack-rewrite'
 # Log
 gem "lograge"
 
+# Gobierto Data query analyzer
+gem "pg_query"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

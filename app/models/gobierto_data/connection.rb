@@ -6,6 +6,12 @@ module GobiertoData
   class Connection < ActiveRecord::Base
     self.abstract_class = true
 
+    BLACKLISTED_TABLES = %w(
+      schemata
+      pg_stat_activity
+      pg_roles
+    )
+
     class << self
 
       def execute_query(site, query, include_stats: false, write: false, include_draft: false)
@@ -19,6 +25,10 @@ module GobiertoData
                 event = ActiveSupport::Notifications::Event.new(name, start, finish, id, payload)
               end
             end
+          end
+
+          unless secure_query?(query)
+            raise ActiveRecord::StatementInvalid.new("Query not allowed")
           end
 
           execution = connection_pool.connection.execute(query) || null_query
@@ -145,6 +155,15 @@ module GobiertoData
         failed_query(I18n.t("activerecord.errors.models.gobierto_data/connection.missing_configuration"))
       end
 
+      def secure_query?(query)
+        parsed_query = PgQuery.parse(query)
+
+        return false if parsed_query.tables.empty?
+        return false if parsed_query.tables.any? { |t| BLACKLISTED_TABLES.include?(t) }
+        return false if parsed_query.tables.any? { |t| t.starts_with?("pg_") }
+
+        true
+      end
     end
   end
 end

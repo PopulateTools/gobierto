@@ -16,7 +16,7 @@ module GobiertoData
     class << self
 
       def execute_query(site, query, include_stats: false, write: false, include_draft: false)
-        unless secure_query?(query)
+        if !secure_query?(query) && !write
           raise ActiveRecord::StatementInvalid.new("Query not allowed")
         end
 
@@ -96,10 +96,6 @@ module GobiertoData
 
       def execute_write_query_from_file_using_stdin(site, query, file_path: nil, include_draft: false)
         return unless file_path.present?
-
-        unless secure_query?(query)
-          raise ActiveRecord::StatementInvalid.new("Query not allowed")
-        end
 
         with_connection(db_config(site), fallback: configuration_missing_error, connection_key: :write_db_config) do
           connection_pool.connection.execute("CREATE SCHEMA IF NOT EXISTS draft") if include_draft

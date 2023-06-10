@@ -6,7 +6,7 @@ module GobiertoPeople
 
     before_action { module_enabled!(current_site, "GobiertoPeople") }
 
-    helper_method :gifts_service_url, :trips_service_url, :cache_service
+    helper_method :gifts_service_url, :trips_service_url, :cache_service, :show_only_calendar?
 
     private
 
@@ -27,5 +27,10 @@ module GobiertoPeople
     def cache_service
       @cache_service ||= GobiertoCommon::CacheService.new(current_site, "GobiertoPeople")
     end
+
+    def show_only_calendar?
+      params[:only_calendar].present?
+    end
+
   end
 end

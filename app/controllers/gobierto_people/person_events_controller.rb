@@ -6,8 +6,6 @@ module GobiertoPeople
 
     before_action :check_active_submodules
 
-    helper_method :show_only_calendar?
-
     def index
       set_events
       render_404 and return if params[:page].present? && @events.empty?
@@ -88,10 +86,5 @@ module GobiertoPeople
         (Time.zone.now.at_beginning_of_month.at_beginning_of_week)..(Time.zone.now.at_end_of_month.at_end_of_week)
       end
     end
-
-    def show_only_calendar?
-      params[:only_calendar].present?
-    end
-
   end
 end

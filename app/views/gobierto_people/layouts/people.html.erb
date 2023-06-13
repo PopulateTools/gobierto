@@ -1,14 +1,15 @@
 <% content_for :content do %>
 
+  <% if show_only_calendar? %>
+    <%= yield %>
+  <% else %>
   <div class="column">
 
     <div class="pure-g">
 
-      <% unless show_only_calendar? %>
       <div class="pure-u-1 pure-u-md-7-24">
 
         <div class="person_header_small clearfix">
-
           <%= render @person %>
           <%= render "gobierto_people/people/contact_methods" %>
           <%= render("gobierto_people/people/subscription_button", person: @person) %>
@@ -17,7 +18,6 @@
         <%= render "gobierto_people/people/navigation" %>
 
       </div>
-      <% end %>
 
       <div class="pure-u-1 pure-u-md-17-24 main_people_content">
 
@@ -28,6 +28,7 @@
     </div>
 
   </div>
+  <% end %>
 
 <% end %>
 

@@ -86,6 +86,5 @@ module GobiertoPeople
         (Time.zone.now.at_beginning_of_month.at_beginning_of_week)..(Time.zone.now.at_end_of_month.at_end_of_week)
       end
     end
-
   end
 end

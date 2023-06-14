@@ -59,7 +59,7 @@
 
 </div>
 
-<% if request.path == gobierto_people_person_events_path(@person.slug) %>
+<% if request.path == gobierto_people_person_events_path(@person.slug) || show_only_calendar? %>
   <div id='calendar'>
   </div>
 <% end %>

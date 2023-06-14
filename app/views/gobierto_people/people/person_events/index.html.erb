@@ -69,9 +69,3 @@
 <% content_for :javascript_hook do %>
   window.GobiertoPeople.person_events_controller.index();
 <% end %>
-
-<% if show_only_calendar? %>
-<style>
-header, footer { display: none; }
-</style>
-<% end %>

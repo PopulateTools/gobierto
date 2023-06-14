@@ -44,7 +44,8 @@ module GobiertoPeople
           ::GobiertoCalendars::FullcalendarEventSerializer.new(
             event,
             current_site: current_site,
-            person_slug: @person.slug
+            person_slug: @person.slug,
+            only_calendar: params[:only_calendar].present?
           )
         end
       end

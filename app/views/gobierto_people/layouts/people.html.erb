@@ -33,3 +33,9 @@
 <% end %>
 
 <%= render template: "gobierto_people/layouts/application" %>
+
+<% if show_only_calendar? %>
+<style>
+header, footer { display: none; }
+</style>
+<% end %>

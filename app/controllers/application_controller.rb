@@ -57,6 +57,8 @@ class ApplicationController < ActionController::Base
   def default_url_options
     if params.has_key?(:embed)
       { embed: true }
+    elsif params.has_key?(:only_calendar)
+      { only_calendar: true }
     else
       {}
     end

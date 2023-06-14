@@ -12,22 +12,28 @@ window.GobiertoPeople.PersonEventsController = (function() {
 
   function _initializeFullCalendar(nextStep) {
 
+    var onlyCalendar = window.location.search.indexOf("only_calendar") > -1;
     var currentPath = window.location.pathname.split('/');
     var eventsEndpoint = '/agendas/'+ currentPath[currentPath.length - 1] + '.json';
 
     $('#calendar').fullCalendar({
       locale: I18n.locale,
       events: function(start, end, timezone, callback) {
+        var params = {
+          start: start.format(),
+          end: end.format()
+        }
+        if (onlyCalendar) {
+          params.only_calendar = true;
+        }
+
         $.ajax({
           url: eventsEndpoint,
           dataType: 'json',
           accepts: {
             text: 'application/json'
           },
-          data: {
-            start: start.format(),
-            end: end.format()
-          },
+          data: params,
           success: function(doc) {
             callback(doc.events);
           }

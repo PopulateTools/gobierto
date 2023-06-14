@@ -55,11 +55,13 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options
+    options = {}
     if params.has_key?(:embed)
-      { embed: true }
-    else
-      {}
+      options.merge!({ embed: true })
+    elsif params.has_key?(:only_calendar)
+      options.merge!({ only_calendar: true })
     end
+    options
   end
 
   def set_locale

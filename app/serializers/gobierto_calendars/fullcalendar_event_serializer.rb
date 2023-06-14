@@ -16,7 +16,7 @@ class GobiertoCalendars::FullcalendarEventSerializer < ActiveModel::Serializer
     only_calendar = instance_options[:only_calendar]
     extra_params = { host: "portalobert.esplugues.cat" }
     extra_params[:only_calendar] = true if only_calendar
-    Rails.application.routes.url_helpers.gobierto_people_person_event_url(person_slug, object_slug, extra_params)
+    Rails.application.routes.url_helpers.gobierto_people_person_event_url(person_slug, object.slug, extra_params)
   end
 
 end

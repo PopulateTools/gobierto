@@ -351,6 +351,8 @@ GEM
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
     net-ldap (0.17.0)
+    net-pop (0.1.2)
+      net-protocol
     net-protocol (0.2.1)
       timeout
     net-smtp (0.3.3)
@@ -608,6 +610,7 @@ DEPENDENCIES
   minitest-stub_any_instance
   mocha
   net-ldap
+  net-pop
   net-smtp
   paper_trail
   paranoia

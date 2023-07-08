@@ -119,6 +119,7 @@ gem "pg_query"
 # Gems required by Ruby 3
 gem 'rexml'
 gem 'net-smtp', require: false
+gem 'net-pop', require: false
 gem 'psych', '~> 3.3', '>= 3.3.0'
 gem 'matrix'
 gem "webrick", "~> 1.8"

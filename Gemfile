@@ -123,6 +123,8 @@ gem 'net-pop', require: false
 gem 'psych', '~> 3.3', '>= 3.3.0'
 gem 'matrix'
 gem "webrick", "~> 1.8"
+gem 'prime'
+gem 'net-imap'
 
 group :development, :test do
   gem "byebug", platform: :mri

@@ -159,6 +159,7 @@ GEM
       rexml
     crass (1.0.6)
     dalli (3.2.3)
+    date (3.3.3)
     declarative (0.0.20)
     declarative-option (0.1.0)
     device_detector (1.1.0)
@@ -208,6 +209,7 @@ GEM
     faraday-retry (1.0.3)
     ffi (1.15.0)
     foreman (0.87.2)
+    forwardable (1.3.3)
     gems (1.2.0)
     geocoder (1.6.7)
     globalid (1.0.1)
@@ -350,6 +352,9 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
+    net-imap (0.3.6)
+      date
+      net-protocol
     net-ldap (0.17.0)
     net-pop (0.1.2)
       net-protocol
@@ -380,6 +385,9 @@ GEM
     pg_search (2.3.5)
       activerecord (>= 5.2)
       activesupport (>= 5.2)
+    prime (0.1.2)
+      forwardable
+      singleton
     psych (3.3.4)
     public_suffix (4.0.7)
     puma (5.6.4)
@@ -508,6 +516,7 @@ GEM
       simplecov (~> 0.8)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.2)
+    singleton (0.1.1)
     socksify (1.7.1)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
@@ -609,6 +618,7 @@ DEPENDENCIES
   minitest-stub-const
   minitest-stub_any_instance
   mocha
+  net-imap
   net-ldap
   net-pop
   net-smtp
@@ -617,6 +627,7 @@ DEPENDENCIES
   pg (~> 1.1)
   pg_query
   pg_search (= 2.3.5)
+  prime
   psych (~> 3.3, >= 3.3.0)
   puma
   rack-cors

@@ -53,7 +53,7 @@ class User::Verification::CensusVerification < User::Verification
 
   def census_repository
     @census_repository ||= census_repository_class.new(
-      custom_params.merge(
+      **custom_params.merge(
         site_id: site_id,
         document_number: document_number,
         date_of_birth: date_of_birth

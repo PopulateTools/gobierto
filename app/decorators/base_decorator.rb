@@ -5,7 +5,7 @@ class BaseDecorator
   #
   delegate :is_a?, :kind_of?, :respond_to?, :to_model, :to_param, :class, to: :object
 
-  def method_missing(*args, &block)
-    object.send(*args, &block)
+  def method_missing(method_name, *args, &block)
+    object.send(method_name, *args, &block)
   end
 end

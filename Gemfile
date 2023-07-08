@@ -95,7 +95,7 @@ gem "rubyXL"
 gem "appsignal", "= 3.0.6"
 
 # Analytics
-gem "ahoy_matey"
+gem 'ahoy_matey', '~> 4.2', '>= 4.2.1'
 
 # Auth strategies
 gem "net-ldap"
@@ -115,6 +115,13 @@ gem "lograge"
 
 # Gobierto Data query analyzer
 gem "pg_query"
+
+# Gems required by Ruby 3
+gem 'rexml'
+gem 'net-smtp', require: false
+gem 'psych', '~> 3.3', '>= 3.3.0'
+gem 'matrix'
+gem "webrick", "~> 1.8"
 
 group :development, :test do
   gem "byebug", platform: :mri

@@ -10,10 +10,11 @@ aliases:
 defaults: &defaults
   working_directory: *working_directory
   docker:
-    - image: cimg/ruby:2.7.4-browsers
+    - image: cimg/ruby:3.2.2-browsers
       environment:
         # Up to circle-ci plan max. RAM
-        NODE_OPTIONS: --max-old-space-size=6144
+        NODE_OPTIONS: "--max-old-space-size=6144 --openssl-legacy-provider"
+        RUBY_YJIT_ENABLE: 1
         RAILS_ENV: test
         NODE_ENV: test
         PGHOST: localhost
@@ -27,7 +28,7 @@ defaults: &defaults
         POSTGRES_DB: gobierto_test
         POSTGRES_PASSWORD: gobierto
     - image: elasticsearch:2.4.1
-    - image: redis:6.2.5
+    - image: redis:7.0.2
 
 commands:
   restore_bundler_cache:

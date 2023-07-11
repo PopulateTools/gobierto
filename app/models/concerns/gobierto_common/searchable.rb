@@ -29,16 +29,16 @@ module GobiertoCommon
 
     # pg_search
 
-    def truncated_translations(attribute, **opts)
+    def truncated_translations(attribute, opts = {})
       return localized_truncated_plain_attribute(attribute, opts) unless (translations_hash = try("#{attribute}_translations")).present?
 
-      translations_hash.transform_values { |value| clean_text(value, **opts) }
+      translations_hash.transform_values { |value| clean_text(value, limit: opts[:limit] || 1000, strip_tags: opts[:strip_tags] || true) }
     end
 
-    def localized_truncated_plain_attribute(attribute, **opts)
+    def localized_truncated_plain_attribute(attribute, opts = {})
       return {} unless respond_to?(attribute)
 
-      { I18n.locale => clean_text(send(attribute), **opts) }
+      { I18n.locale => clean_text(send(attribute), limit: opts[:limit] || 1000, strip_tags: opts[:strip_tags] || true) }
     end
 
     def clean_text(text, limit: 1000, strip_tags: true)

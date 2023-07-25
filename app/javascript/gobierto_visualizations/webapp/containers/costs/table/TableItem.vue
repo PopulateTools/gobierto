@@ -377,7 +377,7 @@ export default {
       labelCostTotal: I18n.t("gobierto_visualizations.visualizations.costs.total") || "",
       labelCostDirect: I18n.t("gobierto_visualizations.visualizations.costs.cost_direct") || "",
       labelCompetence: I18n.t("gobierto_visualizations.visualizations.costs.item.competence") || "",
-      labelObservatio: I18n.t("gobierto_visualizations.visualizations.costs.item.observation") || "",
+      labelObservation: I18n.t("gobierto_visualizations.visualizations.costs.item.observation") || "",
       labelDescription: I18n.t("gobierto_visualizations.visualizations.costs.item.description") || "",
       labelPersonalCost: I18n.t("gobierto_visualizations.visualizations.costs.item.personal_cost") || "",
       labelTypes: I18n.t("gobierto_visualizations.visualizations.costs.item.types") || "",

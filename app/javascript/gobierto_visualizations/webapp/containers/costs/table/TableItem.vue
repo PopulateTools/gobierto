@@ -63,7 +63,8 @@
           <span class="gobierto-visualizations-table-item-title">
             {{ labelObservation }}
           </span>
-          <span class="gobierto-visualizations-table-item-text">
+          <!-- eslint-disable-next-line -->
+          <span class="gobierto-visualizations-table-item-text" v-html>
             {{ observation }}
           </span>
         </div>

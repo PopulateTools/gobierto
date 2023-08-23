@@ -232,7 +232,7 @@
                   {{ labelPublicTax }}
                 </span>
                 <span class="gobierto-visualizations-table-item-right-table-amount">
-                  {{ taxs | money }}
+                  {{ calculateTax | money }}
                 </span>
               </div>
               <i
@@ -265,7 +265,7 @@
                   {{ labelTotalIncome }}
                 </span>
                 <span class="gobierto-visualizations-table-item-right-table-amount">
-                  {{ totalIncomes | money }}
+                  {{ income | money }}
                 </span>
               </div>
               <i
@@ -413,9 +413,8 @@ export default {
     }
   },
   computed: {
-    //Get the total of all values in the incomes table
-    totalIncomes() {
-      return this.taxs + this.subsidies
+    calculateTax() {
+      return this.taxs === 0 ? this.income - this.subsidies : this.taxs
     }
   },
   created() {

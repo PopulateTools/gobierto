@@ -1165,7 +1165,7 @@
   }
 
   .range-slider-costs {
-    width: 150px;
+    width: max-content;
     margin: 1rem auto;
   }
 
@@ -1175,7 +1175,17 @@
 
     &:last-child {
       .range-slider-costs--values-circle {
-        left: calc(100% - 24px);
+        left: calc(100% - 22px);
+      }
+
+      .range-slider-costs--values-text {
+        left: calc(100% - 32px);
+      }
+    }
+
+    &:not(:first-child):not(:last-child) {
+      .range-slider-costs--values-circle {
+        left: calc(100% - 32px);
       }
     }
 
@@ -1195,11 +1205,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
 
     &::after {
       content: '';
       height: 10px;
-      width: 98%;
+      width: 100%;
       background-color: #ddd;
       margin: auto;
       position: absolute;
@@ -1223,6 +1234,7 @@
   .range-slider-costs--values-text {
     font-size: 1.25rem;
     font-weight: 300;
+    position: relative;
   }
 
   .header_block_inline p.visualizations-text-info {

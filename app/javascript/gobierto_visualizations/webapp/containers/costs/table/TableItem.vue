@@ -232,7 +232,7 @@
                   {{ labelPublicTax }}
                 </span>
                 <span class="gobierto-visualizations-table-item-right-table-amount">
-                  {{ taxs | money }}
+                  {{ calculateTax | money }}
                 </span>
               </div>
               <i
@@ -265,7 +265,7 @@
                   {{ labelTotalIncome }}
                 </span>
                 <span class="gobierto-visualizations-table-item-right-table-amount">
-                  {{ totalIncomes | money }}
+                  {{ income | money }}
                 </span>
               </div>
               <i
@@ -413,9 +413,15 @@ export default {
     }
   },
   computed: {
-    //Get the total of all values in the incomes table
-    totalIncomes() {
-      return this.taxs + this.subsidies
+    /*
+    Calculate the taxapreub because the 2022 data doesn't contain the taxapreub,
+    so we need to calculate it with (this.income - this.subsidies).
+    What is this this.codiAct !== "44111001"??? is an exception
+    la actividad 44111001 dónde este año hemos incorporado los ingresos
+    de la concesionaria y no corresponden a ninguna de las dos columnas(ingressos or subsidies).
+    */
+    calculateTax() {
+      return this.taxs === 0 && this.codiAct !== "44111001" ? this.income - this.subsidies : this.taxs
     }
   },
   created() {
@@ -448,7 +454,8 @@ export default {
         ingressos_cost: incomeCost,
         ingressos: income,
         agrupacio: agrupacio,
-        costtotal: costTotal
+        costtotal: costTotal,
+        codiact: codiAct
       }] = this.dataGroup
 
       this.description = description
@@ -468,6 +475,7 @@ export default {
       this.agrupacioID = agrupacio
       this.costTotal = costTotal
       this.coverage = (income * 100) / costTotal
+      this.codiAct = codiAct
     },
     loadTable(value) {
       this.$emit('changeTableHandler', value)

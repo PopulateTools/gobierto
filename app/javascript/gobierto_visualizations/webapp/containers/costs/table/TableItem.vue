@@ -59,6 +59,15 @@
             {{ legal }}
           </span>
         </div>
+        <div class="gobierto-visualizations-table-item-left-container">
+          <span class="gobierto-visualizations-table-item-title">
+            {{ labelObservation }}
+          </span>
+          <!-- eslint-disable-next-line -->
+          <span class="gobierto-visualizations-table-item-text" v-html>
+            {{ observation }}
+          </span>
+        </div>
       </div>
 
       <div class="gobierto-visualizations-table-item-right">
@@ -369,6 +378,7 @@ export default {
       labelCostTotal: I18n.t("gobierto_visualizations.visualizations.costs.total") || "",
       labelCostDirect: I18n.t("gobierto_visualizations.visualizations.costs.cost_direct") || "",
       labelCompetence: I18n.t("gobierto_visualizations.visualizations.costs.item.competence") || "",
+      labelObservation: I18n.t("gobierto_visualizations.visualizations.costs.item.observation") || "",
       labelDescription: I18n.t("gobierto_visualizations.visualizations.costs.item.description") || "",
       labelPersonalCost: I18n.t("gobierto_visualizations.visualizations.costs.item.personal_cost") || "",
       labelTypes: I18n.t("gobierto_visualizations.visualizations.costs.item.types") || "",
@@ -389,6 +399,7 @@ export default {
       labelCostIndirect : I18n.t("gobierto_visualizations.visualizations.costs.cost_indirect") || "",
       description: '',
       competence: '',
+      observation: '',
       types: '',
       legal: '',
       costPersonal: '',
@@ -441,6 +452,7 @@ export default {
       const [{
         descripcio: description,
         competencia: competence,
+        observacions: observation,
         tipus: types,
         marclegal: legal,
         costindirecte: costIndirect,
@@ -460,6 +472,7 @@ export default {
 
       this.description = description
       this.competence = competence
+      this.observation = observation
       this.types = types
       this.legal = legal
       this.costPersonal = costPersonal

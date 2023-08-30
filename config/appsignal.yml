@@ -28,8 +28,18 @@ test:
 
 staging:
   <<: *defaults
+  revision: "<%= `[ -f REVISION ] && cat REVISION`.strip %>"
   active: true
+  ignore_namespaces:
+    - background_job
+    - background
+    - ignore_on_appsignal
 
 production:
   <<: *defaults
   active: true
+  revision: "<%= `[ -f REVISION ] && cat REVISION`.strip %>"
+  ignore_namespaces:
+    - background_job
+    - background
+    - ignore_on_appsignal

@@ -5,6 +5,7 @@ module GobiertoCommon
     attributes(
       :id,
       :name_translations,
+      :description_translations,
       :slug,
       :position,
       :level,

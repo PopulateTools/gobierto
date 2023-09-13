@@ -10,6 +10,7 @@ module GobiertoAdmin
         :vocabulary_id,
         :name_translations,
         :description_translations,
+        :position,
         :slug,
         :term_id,
         :external_id
@@ -57,6 +58,7 @@ module GobiertoAdmin
           attributes.description_translations = description_translations
           attributes.slug = slug
           attributes.term_id = term_id
+          attributes.position = position if position.present?
           attributes.external_id = external_id if external_id.present?
         end
 

@@ -87,26 +87,6 @@ module GobiertoCommon
           end
         end
 
-        def create_or_update
-          find_item
-          @form = GobiertoAdmin::GobiertoCommon::VocabularyForm.new(vocabulary_params.merge(site_id: current_site.id, id: @item.id))
-
-          if @form.save
-            vocabulary = @form.vocabulary
-            if (terms_data = vocabulary_params[:terms]).present?
-              @terms_form = GobiertoAdmin::GobiertoCommon::TermsForm.new(terms: terms_data, site_id: current_site.id, vocabulary_id: vocabulary.id)
-            end
-
-            if terms_data.blank? || @terms_form.save
-              yield(vocabulary)
-            else
-              api_errors_render(@terms_form, adapter: :json_api)
-            end
-          else
-            api_errors_render(@form, adapter: :json_api)
-          end
-        end
-
         def base_relation
           current_site.vocabularies
         end

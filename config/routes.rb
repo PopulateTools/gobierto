@@ -606,7 +606,7 @@ Rails.application.routes.draw do
             get "search" => "search#query", as: :search
 
             resources :vocabularies, except: [:delete, :edit], defaults: { format: "json" } do
-              resources :terms, except: [:show, :edit]
+              resources :terms, except: [:edit]
             end
           end
         end

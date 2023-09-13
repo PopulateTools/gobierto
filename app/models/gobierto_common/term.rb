@@ -42,6 +42,10 @@ module GobiertoCommon
       vocabulary&.name
     end
 
+    def parent_external_id
+      parent_term&.external_id
+    end
+
     def destroy
       dependent_resources_decorator = TermDependentResourcesDecorator.new(self)
       if dependent_resources_decorator.has_dependent_resources?

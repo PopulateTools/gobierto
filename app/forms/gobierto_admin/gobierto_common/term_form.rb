@@ -12,6 +12,7 @@ module GobiertoAdmin
         :position,
         :slug,
         :term_id,
+        :reset_term_id,
         :external_id
       )
 
@@ -23,6 +24,12 @@ module GobiertoAdmin
 
       validates :name_translations, :site, :vocabulary, presence: true
       validate :external_id_uniqueness_by_vocabulary
+
+      def initialize(attributes = {})
+        @reset_term_id = attributes.has_key?("term_id")
+
+        super
+      end
 
       def term
         @term ||= term_relation.find_by(id: id) || build_term
@@ -64,7 +71,7 @@ module GobiertoAdmin
           attributes.name_translations = name_translations
           attributes.description_translations = description_translations if description_translations.present?
           attributes.slug = slug if slug.present?
-          attributes.term_id = term_id
+          attributes.term_id = term_id if reset_term_id
           attributes.position = position if position.present?
           attributes.external_id = external_id if external_id.present?
         end

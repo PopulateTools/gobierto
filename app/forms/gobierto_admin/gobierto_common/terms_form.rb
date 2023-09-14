@@ -32,19 +32,19 @@ module GobiertoAdmin
       private
 
       def save_terms
-        existing_terms_data = terms.select do |attrs|
-          find_existing_term(attrs).present?
-        end
-
-        existing_terms_data.each do |attrs|
-          return false unless create_or_update_term(attrs, terms)
-        end
-
         new_terms_data = terms.select do |attrs|
           find_existing_term(attrs).blank?
         end
 
         top_level_items(new_terms_data).each do |attrs|
+          return false unless create_or_update_term(attrs, terms)
+        end
+
+        existing_terms_data = terms.select do |attrs|
+          find_existing_term(attrs).present?
+        end - new_terms_data
+
+        existing_terms_data.each do |attrs|
           return false unless create_or_update_term(attrs, terms)
         end
       end

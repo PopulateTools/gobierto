@@ -6,7 +6,10 @@ module GobiertoAdmin
 
       attr_accessor(
         :id,
-        :site_id,
+        :site_id
+      )
+
+      attr_writer(
         :name_translations,
         :slug
       )
@@ -22,6 +25,14 @@ module GobiertoAdmin
 
       def build_vocabulary
         vocabulary_relation.new
+      end
+
+      def name_translations
+        @name_translations ||= vocabulary.name_translations
+      end
+
+      def slug
+        @slug ||= vocabulary.slug
       end
 
       def save

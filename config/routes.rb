@@ -605,7 +605,7 @@ Rails.application.routes.draw do
             get ":module_name/configuration" => "configuration#show", as: :configuration
             get "search" => "search#query", as: :search
 
-            resources :vocabularies, except: [:delete, :edit], defaults: { format: "json" } do
+            resources :vocabularies, except: [:edit], defaults: { format: "json" } do
               resources :terms, except: [:edit]
             end
           end

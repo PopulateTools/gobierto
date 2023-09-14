@@ -72,6 +72,16 @@ module GobiertoCommon
           end
         end
 
+        # DELETE /api/v1/vocabularies/1
+        # DELETE /api/v1/vocabularies/1.json
+        def destroy
+          find_item
+
+          @item.destroy
+
+          head :no_content
+        end
+
         private
 
         def create_or_update_terms(vocabulary, terms_data)

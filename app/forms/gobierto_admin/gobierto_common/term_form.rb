@@ -8,12 +8,15 @@ module GobiertoAdmin
         :id,
         :site_id,
         :vocabulary_id,
-        :name_translations,
         :description_translations,
         :position,
         :slug,
         :term_id,
         :external_id
+      )
+
+      attr_writer(
+        :name_translations
       )
 
       delegate :persisted?, to: :term
@@ -27,6 +30,10 @@ module GobiertoAdmin
 
       def build_term
         vocabulary.terms.new(position: next_position)
+      end
+
+      def name_translations
+        @name_translations ||= term.name_translations
       end
 
       def save
@@ -55,8 +62,8 @@ module GobiertoAdmin
         @term = term.tap do |attributes|
           attributes.vocabulary_id = vocabulary.id
           attributes.name_translations = name_translations
-          attributes.description_translations = description_translations
-          attributes.slug = slug
+          attributes.description_translations = description_translations if description_translations.present?
+          attributes.slug = slug if slug.present?
           attributes.term_id = term_id
           attributes.position = position if position.present?
           attributes.external_id = external_id if external_id.present?

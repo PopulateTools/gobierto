@@ -46,15 +46,6 @@ module GobiertoCommon
           }.with_indifferent_access
         end
 
-        def array_data(vocabulary)
-          attributes = attributes_data(vocabulary)
-          [
-            attributes[:name_translations],
-            attributes[:slug],
-            attributes[:terms]
-          ]
-        end
-
         def invalid_params
           {
             data:

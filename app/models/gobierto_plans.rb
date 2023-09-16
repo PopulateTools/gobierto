@@ -6,7 +6,7 @@ module GobiertoPlans
   end
 
   def self.doc_url
-    "https://gobierto.readme.io/docs/planes"
+    "https://gobierto.readme.io/docs/planificiacion"
   end
 
   def self.root_path(current_site)

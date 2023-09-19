@@ -22,7 +22,6 @@ module GobiertoPeople
           config.password = ::SecretAttribute.decrypt(configuration.microsoft_exchange_pwd)
           config.debug    = false
           config.insecure_ssl = true
-          config.ssl_version  = :TLSv1
         end
       end
 

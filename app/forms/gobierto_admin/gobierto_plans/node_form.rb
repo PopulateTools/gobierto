@@ -186,7 +186,11 @@ module GobiertoAdmin
 
         @visibility_level, @version = visibility_level.to_s.split("-")
 
-        @version ||= node.versions.length if node.versions.present? && publish_last_version_automatically
+        @version ||= if node.versions.present? && publish_last_version_automatically
+                       node.versions.length
+                     elsif @visibility_level == "published" && node.new_record?
+                       1
+                     end
 
         @published_version = @visibility_level == "published" ? (@version || node.published_version).to_i : nil
       end

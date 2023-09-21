@@ -51,3 +51,12 @@ en:
               file_not_found: File not found
               invalid_columns: Required columns are missing
               invalid_format: Invalid file format
+        gobierto_admin/gobierto_plans/projects_form:
+          attributes:
+            base:
+              category_missing: 'Category not found in project data. Please, provide
+                a valid category_id or category_external_id. Project data: %{json_data}'
+              failed_import: 'The project with the following data could not be imported:
+                %{json_data}'
+              status_missing: 'Status not found in project data. Please, provide a
+                valid status_id or status_external_id. Project data: %{json_data}'

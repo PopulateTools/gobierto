@@ -62,7 +62,47 @@ module GobiertoPlans
           )
         end
 
+        # PUT /api/v1/plans/1/admin
+        # PUT /api/v1/plans/1/admin.json
+        def update
+          find_resource
+
+          form_params = plan_params.merge(site_id: current_site.id, id: @resource.id)
+          form_params.merge!(plan_type_id: @resource.plan_type_id) unless plan_params.has_key?(:plan_type_id)
+
+          @form = GobiertoAdmin::GobiertoPlans::PlanForm.new(form_params)
+          if @form.save
+            @resource = @form.plan
+            create_or_update_projects(@resource, projects_params) do
+              render(
+                json: @resource,
+                serializer: GobiertoPlans::ApiPlanSerializer,
+                adapter: :json_api,
+                with_translations: false,
+                exclude_links: false,
+                exclude_relationships: false,
+                vocabularies_adapter: :json_api
+              )
+            end
+          else
+            api_errors_render(@form, adapter: :json_api)
+          end
+        end
+
         private
+
+        def create_or_update_projects(plan, projects_data)
+          if projects_data.blank?
+            yield(plan)
+          else
+            @projects_form = GobiertoAdmin::GobiertoPlans::ProjectsForm.new(projects: projects_data, site_id: current_site.id, plan_id: plan.id, admin: current_admin)
+            if @projects_form.save
+              yield(plan)
+            else
+              api_errors_render(@projects_form, adapter: :json_api)
+            end
+          end
+        end
 
         def base_relation
           if params[:id].present?
@@ -75,6 +115,25 @@ module GobiertoPlans
 
         def plans_base_relation
           @plans_base_relation = current_site.plans.send(valid_preview_token? ? :itself : :published)
+        end
+
+        def plan_params
+          @plan_params ||= ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: writable_attributes).tap do |p|
+            unless p[:configuration_data].is_a?(String)
+              p[:configuration_data] = p[:configuration_data].blank? ? @resource.attributes["configuration_data"] : p[:configuration_data].to_json
+            end
+            writable_attributes.each do |attr|
+              p[attr] = @resource.send(attr) unless @resource.blank? || p.has_key?(attr)
+            end
+          end
+        end
+
+        def projects_params
+          ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:projects])[:projects]
+        end
+
+        def writable_attributes
+          [:slug, :title_translations, :introduction_translations, :configuration_data, :year, :visibility_level, :css, :footer_translations, :plan_type_id]
         end
 
         def find_resource

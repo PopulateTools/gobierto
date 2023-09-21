@@ -6,6 +6,9 @@ module GobiertoPlans
       class PlansController < BaseController
 
         include ::GobiertoCommon::CustomFieldsApi
+        include ::GobiertoCommon::SecuredWithAdminToken
+
+        skip_before_action :set_admin_with_token, only: [:index, :show, :meta]
 
         def vocabularies_adapter
           :json_api
@@ -35,6 +38,22 @@ module GobiertoPlans
           render(
             json: @resource,
             serializer: GobiertoPlans::PlanSerializer,
+            adapter: :json_api,
+            with_translations: false,
+            exclude_links: false,
+            exclude_relationships: false,
+            vocabularies_adapter: :json_api
+          )
+        end
+
+        # GET /api/v1/plans/1/admin
+        # GET /api/v1/plans/1/admin.json
+        def admin
+          @resource = current_site.plans.find(params[:id])
+
+          render(
+            json: @resource,
+            serializer: GobiertoPlans::ApiPlanSerializer,
             adapter: :json_api,
             with_translations: false,
             exclude_links: false,

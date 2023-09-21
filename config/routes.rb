@@ -432,6 +432,7 @@ Rails.application.routes.draw do
             resources :plans, only: [:index, :show], defaults: { format: "json" } do
               member do
                 get :meta
+                get :admin
               end
               resources :projects, only: [:index]
             end

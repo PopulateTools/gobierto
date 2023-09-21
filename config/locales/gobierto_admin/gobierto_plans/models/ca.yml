@@ -51,3 +51,14 @@ ca:
               file_not_found: Fitxer no trobat
               invalid_columns: No estan totes les columnes necessàries
               invalid_format: Format de fitxer invàlid
+        gobierto_admin/gobierto_plans/projects_form:
+          attributes:
+            base:
+              category_missing: 'Categoria no trobada en dades del projecte. Si us
+                plau, proporcioneu un category_id o category_external_id vàlid. Dades
+                del projecte: %{json_data}'
+              failed_import: 'El projecte amb les dades següents no ha pogut ser importat:
+                %{json_data}'
+              status_missing: 'Estat no trobat en dades del projecte. Si us plau,
+                proporciona un status_id o status_external_id vàlid. Dades del projecte:
+                %{json_data}'

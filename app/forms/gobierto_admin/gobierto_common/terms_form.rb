@@ -108,10 +108,10 @@ module GobiertoAdmin
         end
       end
 
-      def get_parent_id(parent_external_id)
-        return if parent_external_id.blank?
+      def get_parent_id(id)
+        return if id.blank?
 
-        parent_term = vocabulary.terms.find_by(external_id: parent_external_id)
+        parent_term = vocabulary.terms.find_by(external_id: id) || vocabulary.terms.find_by(id:)
         return if parent_term.blank?
 
         parent_term.id

@@ -91,15 +91,6 @@ module GobiertoAdmin
         end
       end
 
-      def find_or_initialize_term(attributes)
-        if (term = find_existing_term(attributes)).present?
-          term.assign_attributes(attributes.slice("name_translations", "description_translations", "slug", "position", "external_id"))
-          return term
-        end
-
-        vocabulary.terms.new(attributes.slice("name_translations", "slug", "position", "external_id"))
-      end
-
       def find_existing_term(attributes)
         if attributes["id"].present?
           vocabulary.terms.find_by(id: attributes["id"])

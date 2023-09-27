@@ -93,7 +93,7 @@ module GobiertoCommon
         end
 
         def vocabulary
-          @vocabulary ||= current_site.vocabularies.find_by(id: params[:vocabulary_id])
+          @vocabulary ||= current_site.vocabularies.find_by(id: params[:vocabulary_id]) || current_site.vocabularies.find_by(slug: params[:vocabulary_id])
         end
 
         def find_item

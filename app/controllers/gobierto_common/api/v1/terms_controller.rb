@@ -33,7 +33,7 @@ module GobiertoCommon
         # POST /api/v1/vocabularies/1/terms
         # POST /api/v1/vocabularies/1/terms.json
         def create
-          @form = GobiertoAdmin::GobiertoCommon::TermForm.new(term_form_params)
+          @form = ::GobiertoAdmin::GobiertoCommon::TermForm.new(term_form_params)
 
           if @form.save
             term = @form.term
@@ -53,7 +53,7 @@ module GobiertoCommon
         # PUT /api/v1/vocabularies/1/terms/1.json
         def update
           find_item
-          @form = GobiertoAdmin::GobiertoCommon::TermForm.new(term_form_params.merge(id: @item.id))
+          @form = ::GobiertoAdmin::GobiertoCommon::TermForm.new(term_form_params.merge(id: @item.id))
 
           if @form.save
             term = @form.term

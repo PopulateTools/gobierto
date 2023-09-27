@@ -33,7 +33,7 @@ module GobiertoCommon
         # POST /api/v1/vocabularies
         # POST /api/v1/vocabularies.json
         def create
-          @form = GobiertoAdmin::GobiertoCommon::VocabularyForm.new(vocabulary_params.merge(site_id: current_site.id))
+          @form = ::GobiertoAdmin::GobiertoCommon::VocabularyForm.new(vocabulary_params.merge(site_id: current_site.id))
 
           if @form.save
             vocabulary = @form.vocabulary
@@ -55,7 +55,7 @@ module GobiertoCommon
         # PUT /api/v1/vocabularies/1.json
         def update
           find_item
-          @form = GobiertoAdmin::GobiertoCommon::VocabularyForm.new(vocabulary_params.merge(site_id: current_site.id, id: @item.id))
+          @form = ::GobiertoAdmin::GobiertoCommon::VocabularyForm.new(vocabulary_params.merge(site_id: current_site.id, id: @item.id))
 
           if @form.save
             vocabulary = @form.vocabulary
@@ -88,7 +88,7 @@ module GobiertoCommon
           if terms_data.blank?
             yield(vocabulary)
           else
-            @terms_form = GobiertoAdmin::GobiertoCommon::TermsForm.new(terms: terms_data, site_id: current_site.id, vocabulary_id: vocabulary.id)
+            @terms_form = ::GobiertoAdmin::GobiertoCommon::TermsForm.new(terms: terms_data, site_id: current_site.id, vocabulary_id: vocabulary.id)
             if @terms_form.save
               yield(vocabulary)
             else

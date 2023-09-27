@@ -83,6 +83,7 @@ module GobiertoCommon
         def term_id
           return term_params[:term_id] if term_params[:term_id].present?
           return base_relation.find_by(external_id: term_params[:parent_external_id])&.id if term_params[:parent_external_id].present?
+          return (base_relation.find_by(id: term_params[:parent_id])&.id || base_relation.find_by(external_id: term_params[:parent_id])&.id) if term_params[:parent_id].present?
         end
 
         def base_relation
@@ -100,7 +101,7 @@ module GobiertoCommon
         end
 
         def term_form_params
-          term_params.except(:parent_external_id).merge(site_id: current_site.id, vocabulary_id: vocabulary.id, term_id:)
+          term_params.except(:parent_external_id, :parent_id).merge(site_id: current_site.id, vocabulary_id: vocabulary.id, term_id:)
         end
 
         def term_params
@@ -108,7 +109,7 @@ module GobiertoCommon
         end
 
         def writable_attributes
-          [:name_translations, :description_translations, :slug, :position, :term_id, :external_id, :parent_external_id]
+          [:name_translations, :description_translations, :slug, :position, :term_id, :external_id, :parent_external_id, :parent_id]
         end
 
         def available_locales_hash

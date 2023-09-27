@@ -434,7 +434,7 @@ Rails.application.routes.draw do
                 get :meta
                 get :admin
               end
-              resources :projects, only: [:index]
+              resources :projects
             end
           end
         end

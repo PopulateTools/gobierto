@@ -38,6 +38,14 @@ module GobiertoCommon
           @vocabularies_count ||= site.vocabularies.count
         end
 
+        def term
+          @term ||= gobierto_common_terms(:dog)
+        end
+
+        def parent_term
+          @parent_term ||= gobierto_common_terms(:bird)
+        end
+
         def attributes_data(vocabulary)
           {
             name_translations: vocabulary.name_translations.presence || { "en" => nil, "es" => nil },
@@ -206,6 +214,28 @@ module GobiertoCommon
                   {
                     "external_id": 2,
                     "slug": "animals-dog-updated"
+                  }
+                ]
+              }
+            }
+          }
+        end
+
+        def update_valid_params_with_ids
+          {
+            data:
+            {
+              attributes:
+              {
+                terms: [
+                  {
+                    "id": term.id,
+                    "name_translations": {
+                      "en": "Dog as bird!",
+                      "es": "Perro como pájaro!"
+                    },
+                    "slug": "animals-dog-updated",
+                    "parent_id": parent_term.id
                   }
                 ]
               }
@@ -456,6 +486,40 @@ module GobiertoCommon
               assert_equal "Mammal updated", mammal.name
               assert_equal "Bird updated", bird.name
               assert_equal "Dog", dog.name
+            end
+          end
+        end
+
+        def test_update_with_admin_token_using_ids
+          with(site:) do
+            assert_no_difference "GobiertoCommon::Vocabulary.count" do
+              put gobierto_common_api_v1_vocabulary_path(vocabulary), headers: { Authorization: admin_token }, as: :json, params: update_valid_params_with_ids
+
+              assert_response :success
+              response_data = response.parsed_body
+
+              # data
+              assert response_data.has_key? "data"
+              resource_data = response_data["data"]
+              assert_equal vocabulary.id.to_s, resource_data["id"]
+              assert_equal "gobierto_common-vocabularies", resource_data["type"]
+
+              # attributes
+              attributes = attributes_data(vocabulary)
+              %w(name_translations slug terms).each do |attribute|
+                assert resource_data["attributes"].has_key? attribute
+                assert_equal attributes[attribute], resource_data["attributes"][attribute]
+              end
+
+              terms = vocabulary.terms
+              term.reload
+
+              assert_equal 6, terms.count
+
+              assert_equal 0, parent_term.level
+              assert_equal 1, term.level
+              assert_equal "Dog as bird!", term.name
+              assert_equal parent_term.id, term.term_id
             end
           end
         end

@@ -102,7 +102,7 @@ module GobiertoCommon
         end
 
         def find_item
-          @item = base_relation.find(params[:id])
+          @item = base_relation.find_by(id: params[:id]) || base_relation.find_by!(slug: params[:id])
         end
 
         def vocabulary_params

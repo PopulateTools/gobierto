@@ -101,7 +101,7 @@ module GobiertoCommon
                     "slug": "animales-caballo",
                     "position": 1,
                     "level": 2,
-                    "parent_external_id": "TETRAPOD-1",
+                    "parent_id": "TETRAPOD-1",
                     "external_id": "MAMMAL-1"
                   },
                   {
@@ -113,7 +113,7 @@ module GobiertoCommon
                     "slug": "animales-mamifero",
                     "position": 2,
                     "level": 1,
-                    "parent_external_id": "VERTEBRATES",
+                    "parent_id": "VERTEBRATES",
                     "external_id": "TETRAPOD-1"
                   },
                   {
@@ -125,7 +125,7 @@ module GobiertoCommon
                     "slug": "animales-reptil",
                     "position": 3,
                     "level": 1,
-                    "parent_external_id": "VERTEBRATES",
+                    "parent_id": "VERTEBRATES",
                     "external_id": "TETRAPOD-2"
                   },
                   {
@@ -137,7 +137,7 @@ module GobiertoCommon
                     "slug": "animales-tortuga",
                     "position": 4,
                     "level": 2,
-                    "parent_external_id": "TETRAPOD-2",
+                    "parent_id": "TETRAPOD-2",
                     "external_id": "REPTILE-1"
                   },
                   {
@@ -149,7 +149,7 @@ module GobiertoCommon
                     "slug": "animales-gato",
                     "position": 4,
                     "level": 2,
-                    "parent_external_id": "TETRAPOD-1",
+                    "parent_id": "TETRAPOD-1",
                     "external_id": "MAMMAL-2"
                   },
                   {
@@ -161,7 +161,7 @@ module GobiertoCommon
                     "slug": "animales-vertebrado",
                     "position": 5,
                     "level": 0,
-                    "parent_external_id": nil,
+                    "parent_id": nil,
                     "external_id": "VERTEBRATES"
                   }
                 ]
@@ -188,7 +188,7 @@ module GobiertoCommon
                   },
                   {
                     "external_id": 1,
-                    "parent_external_id": "ANIMALS",
+                    "parent_id": "ANIMALS",
                     "name_translations": {
                       "en": "Mammal updated",
                       "es": "Mamífero actualizado"
@@ -197,7 +197,7 @@ module GobiertoCommon
                   },
                   {
                     "external_id": 4,
-                    "parent_external_id": "ANIMALS",
+                    "parent_id": "ANIMALS",
                     "name_translations": {
                       "en": "Bird updated",
                       "es": "Pájaro actualizado"

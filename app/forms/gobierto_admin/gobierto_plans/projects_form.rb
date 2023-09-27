@@ -4,7 +4,6 @@ module GobiertoAdmin
   module GobiertoPlans
     class ProjectsForm < BaseForm
       WRITABLE_ATTRIBUTES = [
-        :id,
         :external_id,
         :visibility_level,
         :moderation_stage,
@@ -44,6 +43,10 @@ module GobiertoAdmin
         save_plan_data if valid?
       end
 
+      def project_form(attributes)
+        NodeForm.new(form_attributes(attributes))
+      end
+
       private
 
       def form_attributes(data)
@@ -70,7 +73,7 @@ module GobiertoAdmin
       end
 
       def writable_attributes(data)
-        data.slice(*WRITABLE_ATTRIBUTES)
+        data.slice(:id, *WRITABLE_ATTRIBUTES)
       end
 
       def detect_term_id(id, terms)
@@ -109,7 +112,7 @@ module GobiertoAdmin
 
       def import_nodes
         projects.map do |attrs|
-          form = NodeForm.new(form_attributes(attrs))
+          form = project_form(attrs)
 
           if form.node.persisted?
             form.status_id = form.node.status_id if form.status_id.blank?

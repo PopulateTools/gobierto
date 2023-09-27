@@ -42,6 +42,10 @@ module GobiertoCommon
       vocabulary&.name
     end
 
+    def parent_id
+      parent_external_id.presence || term_id
+    end
+
     def parent_external_id
       parent_term&.external_id
     end

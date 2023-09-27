@@ -51,8 +51,8 @@ module GobiertoAdmin
 
       def top_level_items(data)
         data.select do |attributes|
-          parent_external_id = attributes["parent_external_id"]
-          parent_external_id.blank? || data.none? { |attrs| attrs["external_id"] == parent_external_id }
+          parent_id = attributes["parent_id"]
+          parent_id.blank? || data.none? { |attrs| attrs["external_id"] == parent_id }
         end
       end
 
@@ -69,8 +69,8 @@ module GobiertoAdmin
           term_form_attributes["id"] = term.id
         end
 
-        if (parent_id = get_parent_id(attributes["parent_external_id"])).present?
-          term_form_attributes["term_id"] = parent_id
+        if attributes.has_key?("parent_id")
+          term_form_attributes["term_id"] = get_parent_id(attributes["parent_id"])
         end
 
         term_form = TermForm.new(term_form_attributes)
@@ -80,13 +80,14 @@ module GobiertoAdmin
           return false
         end
 
-        external_id = attributes["external_id"]
         if (external_id = attributes["external_id"]).present?
-          data.select { |attrs| attrs["parent_external_id"] == external_id }.each do |attrs|
+          data.select { |attrs| attrs["parent_id"] == external_id }.each do |attrs|
             next if attrs["id"].blank? && vocabulary.terms.where(attrs.slice(*TERM_FORM_EXTERNAL_ATTRIBUTES)).exists?
 
             return false unless create_or_update_term(attrs, data)
           end
+        else
+          term_form.term
         end
       end
 
@@ -107,10 +108,10 @@ module GobiertoAdmin
         end
       end
 
-      def get_parent_id(parent_external_id)
-        return if parent_external_id.blank?
+      def get_parent_id(id)
+        return if id.blank?
 
-        parent_term = vocabulary.terms.find_by(external_id: parent_external_id)
+        parent_term = vocabulary.terms.find_by(external_id: id) || vocabulary.terms.find_by(id:)
         return if parent_term.blank?
 
         parent_term.id

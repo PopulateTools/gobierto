@@ -67,6 +67,9 @@ module GobiertoAdmin
 
         if (term = find_existing_term(attributes)).present?
           term_form_attributes["id"] = term.id
+          %w(name_translations description_translations).each do |attr|
+            term_form_attributes[attr] = term.name_translations.merge(term_form_attributes[attr]) if term_form_attributes[attr].present?
+          end
         end
 
         if attributes.has_key?("parent_id")
@@ -89,15 +92,6 @@ module GobiertoAdmin
         else
           term_form.term
         end
-      end
-
-      def find_or_initialize_term(attributes)
-        if (term = find_existing_term(attributes)).present?
-          term.assign_attributes(attributes.slice("name_translations", "description_translations", "slug", "position", "external_id"))
-          return term
-        end
-
-        vocabulary.terms.new(attributes.slice("name_translations", "slug", "position", "external_id"))
       end
 
       def find_existing_term(attributes)

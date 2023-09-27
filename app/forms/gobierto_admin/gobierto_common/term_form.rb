@@ -26,7 +26,7 @@ module GobiertoAdmin
       validate :external_id_uniqueness_by_vocabulary
 
       def initialize(attributes = {})
-        @reset_term_id = attributes.has_key?("term_id")
+        @reset_term_id = attributes.with_indifferent_access.has_key?(:term_id)
 
         super
       end

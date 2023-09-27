@@ -36,11 +36,13 @@ module GobiertoAdmin
       end
 
       def build_term
+        return if vocabulary.blank?
+
         vocabulary.terms.new(position: next_position)
       end
 
       def name_translations
-        @name_translations ||= term.name_translations
+        @name_translations ||= term&.name_translations
       end
 
       def save

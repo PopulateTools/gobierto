@@ -11,6 +11,7 @@ module GobiertoCommon
       :level,
       :term_id,
       :parent_external_id,
+      :parent_id,
       :external_id
     )
   end

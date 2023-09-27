@@ -49,7 +49,7 @@ module GobiertoCommon
         if versions_indexes.has_key?(item_id)
           versioned_payloads(records, versions_indexes[item_id])
         else
-          records.pluck(:payload)
+          records.pluck(:payload).compact
         end.inject(:merge)
       end.compact
     end
@@ -83,7 +83,7 @@ module GobiertoCommon
     def versioned_payloads(records, version_index)
       records.map do |record|
         version = record.versions[version_index]
-        return {} unless version.present? && version.object?
+        next {} unless version.present? && version.object?
 
         JSON.parse(version.object_deserialized&.dig("payload") || "{}")
       end

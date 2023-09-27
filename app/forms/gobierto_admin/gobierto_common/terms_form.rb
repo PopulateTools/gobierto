@@ -80,13 +80,14 @@ module GobiertoAdmin
           return false
         end
 
-        external_id = attributes["external_id"]
         if (external_id = attributes["external_id"]).present?
           data.select { |attrs| attrs["parent_external_id"] == external_id }.each do |attrs|
             next if attrs["id"].blank? && vocabulary.terms.where(attrs.slice(*TERM_FORM_EXTERNAL_ATTRIBUTES)).exists?
 
             return false unless create_or_update_term(attrs, data)
           end
+        else
+          term_form.term
         end
       end
 

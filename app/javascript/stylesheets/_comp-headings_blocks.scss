@@ -456,10 +456,14 @@ a.content_block {
 
 .separator {
   border-top: 1px solid $text_soft;
-  margin: 2em 0;
+  margin: 1em 0;
   width: 100%;
   height: 1px;
   opacity: 0.5;
+
+  @include min-screen(768) {
+    margin: 2em 0;
+  }
 }
 
 .separator_v {
@@ -616,6 +620,14 @@ a.content_block {
   padding: 0.3em 0;
   text-align: center;
   background: rgba(var(--color-base-string), 0.06);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+
+  @include min-screen(768) {
+    display: block;
+  }
 
   @include border-radius(4px);
 

@@ -55,9 +55,13 @@ body.gobierto_people {
 
   .person-item,
   .item {
-    padding: 2em 0;
+    padding: 1em 0;
     border-top: 1px solid $color_separator;
     box-sizing: border-box;
+
+    @include min-screen(768) {
+      padding: 2em 0;
+    }
 
     .meta {
       font-size: 0.85em;
@@ -74,9 +78,13 @@ body.gobierto_people {
     }
 
     .person-name {
-      padding: 0 0 0 1.5em;
+      padding: 1.5em 0;
       box-sizing: border-box;
       line-height: 1;
+
+      @include min-screen(768) {
+        padding: 0 0 0 1.5em;
+      }
 
       h3 {
         margin: 0;
@@ -201,8 +209,12 @@ body.gobierto_people.welcome.index {
 }
 
 .main_people_content {
-  padding: 0 0 0 5em;
+  padding: 0;
   box-sizing: border-box;
+
+  @include min-screen(768) {
+    padding: 0 0 0 5em;
+  }
 
   .person_header {
     margin: 0 0 2em 0;
@@ -252,6 +264,12 @@ body.gobierto_people.welcome.index {
   }
 
   .latest-activity {
+    @include screen(768) {
+      ul {
+        padding: 0 0 0 1em;
+      }
+    }
+
     li {
       margin-bottom: 0.5em;
 
@@ -284,14 +302,20 @@ body.gobierto_people.welcome.index {
       font-size: 1.15em;
 
       a {
-        padding: 0.5em 1.5em;
+        padding: 0.5em 0;
         font-weight: bold;
         display: block;
       }
 
-      a.active,
-      a:hover {
-        background: rgba(var(--color-base-string), 0.06);
+      @include min-screen(768) {
+        a {
+          padding: 0.5em 1.5em;
+        }
+
+        a.active,
+        a:hover {
+          background: rgba(var(--color-base-string), 0.06);
+        }
       }
     }
   }
@@ -307,12 +331,18 @@ body.gobierto_people.welcome.index {
 
   li {
     a {
-      padding: 0.5em 1.5em;
+      padding: 0.5em 0;
       display: block;
     }
 
-    a:hover {
-      background: rgba(var(--color-base-string), 0.06);
+    @include min-screen(768) {
+      a {
+        padding: 0.5em 1.5em;
+      }
+
+      a:hover {
+        background: rgba(var(--color-base-string), 0.06);
+      }
     }
   }
 }
@@ -346,8 +376,12 @@ body.gobierto_people.welcome.index {
   box-sizing: border-box;
   position: relative;
   color: var(--color-base);
-
+  margin: 0;
   transition: all 0.15s ease-out 0s;
+
+  @include min-screen(768) {
+    margin: 2em 0;
+  }
 
   .hidden_options {
     display: none;
@@ -395,9 +429,7 @@ body.gobierto_people.welcome.index {
 
   .today {
     background: var(--color-base);
-    a {
-      color: #fff;
-    }
+    color: #fff;
   }
 
   th {

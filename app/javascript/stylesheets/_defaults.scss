@@ -280,17 +280,26 @@ html.turbolinks-progress-bar::before {
 }
 
 .download_open_data {
-  margin: 4em 0;
-  padding: 3em 0;
+  margin: 2em 0;
+  padding: 1em 0;
   border-top: 1px solid $color_separator;
   font-size: 0.75em;
 
+  @include min-screen(768) {
+    margin: 4em 0;
+    padding: 3em 0;
+  }
+
   a {
     color: $color_meta_text;
-    width: 135px;
+    width: auto;
     display: inline-block;
     vertical-align: top;
     line-height: 1.4em;
+
+    @include min-screen(768) {
+      width: 135px;
+    }
   }
 
   a:hover {

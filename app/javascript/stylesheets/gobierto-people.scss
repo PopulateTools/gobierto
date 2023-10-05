@@ -468,3 +468,22 @@ body.gobierto_people.welcome.index {
     margin-bottom: 0;
   }
 }
+
+// full-calendar overrides for mobile
+@include screen(768) {
+  .fc-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .fc-left {
+    display: flex;
+  }
+
+  .fc-button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

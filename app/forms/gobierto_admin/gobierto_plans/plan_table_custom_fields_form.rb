@@ -6,7 +6,7 @@ module GobiertoAdmin
       REQUIRED_COLUMNS = %w(external_id custom_field).freeze
       TRANSFORMATIONS = {
         text: ->(data) { data.to_s },
-        integer: ->(data) { data. to_i },
+        integer: ->(data) { data.to_i },
         float: ->(data) { ::GobiertoCommon::CustomFieldValue::Numeric.parse_float(data) },
         date: ->(data) { Date.parse(data) }
       }.with_indifferent_access.freeze

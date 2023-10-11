@@ -4,6 +4,7 @@ module GobiertoAdmin
   module GobiertoPlans
     class PlanDataForm < BaseForm
       include ::GobiertoAdmin::PermissionsGroupHelpers
+      include ::GobiertoPlans::VersionsHelpers
 
       class CSVRowInvalid < ArgumentError; end
       class StatusMissing < ArgumentError; end
@@ -117,13 +118,6 @@ module GobiertoAdmin
           set_publication(node)
           set_permissions_group(node, action_name: :edit)
         end
-      end
-
-      def set_publication(node)
-        return unless @plan.publish_last_version_automatically?
-
-        node.published_version = node.versions.count
-        node.published!
       end
 
       def save_custom_fields(row_decorator)

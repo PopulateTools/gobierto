@@ -99,7 +99,7 @@ module GobiertoAdmin
       end
 
       def custom_fields
-        @custom_fields ||= plan.available_custom_fields
+        @custom_fields ||= plan.available_custom_fields.where(instance: plan)
       end
 
       def detect_term_id(id, terms)

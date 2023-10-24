@@ -16,7 +16,9 @@ module GobiertoPlans
 
     belongs_to :plan_type, unless: :exclude_relationships?
     attribute :categories_vocabulary_terms, unless: :exclude_relationships? do
-      serialize_terms(object.categories_vocabulary.terms.sorted)
+      if object.categories_vocabulary.present?
+        serialize_terms(object.categories_vocabulary.terms.sorted)
+      end
     end
     attribute :statuses_vocabulary_terms, unless: :exclude_relationships? do
       if object.statuses_vocabulary.present?

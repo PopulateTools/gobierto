@@ -4,7 +4,6 @@ module GobiertoPlans
   module Api
     module V1
       class PlansController < BaseController
-
         include ::GobiertoCommon::CustomFieldsApi
         include ::GobiertoCommon::SecuredWithAdminToken
 
@@ -62,8 +61,57 @@ module GobiertoPlans
           )
         end
 
-        # PUT /api/v1/plans/1/admin
-        # PUT /api/v1/plans/1/admin.json
+        # GET /api/v1/plans/plan-type-slug/new
+        # GET /api/v1/plans/plan-type-slug/new.json
+        def new
+          find_plan_type
+          @resource = current_site.plans.new(plan_type: @plan_type)
+
+          render(
+            json: @resource,
+            serializer: GobiertoPlans::ApiPlanSerializer,
+            adapter: :json_api,
+            with_translations: false,
+            exclude_links: false,
+            exclude_relationships: false,
+            vocabularies_adapter: :json_api
+          )
+        end
+
+        # POST /api/v1/plans/plan-type-slug
+        # POST /api/v1/plans/plan-type-slug.json
+        def create
+          find_plan_type
+          form_params = plan_params.merge(site_id: current_site.id, plan_type_id: @plan_type.id)
+
+          @form = GobiertoAdmin::GobiertoPlans::PlanForm.new(form_params)
+          if @form.save
+            @resource = @form.plan
+            %w(categories statuses).each do |key|
+              create_or_update_vocabulary_and_terms(@resource, key) do |vocabulary|
+                @resource.update_attribute(GobiertoPlans::Plan.reflect_on_association("#{key}_vocabulary").foreign_key, vocabulary.id)
+              end
+            end
+
+            create_or_update_projects(@resource, projects_params) do
+              render(
+                json: @resource,
+                serializer: GobiertoPlans::ApiPlanSerializer,
+                status: :created,
+                adapter: :json_api,
+                with_translations: false,
+                exclude_links: false,
+                exclude_relationships: false,
+                vocabularies_adapter: :json_api
+              )
+            end
+          else
+            api_errors_render(@form, adapter: :json_api)
+          end
+        end
+
+        # PUT /api/v1/plans/1
+        # PUT /api/v1/plans/1.json
         def update
           find_resource
 
@@ -128,6 +176,10 @@ module GobiertoPlans
           end
         end
 
+        def vocabulary_params(key)
+          @vocabularies_params ||= ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: "#{key}_vocabulary_terms")
+        end
+
         def projects_params
           ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:projects])[:projects]
         end
@@ -138,6 +190,10 @@ module GobiertoPlans
 
         def find_resource
           @resource = plans_base_relation.find(params[:id])
+        end
+
+        def find_plan_type
+          @plan_type ||= current_site.plan_types.find_by!(slug: params[:plan_type_slug])
         end
 
         def custom_fields
@@ -157,6 +213,37 @@ module GobiertoPlans
             end
 
             hash[:self] = hash.delete(self_key) if self_key.present?
+          end
+        end
+
+        def create_or_update_vocabulary_and_terms(plan, vocabulary_key)
+          @vocabulary_form = ::GobiertoAdmin::GobiertoCommon::VocabularyForm.new(new_vocabulary_params(plan, vocabulary_key))
+
+          if @vocabulary_form.save
+            vocabulary = @vocabulary_form.vocabulary
+            terms_data = ActiveModelSerializers::Deserialization.jsonapi_parse(params)["#{vocabulary_key}_vocabulary_terms".to_sym]
+            @terms_form = ::GobiertoAdmin::GobiertoCommon::TermsForm.new(terms: terms_data, site_id: current_site.id, vocabulary_id: vocabulary.id)
+            if terms_data.blank? || @terms_form.save
+              yield(vocabulary)
+            else
+              api_errors_render(@terms_form, adapter: :json_api)
+            end
+          else
+            api_errors_render(@vocabulary_form, adapter: :json_api)
+          end
+        end
+
+        def new_vocabulary_params(plan, vocabulary_key)
+          slug = "#{vocabulary_key}-#{plan.slug}".dasherize
+
+          if (vocabulary = plan.site.vocabularies.find_by(slug:)).present?
+            { id: vocabulary.id }
+          else
+            {
+              slug:,
+              name_translations: plan.title_translations.transform_values { |v| "#{vocabulary_key.titleize} - #{v}" },
+              site_id: plan.site_id
+            }
           end
         end
       end

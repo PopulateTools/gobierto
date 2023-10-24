@@ -230,6 +230,9 @@ window.GobiertoBudgets.InvoicesController = (function() {
         d.paid = d.paid == "true";
         d.value = Number(d.value);
         d.freelance = d.freelance == "true";
+        // optionals
+        d.payment_date = !!d.payment_date && intl.format(new Date(d.payment_date))
+        d.payment_date_limit = !!d.payment_date_limit && intl.format(new Date(d.payment_date_limit))
       }
 
       // See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
@@ -247,7 +250,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
       _renderByAmountsChart();
 
       // TABLE FILTER - FULL PROVIDERS
-      _renderTableFilter();
+      _renderTableFilter(data);
     });
   }
 
@@ -577,8 +580,12 @@ window.GobiertoBudgets.InvoicesController = (function() {
     new AmountDistributionBars(renderOptions);
   }
 
-  function _renderTableFilter() {
+  function _renderTableFilter(data) {
     var resetFilters = false;
+
+    // Optional fields: if any value exist, returns false
+    const payment_date = data.some(x => !!x.payment_date)
+    const payment_date_limit = data.some(x => !!x.payment_date_limit)
 
     $tableHTML.jsGrid({
       width: "100%",
@@ -698,7 +705,32 @@ window.GobiertoBudgets.InvoicesController = (function() {
           title: I18n.t("gobierto_budgets.invoices.show.table.fields.subject"),
           type: "text",
           autosearch: true
-        }
+        },
+        // optional
+        ...[payment_date && {
+          name: "payment_date",
+          title: I18n.t("gobierto_budgets.invoices.show.table.fields.payment_date"),
+          type: "date",
+          autosearch: true,
+          align: "center",
+          width: 30,
+          itemTemplate: function(value) {
+            console.log(value, new Date(value).toLocaleDateString(I18n.locale));
+            return new Date(value).toLocaleDateString(I18n.locale);
+          }
+        }],
+        // optional
+        ...[payment_date_limit && {
+          name: "payment_date_limit",
+          title: I18n.t("gobierto_budgets.invoices.show.table.fields.payment_date_limit"),
+          type: "date",
+          autosearch: true,
+          align: "center",
+          width: 30,
+          itemTemplate: function(value) {
+            return new Date(value).toLocaleDateString(I18n.locale);
+          }
+        }]
       ]
     });
 

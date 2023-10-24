@@ -486,6 +486,8 @@ en:
           fields:
             date: Date
             paid: Payed
+            payment_date: Payment date
+            payment_date_limit: Payment date limit
             provider_id: NIF (SSN)
             provider_name: Supplier
             subject: Reason

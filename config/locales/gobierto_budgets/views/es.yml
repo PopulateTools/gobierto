@@ -502,6 +502,8 @@ es:
           fields:
             date: Fecha
             paid: Pagado
+            payment_date: Fecha de pago
+            payment_date_limit: Fecha prevista de pago
             provider_id: NIF
             provider_name: Proveedor
             subject: Concepto

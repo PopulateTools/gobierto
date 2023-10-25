@@ -508,6 +508,8 @@ ca:
           fields:
             date: Data
             paid: Pagat
+            payment_date: Data de pagament
+            payment_date_limit: Data prevista de pagament
             provider_id: NIF
             provider_name: Proveïdor
             subject: Concepte

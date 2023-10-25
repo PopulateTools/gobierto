@@ -41,7 +41,7 @@ citizens_services_categories:
 new_plan_categories_vocabulary:
   site: madrid
   name_translations: <%= { es: "Nuevo Plan Estratégico", en: "New Strategic Plan" }.to_json %>
-  slug: strategic-plan
+  slug: new-strategic-plan
 
 indicators_vocabulary:
   site: madrid

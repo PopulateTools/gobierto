@@ -38,6 +38,14 @@ module GobiertoPlans
           @draft_plan ||= gobierto_plans_plans(:economic_plan)
         end
 
+        def new_plan_categories_vocabulary
+          @new_plan_categories_vocabulary ||= gobierto_common_vocabularies(:new_plan_categories_vocabulary)
+        end
+
+        def new_plan_statuses_vocabulary
+          @new_plan_statuses_vocabulary ||= gobierto_common_vocabularies(:plan_projects_statuses_vocabulary)
+        end
+
         def other_plan_project
           @other_plan_project ||= gobierto_plans_nodes(:political_agendas)
         end
@@ -71,6 +79,170 @@ module GobiertoPlans
               {
                 "title_translations": nil,
                 "slug": nil
+              }
+            }
+          }
+        end
+
+        def valid_params_with_existing_vocabularies
+          {
+            data: {
+              type: "gobierto_plans-plans",
+              attributes: {
+                "slug": "new-plan-from-api",
+                "title_translations": {
+                  "en": "New plan from API",
+                  "es": "Nuevo plan desde la API"
+                },
+                "introduction_translations": {
+                  "en": "New plan from API (description)",
+                  "es": "Nuevo plan desde la API (descripción)"
+                },
+                "categories_vocabulary": new_plan_categories_vocabulary.slug,
+                "statuses_vocabulary": new_plan_statuses_vocabulary.id,
+                "configuration_data": {
+                  "level0": {
+                    "one": {
+                      "en": "axe",
+                      "es": "eje"
+                    },
+                    "other": {
+                      "en": "axes",
+                      "es": "ejes"
+                    }
+                  },
+                  "level1": {
+                    "one": {
+                      "en": "actuation line",
+                      "es": "línea de actuación"
+                    },
+                    "other": {
+                      "en": "actuation lines",
+                      "es": "líneas de actuación"
+                    }
+                  },
+                  "level0_options": [],
+                  "show_table_header": false,
+                  "open_node": false
+                },
+                "year": 2025,
+                "visibility_level": "published",
+                "css": ".gobierto_planification section.level_0 .cat_1 {
+                          background-color: rgba(0, 191, 255, 0.95);
+                        }",
+                "footer_translations": { "en": "Footer", "es": "Pie" }
+              }
+            }
+          }
+        end
+
+        def valid_params_with_existing_vocabularies_and_new_items
+          {
+            data: {
+              type: "gobierto_plans-plans",
+              attributes: {
+                "slug": "new-plan-from-api",
+                "title_translations": {
+                  "en": "New plan from API",
+                  "es": "Nuevo plan desde la API"
+                },
+                "introduction_translations": {
+                  "en": "New plan from API (description)",
+                  "es": "Nuevo plan desde la API (descripción)"
+                },
+                "categories_vocabulary": new_plan_categories_vocabulary.slug,
+                "statuses_vocabulary": new_plan_statuses_vocabulary.id,
+                "configuration_data": {
+                  "level0": {
+                    "one": {
+                      "en": "axe",
+                      "es": "eje"
+                    },
+                    "other": {
+                      "en": "axes",
+                      "es": "ejes"
+                    }
+                  },
+                  "level1": {
+                    "one": {
+                      "en": "actuation line",
+                      "es": "línea de actuación"
+                    },
+                    "other": {
+                      "en": "actuation lines",
+                      "es": "líneas de actuación"
+                    }
+                  },
+                  "level0_options": [],
+                  "show_table_header": false,
+                  "open_node": false
+                },
+                "year": 2025,
+                "visibility_level": "published",
+                "css": ".gobierto_planification section.level_0 .cat_1 {
+                          background-color: rgba(0, 191, 255, 0.95);
+                        }",
+                "footer_translations": { "en": "Footer", "es": "Pie" },
+                "categories_vocabulary_terms": [
+                  {
+                    "name_translations": {
+                      "en": "New term 1",
+                      "es": "Nuevo termino 1"
+                    },
+                    "description_translations": {
+                      "en": "New term 1 desc",
+                      "es": "Nuevo termino 1 desc"
+                    },
+                    "slug": "term-slug",
+                    "position": 0,
+                    "level": 0,
+                    "parent_id": "3",
+                    "external_id": "EXT"
+                  }
+                ],
+                "statuses_vocabulary_terms": [
+                  {
+                    "name_translations": {
+                      "en": "Status A",
+                      "es": "Status A"
+                    },
+                    "description_translations": {
+                      "en": "This is the A status",
+                      "es": "This is the A status"
+                    },
+                    "slug": "status-a-slug",
+                    "position": 0,
+                    "level": 0,
+                    "parent_id": nil,
+                    "external_id": "ST000A"
+                  },
+                ],
+                "projects": [
+                  {
+                    "external_id": "PRJ-1",
+                    "visibility_level": "published",
+                    "moderation_stage": "approved",
+                    "name_translations": {
+                      "en": "The very first project",
+                      "es": "El primerísimo proyecto"
+                    },
+                    "category_external_id": "EXT",
+                    "status_external_id": "ST000A",
+                    "progress": 100.0
+                  },
+                  {
+                    "external_id": "PRJ-2",
+                    "visibility_level": "published",
+                    "moderation_stage": "approved",
+                    "name_translations": {
+                      "en": "Other project with previously existing terms for category and status",
+                      "es": "Otro proyecto con términos existentes previamente para categoría y estado"
+                    },
+                    "category_external_id": "2",
+                    "status_external_id": "3",
+                    "progress": 99.0
+                  }
+                ]
               }
             }
           }
@@ -605,6 +777,96 @@ module GobiertoPlans
             end
           end
         end
+
+        def test_create_with_admin_token_with_existing_vocabularies
+          with(site:) do
+            assert_difference(
+              "GobiertoPlans::Plan.count" => 1,
+              "GobiertoPlans::Node.count" => 0,
+              "GobiertoCommon::Vocabulary.count" => 0,
+              "GobiertoCommon::Term.count" => 0
+            ) do
+              post gobierto_plans_api_v1_plan_type_plans_path(plan_type.slug), headers: { Authorization: admin_token }, as: :json, params: valid_params_with_existing_vocabularies
+
+              assert_response :created
+              response_data = response.parsed_body
+
+              new_plan = GobiertoPlans::Plan.last
+              categories_vocabulary = new_plan.categories_vocabulary
+              statuses_vocabulary = new_plan.statuses_vocabulary
+
+              attributes = admin_attributes_data(new_plan)
+              resource_data = response_data["data"]
+
+              attributes.each do |attribute, value|
+                assert resource_data["attributes"].has_key? attribute
+                assert_equal value, resource_data["attributes"][attribute]
+              end
+
+              # vocabularies
+              assert resource_data["attributes"].has_key? "categories_vocabulary_terms"
+              # assert resource_data["attributes"]["categories_vocabulary_terms"].blank?
+
+              assert resource_data["attributes"].has_key? "statuses_vocabulary_terms"
+              # assert resource_data["attributes"]["statuses_vocabulary_terms"].blank?
+
+              #projects
+              assert resource_data["attributes"].has_key? "projects"
+              assert resource_data["attributes"]["projects"].blank?
+            end
+          end
+        end
+
+        def test_create_with_admin_token_with_existing_vocabularies_and_new_items
+          with(site:) do
+            assert_difference(
+              "GobiertoPlans::Plan.count" => 1,
+              "GobiertoPlans::Node.count" => 2,
+              "GobiertoCommon::Vocabulary.count" => 0,
+              "GobiertoCommon::Term.count" => 2
+            ) do
+              post gobierto_plans_api_v1_plan_type_plans_path(plan_type.slug), headers: { Authorization: admin_token }, as: :json, params: valid_params_with_existing_vocabularies_and_new_items
+
+              assert_response :created
+              response_data = response.parsed_body
+
+              new_plan = GobiertoPlans::Plan.last
+              categories_vocabulary = new_plan.categories_vocabulary
+              statuses_vocabulary = new_plan.statuses_vocabulary
+
+              attributes = admin_attributes_data(new_plan)
+              resource_data = response_data["data"]
+
+              attributes.each do |attribute, value|
+                assert resource_data["attributes"].has_key? attribute
+                assert_equal value, resource_data["attributes"][attribute]
+              end
+
+              # vocabularies
+              assert resource_data["attributes"].has_key? "categories_vocabulary_terms"
+              # assert resource_data["attributes"]["categories_vocabulary_terms"].blank?
+
+              assert resource_data["attributes"].has_key? "statuses_vocabulary_terms"
+              # assert resource_data["attributes"]["statuses_vocabulary_terms"].blank?
+
+              #projects
+              assert resource_data["attributes"].has_key? "projects"
+              assert_equal new_plan.nodes.count, resource_data["attributes"]["projects"].count
+
+              valid_params_with_existing_vocabularies_and_new_items[:data][:attributes][:projects].each do |project_data|
+                project = new_plan.nodes.find_by_external_id(project_data[:external_id])
+
+                assert_equal project_data[:name_translations], project.name_translations.symbolize_keys
+                assert_equal project_data[:category_external_id], project.categories.first.external_id
+                assert_equal project_data[:status_external_id], project.status.external_id
+                assert_equal project_data[:progress], project.progress
+                assert_equal project_data[:moderation_stage], project.moderation_stage
+                assert_equal project_data[:visibility_level], project.visibility_level
+              end
+            end
+          end
+        end
+
 
         # PUT /api/v1/plans/1
         # PUT /api/v1/plans/1.json

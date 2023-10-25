@@ -436,6 +436,9 @@ Rails.application.routes.draw do
               end
               resources :projects
             end
+            resources :plan_types, only: [], defaults: { format: "json" }, path: "/plans", param: :slug do
+              resources :plans, only: [:new, :create], defaults: { format: "json" }, path: "/", controller: "plans"
+            end
           end
         end
       end

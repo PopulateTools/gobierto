@@ -124,7 +124,8 @@ module GobiertoPlans
           end
         end
 
-        # GET /api/v1/plans/1/project.json
+        # GET /api/v1/plans/1/projects
+        # GET /api/v1/plans/1/projects.json
         def test_index
           with(site:) do
             get gobierto_plans_api_v1_plan_projects_path(plan), as: :json
@@ -141,6 +142,7 @@ module GobiertoPlans
           end
         end
 
+        # GET /api/v1/plans/1/projects/1
         # GET /api/v1/plans/1/projects/1.json
         def test_show
           with(site:) do
@@ -165,7 +167,8 @@ module GobiertoPlans
           end
         end
 
-        # GET /api/v1/vocabularies/1/terms/new.json
+        # GET /api/v1/plans/1/projects/new
+        # GET /api/v1/plans/1/projects/new.json
         def test_new_without_token
           check_unauthorized { get new_gobierto_plans_api_v1_plan_project_path(plan), as: :json }
         end
@@ -193,6 +196,123 @@ module GobiertoPlans
             attributes.each do |attribute, value|
               assert resource_data["attributes"].has_key? attribute.to_s
               assert_equal value, resource_data["attributes"][attribute.to_s]
+            end
+          end
+        end
+
+        # POST /api/v1/plans/1/projects
+        # POST /api/v1/plans/1/projects.json
+        def test_create_without_token
+          assert_no_difference "GobiertoPlans::Node.count" do
+            check_unauthorized { post gobierto_plans_api_v1_plan_projects_path(plan), as: :json, params: valid_params }
+          end
+        end
+
+        def test_create_with_user_token
+          assert_no_difference "GobiertoPlans::Node.count" do
+            check_unauthorized { post gobierto_plans_api_v1_plan_projects_path(plan), headers: { Authorization: user_token }, as: :json, params: valid_params }
+          end
+        end
+
+        def test_create_with_admin_token
+          with(site:) do
+            assert_difference "GobiertoPlans::Node.count", 1 do
+              post gobierto_plans_api_v1_plan_projects_path(plan), headers: { Authorization: admin_token }, as: :json, params: valid_params
+
+              assert_response :created
+              response_data = response.parsed_body
+
+              new_project = GobiertoPlans::Node.last
+              assert_equal plan, new_project.plan
+
+              # data
+              assert response_data.has_key? "data"
+              resource_data = response_data["data"]
+              assert_equal new_project.id.to_s, resource_data["id"]
+              assert_equal "gobierto_plans-nodes", resource_data["type"]
+
+              # attributes
+              attributes = attributes_data(new_project)
+              attributes.each do |attribute, value|
+                assert resource_data["attributes"].has_key? attribute.to_s
+                assert_equal value, resource_data["attributes"][attribute.to_s]
+              end
+            end
+          end
+        end
+
+        def test_create_with_admin_token_and_invalid_params
+          with(site:) do
+            assert_no_difference "GobiertoPlans::Node.count" do
+              post gobierto_plans_api_v1_plan_projects_path(plan), headers: { Authorization: admin_token }, as: :json, params: invalid_params
+
+              assert_response :unprocessable_entity
+
+              response_data = response.parsed_body
+              assert response_data.has_key? "errors"
+            end
+          end
+        end
+
+        # PUT /api/v1/plans/1/projects/1
+        # PUT /api/v1/plans/1/projects/1.json
+        def test_update_without_token
+          check_unauthorized { put gobierto_plans_api_v1_plan_project_path(plan, published_project), as: :json, params: update_valid_params }
+        end
+
+        def test_update_with_user_token
+          check_unauthorized { put gobierto_plans_api_v1_plan_project_path(plan, published_project), headers: { Authorization: user_token }, as: :json, params: update_valid_params }
+        end
+
+        def test_update_with_admin_token
+          with(site:) do
+            assert_no_difference "GobiertoPlans::Node.count" do
+              put gobierto_plans_api_v1_plan_project_path(plan, published_project), headers: { Authorization: admin_token }, as: :json, params: update_valid_params
+
+              assert_response :success
+              response_data = response.parsed_body
+
+              # data
+              assert response_data.has_key? "data"
+              resource_data = response_data["data"]
+              published_project.reload
+              assert_equal published_project.id.to_s, resource_data["id"]
+              assert_equal "gobierto_plans-nodes", resource_data["type"]
+              assert_equal plan, published_project.plan
+
+              # attributes
+              attributes = attributes_data(published_project)
+              attributes.each do |attribute, value|
+                assert resource_data["attributes"].has_key? attribute.to_s
+                assert_equal value, resource_data["attributes"][attribute.to_s]
+              end
+            end
+          end
+        end
+
+        # DELETE /api/v1/plans/1/projects/1
+        # DELETE /api/v1/plans/1/projects/1.json
+        def test_delete_without_token
+          assert_no_difference "GobiertoPlans::Node.count" do
+            check_unauthorized { delete gobierto_plans_api_v1_plan_project_path(plan, published_project), as: :json }
+          end
+        end
+
+        def test_delete_with_user_token
+          assert_no_difference "GobiertoPlans::Node.count" do
+            check_unauthorized { delete gobierto_plans_api_v1_plan_project_path(plan, published_project), headers: { Authorization: user_token }, as: :json }
+          end
+        end
+
+        def test_delete_with_admin_token
+          id = published_project.id
+          assert_difference "GobiertoPlans::Node.count", -1 do
+            with(site:) do
+              delete gobierto_plans_api_v1_plan_project_path(plan, published_project), headers: { Authorization: admin_token }, as: :json
+
+              assert_response :no_content
+
+              assert_nil ::GobiertoPlans::Node.find_by(id: id)
             end
           end
         end

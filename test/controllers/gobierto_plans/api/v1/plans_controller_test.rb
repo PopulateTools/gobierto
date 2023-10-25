@@ -74,7 +74,6 @@ module GobiertoPlans
           {
             data:
             {
-              type: "gobierto_plans-plans",
               attributes:
               {
                 "title_translations": nil,
@@ -87,7 +86,6 @@ module GobiertoPlans
         def valid_params_with_existing_vocabularies
           {
             data: {
-              type: "gobierto_plans-plans",
               attributes: {
                 "slug": "new-plan-from-api",
                 "title_translations": {
@@ -139,7 +137,6 @@ module GobiertoPlans
         def valid_params_with_existing_vocabularies_and_new_items
           {
             data: {
-              type: "gobierto_plans-plans",
               attributes: {
                 "slug": "new-plan-from-api",
                 "title_translations": {
@@ -251,7 +248,6 @@ module GobiertoPlans
         def valid_params_without_vocabularies_and_projects
           {
             data: {
-              type: "gobierto_plans-plans",
               attributes: {
                 "slug": "new-plan-from-api",
                 "title_translations": {
@@ -301,13 +297,12 @@ module GobiertoPlans
         def valid_params
           {
             data: {
-              type: "gobierto_plans-plans",
               attributes: {
                 "slug": "new-plan-from-api",
                 "title_translations": {
                   "en": "New plan from API",
                   "es": "Nuevo plan desde la API"
-                },
+               },
                 "introduction_translations": {
                   "en": "New plan from API (description)",
                   "es": "Nuevo plan desde la API (descripción)"

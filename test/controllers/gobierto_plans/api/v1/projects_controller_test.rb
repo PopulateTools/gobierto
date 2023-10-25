@@ -60,7 +60,6 @@ module GobiertoPlans
           {
             data:
             {
-              type: "gobierto_plans-nodes",
               attributes:
               {
                 "name_translations": nil
@@ -73,7 +72,6 @@ module GobiertoPlans
           {
             data:
             {
-              type: "gobierto_plans-nodes",
               attributes:
               {
                 "external_id": "from_api",
@@ -97,7 +95,6 @@ module GobiertoPlans
           {
             data:
             {
-              type: "gobierto_plans-nodes",
               attributes:
               {
                 "visibility_level": "published",

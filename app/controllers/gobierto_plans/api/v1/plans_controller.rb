@@ -84,29 +84,33 @@ module GobiertoPlans
           find_plan_type
           form_params = plan_params.merge(site_id: current_site.id, plan_type_id: @plan_type.id)
 
-          @form = GobiertoAdmin::GobiertoPlans::PlanForm.new(form_params)
-          if @form.save
-            @resource = @form.plan
-            %w(categories statuses).each do |key|
-              create_or_update_vocabulary_and_terms(@resource, key) do |vocabulary|
-                @resource.update_attribute(GobiertoPlans::Plan.reflect_on_association("#{key}_vocabulary").foreign_key, vocabulary.id)
-              end
-            end
+          ActiveRecord::Base.transaction do
+            @form = GobiertoAdmin::GobiertoPlans::PlanForm.new(form_params)
+            if @form.save
+              @resource = @form.plan
+              %w(categories statuses).each do |key|
+                create_or_update_vocabulary_and_terms(@resource, key) do |vocabulary|
+                  return unless vocabulary
 
-            create_or_update_projects(@resource, projects_params) do
-              render(
-                json: @resource,
-                serializer: GobiertoPlans::ApiPlanSerializer,
-                status: :created,
-                adapter: :json_api,
-                with_translations: false,
-                exclude_links: false,
-                exclude_relationships: false,
-                vocabularies_adapter: :json_api
-              )
+                  @resource.update_attribute(GobiertoPlans::Plan.reflect_on_association("#{key}_vocabulary").foreign_key, vocabulary.id)
+                end
+              end
+
+              create_or_update_projects(@resource, projects_params) do |plan|
+                render(
+                  json: plan,
+                  serializer: GobiertoPlans::ApiPlanSerializer,
+                  status: :created,
+                  adapter: :json_api,
+                  with_translations: false,
+                  exclude_links: false,
+                  exclude_relationships: false,
+                  vocabularies_adapter: :json_api
+                ) and return
+              end
+            else
+              api_errors_render(@form, adapter: :json_api)
             end
-          else
-            api_errors_render(@form, adapter: :json_api)
           end
         end
 
@@ -185,7 +189,19 @@ module GobiertoPlans
         end
 
         def writable_attributes
-          [:slug, :title_translations, :introduction_translations, :configuration_data, :year, :visibility_level, :css, :footer_translations, :plan_type_id]
+          [
+            :slug,
+            :title_translations,
+            :introduction_translations,
+            :configuration_data,
+            :year,
+            :visibility_level,
+            :css,
+            :footer_translations,
+            :plan_type_id,
+            :categories_vocabulary,
+            :statuses_vocabulary
+          ]
         end
 
         def find_resource
@@ -217,19 +233,24 @@ module GobiertoPlans
         end
 
         def create_or_update_vocabulary_and_terms(plan, vocabulary_key)
-          @vocabulary_form = ::GobiertoAdmin::GobiertoCommon::VocabularyForm.new(new_vocabulary_params(plan, vocabulary_key))
+          id = plan.send("#{vocabulary_key}_vocabulary")&.id
+
+          @vocabulary_form = ::GobiertoAdmin::GobiertoCommon::VocabularyForm.new(id.present? ? { id:, site_id: plan.site_id } : new_vocabulary_params(plan, vocabulary_key))
 
           if @vocabulary_form.save
             vocabulary = @vocabulary_form.vocabulary
             terms_data = ActiveModelSerializers::Deserialization.jsonapi_parse(params)["#{vocabulary_key}_vocabulary_terms".to_sym]
             @terms_form = ::GobiertoAdmin::GobiertoCommon::TermsForm.new(terms: terms_data, site_id: current_site.id, vocabulary_id: vocabulary.id)
+
             if terms_data.blank? || @terms_form.save
               yield(vocabulary)
             else
               api_errors_render(@terms_form, adapter: :json_api)
+              yield(false)
             end
           else
             api_errors_render(@vocabulary_form, adapter: :json_api)
+            yield(false)
           end
         end
 

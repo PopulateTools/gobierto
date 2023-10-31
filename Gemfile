@@ -72,7 +72,7 @@ gem "liquid", "~> 4.0"
 gem "liquid-rails", git: "https://github.com/maierru/liquid-rails.git"
 
 # Google API
-gem "geocoder"
+gem "geocoder", ">= 1.8.2"
 gem "google-api-client"
 
 # Microsoft Exchange calendars

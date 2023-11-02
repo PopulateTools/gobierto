@@ -4,7 +4,7 @@ module GobiertoCommon
   class Location < ApplicationRecord
     include GobiertoCommon::Metadatable
 
-    validates :external_id, uniqueness: true
+    validates :external_id, uniqueness: { allow_nil: true }
 
     metadata_attributes(
       :lat,

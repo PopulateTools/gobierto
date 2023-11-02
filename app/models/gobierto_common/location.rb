@@ -45,6 +45,19 @@ module GobiertoCommon
       end
     end
 
+    def self.create_from_meta(meta)
+      meta = meta.with_indifferent_access
+      locations = where(external_id: nil).where("meta @> ?", meta.slice(:lat, :lon, :city_name).to_json)
+      if locations.exists?
+        locations.first
+      else
+        create(
+          names: [meta[:name]],
+          meta: meta.slice(:lat, :lon, :city_name, :country_code, :country_name, :types)
+        )
+      end
+    end
+
     def self.find_by_meta(location)
       where(external_id: nil).where("meta @> ?", metadata(location).slice(:lat, :lon, :city_name).to_json).first
     end

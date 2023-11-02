@@ -74,6 +74,8 @@ module GobiertoCommon
     end
 
     def add_name(name)
+      return if names.is_a?(Array) && names.include?(name)
+
       if names.is_a?(Array)
         names << name
       else

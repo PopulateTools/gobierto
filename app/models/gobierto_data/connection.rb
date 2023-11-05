@@ -165,7 +165,7 @@ module GobiertoData
 
         return false if parsed_query.tables.empty?
         return false if parsed_query.tables.any? { |t| BLACKLISTED_TABLES.include?(t) }
-        return false if parsed_query.tables.any? { |t| t.starts_with?("pg_") }
+        return false if parsed_query.tables.any? { |t| t.starts_with?("pg_") || t.starts_with?("information_schema") || t.starts_with?("scalegrid") }
 
         true
       end

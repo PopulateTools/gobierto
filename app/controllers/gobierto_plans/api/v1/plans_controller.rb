@@ -125,6 +125,15 @@ module GobiertoPlans
           @form = GobiertoAdmin::GobiertoPlans::PlanForm.new(form_params)
           if @form.save
             @resource = @form.plan
+
+            vocabularies_with_data.each do |key|
+              create_or_update_vocabulary_and_terms(@resource, key) do |vocabulary|
+                return unless vocabulary
+
+                @resource.update_attribute(GobiertoPlans::Plan.reflect_on_association("#{key}_vocabulary").foreign_key, vocabulary.id)
+              end
+            end
+
             create_or_update_projects(@resource, projects_params) do
               render(
                 json: @resource,
@@ -154,6 +163,10 @@ module GobiertoPlans
               api_errors_render(@projects_form, adapter: :json_api)
             end
           end
+        end
+
+        def vocabularies_with_data
+          params["data"]["attributes"].keys.select { |k| /_vocabulary_terms\z/.match?(k) }.map{ |k| k.gsub(/_vocabulary_terms\z/, "") }
         end
 
         def base_relation

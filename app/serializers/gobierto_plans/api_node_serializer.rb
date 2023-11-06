@@ -3,7 +3,6 @@
 module GobiertoPlans
   class ApiNodeSerializer < BaseSerializer
     include ::GobiertoCommon::Versionable
-    # include ::GobiertoCommon::HasCustomFieldsAttributes
 
     attributes(
       :id,
@@ -40,9 +39,5 @@ module GobiertoPlans
     def status_external_id
       object.status&.external_id
     end
-
-    # def custom_fields
-    #   instance_options[:custom_fields]
-    # end
   end
 end

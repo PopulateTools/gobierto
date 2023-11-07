@@ -77,6 +77,20 @@ module GobiertoData
       assert_match(/ERROR:  column \"not_existing_column\" does not exist/, hash_result["errors"].first["sql"])
     end
 
+    def test_execute_query_with_output_csv_and_unsecure_query
+      [
+        "SELECT COUNT(*) FROM pg_sleep(10)",
+        "SELECT pg_sleep(10)",
+        "SELECT version() FROM users",
+        "SELECT name from users UNION SELECT version()"
+      ].each do |query|
+        result = Connection.execute_query_output_csv(site, "SELECT not_existing_column FROM users", {col_sep: ','})
+        hash_result = JSON.parse(result.to_json)
+
+        assert hash_result.has_key?("errors")
+      end
+    end
+
     def test_execute_query_with_module_disabled
       result = Connection.execute_query(site_with_module_disabled, "SELECT COUNT(*) FROM users")
       hash_result = JSON.parse(result.to_json)

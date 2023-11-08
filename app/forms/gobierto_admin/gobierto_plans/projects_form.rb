@@ -19,7 +19,9 @@ module GobiertoAdmin
 
       CUSTOM_FIELD_WRITABLE_TYPES = [
         :vocabulary_options,
-        :string
+        :string,
+        :paragraph,
+        :date
       ].freeze
 
       include ::GobiertoAdmin::PermissionsGroupHelpers

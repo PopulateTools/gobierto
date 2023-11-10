@@ -10,7 +10,7 @@
     "accounting": "^0.4.1",
     "air-datepicker": "^2.2.3",
     "axe-core": "^4.2.1",
-    "axios": "^0.21.2",
+    "axios": "^1.6.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.0.2",
     "cleave.js": "^1.1.3",

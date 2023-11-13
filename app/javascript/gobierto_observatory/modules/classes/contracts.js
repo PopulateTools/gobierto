@@ -9,7 +9,7 @@ export class ContractsCard extends Card {
     this.url =
       window.populateData.endpoint + `
       SELECT SUM(value::integer) AS value, type
-      FROM contratos_personas WHERE place_id = 8077
+      FROM contratos_personas WHERE place_id = ${city_id}
       AND year = (SELECT year FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
       AND month = (SELECT month FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
       GROUP BY type

@@ -19,8 +19,9 @@ export class DebtByInhabitantCard extends Card {
       SELECT value
       FROM deuda_municipal
       WHERE
-        place_id = ${window.populateData.provinceId}
+        place_id = 08019
       `;
+
     this.vlcUrl =
       window.populateData.endpoint +
       `
@@ -30,31 +31,31 @@ export class DebtByInhabitantCard extends Card {
         place_id = 46250
       `;
 
-      this.figureCityURL = window.populateData.endpoint +
-        `
-        SELECT SUM(total::integer) AS value
-          FROM poblacion_edad_sexo
-          WHERE
-           place_id = ${city_id} AND
-           year = (SELECT max(year) FROM poblacion_edad_sexo)
-        `;
+    this.figureCityURL = window.populateData.endpoint +
+      `
+      SELECT SUM(total::integer) AS value
+        FROM poblacion_edad_sexo
+        WHERE
+          place_id = ${city_id} AND
+          year = (SELECT max(year) FROM poblacion_edad_sexo)
+      `;
 
-      this.figureBcnURL = window.populateData.endpoint +
-        `
-        SELECT SUM(total::integer) AS value
-          FROM poblacion_edad_sexo
-          WHERE
-           place_id = 8 AND
-           year = (SELECT max(year) FROM poblacion_edad_sexo)
-        `;
-      this.figureVlcURL = window.populateData.endpoint +
-        `
-        SELECT SUM(total::integer) AS value
-          FROM poblacion_edad_sexo
-          WHERE
-           place_id = 46250 AND
-           year = (SELECT max(year) FROM poblacion_edad_sexo)
-        `;
+    this.figureBcnURL = window.populateData.endpoint +
+      `
+      SELECT SUM(total::integer) AS value
+        FROM poblacion_edad_sexo
+        WHERE
+          place_id = 08019 AND
+          year = (SELECT max(year) FROM poblacion_edad_sexo)
+      `;
+    this.figureVlcURL = window.populateData.endpoint +
+      `
+      SELECT SUM(total::integer) AS value
+        FROM poblacion_edad_sexo
+        WHERE
+          place_id = 46250 AND
+          year = (SELECT max(year) FROM poblacion_edad_sexo)
+      `;
   }
 
   getData() {

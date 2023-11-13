@@ -30,10 +30,10 @@ es:
         figure_second: indefinidos
         title: Contratos en el mes pasado
       contracts_sector:
-        agricultura: Agricultura
-        construccion: Construcción
-        industria: Industria
-        servicios: Servicios
+        agriculture: Agricultura
+        construction: Construcción
+        industry: Industria
+        services: Servicios
         title: Contratos por sector
       deaths:
         country: Media estatal
@@ -82,10 +82,10 @@ es:
       ss_members:
         title: Afiliados a la Seguridad Social
       unemployed_sector:
-        agricultura: Agricultura
-        construccion: Construcción
-        industria: Industria
-        servicios: Servicios
+        agriculture: Agricultura
+        construction: Construcción
+        industry: Industria
+        services: Servicios
         title: Desempleados por sector
       updated: Última actualización
     graphics:

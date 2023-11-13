@@ -47,10 +47,10 @@ ca:
           figure_second: indefinits
           title: Contractes en el darrer mes
         contracts_sector:
-          agricultura: Agricultura
-          construccion: Construcció
-          industria: Indústria
-          servicios: Serveis
+          agriculture: Agricultura
+          construction: Construcció
+          industry: Indústria
+          services: Serveis
           title: Contractes per sector
         deaths:
           country: Mitjana estatal
@@ -127,10 +127,10 @@ ca:
         tax_autonomy:
           title: Autonomia fiscal
         unemployed_sector:
-          agricultura: Agricultura
-          construccion: Construcció
-          industria: Indústria
-          servicios: Serveis
+          agriculture: Agricultura
+          construction: Construcció
+          industry: Indústria
+          services: Serveis
           title: Desempleats per sector
         updated: Darrera actualització
       country: Espanya

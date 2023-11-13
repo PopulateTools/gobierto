@@ -47,10 +47,10 @@ en:
           figure_second: long term
           title: Contracts in the last month
         contracts_sector:
-          agricultura: Agriculture
-          construccion: Construction
-          industria: Industry
-          servicios: Services
+          agriculture: Agriculture
+          construction: Construction
+          industry: Industry
+          services: Services
           title: Contracts by sector
         deaths:
           country: Country average
@@ -127,10 +127,10 @@ en:
         tax_autonomy:
           title: Tax autonomy
         unemployed_sector:
-          agricultura: Agriculture
-          construccion: Construction
-          industria: Industry
-          servicios: Services
+          agriculture: Agriculture
+          construction: Construction
+          industry: Industry
+          services: Services
           title: Unemployed by sector
         updated: Last update
       country: Spain

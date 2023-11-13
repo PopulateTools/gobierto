@@ -47,10 +47,10 @@ es:
           figure_second: indefinidos
           title: Contratos en el mes pasado
         contracts_sector:
-          agricultura: Agricultura
-          construccion: Construcción
-          industria: Industria
-          servicios: Servicios
+          agriculture: Agricultura
+          construction: Construcción
+          industry: Industria
+          services: Servicios
           title: Contratos por sector
         deaths:
           country: Media estatal
@@ -127,10 +127,10 @@ es:
         tax_autonomy:
           title: Autonomía fiscal
         unemployed_sector:
-          agricultura: Agricultura
-          construccion: Construcción
-          industria: Industria
-          servicios: Servicios
+          agriculture: Agricultura
+          construction: Construcción
+          industry: Industria
+          services: Servicios
           title: Desempleados por sector
         updated: Última actualización
       country: España

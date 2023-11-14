@@ -8,7 +8,7 @@ export class DebtByInhabitantCard extends Card {
     this.url =
       window.populateData.endpoint +
       `
-      SELECT value
+      SELECT value, CONCAT(year, '-', 1, '-', 1) as date
       FROM deuda_municipal
       WHERE
         place_id = ${city_id}
@@ -31,7 +31,8 @@ export class DebtByInhabitantCard extends Card {
         place_id = 46250
       `;
 
-    this.figureCityURL = window.populateData.endpoint +
+    this.figureCityURL =
+      window.populateData.endpoint +
       `
       SELECT SUM(total::integer) AS value
         FROM poblacion_edad_sexo
@@ -40,7 +41,8 @@ export class DebtByInhabitantCard extends Card {
           year = (SELECT max(year) FROM poblacion_edad_sexo)
       `;
 
-    this.figureBcnURL = window.populateData.endpoint +
+    this.figureBcnURL =
+      window.populateData.endpoint +
       `
       SELECT SUM(total::integer) AS value
         FROM poblacion_edad_sexo
@@ -48,7 +50,8 @@ export class DebtByInhabitantCard extends Card {
           place_id = 08019 AND
           year = (SELECT max(year) FROM poblacion_edad_sexo)
       `;
-    this.figureVlcURL = window.populateData.endpoint +
+    this.figureVlcURL =
+      window.populateData.endpoint +
       `
       SELECT SUM(total::integer) AS value
         FROM poblacion_edad_sexo
@@ -56,6 +59,11 @@ export class DebtByInhabitantCard extends Card {
           place_id = 46250 AND
           year = (SELECT max(year) FROM poblacion_edad_sexo)
       `;
+
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/deuda-municipal/meta"
+    );
   }
 
   getData() {
@@ -67,25 +75,53 @@ export class DebtByInhabitantCard extends Card {
     var bcnPopulation = this.handlePromise(this.figureBcnURL);
     var vlcPopulation = this.handlePromise(this.figureVlcURL);
 
-    Promise.all([data, bcn, vlc, dataPopulation, bcnPopulation, vlcPopulation]).then(([json, bcn, vlc, dataPopulation, bcnPopulation, vlcPopulation]) => {
-      json.data.forEach(function(d) {
-        d.figure = d.value / dataPopulation.data[0].value;
-        d.key = window.populateData.municipalityName;
-      });
+    var getMetaData = this.handlePromise(this.metadata);
 
-      bcn.data.forEach(function(d) {
-        d.figure = d.value / bcnPopulation.data[0].value;
-        d.key = "Barcelona";
-      });
+    Promise.all([
+      data,
+      bcn,
+      vlc,
+      dataPopulation,
+      bcnPopulation,
+      vlcPopulation,
+      getMetaData
+    ]).then(
+      ([
+        json,
+        bcn,
+        vlc,
+        dataPopulation,
+        bcnPopulation,
+        vlcPopulation,
+        jsonMetaData
+      ]) => {
+        json.data.forEach(function(d) {
+          d.figure = d.value / dataPopulation.data[0].value;
+          d.key = window.populateData.municipalityName;
+        });
 
-      vlc.data.forEach(function(d) {
-        d.figure = d.value / vlcPopulation.data[0].value;
-        d.key = "Valencia";
-      });
+        bcn.data.forEach(function(d) {
+          d.figure = d.value / bcnPopulation.data[0].value;
+          d.key = "Barcelona";
+        });
 
-      this.data = [json.data[0], bcn.data[0], vlc.data[0]];
+        vlc.data.forEach(function(d) {
+          d.figure = d.value / vlcPopulation.data[0].value;
+          d.key = "Valencia";
+        });
 
-      new BarsCard(this.container, json, this.data, "debt_by_inhabitant");
-    });
+        this.data = [json.data[0], bcn.data[0], vlc.data[0]];
+
+        new BarsCard(this.container, json.data, {
+          metadata: {
+            "source_name": jsonMetaData.data.attributes["dataset-source"],
+            "description": jsonMetaData.data.attributes.description,
+            "frequency_type": jsonMetaData.data.attributes.frequency[0].name_translations[I18n.locale]
+          },
+          value: this.data,
+          cardName: "debt_by_inhabitant"
+        });
+      }
+    );
   }
 }

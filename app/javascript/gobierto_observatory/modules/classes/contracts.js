@@ -8,25 +8,27 @@ export class ContractsCard extends Card {
 
     this.url =
       window.populateData.endpoint + `
-      SELECT SUM(value::integer) AS value, type
+      SELECT SUM(value::integer) AS value, type, CONCAT(year, '-', month, '-', 1) AS date
       FROM contratos_personas WHERE place_id = ${city_id}
       AND year = (SELECT year FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
       AND month = (SELECT month FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
-      GROUP BY type
+      GROUP BY type, date
       `;
+    this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/afiliados-seguridad-social/meta")
   }
 
   getData() {
     var data = this.handlePromise(this.url);
+    var getMetaData = this.handlePromise(this.metadata);
 
-    data.then(json => {
+    Promise.all([data, getMetaData]).then(([jsonData, jsonMetaData]) => {
       // d3v5
       //
       var nest = nestFn()
         .key(function(d) {
           return d.type;
         })
-        .entries(json.data);
+        .entries(jsonData.data);
       // d3v6
       //
       // var nest = Array.from(group(json.data, d => d.type), ([key, values]) => ({
@@ -37,7 +39,18 @@ export class ContractsCard extends Card {
       var i = nest.filter(d => d.key === "undefined")[0].values[0].value;
       var t = nest.filter(d => d.key === "temporary")[0].values[0].value;
 
-      new ComparisonCard(this.container, json, t, i, "contracts_comparison");
+      var opts = {
+        metadata: {
+          "source_name": jsonMetaData.data.attributes["dataset-source"],
+          "description": jsonMetaData.data.attributes.description,
+          "frequency_type": jsonMetaData.data.attributes.frequency[0].name_translations[I18n.locale]
+        },
+        value_1: i,
+        value_2: t,
+        cardName: "contracts_comparison"
+      }
+
+      new ComparisonCard(this.container, jsonData.data, opts);
     });
   }
 }

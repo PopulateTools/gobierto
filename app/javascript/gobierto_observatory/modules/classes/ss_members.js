@@ -1,5 +1,6 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class ssMembersCard extends Card {
   constructor(divClass, city_id) {
@@ -8,37 +9,31 @@ export class ssMembersCard extends Card {
     this.url =
       window.populateData.endpoint +
       `
-      SELECT year, SUM(value::integer) AS value,
+      SELECT
+        year,
+        SUM(value::integer) AS value,
         CONCAT(year, '-', 1, '-', 1) AS date
-        FROM afiliados_seguridad_social
-          WHERE
-            place_id = ${city_id}
-        GROUP BY year
-        Order BY year DESC limit 5
+      FROM afiliados_seguridad_social
+      WHERE
+        place_id = ${city_id}
+      GROUP BY year
+      ORDER BY year DESC LIMIT 5
       `;
     this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/afiliados-seguridad-social/meta")
   }
 
   getData() {
     var data = this.handlePromise(this.url);
-    var getMetaData = this.handlePromise(this.metadata);
+    var metadata = this.handlePromise(this.metadata);
 
-    getMetaData.then(jsonMetaData => {
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
+      var opts = {
+        metadata: getMetadataFields(jsonMetadata),
+        value: jsonData.data[0].value,
+        cardName: "ss_members"
+      };
 
-      data.then(jsonData => {
-        var value = jsonData.data[0].value;
-        var newMetadata = {
-          "indicator": {
-            "source_name": jsonMetaData.data.attributes["dataset-source"],
-            "description": jsonMetaData.data.attributes.description,
-            "frequency_type": jsonMetaData.data.attributes.frequency[0].name_translations[I18n.locale]
-          }
-        };
-
-        jsonData.metadata = newMetadata
-
-        new SimpleCard(this.container, jsonData, value, "ss_members");
-      });
+      new SimpleCard(this.container, jsonData.data, opts);
     });
   }
 }

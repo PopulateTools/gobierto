@@ -1,6 +1,7 @@
 import { nest as nestFn } from "d3-collection";
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class ContractsCard extends Card {
   constructor(divClass, city_id) {
@@ -19,9 +20,9 @@ export class ContractsCard extends Card {
 
   getData() {
     var data = this.handlePromise(this.url);
-    var getMetaData = this.handlePromise(this.metadata);
+    var metadata = this.handlePromise(this.metadata);
 
-    Promise.all([data, getMetaData]).then(([jsonData, jsonMetaData]) => {
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       // d3v5
       //
       var nest = nestFn()
@@ -40,11 +41,7 @@ export class ContractsCard extends Card {
       var t = nest.filter(d => d.key === "temporary")[0].values[0].value;
 
       var opts = {
-        metadata: {
-          "source_name": jsonMetaData.data.attributes["dataset-source"],
-          "description": jsonMetaData.data.attributes.description,
-          "frequency_type": jsonMetaData.data.attributes.frequency[0].name_translations[I18n.locale]
-        },
+        metadata: getMetadataFields(jsonMetadata),
         value_1: i,
         value_2: t,
         cardName: "contracts_comparison"

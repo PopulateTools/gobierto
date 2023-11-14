@@ -1,5 +1,6 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class FreelancersCard extends Card {
   constructor(divClass, city_id) {
@@ -8,29 +9,27 @@ export class FreelancersCard extends Card {
     this.url =
       window.populateData.endpoint +
       `
-      SELECT year, SUM(value::integer) AS value,
+      SELECT
+        year,
+        SUM(value::integer) AS value,
         CONCAT(year, '-', 1, '-', 1) AS date
-        FROM afiliados_seguridad_social
-          WHERE
-            place_id = ${city_id} AND
-            type = 'R.E.TRABAJADORES CTA. PROP. O AUTONOMOS'
-        GROUP BY year
-        Order BY year DESC limit 5
+      FROM afiliados_seguridad_social
+      WHERE
+        place_id = ${city_id} AND
+        type = 'R.E.TRABAJADORES CTA. PROP. O AUTONOMOS'
+      GROUP BY year
+      ORDER BY year DESC LIMIT 5
       `;
     this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/afiliados-seguridad-social/meta")
   }
 
   getData() {
     var data = this.handlePromise(this.url);
-    var getMetaData = this.handlePromise(this.metadata);
+    var metadata = this.handlePromise(this.metadata);
 
-    Promise.all([data, getMetaData]).then(([jsonData, jsonMetaData]) => {
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       var opts = {
-        metadata: {
-          "source_name": jsonMetaData.data.attributes["dataset-source"],
-          "description": jsonMetaData.data.attributes.description,
-          "frequency_type": jsonMetaData.data.attributes.frequency[0].name_translations[I18n.locale]
-        },
+        metadata: getMetadataFields(jsonMetadata),
         value: jsonData.data[0].value,
         cardName: "freelancers"
       }

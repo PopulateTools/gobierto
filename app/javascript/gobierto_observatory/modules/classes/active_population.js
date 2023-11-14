@@ -1,5 +1,6 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class ActivePopulationCard extends Card {
   constructor(divClass, city_id) {
@@ -29,18 +30,14 @@ export class ActivePopulationCard extends Card {
   getData() {
     var active = this.handlePromise(this.activePopUrl);
     var pop = this.handlePromise(this.popUrl);
-    var getMetaData = this.handlePromise(this.metadata);
+    var metadata = this.handlePromise(this.metadata);
 
-    Promise.all([active, pop, getMetaData]).then(([jsonActive, jsonPop, jsonMetaData]) => {
+    Promise.all([active, pop, metadata]).then(([jsonActive, jsonPop, jsonMetadata]) => {
       var value = jsonActive.data[0].value;
       var rate = (value / jsonPop.data[0].value) * 100;
 
       var opts = {
-        metadata: {
-          "source_name": jsonMetaData.data.attributes["dataset-source"],
-          "description": jsonMetaData.data.attributes.description,
-          "frequency_type": jsonMetaData.data.attributes.frequency[0].name_translations[I18n.locale]
-        },
+        metadata: getMetadataFields(jsonMetadata),
         value_1: rate,
         value_2: value,
         cardName: "active_pop"

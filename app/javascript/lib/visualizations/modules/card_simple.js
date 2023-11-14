@@ -14,14 +14,7 @@ export class SimpleCard extends Card {
     var trend = this.div.attr("data-trend");
     var freq = this.div.attr("data-freq");
 
-    var parseDate =
-      freq === "daily"
-        ? d3.timeParse("%Y-%m-%d")
-        : freq === "monthly"
-        ? d3.timeParse("%Y-%m")
-        : d3.timeParse("%Y");
-    var date = data[0].date;
-    var parsedDate = parseDate(date);
+    var parsedDate = new Date(metadata.updated_at);
     var formatDate = d3.timeFormat("%b %Y");
 
     var divCard = $('div[class*="' + divClass.replace(".", "") + '"]');

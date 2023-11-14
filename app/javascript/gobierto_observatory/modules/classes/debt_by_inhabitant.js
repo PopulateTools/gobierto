@@ -1,5 +1,6 @@
 import { BarsCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class DebtByInhabitantCard extends Card {
   constructor(divClass, city_id) {
@@ -70,12 +71,10 @@ export class DebtByInhabitantCard extends Card {
     var data = this.handlePromise(this.url);
     var bcn = this.handlePromise(this.bcnUrl);
     var vlc = this.handlePromise(this.vlcUrl);
-
     var dataPopulation = this.handlePromise(this.figureCityURL);
     var bcnPopulation = this.handlePromise(this.figureBcnURL);
     var vlcPopulation = this.handlePromise(this.figureVlcURL);
-
-    var getMetaData = this.handlePromise(this.metadata);
+    var metadata = this.handlePromise(this.metadata);
 
     Promise.all([
       data,
@@ -84,7 +83,7 @@ export class DebtByInhabitantCard extends Card {
       dataPopulation,
       bcnPopulation,
       vlcPopulation,
-      getMetaData
+      metadata
     ]).then(
       ([
         json,
@@ -93,7 +92,7 @@ export class DebtByInhabitantCard extends Card {
         dataPopulation,
         bcnPopulation,
         vlcPopulation,
-        jsonMetaData
+        jsonMetadata
       ]) => {
         json.data.forEach(function(d) {
           d.figure = d.value / dataPopulation.data[0].value;
@@ -113,11 +112,7 @@ export class DebtByInhabitantCard extends Card {
         this.data = [json.data[0], bcn.data[0], vlc.data[0]];
 
         new BarsCard(this.container, json.data, {
-          metadata: {
-            "source_name": jsonMetaData.data.attributes["dataset-source"],
-            "description": jsonMetaData.data.attributes.description,
-            "frequency_type": jsonMetaData.data.attributes.frequency[0].name_translations[I18n.locale]
-          },
+          metadata: getMetadataFields(jsonMetadata),
           value: this.data,
           cardName: "debt_by_inhabitant"
         });

@@ -11,16 +11,7 @@ export class ComparisonCard extends Card {
     this.firstDataType = this.div.attr("data-type-first");
     this.secondDataType = this.div.attr("data-type-second");
 
-    // var trend = this.div.attr('data-trend');
-    var freq = this.div.attr("data-freq");
-    var parseDate =
-      freq === "daily"
-        ? d3.timeParse("%Y-%m-%d")
-        : freq === "monthly"
-        ? d3.timeParse("%Y-%m")
-        : d3.timeParse("%Y");
-
-    var parsedDate = parseDate(data[0].date);
+    var parsedDate = new Date(metadata.updated_at);
     var formatDate = d3.timeFormat("%b %Y");
 
     this.div

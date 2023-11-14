@@ -1,6 +1,6 @@
 import { nest } from "d3-collection";
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
-import { groupBy } from "../helpers";
+import { getMetadataFields, groupBy } from "../helpers";
 import { Card } from "./card.js";
 
 export class ContractsBySectorCard extends Card {
@@ -25,9 +25,9 @@ export class ContractsBySectorCard extends Card {
 
   getData() {
     var data = this.handlePromise(this.url);
-    var getMetaData = this.handlePromise(this.metadata);
+    var metadata = this.handlePromise(this.metadata);
 
-    Promise.all([data, getMetaData]).then(([jsonData, jsonMetaData]) => {
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       this.data = jsonData.data;
 
       // d3v5
@@ -72,11 +72,7 @@ export class ContractsBySectorCard extends Card {
         this.container,
         jsonData.data,
         {
-          metadata: {
-            "source_name": jsonMetaData.data.attributes["dataset-source"],
-            "description": jsonMetaData.data.attributes.description,
-            "frequency_type": jsonMetaData.data.attributes.frequency[0].name_translations[I18n.locale]
-          },
+          metadata: getMetadataFields(jsonMetadata),
           value: this.nest,
           cardName: "contracts_sector"
         }

@@ -20,12 +20,14 @@ export class ContractsBySectorCard extends Card {
       ORDER BY year DESC, month DESC
       LIMIT 50
       `;
+    this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/contratos-sectores/meta")
   }
 
   getData() {
     var data = this.handlePromise(this.url);
+    var getMetaData = this.handlePromise(this.metadata);
 
-    data.then(jsonData => {
+    Promise.all([data, getMetaData]).then(([jsonData, jsonMetaData]) => {
       this.data = jsonData.data;
 
       // d3v5
@@ -68,9 +70,16 @@ export class ContractsBySectorCard extends Card {
 
       new SparklineTableCard(
         this.container,
-        jsonData,
-        this.nest,
-        "contracts_sector"
+        jsonData.data,
+        {
+          metadata: {
+            "source_name": jsonMetaData.data.attributes["dataset-source"],
+            "description": jsonMetaData.data.attributes.description,
+            "frequency_type": jsonMetaData.data.attributes.frequency[0].name_translations[I18n.locale]
+          },
+          value: this.nest,
+          cardName: "contracts_sector"
+        }
       );
 
       /* Sparklines */

@@ -5,7 +5,7 @@ import { Card } from "./card.js";
 const d3 = { timeFormat, timeParse };
 
 export class SparklineTableCard extends Card {
-  constructor(divClass, json, value, cardName) {
+  constructor(divClass, data, { metadata, value, cardName }) {
     super(divClass);
 
     this.dataType = this.div.attr("data-type");
@@ -18,7 +18,7 @@ export class SparklineTableCard extends Card {
         : freq === "monthly"
         ? d3.timeParse("%Y-%m")
         : d3.timeParse("%Y");
-    var parsedDate = parseDate(json.data[0].date);
+    var parsedDate = parseDate(data[0].date);
     var formatDate = d3.timeFormat("%b %Y");
 
     this.div
@@ -55,8 +55,8 @@ export class SparklineTableCard extends Card {
     // Append source
     this.div
       .selectAll(".widget_src")
-      .attr("title", json.metadata.indicator["source_name"])
-      .text(json.metadata.indicator["source_name"]);
+      .attr("title", metadata["source_name"])
+      .text(metadata["source_name"]);
 
     // Append date of last data point
     this.div.selectAll(".widget_updated").text(formatDate(parsedDate));
@@ -64,7 +64,7 @@ export class SparklineTableCard extends Card {
     // Append update frequency
     this.div
       .selectAll(".widget_freq")
-      .text(this._printFreq(json.metadata.frequency_type));
+      .text(this._printFreq(metadata.frequency_type));
 
     // Append metadata
     this.div
@@ -80,7 +80,7 @@ export class SparklineTableCard extends Card {
     // Append backface info
     this.div
       .selectAll(".js-data-desc")
-      .text(json.metadata.indicator.description);
+      .text(metadata.description);
     this.div.selectAll(".js-data-freq").text(formatDate(parsedDate));
 
     var rows = value.map(

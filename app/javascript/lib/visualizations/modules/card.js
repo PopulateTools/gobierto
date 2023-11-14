@@ -37,20 +37,8 @@ export class Card {
     }
   }
 
-  _printFreq(json) {
-    // Switch between different figure types
-    switch (json) {
-      case "yearly":
-        return I18n.t("gobierto_common.visualizations.frequency.yearly");
-      case "monthly":
-        return I18n.t("gobierto_common.visualizations.frequency.monthly");
-      case "weekly":
-        return I18n.t("gobierto_common.visualizations.frequency.weekly");
-      case "daily":
-        return I18n.t("gobierto_common.visualizations.frequency.dailt");
-      default:
-        return "";
-    }
+  _printFreq(type) {
+    return I18n.t("gobierto_common.visualizations.frequency", { type })
   }
 
   _normalize(str) {
@@ -66,7 +54,7 @@ export class Card {
     var ret = [];
     for (let i = 0, j = str.length; i < j; i++) {
       var c = str.charAt(i);
-      if (mapping.hasOwnProperty(str.charAt(i))) {
+      if (Object.prototype.hasOwnProperty.call(mapping, str.charAt(i))) {
         ret.push(mapping[c]);
       } else {
         ret.push(c);

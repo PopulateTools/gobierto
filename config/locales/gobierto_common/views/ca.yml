@@ -71,11 +71,7 @@ ca:
           title: Risc financer
         freelancers:
           title: Autónoms
-        frequency:
-          daily: Actualització diària
-          monthly: Actualització mensual
-          weekly: Actualització setmanal
-          yearly: Actualització anual
+        frequency: Actualització %{type}
         gross_saving:
           title: Estalvi brut
         gross_savings_rate:
@@ -138,11 +134,7 @@ ca:
       elderly_info: El %{percent} de la població té més de %{limit} anys
       empty_lines: No hi ha dades disponibles per aquesta classificació en aquest
         any. Per favor, selecciona un altre filtrat.
-      frequency:
-        daily: Actualització diària
-        monthly: Actualització mensual
-        weekly: Actualització setmanal
-        yearly: Actualització anual
+      frequency: Actualització %{type}
       gross_income: Renda bruta
       increase: Augmentar
       inhabitant_short: hab

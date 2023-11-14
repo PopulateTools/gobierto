@@ -71,11 +71,7 @@ en:
           title: Financial risk
         freelancers:
           title: Freelancers
-        frequency:
-          daily: Updated daily
-          monthly: Updated monthly
-          weekly: Updated weekly
-          yearly: Updated annually
+        frequency: Updated %{type}
         gross_saving:
           title: Gross saving
         gross_savings_rate:
@@ -138,11 +134,7 @@ en:
       elderly_info: The %{percent} of the population is elder than %{limit} years
       empty_lines: There aren't data for this classification and this year. Please,
         choose another filter.
-      frequency:
-        daily: Updated daily
-        monthly: Updated monthly
-        weekly: Updated weekly
-        yearly: Updated annually
+      frequency: Updated %{type}
       gross_income: Gross income
       increase: Increase
       inhabitant_short: inh

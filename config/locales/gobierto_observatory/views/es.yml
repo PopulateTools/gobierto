@@ -46,11 +46,7 @@ es:
         title: Impuesto a las actividades económicas
       freelancers:
         title: Autónomos
-      frequency:
-        daily: Actualización diaria
-        monthly: Actualización mensual
-        weekly: Actualización semanal
-        yearly: Actualización anual
+      frequency: Actualización %{type}
       houses:
         figure_first: familiares
         figure_second: principales

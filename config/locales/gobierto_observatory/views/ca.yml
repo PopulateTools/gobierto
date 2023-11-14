@@ -46,11 +46,7 @@ ca:
         title: Impost a les activitats econòmiques
       freelancers:
         title: Autónoms
-      frequency:
-        daily: Actualització diària
-        monthly: Actualització mensual
-        weekly: Actualització setmanal
-        yearly: Actualització anual
+      frequency: Actualització %{type}
       houses:
         figure_first: familiars
         figure_second: principals

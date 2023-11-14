@@ -71,11 +71,7 @@ es:
           title: Riesgo financiero
         freelancers:
           title: Autónomos
-        frequency:
-          daily: Actualización diaria
-          monthly: Actualización mensual
-          weekly: Actualización semanal
-          yearly: Actualización anual
+        frequency: Actualización %{type}
         gross_saving:
           title: Ahorro bruto
         gross_savings_rate:
@@ -138,11 +134,7 @@ es:
       elderly_info: El %{percent} de la población tiene más de %{limit} años
       empty_lines: No hay datos disponibles para esta clasificación en este año. Por
         favor, selecciona otro filtro.
-      frequency:
-        daily: Actualización diaria
-        monthly: Actualización mensual
-        weekly: Actualización semanal
-        yearly: Actualización anual
+      frequency: Actualización %{type}
       gross_income: Renta bruta
       increase: Aumentar
       inhabitant_short: hab

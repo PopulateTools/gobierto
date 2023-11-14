@@ -24,22 +24,19 @@ export class FreelancersCard extends Card {
     var data = this.handlePromise(this.url);
     var getMetaData = this.handlePromise(this.metadata);
 
-    getMetaData.then(jsonMetaData => {
+    Promise.all([data, getMetaData]).then(([jsonData, jsonMetaData]) => {
+      var opts = {
+        data: jsonData.data,
+        metadata: {
+          "source_name": jsonMetaData.data.attributes["dataset-source"],
+          "description": jsonMetaData.data.attributes.description,
+          "frequency_type": jsonMetaData.data.attributes.frequency[0].name_translations[I18n.locale]
+        },
+        value: jsonData.data[0].value,
+        cardName: "freelancers"
+      }
 
-      data.then(jsonData => {
-        var value = jsonData.data[0].value;
-        var newMetadata = {
-          "indicator": {
-            "source_name": jsonMetaData.data.attributes["dataset-source"],
-            "description": jsonMetaData.data.attributes.description,
-            "frequency_type": jsonMetaData.data.attributes.frequency[0].name_translations[I18n.locale]
-          }
-        };
-
-        jsonData.metadata = newMetadata
-
-        new SimpleCard(this.container, jsonData, value, "freelancers");
-      });
+      new SimpleCard(this.container, opts);
     });
   }
 }

@@ -46,11 +46,7 @@ en:
         title: Economic activity tax
       freelancers:
         title: Freelancers
-      frequency:
-        daily: Updated daily
-        monthly: Updated monthly
-        weekly: Updated weekly
-        yearly: Updated annually
+      frequency: Updated %{type}
       houses:
         figure_first: family houses
         figure_second: main houses

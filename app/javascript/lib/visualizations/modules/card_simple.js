@@ -6,7 +6,7 @@ import { Sparkline } from "./sparkline.js";
 const d3 = { timeFormat, timeParse };
 
 export class SimpleCard extends Card {
-  constructor(divClass, json, value, cardName, valueType) {
+  constructor(divClass, { data, metadata, value, cardName, valueType }) {
     super(divClass);
 
     this.dataType = this.div.attr("data-type");
@@ -20,7 +20,7 @@ export class SimpleCard extends Card {
         : freq === "monthly"
         ? d3.timeParse("%Y-%m")
         : d3.timeParse("%Y");
-    var date = json.data[0].date;
+    var date = data[0].date;
     var parsedDate = parseDate(date);
     var formatDate = d3.timeFormat("%b %Y");
 
@@ -78,8 +78,8 @@ export class SimpleCard extends Card {
     // Append source
     this.div
       .selectAll(".widget_src")
-      .attr("title", json.metadata.indicator["source_name"])
-      .text(json.metadata.indicator["source_name"]);
+      .attr("title", metadata["source_name"])
+      .text(metadata["source_name"]);
 
     // Append date of last data point
     this.div.selectAll(".widget_updated").text(formatDate(parsedDate));
@@ -87,7 +87,7 @@ export class SimpleCard extends Card {
     // Append update frequency
     this.div
       .selectAll(".widget_freq")
-      .text(this._printFreq(json.metadata.frequency_type));
+      .text(this._printFreq(metadata.frequency_type));
 
     // Append metadata
     this.div
@@ -103,18 +103,18 @@ export class SimpleCard extends Card {
     // Append backface info
     this.div
       .selectAll(".js-data-desc")
-      .text(json.metadata.indicator.description);
+      .text(metadata.description);
     this.div.selectAll(".js-data-freq").text(formatDate(parsedDate));
-    if (typeof json.data[1] !== "undefined") {
-      var spark = new Sparkline(divClass + " .sparkline", json.data, {
+    if (typeof data[1] !== "undefined") {
+      var spark = new Sparkline(divClass + " .sparkline", data, {
         trend,
         freq
       });
       spark.render();
 
       var pctChange = valueType
-        ? (value / json.data[1][valueType]) * 100 - 100
-        : (value / json.data[1].value) * 100 - 100;
+        ? (value / data[1][valueType]) * 100 - 100
+        : (value / data[1].value) * 100 - 100;
       var pctFormat = accounting.formatNumber(pctChange, 2) + "%";
       var isPositive = pctChange > 0;
 

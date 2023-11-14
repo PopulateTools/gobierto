@@ -146,9 +146,7 @@ module GobiertoData
     end
 
     def default_limit
-      return DEFAULT_LIMIT unless api_settings.present?
-      return DEFAULT_LIMIT if format_size.nil?
-      return DEFAULT_LIMIT if max_size_without_limit.present? && max_size_without_limit.positive? && max_size_without_limit <= format_size
+      DEFAULT_LIMIT
     end
 
     private

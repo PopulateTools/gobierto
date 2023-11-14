@@ -1,6 +1,7 @@
 import { nest } from "d3-collection";
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { groupBy, getMetadataFields } from "../helpers.js";
 
 export class UnemplBySectorCard extends Card {
   constructor(divClass, city_id) {
@@ -8,14 +9,25 @@ export class UnemplBySectorCard extends Card {
 
     this.url =
       window.populateData.endpoint +
-      "/datasets/ds-personas-paradas-municipio-sector.json?sort_desc_by=date&with_metadata=true&limit=50&filter_by_location_id=" +
-      city_id;
+      `
+      SELECT
+        value,
+        CONCAT(year, '-', month, '-', 1) AS date,
+        sector
+      FROM paro_sectores
+      WHERE
+        place_id = ${city_id}
+      ORDER BY year DESC, month DESC
+      LIMIT 50
+      `;
+    this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/paro-sectores/meta")
   }
 
   getData() {
     var data = this.handlePromise(this.url);
+    var metadata = this.handlePromise(this.metadata);
 
-    data.then(jsonData => {
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       this.data = jsonData.data;
 
       // d3v5
@@ -56,51 +68,32 @@ export class UnemplBySectorCard extends Card {
       //   diff
       // }));
 
-      this.nest = this.nest.filter(d => d.key !== "Sin empleo anterior");
-
       new SparklineTableCard(
         this.container,
-        jsonData,
-        this.nest,
-        "unemployed_sector"
+        jsonData.data,
+        {
+          metadata: getMetadataFields(jsonMetadata),
+          value: this.nest,
+          cardName: "unemployed_sector"
+        }
       );
 
       /* Sparklines */
-      var ind = jsonData.data.filter(d => d.sector === "Industria");
-      var serv = jsonData.data.filter(d => d.sector === "Servicios");
-      var agr = jsonData.data.filter(d => d.sector === "Agricultura");
-      var cons = jsonData.data.filter(d => d.sector === "Construcción");
-
       var opts = {
         trend: this.trend,
         freq: this.freq
       };
 
-      var indSpark = new Sparkline(
-        this.container + " .sparkline-industria",
-        ind,
-        opts
-      );
-      var servSpark = new Sparkline(
-        this.container + " .sparkline-servicios",
-        serv,
-        opts
-      );
-      var agrSpark = new Sparkline(
-        this.container + " .sparkline-agricultura",
-        agr,
-        opts
-      );
-      var consSpark = new Sparkline(
-        this.container + " .sparkline-construccion",
-        cons,
-        opts
-      );
+      const sectors = groupBy(jsonData.data, "sector")
+      Object.entries(sectors).forEach(([key, values]) => {
+        const spark = new Sparkline(
+          `${this.container} .sparkline-${key}`,
+          values,
+          opts
+        );
 
-      indSpark.render();
-      servSpark.render();
-      agrSpark.render();
-      consSpark.render();
+        spark.render();
+      })
     });
   }
 }

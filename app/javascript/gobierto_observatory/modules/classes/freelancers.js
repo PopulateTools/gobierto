@@ -26,7 +26,6 @@ export class FreelancersCard extends Card {
 
     Promise.all([data, getMetaData]).then(([jsonData, jsonMetaData]) => {
       var opts = {
-        data: jsonData.data,
         metadata: {
           "source_name": jsonMetaData.data.attributes["dataset-source"],
           "description": jsonMetaData.data.attributes.description,
@@ -36,7 +35,7 @@ export class FreelancersCard extends Card {
         cardName: "freelancers"
       }
 
-      new SimpleCard(this.container, opts);
+      new SimpleCard(this.container, jsonData.data, opts);
     });
   }
 }

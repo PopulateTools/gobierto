@@ -6,7 +6,7 @@ import { Sparkline } from "./sparkline.js";
 const d3 = { timeFormat, timeParse };
 
 export class SimpleCard extends Card {
-  constructor(divClass, { data, metadata, value, cardName, valueType }) {
+  constructor(divClass, data, { metadata, value, cardName, valueType }) {
     super(divClass);
 
     this.dataType = this.div.attr("data-type");

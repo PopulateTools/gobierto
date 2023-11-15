@@ -87,8 +87,8 @@ es:
           title: Impuesto sobre bienes inmuebles
         income:
           first_column: ''
-          second_column: Bruta
-          third_column: Disponible
+          second_column: Por habitante
+          third_column: Por hogar
           title: Renta municipal
         income_overview:
           figure_first: "%{place}"

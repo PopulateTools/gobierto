@@ -87,8 +87,8 @@ ca:
           title: Impost sobre els Béns Immobles
         income:
           first_column: ''
-          second_column: Bruta
-          third_column: Disponible
+          second_column: Per habitant
+          third_column: Per llar
           title: Renda municipal
         income_overview:
           figure_first: "%{place}"

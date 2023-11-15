@@ -87,8 +87,8 @@ en:
           title: Land value tax
         income:
           first_column: ''
-          second_column: Gross
-          third_column: Net
+          second_column: By inhabitant
+          third_column: By household
           title: Municipality income
         income_overview:
           figure_first: "%{place}"

@@ -31,7 +31,7 @@ export class TableCard extends Card {
           I18n.t("gobierto_common.visualizations.time") +
           encodeURI(formatDate(parsedDate).toLowerCase()) +
           ", " +
-          "" + // encodeURI(this._printData(data[0].value.value_1)) +
+          encodeURI(this._printData(data[0].value_1)) +
           "&url=" +
           window.location.href +
           "&via=gobierto&source=webclient"

@@ -12,7 +12,8 @@ export class IbiCard extends Card {
       window.populateData.endpoint +
       `
       WITH
-        maxyear AS (SELECT max(year) FROM tasas WHERE place_id = ${city_id})
+        maxyear AS (SELECT max(year) FROM tasas WHERE place_id = ${city_id}
+                    AND (ibi_urbana IS NOT NULL OR ibi_rustica IS NOT NULL))
       SELECT
         1 as index,
         '${window.populateData.municipalityName}' as key,

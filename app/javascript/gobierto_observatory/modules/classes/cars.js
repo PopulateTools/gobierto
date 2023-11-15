@@ -40,6 +40,7 @@ export class CarsCard extends Card {
           AND year = (SELECT * FROM maxyear)
         )
       SELECT
+        1 as index,
         '${window.populateData.municipalityName}' as key,
         COALESCE(sum(parque_total::decimal) / NULLIF((SELECT * FROM population), 0), 0) AS value
       FROM coches
@@ -48,6 +49,7 @@ export class CarsCard extends Card {
       AND year = (SELECT * FROM maxyear)
       UNION
       SELECT
+        2 as index,
         '${window.populateData.provinceName}' as key,
         COALESCE(sum(parque_total::decimal) / NULLIF((SELECT * FROM population_prov), 0), 0) AS value
       FROM coches
@@ -56,11 +58,13 @@ export class CarsCard extends Card {
       AND year = (SELECT * FROM maxyear)
       UNION
       SELECT
+        3 as index,
         '${I18n.t("country")}' as key,
         COALESCE(sum(parque_total::decimal) / NULLIF((SELECT * FROM population_country), 0), 0) AS value
       FROM coches
       WHERE
         year = (SELECT * FROM maxyear)
+      ORDER BY index
       `;
 
     this.metadata = window.populateData.endpoint.replace(

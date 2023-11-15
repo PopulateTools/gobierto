@@ -43,12 +43,10 @@ export class ConstructionTaxCard extends Card {
 
       var opts = {
         metadata: getMetadataFields(jsonMetadata),
-        value_1: Number(placeTax.value),
-        value_2: Number(provinceTax.value),
         cardName: "construction_tax"
       };
 
-      new ComparisonCard(this.container, jsonData.data, opts);
+      new ComparisonCard(this.container, Number(placeTax.value), Number(provinceTax.value), opts);
     });
   }
 }

@@ -42,12 +42,10 @@ export class ContractsCard extends Card {
 
       var opts = {
         metadata: getMetadataFields(jsonMetadata),
-        value_1: i,
-        value_2: t,
         cardName: "contracts_comparison"
       }
 
-      new ComparisonCard(this.container, jsonData.data, opts);
+      new ComparisonCard(this.container, i, t, opts);
     });
   }
 }

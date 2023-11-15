@@ -38,12 +38,10 @@ export class ActivePopulationCard extends Card {
 
       var opts = {
         metadata: getMetadataFields(jsonMetadata),
-        value_1: rate,
-        value_2: value,
         cardName: "active_pop"
       }
 
-      new ComparisonCard(this.container, jsonActive.data, opts);
+      new ComparisonCard(this.container, rate, value, opts);
     });
   }
 }

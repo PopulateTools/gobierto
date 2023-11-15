@@ -37,12 +37,10 @@ export class HousesCard extends Card {
 
       var opts = {
         metadata: getMetadataFields(jsonMetadata),
-        value_1: familyHouses.value,
-        value_2: mainHouses.value,
         cardName: "houses"
       };
 
-      new ComparisonCard(this.container, jsonData.data, opts);
+      new ComparisonCard(this.container, Number(familyHouses.value), Number(mainHouses.value), opts);
     });
   }
 }

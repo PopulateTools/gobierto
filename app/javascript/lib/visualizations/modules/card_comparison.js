@@ -5,7 +5,7 @@ import { Card } from "./card.js";
 const d3 = { timeFormat, timeParse };
 
 export class ComparisonCard extends Card {
-  constructor(divClass, data, { metadata, value_1, value_2, cardName }) {
+  constructor(divClass, value_1, value_2, { metadata, cardName }) {
     super(divClass);
 
     this.firstDataType = this.div.attr("data-type-first");

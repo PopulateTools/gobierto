@@ -85,7 +85,9 @@ export class ComparisonCard extends Card {
     this.div.selectAll(".js-data-freq").text(formatDate(parsedDate));
   }
 
-  _printData(type, data) {
+  _printData(type, dataRaw) {
+    var data = Number(dataRaw)
+
     // Switch between different figure types
     switch (type) {
       case "percentage":

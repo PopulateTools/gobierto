@@ -48,8 +48,8 @@ export class ConstructionTaxCard extends Card {
 
       new ComparisonCard(
         this.container,
-        Number(placeTax.value),
-        Number(provinceTax.value),
+        placeTax.value,
+        provinceTax.value,
         opts
       );
     });

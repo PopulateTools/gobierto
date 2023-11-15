@@ -42,8 +42,8 @@ export class HousesCard extends Card {
 
       new ComparisonCard(
         this.container,
-        Number(familyHouses.value),
-        Number(mainHouses.value),
+        familyHouses.value,
+        mainHouses.value,
         opts
       );
     });

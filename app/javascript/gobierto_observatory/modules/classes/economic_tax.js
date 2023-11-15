@@ -32,7 +32,7 @@ export class EconomicTaxCard extends Card {
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       var opts = {
         metadata: getMetadataFields(jsonMetadata),
-        value: Number(jsonData.data[0].value),
+        value: jsonData.data[0].value,
         cardName: "economic_tax"
       };
 

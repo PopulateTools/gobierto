@@ -11,7 +11,9 @@ export class Card {
     this.div = d3.select(divClass);
   }
 
-  _printData(data) {
+  _printData(dataRaw) {
+    var data = Number(dataRaw);
+
     // Switch between different figure types
     switch (this.dataType) {
       case "percentage":

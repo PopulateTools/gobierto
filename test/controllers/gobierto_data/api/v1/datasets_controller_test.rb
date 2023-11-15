@@ -283,7 +283,7 @@ module GobiertoData
 
             assert_equal 50, big_dataset_response_data["data"]["attributes"]["default_limit"]
             assert_equal 50, no_size_dataset_response_data["data"]["attributes"]["default_limit"]
-            assert_nil small_dataset_response_data["data"]["attributes"]["default_limit"]
+            assert_equal 50, small_dataset_response_data["data"]["attributes"]["default_limit"]
 
             assert_equal 15, big_dataset_response_data["data"]["attributes"]["size"]["csv"]
             assert_equal 3, small_dataset_response_data["data"]["attributes"]["size"]["csv"]

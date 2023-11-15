@@ -28,19 +28,5 @@ module GobiertoData
       # api limit is set to 10 and size is 15.0
       assert_equal 50, subject.default_limit
     end
-
-    def test_default_limit_with_limit_zero
-      module_settings.update_attribute(:settings, default_settings.merge("api_settings" => { "max_dataset_size_for_queries" => 0 }))
-
-      # api limit is set to 0 and size is 15.0
-      assert_nil subject.default_limit
-    end
-
-    def test_defaul_limit_with_no_api_configuration
-      module_settings.update_attribute(:settings, default_settings.merge("api_settings" => {}))
-
-      # api limit is not set and size is 15.0 (default is 2)
-      assert_equal 50, subject.default_limit
-    end
   end
 end

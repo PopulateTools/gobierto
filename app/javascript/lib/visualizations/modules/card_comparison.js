@@ -89,7 +89,7 @@ export class ComparisonCard extends Card {
     // Switch between different figure types
     switch (type) {
       case "percentage":
-        return accounting.formatNumber(data, 0) + "%";
+        return accounting.formatNumber(data, 2) + "%";
       case "currency":
         return accounting.formatNumber(data, 0) + "€";
       case "currency_per_person":

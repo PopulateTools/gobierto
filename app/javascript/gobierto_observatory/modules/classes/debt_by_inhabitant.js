@@ -80,7 +80,6 @@ export class DebtByInhabitantCard extends Card {
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       const parsedData = jsonData.data.map(x => ({ ...x, value: Number(x.value) }))
 
-      console.log(parsedData);
       new BarsCard(this.container, parsedData, {
         metadata: getMetadataFields(jsonMetadata),
         cardName: "debt_by_inhabitant"

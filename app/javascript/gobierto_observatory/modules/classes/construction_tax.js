@@ -1,35 +1,54 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class ConstructionTaxCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.placeTaxUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-impuestos-instalaciones-obras-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
-      city_id;
-    this.provinceTaxUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-impuestos-instalaciones-obras-municipal/average.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_province_id=" +
-      window.populateData.provinceId;
+    this.url =
+    window.populateData.endpoint +
+    `
+    WITH
+      maxyear AS (SELECT max(year) FROM tasas WHERE place_id = ${city_id})
+    SELECT
+      1 as index,
+      icio as value
+    FROM tasas
+    WHERE
+      place_id = ${city_id}
+      AND year = (SELECT * FROM maxyear)
+    UNION
+    SELECT
+      2 as index,
+      avg(icio) as value
+    FROM tasas
+    WHERE
+      year = (SELECT * FROM maxyear)
+    ORDER BY 1
+    `;
+
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/tasas/meta"
+    );
   }
 
   getData() {
-    var placeTax = this.handlePromise(this.placeTaxUrl);
-    var provinceTax = this.handlePromise(this.provinceTaxUrl);
+    var data = this.handlePromise(this.url);
+    var metadata = this.handlePromise(this.metadata);
 
-    Promise.all([placeTax, provinceTax]).then(([placeTax, provinceTax]) => {
-      var valueOne = placeTax.data[0].value;
-      var valueTwo = provinceTax.average;
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
+      var [placeTax, provinceTax] = jsonData.data;
 
-      new ComparisonCard(
-        this.container,
-        placeTax,
-        valueOne,
-        valueTwo,
-        "construction_tax"
-      );
+      var opts = {
+        metadata: getMetadataFields(jsonMetadata),
+        value_1: Number(placeTax.value),
+        value_2: Number(provinceTax.value),
+        cardName: "construction_tax"
+      };
+
+      new ComparisonCard(this.container, jsonData.data, opts);
     });
   }
 }

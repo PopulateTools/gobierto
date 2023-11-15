@@ -22,3 +22,20 @@ export const getMetadataFields = metadata => ({
     ],
   updated_at: metadata.data.attributes.data_updated_at
 })
+
+/**
+ * NOTE: the place_id consists of five numbers,
+ * where the first two are the province code, so,
+ * to get the province average we need to filter
+ * for all the elements sharing that numbers.
+ *
+ * Example:
+ * when, city_id = 15500
+ * then the province, place_id BETWEEN 15000 AND 15999
+ */
+export const getProvinceIds = city_id => {
+  const lower = Math.trunc(parseInt(city_id) / 1e3) * 1e3
+  const upper = Math.ceil(parseInt(city_id) / 1e3) * 1e3 - 1
+
+  return [lower, upper]
+}

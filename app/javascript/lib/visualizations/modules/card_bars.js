@@ -7,7 +7,7 @@ import { Card } from "./card.js";
 const d3 = { select, scaleLinear, timeFormat, timeParse, max };
 
 export class BarsCard extends Card {
-  constructor(divClass, data, { metadata, value, cardName }) {
+  constructor(divClass, data, { metadata, cardName }) {
     super(divClass);
 
     this.dataType = this.div.attr("data-type");
@@ -33,7 +33,7 @@ export class BarsCard extends Card {
           I18n.t("gobierto_common.visualizations.time") +
           encodeURI(formatDate(parsedDate).toLowerCase()) +
           ", " +
-          encodeURI(this._printData(value[0].figure)) +
+          encodeURI(this._printData(data[0].value)) +
           "&url=" +
           window.location.href +
           "&via=gobierto&source=webclient"
@@ -84,15 +84,15 @@ export class BarsCard extends Card {
       .range([0, isMobile ? 30 : 35])
       .domain([
         0,
-        d3.max(value, function(d) {
-          return d.figure;
+        d3.max(data, function(d) {
+          return d.value;
         })
       ]);
 
     var row = this.div
       .select(".bars")
       .selectAll("div")
-      .data(value)
+      .data(data)
       .enter()
       .append("div")
       .attr("class", "row");
@@ -108,7 +108,7 @@ export class BarsCard extends Card {
       .append("div")
       .attr("class", "bar")
       .style("width", function(d) {
-        return x(d.figure) + "%";
+        return x(d.value) + "%";
       });
 
     row
@@ -116,7 +116,7 @@ export class BarsCard extends Card {
       .attr("class", "qty")
       .text(
         function(d) {
-          return this._printData(d.figure);
+          return this._printData(d.value);
         }.bind(this)
       );
   }

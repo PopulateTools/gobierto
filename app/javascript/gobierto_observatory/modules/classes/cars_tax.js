@@ -1,21 +1,12 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields } from "../helpers.js";
+import { getMetadataFields, getProvinceIds } from "../helpers.js";
 
 export class CarsTaxCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    // NOTE: the place_id consists of five numbers,
-    // where the first two are the province code, so,
-    // to get the province average we need to filter
-    // for all the elements sharing that numbers.
-    //
-    // Example:
-    // when, city_id = 15500
-    // then the province, place_id BETWEEN 15000 AND 15999
-    var lower = Math.trunc(parseInt(city_id) / 1e3) * 1e3
-    var upper = Math.ceil(parseInt(city_id) / 1e3) * 1e3 - 1
+    const [lower, upper] = getProvinceIds(city_id);
 
     this.url =
       window.populateData.endpoint +

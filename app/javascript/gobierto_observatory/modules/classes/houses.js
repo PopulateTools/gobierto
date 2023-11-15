@@ -40,7 +40,12 @@ export class HousesCard extends Card {
         cardName: "houses"
       };
 
-      new ComparisonCard(this.container, Number(familyHouses.value), Number(mainHouses.value), opts);
+      new ComparisonCard(
+        this.container,
+        Number(familyHouses.value),
+        Number(mainHouses.value),
+        opts
+      );
     });
   }
 }

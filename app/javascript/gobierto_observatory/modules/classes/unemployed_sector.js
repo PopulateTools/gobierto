@@ -20,7 +20,10 @@ export class UnemplBySectorCard extends Card {
       ORDER BY year DESC, month DESC
       LIMIT 50
       `;
-    this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/paro-sectores/meta")
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/paro-sectores/meta"
+    );
   }
 
   getData() {
@@ -44,7 +47,8 @@ export class UnemplBySectorCard extends Card {
         })
         .entries(this.data);
 
-      this.nest.forEach(function(d) {
+      this.nest.forEach(
+        function(d) {
           d.diff = d.value.diff;
           d.value = d.value.value;
         }.bind(this)
@@ -68,15 +72,11 @@ export class UnemplBySectorCard extends Card {
       //   diff
       // }));
 
-      new SparklineTableCard(
-        this.container,
-        jsonData.data,
-        {
-          metadata: getMetadataFields(jsonMetadata),
-          value: this.nest,
-          cardName: "unemployed_sector"
-        }
-      );
+      new SparklineTableCard(this.container, jsonData.data, {
+        metadata: getMetadataFields(jsonMetadata),
+        value: this.nest,
+        cardName: "unemployed_sector"
+      });
 
       /* Sparklines */
       var opts = {
@@ -84,7 +84,7 @@ export class UnemplBySectorCard extends Card {
         freq: this.freq
       };
 
-      const sectors = groupBy(jsonData.data, "sector")
+      const sectors = groupBy(jsonData.data, "sector");
       Object.entries(sectors).forEach(([key, values]) => {
         const spark = new Sparkline(
           `${this.container} .sparkline-${key}`,
@@ -93,7 +93,7 @@ export class UnemplBySectorCard extends Card {
         );
 
         spark.render();
-      })
+      });
     });
   }
 }

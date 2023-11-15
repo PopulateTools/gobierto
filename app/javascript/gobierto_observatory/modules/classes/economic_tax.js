@@ -34,7 +34,7 @@ export class EconomicTaxCard extends Card {
         metadata: getMetadataFields(jsonMetadata),
         value: Number(jsonData.data[0].value),
         cardName: "economic_tax"
-      }
+      };
 
       new SimpleCard(this.container, jsonData.data, opts);
     });

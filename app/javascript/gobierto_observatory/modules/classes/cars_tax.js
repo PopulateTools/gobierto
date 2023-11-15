@@ -42,7 +42,12 @@ export class CarsTaxCard extends Card {
         cardName: "cars_tax"
       };
 
-      new ComparisonCard(this.container, Number(placeTax.value), Number(provinceTax.value), opts);
+      new ComparisonCard(
+        this.container,
+        Number(placeTax.value),
+        Number(provinceTax.value),
+        opts
+      );
     });
   }
 }

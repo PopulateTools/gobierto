@@ -20,7 +20,10 @@ export class FreelancersCard extends Card {
       GROUP BY year
       ORDER BY year DESC LIMIT 5
       `;
-    this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/afiliados-seguridad-social/meta")
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/afiliados-seguridad-social/meta"
+    );
   }
 
   getData() {
@@ -32,7 +35,7 @@ export class FreelancersCard extends Card {
         metadata: getMetadataFields(jsonMetadata),
         value: jsonData.data[0].value,
         cardName: "freelancers"
-      }
+      };
 
       new SimpleCard(this.container, jsonData.data, opts);
     });

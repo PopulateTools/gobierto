@@ -19,8 +19,11 @@ export class PopulationCard extends Card {
         sex = 'Total'
       GROUP BY year
       ORDER BY year DESC LIMIT 5
-      `
-    this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/poblacion-edad-sexo/meta")
+      `;
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/poblacion-edad-sexo/meta"
+    );
   }
 
   getData() {

@@ -19,7 +19,10 @@ export class ssMembersCard extends Card {
       GROUP BY year
       ORDER BY year DESC LIMIT 5
       `;
-    this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/afiliados-seguridad-social/meta")
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/afiliados-seguridad-social/meta"
+    );
   }
 
   getData() {

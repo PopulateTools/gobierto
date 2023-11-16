@@ -66,9 +66,6 @@ ca:
         figure_second: Espanya
         title: Renda bruta
       investment_by_inhabitant:
-        first_column: "%{place}"
-        second_column: Barcelona
-        third_column: Valencia
         title: Inversió per habitant
       meta:
         time: " al "

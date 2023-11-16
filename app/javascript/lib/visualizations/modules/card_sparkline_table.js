@@ -5,7 +5,7 @@ import { Card } from "./card.js";
 const d3 = { timeFormat, timeParse };
 
 export class SparklineTableCard extends Card {
-  constructor(divClass, data, { metadata, value, cardName }) {
+  constructor(divClass, data, { metadata, cardName }) {
     super(divClass);
 
     this.dataType = this.div.attr("data-type");
@@ -30,7 +30,7 @@ export class SparklineTableCard extends Card {
           I18n.t("gobierto_common.visualizations.time") +
           encodeURI(formatDate(parsedDate).toLowerCase()) +
           ", " +
-          encodeURI(this._printData(value[0].value)) +
+          encodeURI(this._printData(data[0].value)) +
           "&url=" +
           window.location.href +
           "&via=gobierto&source=webclient"
@@ -75,23 +75,14 @@ export class SparklineTableCard extends Card {
       .text(metadata.description);
     this.div.selectAll(".js-data-freq").text(formatDate(parsedDate));
 
-    var rows = value.map(
+    var rows = data.map(
       function(d) {
         return (
           "<td>" +
-          I18n.t(
-            "gobierto_common.visualizations.cards." +
-              cardName +
-              "." +
-              this._normalize(d.key),
-            {
-              place: window.populateData.municipalityName,
-              province: window.populateData.provinceName
-            }
-          ) +
+          d.title +
           '</td> \
         <td class="sparktable sparkline-' +
-          this._normalize(d.key) +
+          d.key +
           '"></td> \
         <td>' +
           accounting.formatNumber(d.diff, 1) +

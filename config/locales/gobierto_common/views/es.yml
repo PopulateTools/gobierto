@@ -95,9 +95,6 @@ es:
           figure_second: España
           title: Renta bruta
         investment_by_inhabitant:
-          first_column: "%{place}"
-          second_column: Barcelona
-          third_column: Valencia
           title: Inversión por habitante
         investment_financing:
           title: Financiación inversiones

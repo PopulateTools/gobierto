@@ -95,9 +95,6 @@ en:
           figure_second: Spain
           title: Gross income
         investment_by_inhabitant:
-          first_column: "%{place}"
-          second_column: Barcelona
-          third_column: Valencia
           title: Investment by inhabitant
         investment_financing:
           title: Investment financing

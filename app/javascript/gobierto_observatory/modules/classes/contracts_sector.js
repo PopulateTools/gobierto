@@ -49,7 +49,11 @@ export class ContractsBySectorCard extends Card {
 
       this.nest.forEach(
         function(d) {
-          d.key, (d.diff = d.value.diff), (d.value = d.value.value);
+          d.title = I18n.t(
+            "gobierto_common.visualizations.cards.contracts_sector." + d.key
+          );
+          d.diff = d.value.diff;
+          d.value = d.value.value;
         }.bind(this)
       );
 
@@ -71,9 +75,8 @@ export class ContractsBySectorCard extends Card {
       //   diff
       // }));
 
-      new SparklineTableCard(this.container, jsonData.data, {
+      new SparklineTableCard(this.container, this.nest, {
         metadata: getMetadataFields(jsonMetadata),
-        value: this.nest,
         cardName: "contracts_sector"
       });
 
@@ -84,15 +87,18 @@ export class ContractsBySectorCard extends Card {
       };
 
       const sectors = groupBy(jsonData.data, "sector");
-      Object.entries(sectors).forEach(([key, values]) => {
-        const spark = new Sparkline(
-          `${this.container} .sparkline-${key}`,
-          values,
-          opts
-        );
+      Object.entries(sectors)
+        .forEach(([key, values]) => {
+          const sorted = values.sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1));
 
-        spark.render();
-      });
+          const spark = new Sparkline(
+            `${this.container} .sparkline-${key}`,
+            sorted,
+            opts
+          );
+
+          spark.render();
+        });
     });
   }
 }

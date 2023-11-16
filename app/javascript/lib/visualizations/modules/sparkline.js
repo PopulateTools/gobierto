@@ -84,7 +84,7 @@ export class Sparkline {
         d3.extent(
           this.data,
           function(d) {
-            return d.value;
+            return Number(d.value);
           }.bind(this)
         )
       )
@@ -101,7 +101,7 @@ export class Sparkline {
       )
       .y(
         function(d) {
-          return this.yScale(d.value);
+          return this.yScale(Number(d.value));
         }.bind(this)
       );
 

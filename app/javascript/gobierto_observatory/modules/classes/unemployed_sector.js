@@ -42,13 +42,18 @@ export class UnemplBySectorCard extends Card {
         .rollup(function(v) {
           return {
             value: v[0].value,
-            diff: ((v[0].value - v[1].value) / v[1].value) * 100
+            diff: v[1].value
+              ? ((v[0].value - v[1].value) / v[1].value) * 100
+              : 0
           };
         })
         .entries(this.data);
 
       this.nest.forEach(
         function(d) {
+          d.title = I18n.t(
+            "gobierto_common.visualizations.cards.unemployed_sector." + d.key
+          );
           d.diff = d.value.diff;
           d.value = d.value.value;
         }.bind(this)
@@ -72,9 +77,8 @@ export class UnemplBySectorCard extends Card {
       //   diff
       // }));
 
-      new SparklineTableCard(this.container, jsonData.data, {
+      new SparklineTableCard(this.container, this.nest, {
         metadata: getMetadataFields(jsonMetadata),
-        value: this.nest,
         cardName: "unemployed_sector"
       });
 
@@ -85,15 +89,18 @@ export class UnemplBySectorCard extends Card {
       };
 
       const sectors = groupBy(jsonData.data, "sector");
-      Object.entries(sectors).forEach(([key, values]) => {
-        const spark = new Sparkline(
-          `${this.container} .sparkline-${key}`,
-          values,
-          opts
-        );
+      Object.entries(sectors)
+        .forEach(([key, values]) => {
+          const sorted = values.sort((a, b) => (new Date(a.date) < new Date(b.date) ? 1 : -1));
 
-        spark.render();
-      });
+          const spark = new Sparkline(
+            `${this.container} .sparkline-${key}`,
+            sorted,
+            opts
+          );
+
+          spark.render();
+        });
     });
   }
 }

@@ -69,35 +69,27 @@ export class InvestmentByInhabitantCard extends Card {
     var metadata = this.handlePromise(this.metadata);
 
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      this.data = jsonData.data;
-
       // d3v5
       //
-      this.nest = nest()
-        .key(function(d) {
-          return d.key;
-        })
-        .rollup(function(v) {
-          return {
-            value: v[0].value,
-            diff: v[1].value ? ((v[0].value - v[1].value) / v[1].value) * 100 : 0
-          };
-        })
-        .entries(this.data);
-
-      this.nest.forEach(
-        function(d) {
-          d.title = d.key
-          d.key = this._normalize(d.key)
-          d.diff = d.value.diff;
-          d.value = d.value.value;
-        }.bind(this)
-      );
+      const nestData = nest()
+        .key(d => d.key)
+        .rollup(v => ({
+          value: v[0].value,
+          diff: v[1].value ? ((v[0].value - v[1].value) / v[1].value) * 100 : 0
+        }))
+        .entries(jsonData.data)
+        .map(d => ({
+          ...d,
+          title: d.key,
+          key: this._normalize(d.key),
+          diff: d.value.diff,
+          value: d.value.value
+        }));
 
       // d3v6
       //
-      // this.nest = rollup(
-      //   this.data,
+      // nestData = rollup(
+      //   jsonData.data,
       //   v => ({
       //     value: v[0].value,
       //     diff: ((v[0].value - v[1].value) / v[1].value) * 100
@@ -106,13 +98,13 @@ export class InvestmentByInhabitantCard extends Card {
       // );
 
       // // Convert map to specific array
-      // this.nest = Array.from(this.nest, ([key, { value, diff }]) => ({
+      // nestData = Array.from(nestData, ([key, { value, diff }]) => ({
       //   key,
       //   value,
       //   diff
       // }));
 
-      new SparklineTableCard(this.container, this.nest, {
+      new SparklineTableCard(this.container, nestData, {
         metadata: getMetadataFields(jsonMetadata),
         cardName: "investment_by_inhabitant"
       });
@@ -125,7 +117,7 @@ export class InvestmentByInhabitantCard extends Card {
 
       const locations = groupBy(jsonData.data, "key");
       Object.entries(locations).forEach(([key, values]) => {
-        const sorted = values.sort((a, b) => a.date < b.date ? 1 : -1)
+        const sorted = values.sort((a, b) => (a.date < b.date ? 1 : -1));
 
         const spark = new Sparkline(
           `${this.container} .sparkline-${this._normalize(key)}`,

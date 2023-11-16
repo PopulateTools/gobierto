@@ -1,4 +1,3 @@
-import { nest } from "d3-collection";
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { groupBy } from "../helpers";
 import { Card } from "./card.js";
@@ -15,7 +14,8 @@ export class BirthRateCard extends Card {
       `
       (
         SELECT
-          1 as index,
+          1 AS index,
+          'place' AS key,
           CONCAT(year, '-', 1, '-', 1) AS date,
           value::decimal AS value
         FROM tasa_natalidad
@@ -27,7 +27,8 @@ export class BirthRateCard extends Card {
       UNION
       (
         SELECT
-          2 as index,
+          2 AS index,
+          'province' AS key,
           CONCAT(year, '-', 1, '-', 1) AS date,
           AVG(value::decimal) AS value
         FROM tasa_natalidad
@@ -40,7 +41,8 @@ export class BirthRateCard extends Card {
       UNION
       (
         SELECT
-          3 as index,
+          3 AS index,
+          'country' AS key,
           CONCAT(year, '-', 1, '-', 1) AS date,
           AVG(value::decimal) AS value
         FROM tasa_natalidad
@@ -62,56 +64,44 @@ export class BirthRateCard extends Card {
     var metadata = this.handlePromise(this.metadata);
 
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      // d3v5
-      //
-      const nestData = nest()
-        .key(d => d.location_type)
-        .rollup(v => ({
-          value: v[0].figure,
-          diff: ((v[0].figure - v[1].figure) / v[1].figure) * 100
-        }))
-        .entries(jsonData.data)
-        .map(d => ({
-          ...d,
-          title: d.key,
-          diff: d.value.diff,
-          value: d.value.value
-        }));
+      const locationType = groupBy(jsonData.data, "key");
 
-      // d3v6
-      //
-      // nestData = rollup(
-      //   jsonData.data,
-      //   v => ({
-      //     value: v[0].figure,
-      //     diff: ((v[0].figure - v[1].figure) / v[1].figure) * 100
-      //   }),
-      //   d => d.location_type
-      // );
-      // // Convert map to specific array
-      // nestData = Array.from(nestData, ([key, { value, diff }]) => ({
-      //   key,
-      //   value,
-      //   diff
-      // }));
+      // transform the data for the chart
+      const nestData = Object.entries(locationType).map(([key, values]) => ({
+        key,
+        value: values[0].value,
+        diff: (values[0].value / values[1].value - 1) * 100,
+        title: I18n.t(`gobierto_common.visualizations.cards.births.${key}`, {
+          place: window.populateData.municipalityName
+        })
+      }));
+
+      // include empty records
+      while (nestData.length < 3) {
+        nestData.unshift({
+          value: "--",
+          diff: "--",
+          title: "No hay datos"
+        })
+      }
 
       new SparklineTableCard(this.container, nestData, {
         metadata: getMetadataFields(jsonMetadata),
         cardName: "births"
       });
 
-      /* Sparklines */
-      var opts = {
-        trend: this.trend,
-        freq: this.freq
-      };
-
-      const locationType = groupBy(jsonData.data, "location_type");
       Object.entries(locationType).forEach(([key, values]) => {
+        const sorted = values.sort((a, b) =>
+          new Date(a.date) < new Date(b.date) ? 1 : -1
+        );
+
         const spark = new Sparkline(
           `${this.container} .sparkline-${key}`,
-          values,
-          opts
+          sorted,
+          {
+            trend: this.trend,
+            freq: this.freq
+          }
         );
 
         spark.render();

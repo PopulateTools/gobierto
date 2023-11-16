@@ -1,4 +1,3 @@
-import { nest } from "d3-collection";
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { Card } from "./card.js";
 import { getMetadataFields, getProvinceIds, groupBy } from "../helpers";
@@ -69,60 +68,31 @@ export class InvestmentByInhabitantCard extends Card {
     var metadata = this.handlePromise(this.metadata);
 
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      // d3v5
-      //
-      const nestData = nest()
-        .key(d => d.key)
-        .rollup(v => ({
-          value: v[0].value,
-          diff: v[1].value ? ((v[0].value - v[1].value) / v[1].value) * 100 : 0
-        }))
-        .entries(jsonData.data)
-        .map(d => ({
-          ...d,
-          title: d.key,
-          key: this._normalize(d.key),
-          diff: d.value.diff,
-          value: d.value.value
-        }));
+      const locations = groupBy(jsonData.data, "key");
 
-      // d3v6
-      //
-      // nestData = rollup(
-      //   jsonData.data,
-      //   v => ({
-      //     value: v[0].value,
-      //     diff: ((v[0].value - v[1].value) / v[1].value) * 100
-      //   }),
-      //   d => d.row
-      // );
-
-      // // Convert map to specific array
-      // nestData = Array.from(nestData, ([key, { value, diff }]) => ({
-      //   key,
-      //   value,
-      //   diff
-      // }));
+      // transform the data for the chart
+      const nestData = Object.entries(locations).map(([key, values]) => ({
+        key: this._normalize(key),
+        value: values[0].value,
+        diff: (values[0].value / values[1].value - 1) * 100,
+        title: key
+      }));
 
       new SparklineTableCard(this.container, nestData, {
         metadata: getMetadataFields(jsonMetadata),
         cardName: "investment_by_inhabitant"
       });
 
-      /* Sparklines */
-      var opts = {
-        trend: this.trend,
-        freq: this.freq
-      };
-
-      const locations = groupBy(jsonData.data, "key");
       Object.entries(locations).forEach(([key, values]) => {
         const sorted = values.sort((a, b) => (a.date < b.date ? 1 : -1));
 
         const spark = new Sparkline(
           `${this.container} .sparkline-${this._normalize(key)}`,
           sorted,
-          opts
+          {
+            trend: this.trend,
+            freq: this.freq
+          }
         );
 
         spark.render();

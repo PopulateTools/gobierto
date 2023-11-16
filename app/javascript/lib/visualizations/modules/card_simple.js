@@ -6,7 +6,7 @@ import { Sparkline } from "./sparkline.js";
 const d3 = { timeFormat, timeParse };
 
 export class SimpleCard extends Card {
-  constructor(divClass, data, { metadata, value, cardName, valueType }) {
+  constructor(divClass, data, { metadata, cardName }) {
     super(divClass);
 
     this.dataType = this.div.attr("data-type");
@@ -18,6 +18,9 @@ export class SimpleCard extends Card {
     var formatDate = d3.timeFormat("%b %Y");
 
     var divCard = $('div[class*="' + divClass.replace(".", "") + '"]');
+
+    var lastValue = data[0].value
+    var nextToLastValue = data[1].value
 
     divCard
       .find("div.indicator_widget.padded")
@@ -42,7 +45,7 @@ export class SimpleCard extends Card {
           I18n.t("gobierto_common.visualizations.time") +
           encodeURI(formatDate(parsedDate).toLowerCase()) +
           ", " +
-          encodeURI(this._printData(value)) +
+          encodeURI(this._printData(lastValue)) +
           "&url=" +
           window.location.href +
           "&via=gobierto&source=webclient"
@@ -56,7 +59,7 @@ export class SimpleCard extends Card {
         "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href
       );
 
-    this.div.select(".widget_figure").text(this._printData(value));
+    this.div.select(".widget_figure").text(this._printData(lastValue));
 
     // If the data is 0
     if (
@@ -105,9 +108,7 @@ export class SimpleCard extends Card {
       });
       spark.render();
 
-      var pctChange = valueType
-        ? (value / data[1][valueType]) * 100 - 100
-        : (value / data[1].value) * 100 - 100;
+      var pctChange = (lastValue / nextToLastValue) * 100 - 100;
       var pctFormat = accounting.formatNumber(pctChange, 2) + "%";
       var isPositive = pctChange > 0;
 

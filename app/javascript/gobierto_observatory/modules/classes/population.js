@@ -10,15 +10,15 @@ export class PopulationCard extends Card {
       window.populateData.endpoint +
       `
       SELECT
-        year,
-        SUM(total::integer) AS value,
-        CONCAT(year, '-', 1, '-', 1) AS date
+        CONCAT(year, '-', 1, '-', 1) AS date,
+        SUM(total::integer) AS value
       FROM poblacion_edad_sexo
       WHERE
         place_id = ${city_id} AND
         sex = 'Total'
       GROUP BY year
-      ORDER BY year DESC LIMIT 5
+      ORDER BY 1 DESC
+      LIMIT 5
       `;
     this.metadata = window.populateData.endpoint.replace(
       "data.json?sql=",
@@ -33,7 +33,6 @@ export class PopulationCard extends Card {
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       var opts = {
         metadata: getMetadataFields(jsonMetadata),
-        value: jsonData.data[0].value,
         cardName: "population"
       };
 

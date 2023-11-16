@@ -11,7 +11,7 @@ export class EconomicTaxCard extends Card {
       `
       SELECT
         CONCAT(year, '-', 1, '-', 1) AS date,
-        iae_coef_min as value
+        iae_coef_min::decimal as value
       FROM tasas
       WHERE
         place_id = ${city_id}
@@ -32,7 +32,6 @@ export class EconomicTaxCard extends Card {
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       var opts = {
         metadata: getMetadataFields(jsonMetadata),
-        value: jsonData.data[0].value,
         cardName: "economic_tax"
       };
 

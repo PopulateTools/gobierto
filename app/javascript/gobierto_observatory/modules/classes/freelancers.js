@@ -10,15 +10,15 @@ export class FreelancersCard extends Card {
       window.populateData.endpoint +
       `
       SELECT
-        year,
-        SUM(value::integer) AS value,
-        CONCAT(year, '-', 1, '-', 1) AS date
+        CONCAT(year, '-', 1, '-', 1) AS date,
+        SUM(value::integer) AS value
       FROM afiliados_seguridad_social
       WHERE
         place_id = ${city_id} AND
         type = 'R.E.TRABAJADORES CTA. PROP. O AUTONOMOS'
       GROUP BY year
-      ORDER BY year DESC LIMIT 5
+      ORDER BY 1 DESC
+      LIMIT 5
       `;
     this.metadata = window.populateData.endpoint.replace(
       "data.json?sql=",
@@ -33,7 +33,6 @@ export class FreelancersCard extends Card {
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       var opts = {
         metadata: getMetadataFields(jsonMetadata),
-        value: jsonData.data[0].value,
         cardName: "freelancers"
       };
 

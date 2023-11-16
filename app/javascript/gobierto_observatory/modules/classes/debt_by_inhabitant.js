@@ -15,7 +15,7 @@ export class DebtByInhabitantCard extends Card {
         maxyear AS (SELECT max(year) FROM coches WHERE place_id = ${city_id}),
         population AS (
           SELECT
-            sum(total::integer)
+            SUM(total::integer)
           FROM poblacion_edad_sexo
           WHERE
             place_id = ${city_id}
@@ -24,7 +24,7 @@ export class DebtByInhabitantCard extends Card {
         ),
         population_prov AS (
           SELECT
-            sum(total::integer)
+            SUM(total::integer)
           FROM poblacion_edad_sexo
           WHERE
             place_id BETWEEN ${lower} AND ${upper}
@@ -33,7 +33,7 @@ export class DebtByInhabitantCard extends Card {
         ),
         population_country AS (
           SELECT
-            sum(total::integer)
+            SUM(total::integer)
           FROM poblacion_edad_sexo
           WHERE
             sex = 'Total'
@@ -42,7 +42,7 @@ export class DebtByInhabitantCard extends Card {
       SELECT
         1 as index,
         '${window.populateData.municipalityName}' as key,
-        COALESCE(sum(value::decimal) / NULLIF((SELECT * FROM population), 0), 0) AS value
+        COALESCE(SUM(value::decimal) / NULLIF((SELECT * FROM population), 0), 0) AS value
       FROM deuda_municipal
       WHERE
         place_id = ${city_id}
@@ -51,7 +51,7 @@ export class DebtByInhabitantCard extends Card {
       SELECT
         2 as index,
         '${window.populateData.provinceName}' as key,
-        COALESCE(sum(value::decimal) / NULLIF((SELECT * FROM population_prov), 0), 0) AS value
+        COALESCE(SUM(value::decimal) / NULLIF((SELECT * FROM population_prov), 0), 0) AS value
       FROM deuda_municipal
       WHERE
         place_id BETWEEN ${lower} AND ${upper}
@@ -60,7 +60,7 @@ export class DebtByInhabitantCard extends Card {
       SELECT
         3 as index,
         '${I18n.t("country")}' as key,
-        COALESCE(sum(value::decimal) / NULLIF((SELECT * FROM population_country), 0), 0) AS value
+        COALESCE(SUM(value::decimal) / NULLIF((SELECT * FROM population_country), 0), 0) AS value
       FROM deuda_municipal
       WHERE
         year = (SELECT * FROM maxyear)

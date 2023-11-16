@@ -164,11 +164,12 @@ export class Sparkline {
   }
 
   _type() {
-    this.data.forEach(
-      function(d) {
-        d.date = this.timeParse(d.date);
-      }.bind(this)
-    );
+    this.data = this.data
+      .map(d => ({
+        ...d,
+        date: this.timeParse(d.date)
+      }))
+      .sort((a, b) => (a.date < b.date ? 1 : -1));
   }
 
   _width() {

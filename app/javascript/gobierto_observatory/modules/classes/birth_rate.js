@@ -16,41 +16,41 @@ export class BirthRateCard extends Card {
         SELECT
           1 AS index,
           'place' AS key,
-          CONCAT(year, '-', 1, '-', 1) AS date,
+          year AS date,
           value::decimal AS value
         FROM tasa_natalidad
         WHERE
           place_id = ${city_id}
         ORDER BY year DESC
-        LIMIT 5
+        LIMIT 2
       )
       UNION
       (
         SELECT
           2 AS index,
           'province' AS key,
-          CONCAT(year, '-', 1, '-', 1) AS date,
+          year AS date,
           AVG(value::decimal) AS value
         FROM tasa_natalidad
         WHERE
           place_id between ${lower} and ${upper}
         GROUP BY year
         ORDER BY year DESC
-        LIMIT 5
+        LIMIT 2
       )
       UNION
       (
         SELECT
           3 AS index,
           'country' AS key,
-          CONCAT(year, '-', 1, '-', 1) AS date,
+          year AS date,
           AVG(value::decimal) AS value
         FROM tasa_natalidad
         GROUP BY year
         ORDER BY year DESC
-        LIMIT 5
+        LIMIT 2
       )
-      ORDER BY index
+      ORDER BY index, date DESC
       `;
 
     this.metadata = window.populateData.endpoint.replace(
@@ -91,16 +91,12 @@ export class BirthRateCard extends Card {
       });
 
       Object.entries(locationType).forEach(([key, values]) => {
-        const sorted = values.sort((a, b) =>
-          new Date(a.date) < new Date(b.date) ? 1 : -1
-        );
-
+        console.log(values);
         const spark = new Sparkline(
           `${this.container} .sparkline-${key}`,
-          sorted,
+          values,
           {
-            trend: this.trend,
-            freq: this.freq
+            trend: this.trend
           }
         );
 

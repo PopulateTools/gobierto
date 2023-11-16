@@ -1,5 +1,6 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class BudgetByInhabitantCard extends Card {
   constructor(divClass, city_id) {
@@ -7,28 +8,36 @@ export class BudgetByInhabitantCard extends Card {
 
     this.url =
       window.populateData.endpoint +
-      "/datasets/ds-presupuestos-municipales-total.json?filter_by_kind=G&sort_desc_by=year&with_metadata=true&limit=5&filter_by_organization_id=" +
-      city_id;
+      `
+      SELECT
+        CONCAT(year, '-', 1, '-', 1) AS date,
+        SUM(amount_per_inhabitant::decimal) as value
+      FROM presupuestos_municipales
+      WHERE
+        place_id = ${city_id}
+      AND area = 'e' and kind = 'G' and length(code) = 1
+      GROUP BY year
+      ORDER BY 1 DESC
+      LIMIT 5
+      `;
+
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/presupuestos-municipales/meta"
+    );
   }
 
   getData() {
     var data = this.handlePromise(this.url);
+    var metadata = this.handlePromise(this.metadata);
 
-    data.then(jsonData => {
-      var value = jsonData.data[0].total_budget_per_inhabitant;
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
+      var opts = {
+        metadata: getMetadataFields(jsonMetadata),
+        cardName: "budget_by_inhabitant"
+      };
 
-      jsonData.data.forEach(function(d) {
-        d.date = `${d.year}-01-01`
-        d.value = d.total_budget_per_inhabitant
-      });
-
-      new SimpleCard(
-        this.container,
-        jsonData,
-        value,
-        "budget_by_inhabitant",
-        "total_budget_per_inhabitant"
-      );
+      new SimpleCard(this.container, jsonData.data, opts);
     });
   }
 }

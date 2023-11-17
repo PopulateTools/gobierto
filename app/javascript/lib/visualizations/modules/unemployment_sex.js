@@ -1,20 +1,17 @@
 import { max, extent } from "d3-array";
 import { axisBottom, axisLeft } from "d3-axis";
 import { json } from "d3-fetch";
-import { format } from "d3-format";
 import { scaleLinear, scaleOrdinal, scaleTime } from "d3-scale";
 import { select, selectAll } from "d3-selection";
 import { line } from "d3-shape";
-import { timeParse, timeFormatDefaultLocale, timeFormat } from "d3-time-format";
+import { timeFormatDefaultLocale, timeFormat } from "d3-time-format";
 import { voronoi } from "d3-voronoi";
 import { groupBy, d3locale } from "lib/shared";
 
 export class VisUnemploymentSex {
-  constructor(divId, city_id, unemplAgeData) {
-    this.location_id = parseInt(city_id);
+  constructor(divId, city_id) {
     this.container = divId;
     this.data = null;
-    this.unemplAgeData = unemplAgeData;
     this.tbiToken = window.populateData.token;
 
     this.url =
@@ -45,8 +42,6 @@ export class VisUnemploymentSex {
 
     timeFormatDefaultLocale(d3locale[I18n.locale]);
 
-    this.parseTime = timeParse("%Y-%m");
-    this.pctFormat = format(".1%");
     this.isMobile = window.innerWidth <= 768;
 
     // Chart dimensions

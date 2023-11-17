@@ -1,6 +1,7 @@
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
+import { groupBy } from "lib/shared";
 import { Card } from "./card.js";
-import { getMetadataFields, getProvinceIds, groupBy } from "../helpers";
+import { getMetadataFields, getProvinceIds } from "../helpers.js";
 
 export class InvestmentByInhabitantCard extends Card {
   constructor(divClass, city_id) {

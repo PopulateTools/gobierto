@@ -1,5 +1,5 @@
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
-import { groupBy } from "../helpers";
+import { groupBy } from "lib/shared";
 import { Card } from "./card.js";
 import { getMetadataFields, getProvinceIds } from "../helpers.js";
 
@@ -91,7 +91,6 @@ export class BirthRateCard extends Card {
       });
 
       Object.entries(locationType).forEach(([key, values]) => {
-        console.log(values);
         const spark = new Sparkline(
           `${this.container} .sparkline-${key}`,
           values,

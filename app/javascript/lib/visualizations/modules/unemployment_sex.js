@@ -1,32 +1,13 @@
-import { max, merge, sum } from "d3-array";
+import { max, extent } from "d3-array";
 import { axisBottom, axisLeft } from "d3-axis";
-import { nest } from "d3-collection";
 import { json } from "d3-fetch";
 import { format } from "d3-format";
 import { scaleLinear, scaleOrdinal, scaleTime } from "d3-scale";
 import { select, selectAll } from "d3-selection";
 import { line } from "d3-shape";
-import { timeParse } from "d3-time-format";
+import { timeParse, timeFormatDefaultLocale, timeFormat } from "d3-time-format";
 import { voronoi } from "d3-voronoi";
-
-const d3 = {
-  timeParse,
-  format,
-  scaleTime,
-  scaleLinear,
-  scaleOrdinal,
-  select,
-  axisBottom,
-  axisLeft,
-  json,
-  sum,
-  max,
-  line,
-  merge,
-  selectAll,
-  voronoi,
-  nest
-};
+import { groupBy, d3locale } from "lib/shared";
 
 export class VisUnemploymentSex {
   constructor(divId, city_id, unemplAgeData) {
@@ -35,16 +16,37 @@ export class VisUnemploymentSex {
     this.data = null;
     this.unemplAgeData = unemplAgeData;
     this.tbiToken = window.populateData.token;
-    this.popUrl =
+
+    this.url =
       window.populateData.endpoint +
-      "/datasets/ds-poblacion-activa-municipal-sexo.json?sort_asc_by=date&filter_by_location_id=" +
-      city_id;
-    this.unemplUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-personas-paradas-municipio-sexo.json?sort_asc_by=date&filter_by_location_id=" +
-      city_id;
-    this.parseTime = d3.timeParse("%Y-%m");
-    this.pctFormat = d3.format(".1%");
+      `
+      WITH pob_activa AS
+        (SELECT year,
+                SUM(total::integer) AS value
+        FROM poblacion_edad_sexo
+        WHERE place_id = ${city_id}
+          AND sex = 'Total'
+          AND age >= 16
+        GROUP BY year)
+        SELECT paro.year,
+              month,
+              CONCAT(paro.year, '-', month, '-', 1) AS date,
+              paro.sex as key,
+              SUM(paro.value::decimal) / pob_activa.value AS value
+        FROM paro_personas paro
+        JOIN pob_activa ON paro.year = pob_activa.year
+        WHERE place_id = ${city_id}
+        GROUP BY paro.year,
+                month,
+                paro.sex,
+                pob_activa.value
+        ORDER BY year DESC, month DESC
+      `;
+
+    timeFormatDefaultLocale(d3locale[I18n.locale]);
+
+    this.parseTime = timeParse("%Y-%m");
+    this.pctFormat = format(".1%");
     this.isMobile = window.innerWidth <= 768;
 
     // Chart dimensions
@@ -53,21 +55,19 @@ export class VisUnemploymentSex {
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
     // Scales & Ranges
-    this.xScale = d3.scaleTime();
-    this.yScale = d3.scaleLinear();
-    this.color = d3.scaleOrdinal();
+    this.xScale = scaleTime();
+    this.yScale = scaleLinear();
+    this.color = scaleOrdinal();
 
     // Create axes
-    this.xAxis = d3.axisBottom();
-    this.yAxis = d3.axisLeft();
+    this.xAxis = axisBottom();
+    this.yAxis = axisLeft();
 
     // Chart objects
     this.svg = null;
-    this.chart = null;
 
     // Create main elements
-    this.svg = d3
-      .select(this.container)
+    this.svg = select(this.container)
       .append("svg")
       .attr("width", this.width + this.margin.left + this.margin.right)
       .attr("height", this.height + this.margin.top + this.margin.bottom)
@@ -82,7 +82,7 @@ export class VisUnemploymentSex {
     this.svg.append("g").attr("class", "x axis");
     this.svg.append("g").attr("class", "y axis");
 
-    d3.select(window).on("resize." + this.container, () => {
+    select(window).on("resize." + this.container, () => {
       if (this.data) {
         this._resize();
       }
@@ -97,92 +97,10 @@ export class VisUnemploymentSex {
   }
 
   getData() {
-    var pop = this.handlePromise(this.popUrl);
-    var unemployed = this.handlePromise(this.unemplUrl);
+    var data = this.handlePromise(this.url);
 
-    Promise.all([pop, unemployed]).then(([population, unemployment]) => {
-      if (this.location_id === 8077) {
-        let factor = 0.7786712568;
-        population.forEach(d => {
-          d.value = d.value * factor;
-        });
-      }
-
-      // d3v5
-      //
-      var nested = d3
-        .nest()
-        .key(function(d) {
-          return d.date;
-        })
-        .rollup(function(v) {
-          return d3.sum(v, function(d) {
-            return d.value;
-          });
-        })
-        .entries(population);
-
-      var temp = {};
-      nested.forEach(function(k) {
-        temp[k.key] = k.value;
-      });
-      nested = temp;
-
-      // d3v6
-      //
-      // var nested = rollup(
-      //   population,
-      //   v => d3.sum(v, d => d.value),
-      //   d => d.date
-      // );
-      // // Convert map to specific array
-      // nested = Array.from(nested.entries()).reduce(
-      //   (main, [key, value]) => ({ ...main, [key]: value }),
-      //   {}
-      // );
-
-      // Get the last year from the array
-      var lastYear = unemployment[unemployment.length - 1].date.slice(0, 4);
-
-      unemployment.forEach(d => {
-        var year = d.date.slice(0, 4);
-
-        if (Object.prototype.hasOwnProperty.call(nested, year)) {
-          d.pct = d.value / nested[year];
-        } else if (year >= lastYear - 2) {
-          // If we are in the last year, divide the unemployment by last year's population
-          if (nested[year - 1] === undefined) {
-            d.pct = d.value / nested[year - 2];
-          } else {
-            d.pct = d.value / nested[year - 1];
-          }
-        } else {
-          d.pct = null;
-        }
-        d.date = this.parseTime(d.date);
-      });
-
-      // Filtering values to start from the first data points
-      this.data = unemployment.filter(d => d.date >= this.parseTime("2011-01"));
-
-      // d3v5
-      //
-      this.nest = d3
-        .nest()
-        .key(function(d) {
-          return d.sex;
-        })
-        .entries(this.data);
-
-      // d3v6
-      //
-      // this.nest = Array.from(
-      //   group(this.data, d => d.sex),
-      //   ([key, values]) => ({
-      //     key,
-      //     values
-      //   })
-      // );
+    data.then(json => {
+      this.data = Object.entries(groupBy(json.data, "key"));
 
       this.updateRender();
       this._renderLines();
@@ -199,132 +117,61 @@ export class VisUnemploymentSex {
   }
 
   updateRender() {
-    this.xScale.rangeRound([0, this.width]).domain([
-      d3.timeParse("%Y-%m")("2010-11"),
-      d3.max(this.data, function(d) {
-        return d.date;
-      })
-    ]);
+    const values = this.data.flatMap(x => x[1]);
 
-    this.yScale.rangeRound([this.height, 0]).domain([
-      0.0,
-      d3.max(this.unemplAgeData, function(d) {
-        return d.pct;
-      })
-    ]);
+    this.xScale
+      .rangeRound([0, this.width])
+      .domain(extent(values, d => new Date(d.date)));
 
-    this.color.domain(["M", "H"]).range(["#F6B128", "#007382"]);
+    this.yScale
+      .rangeRound([this.height, 0])
+      .domain([0, max(values, d => d.value)]);
+
+    this.color
+      .domain([...new Set(values.map(x => x.key))])
+      .range(["#F6B128", "#007382"]);
 
     this._renderAxis();
   }
 
   _renderLines() {
-    this.line = d3
-      .line()
-      .x(
-        function(d) {
-          return this.xScale(d.date);
-        }.bind(this)
-      )
-      .y(
-        function(d) {
-          return this.yScale(d.pct);
-        }.bind(this)
-      );
+    this.line = line()
+      .x(d => this.xScale(new Date(d.date)))
+      .y(d => this.yScale(+d.value));
 
     var lines = this.svg
       .append("g")
       .attr("class", "lines")
       .selectAll("path")
-      .data(this.nest, function(d) {
-        return d.key;
-      })
+      .data(this.data, ([key]) => key)
       .enter();
 
     var linesGroup = lines.append("g").attr("class", "line");
 
     linesGroup
       .append("path")
-      .attr(
-        "d",
-        function(d) {
-          d.line = this;
-          return this.line(d.values);
-        }.bind(this)
-      )
-      .attr(
-        "stroke",
-        function(d) {
-          return this.color(d.key);
-        }.bind(this)
-      );
+      .attr("d", ([, values]) => this.line(values))
+      .attr("stroke", ([key]) => this.color(key));
 
     linesGroup
       .append("circle")
-      .attr(
-        "cx",
-        function(d) {
-          return this.xScale(
-            d.values
-              .map(function(d) {
-                return d.date;
-              })
-              .slice(-1)[0]
-          );
-        }.bind(this)
-      )
-      .attr(
-        "cy",
-        function(d) {
-          return this.yScale(
-            d.values
-              .map(function(d) {
-                return d.pct;
-              })
-              .slice(-1)[0]
-          );
-        }.bind(this)
-      )
+      .attr("cx", ([, values]) => this.xScale(new Date(values[0].date)))
+      .attr("cy", ([, values]) => this.yScale(values[0].value))
       .attr("r", 5)
-      .attr(
-        "fill",
-        function(d) {
-          return this.color(d.key);
-        }.bind(this)
-      );
+      .attr("fill", ([key]) => this.color(key));
 
-    var linesText = d3
-      .select(this.container)
+    var linesText = select(this.container)
       .append("div")
       .attr("class", "lines-labels")
       .selectAll("p")
-      .data(this.nest, function(d) {
-        return d.key;
-      })
+      .data(this.data, ([key]) => key)
       .enter();
 
     linesText
       .append("div")
       .style("right", "1px")
-      .style(
-        "top",
-        function(d) {
-          return (
-            this.yScale(
-              d.values
-                .map(function(d) {
-                  return d.pct;
-                })
-                .slice(-1)[0]
-            ) + "px"
-          );
-        }.bind(this)
-      )
-      .text(
-        function(d) {
-          return this._getLabel(d.key);
-        }.bind(this)
-      );
+      .style("top", ([, values]) => this.yScale(values[0].value) + "px")
+      .text(([key]) => this._getLabel(key));
   }
 
   _renderVoronoi() {
@@ -346,18 +193,9 @@ export class VisUnemploymentSex {
       .attr("y", -10)
       .attr("x", 0);
 
-    this.voronoi = d3
-      .voronoi()
-      .x(
-        function(d) {
-          return this.xScale(d.date);
-        }.bind(this)
-      )
-      .y(
-        function(d) {
-          return this.yScale(d.pct);
-        }.bind(this)
-      )
+    this.voronoi = voronoi()
+      .x(d => this.xScale(new Date(d.date)))
+      .y(d => this.yScale(+d.value))
       .extent([
         [0, 0],
         [this.width, this.height]
@@ -367,15 +205,7 @@ export class VisUnemploymentSex {
 
     this.voronoiGroup
       .selectAll("path")
-      .data(
-        this.voronoi.polygons(
-          d3.merge(
-            this.nest.map(function(d) {
-              return d.values;
-            })
-          )
-        )
-      )
+      .data(this.voronoi.polygons(this.data.flatMap(x => x[1])))
       .enter()
       .append("path")
       .attr("d", function(d) {
@@ -386,28 +216,37 @@ export class VisUnemploymentSex {
   }
 
   _mouseover(d) {
-    this.focus.select("circle").attr("stroke", this.color(d.data.sex));
+    this.focus.select("circle").attr("stroke", this.color(d.data.key));
+
     this.focus.attr(
       "transform",
       "translate(" +
-        this.xScale(d.data.date) +
+        this.xScale(new Date(d.data.date)) +
         "," +
-        this.yScale(d.data.pct) +
+        this.yScale(+d.data.value) +
         ")"
     );
+
+    const [startDate, endDate] = this.xScale.domain()
+    const middleDate = new Date((startDate.getTime() + endDate.getTime()) / 2);
+
     this.focus
       .select("text")
       .attr(
         "text-anchor",
-        d.data.date >= this.parseTime("2014-01") ? "end" : "start"
+        new Date(d.data.date) >= middleDate ? "end" : "start"
       );
-    this.focus.select("tspan").text(
-      `${this._getLabel(d.data.sex)}: ${this.pctFormat(
-        d.data.pct
-      )}% (${d.data.date.toLocaleString(I18n.locale, {
-        month: "short"
-      })} ${d.data.date.getFullYear()})`
-    );
+
+    const month = timeFormat("%b %Y")(new Date(d.data.date));
+    const value = Number(d.data.value).toLocaleString(I18n.locale, {
+      style: "percent",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    this.focus
+      .select("tspan")
+      .text(`${this._getLabel(d.data.key)}: ${value} (${month})`);
   }
 
   _mouseout() {
@@ -439,9 +278,10 @@ export class VisUnemploymentSex {
 
     // Y axis
     this.yAxis
+      .ticks(3)
       .tickSize(-this.width)
-      .scale(this.yScale)
-      .ticks(3, "%")
+      .tickFormat(d => d.toLocaleString(I18n.locale, { style: "percent" }))
+      .scale(this.yScale);
 
     this.svg.select(".y.axis").call(this.yAxis);
 
@@ -462,8 +302,8 @@ export class VisUnemploymentSex {
   }
 
   _width() {
-    return d3.select(this.container).node()
-      ? parseInt(d3.select(this.container).style("width"))
+    return select(this.container).node()
+      ? parseInt(select(this.container).style("width"))
       : 0;
   }
 
@@ -479,7 +319,7 @@ export class VisUnemploymentSex {
 
     this.updateRender();
 
-    d3.select(this.container + " svg")
+    select(this.container + " svg")
       .attr("width", this.width + this.margin.left + this.margin.right)
       .attr("height", this.height + this.margin.top + this.margin.bottom);
 
@@ -490,54 +330,18 @@ export class VisUnemploymentSex {
         "translate(" + this.margin.left + "," + this.margin.top + ")"
       );
 
-    this.svg.selectAll(".lines path").attr(
-      "d",
-      function(d) {
-        d.line = this;
-        return this.line(d.values);
-      }.bind(this)
-    );
+    this.svg
+      .selectAll(".lines path")
+      .attr("d", ([, values]) => this.line(values));
 
     this.svg
       .selectAll(".lines circle")
-      .attr(
-        "cx",
-        function(d) {
-          return this.xScale(
-            d.values
-              .map(function(d) {
-                return d.date;
-              })
-              .slice(-1)[0]
-          );
-        }.bind(this)
-      )
-      .attr(
-        "cy",
-        function(d) {
-          return this.yScale(
-            d.values
-              .map(function(d) {
-                return d.pct;
-              })
-              .slice(-1)[0]
-          );
-        }.bind(this)
-      );
+      .attr("cx", ([, values]) => this.xScale(new Date(values[0].date)))
+      .attr("cy", ([, values]) => this.yScale(values[0].value));
 
-    d3.selectAll(this.container + " .lines-labels div").style(
+    selectAll(this.container + " .lines-labels div").style(
       "top",
-      function(d) {
-        return (
-          this.yScale(
-            d.values
-              .map(function(d) {
-                return d.pct;
-              })
-              .slice(-1)[0]
-          ) + "px"
-        );
-      }.bind(this)
+      ([, values]) => this.yScale(values[0].value) + "px"
     );
 
     this.voronoi.extent([
@@ -547,15 +351,7 @@ export class VisUnemploymentSex {
 
     this.voronoiGroup
       .selectAll("path")
-      .data(
-        this.voronoi.polygons(
-          d3.merge(
-            this.nest.map(function(d) {
-              return d.values;
-            })
-          )
-        )
-      )
+      .data(this.voronoi.polygons(this.data.flatMap(x => x[1])))
       .attr("d", function(d) {
         return d ? "M" + d.join("L") + "Z" : null;
       });

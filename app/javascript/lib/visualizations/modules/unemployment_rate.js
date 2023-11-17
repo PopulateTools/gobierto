@@ -142,7 +142,7 @@ export class VisUnemploymentRate {
       .domain([0, max(values, d => d.value)]);
 
     this.color
-      .domain([...new Set(values.map(x => x.place))])
+      .domain([...new Set(values.map(x => x.key))])
       .range(["#F6B128", "#F39D96"]);
 
     this._renderAxis();

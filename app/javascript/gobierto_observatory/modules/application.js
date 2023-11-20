@@ -74,7 +74,8 @@ $(document).on("turbolinks:load", function() {
     "#population_pyramid",
     cityId,
     window.populateData.year
-  ).render();
+  )
+  vis_population.render();
 
   new VisUnemploymentRate(
     "#unemployment_rate",
@@ -179,17 +180,8 @@ $(document).on("turbolinks:load", function() {
       .removeClass("active");
     $(this).toggleClass("active");
 
-    /*
-     * filter values
-     * 0 - municipality
-     * 1 - province/autonomous-region
-     * 2 - country
-     */
-    let elemId =
-      filter === 0 ? cityId : filter === 1 ? window.populateData.ccaaId : null;
-
     // Update the urls
-    vis_population.dataUrls = vis_population.getUrls(elemId, filter);
+    vis_population.dataUrls = vis_population.getUrls(window.populateData.municipalityId, filter);
     // render again
     vis_population.render();
   });

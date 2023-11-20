@@ -10,7 +10,9 @@ class UserNotificationDecorator < BaseDecorator
   end
 
   def translated_action
-    I18n.t(*i18n_key)
+    object_module = @object.action.split('.').first
+
+    I18n.t("#{object_module}.events.#{@object.action.tr('.', '_')}", subject_name: subject_name)
   end
 
   def active?
@@ -33,11 +35,5 @@ class UserNotificationDecorator < BaseDecorator
         "-"
       end
     end
-  end
-
-  def i18n_key
-    object_module = @object.action.split('.').first
-
-    ["#{object_module}.events.#{@object.action.tr('.', '_')}", { subject_name: subject_name }]
   end
 end

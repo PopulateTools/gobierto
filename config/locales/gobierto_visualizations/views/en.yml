@@ -21,14 +21,19 @@ en:
         culture: Culture
         education: Education
         electrical: Electrical
+        energy: Energy
         environment: Environment
         finance: Finance
         furniture: Furniture
         health: Health
         industry: Industry
+        it: Information technology
         legal: Legal
+        maintenance: Maintenance
         other: Other
         print: Print
+        public_services: Public services
+        real_estate: Real estate
         security: Security
         social_services: Social services
         software: Software
@@ -147,6 +152,7 @@ en:
           goods_and_services: Goods and services
           income_cost: Income - Cost
           legal_framework: Legal framework
+          observation: Observations
           personal_cost: Personal cost
           public_tax: Public tax or prices
           subsidies: Subsidies
@@ -198,7 +204,7 @@ en:
       debts:
         breakdown_debt: Debt breakdown
         creditor: Per creditor
-        date_debt: Debt data as of December 31, 2021.
+        date_debt: Debt data as of December 31, 2022.
         debtor: Per debtor
         description: La deuda financiera y a largo plazo del Ayuntamiento englova
           la deuda de todos sus entes dependientes (Sociedades Mercantiles, EPE’s,

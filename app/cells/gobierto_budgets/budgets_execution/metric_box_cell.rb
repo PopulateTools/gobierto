@@ -12,7 +12,7 @@ module GobiertoBudgets
       end
 
       def title
-        t(".metric.execution.#{expense_type}_title")
+        I18n.t("gobierto_budgets.budgets_execution.index.metric.execution.#{expense_type}_title")
       end
 
       def value
@@ -25,8 +25,8 @@ module GobiertoBudgets
 
       def explanation_text
         if explanation_percentage
-          t(
-            ".metric.execution.previous_execution_message",
+          I18n.t(
+            "gobierto_budgets.budgets_execution.index.metric.execution.previous_execution_message",
             year: execution_summary.previous_year,
             percentage: explanation_percentage
           )
@@ -37,13 +37,13 @@ module GobiertoBudgets
         rows = []
 
         if rows_data.budgeted_updated
-          rows << { text: t(".#{expense_type}_planned"), value: rows_data.budgeted_updated }
-          rows << { text: t(".initial_estimate"), value: rows_data.budgeted }
+          rows << { text: I18n.t("gobierto_budgets.budgets_execution.index.#{expense_type}_planned"), value: rows_data.budgeted_updated }
+          rows << { text: I18n.t("gobierto_budgets.budgets_execution.index.initial_estimate"), value: rows_data.budgeted }
         else
-          rows << { text: t(".#{expense_type}_planned"), value: rows_data.budgeted }
+          rows << { text: I18n.t("gobierto_budgets.budgets_execution.index.#{expense_type}_planned"), value: rows_data.budgeted }
         end
 
-        rows << { text: t(".#{expense_type}_executed"), value: rows_data.execution }
+        rows << { text: I18n.t("gobierto_budgets.budgets_execution.index.#{expense_type}_executed"), value: rows_data.execution }
         rows
       end
 
@@ -51,10 +51,6 @@ module GobiertoBudgets
 
       def rows_data
         execution_summary.send("last_#{expense_type}".to_sym)
-      end
-
-      def t(key, *args)
-        I18n.t("gobierto_budgets.budgets_execution.index#{key}", *args)
       end
 
     end

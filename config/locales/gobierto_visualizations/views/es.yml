@@ -21,14 +21,19 @@ es:
         culture: Cultura y deporte
         education: Enseñanza y formación
         electrical: Equipos eléctricos y de iluminación
+        energy: Energía
         environment: Medio ambiente
         finance: Servicios financieros y seguros
         furniture: Mobiliario
         health: Salud
         industry: Industria y maquinaria
+        it: Tecnología de la información
         legal: Jurídico, contabilidad, mercadotecnia...
+        maintenance: Reparación y mantenimiento
         other: Otros
         print: Impresión y material de oficina
+        public_services: Servicios públicos
+        real_estate: Inmobiliario
         security: Seguridad
         social_services: Servicios sociales
         software: Consultoría y desarrollo de software, equipos y licencias
@@ -148,6 +153,7 @@ es:
           goods_and_services: Bienes y servicios
           income_cost: Ingresos - Costes
           legal_framework: Marco legal
+          observation: Observaciones
           personal_cost: Coste personal
           public_tax: Tasa o precios públicos
           subsidies: Subvenciones
@@ -201,7 +207,7 @@ es:
       debts:
         breakdown_debt: Desglose de la deuda
         creditor: Por acreedor
-        date_debt: Datos de deuda a 31 de diciembre de 2021.
+        date_debt: Datos de deuda a 31 de diciembre de 2022.
         debtor: Por deudor
         description: La deuda financiera y a largo plazo del Ayuntamiento englova
           la deuda de todos sus entes dependientes (Sociedades Mercantiles, EPE’s,

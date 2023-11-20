@@ -10,10 +10,11 @@ aliases:
 defaults: &defaults
   working_directory: *working_directory
   docker:
-    - image: cimg/ruby:2.7.4-browsers
+    - image: cimg/ruby:3.2.2-browsers
       environment:
         # Up to circle-ci plan max. RAM
-        NODE_OPTIONS: --max-old-space-size=6144
+        NODE_OPTIONS: "--max-old-space-size=6144 --openssl-legacy-provider"
+        RUBY_YJIT_ENABLE: 1
         RAILS_ENV: test
         NODE_ENV: test
         PGHOST: localhost
@@ -21,13 +22,13 @@ defaults: &defaults
         PSQL_PAGER: ''
         # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
         DISABLE_SPRING: true
-    - image: postgres:12
+    - image: postgres:15
       environment:
         POSTGRES_USER: gobierto
         POSTGRES_DB: gobierto_test
         POSTGRES_PASSWORD: gobierto
     - image: elasticsearch:2.4.1
-    - image: redis:6.2.5
+    - image: redis:7.0.2
 
 commands:
   restore_bundler_cache:
@@ -66,11 +67,11 @@ commands:
       - run: dockerize -wait tcp://localhost:9200 -timeout 1m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
-      # Install postgres 12
+      # Install postgres 15
       - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
+      - run: echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
       - run: sudo apt update
-      - run: sudo apt -y install postgresql-client-12
+      - run: sudo apt -y install postgresql-client-15
 
       # Copy database config
       - run: cp config/database.yml.example config/database.yml

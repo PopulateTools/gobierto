@@ -6,9 +6,27 @@ module GobiertoData
   class Connection < ActiveRecord::Base
     self.abstract_class = true
 
+    BLACKLISTED_TABLES = %w(
+      schemata
+      information_schema.schemata
+      pg_stat_activity
+      pg_roles
+    )
+
+    BLACKLISTED_FUNCTIONS = %w(
+      version
+      current_database
+    )
+
+
     class << self
 
       def execute_query(site, query, include_stats: false, write: false, include_draft: false)
+        if !secure_query?(query) && !write
+          puts "Insecure!!!"
+          raise ActiveRecord::StatementInvalid.new("Query not allowed")
+        end
+
         with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(write, include_draft)) do
           connection_pool.connection.execute("SET search_path TO draft, public") if write || include_draft
 
@@ -37,6 +55,10 @@ module GobiertoData
       end
 
       def execute_query_output_csv(site, query, csv_options_params, include_draft: false)
+        unless secure_query?(query)
+          raise ActiveRecord::StatementInvalid.new("Query not allowed")
+        end
+
         with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(false, include_draft)) do
           connection_pool.connection.execute("SET search_path TO draft, public") if include_draft
 
@@ -145,6 +167,35 @@ module GobiertoData
         failed_query(I18n.t("activerecord.errors.models.gobierto_data/connection.missing_configuration"))
       end
 
+      def secure_query?(query)
+        parsed_query = PgQuery.parse(query)
+
+        secure_tables_called?(parsed_query) &&
+          secure_functions_called?(parsed_query)
+
+        true
+      rescue PgQuery::ParseError
+        # Invalid queries are considered insecure
+        false
+      end
+
+      def secure_tables_called?(parsed_query)
+        return false if parsed_query.tables.empty?
+        return false if parsed_query.tables.any? { |t| BLACKLISTED_TABLES.include?(t) }
+        return false if parsed_query.tables.any? { |t| t.starts_with?("pg_") || t.starts_with?("information_schema") || t.starts_with?("scalegrid") }
+
+        true
+      end
+
+      def secure_functions_called?(parsed_query)
+        parsed_query.functions.none? do |f|
+          BLACKLISTED_FUNCTIONS.include?(f) ||
+            f.starts_with?("pg_") ||
+            f.starts_with?("current_") ||
+            f.starts_with?("inet_") ||
+            f.starts_with?("get")
+        end
+      end
     end
   end
 end

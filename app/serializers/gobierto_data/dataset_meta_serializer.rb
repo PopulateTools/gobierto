@@ -4,6 +4,7 @@ module GobiertoData
   class DatasetMetaSerializer < ActiveModel::Serializer
     include Rails.application.routes.url_helpers
     include ::GobiertoCommon::HasCustomFieldsAttributes
+    include ::GobiertoData::HasCustomTypes
 
     cache key: "dataset_meta"
 
@@ -27,7 +28,7 @@ module GobiertoData
         object.rails_model.columns.inject({}) do |columns, column|
           columns.update(
             column.name => {
-              type: column.type
+              type: map_type(column.type)
             }
           )
         end

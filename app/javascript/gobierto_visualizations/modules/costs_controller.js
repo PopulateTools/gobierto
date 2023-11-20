@@ -137,7 +137,7 @@ export class CostsController {
       "costdirfin"
     ];
 
-    const population = ["128291", "129661", "129120"];
+    const population = ["128291", "129661", "129120", "128956"];
 
     let yearsCosts = [...new Set(rawData.map(item => item.any_))];
     const setPopulation = (value, item) => value[yearsCosts.findIndex(year => year === item["any_"])]

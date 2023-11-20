@@ -391,7 +391,7 @@ ca:
           el pressupost inicial actualitzat. Hi poden haver canvis, perquè és impossible
           preveure totes les despeses amb precisió absoluta
         economic: Econòmica
-        economic_button: Per a què es gasta
+        economic_button: En què es gasta
         euros: En euros
         execution_disclaimer: Es normal que hi haja desviacions ja que és impossible
           preveure totes les despeses amb precisió absoluta.
@@ -400,7 +400,7 @@ ca:
         expenses_executed: Despeses executades
         expenses_planned: Despeses pressupostades
         functional: Funcional
-        functional_button: En què es gasta
+        functional_button: Per a què es gasta
         higher_execution: Més execució
         income_executed: Ingressos executats
         income_planned: Ingressos pressupostats
@@ -508,6 +508,8 @@ ca:
           fields:
             date: Data
             paid: Pagat
+            payment_date: Data de pagament
+            payment_date_limit: Data prevista de pagament
             provider_id: NIF
             provider_name: Proveïdor
             subject: Concepte
@@ -587,7 +589,7 @@ ca:
         last_update: Última actualització
       enough_information:
         enough_information: Suficient informació?
-        enough_information_cta: Demana %{to_your_organization_name}
+        enough_information_cta: Demana més informació
         enough_information_desc: Si considera que s'ha d'incloure més informació d'aquestes
           dades per tenir una visió més completa de la mateixa o sobre l'ús dels seus
           impostos, comuniqui-ho i li contestarem

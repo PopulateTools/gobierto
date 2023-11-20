@@ -384,7 +384,7 @@ es:
           el presupuesto inicial modificado. Es normal que haya desviaciones ya que
           es imposible preveer todos los gastos con precisión absoluta
         economic: Económica
-        economic_button: Para qué se gasta
+        economic_button: En qué se gasta
         euros: En euros
         execution_disclaimer: Es normal que haya desviaciones ya que es imposible
           preveer todos los gastos con precisión absoluta.
@@ -393,7 +393,7 @@ es:
         expenses_executed: Gastos ejecutados
         expenses_planned: Gastos presupuestados
         functional: Functional
-        functional_button: En qué se gasta
+        functional_button: Para qué se gasta
         higher_execution: Mayor ejecución
         income_executed: Ingresos ejecutados
         income_planned: Ingresos presupuestados
@@ -502,6 +502,8 @@ es:
           fields:
             date: Fecha
             paid: Pagado
+            payment_date: Fecha de pago
+            payment_date_limit: Fecha prevista de pago
             provider_id: NIF
             provider_name: Proveedor
             subject: Concepto
@@ -581,7 +583,7 @@ es:
         last_update: Datos actualizados
       enough_information:
         enough_information: "¿Suficiente información?"
-        enough_information_cta: Pide %{to_your_organization_name}
+        enough_information_cta: Pide más información
         enough_information_desc: Si considera que se tienen que incluir más información
           de estos datos para tener una visión más completa de la misma o sobre el
           uso de tus impuestos, comunicánoslo y te contestaremos

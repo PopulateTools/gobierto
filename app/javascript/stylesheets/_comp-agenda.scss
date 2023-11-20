@@ -15,9 +15,12 @@
 .event-content,
 .news-content,
 .latest-content {
-  padding: 0 0 0 1.5em;
+  padding: 0;
   box-sizing: border-box;
-  // border-bottom: 1px solid $color_separator;
+
+  @include min-screen(768) {
+    padding: 0 0 0 1.5em;
+  }
 
   .meta {
     font-size: 0.85em;
@@ -49,6 +52,12 @@
   .person-name {
     h2 {
       margin-top: 0;
+    }
+  }
+
+  @include screen(768) {
+    > span.soft {
+      display: none;
     }
   }
 }

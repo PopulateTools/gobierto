@@ -10,7 +10,7 @@
 
     <div class="pure-u-1 pure-u-md-7-24">
 
-      <div class="agenda-switcher m_v_2">
+      <div class="agenda-switcher">
 
         <div><strong><%= t(".agenda_switcher.title") %></strong></div>
         <p><small><%= t(".agenda_switcher.subtitle") %></small></p>
@@ -38,8 +38,8 @@
 
       <% disabled do %>
         <%= render("user/subscriptions/subscribable_box",
-                   subscribable: GobiertoCalendars::Event,
-                   title: t(".subscribable_box.title")) %>
+                  subscribable: GobiertoCalendars::Event,
+                  title: t(".subscribable_box.title")) %>
       <% end %>
     </div>
 
@@ -64,7 +64,7 @@
 
           <div class="pure-g block" >
 
-            <div class="pure-u-1 pure-u-md-1-2">
+            <div class="pure-u-1-2">
 
               <h2 class="filter-option <%= class_if("active", !controller_name.include?("past_person_events")) %>">
                 <%= link_to_unless_current t(".upcoming_events"), eval([:gobierto_people, @person_event_scope, :events, :path].compact.join("_")) %>
@@ -72,7 +72,7 @@
 
             </div>
 
-            <div class="pure-u-1 pure-u-md-1-2 right">
+            <div class="pure-u-1-2 right">
 
               <h2 class="filter-option <%= class_if("active", controller_name.include?("past_person_events")) %>">
                 <%= link_to_unless_current t(".past_events"), eval([:gobierto_people, @person_event_scope, :past_events, :path].compact.join("_")) %>

@@ -1,5 +1,8 @@
 <% content_for :content do %>
 
+  <% if show_only_calendar? %>
+    <%= yield %>
+  <% else %>
   <div class="column">
 
     <div class="pure-g">
@@ -7,7 +10,6 @@
       <div class="pure-u-1 pure-u-md-7-24">
 
         <div class="person_header_small clearfix">
-
           <%= render @person %>
           <%= render "gobierto_people/people/contact_methods" %>
           <%= render("gobierto_people/people/subscription_button", person: @person) %>
@@ -26,7 +28,14 @@
     </div>
 
   </div>
+  <% end %>
 
 <% end %>
 
 <%= render template: "gobierto_people/layouts/application" %>
+
+<% if show_only_calendar? %>
+<style>
+header, footer { display: none; }
+</style>
+<% end %>

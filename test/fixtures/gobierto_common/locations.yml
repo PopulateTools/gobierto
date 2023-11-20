@@ -1,0 +1,21 @@
+cortegada:
+  external_id: place1
+  meta: <%= {
+    "lat" => 42.2073223,
+    "lon"=> -8.170119999999999,
+    "types" => ["locality", "political"],
+    "city_name" => "Cortegada",
+    "country_code" => "ES",
+    "country_name" => "Spain"
+  }.to_json %>
+  names: ["Cortegada (Spain)", "Cortegada, Ourense"]
+
+ribadavia:
+  meta: <%= {
+      "lat" => 42.288847,
+      "lon"=> -8.1420491,
+      "city_name" => "Ribadavia",
+      "country_code" => "ES",
+      "country_name" => "Spain"
+  }.to_json %>
+  names: ["Ribadavia, Ourense"]

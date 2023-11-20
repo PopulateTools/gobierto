@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 class Ahoy::GobiertoTracker < Ahoy::Tracker
-  attr_reader :site
 
-  def initialize(**options)
-    @site = options.delete(:site)
-
-    super(options)
+  def site
+    @options[:site]
   end
 
   protected

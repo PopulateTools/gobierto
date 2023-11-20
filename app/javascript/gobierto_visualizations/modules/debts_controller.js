@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { EventBus } from "../webapp/lib/mixins/event_bus";
 import { getRemoteData, toNumber } from "../webapp/lib/utils";
-import { debtsEntitatStrings, debtsTotalStrings, debtsEvolutionString } from "../webapp/lib/config/debts.js";
+import { debtsEvolutionString } from "../webapp/lib/config/debts.js";
 import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
 if (Vue.config.devtools) {
@@ -75,7 +75,16 @@ export class DebtsController {
     return data
   }
 
+  //The keys for the treemap always have the same value,
+  //only the year changes, search in the keys of the data
+  //the pattern that contains the word 'endeutament'
+  getDebtKey(data, string) {
+    return Object.keys(data[0]).filter(element => element.includes(string))
+  }
+
   setGlobalVariables(rawData) {
+    this.debtsEntitatKey = this.getDebtKey(rawData[0], 'endeutament_pendent_a_31_12')
+    this.debtsTotalKey = this.getDebtKey(rawData[1], 'endeutament_a_31_12')
     const debtsEvolutionParse = rawData[2].map(d => {
       const { any, ajuntament, mataro_audiovisual, c_digital_mataro_maresme, consorci_tr_residus, pumsa, grup_tecnocampus, amsa, deute_fcc, porta_laietana, altres_pie_messa, total_endeutament_grup, total_deute_viu, rati_deute_viu } = d
       return {
@@ -97,8 +106,10 @@ export class DebtsController {
     })
 
     this.data = {
-      debtsEntitat: this.parseData(rawData[0], debtsEntitatStrings),
-      debtsTotal: this.parseData(rawData[1], debtsTotalStrings),
+      debtsEntitat: this.parseData(rawData[0], this.debtsEntitatKey),
+      debtsEntitatKey: this.debtsEntitatKey,
+      debtsTotal: this.parseData(rawData[1], this.debtsTotalKey),
+      debtsTotalKey: this.debtsTotalKey,
       debtsEvolution: this.parseData(debtsEvolutionParse, debtsEvolutionString)
     };
   }

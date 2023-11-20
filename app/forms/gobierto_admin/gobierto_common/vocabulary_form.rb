@@ -6,7 +6,10 @@ module GobiertoAdmin
 
       attr_accessor(
         :id,
-        :site_id,
+        :site_id
+      )
+
+      attr_writer(
         :name_translations,
         :slug
       )
@@ -24,6 +27,14 @@ module GobiertoAdmin
         vocabulary_relation.new
       end
 
+      def name_translations
+        @name_translations ||= vocabulary.name_translations
+      end
+
+      def slug
+        @slug ||= vocabulary.slug
+      end
+
       def save
         save_vocabulary if valid?
       end
@@ -33,6 +44,9 @@ module GobiertoAdmin
       def save_vocabulary
         @vocabulary = vocabulary.tap do |attributes|
           attributes.site_id = site_id
+          if vocabulary.name_translations.present? && name_translations.present? && (vocabulary.name_translations.keys - name_translations.keys).present?
+            @name_translations = vocabulary.name_translations.merge(@name_translations)
+          end
           attributes.name_translations = name_translations
           attributes.slug = slug
         end

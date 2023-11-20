@@ -372,7 +372,7 @@ en:
           It's normal to find deviations from the budget, as its impossible to predict
           the expenses with a great precision
         economic: economic
-        economic_button: For what is spent
+        economic_button: In what is spent
         euros: In euros
         execution_disclaimer: It's very common to have deviatiatons, due to the difficulty
           of foreseeing the expenses.
@@ -380,7 +380,7 @@ en:
         expenses_executed: Executed expenses
         expenses_planned: Planned expenses
         functional: functional
-        functional_button: In what is spent
+        functional_button: For what is spent
         higher_execution: Higher execution
         income_executed: Executed income
         income_planned: Planned income
@@ -486,6 +486,8 @@ en:
           fields:
             date: Date
             paid: Payed
+            payment_date: Payment date
+            payment_date_limit: Payment date limit
             provider_id: NIF (SSN)
             provider_name: Supplier
             subject: Reason

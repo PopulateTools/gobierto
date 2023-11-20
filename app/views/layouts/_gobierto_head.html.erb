@@ -34,3 +34,7 @@
 <% else %>
   <%= render 'layouts/favicon' %>
 <% end %>
+
+<% if @site.configuration.head_markup.present? %>
+  <%= render_liquid @site.configuration.head_markup %>
+<% end %>

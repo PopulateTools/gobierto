@@ -52,6 +52,7 @@ en:
       map: Map
       modifiedQuery: Modified Query
       modifiedVisualization: Modified visualization
+      numberOfRows: Number of rows
       preview: Preview
       private: Private
       queries: Queries

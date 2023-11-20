@@ -1,6 +1,6 @@
 import {
   VisPopulationPyramid,
-  // VisRentDistribution,
+  VisRentDistribution,
   VisUnemploymentAge,
   VisUnemploymentRate,
   VisUnemploymentSex
@@ -73,7 +73,7 @@ $(document).on("turbolinks:load", function() {
   vis_population = new VisPopulationPyramid(
     "#population_pyramid",
     cityId,
-    window.populateData.year
+    0
   )
   vis_population.render();
 
@@ -87,12 +87,7 @@ $(document).on("turbolinks:load", function() {
 
   new VisUnemploymentAge("#unemployment_age", cityId).render();
 
-  // new VisRentDistribution(
-  //   "#rent_distribution",
-  //   cityId,
-  //   window.populateData.provinceId,
-  //   window.populateData.year - 1
-  // ).render();
+  new VisRentDistribution("#rent_distribution", cityId).render();
 
   new PopulationCard(".population_card", cityId).render();
 

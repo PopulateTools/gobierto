@@ -20,14 +20,12 @@ const d3 = {
 };
 
 export class VisPopulationPyramid {
-  constructor(divId, city_id, current_year, filter) {
+  constructor(divId, city_id, filter) {
     this.container = divId;
 
     // Remove previous
     $(`${this.container} svg`).remove();
 
-    this.currentYear =
-      current_year !== undefined ? parseInt(current_year) : null;
     this.data = null;
     this.tbiToken = window.populateData.token;
     this.dataUrls = this.getUrls(city_id, filter);

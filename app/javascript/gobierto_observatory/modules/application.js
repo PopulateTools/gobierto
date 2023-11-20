@@ -25,7 +25,7 @@ import { EconomicTaxCard } from "./classes/economic_tax.js";
 import { HousesCard } from "./classes/houses.js";
 import { IbiCard } from "./classes/ibi.js";
 import { IncomeCard } from "./classes/income.js";
-// import { IncomeOverviewCard } from "./classes/income_overview.js";
+import { IncomeOverviewCard } from "./classes/income_overview.js";
 import { InvestmentByInhabitantCard } from "./classes/investment_by_inhabitant.js";
 import { getProvinceIds } from "./helpers.js";
 
@@ -118,7 +118,7 @@ $(document).on("turbolinks:load", function() {
 
   new ContractsBySectorCard(".contracts_sector", cityId).render();
 
-  // new IncomeOverviewCard(".income_overview", cityId).render();
+  new IncomeOverviewCard(".income_overview", cityId).render();
 
   new IncomeCard(".income", cityId).render();
 

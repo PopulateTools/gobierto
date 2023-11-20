@@ -1,36 +1,53 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class IncomeOverviewCard extends Card {
-  constructor(divClass) {
+  constructor(divClass, city_id) {
     super(divClass);
 
-    this.incomeProvinceUrl =
+    this.url =
       window.populateData.endpoint +
-      "/datasets/ds-renta-bruta-media-provincial.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
-      window.populateData.provinceId;
-    this.incomeCountryUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-renta-bruta-media-nacional.json?sort_desc_by=date&with_metadata=true&limit=1";
+      `
+      WITH
+      maxyear AS (SELECT max(year) FROM renta_habitante WHERE place_id = ${city_id}
+                  AND renta_media_hogar IS NOT NULL)
+      SELECT
+        1 AS index,
+        renta_media_hogar AS value
+      FROM renta_habitante
+      WHERE place_id = ${city_id}
+      AND year = (SELECT * FROM maxyear)
+      UNION
+      SELECT
+        2 AS index,
+        avg(renta_media_hogar) AS value
+      FROM renta_habitante
+      WHERE year = (SELECT * FROM maxyear)
+      ORDER BY 1
+      `
+
+    this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/renta-habitante/meta")
   }
 
   getData() {
-    var incomeProvince = this.handlePromise(this.incomeProvinceUrl);
-    var incomeCountry = this.handlePromise(this.incomeCountryUrl);
+    var data = this.handlePromise(this.url);
+    var metadata = this.handlePromise(this.metadata);
 
-    Promise.all([incomeProvince, incomeCountry]).then(
-      ([incomeProvince, incomeCountry]) => {
-        var valueOne = incomeProvince.data[0].value;
-        var valueTwo = incomeCountry.data[0].value;
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
+      var [incomePlace, incomeCountry] = jsonData.data;
 
-        new ComparisonCard(
-          this.container,
-          incomeProvince,
-          valueOne,
-          valueTwo,
-          "income_overview"
-        );
-      }
-    );
+      var opts = {
+        metadata: getMetadataFields(jsonMetadata),
+        cardName: "income_overview"
+      };
+
+      new ComparisonCard(
+        this.container,
+        incomePlace.value,
+        incomeCountry.value,
+        opts
+      );
+    });
   }
 }

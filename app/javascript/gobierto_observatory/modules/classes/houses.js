@@ -1,6 +1,6 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields } from "../helpers.js";
+import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class HousesCard extends Card {
   constructor(divClass, city_id) {
@@ -22,10 +22,7 @@ export class HousesCard extends Card {
         year = (SELECT max(year) FROM viviendas )
       `;
 
-    this.metadata = window.populateData.endpoint.replace(
-      "data.json?sql=",
-      "datasets/viviendas/meta"
-    );
+    this.metadata = getMetadataEndpoint("viviendas")
   }
 
   getData() {

@@ -1,7 +1,7 @@
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { groupBy } from "lib/shared";
 import { Card } from "./card.js";
-import { getMetadataFields } from "../helpers.js";
+import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class UnemplBySectorCard extends Card {
   constructor(divClass, city_id) {
@@ -20,10 +20,8 @@ export class UnemplBySectorCard extends Card {
       ORDER BY year DESC, month DESC
       LIMIT 50
       `;
-    this.metadata = window.populateData.endpoint.replace(
-      "data.json?sql=",
-      "datasets/paro-sectores/meta"
-    );
+
+    this.metadata = getMetadataEndpoint("paro-sectores")
   }
 
   getData() {

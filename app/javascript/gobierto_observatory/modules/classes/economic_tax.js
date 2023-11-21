@@ -1,6 +1,6 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields } from "../helpers.js";
+import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class EconomicTaxCard extends Card {
   constructor(divClass, city_id) {
@@ -11,7 +11,7 @@ export class EconomicTaxCard extends Card {
       `
       SELECT
         CONCAT(year, '-', 1, '-', 1) AS date,
-        iae_coef_min::decimal as value
+        iae_coef_min::decimal AS value
       FROM tasas
       WHERE
         place_id = ${city_id}
@@ -19,10 +19,7 @@ export class EconomicTaxCard extends Card {
       LIMIT 5
       `;
 
-    this.metadata = window.populateData.endpoint.replace(
-      "data.json?sql=",
-      "datasets/tasas/meta"
-    );
+    this.metadata = getMetadataEndpoint("tasas")
   }
 
   getData() {

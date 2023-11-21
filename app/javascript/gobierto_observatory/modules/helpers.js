@@ -14,6 +14,16 @@ export const getMetadataFields = metadata => ({
 })
 
 /**
+ * Returns the metadata's endpoint of the dataset
+ * @param {*} dataset Name of the source
+ * @returns endpoint of the dataset's metadata
+ */
+export const getMetadataEndpoint = dataset => window.populateData.endpoint.replace(
+  "data.json?sql=",
+  `datasets/${dataset}/meta`
+);
+
+/**
  * NOTE: the place_id consists of five numbers,
  * where the first two are the province code, so,
  * to get the province average we need to filter

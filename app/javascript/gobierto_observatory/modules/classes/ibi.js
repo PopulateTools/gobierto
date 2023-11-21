@@ -1,6 +1,6 @@
 import { TableCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getProvinceIds } from "../helpers.js";
+import { getMetadataFields, getProvinceIds, getMetadataEndpoint } from "../helpers.js";
 
 export class IbiCard extends Card {
   constructor(divClass, city_id) {
@@ -48,7 +48,7 @@ export class IbiCard extends Card {
       ORDER BY index
       `;
 
-    this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/tasas/meta")
+    this.metadata = getMetadataEndpoint("tasas")
   }
 
   getData() {

@@ -1,18 +1,15 @@
 import { BarsCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getProvinceIds, getMetadataEndpoint } from "../helpers.js";
 
 export class DebtByInhabitantCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    const [lower, upper] = getProvinceIds(city_id);
-
     this.url =
       window.populateData.endpoint +
       `
       WITH
-        maxyear AS (SELECT max(year) FROM coches WHERE place_id = ${city_id}),
+        maxyear AS (SELECT max(year) FROM deuda_municipal WHERE place_id = ${city_id}),
         population AS (
           SELECT
             SUM(total::integer)
@@ -27,9 +24,10 @@ export class DebtByInhabitantCard extends Card {
             SUM(total::integer)
           FROM poblacion_edad_sexo
           WHERE
-            place_id BETWEEN ${lower} AND ${upper}
-          AND sex = 'Total'
-          AND year = (SELECT * FROM maxyear)
+            place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+            AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
+            AND sex = 'Total'
+            AND year = (SELECT * FROM maxyear)
         ),
         population_country AS (
           SELECT
@@ -54,8 +52,9 @@ export class DebtByInhabitantCard extends Card {
         COALESCE(SUM(value::decimal) / NULLIF((SELECT * FROM population_prov), 0), 0) AS value
       FROM deuda_municipal
       WHERE
-        place_id BETWEEN ${lower} AND ${upper}
-      AND year = (SELECT * FROM maxyear)
+        place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+        AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
+        AND year = (SELECT * FROM maxyear)
       UNION
       SELECT
         3 as index,
@@ -67,7 +66,7 @@ export class DebtByInhabitantCard extends Card {
       ORDER BY index
       `;
 
-    this.metadata = getMetadataEndpoint("deuda-municipal")
+    this.metadata = this.getMetadataEndpoint("deuda-municipal")
   }
 
   getData() {
@@ -76,7 +75,7 @@ export class DebtByInhabitantCard extends Card {
 
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       new BarsCard(this.container, jsonData.data, {
-        metadata: getMetadataFields(jsonMetadata),
+        metadata: this.getMetadataFields(jsonMetadata),
         cardName: "debt_by_inhabitant"
       });
     });

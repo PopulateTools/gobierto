@@ -1,13 +1,10 @@
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { groupBy } from "lib/shared";
 import { Card } from "./card.js";
-import { getMetadataFields, getProvinceIds, getMetadataEndpoint } from "../helpers.js";
 
 export class InvestmentByInhabitantCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
-
-    const [lower, upper] = getProvinceIds(city_id);
 
     this.url =
       window.populateData.endpoint +
@@ -35,7 +32,8 @@ export class InvestmentByInhabitantCard extends Card {
           AVG(amount_per_inhabitant::decimal) as value
         FROM presupuestos_municipales
         WHERE
-          place_id between ${lower} and ${upper}
+          place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+        AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
         AND area = 'e' and kind = 'G' and code IN ('6','7')
         GROUP BY year
         ORDER BY year DESC
@@ -58,7 +56,7 @@ export class InvestmentByInhabitantCard extends Card {
       ORDER BY index
       `;
 
-    this.metadata = getMetadataEndpoint("presupuestos-municipales")
+    this.metadata = this.getMetadataEndpoint("presupuestos-municipales")
   }
 
   getData() {
@@ -77,7 +75,7 @@ export class InvestmentByInhabitantCard extends Card {
       }));
 
       new SparklineTableCard(this.container, nestData, {
-        metadata: getMetadataFields(jsonMetadata),
+        metadata: this.getMetadataFields(jsonMetadata),
         cardName: "investment_by_inhabitant"
       });
 

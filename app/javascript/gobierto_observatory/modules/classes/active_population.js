@@ -1,6 +1,5 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class ActivePopulationCard extends Card {
   constructor(divClass, city_id) {
@@ -33,7 +32,7 @@ export class ActivePopulationCard extends Card {
         sex = 'Total'
       `;
 
-    this.metadata = getMetadataEndpoint("poblacion-edad-sexo")
+    this.metadata = this.getMetadataEndpoint("poblacion-edad-sexo")
   }
 
   getData() {
@@ -47,7 +46,7 @@ export class ActivePopulationCard extends Card {
         var rate = (value / jsonPop.data[0].value) * 100;
 
         var opts = {
-          metadata: getMetadataFields(jsonMetadata),
+          metadata: this.getMetadataFields(jsonMetadata),
           cardName: "active_pop"
         };
 

@@ -1,6 +1,5 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class PopulationCard extends Card {
   constructor(divClass, city_id) {
@@ -21,7 +20,7 @@ export class PopulationCard extends Card {
       LIMIT 5
       `;
 
-    this.metadata = getMetadataEndpoint("poblacion-edad-sexo")
+    this.metadata = this.getMetadataEndpoint("poblacion-edad-sexo")
   }
 
   getData() {
@@ -30,7 +29,7 @@ export class PopulationCard extends Card {
 
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       var opts = {
-        metadata: getMetadataFields(jsonMetadata),
+        metadata: this.getMetadataFields(jsonMetadata),
         cardName: "population"
       };
 

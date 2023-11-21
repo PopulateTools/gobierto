@@ -1,13 +1,10 @@
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { groupBy } from "lib/shared";
 import { Card } from "./card.js";
-import { getMetadataFields, getProvinceIds, getMetadataEndpoint } from "../helpers.js";
 
 export class DeathRateCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
-
-    const [lower, upper] = getProvinceIds(city_id);
 
     this.url =
       window.populateData.endpoint +
@@ -33,7 +30,8 @@ export class DeathRateCard extends Card {
           AVG(value::decimal) AS value
         FROM tasa_mortalidad
         WHERE
-          place_id BETWEEN ${lower} AND ${upper}
+          place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+        AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
         GROUP BY year
         ORDER BY year DESC
         LIMIT 2
@@ -53,7 +51,7 @@ export class DeathRateCard extends Card {
       ORDER BY index, date DESC
       `;
 
-    this.metadata = getMetadataEndpoint("tasa-mortalidad")
+    this.metadata = this.getMetadataEndpoint("tasa-mortalidad")
   }
 
   getData() {
@@ -83,7 +81,7 @@ export class DeathRateCard extends Card {
       }
 
       new SparklineTableCard(this.container, nestData, {
-        metadata: getMetadataFields(jsonMetadata),
+        metadata: this.getMetadataFields(jsonMetadata),
         cardName: "deaths"
       });
 

@@ -1,12 +1,9 @@
 import { TableCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getProvinceIds, getMetadataEndpoint } from "../helpers.js";
 
 export class IbiCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
-
-    const [lower, upper] = getProvinceIds(city_id);
 
     this.url =
       window.populateData.endpoint +
@@ -33,7 +30,8 @@ export class IbiCard extends Card {
         'second_column' as column
       FROM tasas
       WHERE
-        place_id BETWEEN ${lower} AND ${upper}
+        place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+      AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
       AND year = (SELECT * FROM maxyear)
       UNION
       SELECT
@@ -48,7 +46,7 @@ export class IbiCard extends Card {
       ORDER BY index
       `;
 
-    this.metadata = getMetadataEndpoint("tasas")
+    this.metadata = this.getMetadataEndpoint("tasas")
   }
 
   getData() {
@@ -57,7 +55,7 @@ export class IbiCard extends Card {
 
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       var opts = {
-        metadata: getMetadataFields(jsonMetadata),
+        metadata: this.getMetadataFields(jsonMetadata),
         cardName: "ibi"
       }
 

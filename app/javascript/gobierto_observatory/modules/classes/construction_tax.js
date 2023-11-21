@@ -1,6 +1,5 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class ConstructionTaxCard extends Card {
   constructor(divClass, city_id) {
@@ -28,7 +27,7 @@ export class ConstructionTaxCard extends Card {
       ORDER BY 1
       `;
 
-    this.metadata = getMetadataEndpoint("tasas")
+    this.metadata = this.getMetadataEndpoint("tasas")
   }
 
   getData() {
@@ -39,7 +38,7 @@ export class ConstructionTaxCard extends Card {
       var [placeTax, provinceTax] = jsonData.data;
 
       var opts = {
-        metadata: getMetadataFields(jsonMetadata),
+        metadata: this.getMetadataFields(jsonMetadata),
         cardName: "construction_tax"
       };
 

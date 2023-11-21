@@ -1,7 +1,6 @@
 import { nest as nestFn } from "d3-collection";
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class ContractsCard extends Card {
   constructor(divClass, city_id) {
@@ -21,7 +20,7 @@ export class ContractsCard extends Card {
       GROUP BY type, date
       `;
 
-    this.metadata = getMetadataEndpoint("afiliados-seguridad-social")
+    this.metadata = this.getMetadataEndpoint("afiliados-seguridad-social")
   }
 
   getData() {
@@ -47,7 +46,7 @@ export class ContractsCard extends Card {
       var t = nest.filter(d => d.key === "temporary")[0].values[0].value;
 
       var opts = {
-        metadata: getMetadataFields(jsonMetadata),
+        metadata: this.getMetadataFields(jsonMetadata),
         cardName: "contracts_comparison"
       }
 

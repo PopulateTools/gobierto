@@ -1,7 +1,6 @@
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { groupBy } from "lib/shared";
 import { Card } from "./card.js";
-import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class ContractsBySectorCard extends Card {
   constructor(divClass, city_id) {
@@ -21,7 +20,7 @@ export class ContractsBySectorCard extends Card {
       LIMIT 50
       `;
 
-    this.metadata = getMetadataEndpoint("contratos-sectores")
+    this.metadata = this.getMetadataEndpoint("contratos-sectores")
   }
 
   getData() {
@@ -40,7 +39,7 @@ export class ContractsBySectorCard extends Card {
       }));
 
       new SparklineTableCard(this.container, nestData, {
-        metadata: getMetadataFields(jsonMetadata),
+        metadata: this.getMetadataFields(jsonMetadata),
         cardName: "contracts_sector"
       });
 

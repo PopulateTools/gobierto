@@ -1,6 +1,5 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class IncomeOverviewCard extends Card {
   constructor(divClass, city_id) {
@@ -27,7 +26,7 @@ export class IncomeOverviewCard extends Card {
       ORDER BY 1
       `
 
-    this.metadata = getMetadataEndpoint("renta-habitante")
+    this.metadata = this.getMetadataEndpoint("renta-habitante")
   }
 
   getData() {
@@ -38,7 +37,7 @@ export class IncomeOverviewCard extends Card {
       var [incomePlace, incomeCountry] = jsonData.data;
 
       var opts = {
-        metadata: getMetadataFields(jsonMetadata),
+        metadata: this.getMetadataFields(jsonMetadata),
         cardName: "income_overview"
       };
 

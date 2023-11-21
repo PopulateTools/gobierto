@@ -4,9 +4,10 @@ export class Card {
   constructor(divClass) {
     this.container = divClass;
     this.tbiToken = window.populateData.token;
-    this.div = $(this.container);
-    this.trend = this.div.attr("data-trend");
-    this.freq = this.div.attr("data-freq");
+
+    const container = document.querySelector(this.container)
+    this.trend = container.dataset.trend;
+    this.freq = container.dataset.freq;
   }
 
   handlePromise(url, opts = {}) {
@@ -18,6 +19,25 @@ export class Card {
 
   render() {
     this.getData();
+  }
+
+  getMetadataEndpoint(dataset) {
+    return window.populateData.endpoint.replace(
+      "data.json?sql=",
+      `datasets/${dataset}/meta`
+    );
+  }
+
+  getMetadataFields(metadata) {
+    return {
+      source_name: metadata.data.attributes["dataset-source"],
+      description: metadata.data.attributes.description,
+      frequency_type:
+        metadata.data.attributes.frequency[0].name_translations[
+          I18n.locale
+        ],
+      updated_at: metadata.data.attributes.data_updated_at
+    }
   }
 
   _normalize(str) {

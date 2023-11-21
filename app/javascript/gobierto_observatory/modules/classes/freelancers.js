@@ -1,6 +1,5 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class FreelancersCard extends Card {
   constructor(divClass, city_id) {
@@ -21,7 +20,7 @@ export class FreelancersCard extends Card {
       LIMIT 5
       `;
 
-    this.metadata = getMetadataEndpoint("afiliados-seguridad-social")
+    this.metadata = this.getMetadataEndpoint("afiliados-seguridad-social")
   }
 
   getData() {
@@ -30,7 +29,7 @@ export class FreelancersCard extends Card {
 
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       var opts = {
-        metadata: getMetadataFields(jsonMetadata),
+        metadata: this.getMetadataFields(jsonMetadata),
         cardName: "freelancers"
       };
 

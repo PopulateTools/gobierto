@@ -1,12 +1,9 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getProvinceIds, getMetadataEndpoint } from "../helpers.js";
 
 export class CarsTaxCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
-
-    const [lower, upper] = getProvinceIds(city_id);
 
     this.url =
       window.populateData.endpoint +
@@ -20,11 +17,12 @@ export class CarsTaxCard extends Card {
       SELECT avg(cars_taxes ::integer) as value
       FROM tasas
       WHERE
-        place_id BETWEEN ${lower} AND ${upper}
+        place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+        AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
         AND year = (SELECT max(year) FROM tasas)
       `;
 
-    this.metadata = getMetadataEndpoint("tasas")
+    this.metadata = this.getMetadataEndpoint("tasas");
   }
 
   getData() {
@@ -35,7 +33,7 @@ export class CarsTaxCard extends Card {
       var [placeTax, provinceTax] = jsonData.data;
 
       var opts = {
-        metadata: getMetadataFields(jsonMetadata),
+        metadata: this.getMetadataFields(jsonMetadata),
         cardName: "cars_tax"
       };
 

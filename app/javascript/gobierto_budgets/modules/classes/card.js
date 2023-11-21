@@ -2,10 +2,8 @@ import { json } from "d3-fetch";
 import { SimpleCard } from "lib/visualizations";
 
 export class Card {
-  constructor(divClass, current_year) {
+  constructor(divClass) {
     this.container = divClass;
-    this.currentYear =
-      current_year !== undefined ? parseInt(current_year) : null;
     this.tbiToken = window.populateData.token;
 
     this.metadata = this.getMetadataEndpoint("presupuestos-municipales")

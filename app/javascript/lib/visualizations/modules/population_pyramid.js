@@ -208,7 +208,7 @@ export class VisPopulationPyramid {
             AND year =
               (SELECT *
               FROM maxyear)
-            AND sex <> 'Total'
+            AND sex != 'Total'
           GROUP BY age, sex
           ORDER BY age
           `;
@@ -255,7 +255,7 @@ export class VisPopulationPyramid {
           WHERE year =
               (SELECT *
               FROM maxyear)
-            AND sex <> 'Total'
+            AND sex != 'Total'
           GROUP BY age, sex
           ORDER BY age
           `;

@@ -4,11 +4,9 @@ export class SelfFinancingCapacityCard extends Card {
   constructor(divClass, city_id, current_year) {
     super(divClass);
 
-    this.cardName = "self_financing_capacity"
+    this.cardName = "self_financing_capacity";
 
-    this.url =
-      window.populateData.endpoint +
-      `
+    this.query = `
       WITH income AS
         (SELECT SUM(amount),
                 year
@@ -16,7 +14,7 @@ export class SelfFinancingCapacityCard extends Card {
         WHERE place_id = ${city_id}
           AND area = 'e'
           AND kind = 'I'
-          AND year = ${current_year}
+          AND year <= ${current_year}
           AND code IN ('1',
                         '2',
                         '3',
@@ -30,7 +28,7 @@ export class SelfFinancingCapacityCard extends Card {
         WHERE place_id = ${city_id}
           AND area = 'e'
           AND kind = 'G'
-          AND year = ${current_year}
+          AND year <= ${current_year}
           AND code IN ('1',
                         '2',
                         '3',

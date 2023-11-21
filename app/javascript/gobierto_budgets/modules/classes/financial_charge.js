@@ -1,15 +1,12 @@
-
 import { Card } from "./card.js";
 
 export class FinancialChargeCard extends Card {
   constructor(divClass, city_id, current_year) {
     super(divClass);
 
-    this.cardName = "financial_charge"
+    this.cardName = "financial_charge";
 
-    this.url =
-      window.populateData.endpoint +
-      `
+    this.query = `
       WITH income AS
         (SELECT SUM(amount),
                 year
@@ -17,7 +14,7 @@ export class FinancialChargeCard extends Card {
         WHERE place_id = ${city_id}
           AND area = 'e'
           AND kind = 'I'
-          AND year = ${current_year}
+          AND year <= ${current_year}
           AND code IN ('1',
                         '2',
                         '3',
@@ -31,7 +28,7 @@ export class FinancialChargeCard extends Card {
         WHERE place_id = ${city_id}
           AND area = 'e'
           AND kind = 'G'
-          AND year = ${current_year}
+          AND year <= ${current_year}
           AND code IN ('1',
                         '2',
                         '3',

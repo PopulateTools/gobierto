@@ -21,7 +21,7 @@ export class Card {
   }
 
   getData() {
-    var data = this.handlePromise(this.url);
+    var data = this.handlePromise(window.populateData.endpoint + this.query.trim().replace(/\s\s/g, ""));
     var metadata = this.handlePromise(this.metadata);
 
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {

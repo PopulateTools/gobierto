@@ -22,47 +22,36 @@ window.GobiertoBudgets.IndicatorsController = (function() {
   };
 
   function _runIndicatorsApplication() {
-    var grossSavingCard = new GrossSavingCard('.gross_saving_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    grossSavingCard.render();
+    const cityId = window.populateData.municipalityId
+    const currentYear = window.populateDataYear.currentYear
 
-    var netSavingCard = new NetSavingCard('.net_saving_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    netSavingCard.render();
+    new GrossSavingCard('.gross_saving_card', cityId, currentYear).render();
 
-    var taxAutonomyCard = new TaxAutonomyCard('.tax_autonomy_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    taxAutonomyCard.render();
+    new NetSavingCard('.net_saving_card', cityId, currentYear).render();
 
-    var selfFinancingCapacityCard = new SelfFinancingCapacityCard('.self_financing_capacity_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    selfFinancingCapacityCard.render();
+    new TaxAutonomyCard('.tax_autonomy_card', cityId, currentYear).render();
 
-    var financialChargeCard = new FinancialChargeCard('.financial_charge_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    financialChargeCard.render();
+    new SelfFinancingCapacityCard('.self_financing_capacity_card', cityId, currentYear).render();
 
-    var liabilityCostCard = new LiabilityCostCard('.liability_cost_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    liabilityCostCard.render();
+    new FinancialChargeCard('.financial_charge_card', cityId, currentYear).render();
 
-    var investmentFinancingCard = new InvestmentFinancingCard('.investment_financing_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    investmentFinancingCard.render();
+    new LiabilityCostCard('.liability_cost_card', cityId, currentYear).render();
 
-    var grossSavingsRateCard = new GrossSavingsRateCard('.gross_savings_rate_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    grossSavingsRateCard.render();
+    new InvestmentFinancingCard('.investment_financing_card', cityId, currentYear).render();
 
-    var netSavingsRateCard = new NetSavingsRateCard('.net_savings_rate_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    netSavingsRateCard.render();
+    new GrossSavingsRateCard('.gross_savings_rate_card', cityId, currentYear).render();
 
-    var perCapitaInvestmentCard = new PerCapitaInvestmentCard('.per_capita_investment_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    perCapitaInvestmentCard.render();
+    new NetSavingsRateCard('.net_savings_rate_card', cityId, currentYear).render();
 
-    var debtLevelCard = new DebtLevelCard('.debt_level_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    debtLevelCard.render();
+    new PerCapitaInvestmentCard('.per_capita_investment_card', cityId, currentYear).render();
 
-    var perCapitaTaxBurdenCard = new PerCapitaTaxBurdenCard('.per_capita_tax_burden_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    perCapitaTaxBurdenCard.render();
+    new DebtLevelCard('.debt_level_card', cityId, currentYear).render();
 
-    var financialRiskCard = new FinancialRiskCard('.financial_risk_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    financialRiskCard.render();
+    new PerCapitaTaxBurdenCard('.per_capita_tax_burden_card', cityId, currentYear).render();
 
-    var expenditureRigidityCard = new ExpenditureRigidityCard('.expenditure_rigidity_card', window.populateData.municipalityId, window.populateDataYear.currentYear);
-    expenditureRigidityCard.render();
+    new FinancialRiskCard('.financial_risk_card', cityId, currentYear).render();
+
+    new ExpenditureRigidityCard('.expenditure_rigidity_card', cityId, currentYear).render();
   }
 
   return IndicatorsController;

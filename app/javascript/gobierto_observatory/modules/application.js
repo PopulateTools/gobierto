@@ -18,7 +18,7 @@ import { PopulationCard } from "./classes/population.js";
 import { BudgetByInhabitantCard } from "./classes/budget_by_inhabitant.js";
 import { CarsCard } from "./classes/cars.js";
 import { CarsTaxCard } from "./classes/cars_tax.js";
-// import { CompaniesCard } from "./classes/companies.js";
+import { CompaniesCard } from "./classes/companies.js";
 import { ConstructionTaxCard } from "./classes/construction_tax.js";
 import { DeathRateCard } from "./classes/death_rate.js";
 import { EconomicTaxCard } from "./classes/economic_tax.js";
@@ -105,7 +105,7 @@ $(document).on("turbolinks:load", function() {
 
   new FreelancersCard(".freelancers", cityId).render();
 
-  // new CompaniesCard(".companies", cityId).render();
+  new CompaniesCard(".companies", cityId).render();
 
   new ContractsCard(".contracts_comparison", cityId).render();
 

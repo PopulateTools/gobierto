@@ -11,7 +11,7 @@ export class EconomicTaxCard extends Card {
       `
       SELECT
         CONCAT(year, '-', 1, '-', 1) AS date,
-        iae_coef_min::decimal as value
+        iae_coef_min::decimal AS value
       FROM tasas
       WHERE
         place_id = ${city_id}

@@ -146,10 +146,9 @@ export class VisPopulationPyramid {
         population =
           window.populateData.endpoint +
           `
-          WITH maxyear AS
-            (SELECT max(year)
-            FROM poblacion_edad_sexo
-            WHERE place_id = ${city_id})
+          WITH maxyear AS (SELECT max(year)
+                            FROM poblacion_edad_sexo
+                            WHERE place_id = ${city_id})
           SELECT
             CASE
               WHEN sex = 'Hombres' THEN 'V'
@@ -159,10 +158,10 @@ export class VisPopulationPyramid {
             total::integer AS value
           FROM poblacion_edad_sexo
           WHERE place_id = ${city_id}
+            AND sex != 'Total'
             AND year =
               (SELECT *
               FROM maxyear)
-            AND sex <> 'Total'
           ORDER BY age
           `;
 
@@ -209,7 +208,7 @@ export class VisPopulationPyramid {
             AND year =
               (SELECT *
               FROM maxyear)
-            AND sex <> 'Total'
+            AND sex != 'Total'
           GROUP BY age, sex
           ORDER BY age
           `;
@@ -256,7 +255,7 @@ export class VisPopulationPyramid {
           WHERE year =
               (SELECT *
               FROM maxyear)
-            AND sex <> 'Total'
+            AND sex != 'Total'
           GROUP BY age, sex
           ORDER BY age
           `;

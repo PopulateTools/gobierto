@@ -2,7 +2,7 @@ import { Card } from "./card.js";
 
 export class SelfFinancingCapacityCard extends Card {
   constructor(divClass, city_id, current_year) {
-    super(divClass, current_year);
+    super(divClass);
 
     this.cardName = "self_financing_capacity"
 
@@ -16,6 +16,7 @@ export class SelfFinancingCapacityCard extends Card {
         WHERE place_id = ${city_id}
           AND area = 'e'
           AND kind = 'I'
+          AND year = ${current_year}
           AND code IN ('1',
                         '2',
                         '3',
@@ -29,6 +30,7 @@ export class SelfFinancingCapacityCard extends Card {
         WHERE place_id = ${city_id}
           AND area = 'e'
           AND kind = 'G'
+          AND year = ${current_year}
           AND code IN ('1',
                         '2',
                         '3',

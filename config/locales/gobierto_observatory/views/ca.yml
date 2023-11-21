@@ -30,10 +30,10 @@ ca:
         figure_second: indefinits
         title: Contractes en el darrer mes
       contracts_sector:
-        agricultura: Agricultura
-        construccion: Construcció
-        industria: Indústria
-        servicios: Serveis
+        agriculture: Agricultura
+        construction: Construcció
+        industry: Indústria
+        services: Serveis
         title: Contractes per sector
       deaths:
         country: Mitjana estatal
@@ -46,11 +46,7 @@ ca:
         title: Impost a les activitats econòmiques
       freelancers:
         title: Autónoms
-      frequency:
-        daily: Actualització diària
-        monthly: Actualització mensual
-        weekly: Actualització setmanal
-        yearly: Actualització anual
+      frequency: Actualització %{type}
       houses:
         figure_first: familiars
         figure_second: principals
@@ -70,9 +66,6 @@ ca:
         figure_second: Espanya
         title: Renda bruta
       investment_by_inhabitant:
-        first_column: "%{place}"
-        second_column: Barcelona
-        third_column: Valencia
         title: Inversió per habitant
       meta:
         time: " al "
@@ -82,10 +75,10 @@ ca:
       ss_members:
         title: Afiliats a la Seguretat Social
       unemployed_sector:
-        agricultura: Agricultura
-        construccion: Construcció
-        industria: Indústria
-        servicios: Serveis
+        agriculture: Agricultura
+        construction: Construcció
+        industry: Indústria
+        services: Serveis
         title: Desempleats per sector
       updated: Darrera actualització
     graphics:

@@ -1,34 +1,50 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class HousesCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.famUrl =
+    this.url =
       window.populateData.endpoint +
-      "/datasets/ds-viviendas-municipales-familiares.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
-      city_id;
-    this.mainUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-viviendas-municipales-principales.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
-      city_id;
+      `
+      SELECT SUM(total_viviendas_familiares ::integer) AS value
+      FROM viviendas
+      WHERE
+        place_id = ${city_id} AND
+        year = (SELECT max(year) FROM viviendas )
+      UNION
+      SELECT SUM(total_viviendas_principales ::integer) AS value
+      FROM viviendas
+      WHERE
+        place_id = ${city_id} AND
+        year = (SELECT max(year) FROM viviendas )
+      `;
+
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/viviendas/meta"
+    );
   }
 
   getData() {
-    var fam = this.handlePromise(this.famUrl);
-    var main = this.handlePromise(this.mainUrl);
+    var data = this.handlePromise(this.url);
+    var metadata = this.handlePromise(this.metadata);
 
-    Promise.all([fam, main]).then(([jsonFamily, jsonMain]) => {
-      var familyHouses = jsonFamily.data[0].value;
-      var mainHouses = jsonMain.data[0].value;
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
+      var [familyHouses, mainHouses] = jsonData.data;
+
+      var opts = {
+        metadata: getMetadataFields(jsonMetadata),
+        cardName: "houses"
+      };
 
       new ComparisonCard(
         this.container,
-        jsonFamily,
-        familyHouses,
-        mainHouses,
-        "houses"
+        familyHouses.value,
+        mainHouses.value,
+        opts
       );
     });
   }

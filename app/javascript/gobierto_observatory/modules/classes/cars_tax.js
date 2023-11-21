@@ -1,34 +1,52 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields, getProvinceIds } from "../helpers.js";
 
 export class CarsTaxCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.placeTaxUrl =
+    const [lower, upper] = getProvinceIds(city_id);
+
+    this.url =
       window.populateData.endpoint +
-      "/datasets/ds-impuestos-turismos-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
-      city_id;
-    this.provinceTaxUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-impuestos-turismos-municipal/average.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_province_id=" +
-      window.populateData.provinceId;
+      `
+      SELECT cars_taxes::integer as value
+      FROM tasas
+      WHERE
+        place_id = ${city_id}
+        AND year = (SELECT max(year) FROM tasas)
+      UNION
+      SELECT avg(cars_taxes ::integer) as value
+      FROM tasas
+      WHERE
+        place_id BETWEEN ${lower} AND ${upper}
+        AND year = (SELECT max(year) FROM tasas)
+      `;
+
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/tasas/meta"
+    );
   }
 
   getData() {
-    var placeTax = this.handlePromise(this.placeTaxUrl);
-    var provinceTax = this.handlePromise(this.provinceTaxUrl);
+    var data = this.handlePromise(this.url);
+    var metadata = this.handlePromise(this.metadata);
 
-    Promise.all([placeTax, provinceTax]).then(([placeTax, provinceTax]) => {
-      var valueOne = placeTax.data[0].value;
-      var valueTwo = provinceTax.average;
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
+      var [placeTax, provinceTax] = jsonData.data;
+
+      var opts = {
+        metadata: getMetadataFields(jsonMetadata),
+        cardName: "cars_tax"
+      };
 
       new ComparisonCard(
         this.container,
-        placeTax,
-        valueOne,
-        valueTwo,
-        "cars_tax"
+        placeTax.value,
+        provinceTax.value,
+        opts
       );
     });
   }

@@ -1,28 +1,35 @@
 import { nest as nestFn } from "d3-collection";
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class ContractsCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
     this.url =
-      window.populateData.endpoint +
-      "/datasets/ds-contratos-municipio-tipo.json?sort_desc_by=date&with_metadata=true&limit=3&filter_by_location_id=" +
-      city_id;
+      window.populateData.endpoint + `
+      SELECT SUM(value::integer) AS value, type, CONCAT(year, '-', month, '-', 1) AS date
+      FROM contratos_personas WHERE place_id = ${city_id}
+      AND year = (SELECT year FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
+      AND month = (SELECT month FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
+      GROUP BY type, date
+      `;
+    this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/afiliados-seguridad-social/meta")
   }
 
   getData() {
     var data = this.handlePromise(this.url);
+    var metadata = this.handlePromise(this.metadata);
 
-    data.then(json => {
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
       // d3v5
       //
       var nest = nestFn()
         .key(function(d) {
           return d.type;
         })
-        .entries(json.data);
+        .entries(jsonData.data);
       // d3v6
       //
       // var nest = Array.from(group(json.data, d => d.type), ([key, values]) => ({
@@ -30,10 +37,15 @@ export class ContractsCard extends Card {
       //   values
       // }));
 
-      var i = nest.filter(d => d.key === "INI-I")[0].values[0].value;
-      var t = nest.filter(d => d.key === "INI-T")[0].values[0].value;
+      var i = nest.filter(d => d.key === "undefined")[0].values[0].value;
+      var t = nest.filter(d => d.key === "temporary")[0].values[0].value;
 
-      new ComparisonCard(this.container, json, t, i, "contracts_comparison");
+      var opts = {
+        metadata: getMetadataFields(jsonMetadata),
+        cardName: "contracts_comparison"
+      }
+
+      new ComparisonCard(this.container, i, t, opts);
     });
   }
 }

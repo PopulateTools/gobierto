@@ -1,5 +1,6 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class ssMembersCard extends Card {
   constructor(divClass, city_id) {
@@ -7,17 +8,34 @@ export class ssMembersCard extends Card {
 
     this.url =
       window.populateData.endpoint +
-      "/datasets/ds-afiliados-ss-municipio.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
-      city_id;
+      `
+      SELECT
+        CONCAT(year, '-', 1, '-', 1) AS date,
+        SUM(value::integer) AS value
+      FROM afiliados_seguridad_social
+      WHERE
+        place_id = ${city_id}
+      GROUP BY year
+      ORDER BY 1 DESC
+      LIMIT 5
+      `;
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/afiliados-seguridad-social/meta"
+    );
   }
 
   getData() {
     var data = this.handlePromise(this.url);
+    var metadata = this.handlePromise(this.metadata);
 
-    data.then(jsonData => {
-      var value = jsonData.data[0].value;
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
+      var opts = {
+        metadata: getMetadataFields(jsonMetadata),
+        cardName: "ss_members"
+      };
 
-      new SimpleCard(this.container, jsonData, value, "ss_members");
+      new SimpleCard(this.container, jsonData.data, opts);
     });
   }
 }

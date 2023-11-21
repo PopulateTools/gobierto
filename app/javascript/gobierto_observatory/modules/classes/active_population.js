@@ -1,5 +1,6 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class ActivePopulationCard extends Card {
   constructor(divClass, city_id) {
@@ -7,23 +8,49 @@ export class ActivePopulationCard extends Card {
 
     this.activePopUrl =
       window.populateData.endpoint +
-      "/datasets/ds-poblacion-activa-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
-      city_id;
+      `
+    SELECT SUM(total::integer) AS value, CONCAT(year, '-', 1, '-', 1) AS date
+    FROM poblacion_edad_sexo
+    WHERE
+      place_id = ${city_id} AND
+      year = (SELECT max(year) FROM poblacion_edad_sexo ) AND
+      age >= 16 AND
+      sex = 'Total'
+    GROUP BY year
+    `;
     this.popUrl =
       window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
-      city_id;
+      `
+    SELECT SUM(total::integer) AS value
+    FROM poblacion_edad_sexo
+    WHERE
+      place_id = ${city_id} AND
+      year = (SELECT max(year) FROM poblacion_edad_sexo ) AND
+      sex = 'Total'
+    `;
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/poblacion-edad-sexo/meta"
+    );
   }
 
   getData() {
     var active = this.handlePromise(this.activePopUrl);
     var pop = this.handlePromise(this.popUrl);
+    var metadata = this.handlePromise(this.metadata);
 
-    Promise.all([active, pop]).then(([jsonActive, jsonPop]) => {
-      var value = jsonActive.data[0].value;
-      var rate = (value / jsonPop.data[0].value) * 100;
+    Promise.all([active, pop, metadata]).then(
+      ([jsonActive, jsonPop, jsonMetadata]) => {
+        var value = jsonActive.data[0].value;
+        var rate = (value / jsonPop.data[0].value) * 100;
 
-      new ComparisonCard(this.container, jsonActive, rate, value, "active_pop");
-    });
+        var opts = {
+          metadata: getMetadataFields(jsonMetadata),
+          cardName: "active_pop"
+        };
+
+        new ComparisonCard(this.container, rate, value, opts);
+      }
+    );
   }
 }

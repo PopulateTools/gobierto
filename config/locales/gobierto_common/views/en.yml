@@ -47,10 +47,10 @@ en:
           figure_second: long term
           title: Contracts in the last month
         contracts_sector:
-          agricultura: Agriculture
-          construccion: Construction
-          industria: Industry
-          servicios: Services
+          agriculture: Agriculture
+          construction: Construction
+          industry: Industry
+          services: Services
           title: Contracts by sector
         deaths:
           country: Country average
@@ -71,11 +71,7 @@ en:
           title: Financial risk
         freelancers:
           title: Freelancers
-        frequency:
-          daily: Updated daily
-          monthly: Updated monthly
-          weekly: Updated weekly
-          yearly: Updated annually
+        frequency: Updated %{type}
         gross_saving:
           title: Gross saving
         gross_savings_rate:
@@ -91,17 +87,14 @@ en:
           title: Land value tax
         income:
           first_column: ''
-          second_column: Gross
-          third_column: Net
+          second_column: By inhabitant
+          third_column: By household
           title: Municipality income
         income_overview:
           figure_first: "%{place}"
           figure_second: Spain
           title: Gross income
         investment_by_inhabitant:
-          first_column: "%{place}"
-          second_column: Barcelona
-          third_column: Valencia
           title: Investment by inhabitant
         investment_financing:
           title: Investment financing
@@ -127,10 +120,10 @@ en:
         tax_autonomy:
           title: Tax autonomy
         unemployed_sector:
-          agricultura: Agriculture
-          construccion: Construction
-          industria: Industry
-          servicios: Services
+          agriculture: Agriculture
+          construction: Construction
+          industry: Industry
+          services: Services
           title: Unemployed by sector
         updated: Last update
       country: Spain
@@ -138,11 +131,7 @@ en:
       elderly_info: The %{percent} of the population is elder than %{limit} years
       empty_lines: There aren't data for this classification and this year. Please,
         choose another filter.
-      frequency:
-        daily: Updated daily
-        monthly: Updated monthly
-        weekly: Updated weekly
-        yearly: Updated annually
+      frequency: Updated %{type}
       gross_income: Gross income
       increase: Increase
       inhabitant_short: inh

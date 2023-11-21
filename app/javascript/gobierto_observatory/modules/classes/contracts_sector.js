@@ -1,6 +1,7 @@
-import { nest } from "d3-collection";
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
+import { groupBy } from "lib/shared";
 import { Card } from "./card.js";
+import { getMetadataFields } from "../helpers.js";
 
 export class ContractsBySectorCard extends Card {
   constructor(divClass, city_id) {
@@ -8,97 +9,60 @@ export class ContractsBySectorCard extends Card {
 
     this.url =
       window.populateData.endpoint +
-      "/datasets/ds-contratos-municipio-sector.json?sort_desc_by=date&with_metadata=true&limit=50&filter_by_location_id=" +
-      city_id;
+      `
+      SELECT
+        value,
+        CONCAT(year, '-', month, '-', 1) AS date,
+        sector as key
+      FROM contratos_sectores
+      WHERE
+        place_id = ${city_id}
+      ORDER BY year DESC, month DESC
+      LIMIT 50
+      `;
+
+    this.metadata = window.populateData.endpoint.replace(
+      "data.json?sql=",
+      "datasets/contratos-sectores/meta"
+    );
   }
 
   getData() {
     var data = this.handlePromise(this.url);
+    var metadata = this.handlePromise(this.metadata);
 
-    data.then(jsonData => {
-      this.data = jsonData.data;
+    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
+      const sectors = groupBy(jsonData.data, "key");
 
-      // d3v5
-      //
-      this.nest = nest()
-        .key(function(d) {
-          return d.sector;
-        })
-        .rollup(function(v) {
-          return {
-            value: v[0].value,
-            diff: ((v[0].value - v[1].value) / v[1].value) * 100
-          };
-        })
-        .entries(this.data);
+      // transform the data for the chart
+      const nestData = Object.entries(sectors).map(([key, values]) => ({
+        key,
+        value: values[0].value,
+        diff: (values[0].value / values[1].value - 1) * 100,
+        title: I18n.t(`gobierto_common.visualizations.cards.contracts_sector.${key}`)
+      }));
 
-      this.nest.forEach(
-        function(d) {
-          (d.key = d.key), (d.diff = d.value.diff), (d.value = d.value.value);
-        }.bind(this)
-      );
+      new SparklineTableCard(this.container, nestData, {
+        metadata: getMetadataFields(jsonMetadata),
+        cardName: "contracts_sector"
+      });
 
-      // d3v6
-      //
-      // this.nest = rollup(
-      //   this.data,
-      //   v => ({
-      //     value: v[0].value,
-      //     diff: ((v[0].value - v[1].value) / v[1].value) * 100
-      //   }),
-      //   d => d.sector
-      // );
+      Object.entries(sectors).forEach(([key, values]) => {
+        const sorted = values.sort((a, b) =>
+          new Date(a.date) < new Date(b.date) ? 1 : -1
+        );
 
-      // // Convert map to specific array
-      // this.nest = Array.from(this.nest, ([key, { value, diff }]) => ({
-      //   key,
-      //   value,
-      //   diff
-      // }));
+        const spark = new Sparkline(
+          `${this.container} .sparkline-${key}`,
+          sorted,
+          {
+            trend: this.trend,
+            freq: this.freq
+          }
+        );
 
-      new SparklineTableCard(
-        this.container,
-        jsonData,
-        this.nest,
-        "contracts_sector"
-      );
-
-      /* Sparklines */
-      var ind = jsonData.data.filter(d => d.sector === "Industria");
-      var serv = jsonData.data.filter(d => d.sector === "Servicios");
-      var agr = jsonData.data.filter(d => d.sector === "Agricultura");
-      var cons = jsonData.data.filter(d => d.sector === "Construcción");
-
-      var opts = {
-        trend: this.trend,
-        freq: this.freq
-      };
-
-      var indSpark = new Sparkline(
-        this.container + " .sparkline-industria",
-        ind,
-        opts
-      );
-      var servSpark = new Sparkline(
-        this.container + " .sparkline-servicios",
-        serv,
-        opts
-      );
-      var agrSpark = new Sparkline(
-        this.container + " .sparkline-agricultura",
-        agr,
-        opts
-      );
-      var consSpark = new Sparkline(
-        this.container + " .sparkline-construccion",
-        cons,
-        opts
-      );
-
-      indSpark.render();
-      servSpark.render();
-      agrSpark.render();
-      consSpark.render();
+        spark.render();
+      });
     });
   }
 }

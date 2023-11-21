@@ -24,7 +24,8 @@ export class VisUnemploymentRate {
         WHERE place_id = ${city_id}
           AND sex = 'Total'
           AND age >= 16
-        GROUP BY year),
+        GROUP BY year
+        ORDER BY 1 DESC),
           pob_activa_prov AS
         (SELECT year,
                 SUM(total::integer) AS value
@@ -32,14 +33,15 @@ export class VisUnemploymentRate {
         WHERE place_id BETWEEN ${lower} AND ${upper}
           AND sex = 'Total'
           AND age >= 16
-        GROUP BY year)
+        GROUP BY year
+        ORDER BY 1 DESC)
       SELECT 1 AS key,
             paro.year,
             month,
             CONCAT(paro.year, '-', month, '-', 1) AS date,
-            SUM(paro.value::decimal) / pob_activa.value AS value
+            SUM(paro.value::decimal) / COALESCE(pob_activa.value, (SELECT value FROM pob_activa LIMIT 1)) AS value
       FROM paro_personas paro
-      JOIN pob_activa ON paro.year = pob_activa.year
+      LEFT JOIN pob_activa ON paro.year = pob_activa.year
       WHERE place_id = ${city_id}
       GROUP BY paro.year,
               month,
@@ -49,9 +51,9 @@ export class VisUnemploymentRate {
             paro.year,
             month,
             CONCAT(paro.year, '-', month, '-', 1) AS date,
-            SUM(paro.value::decimal) / pob_activa_prov.value AS value
+            SUM(paro.value::decimal) / COALESCE(pob_activa_prov.value, (SELECT value FROM pob_activa_prov LIMIT 1)) AS value
       FROM paro_personas paro
-      JOIN pob_activa_prov ON paro.year = pob_activa_prov.year
+      LEFT JOIN pob_activa_prov ON paro.year = pob_activa_prov.year
       WHERE place_id BETWEEN ${lower} AND ${upper}
       GROUP BY paro.year,
               month,

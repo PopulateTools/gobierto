@@ -24,20 +24,21 @@ export class VisUnemploymentAge {
         WHERE place_id = ${city_id}
           AND sex = 'Total'
           AND age >= 16
-        GROUP BY year)
-        SELECT paro.year,
+        GROUP BY year
+        ORDER BY 1 DESC)
+      SELECT paro.year,
+            month,
+            CONCAT(paro.year, '-', month, '-', 1) AS date,
+            paro.age as key,
+            SUM(paro.value::decimal) / COALESCE(pob_activa.value, (SELECT value FROM pob_activa LIMIT 1)) AS value
+      FROM paro_personas paro
+      LEFT JOIN pob_activa ON paro.year = pob_activa.year
+      WHERE place_id = ${city_id}
+      GROUP BY paro.year,
               month,
-              CONCAT(paro.year, '-', month, '-', 1) AS date,
-              paro.age as key,
-              SUM(paro.value::decimal) / pob_activa.value AS value
-        FROM paro_personas paro
-        JOIN pob_activa ON paro.year = pob_activa.year
-        WHERE place_id = ${city_id}
-        GROUP BY paro.year,
-                month,
-                paro.age,
-                pob_activa.value
-        ORDER BY year DESC, month DESC
+              paro.age,
+              pob_activa.value
+      ORDER BY year DESC, month DESC
       `;
 
     timeFormatDefaultLocale(d3locale[I18n.locale]);

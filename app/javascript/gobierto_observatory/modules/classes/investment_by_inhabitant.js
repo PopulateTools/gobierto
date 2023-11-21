@@ -1,7 +1,7 @@
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { groupBy } from "lib/shared";
 import { Card } from "./card.js";
-import { getMetadataFields, getProvinceIds } from "../helpers.js";
+import { getMetadataFields, getProvinceIds, getMetadataEndpoint } from "../helpers.js";
 
 export class InvestmentByInhabitantCard extends Card {
   constructor(divClass, city_id) {
@@ -58,10 +58,7 @@ export class InvestmentByInhabitantCard extends Card {
       ORDER BY index
       `;
 
-    this.metadata = window.populateData.endpoint.replace(
-      "data.json?sql=",
-      "datasets/presupuestos-municipales/meta"
-    );
+    this.metadata = getMetadataEndpoint("presupuestos-municipales")
   }
 
   getData() {

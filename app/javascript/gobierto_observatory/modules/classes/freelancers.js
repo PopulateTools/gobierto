@@ -1,6 +1,6 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields } from "../helpers.js";
+import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class FreelancersCard extends Card {
   constructor(divClass, city_id) {
@@ -20,10 +20,8 @@ export class FreelancersCard extends Card {
       ORDER BY 1 DESC
       LIMIT 5
       `;
-    this.metadata = window.populateData.endpoint.replace(
-      "data.json?sql=",
-      "datasets/afiliados-seguridad-social/meta"
-    );
+
+    this.metadata = getMetadataEndpoint("afiliados-seguridad-social")
   }
 
   getData() {

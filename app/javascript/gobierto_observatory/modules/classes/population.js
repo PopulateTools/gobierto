@@ -1,6 +1,6 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields } from "../helpers.js";
+import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class PopulationCard extends Card {
   constructor(divClass, city_id) {
@@ -14,16 +14,14 @@ export class PopulationCard extends Card {
         SUM(total::integer) AS value
       FROM poblacion_edad_sexo
       WHERE
-        place_id = ${city_id} AND
-        sex = 'Total'
+        place_id = ${city_id}
+        AND sex = 'Total'
       GROUP BY year
       ORDER BY 1 DESC
       LIMIT 5
       `;
-    this.metadata = window.populateData.endpoint.replace(
-      "data.json?sql=",
-      "datasets/poblacion-edad-sexo/meta"
-    );
+
+    this.metadata = getMetadataEndpoint("poblacion-edad-sexo")
   }
 
   getData() {

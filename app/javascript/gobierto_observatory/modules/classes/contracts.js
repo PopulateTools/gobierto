@@ -1,21 +1,27 @@
 import { nest as nestFn } from "d3-collection";
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields } from "../helpers.js";
+import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class ContractsCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
     this.url =
-      window.populateData.endpoint + `
-      SELECT SUM(value::integer) AS value, type, CONCAT(year, '-', month, '-', 1) AS date
-      FROM contratos_personas WHERE place_id = ${city_id}
-      AND year = (SELECT year FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
-      AND month = (SELECT month FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
+      window.populateData.endpoint +
+      `
+      SELECT
+        SUM(value::integer) AS value,
+        type,
+        CONCAT(year, '-', month, '-', 1) AS date
+      FROM contratos_personas
+      WHERE place_id = ${city_id}
+        AND year = (SELECT year FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
+        AND month = (SELECT month FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
       GROUP BY type, date
       `;
-    this.metadata = window.populateData.endpoint.replace("data.json?sql=", "datasets/afiliados-seguridad-social/meta")
+
+    this.metadata = getMetadataEndpoint("afiliados-seguridad-social")
   }
 
   getData() {

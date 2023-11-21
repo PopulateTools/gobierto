@@ -1,6 +1,6 @@
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getProvinceIds } from "../helpers.js";
+import { getMetadataFields, getProvinceIds, getMetadataEndpoint } from "../helpers.js";
 
 export class CarsTaxCard extends Card {
   constructor(divClass, city_id) {
@@ -24,10 +24,7 @@ export class CarsTaxCard extends Card {
         AND year = (SELECT max(year) FROM tasas)
       `;
 
-    this.metadata = window.populateData.endpoint.replace(
-      "data.json?sql=",
-      "datasets/tasas/meta"
-    );
+    this.metadata = getMetadataEndpoint("tasas")
   }
 
   getData() {

@@ -1,6 +1,6 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields } from "../helpers.js";
+import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class BudgetByInhabitantCard extends Card {
   constructor(divClass, city_id) {
@@ -21,10 +21,7 @@ export class BudgetByInhabitantCard extends Card {
       LIMIT 5
       `;
 
-    this.metadata = window.populateData.endpoint.replace(
-      "data.json?sql=",
-      "datasets/presupuestos-municipales/meta"
-    );
+    this.metadata = getMetadataEndpoint("presupuestos-municipales")
   }
 
   getData() {

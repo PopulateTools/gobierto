@@ -1,6 +1,6 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields } from "../helpers.js";
+import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class CompaniesCard extends Card {
   constructor(divClass, city_id) {
@@ -18,10 +18,7 @@ export class CompaniesCard extends Card {
       LIMIT 5
       `;
 
-    this.metadata = window.populateData.endpoint.replace(
-      "data.json?sql=",
-      "datasets/dirce/meta"
-    );
+    this.metadata = getMetadataEndpoint("dirce")
   }
 
   getData() {

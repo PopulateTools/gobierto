@@ -1,7 +1,7 @@
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
 import { groupBy } from "lib/shared";
 import { Card } from "./card.js";
-import { getMetadataFields, getProvinceIds } from "../helpers.js";
+import { getMetadataFields, getProvinceIds, getMetadataEndpoint } from "../helpers.js";
 
 export class DeathRateCard extends Card {
   constructor(divClass, city_id) {
@@ -10,53 +10,50 @@ export class DeathRateCard extends Card {
     const [lower, upper] = getProvinceIds(city_id);
 
     this.url =
-    window.populateData.endpoint +
-    `
-    (
-      SELECT
-        1 AS index,
-        'place' AS key,
-        year AS date,
-        value::decimal AS value
-      FROM tasa_mortalidad
-      WHERE
-        place_id = ${city_id}
-      ORDER BY year DESC
-      LIMIT 2
-    )
-    UNION
-    (
-      SELECT
-        2 AS index,
-        'province' AS key,
-        year AS date,
-        AVG(value::decimal) AS value
-      FROM tasa_mortalidad
-      WHERE
-        place_id between ${lower} and ${upper}
-      GROUP BY year
-      ORDER BY year DESC
-      LIMIT 2
-    )
-    UNION
-    (
-      SELECT
-        3 AS index,
-        'country' AS key,
-        year AS date,
-        AVG(value::decimal) AS value
-      FROM tasa_mortalidad
-      GROUP BY year
-      ORDER BY year DESC
-      LIMIT 2
-    )
-    ORDER BY index, date DESC
-    `;
+      window.populateData.endpoint +
+      `
+      (
+        SELECT
+          1 AS index,
+          'place' AS key,
+          year AS date,
+          value::decimal AS value
+        FROM tasa_mortalidad
+        WHERE
+          place_id = ${city_id}
+        ORDER BY year DESC
+        LIMIT 2
+      )
+      UNION
+      (
+        SELECT
+          2 AS index,
+          'province' AS key,
+          year AS date,
+          AVG(value::decimal) AS value
+        FROM tasa_mortalidad
+        WHERE
+          place_id BETWEEN ${lower} AND ${upper}
+        GROUP BY year
+        ORDER BY year DESC
+        LIMIT 2
+      )
+      UNION
+      (
+        SELECT
+          3 AS index,
+          'country' AS key,
+          year AS date,
+          AVG(value::decimal) AS value
+        FROM tasa_mortalidad
+        GROUP BY year
+        ORDER BY year DESC
+        LIMIT 2
+      )
+      ORDER BY index, date DESC
+      `;
 
-  this.metadata = window.populateData.endpoint.replace(
-      "data.json?sql=",
-      "datasets/tasa-mortalidad/meta"
-    );
+    this.metadata = getMetadataEndpoint("tasa-mortalidad")
   }
 
   getData() {
@@ -82,7 +79,7 @@ export class DeathRateCard extends Card {
           value: "--",
           diff: "--",
           title: "No hay datos"
-        })
+        });
       }
 
       new SparklineTableCard(this.container, nestData, {

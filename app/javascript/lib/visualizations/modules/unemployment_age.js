@@ -23,7 +23,7 @@ export class VisUnemploymentAge {
         FROM poblacion_edad_sexo
         WHERE place_id = ${city_id}
           AND sex = 'Total'
-          AND age >= 16
+          AND age BETWEEN 16 AND 65
         GROUP BY year
         ORDER BY 1 DESC)
       SELECT paro.year,

@@ -23,7 +23,7 @@ export class VisUnemploymentRate {
         FROM poblacion_edad_sexo
         WHERE place_id = ${city_id}
           AND sex = 'Total'
-          AND age >= 16
+          AND age BETWEEN 16 AND 65
         GROUP BY year
         ORDER BY 1 DESC),
           pob_activa_prov AS
@@ -34,7 +34,7 @@ export class VisUnemploymentRate {
           place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
           AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
           AND sex = 'Total'
-          AND age >= 16
+          AND age BETWEEN 16 AND 65
         GROUP BY year
         ORDER BY 1 DESC)
       SELECT 1 AS key,

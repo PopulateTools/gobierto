@@ -26,7 +26,7 @@ export class ActivePopulationCard extends Card {
         AND YEAR =
           (SELECT *
           FROM maxyear)
-        AND age >= 16
+        AND age BETWEEN 16 AND 65
         AND sex = 'Total'
       `;
 

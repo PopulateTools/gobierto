@@ -5,9 +5,7 @@ export class DebtByInhabitantCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      `
+    this.query = `
       WITH
         maxyear AS (SELECT max(year) FROM deuda_municipal WHERE place_id = ${city_id}),
         population AS (
@@ -66,18 +64,15 @@ export class DebtByInhabitantCard extends Card {
       ORDER BY index
       `;
 
-    this.metadata = this.getMetadataEndpoint("deuda-municipal")
+    this.metadata = this.getMetadataEndpoint("deuda-municipal");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var metadata = this.handlePromise(this.metadata);
+  getData([jsonData, jsonMetadata]) {
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "debt_by_inhabitant"
+    };
 
-    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      new BarsCard(this.container, jsonData.data, {
-        metadata: this.getMetadataFields(jsonMetadata),
-        cardName: "debt_by_inhabitant"
-      });
-    });
+    new BarsCard(this.container, jsonData.data, opts);
   }
 }

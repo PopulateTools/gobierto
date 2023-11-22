@@ -6,9 +6,7 @@ export class BirthRateCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      `
+    this.query = `
       (
         SELECT
           1 AS index,
@@ -51,51 +49,46 @@ export class BirthRateCard extends Card {
       ORDER BY index, date DESC
       `;
 
-    this.metadata = this.getMetadataEndpoint("tasa-natalidad")
+    this.metadata = this.getMetadataEndpoint("tasa-natalidad");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var metadata = this.handlePromise(this.metadata);
+  getData([jsonData, jsonMetadata]) {
+    const locationType = groupBy(jsonData.data, "key");
 
-    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      const locationType = groupBy(jsonData.data, "key");
+    // transform the data for the chart
+    const nestData = Object.entries(locationType).map(([key, values]) => ({
+      key,
+      value: values[0].value,
+      diff: (values[0].value / values[1].value - 1) * 100,
+      title: I18n.t(`gobierto_common.visualizations.cards.births.${key}`, {
+        place: window.populateData.municipalityName
+      })
+    }));
 
-      // transform the data for the chart
-      const nestData = Object.entries(locationType).map(([key, values]) => ({
-        key,
-        value: values[0].value,
-        diff: (values[0].value / values[1].value - 1) * 100,
-        title: I18n.t(`gobierto_common.visualizations.cards.births.${key}`, {
-          place: window.populateData.municipalityName
-        })
-      }));
-
-      // include empty records
-      while (nestData.length < 3) {
-        nestData.unshift({
-          value: "--",
-          diff: "--",
-          title: "No hay datos"
-        })
-      }
-
-      new SparklineTableCard(this.container, nestData, {
-        metadata: this.getMetadataFields(jsonMetadata),
-        cardName: "births"
+    // include empty records
+    while (nestData.length < 3) {
+      nestData.unshift({
+        value: "--",
+        diff: "--",
+        title: "No hay datos"
       });
+    }
 
-      Object.entries(locationType).forEach(([key, values]) => {
-        const spark = new Sparkline(
-          `${this.container} .sparkline-${key}`,
-          values,
-          {
-            trend: this.trend
-          }
-        );
+    new SparklineTableCard(this.container, nestData, {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "births"
+    });
 
-        spark.render();
-      });
+    Object.entries(locationType).forEach(([key, values]) => {
+      const spark = new Sparkline(
+        `${this.container} .sparkline-${key}`,
+        values,
+        {
+          trend: this.trend
+        }
+      );
+
+      spark.render();
     });
   }
 }

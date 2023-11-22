@@ -5,9 +5,7 @@ export class CompaniesCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      `
+    this.query = `
       SELECT
         CONCAT(year, '-', 1, '-', 1) AS date,
         total_companies::integer AS value
@@ -17,20 +15,15 @@ export class CompaniesCard extends Card {
       LIMIT 5
       `;
 
-    this.metadata = this.getMetadataEndpoint("dirce")
+    this.metadata = this.getMetadataEndpoint("dirce");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var metadata = this.handlePromise(this.metadata);
+  getData([jsonData, jsonMetadata]) {
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "companies"
+    };
 
-    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      var opts = {
-        metadata: this.getMetadataFields(jsonMetadata),
-        cardName: "companies"
-      };
-
-      new SimpleCard(this.container, jsonData.data, opts);
-    });
+    new SimpleCard(this.container, jsonData.data, opts);
   }
 }

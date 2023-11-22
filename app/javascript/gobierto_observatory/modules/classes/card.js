@@ -5,7 +5,7 @@ export class Card {
     this.container = divClass;
     this.tbiToken = window.populateData.token;
 
-    const container = document.querySelector(this.container)
+    const container = document.querySelector(this.container);
     this.trend = container.dataset.trend;
     this.freq = container.dataset.freq;
   }
@@ -18,7 +18,12 @@ export class Card {
   }
 
   render() {
-    this.getData();
+    var data = this.handlePromise(
+      window.populateData.endpoint + this.query.trim().replace(/\s\s/g, "")
+    );
+    var metadata = this.handlePromise(this.metadata);
+
+    Promise.all([data, metadata]).then(response => this.getData(response));
   }
 
   getMetadataEndpoint(dataset) {
@@ -33,11 +38,9 @@ export class Card {
       source_name: metadata.data.attributes["dataset-source"],
       description: metadata.data.attributes.description,
       frequency_type:
-        metadata.data.attributes.frequency[0].name_translations[
-          I18n.locale
-        ],
+        metadata.data.attributes.frequency[0].name_translations[I18n.locale],
       updated_at: metadata.data.attributes.data_updated_at
-    }
+    };
   }
 
   _normalize(str) {

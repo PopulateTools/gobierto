@@ -5,9 +5,7 @@ export class CarsTaxCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      `
+    this.query = `
       SELECT cars_taxes::integer as value
       FROM tasas
       WHERE
@@ -25,24 +23,14 @@ export class CarsTaxCard extends Card {
     this.metadata = this.getMetadataEndpoint("tasas");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var metadata = this.handlePromise(this.metadata);
+  getData([jsonData, jsonMetadata]) {
+    var [placeTax, provinceTax] = jsonData.data;
 
-    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      var [placeTax, provinceTax] = jsonData.data;
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "cars_tax"
+    };
 
-      var opts = {
-        metadata: this.getMetadataFields(jsonMetadata),
-        cardName: "cars_tax"
-      };
-
-      new ComparisonCard(
-        this.container,
-        placeTax.value,
-        provinceTax.value,
-        opts
-      );
-    });
+    new ComparisonCard(this.container, placeTax.value, provinceTax.value, opts);
   }
 }

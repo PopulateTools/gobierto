@@ -5,9 +5,7 @@ export class CarsCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      `
+    this.query = `
       WITH
         maxyear AS (SELECT max(year) FROM coches WHERE place_id = ${city_id}),
         population AS (
@@ -66,18 +64,15 @@ export class CarsCard extends Card {
       ORDER BY index
       `;
 
-    this.metadata = this.getMetadataEndpoint("coches")
+    this.metadata = this.getMetadataEndpoint("coches");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var metadata = this.handlePromise(this.metadata);
+  getData([jsonData, jsonMetadata]) {
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "cars"
+    };
 
-    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      new BarsCard(this.container, jsonData.data, {
-        metadata: this.getMetadataFields(jsonMetadata),
-        cardName: "cars"
-      });
-    });
+    new BarsCard(this.container, jsonData.data, opts);
   }
 }

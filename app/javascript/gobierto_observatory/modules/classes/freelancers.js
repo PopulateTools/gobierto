@@ -5,9 +5,7 @@ export class FreelancersCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      `
+    this.query = `
       SELECT
         CONCAT(year, '-', 1, '-', 1) AS date,
         SUM(value::integer) AS value
@@ -20,20 +18,15 @@ export class FreelancersCard extends Card {
       LIMIT 5
       `;
 
-    this.metadata = this.getMetadataEndpoint("afiliados-seguridad-social")
+    this.metadata = this.getMetadataEndpoint("afiliados-seguridad-social");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var metadata = this.handlePromise(this.metadata);
+  getData([jsonData, jsonMetadata]) {
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "freelancers"
+    };
 
-    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      var opts = {
-        metadata: this.getMetadataFields(jsonMetadata),
-        cardName: "freelancers"
-      };
-
-      new SimpleCard(this.container, jsonData.data, opts);
-    });
+    new SimpleCard(this.container, jsonData.data, opts);
   }
 }

@@ -6,9 +6,7 @@ export class InvestmentByInhabitantCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      `
+    this.query = `
       (
         SELECT
           1 as index,
@@ -56,43 +54,38 @@ export class InvestmentByInhabitantCard extends Card {
       ORDER BY index
       `;
 
-    this.metadata = this.getMetadataEndpoint("presupuestos-municipales")
+    this.metadata = this.getMetadataEndpoint("presupuestos-municipales");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var metadata = this.handlePromise(this.metadata);
+  getData([jsonData, jsonMetadata]) {
+    const locations = groupBy(jsonData.data, "key");
 
-    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      const locations = groupBy(jsonData.data, "key");
+    // transform the data for the chart
+    const nestData = Object.entries(locations).map(([key, values]) => ({
+      key: this._normalize(key),
+      value: values[0].value,
+      diff: (values[0].value / values[1].value - 1) * 100,
+      title: key
+    }));
 
-      // transform the data for the chart
-      const nestData = Object.entries(locations).map(([key, values]) => ({
-        key: this._normalize(key),
-        value: values[0].value,
-        diff: (values[0].value / values[1].value - 1) * 100,
-        title: key
-      }));
+    new SparklineTableCard(this.container, nestData, {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "investment_by_inhabitant"
+    });
 
-      new SparklineTableCard(this.container, nestData, {
-        metadata: this.getMetadataFields(jsonMetadata),
-        cardName: "investment_by_inhabitant"
-      });
+    Object.entries(locations).forEach(([key, values]) => {
+      const sorted = values.sort((a, b) => (a.date < b.date ? 1 : -1));
 
-      Object.entries(locations).forEach(([key, values]) => {
-        const sorted = values.sort((a, b) => (a.date < b.date ? 1 : -1));
+      const spark = new Sparkline(
+        `${this.container} .sparkline-${this._normalize(key)}`,
+        sorted,
+        {
+          trend: this.trend,
+          freq: this.freq
+        }
+      );
 
-        const spark = new Sparkline(
-          `${this.container} .sparkline-${this._normalize(key)}`,
-          sorted,
-          {
-            trend: this.trend,
-            freq: this.freq
-          }
-        );
-
-        spark.render();
-      });
+      spark.render();
     });
   }
 }

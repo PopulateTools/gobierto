@@ -5,9 +5,7 @@ export class IbiCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      `
+    this.query = `
       WITH
         maxyear AS (SELECT max(year) FROM tasas WHERE place_id = ${city_id}
                     AND (ibi_urbana IS NOT NULL OR ibi_rustica IS NOT NULL))
@@ -46,20 +44,15 @@ export class IbiCard extends Card {
       ORDER BY index
       `;
 
-    this.metadata = this.getMetadataEndpoint("tasas")
+    this.metadata = this.getMetadataEndpoint("tasas");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var metadata = this.handlePromise(this.metadata);
+  getData([jsonData, jsonMetadata]) {
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "ibi"
+    };
 
-    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      var opts = {
-        metadata: this.getMetadataFields(jsonMetadata),
-        cardName: "ibi"
-      }
-
-      new TableCard(this.container, jsonData.data, opts);
-    });
+    new TableCard(this.container, jsonData.data, opts);
   }
 }

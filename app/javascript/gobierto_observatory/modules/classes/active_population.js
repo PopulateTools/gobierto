@@ -5,53 +5,42 @@ export class ActivePopulationCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.activePopUrl =
-      window.populateData.endpoint +
-      `
+    this.query = `
+      WITH maxyear AS
+        (SELECT max(YEAR)
+        FROM poblacion_edad_sexo
+        WHERE place_id = ${city_id}) ,
+          pob_total AS
+        (SELECT SUM(total::integer) AS value
+        FROM poblacion_edad_sexo
+        WHERE place_id = ${city_id}
+          AND sex = 'Total'
+          AND YEAR =
+            (SELECT *
+              FROM maxyear))
       SELECT
-        CONCAT(year, '-', 1, '-', 1) AS date,
-        SUM(total::integer) AS value
+        (SUM(total::decimal) / (SELECT value FROM pob_total)) * 100 AS rate,
+        SUM(total::decimal) AS value
       FROM poblacion_edad_sexo
-      WHERE
-        place_id = ${city_id} AND
-        year = (SELECT max(year) FROM poblacion_edad_sexo ) AND
-        age >= 16 AND
-        sex = 'Total'
-      GROUP BY year
+      WHERE place_id = ${city_id}
+        AND YEAR =
+          (SELECT *
+          FROM maxyear)
+        AND age >= 16
+        AND sex = 'Total'
       `;
 
-    this.popUrl =
-      window.populateData.endpoint +
-      `
-      SELECT
-        SUM(total::integer) AS value
-      FROM poblacion_edad_sexo
-      WHERE
-        place_id = ${city_id} AND
-        year = (SELECT max(year) FROM poblacion_edad_sexo ) AND
-        sex = 'Total'
-      `;
-
-    this.metadata = this.getMetadataEndpoint("poblacion-edad-sexo")
+    this.metadata = this.getMetadataEndpoint("poblacion-edad-sexo");
   }
 
-  getData() {
-    var active = this.handlePromise(this.activePopUrl);
-    var pop = this.handlePromise(this.popUrl);
-    var metadata = this.handlePromise(this.metadata);
+  getData([jsonData, jsonMetadata]) {
+    const [{ rate, value }] = jsonData.data;
 
-    Promise.all([active, pop, metadata]).then(
-      ([jsonActive, jsonPop, jsonMetadata]) => {
-        var value = jsonActive.data[0].value;
-        var rate = (value / jsonPop.data[0].value) * 100;
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "active_pop"
+    };
 
-        var opts = {
-          metadata: this.getMetadataFields(jsonMetadata),
-          cardName: "active_pop"
-        };
-
-        new ComparisonCard(this.container, rate, value, opts);
-      }
-    );
+    new ComparisonCard(this.container, rate, value, opts);
   }
 }

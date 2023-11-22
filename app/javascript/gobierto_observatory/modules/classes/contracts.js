@@ -1,4 +1,3 @@
-import { nest as nestFn } from "d3-collection";
 import { ComparisonCard } from "lib/visualizations";
 import { Card } from "./card.js";
 
@@ -6,51 +5,46 @@ export class ContractsCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      `
-      SELECT
-        SUM(value::integer) AS value,
-        type,
-        CONCAT(year, '-', month, '-', 1) AS date
+    this.query = `
+      WITH maxyear AS
+        (SELECT year,
+                month
+        FROM contratos_personas
+        WHERE place_id = ${city_id}
+        ORDER BY year DESC, month DESC
+        LIMIT 1)
+      SELECT type,
+            SUM(value::integer) AS value
       FROM contratos_personas
       WHERE place_id = ${city_id}
-        AND year = (SELECT year FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
-        AND month = (SELECT month FROM contratos_personas ORDER BY year DESC, month DESC LIMIT 1)
-      GROUP BY type, date
+        AND type IN ('temporary',
+                    'undefined')
+        AND year =
+          (SELECT year
+          FROM maxyear)
+        AND month =
+          (SELECT month
+          FROM maxyear)
+      GROUP BY type
+      ORDER BY type
       `;
 
-    this.metadata = this.getMetadataEndpoint("afiliados-seguridad-social")
+    this.metadata = this.getMetadataEndpoint("afiliados-seguridad-social");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var metadata = this.handlePromise(this.metadata);
+  getData([jsonData, jsonMetadata]) {
+    var [temporaryContracts, undefinedContracts] = jsonData.data;
 
-    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      // d3v5
-      //
-      var nest = nestFn()
-        .key(function(d) {
-          return d.type;
-        })
-        .entries(jsonData.data);
-      // d3v6
-      //
-      // var nest = Array.from(group(json.data, d => d.type), ([key, values]) => ({
-      //   key,
-      //   values
-      // }));
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "contracts_comparison"
+    };
 
-      var i = nest.filter(d => d.key === "undefined")[0].values[0].value;
-      var t = nest.filter(d => d.key === "temporary")[0].values[0].value;
-
-      var opts = {
-        metadata: this.getMetadataFields(jsonMetadata),
-        cardName: "contracts_comparison"
-      }
-
-      new ComparisonCard(this.container, i, t, opts);
-    });
+    new ComparisonCard(
+      this.container,
+      temporaryContracts.value,
+      undefinedContracts.value,
+      opts
+    );
   }
 }

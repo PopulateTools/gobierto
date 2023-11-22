@@ -1,14 +1,11 @@
 import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
-import { getMetadataFields, getMetadataEndpoint } from "../helpers.js";
 
 export class BudgetByInhabitantCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      `
+    this.query = `
       SELECT
         CONCAT(year, '-', 1, '-', 1) AS date,
         SUM(amount_per_inhabitant::decimal) as value
@@ -21,20 +18,15 @@ export class BudgetByInhabitantCard extends Card {
       LIMIT 5
       `;
 
-    this.metadata = getMetadataEndpoint("presupuestos-municipales")
+    this.metadata = this.getMetadataEndpoint("presupuestos-municipales");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var metadata = this.handlePromise(this.metadata);
+  getData([jsonData, jsonMetadata]) {
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "budget_by_inhabitant"
+    };
 
-    Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
-      var opts = {
-        metadata: getMetadataFields(jsonMetadata),
-        cardName: "budget_by_inhabitant"
-      };
-
-      new SimpleCard(this.container, jsonData.data, opts);
-    });
+    new SimpleCard(this.container, jsonData.data, opts);
   }
 }

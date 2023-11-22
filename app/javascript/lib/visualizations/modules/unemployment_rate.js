@@ -9,7 +9,7 @@ import { voronoi } from "d3-voronoi";
 import { groupBy, d3locale } from "lib/shared";
 
 export class VisUnemploymentRate {
-  constructor(divId, city_id, [lower, upper]) {
+  constructor(divId, city_id) {
     this.container = divId;
     this.data = null;
     this.tbiToken = window.populateData.token;
@@ -30,7 +30,9 @@ export class VisUnemploymentRate {
         (SELECT year,
                 SUM(total::integer) AS value
         FROM poblacion_edad_sexo
-        WHERE place_id BETWEEN ${lower} AND ${upper}
+        WHERE
+          place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+          AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
           AND sex = 'Total'
           AND age >= 16
         GROUP BY year
@@ -54,7 +56,9 @@ export class VisUnemploymentRate {
             SUM(paro.value::decimal) / COALESCE(pob_activa_prov.value, (SELECT value FROM pob_activa_prov LIMIT 1)) AS value
       FROM paro_personas paro
       LEFT JOIN pob_activa_prov ON paro.year = pob_activa_prov.year
-      WHERE place_id BETWEEN ${lower} AND ${upper}
+      WHERE
+        place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+        AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
       GROUP BY paro.year,
               month,
               pob_activa_prov.value

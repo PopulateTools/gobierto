@@ -7,12 +7,12 @@ export class ssMembersCard extends Card {
 
     this.query = `
       SELECT
-        CONCAT(year, '-', 1, '-', 1) AS date,
+        CONCAT(year, '-', month, '-', 1) AS date,
         SUM(value::integer) AS value
       FROM afiliados_seguridad_social
       WHERE
         place_id = ${city_id}
-      GROUP BY year
+      GROUP BY year, month
       ORDER BY 1 DESC
       LIMIT 5
       `;

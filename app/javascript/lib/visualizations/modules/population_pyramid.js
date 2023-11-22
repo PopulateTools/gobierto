@@ -564,10 +564,12 @@ export class VisPopulationPyramid {
       .attr("x", chartWidth + this.gutter)
       .attr("dy", `${this._pxToEm(1.5 * this.gutter)}em`)
       .html(
-        d => `<tspan class="as-title">${this._percent(
-          d.fake,
-          this.data.pyramid
-        )}</tspan> ${I18n.t("gobierto_common.visualizations.unemployed")}`
+        d =>
+          `<tspan class="as-title">${(
+            d.fake / d.value
+          ).toLocaleString(I18n.locale, { style: "percent" })}</tspan> ${I18n.t(
+            "gobierto_common.visualizations.unemployed"
+          )}`
       )
       .transition()
       .delay(1000)

@@ -13,7 +13,9 @@ module GobiertoAdmin
         :introduction_translations,
         :year,
         :plan_type_id,
-        :slug
+        :slug,
+        :categories_vocabulary,
+        :statuses_vocabulary
       )
 
       attr_writer(
@@ -51,7 +53,7 @@ module GobiertoAdmin
       end
 
       def vocabulary_id
-        @vocabulary_id ||= plan.vocabulary_id
+        @vocabulary_id ||= identify_vocabulary(categories_vocabulary) || plan.vocabulary_id
       end
 
       def configuration_data
@@ -59,7 +61,7 @@ module GobiertoAdmin
       end
 
       def statuses_vocabulary_id
-        @statuses_vocabulary_id ||= plan.statuses_vocabulary_id
+        @statuses_vocabulary_id ||= identify_vocabulary(statuses_vocabulary) || plan.statuses_vocabulary_id
       end
 
       def publish_last_version_automatically
@@ -102,6 +104,15 @@ module GobiertoAdmin
 
           false
         end
+      end
+
+      def identify_vocabulary(id_or_slug)
+        return if id_or_slug.blank?
+
+        is_number = id_or_slug.is_a?(Integer) || /\A\d+\z/.match?(id_or_slug.to_s.strip)
+
+        vocabulary = is_number && site.vocabularies.find_by_id(id_or_slug.to_s.strip) || site.vocabularies.find_by_slug(id_or_slug.to_s)
+        vocabulary&.id
       end
 
       def configuration_data_format

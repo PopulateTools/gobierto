@@ -7,21 +7,12 @@ export class PerCapitaInvestmentCard extends Card {
     this.cardName = "per_capita_investment";
 
     this.query = `
-      WITH income AS
-        (SELECT SUM(amount),
-                year
-        FROM presupuestos_municipales
-        WHERE place_id = ${city_id}
-          AND area = 'e'
-          AND kind = 'I'
-          AND year <= ${current_year}
-          AND code IN ('1',
-                        '2',
-                        '3',
-                        '4',
-                        '5')
-        GROUP BY year),
-          expense AS
+      WITH population AS
+        (SELECT year, SUM(total::integer) AS sum FROM poblacion_edad_sexo
+        WHERE place_id=${city_id} AND sex='Total' AND year <= ${current_year}
+        GROUP BY year
+        ORDER BY year DESC)
+      expense AS
         (SELECT SUM(amount),
                 year
         FROM presupuestos_municipales
@@ -29,17 +20,14 @@ export class PerCapitaInvestmentCard extends Card {
           AND area = 'e'
           AND kind = 'G'
           AND year <= ${current_year}
-          AND code IN ('1',
-                        '2',
-                        '3',
-                        '4')
+          AND code IN ('6', '7')
         GROUP BY year)
       SELECT
-        CONCAT(income.year, '-', 1, '-', 1) AS date,
-        income.sum - expense.sum AS value
-      FROM income
-      INNER JOIN expense ON expense.year = income.year
-      ORDER BY income.year DESC
+        CONCAT(population.year, '-', 1, '-', 1) AS date,
+        round((expense.sum / population.sum), 2) AS value
+      FROM population
+      INNER JOIN expense ON expense.year = population.year
+      ORDER BY population.year DESC
       LIMIT 5
       `;
 

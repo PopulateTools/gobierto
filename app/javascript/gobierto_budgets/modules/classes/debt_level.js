@@ -7,21 +7,13 @@ export class DebtLevelCard extends Card {
     this.cardName = "debt_level";
 
     this.query = `
-      WITH income AS
-        (SELECT SUM(amount),
-                year
-        FROM presupuestos_municipales
+      WITH debt AS (
+        (SELECT value, place_id, year
+        FROM deuda_municipal
         WHERE place_id = ${city_id}
-          AND area = 'e'
-          AND kind = 'I'
           AND year <= ${current_year}
-          AND code IN ('1',
-                        '2',
-                        '3',
-                        '4',
-                        '5')
-        GROUP BY year),
-          expense AS
+        ORDER BY year)
+      expense AS
         (SELECT SUM(amount),
                 year
         FROM presupuestos_municipales
@@ -29,14 +21,11 @@ export class DebtLevelCard extends Card {
           AND area = 'e'
           AND kind = 'G'
           AND year <= ${current_year}
-          AND code IN ('1',
-                        '2',
-                        '3',
-                        '4')
+          AND code IN ('1', '2', '3', '4', '5')
         GROUP BY year)
       SELECT
         CONCAT(income.year, '-', 1, '-', 1) AS date,
-        income.sum - expense.sum AS value
+        round((debt.value / expense.sum) * 100, 2) AS value
       FROM income
       INNER JOIN expense ON expense.year = income.year
       ORDER BY income.year DESC

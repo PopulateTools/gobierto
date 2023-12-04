@@ -15,11 +15,7 @@ export class GrossSavingCard extends Card {
           AND area = 'e'
           AND kind = 'I'
           AND year <= ${current_year}
-          AND code IN ('1',
-                        '2',
-                        '3',
-                        '4',
-                        '5')
+          AND code IN ('1', '2', '3', '4', '5')
         GROUP BY year),
           expense AS
         (SELECT SUM(amount),
@@ -29,10 +25,7 @@ export class GrossSavingCard extends Card {
           AND area = 'e'
           AND kind = 'G'
           AND year <= ${current_year}
-          AND code IN ('1',
-                        '2',
-                        '3',
-                        '4')
+          AND code IN ('1', '2', '3', '4')
         GROUP BY year)
       SELECT
         CONCAT(income.year, '-', 1, '-', 1) AS date,

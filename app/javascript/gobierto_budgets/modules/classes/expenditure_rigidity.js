@@ -15,11 +15,7 @@ export class ExpenditureRigidityCard extends Card {
           AND area = 'e'
           AND kind = 'I'
           AND year <= ${current_year}
-          AND code IN ('1',
-                        '2',
-                        '3',
-                        '4',
-                        '5')
+          AND code IN ('1', '3')
         GROUP BY year),
           expense AS
         (SELECT SUM(amount),
@@ -29,14 +25,11 @@ export class ExpenditureRigidityCard extends Card {
           AND area = 'e'
           AND kind = 'G'
           AND year <= ${current_year}
-          AND code IN ('1',
-                        '2',
-                        '3',
-                        '4')
+          AND code IN ('1', '2', '3', '4')
         GROUP BY year)
       SELECT
         CONCAT(income.year, '-', 1, '-', 1) AS date,
-        income.sum - expense.sum AS value
+        round((income.sum / expense.sum) * 100, 2) AS value
       FROM income
       INNER JOIN expense ON expense.year = income.year
       ORDER BY income.year DESC

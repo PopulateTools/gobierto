@@ -30,14 +30,5 @@ export class PerCapitaTaxBurdenCard extends Card {
     ORDER BY population.year DESC
     LIMIT 5
     `;
-
-
-    // this.url =
-    //   window.populateData.endpoint +
-    //   "/datasets/ds-presion-fiscal-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_municipality_id=" +
-    //   city_id +
-    //   "&date_date_range=20100101-" +
-    //   this.currentYear +
-    //   "1231";
   }
 }

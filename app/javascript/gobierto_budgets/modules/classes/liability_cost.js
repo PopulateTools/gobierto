@@ -31,13 +31,5 @@ export class LiabilityCostCard extends Card {
       ORDER BY expense.year DESC
       LIMIT 5
       `;
-
-    // this.url =
-    //   window.populateData.endpoint +
-    //   "/datasets/ds-coste-deuda.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_municipality_id=" +
-    //   city_id +
-    //   "&date_date_range=20100101-" +
-    //   this.currentYear +
-    //   "1231";
   }
 }

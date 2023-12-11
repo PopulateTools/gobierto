@@ -7,48 +7,28 @@ export class LiabilityCostCard extends Card {
     this.cardName = "liability_cost";
 
     this.query = `
-      WITH income AS
-        (SELECT SUM(amount),
-                year
-        FROM presupuestos_municipales
-        WHERE place_id = ${city_id}
-          AND area = 'e'
-          AND kind = 'I'
-          AND year <= ${current_year}
-          AND code IN ('1',
-                        '2',
-                        '3',
-                        '4',
-                        '5')
-        GROUP BY year),
-          expense AS
-        (SELECT SUM(amount),
-                year
+      WITH expense AS
+        (SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'
           AND kind = 'G'
           AND year <= ${current_year}
-          AND code IN ('1',
-                        '2',
-                        '3',
-                        '4')
-        GROUP BY year)
+          AND code IN ('3')
+        GROUP BY year),
+      debt AS
+        (SELECT value::numeric, place_id, year
+        FROM deuda_municipal
+        WHERE place_id = ${city_id}
+          AND year <= ${current_year}
+        ORDER BY year)
       SELECT
-        CONCAT(income.year, '-', 1, '-', 1) AS date,
-        income.sum - expense.sum AS value
-      FROM income
-      INNER JOIN expense ON expense.year = income.year
-      ORDER BY income.year DESC
+        CONCAT(expense.year, '-', 1, '-', 1) AS date,
+        round((expense.sum / debt.value) * 100, 2) AS value
+      FROM expense
+      INNER JOIN debt ON expense.year = debt.year
+      ORDER BY expense.year DESC
       LIMIT 5
       `;
-
-    // this.url =
-    //   window.populateData.endpoint +
-    //   "/datasets/ds-coste-deuda.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_municipality_id=" +
-    //   city_id +
-    //   "&date_date_range=20100101-" +
-    //   this.currentYear +
-    //   "1231";
   }
 }

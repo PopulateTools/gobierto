@@ -8,8 +8,7 @@ export class NetSavingsRateCard extends Card {
 
     this.query = `
       WITH income AS
-        (SELECT SUM(amount),
-                year
+        (SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'
@@ -18,8 +17,7 @@ export class NetSavingsRateCard extends Card {
           AND code IN ('1', '2', '3', '4', '5')
         GROUP BY year),
       expense AS
-        (SELECT SUM(amount),
-                year
+        (SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'
@@ -28,8 +26,7 @@ export class NetSavingsRateCard extends Card {
           AND code IN ('1', '2', '3', '4')
         GROUP BY year),
       expense_9 AS
-        (SELECT amount,
-                year
+        (SELECT amount, year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'
@@ -38,7 +35,7 @@ export class NetSavingsRateCard extends Card {
       )
       SELECT
         CONCAT(income.year, '-', 1, '-', 1) AS date,
-        round(((income.sum - expense.sum + expense_9.amount) / income.sum) * 100),2) AS value
+        round((((income.sum - expense.sum + expense_9.amount) / income.sum) * 100),2) AS value
       FROM income
       INNER JOIN expense ON expense.year = income.year
       INNER JOIN expense_9 ON expense_9.year = income.year

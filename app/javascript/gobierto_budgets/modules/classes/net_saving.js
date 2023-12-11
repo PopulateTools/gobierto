@@ -8,8 +8,7 @@ export class NetSavingCard extends Card {
 
     this.query = `
       WITH income AS
-        (SELECT SUM(amount),
-                year
+        (SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'
@@ -18,8 +17,7 @@ export class NetSavingCard extends Card {
           AND code IN ('1', '2', '3', '4', '5')
         GROUP BY year),
       expense AS
-        (SELECT SUM(amount),
-                year
+        (SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'
@@ -28,8 +26,7 @@ export class NetSavingCard extends Card {
           AND code IN ('1', '2', '3', '4')
         GROUP BY year),
       expense_9 AS
-        (SELECT amount,
-                year
+        (SELECT amount, year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'

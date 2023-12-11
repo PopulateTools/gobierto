@@ -8,13 +8,13 @@ export class PerCapitaInvestmentCard extends Card {
 
     this.query = `
       WITH population AS
-        (SELECT year, SUM(total::integer) AS sum FROM poblacion_edad_sexo
+        (SELECT year, SUM(total::integer) AS sum
+        FROM poblacion_edad_sexo
         WHERE place_id=${city_id} AND sex='Total' AND year <= ${current_year}
         GROUP BY year
-        ORDER BY year DESC)
+        ORDER BY year DESC),
       expense AS
-        (SELECT SUM(amount),
-                year
+        (SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'

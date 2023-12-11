@@ -8,8 +8,7 @@ export class InvestmentFinancingCard extends Card {
 
     this.query = `
       WITH income AS
-        (SELECT SUM(amount),
-                year
+        (SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'
@@ -18,8 +17,7 @@ export class InvestmentFinancingCard extends Card {
           AND code IN ('6', '7')
         GROUP BY year),
       expense AS
-        (SELECT SUM(amount),
-                year
+        (SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'

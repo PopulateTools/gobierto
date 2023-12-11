@@ -11,7 +11,7 @@ export class PerCapitaTaxBurdenCard extends Card {
       (SELECT year, SUM(total::integer) AS sum FROM poblacion_edad_sexo
       WHERE place_id=${city_id} AND sex='Total' AND year <= ${current_year}
       GROUP BY year
-      ORDER BY year DESC)
+      ORDER BY year DESC),
     income AS
       (SELECT SUM(amount),
               year

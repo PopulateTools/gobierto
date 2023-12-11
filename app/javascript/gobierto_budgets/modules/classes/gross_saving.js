@@ -7,26 +7,26 @@ export class GrossSavingCard extends Card {
     this.cardName = "gross_saving";
 
     this.query = `
-      WITH income AS
-        (SELECT SUM(amount),
-                year
+      WITH income AS (
+        SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'
           AND kind = 'I'
           AND year <= ${current_year}
           AND code IN ('1', '2', '3', '4', '5')
-        GROUP BY year),
-          expense AS
-        (SELECT SUM(amount),
-                year
+        GROUP BY year
+      ),
+      expense AS (
+        SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'
           AND kind = 'G'
           AND year <= ${current_year}
           AND code IN ('1', '2', '3', '4')
-        GROUP BY year)
+        GROUP BY year
+      )
       SELECT
         CONCAT(income.year, '-', 1, '-', 1) AS date,
         income.sum - expense.sum AS value

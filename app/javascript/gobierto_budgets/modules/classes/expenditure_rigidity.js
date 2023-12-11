@@ -7,19 +7,18 @@ export class ExpenditureRigidityCard extends Card {
     this.cardName = "expenditure_rigidity";
 
     this.query = `
-      WITH income AS
-        (SELECT SUM(amount),
-                year
+      WITH income AS (
+        SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'
           AND kind = 'I'
           AND year <= ${current_year}
           AND code IN ('1', '3')
-        GROUP BY year),
-          expense AS
-        (SELECT SUM(amount),
-                year
+        GROUP BY year
+      ),
+      expense AS (
+        SELECT SUM(amount), year
         FROM presupuestos_municipales
         WHERE place_id = ${city_id}
           AND area = 'e'

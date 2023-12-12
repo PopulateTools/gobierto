@@ -21,8 +21,6 @@ export class Card {
   }
 
   getData() {
-    console.log(this.query);
-    console.log(window.populateData.endpoint + this.query.trim().replace(/\s\s/g, ""));
     var data = this.handlePromise(window.populateData.endpoint + this.query.trim().replace(/\s\s/g, ""));
     var metadata = this.handlePromise(this.metadata);
 

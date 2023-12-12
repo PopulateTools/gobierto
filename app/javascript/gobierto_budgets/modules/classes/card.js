@@ -21,6 +21,8 @@ export class Card {
   }
 
   getData() {
+    console.log(this.query);
+    console.log(window.populateData.endpoint + this.query.trim().replace(/\s\s/g, ""));
     var data = this.handlePromise(window.populateData.endpoint + this.query.trim().replace(/\s\s/g, ""));
     var metadata = this.handlePromise(this.metadata);
 
@@ -30,7 +32,11 @@ export class Card {
         cardName: this.cardName
       };
 
-      new SimpleCard(this.container, jsonData.data, opts);
+      if (jsonData.data.length) {
+        new SimpleCard(this.container, jsonData.data, opts);
+      } else {
+        console.warn(`No data found for cardName: ${this.cardName}`)
+      }
     });
   }
 

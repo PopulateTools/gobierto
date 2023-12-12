@@ -13,7 +13,7 @@ export class Card {
     return json(url, {
       headers: new Headers({ authorization: "Bearer " + this.tbiToken }),
       ...opts
-    });
+    })
   }
 
   render() {
@@ -21,7 +21,7 @@ export class Card {
   }
 
   getData() {
-    var data = this.handlePromise(window.populateData.endpoint + this.query.trim().replace(/\s\s/g, ""));
+    var data = this.handlePromise(window.populateData.endpoint + encodeURIComponent(this.query.trim().replace(/\s\s/g, "")));
     var metadata = this.handlePromise(this.metadata);
 
     Promise.all([data, metadata]).then(([jsonData, jsonMetadata]) => {
@@ -35,7 +35,7 @@ export class Card {
       } else {
         console.warn(`No data found for cardName: ${this.cardName}`)
       }
-    });
+    })
   }
 
   getMetadataEndpoint(dataset) {

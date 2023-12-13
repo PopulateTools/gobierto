@@ -172,8 +172,6 @@ module GobiertoData
 
         secure_tables_called?(parsed_query) &&
           secure_functions_called?(parsed_query)
-
-        true
       rescue PgQuery::ParseError
         # Invalid queries are considered insecure
         false

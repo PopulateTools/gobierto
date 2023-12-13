@@ -91,11 +91,14 @@ module GobiertoData
         "CREATE TABLE mytable (mycol text)",
         "INSERT INTO mytable(mycol) VALUES (1)",
         "SELECT inet_server_addr();",
-        "SELECT current_setting('data_directory');"
+        "SELECT current_setting('data_directory');",
+        "SELECT country_code FROM delivery  union select null from pg_sleep(10);",
+        "SELECT country_code FROM delivery where country_code='ES' union select  version()"
       ].each do |query|
-        result = Connection.execute_query_output_csv(site, "SELECT not_existing_column FROM users", {col_sep: ','})
+        result = Connection.execute_query_output_csv(site, query, {col_sep: ','})
         hash_result = JSON.parse(result.to_json)
 
+        assert hash_result.is_a?(Hash), query
         assert hash_result.has_key?("errors")
       end
     end

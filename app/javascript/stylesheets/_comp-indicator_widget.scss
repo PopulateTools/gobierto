@@ -14,7 +14,6 @@
   }
 
   .indicator_widget {
-    cursor: pointer;
     transition: 0.6s;
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
@@ -257,6 +256,12 @@
         font-weight: 300;
         color: #7f7f7f;
         text-decoration: none;
+        cursor: pointer;
+
+        &:hover{
+          text-decoration: underline;
+          text-decoration-color: #7f7f7f;
+        }
       }
     }
 

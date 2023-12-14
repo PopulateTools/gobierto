@@ -28,7 +28,7 @@ export class ContractsBySectorCard extends Card {
     const nestData = Object.entries(sectors).map(([key, values]) => ({
       key,
       value: values[0].value,
-      diff: (values[0].value / values[1].value - 1) * 100,
+      diff: values[1].value ? (values[0].value / values[1].value - 1) * 100 : 100,
       title: I18n.t(
         `gobierto_common.visualizations.cards.contracts_sector.${key}`
       )

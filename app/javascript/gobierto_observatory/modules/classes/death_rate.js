@@ -59,7 +59,7 @@ export class DeathRateCard extends Card {
     const nestData = Object.entries(locationType).map(([key, values]) => ({
       key,
       value: values[0].value,
-      diff: (values[0].value / values[1].value - 1) * 100,
+      diff: values[1].value ? (values[0].value / values[1].value - 1) * 100 : 100,
       title: I18n.t(`gobierto_common.visualizations.cards.births.${key}`, {
         place: window.populateData.municipalityName
       })

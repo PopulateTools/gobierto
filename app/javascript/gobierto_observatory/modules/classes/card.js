@@ -36,6 +36,7 @@ export class Card {
   getMetadataFields(metadata) {
     return {
       source_name: metadata.data.attributes["dataset-source"],
+      source_url: metadata.data.attributes["dataset-source-url"],
       description: metadata.data.attributes.description,
       frequency_type:
         metadata.data.attributes.frequency[0].name_translations[I18n.locale],

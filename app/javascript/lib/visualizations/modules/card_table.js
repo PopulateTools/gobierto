@@ -49,7 +49,7 @@ export class TableCard extends Card {
     this.div
       .selectAll(".widget_src")
       .attr("title", metadata["source_name"])
-      .text(metadata["source_name"]);
+      .html(metadata["source_url"] ? `<a href="${metadata["source_url"]}" target="_blank" rel="noopener noreferrer">${metadata["source_name"]}</a>` : metadata["source_name"]);
 
     // Append date of last data point
     this.div.selectAll(".widget_updated").text(formatDate(parsedDate));

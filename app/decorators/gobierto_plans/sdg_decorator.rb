@@ -92,7 +92,7 @@ module GobiertoPlans
 
     def sdgs_root_level_distribution
       @sdgs_root_level_distribution ||= begin
-                                          root_level_ids = sdgs_terms.pluck(:id).to_s
+                                          root_level_ids = sdgs_terms.pluck(:id).map(&:to_s)
                                           sdgs_transformed_values.transform_values do |payload|
                                             payload.values.flatten.select { |sdg_id| root_level_ids.include?(sdg_id) }
                                           end

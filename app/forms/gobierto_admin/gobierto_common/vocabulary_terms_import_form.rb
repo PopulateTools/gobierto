@@ -58,7 +58,11 @@ module GobiertoAdmin
             slug: row["term_id"]&.strip,
             external_id: row["term_id"]&.strip
           )
-          term_form.term_id = extract_parent_id(row["parent_id"]&.strip) if term_form.valid?
+
+          if term_form.valid?
+            term_form.reset_term_id = true
+            term_form.term_id = extract_parent_id(row["parent_id"]&.strip)
+          end
 
           unless term_form.save
             promote_errors(term_form.errors)

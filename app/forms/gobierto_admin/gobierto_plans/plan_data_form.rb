@@ -79,7 +79,7 @@ module GobiertoAdmin
       def csv_file_format
         errors.add(:base, :file_not_found) unless csv_file.present?
         errors.add(:base, :invalid_format) unless csv_file_content
-        unless !csv_file_content || (REQUIRED_COLUMNS - csv_file_content.headers).blank? && csv_file_content.headers.any? { |header| /Level \d+/.match?(header) }
+        unless !csv_file_content || (REQUIRED_COLUMNS.map(&:downcase) - csv_file_content.headers.map(&:downcase)).blank? && csv_file_content.headers.any? { |header| /Level \d+/.match?(header) }
           errors.add(:base, :invalid_columns)
         end
       end

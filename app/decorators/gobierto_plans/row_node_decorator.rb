@@ -13,7 +13,7 @@ module GobiertoPlans
 
     def initialize(object, options = {})
       if object.is_a? CSV::Row
-        @object = object
+        @object = correct_column_names(object)
         @plan = options[:plan]
       elsif object.is_a? Node
         @node = object
@@ -263,6 +263,20 @@ module GobiertoPlans
 
     def node_csv_values
       category_values + node_mandatory_values + node_extra_values
+    end
+
+    def correct_column_names(row)
+      (node_mandatory_columns.keys - row.headers).each do |column_name|
+        csv_column = row.headers.find { |h| h.downcase == column_name.downcase }
+        next if csv_column.blank?
+
+        col = row.delete(csv_column)
+        col[0] = column_name
+
+        row.push(col)
+      end
+
+      row
     end
   end
 end

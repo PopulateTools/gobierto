@@ -12,9 +12,9 @@ export const DownloadFilesFactoryMixin = {
 
       //Create an object to parse query, is the same method which use to run a query. If we don't do this we've to use regex and replace to encode URL with too hacks https://stackoverflow.com/a/32882427
       const objectSql = { sql: sql }
-      let queryUrl = new URLSearchParams(objectSql);
+      const queryUrl = new URLSearchParams(objectSql);
 
-      let datetime = new Date();
+      const datetime = new Date();
       const date = `${datetime.getDate()}_${(datetime.getMonth() + 1)}_${datetime.getFullYear()}`;
 
       const {
@@ -25,13 +25,18 @@ export const DownloadFilesFactoryMixin = {
 
       this.titleFile = titleFile
 
+      const formats = {}
       for (let i = 0; i < keyFormats.length; i++) {
-        this.arrayFormatsQuery[i] = {
+        formats[i] = {
           label: keyFormats[i],
           url: `${endPoint}${keyFormats[i]}?${queryUrl.toString()}`,
           name: `${titleFile}_${date}.${keyFormats[i]}`
         };
       }
+
+      // we need to re-assign the object to trigger reactivity
+      // otherwise, object changes won't be reflected
+      this.arrayFormatsQuery = formats
 
     },
     getFiles(url, name) {

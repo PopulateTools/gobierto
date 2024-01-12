@@ -18,18 +18,15 @@
             v-show="!isHidden"
             class="gobierto-data-btn-download-data-modal"
           >
-            <template
+            <a
               v-for="(item, key) in arrayFormats"
+              :key="key"
+              :href="item"
+              :download="titleFile"
+              class="gobierto-data-btn-download-data-modal-element"
             >
-              <a
-                :key="key"
-                :href="item"
-                :download="titleFile"
-                class="gobierto-data-btn-download-data-modal-element"
-              >
-                {{ key }}
-              </a>
-            </template>
+              {{ key }}
+            </a>
           </div>
         </template>
         <template v-else>
@@ -37,18 +34,15 @@
             v-show="!isHidden"
             class="gobierto-data-btn-download-data-modal"
           >
-            <template
+            <a
               v-for="({ url, name, label }, key) in arrayFormatsQuery"
+              :key="key"
+              :href="url"
+              class="gobierto-data-btn-download-data-modal-element"
+              @click.prevent="getFiles(url, name)"
             >
-              <a
-                :key="key"
-                :href="url"
-                class="gobierto-data-btn-download-data-modal-element"
-                @click.prevent="getFiles(url, name)"
-              >
-                {{ label }}
-              </a>
-            </template>
+              {{ label }}
+            </a>
           </div>
         </template>
       </transition>

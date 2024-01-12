@@ -178,6 +178,7 @@ export class VisBubbles {
             values: d.values,
             pct_diffs: d.pct_diff,
             id: d.id,
+            area_name: d.area_name,
             values_per_inhabitant: d.values_per_inhabitant,
             radius: d.values[year] ? this.radiusScale(d.values[year]) : 0,
             value: d.values[year],
@@ -261,9 +262,9 @@ export class VisBubbles {
       .attr(
         "xlink:href",
         function(d) {
-          return this.budget_category === "income"
-            ? "/presupuestos/partidas/" + d.id + "/" + d.year + "/economic/I"
-            : "/presupuestos/partidas/" + d.id + "/" + d.year + "/functional/G";
+          var areaName = d.area_name || this.budget_category === "income" ? "economic" : "functional";
+          var budgetCategory = this.budget_category === "income" ? "I" : "G";
+          return "/presupuestos/partidas/" + d.id + "/" + d.year + "/" + areaName + "/" + budgetCategory;
         }.bind(this)
       )
       .append("circle")

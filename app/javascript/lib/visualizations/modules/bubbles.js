@@ -228,6 +228,9 @@ export class VisBubbles {
         }.bind(this)
       );
 
+    d3.selectAll('.bubble-g a')
+      .attr('xlink:href', function(d) { return this.setLink(d); }.bind(this))
+
     d3.selectAll(".bubble-g text")
       .data(this.nodes, d => d.name)
       .transition()
@@ -246,6 +249,12 @@ export class VisBubbles {
     this.simulation.alpha(1).restart();
   }
 
+  setLink(d) {
+    var areaName = d.area_name || this.budget_category === "income" ? "economic" : "functional";
+    var budgetCategory = this.budget_category === "income" ? "I" : "G";
+    return "/presupuestos/partidas/" + d.id + "/" + d.year + "/" + areaName + "/" + budgetCategory;
+  }
+
   updateRender() {
     // var budgetCategory = this.budget_category;
     this.nodes = this.createNodes(this.data, this.currentYear);
@@ -261,11 +270,7 @@ export class VisBubbles {
       .append("a")
       .attr(
         "xlink:href",
-        function(d) {
-          var areaName = d.area_name || this.budget_category === "income" ? "economic" : "functional";
-          var budgetCategory = this.budget_category === "income" ? "I" : "G";
-          return "/presupuestos/partidas/" + d.id + "/" + d.year + "/" + areaName + "/" + budgetCategory;
-        }.bind(this)
+        function(d) { return this.setLink(d); }.bind(this)
       )
       .append("circle")
       .attr("class", d => `${d.year} bubble`)

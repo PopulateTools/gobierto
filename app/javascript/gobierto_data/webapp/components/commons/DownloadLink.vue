@@ -8,34 +8,28 @@
       mode="out-in"
     >
       <template v-if="!editor">
-        <template
+        <a
           v-for="(item, key) in arrayFormats"
+          :key="key"
+          :href="item"
+          :download="titleFile"
+          class="gobierto-data-btn-blue gobierto-data-btn-download-data"
         >
-          <a
-            :key="key"
-            :href="item"
-            :download="titleFile"
-            class="gobierto-data-btn-blue gobierto-data-btn-download-data"
-          >
-            <i class="fas fa-download" />
-            {{ labelDownloadData }}
-          </a>
-        </template>
+          <i class="fas fa-download" />
+          {{ labelDownloadData }}
+        </a>
       </template>
       <template v-else>
-        <template
+        <a
           v-for="({ url, name }, key) in arrayFormatsQuery"
+          :key="key"
+          :href="url"
+          class="gobierto-data-btn-blue gobierto-data-btn-download-data align-right"
+          @click.prevent="getFiles(url, name)"
         >
-          <a
-            :key="key"
-            :href="url"
-            class="gobierto-data-btn-blue gobierto-data-btn-download-data align-right"
-            @click.prevent="getFiles(url, name)"
-          >
-            <i class="fas fa-download" />
-            {{ labelDownloadData }}
-          </a>
-        </template>
+          <i class="fas fa-download" />
+          {{ labelDownloadData }}
+        </a>
       </template>
     </transition>
   </div>

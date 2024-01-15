@@ -250,7 +250,7 @@ export class VisBubbles {
   }
 
   setLink(d) {
-    var areaName = d.area_name || this.budget_category === "income" ? "economic" : "functional";
+    var areaName = d.area_name || (this.budget_category === "income" ? "economic" : "functional");
     var budgetCategory = this.budget_category === "income" ? "I" : "G";
     return "/presupuestos/partidas/" + d.id + "/" + d.year + "/" + areaName + "/" + budgetCategory;
   }

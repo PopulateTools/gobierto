@@ -306,9 +306,11 @@ window.GobiertoBudgets.InvoicesController = (function() {
     document.getElementById(
       "numberOfInvoices"
     ).innerText = _data.length.toLocaleString();
-    document.getElementById("totalAmount").innerText = _abbrevLargeCurrency(
-      totalAmount
-    );
+    document.getElementById("totalAmount").innerText = totalAmount.toLocaleString(I18n.locale, {
+      style: "currency",
+      currency: "EUR",
+      maximumFractionDigits: 0
+    });
 
     var providers = _.uniqBy(_data, "provider_name");
     var numberFreelancers = providers.filter(p => p.freelance).length || 0;

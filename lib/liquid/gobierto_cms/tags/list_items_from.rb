@@ -41,7 +41,7 @@ module Liquid
               collection_item_text << %Q{ <img src="#{page.main_image}"> }
             end
             if @options[:date]
-              collection_item_text << %Q{ <span class="date">#{I18n.l(page.published_on, format: "%d %b %y")}</span> }
+              collection_item_text << %Q{ <span class="date">#{::I18n.l(page.published_on, format: "%d %b %y")}</span> }
             end
             collection_item_text << %Q{ <h2>#{page.title}</h2> }
             if @options[:intro_text]

@@ -130,7 +130,7 @@ YAML
 
           within departments_sidebar do
             assert has_link? justice_department.name
-            assert has_no_link? culture_department.name
+            assert has_no_link? immigration_department_mixed.name
           end
         end
       end
@@ -207,8 +207,7 @@ YAML
         site.events.where.not(id: neil.events.pluck(:id)).destroy_all
 
         departments_with_activities = [
-          immigration_department_mixed,
-          justice_department
+          immigration_department_mixed
         ]
 
         with_current_site(site) do
@@ -272,8 +271,8 @@ YAML
           within departments_sidebar do
             assert has_no_link? ecology_department_old.name
             assert has_no_link? tourism_department_very_old.name
-            assert has_no_link? immigration_department_mixed.name
-            assert has_link? justice_department.name
+            assert has_link? immigration_department_mixed.name
+            assert has_no_link? justice_department.name
           end
         end
       end

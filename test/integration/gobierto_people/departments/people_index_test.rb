@@ -64,6 +64,12 @@ YAML
         @departments_with_invitations ||= [department_with_invitations, tourism_department_very_old]
       end
 
+      def immigration_department_event
+        # With changes in queries the department is determined by the position
+        # of the person in the moment of the event
+        @immigration_departmen_event ||= gobierto_calendars_events(:neil_tourism_department_very_old)
+      end
+
       def richard
         @richard ||= gobierto_people_people(:richard)
       end
@@ -112,7 +118,10 @@ YAML
 
       def test_sidebar_contents_with_date_filtering
         clear_activities
-        culture_department.events.each(&:destroy)
+        # The date event is moved to a date when the person belongs to justice
+        # department
+        immigration_department_event.update_attribute(:starts_at, "2010-02-07 10:00")
+        immigration_department_event.update_attribute(:ends_at, "2010-02-07 12:00")
 
         with_current_site(site) do
           # with date filtering configured

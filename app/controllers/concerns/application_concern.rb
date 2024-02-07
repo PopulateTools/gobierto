@@ -64,7 +64,7 @@ module ApplicationConcern
 
     user_id = @current_user&.id
     extra_params = { method: request.method, admin_id: @current_admin&.id }.compact
-    GobiertoCommon::EventCreatorJob.perform_now current_site.id, user_id, current_visit&.id, filtered_params(request.params.merge(extra_params))
+    GobiertoCommon::EventCreatorJob.perform_later current_site.id, user_id, current_visit&.id, filtered_params(request.params.merge(extra_params))
   rescue StandardError => e
     Appsignal.send_error(e)
   end

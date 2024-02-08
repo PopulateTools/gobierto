@@ -168,9 +168,9 @@ neil_tourism_department_very_old:
     'en' => 'Very old event of toursim department',
     'es' => 'Evento muy viejo del departamento de turismo',
   }.to_json %>
-  slug: <%= "#{10.years.ago.strftime('%F')}-tourism-department-event" %>
-  starts_at: <%= 10.years.ago %>
-  ends_at: <%= 10.years.ago + 1.hour %>
+  slug: <%= "2014-02-07-tourism-department-event" %>
+  starts_at: "2014-02-07 10:00"
+  ends_at: "2014-02-07 10:00"
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
 neil_immigration_department_recent:

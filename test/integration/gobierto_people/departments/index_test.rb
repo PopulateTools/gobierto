@@ -10,8 +10,8 @@ module GobiertoPeople
         @site ||= sites(:madrid)
       end
 
-      def justice_department
-        @justice_department ||= gobierto_people_departments(:justice_department)
+      def immigration_department
+        @immigration_department ||= gobierto_people_departments(:immigration_department_mixed)
       end
 
       def culture_department
@@ -35,7 +35,7 @@ YAML
         with_current_site(site) do
           visit gobierto_people_departments_path
 
-          assert has_link? justice_department.name
+          assert has_link? immigration_department.name
           assert has_link? culture_department.name
         end
       end
@@ -46,7 +46,7 @@ YAML
         with_current_site(site) do
           visit gobierto_people_departments_path
 
-          assert has_link? justice_department.name
+          assert has_link? immigration_department.name
           assert has_no_link? culture_department.name
         end
       end

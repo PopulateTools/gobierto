@@ -4,7 +4,7 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
   caches_action(
     :show,
     :index,
-    cache_path: -> { cache_path },
+    cache_path: -> { cache_service.prefixed(cache_path) },
     unless: -> { user_signed_in? }
   )
 

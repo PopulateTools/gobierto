@@ -22,10 +22,6 @@ module GobiertoPeople
           @madrid ||= sites(:madrid)
         end
 
-        def justice_department
-          @justice_department ||= gobierto_people_departments(:justice_department)
-        end
-
         def culture_department
           @culture_department ||= gobierto_people_departments(:culture_department)
         end
@@ -63,7 +59,7 @@ module GobiertoPeople
         end
 
         def test_departments_index_test
-          justice_department.update!(name: "Departament de la Presidència")
+          culture_department.update!(name: "Departament de la Presidència")
 
           with_current_site(madrid) do
 

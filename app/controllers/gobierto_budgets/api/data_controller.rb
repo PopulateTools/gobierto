@@ -7,7 +7,7 @@ module GobiertoBudgets
         :lines,
         :budget_per_inhabitant,
         :budget,
-        cache_path: proc { |c| "#{c.request.url}?locale=#{I18n.locale}" }
+        cache_path: proc { |c| cache_service.prefixed("#{c.request.url}?locale=#{I18n.locale}") }
       )
 
       skip_before_action :authenticate_user_in_site, only: [:budget_line, :available_years]

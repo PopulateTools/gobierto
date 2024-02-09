@@ -4,7 +4,7 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
   caches_action(
     :index,
-    cache_path: -> { cache_path },
+    cache_path: -> { cache_service.prefixed(cache_path) },
     unless: -> { user_signed_in? }
   )
 

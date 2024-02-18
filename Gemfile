@@ -24,6 +24,7 @@ gem "before_renders"
 gem "bootsnap"
 gem "truncate_html"
 gem "rake", "~> 13.0"
+gem 'base64', '~> 0.2.0'
 
 # Frontend
 gem "i18n-js", ">= 3.0.0.rc11" # required to i18n-tasks

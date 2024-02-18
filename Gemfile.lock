@@ -582,6 +582,7 @@ DEPENDENCIES
   appsignal (= 3.0.6)
   aws-sdk-s3 (~> 1)
   aws-ses!
+  base64 (~> 0.2.0)
   bcrypt (~> 3.1.0)
   before_renders
   bootsnap

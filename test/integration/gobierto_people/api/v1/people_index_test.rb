@@ -10,8 +10,8 @@ module GobiertoPeople
 
         include ::EventHelpers
 
-        FAR_PAST = 10.years.ago.iso8601
-        FAR_FUTURE = 10.years.from_now.iso8601
+        FAR_PAST = 100.years.ago.iso8601
+        FAR_FUTURE = 100.years.from_now.iso8601
 
         attr_accessor(
           :madrid,

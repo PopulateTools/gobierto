@@ -429,11 +429,15 @@ Rails.application.routes.draw do
         # API
         namespace :api, path: "/" do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1" do
-            resources :plans, only: [:index, :show], defaults: { format: "json" } do
+            resources :plans, only: [:index, :show, :update], defaults: { format: "json" } do
               member do
                 get :meta
+                get :admin
               end
-              resources :projects, only: [:index]
+              resources :projects
+            end
+            resources :plan_types, only: [], defaults: { format: "json" }, path: "/plans", param: :slug do
+              resources :plans, only: [:new, :create], defaults: { format: "json" }, path: "/", controller: "plans"
             end
           end
         end

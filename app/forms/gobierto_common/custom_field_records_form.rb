@@ -35,7 +35,7 @@ module GobiertoCommon
 
     def custom_field_records=(attributes)
       @custom_field_records = attributes.to_h.map do |attribute, value|
-        custom_field = site.custom_fields.find_by(uid: attribute)
+        custom_field = available_custom_fields.find_by(uid: attribute)
 
         next unless custom_field.present?
 

@@ -62,7 +62,9 @@ module ApplicationConcern
   def track_request
     return true if ignore_tracking_request?
 
-    GobiertoCommon::EventCreatorJob.perform_later current_site.id, current_user&.id, current_visit&.id, filtered_params(request.params.merge(method: request.method))
+    user_id = @current_user&.id
+    extra_params = { method: request.method, admin_id: @current_admin&.id }.compact
+    GobiertoCommon::EventCreatorJob.perform_later current_site.id, user_id, current_visit&.id, filtered_params(request.params.merge(extra_params))
   rescue StandardError => e
     Appsignal.send_error(e)
   end

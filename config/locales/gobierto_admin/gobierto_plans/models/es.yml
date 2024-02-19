@@ -52,3 +52,14 @@ es:
               file_not_found: Fichero no encontrado
               invalid_columns: No están todas las columnas necesarias
               invalid_format: Formato de fichero inválido
+        gobierto_admin/gobierto_plans/projects_form:
+          attributes:
+            base:
+              category_missing: 'Categoría no encontrada en datos del proyecto. Por
+                favor, proporciona un category_id o category_external_id válido. Datos
+                del proyecto: %{json_data}'
+              failed_import: 'El proyecto con los siguientes datos no ha podido ser
+                importado: %{json_data}'
+              status_missing: 'Estado no encontrado en datos del proyecto. Por favor,
+                proporciona un status_id o status_external_id válido. Datos del proyecto:
+                %{json_data}'

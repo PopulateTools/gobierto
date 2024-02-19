@@ -22,6 +22,7 @@ module GobiertoAdmin
       validates :vocabulary, :site, presence: true
 
       def save
+        return if terms.blank?
         return unless valid?
 
         ActiveRecord::Base.transaction do

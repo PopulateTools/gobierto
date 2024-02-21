@@ -10,29 +10,30 @@ window.GobiertoAdmin.PersonController = (function() {
   };
 
   function _cropImage() {
-    $("#person_avatar_image").change(function () {
+    var uid = "person_avatar_image";
+
+    $(`#${ uid }`).change(function () {
       var $loaded_image = this;
 
       validatesImageDimensionsToCrop($loaded_image);
     });
 
     $('#btnCrop').click(function() {
-      var $crop_x = $("input#logo_crop_x"),
-          $crop_y = $("input#logo_crop_y"),
-          $crop_w = $("input#logo_crop_w"),
-          $crop_h = $("input#logo_crop_h");
-      var output = document.getElementById('image');
+      var output = document.getElementById("image");
 
       $.magnificPopup.close();
 
       $('#saved_image').hide();
 
-      $crop_x.val(output.cropper.getData()["x"]);
-      $crop_y.val(output.cropper.getData()["y"]);
-      $crop_w.val(output.cropper.getData()["width"]);
-      $crop_h.val(output.cropper.getData()["height"]);
-    });
+      output.cropper.getCroppedCanvas().toBlob((blob) => {
+        // https://pqina.nl/blog/set-value-to-file-input/
+        const file = new File([blob], document.getElementById(uid).files[0].name, { type: blob.type })
+        const dt = new DataTransfer()
+        dt.items.add(file)
 
+        document.getElementById(uid).files = dt.files
+      });
+    });
   }
 
   function _handlePositionSelector() {
@@ -47,7 +48,7 @@ window.GobiertoAdmin.PersonController = (function() {
   }
 
   function _selectByDefault(){
-    if(!$('#person_party_government').is(':checked') && !$('#person_party_opposition').is(':checked'))
+    if (!$('#person_party_government').is(':checked') && !$('#person_party_opposition').is(':checked'))
       $('#person_party_government').prop('checked', true);
   }
 

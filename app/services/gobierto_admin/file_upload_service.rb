@@ -5,7 +5,7 @@ module GobiertoAdmin
     attr_reader :x, :y, :w, :h
 
     def initialize(site:, collection:, attribute_name:, file:, x: nil, y: nil, w: nil, h: nil, content_disposition: nil, content_type: nil, add_suffix: true)
-      @file = crop_image(x, y, w, h, file)
+      @file = file # crop_image(x, y, w, h, file)
       super(site: site,
             collection: collection,
             attribute_name: attribute_name,

@@ -1,25 +1,34 @@
-import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
 
 export class PerCapitaTaxBurdenCard extends Card {
   constructor(divClass, city_id, current_year) {
-    super(divClass, current_year);
+    super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      "/datasets/ds-presion-fiscal-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_municipality_id=" +
-      city_id +
-      "&date_date_range=20100101-" +
-      this.currentYear +
-      "1231";
-  }
+    this.cardName = "per_capita_tax_burden";
 
-  getData() {
-    var data = this.handlePromise(this.url);
-
-    data.then(jsonData => {
-      var value = jsonData.data[0].value;
-      new SimpleCard(this.container, jsonData, value, "per_capita_tax_burden");
-    });
+    this.query = `
+    WITH population AS
+      (SELECT year, SUM(total::integer) AS sum FROM poblacion_edad_sexo
+      WHERE place_id=${city_id} AND sex='Total' AND year <= ${current_year}
+      GROUP BY year
+      ORDER BY year DESC),
+    income AS
+      (SELECT SUM(amount),
+              year
+      FROM presupuestos_municipales
+      WHERE place_id = ${city_id}
+        AND area = 'e'
+        AND kind = 'I'
+        AND year <= ${current_year}
+        AND code IN ('1', '2', '3')
+      GROUP BY year)
+    SELECT
+      CONCAT(population.year, '-', 1, '-', 1) AS date,
+      round((income.sum / population.sum), 2) AS value
+    FROM population
+    INNER JOIN income ON income.year = population.year
+    ORDER BY population.year DESC
+    LIMIT 5
+    `;
   }
 }

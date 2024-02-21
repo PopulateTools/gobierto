@@ -5,31 +5,32 @@ export class CarsTaxCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.placeTaxUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-impuestos-turismos-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
-      city_id;
-    this.provinceTaxUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-impuestos-turismos-municipal/average.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_province_id=" +
-      window.populateData.provinceId;
+    this.query = `
+      SELECT cars_taxes::integer as value
+      FROM tasas
+      WHERE
+        place_id = ${city_id}
+        AND year = (SELECT max(year) FROM tasas)
+      UNION
+      SELECT avg(cars_taxes ::integer) as value
+      FROM tasas
+      WHERE
+        place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+        AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
+        AND year = (SELECT max(year) FROM tasas)
+      `;
+
+    this.metadata = this.getMetadataEndpoint("tasas");
   }
 
-  getData() {
-    var placeTax = this.handlePromise(this.placeTaxUrl);
-    var provinceTax = this.handlePromise(this.provinceTaxUrl);
+  getData([jsonData, jsonMetadata]) {
+    var [placeTax, provinceTax] = jsonData.data;
 
-    Promise.all([placeTax, provinceTax]).then(([placeTax, provinceTax]) => {
-      var valueOne = placeTax.data[0].value;
-      var valueTwo = provinceTax.average;
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "cars_tax"
+    };
 
-      new ComparisonCard(
-        this.container,
-        placeTax,
-        valueOne,
-        valueTwo,
-        "cars_tax"
-      );
-    });
+    new ComparisonCard(this.container, placeTax.value, provinceTax.value, opts);
   }
 }

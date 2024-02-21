@@ -47,10 +47,10 @@ ca:
           figure_second: indefinits
           title: Contractes en el darrer mes
         contracts_sector:
-          agricultura: Agricultura
-          construccion: Construcció
-          industria: Indústria
-          servicios: Serveis
+          agriculture: Agricultura
+          construction: Construcció
+          industry: Indústria
+          services: Serveis
           title: Contractes per sector
         deaths:
           country: Mitjana estatal
@@ -71,11 +71,7 @@ ca:
           title: Risc financer
         freelancers:
           title: Autónoms
-        frequency:
-          daily: Actualització diària
-          monthly: Actualització mensual
-          weekly: Actualització setmanal
-          yearly: Actualització anual
+        frequency: Actualització %{type}
         gross_saving:
           title: Estalvi brut
         gross_savings_rate:
@@ -91,17 +87,14 @@ ca:
           title: Impost sobre els Béns Immobles
         income:
           first_column: ''
-          second_column: Bruta
-          third_column: Disponible
+          second_column: Per habitant
+          third_column: Per llar
           title: Renda municipal
         income_overview:
           figure_first: "%{place}"
           figure_second: Espanya
           title: Renda bruta
         investment_by_inhabitant:
-          first_column: "%{place}"
-          second_column: Barcelona
-          third_column: Valencia
           title: Inversió per habitant
         investment_financing:
           title: Finançament inversions
@@ -127,10 +120,10 @@ ca:
         tax_autonomy:
           title: Autonomia fiscal
         unemployed_sector:
-          agricultura: Agricultura
-          construccion: Construcció
-          industria: Indústria
-          servicios: Serveis
+          agriculture: Agricultura
+          construction: Construcció
+          industry: Indústria
+          services: Serveis
           title: Desempleats per sector
         updated: Darrera actualització
       country: Espanya
@@ -138,11 +131,7 @@ ca:
       elderly_info: El %{percent} de la població té més de %{limit} anys
       empty_lines: No hi ha dades disponibles per aquesta classificació en aquest
         any. Per favor, selecciona un altre filtrat.
-      frequency:
-        daily: Actualització diària
-        monthly: Actualització mensual
-        weekly: Actualització setmanal
-        yearly: Actualització anual
+      frequency: Actualització %{type}
       gross_income: Renda bruta
       increase: Augmentar
       inhabitant_short: hab

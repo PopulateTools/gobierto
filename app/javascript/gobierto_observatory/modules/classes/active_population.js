@@ -5,25 +5,42 @@ export class ActivePopulationCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.activePopUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-poblacion-activa-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
-      city_id;
-    this.popUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
-      city_id;
+    this.query = `
+      WITH maxyear AS
+        (SELECT max(YEAR)
+        FROM poblacion_edad_sexo
+        WHERE place_id = ${city_id}) ,
+          pob_total AS
+        (SELECT SUM(total::integer) AS value
+        FROM poblacion_edad_sexo
+        WHERE place_id = ${city_id}
+          AND sex = 'Total'
+          AND YEAR =
+            (SELECT *
+              FROM maxyear))
+      SELECT
+        (SUM(total::decimal) / (SELECT value FROM pob_total)) * 100 AS rate,
+        SUM(total::decimal) AS value
+      FROM poblacion_edad_sexo
+      WHERE place_id = ${city_id}
+        AND YEAR =
+          (SELECT *
+          FROM maxyear)
+        AND age BETWEEN 16 AND 65
+        AND sex = 'Total'
+      `;
+
+    this.metadata = this.getMetadataEndpoint("poblacion-edad-sexo");
   }
 
-  getData() {
-    var active = this.handlePromise(this.activePopUrl);
-    var pop = this.handlePromise(this.popUrl);
+  getData([jsonData, jsonMetadata]) {
+    const [{ rate, value }] = jsonData.data;
 
-    Promise.all([active, pop]).then(([jsonActive, jsonPop]) => {
-      var value = jsonActive.data[0].value;
-      var rate = (value / jsonPop.data[0].value) * 100;
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "active_pop"
+    };
 
-      new ComparisonCard(this.container, jsonActive, rate, value, "active_pop");
-    });
+    new ComparisonCard(this.container, rate, value, opts);
   }
 }

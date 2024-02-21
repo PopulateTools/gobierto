@@ -4,7 +4,6 @@ import { csv, json } from "d3-fetch";
 import { scaleBand, scaleLinear } from "d3-scale";
 import { select, selectAll } from "d3-selection";
 import { transition } from "d3-transition";
-import { URLParams } from "lib/shared";
 
 const d3 = {
   scaleLinear,
@@ -21,14 +20,12 @@ const d3 = {
 };
 
 export class VisPopulationPyramid {
-  constructor(divId, city_id, current_year, filter) {
+  constructor(divId, city_id, filter) {
     this.container = divId;
 
     // Remove previous
     $(`${this.container} svg`).remove();
 
-    this.currentYear =
-      current_year !== undefined ? parseInt(current_year) : null;
     this.data = null;
     this.tbiToken = window.populateData.token;
     this.dataUrls = this.getUrls(city_id, filter);
@@ -140,76 +137,150 @@ export class VisPopulationPyramid {
     // Ensure data to null to force http request
     this.data = null;
 
-    // Original endpoints
-    const endpoints = {
-      population: {
-        endpoint: `${
-          window.populateData.endpoint
-        }/datasets/ds-poblacion-municipal-edad-sexo.csv`,
-        params: {}
-      },
-      unemployed: {
-        endpoint: `${
-          window.populateData.endpoint
-        }/datasets/ds-personas-paradas-municipio.json`,
-        params: {
-          except_columns: "_id,province_id,location_id,autonomous_region_id"
-        }
-      }
-    };
+    let population = ""
+    let unemployed = ""
 
-    // Dynamic filters
-    for (var endpoint in endpoints) {
-      if (Object.prototype.hasOwnProperty.call(endpoints, endpoint)) {
-        let param = endpoints[endpoint].params || {};
+    switch (filter) {
+      case 0:
+      default:
+        population =
+          window.populateData.endpoint +
+          `
+          WITH maxyear AS (SELECT max(year)
+                            FROM poblacion_edad_sexo
+                            WHERE place_id = ${city_id})
+          SELECT
+            CASE
+              WHEN sex = 'Hombres' THEN 'V'
+              WHEN sex = 'Mujeres' THEN 'M'
+            END AS sex,
+            age::integer,
+            total::integer AS value
+          FROM poblacion_edad_sexo
+          WHERE place_id = ${city_id}
+            AND sex != 'Total'
+            AND year =
+              (SELECT *
+              FROM maxyear)
+          ORDER BY age
+          `;
 
-        if (this.currentYear) {
-          param = Object.assign(param, {
-            filter_by_date: this.currentYear
-          });
-        }
+        unemployed =
+          window.populateData.endpoint +
+          `
+          WITH maxyear AS
+            (SELECT year,
+                    month
+            FROM paro_personas
+            WHERE place_id = ${city_id}
+            ORDER BY year DESC, month DESC
+            LIMIT 1)
+          SELECT sum(value::decimal) AS value
+          FROM paro_personas
+          WHERE place_id = ${city_id}
+            AND year =
+              (SELECT year
+              FROM maxyear)
+            AND month =
+              (SELECT month
+              FROM maxyear)
+          `;
+        break;
+      case 1:
+        population =
+          window.populateData.endpoint +
+          `
+          WITH maxyear AS
+            (SELECT max(year)
+            FROM poblacion_edad_sexo
+            WHERE place_id = ${city_id})
+          SELECT
+            CASE
+              WHEN sex = 'Hombres' THEN 'V'
+              WHEN sex = 'Mujeres' THEN 'M'
+            END AS sex,
+            age::integer,
+            SUM(total::integer) AS value
+          FROM poblacion_edad_sexo
+          WHERE place_id
+            BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+            AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
+            AND year =
+              (SELECT *
+              FROM maxyear)
+            AND sex != 'Total'
+          GROUP BY age, sex
+          ORDER BY age
+          `;
 
-        switch (filter) {
-          case 0:
-          default:
-            param = Object.assign(param, {
-              except_columns:
-                "_id,province_id,location_id,autonomous_region_id",
-              filter_by_location_id: city_id
-            });
-            break;
-          case 1:
-            if (endpoint === "population") {
-              param = Object.assign(param, {
-                group_by: "age,sex"
-              });
-            } else if (endpoint === "unemployed") {
-              param = Object.assign(param, {
-                except_columns:
-                  "_id,province_id,location_id,autonomous_region_id"
-              });
-            }
+        unemployed =
+          window.populateData.endpoint +
+          `
+          WITH maxyear AS
+            (SELECT year,
+                    month
+            FROM paro_personas
+            WHERE place_id = ${city_id}
+            ORDER BY year DESC, month DESC
+            LIMIT 1)
+          SELECT sum(value::decimal) AS value
+          FROM paro_personas
+          WHERE place_id
+            BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+            AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
+            AND year =
+              (SELECT year
+              FROM maxyear)
+            AND month =
+              (SELECT month
+              FROM maxyear)
+          `;
+        break;
+      case 2:
+        population =
+          window.populateData.endpoint +
+          `
+          WITH maxyear AS
+            (SELECT max(year)
+            FROM poblacion_edad_sexo
+            WHERE place_id = ${city_id})
+          SELECT
+            CASE
+              WHEN sex = 'Hombres' THEN 'V'
+              WHEN sex = 'Mujeres' THEN 'M'
+            END AS sex,
+            age::integer,
+            SUM(total::integer) AS value
+          FROM poblacion_edad_sexo
+          WHERE year =
+              (SELECT *
+              FROM maxyear)
+            AND sex != 'Total'
+          GROUP BY age, sex
+          ORDER BY age
+          `;
 
-            param = Object.assign(param, {
-              filter_by_autonomous_region_id: city_id
-            });
-
-            break;
-          case 2:
-            if (endpoint === "population") {
-              param = Object.assign(param, {
-                group_by: "age,sex"
-              });
-            }
-            break;
-        }
-
-        endpoints[endpoint].params = param;
-      }
+        unemployed =
+          window.populateData.endpoint +
+          `
+          WITH maxyear AS
+            (SELECT year,
+                    month
+            FROM paro_personas
+            WHERE place_id = ${city_id}
+            ORDER BY year DESC, month DESC
+            LIMIT 1)
+          SELECT sum(value::decimal) AS value
+          FROM paro_personas
+          WHERE year =
+              (SELECT year
+              FROM maxyear)
+            AND month =
+              (SELECT month
+              FROM maxyear)
+          `;
+        break;
     }
-
-    const population = URLParams(endpoints.population);
-    const unemployed = URLParams(endpoints.unemployed);
 
     return {
       population,
@@ -217,45 +288,29 @@ export class VisPopulationPyramid {
     };
   }
 
-  handlePromiseJSON(url, opts = {}) {
+  handlePromise(url, opts = {}) {
     return json(url, {
       headers: new Headers({ authorization: "Bearer " + this.tbiToken }),
       ...opts
     });
   }
 
-  handlePromiseCSV(url, opts = {}) {
-    return csv(url, {
-      headers: new Headers({ authorization: "Bearer " + this.tbiToken }),
-      ...opts
-    });
-  }
-
   getData() {
-    const population = this.handlePromiseCSV(this.dataUrls.population);
-    const unemployed = this.handlePromiseJSON(this.dataUrls.unemployed);
+    const data = this.handlePromise(this.dataUrls.population);
+    const unemployed = this.handlePromise(this.dataUrls.unemployed);
 
-    Promise.all([population, unemployed]).then(
-      ([jsonPopulation, jsonUnemployed]) => {
-        jsonPopulation.forEach(d => {
-          d.age = parseInt(d.age);
-          d.value = Number(d.value);
-        });
+    Promise.all([data, unemployed]).then(([jsonPopulation, jsonUnemployed]) => {
+      const aux = {
+        pyramid: this._transformPyramidData(jsonPopulation.data),
+        areas: this._transformAreasData(jsonPopulation.data),
+        marks: this._transformMarksData(jsonPopulation.data),
+        unemployed: +jsonUnemployed.data[0].value
+      };
 
-        jsonPopulation.sort((a, b) => a.age - b.age);
+      this.data = aux;
 
-        const aux = {
-          pyramid: this._transformPyramidData(jsonPopulation),
-          areas: this._transformAreasData(jsonPopulation),
-          marks: this._transformMarksData(jsonPopulation),
-          unemployed: jsonUnemployed.map(v => v.value).reduce((a, b) => a + b)
-        };
-
-        this.data = aux;
-
-        this.update(this.data);
-      }
-    );
+      this.update(this.data);
+    });
   }
 
   render() {
@@ -463,6 +518,7 @@ export class VisPopulationPyramid {
      */
     let fakeObj = data.find((d, i) => i === 1);
     let fakeData = [Object.assign(fakeObj, { fake: unemployed })];
+
     let bp = this.ageBreakpoints;
     let yFakeScale = d3
       .scaleLinear()
@@ -509,10 +565,11 @@ export class VisPopulationPyramid {
       .attr("dy", `${this._pxToEm(1.5 * this.gutter)}em`)
       .html(
         d =>
-          `<tspan class="as-title">${(d.fake / d.value).toLocaleString(
-            I18n.locale,
-            { style: "percent" }
-          )}</tspan> ${I18n.t("gobierto_common.visualizations.unemployed")}`
+          `<tspan class="as-title">${(
+            d.fake / d.value
+          ).toLocaleString(I18n.locale, { style: "percent" })}</tspan> ${I18n.t(
+            "gobierto_common.visualizations.unemployed"
+          )}`
       )
       .transition()
       .delay(1000)
@@ -544,9 +601,9 @@ export class VisPopulationPyramid {
 
     g.select("g.r-fake text.subtitle").html(
       d =>
-        `<tspan class="as-title">${(d.fake / d.value).toLocaleString(
-          I18n.locale,
-          { style: "percent" }
+        `<tspan class="as-title">${this._percent(
+          d.fake,
+          this.data.pyramid
         )}</tspan> ${I18n.t("gobierto_common.visualizations.unemployed")}`
     );
 
@@ -722,6 +779,7 @@ export class VisPopulationPyramid {
   _transformPyramidData(data) {
     const totalMen = this._total(data.filter(p => p.sex === "V"));
     const totalWomen = this._total(data.filter(p => p.sex === "M"));
+
     // updates every value with its respective percentage
     return data.map(item => {
       item._value =
@@ -737,6 +795,7 @@ export class VisPopulationPyramid {
   _transformAreasData(data) {
     let bp = this.ageBreakpoints;
     let self = this;
+
     return [
       {
         name: I18n.t("gobierto_common.visualizations.youth"),

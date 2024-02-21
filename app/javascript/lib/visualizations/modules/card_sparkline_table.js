@@ -5,20 +5,12 @@ import { Card } from "./card.js";
 const d3 = { timeFormat, timeParse };
 
 export class SparklineTableCard extends Card {
-  constructor(divClass, json, value, cardName) {
+  constructor(divClass, data, { metadata, cardName }) {
     super(divClass);
 
     this.dataType = this.div.attr("data-type");
 
-    // var trend = this.div.attr('data-trend');
-    var freq = this.div.attr("data-freq");
-    var parseDate =
-      freq === "daily"
-        ? d3.timeParse("%Y-%m-%d")
-        : freq === "monthly"
-        ? d3.timeParse("%Y-%m")
-        : d3.timeParse("%Y");
-    var parsedDate = parseDate(json.data[0].date);
+    var parsedDate = new Date(metadata.updated_at);
     var formatDate = d3.timeFormat("%b %Y");
 
     this.div
@@ -38,7 +30,7 @@ export class SparklineTableCard extends Card {
           I18n.t("gobierto_common.visualizations.time") +
           encodeURI(formatDate(parsedDate).toLowerCase()) +
           ", " +
-          encodeURI(this._printData(value[0].value)) +
+          encodeURI(this._printData(data[0].value)) +
           "&url=" +
           window.location.href +
           "&via=gobierto&source=webclient"
@@ -55,8 +47,8 @@ export class SparklineTableCard extends Card {
     // Append source
     this.div
       .selectAll(".widget_src")
-      .attr("title", json.metadata.indicator["source_name"])
-      .text(json.metadata.indicator["source_name"]);
+      .attr("title", metadata["source_name"])
+      .html(metadata["source_url"] ? `<a href="${metadata["source_url"]}" target="_blank" rel="noopener noreferrer">${metadata["source_name"]}</a>` : metadata["source_name"]);
 
     // Append date of last data point
     this.div.selectAll(".widget_updated").text(formatDate(parsedDate));
@@ -64,7 +56,7 @@ export class SparklineTableCard extends Card {
     // Append update frequency
     this.div
       .selectAll(".widget_freq")
-      .text(this._printFreq(json.metadata.frequency_type));
+      .text(this._printFreq(metadata.frequency_type));
 
     // Append metadata
     this.div
@@ -80,26 +72,17 @@ export class SparklineTableCard extends Card {
     // Append backface info
     this.div
       .selectAll(".js-data-desc")
-      .text(json.metadata.indicator.description);
+      .text(metadata.description);
     this.div.selectAll(".js-data-freq").text(formatDate(parsedDate));
 
-    var rows = value.map(
+    var rows = data.map(
       function(d) {
         return (
           "<td>" +
-          I18n.t(
-            "gobierto_common.visualizations.cards." +
-              cardName +
-              "." +
-              this._normalize(d.key),
-            {
-              place: window.populateData.municipalityName,
-              province: window.populateData.provinceName
-            }
-          ) +
+          d.title +
           '</td> \
         <td class="sparktable sparkline-' +
-          this._normalize(d.key) +
+          d.key +
           '"></td> \
         <td>' +
           accounting.formatNumber(d.diff, 1) +

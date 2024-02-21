@@ -5,31 +5,36 @@ export class HousesCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.famUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-viviendas-municipales-familiares.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
-      city_id;
-    this.mainUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-viviendas-municipales-principales.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
-      city_id;
+    this.query = `
+      SELECT SUM(total_viviendas_familiares ::integer) AS value
+      FROM viviendas
+      WHERE
+        place_id = ${city_id} AND
+        year = (SELECT max(year) FROM viviendas )
+      UNION
+      SELECT SUM(total_viviendas_principales ::integer) AS value
+      FROM viviendas
+      WHERE
+        place_id = ${city_id} AND
+        year = (SELECT max(year) FROM viviendas )
+      `;
+
+    this.metadata = this.getMetadataEndpoint("viviendas");
   }
 
-  getData() {
-    var fam = this.handlePromise(this.famUrl);
-    var main = this.handlePromise(this.mainUrl);
+  getData([jsonData, jsonMetadata]) {
+    var [familyHouses, mainHouses] = jsonData.data;
 
-    Promise.all([fam, main]).then(([jsonFamily, jsonMain]) => {
-      var familyHouses = jsonFamily.data[0].value;
-      var mainHouses = jsonMain.data[0].value;
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "houses"
+    };
 
-      new ComparisonCard(
-        this.container,
-        jsonFamily,
-        familyHouses,
-        mainHouses,
-        "houses"
-      );
-    });
+    new ComparisonCard(
+      this.container,
+      familyHouses.value,
+      mainHouses.value,
+      opts
+    );
   }
 }

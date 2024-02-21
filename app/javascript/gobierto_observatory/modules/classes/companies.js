@@ -5,19 +5,25 @@ export class CompaniesCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      "/datasets/ds-empresas-municipio.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
-      city_id;
+    this.query = `
+      SELECT
+        CONCAT(year, '-', 1, '-', 1) AS date,
+        total_companies::integer AS value
+      FROM dirce
+      WHERE place_id = ${city_id}
+      ORDER BY 1 DESC
+      LIMIT 5
+      `;
+
+    this.metadata = this.getMetadataEndpoint("dirce");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
+  getData([jsonData, jsonMetadata]) {
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "companies"
+    };
 
-    data.then(jsonData => {
-      var value = jsonData.data[0].value;
-
-      new SimpleCard(this.container, jsonData, value, "companies");
-    });
+    new SimpleCard(this.container, jsonData.data, opts);
   }
 }

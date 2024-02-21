@@ -26,24 +26,36 @@ const d3 = {
 };
 
 export class VisRentDistribution {
-  constructor(divId, city_id, province_id, current_year) {
+  constructor(divId, city_id) {
     this.container = divId;
     this.cityId = city_id;
-    this.provinceId = province_id;
-    this.currentYear =
-      current_year !== undefined ? parseInt(current_year) : null;
+
     this.data = null;
     this.tbiToken = window.populateData.token;
-    this.rentUrl =
+
+    this.url =
       window.populateData.endpoint +
-      "/datasets/ds-renta-bruta-media-municipal.json?include=municipality&filter_by_province_id=" +
-      this.provinceId;
-    this.popUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal.json?filter_by_year=" +
-      this.currentYear +
-      "&filter_by_province_id=" +
-      this.provinceId;
+      `
+      WITH maxyear AS
+        (SELECT max(year)
+        FROM renta_habitante
+        WHERE renta_media_hogar IS NOT NULL)
+      SELECT
+        place_id AS location_id,
+        poblacion_residente::integer AS value,
+        renta_media_hogar::decimal AS rent,
+        nombre AS municipality_name
+      FROM renta_habitante
+      INNER JOIN municipios ON codigo_ine = place_id
+      WHERE year =
+          (SELECT *
+          FROM maxyear)
+        AND place_id
+          BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+          AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
+        AND poblacion_residente IS NOT NULL
+      `;
+
     this.formatThousand = d3.format(",.0f");
     this.isMobile = window.innerWidth <= 768;
 
@@ -67,7 +79,6 @@ export class VisRentDistribution {
 
     // Chart objects
     this.svg = null;
-    this.chart = null;
 
     // Create main elements
     this.svg = d3
@@ -75,6 +86,7 @@ export class VisRentDistribution {
       .append("svg")
       .attr("width", this.width + this.margin.left + this.margin.right)
       .attr("height", this.height + this.margin.top + this.margin.bottom)
+      .style("overflow", "visible")
       .append("g")
       .attr("class", "chart-container")
       .attr(
@@ -106,22 +118,10 @@ export class VisRentDistribution {
   }
 
   getData() {
-    var rent = this.handlePromise(this.rentUrl);
-    var pop = this.handlePromise(this.popUrl);
+    var data = this.handlePromise(this.url);
 
-    Promise.all([rent, pop]).then(([rent, pop]) => {
-      rent.forEach(function(d) {
-        d.rent = d.value;
-
-        delete d.value;
-      });
-
-      this.data = _(rent)
-        .concat(rent, pop)
-        .groupBy("location_id")
-        .map(_.spread(_.merge))
-        .filter("rent")
-        .value();
+    data.then((jsonData) => {
+      this.data = jsonData.data
 
       this.updateRender();
       this._renderCircles();
@@ -140,7 +140,7 @@ export class VisRentDistribution {
   updateRender() {
     this.xScale
       .rangeRound([0, this.width])
-      .domain(d3.extent(this.data, d => d.value));
+      .domain(d3.extent(this.data, d => d.value)).nice();
 
     this.yScale
       .rangeRound([this.height, 0])
@@ -197,7 +197,7 @@ export class VisRentDistribution {
     this.voronoi = d3
       .distanceLimitedVoronoi()
       .x(d => this.xScale(d.value))
-      .y(d => this.yScale(d.rent))
+      .y(d => this.yScale(+d.rent))
       .limit(50)
       .extent([[0, 0], [this.width, this.height]]);
 

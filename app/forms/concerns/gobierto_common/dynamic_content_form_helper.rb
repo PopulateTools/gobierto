@@ -74,7 +74,7 @@ module GobiertoCommon
     def upload_content_block_record_attachment_file(attachment_file)
       raise(BadInitialization, "Site is not yet set or initialized") if site.nil?
 
-      ::GobiertoAdmin::FileUploadService.new(
+      FileUploadService.new(
         site: site,
         collection: person.model_name.collection,
         attribute_name: :attachment,

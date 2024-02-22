@@ -8,7 +8,7 @@ module GobiertoAdmin
     include FileUploaderHelpers
 
     def file_upload_service
-      @file_upload_service ||= GobiertoAdmin::FileUploadService.new(
+      @file_upload_service ||= GobiertoCommon::FileUploadService.new(
         site: site,
         collection: :test_collection,
         attribute_name: :test_attribute,

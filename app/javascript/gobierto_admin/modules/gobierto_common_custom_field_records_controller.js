@@ -41,33 +41,34 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
     });
 
     $(`#btnCrop_${ uid }`).click(function() {
-      let $crop_x = $(`input#${ uid }_crop_x`),
-          $crop_y = $(`input#${ uid }_crop_y`),
-          $crop_w = $(`input#${ uid }_crop_w`),
-          $crop_h = $(`input#${ uid }_crop_h`);
-      let output = document.getElementById(`image_${ uid }`);
+      const output = document.getElementById(`image_${ uid }`);
 
       $.magnificPopup.close();
 
       $(`#saved_image_${ uid }`).hide();
 
-      $crop_x.val(output.cropper.getData()["x"]);
-      $crop_y.val(output.cropper.getData()["y"]);
-      $crop_w.val(output.cropper.getData()["width"]);
-      $crop_h.val(output.cropper.getData()["height"]);
+      output.cropper.getCroppedCanvas().toBlob((blob) => {
+        // https://pqina.nl/blog/set-value-to-file-input/
+        const file = new File([blob], document.getElementById(uid).files[0].name, { type: blob.type })
+        const dt = new DataTransfer()
+        dt.items.add(file)
+
+        document.getElementById(uid).files = dt.files
+      });
+
       _createNewItem(image_field)
     });
   }
 
   function _createNewItem(image_field) {
-    if ($("#new-item-form").length == 0) retun
+    if ($("#new-item-form").length == 0) return
 
     let uid = image_field.uid
     let index = $(".new_item").last().data("index") === undefined ? 0 : $(".new_item").last().data("index") + 1
     let item_uid = `${uid}_${index}`
 
     let addItemForm = $("#new-item-form").clone().prop("id", `new-item-form-${index}`).addClass("new_item")
-    addItemForm.find("input").each(function(i){
+    addItemForm.find("input").each(function(){
       $(this).prop('name', $(this).prop("name").replace("add_item", index))
       $(this).prop('id', $(this).prop("id").replace(uid, item_uid))
     });
@@ -106,6 +107,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
 
               new Cropper(output, { });
             }
+
             reader.readAsDataURL(loaded_image.files[0]);
           }
         }

@@ -154,7 +154,7 @@ module GobiertoAdmin
           }
         }
 
-        GobiertoCommon::FileUploadService.any_instance.stubs(:upload!).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
+        ::GobiertoCommon::FileUploadService.any_instance.stubs(:upload!).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
 
         post admin_attachments_api_attachments_path(payload)
 
@@ -184,7 +184,7 @@ module GobiertoAdmin
           }
         }
 
-        GobiertoCommon::FileUploadService.any_instance.stubs(:upload!).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
+        ::GobiertoCommon::FileUploadService.any_instance.stubs(:upload!).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
         assert_difference "::GobiertoAttachments::Attachment.count", 1 do
           post admin_attachments_api_attachments_path(payload)
           assert_response :success
@@ -225,7 +225,7 @@ module GobiertoAdmin
           }
         }
 
-        GobiertoCommon::FileUploadService.any_instance.stubs(:upload!).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
+        ::GobiertoCommon::FileUploadService.any_instance.stubs(:upload!).returns("http://host.com/attachments/super-long-and-ugly-aws-id/new-pdf-attachment.pdf")
 
         patch admin_attachments_api_attachment_path(pdf_attachment.id), params: payload
 

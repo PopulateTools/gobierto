@@ -83,7 +83,7 @@ module GobiertoAdmin
         @bio_url ||= begin
           return person.bio_url unless bio_file.present?
 
-          GobiertoCommon::FileUploadService.new(
+          ::GobiertoCommon::FileUploadService.new(
             site: site,
             collection: person.model_name.collection,
             attribute_name: :bio,
@@ -96,7 +96,7 @@ module GobiertoAdmin
         @avatar_url ||= begin
           return person.avatar_url unless avatar_file.present?
 
-          GobiertoCommon::FileUploadService.new(
+          ::GobiertoCommon::FileUploadService.new(
             site: site,
             collection: person.model_name.collection,
             attribute_name: :avatar,

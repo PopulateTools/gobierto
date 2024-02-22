@@ -66,7 +66,7 @@ module GobiertoAdmin
       def upload_file(uid, value)
         return nil unless value["value"].present?
 
-        GobiertoCommon::FileUploadService.new(
+        ::GobiertoCommon::FileUploadService.new(
           site: site,
           collection: item.model_name.collection,
           attribute_name: uid,

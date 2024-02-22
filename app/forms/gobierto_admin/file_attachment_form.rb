@@ -145,7 +145,7 @@ module GobiertoAdmin
     end
 
     def upload_file
-      GobiertoCommon::FileUploadService.new(
+      ::GobiertoCommon::FileUploadService.new(
         site: site,
         collection: file_attachment.model_name.collection,
         attribute_name: :file,

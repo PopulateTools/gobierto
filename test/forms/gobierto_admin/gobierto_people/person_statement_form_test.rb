@@ -75,7 +75,7 @@ module GobiertoAdmin
           content_block_records_attributes: { "0" => { attachment_file: uploaded_file } }
         }
 
-        GobiertoCommon::FileUploadService.any_instance.stubs(:call).returns("http://host.com/file.pdf")
+        ::GobiertoCommon::FileUploadService.any_instance.stubs(:call).returns("http://host.com/file.pdf")
 
         person_statement_form = PersonStatementForm.new(person_statement_params.merge(person_id: person.id, admin_id: admin.id, site_id: site.id))
 

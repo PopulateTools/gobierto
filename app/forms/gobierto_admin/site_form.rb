@@ -185,7 +185,7 @@ module GobiertoAdmin
       @logo_url ||= begin
         return site.configuration.logo unless logo_file.present?
 
-        GobiertoCommon::FileUploadService.new(
+        ::GobiertoCommon::FileUploadService.new(
           site: site,
           collection: site.model_name.collection,
           attribute_name: :logo,

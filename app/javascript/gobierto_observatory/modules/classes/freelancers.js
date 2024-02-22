@@ -5,19 +5,28 @@ export class FreelancersCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      "/datasets/ds-autonomos-municipio.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
-      city_id;
+    this.query = `
+      SELECT
+        CONCAT(year, '-', 1, '-', 1) AS date,
+        SUM(value::integer) AS value
+      FROM afiliados_seguridad_social
+      WHERE
+        place_id = ${city_id} AND
+        type = 'R.E.TRABAJADORES CTA. PROP. O AUTONOMOS'
+      GROUP BY year
+      ORDER BY 1 DESC
+      LIMIT 5
+      `;
+
+    this.metadata = this.getMetadataEndpoint("afiliados-seguridad-social");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
+  getData([jsonData, jsonMetadata]) {
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "freelancers"
+    };
 
-    data.then(jsonData => {
-      var value = jsonData.data[0].value;
-
-      new SimpleCard(this.container, jsonData, value, "freelancers");
-    });
+    new SimpleCard(this.container, jsonData.data, opts);
   }
 }

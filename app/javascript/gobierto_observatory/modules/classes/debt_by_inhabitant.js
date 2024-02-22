@@ -5,42 +5,74 @@ export class DebtByInhabitantCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      "/datasets/ds-deuda-municipal.json?divided_by=ds-poblacion-municipal&sort_desc_by=date&with_metadata=true&filter_by_location_id=" +
-      city_id;
-    this.bcnUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-deuda-municipal.json?divided_by=ds-poblacion-municipal&sort_desc_by=date&with_metadata=true&filter_by_location_id=08019"; // TODO: Use Populate Data's related cities API
-    this.vlcUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-deuda-municipal.json?divided_by=ds-poblacion-municipal&sort_desc_by=date&with_metadata=true&filter_by_location_id=46250"; // TODO: Use Populate Data's related cities API
+    this.query = `
+      WITH
+        maxyear AS (SELECT max(year) FROM deuda_municipal WHERE place_id = ${city_id}),
+        population AS (
+          SELECT
+            SUM(total::integer)
+          FROM poblacion_edad_sexo
+          WHERE
+            place_id = ${city_id}
+          AND sex = 'Total'
+          AND year = (SELECT * FROM maxyear)
+        ),
+        population_prov AS (
+          SELECT
+            SUM(total::integer)
+          FROM poblacion_edad_sexo
+          WHERE
+            place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+            AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
+            AND sex = 'Total'
+            AND year = (SELECT * FROM maxyear)
+        ),
+        population_country AS (
+          SELECT
+            SUM(total::integer)
+          FROM poblacion_edad_sexo
+          WHERE
+            sex = 'Total'
+          AND year = (SELECT * FROM maxyear)
+        )
+      SELECT
+        1 as index,
+        '${window.populateData.municipalityName}' as key,
+        COALESCE(SUM(value::decimal) / NULLIF((SELECT * FROM population), 0), 0) AS value
+      FROM deuda_municipal
+      WHERE
+        place_id = ${city_id}
+      AND year = (SELECT * FROM maxyear)
+      UNION
+      SELECT
+        2 as index,
+        '${window.populateData.provinceName}' as key,
+        COALESCE(SUM(value::decimal) / NULLIF((SELECT * FROM population_prov), 0), 0) AS value
+      FROM deuda_municipal
+      WHERE
+        place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+        AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
+        AND year = (SELECT * FROM maxyear)
+      UNION
+      SELECT
+        3 as index,
+        '${I18n.t("country")}' as key,
+        COALESCE(SUM(value::decimal) / NULLIF((SELECT * FROM population_country), 0), 0) AS value
+      FROM deuda_municipal
+      WHERE
+        year = (SELECT * FROM maxyear)
+      ORDER BY index
+      `;
+
+    this.metadata = this.getMetadataEndpoint("deuda-municipal");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var bcn = this.handlePromise(this.bcnUrl);
-    var vlc = this.handlePromise(this.vlcUrl);
+  getData([jsonData, jsonMetadata]) {
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "debt_by_inhabitant"
+    };
 
-    Promise.all([data, bcn, vlc]).then(([json, bcn, vlc]) => {
-      json.data.forEach(function(d) {
-        d.figure = d.divided_by_value;
-        d.key = window.populateData.municipalityName;
-      });
-
-      bcn.data.forEach(function(d) {
-        d.figure = d.divided_by_value;
-        d.key = "Barcelona";
-      });
-
-      vlc.data.forEach(function(d) {
-        d.figure = d.divided_by_value;
-        d.key = "Valencia";
-      });
-
-      this.data = [json.data[0], bcn.data[0], vlc.data[0]];
-
-      new BarsCard(this.container, json, this.data, "debt_by_inhabitant");
-    });
+    new BarsCard(this.container, jsonData.data, opts);
   }
 }

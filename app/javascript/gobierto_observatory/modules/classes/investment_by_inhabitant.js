@@ -1,122 +1,91 @@
-import { nest } from "d3-collection";
 import { Sparkline, SparklineTableCard } from "lib/visualizations";
+import { groupBy } from "lib/shared";
 import { Card } from "./card.js";
 
 export class InvestmentByInhabitantCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      "/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" +
-      city_id;
-    this.bcnUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=08019"; // TODO: Use Populate Data's related cities API
-    this.vlcUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=46250"; // TODO: Use Populate Data's related cities API
+    this.query = `
+      (
+        SELECT
+          1 as index,
+          '${window.populateData.municipalityName}' as key,
+          CONCAT(year, '-', 1, '-', 1) AS date,
+          SUM(amount_per_inhabitant::decimal) as value
+        FROM presupuestos_municipales
+        WHERE
+          place_id = ${city_id}
+        AND area = 'e' and kind = 'G' and code IN ('6','7')
+        GROUP BY year
+        ORDER BY year DESC
+        LIMIT 5
+      )
+      UNION
+      (
+        SELECT
+          2 as index,
+          '${window.populateData.provinceName}' as key,
+          CONCAT(year, '-', 1, '-', 1) AS date,
+          AVG(amount_per_inhabitant::decimal) as value
+        FROM presupuestos_municipales
+        WHERE
+          place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+        AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
+        AND area = 'e' and kind = 'G' and code IN ('6','7')
+        GROUP BY year
+        ORDER BY year DESC
+        LIMIT 5
+      )
+      UNION
+      (
+        SELECT
+          3 as index,
+          '${I18n.t("country")}' as key,
+          CONCAT(year, '-', 1, '-', 1) AS date,
+          AVG(amount_per_inhabitant::decimal) as value
+        FROM presupuestos_municipales
+        WHERE
+          area = 'e' and kind = 'G' and code IN ('6','7')
+        GROUP BY year
+        ORDER BY year DESC
+        LIMIT 5
+      )
+      ORDER BY index
+      `;
+
+    this.metadata = this.getMetadataEndpoint("presupuestos-municipales");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
-    var bcn = this.handlePromise(this.bcnUrl);
-    var vlc = this.handlePromise(this.vlcUrl);
+  getData([jsonData, jsonMetadata]) {
+    const locations = groupBy(jsonData.data, "key");
 
-    Promise.all([data, bcn, vlc]).then(([json, bcn, vlc]) => {
-      json.data.forEach(function(d) {
-        d.location_name = window.populateData.municipalityName;
-        d.row = "first_column";
-      });
+    // transform the data for the chart
+    const nestData = Object.entries(locations).map(([key, values]) => ({
+      key: this._normalize(key),
+      value: values[0].value,
+      diff: values[1].value ? (values[0].value / values[1].value - 1) * 100 : 100,
+      title: key
+    }));
 
-      bcn.data.forEach(function(d) {
-        d.location_name = "Barcelona";
-        d.row = "second_column";
-      });
+    new SparklineTableCard(this.container, nestData, {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "investment_by_inhabitant"
+    });
 
-      vlc.data.forEach(function(d) {
-        d.location_name = "Valencia";
-        d.row = "third_column";
-      });
+    Object.entries(locations).forEach(([key, values]) => {
+      const sorted = values.sort((a, b) => (a.date < b.date ? 1 : -1));
 
-      this.data = json.data.concat(bcn.data, vlc.data);
-
-      // d3v5
-      //
-      this.nest = nest()
-        .key(function(d) {
-          return d.row;
-        })
-        .rollup(function(v) {
-          return {
-            value: v[0].value,
-            diff: ((v[0].value - v[1].value) / v[1].value) * 100
-          };
-        })
-        .entries(this.data);
-
-      this.nest.forEach(
-        function(d) {
-          (d.key = d.key), (d.diff = d.value.diff), (d.value = d.value.value);
-        }.bind(this)
+      const spark = new Sparkline(
+        `${this.container} .sparkline-${this._normalize(key)}`,
+        sorted,
+        {
+          trend: this.trend,
+          freq: this.freq
+        }
       );
 
-      // d3v6
-      //
-      // this.nest = rollup(
-      //   this.data,
-      //   v => ({
-      //     value: v[0].value,
-      //     diff: ((v[0].value - v[1].value) / v[1].value) * 100
-      //   }),
-      //   d => d.row
-      // );
-
-      // // Convert map to specific array
-      // this.nest = Array.from(this.nest, ([key, { value, diff }]) => ({
-      //   key,
-      //   value,
-      //   diff
-      // }));
-
-      new SparklineTableCard(
-        this.container,
-        json,
-        this.nest,
-        "investment_by_inhabitant"
-      );
-
-      /* Sparklines */
-      var place = this.data.filter(
-        d => d.location_name === window.populateData.municipalityName
-      );
-      bcn = this.data.filter(d => d.location_name === "Barcelona");
-      vlc = this.data.filter(d => d.location_name === "Valencia");
-
-      var opts = {
-        trend: this.trend,
-        freq: this.freq
-      };
-
-      var placeSpark = new Sparkline(
-        this.container + " .sparkline-first_column",
-        place,
-        opts
-      );
-      var bcnSpark = new Sparkline(
-        this.container + " .sparkline-second_column",
-        bcn,
-        opts
-      );
-      var vlcSpark = new Sparkline(
-        this.container + " .sparkline-third_column",
-        vlc,
-        opts
-      );
-
-      placeSpark.render();
-      bcnSpark.render();
-      vlcSpark.render();
+      spark.render();
     });
   }
 }

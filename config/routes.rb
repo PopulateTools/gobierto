@@ -5,7 +5,8 @@ require "sidekiq/web"
 Rails.application.routes.draw do
 
   if Rails.env.test?
-    get("/populate_data_mock/datasets/*dataset_file", to: "stubbed_external_request#populate_data_indicator")
+    get("/populate_data_mock/api/v1/data/data", to: "stubbed_external_request#populate_data_indicator")
+    get("/populate_data_mock/api/v1/data/datasets/*dataset_file/meta", to: "stubbed_external_request#meta")
     get("/bubbles_file_mock/bubbles.json", to: "stubbed_external_request#bubbles_file")
   end
 

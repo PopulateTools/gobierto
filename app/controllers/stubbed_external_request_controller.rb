@@ -6,6 +6,10 @@ class StubbedExternalRequestController < ApplicationController
     render json: PopulateData::ApiMock.generic_indicator_data
   end
 
+  def meta
+    render json: PopulateData::ApiMock.meta
+  end
+
   def user_signed_in?
     false
   end

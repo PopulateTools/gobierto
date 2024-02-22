@@ -5,74 +5,74 @@ export class CarsCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.carsPlaceUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-vehiculos-municipales-total.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=" +
-      city_id;
-    this.carsProvinceUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-vehiculos-provinciales-total.json?sort_desc_by=date&limit=1&filter_by_location_id=" +
-      window.populateData.provinceId;
-    this.carsCountryUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-vehiculos-nacionales-total.json?sort_desc_by=date";
-    this.popPlaceUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal.json?sort_desc_by=date&limit=1&filter_by_location_id=" +
-      city_id;
-    this.popProvinceUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&limit=1&&filter_by_year=2015&filter_by_province_id=" +
-      window.populateData.provinceId;
-    this.popCountryUrl =
-      window.populateData.endpoint +
-      "/datasets/ds-poblacion-municipal/sum.json?sort_desc_by=date&filter_by_year=2015";
+    this.query = `
+      WITH
+        maxyear AS (SELECT max(year) FROM coches WHERE place_id = ${city_id}),
+        population AS (
+          SELECT
+            SUM(total::integer)
+          FROM poblacion_edad_sexo
+          WHERE
+            place_id = ${city_id}
+          AND sex = 'Total'
+          AND year = (SELECT * FROM maxyear)
+        ),
+        population_prov AS (
+          SELECT
+            SUM(total::integer)
+          FROM poblacion_edad_sexo
+          WHERE
+            place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+            AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
+            AND sex = 'Total'
+            AND year = (SELECT * FROM maxyear)
+        ),
+        population_country AS (
+          SELECT
+            SUM(total::integer)
+          FROM poblacion_edad_sexo
+          WHERE
+            sex = 'Total'
+          AND year = (SELECT * FROM maxyear)
+        )
+      SELECT
+        1 as index,
+        '${window.populateData.municipalityName}' as key,
+        COALESCE(SUM(parque_total::decimal) / NULLIF((SELECT * FROM population), 0), 0) AS value
+      FROM coches
+      WHERE
+        place_id = ${city_id}
+      AND year = (SELECT * FROM maxyear)
+      UNION
+      SELECT
+        2 as index,
+        '${window.populateData.provinceName}' as key,
+        COALESCE(SUM(parque_total::decimal) / NULLIF((SELECT * FROM population_prov), 0), 0) AS value
+      FROM coches
+      WHERE
+        place_id BETWEEN FLOOR(${city_id}::decimal / 1000) * 1000
+        AND (CEIL(${city_id}::decimal / 1000) * 1000) - 1
+        AND year = (SELECT * FROM maxyear)
+      UNION
+      SELECT
+        3 as index,
+        '${I18n.t("country")}' as key,
+        COALESCE(SUM(parque_total::decimal) / NULLIF((SELECT * FROM population_country), 0), 0) AS value
+      FROM coches
+      WHERE
+        year = (SELECT * FROM maxyear)
+      ORDER BY index
+      `;
+
+    this.metadata = this.getMetadataEndpoint("coches");
   }
 
-  getData() {
-    var carsPlace = this.handlePromise(this.carsPlaceUrl);
-    var popPlace = this.handlePromise(this.popPlaceUrl);
-    var carsProvince = this.handlePromise(this.carsProvinceUrl);
-    var popProvince = this.handlePromise(this.popProvinceUrl);
-    var carsCountry = this.handlePromise(this.carsCountryUrl);
-    var popCountry = this.handlePromise(this.popCountryUrl);
+  getData([jsonData, jsonMetadata]) {
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "cars"
+    };
 
-    Promise.all([
-      carsPlace,
-      popPlace,
-      carsProvince,
-      popProvince,
-      carsCountry,
-      popCountry
-    ]).then(
-      ([
-        carsPlace,
-        popPlace,
-        carsProvince,
-        popProvince,
-        carsCountry,
-        popCountry
-      ]) => {
-        carsPlace.data.forEach(function(d) {
-          d.date = d.date.slice(0, 4);
-          d.figure = d.value / popPlace[0].value;
-          d.key = window.populateData.municipalityName;
-        });
-
-        carsProvince.forEach(function(d) {
-          d.figure = d.value / popProvince.sum;
-          d.key = window.populateData.provinceName;
-        });
-
-        carsCountry.forEach(function(d) {
-          d.figure = d.value / popCountry.sum;
-          d.key = I18n.t("country");
-        });
-
-        this.data = carsPlace.data.concat(carsProvince, carsCountry);
-
-        new BarsCard(this.container, carsPlace, this.data, "cars");
-      }
-    );
+    new BarsCard(this.container, jsonData.data, opts);
   }
 }

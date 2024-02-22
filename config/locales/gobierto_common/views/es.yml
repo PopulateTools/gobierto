@@ -47,10 +47,10 @@ es:
           figure_second: indefinidos
           title: Contratos en el mes pasado
         contracts_sector:
-          agricultura: Agricultura
-          construccion: Construcción
-          industria: Industria
-          servicios: Servicios
+          agriculture: Agricultura
+          construction: Construcción
+          industry: Industria
+          services: Servicios
           title: Contratos por sector
         deaths:
           country: Media estatal
@@ -71,11 +71,7 @@ es:
           title: Riesgo financiero
         freelancers:
           title: Autónomos
-        frequency:
-          daily: Actualización diaria
-          monthly: Actualización mensual
-          weekly: Actualización semanal
-          yearly: Actualización anual
+        frequency: Actualización %{type}
         gross_saving:
           title: Ahorro bruto
         gross_savings_rate:
@@ -91,17 +87,14 @@ es:
           title: Impuesto sobre bienes inmuebles
         income:
           first_column: ''
-          second_column: Bruta
-          third_column: Disponible
+          second_column: Por habitante
+          third_column: Por hogar
           title: Renta municipal
         income_overview:
           figure_first: "%{place}"
           figure_second: España
           title: Renta bruta
         investment_by_inhabitant:
-          first_column: "%{place}"
-          second_column: Barcelona
-          third_column: Valencia
           title: Inversión por habitante
         investment_financing:
           title: Financiación inversiones
@@ -127,10 +120,10 @@ es:
         tax_autonomy:
           title: Autonomía fiscal
         unemployed_sector:
-          agricultura: Agricultura
-          construccion: Construcción
-          industria: Industria
-          servicios: Servicios
+          agriculture: Agricultura
+          construction: Construcción
+          industry: Industria
+          services: Servicios
           title: Desempleados por sector
         updated: Última actualización
       country: España
@@ -138,11 +131,7 @@ es:
       elderly_info: El %{percent} de la población tiene más de %{limit} años
       empty_lines: No hay datos disponibles para esta clasificación en este año. Por
         favor, selecciona otro filtro.
-      frequency:
-        daily: Actualización diaria
-        monthly: Actualización mensual
-        weekly: Actualización semanal
-        yearly: Actualización anual
+      frequency: Actualización %{type}
       gross_income: Renta bruta
       increase: Aumentar
       inhabitant_short: hab

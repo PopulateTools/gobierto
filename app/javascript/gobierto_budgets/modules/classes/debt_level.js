@@ -1,25 +1,36 @@
-import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
 
 export class DebtLevelCard extends Card {
   constructor(divClass, city_id, current_year) {
-    super(divClass, current_year);
+    super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      "/datasets/ds-nivel-endeudamiento.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_municipality_id=" +
-      city_id +
-      "&date_date_range=20100101-" +
-      this.currentYear +
-      "1231";
-  }
+    this.cardName = "debt_level";
 
-  getData() {
-    var data = this.handlePromise(this.url);
-
-    data.then(jsonData => {
-      var value = jsonData.data[0].value;
-      new SimpleCard(this.container, jsonData, value, "debt_level");
-    });
+    this.query = `
+      WITH debt AS (
+        SELECT value::numeric, place_id, year
+        FROM deuda_municipal
+        WHERE place_id = ${city_id}
+          AND year <= ${current_year}
+        ORDER BY year
+      ),
+      expense AS (
+        SELECT SUM(amount), year
+        FROM presupuestos_municipales
+        WHERE place_id = ${city_id}
+          AND area = 'e'
+          AND kind = 'G'
+          AND year <= ${current_year}
+          AND code IN ('1', '2', '3', '4', '5')
+        GROUP BY year
+      )
+      SELECT
+        CONCAT(expense.year, '-', 1, '-', 1) AS date,
+        round((debt.value / expense.sum) * 100, 2) AS value
+      FROM debt
+      INNER JOIN expense ON expense.year = debt.year
+      ORDER BY expense.year DESC
+      LIMIT 5
+      `;
   }
 }

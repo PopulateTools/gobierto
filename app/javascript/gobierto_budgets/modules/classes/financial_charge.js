@@ -1,25 +1,39 @@
-import { SimpleCard } from "lib/visualizations";
 import { Card } from "./card.js";
 
 export class FinancialChargeCard extends Card {
   constructor(divClass, city_id, current_year) {
-    super(divClass, current_year);
+    super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      "/datasets/ds-carga-financiera.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_municipality_id=" +
-      city_id +
-      "&date_date_range=20100101-" +
-      this.currentYear +
-      "1231";
-  }
+    this.cardName = "financial_charge";
 
-  getData() {
-    var data = this.handlePromise(this.url);
-
-    data.then(jsonData => {
-      var value = jsonData.data[0].value;
-      new SimpleCard(this.container, jsonData, value, "financial_charge");
-    });
+    this.query = `
+      WITH expense AS (
+        SELECT SUM(amount), year
+        FROM presupuestos_municipales
+        WHERE place_id = ${city_id}
+          AND area = 'e'
+          AND kind = 'G'
+          AND year <= ${current_year}
+          AND code IN ('3', '9')
+        GROUP BY year
+      ),
+      expense_all AS
+        (SELECT SUM(amount), year
+        FROM presupuestos_municipales
+        WHERE place_id = ${city_id}
+          AND area = 'e'
+          AND kind = 'G'
+          AND year <= ${current_year}
+          AND code IN ('1', '2', '3', '4', '5', '6', '7', '8', '9')
+        GROUP BY year
+      )
+      SELECT
+        CONCAT(expense_all.year, '-', 1, '-', 1) AS date,
+        round((expense.sum / expense_all.sum) * 100, 2) AS value
+      FROM expense_all
+      INNER JOIN expense ON expense.year = expense_all.year
+      ORDER BY expense_all.year DESC
+      LIMIT 5
+      `;
   }
 }

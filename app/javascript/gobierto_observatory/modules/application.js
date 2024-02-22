@@ -7,27 +7,26 @@ import {
 } from "lib/visualizations";
 import "sticky-kit/dist/sticky-kit.js";
 import { ActivePopulationCard } from "./classes/active_population.js";
+import { ContractsCard } from "./classes/contracts.js";
+import { ContractsBySectorCard } from "./classes/contracts_sector.js";
+import { DebtByInhabitantCard } from "./classes/debt_by_inhabitant.js";
+import { FreelancersCard } from "./classes/freelancers.js";
 import { BirthRateCard } from "./classes/birth_rate.js";
+import { UnemplBySectorCard } from "./classes/unemployed_sector.js";
+import { ssMembersCard } from "./classes/ss_members.js";
+import { PopulationCard } from "./classes/population.js";
 import { BudgetByInhabitantCard } from "./classes/budget_by_inhabitant.js";
 import { CarsCard } from "./classes/cars.js";
 import { CarsTaxCard } from "./classes/cars_tax.js";
 import { CompaniesCard } from "./classes/companies.js";
 import { ConstructionTaxCard } from "./classes/construction_tax.js";
-import { ContractsCard } from "./classes/contracts.js";
-import { ContractsBySectorCard } from "./classes/contracts_sector.js";
 import { DeathRateCard } from "./classes/death_rate.js";
-import { DebtByInhabitantCard } from "./classes/debt_by_inhabitant.js";
 import { EconomicTaxCard } from "./classes/economic_tax.js";
-import { FreelancersCard } from "./classes/freelancers.js";
-import { GetUnemploymentAgeData } from "./classes/get_unemployment_age_data.js";
 import { HousesCard } from "./classes/houses.js";
 import { IbiCard } from "./classes/ibi.js";
 import { IncomeCard } from "./classes/income.js";
 import { IncomeOverviewCard } from "./classes/income_overview.js";
 import { InvestmentByInhabitantCard } from "./classes/investment_by_inhabitant.js";
-import { PopulationCard } from "./classes/population.js";
-import { ssMembersCard } from "./classes/ss_members.js";
-import { UnemplBySectorCard } from "./classes/unemployed_sector.js";
 
 function selectSection(html) {
   var $el = $("[data-breadcrumb-sub-item]");
@@ -68,160 +67,64 @@ $(document).on("turbolinks:load", function() {
     return;
   }
 
-  var getUnemplAgeData = new GetUnemploymentAgeData(
-    window.populateData.municipalityId
-  );
-
-  // Process unemployment age data and pass it to both charts
-  getUnemplAgeData.getData(function() {
-    // Needs the data to set the same y scale
-    var vis_unemplSex = new VisUnemploymentSex(
-      "#unemployment_sex",
-      window.populateData.municipalityId,
-      window.unemplAgeData
-    );
-    vis_unemplSex.render();
-
-    var vis_unempl = new VisUnemploymentAge(
-      "#unemployment_age",
-      window.populateData.municipalityId,
-      window.unemplAgeData
-    );
-    vis_unempl.render();
-  });
+  const cityId = window.populateData.municipalityId;
 
   vis_population = new VisPopulationPyramid(
     "#population_pyramid",
-    window.populateData.municipalityId,
-    window.populateData.year
-  );
+    cityId,
+    0
+  )
   vis_population.render();
 
-  var vis_unemplR = new VisUnemploymentRate(
-    "#unemployment_rate",
-    window.populateData.municipalityId,
-    window.populateData.ccaaId
-  );
-  vis_unemplR.render();
+  new VisUnemploymentRate("#unemployment_rate", cityId).render();
 
-  var vis_rent = new VisRentDistribution(
-    "#rent_distribution",
-    window.populateData.municipalityId,
-    window.populateData.provinceId,
-    window.populateData.year - 1
-  );
-  vis_rent.render();
+  new VisUnemploymentSex("#unemployment_sex", cityId).render();
 
-  var popCard = new PopulationCard(
-    ".population_card",
-    window.populateData.municipalityId
-  );
-  popCard.render();
+  new VisUnemploymentAge("#unemployment_age", cityId).render();
 
-  var births = new BirthRateCard(".births", window.populateData.municipalityId);
-  births.render();
+  new VisRentDistribution("#rent_distribution", cityId).render();
 
-  var deaths = new DeathRateCard(".deaths", window.populateData.municipalityId);
-  deaths.render();
+  new PopulationCard(".population_card", cityId).render();
 
-  var activePopCard = new ActivePopulationCard(
-    ".active_pop",
-    window.populateData.municipalityId
-  );
-  activePopCard.render();
+  new BirthRateCard(".births", cityId).render();
 
-  var hCard = new HousesCard(".houses", window.populateData.municipalityId);
-  hCard.render();
+  new DeathRateCard(".deaths", cityId).render();
 
-  var cCard = new CarsCard(".cars", window.populateData.municipalityId);
-  cCard.render();
+  new ActivePopulationCard(".active_pop", cityId).render();
 
-  var ssCard = new ssMembersCard(
-    ".ss_members",
-    window.populateData.municipalityId
-  );
-  ssCard.render();
+  new HousesCard(".houses", cityId).render();
 
-  var fCard = new FreelancersCard(
-    ".freelancers",
-    window.populateData.municipalityId
-  );
-  fCard.render();
+  new CarsCard(".cars", cityId).render();
 
-  var cmCard = new CompaniesCard(
-    ".companies",
-    window.populateData.municipalityId
-  );
-  cmCard.render();
+  new ssMembersCard(".ss_members", cityId).render();
 
-  var contractsCard = new ContractsCard(
-    ".contracts_comparison",
-    window.populateData.municipalityId
-  );
-  contractsCard.render();
+  new FreelancersCard(".freelancers", cityId).render();
 
-  var unBySectorCard = new UnemplBySectorCard(
-    ".unemployed_sector",
-    window.populateData.municipalityId
-  );
-  unBySectorCard.render();
+  new CompaniesCard(".companies", cityId).render();
 
-  var contrSectorCard = new ContractsBySectorCard(
-    ".contracts_sector",
-    window.populateData.municipalityId
-  );
-  contrSectorCard.render();
+  new ContractsCard(".contracts_comparison", cityId).render();
 
-  var incomeOverviewCard = new IncomeOverviewCard(
-    ".income_overview",
-    window.populateData.municipalityId
-  );
-  incomeOverviewCard.render();
+  new UnemplBySectorCard(".unemployed_sector", cityId).render();
 
-  var incomeCard = new IncomeCard(
-    ".income",
-    window.populateData.municipalityId
-  );
-  incomeCard.render();
+  new ContractsBySectorCard(".contracts_sector", cityId).render();
 
-  var invByInhab = new InvestmentByInhabitantCard(
-    ".investment_by_inhabitant",
-    window.populateData.municipalityId
-  );
-  invByInhab.render();
+  new IncomeOverviewCard(".income_overview", cityId).render();
 
-  var debtPerInhab = new DebtByInhabitantCard(
-    ".debt_by_inhabitant",
-    window.populateData.municipalityId
-  );
-  debtPerInhab.render();
+  new IncomeCard(".income", cityId).render();
 
-  var ibi = new IbiCard(".ibi", window.populateData.municipalityId);
-  ibi.render();
+  new InvestmentByInhabitantCard(".investment_by_inhabitant", cityId).render();
 
-  var budget = new BudgetByInhabitantCard(
-    ".budget_by_inhabitant",
-    window.populateData.municipalityId
-  );
-  budget.render();
+  new DebtByInhabitantCard(".debt_by_inhabitant", cityId).render();
 
-  var constructionTax = new ConstructionTaxCard(
-    ".construction_tax",
-    window.populateData.municipalityId
-  );
-  constructionTax.render();
+  new IbiCard(".ibi", cityId).render();
 
-  var carsTax = new CarsTaxCard(
-    ".cars_tax",
-    window.populateData.municipalityId
-  );
-  carsTax.render();
+  new BudgetByInhabitantCard(".budget_by_inhabitant", cityId).render();
 
-  var economicTax = new EconomicTaxCard(
-    ".economic_tax",
-    window.populateData.municipalityId
-  );
-  economicTax.render();
+  new ConstructionTaxCard(".construction_tax", cityId).render();
+
+  new CarsTaxCard(".cars_tax", cityId).render();
+
+  new EconomicTaxCard(".economic_tax", cityId).render();
 
   $(".sections-nav").stick_in_parent();
 
@@ -251,6 +154,7 @@ $(document).on("turbolinks:load", function() {
     selectSection();
   }
 
+  // NOTE: this should be included in the pyramid visualization code (plus the HTML)
   $("#population_pyramid-filters button[data-toggle]").click(function() {
     let filter = $(this).data("toggle");
     let prev = $(this)
@@ -266,21 +170,8 @@ $(document).on("turbolinks:load", function() {
       .removeClass("active");
     $(this).toggleClass("active");
 
-    /*
-     * filter values
-     * 0 - municipality
-     * 1 - province/autonomous-region
-     * 2 - country
-     */
-    let elemId =
-      filter === 0
-        ? window.populateData.municipalityId
-        : filter === 1
-        ? window.populateData.ccaaId
-        : null;
-
     // Update the urls
-    vis_population.dataUrls = vis_population.getUrls(elemId, filter);
+    vis_population.dataUrls = vis_population.getUrls(window.populateData.municipalityId, filter);
     // render again
     vis_population.render();
   });

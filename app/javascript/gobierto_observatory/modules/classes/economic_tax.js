@@ -5,19 +5,26 @@ export class EconomicTaxCard extends Card {
   constructor(divClass, city_id) {
     super(divClass);
 
-    this.url =
-      window.populateData.endpoint +
-      "/datasets/ds-impuestos-actividades-economicas-min-municipal.json?sort_desc_by=date&with_metadata=true&limit=5&filter_by_location_id=" +
-      city_id;
+    this.query = `
+      SELECT
+        CONCAT(year, '-', 1, '-', 1) AS date,
+        iae_coef_min::decimal AS value
+      FROM tasas
+      WHERE
+        place_id = ${city_id}
+      ORDER BY 1 DESC
+      LIMIT 5
+      `;
+
+    this.metadata = this.getMetadataEndpoint("tasas");
   }
 
-  getData() {
-    var data = this.handlePromise(this.url);
+  getData([jsonData, jsonMetadata]) {
+    var opts = {
+      metadata: this.getMetadataFields(jsonMetadata),
+      cardName: "economic_tax"
+    };
 
-    data.then(jsonData => {
-      var value = jsonData.data[0].value;
-
-      new SimpleCard(this.container, jsonData, value, "economic_tax");
-    });
+    new SimpleCard(this.container, jsonData.data, opts);
   }
 }

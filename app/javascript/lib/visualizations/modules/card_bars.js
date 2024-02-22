@@ -7,19 +7,12 @@ import { Card } from "./card.js";
 const d3 = { select, scaleLinear, timeFormat, timeParse, max };
 
 export class BarsCard extends Card {
-  constructor(divClass, json, data, cardName) {
+  constructor(divClass, data, { metadata, cardName }) {
     super(divClass);
 
     this.dataType = this.div.attr("data-type");
 
-    var freq = this.div.attr("data-freq");
-    var parseDate =
-      freq === "daily"
-        ? d3.timeParse("%Y-%m-%d")
-        : freq === "monthly"
-        ? d3.timeParse("%Y-%m")
-        : d3.timeParse("%Y");
-    var parsedDate = parseDate(json.data[0].date);
+    var parsedDate = new Date(metadata.updated_at);
     var formatDate = d3.timeFormat("%b %Y");
     var isMobile = innerWidth <= 768;
 
@@ -40,7 +33,7 @@ export class BarsCard extends Card {
           I18n.t("gobierto_common.visualizations.time") +
           encodeURI(formatDate(parsedDate).toLowerCase()) +
           ", " +
-          encodeURI(this._printData(data[0].figure)) +
+          encodeURI(this._printData(data[0].value)) +
           "&url=" +
           window.location.href +
           "&via=gobierto&source=webclient"
@@ -57,8 +50,8 @@ export class BarsCard extends Card {
     // Append source
     this.div
       .selectAll(".widget_src")
-      .attr("title", json.metadata.indicator["source_name"])
-      .text(json.metadata.indicator["source_name"]);
+      .attr("title", metadata["source_name"])
+      .html(metadata["source_url"] ? `<a href="${metadata["source_url"]}" target="_blank" rel="noopener noreferrer">${metadata["source_name"]}</a>` : metadata["source_name"]);
 
     // Append date of last data point
     this.div.selectAll(".widget_updated").text(formatDate(parsedDate));
@@ -66,7 +59,7 @@ export class BarsCard extends Card {
     // Append update frequency
     this.div
       .selectAll(".widget_freq")
-      .text(this._printFreq(json.metadata.frequency_type));
+      .text(this._printFreq(metadata.frequency_type));
 
     // Append metadata
     this.div
@@ -82,7 +75,7 @@ export class BarsCard extends Card {
     // Append backface info
     this.div
       .selectAll(".js-data-desc")
-      .text(json.metadata.indicator.description);
+      .text(metadata.description);
     this.div.selectAll(".js-data-freq").text(formatDate(parsedDate));
 
     // Paint bars
@@ -92,7 +85,7 @@ export class BarsCard extends Card {
       .domain([
         0,
         d3.max(data, function(d) {
-          return d.figure;
+          return d.value;
         })
       ]);
 
@@ -115,7 +108,7 @@ export class BarsCard extends Card {
       .append("div")
       .attr("class", "bar")
       .style("width", function(d) {
-        return x(d.figure) + "%";
+        return x(d.value) + "%";
       });
 
     row
@@ -123,7 +116,7 @@ export class BarsCard extends Card {
       .attr("class", "qty")
       .text(
         function(d) {
-          return this._printData(d.figure);
+          return this._printData(d.value);
         }.bind(this)
       );
   }

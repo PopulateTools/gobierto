@@ -91,7 +91,7 @@ commands:
             echo '::BudgetsSeeder.seed!' | bin/rails c
 
 orbs:
-  browser-tools: circleci/browser-tools@1.4.5
+  browser-tools: circleci/browser-tools@1.4.7
 
 jobs:
   bundle_dependencies:
@@ -101,6 +101,10 @@ jobs:
       - checkout
       - attach_workspace:
           at: *working_directory
+      - browser-tools/install-browser-tools:
+          install-firefox: false
+          install-geckodriver: false
+          replace-existing-chrome: true
       - restore_bundler_cache
       - run:
           name: "[Bundler] Install dependencies"

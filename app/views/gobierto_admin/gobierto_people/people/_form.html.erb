@@ -22,10 +22,6 @@
         <% end %>
 
         <%= f.file_field :avatar_file, id: :person_avatar_image %>
-
-        <% %w[x y w h].each do |attribute| %>
-        <%= f.hidden_field "logo_crop_#{attribute}", id:"logo_crop_#{attribute}" %>
-      <% end %>
       </div>
 
       <div class="form_item input_text">

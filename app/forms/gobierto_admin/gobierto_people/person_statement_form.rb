@@ -62,7 +62,7 @@ module GobiertoAdmin
         @attachment_url ||= begin
           return person_statement.attachment_url unless attachment_file.present?
 
-          GobiertoAdmin::FileUploadService.new(
+          ::GobiertoCommon::FileUploadService.new(
             site: person.site,
             collection: person_statement.model_name.collection,
             attribute_name: :attachment,

@@ -81,9 +81,6 @@ gem "exchanger"
 # Web Services: Alcobendas, Valencia
 gem "savon", "~> 2.12.0"
 
-# Image management
-gem "cloudinary"
-
 # Gobierto budgets data
 gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
 

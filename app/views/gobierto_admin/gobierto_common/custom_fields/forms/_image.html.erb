@@ -1,6 +1,7 @@
 <% multiple ||= false %>
 
 <div class="<%= record.class_names %>">
+
   <%= label_tag "#{ input_base_name }[#{ record.uid }][value]" do %>
     <%= record.name %>
     <%= attribute_indication_tag required: record.required? %>
@@ -47,9 +48,5 @@
   <% else %>
     <%= f.file_field "[custom_records][#{record.uid}][value]", id: record.uid %>
     <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
-
-    <% %w[x y w h].each do |attribute| %>
-      <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][crop][#{ attribute }]", nil, id: "#{ record.uid }_crop_#{ attribute }" %>
-    <% end %>
   <% end %>
 </div>

@@ -15,9 +15,6 @@
     </div>
 
     <%= f.file_field "[custom_records][#{record.uid}][add_item][value]", id: record.uid, class: "add_item" %>
-    <% %w[x y w h].each do |attribute| %>
-      <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][add_item][crop][#{ attribute }]", nil, id: "#{ record.uid }_crop_#{ attribute }" %>
-    <% end %>
   </div>
 <% end %>
 

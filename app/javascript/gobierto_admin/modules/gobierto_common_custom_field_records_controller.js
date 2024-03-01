@@ -30,46 +30,62 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
     })
   }
 
+  function _handleCropper({ target, image_field }) {
+    if (target.files.length > 0) {
+      validatesImageDimensionsToCrop(target, image_field);
+    }
+  }
+
   function _cropImage(image_field) {
     let uid = image_field.uid
-    $(`#${ uid }`).change(function () {
-      let $loaded_image = this;
+    $(`#${ uid }`).change(e => _handleCropper({ ...e, image_field }));
 
-      if ($loaded_image.files.length > 0) {
-        validatesImageDimensionsToCrop($loaded_image, image_field);
-      }
-    });
-
-    $(`#btnCrop_${ uid }`).click(function() {
-      let $crop_x = $(`input#${ uid }_crop_x`),
-          $crop_y = $(`input#${ uid }_crop_y`),
-          $crop_w = $(`input#${ uid }_crop_w`),
-          $crop_h = $(`input#${ uid }_crop_h`);
-      let output = document.getElementById(`image_${ uid }`);
+    $(`#btnCrop_${ uid }`).click(function({ target }) {
+      const output = document.getElementById(`image_${ uid }`);
 
       $.magnificPopup.close();
 
       $(`#saved_image_${ uid }`).hide();
 
-      $crop_x.val(output.cropper.getData()["x"]);
-      $crop_y.val(output.cropper.getData()["y"]);
-      $crop_w.val(output.cropper.getData()["width"]);
-      $crop_h.val(output.cropper.getData()["height"]);
+      output.cropper.getCroppedCanvas().toBlob((blob) => {
+        let { from } = target.dataset
+
+        // when we are adding a new item, the "from" attribute is wrong (it does not contain any "index" value to distinguish the others)
+        // so this block is required to guess which ID will have the new input[type=file]
+        if (!document.getElementById(from).files.length) {
+          // the one that contains "add_item" class is the template (fake item),
+          // so the valid one will be the last item, except the template 🤯🤯🤯
+          const [{ id }] = Array.from(document.querySelectorAll(`[id^=${from}]`)).filter(x => !x.classList.contains("add_item")).slice(-1)
+          if (!id) return
+
+          from = id
+        }
+
+        // https://pqina.nl/blog/set-value-to-file-input/
+        const file = new File([blob], `chopped-${document.getElementById(from).files[0].name}`, { type: blob.type })
+        const dt = new DataTransfer()
+        dt.items.add(file)
+
+        document.getElementById(from).files = dt.files
+      });
+
       _createNewItem(image_field)
     });
   }
 
   function _createNewItem(image_field) {
-    if ($("#new-item-form").length == 0) retun
+    if ($("#new-item-form").length == 0) return
 
     let uid = image_field.uid
     let index = $(".new_item").last().data("index") === undefined ? 0 : $(".new_item").last().data("index") + 1
     let item_uid = `${uid}_${index}`
 
     let addItemForm = $("#new-item-form").clone().prop("id", `new-item-form-${index}`).addClass("new_item")
-    addItemForm.find("input").each(function(i){
+    addItemForm.find("input").each(function(){
       $(this).prop('name', $(this).prop("name").replace("add_item", index))
       $(this).prop('id', $(this).prop("id").replace(uid, item_uid))
+      // re-assign the cropper event for the new created elements
+      $(this).change(e => _handleCropper({ ...e, image_field }));
     });
     addItemForm.find(".add_item").removeClass("add_item")
     addItemForm.data("index", index)
@@ -106,7 +122,11 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsController = (function() {
 
               new Cropper(output, { });
             }
+
             reader.readAsDataURL(loaded_image.files[0]);
+
+            // required to identify which input[type=file] is triggering the modal
+            $(`#btnCrop_${ uid }`).attr("data-from", loaded_image.id)
           }
         }
       }

@@ -8,7 +8,7 @@ module GobiertoPeople
 
     def index
       set_events
-      render_404 and return if params[:page].present? && @events.empty?
+      render_404 and return if (params[:page].present? && @events.empty?) || (params[:page].to_i > 5)
 
       set_calendar_events
       set_people

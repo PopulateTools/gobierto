@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+require "marcel"
+
 module GobiertoCommon
   class PlainCustomFieldValueDecorator < BaseDecorator
     class TermNotFound < StandardError; end
+
+    include GobiertoHelper
 
     attr_accessor :plain_text_value
 
@@ -25,6 +29,8 @@ module GobiertoCommon
         vocabulary_value
       elsif has_options?
         options_value
+      elsif image?
+        image_value
       else
         plain_text_value
       end
@@ -74,16 +80,92 @@ module GobiertoCommon
       values&.first
     end
 
+    def images_data
+      images_sources = Nokogiri::HTML(markdown(plain_text_value)).css("img").map { |image| { src: image["src"], alt: image["alt"] } }
+
+      images_sources = images_sources.first(1) unless multiple?
+
+      images_data = images_sources.map do |image_data|
+        download_data = download_file(image_data[:src])
+
+        next if download_data.blank?
+
+        next unless download_data[:mime_type].starts_with?("image/")
+
+        image_data.merge(download_data)
+      end.compact
+    end
+
+    def image_value
+      attachments_urls = images_data.map do |image_data|
+        url = ::GobiertoCommon::FileUploadService.new(
+          site: site,
+          collection: model_name.collection,
+          attribute_name: uid,
+          file: image_data[:file]
+        ).upload!
+
+        name = image_data[:alt] || image_data[:file_name]
+
+        file_attachment = file_attachment_class.new(
+          image_data.slice(:file_name, :file_size, :file_digest).merge(
+            collection: attachments_collection,
+            site: site,
+            name: name,
+            url: url,
+            current_version: 1
+          )
+        )
+
+        next url if file_attachment.save
+      end.compact
+
+      multiple? ? attachments_urls : attachments_urls.first
+    end
+
+    def download_file(url)
+      uri = URI.parse(url)
+      file_name = File.basename(uri.path)
+
+      return unless uri.respond_to?(:open)
+
+      content = uri.open
+
+      tmp_file = Tempfile.new
+      tmp_file.binmode
+      tmp_file.write(content.binmode.read)
+      tmp_file.close
+      {
+        file: ActionDispatch::Http::UploadedFile.new(filename: file_name, tempfile: tmp_file, original_filename: file_name),
+        file_name:,
+        mime_type: Marcel::MimeType.for(content),
+        file_size: content.size,
+        file_digest: file_attachment_class.file_digest(content)
+      }
+    rescue URI::InvalidURIError, OpenURI::HTTPError => e
+      nil
+    rescue StandardError => e
+      nil
+    end
+
     def vocabulary_multiple_values?
       return unless configuration
 
       configuration.vocabulary_type != "single_select"
     end
 
+    def file_attachment_class
+      ::GobiertoAttachments::Attachment
+    end
+
     def splitted_plain_text_value
       (CSV.parse_line(plain_text_value.tr("\n", ",").gsub(/\"\s*,\s*\"/, "\",\"").strip, liberal_parsing: true) || []).compact.map(&:strip)
     rescue CSV::MalformedCSVError
       plain_text_value.tr("\n", ",").split(",").compact.map(&:strip)
+    end
+
+    def attachments_collection
+      @attachments_collection ||= site.collections.find_by(container: site, item_type: "GobiertoAttachments::Attachment")
     end
   end
 end

@@ -84,6 +84,10 @@ module GobiertoCommon
       self.class.field_types_with_multiple_setting.include? field_type
     end
 
+    def multiple?
+      allow_multiple? && configuration.multiple
+    end
+
     def long_text?
       /paragraph/.match field_type
     end

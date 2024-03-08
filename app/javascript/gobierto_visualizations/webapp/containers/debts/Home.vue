@@ -112,6 +112,7 @@ export default {
       evolutionDebtData: this.$root.$data.debtsEvolution,
       labelTitle: I18n.t("gobierto_visualizations.visualizations.debts.title") || "",
       labelDescription: I18n.t("gobierto_visualizations.visualizations.debts.description") || "",
+      // NOTE: in case of updating data, this translation must be changed
       labelDescriptionDate: I18n.t("gobierto_visualizations.visualizations.debts.date_debt") || "",
       labelTitleDebtor: I18n.t("gobierto_visualizations.visualizations.debts.debtor") || "",
       labelTitleCreditor: I18n.t("gobierto_visualizations.visualizations.debts.creditor") || "",

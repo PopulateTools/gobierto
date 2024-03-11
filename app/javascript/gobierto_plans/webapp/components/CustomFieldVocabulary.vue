@@ -1,8 +1,9 @@
 <template>
-  <div v-if="isSDG">
-    <!-- this vocabulary has a different layout -->
-    <CustomFieldVocabularySDG :attributes="attributes" />
-  </div>
+  <!-- this vocabulary has a different layout -->
+  <CustomFieldVocabularySDG
+    v-if="isSDG"
+    :attributes="attributes"
+  />
   <div v-else>
     <template
       v-for="{ id, name, group, term, hasLink } in vocabularies"
@@ -12,12 +13,14 @@
         :key="id"
         :to="{ name: routes.TERM, params: { ...params, id: group, term } }"
         class="project-description__link"
+        :data-vocabulary-term-slug="term"
       >
         {{ name }}
       </router-link>
       <div
         v-else
-        :key="id"
+        :key="`vocab-${id}`"
+        :data-vocabulary-term-slug="term"
       >
         {{ name }}
       </div>

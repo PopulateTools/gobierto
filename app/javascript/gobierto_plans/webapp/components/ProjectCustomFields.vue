@@ -1,5 +1,8 @@
 <template>
-  <div class="project-description">
+  <div
+    class="project-description"
+    :data-custom-field-slug="attributes.uid"
+  >
     <template v-if="pluginType">
       <template v-if="rawIndicatorsType">
         <div class="project-description__title">

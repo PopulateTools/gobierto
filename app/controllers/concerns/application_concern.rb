@@ -3,7 +3,7 @@
 module ApplicationConcern
   extend ActiveSupport::Concern
 
-  BLOCKLIST_TRACKABLE_KEYS = %w(password password_confirmation authenticity_token utf8).freeze
+  BLOCKLIST_TRACKABLE_KEYS = %w(password password_confirmation authenticity_token utf8 file).freeze
 
   included do
     before_action :set_current_site, :set_locale

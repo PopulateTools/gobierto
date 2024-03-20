@@ -14,7 +14,7 @@
       :key="id"
       :to="{ name: routes.TABLE, params: { ...$route.params, id } }"
       class="planification-buttons__button"
-      :class="{ 'is-active': id === currentId }"
+      :class="{ 'is-active': id === currentId && !isActiveButton }"
       tag="button"
     >
       {{ labelViewBy }} <strong>{{ name | translate }}</strong>

@@ -124,10 +124,11 @@ gem 'prime'
 gem 'net-imap'
 
 group :development, :test do
-  gem "byebug", platform: :mri
   gem "i18n-tasks"
   gem "spring"
   gem "puma"
+  # https://world.hey.com/lewis/run-multiple-rails-apps-with-puma-dev-67b1c10f
+  gem "debug", require: false
 end
 
 group :test do

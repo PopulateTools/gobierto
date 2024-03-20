@@ -124,7 +124,6 @@ gem 'prime'
 gem 'net-imap'
 
 group :development, :test do
-  gem "byebug", platform: :mri
   gem "i18n-tasks"
   gem "spring"
   gem "puma"

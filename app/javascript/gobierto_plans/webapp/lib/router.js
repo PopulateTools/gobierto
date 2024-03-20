@@ -1,12 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
 
-if (Vue.config.devtools) {
-  Vue.use(checkAndReportAccessibility)
-}
 Vue.use(VueRouter);
-Vue.config.devtools
 
 const Main = () => import("../Main.vue");
 const Plan = () => import("../pages/Plan.vue");
@@ -101,4 +96,16 @@ export const createRouter = ({ dashboards = false }) => new VueRouter({
       ].filter(Boolean)
     },
   ],
+  scrollBehavior(to) {
+    // Only do autoscroll on the plan
+    if ([routes.PROJECTS, routes.CATEGORIES].includes(to.name)) {
+      return {
+        selector: ".node-breadcrumb",
+        behavior: "smooth",
+        offset: {
+          y: 16
+        }
+       }
+    }
+  },
 })

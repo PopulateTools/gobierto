@@ -388,7 +388,7 @@ jobs:
   production-deploy:
     working_directory: *working_directory
     machine:
-      image: ubuntu-2004:202201-02
+      image: ubuntu-2204:2023.10.1
     steps:
       # deploy script is in the repository
       - checkout

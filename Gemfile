@@ -18,7 +18,6 @@ gem "pg", "~> 1.1"
 gem "rails", "~> 6.0.4.8"
 gem "redcarpet", require: true
 gem "responders"
-gem "rollbar"
 gem "ruby_px"
 gem "before_renders"
 gem "bootsnap"

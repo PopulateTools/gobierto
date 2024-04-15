@@ -182,7 +182,6 @@ class Site < ApplicationRecord
       Time.zone.parse(configuration.configuration_variables["gobierto_people_default_filter_end_date"].to_s)
     ].any?
   rescue StandardError => e
-    Rollbar.error(e)
     false
   end
 

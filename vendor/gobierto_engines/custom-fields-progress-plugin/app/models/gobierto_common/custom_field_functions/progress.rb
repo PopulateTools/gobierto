@@ -24,7 +24,7 @@ module GobiertoCommon::CustomFieldFunctions
       progress_items.instance_eval { sum / size.to_f }
 
     rescue StandardError => e
-      Rollbar.error(e)
+      Appsignal.send_error(e)
 
       nil
     end

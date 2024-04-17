@@ -7,16 +7,14 @@ import "./modules/indicators_controller.js";
 import "./modules/invoices_controller.js";
 import "./modules/receipt_controller.js";
 import setDropdowns from "./modules/dropdown.js";
-import { checkAndReportAccessibility, appsignal } from 'lib/shared'
+import { checkAndReportAccessibility } from 'lib/shared'
 
-appsignal.wrap(() => {
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-    if (process.env.NODE_ENV === 'development') {
-      checkAndReportAccessibility()
-    }
+  if (process.env.NODE_ENV === 'development') {
+    checkAndReportAccessibility()
+  }
 
-  });
+});
 
-  document.addEventListener("turbolinks:load", () => setDropdowns())
-})
+document.addEventListener("turbolinks:load", () => setDropdowns())

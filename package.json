@@ -2,6 +2,7 @@
   "license": "SEE LICENSE IN LICENSE-AGPLv3.txt",
   "dependencies": {
     "@appsignal/javascript": "^1.3.28",
+    "@appsignal/plugin-window-events": "^1.0.20",
     "@appsignal/vue": "^1.1.5",
     "@claviska/jquery-minicolors": "^2.3.2",
     "@finos/perspective-viewer": "0.6.2",

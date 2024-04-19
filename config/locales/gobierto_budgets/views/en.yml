@@ -296,7 +296,7 @@ en:
           lede: Explaining the budget priorities for 2017, and how we built the budget
             around them.
           title: Promoting sports
-        title: Local municipality budgets in %{year}
+        title: Local municipality budgets OF %{place} - %{year}
         top_expense_category: Category
         top_expense_value: Amount
         top_income_category: Category

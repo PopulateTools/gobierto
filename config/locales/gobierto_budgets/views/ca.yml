@@ -243,11 +243,11 @@ ca:
         data_of_year: "* dades del %{year}"
         debt: Deute
         debt_tooltip: Deute del sector d’administracions públiques %{of_the_organization_name}
-        description: En aquesta pàgina pots aprendre sobre la distribució del pressupost,
+        description: En aquesta pàgina pots conèixer la distribució del pressupost,
           l'estat d'execució de cada partida i com ha evolucionat la despesa per habitant
         executed: Execució
         executed_percent: "%{percentage}% del pressupost actual"
-        executed_percent_other_year_html: En %{year} va ser un %{link}
+        executed_percent_other_year_html: El %{year} va ser un %{link}
         executed_tooltip: Despesa executada respecte el pressupost actual (pressupost
           inicial més modificacions)
         execution_block:
@@ -313,7 +313,7 @@ ca:
           lede: Et contem quines són les prioritats pressupuestàries per al 2017 segons
             les quals hem articulat el pla econòmic.
           title: Potenciant l'esport
-        title: Pressupostos municipals el %{year}
+        title: Pressupostos municipals de %{place} - %{year}
         top_expense_category: Categoria
         top_expense_value: Quantitat
         top_income_category: Categoria
@@ -458,7 +458,7 @@ ca:
         how_much_place_in: Quant es gasta %{place} en...
         last_year: L'any passat vam gastar
         per_person: Per habitant
-        show_me_another: Mostra'm un altra
+        show_me_another: Mostra'm un altre exemple
         title: Algunes partides destacades
         total: Despesa total
     feedback:
@@ -483,8 +483,7 @@ ca:
       step2_no:
         answer_html: El <strong>%{datum}</strong> de persones han dit que <strong>No
           entenen de què va aquesta partida</strong>
-        ask: Pots demanar al teu alcalde que amplie l'informació sobre aquesta i altres
-          partides
+        ask: Pots demanar ampliar la informació sobre aquesta i altres partides
       step2_yes:
         option1_html: Em sembla <span>POC</span>
         option2_html: Em sembla <span>APROPIAT</span>
@@ -588,11 +587,10 @@ ca:
       data_updated_at:
         last_update: Última actualització
       enough_information:
-        enough_information: Suficient informació?
+        enough_information: Hi ha prou informació?
         enough_information_cta: Demana més informació
-        enough_information_desc: Si considera que s'ha d'incloure més informació d'aquestes
-          dades per tenir una visió més completa de la mateixa o sobre l'ús dels seus
-          impostos, comuniqui-ho i li contestarem
+        enough_information_desc: Si trobes que cal incloure més informació per tenir
+          una visió més completa, comunica-ho i et respondrem
     visualizations:
       G_custom: Despeses per àrea
       G_economic: En què es gasta

@@ -26,7 +26,7 @@ ca:
         projects:
           sdg_projects_empty: No hi ha %{projects_term} de el pla relacionats amb
             aquest ODS
-          sdg_projects_title: "%{projects_term} de el pla relacionats amb aquest ODS"
+          sdg_projects_title: "%{projects_term} del pla relacionades amb aquest ODS"
       show:
         category: Categoria
         customize_columns: Personalitzeu columnes

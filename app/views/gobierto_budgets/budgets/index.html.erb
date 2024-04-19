@@ -1,4 +1,4 @@
-<% title t('.title', year: @year) %>
+<% title t('.title', place: current_site.organization_name, year: @year) %>
 
 <% content_for :body_attributes do %>
   <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"} %>
@@ -177,7 +177,7 @@
   <% end %>
 
   <div class="block">
-    <h2 class="with_description"><%= t('.main_budget_lines', from_your_organization_name: @site.determined_organization_name(:from_your)) %></h2>
+    <h2 class="with_description"><%= t('.main_budget_lines', from_your_organization_name: @site.determined_organization_name(:of_t) + @site.organization_name) %></h2>
 
     <div class="pure-g m_t_1">
       <div class="pure-u-1 pure-u-lg-11-24">

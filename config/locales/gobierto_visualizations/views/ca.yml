@@ -64,7 +64,7 @@ ca:
         special_administrative: Administratiu especial
         supplies: Subministraments
       contracts:
-        amount_by_type_of_process: Import per tipus de procedimient
+        amount_by_type_of_process: Import per tipus de procediment
         amount_distribution: Distribució per imports
         assignee: Adjudicatari
         categories: Categories
@@ -87,7 +87,7 @@ ca:
           external_source: Font
           formalization: Formalització
           process: Procediment
-          question_description: Què % del pressupost suposa aquest contracte?
+          question_description: Quin % del pressupost suposa aquest contracte?
           tender: Licitació
           type: Tipus
         date: Data

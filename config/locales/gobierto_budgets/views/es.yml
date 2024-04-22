@@ -303,7 +303,7 @@ es:
           lede: Te contamos cuales son las prioridades presupuestarias para el 2017
             en torno a las que hemos articulado el plan económico.
           title: Potenciando el deporte
-        title: Presupuestos municipales en %{year}
+        title: Presupuestos municipales de %{place} - %{year}
         top_expense_category: Categoría
         top_expense_value: Cantidad
         top_income_category: Categoría

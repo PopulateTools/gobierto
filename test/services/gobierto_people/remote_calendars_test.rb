@@ -30,10 +30,6 @@ module GobiertoPeople
       }
     end
 
-    def ensure_rollbar_is_not_called
-      Rollbar.stubs(:error).raises(Minitest::Assertion)
-    end
-
     def test_sync_with_invalid_configuration_credentials_does_not_propagate_ui_errors
       clear_calendar_configurations
 
@@ -44,7 +40,6 @@ module GobiertoPeople
 
       ::IbmNotes::Api.stubs(:get_person_events).raises(::IbmNotes::InvalidCredentials)
 
-      ensure_rollbar_is_not_called
       assert_nothing_raised do
         GobiertoPeople::RemoteCalendars.sync
       end
@@ -56,7 +51,6 @@ module GobiertoPeople
 
       ::Exchanger::Folder.stubs(:find).returns(nil)
 
-      ensure_rollbar_is_not_called
       assert_nothing_raised do
         GobiertoPeople::RemoteCalendars.sync
       end

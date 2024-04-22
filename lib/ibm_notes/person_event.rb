@@ -48,7 +48,7 @@ module IbmNotes
         else
           tz = ActiveSupport::TimeZone[time_zone]
           if tz.nil?
-            Rollbar.error(Exception.new("[GobiertoCalendars] Unknown IBM Notes time zone #{time_zone}"))
+            Appsignal.send_error(Exception.new("[GobiertoCalendars] Unknown IBM Notes time zone #{time_zone}"))
             nil
           end
         end

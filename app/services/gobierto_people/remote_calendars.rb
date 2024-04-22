@@ -18,7 +18,7 @@ module GobiertoPeople
         rescue GobiertoCalendars::CalendarIntegration::Error
           # Rescue this errors because they're just meant to display error feedback in the UI
         rescue StandardError => e
-          Rollbar.error(e)
+          Appsignal.send_error(e)
         end
       end
     end

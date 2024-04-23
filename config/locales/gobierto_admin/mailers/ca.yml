@@ -7,9 +7,9 @@ ca:
         click_link: Has estat convidat a col·laborar a la nostra plataforma web. Fes
           clic en el següent enllaç per a crear el teu compte.
         hi: Hola
-        subject: Has sigut invitat a col·laborar en Gobierto
+        subject: Has estat convidat a col·laborar a Gobierto
       reset_password_instructions:
         bye: Salutacions
         click_link: Fes clic en el següent enllaç per restaurar la teva contrasenya
         hi: Hola
-        subject: Instrucciones per activar el teu compte en Gobierto
+        subject: Instruccions per activar el teu compte a Gobierto

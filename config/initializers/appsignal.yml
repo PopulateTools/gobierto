@@ -1,0 +1,45 @@
+default: &defaults
+  name: Gobierto
+  push_api_key: "<%= ENV['APPSIGNAL_PUSH_API_KEY'] %>"
+  ignore_errors:
+    - ActionDispatch::Http::MimeNegotiation::InvalidType
+    - ActionController::InvalidAuthenticityToken
+    - ActionController::InvalidCrossOriginRequest
+    - ActionController::RoutingError
+    - ActionController::UnknownFormat
+    - ActionController::BadRequest
+    - ActiveJob::SerializationError
+    - ActionView::MissingTemplate
+    - AppSignalIgnoreError
+    - Faraday::ConnectionFailed
+    - Faraday::TimeoutError
+    - NoMethodError
+    - TypeError
+    - Encoding::CompatibilityError
+  enable_frontend_error_catching: true
+  enable_gc_instrumentation: true
+  enable_minutely_probes: true
+
+production:
+  <<: *defaults
+  active: true
+  revision: "<%= `[ -f REVISION ] && cat REVISION`.strip %>"
+  ignore_namespaces:
+    - ignore_on_appsignal
+
+staging:
+  <<: *defaults
+  active: true
+  revision: "<%= `[ -f REVISION ] && cat REVISION`.strip %>"
+  ignore_namespaces:
+    - background_job
+    - background
+    - ignore_on_appsignal
+
+development:
+  <<: *defaults
+  active: false
+
+test:
+  <<: *defaults
+  active: false

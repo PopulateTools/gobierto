@@ -2,6 +2,44 @@
 # yarn lockfile v1
 
 
+"@appsignal/core@=1.1.20":
+  version "1.1.20"
+  resolved "https://registry.yarnpkg.com/@appsignal/core/-/core-1.1.20.tgz#62d4d7ba52cb3b7866811eeedbb555923c468cb0"
+  integrity sha512-Y1N/n5f5rruKxQVSNT4aqctqomZZEwL5g+CXocA8LIdufoI5wyQVCxX8XWeLEQj8H+weIPckaq5jtQE8siQsnA==
+  dependencies:
+    "@appsignal/types" "=3.0.1"
+    isomorphic-unfetch "^3.1.0"
+    tslib "^2.3.0"
+
+"@appsignal/javascript@^1.3.28":
+  version "1.3.28"
+  resolved "https://registry.yarnpkg.com/@appsignal/javascript/-/javascript-1.3.28.tgz#b60d673ab3a61ef88f36535db5839bd3d8b8f897"
+  integrity sha512-XsMITXEMnSYX8Hk+T60WtRz438gKKUzS6v18a7jUBDtD0M0cU3tFLCPOfaCPcK3vXnpd/t2wskw1LbITR/QuUg==
+  dependencies:
+    "@appsignal/core" "=1.1.20"
+    "@appsignal/types" "=3.0.1"
+    tslib "^2.3.0"
+
+"@appsignal/plugin-window-events@^1.0.20":
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/@appsignal/plugin-window-events/-/plugin-window-events-1.0.20.tgz#97d30ac0504b1478fe62a8cd853ac8d8432ce674"
+  integrity sha512-dlW11PbShI/ZQGt2OhUv7TjEtJYPpiu8nJNX5j1DssEWMtrkCkCj47csQsF/i0vO/QgEN9LcJsfeTxSOq+OFfg==
+  dependencies:
+    "@appsignal/core" "=1.1.20"
+    "@appsignal/types" "=3.0.1"
+
+"@appsignal/types@=3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@appsignal/types/-/types-3.0.1.tgz#b3a7848f43c8f175476dccbf02a0958b3d2ef801"
+  integrity sha512-vCAKUohJkhN9jk3v2hTOdUDV5FYPr63dBOnmFdPINVUye8HnkpYZD5wrLaRNNKO5UlyhIt8jTkoKkmjkIlkiuQ==
+
+"@appsignal/vue@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@appsignal/vue/-/vue-1.1.5.tgz#8e2d37e1d89d9b0b4111a6dbb0113b524566e9d9"
+  integrity sha512-KVefGmPc32180Yb3hfgsKPDkmS1zawOuQTQEbjTOLOoPkbZsQ1Vb8O2GQIvzQlG3lb8tr6Gszn7ij0d/W7tQSA==
+  dependencies:
+    "@appsignal/types" "=3.0.1"
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
   resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.10.4.tgz"
@@ -7684,6 +7722,14 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.npmjs.org/isobject/-/isobject-3.0.1.tgz"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
+isomorphic-unfetch@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/isomorphic-unfetch/-/isomorphic-unfetch-3.1.0.tgz#87341d5f4f7b63843d468438128cb087b7c3e98f"
+  integrity sha512-geDJjpoZ8N0kWexiwkX8F9NkTsXhetLPVbZFQ+JTW239QNOwvB0gniuR1Wc6f0AMTn7/mFGyXvHTifrCp/GH8Q==
+  dependencies:
+    node-fetch "^2.6.1"
+    unfetch "^4.2.0"
+
 istanbul-lib-coverage@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz"
@@ -12358,6 +12404,11 @@ tslib@^1.10.0, tslib@^1.9.0, tslib@^1.9.3:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
+tslib@^2.3.0:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.2.tgz#703ac29425e7b37cd6fd456e92404d46d1f3e4ae"
+  integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
+
 tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.npmjs.org/tty-browserify/-/tty-browserify-0.0.0.tgz"
@@ -12449,6 +12500,11 @@ uglifyjs@^2.3.6:
   version "1.11.0"
   resolved "https://registry.npmjs.org/underscore/-/underscore-1.11.0.tgz"
   integrity sha512-xY96SsN3NA461qIRKZ/+qox37YXPtSBswMGfiNptr+wrt6ds4HaMw23TP612fEyGekRE6LNRiLYr/aqbHXNedw==
+
+unfetch@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/unfetch/-/unfetch-4.2.0.tgz#7e21b0ef7d363d8d9af0fb929a5555f6ef97a3be"
+  integrity sha512-F9p7yYCn6cIW9El1zi0HI6vqpeIvBsr3dSuRO6Xuppb1u5rXpCPmMvLSyECLhybr9isec8Ohl0hPekMVrEinDA==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

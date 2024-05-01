@@ -19,6 +19,7 @@ import { debounce } from "./modules/debounce.js";
 import { checkAndReportAccessibility } from "./modules/accessibility.js";
 import { groupBy } from "./modules/groupBy.js";
 import { formatNumbers } from "./modules/d3-format-numbers.js";
+import appsignal from "./modules/appsignal.js";
 
 export {
   AUTOCOMPLETE_DEFAULTS,
@@ -36,5 +37,6 @@ export {
   debounce,
   checkAndReportAccessibility,
   groupBy,
-  formatNumbers
+  formatNumbers,
+  appsignal
 };

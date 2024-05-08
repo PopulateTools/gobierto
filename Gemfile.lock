@@ -281,6 +281,8 @@ GEM
     jmespath (1.6.2)
     js_cookie_rails (2.2.0)
       railties (>= 3.1)
+    jsbundling-rails (1.0.2)
+      railties (>= 6.0.0)
     json_translate (4.0.1)
       activerecord (>= 4.2.0)
     jsonapi-renderer (0.2.2)
@@ -401,7 +403,7 @@ GEM
     rack (2.2.8.1)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-proxy (0.6.5)
+    rack-proxy (0.7.7)
       rack
     rack-rewrite (1.5.1)
     rack-test (2.1.0)
@@ -601,6 +603,7 @@ DEPENDENCIES
   ine-places (= 0.3.0)
   invisible_captcha
   jbuilder (~> 2.5)
+  jsbundling-rails
   json_translate
   kaminari (~> 1.2)
   ladle

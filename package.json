@@ -28,6 +28,7 @@
     "dc-vertical-stacked-bar-chart": "^1.0.0",
     "dc.leaflet": "0.5.1",
     "devbridge-autocomplete": "^1.4.7",
+    "esbuild": "^0.21.1",
     "eslint": "^6.4.0",
     "eslint-plugin-vue": "^5.2.3",
     "flightjs": "^1.5.2",
@@ -95,6 +96,7 @@
     "webpack-dev-server": "^3.3.1"
   },
   "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
     "eslint": "eslint 'app/javascript/**/*.{js,vue}'",
     "stylelint": "stylelint 'app/**/*.{css,scss}'",
     "check_i18n": "script/check_i18n.sh",

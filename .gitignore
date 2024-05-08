@@ -87,3 +87,6 @@ app/javascript/packs/glovo.js
 # Custom fields plugins
 !vendor/gobierto_engines/custom-fields-*-plugin
 vendor/gobierto_engines/custom-fields-*-plugin/node_modules
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

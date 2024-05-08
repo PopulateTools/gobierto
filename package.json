@@ -91,7 +91,8 @@
     "stylelint-config-recommended": "^3.0.0"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
+    "build": "node esbuild.config.mjs",
+    "build:report": "node esbuild.config.mjs --report",
     "eslint": "eslint 'app/javascript/**/*.{js,vue}'",
     "stylelint": "stylelint 'app/**/*.{css,scss}'",
     "check_i18n": "script/check_i18n.sh",

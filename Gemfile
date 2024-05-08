@@ -28,7 +28,7 @@ gem "rake", "~> 13.0"
 gem "i18n-js", ">= 3.0.0.rc11" # required to i18n-tasks
 
 # Bundlers
-gem 'jsbundling-rails'
+gem "jsbundling-rails"
 
 # Elasticsearch
 gem "elasticsearch", "~> 6.0", ">= 6.0.2"

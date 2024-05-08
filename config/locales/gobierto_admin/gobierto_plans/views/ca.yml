@@ -7,7 +7,7 @@ ca:
           items: Elements
           progress: Progrés
         plan_summary:
-          global_progress: Progreso global
+          global_progress: Progrés global
           projects: Projectes
       dashboards:
         index:
@@ -42,7 +42,7 @@ ca:
           delete_contents_confirm: Confirma que vols eliminar els projectes d'aquest
             pla
           export_csv: Exportar a CSV
-          import_csv: Importar des CSV
+          import_csv: Importar des de CSV
           indicators: indicadors
           placeholders:
             configuration_data: '{ "open_node": true }'
@@ -51,7 +51,7 @@ ca:
             footer: Peu de pàgina del pla
             introduction: Introducció del pla
             slug: sobre-de-aquest-pla
-            title: Titol del pla
+            title: Títol del pla
             year: 2018
           projects: Projectes
           publish_last_version_automatically: Publicar les versions noves dels projectes
@@ -69,7 +69,7 @@ ca:
           there_are: Hi ha %{info}
           title: Importa CSV
         import_csv_form:
-          confirm_import: Estàs segur?
+          confirm_import: N'estàs segur?
           custom_fields_table_plugin: Camps personalitzats (plugin de taula)
           disable_with: Carregant...
           more_info_html: Per obtenir més informació visita la documentació <a href="%{url}"
@@ -83,7 +83,7 @@ ca:
           warning: "<strong>Avís</strong> A l'importar des d'un fitxer CSV, si el
             pla està buit s'afegiran termes als vocabularis associats amb categories
             i camps personalitzats a mesura que es trobin, però si el pla ja conté
-            dades, a l'tractar-se d'una actualització, es produiran errors per als
+            dades, al tractar-se d'una actualització, es produiran errors per als
             termes que no es trobin en els respectius vocabularis."
         index:
           header:
@@ -97,7 +97,7 @@ ca:
           types: Tipus
           view_plan: Veure pla
           visibility_level:
-            draft: Borrador
+            draft: Esborrany
             published: Publicat
         new:
           title: Nou pla
@@ -125,7 +125,7 @@ ca:
             in_review: En revisió
             not_sent: No enviats
             rejected: No aprovats
-            sent: Sent
+            sent: Enviat
           total: Total
         form:
           button:
@@ -140,7 +140,7 @@ ca:
             updated: Actualitzat
           new: Nou
           title: Projectes de %{name}
-          view: Veure item
+          view: Veure ítem
         new:
           title: Nou projecte
       shared:

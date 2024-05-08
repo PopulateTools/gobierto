@@ -156,6 +156,8 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    cssbundling-rails (1.4.0)
+      railties (>= 6.0.0)
     dalli (3.2.3)
     date (3.3.3)
     debug (1.9.1)
@@ -588,6 +590,7 @@ DEPENDENCIES
   capybara-email
   charlock_holmes
   cookies_eu
+  cssbundling-rails
   dalli
   debug
   elasticsearch (~> 6.0, >= 6.0.2)

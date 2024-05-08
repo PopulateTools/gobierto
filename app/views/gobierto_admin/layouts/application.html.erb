@@ -8,7 +8,7 @@
 
   <!-- admin chunks (code-splitting) -->
   <%= javascript_include_tag 'admin', 'data-turbolinks-track': true %>
-  <%= stylesheet_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
+  <%= stylesheet_link_tag 'admin', 'data-turbolinks-track': true %>
 
   <% Rails.application.config.custom_field_plugins_packs.each do |plugin_name| %>
     <%= javascript_include_tag "custom_fields_#{plugin_name}_plugin", 'data-turbolinks-track': true %>

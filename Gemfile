@@ -27,10 +27,7 @@ gem "rake", "~> 13.0"
 # Frontend
 gem "i18n-js", ">= 3.0.0.rc11" # required to i18n-tasks
 
-# Webpack
-gem "webpacker", "~> 5.0"
-
-# Frontend
+# Bundlers
 gem 'jsbundling-rails'
 
 # Elasticsearch

@@ -9,7 +9,6 @@
     "@finos/perspective-viewer-d3fc": "0.6.2",
     "@finos/perspective-viewer-datagrid": "0.6.2",
     "@fortawesome/fontawesome-free": "^5.15.4",
-    "@rails/webpacker": "^5.4.3",
     "accounting": "^0.4.1",
     "air-datepicker": "^2.2.3",
     "axe-core": "^4.2.1",
@@ -88,12 +87,8 @@
     "husky": "^4.2.5",
     "lint-staged": "^10.5.3",
     "node-fetch": "^2.6.1",
-    "speed-measure-webpack-plugin": "^1.5.0",
     "stylelint": "^13.8.0",
-    "stylelint-config-recommended": "^3.0.0",
-    "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-cli": "^3.3.1",
-    "webpack-dev-server": "^3.3.1"
+    "stylelint-config-recommended": "^3.0.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
@@ -101,10 +96,7 @@
     "stylelint": "stylelint 'app/**/*.{css,scss}'",
     "check_i18n": "script/check_i18n.sh",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "start": "bin/webpack-dev-server",
-    "analyze": "WEBPACK_ANALYZE=true yarn run start",
-    "speed": "WEBPACK_SPEED=true yarn run start"
+    "test:watch": "jest --watch"
   },
   "husky": {
     "hooks": {

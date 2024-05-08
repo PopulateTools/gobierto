@@ -9,7 +9,7 @@
   <!-- application styles -->
   <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <!-- vendor libraries -->
-  <%= javascript_pack_tag 'commons', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'commons', 'data-turbolinks-track': true %>
 
   <!-- module libraries -->
   <%= yield(:javascript_module_link) %>

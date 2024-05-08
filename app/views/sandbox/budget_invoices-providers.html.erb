@@ -160,7 +160,7 @@
 </div>
 
 <% content_for :javascript_hook do %>
-  <%= javascript_pack_tag 'budgets' %>
+  <%= javascript_include_tag 'budgets' %>
   <%= javascript_tag do %>
     window.GobiertoBudgets.invoices_controller.show();
   <% end %>

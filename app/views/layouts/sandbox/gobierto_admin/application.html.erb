@@ -10,7 +10,7 @@
   <!-- module styles -->
   <%= yield(:stylesheet_module_link) %>
 
-  <%= javascript_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'admin', 'data-turbolinks-track': true %>
 
   <%= csrf_meta_tags %>
   <%= yield(:javascript_module_link) %>

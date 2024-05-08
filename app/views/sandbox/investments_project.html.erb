@@ -1,7 +1,7 @@
 <%= content_for :body_attributes do %> class="gobierto_investments" <% end %>
 
 <% content_for :javascript_module_link do %>
-  <%= javascript_packs_with_chunks_tag 'investments', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'investments', 'data-turbolinks-track': true %>
 <% end %>
 
 <% content_for :stylesheet_module_link do %>

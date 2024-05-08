@@ -1,5 +1,5 @@
 <% content_for :javascript_module_link do %>
-  <%= javascript_packs_with_chunks_tag 'cms', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'cms', 'data-turbolinks-track': true %>
 <% end %>
 
 <% content_for :stylesheet_module_link do %>

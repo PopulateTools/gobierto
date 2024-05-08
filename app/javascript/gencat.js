@@ -1,0 +1,1 @@
+/home/hugo/populate/gobierto-gencat-engine/app/javascripts/packs/gencat.js

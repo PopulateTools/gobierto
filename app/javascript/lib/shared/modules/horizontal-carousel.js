@@ -1,4 +1,4 @@
-import { ImageLightbox } from "lib/shared";
+import { ImageLightbox } from './image-lightbox';
 
 export class HorizontalCarousel {
   constructor(carousel) {

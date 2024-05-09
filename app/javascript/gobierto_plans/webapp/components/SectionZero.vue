@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import NodeRoot from "../components/NodeRoot";
-import { PlansStore } from "../lib/store";
+import NodeRoot from '../components/NodeRoot.vue';
+import { PlansStore } from '../lib/store';
 
 export default {
   name: "SectionZero",

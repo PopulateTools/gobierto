@@ -1,12 +1,12 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-const Main = () => import("../webapp/pages/Main.vue");
-const Index = () => import("../webapp/components/Index.vue");
-const Dataset = () => import("../webapp/components/Dataset.vue");
-const Visualizations = () => import("../webapp/pages/Visualizations.vue");
+const Main = () => import('../webapp/pages/Main.vue');
+const Index = () => import('../webapp/components/Index.vue');
+const Dataset = () => import('../webapp/components/Dataset.vue');
+const Visualizations = () => import('../webapp/pages/Visualizations.vue');
 
 export const tabs = ['resumen', 'editor', 'consultas', 'visualizaciones', 'descarga', 'mapa']
 export const ROUTE_NAMES = {

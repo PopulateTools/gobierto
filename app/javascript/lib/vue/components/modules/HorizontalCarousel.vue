@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { HorizontalCarousel } from "lib/shared";
+import { HorizontalCarousel } from '../../../../lib/shared';
 
 export default {
   name: "HorizontalCarousel",

@@ -50,9 +50,9 @@
   </div>
 </template>
 <script>
-import Button from "./Button.vue";
-import { VueDirectivesMixin } from "lib/vue/directives";
-import { DownloadFilesFactoryMixin } from "./../../../lib/factories/download";
+import Button from './Button.vue';
+import { VueDirectivesMixin } from '../../../../lib/vue/directives';
+import { DownloadFilesFactoryMixin } from '../../../lib/factories/download';
 
 export default {
   name: 'DownloadButton',

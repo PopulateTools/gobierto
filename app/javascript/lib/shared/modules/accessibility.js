@@ -1,4 +1,4 @@
-import "../../../stylesheets/accessibility.css";
+import '../../../../assets/stylesheets/accessibility.css';
 
 import axeCore from 'axe-core'
 

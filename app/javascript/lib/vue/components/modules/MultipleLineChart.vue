@@ -17,7 +17,7 @@ import { scaleTime, scaleLinear, scaleOrdinal, scaleBand } from 'd3-scale';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { timeFormat } from 'd3-time-format';
 import { format, formatDefaultLocale } from 'd3-format';
-import { d3locale } from "lib/shared";
+import { d3locale } from '../../../../lib/shared';
 
 const d3 = { select, selectAll, nest, min, max, line, scaleOrdinal, scaleBand, scaleTime, scaleLinear, axisBottom, axisLeft, timeFormat, extent, curveCardinal, format, formatDefaultLocale }
 

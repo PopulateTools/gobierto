@@ -1,17 +1,17 @@
-import { max } from "d3-array";
+import { max } from 'd3-array';
 import {
   forceCollide,
   forceManyBody,
   forceSimulation,
   forceX,
   forceY
-} from "d3-force";
-import { formatDefaultLocale } from "d3-format";
-import { wordwrap } from "d3-jetpack";
-import { scaleLinear, scaleSqrt, scaleThreshold } from "d3-scale";
-import { mouse, select, selectAll } from "d3-selection";
-import { transition } from "d3-transition";
-import { accounting, d3locale } from "lib/shared";
+} from 'd3-force';
+import { formatDefaultLocale } from 'd3-format';
+import { wordwrap } from 'd3-jetpack';
+import { scaleLinear, scaleSqrt, scaleThreshold } from 'd3-scale';
+import { mouse, select, selectAll } from 'd3-selection';
+import { transition } from 'd3-transition';
+import { accounting, d3locale } from '../../../lib/shared';
 
 const d3 = {
   select,
@@ -332,4 +332,3 @@ export class VisBubble {
     return -Math.pow(d.radius, 2) * 0.06;
   }
 }
-

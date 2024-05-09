@@ -1,6 +1,6 @@
-import 'webpack-jquery-ui/draggable'
-import { AUTOCOMPLETE_DEFAULTS } from 'lib/shared'
 import 'devbridge-autocomplete'
+import 'webpack-jquery-ui/draggable'
+import { AUTOCOMPLETE_DEFAULTS } from '../../lib/shared'
 
 $(document).on('turbolinks:load', function() {
   var $input_admin = $('input#pages_search')

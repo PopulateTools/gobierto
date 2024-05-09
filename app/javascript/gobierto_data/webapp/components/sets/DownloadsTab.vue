@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import Resources from "./../commons/Resources.vue";
-import DownloadButton from "./../commons/DownloadButton.vue";
-import DownloadLink from "./../commons/DownloadLink.vue";
+import Resources from '../commons/Resources.vue';
+import DownloadButton from '../commons/DownloadButton.vue';
+import DownloadLink from '../commons/DownloadLink.vue';
 
 export default {
   name: "DownloadsTab",

@@ -1,6 +1,6 @@
-import { select } from "d3-selection";
-import { timeFormatDefaultLocale } from "d3-time-format";
-import { accounting, d3locale } from "lib/shared";
+import { select } from 'd3-selection';
+import { timeFormatDefaultLocale } from 'd3-time-format';
+import { accounting, d3locale } from '../../../lib/shared';
 
 const d3 = { timeFormatDefaultLocale, select };
 

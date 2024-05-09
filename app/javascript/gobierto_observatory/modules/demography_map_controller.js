@@ -1,20 +1,20 @@
-import crossfilter from "crossfilter2";
-import { extent, max, min, sum } from "d3-array";
-import { axisBottom } from "d3-axis";
-import { csv } from "d3-fetch";
-import { format, formatDefaultLocale } from "d3-format";
-import { scaleLinear } from "d3-scale";
-import { schemeCategory10 } from "d3-scale-chromatic";
-import { select, selectAll } from "d3-selection";
-import { transition } from "d3-transition";
-import populationPyramid from "dc-population-pyramid";
-import stackedVertical from "dc-vertical-stacked-bar-chart";
-import { DataCount, RowChart, chartRegistry, renderAll, redrawAll, pluck } from "dc";
-import * as dc_leaflet from "dc.leaflet";
+import crossfilter from 'crossfilter2';
+import { extent, max, min, sum } from 'd3-array';
+import { axisBottom } from 'd3-axis';
+import { csv } from 'd3-fetch';
+import { format, formatDefaultLocale } from 'd3-format';
+import { scaleLinear } from 'd3-scale';
+import { schemeCategory10 } from 'd3-scale-chromatic';
+import { select, selectAll } from 'd3-selection';
+import { transition } from 'd3-transition';
+import populationPyramid from 'dc-population-pyramid';
+import stackedVertical from 'dc-vertical-stacked-bar-chart';
+import { DataCount, RowChart, chartRegistry, renderAll, redrawAll, pluck } from 'dc';
+import * as dc_leaflet from 'dc.leaflet';
 //https://github.com/Leaflet/Leaflet.markercluster/issues/874
-import * as L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import "./../../stylesheets/_comp-demographic-map.scss"
+import * as L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+// import '../../../assets/stylesheets/_comp-demographic-map.scss'
 
 const d3 = {
   csv,

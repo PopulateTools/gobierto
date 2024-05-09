@@ -1,8 +1,8 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { getRemoteData } from "../webapp/lib/utils";
-import { EventBus } from "../webapp/lib/mixins/event_bus";
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import { getRemoteData } from '../webapp/lib/utils';
+import { EventBus } from '../webapp/lib/mixins/event_bus';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
@@ -25,13 +25,13 @@ export class CostsController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () =>
-        import("../webapp/containers/costs/Home.vue");
+        import('../webapp/containers/costs/Home.vue');
       const TableFirstLevel = () =>
-        import("../webapp/containers/costs/table/TableFirstLevel.vue");
+        import('../webapp/containers/costs/table/TableFirstLevel.vue');
       const TableSecondLevel = () =>
-        import("../webapp/containers/costs/table/TableSecondLevel.vue");
+        import('../webapp/containers/costs/table/TableSecondLevel.vue');
       const TableItem = () =>
-        import("../webapp/containers/costs/table/TableItem.vue");
+        import('../webapp/containers/costs/table/TableItem.vue');
 
       Promise.resolve(getRemoteData(options.costsEndpoint)).then(rawData => {
         this.setGlobalVariables(rawData);

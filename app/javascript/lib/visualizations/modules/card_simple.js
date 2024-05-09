@@ -1,7 +1,7 @@
-import { timeFormat, timeParse } from "d3-time-format";
-import { accounting } from "lib/shared";
-import { Card } from "./card.js";
-import { Sparkline } from "./sparkline.js";
+import { timeFormat, timeParse } from 'd3-time-format';
+import { accounting } from '../../../lib/shared';
+import { Card } from './card.js';
+import { Sparkline } from './sparkline.js';
 
 const d3 = { timeFormat, timeParse };
 

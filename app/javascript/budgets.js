@@ -1,3 +1,3 @@
-import 'lib/commons'
-import 'gobierto_budgets'
-import 'lib/i18n'
+import './lib/commons'
+import './gobierto_budgets'
+import './lib/i18n'

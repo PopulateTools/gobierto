@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { translate } from "lib/vue/filters";
+import { translate } from '../../../lib/vue/filters';
 
 export default {
   name: "CustomFieldParagraph",

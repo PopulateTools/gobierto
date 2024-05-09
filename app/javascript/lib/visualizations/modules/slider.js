@@ -1,6 +1,6 @@
-import { drag } from "d3-drag";
-import { scalePoint, scaleQuantize } from "d3-scale";
-import { mouse, select, selectAll } from "d3-selection";
+import { drag } from 'd3-drag';
+import { scalePoint, scaleQuantize } from 'd3-scale';
+import { mouse, select, selectAll } from 'd3-selection';
 
 const d3 = {
   select,

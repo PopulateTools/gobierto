@@ -1,6 +1,6 @@
-import { baseUrl } from "../commons.js";
-import { getToken } from "../helpers";
-import axios from "axios";
+import { baseUrl } from '../commons.js';
+import { getToken } from '../helpers';
+import axios from 'axios';
 
 const endPoint = `${baseUrl}/visualizations`;
 const token = getToken();

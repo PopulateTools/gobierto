@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import Queries from "./../commons/Queries.vue";
+import Queries from '../commons/Queries.vue';
 
 export default {
   name: "QueriesTab",

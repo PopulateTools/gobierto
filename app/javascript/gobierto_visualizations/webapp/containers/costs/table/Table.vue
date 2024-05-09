@@ -17,9 +17,9 @@
 </template>
 <script>
 const COMPONENTS_TABLE = [
-  () => import("./TableFirstLevel.vue"),
-  () => import("./TableSecondLevel.vue"),
-  () => import("./TableItem.vue")
+  () => import('./TableFirstLevel.vue'),
+  () => import('./TableSecondLevel.vue'),
+  () => import('./TableItem.vue')
 ];
 
 export default {

@@ -1,4 +1,4 @@
-import { translate } from "lib/vue/filters"
+import { translate } from '../../../lib/vue/filters'
 
 export class Middleware {
   constructor({ dictionary, filters }) {

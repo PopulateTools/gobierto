@@ -1,6 +1,6 @@
-import { csv } from "d3-fetch";
-import { mean, median, sum } from "d3-array";
-import axios from "axios";
+import { csv } from 'd3-fetch';
+import { mean, median, sum } from 'd3-array';
+import axios from 'axios';
 
 const endPointGobiertoData = `/api/v1/data/data.json`
 

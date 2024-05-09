@@ -1,5 +1,5 @@
-import { path } from "d3-path";
-import { voronoi } from "d3-voronoi";
+import { path } from 'd3-path';
+import { voronoi } from 'd3-voronoi';
 
 const d3 = { voronoi, path };
 

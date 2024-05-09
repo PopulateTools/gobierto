@@ -42,9 +42,9 @@
 
 // define the components as dynamic
 const COMPONENTS = [
-  () => import("./sidebar/SidebarCategories.vue"),
-  () => import("./sidebar/SidebarDatasets.vue"),
-  () => import("./sidebar/SidebarQueries.vue")
+  () => import('./sidebar/SidebarCategories.vue'),
+  () => import('./sidebar/SidebarDatasets.vue'),
+  () => import('./sidebar/SidebarQueries.vue')
 ];
 
 export default {

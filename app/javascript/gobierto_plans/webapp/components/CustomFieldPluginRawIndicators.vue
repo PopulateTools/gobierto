@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import { translate } from "lib/vue/filters";
-import { groupBy } from "../lib/helpers";
+import { translate } from '../../../lib/vue/filters';
+import { groupBy } from '../lib/helpers';
 
 export default {
   name: "CustomFieldPluginRawIndicators",

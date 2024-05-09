@@ -1,7 +1,7 @@
 import 'velocity-animate'
-import "../stylesheets/gobierto-plans.scss"
+// import '../../assets/stylesheets/gobierto-plans.scss'
 
-import { GobiertoPlansController } from "./modules/plan_types_controller";
+import { GobiertoPlansController } from './modules/plan_types_controller';
 
 document.addEventListener('DOMContentLoaded', () => {
   new GobiertoPlansController();

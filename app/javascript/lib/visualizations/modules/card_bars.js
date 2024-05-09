@@ -1,8 +1,8 @@
-import { max } from "d3-array";
-import { scaleLinear } from "d3-scale";
-import { select } from "d3-selection";
-import { timeFormat, timeParse } from "d3-time-format";
-import { Card } from "./card.js";
+import { max } from 'd3-array';
+import { scaleLinear } from 'd3-scale';
+import { select } from 'd3-selection';
+import { timeFormat, timeParse } from 'd3-time-format';
+import { Card } from './card.js';
 
 const d3 = { select, scaleLinear, timeFormat, timeParse, max };
 

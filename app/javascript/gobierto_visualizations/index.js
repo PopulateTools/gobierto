@@ -1,9 +1,9 @@
-import "../stylesheets/gobierto-visualizations.scss"
+// import '../../assets/stylesheets/gobierto-visualizations.scss'
 
-import { ContractsController } from "./modules/contracts_controller.js";
-import { SubsidiesController } from "./modules/subsidies_controller.js";
-import { CostsController } from "./modules/costs_controller.js";
-import { DebtsController } from "./modules/debts_controller.js";
+import { ContractsController } from './modules/contracts_controller.js';
+import { SubsidiesController } from './modules/subsidies_controller.js';
+import { CostsController } from './modules/costs_controller.js';
+import { DebtsController } from './modules/debts_controller.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const contractsAppNode = document.getElementById("gobierto-visualizations-contracts-app");

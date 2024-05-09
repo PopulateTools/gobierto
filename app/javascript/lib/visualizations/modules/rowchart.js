@@ -1,8 +1,8 @@
-import { max } from "d3-array";
-import { axisBottom, axisLeft } from "d3-axis";
-import { scaleBand, scaleLinear } from "d3-scale";
-import { select, selectAll } from "d3-selection";
-import { transition } from "d3-transition";
+import { max } from 'd3-array';
+import { axisBottom, axisLeft } from 'd3-axis';
+import { scaleBand, scaleLinear } from 'd3-scale';
+import { select, selectAll } from 'd3-selection';
+import { transition } from 'd3-transition';
 
 const d3 = {
   select,

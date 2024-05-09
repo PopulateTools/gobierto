@@ -1,13 +1,13 @@
-import "../stylesheets/gobierto-budgets.scss"
-import "./modules/init.js";
+// import '../../assets/stylesheets/gobierto-budgets.scss';
+import './modules/init.js';
 // init.js must be first
-import "./modules/application.js";
-import "./modules/execution.js";
-import "./modules/indicators_controller.js";
-import "./modules/invoices_controller.js";
-import "./modules/receipt_controller.js";
-import setDropdowns from "./modules/dropdown.js";
-import { checkAndReportAccessibility } from 'lib/shared'
+import { checkAndReportAccessibility } from '../lib/shared';
+import './modules/application.js';
+import setDropdowns from './modules/dropdown.js';
+import './modules/execution.js';
+import './modules/indicators_controller.js';
+import './modules/invoices_controller.js';
+import './modules/receipt_controller.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 

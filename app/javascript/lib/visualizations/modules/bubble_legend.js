@@ -1,6 +1,6 @@
-import { range } from "d3-array";
-import { scaleOrdinal } from "d3-scale";
-import { select, selectAll } from "d3-selection";
+import { range } from 'd3-array';
+import { scaleOrdinal } from 'd3-scale';
+import { select, selectAll } from 'd3-selection';
 
 const d3 = { select, selectAll, scaleOrdinal, range };
 

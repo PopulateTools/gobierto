@@ -1,16 +1,16 @@
-import crossfilter from "crossfilter2";
-import { max, mean, median, sum } from "d3-array";
-import { scaleThreshold } from "d3-scale";
-import { money } from "lib/vue/filters";
+import crossfilter from 'crossfilter2';
+import { max, mean, median, sum } from 'd3-array';
+import { scaleThreshold } from 'd3-scale';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 import {
   AmountDistributionBars,
   GroupPctDistributionBars
-} from "lib/visualizations";
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { getRemoteData, sortByField, calculateSumMeanMedian } from "../webapp/lib/utils";
-import { EventBus } from "../webapp/lib/mixins/event_bus";
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+} from '../../lib/visualizations';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
+import { money } from '../../lib/vue/filters';
+import { EventBus } from '../webapp/lib/mixins/event_bus';
+import { calculateSumMeanMedian, getRemoteData, sortByField } from '../webapp/lib/utils';
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
@@ -33,13 +33,13 @@ export class SubsidiesController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () => import("../webapp/containers/subsidies/Home.vue");
+      const Home = () => import('../webapp/containers/subsidies/Home.vue');
       const Summary = () =>
-        import("../webapp/containers/subsidies/Summary.vue");
+        import('../webapp/containers/subsidies/Summary.vue');
       const SubsidiesIndex = () =>
-        import("../webapp/containers/subsidies/SubsidiesIndex.vue");
+        import('../webapp/containers/subsidies/SubsidiesIndex.vue');
       const SubsidiesShow = () =>
-        import("../webapp/containers/subsidies/SubsidiesShow.vue");
+        import('../webapp/containers/subsidies/SubsidiesShow.vue');
 
       Promise.all([getRemoteData(options.subsidiesEndpoint)]).then(rawData => {
         this.setGlobalVariables(rawData);

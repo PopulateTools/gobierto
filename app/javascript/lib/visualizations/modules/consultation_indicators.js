@@ -1,10 +1,10 @@
-import { mean, sum } from "d3-array";
-import { nest } from "d3-collection";
-import { csv } from "d3-fetch";
-import { format } from "d3-format";
-import { scaleQuantile } from "d3-scale";
-import { select } from "d3-selection";
-import { accounting } from "lib/shared";
+import { mean, sum } from 'd3-array';
+import { nest } from 'd3-collection';
+import { csv } from 'd3-fetch';
+import { format } from 'd3-format';
+import { scaleQuantile } from 'd3-scale';
+import { select } from 'd3-selection';
+import { accounting } from '../../../lib/shared';
 
 const d3 = { csv, select, format, sum, mean, scaleQuantile, nest };
 

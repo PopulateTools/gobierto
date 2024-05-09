@@ -54,7 +54,7 @@
 <script>
 import Distribution from './Distribution.vue'
 import Table from './table/Table.vue'
-import { EventBus } from "../../lib/mixins/event_bus";
+import { EventBus } from '../../lib/mixins/event_bus';
 
 export default {
   name: 'Home',

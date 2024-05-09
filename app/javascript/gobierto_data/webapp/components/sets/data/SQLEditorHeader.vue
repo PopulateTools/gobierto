@@ -103,15 +103,15 @@
   </div>
 </template>
 <script>
-import { VueDirectivesMixin } from "lib/vue/directives";
-import { closableMixin } from "./../../../../lib/commons.js";
+import { VueDirectivesMixin } from '../../../../../lib/vue/directives';
+import { closableMixin } from '../../../../lib/commons.js';
 import { tabs } from '../../../../lib/router';
 
-import Button from "./../../commons/Button.vue";
-import Queries from "./../../commons/Queries.vue";
-import PulseSpinner from "./../../commons/PulseSpinner.vue";
-import RecentQueries from "./../../commons/RecentQueries.vue";
-import SavingDialog from "./../../commons/SavingDialog.vue";
+import Button from '../../commons/Button.vue';
+import Queries from '../../commons/Queries.vue';
+import PulseSpinner from '../../commons/PulseSpinner.vue';
+import RecentQueries from '../../commons/RecentQueries.vue';
+import SavingDialog from '../../commons/SavingDialog.vue';
 
 export default {
   name: "SQLEditorHeader",

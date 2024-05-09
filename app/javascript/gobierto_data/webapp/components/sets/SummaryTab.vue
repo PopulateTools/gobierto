@@ -112,16 +112,16 @@
 </template>
 
 <script>
-import VisualizationsTab from "./VisualizationsTab.vue";
-import Visualizations from "./../commons/Visualizations.vue";
-import Resources from "./../commons/Resources.vue";
-import InfoTab from "./../commons/InfoTab.vue";
-import Queries from "./../commons/Queries.vue";
-import Caret from "./../commons/Caret.vue";
-import Description from "./../commons/Description.vue";
-import { tabs } from "../../../lib/router";
-import { translate } from "lib/vue/filters";
-import { Dropdown, SkeletonSpinner } from "lib/vue/components";
+import { Dropdown, SkeletonSpinner } from '../../../../lib/vue/components';
+import { translate } from '../../../../lib/vue/filters';
+import { tabs } from '../../../lib/router';
+import Caret from '../commons/Caret.vue';
+import Description from '../commons/Description.vue';
+import InfoTab from '../commons/InfoTab.vue';
+import Queries from '../commons/Queries.vue';
+import Resources from '../commons/Resources.vue';
+import Visualizations from '../commons/Visualizations.vue';
+import VisualizationsTab from './VisualizationsTab.vue';
 
 export default {
   name: "SummaryTab",

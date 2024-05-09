@@ -1,4 +1,4 @@
-import "tipsy-1a";
+import 'tipsy-1a';
 
 /* Toggle text method */
 $.fn.extend({

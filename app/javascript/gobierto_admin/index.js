@@ -1,4 +1,4 @@
-import "../stylesheets/gobierto-admin.scss"
+// import '../../assets/stylesheets/gobierto-admin.scss'
 import './modules/init.js'
 import './modules/admin_groups_admins_controller.js'
 import './modules/admin_groups_controller.js'

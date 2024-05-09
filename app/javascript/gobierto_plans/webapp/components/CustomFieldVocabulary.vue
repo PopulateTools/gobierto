@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import { PlansStore } from "../lib/store";
-import CustomFieldVocabularySDG from "./CustomFieldVocabularySDG.vue";
-import { routes } from "../lib/router";
+import { PlansStore } from '../lib/store';
+import CustomFieldVocabularySDG from './CustomFieldVocabularySDG.vue';
+import { routes } from '../lib/router';
 
 export default {
   name: "CustomFieldVocabulary",

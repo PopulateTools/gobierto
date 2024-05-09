@@ -1,5 +1,5 @@
-import { VisLinesExecution } from 'lib/visualizations'
-import { GOBIERTO_BUDGETS } from 'lib/events'
+import { GOBIERTO_BUDGETS } from '../../lib/events';
+import { VisLinesExecution } from '../../lib/visualizations';
 
 $(document).on('turbolinks:load', function() {
 

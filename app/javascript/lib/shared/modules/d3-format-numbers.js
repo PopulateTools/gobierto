@@ -1,5 +1,6 @@
-import { d3locale } from "lib/shared";
 import { format, formatDefaultLocale } from 'd3-format';
+import { d3locale } from '../../../lib/shared';
+
 const d3 = { format, formatDefaultLocale };
 
 export const formatNumbers = (value) => {

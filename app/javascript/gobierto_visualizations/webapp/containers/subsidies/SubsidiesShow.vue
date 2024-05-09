@@ -32,7 +32,7 @@
 
 <script>
 
-import { VueFiltersMixin } from "lib/vue/filters"
+import { VueFiltersMixin } from '../../../../lib/vue/filters'
 
 export default {
   name: 'SubsidiesShow',

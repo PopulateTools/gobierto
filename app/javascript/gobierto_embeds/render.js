@@ -1,4 +1,4 @@
-import perspective from "@finos/perspective";
+import perspective from '@finos/perspective';
 
 export const getData = async container => {
   const { gobiertoVisualization: id, site, token } = container.dataset;

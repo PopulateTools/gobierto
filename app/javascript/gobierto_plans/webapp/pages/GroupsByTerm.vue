@@ -34,11 +34,11 @@
 </template>
 
 <script>
-import NumberLabel from "../components/NumberLabel";
-import SortIcon from "../components/SortIcon";
-import GroupsByTermTableRowRecursive from "../components/GroupsByTermTableRowRecursive";
-import { NamesMixin } from "../lib/mixins/names";
-import { TableHeaderMixin } from "../lib/mixins/table-header";
+import NumberLabel from '../components/NumberLabel.vue';
+import SortIcon from '../components/SortIcon.vue';
+import GroupsByTermTableRowRecursive from '../components/GroupsByTermTableRowRecursive.vue';
+import { NamesMixin } from '../lib/mixins/names';
+import { TableHeaderMixin } from '../lib/mixins/table-header';
 
 export default {
   name: "GroupsByTerm",

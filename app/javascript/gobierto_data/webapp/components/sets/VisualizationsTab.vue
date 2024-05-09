@@ -55,12 +55,12 @@
   </div>
 </template>
 <script>
-import { SkeletonSpinner } from "lib/vue/components";
-import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
+import { SkeletonSpinner } from '../../../../lib/vue/components';
+import { VisualizationFactoryMixin } from '../../../lib/factories/visualizations';
 
 const COMPONENTS = [
-  () => import("./VisualizationsList.vue"),
-  () => import("./VisualizationsItem.vue")
+  () => import('./VisualizationsList.vue'),
+  () => import('./VisualizationsItem.vue')
 ];
 
 export default {

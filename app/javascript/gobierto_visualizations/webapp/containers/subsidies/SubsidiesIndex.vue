@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import { Table } from "lib/vue/components";
-import { EventBus } from "../../lib/mixins/event_bus";
-import { subsidiesColumns } from "../../lib/config/subsidies.js";
+import { Table } from '../../../../lib/vue/components';
+import { EventBus } from '../../lib/mixins/event_bus';
+import { subsidiesColumns } from '../../lib/config/subsidies.js';
 
 export default {
   name: 'SubsidiesIndex',

@@ -88,8 +88,8 @@
 </template>
 
 <script>
-import { ItemsFilterMixin } from "lib/vue/mixins";
-import { Checkbox, BlockHeader, Calendar, RangeBars, Dropdown } from "lib/vue/components";
+import { ItemsFilterMixin } from '../../../../lib/vue/mixins';
+import { Checkbox, BlockHeader, Calendar, RangeBars, Dropdown } from '../../../../lib/vue/components';
 
 export default {
   name: "Filters",

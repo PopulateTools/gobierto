@@ -88,15 +88,15 @@
   </div>
 </template>
 <script>
-import { Table } from "lib/vue/components";
-import { BeeSwarm, TreeMap } from "gobierto-vizzs";
-import TreeMapButtons from "../../components/TreeMapButtons.vue";
-import MetricBoxes from "../../components/MetricBoxes.vue";
-import MetricBox from "../../components/MetricBox.vue";
-import Tips from "../../components/Tips.vue";
-import { SharedMixin } from "../../lib/mixins/shared";
-import { assigneesColumns } from "../../lib/config/contracts.js";
-import { money } from "lib/vue/filters";
+import { Table } from '../../../../lib/vue/components';
+import { BeeSwarm, TreeMap } from 'gobierto-vizzs';
+import TreeMapButtons from '../../components/TreeMapButtons.vue';
+import MetricBoxes from '../../components/MetricBoxes.vue';
+import MetricBox from '../../components/MetricBox.vue';
+import Tips from '../../components/Tips.vue';
+import { SharedMixin } from '../../lib/mixins/shared';
+import { assigneesColumns } from '../../lib/config/contracts.js';
+import { money } from '../../../../lib/vue/filters';
 
 export default {
   name: "Summary",

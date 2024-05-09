@@ -1,6 +1,6 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
@@ -25,9 +25,9 @@ export class InvestmentsController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () => import("../webapp/containers/home/Home.vue");
-      const Project = () => import("../webapp/containers/project/Project.vue");
-      const MapTour = () => import("../webapp/components/MapTour.vue");
+      const Home = () => import('../webapp/containers/home/Home.vue');
+      const Project = () => import('../webapp/containers/project/Project.vue');
+      const MapTour = () => import('../webapp/components/MapTour.vue');
 
       const router = new VueRouter({
         mode: "history",

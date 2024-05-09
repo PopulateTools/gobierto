@@ -33,8 +33,9 @@
   </div>
 </template>
 <script>
-import { date, truncate } from "lib/vue/filters"
-import InfoBlockText from "./../commons/InfoBlockText.vue";
+import { date, truncate } from '../../../../lib/vue/filters';
+import InfoBlockText from '../commons/InfoBlockText.vue';
+
 //Parse markdown to HTML. Related: https://github.com/PopulateTools/issues/issues/1428#issuecomment-1026617835
 const marked = require('marked');
 

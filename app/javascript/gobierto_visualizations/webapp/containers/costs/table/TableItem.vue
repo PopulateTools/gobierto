@@ -355,7 +355,7 @@
 <script>
 import TableHeader from './TableHeader.vue'
 import TableRow from './TableRow.vue'
-import { VueFiltersMixin } from "lib/vue/filters"
+import { VueFiltersMixin } from '../../../../../lib/vue/filters'
 
 export default {
   name: "TableItem",

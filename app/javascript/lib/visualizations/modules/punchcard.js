@@ -1,10 +1,10 @@
-import { extent, max, min } from "d3-array";
-import { axisLeft, axisTop } from "d3-axis";
-import { scaleBand, scaleSqrt, scaleTime } from "d3-scale";
-import { select, selectAll } from "d3-selection";
-import { timeMonth } from "d3-time";
-import { transition } from "d3-transition";
-import moment from "moment";
+import { extent, max, min } from 'd3-array';
+import { axisLeft, axisTop } from 'd3-axis';
+import { scaleBand, scaleSqrt, scaleTime } from 'd3-scale';
+import { select, selectAll } from 'd3-selection';
+import { timeMonth } from 'd3-time';
+import { transition } from 'd3-transition';
+import moment from 'moment';
 
 const d3 = {
   select,

@@ -1,9 +1,9 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { EventBus } from "../webapp/lib/mixins/event_bus";
-import { getRemoteData, toNumber } from "../webapp/lib/utils";
-import { debtsEvolutionString } from "../webapp/lib/config/debts.js";
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import { EventBus } from '../webapp/lib/mixins/event_bus';
+import { getRemoteData, toNumber } from '../webapp/lib/utils';
+import { debtsEvolutionString } from '../webapp/lib/config/debts.js';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
@@ -26,7 +26,7 @@ export class DebtsController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () =>
-        import("../webapp/containers/debts/Home.vue");
+        import('../webapp/containers/debts/Home.vue');
 
       Promise.all([
         getRemoteData(options.debtsEndpoint),

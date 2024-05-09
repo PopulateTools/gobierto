@@ -1,17 +1,17 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-const Main = () => import("../Main.vue");
-const Plan = () => import("../pages/Plan.vue");
-const Categories = () => import("../pages/Categories.vue");
-const Projects = () => import("../pages/Projects.vue");
-const Groups = () => import("../pages/Groups.vue");
-const GroupsByTerm = () => import("../pages/GroupsByTerm.vue");
-const ProjectsByTerm = () => import("../pages/ProjectsByTerm.vue");
-const PlanTab = () => import("../pages/PlanTab.vue");
-const DashboardsTab = () => import("../pages/DashboardsTab.vue");
+const Main = () => import('../Main.vue');
+const Plan = () => import('../pages/Plan.vue');
+const Categories = () => import('../pages/Categories.vue');
+const Projects = () => import('../pages/Projects.vue');
+const Groups = () => import('../pages/Groups.vue');
+const GroupsByTerm = () => import('../pages/GroupsByTerm.vue');
+const ProjectsByTerm = () => import('../pages/ProjectsByTerm.vue');
+const PlanTab = () => import('../pages/PlanTab.vue');
+const DashboardsTab = () => import('../pages/DashboardsTab.vue');
 
 // routes enumeration names
 export const routes = {

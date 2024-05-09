@@ -21,8 +21,8 @@
   </div>
 </template>
 <script>
-import Visualizations from "../commons/Visualizations.vue";
-import Button from "../commons/Button.vue";
+import Visualizations from '../commons/Visualizations.vue';
+import Button from '../commons/Button.vue';
 
 export default {
   name: "MapTab",

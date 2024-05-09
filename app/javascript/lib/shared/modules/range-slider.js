@@ -1,4 +1,4 @@
-import "webpack-jquery-ui/slider";
+import 'webpack-jquery-ui/slider';
 
 // https://api.jqueryui.com/slider/
 export class RangeSlider {

@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import NumberLabel from "./NumberLabel";
-import ActionLinesTableViewRow from "./ActionLinesTableViewRow";
-import { routes } from "../lib/router";
+import NumberLabel from './NumberLabel.vue';
+import ActionLinesTableViewRow from './ActionLinesTableViewRow.vue';
+import { routes } from '../lib/router';
 
 export default {
   name: "ActionLinesTableView",

@@ -1,17 +1,16 @@
-import crossfilter from "crossfilter2";
-import { max, mean, median, sum } from "d3-array";
-import { scaleThreshold } from "d3-scale";
-import { money } from "lib/vue/filters";
+import crossfilter from 'crossfilter2';
+import { max, mean, median, sum } from 'd3-array';
+import { scaleThreshold } from 'd3-scale';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 import {
   AmountDistributionBars,
   GroupPctDistributionBars
-} from "lib/visualizations";
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { getRemoteData, calculateSumMeanMedian } from "../webapp/lib/utils";
-import { EventBus } from "../webapp/lib/mixins/event_bus";
-
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+} from '../../lib/visualizations';
+import { money } from '../../lib/vue/filters';
+import { EventBus } from '../webapp/lib/mixins/event_bus';
+import { calculateSumMeanMedian, getRemoteData } from '../webapp/lib/utils';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
@@ -41,15 +40,15 @@ export class ContractsController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       const Home = () =>
-        import("../webapp/containers/contracts/Home.vue");
+        import('../webapp/containers/contracts/Home.vue');
       const Summary = () =>
-        import("../webapp/containers/contracts/Summary.vue");
+        import('../webapp/containers/contracts/Summary.vue');
       const ContractsIndex = () =>
-        import("../webapp/containers/contracts/ContractsIndex.vue");
+        import('../webapp/containers/contracts/ContractsIndex.vue');
       const ContractsShow = () =>
-        import("../webapp/containers/contracts/ContractsShow.vue");
+        import('../webapp/containers/contracts/ContractsShow.vue');
       const AssigneesShow = () =>
-        import("../webapp/containers/contracts/AssigneesShow.vue");
+        import('../webapp/containers/contracts/AssigneesShow.vue');
 
       Promise.all([
         getRemoteData(options.contractsEndpoint),

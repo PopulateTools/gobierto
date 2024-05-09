@@ -1,5 +1,5 @@
-import { json } from "d3-fetch";
-import { SimpleCard } from "lib/visualizations";
+import { json } from 'd3-fetch';
+import { SimpleCard } from '../../../lib/visualizations';
 
 export class Card {
   constructor(divClass) {

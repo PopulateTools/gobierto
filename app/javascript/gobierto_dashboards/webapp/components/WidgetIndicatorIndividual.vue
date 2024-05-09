@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { date, percent } from "lib/vue/filters"
+import { date, percent } from '../../../lib/vue/filters'
 
 export default {
   name: "WidgetIndicatorIndividual",

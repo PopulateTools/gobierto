@@ -1,9 +1,9 @@
-import { extent } from "d3-array";
-import { axisTop } from "d3-axis";
-import { scaleLinear, scaleOrdinal, scaleTime } from "d3-scale";
-import { select } from "d3-selection";
-import { line } from "d3-shape";
-import { timeParse } from "d3-time-format";
+import { extent } from 'd3-array';
+import { axisTop } from 'd3-axis';
+import { scaleLinear, scaleOrdinal, scaleTime } from 'd3-scale';
+import { select } from 'd3-selection';
+import { line } from 'd3-shape';
+import { timeParse } from 'd3-time-format';
 
 const d3 = {
   timeParse,

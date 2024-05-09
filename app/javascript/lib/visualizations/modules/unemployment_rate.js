@@ -1,12 +1,12 @@
-import { max, extent } from "d3-array";
-import { axisBottom, axisLeft } from "d3-axis";
-import { json } from "d3-fetch";
-import { scaleLinear, scaleOrdinal, scaleTime } from "d3-scale";
-import { select, selectAll } from "d3-selection";
-import { line } from "d3-shape";
-import { timeFormat, timeFormatDefaultLocale } from "d3-time-format";
-import { voronoi } from "d3-voronoi";
-import { groupBy, d3locale } from "lib/shared";
+import { extent, max } from 'd3-array';
+import { axisBottom, axisLeft } from 'd3-axis';
+import { json } from 'd3-fetch';
+import { scaleLinear, scaleOrdinal, scaleTime } from 'd3-scale';
+import { select, selectAll } from 'd3-selection';
+import { line } from 'd3-shape';
+import { timeFormat, timeFormatDefaultLocale } from 'd3-time-format';
+import { voronoi } from 'd3-voronoi';
+import { d3locale, groupBy } from '../../../lib/shared';
 
 export class VisUnemploymentRate {
   constructor(divId, city_id) {

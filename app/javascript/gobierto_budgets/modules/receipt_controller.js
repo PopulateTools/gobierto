@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import { accounting } from 'lib/shared'
+import Vue from 'vue';
+import { accounting } from '../../lib/shared';
 
 Vue.config.productionTip = false
 
@@ -27,25 +27,7 @@ window.GobiertoBudgets.ReceiptController = (function() {
 
     new Vue({
       el: '#taxes_receipt',
-      name: 'taxes-receipt',
-      data: function() {
-        return {
-          locale: I18n.locale,
-          data: options.receiptConfiguration.budgets_simulation_sections || [],
-          manual: options.receiptConfiguration.manual_input || false,
-          selected: [],
-          categories: []
-        }
-      },
-      created: function () {
-        // If JSON have options array, and there are several values (years)
-        var years = (this.data[0].hasOwnProperty('options') && this.data[0].options.length && typeof this.data[0].options[0].value === 'object')
-          ?  _.keys(this.data[0].options[0].value).sort() : [ new Date().getFullYear() ]
-
-        this.categories = (this.manual)
-          ? _.takeRight(years) : (years.length > 3)
-          ? _.takeRight(years, 3) : years; // Max. 3 years
-      },
+      name: 'TaxesReceipt',
       filters: {
         format: function (m) {
           return accounting.formatMoney(m, "€", 0, ".", ",").replace(/,0+ €$/, ' €')
@@ -66,6 +48,15 @@ window.GobiertoBudgets.ReceiptController = (function() {
           }
         }
       },
+      data: function() {
+        return {
+          locale: I18n.locale,
+          data: options.receiptConfiguration.budgets_simulation_sections || [],
+          manual: options.receiptConfiguration.manual_input || false,
+          selected: [],
+          categories: []
+        }
+      },
       watch: {
         selected: function () {
           // Test if there are negative values
@@ -73,6 +64,15 @@ window.GobiertoBudgets.ReceiptController = (function() {
             this.selected = this.selected.map(Math.abs)
           }
         }
+      },
+      created: function () {
+        // If JSON have options array, and there are several values (years)
+        var years = (this.data[0].hasOwnProperty('options') && this.data[0].options.length && typeof this.data[0].options[0].value === 'object')
+          ? _.keys(this.data[0].options[0].value).sort() : [ new Date().getFullYear() ]
+
+        this.categories = (this.manual)
+          ? _.takeRight(years) : (years.length > 3)
+          ? _.takeRight(years, 3) : years; // Max. 3 years
       },
       methods: {
         total: function(o) {

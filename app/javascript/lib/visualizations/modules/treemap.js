@@ -1,8 +1,8 @@
-import { json } from "d3-fetch";
-import { hierarchy, treemap } from "d3-hierarchy";
-import { scaleOrdinal } from "d3-scale";
-import { select } from "d3-selection";
-import { accounting } from "lib/shared";
+import { json } from 'd3-fetch';
+import { hierarchy, treemap } from 'd3-hierarchy';
+import { scaleOrdinal } from 'd3-scale';
+import { select } from 'd3-selection';
+import { accounting } from '../../../lib/shared';
 
 const d3 = { scaleOrdinal, select, json, treemap, hierarchy };
 

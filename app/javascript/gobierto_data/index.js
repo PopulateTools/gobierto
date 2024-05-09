@@ -1,5 +1,5 @@
-import "../stylesheets/gobierto-data.scss"
-import { GobiertoDataController } from "./modules/gobierto_data_controller.js";
+// import '../../assets/stylesheets/gobierto-data.scss'
+import { GobiertoDataController } from './modules/gobierto_data_controller.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const appNode = document.getElementById("gobierto-datos-app");

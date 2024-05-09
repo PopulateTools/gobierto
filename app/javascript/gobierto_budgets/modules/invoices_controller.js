@@ -1,15 +1,15 @@
-import crossfilter from "crossfilter2";
-import { axisTop } from "d3-axis";
-import { csv } from "d3-fetch";
-import { scaleBand, scaleOrdinal, scaleThreshold } from "d3-scale";
-import { select } from "d3-selection";
-import { timeMonth } from "d3-time";
-import { timeFormatLocale } from "d3-time-format";
-import { barChart, rowChart, units } from "dc";
-import "jsgrid";
-import { d3locale } from "lib/shared";
-import { AmountDistributionBars } from "lib/visualizations";
-import moment from "moment";
+import crossfilter from 'crossfilter2';
+import { axisTop } from 'd3-axis';
+import { csv } from 'd3-fetch';
+import { scaleBand, scaleOrdinal, scaleThreshold } from 'd3-scale';
+import { select } from 'd3-selection';
+import { timeMonth } from 'd3-time';
+import { timeFormatLocale } from 'd3-time-format';
+import { barChart, rowChart, units } from 'dc';
+import 'jsgrid';
+import moment from 'moment';
+import { d3locale } from '../../lib/shared';
+import { AmountDistributionBars } from '../../lib/visualizations';
 
 const d3 = {
   select,

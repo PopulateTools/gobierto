@@ -1,1 +1,1 @@
-import 'custom_fields_table_plugin'
+// import 'custom_fields_table_plugin'

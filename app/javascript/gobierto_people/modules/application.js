@@ -1,4 +1,4 @@
-import "tipsy-1a";
+import 'tipsy-1a';
 
 $(document).on('turbolinks:load', function() {
 

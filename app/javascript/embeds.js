@@ -1,1 +1,1 @@
-import "gobierto_embeds"
+import './gobierto_embeds'

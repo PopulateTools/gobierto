@@ -1,6 +1,6 @@
-import "../stylesheets/gobierto-observatory.scss"
-import "./modules/application.js"
-import { checkAndReportAccessibility } from 'lib/shared'
+import { checkAndReportAccessibility } from '../lib/shared';
+// import '../../assets/stylesheets/gobierto-observatory.scss';
+import './modules/application.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const demographyMapAppNode = document.getElementById("gobierto-observatory-demography-map-app");
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (demographyMapAppNode !== null) {
     // load only the module in the "/observatorio/mapa" path
-    import("./modules/demography_map_controller.js").then(({ DemographyMapController }) => {
+    import('./modules/demography_map_controller.js').then(({ DemographyMapController }) => {
       new DemographyMapController({
         selector: demographyMapAppNode.id,
         sectionsEndpoint: demographyMapAppNode.dataset.endpointSections,

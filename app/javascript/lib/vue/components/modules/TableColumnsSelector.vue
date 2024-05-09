@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import { Checkbox } from "lib/vue/components";
-import { clickoutside } from "lib/vue/directives"
+import { Checkbox } from '../../../../lib/vue/components';
+import { clickoutside } from '../../../../lib/vue/directives'
 
 export default {
   name: "TableColumnsSelector",

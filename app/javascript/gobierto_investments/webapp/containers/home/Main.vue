@@ -17,9 +17,9 @@
 <script>
 // define the components as dynamic
 const COMPONENTS = [
-  () => import("../../components/Map.vue"),
-  () => import("../../components/Gallery.vue"),
-  () => import("../../components/List.vue")
+  () => import('../../components/Map.vue'),
+  () => import('../../components/Gallery.vue'),
+  () => import('../../components/List.vue')
 ];
 
 export default {

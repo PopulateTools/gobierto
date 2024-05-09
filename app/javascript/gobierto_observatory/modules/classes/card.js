@@ -1,4 +1,4 @@
-import { json } from "d3-fetch";
+import { json } from 'd3-fetch';
 
 export class Card {
   constructor(divClass) {

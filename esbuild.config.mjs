@@ -20,8 +20,7 @@ fs.readdir(pathEntryPoints, (_, files) => {
       bundle: true,
       sourcemap: true,
       outdir: path.join(process.cwd(), "app/assets/builds"),
-      // TODO: migrate watch
-      // watch: process.argv.includes("--watch"),
+      watch: process.argv.includes("--watch"),
       loader: { ".js": "jsx", ".png": "dataurl", ".gif": "dataurl" },
       plugins: [vue()],
       metafile: true,

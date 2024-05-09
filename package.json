@@ -28,7 +28,7 @@
     "dc-vertical-stacked-bar-chart": "^1.0.0",
     "dc.leaflet": "0.5.1",
     "devbridge-autocomplete": "^1.4.7",
-    "esbuild": "^0.21.1",
+    "esbuild": "^0.16",
     "esbuild-vue": "^1.2.2",
     "eslint": "^6.4.0",
     "eslint-plugin-vue": "^5.2.3",

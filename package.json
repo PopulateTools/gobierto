@@ -101,7 +101,7 @@
     "check_i18n": "script/check_i18n.sh",
     "test": "jest",
     "test:watch": "jest --watch",
-    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build:css": "sass ./app/assets/stylesheets:./app/assets/builds --no-source-map --load-path=node_modules"
   },
   "husky": {
     "hooks": {

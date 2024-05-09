@@ -5,23 +5,23 @@
 
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
 
-@import "css-conf";
-@import "populities";
-@import "mixins";
-@import "comp-breadcrumbs";
-@import "comp-forms";
-@import "comp-headings_blocks";
-@import "comp-layout";
-@import "comp-site_header";
-@import "comp-tables";
-@import "comp-header_block_inline";
-@import "comp-social_buttons";
-@import "defaults";
+@import "modules/css-conf";
+@import "modules/populities";
+@import "modules/mixins";
+@import "modules/comp-breadcrumbs";
+@import "modules/comp-forms";
+@import "modules/comp-headings_blocks";
+@import "modules/comp-layout";
+@import "modules/comp-site_header";
+@import "modules/comp-tables";
+@import "modules/comp-header_block_inline";
+@import "modules/comp-social_buttons";
+@import "modules/defaults";
 
-@import "comp-plans-custom";
-@import "comp-vue-block-checkbox";
-@import "comp-vue-transitions";
-@import "comp-sdg";
+@import "modules/comp-plans-custom";
+@import "modules/comp-vue-block-checkbox";
+@import "modules/comp-vue-transitions";
+@import "modules/comp-sdg";
 
 // Vars
 $nodeLevel1IllustrationWidth: 33%;

@@ -3,43 +3,43 @@
 @import "purecss/build/grids-responsive";
 @import "@fortawesome/fontawesome-free/css/all";
 
-@import "css-conf";
+@import "modules/css-conf";
 
 /* Override front fonts (defined in css-conf) */
 $font_headings: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
 $font_text: 'Libre Franklin', 'Helvetica Neue', 'Arial', 'sans-serif';
 $font_serif: 'Georgia, serif';
 
-@import "populities";
-@import "mixins";
-@import "comp-forms";
-@import "comp-headings_blocks";
-@import "comp-tables";
-@import "comp-tipsy";
-@import "comp-flash_messages";
-@import "defaults-admin";
+@import "modules/populities";
+@import "modules/mixins";
+@import "modules/comp-forms";
+@import "modules/comp-headings_blocks";
+@import "modules/comp-tables";
+@import "modules/comp-tipsy";
+@import "modules/comp-flash_messages";
+@import "modules/defaults-admin";
 
 @import url("https://fonts.googleapis.com/css?family=Libre+Franklin:200,400,700,600");
 
-@import "comp-indicator_widget";
-@import "comp-tabs";
-@import "comp-lists";
+@import "modules/comp-indicator_widget";
+@import "modules/comp-tabs";
+@import "modules/comp-lists";
 @import "jsgrid/dist/jsgrid.css";
 @import "jsgrid/dist/jsgrid-theme.css";
-@import "comp-jsgrid";
-@import "comp-activity";
-@import "comp-modals";
+@import "modules/comp-jsgrid";
+@import "modules/comp-activity";
+@import "modules/comp-modals";
 @import "magnific-popup/dist/magnific-popup.css";
-@import "comp-magnific-popup-animations";
+@import "modules/comp-magnific-popup-animations";
 @import "cropperjs/dist/cropper.css";
-@import "comp-simplemde_editor";
+@import "modules/comp-simplemde_editor";
 @import "simplemde/src/css/simplemde.css";
 @import "jqtree/jqtree.css";
 @import "select2/dist/css/select2.css";
 @import "codemirror/lib/codemirror.css";
 @import "codemirror/addon/fold/foldgutter.css";
-@import "comp-sortable";
-@import "comp-dyna_block";
+@import "modules/comp-sortable";
+@import "modules/comp-dyna_block";
 @import "slickgrid-es6/dist/slick.grid.variables.scss";
 @import "slickgrid-es6/dist/slick-default-theme.scss";
 @import "slickgrid-es6/dist/slick.grid.scss";

@@ -5,18 +5,18 @@
 
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
 
-@import "css-conf";
-@import "populities";
-@import "mixins";
-@import "comp-forms";
-@import "comp-headings_blocks";
-@import "comp-layout";
-@import "comp-site_header";
-@import "comp-social_buttons";
-@import "comp-tables";
-@import "defaults";
+@import "modules/css-conf";
+@import "modules/populities";
+@import "modules/mixins";
+@import "modules/comp-forms";
+@import "modules/comp-headings_blocks";
+@import "modules/comp-layout";
+@import "modules/comp-site_header";
+@import "modules/comp-social_buttons";
+@import "modules/comp-tables";
+@import "modules/defaults";
 
-@import "comp-text_content";
+@import "modules/comp-text_content";
 
 .home-cms {
   #transparency .block-title {

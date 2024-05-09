@@ -5,28 +5,28 @@
 
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
 
-@import "css-conf";
-@import "populities";
-@import "mixins";
-@import "comp-forms";
-@import "comp-headings_blocks";
-@import "comp-layout";
-@import "comp-site_header";
-@import "comp-tables";
-@import "comp-header_block_inline";
-@import "comp-social_buttons";
-@import "defaults";
+@import "modules/css-conf";
+@import "modules/populities";
+@import "modules/mixins";
+@import "modules/comp-forms";
+@import "modules/comp-headings_blocks";
+@import "modules/comp-layout";
+@import "modules/comp-site_header";
+@import "modules/comp-tables";
+@import "modules/comp-header_block_inline";
+@import "modules/comp-social_buttons";
+@import "modules/defaults";
 
-@import "comp-metric_boxes";
-@import "comp-graph-dc";
-@import "comp-vue-block-checkbox";
-@import "comp-vue-block-header";
-@import "comp-vue-dropdown";
-@import "comp-vue-pagination";
-@import "comp-vue-multiple-lines";
-@import "comp-vue-table";
-@import "comp-vue-transitions";
-@import "comp-graph-vis_bubbles";
+@import "modules/comp-metric_boxes";
+@import "modules/comp-graph-dc";
+@import "modules/comp-vue-block-checkbox";
+@import "modules/comp-vue-block-header";
+@import "modules/comp-vue-dropdown";
+@import "modules/comp-vue-pagination";
+@import "modules/comp-vue-multiple-lines";
+@import "modules/comp-vue-table";
+@import "modules/comp-vue-transitions";
+@import "modules/comp-graph-vis_bubbles";
 
 :root {
   --green-table--first: rgba(33, 150, 83, .1);

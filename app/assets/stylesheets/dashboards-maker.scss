@@ -5,15 +5,15 @@
 
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
 
-@import "css-conf";
-@import "populities";
-@import "mixins";
+@import "modules/css-conf";
+@import "modules/populities";
+@import "modules/mixins";
 
-@import "comp-vue-transitions";
-@import "comp-vue-text-editable";
-@import "comp-vue-autocomplete";
+@import "modules/comp-vue-transitions";
+@import "modules/comp-vue-text-editable";
+@import "modules/comp-vue-autocomplete";
 @import "magnific-popup/dist/magnific-popup.css";
-@import "comp-magnific-popup-animations";
+@import "modules/comp-magnific-popup-animations";
 
 :root {
   --bg-dark-grey: #616161;

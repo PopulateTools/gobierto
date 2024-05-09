@@ -5,11 +5,11 @@
 
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
 
-@import "css-conf";
-@import "populities";
-@import "mixins";
+@import "modules/css-conf";
+@import "modules/populities";
+@import "modules/mixins";
 
-@import "comp-vue-transitions";
+@import "modules/comp-vue-transitions";
 
 :root {
   --space: #{$f6};

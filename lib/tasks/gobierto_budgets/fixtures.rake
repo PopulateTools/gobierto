@@ -4,7 +4,7 @@ namespace :gobierto_budgets do
   namespace :fixtures do
     desc "Create indices and import data"
     task load: :environment do
-      BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series].freeze
+      BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed].freeze
       BUDGETS_TYPES = GobiertoBudgets::BudgetArea.all_areas_names
 
       create_categories_index

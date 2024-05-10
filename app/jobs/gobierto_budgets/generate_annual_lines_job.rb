@@ -4,7 +4,7 @@ class GobiertoBudgets::GenerateAnnualLinesJob < ActiveJob::Base
   def perform(*sites)
     sites.each do |site|
       if site.organization_id.present?
-        GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
           data = GobiertoBudgets::Data::Annual.new(site: site, year: year)
           data.generate_files if data.any_data?
         end

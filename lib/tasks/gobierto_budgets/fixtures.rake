@@ -4,7 +4,7 @@ namespace :gobierto_budgets do
   namespace :fixtures do
     desc "Create indices and import data"
     task load: :environment do
-      BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed].freeze
+      BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed].freeze
       BUDGETS_TYPES = GobiertoBudgets::BudgetArea.all_areas_names
 
       create_categories_index
@@ -27,8 +27,8 @@ namespace :gobierto_budgets do
     def import_gobierto_budgets_data_for_organization(organization, year)
       place, organization_id = resolve_place_and_organization_id(organization)
 
-      index = GobiertoBudgets::SearchEngineConfiguration::Data.index
-      data_for_organization = [GobiertoBudgets::SearchEngineConfiguration::Data.type_population, GobiertoBudgets::SearchEngineConfiguration::Data.type_debt].map do |type|
+      index = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index
+      data_for_organization = [GobiertoBudgets::SearchEngineConfiguration::Data.type_population, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_debt].map do |type|
         {
           index: {
             _index: index,
@@ -62,8 +62,8 @@ namespace :gobierto_budgets do
       }
 
       budgets = [
-        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
       ].map do |index|
         categories_fixtures do |category|
           next if category["organization_id"] && (category["organization_id"] != organization_id)
@@ -86,10 +86,10 @@ namespace :gobierto_budgets do
       end.flatten.compact
 
       total_budgets = [
-        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
       ].map do |index|
-        type = GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
+        type = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
         categories_fixtures do |category|
           category["kind"] = category["kind"] == "income" ? "I" : "G"
           {
@@ -110,7 +110,7 @@ namespace :gobierto_budgets do
         next if category["organization_id"] && (category["organization_id"] != organization_id)
         next if category["area_name"] != "economic" && category["kind"] == "income"
 
-        index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+        index = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
         category["kind"] = category["kind"] == "income" ? "I" : "G"
         economic_budget_lines_for_functional.push(index: {
                                                     _index: index,
@@ -131,7 +131,7 @@ namespace :gobierto_budgets do
         next if category["organization_id"] && (category["organization_id"] != organization_id)
         next if category["area_name"] != "economic" && category["kind"] == "income"
 
-        index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+        index = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
         category["kind"] = "G"
         economic_budget_lines_for_functional.push(index: {
                                                     _index: index,
@@ -157,7 +157,7 @@ namespace :gobierto_budgets do
     end
 
     def create_categories_index
-      index = GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index
+      index = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index
       if GobiertoBudgets::SearchEngine.client.indices.exists? index: index
         GobiertoBudgets::SearchEngine.client.indices.delete index: index
       end
@@ -165,7 +165,7 @@ namespace :gobierto_budgets do
     end
 
     def create_data_index
-      index = GobiertoBudgets::SearchEngineConfiguration::Data.index
+      index = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index
       if GobiertoBudgets::SearchEngine.client.indices.exists? index: index
         GobiertoBudgets::SearchEngine.client.indices.delete index: index
       end
@@ -173,12 +173,12 @@ namespace :gobierto_budgets do
     end
 
     def create_categories_mapping
-      m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index, type: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type
+      m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index, type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type
       return unless m.empty?
 
       puts "== Creating categories mapping =="
-      GobiertoBudgets::SearchEngine.client.indices.put_mapping index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index, type: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type, body: {
-        GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type.to_sym => {
+      GobiertoBudgets::SearchEngine.client.indices.put_mapping index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index, type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type, body: {
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type.to_sym => {
           properties: {
             area:        { type: "string", index: "not_analyzed" },
             code:        { type: "string", index: "not_analyzed" },
@@ -196,9 +196,9 @@ namespace :gobierto_budgets do
       categories = categories_fixtures do |category|
         {
           index: {
-            _index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index,
+            _index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index,
             _id: category.slice("organization_id", "area", "code", "kind").values.join("/"),
-            _type: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type,
+            _type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type,
             data: category
           }
         }
@@ -208,8 +208,8 @@ namespace :gobierto_budgets do
     end
 
     def create_data_mapping
-      index = GobiertoBudgets::SearchEngineConfiguration::Data.index
-      [GobiertoBudgets::SearchEngineConfiguration::Data.type_population, GobiertoBudgets::SearchEngineConfiguration::Data.type_debt].each do |type|
+      index = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index
+      [GobiertoBudgets::SearchEngineConfiguration::Data.type_population, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_debt].each do |type|
         m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
         next unless m.empty?
 

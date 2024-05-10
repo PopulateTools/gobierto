@@ -25,7 +25,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
   end
 
   def last_year
-    GobiertoBudgets::SearchEngineConfiguration::Year.last
+    GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last
   end
 
   def feedback_ack_message

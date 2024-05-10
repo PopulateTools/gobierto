@@ -30,10 +30,6 @@ gem "i18n-js", ">= 3.0.0.rc11" # required to i18n-tasks
 # Webpack
 gem "webpacker", "~> 5.0"
 
-# Elasticsearch
-gem "elasticsearch", "~> 6.0", ">= 6.0.2"
-gem "elasticsearch-extensions", "~> 0.0.27"
-
 # Background processing
 gem "sidekiq"
 gem "sidekiq-monitor-stats"
@@ -81,7 +77,7 @@ gem "exchanger"
 gem "savon", "~> 2.12.0"
 
 # Gobierto budgets data
-gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
+gem "gobierto_budgets_data", path: "../gobierto_budgets_data" #, git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
 
 # API
 gem "rubyXL"

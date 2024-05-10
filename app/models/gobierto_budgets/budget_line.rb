@@ -71,8 +71,8 @@ module GobiertoBudgets
 
     def self.execute_get_population_query(organization_id, census_year)
       result = GobiertoBudgets::SearchEngine.client.get(
-        index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
-        type: GobiertoBudgets::SearchEngineConfiguration::Data.type_population,
+        index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index,
+        type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_population,
         id: "#{ organization_id }/#{ census_year }"
       )
       result["_source"]["value"]

@@ -24,7 +24,7 @@ module GobiertoExports
         assert has_selector?("h1", text: "Download data")
         assert has_selector?("h2", text: "Officials and Agendas")
         assert has_selector?("h2", text: "Budget lines")
-        assert has_selector?("h3", text: GobiertoBudgets::SearchEngineConfiguration::Year.last)
+        assert has_selector?("h3", text: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last)
       end
     end
 
@@ -36,7 +36,7 @@ module GobiertoExports
           assert has_selector?("h1", text: "Download data")
           assert has_selector?("h2", text: "Officials and Agendas")
           assert has_selector?("h2", text: "Budget lines")
-          assert has_selector?("h3", text: GobiertoBudgets::SearchEngineConfiguration::Year.last)
+          assert has_selector?("h3", text: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last)
         end
       end
     end

@@ -78,7 +78,7 @@ module GobiertoBudgets
         size: 10_000
       }
 
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: area, body: query
+      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: area, body: query
       response['hits']['hits'].map{|h| h['_source']['code'] }
     end
 

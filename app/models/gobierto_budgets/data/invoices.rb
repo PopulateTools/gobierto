@@ -39,7 +39,7 @@ module GobiertoBudgets
           size: limit
         }
 
-        response = SearchEngine.client.search index: SearchEngineConfiguration::Invoice.index, type: GobiertoBudgets::SearchEngineConfiguration::Invoice.type, body: query
+        response = SearchEngine.client.search index: SearchEngineConfiguration::Invoice.index, type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Invoice.type, body: query
         response = response['hits']['hits'].map{ |h| h['_source'] }
         parsed_response = if remove_columns.any?
           response.map do |result|

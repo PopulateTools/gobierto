@@ -1,6 +1,6 @@
-import 'jqtree'
-import 'webpack-jquery-ui/draggable'
-import 'webpack-jquery-ui/droppable'
+import 'jqtree';
+import '../../../assets/stylesheets/modules/jquery-ui.css';
+import '../../lib/commons/modules/jquery-ui';
 
 window.GobiertoAdmin.SectionsController = (function() {
   function SectionsController() {}

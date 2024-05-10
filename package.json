@@ -88,8 +88,7 @@
     "stylelint": "stylelint 'app/**/*.{css,scss}'",
     "check_i18n": "script/check_i18n.sh",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "---build:css": "sass ./app/assets/stylesheets:./app/assets/builds --no-source-map --load-path=node_modules"
+    "test:watch": "jest --watch"
   },
   "husky": {
     "hooks": {

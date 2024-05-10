@@ -26,7 +26,8 @@ fs.readdir(pathEntryPoints, (_, files) => {
     plugins: [
       vue(),
       sassPlugin({
-        loadPaths: [path.resolve(process.cwd(), "node_modules")]
+        loadPaths: [path.resolve(process.cwd(), "node_modules")],
+        quietDeps: true
       })
     ],
     metafile: true,

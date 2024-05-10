@@ -6,7 +6,7 @@
       <p class="intro_desc"><%= t("gobierto_observatory.intro", place: @site.organization_name) %></p>
     </div>
     <div class="pure-u-1 pure-u-md-3-5">
-      <%= image_tag('media/images/illustrations/integra.jpg', class: 'img-fluid side_50 pb1', alt: '') %>
+      <%= image_tag('illustrations/integra.jpg', class: 'img-fluid side_50 pb1', alt: '') %>
     </div>
   </div>
 </div>
@@ -29,7 +29,7 @@
           <% if observatory_map_enabled? %>
             <%= link_to gobierto_observatory_map_path, class: "gobierto-observatory-container-banner", data: { turbolinks: false } do %>
             <div class="gobierto-observatory-banner mb1 mt1">
-              <%= image_tag('media/images/illustrations/background_observatory_map.png', class: 'gobierto-observatory-image side_100', alt: '') %>
+              <%= image_tag('illustrations/background_observatory_map.png', class: 'gobierto-observatory-image side_100', alt: '') %>
               <div class="gobierto-observatory-footer">
                 <p class="gobierto-observatory-footer--text">
                   <%= t("gobierto_observatory.layouts.menu_subsections.banner_map", place: @site.organization_name) %>

@@ -34,7 +34,7 @@
         <MglMarker :coordinates="coordinatesMarker">
           <img
             slot="marker"
-            src="/packs/media/images/marker-icon-2273e3d8.png"
+            src="/marker-icon-2273e3d8.png"
           >
         </MglMarker>
       </MglMap>

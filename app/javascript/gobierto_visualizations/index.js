@@ -1,4 +1,4 @@
-// import '../../assets/stylesheets/gobierto-visualizations.scss'
+import '../../assets/stylesheets/visualizations.scss'
 
 import { ContractsController } from './modules/contracts_controller.js';
 import { SubsidiesController } from './modules/subsidies_controller.js';

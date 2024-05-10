@@ -1,4 +1,4 @@
-// import '../../assets/stylesheets/gobierto-budgets.scss';
+import '../../assets/stylesheets/budgets.scss';
 import './modules/init.js';
 // init.js must be first
 import { checkAndReportAccessibility } from '../lib/shared';

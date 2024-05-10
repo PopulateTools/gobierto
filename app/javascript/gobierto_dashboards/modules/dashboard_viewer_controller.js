@@ -1,4 +1,4 @@
-// import '../../../assets/stylesheets/gobierto-dashboards-viewer.scss'
+import '../../../assets/stylesheets/dashboards-viewer.scss'
 import ViewerManager from '../webapp/ViewerManager.vue'
 import { GobiertoDashboardCommonsController } from './dashboard_commons_controller'
 

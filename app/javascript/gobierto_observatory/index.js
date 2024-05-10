@@ -1,5 +1,5 @@
 import { checkAndReportAccessibility } from '../lib/shared';
-// import '../../assets/stylesheets/gobierto-observatory.scss';
+import '../../assets/stylesheets/observatory.scss';
 import './modules/application.js';
 
 document.addEventListener('DOMContentLoaded', () => {

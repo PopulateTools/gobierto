@@ -1,4 +1,4 @@
-// import '../../assets/stylesheets/gobierto-investments.scss'
+import '../../assets/stylesheets/investments.scss'
 
 import { InvestmentsController } from './modules/investments_controller.js';
 

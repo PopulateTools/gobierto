@@ -3726,6 +3726,14 @@ es6-symbol@^3.1.1, es6-symbol@^3.1.3:
     d "^1.0.1"
     ext "^1.1.2"
 
+esbuild-sass-plugin@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/esbuild-sass-plugin/-/esbuild-sass-plugin-3.2.0.tgz#9ea19331bda6f0c12ab75a7b829f7a2078a8c8c5"
+  integrity sha512-a+e7rYx4sDHgtKWN2n6/7lH5fgfvJaT6AMHmFhBKZy2ZTSN91X5q12l+DNVYJ8cWViEjJNWEd7k7UVcCg/2S/Q==
+  dependencies:
+    resolve "^1.22.8"
+    sass "^1.71.1"
+
 esbuild-vue@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/esbuild-vue/-/esbuild-vue-1.2.2.tgz#35d9b096b334059714f5867fedd3b0d596aa5e86"
@@ -4150,8 +4158,8 @@ flatbuffers@^1.10.2:
 
 flatpickr@^1.9.1:
   version "1.9.1"
-  resolved "https://registry.npmjs.org/flatpickr/-/flatpickr-1.9.1.tgz"
-  integrity sha1-am+N6kp11O+eS5KotQ3nUzrifas=
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-1.9.1.tgz#6a6f8dea4a75d4ef9e4b92a8b50de7533ae27dab"
+  integrity sha512-4u1+H/4LSHYFU1NTby75h/36z+3FHT8Hs/QKdMsrOW9sYbe+ulMAsU4WNDCIsliSaMc+gPO7WMizdFfLHBMMmQ==
 
 flatted@^2.0.0:
   version "2.0.2"
@@ -5444,10 +5452,15 @@ jquery-visible@^1.2.0:
   resolved "https://registry.npmjs.org/jquery-visible/-/jquery-visible-1.2.0.tgz"
   integrity sha1-SDnKxJLy5/cF/QaxzeICtdqXwek=
 
-"jquery@>= 1.4.3", jquery@>=1.7, jquery@>=1.8.0, "jquery@>=1.8.0 <4.0.0", jquery@>=1.9, "jquery@>=2.0.0 <4.0.0", jquery@^3.3.1, jquery@^3.4.1, jquery@^3.5.0:
+"jquery@>= 1.4.3", jquery@>=1.7, jquery@>=1.8.0, "jquery@>=1.8.0 <4.0.0", jquery@>=1.9, "jquery@>=2.0.0 <4.0.0", jquery@^3.3.1, jquery@^3.5.0:
   version "3.6.0"
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
+
+jquery@^3.4.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
+  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
 
 js-base64@^2.1.9:
   version "2.6.4"
@@ -6983,7 +6996,7 @@ resolve@^1.10.0, resolve@^1.12.0, resolve@^1.17.0:
     is-core-module "^2.1.0"
     path-parse "^1.0.6"
 
-resolve@^1.15.1:
+resolve@^1.15.1, resolve@^1.22.8:
   version "1.22.8"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.8.tgz#b6c87a9f2aa06dfab52e3d70ac8cde321fa5a48d"
   integrity sha512-oKWePCxqpd6FlLvGV1VU0x7bkPmmCNolxzjMf4NczoDnQcIWrAF+cPtZn5i6n+RfD2d9i0tzpKnG6Yk168yIyw==
@@ -7077,7 +7090,7 @@ safe-buffer@~5.2.0:
   resolved "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sass@^1.18.0, sass@^1.77.0:
+sass@^1.18.0, sass@^1.71.1:
   version "1.77.0"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.77.0.tgz#e736c69aff9fae4a4e6dae60a979eee9c942f321"
   integrity sha512-eGj4HNfXqBWtSnvItNkn7B6icqH14i3CiCGbzMKs3BAPTq62pp9NBYsBgyN4cA+qssqo9r26lW4JSvlaUUWbgw==
@@ -7236,7 +7249,7 @@ slice-ansi@^4.0.0:
 
 slickgrid-es6@^3.0.1:
   version "3.0.3"
-  resolved "https://registry.npmjs.org/slickgrid-es6/-/slickgrid-es6-3.0.3.tgz"
+  resolved "https://registry.yarnpkg.com/slickgrid-es6/-/slickgrid-es6-3.0.3.tgz#ebad00728db6e76aac5a520870a3b2e71964aa1d"
   integrity sha512-l/ISKIS8lJv9S6kGlz6q64GrPoGIVKyuq3cljF0ySttqcw2qPiWnNZit8PPEWL5E+CG4/yK+iP2mpQ7vkfL9Cg==
   dependencies:
     flatpickr "^1.9.1"

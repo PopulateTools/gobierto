@@ -1,7 +1,7 @@
 @import "normalize.css";
 @import "purecss/build/pure-nr";
 @import "purecss/build/grids-responsive";
-@import "@fortawesome/fontawesome-free/css/all";
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
 
 @import "modules/css-conf";
 
@@ -40,9 +40,9 @@ $font_serif: 'Georgia, serif';
 @import "codemirror/addon/fold/foldgutter.css";
 @import "modules/comp-sortable";
 @import "modules/comp-dyna_block";
-@import "slickgrid-es6/dist/slick.grid.variables.scss";
-@import "slickgrid-es6/dist/slick-default-theme.scss";
-@import "slickgrid-es6/dist/slick.grid.scss";
+// @import "slickgrid-es6/dist/slick.grid.variables.scss";
+// @import "slickgrid-es6/dist/slick-default-theme.scss";
+// @import "slickgrid-es6/dist/slick.grid.scss";
 
 /* colors */
 header.main,

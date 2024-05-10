@@ -1,1 +1,1 @@
-// import '../../assets/stylesheets/gobierto-exports.scss'
+import '../../assets/stylesheets/exports.scss'

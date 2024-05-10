@@ -71,17 +71,17 @@ app/javascript/lib/i18n/modules/translations.js
 vendor/gobierto_engines/*
 !vendor/gobierto_engines/.keep
 app/javascript/gencat
-app/javascript/packs/gencat.js
+app/javascript/gencat.js
 app/javascript/valencia
-app/javascript/packs/valencia.js
+app/javascript/valencia.js
 app/javascript/custom_fields_data_grid_plugin
-app/javascript/packs/custom_fields_data_grid_plugin.js
+app/javascript/custom_fields_data_grid_plugin.js
 app/javascript/custom_fields_progress_plugin
-app/javascript/packs/custom_fields_progress_plugin.js
+app/javascript/custom_fields_progress_plugin.js
 app/javascript/custom_fields_table_plugin
-app/javascript/packs/custom_fields_table_plugin.js
+app/javascript/custom_fields_table_plugin.js
 app/javascript/glovo
-app/javascript/packs/glovo.js
+app/javascript/glovo.js
 
 
 # Custom fields plugins

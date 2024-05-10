@@ -1,6 +1,4 @@
 import 'select2'
-import '../../../assets/stylesheets/modules/jquery-ui.css';
-import '../../lib/commons/modules/jquery-ui';
 
 window.GobiertoAdmin.SitesController = (function() {
   function SitesController() {}

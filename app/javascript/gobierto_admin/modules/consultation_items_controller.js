@@ -1,6 +1,3 @@
-import '../../lib/commons/modules/jquery-ui';
-import '../../../assets/stylesheets/modules/jquery-ui.css';
-
 window.GobiertoAdmin.ConsultationItemsController = (function() {
   function ConsultationItemsController() {}
 

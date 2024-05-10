@@ -1,6 +1,4 @@
 import 'devbridge-autocomplete';
-import '../../../assets/stylesheets/modules/jquery-ui.css';
-import '../../lib/commons/modules/jquery-ui';
 import { AUTOCOMPLETE_DEFAULTS } from '../../lib/shared';
 
 $(document).on('turbolinks:load', function() {

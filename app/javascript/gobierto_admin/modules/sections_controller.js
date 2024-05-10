@@ -1,6 +1,4 @@
 import 'jqtree';
-import '../../../assets/stylesheets/modules/jquery-ui.css';
-import '../../lib/commons/modules/jquery-ui';
 
 window.GobiertoAdmin.SectionsController = (function() {
   function SectionsController() {}

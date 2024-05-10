@@ -1,6 +1,3 @@
-import '../../commons/modules/jquery-ui';
-import '../../../../assets/stylesheets/modules/jquery-ui.css';
-
 // https://api.jqueryui.com/slider/
 export class RangeSlider {
   constructor({ elem, min = 0, max = 100, defaultRange = [min, max], rangeCallback = () => {} }) {

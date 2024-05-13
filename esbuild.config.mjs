@@ -1,6 +1,7 @@
 import { analyzeMetafile, build } from "esbuild"
 import { sassPlugin } from "esbuild-sass-plugin"
 import vue from "esbuild-vue"
+import alias from "esbuild-plugin-alias"
 import env from "@intrnl/esbuild-plugin-env"
 import fs from "fs"
 import path from "path"
@@ -26,6 +27,11 @@ fs.readdir(pathEntryPoints, (_, files) => {
     loader: { ".js": "jsx", ".png": "dataurl", ".gif": "dataurl" },
     plugins: [
       vue(),
+      alias({
+        // enforces Vue package to use the compiler-included build version
+        // https://v2.vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
+        'vue': path.resolve(process.cwd(), "node_modules/vue/dist/vue.esm.js")
+      }),
       env({
         // Only inject environment variables from dotenv files
         filter: (_, filename) => filename,

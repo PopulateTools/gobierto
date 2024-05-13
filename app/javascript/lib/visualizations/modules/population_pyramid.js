@@ -4,6 +4,7 @@ import { csv, json } from 'd3-fetch';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { select, selectAll } from 'd3-selection';
 import { transition } from 'd3-transition';
+import { maxBy, mean, sumBy, uniq } from 'lodash';
 
 const d3 = {
   scaleLinear,
@@ -340,7 +341,7 @@ export class VisPopulationPyramid {
       .domain([d3.max(data.areas.map(d => d.value)), 0])
       .nice();
 
-    this.yScale.domain(_.uniq(data.pyramid.map(d => d.age)));
+    this.yScale.domain(uniq(data.pyramid.map(d => d.age)));
   }
 
   _updateAxes() {
@@ -896,17 +897,17 @@ export class VisPopulationPyramid {
   }
 
   _total(data) {
-    return _.sumBy(data, "value");
+    return sumBy(data, "value");
   }
 
   _mode(data) {
     // It's not required the common mode arithmetical function
     // since the data it's grouped by age, only get the biggest number
-    return _.maxBy(data, "value").age;
+    return maxBy(data, "value").age;
   }
 
   _mean(data) {
-    return _.mean(data);
+    return mean(data);
   }
 
   _median(data) {

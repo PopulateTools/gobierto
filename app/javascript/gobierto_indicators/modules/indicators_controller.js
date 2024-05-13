@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import { find, extend, map, isNumber, isNaN, isArray } from 'lodash';
+
 Vue.config.productionTip = false
 
 window.GobiertoIndicators.IndicatorsController = (function() {
@@ -14,7 +16,6 @@ window.GobiertoIndicators.IndicatorsController = (function() {
       // define the item component
       Vue.component('item-tree', {
         props: ['model'],
-        template: '#item-tree-template',
         data: function() {
           return {
             open: true,
@@ -29,7 +30,7 @@ window.GobiertoIndicators.IndicatorsController = (function() {
           },
           value: function (i) {
             var p = 0;
-            p = (_.find(i.model.attributes.values, function (o) {
+            p = (find(i.model.attributes.values, function (o) {
               return o[this.year]
             }.bind(this)) || {})[this.year] || 0
             return parseValue(p);
@@ -50,19 +51,19 @@ window.GobiertoIndicators.IndicatorsController = (function() {
                 ancestors.push(parent.model);
                 parent = parent.$parent;
               }
-              this.$root.selected = _.extend(this.model, { ancestors: ancestors.reverse() });
+              this.$root.selected = extend(this.model, { ancestors: ancestors.reverse() });
             }
           },
           getLevelClass: function(lvl) {
             return "item-lvl-" + lvl
           }
-        }
+        },
+        template: '#item-tree-template'
       });
 
       // define the item view component
       Vue.component('item-view', {
         props: ['model'],
-        template: '#item-view-template',
         data: function() {
           return {
             type: this.$root.type,
@@ -72,7 +73,7 @@ window.GobiertoIndicators.IndicatorsController = (function() {
         computed: {
           value: function (i) {
             var p = 0;
-            p = (_.find(i.model.attributes.values, function (o) {
+            p = (find(i.model.attributes.values, function (o) {
               return o[this.year]
             }.bind(this)) || {})[this.year] || 0
             return parseValue(p);
@@ -102,20 +103,20 @@ window.GobiertoIndicators.IndicatorsController = (function() {
           getLevelClass: function(lvl) {
             return "item-lvl-" + lvl
           }
-        }
+        },
+        template: '#item-view-template'
       });
 
       // define the item view wrap component
       Vue.component('item-view-wrap', {
         props: ['model'],
-        template: '#item-view-wrap-template',
         data: function() {
           return {}
         },
         computed: {
           title: function() {
             var title = this.model.ancestors[0].attributes.title || '';
-            if (this.model.ancestors.length > 0) this.model.ancestors.shift();
+            if (this.model.ancestors.length > 0) this.model.ancestors.slice(0).shift();
             return title;
           },
           hasAncestors: function() {
@@ -126,7 +127,7 @@ window.GobiertoIndicators.IndicatorsController = (function() {
         created: function () {
           // Creates a hash
           var _ancestors = this.model.ancestors;
-          var group = _.map(_ancestors, 'id').toString();
+          var group = map(_ancestors, 'id').toString();
           if (!window.location.hash.includes("a=")) {
             window.location.hash += "a=" + group
           }
@@ -136,18 +137,19 @@ window.GobiertoIndicators.IndicatorsController = (function() {
             window.location.hash = "";
             return this.$root.selected = null;
           }
-        }
+        },
+        template: '#item-view-wrap-template'
       });
 
       // Helper to format values
       function parseValue(val) {
-        if (_.isNumber(parseFloat(val)) && val.toString().indexOf("%") !== -1) {
+        if (isNumber(parseFloat(val)) && val.toString().indexOf("%") !== -1) {
           // percent
           val = (parseFloat(val) / 100).toLocaleString(I18n.locale, { style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        } else if (_.isNumber(parseFloat(val)) && val.toString().indexOf("€")!== -1) {
+        } else if (isNumber(parseFloat(val)) && val.toString().indexOf("€")!== -1) {
           // currency
           val = parseFloat(val).toLocaleString(I18n.locale, { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        } else if (!_.isNaN(parseFloat(val))) {
+        } else if (!isNaN(parseFloat(val))) {
           // float
           val = parseFloat(val).toLocaleString();
         } else {
@@ -165,7 +167,7 @@ window.GobiertoIndicators.IndicatorsController = (function() {
         for (; i < items.length; i++) {
           if (items[i].id === id) {
             result.push(items[i]);
-          } else if (_.isArray(items[i].children)) {
+          } else if (isArray(items[i].children)) {
             found = findById(id, items[i].children);
             if (found.length) {
               result = result.concat(found);
@@ -213,7 +215,7 @@ window.GobiertoIndicators.IndicatorsController = (function() {
                   var vm = this;
                   this.$nextTick(function () {
                     var ancestors = [vm.$refs.inode[_a[0]].model, vm.$refs.inode[_a[0]].$refs.inode[_a[1]].model]
-                    this.selected = _.extend(model, { ancestors: ancestors });
+                    this.selected = extend(model, { ancestors: ancestors });
                   })
                 }
               }.bind(this));

@@ -4,6 +4,7 @@ import { scaleBand, scaleSqrt, scaleTime } from 'd3-scale';
 import { select, selectAll } from 'd3-selection';
 import { timeMonth } from 'd3-time';
 import { transition } from 'd3-transition';
+import { extend, flatten, map } from 'lodash';
 import moment from 'moment';
 
 const d3 = {
@@ -29,7 +30,7 @@ export class Punchcard {
     // options
     let itemHeight = options.itemHeight || 50;
     let gutter = options.gutter || 20;
-    let margin = _.extend(
+    let margin = extend(
       {
         top: gutter * 3.5,
         right: gutter,
@@ -55,10 +56,10 @@ export class Punchcard {
     });
 
     // estimation number of x.axis.ticks to center if there are no so much
-    let xAxisLimits = d3.extent(_.map(_.flatten(_.map(data, "value")), "key"));
+    let xAxisLimits = d3.extent(map(flatten(map(data, "value")), "key"));
     let xAxisLength = moment(xAxisLimits[1]).diff(xAxisLimits[0], "months");
     if (xAxisLength < 5) {
-      margin = _.extend(margin, {
+      margin = extend(margin, {
         left: margin.left * 2,
         right: margin.right * 10
       });

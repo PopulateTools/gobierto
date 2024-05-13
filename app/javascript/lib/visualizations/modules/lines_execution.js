@@ -14,6 +14,7 @@ import {
 import { mouse, select, selectAll } from 'd3-selection';
 import { timeFormat, timeFormatDefaultLocale, timeParse } from 'd3-time-format';
 import { transition } from 'd3-transition';
+import { flatten } from 'lodash';
 import { GOBIERTO_BUDGETS } from '../../../lib/events';
 import { accounting, d3locale } from '../../../lib/shared';
 
@@ -247,7 +248,7 @@ export class VisLinesExecution {
     this.y0.domain(this.nested.map(d => d.key));
 
     /* Get the id of every line */
-    this.y1.domain(_.flatten(this.nested.map(d => d.values.map(v => v.id))));
+    this.y1.domain(flatten(this.nested.map(d => d.values.map(v => v.id))));
 
     /* A time scale which spreads along the whole chart */
     this.z.domain([
@@ -507,7 +508,7 @@ export class VisLinesExecution {
         : this.nested.map(d => d.key).reverse()
     );
 
-    this.y1.domain(_.flatten(this.nested.map(d => d.values.map(v => v.id))));
+    this.y1.domain(flatten(this.nested.map(d => d.values.map(v => v.id))));
 
     this.svg
       .selectAll(".line-group")

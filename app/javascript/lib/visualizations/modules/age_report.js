@@ -6,6 +6,7 @@ import { format } from 'd3-format';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { select, selectAll } from 'd3-selection';
 import { accounting } from '../../../lib/shared';
+import { uniq } from 'lodash';
 
 const d3 = {
   select,
@@ -114,7 +115,7 @@ export class VisAgeReport {
             {
               age_group: "16-24",
               response_rate: +accounting.toFixed(
-                _.uniq(
+                uniq(
                   v
                     .filter(function(d) {
                       return d.age >= 16 && d.age <= 24;
@@ -129,7 +130,7 @@ export class VisAgeReport {
             {
               age_group: "25-34",
               response_rate: +accounting.toFixed(
-                _.uniq(
+                uniq(
                   v
                     .filter(function(d) {
                       return d.age >= 25 && d.age <= 34;
@@ -144,7 +145,7 @@ export class VisAgeReport {
             {
               age_group: "35-44",
               response_rate: +accounting.toFixed(
-                _.uniq(
+                uniq(
                   v
                     .filter(function(d) {
                       return d.age >= 35 && d.age <= 44;
@@ -159,7 +160,7 @@ export class VisAgeReport {
             {
               age_group: "45-54",
               response_rate: +accounting.toFixed(
-                _.uniq(
+                uniq(
                   v
                     .filter(function(d) {
                       return d.age >= 45 && d.age <= 54;
@@ -174,7 +175,7 @@ export class VisAgeReport {
             {
               age_group: "55-64",
               response_rate: +accounting.toFixed(
-                _.uniq(
+                uniq(
                   v
                     .filter(function(d) {
                       return d.age >= 55 && d.age <= 64;
@@ -189,7 +190,7 @@ export class VisAgeReport {
             {
               age_group: "65+",
               response_rate: +accounting.toFixed(
-                _.uniq(
+                uniq(
                   v
                     .filter(function(d) {
                       return d.age >= 65;
@@ -212,7 +213,7 @@ export class VisAgeReport {
       //   {
       //     age_group: "16-24",
       //     response_rate: +accounting.toFixed(
-      //       _.uniq(
+      //       uniq(
       //         v
       //           .filter(function(d) {
       //             return d.age >= 16 && d.age <= 24;
@@ -227,7 +228,7 @@ export class VisAgeReport {
       //   {
       //     age_group: "25-34",
       //     response_rate: +accounting.toFixed(
-      //       _.uniq(
+      //       uniq(
       //         v
       //           .filter(function(d) {
       //             return d.age >= 25 && d.age <= 34;
@@ -242,7 +243,7 @@ export class VisAgeReport {
       //   {
       //     age_group: "35-44",
       //     response_rate: +accounting.toFixed(
-      //       _.uniq(
+      //       uniq(
       //         v
       //           .filter(function(d) {
       //             return d.age >= 35 && d.age <= 44;
@@ -257,7 +258,7 @@ export class VisAgeReport {
       //   {
       //     age_group: "45-54",
       //     response_rate: +accounting.toFixed(
-      //       _.uniq(
+      //       uniq(
       //         v
       //           .filter(function(d) {
       //             return d.age >= 45 && d.age <= 54;
@@ -272,7 +273,7 @@ export class VisAgeReport {
       //   {
       //     age_group: "55-64",
       //     response_rate: +accounting.toFixed(
-      //       _.uniq(
+      //       uniq(
       //         v
       //           .filter(function(d) {
       //             return d.age >= 55 && d.age <= 64;
@@ -287,7 +288,7 @@ export class VisAgeReport {
       //   {
       //     age_group: "65+",
       //     response_rate: +accounting.toFixed(
-      //       _.uniq(
+      //       uniq(
       //         v
       //           .filter(function(d) {
       //             return d.age >= 65;

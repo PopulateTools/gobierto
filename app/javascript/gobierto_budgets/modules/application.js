@@ -1,4 +1,5 @@
 import 'devbridge-autocomplete';
+import { debounce } from 'lodash';
 import 'sticky-kit/dist/sticky-kit.js';
 import 'tipsy-1a';
 import Turbolinks from 'turbolinks';
@@ -25,7 +26,7 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
 
     window.addEventListener(
       "resize",
-      _.debounce(function() {
+      debounce(function() {
         expenseTreemap.render($("#expense-treemap").data("functional-url"));
       }, 250)
     );
@@ -37,7 +38,7 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
 
     window.addEventListener(
       "resize",
-      _.debounce(function() {
+      debounce(function() {
         expenseTreemap.render($("#treemap").data("url"));
       }, 250)
     );
@@ -76,7 +77,7 @@ $(document).on("turbolinks:load", function() {
 
       window.addEventListener(
         "resize",
-        _.debounce(function() {
+        debounce(function() {
           new VisSlider(".timeline", window.budgetLevels);
 
           visBubblesExpense.resize();

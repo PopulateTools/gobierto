@@ -1,6 +1,7 @@
 import { analyzeMetafile, build } from "esbuild"
 import { sassPlugin } from "esbuild-sass-plugin"
 import vue from "esbuild-vue"
+import env from "@intrnl/esbuild-plugin-env"
 import fs from "fs"
 import path from "path"
 
@@ -25,6 +26,10 @@ fs.readdir(pathEntryPoints, (_, files) => {
     loader: { ".js": "jsx", ".png": "dataurl", ".gif": "dataurl" },
     plugins: [
       vue(),
+      env({
+        // Only inject environment variables from dotenv files
+        filter: (_, filename) => filename,
+      }),
       sassPlugin({
         loadPaths: [path.resolve(process.cwd(), "node_modules")],
         quietDeps: true

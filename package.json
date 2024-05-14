@@ -66,13 +66,9 @@
     "velocity-ui-pack": "^1.2.2",
     "vue": "^2.5.16",
     "vue-axe": "^2.4.4",
-    "vue-codemirror": "^4.0.6",
     "vue-grid-layout": "^2.3.11",
-    "vue-loader": "^15.7.0",
     "vue-mapbox": "^0.4.1",
     "vue-router": "^3.1.3",
-    "vue-template-compiler": "^2.6.10",
-    "vue-turbolinks": "^2.0.4",
     "vue2-leaflet": "^2.2.1",
     "wicket": "^1.3.5"
   },

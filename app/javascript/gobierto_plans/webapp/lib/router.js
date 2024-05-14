@@ -3,15 +3,25 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-const Main = () => import('../Main.vue');
-const Plan = () => import('../pages/Plan.vue');
-const Categories = () => import('../pages/Categories.vue');
-const Projects = () => import('../pages/Projects.vue');
-const Groups = () => import('../pages/Groups.vue');
-const GroupsByTerm = () => import('../pages/GroupsByTerm.vue');
-const ProjectsByTerm = () => import('../pages/ProjectsByTerm.vue');
-const PlanTab = () => import('../pages/PlanTab.vue');
-const DashboardsTab = () => import('../pages/DashboardsTab.vue');
+// ESBuild does not work properly with dynamic components
+import Main from '../Main.vue';
+import Plan from '../pages/Plan.vue';
+import Categories from '../pages/Categories.vue';
+import Projects from '../pages/Projects.vue';
+import Groups from '../pages/Groups.vue';
+import GroupsByTerm from '../pages/GroupsByTerm.vue';
+import ProjectsByTerm from '../pages/ProjectsByTerm.vue';
+import PlanTab from '../pages/PlanTab.vue';
+import DashboardsTab from '../pages/DashboardsTab.vue';
+// const Main = () => import('../Main.vue');
+// const Plan = () => import('../pages/Plan.vue');
+// const Categories = () => import('../pages/Categories.vue');
+// const Projects = () => import('../pages/Projects.vue');
+// const Groups = () => import('../pages/Groups.vue');
+// const GroupsByTerm = () => import('../pages/GroupsByTerm.vue');
+// const ProjectsByTerm = () => import('../pages/ProjectsByTerm.vue');
+// const PlanTab = () => import('../pages/PlanTab.vue');
+// const DashboardsTab = () => import('../pages/DashboardsTab.vue');
 
 // routes enumeration names
 export const routes = {

@@ -105,8 +105,7 @@ module GobiertoBudgets
     def debt(requested_year = year)
       @data[:debt][requested_year] ||= SearchEngine.client.get(
         index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index,
-        type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_debt,
-        id: [@site.organization_id, requested_year].join("/")
+        id: [@site.organization_id, requested_year, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_debt].join("/")
       )["_source"]["value"]
 
       @data[:debt][requested_year]
@@ -117,8 +116,7 @@ module GobiertoBudgets
     def population(requested_year = year)
       @data[:population][requested_year] ||= SearchEngine.client.get(
         index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index,
-        type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_population,
-        id: [organization_id, requested_year].join("/")
+        id: [organization_id, requested_year, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_population].join("/")
       )["_source"]["value"]
 
       @data[:population][requested_year]
@@ -247,6 +245,7 @@ module GobiertoBudgets
       main_budget_lines_execution.each do |budget_line|
         executed_amount = budget_line.amount
         next unless main_budget_lines_summary[budget_line.code]
+
         budgeted_amount = main_budget_lines_summary[budget_line.code][:budgeted_amount]
         main_budget_lines_summary[budget_line.code].merge!(
           executed_amount: executed_amount,
@@ -290,8 +289,7 @@ module GobiertoBudgets
     def total_budget_per_inhabitant_query(year)
       SearchEngine.client.get(
         index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-        type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type,
-        id: [@site.organization_id, year, BudgetLine::EXPENSE].join("/")
+        id: [@site.organization_id, year, BudgetLine::EXPENSE, GobiertoBudgetsData::GobiertoBudgets::TOTAL_BUDGET_TYPE].join("/")
       )
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
@@ -303,11 +301,11 @@ module GobiertoBudgets
 
     def get_income_budget_line(year, code)
       kind = GobiertoBudgets::BudgetLine::INCOME
-      id = [@site.organization_id, year, code, kind].join("/")
-      index =  GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
       type = GobiertoBudgets::EconomicArea.area_name
+      id = [@site.organization_id, year, code, kind, type].join("/")
+      index =  GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
 
-      result = GobiertoBudgets::SearchEngine.client.get index: index, type: type, id: id
+      result = GobiertoBudgets::SearchEngine.client.get index: index, id: id
       result["_source"]["amount"]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       0
@@ -315,11 +313,11 @@ module GobiertoBudgets
 
     def get_expense_budget_line(year, code)
       kind = GobiertoBudgets::BudgetLine::EXPENSE
-      id = [@site.organization_id, year, code, kind].join("/")
-      index =  GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
       type = GobiertoBudgets::EconomicArea.area_name
+      id = [@site.organization_id, year, code, kind, type].join("/")
+      index =  GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
 
-      result = GobiertoBudgets::SearchEngine.client.get index: index, type: type, id: id
+      result = GobiertoBudgets::SearchEngine.client.get index: index, id: id
       result["_source"]["amount"]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       0
@@ -329,7 +327,8 @@ module GobiertoBudgets
       {
         organization_id: organization_id,
         year: params[:year] || year,
-        kind: params[:kind] || BudgetLine::EXPENSE
+        kind: params[:kind] || BudgetLine::EXPENSE,
+        type: GobiertoBudgetsData::GobiertoBudgets::TOTAL_BUDGET_TYPE
       }
     end
 

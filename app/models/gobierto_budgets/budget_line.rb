@@ -72,8 +72,7 @@ module GobiertoBudgets
     def self.execute_get_population_query(organization_id, census_year)
       result = GobiertoBudgets::SearchEngine.client.get(
         index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index,
-        type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_population,
-        id: "#{ organization_id }/#{ census_year }"
+        id: "#{ organization_id }/#{ census_year }/#{ GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_population }"
       )
       result["_source"]["value"]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
@@ -93,7 +92,7 @@ module GobiertoBudgets
       place = site.place
       @organization_id = site.organization_id
       @ine_code = place ? place.id.to_i : nil
-      @id = "#{ organization_id }/#{ year }/#{ code }/#{ kind }"
+      @id = "#{ organization_id }/#{ year }/#{ code }/#{ kind }/#{ area.area_name }"
       @category = Category.find_by(site: site, area_name: area.area_name, kind: kind, code: code)
       @name = get_name
       @description = get_description
@@ -108,21 +107,17 @@ module GobiertoBudgets
       @population ||= self.class.get_population(organization_id, year)
     end
 
-    # TODO: remove?
-    # def to_param
-    #   { organization_id: organization_id, year: year, code: code, area_name: area.area_name, kind: kind }
-    # end
-
     def save
-      result = GobiertoBudgets::SearchEngine.client.index(index: elastic_search_index, type: area.area_name, id: id, body: elasticsearch_as_json.to_json)
-      saved = (result["_shards"]["failed"] == 0)
-      self.class.pg_search_reindex(self) if saved
+      result = GobiertoBudgets::SearchEngine.client.index(index: elastic_search_index, id: id, body: elasticsearch_as_json.to_json)
+      if (saved = (result["_shards"]["failed"] == 0))
+        self.class.pg_search_reindex(self)
+      end
       saved
     end
 
     def destroy
       self.class.pg_search_delete_index(self)
-      result = GobiertoBudgets::SearchEngine.client.delete(index: elastic_search_index, type: area.area_name, id: id)
+      result = GobiertoBudgets::SearchEngine.client.delete(index: elastic_search_index, id: id)
       result["_shards"]["failed"] == 0
     end
 

@@ -81,17 +81,6 @@ module GobiertoBudgets
       end
     end
 
-    def test_budget_evolution_for
-      result = BudgetTotal.budget_evolution_for(organization_id)
-
-      assert result.empty?
-
-      with(factory: TotalBudgetFactory.new(factory_params)) do
-        result = BudgetTotal.budget_evolution_for(organization_id)
-        assert result.any?
-      end
-    end
-
     def test_for_organizations
       query_params = [[organization_id], YEAR]
 

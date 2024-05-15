@@ -45,42 +45,26 @@ module GobiertoBudgets
                 CONFIG.index_forecast_updated
               end
 
-      doc_id = [organization_id, year, kind].join("/")
+      doc_id = [organization_id, year, kind, GobiertoBudgetsData::GobiertoBudgets::TOTAL_BUDGET_TYPE].join("/")
 
       result = SearchEngine.client.get(index: index, type: CONFIG.type, id: doc_id)
-      result = result["_source"]["total_budget"].to_f
+      result = result["_source"]["amount"].to_f
       result == 0.0 ? nil : result
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end
 
-    def self.budget_evolution_for(organization_id, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
-      query = ESQueryBuilder.must(
-        organization_id: organization_id,
-        kind: kind
-      ).merge(
-        sort: [{ year: { order: "asc" } }],
-        size: ESQueryBuilder::MAX_SIZE
-      )
-
-      index = (b_or_e == BudgetTotal::EXECUTED) ? CONFIG.index_executed : CONFIG.index_forecast
-
-      response = SearchEngine.client.search(index: index, type: CONFIG.type, body: query)
-
-      response["hits"]["hits"].map { |h| h["_source"] }
-    end
-
     def self.for_organizations(organization_ids, year)
       query = ESQueryBuilder.must(
         organization_id: organization_ids,
-        year: year
+        year: year,
+        type: CONFIG.type,
       ).merge(
         size: ESQueryBuilder::MAX_SIZE
       )
 
       response = SearchEngine.client.search(
         index: CONFIG.index_forecast,
-        type: CONFIG.type,
         body: query
       )
 

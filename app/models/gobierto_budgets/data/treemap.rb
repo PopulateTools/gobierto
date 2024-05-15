@@ -34,10 +34,10 @@ module GobiertoBudgets
       private
 
       def budget_lines_hits
-        hits = SearchEngine.client.search(index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated, type: @type, body: query)["hits"]["hits"]
+        hits = SearchEngine.client.search(index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated, body: query)["hits"]["hits"]
 
         if hits.empty?
-          hits = SearchEngine.client.search(index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: @type, body: query)["hits"]["hits"]
+          hits = SearchEngine.client.search(index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query)["hits"]["hits"]
         end
 
         hits
@@ -48,16 +48,17 @@ module GobiertoBudgets
           q = ESQueryBuilder.must(
             organization_id: @organization_id,
             kind: @kind,
-            year: @year
+            year: @year,
+            type: @type
           ).merge(
             sort: [ { amount: { order: "desc" } } ],
             size: ESQueryBuilder::MAX_SIZE
           )
 
           if @parent_code.nil?
-            q[:query][:filtered][:filter][:bool][:must].push(term: { level: @level })
+            q[:query][:bool][:must].push(term: { level: @level })
           else
-            q[:query][:filtered][:filter][:bool][:must].push(term: { parent_code: @parent_code })
+            q[:query][:bool][:must].push(term: { parent_code: @parent_code })
           end
 
           q

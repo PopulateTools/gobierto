@@ -40,7 +40,7 @@ module GobiertoBudgets
 
       total = BudgetTotal.for(@conditions[:site].organization_id, @conditions[:year])
 
-      response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast,
+      response = SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast,
                                             type: area.area_name, body: query
 
       response["hits"]["hits"].map { |h| h["_source"] }.map do |row|

@@ -39,7 +39,7 @@ module GobiertoBudgets
         area     = BudgetArea.klass_for(conditions[:area_name])
 
         response = SearchEngine.client.search(
-          index: SearchEngineConfiguration::BudgetLine.index_forecast,
+          index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
           type: area.area_name,
           body: query
         )
@@ -87,7 +87,7 @@ module GobiertoBudgets
           size: 10_000
         }
 
-        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast,
+        response = SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast,
                                                                type: EconomicArea.area_name, body: query
 
         response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
@@ -166,10 +166,10 @@ module GobiertoBudgets
 
         area = BudgetArea.klass_for(conditions[:area_name])
 
-        default_index = SearchEngineConfiguration::BudgetLine.index_forecast
+        default_index = GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast
 
         index = if updated_forecast
-                  SearchEngineConfiguration::BudgetLine.index_forecast_updated
+                  GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast_updated
                 else
                   conditions[:index] || default_index
                 end
@@ -239,8 +239,8 @@ module GobiertoBudgets
           size: 10_000
         }
 
-        default_index = SearchEngineConfiguration::BudgetLine.index_forecast
-        index = updated_forecast ? SearchEngineConfiguration::BudgetLine.index_forecast_updated : default_index
+        default_index = GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast
+        index = updated_forecast ? GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast_updated : default_index
 
         response = SearchEngine.client.search(index: index, type: (options[:type] || EconomicArea.area_name), body: query)
 
@@ -273,16 +273,16 @@ module GobiertoBudgets
         )
 
         forecast_info = SearchEngine.client.get_source(common_params.merge(
-          index: SearchEngineConfiguration::BudgetLine.index_forecast
+          index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast
         ))
 
         raise BudgetLine::RecordNotFound unless forecast_info
 
         forecast_updated_info = SearchEngine.client.get_source(common_params.merge(
-          index: SearchEngineConfiguration::BudgetLine.index_forecast_updated
+          index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast_updated
         ))
         execution_info = SearchEngine.client.get_source(common_params.merge(
-          index: SearchEngineConfiguration::BudgetLine.index_executed
+          index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_executed
         ))
 
         budget_line.forecast.original_amount = forecast_info["amount"] if forecast_info
@@ -311,7 +311,7 @@ module GobiertoBudgets
       def any_data?(conditions = {})
         any_data = false
 
-        indexes = (conditions[:index] ? [conditions[:index]] : [SearchEngineConfiguration::BudgetLine.index_forecast, SearchEngineConfiguration::BudgetLine.index_executed])
+        indexes = (conditions[:index] ? [conditions[:index]] : [GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_executed])
         areas   = (conditions[:area] ? [conditions[:area]] : BudgetArea.all_areas)
 
         terms = []
@@ -353,7 +353,7 @@ module GobiertoBudgets
       private_class_method :validate_conditions
 
       def elastic_search_index
-        SearchEngineConfiguration::BudgetLine.send(index)
+        GobiertoBudgetsData::GobiertoBudgets::BudgetLine.send(index)
       end
 
       def elasticsearch_as_json

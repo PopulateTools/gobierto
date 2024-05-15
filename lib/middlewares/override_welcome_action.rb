@@ -9,7 +9,8 @@ class OverrideWelcomeAction
     # Load gobierto_site, used by route constraints
     full_domain = (env["HTTP_HOST"] || env["SERVER_NAME"] || env["SERVER_ADDR"]).split(":").first
 
-    if site = Site.find_by_allowed_domain(full_domain)
+    #if site = Site.find_by_allowed_domain(full_domain)
+    if site = Site.first
       env["gobierto_site"] = site
       GobiertoCore::CurrentScope.current_site = site
     end

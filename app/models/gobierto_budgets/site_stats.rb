@@ -104,8 +104,8 @@ module GobiertoBudgets
 
     def debt(requested_year = year)
       @data[:debt][requested_year] ||= SearchEngine.client.get(
-        index: SearchEngineConfiguration::Data.index,
-        type: SearchEngineConfiguration::Data.type_debt,
+        index: GobiertoBudgetsData::GobiertoBudgets::Data.index,
+        type: GobiertoBudgetsData::GobiertoBudgets::Data.type_debt,
         id: [@site.organization_id, requested_year].join("/")
       )["_source"]["value"]
 
@@ -116,8 +116,8 @@ module GobiertoBudgets
 
     def population(requested_year = year)
       @data[:population][requested_year] ||= SearchEngine.client.get(
-        index: SearchEngineConfiguration::Data.index,
-        type: SearchEngineConfiguration::Data.type_population,
+        index: GobiertoBudgetsData::GobiertoBudgets::Data.index,
+        type: GobiertoBudgetsData::GobiertoBudgets::Data.type_population,
         id: [organization_id, requested_year].join("/")
       )["_source"]["value"]
 
@@ -171,7 +171,7 @@ module GobiertoBudgets
 
     def latest_available(variable, requested_year = year)
       value = {}
-      requested_year.downto(SearchEngineConfiguration::Year.first).each do |y|
+      requested_year.downto(GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.first).each do |y|
         if has_data?(variable, y)
           value = { value: send(variable, y), year: y }
           break
@@ -181,7 +181,7 @@ module GobiertoBudgets
     end
 
     def has_available?(variable)
-      (SearchEngineConfiguration::Year.first..SearchEngineConfiguration::Year.last).any? do |y|
+      (GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.first..SearchEngineConfiguration::Year.last).any? do |y|
         has_data?(variable, y)
       end
     end
@@ -233,7 +233,7 @@ module GobiertoBudgets
 
     def main_budget_lines_summary
       main_budget_lines_forecast = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, site: @site, year: year, area_name: EconomicArea.area_name })
-      main_budget_lines_execution = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, site: @site, year: year, area_name: EconomicArea.area_name, index: SearchEngineConfiguration::BudgetLine.index_executed })
+      main_budget_lines_execution = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, site: @site, year: year, area_name: EconomicArea.area_name, index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_executed })
 
       main_budget_lines_summary = {}
 
@@ -289,8 +289,8 @@ module GobiertoBudgets
 
     def total_budget_per_inhabitant_query(year)
       SearchEngine.client.get(
-        index: SearchEngineConfiguration::TotalBudget.index_forecast,
-        type: SearchEngineConfiguration::TotalBudget.type,
+        index: GobiertoBudgetsData::GobiertoBudgets::TotalBudget.index_forecast,
+        type: GobiertoBudgetsData::GobiertoBudgets::TotalBudget.type,
         id: [@site.organization_id, year, BudgetLine::EXPENSE].join("/")
       )
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
@@ -304,7 +304,7 @@ module GobiertoBudgets
     def get_income_budget_line(year, code)
       kind = GobiertoBudgets::BudgetLine::INCOME
       id = [@site.organization_id, year, code, kind].join("/")
-      index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+      index =  GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
       type = GobiertoBudgets::EconomicArea.area_name
 
       result = GobiertoBudgets::SearchEngine.client.get index: index, type: type, id: id
@@ -316,7 +316,7 @@ module GobiertoBudgets
     def get_expense_budget_line(year, code)
       kind = GobiertoBudgets::BudgetLine::EXPENSE
       id = [@site.organization_id, year, code, kind].join("/")
-      index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+      index =  GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
       type = GobiertoBudgets::EconomicArea.area_name
 
       result = GobiertoBudgets::SearchEngine.client.get index: index, type: type, id: id

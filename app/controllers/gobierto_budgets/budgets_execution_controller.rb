@@ -27,7 +27,7 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
 
   def load_year
     if params[:year].nil?
-      redirect_to gobierto_budgets_budgets_execution_path(GobiertoBudgets::SearchEngineConfiguration::Year.last)
+      redirect_to gobierto_budgets_budgets_execution_path(GobiertBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last)
     else
       @year = params[:year].to_i
     end

@@ -17,7 +17,7 @@ namespace :gobierto_budgets do
 
       organizations = [INE::Places::Place.find_by_slug("madrid"), INE::Places::Place.find_by_slug("santander"), "wadus"]
       organizations.each do |organization|
-        (GobiertoBudgets::SearchEngineConfiguration::Year.last - 2..GobiertoBudgets::SearchEngineConfiguration::Year.last).each do |year|
+        (GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last - 2..GobiertoBudgets::SearchEngineConfiguration::Year.last).each do |year|
           import_gobierto_budgets_for_organization(organization, year)
           import_gobierto_budgets_data_for_organization(organization, year)
         end
@@ -209,7 +209,7 @@ namespace :gobierto_budgets do
 
     def create_data_mapping
       index = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index
-      [GobiertoBudgets::SearchEngineConfiguration::Data.type_population, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_debt].each do |type|
+      [GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_population, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_debt].each do |type|
         m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
         next unless m.empty?
 

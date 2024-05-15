@@ -34,10 +34,10 @@ module GobiertoBudgets
       private
 
       def budget_lines_hits
-        hits = SearchEngine.client.search(index: SearchEngineConfiguration::BudgetLine.index_forecast_updated, type: @type, body: query)["hits"]["hits"]
+        hits = SearchEngine.client.search(index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast_updated, type: @type, body: query)["hits"]["hits"]
 
         if hits.empty?
-          hits = SearchEngine.client.search(index: SearchEngineConfiguration::BudgetLine.index_forecast, type: @type, body: query)["hits"]["hits"]
+          hits = SearchEngine.client.search(index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast, type: @type, body: query)["hits"]["hits"]
         end
 
         hits

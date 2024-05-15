@@ -17,7 +17,7 @@ module GobiertoBudgets
     if current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_elaboration"]
       Rails.application.routes.url_helpers.gobierto_budgets_budgets_elaboration_path
     else
-      Rails.application.routes.url_helpers.gobierto_budgets_budgets_path(GobiertoBudgets::SearchEngineConfiguration::Year.last)
+      Rails.application.routes.url_helpers.gobierto_budgets_budgets_path(::GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last)
     end
   end
 

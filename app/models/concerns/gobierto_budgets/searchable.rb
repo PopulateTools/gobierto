@@ -38,8 +38,8 @@ module GobiertoBudgets
 
       def execute_query(query)
         SearchEngine.client.search(
-          index: SearchEngineConfiguration::BudgetCategories.index,
-           type: SearchEngineConfiguration::BudgetCategories.type,
+          index: GobiertoBudgetsData::GobiertoBudgets::BudgetCategories.index,
+           type: GobiertoBudgetsData::GobiertoBudgets::BudgetCategories.type,
            body: query
         )
       end

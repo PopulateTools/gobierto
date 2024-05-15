@@ -44,18 +44,17 @@ module GobiertoBudgets
         end
         filters.push(term: { kind: @kind })
         filters.push(term: { code: @code }) if @code
-        filters.push(missing: { field: "functional_code" })
-        filters.push(missing: { field: "custom_code" })
+        filters.push(term: { type: type })
+
+        must_not_terms = []
+        must_not_terms.push({exists: { field: 'functional_code'}})
+        must_not_terms.push({exists: { field: 'custom_code'}})
 
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: filters
-                }
-              }
-            }
+            bool: {
+              must: filters
+            }.merge(must_not_terms.any? ? { must_not: must_not_terms } : {})
           },
           size: 10_000,
           "aggs": {
@@ -75,7 +74,7 @@ module GobiertoBudgets
           }
         }
 
-        response = SearchEngine.client.search index: default_index, type: type, body: query
+        response = SearchEngine.client.search index: default_index, body: query
         data = {}
         response["aggregations"]["#{ @variable }_per_year"]["buckets"].each do |r|
           data[r["key"]] = (r["budget_sum"]["value"].to_f / r["doc_count"].to_f).round(2)
@@ -111,23 +110,22 @@ module GobiertoBudgets
           { term: conditions.slice(condition) }
         end
 
-        filters.push(missing: { field: "functional_code" })
-        filters.push(missing: { field: "custom_code" })
         filters.push(term: { kind: @kind })
+        filters.push(term: { type: type })
         filters.push(term: { code: @code }) if @code
+
+        must_not_terms = []
+        must_not_terms.push({exists: { field: 'functional_code'}})
+        must_not_terms.push({exists: { field: 'custom_code'}})
 
         query = {
           sort: [
             { year: { order: "desc" } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: filters
-                }
-              }
-            }
+            bool: {
+              must: filters
+            }.merge(must_not_terms.any? ? { must_not: must_not_terms } : {})
           },
           size: 10_000
         }
@@ -153,7 +151,7 @@ module GobiertoBudgets
       end
 
       def place_hits(query, organization_id)
-        SearchEngine.client.search(index: default_index, type: type, body: query)["hits"]["hits"].select do |hit|
+        SearchEngine.client.search(index: default_index, body: query)["hits"]["hits"].select do |hit|
           hit_value = (hit["_source"]["amount"] || hit["_source"]["total_budget"]).to_f
           # FIXME: production and staging indexes did not set the not_analyzed property, so we're
           # getting undesired results from associated entities like 8121-gencat-812133051

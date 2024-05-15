@@ -327,8 +327,7 @@ module GobiertoBudgets
       {
         organization_id: organization_id,
         year: params[:year] || year,
-        kind: params[:kind] || BudgetLine::EXPENSE,
-        type: GobiertoBudgetsData::GobiertoBudgets::TOTAL_BUDGET_TYPE
+        kind: params[:kind] || BudgetLine::EXPENSE
       }
     end
 

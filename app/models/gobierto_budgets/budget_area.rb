@@ -2,8 +2,8 @@
 
 module GobiertoBudgets
   class BudgetArea
-    include Describable
-    include Searchable
+    include GobiertoBudgetsData::GobiertoBudgets::Describable
+    include GobiertoBudgetsData::GobiertoBudgets::Searchable
 
     def self.all_areas
       [EconomicArea, FunctionalArea, CustomArea]

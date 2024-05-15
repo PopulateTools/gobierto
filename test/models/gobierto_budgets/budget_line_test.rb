@@ -34,7 +34,7 @@ module GobiertoBudgets
 
     def budget_line_arguments_for_indexing
       {
-        index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast,
+        index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
         type: EconomicArea.area_name,
         id: "28079/2015/1/G"
       }

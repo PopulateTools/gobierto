@@ -9,7 +9,7 @@ module GobiertoBudgets
     BUDGETED = "B"
     EXECUTED = "E"
     BUDGETED_UPDATED = "BU"
-    CONFIG = GobiertoBudgetsData::GobiertoBudgets::TotalBudget
+    CONFIG = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget
 
     def self.budgeted_updated_for(params = {})
       organization_id = params[:organization_id]

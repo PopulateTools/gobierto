@@ -225,12 +225,12 @@ module GobiertoBudgets
       end
 
       def default_index
-        GobiertoBudgetsData::GobiertoBudgets::TotalBudget.index_forecast
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast
       end
 
       def type
         if @code.nil?
-          GobiertoBudgetsData::GobiertoBudgets::TotalBudget.type
+          GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
         else
           @area
         end

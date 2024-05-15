@@ -13,11 +13,14 @@ module GobiertoBudgets
     end
 
     def self.all
+      area = (@conditions[:kind] == BudgetLine::INCOME ? EconomicArea : FunctionalArea)
+
       terms = [
         { term: { kind: @conditions[:kind] } },
         { term: { year: @conditions[:year] } },
         { term: { level: 3 } },
-        { term: { organization_id: @conditions[:site].organization_id } }
+        { term: { organization_id: @conditions[:site].organization_id } },
+        { term: { type: area.area_name } }
       ]
 
       query = {
@@ -25,23 +28,16 @@ module GobiertoBudgets
           { amount: { order: "desc" } }
         ],
         query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: terms
-              }
-            }
+          bool: {
+            must: terms
           }
         },
         size: @limit
       }
 
-      area = (@conditions[:kind] == BudgetLine::INCOME ? EconomicArea : FunctionalArea)
-
       total = BudgetTotal.for(@conditions[:site].organization_id, @conditions[:year])
 
-      response = SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast,
-                                            type: area.area_name, body: query
+      response = SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query
 
       response["hits"]["hits"].map { |h| h["_source"] }.map do |row|
         GobiertoBudgets::BudgetLinePresenter.new(row.merge(

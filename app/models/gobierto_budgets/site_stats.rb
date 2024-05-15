@@ -104,8 +104,8 @@ module GobiertoBudgets
 
     def debt(requested_year = year)
       @data[:debt][requested_year] ||= SearchEngine.client.get(
-        index: GobiertoBudgetsData::GobiertoBudgets::Data.index,
-        type: GobiertoBudgetsData::GobiertoBudgets::Data.type_debt,
+        index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index,
+        type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_debt,
         id: [@site.organization_id, requested_year].join("/")
       )["_source"]["value"]
 
@@ -116,8 +116,8 @@ module GobiertoBudgets
 
     def population(requested_year = year)
       @data[:population][requested_year] ||= SearchEngine.client.get(
-        index: GobiertoBudgetsData::GobiertoBudgets::Data.index,
-        type: GobiertoBudgetsData::GobiertoBudgets::Data.type_population,
+        index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index,
+        type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_population,
         id: [organization_id, requested_year].join("/")
       )["_source"]["value"]
 
@@ -181,7 +181,7 @@ module GobiertoBudgets
     end
 
     def has_available?(variable)
-      (GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.first..SearchEngineConfiguration::Year.last).any? do |y|
+      (GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.first..GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last).any? do |y|
         has_data?(variable, y)
       end
     end
@@ -233,7 +233,7 @@ module GobiertoBudgets
 
     def main_budget_lines_summary
       main_budget_lines_forecast = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, site: @site, year: year, area_name: EconomicArea.area_name })
-      main_budget_lines_execution = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, site: @site, year: year, area_name: EconomicArea.area_name, index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_executed })
+      main_budget_lines_execution = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, site: @site, year: year, area_name: EconomicArea.area_name, index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed })
 
       main_budget_lines_summary = {}
 
@@ -289,8 +289,8 @@ module GobiertoBudgets
 
     def total_budget_per_inhabitant_query(year)
       SearchEngine.client.get(
-        index: GobiertoBudgetsData::GobiertoBudgets::TotalBudget.index_forecast,
-        type: GobiertoBudgetsData::GobiertoBudgets::TotalBudget.type,
+        index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
+        type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type,
         id: [@site.organization_id, year, BudgetLine::EXPENSE].join("/")
       )
     rescue Elasticsearch::Transport::Transport::Errors::NotFound

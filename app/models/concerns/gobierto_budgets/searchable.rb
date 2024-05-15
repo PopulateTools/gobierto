@@ -11,14 +11,11 @@ module GobiertoBudgets
 
           query = {
             query: {
-              filtered: {
-                filter: {
-                  bool: {
-                    must: [
-                      { term: { area: area_name } },
-                    ]
-                  }
-                }
+              bool: {
+                must: [
+                  { term: { area: area_name } },
+                  { term: { type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type } }
+                ]
               }
             },
             size: 10_000
@@ -38,9 +35,8 @@ module GobiertoBudgets
 
       def execute_query(query)
         SearchEngine.client.search(
-          index: GobiertoBudgetsData::GobiertoBudgets::BudgetCategories.index,
-           type: GobiertoBudgetsData::GobiertoBudgets::BudgetCategories.type,
-           body: query
+          index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index,
+          body: query
         )
       end
 

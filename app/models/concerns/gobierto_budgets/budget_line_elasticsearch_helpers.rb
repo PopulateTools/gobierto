@@ -87,7 +87,7 @@ module GobiertoBudgets
           size: 10_000
         }
 
-        response = SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast,
+        response = SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
                                                                type: EconomicArea.area_name, body: query
 
         response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
@@ -106,10 +106,14 @@ module GobiertoBudgets
         updated_forecast = params[:updated_forecast] || false
         validate_conditions(conditions)
 
+        area = BudgetArea.klass_for(conditions[:area_name])
+
         terms = [
           {term: { kind: conditions[:kind] }},
-          {term: { organization_id: conditions[:site].organization_id }}
+          {term: { organization_id: conditions[:site].organization_id }},
+          {term: { type: area.area_name }}
         ]
+        must_not_terms = []
 
         terms.push({term: { year: conditions[:year] }}) if conditions[:year]
         terms.push({term: { code: conditions[:code] }}) if conditions[:code]
@@ -140,22 +144,19 @@ module GobiertoBudgets
           #   return functional_codes_for_economic_budget_line(conditions)
           end
         else
-          terms.push({missing: { field: 'functional_code'}})
-          terms.push({missing: { field: 'custom_code'}})
+          must_not_terms.push({exists: { field: 'functional_code'}})
+          must_not_terms.push({exists: { field: 'custom_code'}})
         end
+
 
         query = {
           sort: [
             { SORT_ATTRIBUTE => { order: SORT_ORDER } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
-            }
+            bool: {
+              must: terms
+            }.merge(must_not_terms.present? ? { must_not: must_not_terms } : {})
           },
           aggs: {
             total_budget: { sum: { field: 'amount' } },
@@ -164,17 +165,15 @@ module GobiertoBudgets
           size: 10_000
         }
 
-        area = BudgetArea.klass_for(conditions[:area_name])
-
-        default_index = GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast
+        default_index = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
 
         index = if updated_forecast
-                  GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast_updated
+                  GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated
                 else
                   conditions[:index] || default_index
                 end
 
-        response = SearchEngine.client.search(index: index, type: area.area_name, body: query)
+        response = SearchEngine.client.search(index: index, body: query)
 
         if updated_forecast && response["hits"]["hits"].empty?
           response = SearchEngine.client.search(index: default_index, type: area.area_name, body: query)
@@ -239,8 +238,8 @@ module GobiertoBudgets
           size: 10_000
         }
 
-        default_index = GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast
-        index = updated_forecast ? GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast_updated : default_index
+        default_index = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+        index = updated_forecast ? GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated : default_index
 
         response = SearchEngine.client.search(index: index, type: (options[:type] || EconomicArea.area_name), body: query)
 
@@ -273,16 +272,16 @@ module GobiertoBudgets
         )
 
         forecast_info = SearchEngine.client.get_source(common_params.merge(
-          index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast
+          index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
         ))
 
         raise BudgetLine::RecordNotFound unless forecast_info
 
         forecast_updated_info = SearchEngine.client.get_source(common_params.merge(
-          index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_forecast_updated
+          index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated
         ))
         execution_info = SearchEngine.client.get_source(common_params.merge(
-          index: GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_executed
+          index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
         ))
 
         budget_line.forecast.original_amount = forecast_info["amount"] if forecast_info
@@ -311,32 +310,27 @@ module GobiertoBudgets
       def any_data?(conditions = {})
         any_data = false
 
-        indexes = (conditions[:index] ? [conditions[:index]] : [GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgetsData::GobiertoBudgets::BudgetLine.index_executed])
+        indexes = (conditions[:index] ? [conditions[:index]] : [GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed])
         areas   = (conditions[:area] ? [conditions[:area]] : BudgetArea.all_areas)
 
-        terms = []
-        terms << { term: { organization_id: conditions[:site].organization_id } } if conditions[:site]
-        terms << { term: { kind: conditions[:kind] } } if conditions[:kind]
-        terms << { term: { year: conditions[:year] } } if conditions[:year]
-
-        query = {
-          query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
-            }
-          },
-          size: 1
-        }
+        base_terms = []
+        base_terms << { term: { organization_id: conditions[:site].organization_id } } if conditions[:site]
+        base_terms << { term: { kind: conditions[:kind] } } if conditions[:kind]
+        base_terms << { term: { year: conditions[:year] } } if conditions[:year]
 
         indexes.each do |index|
           areas.each do |area|
+            query = {
+              query: {
+                bool: {
+                  must: base_terms.append({ term: { type: area.area_name } })
+                }
+              },
+              size: 1
+            }
+
             response = SearchEngine.client.search(
               index: index,
-              type: area.area_name,
               body: query
             )
             return true if response['hits']['hits'].any?

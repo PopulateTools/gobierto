@@ -15,7 +15,7 @@ gem "meta-tags"
 gem "paper_trail"
 gem "paranoia"
 gem "pg", "~> 1.1"
-gem "rails", "~> 6.0.4.8"
+gem "rails", "~> 6.1.7.7"
 gem "redcarpet", require: true
 gem "responders"
 gem "ruby_px"
@@ -84,7 +84,7 @@ gem "rubyXL"
 
 # Performance
 # TODO: v3 raises a middleware error
-gem "appsignal", "= 3.0.6"
+gem "appsignal"#, "= 3.0.6"
 
 # Analytics
 gem 'ahoy_matey', '~> 4.2', '>= 4.2.1'

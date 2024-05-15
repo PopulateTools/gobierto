@@ -118,12 +118,14 @@ gem "webrick", "~> 1.8"
 gem 'prime'
 gem 'net-imap'
 
+# Debugging
+gem "pry"
+gem "pry-rails"
+
 group :development, :test do
   gem "i18n-tasks"
-  gem "spring"
   gem "puma"
   # https://world.hey.com/lewis/run-multiple-rails-apps-with-puma-dev-67b1c10f
-  gem "debug", require: false
 end
 
 group :test do
@@ -149,7 +151,6 @@ end
 group :development do
   gem "rubocop"
   gem "listen"
-  gem "spring-watcher-listen", "~> 2.0.0"
   gem "foreman"
   gem "rb-readline"
 end

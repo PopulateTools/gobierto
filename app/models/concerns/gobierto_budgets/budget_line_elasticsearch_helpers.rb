@@ -11,36 +11,34 @@ module GobiertoBudgets
         conditions = params[:where]
         validate_conditions(conditions)
 
+        area = BudgetArea.klass_for(conditions[:area_name])
+
         terms = [
           {term: { kind: conditions[:kind] }},
           {term: { year: conditions[:year] }},
           {term: { code: conditions[:code] }},
-          {missing: { field: 'functional_code'}},
-          {missing: { field: 'custom_code'}},
-          {term: { organization_id: conditions[:site].organization_id }}
+          {term: { organization_id: conditions[:site].organization_id }},
+          {term: { type: area.area_name }},
         ]
+
+        must_not_terms = []
+        must_not_terms.push({exists: { field: 'functional_code'}})
+        must_not_terms.push({exists: { field: 'custom_code'}})
 
         query = {
           sort: [
             { SORT_ATTRIBUTE => { order: SORT_ORDER } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
-            }
+            bool: {
+              must: terms
+            }.merge(must_not_terms.present? ? { must_not: must_not_terms } : {})
           },
-          size: 10_000
+          size: 10
         }
-
-        area     = BudgetArea.klass_for(conditions[:area_name])
 
         response = SearchEngine.client.search(
           index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-          type: area.area_name,
           body: query
         )
 
@@ -64,7 +62,8 @@ module GobiertoBudgets
           {term: { year: conditions[:year] }},
           {term: { code: conditions[:functional_code] }},
           {exists: { field: 'functional_code'}},
-          {term: { organization_id: conditions[:site].organization_id }}
+          {term: { organization_id: conditions[:site].organization_id }},
+          {term: { type: EconomicArea.area_name }}
         ]
 
         query = {
@@ -72,12 +71,8 @@ module GobiertoBudgets
             { SORT_ATTRIBUTE => { order: SORT_ORDER } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
+            bool: {
+              must: terms
             }
           },
           aggs: {
@@ -87,8 +82,7 @@ module GobiertoBudgets
           size: 10_000
         }
 
-        response = SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                               type: EconomicArea.area_name, body: query
+        response = SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query
 
         response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
           next if row['functional_code'].length != 1
@@ -139,15 +133,11 @@ module GobiertoBudgets
             else
               terms.push(exists: { field: "custom_code" })
             end
-          # else
-          #   conditions[:area_name] = CustomArea.area_name
-          #   return functional_codes_for_economic_budget_line(conditions)
           end
         else
           must_not_terms.push({exists: { field: 'functional_code'}})
           must_not_terms.push({exists: { field: 'custom_code'}})
         end
-
 
         query = {
           sort: [
@@ -212,6 +202,8 @@ module GobiertoBudgets
         terms << {term: { parent_code: options[:parent_code] }} if options[:parent_code].present?
         terms << {term: { level: options[:level] }} if options[:level].present?
         terms << {term: { code: options[:code] }} if options[:code].present?
+        terms << {term: { type: (options[:type] || EconomicArea.area_name) }}
+
         if options[:range_hash].present?
           options[:range_hash].each_key do |range_key|
             terms << {range: { range_key => options[:range_hash][range_key] }}
@@ -223,12 +215,8 @@ module GobiertoBudgets
             { code: { order: 'asc' } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
+            bool: {
+              must: terms
             }
           },
           aggs: {
@@ -241,7 +229,7 @@ module GobiertoBudgets
         default_index = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
         index = updated_forecast ? GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated : default_index
 
-        response = SearchEngine.client.search(index: index, type: (options[:type] || EconomicArea.area_name), body: query)
+        response = SearchEngine.client.search(index: index, body: query)
 
         if updated_forecast && response["hits"]["hits"].empty?
           response = SearchEngine.client.search(index: default_index, type: (options[:type] || EconomicArea.area_name), body: query)
@@ -258,7 +246,7 @@ module GobiertoBudgets
       end
 
       def get_source(params = {})
-        SearchEngine.client.get_source(index: params[:index], type: params[:type], id: params[:id])
+        SearchEngine.client.get_source(index: params[:index], id: params[:id])
       end
 
       def find_details(params = {})

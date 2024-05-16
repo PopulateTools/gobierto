@@ -117,6 +117,7 @@ gem 'matrix'
 gem "webrick", "~> 1.8"
 gem 'prime'
 gem 'net-imap'
+gem 'base64', '~> 0.2.0'
 
 # Debugging
 gem "pry"

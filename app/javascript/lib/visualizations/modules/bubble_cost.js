@@ -7,11 +7,12 @@ import {
   forceY
 } from 'd3-force';
 import { formatDefaultLocale } from 'd3-format';
-import { wordwrap } from 'd3-jetpack';
 import { scaleLinear, scaleSqrt, scaleThreshold } from 'd3-scale';
-import { mouse, select, selectAll } from 'd3-selection';
+import { mouse, select, selectAll, selection } from 'd3-selection';
 import { transition } from 'd3-transition';
-import { accounting, d3locale } from '../../../lib/shared';
+import { accounting, d3locale, wordwrap, tspans } from '../../../lib/shared';
+
+selection.prototype.tspans = tspans;
 
 const d3 = {
   select,
@@ -27,8 +28,7 @@ const d3 = {
   forceCollide,
   max,
   formatDefaultLocale,
-  transition,
-  wordwrap
+  transition
 };
 
 export class VisBubble {
@@ -283,12 +283,8 @@ export class VisBubble {
       .attr("y", -15)
       .attr("fill", "white")
       .tspans(
-        function(d) {
-          return d.radius > 40 ? d3.wordwrap(d.id, 15) : d3.wordwrap("", 15);
-        },
-        function(d) {
-          return this.fontSize(d.radius);
-        }.bind(this)
+        d => (d.radius > 40 ? wordwrap(d.id, 15) : wordwrap("", 15)),
+        d => this.fontSize(d.radius)
       );
 
     this.simulation.nodes(this.nodes);

@@ -7,12 +7,10 @@ import {
   forceY
 } from 'd3-force';
 import { formatDefaultLocale } from 'd3-format';
-import { wordwrap } from 'd3-jetpack';
-import tspans from 'd3-jetpack/src/tspans';
 import { scaleLinear, scaleSqrt, scaleThreshold } from 'd3-scale';
 import { mouse, select, selectAll, selection } from 'd3-selection';
 import { transition } from 'd3-transition';
-import { accounting, d3locale } from '../../../lib/shared';
+import { accounting, d3locale, wordwrap, tspans } from '../../../lib/shared';
 
 selection.prototype.tspans = tspans;
 
@@ -31,7 +29,6 @@ const d3 = {
   max,
   formatDefaultLocale,
   transition,
-  wordwrap,
   selection
 };
 
@@ -296,7 +293,7 @@ export class VisBubbles {
         d.pct_diff > 30 || d.pct_diff < -10 ? "white" : "black"
       )
       .tspans(
-        d => (d.radius > 40 ? d3.wordwrap(d.name, 15) : d3.wordwrap("", 15)),
+        d => (d.radius > 40 ? wordwrap(d.name, 15) : wordwrap("", 15)),
         d => this.fontSize(d.radius)
       );
 

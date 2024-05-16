@@ -20,6 +20,8 @@ import { checkAndReportAccessibility } from './modules/accessibility.js';
 import { groupBy } from './modules/groupBy.js';
 import { formatNumbers } from './modules/d3-format-numbers.js';
 import appsignal from './modules/appsignal.js';
+import wordwrap from './modules/wordwrap.js';
+import tspans from './modules/tspans.js';
 
 export {
   AUTOCOMPLETE_DEFAULTS,
@@ -38,5 +40,7 @@ export {
   checkAndReportAccessibility,
   groupBy,
   formatNumbers,
-  appsignal
+  appsignal,
+  wordwrap,
+  tspans
 };

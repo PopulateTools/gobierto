@@ -1,4 +1,18 @@
 GIT
+  remote: https://github.com/PopulateTools/gobierto_budgets_data.git
+  revision: e16091dec3dadd25cdc8c685869c48660460d42c
+  branch: bump-elasticsearch
+  specs:
+    gobierto_budgets_data (0.1.0)
+      actionpack
+      activesupport
+      aws-sdk-s3
+      elasticsearch (~> 7.17.10)
+      ine-places (~> 0.3.0)
+      oj (~> 3.6)
+      rake (~> 13.0)
+
+GIT
   remote: https://github.com/maierru/liquid-rails.git
   revision: f40da9a09f393726181747492f5bc389e456955f
   specs:
@@ -17,18 +31,6 @@ GIT
       mail (> 2.2.5)
       mime-types
       xml-simple
-
-PATH
-  remote: ../gobierto_budgets_data
-  specs:
-    gobierto_budgets_data (0.1.0)
-      actionpack
-      activesupport
-      aws-sdk-s3
-      elasticsearch (~> 7.17.10)
-      ine-places (~> 0.3.0)
-      oj (~> 3.6)
-      rake (~> 13.0)
 
 GEM
   remote: https://rubygems.org/

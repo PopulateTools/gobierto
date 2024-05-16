@@ -77,7 +77,7 @@ gem "exchanger"
 gem "savon", "~> 2.12.0"
 
 # Gobierto budgets data
-gem "gobierto_budgets_data", path: "../gobierto_budgets_data" #, git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
+gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git", branch: "bump-elasticsearch"
 
 # API
 gem "rubyXL"

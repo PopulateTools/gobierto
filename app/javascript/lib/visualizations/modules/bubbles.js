@@ -1,36 +1,7 @@
-import { max } from 'd3-array';
-import {
-  forceCollide,
-  forceManyBody,
-  forceSimulation,
-  forceX,
-  forceY
-} from 'd3-force';
-import { formatDefaultLocale } from 'd3-format';
-import { scaleLinear, scaleSqrt, scaleThreshold } from 'd3-scale';
-import { mouse, select, selectAll, selection } from 'd3-selection';
-import { transition } from 'd3-transition';
+import * as d3 from 'd3'
 import { accounting, d3locale, wordwrap, tspans } from '../../../lib/shared';
 
-selection.prototype.tspans = tspans;
-
-const d3 = {
-  select,
-  selectAll,
-  mouse,
-  scaleThreshold,
-  scaleLinear,
-  scaleSqrt,
-  forceSimulation,
-  forceX,
-  forceY,
-  forceManyBody,
-  forceCollide,
-  max,
-  formatDefaultLocale,
-  transition,
-  selection
-};
+d3.selection.prototype.tspans = tspans;
 
 export class VisBubbles {
   constructor(divId, budgetCategory, data) {
@@ -305,8 +276,8 @@ export class VisBubbles {
     this.bubbles.attr("transform", d => `translate(${d.x},${d.y})`);
   }
 
-  _mousemoved(d) {
-    var coordinates = d3.mouse(this.selectionNode);
+  _mousemoved(event, d) {
+    var coordinates = d3.pointer(event, this.selectionNode);
     var x = coordinates[0],
       y = coordinates[1];
 

@@ -1,16 +1,15 @@
 import crossfilter from 'crossfilter2';
-import { max, mean, median, sum } from 'd3-array';
-import { scaleThreshold } from 'd3-scale';
+import * as d3 from 'd3';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import {
   AmountDistributionBars,
   GroupPctDistributionBars
 } from '../../lib/visualizations';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 import { money } from '../../lib/vue/filters';
 import { EventBus } from '../webapp/lib/mixins/event_bus';
 import { calculateSumMeanMedian, getRemoteData } from '../webapp/lib/utils';
-import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
@@ -18,7 +17,6 @@ if (Vue.config.devtools) {
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
-const d3 = { scaleThreshold, sum, mean, median, max };
 
 export class ContractsController {
   constructor(options) {

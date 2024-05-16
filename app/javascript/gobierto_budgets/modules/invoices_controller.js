@@ -1,27 +1,12 @@
 import crossfilter from 'crossfilter2';
-import { axisTop } from 'd3-axis';
-import { csv } from 'd3-fetch';
-import { scaleBand, scaleOrdinal, scaleThreshold } from 'd3-scale';
-import { select } from 'd3-selection';
-import { timeMonth } from 'd3-time';
-import { timeFormatLocale } from 'd3-time-format';
+import * as d3 from 'd3';
 import { barChart, rowChart, units } from 'dc';
 import 'jsgrid';
-import { extend, filter as _filter, groupBy, isEmpty, isEqual, map, max, mean, sum, sumBy, uniqBy } from 'lodash';
+import { filter as _filter, extend, groupBy, isEmpty, isEqual, map, max, mean, sum, sumBy, uniqBy } from 'lodash';
 import moment from 'moment';
 import { d3locale } from '../../lib/shared';
 import { AmountDistributionBars } from '../../lib/visualizations';
 
-const d3 = {
-  select,
-  csv,
-  scaleThreshold,
-  scaleBand,
-  axisTop,
-  scaleOrdinal,
-  timeMonth,
-  timeFormatLocale
-};
 const dc = { barChart, rowChart, units };
 
 window.GobiertoBudgets.InvoicesController = (function() {

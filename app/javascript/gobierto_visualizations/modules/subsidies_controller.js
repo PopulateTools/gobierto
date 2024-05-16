@@ -1,6 +1,5 @@
 import crossfilter from 'crossfilter2';
-import { max, mean, median, sum } from 'd3-array';
-import { scaleThreshold } from 'd3-scale';
+import * as d3 from 'd3';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import {
@@ -15,7 +14,7 @@ import { calculateSumMeanMedian, getRemoteData, sortByField } from '../webapp/li
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
 }
-const d3 = { scaleThreshold, sum, mean, median, max };
+
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 

@@ -1,45 +1,7 @@
-import { max } from 'd3-array';
-import { axisBottom, axisTop } from 'd3-axis';
-import { nest } from 'd3-collection';
-import { rgb } from 'd3-color';
-import { json } from 'd3-fetch';
-import { format, formatDefaultLocale } from 'd3-format';
-import {
-  scaleBand,
-  scaleLinear,
-  scaleLog,
-  scaleOrdinal,
-  scaleTime
-} from 'd3-scale';
-import { mouse, select, selectAll } from 'd3-selection';
-import { timeFormat, timeFormatDefaultLocale, timeParse } from 'd3-time-format';
-import { transition } from 'd3-transition';
+import * as d3 from 'd3'
 import { flatten } from 'lodash';
 import { GOBIERTO_BUDGETS } from '../../../lib/events';
 import { accounting, d3locale } from '../../../lib/shared';
-
-const d3 = {
-  select,
-  selectAll,
-  mouse,
-  format,
-  formatDefaultLocale,
-  timeFormatDefaultLocale,
-  timeParse,
-  timeFormat,
-  transition,
-  scaleOrdinal,
-  scaleTime,
-  scaleLog,
-  scaleLinear,
-  scaleBand,
-  axisBottom,
-  axisTop,
-  json,
-  max,
-  rgb,
-  nest
-};
 
 export class VisLinesExecution {
   constructor(divId, type, category) {
@@ -102,15 +64,7 @@ export class VisLinesExecution {
       this.setScales();
       this.updateRender();
 
-      var event;
-      if (typeof Event === "function") {
-        event = new Event(GOBIERTO_BUDGETS.LOADED);
-      } else {
-        event = document.createEvent("Event");
-        event.initEvent(GOBIERTO_BUDGETS.LOADED, true, true);
-      }
-
-      window.dispatchEvent(event);
+      dispatchEvent(new Event(GOBIERTO_BUDGETS.LOADED));
     });
   }
 
@@ -200,25 +154,10 @@ export class VisLinesExecution {
   }
 
   updateRender() {
-    // d3v5
-    //
-    this.nested = d3
-      .nest()
-      .key(function(d) {
-        return d.parent_id;
-      })
-      .sortValues(function(a, b) {
-        // Parent lines are the first for each group, and then child lines are sorted by execution rate
-        return a.level === 1 || b.level === 1 ? b.level - a.level : b.id - a.id;
-      })
-      .entries(this.data.lines);
-
-    // d3v6
-    //
-    // this.nested = Array.from(
-    //   d3.group(this.data.lines, d => d.parent_id),
-    //   ([key, values]) => ({ key, values })
-    // );
+    this.nested = Array.from(
+      d3.group(this.data.lines, d => d.parent_id),
+      ([key, values]) => ({ key, values })
+    );
 
     this.nested.forEach(d => {
       d.values = d.values.sort((a, b) =>
@@ -546,8 +485,8 @@ export class VisLinesExecution {
       .attr("y2", d => this.y1(d.id) + this.y1.bandwidth());
   }
 
-  _mousemoved(d) {
-    var coordinates = d3.mouse(this.selectionNode);
+  _mousemoved(event, d) {
+    var coordinates = d3.pointer(event, this.selectionNode);
     var x = coordinates[0],
       y = coordinates[1];
 

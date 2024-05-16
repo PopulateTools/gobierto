@@ -1,10 +1,7 @@
-import { axisTop } from 'd3-axis';
-import { scaleThreshold } from 'd3-scale';
-import { select } from 'd3-selection';
+import * as d3 from 'd3';
 import { rowChart } from 'dc';
 import { truncate } from '../../../lib/vue/filters';
 
-const d3 = { scaleThreshold, axisTop, select };
 const dc = { rowChart };
 
 export class GroupPctDistributionBars {

@@ -1,8 +1,6 @@
-import { timeFormat, timeParse } from 'd3-time-format';
+import * as d3 from 'd3';
 import { accounting } from '../../../lib/shared';
 import { Card } from './card.js';
-
-const d3 = { timeFormat, timeParse };
 
 export class ComparisonCard extends Card {
   constructor(divClass, value_1, value_2, { metadata, cardName }) {

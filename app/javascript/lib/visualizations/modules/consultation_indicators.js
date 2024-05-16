@@ -1,12 +1,5 @@
-import { mean, sum } from 'd3-array';
-import { nest } from 'd3-collection';
-import { csv } from 'd3-fetch';
-import { format } from 'd3-format';
-import { scaleQuantile } from 'd3-scale';
-import { select } from 'd3-selection';
+import * as d3 from 'd3';
 import { accounting } from '../../../lib/shared';
-
-const d3 = { csv, select, format, sum, mean, scaleQuantile, nest };
 
 export class VisIndicators {
   constructor(divId, url) {

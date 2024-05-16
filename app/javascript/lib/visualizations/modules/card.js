@@ -1,8 +1,5 @@
-import { select } from 'd3-selection';
-import { timeFormatDefaultLocale } from 'd3-time-format';
+import * as d3 from 'd3';
 import { accounting, d3locale } from '../../../lib/shared';
-
-const d3 = { timeFormatDefaultLocale, select };
 
 export class Card {
   constructor(divClass) {

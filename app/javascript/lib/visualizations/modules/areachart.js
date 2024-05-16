@@ -1,24 +1,4 @@
-import { extent, max } from 'd3-array';
-import { axisBottom } from 'd3-axis';
-import { scaleLinear, scaleTime } from 'd3-scale';
-import { select, selectAll } from 'd3-selection';
-import { area, line } from 'd3-shape';
-import { timeMonth } from 'd3-time';
-import { timeFormat } from 'd3-time-format';
-
-const d3 = {
-  select,
-  selectAll,
-  scaleTime,
-  scaleLinear,
-  extent,
-  max,
-  area,
-  line,
-  axisBottom,
-  timeMonth,
-  timeFormat
-};
+import * as d3 from 'd3';
 
 export class Areachart {
   constructor(props) {

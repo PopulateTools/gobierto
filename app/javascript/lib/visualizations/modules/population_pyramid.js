@@ -1,24 +1,5 @@
-import { max, min } from 'd3-array';
-import { axisBottom, axisRight } from 'd3-axis';
-import { csv, json } from 'd3-fetch';
-import { scaleBand, scaleLinear } from 'd3-scale';
-import { select, selectAll } from 'd3-selection';
-import { transition } from 'd3-transition';
+import * as d3 from 'd3';
 import { maxBy, mean, sumBy, uniq } from 'lodash';
-
-const d3 = {
-  scaleLinear,
-  scaleBand,
-  axisBottom,
-  axisRight,
-  select,
-  selectAll,
-  json,
-  csv,
-  max,
-  min,
-  transition
-};
 
 export class VisPopulationPyramid {
   constructor(divId, city_id, filter) {
@@ -290,7 +271,7 @@ export class VisPopulationPyramid {
   }
 
   handlePromise(url, opts = {}) {
-    return json(url, {
+    return d3.json(url, {
       headers: new Headers({ authorization: "Bearer " + this.tbiToken }),
       ...opts
     });
@@ -715,7 +696,7 @@ export class VisPopulationPyramid {
     focus.append("text");
   }
 
-  _mousemove(d) {
+  _mousemove(_, d) {
     this.svg
       .select(".tooltip")
       .attr("opacity", 1)

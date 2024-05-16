@@ -1,11 +1,10 @@
-import { csv } from 'd3-fetch';
-import { mean, median, sum } from 'd3-array';
 import axios from 'axios';
+import * as d3 from 'd3';
 
 const endPointGobiertoData = `/api/v1/data/data.json`
 
 export function getRemoteData(endpoint) {
-  return csv(endpoint);
+  return d3.csv(endpoint);
 }
 
 export function sortByField(dateField) {
@@ -51,9 +50,9 @@ export function getQueryData(params) {
 }
 
 export function calculateSumMeanMedian(value) {
-  let sumValue = sum(value) || 0
-  let meanValue = mean(value) || 0
-  let medianValue = median(value) || 0
+  let sumValue = d3.sum(value) || 0
+  let meanValue = d3.mean(value) || 0
+  let medianValue = d3.median(value) || 0;
 
   let values = [sumValue, meanValue, medianValue]
 

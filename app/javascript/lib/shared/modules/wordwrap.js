@@ -1,6 +1,6 @@
 // https://github.com/gka/d3-jetpack/blob/main/src/wordwrap.js
 
-import { sum } from 'd3-array';
+import * as d3 from 'd3';
 
 // while this might not be reprentative for all fonts, it is
 // still better than assuming every character has the same width
@@ -31,7 +31,7 @@ export default function(line, maxCharactersPerLine, minCharactersPerLine, monosp
     minLineW = minChars * CHAR_W.a;
     l = 0;
     w.forEach(function(d) {
-        var ww = sum(d.split('').map(char_w));
+        var ww = d3.sum(d.split('').map(char_w));
         if (l + ww > maxLineW && l > minLineW) {
             lines.push(words.join(''));
             words.length = 0;

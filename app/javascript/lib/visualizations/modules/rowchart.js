@@ -1,19 +1,4 @@
-import { max } from 'd3-array';
-import { axisBottom, axisLeft } from 'd3-axis';
-import { scaleBand, scaleLinear } from 'd3-scale';
-import { select, selectAll } from 'd3-selection';
-import { transition } from 'd3-transition';
-
-const d3 = {
-  select,
-  selectAll,
-  scaleLinear,
-  scaleBand,
-  max,
-  axisBottom,
-  axisLeft,
-  transition
-};
+import * as d3 from 'd3';
 
 export class Rowchart {
   constructor(context, data, options = {}) {

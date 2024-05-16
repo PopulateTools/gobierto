@@ -16,7 +16,7 @@ namespace :gobierto_budgets do
 
       if organization_ids.any?
         organization_ids.each do |organization_id|
-          GobiertoBudgets::SearchEngineConfiguration::Year.all_with_data.each do |year|
+          GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.all_with_data.each do |year|
             TOTAL_BUDGET_INDEXES.each do |index|
               puts " - Calculating totals for #{organization_id} in year #{year} for index #{index}"
 

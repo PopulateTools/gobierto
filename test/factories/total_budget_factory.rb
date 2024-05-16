@@ -6,7 +6,7 @@ class TotalBudgetFactory
 
   include BudgetsFactory
 
-  TYPE = GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
+  TYPE = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
 
   def build_document(index, params = {})
     population = params[:population] || self.class.default_population

@@ -7,12 +7,12 @@
 <% end %>
 <div class="sub-nav-item<%= class_if(' active', (controller_name == 'budgets' && action_name == 'index') || controller_name == 'budget_lines') %>">
   <% content_for_if(:current_submodule_link, (controller_name == 'budgets' && action_name == 'index') || controller_name == 'budget_lines') do %>
-    <%= link_to t('gobierto_budgets.layouts.application.budgets'), gobierto_budgets_budgets_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
+    <%= link_to t('gobierto_budgets.layouts.application.budgets'), gobierto_budgets_budgets_path(year: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
   <% end %>
 </div>
 <div class="sub-nav-item<%= class_if(' active', controller_name == 'budgets_execution') %>">
   <% content_for_if(:current_submodule_link, controller_name == 'budgets_execution') do %>
-    <%= link_to t('gobierto_budgets.layouts.menu_subsections.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
   <% end %>
 </div>
 <div class="sub-nav-item<%= class_if(' active', controller_name == 'budgets' && action_name == 'guide') %>">

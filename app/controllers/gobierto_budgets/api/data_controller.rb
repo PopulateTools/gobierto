@@ -58,8 +58,8 @@ module GobiertoBudgets
       end
 
       def available_years
-        years = ::GobiertoBudgets::SearchEngineConfiguration::Year.with_data(
-          index: ::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+        years = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.with_data(
+          index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
         ).sort
 
         render json: years

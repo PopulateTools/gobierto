@@ -21,7 +21,7 @@ class GobiertoBudgets::GuideTest < ActionDispatch::IntegrationTest
   end
 
   def last_year
-    GobiertoBudgets::SearchEngineConfiguration::Year.last
+    GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last
   end
 
   def test_greeting

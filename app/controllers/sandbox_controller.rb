@@ -59,7 +59,7 @@ class SandboxController < ApplicationController
 
   def set_working_variables
     @place = current_site.place
-    @year = GobiertoBudgets::SearchEngineConfiguration::Year.last
+    @year =  GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last
   end
 
   def current_site

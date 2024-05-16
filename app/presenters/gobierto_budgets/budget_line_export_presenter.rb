@@ -1,9 +1,9 @@
 module GobiertoBudgets
   class BudgetLineExportPresenter < BudgetLinePresenter
 
-    INDEX_KEYS = { GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast => :value_budget_initial,
-                   GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated => :value_budget_modified,
-                   GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed => :value_budget_execution }
+    INDEX_KEYS = { GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast => :value_budget_initial,
+                   GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated => :value_budget_modified,
+                   GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed => :value_budget_execution }
 
     def initialize(attributes)
       super

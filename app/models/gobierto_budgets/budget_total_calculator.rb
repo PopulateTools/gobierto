@@ -17,7 +17,7 @@ module GobiertoBudgets
     end
 
     def calculate!
-      GobiertoBudgets::SearchEngineConfiguration::TotalBudget.all_indices.each do |index|
+      GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.all_indices.each do |index|
         import_total_budget(year, index, GobiertoBudgets::BudgetLine::EXPENSE)
         import_total_budget(year, index, GobiertoBudgets::BudgetLine::INCOME)
       end
@@ -44,7 +44,7 @@ module GobiertoBudgets
       })
 
       id = [organization_id, year, kind].join("/")
-      GobiertoBudgets::SearchEngine.client.index index: index, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id, body: data
+      GobiertoBudgets::SearchEngine.client.index index: index, type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id, body: data
     end
 
     def get_data(index, organization_id, year, kind, type = nil)

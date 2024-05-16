@@ -29,7 +29,7 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
   end
 
   def guide
-    @year = GobiertoBudgets::SearchEngineConfiguration::Year.last
+    @year = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last
     load_site_stats
 
     if current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_guide_page"]
@@ -45,9 +45,9 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
   def load_year
     default_year = if budgets_elaboration_active?
-                     GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data - 1
+                     GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data - 1
                    else
-                     GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data
+                     GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data
                    end
 
     if params[:year].nil?

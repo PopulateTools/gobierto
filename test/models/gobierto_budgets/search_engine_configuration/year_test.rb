@@ -3,7 +3,7 @@
 require "test_helper"
 
 module GobiertoBudgets
-  module SearchEngineConfiguration
+  module GobiertoBudgetsData::GobiertoBudgets::
     class YearTest < ActiveSupport::TestCase
 
       def site
@@ -21,7 +21,7 @@ module GobiertoBudgets
       end
 
       def subject_class
-        ::GobiertoBudgets::SearchEngineConfiguration::Year
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year
       end
 
       def test_last_year_when_no_data

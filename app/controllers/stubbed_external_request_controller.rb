@@ -16,8 +16,8 @@ class StubbedExternalRequestController < ApplicationController
   helper_method :user_signed_in?
 
   def bubbles_file
-    year = GobiertoBudgets::SearchEngineConfiguration::Year.last.to_s
-    previous_year = (GobiertoBudgets::SearchEngineConfiguration::Year.last - 1).to_s
+    year = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last.to_s
+    previous_year = (GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last - 1).to_s
 
     render json: [
       {

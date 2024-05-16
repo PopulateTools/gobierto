@@ -21,7 +21,7 @@ class GobiertoBudgets::IndicatorsController < GobiertoBudgets::ApplicationContro
   end
 
   def available_years
-    @available_years ||= GobiertoBudgets::SearchEngineConfiguration::Year.all
+    @available_years ||= GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.all
   end
 
   def current_year

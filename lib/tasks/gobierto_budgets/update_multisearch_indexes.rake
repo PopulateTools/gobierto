@@ -21,7 +21,7 @@ namespace :gobierto_budgets do
 
       GobiertoCore::CurrentScope.current_site = site
 
-      year = autodetect_year ? GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data : args[:year].to_i
+      year = autodetect_year ? GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data : args[:year].to_i
 
       GobiertoBudgets::BudgetArea.all_areas.each do |area|
         area.available_kinds.each do |kind|
@@ -29,7 +29,7 @@ namespace :gobierto_budgets do
           puts "---------------------------------------------------"
 
           forecast_hits = request_budget_lines_from_elasticsearch(
-            GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+            GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
             area,
             organization_id,
             year

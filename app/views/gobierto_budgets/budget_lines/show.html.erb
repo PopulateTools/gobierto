@@ -16,7 +16,7 @@
 
         <div class="col" data-level="0">
           <table class="med_bg" role="presentation">
-            <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
+            <% GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
               <tr>
                 <td data-code="<%= year %>"><%= link_to year, gobierto_budgets_budgets_path %></td>
               </tr>

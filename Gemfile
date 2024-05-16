@@ -15,7 +15,7 @@ gem "meta-tags"
 gem "paper_trail"
 gem "paranoia"
 gem "pg", "~> 1.1"
-gem "rails", "~> 6.0.4.8"
+gem "rails", "~> 6.1.7.7"
 gem "redcarpet", require: true
 gem "responders"
 gem "ruby_px"
@@ -30,10 +30,6 @@ gem "i18n-js", ">= 3.0.0.rc11" # required to i18n-tasks
 
 # Webpack
 gem "webpacker", "~> 5.0"
-
-# Elasticsearch
-gem "elasticsearch", "~> 6.0", ">= 6.0.2"
-gem "elasticsearch-extensions", "~> 0.0.27"
 
 # Background processing
 gem "sidekiq"
@@ -82,14 +78,14 @@ gem "exchanger"
 gem "savon", "~> 2.12.0"
 
 # Gobierto budgets data
-gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
+gem "gobierto_budgets_data", path: "../gobierto_budgets_data" #, git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
 
 # API
 gem "rubyXL"
 
 # Performance
 # TODO: v3 raises a middleware error
-gem "appsignal", "= 3.0.6"
+gem "appsignal"#, "= 3.0.6"
 
 # Analytics
 gem 'ahoy_matey', '~> 4.2', '>= 4.2.1'
@@ -123,12 +119,14 @@ gem "webrick", "~> 1.8"
 gem 'prime'
 gem 'net-imap'
 
+# Debugging
+gem "pry"
+gem "pry-rails"
+
 group :development, :test do
   gem "i18n-tasks"
-  gem "spring"
   gem "puma"
   # https://world.hey.com/lewis/run-multiple-rails-apps-with-puma-dev-67b1c10f
-  gem "debug", require: false
 end
 
 group :test do
@@ -154,7 +152,6 @@ end
 group :development do
   gem "rubocop"
   gem "listen"
-  gem "spring-watcher-listen", "~> 2.0.0"
   gem "foreman"
   gem "rb-readline"
 end

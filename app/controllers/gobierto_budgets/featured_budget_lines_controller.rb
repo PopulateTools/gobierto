@@ -8,7 +8,7 @@ module GobiertoBudgets
       results = GobiertoBudgets::BudgetLine.search(
         kind: @kind, year: @year, organization_id: current_site.organization_id,
         type: @area_name, range_hash: {
-          level: { ge: 3 },
+          level: { gte: 3 },
           amount: { gt: 0 }
         },
         updated_forecast: false

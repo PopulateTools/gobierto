@@ -31,9 +31,9 @@ module GobiertoBudgets
 
       def calculate_lines_with_conditions(base_conditions)
         lines = []
-        budget_lines_forecast_updated = GobiertoBudgets::BudgetLine.all(where: base_conditions.merge(index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated))
-        budget_lines_forecast = GobiertoBudgets::BudgetLine.all(where: base_conditions.merge(index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast))
-        budget_lines_execution = GobiertoBudgets::BudgetLine.all(where: base_conditions.merge(index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed))
+        budget_lines_forecast_updated = GobiertoBudgets::BudgetLine.all(where: base_conditions.merge(index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated))
+        budget_lines_forecast = GobiertoBudgets::BudgetLine.all(where: base_conditions.merge(index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast))
+        budget_lines_execution = GobiertoBudgets::BudgetLine.all(where: base_conditions.merge(index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed))
 
         budget_lines_forecast.each do |budget_line_forecast|
           budget_line_execution = budget_lines_execution.detect { |bl| bl.code == budget_line_forecast.code }

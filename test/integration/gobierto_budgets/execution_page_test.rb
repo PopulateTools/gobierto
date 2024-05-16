@@ -82,8 +82,8 @@ class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
 
   def test_year_breadcrumb
     available_years = [2017, 2016]
-    GobiertoBudgets::SearchEngineConfiguration::Year.expects(:with_data).with(
-      index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
+    GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.expects(:with_data).with(
+      index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
     ).returns(available_years)
 
     with_current_site(placed_site) do
@@ -99,8 +99,8 @@ class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
 
   def test_year_breadcrumb_click
     available_years = [2017]
-    GobiertoBudgets::SearchEngineConfiguration::Year.stubs(:with_data).with(
-      index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
+    GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.stubs(:with_data).with(
+      index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
     ).returns(available_years)
 
     with_current_site(placed_site) do

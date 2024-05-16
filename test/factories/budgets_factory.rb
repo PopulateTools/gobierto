@@ -5,9 +5,9 @@ module BudgetsFactory
   extend ActiveSupport::Concern
 
   INDEXES = {
-    forecast: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-    forecast_updated: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated,
-    executed: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
+    forecast: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+    forecast_updated: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated,
+    executed: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
   }
 
   class_methods do

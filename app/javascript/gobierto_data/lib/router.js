@@ -3,10 +3,15 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-const Main = () => import('../webapp/pages/Main.vue');
-const Index = () => import('../webapp/components/Index.vue');
-const Dataset = () => import('../webapp/components/Dataset.vue');
-const Visualizations = () => import('../webapp/pages/Visualizations.vue');
+// ESBuild does not work properly with dynamic components
+import Main from '../webapp/pages/Main.vue';
+import Index from '../webapp/components/Index.vue';
+import Dataset from '../webapp/components/Dataset.vue';
+import Visualizations from '../webapp/pages/Visualizations.vue';
+// const Main = () => import('../webapp/pages/Main.vue');
+// const Index = () => import('../webapp/components/Index.vue');
+// const Dataset = () => import('../webapp/components/Dataset.vue');
+// const Visualizations = () => import('../webapp/pages/Visualizations.vue');
 
 export const tabs = ['resumen', 'editor', 'consultas', 'visualizaciones', 'descarga', 'mapa']
 export const ROUTE_NAMES = {

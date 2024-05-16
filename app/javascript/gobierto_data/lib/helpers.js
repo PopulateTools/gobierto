@@ -1,7 +1,3 @@
-function getToken() {
-  return window.gobiertoAPI.token
-}
-
 function getUserId() {
   return window.gobiertoAPI.current_user_id
 }
@@ -12,4 +8,4 @@ function convertToCSV(arr) {
   return array.map(it => Object.values(it).toString()).join('\n')
 }
 
-export { getToken, getUserId, convertToCSV }
+export { getUserId, convertToCSV }

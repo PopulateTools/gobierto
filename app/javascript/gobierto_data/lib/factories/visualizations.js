@@ -9,7 +9,7 @@ export const VisualizationFactoryMixin = {
     getVisualization(id) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       return axios.get(`${endPoint}/${id}`, { headers });
@@ -17,7 +17,7 @@ export const VisualizationFactoryMixin = {
     getVisualizations(params) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       const qs = new URLSearchParams(params)
@@ -26,7 +26,7 @@ export const VisualizationFactoryMixin = {
     postVisualization(data) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       // Return a promise to handle the response where it's invoked
@@ -35,7 +35,7 @@ export const VisualizationFactoryMixin = {
     putVisualization(id, data) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       return axios.put(`${endPoint}/${id}`, data, { headers });
@@ -43,7 +43,7 @@ export const VisualizationFactoryMixin = {
     deleteVisualization(id) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       return axios.delete(`${endPoint}/${id}`, { headers });

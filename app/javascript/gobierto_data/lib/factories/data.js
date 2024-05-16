@@ -9,7 +9,7 @@ export const DataFactoryMixin = {
     getData(params) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       const qs = new URLSearchParams(params)

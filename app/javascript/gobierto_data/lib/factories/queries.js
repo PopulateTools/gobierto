@@ -9,7 +9,7 @@ export const QueriesFactoryMixin = {
     getQuery(id) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       return axios.get(`${endPoint}/${id}`, { headers });
@@ -17,7 +17,7 @@ export const QueriesFactoryMixin = {
     getQueries(params) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       const qs = new URLSearchParams(params)
@@ -26,7 +26,7 @@ export const QueriesFactoryMixin = {
     postQuery(data) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       return axios.post(endPoint, data, { headers });
@@ -34,7 +34,7 @@ export const QueriesFactoryMixin = {
     putQuery(id, data) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       return axios.put(`${endPoint}/${id}`, data, { headers });
@@ -42,7 +42,7 @@ export const QueriesFactoryMixin = {
     deleteQuery(id) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       return axios.delete(`${endPoint}/${id}`, { headers });

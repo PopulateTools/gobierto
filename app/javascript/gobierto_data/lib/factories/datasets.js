@@ -9,7 +9,7 @@ export const DatasetFactoryMixin = {
     getDatasets(params) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       const qs = new URLSearchParams(params);
@@ -18,7 +18,7 @@ export const DatasetFactoryMixin = {
     getDatasetsMetadata(params) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       const qs = new URLSearchParams(params);
@@ -27,7 +27,7 @@ export const DatasetFactoryMixin = {
     getDatasetMetadata(id) {
       const headers = {
         "Content-type": "application/json",
-        Authorization: window.populateData.token
+        Authorization: window.gobiertoAPI.token
       };
 
       return axios.get(`${endPoint}/${id}/meta/?locale=${I18n.locale}`, { headers })

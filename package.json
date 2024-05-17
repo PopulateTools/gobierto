@@ -71,12 +71,12 @@
     "esbuild-plugin-alias": "^0.2.1",
     "esbuild-sass-plugin": "^3.2.0",
     "esbuild-vue": "^1.2.2",
-    "eslint": "^6.4.0",
-    "eslint-plugin-vue": "^5.2.3",
+    "eslint": "^9.2.0",
+    "eslint-plugin-vue": "^9.26.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.5.3",
-    "stylelint": "^13.8.0",
-    "stylelint-config-recommended": "^3.0.0",
+    "stylelint": "^16.5.0",
+    "stylelint-config-recommended": "^14.0.0",
     "vue-template-compiler": "^2.7.16"
   },
   "scripts": {

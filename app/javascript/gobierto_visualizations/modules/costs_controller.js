@@ -4,9 +4,20 @@ import { getRemoteData } from '../webapp/lib/utils';
 import { EventBus } from '../webapp/lib/mixins/event_bus';
 import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 
+// ESBuild does not work properly with dynamic components
+import Home from '../webapp/containers/costs/Home.vue';
+import TableFirstLevel from '../webapp/containers/costs/table/TableFirstLevel.vue';
+import TableSecondLevel from '../webapp/containers/costs/table/TableSecondLevel.vue';
+import TableItem from '../webapp/containers/costs/table/TableItem.vue';
+// const Home = () => import('../webapp/containers/costs/Home.vue');
+// const TableFirstLevel = () => import('../webapp/containers/costs/table/TableFirstLevel.vue');
+// const TableSecondLevel = () => import('../webapp/containers/costs/table/TableSecondLevel.vue');
+// const TableItem = () => import('../webapp/containers/costs/table/TableItem.vue');
+
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
 }
+
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
@@ -23,15 +34,6 @@ export class CostsController {
       const htmlRouterBlock = `<router-view></router-view>`;
 
       entryPoint.innerHTML = htmlRouterBlock;
-
-      const Home = () =>
-        import('../webapp/containers/costs/Home.vue');
-      const TableFirstLevel = () =>
-        import('../webapp/containers/costs/table/TableFirstLevel.vue');
-      const TableSecondLevel = () =>
-        import('../webapp/containers/costs/table/TableSecondLevel.vue');
-      const TableItem = () =>
-        import('../webapp/containers/costs/table/TableItem.vue');
 
       Promise.resolve(getRemoteData(options.costsEndpoint)).then(rawData => {
         this.setGlobalVariables(rawData);

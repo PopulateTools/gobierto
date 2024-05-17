@@ -11,6 +11,18 @@ import { money } from '../../lib/vue/filters';
 import { EventBus } from '../webapp/lib/mixins/event_bus';
 import { calculateSumMeanMedian, getRemoteData } from '../webapp/lib/utils';
 
+// ESBuild does not work properly with dynamic components
+import Home from '../webapp/containers/contracts/Home.vue';
+import Summary from '../webapp/containers/contracts/Summary.vue';
+import ContractsIndex from '../webapp/containers/contracts/ContractsIndex.vue';
+import ContractsShow from '../webapp/containers/contracts/ContractsShow.vue';
+import AssigneesShow from '../webapp/containers/contracts/AssigneesShow.vue';
+// const Home = () => import('../webapp/containers/contracts/Home.vue');
+// const Summary = () => import('../webapp/containers/contracts/Summary.vue');
+// const ContractsIndex = () => import('../webapp/containers/contracts/ContractsIndex.vue');
+// const ContractsShow = () => import('../webapp/containers/contracts/ContractsShow.vue');
+// const AssigneesShow = () => import('../webapp/containers/contracts/AssigneesShow.vue');
+
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
 }
@@ -36,17 +48,6 @@ export class ContractsController {
       const htmlRouterBlock = `<router-view></router-view>`;
 
       entryPoint.innerHTML = htmlRouterBlock;
-
-      const Home = () =>
-        import('../webapp/containers/contracts/Home.vue');
-      const Summary = () =>
-        import('../webapp/containers/contracts/Summary.vue');
-      const ContractsIndex = () =>
-        import('../webapp/containers/contracts/ContractsIndex.vue');
-      const ContractsShow = () =>
-        import('../webapp/containers/contracts/ContractsShow.vue');
-      const AssigneesShow = () =>
-        import('../webapp/containers/contracts/AssigneesShow.vue');
 
       Promise.all([
         getRemoteData(options.contractsEndpoint),

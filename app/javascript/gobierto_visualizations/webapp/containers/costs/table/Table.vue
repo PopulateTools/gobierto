@@ -15,12 +15,24 @@
     />
   </div>
 </template>
+
 <script>
+// ESBuild does not work properly with dynamic components
+import TableFirstLevel from './TableFirstLevel.vue';
+import TableSecondLevel from './TableSecondLevel.vue';
+import TableItem from './TableItem.vue';
+
 const COMPONENTS_TABLE = [
-  () => import('./TableFirstLevel.vue'),
-  () => import('./TableSecondLevel.vue'),
-  () => import('./TableItem.vue')
+  TableFirstLevel,
+  TableSecondLevel,
+  TableItem
 ];
+
+// const COMPONENTS_TABLE = [
+//   () => import('./TableFirstLevel.vue'),
+//   () => import('./TableSecondLevel.vue'),
+//   () => import('./TableItem.vue')
+// ];
 
 export default {
   name: 'Table',

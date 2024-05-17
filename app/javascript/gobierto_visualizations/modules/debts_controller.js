@@ -5,9 +5,14 @@ import { getRemoteData, toNumber } from '../webapp/lib/utils';
 import { debtsEvolutionString } from '../webapp/lib/config/debts.js';
 import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 
+// ESBuild does not work properly with dynamic components
+import Home from '../webapp/containers/debts/Home.vue';
+// const Home = () => import('../webapp/containers/debts/Home.vue');
+
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
 }
+
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
@@ -24,9 +29,6 @@ export class DebtsController {
       const htmlRouterBlock = `<router-view></router-view>`;
 
       entryPoint.innerHTML = htmlRouterBlock;
-
-      const Home = () =>
-        import('../webapp/containers/debts/Home.vue');
 
       Promise.all([
         getRemoteData(options.debtsEndpoint),

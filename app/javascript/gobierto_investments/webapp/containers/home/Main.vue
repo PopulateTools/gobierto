@@ -15,12 +15,23 @@
 </template>
 
 <script>
-// define the components as dynamic
+// ESBuild does not work properly with dynamic components
+import Map from '../../components/Map.vue';
+import Gallery from '../../components/Gallery.vue';
+import List from '../../components/List.vue';
+
 const COMPONENTS = [
-  () => import('../../components/Map.vue'),
-  () => import('../../components/Gallery.vue'),
-  () => import('../../components/List.vue')
+  Map,
+  Gallery,
+  List
 ];
+
+// define the components as dynamic
+// const COMPONENTS = [
+//   () => import('../../components/Map.vue'),
+//   () => import('../../components/Gallery.vue'),
+//   () => import('../../components/List.vue')
+// ];
 
 export default {
   name: "HomeMain",

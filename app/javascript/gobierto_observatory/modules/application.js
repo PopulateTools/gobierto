@@ -62,11 +62,6 @@ $(document).on("turbolinks:click", function(event) {
 var vis_population;
 
 $(document).on("turbolinks:load", function() {
-  // Skip all this execution if we are in the observatory map
-  if ($("body.gobierto_observatory_observatory_demography_map").length) {
-    return;
-  }
-
   const cityId = window.populateData.municipalityId;
 
   vis_population = new VisPopulationPyramid(

@@ -2469,7 +2469,7 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.3:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-crossfilter2@^1.4.5, crossfilter2@^1.4.8:
+crossfilter2@^1.4.5:
   version "1.5.4"
   resolved "https://registry.npmjs.org/crossfilter2/-/crossfilter2-1.5.4.tgz"
   integrity sha512-oOGqOM0RocwQFOXJnEaUKqYV6Mc1TNCRv3LrNUa0QlofQTutGAXyQaLW1aGKLls2sfnbwBEtsa6tPD3jY+ycqQ==
@@ -2559,13 +2559,6 @@ d3-array@2, d3-array@>=2.5, d3-array@^2.3.0:
   integrity sha512-DCbBBNuKOeiR9h04ySRBMW52TFVc91O9wJziuyXw6Ztmy8D3oZbmCkOO3UHKC7ceNJsN2Mavo9+vwV8EAEUXzA==
   dependencies:
     internmap "1 - 2"
-
-d3-array@2.12.1:
-  version "2.12.1"
-  resolved "https://registry.npmjs.org/d3-array/-/d3-array-2.12.1.tgz"
-  integrity sha512-B0ErZK/66mHtEsR1TkPEEkwdy+WDesimkM5gpZr5Dsg54BiTA5RXtYW5qTLIAcekaS9xfZrzBLF/OAkB3Qn1YQ==
-  dependencies:
-    internmap "^1.0.0"
 
 "d3-array@2.5.0 - 3", d3-array@3, d3-array@^3.2.0:
   version "3.2.4"
@@ -3013,7 +3006,7 @@ d3-scale@1.0.3:
     d3-time "1"
     d3-time-format "2"
 
-d3-scale@2, d3-scale@2.2.2:
+d3-scale@2:
   version "2.2.2"
   resolved "https://registry.npmjs.org/d3-scale/-/d3-scale-2.2.2.tgz"
   integrity sha512-LbeEvGgIb8UMcAa0EATLNX0lelKWGYDQiPdHj+gLblGVhGLyNbaCn3EvrJf0A3Y/uOOU5aD6MTh5ZFCdEwGiCw==
@@ -3081,7 +3074,7 @@ d3-selection@1.0.2:
   resolved "https://registry.yarnpkg.com/d3-selection/-/d3-selection-1.0.2.tgz#ae662afd4702ac9c5da039b2107a1764fa1c9070"
   integrity sha512-nInNdsdhljkDqkU/83bdWwtiJ7xsX3l57YZMlqsAOMeQROeCv7osPqQgYnao0NmRZEGc11hNakY+EOkaIdsWpQ==
 
-d3-selection@2, "d3-selection@2 - 3", d3-selection@2.0.0:
+d3-selection@2, "d3-selection@2 - 3":
   version "2.0.0"
   resolved "https://registry.npmjs.org/d3-selection/-/d3-selection-2.0.0.tgz"
   integrity sha512-XoGGqhLUN/W14NmaqcO/bb1nqjDAw5WtSYb2X8wiuQWvSZUsUVYsOSkOybUrNvcBjaywBdYPy03eXHMXjk9nZA==
@@ -3223,7 +3216,7 @@ d3-transition@1.0.3:
     d3-selection "1"
     d3-timer "1"
 
-d3-transition@2, "d3-transition@2 - 3", d3-transition@2.0.0:
+d3-transition@2, "d3-transition@2 - 3":
   version "2.0.0"
   resolved "https://registry.npmjs.org/d3-transition/-/d3-transition-2.0.0.tgz"
   integrity sha512-42ltAGgJesfQE3u9LuuBHNbGrI/AJjNL2OAUdclE70UE6Vy239GCBEYD38uBPoLeNsOhFStGpPI0BAOV+HMxog==
@@ -3245,14 +3238,9 @@ d3-transition@3, d3-transition@^3.0.1:
     d3-interpolate "1 - 3"
     d3-timer "1 - 3"
 
-d3-voronoi@1:
+d3-voronoi@1, d3-voronoi@^1.1.4:
   version "1.1.4"
   resolved "https://registry.npmjs.org/d3-voronoi/-/d3-voronoi-1.1.4.tgz"
-  integrity sha512-dArJ32hchFsrQ8uMiTBLq256MpnZjeuBtdHpaDlYuQyjU0CVzCJl/BVW+SkszaAeH95D/8gxqAhgx0ouAWAfRg==
-
-d3-voronoi@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/d3-voronoi/-/d3-voronoi-1.1.4.tgz#dd3c78d7653d2bb359284ae478645d95944c8297"
   integrity sha512-dArJ32hchFsrQ8uMiTBLq256MpnZjeuBtdHpaDlYuQyjU0CVzCJl/BVW+SkszaAeH95D/8gxqAhgx0ouAWAfRg==
 
 d3-zoom@1:
@@ -3288,7 +3276,7 @@ d3-zoom@3:
     d3-selection "2 - 3"
     d3-transition "2 - 3"
 
-d3@5.16.0, d3@^5.15.0, d3@^5.7.0:
+d3@^5.7.0:
   version "5.16.0"
   resolved "https://registry.yarnpkg.com/d3/-/d3-5.16.0.tgz#9c5e8d3b56403c79d4ed42fbd62f6113f199c877"
   integrity sha512-4PL5hHaHwX4m7Zr1UapXW23apo6pexCgdetdJ5kTmADpG/7T9Gkxw0M0tf/pjoB63ezCCm0u5UaFYy2aMt0Mcw==
@@ -3324,42 +3312,6 @@ d3@5.16.0, d3@^5.15.0, d3@^5.7.0:
     d3-transition "1"
     d3-voronoi "1"
     d3-zoom "1"
-
-d3@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.npmjs.org/d3/-/d3-6.2.0.tgz"
-  integrity sha512-aH+kx55J8vRBh4K4k9GN4EbNO3QnZsXy4XBfrnr4fL2gQuszUAPQU3fV2oObO2iSpreRH/bG/wfvO+hDu2+e9w==
-  dependencies:
-    d3-array "2"
-    d3-axis "2"
-    d3-brush "2"
-    d3-chord "2"
-    d3-color "2"
-    d3-contour "2"
-    d3-delaunay "5"
-    d3-dispatch "2"
-    d3-drag "2"
-    d3-dsv "2"
-    d3-ease "2"
-    d3-fetch "2"
-    d3-force "2"
-    d3-format "2"
-    d3-geo "2"
-    d3-hierarchy "2"
-    d3-interpolate "2"
-    d3-path "2"
-    d3-polygon "2"
-    d3-quadtree "2"
-    d3-random "2"
-    d3-scale "3"
-    d3-scale-chromatic "2"
-    d3-selection "2"
-    d3-shape "2"
-    d3-time "2"
-    d3-time-format "3"
-    d3-timer "2"
-    d3-transition "2"
-    d3-zoom "2"
 
 d3@^6.6.2:
   version "6.7.0"
@@ -3466,51 +3418,12 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-dc-population-pyramid@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/dc-population-pyramid/-/dc-population-pyramid-1.0.0.tgz"
-  integrity sha512-kyloUFKd9dNJfDHHvV3rqEhO+zdOMtY1607bDaZcEjODNmTG0hU9irLCZnqhq1/DvdGRQ3q7UCIaXxUQCQFi5w==
-  dependencies:
-    crossfilter2 "^1.4.5"
-    d3 "5.16.0"
-    dc "^4.2.0"
-
-dc-vertical-stacked-bar-chart@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/dc-vertical-stacked-bar-chart/-/dc-vertical-stacked-bar-chart-1.0.0.tgz"
-  integrity sha512-HXPvLa38DErb2yr5Wh4LxtP624Y/FyzPrGOh8fqbOFCC7BO2sRdYpW4JriNlX0VgI9+R5SGyL3laN6q0xijv0g==
-  dependencies:
-    crossfilter2 "^1.4.5"
-    d3-array "2.12.1"
-    d3-scale "2.2.2"
-    d3-selection "2.0.0"
-    d3-transition "2.0.0"
-    dc "^4.2.0"
-
-dc.leaflet@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/dc.leaflet/-/dc.leaflet-0.5.1.tgz#a3460df61325184ef658b1ca7c7a9db1aa39ee6c"
-  integrity sha512-N/bilqPVqP/l+HoMjs4jNnlgykkkuqKoGjNvzL1rlECJFdZ6JJbGskKJ8JXCZSJRWC2PVvxoEFgzffjdiN/sig==
-  dependencies:
-    crossfilter2 "^1.4.8"
-    d3 "^5.15.0"
-    dc "^4.0.3"
-    leaflet "~1.3.4"
-    leaflet.markercluster "~1.0.0"
-
-dc@^4.0.3, dc@^4.2.7:
+dc@^4.2.7:
   version "4.2.7"
   resolved "https://registry.yarnpkg.com/dc/-/dc-4.2.7.tgz#f2d812fc4e42adb0d804d148d6316149d966a4f1"
   integrity sha512-83vzVpBmXFCW7V2uVhBolcPX22d19k4GV7zJWu8jkyNhMstAb/XYl2Eld3Kp71eLD8YM9RsIRgtrmLViQeZTuQ==
   dependencies:
     d3 "^6.6.2"
-
-dc@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.npmjs.org/dc/-/dc-4.2.0.tgz"
-  integrity sha512-2FdNSB/mgYKc381VEpqvCQxXIcr3DH8Q0SNAoDYKpAcYmepVaWOy3u5c4pLCYh6XuXx7Ud1F3in1WtoGREQiAg==
-  dependencies:
-    d3 "^6.2.0"
 
 de-indent@^1.0.2:
   version "1.0.2"
@@ -4820,11 +4733,6 @@ inquirer@^7.0.0:
   resolved "https://registry.yarnpkg.com/internmap/-/internmap-2.0.3.tgz#6685f23755e43c524e251d29cbc97248e3061009"
   integrity sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==
 
-internmap@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/internmap/-/internmap-1.0.1.tgz"
-  integrity sha512-lDB5YccMydFBtasVtxnZ3MRBHuaoE8GKsppq+EchKL2U4nK/DmEpPHNH8MZe5HkMtpSiTSOZwfN0tzYjO/lJEw==
-
 is-alphabetical@^1.0.0:
   version "1.0.4"
   resolved "https://registry.npmjs.org/is-alphabetical/-/is-alphabetical-1.0.4.tgz"
@@ -5613,20 +5521,10 @@ known-css-properties@^0.20.0:
   resolved "https://registry.npmjs.org/known-css-properties/-/known-css-properties-0.20.0.tgz"
   integrity sha512-URvsjaA9ypfreqJ2/ylDr5MUERhJZ+DhguoWRr2xgS5C7aGCalXo+ewL+GixgKBfhT2vuL02nbIgNGqVWgTOYw==
 
-leaflet.markercluster@~1.0.0:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/leaflet.markercluster/-/leaflet.markercluster-1.0.6.tgz#2d8069ef7881142e71173d86fb55d332af4742d7"
-  integrity sha512-a0kzbDNDwh9/AQJ+u+Nc0hRmMdZmOeI3CzM9x7D7/OgBfP6uQ0XBXr8c/wcShte8FoKAVvPtzO4MCn6PQyyWLg==
-
 leaflet@^1.5.1:
   version "1.7.1"
   resolved "https://registry.npmjs.org/leaflet/-/leaflet-1.7.1.tgz"
   integrity sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==
-
-leaflet@~1.3.4:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.3.4.tgz#7f006ea5832603b53d7269ef5c595fd773060a40"
-  integrity sha512-FYL1LGFdj6v+2Ifpw+AcFIuIOqjNggfoLUwuwQv6+3sS21Za7Wvapq+LhbSE4NDXrEj6eYnW3y7LsaBICpyXtw==
 
 less@^3.9.0:
   version "3.13.1"

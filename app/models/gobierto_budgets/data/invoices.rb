@@ -28,18 +28,14 @@ module GobiertoBudgets
         query = {
           sort: sort,
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: query_filters
-                }
-              }
+            bool: {
+              must: query_filters
             }
           },
           size: limit
         }
 
-        response = SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::Invoice.index, type: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Invoice.type, body: query
+        response = SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::Invoice.index, body: query
         response = response['hits']['hits'].map{ |h| h['_source'] }
         parsed_response = if remove_columns.any?
           response.map do |result|

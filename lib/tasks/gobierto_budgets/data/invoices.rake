@@ -57,24 +57,21 @@ namespace :gobierto_budgets do
       puts "[START] clear-previous-providers/run.rb organization_id=#{organization_id}"
 
       terms = [
-        {term: { location_id: organization_id }}
+        {term: { location_id: organization_id }},
+        {term: { type: type }}
       ]
 
       query = {
         query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: terms
-              }
-            }
+          bool: {
+            must: terms
           }
         },
         size: 10_000
       }
 
       count = 0
-      response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
+      response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, body: query
       while response['hits']['total'] > 0
         delete_request_body = response['hits']['hits'].map do |h|
           count += 1

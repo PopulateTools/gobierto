@@ -45,9 +45,9 @@ module GobiertoBudgets
                 CONFIG.index_forecast_updated
               end
 
-      doc_id = [organization_id, year, kind, GobiertoBudgetsData::GobiertoBudgets::TOTAL_BUDGET_TYPE].join("/")
+      doc_id = [organization_id, year, kind, CONFIG.type].join("/")
 
-      result = SearchEngine.client.get(index: index, type: CONFIG.type, id: doc_id)
+      result = SearchEngine.client.get(index: index, id: doc_id)
       result = result["_source"]["amount"].to_f
       result == 0.0 ? nil : result
     rescue Elasticsearch::Transport::Transport::Errors::NotFound

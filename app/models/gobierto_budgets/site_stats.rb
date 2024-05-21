@@ -97,7 +97,7 @@ module GobiertoBudgets
 
     def total_budget_executed_percentage(requested_year = year)
       execution_percentage(
-        total_budget_updated(year: requested_year, fallback: true),
+        total_budget_updated(year: requested_year, fallback: true) || total_budget(year: requested_year, fallback: true),
         total_budget_executed(year: requested_year)
       )
     end

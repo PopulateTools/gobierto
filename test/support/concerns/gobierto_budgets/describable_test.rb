@@ -2,7 +2,7 @@
 
 module GobiertoBudgets::DescribableTest
   class GobiertoBudgets::Klass
-    include GobiertoBudgets::Describable
+    include GobiertoBudgetsData::Describable
   end
 
   def test_all_descriptions

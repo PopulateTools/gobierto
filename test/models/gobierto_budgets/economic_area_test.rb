@@ -4,7 +4,7 @@ require "test_helper"
 require "support/concerns/gobierto_budgets/describable_test"
 
 class GobiertoBudgets::EconomicAreaTest < ActiveSupport::TestCase
-  include GobiertoBudgets::DescribableTest
+  include GobiertoBudgetsData::DescribableTest
 
   def test_all_items
     items = GobiertoBudgets::EconomicArea.all_items

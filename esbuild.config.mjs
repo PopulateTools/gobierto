@@ -25,9 +25,18 @@ fs.readdir(pathEntryPoints, (_, files) => {
     sourcemap: true,
     outdir: path.join(process.cwd(), "app/assets/builds"),
     watch: process.argv.includes("--watch"),
-    loader: { ".js": "jsx", ".png": "dataurl", ".gif": "dataurl" },
+    loader: {
+      ".js": "jsx",
+      ".png": "dataurl",
+      ".gif": "dataurl",
+      ".eot": "file",
+      ".woff": "file",
+      ".woff2": "file",
+      ".svg": "file",
+      ".ttf": "file",
+    },
     define: {
-      "global": 'window',
+      global: "window",
     },
     plugins: [
       vue(),
@@ -35,7 +44,7 @@ fs.readdir(pathEntryPoints, (_, files) => {
       alias({
         // enforces Vue package to use the compiler-included build version
         // https://v2.vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
-        'vue': path.resolve(process.cwd(), "node_modules/vue/dist/vue.esm.js")
+        vue: path.resolve(process.cwd(), "node_modules/vue/dist/vue.esm.js"),
       }),
       env({
         // Only inject environment variables from dotenv files
@@ -43,14 +52,14 @@ fs.readdir(pathEntryPoints, (_, files) => {
       }),
       sassPlugin({
         loadPaths: [path.resolve(process.cwd(), "node_modules")],
-        quietDeps: true
-      })
+        quietDeps: true,
+      }),
     ],
     metafile: true,
     // splitting: true,
-    format: "esm"
+    format: "esm",
   })
-    .then(async result => {
+    .then(async (result) => {
       const displayReport = process.argv.includes("--report");
 
       if (displayReport) {

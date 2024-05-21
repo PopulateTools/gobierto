@@ -5,7 +5,7 @@ module GobiertoBudgets
     class Lines
       def initialize(options = {})
         @what = options[:what]
-        @variable = @what == "total_budget" ? "total_budget" : "total_budget_per_inhabitant"
+        @variable = @what == "total_budget" ? "amount" : "amount_per_inhabitant"
         @year = options[:year]
         @place = options[:place]
         @kind = options[:kind] || GobiertoBudgets::BudgetLine::EXPENSE

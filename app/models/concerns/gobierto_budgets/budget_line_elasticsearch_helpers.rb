@@ -166,7 +166,7 @@ module GobiertoBudgets
         response = SearchEngine.client.search(index: index, body: query)
 
         if updated_forecast && response["hits"]["hits"].empty?
-          response = SearchEngine.client.search(index: default_index, type: area.area_name, body: query)
+          response = SearchEngine.client.search(index: default_index, body: query)
         end
 
         included_attrs = {}
@@ -232,7 +232,7 @@ module GobiertoBudgets
         response = SearchEngine.client.search(index: index, body: query)
 
         if updated_forecast && response["hits"]["hits"].empty?
-          response = SearchEngine.client.search(index: default_index, type: (options[:type] || EconomicArea.area_name), body: query)
+          response = SearchEngine.client.search(index: default_index, body: query)
         end
 
         return {
@@ -250,7 +250,7 @@ module GobiertoBudgets
       end
 
       def find_details(params = {})
-        common_params = { type: params[:type], id: params[:id] }
+        common_params = { id: params[:id] }
 
         budget_line = Hashie::Mash.new(
           id: params[:id],

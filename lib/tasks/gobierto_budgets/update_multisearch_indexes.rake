@@ -61,15 +61,12 @@ namespace :gobierto_budgets do
     def request_budget_lines_from_elasticsearch(index, area, organization_id, year)
       query = {
         query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: [
-                  { term: { organization_id: organization_id } },
-                  { term: { year: year } }
-                ]
-              }
-            }
+          bool: {
+            must: [
+              { term: { organization_id: organization_id } },
+              { term: { year: year } },
+              { term: { type: area.area_name } }
+            ]
           }
         },
         size: 10_000
@@ -77,7 +74,6 @@ namespace :gobierto_budgets do
 
       GobiertoBudgets::SearchEngine.client.search(
         index: index,
-        type: area.area_name,
         body: query
       )["hits"]["hits"]
     end

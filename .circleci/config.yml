@@ -98,8 +98,10 @@ commands:
       - run:
           name: Setup budgets seeds
           command: |
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets_data:elastic_search_schemas:reset
+            bin/rails gobierto_budgets_data:elastic_search_schemas:create
+            bin/rails gobierto_budgets_data:data:reset
+            bin/rails gobierto_budgets_data:data:create
             bin/rails gobierto_budgets:fixtures:load
             echo '::BudgetsSeeder.seed!' | bin/rails c
 

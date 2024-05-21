@@ -65,7 +65,7 @@ module BudgetsFactory
 
   def initialize(params = {})
     self.client = GobiertoBudgets::SearchEngine.client
-    elasticsearch_url = client.instance_variable_get(:@options)[:url]
+    elasticsearch_url = client.transport.instance_variable_get(:@options)[:url]
 
     unless (Rails.env.development? || Rails.env.test?) && elasticsearch_url.include?("localhost")
       raise "ERROR: it's not safe to run a BudgetsFactory in #{Rails.env} pointing to #{elasticsearch_url}"

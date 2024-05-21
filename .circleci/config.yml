@@ -27,7 +27,7 @@ defaults: &defaults
         POSTGRES_USER: gobierto
         POSTGRES_DB: gobierto_test
         POSTGRES_PASSWORD: gobierto
-    - image: elasticsearch:2.4.1
+    - image: elasticsearch:7.17
     - image: redis:7.0.2
 
 commands:

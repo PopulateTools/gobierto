@@ -97,11 +97,7 @@ export class SubsidiesController {
           );
         });
 
-        this.vueApp = new Vue({
-          router,
-          data: Object.assign(options, this.data)
-        }).$mount(entryPoint);
-
+        // Events must listen BEFORE vue application to start (i.e. the trigger)
         EventBus.$on("summary-ready", () => {
           this._renderSummary();
         });
@@ -126,6 +122,11 @@ export class SubsidiesController {
             loadingElement.classList.add("hidden");
           }
         });
+
+        this.vueApp = new Vue({
+          router,
+          data: Object.assign(options, this.data)
+        }).$mount(entryPoint);
       });
     }
   }

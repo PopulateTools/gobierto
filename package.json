@@ -21,7 +21,6 @@
     "crossfilter2": "^1.4.5",
     "d3": "^7.9.0",
     "d3-voronoi": "^1.1.4",
-    "dc": "^4.2.7",
     "devbridge-autocomplete": "^1.4.7",
     "flightjs": "^1.5.2",
     "fullcalendar": "^3.9.0",

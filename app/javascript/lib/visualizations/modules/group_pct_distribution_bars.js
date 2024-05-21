@@ -1,14 +1,15 @@
 import * as d3 from 'd3';
-import { rowChart } from 'dc';
 import { truncate } from '../../../lib/vue/filters';
 
-const dc = { rowChart };
-
+/**
+ * NOTE: dc@4 has been imported via CDN due to d3 compatibility issues
+ * It requires d3@5 to be imported as well
+ */
 export class GroupPctDistributionBars {
   constructor(options) {
     // Declaration
     const { containerSelector, dimension, onFilteredFunction, groupValue } = options;
-    this.container = dc.rowChart(containerSelector, "group");
+    this.container = new dc.RowChart(containerSelector, "group");
 
     // Dimensions
     const groupedDimension = !groupValue ? dimension.group().reduceCount() : dimension.group().reduceSum(d => d[groupValue]),

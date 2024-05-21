@@ -1,4 +1,4 @@
-@import "dc/dist/style/dc.css";
+@import "https://unpkg.com/dc@4/dist/style/dc.css";
 
 .graph-title {
   text-transform: uppercase;
@@ -15,9 +15,6 @@
   display: block;
 }
 
-//bars
-//hbars1
-//hbars2
 .dc-chart svg {
   overflow: visible;
 }

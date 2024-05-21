@@ -1,14 +1,15 @@
 import crossfilter from 'crossfilter2';
 import * as d3 from 'd3';
-import { barChart, rowChart, units } from 'dc';
 import 'jsgrid';
 import { filter as _filter, extend, groupBy, isEmpty, isEqual, map, max, mean, sum, sumBy, uniqBy } from 'lodash';
 import moment from 'moment';
 import { d3locale } from '../../lib/shared';
 import { AmountDistributionBars } from '../../lib/visualizations';
 
-const dc = { barChart, rowChart, units };
-
+/**
+ * NOTE: dc@4 has been imported via CDN due to d3 compatibility issues
+ * It requires d3@5 to be imported as well
+ */
 window.GobiertoBudgets.InvoicesController = (function() {
   function InvoicesController() {}
 
@@ -417,7 +418,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
   function _renderByMonthsChart() {
     // Declaration
-    var bars = dc.barChart("#bars", "group");
+    var bars = new dc.BarChart("#bars", "group");
 
     // Dimensions
     var months = ndx.dimension(d => d.month),
@@ -470,7 +471,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
   function _renderMainProvidersChart() {
     // Declaration
-    var hbars1 = dc.rowChart("#hbars1", "group");
+    var hbars1 = new dc.RowChart("#hbars1", "group");
 
     // Dimensions
     var providers = ndx.dimension(d => d.provider_name),

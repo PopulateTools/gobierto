@@ -1,8 +1,9 @@
 import * as d3 from 'd3';
-import { rowChart } from 'dc';
 
-const dc = { rowChart };
-
+/**
+ * NOTE: dc@4 has been imported via CDN due to d3 compatibility issues
+ * It requires d3@5 to be imported as well
+ */
 export class AmountDistributionBars {
   constructor(options) {
     // Declaration
@@ -14,7 +15,7 @@ export class AmountDistributionBars {
       labelMore,
       labelFromTo
     } = options;
-    this.container = dc.rowChart(containerSelector, "group");
+    this.container = new dc.RowChart(containerSelector, "group");
 
     // Dimensions
     const amountByGroupingField = dimension.group().reduceCount();

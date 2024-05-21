@@ -6,14 +6,13 @@
 
   <%= csrf_meta_tags %>
 
-  <!-- admin chunks (code-splitting) -->
-  <%= javascript_include_tag 'admin', 'data-turbolinks-track': true %>
   <%= stylesheet_link_tag 'admin', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'admin', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'https://code.jquery.com/ui/1.13.3/jquery-ui.min.js' %>
 
   <% Rails.application.config.custom_field_plugins_packs.each do |plugin_name| %>
     <%= javascript_include_tag "custom_fields_#{plugin_name}_plugin", 'data-turbolinks-track': true %>
   <% end %>
-
 </head>
 
 <body <%= yield(:body_attributes) %> class="gobierto_admin">

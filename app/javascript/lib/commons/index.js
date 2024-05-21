@@ -2,8 +2,6 @@
 import './modules/jquery';
 import './modules/i18n';
 
-import 'jquery-ui' // TODO: test if works
-
 // NOTE: these modules are required for the legacy views
 import './modules/module-search';
 import './modules/module-sessions';

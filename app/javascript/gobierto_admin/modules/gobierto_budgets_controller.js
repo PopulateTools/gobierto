@@ -17,7 +17,7 @@ window.GobiertoAdmin.GobiertoBudgetsController = (function() {
         method: "GET",
         data: params => ({ query: params.term }),
         processResults: function(data) {
-          if(data === undefined) return [];
+          if (data === undefined) return [];
           var results = $.map(data.suggestions, function (obj) {
             obj.text = obj.data.name;
             obj.id = obj.data.id;
@@ -31,7 +31,7 @@ window.GobiertoAdmin.GobiertoBudgetsController = (function() {
 
   function _comparison_tool_checkboxes() {
     $("input[name='gobierto_budgets_options[comparison_tool_enabled]']").change(function () {
-      if(!($("input[name='gobierto_budgets_options[comparison_tool_enabled]']").is(':checked'))) {
+      if (!($("input[name='gobierto_budgets_options[comparison_tool_enabled]']").is(':checked'))) {
         $("input[name='gobierto_budgets_options[comparison_context_table_enabled]']").prop('checked', false);
         $("input[name='gobierto_budgets_options[comparison_compare_municipalities_enabled]']").prop('checked', false);
         $("input[name='gobierto_budgets_options[comparison_show_widget]']").prop('checked', false);

@@ -1,4 +1,3 @@
-import 'select2'
 import { Slick } from 'slickgrid-es6';
 import { toPairs } from 'lodash';
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-engine_webpack_entry_path="app/javascripts/packs/custom_fields_progress_plugin.js"
+engine_webpack_entry_path="app/javascripts/custom_fields_progress_plugin.js"
 engine_webpack_source_path="app/javascripts/custom_fields_progress_plugin"
 
 echo "Running engine setup"

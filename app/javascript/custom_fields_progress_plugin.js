@@ -1,1 +1,1 @@
-/home/hugo/populate/gobierto/vendor/gobierto_engines/custom-fields-progress-plugin/app/javascripts/packs/custom_fields_progress_plugin.js
+/home/hugo/populate/gobierto/vendor/gobierto_engines/custom-fields-progress-plugin/app/javascripts/custom_fields_progress_plugin.js

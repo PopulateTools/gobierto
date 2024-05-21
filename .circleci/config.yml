@@ -22,6 +22,8 @@ defaults: &defaults
         PSQL_PAGER: ''
         # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
         DISABLE_SPRING: true
+        ELASTICSEARCH_URL: 'http://localhost:9200'
+        ELASTICSEARCH_WRITING_URL: 'http://localhost:9200'
     - image: postgres:15
       environment:
         POSTGRES_USER: gobierto

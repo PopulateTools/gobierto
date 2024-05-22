@@ -24,6 +24,7 @@ fs.readdir(pathEntryPoints, (_, files) => {
     sourcemap: true,
     outdir: path.join(process.cwd(), "app/assets/builds"),
     watch: process.argv.includes("--watch"),
+    preserveSymlinks: true,
     loader: {
       ".js": "jsx",
       ".png": "dataurl",

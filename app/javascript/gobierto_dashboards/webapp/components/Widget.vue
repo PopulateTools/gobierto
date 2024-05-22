@@ -57,7 +57,7 @@ export default {
       required: true
     },
     template: {
-      type: Function,
+      type: Object,
       default: () => {}
     },
     editionMode: {

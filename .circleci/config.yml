@@ -31,6 +31,7 @@ defaults: &defaults
         POSTGRES_PASSWORD: gobierto
     - image: elasticsearch:7.17.19
       environment:
+        bootstrap.memory_lock: true
         cluster.name: es-test-cluster
         xpack.security.enabled: false
         transport.host: localhost
@@ -40,7 +41,6 @@ defaults: &defaults
         ES_JAVA_OPTS: -Xms1g -Xmx1g
         ES_HEAP_SIZE: 256m
         MAX_OPEN_FILES: 65535
-        MAX_LOCKED_MEMORY: unlimited
     - image: redis:7.0.2
 
 commands:
@@ -79,7 +79,7 @@ commands:
       - run: yarn install
       # Wait for DB containers to be ready
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 3m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
       # Install postgres 15

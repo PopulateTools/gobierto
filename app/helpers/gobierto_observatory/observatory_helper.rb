@@ -2,6 +2,7 @@
 
 module GobiertoObservatory
   module ObservatoryHelper
+    # deprecated
     def observatory_map_enabled?
       current_site.gobierto_observatory_settings &&
         current_site.gobierto_observatory_settings.settings &&

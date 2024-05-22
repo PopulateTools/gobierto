@@ -1,6 +1,8 @@
-import '@finos/perspective-viewer-datagrid';
-import '@finos/perspective-viewer-d3fc';
-import '@finos/perspective-viewer/dist/css/themes.css';
+// TODO: perspective must load via CDN
+
+// import '@finos/perspective-viewer-datagrid';
+// import '@finos/perspective-viewer-d3fc';
+// import '@finos/perspective-viewer/dist/css/themes.css';
 import '../../assets/stylesheets/modules/_comp-perspective-viewer.scss';
 import { getData } from './render.js';
 

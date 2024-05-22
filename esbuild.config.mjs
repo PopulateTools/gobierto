@@ -3,7 +3,6 @@ import { sassPlugin } from "esbuild-sass-plugin"
 import vue from "esbuild-vue"
 import alias from "esbuild-plugin-alias"
 import env from "@intrnl/esbuild-plugin-env"
-import { PerspectiveEsbuildPlugin } from "@finos/perspective-esbuild-plugin";
 import fs from "fs"
 import path from "path"
 
@@ -40,7 +39,6 @@ fs.readdir(pathEntryPoints, (_, files) => {
     },
     plugins: [
       vue(),
-      PerspectiveEsbuildPlugin(),
       alias({
         // enforces Vue package to use the compiler-included build version
         // https://v2.vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only

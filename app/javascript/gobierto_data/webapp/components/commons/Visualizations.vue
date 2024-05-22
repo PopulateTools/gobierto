@@ -5,11 +5,6 @@
   />
 </template>
 <script>
-import perspective from '@finos/perspective';
-import '@finos/perspective-viewer';
-import '@finos/perspective-viewer-datagrid';
-import '@finos/perspective-viewer-d3fc';
-import '@finos/perspective-viewer/dist/css/themes.css';
 import 'perspective-map';
 import 'leaflet/dist/leaflet.css';
 

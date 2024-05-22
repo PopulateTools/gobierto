@@ -1,4 +1,5 @@
-import perspective from '@finos/perspective';
+// TODO: perspective must load via CDN
+// import perspective from '@finos/perspective';
 
 export const getData = async container => {
   const { gobiertoVisualization: id, site, token } = container.dataset;

@@ -1,8 +1,17 @@
 <% content_for :javascript_module_link do %>
+  <%#
+    NOTE: perspective must load via CDN since 0.6.2 conflicts with development
+          and newer perspective versions became incompatible (requires code refactorization)
+  %>
+  <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/@finos/perspective@0.6.2/dist/umd/perspective.js' %>
+  <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/@finos/perspective-viewer@0.6.2/dist/umd/perspective-viewer.js' %>
+  <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/@finos/perspective-viewer-datagrid@0.6.2/dist/umd/perspective-viewer-datagrid.js' %>
+  <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/@finos/perspective-viewer-d3fc@0.6.2/dist/umd/perspective-viewer-d3fc.js' %>
   <%= javascript_include_tag 'data' %>
 <% end %>
 
 <% content_for :stylesheet_module_link do %>
+  <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/@finos/perspective-viewer@0.6.2/dist/umd/material-dense.min.css' %>
   <%= stylesheet_link_tag 'data' %>
 <% end %>
 

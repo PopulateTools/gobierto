@@ -17,7 +17,7 @@ class GobiertoBudgets::BudgetLineDescendantsControllerTest < GobiertoControllerT
       assert_response :success
       response_data = JSON.parse(response.body)
       assert_equal 1, response_data.length
-      assert_equal "Impuesto sobre la renta", response_data.first["name"]
+      assert_equal "Impuesto sobre la Renta", response_data.first["name"]
     end
   end
 
@@ -25,7 +25,7 @@ class GobiertoBudgets::BudgetLineDescendantsControllerTest < GobiertoControllerT
     with_current_site(site) do
       get gobierto_budgets_budget_line_descendants_path(year: year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, parent_code: '2'), xhr: true#  as: :js
       assert_response :success
-      assert_equal 2, response.body.scan(/(?=Impuesto sobre el Valor Añadido)/).count
+      assert_equal 1, response.body.scan(/(?=Impuesto sobre el Valor Añadido)/).count
     end
   end
 end

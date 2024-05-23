@@ -24,7 +24,7 @@ module GobiertoBudgets
         assert_equal category_with_name_translated.send(:default_name), category_with_name_translated.name
       end
       I18n.with_locale(:ca) do
-        assert_nil category_with_name_translated.name
+        assert_equal "Impostos directes", category_with_name_translated.name
       end
     end
 

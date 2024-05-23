@@ -106,6 +106,6 @@ module Gobierto
     end
 
     # Psych safe loading
-    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Date, Matrix, OpenStruct, Symbol]
+    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Date, Matrix, OpenStruct, Symbol, GlobalID, URI::GID]
   end
 end

@@ -33,7 +33,7 @@ module GobiertoCommon::CustomFieldFunctions
                   lines = value.dig("budget_lines") || []
 
                   lines.map do |line|
-                    line_details = GobiertoBudgets::BudgetLine.find_details(id: line["id"] + "/#{line["area"]}")
+                    line_details = GobiertoBudgets::BudgetLine.find_details(id: line["id"] + "/#{line["area"]}", type: line["area"])
 
                     Hashie::Mash.new(
                       forecast: line_details.forecast.updated_amount || line_details.forecast.original_amount,

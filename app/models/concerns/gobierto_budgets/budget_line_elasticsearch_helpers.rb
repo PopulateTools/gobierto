@@ -263,8 +263,6 @@ module GobiertoBudgets
           index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
         ))
 
-        raise BudgetLine::RecordNotFound unless forecast_info
-
         forecast_updated_info = SearchEngine.client.get_source(common_params.merge(
           index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated
         ))
@@ -276,6 +274,8 @@ module GobiertoBudgets
         budget_line.forecast.updated_amount = forecast_updated_info["amount"] if forecast_updated_info
         budget_line.execution.amount = execution_info["amount"] if execution_info
         budget_line
+      rescue Elasticsearch::Transport::Transport::Errors::NotFound
+        raise BudgetLine::RecordNotFound
       end
 
       def has_children?(options)

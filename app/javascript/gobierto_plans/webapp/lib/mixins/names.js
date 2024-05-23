@@ -1,5 +1,5 @@
-import { translate } from "lib/vue/filters";
-import { PlansStore } from "../store";
+import { translate } from '../../../../lib/vue/filters';
+import { PlansStore } from '../store';
 
 export const NamesMixin = {
   data() {

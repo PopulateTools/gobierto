@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { readMore } from "lib/shared";
+import { readMore } from '../../../../lib/shared';
 
 export default {
   name: "ReadMore",

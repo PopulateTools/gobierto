@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Steps from "../../components/Steps.vue";
-import { CommonsMixin } from "../../mixins/common.js";
+import Steps from '../../components/Steps.vue';
+import { CommonsMixin } from '../../mixins/common.js';
 
 export default {
   name: "ProjectAside",
@@ -45,4 +45,3 @@ export default {
   }
 };
 </script>
-

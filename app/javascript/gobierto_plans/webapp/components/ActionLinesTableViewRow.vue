@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import { PlansStore } from "../lib/store";
-import { percent, date } from "lib/vue/filters";
+import { date, percent } from '../../../lib/vue/filters';
+import { PlansStore } from '../lib/store';
 
 export default {
   name: "ActionLinesTableViewRow",

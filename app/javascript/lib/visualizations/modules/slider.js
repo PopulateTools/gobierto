@@ -1,15 +1,4 @@
-import { drag } from "d3-drag";
-import { scalePoint, scaleQuantize } from "d3-scale";
-import { mouse, select, selectAll } from "d3-selection";
-
-const d3 = {
-  select,
-  selectAll,
-  scalePoint,
-  scaleQuantize,
-  drag,
-  mouse
-};
+import * as d3 from 'd3'
 
 export class VisSlider {
   constructor(divId, data) {
@@ -169,8 +158,8 @@ export class VisSlider {
           .on("end", endDrag)
       );
 
-    function dragged() {
-      var year = x.invert(d3.mouse(this)[0]);
+    function dragged(d) {
+      var year = x.invert(d3.pointer(d)[0]);
       handle.attr("cx", x(year));
 
       slider
@@ -179,8 +168,8 @@ export class VisSlider {
         .classed("active", d => d === year);
     }
 
-    function endDrag() {
-      var year = x.invert(d3.mouse(this)[0]);
+    function endDrag(d) {
+      var year = x.invert(d3.pointer(d)[0]);
       $(document).trigger("visSlider:yearChanged", year);
     }
   }

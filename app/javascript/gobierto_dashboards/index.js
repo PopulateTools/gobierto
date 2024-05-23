@@ -1,6 +1,6 @@
-import { GOBIERTO_DASHBOARDS } from "lib/events"
-import { GobiertoDashboardMakerController } from "./modules/dashboard_maker_controller.js";
-import { GobiertoDashboardViewerController } from "./modules/dashboard_viewer_controller.js";
+import { GOBIERTO_DASHBOARDS } from '../lib/events'
+import { GobiertoDashboardMakerController } from './modules/dashboard_maker_controller.js';
+import { GobiertoDashboardViewerController } from './modules/dashboard_viewer_controller.js';
 
 // use directives in order to create multiple elements
 const makerSelector = "[dashboard-maker-app]"

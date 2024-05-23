@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import { translate } from "lib/vue/filters"
-import { PlansStore } from "../lib/store";
-import { routes } from "../lib/router";
+import { translate } from '../../../lib/vue/filters';
+import { routes } from '../lib/router';
+import { PlansStore } from '../lib/store';
 
 export default {
   name: "Breadcrumb",

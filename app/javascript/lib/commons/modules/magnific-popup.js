@@ -1,5 +1,5 @@
-import { GOBIERTO_DASHBOARDS } from "lib/events";
-import "magnific-popup";
+import { GOBIERTO_DASHBOARDS } from '../../../lib/events';
+import 'magnific-popup';
 
 function addMagnificPopups() {
   // flag storing whether the modal trigger is a dashboard initializer or not

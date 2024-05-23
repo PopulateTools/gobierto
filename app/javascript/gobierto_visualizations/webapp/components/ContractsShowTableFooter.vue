@@ -33,7 +33,7 @@
 </template>
 <script>
 
-import ContractsShowTableFooterTr from "./ContractsShowTableFooterTr.vue";
+import ContractsShowTableFooterTr from './ContractsShowTableFooterTr.vue';
 export default {
   name: 'ContractsShowTableFooter',
   components: {

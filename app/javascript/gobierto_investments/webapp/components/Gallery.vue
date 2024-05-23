@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import GalleryItem from "./GalleryItem.vue";
-import ShowAll from "./ShowAll.vue";
+import GalleryItem from './GalleryItem.vue';
+import ShowAll from './ShowAll.vue';
 
 export default {
   name: "Gallery",

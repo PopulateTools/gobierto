@@ -1,5 +1,3 @@
-import "webpack-jquery-ui/slider";
-
 // https://api.jqueryui.com/slider/
 export class RangeSlider {
   constructor({ elem, min = 0, max = 100, defaultRange = [min, max], rangeCallback = () => {} }) {

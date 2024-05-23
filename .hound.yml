@@ -4,7 +4,7 @@ stylelint:
 
 eslint:
   enabled: true
-  config_file: .eslintrc
+  config_file: eslint.config.js
 
 ruby:
   enabled: true

@@ -1,4 +1,4 @@
-import { VisAgeReport, VisIndicators } from 'lib/visualizations'
+import { VisAgeReport, VisIndicators } from '../../lib/visualizations'
 
 window.GobiertoAdmin.ConsultationResponsesController = (function() {
   function ConsultationResponsesController() {}

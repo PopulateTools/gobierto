@@ -1,4 +1,4 @@
-import { json } from "d3-fetch";
+import * as d3 from 'd3';
 
 export class Card {
   constructor(divClass) {
@@ -11,7 +11,7 @@ export class Card {
   }
 
   handlePromise(url, opts = {}) {
-    return json(url, {
+    return d3.json(url, {
       headers: new Headers({ authorization: "Bearer " + this.tbiToken }),
       ...opts
     });

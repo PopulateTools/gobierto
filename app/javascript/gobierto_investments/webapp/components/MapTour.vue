@@ -34,7 +34,7 @@
         <MglMarker :coordinates="coordinatesMarker">
           <img
             slot="marker"
-            src="/packs/media/images/marker-icon-2273e3d8.png"
+            src="/marker-icon-2273e3d8.png"
           >
         </MglMarker>
       </MglMap>
@@ -73,12 +73,12 @@
 import {
   MglMap,
   MglMarker
-} from "vue-mapbox";
-import "mapbox-gl/src/css/mapbox-gl.css"
-import Wkt from "wicket";
-import axios from "axios";
-import { Middleware } from "lib/shared";
-import { CommonsMixin, baseUrl } from "./../mixins/common.js";
+} from 'vue-mapbox';
+import 'mapbox-gl/src/css/mapbox-gl.css'
+import Wkt from 'wicket';
+import axios from 'axios';
+import { Middleware } from '../../../lib/shared';
+import { CommonsMixin, baseUrl } from '../mixins/common.js';
 
 export default {
   name: "MapTour",

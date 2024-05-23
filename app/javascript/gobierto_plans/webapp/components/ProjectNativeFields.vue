@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import { date, percent } from "lib/vue/filters";
-import { PlansStore } from "../lib/store";
+import { date, percent } from '../../../lib/vue/filters';
+import { PlansStore } from '../lib/store';
 
 export default {
   name: "ProjectNativeFields",

@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import { GridItem } from "vue-grid-layout";
-import WidgetEditable from "./WidgetEditable";
-import { clickoutside } from "lib/vue/directives"
+import { GridItem } from 'vue-grid-layout';
+import WidgetEditable from './WidgetEditable.vue';
+import { clickoutside } from '../../../lib/vue/directives'
 
 export default {
   name: "Widget",
@@ -57,7 +57,7 @@ export default {
       required: true
     },
     template: {
-      type: Function,
+      type: Object,
       default: () => {}
     },
     editionMode: {

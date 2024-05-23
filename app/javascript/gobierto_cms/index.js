@@ -1,1 +1,1 @@
-import "../stylesheets/gobierto-cms.scss"
+import '../../assets/stylesheets/cms.scss'

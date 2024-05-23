@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import { percent } from "lib/vue/filters";
-import GroupsByTermTableRow from "../components/GroupsByTermTableRow";
+import { percent } from '../../../lib/vue/filters';
+import GroupsByTermTableRow from '../components/GroupsByTermTableRow.vue';
 
 export default {
   name: "GroupsByTermTableRowRecursive",

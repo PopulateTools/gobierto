@@ -1,8 +1,6 @@
-import { timeFormat, timeParse } from "d3-time-format";
-import { accounting } from "lib/shared";
-import { Card } from "./card.js";
-
-const d3 = { timeFormat, timeParse };
+import * as d3 from 'd3';
+import { accounting } from '../../../lib/shared';
+import { Card } from './card.js';
 
 export class TableCard extends Card {
   constructor(divClass, data, { metadata, cardName }) {

@@ -1,12 +1,13 @@
 import 'select2'
 import { Slick } from 'slickgrid-es6';
+import { toPairs } from 'lodash';
 
 export { Select2Formatter, Select2Editor }
 
 function PopulateSelect(select, dataSource, addBlank) {
   var newOption;
 
-  if(dataSource === null) { return }
+  if (dataSource === null) { return }
 
   if (addBlank) { select.appendChild(new Option('', '')); }
 
@@ -16,7 +17,7 @@ function PopulateSelect(select, dataSource, addBlank) {
       var $group = $(`<optgroup label="${groupName}"></optgroup`)
       $group.appendTo($(select));
 
-      var groupItemsPairs = _.toPairs(groupItems)
+      var groupItemsPairs = toPairs(groupItems)
       $.each(groupItemsPairs, function(idx) {
         newOption = new Option(groupItemsPairs[idx][1], groupItemsPairs[idx][0]);
         $group[0].appendChild(newOption);
@@ -33,10 +34,10 @@ function PopulateSelect(select, dataSource, addBlank) {
       select.appendChild(newOption);
     });
   }
-};
+}
 
 function Select2Formatter(_row, _cell, value, columnDef, _dataContext) {
-  if(columnDef.dataSource === null) { return }
+  if (columnDef.dataSource === null) { return }
   var groupedData = columnDef.dataSource.grouped
 
   if (groupedData) {

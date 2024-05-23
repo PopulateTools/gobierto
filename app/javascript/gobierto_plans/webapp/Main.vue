@@ -29,14 +29,14 @@
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import NumberLabel from "./components/NumberLabel.vue";
-import Tabs from "./components/Tabs.vue";
-import { PlansFactoryMixin } from "./lib/factory";
-import { groupBy } from "./lib/helpers";
-import { PlansStore } from "./lib/store";
-import { Loading } from "lib/vue/components";
-import { routes } from "./lib/router";
+import Header from './components/Header.vue';
+import NumberLabel from './components/NumberLabel.vue';
+import Tabs from './components/Tabs.vue';
+import { PlansFactoryMixin } from './lib/factory';
+import { groupBy } from './lib/helpers';
+import { PlansStore } from './lib/store';
+import { Loading } from '../../lib/vue/components';
+import { routes } from './lib/router';
 
 export default {
   name: "Main",

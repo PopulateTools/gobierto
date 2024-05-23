@@ -55,13 +55,21 @@
   </div>
 </template>
 <script>
-import { SkeletonSpinner } from "lib/vue/components";
-import { VisualizationFactoryMixin } from "./../../../lib/factories/visualizations";
+import { SkeletonSpinner } from '../../../../lib/vue/components';
+import { VisualizationFactoryMixin } from '../../../lib/factories/visualizations';
+
+// ESBuild does not work properly with dynamic components
+import VisualizationsList from './VisualizationsList.vue';
+import VisualizationsItem from './VisualizationsItem.vue';
 
 const COMPONENTS = [
-  () => import("./VisualizationsList.vue"),
-  () => import("./VisualizationsItem.vue")
+  VisualizationsList,
+  VisualizationsItem
 ];
+// const COMPONENTS = [
+//   () => import('./VisualizationsList.vue'),
+//   () => import('./VisualizationsItem.vue')
+// ];
 
 export default {
   name: "VisualizationsTab",

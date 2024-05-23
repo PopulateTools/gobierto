@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import NumberLabel from "./NumberLabel";
-import { percent } from "lib/vue/filters";
+import { percent } from '../../../lib/vue/filters';
+import NumberLabel from './NumberLabel.vue';
 
 export default {
   name: "ActionLineHeader",

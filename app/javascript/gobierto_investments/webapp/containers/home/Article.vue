@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Phase from "../../components/Phase.vue";
-import { CommonsMixin } from "../../mixins/common.js";
+import Phase from '../../components/Phase.vue';
+import { CommonsMixin } from '../../mixins/common.js';
 
 export default {
   name: "HomeArticle",

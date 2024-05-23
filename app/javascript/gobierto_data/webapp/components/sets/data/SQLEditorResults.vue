@@ -93,12 +93,12 @@
   </div>
 </template>
 <script>
-import Button from "./../../commons/Button.vue";
-import DownloadButton from "./../../commons/DownloadButton.vue";
-import DownloadLink from "./../../commons/DownloadLink.vue";
-import SavingDialog from "./../../commons/SavingDialog.vue";
-import Visualizations from "./../../commons/Visualizations.vue";
-import { convertVizToImgMixin } from "./../../../../lib/commons.js";
+import Button from '../../commons/Button.vue';
+import DownloadButton from '../../commons/DownloadButton.vue';
+import DownloadLink from '../../commons/DownloadLink.vue';
+import SavingDialog from '../../commons/SavingDialog.vue';
+import Visualizations from '../../commons/Visualizations.vue';
+import { convertVizToImgMixin } from '../../../../lib/commons.js';
 
 export default {
   name: "SQLEditorResults",

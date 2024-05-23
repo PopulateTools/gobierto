@@ -38,11 +38,11 @@
 </template>
 
 <script>
-import { SkeletonSpinner } from "lib/vue/components";
-import Layout from "./../layouts/Layout.vue";
-import Sidebar from "./../components/Sidebar.vue";
-import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
-import { translate } from "lib/vue/filters";
+import { SkeletonSpinner } from '../../../lib/vue/components';
+import { translate } from '../../../lib/vue/filters';
+import { DatasetFactoryMixin } from '../../lib/factories/datasets';
+import Sidebar from '../components/Sidebar.vue';
+import Layout from '../layouts/Layout.vue';
 
 // availableFilters on https://gobierto.readme.io/docs/inversiones-configuration
 const fields = [

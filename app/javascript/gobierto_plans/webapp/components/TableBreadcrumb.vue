@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import { NamesMixin } from "../lib/mixins/names";
-import { routes } from "../lib/router";
+import { NamesMixin } from '../lib/mixins/names';
+import { routes } from '../lib/router';
 
 export default {
   name: "TableBreadcrumb",

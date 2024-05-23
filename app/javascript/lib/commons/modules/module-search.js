@@ -1,5 +1,5 @@
-import { AUTOCOMPLETE_DEFAULTS } from 'lib/shared'
-import 'devbridge-autocomplete'
+import 'devbridge-autocomplete';
+import { AUTOCOMPLETE_DEFAULTS } from '../../../lib/shared';
 
 $(document).on('turbolinks:load', function() {
   var $input = $('input#gobierto_search:visible');

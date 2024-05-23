@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import ActionLine from "./ActionLine";
-import ActionLinesTableView from "./ActionLinesTableView";
+import ActionLine from './ActionLine.vue';
+import ActionLinesTableView from './ActionLinesTableView.vue';
 
 export default {
   name: "ActionLines",

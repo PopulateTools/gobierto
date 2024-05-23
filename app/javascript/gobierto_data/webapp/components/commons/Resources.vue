@@ -21,9 +21,10 @@
   </div>
 </template>
 <script>
-import ResourcesItem from "./ResourcesItem.vue";
-import Caret from "./../commons/Caret.vue";
-import { Dropdown } from "lib/vue/components";
+import ResourcesItem from './ResourcesItem.vue';
+import Caret from '../commons/Caret.vue';
+import { Dropdown } from '../../../../lib/vue/components';
+
 export default {
   name: "Resources",
   components: {

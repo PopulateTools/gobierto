@@ -41,8 +41,9 @@
   </div>
 </template>
 <script>
-import Visualizations from "./../commons/Visualizations.vue";
-import CardVisualization from "./../../layouts/CardVisualization.vue";
+import Visualizations from '../commons/Visualizations.vue';
+import CardVisualization from '../../layouts/CardVisualization.vue';
+
 export default {
   name: "VisualizationsGrid",
   components: {

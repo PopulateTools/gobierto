@@ -97,11 +97,11 @@
   </div>
 </template>
 <script>
-import { Dropdown } from "lib/vue/components";
-import Caret from "./Caret.vue";
+import { Dropdown } from '../../../../lib/vue/components';
+import Caret from './Caret.vue';
 import PrivateIcon from './PrivateIcon.vue';
-import CodeMirror from "codemirror";
-import "codemirror/mode/sql/sql.js";
+import CodeMirror from 'codemirror';
+import 'codemirror/mode/sql/sql.js';
 
 export default {
   name: "Queries",

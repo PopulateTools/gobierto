@@ -1,7 +1,7 @@
-import { VueFiltersMixin } from "lib/vue/filters";
+import { VueFiltersMixin } from '../../../lib/vue/filters';
 
 // TODO: This configuration should come from API request, not from file
-import CONFIGURATION from "../conf/mataro.conf.js";
+import CONFIGURATION from '../conf/mataro.conf.js';
 
 export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`;
 

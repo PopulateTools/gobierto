@@ -44,7 +44,7 @@
         </div>
 
         <div class="pure-u-1 pure-u-md-12-24 right">
-          <%= image_pack_tag('media/images/illustrations/consultas.jpg', class: 'img_header m_v_4') %>
+          <%= image_tag('illustrations/consultas.jpg', class: 'img_header m_v_4') %>
         </div>
       </div>
     </div>
@@ -160,7 +160,7 @@
 </div>
 
 <% content_for :javascript_hook do %>
-  <%= javascript_pack_tag 'budgets' %>
+  <%= javascript_include_tag 'budgets' %>
   <%= javascript_tag do %>
     window.GobiertoBudgets.invoices_controller.show();
   <% end %>

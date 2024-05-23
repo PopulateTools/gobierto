@@ -78,18 +78,18 @@
 </template>
 
 <script>
-import { NamesMixin } from "../lib/mixins/names";
-import { TableHeaderMixin } from "../lib/mixins/table-header";
-import { findRecursive } from "../lib/helpers";
-import SortIcon from "../components/SortIcon";
-import NumberLabel from "../components/NumberLabel";
-import Project from "../components/Project";
-import ProjectsByTermTableRow from "../components/ProjectsByTermTableRow";
-import TableBreadcrumb from "../components/TableBreadcrumb";
-import TableColumnsSelector from "../components/TableColumnsSelector";
-import TableCellTemplates from "../components/TableCellTemplates";
-import { percent } from "lib/vue/filters"
-import { clickoutside } from "lib/vue/directives"
+import { NamesMixin } from '../lib/mixins/names';
+import { TableHeaderMixin } from '../lib/mixins/table-header';
+import { findRecursive } from '../lib/helpers';
+import SortIcon from '../components/SortIcon.vue';
+import NumberLabel from '../components/NumberLabel.vue';
+import Project from '../components/Project.vue';
+import ProjectsByTermTableRow from '../components/ProjectsByTermTableRow.vue';
+import TableBreadcrumb from '../components/TableBreadcrumb.vue';
+import TableColumnsSelector from '../components/TableColumnsSelector.vue';
+import TableCellTemplates from '../components/TableCellTemplates.vue';
+import { percent } from '../../../lib/vue/filters'
+import { clickoutside } from '../../../lib/vue/directives'
 
 export default {
   name: "ProjectsByTerm",

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const baseUrl = location.origin;
 const endPoint = `${baseUrl}/api/v1/plans`;

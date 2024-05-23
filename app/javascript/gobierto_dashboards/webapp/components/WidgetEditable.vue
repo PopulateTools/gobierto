@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Button from "./Button"
+import Button from './Button.vue'
 
 export default {
   name: "WidgetEditable",

@@ -63,13 +63,13 @@
 </template>
 
 <script>
-import { translate, money } from "lib/vue/filters";
-import { FieldTypeMixin } from "../lib/mixins/field-type";
-import CustomFieldParagraph from "./CustomFieldParagraph.vue";
-import CustomFieldPluginRawIndicators from "./CustomFieldPluginRawIndicators.vue";
-import CustomFieldVocabulary from "./CustomFieldVocabulary.vue";
-import CustomFieldSelection from "./CustomFieldSelection.vue";
-import CustomFieldImage from "./CustomFieldImage.vue";
+import { translate, money } from '../../../lib/vue/filters';
+import { FieldTypeMixin } from '../lib/mixins/field-type';
+import CustomFieldParagraph from './CustomFieldParagraph.vue';
+import CustomFieldPluginRawIndicators from './CustomFieldPluginRawIndicators.vue';
+import CustomFieldVocabulary from './CustomFieldVocabulary.vue';
+import CustomFieldSelection from './CustomFieldSelection.vue';
+import CustomFieldImage from './CustomFieldImage.vue';
 
 export default {
   name: "ProjectCustomFields",

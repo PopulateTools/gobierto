@@ -1,8 +1,10 @@
-import "@finos/perspective-viewer-datagrid";
-import "@finos/perspective-viewer-d3fc";
-import "@finos/perspective-viewer/themes/all-themes.css";
-import "../stylesheets/_comp-perspective-viewer.scss";
-import { getData } from "./render.js";
+// TODO: perspective must load via CDN
+
+// import '@finos/perspective-viewer-datagrid';
+// import '@finos/perspective-viewer-d3fc';
+// import '@finos/perspective-viewer/dist/css/themes.css';
+import '../../assets/stylesheets/modules/_comp-perspective-viewer.scss';
+import { getData } from './render.js';
 
 const appendStyle = async () => {
   const { src } = document.querySelector('script[src*="embeds.js"]');

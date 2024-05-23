@@ -1,5 +1,5 @@
-import Appsignal from "@appsignal/javascript"
-import { plugin } from "@appsignal/plugin-window-events"
+import Appsignal from '@appsignal/javascript'
+import { plugin } from '@appsignal/plugin-window-events'
 
 const appsignal = new Appsignal({
   key: process.env.APPSIGNAL_PUSH_API_KEY

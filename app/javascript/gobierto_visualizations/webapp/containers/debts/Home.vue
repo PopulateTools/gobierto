@@ -93,9 +93,9 @@
   </div>
 </template>
 <script>
-import { EventBus } from "../../lib/mixins/event_bus";
-import { TreeMap, BarChartStacked, BarChartSplit } from "gobierto-vizzs";
-import { money } from "lib/vue/filters";
+import { BarChartSplit, BarChartStacked, TreeMap } from 'gobierto-vizzs';
+import { money } from '../../../../lib/vue/filters';
+import { EventBus } from '../../lib/mixins/event_bus';
 import Table from './Table.vue';
 
 export default {

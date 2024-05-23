@@ -1,32 +1,32 @@
+import 'sticky-kit/dist/sticky-kit.js';
 import {
   VisPopulationPyramid,
   VisRentDistribution,
   VisUnemploymentAge,
   VisUnemploymentRate,
   VisUnemploymentSex
-} from "lib/visualizations";
-import "sticky-kit/dist/sticky-kit.js";
-import { ActivePopulationCard } from "./classes/active_population.js";
-import { ContractsCard } from "./classes/contracts.js";
-import { ContractsBySectorCard } from "./classes/contracts_sector.js";
-import { DebtByInhabitantCard } from "./classes/debt_by_inhabitant.js";
-import { FreelancersCard } from "./classes/freelancers.js";
-import { BirthRateCard } from "./classes/birth_rate.js";
-import { UnemplBySectorCard } from "./classes/unemployed_sector.js";
-import { ssMembersCard } from "./classes/ss_members.js";
-import { PopulationCard } from "./classes/population.js";
-import { BudgetByInhabitantCard } from "./classes/budget_by_inhabitant.js";
-import { CarsCard } from "./classes/cars.js";
-import { CarsTaxCard } from "./classes/cars_tax.js";
-import { CompaniesCard } from "./classes/companies.js";
-import { ConstructionTaxCard } from "./classes/construction_tax.js";
-import { DeathRateCard } from "./classes/death_rate.js";
-import { EconomicTaxCard } from "./classes/economic_tax.js";
-import { HousesCard } from "./classes/houses.js";
-import { IbiCard } from "./classes/ibi.js";
-import { IncomeCard } from "./classes/income.js";
-import { IncomeOverviewCard } from "./classes/income_overview.js";
-import { InvestmentByInhabitantCard } from "./classes/investment_by_inhabitant.js";
+} from "../../lib/visualizations";
+import { ActivePopulationCard } from './classes/active_population.js';
+import { BirthRateCard } from './classes/birth_rate.js';
+import { BudgetByInhabitantCard } from './classes/budget_by_inhabitant.js';
+import { CarsCard } from './classes/cars.js';
+import { CarsTaxCard } from './classes/cars_tax.js';
+import { CompaniesCard } from './classes/companies.js';
+import { ConstructionTaxCard } from './classes/construction_tax.js';
+import { ContractsCard } from './classes/contracts.js';
+import { ContractsBySectorCard } from './classes/contracts_sector.js';
+import { DeathRateCard } from './classes/death_rate.js';
+import { DebtByInhabitantCard } from './classes/debt_by_inhabitant.js';
+import { EconomicTaxCard } from './classes/economic_tax.js';
+import { FreelancersCard } from './classes/freelancers.js';
+import { HousesCard } from './classes/houses.js';
+import { IbiCard } from './classes/ibi.js';
+import { IncomeCard } from './classes/income.js';
+import { IncomeOverviewCard } from './classes/income_overview.js';
+import { InvestmentByInhabitantCard } from './classes/investment_by_inhabitant.js';
+import { PopulationCard } from './classes/population.js';
+import { ssMembersCard } from './classes/ss_members.js';
+import { UnemplBySectorCard } from './classes/unemployed_sector.js';
 
 function selectSection(html) {
   var $el = $("[data-breadcrumb-sub-item]");
@@ -62,11 +62,6 @@ $(document).on("turbolinks:click", function(event) {
 var vis_population;
 
 $(document).on("turbolinks:load", function() {
-  // Skip all this execution if we are in the observatory map
-  if ($("body.gobierto_observatory_observatory_demography_map").length) {
-    return;
-  }
-
   const cityId = window.populateData.municipalityId;
 
   vis_population = new VisPopulationPyramid(

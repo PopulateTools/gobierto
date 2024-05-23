@@ -36,13 +36,13 @@
 </template>
 
 <script>
-import CustomFieldVocabulary from "../components/CustomFieldVocabulary.vue";
-import CustomFieldImage from "../components/CustomFieldImage.vue";
-import CustomFieldSelection from "../components/CustomFieldSelection.vue";
-import CustomFieldParagraph from "../components/CustomFieldParagraph.vue";
-import CustomFieldPluginRawIndicators from "../components/CustomFieldPluginRawIndicators.vue";
-import { FieldTypeMixin } from "../lib/mixins/field-type";
-import { percent, date } from "lib/vue/filters";
+import CustomFieldVocabulary from '../components/CustomFieldVocabulary.vue';
+import CustomFieldImage from '../components/CustomFieldImage.vue';
+import CustomFieldSelection from '../components/CustomFieldSelection.vue';
+import CustomFieldParagraph from '../components/CustomFieldParagraph.vue';
+import CustomFieldPluginRawIndicators from '../components/CustomFieldPluginRawIndicators.vue';
+import { FieldTypeMixin } from '../lib/mixins/field-type';
+import { percent, date } from '../../../lib/vue/filters';
 
 export default {
   name: "TableCellTemplates",

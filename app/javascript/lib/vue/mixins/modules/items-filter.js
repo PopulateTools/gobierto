@@ -1,4 +1,4 @@
-import { Middleware } from "lib/shared";
+import { Middleware } from '../../../../lib/shared';
 
 export const ItemsFilterMixin = {
   data() {

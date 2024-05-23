@@ -15,8 +15,8 @@
   </div>
 </template>
 <script>
-import { Filters } from "lib/vue/components";
-import { ROUTE_NAMES } from "../../../lib/router";
+import { Filters } from '../../../../lib/vue/components';
+import { ROUTE_NAMES } from '../../../lib/router';
 
 export default {
   name: "SidebarCategories",

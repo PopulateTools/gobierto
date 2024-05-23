@@ -62,15 +62,15 @@
 </template>
 
 <script>
-import Viewer from "./Viewer";
-import HeaderForm from "./components/HeaderForm";
-import Aside from "./layouts/Aside";
-import Main from "./layouts/Main";
-import SmallCard from "./components/SmallCard";
-import { Widgets, RequiredFields } from "./lib/widgets";
-import { FactoryMixin } from "./lib/factories";
-import { TextEditable } from "lib/vue/components";
-import { debounce } from "lib/shared";
+import { debounce } from '../../lib/shared';
+import { TextEditable } from '../../lib/vue/components';
+import Viewer from './Viewer.vue';
+import HeaderForm from './components/HeaderForm.vue';
+import SmallCard from './components/SmallCard.vue';
+import Aside from './layouts/Aside.vue';
+import Main from './layouts/Main.vue';
+import { FactoryMixin } from './lib/factories';
+import { RequiredFields, Widgets } from './lib/widgets';
 
 const seed = () =>
   Math.random()

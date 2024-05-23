@@ -87,13 +87,14 @@
   </div>
 </template>
 <script>
-import { date } from "lib/vue/filters";
-import { formatNumbers } from "lib/shared";
-import InfoBlockText from "./../commons/InfoBlockText.vue";
-import DownloadButton from "./../commons/DownloadButton.vue";
-import DownloadLink from "./../commons/DownloadLink.vue";
-import Button from "./../commons/Button.vue";
-import { tabs } from "../../../lib/router";
+import { formatNumbers } from '../../../../lib/shared';
+import { date } from '../../../../lib/vue/filters';
+import { tabs } from '../../../lib/router';
+import Button from '../commons/Button.vue';
+import DownloadButton from '../commons/DownloadButton.vue';
+import DownloadLink from '../commons/DownloadLink.vue';
+import InfoBlockText from '../commons/InfoBlockText.vue';
+
 //Parse markdown to HTML. Related: https://github.com/PopulateTools/issues/issues/1428#issuecomment-1026617835
 const marked = require('marked');
 

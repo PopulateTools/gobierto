@@ -54,10 +54,10 @@
   </div>
 </template>
 <script>
-import SQLEditorCode from "./data/SQLEditorCode.vue";
-import SQLEditorHeader from "./data/SQLEditorHeader.vue";
-import SQLEditorResults from "./data/SQLEditorResults.vue";
-import "./../../../lib/sql-theme.css"
+import SQLEditorCode from './data/SQLEditorCode.vue';
+import SQLEditorHeader from './data/SQLEditorHeader.vue';
+import SQLEditorResults from './data/SQLEditorResults.vue';
+import '../../../lib/sql-theme.css'
 
 export default {
   name: 'DataTab',

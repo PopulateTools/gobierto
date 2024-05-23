@@ -30,7 +30,8 @@
 </template>
 
 <script>
-import { slugString } from "lib/shared";
+import { slugString } from '../../../../lib/shared';
+
 export default {
   name: "Checkbox",
   props: {

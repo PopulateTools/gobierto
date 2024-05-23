@@ -1,28 +1,15 @@
-import crossfilter from "crossfilter2";
-import { axisTop } from "d3-axis";
-import { csv } from "d3-fetch";
-import { scaleBand, scaleOrdinal, scaleThreshold } from "d3-scale";
-import { select } from "d3-selection";
-import { timeMonth } from "d3-time";
-import { timeFormatLocale } from "d3-time-format";
-import { barChart, rowChart, units } from "dc";
-import "jsgrid";
-import { d3locale } from "lib/shared";
-import { AmountDistributionBars } from "lib/visualizations";
-import moment from "moment";
+import crossfilter from 'crossfilter2';
+import * as d3 from 'd3';
+import 'jsgrid';
+import { filter as _filter, extend, groupBy, isEmpty, isEqual, map, max, mean, sum, sumBy, uniqBy } from 'lodash';
+import moment from 'moment';
+import { d3locale } from '../../lib/shared';
+import { AmountDistributionBars } from '../../lib/visualizations';
 
-const d3 = {
-  select,
-  csv,
-  scaleThreshold,
-  scaleBand,
-  axisTop,
-  scaleOrdinal,
-  timeMonth,
-  timeFormatLocale
-};
-const dc = { barChart, rowChart, units };
-
+/**
+ * NOTE: dc@4 has been imported via CDN due to d3 compatibility issues
+ * It requires d3@5 to be imported as well
+ */
 window.GobiertoBudgets.InvoicesController = (function() {
   function InvoicesController() {}
 
@@ -60,7 +47,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
           headers: new Headers({
             authorization: "Bearer " + window.populateData.token
           })
-        }).then(csv => resolve(moment(_.map(csv, "date")[0]).year()));
+        }).then(csv => resolve(moment(map(csv, "date")[0]).year()));
       });
     };
 
@@ -177,7 +164,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
       // Show table again
       $tableHTML.removeClass("hidden");
 
-      data = _.filter(csv, _callback(filter));
+      data = _filter(csv, _callback(filter));
 
       // enable empty filter
       $("#invoices-filters button[data-toggle=" + filter + "]").prop(
@@ -284,7 +271,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
     _boxesCalculations(_data);
 
     // If the data filtered is the same as the data total, tabledata = undefined
-    _tabledata = _.isEqual(data, _data) ? undefined : _data;
+    _tabledata = isEqual(data, _data) ? undefined : _data;
     $tableHTML.jsGrid("search");
   }
 
@@ -301,7 +288,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
     var _data = reduced || data;
 
     // Totals box
-    var totalAmount = _.sumBy(_data, "value");
+    var totalAmount = sumBy(_data, "value");
 
     document.getElementById(
       "numberOfInvoices"
@@ -312,7 +299,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
       maximumFractionDigits: 0
     });
 
-    var providers = _.uniqBy(_data, "provider_name");
+    var providers = uniqBy(_data, "provider_name");
     var numberFreelancers = providers.filter(p => p.freelance).length || 0;
     var numberCorporationsSA =
       providers.filter(
@@ -360,12 +347,12 @@ window.GobiertoBudgets.InvoicesController = (function() {
       else return (values[half - 1] + values[half]) / 2.0;
     }
 
-    var amount = _.isEmpty(_.map(_data, "value").map(Number))
+    var amount = isEmpty(map(_data, "value").map(Number))
       ? [0]
-      : _.map(_data, "value").map(Number);
+      : map(_data, "value").map(Number);
     amount.sort((b, a) => a - b);
 
-    document.getElementById("meanBudget").innerText = _.mean(
+    document.getElementById("meanBudget").innerText = mean(
       amount
     ).toLocaleString(I18n.locale, {
       style: "currency",
@@ -382,7 +369,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
     function percentileAgg(arr, p) {
       if (arr.length === 0) return 0;
 
-      var percentile = _.sum(arr) * p;
+      var percentile = sum(arr) * p;
       var accumulate = 0;
       var i = 0;
 
@@ -394,11 +381,11 @@ window.GobiertoBudgets.InvoicesController = (function() {
       return i / arr.length || 0;
     }
 
-    var lt1000 = _.filter(amount, o => o <= 1000).length / _data.length || 0; // Filter those amounts less than 1000
+    var lt1000 = _filter(amount, o => o <= 1000).length / _data.length || 0; // Filter those amounts less than 1000
     var lgProvider =
-      _.max(
-        _.map(_.groupBy(_data, "provider_name"), group =>
-          _.sumBy(group, "value")
+      max(
+        map(groupBy(_data, "provider_name"), group =>
+          sumBy(group, "value")
         )
       ) / totalAmount || 0; // Max amount group by provider amount
 
@@ -431,7 +418,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
   function _renderByMonthsChart() {
     // Declaration
-    var bars = dc.barChart("#bars", "group");
+    var bars = new dc.BarChart("#bars", "group");
 
     // Dimensions
     var months = ndx.dimension(d => d.month),
@@ -484,7 +471,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
   function _renderMainProvidersChart() {
     // Declaration
-    var hbars1 = dc.rowChart("#hbars1", "group");
+    var hbars1 = new dc.RowChart("#hbars1", "group");
 
     // Dimensions
     var providers = ndx.dimension(d => d.provider_name),
@@ -739,7 +726,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
     $(".jsgrid-filter-row input").on(
       "input",
       function() {
-        resetFilters = _.isEqual(_empty, $tableHTML.jsGrid("getFilter"));
+        resetFilters = isEqual(_empty, $tableHTML.jsGrid("getFilter"));
       }.bind(this)
     );
   }
@@ -754,7 +741,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
       ? num
           .toLocaleString(
             I18n.locale,
-            _.extend(_obj, {
+            extend(_obj, {
               maximumSignificantDigits: 3 //Math.log10(pow) / 2 + 1
             })
           )
@@ -765,7 +752,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
           .split("")
           .reverse()
           .join("")
-      : num.toLocaleString(I18n.locale, _.extend(_obj, props));
+      : num.toLocaleString(I18n.locale, extend(_obj, props));
   }
 
   return InvoicesController;

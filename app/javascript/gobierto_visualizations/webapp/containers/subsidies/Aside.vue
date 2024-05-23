@@ -45,11 +45,11 @@
 </template>
 
 <script>
-import { BlockHeader, Checkbox, Dropdown } from "lib/vue/components";
-import DownloadButton from "../../components/DownloadButton.vue";
-import SearchFilter from "../../components/SearchFilter.vue";
-import { EventBus } from "../../lib/mixins/event_bus";
-import { subsidiesFiltersConfig } from "../../lib/config/subsidies.js";
+import { BlockHeader, Checkbox, Dropdown } from '../../../../lib/vue/components';
+import DownloadButton from '../../components/DownloadButton.vue';
+import SearchFilter from '../../components/SearchFilter.vue';
+import { EventBus } from '../../lib/mixins/event_bus';
+import { subsidiesFiltersConfig } from '../../lib/config/subsidies.js';
 
 export default {
   name: 'Aside',

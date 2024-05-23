@@ -1,4 +1,4 @@
-import Turbolinks from "turbolinks"
+import Turbolinks from 'turbolinks'
 
 document.addEventListener("DOMContentLoaded", () => {
   const disableTurbolinks = document.querySelector("body[data-turbolinks='false']")

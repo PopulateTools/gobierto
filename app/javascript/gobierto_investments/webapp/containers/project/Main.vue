@@ -89,9 +89,9 @@
 </template>
 
 <script>
-import { HorizontalCarousel, ReadMore } from "lib/vue/components";
-import { CommonsMixin } from "../../mixins/common.js";
-import DictionaryItem from "../../components/DictionaryItem.vue";
+import { HorizontalCarousel, ReadMore } from '../../../../lib/vue/components';
+import { CommonsMixin } from '../../mixins/common.js';
+import DictionaryItem from '../../components/DictionaryItem.vue';
 
 export default {
   name: "ProjectMain",

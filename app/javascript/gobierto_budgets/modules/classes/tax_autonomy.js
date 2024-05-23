@@ -1,4 +1,4 @@
-import { Card } from "./card.js";
+import { Card } from './card.js';
 
 export class TaxAutonomyCard extends Card {
   constructor(divClass, city_id, current_year) {

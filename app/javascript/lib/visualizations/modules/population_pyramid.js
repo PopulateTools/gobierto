@@ -1,23 +1,5 @@
-import { max, min } from "d3-array";
-import { axisBottom, axisRight } from "d3-axis";
-import { csv, json } from "d3-fetch";
-import { scaleBand, scaleLinear } from "d3-scale";
-import { select, selectAll } from "d3-selection";
-import { transition } from "d3-transition";
-
-const d3 = {
-  scaleLinear,
-  scaleBand,
-  axisBottom,
-  axisRight,
-  select,
-  selectAll,
-  json,
-  csv,
-  max,
-  min,
-  transition
-};
+import * as d3 from 'd3';
+import { maxBy, mean, sumBy, uniq } from 'lodash';
 
 export class VisPopulationPyramid {
   constructor(divId, city_id, filter) {
@@ -289,7 +271,7 @@ export class VisPopulationPyramid {
   }
 
   handlePromise(url, opts = {}) {
-    return json(url, {
+    return d3.json(url, {
       headers: new Headers({ authorization: "Bearer " + this.tbiToken }),
       ...opts
     });
@@ -340,7 +322,7 @@ export class VisPopulationPyramid {
       .domain([d3.max(data.areas.map(d => d.value)), 0])
       .nice();
 
-    this.yScale.domain(_.uniq(data.pyramid.map(d => d.age)));
+    this.yScale.domain(uniq(data.pyramid.map(d => d.age)));
   }
 
   _updateAxes() {
@@ -714,7 +696,7 @@ export class VisPopulationPyramid {
     focus.append("text");
   }
 
-  _mousemove(d) {
+  _mousemove(_, d) {
     this.svg
       .select(".tooltip")
       .attr("opacity", 1)
@@ -896,17 +878,17 @@ export class VisPopulationPyramid {
   }
 
   _total(data) {
-    return _.sumBy(data, "value");
+    return sumBy(data, "value");
   }
 
   _mode(data) {
     // It's not required the common mode arithmetical function
     // since the data it's grouped by age, only get the biggest number
-    return _.maxBy(data, "value").age;
+    return maxBy(data, "value").age;
   }
 
   _mean(data) {
-    return _.mean(data);
+    return mean(data);
   }
 
   _median(data) {

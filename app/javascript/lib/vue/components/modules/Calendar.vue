@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { Datepicker } from "lib/shared";
+import { Datepicker } from '../../../../lib/shared';
 
 export default {
   name: "Calendar",

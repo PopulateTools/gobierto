@@ -110,19 +110,19 @@
 </template>
 
 <script>
-import Aside from "./Aside.vue";
-import Main from "./Main.vue";
-import Nav from "./Nav.vue";
-import Article from "./Article.vue";
-import axios from "axios";
+import Aside from './Aside.vue';
+import Main from './Main.vue';
+import Nav from './Nav.vue';
+import Article from './Article.vue';
+import axios from 'axios';
 
-import { BlockHeader, Calendar, Loading, Checkbox, RangeBars } from "lib/vue/components";
-import { Middleware } from "lib/shared";
-import { CommonsMixin, baseUrl } from "../../mixins/common.js";
-import { store } from "../../mixins/store";
+import { BlockHeader, Calendar, Loading, Checkbox, RangeBars } from '../../../../lib/vue/components';
+import { Middleware } from '../../../../lib/shared';
+import { CommonsMixin, baseUrl } from '../../mixins/common.js';
+import { store } from '../../mixins/store';
 
 // TODO: This configuration should come from API request, not from file
-import CONFIGURATION from "../../conf/mataro.conf.js";
+import CONFIGURATION from '../../conf/mataro.conf.js';
 
 export default {
   name: "Home",

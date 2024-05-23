@@ -130,14 +130,3 @@ en:
         economia: Employment
         empleo: Economy
         poblacion: Population
-    observatory:
-      demography_map:
-        age_distribution: Age distribution
-        back: back to the Observatory
-        born_in: Born in %{place}
-        data_updated: Data updated on %{date}
-        demography: Demography
-        origin_locals: Origin / Spain
-        origin_remote: Origin / Foreign
-        remove_selection: Remove selection
-        studies_level: Studies level

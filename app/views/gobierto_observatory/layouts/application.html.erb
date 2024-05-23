@@ -1,9 +1,9 @@
 <% content_for :javascript_module_link do %>
-  <%= javascript_packs_with_chunks_tag 'observatory', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'observatory', 'data-turbolinks-track': true %>
 <% end %>
 
 <% content_for :stylesheet_module_link do %>
-  <%= stylesheet_packs_with_chunks_tag 'observatory' %>
+  <%= stylesheet_link_tag 'observatory' %>
 <% end %>
 
 <%= render template: "layouts/application" %>

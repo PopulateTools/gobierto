@@ -1,6 +1,6 @@
-import { Sparkline, SparklineTableCard } from "lib/visualizations";
-import { groupBy } from "lib/shared";
-import { Card } from "./card.js";
+import { Sparkline, SparklineTableCard } from '../../../lib/visualizations';
+import { groupBy } from '../../../lib/shared';
+import { Card } from './card.js';
 
 export class InvestmentByInhabitantCard extends Card {
   constructor(divClass, city_id) {

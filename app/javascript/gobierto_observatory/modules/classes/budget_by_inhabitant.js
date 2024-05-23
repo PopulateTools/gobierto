@@ -1,5 +1,5 @@
-import { SimpleCard } from "lib/visualizations";
-import { Card } from "./card.js";
+import { SimpleCard } from '../../../lib/visualizations';
+import { Card } from './card.js';
 
 export class BudgetByInhabitantCard extends Card {
   constructor(divClass, city_id) {

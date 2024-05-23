@@ -5,8 +5,8 @@
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
 
   <!-- admin chunks (code-splitting) -->
-  <%= javascript_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
-  <%= stylesheet_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'admin', 'data-turbolinks-track': true %>
+  <%= stylesheet_link_tag 'admin', 'data-turbolinks-track': true %>
 
   <%= csrf_meta_tags %>
 </head>
@@ -16,7 +16,7 @@
 <header class="main clearfix">
 
   <div class="pure-menu-link logo">
-    <%= image_pack_tag 'Gobierto-Avatar@2x.png' %>
+    <%= image_tag 'Gobierto-Avatar@2x.png' %>
   </div>
 
 </header>

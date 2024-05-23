@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import { Table } from "lib/vue/components";
-import { EventBus } from "../../lib/mixins/event_bus";
-import { contractsColumns } from "../../lib/config/contracts.js";
+import { Table } from '../../../../lib/vue/components';
+import { EventBus } from '../../lib/mixins/event_bus';
+import { contractsColumns } from '../../lib/config/contracts.js';
 
 export default {
   name: 'ContractsIndex',

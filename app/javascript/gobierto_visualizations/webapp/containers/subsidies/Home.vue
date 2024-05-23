@@ -22,14 +22,14 @@
 </template>
 
 <script>
-import Nav from "./Nav.vue";
-import Aside from "./Aside.vue";
-import Summary from "./Summary.vue";
-import SubsidiesIndex from "./SubsidiesIndex.vue";
-import SubsidiesShow from "./SubsidiesShow.vue";
+import Nav from './Nav.vue';
+import Aside from './Aside.vue';
+import Summary from './Summary.vue';
+import SubsidiesIndex from './SubsidiesIndex.vue';
+import SubsidiesShow from './SubsidiesShow.vue';
 
-import { EventBus } from "../../lib/mixins/event_bus";
-import { store } from "../../lib/mixins/store";
+import { EventBus } from '../../lib/mixins/event_bus';
+import { store } from '../../lib/mixins/store';
 
 export default {
   name: 'Home',

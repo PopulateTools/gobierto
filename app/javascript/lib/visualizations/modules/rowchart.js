@@ -1,19 +1,4 @@
-import { max } from "d3-array";
-import { axisBottom, axisLeft } from "d3-axis";
-import { scaleBand, scaleLinear } from "d3-scale";
-import { select, selectAll } from "d3-selection";
-import { transition } from "d3-transition";
-
-const d3 = {
-  select,
-  selectAll,
-  scaleLinear,
-  scaleBand,
-  max,
-  axisBottom,
-  axisLeft,
-  transition
-};
+import * as d3 from 'd3';
 
 export class Rowchart {
   constructor(context, data, options = {}) {
@@ -82,26 +67,15 @@ export class Rowchart {
       .append("a")
       .attr("xlink:href", d => (d.properties || {}).url)
       .append("rect")
-      .on("mousemove", function(d) {
-        let content = undefined;
+      .on("mousemove", function(_, d) {
+        if (!tooltipContent) return
 
-        if (tooltipContent) {
-          let tooltipRenderContent = tooltipContent;
-          // An object means the expression must be evaluated
-          if (typeof tooltipContent === "object") {
-            tooltipRenderContent = eval((tooltipContent || {}).eval);
-          }
-
-          content = `
-        <div class="tooltip-content left">
-          ${tooltipRenderContent}
-        </div>`;
-        }
+        const content = `<div class="tooltip-content left">${tooltipContent(d)}</div>`;
 
         const node = container.node() || document.createElement("div");
         const coords = {
-          x: window.pageXOffset + node.getBoundingClientRect().left,
-          y: window.pageYOffset + node.getBoundingClientRect().top
+          x: window.scrollX + node.getBoundingClientRect().left,
+          y: window.scrollY + node.getBoundingClientRect().top
         };
 
         tooltip

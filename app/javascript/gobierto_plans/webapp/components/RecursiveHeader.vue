@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import NumberLabel from "./NumberLabel";
+import NumberLabel from './NumberLabel.vue';
 
 export default {
   name: "RecursiveHeader",

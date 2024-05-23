@@ -119,12 +119,12 @@
   </div>
 </template>
 <script>
-import { Loading, Dropdown } from "lib/vue/components";
-import Caret from "./../commons/Caret.vue";
-import Visualizations from "./../commons/Visualizations.vue";
-import PrivateIcon from './../commons/PrivateIcon.vue';
-import { getUserId } from "./../../../lib/helpers";
-import CardVisualization from "./../../layouts/CardVisualization.vue";
+import { Loading, Dropdown } from '../../../../lib/vue/components';
+import Caret from '../commons/Caret.vue';
+import Visualizations from '../commons/Visualizations.vue';
+import PrivateIcon from '../commons/PrivateIcon.vue';
+import { getUserId } from '../../../lib/helpers';
+import CardVisualization from '../../layouts/CardVisualization.vue';
 
 
 export default {

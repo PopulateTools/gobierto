@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import NodeList from './NodeList'
-import NumberLabel from "./NumberLabel";
+import NodeList from './NodeList.vue'
+import NumberLabel from './NumberLabel.vue';
 
 export default {
   name: "ActionLine",

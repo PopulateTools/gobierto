@@ -1,6 +1,6 @@
-import "../stylesheets/gobierto-investments.scss"
+import '../../assets/stylesheets/investments.scss'
 
-import { InvestmentsController } from "./modules/investments_controller.js";
+import { InvestmentsController } from './modules/investments_controller.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const appNode = document.getElementById("investments-app");

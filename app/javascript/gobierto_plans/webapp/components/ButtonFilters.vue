@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import { PlansStore } from "../lib/store";
-import { translate } from "lib/vue/filters";
-import { routes } from "../lib/router";
+import { translate } from '../../../lib/vue/filters';
+import { routes } from '../lib/router';
+import { PlansStore } from '../lib/store';
 
 export default {
   name: "ButtonFilters",

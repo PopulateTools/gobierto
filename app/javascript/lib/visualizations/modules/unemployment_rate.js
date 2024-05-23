@@ -1,12 +1,6 @@
-import { max, extent } from "d3-array";
-import { axisBottom, axisLeft } from "d3-axis";
-import { json } from "d3-fetch";
-import { scaleLinear, scaleOrdinal, scaleTime } from "d3-scale";
-import { select, selectAll } from "d3-selection";
-import { line } from "d3-shape";
-import { timeFormat, timeFormatDefaultLocale } from "d3-time-format";
-import { voronoi } from "d3-voronoi";
-import { groupBy, d3locale } from "lib/shared";
+import * as d3 from 'd3';
+import { voronoi } from 'd3-voronoi';
+import { d3locale, groupBy } from '../../../lib/shared';
 
 export class VisUnemploymentRate {
   constructor(divId, city_id) {
@@ -65,7 +59,7 @@ export class VisUnemploymentRate {
       ORDER BY key, year DESC, month DESC
       `;
 
-    timeFormatDefaultLocale(d3locale[I18n.locale]);
+    d3.timeFormatDefaultLocale(d3locale[I18n.locale]);
 
     this.isMobile = window.innerWidth <= 768;
 
@@ -75,19 +69,19 @@ export class VisUnemploymentRate {
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
     // Scales & Ranges
-    this.xScale = scaleTime();
-    this.yScale = scaleLinear();
-    this.color = scaleOrdinal();
+    this.xScale = d3.scaleTime();
+    this.yScale = d3.scaleLinear();
+    this.color = d3.scaleOrdinal();
 
     // Create axes
-    this.xAxis = axisBottom();
-    this.yAxis = axisLeft();
+    this.xAxis = d3.axisBottom();
+    this.yAxis = d3.axisLeft();
 
     // Chart objects
     this.svg = null;
 
     // Create main elements
-    this.svg = select(this.container)
+    this.svg = d3.select(this.container)
       .append("svg")
       .attr("width", this.width + this.margin.left + this.margin.right)
       .attr("height", this.height + this.margin.top + this.margin.bottom)
@@ -102,7 +96,7 @@ export class VisUnemploymentRate {
     this.svg.append("g").attr("class", "x axis");
     this.svg.append("g").attr("class", "y axis");
 
-    select(window).on("resize." + this.container, () => {
+    d3.select(window).on("resize." + this.container, () => {
       if (this.data) {
         this._resize();
       }
@@ -110,7 +104,7 @@ export class VisUnemploymentRate {
   }
 
   handlePromise(url, opts = {}) {
-    return json(url, {
+    return d3.json(url, {
       headers: new Headers({ authorization: "Bearer " + this.tbiToken }),
       ...opts
     });
@@ -141,11 +135,11 @@ export class VisUnemploymentRate {
 
     this.xScale
       .rangeRound([0, this.width])
-      .domain(extent(values, d => new Date(d.date)));
+      .domain(d3.extent(values, d => new Date(d.date)));
 
     this.yScale
       .rangeRound([this.height, 0])
-      .domain([0, max(values, d => d.value)]);
+      .domain([0, d3.max(values, d => d.value)]);
 
     this.color
       .domain([...new Set(values.map(x => x.key))])
@@ -155,7 +149,7 @@ export class VisUnemploymentRate {
   }
 
   _renderLines() {
-    this.line = line()
+    this.line = d3.line()
       .x(d => this.xScale(new Date(d.date)))
       .y(d => this.yScale(+d.value));
     // .curve(curveCatmullRom.alpha(0.5));
@@ -181,7 +175,7 @@ export class VisUnemploymentRate {
       .attr("r", 5)
       .attr("fill", ([key]) => this.color(key));
 
-    var linesText = select(this.container)
+    var linesText = d3.select(this.container)
       .append("div")
       .attr("class", "lines-labels")
       .selectAll("p")
@@ -235,7 +229,7 @@ export class VisUnemploymentRate {
       .on("mouseout", this._mouseout.bind(this));
   }
 
-  _mouseover(d) {
+  _mouseover(_, d) {
     this.focus.select("circle").attr("stroke", this.color(d.data.key));
 
     this.focus.attr(
@@ -257,7 +251,7 @@ export class VisUnemploymentRate {
         new Date(d.data.date) >= middleDate ? "end" : "start"
       );
 
-    const month = timeFormat("%b %Y")(new Date(d.data.date));
+    const month = d3.timeFormat("%b %Y")(new Date(d.data.date));
     const value = Number(d.data.value).toLocaleString(I18n.locale, {
       style: "percent",
       minimumFractionDigits: 2,
@@ -322,8 +316,8 @@ export class VisUnemploymentRate {
   }
 
   _width() {
-    return select(this.container).node()
-      ? parseInt(select(this.container).style("width"))
+    return d3.select(this.container).node()
+      ? parseInt(d3.select(this.container).style("width"))
       : 0;
   }
 
@@ -339,7 +333,7 @@ export class VisUnemploymentRate {
 
     this.updateRender();
 
-    select(this.container + " svg")
+    d3.select(this.container + " svg")
       .attr("width", this.width + this.margin.left + this.margin.right)
       .attr("height", this.height + this.margin.top + this.margin.bottom);
 
@@ -359,7 +353,7 @@ export class VisUnemploymentRate {
       .attr("cx", ([, values]) => this.xScale(new Date(values[0].date)))
       .attr("cy", ([, values]) => this.yScale(values[0].value));
 
-    selectAll(this.container + " .lines-labels div").style(
+    d3.selectAll(this.container + " .lines-labels div").style(
       "top",
       ([, values]) => this.yScale(values[0].value) + "px"
     );

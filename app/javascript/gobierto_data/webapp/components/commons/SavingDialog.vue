@@ -121,8 +121,8 @@
   </div>
 </template>
 <script>
-import Button from "./Button.vue";
-import PrivateIcon from "./PrivateIcon.vue";
+import Button from './Button.vue';
+import PrivateIcon from './PrivateIcon.vue';
 
 export default {
   name: 'SavingDialog',

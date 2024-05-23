@@ -1,4 +1,4 @@
-import { findRecursive } from "../helpers";
+import { findRecursive } from '../helpers';
 
 export const ActiveNodeMixin = {
   data() {

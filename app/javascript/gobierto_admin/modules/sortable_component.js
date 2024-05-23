@@ -1,5 +1,3 @@
-import 'webpack-jquery-ui/sortable'
-
 window.GobiertoAdmin.SortableComponent = (function() {
   function SortableComponent() {}
 

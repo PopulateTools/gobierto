@@ -26,7 +26,7 @@
 import TableHeader from './TableHeader.vue'
 import TableRow from './TableRow.vue'
 import TableSubHeader from './TableSubHeader.vue'
-import { VueFiltersMixin } from "lib/vue/filters"
+import { VueFiltersMixin } from '../../../../../lib/vue/filters'
 
 export default {
   name: "TableSecondLevel",

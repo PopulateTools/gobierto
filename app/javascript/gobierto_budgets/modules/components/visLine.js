@@ -1,5 +1,5 @@
-import * as flight from 'flightjs'
-import { VisLineasJ } from 'lib/visualizations'
+import * as flight from 'flightjs';
+import { VisLineasJ } from '../../../lib/visualizations';
 
 var visLine = flight.component(function(){
   this.attributes({

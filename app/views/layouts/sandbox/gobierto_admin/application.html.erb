@@ -6,11 +6,11 @@
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
 
   <!-- application styles -->
-  <%= stylesheet_pack_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
   <!-- module styles -->
   <%= yield(:stylesheet_module_link) %>
 
-  <%= javascript_packs_with_chunks_tag 'admin', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'admin', 'data-turbolinks-track': true %>
 
   <%= csrf_meta_tags %>
   <%= yield(:javascript_module_link) %>
@@ -27,7 +27,7 @@
 
     <div class="pure-menu-link logo">
       <%= link_to admin_root_path do %>
-        <%= image_pack_tag 'Gobierto-Avatar@2x.png' %>
+        <%= image_tag 'Gobierto-Avatar@2x.png' %>
       <% end %>
     </div>
 

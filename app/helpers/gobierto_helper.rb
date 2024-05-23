@@ -41,7 +41,7 @@ module GobiertoHelper
 
   def logo_image_tag(logo_src, options = {})
     if logo_src == SiteConfiguration::DEFAULT_LOGO_PATH
-      image_pack_tag(logo_src, **options)
+      image_tag(logo_src, **options)
     else
       image_tag(logo_src, **options)
     end

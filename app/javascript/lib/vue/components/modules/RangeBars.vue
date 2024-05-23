@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import { VueFiltersMixin } from "lib/vue/filters";
-import { RangeSlider, debounce } from "lib/shared";
+import { VueFiltersMixin } from '../../../../lib/vue/filters';
+import { RangeSlider, debounce } from '../../../../lib/shared';
 
 export default {
   name: "RangeBars",

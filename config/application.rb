@@ -104,5 +104,8 @@ module Gobierto
       r301 %r{^/dashboards/subvenciones(.*)}, '/visualizaciones/subvenciones$1'
       r301 %r{^/dashboards/costes(.*)}, '/visualizaciones/costes$1'
     end
+
+    # Psych safe loading
+    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Date, Matrix, OpenStruct, Symbol]
   end
 end

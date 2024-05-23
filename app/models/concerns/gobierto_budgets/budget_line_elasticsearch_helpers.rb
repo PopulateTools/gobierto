@@ -335,7 +335,7 @@ module GobiertoBudgets
       private_class_method :validate_conditions
 
       def elastic_search_index
-        GobiertoBudgetsData::GobiertoBudgets::BudgetLine.send(index)
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.send(index)
       end
 
       def elasticsearch_as_json

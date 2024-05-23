@@ -6,13 +6,13 @@ class BudgetLineFactory
 
   include BudgetsFactory
 
-  def self.doc_id(params = {})
+  def self.doc_id(params = {}, area)
     place = params[:place] || default_place
     year = params[:year] || default_year
     kind = params[:kind] || default_kind
     code = parse_code(params)
 
-    [place.id, year, code, kind].join("/")
+    [place.id, year, code, kind, area].join("/")
   end
 
   def self.base_attrs(params = {})
@@ -48,9 +48,9 @@ class BudgetLineFactory
     {
       index: {
         _index: index,
-        _id: self.class.doc_id(params),
-        _type: area,
+        _id: self.class.doc_id(params, area),
         data: self.class.base_attrs(params).merge(
+          type: area,
           amount: amount,
           population: population,
           amount_per_inhabitant: amount_per_inhabitant(amount, population)

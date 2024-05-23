@@ -643,6 +643,7 @@ DEPENDENCIES
   simple_calendar (~> 2.2)
   simplecov
   simplecov-cobertura
+  sprockets-rails
   spy
   timecop
   truncate_html

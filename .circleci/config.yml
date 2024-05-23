@@ -9,6 +9,7 @@ aliases:
 
 defaults: &defaults
   working_directory: *working_directory
+  resource_class: large
   docker:
     - image: cimg/ruby:3.2.2-browsers
       environment:
@@ -113,7 +114,6 @@ orbs:
 jobs:
   bundle_dependencies:
     <<: *defaults
-    resource_class: large
     steps:
       - checkout
       - attach_workspace:

@@ -20,8 +20,8 @@ class TotalBudgetFactory
         data: self.class.base_data(params).merge(
           type: TYPE,
           kind: kind,
-          total_budget: total_budget,
-          total_budget_per_inhabitant: (total_budget / population).round(2)
+          amount: total_budget,
+          amount_per_inhabitant: (total_budget / population).round(2)
         )
       }
     }

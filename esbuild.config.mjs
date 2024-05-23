@@ -52,6 +52,13 @@ fs.readdir(pathEntryPoints, (_, files) => {
       sassPlugin({
         loadPaths: [path.resolve(process.cwd(), "node_modules")],
         quietDeps: true,
+        precompile(source, pathname) {
+          const basedir = path.dirname(pathname)
+          if (pathname.includes("slickgrid-es6")) {
+            console.log(source.replace(/(url\(['"]?)(\.\.?\/)([^'")]+['"]?\))/g, `$1${basedir}/$2$3`));
+          }
+          return source.replace(/(url\(['"]?)(\.\.?\/)([^'")]+['"]?\))/g, `$1${basedir}/$2$3`)
+        }
       }),
     ],
     metafile: true,

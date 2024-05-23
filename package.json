@@ -41,7 +41,7 @@
     "purecss": "^2.0.6",
     "select2": "4.0.8",
     "simplemde": "^1.11.2",
-    "slickgrid-es6": "^3.0.1",
+    "slickgrid": "^5.9.2",
     "sortablejs": "^1.8.4",
     "sql-formatter": "^2.3.3",
     "sticky-kit": "^1.1.3",

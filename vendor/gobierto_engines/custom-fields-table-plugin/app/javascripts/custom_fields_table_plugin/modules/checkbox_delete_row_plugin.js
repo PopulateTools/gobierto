@@ -1,10 +1,9 @@
-import { Slick } from 'slickgrid-es6';
+import { EventHandler } from 'slickgrid';
 
 export default class {
   constructor(options) {
     let _grid, $container, $deleteButton;
-    const _self = this;
-    const _handler = new Slick.EventHandler();
+    const _handler = new EventHandler();
     let _selectedRowsLookup = {};
     const _defaults = {
       columnId: '_checkbox_selector',
@@ -92,7 +91,7 @@ export default class {
 
       rowsToRemove.forEach(row => {
         _grid.getData().forEach((d, idx) => {
-          if(JSON.stringify(row) === JSON.stringify(d)){
+          if (JSON.stringify(row) === JSON.stringify(d)){
             _grid.getData().splice(idx, 1);
           }
         })

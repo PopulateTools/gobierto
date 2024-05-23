@@ -1,7 +1,7 @@
-import { Grid, Editors, Plugins } from 'slickgrid-es6';
-import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
+import { Editors, SlickCellSelectionModel, SlickGrid } from 'slickgrid';
 import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
-import { applyPluginStyles, preventLosingCurrentEdit, defaultSlickGridOptions } from './common_slickgrid_behavior';
+import { applyPluginStyles, defaultSlickGridOptions, preventLosingCurrentEdit } from './common_slickgrid_behavior';
+import { Select2Editor, Select2Formatter } from './data_grid_plugin_select2';
 import { DateEditor } from './datepicker_editor';
 
 window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (function() {
@@ -101,10 +101,10 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
 
       columns.unshift(checkboxSelector.getColumnDefinition());
 
-      _grid = new Grid(`#${id} .data-container`, data, columns, options);
+      _grid = new SlickGrid(`#${id} .data-container`, data, columns, options);
       $(`#${id}`).data('slickGrid', _grid);
 
-      _grid.setSelectionModel(new Plugins.CellSelectionModel({ selectActiveCell: false }));
+      _grid.setSelectionModel(new SlickCellSelectionModel({ selectActiveCell: false }));
 
       _grid.onAddNewRow.subscribe(function (_e, args) {
         _grid.invalidateRow(data.length);

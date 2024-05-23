@@ -1,7 +1,7 @@
-import { Grid, Editors, Plugins } from 'slickgrid-es6';
-import { Select2Formatter, Select2Editor } from './data_grid_plugin_select2';
+import { Editors, SlickCellSelectionModel, SlickGrid } from 'slickgrid';
 import CheckboxDeleteRowPlugin from './checkbox_delete_row_plugin';
-import { applyPluginStyles, preventLosingCurrentEdit, defaultSlickGridOptions } from './common_slickgrid_behavior';
+import { applyPluginStyles, defaultSlickGridOptions, preventLosingCurrentEdit } from './common_slickgrid_behavior';
+import { Select2Editor, Select2Formatter } from './data_grid_plugin_select2';
 
 window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (function() {
 
@@ -11,7 +11,6 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
   var _availableYears = []
   var _organizationId
   var _pluginCssClass = 'budgets'
-  var _budgetLines = { grouped: { custom: {} } };
 
   GobiertoCommonCustomFieldRecordsBudgetsPluginController.prototype.form = function(opts = {}) {
     _initializePlugin(opts.uid)
@@ -131,10 +130,10 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
 
       columns.unshift(checkboxSelector.getColumnDefinition());
 
-      _grid = new Grid(`#${id} .data-container`, data, columns, options)
+      _grid = new SlickGrid(`#${id} .data-container`, data, columns, options)
       $(`#${id}`).data('slickGrid', _grid)
 
-      _grid.setSelectionModel(new Plugins.CellSelectionModel({selectActiveCell: false}))
+      _grid.setSelectionModel(new SlickCellSelectionModel({ selectActiveCell: false }))
 
       _grid.onAddNewRow.subscribe(function(e, args) {
         _grid.invalidateRow(data.length)
@@ -146,13 +145,13 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
       _grid.onActiveCellChanged.subscribe(function(e, args) {
         let currentCellColumn = _grid.getColumns()[args.cell]
 
-        if(currentCellColumn === undefined) { return }
+        if (currentCellColumn === undefined) { return }
 
-        if(currentCellColumn.id === "budget_line"){
+        if (currentCellColumn.id === "budget_line"){
           let yearCell = _grid.getColumns().find((c) => (c.field === "year"))
-          if(yearCell !== undefined){
+          if (yearCell !== undefined){
             let currentRow = _grid.getData()[args.row]
-            if(currentRow !== undefined && currentRow.year !== undefined){
+            if (currentRow !== undefined && currentRow.year !== undefined){
               _grid.invalidateRow(args.row)
               _refreshBudgetLines(args.cell, currentRow.year)
             }

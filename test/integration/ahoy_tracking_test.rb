@@ -25,9 +25,10 @@ class AhoyTrackingTest < ActionDispatch::IntegrationTest
 
   def root_path_params
     {
-      "controller" => "gobierto_budgets/budgets_elaboration",
+      "controller" => "gobierto_people/welcome",
       "action" => "index",
-      "method" => "GET"
+      "method" => "GET",
+      "locale" => "en"
     }
   end
 
@@ -50,7 +51,7 @@ class AhoyTrackingTest < ActionDispatch::IntegrationTest
     Ahoy::Visit.stub_any_instance(:id, "ahoy!") do
       with_requests_tracking_enabled do
         with_signed_in_user(user) do
-          assert_enqueued_with(job: ::GobiertoCommon::EventCreatorJob, args: [site.id, user.id, nil, root_path_params], queue: "event_creators") do
+          assert_enqueued_with(job: GobiertoCommon::EventCreatorJob, args: [site.id, user.id, nil, root_path_params], queue: "event_creators") do
             visit path
           end
         end
@@ -64,7 +65,7 @@ class AhoyTrackingTest < ActionDispatch::IntegrationTest
     Ahoy::Visit.stub_any_instance(:id, "ahoy!") do
       with_requests_tracking_enabled do
         with_signed_in_user(user) do
-          assert_enqueued_with(job: ::GobiertoCommon::EventCreatorJob, args: [site.id, user.id, "ahoy!", root_path_params], queue: "event_creators") do
+          assert_enqueued_with(job: GobiertoCommon::EventCreatorJob, args: [site.id, user.id, "ahoy!", root_path_params], queue: "event_creators") do
             visit path
           end
         end

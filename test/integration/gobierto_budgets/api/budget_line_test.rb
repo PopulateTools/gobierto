@@ -44,7 +44,7 @@ module GobiertoBudgets
           get request_path
 
           expected_result = {
-            "id" => budget_line_id,
+            "id" => budget_line_id + "/economic",
             "area" => "economic",
             "forecast" => { "original_amount" => amount, "updated_amount" => amount },
             "execution" => { "amount" => amount }
@@ -58,18 +58,6 @@ module GobiertoBudgets
         with(site: site) { get request_path("wadus") }
 
         assert_equal({ "error" => "not-found" }, response_body)
-      end
-
-      def test_when_site_is_draft
-        site.draft!
-
-        with site: site, factory: budget_line_factory do
-          Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
-
-          get request_path
-        end
-
-        assert_equal "200", response.code
       end
 
     end

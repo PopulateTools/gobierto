@@ -48,7 +48,8 @@ module GobiertoBudgets
 
       def budget_line
         result = GobiertoBudgets::BudgetLine.find_details(
-          id: params[:id] + "/#{params[:area]}"
+          id: params[:id] + "/#{params[:area]}",
+          type: params[:area]
         )
 
         render json: result

@@ -13,7 +13,7 @@ class GobiertoBudgets::Api::CategoriesControllerTest < GobiertoControllerTest
       assert_response :success
       response_data = JSON.parse(response.body)
       assert_equal "Impuestos directos", response_data["economic"]["I"]["1"]
-      assert_equal "Impuesto sobre la renta", response_data["economic"]["I"]["10"]
+      assert_equal "Impuesto sobre la Renta", response_data["economic"]["I"]["10"]
       assert_equal "Gastos de personal", response_data["economic"]["G"]["1"]
       assert_equal "Deuda pública", response_data["functional"]["G"]["0"]
     end

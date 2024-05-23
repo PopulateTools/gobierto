@@ -7,7 +7,14 @@ class Ahoy::Store < Ahoy::DatabaseStore
 
   def visit
     unless defined?(@visit)
-      @visit = visit_model.find_by(visit_token: ahoy.visit_token, site: ahoy.site) if ahoy.visit_token
+      if ahoy.send(:existing_visit_token) || ahoy.instance_variable_get(:@visit_token)
+        # find_by raises error by default with Mongoid when not found
+        @visit = visit_model.where(visit_token: ahoy.visit_token, site: ahoy.site).take if ahoy.visit_token
+      elsif !Ahoy.cookies? && ahoy.visitor_token
+        @visit = visit_model.where(visitor_token: ahoy.visitor_token, site: ahoy.site).where(started_at: Ahoy.visit_duration.ago..).order(started_at: :desc).first
+      else
+        @visit = nil
+      end
     end
     @visit
   end
@@ -18,7 +25,8 @@ class Ahoy::Store < Ahoy::DatabaseStore
 end
 
 Ahoy.mask_ips = true
-Ahoy.cookies = false
+Ahoy.cookies = :none
+Ahoy.job_queue = :event_creators
 
 # set to true for JavaScript tracking
 Ahoy.api = false

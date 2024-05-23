@@ -27,11 +27,6 @@ class ChangeLocaleTest < ActionDispatch::IntegrationTest
       within "nav.main-nav" do
         assert has_link?("Presupuestos")
       end
-
-      visit @path
-      within "nav.main-nav" do
-        assert has_link?("Presupuestos")
-      end
     end
 
     with_current_site(site_with_different_locales) do

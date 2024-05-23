@@ -98,7 +98,7 @@ module GobiertoAdmin
       end
 
       def module_name
-        self.class.parent.name.demodulize
+        self.class.superclass.name.demodulize
       end
 
     end

@@ -3082,11 +3082,6 @@ flatbuffers@^1.10.2:
   resolved "https://registry.npmjs.org/flatbuffers/-/flatbuffers-1.12.0.tgz"
   integrity sha512-c7CZADjRcl6j0PlvFy0ZqXQ67qSEZfrVPynmnL+2zPc+NtMvrF8Y0QceMo7QqnSPc7+uWjUIAbvCQ5WIKlMVdQ==
 
-flatpickr@^1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-1.9.1.tgz#6a6f8dea4a75d4ef9e4b92a8b50de7533ae27dab"
-  integrity sha512-4u1+H/4LSHYFU1NTby75h/36z+3FHT8Hs/QKdMsrOW9sYbe+ulMAsU4WNDCIsliSaMc+gPO7WMizdFfLHBMMmQ==
-
 flatted@^3.2.9:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.3.1.tgz#21db470729a6734d4997002f439cb308987f567a"
@@ -4234,11 +4229,6 @@ jqtree@^1.4.5:
   version "3.6.0"
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
-
-jquery@^3.4.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
-  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
 
 js-base64@^2.1.9:
   version "2.6.4"
@@ -5664,13 +5654,17 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-slickgrid-es6@^3.0.1:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/slickgrid-es6/-/slickgrid-es6-3.0.3.tgz#ebad00728db6e76aac5a520870a3b2e71964aa1d"
-  integrity sha512-l/ISKIS8lJv9S6kGlz6q64GrPoGIVKyuq3cljF0ySttqcw2qPiWnNZit8PPEWL5E+CG4/yK+iP2mpQ7vkfL9Cg==
+slickgrid@^5.9.2:
+  version "5.9.2"
+  resolved "https://registry.yarnpkg.com/slickgrid/-/slickgrid-5.9.2.tgz#dacca5f673ca5e74d7f75f6978cca438aa47d2ca"
+  integrity sha512-xeXF+i2Yxq+D5LYfmW0BODyEsMF6VXSMuegrBwCRfdDt+jnd22d7eiYiYgveVMg3O/5yxP03+Kq0U9PleWuccg==
   dependencies:
-    flatpickr "^1.9.1"
-    jquery "^3.4.1"
+    sortablejs "^1.15.2"
+
+sortablejs@^1.15.2:
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.15.2.tgz#4e9f7bda4718bd1838add9f1866ec77169149809"
+  integrity sha512-FJF5jgdfvoKn1MAKSdGs33bIqLi3LmsgVTliuX6iITj834F+JRQZN90Z93yql8h0K2t0RwDPBmxwlbZfDcxNZA==
 
 sortablejs@^1.8.4:
   version "1.12.0"

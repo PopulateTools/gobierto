@@ -1,7 +1,5 @@
-import { Slick } from 'slickgrid-es6';
+import { GlobalEditorLock, keyCode } from 'slickgrid';
 import { toPairs } from 'lodash';
-
-export { Select2Formatter, Select2Editor }
 
 function PopulateSelect(select, dataSource, addBlank) {
   var newOption;
@@ -35,14 +33,14 @@ function PopulateSelect(select, dataSource, addBlank) {
   }
 }
 
-function Select2Formatter(_row, _cell, value, columnDef, _dataContext) {
+export function Select2Formatter(_row, _cell, value, columnDef) {
   if (columnDef.dataSource === null) { return }
   var groupedData = columnDef.dataSource.grouped
 
   if (groupedData) {
     var result
     $.each(groupedData, function (_groupKey, groupItems) {
-      $.each(groupItems, function (itemValue, _text) {
+      $.each(groupItems, function (itemValue) {
         if (groupedData[itemValue.split("/")[0]][value]) {
           result = groupedData[itemValue.split("/")[0]][value]
           return false
@@ -59,13 +57,13 @@ function Select2Formatter(_row, _cell, value, columnDef, _dataContext) {
   return result || columnDef.dataSource[value] || '-'
 }
 
-function Select2Editor(args) {
+export function Select2Editor(args) {
   var _grid = args.grid
   var $input;
   var defaultValue;
   var _allowBlank = false
 
-  this.keyCaptureList = [Slick.keyCode.UP, Slick.keyCode.DOWN, Slick.keyCode.ENTER];
+  this.keyCaptureList = [keyCode.UP, keyCode.DOWN, keyCode.ENTER];
 
   this.init = function () {
     $input = $('<select></select>');
@@ -81,7 +79,7 @@ function Select2Editor(args) {
 
     /* Automatically remove focus after chosing an option */
     $input.on('select2:close', function() {
-      var lock = Slick.GlobalEditorLock
+      var lock = GlobalEditorLock
       if (lock.isActive()) lock.commitCurrentEdit()
 
       _grid.resetActiveCell()

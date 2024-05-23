@@ -1,7 +1,6 @@
-export { applyPluginStyles, preventLosingCurrentEdit, defaultSlickGridOptions }
-import { Slick } from 'slickgrid-es6';
+import { GlobalEditorLock } from 'slickgrid';
 
-function applyPluginStyles(element, plugin_name_hint) {
+export function applyPluginStyles(element, plugin_name_hint) {
   element.wrap(`
     <div class='v_container'>
       <div class='v_el v_el_level v_el_full_content' style='padding: 20px'>
@@ -14,7 +13,7 @@ function applyPluginStyles(element, plugin_name_hint) {
          .css({ width: "100%", "min-height": "150" });
 }
 
-var defaultSlickGridOptions = {
+export var defaultSlickGridOptions = {
   editable: true,
   enableAddRow: true,
   enableCellNavigation: true,
@@ -25,13 +24,13 @@ var defaultSlickGridOptions = {
   autoHeight: true
 }
 
-function preventLosingCurrentEdit() {
+export function preventLosingCurrentEdit() {
   $(document).click(function(e) {
     // Avoid closing datepicker if we're navigating throught it
     if ($(e.target).closest(".datepicker--nav-action,.datepicker--nav-title,.datepicker--cells-months,.datepicker--cells-years").length > 0) return
 
     if ($(e.target).parents(".plugin_field").length == 0) {
-      var lock = Slick.GlobalEditorLock;
+      var lock = GlobalEditorLock;
       if (lock.isActive()) lock.commitCurrentEdit()
     }
   })

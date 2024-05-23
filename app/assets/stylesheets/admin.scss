@@ -40,11 +40,8 @@ $font_serif: 'Georgia, serif';
 @import "codemirror/addon/fold/foldgutter.css";
 @import "modules/comp-sortable";
 @import "modules/comp-dyna_block";
-
-// TODO: restore these styles
-// @import "slickgrid-es6/dist/slick.grid.variables.scss";
-// @import "slickgrid-es6/dist/slick-default-theme.scss";
-// @import "slickgrid-es6/dist/slick.grid.scss";
+@import "slickgrid/dist/styles/css/slick-default-theme.css";
+@import "slickgrid/dist/styles/css/slick.grid.css";
 
 /* colors */
 header.main,

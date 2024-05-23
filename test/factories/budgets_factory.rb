@@ -82,7 +82,7 @@ module BudgetsFactory
     result = bulk(body: documents)
 
     self.created_documents = result["items"].map do |doc|
-      doc["index"].slice("_index", "_type", "_id")
+      doc["index"].slice("_index", "_id")
     end
   end
 

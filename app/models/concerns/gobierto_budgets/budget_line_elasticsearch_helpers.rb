@@ -261,21 +261,20 @@ module GobiertoBudgets
 
         forecast_info = SearchEngine.client.get_source(common_params.merge(
           index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
-        ))
+        )) rescue nil
 
         forecast_updated_info = SearchEngine.client.get_source(common_params.merge(
           index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated
-        ))
+        )) rescue nil
+
         execution_info = SearchEngine.client.get_source(common_params.merge(
           index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
-        ))
+        )) rescue nil
 
         budget_line.forecast.original_amount = forecast_info["amount"] if forecast_info
         budget_line.forecast.updated_amount = forecast_updated_info["amount"] if forecast_updated_info
         budget_line.execution.amount = execution_info["amount"] if execution_info
         budget_line
-      rescue Elasticsearch::Transport::Transport::Errors::NotFound
-        raise BudgetLine::RecordNotFound
       end
 
       def has_children?(options)

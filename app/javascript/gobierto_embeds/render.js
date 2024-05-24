@@ -1,6 +1,3 @@
-// TODO: perspective must load via CDN
-// import perspective from '@finos/perspective';
-
 export const getData = async container => {
   const { gobiertoVisualization: id, site, token } = container.dataset;
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
@@ -57,6 +54,7 @@ export function renderPerspective(data, container, spec = {}) {
   configButtonPerspective.style.display = "none";
 
   // run perspective
+  // eslint-disable-next-line no-undef
   const table = perspective.worker().table(data);
   viewer.restore(spec);
   viewer.load(table);

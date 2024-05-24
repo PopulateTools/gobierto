@@ -6,6 +6,7 @@
     "@appsignal/vue": "^1.1.5",
     "@claviska/jquery-minicolors": "^2.3.2",
     "@fortawesome/fontawesome-free": "^5.15.4",
+    "@rails/ujs": "^7.0.8-3",
     "accounting": "^0.4.1",
     "air-datepicker": "^2.2.3",
     "axe-core": "^4.2.1",

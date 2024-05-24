@@ -2,6 +2,9 @@
 import './modules/jquery';
 import './modules/i18n';
 
+import Rails from "@rails/ujs";
+Rails.start()
+
 // NOTE: these modules are required for the legacy views
 import './modules/module-search';
 import './modules/module-sessions';

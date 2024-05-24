@@ -1195,6 +1195,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@rails/ujs@^7.0.8-3":
+  version "7.0.8-3"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.0.8-3.tgz#21aa047ff1b9699a2c3256d0268e043ff9e93ba7"
+  integrity sha512-ueAH8KPTOigug9ZNgFGCTkk0qpXbVHh1v80g/dDmLILvLGOzxn6i4xQbGnLc/NkghpzA9+T5Ip6f95rFlcZeBA==
+
 "@ranfdev/deepobj@1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@ranfdev/deepobj/-/deepobj-1.0.2.tgz"

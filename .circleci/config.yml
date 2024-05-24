@@ -10,7 +10,7 @@ aliases:
 defaults: &defaults
   working_directory: *working_directory
   docker:
-    - image: cimg/ruby:3.2.2-browsers
+    - image: cimg/ruby:3.2.4-browsers
       environment:
         # Up to circle-ci plan max. RAM
         NODE_OPTIONS: "--max-old-space-size=6144 --openssl-legacy-provider"

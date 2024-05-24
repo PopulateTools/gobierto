@@ -1,7 +1,6 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_budgets_data.git
-  revision: ccd65ae251bc819d4e083a9b6f0697791c34a01e
-  branch: bump-elasticsearch
+  revision: 5d9e11c97cb91270b66c98561fd5032193fbb2b1
   specs:
     gobierto_budgets_data (0.1.0)
       actionpack
@@ -115,7 +114,7 @@ GEM
       rack
     ast (2.4.2)
     aws-eventstream (1.3.0)
-    aws-partitions (1.933.0)
+    aws-partitions (1.934.0)
     aws-sdk-core (3.196.1)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.651.0)

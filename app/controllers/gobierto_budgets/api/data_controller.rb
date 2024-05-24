@@ -47,14 +47,12 @@ module GobiertoBudgets
       end
 
       def budget_line
-        result = GobiertoBudgets::BudgetLine.find_details(
-          id: params[:id] + "/#{params[:area]}",
-          type: params[:area]
-        )
-
-        render json: result
-      rescue BudgetLine::RecordNotFound
-        render json: { error: "not-found" }, status: 404
+        result = GobiertoBudgets::BudgetLine.find_details(id: params[:id] + "/#{params[:area]}", type: params[:area])
+        if result[:forecast].present? || result[:execution].present?
+          render json: result
+        else
+          render json: { error: "not-found" }, status: 404
+        end
       end
 
       def available_years

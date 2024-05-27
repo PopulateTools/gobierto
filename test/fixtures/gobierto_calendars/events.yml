@@ -165,7 +165,7 @@ neil_tourism_department_very_old:
   collection: neil_calendar
   department: tourism_department_very_old
   title_translations: <%= {
-    'en' => 'Very old event of toursim department',
+    'en' => 'Very old event of tourism department',
     'es' => 'Evento muy viejo del departamento de turismo',
   }.to_json %>
   slug: <%= "2014-02-07-tourism-department-event" %>

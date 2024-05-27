@@ -15,8 +15,8 @@ ecology_department_old:
 
 tourism_department_very_old:
   site: madrid
-  name: Very old toursim department
-  slug: toursim-department-very-old
+  name: Very old tourism department
+  slug: tourism-department-very-old
 
 immigration_department_mixed:
   site: madrid

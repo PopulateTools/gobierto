@@ -13,12 +13,8 @@ async function main() {
   const getEmbedStyle = async () => {
     const { src } = document.querySelector('script[src*="embeds"]');
     const { origin } = new URL(src);
-    // get the manifest from the same origin as the script has
-    const { assets: { "embeds.css": cssUrl } } = await fetch(
-      `${origin}/assets/.sprockets-manifest-6a85b445b1d7c65be879c61cbe987684.json`
-    ).then(r => r.json());
 
-    return `${origin}/assets/${cssUrl}`
+    return `${origin}/assets/embeds.css`
   };
 
   const appendStyles = (...paths) => {

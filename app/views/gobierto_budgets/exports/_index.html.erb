@@ -8,7 +8,7 @@
   <div class="pure-u-1 pure-u-md-17-24 main_content">
     <div class="data_block subblock">
       <p><%= t("gobierto_budgets.exports.budget_lines_description") %></p>
-      <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
+      <% GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
         <% data = GobiertoBudgets::Data::Annual.new(site: current_site, year: year) %>
         <% if data.any_data? %>
           <div class="data_subitem">
@@ -35,7 +35,7 @@
     <div class="pure-u-1 pure-u-md-17-24 main_content">
       <div class="data_block subblock">
         <p><%= t("gobierto_budgets.exports.invoices_description") %></p>
-        <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
+        <% GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
           <% data = GobiertoBudgets::Data::Providers.new(site: current_site, year: year) %>
           <% if data.any_file? %>
             <div class="data_subitem">

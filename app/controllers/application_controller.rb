@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  rescue_from Elasticsearch::Transport::Transport::Errors::NotFound, with: :render_404
   rescue_from ActionController::UnknownFormat, with: :render_404
   rescue_from Errors::InvalidParameters, with: :render_bad_request
 

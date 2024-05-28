@@ -27,7 +27,7 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
 
   def load_year
     if params[:year].nil?
-      redirect_to gobierto_budgets_budgets_execution_path(GobiertoBudgets::SearchEngineConfiguration::Year.last)
+      redirect_to gobierto_budgets_budgets_execution_path(GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last)
     else
       @year = params[:year].to_i
     end
@@ -49,11 +49,11 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
   end
 
   def available_years
-    @available_years ||= GobiertoBudgets::SearchEngineConfiguration::Year.with_data(index: search_index)
+    @available_years ||= GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.with_data(index: search_index)
   end
 
   def search_index
-    GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
+    GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
   end
 
   def load_metric_boxes_info(site_stats)

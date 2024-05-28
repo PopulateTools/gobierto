@@ -9,6 +9,7 @@ aliases:
 
 defaults: &defaults
   working_directory: *working_directory
+  resource_class: large
   docker:
     - image: cimg/ruby:3.2.2-browsers
       environment:
@@ -22,12 +23,25 @@ defaults: &defaults
         PSQL_PAGER: ''
         # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
         DISABLE_SPRING: true
+        ELASTICSEARCH_URL: 'http://localhost:9200'
+        ELASTICSEARCH_WRITING_URL: 'http://localhost:9200'
     - image: postgres:15
       environment:
         POSTGRES_USER: gobierto
         POSTGRES_DB: gobierto_test
         POSTGRES_PASSWORD: gobierto
-    - image: elasticsearch:2.4.1
+    - image: elasticsearch:7.17.19
+      environment:
+        bootstrap.memory_lock: true
+        cluster.name: es-test-cluster
+        xpack.security.enabled: false
+        transport.host: localhost
+        network.host: 127.0.0.1
+        http.port: 9200
+        discovery.type: single-node
+        ES_JAVA_OPTS: -Xms1g -Xmx1g
+        ES_HEAP_SIZE: 256m
+        MAX_OPEN_FILES: 65535
     - image: redis:7.0.2
 
 commands:
@@ -66,7 +80,7 @@ commands:
       - run: yarn install
       # Wait for DB containers to be ready
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run: dockerize -wait tcp://localhost:9200 -timeout 3m
       - run: dockerize -wait tcp://localhost:6379 -timeout 1m
 
       # Install postgres 15
@@ -87,8 +101,10 @@ commands:
       - run:
           name: Setup budgets seeds
           command: |
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:reset
-            bin/rails gobierto_budgets:elastic_search_schemas:manage:create
+            bin/rails gobierto_budgets_data:elastic_search_schemas:reset
+            bin/rails gobierto_budgets_data:elastic_search_schemas:create
+            bin/rails gobierto_budgets_data:data:reset
+            bin/rails gobierto_budgets_data:data:create
             bin/rails gobierto_budgets:fixtures:load
             echo '::BudgetsSeeder.seed!' | bin/rails c
 
@@ -98,7 +114,6 @@ orbs:
 jobs:
   bundle_dependencies:
     <<: *defaults
-    resource_class: medium+
     steps:
       - checkout
       - attach_workspace:

@@ -16,7 +16,7 @@ namespace :gobierto_budgets do
 
       if organization_ids.any?
         organization_ids.each do |organization_id|
-          GobiertoBudgets::SearchEngineConfiguration::Year.all_with_data.each do |year|
+          GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.all_with_data.each do |year|
             TOTAL_BUDGET_INDEXES.each do |index|
               puts " - Calculating totals for #{organization_id} in year #{year} for index #{index}"
 
@@ -145,30 +145,26 @@ namespace :gobierto_budgets do
         terms.push({term: { year: year }})
       end
 
-      query = {
-        query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: terms
-              }
-            }
-          }
-        },
-        size: 10_000
-      }
-
       count = 0
       GobiertoBudgetsData::GobiertoBudgets::ALL_INDEXES.each do |index|
         GobiertoBudgetsData::GobiertoBudgets::ALL_TYPES.each do |type|
-          response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
+          query = {
+            query: {
+              bool: {
+                must: terms.merge({ term: { type: type } })
+              }
+            },
+            size: 10_000
+          }
+
+          response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, body: query
           while response['hits']['total'] > 0
             delete_request_body = response['hits']['hits'].map do |h|
               count += 1
               { delete: h.slice("_index", "_type", "_id") }
             end
-            GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk index: index, type: type, body: delete_request_body
-            response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
+            GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk index: index, body: delete_request_body
+            response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, body: query
           end
         end
       end

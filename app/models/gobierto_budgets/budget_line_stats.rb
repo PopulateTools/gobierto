@@ -91,12 +91,12 @@ module GobiertoBudgets
     private
 
     def total_budget
-      total_budget_planned_query(@year, "total_budget")
+      total_budget_planned_query(@year, "amount")
     end
 
     def budget_line_planned_query(year, attribute)
       year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: @area_name, id: [@organization_id, year, @code, @kind].join("/")
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, id: [@organization_id, year, @code, @kind, @area_name].join("/")
       result["_source"][attribute]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
@@ -104,7 +104,7 @@ module GobiertoBudgets
 
     def budget_line_planned_updated_query(year, attribute)
       year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated, type: @area_name, id: [@organization_id, year, @code, @kind].join("/")
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated, id: [@organization_id, year, @code, @kind, @area_name].join("/")
       result["_source"][attribute]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
@@ -112,15 +112,14 @@ module GobiertoBudgets
 
     def budget_line_executed_query(year, attribute)
       year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, type: @area_name, id: [@organization_id, year, @code, @kind].join("/")
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, id: [@organization_id, year, @code, @kind, @area_name].join("/")
       result["_source"][attribute]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end
 
     def total_budget_planned_query(year, attribute)
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-                                                        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@organization_id, year, @kind].join("/")
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, id: [@organization_id, year, @kind, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type].join("/")
       result["_source"][attribute].to_f
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
@@ -132,15 +131,12 @@ module GobiertoBudgets
       filters.push(term: { code: @code })
       filters.push(term: { kind: @kind })
       filters.push(term: { year: year })
+      filters.push(term: { type: @area_name })
 
       query = {
         query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: filters
-              }
-            }
+          bool: {
+            must: filters
           }
         },
         size: 10_000,
@@ -161,7 +157,7 @@ module GobiertoBudgets
         }
       }
 
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: @area_name, body: query
+      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query
 
       result = nil
       response["aggregations"]["#{ attribute }_per_year"]["buckets"].each do |r|

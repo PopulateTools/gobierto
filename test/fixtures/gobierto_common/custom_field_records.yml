@@ -116,8 +116,8 @@ political_agendas_budgets_custom_field_record:
   custom_field: madrid_custom_field_budgets_plugin
   payload: <%= {
     budget_lines: [
-      { area: "custom", id: "28079/2014/1/G", weight: 10 },
-      { area: "custom", id: "28079/2015/2/G", weight: 20 }
+      { area: "custom", id: "28079/2014/1/G", weight: 10, type: "custom" },
+      { area: "custom", id: "28079/2015/2/G", weight: 20, type: "custom" }
     ]
   }.to_json %>
 

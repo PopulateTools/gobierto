@@ -264,8 +264,8 @@ YAML
 
           visit gobierto_people_department_people_path(
             immigration_department_mixed,
-            start_date: 10.years.ago - 1.day,
-            end_date: 10.years.ago + 1.day
+            start_date: 20.years.ago - 1.day,
+            end_date: 20.years.from_now + 1.day
           )
 
           within departments_sidebar do

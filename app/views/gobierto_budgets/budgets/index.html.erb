@@ -1,7 +1,7 @@
 <% title t('.title', place: current_site.organization_name, year: @year) %>
 
 <% content_for :body_attributes do %>
-  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"} %>
+  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last}"} %>
 <% end %>
 
 <div class="column">
@@ -61,7 +61,7 @@
             <h3><%= t('.executed') %></h3>
             <% if @site_stats.total_budget_executed %>
               <div class="metric">
-                <%= link_to gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) do %>
+                <%= link_to gobierto_budgets_budgets_execution_path(year: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last) do %>
                   <%= format_currency @budgets_execution_summary.last_expenses.execution %>
                 <% end %>
               </div>
@@ -289,7 +289,7 @@
         <%= render 'mega_bar', { className: 'expense', percentage: @budgets_execution_summary.expenses_execution_percentage } %>
 
         <div class="pure-u-1 center m_v_1">
-          <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>
+          <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>
         </div>
       </div>
     </div>

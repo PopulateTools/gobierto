@@ -50,6 +50,6 @@ class User::UserMailerTest < ActionMailer::TestCase
     email = User::UserMailer.welcome(user, site).deliver_now
 
     assert_equal ["no-reply@gobierto.dev"], email.from
-    assert_empty email.reply_to
+    assert_nil email.reply_to
   end
 end

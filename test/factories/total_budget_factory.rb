@@ -6,7 +6,7 @@ class TotalBudgetFactory
 
   include BudgetsFactory
 
-  TYPE = GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
+  TYPE = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
 
   def build_document(index, params = {})
     population = params[:population] || self.class.default_population
@@ -16,23 +16,23 @@ class TotalBudgetFactory
     {
       index: {
         _index: index,
-        _id: self.class.doc_id(params),
-        _type: TYPE,
+        _id: self.class.doc_id(params, TYPE),
         data: self.class.base_data(params).merge(
+          type: TYPE,
           kind: kind,
-          total_budget: total_budget,
-          total_budget_per_inhabitant: (total_budget / population).round(2)
+          amount: total_budget,
+          amount_per_inhabitant: (total_budget / population).round(2)
         )
       }
     }
   end
 
-  def self.doc_id(params = {})
+  def self.doc_id(params = {}, type)
     organization_id = params[:organization_id] || default_organization_id
     year = params[:year] || default_year
     kind = params[:kind] || default_kind
 
-    [organization_id, year, kind].join("/")
+    [organization_id, year, kind, type].join("/")
   end
 
 end

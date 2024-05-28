@@ -2,7 +2,7 @@
 
 module GobiertoBudgets
   class Category < ApplicationRecord
-    include Describable
+    include GobiertoBudgetsData::GobiertoBudgets::Describable
 
     belongs_to :site
 

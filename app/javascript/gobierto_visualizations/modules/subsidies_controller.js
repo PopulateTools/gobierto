@@ -123,11 +123,11 @@ export class SubsidiesController {
           }
         });
 
+        const data = Object.assign(options, this.data)
+
         this.vueApp = new Vue({
           router,
-          data: function () {
-            return Object.assign(options, this.data);
-          },
+          data,
         }).$mount(entryPoint);
       });
     }

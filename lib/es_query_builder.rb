@@ -7,12 +7,8 @@ class ESQueryBuilder
   def self.must(terms_hash)
     {
       query: {
-        filtered: {
-          filter: {
-            bool: {
-              must: terms(terms_hash)
-            }
-          }
+        bool: {
+          must: terms(terms_hash)
         }
       }
     }

@@ -5,9 +5,9 @@ module BudgetsFactory
   extend ActiveSupport::Concern
 
   INDEXES = {
-    forecast: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-    forecast_updated: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated,
-    executed: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
+    forecast: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+    forecast_updated: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated,
+    executed: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
   }
 
   class_methods do
@@ -65,7 +65,7 @@ module BudgetsFactory
 
   def initialize(params = {})
     self.client = GobiertoBudgets::SearchEngine.client
-    elasticsearch_url = client.instance_variable_get(:@options)[:url]
+    elasticsearch_url = client.transport.instance_variable_get(:@options)[:url]
 
     unless (Rails.env.development? || Rails.env.test?) && elasticsearch_url.include?("localhost")
       raise "ERROR: it's not safe to run a BudgetsFactory in #{Rails.env} pointing to #{elasticsearch_url}"
@@ -82,7 +82,7 @@ module BudgetsFactory
     result = bulk(body: documents)
 
     self.created_documents = result["items"].map do |doc|
-      doc["index"].slice("_index", "_type", "_id")
+      doc["index"].slice("_index", "_id")
     end
   end
 

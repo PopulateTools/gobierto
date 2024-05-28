@@ -4,7 +4,7 @@ module GobiertoBudgets
     def external_comparison_link
       municipalities = budgets_comparison_compare_municipalities.map{ |place_id| INE::Places::Place.find(place_id) } + [current_site.place]
       municipalities.compact!
-      year = @year || GobiertoBudgets::SearchEngineConfiguration::Year.last
+      year = @year || GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last
 
       budget_line_path = if params[:id]
         [params[:kind], params[:area_name]].join('/') + "?parent_code=#{params[:id]}"
@@ -122,7 +122,7 @@ module GobiertoBudgets
     def data_attributes
       attrs = []
       if @place
-        attrs << %Q{data-track-url="#{gobierto_budgets_budgets_path(@year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
+        attrs << %Q{data-track-url="#{gobierto_budgets_budgets_path(@year || GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
         attrs << %Q{data-place-slug="#{@place.slug}"}
         attrs << %Q{data-place-id="#{@place.id}"}
         attrs << %Q{data-place-name="#{@place.name}"}
@@ -132,7 +132,7 @@ module GobiertoBudgets
         attrs << %Q{data-comparison-track-url="#{request.path}"}
         attrs << %Q{data-comparison-slug="#{params[:slug_list]}"}
       end
-      attrs << %Q{data-year="#{@year || GobiertoBudgets::SearchEngineConfiguration::Year.last}"}
+      attrs << %Q{data-year="#{@year || GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last}"}
       attrs << %Q{data-kind="#{@kind || 'expense'}"}
       attrs << %Q{data-area="#{@area_name || 'economic'}"}
       attrs << %Q{data-action="#{action_name}"}

@@ -19,7 +19,7 @@ namespace :gobierto_budgets do
         organization_name = site.organization_name || site.place.try(name)
         next if organization_id.nil?
         file_urls = []
-        GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
           file_urls += data_model.new(site: site, year: year).generate_files
         end
 

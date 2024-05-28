@@ -97,16 +97,15 @@ module GobiertoBudgets
 
     def total_budget_executed_percentage(requested_year = year)
       execution_percentage(
-        total_budget_updated(year: requested_year, fallback: true),
+        total_budget_updated(year: requested_year, fallback: true) || total_budget(year: requested_year, fallback: true),
         total_budget_executed(year: requested_year)
       )
     end
 
     def debt(requested_year = year)
       @data[:debt][requested_year] ||= SearchEngine.client.get(
-        index: SearchEngineConfiguration::Data.index,
-        type: SearchEngineConfiguration::Data.type_debt,
-        id: [@site.organization_id, requested_year].join("/")
+        index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index,
+        id: [@site.organization_id, requested_year, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_debt].join("/")
       )["_source"]["value"]
 
       @data[:debt][requested_year]
@@ -116,9 +115,8 @@ module GobiertoBudgets
 
     def population(requested_year = year)
       @data[:population][requested_year] ||= SearchEngine.client.get(
-        index: SearchEngineConfiguration::Data.index,
-        type: SearchEngineConfiguration::Data.type_population,
-        id: [organization_id, requested_year].join("/")
+        index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index,
+        id: [organization_id, requested_year, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_population].join("/")
       )["_source"]["value"]
 
       @data[:population][requested_year]
@@ -171,7 +169,7 @@ module GobiertoBudgets
 
     def latest_available(variable, requested_year = year)
       value = {}
-      requested_year.downto(SearchEngineConfiguration::Year.first).each do |y|
+      requested_year.downto(GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.first).each do |y|
         if has_data?(variable, y)
           value = { value: send(variable, y), year: y }
           break
@@ -181,7 +179,7 @@ module GobiertoBudgets
     end
 
     def has_available?(variable)
-      (SearchEngineConfiguration::Year.first..SearchEngineConfiguration::Year.last).any? do |y|
+      (GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.first..GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last).any? do |y|
         has_data?(variable, y)
       end
     end
@@ -233,7 +231,7 @@ module GobiertoBudgets
 
     def main_budget_lines_summary
       main_budget_lines_forecast = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, site: @site, year: year, area_name: EconomicArea.area_name })
-      main_budget_lines_execution = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, site: @site, year: year, area_name: EconomicArea.area_name, index: SearchEngineConfiguration::BudgetLine.index_executed })
+      main_budget_lines_execution = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, site: @site, year: year, area_name: EconomicArea.area_name, index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed })
 
       main_budget_lines_summary = {}
 
@@ -247,6 +245,7 @@ module GobiertoBudgets
       main_budget_lines_execution.each do |budget_line|
         executed_amount = budget_line.amount
         next unless main_budget_lines_summary[budget_line.code]
+
         budgeted_amount = main_budget_lines_summary[budget_line.code][:budgeted_amount]
         main_budget_lines_summary[budget_line.code].merge!(
           executed_amount: executed_amount,
@@ -289,9 +288,8 @@ module GobiertoBudgets
 
     def total_budget_per_inhabitant_query(year)
       SearchEngine.client.get(
-        index: SearchEngineConfiguration::TotalBudget.index_forecast,
-        type: SearchEngineConfiguration::TotalBudget.type,
-        id: [@site.organization_id, year, BudgetLine::EXPENSE].join("/")
+        index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
+        id: [@site.organization_id, year, BudgetLine::EXPENSE, GobiertoBudgetsData::GobiertoBudgets::TOTAL_BUDGET_TYPE].join("/")
       )
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
@@ -303,11 +301,11 @@ module GobiertoBudgets
 
     def get_income_budget_line(year, code)
       kind = GobiertoBudgets::BudgetLine::INCOME
-      id = [@site.organization_id, year, code, kind].join("/")
-      index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
       type = GobiertoBudgets::EconomicArea.area_name
+      id = [@site.organization_id, year, code, kind, type].join("/")
+      index =  GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
 
-      result = GobiertoBudgets::SearchEngine.client.get index: index, type: type, id: id
+      result = GobiertoBudgets::SearchEngine.client.get index: index, id: id
       result["_source"]["amount"]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       0
@@ -315,11 +313,11 @@ module GobiertoBudgets
 
     def get_expense_budget_line(year, code)
       kind = GobiertoBudgets::BudgetLine::EXPENSE
-      id = [@site.organization_id, year, code, kind].join("/")
-      index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
       type = GobiertoBudgets::EconomicArea.area_name
+      id = [@site.organization_id, year, code, kind, type].join("/")
+      index =  GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
 
-      result = GobiertoBudgets::SearchEngine.client.get index: index, type: type, id: id
+      result = GobiertoBudgets::SearchEngine.client.get index: index, id: id
       result["_source"]["amount"]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       0

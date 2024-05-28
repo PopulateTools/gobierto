@@ -20,7 +20,7 @@ class GobiertoBudgets::JsonParserTest < ActiveSupport::TestCase
   end
 
   def test_budgets_creation
-    budgets = importer.budgets_for(GobiertoBudgets::EconomicArea, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast)
+    budgets = importer.budgets_for(GobiertoBudgets::EconomicArea, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast)
     budgets_by_level = {}
     (1..4).each do |level|
       budgets_by_level[level] = budgets.select { |budget| budget[:index][:data][:level] == level }
@@ -31,7 +31,7 @@ class GobiertoBudgets::JsonParserTest < ActiveSupport::TestCase
   end
 
   def test_budgets_amounts
-    budgets = importer.budgets_for(GobiertoBudgets::EconomicArea, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast)
+    budgets = importer.budgets_for(GobiertoBudgets::EconomicArea, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast)
     budgets_by_level = {}
     (1..4).each do |level|
       budgets_by_level[level] = budgets.select { |budget| budget[:index][:data][:level] == level }

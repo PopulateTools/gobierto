@@ -28,15 +28,15 @@ module GobiertoBudgets
         kind: BudgetLine::EXPENSE,
         code: "1",
         year: 2015,
-        amount: 123.45
+        amount: 123.45,
+        type: EconomicArea.area_name,
       )
     end
 
     def budget_line_arguments_for_indexing
       {
-        index: SearchEngineConfiguration::BudgetLine.index_forecast,
-        type: EconomicArea.area_name,
-        id: "28079/2015/1/G"
+        index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+        id: "28079/2015/1/G/#{EconomicArea.area_name}"
       }
     end
 

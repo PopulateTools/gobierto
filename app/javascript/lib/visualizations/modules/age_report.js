@@ -64,230 +64,117 @@ export class VisAgeReport {
         d.id = +d.id;
       });
 
-      // d3v5
-      //
-      var nested = d3
-        .nest()
-        .key(function(d) {
-          return d.id;
-        })
-        .entries(this.data);
-
-      // d3v6
-      //
       // Make an object for each participant
-      // var nested = Array.from(
-      //   group(this.data, d => d.id),
-      //   ([key, values]) => ({
-      //     key,
-      //     values
-      //   })
-      // );
+      var nested = Array.from(
+        d3.group(this.data, d => d.id),
+        ([key, values]) => ({
+          key,
+          values
+        })
+      );
 
       // Gather total participations
       var total = nested.length;
 
-      // d3v5
-      //
-      this.ageGroups = d3
-        .nest()
-        .rollup(function(v) {
-          return [
-            {
-              age_group: "16-24",
-              response_rate: +accounting.toFixed(
-                uniq(
-                  v
-                    .filter(function(d) {
-                      return d.age >= 16 && d.age <= 24;
-                    })
-                    .map(function(d) {
-                      return d.id;
-                    })
-                ).length / total,
-                4
-              )
-            },
-            {
-              age_group: "25-34",
-              response_rate: +accounting.toFixed(
-                uniq(
-                  v
-                    .filter(function(d) {
-                      return d.age >= 25 && d.age <= 34;
-                    })
-                    .map(function(d) {
-                      return d.id;
-                    })
-                ).length / total,
-                4
-              )
-            },
-            {
-              age_group: "35-44",
-              response_rate: +accounting.toFixed(
-                uniq(
-                  v
-                    .filter(function(d) {
-                      return d.age >= 35 && d.age <= 44;
-                    })
-                    .map(function(d) {
-                      return d.id;
-                    })
-                ).length / total,
-                4
-              )
-            },
-            {
-              age_group: "45-54",
-              response_rate: +accounting.toFixed(
-                uniq(
-                  v
-                    .filter(function(d) {
-                      return d.age >= 45 && d.age <= 54;
-                    })
-                    .map(function(d) {
-                      return d.id;
-                    })
-                ).length / total,
-                4
-              )
-            },
-            {
-              age_group: "55-64",
-              response_rate: +accounting.toFixed(
-                uniq(
-                  v
-                    .filter(function(d) {
-                      return d.age >= 55 && d.age <= 64;
-                    })
-                    .map(function(d) {
-                      return d.id;
-                    })
-                ).length / total,
-                4
-              )
-            },
-            {
-              age_group: "65+",
-              response_rate: +accounting.toFixed(
-                uniq(
-                  v
-                    .filter(function(d) {
-                      return d.age >= 65;
-                    })
-                    .map(function(d) {
-                      return d.id;
-                    })
-                ).length / total,
-                4
-              )
-            }
-          ];
-        })
-        .entries(this.data);
-
-      // d3v6
-      //
-      // // Assign people to age groups
-      // this.ageGroups = rollup(this.data, v => [
-      //   {
-      //     age_group: "16-24",
-      //     response_rate: +accounting.toFixed(
-      //       uniq(
-      //         v
-      //           .filter(function(d) {
-      //             return d.age >= 16 && d.age <= 24;
-      //           })
-      //           .map(function(d) {
-      //             return d.id;
-      //           })
-      //       ).length / total,
-      //       4
-      //     )
-      //   },
-      //   {
-      //     age_group: "25-34",
-      //     response_rate: +accounting.toFixed(
-      //       uniq(
-      //         v
-      //           .filter(function(d) {
-      //             return d.age >= 25 && d.age <= 34;
-      //           })
-      //           .map(function(d) {
-      //             return d.id;
-      //           })
-      //       ).length / total,
-      //       4
-      //     )
-      //   },
-      //   {
-      //     age_group: "35-44",
-      //     response_rate: +accounting.toFixed(
-      //       uniq(
-      //         v
-      //           .filter(function(d) {
-      //             return d.age >= 35 && d.age <= 44;
-      //           })
-      //           .map(function(d) {
-      //             return d.id;
-      //           })
-      //       ).length / total,
-      //       4
-      //     )
-      //   },
-      //   {
-      //     age_group: "45-54",
-      //     response_rate: +accounting.toFixed(
-      //       uniq(
-      //         v
-      //           .filter(function(d) {
-      //             return d.age >= 45 && d.age <= 54;
-      //           })
-      //           .map(function(d) {
-      //             return d.id;
-      //           })
-      //       ).length / total,
-      //       4
-      //     )
-      //   },
-      //   {
-      //     age_group: "55-64",
-      //     response_rate: +accounting.toFixed(
-      //       uniq(
-      //         v
-      //           .filter(function(d) {
-      //             return d.age >= 55 && d.age <= 64;
-      //           })
-      //           .map(function(d) {
-      //             return d.id;
-      //           })
-      //       ).length / total,
-      //       4
-      //     )
-      //   },
-      //   {
-      //     age_group: "65+",
-      //     response_rate: +accounting.toFixed(
-      //       uniq(
-      //         v
-      //           .filter(function(d) {
-      //             return d.age >= 65;
-      //           })
-      //           .map(function(d) {
-      //             return d.id;
-      //           })
-      //       ).length / total,
-      //       4
-      //     )
-      //   }
-      // ]);
+      // Assign people to age groups
+      this.ageGroups = d3.rollup(this.data, v => [
+        {
+          age_group: "16-24",
+          response_rate: +accounting.toFixed(
+            uniq(
+              v
+                .filter(function(d) {
+                  return d.age >= 16 && d.age <= 24;
+                })
+                .map(function(d) {
+                  return d.id;
+                })
+            ).length / total,
+            4
+          )
+        },
+        {
+          age_group: "25-34",
+          response_rate: +accounting.toFixed(
+            uniq(
+              v
+                .filter(function(d) {
+                  return d.age >= 25 && d.age <= 34;
+                })
+                .map(function(d) {
+                  return d.id;
+                })
+            ).length / total,
+            4
+          )
+        },
+        {
+          age_group: "35-44",
+          response_rate: +accounting.toFixed(
+            uniq(
+              v
+                .filter(function(d) {
+                  return d.age >= 35 && d.age <= 44;
+                })
+                .map(function(d) {
+                  return d.id;
+                })
+            ).length / total,
+            4
+          )
+        },
+        {
+          age_group: "45-54",
+          response_rate: +accounting.toFixed(
+            uniq(
+              v
+                .filter(function(d) {
+                  return d.age >= 45 && d.age <= 54;
+                })
+                .map(function(d) {
+                  return d.id;
+                })
+            ).length / total,
+            4
+          )
+        },
+        {
+          age_group: "55-64",
+          response_rate: +accounting.toFixed(
+            uniq(
+              v
+                .filter(function(d) {
+                  return d.age >= 55 && d.age <= 64;
+                })
+                .map(function(d) {
+                  return d.id;
+                })
+            ).length / total,
+            4
+          )
+        },
+        {
+          age_group: "65+",
+          response_rate: +accounting.toFixed(
+            uniq(
+              v
+                .filter(function(d) {
+                  return d.age >= 65;
+                })
+                .map(function(d) {
+                  return d.id;
+                })
+            ).length / total,
+            4
+          )
+        }
+      ]);
 
       // // Convert map to specific array
-      // this.ageGroups = Array.from(this.ageGroups, ([key, values]) => ({
-      //   key,
-      //   values
-      // }));
+      this.ageGroups = Array.from(this.ageGroups, ([key, values]) => ({
+        key,
+        values
+      }));
 
       this.updateRender();
       this._renderBars();

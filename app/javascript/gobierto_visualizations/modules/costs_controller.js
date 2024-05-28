@@ -100,11 +100,7 @@ export class CostsController {
           );
         });
 
-        this.vueApp = new Vue({
-          router,
-          data: Object.assign(options, this.data)
-        }).$mount(entryPoint);
-
+        // Events must listen BEFORE vue application to start (i.e. the trigger)
         EventBus.$on("mounted", () => {
           // Hide the external loader once the vueApp has been mounted in the DOM
           const loadingElement = document.querySelector(".js-loading");
@@ -112,6 +108,13 @@ export class CostsController {
             loadingElement.classList.add("hidden");
           }
         });
+
+        const data = Object.assign(options, this.data)
+
+        this.vueApp = new Vue({
+          router,
+          data,
+        }).$mount(entryPoint);
       });
     }
   }

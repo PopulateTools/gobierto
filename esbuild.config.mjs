@@ -1,4 +1,4 @@
-import { analyzeMetafile, build } from "esbuild"
+import * as esbuild from "esbuild"
 import { sassPlugin } from "esbuild-sass-plugin"
 import vue from "esbuild-vue"
 import alias from "esbuild-plugin-alias"
@@ -8,7 +8,7 @@ import path from "path"
 
 const pathEntryPoints = path.join(process.cwd(), "app/javascript")
 
-fs.readdir(pathEntryPoints, (_, files) => {
+fs.readdir(pathEntryPoints, async (_, files) => {
   const entryPoints = files.reduce((acc, file) => {
     const fullPath = path.resolve(pathEntryPoints, file)
     // Any javascript file right under app/javascript becomes an entrypoint
@@ -18,13 +18,15 @@ fs.readdir(pathEntryPoints, (_, files) => {
     return acc
   }, [])
 
-  build({
+  const config = {
     entryPoints,
     bundle: true,
     sourcemap: true,
+    metafile: true,
+    format: "esm",
     outdir: path.join(process.cwd(), "app/assets/builds"),
-    watch: process.argv.includes("--watch"),
     preserveSymlinks: true,
+    // splitting: true,
     loader: {
       ".js": "jsx",
       ".png": "dataurl",
@@ -53,22 +55,21 @@ fs.readdir(pathEntryPoints, (_, files) => {
         loadPaths: [path.resolve(process.cwd(), "node_modules")],
         quietDeps: true
       }),
-    ],
-    metafile: true,
-    // splitting: true,
-    format: "esm",
-  })
-    .then(async (result) => {
-      const displayReport = process.argv.includes("--report");
+    ]
+  }
 
-      if (displayReport) {
-        // Simple output bundling results
-        const report = await analyzeMetafile(result.metafile);
-        console.log(report);
+  if (process.argv.includes("--watch")) {
+    // watch mode requires the context, not the build
+    const ctx = await esbuild.context(config);
+    await ctx.watch()
 
-        // For further results, you may want print a file and upload to https://www.bundle-buddy.com/esbuild
-        // require('fs').writeFileSync('meta.json', JSON.stringify(result.metafile))
-      }
-    })
-    .catch(() => process.exit(1));
+    // free resources
+    process.on('SIGINT', async () => await ctx.dispose());
+  } else {
+    const result = await esbuild.build(config);
+
+    if (process.argv.includes("--report")) {
+      console.log(await esbuild.analyzeMetafile(result.metafile));
+    }
+  }
 });

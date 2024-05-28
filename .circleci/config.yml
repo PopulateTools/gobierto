@@ -177,8 +177,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_admin*' -name '*_test.rb' | grep -v 'gobierto_admin\/gobierto_' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_admin*' -name '*_test.rb' | grep -v 'gobierto_admin\/gobierto_')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -189,8 +189,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_attachments*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_attachments*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -201,8 +201,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_budgets*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_budgets*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -213,8 +213,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_calendars*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_calendars*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -225,8 +225,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_cms*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_cms*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -237,8 +237,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_common*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_common*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -249,8 +249,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_core*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_core*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -261,8 +261,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_dashboards*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_dashboards*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -273,8 +273,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_data*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_data*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -285,8 +285,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_exports*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_exports*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -297,8 +297,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_indicators*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_indicators*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -309,8 +309,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_investments*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_investments*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -321,8 +321,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_observatory*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_observatory*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -334,8 +334,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_people*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_people*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -347,8 +347,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_plans*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_plans*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -359,8 +359,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -path '*gobierto_visualizations*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -path '*gobierto_visualizations*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -371,8 +371,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find test -not -path '*gobierto_*' -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find test -not -path '*gobierto_*' -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 
@@ -383,8 +383,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            TEST_FILES="$(find -L vendor/gobierto_engines/ -name '*_test.rb' | circleci tests split --split-by=timings)"
-            bin/rails test $TEST_FILES
+            TEST_FILES="$(find -L vendor/gobierto_engines/ -name '*_test.rb')"
+            echo "$TEST_FILES" | circleci tests run --command="xargs bin/rails test" --verbose --split-by=timings
       - store_test_results:
           path: test/reports
 

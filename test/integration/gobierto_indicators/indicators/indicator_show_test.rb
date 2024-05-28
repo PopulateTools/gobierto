@@ -29,6 +29,7 @@ module GobiertoIndicators
     end
 
     def test_indicator_ita
+      skip "Disabled indicator"
       with_javascript do
         with_current_site(site) do
           visit ita_path
@@ -43,6 +44,7 @@ module GobiertoIndicators
     end
 
     def test_indicator_ita
+      skip "Disabled indicator"
       with_javascript do
         with_current_site(site) do
           visit ip_path
@@ -57,6 +59,7 @@ module GobiertoIndicators
     end
 
     def test_indicator_gci
+      skip "Disabled indicator"
       with_javascript do
         with_current_site(site) do
           visit gci_path

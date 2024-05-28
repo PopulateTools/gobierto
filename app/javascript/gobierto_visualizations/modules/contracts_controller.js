@@ -140,7 +140,9 @@ export class ContractsController {
 
         this.vueApp = new Vue({
           router,
-          data: Object.assign(options, this.data)
+          data: function () {
+            return Object.assign(options, this.data);
+          },
         }).$mount(entryPoint);
       });
     }

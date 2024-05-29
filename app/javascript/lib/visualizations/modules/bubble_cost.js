@@ -5,6 +5,11 @@ d3.selection.prototype.tspans = tspans;
 
 export class VisBubble {
   constructor(divId, year, data) {
+    const children = d3.selectAll(`${divId} *`)
+    if (children) {
+      children.remove()
+    }
+
     this.container = divId;
     this.data = data;
     this.year = year;
@@ -83,19 +88,6 @@ export class VisBubble {
       .attr("height", this.height + this.margin.top + this.margin.bottom)
       .append("g")
       .attr("transform", `translate(${this.margin.left},${this.margin.top})`);
-  }
-
-  render() {
-    this.updateRender();
-  }
-
-  resize(year) {
-    const { parentNode } = this.svg.node();
-    if (parentNode) {
-      parentNode.remove();
-      this.constructor(this.container, year, this.data);
-      this.render();
-    }
   }
 
   createNodes(rawData) {
@@ -190,7 +182,7 @@ export class VisBubble {
     this.simulation.alpha(1).restart();
   }
 
-  updateRender() {
+  render() {
     const year = this.year;
     const data = this.data.filter(element => element.any_ === year);
 

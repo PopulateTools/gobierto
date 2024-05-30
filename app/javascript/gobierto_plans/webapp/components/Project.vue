@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import ProjectNativeFields from "./ProjectNativeFields";
-import ProjectCustomFields from "./ProjectCustomFields";
-import { PlansStore } from "../lib/store";
+import ProjectNativeFields from './ProjectNativeFields.vue';
+import ProjectCustomFields from './ProjectCustomFields.vue';
+import { PlansStore } from '../lib/store';
 
 export default {
   name: "Project",

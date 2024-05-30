@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { percent } from "lib/vue/filters"
+import { percent } from '../../../lib/vue/filters'
 
 export default {
   name: "Header",

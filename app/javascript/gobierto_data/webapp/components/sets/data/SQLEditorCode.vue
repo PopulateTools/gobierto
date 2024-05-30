@@ -30,14 +30,14 @@
   </div>
 </template>
 <script>
-import CodeMirror from "codemirror";
-import "codemirror/mode/sql/sql.js";
-import "codemirror/addon/selection/active-line.js";
-import "codemirror/addon/hint/show-hint.css";
-import "codemirror/addon/hint/show-hint.js";
-import "codemirror/addon/hint/sql-hint.js";
-import "codemirror/src/model/selection_updates.js";
-import { sqlKeywords } from "./../../../../lib/commons.js";
+import CodeMirror from 'codemirror';
+import 'codemirror/mode/sql/sql.js';
+import 'codemirror/addon/selection/active-line.js';
+import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/addon/hint/show-hint.js';
+import 'codemirror/addon/hint/sql-hint.js';
+import 'codemirror/src/model/selection_updates.js';
+import { sqlKeywords } from '../../../../lib/commons.js';
 
 export default {
   name: "SQLEditorCode",

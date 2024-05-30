@@ -21,13 +21,13 @@
   </div>
 </template>
 <script>
-import VisualizationsGrid from "./../components/landingviz/VisualizationsGrid";
-import { convertToCSV } from "./../../lib/helpers";
-import { VisualizationFactoryMixin } from "./../../lib/factories/visualizations";
-import { DataFactoryMixin } from "./../../lib/factories/data";
-import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
-import { QueriesFactoryMixin } from "./../../lib/factories/queries";
-import { SkeletonSpinner } from "lib/vue/components";
+import VisualizationsGrid from '../components/landingviz/VisualizationsGrid.vue';
+import { convertToCSV } from '../../lib/helpers';
+import { VisualizationFactoryMixin } from '../../lib/factories/visualizations';
+import { DataFactoryMixin } from '../../lib/factories/data';
+import { DatasetFactoryMixin } from '../../lib/factories/datasets';
+import { QueriesFactoryMixin } from '../../lib/factories/queries';
+import { SkeletonSpinner } from '../../../lib/vue/components';
 
 export default {
   name: "Visualizations",

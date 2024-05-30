@@ -5,7 +5,7 @@
   />
 </template>
 <script>
-import { VueFiltersMixin } from "lib/vue/filters"
+import { VueFiltersMixin } from '../../../../../lib/vue/filters'
 import TableRow from './TableRow.vue'
 
 export default {

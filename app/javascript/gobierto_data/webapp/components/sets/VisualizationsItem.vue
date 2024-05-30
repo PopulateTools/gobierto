@@ -69,11 +69,11 @@
   </div>
 </template>
 <script>
-import { Loading } from "lib/vue/components";
-import Visualizations from "./../commons/Visualizations.vue";
-import SavingDialog from "./../commons/SavingDialog.vue";
-import { getUserId } from "./../../../lib/helpers";
-import { convertVizToImgMixin } from "./../../../lib/commons.js";
+import { Loading } from '../../../../lib/vue/components';
+import Visualizations from '../commons/Visualizations.vue';
+import SavingDialog from '../commons/SavingDialog.vue';
+import { getUserId } from '../../../lib/helpers';
+import { convertVizToImgMixin } from '../../../lib/commons.js';
 
 export default {
   name: "VisualizationsItem",

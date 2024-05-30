@@ -1,25 +1,6 @@
-import { extent, max, min } from "d3-array";
-import { axisLeft, axisTop } from "d3-axis";
-import { scaleBand, scaleSqrt, scaleTime } from "d3-scale";
-import { select, selectAll } from "d3-selection";
-import { timeMonth } from "d3-time";
-import { transition } from "d3-transition";
-import moment from "moment";
-
-const d3 = {
-  select,
-  selectAll,
-  scaleTime,
-  scaleBand,
-  scaleSqrt,
-  extent,
-  max,
-  min,
-  axisTop,
-  axisLeft,
-  timeMonth,
-  transition
-};
+import * as d3 from 'd3';
+import { extend, flatten, map } from 'lodash';
+import moment from 'moment';
 
 export class Punchcard {
   constructor(context, data, options = {}) {
@@ -29,7 +10,7 @@ export class Punchcard {
     // options
     let itemHeight = options.itemHeight || 50;
     let gutter = options.gutter || 20;
-    let margin = _.extend(
+    let margin = extend(
       {
         top: gutter * 3.5,
         right: gutter,
@@ -55,10 +36,10 @@ export class Punchcard {
     });
 
     // estimation number of x.axis.ticks to center if there are no so much
-    let xAxisLimits = d3.extent(_.map(_.flatten(_.map(data, "value")), "key"));
+    let xAxisLimits = d3.extent(map(flatten(map(data, "value")), "key"));
     let xAxisLength = moment(xAxisLimits[1]).diff(xAxisLimits[0], "months");
     if (xAxisLength < 5) {
-      margin = _.extend(margin, {
+      margin = extend(margin, {
         left: margin.left * 2,
         right: margin.right * 10
       });
@@ -122,26 +103,15 @@ export class Punchcard {
       .attr("class", "circle")
       .attr("cx", d => x(d.key))
       .attr("cy", y.bandwidth() / 2)
-      .on("mousemove", function(d) {
-        let content = undefined;
+      .on("mousemove", function(_, d) {
+        if (!tooltipContent) return
 
-        if (tooltipContent) {
-          let tooltipRenderContent = tooltipContent;
-          // An object means the expression must be evaluated
-          if (typeof tooltipContent === "object") {
-            tooltipRenderContent = eval((tooltipContent || {}).eval);
-          }
-
-          content = `
-        <div class="tooltip-content bottom">
-          ${tooltipRenderContent}
-        </div>`;
-        }
+        const content = `<div class="tooltip-content left">${tooltipContent(d)}</div>`;
 
         const node = container.node() || document.createElement("div");
         const coords = {
-          x: window.pageXOffset + node.getBoundingClientRect().left,
-          y: window.pageYOffset + node.getBoundingClientRect().top
+          x: window.scrollX + node.getBoundingClientRect().left,
+          y: window.scrollY + node.getBoundingClientRect().top
         };
 
         tooltip

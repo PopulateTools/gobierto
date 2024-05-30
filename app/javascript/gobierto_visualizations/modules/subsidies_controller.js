@@ -1,21 +1,30 @@
-import crossfilter from "crossfilter2";
-import { max, mean, median, sum } from "d3-array";
-import { scaleThreshold } from "d3-scale";
-import { money } from "lib/vue/filters";
+import crossfilter from 'crossfilter2';
+import * as d3 from 'd3';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 import {
   AmountDistributionBars,
   GroupPctDistributionBars
-} from "lib/visualizations";
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { getRemoteData, sortByField, calculateSumMeanMedian } from "../webapp/lib/utils";
-import { EventBus } from "../webapp/lib/mixins/event_bus";
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+} from '../../lib/visualizations';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
+import { money } from '../../lib/vue/filters';
+import { EventBus } from '../webapp/lib/mixins/event_bus';
+import { calculateSumMeanMedian, getRemoteData, sortByField } from '../webapp/lib/utils';
+
+// ESBuild does not work properly with dynamic components
+import Home from '../webapp/containers/subsidies/Home.vue';
+import Summary from '../webapp/containers/subsidies/Summary.vue';
+import SubsidiesIndex from '../webapp/containers/subsidies/SubsidiesIndex.vue';
+import SubsidiesShow from '../webapp/containers/subsidies/SubsidiesShow.vue';
+// const Home = () => import('../webapp/containers/subsidies/Home.vue');
+// const Summary = () => import('../webapp/containers/subsidies/Summary.vue');
+// const SubsidiesIndex = () => import('../webapp/containers/subsidies/SubsidiesIndex.vue');
+// const SubsidiesShow = () => import('../webapp/containers/subsidies/SubsidiesShow.vue');
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
 }
-const d3 = { scaleThreshold, sum, mean, median, max };
+
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
@@ -32,14 +41,6 @@ export class SubsidiesController {
       const htmlRouterBlock = `<router-view></router-view>`;
 
       entryPoint.innerHTML = htmlRouterBlock;
-
-      const Home = () => import("../webapp/containers/subsidies/Home.vue");
-      const Summary = () =>
-        import("../webapp/containers/subsidies/Summary.vue");
-      const SubsidiesIndex = () =>
-        import("../webapp/containers/subsidies/SubsidiesIndex.vue");
-      const SubsidiesShow = () =>
-        import("../webapp/containers/subsidies/SubsidiesShow.vue");
 
       Promise.all([getRemoteData(options.subsidiesEndpoint)]).then(rawData => {
         this.setGlobalVariables(rawData);
@@ -96,11 +97,7 @@ export class SubsidiesController {
           );
         });
 
-        this.vueApp = new Vue({
-          router,
-          data: Object.assign(options, this.data)
-        }).$mount(entryPoint);
-
+        // Events must listen BEFORE vue application to start (i.e. the trigger)
         EventBus.$on("summary-ready", () => {
           this._renderSummary();
         });
@@ -125,6 +122,13 @@ export class SubsidiesController {
             loadingElement.classList.add("hidden");
           }
         });
+
+        const data = Object.assign(options, this.data)
+
+        this.vueApp = new Vue({
+          router,
+          data,
+        }).$mount(entryPoint);
       });
     }
   }

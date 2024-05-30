@@ -1,6 +1,6 @@
-import Vue from "vue";
-import { createRouter } from "../webapp/lib/router";
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+import Vue from 'vue';
+import { createRouter } from '../webapp/lib/router';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)

@@ -149,10 +149,10 @@
   </div>
 </template>
 <script>
-import { Pagination } from "lib/vue/components"
-import { VueFiltersMixin } from "lib/vue/filters"
-import TableColumnsSelector from './TableColumnsSelector'
-import SortIcon from './SortIcon'
+import { Pagination } from '../../../../lib/vue/components'
+import { VueFiltersMixin } from '../../../../lib/vue/filters'
+import TableColumnsSelector from './TableColumnsSelector.vue'
+import SortIcon from './SortIcon.vue'
 
 const collator = new Intl.Collator(I18n.locale)
 

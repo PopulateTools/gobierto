@@ -27,8 +27,9 @@ gem "rake", "~> 13.0"
 # Frontend
 gem "i18n-js", ">= 3.0.0.rc11" # required to i18n-tasks
 
-# Webpack
-gem "webpacker", "~> 5.0"
+# Bundlers
+gem "jsbundling-rails"
+gem 'sprockets-rails', :require => 'sprockets/railtie'
 
 # Background processing
 gem "sidekiq"

@@ -1,10 +1,10 @@
-import SimpleMDE from 'simplemde'
-import Turbolinks from 'turbolinks'
-import 'devbridge-autocomplete'
-import 'sticky-kit/dist/sticky-kit.js'
 import 'air-datepicker'
+import 'devbridge-autocomplete'
 import 'magnific-popup'
-import { AUTOCOMPLETE_DEFAULTS } from 'lib/shared'
+import SimpleMDE from 'simplemde'
+import 'sticky-kit/dist/sticky-kit.js'
+import Turbolinks from 'turbolinks'
+import { AUTOCOMPLETE_DEFAULTS } from '../../lib/shared'
 
 $(document).on('turbolinks:load', function() {
   $(".stick_in_parent").stick_in_parent();
@@ -60,19 +60,19 @@ $(document).on('turbolinks:load', function() {
         "side-by-side",
         "fullscreen",
         "|",
-        {name: "guide",
+        { name: "guide",
           action: function openlink() {
             var win = window.open("https://gobierto.readme.io/v0.1/docs/guia-de-markdown", "_blank");
             win.focus();
           },
           className: "fas fa-question-circle",
           title: "Markdown Guide",
-        default: true},
+        default: true },
         "|"],
       status: false
     });
 
-    $el.data({editor: simplemde});
+    $el.data({ editor: simplemde });
     simplemde.codemirror.on("change", function(){
       var id = "#" + $el.attr('id').replace('_source', '');
       $(id).val(simplemde.markdown(simplemde.value()))
@@ -98,9 +98,9 @@ function addDatepickerBehaviors() {
 
   if ($datepickerWithBehavior.length == 1) {
     initializePageWithOnlyOneDatepicker();
-  } else if($datepickerWithBehavior.length){
+  } else if ($datepickerWithBehavior.length){
     var $fromDatePickers = $datepickerWithBehavior.filter(':even');
-    var $toDatePickers   = $datepickerWithBehavior.filter(':odd');
+    var $toDatePickers = $datepickerWithBehavior.filter(':odd');
 
     $toDatePickers.each(function(index, toDatePicker) {
       let $toDatePicker = $(toDatePicker);
@@ -147,7 +147,7 @@ function addDatepickerBehaviors() {
         startDate: fromDatepickerDate
       }
 
-      if($fromDatePicker.data('range') === undefined) {
+      if ($fromDatePicker.data('range') === undefined) {
         $fromDatePicker.datepicker({
           autoClose: fromDatePickerDEFAULTS.autoClose,
           minutesStep: fromDatePickerDEFAULTS.minutesStep,
@@ -223,7 +223,7 @@ function initializeSingleDatepicker(element) {
           : new Date(element.data('startdate')),
   }
 
-  if(element.data('range') === undefined) {
+  if (element.data('range') === undefined) {
     element.datepicker({
       autoClose: datepickerDEFAULTS.autoClose,
       minutesStep: datepickerDEFAULTS.minutesStep,
@@ -239,7 +239,7 @@ function initializeSingleDatepicker(element) {
     var dateAttr = element.data('startdate');
     setDateOnBindedDatepicker(new Date(dateAttr), element);
 
-    if(!element.data('allowBlank')){
+    if (!element.data('allowBlank')){
       let date = new Date(element.data('startdate'));
 
       element.data('datepicker').selectDate(date);
@@ -262,7 +262,7 @@ function initializeDatepickersWithoutBehavior() {
 }
 
 function setDateOnBindedDatepicker(date, datepicker) {
-  if($(datepicker).length) {
+  if ($(datepicker).length) {
     $(datepicker).data('datepicker').selectDate(date);
   }
 }

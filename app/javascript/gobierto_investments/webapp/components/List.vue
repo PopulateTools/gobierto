@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import { Table } from "lib/vue/components";
-import ShowAll from "./ShowAll.vue";
-import { CommonsMixin } from "../mixins/common.js";
+import { Table } from '../../../lib/vue/components';
+import ShowAll from './ShowAll.vue';
+import { CommonsMixin } from '../mixins/common.js';
 
 export default {
   name: "List",

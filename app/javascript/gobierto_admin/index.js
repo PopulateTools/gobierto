@@ -1,4 +1,8 @@
-import "../stylesheets/gobierto-admin.scss"
+import '../../assets/stylesheets/admin.scss'
+import select2 from 'select2'
+
+select2($) // load select2 into jquery
+
 import './modules/init.js'
 import './modules/admin_groups_admins_controller.js'
 import './modules/admin_groups_controller.js'

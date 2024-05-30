@@ -47,12 +47,12 @@
 </template>
 
 <script>
-import { BlockHeader, Checkbox, Dropdown } from "lib/vue/components";
-import DownloadButton from "../../components/DownloadButton.vue";
-import { EventBus } from "../../lib/mixins/event_bus";
-import { contractsFiltersConfig } from "../../lib/config/contracts.js";
-import SearchFilter from "../../components/SearchFilter.vue";
-import { slugString } from "lib/shared";
+import { slugString } from '../../../../lib/shared';
+import { BlockHeader, Checkbox, Dropdown } from '../../../../lib/vue/components';
+import DownloadButton from '../../components/DownloadButton.vue';
+import SearchFilter from '../../components/SearchFilter.vue';
+import { contractsFiltersConfig } from '../../lib/config/contracts.js';
+import { EventBus } from '../../lib/mixins/event_bus';
 
 export default {
   name: 'Aside',

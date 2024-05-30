@@ -7,12 +7,12 @@ git clone git@github.com:PopulateTools/$CUSTOM_ENGINE_NAME_1.git ~/$CUSTOM_ENGIN
 cd ~/$CUSTOM_ENGINE_NAME_1
 git checkout $branch
 ./script/setup.sh
-./script/create_webpacker_symlinks.sh
+./script/create_engine_symlinks.sh
 
 # Plugins
 for custom_fields_dir in $(ls -d ~/gobierto/vendor/gobierto_engines/custom-fields*); do
   cd $custom_fields_dir
   ./script/setup.sh
-  ./script/create_webpacker_symlinks.sh
+  ./script/create_engine_symlinks.sh
   cd ..
 done

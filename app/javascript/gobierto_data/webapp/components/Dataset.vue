@@ -152,20 +152,20 @@
 </template>
 
 <script>
-import { SkeletonSpinner } from "lib/vue/components";
-import DatasetNav from "./sets/DatasetNav.vue";
-import SummaryTab from "./sets/SummaryTab.vue";
-import DataTab from "./sets/DataTab.vue";
-import QueriesTab from "./sets/QueriesTab.vue";
-import VisualizationsTab from "./sets/VisualizationsTab.vue";
-import DownloadsTab from "./sets/DownloadsTab.vue";
-import MapTab from "./sets/MapTab.vue";
-import { getUserId, convertToCSV } from "./../../lib/helpers";
-import { ROUTE_NAMES, tabs } from "./../../lib/router";
-import { DatasetFactoryMixin } from "./../../lib/factories/datasets";
-import { QueriesFactoryMixin } from "./../../lib/factories/queries";
-import { DataFactoryMixin } from "./../../lib/factories/data";
-import { VisualizationFactoryMixin } from "./../../lib/factories/visualizations";
+import { SkeletonSpinner } from '../../../lib/vue/components';
+import DatasetNav from './sets/DatasetNav.vue';
+import SummaryTab from './sets/SummaryTab.vue';
+import DataTab from './sets/DataTab.vue';
+import QueriesTab from './sets/QueriesTab.vue';
+import VisualizationsTab from './sets/VisualizationsTab.vue';
+import DownloadsTab from './sets/DownloadsTab.vue';
+import MapTab from './sets/MapTab.vue';
+import { getUserId, convertToCSV } from '../../lib/helpers';
+import { ROUTE_NAMES, tabs } from '../../lib/router';
+import { DatasetFactoryMixin } from '../../lib/factories/datasets';
+import { QueriesFactoryMixin } from '../../lib/factories/queries';
+import { DataFactoryMixin } from '../../lib/factories/data';
+import { VisualizationFactoryMixin } from '../../lib/factories/visualizations';
 
 export default {
   name: "Dataset",

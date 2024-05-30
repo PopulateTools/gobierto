@@ -1,13 +1,18 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { EventBus } from "../webapp/lib/mixins/event_bus";
-import { getRemoteData, toNumber } from "../webapp/lib/utils";
-import { debtsEvolutionString } from "../webapp/lib/config/debts.js";
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import { EventBus } from '../webapp/lib/mixins/event_bus';
+import { getRemoteData, toNumber } from '../webapp/lib/utils';
+import { debtsEvolutionString } from '../webapp/lib/config/debts.js';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
+
+// ESBuild does not work properly with dynamic components
+import Home from '../webapp/containers/debts/Home.vue';
+// const Home = () => import('../webapp/containers/debts/Home.vue');
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
 }
+
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
@@ -25,9 +30,6 @@ export class DebtsController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const Home = () =>
-        import("../webapp/containers/debts/Home.vue");
-
       Promise.all([
         getRemoteData(options.debtsEndpoint),
         getRemoteData(options.debtsTotalEndpoint),
@@ -43,11 +45,7 @@ export class DebtsController {
           }],
         });
 
-        this.vueApp = new Vue({
-          router,
-          data: Object.assign(options, this.data)
-        }).$mount(entryPoint);
-
+        // Events must listen BEFORE vue application to start (i.e. the trigger)
         EventBus.$on("mounted", () => {
           // Hide the external loader once the vueApp has been mounted in the DOM
           const loadingElement = document.querySelector(".js-loading");
@@ -55,6 +53,13 @@ export class DebtsController {
             loadingElement.classList.add("hidden");
           }
         });
+
+        const data = Object.assign(options, this.data)
+
+        this.vueApp = new Vue({
+          router,
+          data,
+        }).$mount(entryPoint);
       });
     }
   }

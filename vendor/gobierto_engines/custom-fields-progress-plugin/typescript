@@ -1,9 +1,0 @@
-Script started on Mon Jan 13 16:24:46 2020
-bash-5.0$ ls
-README.md	app		config		lib		script		test		typescript
-bash-5.0$ ^C
-bash-5.0$ ^C
-bash-5.0$ exit
-exit
-
-Script done on Mon Jan 13 16:24:51 2020

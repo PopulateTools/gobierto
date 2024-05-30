@@ -1,11 +1,9 @@
-import { path } from "d3-path";
-import { voronoi } from "d3-voronoi";
-
-const d3 = { voronoi, path };
+import * as d3 from 'd3';
+import { voronoi as d3voronoi } from 'd3-voronoi';
 
 export function distanceLimitedVoronoi() {
   /////// Internals ///////
-  var voronoi = d3.voronoi().extent([[-1e6, -1e6], [1e6, 1e6]]);
+  var voronoi = d3voronoi().extent([[-1e6, -1e6], [1e6, 1e6]]);
   var limit = 20; // default limit
   var context = null; // set it to render to a canvas' 2D context
 

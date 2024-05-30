@@ -28,10 +28,10 @@
 </template>
 
 <script>
-import Viewer from "./Viewer";
-import ListCard from "./components/ListCard";
-import { FactoryMixin } from "./lib/factories";
-import { GOBIERTO_DASHBOARDS } from "lib/events"
+import Viewer from './Viewer.vue';
+import ListCard from './components/ListCard.vue';
+import { FactoryMixin } from './lib/factories';
+import { GOBIERTO_DASHBOARDS } from '../../lib/events'
 
 export default {
   name: "ViewerManager",

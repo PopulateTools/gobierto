@@ -1,9 +1,9 @@
 <% content_for :javascript_module_link do %>
-  <%= javascript_packs_with_chunks_tag 'dashboards' %>
+  <%= javascript_include_tag 'dashboards' %>
 <% end %>
 
 <% content_for :stylesheet_module_link do %>
-  <%= stylesheet_packs_with_chunks_tag 'dashboards' %>
+  <%= stylesheet_link_tag 'dashboards' %>
 <% end %>
 
 <div class="column">
@@ -14,7 +14,7 @@
 
   <p>Ejemplo listado de dashboards:</p>
   <div dashboard-viewer-app data-context="<%= @context %>"></div>
-  
+
   <p>Ejemplo de dashboard con <code>data-id</code>:</p>
   <div dashboard-viewer-app data-context="<%= @context %>" data-id="<%= 0 %>"></div>
 </div>

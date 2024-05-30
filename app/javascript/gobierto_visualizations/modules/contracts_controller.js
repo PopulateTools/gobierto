@@ -1,17 +1,27 @@
-import crossfilter from "crossfilter2";
-import { max, mean, median, sum } from "d3-array";
-import { scaleThreshold } from "d3-scale";
-import { money } from "lib/vue/filters";
+import crossfilter from 'crossfilter2';
+import * as d3 from 'd3';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 import {
   AmountDistributionBars,
   GroupPctDistributionBars
-} from "lib/visualizations";
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { getRemoteData, calculateSumMeanMedian } from "../webapp/lib/utils";
-import { EventBus } from "../webapp/lib/mixins/event_bus";
+} from '../../lib/visualizations';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
+import { money } from '../../lib/vue/filters';
+import { EventBus } from '../webapp/lib/mixins/event_bus';
+import { calculateSumMeanMedian, getRemoteData } from '../webapp/lib/utils';
 
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+// ESBuild does not work properly with dynamic components
+import Home from '../webapp/containers/contracts/Home.vue';
+import Summary from '../webapp/containers/contracts/Summary.vue';
+import ContractsIndex from '../webapp/containers/contracts/ContractsIndex.vue';
+import ContractsShow from '../webapp/containers/contracts/ContractsShow.vue';
+import AssigneesShow from '../webapp/containers/contracts/AssigneesShow.vue';
+// const Home = () => import('../webapp/containers/contracts/Home.vue');
+// const Summary = () => import('../webapp/containers/contracts/Summary.vue');
+// const ContractsIndex = () => import('../webapp/containers/contracts/ContractsIndex.vue');
+// const ContractsShow = () => import('../webapp/containers/contracts/ContractsShow.vue');
+// const AssigneesShow = () => import('../webapp/containers/contracts/AssigneesShow.vue');
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
@@ -19,7 +29,6 @@ if (Vue.config.devtools) {
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
-const d3 = { scaleThreshold, sum, mean, median, max };
 
 export class ContractsController {
   constructor(options) {
@@ -39,17 +48,6 @@ export class ContractsController {
       const htmlRouterBlock = `<router-view></router-view>`;
 
       entryPoint.innerHTML = htmlRouterBlock;
-
-      const Home = () =>
-        import("../webapp/containers/contracts/Home.vue");
-      const Summary = () =>
-        import("../webapp/containers/contracts/Summary.vue");
-      const ContractsIndex = () =>
-        import("../webapp/containers/contracts/ContractsIndex.vue");
-      const ContractsShow = () =>
-        import("../webapp/containers/contracts/ContractsShow.vue");
-      const AssigneesShow = () =>
-        import("../webapp/containers/contracts/AssigneesShow.vue");
 
       Promise.all([
         getRemoteData(options.contractsEndpoint),
@@ -114,11 +112,7 @@ export class ContractsController {
           );
         });
 
-        this.vueApp = new Vue({
-          router,
-          data: Object.assign(options, this.data)
-        }).$mount(entryPoint);
-
+        // Events must listen BEFORE vue application to start (i.e. the trigger)
         EventBus.$on("summary-ready", () => {
           this._renderSummary();
         });
@@ -143,6 +137,13 @@ export class ContractsController {
             loadingElement.classList.add("hidden");
           }
         });
+
+        const data = Object.assign(options, this.data)
+
+        this.vueApp = new Vue({
+          router,
+          data,
+        }).$mount(entryPoint);
       });
     }
   }

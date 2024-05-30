@@ -38,14 +38,24 @@
     </keep-alive>
   </div>
 </template>
-<script>
 
-// define the components as dynamic
+<script>
+// ESBuild does not work properly with dynamic components
+import SidebarCategories from './sidebar/SidebarCategories.vue';
+import SidebarDatasets from './sidebar/SidebarDatasets.vue';
+import SidebarQueries from './sidebar/SidebarQueries.vue';
+
 const COMPONENTS = [
-  () => import("./sidebar/SidebarCategories.vue"),
-  () => import("./sidebar/SidebarDatasets.vue"),
-  () => import("./sidebar/SidebarQueries.vue")
+  SidebarCategories,
+  SidebarDatasets,
+  SidebarQueries
 ];
+// define the components as dynamic
+// const COMPONENTS = [
+//   () => import('./sidebar/SidebarCategories.vue'),
+//   () => import('./sidebar/SidebarDatasets.vue'),
+//   () => import('./sidebar/SidebarQueries.vue')
+// ];
 
 export default {
   name: "Sidebar",

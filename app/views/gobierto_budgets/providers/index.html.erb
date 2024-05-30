@@ -23,7 +23,7 @@
         </div>
 
         <div class="pure-u-1 pure-u-md-12-24 right">
-          <%= image_pack_tag('media/images/illustrations/consultas.jpg', class: 'img_header m_v_4', alt: '') %>
+          <%= image_tag('illustrations/consultas.jpg', class: 'img_header m_v_4', alt: '') %>
         </div>
       </div>
     </div>
@@ -168,4 +168,9 @@
 
 <% content_for :javascript_hook do %>
   window.GobiertoBudgets.invoices_controller.show();
+<% end %>
+
+<% content_for :gobierto_footer_content do %>
+  <%= javascript_include_tag 'https://unpkg.com/d3@5/dist/d3.js' %>
+  <%= javascript_include_tag 'https://unpkg.com/dc@4/dist/dc.js' %>
 <% end %>

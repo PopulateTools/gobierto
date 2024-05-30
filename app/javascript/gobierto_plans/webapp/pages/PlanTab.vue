@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ButtonFilters from "../components/ButtonFilters.vue";
+import ButtonFilters from '../components/ButtonFilters.vue';
 
 export default {
   name: "PlanTab",

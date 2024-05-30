@@ -1,29 +1,6 @@
-import { extent } from "d3-array";
-import { axisBottom, axisRight } from "d3-axis";
-import { json } from "d3-fetch";
-import { format, formatDefaultLocale } from "d3-format";
-import { scaleLinear, scaleLog, scaleSequential } from "d3-scale";
-import { interpolatePlasma } from "d3-scale-chromatic";
-import { mouse, select, selectAll } from "d3-selection";
-import { accounting, d3locale } from "lib/shared";
-import { distanceLimitedVoronoi } from "./d3-distance-limited-voronoi.js";
-
-const d3 = {
-  format,
-  formatDefaultLocale,
-  scaleLog,
-  scaleLinear,
-  scaleSequential,
-  axisBottom,
-  axisRight,
-  select,
-  json,
-  interpolatePlasma,
-  distanceLimitedVoronoi,
-  extent,
-  selectAll,
-  mouse
-};
+import * as d3 from 'd3';
+import { distanceLimitedVoronoi } from "./d3-distance-limited-voronoi.js"
+import { accounting, d3locale } from '../../../lib/shared';
 
 export class VisRentDistribution {
   constructor(divId, city_id) {
@@ -111,7 +88,7 @@ export class VisRentDistribution {
   }
 
   handlePromise(url, opts = {}) {
-    return json(url, {
+    return d3.json(url, {
       headers: new Headers({ authorization: "Bearer " + this.tbiToken }),
       ...opts
     });
@@ -194,8 +171,7 @@ export class VisRentDistribution {
 
   _renderVoronoi() {
     // Create voronoi
-    this.voronoi = d3
-      .distanceLimitedVoronoi()
+    this.voronoi = distanceLimitedVoronoi()
       .x(d => this.xScale(d.value))
       .y(d => this.yScale(+d.rent))
       .limit(50)
@@ -225,9 +201,8 @@ export class VisRentDistribution {
       .attr("r", this.isMobile ? 6 : 12);
   }
 
-  _mousemove(d, i) {
+  _mousemove(event, d, i) {
     d3.select('.circle' + i).attr('stroke', 'none')
-    // d3.select(".circle").attr("stroke", "none");
 
     d3.selectAll(".hover")
       .attr("stroke", "#111")
@@ -267,8 +242,8 @@ export class VisRentDistribution {
     if (this.isMobile) {
       this.tooltip.style("opacity", 0);
     } else {
-      var coords = d3.mouse(d3.select(this.container)._groups[0][0]);
-      // var coords = d3.mouse(event);
+      var coords = d3.pointer(event);
+
       var x = coords[0],
         y = coords[1];
 

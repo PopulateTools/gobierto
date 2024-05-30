@@ -1,10 +1,19 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
+
+// ESBuild does not work properly with dynamic components
+import Home from '../webapp/containers/home/Home.vue';
+import Project from '../webapp/containers/project/Project.vue';
+import MapTour from '../webapp/components/MapTour.vue';
+// const Home = () => import('../webapp/containers/home/Home.vue');
+// const Project = () => import('../webapp/containers/project/Project.vue');
+// const MapTour = () => import('../webapp/components/MapTour.vue');
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
 }
+
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
@@ -24,10 +33,6 @@ export class InvestmentsController {
       `;
 
       entryPoint.innerHTML = htmlRouterBlock;
-
-      const Home = () => import("../webapp/containers/home/Home.vue");
-      const Project = () => import("../webapp/containers/project/Project.vue");
-      const MapTour = () => import("../webapp/components/MapTour.vue");
 
       const router = new VueRouter({
         mode: "history",

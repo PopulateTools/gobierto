@@ -131,14 +131,3 @@ es:
         economia: Economía
         empleo: Empleo
         poblacion: Población
-    observatory:
-      demography_map:
-        age_distribution: Distribución por edades
-        back: volver al Observatorio
-        born_in: Nacidos en el municipio de %{place}
-        data_updated: Datos actualizados a %{date}
-        demography: Demografía
-        origin_locals: Procedencia / Españoles
-        origin_remote: Procedencia / Extranjeros
-        remove_selection: Borrar selecciones
-        studies_level: Nivel de estudios

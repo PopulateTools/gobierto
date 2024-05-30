@@ -98,13 +98,12 @@
 </template>
 
 <script>
-
-import { VueFiltersMixin, date } from "lib/vue/filters"
-import { EventBus } from "../../lib/mixins/event_bus";
-import ContractsShowLabelHeader from "./../../components/ContractsShowLabelHeader.vue";
-import ContractsShowLabelGroup from "./../../components/ContractsShowLabelGroup.vue";
-import ContractsShowTable from "./../../components/ContractsShowTable.vue";
-import ContractsShowTableFooter from "./../../components/ContractsShowTableFooter.vue";
+import { VueFiltersMixin, date } from '../../../../lib/vue/filters'
+import { EventBus } from '../../lib/mixins/event_bus';
+import ContractsShowLabelHeader from '../../components/ContractsShowLabelHeader.vue';
+import ContractsShowLabelGroup from '../../components/ContractsShowLabelGroup.vue';
+import ContractsShowTable from '../../components/ContractsShowTable.vue';
+import ContractsShowTableFooter from '../../components/ContractsShowTableFooter.vue';
 
 export default {
   name: 'ContractsShow',

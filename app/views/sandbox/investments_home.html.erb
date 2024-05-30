@@ -1,11 +1,11 @@
 <%= content_for :body_attributes do %> class="gobierto_investments" <% end %>
 
 <% content_for :javascript_module_link do %>
-  <%= javascript_packs_with_chunks_tag 'investments', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'investments', 'data-turbolinks-track': true %>
 <% end %>
 
 <% content_for :stylesheet_module_link do %>
-  <%= stylesheet_packs_with_chunks_tag 'investments', 'data-turbolinks-track': true %>
+  <%= stylesheet_link_tag 'investments', 'data-turbolinks-track': true %>
 <% end %>
 
 <div class="column">
@@ -19,7 +19,7 @@
     </div>
 
     <div class="pure-u-1 pure-u-md-12-24 right">
-      <%= image_pack_tag('media/images/illustrations/presupuestos.jpg', class: 'medium_img') %>
+      <%= image_tag('illustrations/presupuestos.jpg', class: 'medium_img') %>
     </div>
   </div>
 

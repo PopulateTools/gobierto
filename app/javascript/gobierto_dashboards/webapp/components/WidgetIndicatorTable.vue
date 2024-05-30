@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { date, percent } from "lib/vue/filters";
+import { date, percent } from '../../../lib/vue/filters';
 
 const formatValues = (arr, prop, transform = x => x) =>
   arr.reduce(

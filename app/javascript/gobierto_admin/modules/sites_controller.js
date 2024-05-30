@@ -1,6 +1,3 @@
-import 'select2'
-import 'webpack-jquery-ui/autocomplete'
-
 window.GobiertoAdmin.SitesController = (function() {
   function SitesController() {}
 

@@ -1,7 +1,7 @@
-import Vue from "vue";
-import { router } from "../lib/router";
+import Vue from 'vue';
+import { router } from '../lib/router';
 import 'codemirror/lib/codemirror.css';
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)

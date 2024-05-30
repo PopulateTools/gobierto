@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import { PlansStore } from "../lib/store";
-import { groupBy } from "../lib/helpers";
+import { PlansStore } from '../lib/store';
+import { groupBy } from '../lib/helpers';
 
 export default {
   name: "Groups",

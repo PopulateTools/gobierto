@@ -31,11 +31,11 @@
 </template>
 
 <script>
-import Aside from "./Aside.vue";
-import Main from "./Main.vue";
-import axios from "axios";
-import { CommonsMixin, baseUrl } from "../../mixins/common.js";
-import { Middleware } from "lib/shared";
+import Aside from './Aside.vue';
+import Main from './Main.vue';
+import axios from 'axios';
+import { CommonsMixin, baseUrl } from '../../mixins/common.js';
+import { Middleware } from '../../../../lib/shared';
 
 export default {
   name: "Project",

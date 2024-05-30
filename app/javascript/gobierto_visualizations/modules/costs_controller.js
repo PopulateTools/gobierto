@@ -1,12 +1,23 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import { getRemoteData } from "../webapp/lib/utils";
-import { EventBus } from "../webapp/lib/mixins/event_bus";
-import { checkAndReportAccessibility } from "lib/vue/accesibility";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import { getRemoteData } from '../webapp/lib/utils';
+import { EventBus } from '../webapp/lib/mixins/event_bus';
+import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
+
+// ESBuild does not work properly with dynamic components
+import Home from '../webapp/containers/costs/Home.vue';
+import TableFirstLevel from '../webapp/containers/costs/table/TableFirstLevel.vue';
+import TableSecondLevel from '../webapp/containers/costs/table/TableSecondLevel.vue';
+import TableItem from '../webapp/containers/costs/table/TableItem.vue';
+// const Home = () => import('../webapp/containers/costs/Home.vue');
+// const TableFirstLevel = () => import('../webapp/containers/costs/table/TableFirstLevel.vue');
+// const TableSecondLevel = () => import('../webapp/containers/costs/table/TableSecondLevel.vue');
+// const TableItem = () => import('../webapp/containers/costs/table/TableItem.vue');
 
 if (Vue.config.devtools) {
   Vue.use(checkAndReportAccessibility)
 }
+
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
@@ -23,15 +34,6 @@ export class CostsController {
       const htmlRouterBlock = `<router-view></router-view>`;
 
       entryPoint.innerHTML = htmlRouterBlock;
-
-      const Home = () =>
-        import("../webapp/containers/costs/Home.vue");
-      const TableFirstLevel = () =>
-        import("../webapp/containers/costs/table/TableFirstLevel.vue");
-      const TableSecondLevel = () =>
-        import("../webapp/containers/costs/table/TableSecondLevel.vue");
-      const TableItem = () =>
-        import("../webapp/containers/costs/table/TableItem.vue");
 
       Promise.resolve(getRemoteData(options.costsEndpoint)).then(rawData => {
         this.setGlobalVariables(rawData);
@@ -98,11 +100,7 @@ export class CostsController {
           );
         });
 
-        this.vueApp = new Vue({
-          router,
-          data: Object.assign(options, this.data)
-        }).$mount(entryPoint);
-
+        // Events must listen BEFORE vue application to start (i.e. the trigger)
         EventBus.$on("mounted", () => {
           // Hide the external loader once the vueApp has been mounted in the DOM
           const loadingElement = document.querySelector(".js-loading");
@@ -110,6 +108,13 @@ export class CostsController {
             loadingElement.classList.add("hidden");
           }
         });
+
+        const data = Object.assign(options, this.data)
+
+        this.vueApp = new Vue({
+          router,
+          data,
+        }).$mount(entryPoint);
       });
     }
   }

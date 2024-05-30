@@ -25,15 +25,15 @@
   </div>
 </template>
 <script>
-import Nav from "./Nav.vue";
-import Aside from "./Aside.vue";
-import Summary from "./Summary.vue";
-import ContractsIndex from "./ContractsIndex.vue";
-import ContractsShow from "./ContractsShow.vue";
-import AssigneesShow from "./AssigneesShow.vue";
+import Nav from './Nav.vue';
+import Aside from './Aside.vue';
+import Summary from './Summary.vue';
+import ContractsIndex from './ContractsIndex.vue';
+import ContractsShow from './ContractsShow.vue';
+import AssigneesShow from './AssigneesShow.vue';
 
-import { EventBus } from "../../lib/mixins/event_bus";
-import { store } from "../../lib/mixins/store";
+import { EventBus } from '../../lib/mixins/event_bus';
+import { store } from '../../lib/mixins/store';
 
 export default {
   name: 'Home',

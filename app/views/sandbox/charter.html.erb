@@ -1,5 +1,5 @@
 <% content_for :javascript_module_link do %>
-  <%= javascript_packs_with_chunks_tag 'charters', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'charters', 'data-turbolinks-track': true %>
 <% end %>
 
 <script type="module">
@@ -11,7 +11,7 @@
   <div class="charter-header">
     <div class="column">
       <h1>Anàlisi Mediambiental i Contaminació Acústica</h1>
-      <%= image_pack_tag('media/images/illustrations/personaliza.jpg') %>
+      <%= image_tag('illustrations/personaliza.jpg') %>
     </div>
   </div>
 

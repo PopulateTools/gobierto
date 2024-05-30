@@ -1,9 +1,9 @@
-import { Grid, Data, Formatters, Editors, Plugins } from 'slickgrid-es6';
+import { SlickGrid, Editors, SlickCellSelectionModel } from 'slickgrid';
 
 window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
   function GobiertoPlansIndicatorsController() {}
 
-  GobiertoPlansIndicatorsController.prototype.form = function(opts) {
+  GobiertoPlansIndicatorsController.prototype.form = function() {
     _handleGroupsList();
   };
 
@@ -14,7 +14,7 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
       e.preventDefault();
 
       // ToDo: Don't relay on icon specific names
-      if($(this).is('.fa-caret-right')) {
+      if ($(this).is('.fa-caret-right')) {
         $(this).removeClass('fa-caret-right');
         $(this).addClass('fa-caret-down');
       }
@@ -57,9 +57,9 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
   function _slickGrid(id, data) {
     function requiredFieldValidator(value) {
       if (value == null || value == undefined || !value.length) {
-        return {valid: false, msg: "This is a required field"};
+        return { valid: false, msg: "This is a required field" };
       } else {
-        return {valid: true, msg: null};
+        return { valid: true, msg: null };
       }
     }
 
@@ -69,7 +69,7 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
 
     function _dateColumn(startYear, startMonth, offset) {
       let headerName = _headerDateName(startYear, startMonth, offset);
-      return {id: headerName, name: headerName, field: headerName, width: 100, editor: Editors.Float};
+      return { id: headerName, name: headerName, field: headerName, width: 100, editor: Editors.Float };
     }
 
     function _dateColumnsFromData(data) {
@@ -121,7 +121,7 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
 
           d["indicator"] = "indicator " + i;
           for (let o = 0; o < dateColumnsCount; o++) {
-            d[_headerDateName(startYear, startMonth, o)] =  Math.round(Math.random() * 100);
+            d[_headerDateName(startYear, startMonth, o)] = Math.round(Math.random() * 100);
           }
         }
 
@@ -146,20 +146,20 @@ window.GobiertoAdmin.GobiertoPlansIndicatorsController = (function() {
         headerDateNameFunction: _headerDateName,
         startYear: startYear,
         startMonth: startMonth,
-        offset: dateColumnsCount});
+        offset: dateColumnsCount });
 
-      grid = new Grid(`#${id} .slickgrid-container`, data, columns, options);
+      grid = new SlickGrid(`#${id} .slickgrid-container`, data, columns, options);
       $(`#${id}`).data('slickGrid', grid);
 
-      grid.setSelectionModel(new Plugins.CellSelectionModel());
+      grid.setSelectionModel(new SlickCellSelectionModel());
 
       grid.onHeaderClick.subscribe(function (e, args) {
         let item = args.column;
-        if(item.name === "Add"){
+        if (item.name === "Add"){
           let columns = args.grid.getColumns();
           let lastColumn = columns.pop();
           let lastYear = lastColumn.headerDateNameFunction(lastColumn.startYear, lastColumn.startMonth, lastColumn.offset)
-          let columnDefinition = {id: lastYear, name: lastYear, field: lastYear, width: 100, editor: Editors.Integer};
+          let columnDefinition = { id: lastYear, name: lastYear, field: lastYear, width: 100, editor: Editors.Integer };
           lastColumn.offset++;
           columns.push(columnDefinition);
           columns.push(lastColumn);

@@ -34,7 +34,7 @@
   </div>
 </template>
 <script>
-import Info from "./commons/Info.vue";
+import Info from './commons/Info.vue';
 
 export default {
   name: "Index",

@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import Header from "../layouts/Header.vue";
-import Button from "./Button.vue";
+import Header from '../layouts/Header.vue';
+import Button from './Button.vue';
 
 export default {
   name: "HeaderForm",

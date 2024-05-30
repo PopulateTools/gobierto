@@ -1,12 +1,5 @@
-import { mean, sum } from "d3-array";
-import { nest } from "d3-collection";
-import { csv } from "d3-fetch";
-import { format } from "d3-format";
-import { scaleQuantile } from "d3-scale";
-import { select } from "d3-selection";
-import { accounting } from "lib/shared";
-
-const d3 = { csv, select, format, sum, mean, scaleQuantile, nest };
+import * as d3 from 'd3';
+import { accounting } from '../../../lib/shared';
 
 export class VisIndicators {
   constructor(divId, url) {
@@ -31,25 +24,14 @@ export class VisIndicators {
         d.id = +d.id;
       });
 
-      // d3v5
-      //
-      var totalNest = d3
-        .nest()
-        .key(function(d) {
-          return d.id;
-        })
-        .entries(this.data);
-
-      // d3v6
-      //
       // Make an object for each participant
-      // var totalNest = Array.from(
-      //   d3.group(this.data, d => d.id),
-      //   ([key, values]) => ({
-      //     key,
-      //     values
-      //   })
-      // );
+      var totalNest = Array.from(
+        d3.group(this.data, d => d.id),
+        ([key, values]) => ({
+          key,
+          values
+        })
+      );
 
       totalNest.forEach(function(d) {
         d.age = d.values[0].age;
@@ -60,27 +42,13 @@ export class VisIndicators {
       this.total = totalNest.length;
 
       // GENDER RATIO
-      // d3v5
-      //
-      var ratioNest = d3
-        .nest()
-        .key(function(d) {
-          return d.gender;
+      var ratioNest = Array.from(
+        d3.group(this.data, d => d.gender, d => d.id),
+        ([key, values]) => ({
+          key,
+          values
         })
-        .key(function(d) {
-          return d.id;
-        })
-        .entries(this.data);
-
-      // d3v6
-      //
-      // var ratioNest = Array.from(
-      //   d3.group(this.data, d => d.gender, d => d.id),
-      //   ([key, values]) => ({
-      //     key,
-      //     values
-      //   })
-      // );
+      );
 
       this.genderRatio = [
         ratioNest[0].values.length / this.total,
@@ -88,28 +56,13 @@ export class VisIndicators {
       ];
 
       // EQ / DEFICIT RATIO
-      // d3v5
-      //
-      var eqNest = d3
-        .nest()
-        .key(function(d) {
-          return d.id;
+      var eqNest = Array.from(
+        d3.rollup(this.data, v => d3.sum(v, d => d.answer), d => d.id),
+        ([key, value]) => ({
+          key,
+          value
         })
-        .rollup(function(v) {
-          return d3.sum(v, function(d) {
-            return d.answer;
-          });
-        })
-        .entries(this.data);
-      // d3v6
-      //
-      // var eqNest = Array.from(
-      //   d3.rollup(this.data, v => d3.sum(v, d => d.answer), d => d.id),
-      //   ([key, value]) => ({
-      //     key,
-      //     value
-      //   })
-      // );
+      );
 
       this.eqRatio = [
         eqNest.filter(function(d) {
@@ -127,29 +80,13 @@ export class VisIndicators {
       this.avgAge = d3.mean(totalNest, d => d.age);
 
       // PLACES COUNT
-      // d3v5
-      //
-      var placesNest = d3
-        .nest()
-        .key(function(d) {
-          return d.location;
+      var placesNest = Array.from(
+        d3.rollup(this.data, v => v.length, d => d.id, d => d.location),
+        ([key, values]) => ({
+          key,
+          values
         })
-        .key(function(d) {
-          return d.id;
-        })
-        .rollup(function(v) {
-          return v.length;
-        })
-        .entries(this.data);
-      // d3v6
-      //
-      // var placesNest = Array.from(
-      //   d3.rollup(this.data, v => v.length, d => d.id, d => d.location),
-      //   ([key, values]) => ({
-      //     key,
-      //     values
-      //   })
-      // );
+      );
 
       this.places = placesNest.map(
         function(d) {
@@ -163,36 +100,18 @@ export class VisIndicators {
       this.places.sort((a, b) => b.responses - a.responses);
 
       // GET QUESTIONS SUMMARY
-      // d3v5
-      //
-      this.table = d3
-        .nest()
-        .key(function(d) {
-          return d.question;
+      this.table = Array.from(
+        d3.rollup(
+          this.data,
+          d => d.length / this.total,
+          d => d.answer,
+          d => d.question
+        ),
+        ([key, values]) => ({
+          key,
+          values
         })
-        .key(function(d) {
-          return d.answer;
-        })
-        .rollup(
-          function(d) {
-            return d.length / this.total;
-          }.bind(this)
-        )
-        .entries(this.data);
-      // d3v6
-      //
-      // this.table = Array.from(
-      //   d3.rollup(
-      //     this.data,
-      //     d => d.length / this.total,
-      //     d => d.answer,
-      //     d => d.question
-      //   ),
-      //   ([key, values]) => ({
-      //     key,
-      //     values
-      //   })
-      // );
+      );
 
       this.updateRender();
     });

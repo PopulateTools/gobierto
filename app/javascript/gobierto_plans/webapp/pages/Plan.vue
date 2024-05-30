@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SectionZero from "../components/SectionZero";
+import SectionZero from '../components/SectionZero.vue';
 
 export default {
   name: "Plan",

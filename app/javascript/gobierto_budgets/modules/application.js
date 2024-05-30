@@ -1,19 +1,20 @@
-import "devbridge-autocomplete";
-import { AUTOCOMPLETE_DEFAULTS } from "lib/shared";
+import 'devbridge-autocomplete';
+import { debounce } from 'lodash';
+import 'sticky-kit/dist/sticky-kit.js';
+import 'tipsy-1a';
+import Turbolinks from 'turbolinks';
+import { AUTOCOMPLETE_DEFAULTS } from '../../lib/shared';
 import {
   VisBubbleLegend,
   VisBubbles,
   VisSlider,
   VisTreemap
-} from "lib/visualizations";
-import "sticky-kit/dist/sticky-kit.js";
-import "tipsy-1a";
-import Turbolinks from "turbolinks";
-import { getBudgetLevelData } from "./classes/getBudgetLevelData.js";
+} from '../../lib/visualizations';
+import { getBudgetLevelData } from './classes/getBudgetLevelData.js';
 // flight components
-import "./components/budgetLineBreadcrumb.js";
-import "./components/featuredBudgetLine.js";
-import "./components/visLine.js";
+import './components/budgetLineBreadcrumb.js';
+import './components/featuredBudgetLine.js';
+import './components/visLine.js';
 
 $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
   if (
@@ -25,7 +26,7 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
 
     window.addEventListener(
       "resize",
-      _.debounce(function() {
+      debounce(function() {
         expenseTreemap.render($("#expense-treemap").data("functional-url"));
       }, 250)
     );
@@ -37,7 +38,7 @@ $(document).on("turbolinks:load ajax:complete ajaxSuccess", function() {
 
     window.addEventListener(
       "resize",
-      _.debounce(function() {
+      debounce(function() {
         expenseTreemap.render($("#treemap").data("url"));
       }, 250)
     );
@@ -76,7 +77,7 @@ $(document).on("turbolinks:load", function() {
 
       window.addEventListener(
         "resize",
-        _.debounce(function() {
+        debounce(function() {
           new VisSlider(".timeline", window.budgetLevels);
 
           visBubblesExpense.resize();

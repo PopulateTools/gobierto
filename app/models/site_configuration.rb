@@ -23,7 +23,7 @@ class SiteConfiguration
     :registration_disabled
   ].freeze
 
-  DEFAULT_LOGO_PATH = "media/images/sites/logo-default.png"
+  DEFAULT_LOGO_PATH = "sites/logo-default.png"
   MODULES_WITH_NOTIFICATONS = %w(GobiertoPeople).freeze
   MODULES_WITH_COLLECTIONS = %w(GobiertoData).freeze
 

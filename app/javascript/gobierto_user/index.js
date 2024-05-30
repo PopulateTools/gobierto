@@ -1,4 +1,4 @@
-import "../stylesheets/gobierto-user.scss"
+import '../../assets/stylesheets/user.scss'
 import './modules/init.js'
 import './modules/application.js'
 import './modules/user_registration_controller.js'

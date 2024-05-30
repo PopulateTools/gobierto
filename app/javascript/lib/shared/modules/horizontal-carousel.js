@@ -1,4 +1,4 @@
-import { ImageLightbox } from "lib/shared";
+import { ImageLightbox } from './image-lightbox';
 
 export class HorizontalCarousel {
   constructor(carousel) {
@@ -17,7 +17,7 @@ export class HorizontalCarousel {
         this.setActiveThumbnail(this.content.firstElementChild)
 
         // event handling for thumbnails
-        this.content.children.forEach(child => {
+        Array.from(this.content.children).forEach(child => {
           child.addEventListener("click", this.onThumbnailClick.bind(this))
           child.classList.add("is-thumbnail")
         })
@@ -27,7 +27,7 @@ export class HorizontalCarousel {
         this.visibleItems = this.content.getBoundingClientRect().width / avg
       } else {
         this.visibleItems = parseInt(visibleItems) || 1;
-        this.content.children.forEach(child => (child.style.flex = `0 0 calc(100% / ${this.visibleItems})`));
+        Array.from(this.content.children).forEach(child => (child.style.flex = `0 0 calc(100% / ${this.visibleItems})`));
       }
 
       this.maxValue = (this.content.children.length - this.visibleItems) * (100 / this.visibleItems);
@@ -103,7 +103,7 @@ export class HorizontalCarousel {
     this.prev.removeEventListener("click", this.onPrevClick.bind(this));
 
     if (this.thumbnails && this.content.children.length > 1) {
-      this.content.children.forEach(child => child.removeEventListener("click", this.onThumbnailClick.bind(this)))
+      Array.from(this.content.children).forEach(child => child.removeEventListener("click", this.onThumbnailClick.bind(this)))
     }
   }
 }

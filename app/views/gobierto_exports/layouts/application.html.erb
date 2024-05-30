@@ -1,9 +1,9 @@
 <% content_for :javascript_module_link do %>
-  <%= javascript_packs_with_chunks_tag 'exports', 'data-turbolinks-track': true %>
+  <%= javascript_include_tag 'exports', 'data-turbolinks-track': true %>
 <% end %>
 
 <% content_for :stylesheet_module_link do %>
-  <%= stylesheet_packs_with_chunks_tag 'exports' %>
+  <%= stylesheet_link_tag 'exports' %>
 <% end %>
 
 <%= render template: "layouts/application" %>

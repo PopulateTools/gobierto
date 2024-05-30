@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import LinkableText from './../commons/LinkableText.vue'
+import LinkableText from '../commons/LinkableText.vue'
 
 export default {
   name: "InfoBlockText",

@@ -35,8 +35,8 @@
   </div>
 </template>
 <script>
-import { VueDirectivesMixin } from "lib/vue/directives";
-import { DownloadFilesFactoryMixin } from "./../../../lib/factories/download";
+import { VueDirectivesMixin } from '../../../../lib/vue/directives';
+import { DownloadFilesFactoryMixin } from '../../../lib/factories/download';
 
 export default {
   name: 'DownloadLink',

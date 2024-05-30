@@ -402,7 +402,6 @@ Rails.application.routes.draw do
     namespace :gobierto_observatory, path: "observatorio" do
       constraints GobiertoSiteConstraint.new do
         root "observatory#index"
-        get "mapa" => "observatory#demography_map", as: :map
       end
     end
 

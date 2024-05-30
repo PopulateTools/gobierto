@@ -1,5 +1,6 @@
-import { VisLinesExecution } from 'lib/visualizations'
-import { GOBIERTO_BUDGETS } from 'lib/events'
+import { GOBIERTO_BUDGETS } from '../../lib/events';
+import { VisLinesExecution } from '../../lib/visualizations';
+import { debounce } from 'lodash';
 
 $(document).on('turbolinks:load', function() {
 
@@ -26,7 +27,7 @@ $(document).on('turbolinks:load', function() {
       $('.expenses_switcher').not('.active').prop('disabled', false);
     })
 
-    window.addEventListener("resize", _.debounce(function () {
+    window.addEventListener("resize", debounce(function () {
       vis_expenses_execution.setScales();
       vis_expenses_execution.updateRender();
     }, 250));
@@ -61,7 +62,7 @@ $(document).on('turbolinks:load', function() {
       $('.income_switcher').not('.active').prop('disabled', false);
     })
 
-    window.addEventListener("resize", _.debounce(function () {
+    window.addEventListener("resize", debounce(function () {
       vis_expenses_execution.setScales();
       vis_expenses_execution.updateRender();
     }, 250));

@@ -35,12 +35,12 @@
 </template>
 
 <script>
-import { LMap, LTileLayer, LFeatureGroup, LGeoJson } from "vue2-leaflet";
-import Wkt from "wicket";
-import Vue from "vue";
-import GalleryItem from "./GalleryItem.vue";
-import { Icon } from "leaflet";
-import "leaflet/dist/leaflet.css";
+import { LMap, LTileLayer, LFeatureGroup, LGeoJson } from 'vue2-leaflet';
+import Wkt from 'wicket';
+import Vue from 'vue';
+import GalleryItem from './GalleryItem.vue';
+import { Icon } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 // leaflet bug w/ webpack - https://github.com/PaulLeCam/react-leaflet/issues/255
 delete Icon.Default.prototype._getIconUrl;

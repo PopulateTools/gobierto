@@ -130,14 +130,3 @@ ca:
         economia: Economia
         empleo: Ocupació
         poblacion: Població
-    observatory:
-      demography_map:
-        age_distribution: Distribució per edats
-        back: tornar al Observatori
-        born_in: Naixcuts en el municipi de %{place}
-        data_updated: Dades actualitzades a %{date}
-        demography: Demografia
-        origin_locals: Procedència / Espanyols
-        origin_remote: Procedència / Estrangers
-        remove_selection: Borrar seleccions
-        studies_level: Nivell d'estudis

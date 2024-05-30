@@ -57,8 +57,8 @@
   </div>
 </template>
 <script>
-import { VisBubble } from "lib/visualizations";
-import { VueFiltersMixin } from "lib/vue/filters";
+import { VisBubble } from '../../../../lib/visualizations';
+import { VueFiltersMixin } from '../../../../lib/vue/filters';
 
 export default {
   name: 'Distribution',
@@ -139,12 +139,12 @@ export default {
       }.bind(this));
     },
     updateBubbles() {
-      this.visBubblesCosts.resize(this.year)
+      this.visBubblesCosts = new VisBubble('.vis-costs', this.year, this.data).render()
       this.$emit('preventReload')
     },
     selectYearHandler(year) {
       this.activeYear = year
-      this.visBubblesCosts.resize(year)
+      this.visBubblesCosts = new VisBubble('.vis-costs', year, this.data).render()
       this.$emit('updateYear', year)
       this.$emit('preventReload')
     },

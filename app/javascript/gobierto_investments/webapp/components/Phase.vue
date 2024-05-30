@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { CommonsMixin } from "../mixins/common.js";
+import { CommonsMixin } from '../mixins/common.js';
 
 export default {
   name: "Phase",
@@ -58,4 +58,3 @@ export default {
   }
 };
 </script>
-

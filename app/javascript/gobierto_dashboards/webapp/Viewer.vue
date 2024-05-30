@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import { GridLayout } from "vue-grid-layout";
-import { Widgets } from "./lib/widgets";
-import { FactoryMixin } from "./lib/factories";
-import Widget from "./components/Widget";
+import { GridLayout } from 'vue-grid-layout';
+import { Widgets } from './lib/widgets';
+import { FactoryMixin } from './lib/factories';
+import Widget from './components/Widget.vue';
 
 export default {
   name: "Viewer",

@@ -77,15 +77,15 @@
 </template>
 
 <script>
-import { Table } from "lib/vue/components";
-import { SharedMixin } from "../../lib/mixins/shared";
-import { grantedColumns, subsidiesFiltersConfig } from "../../lib/config/subsidies.js";
-import MetricBoxes from "../../components/MetricBoxes.vue";
-import MetricBox from "../../components/MetricBox.vue";
-import Tips from "../../components/Tips.vue";
-import TreeMapButtons from "../../components/TreeMapButtons.vue";
-import { TreeMap } from "gobierto-vizzs";
-import { money } from "lib/vue/filters";
+import { TreeMap } from 'gobierto-vizzs';
+import { Table } from '../../../../lib/vue/components';
+import { money } from '../../../../lib/vue/filters';
+import MetricBox from '../../components/MetricBox.vue';
+import MetricBoxes from '../../components/MetricBoxes.vue';
+import Tips from '../../components/Tips.vue';
+import TreeMapButtons from '../../components/TreeMapButtons.vue';
+import { grantedColumns, subsidiesFiltersConfig } from '../../lib/config/subsidies.js';
+import { SharedMixin } from '../../lib/mixins/shared';
 
 export default {
   name: 'Summary',

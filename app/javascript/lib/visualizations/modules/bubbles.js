@@ -1,39 +1,7 @@
-import { max } from "d3-array";
-import {
-  forceCollide,
-  forceManyBody,
-  forceSimulation,
-  forceX,
-  forceY
-} from "d3-force";
-import { formatDefaultLocale } from "d3-format";
-import { wordwrap } from "d3-jetpack";
-import tspans from "d3-jetpack/src/tspans";
-import { scaleLinear, scaleSqrt, scaleThreshold } from "d3-scale";
-import { mouse, select, selectAll, selection } from "d3-selection";
-import { transition } from "d3-transition";
-import { accounting, d3locale } from "lib/shared";
+import * as d3 from 'd3'
+import { accounting, d3locale, wordwrap, tspans } from '../../../lib/shared';
 
-selection.prototype.tspans = tspans;
-
-const d3 = {
-  select,
-  selectAll,
-  mouse,
-  scaleThreshold,
-  scaleLinear,
-  scaleSqrt,
-  forceSimulation,
-  forceX,
-  forceY,
-  forceManyBody,
-  forceCollide,
-  max,
-  formatDefaultLocale,
-  transition,
-  wordwrap,
-  selection
-};
+d3.selection.prototype.tspans = tspans;
 
 export class VisBubbles {
   constructor(divId, budgetCategory, data) {
@@ -296,7 +264,7 @@ export class VisBubbles {
         d.pct_diff > 30 || d.pct_diff < -10 ? "white" : "black"
       )
       .tspans(
-        d => (d.radius > 40 ? d3.wordwrap(d.name, 15) : d3.wordwrap("", 15)),
+        d => (d.radius > 40 ? wordwrap(d.name, 15) : wordwrap("", 15)),
         d => this.fontSize(d.radius)
       );
 
@@ -308,8 +276,8 @@ export class VisBubbles {
     this.bubbles.attr("transform", d => `translate(${d.x},${d.y})`);
   }
 
-  _mousemoved(d) {
-    var coordinates = d3.mouse(this.selectionNode);
+  _mousemoved(event, d) {
+    var coordinates = d3.pointer(event, this.selectionNode);
     var x = coordinates[0],
       y = coordinates[1];
 

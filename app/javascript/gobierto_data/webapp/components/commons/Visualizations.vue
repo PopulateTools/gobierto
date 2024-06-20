@@ -62,7 +62,7 @@ export default {
     this.$root.$emit("showSavingDialogEventViz", false)
   },
   beforeUnmount() {
-    document.removeEventListener("click", this.$emit("showSaving"));
+    document.removeEventListener("click", this.$emit("show-saving"));
     this.$root.$emit("showSavingDialogEventViz", false)
   },
   methods: {
@@ -131,7 +131,7 @@ export default {
         selectVizPerspective.addEventListener("click", (e) => {
           const parent = e.target.parentElement?.id
           if (clickableElementsPerspective.includes(parent)) {
-            this.$emit("showSaving")
+            this.$emit("show-saving")
             this.$root.$emit("isVizModified", true)
           }
         })

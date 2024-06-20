@@ -140,13 +140,13 @@ export default {
     },
     updateBubbles() {
       this.visBubblesCosts = new VisBubble('.vis-costs', this.year, this.data).render()
-      this.$emit('preventReload')
+      this.$emit('prevent-reload')
     },
     selectYearHandler(year) {
       this.activeYear = year
       this.visBubblesCosts = new VisBubble('.vis-costs', year, this.data).render()
-      this.$emit('updateYear', year)
-      this.$emit('preventReload')
+      this.$emit('update-year', year)
+      this.$emit('prevent-reload')
     },
   }
 }

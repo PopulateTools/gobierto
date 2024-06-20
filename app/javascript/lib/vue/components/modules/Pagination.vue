@@ -122,7 +122,7 @@ export default {
       let from = (page * perPage) - perPage;
       let to = (page * perPage);
       const displayedData = data.slice(from, to);
-      this.$emit('showData', displayedData)
+      this.$emit('show-data', displayedData)
     },
     nextPage() {
       this.page++

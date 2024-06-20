@@ -72,6 +72,7 @@
         <div class="pure-u-1 pure-u-md-24-24">
           <div
             ref="bar-chart-stacked-debts"
+            class="bar-chart-stacked-debts"
           />
         </div>
       </div>
@@ -93,23 +94,72 @@
   </div>
 </template>
 <script>
-import { BarChartSplit, BarChartStacked, TreeMap } from 'gobierto-vizzs';
+import { BarChartSplit, BarChartStacked as OriginalBarChartStacked, TreeMap } from 'gobierto-vizzs';
 import { money } from '../../../../lib/vue/filters';
+import { debtsEvolutionString } from '../../lib/config/debts.js';
 import { EventBus } from '../../lib/mixins/event_bus';
 import Table from './Table.vue';
 
+let scaleColor = null
+
+class BarChartStacked extends OriginalBarChartStacked {
+  build() {
+    // call to the original build
+    super.build()
+    // then, call to our custom function
+    this.buildExtraAxis();
+
+    // since the tooltip function cannot access the class scope ("this" context)
+    // we store it in a helper variable
+    scaleColor = this.scaleColor
+  }
+
+  buildExtraAxis() {
+    const extraLegends = ["Deute Viu Grup Ajuntament","Deute Viu Sector Administracions Públiques", "Rati deute viu %"]
+
+    const data = new Map()
+    extraLegends.map(x => data.set(x, this.data.filter(y => y.group === x)))
+
+    const extra = this.g
+      .selectAll(".extra-legend")
+      .data(data)
+      .enter()
+      .append("g")
+      .attr("class", "extra-legend")
+      .attr('transform', (_, i) => `translate(0,${this.height + ((i + 1) * 28)})`)
+
+    extra
+      .append("text")
+      .attr("class", "extra-legend-text")
+      .attr("text-anchor", "end")
+      .attr("x", -60)
+      .attr("y", (_, i) => this.margin.top + (i * 2) + 14)
+      .text(([key]) => key);
+
+    extra
+      .selectAll("class", "extra-legend-value")
+      .data(([_, values]) => values)
+      .enter()
+      .append("text")
+      .attr("class", "extra-legend-value")
+      .attr("x", d => this.scaleX(d[this.xAxisProp]))
+      .attr("y", this.margin.top + 14)
+      .text(d => d[this.countProp].toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }))
+  }
+}
+
 export default {
   name: 'Home',
+  inject: ['data'],
   components: {
     Table
   },
   data() {
     return {
-      debtsData: this.$root.$data.debtsEntitat,
-      debtsKey: this.$root.$data.debtsEntitatKey,
-      creditorData: this.$root.$data.debtsTotal,
-      creditorKey: this.$root.$data.debtsTotalKey,
-      evolutionDebtData: this.$root.$data.debtsEvolution,
+      debtsData: this.data.debtsEntitat,
+      debtsKey: this.data.debtsEntitatKey,
+      creditorData: this.data.debtsTotal,
+      creditorKey: this.data.debtsTotalKey,
       labelTitle: I18n.t("gobierto_visualizations.visualizations.debts.title") || "",
       labelDescription: I18n.t("gobierto_visualizations.visualizations.debts.description") || "",
       // NOTE: in case of updating data, this translation must be changed
@@ -154,19 +204,18 @@ export default {
       `
     },
     tooltipBarChartStacked(d) {
-      let tooltipContent = [];
-      const titleIsDate = d.data.any && Object.prototype.toString.call(d.data.any) === "[object Date]" && !isNaN(d.data.any)
-      const titleTooltip = titleIsDate ? d.data.any.getFullYear() : d.data.any
-      const filteredDataByKey = Object.fromEntries(Object.entries(d.data).filter(([key]) => !["Total endeutament grup", "any", "Deute Viu Sector Administracions Públiques", "Rati deute viu %", "Deute Viu Grup Ajuntament"].includes(key)));
-      for (const key in filteredDataByKey) {
-        const valueContent = `
+      const [ titleTooltip ] = d.data
+
+      const fieldsExcluded = ["Total endeutament grup", "any", "Deute Viu Sector Administracions Públiques", "Rati deute viu %", "Deute Viu Grup Ajuntament"]
+      const filteredData = Array.from(d.data[1]).filter(([key]) => !fieldsExcluded.includes(key));
+
+      const tooltipContent = filteredData.map(([key, values]) => (`
           <div class="tooltip-barchart-stacked-grid">
-            <span class="tooltip-barchart-stacked-grid-key-color ${key.replace(/\s/g, '')}"></span>
+            <span class="tooltip-barchart-stacked-grid-key-color" style="background-color:${scaleColor(key)}"></span>
             <span class="tooltip-barchart-stacked-grid-key">${key}:</span>
-            <span class="tooltip-barchart-stacked-grid-value">${filteredDataByKey[key].toLocaleString()} M€</span>
-          </div>`
-        tooltipContent.push(valueContent);
-      }
+            <span class="tooltip-barchart-stacked-grid-value">${values[0].count.toLocaleString()} M€</span>
+          </div>`));
+
       return `
         <span class="tooltip-barchart-stacked-title">${titleTooltip}</span>
         ${tooltipContent.join("")}
@@ -177,6 +226,7 @@ export default {
       const treemapDebts = this.$refs["treemap-debts"]
       const barChartStackedDebts = this.$refs["bar-chart-stacked-debts"]
       const barChartMultipleDebts = this.$refs["bar-chart-small-debts"]
+
       if (treemapCreditor && treemapCreditor.offsetParent !== null) {
         this.treemapCreditor = new TreeMap(treemapCreditor, this.parseDataTotal(this.creditorData), {
           rootTitle: "test",
@@ -202,28 +252,32 @@ export default {
       }
 
       if (barChartStackedDebts && barChartStackedDebts.offsetParent !== null) {
-        this.barChartStackedDebts = new BarChartStacked(barChartStackedDebts, this.evolutionDebtData, {
-          rootTitle: this.labelCategories,
-          orientationLegend: "left",
+        const extraLegends = ["Deute Viu Grup Ajuntament","Deute Viu Sector Administracions Públiques", "Rati deute viu %"]
+        const series = debtsEvolutionString.filter(x => !extraLegends.includes(x))
+
+        // prepare the data according to the chart is expecting to
+        const data = this.data.debtsEvolution.flatMap(x => debtsEvolutionString.map(y => ({ phase: x.any, count: x[y], group: y })))
+
+        this.barChartStackedDebts = new BarChartStacked(barChartStackedDebts, data, {
           showLegend: true,
-          excludeColumns: ["Deute Viu Grup Ajuntament", "Deute Viu Sector Administracions Públiques", "Rati deute viu %"],
-          extraLegends: ["Deute Viu Grup Ajuntament","Deute Viu Sector Administracions Públiques", "Rati deute viu %"],
-          margin: { left: 340 },
-          x: "any",
+          series,
+          margin: { left: 340, bottom: 160 },
+          x: "phase",
+          y: "group",
+          count: "count",
           locale: "es-ES",
-          value: this.debtsKey,
           tooltip: this.tooltipBarChartStacked
         })
       }
 
       if (barChartMultipleDebts && barChartMultipleDebts.offsetParent !== null) {
-        this.barChartMultipleDebts = new BarChartSplit(barChartMultipleDebts, this.parseDataEvolution(this.evolutionDebtData), {
-          rootTitle: this.labelCategories,
+        this.barChartMultipleDebts = new BarChartSplit(barChartMultipleDebts, this.parseDataEvolution(this.data.debtsEvolution), {
           y: "any",
           x: "group",
           count: "value"
         })
       }
+
       this.isGobiertoVizzsLoaded = true
     },
     treemapItemTemplate(d) {

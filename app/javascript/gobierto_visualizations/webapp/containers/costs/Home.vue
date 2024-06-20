@@ -39,8 +39,8 @@
         :year="yearFiltered"
         :years="years"
         :years-multiple="yearsMultiple"
-        @preventReload="injectRouter"
-        @updateYear="updateData"
+        @prevent-reload="injectRouter"
+        @update-year="updateData"
       />
       <Table
         :items-filter="groupDataFilter"

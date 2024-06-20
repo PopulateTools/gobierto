@@ -53,7 +53,7 @@
 
   /* Active line which fills the timeline */
   // TODO: Fix active bar for the current process
-  .timeline_row.active:not(:last-child):not(:nth-child(2))::before {
+  .timeline_row.active:not(:last-child, :nth-child(2))::before {
     margin-top: 1.25em;
     z-index: 1;
     content: '';

@@ -14,7 +14,7 @@ window.GobiertoAdmin.TermsController = (function() {
       e.preventDefault();
 
       // ToDo: Don't relay on icon specific names
-      if($(this).is('.fa-caret-right')) {
+      if ($(this).is('.fa-caret-right')) {
         $(this).removeClass('fa-caret-right');
         $(this).addClass('fa-caret-down');
       }

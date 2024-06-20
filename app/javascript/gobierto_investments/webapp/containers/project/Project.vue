@@ -44,13 +44,6 @@ export default {
     Main
   },
   mixins: [CommonsMixin],
-  data() {
-    return {
-      dictionary: [],
-      phases: [],
-      project: null
-    };
-  },
   async beforeRouteEnter(to, from, next) {
     const { item } = to.params;
 
@@ -87,6 +80,13 @@ export default {
     } else {
       next();
     }
+  },
+  data() {
+    return {
+      dictionary: [],
+      phases: [],
+      project: null
+    };
   },
   created() {
     this.labelBack = I18n.t("gobierto_investments.projects.back");

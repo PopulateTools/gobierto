@@ -15,7 +15,7 @@ window.GobiertoAdmin.GobiertoCoreController = (function() {
       lineNumbers: true,
       lineWrapping: true,
       viewportMargin: Infinity,
-      extraKeys: {"Ctrl-Q": function(cm){ cm.foldCode(cm.getCursor()); }},
+      extraKeys: { "Ctrl-Q": function(cm){ cm.foldCode(cm.getCursor()); } },
       foldGutter: true,
       gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
     });

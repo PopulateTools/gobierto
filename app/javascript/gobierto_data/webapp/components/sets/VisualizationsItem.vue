@@ -24,11 +24,11 @@
           :show-label-edit="showLabelEdit"
           :reset-private="resetPrivate"
           @save="convertVizHandler"
-          @keyDownInput="updateVizName"
-          @handlerFork="handlerForkViz"
-          @isPrivateChecked="isPrivateChecked"
-          @showToggleConfig="showPromptSaveViz"
-          @handlerRevertViz="hidePromptSaveViz"
+          @key-down-input="updateVizName"
+          @handler-fork="handlerForkViz"
+          @is-private-checked="isPrivateChecked"
+          @show-toggle-config="showPromptSaveViz"
+          @handler-revert-viz="hidePromptSaveViz"
         />
       </div>
       <div
@@ -62,7 +62,7 @@
           :config-map="configMapZoom"
           :registration-disabled="registrationDisabled"
           :is-user-logged="isUserLogged"
-          @showSaving="showSavingDialog"
+          @show-saving="showSavingDialog"
         />
       </template>
     </div>
@@ -241,7 +241,7 @@ export default {
   mounted() {
     this.currentConfigChart = this.$refs.viewer.getConfig()
   },
-  beforeDestroy() {
+  beforeUnmount() {
     //Hide the string, and the buttons return to their initial state.
     this.$root.$emit("isVizModified", false);
     this.$root.$emit("showSavedVizString", false);

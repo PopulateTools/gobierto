@@ -14,7 +14,7 @@ window.GobiertoIndicators.IndicatorsController = (function() {
     function _loadIndicator() {
 
       // define the item component
-      Vue.component('item-tree', {
+      Vue.component('ItemTree', {
         props: ['model'],
         data: function() {
           return {
@@ -62,7 +62,7 @@ window.GobiertoIndicators.IndicatorsController = (function() {
       });
 
       // define the item view component
-      Vue.component('item-view', {
+      Vue.component('ItemView', {
         props: ['model'],
         data: function() {
           return {
@@ -108,7 +108,7 @@ window.GobiertoIndicators.IndicatorsController = (function() {
       });
 
       // define the item view wrap component
-      Vue.component('item-view-wrap', {
+      Vue.component('ItemViewWrap', {
         props: ['model'],
         data: function() {
           return {}

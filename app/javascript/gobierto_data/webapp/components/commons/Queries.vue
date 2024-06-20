@@ -4,7 +4,7 @@
       <div class="pure-u-1-2 gobierto-data-summary-queries-panel-dropdown">
         <template v-if="isUserLogged">
           <Dropdown @is-content-visible="showPrivateQueries = !showPrivateQueries">
-            <template v-slot:trigger>
+            <template #trigger>
               <h3 class="gobierto-data-summary-queries-panel-title">
                 <Caret :rotate="!showPrivateQueries" />
                 {{ labelYourQueries }} ({{ privateQueries.length }})
@@ -46,7 +46,7 @@
           </Dropdown>
         </template>
         <Dropdown @is-content-visible="showPublicQueries = !showPublicQueries">
-          <template v-slot:trigger>
+          <template #trigger>
             <h3 class="gobierto-data-summary-queries-panel-title">
               <Caret :rotate="showPublicQueries" />
 

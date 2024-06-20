@@ -2,9 +2,7 @@
 @import "purecss/build/pure-nr";
 @import "purecss/build/grids-responsive";
 @import "@fortawesome/fontawesome-free/css/all.css";
-
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
-
+@import "https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600";
 @import "modules/css-conf";
 @import "modules/populities";
 @import "modules/mixins";
@@ -16,14 +14,12 @@
 @import "modules/comp-header_block_inline";
 @import "modules/comp-social_buttons";
 @import "modules/defaults";
-
 @import "modules/comp-graph-dc";
 @import "modules/comp-graph-vis_population_pyramid";
 @import "modules/comp-indicator_widget";
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;400;700&display=swap');
+@import 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;400;700&display=swap';
 
 .gobierto_observatory {
-
   .sections-nav {
     float: left;
     z-index: 1;
@@ -56,7 +52,7 @@
     position: relative;
     float: left;
 
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
       margin-left: 3rem;
       width: calc(100% - 11rem);
     }
@@ -100,8 +96,8 @@
     margin-top: -2em;
     border-bottom: 1px solid #ebebeb;
 
-    @media (min-width: 768px) {
-      padding: 5em 0 4em 0;
+    @media (width >= 768px) {
+      padding: 5em 0 4em;
     }
   }
 
@@ -134,6 +130,7 @@
   .padded_cols.pure-g {
     @include min-screen(768) {
       width: calc(100% + 4em);
+
       // asumming 3 elements per col
 
       [class*="pure-u"]:nth-child(3n+1) {
@@ -273,8 +270,8 @@
       min-height: 90px;
       width: 200px;
       border: 1px solid #ccc;
-      box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 0 3px rgb(0 0 0 / 20%);
+      background: rgb(255 255 255 / 98%);
       font-size: 1em;
       color: #111;
       text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff;
@@ -431,7 +428,7 @@
     }
   }
 
-  @media (min-width: 768px) {
+  @media (width >= 768px) {
     .observatory_header {
       min-height: 55px;
     }

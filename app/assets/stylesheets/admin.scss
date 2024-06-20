@@ -2,7 +2,6 @@
 @import "purecss/build/pure-nr";
 @import "purecss/build/grids-responsive";
 @import "@fortawesome/fontawesome-free/css/all.css";
-
 @import "modules/css-conf";
 
 /* Override front fonts (defined in css-conf) */
@@ -18,9 +17,7 @@ $font_serif: 'Georgia, serif';
 @import "modules/comp-tipsy";
 @import "modules/comp-flash_messages";
 @import "modules/defaults-admin";
-
-@import url("https://fonts.googleapis.com/css?family=Libre+Franklin:200,400,700,600");
-
+@import "https://fonts.googleapis.com/css?family=Libre+Franklin:200,400,700,600";
 @import "modules/comp-indicator_widget";
 @import "modules/comp-tabs";
 @import "modules/comp-lists";
@@ -60,7 +57,7 @@ menu.main {
 }
 
 header.main {
-  margin: 0 0 1px 0;
+  margin: 0 0 1px;
   clear: both;
   position: fixed;
   width: 100%;
@@ -278,7 +275,7 @@ body.gobierto_admin {
 
   h1 {
     font-size: 1.8em;
-    margin: 0 0 1em 0;
+    margin: 0 0 1em;
   }
 
   h2 {
@@ -308,7 +305,7 @@ body.gobierto_admin {
   }
 
   .tabs {
-    margin: 0 0 2em 0;
+    margin: 0 0 2em;
 
     ul {
       li {
@@ -343,7 +340,7 @@ body.gobierto_admin {
 
 /* Forms modification */
 .admin_tools {
-  margin: 0 0 2em 0;
+  margin: 0 0 2em;
   font-size: 0.9em;
 
   .button,
@@ -397,6 +394,7 @@ body.gobierto_admin {
 /* Widget Save v2 */
 .widget_save_v2 {
   background: $color_neutral_soft;
+
   @include border-radius(6px);
 
   .w_s_content {
@@ -404,7 +402,7 @@ body.gobierto_admin {
   }
 
   .publication_section {
-    background: rgba(var(--color-base-string), 0.15);
+    background: rgb(var(--color-base-string) 0.15);
   }
 
   .w_actions {
@@ -413,6 +411,7 @@ body.gobierto_admin {
 
     > button {
       width: 49%;
+
       @include ellipsis;
     }
   }
@@ -491,12 +490,12 @@ pre {
   font-size: 0.85em;
   background: $color_separator;
   padding: 0.5em 1em;
-  margin: 1em 0 2em 0;
+  margin: 1em 0 2em;
 }
 
 .list_item,
 .list_item_with_editable_content {
-  margin: 0 0 0.5em 0;
+  margin: 0 0 0.5em;
   display: flex;
 
   .fa-bars {
@@ -516,8 +515,11 @@ pre {
     flex-grow: 10;
     background: $color_secondary;
     padding: 6px 12px;
+
     @include border-radius(4px);
+
     font-weight: 600;
+
     // width: calc(100% - 200px);
 
     label {
@@ -601,12 +603,12 @@ pre {
 }
 
 .user_field_container {
-  margin: 0 0 1em 0;
+  margin: 0 0 1em;
 
   @include border-radius(6px);
 
   border: 1px solid lighten($color_separator, 5%);
-  padding: 1.5em 2em 1em 2em;
+  padding: 1.5em 2em 1em;
 
   .field_item {
     font-weight: 600;
@@ -617,7 +619,7 @@ pre {
       height: initial;
       display: initial;
       padding: 0.25em 0.5em;
-      margin: 0 0 0.5em 0;
+      margin: 0 0 0.5em;
     }
   }
 
@@ -633,7 +635,7 @@ pre {
   margin-bottom: 5em;
 
   .globalize_tool {
-    margin: 0 0 1em 0;
+    margin: 0 0 1em;
     font-size: 0.9em;
 
     label {
@@ -652,11 +654,11 @@ pre {
 
       @include border-radius(3px);
 
-      background: rgba(var(--color-base-string), 0.1);
+      background: rgb(var(--color-base-string) 0.1);
     }
 
     a.locale_option:hover {
-      background: rgba(var(--color-base-string), 0.3);
+      background: rgb(var(--color-base-string) 0.3);
     }
 
     a.selected,
@@ -705,7 +707,7 @@ pre {
   @include border-radius(5px);
 
   font-size: 0.85em;
-  margin: 0 0 1em 0;
+  margin: 0 0 1em;
   display: inline-block;
 }
 
@@ -715,7 +717,7 @@ pre {
  */
 .activity_feed {
   .activity_item {
-    margin: 0 0 1.5em 0;
+    margin: 0 0 1.5em;
 
     h2 {
       text-transform: none;
@@ -739,7 +741,7 @@ pre {
       }
 
       a:hover {
-        background: rgba(var(--color-base-string), 0.06);
+        background: rgb(var(--color-base-string) 0.06);
       }
     }
 
@@ -781,7 +783,7 @@ a .global_menu {
       padding-left: 0;
 
       li {
-        border-top: 1px solid rgba(0, 144, 158, 0.15);
+        border-top: 1px solid rgb(0 144 158 / 15%);
         font-weight: 600;
         padding: 0.5em 0;
       }
@@ -793,7 +795,7 @@ a .global_menu {
       top: -0.35rem;
       left: -1.25rem;
       background: #f5f4f4;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 20px rgb(0 0 0 / 40%);
       border-radius: 4px;
       z-index: 1;
       padding: 0.75rem 1.25rem;
@@ -830,7 +832,7 @@ a .global_menu {
 }
 
 .file_browser {
-  background: rgba(var(--color-base-string), 0.06);
+  background: rgb(var(--color-base-string) 0.06);
   font-size: 0.85em;
   box-sizing: border-box;
   padding: 1em;
@@ -851,7 +853,7 @@ a .global_menu {
 
   li:hover {
     border-radius: 3px;
-    background: rgba(var(--color-base-string), 0.15);
+    background: rgb(var(--color-base-string) 0.15);
     cursor: pointer;
   }
 
@@ -863,7 +865,7 @@ a .global_menu {
 
 .template_editor {
   .template_editor_main_pane {
-    background: rgba(var(--color-base-string), 0.06);
+    background: rgb(var(--color-base-string) 0.06);
   }
 
   .action_buttons {
@@ -875,7 +877,7 @@ a .global_menu {
   }
 
   .code_editor {
-    background: rgba(var(--color-base-string), 0.06);
+    background: rgb(var(--color-base-string) 0.06);
     box-sizing: border-box;
     padding: 1em;
     min-height: 600px;
@@ -988,6 +990,7 @@ table {
 
 .border-el {
   border: 1px solid $color_separator;
+
   @include border-radius(6px);
 }
 
@@ -995,20 +998,21 @@ table {
 .v_container {
   .v_el {
     margin: 0 0 0 1.75em;
-    padding: 0.35em 0 0.15em 0;
+    padding: 0.35em 0 0.15em;
 
     .v_el {
-      border-top: 1px solid rgba(var(--color-base-string), 0.2);
+      border-top: 1px solid rgb(var(--color-base-string) 0.2);
       display: none;
     }
 
     .el-opened {
       display: block;
+
       // font-weight: bold;
     }
 
     .v_el:hover {
-      background: rgba(var(--color-base-string), 0.05);
+      background: rgb(var(--color-base-string) 0.05);
 
       .v_el:hover {
         background: transparentize(#fff, 0.5);
@@ -1051,9 +1055,9 @@ table {
   .v_el_level {
     @include border-radius(6px);
 
-    background: rgba(var(--color-base-string), 0.1);
+    background: rgb(var(--color-base-string) 0.1);
     padding: 0.75em 0 0.5em 0.8em;
-    margin: 0 0 1em 0;
+    margin: 0 0 1em;
 
     .icon-caret {
       font-size: 1.25em;
@@ -1062,7 +1066,7 @@ table {
 
     .list-group > .v_el_level {
       background: initial;
-      padding: 0.35em 0 0.15em 0;
+      padding: 0.35em 0 0.15em;
       margin: 0 0 0 1.75em;
       border-radius: 0;
 
@@ -1088,7 +1092,7 @@ table {
   }
 
   .v_heading {
-    margin: 0 0 1em 0;
+    margin: 0 0 1em;
 
     .v_el_decorated {
       flex-grow: 5;
@@ -1174,7 +1178,7 @@ table {
 
   .metric_progress_bar {
     background: $color_neutral_soft;
-    margin: 14px 0 0 0;
+    margin: 14px 0 0;
     width: 100%;
     height: 8px;
     border-radius: 8px;
@@ -1208,7 +1212,7 @@ a.f_soft,
   .g_popup {
     position: absolute;
     background: #f0f0f0;
-    box-shadow: 0 0 26px 0 rgba(0, 0, 0, 0.24);
+    box-shadow: 0 0 26px 0 rgb(0 0 0 / 24%);
     border-radius: 6px;
     padding: 1.5em;
     width: 25vw;
@@ -1234,7 +1238,7 @@ a.f_soft,
     }
 
     a:hover {
-      background: rgba(var(--color-base-string), 0.1);
+      background: rgb(var(--color-base-string) 0.1);
     }
   }
 

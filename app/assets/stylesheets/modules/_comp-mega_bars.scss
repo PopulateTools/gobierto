@@ -20,7 +20,7 @@
         }
       }
 
-      @media (min-width: 740px) {
+      @media (width >= 740px) {
         top: 30%;
       }
     }
@@ -28,25 +28,25 @@
     .filled {
       height: 200px;
 
-      @media (min-width: 740px) {
+      @media (width >= 740px) {
         height: 280px;
       }
     }
 
-    @media (min-width: 740px) {
+    @media (width >= 740px) {
       height: 280px;
       margin-bottom: 0;
     }
   }
 
   .bar.income {
-    background: rgba(var(--color-base-string), 0.1);
+    background: rgb(var(--color-base-string) 0.1);
 
     .label {
       left: 20px;
       text-shadow: -1px -1px 0 var(--color-base), 1px -1px 0 var(--color-base), -1px 1px 0 var(--color-base), 1px 1px 0 var(--color-base);
 
-      @media (min-width: 740px) {
+      @media (width >= 740px) {
         left: 40px;
       }
     }
@@ -55,7 +55,7 @@
       background: var(--color-base);
     }
 
-    @media (min-width: 740px) {
+    @media (width >= 740px) {
       margin-right: 0.5rem;
     }
   }
@@ -67,7 +67,7 @@
       left: 20px;
       text-shadow: -1px -1px 0 #f88f59, 1px -1px 0 #f88f59, -1px 1px 0 #f88f59, 1px 1px 0 #f88f59;
 
-      @media (min-width: 740px) {
+      @media (width >= 740px) {
         right: 40px;
         text-align: right;
 
@@ -80,12 +80,12 @@
     .filled {
       background: rgba(#f88f59, 1);
 
-      @media (min-width: 740px) {
+      @media (width >= 740px) {
         float: right;
       }
     }
 
-    @media (min-width: 740px) {
+    @media (width >= 740px) {
       margin-left: 0.5rem;
     }
   }

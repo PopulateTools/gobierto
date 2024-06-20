@@ -7,7 +7,7 @@
 
   @include screen(768) {
     &.m_2 {
-      margin: 0 0 1em 0;
+      margin: 0 0 1em;
     }
   }
 
@@ -18,7 +18,7 @@
 
     @include border-radius(2em);
 
-    background: rgba(var(--color-base-string), 0.2);
+    background: rgb(var(--color-base-string) 0.2);
     text-decoration: none;
     cursor: pointer;
 
@@ -28,13 +28,13 @@
   }
 
   a:hover {
-    background: rgba(var(--color-base-string), 0.3);
+    background: rgb(var(--color-base-string) 0.3);
     text-decoration: none;
   }
 
   a.active,
   a.active:hover {
-    border: 1px solid rgba(var(--color-base-string), 0.2);
+    border: 1px solid rgb(var(--color-base-string) 0.2);
     background: $color_main_negative;
   }
 
@@ -48,7 +48,7 @@
   }
 
   .separator_v {
-    margin: -0.25em 2em 0 2em;
+    margin: -0.25em 2em 0;
   }
 
   span.label {

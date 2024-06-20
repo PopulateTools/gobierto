@@ -1,7 +1,6 @@
 .gobierto-skeleton-spinner-container-squares {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  flex-flow: row wrap;
   justify-content: space-between;
   margin-bottom: .5rem;
 }
@@ -15,20 +14,18 @@
 
   &::after {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     transform: translateX(-100%);
     background-image: linear-gradient(
       90deg,
-      rgba(var(--color-base-string), .05),
-      rgba(var(--color-base-string), .1),
-      rgba(var(--color-base-string), .05)
+      rgb(var(--color-base-string) .05),
+      rgb(var(--color-base-string) .1),
+      rgb(var(--color-base-string) .05)
     );
     animation: shimmer 800ms cubic-bezier(0.36, 0, 0.66, -0.56) infinite;
     content: '';
   }
+
   @keyframes shimmer {
     100% {
       transform: translateX(100%);
@@ -40,7 +37,7 @@
   height: 1rem;
   width: 100%;
   margin-bottom: .5rem;
-  background-color: rgba(var(--color-base-string), .1);
+  background-color: rgb(var(--color-base-string) .1);
   display: block;
   border-radius: 4px;
 }
@@ -48,5 +45,5 @@
 .gobierto-skeleton-spinner-square {
   border-radius: 4px;
   height: 5rem;
-  background-color: rgba(var(--color-base-string), .1);
+  background-color: rgb(var(--color-base-string) .1);
 }

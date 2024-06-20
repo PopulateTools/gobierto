@@ -2,8 +2,8 @@
   <GridLayout
     v-if="widgets.length"
     ref="grid"
+    v-model:layout="widgets"
     class="dashboards-viewer"
-    :layout.sync="widgets"
     :col-num="columns"
     :row-height="itemHeight"
     :margin="margin"

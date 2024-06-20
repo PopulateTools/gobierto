@@ -38,7 +38,9 @@ export class GobiertoPlansController {
 
       new Vue({
         router,
-        data: { ...options, ...attrs, baseurl, dashboards: dashboards === 'true' },
+        data: function() {
+return { ...options, ...attrs, baseurl, dashboards: dashboards === 'true' };
+},
       }).$mount(entryPoint);
     }
   }

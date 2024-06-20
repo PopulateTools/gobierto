@@ -2,9 +2,7 @@
 @import "purecss/build/pure-nr";
 @import "purecss/build/grids-responsive";
 @import "@fortawesome/fontawesome-free/css/all.css";
-
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
-
+@import "https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600";
 @import "modules/css-conf";
 @import "modules/populities";
 @import "modules/mixins";
@@ -19,7 +17,6 @@
 @import "modules/comp-tipsy";
 @import "modules/comp-flash_messages";
 @import "modules/defaults";
-
 @import "modules/comp-metric_boxes";
 @import "modules/comp-indicator_widget";
 @import "modules/comp-graph-dc";

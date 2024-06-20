@@ -10,7 +10,7 @@
         class="gobierto-data-visualizations-name"
       >
         <CardVisualization>
-          <template v-slot:title>
+          <template #title>
             {{ name }}
           </template>
           <template v-if="config.base64">

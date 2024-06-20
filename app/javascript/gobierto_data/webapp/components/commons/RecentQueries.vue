@@ -38,7 +38,7 @@ export default {
   created() {
     document.addEventListener("keydown", this.onKeyDownNextRecentItem)
   },
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener("keydown", this.onKeyDownNextRecentItem)
   },
   methods: {

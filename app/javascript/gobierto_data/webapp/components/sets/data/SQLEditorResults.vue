@@ -35,8 +35,8 @@
           :show-private-public-icon-viz="showPrivatePublicIconViz"
           :registration-disabled="registrationDisabled"
           @save="convertVizHandler"
-          @keyDownInput="updateVizNameHandler"
-          @isPrivateChecked="isPrivateChecked"
+          @key-down-input="updateVizNameHandler"
+          @is-private-checked="isPrivateChecked"
         />
         <template v-if="moreThanOneFormat">
           <DownloadButton
@@ -87,7 +87,7 @@
         :config="config"
         :registration-disabled="registrationDisabled"
         :is-user-logged="isUserLogged"
-        @showSaving="showSavingDialog"
+        @show-saving="showSavingDialog"
       />
     </div>
   </div>

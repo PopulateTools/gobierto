@@ -185,6 +185,12 @@ export default {
     DataFactoryMixin,
     VisualizationFactoryMixin
   ],
+  beforeRouteEnter(to, from, next) {
+    const { name: nameComponent } = to;
+    next(vm => {
+      vm.showRevertQuery = nameComponent === "Query";
+    });
+  },
   props: {
     activeDatasetTab: {
       type: Number,
@@ -320,12 +326,6 @@ export default {
         this.parseUrl(queryId, sql)
       }
     }
-  },
-  beforeRouteEnter(to, from, next) {
-    const { name: nameComponent } = to;
-    next(vm => {
-      vm.showRevertQuery = nameComponent === "Query";
-    });
   },
   async created() {
     const {

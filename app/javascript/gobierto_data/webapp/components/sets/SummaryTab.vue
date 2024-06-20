@@ -26,7 +26,7 @@
       class="gobierto-data-summary-separator"
       @is-content-visible="showMap = !showMap"
     >
-      <template v-slot:trigger>
+      <template #trigger>
         <h2 class="gobierto-data-tabs-section-title">
           <Caret :rotate="showMap" />
           {{ labelMap }}
@@ -48,7 +48,7 @@
       class="gobierto-data-summary-separator"
       @is-content-visible="showYourQueries = !showYourQueries"
     >
-      <template v-slot:trigger>
+      <template #trigger>
         <h2 class="gobierto-data-tabs-section-title">
           <Caret :rotate="showYourQueries" />
           {{ labelQueries }}
@@ -74,7 +74,7 @@
         v-if="hasVisualizations"
         @is-content-visible="showYourVizs = !showYourVizs"
       >
-        <template v-slot:trigger>
+        <template #trigger>
           <h2 class="gobierto-data-tabs-section-title">
             <Caret :rotate="showYourVizs" />
             {{ labelVisualizations }}

@@ -4,11 +4,11 @@
   opacity: 0;
 
   .tooltip-content {
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%);
     padding: 0 0.25rem;
     position: relative;
     color: #000;
-    background: rgba(var(--color-base-string), 0.9);
+    background: rgb(var(--color-base-string) 0.9);
     border: 1px solid var(--color-base);
 
     &:empty {
@@ -43,7 +43,7 @@
       }
 
       &::after {
-        border-right-color: rgba(var(--color-base-string), 0.9);
+        border-right-color: rgb(var(--color-base-string) 0.9);
         margin-top: -5px;
       }
 
@@ -61,7 +61,7 @@
       }
 
       &::after {
-        border-top-color: rgba(var(--color-base-string), 0.9);
+        border-top-color: rgb(var(--color-base-string) 0.9);
         margin-left: -5px;
       }
 
@@ -79,7 +79,7 @@
       }
 
       &::after {
-        border-left-color: rgba(var(--color-base-string), 0.9);
+        border-left-color: rgb(var(--color-base-string) 0.9);
         margin-top: -5px;
       }
 
@@ -97,7 +97,7 @@
       }
 
       &::after {
-        border-bottom-color: rgba(var(--color-base-string), 0.9);
+        border-bottom-color: rgb(var(--color-base-string) 0.9);
         margin-left: -5px;
       }
 

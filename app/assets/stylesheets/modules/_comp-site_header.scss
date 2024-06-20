@@ -1,4 +1,5 @@
 @use "sass:color";
+
 header {
   // Header weights
   $fExtraLight: 200;
@@ -61,6 +62,7 @@ header {
       margin: 0;
 
       @include font(0.85em, $fExtraLight);
+
       color: $color_text;
 
       &:hover {
@@ -98,21 +100,22 @@ header {
     }
 
     .button-feed {
-      -webkit-appearance: none;
-      -moz-appearance: none;
+      appearance: none;
+      appearance: none;
       appearance: none;
       padding: 0 6px;
-      background: rgba(var(--color-base-string), 0.06);
+      background: rgb(var(--color-base-string) 0.06);
       text-transform: initial;
       border: 1px solid transparent;
 
       @include font($f7, $fBold);
+
       color: var(--color-base);
 
       @include border-radius(75px);
 
       &:hover {
-        background: rgba(var(--color-base-string), 0.25);
+        background: rgb(var(--color-base-string) 0.25);
       }
 
       i {
@@ -139,7 +142,7 @@ header {
       }
 
       .search-box_input {
-        border: 1px solid rgba(var(--color-base-string), 0.3);
+        border: 1px solid rgb(var(--color-base-string) 0.3);
         border-radius: 100px;
         width: 170px;
         height: 26px;
@@ -196,13 +199,13 @@ header {
       cursor: pointer;
 
       .button-container {
-        background-color: rgba(var(--color-base-string), 0.12);
+        background-color: rgb(var(--color-base-string) 0.12);
         color: var(--color-base);
         width: 19px;
         height: 15px;
 
         @include border-radius(1px);
-        @include flex-align();
+        @include flex-align;
       }
     }
 
@@ -242,7 +245,7 @@ header {
         align-items: center;
 
         .hamburger_container {
-          background-color: rgba(var(--color-base-string), 0.04);
+          background-color: rgb(var(--color-base-string) 0.04);
           float: right;
           width: 38px;
           height: 38px;
@@ -285,9 +288,10 @@ header {
         .site_header_slogan {
           padding: 0 0 0 2em;
           margin: 0 0 0 2em;
-          border-left: 1px solid rgba(var(--color-base-string), 0.06);
+          border-left: 1px solid rgb(var(--color-base-string) 0.06);
 
           @include font($f5, $fExtraLight);
+
           color: var(--color-base);
 
           span::before {
@@ -327,7 +331,7 @@ header {
     }
 
     .main-nav {
-      background-color: rgba(var(--color-base-string), 0.06);
+      background-color: rgb(var(--color-base-string) 0.06);
       cursor: pointer;
 
       .main-nav-item {
@@ -336,8 +340,7 @@ header {
         border-top: 5px solid transparent;
 
         &:hover {
-          border-top: 5px solid rgba(var(--color-base-string), 0.5);
-
+          border-top: 5px solid rgb(var(--color-base-string) 0.5);
           transition: all 0.15s ease-out 0s;
         }
 
@@ -358,6 +361,7 @@ header {
         text-transform: uppercase;
 
         @include font($f5, $fExtraLight);
+
         color: var(--color-base);
       }
     }
@@ -377,8 +381,7 @@ header {
         border-bottom: 2px solid transparent;
 
         &:hover {
-          border-bottom: 2px solid rgba(var(--color-base-string), 0.5);
-
+          border-bottom: 2px solid rgb(var(--color-base-string) 0.5);
           transition: all 0.15s ease-out 0s;
         }
 
@@ -397,6 +400,7 @@ header {
         text-transform: uppercase;
 
         @include font(1em, $fExtraLight);
+
         color: var(--color-base);
       }
     }
@@ -428,7 +432,7 @@ header {
         }
 
         a:hover {
-          border-bottom: 2px solid rgba(var(--color-base-string), 0.5);
+          border-bottom: 2px solid rgb(var(--color-base-string) 0.5);
           transition: all 0.15s ease-out 0s;
         }
       }
@@ -451,9 +455,9 @@ header {
             background-color: #fff;
 
             .submenu-dropdown {
-              background-color: rgba(var(--color-base-string), 0.04);
-              border-top: 1px solid rgba(var(--color-base-string), 0.2);
-              box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
+              background-color: rgb(var(--color-base-string) 0.04);
+              border-top: 1px solid rgb(var(--color-base-string) 0.2);
+              box-shadow: 0 8px 8px rgb(0 0 0 / 50%);
 
               @include border-radius(1px);
 
@@ -483,12 +487,12 @@ header {
       .navigation {
         display: none;
         min-height: calc(100vh - 90px);
-        background-color: rgba(var(--color-base-string), 0.06);
+        background-color: rgb(var(--color-base-string) 0.06);
         position: relative;
 
         .navigation-wrap {
           &:first-child {
-            border-top: 1px solid rgba(var(--color-base-string), 0.2);
+            border-top: 1px solid rgb(var(--color-base-string) 0.2);
             width: 100%;
 
             .main-nav-item {
@@ -515,6 +519,7 @@ header {
 
               a:not(.result) {
                 @include font($f5, $fBold);
+
                 color: var(--color-base);
               }
             }
@@ -524,7 +529,7 @@ header {
             background-color: #fff;
 
             .navigation-subitem {
-              background-color: rgba(var(--color-base-string), 0.04);
+              background-color: rgb(var(--color-base-string) 0.04);
 
               &.is-open {
                 display: block;
@@ -537,6 +542,7 @@ header {
                 margin: 0 1rem;
 
                 @include font(0.85em, $fExtraLight);
+
                 color: $color_text;
 
                 .secondary_nav {
@@ -557,12 +563,14 @@ header {
                   text-decoration: underline;
 
                   @include font(0.85em, $fRegular);
+
                   color: var(--color-base);
                 }
 
                 .account-details {
                   a {
                     @include font(1.125em, $fSemibold);
+
                     color: var(--color-base);
                   }
 
@@ -584,6 +592,7 @@ header {
                 text-decoration: underline;
 
                 @include font(0.85em, $fRegular);
+
                 color: var(--color-base);
 
                 &:hover {
@@ -599,6 +608,7 @@ header {
                 text-decoration: underline;
 
                 @include font(0.85em, $color_text, $fRegular);
+
                 color: $color_text;
               }
             }
@@ -629,7 +639,6 @@ header {
 
   @include breakpoint(sm) {
     .site_header {
-
       // @component
       .search-box {
         .search-box_input {
@@ -685,7 +694,7 @@ header {
       }
 
       .main-nav {
-        border-top: 1px solid rgba(var(--color-base-string), 0.2);
+        border-top: 1px solid rgb(var(--color-base-string) 0.2);
 
         &.nav {
           display: none;

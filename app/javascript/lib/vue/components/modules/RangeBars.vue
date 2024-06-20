@@ -97,7 +97,7 @@ export default {
     this.selectedMax = this.savedMax || this.max;
     this.getRangeSlider()
   },
-  beforeDestroy() {
+  beforeUnmount() {
     // https://vuejs.org/v2/cookbook/avoiding-memory-leaks.html
     this.rangeSlider.destroy()
   },

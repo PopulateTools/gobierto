@@ -42,7 +42,7 @@
       font-size: $f4;
       text-transform: uppercase;
       color: var(--grey-color-title);
-      border-bottom: 1px solid rgba(0, 0, 0, .1);
+      border-bottom: 1px solid rgb(0 0 0 / 10%);
       margin-bottom: .5rem;
       padding-bottom: .25rem;
       display: inline-block;
@@ -76,7 +76,7 @@
 
     .second-row {
       font-size: $f3;
-      color: rgba(var(--blue-text-legend-str), .5);
+      color: rgb(var(--blue-text-legend-str) .5);
       display: block;
     }
   }
@@ -114,7 +114,7 @@
 
   .line-percentage_year {
     stroke-width: 2px;
-    stroke: rgba(var(--blue-line-str), .3);
+    stroke: rgb(var(--blue-line-str) .3);
   }
 
   .domain {
@@ -136,7 +136,6 @@
 
   .axis-y {
     .tick {
-
       line {
         stroke: var(--grey-axis-line);
       }

@@ -17,8 +17,8 @@
       :sub-items="dataGroupIntermedia"
       :total-items="totalElements"
       :table-header="showTableHeader"
-      @filterChildren="agrupacioDataFilter"
-      @loadTable="loadTable"
+      @filter-children="agrupacioDataFilter"
+      @load-table="loadTable"
     />
   </div>
 </template>

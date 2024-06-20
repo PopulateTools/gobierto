@@ -12,7 +12,7 @@ $arrow-size: 5px;
   .dropdown-inner {
     padding: $space 3 * $space;
     font-weight: 200;
-    background-color: rgba(var(--color-base-string), 0.1);
+    background-color: rgb(var(--color-base-string) 0.1);
     background-image: linear-gradient(45deg, transparent 50%, var(--color-base) 50%), linear-gradient(135deg, var(--color-base) 50%, transparent 50%);
     background-position: calc(100% - #{2 * $space} - #{$arrow-size}) 50%, calc(100% - #{2 * $space}) 50%;
     background-size: $arrow-size $arrow-size, $arrow-size $arrow-size;
@@ -57,13 +57,13 @@ $arrow-size: 5px;
     .dropdown-items.default * {
       display: block;
       font-weight: 200;
-      border-top: 1px solid rgba(var(--color-base-string), 0.15);
-      background-color: rgba(var(--color-base-string), 0.06);
+      border-top: 1px solid rgb(var(--color-base-string) 0.15);
+      background-color: rgb(var(--color-base-string) 0.06);
       padding: 2 * $space 3 * $space $space;
 
       &:hover {
         transition: all 0.15s ease-out 0s;
-        background-color: rgba(var(--color-base-string), 0.1);
+        background-color: rgb(var(--color-base-string) 0.1);
       }
     }
   }

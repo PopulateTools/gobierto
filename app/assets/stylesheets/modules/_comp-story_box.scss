@@ -9,7 +9,7 @@
       background-repeat: no-repeat;
       background-position: center;
 
-      @media (min-width: 740px) {
+      @media (width >= 740px) {
         height: 360px;
       }
     }
@@ -33,7 +33,7 @@
       &:hover,
       &:focus,
       &:active {
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 2px 0 rgb(0 0 0 / 10%);
       }
     }
   }
@@ -46,9 +46,9 @@
     margin-right: 0;
   }
 
-  @media (max-width: 740px) {
+  @media (width <= 740px) {
     .story_box .inner {
-      margin: 0 0 1em 0;
+      margin: 0 0 1em;
     }
   }
 }

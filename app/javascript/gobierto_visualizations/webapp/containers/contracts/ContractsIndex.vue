@@ -48,7 +48,7 @@ export default {
     this.columns = contractsColumns;
     this.showColumns = ['assignee', 'title', 'gobierto_start_date', 'final_amount_no_taxes']
   },
-  beforeDestroy(){
+  beforeUnmount(){
     EventBus.$off('refresh-summary-data');
   },
   methods: {

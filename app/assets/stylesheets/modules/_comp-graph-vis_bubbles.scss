@@ -1,4 +1,5 @@
 @use "sass:color";
+
 .vis-bubbles {
   position: relative;
   margin-bottom: 0;
@@ -16,7 +17,7 @@
     min-width: 200px;
     max-width: 250px;
     border: 1px solid #979797;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 10%);
     border-radius: 4px;
 
     .line-name {
@@ -35,19 +36,16 @@
       }
     }
 
-    @media (max-width: 590px) {
+    @media (width <= 590px) {
       position: fixed;
-      bottom: -1px;
+      inset: auto -1px -1px;
       width: calc(96%);
       width: auto !important;
-      left: -1px !important;
-      right: -1px !important;
-      top: auto !important;
       max-width: none;
     }
   }
 
-  @media (min-width: 740px) {
+  @media (width >= 740px) {
     .tooltip::before {
       border-radius: 2px;
       position: absolute;
@@ -101,7 +99,7 @@
     text {
       fill: var(--color-base);
       font-weight: 600;
-      text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7), -1px -1px 0 rgba(255, 255, 255, 0.7), -1px 1px 0 rgba(255, 255, 255, 0.7), 1px -1px 0 rgba(255, 255, 255, 0.7);
+      text-shadow: 1px 1px 0 rgb(255 255 255 / 70%), -1px -1px 0 rgb(255 255 255 / 70%), -1px 1px 0 rgb(255 255 255 / 70%), 1px -1px 0 rgb(255 255 255 / 70%);
     }
 
     .legend-label {

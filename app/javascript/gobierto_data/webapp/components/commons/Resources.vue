@@ -4,7 +4,7 @@
     class="gobierto-data-summary-resources"
   >
     <Dropdown @is-content-visible="showResources = !showResources">
-      <template v-slot:trigger>
+      <template #trigger>
         <h2 class="gobierto-data-tabs-section-title">
           <Caret :rotate="showResources" />
           {{ labelResources }}

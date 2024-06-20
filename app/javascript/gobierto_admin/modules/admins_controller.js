@@ -17,23 +17,23 @@ window.GobiertoAdmin.AdminsController = (function() {
       $siteCheckboxes.click(function() {
         var siteId = $(this).attr('data-site-id');
         var $siteAdminGroups = $("[data-class='site_admin_group'][data-site-id='" + siteId + "']");
-        var $adminGroups =  $("[data-class='site_admin_group']");
+        var $adminGroups = $("[data-class='site_admin_group']");
 
         if (this.checked) {
-          if ($siteAdminGroups.length > 0)  { $('#admin_groups').show('slow'); }
+          if ($siteAdminGroups.length > 0) { $('#admin_groups').show('slow'); }
 
           $siteAdminGroups.show('slow');
         } else {
           $siteAdminGroups.hide('slow');
 
-          if ($siteAdminGroups.length == $adminGroups.length)  { $('#admin_groups').hide('slow'); }
+          if ($siteAdminGroups.length == $adminGroups.length) { $('#admin_groups').hide('slow'); }
         }
       });
     }
 
     function _addChangeAuthorizationLevelBehaviors() {
-      var $regular  = $("[data-behavior='authorization-level-regular']");
-      var $manager  = $("[data-behavior='authorization-level-manager']");
+      var $regular = $("[data-behavior='authorization-level-regular']");
+      var $manager = $("[data-behavior='authorization-level-manager']");
       var $disabled = $("[data-behavior='authorization-level-disabled']");
 
       $regular.click(function() {

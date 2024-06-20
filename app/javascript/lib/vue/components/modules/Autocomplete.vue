@@ -87,7 +87,7 @@ export default {
   mounted() {
     document.addEventListener("click", this.handleClickOutside);
   },
-  destroyed() {
+  unmounted() {
     document.removeEventListener("click", this.handleClickOutside);
   },
   methods: {

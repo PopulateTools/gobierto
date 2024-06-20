@@ -8,7 +8,7 @@
     position: relative;
 
     &.is-sticky {
-      position: -webkit-sticky;
+      position: sticky;
       position: sticky;
       z-index: 100;
       opacity: initial;

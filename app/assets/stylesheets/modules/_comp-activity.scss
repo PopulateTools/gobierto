@@ -8,7 +8,7 @@
   padding-left: 50px;
 
   .activity_item {
-    margin: 0 0 1.5em 0;
+    margin: 0 0 1.5em;
 
     h2 {
       margin: 0;
@@ -30,7 +30,7 @@
       }
 
       a:hover {
-        background: rgba(var(--color-base-string), 0.06);
+        background: rgb(var(--color-base-string) 0.06);
       }
     }
 

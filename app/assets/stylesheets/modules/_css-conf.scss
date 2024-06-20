@@ -1,4 +1,5 @@
 @use "sass:color";
+
 /*
  * CSS Conf
  *
@@ -26,12 +27,10 @@ $color_neutral_soft: #f5f4f4;
 $color_highlight: #f1f4be;
 $color_meta_text: #a5a5a5;
 $text_soft: $color_meta_text;
-
 $color_facebook: #3a589a;
 $color_twitter: #00abef;
 $color_link: #276d97;
 $color_headers: #676767;
-
 $separator: #f0f0f0;
 $separator_dark: rgba(#979797, 0.5);
 
@@ -39,7 +38,6 @@ $separator_dark: rgba(#979797, 0.5);
 $color_logo_yellow: #f8b206;
 $color_logo_pink: #f39b95;
 $color_logo_blue: #388f9c;
-
 $test_color: color.adjust($color_logo_yellow, $alpha: -0.8);
 $color_warn: #981f2e;
 $color_success: #2ca25f;

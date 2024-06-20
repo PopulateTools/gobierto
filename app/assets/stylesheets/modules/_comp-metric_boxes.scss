@@ -4,13 +4,13 @@
  */
 
 .metric_boxes {
-  margin: 0 0 3em 0;
+  margin: 0 0 3em;
 
   .metric_box {
     box-sizing: border-box;
 
     .inner {
-      background: rgba(var(--color-base-string), 0.15);
+      background: rgb(var(--color-base-string) 0.15);
       margin: 0 0.5em;
       padding: 0.8em 1em;
       min-height: 100px;
@@ -23,7 +23,7 @@
 
     h3 {
       color: var(--color-base);
-      margin: 0 0 0.75em 0;
+      margin: 0 0 0.75em;
       font-size: 1em;
       opacity: 0.6;
       font-weight: 600;
@@ -80,7 +80,7 @@
       width: 25%;
       opacity: 1;
       height: 10px;
-      background: rgba(var(--color-base-string), 0.1);
+      background: rgb(var(--color-base-string) 0.1);
       margin-right: 0.25rem;
 
       .line {
@@ -135,7 +135,7 @@
 .metric_boxes_detailed {
   .metric_box {
     .inner {
-      padding: 0.8em 1em 2em 1em;
+      padding: 0.8em 1em 2em;
 
       .metric_details {
         margin: 1em 0;
@@ -164,7 +164,7 @@
 
 @include screen(740) {
   .metric_boxes {
-    margin: 0 0 2em 0;
+    margin: 0 0 2em;
 
     .metric_box {
       .inner {

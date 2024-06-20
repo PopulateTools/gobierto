@@ -9,7 +9,7 @@
       class="investments-home-main--table"
       @on-href-click="handleClick"
     >
-      <template v-slot:pagination="{ paginator, data }">
+      <template #pagination="{ paginator, data }">
         <ShowAll
           v-if="items.length > maxItems"
           :key="createHash(data)"

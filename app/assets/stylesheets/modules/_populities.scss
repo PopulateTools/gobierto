@@ -10,45 +10,52 @@
   */
 
 .clearfix, %clearfix {
-
-  &:after, &:before {
+  &::after, &::before {
     content: '';
     display: table;
   }
 
-  &:after {
+  &::after {
     clear: both;
   }
 }
+
 .clear_b {
   clear: both;
 }
+
 .col-1-2, .col-2-2 {
   width: 48%;
   float: left;
   margin: 0 4% 0 0;
   text-align: center;
 }
+
 .col-2-2 {
   float: right;
   margin: 0;
 }
+
 .col-1-3, .col-2-3, .col-3-3 {
   width: 32%;
   float: left;
   margin: 0 2% 0 0;
   text-align: center;
 }
+
 .col-3-3 {
   float: right;
   margin: 0;
 }
+
 .left {
   text-align: left;
 }
+
 .right {
   text-align: right;
 }
+
 .center {
   text-align: center;
 }
@@ -60,19 +67,24 @@
 .ib, .inline {
   display: inline-block;
 }
+
 .f_left {
   float: left;
 }
+
 .f_right {
   float: right;
 }
+
 .absolute_right {
   position: absolute;
   right: 0;
 }
+
 .hidden, .soft_hidden {
   display: none;
 }
+
 /* From https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L128 */
 .screen-hidden {
   position: absolute;
@@ -81,18 +93,23 @@
   height: 1px; width: 1px;
   margin: -1px; padding: 0; border: 0;
 }
+
 .fixed {
   position: fixed;
 }
+
 .soft {
   opacity: .5;
 }
+
 .v_top {
   vertical-align: top;
 }
+
 .no_wrap {
   white-space: nowrap;
 }
+
 .strong {
   font-weight: 700;
 }
@@ -100,142 +117,183 @@
 .p_0_5 {
   padding: 0.5em;
 }
+
 .p_1 {
   padding: 1em;
 }
+
 .p_2 {
   padding: 2em;
 }
+
 .p_3 {
   padding: 3em;
 }
+
 .p_4 {
   padding: 4em;
 }
+
 .m_0 {
   margin: 0;
 }
+
 .m_1 {
   margin: 1em;
 }
+
 .m_2 {
   margin: 2em;
 }
+
 .m_3 {
   margin: 3em;
 }
+
 .m_4 {
   margin: 4em;
 }
+
 .p_h_1 {
   padding: 0 1em;
   box-sizing: border-box;
 }
+
 .p_h_2 {
   padding: 0 2em;
   box-sizing: border-box;
 }
+
 .p_h_3 {
   padding: 0 3em;
   box-sizing: border-box;
 }
+
 .p_h_4 {
   padding: 0 4em;
   box-sizing: border-box;
 }
+
 .p_v_1 {
   padding: 1em 0;
   box-sizing: border-box;
 }
+
 .p_v_2 {
   padding: 2em 0;
   box-sizing: border-box;
 }
+
 .p_v_3 {
   padding: 3em 0;
   box-sizing: border-box;
 }
+
 .p_v_4 {
   padding: 4em 0;
   box-sizing: border-box;
 }
+
 .m_v_0 {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
+
 .m_v_0_25 {
   margin: .25em 0 !important;
 }
+
 .m_v_1 {
   margin: 1em 0 !important;
 }
+
 .m_v_2 {
   margin: 2em 0 !important;
 }
+
 .m_v_3 {
   margin: 3em 0 !important;
 }
+
 .m_v_4 {
   margin: 4em 0 !important;
 }
+
 .p_h_r_0_5 {
   padding: 0 0.5em 0 0;
   box-sizing: border-box;
 }
+
 .m_t_0 {
   margin-top: 0;
 }
+
 .m_t_1 {
   margin-top: 1em;
 }
+
 .m_t_0_5 {
   margin-top: 0.5em;
 }
+
 .m_t_2 {
   margin-top: 2em;
 }
+
 .m_t_3 {
   margin-top: 3em;
 }
+
 .m_t_4 {
   margin-top: 4em;
 }
+
 .m_b_1 {
-  margin: 0 0 1em 0;
+  margin: 0 0 1em;
 }
+
 .m_b_2 {
-  margin: 0 0 2em 0;
+  margin: 0 0 2em;
 }
+
 .m_b_3 {
-  margin: 0 0 3em 0;
+  margin: 0 0 3em;
 }
+
 .m_b_4 {
-  margin: 0 0 4em 0;
+  margin: 0 0 4em;
 }
+
 .p_h_r_0_25 {
   padding: 0 0.25em 0 0;
   box-sizing: border-box;
 }
+
 .p_h_r_1 {
   padding: 0 1em 0 0;
   box-sizing: border-box;
 }
+
 .p_h_r_2 {
   padding: 0 2em 0 0;
   box-sizing: border-box;
 }
+
 .p_h_r_3 {
   padding: 0 3em 0 0;
   box-sizing: border-box;
 }
+
 .p_h_l_1 {
   padding: 0 0 0 1em;
   box-sizing: border-box;
 }
+
 .p_h_l_2 {
   padding: 0 0 0 2em;
   box-sizing: border-box;
 }
+
 .p_h_l_3 {
   padding: 0 0 0 3em;
   box-sizing: border-box;
@@ -262,6 +320,7 @@ properties.
     padding: 0;
     list-style: none;
   }
+
   li {
     display: inline-block;
   }
@@ -269,10 +328,12 @@ properties.
 
 @mixin after_separator($separator, $margin_after: 0) {
   ul {
-    li:not(:last-child):after {
+    li:not(:last-child)::after {
       content: $separator;
+
       @if $margin_after != false { margin-right: $margin_after}
     }
+
     @if $margin_after != false {
       li a {
         padding-right: $margin_after
@@ -283,22 +344,27 @@ properties.
 
 @mixin size($width, $height: $width) {
   @if $width  != false { width: $width; }
+
   @if $height != false { height: $height; }
 }
 
 @mixin position($top, $right, $bottom, $left) {
   position: absolute;
+
   @if $top    != false { top: $top; }
+
   @if $right  != false { right: $right; }
+
   @if $bottom != false { bottom: $bottom; }
+
   @if $left   != false { left: $left; }
 }
 
 @mixin placeholder($color) {
-  &::-webkit-input-placeholder       { color: $color; }
-  &:-moz-placeholder                 { color: $color; }
-  &:focus::-webkit-input-placeholder { color: lighten($color, 20%); }
-  &:focus:-moz-placeholder           { color: lighten($color, 20%); }
+  &::input-placeholder       { color: $color; }
+  &:placeholder                 { color: $color; }
+  &:focus::input-placeholder { color: lighten($color, 20%); }
+  &:focus:placeholder           { color: lighten($color, 20%); }
 }
 
 @mixin ellipsis {
@@ -318,15 +384,18 @@ properties.
 }
 
 @mixin keyframes( $animationName ) {
-    @-webkit-keyframes $animationName {
+    @keyframes $animationName {
         @content;
     }
-    @-moz-keyframes $animationName {
+
+    @keyframes $animationName {
         @content;
     }
-    @-o-keyframes $animationName {
+
+    @keyframes $animationName {
         @content;
     }
+
     @keyframes $animationName {
         @content;
     }
@@ -342,22 +411,20 @@ properties.
   display: block;
   position: absolute;
   height: 0; width: 0;
-  @if ($direction == 'up'){
+
+  @if $direction == 'up'{
     border-bottom: $size solid $color;
     border-left: $size solid transparent;
     border-right: $size solid transparent;
-  }
-  @else if ($direction == 'down'){
+  } @else if $direction == 'down'{
     border-top: $size solid $color;
     border-left: $size solid transparent;
     border-right: $size solid transparent;
-  }
-  @else if ($direction == 'left'){
+  } @else if $direction == 'left'{
     border-top: $size solid transparent;
     border-bottom: $size solid transparent;
     border-right: $size solid $color;
-  }
-  @else if ($direction == 'right'){
+  } @else if $direction == 'right'{
     border-top: $size solid transparent;
     border-bottom: $size solid transparent;
     border-left: $size solid $color;
@@ -396,20 +463,16 @@ $units: 1px !default;
 
 // border radius; https://github.com/akorman/border-radius-sass/
 @mixin border-radius($a: false, $b: false, $c: false, $d: false, $top-left: 0, $top-right: 0, $bottom-right: 0, $bottom-left: 0, $top: false, $bottom: false, $right: false, $left: false, $radius: false) {
-
   // Handle shorthand notation like CSS3 would
   // You shouldn't explictly set these variables when calling the mixin
-  @if $d { $radius: $a $b $c $d; }
-  @else if $c { $radius: $a $b $c; }
-  @else if $b { $radius: $a $b; }
-  @else if $a { $radius: $a; }
-
-  @else {
-
+  @if $d { $radius: $a $b $c $d; } @else if $c { $radius: $a $b $c; } @else if $b { $radius: $a $b; } @else if $a { $radius: $a; } @else {
     // Target individual corners (or groups) instead of using CSS3 shorthand
     @if $top { $top-left: $top; $top-right: $top; }
+
     @if $bottom { $bottom-right: $bottom; $bottom-left: $bottom; }
+
     @if $left { $top-left: $left; $bottom-left: $left; }
+
     @if $right { $top-right: $right; $bottom-right: $right; }
 
     // Set the radius
@@ -417,9 +480,9 @@ $units: 1px !default;
   }
 
   // Webkit, Mozilla, KHTML and standard CSS3
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-  -khtml-border-radius: $radius;
+  border-radius: $radius;
+  border-radius: $radius;
+  border-radius: $radius;
   border-radius: $radius;
 
 }
@@ -435,7 +498,7 @@ $units: 1px !default;
 }
 
 @mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
-  @if ($inset != "") {
+  @if $inset != "" {
     @include css3-prefix('box-shadow', $inset $x $y $blur $color);
   } @else {
     @include css3-prefix('box-shadow', $x $y $blur $color);
@@ -444,10 +507,10 @@ $units: 1px !default;
 
 
 @mixin placeholder {
-  ::-webkit-input-placeholder {@content}
-  :-moz-placeholder           {@content}
-  ::-moz-placeholder          {@content}
-  :-ms-input-placeholder      {@content}
+  ::input-placeholder {@content}
+  :placeholder           {@content}
+  ::placeholder          {@content}
+  :input-placeholder      {@content}
 }
 
 
@@ -457,16 +520,21 @@ $units: 1px !default;
     padding: 0;
     list-style: none;
   }
+
   ul {
     border-bottom: 1px solid $border;
     padding: 0 10px;
   }
+
   li {
     display: inline-block;
     height: 25px;
+
     a {
       display: block;
+
       @include border-radius(6px, 6px, 0, 0);
+
       border: 1px solid $border;
       margin: 0 10px 0 0;
       padding: 6px 10px 4px;
@@ -474,18 +542,22 @@ $units: 1px !default;
       text-decoration: none;
       transition: all 0.15s ease-out 0s;
     }
+
     a:hover {
       background: $background;
       color: $text_on_background;
     }
   }
+
   li.active a {
     background: $background;
     color: $text_on_background;
   }
+
   .tab {
     display: none;
   }
+
   .tab.active {
     display: block;
   }
@@ -512,22 +584,27 @@ $units: 1px !default;
   .desktop_only {
     display: none;
   }
+
   .desktop_only_reset {
     display: none;
   }
+
   .mobile_only {
     display: block;
     width: 100%;
   }
 }
+
 @include min-screen(741) {
   .desktop_only {
     width: 100%;
     display: block;
   }
+
   .desktop_only_reset {
     display: block;
   }
+
   .mobile_only {
     display: none;
   }
@@ -541,10 +618,12 @@ $units: 1px !default;
    width: calc(100% + 2em);
   }
 }
+
 .padded_cols {
   [class*="pure-u"] {
     box-sizing: border-box;
   }
+
   .padded {
     height: 100%;
 
@@ -552,16 +631,20 @@ $units: 1px !default;
       margin: 1em;
     }
   }
+
   [class*="pure-u"]:first-child {
     margin-left: -1em;
   }
 
 }
+
 .padded_cols.example {
   background: transparentize(#CCC, .1);
+
   [class*="pure-u"] {
     background: #DFDFDF;
   }
+
   .padded {
     background: green;
     color: #FFF;

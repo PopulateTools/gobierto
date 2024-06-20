@@ -2,13 +2,13 @@
  * Forms
  *
  */
-input[type=text],
-input[type=email],
-input[type=number],
-input[type=submit],
-input[type=password],
-input[type=color],
-input[type=file],
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="submit"],
+input[type="password"],
+input[type="color"],
+input[type="file"],
 .button,
 button,
 select,
@@ -28,7 +28,7 @@ textarea {
 
   @include screen(740) {
     width: 100%;
-    margin: 0 0 1em 0;
+    margin: 0 0 1em;
   }
 }
 
@@ -48,34 +48,34 @@ textarea {
   }
 
   /* Internet Explorer 10-11 */
-  &:-ms-input-placeholder {
+  &:input-placeholder {
     opacity: $placeholder-opacity;
   }
 
   /* Microsoft Edge */
-  &::-ms-input-placeholder {
+  &::input-placeholder {
     opacity: $placeholder-opacity;
   }
 }
 
-input[type=text].slim,
-input[type=email].slim {
+input[type="text"].slim,
+input[type="email"].slim {
   height: auto;
   padding: 0.25em;
 }
 
-input[type=text]:focus,
-input[type=email]:focus,
-input[type=submit]:focus,
-input[type=password]:focus,
-input[type=file]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="submit"]:focus,
+input[type="password"]:focus,
+input[type="file"]:focus,
 .button:focus,
 button:focus,
 select:focus,
 textarea:focus {
   border-color: #51a7e8;
   outline: none;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(81, 167, 232, 0.5);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 7.5%), 0 0 5px rgb(81 167 232 / 50%);
   background: #fff;
 }
 
@@ -84,7 +84,7 @@ textarea:focus {
 .select_control,
 .file_field {
   position: relative;
-  margin: 0 0 2em 0;
+  margin: 0 0 2em;
 
   label {
     z-index: 1;
@@ -132,9 +132,9 @@ textarea:focus {
     height: 300px;
   }
 
-  input[type=password] {
+  input[type="password"] {
     height: 67px;
-    padding: 1.5rem 1rem 0.25rem 1rem;
+    padding: 1.5rem 1rem 0.25rem;
   }
 }
 
@@ -156,6 +156,7 @@ textarea:focus {
 .select_control.select_compact,
 .form_item.input_text.compact {
   font-size: 0.85em;
+
   // margin: 0 0 0.5em 0;
   margin: 0;
 
@@ -185,9 +186,9 @@ textarea:focus {
 
   @include border-radius(6px);
 
-  padding: 2.5em 1em 1em 1em;
+  padding: 2.5em 1em 1em;
 
-  input[type=file] {
+  input[type="file"] {
     padding: 0;
     border: 0;
     height: initial;
@@ -199,7 +200,7 @@ textarea:focus {
   }
 }
 
-input[type=submit],
+input[type="submit"],
 .button,
 button {
   transition: all 0.15s ease-out 0s;
@@ -216,7 +217,7 @@ button {
 }
 
 // TODO
-input[type=submit].button {
+input[type="submit"].button {
   border: 0 !important;
   height: initial !important;
   padding: 1em 2em !important;
@@ -224,13 +225,13 @@ input[type=submit].button {
   font-weight: 700 !important;
 }
 
-input[type=submit]:hover,
+input[type="submit"]:hover,
 .button:hover,
 button:hover {
-  background: rgba(var(--color-base-string), 0.8);
+  background: rgb(var(--color-base-string) 0.8);
 }
 
-input[type=submit]:disabled,
+input[type="submit"]:disabled,
 .button:disabled,
 button:disabled {
   background: var(--color-base);
@@ -261,7 +262,7 @@ button {
 
 button.soft,
 .button.soft {
-  background: rgba(var(--color-base-string), 0.65);
+  background: rgb(var(--color-base-string) 0.65);
 }
 
 button.light,
@@ -287,7 +288,9 @@ button.medium,
 .button.medium {
   font-size: 0.85rem;
   padding: .65em 1em 0.5em;
+
   @include border-radius(4px);
+
   display: inline-block;
 }
 
@@ -297,6 +300,7 @@ button.small,
   padding: 0.45em 1em 0.3em;
   height: initial;
   line-height: 1.2em;
+
   // font-weight: 300;
   @include border-radius(4px);
 
@@ -305,14 +309,12 @@ button.small,
 
 button.light:hover,
 .button.light:hover {
-  background: rgba(var(--color-base-string), 0.2);
+  background: rgb(var(--color-base-string) 0.2);
 }
 
 .button_light {
-  background: rgba(var(--color-base-string), 0.2);
-
+  background: rgb(var(--color-base-string) 0.2);
   transition: all 0.15s ease-out 0s;
-
   font-size: 0.75em;
   text-decoration: none;
   padding: 0.5em 1.5em;
@@ -325,20 +327,20 @@ button.light:hover,
 }
 
 .button_light:hover {
-  background: rgba(var(--color-base-string), 0.3);
+  background: rgb(var(--color-base-string) 0.3);
   text-decoration: none;
 }
 
 button.outline,
 .button.outline {
   background: #fff;
-  border: 1px solid rgba(var(--color-base-string), 0.25);
+  border: 1px solid rgb(var(--color-base-string) 0.25);
   color: var(--color-base);
 }
 
 button.outline:hover,
 .button.outline:hover {
-  background: rgba(var(--color-base-string), 0.06);
+  background: rgb(var(--color-base-string) 0.06);
   text-decoration: none;
 }
 
@@ -425,7 +427,6 @@ input[type="radio"] + label {
   cursor: pointer;
   display: block;
   padding: 14px;
-
   transition: all 0.15s ease-out 0s;
 }
 
@@ -437,7 +438,7 @@ input[type="radio"] + label {
   span {
     display: block;
 
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
       display: inline-block;
       padding-right: 0.5em;
     }
@@ -446,12 +447,12 @@ input[type="radio"] + label {
   .button-group {
     width: 100%;
 
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
       width: auto;
     }
   }
 
-  @media (min-width: 768px) {
+  @media (width >= 768px) {
     width: auto;
     padding-right: 1em;
   }
@@ -484,7 +485,7 @@ input[type="radio"] + label {
   }
 
   .button-grouped + .button-grouped {
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
       margin-left: -5px;
     }
   }
@@ -493,13 +494,13 @@ input[type="radio"] + label {
     display: inline-block;
 
     &:first-child {
-      @media (min-width: 768px) {
+      @media (width >= 768px) {
         margin-right: -5px;
       }
     }
 
     &:last-child {
-      @media (min-width: 768px) {
+      @media (width >= 768px) {
         margin-left: -5px;
       }
     }
@@ -513,34 +514,28 @@ input[type="radio"] + label {
 
   // Workaround to avoid ERB files whitespace, when dynamic content
   .button-compact + .button-compact {
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
       margin-left: 0;
     }
   }
 
   .button-grouped:first-child {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
+    border-radius: 2px 0 0 2px;
     margin-left: 0;
   }
 
   .button-grouped:last-child {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
+    border-radius: 0 2px 2px 0;
   }
 
   .active {
     background: #f4f4f4;
-    box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 0 3px 0 rgb(0 0 0 / 25%);
   }
 }
 
 .inline_button {
-  background: rgba(var(--color-base-string), 0.1);
+  background: rgb(var(--color-base-string) 0.1);
   border-radius: 4px;
   color: var(--color-base);
   font-weight: 600;
@@ -551,7 +546,7 @@ input[type="radio"] + label {
   &:hover,
   &:active,
   &:focus {
-    background: rgba(var(--color-base-string), 0.15);
+    background: rgb(var(--color-base-string) 0.15);
     text-decoration: none;
   }
 }
@@ -587,7 +582,7 @@ input[type="radio"] + label {
 .button.outline.rounded.fat {
   padding: 0.75em 1.5em !important;
   border-radius: 30px !important;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 20%);
 
   &:focus,
   &:active,
@@ -618,12 +613,12 @@ input[type="radio"] + label span {
 input[type="checkbox"] + label:hover,
 input[type="radio"] + label:hover,
 .admin_new_el a:hover {
-  background: rgba(var(--color-base-string), 0.1);
+  background: rgb(var(--color-base-string) 0.1);
 }
 
 input[type="checkbox"]:checked + label,
 input[type="radio"]:checked + label {
-  background: rgba(var(--color-base-string), 0.2);
+  background: rgb(var(--color-base-string) 0.2);
 
   .password_protected {
     margin: 0.5em 0;
@@ -633,7 +628,7 @@ input[type="radio"]:checked + label {
     padding: 0 0 0 29px;
 
     p {
-      margin: 0 0 0.5em 0;
+      margin: 0 0 0.5em;
     }
 
     input {
@@ -658,8 +653,8 @@ input[type="radio"] + label span {
 }
 
 select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  appearance: none;
+  appearance: none;
   appearance: none;
   border: 0;
   cursor: pointer;
@@ -703,7 +698,7 @@ select {
   @include border-radius(6px);
 
   select {
-    margin: 1rem 0 0 0;
+    margin: 1rem 0 0;
     padding: 20px 0 13px 13px;
     height: 56px;
     outline: none;
@@ -724,7 +719,7 @@ select {
 }
 
 .options_cont {
-  margin: 0 0 1em 0;
+  margin: 0 0 1em;
 
   > label {
     margin: 0.5rem 1rem;
@@ -749,7 +744,7 @@ select {
   .options {
     .option {
       display: block;
-      margin: 0 0 1em 0;
+      margin: 0 0 1em;
     }
 
     .option_suboptions {
@@ -759,7 +754,7 @@ select {
 
   .options.options_cont {
     .option {
-      margin: 0 1em 1em 1em;
+      margin: 0 1em 1em;
       font-size: 0.85em;
       box-sizing: border-box;
     }
@@ -792,7 +787,7 @@ select {
     }
 
     .option_contextual {
-      background: rgba(var(--color-base-string), 0.2);
+      background: rgb(var(--color-base-string) 0.2);
       padding: 0.5em 1em 0.5em 2.5em;
       margin-left: calc(-0.5rem - 1px);
       margin-top: -1px;
@@ -858,23 +853,23 @@ select {
     padding: 0 1em 0 0;
   }
 
-  input[type=text] {
+  input[type="text"] {
     height: 40px;
     width: 300px;
   }
 
   @include screen(740) {
     text-align: center;
-    margin: 0 0 1em 0;
+    margin: 0 0 1em;
 
-    input[type=text] {
+    input[type="text"] {
       width: calc(100%);
       margin: 0;
     }
   }
 }
 
-.attach_file input[type=file] {
+.attach_file input[type="file"] {
   padding: 1em;
   height: auto;
 }
@@ -934,7 +929,7 @@ select {
   background: #fff;
   cursor: default;
   overflow: auto;
-  box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+  box-shadow: 1px 4px 3px rgb(50 50 50 / 64%);
 }
 
 .autocomplete-suggestion {
@@ -979,15 +974,15 @@ select {
 
 .actions_block {
   border-top: 1px solid $color_separator;
-  padding: 2em 0 0 0;
-  margin: 2em 0 0 0;
+  padding: 2em 0 0;
+  margin: 2em 0 0;
 }
 
 .follow_item {
   button,
   .button {
     width: 100%;
-    margin: 0.5em 0 1em 0;
+    margin: 0.5em 0 1em;
   }
 }
 
@@ -1018,7 +1013,7 @@ select {
     user-select: none;
 
     &:hover {
-      background: rgba(var(--color-base-string), 0.5) !important;
+      background: rgb(var(--color-base-string) 0.5) !important;
     }
   }
 
@@ -1030,10 +1025,7 @@ select {
   }
 
   label::before {
-    top: 1px;
-    left: 1px;
-    bottom: 1px;
-    right: 1px;
+    inset: 1px;
     background-color: #fff;
     border-radius: 60px;
     transition: background 0.4s;

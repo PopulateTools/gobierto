@@ -2,9 +2,7 @@
 @import "purecss/build/pure-nr";
 @import "purecss/build/grids-responsive";
 @import "@fortawesome/fontawesome-free/css/all.css";
-
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
-
+@import "https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600";
 @import "modules/css-conf";
 @import "modules/populities";
 @import "modules/mixins";
@@ -15,9 +13,8 @@
 @import "modules/comp-header_block_inline";
 @import "modules/comp-social_buttons";
 @import "modules/defaults";
-
 @import "modules/comp-vue-table";
-@import "modules/comp-horizontal-carousel.scss";
+@import "modules/comp-horizontal-carousel";
 @import "modules/comp-vue-block-checkbox";
 @import "modules/comp-vue-transitions";
 @import "magnific-popup/dist/magnific-popup.css";
@@ -378,7 +375,7 @@
         padding-left: $space * 0.5;
         padding-right: $space * 0.5;
         box-sizing: border-box;
-        background-color: rgba(var(--color-base-string), 0.1);
+        background-color: rgb(var(--color-base-string) 0.1);
       }
 
       input[type="checkbox"]:checked + label::before {
@@ -390,7 +387,7 @@
 
     // TODO: eliminar cuando se use el componente filtros
     &--calendar-button {
-      background-color: rgba(var(--color-base-string), 0.1);
+      background-color: rgb(var(--color-base-string) 0.1);
       border-radius: 4px;
       padding: 6px;
       cursor: pointer;
@@ -572,6 +569,7 @@
 
     &--photo {
       @include aspect-ratio(16, 9);
+
       background-color: $color_neutral_soft;
 
       img {
@@ -731,14 +729,14 @@
       $opacity: nth($ranges-opacity, $i);
 
       &--item:nth-child(#{$i}) &--heading {
-        background-color: rgba(var(--color-base-string), $opacity);
+        background-color: rgb(var(--color-base-string) $opacity);
 
         &::before {
           border-left-color: white;
         }
 
         &::after {
-          border-left-color: rgba(var(--color-base-string), $opacity);
+          border-left-color: rgb(var(--color-base-string) $opacity);
         }
       }
     }
@@ -785,7 +783,6 @@
 }
 
 .investments_tour {
-
   .map-flyto-container {
     height: 100%;
     width: 100%;
@@ -812,6 +809,7 @@
     font-weight: normal;
     padding: .5em 1em;
     max-width: 170px;
+
     @include screen(768) {
       max-width: 130px;
       font-size: 12px;
@@ -829,7 +827,6 @@
   }
 
   .btn-back-tour-virtual {
-
     .icon {
       padding-left: .5em;
     }
@@ -857,6 +854,7 @@
     right: 16px;
     width: 20%;
     min-width: 250px;
+
     @include screen(768) {
       min-width: 200px;
     }
@@ -870,7 +868,8 @@
     margin: 0 auto;
     border-radius: 4px;
     background: #fff;
-    box-shadow: 0 13px 27px -5px rgba(50, 50, 93, .25), 0 8px 16px -8px rgba(0, 0, 0, .3), 0 -6px 16px -6px rgba(0, 0, 0, .025);
+    box-shadow: 0 13px 27px -5px rgb(50 50 93 / 25%), 0 8px 16px -8px rgb(0 0 0 / 30%), 0 -6px 16px -6px rgb(0 0 0 / 2.5%);
+
     @include screen(768) {
       min-width: 170px;
     }
@@ -889,7 +888,8 @@
     border-radius: 100%;
     width: 64px;
     height: 64px;
-    background-color: rgba(var(--color-base-string), 0.25);
+    background-color: rgb(var(--color-base-string) 0.25);
+
     @include screen(768) {
       width: 48px;
       height: 48px;
@@ -904,6 +904,7 @@
     position: relative;
     left: 8px;
     top: 8px;
+
     @include screen(768) {
       width: 32px;
       height: 32px;
@@ -918,6 +919,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
     @include screen(768) {
       font-size: 14px;
       font-weight: normal;
@@ -933,7 +935,7 @@
 
   .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
     padding: 0 5px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgb(255 255 255 / 50%);
     margin: 0;
   }
 
@@ -953,7 +955,7 @@
   }
 
   .mapboxgl-ctrl-attrib a {
-    color: rgba(0, 0, 0, 0.75);
+    color: rgb(0 0 0 / 75%);
     text-decoration: none;
   }
 

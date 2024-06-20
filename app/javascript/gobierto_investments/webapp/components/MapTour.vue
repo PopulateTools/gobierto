@@ -26,16 +26,18 @@
     </div>
     <template>
       <MglMap
+        v-model:map-style="mapStyle"
         :access-token="accessToken"
-        :map-style.sync="mapStyle"
         :scroll-zoom="scrollZoom"
         @load="onMapLoaded"
       >
         <MglMarker :coordinates="coordinatesMarker">
-          <img
-            slot="marker"
-            src="/marker-icon-2273e3d8.png"
-          >
+          <template #marker>
+            <img
+
+              src="/marker-icon-2273e3d8.png"
+            >
+          </template>
         </MglMarker>
       </MglMap>
       <div class="container-card">

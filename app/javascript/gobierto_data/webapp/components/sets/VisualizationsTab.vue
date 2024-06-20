@@ -48,8 +48,8 @@
         :object-columns="objectColumns"
         :config-map="configMap"
         :registration-disabled="registrationDisabled"
-        @changeViz="showVizElement"
-        @emitDelete="deleteHandlerVisualization"
+        @change-viz="showVizElement"
+        @emit-delete="deleteHandlerVisualization"
       />
     </template>
   </div>

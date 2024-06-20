@@ -2,7 +2,7 @@
   <div>
     <template v-if="isUserLogged">
       <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
-        <template v-slot:trigger>
+        <template #trigger>
           <h3 class="gobierto-data-visualization--h3">
             <Caret :rotate="showPrivateVis" />
 
@@ -27,7 +27,7 @@
                     @click.native="loadViz(name, user_id)"
                   >
                     <CardVisualization>
-                      <template v-slot:title>
+                      <template #title>
                         {{ name }}
                       </template>
                       <template v-if="config.base64">
@@ -68,7 +68,7 @@
     </template>
 
     <Dropdown @is-content-visible="showPublicVis = !showPublicVis">
-      <template v-slot:trigger>
+      <template #trigger>
         <h3 class="gobierto-data-visualization--h3">
           <Caret :rotate="showPublicVis" />
 
@@ -88,7 +88,7 @@
                 @click.native="loadViz(name, user_id)"
               >
                 <CardVisualization>
-                  <template v-slot:title>
+                  <template #title>
                     {{ name }}
                   </template>
                   <template v-if="config.base64">

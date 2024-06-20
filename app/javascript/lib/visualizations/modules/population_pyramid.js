@@ -927,7 +927,7 @@ export class VisPopulationPyramid {
           .attr("y", y)
           .attr("dy", dy + "em");
 
-      /* eslint-disable no-cond-assign */
+
       while ((word = words.pop())) {
         line.push(word);
         tspan.text(line.join(" "));

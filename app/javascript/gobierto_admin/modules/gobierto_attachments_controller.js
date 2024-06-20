@@ -65,7 +65,7 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
       }
     };
 
-    Vue.component("file-upload", {
+    Vue.component("FileUpload", {
       data: function() {
         return {
           fileDragged: false,
@@ -166,7 +166,7 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
       template: "#file-upload"
     });
 
-    Vue.component("edit-attachment", {
+    Vue.component("EditAttachment", {
       mixins: [fileUtils, magnificPopup],
       data: function() {
         return {
@@ -230,7 +230,7 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
       template: "#edit-attachment"
     });
 
-    Vue.component("file-popover", {
+    Vue.component("FilePopover", {
       mixins: [fileUtils],
       props: ["attachableId", "attachableType"],
       data: function() {
@@ -353,7 +353,7 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
       template: "#file-popover"
     });
 
-    Vue.component("site-attachments", {
+    Vue.component("SiteAttachments", {
       mixins: [fileUtils, magnificPopup],
       props: ["attachableId", "attachableType"],
       data: function() {
@@ -439,7 +439,7 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
       template: "#site-attachments"
     });
 
-    Vue.component("file-list", {
+    Vue.component("FileList", {
       mixins: [fileUtils],
       props: ["attachableId", "attachableType"],
       data: function() {
@@ -517,12 +517,14 @@ window.GobiertoAdmin.GobiertoAttachmentsController = (function() {
     var selector = "#gobierto-attachment";
     new Vue({
       el: selector,
-      data: {
+      data: function() {
+return {
         attachmentsIdsAfterCreated: [],
         attachmentsIdsAfterCreatedStr: "",
         attachableType: $(selector).data("attachable-type"),
         attachableId: $(selector).data("attachable-id")
-      },
+      };
+},
       mounted: function() {
         var self = this;
         bus.$on("site-attachments:newAttaching", function(attachment) {

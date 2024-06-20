@@ -30,12 +30,12 @@ window.GobiertoAdmin.DirtyFormsComponent = (function() {
 
   function _setDirty(e) {
     var $target = $(e.target);
-    if($target.data('skip-dirty-check') === undefined){
+    if ($target.data('skip-dirty-check') === undefined){
       var date = new Date();
       t2 = date.getTime();
       // For some reason, when the WYSIWYG has an image, it triggers a trix-change event.
       // Here, we check if the time difference between the load and the event is big than 1 sec.
-      if(t2 - t1 > 1000) {
+      if (t2 - t1 > 1000) {
         isDirty = true;
       }
     }

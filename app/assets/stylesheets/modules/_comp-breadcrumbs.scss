@@ -3,8 +3,9 @@
  *
  */
 .breadcrumb {
-  margin: 0 0 2em 0;
+  margin: 0 0 2em;
   background: #fff;
+
   // border-bottom: 1px solid #DFDFDF;
   padding: 1em 0;
 
@@ -20,7 +21,7 @@
 
   @include screen(740) {
     padding: 0.75em 0;
-    margin: 0 0 0.5em 0;
+    margin: 0 0 0.5em;
 
     .bread_links {
       line-height: 1.3em;
@@ -44,7 +45,7 @@
   }
 
   .bread_links {
-    background: rgba(var(--color-base-string), 0.1);
+    background: rgb(var(--color-base-string) 0.1);
     padding: 0.3em 0.75em;
 
     @include border-radius(4px);
@@ -64,7 +65,7 @@
   }
 
   .line_browser {
-    padding: calc(1.5em - 1px) 2em 2em 2em;
+    padding: calc(1.5em - 1px) 2em 2em;
 
     .col {
       padding: 0;
@@ -81,7 +82,7 @@
 
 .header_block_inline {
   h2 {
-    margin: 0.8em 0 2em 0;
+    margin: 0.8em 0 2em;
   }
 }
 
@@ -115,7 +116,7 @@
   }
 
   .bread_links {
-    margin: 0 0 1em 0;
+    margin: 0 0 1em;
   }
 
   table {
@@ -124,7 +125,7 @@
 
   td.selected,
   td.selected_no_children {
-    border-left: 2px solid rgba(var(--color-base-string), 0.5);
+    border-left: 2px solid rgb(var(--color-base-string) 0.5);
     position: relative;
   }
 
@@ -135,7 +136,7 @@
     width: 0;
     border-style: solid;
     border-width: 6px 0 6px 11.3px;
-    border-color: transparent transparent transparent rgba(var(--color-base-string), 0.5);
+    border-color: transparent transparent transparent rgb(var(--color-base-string) 0.5);
     top: 38%;
     left: 100%;
   }
@@ -160,7 +161,7 @@
 .admin_breadcrumb {
   font-size: 0.75em;
   text-transform: uppercase;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1rem;
 }
 
 /**
@@ -214,7 +215,7 @@
   }
 
   .disabled {
-    color: rgba(var(--color-base-string), 0.5);
+    color: rgb(var(--color-base-string) 0.5);
     pointer-events: none;
   }
 

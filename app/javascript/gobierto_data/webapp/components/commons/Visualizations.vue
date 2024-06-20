@@ -61,7 +61,7 @@ export default {
     this.checkIfQueryResultIsEmpty(this.items)
     this.$root.$emit("showSavingDialogEventViz", false)
   },
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener("click", this.$emit("showSaving"));
     this.$root.$emit("showSavingDialogEventViz", false)
   },

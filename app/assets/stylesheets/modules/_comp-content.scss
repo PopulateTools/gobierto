@@ -4,7 +4,7 @@
   margin-bottom: 5em;
   padding: 1em;
 
-  @media (min-width: 768px) {
+  @media (width >= 768px) {
     margin: 0;
     margin-bottom: 5em;
   }
@@ -18,7 +18,7 @@
 
 .news_teaser,
 .activities_teaser {
-  margin: 0 0 4em 0;
+  margin: 0 0 4em;
 
   h3 {
     line-height: 1.3;
@@ -48,7 +48,7 @@
     margin: 0 auto;
     text-align: left;
 
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
       padding: 0;
       padding-top: 5em;
     }
@@ -145,7 +145,7 @@
         font-size: 1.5em;
         line-height: 1.25;
 
-        @media (min-width: 768px) {
+        @media (width >= 768px) {
           font-size: 2.25em;
         }
       }
@@ -169,7 +169,7 @@
       max-width: 1024px;
       margin: 0;
 
-      @media (min-width: 768px) {
+      @media (width >= 768px) {
         margin-bottom: 3em;
         min-width: 120%;
         margin-left: -10%;
@@ -181,7 +181,7 @@
         line-height: 1.4;
         margin-top: 0.5em;
 
-        @media (min-width: 768px) {
+        @media (width >= 768px) {
           display: inline-block;
           position: absolute;
           margin-left: 0.25em;
@@ -192,14 +192,14 @@
 
     dl {
       box-sizing: border-box;
-      background: rgba(var(--color-base-string), 0.03);
+      background: rgb(var(--color-base-string) 0.03);
       max-width: 730px;
-      padding: 1em 1em;
+      padding: 1em;
       display: flex;
       flex-wrap: wrap;
       margin: 1em -1em;
 
-      @media (min-width: 768px) {
+      @media (width >= 768px) {
         padding: 30px 65px;
         margin: 1em auto;
         margin-bottom: 4em;
@@ -224,7 +224,7 @@
           margin: 0;
         }
 
-        @media (min-width: 768px) {
+        @media (width >= 768px) {
           width: 48%;
 
           &:nth-child(odd) {
@@ -279,7 +279,7 @@
       content: counter(list);
       margin-right: 8px;
 
-      @media (min-width: 768px) {
+      @media (width >= 768px) {
         margin-left: -29px;
       }
     }
@@ -298,6 +298,7 @@
   @include screen(640, 1024) {
     grid-template-columns: repeat(2, 1fr);
   }
+
   @include screen(639) {
     display: block;
 
@@ -317,8 +318,9 @@
   a:hover {
     text-decoration: none;
     color: $color_text;
+
     // background: $color_neutral_soft;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 20px rgb(0 0 0 / 15%);
   }
 
   .collection_item {
@@ -334,7 +336,7 @@
 
     h2 {
       font-size: $f5;
-      margin: 0 0 .5rem 0;
+      margin: 0 0 .5rem;
       color: var(--color-base);
     }
 
@@ -348,7 +350,7 @@
 }
 
 .card-container {
-  background: rgba(var(--color-base-string), 0.06);
+  background: rgb(var(--color-base-string) 0.06);
   display: flex;
 
   .card-inner-side {

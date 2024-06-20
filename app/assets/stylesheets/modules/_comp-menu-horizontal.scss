@@ -8,7 +8,7 @@
     margin-bottom: 50px;
 
     li {
-      border: 1px solid rgba(var(--color-base-string), 0.15);
+      border: 1px solid rgb(var(--color-base-string) 0.15);
       text-transform: uppercase;
       font-weight: 200;
 
@@ -18,7 +18,7 @@
 
       &.active {
         font-weight: 400;
-        background: rgba(var(--color-base-string), 0.15);
+        background: rgb(var(--color-base-string) 0.15);
         border: 0;
 
         &:hover::after {
@@ -31,7 +31,7 @@
           border: solid transparent;
           content: " ";
           position: absolute;
-          border-top-color: rgba(var(--color-base-string), 0.15);
+          border-top-color: rgb(var(--color-base-string) 0.15);
           border-width: 15px;
           margin-left: -15px;
         }

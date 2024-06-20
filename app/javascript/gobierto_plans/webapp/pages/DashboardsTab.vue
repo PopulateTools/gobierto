@@ -61,7 +61,7 @@ export default {
     document.addEventListener(GOBIERTO_DASHBOARDS.LOADED, this.dashboardViewerLoaded)
     document.addEventListener(GOBIERTO_DASHBOARDS.SELECTED, this.dashboardViewerSelected)
   },
-  destroyed() {
+  unmounted() {
     document.removeEventListener(GOBIERTO_DASHBOARDS.LOADED, this.dashboardViewerLoaded)
     document.removeEventListener(GOBIERTO_DASHBOARDS.SELECTED, this.dashboardViewerSelected)
   },

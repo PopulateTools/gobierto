@@ -2,9 +2,7 @@
 @import "purecss/build/pure-nr";
 @import "purecss/build/grids-responsive";
 @import "@fortawesome/fontawesome-free/css/all.css";
-
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
-
+@import "https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600";
 @import "modules/css-conf";
 @import "modules/populities";
 @import "modules/mixins";
@@ -16,7 +14,6 @@
 @import "modules/comp-header_block_inline";
 @import "modules/comp-social_buttons";
 @import "modules/defaults";
-
 @import "modules/comp-metric_boxes";
 @import "modules/comp-graph-dc";
 @import "modules/comp-vue-block-checkbox";
@@ -29,13 +26,13 @@
 @import "modules/comp-graph-vis_bubbles";
 
 :root {
-  --green-table--first: rgba(33, 150, 83, .1);
-  --green-table--second: rgba(33, 150, 83, .2);
+  --green-table--first: rgb(33 150 83 / 10%);
+  --green-table--second: rgb(33 150 83 / 20%);
   --grey: #666;
-  --border-grey: rgba(102, 102, 102, .5);
-  --table-item-cost: rgba(1, 120, 168, .2);
-  --border-separator: rgba(151, 151, 151, .5);
-  --border-separator-contracts: rgba(0, 0, 0, .1);
+  --border-grey: rgb(102 102 102 / 50%);
+  --table-item-cost: rgb(1 120 168 / 20%);
+  --border-separator: rgb(151 151 151 / 50%);
+  --border-separator-contracts: rgb(0 0 0 / 10%);
   --button-grey-active: #f4f4f4;
   --white: #fff;
   --black: #000;
@@ -58,6 +55,7 @@
   &-home-aside--block {
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--border-separator);
+
     @include screen(769) {
       padding-bottom: .5rem;
     }
@@ -68,6 +66,7 @@
     top: 0;
     overflow-y: auto;
     height: 100vh;
+
     @include screen(769) {
       height: auto;
       position: relative;
@@ -229,7 +228,7 @@
 
       > * {
         border-top: 1px solid;
-        border-top-color: rgba(var(--color-base-string), .1);
+        border-top-color: rgb(var(--color-base-string) .1);
         padding: 0.5em 0;
       }
 
@@ -253,7 +252,7 @@
         }
       }
 
-      &:not(:first-child):not(:last-child) > *::first-letter {
+      &:not(:first-child, :last-child) > *::first-letter {
         text-transform: uppercase;
       }
 
@@ -268,7 +267,7 @@
     }
 
     &--tr:hover > * {
-      background-color: rgba(var(--color-base-string), .1);
+      background-color: rgb(var(--color-base-string) .1);
 
       > * {
         border-top-color: transparent;
@@ -293,6 +292,7 @@
   &-home-aside {
     &--download-open-data {
       padding: 2rem 0;
+
       @include screen(769) {
         padding: .75rem 0;
       }
@@ -306,7 +306,7 @@
         font-size: $f7;
 
         &:hover {
-          color: rgba(var(--color-base-string), .8);
+          color: rgb(var(--color-base-string) .8);
         }
       }
 
@@ -344,6 +344,7 @@
     height: auto;
     padding: .5rem 1rem .5rem 1.75rem;
     width: 100%;
+
     @include screen(769) {
       margin-bottom: 0;
     }
@@ -361,6 +362,7 @@
     cursor: pointer;
     opacity: .3;
     left: 6%;
+
     @include screen(769) {
       left: 3%;
     }
@@ -386,8 +388,7 @@
 
     &-buttons {
       display: flex;
-      align-self: flex-start;
-      justify-self: auto;
+      place-self: flex-start auto;
       z-index: 1;
 
       @include min-screen(768) {
@@ -398,8 +399,8 @@
   }
 
   .treemap-breadcrumb {
-    color: rgba(var(--color-base-string), .8);
-    fill: rgba(var(--color-base-string), .8);
+    color: rgb(var(--color-base-string) .8);
+    fill: rgb(var(--color-base-string) .8);
     width: max-content;
     cursor: pointer;
     font-size: $f6;
@@ -549,13 +550,11 @@
 }
 
 .gobierto-visualizations {
-
   .pure-g {
     letter-spacing: 0 !important;
   }
 
   .metric_boxes {
-
     .metric_box {
       margin-bottom: 1rem;
 
@@ -596,7 +595,6 @@
     }
 
     @include min-screen(740) {
-
       td > * {
         padding: .75rem .5rem .75rem 0;
         vertical-align: middle;
@@ -657,11 +655,11 @@
   }
 
   &-tablerow--header {
-    border-bottom: 1px dashed rgba(0, 0, 0, .15);
+    border-bottom: 1px dashed rgb(0 0 0 / 15%);
     cursor: pointer;
 
     &:hover {
-      background-color: rgba(var(--color-base-string), .1);
+      background-color: rgb(var(--color-base-string) .1);
     }
 
     .gobierto-visualizations-table-header--nav-text {
@@ -670,11 +668,11 @@
     }
 
     &.act-has-children {
-      background-color: rgba(var(--color-base-string), .1);
+      background-color: rgb(var(--color-base-string) .1);
       flex-wrap: wrap;
 
       &:hover {
-        background-color: rgba(var(--color-base-string), .2);
+        background-color: rgb(var(--color-base-string) .2);
       }
 
       .gobierto-visualizations-table-header--elements {
@@ -745,19 +743,19 @@
 
     .gobierto-visualizations-table-color-direct {
       border-top-left-radius: 4px;
-      background-color: rgba(var(--color-base-string), .08);
+      background-color: rgb(var(--color-base-string) .08);
     }
 
     .gobierto-visualizations-table-color-indirect {
-      background-color: rgba(var(--color-base-string), .12);
+      background-color: rgb(var(--color-base-string) .12);
     }
 
     .gobierto-visualizations-table-color-total {
-      background-color: rgba(var(--color-base-string), .2);
+      background-color: rgb(var(--color-base-string) .2);
     }
 
     .gobierto-visualizations-table-color-inhabitant {
-      background-color: rgba(var(--color-base-string), .4);
+      background-color: rgb(var(--color-base-string) .4);
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       padding-top: 0;
@@ -768,12 +766,12 @@
     }
 
     .gobierto-visualizations-table-color-income {
-      background-color: rgba(33, 150, 83, .2);
+      background-color: rgb(33 150 83 / 20%);
     }
 
     .gobierto-visualizations-table-color-coverage {
       border-top-right-radius: 4px;
-      background-color: rgba(33, 150, 83, .4);
+      background-color: rgb(33 150 83 / 40%);
     }
   }
 
@@ -807,19 +805,19 @@
   }
 
   &-table-color-direct {
-    background-color: rgba(var(--color-base-string), 0.04);
+    background-color: rgb(var(--color-base-string) 0.04);
   }
 
   &-table-color-indirect {
-    background-color: rgba(var(--color-base-string), 0.06);
+    background-color: rgb(var(--color-base-string) 0.06);
   }
 
   &-table-color-total {
-    background-color: rgba(var(--color-base-string), .1);
+    background-color: rgb(var(--color-base-string) .1);
   }
 
   &-table-color-inhabitant {
-    background-color: rgba(var(--color-base-string), 0.2);
+    background-color: rgb(var(--color-base-string) 0.2);
   }
 
   &-table-color-income {
@@ -859,10 +857,9 @@
   }
 
   &-tablesecondlevel--header {
-
     background-color: var(--color-base);
     border-radius: 4px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+    box-shadow: 0 0 6px rgb(0 0 0 / 25%);
     padding: .5rem 0;
     border-bottom: 0;
     cursor: initial;
@@ -884,7 +881,7 @@
     &.act-has-children {
       background-color: var(--color-base);
       border-radius: 4px;
-      box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+      box-shadow: 0 0 6px rgb(0 0 0 / 25%);
       padding: .5rem 0;
       border-bottom: 0;
       cursor: initial;
@@ -923,7 +920,7 @@
 
   &-table-item {
     background: var(--white);
-    box-shadow: 0 0 6px rgba(0, 0, 0, .25);
+    box-shadow: 0 0 6px rgb(0 0 0 / 25%);
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
     width: 96.5%;
@@ -1030,7 +1027,7 @@
   }
 
   &-table-item-right-table-container {
-    border-bottom: 1px dashed rgba(0, 0, 0, .15);
+    border-bottom: 1px dashed rgb(0 0 0 / 15%);
     width: 89%;
     margin-right: .75rem;
     display: inline-block;
@@ -1088,7 +1085,7 @@
     max-width: 250px;
     padding: .5rem;
     border: 1px solid #979797;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 10%);
     border-radius: 4px;
     text-align: left;
     bottom: 80px;
@@ -1136,10 +1133,10 @@
     box-sizing: border-box;
     margin: 0;
     border-radius: 4px;
-    -moz-appearance: none;
-    -webkit-appearance: none;
     appearance: none;
-    background-color: rgba(1, 120, 168, .1);
+    appearance: none;
+    appearance: none;
+    background-color: rgb(1 120 168 / 10%);
     background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
     background-repeat: no-repeat, repeat;
     background-position: right .7em top 50%, 0 0;
@@ -1183,7 +1180,7 @@
       }
     }
 
-    &:not(:first-child):not(:last-child) {
+    &:not(:first-child, :last-child) {
       .range-slider-costs--values-circle {
         left: calc(100% - 32px);
       }
@@ -1255,7 +1252,7 @@
   }
 
   &-table-debts-tr:not(:last-child) {
-    border-bottom: 1px dotted rgba(0, 0, 0, .15);
+    border-bottom: 1px dotted rgb(0 0 0 / 15%);
   }
 
   &-table-debts-tr:last-child td {
@@ -1264,7 +1261,7 @@
 
   &-table-debts-td {
     &:last-child {
-      background-color: rgba(var(--color-base-string), .2);
+      background-color: rgb(var(--color-base-string) .2);
       text-align: right;
       padding: .5rem;
     }
@@ -1272,6 +1269,7 @@
 
   &.gobierto-visualizations-debts .treemap-item {
     cursor: initial;
+
     .treemap-item div:last-child {
       display: none;
     }
@@ -1281,58 +1279,74 @@
     .gobierto-visualizations-title {
       margin-top: 6rem;
     }
+
     .header_block_inline h2 {
       margin-bottom: $f6;
     }
+
     .bar-chart-small-debts {
       text.label {
         font-size: $f7;
       }
+
       .axis-y .tick line {
         display: none;
       }
+
       .column .title tspan,
       .column .wrap-text tspan {
         font-weight: 600;
         font-family: $font_headings;
         font-size: $f7;
       }
+
       .column .title {
         transform:translate(0, 13px);
       }
+
       .column .wrap-text {
         transform:translate(0, -2px);
       }
 
     }
+
     .gv-tooltip-bar-stacked .tooltip-barchart-stacked-grid-key-color {
       &.Ajuntament {
         background-color: var(--gv-color-2);
       }
+
       &.MataroAudiovisual {
         background-color: var(--gv-color-3);
       }
+
       &.DigitialMataroMaresme {
         background-color: var(--gv-color-4);
       }
+
       &.ConsorciResidus {
         background-color: var(--gv-color-5);
       }
+
       &.PUMSA {
         background-color: var(--gv-color-6);
       }
+
       &.GrupTecnocampus {
         background-color: var(--gv-color-7);
       }
+
       &.AMSA {
         background-color: var(--gv-color-8);
       }
+
       &.DeuteFCC {
         background-color: var(--gv-color-9);
       }
+
       &.PortaLaietana {
         background-color: var(--gv-color-10);
       }
+
       &.Altrespiemessa {
         background-color: var(--gv-color-11);
       }

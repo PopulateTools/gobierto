@@ -3,7 +3,7 @@
   position: relative;
 
   svg {
-    background-color: rgba(var(--color-base-string), 0.2);
+    background-color: rgb(var(--color-base-string) 0.2);
   }
 
   .bar {
@@ -11,7 +11,7 @@
     font-size: $f6;
 
     &:hover {
-      fill: rgba(var(--color-base-string), 0.9);
+      fill: rgb(var(--color-base-string) 0.9);
       cursor: pointer;
     }
   }

@@ -61,7 +61,7 @@ export default {
     EventBus.$on('refresh-active-tab', () => this.refreshActiveTab());
     this.refreshActiveTab();
   },
-  beforeDestroy(){
+  beforeUnmount(){
     EventBus.$off('refresh-active-tab');
   },
   methods: {

@@ -155,7 +155,7 @@ export default {
   mounted() {
     document.addEventListener("dragover", this.dragoverPosition);
   },
-  destroyed() {
+  unmounted() {
     document.removeEventListener("dragover", this.dragoverPosition);
   },
   methods: {

@@ -2,13 +2,10 @@
 @import "purecss/build/pure-nr";
 @import "purecss/build/grids-responsive";
 @import "@fortawesome/fontawesome-free/css/all.css";
-
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
-
+@import "https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600";
 @import "modules/css-conf";
 @import "modules/populities";
 @import "modules/mixins";
-
 @import "modules/comp-vue-transitions";
 
 :root {
@@ -20,7 +17,7 @@
 
 .dashboards-viewer {
   .widget {
-    background-color: rgba(var(--color-base-string), 0.1);
+    background-color: rgb(var(--color-base-string) 0.1);
     padding: var(--space);
     height: 100%;
     user-select: none;
@@ -56,7 +53,7 @@
 
     &__barchart {
       position: relative;
-      background-color: rgba(var(--color-base-string), 0.2);
+      background-color: rgb(var(--color-base-string) 0.2);
       overflow: hidden;
       height: 20px;
       width: 100%;
@@ -84,7 +81,7 @@
 
     &__metric {
       &--container {
-        @include flexbox();
+        @include flexbox;
         @include flex-align(space-between);
       }
 
@@ -99,7 +96,7 @@
         font-size: $f1;
         line-height: 1.1;
         font-weight: 300;
-        color: rgba(var(--color-grey-str), 1);
+        color: rgb(var(--color-grey-str) 1);
       }
     }
 
@@ -160,7 +157,7 @@
 
     &__barchart {
       position: relative;
-      background-color: rgba(var(--color-base-string), 0.2);
+      background-color: rgb(var(--color-base-string) 0.2);
       overflow: hidden;
       width: 33%;
       max-width: 100px;
@@ -198,18 +195,19 @@
 
   &__card {
     padding: var(--space);
-    border: 1px solid rgba(var(--color-grey-str), 0.2);
+    border: 1px solid rgb(var(--color-grey-str) 0.2);
     position: relative;
     cursor: pointer;
     transition: background-color 250ms;
 
     @include border-radius(8px);
+
     @include min-screen(768) {
       padding: calc(2 * var(--space));
     }
 
     &:hover {
-      background-color: rgba(var(--color-grey-str), 0.1);
+      background-color: rgb(var(--color-grey-str) 0.1);
     }
 
     &-grid {

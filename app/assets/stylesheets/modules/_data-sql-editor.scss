@@ -1,5 +1,4 @@
 .gobierto-data {
-
   .codemirror {
     border: 0;
   }
@@ -21,7 +20,7 @@
   .btn-sql-editor {
     text-transform: none;
     min-height: 31px;
-    border: 1px solid rgba(var(--color-base-string), .2);
+    border: 1px solid rgb(var(--color-base-string) .2);
     font-weight: 600;
     font-size: $f7;
     margin: 0;
@@ -64,7 +63,7 @@
 
     input[type="text"] {
       background: #f9f9f9;
-      border: 1px solid rgba(0, 89, 201, .2);
+      border: 1px solid rgb(0 89 201 / 20%);
       height: auto;
       border-radius: 3px;
       display: inline-block;
@@ -74,8 +73,8 @@
       &.disable-input-text {
         border-color: #f9f9f9;
         user-select: none;
-        -moz-user-select: none;
-        -webkit-user-select: none;
+        user-select: none;
+        user-select: none;
         cursor: pointer;
       }
 
@@ -252,7 +251,6 @@
 
   &-sql-editor-table-body {
     tr {
-
       &:nth-child(even) {
         background-color: rgba(#eeb33f, .05);
       }
@@ -292,7 +290,6 @@
     }
 
     &.arrow-top {
-
       &::after,
       &::before {
         bottom: 100%;
@@ -302,7 +299,7 @@
         width: 0;
         left: 20px;
         position: absolute;
-        border-color: rgba(255, 255, 255, 0);
+        border-color: rgb(255 255 255 / 0%);
       }
 
       &::before {

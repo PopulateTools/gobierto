@@ -227,7 +227,7 @@
 
 .mfp-newspaper.mfp-wrap .mfp-content {
   opacity: 0;
-  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   transition: all 0.5s;
   transform: scale(0) rotate(500deg);
 }

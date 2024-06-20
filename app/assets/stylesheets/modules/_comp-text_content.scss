@@ -37,7 +37,7 @@ figure.gif {
     ul {
       li {
         display: block;
-        margin: 0 0 0.5em 0;
+        margin: 0 0 0.5em;
 
         a {
           padding: 0.5em 0.75em;
@@ -48,16 +48,16 @@ figure.gif {
         }
 
         a:hover {
-          background: rgba(var(--color-base-string), 0.9);
+          background: rgb(var(--color-base-string) 0.9);
         }
 
         ul {
-          background: rgba(var(--color-base-string), 0.06);
+          background: rgb(var(--color-base-string) 0.06);
           padding: 0.75em 0.75em 0.75em 1.25em;
           font-size: 0.85rem;
 
           li {
-            margin: 0 0 1em 0;
+            margin: 0 0 1em;
 
             a {
               background: initial;
@@ -104,11 +104,11 @@ figure.gif {
     h1 {
       font-size: $f3;
       border-bottom: 1px solid $color_main_soft;
-      padding: 0 0 0.5em 0;
+      padding: 0 0 0.5em;
     }
 
     .page_attachments {
-      background: rgba(var(--color-base-string), 0.06);
+      background: rgb(var(--color-base-string) 0.06);
       width: 50%;
       float: right;
       margin: 0 0 2em 2em;
@@ -116,7 +116,7 @@ figure.gif {
       border-radius: 6px;
 
       h3 {
-        margin: 0 0 1em 0;
+        margin: 0 0 1em;
         font-size: 1rem;
       }
 
@@ -140,7 +140,7 @@ figure.gif {
         }
 
         a:hover {
-          background: rgba(var(--color-base-string), 0.06);
+          background: rgb(var(--color-base-string) 0.06);
           filter: brightness(0.95);
         }
 
@@ -170,7 +170,7 @@ figure.gif {
   line-height: 1.2;
 
   .page_child {
-    background: rgba(var(--color-base-string), 0.06);
+    background: rgb(var(--color-base-string) 0.06);
     border-radius: 6px;
     margin: 0.5em;
     font-size: $f5;
@@ -185,12 +185,12 @@ figure.gif {
     }
 
     a:hover {
-      background: rgba(var(--color-base-string), 0.06);
+      background: rgb(var(--color-base-string) 0.06);
       filter: brightness(0.95);
     }
 
     .page_children {
-      padding: 0 1em 1em 1em;
+      padding: 0 1em 1em;
       display: block;
 
       .page_child {
@@ -203,7 +203,7 @@ figure.gif {
 
         a {
           padding: 0;
-          margin: 0 0 0.5em 0;
+          margin: 0 0 0.5em;
         }
       }
     }

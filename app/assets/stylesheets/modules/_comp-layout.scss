@@ -35,7 +35,7 @@ footer {
   border-top: 1px solid;
   border-color: $color_main_soft;
   padding: 3em 0;
-  margin: 10em 0 0 0;
+  margin: 10em 0 0;
   clear: both;
 
   .logo {
@@ -98,6 +98,7 @@ footer {
 .two_by_two {
   & > div {
     box-sizing: border-box;
+
     // margin-bottom: 1em;
 
     &:nth-child(odd) {
@@ -120,7 +121,7 @@ footer {
     box-sizing: border-box;
 
     @include min-screen(740) {
-      padding: 0 0.75em 2em 0.75em;
+      padding: 0 0.75em 2em;
     }
 
     &:nth-child(3n) {
@@ -150,7 +151,7 @@ footer {
     box-sizing: border-box;
 
     @include min-screen(740) {
-      padding: 0 0.75em 2em 0.75em;
+      padding: 0 0.75em 2em;
     }
 
     &:first-child {

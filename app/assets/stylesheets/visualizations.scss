@@ -1284,6 +1284,21 @@
     .header_block_inline h2 {
       margin-bottom: $f6;
     }
+
+    .bar-chart-stacked-debts {
+      .extra-legend-text {
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: capitalize;
+        fill: #828282;
+      }
+
+      .extra-legend-value {
+        font-size: 14px;
+        fill: #828282;
+      }
+    }
+
     .bar-chart-small-debts {
       text.label {
         font-size: $f7;
@@ -1304,38 +1319,6 @@
         transform:translate(0, -2px);
       }
 
-    }
-    .gv-tooltip-bar-stacked .tooltip-barchart-stacked-grid-key-color {
-      &.Ajuntament {
-        background-color: var(--gv-color-2);
-      }
-      &.MataroAudiovisual {
-        background-color: var(--gv-color-3);
-      }
-      &.DigitialMataroMaresme {
-        background-color: var(--gv-color-4);
-      }
-      &.ConsorciResidus {
-        background-color: var(--gv-color-5);
-      }
-      &.PUMSA {
-        background-color: var(--gv-color-6);
-      }
-      &.GrupTecnocampus {
-        background-color: var(--gv-color-7);
-      }
-      &.AMSA {
-        background-color: var(--gv-color-8);
-      }
-      &.DeuteFCC {
-        background-color: var(--gv-color-9);
-      }
-      &.PortaLaietana {
-        background-color: var(--gv-color-10);
-      }
-      &.Altrespiemessa {
-        background-color: var(--gv-color-11);
-      }
     }
   }
 

@@ -40,6 +40,7 @@ module GobiertoBudgets
           budget_line_forecast_updated = budget_lines_forecast_updated.detect { |bl| bl.code == budget_line_forecast.code }
           execution_amount = budget_line_execution.try(:amount) || 0
           forecast_amount = budget_line_forecast_updated ? budget_line_forecast_updated.amount : budget_line_forecast.amount
+          next if forecast_amount == 0 || forecast_amount.nil?
 
           category = kind == GobiertoBudgets::BudgetLine::EXPENSE ? "expense_" : "income_"
           category += area

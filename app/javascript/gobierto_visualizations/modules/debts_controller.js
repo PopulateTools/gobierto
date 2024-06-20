@@ -58,7 +58,10 @@ export class DebtsController {
 
         this.vueApp = new Vue({
           router,
-          data,
+          // data,
+          provide: {
+            data
+          }
         }).$mount(entryPoint);
       });
     }

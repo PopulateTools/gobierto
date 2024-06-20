@@ -160,7 +160,7 @@ export default {
   methods: {
     closeYourQueriesModal() {
       this.$root.$emit('runCurrentQuery')
-      this.$emit('closeQueriesModal')
+      this.$emit('close-queries-modal')
       this.$root.$emit('disabledStringSavedQuery')
       this.$root.$emit('resetVizEvent')
     },

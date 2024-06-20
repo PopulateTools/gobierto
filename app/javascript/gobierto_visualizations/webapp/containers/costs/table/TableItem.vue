@@ -491,7 +491,7 @@ export default {
       this.codiAct = codiAct
     },
     loadTable(value) {
-      this.$emit('changeTableHandler', value)
+      this.$emit('change-table-handler', value)
     }
   }
 }

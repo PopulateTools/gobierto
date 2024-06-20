@@ -129,7 +129,7 @@ export default {
       }
     },
     loadTable(value) {
-      this.$emit('changeTableHandler', value)
+      this.$emit('change-table-handler', value)
     }
   }
 }

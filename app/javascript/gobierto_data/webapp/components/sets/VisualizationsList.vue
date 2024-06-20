@@ -198,7 +198,7 @@ export default {
     loadViz(vizName, user) {
       document.getElementById('gobierto-datos-app').scrollIntoView();
       const userId = Number(getUserId())
-      this.$emit('changeViz', 1)
+      this.$emit('change-viz', 1)
       this.$root.$emit('loadVizName', vizName)
       if (userId !== 0 && userId !== user) {
         this.$root.$emit('enabledForkVizButton', true)
@@ -208,7 +208,7 @@ export default {
       this.deleteAndReload = true
       const answerDelete = confirm(this.labelDeleteViz);
       if (answerDelete) {
-        this.$emit('emitDelete', id)
+        this.$emit('emit-delete', id)
       }
     }
   }

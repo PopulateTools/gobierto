@@ -1,4 +1,5 @@
 @use "sass:color";
+
 .featured_b_l {
   .cont {
     background: $color_neutral_soft;
@@ -57,12 +58,12 @@
       padding: 0;
       border: 0;
       text-align: center;
-      margin: 0 0 1em 0;
+      margin: 0 0 1em;
       font-size: 1.1em;
     }
 
     .ic {
-      margin: 0 0 0.5em 0;
+      margin: 0 0 0.5em;
 
       label {
         height: initial;
@@ -82,13 +83,13 @@
     margin-top: 4.85em;
   }
 
-  @include reset_ul_li();
+  @include reset_ul_li;
 
   li {
     display: block;
   }
 
-  input[type=text] {
+  input[type="text"] {
     width: 70%;
   }
 
@@ -103,12 +104,12 @@
 
     td,
     th {
-      padding: 0.7em 1em 0.4em 1em;
+      padding: 0.7em 1em 0.4em;
     }
 
     td.qty,
     td.bar {
-      padding: 0.7em 0 0.4em 0;
+      padding: 0.7em 0 0.4em;
     }
 
     td.bar {
@@ -118,7 +119,7 @@
     td {
       table {
         font-size: 1rem;
-        border: 1px solid rgba(var(--color-base-string), 0.15);
+        border: 1px solid rgb(var(--color-base-string) 0.15);
       }
 
       .child_tb_cont {
@@ -187,7 +188,7 @@
   a {
     text-decoration: none;
     text-transform: uppercase;
-    color: rgba(var(--color-base-string), 0.75);
+    color: rgb(var(--color-base-string) 0.75);
     display: inline-block;
     padding: 0.5em 2em 0.25em;
 
@@ -200,7 +201,7 @@
   }
 
   a:hover {
-    background: rgba(var(--color-base-string), 0.1);
+    background: rgb(var(--color-base-string) 0.1);
     color: var(--color-base);
   }
 }
@@ -227,7 +228,7 @@
         path {
           fill: none;
           stroke: #d6dddf;
-          shape-rendering: crispEdges;
+          shape-rendering: crispedges;
         }
 
         .tick {
@@ -344,7 +345,7 @@
     .deviation_table_container {
       padding-bottom: 2em;
       margin-bottom: 2em;
-      border-bottom: solid 1px rgba(178, 175, 169, 0.5);
+      border-bottom: solid 1px rgb(178 175 169 / 50%);
     }
 
     .deviation_table_container:last-child {
@@ -371,7 +372,7 @@
   }
 
   .block_description {
-    @media (min-width: 740px) {
+    @media (width >= 740px) {
       margin-right: 2em;
     }
   }
@@ -419,7 +420,7 @@
 
       line {
         stroke-dasharray: 2 10;
-        stroke: rgba(0, 0, 0, 0.5);
+        stroke: rgb(0 0 0 / 50%);
       }
 
       .hundred_percent {
@@ -444,7 +445,7 @@
       min-width: 200px;
       max-width: 380px;
       border: 1px solid #979797;
-      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 2px 0 rgb(0 0 0 / 10%);
       border-radius: 4px;
 
       .line-pct {
@@ -455,14 +456,11 @@
         }
       }
 
-      @media (max-width: 590px) {
+      @media (width <= 590px) {
         position: fixed;
-        bottom: -1px;
+        inset: auto -1px -1px;
         width: calc(96%);
         width: auto !important;
-        left: -1px !important;
-        right: -1px !important;
-        top: auto !important;
         max-width: none;
       }
     }

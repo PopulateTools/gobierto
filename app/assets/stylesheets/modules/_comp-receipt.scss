@@ -6,11 +6,11 @@
     padding: 1em;
 
     @include screen(740, 1024) {
-      padding: 3em 2em 1em 2em;
+      padding: 3em 2em 1em;
     }
 
     @include min-screen(1025) {
-      padding: 3em 3em 1em 3em;
+      padding: 3em 3em 1em;
     }
   }
 
@@ -52,8 +52,8 @@
       border-radius: 4px;
       cursor: pointer;
       outline: 0;
-      -webkit-appearance: none;
-      -moz-appearance: none;
+      appearance: none;
+      appearance: none;
       appearance: none;
     }
 
@@ -79,7 +79,7 @@
 
     @include min-screen(740) {
       display: block;
-      background-image: linear-gradient(to right, var(--color-base) 33%, rgba(255, 255, 255, 0) 0%);
+      background-image: linear-gradient(to right, var(--color-base) 33%, rgb(255 255 255 / 0%) 0%);
       background-position: bottom;
       background-size: 7px 2px;
       background-repeat: repeat-x;
@@ -176,6 +176,7 @@
         margin-top: 0;
         text-align: right;
       }
+
       // font-weight: 600;
     }
   }

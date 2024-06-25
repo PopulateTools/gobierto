@@ -1,4 +1,5 @@
 @use "sass:color";
+
 /*
  * Social Buttons
  *
@@ -92,7 +93,7 @@
 }
 
 .email:hover {
-  background: rgba(var(--color-base-string), 0.8);
+  background: rgb(var(--color-base-string) 0.8);
 }
 
 .linkedin:hover {
@@ -100,7 +101,7 @@
 }
 
 .code:hover {
-  background: rgba(var(--color-base-string), 0.8);
+  background: rgb(var(--color-base-string) 0.8);
 }
 
 .social_links_container {

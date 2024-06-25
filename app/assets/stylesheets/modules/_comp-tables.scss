@@ -9,7 +9,7 @@ table {
 
   td,
   th {
-    border-top: 1px solid rgba(var(--color-base-string), 0.15);
+    border-top: 1px solid rgb(var(--color-base-string) 0.15);
     padding: 0.4em 0.5em;
     font-size: 0.85em;
     line-height: 1.4em;
@@ -29,7 +29,7 @@ table {
 
   tr.summary_row {
     td {
-      border-top: 3px solid rgba(var(--color-base-string), 0.35);
+      border-top: 3px solid rgb(var(--color-base-string) 0.35);
       padding-top: 1em;
     }
   }
@@ -42,7 +42,7 @@ table {
 
   tr.summary_row_end {
     td {
-      border-bottom: 3px solid rgba(var(--color-base-string), 0.35);
+      border-bottom: 3px solid rgb(var(--color-base-string) 0.35);
       padding-bottom: 1em;
     }
   }
@@ -87,7 +87,7 @@ td.visibility_level {
 }
 
 .table_cont_round {
-  background: rgba(var(--color-base-string), 0.06);
+  background: rgb(var(--color-base-string) 0.06);
 
   @include border-radius(6px);
 
@@ -111,7 +111,7 @@ table.explore_slow {
 
   tr.group {
     td {
-      border-top: 3px solid rgba(var(--color-base-string), 0.15);
+      border-top: 3px solid rgb(var(--color-base-string) 0.15);
     }
   }
 
@@ -120,7 +120,7 @@ table.explore_slow {
   }
 
   tbody tr:last-child td:last-child {
-    border-radius: 0 0 4px 0;
+    border-radius: 0 0 4px;
   }
 
   tr td:last-child {
@@ -132,7 +132,7 @@ table.explore_slow {
     transition: all 0.15s ease-out 0s;
 
     td:not(.level_1) {
-      background: rgba(var(--color-base-string), 0.1) !important;
+      background: rgb(var(--color-base-string) 0.1) !important;
     }
   }
 
@@ -170,8 +170,8 @@ table.med_bg {
 
   td,
   th {
-    border-top: 1px solid rgba(var(--color-base-string), 0.15);
-    background: rgba(var(--color-base-string), 0.06);
+    border-top: 1px solid rgb(var(--color-base-string) 0.15);
+    background: rgb(var(--color-base-string) 0.06);
     padding: 0.7em 1em 0.4em;
     font-size: 0.85em;
 
@@ -195,7 +195,7 @@ table.med_bg {
 
     td,
     th {
-      background: rgba(var(--color-base-string), 0.1) !important;
+      background: rgb(var(--color-base-string) 0.1) !important;
     }
   }
 
@@ -240,10 +240,10 @@ th.icon_col {
 table.block_content,
 .gobierto_cms {
   th {
-    background: rgba(var(--color-base-string), 0.15);
+    background: rgb(var(--color-base-string) 0.15);
     text-align: left;
     text-transform: uppercase;
-    color: rgba(var(--color-base-string), 0.5);
+    color: rgb(var(--color-base-string) 0.5);
     border: 0;
   }
 
@@ -257,13 +257,13 @@ table.block_content,
 
   tr:nth-child(2n-1) {
     td {
-      background: rgba(var(--color-base-string), 0.05);
+      background: rgb(var(--color-base-string) 0.05);
     }
   }
 
   tr:hover {
     td {
-      background: rgba(var(--color-base-string), 0.1);
+      background: rgb(var(--color-base-string) 0.1);
     }
   }
 
@@ -278,19 +278,19 @@ table.block_content,
 
     td.bg-scale--3 {
       color: white;
-      text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+      text-shadow: 0 0 2px rgb(0 0 0 / 80%);
       background: #6baed6;
     }
 
     td.bg-scale--4 {
       color: white;
-      text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+      text-shadow: 0 0 2px rgb(0 0 0 / 80%);
       background: #3182bd;
     }
 
     td.bg-scale--5 {
       color: white;
-      text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+      text-shadow: 0 0 2px rgb(0 0 0 / 80%);
       background: #08519c;
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Dropdown @is-content-visible="showDescription = !showDescription">
-      <template v-slot:trigger>
+      <template #trigger>
         <h2 class="gobierto-data-tabs-section-title">
           <Caret :rotate="showDescription" />
           {{ labelDescription }}

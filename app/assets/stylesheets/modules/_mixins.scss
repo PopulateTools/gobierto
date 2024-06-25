@@ -73,7 +73,7 @@ $units: 1px !default;
       margin-bottom: -$size * 0.5;
     }
 
-    .pure-g.gutters > [class *=pure-u] {
+    .pure-g.gutters > [class *="pure-u"] {
       box-sizing: border-box;
       padding-top: $size * 0.5;
       padding-bottom: $size * 0.5;
@@ -86,13 +86,14 @@ $units: 1px !default;
       margin-right: -$size * 0.5;
     }
 
-    .pure-g.gutters > [class *=pure-u] {
+    .pure-g.gutters > [class *="pure-u"] {
       box-sizing: border-box;
       padding-left: $size * 0.5;
       padding-right: $size * 0.5;
     }
   }
 }
+
 @include gutters;
 
 // flex alignment
@@ -143,9 +144,7 @@ $units: 1px !default;
   > * {
     padding: $gap * 0.5;
     box-sizing: border-box;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: calc(100% / #{$columns});
+    flex: 0 0 calc(100% / #{$columns});
     max-width: calc(100% / #{$columns});
   }
 }
@@ -162,29 +161,22 @@ $units: 1px !default;
 
   > * {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
   }
 }
 
 // border radius; https://github.com/akorman/border-radius-sass/
 @mixin border-radius($a: false, $b: false, $c: false, $d: false, $top-left: 0, $top-right: 0, $bottom-right: 0, $bottom-left: 0, $top: false, $bottom: false, $right: false, $left: false, $radius: false) {
-
   // Handle shorthand notation like CSS3 would
   // You shouldn't explictly set these variables when calling the mixin
-  @if $d { $radius: $a $b $c $d; }
-  @else if $c { $radius: $a $b $c; }
-  @else if $b { $radius: $a $b; }
-  @else if $a { $radius: $a; }
-
-  @else {
-
+  @if $d { $radius: $a $b $c $d; } @else if $c { $radius: $a $b $c; } @else if $b { $radius: $a $b; } @else if $a { $radius: $a; } @else {
     // Target individual corners (or groups) instead of using CSS3 shorthand
     @if $top { $top-left: $top; $top-right: $top; }
+
     @if $bottom { $bottom-right: $bottom; $bottom-left: $bottom; }
+
     @if $left { $top-left: $left; $bottom-left: $left; }
+
     @if $right { $top-right: $right; $bottom-right: $right; }
 
     // Set the radius
@@ -192,8 +184,8 @@ $units: 1px !default;
   }
 
   // Webkit, Mozilla, KHTML and standard CSS3
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-  -khtml-border-radius: $radius;
+  border-radius: $radius;
+  border-radius: $radius;
+  border-radius: $radius;
   border-radius: $radius;
 }

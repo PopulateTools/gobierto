@@ -6,12 +6,12 @@ $(document).on('turbolinks:load', function() {
 
   $('.js-collapse-menu').click(function(e) {
     e.preventDefault();
-    if($('menu.main').attr('data-menu-status') == 'open') {
+    if ($('menu.main').attr('data-menu-status') == 'open') {
       $('menu.main').attr('data-menu-status', 'closed');
       $('.container').removeClass('admin_content_column_with_menu_opened');
       $('.container').addClass('admin_content_column_with_menu_closed');
     }
-    else if($('menu.main').attr('data-menu-status') == 'closed') {
+    else if ($('menu.main').attr('data-menu-status') == 'closed') {
       $('menu.main').attr('data-menu-status', 'open');
       $('.container').addClass('admin_content_column_with_menu_opened');
       $('.container').removeClass('admin_content_column_with_menu_closed');

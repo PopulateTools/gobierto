@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     loadTable() {
-      this.$emit('changeTableHandler', 1)
+      this.$emit('change-table-handler', 1)
     },
     coverageDecimals(value) {
       return value === 0 ? value.toFixed(0) : value.toFixed(2)

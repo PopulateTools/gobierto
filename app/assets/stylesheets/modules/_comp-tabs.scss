@@ -14,7 +14,7 @@
   @include tabs;
 
   ul {
-    border-color: rgba(var(--color-base-string), 0.41);
+    border-color: rgb(var(--color-base-string) 0.41);
 
     li {
       height: initial;
@@ -22,7 +22,7 @@
 
       a {
         border: 0;
-        background: rgba(var(--color-base-string), 0.1);
+        background: rgb(var(--color-base-string) 0.1);
         color: $color_text;
         font-weight: 200;
 
@@ -36,13 +36,13 @@
       }
 
       a:hover {
-        background: rgba(var(--color-base-string), 0.3);
+        background: rgb(var(--color-base-string) 0.3);
       }
     }
 
     li.active {
       a {
-        border: 1px solid rgba(var(--color-base-string), 0.41);
+        border: 1px solid rgb(var(--color-base-string) 0.41);
         border-bottom: 1px solid #fff;
         background: $color_main_negative;
         color: $color_text;
@@ -100,13 +100,13 @@
   }
 
   li:hover a {
-    background: rgba(var(--color-base-string), 0.2);
+    background: rgb(var(--color-base-string) 0.2);
   }
 }
 
 .filter_boxed {
   padding: 0;
-  margin: 0 0 1.5em 0;
+  margin: 0 0 1.5em;
 
   ul {
     list-style-type: none;
@@ -121,7 +121,7 @@
       a {
         text-transform: uppercase;
         text-decoration: none;
-        padding: 0.4em 0.6em 0.4em;
+        padding: 0.4em 0.6em;
         display: inline-block;
         border: 1px solid $color_separator;
         color: $text_soft;
@@ -136,13 +136,13 @@
 
     li:hover {
       a {
-        background: rgba(var(--color-base-string), 0.06);
+        background: rgb(var(--color-base-string) 0.06);
       }
     }
 
     li.active {
       a {
-        background: rgba(var(--color-base-string), 0.06);
+        background: rgb(var(--color-base-string) 0.06);
         color: var(--color-base);
         font-weight: bold;
         border: 0;
@@ -159,7 +159,7 @@
       position: absolute;
       pointer-events: none;
       border-color: white;
-      border-top-color: rgba(var(--color-base-string), 0.06);
+      border-top-color: rgb(var(--color-base-string) 0.06);
       border-width: 10px;
       margin-left: -10px;
 

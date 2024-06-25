@@ -15,7 +15,7 @@
         :config="config"
         :object-columns="objectColumns"
         :config-map="configMapZoom"
-        @showSaving="handleConfig"
+        @show-saving="handleConfig"
       />
     </div>
   </div>

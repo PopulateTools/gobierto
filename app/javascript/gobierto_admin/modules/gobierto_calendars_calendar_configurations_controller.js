@@ -13,7 +13,7 @@ window.GobiertoAdmin.GobiertoCalendarsCalendarConfigurationsController = (functi
       var selectedIntegration = $(this).val();
 
       if (integrationNames().indexOf(selectedIntegration) >= 0) {
-        $('#' +  selectedIntegration + '_fields').show('slow');
+        $('#' + selectedIntegration + '_fields').show('slow');
       }
 
       if (selectedIntegration === 'google_calendar' && $("[name='google_calendar_invitation_url']").length) {
@@ -26,7 +26,7 @@ window.GobiertoAdmin.GobiertoCalendarsCalendarConfigurationsController = (functi
 
   function _hideAllIntegrationFields() {
     integrationNames().map(function(integrationName) {
-      $('#' +  integrationName + '_fields').hide('slow');
+      $('#' + integrationName + '_fields').hide('slow');
     })
   }
 

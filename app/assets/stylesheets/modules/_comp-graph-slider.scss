@@ -21,7 +21,7 @@
       fill: $color_headers;
     }
 
-    @media (min-width: 740px) {
+    @media (width >= 740px) {
       font-size: 1.25rem;
     }
   }

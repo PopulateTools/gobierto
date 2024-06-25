@@ -1,5 +1,4 @@
 .gobierto-data {
-
   /* Pure-css add display block to the summary element and the arrow/caret/icon is hide because summary must have list-item to show the arrow. */
   summary {
     display: list-item;
@@ -16,6 +15,7 @@
     font-size: $f7;
     color: var(--grey-text);
     line-height: 1.45;
+
     p {
       margin: .25rem 0;
     }
@@ -46,7 +46,7 @@
 
   &-summary-header-container-label {
     width: 140px;
-    color: rgba(102, 102, 102, .5);
+    color: rgb(102 102 102 / 50%);
     font-weight: 600;
     font-size: 14px;
   }
@@ -58,7 +58,7 @@
     padding: $f3;
     margin: 0;
     margin-top: .5rem;
-    border: 1px solid rgba(1, 120, 168, .2);
+    border: 1px solid rgb(1 120 168 / 20%);
   }
 
   &-summary-resources {
@@ -67,7 +67,7 @@
     letter-spacing: 0;
     padding: $f6 0;
     margin-top: 2rem;
-    border-top: 1px solid rgba(102, 102, 102, .75);
+    border-top: 1px solid rgb(102 102 102 / 75%);
   }
 
   &-summary-queries {
@@ -75,7 +75,6 @@
     letter-spacing: 0;
 
     .gobierto-data-summary-queries-sql-code {
-
       .CodeMirror {
         background-color: transparent;
         padding: 0;
@@ -93,7 +92,7 @@
   }
 
   &-summary-queries-panel {
-    border: 1px solid rgba(var(--color-base-string), 0.3);
+    border: 1px solid rgb(var(--color-base-string) 0.3);
     border-radius: 3px;
     position: relative;
 
@@ -104,7 +103,7 @@
       width: 1px;
       position: absolute;
       left: 50%;
-      background-color: rgba(var(--color-base-string), .3);
+      background-color: rgb(var(--color-base-string) .3);
     }
 
     .gobierto-vue-dropdown--content {
@@ -120,7 +119,7 @@
     font-weight: bold;
     font-size: 16px;
     line-height: 20px;
-    color: rgba(102, 102, 102, .75);
+    color: rgb(102 102 102 / 75%);
     display: inline-block;
     margin-top: 12px;
     margin-bottom: 6px;
@@ -138,7 +137,7 @@
   }
 
   &-summary-visualizations {
-    padding: 0 $f6 $f6 $f6;
+    padding: 0 $f6 $f6;
   }
 
   &-description-details {
@@ -152,6 +151,7 @@
 
   &-description-summary-title {
     cursor: pointer;
+
     &::marker {
       color: var(--color-base);
     }

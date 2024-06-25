@@ -12,7 +12,7 @@
         class="visualizations-home-aside--block"
       >
         <Dropdown @is-content-visible="toggle(filter)">
-          <template v-slot:trigger>
+          <template #trigger>
             <BlockHeader
               :title="filter.title"
               class="visualizations-home-aside--block-header"
@@ -102,7 +102,7 @@ export default {
       })
     });
   },
-  beforeDestroy(){
+  beforeUnmount(){
     EventBus.$off('dc-filter-selected');
   },
   methods: {

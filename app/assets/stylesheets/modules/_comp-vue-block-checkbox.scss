@@ -31,7 +31,7 @@
     padding-left: $space * 0.5;
     padding-right: $space * 0.5;
     box-sizing: border-box;
-    background-color: rgba(var(--color-base-string), 0.1);
+    background-color: rgb(var(--color-base-string) 0.1);
   }
 
   input[type="checkbox"]:checked + label::before {

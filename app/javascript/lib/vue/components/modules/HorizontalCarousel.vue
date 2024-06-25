@@ -48,7 +48,7 @@ export default {
       this.horizontalCarousel = new HorizontalCarousel(this.$el);
     })
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.horizontalCarousel.destroy();
   }
 };

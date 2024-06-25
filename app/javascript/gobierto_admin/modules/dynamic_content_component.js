@@ -140,9 +140,9 @@ window.GobiertoAdmin.DynamicContentComponent = (function() {
       _setRecordViewState(eventWrapper);
       _switchToRecordView(eventWrapper);
 
-      var attachment_input  = eventWrapper.find('input[type="file"]');
+      var attachment_input = eventWrapper.find('input[type="file"]');
       var delete_attachment = eventWrapper.find('[data-behavior="remove_attachment"]');
-      var attachmentLink    = eventWrapper.find('a[data-class="attachment_link"]');
+      var attachmentLink = eventWrapper.find('a[data-class="attachment_link"]');
       var attachmentLinkPlaceholder = eventWrapper.find('span[data-class="attachment_link_placeholder"]');
 
       if (delete_attachment.is(':checked')) {

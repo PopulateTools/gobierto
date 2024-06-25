@@ -11,7 +11,7 @@
       :items="items"
       :items-filter="itemsFilter"
       :year="year"
-      @changeTableHandler="changeTableComponent"
+      @change-table-handler="changeTableComponent"
     />
   </div>
 </template>

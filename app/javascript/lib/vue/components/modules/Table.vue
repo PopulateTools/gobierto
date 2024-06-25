@@ -142,7 +142,7 @@
           :data="rowsSorted"
           :items-per-page="25"
           :container-pagination="'main'"
-          @showData="updateData"
+          @show-data="updateData"
         />
       </slot>
     </template>

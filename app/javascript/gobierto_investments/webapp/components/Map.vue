@@ -26,10 +26,9 @@
       <button
         class="btn-tour-virtual"
         @click="goTourVirtual"
-        >
+      >
         {{ titleTour }}
       </button>
-
     </l-map>
   </div>
 </template>

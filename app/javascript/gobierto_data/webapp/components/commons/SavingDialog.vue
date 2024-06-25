@@ -325,13 +325,13 @@ export default {
     onKeyDownTextHandler(event) {
       const { value } = event.target
       this.labelValue = value
-      this.$emit('keyDownInput', { name: this.labelValue })
+      this.$emit('key-down-input', { name: this.labelValue })
       this.countInputCharacters(value)
     },
     onInputCheckboxHandler(event) {
       const { checked } = event.target
       this.isPrivate = checked
-      this.$emit('isPrivateChecked')
+      this.$emit('is-private-checked')
     },
     revertQueryHandler() {
       this.labelValue = this.value
@@ -339,7 +339,7 @@ export default {
       this.disabledButton = true
     },
     onClickForkHandler() {
-      this.$emit('handlerFork')
+      this.$emit('handler-fork')
       this.disabledButton = false
     },
     countInputCharacters(label) {
@@ -375,13 +375,13 @@ export default {
       }
     },
     enabledInputHandler() {
-      this.$emit('enabledInput')
+      this.$emit('enabled-input')
     },
     showChart() {
-      this.$emit('showToggleConfig')
+      this.$emit('show-toggle-config')
     },
     revertViz() {
-      this.$emit('handlerRevertViz')
+      this.$emit('handler-revert-viz')
       this.disabledButton = true
     }
   }

@@ -7,7 +7,7 @@
         icon="home"
         background="#fff"
         @click.native="resetQueryHandler"
-        @enabledInput="enabledInputQueries"
+        @enabled-input="enabledInputQueries"
       />
     </div>
     <div class="gobierto-data-sql-editor-container">
@@ -62,7 +62,7 @@
           :public-queries="publicQueries"
           :is-user-logged="isUserLogged"
           class="gobierto-data-sets-nav--tab-container gobierto-data-sql-editor-your-queries-container arrow-top"
-          @closeQueriesModal="closeQueriesModal"
+          @close-queries-modal="closeQueriesModal"
         />
       </transition>
     </div>
@@ -85,9 +85,9 @@
       :show-private-public-icon="showPrivatePublicIcon"
       :reset-private="resetPrivate"
       @save="saveHandlerSavedQuery"
-      @keyDownInput="updateQueryName"
-      @handlerFork="handlerForkQuery"
-      @isPrivateChecked="isPrivateChecked"
+      @key-down-input="updateQueryName"
+      @handler-fork="handlerForkQuery"
+      @is-private-checked="isPrivateChecked"
     />
 
     <Button
@@ -236,7 +236,7 @@ export default {
   deactivated() {
     this.$destroy()
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.removeKeyboardListener()
   },
   methods: {

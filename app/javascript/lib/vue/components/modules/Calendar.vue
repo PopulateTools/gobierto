@@ -63,7 +63,7 @@ export default {
     this.endDate = this.savedEndDate;
     this.setDatePicker();
   },
-  beforeDestroy() {
+  beforeUnmount() {
     // https://vuejs.org/v2/cookbook/avoiding-memory-leaks.html
     this.datepicker.destroy();
   },

@@ -216,10 +216,10 @@ export default {
         this.selectedToggle = ''
       }
       this.valueActIntermedia = this.selectedToggle
-      this.$emit('filterChildren', this.selectedToggle)
+      this.$emit('filter-children', this.selectedToggle)
     },
     loadTable(value) {
-      this.$emit('loadTable', value)
+      this.$emit('load-table', value)
     },
     calculateCoverage(income, cost) {
       let coverage = ((income * 100) / cost).toFixed(2)

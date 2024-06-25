@@ -11,14 +11,14 @@ window.GobiertoAdmin.GlobalizedFormsComponent = (function() {
 
   function _handleGlobalizedForm() {
     var containers = _findGlobalizedFormContainers();
-    if(!containers.length) return;
+    if (!containers.length) return;
 
     containers.find('[data-toggle-edit-locale]').on("click", _toggleLocaleClickHandler);
     containers.on("change", "input, select, textarea", _changeHandler);
 
     var currentLocale = containers.find('[data-loaded-locale]').data('loaded-locale');
 
-    if(currentLocale === undefined)
+    if (currentLocale === undefined)
       currentLocale = I18n.defaultLocale;
     containers.each(function(index, container) {
       _activateLocale(currentLocale, container);
@@ -63,7 +63,7 @@ window.GobiertoAdmin.GlobalizedFormsComponent = (function() {
       var $el = $(container).find('[data-locale='+locale+']');
 
       $el.find("input, select, textarea").each(function(){
-        if($(this).attr('id') !== undefined && $(this).val() === ""){
+        if ($(this).attr('id') !== undefined && $(this).val() === ""){
           completed = false;
         }
       });
@@ -100,9 +100,9 @@ window.GobiertoAdmin.GlobalizedFormsComponent = (function() {
 
           const $tool = $container.find("> *:first-child")
           // JQuery does not accept shorthand properties
-          const horizontalPx = parseInt($tool.css("padding-left")) + parseInt($tool.css("padding-right")) + parseInt($tool.css("border-left-width")) + parseInt($tool.css("border-right-width"))         
+          const horizontalPx = parseInt($tool.css("padding-left")) + parseInt($tool.css("padding-right")) + parseInt($tool.css("border-left-width")) + parseInt($tool.css("border-right-width"))
 
-          $tool.width($container.width() - horizontalPx)          
+          $tool.width($container.width() - horizontalPx)
         } else {
           $container.removeClass("is-floating")
         }

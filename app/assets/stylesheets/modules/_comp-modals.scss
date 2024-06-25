@@ -1,4 +1,5 @@
 @use "sass:color";
+
 /*
  * Modals
  *
@@ -17,7 +18,7 @@
   color: $color_headers;
 
   &#read_later {
-    input[type=submit],
+    input[type="submit"],
     .button {
       padding: 0 1em;
     }
@@ -78,7 +79,7 @@
   min-height: 600px;
   max-width: 1024px;
 
-  @media (min-width: 1440px) {
+  @media (width >= 1440px) {
     min-height: 680px;
     max-width: 1200px;
   }
@@ -110,7 +111,7 @@
       overflow-y: scroll;
       max-height: 350px;
 
-      @media (min-width: 1440px) {
+      @media (width >= 1440px) {
         max-height: 450px;
       }
     }
@@ -165,7 +166,7 @@
         cursor: pointer;
       }
 
-      @media (min-width: 1440px) {
+      @media (width >= 1440px) {
         height: 100%;
       }
 
@@ -206,7 +207,7 @@
         min-height: 180px;
         height: 180px;
 
-        @media (min-width: 1440px) {
+        @media (width >= 1440px) {
           min-height: 280px;
           height: 280px;
         }

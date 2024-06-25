@@ -1,25 +1,23 @@
 <template>
-  <div>
-    <div class="pure-g gutters m_b_4">
-      <Aside
-        :contracts-data="contractsData"
-        :data-download-endpoint="dataDownloadEndpoint"
-      />
+  <div class="pure-g gutters m_b_4">
+    <AsideComponent
+      :contracts-data="contractsData"
+      :data-download-endpoint="dataDownloadEndpoint"
+    />
 
-      <div class="pure-u-1 pure-u-md-3-4">
-        <Nav
+    <div class="pure-u-1 pure-u-md-3-4">
+      <NavComponent
+        :active-tab="activeTabIndex"
+        @active-tab="setActiveTab"
+      />
+      <div class="visualizations-home-main">
+        <SummaryComponent
+          v-show="isSummary"
           :active-tab="activeTabIndex"
-          @active-tab="setActiveTab"
         />
-        <div class="visualizations-home-main">
-          <Summary
-            v-show="isSummary"
-            :active-tab="activeTabIndex"
-          />
-          <ContractsIndex v-show="isContractsIndex" />
-          <ContractsShow v-if="isContractsShow" />
-          <AssigneesShow v-if="isAssigneesShow" />
-        </div>
+        <ContractsIndex v-show="isContractsIndex" />
+        <ContractsShow v-if="isContractsShow" />
+        <AssigneesShow v-if="isAssigneesShow" />
       </div>
     </div>
   </div>
@@ -36,11 +34,11 @@ import { EventBus } from '../../lib/mixins/event_bus';
 import { store } from '../../lib/mixins/store';
 
 export default {
-  name: 'Home',
+  name: 'HomeComponent',
   components: {
-    Aside,
-    Nav,
-    Summary,
+    AsideComponent: Aside,
+    NavComponent: Nav,
+    SummaryComponent: Summary,
     ContractsIndex,
     ContractsShow,
     AssigneesShow,

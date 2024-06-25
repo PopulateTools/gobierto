@@ -46,7 +46,7 @@ export default {
     this.columns = subsidiesColumns;
     this.showColumns = ['beneficiary', 'call','amount', 'grant_date']
   },
-  beforeDestroy(){
+  beforeUnmount(){
     EventBus.$off('refresh-summary-data');
   },
   methods: {

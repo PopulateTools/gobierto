@@ -18,7 +18,7 @@
         name="indicator"
         @change="handleChange"
       >
-        <template v-slot:default="{ result }">
+        <template #default="{ result }">
           <span class="dashboards-maker--widget__form-result">{{ result }}</span>
         </template>
       </Autocomplete>

@@ -2,7 +2,7 @@
   <div>
     <template v-if="isUserLogged">
       <Dropdown @is-content-visible="showPrivateVis = !showPrivateVis">
-        <template v-slot:trigger>
+        <template #trigger>
           <h3 class="gobierto-data-visualization--h3">
             <Caret :rotate="showPrivateVis" />
 
@@ -27,7 +27,7 @@
                     @click.native="loadViz(name, user_id)"
                   >
                     <CardVisualization>
-                      <template v-slot:title>
+                      <template #title>
                         {{ name }}
                       </template>
                       <template v-if="config.base64">
@@ -68,7 +68,7 @@
     </template>
 
     <Dropdown @is-content-visible="showPublicVis = !showPublicVis">
-      <template v-slot:trigger>
+      <template #trigger>
         <h3 class="gobierto-data-visualization--h3">
           <Caret :rotate="showPublicVis" />
 
@@ -88,7 +88,7 @@
                 @click.native="loadViz(name, user_id)"
               >
                 <CardVisualization>
-                  <template v-slot:title>
+                  <template #title>
                     {{ name }}
                   </template>
                   <template v-if="config.base64">
@@ -198,7 +198,7 @@ export default {
     loadViz(vizName, user) {
       document.getElementById('gobierto-datos-app').scrollIntoView();
       const userId = Number(getUserId())
-      this.$emit('changeViz', 1)
+      this.$emit('change-viz', 1)
       this.$root.$emit('loadVizName', vizName)
       if (userId !== 0 && userId !== user) {
         this.$root.$emit('enabledForkVizButton', true)
@@ -208,7 +208,7 @@ export default {
       this.deleteAndReload = true
       const answerDelete = confirm(this.labelDeleteViz);
       if (answerDelete) {
-        this.$emit('emitDelete', id)
+        this.$emit('emit-delete', id)
       }
     }
   }

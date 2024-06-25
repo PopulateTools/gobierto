@@ -1,4 +1,5 @@
 @use "sass:color";
+
 // Proposals highlight style
 .highlight-proposal {
   background: $color_proposal_bg;
@@ -27,7 +28,6 @@
     padding: 0;
     background: #e9ad00;
     min-height: 100px;
-
     transition: all 0.15s ease-out 0s;
   }
 
@@ -160,7 +160,7 @@
 }
 
 .small_button:hover {
-  background: rgba(var(--color-base-string), 0.8);
+  background: rgb(var(--color-base-string) 0.8);
   text-decoration: none;
 }
 
@@ -182,22 +182,27 @@
 }
 
 .table-breakdown {
-  background: rgba(var(--color-base-string), 0.06);
+  background: rgb(var(--color-base-string) 0.06);
+
   .table-breakdown-element {
     color: var(--color-base);
     cursor: pointer;
   }
+
   tr.show-sublevel {
     .table-breakdown-element {
       font-weight: bold;
     }
+
     + .container-breakdown-sublevel {
       display: table-row;
     }
+
     i {
       transform: rotate(90deg);
     }
   }
+
   i {
     color: var(--color-base);
     margin-right: .5rem;
@@ -207,14 +212,17 @@
 
 .container-breakdown-sublevel {
   display: none;
+
   table {
     width: 91%;
     margin-left: 9%;
   }
+
   .container-breakdown-sublevel-td-element {
     .table-breakdown-element {
       margin-left: 0;
     }
+
     &.align-right {
       text-align: right;
     }

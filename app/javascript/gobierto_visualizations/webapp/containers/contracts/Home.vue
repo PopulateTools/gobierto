@@ -1,17 +1,17 @@
 <template>
   <div class="pure-g gutters m_b_4">
-    <Aside
+    <AsideComponent
       :contracts-data="contractsData"
       :data-download-endpoint="dataDownloadEndpoint"
     />
 
     <div class="pure-u-1 pure-u-md-3-4">
-      <Nav
+      <NavComponent
         :active-tab="activeTabIndex"
         @active-tab="setActiveTab"
       />
       <div class="visualizations-home-main">
-        <Summary
+        <SummaryComponent
           v-show="isSummary"
           :active-tab="activeTabIndex"
         />
@@ -34,11 +34,11 @@ import { EventBus } from '../../lib/mixins/event_bus';
 import { store } from '../../lib/mixins/store';
 
 export default {
-  name: 'Home',
+  name: 'HomeComponent',
   components: {
-    Aside,
-    Nav,
-    Summary,
+    AsideComponent: Aside,
+    NavComponent: Nav,
+    SummaryComponent: Summary,
     ContractsIndex,
     ContractsShow,
     AssigneesShow,

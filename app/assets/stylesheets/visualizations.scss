@@ -56,21 +56,21 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--border-separator);
 
-    @include screen(769) {
+    @include min-screen(768) {
       padding-bottom: .5rem;
     }
   }
 
   &-home-aside--gap {
-    position: sticky;
-    top: 0;
-    overflow-y: auto;
-    height: 100vh;
+    height: auto;
+    position: relative;
+    padding-bottom: 0;
 
-    @include screen(769) {
-      height: auto;
-      position: relative;
-      padding-bottom: 0;
+    @include min-screen(1024) {
+      position: sticky;
+      top: 0;
+      overflow-y: auto;
+      height: 100vh;
     }
   }
 

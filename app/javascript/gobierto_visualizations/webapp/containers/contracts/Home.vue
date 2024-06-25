@@ -1,25 +1,23 @@
 <template>
-  <div>
-    <div class="pure-g gutters m_b_4">
-      <Aside
-        :contracts-data="contractsData"
-        :data-download-endpoint="dataDownloadEndpoint"
-      />
+  <div class="pure-g gutters m_b_4">
+    <Aside
+      :contracts-data="contractsData"
+      :data-download-endpoint="dataDownloadEndpoint"
+    />
 
-      <div class="pure-u-1 pure-u-md-3-4">
-        <Nav
+    <div class="pure-u-1 pure-u-md-3-4">
+      <Nav
+        :active-tab="activeTabIndex"
+        @active-tab="setActiveTab"
+      />
+      <div class="visualizations-home-main">
+        <Summary
+          v-show="isSummary"
           :active-tab="activeTabIndex"
-          @active-tab="setActiveTab"
         />
-        <div class="visualizations-home-main">
-          <Summary
-            v-show="isSummary"
-            :active-tab="activeTabIndex"
-          />
-          <ContractsIndex v-show="isContractsIndex" />
-          <ContractsShow v-if="isContractsShow" />
-          <AssigneesShow v-if="isAssigneesShow" />
-        </div>
+        <ContractsIndex v-show="isContractsIndex" />
+        <ContractsShow v-if="isContractsShow" />
+        <AssigneesShow v-if="isAssigneesShow" />
       </div>
     </div>
   </div>

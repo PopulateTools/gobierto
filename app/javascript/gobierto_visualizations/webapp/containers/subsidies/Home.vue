@@ -1,21 +1,19 @@
 <template>
-  <div>
-    <div class="pure-g gutters m_b_4">
-      <Aside
-        :subsidies-data="subsidiesData"
-        :data-download-endpoint="dataDownloadEndpoint"
-      />
+  <div class="pure-g gutters m_b_4">
+    <AsideComponent
+      :subsidies-data="subsidiesData"
+      :data-download-endpoint="dataDownloadEndpoint"
+    />
 
-      <div class="pure-u-1 pure-u-lg-3-4">
-        <Nav
-          :active-tab="activeTabIndex"
-          @active-tab="setActiveTab"
-        />
-        <div class="visualizations-home-main">
-          <Summary v-show="isSummary" />
-          <SubsidiesIndex v-show="isSubsidiesIndex" />
-          <SubsidiesShow v-if="isSubsidiesShow" />
-        </div>
+    <div class="pure-u-1 pure-u-lg-3-4">
+      <NavComponent
+        :active-tab="activeTabIndex"
+        @active-tab="setActiveTab"
+      />
+      <div class="visualizations-home-main">
+        <SummaryComponent v-show="isSummary" />
+        <SubsidiesIndex v-show="isSubsidiesIndex" />
+        <SubsidiesShow v-if="isSubsidiesShow" />
       </div>
     </div>
   </div>
@@ -32,11 +30,11 @@ import { EventBus } from '../../lib/mixins/event_bus';
 import { store } from '../../lib/mixins/store';
 
 export default {
-  name: 'Home',
+  name: 'HomeComponent',
   components: {
-    Aside,
-    Nav,
-    Summary,
+    AsideComponent: Aside,
+    NavComponent: Nav,
+    SummaryComponent: Summary,
     SubsidiesIndex,
     SubsidiesShow
   },

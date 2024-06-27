@@ -69,7 +69,7 @@
     "eslint": "^9.5.0",
     "eslint-plugin-vue": "^9.26.0",
     "globals": "^15.6.0",
-    "husky": "^4.2.5",
+    "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
     "stylelint": "^16.6.1",
     "stylelint-config-recommended": "^14.0.1",
@@ -84,11 +84,6 @@
     "check_i18n": "script/check_i18n.sh",
     "test": "jest",
     "test:watch": "jest --watch"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "app/javascript/**/*.{js,vue}": [

@@ -402,7 +402,7 @@ body.gobierto_admin {
   }
 
   .publication_section {
-    background: rgb(var(--color-base-string) 0.15);
+    background: rgba(var(--color-base-string), 0.15);
   }
 
   .w_actions {
@@ -654,11 +654,11 @@ pre {
 
       @include border-radius(3px);
 
-      background: rgb(var(--color-base-string) 0.1);
+      background: rgba(var(--color-base-string), 0.1);
     }
 
     a.locale_option:hover {
-      background: rgb(var(--color-base-string) 0.3);
+      background: rgba(var(--color-base-string), 0.3);
     }
 
     a.selected,
@@ -741,7 +741,7 @@ pre {
       }
 
       a:hover {
-        background: rgb(var(--color-base-string) 0.06);
+        background: rgba(var(--color-base-string), 0.06);
       }
     }
 
@@ -832,7 +832,7 @@ a .global_menu {
 }
 
 .file_browser {
-  background: rgb(var(--color-base-string) 0.06);
+  background: rgba(var(--color-base-string), 0.06);
   font-size: 0.85em;
   box-sizing: border-box;
   padding: 1em;
@@ -853,7 +853,7 @@ a .global_menu {
 
   li:hover {
     border-radius: 3px;
-    background: rgb(var(--color-base-string) 0.15);
+    background: rgba(var(--color-base-string), 0.15);
     cursor: pointer;
   }
 
@@ -865,7 +865,7 @@ a .global_menu {
 
 .template_editor {
   .template_editor_main_pane {
-    background: rgb(var(--color-base-string) 0.06);
+    background: rgba(var(--color-base-string), 0.06);
   }
 
   .action_buttons {
@@ -877,7 +877,7 @@ a .global_menu {
   }
 
   .code_editor {
-    background: rgb(var(--color-base-string) 0.06);
+    background: rgba(var(--color-base-string), 0.06);
     box-sizing: border-box;
     padding: 1em;
     min-height: 600px;
@@ -1001,7 +1001,7 @@ table {
     padding: 0.35em 0 0.15em;
 
     .v_el {
-      border-top: 1px solid rgb(var(--color-base-string) 0.2);
+      border-top: 1px solid rgba(var(--color-base-string), 0.2);
       display: none;
     }
 
@@ -1012,7 +1012,7 @@ table {
     }
 
     .v_el:hover {
-      background: rgb(var(--color-base-string) 0.05);
+      background: rgba(var(--color-base-string), 0.05);
 
       .v_el:hover {
         background: transparentize(#fff, 0.5);
@@ -1055,7 +1055,7 @@ table {
   .v_el_level {
     @include border-radius(6px);
 
-    background: rgb(var(--color-base-string) 0.1);
+    background: rgba(var(--color-base-string), 0.1);
     padding: 0.75em 0 0.5em 0.8em;
     margin: 0 0 1em;
 
@@ -1238,7 +1238,7 @@ a.f_soft,
     }
 
     a:hover {
-      background: rgb(var(--color-base-string) 0.1);
+      background: rgba(var(--color-base-string), 0.1);
     }
   }
 

@@ -37,7 +37,7 @@
   height: 1rem;
   width: 100%;
   margin-bottom: .5rem;
-  background-color: rgb(var(--color-base-string) .1);
+  background-color: rgba(var(--color-base-string), .1);
   display: block;
   border-radius: 4px;
 }
@@ -45,5 +45,5 @@
 .gobierto-skeleton-spinner-square {
   border-radius: 4px;
   height: 5rem;
-  background-color: rgb(var(--color-base-string) .1);
+  background-color: rgba(var(--color-base-string), .1);
 }

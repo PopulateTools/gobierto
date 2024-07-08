@@ -160,7 +160,7 @@
 }
 
 .small_button:hover {
-  background: rgb(var(--color-base-string) 0.8);
+  background: rgba(var(--color-base-string), 0.8);
   text-decoration: none;
 }
 
@@ -182,7 +182,7 @@
 }
 
 .table-breakdown {
-  background: rgb(var(--color-base-string) 0.06);
+  background: rgba(var(--color-base-string), 0.06);
 
   .table-breakdown-element {
     color: var(--color-base);

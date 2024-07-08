@@ -76,7 +76,7 @@
 
     .second-row {
       font-size: $f3;
-      color: rgb(var(--blue-text-legend-str) .5);
+      color: rgba(var(--blue-text-legend-str), .5);
       display: block;
     }
   }
@@ -114,7 +114,7 @@
 
   .line-percentage_year {
     stroke-width: 2px;
-    stroke: rgb(var(--blue-line-str) .3);
+    stroke: rgba(var(--blue-line-str), .3);
   }
 
   .domain {

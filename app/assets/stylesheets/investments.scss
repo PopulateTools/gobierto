@@ -375,7 +375,7 @@
         padding-left: $space * 0.5;
         padding-right: $space * 0.5;
         box-sizing: border-box;
-        background-color: rgb(var(--color-base-string) 0.1);
+        background-color: rgba(var(--color-base-string), 0.1);
       }
 
       input[type="checkbox"]:checked + label::before {
@@ -387,7 +387,7 @@
 
     // TODO: eliminar cuando se use el componente filtros
     &--calendar-button {
-      background-color: rgb(var(--color-base-string) 0.1);
+      background-color: rgba(var(--color-base-string), 0.1);
       border-radius: 4px;
       padding: 6px;
       cursor: pointer;
@@ -729,14 +729,14 @@
       $opacity: nth($ranges-opacity, $i);
 
       &--item:nth-child(#{$i}) &--heading {
-        background-color: rgb(var(--color-base-string) $opacity);
+        background-color: rgba(var(--color-base-string), $opacity);
 
         &::before {
           border-left-color: white;
         }
 
         &::after {
-          border-left-color: rgb(var(--color-base-string) $opacity);
+          border-left-color: rgba(var(--color-base-string), $opacity);
         }
       }
     }
@@ -888,7 +888,7 @@
     border-radius: 100%;
     width: 64px;
     height: 64px;
-    background-color: rgb(var(--color-base-string) 0.25);
+    background-color: rgba(var(--color-base-string), 0.25);
 
     @include screen(768) {
       width: 48px;

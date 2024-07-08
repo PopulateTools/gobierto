@@ -17,7 +17,7 @@
 
 .dashboards-viewer {
   .widget {
-    background-color: rgb(var(--color-base-string) 0.1);
+    background-color: rgba(var(--color-base-string), 0.1);
     padding: var(--space);
     height: 100%;
     user-select: none;
@@ -53,7 +53,7 @@
 
     &__barchart {
       position: relative;
-      background-color: rgb(var(--color-base-string) 0.2);
+      background-color: rgba(var(--color-base-string), 0.2);
       overflow: hidden;
       height: 20px;
       width: 100%;
@@ -96,7 +96,7 @@
         font-size: $f1;
         line-height: 1.1;
         font-weight: 300;
-        color: rgb(var(--color-grey-str) 1);
+        color: rgba(var(--color-grey-str), 1);
       }
     }
 
@@ -157,7 +157,7 @@
 
     &__barchart {
       position: relative;
-      background-color: rgb(var(--color-base-string) 0.2);
+      background-color: rgba(var(--color-base-string), 0.2);
       overflow: hidden;
       width: 33%;
       max-width: 100px;
@@ -195,7 +195,7 @@
 
   &__card {
     padding: var(--space);
-    border: 1px solid rgb(var(--color-grey-str) 0.2);
+    border: 1px solid rgba(var(--color-grey-str), 0.2);
     position: relative;
     cursor: pointer;
     transition: background-color 250ms;
@@ -207,7 +207,7 @@
     }
 
     &:hover {
-      background-color: rgb(var(--color-grey-str) 0.1);
+      background-color: rgba(var(--color-grey-str), 0.1);
     }
 
     &-grid {

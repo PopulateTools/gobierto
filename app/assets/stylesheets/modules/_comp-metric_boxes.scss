@@ -10,7 +10,7 @@
     box-sizing: border-box;
 
     .inner {
-      background: rgb(var(--color-base-string) 0.15);
+      background: rgba(var(--color-base-string), 0.15);
       margin: 0 0.5em;
       padding: 0.8em 1em;
       min-height: 100px;
@@ -80,7 +80,7 @@
       width: 25%;
       opacity: 1;
       height: 10px;
-      background: rgb(var(--color-base-string) 0.1);
+      background: rgba(var(--color-base-string), 0.1);
       margin-right: 0.25rem;
 
       .line {

@@ -52,7 +52,7 @@
     cursor: pointer;
 
     &:hover {
-      border-bottom: 2px solid rgb(var(--color-base-string) 0.5);
+      border-bottom: 2px solid rgba(var(--color-base-string), 0.5);
       text-decoration: none;
     }
 
@@ -155,14 +155,14 @@
     color: #4a4a4a;
     display: inline-block;
     padding: .5rem $f4;
-    background-color: rgb(var(--color-base-string) .1);
+    background-color: rgba(var(--color-base-string), .1);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     cursor: pointer;
     transition: background-color var(--transition);
 
     &:hover {
-      background-color: rgb(var(--color-base-string) .05);
+      background-color: rgba(var(--color-base-string), .05);
     }
 
     &.is-active {
@@ -304,7 +304,7 @@
   }
 
   &-btn-download-data {
-    border: 1px solid rgb(var(--color-base-string) .2);
+    border: 1px solid rgba(var(--color-base-string), .2);
     padding: .5rem;
     font-size: $f6;
     font-family: $font_text;
@@ -525,7 +525,7 @@
 
     &:hover {
       text-decoration: none;
-      background-color: rgb(var(--color-base-string) .1);
+      background-color: rgba(var(--color-base-string), .1);
     }
   }
 
@@ -546,7 +546,7 @@
 
     &:hover,
     &.active-query {
-      background-color: rgb(var(--color-base-string) .1);
+      background-color: rgba(var(--color-base-string), .1);
 
       &::before {
         display: inline-block;
@@ -555,7 +555,7 @@
   }
 
   .border-color-queries {
-    border-left: 1px solid rgb(var(--color-base-string) .1);
+    border-left: 1px solid rgba(var(--color-base-string), .1);
     width: calc(50% - 1px);
   }
 
@@ -565,7 +565,7 @@
     transition: background-color var(--transition);
 
     &:hover {
-      background-color: rgb(var(--color-base-string) 0.1);
+      background-color: rgba(var(--color-base-string), 0.1);
     }
   }
 
@@ -789,7 +789,7 @@
   }
 
   &-visualization--card {
-    background-color: rgb(var(--color-base-string) .05);
+    background-color: rgba(var(--color-base-string), .05);
     padding: $f6;
     border-radius: 3px;
     min-height: 350px;

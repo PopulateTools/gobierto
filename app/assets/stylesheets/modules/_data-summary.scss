@@ -92,7 +92,7 @@
   }
 
   &-summary-queries-panel {
-    border: 1px solid rgb(var(--color-base-string) 0.3);
+    border: 1px solid rgba(var(--color-base-string), 0.3);
     border-radius: 3px;
     position: relative;
 
@@ -103,7 +103,7 @@
       width: 1px;
       position: absolute;
       left: 50%;
-      background-color: rgb(var(--color-base-string) .3);
+      background-color: rgba(var(--color-base-string), .3);
     }
 
     .gobierto-vue-dropdown--content {

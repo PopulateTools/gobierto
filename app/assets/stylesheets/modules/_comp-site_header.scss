@@ -104,7 +104,7 @@ header {
       appearance: none;
       appearance: none;
       padding: 0 6px;
-      background: rgb(var(--color-base-string) 0.06);
+      background: rgba(var(--color-base-string), 0.06);
       text-transform: initial;
       border: 1px solid transparent;
 
@@ -115,7 +115,7 @@ header {
       @include border-radius(75px);
 
       &:hover {
-        background: rgb(var(--color-base-string) 0.25);
+        background: rgba(var(--color-base-string), 0.25);
       }
 
       i {
@@ -142,7 +142,7 @@ header {
       }
 
       .search-box_input {
-        border: 1px solid rgb(var(--color-base-string) 0.3);
+        border: 1px solid rgba(var(--color-base-string), 0.3);
         border-radius: 100px;
         width: 170px;
         height: 26px;
@@ -199,7 +199,7 @@ header {
       cursor: pointer;
 
       .button-container {
-        background-color: rgb(var(--color-base-string) 0.12);
+        background-color: rgba(var(--color-base-string), 0.12);
         color: var(--color-base);
         width: 19px;
         height: 15px;
@@ -245,7 +245,7 @@ header {
         align-items: center;
 
         .hamburger_container {
-          background-color: rgb(var(--color-base-string) 0.04);
+          background-color: rgba(var(--color-base-string), 0.04);
           float: right;
           width: 38px;
           height: 38px;
@@ -288,7 +288,7 @@ header {
         .site_header_slogan {
           padding: 0 0 0 2em;
           margin: 0 0 0 2em;
-          border-left: 1px solid rgb(var(--color-base-string) 0.06);
+          border-left: 1px solid rgba(var(--color-base-string), 0.06);
 
           @include font($f5, $fExtraLight);
 
@@ -331,7 +331,7 @@ header {
     }
 
     .main-nav {
-      background-color: rgb(var(--color-base-string) 0.06);
+      background-color: rgba(var(--color-base-string), 0.06);
       cursor: pointer;
 
       .main-nav-item {
@@ -340,7 +340,7 @@ header {
         border-top: 5px solid transparent;
 
         &:hover {
-          border-top: 5px solid rgb(var(--color-base-string) 0.5);
+          border-top: 5px solid rgba(var(--color-base-string), 0.5);
           transition: all 0.15s ease-out 0s;
         }
 
@@ -381,7 +381,7 @@ header {
         border-bottom: 2px solid transparent;
 
         &:hover {
-          border-bottom: 2px solid rgb(var(--color-base-string) 0.5);
+          border-bottom: 2px solid rgba(var(--color-base-string), 0.5);
           transition: all 0.15s ease-out 0s;
         }
 
@@ -432,7 +432,7 @@ header {
         }
 
         a:hover {
-          border-bottom: 2px solid rgb(var(--color-base-string) 0.5);
+          border-bottom: 2px solid rgba(var(--color-base-string), 0.5);
           transition: all 0.15s ease-out 0s;
         }
       }
@@ -455,8 +455,8 @@ header {
             background-color: #fff;
 
             .submenu-dropdown {
-              background-color: rgb(var(--color-base-string) 0.04);
-              border-top: 1px solid rgb(var(--color-base-string) 0.2);
+              background-color: rgba(var(--color-base-string), 0.04);
+              border-top: 1px solid rgba(var(--color-base-string), 0.2);
               box-shadow: 0 8px 8px rgb(0 0 0 / 50%);
 
               @include border-radius(1px);
@@ -487,12 +487,12 @@ header {
       .navigation {
         display: none;
         min-height: calc(100vh - 90px);
-        background-color: rgb(var(--color-base-string) 0.06);
+        background-color: rgba(var(--color-base-string), 0.06);
         position: relative;
 
         .navigation-wrap {
           &:first-child {
-            border-top: 1px solid rgb(var(--color-base-string) 0.2);
+            border-top: 1px solid rgba(var(--color-base-string), 0.2);
             width: 100%;
 
             .main-nav-item {
@@ -529,7 +529,7 @@ header {
             background-color: #fff;
 
             .navigation-subitem {
-              background-color: rgb(var(--color-base-string) 0.04);
+              background-color: rgba(var(--color-base-string), 0.04);
 
               &.is-open {
                 display: block;
@@ -694,7 +694,7 @@ header {
       }
 
       .main-nav {
-        border-top: 1px solid rgb(var(--color-base-string) 0.2);
+        border-top: 1px solid rgba(var(--color-base-string), 0.2);
 
         &.nav {
           display: none;

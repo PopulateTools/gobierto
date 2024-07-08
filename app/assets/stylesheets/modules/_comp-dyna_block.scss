@@ -45,7 +45,7 @@ body.gobierto_admin {
       display: none;
 
       td {
-        background: rgb(var(--color-base-string) 0.05);
+        background: rgba(var(--color-base-string), 0.05);
         padding: 0.7em 0.5em 0.4em;
       }
 
@@ -114,7 +114,7 @@ body.gobierto_admin {
       }
 
       a:hover {
-        background: rgb(var(--color-base-string) 0.1);
+        background: rgba(var(--color-base-string), 0.1);
       }
     }
 
@@ -166,7 +166,7 @@ body.gobierto_admin {
     }
 
     a:hover {
-      background: rgb(var(--color-base-string) 0.1);
+      background: rgba(var(--color-base-string), 0.1);
     }
   }
 
@@ -175,7 +175,7 @@ body.gobierto_admin {
 
     @include border-radius(6px);
 
-    background: rgb(var(--color-base-string) 0.1);
+    background: rgba(var(--color-base-string), 0.1);
 
     .block_column_field {
       margin: 0 0 1em;

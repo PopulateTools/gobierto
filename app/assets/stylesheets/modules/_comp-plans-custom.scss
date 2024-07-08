@@ -26,24 +26,24 @@ In order to generate more custom categories, refer to https://gobierto.readme.io
 
 .gobierto_planification {
   .level_0 .category {
-    background-color: rgb(var(--category) 0.9);
+    background-color: rgba(var(--category), 0.9);
 
     .progress {
-      background-color: rgb(var(--category) 1);
+      background-color: rgba(var(--category), 1);
     }
   }
 
   .category {
-    background: rgb(var(--category) 0.1);
-    color: rgb(var(--category) 1);
+    background: rgba(var(--category), 0.1);
+    color: rgba(var(--category), 1);
 
     .node-list .node-title h3,
     .node-list .node-title h3 a {
-      color: rgb(var(--category) 1);
+      color: rgba(var(--category), 1);
     }
 
     .node-list .node-title .fas {
-      background: rgb(var(--category) 0.1);
+      background: rgba(var(--category), 0.1);
     }
 
     .node-list.cat--negative .node-title h3,
@@ -53,33 +53,33 @@ In order to generate more custom categories, refer to https://gobierto.readme.io
 
     .node-list.cat--negative .node-title .fas {
       background: $color_main_negative;
-      color: rgb(var(--category) 1);
+      color: rgba(var(--category), 1);
     }
 
     .node-breadcrumb {
-      border: 1px solid rgb(var(--category) 0.75);
-      color: rgb(var(--category) 1);
+      border: 1px solid rgba(var(--category), 0.75);
+      color: rgba(var(--category), 1);
     }
 
     .node-breadcrumb a {
-      color: rgb(var(--category) 1);
+      color: rgba(var(--category), 1);
     }
 
     .node-action-line table tbody tr:hover td {
-      background-color: rgb(var(--category) 0.2);
+      background-color: rgba(var(--category), 0.2);
     }
 
     .node-project-detail .project-mandatory .mandatory-progress > div {
-      background-color: rgb(var(--category) 1);
+      background-color: rgba(var(--category), 1);
     }
 
     .node-project-detail .project-description .project-description__more {
-      border-color: rgb(var(--category) 1);
-      color: rgb(var(--category) 1);
+      border-color: rgba(var(--category), 1);
+      color: rgba(var(--category), 1);
     }
 
     .cat--negative {
-      background: rgb(var(--category) 1);
+      background: rgba(var(--category), 1);
       color: $color_main_negative;
     }
 

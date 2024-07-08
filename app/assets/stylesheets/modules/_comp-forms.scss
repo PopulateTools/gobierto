@@ -228,7 +228,7 @@ input[type="submit"].button {
 input[type="submit"]:hover,
 .button:hover,
 button:hover {
-  background: rgb(var(--color-base-string) 0.8);
+  background: rgba(var(--color-base-string), 0.8);
 }
 
 input[type="submit"]:disabled,
@@ -262,7 +262,7 @@ button {
 
 button.soft,
 .button.soft {
-  background: rgb(var(--color-base-string) 0.65);
+  background: rgba(var(--color-base-string), 0.65);
 }
 
 button.light,
@@ -309,11 +309,11 @@ button.small,
 
 button.light:hover,
 .button.light:hover {
-  background: rgb(var(--color-base-string) 0.2);
+  background: rgba(var(--color-base-string), 0.2);
 }
 
 .button_light {
-  background: rgb(var(--color-base-string) 0.2);
+  background: rgba(var(--color-base-string), 0.2);
   transition: all 0.15s ease-out 0s;
   font-size: 0.75em;
   text-decoration: none;
@@ -327,20 +327,20 @@ button.light:hover,
 }
 
 .button_light:hover {
-  background: rgb(var(--color-base-string) 0.3);
+  background: rgba(var(--color-base-string), 0.3);
   text-decoration: none;
 }
 
 button.outline,
 .button.outline {
   background: #fff;
-  border: 1px solid rgb(var(--color-base-string) 0.25);
+  border: 1px solid rgba(var(--color-base-string), 0.25);
   color: var(--color-base);
 }
 
 button.outline:hover,
 .button.outline:hover {
-  background: rgb(var(--color-base-string) 0.06);
+  background: rgba(var(--color-base-string), 0.06);
   text-decoration: none;
 }
 
@@ -535,7 +535,7 @@ input[type="radio"] + label {
 }
 
 .inline_button {
-  background: rgb(var(--color-base-string) 0.1);
+  background: rgba(var(--color-base-string), 0.1);
   border-radius: 4px;
   color: var(--color-base);
   font-weight: 600;
@@ -546,7 +546,7 @@ input[type="radio"] + label {
   &:hover,
   &:active,
   &:focus {
-    background: rgb(var(--color-base-string) 0.15);
+    background: rgba(var(--color-base-string), 0.15);
     text-decoration: none;
   }
 }
@@ -613,12 +613,12 @@ input[type="radio"] + label span {
 input[type="checkbox"] + label:hover,
 input[type="radio"] + label:hover,
 .admin_new_el a:hover {
-  background: rgb(var(--color-base-string) 0.1);
+  background: rgba(var(--color-base-string), 0.1);
 }
 
 input[type="checkbox"]:checked + label,
 input[type="radio"]:checked + label {
-  background: rgb(var(--color-base-string) 0.2);
+  background: rgba(var(--color-base-string), 0.2);
 
   .password_protected {
     margin: 0.5em 0;
@@ -787,7 +787,7 @@ select {
     }
 
     .option_contextual {
-      background: rgb(var(--color-base-string) 0.2);
+      background: rgba(var(--color-base-string), 0.2);
       padding: 0.5em 1em 0.5em 2.5em;
       margin-left: calc(-0.5rem - 1px);
       margin-top: -1px;

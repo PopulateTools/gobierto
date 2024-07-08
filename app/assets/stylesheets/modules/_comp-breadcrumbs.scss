@@ -45,7 +45,7 @@
   }
 
   .bread_links {
-    background: rgb(var(--color-base-string) 0.1);
+    background: rgba(var(--color-base-string), 0.1);
     padding: 0.3em 0.75em;
 
     @include border-radius(4px);
@@ -125,7 +125,7 @@
 
   td.selected,
   td.selected_no_children {
-    border-left: 2px solid rgb(var(--color-base-string) 0.5);
+    border-left: 2px solid rgba(var(--color-base-string), 0.5);
     position: relative;
   }
 
@@ -136,7 +136,7 @@
     width: 0;
     border-style: solid;
     border-width: 6px 0 6px 11.3px;
-    border-color: transparent transparent transparent rgb(var(--color-base-string) 0.5);
+    border-color: transparent transparent transparent rgba(var(--color-base-string), 0.5);
     top: 38%;
     left: 100%;
   }
@@ -215,7 +215,7 @@
   }
 
   .disabled {
-    color: rgb(var(--color-base-string) 0.5);
+    color: rgba(var(--color-base-string), 0.5);
     pointer-events: none;
   }
 

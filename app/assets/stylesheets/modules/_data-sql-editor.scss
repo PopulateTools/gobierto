@@ -20,7 +20,7 @@
   .btn-sql-editor {
     text-transform: none;
     min-height: 31px;
-    border: 1px solid rgb(var(--color-base-string) .2);
+    border: 1px solid rgba(var(--color-base-string), .2);
     font-weight: 600;
     font-size: $f7;
     margin: 0;

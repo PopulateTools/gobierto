@@ -237,7 +237,7 @@ body.gobierto_people.welcome.index {
 
     .person_party,
     .political_group {
-      background: rgb(var(--color-base-string) 0.06);
+      background: rgba(var(--color-base-string), 0.06);
       font-size: 0.75em;
       padding: 0.45em 0.75em;
       margin: 0 1em 0 0;
@@ -311,7 +311,7 @@ body.gobierto_people.welcome.index {
 
         a.active,
         a:hover {
-          background: rgb(var(--color-base-string) 0.06);
+          background: rgba(var(--color-base-string), 0.06);
         }
       }
     }
@@ -338,7 +338,7 @@ body.gobierto_people.welcome.index {
       }
 
       a:hover {
-        background: rgb(var(--color-base-string) 0.06);
+        background: rgba(var(--color-base-string), 0.06);
       }
     }
   }
@@ -368,7 +368,7 @@ body.gobierto_people.welcome.index {
 .agenda-switcher {
   @include border-radius(5px);
 
-  border: 2px solid rgb(var(--color-base-string) 0.2);
+  border: 2px solid rgba(var(--color-base-string), 0.2);
   padding: 1em 1em 0.65em;
   box-sizing: border-box;
   position: relative;
@@ -387,7 +387,7 @@ body.gobierto_people.welcome.index {
     @include box-shadow;
     @include border-radius(5px);
 
-    border: 1px solid rgb(var(--color-base-string) 0.2);
+    border: 1px solid rgba(var(--color-base-string), 0.2);
     position: absolute;
     width: calc(100% + 2px);
     padding: 1em;

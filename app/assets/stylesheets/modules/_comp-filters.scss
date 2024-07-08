@@ -18,7 +18,7 @@
 
     @include border-radius(2em);
 
-    background: rgb(var(--color-base-string) 0.2);
+    background: rgba(var(--color-base-string), 0.2);
     text-decoration: none;
     cursor: pointer;
 
@@ -28,13 +28,13 @@
   }
 
   a:hover {
-    background: rgb(var(--color-base-string) 0.3);
+    background: rgba(var(--color-base-string), 0.3);
     text-decoration: none;
   }
 
   a.active,
   a.active:hover {
-    border: 1px solid rgb(var(--color-base-string) 0.2);
+    border: 1px solid rgba(var(--color-base-string), 0.2);
     background: $color_main_negative;
   }
 

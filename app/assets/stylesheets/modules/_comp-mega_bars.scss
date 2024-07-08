@@ -40,7 +40,7 @@
   }
 
   .bar.income {
-    background: rgb(var(--color-base-string) 0.1);
+    background: rgba(var(--color-base-string), 0.1);
 
     .label {
       left: 20px;

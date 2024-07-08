@@ -192,7 +192,7 @@
 
     dl {
       box-sizing: border-box;
-      background: rgb(var(--color-base-string) 0.03);
+      background: rgba(var(--color-base-string), 0.03);
       max-width: 730px;
       padding: 1em;
       display: flex;
@@ -350,7 +350,7 @@
 }
 
 .card-container {
-  background: rgb(var(--color-base-string) 0.06);
+  background: rgba(var(--color-base-string), 0.06);
   display: flex;
 
   .card-inner-side {

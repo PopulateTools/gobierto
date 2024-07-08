@@ -18,7 +18,7 @@
 
   &__tr {
     &:not(:last-child) {
-      border-bottom: 1px solid rgb(var(--color-base-string) .1);
+      border-bottom: 1px solid rgba(var(--color-base-string), .1);
     }
 
     &:first-child {
@@ -140,7 +140,7 @@
     text-decoration: none;
 
     &:hover {
-      background-color: rgb(var(--color-base-string) .1);
+      background-color: rgba(var(--color-base-string), .1);
 
       .gobierto-table__a {
         color: $color_text;

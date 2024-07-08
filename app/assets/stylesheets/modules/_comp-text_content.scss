@@ -48,11 +48,11 @@ figure.gif {
         }
 
         a:hover {
-          background: rgb(var(--color-base-string) 0.9);
+          background: rgba(var(--color-base-string), 0.9);
         }
 
         ul {
-          background: rgb(var(--color-base-string) 0.06);
+          background: rgba(var(--color-base-string), 0.06);
           padding: 0.75em 0.75em 0.75em 1.25em;
           font-size: 0.85rem;
 
@@ -108,7 +108,7 @@ figure.gif {
     }
 
     .page_attachments {
-      background: rgb(var(--color-base-string) 0.06);
+      background: rgba(var(--color-base-string), 0.06);
       width: 50%;
       float: right;
       margin: 0 0 2em 2em;
@@ -140,7 +140,7 @@ figure.gif {
         }
 
         a:hover {
-          background: rgb(var(--color-base-string) 0.06);
+          background: rgba(var(--color-base-string), 0.06);
           filter: brightness(0.95);
         }
 
@@ -170,7 +170,7 @@ figure.gif {
   line-height: 1.2;
 
   .page_child {
-    background: rgb(var(--color-base-string) 0.06);
+    background: rgba(var(--color-base-string), 0.06);
     border-radius: 6px;
     margin: 0.5em;
     font-size: $f5;
@@ -185,7 +185,7 @@ figure.gif {
     }
 
     a:hover {
-      background: rgb(var(--color-base-string) 0.06);
+      background: rgba(var(--color-base-string), 0.06);
       filter: brightness(0.95);
     }
 

@@ -8,7 +8,7 @@
     fill: var(--color-base);
 
     &:hover {
-      fill: rgb(var(--color-base-string) 0.9);
+      fill: rgba(var(--color-base-string), 0.9);
 
       // cursor: pointer;
     }
@@ -24,7 +24,7 @@
 
   g.row {
     &:nth-of-type(odd) rect {
-      fill: rgb(var(--color-base-string) 0.2);
+      fill: rgba(var(--color-base-string), 0.2);
     }
 
     &:nth-of-type(even) rect {

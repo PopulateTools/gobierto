@@ -116,18 +116,18 @@ export class VisSlider {
       .text(year => year)
       .classed("active", d => d == currentYear)
       .attr("dx", d => {
-        if (d == maxYear) {
+        if (d === maxYear) {
           return 10;
-        } else if (d == 2010) {
+        } else if (d === years[0]) {
           return -10;
         } else {
           return 0;
         }
       })
       .attr("text-anchor", d => {
-        if (d == maxYear) {
+        if (d === maxYear) {
           return "end";
-        } else if (d == 2010) {
+        } else if (d === years[0]) {
           return "start";
         } else {
           return "middle";

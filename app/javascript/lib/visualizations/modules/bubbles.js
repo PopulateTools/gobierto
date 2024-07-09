@@ -5,6 +5,10 @@ d3.selection.prototype.tspans = tspans;
 
 export class VisBubbles {
   constructor(divId, budgetCategory, data) {
+    this.build(divId, budgetCategory, data)
+  }
+
+  build(divId, budgetCategory, data) {
     this.container = divId;
     d3.select(this.container).html("");
     this.currentYear = parseInt(d3.select("body").attr("data-year"));
@@ -101,12 +105,8 @@ export class VisBubbles {
   }
 
   resize() {
-    const { parentNode } = this.svg.node();
-    if (parentNode) {
-      parentNode.remove();
-      this.constructor(this.container, this.budget_category, this.data);
-      this.render();
-    }
+    this.build(this.container, this.budget_category, this.data);
+    this.render();
   }
 
   createNodes(rawData, year) {

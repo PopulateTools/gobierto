@@ -142,7 +142,10 @@ export class CostsController {
       "costdirfin"
     ];
 
-    const population = ["128291", "129661", "129120", "128956"];
+    // Array with the population of each year from Mataro
+    // This should be moved to the Gobierto Datos API
+    //                     2019      2020      2021      2022      2023
+    const population = ["128291", "129661", "129120", "128956", "129870"];
 
     let yearsCosts = [...new Set(rawData.map(item => item.any_))];
     const setPopulation = (value, item) => value[yearsCosts.findIndex(year => year === item["any_"])]

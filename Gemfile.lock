@@ -232,7 +232,7 @@ GEM
       google-apis-core (~> 0.1)
       google-apis-discovery_v1 (~> 0.0)
       thor (>= 0.20, < 2.a)
-    google-protobuf (3.23.2)
+    google-protobuf (3.25.5)
     googleauth (0.14.0)
       faraday (>= 0.17.3, < 2.0)
       jwt (>= 1.4, < 3.0)

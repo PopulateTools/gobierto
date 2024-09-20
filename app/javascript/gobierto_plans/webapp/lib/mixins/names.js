@@ -22,7 +22,7 @@ export const NamesMixin = {
     this.natives.set("progress", this.labelProgress);
     this.natives.set("starts_at", this.labelStarts);
     this.natives.set("ends_at", this.labelEnds);
-    this.natives.set("status", this.labelStatus);
+    this.natives.set("status_id", this.labelStatus);
   },
   methods: {
     // helper to extract the name from the uid
@@ -50,6 +50,12 @@ export const NamesMixin = {
       const KEYS = PlansStore.state.options
       const key = KEYS[`level${level}`];
       return number_of_elements === 1 ? key["one"] : key["other"];
+    },
+    // helper to extract the status text from the id
+    getStatus(value) {
+      const { status } = PlansStore.state
+      const { attributes: { name } = {} } = status.find(({ id }) => +id === +value) || {};
+      return name
     }
   }
 };

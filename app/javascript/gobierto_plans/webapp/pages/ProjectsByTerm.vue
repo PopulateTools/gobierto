@@ -38,13 +38,13 @@
           <template v-for="{ id, attributes } in projectsSorted">
             <ProjectsByTermTableRow
               :key="id"
-              v-slot="{ column, options }"
+              v-slot="{ column, opts }"
               :marked="currentId === id"
               :columns="selectedColumns"
             >
               <TableCellTemplates
                 :column="column"
-                :attributes="{ ...options, id, value: attributes[column] }"
+                :attributes="{ ...opts, id, value: attributes[column] }"
                 @current-project="setCurrentProject"
               />
             </ProjectsByTermTableRow>

@@ -9,7 +9,7 @@
 
 <script>
 import { date, percent } from '../../../lib/vue/filters';
-import { PlansStore } from '../lib/store';
+import { NamesMixin } from '../lib/mixins/names';
 
 export default {
   name: "ActionLinesTableViewRow",
@@ -17,6 +17,7 @@ export default {
     percent,
     date
   },
+  mixins: [NamesMixin],
   props: {
     model: {
       type: Object,
@@ -35,12 +36,10 @@ export default {
     const {
       attributes: { name, starts_at, status_id, progress } = {}
     } = this.model;
-    const { status } = PlansStore.state;
-    const { attributes: { name: statusText } = {} } = status.find(({ id }) => +id === +status_id) || {};
 
     this.name = name;
     this.startsAt = starts_at;
-    this.status = statusText;
+    this.status = this.getStatus(status_id);
     this.progress = progress;
   }
 };

@@ -37,7 +37,7 @@
 
 <script>
 import { date, percent } from '../../../lib/vue/filters';
-import { PlansStore } from '../lib/store';
+import { NamesMixin } from '../lib/mixins/names';
 
 export default {
   name: "ProjectNativeFields",
@@ -45,6 +45,7 @@ export default {
     date,
     percent
   },
+  mixins: [NamesMixin],
   props: {
     model: {
       type: Object,
@@ -77,10 +78,7 @@ export default {
     this.progress = progress;
     this.startsAt = starts_at;
     this.endsAt = ends_at;
-
-    const { status } = PlansStore.state
-    const { attributes: { name } = {} } = status.find(({ id }) => +id === +status_id) || {};
-    this.status = name
+    this.status = this.getStatus(status_id)
   }
 };
 </script>

@@ -14,6 +14,9 @@
     <template v-else-if="column === 'starts_at' || column === 'ends_at'">
       {{ value | date }}
     </template>
+    <template v-else-if="column === 'status_id'">
+      {{ status }}
+    </template>
     <template v-else-if="vocabularyType">
       <CustomFieldVocabulary :attributes="attributes" />
     </template>
@@ -43,6 +46,7 @@ import CustomFieldParagraph from '../components/CustomFieldParagraph.vue';
 import CustomFieldPluginRawIndicators from '../components/CustomFieldPluginRawIndicators.vue';
 import { FieldTypeMixin } from '../lib/mixins/field-type';
 import { percent, date } from '../../../lib/vue/filters';
+import { NamesMixin } from '../lib/mixins/names';
 
 export default {
   name: "TableCellTemplates",
@@ -57,7 +61,7 @@ export default {
     percent,
     date
   },
-  mixins: [FieldTypeMixin],
+  mixins: [NamesMixin, FieldTypeMixin],
   props: {
     attributes: {
       type: Object,
@@ -72,12 +76,14 @@ export default {
     return {
       id: null,
       value: null,
+      status: ""
     }
   },
   created() {
     const { value, id } = this.attributes
     this.id = id
     this.value = value
+    this.status = this.getStatus(this.value)
   },
   methods: {
     setCurrentProject() {

@@ -61,7 +61,7 @@ export default {
       children: [],
       level: 0,
       tableHeaders: [],
-      defaultTableFields: ["starts_at", "status_id", "progress"]
+      defaultTableFields: ["starts_at", "status", "progress"]
     };
   },
   created() {

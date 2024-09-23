@@ -6,7 +6,7 @@
     <template v-else-if="column === 'starts_at' || column === 'ends_at'">
       {{ value | date }}
     </template>
-    <template v-else-if="column === 'status_id'">
+    <template v-else-if="column === 'status'">
       {{ status }}
     </template>
     <template v-else-if="vocabularyType">

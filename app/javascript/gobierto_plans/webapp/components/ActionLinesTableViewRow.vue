@@ -46,12 +46,9 @@ export default {
     // name is always shown
     this.columns = [
       ["name", this.model.attributes.name],
-      ...Object.entries(this.model.attributes)
-        // NOTE: "status" field comes from the API as an attribute called "status_id"
-        // however, the api endpoint /meta still saying the field name is "status"
-        // hence, remove that suffix to match the value of that field
-        .filter(x => show_table_extra_fields.includes(x[0].replace(/_id$/, "")))
-        .sort((a, b) => show_table_extra_fields.indexOf(a[0]) - show_table_extra_fields.indexOf(b[0]))
+      // NOTE: "status" field comes from the API as an attribute called "status_id"
+      // however, the api endpoint /meta still saying the field name is "status"
+      ...show_table_extra_fields.map(x => [x, x === "status" ? this.model.attributes["status_id"] : this.model.attributes[x]])
     ]
   },
   methods: {

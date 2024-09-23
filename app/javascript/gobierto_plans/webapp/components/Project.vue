@@ -7,13 +7,11 @@
 
     <div class="node-project-detail">
       <ProjectNativeFields :model="model" />
-
-      <template v-for="{ id, attributes } in customFields">
-        <ProjectCustomFields
-          :key="id"
-          :attributes="attributes"
-        />
-      </template>
+      <ProjectCustomFields
+        v-for="{ id, attributes } in customFields"
+        :key="id"
+        :attributes="attributes"
+      />
     </div>
   </div>
 </template>

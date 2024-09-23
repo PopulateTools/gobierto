@@ -1,19 +1,19 @@
 <template>
   <ul class="action-line--list">
-    <template v-for="model in models">
-      <ActionLine
+    <ActionLine
+      v-for="model in models"
+      :key="model.id"
+      :model="model"
+      :options="options"
+    >
+      <ActionLinesTableView
         :key="model.id"
         :model="model"
+        :header="showTableHeader"
+        :open="openNode"
         :options="options"
-      >
-        <ActionLinesTableView
-          :key="model.id"
-          :model="model"
-          :header="showTableHeader"
-          :open="openNode"
-        />
-      </ActionLine>
-    </template>
+      />
+    </ActionLine>
   </ul>
 </template>
 

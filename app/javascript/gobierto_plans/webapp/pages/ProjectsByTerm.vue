@@ -35,20 +35,19 @@
               </template>
             </div>
           </li>
-          <template v-for="{ id, attributes } in projectsSorted">
-            <ProjectsByTermTableRow
-              :key="id"
-              v-slot="{ column, opts }"
-              :marked="currentId === id"
-              :columns="selectedColumns"
-            >
-              <TableCellTemplates
-                :column="column"
-                :attributes="{ ...opts, id, value: attributes[column] }"
-                @current-project="setCurrentProject"
-              />
-            </ProjectsByTermTableRow>
-          </template>
+          <ProjectsByTermTableRow
+            v-for="{ id, attributes } in projectsSorted"
+            :key="id"
+            v-slot="{ column, opts }"
+            :marked="currentId === id"
+            :columns="selectedColumns"
+          >
+            <TableCellTemplates
+              :column="column"
+              :attributes="{ ...opts, id, value: attributes[column] }"
+              @current-project="setCurrentProject"
+            />
+          </ProjectsByTermTableRow>
         </ul>
       </div>
 

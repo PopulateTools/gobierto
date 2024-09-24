@@ -35,8 +35,17 @@ export class CostsController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      Promise.resolve(getRemoteData(options.costsEndpoint)).then(rawData => {
-        this.setGlobalVariables(rawData);
+      const populationQuery = "SELECT year, value FROM poblacion WHERE place_id=8121 order by year ASC"
+
+      Promise.all([
+        getRemoteData(options.costsEndpoint),
+        fetch(window.populateData.endpoint + populationQuery, {
+          headers: new Headers({
+            authorization: "Bearer " + window.populateData.token,
+          }),
+        }).then((r) => r.json()),
+      ]).then(([rawData, populationData]) => {
+        this.setGlobalVariables(rawData, populationData);
 
         const router = new VueRouter({
           mode: "history",
@@ -49,20 +58,20 @@ export class CostsController {
                 {
                   path: "/visualizaciones/costes/:year?",
                   component: TableFirstLevel,
-                  name: "TableFirstLevel"
+                  name: "TableFirstLevel",
                 },
                 {
                   path: "/visualizaciones/costes/:year?/:id?",
                   component: TableSecondLevel,
-                  name: "TableSecondLevel"
+                  name: "TableSecondLevel",
                 },
                 {
                   path: "/visualizaciones/costes/:year?/:id?/:item?",
                   component: TableItem,
-                  name: "TableItem"
-                }
-              ]
-            }
+                  name: "TableItem",
+                },
+              ],
+            },
           ],
           scrollBehavior(to) {
             let element;
@@ -73,11 +82,11 @@ export class CostsController {
               );
               element.scrollIntoView({ behavior: "smooth" });
             }
-          }
+          },
         });
 
         const baseTitle = document.title;
-        router.afterEach(to => {
+        router.afterEach((to) => {
           // Wait 2 ticks
           Vue.nextTick(() =>
             Vue.nextTick(() => {
@@ -109,7 +118,7 @@ export class CostsController {
           }
         });
 
-        const data = Object.assign(options, this.data)
+        const data = Object.assign(options, this.data);
 
         this.vueApp = new Vue({
           router,
@@ -119,7 +128,7 @@ export class CostsController {
     }
   }
 
-  setGlobalVariables(rawData) {
+  async setGlobalVariables(rawData, populationData) {
     //Convert strings with some format to Numbers without format
     const toNumber = (value) => value ? +value : +(parseFloat(value)) || 0
     //Array with all the strings that we've to convert to Number
@@ -142,20 +151,15 @@ export class CostsController {
       "costdirfin"
     ];
 
-    // Array with the population of each year from Mataro
-    // This should be moved to the Gobierto Datos API
-    //                     2019      2020      2021      2022      2023
-    const population = ["128291", "129661", "129120", "128956", "129870"];
-
     let yearsCosts = [...new Set(rawData.map(item => item.any_))];
-    const setPopulation = (value, item) => value[yearsCosts.findIndex(year => year === item["any_"])]
 
     const data = rawData.map((item) => {
       for (let amounts of amountStrings) {
         item[amounts] = toNumber(item[amounts]);
       }
+
       return {
-        population: setPopulation(population, item),
+        population: populationData.data.find(x => x.year === +item["any_"]).value,
         ...item
       }
     })
@@ -164,13 +168,7 @@ export class CostsController {
 
     //Create an array of objects with all years
     for (let index = 0; index < yearsCosts.length; index++) {
-      const data = rawData.reduce((acc, item) => {
-        if (item.any_ === yearsCosts[index]) {
-          acc.push({ ...item, population: population[index] });
-        }
-        return acc;
-      }, []);
-      const dataGroup = groupDataByYear(data, yearsCosts[index]);
+      const dataGroup = groupDataByYear(data.filter(x => x.any_ === yearsCosts[index]), yearsCosts[index]);
       groupDataByYears.push(dataGroup);
     }
 

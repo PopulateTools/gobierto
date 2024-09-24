@@ -35,7 +35,7 @@ export class CostsController {
 
       entryPoint.innerHTML = htmlRouterBlock;
 
-      const populationQuery = "SELECT year, value FROM poblacion WHERE place_id=8121 order by year ASC"
+      const populationQuery = `SELECT year, value FROM poblacion WHERE place_id=${window.populateData.municipalityId} ORDER BY year ASC`
 
       Promise.all([
         getRemoteData(options.costsEndpoint),

@@ -112,7 +112,6 @@ export default {
           uid: "status",
           field_type: "vocabulary_options",
           vocabulary_terms: status,
-          hidden: true,
           name_translations: Object.keys(I18n.translations).reduce(
             (acc, key) => ({
               ...acc,

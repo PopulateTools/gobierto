@@ -1,4 +1,5 @@
 import { findRecursive } from '../helpers';
+import { NamesMixin } from './names';
 
 export const ActiveNodeMixin = {
   data() {
@@ -7,6 +8,7 @@ export const ActiveNodeMixin = {
       rootid: 0
     }
   },
+  mixins: [NamesMixin],
   watch: {
     $route(to) {
       const {
@@ -35,6 +37,11 @@ export const ActiveNodeMixin = {
 
         // to determine the colors
         this.rootid = rootid
+
+        // NOTE: since "status" field does not come from the API,
+        // we fake it as a custom_field, copying the value of the identificator
+        // see more: https://github.com/PopulateTools/issues/issues/2005
+        this.activeNode.attributes.status = this.activeNode.attributes.status_id.toString()
       }
     },
   }

@@ -23,14 +23,6 @@
           {{ endsAt | date }}
         </div>
       </div>
-      <div class="mandatory-list">
-        <div class="mandatory-title">
-          {{ labelStatus }}
-        </div>
-        <div class="mandatory-desc">
-          {{ status }}
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -56,13 +48,11 @@ export default {
     return {
       labelStarts: I18n.t("gobierto_plans.plan_types.show.starts") || "",
       labelEnds: I18n.t("gobierto_plans.plan_types.show.ends") || "",
-      labelStatus: I18n.t("gobierto_plans.plan_types.show.status") || "",
       labelProgress:
         I18n.t("gobierto_plans.plan_types.show.progress").toLowerCase() || "",
       progress: "",
       startsAt: null,
-      endsAt: null,
-      status: ""
+      endsAt: null
     };
   },
   computed: {
@@ -72,13 +62,12 @@ export default {
   },
   created() {
     const {
-      attributes: { progress, starts_at, ends_at, status_id }
+      attributes: { progress, starts_at, ends_at }
     } = this.model;
 
     this.progress = progress;
     this.startsAt = starts_at;
     this.endsAt = ends_at;
-    this.status = this.getStatus(status_id)
   }
 };
 </script>

@@ -41,17 +41,21 @@ export default {
   },
   created() {
     const { meta, options } = PlansStore.state;
-    const { show_empty_fields = true } = options;
+    const { show_empty_fields = true, show_project_fields } = options;
     const { attributes = {} } = this.model;
     const { name } = attributes
 
     this.title = name;
+
+    // filter only the columns specified in the configuration
+    const fields = show_project_fields ? show_project_fields.map(x => meta.find(y => y.attributes.uid === x)) : meta
+
     // Expand the META object with the matching values for this project
-    this.customFields = meta.reduce((acc, item) => {
-      const { uid, hidden } = item.attributes;
+    this.customFields = fields.reduce((acc, item) => {
+      const { uid } = item.attributes;
       const value = attributes[uid];
 
-      if (!hidden && (show_empty_fields || (value && value.length)) ){
+      if (show_empty_fields || !!value) {
         acc.push({
           ...item,
           attributes: { ...item.attributes, value }
@@ -59,7 +63,7 @@ export default {
       }
 
       return acc;
-    }, []);
+    }, [])
   }
 };
 </script>

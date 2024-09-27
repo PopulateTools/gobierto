@@ -1,16 +1,13 @@
 <template>
-  <td>
+  <td :data-custom-field-slug="attributes.uid">
     <template v-if="column === 'progress'">
       {{ value | percent }}
     </template>
     <template v-else-if="column === 'starts_at' || column === 'ends_at'">
       {{ value | date }}
     </template>
-    <template v-else-if="column === 'status'">
-      {{ status }}
-    </template>
     <template v-else-if="vocabularyType">
-      {{ vocabularyValue }}
+      <span :data-vocabulary-term-slug="vocabularySlug">{{ vocabularyValue }}</span>
     </template>
     <template v-else>
       {{ value }}
@@ -50,10 +47,16 @@ export default {
     }
   },
   computed: {
+    vocabulary() {
+      const { attributes: { name: value, slug } = {} } = this.attributes.vocabulary_terms.find(x => x.id === this.value.toString())
+      return { value, slug }
+    },
     vocabularyValue() {
-      const { attributes: { name } = {} } = this.attributes.vocabulary_terms.find(x => x.id === this.value)
-      return name
-    }
+      return this.vocabulary.value
+    },
+    vocabularySlug() {
+      return this.vocabulary.slug
+    },
   }
 };
 </script>

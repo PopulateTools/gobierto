@@ -103,8 +103,8 @@ export default {
           ({ attributes }) => attributes.field_type === "vocabulary_options"
         ) || {};
 
-      // append the "new" custom field
-      meta.push({
+      // prepend the "new" custom field
+      meta.unshift({
         ...sample,
         id: -1,
         attributes: {

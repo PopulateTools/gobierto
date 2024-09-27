@@ -1,5 +1,5 @@
 <template>
-  <div :data-custom-field-slug="column">
+  <div :data-custom-field-slug="attributes.uid">
     <template v-if="column === 'name'">
       <div
         class="planification-table__td-name"

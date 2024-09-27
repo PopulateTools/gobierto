@@ -210,6 +210,13 @@ export default {
     setCurrentProject(id) {
       const { id: prevId } = this.activeNode || {};
       this.activeNode = id === prevId ? null : findRecursive(this.json, id);
+
+      // NOTE: since "status" field does not come from the API,
+      // we fake it as a custom_field, copying the value of the identificator
+      // see more: https://github.com/PopulateTools/issues/issues/2005
+      if (Object.hasOwn(this.activeNode.attributes, "status_id")) {
+        this.activeNode.attributes.status = this.activeNode.attributes.status_id.toString()
+      }
     },
     toggleVisibility({ id, value }) {
       this.map.set(id, { ...this.map.get(id), visibility: value })

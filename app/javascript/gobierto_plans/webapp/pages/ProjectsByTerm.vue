@@ -36,15 +36,21 @@
             </div>
           </li>
           <ProjectsByTermTableRow
-            v-for="{ id, attributes } in projectsSorted"
-            :key="id"
-            v-slot="{ column, opts }"
-            :marked="currentId === id"
+            v-for="{ id: projectId, attributes } in projectsSorted"
+            :key="projectId"
+            v-slot="{ column, options: opts }"
+            :marked="currentId === projectId"
             :columns="selectedColumns"
           >
             <TableCellTemplates
               :column="column"
-              :attributes="{ ...opts, id, value: attributes[column] }"
+              :attributes="{
+                ...opts,
+                projectId,
+                value: column === 'status_id'
+                  ? attributes[column].toString() // Since status was a native field, the value comes as Number, however, other custom fields' values come as String
+                  : attributes[column]
+              }"
               @current-project="setCurrentProject"
             />
           </ProjectsByTermTableRow>
@@ -210,6 +216,13 @@ export default {
     setCurrentProject(id) {
       const { id: prevId } = this.activeNode || {};
       this.activeNode = id === prevId ? null : findRecursive(this.json, id);
+
+      // NOTE: since "status" field does not come from the API,
+      // we fake it as a custom_field, copying the value of the identificator
+      // see more: https://github.com/PopulateTools/issues/issues/2005
+      if (Object.hasOwn(this.activeNode.attributes, "status_id")) {
+        this.activeNode.attributes.status = this.activeNode.attributes.status_id.toString()
+      }
     },
     toggleVisibility({ id, value }) {
       this.map.set(id, { ...this.map.get(id), visibility: value })

@@ -42,7 +42,11 @@ export const NamesMixin = {
     },
     // helper to extract the attributes from the uid
     getAttributes(id) {
-      const { attributes = {} } = this.meta.find(({ attributes: { uid } = {} }) => uid === id) || {};
+      const { attributes = {} } =
+        this.meta.find(
+          ({ attributes: { uid } = {} }) =>
+            uid === (id === "status_id" ? "status" : id)
+        ) || {};
       return attributes
     },
     // helper to extract the label from the configuration

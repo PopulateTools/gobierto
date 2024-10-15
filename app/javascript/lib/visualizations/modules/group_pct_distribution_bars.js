@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import { truncate } from '../../../lib/vue/filters';
+import { divide } from '../../shared';
 
 /**
  * NOTE: dc@4 has been imported via CDN due to d3 compatibility issues
@@ -37,7 +38,7 @@ export class GroupPctDistributionBars {
       .gap(this._gap)
       .elasticX(true)
       .title(d => d.value)
-      .valueAccessor(d => parseFloat(d.value / all.value()));
+      .valueAccessor(d => parseFloat(divide(d.value, all.value())));
 
     this.container.on("pretransition", function(chart) {
       // Apply rounded corners AFTER render, otherwise they don't exist
@@ -58,9 +59,13 @@ export class GroupPctDistributionBars {
           if (this.hasFilter() && !this.hasFilter(d.key)) {
             labelValue = 0.0;
           } else if (this.hasFilter() && this.hasFilter(d.key)) {
-            labelValue = !groupValue ? parseFloat(d.value / dimension.top(Infinity).length) : d.value;
+            labelValue = !groupValue
+              ? parseFloat(divide(d.value, dimension.top(Infinity).length))
+              : d.value;
           } else {
-            labelValue = !groupValue ? parseFloat(d.value / all.value()) : d.value;
+            labelValue = !groupValue
+              ? parseFloat(divide(d.value, all.value()))
+              : d.value;
           }
 
           if (!groupValue) {

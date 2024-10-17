@@ -16,122 +16,128 @@
 
     <table>
       <thead>
-        <template v-for="[id, { name, index, cssClass }] in arrayColumnsFiltered">
-          <th
-            :key="index"
-            class="gobierto-table__th"
-            :class="cssClass"
-            @click="handleTableHeaderClick(id)"
-          >
-            {{ name }}
-            <SortIcon
-              v-if="currentSortColumn === id"
-              :direction="getSorting(id)"
-            />
-          </th>
-        </template>
+        <th
+          v-for="[id, { name, index, cssClass }] in arrayColumnsFiltered"
+          :key="index"
+          class="gobierto-table__th"
+          :class="cssClass"
+          @click="handleTableHeaderClick(id)"
+        >
+          {{ name }}
+          <SortIcon
+            v-if="currentSortColumn === id"
+            :direction="getSorting(id)"
+          />
+        </th>
       </thead>
       <tbody>
-        <template v-for="(item, index) in visibleRows">
-          <tr
-            :key="index"
-            :class="{ 'is-clickable': hasPermalink }"
-            class="gobierto-table__tr"
-          >
-            <template v-for="[id, { type, cssClass }] in arrayColumnsFiltered">
-              <template v-if="type === 'money'">
-                <td
-                  :key="id"
-                  :class="cssClass"
-                  class="gobierto-table__td"
-                >
-                  <template v-if="hasPermalink">
-                    <a
-                      :href="item[href]"
-                      class="gobierto-table__a"
-                      @click.prevent="handleTableItem(item)"
-                    >
-                      {{ item[id] | money }}
-                    </a>
-                  </template>
-                  <template v-else>
-                    <span>
-                      {{ item[id] | money }}
-                    </span>
-                  </template>
-                </td>
-              </template>
-              <template v-else-if="type === 'date'">
-                <td
-                  :key="id"
-                  :class="cssClass"
-                  class="gobierto-table__td"
-                >
-                  <template v-if="hasPermalink">
-                    <a
-                      :href="item[href]"
-                      class="gobierto-table__a"
-                      @click.prevent="handleTableItem(item)"
-                    >
-                      {{ item[id] | date }}
-                    </a>
-                  </template>
-                  <template v-else>
-                    <span>
-                      {{ item[id] | date }}
-                    </span>
-                  </template>
-                </td>
-              </template>
-              <template v-else-if="type === 'truncate'">
-                <td
-                  :key="id"
-                  class="gobierto-table__td"
-                >
-                  <template v-if="hasPermalink">
-                    <a
-                      :href="item[href]"
-                      class="gobierto-table__a"
-                      :class="cssClass"
-                      @click.prevent="handleTableItem(item)"
-                    >
-                      {{ item[id] }}
-                    </a>
-                  </template>
-                  <template v-else>
-                    <span :class="cssClass">
-                      {{ item[id] }}
-                    </span>
-                  </template>
-                </td>
-              </template>
-              <template v-else>
-                <td
-                  :key="id"
-                  :class="cssClass"
-                  class="gobierto-table__td"
-                >
-                  <template v-if="hasPermalink">
-                    <a
-                      :href="item[href]"
-                      class="gobierto-table__a"
-                      @click.prevent="handleTableItem(item)"
-                    >
-                      {{ item[id] }}
-                    </a>
-                  </template>
-                  <template v-else>
-                    <span>
-                      {{ item[id] }}
-                    </span>
-                  </template>
-                </td>
-              </template>
+        <tr
+          v-for="(item, index) in visibleRows"
+          :key="index"
+          :class="{ 'is-clickable': hasPermalink }"
+          class="gobierto-table__tr"
+        >
+          <template v-for="[id, { type, cssClass }] in arrayColumnsFiltered">
+            <template v-if="type === 'money'">
+              <td
+                :key="id"
+                :class="cssClass"
+                class="gobierto-table__td"
+              >
+                <template v-if="hasPermalink">
+                  <a
+                    :href="item[href]"
+                    class="gobierto-table__a"
+                    @click.prevent="handleTableItem(item)"
+                  >
+                    {{ item[id] | money }}
+                  </a>
+                </template>
+                <template v-else>
+                  <span>
+                    {{ item[id] | money }}
+                  </span>
+                </template>
+              </td>
             </template>
-          </tr>
-        </template>
+            <template v-else-if="type === 'date'">
+              <td
+                :key="id"
+                :class="cssClass"
+                class="gobierto-table__td"
+              >
+                <template v-if="hasPermalink">
+                  <a
+                    :href="item[href]"
+                    class="gobierto-table__a"
+                    @click.prevent="handleTableItem(item)"
+                  >
+                    {{ item[id] | date }}
+                  </a>
+                </template>
+                <template v-else>
+                  <span>
+                    {{ item[id] | date }}
+                  </span>
+                </template>
+              </td>
+            </template>
+            <template v-else-if="type === 'truncate'">
+              <td
+                :key="id"
+                class="gobierto-table__td"
+              >
+                <template v-if="hasPermalink">
+                  <a
+                    :href="item[href]"
+                    class="gobierto-table__a"
+                    :class="cssClass"
+                    @click.prevent="handleTableItem(item)"
+                  >
+                    {{ item[id] }}
+                  </a>
+                </template>
+                <template v-else>
+                  <span :class="cssClass">
+                    {{ item[id] }}
+                  </span>
+                </template>
+              </td>
+            </template>
+            <template v-else>
+              <td
+                :key="id"
+                :class="cssClass"
+                class="gobierto-table__td"
+              >
+                <template v-if="hasPermalink">
+                  <a
+                    :href="item[href]"
+                    class="gobierto-table__a"
+                    @click.prevent="handleTableItem(item)"
+                  >
+                    {{ item[id] }}
+                  </a>
+                </template>
+                <template v-else>
+                  <span>
+                    {{ item[id] }}
+                  </span>
+                </template>
+              </td>
+            </template>
+          </template>
+        </tr>
       </tbody>
     </table>
+
+    <div
+      v-if="!data.length"
+      class="center p1"
+    >
+      {{ labelNoData }}
+    </div>
+
     <template v-if="showPagination">
       <slot
         name="pagination"
@@ -207,6 +213,7 @@ export default {
       mapColumns: new Map(),
       currentSortColumn: this.sortColumn || this.$options.defaults.sortColumn,
       currentSort: this.sortDirection || this.$options.defaults.sortDirection,
+      labelNoData: I18n.t("gobierto_common.vue_components.table.no_data") || '',
       visibleColumns: this.showColumns.length ? this.showColumns : this.columns.map(({ field }) => field),
       visiblePaginatedRows: null,
       arrayColumnsFiltered: []

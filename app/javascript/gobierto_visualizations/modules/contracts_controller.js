@@ -10,6 +10,7 @@ import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 import { money } from '../../lib/vue/filters';
 import { EventBus } from '../webapp/lib/mixins/event_bus';
 import { calculateSumMeanMedian, getRemoteData } from '../webapp/lib/utils';
+import { divide } from '../../lib/shared';
 
 // ESBuild does not work properly with dynamic components
 import Home from '../webapp/containers/contracts/Home.vue';
@@ -313,13 +314,13 @@ export class ContractsController {
       ({ final_amount_no_taxes = 0 }) =>
         parseFloat(final_amount_no_taxes) < 1000
     ).length;
-    const lessThan1000Pct = lessThan1000Total / numberContracts;
+    const lessThan1000Pct = divide(lessThan1000Total, numberContracts);
 
     const largerContractAmount = d3.max(
       _contractsData,
       ({ final_amount_no_taxes = 0 }) => parseFloat(final_amount_no_taxes)
     );
-    const largerContractAmountPct = sumContracts ? (largerContractAmount / sumContracts) : 0;
+    const largerContractAmountPct = sumContracts ? (divide(largerContractAmount, sumContracts)) : 0;
 
     let iteratorAmountsSum = 0,
       numberContractsHalfSpendings = 0;
@@ -331,8 +332,7 @@ export class ContractsController {
         break;
       }
     }
-    const halfSpendingsContractsPct =
-      numberContractsHalfSpendings / numberContracts;
+    const halfSpendingsContractsPct = divide(numberContractsHalfSpendings, numberContracts);
 
     // Updating the DOM
     document.getElementById(

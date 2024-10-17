@@ -22,6 +22,7 @@ import { formatNumbers } from './modules/d3-format-numbers.js';
 import appsignal from './modules/appsignal.js';
 import wordwrap from './modules/wordwrap.js';
 import tspans from './modules/tspans.js';
+import divide from './modules/safe-division.js';
 
 export {
   AUTOCOMPLETE_DEFAULTS,
@@ -42,5 +43,6 @@ export {
   formatNumbers,
   appsignal,
   wordwrap,
-  tspans
+  tspans,
+  divide
 };

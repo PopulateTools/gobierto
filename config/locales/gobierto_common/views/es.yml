@@ -192,3 +192,4 @@ es:
         more: Ver más
       table:
         customize_columns: Personalizar columnas
+        no_data: No hay datos para este criterio

@@ -192,3 +192,4 @@ en:
         more: See more
       table:
         customize_columns: Customize columns
+        no_data: There is no data for this criteria

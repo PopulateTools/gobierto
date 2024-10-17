@@ -10,6 +10,7 @@ import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 import { money } from '../../lib/vue/filters';
 import { EventBus } from '../webapp/lib/mixins/event_bus';
 import { calculateSumMeanMedian, getRemoteData, sortByField } from '../webapp/lib/utils';
+import { divide } from '../../lib/shared';
 
 // ESBuild does not work properly with dynamic components
 import Home from '../webapp/containers/subsidies/Home.vue';
@@ -216,23 +217,23 @@ export class SubsidiesController {
     const numberSubsidies = subsidiesData.length;
     const [ sumSubsidies, meanSubsidies, medianSubsidies ] = calculateSumMeanMedian(amountsArray)
 
-    const pctCollectivesSubsidies = numberSubsidies ? (parseFloat(collectivesData.length) / numberSubsidies) : 0;
+    const pctCollectivesSubsidies = divide(parseFloat(collectivesData.length), numberSubsidies);
     const [ sumCollectivesSubsidies, meanCollectivesSubsidies, medianCollectivesSubsidies ] = calculateSumMeanMedian(amountsCollectivesArray)
 
-    const pctIndividualsSubsidies = numberSubsidies ? (parseFloat(individualsData.length) / numberSubsidies) : 0;
+    const pctIndividualsSubsidies = divide(parseFloat(individualsData.length), numberSubsidies);
     const [ sumIndividualsSubsidies, meanIndividualsSubsidies, medianIndividualsSubsidies ] = calculateSumMeanMedian(amountsIndividualsArray)
 
     // Calculations headlines
     const lessThan1000Total = subsidiesData.filter(
       ({ amount = 0 }) => parseFloat(amount) < 1000
     ).length;
-    const lessThan1000Pct = numberSubsidies ? (lessThan1000Total / numberSubsidies) : 0;
+    const lessThan1000Pct = divide(lessThan1000Total, numberSubsidies);
 
     const largerSubsidyAmount = d3.max(subsidiesData, ({ amount = 0 }) =>
       parseFloat(amount)
     );
 
-    const largerSubsidyAmountPct = numberSubsidies ? (largerSubsidyAmount / numberSubsidies) : 0;
+    const largerSubsidyAmountPct = divide(largerSubsidyAmount, numberSubsidies);
 
     let iteratorAmountsSum = 0,
       numberSubsidiesHalfSpendings = 0;
@@ -244,7 +245,7 @@ export class SubsidiesController {
         break;
       }
     }
-    const halfSpendingsSubsidiesPct = numberSubsidies ? (numberSubsidiesHalfSpendings / numberSubsidies) : 0;
+    const halfSpendingsSubsidiesPct = divide(numberSubsidiesHalfSpendings, numberSubsidies);
 
     // Updating the DOM
     document.getElementById(

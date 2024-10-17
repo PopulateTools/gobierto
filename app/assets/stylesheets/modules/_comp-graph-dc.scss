@@ -26,6 +26,10 @@
   &.deselected {
     fill: #ccc;
   }
+
+  &.selected + text tspan {
+    font-style: italic;
+  }
 }
 
 .dc-chart g.row text,

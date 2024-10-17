@@ -1,18 +1,15 @@
 <template>
   <div class="treemap-nav-container">
     <div class="treemap-nav-buttons button-group">
-      <template
+      <button
         v-for="[key, value] in buttons"
+        :key="key"
+        :class="{ 'active' : active === key }"
+        class="button-grouped sort-G"
+        @click="$emit('active-button', key)"
       >
-        <button
-          :key="key"
-          :class="{ 'active' : active === key }"
-          class="button-grouped sort-G"
-          @click="$emit('active-button', key)"
-        >
-          {{ value }}
-        </button>
-      </template>
+        {{ value }}
+      </button>
     </div>
 
     <slot />

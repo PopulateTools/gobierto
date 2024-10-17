@@ -1,26 +1,26 @@
 <template>
   <div>
     <TreeMapButtons
+      v-show="visualizationsDataExcludeNoCategory.length"
       id="gobierto-visualizations-treemap-categories"
       :buttons="treemapButtons"
       :active="categoryActiveButton"
       @active-button="handleCategoryActiveButton"
     >
       <div
-        v-show="visualizationsDataExcludeNoCategory.length"
         ref="treemap-category"
         style="height: 400px"
       />
     </TreeMapButtons>
 
     <TreeMapButtons
+      v-show="visualizationsDataEntity.length"
       id="gobierto-visualizations-treemap-entity"
       :buttons="treemapButtons"
       :active="entityActiveButton"
       @active-button="handleEntityActiveButton"
     >
       <div
-        v-show="visualizationsDataEntity.length"
         ref="treemap-entity"
         style="height: 400px"
       />

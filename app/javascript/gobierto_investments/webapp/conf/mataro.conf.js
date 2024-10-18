@@ -16,9 +16,9 @@ export default {
   },
   availableFilters: [
     {
-      id: "daterange",
+      id: "date",
       startKey: "data-inici",
-      endKey: "data-final"
+      endKey: "data-final",
     },
     {
       id: "estat"

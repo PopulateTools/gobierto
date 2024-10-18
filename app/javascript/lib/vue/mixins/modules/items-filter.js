@@ -71,7 +71,6 @@ export const ItemsFilterMixin = {
       this.updateItems();
 
       const query = { ...this.$route?.query, ...this.filters.reduce((acc, { key }) => ({ ...acc, [key]: undefined }), {}) }
-      // "replace" to not trigger the vue-router hooks
       this.$router?.push({ ...this.$route, query })
     },
     handleIsEverythingChecked({ filter }) {
@@ -235,8 +234,7 @@ export const ItemsFilterMixin = {
       }
 
       const query = { ...this.$route?.query, [filter.key]: param.length ? param.join(",") : undefined }
-      // "replace" to not trigger the vue-router hooks
-      this.$router?.replace({ ...this.$route, query })
+      this.$router?.push({ ...this.$route, query })
     },
     parseQueryParams({ query }) {
       Object.entries(query).forEach(([k, values]) => {

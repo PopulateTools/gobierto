@@ -1,5 +1,5 @@
 <template>
-  <aside class="investments-project-aside--gap">
+  <aside class="investments-project-aside">
     <div class="investments-project-aside--block">
       <span class="investments-project-aside--block-head">
         {{ project.phasesFieldName }}

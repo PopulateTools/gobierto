@@ -11,7 +11,7 @@ import MapTour from '../webapp/components/MapTour.vue';
 // const MapTour = () => import('../webapp/components/MapTour.vue');
 
 if (Vue.config.devtools) {
-  Vue.use(checkAndReportAccessibility)
+  // Vue.use(checkAndReportAccessibility)
 }
 
 Vue.use(VueRouter);
@@ -25,11 +25,11 @@ export class InvestmentsController {
     const entryPoint = document.getElementById(selector);
     if (entryPoint) {
       const htmlRouterBlock = `
-        <keep-alive>
-          <transition name="fade" mode="out-in">
-            <router-view :key="$route.fullPath"></router-view>
-          </transition>
-        </keep-alive>
+        <transition name="fade" mode="out-in">
+          <keep-alive>
+            <router-view :key="$route.path"></router-view>
+          </keep-alive>
+        </transition>
       `;
 
       entryPoint.innerHTML = htmlRouterBlock;

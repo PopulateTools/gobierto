@@ -71,6 +71,10 @@
     &.gobierto-data-layout-column {
       padding-right: 0 !important;
     }
+
+    .gobierto-filters > *:not(:first-child) {
+      padding-top: 1em;
+    }
   }
 
   &-tabs-sidebar {

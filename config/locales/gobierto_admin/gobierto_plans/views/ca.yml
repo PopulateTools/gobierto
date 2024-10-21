@@ -105,7 +105,7 @@ ca:
         filter_form:
           author: Autor
           category: Categoria
-          clear_filters: Netejar filtres
+          clear_filters: Netejeu filtres
           filter: Filtrar
           interval: Rang de dates
           progress: Progrés

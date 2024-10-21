@@ -13,14 +13,11 @@
 @import "modules/comp-header_block_inline";
 @import "modules/comp-social_buttons";
 @import "modules/defaults";
+@import "modules/comp-vue-filters";
 @import "modules/comp-vue-table";
 @import "modules/comp-horizontal-carousel";
-@import "modules/comp-vue-block-checkbox";
-@import "modules/comp-vue-transitions";
 @import "magnific-popup/dist/magnific-popup.css";
 @import "modules/comp-magnific-popup-animations";
-@import "modules/comp-horizontal-carousel";
-@import "modules/comp-range-slider";
 @import "modules/comp-read-more";
 
 .investments {
@@ -292,142 +289,162 @@
   }
 
   &-home-aside {
-    &--gap {
-      height: 100%;
-    }
+    height: 100%;
 
-    &--block {
-      padding: 1em 0;
-      border-bottom: 1px solid $separator_dark;
-
-      &:first-child {
-        padding-top: 0;
-      }
-    }
-
-    &--block-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 6px;
-      font-size: $f8;
-      line-height: 14px;
-
-      > :first-child {
-        text-transform: uppercase;
-        font-weight: 700;
-      }
-
-      > :last-child:not(:only-child) {
-        font-weight: 400;
-        cursor: pointer;
-      }
-    }
-
-    &--checkbox {
-      cursor: pointer;
-
-      label {
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        position: relative;
-
-        i {
-          margin-left: .5rem;
-          opacity: .5;
-          font-style: normal;
-        }
-
-        &:hover {
-          background: transparent;
-        }
-      }
-
-      input[type="checkbox"] + label {
-        background: transparent;
-        padding: 6px 0;
-        display: flex;
-
-        &::before {
-          content: "";
-          border: 1px solid $separator_dark;
-          display: inline-block;
-          border-radius: 3px;
-          width: 16px;
-          height: 16px;
-          margin-right: 10px;
-          line-height: 16px;
-          text-align: center;
-          transition: all .2s ease-out;
-          flex: 0 0 auto;
-        }
-      }
-
-      input[type="checkbox"] + label:hover,
-      input[type="checkbox"]:checked + label {
-        $space: 1em;
-
-        width: calc(100% + #{$space});
-        margin-left: - $space * 0.5;
-        margin-right: - $space * 0.5;
-        padding-left: $space * 0.5;
-        padding-right: $space * 0.5;
-        box-sizing: border-box;
-        background-color: rgba(var(--color-base-string), 0.1);
-      }
-
-      input[type="checkbox"]:checked + label::before {
-        background: var(--color-base);
-        color: $color_main_negative;
-        content: "✔";
-      }
-    }
-
-    // TODO: eliminar cuando se use el componente filtros
-    &--calendar-button {
-      background-color: rgba(var(--color-base-string), 0.1);
-      border-radius: 4px;
-      padding: 6px;
-      cursor: pointer;
+    /* overwrite default gobierto-filters */
+    .gobierto-filters {
       position: relative;
 
-      > :first-child {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      .gobierto-filters--clear {
+        position: absolute;
+        right: 0;
+        top: -1em;
+        transform: translateY(-100%);
+        border-bottom: 0;
+        padding: 0;
       }
 
-      strong {
-        font-size: $f7;
-        font-weight: 700;
-        line-height: 17px;
-      }
+      > * {
+        padding: 1em 0;
+        border-bottom: 1px solid $separator_dark;
 
-      i {
-        color: var(--color-base);
-        font-size: $f5;
-      }
+        &:first-of-type {
+          padding-top: 0;
 
-      small {
-        font-size: $f8;
-        font-weight: 400;
-        line-height: 14px;
-        opacity: 0.5;
+          .gobierto-vue-dropdown--trigger {
+            display: none;
+
+            & + * {
+              margin-top: 0;
+            }
+          }
+        }
       }
     }
 
-    // TODO: eliminar cuando se use el componente filtros
-    &--calendar-button input {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100% !important;
-      opacity: 0;
-      cursor: pointer;
-    }
+    // &--block-header {
+    //   display: flex;
+    //   justify-content: space-between;
+    //   margin-bottom: 6px;
+    //   font-size: $f8;
+    //   line-height: 14px;
+
+    //   > :first-child {
+    //     text-transform: uppercase;
+    //     font-weight: 700;
+    //   }
+
+    //   > :last-child:not(:only-child) {
+    //     font-weight: 400;
+    //     cursor: pointer;
+    //   }
+    // }
+
+    // &--checkbox {
+    //   cursor: pointer;
+
+    //   label {
+    //     font-size: 14px;
+    //     font-weight: 400;
+    //     line-height: 1;
+    //     display: flex;
+    //     align-items: center;
+    //     position: relative;
+
+    //     i {
+    //       margin-left: .5rem;
+    //       opacity: .5;
+    //       font-style: normal;
+    //     }
+
+    //     &:hover {
+    //       background: transparent;
+    //     }
+    //   }
+
+    //   input[type="checkbox"] + label {
+    //     background: transparent;
+    //     padding: 6px 0;
+    //     display: flex;
+
+    //     &::before {
+    //       content: "";
+    //       border: 1px solid $separator_dark;
+    //       display: inline-block;
+    //       border-radius: 3px;
+    //       width: 16px;
+    //       height: 16px;
+    //       margin-right: 10px;
+    //       line-height: 16px;
+    //       text-align: center;
+    //       transition: all .2s ease-out;
+    //       flex: 0 0 auto;
+    //     }
+    //   }
+
+    //   input[type="checkbox"] + label:hover,
+    //   input[type="checkbox"]:checked + label {
+    //     $space: 1em;
+
+    //     width: calc(100% + #{$space});
+    //     margin-left: - $space * 0.5;
+    //     margin-right: - $space * 0.5;
+    //     padding-left: $space * 0.5;
+    //     padding-right: $space * 0.5;
+    //     box-sizing: border-box;
+    //     background-color: rgba(var(--color-base-string), 0.1);
+    //   }
+
+    //   input[type="checkbox"]:checked + label::before {
+    //     background: var(--color-base);
+    //     color: $color_main_negative;
+    //     content: "✔";
+    //   }
+    // }
+
+    // // TODO: eliminar cuando se use el componente filtros
+    // &--calendar-button {
+    //   background-color: rgba(var(--color-base-string), 0.1);
+    //   border-radius: 4px;
+    //   padding: 6px;
+    //   cursor: pointer;
+    //   position: relative;
+
+    //   > :first-child {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     align-items: center;
+    //   }
+
+    //   strong {
+    //     font-size: $f7;
+    //     font-weight: 700;
+    //     line-height: 17px;
+    //   }
+
+    //   i {
+    //     color: var(--color-base);
+    //     font-size: $f5;
+    //   }
+
+    //   small {
+    //     font-size: $f8;
+    //     font-weight: 400;
+    //     line-height: 14px;
+    //     opacity: 0.5;
+    //   }
+    // }
+
+    // // TODO: eliminar cuando se use el componente filtros
+    // &--calendar-button input {
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   width: 100%;
+    //   height: 100% !important;
+    //   opacity: 0;
+    //   cursor: pointer;
+    // }
   }
 
   &-home-nav {

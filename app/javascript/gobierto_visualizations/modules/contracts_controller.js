@@ -516,7 +516,26 @@ export class ContractsController {
       container.filter(options.title);
     }
 
-    Object.values(this.charts).forEach(chart => chart.container.redraw());
+    Object.values(this.charts).forEach(chart => {
+      const hasData = chart.container.data().reduce((acc, item) => acc + item.value, 0) !== 0
+
+      if (hasData) {
+        // remove the no data indicator, if exists
+        chart.node.nextElementSibling?.remove()
+        // show the original chart
+        chart.node.removeAttribute("style")
+        chart.container.redraw()
+      } else {
+        // add a text label indicating no data, when it's not already present
+        if (!chart.node.nextElementSibling) {
+          const div = document.createElement("div")
+          div.innerHTML = I18n.t("gobierto_common.vue_components.table.no_data")
+          chart.node.insertAdjacentElement("afterend", div);
+        }
+        // hide the original chart
+        chart.node.style.display = "none"
+      }
+    });
   }
 
   _refreshTendersDataFromFilters(filters, tendersAttribute) {

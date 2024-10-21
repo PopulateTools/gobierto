@@ -11,7 +11,7 @@ import MapTour from '../webapp/components/MapTour.vue';
 // const MapTour = () => import('../webapp/components/MapTour.vue');
 
 if (Vue.config.devtools) {
-  // Vue.use(checkAndReportAccessibility)
+  Vue.use(checkAndReportAccessibility)
 }
 
 Vue.use(VueRouter);

@@ -505,19 +505,12 @@ export class ContractsController {
   _updateChartsFromFilter(options) {
     const container = this.charts[options.id].container;
 
-    // https://dc-js.github.io/dc.js/docs/html/BaseMixin.html#filter__anchor
-    // - filter(null) removes any existing filter.
-    // - If all filters are set at one (options.all), we first remove the existing ones
-    // - Note: when you add more than 1 filter, you need to add an array within an array
-    if (options.all) {
-      container.filter(null);
-      container.filter([options.titles]);
-    } else {
-      container.filter(options.title);
-    }
+    // apply the filters
+    container.filter(options.all ? null : options.title);
 
     Object.values(this.charts).forEach(chart => {
-      const hasData = chart.container.data().reduce((acc, item) => acc + item.value, 0) !== 0
+      // Math.round in order to avoid a javascript issue handling floating numbers (very tiny decimals)
+      const hasData = chart.container.data().reduce((acc, item) => acc + Math.round(item.value), 0) !== 0
 
       if (hasData) {
         // remove the no data indicator, if exists

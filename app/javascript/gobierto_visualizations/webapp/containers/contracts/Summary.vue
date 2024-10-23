@@ -1,6 +1,7 @@
 <template>
   <div>
     <TreeMapButtons
+      v-show="visualizationsDataExcludeNoCategory.length"
       id="gobierto-visualizations-treemap-categories"
       :buttons="treemapButtons"
       :active="categoryActiveButton"
@@ -13,6 +14,7 @@
     </TreeMapButtons>
 
     <TreeMapButtons
+      v-show="visualizationsDataEntity.length"
       id="gobierto-visualizations-treemap-entity"
       :buttons="treemapButtons"
       :active="entityActiveButton"
@@ -28,7 +30,10 @@
       <h3 class="mt4 graph-title">
         {{ labelBeesWarm }}
       </h3>
-      <div ref="beeswarm" />
+      <div
+        v-show="visualizationsDataExcludeMinorContract.length"
+        ref="beeswarm"
+      />
     </div>
 
     <MetricBoxes id="tendersContractsSummary">
@@ -178,13 +183,13 @@ export default {
   },
   watch: {
     visualizationsDataExcludeNoCategory(n) {
-      this.treemapCategory?.setData(n)
+      n.length && this.treemapCategory?.setData(n)
     },
     visualizationsDataEntity(n) {
-      this.treemapEntity?.setData(n)
+      n.length && this.treemapEntity?.setData(n)
     },
     visualizationsDataExcludeMinorContract(n) {
-      this.beeswarm?.setData(n)
+      n.length && this.beeswarm?.setData(n)
     },
     $route(to, from) {
       if (to.path !== from.path && !this.isGobiertoVizzsLoaded) {

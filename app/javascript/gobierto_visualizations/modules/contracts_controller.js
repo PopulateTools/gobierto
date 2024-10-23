@@ -10,6 +10,7 @@ import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 import { money } from '../../lib/vue/filters';
 import { EventBus } from '../webapp/lib/mixins/event_bus';
 import { calculateSumMeanMedian, getRemoteData } from '../webapp/lib/utils';
+import { divide } from '../../lib/shared';
 
 // ESBuild does not work properly with dynamic components
 import Home from '../webapp/containers/contracts/Home.vue';
@@ -313,13 +314,13 @@ export class ContractsController {
       ({ final_amount_no_taxes = 0 }) =>
         parseFloat(final_amount_no_taxes) < 1000
     ).length;
-    const lessThan1000Pct = lessThan1000Total / numberContracts;
+    const lessThan1000Pct = divide(lessThan1000Total, numberContracts);
 
     const largerContractAmount = d3.max(
       _contractsData,
       ({ final_amount_no_taxes = 0 }) => parseFloat(final_amount_no_taxes)
     );
-    const largerContractAmountPct = sumContracts ? (largerContractAmount / sumContracts) : 0;
+    const largerContractAmountPct = sumContracts ? (divide(largerContractAmount, sumContracts)) : 0;
 
     let iteratorAmountsSum = 0,
       numberContractsHalfSpendings = 0;
@@ -331,8 +332,7 @@ export class ContractsController {
         break;
       }
     }
-    const halfSpendingsContractsPct =
-      numberContractsHalfSpendings / numberContracts;
+    const halfSpendingsContractsPct = divide(numberContractsHalfSpendings, numberContracts);
 
     // Updating the DOM
     document.getElementById(
@@ -505,18 +505,30 @@ export class ContractsController {
   _updateChartsFromFilter(options) {
     const container = this.charts[options.id].container;
 
-    // https://dc-js.github.io/dc.js/docs/html/BaseMixin.html#filter__anchor
-    // - filter(null) removes any existing filter.
-    // - If all filters are set at one (options.all), we first remove the existing ones
-    // - Note: when you add more than 1 filter, you need to add an array within an array
-    if (options.all) {
-      container.filter(null);
-      container.filter([options.titles]);
-    } else {
-      container.filter(options.title);
-    }
+    // apply the filters
+    container.filter(options.all ? null : options.title);
 
-    Object.values(this.charts).forEach(chart => chart.container.redraw());
+    Object.values(this.charts).forEach(chart => {
+      // Math.round in order to avoid a javascript issue handling floating numbers (very tiny decimals)
+      const hasData = chart.container.data().reduce((acc, item) => acc + Math.round(item.value), 0) !== 0
+
+      if (hasData) {
+        // remove the no data indicator, if exists
+        chart.node.nextElementSibling?.remove()
+        // show the original chart
+        chart.node.removeAttribute("style")
+        chart.container.redraw()
+      } else {
+        // add a text label indicating no data, when it's not already present
+        if (!chart.node.nextElementSibling) {
+          const div = document.createElement("div")
+          div.innerHTML = I18n.t("gobierto_common.vue_components.table.no_data")
+          chart.node.insertAdjacentElement("afterend", div);
+        }
+        // hide the original chart
+        chart.node.style.display = "none"
+      }
+    });
   }
 
   _refreshTendersDataFromFilters(filters, tendersAttribute) {

@@ -1,6 +1,7 @@
 <template>
   <div>
     <TreeMapButtons
+      v-show="visualizationsData.length"
       id="gobierto-visualizations-treemap-categories"
       :buttons="treemapButtons"
       :active="activeButton"
@@ -149,7 +150,7 @@ export default {
   },
   watch: {
     visualizationsData(n) {
-      this.treemap?.setData(n)
+      n.length && this.treemap?.setData(n)
     },
     $route(to, from) {
       if (to.path !== from.path && !this.isGobiertoVizzsLoaded) {

@@ -14,14 +14,14 @@
 
     <div class="pure-g gutters">
       <div class="pure-u-1 pure-u-lg-1-4">
-        <Aside
+        <ProjectAside
           v-if="project"
           :phases="phases"
           :project="project"
         />
       </div>
       <div class="pure-u-1 pure-u-lg-3-4">
-        <Main
+        <ProjectMain
           v-if="project"
           :project="project"
         />
@@ -31,17 +31,15 @@
 </template>
 
 <script>
-import Aside from './Aside.vue';
-import Main from './Main.vue';
-import axios from 'axios';
+import ProjectAside from './Aside.vue';
+import ProjectMain from './Main.vue';
 import { CommonsMixin, baseUrl } from '../../mixins/common.js';
-import { Middleware } from '../../../../lib/shared';
 
 export default {
-  name: "Project",
+  name: "ProjectProject",
   components: {
-    Aside,
-    Main
+    ProjectAside,
+    ProjectMain
   },
   mixins: [CommonsMixin],
   async beforeRouteEnter(to, from, next) {
@@ -50,29 +48,21 @@ export default {
     if (!item) {
       // If there's no item (project) it must request it
       const [
-        {
-          data: { data: item }
-        },
-        {
-          data: { data: attributesDictionary, meta: filtersFromConfiguration }
-        }
-      ] = await axios.all([
-        axios.get(`${baseUrl}/${to.params.id}`),
-        axios.get(`${baseUrl}/meta?stats=true`)
+        { data: item },
+        { data: metadata, meta: stats }
+      ] = await Promise.all([
+        fetch(`${baseUrl}/${to.params.id}`).then(r => r.json()),
+        fetch(`${baseUrl}/meta?stats=true`).then(r => r.json()),
       ]);
 
       next(async vm => {
-        vm.middleware = new Middleware({
-          dictionary: attributesDictionary
-        });
-
-        let project = vm.setItem(item);
+        let project = vm.setItem(item, metadata);
 
         // Update $router
         to.params.item = project;
 
-        if (filtersFromConfiguration) {
-          vm.phases = vm.getPhases(filtersFromConfiguration);
+        if (stats) {
+          vm.phases = vm.getPhases(stats, metadata);
         }
 
         vm.project = project

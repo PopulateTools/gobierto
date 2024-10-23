@@ -183,7 +183,7 @@ ca:
       calendar:
         date: Escolliu data
       filters:
-        clear: Netejar filtres
+        clear: Netejeu filtres
       pagination:
         next: Següent
         previous: Anterior

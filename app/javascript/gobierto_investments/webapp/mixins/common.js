@@ -5,17 +5,27 @@ import CONFIGURATION from '../conf/mataro.conf.js';
 
 export const baseUrl = `${location.origin}/gobierto_investments/api/v1/projects`;
 
+function getAttributesByKey(prop, dictionary) {
+  const { attributes = {} } =
+    dictionary.find(entry => {
+      const { attributes: { uid = "" } = {} } = entry;
+      return uid === prop;
+    }) || {};
+
+  return attributes;
+}
+
 export const CommonsMixin = {
   mixins: [VueFiltersMixin],
   methods: {
     nav(item) {
       this.$router.push({ name: "project", params: { id: item.id, item } });
     },
-    getPhases(stats) {
+    getPhases(stats, metadata) {
       const {
         phases: { id }
       } = CONFIGURATION;
-      const { vocabulary_terms = [] } = this.middleware.getAttributesByKey(id);
+      const { vocabulary_terms = [] } = getAttributesByKey(id, metadata);
       const { distribution = [] } = stats[id];
       return vocabulary_terms.map(term => {
         const { name_translations: title = {} } = term;
@@ -31,9 +41,9 @@ export const CommonsMixin = {
         };
       });
     },
-    getItem(element, attributes) {
+    getItem(element, attributes, metadata) {
       const { id, composite } = element;
-      const attr = this.middleware.getAttributesByKey(id);
+      const attr = getAttributesByKey(id, metadata);
 
       // by default
       let value = attributes[id];
@@ -69,7 +79,7 @@ export const CommonsMixin = {
 
       if (attr.field_type === "vocabulary_options") {
         // this field_type must search which term is using
-        const { name_translations } = attr?.vocabulary_terms.find(term => +term?.id === +attributes[id])
+        const { name_translations } = attr.vocabulary_terms?.find(term => +term?.id === +attributes[id]) || {}
         value = this.translate(name_translations)
       }
 
@@ -84,7 +94,7 @@ export const CommonsMixin = {
         value: value
       };
     },
-    setItem(element) {
+    setItem(element, metadata) {
       const { attributes = {} } = element;
       const {
         title,
@@ -97,7 +107,7 @@ export const CommonsMixin = {
       } = CONFIGURATION;
       const { id: locationId, ...restLocationOptions } = location;
       const phase_terms = this.convertToArrayOfIds(attributes[phases.id]).map(phase_id => {
-        const { vocabulary_terms= [] } = this.middleware.getAttributesByKey(phases.id) || {}
+        const { vocabulary_terms= [] } = getAttributesByKey(phases.id, metadata) || {}
         return vocabulary_terms.find(({ id }) => id === phase_id) || attributes[phases.id]
       }) || [];
 
@@ -115,21 +125,21 @@ export const CommonsMixin = {
           title: this.translate(element.name_translations)
         })),
         phasesFieldName: this.translate(
-          this.getItem(phases, attributes).name_translations
+          this.getItem(phases, attributes, metadata).name_translations
         ),
         availableGalleryFields: availableGalleryFields.map(element =>
-          this.getItem(element, attributes)
+          this.getItem(element, attributes, metadata)
         ),
         availableTableFields: availableTableFields.map(element =>
-          this.getItem(element, attributes)
+          this.getItem(element, attributes, metadata)
         ),
         availableProjectFields: availableProjectFields.map(element =>
-          this.getItem(element, attributes)
+          this.getItem(element, attributes, metadata)
         )
       };
     },
-    setData(data) {
-      return data.map(element => this.setItem(element));
+    setData(data, metadata) {
+      return data.map(element => this.setItem(element, metadata));
     },
     convertToArrayOfIds(items) {
       return Array.isArray(items) ? items.map(item => (+item)) : [+items]

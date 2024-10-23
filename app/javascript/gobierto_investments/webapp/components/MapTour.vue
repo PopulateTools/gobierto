@@ -26,7 +26,7 @@
     </div>
     <template>
       <MglMap
-        v-model:map-style="mapStyle"
+        :map-style="mapStyle"
         :access-token="accessToken"
         :scroll-zoom="scrollZoom"
         @load="onMapLoaded"
@@ -78,8 +78,6 @@ import {
 } from 'vue-mapbox';
 import 'mapbox-gl/src/css/mapbox-gl.css'
 import Wkt from 'wicket';
-import axios from 'axios';
-import { Middleware } from '../../../lib/shared';
 import { CommonsMixin, baseUrl } from '../mixins/common.js';
 
 export default {
@@ -126,29 +124,22 @@ export default {
       }
     }
   },
-  created() {
-    axios.all([axios.get(baseUrl), axios.get(`${baseUrl}/meta?stats=true`)]).then(responses => {
-      const [{
-          data: { data: items = [] }
-        },
-        {
-          data: { data: attributesDictionary = [] }
-        }
-      ] = responses;
+  async created() {
+    const [
+      { data: items = [] },
+      { data: metadata = [] }
+    ] = await Promise.all([
+      fetch(baseUrl).then(r => r.json()),
+      fetch(`${baseUrl}/meta?stats=true`).then(r => r.json()),
+    ]);
 
-      this.dictionary = attributesDictionary;
-      this.middleware = new Middleware({
-        dictionary: attributesDictionary
-      });
+    this.items = this.setData(items, metadata);
 
-      this.items = this.setData(items);
+    this.subsetItems = this.items;
 
-      this.subsetItems = this.items;
+    this.setGeoJSONs(this.items);
 
-      this.setGeoJSONs(this.items);
-
-      this.loadData = true
-    })
+    this.loadData = true
   },
   methods: {
     onMapLoaded(event) {

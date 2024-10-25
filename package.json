@@ -48,7 +48,7 @@
     "turbolinks": "^5.1.1",
     "velocity-animate": "^1.5.1",
     "velocity-ui-pack": "^1.2.2",
-    "vue": "^2.5.16",
+    "vue": "^3.0.0",
     "vue-axe": "^2.4.4",
     "vue-grid-layout": "^2.3.11",
     "vue-mapbox": "^0.4.1",

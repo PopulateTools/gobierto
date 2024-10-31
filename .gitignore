@@ -63,6 +63,15 @@ yarn-error.log*
 yarn-debug.log*
 .yarn-integrity
 
+# Yarn
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 # I18njs
 app/javascript/i18n/modules/translations.js
 app/javascript/lib/i18n/modules/translations.js
@@ -83,10 +92,10 @@ app/javascript/custom_fields_table_plugin.js
 app/javascript/glovo
 app/javascript/glovo.js
 
-
 # Custom fields plugins
 !vendor/gobierto_engines/custom-fields-*-plugin
 vendor/gobierto_engines/custom-fields-*-plugin/node_modules
 
+# Builds
 /app/assets/builds/*
 !/app/assets/builds/.keep

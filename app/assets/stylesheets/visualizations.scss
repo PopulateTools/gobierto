@@ -54,11 +54,11 @@
   }
 
   &-home-aside--block {
-    padding-bottom: 1rem;
+    padding: 1rem 0;
     border-bottom: 1px solid var(--border-separator);
 
     @include min-screen(768) {
-      padding-bottom: .5rem;
+      padding: .5rem 0;
     }
   }
 

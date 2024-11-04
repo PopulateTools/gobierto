@@ -25,11 +25,11 @@ export class InvestmentsController {
     const entryPoint = document.getElementById(selector);
     if (entryPoint) {
       const htmlRouterBlock = `
-        <keep-alive>
-          <transition name="fade" mode="out-in">
-            <router-view :key="$route.fullPath"></router-view>
-          </transition>
-        </keep-alive>
+        <transition name="fade" mode="out-in">
+          <keep-alive>
+            <router-view :key="$route.path"></router-view>
+          </keep-alive>
+        </transition>
       `;
 
       entryPoint.innerHTML = htmlRouterBlock;

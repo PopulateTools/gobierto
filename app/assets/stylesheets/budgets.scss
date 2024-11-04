@@ -42,3 +42,15 @@
 @import "modules/comp-timeline";
 @import "modules/comp-content";
 @import "modules/comp-dropdown";
+
+.padded_cols.pure-g {
+  @include min-screen(768) {
+    width: calc(100% + 4em);
+
+    // asumming 3 elements per col
+
+    [class*="pure-u"]:nth-child(3n+1) {
+      margin-left: -1em;
+    }
+  }
+}

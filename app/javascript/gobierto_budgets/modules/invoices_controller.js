@@ -2,7 +2,6 @@ import crossfilter from 'crossfilter2';
 import * as d3 from 'd3';
 import 'jsgrid';
 import { filter as _filter, extend, groupBy, isEmpty, isEqual, map, max, mean, sum, sumBy, uniqBy } from 'lodash';
-import moment from 'moment';
 import { d3locale } from '../../lib/shared';
 import { AmountDistributionBars } from '../../lib/visualizations';
 
@@ -47,7 +46,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
           headers: new Headers({
             authorization: "Bearer " + window.populateData.token
           })
-        }).then(csv => resolve(moment(map(csv, "date")[0]).year()));
+        }).then(csv => resolve(new Date(map(csv, "date")[0]).getFullYear()));
       });
     };
 
@@ -118,28 +117,30 @@ window.GobiertoBudgets.InvoicesController = (function() {
     getData("3m");
   };
 
+  function customFormat(date) {
+    return date.toISOString().split("T")[0].replaceAll("-", "")
+  };
+
+  function subtractMonths(date, months) {
+    date.setMonth(date.getMonth() - months);
+    return date;
+  };
+
+  function endOfMonth(date) {
+    return new Date(new Date(date.getFullYear(), date.getMonth() + 1, 1) - 1);
+  };
+
   function getData(filter) {
     var dateRange;
 
     if (filter === "3m") {
-      dateRange =
-        moment()
-          .subtract(3, "month")
-          .format("YYYYMMDD") +
-        "-" +
-        moment().format("YYYYMMDD");
+      dateRange = [customFormat(subtractMonths(new Date(), 3)), customFormat(new Date())].join("-");
     } else if (filter === "12m") {
-      dateRange =
-        moment()
-          .subtract(1, "year")
-          .format("YYYYMMDD") +
-        "-" +
-        moment().format("YYYYMMDD");
+      dateRange = [customFormat(subtractMonths(new Date(), 12)), customFormat(new Date())].join("-");
     } else {
-      var d1 = new Date(filter, 0, 1);
-      var d2 = new Date(filter, 11, 31);
-      dateRange =
-        moment(d1).format("YYYYMMDD") + "-" + moment(d2).format("YYYYMMDD");
+      var d1 = Date.UTC(filter, 0, 1);
+      var d2 = Date.UTC(filter, 11, 31);
+      dateRange = [customFormat(new Date(d1)), customFormat(new Date(d2))].join("-");
     }
 
     var municipalityId = window.populateData.municipalityId;
@@ -212,7 +213,7 @@ window.GobiertoBudgets.InvoicesController = (function() {
 
         d.dd = new Date(d.date);
         d.datel10n = intl.format(d.dd);
-        d.month = moment(d.dd).endOf("month")._d;
+        d.month = endOfMonth(d.dd);
         d.range = rangeFormat(+d.value);
         d.paid = d.paid == "true";
         d.value = Number(d.value);
@@ -248,18 +249,18 @@ window.GobiertoBudgets.InvoicesController = (function() {
     switch (f) {
       case "3m":
         cb = function(o) {
-          return moment(new Date(o.date)) > moment().subtract(3, "months");
+          return new Date(o.date) > subtractMonths(new Date(), 3);
         };
         break;
       case "12m":
         cb = function(o) {
-          return moment(new Date(o.date)) > moment().subtract(12, "months");
+          return new Date(o.date) > subtractMonths(new Date(), 12);
         };
         break;
       default:
         // Filter is the year itself
         cb = function(o) {
-          return moment(new Date(o.date)).year() === Number(f);
+          return new Date(o.date).getFullYear() === Number(f);
         };
     }
 

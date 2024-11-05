@@ -1,5 +1,4 @@
 import 'air-datepicker'
-import moment from 'moment'
 
 export { DateEditor }
 
@@ -76,7 +75,7 @@ function DateEditor(args) {
     datepickerInstance.hide();
   };
 
-  this.position = function(_position) {};
+  this.position = function() {};
 
   this.focus = function(){
     $input.focus();
@@ -84,12 +83,7 @@ function DateEditor(args) {
 
   this.loadValue = function(item) {
     var currentDateString = item[args.column.field];
-
-    if (currentDateString) {
-      var date = moment(currentDateString, "YYYY-MM-DD").toDate();
-    } else {
-      var date = moment().toDate();
-    }
+    var date = currentDateString ? new Date(currentDateString) : new Date()
 
     $input.val(currentDateString);
     $input.select();

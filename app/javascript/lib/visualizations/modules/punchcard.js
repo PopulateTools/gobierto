@@ -1,6 +1,13 @@
 import * as d3 from 'd3';
 import { extend, flatten, map } from 'lodash';
-import moment from 'moment';
+
+function monthDiff(dateFrom, dateTo) {
+  return (
+    dateTo.getMonth() -
+    dateFrom.getMonth() +
+    12 * (dateTo.getFullYear() - dateFrom.getFullYear())
+  );
+}
 
 export class Punchcard {
   constructor(context, data, options = {}) {
@@ -37,7 +44,7 @@ export class Punchcard {
 
     // estimation number of x.axis.ticks to center if there are no so much
     let xAxisLimits = d3.extent(map(flatten(map(data, "value")), "key"));
-    let xAxisLength = moment(xAxisLimits[1]).diff(xAxisLimits[0], "months");
+    let xAxisLength = monthDiff(...xAxisLimits);
     if (xAxisLength < 5) {
       margin = extend(margin, {
         left: margin.left * 2,

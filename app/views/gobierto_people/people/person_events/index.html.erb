@@ -65,16 +65,3 @@
 <% end %>
 
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>
-
-<% content_for :gobierto_footer_content do %>
-  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js' %>
-  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js' %>
-<% end %>
-
-<% content_for :stylesheet_module_link do %>
-  <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' %>
-<% end %>
-
-<% content_for :javascript_hook do %>
-  window.GobiertoPeople.person_events_controller.index();
-<% end %>

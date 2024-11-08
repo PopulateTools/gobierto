@@ -465,19 +465,47 @@ body.gobierto_people.welcome.index {
   }
 }
 
+// full-calendar overrides default theme
+:root {
+  --fc-button-bg-color: var(--color-base);
+  --fc-button-border-color: var(--color-base);
+  --fc-button-hover-bg-color: rgba(var(--color-base-string), 0.8);
+  --fc-button-hover-border-color: rgba(var(--color-base-string), 0.8);
+  --fc-button-active-bg-color: rgba(var(--color-base-string), 0.8);
+  --fc-button-active-border-color: rgba(var(--color-base-string), 0.8);
+  --fc-event-bg-color: var(--color-base);
+}
+
+.fc .fc-button:disabled {
+  background: var(--color-base);
+  opacity: .2;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active:focus,
+.fc .fc-button-primary:not(:disabled):active:focus,
+.fc .fc-button:active:focus,
+.fc .fc-button:focus {
+  box-shadow: unset;
+}
+
 // full-calendar overrides for mobile
 @include screen(768) {
-  .fc-toolbar {
+  .fc .fc-toolbar {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    align-items: stretch;
   }
 
-  .fc-left {
+  .fc .fc-toolbar > * {
     display: flex;
   }
 
-  .fc-button-group {
+  .fc .fc-toolbar > *:nth-child(2) {
+    order: 9999;
+  }
+
+  .fc .fc-button-group {
     display: flex;
     justify-content: space-between;
     width: 100%;

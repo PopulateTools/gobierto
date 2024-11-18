@@ -6,7 +6,7 @@ export class VisSlider {
     $(this.container).html("");
     this.data = data;
 
-    var currentYear = d3.select("body").attr("data-year");
+    var currentYear = parseInt(d3.select("body").attr("data-year"));
     var maxYear = parseInt(d3.select("body").attr("data-max-year"));
     var years = this.data
       .reduce((acc, { values }) => {
@@ -17,6 +17,9 @@ export class VisSlider {
         return acc;
       }, [])
       .sort();
+    if (years.indexOf(currentYear) === -1) {
+      years.push(currentYear);
+    }
 
     var margin = {
       right: 20,
@@ -114,7 +117,7 @@ export class VisSlider {
       .append("text")
       .attr("x", d => x(d))
       .text(year => year)
-      .classed("active", d => d == currentYear)
+      .classed("active", d => parseFloat(d) === parseFloat(currentYear))
       .attr("dx", d => {
         if (d === maxYear) {
           return 10;

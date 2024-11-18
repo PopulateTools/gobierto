@@ -6,7 +6,7 @@ export class VisSlider {
     $(this.container).html("");
     this.data = data;
 
-    var currentYear = d3.select("body").attr("data-year");
+    var currentYear = parseInt(d3.select("body").attr("data-year"));
     var maxYear = parseInt(d3.select("body").attr("data-max-year"));
     var years = this.data
       .reduce((acc, { values }) => {

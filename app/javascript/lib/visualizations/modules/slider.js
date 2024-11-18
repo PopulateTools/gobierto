@@ -114,7 +114,7 @@ export class VisSlider {
       .append("text")
       .attr("x", d => x(d))
       .text(year => year)
-      .classed("active", d => d == currentYear)
+      .classed("active", d => parseFloat(d) === parseFloat(currentYear))
       .attr("dx", d => {
         if (d === maxYear) {
           return 10;

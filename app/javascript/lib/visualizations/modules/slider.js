@@ -17,6 +17,9 @@ export class VisSlider {
         return acc;
       }, [])
       .sort();
+    if (years.indexOf(currentYear) === -1) {
+      years.push(currentYear);
+    }
 
     var margin = {
       right: 20,

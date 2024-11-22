@@ -1,0 +1,35 @@
+{
+  "name": "decidim-greenpeace",
+  "description": "Decidim ",
+  "cron": [
+    {
+      "command": "bundle exec rails decidim:open_data:export",
+      "schedule": "0 1 * * *"
+    },
+    {
+      "command": "bundle exec rails decidim:metrics:all",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "command": "bundle exec rails decidim:delete_download_your_data_files",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "command": "bundle exec rails decidim:reminders:all",
+      "schedule": "0 4 * * *"
+    },
+    {
+      "command": "bundle exec rails decidim:mailers:notifications_digest_daily",
+      "schedule": "10 4 * * *"
+    },
+    {
+      "command": "bundle exec rails decidim:mailers:notifications_digest_weekly",
+      "schedule": "30 4 * * *"
+    }
+  ],
+  "scripts": {
+    "dokku": {
+      "postdeploy": "bundle exec rails db:migrate"
+    }
+  }
+}

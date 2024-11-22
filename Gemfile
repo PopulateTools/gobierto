@@ -2,6 +2,8 @@
 
 source "https://rubygems.org"
 
+ruby RUBY_VERSION
+
 gem "actionpack-action_caching"
 gem "active_model_serializers"
 gem "bcrypt", "~> 3.1.0"

@@ -5,7 +5,7 @@
   ],
   "scripts": {
     "dokku": {
-      "predeploy": "bundle exec rails i18n:js:export"
+      "predeploy": "bundle exec rails i18n:js:export",
       "postdeploy": "bundle exec rails db:migrate"
     }
   }

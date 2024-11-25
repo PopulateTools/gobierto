@@ -5,12 +5,7 @@
   ],
   "scripts": {
     "dokku": {
-      "postdeploy": "bundle exec rails db:migrate && bundle exec rails common:rebuild_multisearch_indexes &&
-        bundle exec rails gobierto_core:assets:export_embeds && bundle exec rails i18n:js:export &&
-        /bin/bash vendor/gobierto_engines/custom-fields-data-grid-plugin/script/create_engine_symlinks.sh &&
-        /bin/bash vendor/gobierto_engines/custom-fields-progress-plugin/script/create_engine_symlinks.sh &&
-        /bin/bash vendor/gobierto_engines/custom-fields-table-plugin/script/create_engine_symlinks.sh &&
-        bundle exec rails assets:precompile"
+      "postdeploy": "bundle exec rails db:migrate && bundle exec rails common:rebuild_multisearch_indexes && bundle exec rails gobierto_core:assets:export_embeds && bundle exec rails i18n:js:export && /bin/bash vendor/gobierto_engines/custom-fields-data-grid-plugin/script/create_engine_symlinks.sh && /bin/bash vendor/gobierto_engines/custom-fields-progress-plugin/script/create_engine_symlinks.sh && /bin/bash vendor/gobierto_engines/custom-fields-table-plugin/script/create_engine_symlinks.sh && bundle exec rails assets:precompile"
     }
   }
 }

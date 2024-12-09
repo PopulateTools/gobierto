@@ -2,6 +2,8 @@
 
 source "https://rubygems.org"
 
+ruby RUBY_VERSION
+
 gem "actionpack-action_caching"
 gem "active_model_serializers"
 gem "bcrypt", "~> 3.1.0"
@@ -124,9 +126,12 @@ gem 'base64', '~> 0.2.0'
 gem "pry"
 gem "pry-rails"
 
+
+# Use as app server in all environments
+gem "puma"
+
 group :development, :test do
   gem "i18n-tasks"
-  gem "puma"
   # https://world.hey.com/lewis/run-multiple-rails-apps-with-puma-dev-67b1c10f
 end
 

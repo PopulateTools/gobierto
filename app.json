@@ -2,6 +2,30 @@
   "name": "gobierto",
   "description": "Gobierto Transparencia",
   "cron": [
+    {
+      "command": "bundle exec rails gobierto_admin:regenerate_preview_tokens",
+      "schedule": "7 * * * *"
+    },
+    {
+      "command": "bundle exec rails gobierto_budgets_data:data:load_debt",
+      "schedule": "2 * * * *"
+    },
+    {
+      "command": "bundle exec rails gobierto_budgets_data:data:load_population",
+      "schedule": "2 * * * *"
+    },
+    {
+      "command": "bundle exec rails gobierto_budgets:data:sites_annual_providers",
+      "schedule": "50 2 * * *"
+    },
+    {
+      "command": "bundle exec rails gobierto_budgets:data:sites_annual",
+      "schedule": "20 2 * * *"
+    },
+    {
+      "command": "bundle exec rails gobierto_people:sync_agendas",
+      "schedule": "00 */2 * * *"
+    }
   ],
   "scripts": {
     "dokku": {

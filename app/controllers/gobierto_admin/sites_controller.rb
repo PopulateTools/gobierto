@@ -115,7 +115,7 @@ module GobiertoAdmin
     end
 
     def get_site_modules
-      APP_CONFIG[:site_modules].map { |site_module| OpenStruct.new(site_module) }
+      APP_CONFIG[:site_modules].union(Rails.configuration.engine_modules).map { |site_module| OpenStruct.new(site_module) }
     end
 
     def set_auth_modules

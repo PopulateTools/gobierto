@@ -5,9 +5,9 @@
 
 <!-- site js variables -->
 <script type="text/javascript">
-  I18n = I18n || {};
-  I18n.defaultLocale = "<%= I18n.default_locale %>";
-  I18n.locale = "<%= I18n.locale %>";
+  window.I18n = window.I18n || {};
+  window.I18n.defaultLocale = "<%= I18n.default_locale %>";
+  window.I18n.locale = "<%= I18n.locale %>";
 
   window.searchClient = {
     searchable_types: <%== search_client.searchable_types %>

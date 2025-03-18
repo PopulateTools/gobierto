@@ -7,6 +7,7 @@ en:
           contracts: Contracts and tenders
           costs: Costs
           debts: Debt
+          odss: ODS
           subsidies: Subsidies
     shared:
       download_data: Download the full dataset in a reusable format

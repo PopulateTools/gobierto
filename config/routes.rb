@@ -598,6 +598,8 @@ Rails.application.routes.draw do
 
         get "deuda" => "visualizations#debts", as: :debts_summary
         get "deuda/:year" => "visualizations#debts", as: :debts
+
+        get "ods" => "visualizations#odss", as: :odss_summary
       end
     end
 

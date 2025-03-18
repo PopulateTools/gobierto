@@ -1,0 +1,18 @@
+<% title t('gobierto_visualizations.layouts.application.gobierto_visualizations.odss') %>
+
+<div class="column">
+
+  <div class="js-loading">
+    <i class="fas fa-spinner fa-spin"></i> <%= t("gobierto_visualizations.shared.loading") %>
+  </div>
+
+  <div id="gobierto-visualizations-odss-app"
+     data-site-name="<%= @site.name %>"
+     data-logo-url="<%= @site.configuration.logo_with_fallback %>"
+     data-home-url="<%= gobierto_visualizations_odss_summary_url %>"
+     data-odss-functional-budgets-odss="<%= @visualizations_config.dig('data_urls', 'functional_budgets_odss') %>"
+     data-odss-odss-budgets="<%= @visualizations_config.dig('data_urls', 'odss_budgets') %>"
+  >
+  </div>
+
+</div>

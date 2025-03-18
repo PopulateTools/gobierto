@@ -7,6 +7,7 @@ ca:
           contracts: Contractes i licitacions
           costs: Costos
           debts: Deute
+          odss: ODS
           subsidies: Subvencions
     shared:
       download_data: Descarregueu les dades en format reutilitzable

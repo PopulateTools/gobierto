@@ -7,6 +7,7 @@ es:
           contracts: Contratos y licitaciones
           costs: Costes
           debts: Deuda
+          odss: ODS
           subsidies: Subvenciones
     shared:
       download_data: Descarga los datos completos en formatos reutilizables

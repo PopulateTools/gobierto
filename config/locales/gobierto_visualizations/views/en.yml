@@ -214,6 +214,12 @@ en:
         millions: The unit of the numbers in this chart is millions of euros.
         title: Debt
         total_debt: Total debt
+      odss:
+        assigned: Assigned
+        unassigned: Unassigned
+        title: ODS
+        description: ODS visualization
+        updated_date: Data updated on March 18, 2025
       process_types:
         based_on_agreement: Based on Marco agreement
         competitive_dialogue: Competitive dialogue

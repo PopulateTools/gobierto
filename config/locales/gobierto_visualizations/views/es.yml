@@ -217,6 +217,12 @@ es:
         millions: La unidad de las cifras de este gráfico es millones de euros.
         title: Deuda
         total_debt: Deuda total
+      odss:
+        assigned: Asignado
+        unassigned: No asignado
+        title: ODS
+        description: Visualización de ODS
+        updated_date: Datos actualizados el 18 de marzo de 2025
       process_types:
         based_on_agreement: Basado en Acuerdo Marco
         competitive_dialogue: Diálogo competitivo

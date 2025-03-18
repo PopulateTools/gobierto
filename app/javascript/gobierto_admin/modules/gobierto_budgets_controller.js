@@ -19,8 +19,8 @@ window.GobiertoAdmin.GobiertoBudgetsController = (function() {
         processResults: function(data) {
           if (data === undefined) return [];
           var results = $.map(data.suggestions, function (obj) {
-            obj.text = obj.data.name;
-            obj.id = obj.data.id;
+            obj.text = obj.name;
+            obj.id = obj.id;
             return obj;
           });
           return { results: results };

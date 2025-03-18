@@ -610,6 +610,7 @@ Rails.application.routes.draw do
           namespace :v1, constraints: ::ApiConstraint.new(version: 1, default: true), path: "/api/v1" do
             get ":module_name/configuration" => "configuration#show", as: :configuration
             get "search" => "search#query", as: :search
+            get "places" => "places#index", as: :places
 
             resources :vocabularies, except: [:edit], defaults: { format: "json" } do
               resources :terms, except: [:edit]

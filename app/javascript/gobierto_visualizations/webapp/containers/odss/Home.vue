@@ -20,9 +20,17 @@
             <div class="metric_boxes">
               <div class="pure-u-1-3 metric_box tipsit">
                 <div class="inner">
-                  <h3>{{ labelTitleTotalDebt }}</h3>
+                  <h3>{{ labelTitleTotalAssigned }}</h3>
                   <div class="metric">
-                    {{ totalDebt }}
+                    {{ totalAssigned }}
+                  </div>
+                </div>
+              </div>
+              <div class="pure-u-1-3 metric_box tipsit">
+                <div class="inner">
+                  <h3>{{ labelTitleTotalUnassigned }}</h3>
+                  <div class="metric">
+                    {{ totalUnassigned }}
                   </div>
                 </div>
               </div>
@@ -30,6 +38,7 @@
           </div>
         </div>
       </div>
+      <!--
       <h2 class="pure-u-1">
         {{ labelTitleDebtor }}
       </h2>
@@ -46,6 +55,7 @@
           </div>
         </div>
       </div>
+      -->
     </div>
   </div>
 </template>
@@ -65,21 +75,25 @@ export default {
   },
   data() {
     return {
-      debtsData: this.data.debtsEntitat,
-      debtsKey: this.data.debtsEntitatKey,
-      creditorData: this.data.debtsTotal,
-      creditorKey: this.data.debtsTotalKey,
-      labelTitle: I18n.t("gobierto_visualizations.visualizations.debts.title") || "",
-      labelDescription: I18n.t("gobierto_visualizations.visualizations.debts.description") || "",
-      labelDescriptionDate: I18n.t("gobierto_visualizations.visualizations.debts.date_debt") || "",
-      labelTitleDebtor: I18n.t("gobierto_visualizations.visualizations.debts.debtor") || "",
-      labelTitleTotalDebt: I18n.t("gobierto_visualizations.visualizations.debts.total_debt") || "",
+      odssBudgetsData: this.data.odssBudgets,
+      odssFunctionalBudgetsData: this.data.odssFunctionalBudgets,
+      odssBudgetsKey: this.data.odssBudgetsKey,
+      odssFunctionalBudgetsKey: this.data.odssFunctionalBudgetsKey,
+      labelTitle: I18n.t("gobierto_visualizations.visualizations.odss.title") || "",
+      labelDescription: I18n.t("gobierto_visualizations.visualizations.odss.description") || "",
+      labelDescriptionDate: I18n.t("gobierto_visualizations.visualizations.odss.updated_date") || "",
+      labelTitleTotalAssigned: I18n.t("gobierto_visualizations.visualizations.odss.assigned") || "",
+      labelTitleTotalUnassigned: I18n.t("gobierto_visualizations.visualizations.odss.unassigned") || "",
     }
   },
   computed: {
-    totalDebt() {
-      const getTotal = this.creditorData.filter(({ entitat }) => entitat === "TOTAL GENERAL")
-      return (getTotal[0][this.creditorKey] / 1000000).toFixed(1).replace(/\./, ',') + ' M€';
+    totalAssigned() {
+      const getTotal = this.odssBudgetsData.filter(({ ods_code }) => ods_code !== 0)
+      return (getTotal.reduce((acc, curr) => acc + parseFloat(curr.amount), 0) / 1000000).toFixed(1).replace(/\./, ',') + ' M€'
+    },
+    totalUnassigned() {
+      const getTotal = this.odssBudgetsData.filter(({ ods_code }) => ods_code === 0)
+      return (getTotal.reduce((acc, curr) => acc + parseFloat(curr.amount), 0) / 1000000).toFixed(1).replace(/\./, ',') + ' M€'
     }
   },
   mounted() {

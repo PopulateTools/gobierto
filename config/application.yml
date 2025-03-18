@@ -67,7 +67,7 @@ default: &default
   email_config:
     default_from: "Gobierto <no-reply@gobierto.dev>"
   services:
-    municipalities_suggestions_endpoint: <%= ENV["MUNICIPALITIES_SUGGESTIONS_ENDPOINT"] %>
+    municipalities_suggestions_endpoint: "/api/v1/places"
   gobierto_budgets:
     data_note_url: https://presupuestos.gobierto.es/about#method
   populate_data:

@@ -220,6 +220,7 @@ ca:
         description: Visualització de ODS
         updated_date: Dades actualitzades el 18 de març de 2025
         label_title_ods: Treemap per ODS
+        label_title_budgets_ods: Distribució de partides per ODS
       process_types:
         based_on_agreement: Basat en Acord Marc
         competitive_dialogue: Diàleg competitiu

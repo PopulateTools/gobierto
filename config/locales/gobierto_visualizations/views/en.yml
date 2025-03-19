@@ -221,6 +221,7 @@ en:
         description: ODS visualization
         updated_date: Data updated on March 18, 2025
         label_title_ods: ODS
+        label_title_budgets_ods: Distribution of budget lines by ODS
       process_types:
         based_on_agreement: Based on Marco agreement
         competitive_dialogue: Competitive dialogue

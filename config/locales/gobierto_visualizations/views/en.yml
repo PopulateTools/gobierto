@@ -220,6 +220,7 @@ en:
         title: ODS
         description: ODS visualization
         updated_date: Data updated on March 18, 2025
+        label_title_ods: ODS
       process_types:
         based_on_agreement: Based on Marco agreement
         competitive_dialogue: Competitive dialogue

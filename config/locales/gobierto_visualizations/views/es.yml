@@ -223,6 +223,7 @@ es:
         title: ODS
         description: Visualización de ODS
         updated_date: Datos actualizados el 18 de marzo de 2025
+        label_title_ods: Treemap por ODS
       process_types:
         based_on_agreement: Basado en Acuerdo Marco
         competitive_dialogue: Diálogo competitivo

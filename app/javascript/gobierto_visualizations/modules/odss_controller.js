@@ -95,7 +95,7 @@ export class OdssController {
       functionalBudgetsOdss: this.parseData(rawData[0], this.functionalBudgetsOdssKey),
       functionalBudgetsOdssKey: this.functionalBudgetsOdssKey,
       odssBudgets: this.parseData(rawData[1], this.odssBudgetsKey),
-      odssBudgetsKey: this.odssBudgetsKey,
+      odssBudgetsKey: this.odssBudgetsKey
     };
   }
 }

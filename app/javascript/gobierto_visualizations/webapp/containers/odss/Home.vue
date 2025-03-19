@@ -38,24 +38,27 @@
           </div>
         </div>
       </div>
-      <!--
       <h2 class="pure-u-1">
-        {{ labelTitleDebtor }}
+        {{ labelTitleOds }}
       </h2>
       <div class="pure-u-24-24">
         <div class="pure-g gutters">
           <div class="pure-u-1 pure-u-md-12-24">
-            <Table :data="creditorData" />
+            <TableOds
+              :data="odssBudgetsData"
+              :odsCatalog="odsCatalog"
+              :odsImages="odsImages"
+              :locale="locale"
+            />
           </div>
           <div class="pure-u-1 pure-u-md-12-24">
             <div
-              ref="treemap-creditor"
+              ref="treemap-ods"
               style="height: 400px"
             />
           </div>
         </div>
       </div>
-      -->
     </div>
   </div>
 </template>
@@ -63,7 +66,7 @@
 import { TreeMap } from 'gobierto-vizzs';
 import { money } from '../../../../lib/vue/filters';
 import { EventBus } from '../../lib/mixins/event_bus';
-import Table from './Table.vue';
+import TableOds from './TableOds.vue';
 
 let scaleColor = null
 
@@ -71,11 +74,12 @@ export default {
   name: 'Home',
   inject: ['data'],
   components: {
-    Table
+    TableOds
   },
   data() {
     return {
-      odssBudgetsData: this.data.odssBudgets,
+      locale: window.I18n.locale,
+      odssBudgetsData: this.data.odssBudgets.sort((a, b) => a.ods_code - b.ods_code),
       odssFunctionalBudgetsData: this.data.odssFunctionalBudgets,
       odssBudgetsKey: this.data.odssBudgetsKey,
       odssFunctionalBudgetsKey: this.data.odssFunctionalBudgetsKey,
@@ -84,12 +88,120 @@ export default {
       labelDescriptionDate: I18n.t("gobierto_visualizations.visualizations.odss.updated_date") || "",
       labelTitleTotalAssigned: I18n.t("gobierto_visualizations.visualizations.odss.assigned") || "",
       labelTitleTotalUnassigned: I18n.t("gobierto_visualizations.visualizations.odss.unassigned") || "",
+      labelTitleOds: I18n.t("gobierto_visualizations.visualizations.odss.label_title_ods") || "",
+      odsImages: this.getOdsImages(this.data),
+      odsCatalog: {
+        1: {
+          color: '#e5243b',
+          title_es: 'Fin de la pobreza',
+          title_ca: 'Fi de la pobresa',
+          title_en: 'No Poverty',
+        },
+        2: {
+          color: '#DDA63A',
+          title_es: 'Hambre cero',
+          title_ca: 'Fam zero',
+          title_en: 'Zero Hunger',
+        },
+        3: {
+          color: '#4C9F38',
+          title_es: 'Salud y bienestar',
+          title_ca: 'Salut i benestar',
+          title_en: 'Good Health and Well-being',
+        },
+        4: {
+          color: '#C5192D',
+          title_es: 'Educación de calidad',
+          title_ca: 'Educació de qualitat',
+          title_en: 'Quality Education',
+        },
+        5: {
+          color: '#FF3A21',
+          title_es: 'Igualdad de género',
+          title_ca: 'Igualtat de gènere',
+          title_en: 'Gender Equality',
+        },
+        6: {
+          color: '#26BDE2',
+          title_es: 'Agua limpia y saneamiento',
+          title_ca: 'Aigua neta i sanejament',
+          title_en: 'Clean Water and Sanitation',
+        },
+        7: {
+          color: '#FCC30B',
+          title_es: 'Energía asequible y no contaminante',
+          title_ca: 'Energia assequible i no contaminant',
+          title_en: 'Affordable and Clean Energy',
+        },
+        8: {
+          color: '#A21942',
+          title_es: 'Trabajo decente y crecimiento económico',
+          title_ca: 'Treball digne i creixement econòmic',
+          title_en: 'Decent Work and Economic Growth',
+        },
+        9: {
+          color: '#FD6925',
+          title_es: 'Industria, innovación e infraestructura',
+          title_ca: 'Indústria, innovació i infraestructura',
+          title_en: 'Industry, Innovation and Infrastructure',
+        },
+        10: {
+          color: '#DD1367',
+          title_es: 'Reducción de las desigualdades',
+          title_ca: 'Reducció de les desigualtats',
+          title_en: 'Reduced Inequalities',
+        },
+        11: {
+          color: '#FD9D24',
+          title_es: 'Ciudades y comunidades sostenibles',
+          title_ca: 'Ciutats i comunitats sostenibles',
+          title_en: 'Sustainable Cities and Communities',
+        },
+        12: {
+          color: '#BF8B2E',
+          title_es: 'Producción y consumo responsables',
+          title_ca: 'Producció i consum responsables',
+          title_en: 'Responsible Consumption and Production',
+        },
+        13: {
+          color: '#3F7E44',
+          title_es: 'Acción por el clima',
+          title_ca: 'Acció pel clima',
+          title_en: 'Climate Action',
+        },
+        14: {
+          color: '#0A97D9',
+          title_es: 'Vida submarina',
+          title_ca: 'Vida submarina',
+          title_en: 'Life Below Water',
+        },
+        15: {
+          color: '#56C02B',
+          title_es: 'Vida de ecosistemas terrestres',
+          title_ca: 'Vida d\'ecosistemes terrestres',
+          title_en: 'Life on Land',
+        },
+        16: {
+          color: '#00689D',
+          title_es: 'Paz, justicia e instituciones sólidas',
+          title_ca: 'Pau, justícia i institucions sòlides',
+          title_en: 'Peace, Justice and Strong Institutions',
+        },
+        17: {
+          color: '#19486A',
+          title_es: 'Alianzas para lograr los objetivos',
+          title_ca: 'Aliances per a assolir els objectius',
+          title_en: 'Partnerships for the Goals',
+        }
+      }
     }
   },
   computed: {
+    rawTotalAssigned() {
+      return this.odssBudgetsData.filter(({ ods_code }) => ods_code !== 0).reduce((acc, curr) => acc + parseFloat(curr.amount), 0)
+    },
     totalAssigned() {
-      const getTotal = this.odssBudgetsData.filter(({ ods_code }) => ods_code !== 0)
-      return (getTotal.reduce((acc, curr) => acc + parseFloat(curr.amount), 0) / 1000000).toFixed(1).replace(/\./, ',') + ' M€'
+      return (this.rawTotalAssigned / 1000000).toFixed(1).replace(/\./, ',') + ' M€'
     },
     totalUnassigned() {
       const getTotal = this.odssBudgetsData.filter(({ ods_code }) => ods_code === 0)
@@ -101,65 +213,59 @@ export default {
     this.initGobiertoVizzs();
   },
   methods: {
-    tooltipTreeMapCreditor(d) {
+    tooltipTreeMapOds(d) {
+      const ods_code = d.data.children[0].id
+      const ods = this.odssTable(ods_code)
+      const amount = parseFloat(d.data.children[0].value)
+      const percentage = ((amount / this.rawTotalAssigned) * 100).toFixed(1)
       return `
-        <span class="beeswarm-tooltip-header">
-          ${d.data.children[0].entitat_tooltip}
-        </span>
+        <div class="ods-tooltip-icon" style="display: flex; align-items: center; margin-bottom: 8px;">
+          <div style="width: 48px; height: 48px; margin-right: 10px; display: flex; align-items: center; justify-content: center; background-color: ${ods.color}; border-radius: 4px;">
+            <img src="${this.odsImages[ods_code]}" width="48" height="48" alt="ODS ${ods_code}" />
+          </div>
+          <span class="beeswarm-tooltip-header">
+            ${ods_code}. ${ods[`title_${I18n.locale}`]}
+          </span>
+        </div>
         <span class="beeswarm-tooltip-table-element-text">
-            <b>${money(d.value)}</b>
-        </span>
-      `
-    },
-    tooltipTreeMapDebts(d) {
-      return `
-        <span class="beeswarm-tooltip-header">
-          ${d.data.title}
-        </span>
-        <span class="beeswarm-tooltip-table-element-text">
-            <b>${money(d.value)}</b>
+          <b>${money(amount)}</b>
+          <br>
+          <b>(${percentage}%)</b>
         </span>
       `
     },
     initGobiertoVizzs() {
-      const treemapCreditor = this.$refs["treemap-creditor"]
+      const treemapOds = this.$refs["treemap-ods"]
 
-      if (treemapCreditor && treemapCreditor.offsetParent !== null) {
-        this.treemapCreditor = new TreeMap(treemapCreditor, this.parseDataTotal(this.creditorData), {
-          rootTitle: "test",
-          id: "title",
-          group: ["entitat"],
-          value: this.creditorKey,
+      if (treemapOds && treemapOds.offsetParent !== null) {
+        this.treemapOds = new TreeMap(treemapOds, this.parseDataTotal(this.odssBudgetsData), {
           margin: { top: 0 },
+          group: ["id"],
+          value: "value",
           itemTemplate: this.treemapItemTemplate,
-          tooltip: this.tooltipTreeMapCreditor
+          tooltip: this.tooltipTreeMapOds
         })
       }
       this.isGobiertoVizzsLoaded = true
     },
     treemapItemTemplate(d) {
+      const ods_code = d.data.children[0].id
+      const ods = this.odssTable(ods_code)
+      const amount = parseFloat(d.data.children[0].value)
       this.disableTreemapClick()
+
       return [
-        `<p class="treemap-item-title">${d.data.title}</p>`,
-        `<p class="treemap-item-text">${money(d.value)}</p>`
+        `<p class="treemap-item-title">${ods_code}. ${ods[`title_${I18n.locale}`]}</p>`,
+        `<p class="treemap-item-text">${money(amount)}</p>`
       ].join("")
     },
     parseDataTotal(rawData) {
-      const data = rawData.map(({ entitat, entitat_tooltip, ...rest }) => {
-        entitat_tooltip = entitat
-        if (entitat === "AJUNTAMENT - PENDENT RETORN PIE LIQ. NEGATIVA 2008 I 2009") {
-          entitat = "AJUNTAMENT - PENDENT RETORN PIE"
-        }
-        if (entitat === "FUNDACIÓ TCM") {
-          entitat = "FUND. TCM"
-        }
-
+      const data = rawData.map(({ ods_code, amount, ...rest }) => {
         return {
-          entitat,
-          entitat_tooltip,
-          ...rest
+          id: ods_code,
+          value: parseFloat(amount)
         }
-      }).filter(({ entitat }) => entitat !== "TOTAL GENERAL")
+      }).filter(({ id }) => id !== 0)
       return data
     },
     disableTreemapClick() {
@@ -169,6 +275,23 @@ export default {
           e.preventDefault();
         })
       })
+    },
+    odssTable(ods_code) {
+      return this.odsCatalog[ods_code]
+    },
+    getOdsImages(data) {
+      // Extract ODS image URLs from data attributes
+      const odsImages = {};
+
+      // Iterate from 1 to 17 to get all ODS image URLs
+      for (let i = 1; i <= 17; i++) {
+        const key = `odsImage-${i}`;
+        if (this.$root.$options.provide.data[key]) {
+          odsImages[i] = this.$root.$options.provide.data[key];
+        }
+      }
+
+      return odsImages;
     }
   }
 }

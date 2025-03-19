@@ -22,7 +22,7 @@
                 <div class="inner">
                   <h3>{{ labelTitleTotalAssigned }}</h3>
                   <div class="metric">
-                    {{ totalAssigned }}
+                    {{ totalAssigned }} <span class="percentage">({{ totalAssignedPercentage }}%)</span>
                   </div>
                 </div>
               </div>
@@ -30,7 +30,7 @@
                 <div class="inner">
                   <h3>{{ labelTitleTotalUnassigned }}</h3>
                   <div class="metric">
-                    {{ totalUnassigned }}
+                    {{ totalUnassigned }} <span class="percentage">({{ totalUnassignedPercentage }}%)</span>
                   </div>
                 </div>
               </div>
@@ -62,6 +62,12 @@
     </div>
   </div>
 </template>
+<style>
+.percentage {
+  font-size: 16px;
+  color: #AAA;
+}
+</style>
 <script>
 import { TreeMap } from 'gobierto-vizzs';
 import { money } from '../../../../lib/vue/filters';
@@ -200,12 +206,21 @@ export default {
     rawTotalAssigned() {
       return this.odssBudgetsData.filter(({ ods_code }) => ods_code !== 0).reduce((acc, curr) => acc + parseFloat(curr.amount), 0)
     },
+    rawTotalUnassigned() {
+      return this.odssBudgetsData.filter(({ ods_code }) => ods_code === 0).reduce((acc, curr) => acc + parseFloat(curr.amount), 0)
+    },
     totalAssigned() {
       return (this.rawTotalAssigned / 1000000).toFixed(1).replace(/\./, ',') + ' M€'
+    },
+    totalAssignedPercentage() {
+      return ((this.rawTotalAssigned / (this.rawTotalAssigned + this.rawTotalUnassigned)) * 100).toFixed(1)
     },
     totalUnassigned() {
       const getTotal = this.odssBudgetsData.filter(({ ods_code }) => ods_code === 0)
       return (getTotal.reduce((acc, curr) => acc + parseFloat(curr.amount), 0) / 1000000).toFixed(1).replace(/\./, ',') + ' M€'
+    },
+    totalUnassignedPercentage() {
+      return ((this.rawTotalUnassigned / (this.rawTotalAssigned + this.rawTotalUnassigned)) * 100).toFixed(1)
     }
   },
   mounted() {

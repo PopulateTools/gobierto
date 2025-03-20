@@ -30,8 +30,8 @@ export class OdssController {
       entryPoint.innerHTML = htmlRouterBlock;
 
       Promise.all([
-        getRemoteData(options.functionalBudgetsOdssEndpoint),
-        getRemoteData(options.odssBudgetsEndpoint)
+        getRemoteData(options.odssFunctionalBudgetsOdss),
+        getRemoteData(options.odssOdssBudgets)
       ]).then(rawData => {
         this.setGlobalVariables(rawData);
         const router = new VueRouter({
@@ -84,38 +84,18 @@ export class OdssController {
   //The keys for the treemap always have the same value,
   //only the year changes, search in the keys of the data
   //the pattern that contains the word 'endeutament'
-  getDebtKey(data, string) {
+  getKey(data, string) {
     return Object.keys(data[0]).filter(element => element.includes(string))
   }
 
   setGlobalVariables(rawData) {
-    this.debtsEntitatKey = this.getDebtKey(rawData[0], 'endeutament_pendent_a_31_12')
-    this.debtsTotalKey = this.getDebtKey(rawData[1], 'endeutament_a_31_12')
-    const debtsEvolutionParse = rawData[2].map(d => {
-      const { any, ajuntament, mataro_audiovisual, c_digital_mataro_maresme, consorci_tr_residus, pumsa, grup_tecnocampus, amsa, deute_fcc, porta_laietana, altres_pie_messa, total_endeutament_grup, total_deute_viu, rati_deute_viu } = d
-      return {
-        any: any,
-        Ajuntament: ajuntament,
-        "Mataro Audiovisual": mataro_audiovisual,
-        "Digitial Mataro Maresme": c_digital_mataro_maresme,
-        "Consorci Residus": consorci_tr_residus,
-        PUMSA: pumsa,
-        "Grup Tecnocampus": grup_tecnocampus,
-        AMSA: amsa,
-        "Deute FCC": deute_fcc,
-        "Porta Laietana": porta_laietana,
-        "Altres pie messa": altres_pie_messa,
-        "Deute Viu Grup Ajuntament": total_endeutament_grup,
-        "Deute Viu Sector Administracions Públiques": total_deute_viu,
-        "Rati deute viu %": rati_deute_viu.split("%")[0]
-      }
-    })
-
+    this.functionalBudgetsOdssKey = this.getKey(rawData[0], 'functional_code')
+    this.odssBudgetsKey = this.getKey(rawData[1], 'ods_code')
     this.data = {
       functionalBudgetsOdss: this.parseData(rawData[0], this.functionalBudgetsOdssKey),
       functionalBudgetsOdssKey: this.functionalBudgetsOdssKey,
       odssBudgets: this.parseData(rawData[1], this.odssBudgetsKey),
-      odssBudgetsKey: this.odssBudgetsKey,
+      odssBudgetsKey: this.odssBudgetsKey
     };
   }
 }

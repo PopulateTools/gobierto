@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const odssAppNode = document.getElementById("gobierto-visualizations-odss-app");
   if (odssAppNode) {
-    console.log("odssAppNode", odssAppNode.dataset);
     new OdssController({ ...odssAppNode.dataset });
   }
 });

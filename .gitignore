@@ -90,3 +90,6 @@ vendor/gobierto_engines/custom-fields-*-plugin/node_modules
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+public/functiona_budgets_odss.csv
+public/odss_budgets.csv

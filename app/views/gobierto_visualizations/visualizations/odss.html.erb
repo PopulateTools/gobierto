@@ -13,8 +13,8 @@
      <% 1.upto(17) do |i| %>
      data-ods-image-<%= i %>="<%= asset_path("ods/ods_goal_#{i.to_s.rjust(2, '0')}_#{I18n.locale}.png") %>"
      <% end %>
-     data-odss-functional-budgets-odss="/functiona_budgets_odss.csv" <%# @visualizations_config.dig('data_urls', 'functional_budgets_odss') %>
-     data-odss-odss-budgets="/odss_budgets.csv" <%# @visualizations_config.dig('data_urls', 'odss_budgets') %>
+     data-odss-functional-budgets-odss="<%= @visualizations_config.dig('data_urls', 'functional_budgets_odss') %>"
+     data-odss-odss-budgets="<%= @visualizations_config.dig('data_urls', 'odss_budgets') %>"
   >
   </div>
 

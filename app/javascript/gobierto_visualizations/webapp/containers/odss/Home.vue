@@ -248,6 +248,9 @@ export default {
   mounted() {
     EventBus.$emit("mounted");
     this.initGobiertoVizzs();
+    setTimeout(() => {
+      this.updateTreemapOdsColors();
+    }, 1000)
   },
   methods: {
     tooltipTreeMapOds(d) {
@@ -334,6 +337,17 @@ export default {
       }
 
       return odsImages;
+    },
+    updateTreemapOdsColors() {
+      const treemapOds = this.$refs["treemap-ods"]
+      const rects = treemapOds.querySelectorAll('rect')
+      for (let i = 0; i < rects.length; i++) {
+        const rect = rects[i]
+        const odsCode = rect.getAttribute('data-id')
+        const ods = this.odssTable(odsCode)
+        const color = ods !== undefined ? ods.color : "#AAAAAA"
+        rect.setAttribute('fill', color)
+      }
     }
   }
 }

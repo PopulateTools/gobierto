@@ -17,7 +17,7 @@
             <div style="display: flex; align-items: center;" v-else>
               <div style="width: 48px; height: 48px; margin-right: 15px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background-color: #000000;">
               </div>
-              <span>Sin asignar</span>
+              <span>{{ labelUnassigned }}</span>
             </div>
           </td>
           <td class="gobierto-visualizations-table-ods-td" style="text-align: right; vertical-align: middle;">
@@ -54,6 +54,9 @@ export default {
     total: {
       type: Number,
       default: 0
+    },
+    labelUnassigned: {
+      type: String
     }
   },
   methods: {

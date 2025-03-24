@@ -218,15 +218,31 @@ es:
         title: Deuda
         total_debt: Deuda total
       odss:
-        assigned: Asignado
-        unassigned: No asignado
-        title: ODS
-        description: Visualización de ODS
-        updated_date: Datos actualizados el 18 de marzo de 2025
-        label_title_ods: Treemap por ODS
+        amount: Importe
+        assigned: Alineado
+        description_html: "<p>Desde el año 2015, la ONU ha aprobado la Agenda 2030,
+          incorporando los 17 Objetivos de Desarrollo Sostenible (ODS), y establecido
+          una visión transformadora hacia la sostenibilidad económica, social y ambiental,
+          este Ayuntamiento ha colaborado en abrir un nuevo camino para mejorar la
+          vida de todas y todos, sin dejar a nadie atrás.</p> <p>Es por ello, que
+          después de presentar el Plan Estratégico Municipal 2023-2027 alineado con
+          los ODS, se compite la alineación del presupuesto municipal con la Agenda
+          2030.</p> <p>El visor del presupuesto permite una mejor evaluación de la
+          adecuación de los recursos utilizados y las prioridades políticas, y contribuye
+          a dirigir los esfuerzos hacia las áreas donde se necesita un mayor enfoque.</p>
+          <p>Esta herramienta se plantea con el objetivo de ofrecer a la ciudadanía
+          una visión integral del grado de alineamiento de las gastos municipales
+          de este año con la consecución de los ODS.</p>"
+        functional_code: Código programa
         label_title_budgets_ods: Distribución de partidas por ODS
+        label_title_ods: Distribución de gastos por Objetivos de Desarrollo Sostenible
+        name: Nombre
+        ods_distribution: Distribución ODS
+        title: Presupuesto alineado con los Objetivos de Desarrollo Sostenible (ODS)
+        unassigned: No alineado
+        updated_date: Datos actualizados el 18 de marzo de 2025
       process_types:
-        based_on_agreement: Basado en Acuerdo Marco
+        based_on_agreement: Basat en Acord Marc
         competitive_dialogue: Diálogo competitivo
         dynamic_acquisition: Basado en sistema dinámico de adquisición
         innovation: Asociación para la innovación

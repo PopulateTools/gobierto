@@ -9,9 +9,7 @@
       <div class="pure-u-1 pure-u-md-24-24">
         <div class="pure-g gutters">
           <div class="pure-u-1 pure-u-md-12-24">
-            <p class="gobierto-visualizations-description">
-              {{ labelDescription }}
-            </p>
+            <div class="gobierto-visualizations-description" v-html="labelDescription"></div>
             <p class="gobierto-visualizations-description">
               {{ labelDescriptionDate }}
             </p>
@@ -56,6 +54,7 @@
               :odsImages="odsImages"
               :locale="locale"
               :total="rawTotalAssigned + rawTotalUnassigned"
+              :labelUnassigned="labelTitleTotalUnassigned"
             />
           </div>
         </div>
@@ -111,7 +110,7 @@ export default {
       odssBudgetsKey: this.data.odssBudgetsKey,
       odssFunctionalBudgetsKey: this.data.functionalBudgetsOdssKey,
       labelTitle: I18n.t("gobierto_visualizations.visualizations.odss.title") || "",
-      labelDescription: I18n.t("gobierto_visualizations.visualizations.odss.description") || "",
+      labelDescription: I18n.t("gobierto_visualizations.visualizations.odss.description_html") || "",
       labelDescriptionDate: I18n.t("gobierto_visualizations.visualizations.odss.updated_date") || "",
       labelTitleTotalAssigned: I18n.t("gobierto_visualizations.visualizations.odss.assigned") || "",
       labelTitleTotalUnassigned: I18n.t("gobierto_visualizations.visualizations.odss.unassigned") || "",
@@ -258,7 +257,7 @@ export default {
       const ods = this.odssTable(ods_code)
       const amount = parseFloat(d.data.children[0].value)
       const percentage = ((amount / this.rawTotalAssigned) * 100).toFixed(1)
-      const ods_title = ods !== undefined ? `${ods_code}. ${ods[`title_${I18n.locale}`]}` : "Sin asignar"
+      const ods_title = ods !== undefined ? `${ods_code}. ${ods[`title_${I18n.locale}`]}` : I18n.t("gobierto_visualizations.visualizations.odss.unassigned")
       const ods_color = ods !== undefined ? ods.color : "#000000"
       const ods_image = ods !== undefined ? `<img src="${this.odsImages[ods_code]}" width="48" height="48" alt="ODS ${ods_code}" />` : ""
       return `
@@ -295,7 +294,7 @@ export default {
       const ods_code = d.data.children[0].id
       const ods = this.odssTable(ods_code)
       const amount = parseFloat(d.data.children[0].value)
-      const ods_title = ods !== undefined ? `${ods_code}. ${ods[`title_${I18n.locale}`]}` : "Sin asignar"
+      const ods_title = ods !== undefined ? `${ods_code}. ${ods[`title_${I18n.locale}`]}` : I18n.t("gobierto_visualizations.visualizations.odss.unassigned")
 
       this.disableTreemapClick()
 
@@ -351,5 +350,4 @@ export default {
     }
   }
 }
-
 </script>

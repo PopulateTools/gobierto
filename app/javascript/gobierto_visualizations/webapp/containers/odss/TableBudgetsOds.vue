@@ -9,9 +9,9 @@
       </colgroup>
       <thead>
         <tr>
-          <th>Código programa</th>
-          <th>Nombre</th>
-          <th>Importe</th>
+          <th>{{ labelFunctionalCode }}</th>
+          <th>{{ labelName }}</th>
+          <th>{{ labelAmount }}</th>
           <th colspan="4" class="ods-chart-column">ODS</th>
         </tr>
       </thead>
@@ -92,7 +92,10 @@ export default {
       tooltipStyle: {
         top: '0px',
         left: '0px'
-      }
+      },
+      labelFunctionalCode: I18n.t("gobierto_visualizations.visualizations.odss.functional_code") || "",
+      labelName: I18n.t("gobierto_visualizations.visualizations.odss.name") || "",
+      labelAmount: I18n.t("gobierto_visualizations.visualizations.odss.amount") || ""
     }
   },
   methods: {
@@ -154,7 +157,7 @@ export default {
 
     createTooltipContent(odsInfo, totalAmount) {
       let content = '<div class="ods-tooltip-content">';
-      content += '<h4>Distribución ODS</h4>';
+      content += `<h4>${I18n.t("gobierto_visualizations.visualizations.odss.ods_distribution")}</h4>`;
       content += '<table class="ods-tooltip-table">';
       content += '<thead><tr><th>ODS</th><th>Importe</th><th>%</th></tr></thead>';
       content += '<tbody>';
@@ -179,6 +182,10 @@ export default {
 </script>
 
 <style scoped>
+.gobierto-visualizations-table-budgets-ods th {
+  text-align: left;
+}
+
 .ods-bar-container {
   display: flex;
   width: 100%;

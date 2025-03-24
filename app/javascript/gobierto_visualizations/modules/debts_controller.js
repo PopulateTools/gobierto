@@ -70,11 +70,7 @@ export class DebtsController {
   parseData(rawData, filter) {
     const data = rawData.map((item) => {
       for (let element of filter) {
-        item[element] = item[element].includes('.')
-          ? toNumber(item[element].replace(/\./g,'').replace(/,/g,'.'))
-          : item[element]
-          ? toNumber(item[element].replace(/,/g,'.'))
-          : toNumber(item[element])
+        item[element] = toNumber(item[element])
       }
       return {
         ...item

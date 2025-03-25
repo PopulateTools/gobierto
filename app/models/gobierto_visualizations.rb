@@ -33,6 +33,13 @@ module GobiertoVisualizations
             "debts_total": "",
             "evolution": ""
           }
+        },
+        "odss": {
+          "enabled": false,
+          "data_urls": {
+            "functional_budgets_odss": "",
+            "odss_budgets": ""
+          }
         }
       }
     }

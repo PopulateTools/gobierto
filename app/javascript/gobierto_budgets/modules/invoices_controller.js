@@ -705,7 +705,6 @@ window.GobiertoBudgets.InvoicesController = (function() {
           align: "center",
           width: 30,
           itemTemplate: function(value) {
-            console.log(value, new Date(value).toLocaleDateString(I18n.locale));
             return new Date(value).toLocaleDateString(I18n.locale);
           }
         }],

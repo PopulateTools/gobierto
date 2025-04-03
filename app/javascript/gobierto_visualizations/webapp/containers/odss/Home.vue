@@ -253,6 +253,9 @@ export default {
     this.initGobiertoVizzs();
     setTimeout(() => {
       this.updateTreemapOdsColors();
+      // Emit ajaxSuccess event to trigger any handlers that might be listening
+      // This is commonly used to initialize components after AJAX operations
+      $(document).trigger('ajaxSuccess');
     }, 1000)
   },
   methods: {

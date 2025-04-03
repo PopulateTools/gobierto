@@ -239,7 +239,7 @@ es:
         name: Nombre
         ods_distribution: Distribución ODS
         title: Presupuesto alineado con los Objetivos de Desarrollo Sostenible (ODS)
-        unassigned: No alineado
+        unassigned: Sin alinear
         updated_date: Datos actualizados el 18 de marzo de 2025
       process_types:
         based_on_agreement: Basat en Acord Marc

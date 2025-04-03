@@ -236,7 +236,7 @@ ca:
         ods_distribution: Distribució ODS
         title: Pressupost alineat amb els Objectius de Desenvolupament Sostenible
           (ODS)
-        unassigned: No alineat
+        unassigned: Sense alinear
         updated_date: Dades actualitzades el 18 de març de 2025
       process_types:
         based_on_agreement: Basat en Acord Marc

@@ -328,7 +328,7 @@ export default {
       const odsImages = {};
 
       // Iterate from 1 to 17 to get all ODS image URLs
-      for (let i = 1; i <= 17; i++) {
+      for (let i = 0; i <= 17; i++) {
         const key = `odsImage-${i}`;
         if (this.$root.$options.provide.data[key]) {
           odsImages[i] = this.$root.$options.provide.data[key];

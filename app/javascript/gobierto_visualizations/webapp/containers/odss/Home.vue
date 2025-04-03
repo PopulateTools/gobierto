@@ -15,6 +15,10 @@
             </p>
           </div>
           <div class="pure-u-1 pure-u-md-12-24 metric_boxes">
+            <!-- hack to display logo -->
+            <div id="taxes_receipt" class="pure-u-1-2">
+              <img src="" style="width: 100%; "/>
+            </div>
             <div class="metric_boxes">
               <div class="pure-u-1-2 metric_box tipsit">
                 <div class="inner">

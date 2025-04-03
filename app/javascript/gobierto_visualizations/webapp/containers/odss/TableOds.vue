@@ -15,7 +15,8 @@
               <span>{{ item.ods_code }}. {{ odsCatalog[item.ods_code][`title_${locale}`] }}</span>
             </div>
             <div style="display: flex; align-items: center;" v-else>
-              <div style="width: 48px; height: 48px; margin-right: 15px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background-color: #000000;">
+              <div style="width: 48px; height: 48px; margin-right: 15px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background-color: #8d8d8d;">
+                <img :src="odsImages[0]" width="48" height="48" :alt="`ODS ${labelUnassigned}`" />
               </div>
               <span>{{ labelUnassigned }}</span>
             </div>

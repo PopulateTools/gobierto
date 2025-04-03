@@ -15,6 +15,10 @@
             </p>
           </div>
           <div class="pure-u-1 pure-u-md-12-24 metric_boxes">
+            <!-- hack to display logo -->
+            <div id="taxes_receipt" class="pure-u-1-2">
+              <img src="" style="width: 100%; "/>
+            </div>
             <div class="metric_boxes">
               <div class="pure-u-1-2 metric_box tipsit">
                 <div class="inner">
@@ -328,7 +332,7 @@ export default {
       const odsImages = {};
 
       // Iterate from 1 to 17 to get all ODS image URLs
-      for (let i = 1; i <= 17; i++) {
+      for (let i = 0; i <= 17; i++) {
         const key = `odsImage-${i}`;
         if (this.$root.$options.provide.data[key]) {
           odsImages[i] = this.$root.$options.provide.data[key];

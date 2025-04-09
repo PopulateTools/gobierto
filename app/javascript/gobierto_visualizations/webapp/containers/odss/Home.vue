@@ -113,7 +113,7 @@ export default {
       odssFunctionalBudgetsData: this.data.functionalBudgetsOdss,
       odssBudgetsKey: this.data.odssBudgetsKey,
       odssFunctionalBudgetsKey: this.data.functionalBudgetsOdssKey,
-      labelTitle: I18n.t("gobierto_visualizations.visualizations.odss.title") || "",
+      labelTitle: I18n.t("gobierto_visualizations.visualizations.odss.title", { year: new Date().getFullYear() }) || "",
       labelDescription: I18n.t("gobierto_visualizations.visualizations.odss.description_html") || "",
       labelDescriptionDate: I18n.t("gobierto_visualizations.visualizations.odss.updated_date") || "",
       labelTitleTotalAssigned: I18n.t("gobierto_visualizations.visualizations.odss.assigned") || "",
@@ -257,6 +257,7 @@ export default {
       // This is commonly used to initialize components after AJAX operations
       $(document).trigger('ajaxSuccess');
     }, 1000)
+    window.onresize = this.updateTreemapOdsColors;
   },
   methods: {
     tooltipTreeMapOds(d) {

@@ -7,6 +7,7 @@ ca:
           contracts: Contractes i licitacions
           costs: Costos
           debts: Deute
+          odss: ODS
           subsidies: Subvencions
     shared:
       download_data: Descarregueu les dades en format reutilitzable
@@ -212,6 +213,31 @@ ca:
         millions: La unitat de les xifres d'aquest gràfic és milions d'euros.
         title: Deute
         total_debt: Deute total
+      odss:
+        amount: Import
+        assigned: Alineat
+        description_html: "<p>Des que l’any 2015, l’ONU) va aprovar l’Agenda 2030,
+          integrant els 17 Objectius de Desenvolupament Sostenible (ODS), i va establir
+          una visió transformadora cap a la sostenibilitat econòmica, social i ambiental,
+          aquest Ajuntament ha coadjuvat en obrir un nou camí per millorar la vida
+          de totes i tots, sense deixar ningú enrere.</p> <p>És per això, que després
+          de presentar el Pla Estratègic Municipal 2023-2027 alineat amb els ODS,
+          competeix l’alineació del pressupost municipal amb l’Agenda 2030.</p> <p>El
+          visor del pressupost  permet una millor avaluació de l'adequació dels recursos
+          utilitzats i les prioritats polítiques, i contribueix a dirigir els esforços
+          cap a les àrees on es necessita un major enfocament.</p> <p>Aquesta eina
+          es planteja amb l'objectiu d'oferir a la ciutadania una visió integral del
+          grau d’alineament de les despeses municipals d’enguany amb la consecució
+          dels ODS.</p>"
+        functional_code: Código programa
+        label_title_budgets_ods: Distribució de partides per ODS
+        label_title_ods: Distribució de despesa per Objectius de Desenvolupament Sostenible
+        name: Nom
+        ods_distribution: Distribució ODS
+        title: Pressupost de %{year} alineat amb els Objectius de Desenvolupament
+          Sostenible (ODS)
+        unassigned: Sense alinear
+        updated_date: Dades actualitzades el 18 de març de 2025
       process_types:
         based_on_agreement: Basat en Acord Marc
         competitive_dialogue: Diàleg competitiu

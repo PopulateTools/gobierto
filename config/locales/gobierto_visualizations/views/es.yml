@@ -238,7 +238,8 @@ es:
         label_title_ods: Distribución de gastos por Objetivos de Desarrollo Sostenible
         name: Nombre
         ods_distribution: Distribución ODS
-        title: Presupuesto alineado con los Objetivos de Desarrollo Sostenible (ODS)
+        title: Presupuesto de %{year} alineado con los Objetivos de Desarrollo Sostenible
+          (ODS)
         unassigned: Sin alinear
         updated_date: Datos actualizados el 18 de marzo de 2025
       process_types:

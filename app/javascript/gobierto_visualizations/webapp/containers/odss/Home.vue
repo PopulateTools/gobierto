@@ -16,23 +16,27 @@
           </div>
           <div class="pure-u-1 pure-u-md-12-24 metric_boxes">
             <!-- hack to display logo -->
-            <div id="taxes_receipt" class="pure-u-1-2">
-              <img src="" style="width: 100%; "/>
-            </div>
-            <div class="metric_boxes">
-              <div class="pure-u-1-2 metric_box tipsit">
-                <div class="inner">
-                  <h3>{{ labelTitleTotalAssigned }}</h3>
-                  <div class="metric">
-                    {{ totalAssigned }} <span class="percentage">({{ totalAssignedPercentage }}%)</span>
-                  </div>
-                </div>
+            <div class="pure-g">
+              <div id="taxes_receipt" class="pure-u-1-2">
+                <img src="" style="width: 100%; "/>
               </div>
-              <div class="pure-u-1-2 metric_box tipsit">
-                <div class="inner">
-                  <h3>{{ labelTitleTotalUnassigned }}</h3>
-                  <div class="metric">
-                    {{ totalUnassigned }} <span class="percentage">({{ totalUnassignedPercentage }}%)</span>
+              <div class="pure-u-1-2">
+                <div class="pure-g">
+                  <div class="pure-u-1-1 metric_box tipsit">
+                    <div class="inner">
+                      <h3>{{ labelTitleTotalAssigned }}</h3>
+                      <div class="metric">
+                        {{ totalAssigned }} <span class="percentage">({{ totalAssignedPercentage }}%)</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pure-u-1-1 metric_box tipsit">
+                    <div class="inner">
+                      <h3>{{ labelTitleTotalUnassigned }}</h3>
+                      <div class="metric">
+                        {{ totalUnassigned }} <span class="percentage">({{ totalUnassignedPercentage }}%)</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -234,8 +234,8 @@ ca:
         label_title_ods: Distribució de despesa per Objectius de Desenvolupament Sostenible
         name: Nom
         ods_distribution: Distribució ODS
-        title: Pressupost de %{year} alineat amb els Objectius de Desenvolupament
-          Sostenible (ODS)
+        title: Pressupost vigent alineat amb els Objectius de Desenvolupament Sostenible
+          (ODS)
         unassigned: Sense alinear
         updated_date: Dades actualitzades el 18 de març de 2025
       process_types:

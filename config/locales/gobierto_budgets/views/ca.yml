@@ -286,7 +286,7 @@ ca:
         main_budget_lines_expense: Despeses
         main_budget_lines_income: Ingressos
         more: més
-        most_interesting_budget_lines: Partides que més t'interessen
+        most_interesting_budget_lines: Despeses que més t'interessen
         most_interesting_budget_lines_description: Et mostrem algunes de les partides
           que més afecten en el dia a dia de la ciutadania. També pots consultar l'explorador
           complet.
@@ -459,7 +459,7 @@ ca:
         last_year: L'any passat vam gastar
         per_person: Per habitant
         show_me_another: Mostra'm un altre exemple
-        title: Algunes partides destacades
+        title: Algunes despeses destacades
         total: Despesa total
     feedback:
       ask_more_information:

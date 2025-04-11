@@ -276,7 +276,7 @@ es:
         main_budget_lines_expense: Gastos
         main_budget_lines_income: Ingresos
         more: más
-        most_interesting_budget_lines: Partidas que más te interesan
+        most_interesting_budget_lines: Gastos que más te interesan
         most_interesting_budget_lines_description: Te mostramos algunas de las partidas
           que más nos afectan directamente en nuestro día a día como ciudadanos. También
           puedes consultar el explorador completo.
@@ -453,7 +453,7 @@ es:
         last_year: El año pasado gastamos
         per_person: Por habitante
         show_me_another: Muéstrame otra
-        title: Algunas partidas destacadas
+        title: Algunos gastos destacados
         total: Gasto total
     feedback:
       ask_more_information:

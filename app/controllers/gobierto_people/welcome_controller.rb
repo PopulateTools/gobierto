@@ -7,6 +7,7 @@ module GobiertoPeople
     include DatesRangeHelper
 
     before_action :check_active_submodules
+    before_action :overrided_root_redirect, only: [:index]
 
     def index
       @people = CollectionDecorator.new(

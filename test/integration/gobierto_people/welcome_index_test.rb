@@ -11,7 +11,7 @@ module GobiertoPeople
 
     def setup
       super
-      @path = gobierto_people_root_path
+      @path = root_path
     end
 
     def site
@@ -72,9 +72,17 @@ module GobiertoPeople
       ]
     end
 
+    def test_welcome_index_redirect
+      with_current_site(site) do
+        visit gobierto_people_root_path
+
+        assert_redirected_to root_path
+      end
+    end
+
     def test_welcome_index
       with_current_site(site) do
-        visit @path
+        visit root_path
 
         assert has_selector?("p", text: "Home text English")
       end

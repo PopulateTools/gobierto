@@ -14,8 +14,6 @@ Rack::Attack.throttle("requests by ip Tier 3", limit: 1000, period: 24.hours) do
   request.ip
 end
 
-ActiveSupport::Notifications.subscribe('rack.attack') do |name, start, finish, request_id, req|
-  if [:throttle].include? req.env['rack.attack.match_type']
-    Rails.logger.info("[rack_attack] #{req.env['rack.attack.match_type']} #{req.ip} #{req.request_method} #{req.fullpath}")
-  end
+ActiveSupport::Notifications.subscribe("throttle.rack_attack") do |name, start, finish, instrumenter_id, payload|
+  Rails.logger.info("[rack_attack] #{payload[:request].ip} #{payload[:request].request_method} #{payload[:request].fullpath}")
 end

@@ -19,7 +19,6 @@ require "googleauth"
 require "google/api_client/client_secrets"
 require "googleauth/stores/file_token_store"
 require_relative "../lib/middlewares/override_welcome_action"
-require_relative "../lib/rate_limit_logger"
 
 Bundler.require(*Rails.groups)
 

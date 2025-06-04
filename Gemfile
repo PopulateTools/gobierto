@@ -131,7 +131,7 @@ gem "pry-rails"
 gem "puma"
 
 # Rate limit protection
-gem 'rack-ratelimit', '~> 1.2', '>= 1.2.1'
+gem 'rack-attack'
 
 group :development, :test do
   gem "i18n-tasks"

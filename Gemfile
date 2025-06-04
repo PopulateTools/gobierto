@@ -130,6 +130,9 @@ gem "pry-rails"
 # Use as app server in all environments
 gem "puma"
 
+# Rate limit protection
+gem 'rack-ratelimit', '~> 1.2', '>= 1.2.1'
+
 group :development, :test do
   gem "i18n-tasks"
   # https://world.hey.com/lewis/run-multiple-rails-apps-with-puma-dev-67b1c10f

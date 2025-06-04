@@ -28,6 +28,49 @@ class ApplicationController < ActionController::Base
 
   before_action :apply_engines_overrides, :authenticate_user_in_site, :allow_iframe_embed, :set_cache_headers
 
+  # Tier 1: Aggressive protection against heavy GET request floods
+  # Blocks IPs making more than 50 GET requests per 10 seconds
+  use(Rack::Ratelimit,
+    name: 'GET_Burst_Protection',
+    conditions: [
+      ->(env) { env['REQUEST_METHOD'] == 'GET' }
+    ],
+    rate: [50, 10.seconds],
+    redis: $redis,
+    logger: RateLimitLogger.new,
+    error_message: "GET request rate limit exceeded. Please wait 10 seconds then retry.") { |env|
+      # Rate limit by IP address
+      Rack::Request.new(env).ip
+    }
+
+  # Tier 2: Moderate protection for sustained GET traffic
+  # Limits to 500 GET requests per 5 minutes per IP
+  use(Rack::Ratelimit,
+    name: 'GET_Sustained_Protection',
+    conditions: [
+      ->(env) { env['REQUEST_METHOD'] == 'GET' }
+    ],
+    rate: [500, 5.minutes],
+    redis: $redis,
+    logger: RateLimitLogger.new,
+    error_message: "GET request rate limit exceeded. Please wait 5 minutes then retry.") { |env|
+      Rack::Request.new(env).ip
+    }
+
+  # Tier 3: Daily limits for very heavy users
+  # Limits to 1,000 GET requests per day per IP
+  use(Rack::Ratelimit,
+    name: 'GET_Daily_Protection',
+    conditions: [
+      ->(env) { env['REQUEST_METHOD'] == 'GET' }
+    ],
+    rate: [1000, 24.hours],
+    redis: $redis,
+    logger: RateLimitLogger.new,
+    error_message: "Daily GET request limit exceeded. Please try again tomorrow.") { |env|
+      Rack::Request.new(env).ip
+    }
+
   def render_404
     render file: Rails.root.join("public/404.html"), status: 404, layout: false, handlers: [:erb], formats: [:html]
   end

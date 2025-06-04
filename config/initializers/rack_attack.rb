@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rack::Attack.enabled = true
+Rack::Attack.enabled = !Rails.env.test?
 
 Rack::Attack.throttle("requests by ip Tier 1", limit: 50, period: 10.seconds) do |request|
   request.ip

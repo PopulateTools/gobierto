@@ -407,6 +407,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (2.2.14)
+    rack-attack (6.7.0)
+      rack (>= 1.0, < 4)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-rewrite (1.5.1)
@@ -627,6 +629,7 @@ DEPENDENCIES
   pry-rails
   psych (~> 3.3, >= 3.3.0)
   puma
+  rack-attack
   rack-cors
   rack-rewrite
   rails (~> 6.1.7.7)

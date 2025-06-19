@@ -9,6 +9,13 @@ module GobiertoPeople
     before_action :check_active_submodules
     before_action :overrided_root_redirect, only: [:index]
 
+    caches_action(
+      :index,
+      cache_path: -> { cache_service.prefixed(cache_path) },
+      unless: -> { user_signed_in? },
+      expires_in: 6.hours
+    )
+
     def index
       @people = CollectionDecorator.new(
         current_site.people.includes(:historical_charges).active.politician.government.sorted,

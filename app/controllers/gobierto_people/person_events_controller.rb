@@ -6,6 +6,13 @@ module GobiertoPeople
 
     before_action :check_active_submodules
 
+    caches_action(
+      :index,
+      cache_path: -> { cache_service.prefixed(cache_path) },
+      unless: -> { user_signed_in? },
+      expires_in: 6.hours
+    )
+
     def index
       set_events
       render_404 and return if (params[:page].present? && @events.empty?) || (params[:page].to_i > 5)
@@ -86,5 +93,6 @@ module GobiertoPeople
         (Time.zone.now.at_beginning_of_month.at_beginning_of_week)..(Time.zone.now.at_end_of_month.at_end_of_week)
       end
     end
+
   end
 end

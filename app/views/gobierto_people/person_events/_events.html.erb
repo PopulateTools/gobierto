@@ -2,5 +2,6 @@
   <%= render partial: "gobierto_people/person_events/person_event", locals: { person: event.collection.container, person_event: event } %>
 <% end %>
 
-<%= link_to_next_page @events, t('gobierto_people.person_events.index.view_more'), class: "see_more", role: "button", remote: true %>
+<%# Disable for performance reasons %>
+<%# link_to_next_page @events, t('gobierto_people.person_events.index.view_more'), class: "see_more", role: "button", remote: true %>
 

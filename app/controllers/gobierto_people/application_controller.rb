@@ -43,6 +43,7 @@ module GobiertoPeople
       base_path += "/#{params[:list_view]}" if params[:list_view].present?
       base_path += "/#{params[:container_slug]}" if params[:container_slug].present?
       base_path += "/#{params[:page]}" if params[:page].present?
+      base_path += "/#{params[:slug]}" if params[:slug].present?
       base_path
     end
 

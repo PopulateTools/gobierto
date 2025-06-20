@@ -11,6 +11,13 @@ module GobiertoPeople
         expires_in: 1.day
       )
 
+      caches_action(
+        :show,
+        cache_path: -> { cache_service.prefixed(cache_path) },
+        unless: -> { user_signed_in? },
+        expires_in: 1.month
+      )
+
       def index
         if params[:date]
           @filtering_date = Date.parse(params[:date])

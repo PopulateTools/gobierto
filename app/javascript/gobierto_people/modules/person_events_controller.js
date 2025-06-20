@@ -104,7 +104,7 @@ function reorganizeHTML(calendar) {
   });
 
   if (isVisible(listView)) {
-    hideFullcalendarViewItems();
+    hideFullcalendarViewItems({ calendar, originalRightButtons, listButton });
   }
 }
 

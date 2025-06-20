@@ -45,7 +45,7 @@ module GobiertoPeople
 
       positions = [filtered_positions.first] if positions.blank?
 
-      return "" if positions.blank?
+      return "" if positions.compact.blank?
 
       "<ul>" + positions.map { |pos| "<li>#{pos.name}</li>" }.join + "</ul>"
     end

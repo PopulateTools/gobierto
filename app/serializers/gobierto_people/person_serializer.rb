@@ -43,9 +43,11 @@ module GobiertoPeople
         position.end_date.blank?
       end
 
-      positions = [position] if positions.blank?
+      positions = [filtered_positions.first] if positions.blank?
 
-      "<ul>" + positions.map { |pos| "<li>#{pos}</li>" }.join + "</ul>"
+      return "" if positions.blank?
+
+      "<ul>" + positions.map { |pos| "<li>#{pos.name}</li>" }.join + "</ul>"
     end
 
     def filtered_positions

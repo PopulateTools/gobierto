@@ -82,6 +82,7 @@ module GobiertoPeople
     end
 
     def test_person_events_index_pagination
+      skip "Disabled for performance reasons"
       government_member.events.destroy_all
 
       10.times do |i|

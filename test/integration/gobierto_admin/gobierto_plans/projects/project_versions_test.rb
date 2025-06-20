@@ -109,7 +109,7 @@ module GobiertoAdmin
             create_project
 
             within "form" do
-              fill_in "project_name_translations_en", with: new_name
+              fill_in "project_name_translations_en", with: new_name, fill_options: { clear: :backspace }
 
               within "div.widget_save_v2.editor" do
                 click_button "Save"
@@ -336,7 +336,7 @@ module GobiertoAdmin
             new_name = "Project with versions: Version 2"
 
             within "form" do
-              fill_in "project_name_translations_en", with: new_name
+              fill_in "project_name_translations_en", with: new_name, fill_options: { clear: :backspace }
 
               within "div.widget_save_v2.editor" do
                 find("label", text: "Minor change (does not save version)").click
@@ -376,7 +376,7 @@ module GobiertoAdmin
 
             assert has_content? "Editing version\n2"
             within "form" do
-              fill_in "project_name_translations_en", with: new_name
+              fill_in "project_name_translations_en", with: new_name, fill_options: { clear: :backspace }
               fill_in_md_editor_field(new_description)
               find("label", text: "Minor change (does not save version)").click
               within "div.widget_save_v2.editor" do
@@ -394,7 +394,7 @@ module GobiertoAdmin
             last_version_name = "La Isla Bonita es la caña"
             last_version_description = "Big House Waltz"
             within "form" do
-              fill_in "project_name_translations_en", with: last_version_name
+              fill_in "project_name_translations_en", with: last_version_name, fill_options: { clear: :backspace }
               fill_in_md_editor_field(last_version_description, delete_chars_count: new_description.length)
               find("label", text: "Minor change (does not save version)").click
               within "div.widget_save_v2.editor" do

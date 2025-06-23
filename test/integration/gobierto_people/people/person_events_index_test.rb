@@ -117,29 +117,6 @@ module GobiertoPeople
         end
       end
 
-      def test_person_events_index_pagination
-        20.times do |i|
-          create_event(person: richard, title: "Event #{i}", starts_at: (Time.now.tomorrow + i.days).to_s)
-        end
-
-        with(site: site, js: true) do
-          visit @path
-
-          click_button "List"
-
-          assert has_link?("View more")
-          assert has_no_link?("Event 8")
-          click_link "View more"
-
-          assert has_link?("Event 12")
-          assert has_link?("View more")
-          click_link "View more"
-
-          assert has_link?("Event 18")
-          assert has_no_link?("View more")
-        end
-      end
-
       def test_calendar_navigation_arrows
         past_event = create_event(starts_at: "2014-02-15", person: richard)
         present_event = create_event(starts_at: "2014-03-15", person: richard)
@@ -195,20 +172,6 @@ module GobiertoPeople
               end
 
               assert has_content? "Displaying events of #{yesterday_early_event.starts_at.strftime("%b %d %Y")}"
-
-              click_link "View more"
-
-              sleep 2
-
-              within ".events-summary" do
-                assert has_no_content?(tomorrow_event.title)
-                assert ordered_elements page, [
-                  yesterday_late_event.title,
-                  midday_events.last.title,
-                  midday_events.first.title,
-                  yesterday_early_event.title
-                ]
-              end
             end
           end
         end

@@ -89,7 +89,6 @@ es:
           past_events: Eventos pasados
           title: Agenda de %{person_name}
           upcoming_events: Próximos eventos
-          view_more: Ver más
         show:
           event_data:
             event_attachments: Documentos
@@ -167,7 +166,6 @@ es:
           title: Reciba un resumen de las agendas de sus representantes
         title: Agendas de los miembros de %{site_name}
         upcoming_events: Agenda
-        view_more: Ver más
       person_events_filter:
         agenda: Agenda de los miembros del %{name}
     person_post_tags:

@@ -8,6 +8,7 @@ module GobiertoPeople
       :name,
       :email,
       :position,
+      :current_positions,
       :filtered_positions,
       :filtered_positions_str,
       :filtered_positions_html,
@@ -35,6 +36,18 @@ module GobiertoPeople
 
     def position
       filtered_positions.first&.name
+    end
+
+    def current_positions
+      positions = filtered_positions.select do |position|
+        position.end_date.blank?
+      end
+
+      positions = [filtered_positions.first] if positions.blank?
+
+      return "" if positions.compact.blank?
+
+      "<ul>" + positions.map { |pos| "<li>#{pos.name}</li>" }.join + "</ul>"
     end
 
     def filtered_positions

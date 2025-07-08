@@ -89,7 +89,6 @@ ca:
           past_events: Esdeveniments passats
           title: Agenda de %{person_name}
           upcoming_events: Agenda
-          view_more: Veure'n més
         show:
           event_data:
             event_attachments: Documents
@@ -166,7 +165,6 @@ ca:
           title: Rebeu un resum de les agendes dels vostres representants
         title: Agendes dels membres de %{site_name}
         upcoming_events: Agenda
-        view_more: Veure'n més
       person_events_filter:
         agenda: Agenda dels membres del %{name}
     person_post_tags:

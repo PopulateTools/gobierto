@@ -87,7 +87,6 @@ en:
           past_events: Past events
           title: "%{person_name}'s agenda"
           upcoming_events: Agenda
-          view_more: View more
         show:
           event_data:
             event_attachments: Documents
@@ -164,7 +163,6 @@ en:
           title: Receive a summary of the agendas of your representatives
         title: "%{site_name}'s member agendas"
         upcoming_events: Agenda
-        view_more: View more
       person_events_filter:
         agenda: "%{name} members agenda"
     person_post_tags:

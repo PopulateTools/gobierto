@@ -74,6 +74,7 @@ class ActiveSupport::TestCase
 
   def setup
     I18n.locale = I18n.default_locale
+    Rails.cache.clear
   end
 
   def teardown
@@ -112,6 +113,7 @@ class ActionDispatch::IntegrationTest
   def setup
     $redis.flushdb
     Capybara.current_driver = Capybara.default_driver
+    Rails.cache.clear
   end
 
   def teardown

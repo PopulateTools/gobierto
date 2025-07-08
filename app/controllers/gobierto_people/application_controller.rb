@@ -40,6 +40,8 @@ module GobiertoPeople
       base_path = "#{current_site.cache_key_with_version}/#{current_module}/#{self.controller_name}/#{self.action_name}/#{I18n.locale}"
       base_path += "/#{params[:date]}" if params[:date].present?
       base_path += "/#{params[:start_date]}" if params[:start_date].present?
+      base_path += "/#{params[:start]}" if params[:start].present?
+      base_path += "/#{params[:end]}" if params[:end].present?
       base_path += "/#{params[:list_view]}" if params[:list_view].present?
       base_path += "/#{params[:container_slug]}" if params[:container_slug].present?
       base_path += "/#{params[:page]}" if params[:page].present?

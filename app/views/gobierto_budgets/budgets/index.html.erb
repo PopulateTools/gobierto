@@ -40,7 +40,7 @@
                 data_box: "expenses_per_inhabitant",
                 explanation: {
                   if: @site_stats.total_budget_per_inhabitant(fallback: false).present?,
-                  text: "#{t('.expenses_per_inhabitant_updated')}: #{format_currency(@site_stats.total_budget_per_inhabitant_updated(fallback: true))}"
+                  text: "#{t('.expenses_per_inhabitant_updated')}: #{format_currency(@site_stats.total_budget_per_inhabitant_updated(fallback: true))} (#{delta_percentage(@site_stats.total_budget_per_inhabitant_updated(fallback: true), @site_stats.total_budget_per_inhabitant(fallback: true), true)})"
                 }
               ) %>
         <% end %>
@@ -52,7 +52,7 @@
               data_box: "total_expenses",
               explanation: {
                 if: @site_stats.total_budget(fallback: false).present?,
-                text: "#{t('.total_expenses_updated')}: #{format_currency(@site_stats.total_budget_updated(fallback: true))}"
+                text: "#{t('.total_expenses_updated')}: #{format_currency(@site_stats.total_budget_updated(fallback: true))} (#{delta_percentage(@site_stats.total_budget_updated(fallback: true), @site_stats.total_budget(fallback: true), true)})"
               }
             ) %>
 

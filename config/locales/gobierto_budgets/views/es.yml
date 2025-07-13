@@ -249,7 +249,7 @@ es:
         expenses_per_inhabitant: Gasto por habitante
         expenses_per_inhabitant_tooltip: Presupuesto inicial dividido por el número
           de habitantes
-        expenses_per_inhabitant_updated: Presupuesto por habitante actual
+        expenses_per_inhabitant_updated: Pres. por habitante actual
         header: Presupuestos
         in_total: En total
         income: Ingresos

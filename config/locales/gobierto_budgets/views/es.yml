@@ -233,7 +233,7 @@ es:
         description: En esta página te contamos cúal es la distribución de los presupuestos,
           cuál es el estado de ejecución de cada partida, quiénes son los proveedores
           con los que trabajamos, y cómo ha evolucionado el gasto por habitante.
-        executed: Ejecución
+        executed: Ejecución del presupuesto actual
         executed_percent: "%{percentage}% del presupuesto actual"
         executed_percent_other_year_html: En %{year} fue un %{link}
         executed_tooltip: Cantidad ejecutada respecto al presupuesto actual (presupuesto

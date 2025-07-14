@@ -25,6 +25,8 @@ gem "before_renders"
 gem "bootsnap"
 gem "truncate_html"
 gem "rake", "~> 13.0"
+# https://stackoverflow.com/questions/79360526/uninitialized-constant-activesupportloggerthreadsafelevellogger-nameerror
+gem 'concurrent-ruby', '1.3.4'
 
 # Frontend
 gem "i18n-js", ">= 3.0.0.rc11" # required to i18n-tasks

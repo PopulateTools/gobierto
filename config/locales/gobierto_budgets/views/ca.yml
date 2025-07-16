@@ -245,7 +245,7 @@ ca:
         debt_tooltip: Deute del sector d’administracions públiques %{of_the_organization_name}
         description: En aquesta pàgina pots conèixer la distribució del pressupost,
           l'estat d'execució de cada partida i com ha evolucionat la despesa per habitant
-        executed: Execució del pressupost actual
+        executed: Execució del pres. actual
         executed_percent: "%{percentage}% del pressupost actual"
         executed_percent_other_year_html: El %{year} va ser un %{link}
         executed_tooltip: Despesa executada respecte el pressupost actual (pressupost

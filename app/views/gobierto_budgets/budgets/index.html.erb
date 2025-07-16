@@ -52,7 +52,7 @@
               data_box: "total_expenses",
               explanation: {
                 if: @site_stats.total_budget(fallback: false).present?,
-                text: "#{t('.initial_estimate')}: #{format_currency(@site_stats.total_budget)} (#{delta_percentage(@site_stats.total_budget_update(fallback: true), @site_stats.total_budget(fallback: true), true)})"
+                text: "#{delta_percentage(@site_stats.total_budget_updated(fallback: true), @site_stats.total_budget(fallback: true), true)} #{t('.initial_estimate')} #{format_currency(@site_stats.total_budget)}"
               }
             ) %>
 

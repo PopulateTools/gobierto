@@ -54,7 +54,7 @@
           <% end %>
         <% end %>
 
-        <% if @site_stats.total_budget_per_inhabitant_updated(fallback: true) != @site_stats.total_budget_per_inhabitant(fallback: true) %>
+        <% if @site_stats.total_budget_updated(fallback: true) != @site_stats.total_budget(fallback: true) %>
           <%= render("metric_box",
               title: t(".total_expenses_updated"),
               value: @site_stats.total_budget_updated(fallback: true),

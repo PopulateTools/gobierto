@@ -33,7 +33,7 @@
       <div class="pure-g metric_boxes">
 
         <% if @site_stats.population_data? %>
-          <% if @site_stats.total_budget_per_inhabitant_updated(fallback: true) != @site_stats.total_budget_per_inhabitant(fallback: true), true) %>
+          <% if @site_stats.total_budget_per_inhabitant_updated(fallback: true) != @site_stats.total_budget_per_inhabitant(fallback: true) %>
             <%= render("metric_box",
                   title: t(".expenses_per_inhabitant_updated"),
                   value: @site_stats.total_budget_per_inhabitant_updated(fallback: true),

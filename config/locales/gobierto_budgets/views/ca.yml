@@ -268,7 +268,7 @@ ca:
         income_per_inhabitant_tooltip: Pressupost inicial dividit pel nombre d’habitants
         inhabitants: Habitants
         inhabitants_tooltip: Nombre d’habitants
-        initial_estimate: Pressupost inicial
+        initial_estimate: sobre el pres. inicial
         initial_estimate_per_inhabitant: sobre el pres. inicial per hab.
         less: menys
         level_1_category: Categoria nivell 1

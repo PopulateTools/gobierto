@@ -33,19 +33,29 @@
       <div class="pure-g metric_boxes">
 
         <% if @site_stats.population_data? %>
-          <%= render("metric_box",
-                title: t(".expenses_per_inhabitant_updated"),
-                value: @site_stats.total_budget_per_inhabitant_updated(fallback: true),
-                tooltip: t(".expenses_per_inhabitant_tooltip"),
-                data_box: "expenses_per_inhabitant",
-                explanation: {
-                  if: @site_stats.total_budget_per_inhabitant(fallback: false).present?,
-                  text: "#{delta_percentage(@site_stats.total_budget_per_inhabitant_updated(fallback: true), @site_stats.total_budget_per_inhabitant(fallback: true), true)} #{t('.initial_estimate_per_inhabitant')} #{format_currency(@site_stats.total_budget_per_inhabitant)}"
-                }
-              ) %>
+          <% if @site_stats.total_budget_per_inhabitant_updated(fallback: true) != @site_stats.total_budget_per_inhabitant(fallback: true), true) %>
+            <%= render("metric_box",
+                  title: t(".expenses_per_inhabitant_updated"),
+                  value: @site_stats.total_budget_per_inhabitant_updated(fallback: true),
+                  tooltip: t(".expenses_per_inhabitant_tooltip"),
+                  data_box: "expenses_per_inhabitant",
+                  explanation: {
+                    if: @site_stats.total_budget_per_inhabitant(fallback: false).present?,
+                    text: "#{delta_percentage(@site_stats.total_budget_per_inhabitant_updated(fallback: true), @site_stats.total_budget_per_inhabitant(fallback: true), true)} #{t('.initial_estimate_per_inhabitant')} #{format_currency(@site_stats.total_budget_per_inhabitant)}"
+                  }
+                ) %>
+          <% else %>
+              <%= render("metric_box",
+                  title: t(".expenses_per_inhabitant"),
+                  value: @site_stats.total_budget_per_inhabitant(fallback: true),
+                  tooltip: t(".expenses_per_inhabitant_tooltip"),
+                  data_box: "expenses_per_inhabitant",
+                ) %>
+          <% end %>
         <% end %>
 
-        <%= render("metric_box",
+        <% if @site_stats.total_budget_per_inhabitant_updated(fallback: true) != @site_stats.total_budget_per_inhabitant(fallback: true) %>
+          <%= render("metric_box",
               title: t(".total_expenses_updated"),
               value: @site_stats.total_budget_updated(fallback: true),
               tooltip: t(".total_expenses_tooltip"),
@@ -55,7 +65,14 @@
                 text: "#{delta_percentage(@site_stats.total_budget_updated(fallback: true), @site_stats.total_budget(fallback: true), true)} #{t('.initial_estimate')} #{format_currency(@site_stats.total_budget)}"
               }
             ) %>
-
+        <% else %>
+          <%= render("metric_box",
+              title: t(".total_expenses"),
+              value: @site_stats.total_budget(fallback: true),
+              tooltip: t(".total_expenses_tooltip"),
+              data_box: "total_expenses",
+            ) %>
+        <% end %>
         <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.executed_tooltip') %>" data-box="executed">
           <div class="inner">
             <h3><%= t('.executed') %></h3>

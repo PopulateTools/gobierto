@@ -245,7 +245,7 @@ ca:
         debt_tooltip: Deute del sector d’administracions públiques %{of_the_organization_name}
         description: En aquesta pàgina pots conèixer la distribució del pressupost,
           l'estat d'execució de cada partida i com ha evolucionat la despesa per habitant
-        executed: Execució
+        executed: Execució del pres. actual
         executed_percent: "%{percentage}% del pressupost actual"
         executed_percent_other_year_html: El %{year} va ser un %{link}
         executed_tooltip: Despesa executada respecte el pressupost actual (pressupost
@@ -260,7 +260,7 @@ ca:
         expenses: Despeses
         expenses_per_inhabitant: Despesa per habitant
         expenses_per_inhabitant_tooltip: Pressupost inicial dividit pel nombre d’habitants
-        expenses_per_inhabitant_updated: Pressupost per habitant actual
+        expenses_per_inhabitant_updated: Pres. per hab. actual
         header: Pressupostos
         in_total: En total
         income: Ingressos
@@ -268,8 +268,8 @@ ca:
         income_per_inhabitant_tooltip: Pressupost inicial dividit pel nombre d’habitants
         inhabitants: Habitants
         inhabitants_tooltip: Nombre d’habitants
-        initial_estimate: Pressupost inicial
-        initial_estimate_per_inhabitant: Pressupost inicial per habitant
+        initial_estimate: sobre el pres. inicial
+        initial_estimate_per_inhabitant: sobre el pres. inicial per hab.
         less: menys
         level_1_category: Categoria nivell 1
         level_2_category: Categoria nivell 2

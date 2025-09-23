@@ -13,7 +13,7 @@
         <%= link_to t(".projects_tab"), admin_plans_plan_projects_path(@plan), data: { turbolinks: false } %>
       </li>
     <% end %>
-    <% if current_site.configuration.gobierto_dashboards_enabled? && current_admin.module_allowed_action?("GobiertoPlans", current_site, [:view_dashboards, :manage_dashboards]) %>
+    <% if current_site.configuration.available_module?("GobiertoDashboards") && current_admin.module_allowed_action?("GobiertoPlans", current_site, [:view_dashboards, :manage_dashboards]) %>
       <li class="<%= class_if("active", controller_name == "dashboards") %>">
         <%= link_to t(".dashboards_tab"), admin_plans_plan_dashboards_path(@plan), data: { turbolinks: false } %>
       </li>

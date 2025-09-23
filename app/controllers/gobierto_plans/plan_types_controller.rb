@@ -42,7 +42,7 @@ module GobiertoPlans
     private
 
     def dashboards_enabled?
-      @dashboards_enabled ||= module_enabled?("GobiertoDashboards") && current_site.dashboards.active.for_context(@plan).exists?
+      @dashboards_enabled ||= module_enabled?("GobiertoDashboards") && defined?(GobiertoDashboards::Dashboard) && current_site.dashboards.active.for_context(@plan).exists?
     end
 
     def find_plan_type

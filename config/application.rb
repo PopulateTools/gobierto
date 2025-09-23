@@ -74,6 +74,7 @@ module Gobierto
     config.engine_sass_config_overrides = []
     config.engine_sass_theme_dependencies = []
     config.gobierto_engines_themes = {}
+    config.engine_modules = []
 
     # Custom field plugins
     config.custom_field_plugins = {}

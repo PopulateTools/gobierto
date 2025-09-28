@@ -54,7 +54,7 @@ Rails.application.configure do
     config.lograge.enabled = true
   else
     config.log_tags = [:host, :request_id]
-    config.log_level = :debug
+    config.log_level = :info
   end
 
   config.cache_store = :redis_cache_store, redis_cache_params

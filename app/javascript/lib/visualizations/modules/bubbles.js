@@ -48,7 +48,8 @@ export class VisBubbles {
         "#92c5de",
         "#4393c3",
         "#2166ac"
-      ]);
+      ])
+      .unknown("#ffffff");
 
     this.fontSize = d3
       .scaleLinear()

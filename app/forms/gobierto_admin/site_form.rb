@@ -20,6 +20,7 @@ module GobiertoAdmin
       :head_markup,
       :foot_markup,
       :links_markup,
+      :admin_custom_code,
       :site_modules,
       :visibility_level,
       :google_analytics_id,
@@ -133,6 +134,10 @@ module GobiertoAdmin
       @links_markup ||= site.configuration.links_markup
     end
 
+    def admin_custom_code
+      @admin_custom_code ||= site.configuration.admin_custom_code
+    end
+
     def google_analytics_id
       @google_analytics_id ||= site.configuration.google_analytics_id
     end
@@ -221,6 +226,7 @@ module GobiertoAdmin
         site_attributes.configuration.head_markup = head_markup
         site_attributes.configuration.foot_markup = foot_markup
         site_attributes.configuration.links_markup = links_markup
+        site_attributes.configuration.admin_custom_code = admin_custom_code
         site_attributes.configuration.google_analytics_id = google_analytics_id
         site_attributes.configuration.password_protection_username = username
         site_attributes.configuration.password_protection_password = password

@@ -30,6 +30,7 @@ en:
       gobierto_admin/scope_form:
         name: Name
       gobierto_admin/site_form:
+        admin_custom_code: Admin custom code
         available_locales: Available locales
         default_locale: Default locale
         domain: Domain

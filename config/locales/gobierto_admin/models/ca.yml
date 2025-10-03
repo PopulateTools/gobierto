@@ -30,6 +30,7 @@ ca:
       gobierto_admin/scope_form:
         name: Nom
       gobierto_admin/site_form:
+        admin_custom_code: Codi personalitzat d'admin
         available_locales: Idiomes disponibles
         default_locale: Idioma per defecte
         domain: Domini

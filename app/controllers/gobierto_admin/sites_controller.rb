@@ -158,6 +158,7 @@ module GobiertoAdmin
         :head_markup,
         :foot_markup,
         :links_markup,
+        :admin_custom_code,
         :visibility_level,
         :google_analytics_id,
         :username,

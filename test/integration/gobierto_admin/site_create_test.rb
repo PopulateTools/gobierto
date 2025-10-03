@@ -33,6 +33,7 @@ module GobiertoAdmin
             fill_in "site_head_markup", with: "Site Head markup"
             fill_in "site_foot_markup", with: "Site Foot markup"
             fill_in "site_links_markup", with: "Site Links markup"
+            fill_in "site_admin_custom_code", with: '<div class="main clearfix"><div class="pure-menu-link">Hello!</div></div>'
             fill_in "site_google_analytics_id", with: "UA-000000-01"
             fill_in "site_populate_data_api_token", with: "APITOKEN"
             fill_in "site_raw_configuration_variables", with: <<-YAML

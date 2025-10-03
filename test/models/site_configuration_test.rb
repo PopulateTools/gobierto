@@ -49,6 +49,14 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     assert site_configuration.links_markup?
   end
 
+  def test_admin_custom_code
+    assert_equal site_configuration_params["admin_custom_code"], site_configuration.admin_custom_code
+  end
+
+  def test_admin_custom_code?
+    assert site_configuration.admin_custom_code?
+  end
+
   def test_demo
     assert_equal site_configuration_params["demo"], site_configuration.demo
   end
@@ -97,6 +105,7 @@ class SiteConfigurationTest < ActiveSupport::TestCase
         "modules"           => ["Wadus", "GobiertoDevelopment"], # Note that the "Wadus" module is not standard
         "logo"              => "gobierto_development.png",
         "links_markup"      => %(<a href="http://madrid.es">Ayuntamiento de Madrid</a>),
+        "admin_custom_code" => %(<div class="main clearfix"><div class="pure-menu-link">Hello!</div></div>),
         "demo"              => true,
         "wadus"             => "wadus", # Note that this is not a whitelisted property
         "default_locale"    => "ca",

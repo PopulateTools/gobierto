@@ -107,6 +107,7 @@ class SiteTest < ActiveSupport::TestCase
 
     site.configuration_data = {
       "links_markup" => %(<a href="http://madrid.es">Ayuntamiento de Madrid</a>),
+      "admin_custom_code" => %(<div class="main clearfix"><div class="pure-menu-link">Hello!</div></div>),
       "logo" => "http://www.madrid.es/assets/images/logo-madrid.png",
       "modules" => %w(GobiertoBudgets GobiertoPeople),
       "locale" => "en",
@@ -126,6 +127,7 @@ class SiteTest < ActiveSupport::TestCase
 
     site.configuration_data = {
       "links_markup" => %(<a href="http://madrid.es">Ayuntamiento de Madrid</a>),
+      "admin_custom_code" => %(<div class="main clearfix"><div class="pure-menu-link">Hello!</div></div>),
       "logo" => "http://www.madrid.es/assets/images/logo-madrid.png",
       "modules" => %w(GobiertoBudgets GobiertoPeople),
       "locale" => "en",

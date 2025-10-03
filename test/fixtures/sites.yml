@@ -4,6 +4,7 @@ madrid:
   domain: madrid.gobierto.test
   configuration_data: <%= {
     "links_markup" => %Q{<a href="http://madrid.es">Ayuntamiento de Madrid</a>},
+    "admin_custom_code" => %(<div class="main clearfix"><div class="pure-menu-link">Hello!</div></div>),
     "logo" => "http://www.madrid.es/assets/images/logo-madrid.png",
     "modules" => [
       "GobiertoBudgets",

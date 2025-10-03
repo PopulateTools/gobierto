@@ -18,7 +18,7 @@
 
 <body <%= yield(:body_attributes) %> class="gobierto_admin">
   <% if (custom_code = current_site&.configuration&.admin_custom_code).present? %>
-    <%= GobiertoAdmin::HtmlSanitizerService.sanitize(custom_code).html_safe %>
+    <%= custom_code.html_safe %>
   <% end %>
 
   <header class="main clearfix">

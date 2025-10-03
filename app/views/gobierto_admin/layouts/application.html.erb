@@ -13,9 +13,13 @@
   <% Rails.application.config.custom_field_plugins_packs.each do |plugin_name| %>
     <%= javascript_include_tag "custom_fields_#{plugin_name}_plugin", 'data-turbolinks-track': true %>
   <% end %>
+
 </head>
 
 <body <%= yield(:body_attributes) %> class="gobierto_admin">
+  <% if (custom_code = current_site&.configuration&.admin_custom_code).present? %>
+    <%= GobiertoAdmin::HtmlSanitizerService.sanitize(custom_code).html_safe %>
+  <% end %>
 
   <header class="main clearfix">
 

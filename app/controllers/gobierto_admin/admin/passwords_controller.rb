@@ -3,6 +3,8 @@ module GobiertoAdmin
     skip_before_action :authenticate_admin!, raise: false
     before_action :require_no_authentication
 
+    helper_method :site_from_domain
+
     layout "gobierto_admin/layouts/sessions"
 
     def new

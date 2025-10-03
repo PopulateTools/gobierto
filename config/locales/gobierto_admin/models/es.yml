@@ -30,6 +30,7 @@ es:
       gobierto_admin/scope_form:
         name: Nombre
       gobierto_admin/site_form:
+        admin_custom_code: Código personalizado de admin
         available_locales: Idiomas disponibles
         default_locale: Idioma por defecto
         domain: Dominio

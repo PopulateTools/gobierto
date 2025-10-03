@@ -10,6 +10,7 @@ class SiteConfiguration
     :head_markup,
     :foot_markup,
     :links_markup,
+    :admin_custom_code,
     :available_locales,
     :default_locale,
     :privacy_page_id,

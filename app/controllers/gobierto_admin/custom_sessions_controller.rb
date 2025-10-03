@@ -6,6 +6,8 @@ module GobiertoAdmin
     skip_before_action :set_admin_site, only: [:new, :destroy]
     before_action :require_no_authentication, only: [:new, :create]
 
+    helper_method :site_from_domain
+
     layout "gobierto_admin/layouts/sessions"
 
     def new

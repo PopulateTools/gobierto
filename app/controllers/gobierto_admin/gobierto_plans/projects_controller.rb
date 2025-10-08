@@ -214,7 +214,7 @@ module GobiertoAdmin
         if current_admin.module_allowed_action?("GobiertoPlans", current_site, :moderate)
           @plan.nodes
         else
-          GobiertoAdmin::AdminResourcesQuery.new(current_admin, relation: @plan.nodes).allowed
+          GobiertoAdmin::AdminResourcesQuery.new(current_admin, relation: @plan.nodes).allowed(include_moderated: false)
         end
       end
 

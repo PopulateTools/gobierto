@@ -70,9 +70,7 @@ module GobiertoAdmin
     private
 
     def plans_action_names
-      [:manage, :edit, :moderate].tap do |names|
-        names.append(:manage_dashboards, :view_dashboards) if site.configuration.modules.include?("GobiertoDashboards")
-      end
+      AdminActionsManager.for("gobierto_plans", site).action_names
     end
 
     def site

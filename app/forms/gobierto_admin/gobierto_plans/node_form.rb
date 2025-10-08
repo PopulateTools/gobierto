@@ -286,7 +286,8 @@ module GobiertoAdmin
           @node.save
           @node.touch if force_new_version && !attributes_updated?
 
-          set_permissions_group(@node, action_name: :edit) do |group|
+          # Do not set permissions for this group
+          set_permissions_group(@node, action_name: nil) do |group|
             group.admins << @node.owner unless @node.owner.blank? || group.admins.where(id: @node.admin_id).exists?
           end
 

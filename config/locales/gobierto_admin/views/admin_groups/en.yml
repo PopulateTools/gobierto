@@ -17,11 +17,20 @@ en:
         title: 'Permissions of group: %{name}'
       form:
         action_names:
+          create_projects: Create projects
+          delete_projects_all: Delete projects (all)
+          delete_projects_assigned: Delete projects (assigned)
           edit: Edit
+          edit_projects_all: Edit projects (all)
+          edit_projects_assigned: Edit projects (assigned)
           manage: Manage
           manage_dashboards: Manage dashboards
-          moderate: Moderate
+          moderate_projects_all: Moderate projects (all)
+          moderate_projects_assigned: Moderate projects (assigned)
+          publish_projects: Publish projects
           view_dashboards: View dashboards
+          view_projects_all: View projects (all)
+          view_projects_assigned: View projects (assigned)
         actions: Actions
         all: All
         members:

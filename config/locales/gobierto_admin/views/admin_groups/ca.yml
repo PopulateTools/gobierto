@@ -17,11 +17,20 @@ ca:
         title: 'Permisos del grup: %{name}'
       form:
         action_names:
+          create_projects: Crea projectes
+          delete_projects_all: Elimina projectes (tots)
+          delete_projects_assigned: Elimina projectes (assignats)
           edit: Editar
+          edit_projects_all: Edita projectes (tots)
+          edit_projects_assigned: Edita projectes (assignats)
           manage: Administrar
           manage_dashboards: Administrar dashboards
-          moderate: Moderar
+          moderate_projects_all: Modera projectes (tots)
+          moderate_projects_assigned: Modera projectes (assignats)
+          publish_projects: Publica projectes
           view_dashboards: Veure dashboards
+          view_projects_all: Veure projectes (tots)
+          view_projects_assigned: Veure projectes (assignats)
         actions: Accions
         all: Tots
         members:

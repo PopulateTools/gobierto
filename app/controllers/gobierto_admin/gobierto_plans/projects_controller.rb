@@ -15,6 +15,11 @@ module GobiertoAdmin
         @projects = @relation
       end
 
+      def show
+        edit
+        render :edit
+      end
+
       def edit
         find_versioned_project
         @unpublish_url = unpublish_admin_plans_plan_project_path(@plan, @project)

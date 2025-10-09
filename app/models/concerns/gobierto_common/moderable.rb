@@ -25,28 +25,9 @@ module GobiertoCommon
       def default_moderation_stage
         :not_sent
       end
-
-      def base_permissions_lookup_attributes(action)
-        [{
-          namespace: moderation.moderable_type.deconstantize.underscore,
-          resource_type: moderation.moderable_type,
-          resource_id: moderation.moderable_id,
-          action_name: action
-        }]
-      end
-
-      alias_method :permissions_lookup_attributes, :base_permissions_lookup_attributes
-      private :base_permissions_lookup_attributes
     end
 
     class_methods do
-      def extra_moderation_permissions_lookup_attributes
-        define_method :permissions_lookup_attributes do |action|
-          base_permissions_lookup_attributes(action) +
-            yield(self, action.to_sym).map { |attrs_set| attrs_set.merge(action_name: action) }
-        end
-      end
-
       def default_moderation_stage
         define_method :default_moderation_stage do
           yield self

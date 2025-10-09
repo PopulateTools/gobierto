@@ -201,7 +201,7 @@ module GobiertoAdmin
 
       def set_dashboards_list_path
         return unless current_site.configuration.gobierto_dashboards_enabled? &&
-                      current_admin.module_allowed_action?(current_admin_module, current_site, :manage_dashboards)
+                      admin_actions_manager.action_allowed?(admin: current_admin, action_name: :manage_dashboards)
 
         @dashboards_list_path ||= list_admin_plans_plan_dashboards_path(@plan)
       end
@@ -211,7 +211,7 @@ module GobiertoAdmin
       end
 
       def base_relation
-        if current_admin.module_allowed_action?("GobiertoPlans", current_site, :moderate)
+        if admin_actions_manager.action_allowed?(admin: current_admin, action_name: [:view_projects, :edit_projects, :moderate_projects, :manage])
           @plan.nodes
         else
           GobiertoAdmin::AdminResourcesQuery.new(current_admin, relation: @plan.nodes).allowed(include_moderated: false)

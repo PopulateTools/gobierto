@@ -80,11 +80,7 @@ module GobiertoAdmin
       end
 
       def base_relation
-        if admin.module_allowed_action?("GobiertoPlans", site, :moderate)
-          @plan.nodes
-        else
-          GobiertoAdmin::AdminResourcesQuery.new(admin, relation: @plan.nodes).allowed
-        end
+        GobiertoAdmin::AdminResourcesQuery.new(admin, relation: @plan.nodes).allowed
       end
 
       def editor_relation

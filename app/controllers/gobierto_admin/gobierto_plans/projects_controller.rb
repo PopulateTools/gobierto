@@ -4,8 +4,8 @@ module GobiertoAdmin
   module GobiertoPlans
     class ProjectsController < GobiertoAdmin::GobiertoPlans::BaseController
       before_action :find_plan
-      before_action -> { module_allowed_action!(current_admin, current_admin_module, :edit) }, only: [:new, :create, :destroy]
-      before_action -> { module_allowed_action!(current_admin, current_admin_module, [:edit, :moderate]) }, only: [:index, :edit, :update]
+      before_action :find_project, except: [:index, :new]
+      before_action -> { review_allowed_actions! }
 
       helper_method :current_admin_actions
 
@@ -32,7 +32,6 @@ module GobiertoAdmin
       end
 
       def update
-        @project = @plan.nodes.find params[:id]
         @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
         save_versions_defaults
         @unpublish_url = unpublish_admin_plans_plan_project_path(@plan, @project)
@@ -101,8 +100,6 @@ module GobiertoAdmin
       def destroy
         raise_action_not_allowed unless current_admin_actions.include? :destroy
 
-        @project = @plan.nodes.find params[:id]
-
         @project.destroy
 
         track_destroy_activity
@@ -125,6 +122,10 @@ module GobiertoAdmin
       end
 
       private
+
+      def review_allowed_actions!
+        raise_action_not_allowed unless current_admin_actions.include?(action_name.to_sym)
+      end
 
       def save_versions_defaults
         [:publish_last_version_automatically, :minor_change].each do |param_key|
@@ -182,8 +183,11 @@ module GobiertoAdmin
         @preview_item_url = gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain)
       end
 
+      def find_project
+        @project = base_relation.find_by_id params[:id]
+      end
+
       def find_versioned_project
-        @project = base_relation.find params[:id]
         if @project.published?
           @preview_item_url = gobierto_plans_project_path(slug: @plan.plan_type.slug, year: @plan.year, id: @project.id)
         else

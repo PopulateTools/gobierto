@@ -38,33 +38,48 @@ module GobiertoPlans
       return true if admin.managing_user?
       return action_name.map { |single_name| action_allowed?(admin:, action_name: single_name, resource:) }.any? if action_name.is_a?(Array)
 
+      assigned_resource_groups = resource.presence && admin.admin_groups.where(resource:)
+
+      # Direct permissions: The assigned resource groups have permissions for
+      # the action
+      return true if direct_permisions(action_name:, groups: assigned_resource_groups).exists?
+
       action_scoped_names = scoped_names(action_name)
 
       # The action is not defined
       return false if action_scoped_names.blank?
 
-      module_level_permissions = admin.permissions.where(namespace: "site_module", resource_type: module_name)
+      admin_module_level_permissions = module_level_permissions(admin)
 
-      # The action is allowed for all scope
-      return true if module_level_permissions.where(action_name: action_scoped_names[:all]).exists?
-      return false if resource.blank?
+      # Permissions associated to each scope
+      action_scoped_names.each do |key, action_name|
+        return true if admin_module_level_permissions.where(action_name:).exists? && extra_conditions(key, assigned_resource_groups: assigned_resource_groups)
+      end
 
-      assigned_resource_groups = admin.admin_groups.where(resource:)
+      false
+    end
 
-      # Direct permissions: The assigned resource groups have permissions for
-      # the action
-      direct_permissions = GobiertoAdmin::GroupPermission
-        .where(admin_group: assigned_resource_groups, namespace: module_name)
+    private
+
+    def direct_permisions(action_name:, groups:)
+      GobiertoAdmin::GroupPermission
+        .where(admin_group: groups, namespace: module_name)
         .where("action_name LIKE ?", GobiertoAdmin::GroupPermission.sanitize_sql_like(action_name.to_s + "%"))
+    end
 
-      return true if direct_permissions.exists?
+    def extra_conditions(key, context = {})
+      case key
+      when :all
+        # The all scope does not have additional conditions
+        true
+      when :assigned
+        # The admin must belong to at least one group of the resource
+        context[:assigned_resource_groups].present?
+      end
+    end
 
-      # Indirect permissions: The admin has been assigned to the resource as member
-      # of its group and also belongs to a group with permission for the action
-      # at assigned scope range
-      assigned_resource_groups.present? &&
-        action_scoped_names.key?(:assigned) &&
-        module_level_permissions.where(action_name: action_scoped_names[:assigned]).exists?
+    def module_level_permissions(admin)
+      admin.permissions.where(namespace: "site_module", resource_type: module_name)
     end
   end
 end

@@ -22,18 +22,6 @@ module GobiertoPlans
       end.flatten.compact
     end
 
-    def scoped_names(action_name)
-      return unless ACTIONS_LIST.key?(action_name.to_sym)
-
-      options = ACTIONS_LIST[action_name.to_sym]
-
-      return { all: action_name } if options[:scopes].blank?
-
-      options[:scopes].each_with_object({}) do |scope_name, names|
-        names[scope_name] = "#{action_name}_#{scope_name}"
-      end
-    end
-
     def action_allowed?(admin:, action_name:, resource: nil)
       return true if admin.managing_user?
       return action_name.map { |single_name| action_allowed?(admin:, action_name: single_name, resource:) }.any? if action_name.is_a?(Array)
@@ -60,6 +48,30 @@ module GobiertoPlans
     end
 
     private
+
+    def scoped_names(action_name)
+      action_name = action_name.to_sym
+
+      key = ACTIONS_LIST.find do |key, options|
+        action_name == key || /\A#{key}_(#{options[:scopes]&.join("|")})\z/.match?(action_name.to_s)
+      end&.first
+
+      return if key.blank?
+
+      options = ACTIONS_LIST[key]
+
+      return { all: action_name } if options[:scopes].blank?
+
+      names = options[:scopes].each_with_object({}) do |scope_name, names|
+        names[scope_name] = "#{key}_#{scope_name}"
+      end
+
+      return names if action_name == key
+
+      return names.select do |scope, name|
+        name.to_sym == action_name
+      end
+    end
 
     def direct_permisions(action_name:, groups:)
       GobiertoAdmin::GroupPermission

@@ -61,8 +61,8 @@ module GobiertoPlans
     scope :with_admin_actions, lambda { |admin|
       admin_id, action_name, site_id = admin.to_s.split("-")
       admin = GobiertoAdmin::Admin.find(admin_id)
-      site = Site.find_by(id: site_id)
-      if action_name.present? && GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(current_admin: admin, current_site: site).allowed_actions.include?(action_name.to_sym)
+      site = site_id.present? ? Site.find_by(id: site_id) : take&.plan&.site
+      if site.present? && action_name.present? && GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(current_admin: admin, current_site: site, project: reorder(nil)).allowed_actions.include?(action_name.to_sym)
         all
       else
         where(author: admin)

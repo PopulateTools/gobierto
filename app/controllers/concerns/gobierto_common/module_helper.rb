@@ -2,6 +2,12 @@ module GobiertoCommon
   module ModuleHelper
     extend ActiveSupport::Concern
 
+    helper_method :admin_actions_manager
+
+    def admin_actions_manager
+      @admin_actions_manager ||= ::GobiertoAdmin::AdminActionsManager.for(current_admin_module, current_site)
+    end
+
     private
 
     def module_enabled?(module_namespace, site = nil)

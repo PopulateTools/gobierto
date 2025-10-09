@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class CategoriesController < GobiertoAdmin::GobiertoCommon::OrderedTermsController
-      before_action -> { module_allowed_action!(current_admin, current_admin_module, :manage) }
+      before_action -> { current_module_allowed_action!(:manage) }
       before_action :set_leaf_terms
       after_action :expire_plan_cache, only: [:update]
 

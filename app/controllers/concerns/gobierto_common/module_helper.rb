@@ -27,9 +27,12 @@ module GobiertoCommon
       raise_module_not_allowed unless current_admin.module_allowed?(module_namespace, current_site)
     end
 
-    def module_allowed_action!(current_admin, module_namespace, action)
-      raise_action_not_allowed unless current_admin.module_allowed_action?(module_namespace, current_site, action)
+    def module_allowed_action!(action_name, module_namespace, resource = nil, admin = current_admin)
+      ::GobiertoAdmin::AdminActionsManager.for(module_namespace, current_site).action_allowed?(admin:, action_name:, resource:)
     end
 
+    def current_module_allowed_action!(action_name, resource = nil, admin = current_admin)
+      raise_action_not_allowed unless admin_actions_manager.action_allowed?(admin:, action_name:, resource:)
+    end
   end
 end

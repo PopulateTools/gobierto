@@ -1,6 +1,6 @@
 <% versioned_resource = GobiertoAdmin::VersionedResourceDecorator.new(resource) %>
 <% moderated_resource = GobiertoAdmin::ModeratedResourceDecorator.new(versioned_resource.has_versions? ? versioned_resource.live_version : resource, current_admin: current_admin, current_site: current_site) %>
-<% moderation_policy = moderated_resource.moderation_policy %>
+<% allowed_admin_actions = permissions_policy.allowed_admin_actions %>
 
 <div class="pure-u-1 pure-u-md-1-4">
 
@@ -10,7 +10,7 @@
 
       <div class="w_s_content">
 
-        <% if moderation_policy.edit? || moderation_policy.moderate? %>
+        <% if [:edit_projects, :moderate_projects].any? { |action| allowed_admin_actions.include?(action) } %>
           <div class="w_actions m_b_1">
             <button class="button medium"><%= t("gobierto_admin.shared.moderation_save_widget.save") %></button>
             <%= f.button(
@@ -20,7 +20,7 @@
                 ) %>
           </div>
 
-          <% if moderated_resource.published? %>
+          <% if moderated_resource.published? && allowed_admin_actions.include?(:publish_projects) %>
             <div class="form_item m_b_1">
               <div class="options compact">
                 <div class="option">
@@ -36,7 +36,7 @@
         <% end %>
 
         <% if versioned_resource.has_versions? %>
-          <% if moderation_policy.edit? && versioned_resource.allows_minor_change? %>
+          <% if allowed_admin_actions.include?(:edit_projects) && versioned_resource.allows_minor_change? %>
             <div class="form_item m_b_1">
               <div class="options compact">
                 <div class="option">
@@ -84,7 +84,7 @@
 
       </div>
 
-      <% if moderated_resource.moderable_has_moderation? && moderation_policy.moderate? && moderated_resource.persisted? %>
+      <% if moderated_resource.moderable_has_moderation? && moderated_resource.persisted? && allowed_admin_actions.include?(:moderate_projects) %>
         <%= render "gobierto_admin/shared/admin_widget_moderate", f: f, resource: moderated_resource %>
       <% end %>
 
@@ -112,35 +112,37 @@
               </div>
             <% end %>
 
-            <% if moderation_policy.moderate? || moderation_policy.edit? && moderated_resource.publicable? %>
-              <div class="w_s_txt_msg f_small m_t_4">
-                <%= t("gobierto_admin.shared.moderation_save_widget.moderation_info.#{versioned_resource.current_version_publication_step}_html", url: @unpublish_url) %>
-              </div>
-              <div class="m_t_1">
-                <%= f.button(
-                      t("gobierto_admin.shared.moderation_save_widget.publish"),
-                      disabled: versioned_resource.current_version_published?,
-                      class: "bl",
-                      name: "#{f.object_name}[#{moderation_policy.moderate? ? "moderation_visibility_level" : "visibility_level"}]",
-                      value: [moderated_resource.step_published_value, versioned_resource.current_version].compact.join("-"),
-                      data: { confirm: versioned_resource.first_publication_confirm_message }
-                    ) %>
-              </div>
-            <% elsif moderation_policy.edit? %>
-              <div class="w_s_txt_msg f_small m_t_4">
-                <%= t("gobierto_admin.shared.moderation_save_widget.moderation_info.#{moderated_resource.publish_moderation_step}") %>
-              </div>
+            <% if allowed_admin_actions.include?(:publish_projects) %>
+              <% if moderated_resource.publicable? %>
+                <div class="w_s_txt_msg f_small m_t_4">
+                  <%= t("gobierto_admin.shared.moderation_save_widget.moderation_info.#{versioned_resource.current_version_publication_step}_html", url: @unpublish_url) %>
+                </div>
+                <div class="m_t_1">
+                  <%= f.button(
+                        t("gobierto_admin.shared.moderation_save_widget.publish"),
+                        disabled: versioned_resource.current_version_published?,
+                        class: "bl",
+                        name: "#{f.object_name}[#{allowed_admin_actions.include?(:moderate_projects) ? "moderation_visibility_level" : "visibility_level"}]",
+                        value: [moderated_resource.step_published_value, versioned_resource.current_version].compact.join("-"),
+                        data: { confirm: versioned_resource.first_publication_confirm_message }
+                      ) %>
+                </div>
+              <% else %>
+                <div class="w_s_txt_msg f_small m_t_4">
+                  <%= t("gobierto_admin.shared.moderation_save_widget.moderation_info.#{moderated_resource.publish_moderation_step}") %>
+                </div>
 
-              <div class="m_t_1">
-                <%= f.button(
-                      t("gobierto_admin.shared.moderation_save_widget.#{moderated_resource.publish_step_action}"),
-                      disabled: moderated_resource.step_disabled?,
-                      class: "bl",
-                      name: "#{f.object_name}[visibility_level]",
-                      value: [moderated_resource.step_visibility_value, versioned_resource.current_version].compact.join("-"),
-                      data: { confirm: moderated_resource.publish_step_action_confirm_message }
-                    ) %>
-              </div>
+                <div class="m_t_1">
+                  <%= f.button(
+                        t("gobierto_admin.shared.moderation_save_widget.#{moderated_resource.publish_step_action}"),
+                        disabled: moderated_resource.step_disabled?,
+                        class: "bl",
+                        name: "#{f.object_name}[visibility_level]",
+                        value: [moderated_resource.step_visibility_value, versioned_resource.current_version].compact.join("-"),
+                        data: { confirm: moderated_resource.publish_step_action_confirm_message }
+                      ) %>
+                </div>
+              <% end %>
             <% end %>
 
           </div>

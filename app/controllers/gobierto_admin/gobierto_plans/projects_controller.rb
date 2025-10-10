@@ -30,7 +30,8 @@ module GobiertoAdmin
             plan_id: @plan.id,
             options_json: @project.options,
             admin: current_admin,
-            version: params[:version]
+            version: params[:version],
+            permissions_policy:
           ).merge(versions_defaults)
         )
         initialize_custom_field_form
@@ -38,7 +39,7 @@ module GobiertoAdmin
       end
 
       def update
-        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
+        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin, permissions_policy:))
         save_versions_defaults
         @unpublish_url = unpublish_admin_plans_plan_project_path(@plan, @project)
         @version_index = @project_form.version_index
@@ -77,14 +78,15 @@ module GobiertoAdmin
           versions_defaults.merge(
             plan_id: @plan.id,
             options_json: {},
-            admin: current_admin
+            admin: current_admin,
+            permissions_policy:
           )
         )
         initialize_custom_field_form
       end
 
       def create
-        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin))
+        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin, permissions_policy:))
         initialize_custom_field_form
         save_versions_defaults
 
@@ -163,7 +165,8 @@ module GobiertoAdmin
           plan_id: @plan.id,
           admin: current_admin,
           visibility_level: visibility_level,
-          disable_attributes_edition: true
+          disable_attributes_edition: true,
+          permissions_policy:
         )
 
         if @project_form.save

@@ -30,6 +30,7 @@ module GobiertoAdmin
         :publish_last_version_automatically,
         :minor_change
       )
+      attr_reader :permissions_policy
 
       validates :plan, :admin, presence: true
       validates :progress, presence: true, if: -> { @passed_attributes.include?("progress") }
@@ -43,6 +44,7 @@ module GobiertoAdmin
 
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
+        @permissions_policy = options.delete(:permissions_policy)
         ordered_options = options.slice(:id, :plan_id, :admin).merge!(options)
         @passed_attributes = ordered_options.keys
         @publication_updated = false

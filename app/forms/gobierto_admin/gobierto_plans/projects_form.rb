@@ -70,7 +70,7 @@ module GobiertoAdmin
 
       def form_attributes(data)
         writable_attributes(data).tap do |attrs|
-          attrs.merge!(plan_id:, admin:)
+          attrs.merge!(plan_id:, admin:, permissions_policy:)
           if (category_id = detect_term_id(data[:category_external_id].presence || attrs[:category_id], plan.categories)).present?
             attrs[:category_id] = category_id
           end
@@ -89,6 +89,13 @@ module GobiertoAdmin
             end
           end
         end
+      end
+
+      def permissions_policy
+        @permissions_policy ||= GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(
+          current_admin: admin,
+          current_site: site
+        )
       end
 
       def default_locale

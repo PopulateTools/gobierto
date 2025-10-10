@@ -30,6 +30,7 @@ module GobiertoAdmin
         :publish_last_version_automatically,
         :minor_change
       )
+      attr_reader :permissions_policy
 
       validates :plan, :admin, presence: true
       validates :progress, presence: true, if: -> { @passed_attributes.include?("progress") }
@@ -43,6 +44,7 @@ module GobiertoAdmin
 
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
+        @permissions_policy = options.delete(:permissions_policy)
         ordered_options = options.slice(:id, :plan_id, :admin).merge!(options)
         @passed_attributes = ordered_options.keys
         @publication_updated = false
@@ -126,11 +128,15 @@ module GobiertoAdmin
       end
 
       def allow_edit_attributes?
-        !disable_attributes_edition && (moderation_policy.edit? || allow_moderate?)
+        !disable_attributes_edition && permissions_policy.allowed_admin_actions_to(:update).include?(:edit_projects)
       end
 
       def allow_moderate?
-        moderation_policy.moderate?
+        permissions_policy.allowed_admin_actions_to(:update).include?(:moderate_projects)
+      end
+
+      def allow_manage_admin_groups?
+        permissions_policy.allowed_admin_actions_to(:update).include?(:manage)
       end
 
       def moderation_visibility_level
@@ -196,7 +202,7 @@ module GobiertoAdmin
       end
 
       def disable_attributes_edition
-        @disable_attributes_edition && (moderation_policy.moderate? || moderation_policy.edit?)
+        @disable_attributes_edition && permissions_policy.allowed_admin_actions_to(:update).include?(:publish_projects)
       end
 
       def moderation_policy
@@ -208,7 +214,7 @@ module GobiertoAdmin
       end
 
       def check_visibility_level
-        return if moderation_policy.blank? || node.visibility_level == visibility_level || moderation_policy.publish_as_editor? || moderation_visibility_level.present?
+        return if moderation_policy.blank? || node.visibility_level == visibility_level || moderation_policy.publish? || moderation_policy.publish_as_editor? || moderation_visibility_level.present?
 
         @visibility_level = node.visibility_level
         @moderation_stage = node.moderation.available_stages_for_action(:edit).keys.first
@@ -286,7 +292,8 @@ module GobiertoAdmin
           @node.save
           @node.touch if force_new_version && !attributes_updated?
 
-          set_permissions_group(@node, action_name: :edit) do |group|
+          # Do not set permissions for this group
+          set_permissions_group(@node, action_name: nil) do |group|
             group.admins << @node.owner unless @node.owner.blank? || group.admins.where(id: @node.admin_id).exists?
           end
 

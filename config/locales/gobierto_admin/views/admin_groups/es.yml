@@ -17,11 +17,20 @@ es:
         title: 'Permisos del grupo: %{name}'
       form:
         action_names:
+          create_projects: Crear proyectos
+          delete_projects_all: Eliminar proyectos (todos)
+          delete_projects_assigned: Eliminar proyectos (asignados)
           edit: Editar
+          edit_projects_all: Editar proyectos (todos)
+          edit_projects_assigned: Editar proyectos (asignados)
           manage: Administrar
           manage_dashboards: Administrar dashboards
-          moderate: Moderar
+          moderate_projects_all: Moderar proyectos (todos)
+          moderate_projects_assigned: Moderar proyectos (asignados)
+          publish_projects: Publicar proyectos
           view_dashboards: Ver dashboards
+          view_projects_all: Ver proyectos (todos)
+          view_projects_assigned: Ver proyectos (asignados)
         actions: Acciones
         all: Todos
         members:

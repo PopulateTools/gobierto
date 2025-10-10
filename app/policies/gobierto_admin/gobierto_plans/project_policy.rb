@@ -3,35 +3,49 @@
 module GobiertoAdmin
   module GobiertoPlans
     class ProjectPolicy < ::GobiertoAdmin::BasePolicy
-      attr_reader :project
+      attr_reader :project, :actions_manager
 
-      ALLOWED_ACTIONS = { edit: [:index, :edit, :update, :new, :create, :destroy, :update_attributes],
-                          moderate: [:index, :edit, :update, :update_attributes],
-                          manage: [] }.freeze
+      # This constant maps the available controller actions of a project with
+      # the admin actions defined in the actions manager
+      ALLOWED_ACTIONS_MAPPING = {
+        create_projects: [:index, :new, :create],
+        view_projects: [:index, :show],
+        edit_projects: [:index, :edit, :update], #, :update_attributes], TODO what happens with update_attributes?
+        moderate_projects: [:index, :edit, :moderate, :update],
+        publish_projects: [:index, :edit, :publish, :unpublish, :update],
+        delete_projects: [:index, :edit, :destroy],
+        manage: [:index, :show, :edit, :update],
+        manage_dashboards: [:index_dashboards, :manage_dashboards],
+        view_dashboards: [:index_dashboards]
+      }.freeze
 
       def initialize(attributes)
         super(attributes)
         @project = attributes[:project] || ::GobiertoPlans::Node.new
+        @actions_manager = ::GobiertoAdmin::AdminActionsManager.for("gobierto_plans", current_site)
       end
 
-      def edit?
-        can_perform_action_on_resource? :edit
-      end
-
-      def destroy_action?
-        manage? || edit? && (project.author.blank? || project.author == current_admin)
+      def allowed_to?(action)
+        allowed_actions.include?(action)
       end
 
       def allowed_actions
-        default_actions = ALLOWED_ACTIONS.select { |admin_action_name, _| can_perform_action_on_resource? admin_action_name }.values.flatten.uniq
-        default_actions.reject { |project_action| respond_to?("#{project_action}_action?") && !send("#{project_action}_action?") }
+        @allowed_actions ||= ALLOWED_ACTIONS_MAPPING.slice(*allowed_admin_actions).values.flatten.uniq
+      end
+
+      def allowed_admin_actions
+        @allowed_admin_actions ||= actions_manager.action_names(scoped: false).select { |admin_action_name| can_perform_action_on_resource?(admin_action_name) }
+      end
+
+      def allowed_admin_actions_to(action_name)
+        action_name = action_name.to_sym
+        allowed_admin_actions.select { |admin_action_name| ALLOWED_ACTIONS_MAPPING[admin_action_name].include?(action_name) }
       end
 
       private
 
       def can_perform_action_on_resource?(action)
-        manage? ||
-          project.permissions_lookup_attributes(action).any? { |lookup_attributes| current_admin.permissions.where(lookup_attributes).exists? }
+        manage? || @actions_manager.action_allowed?(admin: current_admin, action_name: action, resource: project)
       end
     end
   end

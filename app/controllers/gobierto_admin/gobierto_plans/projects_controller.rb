@@ -7,7 +7,7 @@ module GobiertoAdmin
       before_action :find_project, except: [:index, :new]
       before_action -> { review_allowed_actions! }
 
-      helper_method :current_admin_actions
+      helper_method :current_controller_allowed_actions
 
       def index
         set_filters
@@ -103,7 +103,7 @@ module GobiertoAdmin
       end
 
       def destroy
-        raise_action_not_allowed unless current_admin_actions.include? :destroy
+        raise_action_not_allowed unless current_controller_allowed_actions.include? :destroy
 
         @project.destroy
 
@@ -118,18 +118,22 @@ module GobiertoAdmin
         redirect_to admin_plans_plan_projects_path(@plan, projects_filter), notice: t(".success")
       end
 
-      def current_admin_actions
-        @current_admin_actions ||= GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(
-          current_admin: current_admin,
-          current_site: current_site,
-          project: @project_form&.project || @project
-        ).allowed_actions
+      def current_controller_allowed_actions
+        @current_controller_allowed_actions ||= permissions_policy.allowed_actions
       end
 
       private
 
+      def permissions_policy
+        @permissions_policy ||= GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(
+          current_admin: current_admin,
+          current_site: current_site,
+          project: @project_form&.project || @project
+        )
+      end
+
       def review_allowed_actions!
-        raise_action_not_allowed unless current_admin_actions.include?(action_name.to_sym)
+        raise_action_not_allowed unless current_controller_allowed_actions.include?(action_name.to_sym)
       end
 
       def save_versions_defaults
@@ -268,7 +272,7 @@ module GobiertoAdmin
       end
 
       def raise_action_not_allowed
-        redirection_path = current_admin_actions.include?(:index) ? admin_plans_plan_projects_path(@plan) : edit_admin_plans_plan_path(@plan)
+        redirection_path = current_controller_allowed_actions.include?(:index) ? admin_plans_plan_projects_path(@plan) : edit_admin_plans_plan_path(@plan)
         redirect_to(
           redirection_path,
           alert: t("gobierto_admin.module_helper.not_enabled")

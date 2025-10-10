@@ -30,7 +30,16 @@ module GobiertoAdmin
       end
 
       def allowed_actions
-        @allowed_actions ||= ALLOWED_ACTIONS_MAPPING.select { |admin_action_name, _| can_perform_action_on_resource? admin_action_name }.values.flatten.uniq
+        @allowed_actions ||= ALLOWED_ACTIONS_MAPPING.slice(*allowed_admin_actions).values.flatten.uniq
+      end
+
+      def allowed_admin_actions
+        @allowed_admin_actions ||= actions_manager.action_names(scoped: false).select { |admin_action_name| can_perform_action_on_resource?(admin_action_name) }
+      end
+
+      def allowed_admin_actions_to(action_name)
+        action_name = action_name.to_sym
+        allowed_admin_actions.select { |admin_action_name| ALLOWED_ACTIONS_MAPPING[admin_action_name].include?(action_name) }
       end
 
       private

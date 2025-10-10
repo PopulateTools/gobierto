@@ -128,11 +128,15 @@ module GobiertoAdmin
       end
 
       def allow_edit_attributes?
-        !disable_attributes_edition && (moderation_policy.edit? || allow_moderate?)
+        !disable_attributes_edition && permissions_policy.allowed_admin_actions_to(:update).include?(:edit_projects)
       end
 
       def allow_moderate?
-        moderation_policy.moderate?
+        permissions_policy.allowed_admin_actions_to(:update).include?(:moderate_projects)
+      end
+
+      def allow_manage_admin_groups?
+        permissions_policy.allowed_admin_actions_to(:update).include?(:manage)
       end
 
       def moderation_visibility_level
@@ -198,7 +202,7 @@ module GobiertoAdmin
       end
 
       def disable_attributes_edition
-        @disable_attributes_edition && (moderation_policy.moderate? || moderation_policy.edit?)
+        @disable_attributes_edition && permissions_policy.allowed_admin_actions_to(:update).include?(:publish_projects)
       end
 
       def moderation_policy

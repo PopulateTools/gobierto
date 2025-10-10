@@ -15,7 +15,7 @@
   <%= render partial: "filter_form" %>
 </div>
 
-<% if current_admin_actions.include? :new %>
+<% if current_controller_allowed_actions.include? :new %>
 <div class="admin_tools right">
   <%= link_to t(".new"), new_admin_plans_plan_project_path(@plan), data: { turbolinks: false }, class: "button" %>
 </div>
@@ -41,7 +41,7 @@
           <% end %>
         <% end %>
       </td>
-      <td><%= link_to_if current_admin_actions.include?(:edit), project.name, edit_admin_plans_plan_project_path(@plan, project), data: { turbolinks: false } %></td>
+      <td><%= link_to_if current_controller_allowed_actions.include?(:edit), project.name, edit_admin_plans_plan_project_path(@plan, project), data: { turbolinks: false } %></td>
       <td><%= format_percentage(project.progress) %></td>
       <td><%= project.status&.name %></td>
       <td><%= time_ago_in_words(project.updated_at) %></td>

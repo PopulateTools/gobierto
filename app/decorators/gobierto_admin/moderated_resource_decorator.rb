@@ -26,7 +26,7 @@ module GobiertoAdmin
     end
 
     def publicable?
-      @publicable ||= !moderable_has_moderation? || moderation.approved?
+      @publicable ||= !moderable_has_moderation? || moderation.approved? || (moderation_policy.publish? && !published?)
     end
 
     def sent?
@@ -74,7 +74,7 @@ module GobiertoAdmin
     end
 
     def step_disabled?
-      publish_moderation_status.disabled
+      publish_moderation_status.disabled && !moderation_policy.publish?
     end
 
     def step_visibility_value

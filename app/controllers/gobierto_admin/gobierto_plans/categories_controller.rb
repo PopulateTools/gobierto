@@ -7,7 +7,7 @@ module GobiertoAdmin
       before_action :set_leaf_terms
       after_action :expire_plan_cache, only: [:update]
 
-      helper_method :current_admin_actions
+      helper_method :current_controller_allowed_actions
 
       def index
         find_vocabulary
@@ -61,15 +61,15 @@ module GobiertoAdmin
 
       def raise_action_not_allowed
         find_vocabulary
-        redirection_path = current_admin_actions.include?(:index) ? admin_plans_plan_projects_path(@plan) : admin_plans_plan_categories_path(@plan)
+        redirection_path = current_controller_allowed_actions.include?(:index) ? admin_plans_plan_projects_path(@plan) : admin_plans_plan_categories_path(@plan)
         redirect_to(
           redirection_path,
           alert: t("gobierto_admin.module_helper.not_enabled")
         )
       end
 
-      def current_admin_actions
-        @current_admin_actions ||= GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(
+      def current_controller_allowed_actions
+        @current_controller_allowed_actions ||= GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(
           current_admin: current_admin,
           current_site: current_site
         ).allowed_actions

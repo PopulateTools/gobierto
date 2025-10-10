@@ -8,6 +8,7 @@ module GobiertoAdmin
       before_action -> { review_allowed_actions! }
 
       helper_method :current_controller_allowed_actions
+      helper_method :current_controller_allowed_actions, :current_admin_allowed_update_actions
 
       def index
         set_filters
@@ -120,6 +121,10 @@ module GobiertoAdmin
 
       def current_controller_allowed_actions
         @current_controller_allowed_actions ||= permissions_policy.allowed_actions
+      end
+
+      def current_admin_allowed_update_actions
+        @current_admin_allowed_update_actions ||= permissions_policy.allowed_admin_actions_to(:update)
       end
 
       private
@@ -238,29 +243,31 @@ module GobiertoAdmin
       end
 
       def project_params
-        if current_admin_actions.include? :update_attributes
-          params.require(:project).permit(
+        params.require(:project).permit(*permitted_update_attributes)
+      end
+
+      def admin_update_actions
+        @admin_update_actions ||= params.require(:project).permit(:admin_actions)[:admin_actions].to_s.split(",").map(&:to_sym) & current_admin_allowed_update_actions
+      end
+
+      def permitted_update_attributes
+        {
+          moderate_projects: [:moderation_stage],
+          publish_projects: [:visibility_level, :moderation_visibility_level],
+          edit_projects: [
             :category_id,
             :progress,
             :starts_at,
             :ends_at,
             :options_json,
-            :visibility_level,
-            :moderation_visibility_level,
             :moderation_stage,
             :status_id,
             :position,
             :minor_change,
             :publish_last_version_automatically,
             name_translations: [*I18n.available_locales]
-          )
-        else
-          params.require(:project).permit(
-            :visibility_level,
-            :moderation_visibility_level,
-            :moderation_stage
-          )
-        end
+          ]
+        }.slice(*admin_update_actions).values.flatten.uniq
       end
 
       def ignored_project_attributes

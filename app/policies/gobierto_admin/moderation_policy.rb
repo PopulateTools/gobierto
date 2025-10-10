@@ -33,7 +33,7 @@ module GobiertoAdmin
     end
 
     def publish?
-      publish_as_editor? || moderate?
+      can_perform_action_on_resource? :publish_projects
     end
 
     def moderable_has_moderation?

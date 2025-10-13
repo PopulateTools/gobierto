@@ -38,7 +38,7 @@ module GobiertoAdmin
     end
 
     def moderation_confirm_data
-      if moderable_has_moderation? && !moderation.sent?
+      if persisted? && moderable_has_moderation? && !moderation.sent?
         { confirm: I18n.t("gobierto_admin.shared.moderation_save_widget.confirm_moderation_blocked_update") }
       end
     end

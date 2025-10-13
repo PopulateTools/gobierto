@@ -7,7 +7,6 @@ module GobiertoAdmin
       before_action :find_project, except: [:index, :new]
       before_action -> { review_allowed_actions! }
 
-      helper_method :current_controller_allowed_actions
       helper_method :current_controller_allowed_actions, :current_admin_allowed_update_actions
 
       def index

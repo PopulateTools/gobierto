@@ -15,7 +15,7 @@ module GobiertoAdmin
       end
 
       def current_admin_can_edit_projects?(plan)
-        @can_manage_plans = admin_actions_manager.action_allowed?(admin: current_admin, action_name: :edit_projects_assigned, resource: plan.nodes)
+        admin_actions_manager.action_allowed?(admin: current_admin, action_name: ProjectPolicy.scoped_admin_actions(:edit, :assigned), resource: plan.nodes)
       end
 
       def gobierto_plans_plan_type_preview_url(plan, options = {})

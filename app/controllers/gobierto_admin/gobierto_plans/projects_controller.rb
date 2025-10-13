@@ -50,6 +50,8 @@ module GobiertoAdmin
 
           success_message = if suggest_unpublish?
                               t(".suggest_unpublish_html", url: @unpublish_url)
+                            elsif reset_moderation?
+                              t(".moderation_reset")
                             else
                               t(".success")
                             end
@@ -230,6 +232,10 @@ module GobiertoAdmin
 
       def suggest_unpublish?
         @project_form.allow_publish? && @project_form.project.moderation_locked_edition?(:visibility_level) && @project_form.project.published?
+      end
+
+      def reset_moderation?
+        @project_form.reset_moderation?
       end
 
       def base_relation

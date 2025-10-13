@@ -20,6 +20,8 @@ en:
           error: Project couldn't be unpublished.
           success: Project unpublished correctly.
         update:
+          moderation_reset: Because you have modified the project and do not have
+            moderation permissions, its status has been moved to Sent.
           success: Project updated correctly.
           suggest_unpublish_html: The project is not approved but still published.
             <a rel="nofollow" data-method="post" href="%{url}">Unpublish</a>.

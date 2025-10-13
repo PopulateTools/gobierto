@@ -37,6 +37,12 @@ module GobiertoAdmin
       @rejected ||= moderable_has_moderation? && moderation.rejected?
     end
 
+    def moderation_confirm_data
+      if moderable_has_moderation? && !moderation.sent?
+        { confirm: I18n.t("gobierto_admin.shared.moderation_save_widget.confirm_moderation_blocked_update") }
+      end
+    end
+
     def publish_moderation_step
       @publish_moderation_step ||= if new_record?
                                      :new

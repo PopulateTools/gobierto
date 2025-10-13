@@ -95,8 +95,14 @@ module GobiertoAdmin
           custom_fields_save
           track_create_activity
 
+          redirect_path = if current_controller_allowed_actions.include?(:edit)
+                            edit_admin_plans_plan_project_path(@plan, @project_form.node)
+                          else
+                            admin_plans_plan_projects_path(@plan)
+                          end
+
           redirect_to(
-            edit_admin_plans_plan_project_path(@plan, @project_form.node),
+            redirect_path,
             notice: t(".success")
           )
         else

@@ -133,7 +133,14 @@ module GobiertoAdmin
       end
 
       def current_admin_allowed_update_actions
-        @current_admin_allowed_update_actions ||= permissions_policy.allowed_admin_actions_to(:update)
+        @current_admin_allowed_update_actions ||= case action_name
+                                                  when "new", "create"
+                                                    permissions_policy.allowed_admin_actions_to(:create)
+                                                  when "edit", "update"
+                                                    permissions_policy.allowed_admin_actions_to(:update)
+                                                  else
+                                                    []
+                                                  end
       end
 
       private
@@ -279,6 +286,18 @@ module GobiertoAdmin
             :status_id,
             :position,
             :minor_change,
+            :publish_last_version_automatically,
+            name_translations: [*I18n.available_locales]
+          ],
+          create_projects: [
+            :category_id,
+            :progress,
+            :starts_at,
+            :ends_at,
+            :options_json,
+            :moderation_stage,
+            :status_id,
+            :position,
             :publish_last_version_automatically,
             name_translations: [*I18n.available_locales]
           ]

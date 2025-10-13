@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class ProjectPolicy < ::GobiertoAdmin::BasePolicy
-      attr_reader :project, :actions_manager
+      attr_reader :project, :plan, :actions_manager
 
       # This constant maps the available controller actions of a project with
       # the admin actions defined in the actions manager
@@ -32,7 +32,8 @@ module GobiertoAdmin
 
       def initialize(attributes)
         super(attributes)
-        @project = attributes[:project] || ::GobiertoPlans::Node.new
+        @plan = attributes[:plan]
+        @project = attributes[:project] || plan&.nodes || ::GobiertoPlans::Node.new
         @actions_manager = ::GobiertoAdmin::AdminActionsManager.for("gobierto_plans", current_site)
       end
 

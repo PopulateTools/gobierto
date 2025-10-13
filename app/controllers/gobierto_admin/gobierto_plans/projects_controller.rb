@@ -135,7 +135,8 @@ module GobiertoAdmin
         @permissions_policy ||= GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(
           current_admin: current_admin,
           current_site: current_site,
-          project: @project_form&.project || @project
+          project: @project_form&.project || @project,
+          plan: @plan
         )
       end
 

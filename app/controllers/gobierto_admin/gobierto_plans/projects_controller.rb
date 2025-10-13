@@ -229,7 +229,7 @@ module GobiertoAdmin
       end
 
       def suggest_unpublish?
-        @project_form.allow_moderate? && @project_form.project.moderation_locked_edition?(:visibility_level) && @project_form.project.published?
+        @project_form.allow_publish? && @project_form.project.moderation_locked_edition?(:visibility_level) && @project_form.project.published?
       end
 
       def base_relation

@@ -19,6 +19,17 @@ module GobiertoAdmin
         view_dashboards: [:index_dashboards]
       }.freeze
 
+      def self.scoped_admin_actions(controller_action, scope_name)
+        controller_action = controller_action.to_sym
+        scope_name = scope_name.to_sym
+
+        ALLOWED_ACTIONS_MAPPING.filter_map do |admin_action_name, controller_actions|
+          next unless controller_actions.include?(controller_action) && ::GobiertoPlans::AdminActionsManager::ACTIONS_LIST[admin_action_name].fetch(:scopes, []).include?(scope_name)
+
+          "#{admin_action_name}_#{scope_name}".to_sym
+        end
+      end
+
       def initialize(attributes)
         super(attributes)
         @project = attributes[:project] || ::GobiertoPlans::Node.new

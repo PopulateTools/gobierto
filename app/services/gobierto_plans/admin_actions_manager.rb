@@ -64,7 +64,7 @@ module GobiertoPlans
       return { all: action_name } if options[:scopes].blank?
 
       names = options[:scopes].each_with_object({}) do |scope_name, names|
-        names[scope_name] = "#{key}_#{scope_name}"
+        names[scope_name] = "#{key}_#{scope_name}".to_sym
       end
 
       return names if action_name == key

@@ -84,8 +84,12 @@
 
       </div>
 
-      <% if moderated_resource.moderable_has_moderation? && moderated_resource.persisted? && allowed_admin_actions.include?(:moderate_projects) %>
-        <%= render "gobierto_admin/shared/admin_widget_moderate", f: f, resource: moderated_resource %>
+      <% if moderated_resource.moderable_has_moderation? %>
+        <% if allowed_admin_actions.include?(:moderate_projects) %>
+          <%= render "gobierto_admin/shared/admin_widget_moderate", f: f, resource: moderated_resource %>
+        <% else %>
+          <%= render "gobierto_admin/shared/admin_widget_moderation_status", f: f, resource: moderated_resource %>
+        <% end %>
       <% end %>
 
       <% if moderated_resource.has_publication_status? %>

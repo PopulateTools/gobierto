@@ -128,7 +128,7 @@ module GobiertoAdmin
       end
 
       def allow_edit_attributes?
-        !disable_attributes_edition && permissions_policy.allowed_admin_actions_to(:update).include?(:edit_projects)
+        !disable_attributes_edition && permissions_policy.allowed_admin_actions_to(:update).include?(:edit_projects) || permissions_policy.allowed_actions.include?(:create)
       end
 
       def reset_moderation?

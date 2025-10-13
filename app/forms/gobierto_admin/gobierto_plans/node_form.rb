@@ -131,8 +131,8 @@ module GobiertoAdmin
         !disable_attributes_edition && permissions_policy.allowed_admin_actions_to(:update).include?(:edit_projects)
       end
 
-      def allow_moderate?
-        permissions_policy.allowed_admin_actions_to(:update).include?(:moderate_projects)
+      def allow_publish?
+        permissions_policy.allowed_admin_actions_to(:update).include?(:publish_projects)
       end
 
       def allow_manage_admin_groups?

@@ -12,7 +12,8 @@
 
         <% if [:edit_projects, :moderate_projects].any? { |action| allowed_admin_actions.include?(action) } %>
           <div class="w_actions m_b_1">
-            <button class="button medium"><%= t("gobierto_admin.shared.moderation_save_widget.save") %></button>
+            <% submit_data = permissions_policy.allowed_admin_actions_to(:update).exclude?(:moderate_projects) && moderated_resource.moderation_confirm_data || {} %>
+            <%= button_tag t("gobierto_admin.shared.moderation_save_widget.save"), class: "button medium", data: submit_data %>
             <%= f.button(
                   t("gobierto_admin.shared.moderation_save_widget.preview"),
                   disabled: !moderated_resource.has_preview?,

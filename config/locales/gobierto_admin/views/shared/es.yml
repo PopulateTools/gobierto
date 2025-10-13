@@ -31,6 +31,8 @@ es:
       moderation_save_widget:
         change_moderation_status: Cambiar estado de moderación
         confirm: "¿Estás seguro?"
+        confirm_moderation_blocked_update: ¿Estás seguro? Si guardas modificaciones
+          en este proyecto el estado se actualizará a Enviado.
         edit_version: Editando versión
         last_versions: Últimas versiones
         minor_change: Cambio menor (no guarda versión)

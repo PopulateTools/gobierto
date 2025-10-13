@@ -7,7 +7,6 @@ module GobiertoAdmin
       before_action :find_project, except: [:index, :new]
       before_action -> { review_allowed_actions! }
 
-      helper_method :current_controller_allowed_actions
       helper_method :current_controller_allowed_actions, :current_admin_allowed_update_actions
 
       def index
@@ -50,6 +49,8 @@ module GobiertoAdmin
 
           success_message = if suggest_unpublish?
                               t(".suggest_unpublish_html", url: @unpublish_url)
+                            elsif reset_moderation?
+                              t(".moderation_reset")
                             else
                               t(".success")
                             end
@@ -94,8 +95,14 @@ module GobiertoAdmin
           custom_fields_save
           track_create_activity
 
+          redirect_path = if current_controller_allowed_actions.include?(:edit)
+                            edit_admin_plans_plan_project_path(@plan, @project_form.node)
+                          else
+                            admin_plans_plan_projects_path(@plan)
+                          end
+
           redirect_to(
-            edit_admin_plans_plan_project_path(@plan, @project_form.node),
+            redirect_path,
             notice: t(".success")
           )
         else
@@ -126,7 +133,14 @@ module GobiertoAdmin
       end
 
       def current_admin_allowed_update_actions
-        @current_admin_allowed_update_actions ||= permissions_policy.allowed_admin_actions_to(:update)
+        @current_admin_allowed_update_actions ||= case action_name
+                                                  when "new", "create"
+                                                    permissions_policy.allowed_admin_actions_to(:create)
+                                                  when "edit", "update"
+                                                    permissions_policy.allowed_admin_actions_to(:update)
+                                                  else
+                                                    []
+                                                  end
       end
 
       private
@@ -135,7 +149,8 @@ module GobiertoAdmin
         @permissions_policy ||= GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(
           current_admin: current_admin,
           current_site: current_site,
-          project: @project_form&.project || @project
+          project: @project_form&.project || @project,
+          plan: @plan
         )
       end
 
@@ -228,7 +243,11 @@ module GobiertoAdmin
       end
 
       def suggest_unpublish?
-        @project_form.allow_moderate? && @project_form.project.moderation_locked_edition?(:visibility_level) && @project_form.project.published?
+        @project_form.allow_publish? && @project_form.project.moderation_locked_edition?(:visibility_level) && @project_form.project.published?
+      end
+
+      def reset_moderation?
+        @project_form.reset_moderation?
       end
 
       def base_relation
@@ -267,6 +286,18 @@ module GobiertoAdmin
             :status_id,
             :position,
             :minor_change,
+            :publish_last_version_automatically,
+            name_translations: [*I18n.available_locales]
+          ],
+          create_projects: [
+            :category_id,
+            :progress,
+            :starts_at,
+            :ends_at,
+            :options_json,
+            :moderation_stage,
+            :status_id,
+            :position,
             :publish_last_version_automatically,
             name_translations: [*I18n.available_locales]
           ]

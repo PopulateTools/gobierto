@@ -124,15 +124,23 @@ module GobiertoAdmin
       end
 
       def moderation_stage
-        @moderation_stage ||= node.moderation_stage
+        @moderation_stage ||= reset_moderation? ? :sent : node.moderation_stage
       end
 
       def allow_edit_attributes?
-        !disable_attributes_edition && permissions_policy.allowed_admin_actions_to(:update).include?(:edit_projects)
+        !disable_attributes_edition && permissions_policy.allowed_admin_actions_to(:update).include?(:edit_projects) || permissions_policy.allowed_actions.include?(:create)
       end
 
-      def allow_moderate?
-        permissions_policy.allowed_admin_actions_to(:update).include?(:moderate_projects)
+      def reset_moderation?
+        @reset_moderation ||= !node.moderation.sent? && block_moderation? && attributes_updated?
+      end
+
+      def block_moderation?
+        @block_moderation ||= permissions_policy.allowed_admin_actions_to(:update).exclude?(:moderate_projects)
+      end
+
+      def allow_publish?
+        permissions_policy.allowed_admin_actions_to(:update).include?(:publish_projects)
       end
 
       def allow_manage_admin_groups?

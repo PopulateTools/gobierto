@@ -10,9 +10,10 @@
 
       <div class="w_s_content">
 
-        <% if [:edit_projects, :moderate_projects].any? { |action| allowed_admin_actions.include?(action) } %>
+        <% if [:edit_projects, :moderate_projects, :create_projects].any? { |action| allowed_admin_actions.include?(action) } %>
           <div class="w_actions m_b_1">
-            <button class="button medium"><%= t("gobierto_admin.shared.moderation_save_widget.save") %></button>
+            <% submit_data = permissions_policy.allowed_admin_actions_to(:update).exclude?(:moderate_projects) && moderated_resource.moderation_confirm_data || {} %>
+            <%= button_tag t("gobierto_admin.shared.moderation_save_widget.save"), class: "button medium", data: submit_data %>
             <%= f.button(
                   t("gobierto_admin.shared.moderation_save_widget.preview"),
                   disabled: !moderated_resource.has_preview?,
@@ -84,8 +85,12 @@
 
       </div>
 
-      <% if moderated_resource.moderable_has_moderation? && moderated_resource.persisted? && allowed_admin_actions.include?(:moderate_projects) %>
-        <%= render "gobierto_admin/shared/admin_widget_moderate", f: f, resource: moderated_resource %>
+      <% if moderated_resource.moderable_has_moderation? %>
+        <% if allowed_admin_actions.include?(:moderate_projects) %>
+          <%= render "gobierto_admin/shared/admin_widget_moderate", f: f, resource: moderated_resource %>
+        <% else %>
+          <%= render "gobierto_admin/shared/admin_widget_moderation_status", f: f, resource: moderated_resource %>
+        <% end %>
       <% end %>
 
       <% if moderated_resource.has_publication_status? %>

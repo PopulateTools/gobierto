@@ -27,7 +27,8 @@ es:
           manage_dashboards: Administrar dashboards
           moderate_projects_all: Moderar proyectos (todos)
           moderate_projects_assigned: Moderar proyectos (asignados)
-          publish_projects: Publicar proyectos
+          publish_projects_all: Publicar proyectos (todos)
+          publish_projects_assigned: Publicar proyectos (asignados)
           view_dashboards: Ver dashboards
           view_projects_all: Ver proyectos (todos)
           view_projects_assigned: Ver proyectos (asignados)

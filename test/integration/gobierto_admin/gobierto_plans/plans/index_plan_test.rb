@@ -55,7 +55,7 @@ module GobiertoAdmin
           click_link plan.title
           within "table#projects" do
             plan.nodes.each do |project|
-              assert has_no_selector?("tr#project-item-#{project.id}")
+              assert has_selector?("tr#project-item-#{project.id}")
             end
           end
         end

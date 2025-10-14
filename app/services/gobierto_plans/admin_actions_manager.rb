@@ -25,6 +25,43 @@ module GobiertoPlans
       end.flatten.compact
     end
 
+    def assigned_resource_ids(admin:, resource:)
+      return resource if admin.managing_user?
+
+      assigned_resource_groups = resource.presence && admin.admin_groups.where(resource:)
+
+      return [] unless assigned_resource_groups.exists?
+
+      if resource.is_a? ActiveRecord::Relation
+        cache_key = [admin.cache_key, resource.cache_key].join("-")
+        cache_data(cache_key) do
+          assigned_resource_groups.pluck(:resource_id)
+        end
+      else
+        [resource&.id]
+      end
+    end
+
+    def admin_actions(admin:, resource:)
+      module_level_actions = module_level_permissions(admin).pluck(:action_name).map(&:to_sym)
+
+      all_actions = action_names(scope: :all) & module_level_actions
+      assigned_actions = all_actions + action_names(scope: :assigned) & module_level_actions
+
+      all_controller_actions = GobiertoAdmin::GobiertoPlans::ProjectPolicy.controller_actions(*all_actions.map { |name| unscoped_names(name) }.flatten)
+      assigned_controller_actions = GobiertoAdmin::GobiertoPlans::ProjectPolicy.controller_actions(*assigned_actions.map { |name| unscoped_names(name) }.flatten)
+
+      actions_list = { default: { admin_actions: all_actions, controller_actions: all_controller_actions } }
+
+      if assigned_actions.present?
+        assigned_resource_ids(admin:, resource:).each do |id|
+          actions_list[id] = { admin_actions: assigned_actions, controller_actions: assigned_controller_actions }
+        end
+      end
+
+      actions_list
+    end
+
     def action_allowed?(admin:, action_name:, resource: nil)
       return true if admin.managing_user?
       return action_name.map { |single_name| action_allowed?(admin:, action_name: single_name, resource:) }.any? if action_name.is_a?(Array)
@@ -74,6 +111,10 @@ module GobiertoPlans
       return names.select do |scope, name|
         name.to_sym == action_name
       end
+    end
+
+    def unscoped_names(action_name)
+      scoped_names(action_name).map { |scope, name| name.to_s.gsub(/_#{scope}\z/, "").to_sym }.uniq
     end
 
     def direct_permisions(action_name:, groups:)

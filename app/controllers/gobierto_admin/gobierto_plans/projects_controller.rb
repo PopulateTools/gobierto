@@ -7,7 +7,7 @@ module GobiertoAdmin
       before_action :find_project, except: [:index, :new]
       before_action -> { review_allowed_actions! }
 
-      helper_method :current_controller_allowed_actions, :current_admin_allowed_update_actions
+      helper_method :current_controller_allowed_actions, :current_admin_allowed_update_actions, :admin_projects_actions
 
       def index
         set_filters
@@ -359,6 +359,9 @@ module GobiertoAdmin
         { ip: remote_ip, author: current_admin, site_id: current_site.id }
       end
 
+      def admin_projects_actions
+        @admin_projects_actions ||= admin_actions_manager.admin_actions(admin: current_admin, resource: @plan.nodes)
+      end
     end
   end
 end

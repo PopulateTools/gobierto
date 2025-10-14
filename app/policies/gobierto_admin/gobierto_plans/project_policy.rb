@@ -30,6 +30,10 @@ module GobiertoAdmin
         end
       end
 
+      def self.controller_actions(*admin_action_names)
+        ALLOWED_ACTIONS_MAPPING.slice(*admin_action_names).values.flatten.uniq
+      end
+
       def initialize(attributes)
         super(attributes)
         @plan = attributes[:plan]

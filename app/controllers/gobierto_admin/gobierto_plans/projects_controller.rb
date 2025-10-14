@@ -113,8 +113,6 @@ module GobiertoAdmin
       end
 
       def destroy
-        raise_action_not_allowed unless current_controller_allowed_actions.include? :destroy
-
         @project.destroy
 
         track_destroy_activity

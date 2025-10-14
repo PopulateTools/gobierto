@@ -41,7 +41,7 @@ module GobiertoAdmin
       end
 
       def admin_actions_values
-        { owned: OpenStruct.new(id: admin.id, count: editor_relation.with_author(admin.id).count),
+        { owned: OpenStruct.new(id: admin.id, count: base_relation.with_author(admin.id).count),
           can_edit: OpenStruct.new(id: "#{admin.id}-edit", count: editor_relation.count) }
       end
 

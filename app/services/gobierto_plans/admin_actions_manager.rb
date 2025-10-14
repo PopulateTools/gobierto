@@ -14,12 +14,14 @@ module GobiertoPlans
       view_dashboards: { module: "gobierto_dashboards" },
     }.freeze
 
-    def action_names(scoped: true)
+    def action_names(scoped: true, scope: nil)
+      scoped ||= scope.present?
+
       ACTIONS_LIST.map do |action_name, options|
         next unless options[:module].blank? || modules.include?(options[:module])
+        next action_name unless scoped
 
-
-        scoped ? scoped_names(action_name).values : action_name
+        scope.present? ? scoped_names(action_name)[scope] : scoped_names(action_name).values
       end.flatten.compact
     end
 

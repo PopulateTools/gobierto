@@ -13,7 +13,7 @@ module GobiertoAdmin
         edit_projects: [:index, :edit, :update], #, :update_attributes], TODO what happens with update_attributes?
         moderate_projects: [:index, :edit, :moderate, :update],
         publish_projects: [:index, :edit, :publish, :unpublish, :update],
-        delete_projects: [:index, :edit, :destroy],
+        delete_projects: [:index, :destroy],
         manage: [:index, :show, :edit, :update],
         manage_dashboards: [:index_dashboards, :manage_dashboards],
         view_dashboards: [:index_dashboards]

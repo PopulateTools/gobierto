@@ -121,7 +121,7 @@ module GobiertoAdmin
 
             within "form.edit_admin_group" do
               find("label[for='admin_group_modules_gobiertoplans']").click
-              find("label[for='modules_action_gobierto_plans_moderate']").click
+              find("label[for='modules_action_gobierto_plans_moderate_projects_all']").click
               find("label[for='modules_action_gobierto_plans_manage']").click
               find("label[for='admin_group_all_people']").click
 
@@ -133,15 +133,15 @@ module GobiertoAdmin
             within "form.edit_admin_group" do
               assert find("#admin_group_modules_gobiertopeople", visible: false).checked?
               refute find("#modules_action_gobierto_plans_manage", visible: false).checked?
-              refute find("#modules_action_gobierto_plans_edit", visible: false).checked?
-              assert find("#modules_action_gobierto_plans_moderate", visible: false).checked?
+              refute find("#modules_action_gobierto_plans_edit_projects_all", visible: false).checked?
+              assert find("#modules_action_gobierto_plans_moderate_projects_all", visible: false).checked?
               assert find("#admin_group_all_people", visible: false).checked?
               refute find("#admin_group_people_#{neil.id}", visible: false).checked?
               refute find("#admin_group_people_#{richard.id}", visible: false).checked?
             end
 
             assert_equal 10, madrid_group.permissions.count
-            assert GobiertoAdmin::Permission::GobiertoPlans.where(admin_group: madrid_group, action_name: "moderate").exists?
+            assert GobiertoAdmin::Permission::GobiertoPlans.where(admin_group: madrid_group, action_name: "moderate_projects_all").exists?
             assert madrid_group.permissions.for_people.where(action_name: "manage_all").exists?
           end
         end

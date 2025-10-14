@@ -14,7 +14,7 @@ module GobiertoAdmin
         moderate_projects: [:index, :edit, :moderate, :update],
         publish_projects: [:index, :edit, :publish, :unpublish, :update],
         delete_projects: [:index, :destroy],
-        manage: [:index, :show, :edit, :update],
+        manage: [:index, :show, :edit, :update, :manage],
         manage_dashboards: [:index_dashboards, :manage_dashboards],
         view_dashboards: [:index_dashboards]
       }.freeze

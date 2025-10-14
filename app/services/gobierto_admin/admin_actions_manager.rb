@@ -31,7 +31,7 @@ module GobiertoAdmin
       admin.managing_user? || admin.send(module_name + "_permissions").on_site(site).where(action_name:).any?
     end
 
-    def action_names
+    def action_names(**_args)
       []
     end
 

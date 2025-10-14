@@ -6,20 +6,22 @@ module GobiertoPlans
       create_projects: {},
       view_projects: { scopes: [:all, :assigned] },
       edit_projects: { scopes: [:all, :assigned] },
-      moderate_projects: { scopes: [:all, :assigned ] },
-      publish_projects: {},
-      delete_projects: { scopes: [:all, :assigned ] },
+      moderate_projects: { scopes: [:all, :assigned] },
+      publish_projects: { scopes: [:all, :assigned] },
+      delete_projects: { scopes: [:all, :assigned] },
       manage: {},
       manage_dashboards: { module: "gobierto_dashboards" },
       view_dashboards: { module: "gobierto_dashboards" },
     }.freeze
 
-    def action_names(scoped: true)
+    def action_names(scoped: true, scope: nil)
+      scoped ||= scope.present?
+
       ACTIONS_LIST.map do |action_name, options|
         next unless options[:module].blank? || modules.include?(options[:module])
+        next action_name unless scoped
 
-
-        scoped ? scoped_names(action_name).values : action_name
+        scope.present? ? scoped_names(action_name)[scope] : scoped_names(action_name).values
       end.flatten.compact
     end
 

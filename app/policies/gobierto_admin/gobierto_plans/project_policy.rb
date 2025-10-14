@@ -13,8 +13,8 @@ module GobiertoAdmin
         edit_projects: [:index, :edit, :update], #, :update_attributes], TODO what happens with update_attributes?
         moderate_projects: [:index, :edit, :moderate, :update],
         publish_projects: [:index, :edit, :publish, :unpublish, :update],
-        delete_projects: [:index, :edit, :destroy],
-        manage: [:index, :show, :edit, :update],
+        delete_projects: [:index, :destroy],
+        manage: [:index, :show, :edit, :update, :manage],
         manage_dashboards: [:index_dashboards, :manage_dashboards],
         view_dashboards: [:index_dashboards]
       }.freeze
@@ -47,6 +47,14 @@ module GobiertoAdmin
 
       def allowed_admin_actions
         @allowed_admin_actions ||= actions_manager.action_names(scoped: false).select { |admin_action_name| can_perform_action_on_resource?(admin_action_name) }
+      end
+
+      def allowed_actions_by_scope(scope)
+        ALLOWED_ACTIONS_MAPPING.slice(*allowed_admin_actions_by_scope(scope).map{ |name| name.to_s.gsub("_#{scope}", "").to_sym }).values.flatten.uniq
+      end
+
+      def allowed_admin_actions_by_scope(scope)
+        actions_manager.action_names(scope:).select { |admin_action_name| can_perform_action_on_resource?(admin_action_name) }
       end
 
       def allowed_admin_actions_to(action_name)

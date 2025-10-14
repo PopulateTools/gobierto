@@ -313,7 +313,7 @@ module GobiertoAdmin
       end
 
       def raise_action_not_allowed
-        redirection_path = current_controller_allowed_actions.include?(:index) ? admin_plans_plan_projects_path(@plan) : edit_admin_plans_plan_path(@plan)
+        redirection_path = current_controller_allowed_actions.include?(:index) ? admin_plans_plan_projects_path(@plan) : admin_plans_plans_path
         redirect_to(
           redirection_path,
           alert: t("gobierto_admin.module_helper.not_enabled")

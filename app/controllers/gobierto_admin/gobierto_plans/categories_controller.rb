@@ -19,7 +19,7 @@ module GobiertoAdmin
         calculate_accumulated_values
 
         @global_progress = @plan.global_progress
-        @projects_filter_form = ::GobiertoAdmin::GobiertoPlans::ProjectsFilterForm.new(plan: @plan, admin: current_admin)
+        @projects_filter_form = ::GobiertoAdmin::GobiertoPlans::ProjectsFilterForm.new(plan: @plan, admin: current_admin, permissions_policy:)
         @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: ::GobiertoPlans::CategoryTermDecorator, options: { plan: @plan, vocabulary: @vocabulary, site: current_site })
       end
 
@@ -69,10 +69,15 @@ module GobiertoAdmin
       end
 
       def current_controller_allowed_actions
-        @current_controller_allowed_actions ||= GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(
+        @current_controller_allowed_actions ||= permissions_policy.allowed_actions
+      end
+
+      def permissions_policy
+        @permissions_policy ||= GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(
           current_admin: current_admin,
-          current_site: current_site
-        ).allowed_actions
+          current_site: current_site,
+          plan: @plan
+        )
       end
 
       def gobierto_plans_plan_type_preview_url(plan, options = {})

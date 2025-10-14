@@ -6,7 +6,7 @@ module GobiertoAdmin
       FILTER_PARAMS = %w(name admin_actions category progress author moderation_stage start_date end_date interval status).freeze
 
       attr_accessor(*FILTER_PARAMS)
-      attr_accessor :plan, :admin
+      attr_accessor :plan, :admin, :permissions_policy
 
       validates :plan, :admin, presence: true
 
@@ -73,20 +73,35 @@ module GobiertoAdmin
         end.unshift([I18n.t("gobierto_admin.gobierto_plans.projects.filter_form.status"), nil])
       end
 
+      def base_relation
+        @base_relation ||= if permissions_policy.allowed_actions_by_scope(:all).include?(:index)
+                             @plan.nodes
+                           elsif permissions_policy.allowed_actions_by_scope(:assigned).include?(:index)
+                             assigned_resources
+                           else
+                             @plan.nodes.none
+                           end
+      end
+
+      def editor_relation
+        @editor_relation ||= if permissions_policy.allowed_actions_by_scope(:all).include?(:edit)
+                               @plan.nodes
+                             elsif permissions_policy.allowed_actions_by_scope(:assigned).include?(:edit)
+                               assigned_resources
+                             else
+                               @plan.nodes.none
+                             end
+      end
+
       private
 
       def format_percentage(number)
         "#{number.to_i}%"
       end
 
-      def base_relation
-        GobiertoAdmin::AdminResourcesQuery.new(admin, relation: @plan.nodes).allowed
+      def assigned_resources
+        @assigned_resources ||= GobiertoAdmin::AdminResourcesQuery.new(admin, relation: @plan.nodes).allowed(include_moderated: false)
       end
-
-      def editor_relation
-        @editor_relation ||= GobiertoAdmin::AdminResourcesQuery.new(admin, relation: @plan.nodes).allowed(include_moderated: false)
-      end
-
     end
   end
 end

@@ -25,6 +25,7 @@ module GobiertoAdmin
       raise ArgumentError, "Invalid module name" unless modules.include?(module_name)
 
       @module_name = module_name
+      @cached_data = {}
     end
 
     def action_allowed?(admin:, action_name:, resource: nil)
@@ -39,6 +40,14 @@ module GobiertoAdmin
 
     def modules
       @modules ||= site.configuration.modules.map(&:underscore)
+    end
+
+    def cache_data(cache_key)
+      return @cached_data[cache_key] if @cached_data.key?(cache_key)
+
+      result = yield
+      @cached_data[cache_key] = result
+      result
     end
   end
 end

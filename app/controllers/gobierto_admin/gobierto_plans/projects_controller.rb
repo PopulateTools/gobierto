@@ -198,11 +198,11 @@ module GobiertoAdmin
       end
 
       def set_filters
-        @form = ProjectsFilterForm.new(filter_params.merge(plan: @plan, admin: current_admin))
-        @relation = if @form.admin_actions.present?
-                      GobiertoAdmin::AdminResourcesQuery.new(current_admin, relation: @plan.nodes).allowed(include_moderated: false)
+        @form = ProjectsFilterForm.new(filter_params.merge(plan: @plan, admin: current_admin, permissions_policy:))
+        @relation = if /edit/.match?(filter_params["admin_actions"])
+                      @form.editor_relation
                     else
-                      base_relation
+                      @form.base_relation
                     end
 
         @form.filter_params.each do |param|

@@ -27,7 +27,8 @@ ca:
           manage_dashboards: Administrar dashboards
           moderate_projects_all: Modera projectes (tots)
           moderate_projects_assigned: Modera projectes (assignats)
-          publish_projects: Publica projectes
+          publish_projects_all: Publica projectes (tots)
+          publish_projects_assigned: Publica projectes (assignats)
           view_dashboards: Veure dashboards
           view_projects_all: Veure projectes (tots)
           view_projects_assigned: Veure projectes (assignats)

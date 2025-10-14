@@ -32,16 +32,17 @@
     <th class="icon"></th>
   </tr>
   <% @projects.each do |project| %>
-    <% project_policy = GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(current_admin: current_admin, current_site: current_site, project: project) %>
+    <% project_actions = admin_projects_actions[project.id] || admin_projects_actions[:default] || {} %>
+    <% controller_actions = project_actions.fetch(:controller_actions, []) %>
     <tr id="<%= "project-item-#{project.id}" %>">
       <td>
-        <% if project_policy.allowed_actions.include?(:edit) %>
+        <% if controller_actions.include?(:edit) %>
           <%= link_to edit_admin_plans_plan_project_path(@plan, project), data: { turbolinks: false } do %>
             <i class="fas fa-edit"></i>
           <% end %>
         <% end %>
       </td>
-      <td><%= link_to_if current_controller_allowed_actions.include?(:edit), project.name, edit_admin_plans_plan_project_path(@plan, project), data: { turbolinks: false } %></td>
+      <td><%= link_to_if controller_actions.include?(:edit), project.name, edit_admin_plans_plan_project_path(@plan, project), data: { turbolinks: false } %></td>
       <td><%= format_percentage(project.progress) %></td>
       <td><%= project.status&.name %></td>
       <td><%= time_ago_in_words(project.updated_at) %></td>
@@ -59,7 +60,7 @@
         <% end %>
       </td>
       <td>
-        <% if project_policy.allowed_actions.include?(:destroy) %>
+        <% if controller_actions.include?(:destroy) %>
           <%= link_to admin_plans_plan_project_path(@plan, project, projects_filter: @filter_params),
             title: t("views.delete"),
             method: :delete,

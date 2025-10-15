@@ -23,7 +23,7 @@ module GobiertoCommon
       end
 
       def default_moderation_stage
-        :not_sent
+        :unsent
       end
     end
 

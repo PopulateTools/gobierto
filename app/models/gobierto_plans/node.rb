@@ -75,7 +75,7 @@ module GobiertoPlans
     }
 
     default_moderation_stage do |node|
-      node.published? ? :approved : :not_sent
+      node.published? ? :approved : :unsent
     end
 
     translates :name

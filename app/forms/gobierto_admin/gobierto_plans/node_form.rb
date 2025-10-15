@@ -51,11 +51,13 @@ module GobiertoAdmin
         @passed_attributes = ordered_options.keys
         @publication_updated = false
         super(ordered_options)
+        @new_record = node.new_record?
         set_publication_version
       end
 
       def save
         check_visibility_level if allow_edit_attributes?
+
         save_node if valid?
       end
 
@@ -126,15 +128,25 @@ module GobiertoAdmin
       end
 
       def moderation_stage
-        @moderation_stage ||= reset_moderation? ? :sent : node.moderation_stage
+        @moderation_stage ||= if reset_moderation?
+                                :sent
+                              elsif publication_reset_moderation?
+                                :approved
+                              else
+                                node.moderation_stage
+                              end
       end
 
       def allow_edit_attributes?
-        !disable_attributes_edition && allowed_admin_actions.include?(:edit_projects) || allowed_controller_actions.include?(:create)
+        !disable_attributes_edition && allowed_admin_actions.include?(:edit_projects) || allowed_controller_actions.include?(:create) && @new_record
       end
 
       def reset_moderation?
-        @reset_moderation ||= !node.moderation.sent? && block_moderation? && attributes_updated?
+        @reset_moderation ||= !minor_change && !node.moderation.sent? && block_moderation? && attributes_updated? && !@new_record
+      end
+
+      def publication_reset_moderation?
+        @publication_reset_moderation ||= publication_updated? && block_moderation? && visibility_level == "published"
       end
 
       def block_moderation?
@@ -162,7 +174,7 @@ module GobiertoAdmin
       def attributes_updated?
         return unless allow_edit_attributes?
 
-        @attributes_updated ||= @node.new_record? || nodes_attributes_differ?(set_node_attributes, versioned_node)
+        @attributes_updated ||= @new_record || nodes_attributes_differ?(set_node_attributes, versioned_node)
       end
 
       def publication_updated?
@@ -204,7 +216,7 @@ module GobiertoAdmin
 
         @version ||= if node.versions.present? && publish_last_version_automatically
                        node.versions.length
-                     elsif @visibility_level == "published" && node.new_record?
+                     elsif @visibility_level == "published" && @new_record
                        1
                      end
 

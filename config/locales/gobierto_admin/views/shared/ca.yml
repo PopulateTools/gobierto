@@ -39,8 +39,6 @@ ca:
         moderation: Moderació
         moderation_info:
           new: Un cop guardis el teu contingut, podràs enviar-lo a moderació.
-          not_sent: Quan el teu contingut estigui llest per a ser revisat per un moderador,
-            fes click a Enviar.
           publicable: Fes click a Publicar perquè aquesta versió sigui visible públicament.
           publicable_html: Fes click a Publicar perquè aquesta versió sigui visible
             públicament.
@@ -50,12 +48,14 @@ ca:
           rejected: La versió està rebutjada.
           sent: El teu contingut ha estat enviat per a revisió. Rebràs una notificació
             quan s'aprovi o et demanin canvis.
+          unsent: Quan el teu contingut estigui llest per a ser revisat per un moderador,
+            fes click a Enviar.
         moderation_status:
           approved: Aprovat
           in_review: En revisió
-          not_sent: No enviat
           rejected: No aprovat
           sent: Enviat
+          unsent: No enviat
         new_version: Nova (no guardada)
         preview: Previsualitzar
         previous_versions: Versions anteriors

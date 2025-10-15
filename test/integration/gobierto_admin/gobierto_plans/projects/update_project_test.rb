@@ -364,7 +364,7 @@ module GobiertoAdmin
 
         def test_send_project_as_regular_editor
           allow_regular_admin_edit_project(unpublished_project)
-          unpublished_project.moderation.not_sent!
+          unpublished_project.moderation.unsent!
           create_custom_fields_records
 
           with(site: site, admin: regular_admin) do

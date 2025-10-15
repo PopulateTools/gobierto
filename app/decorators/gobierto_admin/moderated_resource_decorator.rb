@@ -30,7 +30,7 @@ module GobiertoAdmin
     end
 
     def sent?
-      @sent ||= moderable_has_moderation? && !moderation.not_sent?
+      @sent ||= moderable_has_moderation? && !moderation.unsent?
     end
 
     def rejected?
@@ -51,12 +51,12 @@ module GobiertoAdmin
                                    elsif sent?
                                      rejected? ? :rejected : :sent
                                    else
-                                     :not_sent
+                                     :unsent
                                    end
     end
 
     def locked?
-      @locked ||= [:new, :not_sent].include?(publish_moderation_step)
+      @locked ||= [:new, :unsent].include?(publish_moderation_step)
     end
 
     def has_preview?
@@ -118,8 +118,8 @@ module GobiertoAdmin
       @publish_moderation_status ||= OpenStruct.new PUBLISH_MODERATION_STEPS[publish_moderation_step]
     end
 
-    PUBLISH_MODERATION_STEPS = { new: { action: :send, moderation_status: :not_sent, disabled: true, moderation_style: :not_published },
-                                 not_sent: { action: :send, moderation_status: :not_sent, disabled: false, moderation_style: :not_published },
+    PUBLISH_MODERATION_STEPS = { new: { action: :send, moderation_status: :unsent, disabled: true, moderation_style: :not_published },
+                                 unsent: { action: :send, moderation_status: :unsent, disabled: false, moderation_style: :not_published },
                                  sent: { moderation_status: :in_review, disabled: true, moderation_style: :in_revision },
                                  publicable: { moderation_status: :approved, disabled: false, moderation_style: :approved },
                                  published: { moderation_status: :approved, disabled: false, moderation_style: :approved },

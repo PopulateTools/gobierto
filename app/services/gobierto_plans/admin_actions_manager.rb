@@ -26,9 +26,25 @@ module GobiertoPlans
     end
 
     def admin_actions(admin:, resource:)
+      all_action_names = action_names(scope: :all)
+
+      if admin.managing_user?
+        controller_actions = GobiertoAdmin::GobiertoPlans::ProjectPolicy::ALLOWED_ACTIONS_MAPPING.values.flatten.uniq
+        return {
+          default: {
+            admin_actions: all_action_names,
+            controller_actions:
+          },
+          collection: {
+            admin_actions: all_action_names,
+            controller_actions:
+          }
+        }
+      end
+
       module_level_actions = module_level_permissions(admin).pluck(:action_name).map(&:to_sym)
 
-      all_actions = action_names(scope: :all) & module_level_actions
+      all_actions = all_action_names & module_level_actions
       assigned_actions = all_actions + action_names(scope: :assigned) & module_level_actions
 
       all_controller_actions = GobiertoAdmin::GobiertoPlans::ProjectPolicy.controller_actions(*all_actions.map { |name| unscoped_names(name) }.flatten)

@@ -126,7 +126,13 @@ module GobiertoAdmin
       end
 
       def moderation_stage
-        @moderation_stage ||= reset_moderation? ? :sent : node.moderation_stage
+        @moderation_stage ||= if reset_moderation?
+                                :sent
+                              elsif publication_reset_moderation?
+                                :approved
+                              else
+                                node.moderation_stage
+                              end
       end
 
       def allow_edit_attributes?
@@ -135,6 +141,10 @@ module GobiertoAdmin
 
       def reset_moderation?
         @reset_moderation ||= !node.moderation.sent? && block_moderation? && attributes_updated?
+      end
+
+      def publication_reset_moderation?
+        @publication_reset_moderation ||= publication_updated? && block_moderation? && visibility_level == "published"
       end
 
       def block_moderation?

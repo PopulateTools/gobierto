@@ -26,7 +26,7 @@ module GobiertoAdmin
     end
 
     def publicable?
-      @publicable ||= !moderable_has_moderation? || moderation.approved? || (moderation_policy.publish? && !published?)
+      @publicable ||= !moderable_has_moderation? || moderation.approved?
     end
 
     def sent?

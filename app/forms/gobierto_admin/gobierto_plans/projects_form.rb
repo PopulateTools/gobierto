@@ -97,7 +97,7 @@ module GobiertoAdmin
         lists = admin_actions_manager.admin_actions(admin: admin, resource: plan.nodes)
 
         {
-          allowed_admin_actions: lists.dig(:default, :admin_actions) ,
+          allowed_admin_actions: lists.dig(:default, :admin_actions),
           allowed_controller_actions: lists.dig(:default, :controller_actions)
         }
       end

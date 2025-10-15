@@ -7,7 +7,7 @@ module GobiertoAdmin
       before_action :set_leaf_terms
       after_action :expire_plan_cache, only: [:update]
 
-      helper_method :current_controller_allowed_actions
+      helper_method :current_controller_allowed_actions, :admin_projects_actions
 
       def index
         find_vocabulary
@@ -107,6 +107,12 @@ module GobiertoAdmin
         else
           relation.where("level >= ?", @term.level).pluck(:id)
         end
+      end
+
+      private
+
+      def admin_projects_actions
+        @admin_projects_actions ||= admin_actions_manager.admin_actions(admin: current_admin, resource: @plan.nodes) if @plan
       end
     end
   end

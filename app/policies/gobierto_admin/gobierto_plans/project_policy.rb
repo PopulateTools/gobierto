@@ -34,14 +34,6 @@ module GobiertoAdmin
         ALLOWED_ACTIONS_MAPPING.slice(*admin_action_names).values.flatten.uniq
       end
 
-      def self.admin_actions(*controller_action_names)
-        ALLOWED_ACTIONS_MAPPING.filter_map do |admin_action, controller_actions|
-          next if (controller_actions & controller_action_names).blank?
-
-          admin_action
-        end
-      end
-
       def initialize(attributes)
         super(attributes)
         @plan = attributes[:plan]

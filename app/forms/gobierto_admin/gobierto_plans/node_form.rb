@@ -142,7 +142,7 @@ module GobiertoAdmin
       end
 
       def reset_moderation?
-        @reset_moderation ||= !node.moderation.sent? && block_moderation? && attributes_updated?
+        @reset_moderation ||= !minor_change && !node.moderation.sent? && block_moderation? && attributes_updated? && !@new_record
       end
 
       def publication_reset_moderation?

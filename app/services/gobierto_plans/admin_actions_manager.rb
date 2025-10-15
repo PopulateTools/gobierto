@@ -73,7 +73,6 @@ module GobiertoPlans
       false
     end
 
-    private
 
     def scoped_names(action_name)
       action_name = action_name.to_sym
@@ -98,6 +97,8 @@ module GobiertoPlans
         name.to_sym == action_name
       end
     end
+
+    private
 
     def unscoped_names(action_name)
       scoped_names(action_name).map { |scope, name| name.to_s.gsub(/_#{scope}\z/, "").to_sym }.uniq

@@ -32,7 +32,8 @@ en:
         change_moderation_status: Change moderation status
         confirm: Are you sure?
         confirm_moderation_blocked_update: Are you sure? If you save changes to
-          this project, the status will be updated to Sent.
+          this project, the status will be updated to Sent unless you mark the
+          change as minor.
         edit_version: Editing version
         last_versions: Last versions
         minor_change: Minor change (does not save version)

@@ -327,6 +327,7 @@ module GobiertoAdmin
             :ends_at,
             :options_json,
             :moderation_stage,
+            :visibility_level,
             :status_id,
             :position,
             :minor_change,

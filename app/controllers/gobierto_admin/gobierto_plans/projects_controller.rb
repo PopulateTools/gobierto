@@ -163,7 +163,7 @@ module GobiertoAdmin
                                                                           :update
                                                                         end
                                                     if controller_action.present?
-                                                      GobiertoAdmin::GobiertoPlans::ProjectPolicy.admin_actions(controller_action) & current_admin_allowed_actions
+                                                      permissions_policy.scoped_admin_actions(:create) & current_admin_allowed_actions
                                                     end
                                                   end
       end
@@ -285,7 +285,7 @@ module GobiertoAdmin
       end
 
       def base_relation
-        if admin_actions_manager.action_allowed?(admin: current_admin, action_name: [:view_projects, :edit_projects, :moderate_projects, :manage])
+        if (current_admin_allowed_actions & permissions_policy.scoped_admin_actions(action_name.to_sym, scope: :all)).present?
           @plan.nodes
         else
           GobiertoAdmin::AdminResourcesQuery.new(current_admin, relation: @plan.nodes).allowed(include_moderated: false)

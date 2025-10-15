@@ -164,7 +164,7 @@ module GobiertoAdmin
                                                                           :update
                                                                         end
                                                     if controller_action.present?
-                                                      permissions_policy.scoped_admin_actions(:create) & current_admin_allowed_actions
+                                                      permissions_policy.scoped_admin_actions(controller_action) & current_admin_allowed_actions
                                                     end
                                                   end
       end

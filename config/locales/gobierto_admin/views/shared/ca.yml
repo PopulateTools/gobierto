@@ -32,7 +32,8 @@ ca:
         change_moderation_status: Canvia l'estat de moderació
         confirm: Estàs segur?
         confirm_moderation_blocked_update: Estàs segur? Si deseu modificacions en aquest
-          projecte l'estat s'actualitzarà a Enviat.
+          projecte l'estat s'actualitzarà a Enviat a no ser que marquis el canvi com a
+          menor.
         edit_version: Editant versió
         last_versions: Últimes versions
         minor_change: Canvi menor (no guarda versió)

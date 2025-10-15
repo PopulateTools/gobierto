@@ -3,11 +3,13 @@
 module GobiertoAdmin
   module GobiertoPlans
     class ProjectsController < GobiertoAdmin::GobiertoPlans::BaseController
+      COLLECTION_ACTIONS = [:index, :new, :create]
+
       before_action :find_plan
-      before_action :find_project, except: [:index, :new]
+      before_action :find_project, except: COLLECTION_ACTIONS
       before_action -> { review_allowed_actions! }
 
-      helper_method :current_controller_allowed_actions, :current_admin_allowed_update_actions, :admin_projects_actions
+      helper_method :current_controller_allowed_actions, :current_admin_allowed_actions, :current_admin_allowed_update_actions, :admin_projects_actions
 
       def index
         set_filters
@@ -30,7 +32,8 @@ module GobiertoAdmin
             options_json: @project.options,
             admin: current_admin,
             version: params[:version],
-            permissions_policy:
+            allowed_admin_actions: current_admin_allowed_actions,
+            allowed_controller_actions: current_controller_allowed_actions
           ).merge(versions_defaults)
         )
         initialize_custom_field_form
@@ -38,7 +41,15 @@ module GobiertoAdmin
       end
 
       def update
-        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin, permissions_policy:))
+        @project_form = NodeForm.new(
+          project_params.merge(
+            id: params[:id],
+            plan_id: params[:plan_id],
+            admin: current_admin,
+            allowed_admin_actions: current_admin_allowed_actions,
+            allowed_controller_actions: current_controller_allowed_actions
+          )
+        )
         save_versions_defaults
         @unpublish_url = unpublish_admin_plans_plan_project_path(@plan, @project)
         @version_index = @project_form.version_index
@@ -80,14 +91,23 @@ module GobiertoAdmin
             plan_id: @plan.id,
             options_json: {},
             admin: current_admin,
-            permissions_policy:
+            allowed_admin_actions: current_admin_allowed_actions,
+            allowed_controller_actions: current_controller_allowed_actions
           )
         )
         initialize_custom_field_form
       end
 
       def create
-        @project_form = NodeForm.new(project_params.merge(id: params[:id], plan_id: params[:plan_id], admin: current_admin, permissions_policy:))
+        @project_form = NodeForm.new(
+          project_params.merge(
+            id: params[:id],
+            plan_id: params[:plan_id],
+            admin: current_admin,
+            allowed_admin_actions: current_admin_allowed_actions,
+            allowed_controller_actions: current_controller_allowed_actions
+          )
+        )
         initialize_custom_field_form
         save_versions_defaults
 
@@ -127,18 +147,33 @@ module GobiertoAdmin
       end
 
       def current_controller_allowed_actions
-        @current_controller_allowed_actions ||= permissions_policy.allowed_actions
+        @current_controller_allowed_actions ||= if @project
+                                                  admin_projects_actions[@project.id]&.dig(:controller_actions) || admin_projects_actions&.dig(:default, :controller_actions) || []
+                                                else
+                                                  admin_projects_actions&.dig(COLLECTION_ACTIONS.include?(action_name.to_sym) ? :collection : :default, :controller_actions) || []
+                                                end
       end
 
       def current_admin_allowed_update_actions
-        @current_admin_allowed_update_actions ||= case action_name
-                                                  when "new", "create"
-                                                    permissions_policy.allowed_admin_actions_to(:create)
-                                                  when "edit", "update"
-                                                    permissions_policy.allowed_admin_actions_to(:update)
-                                                  else
-                                                    []
+        @current_admin_allowed_update_actions ||= begin
+                                                    controller_action = case action_name
+                                                                        when "new", "create"
+                                                                          :create
+                                                                        when "edit", "update"
+                                                                          :update
+                                                                        end
+                                                    if controller_action.present?
+                                                      permissions_policy.scoped_admin_actions(:create) & current_admin_allowed_actions
+                                                    end
                                                   end
+      end
+
+      def current_admin_allowed_actions
+        @current_admin_allowed_actions ||= if @project
+                                             admin_projects_actions[@project.id]&.dig(:admin_actions) || admin_projects_actions&.dig(:default, :admin_actions) || []
+                                           else
+                                             admin_projects_actions&.dig(COLLECTION_ACTIONS.include?(action_name.to_sym) ? :collection : :default, :admin_actions) || []
+                                           end
       end
 
       private
@@ -179,7 +214,8 @@ module GobiertoAdmin
           admin: current_admin,
           visibility_level: visibility_level,
           disable_attributes_edition: true,
-          permissions_policy:
+          allowed_admin_actions: current_admin_allowed_actions,
+          allowed_controller_actions: current_controller_allowed_actions
         )
 
         if @project_form.save
@@ -197,10 +233,11 @@ module GobiertoAdmin
 
       def set_filters
         @form = ProjectsFilterForm.new(filter_params.merge(plan: @plan, admin: current_admin, permissions_policy:))
-        @relation = if /edit/.match?(filter_params["admin_actions"])
-                      @form.editor_relation
-                    else
+        editor_filter = /edit/.match?(filter_params["admin_actions"])
+        @relation = if current_admin_allowed_actions.include?(:view_projects_all) && !editor_filter
                       @form.base_relation
+                    else
+                      @form.editor_relation
                     end
 
         @form.filter_params.each do |param|
@@ -249,7 +286,7 @@ module GobiertoAdmin
       end
 
       def base_relation
-        if admin_actions_manager.action_allowed?(admin: current_admin, action_name: [:view_projects, :edit_projects, :moderate_projects, :manage])
+        if (current_admin_allowed_actions & permissions_policy.scoped_admin_actions(action_name.to_sym, scope: :all)).present?
           @plan.nodes
         else
           GobiertoAdmin::AdminResourcesQuery.new(current_admin, relation: @plan.nodes).allowed(include_moderated: false)
@@ -357,10 +394,6 @@ module GobiertoAdmin
 
       def default_activity_params
         { ip: remote_ip, author: current_admin, site_id: current_site.id }
-      end
-
-      def admin_projects_actions
-        @admin_projects_actions ||= admin_actions_manager.admin_actions(admin: current_admin, resource: @plan.nodes)
       end
     end
   end

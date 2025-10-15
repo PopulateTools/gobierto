@@ -1,6 +1,5 @@
 <% versioned_resource = GobiertoAdmin::VersionedResourceDecorator.new(resource) %>
 <% moderated_resource = GobiertoAdmin::ModeratedResourceDecorator.new(versioned_resource.has_versions? ? versioned_resource.live_version : resource, current_admin: current_admin, current_site: current_site) %>
-<% allowed_admin_actions = permissions_policy.allowed_admin_actions %>
 
 <div class="pure-u-1 pure-u-md-1-4">
 
@@ -12,7 +11,7 @@
 
         <% if [:edit_projects, :moderate_projects, :create_projects].any? { |action| allowed_admin_actions.include?(action) } %>
           <div class="w_actions m_b_1">
-            <% submit_data = permissions_policy.allowed_admin_actions_to(:update).exclude?(:moderate_projects) && moderated_resource.moderation_confirm_data || {} %>
+            <% submit_data = allowed_admin_actions.exclude?(:moderate_projects) && moderated_resource.moderation_confirm_data || {} %>
             <%= button_tag t("gobierto_admin.shared.moderation_save_widget.save"), class: "button medium", data: submit_data %>
             <%= f.button(
                   t("gobierto_admin.shared.moderation_save_widget.preview"),

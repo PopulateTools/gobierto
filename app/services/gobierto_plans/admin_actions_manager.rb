@@ -25,33 +25,35 @@ module GobiertoPlans
       end.flatten.compact
     end
 
-    def assigned_resource_ids(admin:, resource:)
-      return resource if admin.managing_user?
-
-      assigned_resource_groups = resource.presence && admin.admin_groups.where(resource:)
-
-      return [] unless assigned_resource_groups.exists?
-
-      if resource.is_a? ActiveRecord::Relation
-        cache_key = [admin.cache_key, resource.cache_key].join("-")
-        cache_data(cache_key) do
-          assigned_resource_groups.pluck(:resource_id)
-        end
-      else
-        [resource&.id]
-      end
-    end
-
     def admin_actions(admin:, resource:)
+      all_action_names = action_names(scope: :all)
+
+      if admin.managing_user?
+        controller_actions = GobiertoAdmin::GobiertoPlans::ProjectPolicy::ALLOWED_ACTIONS_MAPPING.values.flatten.uniq
+        return {
+          default: {
+            admin_actions: all_action_names,
+            controller_actions:
+          },
+          collection: {
+            admin_actions: all_action_names,
+            controller_actions:
+          }
+        }
+      end
+
       module_level_actions = module_level_permissions(admin).pluck(:action_name).map(&:to_sym)
 
-      all_actions = action_names(scope: :all) & module_level_actions
+      all_actions = all_action_names & module_level_actions
       assigned_actions = all_actions + action_names(scope: :assigned) & module_level_actions
 
       all_controller_actions = GobiertoAdmin::GobiertoPlans::ProjectPolicy.controller_actions(*all_actions.map { |name| unscoped_names(name) }.flatten)
       assigned_controller_actions = GobiertoAdmin::GobiertoPlans::ProjectPolicy.controller_actions(*assigned_actions.map { |name| unscoped_names(name) }.flatten)
 
-      actions_list = { default: { admin_actions: all_actions, controller_actions: all_controller_actions } }
+      actions_list = {
+        default: { admin_actions: all_actions, controller_actions: all_controller_actions },
+        collection: { admin_actions: (all_actions + assigned_actions).uniq, controller_actions: (all_controller_actions + assigned_controller_actions).uniq }
+      }
 
       if assigned_actions.present?
         assigned_resource_ids(admin:, resource:).each do |id|
@@ -70,7 +72,7 @@ module GobiertoPlans
 
       # Direct permissions: The assigned resource groups have permissions for
       # the action
-      return true if direct_permisions(action_name:, groups: assigned_resource_groups).exists?
+      return true if direct_permissions(action_name:, groups: assigned_resource_groups).exists?
 
       action_scoped_names = scoped_names(action_name)
 
@@ -87,7 +89,6 @@ module GobiertoPlans
       false
     end
 
-    private
 
     def scoped_names(action_name)
       action_name = action_name.to_sym
@@ -113,11 +114,30 @@ module GobiertoPlans
       end
     end
 
+    private
+
     def unscoped_names(action_name)
       scoped_names(action_name).map { |scope, name| name.to_s.gsub(/_#{scope}\z/, "").to_sym }.uniq
     end
 
-    def direct_permisions(action_name:, groups:)
+    def assigned_resource_ids(admin:, resource:)
+      return resource if admin.managing_user?
+
+      assigned_resource_groups = resource.presence && admin.admin_groups.where(resource:)
+
+      return [] unless assigned_resource_groups.exists?
+
+      if resource.is_a? ActiveRecord::Relation
+        cache_key = [admin.cache_key, resource.cache_key].join("-")
+        cache_data(cache_key) do
+          assigned_resource_groups.pluck(:resource_id)
+        end
+      else
+        [resource&.id]
+      end
+    end
+
+    def direct_permissions(action_name:, groups:)
       GobiertoAdmin::GroupPermission
         .where(admin_group: groups, namespace: module_name)
         .where("action_name LIKE ?", GobiertoAdmin::GroupPermission.sanitize_sql_like(action_name.to_s + "%"))

@@ -41,6 +41,17 @@ module GobiertoAdmin
         @actions_manager = ::GobiertoAdmin::AdminActionsManager.for("gobierto_plans", current_site)
       end
 
+      def scoped_admin_actions(*controller_action_names, scope: nil)
+        ALLOWED_ACTIONS_MAPPING.filter_map do |admin_action, controller_actions|
+          next if (controller_actions & controller_action_names).blank?
+
+          scoped_names = actions_manager.scoped_names(admin_action)
+          next scoped_names.values if scope.blank?
+
+          scoped_names[scope]
+        end.flatten
+      end
+
       def allowed_to?(action)
         allowed_actions.include?(action)
       end
@@ -59,11 +70,6 @@ module GobiertoAdmin
 
       def allowed_admin_actions_by_scope(scope)
         actions_manager.action_names(scope:).select { |admin_action_name| can_perform_action_on_resource?(admin_action_name) }
-      end
-
-      def allowed_admin_actions_to(action_name)
-        action_name = action_name.to_sym
-        allowed_admin_actions.select { |admin_action_name| ALLOWED_ACTIONS_MAPPING[admin_action_name].include?(action_name) }
       end
 
       private

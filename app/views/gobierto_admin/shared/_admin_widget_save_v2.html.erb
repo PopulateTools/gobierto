@@ -1,5 +1,7 @@
 <% versioned_resource = GobiertoAdmin::VersionedResourceDecorator.new(resource) %>
 <% moderated_resource = GobiertoAdmin::ModeratedResourceDecorator.new(versioned_resource.has_versions? ? versioned_resource.live_version : resource, current_admin: current_admin, current_site: current_site) %>
+<% save_allowed = [:edit_projects, :moderate_projects].any? { |action| allowed_admin_actions.include?(action) } ||
+  moderated_resource.new_record? && allowed_admin_actions.include?(:create_projects) %>
 
 <div class="pure-u-1 pure-u-md-1-4">
 
@@ -9,7 +11,7 @@
 
       <div class="w_s_content">
 
-        <% if [:edit_projects, :moderate_projects, :create_projects].any? { |action| allowed_admin_actions.include?(action) } %>
+        <% if save_allowed %>
           <div class="w_actions m_b_1">
             <% submit_data = allowed_admin_actions.exclude?(:moderate_projects) && moderated_resource.moderation_confirm_data || {} %>
             <%= button_tag t("gobierto_admin.shared.moderation_save_widget.save"), class: "button medium", data: submit_data %>
@@ -116,8 +118,7 @@
               </div>
             <% end %>
 
-            <% if allowed_admin_actions.include?(:publish_projects) %>
-              <% if moderated_resource.publicable? %>
+              <% if allowed_admin_actions.include?(:publish_projects) && moderated_resource.persisted? %>
                 <div class="w_s_txt_msg f_small m_t_4">
                   <%= t("gobierto_admin.shared.moderation_save_widget.moderation_info.#{versioned_resource.current_version_publication_step}_html", url: @unpublish_url) %>
                 </div>
@@ -131,7 +132,7 @@
                         data: { confirm: versioned_resource.first_publication_confirm_message }
                       ) %>
                 </div>
-              <% else %>
+              <% elsif !moderated_resource.publicable? && allowed_admin_actions.include?(:edit_projects) %>
                 <div class="w_s_txt_msg f_small m_t_4">
                   <%= t("gobierto_admin.shared.moderation_save_widget.moderation_info.#{moderated_resource.publish_moderation_step}") %>
                 </div>
@@ -147,8 +148,6 @@
                       ) %>
                 </div>
               <% end %>
-            <% end %>
-
           </div>
 
         </div>

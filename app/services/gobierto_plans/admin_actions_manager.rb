@@ -25,23 +25,6 @@ module GobiertoPlans
       end.flatten.compact
     end
 
-    def assigned_resource_ids(admin:, resource:)
-      return resource if admin.managing_user?
-
-      assigned_resource_groups = resource.presence && admin.admin_groups.where(resource:)
-
-      return [] unless assigned_resource_groups.exists?
-
-      if resource.is_a? ActiveRecord::Relation
-        cache_key = [admin.cache_key, resource.cache_key].join("-")
-        cache_data(cache_key) do
-          assigned_resource_groups.pluck(:resource_id)
-        end
-      else
-        [resource&.id]
-      end
-    end
-
     def admin_actions(admin:, resource:)
       module_level_actions = module_level_permissions(admin).pluck(:action_name).map(&:to_sym)
 
@@ -73,7 +56,7 @@ module GobiertoPlans
 
       # Direct permissions: The assigned resource groups have permissions for
       # the action
-      return true if direct_permisions(action_name:, groups: assigned_resource_groups).exists?
+      return true if direct_permissions(action_name:, groups: assigned_resource_groups).exists?
 
       action_scoped_names = scoped_names(action_name)
 
@@ -120,7 +103,24 @@ module GobiertoPlans
       scoped_names(action_name).map { |scope, name| name.to_s.gsub(/_#{scope}\z/, "").to_sym }.uniq
     end
 
-    def direct_permisions(action_name:, groups:)
+    def assigned_resource_ids(admin:, resource:)
+      return resource if admin.managing_user?
+
+      assigned_resource_groups = resource.presence && admin.admin_groups.where(resource:)
+
+      return [] unless assigned_resource_groups.exists?
+
+      if resource.is_a? ActiveRecord::Relation
+        cache_key = [admin.cache_key, resource.cache_key].join("-")
+        cache_data(cache_key) do
+          assigned_resource_groups.pluck(:resource_id)
+        end
+      else
+        [resource&.id]
+      end
+    end
+
+    def direct_permissions(action_name:, groups:)
       GobiertoAdmin::GroupPermission
         .where(admin_group: groups, namespace: module_name)
         .where("action_name LIKE ?", GobiertoAdmin::GroupPermission.sanitize_sql_like(action_name.to_s + "%"))

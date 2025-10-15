@@ -164,7 +164,10 @@ module GobiertoAdmin
                                                                           :update
                                                                         end
                                                     if controller_action.present?
-                                                      permissions_policy.scoped_admin_actions(controller_action) & current_admin_allowed_actions
+                                                      names = permissions_policy.actions_manager.unscoped_names(
+                                                        *permissions_policy.scoped_admin_actions(controller_action)
+                                                      )
+                                                      names & current_admin_allowed_unscoped_actions
                                                     end
                                                   end
       end

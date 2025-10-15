@@ -51,7 +51,10 @@ module GobiertoPlans
       all_controller_actions = GobiertoAdmin::GobiertoPlans::ProjectPolicy.controller_actions(*all_actions.map { |name| unscoped_names(name) }.flatten)
       assigned_controller_actions = GobiertoAdmin::GobiertoPlans::ProjectPolicy.controller_actions(*assigned_actions.map { |name| unscoped_names(name) }.flatten)
 
-      actions_list = { default: { admin_actions: all_actions, controller_actions: all_controller_actions } }
+      actions_list = {
+        default: { admin_actions: all_actions, controller_actions: all_controller_actions },
+        collection: { admin_actions: (all_actions + assigned_actions).uniq, controller_actions: (all_controller_actions + assigned_controller_actions).uniq }
+      }
 
       if assigned_actions.present?
         assigned_resource_ids(admin:, resource:).each do |id|

@@ -5,13 +5,13 @@ class GobiertoAdmin::Moderation < ApplicationRecord
   belongs_to :admin, optional: true
   belongs_to :moderable, polymorphic: true
 
-  enum stage: { not_sent: 0,
+  enum stage: { unsent: 0,
                 sent: 1,
                 in_review: 2,
                 approved: 3,
                 rejected: 4 }
 
-  STAGES_FLOW = { not_sent: { sent: [:edit, :moderate] },
+  STAGES_FLOW = { unsent: { sent: [:edit, :moderate] },
                   sent: { in_review: [:moderate] },
                   in_review: { sent: [:moderate],
                                approved: [:moderate],
@@ -21,7 +21,7 @@ class GobiertoAdmin::Moderation < ApplicationRecord
                   rejected: { in_review: [:moderate],
                               approved: [:moderate] } }.with_indifferent_access.freeze
 
-  LOCKED_EDITION = { not_sent: [:visibility_level],
+  LOCKED_EDITION = { unsent: [:visibility_level],
                      sent: [:visibility_level],
                      in_review: [:visibility_level],
                      approved: [],

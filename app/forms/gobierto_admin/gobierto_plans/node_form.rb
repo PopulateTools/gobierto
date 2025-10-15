@@ -30,7 +30,8 @@ module GobiertoAdmin
         :publish_last_version_automatically,
         :minor_change
       )
-      attr_reader :permissions_policy
+      attr_reader :allowed_admin_actions
+      attr_reader :allowed_controller_actions
 
       validates :plan, :admin, presence: true
       validates :progress, presence: true, if: -> { @passed_attributes.include?("progress") }
@@ -44,7 +45,8 @@ module GobiertoAdmin
 
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
-        @permissions_policy = options.delete(:permissions_policy)
+        @allowed_admin_actions = options.delete(:allowed_admin_actions)
+        @allowed_controller_actions = options.delete(:allowed_controller_actions)
         ordered_options = options.slice(:id, :plan_id, :admin).merge!(options)
         @passed_attributes = ordered_options.keys
         @publication_updated = false
@@ -128,7 +130,7 @@ module GobiertoAdmin
       end
 
       def allow_edit_attributes?
-        !disable_attributes_edition && permissions_policy.allowed_admin_actions_to(:update).include?(:edit_projects) || permissions_policy.allowed_actions.include?(:create)
+        !disable_attributes_edition && allowed_admin_actions.include?(:edit_projects) || allowed_controller_actions.include?(:create)
       end
 
       def reset_moderation?
@@ -136,15 +138,15 @@ module GobiertoAdmin
       end
 
       def block_moderation?
-        @block_moderation ||= permissions_policy.allowed_admin_actions_to(:update).exclude?(:moderate_projects)
+        @block_moderation ||= allowed_admin_actions.exclude?(:moderate_projects)
       end
 
       def allow_publish?
-        permissions_policy.allowed_admin_actions_to(:update).include?(:publish_projects)
+        allowed_admin_actions.include?(:publish_projects)
       end
 
       def allow_manage_admin_groups?
-        permissions_policy.allowed_admin_actions_to(:update).include?(:manage)
+        allowed_admin_actions.include?(:manage)
       end
 
       def moderation_visibility_level
@@ -210,7 +212,7 @@ module GobiertoAdmin
       end
 
       def disable_attributes_edition
-        @disable_attributes_edition && permissions_policy.allowed_admin_actions_to(:update).include?(:publish_projects)
+        @disable_attributes_edition && allowed_admin_actions.include?(:publish_projects)
       end
 
       def moderation_policy

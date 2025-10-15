@@ -69,7 +69,7 @@ module GobiertoAdmin
       end
 
       def current_controller_allowed_actions
-        @current_controller_allowed_actions ||= permissions_policy.allowed_actions
+        @current_controller_allowed_actions ||= admin_projects_actions&.dig(:default, :controller_actions) || []
       end
 
       def permissions_policy

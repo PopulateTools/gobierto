@@ -3,11 +3,13 @@
 module GobiertoAdmin
   module GobiertoPlans
     class ProjectsController < GobiertoAdmin::GobiertoPlans::BaseController
+      COLLECTION_ACTIONS = [:index, :new, :create]
+
       before_action :find_plan
-      before_action :find_project, except: [:index, :new]
+      before_action :find_project, except: COLLECTION_ACTIONS
       before_action -> { review_allowed_actions! }
 
-      helper_method :current_controller_allowed_actions, :current_admin_allowed_update_actions, :admin_projects_actions
+      helper_method :current_controller_allowed_actions, :current_admin_allowed_actions, :current_admin_allowed_update_actions, :admin_projects_actions
 
       def index
         set_filters
@@ -127,18 +129,33 @@ module GobiertoAdmin
       end
 
       def current_controller_allowed_actions
-        @current_controller_allowed_actions ||= permissions_policy.allowed_actions
+        @current_controller_allowed_actions ||= if @project
+                                                  admin_projects_actions[@project.id]&.dig(:controller_actions) || admin_projects_actions&.dig(:default, :controller_actions) || []
+                                                else
+                                                  admin_projects_actions&.dig(COLLECTION_ACTIONS.include?(action_name.to_sym) ? :collection : :default, :controller_actions) || []
+                                                end
       end
 
       def current_admin_allowed_update_actions
-        @current_admin_allowed_update_actions ||= case action_name
-                                                  when "new", "create"
-                                                    permissions_policy.allowed_admin_actions_to(:create)
-                                                  when "edit", "update"
-                                                    permissions_policy.allowed_admin_actions_to(:update)
-                                                  else
-                                                    []
+        @current_admin_allowed_update_actions ||= begin
+                                                    controller_action = case action_name
+                                                                        when "new", "create"
+                                                                          :create
+                                                                        when "edit", "update"
+                                                                          :update
+                                                                        end
+                                                    if controller_action.present?
+                                                      GobiertoAdmin::GobiertoPlans::ProjectPolicy.admin_actions(controller_action) & current_admin_allowed_actions
+                                                    end
                                                   end
+      end
+
+      def current_admin_allowed_actions
+        @current_admin_allowed_actions ||= if @project
+                                             admin_projects_actions[@project.id]&.dig(:admin_actions) || admin_projects_actions&.dig(:default, :admin_actions) || []
+                                           else
+                                             admin_projects_actions&.dig(COLLECTION_ACTIONS.include?(action_name.to_sym) ? :collection : :default, :admin_actions) || []
+                                           end
       end
 
       private
@@ -357,10 +374,6 @@ module GobiertoAdmin
 
       def default_activity_params
         { ip: remote_ip, author: current_admin, site_id: current_site.id }
-      end
-
-      def admin_projects_actions
-        @admin_projects_actions ||= admin_actions_manager.admin_actions(admin: current_admin, resource: @plan.nodes)
       end
     end
   end

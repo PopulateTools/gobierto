@@ -121,9 +121,9 @@ en:
             approved: Approved
             blank: Without moderation
             in_review: Under review
-            not_sent: Not sent
             rejected: Rejected
             sent: Sent
+            unsent: Not sent
           total: Total
         form:
           button:

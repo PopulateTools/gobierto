@@ -39,8 +39,6 @@ en:
         moderation: Moderation
         moderation_info:
           new: After saving your content, it can be sent to moderation.
-          not_sent: When your content is ready to be reviewed by a moderator, click
-            on Send.
           publicable: Click on Publish to make this version publicly visible.
           publicable_html: Click on Publish to make this version publicly visible.
           published: Current version is the published one.
@@ -49,12 +47,14 @@ en:
           rejected: Version rejected.
           sent: Your content has been sent for review. You will receive a notification
             if it is approved or you are asked for changes.
+          unsent: When your content is ready to be reviewed by a moderator, click
+            on Send.
         moderation_status:
           approved: Approved
           in_review: Under review
-          not_sent: Not sent
           rejected: Rejected
           sent: Sent
+          unsent: Not sent
         new_version: New (not saved)
         preview: Preview
         previous_versions: Previous versions

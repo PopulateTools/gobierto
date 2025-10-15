@@ -39,8 +39,6 @@ es:
         moderation: Moderación
         moderation_info:
           new: Una vez guardes tu contenido, podrás enviarlo a moderación.
-          not_sent: Cuando tu contenido esté listo para ser revisado por un moderador,
-            haz click en Enviar.
           publicable: Haz click en Publicar para que esta versión sea visible publicamente.
           publicable_html: Haz click en Publicar para que esta versión sea visible
             publicamente.
@@ -50,12 +48,14 @@ es:
           rejected: La versión está rechazada.
           sent: Tu contenido ha sido enviado para revisión. Recibirás una notificación
             cuando se apruebe o te soliciten cambios.
+          unsent: Cuando tu contenido esté listo para ser revisado por un moderador,
+            haz click en Enviar.
         moderation_status:
           approved: Aprobado
           in_review: En revisión
-          not_sent: No enviado
           rejected: Rechazado
           sent: Enviado
+          unsent: No enviado
         new_version: Nueva (no guardada)
         preview: Previsualizar
         previous_versions: Versiones anteriores

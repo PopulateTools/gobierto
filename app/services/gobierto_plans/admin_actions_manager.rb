@@ -114,11 +114,13 @@ module GobiertoPlans
       end
     end
 
-    private
-
-    def unscoped_names(action_name)
-      scoped_names(action_name).map { |scope, name| name.to_s.gsub(/_#{scope}\z/, "").to_sym }.uniq
+    def unscoped_names(*action_names)
+      action_names.map do |action_name|
+        scoped_names(action_name).map { |scope, name| name.to_s.gsub(/_#{scope}\z/, "").to_sym }
+      end.flatten.uniq
     end
+
+    private
 
     def assigned_resource_ids(admin:, resource:)
       return resource if admin.managing_user?

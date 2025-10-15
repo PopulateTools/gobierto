@@ -294,7 +294,8 @@ module GobiertoAdmin
       end
 
       def base_relation
-        if (current_admin_allowed_actions & permissions_policy.scoped_admin_actions(action_name.to_sym, scope: :all)).present?
+        actions = admin_projects_actions&.dig(COLLECTION_ACTIONS.include?(action_name.to_sym) ? :collection : :default, :admin_actions) || []
+        if (actions & permissions_policy.scoped_admin_actions(action_name.to_sym, scope: :all)).present?
           @plan.nodes
         else
           GobiertoAdmin::AdminResourcesQuery.new(current_admin, relation: @plan.nodes).allowed(include_moderated: false)

@@ -9,7 +9,8 @@ module GobiertoAdmin
       before_action :find_project, except: COLLECTION_ACTIONS
       before_action -> { review_allowed_actions! }
 
-      helper_method :current_controller_allowed_actions, :current_admin_allowed_actions, :current_admin_allowed_update_actions, :admin_projects_actions
+      helper_method :admin_projects_actions, :current_controller_allowed_actions, :current_admin_allowed_actions,
+                     :current_admin_allowed_update_actions, :current_admin_allowed_unscoped_actions
 
       def index
         set_filters
@@ -32,7 +33,7 @@ module GobiertoAdmin
             options_json: @project.options,
             admin: current_admin,
             version: params[:version],
-            allowed_admin_actions: current_admin_allowed_actions,
+            allowed_admin_actions: current_admin_allowed_unscoped_actions,
             allowed_controller_actions: current_controller_allowed_actions
           ).merge(versions_defaults)
         )
@@ -46,7 +47,7 @@ module GobiertoAdmin
             id: params[:id],
             plan_id: params[:plan_id],
             admin: current_admin,
-            allowed_admin_actions: current_admin_allowed_actions,
+            allowed_admin_actions: current_admin_allowed_unscoped_actions,
             allowed_controller_actions: current_controller_allowed_actions
           )
         )
@@ -91,7 +92,7 @@ module GobiertoAdmin
             plan_id: @plan.id,
             options_json: {},
             admin: current_admin,
-            allowed_admin_actions: current_admin_allowed_actions,
+            allowed_admin_actions: current_admin_allowed_unscoped_actions,
             allowed_controller_actions: current_controller_allowed_actions
           )
         )
@@ -104,7 +105,7 @@ module GobiertoAdmin
             id: params[:id],
             plan_id: params[:plan_id],
             admin: current_admin,
-            allowed_admin_actions: current_admin_allowed_actions,
+            allowed_admin_actions: current_admin_allowed_unscoped_actions,
             allowed_controller_actions: current_controller_allowed_actions
           )
         )
@@ -176,6 +177,10 @@ module GobiertoAdmin
                                            end
       end
 
+      def current_admin_allowed_unscoped_actions
+        @current_admin_allowed_unscoped_actions ||= permissions_policy.actions_manager.unscoped_names(*current_admin_allowed_actions)
+      end
+
       private
 
       def permissions_policy
@@ -214,7 +219,7 @@ module GobiertoAdmin
           admin: current_admin,
           visibility_level: visibility_level,
           disable_attributes_edition: true,
-          allowed_admin_actions: current_admin_allowed_actions,
+          allowed_admin_actions: current_admin_allowed_unscoped_actions,
           allowed_controller_actions: current_controller_allowed_actions
         )
 

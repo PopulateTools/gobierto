@@ -25,7 +25,7 @@ module GobiertoAdmin
         end
 
         def term_params
-          params.require(:term).permit(name_translations: {})
+          params.require(:term).permit(:external_id, name_translations: {})
         end
 
         def set_admin_by_session_or_token

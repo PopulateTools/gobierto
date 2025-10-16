@@ -96,7 +96,8 @@
       locals: {
         f: f,
         item: @custom_fields_form,
-        form_name: "project"
+        form_name: "project",
+        disabled: !@project_form.allow_edit_attributes?
       }
     ) %>
   </div>

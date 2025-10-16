@@ -26,6 +26,7 @@
               content: content,
               index: index,
               input_base_name: input_base_name,
+              disabled:,
               f: f
             }
           ) %>
@@ -36,17 +37,19 @@
     <% end %>
   <% end %>
 
-  <% if multiple %>
-    <%= render(
-      partial: "gobierto_admin/gobierto_common/custom_fields/forms/new_gallery_image",
-      locals: {
-        record: record,
-        input_base_name: input_base_name,
-        f: f
-      }
-    ) %>
-  <% else %>
-    <%= f.file_field "[custom_records][#{record.uid}][value]", id: record.uid %>
-    <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
+  <% unless disabled %>
+    <% if multiple %>
+      <%= render(
+        partial: "gobierto_admin/gobierto_common/custom_fields/forms/new_gallery_image",
+        locals: {
+          record: record,
+          input_base_name: input_base_name,
+          f: f
+        }
+      ) %>
+    <% else %>
+      <%= f.file_field "[custom_records][#{record.uid}][value]", id: record.uid %>
+      <%= hidden_field_tag "#{ input_base_name }[#{ record.uid }][custom_field_id]", record.custom_field_id %>
+    <% end %>
   <% end %>
 </div>

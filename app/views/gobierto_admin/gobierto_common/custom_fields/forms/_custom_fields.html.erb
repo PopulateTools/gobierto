@@ -1,4 +1,5 @@
 <% input_base_name = "#{ form_name }[custom_records]" %>
+<% disabled = local_assigns[:disabled] || false %>
 
 <% if item.has_localized_records? %>
   <div class="globalized_fields">
@@ -12,6 +13,7 @@
             locale: locale,
             record: record,
             input_base_name: input_base_name,
+            disabled:
           }
         ) %>
       <% end %>
@@ -26,7 +28,8 @@
       f: f,
       record: record,
       input_base_name: input_base_name,
-      multiple: record.custom_field.configuration.multiple && record.value.is_a?(Array)
+      multiple: record.custom_field.configuration.multiple && record.value.is_a?(Array),
+      disabled:
     }
   ) %>
 <% end %>

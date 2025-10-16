@@ -33,6 +33,12 @@ export default {
       id: "tipus-projecte"
     },
     {
+      id: "zones"
+    },
+    {
+      id: "consells-territorials"
+    },
+    {
       id: "import"
     }
   ],
@@ -77,6 +83,9 @@ export default {
       type: "separator"
     },
     {
+      id: "data-inici-obra"
+    },
+    {
       id: "data-inici-redaccio"
     },
     {
@@ -90,6 +99,9 @@ export default {
     },
     {
       id: "data-final"
+    },
+    {
+      id: "data-final-obra"
     },
     {
       type: "separator"

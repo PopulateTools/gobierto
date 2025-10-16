@@ -9,7 +9,8 @@
         "#{ input_base_name }[#{ record.uid }][value]",
         record.input_content,
         record.tag_attributes.deep_merge(
-          data: { "startDate": microseconds_since_epoch(record, :value) }
+          data: { "startDate": microseconds_since_epoch(record, :value) },
+          disabled:
         )
       ) %>
 </div>

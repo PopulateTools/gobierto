@@ -374,7 +374,7 @@ module GobiertoAdmin
           with_version: !@project_form.minor_change
         )
         custom_params_key = self.class.name.demodulize.gsub("Controller", "").underscore.singularize
-        return if request.get? || !params.has_key?(custom_params_key)
+        return if request.get? || !params.has_key?(custom_params_key) || !@project_form.allow_edit_attributes?
 
         @custom_fields_form.custom_field_records = params.require(custom_params_key).permit(custom_records: {})
         @new_version = @custom_fields_form.changed? || @project_form.attributes_updated?
@@ -385,6 +385,8 @@ module GobiertoAdmin
       end
 
       def custom_fields_save
+        return true if !@project_form.allow_edit_attributes?
+
         @custom_fields_form.save
       end
 

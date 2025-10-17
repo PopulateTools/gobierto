@@ -19,6 +19,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
   function _handlePluginData(uid) {
     let element = $(`[data-uid=${uid}]`)
     let id = element.attr('id')
+    let isDisabled = element.attr("data-disabled") === "true"
     let data = _deserializeTablePluginData($(`#${id} .custom_field_value`).find("input").val(), uid)
     let columnsConfiguration = element.data("configuration").columns || []
     let vocabulariesConfiguration = columnsConfiguration.filter(
@@ -41,7 +42,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
           vocabulariesData[vocabulariesConfiguration[idx].id] = values[idx]["terms"] }
       )
       applyPluginStyles(element, _pluginCssClass)
-      _slickGrid(id, data, _columnsSettings(columnsConfiguration, vocabulariesData))
+      _slickGrid(id, data, _columnsSettings(columnsConfiguration, vocabulariesData), isDisabled)
     })
   }
 
@@ -91,15 +92,17 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
     }[type]
   }
 
-  function _slickGrid(id, data, columns) {
+  function _slickGrid(id, data, columns, isDisabled) {
     function _initializeGrid(id, data, columns, options) {
-      var checkboxSelector = new CheckboxDeleteRowPlugin({
-        cssClass: "slick-cell-checkboxsel",
-        hideSelectAllCheckbox: true,
-        containerId: id,
-      });
+      if (!isDisabled) {
+        var checkboxSelector = new CheckboxDeleteRowPlugin({
+          cssClass: "slick-cell-checkboxsel",
+          hideSelectAllCheckbox: true,
+          containerId: id,
+        });
 
-      columns.unshift(checkboxSelector.getColumnDefinition());
+        columns.unshift(checkboxSelector.getColumnDefinition());
+      }
 
       _grid = new SlickGrid(`#${id} .data-container`, data, columns, options);
       $(`#${id}`).data('slickGrid', _grid);
@@ -113,7 +116,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
         _grid.render();
       });
 
-      _grid.registerPlugin(checkboxSelector);
+      if (!isDisabled) {
+        _grid.registerPlugin(checkboxSelector);
+      }
 
       const gridHTML = document.getElementById(id)
       const addDashboardBtn = gridHTML.querySelector("[add-dashboard-btn]")
@@ -141,7 +146,12 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
       }
     }
 
-    let customSlickGridOptions = { itemsCountId: `${id}_items` }
+    let customSlickGridOptions = {
+      itemsCountId: `${id}_items`,
+      editable: !isDisabled,
+      autoEdit: !isDisabled,
+      enableAddRow: !isDisabled
+    }
 
     _initializeGrid(id, data, columns, { ...defaultSlickGridOptions, ...customSlickGridOptions });
   }

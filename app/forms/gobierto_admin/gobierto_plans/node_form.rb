@@ -129,7 +129,7 @@ module GobiertoAdmin
 
       def moderation_stage
         @moderation_stage ||= if reset_moderation?
-                                :sent
+                                :unsent
                               elsif publication_reset_moderation?
                                 :approved
                               else
@@ -142,15 +142,19 @@ module GobiertoAdmin
       end
 
       def reset_moderation?
-        @reset_moderation ||= !minor_change && !node.moderation.sent? && block_moderation? && attributes_updated? && !@new_record
+        @reset_moderation ||= moderation_not_allowed? && attributes_updated? && !minor_change_without_automatic_moderation_changes?
+      end
+
+      def minor_change_without_automatic_moderation_changes?
+        minor_change && (node.moderation.unsent? || node.moderation.sent?)
       end
 
       def publication_reset_moderation?
-        @publication_reset_moderation ||= publication_updated? && block_moderation? && visibility_level == "published"
+        @publication_reset_moderation ||= publication_updated? && moderation_not_allowed? && visibility_level == "published"
       end
 
-      def block_moderation?
-        @block_moderation ||= allowed_admin_actions.exclude?(:moderate_projects)
+      def moderation_not_allowed?
+        @moderation_not_allowed ||= allowed_admin_actions.exclude?(:moderate_projects)
       end
 
       def allow_publish?

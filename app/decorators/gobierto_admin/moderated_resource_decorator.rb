@@ -38,7 +38,12 @@ module GobiertoAdmin
     end
 
     def moderation_confirm_data
-      if persisted? && moderable_has_moderation? && !moderation.sent?
+      return {} unless persisted? && moderable_has_moderation?
+      return {} if moderation.unsent?
+
+      if moderation.sent?
+        { confirm: I18n.t("gobierto_admin.shared.moderation_save_widget.confirm_moderation_blocked_update_sent") }
+      else
         { confirm: I18n.t("gobierto_admin.shared.moderation_save_widget.confirm_moderation_blocked_update") }
       end
     end
@@ -55,8 +60,8 @@ module GobiertoAdmin
                                    end
     end
 
-    def locked?
-      @locked ||= [:new, :unsent].include?(publish_moderation_step)
+    def edition_phase?
+      @edition_phase ||= new_record? || moderation.unsent?
     end
 
     def has_preview?

@@ -33,9 +33,6 @@ en:
         confirm: Are you sure?
         confirm_moderation_blocked_update: Are you sure? If you save changes to
           this project, the status will be updated to Unsent.
-        confirm_moderation_blocked_update_sent: Are you sure? If you save changes to
-          this project, the status will be updated to Unsent unless you mark the
-          change as minor.
         edit_version: Editing version
         last_versions: Last versions
         minor_change: Minor change (does not save version)

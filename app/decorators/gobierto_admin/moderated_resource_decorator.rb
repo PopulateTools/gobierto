@@ -41,11 +41,7 @@ module GobiertoAdmin
       return {} unless persisted? && moderable_has_moderation?
       return {} if moderation.unsent?
 
-      if moderation.sent?
-        { confirm: I18n.t("gobierto_admin.shared.moderation_save_widget.confirm_moderation_blocked_update_sent") }
-      else
-        { confirm: I18n.t("gobierto_admin.shared.moderation_save_widget.confirm_moderation_blocked_update") }
-      end
+      { confirm: I18n.t("gobierto_admin.shared.moderation_save_widget.confirm_moderation_blocked_update") }
     end
 
     def publish_moderation_step

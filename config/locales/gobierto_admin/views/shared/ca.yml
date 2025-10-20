@@ -33,9 +33,6 @@ ca:
         confirm: Estàs segur?
         confirm_moderation_blocked_update: Estàs segur? Si deseu modificacions en aquest
           projecte l'estat s'actualitzarà a No enviat.
-        confirm_moderation_blocked_update_sent: Estàs segur? Si deseu modificacions en
-          aquest projecte l'estat s'actualitzarà a No enviat a no ser que marquis el
-          canvi com a menor.
         edit_version: Editant versió
         last_versions: Últimes versions
         minor_change: Canvi menor (no guarda versió)

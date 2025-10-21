@@ -1,11 +1,11 @@
 module GobiertoAdmin
   module GobiertoPlans
     class AdminMailer < ApplicationMailer
-      def project_attributes_changed(project, plan, recipient, payload = {})
+      def project_attributes_changed(project, recipient, payload = {})
         @project = project
-        @plan = plan
+        @plan = @project.plan
         @recipient = recipient
-        @site = plan.site
+        @site = @plan.site
         @site_host = site_host
         @payload = payload
 
@@ -17,11 +17,11 @@ module GobiertoAdmin
         )
       end
 
-      def project_created(project, plan, recipient, payload = {})
+      def project_created(project, recipient, payload = {})
         @project = project
-        @plan = plan
+        @plan = @project.plan
         @recipient = recipient
-        @site = plan.site
+        @site = @plan.site
         @site_host = site_host
         @payload = payload
 

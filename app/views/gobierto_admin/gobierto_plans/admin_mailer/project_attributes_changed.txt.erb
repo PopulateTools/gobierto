@@ -1,0 +1,29 @@
+<%= t(".hi") %>,
+
+<%= t(".intro_html", project_link: @project.name) %> (<%= edit_admin_plans_plan_project_url(@project, plan_id: @plan.id, host: @site.domain) %>):
+
+<% if @payload[:edition_change] %>
+  * <%= t(".edition_change") %> <%= t(".minor_change_notice") if @payload[:minor_change] %>
+<% end %>
+
+<% if @payload[:moderation_stage_change] %>
+  * <%= t(
+          ".moderation_stage_change",
+          moderation_status: t(
+            @project.moderation_stage,
+            scope: "gobierto_admin.shared.moderation_save_widget.moderation_status"
+          )
+        ) %>
+<% end %>
+
+<% if @payload[:visibility_level_change] %>
+  * <%= t(
+          ".visibility_level_change",
+          visibility_level: t(
+            @project.visibility_level,
+            scope: "gobierto_admin.gobierto_plans.admin_mailer.project_attributes_changed.visibility_levels"
+          )
+        ) %>
+<% end %>
+
+<%= t('.bye') %>.

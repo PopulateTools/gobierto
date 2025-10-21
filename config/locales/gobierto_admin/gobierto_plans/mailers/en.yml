@@ -1,0 +1,17 @@
+---
+en:
+  gobierto_admin:
+    gobierto_plans:
+      admin_mailer:
+        project_attributes_changed:
+          bye: Best regards
+          edition_change: Changes in project attributes.
+          hi: Hello
+          intro_html: Modifications have been made to the project %{project_link}
+          minor_change_notice: The change has been saved as minor so no new version has been created.
+          moderation_stage_change: Change in moderation status to %{moderation_status}
+          subject: A project has been modified in the plan %{plan_title} of %{site_name}
+          visibility_level_change: Change in publication status to %{visibility_level}
+          visibility_levels:
+            draft: Not published
+            published: Published

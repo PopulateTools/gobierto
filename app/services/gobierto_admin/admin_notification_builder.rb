@@ -13,13 +13,17 @@ module GobiertoAdmin
 
     def call
       recipients.each do |recipient|
-        next unless admin_actions_manager.action_allowed?(admin: recipient, action_name: payload[:allowed_actions_to_send_notification], resource: subject)
+        allowed_action = payload.key?(:project_assigned_admin_ids) ||
+          admin_actions_manager.action_allowed?(admin: recipient, action_name: payload[:allowed_actions_to_send_notification], resource: subject)
+        next unless allowed_action
 
         deliver_notification(recipient)
       end
     end
 
     def recipients
+      return GobiertoAdmin::Admin.where(id: payload[:project_assigned_admin_ids]) if payload.key?(:project_assigned_admin_ids)
+
       assigned_users = GobiertoAdmin::Admin.joins(:admin_group_memberships).where(admin_groups_admins: { admin_group_id: GobiertoAdmin::AdminGroup.where(resource: subject) })
       author = subject.try(:author)
       return assigned_users.distinct if author.blank?

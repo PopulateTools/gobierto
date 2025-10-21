@@ -1,6 +1,6 @@
 <%= t(".hi") %>,
 
-<%= t(".intro_html", project_link: @project.name) %> (<%= edit_admin_plans_plan_project_url(@project, plan_id: @plan.id, host: @site.domain) %>):
+<%= t(".intro_html", project_link: @project.name, plan_title: @plan.title) %> (<%= edit_admin_plans_plan_project_url(@project, plan_id: @plan.id, host: @site.domain) %>):
 
 <% if @payload[:edition_change] %>
   * <%= t(".edition_change") %> <%= t(".minor_change_notice") if @payload[:minor_change] %>

@@ -7,7 +7,7 @@ es:
           bye: Saludos
           edition_change: Cambios en los atributos del proyecto.
           hi: Hola
-          intro_html: Se han producido modificaciones en el proyecto %{project_link}
+          intro_html: Se han producido modificaciones en el proyecto del plan %{plan_title} %{project_link}
           minor_change_notice: El cambio se ha guardado como menor con lo que no se ha creado una nueva versión.
           moderation_stage_change: Cambio en el estado de moderación a %{moderation_status}
           subject: Se ha modificado un proyecto en el plan %{plan_title} de %{site_name}

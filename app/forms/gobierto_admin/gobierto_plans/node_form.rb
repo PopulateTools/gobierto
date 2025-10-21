@@ -28,7 +28,8 @@ module GobiertoAdmin
         :version,
         :external_id,
         :publish_last_version_automatically,
-        :minor_change
+        :minor_change,
+        :extra_attributes_changed
       )
       attr_reader :allowed_admin_actions
       attr_reader :allowed_controller_actions

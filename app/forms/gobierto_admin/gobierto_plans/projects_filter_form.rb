@@ -74,7 +74,7 @@ module GobiertoAdmin
       end
 
       def base_relation
-        @base_relation ||= if permissions_policy.allowed_actions_by_scope(:all).include?(:index)
+        @base_relation ||= if index_all_projects?
                              @plan.nodes
                            elsif permissions_policy.allowed_actions_by_scope(:assigned).include?(:index)
                              assigned_resources
@@ -101,6 +101,13 @@ module GobiertoAdmin
 
       def assigned_resources
         @assigned_resources ||= GobiertoAdmin::AdminResourcesQuery.new(admin, relation: @plan.nodes).allowed(include_moderated: false)
+      end
+
+      def index_all_projects?
+        return unless permissions_policy.allowed_actions_by_scope(:all).include?(:index)
+
+        all_allowed_actions = permissions_policy.allowed_admin_actions_by_scope(:all)
+        (all_allowed_actions & [:view_projects_all, :edit_projects_all, :moderate_projects_all, :publish_projects_all, :delete_projects_all, :manage]).present?
       end
     end
   end

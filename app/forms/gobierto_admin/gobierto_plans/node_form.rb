@@ -3,7 +3,27 @@
 module GobiertoAdmin
   module GobiertoPlans
     class NodeForm < BaseForm
+      prepend ::GobiertoCommon::TrackableGroupedAttributes
       include ::GobiertoAdmin::PermissionsGroupHelpers
+
+      EDIT_TRACKABLE_ATTRIBUTES = [
+        :name_translations,
+        :category_id,
+        :progress,
+        :starts_at,
+        :ends_at,
+        :status_id,
+        :category_id,
+        :progress,
+        :extra_attributes
+      ]
+      VISIBILITY_TRACKABLE_ATTRIBUTES = [
+        :visibility_level,
+        :moderation_visibility_level
+      ]
+      MODERATION_TRACKABLE_ATTRIBUTES = [
+        :moderation_stage
+      ]
 
       attr_accessor(
         :id,
@@ -44,6 +64,19 @@ module GobiertoAdmin
       delegate :persisted?, to: :node
       delegate :site_id, :statuses_vocabulary, to: :plan
 
+      trackable_on :project
+      use_event_prefix :project
+      use_publisher Publishers::AdminTrackable
+      use_trackable_subject :project
+      notify_changed(
+        *[
+          EDIT_TRACKABLE_ATTRIBUTES,
+          VISIBILITY_TRACKABLE_ATTRIBUTES,
+          MODERATION_TRACKABLE_ATTRIBUTES
+        ].flatten,
+        as: :attributes
+      )
+
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
         @allowed_admin_actions = options.delete(:allowed_admin_actions)
@@ -57,6 +90,7 @@ module GobiertoAdmin
       end
 
       def save
+        add_extra_attributes_changed
         check_visibility_level if allow_edit_attributes?
 
         save_node if valid?
@@ -207,6 +241,25 @@ module GobiertoAdmin
         @minor_change == "1"
       end
 
+      def extra_attributes_changed
+        @extra_attributes_changed ||= []
+      end
+
+      def admin_id
+        admin.id
+      end
+
+      def extra_event_payload
+        {
+          minor_change:,
+          extra_attributes_changed:,
+          changed: @changed,
+          visibility_level_change: VISIBILITY_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) },
+          moderation_stage_change: MODERATION_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) },
+          edition_change: EDIT_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) }
+        }
+      end
+
       private
 
       def has_versions?
@@ -236,7 +289,7 @@ module GobiertoAdmin
       end
 
       def build_node
-        ::GobiertoPlans::Node.new(admin_id: admin.id)
+        ::GobiertoPlans::Node.new(admin_id:)
       end
 
       def check_visibility_level
@@ -315,6 +368,7 @@ module GobiertoAdmin
 
         if @node.valid?
           @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?
+          @changed = (@changed + @node.changed.map(&:to_sym)).uniq
           @node.save
           @node.touch if force_new_version && !attributes_updated?
 
@@ -345,6 +399,7 @@ module GobiertoAdmin
           attributes.site_id = site_id
           attributes.admin = admin
           attributes.stage = moderation_stage if moderation_stage.present?
+          @changed << :moderation_stage if attributes.stage_changed?
         end.save
       end
 
@@ -362,6 +417,12 @@ module GobiertoAdmin
 
       def ignored_attributes
         @ignored_attributes ||= version_attributes - @passed_attributes
+      end
+
+      def add_extra_attributes_changed
+        return if extra_attributes_changed.blank?
+
+        @changed << :extra_attributes
       end
     end
   end

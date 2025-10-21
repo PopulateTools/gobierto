@@ -15,3 +15,8 @@ es:
           visibility_levels:
             draft: No publicado
             published: Publicado
+        project_created:
+          bye: Saludos
+          hi: Hola
+          intro_html: Se ha creado un nuevo proyecto %{project_link} en el plan %{plan_title}
+          subject: Se ha creado un proyecto en el plan %{plan_title} de %{site_name}

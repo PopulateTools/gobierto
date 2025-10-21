@@ -15,3 +15,8 @@ ca:
           visibility_levels:
             draft: No publicat
             published: Publicat
+        project_created:
+          bye: Salutacions
+          hi: Hola
+          intro_html: S'ha creat un nou projecte %{project_link} en el pla %{plan_title}
+          subject: S'ha creat un projecte en el pla %{plan_title} de %{site_name}

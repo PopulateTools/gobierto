@@ -29,6 +29,9 @@ module GobiertoAdmin
     end
 
     def action_allowed?(admin:, action_name:, resource: nil)
+      return true if admin.managing_user?
+      return action_name.any? { |single_name| action_allowed?(admin:, action_name: single_name, resource:) } if action_name.is_a?(Array)
+
       admin.managing_user? || admin.send(module_name + "_permissions").on_site(site).where(action_name:).any?
     end
 

@@ -66,7 +66,7 @@ module GobiertoPlans
 
     def action_allowed?(admin:, action_name:, resource: nil)
       return true if admin.managing_user?
-      return action_name.map { |single_name| action_allowed?(admin:, action_name: single_name, resource:) }.any? if action_name.is_a?(Array)
+      return action_name.any? { |single_name| action_allowed?(admin:, action_name: single_name, resource:) } if action_name.is_a?(Array)
 
       assigned_resource_groups = resource.presence && admin.admin_groups.where(resource:)
 

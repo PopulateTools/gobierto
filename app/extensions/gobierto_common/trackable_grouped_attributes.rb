@@ -52,11 +52,15 @@ module GobiertoCommon
     end
 
     def save
-      perform_notifications if super
+      run_callbacks(:save) do
+        super
+      end.tap { |result| perform_notifications if result }
     end
 
     def destroy
-      perform_notifications if super
+      run_callbacks(:destroy) do
+        super
+      end.tap { |result| perform_notifications if result }
     end
 
     def really_destroy!

@@ -134,9 +134,14 @@ module GobiertoAdmin
       end
 
       def destroy
+        project_name = @project.name
+        project_assigned_admin_ids = GobiertoAdmin::Admin.joins(:admin_group_memberships)
+          .where(admin_groups_admins: { admin_group_id: GobiertoAdmin::AdminGroup.where(resource: @project) })
+          .distinct.pluck(:id)
+
         @project.destroy
 
-        track_destroy_activity
+        track_destroy_activity(project_name:, project_assigned_admin_ids:)
 
         projects_filter = if filter_params.values.any?(&:present?)
                             { projects_filter: filter_params }
@@ -401,8 +406,20 @@ module GobiertoAdmin
         Publishers::GobiertoPlansProjectActivity.broadcast_event("project_updated", default_activity_params.merge(subject: @project_form.node, recipient: @plan))
       end
 
-      def track_destroy_activity
+      def track_destroy_activity(options = {})
         Publishers::GobiertoPlansProjectActivity.broadcast_event("project_destroyed", default_activity_params.merge(subject: @plan, recipient: @plan))
+
+        # Broadcast event for admin notifications
+        Publishers::AdminTrackable.broadcast_event(
+          "project_deleted",
+          default_activity_params.merge(
+            gid: @plan.to_gid,
+            site_id: current_site.id,
+            admin_id: current_admin.id,
+            project_name: options[:project_name],
+            project_assigned_admin_ids: options[:project_assigned_admin_ids]
+          )
+        )
       end
 
       def default_activity_params

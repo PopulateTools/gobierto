@@ -32,6 +32,22 @@ module GobiertoAdmin
           subject: t(".subject", site_name: @site.name, plan_title: @plan.title)
         )
       end
+
+      def project_deleted(plan, recipient, payload = {})
+        @plan = plan
+        @recipient = recipient
+        @site = @plan.site
+        @site_host = site_host
+        @project_name = payload[:project_name]
+        @payload = payload
+
+        mail(
+          from:,
+          reply_to:,
+          to: @recipient.email,
+          subject: t(".subject", site_name: @site.name, plan_title: @plan.title)
+        )
+      end
     end
   end
 end

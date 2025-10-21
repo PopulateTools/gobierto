@@ -150,7 +150,7 @@ module GobiertoCommon
         site_id: trackable.site_id,
         admin_id: (trackable.try(:admin_id) || try(:admin_id)),
         ip: try(:ip)
-      }
+      }.merge(extra_event_payload)
     end
 
     def event_prefix
@@ -186,6 +186,12 @@ module GobiertoCommon
 
     def archived?
       @archived
+    end
+
+    def extra_event_payload
+      return super if defined?(super)
+
+      {}
     end
   end
 end

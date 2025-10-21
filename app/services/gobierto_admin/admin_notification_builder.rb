@@ -34,7 +34,7 @@ module GobiertoAdmin
     end
 
     def deliver_notification(recipient)
-      mailer_class.send(event_name, subject, subject.plan, recipient, payload).deliver_later
+      mailer_class.send(event_name, subject, recipient, payload).deliver_later
     end
 
     def mailer_class

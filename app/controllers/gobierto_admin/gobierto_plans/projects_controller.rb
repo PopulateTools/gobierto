@@ -138,6 +138,7 @@ module GobiertoAdmin
         project_assigned_admin_ids = GobiertoAdmin::Admin.joins(:admin_group_memberships)
           .where(admin_groups_admins: { admin_group_id: GobiertoAdmin::AdminGroup.where(resource: @project) })
           .distinct.pluck(:id)
+        project_assigned_admin_ids << @project.admin_id if @project.admin_id.present?
 
         @project.destroy
 

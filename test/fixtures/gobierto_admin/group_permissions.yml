@@ -78,6 +78,18 @@ view_plans_dashboards_madrid:
   resource_type: gobierto_plans
   action_name: view_dashboards
 
+delete_all_projects_madrid:
+  admin_group: madrid_delete_all_projects_admin_plans_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: delete_projects_all
+
+delete_assigned_projects_madrid:
+  admin_group: madrid_delete_assigned_projects_admin_plans_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: delete_projects_all
+
 edit_political_agendas:
   admin_group: political_agendas_permissions_group
   namespace: gobierto_plans

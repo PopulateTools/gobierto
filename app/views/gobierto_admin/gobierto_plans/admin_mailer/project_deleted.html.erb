@@ -3,7 +3,7 @@
 </p>
 
 <p>
-  <%= t(".intro_html", plan_link: link_to(@plan.title, admin_plans_plan_projects_url(@plan, host: @site.domain)), project_name: @project_name) %>.
+  <%= t(".intro_html", plan_link: link_to(@plan.title, @plan_url), project_name: @project_name) %>.
 </p>
 
 <p>

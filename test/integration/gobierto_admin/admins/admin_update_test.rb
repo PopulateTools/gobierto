@@ -110,6 +110,7 @@ module GobiertoAdmin
 
         click_button "Update"
 
+        assert has_message?("Admin was successfully updated")
         assert_includes regular_admin.admin_groups, regular_admin_system_group
         refute_includes regular_admin.admin_groups, regular_admin_normal_group
       end

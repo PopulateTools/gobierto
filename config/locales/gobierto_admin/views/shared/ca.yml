@@ -31,8 +31,8 @@ ca:
       moderation_save_widget:
         change_moderation_status: Canvia l'estat de moderació
         confirm: Estàs segur?
-        confirm_moderation_blocked_update: Estàs segur? Si deseu modificacions en aquest
-          projecte l'estat s'actualitzarà a No enviat.
+        confirm_moderation_blocked_update: Estàs segur? Si deseu modificacions en
+          aquest projecte l'estat s'actualitzarà a No enviat.
         edit_version: Editant versió
         last_versions: Últimes versions
         minor_change: Canvi menor (no guarda versió)

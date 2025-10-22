@@ -26,6 +26,14 @@ madrid_view_plans_dashboards_group:
   name: madrid view plans dashboards group
   site: madrid
 
+madrid_delete_all_projects_admin_plans_group:
+  name: madrid delete all projects groups
+  site: madrid
+
+madrid_delete_assigned_projects_admin_plans_group:
+  name: madrid delete assigned projects groups
+  site: madrid
+
 political_agendas_permissions_group:
   name: <%= "resource_group_GobiertoPlans::Node_#{ActiveRecord::FixtureSet.identify(:political_agendas)}"  %>
   site: madrid

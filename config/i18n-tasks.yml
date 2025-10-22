@@ -12,6 +12,8 @@ search:
     - app/
     - vendor/auth_strategies/
     - vendor/gobierto_engines/custom-fields-data-grid-plugin/
+  exclude:
+    - app/assets/**/*
   relative_roots:
     - app/cells
     - app/controllers

@@ -248,7 +248,7 @@ module GobiertoAdmin
       def set_filters
         @form = ProjectsFilterForm.new(filter_params.merge(plan: @plan, admin: current_admin, permissions_policy:))
         editor_filter = /edit/.match?(filter_params["admin_actions"])
-        @relation = if current_admin_allowed_actions.include?(:view_projects_all) && !editor_filter
+        @relation = if [:view_projects_all, :view_projects_assigned].any? { |name| current_admin_allowed_actions.include?(name) } && !editor_filter
                       @form.base_relation
                     else
                       @form.editor_relation
@@ -418,6 +418,7 @@ module GobiertoAdmin
             site_id: current_site.id,
             admin_id: current_admin.id,
             project_name: options[:project_name],
+            allowed_actions_to_send_notification: [:view_projects, :delete_projects],
             project_assigned_admin_ids: options[:project_assigned_admin_ids]
           )
         )

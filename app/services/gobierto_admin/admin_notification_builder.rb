@@ -13,9 +13,7 @@ module GobiertoAdmin
 
     def call
       recipients.each do |recipient|
-        allowed_action = payload.key?(:project_assigned_admin_ids) ||
-          admin_actions_manager.action_allowed?(admin: recipient, action_name: payload[:allowed_actions_to_send_notification], resource: subject)
-        next unless allowed_action
+        next unless admin_actions_manager.action_allowed?(admin: recipient, action_name: payload[:allowed_actions_to_send_notification], resource: subject)
 
         deliver_notification(recipient)
       end
@@ -38,7 +36,7 @@ module GobiertoAdmin
     end
 
     def deliver_notification(recipient)
-      mailer_class.send(event_name, subject, recipient, payload).deliver_later
+      mailer_class.send(event_name, subject, recipient, payload.except(:gid)).deliver_later
     end
 
     def mailer_class

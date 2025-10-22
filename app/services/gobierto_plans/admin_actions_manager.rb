@@ -127,7 +127,7 @@ module GobiertoPlans
 
       assigned_resource_groups = resource.presence && admin.admin_groups.where(resource:)
 
-      return [] unless assigned_resource_groups.exists?
+      return [] if assigned_resource_groups.blank?
 
       if resource.is_a? ActiveRecord::Relation
         cache_key = [admin.cache_key, resource.cache_key].join("-")

@@ -418,6 +418,7 @@ module GobiertoAdmin
             site_id: current_site.id,
             admin_id: current_admin.id,
             project_name: options[:project_name],
+            allowed_actions_to_send_notification: [:view_projects, :delete_projects],
             project_assigned_admin_ids: options[:project_assigned_admin_ids]
           )
         )

@@ -7,8 +7,10 @@ ca:
           bye: Salutacions
           edition_change: Canvis en els atributs del projecte.
           hi: Hola
-          intro_html: S'han produït modificacions en el projecte del pla %{plan_title} %{project_link}
-          minor_change_notice: El canvi s'ha desat com a menor amb el que no s'ha creat una nova versió.
+          intro_html: S'han produït modificacions en el projecte del pla %{plan_title}
+            %{project_link}
+          minor_change_notice: El canvi s'ha desat com a menor amb el que no s'ha
+            creat una nova versió.
           moderation_stage_change: Canvi en l'estat de moderació a %{moderation_status}
           subject: S'ha modificat un projecte en el pla %{plan_title} de %{site_name}
           visibility_level_change: Canvi en l'estat de publicació a %{visibility_level}

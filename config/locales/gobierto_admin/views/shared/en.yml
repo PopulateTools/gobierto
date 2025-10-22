@@ -31,8 +31,8 @@ en:
       moderation_save_widget:
         change_moderation_status: Change moderation status
         confirm: Are you sure?
-        confirm_moderation_blocked_update: Are you sure? If you save changes to
-          this project, the status will be updated to Unsent.
+        confirm_moderation_blocked_update: Are you sure? If you save changes to this
+          project, the status will be updated to Unsent.
         edit_version: Editing version
         last_versions: Last versions
         minor_change: Minor change (does not save version)

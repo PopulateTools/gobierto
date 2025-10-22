@@ -49,6 +49,8 @@ module GobiertoAdmin
               click_button "Save"
             end
           end
+
+          assert has_content? "Project created correctly."
         end
 
         def fill_in_md_editor_field(text, delete_chars_count: 0)
@@ -343,6 +345,8 @@ module GobiertoAdmin
                 click_button "Save"
               end
             end
+
+            assert has_content? "Project updated correctly."
 
             updated_project = ::GobiertoPlans::Node.with_name_translation(new_name).last
             assert all_versions_are_equal(updated_project, 1)

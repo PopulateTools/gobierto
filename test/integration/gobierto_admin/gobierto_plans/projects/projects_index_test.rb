@@ -83,7 +83,11 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              assert has_alert? "You are not authorized to perform this action"
+              within "table#projects" do
+                plan.nodes.each do |project|
+                  assert has_selector?("tr#project-item-#{project.id}")
+                end
+              end
             end
           end
         end

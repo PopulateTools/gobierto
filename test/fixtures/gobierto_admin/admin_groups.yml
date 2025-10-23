@@ -62,6 +62,10 @@ madrid_manage_projects_group:
   name: madrid manage projects group
   site: madrid
 
+madrid_create_projects_group:
+  name: madrid create projects group
+  site: madrid
+
 political_agendas_permissions_group:
   name: <%= "resource_group_GobiertoPlans::Node_#{ActiveRecord::FixtureSet.identify(:political_agendas)}"  %>
   site: madrid

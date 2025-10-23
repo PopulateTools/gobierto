@@ -62,6 +62,10 @@ module Integration
         @manage_projects_group ||= gobierto_admin_admin_groups(:madrid_manage_projects_group)
       end
 
+      def create_projects_group
+        @create_projects_group ||= gobierto_admin_admin_groups(:madrid_create_projects_group)
+      end
+
       def manage_plans_dashboards_group
         @manage_plans_dashboards_group ||= gobierto_admin_admin_groups(:madrid_manage_plans_dashboards_group)
       end
@@ -163,7 +167,7 @@ module Integration
       end
 
       def allow_regular_admin_create_projects
-        regular_admin.admin_groups << gobierto_admin_admin_groups(:madrid_group)
+        regular_admin.admin_groups << create_projects_group
       end
 
       def allow_regular_admin_manage_dashboards

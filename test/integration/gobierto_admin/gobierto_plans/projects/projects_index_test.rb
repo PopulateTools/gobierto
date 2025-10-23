@@ -93,7 +93,7 @@ module GobiertoAdmin
         end
 
         def test_regular_admin_moderator_or_editor_index
-          allow_regular_admin_moderate_plans
+          allow_regular_admin_moderate_all_projects
           allow_regular_admin_edit_plans
 
           with_signed_in_admin(admin) do

@@ -21,7 +21,7 @@ es:
           success: El proyecto ha sido despublicado correctamente.
         update:
           moderation_reset: Debido a que has modificado el proyecto y no tienes permisos
-            de moderación su estado ha sido movido a Enviado.
+            de moderación su estado ha sido movido a No enviado.
           success: El proyecto ha sido actualizado correctamente.
           suggest_unpublish_html: El proyecto está sin aprobar pero publicado. <a
             rel="nofollow" data-method="post" href="%{url}">Despublicar</a>.

@@ -7,8 +7,8 @@ def with_javascript
 
   Capybara.current_driver = Capybara.javascript_driver
   yield
-  Capybara.reset_session!
 ensure
+  Capybara.reset_session!
   Capybara.current_driver = Capybara.default_driver
 end
 

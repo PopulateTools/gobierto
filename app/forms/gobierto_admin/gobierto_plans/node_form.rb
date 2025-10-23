@@ -180,7 +180,7 @@ module GobiertoAdmin
       end
 
       def reset_moderation?
-        @reset_moderation ||= moderation_not_allowed? && attributes_updated? && !node.moderation.unsent?
+        @reset_moderation ||= @moderation_stage.blank? && moderation_not_allowed? && attributes_updated? && !node.moderation.unsent?
       end
 
       def publication_reset_moderation?

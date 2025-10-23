@@ -62,7 +62,7 @@ module GobiertoAdmin
       end
 
       def test_plan_link_for_moderators
-        allow_regular_admin_moderate_plans
+        allow_regular_admin_moderate_all_projects
 
         with(site: site, admin: regular_admin) do
           visit @path

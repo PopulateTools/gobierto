@@ -56,7 +56,7 @@ module GobiertoAdmin
 
         def test_regular_admin_not_editor_create_project
           allow_regular_admin_manage_plans
-          allow_regular_admin_moderate_plans
+          allow_regular_admin_moderate_all_projects
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do

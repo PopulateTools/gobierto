@@ -49,7 +49,7 @@ module GobiertoAdmin
         end
 
         def test_regular_moderator_admin_delete_project
-          allow_regular_admin_moderate_plans
+          allow_regular_admin_moderate_all_projects
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do

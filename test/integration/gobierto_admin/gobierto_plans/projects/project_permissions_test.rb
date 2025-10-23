@@ -67,7 +67,7 @@ module GobiertoAdmin
         end
 
         def test_regular_moderator_admin_adds_admin
-          allow_regular_admin_moderate_plans
+          allow_regular_admin_moderate_all_projects
 
           with(site: site, admin: regular_admin, js: true) do
             visit @edit_path
@@ -91,7 +91,7 @@ module GobiertoAdmin
         end
 
         def test_regular_moderator_admin_deletes_admin
-          allow_regular_admin_moderate_plans
+          allow_regular_admin_moderate_all_projects
 
           with(site: site, admin: regular_admin, js: true) do
             visit @edit_path

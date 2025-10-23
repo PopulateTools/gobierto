@@ -295,7 +295,7 @@ module GobiertoAdmin
       end
 
       def test_regular_admin_editor_import
-        allow_regular_admin_edit_plans
+        allow_regular_admin_edit_all_projects
         @path = admin_plans_plan_import_csv_path(plan)
 
         with_signed_in_admin(regular_admin) do

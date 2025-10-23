@@ -47,7 +47,7 @@ module GobiertoAdmin
       end
 
       def test_plan_link_for_editors
-        allow_regular_admin_edit_plans
+        allow_regular_admin_edit_all_projects
 
         with(site: site, admin: regular_admin) do
           visit @path

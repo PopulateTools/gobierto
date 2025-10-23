@@ -19,6 +19,10 @@ module GobiertoAdmin
       can_perform_action_on_resource? :edit_projects
     end
 
+    def manage_groups?
+      can_perform_action_on_resource? :manage
+    end
+
     def allowed_to?(next_step)
       !moderable_has_moderation? ||
         moderable.moderation.actions_for_stage(next_step).any? do |action|

@@ -21,7 +21,7 @@ ca:
           success: El projecte s'ha despublicat correctament.
         update:
           moderation_reset: Com que has modificat el projecte i no tens permisos de
-            moderació el seu estat ha estat mogut a Enviat.
+            moderació el seu estat ha estat mogut a No enviat.
           success: El projecte s'ha actualitzat correctament.
           suggest_unpublish_html: El projecte està sense aprovar però publicat. <a
             rel="nofollow" data-method="post" href="%{url}">Despublicar</a>.

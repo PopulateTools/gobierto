@@ -132,6 +132,12 @@ manage_projects_madrid:
   resource_type: gobierto_plans
   action_name: manage
 
+create_projects_madrid:
+  admin_group: madrid_create_projects_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: create_projects
+
 edit_political_agendas:
   admin_group: political_agendas_permissions_group
   namespace: gobierto_plans

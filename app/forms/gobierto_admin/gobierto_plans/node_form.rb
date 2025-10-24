@@ -183,6 +183,10 @@ module GobiertoAdmin
         @reset_moderation ||= @moderation_stage.blank? && moderation_not_allowed? && attributes_updated? && !node.moderation.unsent?
       end
 
+      def has_changes?
+        @changed.present?
+      end
+
       def publication_reset_moderation?
         @publication_reset_moderation ||= publication_updated? && moderation_not_allowed? && visibility_level == "published"
       end

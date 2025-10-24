@@ -63,8 +63,10 @@ module GobiertoAdmin
                               t(".suggest_unpublish_html", url: @unpublish_url)
                             elsif reset_moderation?
                               t(".moderation_reset")
-                            else
+                            elsif has_changes?
                               t(".success")
+                            else
+                              t(".no_changes")
                             end
           redirect_to(
             edit_admin_plans_plan_project_path(@plan, @project),
@@ -297,6 +299,10 @@ module GobiertoAdmin
 
       def reset_moderation?
         @project_form.reset_moderation?
+      end
+
+      def has_changes?
+        @project_form.has_changes?
       end
 
       def base_relation

@@ -390,10 +390,9 @@ module GobiertoAdmin
 
         @custom_fields_form.custom_field_records = params.require(custom_params_key).permit(custom_records: {})
         @project_form.extra_attributes_changed = @custom_fields_form.changed || []
-        @new_version = @project_form.extra_attributes_changed.present? || @project_form.attributes_updated?
+        @new_version = @project_form.attributes_updated?
         unless @project_form.project.new_record? || @project_form.minor_change
           @custom_fields_form.force_new_version = @new_version
-          @project_form.force_new_version = @new_version
         end
       end
 

@@ -33,8 +33,7 @@ module GobiertoAdmin
         :ends_at,
         :options_json,
         :admin,
-        :position,
-        :force_new_version
+        :position
       )
       attr_writer(
         :category_id,
@@ -216,7 +215,7 @@ module GobiertoAdmin
       def attributes_updated?
         return unless allow_edit_attributes?
 
-        @attributes_updated ||= @new_record || nodes_attributes_differ?(set_node_attributes, versioned_node)
+        @attributes_updated ||= @new_record || nodes_attributes_differ?(set_node_attributes, versioned_node) || extra_attributes_changed.present?
       end
 
       def publication_updated?
@@ -344,7 +343,7 @@ module GobiertoAdmin
       def set_version_and_visibility_level
         node.tap do |attributes|
           if allow_edit_attributes? && @version.present?
-            if attributes_updated? || force_new_version
+            if attributes_updated?
               @published_version = attributes.versions.length + (minor_change ? 0 : 1)
             else
               attributes.reload
@@ -375,7 +374,6 @@ module GobiertoAdmin
           @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?
           @changed = (@changed + @node.changed.map(&:to_sym)).uniq
           @node.save
-          @node.touch if force_new_version && !attributes_updated?
 
           # Do not set permissions for this group
           set_permissions_group(@node, action_name: nil) do |group|

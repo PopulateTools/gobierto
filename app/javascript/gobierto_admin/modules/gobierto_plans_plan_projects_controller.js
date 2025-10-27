@@ -28,6 +28,35 @@ window.GobiertoAdmin.GobiertoPlansPlanProjectsController = (function() {
     $(".select2-container").css("padding-top", "22px");
   }
 
+  function _handleMinorChangeCheckbox() {
+    var minorChangeCheckbox = document.querySelector('.js-minor-change-checkbox');
+    var saveButton = document.querySelector('.js-save-button');
+
+    if (minorChangeCheckbox && saveButton) {
+      // Store the original data-confirm value
+      var originalConfirmData = saveButton.dataset.confirm;
+
+      minorChangeCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          // Remove data-confirm when minor_change is checked
+          if (saveButton.dataset.confirm) {
+            delete saveButton.dataset.confirm;
+          }
+        } else {
+          // Restore data-confirm when minor_change is unchecked
+          if (originalConfirmData) {
+            saveButton.dataset.confirm = originalConfirmData;
+          }
+        }
+      });
+
+      // Initialize on page load in case checkbox is already checked
+      if (minorChangeCheckbox.checked && saveButton.dataset.confirm) {
+        delete saveButton.dataset.confirm;
+      }
+    }
+  }
+
   GobiertoPlansPlanProjectsController.prototype.form = function(opts) {
     $(".js-admin-widget-save label").click(function(e) {
       var styleClass = $(e.target).attr("data-status-style")
@@ -40,6 +69,7 @@ window.GobiertoAdmin.GobiertoPlansPlanProjectsController = (function() {
       $(".g_popup_context .i_p_status a").text(newStateText);
     })
     _handleCategoriesSelectBehaviors()
+    _handleMinorChangeCheckbox()
   };
 
   return GobiertoPlansPlanProjectsController;

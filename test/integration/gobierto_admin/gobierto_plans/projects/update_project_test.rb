@@ -228,29 +228,12 @@ module GobiertoAdmin
         end
 
         def test_edit_not_allowed_project_as_regular_editor
-          skip "Pending to separate management of plans and edition of assigned groups"
-
           allow_regular_admin_edit_plans
 
           with(site: site, admin: regular_admin) do
             visit unpublished_path
 
-            assert_equal 404, page.status_code
-          end
-        end
-
-        def test_edit_disabled_on_approved_project_as_regular_editor
-          allow_regular_admin_edit_plans
-
-          with(site: site, admin: regular_admin) do
-            visit path
-            assert has_field?("project_name_translations_en", disabled: true)
-            assert has_field?("project_status_id", disabled: true)
-            assert has_field?("project_starts_at", disabled: true)
-            assert has_field?("project_ends_at", disabled: true)
-            assert has_field?("project_progress", disabled: true)
-            assert has_no_button? "Save"
-            assert has_no_link? "Unpublish"
+            assert has_message? "You are not authorized to perform this action"
           end
         end
 
@@ -644,6 +627,7 @@ module GobiertoAdmin
             find(".widget_save_v2 .fa-history").click
             within(first(".g_popup")) { click_link "2 - " }
 
+            assert has_content? "Editing version\n2"
             within "form" do
               within "div.widget_save_v2" do
                 click_button "Publish"

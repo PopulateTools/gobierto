@@ -11,7 +11,7 @@ module GobiertoAdmin
       protected
 
       def current_admin_can_manage_plans?
-        @can_manage_plans = admin_actions_manager.action_allowed?(admin: current_admin, action_name: :manage)
+        @can_manage_plans = admin_actions_manager.action_allowed?(admin: current_admin, action_name: :manage_plans)
       end
 
       def current_admin_can_edit_projects?(plan)

@@ -1,9 +1,11 @@
 <% projects.each do |project| %>
+  <% project_actions = admin_projects_actions[project.id] || admin_projects_actions[:default] || {} %>
+  <% controller_actions = project_actions.fetch(:controller_actions, []) %>
   <div class="v_el v_el_level list-group-item" data-id="<%= project.id %>" data-class="<%= project.class.name %>">
     <div class="v_el_cont">
       <div class="v_el_title">
         <i class="fas fa-file-alt"></i>
-        <%= link_to project.name, edit_admin_plans_plan_project_path(plan, project) %>
+        <%= link_to_if controller_actions.include?(:edit), project.name, edit_admin_plans_plan_project_path(plan, project) %>
       </div>
       <div class="v_el_decorated">
         <div>
@@ -12,11 +14,14 @@
           <%= number_to_percentage(project.progress, precision: 1, strip_insignificant_zeros: true) %>
         </div>
       </div>
-      <div class="v_el_actions">
-        <%= link_to(edit_admin_plans_plan_project_path(plan, project))  do %>
-          <i class="fas fa-edit"></i>
-        <% end %>
-      </div>
+
+      <% if controller_actions.include?(:edit) %>
+        <div class="v_el_actions">
+          <%= link_to(edit_admin_plans_plan_project_path(plan, project))  do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 <% end %>

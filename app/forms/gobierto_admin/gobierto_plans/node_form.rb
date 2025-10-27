@@ -199,7 +199,7 @@ module GobiertoAdmin
       end
 
       def allow_manage_admin_groups?
-        allowed_admin_actions.include?(:manage)
+        allowed_admin_actions.include?(:edit_projects_permissions)
       end
 
       def moderation_visibility_level
@@ -260,7 +260,7 @@ module GobiertoAdmin
           visibility_level_change: VISIBILITY_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) },
           moderation_stage_change: MODERATION_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) },
           edition_change: EDIT_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) },
-          allowed_actions_to_send_notification: [:view_projects, :edit_projects, :moderate_projects, :publish_projects, :delete_projects, :manage]
+          allowed_actions_to_send_notification: [:view_projects, :edit_projects, :moderate_projects, :publish_projects, :delete_projects, :edit_projects_permissions]
         }
       end
 

@@ -20,7 +20,7 @@ module GobiertoAdmin
     end
 
     def manage_groups?
-      can_perform_action_on_resource? :manage
+      can_perform_action_on_resource? :edit_projects_permissions
     end
 
     def allowed_to?(next_step)

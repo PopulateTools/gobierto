@@ -2,7 +2,7 @@
 
 <div class="tabs">
   <ul>
-    <% if @plan.categories_vocabulary.present? && controller_actions.include?(:manage) && current_admin.can_edit_vocabularies? %>
+    <% if @plan.categories_vocabulary.present? && controller_actions.include?(:manage_plans) && current_admin.can_edit_vocabularies? %>
       <li class="<%= class_if('active', controller_name == "categories") %>">
         <%= link_to t(".plan_terms_tab"), admin_plans_plan_categories_path(@plan), data: { turbolinks: false } %>
       </li>
@@ -18,7 +18,7 @@
         <%= link_to t(".dashboards_tab"), admin_plans_plan_dashboards_path(@plan), data: { turbolinks: false } %>
       </li>
     <% end %>
-    <% if controller_actions.include?(:manage) %>
+    <% if controller_actions.include?(:manage_plans) %>
       <li class="<%= class_if('active', controller_name == "plans") %>">
         <%= link_to t(".configuration_tab"), edit_admin_plans_plan_path(@plan), data: { turbolinks: false } %>
       </li>

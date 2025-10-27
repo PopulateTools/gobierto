@@ -23,8 +23,10 @@ en:
           edit: Edit
           edit_projects_all: Edit projects (all)
           edit_projects_assigned: Edit projects (assigned)
-          manage: Manage
+          edit_projects_permissions_all: Edit project permissions (all)
+          edit_projects_permissions_assigned: Edit project permissions (assigned)
           manage_dashboards: Manage dashboards
+          manage_plans: Manage plans
           moderate_projects_all: Moderate projects (all)
           moderate_projects_assigned: Moderate projects (assigned)
           publish_projects_all: Publish projects (all)

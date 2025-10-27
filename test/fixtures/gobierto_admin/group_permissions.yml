@@ -120,6 +120,18 @@ delete_assigned_projects_madrid:
   resource_type: gobierto_plans
   action_name: delete_projects_assigned
 
+edit_all_projects_permissions_madrid:
+  admin_group: madrid_edit_all_projects_permissions_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: edit_projects_permissions_all
+
+edit_assigned_projects_permissions_madrid:
+  admin_group: madrid_edit_assigned_projects_permissions_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: edit_projects_permissions_assigned
+
 manage_plans_madrid:
   admin_group: madrid_manage_plans_group
   namespace: site_module

@@ -27,7 +27,7 @@ module GobiertoCommon
         @path = edit_admin_common_custom_fields_custom_field_path(global_custom_field)
         @instance_level_path = edit_admin_common_custom_fields_custom_field_path(instance_level_custom_field)
         @issues_vocabulary = gobierto_common_vocabularies(:issues_vocabulary)
-        admin.admin_groups << gobierto_admin_admin_groups(:madrid_manage_projects_group)
+        admin.admin_groups << gobierto_admin_admin_groups(:madrid_edit_all_projects_group)
       end
 
       def test_permissions

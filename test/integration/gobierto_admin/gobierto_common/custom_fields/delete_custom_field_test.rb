@@ -32,7 +32,7 @@ module GobiertoCommon
           instance_type: parameterize(instance.class.name),
           instance_id: instance.id
         )
-        admin.admin_groups << gobierto_admin_admin_groups(:madrid_manage_projects_group)
+        admin.admin_groups << gobierto_admin_admin_groups(:madrid_edit_all_projects_group)
       end
 
       def parameterize(class_name)

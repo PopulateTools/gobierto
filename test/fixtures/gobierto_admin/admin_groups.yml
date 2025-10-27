@@ -6,10 +6,6 @@ santander_group:
   name: global
   site: santander
 
-madrid_edit_plans_group:
-  name: madrid edit plans group
-  site: madrid
-
 madrid_moderate_all_projects_group:
   name: madrid moderate all projects group
   site: madrid
@@ -58,8 +54,8 @@ madrid_delete_assigned_projects_group:
   name: madrid delete assigned projects group
   site: madrid
 
-madrid_manage_projects_group:
-  name: madrid manage projects group
+madrid_manage_plans_group:
+  name: madrid manage plans group
   site: madrid
 
 madrid_create_projects_group:

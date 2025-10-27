@@ -10,7 +10,7 @@ module Integration
       end
 
       def allow_regular_admin_edit_plans
-        regular_admin.admin_groups << gobierto_admin_admin_groups(:madrid_manage_projects_group)
+        regular_admin.admin_groups << gobierto_admin_admin_groups(:madrid_manage_plans_group)
       end
       alias_method :allow_regular_admin_manage_plans, :allow_regular_admin_edit_plans
 
@@ -56,10 +56,6 @@ module Integration
 
       def moderate_assigned_projects_group
         @moderate_assigned_projects_group ||= gobierto_admin_admin_groups(:madrid_moderate_assigned_projects_group)
-      end
-
-      def manage_projects_group
-        @manage_projects_group ||= gobierto_admin_admin_groups(:madrid_manage_projects_group)
       end
 
       def create_projects_group
@@ -160,10 +156,6 @@ module Integration
       def allow_regular_admin_moderate_project(project)
         allow_regular_admin_moderate_assigned_projects
         assign_project_to_regular_admin(project)
-      end
-
-      def allow_regular_admin_manage_projects
-        regular_admin.admin_groups << manage_projects_group
       end
 
       def allow_regular_admin_create_projects

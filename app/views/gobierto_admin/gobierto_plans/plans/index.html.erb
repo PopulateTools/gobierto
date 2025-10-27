@@ -6,34 +6,42 @@
 <h1><%= t('.title') %></h1>
 
 <div class="admin_tools right">
-  <%= link_to admin_plans_plan_types_path do %>
-    <i class="fas fa-cog"></i>
-    <%= t(".types") %>
+  <% if current_admin_can_manage_plans? %>
+    <%= link_to admin_plans_plan_types_path do %>
+      <i class="fas fa-cog"></i>
+      <%= t(".types") %>
+    <% end %>
+    <%= link_to t(".new"), new_admin_plans_plan_path, class: "button" %>
   <% end %>
-  <%= link_to t(".new"), new_admin_plans_plan_path, class: "button" %>
 </div>
 
 <table id="plans">
   <thead>
     <tr>
-      <th class="icon_col"></th>
+      <% if current_admin_can_manage_plans? %>
+        <th class="icon_col"></th>
+      <% end %>
       <th><%= t(".header.type") %></th>
       <th><%= t(".header.title") %></th>
       <th><%= t(".header.year") %></th>
       <th><%= t(".header.elements") %></th>
       <th><%= t(".header.status") %></th>
       <th></th>
-      <th class="icon_col"></th>
+      <% if current_admin_can_manage_plans? %>
+        <th class="icon_col"></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
   <% @plans.each do |plan| %>
     <tr id="plan-item-<%= plan.id %>">
-      <td>
-        <%= link_to edit_admin_plans_plan_path(plan) do %>
-          <i class="fas fa-edit"></i>
-        <% end %>
-      </td>
+      <% if current_admin_can_manage_plans? %>
+        <td>
+          <%= link_to edit_admin_plans_plan_path(plan) do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+        </td>
+      <% end %>
       <td>
         <%= plan.plan_type&.name %>
       </td>
@@ -64,14 +72,16 @@
           <%= t(".view_plan") %>
         <% end %>
       </td>
-      <td>
-        <%= link_to admin_plans_plan_path(plan.id),
-                    title: t("gobierto_admin.shared.archive.element"),
-                    method: :delete,
-                    data: { confirm: t("gobierto_admin.shared.archive.confirm") } do %>
-          <i class="fas fa-trash"></i>
-        <% end %>
-      </td>
+      <% if current_admin_can_manage_plans? %>
+        <td>
+          <%= link_to admin_plans_plan_path(plan.id),
+            title: t("gobierto_admin.shared.archive.element"),
+            method: :delete,
+            data: { confirm: t("gobierto_admin.shared.archive.confirm") } do %>
+            <i class="fas fa-trash"></i>
+          <% end %>
+        </td>
+      <% end %>
     </tr>
   <% end %>
   </tbody>

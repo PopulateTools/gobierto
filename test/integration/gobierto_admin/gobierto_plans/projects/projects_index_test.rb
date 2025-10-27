@@ -76,8 +76,21 @@ module GobiertoAdmin
           end
         end
 
-        def test_regular_manager_projects_index
+        def test_regular_admin_plan_manager_projects_index
           allow_regular_admin_manage_plans
+
+          with_signed_in_admin(regular_admin) do
+            with_current_site(site) do
+              visit @path
+
+              assert has_alert? "You are not authorized to perform this action"
+            end
+          end
+        end
+
+
+        def test_regular_projects_editor_projects_index
+          allow_regular_admin_edit_all_projects
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do

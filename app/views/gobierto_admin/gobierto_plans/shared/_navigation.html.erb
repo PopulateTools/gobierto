@@ -1,4 +1,4 @@
-<% controller_actions = admin_projects_actions&.dig(:default, :controller_actions) || [] %>
+<% controller_actions = admin_projects_actions&.dig(:collection, :controller_actions) || [] %>
 
 <div class="tabs">
   <ul>

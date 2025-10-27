@@ -215,7 +215,7 @@ module GobiertoAdmin
       def attributes_updated?
         return unless allow_edit_attributes?
 
-        @attributes_updated ||= @new_record || nodes_attributes_differ?(set_node_attributes, versioned_node) || extra_attributes_changed.present?
+        @attributes_updated ||= node_attributes_changed? || extra_attributes_changed.present?
       end
 
       def publication_updated?
@@ -266,6 +266,10 @@ module GobiertoAdmin
       end
 
       private
+
+      def node_attributes_changed?
+        @node_attributes_changed ||= allow_edit_attributes? && (@new_record || node_attributes_differ?(set_node_attributes, versioned_node))
+      end
 
       def has_versions?
         @has_versions ||= node.respond_to?(:paper_trail)
@@ -322,7 +326,7 @@ module GobiertoAdmin
         node.versions[version_index].reify
       end
 
-      def nodes_attributes_differ?(node_a, node_b)
+      def node_attributes_differ?(node_a, node_b)
         node_a.attributes.slice(*attributes_for_new_version) != node_b.attributes.slice(*attributes_for_new_version)
       end
 
@@ -375,6 +379,7 @@ module GobiertoAdmin
           @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?
           @changed = (@changed + @node.changed.map(&:to_sym)).uniq
           @node.save
+          @node.touch if !node_attributes_changed? && extra_attributes_changed.present?
 
           # Do not set permissions for this group
           set_permissions_group(@node, action_name: nil) do |group|

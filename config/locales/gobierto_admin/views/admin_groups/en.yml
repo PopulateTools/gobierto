@@ -31,6 +31,9 @@ en:
           moderate_projects_assigned: Moderate projects (assigned)
           publish_projects_all: Publish projects (all)
           publish_projects_assigned: Publish projects (assigned)
+          update_projects_as_minor_change_all: Save minor changes in projects (all)
+          update_projects_as_minor_change_assigned: Save minor changes in projects
+            (assigned)
           view_dashboards: View dashboards
           view_projects_all: View projects (all)
           view_projects_assigned: View projects (assigned)

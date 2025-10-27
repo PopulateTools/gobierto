@@ -31,6 +31,10 @@ es:
           moderate_projects_assigned: Moderar proyectos (asignados)
           publish_projects_all: Publicar proyectos (todos)
           publish_projects_assigned: Publicar proyectos (asignados)
+          update_projects_as_minor_change_all: Guardar cambios menores en proyectos
+            (todos)
+          update_projects_as_minor_change_assigned: Guardar cambios menores en proyectos
+            (asignados)
           view_dashboards: Ver dashboards
           view_projects_all: Ver proyectos (todos)
           view_projects_assigned: Ver proyectos (asignados)

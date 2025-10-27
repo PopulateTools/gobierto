@@ -31,6 +31,9 @@ ca:
           moderate_projects_assigned: Modera projectes (assignats)
           publish_projects_all: Publica projectes (tots)
           publish_projects_assigned: Publica projectes (assignats)
+          update_projects_as_minor_change_all: Desa canvis menors en projectes (tots)
+          update_projects_as_minor_change_assigned: Desa canvis menors en projectes
+            (assignats)
           view_dashboards: Veure dashboards
           view_projects_all: Veure projectes (tots)
           view_projects_assigned: Veure projectes (assignats)

@@ -54,6 +54,14 @@ madrid_delete_assigned_projects_group:
   name: madrid delete assigned projects group
   site: madrid
 
+madrid_edit_all_projects_permissions_group:
+  name: madrid edit all projects permissions group
+  site: madrid
+
+madrid_edit_assigned_projects_permissions_group:
+  name: madrid edit assigned projects permissions group
+  site: madrid
+
 madrid_manage_plans_group:
   name: madrid manage plans group
   site: madrid

@@ -218,7 +218,7 @@ module GobiertoAdmin
       def versions_defaults
         @versions_defaults ||= {
           publish_last_version_automatically: session.fetch(:publish_last_version_automatically_default, @plan.publish_last_version_automatically?),
-          minor_change: session.fetch(:minor_change_default, false)
+          minor_change: current_admin_allowed_update_actions.include?(:update_projects_as_minor_change) && session.fetch(:minor_change_default, false)
         }
       end
 
@@ -342,9 +342,11 @@ module GobiertoAdmin
             :visibility_level,
             :status_id,
             :position,
-            :minor_change,
             :publish_last_version_automatically,
             name_translations: [*I18n.available_locales]
+          ],
+          update_projects_as_minor_change: [
+            :minor_change
           ],
           create_projects: [
             :category_id,

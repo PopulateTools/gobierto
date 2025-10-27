@@ -38,7 +38,7 @@
         <% end %>
 
         <% if versioned_resource.has_versions? %>
-          <% if allowed_admin_actions.include?(:edit_projects) && versioned_resource.allows_minor_change? %>
+          <% if allowed_admin_actions.include?(:update_projects_as_minor_change) && versioned_resource.allows_minor_change? %>
             <div class="form_item m_b_1">
               <div class="options compact">
                 <div class="option">

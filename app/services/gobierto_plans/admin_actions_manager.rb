@@ -6,6 +6,7 @@ module GobiertoPlans
       create_projects: {},
       view_projects: { scopes: [:all, :assigned] },
       edit_projects: { scopes: [:all, :assigned] },
+      update_projects_as_minor_change: { scopes: [:all, :assigned] },
       moderate_projects: { scopes: [:all, :assigned] },
       publish_projects: { scopes: [:all, :assigned] },
       delete_projects: { scopes: [:all, :assigned] },

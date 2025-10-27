@@ -100,7 +100,7 @@ module GobiertoAdmin
         def test_regular_editor_creator_admin_create_valid_project
           allow_regular_admin_create_projects
           # The manage allows admin to manage permissions
-          allow_regular_admin_manage_projects
+          allow_regular_admin_edit_all_projects
 
           with_javascript do
             with_signed_in_admin(regular_admin) do

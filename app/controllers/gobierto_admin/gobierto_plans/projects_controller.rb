@@ -63,8 +63,10 @@ module GobiertoAdmin
                               t(".suggest_unpublish_html", url: @unpublish_url)
                             elsif reset_moderation?
                               t(".moderation_reset")
-                            else
+                            elsif has_changes?
                               t(".success")
+                            else
+                              t(".no_changes")
                             end
           redirect_to(
             edit_admin_plans_plan_project_path(@plan, @project),
@@ -216,7 +218,7 @@ module GobiertoAdmin
       def versions_defaults
         @versions_defaults ||= {
           publish_last_version_automatically: session.fetch(:publish_last_version_automatically_default, @plan.publish_last_version_automatically?),
-          minor_change: session.fetch(:minor_change_default, false)
+          minor_change: current_admin_allowed_update_actions.include?(:update_projects_as_minor_change) && session.fetch(:minor_change_default, false)
         }
       end
 
@@ -299,6 +301,10 @@ module GobiertoAdmin
         @project_form.reset_moderation?
       end
 
+      def has_changes?
+        @project_form.has_changes?
+      end
+
       def base_relation
         actions = admin_projects_actions&.dig(COLLECTION_ACTIONS.include?(action_name.to_sym) ? :collection : :default, :admin_actions) || []
         if (actions & permissions_policy.scoped_admin_actions(action_name.to_sym, scope: :all)).present?
@@ -336,9 +342,11 @@ module GobiertoAdmin
             :visibility_level,
             :status_id,
             :position,
-            :minor_change,
             :publish_last_version_automatically,
             name_translations: [*I18n.available_locales]
+          ],
+          update_projects_as_minor_change: [
+            :minor_change
           ],
           create_projects: [
             :category_id,
@@ -384,10 +392,9 @@ module GobiertoAdmin
 
         @custom_fields_form.custom_field_records = params.require(custom_params_key).permit(custom_records: {})
         @project_form.extra_attributes_changed = @custom_fields_form.changed || []
-        @new_version = @project_form.extra_attributes_changed.present? || @project_form.attributes_updated?
+        @new_version = @project_form.attributes_updated?
         unless @project_form.project.new_record? || @project_form.minor_change
           @custom_fields_form.force_new_version = @new_version
-          @project_form.force_new_version = @new_version
         end
       end
 

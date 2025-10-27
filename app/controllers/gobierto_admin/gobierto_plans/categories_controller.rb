@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class CategoriesController < GobiertoAdmin::GobiertoCommon::OrderedTermsController
-      before_action -> { current_module_allowed_action!(:manage) }
+      before_action -> { current_module_allowed_action!(:manage_plans) }
       before_action :set_leaf_terms
       after_action :expire_plan_cache, only: [:update]
 
@@ -19,7 +19,7 @@ module GobiertoAdmin
         calculate_accumulated_values
 
         @global_progress = @plan.global_progress
-        @projects_filter_form = ::GobiertoAdmin::GobiertoPlans::ProjectsFilterForm.new(plan: @plan, admin: current_admin, permissions_policy:)
+        @projects_filter_form = ::GobiertoAdmin::GobiertoPlans::ProjectsFilterForm.new(plan: @plan, admin: current_admin, permissions_policy:, index_all_actions: [:manage_plans])
         @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: ::GobiertoPlans::CategoryTermDecorator, options: { plan: @plan, vocabulary: @vocabulary, site: current_site })
       end
 

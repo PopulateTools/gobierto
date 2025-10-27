@@ -33,8 +33,7 @@ module GobiertoAdmin
         :ends_at,
         :options_json,
         :admin,
-        :position,
-        :force_new_version
+        :position
       )
       attr_writer(
         :category_id,
@@ -180,7 +179,11 @@ module GobiertoAdmin
       end
 
       def reset_moderation?
-        @reset_moderation ||= @moderation_stage.blank? && moderation_not_allowed? && attributes_updated? && !node.moderation.unsent?
+        @reset_moderation ||= @moderation_stage.blank? && moderation_not_allowed? && attributes_updated? && !node.moderation.unsent? && !minor_change
+      end
+
+      def has_changes?
+        @changed.present?
       end
 
       def publication_reset_moderation?
@@ -196,7 +199,7 @@ module GobiertoAdmin
       end
 
       def allow_manage_admin_groups?
-        allowed_admin_actions.include?(:manage)
+        allowed_admin_actions.include?(:edit_projects_permissions)
       end
 
       def moderation_visibility_level
@@ -212,7 +215,7 @@ module GobiertoAdmin
       def attributes_updated?
         return unless allow_edit_attributes?
 
-        @attributes_updated ||= @new_record || nodes_attributes_differ?(set_node_attributes, versioned_node)
+        @attributes_updated ||= node_attributes_changed? || extra_attributes_changed.present?
       end
 
       def publication_updated?
@@ -236,6 +239,7 @@ module GobiertoAdmin
       end
 
       def minor_change
+        return unless allowed_admin_actions.include?(:update_projects_as_minor_change)
         return true if @minor_change.is_a? TrueClass
 
         @minor_change == "1"
@@ -257,11 +261,15 @@ module GobiertoAdmin
           visibility_level_change: VISIBILITY_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) },
           moderation_stage_change: MODERATION_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) },
           edition_change: EDIT_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) },
-          allowed_actions_to_send_notification: [:view_projects, :edit_projects, :moderate_projects, :publish_projects, :delete_projects, :manage]
+          allowed_actions_to_send_notification: [:view_projects, :edit_projects, :moderate_projects, :publish_projects, :delete_projects, :edit_projects_permissions]
         }
       end
 
       private
+
+      def node_attributes_changed?
+        @node_attributes_changed ||= allow_edit_attributes? && (@new_record || node_attributes_differ?(set_node_attributes, versioned_node))
+      end
 
       def has_versions?
         @has_versions ||= node.respond_to?(:paper_trail)
@@ -318,7 +326,7 @@ module GobiertoAdmin
         node.versions[version_index].reify
       end
 
-      def nodes_attributes_differ?(node_a, node_b)
+      def node_attributes_differ?(node_a, node_b)
         node_a.attributes.slice(*attributes_for_new_version) != node_b.attributes.slice(*attributes_for_new_version)
       end
 
@@ -340,7 +348,7 @@ module GobiertoAdmin
       def set_version_and_visibility_level
         node.tap do |attributes|
           if allow_edit_attributes? && @version.present?
-            if attributes_updated? || force_new_version
+            if attributes_updated?
               @published_version = attributes.versions.length + (minor_change ? 0 : 1)
             else
               attributes.reload
@@ -371,7 +379,7 @@ module GobiertoAdmin
           @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?
           @changed = (@changed + @node.changed.map(&:to_sym)).uniq
           @node.save
-          @node.touch if force_new_version && !attributes_updated?
+          @node.touch if !node_attributes_changed? && extra_attributes_changed.present?
 
           # Do not set permissions for this group
           set_permissions_group(@node, action_name: nil) do |group|

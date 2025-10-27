@@ -11,10 +11,12 @@ module GobiertoAdmin
         create_projects: [:index, :new, :create],
         view_projects: [:index, :show],
         edit_projects: [:index, :edit, :update], #, :update_attributes], TODO what happens with update_attributes?
+        update_projects_as_minor_change: [:index, :edit, :update],
         moderate_projects: [:index, :edit, :moderate, :update],
         publish_projects: [:index, :edit, :publish, :unpublish, :update],
         delete_projects: [:index, :destroy],
-        manage: [:index, :show, :edit, :update, :manage],
+        edit_projects_permissions: [:index, :show, :edit, :update],
+        manage_plans: [:manage_plans, :index_categories],
         manage_dashboards: [:index_dashboards, :manage_dashboards],
         view_dashboards: [:index_dashboards]
       }.freeze

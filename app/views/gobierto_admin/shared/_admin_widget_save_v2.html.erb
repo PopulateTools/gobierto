@@ -14,7 +14,7 @@
         <% if save_allowed %>
           <div class="w_actions m_b_1">
             <% submit_data = allowed_admin_actions.exclude?(:moderate_projects) && moderated_resource.moderation_confirm_data || {} %>
-            <%= button_tag t("gobierto_admin.shared.moderation_save_widget.save"), class: "button medium", data: submit_data %>
+            <%= button_tag t("gobierto_admin.shared.moderation_save_widget.save"), class: "button medium js-save-button", data: submit_data %>
             <%= f.button(
                   t("gobierto_admin.shared.moderation_save_widget.preview"),
                   disabled: !moderated_resource.has_preview?,
@@ -38,11 +38,11 @@
         <% end %>
 
         <% if versioned_resource.has_versions? %>
-          <% if allowed_admin_actions.include?(:edit_projects) && versioned_resource.allows_minor_change? %>
+          <% if allowed_admin_actions.include?(:update_projects_as_minor_change) && versioned_resource.allows_minor_change? %>
             <div class="form_item m_b_1">
               <div class="options compact">
                 <div class="option">
-                  <%= f.check_box :minor_change %>
+                  <%= f.check_box :minor_change, class: "js-minor-change-checkbox" %>
                   <%= f.label :minor_change do %>
                     <span></span>
                     <%= t("gobierto_admin.shared.moderation_save_widget.minor_change")  %>

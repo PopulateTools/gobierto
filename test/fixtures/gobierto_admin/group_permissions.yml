@@ -48,12 +48,6 @@ manage_citizen_charters_madrid:
   resource_type: gobierto_citizens_charters
   action_name: manage
 
-edit_plans_madrid:
-  admin_group: madrid_edit_plans_group
-  namespace: site_module
-  resource_type: gobierto_plans
-  action_name: edit_projects_all
-
 moderate_all_projects_madrid:
   admin_group: madrid_moderate_all_projects_group
   namespace: site_module
@@ -126,11 +120,11 @@ delete_assigned_projects_madrid:
   resource_type: gobierto_plans
   action_name: delete_projects_assigned
 
-manage_projects_madrid:
-  admin_group: madrid_manage_projects_group
+manage_plans_madrid:
+  admin_group: madrid_manage_plans_group
   namespace: site_module
   resource_type: gobierto_plans
-  action_name: manage
+  action_name: manage_plans
 
 create_projects_madrid:
   admin_group: madrid_create_projects_group

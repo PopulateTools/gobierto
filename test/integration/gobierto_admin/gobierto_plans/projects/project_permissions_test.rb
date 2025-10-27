@@ -46,7 +46,7 @@ module GobiertoAdmin
         def test_regular_editor_admin_create_valid_project
           allow_regular_admin_create_projects
           allow_regular_admin_edit_assigned_projects
-          allow_regular_admin_manage_projects
+          allow_regular_admin_edit_all_projects
 
           with(site: site, admin: regular_admin, js: true) do
             visit @new_path
@@ -69,7 +69,7 @@ module GobiertoAdmin
         end
 
         def test_regular_manager_admin_adds_admin
-          allow_regular_admin_manage_projects
+          allow_regular_admin_edit_all_projects
 
           with(site: site, admin: regular_admin, js: true) do
             visit @edit_path
@@ -93,7 +93,7 @@ module GobiertoAdmin
         end
 
         def test_regular_manager_admin_deletes_admin
-          allow_regular_admin_manage_projects
+          allow_regular_admin_edit_all_projects
 
           with(site: site, admin: regular_admin, js: true) do
             visit @edit_path

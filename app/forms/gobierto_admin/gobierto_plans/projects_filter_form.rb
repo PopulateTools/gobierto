@@ -7,6 +7,7 @@ module GobiertoAdmin
 
       attr_accessor(*FILTER_PARAMS)
       attr_accessor :plan, :admin, :permissions_policy
+      attr_writer :index_all_actions
 
       validates :plan, :admin, presence: true
 
@@ -47,6 +48,10 @@ module GobiertoAdmin
 
       def admin_actions_all_value
         base_relation.count
+      end
+
+      def index_all_actions
+        @index_all_actions ||= [:view_projects_all, :edit_projects_all, :moderate_projects_all, :publish_projects_all, :delete_projects_all, :edit_projects_permissions_all]
       end
 
       def moderation_stage_values
@@ -104,10 +109,11 @@ module GobiertoAdmin
       end
 
       def index_all_projects?
-        return unless permissions_policy.allowed_actions_by_scope(:all).include?(:index)
+        controller_actions = permissions_policy.allowed_actions_by_scope(:all)
+        return unless [:index, :index_categories].any? { |controller_action| controller_actions.include?(controller_action) }
 
         all_allowed_actions = permissions_policy.allowed_admin_actions_by_scope(:all)
-        (all_allowed_actions & [:view_projects_all, :edit_projects_all, :moderate_projects_all, :publish_projects_all, :delete_projects_all, :manage]).present?
+        (all_allowed_actions & index_all_actions).present?
       end
     end
   end

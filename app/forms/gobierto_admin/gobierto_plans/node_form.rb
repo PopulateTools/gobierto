@@ -239,6 +239,7 @@ module GobiertoAdmin
       end
 
       def minor_change
+        return unless allowed_admin_actions.include?(:update_projects_as_minor_change)
         return true if @minor_change.is_a? TrueClass
 
         @minor_change == "1"

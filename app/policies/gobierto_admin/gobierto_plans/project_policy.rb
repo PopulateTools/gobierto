@@ -11,6 +11,7 @@ module GobiertoAdmin
         create_projects: [:index, :new, :create],
         view_projects: [:index, :show],
         edit_projects: [:index, :edit, :update], #, :update_attributes], TODO what happens with update_attributes?
+        update_projects_as_minor_change: [:index, :edit, :update],
         moderate_projects: [:index, :edit, :moderate, :update],
         publish_projects: [:index, :edit, :publish, :unpublish, :update],
         delete_projects: [:index, :destroy],

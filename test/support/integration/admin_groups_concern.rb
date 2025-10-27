@@ -42,6 +42,14 @@ module Integration
         @publish_assigned_projects_group ||= gobierto_admin_admin_groups(:madrid_publish_assigned_projects_group)
       end
 
+      def edit_all_projects_permissions_group
+        @edit_all_projects_permissions_group ||= gobierto_admin_admin_groups(:madrid_edit_all_projects_permissions_group)
+      end
+
+      def edit_assigned_projects_permissions_group
+        @edit_assigned_projects_permissions_group ||= gobierto_admin_admin_groups(:madrid_edit_assigned_projects_permissions_group)
+      end
+
       def delete_all_projects_group
         @delete_all_projects_group ||= gobierto_admin_admin_groups(:madrid_delete_all_projects_group)
       end
@@ -129,6 +137,19 @@ module Integration
 
       def allow_regular_admin_publish_project(project)
         allow_regular_admin_publish_assigned_projects
+        assign_project_to_regular_admin(project)
+      end
+
+      def allow_regular_admin_edit_all_projects_permissions
+        regular_admin.admin_groups << edit_all_projects_permissions_group
+      end
+
+      def allow_regular_admin_edit_assigned_projects_permissions
+        regular_admin.admin_groups << edit_assigned_projects_permissions_group
+      end
+
+      def allow_regular_admin_edit_project_permissions(project)
+        allow_regular_admin_edit_assigned_projects_permissions
         assign_project_to_regular_admin(project)
       end
 

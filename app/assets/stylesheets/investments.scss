@@ -606,7 +606,7 @@
       }
     }
 
-    $ranges-opacity: 10%, 25%, 40%, 60%, 75%, 90%, 100%;
+    $ranges-opacity: 10%, 22%, 34%, 46%, 58%, 70%, 82%, 91%, 100%;
 
     &--item {
       flex: 0 0 calc(100% / #{length($ranges-opacity)});

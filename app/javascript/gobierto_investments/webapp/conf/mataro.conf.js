@@ -19,6 +19,7 @@ export default {
       id: "date",
       startKey: "data-inici",
       endKey: "data-final",
+      hideDropdown: true
     },
     {
       id: "estat"

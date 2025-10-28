@@ -24,7 +24,8 @@ export default {
       id: "estat"
     },
     {
-      id: "any-estat"
+      id: "any-estat",
+      allowedValues: ["2024", "2025"]
     },
     {
       id: "tipus"

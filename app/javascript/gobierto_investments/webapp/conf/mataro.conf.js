@@ -16,15 +16,11 @@ export default {
   },
   availableFilters: [
     {
-      id: "date",
-      startKey: "data-inici",
-      endKey: "data-final",
-    },
-    {
       id: "estat"
     },
     {
-      id: "any-estat"
+      id: "any-estat",
+      allowedValues: ["2024", "2025"]
     },
     {
       id: "tipus"
@@ -37,9 +33,6 @@ export default {
     },
     {
       id: "consells-territorials"
-    },
-    {
-      id: "import"
     }
   ],
   displayGalleryFieldTags: false,
@@ -111,12 +104,6 @@ export default {
     },
     {
       id: "import-adjudicacio"
-    },
-    {
-      id: "import-liquidacio"
-    },
-    {
-      id: "partida"
     }
   ]
 };

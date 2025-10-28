@@ -307,16 +307,16 @@
       > * {
         padding: 1em 0;
         border-bottom: 1px solid $separator_dark;
+      }
 
-        &:first-of-type {
-          padding-top: 0;
+      .gobierto-filter--hide-dropdown {
+        padding-top: 0;
 
-          .gobierto-vue-dropdown--trigger {
-            display: none;
+        .gobierto-vue-dropdown--trigger {
+          display: none;
 
-            & + * {
-              margin-top: 0;
-            }
+          & + * {
+            margin-top: 0;
           }
         }
       }

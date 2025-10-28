@@ -54,6 +54,14 @@ madrid_delete_assigned_projects_group:
   name: madrid delete assigned projects group
   site: madrid
 
+madrid_update_all_projects_as_minor_change_group:
+  name: madrid update all projects as minor change group
+  site: madrid
+
+madrid_update_assigned_projects_as_minor_change_group:
+  name: madrid update assigned projects as minor change group
+  site: madrid
+
 madrid_edit_all_projects_permissions_group:
   name: madrid edit all projects permissions group
   site: madrid

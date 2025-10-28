@@ -33,9 +33,6 @@ export default {
     },
     {
       id: "consells-territorials"
-    },
-    {
-      id: "import"
     }
   ],
   displayGalleryFieldTags: false,

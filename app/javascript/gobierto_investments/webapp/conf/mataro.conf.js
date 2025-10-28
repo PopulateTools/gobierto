@@ -16,12 +16,6 @@ export default {
   },
   availableFilters: [
     {
-      id: "date",
-      startKey: "data-inici",
-      endKey: "data-final",
-      hideDropdown: true
-    },
-    {
       id: "estat"
     },
     {

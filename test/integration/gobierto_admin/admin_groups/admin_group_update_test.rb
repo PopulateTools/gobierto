@@ -119,6 +119,8 @@ module GobiertoAdmin
           with_signed_in_admin(manager_admin) do
             visit edit_admin_admin_group_path(madrid_group)
 
+            assert page.has_content?("Permissions of group: global")
+
             within "form.edit_admin_group" do
               find("label[for='admin_group_modules_gobiertoplans']").click
               find("label[for='modules_action_gobierto_plans_moderate_projects_all']").click

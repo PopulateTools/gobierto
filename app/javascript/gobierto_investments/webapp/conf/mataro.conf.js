@@ -104,12 +104,6 @@ export default {
     },
     {
       id: "import-adjudicacio"
-    },
-    {
-      id: "import-liquidacio"
-    },
-    {
-      id: "partida"
     }
   ]
 };

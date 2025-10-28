@@ -58,6 +58,14 @@ module Integration
         @delete_assigned_projects_group ||= gobierto_admin_admin_groups(:madrid_delete_assigned_projects_group)
       end
 
+      def update_all_projects_as_minor_change_group
+        @update_all_projects_as_minor_change_group ||= gobierto_admin_admin_groups(:madrid_update_all_projects_as_minor_change_group)
+      end
+
+      def update_assigned_projects_as_minor_change_group
+        @update_assigned_projects_as_minor_change_group ||= gobierto_admin_admin_groups(:madrid_update_assigned_projects_as_minor_change_group)
+      end
+
       def moderate_all_projects_group
         @moderate_all_projects_group ||= gobierto_admin_admin_groups(:madrid_moderate_all_projects_group)
       end
@@ -163,6 +171,19 @@ module Integration
 
       def allow_regular_admin_delete_project(project)
         allow_regular_admin_delete_assigned_projects
+        assign_project_to_regular_admin(project)
+      end
+
+       def allow_regular_admin_update_all_projects_as_minor_change
+        regular_admin.admin_groups << update_all_projects_as_minor_change_group
+      end
+
+      def allow_regular_admin_update_assigned_projects_as_minor_change
+        regular_admin.admin_groups << update_assigned_projects_as_minor_change_group
+      end
+
+      def allow_regular_admin_update_project_as_minor_change(project)
+        allow_regular_admin_update_assigned_projects_as_minor_change
         assign_project_to_regular_admin(project)
       end
 

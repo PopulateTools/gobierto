@@ -10,7 +10,7 @@ export class Middleware {
     const filters = [];
 
     for (let index = 0; index < this.filters.length; index++) {
-      const { id: key, ...rest } = this.filters[index];
+      const { id: key, allowedValues, ...rest } = this.filters[index];
       const element = stats[key];
       const { field_type: type, vocabulary_terms: options = [], name_translations: title = {} } = this.getAttributesByKey(key);
 
@@ -20,7 +20,8 @@ export class Middleware {
         title: translate(title),
         options: Array.isArray(options) ? options.map(opt => ({ ...opt, title: translate(opt.name_translations) })) : [],
         type: type ? type : key,
-        key
+        key,
+        allowedValues
       });
     }
 

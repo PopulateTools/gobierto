@@ -34,11 +34,11 @@
           <div v-if="column.type === 'vocabulary'">
             {{ getVocabularyValue(column.id, v[column.id]) }}
           </div>
-          <div v-else-if="column.filter === 'money'">
-            {{ v[column.id] | money }}
-          </div>
-          <div v-else-if="column.filter === 'date'">
+          <div v-else-if="column.type === 'date' || column.filter === 'date'">
             {{ v[column.id] | date }}
+          </div>
+          <div v-else-if="column.type === 'money' || column.filter === 'money'">
+            {{ v[column.id] | money }}
           </div>
           <div v-else>
             {{ v[column.id] }}

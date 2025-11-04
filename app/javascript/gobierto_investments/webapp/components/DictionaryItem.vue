@@ -5,7 +5,22 @@
     </div>
 
     <!-- Table type -->
-    <div v-if="type === 'table'">
+
+    <div
+      v-if="type === 'table' && table && table.columns"
+      class="investments-project-main--table-container"
+    >
+      <!-- Table header with column titles -->
+      <div class="investments-project-main--inner-table-row investments-project-main--inner-table-header">
+        <div
+          v-for="column in table.columns"
+          :key="`header-${column.id}`"
+          :class="getCellClass(column)"
+        >
+          <strong>{{ translate(column.name_translations) }}</strong>
+        </div>
+      </div>
+      <!-- Table rows with data -->
       <div
         v-for="(v, i) in value"
         :key="`${v}-${i}`"
@@ -14,18 +29,25 @@
         <div
           v-for="column in table.columns"
           :key="`${column.id}-${v}`"
+          :class="getCellClass(column)"
         >
-          <div v-if="column.filter === 'money'">
-            {{ v[column.id] | money }}
+          <div v-if="column.type === 'vocabulary'">
+            {{ getVocabularyValue(column.id, v[column.id]) }}
           </div>
-          <div v-else-if="column.filter === 'date'">
+          <div v-else-if="column.type === 'date' || column.filter === 'date'">
             {{ v[column.id] | date }}
+          </div>
+          <div v-else-if="column.type === 'money' || column.filter === 'money'">
+            {{ v[column.id] | money }}
           </div>
           <div v-else>
             {{ v[column.id] }}
           </div>
         </div>
       </div>
+    </div>
+    <div v-else-if="type === 'table' && (!table || !table.columns)">
+      <em>{{ value || "Table configuration missing" }}</em>
     </div>
 
     <!-- Icon type -->
@@ -89,6 +111,51 @@ export default {
     table: {
       type: Object,
       default: () => {}
+    }
+  },
+  data() {
+    return {
+      vocabularyLookup: {}
+    };
+  },
+  created() {
+    if (this.type === 'table' && this.table && this.table.vocabulary_terms) {
+      this.buildVocabularyLookup();
+    }
+  },
+  methods: {
+    buildVocabularyLookup() {
+      // Build a lookup dictionary from vocabulary_terms
+      // vocabulary_terms contains all terms for all vocabularies used in the table
+      if (Array.isArray(this.table.vocabulary_terms)) {
+        this.table.vocabulary_terms.forEach(term => {
+          // Map term id to translated name
+          this.vocabularyLookup[term.id] = this.translate(term.name_translations);
+        });
+      }
+    },
+    getVocabularyValue(columnId, value) {
+      // Look up the term by its ID
+      if (this.vocabularyLookup[value]) {
+        return this.vocabularyLookup[value];
+      }
+      // Fallback to original value if not found
+      return value || '-';
+    },
+    getCellClass(column) {
+      const baseClass = 'investments-project-main--inner-table-cell';
+      const type = column.type || column.filter || 'text';
+
+      // Map column types to CSS classes
+      const typeClasses = {
+        'date': `${baseClass} ${baseClass}--date`,
+        'vocabulary': `${baseClass} ${baseClass}--vocabulary`,
+        'money': `${baseClass} ${baseClass}--vocabulary`,
+        'text': `${baseClass} ${baseClass}--text`
+      };
+
+      // Return specific class or default to vocabulary width
+      return typeClasses[type] || `${baseClass} ${baseClass}--vocabulary`;
     }
   }
 };

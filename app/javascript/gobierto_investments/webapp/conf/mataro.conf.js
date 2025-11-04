@@ -19,8 +19,8 @@ export default {
       id: "estat"
     },
     {
-      id: "any-estat",
-      allowedValues: ["2024", "2025"]
+      id: "any-pla-inversions"//,
+      // allowedValues: ["2024", "2025"]
     },
     {
       id: "tipus"
@@ -101,6 +101,10 @@ export default {
     },
     {
       id: "import"
+    },
+    {
+      id: "estats",
+      type: "table"
     },
     {
       id: "import-adjudicacio"

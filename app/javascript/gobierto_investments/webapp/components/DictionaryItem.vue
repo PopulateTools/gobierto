@@ -15,7 +15,7 @@
         <div
           v-for="column in table.columns"
           :key="`header-${column.id}`"
-          class="investments-project-main--inner-table-cell"
+          :class="getCellClass(column)"
         >
           <strong>{{ translate(column.name_translations) }}</strong>
         </div>
@@ -29,7 +29,7 @@
         <div
           v-for="column in table.columns"
           :key="`${column.id}-${v}`"
-          class="investments-project-main--inner-table-cell"
+          :class="getCellClass(column)"
         >
           <div v-if="column.type === 'vocabulary'">
             {{ getVocabularyValue(column.id, v[column.id]) }}
@@ -141,6 +141,21 @@ export default {
       }
       // Fallback to original value if not found
       return value || '-';
+    },
+    getCellClass(column) {
+      const baseClass = 'investments-project-main--inner-table-cell';
+      const type = column.type || column.filter || 'text';
+
+      // Map column types to CSS classes
+      const typeClasses = {
+        'date': `${baseClass} ${baseClass}--date`,
+        'vocabulary': `${baseClass} ${baseClass}--vocabulary`,
+        'money': `${baseClass} ${baseClass}--vocabulary`,
+        'text': `${baseClass} ${baseClass}--text`
+      };
+
+      // Return specific class or default to vocabulary width
+      return typeClasses[type] || `${baseClass} ${baseClass}--vocabulary`;
     }
   }
 };

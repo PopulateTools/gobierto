@@ -296,6 +296,21 @@
       &:not(:first-child) {
         padding-left: 1rem;
       }
+
+      &--date {
+        flex: 0 0 100px;
+        min-width: 100px;
+      }
+
+      &--vocabulary {
+        flex: 0 0 110px;
+        min-width: 110px;
+      }
+
+      &--text {
+        flex: 2;
+        min-width: 300px;
+      }
     }
 
     &--icon-text {

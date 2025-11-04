@@ -103,11 +103,14 @@ export default {
       id: "import"
     },
     {
-      id: "estats",
-      type: "table"
+      id: "import-adjudicacio"
     },
     {
-      id: "import-adjudicacio"
+      type: "separator"
+    },
+    {
+      id: "estats",
+      type: "table"
     }
   ]
 };

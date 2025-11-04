@@ -87,11 +87,24 @@ export const CommonsMixin = {
         attr.field_type = "money"
       }
 
+      // Extract table configuration from plugin_configuration if type is table
+      let table = element.table;
+      if (element.type === "table" && attr.options?.configuration?.plugin_configuration) {
+        table = attr.options.configuration.plugin_configuration;
+
+        // Add vocabulary_terms from metadata to table configuration
+        // The metadata provides vocabulary_terms for all vocabularies in vocabulary_ids
+        if (table && attr.vocabulary_terms) {
+          table.vocabulary_terms = attr.vocabulary_terms;
+        }
+      }
+
       return {
         ...attr,
         ...element,
         name: this.translate(attr.name_translations),
-        value: value
+        value: value,
+        table: table
       };
     },
     setItem(element, metadata) {

@@ -38,7 +38,7 @@ module GobiertoPlans
 
     delegate :name, to: :status, prefix: true, allow_nil: true
 
-    before_save :check_published_version
+    after_update :check_published_version
 
     scope :with_name, ->(name) { where("gplan_nodes.name_translations ->> 'en' ILIKE :name OR gplan_nodes.name_translations ->> 'es' ILIKE :name OR gplan_nodes.name_translations ->> 'ca' ILIKE :name", name: "%#{name}%") }
     scope :with_status, ->(status) { where(status_id: status) }

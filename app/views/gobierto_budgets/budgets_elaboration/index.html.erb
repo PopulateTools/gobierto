@@ -11,7 +11,7 @@
     <div class="pure-g header_block_inline">
       <div class="pure-u-1 pure-u-md-12-24">
         <div class="inline_header">
-          <h2 class="with_description p_h_r_1"><%= t('.header') %></h2>
+          <h2 class="with_description p_h_r_1"><%= t('.header', year: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data) %></h2>
         </div>
 
         <p>

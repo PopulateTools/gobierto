@@ -337,7 +337,7 @@ es:
         expenses_per_inhabitant_tooltip: Presupuesto inicial dividido por el número
           de habitantes
         explore_the_detail: Explora el detalle
-        header: Elaboración del presupuesto
+        header: Tramitación del presupuesto %{year}
         in_total: En total
         income_per_inhabitant: Ingreso por habitante
         income_per_inhabitant_tooltip: Presupuesto inicial dividido por el número

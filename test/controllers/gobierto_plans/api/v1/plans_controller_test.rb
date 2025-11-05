@@ -878,6 +878,12 @@ module GobiertoPlans
         # PUT /api/v1/plans/1
         # PUT /api/v1/plans/1.json
         def test_update_with_admin_token
+          # Force the existence of versions in projects of plan, the fixtures
+          # do not create versions
+          other_plan.nodes.each do |project|
+            project.paper_trail.save_with_version
+          end
+
           with(site:) do
             assert_no_difference(
               "GobiertoPlans::Plan.count" => 0,

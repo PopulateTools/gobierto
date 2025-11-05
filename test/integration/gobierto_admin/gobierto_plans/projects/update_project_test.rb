@@ -189,6 +189,33 @@ module GobiertoAdmin
           end
         end
 
+        def test_change_moderation_status_of_project_as_regular_moderator
+          create_custom_fields_records
+          allow_regular_admin_moderate_all_projects
+
+          with(site: site, admin: regular_admin, js: true) do
+            visit path
+
+            choose_moderation_status "Under review"
+
+            within "div.widget_save_v2" do
+              click_button "Save"
+            end
+
+            assert has_content? "Project updated correctly."
+
+            assert has_content? "Editing version\n1"
+            assert has_content? "Status\nPublished"
+            assert has_content? "Published version\n1"
+            refute has_link? "Unpublish"
+
+            published_project.reload
+
+            assert published_project.published?
+            assert published_project.moderation.in_review?
+          end
+        end
+
         def test_publish_and_change_moderation_stage_of_project_as_regular_moderator_publisher
           create_custom_fields_records
           allow_regular_admin_moderate_all_projects

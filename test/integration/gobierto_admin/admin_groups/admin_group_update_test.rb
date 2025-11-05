@@ -119,10 +119,12 @@ module GobiertoAdmin
           with_signed_in_admin(manager_admin) do
             visit edit_admin_admin_group_path(madrid_group)
 
+            assert page.has_content?("Permissions of group: global")
+
             within "form.edit_admin_group" do
               find("label[for='admin_group_modules_gobiertoplans']").click
               find("label[for='modules_action_gobierto_plans_moderate_projects_all']").click
-              find("label[for='modules_action_gobierto_plans_manage']").click
+              find("label[for='modules_action_gobierto_plans_manage_plans']").click
               find("label[for='admin_group_all_people']").click
 
               click_button "Update"
@@ -132,7 +134,7 @@ module GobiertoAdmin
 
             within "form.edit_admin_group" do
               assert find("#admin_group_modules_gobiertopeople", visible: false).checked?
-              refute find("#modules_action_gobierto_plans_manage", visible: false).checked?
+              refute find("#modules_action_gobierto_plans_manage_plans", visible: false).checked?
               refute find("#modules_action_gobierto_plans_edit_projects_all", visible: false).checked?
               assert find("#modules_action_gobierto_plans_moderate_projects_all", visible: false).checked?
               assert find("#admin_group_all_people", visible: false).checked?

@@ -19,7 +19,9 @@ window.GobiertoAdmin.AdminGroupsController = (function() {
           $modules_actions_block.show('slow');
           $modules_actions_block.prop("disabled", false);
           if ($modules_actions_block.find("[data-class='modules_action'] input[type='checkbox']:checked").length == 0) {
-            $modules_actions_block.find("[data-class='modules_action'] input[type='checkbox'][value='manage']").prop('checked', true);
+            // For Gobierto Plans, use 'manage_plans' instead of deprecated 'manage'
+            let defaultAction = this.value === 'GobiertoPlans' ? 'manage_plans' : 'manage';
+            $modules_actions_block.find(`[data-class='modules_action'] input[type='checkbox'][value='${defaultAction}']`).prop('checked', true);
           }
           $subresources_block.show('slow');
         } else {

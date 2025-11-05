@@ -415,6 +415,133 @@ module GobiertoAdmin
           end
         end
 
+        def test_edit_approved_project_as_regular_editor
+          allow_regular_admin_edit_project(published_project)
+          published_project.moderation.approved!
+
+          with(site: site, admin: regular_admin) do
+            visit path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+
+              fill_in "project_starts_at", with: "2020-01-01"
+              fill_in "project_ends_at", with: "2021-01-01"
+              select "Active", from: "project_status_id"
+              select "3%", from: "project_progress"
+
+              within "div.widget_save_v2" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Because you have modified the project and do not have moderation permissions, its status has been moved to Not sent."
+            assert has_button? "Send"
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\n1"
+
+            published_project.reload
+            assert_equal "unsent", published_project.moderation_stage
+          end
+        end
+
+        def test_save_approved_project_as_regular_editor_without_changes
+          allow_regular_admin_edit_project(published_project)
+          published_project.moderation.approved!
+
+          with(site: site, admin: regular_admin) do
+            # Save an initial version 2 setting custom fields
+            visit path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+
+              within "div.widget_save_v2" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Because you have modified the project and do not have moderation permissions, its status has been moved to Not sent."
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Moderation\nNot sent"
+            assert has_content? "Published version\n1"
+
+            published_project.reload
+            assert_equal "unsent", published_project.moderation_stage
+            assert published_project.published?
+
+            published_project.update_attribute(:published_version, 2)
+            published_project.moderation.approved!
+
+            visit path
+
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nPublished"
+            assert has_content? "Moderation\nApproved"
+            assert has_content? "Published version\n2"
+
+            within "form" do
+              within "div.widget_save_v2" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "No changes have been made to the project. The current version has been maintained."
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nPublished"
+            assert has_content? "Moderation\nApproved"
+            assert has_content? "Published version\n2"
+
+            published_project.reload
+            assert_equal "approved", published_project.moderation_stage
+            assert published_project.published?
+          end
+        end
+
+        def test_edit_approved_project_as_regular_editor_allowed_to_save_minor_changes
+          allow_regular_admin_edit_project(published_project)
+          allow_regular_admin_update_project_as_minor_change(published_project)
+          published_project.moderation.approved!
+
+          with(site: site, admin: regular_admin) do
+            visit path
+
+            within "form" do
+              assert has_content? "Minor change (does not save version)"
+
+              fill_in "project_name_translations_en", with: "Updated project with minor change"
+
+              fill_in "project_starts_at", with: "2020-01-01"
+              fill_in "project_ends_at", with: "2021-01-01"
+              select "Active", from: "project_status_id"
+              select "3%", from: "project_progress"
+
+              find("label", text: "Minor change (does not save version)").click
+
+              within "div.widget_save_v2" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Project updated correctly."
+            assert has_content? "Editing version\n1"
+            assert has_content? "Status\nPublished"
+            assert has_content? "Published version\n1"
+
+            published_project.reload
+
+            assert_equal "Updated project with minor change", published_project.name
+            assert_equal "Active", published_project.status.name
+            assert_equal 3.0, published_project.progress
+            assert_equal Date.parse("2020-01-01"), published_project.starts_at
+            assert_equal Date.parse("2021-01-01"), published_project.ends_at
+            assert published_project.published?
+            assert published_project.moderation.approved?
+          end
+        end
+
         def test_edit_project_as_regular_editor_moderator_and_publisher
           allow_regular_admin_edit_project(unpublished_project)
           allow_regular_admin_moderate_all_projects

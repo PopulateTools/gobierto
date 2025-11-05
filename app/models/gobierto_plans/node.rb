@@ -38,6 +38,8 @@ module GobiertoPlans
 
     delegate :name, to: :status, prefix: true, allow_nil: true
 
+    before_save :check_published_version
+
     scope :with_name, ->(name) { where("gplan_nodes.name_translations ->> 'en' ILIKE :name OR gplan_nodes.name_translations ->> 'es' ILIKE :name OR gplan_nodes.name_translations ->> 'ca' ILIKE :name", name: "%#{name}%") }
     scope :with_status, ->(status) { where(status_id: status) }
     scope :with_category, ->(category) { where(gplan_categories_nodes: { category_id: GobiertoCommon::Term.find(category).last_descendants }) }
@@ -151,6 +153,14 @@ module GobiertoPlans
         serialize_for_search_engine: true,
         custom_fields: plan.front_available_custom_fields.where(field_type: GobiertoCommon::CustomField.searchable_fields)
       ).to_h.symbolize_keys
+    end
+
+    def check_published_version
+      return unless published?
+      return if published_version.nil?
+      return if versions[published_version]&.reify.present?
+
+      update_columns(published_version: nil, visibility_level: 0)
     end
   end
 end

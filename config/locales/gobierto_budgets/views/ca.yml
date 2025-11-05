@@ -345,7 +345,7 @@ ca:
         expenses_per_inhabitant: Despesa per habitant
         expenses_per_inhabitant_tooltip: Pressupost inicial dividit pel nombre d'habitants
         explore_the_detail: Explora el detall
-        header: Elaboració del pressupost
+        header: Tramitació del pressupost %{year}
         in_total: En total
         income_per_inhabitant: Ingressos per habitant
         income_per_inhabitant_tooltip: Pressupost inicial dividit pel nombre d’habitants

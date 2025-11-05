@@ -158,7 +158,9 @@ module GobiertoPlans
     def check_published_version
       return unless published?
       return if published_version.nil?
-      return if versions[published_version]&.reify.present?
+
+      version_index = published_version - versions.length
+      return if published_version > 0 && (version_index >= 0 || version_index < 0 && versions[version_index]&.reify.present?)
 
       update_columns(published_version: nil, visibility_level: 0)
     end

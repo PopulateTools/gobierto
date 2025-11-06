@@ -59,4 +59,19 @@
   .editor-preview-side {
     top: 80px;
   }
+
+  .CodeMirror-disabled {
+    background-color: #fafafa;
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    padding-top: 1.75rem;
+
+    .CodeMirror-scroll,
+    .CodeMirror-sizer,
+    .CodeMirror-lines,
+    .CodeMirror-cursor {
+      cursor: not-allowed !important;
+    }
+  }
 }

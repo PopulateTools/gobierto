@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class CategoriesController < GobiertoAdmin::GobiertoCommon::OrderedTermsController
-      before_action -> { current_module_allowed_action!(:manage_plans) }
+      before_action -> { review_allowed_actions! }
       before_action :set_leaf_terms
       after_action :expire_plan_cache, only: [:update]
 
@@ -113,6 +113,10 @@ module GobiertoAdmin
       end
 
       private
+
+      def review_allowed_actions!
+        raise_action_not_allowed unless current_controller_allowed_actions.include?(:index)
+      end
 
       def admin_projects_actions
         @admin_projects_actions ||= admin_actions_manager.admin_actions(admin: current_admin, resource: plan.nodes) if plan

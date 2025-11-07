@@ -176,6 +176,8 @@ module GobiertoAdmin
                                                         *permissions_policy.scoped_admin_actions(controller_action)
                                                       )
                                                       names & current_admin_allowed_unscoped_actions
+                                                    else
+                                                      []
                                                     end
                                                   end
       end

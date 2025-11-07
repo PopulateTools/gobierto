@@ -110,7 +110,7 @@ module GobiertoAdmin
 
       def index_all_projects?
         controller_actions = permissions_policy.allowed_actions_by_scope(:all)
-        return unless [:index, :index_categories].any? { |controller_action| controller_actions.include?(controller_action) }
+        return unless controller_actions.include?(:index)
 
         all_allowed_actions = permissions_policy.allowed_admin_actions_by_scope(:all)
         (all_allowed_actions & index_all_actions).present?

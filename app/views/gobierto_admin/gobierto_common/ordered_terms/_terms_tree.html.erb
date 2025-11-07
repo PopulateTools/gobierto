@@ -31,15 +31,17 @@
           </div>
         <% end %>
 
-        <div class="v_el_actions" id="<%= "v_el_actions_#{term.id}" %>">
-          <%= link_to({ action: :edit, id: term.id }, { class: "open_remote_modal", title: t("views.edit") })  do %>
-            <i class="fas fa-edit"></i>
-          <% end %>
-          <%= link_to({ action: :destroy, id: term.id },
-                      { method: :delete, title: t("views.delete"), data: { confirm: t("gobierto_admin.gobierto_common.ordered_terms.terms_tree.delete_confirm") } }) do %>
-            <i class="fas fa-trash"></i>
-          <% end %>
-        </div>
+        <% if editable %>
+          <div class="v_el_actions" id="<%= "v_el_actions_#{term.id}" %>">
+            <%= link_to({ action: :edit, id: term.id }, { class: "open_remote_modal", title: t("views.edit") })  do %>
+              <i class="fas fa-edit"></i>
+            <% end %>
+            <%= link_to({ action: :destroy, id: term.id },
+                        { method: :delete, title: t("views.delete"), data: { confirm: t("gobierto_admin.gobierto_common.ordered_terms.terms_tree.delete_confirm") } }) do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          </div>
+        <% end %>
       </div>
 
       <% if has_subterms %>

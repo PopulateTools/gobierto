@@ -5,7 +5,13 @@
     <div class="v_el_cont">
       <div class="v_el_title">
         <i class="fas fa-file-alt"></i>
-        <%= link_to_if controller_actions.include?(:edit), project.name, edit_admin_plans_plan_project_path(plan, project) %>
+        <% if controller_actions.include?(:edit) %>
+          <%= link_to project.name, edit_admin_plans_plan_project_path(plan, project) %>
+        <% elsif controller_actions.include?(:show) %>
+          <%= link_to project.name, admin_plans_plan_project_path(plan, project) %>
+        <% else %>
+          <%= project.name %>
+        <% end %>
       </div>
       <div class="v_el_decorated">
         <div>

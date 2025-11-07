@@ -12,15 +12,15 @@ module GobiertoAdmin
       def index
         find_vocabulary
         unless @vocabulary.present?
-          redirect_to edit_admin_plans_plan_path(@plan)
+          redirect_to edit_admin_plans_plan_path(plan)
           return
         end
 
         calculate_accumulated_values
 
-        @global_progress = @plan.global_progress
-        @projects_filter_form = ::GobiertoAdmin::GobiertoPlans::ProjectsFilterForm.new(plan: @plan, admin: current_admin, permissions_policy:, index_all_actions: [:manage_plans])
-        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: ::GobiertoPlans::CategoryTermDecorator, options: { plan: @plan, vocabulary: @vocabulary, site: current_site })
+        @global_progress = plan.global_progress
+        @projects_filter_form = ::GobiertoAdmin::GobiertoPlans::ProjectsFilterForm.new(plan:, admin: current_admin, permissions_policy:, index_all_actions: [:manage_plans])
+        @terms = TreeDecorator.new(tree(@vocabulary.terms), decorator: ::GobiertoPlans::CategoryTermDecorator, options: { plan:, vocabulary: @vocabulary, site: current_site })
       end
 
       def accumulated_values
@@ -33,7 +33,7 @@ module GobiertoAdmin
       private
 
       def index_path
-        admin_plans_plan_categories_path(@plan)
+        admin_plans_plan_categories_path(plan)
       end
 
       def find_term
@@ -43,25 +43,28 @@ module GobiertoAdmin
 
       def calculate_accumulated_values
         @accumulated_values ||= @vocabulary.terms.inject({}) do |calculations, term|
-          decorated_term = ::GobiertoPlans::CategoryTermDecorator.new(term, plan: @plan, vocabulary: @vocabulary, site: current_site)
+          decorated_term = ::GobiertoPlans::CategoryTermDecorator.new(term, plan:, vocabulary: @vocabulary, site: current_site)
 
           calculations.update(
             term.id => decorated_term.decorated_values
           )
         end
 
-        @calculated_values_path = accumulated_values_admin_plans_plan_categories_path(@plan)
+        @calculated_values_path = accumulated_values_admin_plans_plan_categories_path(plan)
       end
 
       def find_vocabulary
-        @plan = current_site.plans.find params[:plan_id]
-        @preview_item_url = gobierto_plans_plan_type_preview_url(@plan, host: current_site.domain)
-        @vocabulary = @plan.categories_vocabulary
+        @preview_item_url = gobierto_plans_plan_type_preview_url(plan, host: current_site.domain)
+        @vocabulary = plan.categories_vocabulary
+      end
+
+      def plan
+        @plan ||= current_site.plans.find params[:plan_id]
       end
 
       def raise_action_not_allowed
         find_vocabulary
-        redirection_path = current_controller_allowed_actions.include?(:index) ? admin_plans_plan_projects_path(@plan) : admin_plans_plan_categories_path(@plan)
+        redirection_path = current_controller_allowed_actions.include?(:index) ? admin_plans_plan_projects_path(plan) : admin_plans_plan_categories_path(plan)
         redirect_to(
           redirection_path,
           alert: t("gobierto_admin.module_helper.not_enabled")
@@ -69,14 +72,14 @@ module GobiertoAdmin
       end
 
       def current_controller_allowed_actions
-        @current_controller_allowed_actions ||= admin_projects_actions&.dig(:default, :controller_actions) || []
+        @current_controller_allowed_actions ||= admin_projects_actions&.dig(:collection, :controller_actions) || []
       end
 
       def permissions_policy
         @permissions_policy ||= GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(
           current_admin: current_admin,
           current_site: current_site,
-          plan: @plan
+          plan:
         )
       end
 
@@ -112,7 +115,7 @@ module GobiertoAdmin
       private
 
       def admin_projects_actions
-        @admin_projects_actions ||= admin_actions_manager.admin_actions(admin: current_admin, resource: @plan.nodes) if @plan
+        @admin_projects_actions ||= admin_actions_manager.admin_actions(admin: current_admin, resource: plan.nodes) if plan
       end
     end
   end

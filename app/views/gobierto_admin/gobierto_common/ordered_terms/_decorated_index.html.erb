@@ -26,12 +26,14 @@
 
 </div>
 
-<div class="admin_new_el">
-  <%= link_to({ action: :new }, { class: "open_remote_modal p_1 border-el" }) do %>
-    <i class="fa fa-plus-circle"></i>
-    <%= t("gobierto_admin.gobierto_common.ordered_terms.index.new") %>
-  <% end %>
-</div>
+<% if editable %>
+  <div class="admin_new_el">
+    <%= link_to({ action: :new }, { class: "open_remote_modal p_1 border-el" }) do %>
+      <i class="fa fa-plus-circle"></i>
+      <%= t("gobierto_admin.gobierto_common.ordered_terms.index.new") %>
+    <% end %>
+  </div>
+<% end %>
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>

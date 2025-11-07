@@ -4,7 +4,7 @@ module GobiertoAdmin
   module GobiertoCommon
     class OrderedTermsController < BaseController
 
-      before_action :check_permissions!
+      before_action :check_permissions!, except: [:index]
 
       def index
         @vocabulary = find_vocabulary

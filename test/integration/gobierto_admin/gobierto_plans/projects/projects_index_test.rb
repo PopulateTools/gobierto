@@ -79,15 +79,14 @@ module GobiertoAdmin
         def test_regular_admin_plan_manager_projects_index
           allow_regular_admin_manage_plans
 
-          with_signed_in_admin(regular_admin) do
-            with_current_site(site) do
-              visit @path
+          with(site:, admin: regular_admin, js: true) do
+            visit @path
+            assert has_content? plan.title
 
-              assert has_alert? "You are not authorized to perform this action"
-            end
+            visit admin_plans_plan_categories_path(plan)
+            assert has_css?("div.metric.metric_medium", text: "2\nTotal")
           end
         end
-
 
         def test_regular_projects_editor_projects_index
           allow_regular_admin_edit_all_projects

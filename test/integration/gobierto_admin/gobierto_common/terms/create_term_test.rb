@@ -31,8 +31,16 @@ module GobiertoAdmin
           with_signed_in_admin(unauthorized_admin) do
             with_current_site(site) do
               visit @path
-              assert has_content?("You are not authorized to perform this action")
-              assert_equal edit_admin_admin_settings_path, current_path
+
+              assert has_no_link? "New"
+              within "div.v_heading" do
+                find("i.fa-caret-square-down").click
+              end
+
+              vocabulary.terms.each do |term|
+                assert has_content? term.name
+                assert has_no_link? term.name
+              end
             end
           end
         end

@@ -7,7 +7,7 @@ module GobiertoAdmin
 
       attr_accessor(*FILTER_PARAMS)
       attr_accessor :plan, :admin, :permissions_policy
-      attr_writer :index_all_actions
+      attr_writer :index_all_actions, :index_all_projects
 
       validates :plan, :admin, presence: true
 
@@ -109,6 +109,8 @@ module GobiertoAdmin
       end
 
       def index_all_projects?
+        return @index_all_projects if @index_all_projects.present?
+
         controller_actions = permissions_policy.allowed_actions_by_scope(:all)
         return unless controller_actions.include?(:index)
 

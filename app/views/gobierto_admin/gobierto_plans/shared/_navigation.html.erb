@@ -2,7 +2,7 @@
 
 <div class="tabs">
   <ul>
-    <% if @plan.categories_vocabulary.present? && controller_actions.include?(:manage_plans) && current_admin.can_edit_vocabularies? %>
+    <% if @plan.categories_vocabulary.present? && controller_actions.include?(:index) %>
       <li class="<%= class_if('active', controller_name == "categories") %>">
         <%= link_to t(".plan_terms_tab"), admin_plans_plan_categories_path(@plan), data: { turbolinks: false } %>
       </li>

@@ -62,15 +62,6 @@ module GobiertoAdmin
         @plan ||= current_site.plans.find params[:plan_id]
       end
 
-      def raise_action_not_allowed
-        find_vocabulary
-        redirection_path = current_controller_allowed_actions.include?(:index) ? admin_plans_plan_projects_path(plan) : admin_plans_plan_categories_path(plan)
-        redirect_to(
-          redirection_path,
-          alert: t("gobierto_admin.module_helper.not_enabled")
-        )
-      end
-
       def current_controller_allowed_actions
         @current_controller_allowed_actions ||= admin_projects_actions&.dig(:collection, :controller_actions) || []
       end
@@ -120,6 +111,13 @@ module GobiertoAdmin
 
       def admin_projects_actions
         @admin_projects_actions ||= admin_actions_manager.admin_actions(admin: current_admin, resource: plan.nodes) if plan
+      end
+
+      def raise_action_not_allowed
+        redirect_to(
+          admin_plans_plans_path,
+          alert: t("gobierto_admin.module_helper.not_enabled")
+        )
       end
     end
   end

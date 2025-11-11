@@ -117,8 +117,8 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
     with_current_site(placed_site) do
       visit @path
 
-      assert has_css?(".metric_box h3", text: "Initial budget per inhabitant")
-      assert has_css?(".metric_box h3", text: "Initial budget")
+      assert has_css?(".metric_box h3", text: "Expenses per inhabitant")
+      assert has_css?(".metric_box h3", text: "Total expenses")
       assert has_css?(".metric_box h3", text: "Executed")
       assert has_css?(".metric_box h3", text: "Inhabitants")
       assert has_css?(".metric_box h3", text: "Debt")
@@ -130,7 +130,7 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
     with_current_site(organization_site) do
       visit @path
 
-      assert has_css?(".metric_box h3", text: "Initial budget")
+      assert has_css?(".metric_box h3", text: "Total expenses")
       assert has_css?(".metric_box h3", text: "Executed")
       assert page.all(".metric_box .metric").all? { |e| e.text =~ /(\d+)|Not avail./ }
     end

@@ -100,10 +100,13 @@ export default {
       type: "separator"
     },
     {
-      id: "import"
+      id: "import-adjudicacio-ambiva"
     },
     {
-      id: "import-adjudicacio"
+      id: "import-licitacio-ambiva"
+    },
+    {
+      id: "import-liquidacio-ambiva"
     },
     {
       type: "separator"

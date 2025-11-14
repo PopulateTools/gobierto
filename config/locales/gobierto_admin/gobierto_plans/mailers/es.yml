@@ -13,6 +13,8 @@ es:
             ha creado una nueva versión.
           moderation_stage_change: Cambio en el estado de moderación a %{moderation_status}
           subject: Se ha modificado un proyecto en el plan %{plan_title} de %{site_name}
+          subject_with_changes: Se ha modificado un proyecto en el plan %{plan_title}
+            de %{site_name} a %{changes}
           visibility_level_change: Cambio en el estado de publicación a %{visibility_level}
           visibility_levels:
             draft: No publicado

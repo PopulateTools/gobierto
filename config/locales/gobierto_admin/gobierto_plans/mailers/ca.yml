@@ -13,6 +13,8 @@ ca:
             creat una nova versió.
           moderation_stage_change: Canvi en l'estat de moderació a %{moderation_status}
           subject: S'ha modificat un projecte en el pla %{plan_title} de %{site_name}
+          subject_with_changes: S'ha modificat un projecte en el pla %{plan_title}
+            de %{site_name} a %{changes}
           visibility_level_change: Canvi en l'estat de publicació a %{visibility_level}
           visibility_levels:
             draft: No publicat

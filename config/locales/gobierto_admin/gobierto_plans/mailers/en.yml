@@ -12,7 +12,9 @@ en:
           minor_change_notice: The change has been saved as minor so no new version
             has been created.
           moderation_stage_change: Change in moderation status to %{moderation_status}
-          subject: A project has been modified in the plan %{plan_title} of %{site_name}
+          subject: A project in plan %{plan_title} of %{site_name} has been modified
+          subject_with_changes: A project in plan %{plan_title} of %{site_name} has
+            been modified to %{changes}
           visibility_level_change: Change in publication status to %{visibility_level}
           visibility_levels:
             draft: Not published

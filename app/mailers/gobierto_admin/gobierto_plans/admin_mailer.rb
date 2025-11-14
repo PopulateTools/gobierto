@@ -14,11 +14,18 @@ module GobiertoAdmin
                        else
                          admin_plans_plan_projects_url(@plan, host: @site_host)
                        end
+        @changes = changes_list(@project, @payload)
+        basic_changes = @changes.values.compact
+        subject = if basic_changes.present?
+                    t(".subject_with_changes", site_name: @site.name, plan_title: @plan.title, changes: basic_changes.to_sentence)
+                  else
+                    t(".subject", site_name: @site.name, plan_title: @plan.title)
+                  end
         mail(
           from:,
           reply_to:,
           to: @recipient.email,
-          subject: t(".subject", site_name: @site.name, plan_title: @plan.title)
+          subject:
         )
       end
 
@@ -66,6 +73,26 @@ module GobiertoAdmin
           current_site: @site,
           **resource_param
         )
+      end
+
+      def changes_list(project, payload)
+        changes = {}
+        if payload[:visibility_level_change]
+          changes[:visibility_level_change] = t(
+            project.visibility_level,
+            scope: "gobierto_admin.gobierto_plans.admin_mailer.project_attributes_changed.visibility_levels"
+          )
+        end
+        if payload[:moderation_stage_change]
+          changes[:moderation_stage_change] = t(
+            project.moderation_stage,
+            scope: "gobierto_admin.shared.moderation_save_widget.moderation_status"
+          )
+        end
+        if payload[:edition_change]
+          changes[:edition_change] = nil
+        end
+        changes
       end
     end
   end

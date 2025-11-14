@@ -5,17 +5,17 @@ ca:
       admin_mailer:
         project_attributes_changed:
           bye: Salutacions
-          edition_change: Canvis en els atributs del projecte.
+          edition_change: el contingut
           hi: Hola
-          intro_html: S'han produït modificacions en el projecte del pla %{plan_title}
-            %{project_link}
+          intro_html: "%{author_name} ha actualitzat %{updates_list} al projecte %{project_link}
+            del pla %{plan_title}."
           minor_change_notice: El canvi s'ha desat com a menor amb el que no s'ha
             creat una nova versió.
-          moderation_stage_change: Canvi en l'estat de moderació a %{moderation_status}
+          moderation_stage_change: l'estat de moderació a %{value}
           subject: S'ha modificat un projecte en el pla %{plan_title} de %{site_name}
           subject_with_changes: S'ha modificat un projecte en el pla %{plan_title}
             de %{site_name} a %{changes}
-          visibility_level_change: Canvi en l'estat de publicació a %{visibility_level}
+          visibility_level_change: l'estat de publicació a %{value}
           visibility_levels:
             draft: No publicat
             published: Publicat

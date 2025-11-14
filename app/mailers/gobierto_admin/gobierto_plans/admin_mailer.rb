@@ -8,6 +8,7 @@ module GobiertoAdmin
         @site = @plan.site
         @site_host = site_host
         @payload = payload
+        @author = set_author(@payload)
         allowed_actions = permissions_policy(project:).allowed_actions
         @project_url = if allowed_actions.include?(:edit)
                          edit_admin_plans_plan_project_url(@project, plan_id: @plan.id, host: @site_host)

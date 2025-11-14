@@ -36,6 +36,7 @@ module GobiertoAdmin
         @site = @plan.site
         @site_host = site_host
         @payload = payload
+        @author = set_author(@payload)
         allowed_actions = permissions_policy(project:).allowed_actions
         @project_url = if allowed_actions.include?(:edit)
                          edit_admin_plans_plan_project_url(@project, plan_id: @plan.id, host: @site_host)
@@ -57,6 +58,7 @@ module GobiertoAdmin
         @site_host = site_host
         @project_name = payload[:project_name]
         @payload = payload
+        @author = set_author(@payload)
         @plan_url = admin_plans_plan_projects_url(@plan, host: @site_host)
 
         mail(
@@ -73,6 +75,10 @@ module GobiertoAdmin
           current_site: @site,
           **resource_param
         )
+      end
+
+      def set_author(payload)
+        GobiertoAdmin::Admin.find_by(id: payload[:admin_id])
       end
 
       def changes_list(project, payload)

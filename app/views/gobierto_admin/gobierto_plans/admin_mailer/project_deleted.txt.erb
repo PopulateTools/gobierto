@@ -1,6 +1,6 @@
 <%= t(".hi") %>,
 
-<%= t(".intro_html", plan_link: @plan.title, project_name: @project_name) %> (<%= @plan_url %>).
+<%= t(".intro_html", author_name: @author&.name, plan_link: @plan.title, project_name: @project_name) %> (<%= @plan_url %>).
 
 <%= t('.bye') %>.
 

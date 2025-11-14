@@ -22,10 +22,12 @@ ca:
         project_created:
           bye: Salutacions
           hi: Hola
-          intro_html: S'ha creat un nou projecte %{project_link} en el pla %{plan_title}
+          intro_html: "%{author_name} ha creat un nou projecte %{project_link} en
+            el pla %{plan_title}"
           subject: S'ha creat un projecte en el pla %{plan_title} de %{site_name}
         project_deleted:
           bye: Salutacions
           hi: Hola
-          intro_html: S'ha eliminat el projecte %{project_name} del pla %{plan_link}
+          intro_html: "%{author_name} ha eliminat el projecte %{project_name} del
+            pla %{plan_link}"
           subject: S'ha eliminat un projecte del pla %{plan_title} de %{site_name}

@@ -5,25 +5,29 @@ en:
       admin_mailer:
         project_attributes_changed:
           bye: Best regards
-          edition_change: Changes in project attributes.
+          edition_change: content
           hi: Hello
-          intro_html: Modifications have been made to the project of the plan %{plan_title}
-            %{project_link}
+          intro_html: "%{author_name} updated %{updates_list} in the project %{project_link}
+            in plan %{plan_title}."
           minor_change_notice: The change has been saved as minor so no new version
             has been created.
-          moderation_stage_change: Change in moderation status to %{moderation_status}
-          subject: A project has been modified in the plan %{plan_title} of %{site_name}
-          visibility_level_change: Change in publication status to %{visibility_level}
+          moderation_stage_change: moderation status to %{value}
+          subject: A project in plan %{plan_title} of %{site_name} has been modified
+          subject_with_changes: A project in plan %{plan_title} of %{site_name} has
+            been modified to %{changes}
+          visibility_level_change: publication status to %{value}
           visibility_levels:
             draft: Not published
             published: Published
         project_created:
           bye: Best regards
           hi: Hello
-          intro_html: A new project %{project_link} has been created in the plan %{plan_title}
+          intro_html: "%{author_name} has created a new project %{project_link} in
+            the plan %{plan_title}"
           subject: A project has been created in the plan %{plan_title} of %{site_name}
         project_deleted:
           bye: Best regards
           hi: Hello
-          intro_html: The project %{project_name} has been deleted from the plan %{plan_link}
+          intro_html: "%{author_name} has deleted the project %{project_name} from
+            the plan %{plan_link}"
           subject: A project has been deleted from the plan %{plan_title} of %{site_name}

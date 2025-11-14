@@ -87,6 +87,7 @@ ignore_unused:
   - 'gobierto_admin.gobierto_plans.projects.publish.*'
   - 'gobierto_admin.gobierto_plans.projects.unpublish.*'
   - 'gobierto_admin.gobierto_plans.admin_mailer.*.subject'
+  - 'gobierto_admin.gobierto_plans.admin_mailer.project_attributes_changed.visibility_levels.*'
   - 'gobierto_admin.custom_fields_plugins.*'
   - 'gobierto_plans.plan_types.show.read_less'
   - 'gobierto_plans.plan_types.show.read_more'

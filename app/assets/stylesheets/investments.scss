@@ -241,7 +241,7 @@
     }
 
     &--cell-heading {
-      flex: 0 0 20%;
+      flex: 0 0 25%;
       font-size: $f6;
       font-weight: 700;
       line-height: 19px;
@@ -252,6 +252,11 @@
       font-size: $f3;
       font-weight: 700;
       line-height: 29px;
+    }
+
+    &--table-container {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
 
     &--inner-table-row {
@@ -270,6 +275,41 @@
 
       &:not(:first-child) {
         margin-top: 0.5rem;
+      }
+    }
+
+    &--inner-table-header {
+      background-color: rgba($color_headers, 0.04);
+      padding: 0.5rem 0;
+      border-bottom: 2px solid $separator_dark;
+      margin-bottom: 0.5rem;
+
+      &:not(:first-child) {
+        margin-top: 0;
+      }
+    }
+
+    &--inner-table-cell {
+      flex: 1;
+      word-break: break-word;
+
+      &:not(:first-child) {
+        padding-left: 1rem;
+      }
+
+      &--date {
+        flex: 0 0 100px;
+        min-width: 100px;
+      }
+
+      &--vocabulary {
+        flex: 0 0 110px;
+        min-width: 110px;
+      }
+
+      &--text {
+        flex: 2;
+        min-width: 300px;
       }
     }
 
@@ -307,16 +347,16 @@
       > * {
         padding: 1em 0;
         border-bottom: 1px solid $separator_dark;
+      }
 
-        &:first-of-type {
-          padding-top: 0;
+      .gobierto-filter--hide-dropdown {
+        padding-top: 0;
 
-          .gobierto-vue-dropdown--trigger {
-            display: none;
+        .gobierto-vue-dropdown--trigger {
+          display: none;
 
-            & + * {
-              margin-top: 0;
-            }
+          & + * {
+            margin-top: 0;
           }
         }
       }
@@ -606,7 +646,7 @@
       }
     }
 
-    $ranges-opacity: 10%, 25%, 40%, 60%, 75%, 90%, 100%;
+    $ranges-opacity: 13%, 25%, 38%, 50%, 63%, 75%, 88%, 100%;
 
     &--item {
       flex: 0 0 calc(100% / #{length($ranges-opacity)});

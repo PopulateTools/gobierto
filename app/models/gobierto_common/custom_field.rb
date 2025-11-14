@@ -106,7 +106,7 @@ module GobiertoCommon
 
     def has_vocabulary?
       if (plugin_type = configuration.plugin_type&.to_sym)
-        self.class.has_vocabulary?(plugin_type)
+        self.class.has_vocabulary?(plugin_type) || configuration.plugin_configuration["vocabulary_ids"].present?
       else
         /vocabulary/.match?(field_type)
       end
@@ -128,8 +128,18 @@ module GobiertoCommon
       options.dig "vocabulary_id"
     end
 
+    def vocabulary_ids
+      return unless has_vocabulary? && options.present?
+
+      configuration.plugin_configuration&.dig("vocabulary_ids") || []
+    end
+
     def vocabulary
       site.vocabularies.find_by(id: vocabulary_id)
+    end
+
+    def vocabularies
+      site.vocabularies.where(id: vocabulary_ids)
     end
 
     def configuration

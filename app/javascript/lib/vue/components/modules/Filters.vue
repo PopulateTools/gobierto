@@ -11,13 +11,14 @@
       >{{ labelClear }}</span>
     </transition>
 
-    <template v-for="filter in filters">
+    <div
+      v-for="filter in filters"
+      :key="filter.key"
+      :class="{ 'gobierto-filter--hide-dropdown': filter.hideDropdown }"
+    >
       <!-- Filter type: calendar -->
       <template v-if="filter.type === 'date'">
-        <Dropdown
-          :key="filter.key"
-          @is-content-visible="filter.rotate = !filter.rotate"
-        >
+        <Dropdown @is-content-visible="filter.rotate = !filter.rotate">
           <template #trigger>
             <BlockHeader
               :rotate="filter.rotate"
@@ -34,10 +35,7 @@
 
       <!-- Filter type: checkbox -->
       <template v-else-if="filter.type === 'vocabulary_options'">
-        <Dropdown
-          :key="filter.key"
-          @is-content-visible="filter.rotate = !filter.rotate"
-        >
+        <Dropdown @is-content-visible="filter.rotate = !filter.rotate">
           <template #trigger>
             <BlockHeader
               :rotate="filter.rotate"
@@ -63,10 +61,7 @@
 
       <!-- Filter type: numeric range -->
       <template v-else-if="filter.type === 'numeric'">
-        <Dropdown
-          :key="filter.key"
-          @is-content-visible="filter.rotate = !filter.rotate"
-        >
+        <Dropdown @is-content-visible="filter.rotate = !filter.rotate">
           <template #trigger>
             <BlockHeader
               :rotate="filter.rotate"
@@ -89,7 +84,7 @@
           />
         </Dropdown>
       </template>
-    </template>
+    </div>
   </div>
 </template>
 

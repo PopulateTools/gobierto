@@ -9,7 +9,13 @@ module GobiertoCommon
     def vocabulary_terms
       return unless object.has_vocabulary?
 
+      if object.vocabulary.present?
       serialize_terms(object.vocabulary.terms.sorted)
+      elsif object.vocabularies.present?
+        object.vocabularies.map do |vocabulary|
+          serialize_terms(vocabulary.terms.sorted)
+        end
+      end.flatten
     end
   end
 end

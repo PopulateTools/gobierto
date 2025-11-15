@@ -1,24 +1,24 @@
-<% project_policy = GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(current_admin: current_admin, current_site: current_site, project: @plan.nodes.new) %>
+<% controller_actions = admin_projects_actions&.dig(:collection, :controller_actions) || [] %>
 
 <div class="tabs">
   <ul>
-    <% if @plan.categories_vocabulary.present? && current_admin.module_allowed_action?("GobiertoPlans", current_site, :manage) %>
+    <% if @plan.categories_vocabulary.present? && controller_actions.include?(:index) %>
       <li class="<%= class_if('active', controller_name == "categories") %>">
         <%= link_to t(".plan_terms_tab"), admin_plans_plan_categories_path(@plan), data: { turbolinks: false } %>
       </li>
     <% end %>
 
-    <% if project_policy.allowed_actions.include? :index %>
+    <% if controller_actions.include?(:index) %>
       <li class="<%= class_if('active', controller_name == "projects") %>">
         <%= link_to t(".projects_tab"), admin_plans_plan_projects_path(@plan), data: { turbolinks: false } %>
       </li>
     <% end %>
-    <% if current_site.configuration.gobierto_dashboards_enabled? && current_admin.module_allowed_action?("GobiertoPlans", current_site, [:view_dashboards, :manage_dashboards]) %>
+    <% if current_site.configuration.gobierto_dashboards_enabled? && controller_actions.include?(:index_dashboards) %>
       <li class="<%= class_if("active", controller_name == "dashboards") %>">
         <%= link_to t(".dashboards_tab"), admin_plans_plan_dashboards_path(@plan), data: { turbolinks: false } %>
       </li>
     <% end %>
-    <% if current_admin.module_allowed_action?("GobiertoPlans", current_site, :manage) %>
+    <% if controller_actions.include?(:manage_plans) %>
       <li class="<%= class_if('active', controller_name == "plans") %>">
         <%= link_to t(".configuration_tab"), edit_admin_plans_plan_path(@plan), data: { turbolinks: false } %>
       </li>

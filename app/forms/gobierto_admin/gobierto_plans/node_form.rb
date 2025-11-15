@@ -3,7 +3,27 @@
 module GobiertoAdmin
   module GobiertoPlans
     class NodeForm < BaseForm
+      prepend ::GobiertoCommon::TrackableGroupedAttributes
       include ::GobiertoAdmin::PermissionsGroupHelpers
+
+      EDIT_TRACKABLE_ATTRIBUTES = [
+        :name_translations,
+        :category_id,
+        :progress,
+        :starts_at,
+        :ends_at,
+        :status_id,
+        :category_id,
+        :progress,
+        :extra_attributes
+      ]
+      VISIBILITY_TRACKABLE_ATTRIBUTES = [
+        :visibility_level,
+        :moderation_visibility_level
+      ]
+      MODERATION_TRACKABLE_ATTRIBUTES = [
+        :moderation_stage
+      ]
 
       attr_accessor(
         :id,
@@ -13,8 +33,7 @@ module GobiertoAdmin
         :ends_at,
         :options_json,
         :admin,
-        :position,
-        :force_new_version
+        :position
       )
       attr_writer(
         :category_id,
@@ -28,8 +47,11 @@ module GobiertoAdmin
         :version,
         :external_id,
         :publish_last_version_automatically,
-        :minor_change
+        :minor_change,
+        :extra_attributes_changed
       )
+      attr_reader :allowed_admin_actions
+      attr_reader :allowed_controller_actions
 
       validates :plan, :admin, presence: true
       validates :progress, presence: true, if: -> { @passed_attributes.include?("progress") }
@@ -41,17 +63,35 @@ module GobiertoAdmin
       delegate :persisted?, to: :node
       delegate :site_id, :statuses_vocabulary, to: :plan
 
+      trackable_on :project
+      use_event_prefix :project
+      use_publisher Publishers::AdminTrackable
+      use_trackable_subject :project
+      notify_changed(
+        *[
+          EDIT_TRACKABLE_ATTRIBUTES,
+          VISIBILITY_TRACKABLE_ATTRIBUTES,
+          MODERATION_TRACKABLE_ATTRIBUTES
+        ].flatten,
+        as: :attributes
+      )
+
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
+        @allowed_admin_actions = options.delete(:allowed_admin_actions)
+        @allowed_controller_actions = options.delete(:allowed_controller_actions)
         ordered_options = options.slice(:id, :plan_id, :admin).merge!(options)
         @passed_attributes = ordered_options.keys
         @publication_updated = false
         super(ordered_options)
+        @new_record = node.new_record?
         set_publication_version
       end
 
       def save
+        add_extra_attributes_changed
         check_visibility_level if allow_edit_attributes?
+
         save_node if valid?
       end
 
@@ -67,7 +107,10 @@ module GobiertoAdmin
         @node ||= ::GobiertoPlans::Node.find_by(id: id).presence || build_node
       end
       alias record node
-      alias project node
+
+      def project
+        ::GobiertoPlans::ProjectDecorator.new(node, plan:, site:, admin:)
+      end
 
       def category
         @category ||= plan.categories.find_by(id: category_id)
@@ -122,15 +165,41 @@ module GobiertoAdmin
       end
 
       def moderation_stage
-        @moderation_stage ||= node.moderation_stage
+        @moderation_stage ||= if reset_moderation?
+                                :unsent
+                              elsif publication_reset_moderation?
+                                :approved
+                              else
+                                node.moderation_stage
+                              end
       end
 
       def allow_edit_attributes?
-        !disable_attributes_edition && (moderation_policy.edit? || allow_moderate?)
+        !disable_attributes_edition && allowed_admin_actions.include?(:edit_projects) || allowed_controller_actions.include?(:create) && @new_record
       end
 
-      def allow_moderate?
-        moderation_policy.moderate?
+      def reset_moderation?
+        @reset_moderation ||= @moderation_stage.blank? && moderation_not_allowed? && attributes_updated? && !node.moderation.unsent? && !minor_change
+      end
+
+      def has_changes?
+        @changed.present?
+      end
+
+      def publication_reset_moderation?
+        @publication_reset_moderation ||= publication_updated? && moderation_not_allowed? && visibility_level == "published"
+      end
+
+      def moderation_not_allowed?
+        @moderation_not_allowed ||= allowed_admin_actions.exclude?(:moderate_projects)
+      end
+
+      def allow_publish?
+        allowed_admin_actions.include?(:publish_projects)
+      end
+
+      def allow_manage_admin_groups?
+        allowed_admin_actions.include?(:edit_projects_permissions)
       end
 
       def moderation_visibility_level
@@ -146,7 +215,7 @@ module GobiertoAdmin
       def attributes_updated?
         return unless allow_edit_attributes?
 
-        @attributes_updated ||= @node.new_record? || nodes_attributes_differ?(set_node_attributes, versioned_node)
+        @attributes_updated ||= node_attributes_changed? || extra_attributes_changed.present?
       end
 
       def publication_updated?
@@ -170,12 +239,37 @@ module GobiertoAdmin
       end
 
       def minor_change
+        return unless allowed_admin_actions.include?(:update_projects_as_minor_change)
         return true if @minor_change.is_a? TrueClass
 
         @minor_change == "1"
       end
 
+      def extra_attributes_changed
+        @extra_attributes_changed ||= []
+      end
+
+      def admin_id
+        admin.id
+      end
+
+      def extra_event_payload
+        {
+          minor_change:,
+          extra_attributes_changed:,
+          changed: @changed,
+          visibility_level_change: VISIBILITY_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) },
+          moderation_stage_change: MODERATION_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) },
+          edition_change: EDIT_TRACKABLE_ATTRIBUTES.any? { |attr| @changed.include?(attr) },
+          allowed_actions_to_send_notification: [:view_projects, :edit_projects, :moderate_projects, :publish_projects, :delete_projects, :edit_projects_permissions]
+        }
+      end
+
       private
+
+      def node_attributes_changed?
+        @node_attributes_changed ||= allow_edit_attributes? && (@new_record || node_attributes_differ?(set_node_attributes, versioned_node))
+      end
 
       def has_versions?
         @has_versions ||= node.respond_to?(:paper_trail)
@@ -188,7 +282,7 @@ module GobiertoAdmin
 
         @version ||= if node.versions.present? && publish_last_version_automatically
                        node.versions.length
-                     elsif @visibility_level == "published" && node.new_record?
+                     elsif @visibility_level == "published" && @new_record
                        1
                      end
 
@@ -196,7 +290,7 @@ module GobiertoAdmin
       end
 
       def disable_attributes_edition
-        @disable_attributes_edition && (moderation_policy.moderate? || moderation_policy.edit?)
+        @disable_attributes_edition && allowed_admin_actions.include?(:publish_projects)
       end
 
       def moderation_policy
@@ -204,11 +298,11 @@ module GobiertoAdmin
       end
 
       def build_node
-        ::GobiertoPlans::Node.new(admin_id: admin.id)
+        ::GobiertoPlans::Node.new(admin_id:)
       end
 
       def check_visibility_level
-        return if moderation_policy.blank? || node.visibility_level == visibility_level || moderation_policy.publish_as_editor? || moderation_visibility_level.present?
+        return if moderation_policy.blank? || node.visibility_level == visibility_level || moderation_policy.publish? || moderation_policy.publish_as_editor? || moderation_visibility_level.present?
 
         @visibility_level = node.visibility_level
         @moderation_stage = node.moderation.available_stages_for_action(:edit).keys.first
@@ -232,7 +326,7 @@ module GobiertoAdmin
         node.versions[version_index].reify
       end
 
-      def nodes_attributes_differ?(node_a, node_b)
+      def node_attributes_differ?(node_a, node_b)
         node_a.attributes.slice(*attributes_for_new_version) != node_b.attributes.slice(*attributes_for_new_version)
       end
 
@@ -254,7 +348,7 @@ module GobiertoAdmin
       def set_version_and_visibility_level
         node.tap do |attributes|
           if allow_edit_attributes? && @version.present?
-            if attributes_updated? || force_new_version
+            if attributes_updated?
               @published_version = attributes.versions.length + (minor_change ? 0 : 1)
             else
               attributes.reload
@@ -283,10 +377,12 @@ module GobiertoAdmin
 
         if @node.valid?
           @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?
+          @changed = (@changed + @node.changed.map(&:to_sym)).uniq
           @node.save
-          @node.touch if force_new_version && !attributes_updated?
+          @node.touch if !node_attributes_changed? && extra_attributes_changed.present?
 
-          set_permissions_group(@node, action_name: :edit) do |group|
+          # Do not set permissions for this group
+          set_permissions_group(@node, action_name: nil) do |group|
             group.admins << @node.owner unless @node.owner.blank? || group.admins.where(id: @node.admin_id).exists?
           end
 
@@ -312,6 +408,7 @@ module GobiertoAdmin
           attributes.site_id = site_id
           attributes.admin = admin
           attributes.stage = moderation_stage if moderation_stage.present?
+          @changed << :moderation_stage if attributes.stage_changed?
         end.save
       end
 
@@ -329,6 +426,12 @@ module GobiertoAdmin
 
       def ignored_attributes
         @ignored_attributes ||= version_attributes - @passed_attributes
+      end
+
+      def add_extra_attributes_changed
+        return if extra_attributes_changed.blank?
+
+        @changed << :extra_attributes
       end
     end
   end

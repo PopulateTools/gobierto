@@ -45,6 +45,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
     var element = $(`[data-uid=${uid}]`)
     _organizationId = element.attr("data-organization-id")
     var id = element.attr('id')
+    var isDisabled = element.attr("data-disabled") === "true"
 
     var availableYearsPromise = new Promise((resolve) => {
       $.getJSON('/presupuestos/api/data/available_years', function(jsonData) {
@@ -58,7 +59,7 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
       let data = _deserializeTableData($(`#project_custom_records_${uid}_value`).val())
 
       applyPluginStyles(element, _pluginCssClass)
-      _slickGrid(id, data)
+      _slickGrid(id, data, isDisabled)
     })
   }
 
@@ -120,15 +121,17 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
     })
   }
 
-  function _slickGrid(id, data) {
+  function _slickGrid(id, data, isDisabled) {
     function _initializeGrid(id, data, columns, options) {
-      var checkboxSelector = new CheckboxDeleteRowPlugin({
-        cssClass: "slick-cell-checkboxsel",
-        hideSelectAllCheckbox: true,
-        containerId: id
-      });
+      if (!isDisabled) {
+        var checkboxSelector = new CheckboxDeleteRowPlugin({
+          cssClass: "slick-cell-checkboxsel",
+          hideSelectAllCheckbox: true,
+          containerId: id
+        });
 
-      columns.unshift(checkboxSelector.getColumnDefinition());
+        columns.unshift(checkboxSelector.getColumnDefinition());
+      }
 
       _grid = new SlickGrid(`#${id} .data-container`, data, columns, options)
       $(`#${id}`).data('slickGrid', _grid)
@@ -163,7 +166,9 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
         _refreshRowAmount(args.row)
       })
 
-      _grid.registerPlugin(checkboxSelector);
+      if (!isDisabled) {
+        _grid.registerPlugin(checkboxSelector);
+      }
     }
 
     let columns = [
@@ -211,7 +216,12 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsBudgetsPluginController = (
       }
     ];
 
-    let customSlickGridOptions = { itemsCountId: `${id}_items` }
+    let customSlickGridOptions = {
+      itemsCountId: `${id}_items`,
+      editable: !isDisabled,
+      autoEdit: !isDisabled,
+      enableAddRow: !isDisabled
+    }
 
     _initializeGrid(id, data, columns, { ...defaultSlickGridOptions, ...customSlickGridOptions });
     for (let i = 0; i < data.length; i++) _refreshRowAmount(i)

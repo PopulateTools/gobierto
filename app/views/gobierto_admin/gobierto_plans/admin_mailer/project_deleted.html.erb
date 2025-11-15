@@ -1,0 +1,12 @@
+<p>
+  <%= t(".hi") %>,
+</p>
+
+<p>
+  <%= t(".intro_html", author_name: @author&.name, plan_link: link_to(@plan.title, @plan_url), project_name: @project_name) %>.
+</p>
+
+<p>
+  <%= t(".bye") %>.
+</p>
+

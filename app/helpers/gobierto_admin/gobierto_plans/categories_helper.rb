@@ -5,7 +5,7 @@ module GobiertoAdmin
     module CategoriesHelper
       SEM_COLORS = { blank: nil,
                      all: nil,
-                     not_sent: "color_sem_red",
+                     unsent: "color_sem_red",
                      sent: "color_sem_red",
                      in_review: "color_sem_yellow",
                      approved: "color_sem_green",

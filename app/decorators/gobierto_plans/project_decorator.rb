@@ -8,6 +8,7 @@ module GobiertoPlans
       options = opts[:opts] || {}
       @plan = options[:plan]
       @site = options[:site]
+      @admin = options[:admin]
     end
 
     def plan
@@ -16,6 +17,18 @@ module GobiertoPlans
 
     def site
       @site ||= plan&.site
+    end
+
+    def project
+      self
+    end
+
+    def site_id
+      site&.id
+    end
+
+    def admin_id
+      @admin&.id
     end
 
     def version_index

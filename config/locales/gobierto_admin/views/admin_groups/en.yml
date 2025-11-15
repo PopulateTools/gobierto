@@ -17,11 +17,26 @@ en:
         title: 'Permissions of group: %{name}'
       form:
         action_names:
+          create_projects: Create projects
+          delete_projects_all: Delete projects (all)
+          delete_projects_assigned: Delete projects (assigned)
           edit: Edit
-          manage: Manage
+          edit_projects_all: Edit projects (all)
+          edit_projects_assigned: Edit projects (assigned)
+          edit_projects_permissions_all: Edit project permissions (all)
+          edit_projects_permissions_assigned: Edit project permissions (assigned)
           manage_dashboards: Manage dashboards
-          moderate: Moderate
+          manage_plans: Manage plans
+          moderate_projects_all: Moderate projects (all)
+          moderate_projects_assigned: Moderate projects (assigned)
+          publish_projects_all: Publish projects (all)
+          publish_projects_assigned: Publish projects (assigned)
+          update_projects_as_minor_change_all: Save minor changes in projects (all)
+          update_projects_as_minor_change_assigned: Save minor changes in projects
+            (assigned)
           view_dashboards: View dashboards
+          view_projects_all: View projects (all)
+          view_projects_assigned: View projects (assigned)
         actions: Actions
         all: All
         members:

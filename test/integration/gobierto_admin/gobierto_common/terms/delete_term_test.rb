@@ -55,8 +55,8 @@ module GobiertoCommon
         with_signed_in_admin(unauthorized_admin) do
           with_current_site(site) do
             visit @path
-            assert has_content?("You are not authorized to perform this action")
-            assert_equal edit_admin_admin_settings_path, current_path
+
+            assert has_no_css?("#v_el_actions_#{term.id}")
           end
         end
       end

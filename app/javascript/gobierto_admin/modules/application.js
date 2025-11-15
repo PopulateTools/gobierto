@@ -36,6 +36,7 @@ $(document).on('turbolinks:load', function() {
 
   $('[data-wysiwyg]').each(function(){
     var $el = $(this);
+    var isDisabled = $el.prop('disabled');
     var simplemde = new SimpleMDE({
       element: $el[0],
       autofocus: false,
@@ -44,7 +45,7 @@ $(document).on('turbolinks:load', function() {
       renderingConfig: {
         singleLineBreaks: false
       },
-      toolbar: [
+      toolbar: isDisabled ? false : [
         "bold",
         "italic",
         "heading",
@@ -73,6 +74,16 @@ $(document).on('turbolinks:load', function() {
     });
 
     $el.data({ editor: simplemde });
+
+    // Disable editor if textarea is disabled
+    if (isDisabled) {
+      simplemde.codemirror.setOption('readOnly', 'nocursor');
+      // Add disabled class to CodeMirror wrapper for styling
+      $(simplemde.codemirror.getWrapperElement()).addClass('CodeMirror-disabled');
+      // Add disabled class to parent form_item for label styling
+      $el.closest('.form_item').addClass('wysiwyg-disabled');
+    }
+
     simplemde.codemirror.on("change", function(){
       var id = "#" + $el.attr('id').replace('_source', '');
       $(id).val(simplemde.markdown(simplemde.value()))

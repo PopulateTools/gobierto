@@ -38,11 +38,11 @@ module GobiertoAdmin
     end
 
     def test_action_names
-      assert_includes subject_class.action_names, "create"
+      assert_includes subject_class.action_names, "create_projects"
     end
 
     def test_can?
-      assert subject_class.can?("create")
+      assert subject_class.can?("create_projects")
     end
 
     def test_grant

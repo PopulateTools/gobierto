@@ -2,6 +2,8 @@
 
 <%= form_for(@project_form, as: :project, url: @project_form.persisted? ? admin_plans_plan_project_path(@plan, @project_form) : admin_plans_plan_projects_path(@plan), data: { "globalized-form-container" => true }) do |f| %>
 
+<%= f.hidden_field :admin_actions, value: current_admin_allowed_update_actions.join(',') %>
+
 <div class="pure-g">
   <div class="pure-u-1 pure-u-md-17-24">
     <div class="form_item select_control p_1">
@@ -94,14 +96,20 @@
       locals: {
         f: f,
         item: @custom_fields_form,
-        form_name: "project"
+        form_name: "project",
+        disabled: !@project_form.allow_edit_attributes?
       }
     ) %>
   </div>
 
   <div class="pure-u-1 pure-u-md-1-24"></div>
 
-  <%= render partial: "gobierto_admin/shared/admin_widget_save_v2", locals: { f: f, resource: @project_form.persisted? ? @project : @project_form.project } %>
+  <%= render partial: "gobierto_admin/shared/admin_widget_save_v2", locals: {
+        f: f,
+        resource: @project_form.persisted? ? @project : @project_form.project,
+        allowed_admin_actions: @project_form.allowed_admin_actions,
+        allowed_controller_actions: @project_form.allowed_controller_actions
+      } %>
 </div>
 <% end %>
 

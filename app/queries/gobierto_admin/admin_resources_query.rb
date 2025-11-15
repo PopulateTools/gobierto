@@ -5,12 +5,12 @@ module GobiertoAdmin
 
     class NotImplementedError < StandardError; end
 
-    attr_reader :relation
+    attr_reader :relation, :permission_action_name
 
     def initialize(admin, options = {})
       @admin = admin
       @relation = (options[:relation] || model.all)
-      @permission_action_name ||= (options[:permission_action_name] || :edit)
+      @permission_action_name ||= options[:permission_action_name]
       @moderation_stages ||= moderation_keys(options[:moderation_stages])
     end
 
@@ -25,22 +25,39 @@ module GobiertoAdmin
     end
 
     def join_manager
-      @join_manager ||= model_table.join(permissions_table, Arel::Nodes::OuterJoin).on(
-        model_table[:id].eq(permissions_table[:resource_id]).and(
-          permissions_table[:resource_type].eq(relation.model.name)
-        ).and(
-          permissions_table["action_name"].eq(@permission_action_name)
+      @join_manager ||= join_manager_with_groups
+        .join(moderations_table, Arel::Nodes::OuterJoin).on(
+          model_table[:id].eq(moderations_table[:moderable_id]).and(
+            moderations_table[:moderable_type].eq(relation.model.name)
+          )
         )
-      ).join(groups_admins_join_table, Arel::Nodes::OuterJoin).on(
-        groups_admins_join_table[:admin_group_id].eq(permissions_table[:admin_group_id])
-      ).join(moderations_table, Arel::Nodes::OuterJoin).on(
-        model_table[:id].eq(moderations_table[:moderable_id]).and(
-          moderations_table[:moderable_type].eq(relation.model.name)
-        )
-      )
     end
 
     private
+
+    def join_manager_with_groups
+      if permission_action_name.present?
+        model_table
+          .join(permissions_table, Arel::Nodes::OuterJoin).on(
+            model_table[:id].eq(permissions_table[:resource_id]).and(
+              permissions_table[:resource_type].eq(relation.model.name)
+            ).and(
+              permissions_table["action_name"].eq(permission_action_name)
+            )
+          ).join(groups_admins_join_table, Arel::Nodes::OuterJoin).on(
+            groups_admins_join_table[:admin_group_id].eq(permissions_table[:admin_group_id])
+          )
+      else
+        model_table
+          .join(groups_table).on(
+            model_table[:id].eq(groups_table[:resource_id]).and(
+              groups_table[:resource_type].eq(relation.model.name)
+            )
+          ).join(groups_admins_join_table, Arel::Nodes::OuterJoin).on(
+            groups_admins_join_table[:admin_group_id].eq(groups_table[:id])
+          )
+      end
+    end
 
     def moderation_keys(moderation_stages)
       moderation_stages ||= [:approved]
@@ -60,6 +77,10 @@ module GobiertoAdmin
 
     def groups_admins_join_table
       @groups_admins_join_table ||= ::GobiertoAdmin::GroupsAdmin.arel_table
+    end
+
+    def groups_table
+      @groups_table ||= ::GobiertoAdmin::AdminGroup.arel_table
     end
 
     def moderations_table

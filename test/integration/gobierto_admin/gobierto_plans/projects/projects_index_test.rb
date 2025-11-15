@@ -76,20 +76,36 @@ module GobiertoAdmin
           end
         end
 
-        def test_regular_manager_projects_index
+        def test_regular_admin_plan_manager_projects_index
           allow_regular_admin_manage_plans
+
+          with(site:, admin: regular_admin, js: true) do
+            visit @path
+            assert has_content? plan.title
+
+            visit admin_plans_plan_categories_path(plan)
+            assert has_css?("div.metric.metric_medium", text: "2\nTotal")
+          end
+        end
+
+        def test_regular_projects_editor_projects_index
+          allow_regular_admin_edit_all_projects
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do
               visit @path
 
-              assert has_alert? "You are not authorized to perform this action"
+              within "table#projects" do
+                plan.nodes.each do |project|
+                  assert has_selector?("tr#project-item-#{project.id}")
+                end
+              end
             end
           end
         end
 
         def test_regular_admin_moderator_or_editor_index
-          allow_regular_admin_moderate_plans
+          allow_regular_admin_moderate_all_projects
           allow_regular_admin_edit_plans
 
           with_signed_in_admin(admin) do

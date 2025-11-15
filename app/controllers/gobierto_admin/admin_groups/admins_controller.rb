@@ -71,7 +71,7 @@ module GobiertoAdmin
     end
 
     def allow_admin
-      redirect_to admin_users_path and return false unless moderation_policy.moderate? || admin_group.admins.where(id: current_admin.id).exists?
+      redirect_to admin_users_path and return false unless moderation_policy.manage_groups? || admin_group.admins.where(id: current_admin.id).exists?
     end
 
     def track_create_activity(admin)

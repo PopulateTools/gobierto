@@ -223,7 +223,7 @@ ca:
         delimiter: ''
   support:
     array:
-      last_word_connector: ", i "
+      last_word_connector: " i "
       two_words_connector: " i "
       words_connector: ", "
   time:

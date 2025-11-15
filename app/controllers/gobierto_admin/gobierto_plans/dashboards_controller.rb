@@ -7,10 +7,10 @@ module GobiertoAdmin
 
       before_action :plan
 
-      helper_method :current_admin_actions, :dashboard_preview_path
+      helper_method :current_controller_allowed_actions, :dashboard_preview_path
 
-      def current_admin_actions
-        @current_admin_actions ||= DashboardPolicy.new(
+      def current_controller_allowed_actions
+        @current_controller_allowed_actions ||= DashboardPolicy.new(
           current_admin: current_admin,
           current_site: current_site,
           dashboard: @dashboard_form&.dashboard || @dashboard
@@ -57,7 +57,7 @@ module GobiertoAdmin
       end
 
       def raise_action_not_allowed
-        redirection_path = current_admin_actions.include?(:index) ? admin_plans_plan_dashboards_path(@plan) : edit_admin_plans_plan_path(@plan)
+        redirection_path = current_controller_allowed_actions.include?(:index) ? admin_plans_plan_dashboards_path(@plan) : edit_admin_plans_plan_path(@plan)
         redirect_to(
           redirection_path,
           alert: t("gobierto_admin.module_helper.not_enabled")

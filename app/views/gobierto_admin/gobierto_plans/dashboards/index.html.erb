@@ -8,7 +8,7 @@
 
 <%= render 'gobierto_admin/gobierto_plans/shared/navigation' %>
 
-<% if current_admin_actions.include? :new %>
+<% if current_controller_allowed_actions.include? :new %>
   <div class="admin_tools left">
     <%= link_to t(".new"), admin_dashboards_modal_path(context: @context, pipe: "project_metrics"), data: { turbolinks: false, "dashboards-maker": true }, class: "open_remote_modal button" %>
   </div>
@@ -28,14 +28,14 @@
     <% preview_path = dashboard_preview_path(dashboard) %>
     <tr id="<%= "dashboard-item-#{dashboard.id}" %>">
       <td>
-        <% if current_admin_actions.include?(:edit) %>
+        <% if current_controller_allowed_actions.include?(:edit) %>
           <%= link_to admin_dashboards_modal_path(id: dashboard.id, context: @context, pipe: "project_metrics", preview_path: preview_path), data: { turbolinks: false, "dashboards-maker": true }, class: "open_remote_modal" do %>
             <i class="fas fa-edit"></i>
           <% end %>
         <% end %>
       </td>
       <td>
-        <% if current_admin_actions.include?(:edit) %>
+        <% if current_controller_allowed_actions.include?(:edit) %>
           <%= link_to admin_dashboards_modal_path(id: dashboard.id, context: @context, pipe: "project_metrics", preview_path: preview_path), data: { turbolinks: false, "dashboards-maker": true }, class: "open_remote_modal" do %>
             <%= dashboard.title %>
           <% end %>

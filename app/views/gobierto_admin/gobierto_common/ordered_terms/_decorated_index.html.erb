@@ -1,4 +1,5 @@
 <% calculated_values ||= {} %>
+<% editable = local_assigns.fetch(:editable, true) %>
 <div class="v_container">
 
   <div class="v_heading">
@@ -17,20 +18,22 @@
     <div class="v_el_actions"></div>
   </div>
 
-  <div data-behavior="sortable" data-sortable-target="<%= admin_common_vocabulary_terms_sort_path(vocabulary_id: @vocabulary.id) %>">
+  <%= content_tag(:div, data: editable ? { behavior: "sortable", sortable_target: admin_common_vocabulary_terms_sort_path(vocabulary_id: @vocabulary.id) } : {}) do %>
     <%= content_tag(:div, data: @calculated_values_path.present? ? { behavior: "calculated-values", calculated_values_target: @calculated_values_path } : {}) do %>
-      <%= render partial: "gobierto_admin/gobierto_common/ordered_terms/terms_tree", locals: { terms: @terms, calculated_values: calculated_values } %>
+      <%= render partial: "gobierto_admin/gobierto_common/ordered_terms/terms_tree", locals: { terms: @terms, calculated_values:, editable: } %>
+    <% end %>
+  <% end %>
+
+</div>
+
+<% if editable %>
+  <div class="admin_new_el">
+    <%= link_to({ action: :new }, { class: "open_remote_modal p_1 border-el" }) do %>
+      <i class="fa fa-plus-circle"></i>
+      <%= t("gobierto_admin.gobierto_common.ordered_terms.index.new") %>
     <% end %>
   </div>
-
-</div>
-
-<div class="admin_new_el">
-  <%= link_to({ action: :new }, { class: "open_remote_modal p_1 border-el" }) do %>
-    <i class="fa fa-plus-circle"></i>
-    <%= t("gobierto_admin.gobierto_common.ordered_terms.index.new") %>
-  <% end %>
-</div>
+<% end %>
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>

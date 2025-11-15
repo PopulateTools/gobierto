@@ -54,9 +54,11 @@ module GobiertoAdmin
           end
         end
 
-        def test_regular_admin_not_editor_create_project
+        def test_regular_admin_not_creator_create_project
           allow_regular_admin_manage_plans
-          allow_regular_admin_moderate_plans
+          allow_regular_admin_moderate_all_projects
+          allow_regular_admin_edit_all_projects
+          allow_regular_admin_publish_all_projects
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do
@@ -67,8 +69,22 @@ module GobiertoAdmin
           end
         end
 
-        def test_regular_editor_admin_create_invalid_project
-          allow_regular_admin_edit_plans
+        def test_regular_admin_not_editor_create_project
+          allow_regular_admin_manage_plans
+          allow_regular_admin_moderate_all_projects
+
+          with_signed_in_admin(regular_admin) do
+            with_current_site(site) do
+              visit @path
+
+              assert has_alert? "You are not authorized to perform this action"
+            end
+          end
+        end
+
+
+        def test_regular_creator_admin_create_invalid_project
+          allow_regular_admin_create_projects
 
           with_signed_in_admin(regular_admin) do
             with_current_site(site) do
@@ -81,8 +97,9 @@ module GobiertoAdmin
           end
         end
 
-        def test_regular_editor_admin_create_valid_project
-          allow_regular_admin_edit_plans
+        def test_regular_editor_creator_admin_create_valid_project
+          allow_regular_admin_create_projects
+          allow_regular_admin_edit_all_projects_permissions
 
           with_javascript do
             with_signed_in_admin(regular_admin) do
@@ -120,7 +137,7 @@ module GobiertoAdmin
           assert_equal Date.parse("2020-01-01"), project.starts_at
           assert_equal Date.parse("2021-01-01"), project.ends_at
           assert project.draft?
-          assert project.moderation.not_sent?
+          assert project.moderation.unsent?
 
           activity = Activity.last
           assert_equal project, activity.subject
@@ -131,7 +148,7 @@ module GobiertoAdmin
         end
 
         def test_regular_editor_default_progress_on_create_is_zero
-          allow_regular_admin_edit_plans
+          allow_regular_admin_create_projects
 
           with_javascript do
             with_signed_in_admin(regular_admin) do

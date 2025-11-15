@@ -1052,6 +1052,10 @@ table {
     }
   }
 
+  .list-group[data-sortable-enabled="false"] .v_el:hover {
+    cursor: initial;
+  }
+
   .v_el_level {
     @include border-radius(6px);
 

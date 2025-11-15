@@ -71,6 +71,7 @@ module GobiertoAdmin
       def form_attributes(data)
         writable_attributes(data).tap do |attrs|
           attrs.merge!(plan_id:, admin:)
+          attrs.merge!(allowed_actions)
           if (category_id = detect_term_id(data[:category_external_id].presence || attrs[:category_id], plan.categories)).present?
             attrs[:category_id] = category_id
           end
@@ -89,6 +90,16 @@ module GobiertoAdmin
             end
           end
         end
+      end
+
+      def allowed_actions
+        admin_actions_manager = ::GobiertoAdmin::AdminActionsManager.for("gobierto_plans", site)
+        lists = admin_actions_manager.admin_actions(admin: admin, resource: plan.nodes)
+
+        {
+          allowed_admin_actions: admin_actions_manager.unscoped_names(*lists.dig(:default, :admin_actions)),
+          allowed_controller_actions: lists.dig(:default, :controller_actions)
+        }
       end
 
       def default_locale

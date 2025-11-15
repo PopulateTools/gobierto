@@ -49,6 +49,8 @@ module GobiertoAdmin
               click_button "Save"
             end
           end
+
+          assert has_content? "Project created correctly."
         end
 
         def fill_in_md_editor_field(text, delete_chars_count: 0)
@@ -344,6 +346,8 @@ module GobiertoAdmin
               end
             end
 
+            assert has_content? "Project updated correctly."
+
             updated_project = ::GobiertoPlans::Node.with_name_translation(new_name).last
             assert all_versions_are_equal(updated_project, 1)
             assert has_content? "Editing version\n1"
@@ -423,6 +427,46 @@ module GobiertoAdmin
             refute_includes site.multisearch(new_description).map(&:searchable), project
             assert_includes site.multisearch("la cana").map(&:searchable), project
             assert_includes site.multisearch("waltz").map(&:searchable), project
+          end
+        end
+
+        def test_wrong_published_version
+          with default_test_context do
+            create_project
+
+            within "form" do
+              select "Not started", from: "project_custom_records_status_value"
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+
+            project.update_columns(published_version: 0, visibility_level: 1)
+
+            visit edit_admin_plans_plan_project_path(plan, project)
+
+            within "form" do
+              select "Not started", from: "project_custom_records_status_value"
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\nnot published yet"
+            assert has_content? "Click on Publish to make this version publicly visible."
+
+            visit edit_admin_plans_plan_project_path(plan, project)
+            click_publish_button_and_accept_alert
+
+            assert has_link? "Unpublish"
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nPublished"
+            assert has_content? "Published version\n2"
+            assert has_content? "Current version is the published one."
           end
         end
       end

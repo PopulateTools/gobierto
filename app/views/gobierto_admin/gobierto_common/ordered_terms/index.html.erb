@@ -6,4 +6,4 @@
 
 <h1><%= t(".title", vocabulary: @vocabulary.name) %></h1>
 
-<%= render "decorated_index" %>
+<%= render "decorated_index", editable: current_admin.can_edit_vocabularies? %>

@@ -65,7 +65,15 @@ module GobiertoCommon
     end
 
     def changed?
-      custom_field_records.any? { |custom_field| version_changed?(custom_field) }
+      changed.present?
+    end
+
+    def changed
+      custom_field_records.filter_map do |record|
+        next unless version_changed?(record)
+
+        record.custom_field.to_gid.to_s
+      end
     end
 
     def associated_vocabularies

@@ -2,19 +2,25 @@
 
 module GobiertoAdmin
   class ModerationPolicy < ::GobiertoAdmin::BasePolicy
-    attr_reader :moderable
+    attr_reader :moderable, :actions_manager
 
     def initialize(attributes)
       super(attributes)
       @moderable = attributes[:moderable]
+      module_namespace = moderable.class.name.deconstantize
+      @actions_manager = ::GobiertoAdmin::AdminActionsManager.for(module_namespace, current_site)
     end
 
     def moderate?
-      can_perform_action_on_resource? :moderate
+      can_perform_action_on_resource? :moderate_projects
     end
 
     def edit?
-      can_perform_action_on_resource? :edit
+      can_perform_action_on_resource? :edit_projects
+    end
+
+    def manage_groups?
+      can_perform_action_on_resource? :edit_projects_permissions
     end
 
     def allowed_to?(next_step)
@@ -31,7 +37,7 @@ module GobiertoAdmin
     end
 
     def publish?
-      publish_as_editor? || moderate?
+      can_perform_action_on_resource? :publish_projects
     end
 
     def moderable_has_moderation?
@@ -41,8 +47,7 @@ module GobiertoAdmin
     private
 
     def can_perform_action_on_resource?(action)
-      manage? ||
-        moderable.permissions_lookup_attributes(action).any? { |lookup_attributes| current_admin.permissions.where(lookup_attributes).exists? }
+      manage? || actions_manager.action_allowed?(admin: current_admin, action_name: action, resource: moderable)
     end
   end
 end

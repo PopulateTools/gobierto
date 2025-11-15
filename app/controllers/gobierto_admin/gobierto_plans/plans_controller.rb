@@ -5,7 +5,7 @@ module GobiertoAdmin
     class PlansController < GobiertoAdmin::GobiertoPlans::BaseController
       class HasDependentResources < StandardError; end
 
-      before_action -> { module_allowed_action!(current_admin, current_admin_module, :manage) }, except: [:index, :plan]
+      before_action -> { current_module_allowed_action!(:manage_plans) }, except: [:index]
 
       def index
         @plans = current_site.plans.sort_by_updated_at

@@ -7,10 +7,6 @@ political_agendas:
   progress: 50
   starts_at: 2016-11-01
   ends_at: 2019-11-01
-  options: <%= {
-    objetivos: "Improve pedestrian and vehicle safety",
-    temporality: "annual"
-  }.to_json %>
   categories: center_basic_needs_plan_term
   visibility_level: <%= GobiertoPlans::Node.visibility_levels["published"] %>
   published_version: 1

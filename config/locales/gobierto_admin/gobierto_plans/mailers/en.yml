@@ -1,0 +1,33 @@
+---
+en:
+  gobierto_admin:
+    gobierto_plans:
+      admin_mailer:
+        project_attributes_changed:
+          bye: Best regards
+          edition_change: content
+          hi: Hello
+          intro_html: "%{author_name} updated %{updates_list} in the project %{project_link}
+            in plan %{plan_title}."
+          minor_change_notice: The change has been saved as minor so no new version
+            has been created.
+          moderation_stage_change: moderation status to %{value}
+          subject: A project in plan %{plan_title} of %{site_name} has been modified
+          subject_with_changes: A project in plan %{plan_title} of %{site_name} has
+            been modified to %{changes}
+          visibility_level_change: publication status to %{value}
+          visibility_levels:
+            draft: Not published
+            published: Published
+        project_created:
+          bye: Best regards
+          hi: Hello
+          intro_html: "%{author_name} has created a new project %{project_link} in
+            the plan %{plan_title}"
+          subject: A project has been created in the plan %{plan_title} of %{site_name}
+        project_deleted:
+          bye: Best regards
+          hi: Hello
+          intro_html: "%{author_name} has deleted the project %{project_name} from
+            the plan %{plan_link}"
+          subject: A project has been deleted from the plan %{plan_title} of %{site_name}

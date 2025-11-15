@@ -56,9 +56,11 @@ window.GobiertoAdmin.TermsController = (function() {
   }
 
   function _handleSortableList() {
-    var nestedSortables = [].slice.call(document.querySelectorAll('.list-group'));
+    var nestedSortables = [].slice.call(document.querySelectorAll('.list-group[data-sortable-enabled="true"]'));
 
     // Loop through each nested sortable element
+    if (!nestedSortables.length) { return; }
+
     for (let i = 0; i < nestedSortables.length; i++) {
       Sortable.create(nestedSortables[i], {
         animation: 150,

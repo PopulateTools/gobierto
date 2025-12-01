@@ -4,6 +4,7 @@ module GobiertoAdmin
   module GobiertoAttachments
     class FileAttachmentsController < BaseController
 
+      before_action :check_permissions!
       before_action :load_collection, only: [:new, :edit, :create, :update, :destroy]
 
       def index
@@ -127,6 +128,10 @@ module GobiertoAdmin
 
       def file_attachment_params
         params.require(:file_attachment).permit(:id, :file, :name, :description, :file_name, :slug, :collection_id)
+      end
+
+      def check_permissions!
+        raise_module_not_allowed unless current_admin.can_edit_documents?
       end
     end
   end

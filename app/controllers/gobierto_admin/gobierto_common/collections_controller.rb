@@ -5,6 +5,7 @@ module GobiertoAdmin
     class CollectionsController < BaseController
       before_action :load_collection, only: [:show, :edit, :update]
       before_action :check_container_presence, only: [:show, :edit, :update]
+      before_action :check_permissions!, only: [:show, :edit, :update]
       before_action :redirect_to_custom_show, only: [:show]
 
       def show
@@ -171,6 +172,17 @@ module GobiertoAdmin
           redirect_path,
           alert: t("gobierto_admin.gobierto_common.collections.check_container_presence.container_not_found")
         )
+      end
+
+      def check_permissions!
+        case @collection.item_type
+        when "GobiertoCms::Page", "GobiertoCms::News"
+          raise_module_not_allowed unless current_admin.module_allowed?("GobiertoCms", current_site)
+        when "GobiertoAttachments::Attachment"
+          raise_module_not_allowed unless current_admin.can_edit_documents?
+        when "GobiertoCalendars::Event"
+          raise_module_not_allowed unless current_admin.can_edit_calendars?
+        end
       end
     end
   end

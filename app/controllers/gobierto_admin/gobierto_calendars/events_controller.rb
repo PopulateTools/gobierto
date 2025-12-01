@@ -186,8 +186,7 @@ module GobiertoAdmin
       end
 
       def person_allowed!
-        check_gobierto_people_permissions!
-        check_person_permissions!
+        check_gobierto_people_permissions! || check_person_permissions!
       end
 
       def check_gobierto_people_permissions!
@@ -198,7 +197,7 @@ module GobiertoAdmin
       def check_person_permissions!
         person_policy = GobiertoPeople::PersonPolicy.new(current_admin: current_admin, current_site: current_site, person: @person)
         if !person_policy.manage?
-          redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
+          return redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
         end
       end
 

@@ -28,6 +28,7 @@ module GobiertoAdmin
     has_many :gobierto_investments_permissions, through: :admin_groups, class_name: "Permission::GobiertoInvestments", source: :permissions
     has_many :gobierto_data_permissions, through: :admin_groups, class_name: "Permission::GobiertoData", source: :permissions
     has_many :gobierto_visualizations_permissions, through: :admin_groups, class_name: "Permission::GobiertoVisualizations", source: :permissions
+    has_many :gobierto_cms_permissions, through: :admin_groups, class_name: "Permission::GobiertoCms", source: :permissions
 
     has_many :api_tokens, dependent: :destroy, class_name: "GobiertoAdmin::ApiToken"
 
@@ -103,6 +104,14 @@ module GobiertoAdmin
 
     def can_edit_templates?
       managing_user? || site_options_permissions.exists?(resource_type: :templates)
+    end
+
+    def can_edit_calendars?
+      managing_user? || site_options_permissions.exists?(resource_type: :calendars)
+    end
+
+    def can_edit_documents?
+      managing_user? || site_options_permissions.exists?(resource_type: :documents)
     end
 
     def admin_group_membership_created_at(group)

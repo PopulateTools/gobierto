@@ -75,8 +75,10 @@ es:
     attributes:
       gobierto_admin/permission/site_option:
         resource_types:
+          calendars: Agendas
           custom_fields: Campos personalizados
           customize: Personalizar sitio
+          documents: Documentos
           templates: Plantillas
           vocabularies: Vocabularios
     models:

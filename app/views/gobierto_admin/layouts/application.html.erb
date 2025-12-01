@@ -141,9 +141,15 @@
             <li class="sep"></li>
 
             <li>
-              <%= link_to t(".cms"), admin_cms_pages_path %>
-              <%= link_to t(".calendars"), admin_calendars_collections_path %>
-              <%= link_to t(".file_attachments"), admin_attachments_file_attachments_path %>
+              <% if current_admin.module_allowed?("GobiertoCms", current_site) %>
+                <%= link_to t(".cms"), admin_cms_pages_path %>
+              <% end %>
+              <% if current_admin.can_edit_calendars? %>
+                <%= link_to t(".calendars"), admin_calendars_collections_path %>
+              <% end %>
+              <% if current_admin.can_edit_documents? %>
+                <%= link_to t(".file_attachments"), admin_attachments_file_attachments_path %>
+              <% end %>
             </li>
 
             <li class="sep"></li>

@@ -2,6 +2,8 @@
 
 module GobiertoAdmin
   class AdminGroupsController < BaseController
+    CORE_MODULES = [{ name: "Gobierto CMS", namespace: "GobiertoCms" }].freeze
+
     before_action :managing_user
 
     def index
@@ -103,7 +105,11 @@ module GobiertoAdmin
         next unless current_site.configuration.modules.include? site_module[:namespace]
 
         OpenStruct.new(site_module)
-      end.compact
+      end.push(*core_modules).compact
+    end
+
+    def core_modules
+      CORE_MODULES.map { |mod| OpenStruct.new(mod) }
     end
 
     def set_site_options

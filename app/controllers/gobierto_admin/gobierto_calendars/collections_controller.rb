@@ -5,6 +5,12 @@ module GobiertoAdmin
 
       def index
         @collections = current_site.collections.by_item_type('GobiertoCalendars::Event')
+
+        # Filter out collections with Person containers if admin doesn't have GobiertoPeople permissions
+        unless current_admin.module_allowed?("GobiertoPeople", current_site)
+          @collections = @collections.where.not(container_type: "GobiertoPeople::Person")
+        end
+
         @events = current_site.events.sort_by_updated_at.limit(10)
       end
 

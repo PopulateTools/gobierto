@@ -121,7 +121,10 @@ module GobiertoAdmin
       end
 
       def container_items
-        [current_site, current_site.people].flatten
+        items = [current_site]
+        items.append(*current_site.people) if current_admin.module_allowed?("GobiertoPeople", current_site)
+
+        items
       end
 
       def find_containers

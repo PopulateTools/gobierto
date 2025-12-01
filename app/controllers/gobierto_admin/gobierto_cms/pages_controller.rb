@@ -2,7 +2,7 @@
 
 module GobiertoAdmin
   module GobiertoCms
-    class PagesController < BaseController
+    class PagesController < GobiertoCms::BaseController
       include CustomFieldsHelper
 
       before_action :load_collection, only: [:new, :edit, :create, :update]

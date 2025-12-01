@@ -141,7 +141,9 @@
             <li class="sep"></li>
 
             <li>
-              <%= link_to t(".cms"), admin_cms_pages_path %>
+              <% if current_admin.module_allowed?("GobiertoCms", current_site) %>
+                <%= link_to t(".cms"), admin_cms_pages_path %>
+              <% end %>
               <%= link_to t(".calendars"), admin_calendars_collections_path %>
               <%= link_to t(".file_attachments"), admin_attachments_file_attachments_path %>
             </li>

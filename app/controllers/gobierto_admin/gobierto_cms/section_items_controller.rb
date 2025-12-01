@@ -2,7 +2,7 @@
 
 module GobiertoAdmin
   module GobiertoCms
-    class SectionItemsController < BaseController
+    class SectionItemsController < GobiertoCms::BaseController
       def create
         @section_item_form = SectionItemForm.new(section_id: params[:section_id],
                                                  item_type: "GobiertoCms::Page",

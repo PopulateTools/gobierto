@@ -13,7 +13,7 @@ ca:
             slug: terme
         index:
           collapse_all: Plegar tot
-          explore: Explore
+          explore: Explora
           new: Nou
           open_all: Desplegar tot
           title: Termes de %{vocabulary}

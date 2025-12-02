@@ -94,23 +94,24 @@ module GobiertoAdmin
                                                                       gobierto_plans: [:manage],
                                                                       gobierto_investments: [:manage],
                                                                       gobierto_data: [:manage],
+                                                                      gobierto_cms: [:manage],
                                                                       gobierto_visualizations: [:manage] }))
 
-      assert_equal 5, tony.modules_permissions.size
+      assert_equal 6, tony.modules_permissions.on_site(madrid).size
 
       assert form.save
 
-      assert_equal 6, tony.modules_permissions.size
+      assert_equal 7, tony.modules_permissions.on_site(madrid).size
     end
 
     def test_revoke_module_permissions
       form = subject.new(madrid_group_params.merge(modules_actions: { gobierto_people: [:manage] }))
 
-      assert_equal 5, tony.modules_permissions.size
+      assert_equal 6, tony.modules_permissions.on_site(madrid).size
 
       assert form.save
 
-      assert_equal 1, tony.modules_permissions.size
+      assert_equal 1, tony.modules_permissions.on_site(madrid).size
     end
 
     # Using the syntax .where("x NOT IN (?)", collection) may have unintended behavior
@@ -121,7 +122,7 @@ module GobiertoAdmin
 
       assert form.save
 
-      assert tony.modules_permissions.empty?
+      assert tony.modules_permissions.on_site(madrid).empty?
     end
 
     def test_revoke_gobierto_people_permissions_revokes_people_permissions
@@ -129,7 +130,7 @@ module GobiertoAdmin
 
       assert form.save
 
-      assert madrid_and_santander_admin.people_permissions.empty?
+      assert madrid_and_santander_admin.people_permissions.on_site(madrid).empty?
     end
 
     def test_grant_person_permissions
@@ -142,7 +143,7 @@ module GobiertoAdmin
 
       assert form.save
 
-      assert_equal 3, madrid_and_santander_admin.people_permissions.size
+      assert_equal 3, madrid_and_santander_admin.people_permissions.on_site(madrid).size
     end
 
     def test_grant_all_people_permissions
@@ -156,7 +157,7 @@ module GobiertoAdmin
 
       assert form.save
 
-      people_permissions = madrid_and_santander_admin.people_permissions
+      people_permissions = madrid_and_santander_admin.people_permissions.on_site(madrid)
 
       assert_equal 1, people_permissions.size
       assert_equal "manage_all", people_permissions.first.action_name
@@ -172,12 +173,12 @@ module GobiertoAdmin
 
       assert form.save
 
-      assert_equal 3, madrid_and_santander_admin.people_permissions.size
-      assert_equal 3, madrid_and_santander_admin.sites_people_permissions.size
+      assert_equal 3, madrid_and_santander_admin.people_permissions.on_site(madrid).size
+      assert_equal 3, madrid_and_santander_admin.sites_people_permissions.on_site(madrid).size
 
       only_madrid_admin.admin_groups << madrid_group
-      assert_equal 3, only_madrid_admin.people_permissions.size
-      assert_equal 2, only_madrid_admin.sites_people_permissions.size
+      assert_equal 3, only_madrid_admin.people_permissions.on_site(madrid).size
+      assert_equal 2, only_madrid_admin.sites_people_permissions.on_site(madrid).size
     end
 
     def test_grant_person_permissions_without_gobierto_people_permissions
@@ -190,7 +191,7 @@ module GobiertoAdmin
 
       assert form.save
 
-      assert madrid_and_santander_admin.people_permissions.empty?
+      assert madrid_and_santander_admin.people_permissions.on_site(madrid).empty?
     end
 
     def test_revoke_person_permissions
@@ -203,7 +204,7 @@ module GobiertoAdmin
 
       assert form.save
 
-      assert_equal 1, madrid_and_santander_admin.people_permissions.size
+      assert_equal 1, madrid_and_santander_admin.people_permissions.on_site(madrid).size
     end
 
     def test_revoke_all_people_permissions
@@ -217,27 +218,27 @@ module GobiertoAdmin
 
       assert form.save
 
-      assert madrid_and_santander_admin.people_permissions.empty?
+      assert madrid_and_santander_admin.people_permissions.on_site(madrid).empty?
     end
 
     def test_grant_site_options_permissions
       form = subject.new(madrid_group_params.merge(site_options: %w(customize vocabularies templates custom_fields)))
 
-      assert_equal 3, tony.site_options_permissions.size
+      assert_equal 5, tony.site_options_permissions.on_site(madrid).size
 
       assert form.save
 
-      assert_equal 4, tony.site_options_permissions.size
+      assert_equal 4, tony.site_options_permissions.on_site(madrid).size
     end
 
     def test_revoke_site_options_permissions
       form = subject.new(madrid_group_params.merge(site_options: %w(templates)))
 
-      assert_equal 3, tony.site_options_permissions.size
+      assert_equal 5, tony.site_options_permissions.on_site(madrid).size
 
       assert form.save
 
-      assert_equal 1, tony.site_options_permissions.size
+      assert_equal 1, tony.site_options_permissions.on_site(madrid).size
     end
   end
 end

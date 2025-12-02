@@ -101,3 +101,27 @@ madrid_manage_visualizations:
   namespace: site_module
   resource_type: gobierto_visualizations
   action_name: manage
+
+madrid_manage_cms:
+  admin_group: madrid_group
+  namespace: site_module
+  resource_type: gobierto_cms
+  action_name: manage
+
+santander_manage_cms:
+  admin_group: santander_group
+  namespace: site_module
+  resource_type: gobierto_cms
+  action_name: manage
+
+madrid_manage_calendars:
+  admin_group: madrid_group
+  namespace: site_options
+  resource_type: calendars
+  action_name: manage
+
+madrid_manage_documents:
+  admin_group: madrid_group
+  namespace: site_options
+  resource_type: documents
+  action_name: manage

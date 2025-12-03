@@ -127,6 +127,7 @@ module GobiertoAdmin
               find("label[for='modules_action_gobierto_plans_manage_plans']").click
               find("label[for='admin_group_all_people']").click
 
+              sleep(2)
               click_button "Update"
             end
 

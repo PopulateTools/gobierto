@@ -2,7 +2,7 @@ madrid_create:
   admin_group: madrid_group
   namespace: global
   resource_type: global
-  action_name: create
+  action_name: create_projects
 
 admin_gobierto_people:
   admin_group: madrid_group
@@ -48,23 +48,41 @@ manage_citizen_charters_madrid:
   resource_type: gobierto_citizens_charters
   action_name: manage
 
-manage_plans_madrid:
-  admin_group: madrid_manage_plans_group
+moderate_all_projects_madrid:
+  admin_group: madrid_moderate_all_projects_group
   namespace: site_module
   resource_type: gobierto_plans
-  action_name: manage
+  action_name: moderate_projects_all
 
-edit_plans_madrid:
-  admin_group: madrid_edit_plans_group
+moderate_assigned_projects_madrid:
+  admin_group: madrid_moderate_assigned_projects_group
   namespace: site_module
   resource_type: gobierto_plans
-  action_name: edit
+  action_name: moderate_projects_assigned
 
-moderate_plans_madrid:
-  admin_group: madrid_moderate_plans_group
+view_all_projects_madrid:
+  admin_group: madrid_view_all_projects_group
   namespace: site_module
   resource_type: gobierto_plans
-  action_name: moderate
+  action_name: view_projects_all
+
+view_assigned_projects_madrid:
+  admin_group: madrid_view_assigned_projects_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: view_projects_assigned
+
+publish_all_projects_madrid:
+  admin_group: madrid_publish_all_projects_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: publish_projects_all
+
+publish_assigned_projects_madrid:
+  admin_group: madrid_publish_assigned_projects_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: publish_projects_assigned
 
 manage_plans_dashboards_madrid:
   admin_group: madrid_manage_plans_dashboards_group
@@ -78,11 +96,83 @@ view_plans_dashboards_madrid:
   resource_type: gobierto_plans
   action_name: view_dashboards
 
+edit_all_projects_madrid:
+  admin_group: madrid_edit_all_projects_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: edit_projects_all
+
+edit_assigned_projects_madrid:
+  admin_group: madrid_edit_assigned_projects_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: edit_projects_assigned
+
+delete_all_projects_madrid:
+  admin_group: madrid_delete_all_projects_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: delete_projects_all
+
+delete_assigned_projects_madrid:
+  admin_group: madrid_delete_assigned_projects_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: delete_projects_assigned
+
+update_all_projects_as_minor_change_madrid:
+  admin_group: madrid_update_all_projects_as_minor_change_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: update_projects_as_minor_change_all
+
+update_assigned_projects_as_minor_change_madrid:
+  admin_group: madrid_update_assigned_projects_as_minor_change_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: update_projects_as_minor_change_assigned
+
+edit_all_projects_permissions_madrid:
+  admin_group: madrid_edit_all_projects_permissions_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: edit_projects_permissions_all
+
+edit_assigned_projects_permissions_madrid:
+  admin_group: madrid_edit_assigned_projects_permissions_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: edit_projects_permissions_assigned
+
+manage_plans_madrid:
+  admin_group: madrid_manage_plans_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: manage_plans
+
+create_projects_madrid:
+  admin_group: madrid_create_projects_group
+  namespace: site_module
+  resource_type: gobierto_plans
+  action_name: create_projects
+
 edit_political_agendas:
   admin_group: political_agendas_permissions_group
   namespace: gobierto_plans
   resource: political_agendas (GobiertoPlans::Node)
-  action_name: edit
+  action_name: edit_projects_all
+
+view_political_agendas:
+  admin_group: political_agendas_permissions_group
+  namespace: gobierto_plans
+  resource: political_agendas (GobiertoPlans::Node)
+  action_name: view_projects_all
+
+publish_political_agendas:
+  admin_group: political_agendas_permissions_group
+  namespace: gobierto_plans
+  resource: political_agendas (GobiertoPlans::Node)
+  action_name: publish_projects_all
 
 madrid_manage_investments:
   admin_group: madrid_group

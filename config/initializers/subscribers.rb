@@ -29,5 +29,9 @@ ActiveSupport::Notifications.subscribe(/trackable/) do |*args|
   event = ActiveSupport::Notifications::Event.new(*args)
   Rails.logger.debug("Consuming event \"#{event.name}\" with payload: #{event.payload}")
 
-  User::Subscription::NotificationBuilder.new(event).call
+  if event.name.starts_with?("admin_trackable")
+    GobiertoAdmin::AdminNotificationBuilder.new(event).call
+  else
+    User::Subscription::NotificationBuilder.new(event).call
+  end
 end

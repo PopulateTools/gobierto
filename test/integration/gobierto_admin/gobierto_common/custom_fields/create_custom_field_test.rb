@@ -103,7 +103,7 @@ module GobiertoAdmin
         end
 
         def test_create_custom_field_at_instance_level
-          admin.admin_groups << gobierto_admin_admin_groups(:madrid_manage_plans_group)
+          admin.admin_groups << gobierto_admin_admin_groups(:madrid_edit_all_projects_group)
 
           with(site: site, js: true, admin: admin) do
             visit @instance_level_path

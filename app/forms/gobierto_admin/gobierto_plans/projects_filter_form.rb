@@ -6,7 +6,8 @@ module GobiertoAdmin
       FILTER_PARAMS = %w(name admin_actions category progress author moderation_stage start_date end_date interval status).freeze
 
       attr_accessor(*FILTER_PARAMS)
-      attr_accessor :plan, :admin
+      attr_accessor :plan, :admin, :permissions_policy
+      attr_writer :index_all_actions, :index_all_projects
 
       validates :plan, :admin, presence: true
 
@@ -41,12 +42,16 @@ module GobiertoAdmin
       end
 
       def admin_actions_values
-        { owned: OpenStruct.new(id: admin.id, count: editor_relation.with_author(admin.id).count),
+        { owned: OpenStruct.new(id: admin.id, count: base_relation.with_author(admin.id).count),
           can_edit: OpenStruct.new(id: "#{admin.id}-edit", count: editor_relation.count) }
       end
 
       def admin_actions_all_value
         base_relation.count
+      end
+
+      def index_all_actions
+        @index_all_actions ||= [:view_projects_all, :edit_projects_all, :moderate_projects_all, :publish_projects_all, :delete_projects_all, :edit_projects_permissions_all]
       end
 
       def moderation_stage_values
@@ -73,24 +78,45 @@ module GobiertoAdmin
         end.unshift([I18n.t("gobierto_admin.gobierto_plans.projects.filter_form.status"), nil])
       end
 
+      def base_relation
+        @base_relation ||= if index_all_projects?
+                             @plan.nodes
+                           elsif permissions_policy.allowed_actions_by_scope(:assigned).include?(:index)
+                             assigned_resources
+                           else
+                             @plan.nodes.none
+                           end
+      end
+
+      def editor_relation
+        @editor_relation ||= if permissions_policy.allowed_actions_by_scope(:all).include?(:edit)
+                               @plan.nodes
+                             elsif permissions_policy.allowed_actions_by_scope(:assigned).include?(:edit)
+                               assigned_resources
+                             else
+                               @plan.nodes.none
+                             end
+      end
+
       private
 
       def format_percentage(number)
         "#{number.to_i}%"
       end
 
-      def base_relation
-        if admin.module_allowed_action?("GobiertoPlans", site, :moderate)
-          @plan.nodes
-        else
-          GobiertoAdmin::AdminResourcesQuery.new(admin, relation: @plan.nodes).allowed
-        end
+      def assigned_resources
+        @assigned_resources ||= GobiertoAdmin::AdminResourcesQuery.new(admin, relation: @plan.nodes).allowed(include_moderated: false)
       end
 
-      def editor_relation
-        @editor_relation ||= GobiertoAdmin::AdminResourcesQuery.new(admin, relation: @plan.nodes).allowed(include_moderated: false)
-      end
+      def index_all_projects?
+        return @index_all_projects if @index_all_projects.present?
 
+        controller_actions = permissions_policy.allowed_actions_by_scope(:all)
+        return unless controller_actions.include?(:index)
+
+        all_allowed_actions = permissions_policy.allowed_admin_actions_by_scope(:all)
+        (all_allowed_actions & index_all_actions).present?
+      end
     end
   end
 end

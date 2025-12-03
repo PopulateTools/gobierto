@@ -30,11 +30,18 @@ module GobiertoAdmin
     end
 
     def sent?
-      @sent ||= moderable_has_moderation? && !moderation.not_sent?
+      @sent ||= moderable_has_moderation? && !moderation.unsent?
     end
 
     def rejected?
       @rejected ||= moderable_has_moderation? && moderation.rejected?
+    end
+
+    def moderation_confirm_data
+      return {} unless persisted? && moderable_has_moderation?
+      return {} if moderation.unsent?
+
+      { confirm: I18n.t("gobierto_admin.shared.moderation_save_widget.confirm_moderation_blocked_update") }
     end
 
     def publish_moderation_step
@@ -45,12 +52,12 @@ module GobiertoAdmin
                                    elsif sent?
                                      rejected? ? :rejected : :sent
                                    else
-                                     :not_sent
+                                     :unsent
                                    end
     end
 
-    def locked?
-      @locked ||= [:new, :not_sent].include?(publish_moderation_step)
+    def edition_phase?
+      @edition_phase ||= new_record? || moderation.unsent?
     end
 
     def has_preview?
@@ -74,7 +81,7 @@ module GobiertoAdmin
     end
 
     def step_disabled?
-      publish_moderation_status.disabled
+      publish_moderation_status.disabled && !moderation_policy.publish?
     end
 
     def step_visibility_value
@@ -112,8 +119,8 @@ module GobiertoAdmin
       @publish_moderation_status ||= OpenStruct.new PUBLISH_MODERATION_STEPS[publish_moderation_step]
     end
 
-    PUBLISH_MODERATION_STEPS = { new: { action: :send, moderation_status: :not_sent, disabled: true, moderation_style: :not_published },
-                                 not_sent: { action: :send, moderation_status: :not_sent, disabled: false, moderation_style: :not_published },
+    PUBLISH_MODERATION_STEPS = { new: { action: :send, moderation_status: :unsent, disabled: true, moderation_style: :not_published },
+                                 unsent: { action: :send, moderation_status: :unsent, disabled: false, moderation_style: :not_published },
                                  sent: { moderation_status: :in_review, disabled: true, moderation_style: :in_revision },
                                  publicable: { moderation_status: :approved, disabled: false, moderation_style: :approved },
                                  published: { moderation_status: :approved, disabled: false, moderation_style: :approved },

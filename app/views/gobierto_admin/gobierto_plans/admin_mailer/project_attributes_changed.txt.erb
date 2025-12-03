@@ -1,0 +1,15 @@
+<%= t(".hi") %>,
+
+<%= t(
+      ".intro_html",
+      author_name: @author&.name,
+      updates_list:,
+      project_link: @project.name,
+      plan_title: @plan.title
+     ) %> (<%= @project_url %>)
+
+<% if @payload[:edition_change] && @payload[:minor_change] %>
+  <%= t(".minor_change_notice") if @payload[:minor_change] %>
+<% end %>
+
+<%= t('.bye') %>.

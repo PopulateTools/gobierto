@@ -126,8 +126,10 @@ module GobiertoAdmin
           end
         end
 
-        def test_edit_project_as_regular_moderator
-          allow_regular_admin_moderate_plans
+        def test_edit_project_as_regular_moderator_editor_and_publisher
+          allow_regular_admin_moderate_all_projects
+          allow_regular_admin_publish_all_projects
+          allow_regular_admin_edit_all_projects
 
           with(site: site, admin: regular_admin) do
             visit path
@@ -163,8 +165,9 @@ module GobiertoAdmin
           end
         end
 
-        def test_unpublish_project_as_regular_moderator
-          allow_regular_admin_moderate_plans
+        def test_unpublish_project_as_regular_moderator_and_publisher
+          allow_regular_admin_moderate_all_projects
+          allow_regular_admin_publish_all_projects
 
           with(site: site, admin: regular_admin) do
             visit path
@@ -186,9 +189,37 @@ module GobiertoAdmin
           end
         end
 
-        def test_publish_and_change_moderation_stage_of_project_as_regular_moderator
+        def test_change_moderation_status_of_project_as_regular_moderator
           create_custom_fields_records
-          allow_regular_admin_moderate_plans
+          allow_regular_admin_moderate_all_projects
+
+          with(site: site, admin: regular_admin, js: true) do
+            visit path
+
+            choose_moderation_status "Under review"
+
+            within "div.widget_save_v2" do
+              click_button "Save"
+            end
+
+            assert has_content? "Project updated correctly."
+
+            assert has_content? "Editing version\n1"
+            assert has_content? "Status\nPublished"
+            assert has_content? "Published version\n1"
+            refute has_link? "Unpublish"
+
+            published_project.reload
+
+            assert published_project.published?
+            assert published_project.moderation.in_review?
+          end
+        end
+
+        def test_publish_and_change_moderation_stage_of_project_as_regular_moderator_publisher
+          create_custom_fields_records
+          allow_regular_admin_moderate_all_projects
+          allow_regular_admin_publish_all_projects
 
           with(site: site, admin: regular_admin) do
             visit unpublished_path
@@ -214,8 +245,8 @@ module GobiertoAdmin
           end
         end
 
-        def test_edit_project_as_regular_manager
-          allow_regular_admin_manage_plans
+        def test_edit_project_as_regular_dashboards_manager
+          allow_regular_admin_manage_dashboards
 
           with(site: site, admin: regular_admin) do
             visit path
@@ -229,22 +260,7 @@ module GobiertoAdmin
           with(site: site, admin: regular_admin) do
             visit unpublished_path
 
-            assert_equal 404, page.status_code
-          end
-        end
-
-        def test_edit_disabled_on_approved_project_as_regular_editor
-          allow_regular_admin_edit_plans
-
-          with(site: site, admin: regular_admin) do
-            visit path
-            assert has_field?("project_name_translations_en", disabled: true)
-            assert has_field?("project_status_id", disabled: true)
-            assert has_field?("project_starts_at", disabled: true)
-            assert has_field?("project_ends_at", disabled: true)
-            assert has_field?("project_progress", disabled: true)
-            assert has_no_button? "Save"
-            assert has_no_link? "Unpublish"
+            assert has_message? "You are not authorized to perform this action"
           end
         end
 
@@ -262,18 +278,17 @@ module GobiertoAdmin
               select "Active", from: "project_status_id"
               select "3%", from: "project_progress"
 
-              assert has_no_content? "Moderation"
               within "div.widget_save_v2.editor" do
                 click_button "Save"
               end
             end
 
-            assert has_message? "Project updated correctly."
+            assert has_message? "Because you have modified the project and do not have moderation permissions, its status has been moved to Not sent."
             assert has_content? "Updated project"
             assert has_content? "Editing version\n2"
             assert has_content? "Status\nNot published"
             assert has_content? "Published version\n1"
-            assert has_content? "Click on Publish to make this version publicly visible."
+            assert has_content? "When your content is ready to be reviewed by a moderator, click on Send"
 
             published_project.reload
 
@@ -283,12 +298,13 @@ module GobiertoAdmin
             assert_equal Date.parse("2020-01-01"), published_project.starts_at
             assert_equal Date.parse("2021-01-01"), published_project.ends_at
             assert published_project.published?
-            assert published_project.moderation.approved?
+            assert published_project.moderation.unsent?
           end
         end
 
-        def test_edit_not_approved_project_as_regular_editor
+        def test_sends_not_sent_project_as_regular_editor
           allow_regular_admin_edit_project(unpublished_project)
+          unpublished_project.moderation.unsent!
 
           with(site: site, admin: regular_admin) do
             visit unpublished_path
@@ -301,10 +317,8 @@ module GobiertoAdmin
               select "In progress", from: "project_status_id"
               select "3%", from: "project_progress"
 
-              within(".widget_save_v2") { assert has_no_content?("Moderation") }
-
               within "div.widget_save_v2" do
-                click_button "Save"
+                click_button "Send"
               end
             end
 
@@ -327,8 +341,49 @@ module GobiertoAdmin
           end
         end
 
-        def test_unpublish_approved_project_as_regular_editor
+
+        def test_edit_not_sent_project_as_regular_editor
+          allow_regular_admin_edit_project(unpublished_project)
+          unpublished_project.moderation.unsent!
+
+          with(site: site, admin: regular_admin) do
+            visit unpublished_path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+
+              fill_in "project_starts_at", with: "2020-01-01"
+              fill_in "project_ends_at", with: "2021-01-01"
+              select "In progress", from: "project_status_id"
+              select "3%", from: "project_progress"
+
+              within "div.widget_save_v2" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Project updated correctly."
+            assert has_content? "Updated project"
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\nnot published yet"
+            assert has_content? "When your content is ready to be reviewed by a moderator, click on Send."
+
+            unpublished_project.reload
+
+            assert_equal "Updated project", unpublished_project.name
+            assert_equal "In progress", unpublished_project.status.name
+            assert_equal 3.0, unpublished_project.progress
+            assert_equal Date.parse("2020-01-01"), unpublished_project.starts_at
+            assert_equal Date.parse("2021-01-01"), unpublished_project.ends_at
+            assert unpublished_project.draft?
+            assert unpublished_project.moderation.unsent?
+          end
+        end
+
+        def test_unpublish_approved_project_as_regular_editor_and_publisher
           allow_regular_admin_edit_project(published_project)
+          allow_regular_admin_publish_project(published_project)
 
           with(site: site, admin: regular_admin) do
             visit path
@@ -357,14 +412,14 @@ module GobiertoAdmin
             visit unpublished_path
 
             within "div.widget_save_v2" do
-              assert has_button?("Publish", disabled: true)
+              assert has_no_button?("Publish")
             end
           end
         end
 
         def test_send_project_as_regular_editor
           allow_regular_admin_edit_project(unpublished_project)
-          unpublished_project.moderation.not_sent!
+          unpublished_project.moderation.unsent!
           create_custom_fields_records
 
           with(site: site, admin: regular_admin) do
@@ -372,10 +427,6 @@ module GobiertoAdmin
 
             within "div.widget_save_v2" do
               click_button "Send"
-            end
-
-            within "div.widget_save_v2" do
-              assert has_button?("Publish", disabled: true)
             end
 
             assert has_message? "Project updated correctly."
@@ -391,9 +442,137 @@ module GobiertoAdmin
           end
         end
 
-        def test_edit_project_as_regular_editor_and_moderator
+        def test_edit_approved_project_as_regular_editor
+          allow_regular_admin_edit_project(published_project)
+          published_project.moderation.approved!
+
+          with(site: site, admin: regular_admin) do
+            visit path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+
+              fill_in "project_starts_at", with: "2020-01-01"
+              fill_in "project_ends_at", with: "2021-01-01"
+              select "Active", from: "project_status_id"
+              select "3%", from: "project_progress"
+
+              within "div.widget_save_v2" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Because you have modified the project and do not have moderation permissions, its status has been moved to Not sent."
+            assert has_button? "Send"
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\n1"
+
+            published_project.reload
+            assert_equal "unsent", published_project.moderation_stage
+          end
+        end
+
+        def test_save_approved_project_as_regular_editor_without_changes
+          allow_regular_admin_edit_project(published_project)
+          published_project.moderation.approved!
+
+          with(site: site, admin: regular_admin) do
+            # Save an initial version 2 setting custom fields
+            visit path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+
+              within "div.widget_save_v2" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Because you have modified the project and do not have moderation permissions, its status has been moved to Not sent."
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Moderation\nNot sent"
+            assert has_content? "Published version\n1"
+
+            published_project.reload
+            assert_equal "unsent", published_project.moderation_stage
+            assert published_project.published?
+
+            published_project.update_attribute(:published_version, 2)
+            published_project.moderation.approved!
+
+            visit path
+
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nPublished"
+            assert has_content? "Moderation\nApproved"
+            assert has_content? "Published version\n2"
+
+            within "form" do
+              within "div.widget_save_v2" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "No changes have been made to the project. The current version has been maintained."
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nPublished"
+            assert has_content? "Moderation\nApproved"
+            assert has_content? "Published version\n2"
+
+            published_project.reload
+            assert_equal "approved", published_project.moderation_stage
+            assert published_project.published?
+          end
+        end
+
+        def test_edit_approved_project_as_regular_editor_allowed_to_save_minor_changes
+          allow_regular_admin_edit_project(published_project)
+          allow_regular_admin_update_project_as_minor_change(published_project)
+          published_project.moderation.approved!
+
+          with(site: site, admin: regular_admin) do
+            visit path
+
+            within "form" do
+              assert has_content? "Minor change (does not save version)"
+
+              fill_in "project_name_translations_en", with: "Updated project with minor change"
+
+              fill_in "project_starts_at", with: "2020-01-01"
+              fill_in "project_ends_at", with: "2021-01-01"
+              select "Active", from: "project_status_id"
+              select "3%", from: "project_progress"
+
+              find("label", text: "Minor change (does not save version)").click
+
+              within "div.widget_save_v2" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Project updated correctly."
+            assert has_content? "Editing version\n1"
+            assert has_content? "Status\nPublished"
+            assert has_content? "Published version\n1"
+
+            published_project.reload
+
+            assert_equal "Updated project with minor change", published_project.name
+            assert_equal "Active", published_project.status.name
+            assert_equal 3.0, published_project.progress
+            assert_equal Date.parse("2020-01-01"), published_project.starts_at
+            assert_equal Date.parse("2021-01-01"), published_project.ends_at
+            assert published_project.published?
+            assert published_project.moderation.approved?
+          end
+        end
+
+        def test_edit_project_as_regular_editor_moderator_and_publisher
           allow_regular_admin_edit_project(unpublished_project)
-          allow_regular_admin_moderate_plans
+          allow_regular_admin_moderate_all_projects
+          allow_regular_admin_publish_all_projects
 
           with(site: site, admin: regular_admin) do
             visit unpublished_path
@@ -431,9 +610,50 @@ module GobiertoAdmin
           end
         end
 
-        def test_moderate_project_as_regular_editor_and_moderator
+
+        def test_edit_project_as_regular_editor_and_moderator
           allow_regular_admin_edit_project(unpublished_project)
-          allow_regular_admin_moderate_plans
+          allow_regular_admin_moderate_all_projects
+
+          with(site: site, admin: regular_admin) do
+            visit unpublished_path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+
+              fill_in "project_starts_at", with: "2020-01-01"
+              fill_in "project_ends_at", with: "2021-01-01"
+              select "In progress", from: "project_status_id"
+              select "3%", from: "project_progress"
+
+              assert has_css? "div.widget_save_v2"
+              within "div.widget_save_v2" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Project updated correctly."
+            assert has_content? "Updated project"
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\nnot published yet"
+
+            unpublished_project.reload
+
+            assert_equal "Updated project", unpublished_project.name
+            assert_equal "In progress", unpublished_project.status.name
+            assert_equal 3.0, unpublished_project.progress
+            assert_equal Date.parse("2020-01-01"), unpublished_project.starts_at
+            assert_equal Date.parse("2021-01-01"), unpublished_project.ends_at
+            assert unpublished_project.draft?
+            assert unpublished_project.moderation.sent?
+          end
+        end
+
+        def test_moderate_project_as_regular_editor_moderator_and_publisher
+          allow_regular_admin_edit_project(unpublished_project)
+          allow_regular_admin_moderate_all_projects
+          allow_regular_admin_publish_all_projects
           create_custom_fields_records
 
           with(site: site, admin: regular_admin) do
@@ -477,9 +697,10 @@ module GobiertoAdmin
           end
         end
 
-        def test_editor_changes_version_and_publish
+        def test_editor_publisher_changes_version_and_publish
           allow_regular_admin_edit_project(unpublished_project)
-          unpublished_project.moderation.approved!
+          allow_regular_admin_publish_project(unpublished_project)
+          unpublished_project.moderation.unsent!
 
           with(site: site, admin: regular_admin) do
             visit unpublished_path
@@ -516,10 +737,11 @@ module GobiertoAdmin
             unpublished_project.reload
 
             assert unpublished_project.published?
+            assert_equal "approved", unpublished_project.moderation_stage
           end
         end
 
-        def test_editor_changes_version_edits_and_publish
+        def test_editor_changes_version_edits
           allow_regular_admin_edit_project(unpublished_project)
           unpublished_project.moderation.approved!
 
@@ -537,37 +759,17 @@ module GobiertoAdmin
               end
             end
 
-            assert has_message? "Project updated correctly."
-            within ".g_popup" do
-              click_link "1 - "
-            end
-
-            within "form" do
-              fill_in "project_name_translations_en", with: "Changed version"
-
-              fill_in "project_starts_at", with: "2050-01-01"
-              fill_in "project_ends_at", with: "2051-01-01"
-              select "3%", from: "project_progress"
-
-              within "div.widget_save_v2.editor" do
-                click_button "Publish"
-              end
-            end
-
-            assert has_link? "Unpublish"
-            assert has_content? "Editing version\n3"
-            assert has_content? "Status\nPublished"
-            assert has_content? "Published version\n3"
-            assert has_content? "Current version is the published one."
+            assert has_message? "Because you have modified the project and do not have moderation permissions, its status has been moved to Not sent."
+            assert has_button? "Send"
 
             unpublished_project.reload
-
-            assert unpublished_project.published?
+            assert_equal "unsent", unpublished_project.moderation_stage
           end
         end
 
-        def test_moderator_changes_published_version
-          allow_regular_admin_moderate_plans
+        def test_moderator_publisher_changes_published_version
+          allow_regular_admin_moderate_all_projects
+          allow_regular_admin_publish_all_projects
           create_custom_fields_records
           unpublished_project.update_attribute(:starts_at, 34.years.ago)
           unpublished_project.update_attribute(:starts_at, 24.years.ago)
@@ -579,6 +781,7 @@ module GobiertoAdmin
             find(".widget_save_v2 .fa-history").click
             within(first(".g_popup")) { click_link "2 - " }
 
+            assert has_content? "Editing version\n2"
             within "form" do
               within "div.widget_save_v2" do
                 click_button "Publish"
@@ -597,8 +800,9 @@ module GobiertoAdmin
           end
         end
 
-        def test_editor_changes_published_version_to_first
+        def test_editor_publisher_changes_published_version_to_first
           allow_regular_admin_edit_project(unpublished_project)
+          allow_regular_admin_publish_project(unpublished_project)
           create_custom_fields_records
           unpublished_project.moderation.approved!
 

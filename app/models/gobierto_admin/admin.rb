@@ -90,10 +90,6 @@ module GobiertoAdmin
       managing_user? || send(module_namespace.underscore + "_permissions").on_site(site).any?
     end
 
-    def module_allowed_action?(module_namespace, site, action)
-      managing_user? || send(module_namespace.underscore + "_permissions").on_site(site).where(action_name: action).any?
-    end
-
     def can_customize_site?
       managing_user? || site_options_permissions.exists?(resource_type: :customize)
     end

@@ -1,0 +1,32 @@
+<% updates_list = @changes.map do |key, value|
+    if value.present?
+      t(".#{key}", value:)
+    else
+      t(".#{key}")
+    end
+  end.to_sentence
+%>
+
+<p>
+  <%= t(".hi") %>,
+</p>
+
+<p>
+  <%= t(
+        ".intro_html",
+        author_name: @author&.name,
+        updates_list:,
+        project_link: link_to(@project.name, @project_url),
+        plan_title: @plan.title,
+       ) %>
+</p>
+
+<% if @payload[:edition_change] && @payload[:minor_change] %>
+  <p>
+    <%= t(".minor_change_notice") if @payload[:minor_change] %>
+  </p>
+<% end %>
+
+<p>
+  <%= t(".bye") %>.
+</p>

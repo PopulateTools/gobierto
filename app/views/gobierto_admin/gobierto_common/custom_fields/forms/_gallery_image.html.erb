@@ -1,14 +1,16 @@
 <%= content_tag :div, class: "user_field_container pure-g", data: { index: index, uid: record.uid, input_base_name: input_base_name } do %>
-  <div class="pure-u-1">
-    <div class="f_right">
-      <%= link_to "#",
-        class: "tipsit",
-        title: t("views.delete"),
-        data: { behavior: "delete_item", index: index, uid: record.uid } do %>
-        <i class="fas fa-trash"></i>
-      <% end %>
+  <% unless disabled %>
+    <div class="pure-u-1">
+      <div class="f_right">
+        <%= link_to "#",
+          class: "tipsit",
+          title: t("views.delete"),
+          data: { behavior: "delete_item", index: index, uid: record.uid } do %>
+          <i class="fas fa-trash"></i>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <%= image_tag content, height: 150, id: "saved_image_#{record.uid}_#{index}" %>
   <%= hidden_field_tag "#{ input_base_name }[#{record.uid}][existing][#{index}]", content %>

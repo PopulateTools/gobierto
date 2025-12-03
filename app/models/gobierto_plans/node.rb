@@ -38,6 +38,8 @@ module GobiertoPlans
 
     delegate :name, to: :status, prefix: true, allow_nil: true
 
+    after_update :check_published_version
+
     scope :with_name, ->(name) { where("gplan_nodes.name_translations ->> 'en' ILIKE :name OR gplan_nodes.name_translations ->> 'es' ILIKE :name OR gplan_nodes.name_translations ->> 'ca' ILIKE :name", name: "%#{name}%") }
     scope :with_status, ->(status) { where(status_id: status) }
     scope :with_category, ->(category) { where(gplan_categories_nodes: { category_id: GobiertoCommon::Term.find(category).last_descendants }) }
@@ -61,8 +63,8 @@ module GobiertoPlans
     scope :with_admin_actions, lambda { |admin|
       admin_id, action_name, site_id = admin.to_s.split("-")
       admin = GobiertoAdmin::Admin.find(admin_id)
-      site = Site.find_by(id: site_id)
-      if action_name.present? && GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(current_admin: admin, current_site: site).allowed_actions.include?(action_name.to_sym)
+      site = site_id.present? ? Site.find_by(id: site_id) : take&.plan&.site
+      if site.present? && action_name.present? && GobiertoAdmin::GobiertoPlans::ProjectPolicy.new(current_admin: admin, current_site: site, project: reorder(nil)).allowed_actions.include?(action_name.to_sym)
         all
       else
         where(author: admin)
@@ -74,20 +76,8 @@ module GobiertoPlans
       end
     }
 
-    extra_moderation_permissions_lookup_attributes do |node, action|
-      if node.new_record? || action != :edit
-        [{
-          namespace: "site_module",
-          resource_type: "gobierto_plans",
-          resource_id: nil
-        }]
-      else
-        []
-      end
-    end
-
     default_moderation_stage do |node|
-      node.published? ? :approved : :not_sent
+      node.published? ? :approved : :unsent
     end
 
     translates :name
@@ -163,6 +153,16 @@ module GobiertoPlans
         serialize_for_search_engine: true,
         custom_fields: plan.front_available_custom_fields.where(field_type: GobiertoCommon::CustomField.searchable_fields)
       ).to_h.symbolize_keys
+    end
+
+    def check_published_version
+      return unless published?
+      return if published_version.nil?
+
+      version_index = published_version - versions.length
+      return if published_version > 0 && (version_index >= 0 || version_index < 0 && versions[version_index]&.reify.present?)
+
+      update_columns(published_version: nil, visibility_level: 0)
     end
   end
 end

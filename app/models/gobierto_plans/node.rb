@@ -71,7 +71,9 @@ module GobiertoPlans
       end
     }
     scope :versions_indexes, lambda {
-      joins(:versions).group("gplan_nodes.id", "gplan_nodes.published_version").count("versions.id").inject({}) do |counts, (k, v)|
+      joins(:versions).
+      group("gplan_nodes.id", "gplan_nodes.published_version").
+      count("versions.id").reject { |k, v| k.last.blank? }.inject({}) do |counts, (k, v)|
         counts.update(k[0] => k[1] - v)
       end
     }

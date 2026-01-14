@@ -23,7 +23,10 @@ namespace :gobierto_budgets do
         debt = row["Deuda"].to_f.round(2)
 
         place_id = site.place.id
-        id = [place_id, year].join('/')
+        debt_type = GobiertoBudgetsData::GobiertoBudgets::DEBT_TYPE
+        population_type = GobiertoBudgetsData::GobiertoBudgets::POPULATION_TYPE
+        debt_id = [place_id, year, debt_type].join('/')
+        population_id = [place_id, year, population_type].join('/')
         province_id = site.place.province.id.to_i
         autonomous_region_id = site.place.province.autonomous_region.id.to_i
 
@@ -40,8 +43,7 @@ namespace :gobierto_budgets do
           {
             index: {
               _index: GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_DATA,
-              _type: GobiertoBudgetsData::GobiertoBudgets::DEBT_TYPE,
-              _id: id,
+              _id: debt_id,
               data: item
             }
           }
@@ -63,8 +65,7 @@ namespace :gobierto_budgets do
           {
             index: {
               _index: GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_DATA,
-              _type: GobiertoBudgetsData::GobiertoBudgets::POPULATION_TYPE,
-              _id: id,
+              _id: population_id,
               data: item
             }
           }

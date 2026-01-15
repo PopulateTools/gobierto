@@ -60,6 +60,24 @@ module GobiertoPlans
     scope :with_start_date, ->(start_date) { where("starts_at >= ?", Date.parse(start_date)) }
     scope :with_end_date, ->(end_date) { where("ends_at <= ?", Date.parse(end_date)) }
     scope :with_author, ->(author_id) { where(admin_id: author_id) }
+    scope :order_by_assigned_to, lambda { |admin|
+      return all if admin.managing_user?
+
+      admin_id = connection.quote(admin.id)
+      order(
+        Arel.sql("CASE
+          WHEN gplan_nodes.admin_id = #{admin_id} THEN 0
+          WHEN EXISTS (
+            SELECT 1 FROM admin_admin_groups
+            INNER JOIN admin_groups_admins ON admin_admin_groups.id = admin_groups_admins.admin_group_id
+            WHERE admin_admin_groups.resource_type = 'GobiertoPlans::Node'
+            AND admin_admin_groups.resource_id = gplan_nodes.id
+            AND admin_groups_admins.admin_id = #{admin_id}
+          ) THEN 0
+          ELSE 1
+        END")
+      )
+    }
     scope :with_visibility_level, lambda { |visibility_level|
       case visibility_level.to_s
       when "published_up_to_date"

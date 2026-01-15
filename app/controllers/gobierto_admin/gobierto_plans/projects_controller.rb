@@ -15,7 +15,12 @@ module GobiertoAdmin
       def index
         set_filters
 
-        @projects = @relation
+        @projects = if current_admin.managing_user?
+                      @relation
+                    else
+                      ids = @relation.reorder(nil).pluck(:id)
+                      ::GobiertoPlans::Node.where(id: ids).order_by_assigned_to(current_admin).order(position: :asc, id: :asc)
+                    end
       end
 
       def show

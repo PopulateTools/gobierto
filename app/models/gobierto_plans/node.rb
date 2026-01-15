@@ -60,6 +60,38 @@ module GobiertoPlans
     scope :with_start_date, ->(start_date) { where("starts_at >= ?", Date.parse(start_date)) }
     scope :with_end_date, ->(end_date) { where("ends_at <= ?", Date.parse(end_date)) }
     scope :with_author, ->(author_id) { where(admin_id: author_id) }
+    scope :with_visibility_level, lambda { |visibility_level|
+      case visibility_level.to_s
+      when "published_up_to_date"
+        published.where(
+          "(SELECT COUNT(1) FROM versions
+            WHERE versions.item_type = 'GobiertoPlans::Node'
+            AND versions.item_id = gplan_nodes.id) = 0
+           OR
+           (gplan_nodes.published_version IS NOT NULL AND
+            gplan_nodes.published_version = (
+              SELECT COUNT(1) FROM versions
+              WHERE versions.item_type = 'GobiertoPlans::Node'
+              AND versions.item_id = gplan_nodes.id
+            ))"
+        )
+      when "published_with_unpublished_changes"
+        published.where(
+          "(SELECT COUNT(1) FROM versions
+            WHERE versions.item_type = 'GobiertoPlans::Node'
+            AND versions.item_id = gplan_nodes.id) > 0
+           AND
+           (gplan_nodes.published_version IS NULL OR
+            gplan_nodes.published_version != (
+              SELECT COUNT(1) FROM versions
+              WHERE versions.item_type = 'GobiertoPlans::Node'
+              AND versions.item_id = gplan_nodes.id
+            ))"
+        )
+      else
+        where(visibility_level:)
+      end
+    }
     scope :with_admin_actions, lambda { |admin|
       admin_id, action_name, site_id = admin.to_s.split("-")
       admin = GobiertoAdmin::Admin.find(admin_id)

@@ -136,6 +136,7 @@ en:
             project: Project
             status: Status
             updated: Updated
+            visibility_level: Publication
           new: New
           title: Projecs of %{name}
           view: View item

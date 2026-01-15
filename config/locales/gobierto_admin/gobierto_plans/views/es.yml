@@ -138,6 +138,7 @@ es:
             project: Proyecto
             status: Estado
             updated: Actualizado
+            visibility_level: Publicación
           new: Nuevo
           title: Proyectos de %{name}
           view: Ver item

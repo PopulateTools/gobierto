@@ -138,6 +138,7 @@ ca:
             project: Projecte
             status: Estat
             updated: Actualitzat
+            visibility_level: Publicació
           new: Nou
           title: Projectes de %{name}
           view: Veure ítem

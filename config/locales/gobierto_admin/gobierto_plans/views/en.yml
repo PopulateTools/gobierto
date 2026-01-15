@@ -124,6 +124,11 @@ en:
             rejected: Rejected
             sent: Sent
             unsent: Not sent
+          visibility_level: Publication
+          visibility_level_value:
+            draft: Draft
+            published_up_to_date: Published up to date
+            published_with_unpublished_changes: Published with unpublished changes
           total: Total
         form:
           button:

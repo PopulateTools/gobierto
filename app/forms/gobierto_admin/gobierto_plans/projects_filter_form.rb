@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class ProjectsFilterForm < BaseForm
-      FILTER_PARAMS = %w(name admin_actions category progress author moderation_stage visibility_level start_date end_date interval status).freeze
+      FILTER_PARAMS = %w(name category progress author moderation_stage visibility_level start_date end_date interval status).freeze
 
       attr_accessor(*FILTER_PARAMS)
       attr_accessor :plan, :admin, :permissions_policy
@@ -39,15 +39,6 @@ module GobiertoAdmin
             [div.positive? ? start_interval : -1.0, end_interval].join(" - ")
           ]
         end.unshift([I18n.t("gobierto_admin.gobierto_plans.projects.filter_form.progress"), nil])
-      end
-
-      def admin_actions_values
-        { owned: OpenStruct.new(id: admin.id, count: base_relation.with_author(admin.id).count),
-          can_edit: OpenStruct.new(id: "#{admin.id}-edit", count: editor_relation.count) }
-      end
-
-      def admin_actions_all_value
-        base_relation.count
       end
 
       def index_all_actions

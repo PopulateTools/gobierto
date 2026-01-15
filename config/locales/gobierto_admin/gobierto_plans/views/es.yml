@@ -113,10 +113,6 @@ es:
           status: Estado
           submit: Filtrar
         filters_row:
-          admin_actions: Permisos
-          admin_actions_value:
-            can_edit: Puedes editar
-            owned: Tus proyectos
           all: Todos
           moderation_stage: Moderación
           moderation_stage_value:

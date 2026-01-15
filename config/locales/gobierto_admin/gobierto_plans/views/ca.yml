@@ -113,10 +113,6 @@ ca:
           status: Estat
           submit: Filtrar
         filters_row:
-          admin_actions: Permisos
-          admin_actions_value:
-            can_edit: Pots editar
-            owned: Els teus projectes
           all: Tots
           moderation_stage: Moderació
           moderation_stage_value:

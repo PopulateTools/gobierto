@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class ProjectsFilterForm < BaseForm
-      FILTER_PARAMS = %w(name admin_actions category progress author moderation_stage start_date end_date interval status).freeze
+      FILTER_PARAMS = %w(name category progress author moderation_stage visibility_level start_date end_date interval status).freeze
 
       attr_accessor(*FILTER_PARAMS)
       attr_accessor :plan, :admin, :permissions_policy
@@ -41,15 +41,6 @@ module GobiertoAdmin
         end.unshift([I18n.t("gobierto_admin.gobierto_plans.projects.filter_form.progress"), nil])
       end
 
-      def admin_actions_values
-        { owned: OpenStruct.new(id: admin.id, count: base_relation.with_author(admin.id).count),
-          can_edit: OpenStruct.new(id: "#{admin.id}-edit", count: editor_relation.count) }
-      end
-
-      def admin_actions_all_value
-        base_relation.count
-      end
-
       def index_all_actions
         @index_all_actions ||= [:view_projects_all, :edit_projects_all, :moderate_projects_all, :publish_projects_all, :delete_projects_all, :edit_projects_permissions_all]
       end
@@ -62,6 +53,14 @@ module GobiertoAdmin
             stage_name => OpenStruct.new(id: stage_name, count: base_relation.with_moderation_stage(stage_name).count)
           )
         end
+      end
+
+      def visibility_level_values
+        {
+          published_up_to_date: OpenStruct.new(id: "published_up_to_date", count: base_relation.with_visibility_level("published_up_to_date").count),
+          published_with_unpublished_changes: OpenStruct.new(id: "published_with_unpublished_changes", count: base_relation.with_visibility_level("published_with_unpublished_changes").count),
+          draft: OpenStruct.new(id: "draft", count: base_relation.with_visibility_level("draft").count)
+        }
       end
 
       def author_options

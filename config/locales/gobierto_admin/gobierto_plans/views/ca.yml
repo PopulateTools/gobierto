@@ -113,10 +113,6 @@ ca:
           status: Estat
           submit: Filtrar
         filters_row:
-          admin_actions: Permisos
-          admin_actions_value:
-            can_edit: Pots editar
-            owned: Els teus projectes
           all: Tots
           moderation_stage: Moderació
           moderation_stage_value:
@@ -126,6 +122,11 @@ ca:
             rejected: No aprovats
             sent: Enviat
             unsent: No enviats
+          visibility_level: Publicació
+          visibility_level_value:
+            draft: Esborrany
+            published_up_to_date: Publicat actualitzat
+            published_with_unpublished_changes: Publicat amb canvis sense publicar
           total: Total
         form:
           button:
@@ -138,6 +139,7 @@ ca:
             project: Projecte
             status: Estat
             updated: Actualitzat
+            visibility_level: Publicació
           new: Nou
           title: Projectes de %{name}
           view: Veure ítem

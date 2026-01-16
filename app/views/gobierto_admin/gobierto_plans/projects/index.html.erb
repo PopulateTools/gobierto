@@ -10,7 +10,7 @@
 <%= render 'gobierto_admin/gobierto_plans/shared/navigation' %>
 
 <div class="i_filters">
-  <%= render partial: "filters_row", locals: { filter: :admin_actions } %>
+  <%= render partial: "filters_row", locals: { filter: :visibility_level } %>
   <%= render partial: "filters_row", locals: { filter: :moderation_stage } %>
   <%= render partial: "filter_form" %>
 </div>
@@ -25,6 +25,7 @@
   <tr>
     <th class="icon"></th>
     <th><%= t(".headers.project") %></th>
+    <th><%= t(".headers.visibility_level") %></th>
     <th><%= t(".headers.progress") %></th>
     <th><%= t(".headers.status") %></th>
     <th><%= t(".headers.updated") %></th>
@@ -51,6 +52,7 @@
           <%= project.name %>
         <% end %>
       </td>
+      <td><%= t(project.visibility_level, scope: "gobierto_admin.gobierto_plans.plans.index.visibility_level") %></td>
       <td><%= format_percentage(project.progress) %></td>
       <td><%= project.status&.name %></td>
       <td><%= time_ago_in_words(project.updated_at) %></td>

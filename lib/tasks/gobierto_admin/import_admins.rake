@@ -2,6 +2,14 @@
 
 namespace :gobierto_admin do
   desc "Import regular admins from a CSV file and assign groups"
+  # Expected CSV format:
+  # - Email: Column containing the admin's email address.
+  # - Name: Column containing the admin's name.
+  # - Groups: Column containing comma-separated group names to assign to the admin.
+  #
+  # Group names must match exactly with groups defined in the site.
+  # If a group name is not found in the site, a warning message will be displayed
+  # and that group will be skipped for that admin.
   task :import_admins, [:site_domain, :csv_path] => :environment do |_t, args|
 
     site = Site.find_by(domain: args[:site_domain])

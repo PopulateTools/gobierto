@@ -113,10 +113,6 @@ es:
           status: Estado
           submit: Filtrar
         filters_row:
-          admin_actions: Permisos
-          admin_actions_value:
-            can_edit: Puedes editar
-            owned: Tus proyectos
           all: Todos
           moderation_stage: Moderación
           moderation_stage_value:
@@ -126,6 +122,11 @@ es:
             rejected: Rechazados
             sent: Enviados
             unsent: No enviados
+          visibility_level: Publicación
+          visibility_level_value:
+            draft: Borrador
+            published_up_to_date: Publicado actualizado
+            published_with_unpublished_changes: Publicado con cambios sin publicar
           total: Total
         form:
           button:
@@ -138,6 +139,7 @@ es:
             project: Proyecto
             status: Estado
             updated: Actualizado
+            visibility_level: Publicación
           new: Nuevo
           title: Proyectos de %{name}
           view: Ver item

@@ -2,7 +2,15 @@
 
 namespace :gobierto_admin do
   desc "Import regular admins from a CSV file and assign groups"
-  task :import_admins, [:site_domain, :csv_path] => :environment do |_t, args|
+  # Expected CSV format:
+  # - Email: Column containing the admin's email address.
+  # - Name: Column containing the admin's name.
+  # - Groups: Column containing comma-separated group names to assign to the admin.
+  #
+  # Group names must match exactly with groups defined in the site.
+  # If a group name is not found in the site, a warning message will be displayed
+  # and that group will be skipped for that admin.
+  task :import_admins, [:site_domain, :csv_path, :send_invitation] => :environment do |_t, args|
 
     site = Site.find_by(domain: args[:site_domain])
 
@@ -16,6 +24,8 @@ namespace :gobierto_admin do
       puts "[ERROR] No CSV file found: #{csv_path}"
       exit -1
     end
+
+    send_invitation = args[:send_invitation] == "true" # Do not send invitation by default
 
     count = 0
     loaded = 0
@@ -34,14 +44,24 @@ namespace :gobierto_admin do
         group
       end.compact
 
-      existing_admin = GobiertoAdmin::Admin.find_by(email:)
+      admin = GobiertoAdmin::Admin.find_by(email:)
 
-      if existing_admin.present?
+      if admin.present?
         puts "Skipping already existing admin with email #{email}..."
         next
       end
-      admin = GobiertoAdmin::Admin.create(name:, email:)
-      admin.sites << site
+      if send_invitation
+        builder = GobiertoAdmin::AdminInvitationBuilder.new(email, [site.id])
+        if builder.call
+          admin = GobiertoAdmin::Admin.find_by(email:)
+        else
+          puts "Failed invitation to admin with email #{email}..."
+          next
+        end
+      else
+        admin = GobiertoAdmin::Admin.create(name:, email:)
+        admin.sites << site
+      end
       admin.admin_groups << admin_groups
 
       loaded += 1 if admin.persisted?

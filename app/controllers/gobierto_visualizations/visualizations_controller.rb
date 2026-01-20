@@ -5,7 +5,12 @@ module GobiertoVisualizations
 
     before_action :visualization_enabled!
 
-    def contracts; end
+    MIN_CONTRACT_ID = 0
+    MAX_CONTRACT_ID = 15_000_000
+
+    def contracts
+      render_404 and return false if params[:id].present? && (params[:id].to_i < MIN_CONTRACT_ID || params[:id].to_i > MAX_CONTRACT_ID)
+    end
     def subsidies; end
 
     private

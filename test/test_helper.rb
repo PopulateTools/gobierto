@@ -88,7 +88,6 @@ class ActionDispatch::IntegrationTest
   require "support/integration/matcher_helpers"
   require "support/integration/page_helpers"
   require "support/integration/admin_groups_concern"
-  require "support/integration/requests_tracking_helpers"
   require "support/file_uploader_helpers"
   require "support/permission_helpers"
 
@@ -97,7 +96,6 @@ class ActionDispatch::IntegrationTest
   include Integration::SiteSessionHelpers
   include Integration::MatcherHelpers
   include Integration::PageHelpers
-  include Integration::RequestsTrackingHelpers
   include Capybara::Email::DSL
   include FileUploaderHelpers
   include GobiertoPeople::SubmodulesHelper

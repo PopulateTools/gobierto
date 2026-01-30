@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
+# ABOUTME: Common concern included in all application controllers.
+# ABOUTME: Handles site scoping, locale management, and authentication.
+
 module ApplicationConcern
   extend ActiveSupport::Concern
-
-  BLOCKLIST_TRACKABLE_KEYS = %w(password password_confirmation authenticity_token utf8 file).freeze
 
   included do
     before_action :set_current_site, :set_locale
     around_action :set_locale_from_url
-    after_action :track_request
   end
 
   def current_site
@@ -59,35 +59,9 @@ module ApplicationConcern
     end
   end
 
-  def track_request
-    return true if ignore_tracking_request?
-
-    user_id = @current_user&.id
-    extra_params = { method: request.method, admin_id: @current_admin&.id }.compact
-    GobiertoCommon::EventCreatorJob.perform_later current_site.id, user_id, current_visit&.id, filtered_params(request.params.merge(extra_params))
-  rescue StandardError => e
-    Appsignal.send_error(e)
-  end
-
-  def ignore_tracking_request?
-    Rails.env.development? || Rails.env.test?
-  end
-
-  def ahoy
-    @ahoy ||= Ahoy::GobiertoTracker.new(controller: self, api: true, site: current_site)
-  end
-
   protected
 
   def remote_ip
     request.env["action_dispatch.remote_ip"].try(:calculate_ip) || request.remote_ip
-  end
-
-  def filtered_params(params_hash)
-    params_hash.with_indifferent_access.except(*BLOCKLIST_TRACKABLE_KEYS).transform_values do |v|
-      next v unless v.is_a?(Hash)
-
-      filtered_params(v)
-    end
   end
 end

@@ -8,4 +8,3 @@ production:
   - user_verifications
   - mailers
   - cached_data
-  - event_creators

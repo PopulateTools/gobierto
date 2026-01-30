@@ -91,9 +91,6 @@ gem "rubyXL"
 # TODO: v3 raises a middleware error
 gem "appsignal"#, "= 3.0.6"
 
-# Analytics
-gem 'ahoy_matey', '~> 5.1'
-
 # Auth strategies
 gem "net-ldap"
 gem "ladle"

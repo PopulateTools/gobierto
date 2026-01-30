@@ -12,7 +12,7 @@
 <script>
 import { Table } from '../../../../lib/vue/components';
 import { EventBus } from '../../lib/mixins/event_bus';
-import { subsidiesColumns } from '../../lib/config/subsidies.js';
+import { getSubsidiesColumns } from '../../lib/config/subsidies.js';
 
 export default {
   name: 'SubsidiesIndex',
@@ -24,7 +24,7 @@ export default {
       subsidiesData: this.$root.$data.subsidiesData,
       items: [],
       value: '',
-      subsidiesColumns: subsidiesColumns,
+      subsidiesColumns: getSubsidiesColumns(),
       showColumns: []
     }
   },
@@ -43,7 +43,7 @@ export default {
     EventBus.$on('filtered-items', (value) => this.updateFilteredItems(value))
 
     this.items = this.subsidiesData.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
-    this.columns = subsidiesColumns;
+    this.columns = getSubsidiesColumns();
     this.showColumns = ['beneficiary', 'call','amount', 'grant_date']
   },
   beforeUnmount(){

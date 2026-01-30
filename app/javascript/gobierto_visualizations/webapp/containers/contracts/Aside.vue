@@ -51,7 +51,7 @@ import { slugString } from '../../../../lib/shared';
 import { BlockHeader, Checkbox, Dropdown } from '../../../../lib/vue/components';
 import DownloadButton from '../../components/DownloadButton.vue';
 import SearchFilter from '../../components/SearchFilter.vue';
-import { contractsFiltersConfig } from '../../lib/config/contracts.js';
+import { getContractsFiltersConfig } from '../../lib/config/contracts.js';
 import { EventBus } from '../../lib/mixins/event_bus';
 
 export default {
@@ -75,7 +75,7 @@ export default {
   },
   data() {
     return {
-      filters: contractsFiltersConfig,
+      filters: getContractsFiltersConfig(),
       type: 'Contracts'
     }
   },

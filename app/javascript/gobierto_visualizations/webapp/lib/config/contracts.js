@@ -1,5 +1,5 @@
 // table columns
-export const contractsColumns = [
+export const getContractsColumns = () => [
   { field: 'assignee', name: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), cssClass: 'bold' },
   { field: 'title', name: I18n.t('gobierto_visualizations.visualizations.contracts.contract'), cssClass: 'largest-width-td ellipsis' },
   { field: 'final_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount'), cssClass: 'right nowrap pr1', type: 'money' },
@@ -13,27 +13,31 @@ export const contractsColumns = [
   { field: 'initial_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bid_description'), cssClass: 'nowrap pl1 right', type: 'money' }
 ];
 
-export const tendersColumns = [
+export const getTendersColumns = () => [
   { field: 'contractor', translation: I18n.t('gobierto_visualizations.visualizations.contracts.contractor'), cssClass: 'bold' },
   { field: 'status', translation: I18n.t('gobierto_visualizations.visualizations.contracts.status'), cssClass: '' },
   { field: 'submission_date', translation: I18n.t('gobierto_visualizations.visualizations.contracts.submission_date'), type: 'date', cssClass: 'nowrap right' },
 ];
 
-export const assigneesColumns = [
+export const getAssigneesColumns = () => [
   { field: 'name', name: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), cssClass: 'bold' },
   { field: 'count', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts'), cssClass: 'right' },
   { field: 'sum', name: I18n.t('gobierto_visualizations.visualizations.contracts.final_amount_no_taxes'), cssClass: 'right', type: 'money' },
 ];
 
-export const assigneesShowColumns = [
+export const getAssigneesShowColumns = () => [
   { field: 'title', name: I18n.t('gobierto_visualizations.visualizations.contracts.assignee'), cssClass: 'bold' },
   { field: 'final_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.final_amount_no_taxes'), cssClass: 'nowrap pr1 right', type: 'money' },
   { field: 'gobierto_start_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.date'), cssClass: 'nowrap pl1 right', type: 'date' },
 ];
 
+// Note: All configs are now functions to ensure translations are evaluated at runtime
+// when the locale is properly set, rather than at module load time.
+
 // filters config
-const responsiveSize = window.innerWidth <= 769 ? false : true
-export const contractsFiltersConfig = [{
+export const getContractsFiltersConfig = () => {
+  const responsiveSize = window.innerWidth <= 769 ? false : true
+  return [{
     id: 'dates',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.dates'),
     isToggle: responsiveSize,
@@ -62,5 +66,5 @@ export const contractsFiltersConfig = [{
     title: I18n.t('gobierto_visualizations.visualizations.contracts.entities'),
     isToggle: responsiveSize,
     options: []
-  }
-]
+  }]
+}

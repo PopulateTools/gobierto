@@ -13,7 +13,7 @@
 <script>
 import { Table } from '../../../../lib/vue/components';
 import { EventBus } from '../../lib/mixins/event_bus';
-import { contractsColumns } from '../../lib/config/contracts.js';
+import { getContractsColumns } from '../../lib/config/contracts.js';
 
 export default {
   name: 'ContractsIndex',
@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
-      contractsColumns: contractsColumns,
+      contractsColumns: getContractsColumns(),
       items: [],
       showColumns: [],
       columns: []
@@ -45,7 +45,7 @@ export default {
     EventBus.$on('filtered-items', (value) => this.updateFilteredItems(value))
 
     this.items = this.contractsData.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
-    this.columns = contractsColumns;
+    this.columns = getContractsColumns();
     this.showColumns = ['assignee', 'title', 'gobierto_start_date', 'final_amount_no_taxes']
   },
   beforeUnmount(){

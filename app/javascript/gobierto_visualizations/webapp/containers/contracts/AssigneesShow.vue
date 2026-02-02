@@ -28,7 +28,7 @@
 import { VueFiltersMixin } from '../../../../lib/vue/filters'
 import { Table } from '../../../../lib/vue/components';
 import { EventBus } from '../../lib/mixins/event_bus';
-import { assigneesShowColumns } from '../../lib/config/contracts.js';
+import { getAssigneesShowColumns } from '../../lib/config/contracts.js';
 
 export default {
   name: 'AssigneesShow',
@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       contractsData: this.$root.$data.contractsData,
-      assigneesShowColumns: assigneesShowColumns,
+      assigneesShowColumns: getAssigneesShowColumns(),
       items: [],
       tableItems: [],
       columns: [],
@@ -64,7 +64,7 @@ export default {
       const contracts = this.contractsData.filter(({ assignee_routing_id }) => assignee_routing_id === assigneeRoutingId ) || [];
 
       this.items = contracts
-      this.columns = assigneesShowColumns;
+      this.columns = getAssigneesShowColumns();
       this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}/visualizaciones/contratos/adjudicaciones/${d.id}` } ))
 
       if (contracts.length > 0) {

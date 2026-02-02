@@ -100,7 +100,7 @@ import MetricBoxes from '../../components/MetricBoxes.vue';
 import MetricBox from '../../components/MetricBox.vue';
 import Tips from '../../components/Tips.vue';
 import { SharedMixin } from '../../lib/mixins/shared';
-import { assigneesColumns } from '../../lib/config/contracts.js';
+import { getAssigneesColumns } from '../../lib/config/contracts.js';
 import { money } from '../../../../lib/vue/filters';
 
 export default {
@@ -122,7 +122,7 @@ export default {
   data(){
     return {
       visualizationsData: this.$root.$data.contractsData,
-      assigneesColumns: assigneesColumns,
+      assigneesColumns: getAssigneesColumns(),
       items: [],
       tableItems: [],
       columns: [],
@@ -198,7 +198,7 @@ export default {
     }
   },
   created() {
-    this.columns = assigneesColumns;
+    this.columns = getAssigneesColumns();
     this.showColumns = ["count", "name", "sum"]
     this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
   },

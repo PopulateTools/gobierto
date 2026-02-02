@@ -85,7 +85,7 @@ import MetricBox from '../../components/MetricBox.vue';
 import MetricBoxes from '../../components/MetricBoxes.vue';
 import Tips from '../../components/Tips.vue';
 import TreeMapButtons from '../../components/TreeMapButtons.vue';
-import { grantedColumns, subsidiesFiltersConfig } from '../../lib/config/subsidies.js';
+import { getGrantedColumns, getSubsidiesFiltersConfig } from '../../lib/config/subsidies.js';
 import { SharedMixin } from '../../lib/mixins/shared';
 
 export default {
@@ -102,7 +102,7 @@ export default {
     return {
       visualizationsData: this.$root.$data.subsidiesData,
       items: [],
-      grantedColumns: grantedColumns,
+      grantedColumns: getGrantedColumns(),
       showColumns: [],
       value: "",
       isGobiertoVizzsLoaded: false,
@@ -111,7 +111,7 @@ export default {
       labelAmountDistribution: I18n.t("gobierto_visualizations.visualizations.subsidies.amount_distribution") || "",
       labelMainBeneficiaries: I18n.t("gobierto_visualizations.visualizations.subsidies.main_beneficiaries") || "",
       labelSubsidiesAmount: I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies_amount") || "",
-      filters: subsidiesFiltersConfig,
+      filters: getSubsidiesFiltersConfig(),
       treemapButtons: [
         ["amount", I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies_amount") || ""],
         ["total", I18n.t("gobierto_visualizations.visualizations.subsidies.subsidies_total") || ""],
@@ -144,8 +144,9 @@ export default {
   },
   computed: {
     checkFilterCategoryLength() {
-      const filterCategories = this.filters.filter(({ id }) => id === 'categories')
-      return filterCategories[0].options.length > 0 ? true : false
+      // Check directly from data instead of relying on filters array
+      const categories = new Set(this.visualizationsData.map(({ category }) => category).filter(Boolean));
+      return categories.size > 1; // Show chart if there's more than one category
     }
   },
   watch: {
@@ -159,7 +160,7 @@ export default {
     }
   },
   created() {
-    this.columns = grantedColumns;
+    this.columns = getGrantedColumns();
     this.showColumns = ['name', 'count', 'sum']
   },
   mounted() {

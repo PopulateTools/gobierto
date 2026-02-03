@@ -144,8 +144,9 @@ export default {
   },
   computed: {
     checkFilterCategoryLength() {
-      const filterCategories = this.filters.filter(({ id }) => id === 'categories')
-      return filterCategories[0].options.length > 0 ? true : false
+      // Check directly from data instead of relying on filters array
+      const categories = new Set(this.visualizationsData.map(({ category }) => category).filter(Boolean));
+      return categories.size > 1; // Show chart if there's more than one category
     }
   },
   watch: {

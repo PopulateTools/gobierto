@@ -216,5 +216,15 @@ module GobiertoPlans
 
       update_columns(published_version: nil, visibility_level: 0)
     end
+
+    def versions_visibility_level
+      if published?
+        return "published_up_to_date" if versions.none? || versions.count == published_version
+
+        "published_with_unpublished_changes"
+      else
+        visibility_level
+      end
+    end
   end
 end

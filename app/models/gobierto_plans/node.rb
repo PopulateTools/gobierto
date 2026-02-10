@@ -78,7 +78,7 @@ module GobiertoPlans
         END")
       )
     }
-    scope :with_visibility_level, lambda { |visibility_level|
+    scope :with_versions_visibility_level, lambda { |visibility_level|
       case visibility_level.to_s
       when "published_up_to_date"
         published.where(

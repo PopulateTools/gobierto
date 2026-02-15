@@ -122,12 +122,12 @@ ca:
             rejected: No aprovats
             sent: Enviat
             unsent: No enviats
+          total: Total
           visibility_level: Publicació
           visibility_level_value:
             draft: Esborrany
             published_up_to_date: Publicat actualitzat
             published_with_unpublished_changes: Publicat amb canvis sense publicar
-          total: Total
         form:
           button:
             add_dashboard: Afegir a un dashboard

@@ -122,8 +122,8 @@ es:
             rejected: Rechazados
             sent: Enviados
             unsent: No enviados
-          visibility_level: Publicación
-          visibility_level_value:
+          versions_visibility_level: Publicación
+          versions_visibility_level_value:
             draft: Borrador
             published_up_to_date: Publicado actualizado
             published_with_unpublished_changes: Publicado con cambios sin publicar

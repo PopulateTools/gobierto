@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoPlans
     class ProjectsFilterForm < BaseForm
-      FILTER_PARAMS = %w(name category progress author moderation_stage visibility_level start_date end_date interval status).freeze
+      FILTER_PARAMS = %w(name category progress author moderation_stage versions_visibility_level start_date end_date interval status).freeze
 
       attr_accessor(*FILTER_PARAMS)
       attr_accessor :plan, :admin, :permissions_policy
@@ -55,11 +55,11 @@ module GobiertoAdmin
         end
       end
 
-      def visibility_level_values
+      def versions_visibility_level_values
         {
-          published_up_to_date: OpenStruct.new(id: "published_up_to_date", count: base_relation.with_visibility_level("published_up_to_date").count),
-          published_with_unpublished_changes: OpenStruct.new(id: "published_with_unpublished_changes", count: base_relation.with_visibility_level("published_with_unpublished_changes").count),
-          draft: OpenStruct.new(id: "draft", count: base_relation.with_visibility_level("draft").count)
+          published_up_to_date: OpenStruct.new(id: "published_up_to_date", count: base_relation.with_versions_visibility_level("published_up_to_date").count),
+          published_with_unpublished_changes: OpenStruct.new(id: "published_with_unpublished_changes", count: base_relation.with_versions_visibility_level("published_with_unpublished_changes").count),
+          draft: OpenStruct.new(id: "draft", count: base_relation.with_versions_visibility_level("draft").count)
         }
       end
 

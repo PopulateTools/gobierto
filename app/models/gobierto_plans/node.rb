@@ -78,7 +78,7 @@ module GobiertoPlans
         END")
       )
     }
-    scope :with_visibility_level, lambda { |visibility_level|
+    scope :with_versions_visibility_level, lambda { |visibility_level|
       case visibility_level.to_s
       when "published_up_to_date"
         published.where(
@@ -215,6 +215,16 @@ module GobiertoPlans
       return if published_version > 0 && (version_index >= 0 || version_index < 0 && versions[version_index]&.reify.present?)
 
       update_columns(published_version: nil, visibility_level: 0)
+    end
+
+    def versions_visibility_level
+      if published?
+        return "published_up_to_date" if versions.none? || versions.count == published_version
+
+        "published_with_unpublished_changes"
+      else
+        visibility_level
+      end
     end
   end
 end

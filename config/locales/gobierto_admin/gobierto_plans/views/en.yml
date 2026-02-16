@@ -121,8 +121,8 @@ en:
             sent: Sent
             unsent: Not sent
           total: Total
-          visibility_level: Publication
-          visibility_level_value:
+          versions_visibility_level: Publication
+          versions_visibility_level_value:
             draft: Draft
             published_up_to_date: Published up to date
             published_with_unpublished_changes: Published with unpublished changes

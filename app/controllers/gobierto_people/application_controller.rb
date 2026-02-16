@@ -1,10 +1,13 @@
 module GobiertoPeople
   class ApplicationController < ::ApplicationController
     include User::SessionHelper
+    MAX_YEAR = Date.today.year + 2
+    MIN_YEAR = Date.today.year - 5
 
     layout "gobierto_people/layouts/application"
 
     before_action { module_enabled!(current_site, "GobiertoPeople") }
+    before_action :check_dates_parameters
 
     helper_method :gifts_service_url, :trips_service_url, :cache_service, :show_only_calendar?
 
@@ -47,6 +50,22 @@ module GobiertoPeople
       base_path += "/#{params[:page]}" if params[:page].present?
       base_path += "/#{params[:slug]}" if params[:slug].present?
       base_path
+    end
+
+    def check_dates_parameters
+      render_404 and return false if params[:start_date].present? && !valid_date?(params[:start_date])
+      render_404 and return false if params[:end_date].present? && !valid_date?(params[:end_date])
+      render_404 and return false if params[:date].present? && !valid_date?(params[:date])
+      render_404 and return false if params[:page].present? && params[:page].to_i > 5
+
+      true
+    end
+
+    def valid_date?(date_string)
+      return false unless date_string.present?
+
+      parsed_date = Date.parse(date_string) rescue nil
+      parsed_date.present? && parsed_date.year.in?(MIN_YEAR..MAX_YEAR) && parsed_date.month.in?(1..12) && parsed_date.day.in?(1..31)
     end
 
   end

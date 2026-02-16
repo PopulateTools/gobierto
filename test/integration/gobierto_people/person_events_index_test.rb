@@ -7,11 +7,14 @@ module GobiertoPeople
   class PersonEventsIndexTest < ActionDispatch::IntegrationTest
     include ::EventHelpers
 
+    attr_reader :reference_year
+
     def setup
       super
       @path = gobierto_people_events_path
       @path_for_json = gobierto_people_events_path(format: :json)
       @path_for_csv = gobierto_people_events_path(format: :csv)
+      @reference_year = Date.today.year
     end
 
     def site
@@ -159,13 +162,13 @@ module GobiertoPeople
     end
 
     def test_person_events_filter_for_calendar_widget
-      government_event = create_event(person: government_member, starts_at: "2014-03-16")
-      executive_event = create_event(person: executive_member, starts_at: "2014-03-17")
+      government_event = create_event(person: government_member, starts_at: "#{reference_year}-06-16")
+      executive_event = create_event(person: executive_member, starts_at: "#{reference_year}-06-17")
 
       government_event_day = government_event.starts_at.day
       executive_event_day = executive_event.starts_at.day
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
+      Timecop.freeze(Time.zone.parse("#{reference_year}-06-15")) do
         with_current_site(site) do
           visit @path
 
@@ -194,10 +197,10 @@ module GobiertoPeople
     end
 
     def test_person_events_filter_for_events_list
-      government_event = create_event(person: government_member, title: "Government event", starts_at: "2014-03-16")
-      executive_event = create_event(person: executive_member, title: "Executive event", starts_at: "2014-03-16")
+      government_event = create_event(person: government_member, title: "Government event", starts_at: "#{reference_year}-03-16")
+      executive_event = create_event(person: executive_member, title: "Executive event", starts_at: "#{reference_year}-03-16")
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
+      Timecop.freeze(Time.zone.parse("#{reference_year}-03-15")) do
         with_current_site(site) do
           visit @path
 
@@ -314,10 +317,10 @@ module GobiertoPeople
     end
 
     def test_future_and_past_events_filter
-      past_event = create_event(title: "Past event title", starts_at: "2014-02-15")
-      future_event = create_event(title: "Future event title", starts_at: "2014-04-15")
+      past_event = create_event(title: "Past event title", starts_at: "#{reference_year}-02-15")
+      future_event = create_event(title: "Future event title", starts_at: "#{reference_year}-04-15")
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
+      Timecop.freeze(Time.zone.parse("#{reference_year}-03-15")) do
         with_current_site(site) do
           visit @path
 
@@ -364,9 +367,9 @@ module GobiertoPeople
     end
 
     def test_calendar_component
-      future_event = create_event(starts_at: "2014-03-16")
+      future_event = create_event(starts_at: "#{reference_year}-03-16")
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
+      Timecop.freeze(Time.zone.parse("#{reference_year}-03-15")) do
         with_current_site(site) do
           visit gobierto_people_events_path(start_date: future_event.starts_at)
 
@@ -378,10 +381,10 @@ module GobiertoPeople
     end
 
     def test_calendar_navigation_arrows
-      past_event = create_event(starts_at: "2014-02-15")
-      future_event = create_event(starts_at: "2014-04-15")
+      past_event = create_event(starts_at: "#{reference_year}-02-15")
+      future_event = create_event(starts_at: "#{reference_year}-04-15")
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
+      Timecop.freeze(Time.zone.parse("#{reference_year}-03-15")) do
         with_current_site(site) do
           visit gobierto_people_events_path
 
@@ -403,11 +406,11 @@ module GobiertoPeople
     end
 
     def test_calendar_event_links
-      visible_month_events = ["2014-02-28", "2014-03-14", "2014-03-16", "2014-04-01"].map do |date|
+      visible_month_events = ["#{reference_year}-02-28", "#{reference_year}-03-14", "#{reference_year}-03-16", "#{reference_year}-04-01"].map do |date|
         create_event(starts_at: date)
       end
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
+      Timecop.freeze(Time.zone.parse("#{reference_year}-03-15")) do
         with_current_site(site) do
           visit gobierto_people_events_path
 
@@ -421,10 +424,10 @@ module GobiertoPeople
     end
 
     def test_filter_events_by_calendar_date_link
-      past_event = create_event(title: "Past event title", starts_at: "2014-03-10 11:00")
-      future_event = create_event(title: "Future event title", starts_at: "2014-03-20 11:00")
+      past_event = create_event(title: "Past event title", starts_at: "#{reference_year}-03-10 11:00")
+      future_event = create_event(title: "Future event title", starts_at: "#{reference_year}-03-20 11:00")
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
+      Timecop.freeze(Time.zone.parse("#{reference_year}-03-15")) do
         with_current_site(site) do
           visit @path
 

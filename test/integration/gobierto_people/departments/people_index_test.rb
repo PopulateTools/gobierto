@@ -189,8 +189,8 @@ YAML
 
           visit gobierto_people_department_people_path(
             immigration_department_mixed,
-            start_date: 100.years.ago,
-            end_date: 50.years.ago
+            start_date: "2023-06-01",
+            end_date: "2023-12-31"
           )
 
           within departments_sidebar do
@@ -205,6 +205,7 @@ YAML
       def test_index_filtered_by_date_visit_departments_people_check_sidebar
         clear_activities
         site.events.where.not(id: neil.events.pluck(:id)).destroy_all
+        immigration_department_event.update!(starts_at: "2022-06-15 10:00", ends_at: "2022-06-15 12:00")
 
         departments_with_activities = [
           immigration_department_mixed
@@ -214,7 +215,7 @@ YAML
           set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
           # everything is displayed with broad range
 
-          start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+          start_date, end_date = [5.years.ago, 2.years.from_now].map { |d| d.strftime "%F" }
 
           visit gobierto_people_department_people_path(
             immigration_department_mixed,
@@ -257,15 +258,16 @@ YAML
       def test_index_filtered_by_date_visit_departments_people_check_sidebar_other_dates_in_past
         clear_activities
         site.events.where.not(id: neil.events.pluck(:id)).destroy_all
+        immigration_department_event.update!(starts_at: "2022-06-15 10:00", ends_at: "2022-06-15 12:00")
 
         with_current_site(site) do
           set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
-          # only departments with very old events are displayed
+          # only departments with events within valid date range are displayed
 
           visit gobierto_people_department_people_path(
             immigration_department_mixed,
-            start_date: 20.years.ago - 1.day,
-            end_date: 20.years.from_now + 1.day
+            start_date: 5.years.ago,
+            end_date: 2.years.from_now
           )
 
           within departments_sidebar do
@@ -281,8 +283,9 @@ YAML
         GobiertoCalendars::Event.destroy_all
         GobiertoPeople::Gift.destroy_all
         GobiertoPeople::Invitation.destroy_all
+        GobiertoPeople::Charge.where(person: richard, department: tourism_department_very_old).update_all(end_date: nil)
         set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
-        start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+        start_date, end_date = [5.years.ago, 2.years.from_now].map { |d| d.strftime "%F" }
 
         with_current_site(site) do
           visit gobierto_people_department_people_path(
@@ -311,7 +314,7 @@ YAML
         GobiertoPeople::Trip.destroy_all
         GobiertoPeople::Invitation.destroy_all
         set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
-        start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+        start_date, end_date = [5.years.ago, 2.years.from_now].map { |d| d.strftime "%F" }
 
         with_current_site(site) do
           visit gobierto_people_department_people_path(
@@ -340,7 +343,7 @@ YAML
         GobiertoPeople::Gift.destroy_all
         GobiertoPeople::Trip.destroy_all
         set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
-        start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+        start_date, end_date = [5.years.ago, 2.years.from_now].map { |d| d.strftime "%F" }
 
         with_current_site(site) do
           visit gobierto_people_department_people_path(

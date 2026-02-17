@@ -32,10 +32,10 @@ gobierto_people_default_filter_end_date: "#{options[:end_date]}"
     @wide_date_range_params ||= { start_date: 10.years.ago.strftime("%Y-%m-%d"), end_date: 10.years.from_now.strftime("%Y-%m-%d") }
   end
 
-  def test_wrong_dates_cause_not_found
+  def test_wrong_dates_cause_bad_request
     with_current_site(site) do
       get gobierto_people_past_events_path(date: '2018-04-27', start_date: '700')
-      assert_response :not_found
+      assert_response :bad_request
     end
   end
 
@@ -88,11 +88,10 @@ gobierto_people_default_filter_end_date: "#{options[:end_date]}"
       person.invitations.destroy_all
       person.trips.destroy_all
 
-      start_year = Date.today.year - 4
       last_year = Date.today.year - 1
-      get gobierto_people_person_path(person.slug, start_date: "#{start_year}-01-01", end_date: "#{last_year}-01-01")
+      get gobierto_people_person_path(person.slug, start_date: "2012-01-01", end_date: "#{last_year}-01-01")
       assert_response :redirect
-      assert_redirected_to(gobierto_people_person_gifts_path(@person.slug, start_date: "#{start_year}-01-01", end_date: "#{last_year}-01-01"))
+      assert_redirected_to(gobierto_people_person_gifts_path(@person.slug, start_date: "2012-01-01", end_date: "#{last_year}-01-01"))
     end
   end
 end

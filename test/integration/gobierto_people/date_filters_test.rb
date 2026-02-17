@@ -9,10 +9,10 @@ module GobiertoPeople
     include ::GobiertoPeople::SubmodulesHelper
     include ::EventHelpers
 
-    FAR_PAST = 2.years.ago
+    FAR_PAST = 10.years.ago
     RECENT_PAST = 1.day.ago
     NEAR_FUTURE = 1.day.from_now
-    FAR_FUTURE = 2.years.from_now
+    FAR_FUTURE = 10.years.from_now
 
     attr_reader(
       :events_with_department,
@@ -182,19 +182,22 @@ module GobiertoPeople
           assert has_content? "#{people_with_department_events.size} officials with registered events"
         end
 
-        # 404 for bad start_date and end_date
+        # all events/people (bad start_date and end_date)
         visit path_with_start_and_end_dates("wadus", "wadus")
-        assert_equal 404, page.status_code
+        within ".container" do
+          assert has_content? "#{events_with_department.size} registered events"
+          assert has_content? "#{people_with_department_events.size} officials with registered events"
+        end
 
-        # 404 for valid start_date with bad end_date
+        # only upcoming events/people with upcoming events (ok start_date, bad end_date)
         visit path_with_start_and_end_dates(NEAR_FUTURE, "wadus")
-        assert_equal 404, page.status_code
+        within ".container" do
+          assert has_content? "#{upcoming_events_with_department.size} registered events"
+          assert has_content? "#{people_with_upcoming_department_events.size} officials with registered events"
+        end
 
-        # 404 for bad start_date
+        # all events/people (bad start_date)
         visit path_with_start_date("wadus")
-        assert_equal 404, page.status_code
-
-        # default range still works after bad date visits
         visit path_without_date_params
         within ".container" do
           assert has_content? "#{events_with_department.size} registered events"

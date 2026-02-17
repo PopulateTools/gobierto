@@ -118,12 +118,11 @@ module GobiertoPeople
       end
 
       def test_calendar_navigation_arrows
-        year = Date.today.year
-        past_event = create_event(starts_at: "#{year}-02-15", person: richard)
-        present_event = create_event(starts_at: "#{year}-03-15", person: richard)
-        future_event = create_event(starts_at: "#{year}-04-15", person: richard)
+        past_event = create_event(starts_at: "2014-02-15", person: richard)
+        present_event = create_event(starts_at: "2014-03-15", person: richard)
+        future_event = create_event(starts_at: "2014-04-15", person: richard)
 
-        Timecop.freeze(Time.zone.parse("#{year}-03-15")) do
+        Timecop.freeze(Time.zone.parse("2014-03-15")) do
           with_current_site(site) do
             visit @path
 
@@ -151,7 +150,7 @@ module GobiertoPeople
       def test_filter_events_by_calendar_date_link
         richard.events.destroy_all
 
-        freeze_date = Time.zone.parse("#{Date.today.year}-04-15 6:00")
+        freeze_date = Time.zone.parse("2014-04-15 6:00")
         yesterday = freeze_date - 1.day
 
         yesterday_early_event = create_event(title: "Yesterday early event", starts_at: yesterday.change(hour: 7))

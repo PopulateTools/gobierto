@@ -534,6 +534,118 @@ module GobiertoPlans
           }
         end
 
+        def update_reset_valid_params
+          {
+            data: {
+              attributes: {
+                reset_plan: true,
+                "categories_vocabulary_terms": [
+                  {
+                    "name_translations": {
+                      "en": "New term 1",
+                      "es": "Nuevo termino 1"
+                    },
+                    "description_translations": {
+                      "en": "New term 1 desc",
+                      "es": "Nuevo termino 1 desc"
+                    },
+                    "slug": "term-slug-1",
+                    "position": 0,
+                    "level": 0,
+                    "parent_id": nil,
+                    "external_id": "1"
+                  },
+                  {
+                    "name_translations": {
+                      "en": "New term 2",
+                      "es": "Nuevo termino 2"
+                    },
+                    "description_translations": {
+                      "en": "New term 2 desc",
+                      "es": "Nuevo termino 2 desc"
+                    },
+                    "slug": "term-slug-2",
+                    "position": 1,
+                    "level": 0,
+                    "parent_id": nil,
+                    "external_id": "2"
+                  }
+                ],
+                "statuses_vocabulary_terms": [
+                  {
+                    "name_translations": {
+                      "en": "Status A",
+                      "es": "Status A"
+                    },
+                    "description_translations": {
+                      "en": "This is the A status",
+                      "es": "This is the A status"
+                    },
+                    "slug": "status-a-slug",
+                    "position": 0,
+                    "level": 0,
+                    "parent_id": nil,
+                    "external_id": "ST000A"
+                  },
+                  {
+                    "name_translations": {
+                      "en": "Status B",
+                      "es": "Status B"
+                    },
+                    "description_translations": {
+                      "en": "This is the B status",
+                      "es": "This is the B status"
+                    },
+                    "slug": "status-b-slug",
+                    "position": 0,
+                    "level": 0,
+                    "parent_id": nil,
+                    "external_id": "ST000B"
+                  }
+                ],
+                projects: [
+                  {
+                    "external_id": "1",
+                    "visibility_level": "published",
+                      "moderation_stage": "approved",
+                      "name_translations": {
+                        "en": "Scholarships in kindergartens UPDATED",
+                        "es": "Becas en guarderías ACTUALIZADAS"
+                      },
+                      "category_external_id": "2",
+                      "status_external_id": "ST000B",
+                      "progress": 25.0
+                  },
+                  {
+                    "external_id": "2",
+                    "visibility_level": "published",
+                    "moderation_stage": "approved",
+                    "name_translations": {
+                      "en": "Publish political agendas UPDATED",
+                      "es": "Publicar agendas políticas ACTUALIZADAS"
+                    },
+                    "category_external_id": "1",
+                    "status_external_id": "ST000A",
+                    "progress": 0.0
+                  },
+                  {
+                    "external_id": "new",
+                    "visibility_level": "published",
+                    "moderation_stage": "approved",
+                    "name_translations": {
+                      "en": "New project",
+                      "es": "Nuevo proyecto"
+                    },
+                    "category_external_id": "2",
+                    "status_external_id": "ST000B",
+                    "progress": 50.0
+                  }
+                ]
+              }
+            }
+          }
+        end
+
         def check_unauthorized
           with(site:) do
             yield
@@ -889,7 +1001,7 @@ module GobiertoPlans
               "GobiertoPlans::Plan.count" => 0,
               "GobiertoPlans::Node.count" => 1,
               "GobiertoCommon::Vocabulary.count" => 0,
-              "GobiertoCommon::Term.count" => 0
+              "GobiertoCommon::Term.count" => -11
             ) do
               put gobierto_plans_api_v1_plan_path(other_plan), headers: { Authorization: admin_token }, as: :json, params: update_valid_params
 
@@ -923,6 +1035,73 @@ module GobiertoPlans
               assert_equal 3, resource_data["attributes"]["projects"].count
 
               update_valid_params[:data][:attributes][:projects].each do |project_data|
+                project = other_plan.nodes.find_by_external_id(project_data[:external_id])
+
+                assert_equal project_data[:name_translations], project.name_translations.symbolize_keys
+                assert_equal project_data[:category_external_id], project.categories.first.external_id
+                assert_equal project_data[:status_external_id], project.status.external_id
+                assert_equal project_data[:progress], project.progress
+                assert_equal project_data[:moderation_stage], project.moderation_stage
+                assert_equal project_data[:visibility_level], project.visibility_level
+              end
+            end
+          end
+        end
+
+        # PUT /api/v1/plans/1
+        # PUT /api/v1/plans/1.json
+        def test_reset_and_update_with_admin_token
+          categories_terms_ids = other_plan.categories_vocabulary.terms.pluck(:id)
+          statuses_terms_ids = other_plan.statuses_vocabulary.terms.pluck(:id)
+          nodes_ids = other_plan.nodes.pluck(:id)
+
+          with(site:) do
+            assert_difference(
+              "GobiertoPlans::Plan.count" => 0,
+              "GobiertoPlans::Node.count" => 1,
+              "GobiertoCommon::Vocabulary.count" => 0,
+              "GobiertoCommon::Term.count" => -11
+            ) do
+              put(
+                gobierto_plans_api_v1_plan_path(other_plan),
+                headers: { Authorization: admin_token },
+                as: :json,
+                params: update_reset_valid_params.deep_merge(data: { attributes: { reset_plan: true } })
+              )
+
+              assert_response :success
+              response_data = response.parsed_body
+
+              refute GobiertoPlans::Node.exists?(id: nodes_ids)
+              refute GobiertoCommon::Term.exists?(id: categories_terms_ids)
+              refute GobiertoCommon::Term.exists?(id: statuses_terms_ids)
+              attributes = admin_attributes_data(other_plan.reload)
+              resource_data = response_data["data"]
+
+              attributes.each do |attribute, value|
+                assert resource_data["attributes"].has_key? attribute
+                assert_equal value, resource_data["attributes"][attribute]
+              end
+
+              # vocabularies
+              categories_terms = other_plan.categories.map(&:name)
+              statuses_terms = other_plan.statuses_vocabulary.terms.map(&:name)
+
+              assert resource_data["attributes"].has_key? "categories_vocabulary_terms"
+              resource_data["attributes"]["categories_vocabulary_terms"].each do |term|
+                assert_includes categories_terms, term["attributes"]["name"]
+              end
+
+              assert resource_data["attributes"].has_key? "statuses_vocabulary_terms"
+              resource_data["attributes"]["statuses_vocabulary_terms"].each do |term|
+                assert_includes statuses_terms, term["attributes"]["name"]
+              end
+
+              #projects
+              assert resource_data["attributes"].has_key? "projects"
+              assert_equal 3, resource_data["attributes"]["projects"].count
+
+              update_reset_valid_params[:data][:attributes][:projects].each do |project_data|
                 project = other_plan.nodes.find_by_external_id(project_data[:external_id])
 
                 assert_equal project_data[:name_translations], project.name_translations.symbolize_keys

@@ -119,6 +119,8 @@ module GobiertoPlans
         def update
           find_resource
 
+          delete_contents if reset_plan
+
           form_params = plan_params.merge(site_id: current_site.id, id: @resource.id)
           form_params.merge!(plan_type_id: @resource.plan_type_id) unless plan_params.has_key?(:plan_type_id)
 
@@ -189,6 +191,26 @@ module GobiertoPlans
             end
             writable_attributes.each do |attr|
               p[attr] = @resource.send(attr) unless @resource.blank? || p.has_key?(attr)
+            end
+          end
+        end
+
+        def reset_plan
+          @reset_plan ||= ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: "reset_plan").fetch(:reset_plan, false)
+        end
+
+        def delete_contents
+          ActiveRecord::Base.transaction do
+            @resource.nodes.destroy_all
+            @resource.categories_vocabulary.terms.destroy_all
+            @resource.statuses_vocabulary.terms.destroy_all
+            @custom_fields_form = ::GobiertoAdmin::GobiertoCommon::CustomFieldRecordsForm.new(
+              site_id: current_site.id,
+              item: @resource.nodes.new,
+              instance: @resource
+            )
+            @custom_fields_form.associated_vocabularies.each do |vocabulary|
+              vocabulary.terms.destroy_all
             end
           end
         end

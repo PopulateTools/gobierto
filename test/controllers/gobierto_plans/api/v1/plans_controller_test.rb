@@ -11,11 +11,19 @@ module GobiertoPlans
         end
 
         def admin
-          @admin ||= admins(:natasha)
+          @admin ||= gobierto_admin_admins(:natasha)
         end
 
         def admin_token
           @admin_token ||= "Bearer #{gobierto_admin_api_tokens(:natasha_primary_api_token).token}"
+        end
+
+        def regular_admin
+          @regular_admin ||= gobierto_admin_admins(:tony)
+        end
+
+        def regular_admin_token
+          @regular_admin_token ||= "Bearer #{gobierto_admin_api_tokens(:tony_primary_api_token).token}"
         end
 
         def user_token
@@ -646,6 +654,19 @@ module GobiertoPlans
           }
         end
 
+        def minimal_update_params
+          {
+            data: {
+              attributes: {
+                "title_translations": {
+                  "en": "Updated Draft Plan",
+                  "es": "Plan Borrador Actualizado"
+                }
+              }
+            }
+          }
+        end
+
         def check_unauthorized
           with(site:) do
             yield
@@ -1111,6 +1132,76 @@ module GobiertoPlans
                 assert_equal project_data[:moderation_stage], project.moderation_stage
                 assert_equal project_data[:visibility_level], project.visibility_level
               end
+            end
+          end
+        end
+
+        # PUT /api/v1/plans/1
+        # PUT /api/v1/plans/1.json
+        def test_update_draft_plan_with_regular_admin_preview_token
+          regular_admin_preview_token = regular_admin.preview_token
+
+          with(site:) do
+            assert_no_difference(
+              "GobiertoPlans::Plan.count" => 0,
+              "GobiertoPlans::Node.count" => 0,
+              "GobiertoCommon::Vocabulary.count" => 0,
+              "GobiertoCommon::Term.count" => 0
+            ) do
+              put(
+                gobierto_plans_api_v1_plan_path(draft_plan, preview_token: regular_admin_preview_token),
+                headers: { Authorization: regular_admin_token },
+                as: :json,
+                params: minimal_update_params
+              )
+
+              assert_response :success
+              response_data = response.parsed_body
+
+              assert response_data.has_key? "data"
+              resource_data = response_data["data"]
+              assert_equal draft_plan.id.to_s, resource_data["id"]
+              assert_equal "Updated Draft Plan", resource_data["attributes"]["title_translations"]["en"]
+              assert_equal "Plan Borrador Actualizado", resource_data["attributes"]["title_translations"]["es"]
+            end
+          end
+        end
+
+        # PUT /api/v1/plans/1
+        # PUT /api/v1/plans/1.json
+        def test_update_draft_plan_with_regular_admin_without_preview_token
+          with(site:) do
+            put gobierto_plans_api_v1_plan_path(draft_plan), headers: { Authorization: regular_admin_token }, as: :json, params: minimal_update_params
+
+            assert_response :not_found
+            response_data = response.parsed_body
+
+            assert_equal "Not found", response_data["message"]
+          end
+        end
+
+        # PUT /api/v1/plans/1
+        # PUT /api/v1/plans/1.json
+        def test_update_draft_plan_with_manager_admin_without_preview_token
+          manager_admin_token = "Bearer #{gobierto_admin_api_tokens(:nick_primary_api_token).token}"
+
+          with(site:) do
+            assert_no_difference(
+              "GobiertoPlans::Plan.count" => 0,
+              "GobiertoPlans::Node.count" => 0,
+              "GobiertoCommon::Vocabulary.count" => 0,
+              "GobiertoCommon::Term.count" => 0
+            ) do
+              put gobierto_plans_api_v1_plan_path(draft_plan), headers: { Authorization: manager_admin_token }, as: :json, params: minimal_update_params
+
+              assert_response :success
+              response_data = response.parsed_body
+
+              assert response_data.has_key? "data"
+              resource_data = response_data["data"]
+              assert_equal draft_plan.id.to_s, resource_data["id"]
+              assert_equal "Updated Draft Plan", resource_data["attributes"]["title_translations"]["en"]
+              assert_equal "Plan Borrador Actualizado", resource_data["attributes"]["title_translations"]["es"]
             end
           end
         end

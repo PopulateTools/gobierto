@@ -181,7 +181,11 @@ module GobiertoPlans
         end
 
         def plans_base_relation
-          @plans_base_relation = current_site.plans.send(valid_preview_token? ? :itself : :published)
+          @plans_base_relation = current_site.plans.send(valid_credentials? ? :itself : :published)
+        end
+
+        def valid_credentials?
+          valid_preview_token? || current_admin.present? && current_admin.managing_user?
         end
 
         def plan_params

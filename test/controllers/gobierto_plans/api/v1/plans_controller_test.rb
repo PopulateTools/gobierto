@@ -997,11 +997,11 @@ module GobiertoPlans
           end
 
           with(site:) do
-            assert_no_difference(
+            assert_difference(
               "GobiertoPlans::Plan.count" => 0,
               "GobiertoPlans::Node.count" => 1,
               "GobiertoCommon::Vocabulary.count" => 0,
-              "GobiertoCommon::Term.count" => -11
+              "GobiertoCommon::Term.count" => 0
             ) do
               put gobierto_plans_api_v1_plan_path(other_plan), headers: { Authorization: admin_token }, as: :json, params: update_valid_params
 

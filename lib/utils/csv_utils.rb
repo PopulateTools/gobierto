@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class CsvUtils
+  CANDIDATE_SEPARATORS = %w(, ;).freeze
+
   def self.detect_separator(filename)
-    %w( , ; ).each do |separator|
+    CANDIDATE_SEPARATORS.each do |separator|
       return separator if separator_check(filename, separator)
     end
 
@@ -10,12 +12,27 @@ class CsvUtils
   end
 
   def self.separator_check(filename, separator)
-    # Skip the first line just in case it contains a header
-    # Does a compact, to remove empty cells
-    data = columns_counts = CSV.read(filename, col_sep: separator)[1..-1].map(&:compact)
-    first_row_size = data.first.size
-    data.all? { |row| row.size == first_row_size }
+    rows = read_rows(filename, separator)
+    return false if rows.blank?
+
+    first_row_size = rows[0].size
+
+    maybe_header = rows[0].all?(&:present?)
+
+    rows[1..-1].all? do |row|
+      # If a header is detected all the rows with all columns present should
+      # have the same size
+      if maybe_header && row.all?(&:present?)
+        row.size == first_row_size
+      else
+        row.size <= first_row_size
+      end
+    end
+  end
+
+  def self.read_rows(filename, separator)
+    CSV.read(filename, col_sep: separator)
   rescue CSV::MalformedCSVError
-    false
+    []
   end
 end

@@ -6,7 +6,7 @@ ruby RUBY_VERSION
 
 gem "actionpack-action_caching"
 gem "active_model_serializers"
-gem "bcrypt", "~> 3.1.0"
+gem "bcrypt", "~> 3.1.22"
 gem "cookies_eu"
 gem "dalli"
 gem "hashie"

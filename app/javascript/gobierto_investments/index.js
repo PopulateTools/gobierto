@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     siteName: appNode.dataset.siteName,
     logoUrl: appNode.dataset.logoUrl,
     homeUrl: appNode.dataset.homeUrl,
-    tourUrl: appNode.dataset.tourUrl
+    tourUrl: appNode.dataset.tourUrl,
+    mapboxToken: appNode.dataset.mapboxToken
   });
 });

@@ -20,7 +20,8 @@
        data-site-name="<%= @site.name %>"
        data-logo-url="<%= @site.configuration.logo_with_fallback %>"
        data-home-url="<%= root_url %>"
-       data-tour-url="<%= gobierto_investments_tour_url %>">
+       data-tour-url="<%= gobierto_investments_tour_url %>"
+       data-mapbox-token="<%= Rails.application.secrets.mapbox_token || '' %>">
   </div>
 
 </div>

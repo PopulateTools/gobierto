@@ -33,6 +33,18 @@ module GobiertoCalendars
     sync_range_start_ibm_notes..sync_range_end_ibm_notes
   end
 
+  def self.sync_range_start_google_calendar
+    15.days.before(sync_range_start)
+  end
+
+  def self.sync_range_end_google_calendar
+    sync_range_end
+  end
+
+  def self.sync_range_google_calendar
+    sync_range_start_google_calendar..sync_range_end_google_calendar
+  end
+
   class << self
     alias_method :cache_base_key, :table_name_prefix
   end

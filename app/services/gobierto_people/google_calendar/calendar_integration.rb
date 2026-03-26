@@ -55,8 +55,8 @@ module GobiertoPeople
         event_items = service.list_events(
           calendar.id,
           always_include_email: true,
-          time_min: GobiertoCalendars.sync_range_start.iso8601,
-          time_max: GobiertoCalendars.sync_range_end.iso8601,
+          time_min: GobiertoCalendars.sync_range_start_google_calendar.iso8601,
+          time_max: GobiertoCalendars.sync_range_end_google_calendar.iso8601,
           max_results: 2500,
           order_by: 'startTime',
           single_events: true

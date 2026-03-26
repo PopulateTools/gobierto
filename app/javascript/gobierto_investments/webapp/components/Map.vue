@@ -71,7 +71,7 @@ export default {
         username: "gobierto",
         style_id: "ck18y48jg11ip1cqeu3b9wpar",
         tilesize: "256",
-        token: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
+        token: this.$root?.$data?.mapboxToken || "",
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         minZoom: 6,
         maxZoom: 16

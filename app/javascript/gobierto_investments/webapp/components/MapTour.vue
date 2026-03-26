@@ -94,7 +94,7 @@ export default {
       username: "gobierto",
       style_id: "ck18y48jg11ip1cqeu3b9wpar",
       tilesize: "256",
-      accessToken: "pk.eyJ1IjoiYmltdXgiLCJhIjoiY2swbmozcndlMDBjeDNuczNscTZzaXEwYyJ9.oMM71W-skMU6IN0XUZJzGQ",
+      accessToken: this.$root?.$data?.mapboxToken || "",
       buttonExit: I18n.t("gobierto_investments.projects.exit"),
       buttonReload: I18n.t("gobierto_investments.projects.see"),
       scrollZoom: false,

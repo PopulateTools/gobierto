@@ -71,13 +71,13 @@ export default {
 
     // parse the vocabularies, sorting them by its name
     this.vocabularies = vocabulary_terms
-      .reduce((acc, { id, attributes: { name = "", slug = "" } = {} }) => {
+      .reduce((acc, { id, attributes: { name = "", slug = "", position = 0 } = {} }) => {
         if (elements.includes(id)) {
-          acc.push({ id, name, group: uid, term: slug, hasLink: vocabularyLinkable });
+          acc.push({ id, name, position, group: uid, term: slug, hasLink: vocabularyLinkable });
         }
         return acc;
       }, [])
-      .sort((a, b) => a.name > b.name ? 1 : -1);
+      .sort((a, b) => a.position !== b.position ? a.position - b.position : a.name.localeCompare(b.name));
   }
 };
 </script>

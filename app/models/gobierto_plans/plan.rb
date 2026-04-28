@@ -55,7 +55,15 @@ module GobiertoPlans
     end
 
     def global_progress
-      nodes.average(:progress).to_f
+      nodes_for_progress.average(:progress).to_f
+    end
+
+    def nodes_for_progress
+      @nodes_for_progress ||= if configuration_data.key?("progress_countable_status_ids") && (ids = configuration_data["progress_countable_status_ids"]).present?
+                                nodes.of_status(statuses_vocabulary.terms.where(id: ids))
+                              else
+                                nodes
+                              end
     end
 
     def attributes_for_slug

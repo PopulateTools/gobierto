@@ -264,13 +264,16 @@ export default {
       };
     },
     meanByProgress(data) {
-      const countable = data.filter(({ countable }) => countable !== false);
+      // mirror SQL AVG semantics on the backend: ignore nodes excluded by
+      // status configuration and nodes with NULL progress
+      const countable = data.filter(
+        ({ countable, progress }) => countable !== false && progress != null
+      );
       if (!countable.length) return 0;
 
       const sum = countable.reduce((acc, { progress }) => acc + progress, 0);
-      const total = countable.reduce((acc, { projects }) => acc + projects, 0);
 
-      return total === 0 ? 0 : sum / total;
+      return sum / countable.length;
     },
     setRootId(item, ix) {
       if ((item.children || []).length) {

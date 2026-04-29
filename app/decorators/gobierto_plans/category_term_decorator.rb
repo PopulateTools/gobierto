@@ -54,7 +54,7 @@ module GobiertoPlans
                         sum / size.to_f
                       end
                     else
-                      descending_nodes.average(:progress).to_f
+                      descending_nodes_for_progress.average(:progress).to_f
                     end
     end
 
@@ -137,6 +137,10 @@ module GobiertoPlans
       @descending_nodes ||= base_relation.where("gplan_categories_nodes.category_id IN (#{self.class.tree_sql_for(self)})")
     end
 
+    def descending_nodes_for_progress
+      @descending_nodes_for_progress ||= plan.filter_progress_countable_statuses(descending_nodes)
+    end
+
     def base_relation
       @base_relation ||= with_published_versions? ? plan.nodes.published : plan.nodes
     end
@@ -179,10 +183,10 @@ module GobiertoPlans
 
     def versioned_progresses
       if cached_attributes&.has_key?(:progress)
-        descending_nodes.map { |node| cached_attributes[:progress][node.id] }
+        descending_nodes_for_progress.map { |node| cached_attributes[:progress][node.id] }
       else
         CollectionDecorator.new(
-          descending_nodes,
+          descending_nodes_for_progress,
           decorator: GobiertoPlans::ProjectDecorator,
           opts: { plan: plan, site: site }
         ).map do |node|

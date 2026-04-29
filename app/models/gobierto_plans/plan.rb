@@ -62,6 +62,12 @@ module GobiertoPlans
       @nodes_for_progress ||= filter_progress_countable_statuses(nodes)
     end
 
+    def progress_excluded_nodes?
+      return false unless progress_countable_status_ids
+
+      nodes_for_progress.count < node_size
+    end
+
     def filter_progress_countable_statuses(scope)
       return scope unless progress_countable_status_ids
 

@@ -12,4 +12,7 @@
 
 <div class="m_v_2">
   <%= render partial: "gobierto_admin/gobierto_common/ordered_terms/decorated_index", locals: { calculated_values: @accumulated_values, editable: current_admin.can_edit_vocabularies? } %>
+  <% if @plan.progress_excluded_nodes? %>
+    * <%= t(".progress_excluded_nodes_explanation") %>
+  <% end %>
 </div>

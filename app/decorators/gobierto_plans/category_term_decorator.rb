@@ -61,7 +61,7 @@ module GobiertoPlans
     def progress_percentage
       return if nodes_count.zero?
 
-      @progress_percentage ||= number_to_percentage(progress, precision: 1, strip_insignificant_zeros: true)
+      @progress_percentage ||= number_to_percentage(progress, precision: 1, strip_insignificant_zeros: true) + excluded_nodes_from_progress_calculation
     end
 
     def nodes_count
@@ -132,6 +132,10 @@ module GobiertoPlans
     end
 
     protected
+
+    def excluded_nodes_from_progress_calculation
+      nodes_count != descending_nodes_for_progress.count ? " *" : ""
+    end
 
     def descending_nodes
       @descending_nodes ||= base_relation.where("gplan_categories_nodes.category_id IN (#{self.class.tree_sql_for(self)})")

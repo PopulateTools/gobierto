@@ -6,6 +6,8 @@ en:
         calculated_headers:
           items: Items
           progress: Progress
+        index:
+          progress_excluded_nodes_explanation: Some projects have been excluded from the calculation because their status is not countable
         plan_summary:
           global_progress: Global progress
           projects: Projects

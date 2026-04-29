@@ -6,6 +6,8 @@ ca:
         calculated_headers:
           items: Elements
           progress: Progrés
+        index:
+          progress_excluded_nodes_explanation: S'han descartat alguns projectes del càlcul perquè tenen estats exclosos
         plan_summary:
           global_progress: Progrés global
           projects: Projectes

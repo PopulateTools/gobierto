@@ -167,6 +167,22 @@ module GobiertoPlans
       end
     end
 
+    def test_global_execution_with_progress_countable_status_ids
+      configuration = plan.configuration_data
+      configuration["progress_countable_status_ids"] = [gobierto_common_terms(:in_progress_plan_status_term).id]
+      plan.update_attribute(:configuration_data, JSON.pretty_generate(configuration))
+      publish_last_version_on_all_projects!
+
+      with(site: site, js: true) do
+        visit @path
+        within "div.header-resume" do
+          within "span" do
+            assert has_content?("50%")
+          end
+        end
+      end
+    end
+
     def test_navigating_tree
       remove_plugin_custom_fields if site.custom_fields.plugin.present?
       publish_last_version_on_all_projects!

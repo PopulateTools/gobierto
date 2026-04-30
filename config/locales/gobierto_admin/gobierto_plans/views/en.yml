@@ -7,7 +7,7 @@ en:
           items: Items
           progress: Progress
         index:
-          progress_excluded_nodes_explanation: Some projects have been excluded from the calculation because their status is not countable
+          progress_excluded_nodes_explanation: 'Some projects have been excluded from the calculation because they have one of the following excluded statuses: %{statuses}'
         plan_summary:
           global_progress: Global progress
           projects: Projects

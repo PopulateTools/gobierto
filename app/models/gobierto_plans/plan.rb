@@ -68,6 +68,12 @@ module GobiertoPlans
       nodes_for_progress.count < node_size
     end
 
+    def progress_excluded_statuses
+      return GobiertoCommon::Term.none if progress_countable_status_ids.blank? || statuses_vocabulary.blank?
+
+      statuses_vocabulary.terms.where.not(id: progress_countable_status_ids)
+    end
+
     def filter_progress_countable_statuses(scope)
       return scope if progress_countable_status_ids.blank?
 

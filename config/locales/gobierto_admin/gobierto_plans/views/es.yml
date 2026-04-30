@@ -7,7 +7,7 @@ es:
           items: Ítems
           progress: Progreso
         index:
-          progress_excluded_nodes_explanation: Se han descartado algunos proyectos del cálculo por tener estados excluidos
+          progress_excluded_nodes_explanation: 'Se han descartado algunos proyectos del cálculo por tener alguno de los siguientes estados excluidos: %{statuses}'
         plan_summary:
           global_progress: Progreso global
           projects: Proyectos

@@ -7,7 +7,7 @@ ca:
           items: Elements
           progress: Progrés
         index:
-          progress_excluded_nodes_explanation: S'han descartat alguns projectes del càlcul perquè tenen estats exclosos
+          progress_excluded_nodes_explanation: 'S''han descartat alguns projectes del càlcul perquè tenen algun dels següents estats exclosos: %{statuses}'
         plan_summary:
           global_progress: Progrés global
           projects: Projectes

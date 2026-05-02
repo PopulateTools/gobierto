@@ -87,7 +87,12 @@ module GobiertoPeople
     end
 
     def calendar_date_range
-      anchor = parse_date(params[:start_date]) || Time.zone.now
+      anchor = if params[:start_date]
+                 parsed = Date.parse(params[:start_date])
+                 DatesRangeHelper::SENSIBLE_YEAR_RANGE.cover?(parsed.year) ? parsed : Time.zone.now
+               else
+                 Time.zone.now
+               end
       (anchor.at_beginning_of_month.at_beginning_of_week)..(anchor.at_end_of_month.at_end_of_week)
     end
 

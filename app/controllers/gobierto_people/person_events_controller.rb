@@ -79,19 +79,16 @@ module GobiertoPeople
     end
 
     def filter_events_by_date(date)
-      @filtering_date = Date.parse(date)
+      parsed = parse_date(date)
+      return @events unless parsed
+      @filtering_date = parsed.to_date
       @events = @events.by_date(@filtering_date)
-      @events = (@filtering_date >= Time.now ? @events.sorted : @events.sorted_backwards)
-    rescue ArgumentError
-      @events
+      @events = (@filtering_date >= Time.now.to_date ? @events.sorted : @events.sorted_backwards)
     end
 
     def calendar_date_range
-      if params[:start_date]
-        (Date.parse(params[:start_date]).at_beginning_of_month.at_beginning_of_week)..(Date.parse(params[:start_date]).at_end_of_month.at_end_of_week)
-      else
-        (Time.zone.now.at_beginning_of_month.at_beginning_of_week)..(Time.zone.now.at_end_of_month.at_end_of_week)
-      end
+      anchor = parse_date(params[:start_date]) || Time.zone.now
+      (anchor.at_beginning_of_month.at_beginning_of_week)..(anchor.at_end_of_month.at_end_of_week)
     end
 
   end

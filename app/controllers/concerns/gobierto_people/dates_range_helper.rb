@@ -51,9 +51,13 @@ module GobiertoPeople
       }
     end
 
+    SENSIBLE_YEAR_RANGE = (1990..(Date.current.year + 10)).freeze
+
     def parse_date(date, fallback = nil)
       return unless date
-      Time.zone.parse(date)
+      parsed = Time.zone.parse(date.to_s)
+      return fallback unless parsed && SENSIBLE_YEAR_RANGE.cover?(parsed.year)
+      parsed
     rescue ArgumentError
       fallback
     end

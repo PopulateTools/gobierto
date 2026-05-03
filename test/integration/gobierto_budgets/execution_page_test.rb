@@ -111,4 +111,49 @@ class GobiertoBudgets::ExecutionPageTest < ActionDispatch::IntegrationTest
       assert_equal current_path, gobierto_budgets_budgets_execution_path(available_years.first)
     end
   end
+
+  def test_negative_year_redirects_to_default_without_looping
+    GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.stubs(:last).returns(2023)
+
+    with_current_site(placed_site) do
+      get gobierto_budgets_budgets_execution_path(-100228)
+
+      assert_response :redirect
+      assert_equal gobierto_budgets_budgets_execution_path(2023), URI(response.location).path
+    end
+  end
+
+  def test_year_below_floor_redirects_to_default_without_looping
+    GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.stubs(:last).returns(2023)
+
+    with_current_site(placed_site) do
+      get gobierto_budgets_budgets_execution_path(2009)
+
+      assert_response :redirect
+      assert_equal gobierto_budgets_budgets_execution_path(2023), URI(response.location).path
+    end
+  end
+
+  def test_non_numeric_year_redirects_to_default
+    GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.stubs(:last).returns(2023)
+
+    with_current_site(placed_site) do
+      get gobierto_budgets_budgets_execution_path("abc")
+
+      assert_response :redirect
+      assert_equal gobierto_budgets_budgets_execution_path(2023), URI(response.location).path
+    end
+  end
+
+  def test_year_at_floor_with_no_data_does_not_redirect_below_floor
+    floor_year = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.first
+    GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.stubs(:last).returns(2023)
+    GobiertoBudgets::BudgetLine.stubs(:any_data?).returns(false)
+
+    with_current_site(placed_site) do
+      get gobierto_budgets_budgets_execution_path(floor_year)
+
+      assert_response :success
+    end
+  end
 end

@@ -7,22 +7,22 @@ ca:
       apostrophized: de l'
       f: de la
       m: del
-      "n": del
+      n: del
     our:
       f: nostra
       m: nostre
-      "n": nostre
+      n: nostre
     the:
       apostrophized: l'
       f: la
       m: el
-      "n": el
+      n: el
     to: a
     to_your:
       f: a la teva
       m: al teu
-      "n": al teu
+      n: al teu
     your:
       f: teva
       m: teu
-      "n": teu
+      n: teu

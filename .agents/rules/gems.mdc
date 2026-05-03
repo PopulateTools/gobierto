@@ -1,0 +1,35 @@
+---
+description: Adding new gems
+globs: Gemfile
+alwaysApply: false
+---
+
+# Adding New Gems
+
+Before adding a gem, ask whether it is really necessary. Many helpers can be a small Ruby class instead.
+
+## When to use `require: false`
+
+Add `require: false` to gems that are:
+
+- Only used in specific services, jobs, or rake tasks (not at boot).
+- Heavy or slow to load (file processing, document parsing, large native extensions).
+- Not needed for the Rails application to start.
+
+When a gem is loaded with `require: false`, add an explicit `require "the_gem"` at the top of the file that uses it.
+
+## When NOT to use `require: false`
+
+Keep normal loading for gems that:
+
+- Are configured in initializers (e.g. `sidekiq`, `appsignal`).
+- Are used throughout the app (e.g. `kaminari`, `pg_search`).
+- Are Rails framework extensions that need to register at boot.
+
+## Boot time matters
+
+This is a large modular Rails app; boot time creeps up quickly. Before adding a gem:
+
+1. Is there already a gem in the Gemfile that does the same thing?
+2. Can the feature be implemented in plain Ruby?
+3. Is there a lighter alternative?

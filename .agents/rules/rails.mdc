@@ -1,0 +1,73 @@
+---
+description: Ruby on Rails conventions for Gobierto
+globs: "*.rb,*.erb"
+alwaysApply: false
+---
+
+# Ruby on Rails
+
+You are working in a Rails 6.1 codebase running on Ruby 3.3. The app is multi-tenant (sites), modular by domain, and progressively enhanced with Vue 2 — not a SPA, not a Hotwire app.
+
+## Code style
+
+- Write idiomatic Ruby. Prefer expressive syntax (`||=`, `&.`, `unless`) but never use `unless` with multiple conditions — collapse into a predicate or rewrite as `if !`.
+- snake_case for files, methods, variables. CamelCase for classes and modules.
+- Use Ruby 3.x features when they make code clearer (pattern matching, endless methods, `Data.define`).
+- Prefer single quotes for strings unless interpolation is needed.
+- Replace magic strings and magic numbers with named constants.
+
+## Modular architecture
+
+Code is grouped by domain module: `gobierto_admin`, `gobierto_budgets`, `gobierto_people`, `gobierto_plans`, `gobierto_data`, `gobierto_indicators`, `gobierto_cms`, `gobierto_calendars`, `gobierto_common`, `gobierto_core`, `gobierto_dashboards`, `gobierto_attachments`, `gobierto_investments`, `gobierto_observatory`, `user`.
+
+- Place new code under the module that owns the feature.
+- Cross-module calls go through the public seams: services, presenters, pub/sub. Don't reach into another module's internals.
+- Module base controllers (e.g. `GobiertoAdmin::AdminController`, `GobiertoBudgets::ApplicationController`) already wire up `current_site`, locale, and authentication. Subclass them.
+
+## Service objects
+
+- Live under `app/services/<module>/`.
+- Calling convention: `Service.new(args).call`.
+- Use `attr_reader` for inputs declared in `initialize`. Don't access `@ivar` outside the constructor.
+- Single responsibility — name the class after its action (`Importer`, `Builder`, `Notifier`, `Calculator`...). When a service grows beyond its action, split it.
+- Example: `User::NotificationDigest.new(user_id, frequency).call`.
+
+## Controllers
+
+- Keep them thin. Push business logic into services or queries.
+- Access params via a private `permitted_params` helper. Never pass raw `params` to model methods.
+- Prefer helper methods over instance variables when the value is reused across controller and view.
+- Handle authorization with the relevant policy class; do not inline `current_admin.has_permission?` checks.
+
+## Views and helpers
+
+- Use plain ERB. Keep `.html.erb` files under ~140 lines; extract partials when they grow.
+- Place reusable presentation logic in `app/helpers/<module>/` or `app/decorators/<module>/`.
+- Don't introduce ViewComponent — the project does not use it. Use `app/cells/` only when extending an existing cell-based area.
+
+## ActiveRecord
+
+- Avoid N+1: use `includes`, `preload`, or `eager_load` deliberately.
+- Wrap multi-step writes in transactions when partial state would be wrong.
+- Use scopes for reusable queries. Heavy queries belong in `app/queries/<module>/`.
+- New columns get appropriate indexes. Migrations are reversible.
+
+## Background jobs
+
+- `app/jobs/<module>/`, subclass `ApplicationJob`.
+- The `perform` method should be a thin wrapper around a service.
+- For bulk reprocessing jobs, throttle by spreading scheduled times (`wait: delay`, increasing `delay`) to avoid overwhelming Redis or downstream services.
+
+## Multi-tenancy and security
+
+- Every site-scoped query goes through `current_site` (or an association rooted on it). Never `Model.find(id)` on multi-tenant data.
+- Set `site_id` programmatically on creation, not from user input.
+- See `.agents/rules/security.mdc` for the full set of rules.
+
+## Testing
+
+- Minitest, transactional fixtures.
+- Use fixtures from `test/fixtures/<module>/` when possible; reach for factories in `test/factories/` only when you need dynamic data.
+- Run new/changed tests with `bin/rails test <path/to/test_file.rb>` before committing.
+
+Follow the official Ruby on Rails guides for any topic not covered here.

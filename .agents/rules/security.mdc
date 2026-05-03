@@ -1,0 +1,58 @@
+---
+description: Security practices for controllers, models, and services
+globs: "*.rb"
+alwaysApply: false
+---
+
+# Security
+
+## Site scoping
+
+The application is multi-tenant. Every site-scoped resource MUST be accessed through `current_site` (or an association rooted on it).
+
+- Good: `current_site.budget_lines.find(id)`
+- Bad: `BudgetLine.find(id)`
+
+When creating records, set `site_id` programmatically — never accept it from user input. The same applies to `admin_id` and `user_id` for ownership.
+
+## Authentication
+
+- `ApplicationController` applies `authenticate_user_in_site` as a global `before_action`. Inheriting from it gives you authentication for free.
+- Admin-side controllers extend `GobiertoAdmin::AdminController`, which adds admin-session checks on top.
+- A new public-facing controller that should require login must inherit from a base class that authenticates, or add the `authenticate_user_in_site` filter explicitly.
+
+## Authorization
+
+- Policies live in `app/policies/gobierto_admin/` and extend `GobiertoAdmin::BasePolicy`.
+- A policy is initialized with `attributes: { current_admin:, current_site: }`.
+- Use `policy.can_manage_module?(:module_name)` to gate admin-side module access. Use `policy.can_manage_site?(site)` for site-level checks. Use `policy.manage?` for the "is this a manager?" override.
+- A new admin-side controller that touches a protected resource needs a policy check before destructive or sensitive actions.
+
+## Strong parameters
+
+- Define a private `permitted_params` helper on every controller that creates or updates records. Never pass `params` directly to `.create` / `.update`.
+- Never permit ownership or scoping fields from user input: `site_id`, `admin_id`, `user_id`.
+- Sensitive parameters are filtered from logs via `config/initializers/filter_parameter_logging.rb`. When adding a new sensitive field, add it to that filter list.
+
+## Input sanitization
+
+- HTML coming from users must be sanitized before storage with `rails-html-sanitizer` (already loaded). Don't trust client-side sanitization.
+- For full-text search input, rely on `pg_search`'s built-in sanitization — don't interpolate user values into raw SQL.
+
+## SQL
+
+- Use ActiveRecord scopes and parameterized queries. When raw SQL is unavoidable, use `sanitize_sql` and `connection.quote`.
+- Never interpolate user input into a SQL string.
+
+## CSRF
+
+- Maintain `protect_from_forgery with: :exception` in `ApplicationController` and any controller that accepts cookie-authenticated POSTs. Don't disable CSRF for convenience.
+
+## Logs and monitoring
+
+- Don't log full email addresses or other PII. Truncate or hash before logging.
+- Do not commit secrets, tokens, or API keys. Use environment variables and Ansible-managed secrets.
+
+## Captcha
+
+- Public-facing forms (consultations, contact, signups) should use `invisible_captcha` to deter bots. Follow the existing pattern in similar forms.

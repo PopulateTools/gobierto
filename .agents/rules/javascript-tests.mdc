@@ -1,0 +1,49 @@
+---
+description: Jest testing for JavaScript and Vue
+globs: "**/*.test.js"
+alwaysApply: false
+---
+
+# JavaScript Tests with Jest
+
+Front-end tests use **Jest 27** with **babel-jest**. There is no Vitest in this project.
+
+## Running tests
+
+```bash
+npm run test          # one-shot
+npm run test:watch    # watch mode
+```
+
+To run a single file:
+
+```bash
+npx jest test/javascript/gobierto_data/embed.test.js
+```
+
+## File layout
+
+- All JS tests live under `test/javascript/`, mirroring `app/javascript/`.
+- File names end in `.test.js`.
+- Reference example: `test/javascript/gobierto_data/embed.test.js`.
+
+## Conventions
+
+- Use Jest's `describe` / `test` / `expect` — no extra test libraries.
+- Reset state between tests with `beforeEach` / `afterEach` if the module under test holds state.
+- Mock modules with `jest.mock("module-name", () => ({ ... }))`. Use `jest.fn()` for inline mocks.
+- Avoid coupling tests to private internals. Test the public API of the component or module.
+
+## What to cover
+
+- Pure utility modules and helpers (high value, easy to test).
+- Component behavior that has logic — computed properties, watchers, event handlers.
+
+What to skip:
+
+- Trivial presentational components without logic.
+- Third-party library internals.
+
+## Husky / lint-staged
+
+`lint-staged` runs `jest --bail --findRelatedTests` on staged `app/javascript/**/*.{js,vue}` files. Failing related tests block the commit — fix the test or the code, don't bypass the hook.

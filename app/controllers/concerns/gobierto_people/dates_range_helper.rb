@@ -51,7 +51,7 @@ module GobiertoPeople
       }
     end
 
-    SENSIBLE_YEAR_RANGE = (1900..2200).freeze
+    SENSIBLE_YEAR_RANGE = (2010..2060).freeze
 
     def parse_date(date, fallback = nil)
       return unless date

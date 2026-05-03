@@ -184,7 +184,7 @@ YAML
       set_default_dates
 
       with_current_site(site) do
-        visit gobierto_people_people_path(end_date: 50.years.ago)
+        visit gobierto_people_people_path(end_date: "2014-01-01")
 
         assert has_selector?("h2", text: "#{site.name}'s organization chart")
 
@@ -249,7 +249,7 @@ YAML
       GobiertoPeople::Invitation.destroy_all
 
       set_default_dates
-      start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+      start_date, end_date = ["2010-01-01", "2059-12-31"]
 
       with_current_site(site) do
         visit gobierto_people_people_path(
@@ -278,7 +278,7 @@ YAML
       GobiertoPeople::Trip.destroy_all
 
       set_default_dates
-      start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+      start_date, end_date = ["2010-01-01", "2059-12-31"]
 
       with_current_site(site) do
         visit gobierto_people_people_path(
@@ -307,7 +307,7 @@ YAML
       GobiertoPeople::Trip.destroy_all
 
       set_default_dates
-      start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+      start_date, end_date = ["2010-01-01", "2059-12-31"]
 
       with_current_site(site) do
         visit gobierto_people_people_path(

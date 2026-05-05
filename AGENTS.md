@@ -52,7 +52,6 @@ For detailed coding standards and best practices, consult the rules in `.agents/
 - `rails.mdc` — Ruby/Rails conventions, modular architecture, service objects.
 - `tests.mdc` — Minitest, transactional fixtures, Capybara, VCR, factories.
 - `javascript.mdc` — Vue 2 components, esbuild, ESLint.
-- `javascript-tests.mdc` — Jest setup and conventions.
 - `views.mdc` — ERB partials, helpers, assets, Turbolinks-friendly markup.
 - `i18n.mdc` — internationalization with `i18n-tasks`.
 - `gems.mdc` — adding dependencies.

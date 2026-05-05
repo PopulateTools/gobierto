@@ -36,5 +36,5 @@ The front-end is **Vue 2.5** with **esbuild** (`jsbundling-rails`) and progressi
 
 1. Pick the right module under `app/javascript/`.
 2. Mirror the existing pattern in that module — don't introduce a new folder structure unilaterally.
-3. Add a Jest test under `test/javascript/<module>/` (see `.agents/rules/javascript-tests.mdc`).
+3. Add a Jest test under `test/javascript/<module>/`. Run with `npm run test`.
 4. If the component talks to Rails, prefer `axios` (already a dependency) and JSON endpoints.

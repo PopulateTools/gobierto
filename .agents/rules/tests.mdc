@@ -27,7 +27,7 @@ The project uses Minitest with transactional fixtures. There is no DatabaseClean
 - `test/integration/<module>/` — Capybara integration tests (browser, JS, modals).
 - `test/models/<module>/` — model tests.
 - `test/jobs/<module>/` — background job tests.
-- `test/javascript/<module>/` — Jest tests (see `javascript-tests.mdc`).
+- `test/javascript/<module>/` — Jest tests; run with `npm run test`.
 - `test/misc/i18n_test.rb` — verifies locale completeness; run after locale changes.
 
 ## Test file structure

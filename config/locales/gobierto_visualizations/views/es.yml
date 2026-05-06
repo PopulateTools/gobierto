@@ -130,7 +130,7 @@ es:
         cost_inhabitant: Coste/habitante
         cost_per_inhabitant: Coste por habitante
         coverage: Cobertura
-        description: L'%{entity_name} presta servicios a sus ciudadanos a partir de
+        description: El %{entity_name} presta servicios a sus ciudadanos a partir de
           sus competencias. Esta prestación de servicios supone un coste que se cubre
           con los ingresos que dispone el Ayuntamiento, que son los derivados del
           propio servicio a prestar o bien de recursos generales de los impuestos

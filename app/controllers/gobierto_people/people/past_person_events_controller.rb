@@ -12,8 +12,9 @@ module GobiertoPeople
       )
 
       def index
-        if params[:date]
-          @filtering_date = Date.parse(params[:date])
+        parsed_date = parse_date(params[:date]) if params[:date]
+        if parsed_date
+          @filtering_date = parsed_date.to_date
           @events = @person.events.by_date(@filtering_date)
           @events = (@filtering_date.future? ? @events.sorted : @events.sorted_backwards).page params[:page]
         elsif params[:page] == "false"

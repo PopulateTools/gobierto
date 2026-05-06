@@ -6,7 +6,10 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
   def index
     unless @any_budgets_execution_data_for_year = any_execution_data?
       flash[:alert] = t('controllers.gobierto_budgets.budgets_execution.index.alert', year: @year)
-      redirect_to gobierto_budgets_budgets_execution_path(@year - 1) and return
+      previous_year = @year - 1
+      if previous_year >= GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.first
+        redirect_to gobierto_budgets_budgets_execution_path(previous_year) and return
+      end
     end
 
     @any_economic_income_budget_lines    = any_execution_data?(kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::EconomicArea)
@@ -26,11 +29,19 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
   private
 
   def load_year
-    if params[:year].nil?
+    if params[:year].nil? || !valid_year_param?(params[:year])
       redirect_to gobierto_budgets_budgets_execution_path(GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last)
     else
       @year = params[:year].to_i
     end
+  end
+
+  def valid_year_param?(year_param)
+    return false unless year_param.to_s.match?(/\A\d+\z/)
+
+    year_int = year_param.to_i
+    year_int >= GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.first &&
+      year_int <= GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last
   end
 
   def any_execution_data?(params={})

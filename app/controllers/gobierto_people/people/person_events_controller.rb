@@ -19,8 +19,9 @@ module GobiertoPeople
       )
 
       def index
-        if params[:date]
-          @filtering_date = Date.parse(params[:date])
+        parsed_date = parse_date(params[:date]) if params[:date]
+        if parsed_date
+          @filtering_date = parsed_date.to_date
           @events = @person.owned_attending_events.by_date(@filtering_date).published
           @events = (@filtering_date.future? ? @events.sorted : @events.sorted_backwards).page params[:page]
         else
@@ -51,8 +52,9 @@ module GobiertoPeople
       private
 
       def fullcalendar_events
-        starts = Time.zone.parse(params[:start])
-        ends   = Time.zone.parse(params[:end])
+        starts = parse_date(params[:start])
+        ends   = parse_date(params[:end])
+        return [] unless starts && ends
         events = @person.owned_attending_events.published.where('starts_at >= ? AND ends_at <= ?', starts, ends)
         events.map do |event|
           ::GobiertoCalendars::FullcalendarEventSerializer.new(

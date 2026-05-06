@@ -189,8 +189,8 @@ YAML
 
           visit gobierto_people_department_people_path(
             immigration_department_mixed,
-            start_date: 100.years.ago,
-            end_date: 50.years.ago
+            start_date: "2010-01-01",
+            end_date: "2013-12-31"
           )
 
           within departments_sidebar do
@@ -214,7 +214,7 @@ YAML
           set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
           # everything is displayed with broad range
 
-          start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+          start_date, end_date = ["2010-01-01", "2059-12-31"]
 
           visit gobierto_people_department_people_path(
             immigration_department_mixed,
@@ -264,8 +264,8 @@ YAML
 
           visit gobierto_people_department_people_path(
             immigration_department_mixed,
-            start_date: 20.years.ago - 1.day,
-            end_date: 20.years.from_now + 1.day
+            start_date: "2010-01-01",
+            end_date: "2046-12-31"
           )
 
           within departments_sidebar do
@@ -282,7 +282,7 @@ YAML
         GobiertoPeople::Gift.destroy_all
         GobiertoPeople::Invitation.destroy_all
         set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
-        start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+        start_date, end_date = ["2010-01-01", "2059-12-31"]
 
         with_current_site(site) do
           visit gobierto_people_department_people_path(
@@ -311,7 +311,7 @@ YAML
         GobiertoPeople::Trip.destroy_all
         GobiertoPeople::Invitation.destroy_all
         set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
-        start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+        start_date, end_date = ["2010-01-01", "2059-12-31"]
 
         with_current_site(site) do
           visit gobierto_people_department_people_path(
@@ -340,7 +340,7 @@ YAML
         GobiertoPeople::Gift.destroy_all
         GobiertoPeople::Trip.destroy_all
         set_default_dates(start_date: "2010-01-01", end_date: "2020-01-01")
-        start_date, end_date = [100.years.ago, 50.years.from_now].map { |d| d.strftime "%F" }
+        start_date, end_date = ["2010-01-01", "2059-12-31"]
 
         with_current_site(site) do
           visit gobierto_people_department_people_path(

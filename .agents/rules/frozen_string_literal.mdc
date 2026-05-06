@@ -1,0 +1,13 @@
+---
+description: Frozen string literal magic comment
+globs: "*.rb"
+alwaysApply: true
+---
+
+Every Ruby file in this project must start with:
+
+```ruby
+# frozen_string_literal: true
+```
+
+This includes new files added under `app/`, `lib/`, `test/`, and `db/migrate/`.

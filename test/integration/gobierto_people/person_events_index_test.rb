@@ -118,6 +118,24 @@ module GobiertoPeople
       end
     end
 
+    def test_person_events_with_out_of_range_date_renders_default_page
+      with_current_site(site) do
+        visit gobierto_people_events_path(date: "4678-12-29")
+
+        assert_equal 200, page.status_code
+        assert has_selector?("h2", text: "#{site.name}'s member agendas")
+      end
+    end
+
+    def test_person_events_with_out_of_range_start_date_renders_default_page
+      with_current_site(site) do
+        visit gobierto_people_events_path(start_date: "2444-10-30")
+
+        assert_equal 200, page.status_code
+        assert has_selector?("h2", text: "#{site.name}'s member agendas")
+      end
+    end
+
     def test_person_events_filter
       with_current_site(site) do
         visit @path

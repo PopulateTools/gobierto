@@ -1,0 +1,40 @@
+---
+description: JavaScript and Vue 2 conventions
+globs: "*.js,*.vue"
+alwaysApply: false
+---
+
+# JavaScript & Vue
+
+The front-end is **Vue 2.5** with **esbuild** (`jsbundling-rails`) and progressive enhancement on top of Turbolinks 5. There is no React, no Vite, no Stimulus, no Hotwire Turbo.
+
+## Where things live
+
+- Vue components and JS modules are in `app/javascript/<module>/` — mirroring the Rails module namespaces.
+- Bundle entry points live in `app/javascript/<module>.js`. esbuild config is in `esbuild.config.mjs`.
+- Stylesheets are SASS under `app/assets/stylesheets/` (PureCSS + project-specific styles).
+
+## Conventions
+
+- Components are mounted on a DOM element via `data-` attributes — they don't drive SPA navigation.
+- Keep component state local. For cross-component coordination, use Vuex (already in use in some modules) or a small shared store, not global variables.
+- Use `_` prefixes for private JS methods.
+- Document non-trivial components with a short header: purpose, props, mount example.
+- Avoid touching the DOM imperatively (`querySelector`, `addEventListener`) when Vue refs/templates can do it. Imperative DOM access is fine for legacy jQuery-driven areas — match the surrounding style.
+- Use `npm` (not yarn). Install with `npm install`, run scripts with `npm run <name>`.
+- Lint with:
+  ```bash
+  npm run eslint
+  ```
+- Style-lint CSS/SCSS with:
+  ```bash
+  npm run stylelint
+  ```
+- Husky + lint-staged run ESLint and related Jest tests on commit. Don't bypass the hook.
+
+## Adding a new component
+
+1. Pick the right module under `app/javascript/`.
+2. Mirror the existing pattern in that module — don't introduce a new folder structure unilaterally.
+3. Add a Jest test under `test/javascript/<module>/`. Run with `npm run test`.
+4. If the component talks to Rails, prefer `axios` (already a dependency) and JSON endpoints.

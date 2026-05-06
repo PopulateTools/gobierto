@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "setup": "cp -p $CONDUCTOR_ROOT_PATH/.rbenv-vars $CONDUCTOR_WORKSPACE_PATH/.rbenv-vars && cp -p $CONDUCTOR_ROOT_PATH/config/database.yml $CONDUCTOR_WORKSPACE_PATH/config/ && cp -R $CONDUCTOR_ROOT_PATH/node_modules $CONDUCTOR_WORKSPACE_PATH/ && bin/setup --skip-server",
+    "run": "export PORT=${CONDUCTOR_PORT:-3000}; command -v nvm >/dev/null 2>&1 && nvm use; bin/update && bin/dev"
+  }
+}

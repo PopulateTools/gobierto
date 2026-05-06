@@ -1,0 +1,100 @@
+---
+description: Testing strategy and conventions
+globs: "*_test.rb"
+alwaysApply: false
+---
+
+# Testing
+
+The project uses Minitest with transactional fixtures. There is no DatabaseCleaner — fixtures roll back after each test.
+
+## Running tests
+
+- Run a single file:
+  ```bash
+  bin/rails test test/services/user/notification_digest_test.rb
+  ```
+- Run a single test method:
+  ```bash
+  bin/rails test test/services/user/notification_digest_test.rb -n test_delivers_notifications
+  ```
+- Always run the tests you write or modify before committing.
+
+## Test layout
+
+- `test/services/<module>/` — service tests. Every new service class gets a test file mirroring its path.
+- `test/controllers/<module>/` — HTTP-level controller tests (no Capybara browser).
+- `test/integration/<module>/` — Capybara integration tests (browser, JS, modals).
+- `test/models/<module>/` — model tests.
+- `test/jobs/<module>/` — background job tests.
+- `test/javascript/<module>/` — Jest tests; run with `npm run test`.
+- `test/misc/i18n_test.rb` — verifies locale completeness; run after locale changes.
+
+## Test file structure
+
+- Start every test file with `# frozen_string_literal: true`.
+- `require "test_helper"` at the top.
+- Unit and service tests extend `ActiveSupport::TestCase`.
+- Integration tests extend `ActionDispatch::IntegrationTest`.
+- Controller tests extend `GobiertoControllerTest` (HTTP-only, request-level helpers loaded automatically).
+- Use Minitest method-style: `def test_<scenario>`.
+- Use `attr_reader` and `setup` rather than `@ivar` everywhere. Example:
+
+  ```ruby
+  attr_reader :user, :site
+
+  def setup
+    @site = sites(:madrid)
+    @user = users(:user1)
+  end
+  ```
+
+## Assertions
+
+- Prefer Minitest's built-in assertions (`assert`, `assert_equal`, `assert_includes`, `assert_nil`, `assert_difference`, `assert_no_difference`).
+- For Capybara assertions, use `assert_text`, `assert_selector`, `assert_no_selector` — these wait. Never use `sleep` to wait for the UI.
+- For controller tests, assert on `response.status` and `response.body`. Use `assert_redirected_to` for redirects.
+
+## Fixtures vs factories
+
+- Fixtures live in `test/fixtures/<module>/` and load via `fixtures :all`.
+- Factories live in `test/factories/<thing>_factory.rb` (note: not FactoryBot — these are plain Ruby classes with class methods like `BudgetLineFactory.doc_id(...)`).
+- Prefer fixtures for shared baseline data (sites, admins, basic budgets). Use factories when a test needs a non-fixture variation.
+
+## Mocking and stubbing
+
+- Use Mocha for stubs and expectations: `object.expects(:method).returns(value)`, `object.stubs(:method).returns(value)`.
+- Use Spy when checking that something was called with specific arguments and you want a richer matcher.
+- Never let test concerns leak into production code. If a test object is missing a method, fix the test object — not the production class.
+
+## VCR for HTTP interactions
+
+VCR cassettes live in `test/vcr_cassettes/`. Wrap external HTTP calls in:
+
+```ruby
+VCR.use_cassette("path/to/scenario") do
+  # code that makes the HTTP request
+end
+```
+
+- Name cassettes descriptively, mirroring the test path.
+- Re-record by deleting the cassette and re-running the test; review the new fixture before committing.
+- WebMock is enabled globally and blocks unstubbed external requests (localhost and Elasticsearch are allowlisted).
+
+## Time and randomness
+
+- Use Timecop for time-sensitive tests:
+  ```ruby
+  Timecop.freeze(Time.zone.parse("2024-01-15"))
+  # ...
+  Timecop.return
+  ```
+  Integration tests reset Capybara automatically; in unit tests, `Timecop.return` in teardown if you set it in setup.
+- Avoid relying on `Time.now`/`Date.today` in production code; inject the time when feasible so tests don't need to freeze it.
+
+## Anti-patterns to avoid
+
+- `sleep` in integration tests — use Capybara's waiting matchers.
+- Asserting that `I18n.t("some.key")` appears on a page — that's tautological. Assert on the actual rendered text or on a behavioral element.
+- Re-checking model state through Capybara after a form submit — write a model/service test for the persistence assertion and keep the integration test about the user flow.
+- Disabling tests instead of fixing them. Raise the issue with a person before deleting or skipping a test.

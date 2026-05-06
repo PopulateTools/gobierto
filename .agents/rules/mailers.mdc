@@ -1,0 +1,34 @@
+---
+description: Mailer conventions
+globs:
+  - app/mailers/**/*
+  - app/views/**/*mailer*/**/*
+alwaysApply: false
+---
+
+# Mailers
+
+## Layout
+
+- Mailer classes live under `app/mailers/<module>/` and inherit from `ApplicationMailer`.
+- Mailer views live under `app/views/<module>/<mailer>/`.
+- Per-locale templates use the suffix `*.es.html.erb`, `*.ca.html.erb`, etc. when the wording is locale-specific. When a single template can serve all locales via `t(".key")` lookups, prefer that.
+
+## Sending mail
+
+- Use `deliver_later` (Sidekiq queue) for non-critical mail.
+- Set `from`, `reply_to`, `to`, and `subject` explicitly. Site-scoped emails should come from the site's configured `from` address — see how `User::NotificationMailer` resolves it.
+
+## User notifications
+
+For notifications triggered by user activity (alerts, subscriptions, agenda updates, plan progress, etc.), the canonical flow is:
+
+1. Create a `User::Notification` record.
+2. `User::NotificationDigest.new(user_id, frequency).call` aggregates and delivers them via `User::NotificationMailer`.
+
+Direct `mailer.deliver_later` is appropriate for transactional emails (verification, invitations, password reset).
+
+## Tests
+
+- Add a test under `test/mailers/<module>/` covering `from`, `to`, `subject`, and that the body includes the expected key copy.
+- For locale-specific templates, write one test per locale (or use a `each_locale` helper if one exists in the module).

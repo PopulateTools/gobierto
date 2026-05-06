@@ -1,0 +1,40 @@
+---
+description: View, helper, and styling conventions
+globs: "*.html.erb"
+alwaysApply: false
+---
+
+# Views, Helpers, and Styles
+
+## ERB
+
+- Plain ERB templates under `app/views/<module>/`. No ViewComponent.
+- Keep view files small (~140 lines is the soft cap). Extract partials when they grow.
+- Move ruby logic into helpers (`app/helpers/<module>/`), decorators (`app/decorators/<module>/`), or presenters (`app/presenters/<module>/`) — not inline.
+
+## Forms and buttons
+
+- Use the existing form helpers and partials in `app/views/<module>/` — don't introduce a new form-styling system.
+- Style is SASS (under `app/assets/stylesheets/`) on top of PureCSS. Don't add Tailwind classes; they are not compiled.
+- For dynamic interactions, mount a Vue component on the form via `data-` attributes (see `.agents/rules/javascript.mdc`).
+
+## Pagination
+
+- Pagination is provided by Kaminari. Use the standard helpers (`paginate @collection`, `link_to_prev_page`, `link_to_next_page`) and theme via partials.
+
+## Internationalization
+
+- All copy goes through `t(".key")` lookups so locales stay consistent. See `.agents/rules/i18n.mdc`.
+
+## Turbolinks
+
+- The app uses Turbolinks 5. Avoid full-page-reload assumptions. Use `data-turbolinks="false"` on links that must do a hard navigation, and listen for `turbolinks:load` for one-off JS init.
+
+## Helpers
+
+- Module-specific helpers belong under `app/helpers/<module>/`. Use them for view logic that doesn't belong in a model or decorator.
+- Resist the urge to create catch-all helpers. If a helper is only used by one view, it probably belongs as a partial-local variable instead.
+
+## Existing JS controllers
+
+- Before adding new front-end code, search `app/javascript/<module>/` for an existing component or module that does what you need. The codebase has long-lived utilities for toggling, modals, dropdowns, charts, maps, etc.

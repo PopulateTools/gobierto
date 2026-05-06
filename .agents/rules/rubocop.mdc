@@ -1,0 +1,15 @@
+---
+description: How to run RuboCop on changes
+globs: "*.rb"
+alwaysApply: false
+---
+
+# RuboCop
+
+- Run RuboCop only on the lines you actually changed:
+  ```bash
+  bundle exec rubocop path/to/file.rb:10-25
+  ```
+  This avoids fixing unrelated warnings in untouched code.
+- Fix violations before committing. Husky/lint-staged will not block the commit, but CI will.
+- Do not edit `.rubocop.yml` to silence a violation in the file you are working on; either fix the code or, if the rule is genuinely wrong for the project, raise it separately.

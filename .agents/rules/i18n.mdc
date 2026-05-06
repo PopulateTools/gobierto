@@ -1,0 +1,20 @@
+---
+description: Internationalization
+globs: "config/locales/*.yml"
+alwaysApply: false
+---
+
+# Internationalization (I18n)
+
+- Every user-facing string lives in `config/locales/*.yml`. The supported locales are at least `es`, `ca`, `gl`, `eu`, `en`. Add the key in **all** active locales — don't leave a locale missing.
+- After editing locales, run:
+  ```bash
+  bundle exec i18n-tasks normalize
+  ```
+  This sorts keys, removes duplicates, and aligns the files.
+- Run the locale tests after touching translations:
+  ```bash
+  bin/rails test test/misc/i18n_test.rb
+  ```
+- Some models use `json_translate` to store per-locale attribute values directly in the database. When adding a new translatable attribute, follow the existing pattern in the model rather than creating a parallel locale key.
+- Routes are translated via `route_translator`. Add new translated route segments to the locale files, not to `config/routes.rb`.

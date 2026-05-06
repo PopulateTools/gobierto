@@ -54,6 +54,8 @@ module GobiertoAdmin
               end
             end
 
+            assert has_no_content?("Some projects have been excluded from the calculation")
+
             within "div.v_heading" do
               find("i.fa-caret-square-down").click
             end
@@ -61,6 +63,25 @@ module GobiertoAdmin
             assert has_link? project.name
             assert has_link? other_project.name
             assert has_link? "New"
+          end
+        end
+
+        def test_admin_categories_index_with_progress_countable_status_ids
+          configuration = plan.configuration_data
+          configuration["progress_countable_status_ids"] = [gobierto_common_terms(:in_progress_plan_status_term).id]
+          plan.update_attribute(:configuration_data, JSON.pretty_generate(configuration))
+
+          with(site: site, admin: admin) do
+            visit @path
+
+            within "div.pure-u-md-1-3", text: "Global progress" do
+              within "div.metric_value" do
+                assert has_content? "50%"
+                assert has_content? "*"
+              end
+            end
+
+            assert has_content?("Some projects have been excluded from the calculation because they have one of the following excluded statuses: Not started, Active")
           end
         end
 

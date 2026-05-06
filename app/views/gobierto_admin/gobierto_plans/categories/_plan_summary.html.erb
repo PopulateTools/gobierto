@@ -5,7 +5,7 @@
       <h5><%= t(".global_progress") %></h5>
 
       <div class="m_t_1 metric metric_medium with_progress_bar">
-        <div class="metric_value"><%= number_to_percentage(@global_progress, precision: 1, strip_insignificant_zeros: true) %></div>
+        <div class="metric_value"><%= number_to_percentage(@global_progress, precision: 1, strip_insignificant_zeros: true) %> <%= "*" if @plan.progress_excluded_nodes? %></div>
         <div class="metric_progress_bar">
           <div class="metric_progress_bar_progress" style="width: <%= number_to_percentage(@global_progress, precision: 0) %>"></div>
         </div>

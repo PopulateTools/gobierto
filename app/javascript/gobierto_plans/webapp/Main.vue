@@ -128,13 +128,15 @@ export default {
     PlansStore.setMeta(meta);
     PlansStore.setStatus(status);
 
+    const countableStatusIds = (options.progress_countable_status_ids || []).map(Number);
+
     const {
       last_level,
       summary,
       json,
       progress,
       max_category_level
-    } = this.setJsonTree(categories, projects);
+    } = this.setJsonTree(categories, projects, countableStatusIds);
 
     this.json = json;
     this.summary = summary;
@@ -156,7 +158,7 @@ export default {
     }
   },
   methods: {
-    setJsonTree(categories, projects) {
+    setJsonTree(categories, projects, countableStatusIds = []) {
       // for simplicity to groupby
       const categoriesWithLevel = categories.map(d => ({
         ...d,
@@ -165,12 +167,17 @@ export default {
       // get the deepest category level, plus one to set the project level
       const lastLevel =
         Math.max(...categoriesWithLevel.map(({ level }) => level)) + 1;
+      // when no statuses are configured, all projects count toward progress
+      const countableStatusSet = new Set(countableStatusIds);
+      const isCountable = statusId =>
+        countableStatusSet.size === 0 || countableStatusSet.has(Number(statusId));
       // populate the projects with another extra level, its progress, and the number of projects (always 1)
       const projectsWithLevel = projects.map(d => ({
         ...d,
         level: lastLevel,
         progress: d.attributes.progress,
-        projects: 1
+        projects: 1,
+        countable: isCountable(d.attributes.status_id)
       }));
       // merge both arrays
       const data = [...categoriesWithLevel, ...projectsWithLevel];
@@ -257,12 +264,16 @@ export default {
       };
     },
     meanByProgress(data) {
-      if (!data.length) return 0;
+      // mirror SQL AVG semantics on the backend: ignore nodes excluded by
+      // status configuration and nodes with NULL progress
+      const countable = data.filter(
+        ({ countable, progress }) => countable !== false && progress != null
+      );
+      if (!countable.length) return 0;
 
-      const sum = data.reduce((acc, { progress }) => acc + progress, 0);
-      const total = data.reduce((acc, { projects }) => acc + projects, 0);
+      const sum = countable.reduce((acc, { progress }) => acc + progress, 0);
 
-      return total === 0 ? 0 : sum / total;
+      return sum / countable.length;
     },
     setRootId(item, ix) {
       if ((item.children || []).length) {

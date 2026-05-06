@@ -55,7 +55,29 @@ module GobiertoPlans
     end
 
     def global_progress
-      nodes.average(:progress).to_f
+      nodes_for_progress.average(:progress).to_f
+    end
+
+    def nodes_for_progress
+      @nodes_for_progress ||= filter_progress_countable_statuses(nodes)
+    end
+
+    def progress_excluded_nodes?
+      return false if progress_countable_status_ids.blank?
+
+      nodes_for_progress.count < node_size
+    end
+
+    def progress_excluded_statuses
+      return GobiertoCommon::Term.none if progress_countable_status_ids.blank? || statuses_vocabulary.blank?
+
+      statuses_vocabulary.terms.where.not(id: progress_countable_status_ids)
+    end
+
+    def filter_progress_countable_statuses(scope)
+      return scope if progress_countable_status_ids.blank?
+
+      scope.with_status(statuses_vocabulary.terms.where(id: progress_countable_status_ids))
     end
 
     def attributes_for_slug
@@ -78,6 +100,16 @@ module GobiertoPlans
 
     def instance_level_custom_fields
       ::GobiertoCommon::CustomField.where(instance: self).sorted
+    end
+
+    private
+
+    def progress_countable_status_ids
+      @progress_countable_status_ids ||= if configuration_data&.key?("progress_countable_status_ids") && (ids = configuration_data["progress_countable_status_ids"]).present?
+        ids
+      else
+        []
+      end
     end
 
   end

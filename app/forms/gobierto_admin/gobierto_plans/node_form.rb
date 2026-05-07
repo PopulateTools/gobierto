@@ -203,7 +203,7 @@ module GobiertoAdmin
       end
 
       def moderation_visibility_level
-        moderation_policy.moderate? ? @moderation_visibility_level : nil
+        moderation_policy.moderate? && allow_publish? ? @moderation_visibility_level : nil
       end
 
       def status_id
@@ -277,6 +277,7 @@ module GobiertoAdmin
 
       def set_publication_version
         return if @version.present? || !has_versions?
+        return unless allow_publish?
 
         @visibility_level, @version = visibility_level.to_s.split("-")
 
@@ -373,7 +374,7 @@ module GobiertoAdmin
       def save_node
         set_node_attributes
         attributes_updated?
-        set_version_and_visibility_level
+        set_version_and_visibility_level if allow_publish?
 
         if @node.valid?
           @node.restore_attributes(ignored_attributes) if @node.changed? && ignored_attributes.present?

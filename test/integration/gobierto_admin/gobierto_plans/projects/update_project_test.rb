@@ -341,7 +341,6 @@ module GobiertoAdmin
           end
         end
 
-
         def test_edit_not_sent_project_as_regular_editor
           allow_regular_admin_edit_project(unpublished_project)
           unpublished_project.moderation.unsent!
@@ -378,6 +377,78 @@ module GobiertoAdmin
             assert_equal Date.parse("2021-01-01"), unpublished_project.ends_at
             assert unpublished_project.draft?
             assert unpublished_project.moderation.unsent?
+          end
+        end
+
+        def test_edit_not_sent_published_project_as_regular_editor
+          allow_regular_admin_edit_project(published_project)
+
+          with(site: site, admin: regular_admin) do
+            visit path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Because you have modified the project and do not have moderation permissions, its status has been moved to Not sent."
+            assert has_content? "Updated project"
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\n1"
+            assert has_content? "When your content is ready to be reviewed by a moderator, click on Send"
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project again"
+
+              within "div.widget_save_v2.editor" do
+                click_button "Send"
+              end
+            end
+
+            assert has_content? "Project updated correctly."
+            assert has_content? "Editing version\n3"
+            assert has_no_content? "When your content is ready to be reviewed by a moderator, click on Send"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\n1"
+          end
+        end
+
+        def test_send_not_sent_published_project_as_regular_editor
+          allow_regular_admin_edit_project(published_project)
+
+          with(site: site, admin: regular_admin) do
+            visit path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Because you have modified the project and do not have moderation permissions, its status has been moved to Not sent."
+            assert has_content? "Updated project"
+            assert has_content? "Editing version\n2"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\n1"
+            assert has_content? "When your content is ready to be reviewed by a moderator, click on Send"
+
+            within "form" do
+              within "div.widget_save_v2.editor" do
+                click_button "Send"
+              end
+            end
+
+            assert has_content? "Project updated correctly."
+            assert has_content? "Editing version\n2"
+            assert has_no_content? "When your content is ready to be reviewed by a moderator, click on Send"
+            assert has_content? "Status\nNot published"
+            assert has_content? "Published version\n1"
           end
         end
 

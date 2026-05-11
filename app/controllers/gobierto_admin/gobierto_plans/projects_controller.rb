@@ -242,6 +242,8 @@ module GobiertoAdmin
         )
 
         if @project_form.save
+          track_update_activity
+
           redirect_to(
             edit_admin_plans_plan_project_path(@plan, @project),
             notice: t(".success")

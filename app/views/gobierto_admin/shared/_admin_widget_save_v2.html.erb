@@ -132,7 +132,7 @@
                       data: { confirm: versioned_resource.first_publication_confirm_message }
                     ) %>
               </div>
-            <% elsif !moderated_resource.publicable? && allowed_admin_actions.include?(:edit_projects) && allowed_admin_actions.exclude?(:moderate) %>
+            <% elsif !moderated_resource.publicable? && allowed_admin_actions.include?(:edit_projects) && allowed_admin_actions.exclude?(:moderate_projects) %>
               <div class="w_s_txt_msg f_small m_t_4">
                 <%= t("gobierto_admin.shared.moderation_save_widget.moderation_info.#{moderated_resource.publish_moderation_step}") %>
               </div>

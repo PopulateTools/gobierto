@@ -32,10 +32,6 @@ module GobiertoPeople
       params[:only_calendar].present?
     end
 
-    def cache_service
-      @cache_service ||= GobiertoCommon::CacheService.new(current_site, "GobiertoPeople")
-    end
-
     def cache_path
       base_path = "#{current_site.cache_key_with_version}/#{current_module}/#{self.controller_name}/#{self.action_name}/#{I18n.locale}"
       base_path += "/#{params[:date]}" if params[:date].present?

@@ -29,8 +29,8 @@ module GobiertoPeople
         end
 
         respond_to do |format|
-          format.js { render "#{views_path}index" }
           format.html { render "#{views_path}index" }
+          format.js { render "#{views_path}index" }
         end
       end
 

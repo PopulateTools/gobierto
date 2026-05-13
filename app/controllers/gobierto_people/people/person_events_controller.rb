@@ -31,8 +31,8 @@ module GobiertoPeople
         end
 
         respond_to do |format|
-          format.js
           format.html
+          format.js
           format.json do
             render(json: { events: fullcalendar_events } )
           end

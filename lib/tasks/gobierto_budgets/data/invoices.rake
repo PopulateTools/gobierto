@@ -51,14 +51,12 @@ namespace :gobierto_budgets do
     desc "Clear previous invoices data"
     task :clear_previous_invoices_data, [:organization_id] => :environment do |_t, args|
       index = GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_INVOICES
-      type =  GobiertoBudgetsData::GobiertoBudgets::INVOICE_TYPE
       organization_id = args[:organization_id]
 
       puts "[START] clear-previous-providers/run.rb organization_id=#{organization_id}"
 
       terms = [
-        {term: { location_id: organization_id }},
-        {term: { type: type }}
+        {term: { location_id: organization_id }}
       ]
 
       query = {
@@ -72,13 +70,13 @@ namespace :gobierto_budgets do
 
       count = 0
       response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, body: query
-      while response['hits']['total'] > 0
+      while response['hits']['total']['value'] > 0
         delete_request_body = response['hits']['hits'].map do |h|
           count += 1
           { delete: h.slice("_index", "_type", "_id") }
         end
-        GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk index: index, type: type, body: delete_request_body
-        response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
+        GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk index: index, body: delete_request_body
+        response = GobiertoBudgetsData::GobiertoBudgets::SearchEngine.client.search index: index, body: query
       end
 
       puts "[END] clear-previous-providers/run.rb. Deleted #{count} items"

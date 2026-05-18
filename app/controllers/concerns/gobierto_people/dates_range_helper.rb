@@ -5,6 +5,9 @@ module GobiertoPeople
     extend ActiveSupport::Concern
 
     RANGE_PARAM_NAMES = %w(start_date end_date).freeze
+    CALENDAR_WINDOW_PARAM_NAMES = %w(date start_date end_date start end).freeze
+    CALENDAR_WINDOW_PAST_YEARS = 10
+    CALENDAR_WINDOW_FUTURE_YEARS = 3
 
     included do
       helper_method :site_configuration_dates_range?, :filter_start_date, :filter_end_date, :date_range_params, :all_start_date, :all_end_date
@@ -40,6 +43,29 @@ module GobiertoPeople
 
     def empty_date_range_param?
       (params.keys & RANGE_PARAM_NAMES).empty?
+    end
+
+    def enforce_calendar_date_window
+      return if calendar_date_params_within_window?
+
+      response.headers["Cache-Control"] = "public, max-age=86400"
+      head :unprocessable_entity
+    end
+
+    def calendar_date_params_within_window?
+      window = calendar_date_window
+      CALENDAR_WINDOW_PARAM_NAMES.all? do |key|
+        raw = params[key]
+        next true if raw.blank?
+
+        parsed = Time.zone.parse(raw.to_s) rescue nil
+        parsed && window.cover?(parsed.to_date)
+      end
+    end
+
+    def calendar_date_window
+      today = Date.current
+      (today - CALENDAR_WINDOW_PAST_YEARS.years)..(today + CALENDAR_WINDOW_FUTURE_YEARS.years)
     end
 
     private

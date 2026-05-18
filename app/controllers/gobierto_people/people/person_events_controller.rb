@@ -2,6 +2,7 @@ module GobiertoPeople
   module People
     class PersonEventsController < BaseController
 
+      before_action :enforce_calendar_date_window, only: :index
       before_action :set_calendar_events, only: [:index]
 
       caches_action(

@@ -5,7 +5,7 @@ module GobiertoAdmin
     before_action :managing_user
 
     def index
-      @admins = Admin.sorted.all
+      @admins = base_scope.sorted
     end
 
     def show
@@ -90,7 +90,15 @@ module GobiertoAdmin
     private
 
     def find_admin
-      Admin.find(params[:id])
+      base_scope.find(params[:id])
+    end
+
+    def base_scope
+      if current_admin.managing_user?
+        Admin.all
+      else
+        Admin.regular_on_site(current_site)
+      end
     end
 
     def admin_params

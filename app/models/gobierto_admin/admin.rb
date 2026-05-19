@@ -114,6 +114,10 @@ module GobiertoAdmin
       managing_user? || site_options_permissions.exists?(resource_type: :documents)
     end
 
+    def can_manage_admins?
+      managing_user? || site_options_permissions.exists?(resource_type: :admins)
+    end
+
     def admin_group_membership_created_at(group)
       membership = admin_group_memberships.find_by(admin_group: group)
 

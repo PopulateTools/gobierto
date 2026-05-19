@@ -75,6 +75,7 @@ ca:
     attributes:
       gobierto_admin/permission/site_option:
         resource_types:
+          admins: Administradors
           calendars: Agendes
           custom_fields: Camps personalitzats
           customize: Personalitzar site

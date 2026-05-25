@@ -135,7 +135,7 @@ module GobiertoAdmin
       admin_sites = params.present? ? params[:permitted_sites] : admin&.admin_sites&.pluck(:site_id)&.map(&:to_s)
       permitted_sites = current_admin_sites.select { |id| admin_sites.include?(id.to_s) }.presence || [current_site.id]
 
-      { permitted_sites: }
+      { permitted_sites: permitted_sites }
     end
 
     def ignored_admin_attributes

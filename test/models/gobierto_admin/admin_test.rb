@@ -98,5 +98,34 @@ module GobiertoAdmin
     def module_allowed?(_module_namespace)
       refute admin.module_allowed?("GobiertoCms")
     end
+
+    def test_can_manage_admins
+      assert god_admin.can_manage_admins?
+      assert manager_admin.can_manage_admins?
+      refute admin.can_manage_admins?
+
+      GobiertoAdmin::GroupPermission.create!(
+        admin_group: gobierto_admin_admin_groups(:madrid_group),
+        namespace: "site_options",
+        resource_type: "admins",
+        action_name: "manage"
+      )
+
+      assert admin.can_manage_admins?
+    end
+
+    def test_regular_or_disabled_on_site_scope
+      madrid = sites(:madrid)
+      podrick = gobierto_admin_admins(:podrick)
+      GobiertoAdmin::AdminSite.create!(admin: podrick, site: madrid)
+
+      madrid_admins = Admin.regular_or_disabled_on_site(madrid)
+
+      assert_includes madrid_admins, gobierto_admin_admins(:tony)
+      assert_includes madrid_admins, gobierto_admin_admins(:steve)
+      assert_includes madrid_admins, podrick
+      refute_includes madrid_admins, manager_admin
+      refute_includes madrid_admins, god_admin
+    end
   end
 end

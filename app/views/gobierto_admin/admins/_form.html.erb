@@ -35,8 +35,11 @@
       <% end %>
 
       <% unless @admin && @admin.god? %>
+        <% site_ids = @admin&.site_ids || @admin_form.permitted_sites %>
+        <% regular_authorization_level = @admin&.regular? || @admin_form.authorization_level == "regular" %>
+        <% hide_sites_selector = !current_admin.managing_user? && @sites.size == 1 %>
         <!-- Admin groups -->
-        <div class="form_block" id="admin_groups" style="<%= @admin&.regular? && @admin.sites.include?(current_site) ? '' : 'display: none;' %>">
+        <div class="form_block" id="admin_groups" style="<%= regular_authorization_level && site_ids.include?(current_site.id) ? '' : 'display: none;' %>">
 
           <h2><%= t(".admin_groups_block") %></h2>
 
@@ -44,7 +47,7 @@
 
             <div class="options compact">
               <%= f.collection_check_boxes(:admin_group_ids, Array(@admin_groups), :id, :name) do |b| %>
-                <div class="option" data-class="site_admin_group" data-site-id="<%= b.object.site_id %>" style="<%= @admin&.site_ids&.include?(b.object.site_id) ? '' : 'display: none;' %>">
+                <div class="option" data-class="site_admin_group" data-site-id="<%= b.object.site_id %>" style="<%= site_ids&.include?(b.object.site_id) ? '' : 'display: none;' %>">
                   <%= b.check_box %>
                   <%= b.label do %>
                     <span></span>
@@ -60,30 +63,36 @@
         <!-- ./ Admin groups -->
 
 
-        <!-- Site permissions -->
-        <div class="form_block" id="sites_permissions" style="<%= @admin.nil? || @admin.regular? ? '' : 'display: none;' %>">
+        <% if hide_sites_selector %>
+          <% @sites.each do |s| %>
+            <%= hidden_field_tag "admin[permitted_sites][]", s.id %>
+          <% end %>
+        <% else %>
+          <!-- Site permissions -->
+          <div class="form_block" id="sites_permissions" style="<%= regular_authorization_level ? '' : 'display: none;' %>">
 
-          <h2><%= t(".sites_block") %></h2>
+            <h2><%= t(".sites_block") %></h2>
 
-          <div class="form_item">
-          <p><%= t(".sites_block_description") %></p>
+            <div class="form_item">
+            <p><%= t(".sites_block_description") %></p>
 
-            <div class="options compact">
-              <%= f.collection_check_boxes(:permitted_sites, Array(@sites), :id, :domain) do |b| %>
-                <div class="option">
-                  <%= b.check_box(data: { behavior: 'toggle_site', site_id: b.object.id }) %>
-                  <%= b.label do %>
-                    <span></span>
-                    <%= b.text %>
-                  <% end %>
-                </div>
-              <% end %>
+              <div class="options compact">
+                <%= f.collection_check_boxes(:permitted_sites, Array(@sites), :id, :domain) do |b| %>
+                  <div class="option">
+                    <%= b.check_box(data: { behavior: 'toggle_site', site_id: b.object.id }) %>
+                    <%= b.label do %>
+                      <span></span>
+                      <%= b.text %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+
             </div>
 
           </div>
-
-        </div>
-        <!-- ./ Site permissions -->
+          <!-- ./ Site permissions -->
+        <% end %>
 
 
       <% end %>

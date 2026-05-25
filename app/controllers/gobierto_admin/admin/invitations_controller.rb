@@ -1,5 +1,7 @@
 module GobiertoAdmin
   class Admin::InvitationsController < BaseController
+    before_action :managing_user
+
     def new
       @admin_invitation_form = AdminInvitationForm.new
       @sites = get_sites
@@ -45,6 +47,10 @@ module GobiertoAdmin
 
     def default_activity_params
       { ip: remote_ip, author: current_admin }
+    end
+
+    def managing_user
+      redirect_to admin_users_path and return false unless current_admin.managing_user?
     end
   end
 end

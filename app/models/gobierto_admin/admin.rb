@@ -44,6 +44,7 @@ module GobiertoAdmin
     scope :god, -> { where(god: true) }
     scope :active, -> { where.not(authorization_level: authorization_levels[:disabled]) }
     scope :regular_on_site, ->(site) { regular.joins(:sites).where(admin_admin_sites: {site_id: site.id}) }
+    scope :regular_or_disabled_on_site, ->(site) { where(authorization_level: [:regular, :disabled]).joins(:sites).where(admin_admin_sites: {site_id: site.id}) }
 
     enum authorization_level: { regular: 0, manager: 1, disabled: 2 }
 
@@ -112,6 +113,10 @@ module GobiertoAdmin
 
     def can_edit_documents?
       managing_user? || site_options_permissions.exists?(resource_type: :documents)
+    end
+
+    def can_manage_admins?
+      managing_user? || site_options_permissions.exists?(resource_type: :admins)
     end
 
     def admin_group_membership_created_at(group)

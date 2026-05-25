@@ -68,7 +68,7 @@ module GobiertoAdmin
     end
 
     def set_permitted_sites(attributes)
-      if authorization_level != "regular"
+      if %w(disabled regular).exclude?(authorization_level)
         @permitted_sites = []
         @sites = Site.none
       elsif attributes[:permitted_sites].present?

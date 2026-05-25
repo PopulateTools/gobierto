@@ -161,7 +161,11 @@ module GobiertoAdmin
     def set_authorization_levels
       return unless @admin_policy.manage_authorization_levels?
 
-      @admin_authorization_levels = Admin.authorization_levels
+      @admin_authorization_levels = if current_admin.managing_user?
+                                      Admin.authorization_levels
+                                    else
+                                      Admin.authorization_levels.slice(:regular, :disabled)
+                                    end
     end
 
     def set_activities

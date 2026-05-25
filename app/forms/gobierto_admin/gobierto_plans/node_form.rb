@@ -287,10 +287,13 @@ module GobiertoAdmin
                        1
                      end
 
-        @published_version = if @visibility_level == "published"
-                               candidate = (@version || node.published_version || node.versions.count).to_i
-                               candidate.positive? ? candidate : nil
-                             end
+        # Pick the first positive candidate. node.versions.count is the auto-heal
+        # for projects with a missing or 0 published_version: it points at the
+        # current last version (i.e. the live state). When the admin is not
+        # publishing automatically, set_version_and_visibility_level leaves it
+        # here, so after paper_trail creates a new version on save the
+        # published_version is still the prior live state — not the new last.
+        @published_version = [@version.to_i, node.published_version.to_i, node.versions.count].find(&:positive?) if @visibility_level == "published"
       end
 
       def disable_attributes_edition

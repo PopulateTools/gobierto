@@ -905,6 +905,106 @@ module GobiertoAdmin
             assert unpublished_project.published?
           end
         end
+
+        def test_save_published_project_with_null_published_version_keeps_it_published
+          allow_regular_admin_moderate_all_projects
+          allow_regular_admin_publish_all_projects
+          allow_regular_admin_edit_all_projects
+
+          # Legacy / inconsistent state: visibility_level=published but
+          # published_version=nil. Without the node_form fix, the next save
+          # would coerce published_version to 0 and check_published_version
+          # would unpublish the project as a side effect of /update.
+          published_project.update_columns(published_version: nil)
+          existing_versions_count = published_project.versions.count
+
+          with(site: site, admin: regular_admin) do
+            visit path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Project updated correctly."
+
+            published_project.reload
+
+            assert published_project.published?, "Project must remain published after save"
+            assert_equal existing_versions_count, published_project.published_version,
+              "published_version should stay at the prior last version, not advance to the version paper_trail just created"
+            assert_operator published_project.versions.count, :>, published_project.published_version,
+              "after saving changes, the new last version must not be the published one"
+          end
+        end
+
+        def test_save_published_project_with_zero_published_version_keeps_it_published
+          allow_regular_admin_moderate_all_projects
+          allow_regular_admin_publish_all_projects
+          allow_regular_admin_edit_all_projects
+
+          # Corrupted state: published_version=0 (residue from a prior run of the
+          # nil-coercion bug, or any backfill that wrote 0). Ruby's 0 is truthy,
+          # so a naive `value || fallback` would short-circuit here. The fallback
+          # must skip non-positive values to actually heal the row.
+          published_project.update_columns(published_version: 0)
+          existing_versions_count = published_project.versions.count
+
+          with(site: site, admin: regular_admin) do
+            visit path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+
+            published_project.reload
+
+            assert published_project.published?, "Project must remain published after save"
+            assert_equal existing_versions_count, published_project.published_version,
+              "published_version=0 should be auto-healed to the prior last version"
+          end
+        end
+
+        def test_save_published_project_with_null_published_version_publishes_new_last_when_publish_automatically
+          allow_regular_admin_moderate_all_projects
+          allow_regular_admin_publish_all_projects
+          allow_regular_admin_edit_all_projects
+
+          # Same broken state as above, but the admin opts in to "publish
+          # automatically this version" — paper_trail will create a new
+          # version on save and that new last version must become the
+          # published one.
+          published_project.update_columns(published_version: nil)
+          existing_versions_count = published_project.versions.count
+
+          with(site: site, admin: regular_admin) do
+            visit path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+              check "project_publish_last_version_automatically"
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+
+            published_project.reload
+
+            assert published_project.published?, "Project must remain published after save"
+            assert_equal existing_versions_count + 1, published_project.published_version,
+              "with publish_last_version_automatically the new last version must be published"
+            assert_equal published_project.versions.count, published_project.published_version,
+              "published_version must point at the latest paper_trail version"
+          end
+        end
       end
     end
   end

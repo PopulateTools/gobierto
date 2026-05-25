@@ -13,7 +13,10 @@ module GobiertoAdmin
     end
 
     def new
-      @admin_form = AdminForm.new(site: current_site)
+      new_form_attributes = { site: current_site }
+      new_form_attributes[:permitted_sites] = available_sites.pluck(:id) if available_sites.one?
+
+      @admin_form = AdminForm.new(new_form_attributes)
 
       set_admin_policy
       set_sites
@@ -29,6 +32,8 @@ module GobiertoAdmin
           permitted_sites: @admin.sites.pluck(:id),
           admin_group_ids: @admin.admin_groups.pluck(:id),
           site: current_site
+        ).merge(
+          restricted_permitted_sites(admin: @admin)
         )
       )
 
@@ -49,6 +54,8 @@ module GobiertoAdmin
           password: random_password,
           password_confirmation: random_password,
           site: current_site
+        ).merge(
+          restricted_permitted_sites(params: admin_params)
         )
       )
 
@@ -71,7 +78,7 @@ module GobiertoAdmin
       set_admin_policy
       raise Errors::NotAuthorized unless @admin_policy.update?
 
-      @admin_form = AdminForm.new(admin_params.merge(id: params[:id], site: current_site))
+      @admin_form = AdminForm.new(admin_params.merge(id: params[:id], site: current_site).merge(restricted_permitted_sites(admin: @admin, params: admin_params)))
 
       set_sites
       set_admin_groups
@@ -119,6 +126,16 @@ module GobiertoAdmin
         permitted_sites: [],
         admin_group_ids: []
       )
+    end
+
+    def restricted_permitted_sites(admin: nil, params: {})
+      return {} if current_admin.managing_user?
+
+      current_admin_sites = current_admin.admin_sites.pluck(:site_id)
+      admin_sites = params.present? ? params[:permitted_sites] : admin&.admin_sites&.pluck(:site_id)&.map(&:to_s)
+      permitted_sites = current_admin_sites.select { |id| admin_sites.include?(id.to_s) }.presence || [current_site.id]
+
+      { permitted_sites: }
     end
 
     def ignored_admin_attributes

@@ -101,6 +101,14 @@ module GobiertoAdmin
       end
     end
 
+    def available_sites
+      @available_sites ||= if current_admin.managing_user?
+        Site.all
+      else
+        current_admin.sites
+      end
+    end
+
     def admin_params
       params.require(:admin).permit(
         :email,
@@ -126,7 +134,7 @@ module GobiertoAdmin
     end
 
     def set_sites
-      @sites = Site.select(:id, :domain).all
+      @sites = available_sites.select(:id, :domain)
     end
 
     def set_admin_groups

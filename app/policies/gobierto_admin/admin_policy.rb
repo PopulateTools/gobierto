@@ -10,13 +10,13 @@ module GobiertoAdmin
     def update?
       return true unless admin.present?
 
-      god_or_manager_skipping_god
+      god_or_manager_skipping_god || regular_admin_managing_regular_admins
     end
 
     def manage_permissions?
       return true unless admin.present?
 
-      god_or_manager_skipping_god
+      god_or_manager_skipping_god || regular_admin_managing_regular_admins
     end
 
     def manage_sites?
@@ -28,7 +28,7 @@ module GobiertoAdmin
     def manage_authorization_levels?
       return true unless admin.present?
 
-      god_or_manager_skipping_god
+      god_or_manager_skipping_god || regular_admin_managing_regular_admins
     end
 
     private
@@ -39,6 +39,10 @@ module GobiertoAdmin
 
     def god_or_manager_skipping_god
       admin_user.god? || (admin_user.manager? && !admin.god?)
+    end
+
+    def regular_admin_managing_regular_admins
+      admin_user.can_manage_admins? && (admin.regular? || admin.disabled?)
     end
   end
 end

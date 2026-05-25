@@ -97,7 +97,7 @@ module GobiertoAdmin
       if current_admin.managing_user?
         Admin.all
       else
-        Admin.regular_on_site(current_site)
+        Admin.regular_or_disabled_on_site(current_site)
       end
     end
 

@@ -44,6 +44,7 @@ module GobiertoAdmin
     scope :god, -> { where(god: true) }
     scope :active, -> { where.not(authorization_level: authorization_levels[:disabled]) }
     scope :regular_on_site, ->(site) { regular.joins(:sites).where(admin_admin_sites: {site_id: site.id}) }
+    scope :regular_or_disabled_on_site, ->(site) { where(authorization_level: [:regular, :disabled]).joins(:sites).where(admin_admin_sites: {site_id: site.id}) }
 
     enum authorization_level: { regular: 0, manager: 1, disabled: 2 }
 

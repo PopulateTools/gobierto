@@ -18,6 +18,35 @@ Rack::Attack.throttle("agendas by ip", limit: 10, period: 10.seconds) do |reques
   request.ip if request.path.match?(%r{\A(?:/[a-z]{2})?/agendas(/|\z)})
 end
 
+module RackAttackHelpers
+  AGENDAS_PATH_REGEX = %r{\A(?:/[a-z]{2})?/agendas(/|\z)}.freeze
+  CALENDAR_PARAMS = %w(date start_date end_date start end).freeze
+
+  def self.agendas_date_out_of_window?(request)
+    return false unless request.get?
+
+    today = Date.current
+    window = (today - GobiertoPeople::DatesRangeHelper::CALENDAR_WINDOW_PAST_YEARS.years)..
+             (today + GobiertoPeople::DatesRangeHelper::CALENDAR_WINDOW_FUTURE_YEARS.years)
+
+    CALENDAR_PARAMS.any? do |key|
+      raw = request.params[key]
+      next false if raw.blank?
+
+      parsed = Date.parse(raw.to_s) rescue nil
+      parsed.nil? || !window.cover?(parsed)
+    end
+  end
+end
+
+Rack::Attack.blocklist("fail2ban agendas bogus dates") do |request|
+  next false unless request.path.match?(RackAttackHelpers::AGENDAS_PATH_REGEX)
+
+  Rack::Attack::Fail2Ban.filter("agendas-#{request.ip}", maxretry: 5, findtime: 5.minutes, bantime: 1.hour) do
+    RackAttackHelpers.agendas_date_out_of_window?(request)
+  end
+end
+
 Rack::Attack.throttle("requests by ip hourly", limit: 1000, period: 1.hour) do |request|
   request.ip
 end

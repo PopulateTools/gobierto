@@ -287,7 +287,10 @@ module GobiertoAdmin
                        1
                      end
 
-        @published_version = @visibility_level == "published" ? (@version || node.published_version).to_i : nil
+        @published_version = if @visibility_level == "published"
+                               candidate = (@version || node.published_version || node.versions.count).to_i
+                               candidate.positive? ? candidate : nil
+                             end
       end
 
       def disable_attributes_edition

@@ -905,6 +905,39 @@ module GobiertoAdmin
             assert unpublished_project.published?
           end
         end
+
+        def test_save_published_project_with_null_published_version_keeps_it_published
+          allow_regular_admin_moderate_all_projects
+          allow_regular_admin_publish_all_projects
+          allow_regular_admin_edit_all_projects
+
+          # Legacy / inconsistent state: visibility_level=published but
+          # published_version=nil. Without the node_form fix, the next save
+          # would coerce published_version to 0 and check_published_version
+          # would unpublish the project as a side effect of /update.
+          published_project.update_columns(published_version: nil)
+          existing_versions_count = published_project.versions.count
+
+          with(site: site, admin: regular_admin) do
+            visit path
+
+            within "form" do
+              fill_in "project_name_translations_en", with: "Updated project"
+
+              within "div.widget_save_v2.editor" do
+                click_button "Save"
+              end
+            end
+
+            assert has_message? "Project updated correctly."
+
+            published_project.reload
+
+            assert published_project.published?, "Project must remain published after save"
+            assert_equal existing_versions_count, published_project.published_version,
+              "published_version should be auto-healed to the version count that existed when the form was built"
+          end
+        end
       end
     end
   end

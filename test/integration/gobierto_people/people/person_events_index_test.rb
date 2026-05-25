@@ -177,6 +177,31 @@ module GobiertoPeople
         end
       end
 
+      def test_person_events_with_out_of_window_date_responds_unprocessable
+        with_current_site(site) do
+          visit gobierto_people_person_events_path(richard.slug, date: "1980-01-01")
+
+          assert_equal 422, page.status_code
+          assert_includes page.response_headers["Cache-Control"].to_s, "public"
+        end
+      end
+
+      def test_person_events_with_out_of_window_start_date_responds_unprocessable
+        with_current_site(site) do
+          visit gobierto_people_person_events_path(richard.slug, start_date: "2033-10-03")
+
+          assert_equal 422, page.status_code
+        end
+      end
+
+      def test_person_past_events_with_out_of_window_date_responds_unprocessable
+        with_current_site(site) do
+          visit gobierto_people_person_past_events_path(richard.slug, date: "1980-01-01")
+
+          assert_equal 422, page.status_code
+        end
+      end
+
     end
   end
 end

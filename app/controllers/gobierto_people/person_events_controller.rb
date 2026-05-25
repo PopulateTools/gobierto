@@ -5,6 +5,7 @@ module GobiertoPeople
     include DatesRangeHelper
 
     before_action :check_active_submodules
+    before_action :enforce_calendar_date_window, only: :index
 
     caches_action(
       :index,

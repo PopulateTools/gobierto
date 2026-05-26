@@ -16,15 +16,13 @@
 </div>
 
 <div class="admin_tools right">
-  <% if current_admin.managing_user? %>
-    <%= link_to new_admin_admin_invitations_path do %>
-      <i class="fas fa-envelope"></i>
-      <%= t(".send_invitations") %>
-    <% end %>
-    <%= link_to  admin_admin_groups_path do %>
-      <i class="fas fa-users"></i>
-      <%= t(".groups_and_permissions") %>
-    <% end %>
+  <%= link_to new_admin_admin_invitations_path do %>
+    <i class="fas fa-envelope"></i>
+    <%= t(".send_invitations") %>
+  <% end %>
+  <%= link_to  admin_admin_groups_path do %>
+    <i class="fas fa-users"></i>
+    <%= t(".groups_and_permissions") %>
   <% end %>
   <%= link_to t(".new"), new_admin_admin_path, class: "button" %>
 </div>

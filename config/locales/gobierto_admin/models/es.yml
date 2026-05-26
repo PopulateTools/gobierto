@@ -75,6 +75,7 @@ es:
     attributes:
       gobierto_admin/permission/site_option:
         resource_types:
+          admins: Administradores
           calendars: Agendas
           custom_fields: Campos personalizados
           customize: Personalizar sitio

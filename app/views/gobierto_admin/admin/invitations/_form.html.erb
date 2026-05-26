@@ -12,27 +12,34 @@
       </div>
 
       <% if @sites.present? %>
-        <div class="form_block">
+        <% hide_sites_selector = !current_admin.managing_user? && @sites.size == 1 %>
+        <% if hide_sites_selector %>
+          <% @sites.each do |s| %>
+            <%= hidden_field_tag "admin_invitation[site_ids][]", s.id %>
+          <% end %>
+        <% else %>
+          <div class="form_block">
 
-          <h2><%= t(".sites") %></h2>
+            <h2><%= t(".sites") %></h2>
 
-          <div class="form_item site-check-boxes">
+            <div class="form_item site-check-boxes">
 
-            <div class="options compact">
-              <%= f.collection_check_boxes(:site_ids, Array(@sites), :id, :domain) do |b| %>
-                <div class="option">
-                  <%= b.check_box %>
-                  <%= b.label do %>
-                    <span></span>
-                    <%= b.text %>
-                  <% end %>
-                </div>
-              <% end %>
+              <div class="options compact">
+                <%= f.collection_check_boxes(:site_ids, Array(@sites), :id, :domain) do |b| %>
+                  <div class="option">
+                    <%= b.check_box %>
+                    <%= b.label do %>
+                      <span></span>
+                      <%= b.text %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+
             </div>
 
           </div>
-
-        </div>
+        <% end %>
       <% end %>
 
     </div>

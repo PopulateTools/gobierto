@@ -21,6 +21,14 @@ module GobiertoAdmin
       @madrid_group ||= gobierto_admin_admin_groups(:madrid_group)
     end
 
+    def madrid
+      @madrid ||= sites(:madrid)
+    end
+
+    def santander
+      @santander ||= sites(:santander)
+    end
+
     def grant_admins_permission_to_regular_admin
       GobiertoAdmin::GroupPermission.create!(
         admin_group: madrid_group,
@@ -59,14 +67,41 @@ module GobiertoAdmin
       end
     end
 
-    def test_regular_admin_with_admins_permission_does_not_see_invitation_link
+    def test_regular_admin_without_admins_permission_is_redirected_from_invitations
+      with_signed_in_admin(regular_admin) do
+        visit @new_invitation_path
+
+        assert_current_path admin_users_path
+        assert has_no_field?(:admin_invitation_emails)
+      end
+    end
+
+    def test_regular_admin_with_admins_permission_sees_invitation_link
       grant_admins_permission_to_regular_admin
 
       with_signed_in_admin(regular_admin) do
         visit admin_admins_path
 
-        assert has_no_link?("Send invitations")
-        assert has_no_link?("Groups and permissions")
+        assert has_link?("Send invitations")
+        assert has_link?("Groups and permissions")
+      end
+    end
+
+    def test_regular_admin_with_admins_permission_only_invites_on_managed_sites
+      grant_admins_permission_to_regular_admin
+
+      with_signed_in_admin(regular_admin) do
+        visit @new_invitation_path
+
+        # Regular admin steve only manages madrid -> sites selector is hidden
+        # and the single site is submitted as a hidden input.
+        assert has_no_selector?(".site-check-boxes")
+        assert has_selector?("input[type=hidden][name='admin_invitation[site_ids][]']", visible: false, count: 1)
+
+        fill_in :admin_invitation_emails, with: "foo@gobierto.dev"
+        click_on "Send"
+
+        assert has_message?("The invitations have been successfully sent")
       end
     end
   end

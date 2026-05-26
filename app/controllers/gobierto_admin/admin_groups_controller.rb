@@ -147,7 +147,7 @@ module GobiertoAdmin
     end
 
     def managing_user
-      redirect_to admin_users_path and return false unless current_admin.managing_user?
+      redirect_to admin_users_path and return false unless current_admin.can_manage_admins?
     end
   end
 end

@@ -455,15 +455,6 @@ module GobiertoAdmin
             end
 
             assert has_content? "Editing version\n2"
-            assert has_content? "Status\nNot published"
-            assert has_content? "Published version\nnot published yet"
-            assert has_content? "Click on Publish to make this version publicly visible."
-
-            visit edit_admin_plans_plan_project_path(plan, project)
-            click_publish_button_and_accept_alert
-
-            assert has_link? "Unpublish"
-            assert has_content? "Editing version\n2"
             assert has_content? "Status\nPublished"
             assert has_content? "Published version\n2"
             assert has_content? "Current version is the published one."

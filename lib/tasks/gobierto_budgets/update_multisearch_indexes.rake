@@ -50,7 +50,7 @@ namespace :gobierto_budgets do
       GobiertoBudgets::BudgetLine.new(
         site: site,
         index: index,
-        area_name: elasticsearch_hit["_type"],
+        area_name: elasticsearch_hit["_source"]["type"],
         kind: elasticsearch_hit["_source"]["kind"],
         code: elasticsearch_hit["_source"]["code"],
         year: elasticsearch_hit["_source"]["year"],

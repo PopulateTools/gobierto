@@ -1359,11 +1359,6 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jquery@^2.0.32":
-  version "2.0.56"
-  resolved "https://registry.npmjs.org/@types/jquery/-/jquery-2.0.56.tgz"
-  integrity sha512-tcNulMBr4fuMeBhwrRNQw3JaWg7vXP9bi64nKM5qYbaIN/oyo4n9O4TG5Thyn1BmhH159XvDxD4y3kqqpYS4sg==
-
 "@types/node@*":
   version "14.14.7"
   resolved "https://registry.npmjs.org/@types/node/-/node-14.14.7.tgz"
@@ -2655,13 +2650,10 @@ detectie@1.0.0:
   resolved "https://registry.npmjs.org/detectie/-/detectie-1.0.0.tgz"
   integrity sha1-ZrLK4iNtTSnvcRYRgJV7+J++U10=
 
-devbridge-autocomplete@^1.4.7:
-  version "1.4.11"
-  resolved "https://registry.npmjs.org/devbridge-autocomplete/-/devbridge-autocomplete-1.4.11.tgz"
-  integrity sha512-lRU1y9IKyPm45NKDMcujszJoftw+wqxKbtcNJoMx+LywJQJdDwjg/s4lwLYR4vyQQ6VTcUaIeveLMkZTqorBIA==
-  dependencies:
-    "@types/jquery" "^2.0.32"
-    jquery ">=1.7"
+devbridge-autocomplete@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/devbridge-autocomplete/-/devbridge-autocomplete-2.0.1.tgz#611a92122892a04a76c17a71f9f904bb6f6283be"
+  integrity sha512-Y4ftxTnLVjfDfGXbhaIh3l6jrYQJuTQDLH1WoPkzd3XMKJo5eYFv83I53wXRxeuO3L2WWAYZA+oa0t5eiSMx0A==
 
 diff-sequences@^27.0.1:
   version "27.0.1"
@@ -4350,7 +4342,7 @@ jqtree@^1.4.5:
   dependencies:
     jquery ">=1.9"
 
-"jquery@>= 1.4.3", jquery@>=1.7, jquery@>=1.9, "jquery@>=2.0.0 <4.0.0", jquery@^3.5.0:
+"jquery@>= 1.4.3", jquery@>=1.9, "jquery@>=2.0.0 <4.0.0", jquery@^3.5.0:
   version "3.6.0"
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==

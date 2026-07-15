@@ -260,6 +260,27 @@ module GobiertoPeople
       end
     end
 
+    def test_present_groups_classification_runs_a_single_query
+      events_table = GobiertoCalendars::Event.table_name
+      people_table = GobiertoPeople::Person.table_name
+
+      with_current_site(site) do
+        classification_queries = []
+        subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
+          sql = ActiveSupport::Notifications::Event.new(*args).payload[:sql]
+          classification_queries << sql if sql.include?(events_table) && sql.include?(people_table)
+        end
+
+        get @path_for_json
+
+        assert_equal 1, classification_queries.size,
+          "expected present-groups classification to run a single query, got #{classification_queries.size}:\n" \
+          "#{classification_queries.join("\n")}"
+      ensure
+        ActiveSupport::Notifications.unsubscribe(subscriber)
+      end
+    end
+
     def test_person_events_filter_for_groups_with_no_events
       with_current_site(site) do
         visit @path

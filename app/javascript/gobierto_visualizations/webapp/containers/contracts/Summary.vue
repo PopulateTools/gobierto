@@ -132,6 +132,11 @@ export default {
       showColumns: [],
       value: "",
       isGobiertoVizzsLoaded: false,
+      // The vizzs live under a v-show tab. When the Summary tab is hidden we
+      // defer their (expensive) rebuild and just remember data changed, so
+      // clearing a filter on the contracts table no longer blocks ~2s
+      // rebuilding two full treemaps off-screen. We flush on becoming visible.
+      vizzDirty: false,
       labelMainAssignees: I18n.t("gobierto_visualizations.visualizations.contracts.main_assignees") || "",
       labelBeesWarm: I18n.t("gobierto_visualizations.visualizations.visualizations.title_beeswarm") || "",
       labelTooltipBeesWarm: I18n.t("gobierto_visualizations.visualizations.visualizations.tooltip_beeswarm") || "",
@@ -189,18 +194,28 @@ export default {
   },
   watch: {
     visualizationsDataExcludeNoCategory(n) {
+      if (!this.vizzsVisible()) { this.vizzDirty = true; return }
       n.length && this.treemapCategory?.setData(n)
     },
     visualizationsDataEntity(n) {
+      if (!this.vizzsVisible()) { this.vizzDirty = true; return }
       n.length && this.treemapEntity?.setData(n)
     },
     visualizationsDataExcludeMinorContract(n) {
+      if (!this.vizzsVisible()) { this.vizzDirty = true; return }
       n.length && this.beeswarm?.setData(n)
     },
     $route(to, from) {
-      if (to.path !== from.path && !this.isGobiertoVizzsLoaded) {
-        this.initGobiertoVizzs()
-      }
+      if (to.path === from.path) return
+      // Wait a tick so the v-show tab has actually toggled its display before
+      // we probe visibility / measure the containers.
+      this.$nextTick(() => {
+        if (!this.isGobiertoVizzsLoaded) {
+          this.initGobiertoVizzs()
+        } else {
+          this.refreshVizzsIfDirty()
+        }
+      })
     }
   },
   created() {
@@ -212,6 +227,24 @@ export default {
     this.initGobiertoVizzs()
   },
   methods: {
+    // Is the Summary tab actually on screen? Mirror the exact condition Home.vue
+    // uses for its v-show (route name === 'summary'), so we never skip a vizz
+    // update while the tab is really visible.
+    vizzsVisible() {
+      return this.$route && this.$route.name === 'summary'
+    },
+    // Push the current (filtered) data into the already-built vizzs. Called when
+    // the tab becomes visible again after filter changes were deferred.
+    refreshVizzsIfDirty() {
+      if (!this.vizzDirty || !this.vizzsVisible()) return
+      this.vizzDirty = false
+      const category = this.visualizationsDataExcludeNoCategory
+      const entity = this.visualizationsDataEntity
+      const minorExcluded = this.visualizationsDataExcludeMinorContract
+      category.length && this.treemapCategory?.setData(category)
+      entity.length && this.treemapEntity?.setData(entity)
+      minorExcluded.length && this.beeswarm?.setData(minorExcluded)
+    },
     initGobiertoVizzs() {
       const treemapCategory = this.$refs["treemap-category"]
       const treemapEntity = this.$refs["treemap-entity"]
@@ -261,6 +294,8 @@ export default {
         })
 
         this.isGobiertoVizzsLoaded = true
+        // Freshly built from the current computeds, so nothing is pending.
+        this.vizzDirty = false
       }
     },
     tooltipBeeSwarm(d) {

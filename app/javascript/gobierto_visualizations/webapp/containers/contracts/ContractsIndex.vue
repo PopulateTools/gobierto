@@ -5,6 +5,7 @@
     :sort-direction="'desc'"
     :columns="contractsColumns"
     :show-columns="showColumns"
+    :href-builder="rowHref"
     class="gobierto-table-margin-top gobierto-table-scroll"
     @on-href-click="goesToTableItem"
   />
@@ -44,7 +45,9 @@ export default {
 
     EventBus.$on('filtered-items', (value) => this.updateFilteredItems(value))
 
-    this.items = this.contractsData.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
+    // Keep the frozen rows as-is (no per-row href clone); the link is built
+    // on demand via rowHref, so Object.freeze keeps working on the full dataset.
+    this.items = this.contractsData
     this.columns = getContractsColumns();
     this.showColumns = ['assignee', 'title', 'gobierto_start_date', 'final_amount_no_taxes']
   },
@@ -61,7 +64,9 @@ export default {
         .filter(contract => contract.assignee.toLowerCase().includes(query)
           || contract.title.toLowerCase().includes(query)
           || (contract.document_number || '').toLowerCase().includes(query))
-        .map(d => ({ ...d, href: `${location.origin}/visualizaciones/contratos/adjudicaciones/${d.id}` } ))
+    },
+    rowHref(item) {
+      return `${location.origin}/visualizaciones/contratos/adjudicaciones/${item.id}`
     },
     goesToTableItem(item) {
       const { id: routingId } = item

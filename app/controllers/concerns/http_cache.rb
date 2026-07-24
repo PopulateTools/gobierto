@@ -5,7 +5,7 @@ module HttpCache
     if user_signed_in? || admin_authorized?
       response.headers["Cache-Control"] = "private"
     else
-      response.headers["Cache-Control"] = "public,#{60*60*24}" # 1 day
+      response.headers["Cache-Control"] = "public, max-age=#{60*60*24}" # 1 day
     end
   rescue NoMethodError
     response.headers["Cache-Control"] = "private"

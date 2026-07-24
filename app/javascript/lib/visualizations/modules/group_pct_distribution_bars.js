@@ -47,6 +47,12 @@ export class GroupPctDistributionBars {
         .attr("rx", 4)
         .attr("ry", 4);
 
+      // Materialize the filtered row count once per redraw instead of once per
+      // bar: dimension.top(Infinity) sorts the whole dataset, so calling it in
+      // the per-tspan callback was O(bars) full sorts. The count is the same for
+      // every bar, and it's only needed while a filter is active.
+      const filteredCount = chart.hasFilter() ? dimension.top(Infinity).length : 0;
+
       // Custom labels
       chart
         .selectAll("text.row")
@@ -60,7 +66,7 @@ export class GroupPctDistributionBars {
             labelValue = 0.0;
           } else if (this.hasFilter() && this.hasFilter(d.key)) {
             labelValue = !groupValue
-              ? parseFloat(divide(d.value, dimension.top(Infinity).length))
+              ? parseFloat(divide(d.value, filteredCount))
               : d.value;
           } else {
             labelValue = !groupValue

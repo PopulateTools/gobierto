@@ -236,11 +236,22 @@ export default {
       this.estimated_value = +estimated_value
     }
 
-    if (this.hasBatch) this.groupBatches()
+    if (this.hasBatch) {
+      this.groupBatches()
+      this.setTenderTitle()
+    }
   },
   methods: {
     groupBatches() {
       this.filterContractsBatches = this.contractsData.filter(({ id }) => id === this.contract.id).sort((a, b) => a.batch_number - b.batch_number);
+    },
+    setTenderTitle() {
+      // Lots share the tender id but each carries its own (lot-specific) title.
+      // Use the tender's own title for the header when available, falling back
+      // to the lot title otherwise.
+      const tendersData = this.$root.$data.tendersData || []
+      const tender = tendersData.find(({ id }) => id === this.contract.id)
+      if (tender && tender.title) this.title = tender.title
     }
   }
 }

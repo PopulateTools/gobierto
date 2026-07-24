@@ -240,7 +240,7 @@ export default {
   },
   methods: {
     groupBatches() {
-      this.filterContractsBatches = this.contractsData.filter(({ title }) => title === this.title).sort((a, b) => a.batch_number - b.batch_number);
+      this.filterContractsBatches = this.contractsData.filter(({ id }) => id === this.contract.id).sort((a, b) => a.batch_number - b.batch_number);
     }
   }
 }

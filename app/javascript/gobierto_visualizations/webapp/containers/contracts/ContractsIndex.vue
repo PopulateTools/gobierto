@@ -54,12 +54,13 @@ export default {
   methods: {
     updateFilteredItems(value) {
       this.value = value || ''
+      // Lowercase the query once instead of per row (see SearchFilter).
+      const query = this.value.toLowerCase()
 
       this.items = this.contractsData
-        .filter(contract => contract.assignee.toLowerCase()
-        .includes(this.value.toLowerCase()) || contract.title.toLowerCase()
-        .includes(this.value.toLowerCase()) || (contract.document_number || '').toLowerCase()
-        .includes(this.value.toLowerCase()))
+        .filter(contract => contract.assignee.toLowerCase().includes(query)
+          || contract.title.toLowerCase().includes(query)
+          || (contract.document_number || '').toLowerCase().includes(query))
         .map(d => ({ ...d, href: `${location.origin}/visualizaciones/contratos/adjudicaciones/${d.id}` } ))
     },
     goesToTableItem(item) {

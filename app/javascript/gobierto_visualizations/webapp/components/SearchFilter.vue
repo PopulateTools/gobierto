@@ -52,7 +52,7 @@ export default {
       if (this.searchType === 'Subsidies') {
         filterItems = this.data.filter(contract => contract.beneficiary_name.toLowerCase().includes(value.toLowerCase()))
       } else {
-        filterItems = this.data.filter(contract => contract.assignee.toLowerCase().includes(value.toLowerCase()) || contract.title.toLowerCase().includes(value.toLowerCase()))
+        filterItems = this.data.filter(contract => contract.assignee.toLowerCase().includes(value.toLowerCase()) || contract.title.toLowerCase().includes(value.toLowerCase()) || (contract.document_number || '').toLowerCase().includes(value.toLowerCase()))
       }
 
       EventBus.$emit('filtered-items', value)

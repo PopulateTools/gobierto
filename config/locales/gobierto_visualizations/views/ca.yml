@@ -107,7 +107,7 @@ ca:
           summary: Resum
           tenders: Licitacions
         process_type: Tipus de procediment
-        search_placeholder: Cerqueu per adjudicatari o per títol del contracte
+        search_placeholder: Cerqueu per adjudicatari, títol o codi d'expedient
         status: Estat
         submission_date: Data
         summary:

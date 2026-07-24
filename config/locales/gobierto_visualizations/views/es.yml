@@ -108,7 +108,7 @@ es:
           summary: Resumen
           tenders: Licitaciones
         process_type: Tipo de procedimiento
-        search_placeholder: Busca por adjudicatario o por título del contrato
+        search_placeholder: Busca por adjudicatario, título o código de expediente
         status: Estado
         submission_date: Fecha
         summary:

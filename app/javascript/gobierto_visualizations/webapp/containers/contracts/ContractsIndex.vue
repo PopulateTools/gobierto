@@ -58,6 +58,7 @@ export default {
       this.items = this.contractsData
         .filter(contract => contract.assignee.toLowerCase()
         .includes(this.value.toLowerCase()) || contract.title.toLowerCase()
+        .includes(this.value.toLowerCase()) || (contract.document_number || '').toLowerCase()
         .includes(this.value.toLowerCase()))
         .map(d => ({ ...d, href: `${location.origin}/visualizaciones/contratos/adjudicaciones/${d.id}` } ))
     },

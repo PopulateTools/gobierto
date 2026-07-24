@@ -58,11 +58,14 @@ export default {
   methods: {
     handlerFilterItems() {
       const value = this.search
+      // Lowercase the query once instead of per row (the filter scans the whole
+      // dataset, so on large sites this is tens of thousands of calls saved).
+      const query = value.toLowerCase()
       let filterItems
       if (this.searchType === 'Subsidies') {
-        filterItems = this.data.filter(contract => contract.beneficiary_name.toLowerCase().includes(value.toLowerCase()))
+        filterItems = this.data.filter(contract => contract.beneficiary_name.toLowerCase().includes(query))
       } else {
-        filterItems = this.data.filter(contract => contract.assignee.toLowerCase().includes(value.toLowerCase()) || contract.title.toLowerCase().includes(value.toLowerCase()) || (contract.document_number || '').toLowerCase().includes(value.toLowerCase()))
+        filterItems = this.data.filter(contract => contract.assignee.toLowerCase().includes(query) || contract.title.toLowerCase().includes(query) || (contract.document_number || '').toLowerCase().includes(query))
       }
 
       EventBus.$emit('filtered-items', value)

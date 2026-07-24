@@ -8,7 +8,7 @@
           type="text"
           :placeholder="labelPlaceholder"
           class="gobierto_visualizations-search-container-input"
-          @input="handlerFilterItems"
+          @input="debouncedFilterItems"
         >
         <i
           v-if="showClearSearch"
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { debounce } from 'lodash';
 import { EventBus } from '../lib/mixins/event_bus';
 export default {
   name: 'SearchFilter',
@@ -45,9 +46,18 @@ export default {
       return this.search
     }
   },
+  created() {
+    // Debounce the keystroke handler: each call scans the whole dataset, which
+    // is costly on large sites. Read the value from the v-model (this.search)
+    // rather than the event, since the event fires before the debounced run.
+    this.debouncedFilterItems = debounce(this.handlerFilterItems, 250)
+  },
+  beforeDestroy() {
+    this.debouncedFilterItems.cancel()
+  },
   methods: {
-    handlerFilterItems(event) {
-      const { target: { value } } = event
+    handlerFilterItems() {
+      const value = this.search
       let filterItems
       if (this.searchType === 'Subsidies') {
         filterItems = this.data.filter(contract => contract.beneficiary_name.toLowerCase().includes(value.toLowerCase()))

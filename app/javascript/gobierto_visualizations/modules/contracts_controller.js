@@ -228,26 +228,31 @@ export class ContractsController {
   }
 
   _translate(data, dataForTenders) {
+    // These fields only take a handful of distinct values, but the dataset can
+    // hold tens of thousands of rows. Memoize each key so I18n.t runs once per
+    // distinct value instead of once per row.
+    const cache = Object.create(null)
+    const t = key => (key in cache ? cache[key] : (cache[key] = I18n.t(key)))
+    const statusPrefix = dataForTenders
+      ? 'gobierto_visualizations.visualizations.tender_statuses'
+      : 'gobierto_visualizations.visualizations.contract_statuses'
+
     return data.map(d => {
       const { category_title, contract_type, process_type, status } = d
 
       if (category_title) {
-        d.category_title = I18n.t(`gobierto_visualizations.visualizations.categories.${category_title}`)
+        d.category_title = t(`gobierto_visualizations.visualizations.categories.${category_title}`)
       }
 
       if (contract_type) {
-        d.contract_type = I18n.t(`gobierto_visualizations.visualizations.contract_types.${contract_type}`)
+        d.contract_type = t(`gobierto_visualizations.visualizations.contract_types.${contract_type}`)
       }
 
       if (process_type) {
-        d.process_type = I18n.t(`gobierto_visualizations.visualizations.process_types.${process_type}`)
+        d.process_type = t(`gobierto_visualizations.visualizations.process_types.${process_type}`)
       }
 
-      if (dataForTenders) {
-        d.status = I18n.t(`gobierto_visualizations.visualizations.tender_statuses.${status}`)
-      } else {
-        d.status = I18n.t(`gobierto_visualizations.visualizations.contract_statuses.${status}`)
-      }
+      d.status = t(`${statusPrefix}.${status}`)
 
       return d
     })
@@ -566,8 +571,12 @@ export class ContractsController {
   }
 
   _formalizedContractsData(contractsData) {
+    // Resolve the labels once instead of on every row: the translation is
+    // constant, so calling I18n.t inside the filter recomputed it for all rows.
+    const formalized = I18n.t('gobierto_visualizations.visualizations.contract_statuses.formalized');
+    const awarded = I18n.t('gobierto_visualizations.visualizations.contract_statuses.awarded');
     return contractsData.filter(
-      ({ status }) => status === I18n.t('gobierto_visualizations.visualizations.contract_statuses.formalized') || status === I18n.t('gobierto_visualizations.visualizations.contract_statuses.awarded')
+      ({ status }) => status === formalized || status === awarded
     );
   }
 }

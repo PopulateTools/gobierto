@@ -283,6 +283,13 @@ export class ContractsController {
   }
 
   _refreshData(reducedContractsData, filters, tendersAttribute) {
+    // With no filter active, crossfilter hands back the whole dataset as a fresh
+    // array. Reuse the original reference so the assignment below doesn't look
+    // like a change to downstream consumers that compare by identity.
+    if (reducedContractsData.length === this.data.contractsData.length) {
+      reducedContractsData = this.data.contractsData;
+    }
+
     if (filters) {
       this._refreshTendersDataFromFilters(filters, tendersAttribute);
     }
@@ -292,10 +299,22 @@ export class ContractsController {
     };
 
     this.vueApp.contractsData = reducedContractsData;
-    EventBus.$emit("refresh-summary-data");
 
-    this._renderTendersMetricsBox();
-    this._renderContractsMetricsBox();
+    // The downstream refresh (treemaps, beeswarm, tables, metric boxes) is heavy
+    // on large datasets and otherwise runs synchronously inside the filter click
+    // handler, freezing the UI so it looks like nothing happens — worst when
+    // clearing a filter and the full dataset comes back. Defer it to the next
+    // frame so the click and the dc chart redraw paint first, and coalesce rapid
+    // toggles into a single refresh.
+    if (this._refreshHandle) {
+      cancelAnimationFrame(this._refreshHandle);
+    }
+    this._refreshHandle = requestAnimationFrame(() => {
+      this._refreshHandle = null;
+      EventBus.$emit("refresh-summary-data");
+      this._renderTendersMetricsBox();
+      this._renderContractsMetricsBox();
+    });
   }
 
   _renderTendersMetricsBox() {

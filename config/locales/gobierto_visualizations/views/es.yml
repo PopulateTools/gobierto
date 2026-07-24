@@ -96,6 +96,7 @@ es:
         dates: Fechas
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
           del %{entity_name}
+        document_number: Código de expediente
         entities: Entidades
         final_amount_no_taxes: Importe
         formalization_date: Fecha de formalización

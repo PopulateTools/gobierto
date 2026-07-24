@@ -8,6 +8,7 @@ export const getContractsColumns = () => [
   { field: 'status', name: I18n.t('gobierto_visualizations.visualizations.contracts.status'), cssClass: 'nowrap pl1' },
   { field: 'contract_type', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type'), cssClass: 'nowrap pl1' },
   { field: 'process_type', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process'), cssClass: 'nowrap pl1' },
+  { field: 'document_number', name: I18n.t('gobierto_visualizations.visualizations.contracts.document_number'), cssClass: 'nowrap pl1' },
   { field: 'category_title', name: I18n.t('gobierto_visualizations.visualizations.subsidies.category'), cssClass: 'nowrap pl1' },
   { field: 'open_proposals_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.tender_date'), cssClass: 'nowrap pl1 right', type: 'date' },
   { field: 'initial_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bid_description'), cssClass: 'nowrap pl1 right', type: 'money' }

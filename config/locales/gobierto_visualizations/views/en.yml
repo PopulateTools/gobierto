@@ -96,6 +96,7 @@ en:
         dates: Dates
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
+        document_number: File number
         entities: Entities
         final_amount_no_taxes: Amount
         formalization_date: Date of formalization

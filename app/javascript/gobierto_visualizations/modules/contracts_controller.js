@@ -185,6 +185,13 @@ export class ContractsController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
+    // Contracts don't carry the código de expediente; it lives on the tender
+    // (document_number) and is shared by all its lots through the tender id.
+    const documentNumberByTenderId = tendersData.reduce((acc, { id, document_number }) => {
+      if (id !== undefined && id !== null) acc[id] = document_number;
+      return acc;
+    }, {});
+
     contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, ...rest }) => {
       return {
         final_amount_no_taxes: (final_amount_no_taxes && !Number.isNaN(final_amount_no_taxes)) ? parseFloat(final_amount_no_taxes): 0.0,
@@ -193,7 +200,8 @@ export class ContractsController {
         assignee_routing_id: assignee_id,
         gobierto_start_date_year: gobierto_start_date ? new Date(gobierto_start_date).getFullYear().toString() : '',
         gobierto_start_date: new Date(gobierto_start_date),
-        ...rest
+        ...rest,
+        document_number: documentNumberByTenderId[rest.id]
       }
     })
 

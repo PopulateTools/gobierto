@@ -95,6 +95,7 @@ ca:
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
+        document_number: Codi d'expedient
         entities: Entitats
         final_amount_no_taxes: Import
         formalization_date: Data de formalització

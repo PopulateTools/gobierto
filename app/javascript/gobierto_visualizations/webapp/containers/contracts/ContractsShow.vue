@@ -31,6 +31,13 @@
         :icon="'archive'"
       />
       <ContractsShowLabelHeader
+        v-if="document_number"
+        class="visualizations-contracts-show__block"
+        :label="labelDocumentNumber"
+        :value="document_number"
+        :icon="'folder'"
+      />
+      <ContractsShowLabelHeader
         class="visualizations-contracts-show__block"
         :label="labelCategory"
         :value="category_title"
@@ -144,6 +151,7 @@ export default {
       number_of_proposals: '',
       cpvs: '',
       category_title: '',
+      document_number: '',
       estimated_value: '',
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
       labelAssigneeDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignee_description') || '',
@@ -154,6 +162,7 @@ export default {
       labelBiddersDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bidders_description') || '',
       labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status') || '',
       labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category') || '',
+      labelDocumentNumber: I18n.t('gobierto_visualizations.visualizations.contracts.document_number') || '',
       labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
       labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
       labelEstimatedValue: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.estimated_value') || '',
@@ -208,7 +217,8 @@ export default {
         open_proposals_date,
         submission_date,
         number_of_proposals,
-        estimated_value
+        estimated_value,
+        document_number
       } = this.contract
 
       this.title = title
@@ -234,11 +244,12 @@ export default {
       this.category_title = category_title
       this.number_of_proposals = number_of_proposals
       this.estimated_value = +estimated_value
+      this.document_number = document_number || ''
     }
 
     if (this.hasBatch) {
-      this.groupBatches()
       this.setTenderTitle()
+      this.groupBatches()
     }
   },
   methods: {
@@ -246,9 +257,9 @@ export default {
       this.filterContractsBatches = this.contractsData.filter(({ id }) => id === this.contract.id).sort((a, b) => a.batch_number - b.batch_number);
     },
     setTenderTitle() {
-      // Lots share the tender id but each carries its own (lot-specific) title.
-      // Use the tender's own title for the header when available, falling back
-      // to the lot title otherwise.
+      // Each lot of a multi-lot tender carries its own lot-specific title, but the
+      // detail header should show the tender title. The tender shares the contract
+      // id, so read the title from the tenders dataset.
       const tendersData = this.$root.$data.tendersData || []
       const tender = tendersData.find(({ id }) => id === this.contract.id)
       if (tender && tender.title) this.title = tender.title

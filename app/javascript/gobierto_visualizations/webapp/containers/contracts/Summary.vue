@@ -172,8 +172,11 @@ export default {
   },
   computed: {
     visualizationsDataEntity() {
+      // The treemaps and beeswarm below never read `href` (they build their own
+      // URLs in their click handlers), so cloning every row just to attach one
+      // was pure waste — and it unfroze the whole dataset. Pass the frozen rows
+      // straight through.
       return this.visualizationsData
-        .map(d => ({ ...d, href: `${location.origin}${location.pathname}${d.assignee_routing_id}` } ))
     },
     visualizationsDataExcludeNoCategory() {
       return this.visualizationsDataEntity

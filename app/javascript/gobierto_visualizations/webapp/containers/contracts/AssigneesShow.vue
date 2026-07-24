@@ -18,6 +18,7 @@
         :sort-column="'title'"
         :columns="assigneesShowColumns"
         :show-columns="showColumns"
+        :href-builder="rowHref"
         @on-href-click="goesToTableItem"
       />
     </div>
@@ -65,13 +66,18 @@ export default {
 
       this.items = contracts
       this.columns = getAssigneesShowColumns();
-      this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}/visualizaciones/contratos/adjudicaciones/${d.id}` } ))
+      // No per-row href clone; the link is built on demand via rowHref so the
+      // frozen rows stay frozen.
+      this.tableItems = this.items
 
       if (contracts.length > 0) {
         const contract = contracts[0]
         this.assignee = contract.assignee
         this.assignee_id = contract.assignee_id
       }
+    },
+    rowHref(item) {
+      return `${location.origin}/visualizaciones/contratos/adjudicaciones/${item.id}`
     },
     goesToTableItem(item) {
       const { id: routingId } = item

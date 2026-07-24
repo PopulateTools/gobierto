@@ -225,6 +225,15 @@ export class ContractsController {
       ),
       tendersData: this.unfilteredTendersData
     };
+
+    // Nothing mutates individual rows after this point (components copy rows
+    // with spread before adding fields, crossfilter and dc charts only read).
+    // Freezing each row lets Vue 2 skip making its ~25 fields reactive, which
+    // on large sites (tens of thousands of rows) avoids hundreds of thousands
+    // of getter/setter + Dep allocations at startup. Freeze the rows, not the
+    // arrays, so the in-place sorts above still work.
+    this.data.contractsData.forEach(Object.freeze);
+    this.unfilteredTendersData.forEach(Object.freeze);
   }
 
   _translate(data, dataForTenders) {

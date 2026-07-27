@@ -29,7 +29,7 @@
     "esbuild-vue": "^1.2.2",
     "flightjs": "^1.5.2",
     "geocomplete": "^1.7.0",
-    "gobierto-vizzs": "file:./vendor/gobierto-vizzs-3.4.0.tgz",
+    "gobierto-vizzs": "^3.4.0",
     "html-to-image": "^1.9.0",
     "i18n-js": "^3.0.3",
     "jest": "^27.0.3",

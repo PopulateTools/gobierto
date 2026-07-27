@@ -94,10 +94,7 @@
 </template>
 <script>
 import { Table } from '../../../../lib/vue/components';
-import { TreeMap } from 'gobierto-vizzs';
-// Patched BeeSwarm: fixes O(n²) hot paths and a forceSimulation leak in
-// gobierto-vizzs@3.2.0 that freeze the page with tens of thousands of rows.
-import { BeeSwarm } from '../../lib/vizzs/beeswarm';
+import { TreeMap, BeeSwarm } from 'gobierto-vizzs';
 import TreeMapButtons from '../../components/TreeMapButtons.vue';
 import MetricBoxes from '../../components/MetricBoxes.vue';
 import MetricBox from '../../components/MetricBox.vue';

@@ -240,9 +240,9 @@ ca:
         unassigned: Sense alinear
         updated_date: Dades actualitzades el 18 de març de 2025
       process_types:
-        based_on_agreement: Basat en Acord Marc
+        based_on_agreement: Acord marc
         competitive_dialogue: Diàleg competitiu
-        dynamic_acquisition: Basat en sistema dinàmic d'adquisició
+        dynamic_acquisition: Sistema dinàmic d'adquisició
         innovation: Associació per a la innovació
         innovation_derived: Derivat d'associació per a la innovació
         internal_rules: Normes Internes

@@ -64,6 +64,11 @@ ca:
         services: Serveis
         special_administrative: Administratiu especial
         supplies: Subministraments
+      contracting_systems:
+        based_on_agreement: Derivat d'acord marc
+        based_on_agreement_establishment: Acord marc
+        dynamic_acquisition: Derivat de sistema dinàmic d'adquisició
+        dynamic_acquisition_establishment: Sistema dinàmic d'adquisició
       contracts:
         amount_by_type_of_process: Import per tipus de procediment
         amount_distribution: Distribució per imports
@@ -72,6 +77,7 @@ ca:
         contract: Contracte
         contract_amount: Imp. adjudicació
         contract_type: Tipus de contracte
+        contracting_system: Sistema de contractació
         contractor: Contractor
         contracts: Contractes
         contracts_assigned_to: Contractes adjudicats a
@@ -83,6 +89,7 @@ ca:
           bid_description: Pressupost base de licitació sense impostos
           bidders_description: Numero d'empreses que s'han presentat al procés (Licitadors)
           contract_amount: Import d'adjudicació
+          derived_contract: Contracte derivat
           entity: Entitat
           estimated_value: Valor estimat
           external_source: Font

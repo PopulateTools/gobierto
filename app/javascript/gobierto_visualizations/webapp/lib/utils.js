@@ -77,3 +77,11 @@ export const effectiveTenderId = ({ id, tender_id, minor_contract }) => {
   if (tender_id !== undefined) return tender_id || null;
   return minor_contract === 't' ? null : (id || null);
 };
+
+// The routing key of a contract. The ETL publishes `contract_id`, unique per
+// contract (34,314 out of 34,314 in the UJI). `id` holds the effective tender
+// since the ETL was fixed, so the 51 contracts derived from a single dynamic
+// acquisition system share it and it cannot route. Sites still serving the old
+// CSV don't carry the column: there we fall back to `id`, which is what their
+// current URLs already use.
+export const contractRoutingId = ({ id, contract_id }) => contract_id || id;

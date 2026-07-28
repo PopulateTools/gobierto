@@ -102,6 +102,7 @@ import Tips from '../../components/Tips.vue';
 import { SharedMixin } from '../../lib/mixins/shared';
 import { getAssigneesColumns } from '../../lib/config/contracts.js';
 import { money } from '../../../../lib/vue/filters';
+import { contractRoutingId } from '../../lib/utils';
 
 export default {
   name: "Summary",
@@ -343,8 +344,8 @@ export default {
         d.children && `<p class="treemap-item-text"><b>${d.leaves().length}</b> ${this.labelContracts}</b></p>`
       ].join("")
     },
-    handleBeeSwarmClick(_, { id }) {
-      this.$router.push(`/visualizaciones/contratos/adjudicaciones/${id}`).catch(() => {})
+    handleBeeSwarmClick(_, contract) {
+      this.$router.push(`/visualizaciones/contratos/adjudicaciones/${contractRoutingId(contract)}`).catch(() => {})
     },
     handleTreeMapLeafClick(_, { data }) {
       const { assignee_routing_id } = data

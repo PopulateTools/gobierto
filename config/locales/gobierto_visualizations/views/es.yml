@@ -91,10 +91,13 @@ es:
             (Licitadores)
           contract_amount: Importe de adjudicación
           derived_contract: Contrato derivado
+          derived_contracts_amount: Importe total de los contratos derivados
           entity: Entidad
           estimated_value: Valor estimado
           external_source: Fuente
           formalization: Formalización
+          no_derived_contracts: Esta licitación no tiene contratos adjudicados
+          number_of_batches: Número de lotes
           process: Procedimiento
           question_description: "¿Qué % del presupuesto supone este contrato?"
           tender: Licitación
@@ -105,6 +108,7 @@ es:
           del %{entity_name}
         document_number: Código de expediente
         entities: Entidades
+        establishment: Licitación de establecimiento
         final_amount_no_taxes: Importe
         formalization_date: Fecha de formalización
         fromto: Desde A Nº. Contr.
@@ -115,7 +119,8 @@ es:
           summary: Resumen
           tenders: Licitaciones
         process_type: Tipo de procedimiento
-        search_placeholder: Busca por adjudicatario, título o código de expediente
+        search_placeholder: Busca por adjudicatario, título, código de expediente
+          o código de expediente de la licitación de establecimiento
         status: Estado
         submission_date: Fecha
         summary:

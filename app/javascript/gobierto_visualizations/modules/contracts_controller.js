@@ -210,13 +210,31 @@ export class ContractsController {
     // contract and returns null when there is none to join against (a minor
     // contract, whose id belongs to a colliding id space). Falsy tender ids are
     // skipped for the same reason: some tenders arrive with an empty id.
-    const documentNumberByTenderId = tendersData.reduce((acc, { id, document_number }) => {
-      if (id) acc[id] = document_number;
+    const tenderByTenderId = tendersData.reduce((acc, tender) => {
+      if (tender.id) acc[tender.id] = tender;
       return acc;
     }, {});
-    const tenderDocumentNumber = row => {
+    const contractTender = row => {
       const key = effectiveTenderId(row);
-      return key ? (documentNumberByTenderId[key] || '') : '';
+      return key ? tenderByTenderId[key] : undefined;
+    };
+    const tenderDocumentNumber = row => {
+      const { document_number } = contractTender(row) || {};
+      return document_number || '';
+    };
+
+    // The establishment tender of a derived contract lives only in the tenders
+    // dataset (contracting systems 1 and 2 never appear in contracts). We resolve
+    // it here, once per load, instead of in the detail: the search reads these
+    // fields too, and it walks the whole dataset on every keystroke. Empty strings
+    // when the contract is not derived or the tender is not found, so the detail
+    // can hide the block with a plain truthiness check.
+    const establishment = row => {
+      const tender = row.is_derived_contract ? contractTender(row) : undefined;
+      return {
+        establishment_title: (tender && tender.title) || '',
+        establishment_document_number: (tender && tender.document_number) || ''
+      };
     };
 
     contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, document_number, ...rest }) => {
@@ -228,7 +246,8 @@ export class ContractsController {
         gobierto_start_date_year: gobierto_start_date ? new Date(gobierto_start_date).getFullYear().toString() : '',
         gobierto_start_date: new Date(gobierto_start_date),
         ...rest,
-        document_number: document_number || tenderDocumentNumber(rest)
+        document_number: document_number || tenderDocumentNumber(rest),
+        ...establishment(rest)
       }
     })
 
@@ -275,6 +294,16 @@ export class ContractsController {
 
     return data.map(d => {
       const { category_title, contract_type, process_type, status } = d
+
+      // 3 (based_on_agreement) and 4 (dynamic_acquisition) are the contracts
+      // derived from a framework agreement or a dynamic acquisition system; 1 and
+      // 2 are the establishment tenders and never show up in `contratos`. We keep
+      // the boolean because the translation below overwrites the integer and the
+      // components can no longer recover it. `+undefined` is NaN and NaN >= 3 is
+      // false, so sites still serving the old CSV land on false.
+      if (!dataForTenders) {
+        d.is_derived_contract = +d.contracting_system >= 3
+      }
 
       if (category_title) {
         d.category_title = t(`gobierto_visualizations.visualizations.categories.${category_title}`)

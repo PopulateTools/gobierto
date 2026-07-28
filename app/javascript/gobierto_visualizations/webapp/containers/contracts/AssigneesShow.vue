@@ -30,6 +30,7 @@ import { VueFiltersMixin } from '../../../../lib/vue/filters'
 import { Table } from '../../../../lib/vue/components';
 import { EventBus } from '../../lib/mixins/event_bus';
 import { getAssigneesShowColumns } from '../../lib/config/contracts.js';
+import { contractRoutingId } from '../../lib/utils';
 
 export default {
   name: 'AssigneesShow',
@@ -77,11 +78,10 @@ export default {
       }
     },
     rowHref(item) {
-      return `${location.origin}/visualizaciones/contratos/adjudicaciones/${item.id}`
+      return `${location.origin}/visualizaciones/contratos/adjudicaciones/${contractRoutingId(item)}`
     },
     goesToTableItem(item) {
-      const { id: routingId } = item
-      this.$router.push({ name: 'contracts_show', params: { id: routingId } })
+      this.$router.push({ name: 'contracts_show', params: { id: contractRoutingId(item) } })
     }
   }
 }

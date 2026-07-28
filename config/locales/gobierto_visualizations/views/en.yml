@@ -91,10 +91,13 @@ en:
             (Bidders)
           contract_amount: Contract amount
           derived_contract: Derived contract
+          derived_contracts_amount: Total amount of the derived contracts
           entity: Entity
           estimated_value: Estimated value
           external_source: Source
           formalization: Formalization
+          no_derived_contracts: This tender has no awarded contracts
+          number_of_batches: Number of batches
           process: Procedure
           question_description: What % of the budget is this contract?
           tender: Tender
@@ -105,6 +108,7 @@ en:
           to %{entity_name}
         document_number: File number
         entities: Entities
+        establishment: Establishment tender
         final_amount_no_taxes: Amount
         formalization_date: Date of formalization
         fromto: From To No Contr.
@@ -115,7 +119,8 @@ en:
           summary: Summary
           tenders: Tenders
         process_type: Type of procedure
-        search_placeholder: Search by assignee, title or file number
+        search_placeholder: Search by assignee, title, file number or establishment
+          tender file number
         status: Status
         submission_date: Date
         summary:

@@ -90,10 +90,13 @@ ca:
           bidders_description: Numero d'empreses que s'han presentat al procés (Licitadors)
           contract_amount: Import d'adjudicació
           derived_contract: Contracte derivat
+          derived_contracts_amount: Import total dels contractes derivats
           entity: Entitat
           estimated_value: Valor estimat
           external_source: Font
           formalization: Formalització
+          no_derived_contracts: Aquesta licitació no té contractes adjudicats
+          number_of_batches: Número de lots
           process: Procediment
           question_description: Quin % del pressupost suposa aquest contracte?
           tender: Licitació
@@ -104,6 +107,7 @@ ca:
           del %{entity_name}
         document_number: Codi d'expedient
         entities: Entitats
+        establishment: Licitació d'establiment
         final_amount_no_taxes: Import
         formalization_date: Data de formalització
         fromto: De a Nº Contr.
@@ -114,7 +118,8 @@ ca:
           summary: Resum
           tenders: Licitacions
         process_type: Tipus de procediment
-        search_placeholder: Cerqueu per adjudicatari, títol o codi d'expedient
+        search_placeholder: Cerqueu per adjudicatari, títol, codi d'expedient o codi
+          d'expedient de la licitació d'establiment
         status: Estat
         submission_date: Data
         summary:

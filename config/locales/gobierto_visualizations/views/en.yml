@@ -64,6 +64,11 @@ en:
         services: Services
         special_administrative: Special administrative
         supplies: Supplies
+      contracting_systems:
+        based_on_agreement: Derived from framework agreement
+        based_on_agreement_establishment: Framework agreement
+        dynamic_acquisition: Derived from dynamic acquisition system
+        dynamic_acquisition_establishment: Dynamic acquisition system
       contracts:
         amount_by_type_of_process: Amount by type of process
         amount_distribution: Amount distribution
@@ -72,6 +77,7 @@ en:
         contract: Contract
         contract_amount: Contract Amount
         contract_type: Type of contract
+        contracting_system: Contracting system
         contractor: Contractor
         contracts: Contracts
         contracts_assigned_to: Contracts assigned to
@@ -84,6 +90,7 @@ en:
           bidders_description: Number of companies that have submitted to the process
             (Bidders)
           contract_amount: Contract amount
+          derived_contract: Derived contract
           entity: Entity
           estimated_value: Estimated value
           external_source: Source

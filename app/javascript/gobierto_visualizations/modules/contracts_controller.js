@@ -9,7 +9,7 @@ import {
 import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 import { money } from '../../lib/vue/filters';
 import { EventBus } from '../webapp/lib/mixins/event_bus';
-import { calculateSumMeanMedian, getRemoteData } from '../webapp/lib/utils';
+import { calculateSumMeanMedian, effectiveTenderId, getRemoteData } from '../webapp/lib/utils';
 import { divide } from '../../lib/shared';
 
 // ESBuild does not work properly with dynamic components
@@ -31,9 +31,26 @@ if (Vue.config.devtools) {
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
+// Mirrors CONTRACTING_SYSTEM_TYPES in open-licitaciones
+// (app/models/concerns/is_tender.rb). It is an official CODICE code, the order is
+// stable. The ETL exports the integer, not the text, so the I18n keys are ours
+// (and spelled without the "establishement" typo the origin carries).
+const CONTRACTING_SYSTEMS = [
+  'none',
+  'based_on_agreement_establishment',
+  'dynamic_acquisition_establishment',
+  'based_on_agreement',
+  'dynamic_acquisition'
+];
+
 export class ContractsController {
   constructor(options) {
     this.charts = {};
+    // Sidebar filters with no dc chart behind them. We keep the crossfilter
+    // dimension and the set of selected values ourselves, because without a chart
+    // there is no onFiltered callback doing it for us. They must stay out of
+    // this.charts: several loops there assume every entry has .container and .node.
+    this.chartlessFilters = {};
     this.tendersFilters = {
       submission_date: [],
       process_type: [],
@@ -185,14 +202,24 @@ export class ContractsController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
-    // Contracts don't carry the código de expediente; it lives on the tender
-    // (document_number) and is shared by all its lots through the tender id.
+    // The código de expediente lives on the tender (document_number) and is
+    // shared by all its lots through the tender id. Contracts may also carry it
+    // themselves, and that value wins when present.
+    //
+    // The join goes through effectiveTenderId, which resolves the tender of a
+    // contract and returns null when there is none to join against (a minor
+    // contract, whose id belongs to a colliding id space). Falsy tender ids are
+    // skipped for the same reason: some tenders arrive with an empty id.
     const documentNumberByTenderId = tendersData.reduce((acc, { id, document_number }) => {
-      if (id !== undefined && id !== null) acc[id] = document_number;
+      if (id) acc[id] = document_number;
       return acc;
     }, {});
+    const tenderDocumentNumber = row => {
+      const key = effectiveTenderId(row);
+      return key ? (documentNumberByTenderId[key] || '') : '';
+    };
 
-    contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, ...rest }) => {
+    contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, document_number, ...rest }) => {
       return {
         final_amount_no_taxes: (final_amount_no_taxes && !Number.isNaN(final_amount_no_taxes)) ? parseFloat(final_amount_no_taxes): 0.0,
         initial_amount_no_taxes: (initial_amount_no_taxes && !Number.isNaN(initial_amount_no_taxes)) ? parseFloat(initial_amount_no_taxes): 0.0,
@@ -201,7 +228,7 @@ export class ContractsController {
         gobierto_start_date_year: gobierto_start_date ? new Date(gobierto_start_date).getFullYear().toString() : '',
         gobierto_start_date: new Date(gobierto_start_date),
         ...rest,
-        document_number: documentNumberByTenderId[rest.id]
+        document_number: document_number || tenderDocumentNumber(rest)
       }
     })
 
@@ -263,12 +290,29 @@ export class ContractsController {
 
       d.status = t(`${statusPrefix}.${status}`)
 
+      // The CSV delivers numbers as strings. `none` (0) is normalized to '' so it
+      // shows up neither as a filter option nor as a row in the detail, the same
+      // as every other empty field. A missing column (a site still serving the old
+      // CSV) lands here too and also ends up as '': `+undefined` is NaN and
+      // CONTRACTING_SYSTEMS[NaN] is undefined.
+      const system = CONTRACTING_SYSTEMS[+d.contracting_system]
+      d.contracting_system = (system && system !== 'none')
+        ? t(`gobierto_visualizations.visualizations.contracting_systems.${system}`)
+        : ''
+
       return d
     })
   }
 
   _renderSummary() {
     this.ndx = crossfilter(this._currentDataSource().contractsData);
+
+    // Registered here and not in the constructor because this.ndx is recreated on
+    // every call, and a dimension of a discarded crossfilter filters nothing.
+    this.chartlessFilters["contracting_systems"] = {
+      dimension: this.ndx.dimension(contract => contract.contracting_system),
+      selected: new Set()
+    };
 
     this._renderTendersMetricsBox();
     this._renderContractsMetricsBox();
@@ -544,10 +588,13 @@ export class ContractsController {
   }
 
   _updateChartsFromFilter(options) {
-    const container = this.charts[options.id].container;
-
     // apply the filters
-    container.filter(options.all ? null : options.title);
+    const chartless = this.chartlessFilters[options.id];
+    if (chartless) {
+      this._applyChartlessFilter(chartless, options);
+    } else {
+      this.charts[options.id].container.filter(options.all ? null : options.title);
+    }
 
     Object.values(this.charts).forEach(chart => {
       // Math.round in order to avoid a javascript issue handling floating numbers (very tiny decimals)
@@ -570,6 +617,34 @@ export class ContractsController {
         chart.node.style.display = "none"
       }
     });
+  }
+
+  _applyChartlessFilter(chartless, { all, title, titles }) {
+    const { dimension, selected } = chartless;
+
+    // Aside emits one title per click and expects the selection to accumulate, so
+    // the semantics are toggle, not replace: filterExact(title) would be wrong.
+    if (all) {
+      // "Select all" toggles: if everything was already selected, clear it.
+      if (selected.size === titles.length) selected.clear();
+      else titles.forEach(t => selected.add(t));
+    } else if (selected.has(title)) {
+      selected.delete(title);
+    } else {
+      selected.add(title);
+    }
+
+    if (selected.size === 0) {
+      dimension.filterAll();
+    } else {
+      dimension.filterFunction(value => selected.has(value));
+    }
+
+    // Deliberately without the filter arguments: this filter must not propagate to
+    // the tenders dataset. Derived contracts carry contracting_system 3 or 4 while
+    // establishment tenders carry 1 or 2, so matching the selected label against
+    // `licitaciones` would find no row and empty the tenders panel.
+    this._refreshData(dimension.top(Infinity));
   }
 
   _refreshTendersDataFromFilters(filters, tendersAttribute) {

@@ -64,6 +64,11 @@ es:
         services: Servicios
         special_administrative: Administrativo especial
         supplies: Suministros
+      contracting_systems:
+        based_on_agreement: Derivado de acuerdo marco
+        based_on_agreement_establishment: Acuerdo marco
+        dynamic_acquisition: Derivado de sistema dinámico de adquisición
+        dynamic_acquisition_establishment: Sistema dinámico de adquisición
       contracts:
         amount_by_type_of_process: Importe por tipo de procedimiento
         amount_distribution: Distribución por importes
@@ -72,6 +77,7 @@ es:
         contract: Contrato
         contract_amount: Imp. adjudicación
         contract_type: Tipo de contrato
+        contracting_system: Sistema de contratación
         contractor: Contrato
         contracts: Contratos
         contracts_assigned_to: Contratos adjudicados a
@@ -84,6 +90,7 @@ es:
           bidders_description: Número de empresas que se han presentado al proceso
             (Licitadores)
           contract_amount: Importe de adjudicación
+          derived_contract: Contrato derivado
           entity: Entidad
           estimated_value: Valor estimado
           external_source: Fuente

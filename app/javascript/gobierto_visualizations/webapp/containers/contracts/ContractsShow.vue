@@ -38,6 +38,13 @@
         :icon="'folder'"
       />
       <ContractsShowLabelHeader
+        v-if="contracting_system"
+        class="visualizations-contracts-show__block"
+        :label="labelContractingSystem"
+        :value="contracting_system"
+        :icon="'sitemap'"
+      />
+      <ContractsShowLabelHeader
         class="visualizations-contracts-show__block"
         :label="labelCategory"
         :value="category_title"
@@ -81,7 +88,7 @@
             :label="labelContractAmount"
             :value="calculateFinalAmount | money"
           />
-          <template v-if="!hasBatch">
+          <template v-if="!hasSiblings">
             <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
               <span class="visualizations-contracts-show__text__header">{{ labelAssigneeDescription }}</span>
               <router-link
@@ -95,6 +102,7 @@
           <template v-else>
             <ContractsShowTable
               :data="filterContractsBatches"
+              :mode="hasBatch ? 'batches' : 'derived'"
             />
           </template>
         </div>
@@ -111,6 +119,7 @@ import ContractsShowLabelHeader from '../../components/ContractsShowLabelHeader.
 import ContractsShowLabelGroup from '../../components/ContractsShowLabelGroup.vue';
 import ContractsShowTable from '../../components/ContractsShowTable.vue';
 import ContractsShowTableFooter from '../../components/ContractsShowTableFooter.vue';
+import { effectiveTenderId } from '../../lib/utils';
 
 export default {
   name: 'ContractsShow',
@@ -152,6 +161,7 @@ export default {
       cpvs: '',
       category_title: '',
       document_number: '',
+      contracting_system: '',
       estimated_value: '',
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
       labelAssigneeDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignee_description') || '',
@@ -163,6 +173,7 @@ export default {
       labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status') || '',
       labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category') || '',
       labelDocumentNumber: I18n.t('gobierto_visualizations.visualizations.contracts.document_number') || '',
+      labelContractingSystem: I18n.t('gobierto_visualizations.visualizations.contracts.contracting_system') || '',
       labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
       labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
       labelEstimatedValue: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.estimated_value') || '',
@@ -170,6 +181,22 @@ export default {
     }
   },
   computed: {
+    // Contracts sharing the effective tender: the lots of a multi-lot tender
+    // (batch_number > 0) and the contracts derived from a framework agreement or
+    // a dynamic acquisition system (batch_number = 0). Returns [] when there is
+    // no tender key — sites still serving the old CSV would otherwise group the
+    // whole dataset — and also when the contract only finds itself, so the table
+    // never shows a single row repeating the detail above it.
+    siblings() {
+      const key = effectiveTenderId(this.contract)
+      if (!key) return []
+
+      const siblings = this.contractsData.filter(contract => effectiveTenderId(contract) === key)
+      return siblings.length > 1 ? siblings : []
+    },
+    hasSiblings() {
+      return this.siblings.length > 0
+    },
     hasBatch() {
       return this.batch_number > 0
     },
@@ -182,8 +209,12 @@ export default {
     showEstimatedValue() {
       return this.initial_amount_no_taxes !== this.estimated_value
     },
+    // Only the lots of a multi-lot tender add up to the contract amount. Contracts
+    // derived from a framework agreement / dynamic acquisition system are siblings
+    // too, but each one is an independent contract with its own amount: summing
+    // them and presenting the total as "importe del contrato" would be false.
     calculateFinalAmount() {
-      return this.batch_number > 0
+      return this.hasBatch && this.filterContractsBatches.length
         ? this.filterContractsBatches.reduce((acc, { final_amount_no_taxes }) => acc + final_amount_no_taxes, 0)
         : this.final_amount_no_taxes
     }
@@ -218,7 +249,8 @@ export default {
         submission_date,
         number_of_proposals,
         estimated_value,
-        document_number
+        document_number,
+        contracting_system
       } = this.contract
 
       this.title = title
@@ -245,23 +277,28 @@ export default {
       this.number_of_proposals = number_of_proposals
       this.estimated_value = +estimated_value
       this.document_number = document_number || ''
+      this.contracting_system = contracting_system || ''
     }
 
-    if (this.hasBatch) {
+    if (this.hasSiblings) {
       this.setTenderTitle()
       this.groupBatches()
     }
   },
   methods: {
     groupBatches() {
-      this.filterContractsBatches = this.contractsData.filter(({ id }) => id === this.contract.id).sort((a, b) => a.batch_number - b.batch_number);
+      // siblings is a computed property and sort mutates in place: copy first.
+      this.filterContractsBatches = [...this.siblings].sort((a, b) => a.batch_number - b.batch_number);
     },
     setTenderTitle() {
       // Each lot of a multi-lot tender carries its own lot-specific title, but the
-      // detail header should show the tender title. The tender shares the contract
-      // id, so read the title from the tenders dataset.
+      // detail header should show the tender title, read from the tenders dataset
+      // through the effective tender of the contract.
+      const key = effectiveTenderId(this.contract)
+      if (!key) return
+
       const tendersData = this.$root.$data.tendersData || []
-      const tender = tendersData.find(({ id }) => id === this.contract.id)
+      const tender = tendersData.find(({ id }) => id === key)
       if (tender && tender.title) this.title = tender.title
     }
   }

@@ -307,17 +307,22 @@ es:
           tip_3: El %{strong} de subvenciones concentran el 50% de todo el gasto
         title: Subvenciones
       tender_statuses:
+        abandoned: Desistimiento
         awarded: Adjudicada
         cancelled: Desistida
         evaluation: Evaluación
+        formalized: Formalizada
         modified: Anulada
         partially_awarded: Parcialmente adjudicada
         partially_resolved: Parcialmente resuelta
         prior_announcement: Anuncio previo
         prior_evaluation: Evaluación previa
+        provisionally_awarded: Provisionalmente adjudicada
         provisionally_resolved: Adjudicación provisional
         published: Publicada
         resolved: Resuelta
+        revoked: Revocada
+        void: Desierta
       visualizations:
         title_beeswarm: Contratos por tipo, volumen, tamaño y fecha
         tooltip_beeswarm: Importe de adjudicación

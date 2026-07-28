@@ -266,6 +266,10 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert page.has_content?("EXP35.2020")
       assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracting_systems.dynamic_acquisition_establishment")
 
+      # Its status is empty in the fixture, as it is for two of the UJI's tenders:
+      # an empty value must stay empty and not become an I18n missing-key message
+      assert page.has_no_content?("translation]")
+
       # Its own estimated value and number of lots
       assert page.has_content?("€500,000.00")
       assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracts_show.number_of_batches")
@@ -339,6 +343,12 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       visit "/visualizaciones/contratos/adjudicaciones/1413126"
 
       assert page.has_content?("CM-01/2021")
+
+      # The tender statuses of the dataset now have a label of their own: this one
+      # is provisionally_awarded, which had none until the tender detail showed it
+      assert page.has_content? I18n.t("gobierto_visualizations.visualizations.tender_statuses.provisionally_awarded")
+      assert page.has_no_content?("translation]")
+
       assert page.has_no_css?("#contracts_show_siblings")
       assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracts_show.no_derived_contracts")
     end

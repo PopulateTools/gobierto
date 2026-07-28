@@ -302,17 +302,22 @@ en:
           tip_3: The %{strong} of subsidies accumulate the 50% of all the spending
         title: Subsidies
       tender_statuses:
+        abandoned: Abandoned
         awarded: Awarded
         cancelled: Cancelled
         evaluation: Evaluation
+        formalized: Formalized
         modified: Modified
         partially_awarded: Partially awarded
         partially_resolved: Partially resolved
         prior_announcement: Prior announcement
         prior_evaluation: Prior evaluation
+        provisionally_awarded: Provisionally awarded
         provisionally_resolved: Provisionally resolved
         published: Oublished
         resolved: Resolved
+        revoked: Revoked
+        void: Void
       visualizations:
         title_beeswarm: Contracts by type, volume, size and date
         tooltip_beeswarm: Contract Amount

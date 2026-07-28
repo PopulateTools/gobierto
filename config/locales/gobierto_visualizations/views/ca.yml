@@ -303,17 +303,22 @@ ca:
           tip_3: El %{strong} de subvencions concentren el 50% de tota la despesa
         title: Subvencions
       tender_statuses:
+        abandoned: Desistiment
         awarded: Adjudicat
         cancelled: Desistida
         evaluation: Avaluació
+        formalized: Formalitzada
         modified: Anul·lada
         partially_awarded: Parcialment adjudicada
         partially_resolved: Parcialment resolta
         prior_announcement: Anunci previ
         prior_evaluation: Avaluació prèvia
+        provisionally_awarded: Provisionalment adjudicada
         provisionally_resolved: Adjudicació provisional
         published: Publicada
         resolved: Resolta
+        revoked: Revocada
+        void: Deserta
       visualizations:
         title_beeswarm: Contractes per tipus, volum, mida i data
         tooltip_beeswarm: Import d'adjudicació

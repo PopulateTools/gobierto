@@ -280,10 +280,18 @@ export default {
     // On a tender page a row is a contract with its own title and link, never a
     // lot number — also for a multi-lot tender, where each lot is a contract.
     tableMode() {
-      return !this.isTenderDetail && this.hasLots ? 'batches' : 'derived'
+      return this.isTenderDetail ? 'derived' : 'batches'
     },
+    // A contract only tables its siblings when they are the lots of its own
+    // tender: they are parts of the same contract, awarded together. The contracts
+    // derived from a framework agreement / dynamic acquisition system are siblings
+    // too, but they are independent contracts with an awardee each, and listing
+    // them here reads as if this contract had won fifty of them. They belong to
+    // the establishment, one click away through showEstablishment.
     showSiblingsTable() {
-      return this.isTenderDetail ? this.filterContractsBatches.length > 0 : this.hasSiblings
+      return this.isTenderDetail
+        ? this.filterContractsBatches.length > 0
+        : this.hasLots && this.hasSiblings
     },
     showAmount() {
       return this.isContractDetail || this.showSiblingsTable
@@ -388,10 +396,12 @@ export default {
       this.establishment_title = establishment_title || ''
       this.establishment_document_number = establishment_document_number || ''
 
-      if (this.hasSiblings) {
-        // A derived contract keeps its own title: it names what was actually
-        // bought, while the establishment names the system it was bought through.
-        if (this.hasLots) this.setTenderTitle()
+      // Only the lots of one same tender are grouped here. A derived contract
+      // keeps its own title — it names what was actually bought, while the
+      // establishment names the system it was bought through — and its siblings
+      // are listed on the establishment page, not on its own.
+      if (this.hasLots && this.hasSiblings) {
+        this.setTenderTitle()
         this.groupBatches()
       }
     },

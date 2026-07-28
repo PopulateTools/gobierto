@@ -222,34 +222,21 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracting_system")
       assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracting_systems.based_on_agreement")
 
-      # All the derived contracts of the same establishment are listed, titled
-      # "Derived contract" instead of "Batch"
-      siblings_table = find("#contracts_show_siblings")
+      # Its siblings are NOT listed here: they are independent contracts, each with
+      # an awardee of its own, and tabling them under "awardees" would read as if
+      # this contract had won all three. They belong to the establishment page.
+      assert page.has_no_css?("#contracts_show_siblings")
+      assert page.has_no_content?("Dotación de monitores para el desarrollo del proyecto")
+      assert page.has_no_content?("Ejecución de las obras de adecuación y mejora del centro cívico")
 
-      assert siblings_table.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracts_show.derived_contract")
-      assert siblings_table.has_no_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracts_show.batch")
-      assert siblings_table.has_content?("Suministro de un camión con plataforma elevadora telescópica")
-      assert siblings_table.has_content?("Dotación de monitores para el desarrollo del proyecto")
-      assert siblings_table.has_content?("Ejecución de las obras de adecuación y mejora del centro cívico")
-      assert_equal 3, siblings_table.all("tbody tr").size
+      # What it does show is its single awardee
+      assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracts_show.assignee_description")
+      assert page.has_content?("GAM ESPAÑA SERVICIOS DE MAQUINARIA, SLU")
 
-      # Each derived contract keeps its own amount: they are independent contracts,
-      # so the detail must not show the sum of its siblings (€284,396.83)
+      # And its own amount: it is an independent contract, so the detail must not
+      # show the sum of its siblings (€284,396.83)
       assert page.has_content?("€50,000.46")
       assert page.has_no_content?("€284,396.83")
-
-      # And each row links to its own detail, by contract_id: the three of them
-      # share `id`, so they used to be indistinguishable
-      row_links = siblings_table.all("tbody tr td:first-child a").map { |a| a[:href] }
-
-      assert_equal 3, row_links.uniq.size
-
-      within(siblings_table) do
-        click_link("Ejecución de las obras de adecuación y mejora del centro cívico", match: :first)
-      end
-
-      assert_equal "/visualizaciones/contratos/adjudicaciones/900243", current_path
-      assert page.has_content?("€209,819.71")
     end
   end
 
@@ -298,6 +285,15 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
 
       assert_equal 3, row_links.uniq.size
 
+      # And each row leads to the detail of its own contract, by contract_id: the
+      # three of them share `id`, so they used to be indistinguishable
+      within(derived_table) do
+        click_link("Servicio de transporte discrecional en autocar con conductor para actividades con finalidad educativa y cultural.", match: :first)
+      end
+
+      assert_equal "/visualizaciones/contratos/adjudicaciones/900249", current_path
+      assert page.has_content?("€104,051.59")
+
       # And the page is deterministic: it no longer depends on which derived
       # contract happens to come first in the dataset
       visit "/visualizaciones/contratos/adjudicaciones/1404032"
@@ -324,11 +320,13 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
                    find(".visualizations-contracts-show__title").text
       assert page.has_content?("AM/2020/035-03")
 
-      # The siblings are listed as derived contracts, not as lots
-      siblings_table = find("#contracts_show_siblings")
-
-      assert siblings_table.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracts_show.derived_contract")
-      assert siblings_table.has_no_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracts_show.batch")
+      # No table of lots either: the batch_number belongs to its own derived tender,
+      # whose sibling lots cannot be told apart because tender_id holds the
+      # establishment. Grouping it with the establishment's contracts would list
+      # them as if they were its lots.
+      assert page.has_no_css?("#contracts_show_siblings")
+      assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracts_show.assignee_description")
+      assert page.has_content?("DISCRECIONAL G-18 A.I.E.")
 
       # And the establishment link leads to the tender page
       find("#establishment_show_link").click

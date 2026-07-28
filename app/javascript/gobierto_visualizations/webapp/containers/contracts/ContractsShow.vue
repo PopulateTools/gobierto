@@ -44,6 +44,18 @@
         :value="contracting_system"
         :icon="'sitemap'"
       />
+      <!-- The establishment tender has no row in `contratos`, so it is reachable
+           only from here and by its URL. The guard keeps the row out of the detail
+           on sites still serving the old CSV, where the field is always empty. -->
+      <ContractsShowLabelHeader
+        v-if="showEstablishment"
+        class="visualizations-contracts-show__block"
+        :label="labelEstablishment"
+        :value="establishmentValue"
+        :icon="'sitemap'"
+        :to="establishmentRoute"
+        :link-id="'establishment_show_link'"
+      />
       <ContractsShowLabelHeader
         class="visualizations-contracts-show__block"
         :label="labelCategory"
@@ -75,20 +87,39 @@
             />
           </template>
           <ContractsShowLabelGroup
+            v-if="!isTenderDetail"
             :label="labelBiddersDescription"
             :value="number_of_proposals"
+          />
+          <ContractsShowLabelGroup
+            v-if="isTenderDetail && number_of_batches"
+            :label="labelNumberOfBatches"
+            :value="number_of_batches"
           />
         </div>
         <div class="pure-u-1 pure-u-lg-1-2 pure-u-md-1-2">
           <ContractsShowLabelGroup
+            v-if="!isTenderDetail"
             :label="labelAwarding"
             :value="gobierto_start_date | formatDate"
           />
+          <!-- On a tender the total is the sum of independent contracts, so it
+               carries a label of its own: it is nobody's award amount. -->
           <ContractsShowLabelGroup
-            :label="labelContractAmount"
+            v-if="showAmount"
+            :label="isTenderDetail ? labelDerivedContractsAmount : labelContractAmount"
             :value="calculateFinalAmount | money"
           />
-          <template v-if="!hasSiblings">
+          <template v-if="showSiblingsTable">
+            <ContractsShowTable
+              :data="filterContractsBatches"
+              :mode="tableMode"
+            />
+          </template>
+          <p v-else-if="isTenderDetail">
+            {{ labelNoDerivedContracts }}
+          </p>
+          <template v-else-if="isContractDetail">
             <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
               <span class="visualizations-contracts-show__text__header">{{ labelAssigneeDescription }}</span>
               <router-link
@@ -99,15 +130,14 @@
               </router-link>
             </div>
           </template>
-          <template v-else>
-            <ContractsShowTable
-              :data="filterContractsBatches"
-              :mode="hasBatch ? 'batches' : 'derived'"
-            />
-          </template>
         </div>
       </div>
-      <ContractsShowTableFooter :data="contract" />
+      <!-- Reads the contract fields and answers "what % of the spending is this
+           contract": meaningless, and unrenderable, without a contract. -->
+      <ContractsShowTableFooter
+        v-if="isContractDetail"
+        :data="contract"
+      />
     </div>
   </div>
 </template>
@@ -119,7 +149,7 @@ import ContractsShowLabelHeader from '../../components/ContractsShowLabelHeader.
 import ContractsShowLabelGroup from '../../components/ContractsShowLabelGroup.vue';
 import ContractsShowTable from '../../components/ContractsShowTable.vue';
 import ContractsShowTableFooter from '../../components/ContractsShowTableFooter.vue';
-import { effectiveTenderId } from '../../lib/utils';
+import { contractRoutingId, effectiveTenderId } from '../../lib/utils';
 
 export default {
   name: 'ContractsShow',
@@ -139,6 +169,7 @@ export default {
     return {
       contractsData: this.$root.$data.contractsData,
       contract: {},
+      isTenderDetail: false,
       title: '',
       description: '',
       assignee: '',
@@ -158,14 +189,20 @@ export default {
       open_proposals_date: '',
       submission_date: '',
       number_of_proposals: '',
+      number_of_batches: '',
       cpvs: '',
       category_title: '',
       document_number: '',
       contracting_system: '',
       estimated_value: '',
+      establishment_title: '',
+      establishment_document_number: '',
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
       labelAssigneeDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignee_description') || '',
       labelContractAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.contract_amount') || '',
+      labelDerivedContractsAmount: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.derived_contracts_amount') || '',
+      labelNoDerivedContracts: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.no_derived_contracts') || '',
+      labelNumberOfBatches: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.number_of_batches') || '',
       labelTender: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.tender') || '',
       labelAwarding: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.formalization') || '',
       labelBidDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bid_description') || '',
@@ -174,6 +211,7 @@ export default {
       labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category') || '',
       labelDocumentNumber: I18n.t('gobierto_visualizations.visualizations.contracts.document_number') || '',
       labelContractingSystem: I18n.t('gobierto_visualizations.visualizations.contracts.contracting_system') || '',
+      labelEstablishment: I18n.t('gobierto_visualizations.visualizations.contracts.establishment') || '',
       labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
       labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
       labelEstimatedValue: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.estimated_value') || '',
@@ -181,6 +219,12 @@ export default {
     }
   },
   computed: {
+    // The route resolved to a contract. `contract` stays {} both on a tender page
+    // and when the id matches nothing at all, and the blocks reading contract
+    // fields must not render in either case.
+    isContractDetail() {
+      return !!this.contract.id
+    },
     // Contracts sharing the effective tender: the lots of a multi-lot tender
     // (batch_number > 0) and the contracts derived from a framework agreement or
     // a dynamic acquisition system (batch_number = 0). Returns [] when there is
@@ -200,6 +244,19 @@ export default {
     hasBatch() {
       return this.batch_number > 0
     },
+    // A contract derived from a framework agreement or a dynamic acquisition
+    // system (contracting system 3 or 4). It is an independent contract, not a lot
+    // of the tender it hangs from, even when it carries a batch_number of its own.
+    isDerived() {
+      return !!this.contract.is_derived_contract
+    },
+    // The siblings are the lots of one same tender, parts of a single contract.
+    // A derived contract is not one of them even when it carries a batch_number:
+    // then it is a lot of its own derived tender, whose sibling lots cannot be
+    // told apart because tender_id holds the establishment.
+    hasLots() {
+      return this.hasBatch && !this.isDerived
+    },
     isMinorContract() {
       return this.minor_contract === 't'
     },
@@ -209,23 +266,72 @@ export default {
     showEstimatedValue() {
       return this.initial_amount_no_taxes !== this.estimated_value
     },
-    // Only the lots of a multi-lot tender add up to the contract amount. Contracts
-    // derived from a framework agreement / dynamic acquisition system are siblings
-    // too, but each one is an independent contract with its own amount: summing
-    // them and presenting the total as "importe del contrato" would be false.
+    showEstablishment() {
+      return !this.isTenderDetail && !!this.establishment_document_number
+    },
+    establishmentValue() {
+      return [this.establishment_document_number, this.establishment_title]
+        .filter(Boolean)
+        .join(' — ')
+    },
+    establishmentRoute() {
+      return { name: 'contracts_show', params: { id: effectiveTenderId(this.contract) } }
+    },
+    // On a tender page a row is a contract with its own title and link, never a
+    // lot number — also for a multi-lot tender, where each lot is a contract.
+    tableMode() {
+      return !this.isTenderDetail && this.hasLots ? 'batches' : 'derived'
+    },
+    showSiblingsTable() {
+      return this.isTenderDetail ? this.filterContractsBatches.length > 0 : this.hasSiblings
+    },
+    showAmount() {
+      return this.isContractDetail || this.showSiblingsTable
+    },
+    siblingsAmount() {
+      return this.filterContractsBatches.reduce((acc, { final_amount_no_taxes }) => acc + final_amount_no_taxes, 0)
+    },
+    // Only the lots of one same tender add up: they are parts of one contract.
+    // Contracts derived from a framework agreement / dynamic acquisition system
+    // are independent contracts with an amount of their own, and summing them as
+    // "the contract amount" would be false.
     calculateFinalAmount() {
-      return this.hasBatch && this.filterContractsBatches.length
-        ? this.filterContractsBatches.reduce((acc, { final_amount_no_taxes }) => acc + final_amount_no_taxes, 0)
+      if (this.isTenderDetail) return this.siblingsAmount
+
+      return this.hasLots && this.filterContractsBatches.length
+        ? this.siblingsAmount
         : this.final_amount_no_taxes
     }
   },
   created() {
     const itemId = this.$route.params.id;
-    this.contract = this.contractsData.find(({ id }) => id === itemId ) || {};
+
+    // Resolved by contract_id, the routing key of a contract. On sites still
+    // serving the old CSV contractRoutingId falls back to `id`, so a contract
+    // always answers first and the tender branch below is never reached: the
+    // behaviour there is identical to the previous one.
+    //
+    // A handful of contract_ids collide with a tender id; the contract wins and
+    // the tender stays in the shadow. Residual case, not addressed here.
+    const contract = this.contractsData.find(row => contractRoutingId(row) === itemId)
 
     EventBus.$emit("refresh-active-tab");
 
-    if (this.contract) {
+    if (contract) {
+      this.setupContractDetail(contract)
+    } else {
+      // No contract answers to that id, so it may be a tender id: typically the
+      // establishment of a framework agreement / dynamic acquisition system, or a
+      // multi-lot tender. Those URLs already existed — `id` holds the effective
+      // tender — and used to land on whichever derived contract came first.
+      const tender = (this.$root.$data.tendersData || []).find(({ id }) => id === itemId)
+      if (tender) this.setupTenderDetail(tender)
+    }
+  },
+  methods: {
+    setupContractDetail(contract) {
+      this.contract = contract
+
       const {
         title,
         cpvs,
@@ -250,8 +356,10 @@ export default {
         number_of_proposals,
         estimated_value,
         document_number,
-        contracting_system
-      } = this.contract
+        contracting_system,
+        establishment_title,
+        establishment_document_number
+      } = contract
 
       this.title = title
       this.description = description
@@ -264,7 +372,6 @@ export default {
       this.contract_type = contract_type
       this.assignee_routing_id = assignee_routing_id
       this.contractor = contractor
-      this.contract_type = contract_type
       this.start_date = start_date
       this.end_date = end_date
       this.gobierto_start_date = gobierto_start_date
@@ -278,14 +385,58 @@ export default {
       this.estimated_value = +estimated_value
       this.document_number = document_number || ''
       this.contracting_system = contracting_system || ''
-    }
+      this.establishment_title = establishment_title || ''
+      this.establishment_document_number = establishment_document_number || ''
 
-    if (this.hasSiblings) {
-      this.setTenderTitle()
-      this.groupBatches()
-    }
-  },
-  methods: {
+      if (this.hasSiblings) {
+        // A derived contract keeps its own title: it names what was actually
+        // bought, while the establishment names the system it was bought through.
+        if (this.hasLots) this.setTenderTitle()
+        this.groupBatches()
+      }
+    },
+    // The route resolved to a tender: the header must describe the tender, and the
+    // table lists the contracts hanging from it. The fields not shared with a
+    // contract are hidden in the template through isTenderDetail, because
+    // `licitaciones` has no data for them.
+    setupTenderDetail(tender) {
+      this.isTenderDetail = true
+
+      const {
+        title,
+        document_number,
+        contracting_system,
+        contractor,
+        status,
+        contract_type,
+        process_type,
+        category_title,
+        submission_date,
+        open_proposals_date,
+        initial_amount_no_taxes,
+        contract_value,
+        number_of_batches
+      } = tender
+
+      // tendersData arrives already translated (contracting_system, contract_type,
+      // process_type, status, category_title), so nothing is translated again here.
+      this.title = title
+      this.document_number = document_number || ''
+      this.contracting_system = contracting_system || ''
+      this.contractor = contractor
+      this.status = status
+      this.contract_type = contract_type
+      this.process_type = process_type
+      this.category_title = category_title
+      this.submission_date = submission_date || null
+      this.open_proposals_date = open_proposals_date || null
+      this.initial_amount_no_taxes = initial_amount_no_taxes
+      this.estimated_value = +contract_value
+      this.number_of_batches = number_of_batches
+
+      this.filterContractsBatches = this.contractsData
+        .filter(contract => effectiveTenderId(contract) === tender.id)
+    },
     groupBatches() {
       // siblings is a computed property and sort mutates in place: copy first.
       this.filterContractsBatches = [...this.siblings].sort((a, b) => a.batch_number - b.batch_number);

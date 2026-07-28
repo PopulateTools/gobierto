@@ -16,32 +16,33 @@
       </thead>
       <tbody>
         <tr
-          v-for="({ id, batch_number, contract_id, title, final_amount_no_taxes, assignee, assignee_routing_id }, index) in data"
-          :key="contract_id || index"
+          v-for="(row, index) in data"
+          :key="row.contract_id || index"
         >
           <td v-if="isDerived">
-            <!-- The detail route resolves its param against `id` (see
-                 ContractsIndex#goesToTableItem), not against `contract_id`. -->
+            <!-- Each row is a contract of its own, so it links through its routing
+                 key: `id` holds the effective tender and every derived contract of
+                 the same establishment shares it. -->
             <router-link
-              v-if="id"
-              :to="{ name: 'contracts_show', params: { id } }"
+              v-if="rowRoutingId(row)"
+              :to="{ name: 'contracts_show', params: { id: rowRoutingId(row) } }"
             >
-              {{ title }}
+              {{ row.title }}
             </router-link>
             <template v-else>
-              {{ title }}
+              {{ row.title }}
             </template>
           </td>
           <td v-else>
-            {{ batch_number }}
+            {{ row.batch_number }}
           </td>
-          <td>{{ final_amount_no_taxes | money }}</td>
+          <td>{{ row.final_amount_no_taxes | money }}</td>
           <td>
             <router-link
               id="assignee_show_link"
-              :to="{ name: 'assignees_show', params: {id: assignee_routing_id } }"
+              :to="{ name: 'assignees_show', params: {id: row.assignee_routing_id } }"
             >
-              <strong class="d_block">{{ assignee }}</strong>
+              <strong class="d_block">{{ row.assignee }}</strong>
             </router-link>
           </td>
         </tr>
@@ -52,6 +53,7 @@
 <script>
 
 import { VueFiltersMixin } from '../../../lib/vue/filters'
+import { contractRoutingId } from '../lib/utils';
 export default {
   name: 'ContractsShowTable',
   mixins: [VueFiltersMixin],
@@ -82,6 +84,11 @@ export default {
   computed: {
     isDerived() {
       return this.mode === 'derived'
+    }
+  },
+  methods: {
+    rowRoutingId(row) {
+      return contractRoutingId(row)
     }
   }
 }

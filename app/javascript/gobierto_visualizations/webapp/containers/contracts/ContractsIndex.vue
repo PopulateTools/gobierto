@@ -15,6 +15,7 @@
 import { Table } from '../../../../lib/vue/components';
 import { EventBus } from '../../lib/mixins/event_bus';
 import { getContractsColumns } from '../../lib/config/contracts.js';
+import { contractRoutingId } from '../../lib/utils';
 
 export default {
   name: 'ContractsIndex',
@@ -60,17 +61,22 @@ export default {
       // Lowercase the query once instead of per row (see SearchFilter).
       const query = this.value.toLowerCase()
 
+      // establishment_document_number lets a search for the expediente of a
+      // framework agreement / dynamic acquisition system find the contracts
+      // derived from it: no contract carries that expediente itself. Its title is
+      // deliberately left out — a long text repeated across every derived contract
+      // adds noise, not precision.
       this.items = this.contractsData
         .filter(contract => contract.assignee.toLowerCase().includes(query)
           || contract.title.toLowerCase().includes(query)
-          || (contract.document_number || '').toLowerCase().includes(query))
+          || (contract.document_number || '').toLowerCase().includes(query)
+          || (contract.establishment_document_number || '').toLowerCase().includes(query))
     },
     rowHref(item) {
-      return `${location.origin}/visualizaciones/contratos/adjudicaciones/${item.id}`
+      return `${location.origin}/visualizaciones/contratos/adjudicaciones/${contractRoutingId(item)}`
     },
     goesToTableItem(item) {
-      const { id: routingId } = item
-      this.$router.push({ name: 'contracts_show', params: { id: routingId } })
+      this.$router.push({ name: 'contracts_show', params: { id: contractRoutingId(item) } })
     }
   }
 }

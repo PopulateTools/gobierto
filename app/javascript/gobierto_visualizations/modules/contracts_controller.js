@@ -31,9 +31,26 @@ if (Vue.config.devtools) {
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
+// Mirrors CONTRACTING_SYSTEM_TYPES in open-licitaciones
+// (app/models/concerns/is_tender.rb). It is an official CODICE code, the order is
+// stable. The ETL exports the integer, not the text, so the I18n keys are ours
+// (and spelled without the "establishement" typo the origin carries).
+const CONTRACTING_SYSTEMS = [
+  'none',
+  'based_on_agreement_establishment',
+  'dynamic_acquisition_establishment',
+  'based_on_agreement',
+  'dynamic_acquisition'
+];
+
 export class ContractsController {
   constructor(options) {
     this.charts = {};
+    // Sidebar filters with no dc chart behind them. We keep the crossfilter
+    // dimension and the set of selected values ourselves, because without a chart
+    // there is no onFiltered callback doing it for us. They must stay out of
+    // this.charts: several loops there assume every entry has .container and .node.
+    this.chartlessFilters = {};
     this.tendersFilters = {
       submission_date: [],
       process_type: [],
@@ -197,6 +214,10 @@ export class ContractsController {
       if (id) acc[id] = document_number;
       return acc;
     }, {});
+    const tenderDocumentNumber = row => {
+      const key = effectiveTenderId(row);
+      return key ? (documentNumberByTenderId[key] || '') : '';
+    };
 
     contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, document_number, ...rest }) => {
       return {
@@ -214,10 +235,6 @@ export class ContractsController {
     tendersDataMap = tendersData.map(({ initial_amount_no_taxes = 0, submission_date, ...rest }) => {
 
       return {
-    const tenderDocumentNumber = row => {
-      const key = effectiveTenderId(row);
-      return key ? (documentNumberByTenderId[key] || '') : '';
-    };
         initial_amount_no_taxes: initial_amount_no_taxes ? parseFloat(initial_amount_no_taxes) : 0.0,
         submission_date_year: submission_date ? new Date(submission_date).getFullYear().toString() : '',
         ...rest
@@ -273,12 +290,29 @@ export class ContractsController {
 
       d.status = t(`${statusPrefix}.${status}`)
 
+      // The CSV delivers numbers as strings. `none` (0) is normalized to '' so it
+      // shows up neither as a filter option nor as a row in the detail, the same
+      // as every other empty field. A missing column (a site still serving the old
+      // CSV) lands here too and also ends up as '': `+undefined` is NaN and
+      // CONTRACTING_SYSTEMS[NaN] is undefined.
+      const system = CONTRACTING_SYSTEMS[+d.contracting_system]
+      d.contracting_system = (system && system !== 'none')
+        ? t(`gobierto_visualizations.visualizations.contracting_systems.${system}`)
+        : ''
+
       return d
     })
   }
 
   _renderSummary() {
     this.ndx = crossfilter(this._currentDataSource().contractsData);
+
+    // Registered here and not in the constructor because this.ndx is recreated on
+    // every call, and a dimension of a discarded crossfilter filters nothing.
+    this.chartlessFilters["contracting_systems"] = {
+      dimension: this.ndx.dimension(contract => contract.contracting_system),
+      selected: new Set()
+    };
 
     this._renderTendersMetricsBox();
     this._renderContractsMetricsBox();
@@ -555,7 +589,12 @@ export class ContractsController {
 
   _updateChartsFromFilter(options) {
     // apply the filters
-    container.filter(options.all ? null : options.title);
+    const chartless = this.chartlessFilters[options.id];
+    if (chartless) {
+      this._applyChartlessFilter(chartless, options);
+    } else {
+      this.charts[options.id].container.filter(options.all ? null : options.title);
+    }
 
     Object.values(this.charts).forEach(chart => {
       // Math.round in order to avoid a javascript issue handling floating numbers (very tiny decimals)
@@ -578,6 +617,34 @@ export class ContractsController {
         chart.node.style.display = "none"
       }
     });
+  }
+
+  _applyChartlessFilter(chartless, { all, title, titles }) {
+    const { dimension, selected } = chartless;
+
+    // Aside emits one title per click and expects the selection to accumulate, so
+    // the semantics are toggle, not replace: filterExact(title) would be wrong.
+    if (all) {
+      // "Select all" toggles: if everything was already selected, clear it.
+      if (selected.size === titles.length) selected.clear();
+      else titles.forEach(t => selected.add(t));
+    } else if (selected.has(title)) {
+      selected.delete(title);
+    } else {
+      selected.add(title);
+    }
+
+    if (selected.size === 0) {
+      dimension.filterAll();
+    } else {
+      dimension.filterFunction(value => selected.has(value));
+    }
+
+    // Deliberately without the filter arguments: this filter must not propagate to
+    // the tenders dataset. Derived contracts carry contracting_system 3 or 4 while
+    // establishment tenders carry 1 or 2, so matching the selected label against
+    // `licitaciones` would find no row and empty the tenders panel.
+    this._refreshData(dimension.top(Infinity));
   }
 
   _refreshTendersDataFromFilters(filters, tendersAttribute) {

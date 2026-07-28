@@ -209,6 +209,10 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.document_number")
       assert page.has_content?("EXP39.2020")
 
+      # The contracting system is shown as a translated label
+      assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracting_system")
+      assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracting_systems.based_on_agreement")
+
       # All the derived contracts of the same establishment are listed, titled
       # "Derived contract" instead of "Batch"
       siblings_table = find("#contracts_show_siblings")
@@ -261,7 +265,41 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
 
       # No tender, so no siblings table and no contracting system row
       assert page.has_no_css?("#contracts_show_siblings")
+      assert page.has_no_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracting_system")
       assert page.has_content?("€80,776.00")
+    end
+  end
+
+  def test_contracting_system_filter
+    with(site: site, js: true) do
+      visit @contracts_path
+
+      # Only the contracting systems present in the data show up as options: none
+      # of the establishment ones, which belong to the tenders
+      block = find("#filters-contracting-system")
+
+      assert block.has_content?("#{I18n.t('gobierto_visualizations.visualizations.contracting_systems.based_on_agreement')} (3)")
+      assert block.has_content?("#{I18n.t('gobierto_visualizations.visualizations.contracting_systems.dynamic_acquisition')} (3)")
+      assert block.has_no_content? I18n.t("gobierto_visualizations.visualizations.contracting_systems.based_on_agreement_establishment")
+
+      assert_equal 25, find_all(".gobierto-table tbody tr").size
+
+      # This filter has no dc chart behind it, so the reduction is applied by hand
+      within(block) do
+        find(".gobierto-filter-checkbox", text: I18n.t("gobierto_visualizations.visualizations.contracting_systems.dynamic_acquisition")).click
+      end
+
+      assert page.has_css?(".gobierto-table tbody tr", count: 3)
+
+      assignees = find_all(".gobierto-table tbody tr").map { |tr| tr.find_all("td").first.text }
+      assert_equal ["ASOCIACIÓN CENTRO TRAMA", "DISCRECIONAL G-18 A.I.E.", "Ilunion Sociosanitario S.A."], assignees.sort
+
+      # Unchecking it brings the whole dataset back
+      within(block) do
+        find(".gobierto-filter-checkbox", text: I18n.t("gobierto_visualizations.visualizations.contracting_systems.dynamic_acquisition")).click
+      end
+
+      assert page.has_css?(".gobierto-table tbody tr", count: 25)
     end
   end
 
@@ -271,6 +309,8 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
     with(site: site, js: true) do
       visit @contracts_path
 
+      # Without the column there is no option, and the sidebar block disappears
+      assert page.has_no_css?("#filters-contracting-system")
       assert page.has_content?("2021 (24)")
       assert_equal 25, find_all(".gobierto-table tbody tr").size
 
@@ -280,6 +320,7 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       assert page.has_content?("Suministro por compra de 650 contenedores de carga lateral")
       assert_equal ["1", "2", "3"], find("#contracts_show_siblings").all("tbody tr td:first-child").map(&:text)
       assert page.has_content?("€217,000.00")
+      assert page.has_no_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracting_system")
 
       # And a contract with no siblings shows its assignee, not a table
       visit "/visualizaciones/contratos/adjudicaciones/38947"

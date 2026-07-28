@@ -38,6 +38,13 @@
         :icon="'folder'"
       />
       <ContractsShowLabelHeader
+        v-if="contracting_system"
+        class="visualizations-contracts-show__block"
+        :label="labelContractingSystem"
+        :value="contracting_system"
+        :icon="'sitemap'"
+      />
+      <ContractsShowLabelHeader
         class="visualizations-contracts-show__block"
         :label="labelCategory"
         :value="category_title"
@@ -95,6 +102,7 @@
           <template v-else>
             <ContractsShowTable
               :data="filterContractsBatches"
+              :mode="hasBatch ? 'batches' : 'derived'"
             />
           </template>
         </div>
@@ -102,7 +110,6 @@
       <ContractsShowTableFooter :data="contract" />
     </div>
   </div>
-              :mode="hasBatch ? 'batches' : 'derived'"
 </template>
 
 <script>
@@ -112,6 +119,7 @@ import ContractsShowLabelHeader from '../../components/ContractsShowLabelHeader.
 import ContractsShowLabelGroup from '../../components/ContractsShowLabelGroup.vue';
 import ContractsShowTable from '../../components/ContractsShowTable.vue';
 import ContractsShowTableFooter from '../../components/ContractsShowTableFooter.vue';
+import { effectiveTenderId } from '../../lib/utils';
 
 export default {
   name: 'ContractsShow',
@@ -119,7 +127,6 @@ export default {
     ContractsShowLabelHeader,
     ContractsShowLabelGroup,
     ContractsShowTable,
-import { effectiveTenderId } from '../../lib/utils';
     ContractsShowTableFooter
   },
   filters: {
@@ -154,6 +161,7 @@ import { effectiveTenderId } from '../../lib/utils';
       cpvs: '',
       category_title: '',
       document_number: '',
+      contracting_system: '',
       estimated_value: '',
       labelAwardingEntity: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.awarding_entity') || '',
       labelAssigneeDescription: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.assignee_description') || '',
@@ -165,6 +173,7 @@ import { effectiveTenderId } from '../../lib/utils';
       labelStatus: I18n.t('gobierto_visualizations.visualizations.contracts.status') || '',
       labelCategory: I18n.t('gobierto_visualizations.visualizations.subsidies.category') || '',
       labelDocumentNumber: I18n.t('gobierto_visualizations.visualizations.contracts.document_number') || '',
+      labelContractingSystem: I18n.t('gobierto_visualizations.visualizations.contracts.contracting_system') || '',
       labelProcess: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process') || '',
       labelType: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type') || '',
       labelEstimatedValue: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.estimated_value') || '',
@@ -172,15 +181,6 @@ import { effectiveTenderId } from '../../lib/utils';
     }
   },
   computed: {
-    hasBatch() {
-      return this.batch_number > 0
-    },
-    isMinorContract() {
-      return this.minor_contract === 't'
-    },
-    showArrowDate() {
-      return this.submission_date && this.open_proposals_date
-    },
     // Contracts sharing the effective tender: the lots of a multi-lot tender
     // (batch_number > 0) and the contracts derived from a framework agreement or
     // a dynamic acquisition system (batch_number = 0). Returns [] when there is
@@ -197,9 +197,22 @@ import { effectiveTenderId } from '../../lib/utils';
     hasSiblings() {
       return this.siblings.length > 0
     },
+    hasBatch() {
+      return this.batch_number > 0
+    },
+    isMinorContract() {
+      return this.minor_contract === 't'
+    },
+    showArrowDate() {
+      return this.submission_date && this.open_proposals_date
+    },
     showEstimatedValue() {
       return this.initial_amount_no_taxes !== this.estimated_value
     },
+    // Only the lots of a multi-lot tender add up to the contract amount. Contracts
+    // derived from a framework agreement / dynamic acquisition system are siblings
+    // too, but each one is an independent contract with its own amount: summing
+    // them and presenting the total as "importe del contrato" would be false.
     calculateFinalAmount() {
       return this.hasBatch && this.filterContractsBatches.length
         ? this.filterContractsBatches.reduce((acc, { final_amount_no_taxes }) => acc + final_amount_no_taxes, 0)
@@ -209,10 +222,6 @@ import { effectiveTenderId } from '../../lib/utils';
   created() {
     const itemId = this.$route.params.id;
     this.contract = this.contractsData.find(({ id }) => id === itemId ) || {};
-    // Only the lots of a multi-lot tender add up to the contract amount. Contracts
-    // derived from a framework agreement / dynamic acquisition system are siblings
-    // too, but each one is an independent contract with its own amount: summing
-    // them and presenting the total as "importe del contrato" would be false.
 
     EventBus.$emit("refresh-active-tab");
 
@@ -240,7 +249,8 @@ import { effectiveTenderId } from '../../lib/utils';
         submission_date,
         number_of_proposals,
         estimated_value,
-        document_number
+        document_number,
+        contracting_system
       } = this.contract
 
       this.title = title
@@ -267,6 +277,7 @@ import { effectiveTenderId } from '../../lib/utils';
       this.number_of_proposals = number_of_proposals
       this.estimated_value = +estimated_value
       this.document_number = document_number || ''
+      this.contracting_system = contracting_system || ''
     }
 
     if (this.hasSiblings) {

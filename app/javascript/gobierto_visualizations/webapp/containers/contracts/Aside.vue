@@ -116,11 +116,13 @@ export default {
       const dateOptions = [];
       const categoryTypesOptions = [];
       const contractorTypesOptions = [];
+      const contractingSystemsOptions = [];
       const years = new Set(this.contractsData.map(({ gobierto_start_date_year }) => gobierto_start_date_year));
       const contractTypes = new Set(this.contractsData.map(({ contract_type }) => contract_type));
       const processTypes = new Set(this.contractsData.map(({ process_type }) => process_type));
       const categoryTypes = new Set(this.contractsData.map(({ category_title }) => category_title));
       const contractorTypes = new Set(this.contractsData.map(({ contractor }) => contractor));
+      const contractingSystems = new Set(this.contractsData.map(({ contracting_system }) => contracting_system));
 
       // Contract Types
       [...contractTypes]
@@ -163,6 +165,14 @@ export default {
           }
         });
 
+      // Contracting systems
+      [...contractingSystems]
+        .forEach((contractingSystem, index) => {
+          if (contractingSystem) {
+            contractingSystemsOptions.push({ id: index, title: contractingSystem, counter: 0, isOptionChecked: false })
+          }
+        });
+
       this.filters.forEach((filter) => {
         if (filter.id === 'dates') {
           filter.options = dateOptions;
@@ -174,18 +184,20 @@ export default {
           filter.options = categoryTypesOptions;
         } else if (filter.id === 'contractor') {
           filter.options = contractorTypesOptions;
+        } else if (filter.id === 'contracting_systems') {
+          filter.options = contractingSystemsOptions;
         }
       })
 
       this.filters = this.filters.filter(({ options }) => options.length > 1)
     },
     updateCounters(firstUpdate=false) {
-      const counter = { process_types: {}, contract_types: {}, dates: {}, category_title: {}, contractor: {} };
+      const counter = { process_types: {}, contract_types: {}, dates: {}, category_title: {}, contractor: {}, contracting_systems: {} };
 
       // It iterates over the contracts to get the number of items for each year, process type and contract type
       // In the end, it populates counter with something like:
       // {process_types: {'Abierto': 12, 'Abierto Simplificado': 43,...}, dates: {2020: '12'...}}
-      this.contractsData.forEach(({ process_type, contract_type, gobierto_start_date_year, category_title, contractor }) => {
+      this.contractsData.forEach(({ process_type, contract_type, gobierto_start_date_year, category_title, contractor, contracting_system }) => {
         counter.process_types[process_type] = counter.process_types[process_type] || 0
         counter.process_types[process_type]++
 
@@ -200,6 +212,9 @@ export default {
 
         counter.contractor[contractor] = counter.contractor[contractor] || 0
         counter.contractor[contractor]++
+
+        counter.contracting_systems[contracting_system] = counter.contracting_systems[contracting_system] || 0
+        counter.contracting_systems[contracting_system]++
       })
 
       // This loop fills the filters data attribute with the counter result we populated in the previous loop

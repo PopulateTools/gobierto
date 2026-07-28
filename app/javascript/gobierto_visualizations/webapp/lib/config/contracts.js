@@ -9,6 +9,7 @@ export const getContractsColumns = () => [
   { field: 'contract_type', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.type'), cssClass: 'nowrap pl1' },
   { field: 'process_type', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.process'), cssClass: 'nowrap pl1' },
   { field: 'document_number', name: I18n.t('gobierto_visualizations.visualizations.contracts.document_number'), cssClass: 'nowrap pl1' },
+  { field: 'contracting_system', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracting_system'), cssClass: 'nowrap pl1' },
   { field: 'category_title', name: I18n.t('gobierto_visualizations.visualizations.subsidies.category'), cssClass: 'nowrap pl1' },
   { field: 'open_proposals_date', name: I18n.t('gobierto_visualizations.visualizations.contracts.tender_date'), cssClass: 'nowrap pl1 right', type: 'date' },
   { field: 'initial_amount_no_taxes', name: I18n.t('gobierto_visualizations.visualizations.contracts.contracts_show.bid_description'), cssClass: 'nowrap pl1 right', type: 'money' }
@@ -59,6 +60,15 @@ export const getContractsFiltersConfig = () => {
   {
     id: 'process_types',
     title: I18n.t('gobierto_visualizations.visualizations.contracts.process_type'),
+    isToggle: responsiveSize,
+    options: []
+  },
+  {
+    // No dc chart behind this one: most rows have no contracting system, so a
+    // distribution chart would add nothing to the summary. See
+    // ContractsController#_applyChartlessFilter.
+    id: 'contracting_systems',
+    title: I18n.t('gobierto_visualizations.visualizations.contracts.contracting_system'),
     isToggle: responsiveSize,
     options: []
   },

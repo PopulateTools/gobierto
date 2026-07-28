@@ -9,7 +9,7 @@ import {
 import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 import { money } from '../../lib/vue/filters';
 import { EventBus } from '../webapp/lib/mixins/event_bus';
-import { calculateSumMeanMedian, getRemoteData } from '../webapp/lib/utils';
+import { calculateSumMeanMedian, effectiveTenderId, getRemoteData } from '../webapp/lib/utils';
 import { divide } from '../../lib/shared';
 
 // ESBuild does not work properly with dynamic components
@@ -185,14 +185,20 @@ export class ContractsController {
       .domain(this._amountRange.domain)
       .range(this._amountRange.range);
 
-    // Contracts don't carry the código de expediente; it lives on the tender
-    // (document_number) and is shared by all its lots through the tender id.
+    // The código de expediente lives on the tender (document_number) and is
+    // shared by all its lots through the tender id. Contracts may also carry it
+    // themselves, and that value wins when present.
+    //
+    // The join goes through effectiveTenderId, which resolves the tender of a
+    // contract and returns null when there is none to join against (a minor
+    // contract, whose id belongs to a colliding id space). Falsy tender ids are
+    // skipped for the same reason: some tenders arrive with an empty id.
     const documentNumberByTenderId = tendersData.reduce((acc, { id, document_number }) => {
-      if (id !== undefined && id !== null) acc[id] = document_number;
+      if (id) acc[id] = document_number;
       return acc;
     }, {});
 
-    contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, ...rest }) => {
+    contractsDataMap = contractsData.map(({ final_amount_no_taxes = 0, initial_amount_no_taxes = 0, gobierto_start_date, assignee_id, document_number, ...rest }) => {
       return {
         final_amount_no_taxes: (final_amount_no_taxes && !Number.isNaN(final_amount_no_taxes)) ? parseFloat(final_amount_no_taxes): 0.0,
         initial_amount_no_taxes: (initial_amount_no_taxes && !Number.isNaN(initial_amount_no_taxes)) ? parseFloat(initial_amount_no_taxes): 0.0,
@@ -201,13 +207,17 @@ export class ContractsController {
         gobierto_start_date_year: gobierto_start_date ? new Date(gobierto_start_date).getFullYear().toString() : '',
         gobierto_start_date: new Date(gobierto_start_date),
         ...rest,
-        document_number: documentNumberByTenderId[rest.id]
+        document_number: document_number || tenderDocumentNumber(rest)
       }
     })
 
     tendersDataMap = tendersData.map(({ initial_amount_no_taxes = 0, submission_date, ...rest }) => {
 
       return {
+    const tenderDocumentNumber = row => {
+      const key = effectiveTenderId(row);
+      return key ? (documentNumberByTenderId[key] || '') : '';
+    };
         initial_amount_no_taxes: initial_amount_no_taxes ? parseFloat(initial_amount_no_taxes) : 0.0,
         submission_date_year: submission_date ? new Date(submission_date).getFullYear().toString() : '',
         ...rest
@@ -544,8 +554,6 @@ export class ContractsController {
   }
 
   _updateChartsFromFilter(options) {
-    const container = this.charts[options.id].container;
-
     // apply the filters
     container.filter(options.all ? null : options.title);
 

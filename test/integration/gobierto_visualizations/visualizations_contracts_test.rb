@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "csv"
 
 class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::IntegrationTest
   def setup
@@ -26,6 +27,25 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
 
     FileUtils.cp File.join(Rails.root, 'test', 'fixtures', 'files', 'gobierto_visualizations', 'tenders.csv'),
       File.join(Rails.root, 'public', 'tenders.csv')
+  end
+
+  # The phase 1 columns are only served by sites already migrated: the rest keep
+  # serving the old CSV for an indefinite time, and the viewer must fall back to the
+  # previous behaviour there.
+  def copy_legacy_csv_files
+    strip_csv_columns("contracts.csv", %w[document_number contract_id tender_id contracting_system])
+    strip_csv_columns("tenders.csv", %w[contracting_system])
+  end
+
+  def strip_csv_columns(file_name, columns)
+    path = File.join(Rails.root, "public", file_name)
+    rows = CSV.read(path, headers: true)
+    headers = rows.headers - columns
+
+    CSV.open(path, "w") do |csv|
+      csv << headers
+      rows.each { |row| csv << row.values_at(*headers) }
+    end
   end
 
   def remove_mock_csv_files
@@ -174,6 +194,98 @@ class GobiertoVisualizations::VisualizationsContractsTest < ActionDispatch::Inte
       first_contract.click
 
       assert_equal current_path, "/visualizaciones/contratos/adjudicaciones/38947"
+    end
+  end
+
+  # The fixture groups three contracts (1232522, 1386359, 869596) under the
+  # establishment tender 1410914 through tender_id, with contracting_system 3.
+  def test_derived_contracts
+    with(site: site, js: true) do
+      visit "/visualizaciones/contratos/adjudicaciones/1232522"
+
+      # The header shows the establishment tender, and its expediente is inherited
+      # through tender_id
+      assert page.has_content?("Suministro de gasóleo para los vehículos y maquinaria de instalaciones de LYMA")
+      assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.document_number")
+      assert page.has_content?("EXP39.2020")
+
+      # All the derived contracts of the same establishment are listed, titled
+      # "Derived contract" instead of "Batch"
+      siblings_table = find("#contracts_show_siblings")
+
+      assert siblings_table.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracts_show.derived_contract")
+      assert siblings_table.has_no_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracts_show.batch")
+      assert siblings_table.has_content?("Suministro de un camión con plataforma elevadora telescópica")
+      assert siblings_table.has_content?("Dotación de monitores para el desarrollo del proyecto")
+      assert siblings_table.has_content?("Ejecución de las obras de adecuación y mejora del centro cívico")
+      assert_equal 3, siblings_table.all("tbody tr").size
+
+      # Each derived contract keeps its own amount: they are independent contracts,
+      # so the detail must not show the sum of its siblings (€284,396.83)
+      assert page.has_content?("€50,000.46")
+      assert page.has_no_content?("€284,396.83")
+
+      # And each row links to its own detail
+      within(siblings_table) do
+        click_link("Ejecución de las obras de adecuación y mejora del centro cívico", match: :first)
+      end
+
+      assert_equal "/visualizaciones/contratos/adjudicaciones/869596", current_path
+      assert page.has_content?("€209,819.71")
+    end
+  end
+
+  def test_multi_lot_contract_keeps_adding_up_its_lots
+    with(site: site, js: true) do
+      visit "/visualizaciones/contratos/adjudicaciones/43430"
+
+      # The header shows the tender title, not the lot-specific one
+      assert page.has_content?("Suministro por compra de 650 contenedores de carga lateral")
+
+      # The lots are listed by batch number, and the contract amount is their sum
+      lots_table = find("#contracts_show_siblings")
+
+      assert lots_table.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.contracts_show.batch")
+      assert_equal ["1", "2", "3"], lots_table.all("tbody tr td:first-child").map(&:text)
+      assert page.has_content?("€217,000.00")
+    end
+  end
+
+  def test_minor_contract
+    with(site: site, js: true) do
+      visit "/visualizaciones/contratos/adjudicaciones/266023"
+
+      # It carries its own expediente, not one joined from the tenders dataset
+      assert page.has_content? I18n.t("gobierto_visualizations.visualizations.contracts.document_number")
+      assert page.has_content?("CM/2020/042")
+
+      # No tender, so no siblings table and no contracting system row
+      assert page.has_no_css?("#contracts_show_siblings")
+      assert page.has_content?("€80,776.00")
+    end
+  end
+
+  def test_legacy_csv_degrades_to_the_previous_behaviour
+    copy_legacy_csv_files
+
+    with(site: site, js: true) do
+      visit @contracts_path
+
+      assert page.has_content?("2021 (24)")
+      assert_equal 25, find_all(".gobierto-table tbody tr").size
+
+      # Multi-lot contracts still group through the id column
+      visit "/visualizaciones/contratos/adjudicaciones/43430"
+
+      assert page.has_content?("Suministro por compra de 650 contenedores de carga lateral")
+      assert_equal ["1", "2", "3"], find("#contracts_show_siblings").all("tbody tr td:first-child").map(&:text)
+      assert page.has_content?("€217,000.00")
+
+      # And a contract with no siblings shows its assignee, not a table
+      visit "/visualizaciones/contratos/adjudicaciones/38947"
+
+      assert page.has_no_css?("#contracts_show_siblings")
+      assert page.has_css?("#assignee_show_link")
     end
   end
 

@@ -81,7 +81,7 @@
             :label="labelContractAmount"
             :value="calculateFinalAmount | money"
           />
-          <template v-if="!hasBatch">
+          <template v-if="!hasSiblings">
             <div class="pure-u-1 pure-u-lg-1-1 visualizations-contracts-show__body__group">
               <span class="visualizations-contracts-show__text__header">{{ labelAssigneeDescription }}</span>
               <router-link
@@ -102,6 +102,7 @@
       <ContractsShowTableFooter :data="contract" />
     </div>
   </div>
+              :mode="hasBatch ? 'batches' : 'derived'"
 </template>
 
 <script>
@@ -118,6 +119,7 @@ export default {
     ContractsShowLabelHeader,
     ContractsShowLabelGroup,
     ContractsShowTable,
+import { effectiveTenderId } from '../../lib/utils';
     ContractsShowTableFooter
   },
   filters: {
@@ -179,11 +181,27 @@ export default {
     showArrowDate() {
       return this.submission_date && this.open_proposals_date
     },
+    // Contracts sharing the effective tender: the lots of a multi-lot tender
+    // (batch_number > 0) and the contracts derived from a framework agreement or
+    // a dynamic acquisition system (batch_number = 0). Returns [] when there is
+    // no tender key — sites still serving the old CSV would otherwise group the
+    // whole dataset — and also when the contract only finds itself, so the table
+    // never shows a single row repeating the detail above it.
+    siblings() {
+      const key = effectiveTenderId(this.contract)
+      if (!key) return []
+
+      const siblings = this.contractsData.filter(contract => effectiveTenderId(contract) === key)
+      return siblings.length > 1 ? siblings : []
+    },
+    hasSiblings() {
+      return this.siblings.length > 0
+    },
     showEstimatedValue() {
       return this.initial_amount_no_taxes !== this.estimated_value
     },
     calculateFinalAmount() {
-      return this.batch_number > 0
+      return this.hasBatch && this.filterContractsBatches.length
         ? this.filterContractsBatches.reduce((acc, { final_amount_no_taxes }) => acc + final_amount_no_taxes, 0)
         : this.final_amount_no_taxes
     }
@@ -191,6 +209,10 @@ export default {
   created() {
     const itemId = this.$route.params.id;
     this.contract = this.contractsData.find(({ id }) => id === itemId ) || {};
+    // Only the lots of a multi-lot tender add up to the contract amount. Contracts
+    // derived from a framework agreement / dynamic acquisition system are siblings
+    // too, but each one is an independent contract with its own amount: summing
+    // them and presenting the total as "importe del contrato" would be false.
 
     EventBus.$emit("refresh-active-tab");
 
@@ -247,21 +269,25 @@ export default {
       this.document_number = document_number || ''
     }
 
-    if (this.hasBatch) {
+    if (this.hasSiblings) {
       this.setTenderTitle()
       this.groupBatches()
     }
   },
   methods: {
     groupBatches() {
-      this.filterContractsBatches = this.contractsData.filter(({ id }) => id === this.contract.id).sort((a, b) => a.batch_number - b.batch_number);
+      // siblings is a computed property and sort mutates in place: copy first.
+      this.filterContractsBatches = [...this.siblings].sort((a, b) => a.batch_number - b.batch_number);
     },
     setTenderTitle() {
       // Each lot of a multi-lot tender carries its own lot-specific title, but the
-      // detail header should show the tender title. The tender shares the contract
-      // id, so read the title from the tenders dataset.
+      // detail header should show the tender title, read from the tenders dataset
+      // through the effective tender of the contract.
+      const key = effectiveTenderId(this.contract)
+      if (!key) return
+
       const tendersData = this.$root.$data.tendersData || []
-      const tender = tendersData.find(({ id }) => id === this.contract.id)
+      const tender = tendersData.find(({ id }) => id === key)
       if (tender && tender.title) this.title = tender.title
     }
   }

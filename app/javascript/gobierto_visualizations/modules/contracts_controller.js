@@ -317,7 +317,12 @@ export class ContractsController {
         d.process_type = t(`gobierto_visualizations.visualizations.process_types.${process_type}`)
       }
 
-      d.status = t(`${statusPrefix}.${status}`)
+      // Guarded like the fields above: two of the UJI's tenders arrive with an
+      // empty status, and translating it renders the I18n missing-key message
+      // where an empty row was meant to be.
+      if (status) {
+        d.status = t(`${statusPrefix}.${status}`)
+      }
 
       // The CSV delivers numbers as strings. `none` (0) is normalized to '' so it
       // shows up neither as a filter option nor as a row in the detail, the same

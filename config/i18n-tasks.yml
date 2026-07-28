@@ -98,6 +98,7 @@ ignore_unused:
   - 'gobierto_visualizations.visualizations.tender_statuses.*'
   - 'gobierto_visualizations.visualizations.contract_types.*'
   - 'gobierto_visualizations.visualizations.contract_statuses.*'
+  - 'gobierto_visualizations.visualizations.contracting_systems.*'
   - 'gobierto_visualizations.visualizations.process_types.*'
   - 'routes.*'
 

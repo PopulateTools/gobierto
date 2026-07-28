@@ -57,13 +57,6 @@ commands:
           name: "[Yarn] Restore cache"
           keys:
             - gobierto-yarn-{{ checksum "yarn.lock" }}
-  restore_assets_cache:
-    steps:
-      - restore_cache:
-          name: "Restore cached assets"
-          keys:
-            - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-{{ .Branch }}
-            - gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-
   prepare_workspace:
     steps:
       - checkout
@@ -75,7 +68,6 @@ commands:
           replace-existing-chrome: true
       - restore_bundler_cache
       - restore_yarn_cache
-      - restore_assets_cache
       - run: bundle --path vendor/bundle
       - run: yarn install
       # Wait for DB containers to be ready
@@ -155,19 +147,16 @@ jobs:
       - browser-tools/install-chromedriver
 
       # Compile assets
-      - restore_assets_cache
       - run: bin/rails assets:precompile
-      - save_cache:
-          name: "Cache assets"
-          key: gobierto-{{ .Environment.CACHE_VERSION }}-asset-cache-{{ .Branch }}
-          paths:
-            - public/assets
-            - public/packs-test
 
+      # The compiled assets travel to the test jobs through the workspace, not
+      # through a cache: a cache key is immutable, so a branch that keeps pushing
+      # JS changes would have its test jobs served the bundle of its first run.
       - persist_to_workspace:
           root: *working_directory
           paths:
             - db
+            - public/assets
 
   tests_admin:
     <<: *defaults

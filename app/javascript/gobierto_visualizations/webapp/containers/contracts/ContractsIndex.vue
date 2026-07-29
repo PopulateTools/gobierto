@@ -5,6 +5,7 @@
     :sort-direction="'desc'"
     :columns="contractsColumns"
     :show-columns="showColumns"
+    :href-builder="rowHref"
     class="gobierto-table-margin-top gobierto-table-scroll"
     @on-href-click="goesToTableItem"
   />
@@ -14,6 +15,7 @@
 import { Table } from '../../../../lib/vue/components';
 import { EventBus } from '../../lib/mixins/event_bus';
 import { getContractsColumns } from '../../lib/config/contracts.js';
+import { contractRoutingId } from '../../lib/utils';
 
 export default {
   name: 'ContractsIndex',
@@ -44,7 +46,9 @@ export default {
 
     EventBus.$on('filtered-items', (value) => this.updateFilteredItems(value))
 
-    this.items = this.contractsData.map(d => ({ ...d, href: `${location.origin}${location.pathname}/${d.id}` } ))
+    // Keep the frozen rows as-is (no per-row href clone); the link is built
+    // on demand via rowHref, so Object.freeze keeps working on the full dataset.
+    this.items = this.contractsData
     this.columns = getContractsColumns();
     this.showColumns = ['assignee', 'title', 'gobierto_start_date', 'final_amount_no_taxes']
   },
@@ -54,16 +58,25 @@ export default {
   methods: {
     updateFilteredItems(value) {
       this.value = value || ''
+      // Lowercase the query once instead of per row (see SearchFilter).
+      const query = this.value.toLowerCase()
 
+      // establishment_document_number lets a search for the expediente of a
+      // framework agreement / dynamic acquisition system find the contracts
+      // derived from it: no contract carries that expediente itself. Its title is
+      // deliberately left out — a long text repeated across every derived contract
+      // adds noise, not precision.
       this.items = this.contractsData
-        .filter(contract => contract.assignee.toLowerCase()
-        .includes(this.value.toLowerCase()) || contract.title.toLowerCase()
-        .includes(this.value.toLowerCase()))
-        .map(d => ({ ...d, href: `${location.origin}/visualizaciones/contratos/adjudicaciones/${d.id}` } ))
+        .filter(contract => contract.assignee.toLowerCase().includes(query)
+          || contract.title.toLowerCase().includes(query)
+          || (contract.document_number || '').toLowerCase().includes(query)
+          || (contract.establishment_document_number || '').toLowerCase().includes(query))
+    },
+    rowHref(item) {
+      return `${location.origin}/visualizaciones/contratos/adjudicaciones/${contractRoutingId(item)}`
     },
     goesToTableItem(item) {
-      const { id: routingId } = item
-      this.$router.push({ name: 'contracts_show', params: { id: routingId } })
+      this.$router.push({ name: 'contracts_show', params: { id: contractRoutingId(item) } })
     }
   }
 }

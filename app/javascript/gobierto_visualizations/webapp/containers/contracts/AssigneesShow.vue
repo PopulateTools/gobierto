@@ -18,6 +18,7 @@
         :sort-column="'title'"
         :columns="assigneesShowColumns"
         :show-columns="showColumns"
+        :href-builder="rowHref"
         @on-href-click="goesToTableItem"
       />
     </div>
@@ -29,6 +30,7 @@ import { VueFiltersMixin } from '../../../../lib/vue/filters'
 import { Table } from '../../../../lib/vue/components';
 import { EventBus } from '../../lib/mixins/event_bus';
 import { getAssigneesShowColumns } from '../../lib/config/contracts.js';
+import { contractRoutingId } from '../../lib/utils';
 
 export default {
   name: 'AssigneesShow',
@@ -65,7 +67,9 @@ export default {
 
       this.items = contracts
       this.columns = getAssigneesShowColumns();
-      this.tableItems = this.items.map(d => ({ ...d, href: `${location.origin}/visualizaciones/contratos/adjudicaciones/${d.id}` } ))
+      // No per-row href clone; the link is built on demand via rowHref so the
+      // frozen rows stay frozen.
+      this.tableItems = this.items
 
       if (contracts.length > 0) {
         const contract = contracts[0]
@@ -73,9 +77,11 @@ export default {
         this.assignee_id = contract.assignee_id
       }
     },
+    rowHref(item) {
+      return `${location.origin}/visualizaciones/contratos/adjudicaciones/${contractRoutingId(item)}`
+    },
     goesToTableItem(item) {
-      const { id: routingId } = item
-      this.$router.push({ name: 'contracts_show', params: { id: routingId } })
+      this.$router.push({ name: 'contracts_show', params: { id: contractRoutingId(item) } })
     }
   }
 }

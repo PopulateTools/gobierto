@@ -60,3 +60,28 @@ export function calculateSumMeanMedian(value) {
 }
 
 export const toNumber = (value) => value ? +(parseFloat(value)) : 0;
+
+// The effective tender of a contract. The ETL publishes it in `tender_id`
+// (COALESCE(establishment_tender_id, tender_id)), NULL for minor contracts, so
+// it groups both the lots of a tender and the contracts derived from a framework
+// agreement / dynamic acquisition system. Sites still serving the old CSV don't
+// carry the column: there we fall back to `id`, which holds tenders.id for
+// non-minor contracts. For minor ones `id` is contracts.id, a different id space
+// that collides with the tenders one, so it is useless as a tender key and we
+// return null.
+//
+// Note the order of the checks: `tender_id !== undefined` tells "column absent"
+// (fall back) apart from "column present but empty" (a minor contract with no
+// tender). Don't collapse it into `tender_id || ...`.
+export const effectiveTenderId = ({ id, tender_id, minor_contract }) => {
+  if (tender_id !== undefined) return tender_id || null;
+  return minor_contract === 't' ? null : (id || null);
+};
+
+// The routing key of a contract. The ETL publishes `contract_id`, unique per
+// contract (34,314 out of 34,314 in the UJI). `id` holds the effective tender
+// since the ETL was fixed, so the 51 contracts derived from a single dynamic
+// acquisition system share it and it cannot route. Sites still serving the old
+// CSV don't carry the column: there we fall back to `id`, which is what their
+// current URLs already use.
+export const contractRoutingId = ({ id, contract_id }) => contract_id || id;

@@ -64,6 +64,11 @@ en:
         services: Services
         special_administrative: Special administrative
         supplies: Supplies
+      contracting_systems:
+        based_on_agreement: Derived from framework agreement
+        based_on_agreement_establishment: Framework agreement
+        dynamic_acquisition: Derived from dynamic acquisition system
+        dynamic_acquisition_establishment: Dynamic acquisition system
       contracts:
         amount_by_type_of_process: Amount by type of process
         amount_distribution: Amount distribution
@@ -72,6 +77,7 @@ en:
         contract: Contract
         contract_amount: Contract Amount
         contract_type: Type of contract
+        contracting_system: Contracting system
         contractor: Contractor
         contracts: Contracts
         contracts_assigned_to: Contracts assigned to
@@ -84,10 +90,14 @@ en:
           bidders_description: Number of companies that have submitted to the process
             (Bidders)
           contract_amount: Contract amount
+          derived_contract: Derived contract
+          derived_contracts_amount: Total amount of the derived contracts
           entity: Entity
           estimated_value: Estimated value
           external_source: Source
           formalization: Formalization
+          no_derived_contracts: This tender has no awarded contracts
+          number_of_batches: Number of batches
           process: Procedure
           question_description: What % of the budget is this contract?
           tender: Tender
@@ -96,7 +106,9 @@ en:
         dates: Dates
         description: Visualizations and analisys for the awarded contracts and tenders
           to %{entity_name}
+        document_number: File number
         entities: Entities
+        establishment: Establishment tender
         final_amount_no_taxes: Amount
         formalization_date: Date of formalization
         fromto: From To No Contr.
@@ -107,7 +119,8 @@ en:
           summary: Summary
           tenders: Tenders
         process_type: Type of procedure
-        search_placeholder: Search by assignee or by contract title
+        search_placeholder: Search by assignee, title, file number or establishment
+          tender file number
         status: Status
         submission_date: Date
         summary:
@@ -289,17 +302,22 @@ en:
           tip_3: The %{strong} of subsidies accumulate the 50% of all the spending
         title: Subsidies
       tender_statuses:
+        abandoned: Abandoned
         awarded: Awarded
         cancelled: Cancelled
         evaluation: Evaluation
+        formalized: Formalized
         modified: Modified
         partially_awarded: Partially awarded
         partially_resolved: Partially resolved
         prior_announcement: Prior announcement
         prior_evaluation: Prior evaluation
+        provisionally_awarded: Provisionally awarded
         provisionally_resolved: Provisionally resolved
         published: Oublished
         resolved: Resolved
+        revoked: Revoked
+        void: Void
       visualizations:
         title_beeswarm: Contracts by type, volume, size and date
         tooltip_beeswarm: Contract Amount

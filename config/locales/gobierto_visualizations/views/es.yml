@@ -64,6 +64,11 @@ es:
         services: Servicios
         special_administrative: Administrativo especial
         supplies: Suministros
+      contracting_systems:
+        based_on_agreement: Derivado de acuerdo marco
+        based_on_agreement_establishment: Acuerdo marco
+        dynamic_acquisition: Derivado de sistema dinámico de adquisición
+        dynamic_acquisition_establishment: Sistema dinámico de adquisición
       contracts:
         amount_by_type_of_process: Importe por tipo de procedimiento
         amount_distribution: Distribución por importes
@@ -72,6 +77,7 @@ es:
         contract: Contrato
         contract_amount: Imp. adjudicación
         contract_type: Tipo de contrato
+        contracting_system: Sistema de contratación
         contractor: Contrato
         contracts: Contratos
         contracts_assigned_to: Contratos adjudicados a
@@ -84,10 +90,14 @@ es:
           bidders_description: Número de empresas que se han presentado al proceso
             (Licitadores)
           contract_amount: Importe de adjudicación
+          derived_contract: Contrato derivado
+          derived_contracts_amount: Importe total de los contratos derivados
           entity: Entidad
           estimated_value: Valor estimado
           external_source: Fuente
           formalization: Formalización
+          no_derived_contracts: Esta licitación no tiene contratos adjudicados
+          number_of_batches: Número de lotes
           process: Procedimiento
           question_description: "¿Qué % del presupuesto supone este contrato?"
           tender: Licitación
@@ -96,7 +106,9 @@ es:
         dates: Fechas
         description: Visualización y análisis de los contratos adjudicados y las licitaciones
           del %{entity_name}
+        document_number: Código de expediente
         entities: Entidades
+        establishment: Licitación de establecimiento
         final_amount_no_taxes: Importe
         formalization_date: Fecha de formalización
         fromto: Desde A Nº. Contr.
@@ -107,7 +119,8 @@ es:
           summary: Resumen
           tenders: Licitaciones
         process_type: Tipo de procedimiento
-        search_placeholder: Busca por adjudicatario o por título del contrato
+        search_placeholder: Busca por adjudicatario, título, código de expediente
+          o código de expediente de la licitación de establecimiento
         status: Estado
         submission_date: Fecha
         summary:
@@ -243,9 +256,9 @@ es:
         unassigned: Sin alinear
         updated_date: Datos actualizados el 18 de marzo de 2025
       process_types:
-        based_on_agreement: Basat en Acord Marc
+        based_on_agreement: Acuerdo marco
         competitive_dialogue: Diálogo competitivo
-        dynamic_acquisition: Basado en sistema dinámico de adquisición
+        dynamic_acquisition: Sistema dinámico de adquisición
         innovation: Asociación para la innovación
         innovation_derived: Derivado de asociación para la innovación
         internal_rules: Normas Internas
@@ -294,17 +307,22 @@ es:
           tip_3: El %{strong} de subvenciones concentran el 50% de todo el gasto
         title: Subvenciones
       tender_statuses:
+        abandoned: Desistimiento
         awarded: Adjudicada
         cancelled: Desistida
         evaluation: Evaluación
+        formalized: Formalizada
         modified: Anulada
         partially_awarded: Parcialmente adjudicada
         partially_resolved: Parcialmente resuelta
         prior_announcement: Anuncio previo
         prior_evaluation: Evaluación previa
+        provisionally_awarded: Provisionalmente adjudicada
         provisionally_resolved: Adjudicación provisional
         published: Publicada
         resolved: Resuelta
+        revoked: Revocada
+        void: Desierta
       visualizations:
         title_beeswarm: Contratos por tipo, volumen, tamaño y fecha
         tooltip_beeswarm: Importe de adjudicación

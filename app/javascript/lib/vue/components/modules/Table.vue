@@ -46,7 +46,7 @@
               >
                 <template v-if="hasPermalink">
                   <a
-                    :href="item[href]"
+                    :href="rowHref(item)"
                     class="gobierto-table__a"
                     @click.prevent="handleTableItem(item)"
                   >
@@ -68,7 +68,7 @@
               >
                 <template v-if="hasPermalink">
                   <a
-                    :href="item[href]"
+                    :href="rowHref(item)"
                     class="gobierto-table__a"
                     @click.prevent="handleTableItem(item)"
                   >
@@ -89,7 +89,7 @@
               >
                 <template v-if="hasPermalink">
                   <a
-                    :href="item[href]"
+                    :href="rowHref(item)"
                     class="gobierto-table__a"
                     :class="cssClass"
                     @click.prevent="handleTableItem(item)"
@@ -112,7 +112,7 @@
               >
                 <template v-if="hasPermalink">
                   <a
-                    :href="item[href]"
+                    :href="rowHref(item)"
                     class="gobierto-table__a"
                     @click.prevent="handleTableItem(item)"
                   >
@@ -207,6 +207,13 @@ export default {
       type: String,
       default: 'href'
     },
+    // Optional: build the row link lazily from the (possibly frozen) row instead
+    // of reading a pre-baked `href` field. Lets callers avoid cloning every row
+    // just to attach a URL, which would defeat Object.freeze on large datasets.
+    hrefBuilder: {
+      type: Function,
+      default: null
+    },
   },
   data() {
     return {
@@ -221,7 +228,11 @@ export default {
   },
   computed: {
     hasPermalink() {
-      return this.data.some(element => element[this.href])
+      // With a builder, every row is linkable; otherwise fall back to the
+      // per-row href field (original behaviour).
+      return this.hrefBuilder
+        ? this.data.length > 0
+        : this.data.some(element => element[this.href])
     },
     rowsSorted() {
       const id = this.currentSortColumn;
@@ -280,6 +291,9 @@ export default {
     filterColumns(columns) {
       this.mapColumns = columns
       this.arrayColumnsFiltered = Array.from(this.mapColumns).filter(([,{ visibility }]) => !!visibility)
+    },
+    rowHref(item) {
+      return this.hrefBuilder ? this.hrefBuilder(item) : item[this.href]
     },
     handleTableItem(item) {
       this.$emit('on-href-click', item)

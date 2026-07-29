@@ -3471,10 +3471,10 @@ globjoin@^0.1.4:
   resolved "https://registry.npmjs.org/globjoin/-/globjoin-0.1.4.tgz"
   integrity sha1-L0SUrIkZ43Z8XLtpHp9GMyQoXUM=
 
-gobierto-vizzs@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/gobierto-vizzs/-/gobierto-vizzs-3.2.0.tgz#a8bce18e8ba2921765d094927b661376ac23cddf"
-  integrity sha512-Xt+cWwgH0YJD4G9fX9rWxcR6jPFGhToqLiIwUhWe2+CbP+g0UwT9tQAcRW0t4PXXa6KjyFvrd8GkORTUbravpA==
+gobierto-vizzs@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/gobierto-vizzs/-/gobierto-vizzs-3.4.0.tgz#e975b3c6a3f3e050ed630166814895979ddd6135"
+  integrity sha512-Ymd9v5Z563D1wnwvw0AFmkAdYJB1m8RZrbA7HOwL36qc/XtKnjJLUp1oQS/qbPvxvVayUafwYLrhEIRaJ2vhiA==
   dependencies:
     d3-array "^3.2.4"
     d3-axis "^3.0.0"

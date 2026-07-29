@@ -64,6 +64,11 @@ ca:
         services: Serveis
         special_administrative: Administratiu especial
         supplies: Subministraments
+      contracting_systems:
+        based_on_agreement: Derivat d'acord marc
+        based_on_agreement_establishment: Acord marc
+        dynamic_acquisition: Derivat de sistema dinàmic d'adquisició
+        dynamic_acquisition_establishment: Sistema dinàmic d'adquisició
       contracts:
         amount_by_type_of_process: Import per tipus de procediment
         amount_distribution: Distribució per imports
@@ -72,6 +77,7 @@ ca:
         contract: Contracte
         contract_amount: Imp. adjudicació
         contract_type: Tipus de contracte
+        contracting_system: Sistema de contractació
         contractor: Contractor
         contracts: Contractes
         contracts_assigned_to: Contractes adjudicats a
@@ -83,10 +89,14 @@ ca:
           bid_description: Pressupost base de licitació sense impostos
           bidders_description: Numero d'empreses que s'han presentat al procés (Licitadors)
           contract_amount: Import d'adjudicació
+          derived_contract: Contracte derivat
+          derived_contracts_amount: Import total dels contractes derivats
           entity: Entitat
           estimated_value: Valor estimat
           external_source: Font
           formalization: Formalització
+          no_derived_contracts: Aquesta licitació no té contractes adjudicats
+          number_of_batches: Número de lots
           process: Procediment
           question_description: Quin % del pressupost suposa aquest contracte?
           tender: Licitació
@@ -95,7 +105,9 @@ ca:
         dates: Dates
         description: Visualització i anàlisi dels contractes adjudicats i les licitacions
           del %{entity_name}
+        document_number: Codi d'expedient
         entities: Entitats
+        establishment: Licitació d'establiment
         final_amount_no_taxes: Import
         formalization_date: Data de formalització
         fromto: De a Nº Contr.
@@ -106,7 +118,8 @@ ca:
           summary: Resum
           tenders: Licitacions
         process_type: Tipus de procediment
-        search_placeholder: Cerqueu per adjudicatari o per títol del contracte
+        search_placeholder: Cerqueu per adjudicatari, títol, codi d'expedient o codi
+          d'expedient de la licitació d'establiment
         status: Estat
         submission_date: Data
         summary:
@@ -239,9 +252,9 @@ ca:
         unassigned: Sense alinear
         updated_date: Dades actualitzades el 18 de març de 2025
       process_types:
-        based_on_agreement: Basat en Acord Marc
+        based_on_agreement: Acord marc
         competitive_dialogue: Diàleg competitiu
-        dynamic_acquisition: Basat en sistema dinàmic d'adquisició
+        dynamic_acquisition: Sistema dinàmic d'adquisició
         innovation: Associació per a la innovació
         innovation_derived: Derivat d'associació per a la innovació
         internal_rules: Normes Internes
@@ -290,17 +303,22 @@ ca:
           tip_3: El %{strong} de subvencions concentren el 50% de tota la despesa
         title: Subvencions
       tender_statuses:
+        abandoned: Desistiment
         awarded: Adjudicat
         cancelled: Desistida
         evaluation: Avaluació
+        formalized: Formalitzada
         modified: Anul·lada
         partially_awarded: Parcialment adjudicada
         partially_resolved: Parcialment resolta
         prior_announcement: Anunci previ
         prior_evaluation: Avaluació prèvia
+        provisionally_awarded: Provisionalment adjudicada
         provisionally_resolved: Adjudicació provisional
         published: Publicada
         resolved: Resolta
+        revoked: Revocada
+        void: Deserta
       visualizations:
         title_beeswarm: Contractes per tipus, volum, mida i data
         tooltip_beeswarm: Import d'adjudicació

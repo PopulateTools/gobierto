@@ -16,7 +16,13 @@
           :active-tab="activeTabIndex"
         />
         <ContractsIndex v-show="isContractsIndex" />
-        <ContractsShow v-if="isContractsShow" />
+        <!-- Keyed by the contract id: the detail reads its contract in created(),
+             so navigating from one detail to another (a derived contract listed in
+             the siblings table) must remount it instead of reusing the instance. -->
+        <ContractsShow
+          v-if="isContractsShow"
+          :key="$route.params.id"
+        />
         <AssigneesShow v-if="isAssigneesShow" />
       </div>
     </div>

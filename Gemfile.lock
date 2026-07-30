@@ -157,7 +157,7 @@ GEM
       js_cookie_rails (~> 2.2.0)
     crack (0.4.5)
       rexml
-    crass (1.0.6)
+    crass (1.0.7)
     csv (3.3.5)
     dalli (3.2.3)
     date (3.5.1)
@@ -315,7 +315,7 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.24.1)
+    loofah (2.25.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
@@ -440,8 +440,8 @@ GEM
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.6.2)
-      loofah (~> 2.21)
+    rails-html-sanitizer (1.7.1)
+      loofah (~> 2.25, >= 2.25.2)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
     rails-i18n (7.0.7)
       i18n (>= 0.7, < 2)
@@ -564,7 +564,8 @@ GEM
     webrick (1.8.2)
     webrobots (0.1.2)
     websocket (1.2.10)
-    websocket-driver (0.7.6)
+    websocket-driver (0.8.2)
+      base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     xml-simple (1.1.8)

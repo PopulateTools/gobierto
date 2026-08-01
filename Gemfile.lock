@@ -102,7 +102,8 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
-    akami (1.3.1)
+    akami (1.3.3)
+      base64
       gyoku (>= 0.4.0)
       nokogiri
     ansi (1.5.0)
@@ -246,17 +247,20 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
-    gyoku (1.3.1)
+    gyoku (1.4.0)
       builder (>= 2.1.2)
+      rexml (~> 3.0)
     hashdiff (1.0.1)
     hashie (4.1.0)
     highline (2.0.3)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
     httpclient (2.8.3)
-    httpi (2.4.4)
-      rack
-      socksify
+    httpi (4.0.4)
+      base64
+      mutex_m
+      nkf
+      rack (>= 2.0, < 4)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     i18n-js (3.8.3)
@@ -376,10 +380,13 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.7.5)
+    nkf (0.3.0)
     nokogiri (1.19.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nori (2.6.0)
+    nori (2.9.1)
+      bigdecimal
+      stringio
     oj (3.17.3)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
@@ -496,14 +503,15 @@ GEM
       activesupport (>= 4.2.5)
     rubyntlm (0.6.3)
     rubyzip (2.3.2)
-    savon (2.12.0)
+    savon (2.17.2)
       akami (~> 1.2)
       builder (>= 2.1.2)
       gyoku (~> 1.2)
-      httpi (~> 2.3)
+      httpi (>= 4, < 5)
+      mail (~> 2.5)
       nokogiri (>= 1.8.1)
-      nori (~> 2.4)
-      wasabi (~> 3.4)
+      nori (~> 2.7)
+      wasabi (>= 5.1.0, < 6)
     selenium-webdriver (4.21.1)
       base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
@@ -531,7 +539,6 @@ GEM
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.2)
     singleton (0.1.1)
-    socksify (1.7.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -540,6 +547,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     spy (1.0.1)
+    stringio (3.2.0)
     terminal-table (3.0.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     thor (1.4.0)
@@ -554,9 +562,10 @@ GEM
     unf_ext (0.0.8.2)
     unicode-display_width (1.7.0)
     vcr (6.1.0)
-    wasabi (3.5.0)
-      httpi (~> 2.0)
-      nokogiri (>= 1.4.2)
+    wasabi (5.1.0)
+      addressable
+      faraday (>= 1.9, < 3)
+      nokogiri (>= 1.13.9)
     webmock (3.13.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -651,7 +660,7 @@ DEPENDENCIES
   rubocop
   rubyXL
   ruby_px
-  savon (~> 2.12.0)
+  savon (~> 2.17.2)
   selenium-webdriver
   sidekiq
   sidekiq-monitor-stats

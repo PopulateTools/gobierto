@@ -2,6 +2,7 @@
 
 module GobiertoAdmin
   class AdminSettingsForm < BaseForm
+    include HasAdminNotificationSettings
 
     attr_accessor(
       :id,
@@ -38,6 +39,7 @@ module GobiertoAdmin
         admin_attributes.name = name
         admin_attributes.email = email
         admin_attributes.password = password if password
+        admin_attributes.notification_settings = notification_settings
       end
 
       if @admin.valid?

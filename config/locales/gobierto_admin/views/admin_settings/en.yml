@@ -6,3 +6,9 @@ en:
         edit:
           password_block: Password
           title: Edit your data
+        notification_settings:
+          description: Modules for which email notifications will be sent. Notifications
+            are only sent about content the admin has access to.
+          modules:
+            gobierto_plans: Plans
+          title: Email notifications

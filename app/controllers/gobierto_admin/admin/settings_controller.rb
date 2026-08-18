@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class Admin::SettingsController < BaseController
     before_action :authenticate_admin!
@@ -28,7 +30,13 @@ module GobiertoAdmin
     private
 
     def admin_settings_params
-      params.require(:admin).permit(:name, :email, :password, :password_confirmation)
+      params.require(:admin).permit(
+        :name,
+        :email,
+        :password,
+        :password_confirmation,
+        notification_settings: Admin::NOTIFICATION_MODULES.map(&:to_sym)
+      )
     end
 
     def get_user_genders

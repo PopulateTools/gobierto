@@ -124,7 +124,8 @@ module GobiertoAdmin
         :password_confirmation,
         :authorization_level,
         permitted_sites: [],
-        admin_group_ids: []
+        admin_group_ids: [],
+        notification_settings: Admin::NOTIFICATION_MODULES.map(&:to_sym)
       )
     end
 

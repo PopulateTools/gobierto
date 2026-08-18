@@ -104,14 +104,47 @@ module GobiertoAdmin
       assert manager_admin.can_manage_admins?
       refute admin.can_manage_admins?
 
+      grant_admins_permission_on_madrid
+
+      assert admin.can_manage_admins?
+    end
+
+    def grant_admins_permission_on_madrid
       GobiertoAdmin::GroupPermission.create!(
         admin_group: gobierto_admin_admin_groups(:madrid_group),
         namespace: "site_options",
         resource_type: "admins",
         action_name: "manage"
       )
+    end
 
-      assert admin.can_manage_admins?
+    # tony administers madrid and santander, but the permission is granted through
+    # a group that belongs to madrid.
+    def test_can_manage_admins_in_a_given_site
+      refute admin.can_manage_admins?(sites(:madrid))
+
+      grant_admins_permission_on_madrid
+
+      assert admin.can_manage_admins?(sites(:madrid))
+      refute admin.can_manage_admins?(sites(:santander))
+    end
+
+    def test_can_manage_admins_in_a_given_site_for_managing_users
+      assert manager_admin.can_manage_admins?(sites(:santander))
+      assert god_admin.can_manage_admins?(sites(:santander))
+    end
+
+    def test_sites_with_admins_permission
+      assert_empty admin.sites_with_admins_permission
+
+      grant_admins_permission_on_madrid
+
+      assert_equal [sites(:madrid)], admin.sites_with_admins_permission.to_a
+    end
+
+    def test_sites_with_admins_permission_for_managing_users
+      assert_equal Site.count, manager_admin.sites_with_admins_permission.count
+      assert_equal Site.count, god_admin.sites_with_admins_permission.count
     end
 
     def test_regular_or_disabled_on_site_scope
@@ -126,6 +159,37 @@ module GobiertoAdmin
       assert_includes madrid_admins, podrick
       refute_includes madrid_admins, manager_admin
       refute_includes madrid_admins, god_admin
+    end
+
+    def test_send_notifications_without_stored_settings
+      assert_empty admin.notification_settings
+      assert admin.send_notifications?("GobiertoPlans")
+    end
+
+    def test_send_notifications_for_a_disabled_module
+      admin.update!(notification_settings: { "gobierto_plans" => false })
+
+      refute admin.send_notifications?("GobiertoPlans")
+    end
+
+    def test_send_notifications_for_an_enabled_module
+      admin.update!(notification_settings: { "gobierto_plans" => true })
+
+      assert admin.send_notifications?("GobiertoPlans")
+    end
+
+    def test_send_notifications_for_an_unsettled_module
+      admin.update!(notification_settings: { "gobierto_plans" => false })
+
+      assert admin.send_notifications?("GobiertoBudgets")
+    end
+
+    def test_notifiable_modules
+      assert_equal ["gobierto_plans"], admin.notifiable_modules
+    end
+
+    def test_notifiable_modules_without_sites
+      assert_empty gobierto_admin_admins(:podrick).notifiable_modules
     end
   end
 end

@@ -8,6 +8,7 @@ module GobiertoAdmin
     include Session::Trackable
 
     EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
+    NOTIFICATION_MODULES = %w(gobierto_plans).freeze
 
     has_many :admin_sites, dependent: :destroy
     has_many :sites, through: :admin_sites
@@ -56,6 +57,12 @@ module GobiertoAdmin
       )
     end
 
+    # Only an explicit false silences a module, so admins with no
+    # stored settings keep receiving everything they can see.
+    def self.notifications_enabled?(settings, module_name)
+      settings.to_h[module_name.to_s.underscore] != false
+    end
+
     def people_permissions
       permissions.for_people
     end
@@ -91,6 +98,16 @@ module GobiertoAdmin
       managing_user? || send(module_namespace.underscore + "_permissions").on_site(site).any?
     end
 
+    def send_notifications?(module_name)
+      self.class.notifications_enabled?(notification_settings, module_name)
+    end
+
+    def notifiable_modules
+      NOTIFICATION_MODULES.select do |module_name|
+        sites.any? { |site| site.configuration.available_module?(module_name.camelize) }
+      end
+    end
+
     def can_customize_site?
       managing_user? || site_options_permissions.exists?(resource_type: :customize)
     end
@@ -115,8 +132,26 @@ module GobiertoAdmin
       managing_user? || site_options_permissions.exists?(resource_type: :documents)
     end
 
-    def can_manage_admins?
-      managing_user? || site_options_permissions.exists?(resource_type: :admins)
+    # Without a site it answers whether admins can be managed anywhere, which is
+    # only meaningful to decide if the admins section is reachable at all. Pass a
+    # site to check the permission where it is actually going to be exercised.
+    def can_manage_admins?(site = nil)
+      return true if managing_user?
+      return sites_with_admins_permission.exists?(id: site.id) if site.present?
+
+      site_options_permissions.exists?(resource_type: :admins)
+    end
+
+    # Sites where this admin holds the admins site option, and therefore the only
+    # ones whose admins, groups and site access it may manage.
+    def sites_with_admins_permission
+      return sites if managing_user?
+
+      Site.where(
+        id: admin_groups.joins(:permissions).where(
+          admin_group_permissions: { namespace: "site_options", resource_type: "admins" }
+        ).select(:site_id)
+      )
     end
 
     def admin_group_membership_created_at(group)

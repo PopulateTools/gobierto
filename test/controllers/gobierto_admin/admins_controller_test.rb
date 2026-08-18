@@ -16,6 +16,21 @@ module GobiertoAdmin
       @santander ||= sites(:santander)
     end
 
+    def huesca
+      @huesca ||= sites(:huesca)
+    end
+
+    def enter_admin_site(site)
+      post admin_sites_sessions_path, params: { site_id: site.id },
+           headers: { "HTTP_REFERER" => admin_root_url }
+    end
+
+    def admin_managing_madrid_admins
+      grant_admins_permission_to(madrid_group)
+      GobiertoAdmin::GroupsAdmin.create!(admin: steve, admin_group: madrid_group)
+      steve
+    end
+
     def steve
       @steve ||= gobierto_admin_admins(:steve)
     end
@@ -26,6 +41,10 @@ module GobiertoAdmin
 
     def madrid_group
       @madrid_group ||= gobierto_admin_admin_groups(:madrid_group)
+    end
+
+    def santander_group
+      @santander_group ||= gobierto_admin_admin_groups(:santander_group)
     end
 
     def grant_admins_permission_to(admin_group)
@@ -216,8 +235,63 @@ module GobiertoAdmin
       assert_includes response.body, madrid_group.name
     end
 
+    def notification_settings_params(notification_settings)
+      {
+        admin: {
+          name: tony.name,
+          email: tony.email,
+          authorization_level: "regular",
+          permitted_sites: ["", site.id.to_s, santander.id.to_s],
+          notification_settings: notification_settings
+        }
+      }
+    end
+
+    def test_update_persists_notification_settings_of_the_edited_admin
+      patch admin_admin_url(tony), params: notification_settings_params("gobierto_plans" => "0")
+      assert_redirected_to edit_admin_admin_path(tony)
+
+      assert_equal({ "gobierto_plans" => false }, tony.reload.notification_settings)
+      assert_empty admin.reload.notification_settings
+    end
+
+    def test_update_keeps_notification_settings_when_the_section_is_not_submitted
+      tony.update!(notification_settings: { "gobierto_plans" => false })
+
+      patch admin_admin_url(tony), params: notification_settings_params(nil)
+      assert_redirected_to edit_admin_admin_path(tony)
+
+      assert_equal({ "gobierto_plans" => false }, tony.reload.notification_settings)
+    end
+
+    def test_edit_form_shows_notification_settings_of_the_edited_admin
+      tony.update!(notification_settings: { "gobierto_plans" => false })
+
+      get edit_admin_admin_url(tony)
+      assert_response :success
+
+      assert_includes response.body, 'id="notification_settings"'
+      assert_match %r{<input[^>]*id="admin_notification_settings_gobierto_plans"[^>]*>}, response.body
+      refute_match %r{<input[^>]*id="admin_notification_settings_gobierto_plans"[^>]*checked}, response.body
+    end
+
+    # The signed in admin is a manager, so it has access to every site. Without
+    # sites of its own, the edited admin cannot receive any notification.
+    def test_edit_form_hides_notification_settings_for_an_admin_without_sites
+      admin_without_sites = gobierto_admin_admins(:podrick)
+      assert_empty admin_without_sites.sites
+
+      get edit_admin_admin_url(admin_without_sites)
+      assert_response :success
+
+      refute_includes response.body, 'id="notification_settings"'
+    end
+
+    # tony belongs to madrid and santander, and the permission is granted on both,
+    # so it can choose between them.
     def test_form_shows_sites_selector_for_multi_site_regular_admin
       grant_admins_permission_to(madrid_group)
+      grant_admins_permission_to(santander_group)
       sign_out_admin
       sign_in_admin(tony)
 
@@ -225,6 +299,95 @@ module GobiertoAdmin
       assert_response :success
 
       assert_includes response.body, 'id="sites_permissions"'
+    end
+
+    # The permission is granted only on madrid, so santander is not offered even
+    # though tony administers it.
+    def test_form_only_offers_sites_where_the_admin_can_manage_admins
+      grant_admins_permission_to(madrid_group)
+      sign_out_admin
+      sign_in_admin(tony)
+
+      get new_admin_admin_url
+      assert_response :success
+
+      refute_includes response.body, 'id="sites_permissions"'
+      assert_match %r{<input[^>]*type="hidden"[^>]*name="admin\[permitted_sites\]\[\]"[^>]*value="#{site.id}"}, response.body
+      refute_match %r{name="admin\[permitted_sites\]\[\]"[^>]*value="#{santander.id}"}, response.body
+    end
+
+    # The edited admin has access to huesca, which the current admin cannot see
+    # nor submit. Saving the form must not revoke it.
+    def test_update_keeps_sites_the_current_admin_cannot_manage
+      editor = admin_managing_madrid_admins
+      sign_out_admin
+      sign_in_admin(editor)
+
+      target = GobiertoAdmin::Admin.create!(
+        name: "Bruce Banner",
+        email: "bruce@gobierto.dev",
+        password: "gobierto",
+        authorization_level: "regular"
+      )
+      GobiertoAdmin::AdminSite.create!(admin: target, site: site)
+      GobiertoAdmin::AdminSite.create!(admin: target, site: huesca)
+
+      patch admin_admin_url(target), params: {
+        admin: {
+          name: target.name,
+          email: target.email,
+          authorization_level: "regular",
+          permitted_sites: ["", site.id.to_s]
+        }
+      }
+      assert_redirected_to edit_admin_admin_path(target)
+
+      assert_equal [huesca, site].sort_by(&:id), target.reload.sites.sort_by(&:id)
+    end
+
+    # steve administers santander but holds the admins permission only on madrid,
+    # so it must not be able to grant santander to anybody.
+    def test_update_cannot_grant_a_site_where_it_cannot_manage_admins
+      editor = admin_managing_madrid_admins
+      GobiertoAdmin::AdminSite.create!(admin: editor, site: santander)
+      sign_out_admin
+      sign_in_admin(editor)
+      enter_admin_site(site)
+
+      target = GobiertoAdmin::Admin.create!(
+        name: "Bruce Banner",
+        email: "bruce@gobierto.dev",
+        password: "gobierto",
+        authorization_level: "regular"
+      )
+      GobiertoAdmin::AdminSite.create!(admin: target, site: site)
+
+      patch admin_admin_url(target), params: {
+        admin: {
+          name: target.name,
+          email: target.email,
+          authorization_level: "regular",
+          permitted_sites: ["", site.id.to_s, santander.id.to_s]
+        }
+      }
+      assert_redirected_to edit_admin_admin_path(target)
+
+      assert_equal [site], target.reload.sites
+    end
+
+    def test_index_redirects_when_the_admin_cannot_manage_admins_in_the_current_site
+      editor = admin_managing_madrid_admins
+      GobiertoAdmin::AdminSite.create!(admin: editor, site: santander)
+      sign_out_admin
+      sign_in_admin(editor)
+
+      enter_admin_site(site)
+      get admin_admins_url
+      assert_response :success
+
+      enter_admin_site(santander)
+      get admin_admins_url
+      assert_redirected_to admin_users_path
     end
   end
 end

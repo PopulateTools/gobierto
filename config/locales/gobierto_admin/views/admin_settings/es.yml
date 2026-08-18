@@ -6,3 +6,9 @@ es:
         edit:
           password_block: Contraseña
           title: Edita tus datos personales
+        notification_settings:
+          description: Módulos para los que se enviarán notificaciones por correo.
+            Solo se envían notificaciones de los contenidos a los que se tiene acceso.
+          modules:
+            gobierto_plans: Planes
+          title: Notificaciones por correo

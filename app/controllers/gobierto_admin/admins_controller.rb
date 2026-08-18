@@ -130,11 +130,20 @@ module GobiertoAdmin
     def restricted_permitted_sites(admin: nil, params: {})
       return {} if current_admin.managing_user?
 
-      current_admin_sites = current_admin.admin_sites.pluck(:site_id)
+      current_admin_sites = available_sites.pluck(:id)
       admin_sites = params.present? ? params[:permitted_sites] : admin&.admin_sites&.pluck(:site_id)&.map(&:to_s)
       permitted_sites = current_admin_sites.select { |id| admin_sites.include?(id.to_s) }.presence || [current_site.id]
 
-      { permitted_sites: permitted_sites }
+      { permitted_sites: permitted_sites | out_of_reach_site_ids(admin, current_admin_sites) }
+    end
+
+    # Sites of the edited admin that the current admin cannot manage. They are
+    # not part of the form, so their absence from the submission is not a
+    # revocation and they have to survive the update.
+    def out_of_reach_site_ids(admin, manageable_site_ids)
+      return [] if admin.blank?
+
+      admin.admin_sites.pluck(:site_id) - manageable_site_ids
     end
 
     def ignored_admin_attributes

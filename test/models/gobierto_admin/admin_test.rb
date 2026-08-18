@@ -127,5 +127,36 @@ module GobiertoAdmin
       refute_includes madrid_admins, manager_admin
       refute_includes madrid_admins, god_admin
     end
+
+    def test_send_notifications_without_stored_settings
+      assert_empty admin.notification_settings
+      assert admin.send_notifications?("GobiertoPlans")
+    end
+
+    def test_send_notifications_for_a_disabled_module
+      admin.update!(notification_settings: { "gobierto_plans" => false })
+
+      refute admin.send_notifications?("GobiertoPlans")
+    end
+
+    def test_send_notifications_for_an_enabled_module
+      admin.update!(notification_settings: { "gobierto_plans" => true })
+
+      assert admin.send_notifications?("GobiertoPlans")
+    end
+
+    def test_send_notifications_for_an_unsettled_module
+      admin.update!(notification_settings: { "gobierto_plans" => false })
+
+      assert admin.send_notifications?("GobiertoBudgets")
+    end
+
+    def test_notifiable_modules
+      assert_equal ["gobierto_plans"], admin.notifiable_modules
+    end
+
+    def test_notifiable_modules_without_sites
+      assert_empty gobierto_admin_admins(:podrick).notifiable_modules
+    end
   end
 end

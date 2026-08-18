@@ -216,6 +216,58 @@ module GobiertoAdmin
       assert_includes response.body, madrid_group.name
     end
 
+    def notification_settings_params(notification_settings)
+      {
+        admin: {
+          name: tony.name,
+          email: tony.email,
+          authorization_level: "regular",
+          permitted_sites: ["", site.id.to_s, santander.id.to_s],
+          notification_settings: notification_settings
+        }
+      }
+    end
+
+    def test_update_persists_notification_settings_of_the_edited_admin
+      patch admin_admin_url(tony), params: notification_settings_params("gobierto_plans" => "0")
+      assert_redirected_to edit_admin_admin_path(tony)
+
+      assert_equal({ "gobierto_plans" => false }, tony.reload.notification_settings)
+      assert_empty admin.reload.notification_settings
+    end
+
+    def test_update_keeps_notification_settings_when_the_section_is_not_submitted
+      tony.update!(notification_settings: { "gobierto_plans" => false })
+
+      patch admin_admin_url(tony), params: notification_settings_params(nil)
+      assert_redirected_to edit_admin_admin_path(tony)
+
+      assert_equal({ "gobierto_plans" => false }, tony.reload.notification_settings)
+    end
+
+    def test_edit_form_shows_notification_settings_of_the_edited_admin
+      tony.update!(notification_settings: { "gobierto_plans" => false })
+
+      get edit_admin_admin_url(tony)
+      assert_response :success
+
+      assert_includes response.body, 'id="notification_settings"'
+      assert_match %r{<input[^>]*id="admin_notification_settings_gobierto_plans"[^>]*>}, response.body
+      refute_match %r{<input[^>]*id="admin_notification_settings_gobierto_plans"[^>]*checked}, response.body
+    end
+
+    # The signed in admin is a manager, so it has access to every site. Without
+    # sites of its own, the edited admin cannot receive any notification.
+    def test_edit_form_hides_notification_settings_for_an_admin_without_sites
+      admin_without_sites = gobierto_admin_admins(:podrick)
+      assert_empty admin_without_sites.sites
+
+      get edit_admin_admin_url(admin_without_sites)
+      assert_response :success
+
+      refute_includes response.body, 'id="notification_settings"'
+    end
+
     def test_form_shows_sites_selector_for_multi_site_regular_admin
       grant_admins_permission_to(madrid_group)
       sign_out_admin

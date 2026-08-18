@@ -108,12 +108,10 @@ module GobiertoAdmin
       end
     end
 
+    # Only sites where the current admin holds the admins permission, which are
+    # the ones whose admin access it may grant or revoke.
     def available_sites
-      @available_sites ||= if current_admin.managing_user?
-        Site.all
-      else
-        current_admin.sites
-      end
+      @available_sites ||= current_admin.sites_with_admins_permission
     end
 
     def admin_params
@@ -190,7 +188,7 @@ module GobiertoAdmin
     end
 
     def managing_user
-      redirect_to admin_users_path and return false unless current_admin.can_manage_admins?
+      redirect_to admin_users_path and return false unless current_admin.can_manage_admins?(current_site)
     end
 
     def generate_random_password

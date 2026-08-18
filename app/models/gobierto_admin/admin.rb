@@ -132,8 +132,26 @@ module GobiertoAdmin
       managing_user? || site_options_permissions.exists?(resource_type: :documents)
     end
 
-    def can_manage_admins?
-      managing_user? || site_options_permissions.exists?(resource_type: :admins)
+    # Without a site it answers whether admins can be managed anywhere, which is
+    # only meaningful to decide if the admins section is reachable at all. Pass a
+    # site to check the permission where it is actually going to be exercised.
+    def can_manage_admins?(site = nil)
+      return true if managing_user?
+      return sites_with_admins_permission.exists?(id: site.id) if site.present?
+
+      site_options_permissions.exists?(resource_type: :admins)
+    end
+
+    # Sites where this admin holds the admins site option, and therefore the only
+    # ones whose admins, groups and site access it may manage.
+    def sites_with_admins_permission
+      return sites if managing_user?
+
+      Site.where(
+        id: admin_groups.joins(:permissions).where(
+          admin_group_permissions: { namespace: "site_options", resource_type: "admins" }
+        ).select(:site_id)
+      )
     end
 
     def admin_group_membership_created_at(group)

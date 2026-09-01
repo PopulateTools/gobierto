@@ -51,15 +51,18 @@ module RackAttackRules
       Integer(ENV.fetch("RACK_ATTACK_#{key}_PERIOD") { DEFAULTS.fetch(key)[:period] }).seconds
     end
 
-    # Parsed once per configured value: this runs on every request.
+    # Parsed once per configured value: this runs on every request. The source
+    # is assigned after the ranges so that a concurrent caller recomputes them
+    # instead of reading the memo before it holds a value.
     def safelisted_ranges
       configured = ENV.fetch("RACK_ATTACK_SAFELIST_IPS", "")
       return @safelisted_ranges if @safelisted_ranges_source == configured
 
-      @safelisted_ranges_source = configured
       @safelisted_ranges = configured.split(",").filter_map do |entry|
         IPAddr.new(entry.strip) rescue nil
       end
+      @safelisted_ranges_source = configured
+      @safelisted_ranges
     end
 
     # Rack::Attack is appended at the end of the middleware stack, so

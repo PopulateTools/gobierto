@@ -14,6 +14,7 @@ Rails.application.configure do
       remote_ip: event.payload[:remote_ip],
       ip: event.payload[:ip],
       x_forwarded_for: event.payload[:x_forwarded_for],
+      cf_connecting_ip: event.payload[:cf_connecting_ip],
       user_agent: event.payload[:headers]&.[]("HTTP_USER_AGENT"),
 
       params: event.payload[:params].except(*exceptions).to_json,

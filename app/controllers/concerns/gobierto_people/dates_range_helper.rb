@@ -9,8 +9,13 @@ module GobiertoPeople
     CALENDAR_WINDOW_PAST_YEARS = 10
     CALENDAR_WINDOW_FUTURE_YEARS = 3
 
+    def self.calendar_date_window
+      today = Date.current
+      (today - CALENDAR_WINDOW_PAST_YEARS.years)..(today + CALENDAR_WINDOW_FUTURE_YEARS.years)
+    end
+
     included do
-      helper_method :site_configuration_dates_range?, :filter_start_date, :filter_end_date, :date_range_params, :all_start_date, :all_end_date
+      helper_method :site_configuration_dates_range?, :filter_start_date, :filter_end_date, :date_range_params, :all_start_date, :all_end_date, :calendar_date_window
     end
 
     def date_range_params
@@ -64,8 +69,7 @@ module GobiertoPeople
     end
 
     def calendar_date_window
-      today = Date.current
-      (today - CALENDAR_WINDOW_PAST_YEARS.years)..(today + CALENDAR_WINDOW_FUTURE_YEARS.years)
+      DatesRangeHelper.calendar_date_window
     end
 
     private

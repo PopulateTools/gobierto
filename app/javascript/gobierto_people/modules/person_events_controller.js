@@ -5,6 +5,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 export class PersonEventsController {
   constructor() {
     const calendarEl = document.getElementById('calendar');
+    const errorEl = document.getElementById('calendar_error');
 
     if (calendarEl) {
       var onlyCalendar = window.location.search.indexOf("only_calendar") > -1;
@@ -20,6 +21,13 @@ export class PersonEventsController {
           start: calendarEl.dataset.windowStart,
           end: calendarEl.dataset.windowEnd
         },
+        // FullCalendar only writes event source errors to the console, so the
+        // message has to be rendered explicitly.
+        eventSourceFailure: function (error) {
+          if (errorEl) {
+            errorEl.textContent = error.message;
+          }
+        },
         events: function ({ startStr, endStr }, successCallback, failureCallback) {
           var params = {
             start: startStr,
@@ -27,6 +35,9 @@ export class PersonEventsController {
           };
           if (onlyCalendar) {
             params.only_calendar = true;
+          }
+          if (errorEl) {
+            errorEl.textContent = "";
           }
 
           fetch(`${eventsEndpoint}?${new URLSearchParams(params).toString()}`)

@@ -60,7 +60,7 @@
 </div>
 
 <% if request.path == gobierto_people_person_events_path(@person.slug) || show_only_calendar? %>
-  <div id='calendar'>
+  <div id='calendar' data-window-start="<%= calendar_date_window.first.iso8601 %>" data-window-end="<%= calendar_date_window.last.iso8601 %>">
   </div>
 <% end %>
 

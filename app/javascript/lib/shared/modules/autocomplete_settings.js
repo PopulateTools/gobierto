@@ -1,6 +1,7 @@
 export const AUTOCOMPLETE_DEFAULTS = {
   dataType: 'json',
   minChars: 3,
+  deferRequestBy: 300,
   showNoSuggestionNotice: true,
   noSuggestionNotice: 'Lo sentimos, pero no hay resultados.',
   preserveInput: true,

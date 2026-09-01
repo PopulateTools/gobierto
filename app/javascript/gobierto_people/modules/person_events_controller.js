@@ -14,7 +14,13 @@ export class PersonEventsController {
       const calendar = new Calendar(calendarEl, {
         plugins: [dayGridPlugin, timeGridPlugin],
         locale: I18n.locale,
-        events: function ({ startStr, endStr }, successCallback) {
+        // Dates outside this range are rejected by the server, so navigation
+        // stops at its boundaries instead of asking for them.
+        validRange: {
+          start: calendarEl.dataset.windowStart,
+          end: calendarEl.dataset.windowEnd
+        },
+        events: function ({ startStr, endStr }, successCallback, failureCallback) {
           var params = {
             start: startStr,
             end: endStr,
@@ -24,8 +30,14 @@ export class PersonEventsController {
           }
 
           fetch(`${eventsEndpoint}?${new URLSearchParams(params).toString()}`)
-            .then((r) => r.json())
-            .then((doc) => successCallback(doc.events));
+            .then((r) => {
+              if (!r.ok) {
+                throw new Error(r.status === 429 ? I18n.t("gobierto_calendars.fullcalendar.too_many_requests") : r.statusText);
+              }
+              return r.json();
+            })
+            .then((doc) => successCallback(doc.events))
+            .catch((error) => failureCallback(error));
         },
         headerToolbar: {
           left: "prev,next today",

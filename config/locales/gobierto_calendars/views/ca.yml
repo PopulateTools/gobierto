@@ -9,4 +9,5 @@ ca:
       list: Llista
       month: Mes
       today: Avui
+      too_many_requests: No hem pogut carregar l'agenda. Torna-ho a provar en uns segons.
       week: Setmana

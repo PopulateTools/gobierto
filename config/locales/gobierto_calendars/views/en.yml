@@ -9,5 +9,6 @@ en:
       list: List
       month: Month
       today: Today
-      too_many_requests: The agenda could not be loaded. Please try again in a few seconds.
+      too_many_requests: The agenda could not be loaded. Please try again in a few
+        seconds.
       week: Week

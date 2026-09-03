@@ -9,4 +9,6 @@ es:
       list: Lista
       month: Mes
       today: Hoy
+      too_many_requests: No hemos podido cargar la agenda. Vuelve a intentarlo en
+        unos segundos.
       week: Semana

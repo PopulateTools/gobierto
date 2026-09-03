@@ -22,6 +22,7 @@ require "support/asymmetric_encryptor_helpers"
 require "support/site_config_helpers"
 require "support/gobierto_people/submodules_helper"
 require "support/environment_helper"
+require "support/rack_attack_helpers"
 require "capybara/email"
 require "capybara/rails"
 require "capybara/minitest"
@@ -65,6 +66,7 @@ class ActiveSupport::TestCase
   include SiteSessionHelpers
   include ActiveJob::TestHelper
   include EnvironmentHelper
+  include RackAttackHelpers
 
   fixtures :all
 

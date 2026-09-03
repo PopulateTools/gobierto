@@ -362,7 +362,7 @@ GEM
     minitest-stub_any_instance (1.0.2)
     mocha (2.1.0)
       ruby2_keywords (>= 0.0.5)
-    msgpack (1.7.2)
+    msgpack (1.8.2)
     multi_json (1.16.0)
     multipart-post (2.4.1)
     mutex_m (0.3.0)

@@ -40,7 +40,7 @@ module GobiertoAdmin
     def restricted_invitation_params
       return admin_invitation_params if current_admin.managing_user?
 
-      current_admin_site_ids = current_admin.admin_sites.pluck(:site_id).map(&:to_s)
+      current_admin_site_ids = available_sites.pluck(:id).map(&:to_s)
       submitted_site_ids = Array(admin_invitation_params[:site_ids]).map(&:to_s)
       admin_invitation_params.merge(
         site_ids: submitted_site_ids.select { |id| current_admin_site_ids.include?(id) }
@@ -48,11 +48,7 @@ module GobiertoAdmin
     end
 
     def available_sites
-      @available_sites ||= if current_admin.managing_user?
-                             Site.select(:id, :domain).all
-                           else
-                             current_admin.sites.select(:id, :domain)
-                           end
+      @available_sites ||= current_admin.sites_with_admins_permission.select(:id, :domain)
     end
 
     def default_invitation_attributes
@@ -70,7 +66,7 @@ module GobiertoAdmin
     end
 
     def managing_user
-      redirect_to admin_users_path and return false unless current_admin.can_manage_admins?
+      redirect_to admin_users_path and return false unless current_admin.can_manage_admins?(current_site)
     end
   end
 end

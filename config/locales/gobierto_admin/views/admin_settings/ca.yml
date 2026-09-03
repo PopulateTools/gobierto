@@ -6,3 +6,9 @@ ca:
         edit:
           password_block: Contrasenya
           title: Edita les teves dades
+        notification_settings:
+          description: Mòduls per als quals s'enviaran notificacions per correu. Només
+            s'envien notificacions dels continguts als quals es té accés.
+          modules:
+            gobierto_plans: Plans
+          title: Notificacions per correu

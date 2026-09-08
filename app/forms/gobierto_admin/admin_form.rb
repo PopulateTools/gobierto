@@ -2,6 +2,7 @@
 
 module GobiertoAdmin
   class AdminForm < BaseForm
+    include HasAdminNotificationSettings
 
     attr_accessor(
       :id,
@@ -111,6 +112,7 @@ module GobiertoAdmin
         admin_attributes.password = password if password
         admin_attributes.authorization_level = authorization_level if authorization_level.present?
         admin_attributes.creation_ip = creation_ip
+        admin_attributes.notification_settings = notification_settings
       end
 
       # Check changes

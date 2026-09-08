@@ -97,6 +97,8 @@
 
       <% end %>
 
+      <%= render "gobierto_admin/admin/settings/notification_settings", form: @admin_form, admin: @admin_form.admin %>
+
       <% if @admin_form.persisted? %>
         <div class="form_block" id="api_tokens">
 

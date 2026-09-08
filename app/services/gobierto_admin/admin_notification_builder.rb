@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class AdminNotificationBuilder
     attr_reader :event_name, :module_name, :subject, :payload, :site, :admin
@@ -14,6 +16,7 @@ module GobiertoAdmin
     def call
       recipients.each do |recipient|
         next unless admin_actions_manager.action_allowed?(admin: recipient, action_name: payload[:allowed_actions_to_send_notification], resource: subject)
+        next unless recipient.send_notifications?(module_name)
 
         deliver_notification(recipient)
       end

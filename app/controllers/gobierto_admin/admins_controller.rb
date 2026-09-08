@@ -108,12 +108,10 @@ module GobiertoAdmin
       end
     end
 
+    # Only sites where the current admin holds the admins permission, which are
+    # the ones whose admin access it may grant or revoke.
     def available_sites
-      @available_sites ||= if current_admin.managing_user?
-        Site.all
-      else
-        current_admin.sites
-      end
+      @available_sites ||= current_admin.sites_with_admins_permission
     end
 
     def admin_params
@@ -124,18 +122,28 @@ module GobiertoAdmin
         :password_confirmation,
         :authorization_level,
         permitted_sites: [],
-        admin_group_ids: []
+        admin_group_ids: [],
+        notification_settings: Admin::NOTIFICATION_MODULES.map(&:to_sym)
       )
     end
 
     def restricted_permitted_sites(admin: nil, params: {})
       return {} if current_admin.managing_user?
 
-      current_admin_sites = current_admin.admin_sites.pluck(:site_id)
+      current_admin_sites = available_sites.pluck(:id)
       admin_sites = params.present? ? params[:permitted_sites] : admin&.admin_sites&.pluck(:site_id)&.map(&:to_s)
       permitted_sites = current_admin_sites.select { |id| admin_sites.include?(id.to_s) }.presence || [current_site.id]
 
-      { permitted_sites: permitted_sites }
+      { permitted_sites: permitted_sites | out_of_reach_site_ids(admin, current_admin_sites) }
+    end
+
+    # Sites of the edited admin that the current admin cannot manage. They are
+    # not part of the form, so their absence from the submission is not a
+    # revocation and they have to survive the update.
+    def out_of_reach_site_ids(admin, manageable_site_ids)
+      return [] if admin.blank?
+
+      admin.admin_sites.pluck(:site_id) - manageable_site_ids
     end
 
     def ignored_admin_attributes
@@ -189,7 +197,7 @@ module GobiertoAdmin
     end
 
     def managing_user
-      redirect_to admin_users_path and return false unless current_admin.can_manage_admins?
+      redirect_to admin_users_path and return false unless current_admin.can_manage_admins?(current_site)
     end
 
     def generate_random_password

@@ -1,0 +1,27 @@
+<% notifiable_modules = admin.notifiable_modules %>
+
+<% if notifiable_modules.any? %>
+  <div class="form_block" id="notification_settings">
+
+    <h2><%= t(".title") %></h2>
+    <p><%= t(".description") %></p>
+
+    <div class="form_item">
+      <div class="options compact">
+        <% notifiable_modules.each do |module_name| %>
+          <% field_name = "admin[notification_settings][#{module_name}]" %>
+          <% field_id = "admin_notification_settings_#{module_name}" %>
+          <div class="option">
+            <%= hidden_field_tag field_name, "0", id: nil %>
+            <%= check_box_tag field_name, "1", form.send_notifications?(module_name), id: field_id %>
+            <%= label_tag field_id do %>
+              <span></span>
+              <%= t(".modules.#{module_name}") %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

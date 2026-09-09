@@ -104,12 +104,18 @@ module GobiertoCommon
       /option/.match?(field_type)
     end
 
+    def plugin
+      @plugin ||= CustomFieldPlugin.find(configuration.plugin_type)
+    end
+
+    # Whether the field declares a vocabulary reference, regardless of whether
+    # one has been chosen yet. This is the question the admin form asks.
+    def requires_vocabulary?
+      plugin ? plugin.requires_vocabulary? : /vocabulary/.match?(field_type)
+    end
+
     def has_vocabulary?
-      if (plugin_type = configuration.plugin_type&.to_sym)
-        self.class.has_vocabulary?(plugin_type) || configuration.plugin_configuration["vocabulary_ids"].present?
-      else
-        /vocabulary/.match?(field_type)
-      end
+      requires_vocabulary? || vocabulary_id.present? || vocabulary_ids.any?
     end
 
     def has_localized_value?
@@ -123,23 +129,19 @@ module GobiertoCommon
     end
 
     def vocabulary_id
-      return unless has_vocabulary? && options.present?
-
-      options.dig "vocabulary_id"
+      options&.dig("vocabulary_id")
     end
 
     def vocabulary_ids
-      return unless has_vocabulary? && options.present?
-
-      configuration.plugin_configuration&.dig("vocabulary_ids") || []
+      Array.wrap(configuration.plugin_configuration&.dig("vocabulary_ids"))
     end
 
     def vocabulary
-      site.vocabularies.find_by(id: vocabulary_id)
+      site.vocabularies.find_by(id: vocabulary_id) if vocabulary_id
     end
 
     def vocabularies
-      site.vocabularies.where(id: vocabulary_ids)
+      site.vocabularies.where(id: [vocabulary_id, *vocabulary_ids].compact)
     end
 
     def configuration
@@ -154,10 +156,6 @@ module GobiertoCommon
     end
 
     private
-
-    def self.has_vocabulary?(plugin_type)
-      CustomFieldPlugin.find(plugin_type)&.requires_vocabulary?
-    end
 
     def set_uid
       self.uid ||= SecureRandom.uuid

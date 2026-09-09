@@ -7,9 +7,9 @@ class BaseForm
 
   protected
 
-  def promote_errors(errors_hash)
-    errors_hash.each do |attribute, message|
-      errors.add(attribute, message)
+  def promote_errors(inner_errors)
+    inner_errors.each do |error|
+      errors.add(error.attribute, error.message)
     end
   end
 

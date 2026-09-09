@@ -9,7 +9,9 @@ module GobiertoCommon
     def vocabulary_terms
       return unless object.has_vocabulary?
 
-      serialize_terms(object.vocabulary.terms.sorted)
+      object.vocabularies.flat_map do |vocabulary|
+        serialize_terms(vocabulary.terms.sorted)
+      end
     end
   end
 end

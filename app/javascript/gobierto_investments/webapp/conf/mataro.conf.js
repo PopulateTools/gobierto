@@ -16,15 +16,11 @@ export default {
   },
   availableFilters: [
     {
-      id: "date",
-      startKey: "data-inici",
-      endKey: "data-final",
-    },
-    {
       id: "estat"
     },
     {
-      id: "any-estat"
+      id: "any-pla-inversions"//,
+      // allowedValues: ["2024", "2025"]
     },
     {
       id: "tipus"
@@ -33,7 +29,10 @@ export default {
       id: "tipus-projecte"
     },
     {
-      id: "import"
+      id: "zones"
+    },
+    {
+      id: "consells-territorials"
     }
   ],
   displayGalleryFieldTags: false,
@@ -77,6 +76,9 @@ export default {
       type: "separator"
     },
     {
+      id: "data-inici-obra"
+    },
+    {
       id: "data-inici-redaccio"
     },
     {
@@ -92,19 +94,26 @@ export default {
       id: "data-final"
     },
     {
+      id: "data-final-obra"
+    },
+    {
       type: "separator"
     },
     {
-      id: "import"
+      id: "import-adjudicacio-ambiva"
     },
     {
-      id: "import-adjudicacio"
+      id: "import-licitacio-ambiva"
     },
     {
-      id: "import-liquidacio"
+      id: "import-liquidacio-ambiva"
     },
     {
-      id: "partida"
+      type: "separator"
+    },
+    {
+      id: "estats",
+      type: "table"
     }
   ]
 };

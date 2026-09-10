@@ -10,10 +10,14 @@ runs:
   using: composite
   steps:
     # script/custom_engines_ci_setup and the symlink scripts it calls in the
-    # engine repositories address this checkout as ~/gobierto.
-    - name: Expose the checkout at ~/gobierto
+    # engine repositories address this checkout as $DEV_DIR/gobierto. Those
+    # scripts print a hint and exit 0 when DEV_DIR is unset, so a missing value
+    # leaves the engines uninstalled without failing the step.
+    - name: Expose the checkout at $DEV_DIR/gobierto
       shell: bash
-      run: ln -sfn "$GITHUB_WORKSPACE" "$HOME/gobierto"
+      run: |
+        ln -sfn "$GITHUB_WORKSPACE" "$HOME/gobierto"
+        echo "DEV_DIR=$HOME" >> "$GITHUB_ENV"
 
     - name: Trust the github.com host key
       shell: bash

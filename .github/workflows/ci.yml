@@ -21,6 +21,8 @@ env:
   # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
   DISABLE_SPRING: true
   BUNDLE_WITHOUT: development
+  # Retries flaky tests, see Minitest::Retry in test/test_helper.rb
+  RETRY_FAILING_TEST: 1
   ELASTICSEARCH_URL: http://localhost:9200
   ELASTICSEARCH_WRITING_URL: http://localhost:9200
   CUSTOM_ENGINE_NAME_1: ${{ vars.CUSTOM_ENGINE_NAME_1 }}

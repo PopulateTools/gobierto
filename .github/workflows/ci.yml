@@ -1,0 +1,339 @@
+name: CI
+
+on:
+  push:
+    branches-ignore:
+      - staging
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+env:
+  RAILS_ENV: test
+  NODE_ENV: test
+  NODE_OPTIONS: --max-old-space-size=6144 --openssl-legacy-provider
+  RUBY_YJIT_ENABLE: 1
+  # Disable spring so bin/rails works. See: https://github.com/rails/spring/pull/546
+  DISABLE_SPRING: true
+  BUNDLE_WITHOUT: development
+  # Retries flaky tests, see Minitest::Retry in test/test_helper.rb
+  RETRY_FAILING_TEST: 1
+  ELASTICSEARCH_URL: http://localhost:9200
+  ELASTICSEARCH_WRITING_URL: http://localhost:9200
+  CUSTOM_ENGINE_NAME_1: ${{ vars.CUSTOM_ENGINE_NAME_1 }}
+  PGHOST: localhost
+  PGUSER: gobierto
+  PGPASSWORD: gobierto
+  PSQL_PAGER: ''
+  PG_HOST: localhost
+  PG_USERNAME: gobierto
+  PG_PASSWORD: gobierto
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: gobierto
+          POSTGRES_DB: gobierto_test
+          POSTGRES_PASSWORD: gobierto
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U gobierto"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+      elasticsearch:
+        image: elasticsearch:7.17.19
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: 'false'
+          ES_JAVA_OPTS: -Xms1g -Xmx1g
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -fsS http://localhost:9200/_cluster/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 20
+          --ulimit memlock=-1:-1
+      redis:
+        image: redis:7.0.2
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup
+        with:
+          engine-deploy-key: ${{ secrets.CUSTOM_ENGINE_DEPLOY_KEY }}
+
+      - name: Copy database config
+        run: cp config/database.yml.example config/database.yml
+
+      - name: Install custom engines
+        run: script/custom_engines_ci_setup
+
+      - name: Compile I18n JS file
+        run: bin/rails i18n:js:export
+
+      - name: Compile assets
+        run: bin/rails assets:precompile
+
+      # The compiled assets travel to the test jobs through an artifact, not
+      # through a cache: a cache key is immutable, so a branch that keeps pushing
+      # JS changes would have its test jobs served the bundle of its first run.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: |
+            db
+            public/assets
+          retention-days: 1
+
+  test:
+    name: ${{ matrix.name }}${{ matrix.shards && format(' {0}/{1}', matrix.shard, matrix.shards) || '' }}
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: admin
+            shard: 1
+            shards: 2
+            files: find test -path '*gobierto_admin*' -name '*_test.rb' | grep -v 'gobierto_admin/gobierto_'
+          - name: admin
+            shard: 2
+            shards: 2
+            files: find test -path '*gobierto_admin*' -name '*_test.rb' | grep -v 'gobierto_admin/gobierto_'
+          - name: attachments
+            files: find test -path '*gobierto_attachments*' -name '*_test.rb'
+          - name: budgets
+            files: find test -path '*gobierto_budgets*' -name '*_test.rb'
+          - name: calendars
+            files: find test -path '*gobierto_calendars*' -name '*_test.rb'
+          - name: cms
+            files: find test -path '*gobierto_cms*' -name '*_test.rb'
+          - name: common
+            files: find test -path '*gobierto_common*' -name '*_test.rb'
+          - name: core
+            files: find test -path '*gobierto_core*' -name '*_test.rb'
+          - name: dashboards
+            files: find test -path '*gobierto_dashboards*' -name '*_test.rb'
+          - name: data
+            files: find test -path '*gobierto_data*' -name '*_test.rb'
+          - name: exports
+            files: find test -path '*gobierto_exports*' -name '*_test.rb'
+          - name: indicators
+            files: find test -path '*gobierto_indicators*' -name '*_test.rb'
+          - name: investments
+            files: find test -path '*gobierto_investments*' -name '*_test.rb'
+          - name: observatory
+            files: find test -path '*gobierto_observatory*' -name '*_test.rb'
+          - name: people
+            shard: 1
+            shards: 2
+            files: find test -path '*gobierto_people*' -name '*_test.rb'
+          - name: people
+            shard: 2
+            shards: 2
+            files: find test -path '*gobierto_people*' -name '*_test.rb'
+          - name: plans
+            shard: 1
+            shards: 2
+            files: find test -path '*gobierto_plans*' -name '*_test.rb'
+          - name: plans
+            shard: 2
+            shards: 2
+            files: find test -path '*gobierto_plans*' -name '*_test.rb'
+          - name: visualizations
+            files: find test -path '*gobierto_visualizations*' -name '*_test.rb'
+          - name: others
+            files: find test -not -path '*gobierto_*' -name '*_test.rb'
+          - name: engines
+            files: find -L vendor/gobierto_engines/ -name '*_test.rb'
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: gobierto
+          POSTGRES_DB: gobierto_test
+          POSTGRES_PASSWORD: gobierto
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U gobierto"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+      elasticsearch:
+        image: elasticsearch:7.17.19
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: 'false'
+          ES_JAVA_OPTS: -Xms1g -Xmx1g
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -fsS http://localhost:9200/_cluster/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 20
+          --ulimit memlock=-1:-1
+      redis:
+        image: redis:7.0.2
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup
+        with:
+          engine-deploy-key: ${{ secrets.CUSTOM_ENGINE_DEPLOY_KEY }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-output
+
+      # Timings recorded on master balance the shards. Without them the split
+      # falls back to file size, which self-corrects after one master build.
+      - uses: actions/cache/restore@v4
+        with:
+          path: test/timings.json
+          key: test-timings-${{ github.sha }}
+          restore-keys: test-timings-
+
+      # Rails dumps db/structure.sql with pg_dump, which must match the server
+      - name: Install PostgreSQL 15 client
+        run: |
+          curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /usr/share/keyrings/pgdg.gpg
+          echo "deb [signed-by=/usr/share/keyrings/pgdg.gpg] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+          sudo apt-get update
+          sudo apt-get -y install postgresql-client-15
+
+      - name: Wait for services
+        run: |
+          timeout 60 bash -c 'until pg_isready -q; do sleep 1; done'
+          timeout 180 bash -c "until curl -fsS $ELASTICSEARCH_URL/_cluster/health > /dev/null; do sleep 2; done"
+          timeout 60 bash -c 'until (exec 3<>/dev/tcp/localhost/6379); do sleep 1; done'
+
+      - name: Copy database config
+        run: cp config/database.yml.example config/database.yml
+
+      - name: Setup the database
+        run: bin/rails db:create db:migrate
+
+      - name: Install custom engines
+        run: script/custom_engines_ci_setup
+
+      - name: Setup budgets seeds
+        run: |
+          bin/rails gobierto_budgets_data:elastic_search_schemas:reset
+          bin/rails gobierto_budgets_data:elastic_search_schemas:create
+          bin/rails gobierto_budgets_data:data:reset
+          bin/rails gobierto_budgets_data:data:create
+          bin/rails gobierto_budgets:fixtures:load
+          echo '::BudgetsSeeder.seed!' | bin/rails c
+
+      - name: Run tests
+        env:
+          TEST_FILES_CMD: ${{ matrix.files }}
+        run: |
+          eval "$TEST_FILES_CMD" \
+            | script/ci/split_tests "${{ matrix.shard || 1 }}" "${{ matrix.shards || 1 }}" \
+            | xargs --no-run-if-empty bin/rails test
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-reports-${{ matrix.name }}-${{ matrix.shard || 1 }}
+          path: test/reports
+          if-no-files-found: ignore
+          retention-days: 7
+
+  collect_timings:
+    name: collect timings
+    needs: test
+    # Runs on partial failures too: the shards that did finish still carry
+    # usable timings. Skipped runs would only produce an empty file.
+    if: ${{ !cancelled() && needs.test.result != 'skipped' && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: test-reports-*
+          path: reports
+
+      - name: Record how long every test file took
+        id: timings
+        run: |
+          script/ci/collect_timings reports > test/timings.json
+          count=$(ruby -rjson -e 'puts JSON.parse(File.read("test/timings.json")).size')
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "Recorded timings for $count test files"
+
+      # An empty file would become the newest cache entry and shadow good data
+      - uses: actions/cache/save@v4
+        if: steps.timings.outputs.count != '0'
+        with:
+          path: test/timings.json
+          key: test-timings-${{ github.sha }}
+
+  deploy:
+    name: production deploy
+    needs: [build, test]
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy master branch
+        env:
+          DEPLOY_BOT_TOKEN: ${{ secrets.DEPLOY_BOT_TOKEN }}
+          GOBIERTO_PRODUCTION_DEPLOY_URL: ${{ secrets.GOBIERTO_PRODUCTION_DEPLOY_URL }}
+        run: script/production_deploy.sh
+
+  # Not part of the automatic pipeline, matching the CircleCI setup where this
+  # job was defined but never listed in the workflow.
+  test_javascript:
+    name: javascript
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile
+
+      - run: yarn run test

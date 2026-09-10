@@ -1,0 +1,44 @@
+name: Set up Gobierto
+description: Checks out dependencies and prepares the toolchain shared by every CI job
+
+inputs:
+  engine-deploy-key:
+    description: SSH private key with read access to the private custom engine repositories
+    required: true
+
+runs:
+  using: composite
+  steps:
+    # script/custom_engines_ci_setup and the symlink scripts it calls in the
+    # engine repositories address this checkout as $DEV_DIR/gobierto. Those
+    # scripts print a hint and exit 0 when DEV_DIR is unset, so a missing value
+    # leaves the engines uninstalled without failing the step.
+    - name: Expose the checkout at $DEV_DIR/gobierto
+      shell: bash
+      run: |
+        ln -sfn "$GITHUB_WORKSPACE" "$HOME/gobierto"
+        echo "DEV_DIR=$HOME" >> "$GITHUB_ENV"
+
+    - name: Trust the github.com host key
+      shell: bash
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> ~/.ssh/known_hosts
+
+    - uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ inputs.engine-deploy-key }}
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: .ruby-version
+        bundler-cache: true
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version-file: .nvmrc
+        cache: yarn
+
+    - name: Install JavaScript dependencies
+      shell: bash
+      run: yarn install --frozen-lockfile

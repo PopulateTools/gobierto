@@ -51,7 +51,7 @@
             :data-th="labelCostCoverage"
             class="gobierto-visualizations-table-header--elements gobierto-visualizations-table-color-coverage"
           >
-            <span>{{ coverageDecimals(coverage) }} %</span>
+            <span>{{ coverageDecimals(coverage) }}</span>
           </td>
         </tr>
       </tbody>
@@ -93,7 +93,9 @@ export default {
       this.$emit('change-table-handler', 1)
     },
     coverageDecimals(value) {
-      return value === 0 ? value.toFixed(0) : value.toFixed(2)
+      if (value === null) return "—"
+
+      return `${value === 0 ? value.toFixed(0) : value.toFixed(2)} %`
     }
   }
 }

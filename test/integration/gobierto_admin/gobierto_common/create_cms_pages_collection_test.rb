@@ -109,18 +109,7 @@ module GobiertoAdmin
 
               click_button "Create"
 
-              visit @path
-
-              within "#new-page" do
-                click_link "New"
-              end
-
-              fill_in "collection_title_translations_en", with: "My collection"
-              find("select#collection_container_global_id").find("option[value='#{site_madrid.to_global_id}']").select_option
-              find("select#collection_item_type").find("option[value='GobiertoCms::News']").select_option
-
-              click_button "Create"
-
+              # The site already has containers of type GobiertoCms::News
               assert has_content?("Container can't have another collection of this type")
             end
           end

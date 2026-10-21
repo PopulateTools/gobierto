@@ -85,3 +85,7 @@ export const effectiveTenderId = ({ id, tender_id, minor_contract }) => {
 // CSV don't carry the column: there we fall back to `id`, which is what their
 // current URLs already use.
 export const contractRoutingId = ({ id, contract_id }) => contract_id || id;
+
+// The percentage of the cost of an activity covered by its income. It is null
+// when there is no cost, because it can't be calculated.
+export const costCoverage = (income, cost) => (cost ? (income * 100) / cost : null);

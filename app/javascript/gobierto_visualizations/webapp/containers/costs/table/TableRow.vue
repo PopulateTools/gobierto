@@ -86,7 +86,7 @@
           :data-th="labelCoverage"
           class="gobierto-visualizations-table-header--elements gobierto-visualizations-table-color-coverage"
         >
-          <span>{{ calculateCoverage(ingressos, costtotal) }}%</span>
+          <span>{{ calculateCoverage(ingressos, costtotal) }}</span>
         </td>
       </tr>
       <template v-if="showChildren && selectedToggle === actintermitja">
@@ -143,7 +143,7 @@
               :data-th="labelCoverage"
               class="gobierto-visualizations-table-header--elements gobierto-visualizations-table--secondlevel-elements gobierto-visualizations-table-color-coverage"
             >
-              <span>{{ calculateCoverage(ingressos, costtotal) }}%</span>
+              <span>{{ calculateCoverage(ingressos, costtotal) }}</span>
             </td>
           </tr>
         </tbody>
@@ -153,6 +153,7 @@
 </template>
 <script>
 import { VueFiltersMixin } from '../../../../../lib/vue/filters'
+import { costCoverage } from '../../../lib/utils'
 
 export default {
   name: "TableRow",
@@ -222,9 +223,11 @@ export default {
       this.$emit('load-table', value)
     },
     calculateCoverage(income, cost) {
-      let coverage = ((income * 100) / cost).toFixed(2)
-      coverage = +coverage
-      return coverage === 0 ? coverage.toFixed(0) : coverage.toFixed(2)
+      const coverage = costCoverage(income, cost)
+      if (coverage === null) return "—"
+
+      const rounded = +coverage.toFixed(2)
+      return `${rounded === 0 ? rounded.toFixed(0) : rounded.toFixed(2)}%`
     }
   }
 }

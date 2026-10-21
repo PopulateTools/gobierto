@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { getRemoteData } from '../webapp/lib/utils';
+import { costCoverage, getRemoteData } from '../webapp/lib/utils';
 import { EventBus } from '../webapp/lib/mixins/event_bus';
 import { checkAndReportAccessibility } from '../../lib/vue/accessibility';
 
@@ -198,7 +198,7 @@ export class CostsController {
             item.ingressos += o.ingressos;
             //New item with the sum of values of each agrupacio
             item.total += (o.total || 0) + 1;
-            item.coverage = (item.ingressos * 100) / item.costtotal;
+            item.coverage = costCoverage(item.ingressos, item.costtotal);
             item.totalPerHabitant = item.costtotal / o.population;
 
             return r.set(key, item);

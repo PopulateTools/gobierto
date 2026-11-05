@@ -38,7 +38,7 @@ bin/rails test <list_of_test_files>
 If front-end files changed:
 
 ```bash
-npm run test
+yarn test
 ```
 
 If locale files changed:

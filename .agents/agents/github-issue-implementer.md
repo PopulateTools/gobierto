@@ -68,9 +68,9 @@ Before opening the PR:
 ```bash
 bin/rails test <touched_test_files>
 bundle exec rubocop <touched_ruby_files>
-npm run eslint
-npm run stylelint
-npm run test                 # if JS changed
+yarn eslint
+yarn stylelint
+yarn test                    # if JS changed
 i18n-tasks normalize         # if locales changed
 ```
 

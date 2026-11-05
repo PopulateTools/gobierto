@@ -21,14 +21,14 @@ The front-end is **Vue 2.5** with **esbuild** (`jsbundling-rails`) and progressi
 - Use `_` prefixes for private JS methods.
 - Document non-trivial components with a short header: purpose, props, mount example.
 - Avoid touching the DOM imperatively (`querySelector`, `addEventListener`) when Vue refs/templates can do it. Imperative DOM access is fine for legacy jQuery-driven areas — match the surrounding style.
-- Use `npm` (not yarn). Install with `npm install`, run scripts with `npm run <name>`.
+- Use `yarn` (not npm). `yarn.lock` is the lockfile, and CI, `Procfile.dev` and `assets:precompile` all use yarn. Install with `yarn install`, run scripts with `yarn <name>`. Don't run `npm install`: it ignores `yarn.lock` and the `resolutions` in `package.json` that pin patched versions of transitive dependencies.
 - Lint with:
   ```bash
-  npm run eslint
+  yarn eslint
   ```
 - Style-lint CSS/SCSS with:
   ```bash
-  npm run stylelint
+  yarn stylelint
   ```
 - Husky + lint-staged run ESLint and related Jest tests on commit. Don't bypass the hook.
 
@@ -36,5 +36,5 @@ The front-end is **Vue 2.5** with **esbuild** (`jsbundling-rails`) and progressi
 
 1. Pick the right module under `app/javascript/`.
 2. Mirror the existing pattern in that module — don't introduce a new folder structure unilaterally.
-3. Add a Jest test under `test/javascript/<module>/`. Run with `npm run test`.
+3. Add a Jest test under `test/javascript/<module>/`. Run with `yarn test`.
 4. If the component talks to Rails, prefer `axios` (already a dependency) and JSON endpoints.

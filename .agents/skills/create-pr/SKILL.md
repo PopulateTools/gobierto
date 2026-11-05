@@ -11,7 +11,7 @@ Write and publish a PR for the current branch as a **draft**, in **English**.
 
 - Run `bundle exec i18n-tasks normalize` if any locale file changed.
 - Run `bin/rails test` on the affected test files.
-- Run `bundle exec rubocop <changed_files>` and `npm run eslint` / `npm run stylelint` if Ruby or JS/CSS changed.
+- Run `bundle exec rubocop <changed_files>` and `yarn eslint` / `yarn stylelint` if Ruby or JS/CSS changed.
 - Re-read `@AGENTS.md` "Best Practices" sections to make sure the relevant conventions are honored (site scoping, modular layout, service patterns, strong params, tests).
 
 ## PR content

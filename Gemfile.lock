@@ -158,7 +158,7 @@ GEM
       js_cookie_rails (~> 2.2.0)
     crack (0.4.5)
       rexml
-    crass (1.0.7)
+    crass (1.0.8)
     csv (3.3.5)
     dalli (3.2.3)
     date (3.5.1)

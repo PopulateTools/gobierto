@@ -96,7 +96,8 @@
     ]
   },
   "resolutions": {
-    "marked": "3.0.8"
+    "marked": "3.0.8",
+    "postcss": "^8.5.32"
   },
   "engines": {
     "node": ">=18.18"

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# ABOUTME: Drops seven indexes with zero scans in production (gobiertodb, 2026-11-09).
+# ABOUTME: Drops eight indexes with zero scans in production (gobiertodb, 2026-11-09).
 # ABOUTME: Each one is unused by the code or covered by a wider index.
 
 class RemoveUnusedIndexes < ActiveRecord::Migration[6.1]
@@ -14,6 +14,7 @@ class RemoveUnusedIndexes < ActiveRecord::Migration[6.1]
       "index_collection_items_on_container_type_and_container_id" => "USING btree (container_type, container_id)"
     },
     gc_events: {
+      "index_gc_events_on_archived_at" => "USING btree (archived_at)",
       "index_gc_events_on_title_translations" => "USING gin (title_translations)"
     },
     pg_search_documents: {

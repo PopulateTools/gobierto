@@ -136,9 +136,12 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
     with_current_site(placed_site) do
       visit @path
 
+      # The last year depends on the site settings (budgets elaboration), so get it in the site scope
+      site_last_year = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last
+
       within("#popup-year", visible: false) do
-        assert has_content?(last_year)
-        assert has_content?(last_year - 1)
+        assert has_content?(site_last_year)
+        assert has_content?(site_last_year - 1)
       end
     end
   end

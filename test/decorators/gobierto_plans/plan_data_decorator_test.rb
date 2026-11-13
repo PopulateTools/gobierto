@@ -9,11 +9,11 @@ module GobiertoPlans
     end
 
     def first_category
-      @first_category ||= GobiertoPlans::CategoryTermDecorator.new(plan.categories.where(level: plan.categories.maximum(:level)).order(:position).first)
+      @first_category ||= GobiertoPlans::CategoryTermDecorator.new(plan.categories.where(level: plan.categories.maximum(:level)).order(:position, :id).first)
     end
 
     def last_category
-      @last_category ||= GobiertoPlans::CategoryTermDecorator.new(plan.categories.where(level: plan.categories.maximum(:level)).order(:position).last)
+      @last_category ||= GobiertoPlans::CategoryTermDecorator.new(plan.categories.where(level: plan.categories.maximum(:level)).order(:position, :id).last)
     end
 
     def first_node

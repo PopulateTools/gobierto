@@ -785,8 +785,8 @@ module GobiertoData
             descending_response_data = response.parsed_body
 
             assert_equal ascending_response_data["data"].count, descending_response_data["data"].count
-            assert_equal latest_visualization.id, ascending_response_data["data"].last.dig("id").to_i
-            assert_equal latest_visualization.id, descending_response_data["data"].first.dig("id").to_i
+            assert_equal latest_visualization.id, ascending_response_data["data"].last["id"].to_i
+            assert_equal latest_visualization.id, descending_response_data["data"].first["id"].to_i
           end
         end
       end

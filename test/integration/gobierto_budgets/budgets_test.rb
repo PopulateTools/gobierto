@@ -89,7 +89,7 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
 
         # Check hover another year
 
-        all("circle.x#{last_year - 2}").first.hover
+        find("circle.x#{last_year - 2}", match: :first).hover
 
         within("#lines_tooltip") { assert has_content?(last_year - 2) }
       rescue Minitest::Assertion

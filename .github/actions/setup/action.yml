@@ -1,11 +1,6 @@
 name: Set up Gobierto
 description: Checks out dependencies and prepares the toolchain shared by every CI job
 
-inputs:
-  engine-deploy-key:
-    description: SSH private key with read access to the private custom engine repositories
-    required: true
-
 runs:
   using: composite
   steps:
@@ -19,15 +14,12 @@ runs:
         ln -sfn "$GITHUB_WORKSPACE" "$HOME/gobierto"
         echo "DEV_DIR=$HOME" >> "$GITHUB_ENV"
 
-    - name: Trust the github.com host key
+    # script/custom_engines_ci_setup clones the engine with a git@github.com:
+    # URL. The engine repository is public, so HTTPS needs no credentials.
+    - name: Clone GitHub repositories over HTTPS
       shell: bash
       run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> ~/.ssh/known_hosts
-
-    - uses: webfactory/ssh-agent@v0.9.0
-      with:
-        ssh-private-key: ${{ inputs.engine-deploy-key }}
+        git config --global url."https://github.com/".insteadOf git@github.com:
 
     - uses: ruby/setup-ruby@v1
       with:

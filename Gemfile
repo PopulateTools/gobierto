@@ -141,7 +141,7 @@ group :test do
   gem "capybara"
   gem "capybara-email"
   gem "simplecov"
-  gem "simplecov-cobertura"
+  gem "simplecov-cobertura", "~> 3.2"
   gem "launchy"
   gem "minitest"
   gem "minitest-reporters"

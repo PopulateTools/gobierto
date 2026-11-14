@@ -101,6 +101,8 @@ jobs:
           path: |
             db
             public/assets
+          # Sprockets resolves asset paths through public/assets/.sprockets-manifest-*.json
+          include-hidden-files: true
           retention-days: 1
 
   test:

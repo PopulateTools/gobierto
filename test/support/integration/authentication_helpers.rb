@@ -37,12 +37,13 @@ module Integration
     end
 
     def sign_out_admin
+      # In JavaScript tests the link sits in a hover menu Capybara can't see, so
+      # finding it would only wait until the timeout. Those tests reset the
+      # session when their JavaScript context ends.
+      return if javascript_driver?
+
       within("header") do
-        if javascript_driver?
-          find("#admin-sign-out").click
-        else
-          click_link "admin-sign-out"
-        end
+        click_link "admin-sign-out"
       end
     rescue Capybara::ElementNotFound
     end

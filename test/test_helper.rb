@@ -76,6 +76,8 @@ class ActiveSupport::TestCase
 
   def setup
     I18n.locale = I18n.default_locale
+    # Thread-local: a test that sets it would leak its site into the next tests
+    ::GobiertoCore::CurrentScope.current_site = nil
     Rails.cache.clear
   end
 
@@ -111,9 +113,9 @@ class ActionDispatch::IntegrationTest
   self.use_transactional_tests = true
 
   def setup
+    super
     $redis.flushdb
     Capybara.current_driver = Capybara.default_driver
-    Rails.cache.clear
   end
 
   def teardown

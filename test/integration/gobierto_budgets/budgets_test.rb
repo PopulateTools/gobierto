@@ -68,33 +68,29 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
   # https://github.com/PopulateTools/issues/issues/812
   def test_lines_chart
     with(js: true, site: placed_site) do
-      begin
-        visit @path
+      visit @path
 
-        # Check default tooltip
+      # Check default tooltip
 
-        within("#lines_tooltip") do
-          assert has_content?("Madrid")
-          assert has_content?("National mean")
-          assert has_content?("Province mean")
-          assert has_content?("Autonomy mean")
-        end
-
-        # Check lines and dots
-
-        within("#lines_chart") do
-          assert_equal 4, all(".evolution_line").size
-          assert all("circle").any?
-        end
-
-        # Check hover another year
-
-        all("circle.x#{last_year - 2}").first.hover
-
-        within("#lines_tooltip") { assert has_content?(last_year - 2) }
-      rescue Minitest::Assertion
-        puts "Flaky test failure..."
+      within("#lines_tooltip") do
+        assert has_content?("Madrid")
+        assert has_content?("National mean")
+        assert has_content?("Province mean")
+        assert has_content?("Autonomy mean")
       end
+
+      # Check lines and dots
+
+      within("#lines_chart") do
+        assert has_css?(".evolution_line", count: 4)
+        assert has_css?("circle")
+      end
+
+      # Check hover another year
+
+      find("circle.x#{last_year - 2}", match: :first).hover
+
+      within("#lines_tooltip") { assert has_content?(last_year - 2) }
     end
   end
 
@@ -140,9 +136,12 @@ class GobiertoBudgets::BudgetsTest < ActionDispatch::IntegrationTest
     with_current_site(placed_site) do
       visit @path
 
+      # The last year depends on the site settings (budgets elaboration), so get it in the site scope
+      site_last_year = GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last
+
       within("#popup-year", visible: false) do
-        assert has_content?(last_year)
-        assert has_content?(last_year - 1)
+        assert has_content?(site_last_year)
+        assert has_content?(site_last_year - 1)
       end
     end
   end

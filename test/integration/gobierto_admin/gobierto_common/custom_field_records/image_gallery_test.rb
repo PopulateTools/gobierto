@@ -70,7 +70,10 @@ module GobiertoAdmin
               end
             end
 
-            custom_field_record.reload
+            # The flash from the first save is still on the page, so wait for the record instead
+            page.document.synchronize(errors: [Capybara::ExpectationNotMet]) do
+              raise Capybara::ExpectationNotMet if custom_field_record.reload.value.count != 1
+            end
 
             assert_equal 1, custom_field_record.value.count
           end

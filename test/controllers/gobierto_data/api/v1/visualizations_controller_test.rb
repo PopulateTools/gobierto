@@ -776,16 +776,17 @@ module GobiertoData
 
         def test_order_with_configured_attribute_and_valid_sorting_criteria
           with(site: site) do
-            get gobierto_data_api_v1_visualizations_path
-            unordered_response_data = response.parsed_body
+            get gobierto_data_api_v1_visualizations_path(order: { created_at: "asc" })
+            assert_response :success
+            ascending_response_data = response.parsed_body
 
             get gobierto_data_api_v1_visualizations_path(order: { created_at: "desc" })
             assert_response :success
+            descending_response_data = response.parsed_body
 
-            response_data = response.parsed_body
-            refute_equal unordered_response_data, response_data
-            assert_equal unordered_response_data["data"].count, response_data["data"].count
-            assert_equal latest_visualization.id, response_data["data"].first.dig("id").to_i
+            assert_equal ascending_response_data["data"].count, descending_response_data["data"].count
+            assert_equal latest_visualization.id, ascending_response_data["data"].last["id"].to_i
+            assert_equal latest_visualization.id, descending_response_data["data"].first["id"].to_i
           end
         end
       end

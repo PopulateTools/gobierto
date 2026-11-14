@@ -37,7 +37,7 @@ env:
 jobs:
   build:
     name: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     services:
       postgres:
         image: postgres:15
@@ -106,7 +106,7 @@ jobs:
   test:
     name: ${{ matrix.name }}${{ matrix.shards && format(' {0}/{1}', matrix.shard, matrix.shards) || '' }}
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -273,7 +273,7 @@ jobs:
     # Runs on partial failures too: the shards that did finish still carry
     # usable timings. Skipped runs would only produce an empty file.
     if: ${{ !cancelled() && needs.test.result != 'skipped' && github.ref == 'refs/heads/master' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
@@ -306,7 +306,7 @@ jobs:
   test_javascript:
     name: javascript
     if: github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 

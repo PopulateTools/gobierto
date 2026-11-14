@@ -26,9 +26,11 @@ runs:
         ruby-version: .ruby-version
         bundler-cache: true
 
+    # .nvmrc pins Node 18, but devbridge-autocomplete@2 requires Node >= 20.
+    # CircleCI ignored .nvmrc and used the Node bundled in its image.
     - uses: actions/setup-node@v4
       with:
-        node-version-file: .nvmrc
+        node-version: 20
         cache: yarn
 
     - name: Install JavaScript dependencies

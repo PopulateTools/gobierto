@@ -310,9 +310,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # .nvmrc pins Node 18, but devbridge-autocomplete@2 requires Node >= 20.
+      # CircleCI ignored .nvmrc and used the Node bundled in its image.
       - uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
+          node-version: 20
           cache: yarn
 
       - run: yarn install --frozen-lockfile

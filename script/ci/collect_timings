@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Sums the runtime of every test case per file from the JUnit XML that
+# minitest-ci writes to test/reports, and prints it as JSON on stdout.
+#
+# REPORT_DIR is searched recursively, so it also accepts the directory a CI job
+# downloaded several runs of reports into.
+#
+# The result feeds script/ci/split_tests on later runs so shards stay balanced.
+#
+# Usage: script/ci/collect_timings [REPORT_DIR]
+
+require "json"
+require "rexml/document"
+
+report_dir = ARGV[0] || File.join("test", "reports")
+
+timings = Hash.new(0.0)
+
+Dir.glob(File.join(report_dir, "**", "*.xml")).sort.each do |path|
+  document = REXML::Document.new(File.read(path))
+
+  REXML::XPath.each(document, "//testcase") do |testcase|
+    file = testcase.attributes["file"]
+    next if file.nil? || file.empty?
+
+    timings[file] += testcase.attributes["time"].to_f
+  end
+rescue REXML::ParseException => e
+  warn "Skipping unparseable report #{path}: #{e.message}"
+end
+
+puts JSON.pretty_generate(timings.sort.to_h)

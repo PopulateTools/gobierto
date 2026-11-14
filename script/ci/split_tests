@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Splits a list of test files (read from stdin) into balanced shards.
+#
+# Weights come from test/timings.json, a map of file path to seconds produced by
+# script/ci/collect_timings on a previous run. Files without a recorded time get
+# the median of the known ones; when no timings exist at all, file size is used
+# as a rough proxy.
+#
+# Usage: <file list> | script/ci/split_tests SHARD SHARDS
+
+require "json"
+
+shard = Integer(ARGV[0] || 1)
+shards = Integer(ARGV[1] || 1)
+
+abort "SHARD must be between 1 and #{shards}" unless (1..shards).cover?(shard)
+
+files = $stdin.read.split("\n").map(&:strip).reject(&:empty?).uniq.sort
+
+if shards == 1
+  puts files
+  exit
+end
+
+timings_path = File.join(Dir.pwd, "test", "timings.json")
+timings = File.exist?(timings_path) ? JSON.parse(File.read(timings_path)) : {}
+
+known = files.filter_map { |file| timings[file] }
+fallback = if known.empty?
+             nil
+           else
+             sorted = known.sort
+             sorted[sorted.size / 2]
+           end
+
+weight_of = lambda do |file|
+  timings[file] || fallback || (File.size?(file) || 0).to_f
+end
+
+# Longest processing time first: heaviest files go to the emptiest shard.
+loads = Array.new(shards, 0.0)
+buckets = Array.new(shards) { [] }
+
+files.sort_by { |file| [-weight_of.call(file), file] }.each do |file|
+  index = (0...shards).min_by { |i| [loads[i], i] }
+  loads[index] += weight_of.call(file)
+  buckets[index] << file
+end
+
+puts buckets[shard - 1].sort

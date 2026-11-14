@@ -47,6 +47,9 @@ config/deploy/production.rb
 /coverage
 test/reports
 
+# Per-file test durations, rebuilt by CI to balance test shards
+test/timings.json
+
 # Uploaded files
 /public/system/attachments
 /public/packs

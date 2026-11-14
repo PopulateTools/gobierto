@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 if ENV["CI"]
+  # Bundler.require loads simplecov, and with it this file, before simplecov-cobertura
+  require "simplecov-cobertura"
+
   SimpleCov.start "rails" do
     add_filter "/config/"
     add_filter "/db/"

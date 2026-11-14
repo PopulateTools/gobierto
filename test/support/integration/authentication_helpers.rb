@@ -30,6 +30,9 @@ module Integration
 
         click_button "Send"
       end
+
+      # Wait for the sign-in redirect; otherwise it can land after the test's next visit.
+      has_no_css?("#admin-session-form")
     rescue Capybara::ElementNotFound
     end
 
@@ -53,6 +56,9 @@ module Integration
 
         click_button "Log in"
       end
+
+      # Wait for the sign-in redirect; otherwise it can land after the test's next visit.
+      has_no_css?("#user-session-form")
     rescue Capybara::ElementNotFound
     end
 

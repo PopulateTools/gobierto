@@ -1,0 +1,8 @@
+scripts:
+  setup: |
+    cp -p $ORCA_ROOT_PATH/.rbenv-vars $ORCA_WORKTREE_PATH/.rbenv-vars && cp -p $ORCA_ROOT_PATH/config/database.yml $ORCA_WORKTREE_PATH/config/ && cp -R $ORCA_ROOT_PATH/node_modules $ORCA_WORKTREE_PATH/ && { ! [ -s "${NVM_DIR:-$HOME/.nvm}/nvm.sh" ] || { . "${NVM_DIR:-$HOME/.nvm}/nvm.sh" && nvm install; }; } && bin/update
+
+defaultTabs:
+  - title: Server
+    command: |
+      export PORT=${PORT:-3000}; { ! [ -s "${NVM_DIR:-$HOME/.nvm}/nvm.sh" ] || { . "${NVM_DIR:-$HOME/.nvm}/nvm.sh" && nvm install; }; }; bin/update && bin/dev

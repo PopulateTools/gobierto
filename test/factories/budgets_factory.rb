@@ -61,7 +61,7 @@ module BudgetsFactory
     end
   end
 
-  attr_accessor :client, :created_documents
+  attr_accessor :client, :created_documents, :replaced_documents
 
   def initialize(params = {})
     self.client = GobiertoBudgets::SearchEngine.client
@@ -79,6 +79,9 @@ module BudgetsFactory
     params.delete(:indexes)
 
     documents = indexes.map { |index| build_document(index, params) }
+    # Factory ids can match documents loaded by gobierto_budgets:fixtures:load,
+    # which other tests read. Keep them to put them back on teardown.
+    self.replaced_documents = existing_documents(documents)
     result = bulk(body: documents)
 
     self.created_documents = result["items"].map do |doc|
@@ -96,8 +99,22 @@ module BudgetsFactory
     client.bulk(params.merge(refresh: true))
   end
 
+  def existing_documents(documents)
+    docs = documents.map { |document| { _index: document[:index][:_index], _id: document[:index][:_id] } }
+
+    client.mget(body: { docs: docs })["docs"].select { |doc| doc["found"] }
+  end
+
   def teardown_body
-    created_documents.map { |doc_summary| { delete: doc_summary } }
+    created_documents.map do |doc_summary|
+      replaced = replaced_documents.find { |doc| doc.slice("_index", "_id") == doc_summary }
+
+      if replaced
+        { index: doc_summary.merge(data: replaced["_source"]) }
+      else
+        { delete: doc_summary }
+      end
+    end
   end
 
 end

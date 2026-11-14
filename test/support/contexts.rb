@@ -6,6 +6,7 @@ def with_javascript
   ensure_app_host_blank
 
   Capybara.current_driver = Capybara.javascript_driver
+  clear_browser_cookies
   yield
 ensure
   Capybara.reset_session!
@@ -28,6 +29,7 @@ def with(params = {})
     ensure_app_host_blank
 
     Capybara.current_driver = Capybara.javascript_driver
+    clear_browser_cookies
 
     if params[:window_size] == :xl
       window_handle = page.driver.window_handles.first
@@ -53,6 +55,14 @@ ensure
     page.driver.resize_window_to(window_handle, *default_size) if params[:window_size]
     Capybara.current_driver = Capybara.default_driver
   end
+end
+
+# Capybara clears cookies on reset before waiting for the requests still in
+# flight (e.g. XHRs fired on page load). Their responses can set the session
+# cookie again, so the next test would start signed in with the previous
+# test's session. Clear them when a JavaScript context starts instead.
+def clear_browser_cookies
+  page.driver.browser.execute_cdp("Network.clearBrowserCookies")
 end
 
 def ensure_app_host_blank

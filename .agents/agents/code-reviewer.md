@@ -57,9 +57,9 @@ bin/rails test <changed_test_files>
 If front-end files changed, run the JS linter and tests:
 
 ```bash
-npm run eslint
-npm run stylelint
-npm run test
+yarn eslint
+yarn stylelint
+yarn test
 ```
 
 ### Step 5: Generate the review report

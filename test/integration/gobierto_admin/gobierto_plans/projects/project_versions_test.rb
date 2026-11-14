@@ -117,6 +117,7 @@ module GobiertoAdmin
                 click_button "Save"
               end
             end
+            assert has_message? "Project updated correctly."
           end
 
           updated_project = ::GobiertoPlans::Node.with_name_translation(new_name).last
@@ -135,6 +136,7 @@ module GobiertoAdmin
                 click_button "Save"
               end
             end
+            assert has_message? "Project updated correctly."
 
           end
 
@@ -175,6 +177,7 @@ module GobiertoAdmin
             within "div.widget_save_v2.editor" do
               click_button "Save"
             end
+            assert has_message? "Project updated correctly."
 
             visit edit_admin_plans_plan_project_path(plan, project, version: 1)
 
@@ -242,6 +245,7 @@ module GobiertoAdmin
             within "div.widget_save_v2.editor" do
               click_button "Save"
             end
+            assert has_message? "Project updated correctly."
 
             visit edit_admin_plans_plan_project_path(plan, project, version: 1)
 
@@ -273,6 +277,7 @@ module GobiertoAdmin
                 click_button "Save"
               end
             end
+            assert has_message? "Project updated correctly."
 
             visit edit_admin_plans_plan_project_path(plan, project, version: 1)
 
@@ -441,6 +446,7 @@ module GobiertoAdmin
                 click_button "Save"
               end
             end
+            assert has_message? "Project updated correctly."
 
             project.update_columns(published_version: 0, visibility_level: 1)
 

@@ -329,7 +329,7 @@
                   % {{ labelCoverage }}
                 </span>
                 <span class="gobierto-visualizations-table-item-right-table-amount">
-                  {{ coverage.toFixed(0) }}%
+                  {{ coverageText }}
                 </span>
               </div>
               <i
@@ -356,6 +356,7 @@
 import TableHeader from './TableHeader.vue'
 import TableRow from './TableRow.vue'
 import { VueFiltersMixin } from '../../../../../lib/vue/filters'
+import { costCoverage } from '../../../lib/utils'
 
 export default {
   name: "TableItem",
@@ -414,6 +415,7 @@ export default {
       costIndirect: '',
       income: '',
       costTotal: '',
+      coverage: null,
       showTooltipItem: null,
       showTableHeader: true,
       tooltipTextStaffCost: I18n.t("gobierto_visualizations.visualizations.costs.tooltips_items.staff_cost") || "",
@@ -433,6 +435,9 @@ export default {
     */
     calculateTax() {
       return this.taxs === 0 && this.codiAct !== "44111001" ? this.income - this.subsidies : this.taxs
+    },
+    coverageText() {
+      return this.coverage === null ? "—" : `${this.coverage.toFixed(0)}%`
     }
   },
   created() {
@@ -487,7 +492,7 @@ export default {
       this.income = income || 0
       this.agrupacioID = agrupacio
       this.costTotal = costTotal
-      this.coverage = (income * 100) / costTotal
+      this.coverage = costCoverage(income, costTotal)
       this.codiAct = codiAct
     },
     loadTable(value) {

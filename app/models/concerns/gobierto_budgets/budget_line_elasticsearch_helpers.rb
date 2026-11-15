@@ -112,7 +112,7 @@ module GobiertoBudgets
         terms.push({term: { year: conditions[:year] }}) if conditions[:year]
         terms.push({term: { code: conditions[:code] }}) if conditions[:code]
         terms.push({term: { level: conditions[:level] }}) if conditions[:level]
-        terms.push({term: { parent_code: conditions[:parent_code] }}) if conditions[:parent_code]
+        terms.push({ terms: { parent_code: Array(conditions[:parent_code]) } }) if conditions[:parent_code]
         if conditions.has_key?(:functional_code)
           if conditions[:area_name] == FunctionalArea.area_name
             conditions[:area_name] = EconomicArea.area_name
@@ -277,12 +277,33 @@ module GobiertoBudgets
         budget_line
       end
 
-      def has_children?(options)
-        options.symbolize_keys!
-        conditions = { parent_code: options[:code], type: options[:area] }
-        conditions.merge! options.slice(:organization_id,:kind,:year)
+      # Codes of the given budget lines that have children, with a single query
+      def codes_with_children(codes, organization_id:, year:, kind:, area:)
+        return Set.new if codes.empty?
 
-        return search(conditions)['hits'].length > 0
+        query = {
+          query: {
+            bool: {
+              must: [
+                { terms: { parent_code: codes } },
+                { term: { organization_id: organization_id } },
+                { term: { year: year } },
+                { term: { kind: kind } },
+                { term: { type: area } }
+              ]
+            }
+          },
+          size: 0,
+          aggs: {
+            parent_codes: { terms: { field: "parent_code", size: codes.size } }
+          }
+        }
+
+        response = SearchEngine.client.search(
+          index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+          body: query
+        )
+        response["aggregations"]["parent_codes"]["buckets"].to_set { |bucket| bucket["key"] }
       end
 
       def validate_conditions(conditions)
@@ -310,7 +331,7 @@ module GobiertoBudgets
             query = {
               query: {
                 bool: {
-                  must: base_terms.append({ term: { type: area.area_name } })
+                  must: base_terms + [{ term: { type: area.area_name } }]
                 }
               },
               size: 1

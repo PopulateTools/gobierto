@@ -3,6 +3,12 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
   before_action :load_year
   helper_method :available_years
 
+  caches_action(
+    :index,
+    cache_path: -> { cache_service.prefixed(cache_path) },
+    unless: -> { user_signed_in? }
+  )
+
   def index
     unless @any_budgets_execution_data_for_year = any_execution_data?
       flash[:alert] = t('controllers.gobierto_budgets.budgets_execution.index.alert', year: @year)
@@ -27,6 +33,10 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
   end
 
   private
+
+  def cache_path
+    "#{super}/#{@year}"
+  end
 
   def load_year
     if params[:year].nil? || !valid_year_param?(params[:year])

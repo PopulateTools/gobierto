@@ -1,6 +1,6 @@
 <tr data-budget-line="<%= budget_line.code %>">
   <td>
-    <% if GobiertoBudgets::BudgetLine.has_children?({code: budget_line.code, level: budget_line.level, area: area_name, year: year, organization_id: current_site.organization_id, kind: kind}) %>
+    <% if codes_with_children.include?(budget_line.code) %>
       <%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, gobierto_budgets_budget_line_descendants_path(year, area_name, kind, parent_code: budget_line.code), remote: true, 'aria-label' => 'Plus' %>
     <% else %>
       <i class="fas fa-plus-square invisible"></i>

@@ -23,8 +23,9 @@ class BudgetLineFactory
       code: code,
       level: code.length,
       kind: kind,
-      population: default_population
-    )
+      population: default_population,
+      parent_code: params[:parent_code]
+    ).compact
   end
 
   def self.parse_code(params)

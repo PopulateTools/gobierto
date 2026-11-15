@@ -72,7 +72,8 @@ module GobiertoBudgets
             ]
           }
         },
-        size: 10_000
+        size: 10_000,
+        _source: %w(code)
       }
 
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query

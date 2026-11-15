@@ -17,7 +17,7 @@ module GobiertoBudgets
       @organization_id = site.organization_id
       @year = options.fetch(:year).to_i
       @previous_year = year - 1
-      @data = { debt: {}, population: {} }
+      @memoized = {}
     end
 
     def population_data?
@@ -50,13 +50,17 @@ module GobiertoBudgets
     end
 
     def total_budget(params = {})
-      GobiertoBudgets::BudgetTotal.budgeted_for(*budget_total_params(params).values)
+      memoize(:total_budget, budget_total_params(params)) do
+        GobiertoBudgets::BudgetTotal.budgeted_for(*budget_total_params(params).values)
+      end
     end
 
     def total_budget_updated(params = {})
-      GobiertoBudgets::BudgetTotal.budgeted_updated_for(
-        budget_total_params(params).merge(fallback: params[:fallback])
-      )
+      updated_params = budget_total_params(params).merge(fallback: params[:fallback])
+
+      memoize(:total_budget_updated, updated_params) do
+        GobiertoBudgets::BudgetTotal.budgeted_updated_for(updated_params)
+      end
     end
 
     def total_budget_per_inhabitant(params = {})
@@ -88,7 +92,9 @@ module GobiertoBudgets
     end
 
     def total_budget_executed(params = {})
-      GobiertoBudgets::BudgetTotal.execution_for(*budget_total_params(params).values)
+      memoize(:total_budget_executed, budget_total_params(params)) do
+        GobiertoBudgets::BudgetTotal.execution_for(*budget_total_params(params).values)
+      end
     end
 
     def total_income_budget_executed(params = {})
@@ -103,25 +109,11 @@ module GobiertoBudgets
     end
 
     def debt(requested_year = year)
-      @data[:debt][requested_year] ||= SearchEngine.client.get(
-        index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index,
-        id: [@site.organization_id, requested_year, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_debt].join("/")
-      )["_source"]["value"]
-
-      @data[:debt][requested_year]
-    rescue Elasticsearch::Transport::Transport::Errors::NotFound
-      nil
+      data_value(GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_debt, requested_year)
     end
 
     def population(requested_year = year)
-      @data[:population][requested_year] ||= SearchEngine.client.get(
-        index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index,
-        id: [organization_id, requested_year, GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_population].join("/")
-      )["_source"]["value"]
-
-      @data[:population][requested_year]
-    rescue Elasticsearch::Transport::Transport::Errors::NotFound
-      nil
+      data_value(GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.type_population, requested_year)
     end
 
     def net_savings(requested_year = year)
@@ -321,6 +313,24 @@ module GobiertoBudgets
       result["_source"]["amount"]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       0
+    end
+
+    # Pages read the same values several times; missing values are kept too
+    def memoize(*key)
+      return @memoized[key] if @memoized.has_key?(key)
+
+      @memoized[key] = yield
+    end
+
+    def data_value(type, requested_year)
+      memoize(type, requested_year) do
+        SearchEngine.client.get(
+          index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Data.index,
+          id: [organization_id, requested_year, type].join("/")
+        )["_source"]["value"]
+      rescue Elasticsearch::Transport::Transport::Errors::NotFound
+        nil
+      end
     end
 
     def budget_total_params(params)

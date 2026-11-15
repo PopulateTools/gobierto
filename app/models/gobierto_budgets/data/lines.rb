@@ -56,7 +56,7 @@ module GobiertoBudgets
               must: filters
             }.merge(must_not_terms.any? ? { must_not: must_not_terms } : {})
           },
-          size: 10_000,
+          size: 0,
           "aggs": {
             "#{@variable}_per_year": {
               "terms": {

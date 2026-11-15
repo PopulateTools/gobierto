@@ -91,31 +91,34 @@ module GobiertoBudgets
     private
 
     def total_budget
-      total_budget_planned_query(@year, "amount")
+      return @total_budget if defined?(@total_budget)
+
+      @total_budget = total_budget_planned_query(@year, "amount")
     end
 
     def budget_line_planned_query(year, attribute)
-      year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, id: [@organization_id, year, @code, @kind, @area_name].join("/")
-      result["_source"][attribute]
-    rescue Elasticsearch::Transport::Transport::Errors::NotFound
-      nil
+      budget_line_document(GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, year)&.dig(attribute)
     end
 
     def budget_line_planned_updated_query(year, attribute)
-      year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated, id: [@organization_id, year, @code, @kind, @area_name].join("/")
-      result["_source"][attribute]
-    rescue Elasticsearch::Transport::Transport::Errors::NotFound
-      nil
+      budget_line_document(GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated, year)&.dig(attribute)
     end
 
     def budget_line_executed_query(year, attribute)
+      budget_line_document(GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year)&.dig(attribute)
+    end
+
+    # Pages read several attributes of the same documents; missing documents are kept too
+    def budget_line_document(index, year)
       year ||= @year
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, id: [@organization_id, year, @code, @kind, @area_name].join("/")
-      result["_source"][attribute]
-    rescue Elasticsearch::Transport::Transport::Errors::NotFound
-      nil
+      @budget_line_documents ||= {}
+      return @budget_line_documents[[index, year]] if @budget_line_documents.has_key?([index, year])
+
+      @budget_line_documents[[index, year]] = begin
+        GobiertoBudgets::SearchEngine.client.get(index: index, id: [@organization_id, year, @code, @kind, @area_name].join("/"))["_source"]
+      rescue Elasticsearch::Transport::Transport::Errors::NotFound
+        nil
+      end
     end
 
     def total_budget_planned_query(year, attribute)
@@ -139,7 +142,7 @@ module GobiertoBudgets
             must: filters
           }
         },
-        size: 10_000,
+        size: 0,
         "aggs": {
           "#{attribute}_per_year": {
             "terms": {

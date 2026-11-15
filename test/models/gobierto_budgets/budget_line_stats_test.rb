@@ -98,6 +98,27 @@ module GobiertoBudgets
       factory.teardown
     end
 
+    def test_reads_each_budget_line_document_once
+      factory = setup_updated_budget
+      stats = budget_line_stats
+      get_spy = Spy.on(SearchEngine.client, :get).and_call_through
+
+      stats.amount
+      stats.amount_per_inhabitant
+      stats.amount_updated
+      stats.amount_per_inhabitant_updated
+      stats.amount_executed
+      stats.amount_executed
+      stats.percentage_of_total
+      stats.percentage_of_total
+
+      # forecast, forecast updated, executed and total budget documents
+      assert_equal 4, get_spy.calls.count
+    ensure
+      get_spy&.unhook
+      factory&.teardown
+    end
+
     def test_execution_percentage_when_updated_budget_is_not_available
       expected_percentage = "#{EXECUTED_BUDGET_RATIO * 100}0 %"
 

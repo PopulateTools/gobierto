@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "factories/budget_line_factory"
 
 module GobiertoBudgets
   class BudgetLineTest < ActiveSupport::TestCase
@@ -96,6 +97,48 @@ module GobiertoBudgets
         budget_line.destroy
       end
       refute site.multisearch("Gastos de personal").exists?
+    end
+
+    def test_any_data_in_any_area
+      year = 2001
+      factory = BudgetLineFactory.new(year: year, area: FunctionalArea.area_name, indexes: [:forecast])
+
+      assert BudgetLine.any_data?(site: site, year: year)
+    ensure
+      factory&.teardown
+    end
+
+    def test_codes_with_children
+      year = 2001
+      factories = [
+        BudgetLineFactory.new(code: "1", year: year, indexes: [:forecast]),
+        BudgetLineFactory.new(code: "2", year: year, indexes: [:forecast]),
+        BudgetLineFactory.new(code: "11", parent_code: "1", year: year, indexes: [:forecast]),
+        BudgetLineFactory.new(code: "111", parent_code: "11", year: year, indexes: [:forecast]),
+        BudgetLineFactory.new(code: "21", parent_code: "2", year: year, kind: BudgetLine::INCOME, indexes: [:forecast])
+      ]
+
+      codes_with_children = BudgetLine.codes_with_children(
+        %w(1 2 11 111),
+        organization_id: BudgetLineFactory.default_organization_id,
+        year: year,
+        kind: BudgetLine::EXPENSE,
+        area: EconomicArea.area_name
+      )
+
+      assert_equal Set["1", "11"], codes_with_children
+    ensure
+      factories&.each(&:teardown)
+    end
+
+    def test_codes_with_children_without_codes
+      assert_empty BudgetLine.codes_with_children(
+        [],
+        organization_id: BudgetLineFactory.default_organization_id,
+        year: 2001,
+        kind: BudgetLine::EXPENSE,
+        area: EconomicArea.area_name
+      )
     end
   end
 end

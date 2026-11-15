@@ -76,7 +76,10 @@ window.GobiertoAdmin.GobiertoCommonCustomFieldRecordsTablePluginController = (fu
     if (type == "vocabulary") {
       $.each(vocabularyData, function(idx) {
         let term = vocabularyData[idx];
-        vocabularyOptions[term.id] = term.name_translations[I18n.locale];
+        vocabularyOptions[term.id] = [
+          term.name_translations[I18n.locale],
+          ...Object.values(term.name_translations)
+        ].find(translation => translation && translation.trim());
       });
     }
 

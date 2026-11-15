@@ -44,11 +44,7 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
   end
 
   def load_year
-    default_year = if budgets_elaboration_active?
-                     GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data - 1
-                   else
-                     GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data
-                   end
+    default_year = budgets_elaboration_active? ? last_year_with_data - 1 : last_year_with_data
 
     if params[:year].nil?
       redirect_to gobierto_budgets_budgets_path(default_year)
@@ -57,6 +53,13 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
       if @year > default_year
         redirect_to gobierto_budgets_budgets_path(default_year)
       end
+    end
+  end
+
+  # Cached in the module cache, which the budgets import clears
+  def last_year_with_data
+    cache_service.fetch("last_year_with_data") do
+      GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.last_year_with_data
     end
   end
 

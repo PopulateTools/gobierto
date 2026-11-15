@@ -53,6 +53,39 @@ module GobiertoBudgets
       end
     end
 
+    def test_reads_each_total_budget_once
+      stats = self.stats
+
+      with factory: total(forecast: TOTAL_BUDGET) do
+        get_spy = Spy.on(SearchEngine.client, :get).and_call_through
+
+        stats.total_budget
+        stats.total_budget
+        stats.total_budget_per_inhabitant
+        stats.total_budget_executed
+        stats.total_budget_executed
+
+        assert_equal 2, get_spy.calls.count
+      ensure
+        get_spy&.unhook
+      end
+    end
+
+    def test_reads_missing_data_once
+      SUBJECT_CLASS.any_instance.unstub(:population)
+      stats = self.stats
+      get_spy = Spy.on(SearchEngine.client, :get).and_call_through
+
+      2.times do
+        assert_nil stats.debt(2000)
+        assert_nil stats.population(2000)
+      end
+
+      assert_equal 2, get_spy.calls.count
+    ensure
+      get_spy&.unhook
+    end
+
     def test_total_budget_updated
       # when no data
       assert_nil stats.total_budget_updated

@@ -27,9 +27,7 @@ module GobiertoData
           raise ActiveRecord::StatementInvalid.new("Query not allowed")
         end
 
-        with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(write, include_draft)) do
-          connection_pool.connection.execute("SET search_path TO draft, public") if write || include_draft
-
+        with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(write, include_draft), draft: write || include_draft) do
           event = nil
           if include_stats
             ActiveSupport::Notifications.subscribe("sql.active_record") do |name, start, finish, id, payload|
@@ -41,14 +39,16 @@ module GobiertoData
 
           execution = connection_pool.connection.execute(query) || null_query
 
-          return execution unless include_stats
-
-          {
-            result: execution,
-            duration: event&.duration,
-            rows: execution.ntuples,
-            status: execution.cmd_status
-          }
+          if include_stats
+            {
+              result: execution,
+              duration: event&.duration,
+              rows: execution.ntuples,
+              status: execution.cmd_status
+            }
+          else
+            execution
+          end
         end
       rescue ActiveRecord::StatementInvalid => e
         failed_query(e.message)
@@ -59,9 +59,7 @@ module GobiertoData
           raise ActiveRecord::StatementInvalid.new("Query not allowed")
         end
 
-        with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(false, include_draft)) do
-          connection_pool.connection.execute("SET search_path TO draft, public") if include_draft
-
+        with_connection(db_config(site), fallback: null_query, connection_key: connection_key_from_options(false, include_draft), draft: include_draft) do
           csv  = []
           # Get the raw connection (in our case the pg connection object)
           pg_connection = connection_pool.connection.raw_connection
@@ -70,7 +68,7 @@ module GobiertoData
               csv.push(row)
             end
           end
-          return csv.join('')
+          csv.join("")
         end
       rescue ActiveRecord::StatementInvalid, PG::Error => e
         failed_query(e.message)
@@ -123,8 +121,7 @@ module GobiertoData
       end
 
       def tables(site, include_draft: false)
-        with_connection(db_config(site), connection_key: connection_key_from_options(false, include_draft)) do
-          connection_pool.connection.execute("SET search_path TO draft, public") if include_draft
+        with_connection(db_config(site), connection_key: connection_key_from_options(false, include_draft), draft: include_draft) do
           connection_pool.connection.tables
         end
       end
@@ -141,12 +138,25 @@ module GobiertoData
 
       private
 
-      def with_connection(db_conf, fallback: nil, connection_key: :read_db_config)
+      def with_connection(db_conf, fallback: nil, connection_key: :read_db_config, draft: false)
         return fallback if db_conf.nil?
 
         db_conf = db_conf[connection_key] if db_conf.has_key?(connection_key)
-        establish_connection(db_conf)
-        yield
+        # Establishing a connection replaces the pool, and replacing it waits
+        # until the connections checked out from the replaced pool are released
+        establish_connection(db_conf) unless connected_with?(db_conf)
+        # A savepoint inside an open transaction, so a failed query leaves the
+        # connection usable for the next call
+        connection_pool.connection.transaction(requires_new: true) do
+          # The pool outlives each call, so every call sets its own search path
+          connection_pool.connection.execute(draft ? "SET search_path TO draft, public" : "RESET search_path")
+          yield
+        end
+      end
+
+      def connected_with?(db_conf)
+        connection_specification_name == name &&
+          connection_pool.db_config.configuration_hash == db_conf.symbolize_keys
       end
 
       def connection_key_from_options(write, include_draft)

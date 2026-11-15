@@ -117,5 +117,29 @@ module GobiertoData
     def test_test_connection_config_with_invalid_config
       assert_raises(Exception) { Connection.test_connection_config(invalid_connection_config) }
     end
+
+    def test_queries_with_the_same_config_reuse_the_connection_pool
+      Connection.execute_query(site, "SELECT COUNT(*) FROM users")
+      pool = Connection.connection_pool
+
+      Connection.execute_query(site, "SELECT COUNT(*) FROM users")
+
+      assert_same pool, Connection.connection_pool
+    end
+
+    def test_draft_queries_do_not_change_the_search_path_of_later_queries
+      Connection.execute_query(site, "SELECT COUNT(*) FROM users", include_draft: true)
+      Connection.execute_query(site, "SELECT COUNT(*) FROM users")
+
+      refute_includes Connection.connection.select_value("SHOW search_path"), "draft"
+    end
+
+    def test_queries_after_a_failed_query_succeed
+      Connection.execute_query(site, "SELECT COUNT(*) FROM not_existing_table")
+      result = Connection.execute_query(site, "SELECT COUNT(*) AS test_count FROM users")
+
+      refute_kind_of Hash, result, result.to_s
+      assert_equal User.count, result.first["test_count"]
+    end
   end
 end

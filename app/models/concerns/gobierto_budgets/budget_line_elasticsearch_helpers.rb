@@ -112,7 +112,7 @@ module GobiertoBudgets
         terms.push({term: { year: conditions[:year] }}) if conditions[:year]
         terms.push({term: { code: conditions[:code] }}) if conditions[:code]
         terms.push({term: { level: conditions[:level] }}) if conditions[:level]
-        terms.push({terms: { parent_code: Array(conditions[:parent_code]) }}) if conditions[:parent_code]
+        terms.push({ terms: { parent_code: Array(conditions[:parent_code]) } }) if conditions[:parent_code]
         if conditions.has_key?(:functional_code)
           if conditions[:area_name] == FunctionalArea.area_name
             conditions[:area_name] = EconomicArea.area_name

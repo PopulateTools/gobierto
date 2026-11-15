@@ -53,7 +53,12 @@ class GobiertoBudgets::BudgetLineDescendantsControllerTest < GobiertoControllerT
     search_spy = Spy.on(GobiertoBudgets::SearchEngine.client, :search).and_call_through
 
     with_current_site(site) do
-      get gobierto_budgets_budget_line_descendants_path(year: descendants_year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::EconomicArea.area_name, parent_code: "1"), xhr: true
+      get gobierto_budgets_budget_line_descendants_path(
+        year: descendants_year,
+        kind: GobiertoBudgets::BudgetLine::EXPENSE,
+        area_name: GobiertoBudgets::EconomicArea.area_name,
+        parent_code: "1"
+      ), xhr: true
       assert_response :success
     end
 

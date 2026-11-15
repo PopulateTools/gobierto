@@ -14,6 +14,9 @@ namespace :gobierto_budgets do
     def after_import_tasks(sites)
       organization_ids = sites.map(&:organization_id).uniq
 
+      GobiertoBudgets::ClearYearsCache.new.call
+      puts "[SUCCESS] Expired the cached years with budgets data"
+
       if organization_ids.any?
         organization_ids.each do |organization_id|
           GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::Year.all_with_data.each do |year|

@@ -139,7 +139,7 @@ module GobiertoBudgets
             must: filters
           }
         },
-        size: 10_000,
+        size: 0,
         "aggs": {
           "#{attribute}_per_year": {
             "terms": {

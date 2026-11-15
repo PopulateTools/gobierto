@@ -277,12 +277,33 @@ module GobiertoBudgets
         budget_line
       end
 
-      def has_children?(options)
-        options.symbolize_keys!
-        conditions = { parent_code: options[:code], type: options[:area] }
-        conditions.merge! options.slice(:organization_id,:kind,:year)
+      # Codes of the given budget lines that have children, with a single query
+      def codes_with_children(codes, organization_id:, year:, kind:, area:)
+        return Set.new if codes.empty?
 
-        return search(conditions)['hits'].length > 0
+        query = {
+          query: {
+            bool: {
+              must: [
+                { terms: { parent_code: codes } },
+                { term: { organization_id: organization_id } },
+                { term: { year: year } },
+                { term: { kind: kind } },
+                { term: { type: area } }
+              ]
+            }
+          },
+          size: 0,
+          aggs: {
+            parent_codes: { terms: { field: "parent_code", size: codes.size } }
+          }
+        }
+
+        response = SearchEngine.client.search(
+          index: GobiertoBudgetsData::GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+          body: query
+        )
+        response["aggregations"]["parent_codes"]["buckets"].to_set { |bucket| bucket["key"] }
       end
 
       def validate_conditions(conditions)

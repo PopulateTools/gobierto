@@ -1,7 +1,8 @@
+<% codes_with_children = budget_line_codes_with_children(@budget_lines, year: @year, area_name: @area_name, kind: @kind) %>
 <% @budget_lines.group_by{ |b| b.parent_code.to_s.length }.each do |length, budget_lines| %>
   <% budget_lines.group_by{ |b| b.parent_code }.each do |parent_code, budget_lines_children| %>
     var $el = $('[data-budget-line="<%= parent_code %>"]');
-    $el.after('<%=j render partial: 'gobierto_budgets/budget_line_descendants/nested_budget_line', locals: { budget_lines: budget_lines_children, kind: @kind, area_name: @area_name, year: @year } %>');
+    $el.after('<%=j render partial: 'gobierto_budgets/budget_line_descendants/nested_budget_line', locals: { budget_lines: budget_lines_children, kind: @kind, area_name: @area_name, year: @year, codes_with_children: codes_with_children } %>');
     $('[data-budget-line="<%= parent_code %>"] td').find('.fas').removeClass('fa-plus-square').addClass('fa-minus-square');
   <% end %>
 <% end %>

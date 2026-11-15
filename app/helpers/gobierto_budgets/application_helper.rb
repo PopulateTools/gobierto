@@ -15,6 +15,16 @@ module GobiertoBudgets
       "https://presupuestos.gobierto.es/compare/#{municipalities.map(&:slug).join(':')}/#{year}/#{budget_line_path}"
     end
 
+    def budget_line_codes_with_children(budget_lines, year:, area_name:, kind:)
+      GobiertoBudgets::BudgetLine.codes_with_children(
+        budget_lines.map(&:code),
+        organization_id: current_site.organization_id,
+        year: year,
+        kind: kind,
+        area: area_name
+      )
+    end
+
     def sign(v1, v2 = nil)
       return 'sign-neutral' if v1.blank? || v2.blank?
       diff = v1 - v2

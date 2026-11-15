@@ -331,7 +331,7 @@ module GobiertoBudgets
             query = {
               query: {
                 bool: {
-                  must: base_terms.append({ term: { type: area.area_name } })
+                  must: base_terms + [{ term: { type: area.area_name } }]
                 }
               },
               size: 1

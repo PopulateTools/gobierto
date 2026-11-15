@@ -99,6 +99,15 @@ module GobiertoBudgets
       refute site.multisearch("Gastos de personal").exists?
     end
 
+    def test_any_data_in_any_area
+      year = 2001
+      factory = BudgetLineFactory.new(year: year, area: FunctionalArea.area_name, indexes: [:forecast])
+
+      assert BudgetLine.any_data?(site: site, year: year)
+    ensure
+      factory&.teardown
+    end
+
     def test_codes_with_children
       year = 2001
       factories = [

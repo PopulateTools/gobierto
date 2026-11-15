@@ -1,0 +1,38 @@
+name: Set up Gobierto
+description: Checks out dependencies and prepares the toolchain shared by every CI job
+
+runs:
+  using: composite
+  steps:
+    # script/custom_engines_ci_setup and the symlink scripts it calls in the
+    # engine repositories address this checkout as $DEV_DIR/gobierto. Those
+    # scripts print a hint and exit 0 when DEV_DIR is unset, so a missing value
+    # leaves the engines uninstalled without failing the step.
+    - name: Expose the checkout at $DEV_DIR/gobierto
+      shell: bash
+      run: |
+        ln -sfn "$GITHUB_WORKSPACE" "$HOME/gobierto"
+        echo "DEV_DIR=$HOME" >> "$GITHUB_ENV"
+
+    # script/custom_engines_ci_setup clones the engine with a git@github.com:
+    # URL. The engine repository is public, so HTTPS needs no credentials.
+    - name: Clone GitHub repositories over HTTPS
+      shell: bash
+      run: |
+        git config --global url."https://github.com/".insteadOf git@github.com:
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: .ruby-version
+        bundler-cache: true
+
+    # .nvmrc pins Node 18, but devbridge-autocomplete@2 requires Node >= 20.
+    # CircleCI ignored .nvmrc and used the Node bundled in its image.
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: yarn
+
+    - name: Install JavaScript dependencies
+      shell: bash
+      run: yarn install --frozen-lockfile

@@ -8,6 +8,10 @@ en:
         edit_modal:
           title: Edit %{vocabulary}
         form:
+          hints:
+            reserved_slug: This vocabulary is reserved, so its terms are kept when
+              the projects of a plan are deleted. If you change the slug, it will
+              no longer be reserved and its terms could be deleted.
           placeholders:
             name: Animal kingdom
             slug: animal_kingdom

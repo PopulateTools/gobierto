@@ -42,8 +42,23 @@ module GobiertoCommon
       return if term_text.blank?
 
       vocabulary.terms.with_name_translation(term_text).take ||
+        find_term_by_external_id(term_text) ||
         allow_vocabulary_terms_creation? && vocabulary.terms.create(name: term_text) ||
         raise(TermNotFound, { term: term_text, vocabulary: vocabulary.name, uid: uid }.to_json)
+    end
+
+    def find_term_by_external_id(external_id)
+      vocabulary.terms.find_by(external_id: external_id) || find_term_by_numeric_external_id(external_id)
+    end
+
+    # Matches "03" with a term whose external_id is "3", and the other way round
+    def find_term_by_numeric_external_id(external_id)
+      return unless /\A\d+\z/.match?(external_id)
+
+      vocabulary.terms.where(
+        "terms.external_id ~ '^[0-9]+$' AND ltrim(terms.external_id, '0') = ltrim(?, '0')",
+        external_id
+      ).take
     end
 
     def localized_value

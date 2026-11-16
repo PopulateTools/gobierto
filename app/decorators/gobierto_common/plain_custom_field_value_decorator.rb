@@ -6,6 +6,8 @@ module GobiertoCommon
   class PlainCustomFieldValueDecorator < BaseDecorator
     class TermNotFound < StandardError; end
 
+    class InvalidValue < StandardError; end
+
     include GobiertoHelper
 
     attr_accessor :plain_text_value
@@ -31,12 +33,52 @@ module GobiertoCommon
         options_value
       elsif image?
         image_value
+      elsif table?
+        table_value
       else
         plain_text_value
       end
     end
 
     private
+
+    # Rows come as hashes keyed by column id. Dates are stored in ISO 8601, the
+    # format the admin table editor uses
+    def table_value
+      raise_invalid_value(plain_text_value) unless plain_text_value.is_a?(Array)
+
+      plain_text_value.map do |row|
+        raise_invalid_value(row) unless row.is_a?(Hash)
+
+        table_columns.to_h do |column|
+          [column["id"], table_cell_value(column["type"], row.with_indifferent_access[column["id"]])]
+        end
+      end
+    end
+
+    def table_cell_value(column_type, cell)
+      return if cell.blank?
+
+      case column_type
+      when "date" then Date.parse(cell.to_s).iso8601
+      when "text" then cell.to_s
+      else cell
+      end
+    rescue Date::Error
+      raise_invalid_value(cell)
+    end
+
+    def raise_invalid_value(value)
+      raise InvalidValue, { value: value, uid: uid }.to_json
+    end
+
+    def table?
+      plugin? && configuration.plugin_type == "table"
+    end
+
+    def table_columns
+      configuration.plugin_configuration&.dig("columns") || []
+    end
 
     def find_term(term_text)
       return if term_text.blank?

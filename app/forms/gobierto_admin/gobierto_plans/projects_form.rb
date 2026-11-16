@@ -24,6 +24,8 @@ module GobiertoAdmin
         :date
       ].freeze
 
+      TABLE_WRITABLE_COLUMN_TYPES = %w(text date).freeze
+
       include ::GobiertoAdmin::PermissionsGroupHelpers
       include ::GobiertoPlans::VersionsHelpers
 
@@ -56,7 +58,7 @@ module GobiertoAdmin
       end
 
       def custom_field_records_values(data)
-        custom_fields_attributes.each_with_object({}) do |(key, custom_field), values|
+        writable_custom_fields(data).each_with_object({}) do |(key, custom_field), values|
           value_decorator = ::GobiertoCommon::PlainCustomFieldValueDecorator.new(custom_field)
           value_decorator.allow_vocabulary_terms_creation = true
           value_decorator.plain_text_value = data[key]
@@ -110,6 +112,12 @@ module GobiertoAdmin
         data.slice(:id, *WRITABLE_ATTRIBUTES)
       end
 
+      # Table fields are only written when the project data includes them, so
+      # the import keeps tables filled from the admin or the CSV table importer
+      def writable_custom_fields(data)
+        custom_fields_attributes.merge(table_custom_fields_attributes.slice(*data.keys))
+      end
+
       def custom_fields_attributes
         @custom_fields_attributes ||= {}.tap do |hsh|
           CUSTOM_FIELD_WRITABLE_TYPES.each do |type|
@@ -118,6 +126,18 @@ module GobiertoAdmin
             end
           end
         end
+      end
+
+      def table_custom_fields_attributes
+        @table_custom_fields_attributes ||= custom_fields.with_plugin_type("table").select { |field| writable_table?(field) }.index_by do |field|
+          "custom_field_table_#{field.uid.underscore}"
+        end
+      end
+
+      def writable_table?(custom_field)
+        columns = custom_field.configuration.plugin_configuration&.dig("columns")
+
+        columns.present? && columns.all? { |column| TABLE_WRITABLE_COLUMN_TYPES.include?(column["type"]) }
       end
 
       def custom_fields
@@ -197,6 +217,8 @@ module GobiertoAdmin
         node.touch if new_version && !new_node_version
 
         custom_fields_form.save
+      rescue ::GobiertoCommon::PlainCustomFieldValueDecorator::InvalidValue => e
+        raise FailedImport, "#{attrs.to_json} (#{e.message})"
       end
 
       def new_node_version?(form)

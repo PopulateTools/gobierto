@@ -2,6 +2,13 @@
 
 module GobiertoCommon
   class Vocabulary < ApplicationRecord
+    RESERVED = {
+      sdgs: {
+        slug: "sdgs-vocabulary",
+        name_translations: { ca: "Vocabulari d'ODSs", en: "SDGs vocabulary", es: "Vocabulario de ODSs" }
+      }
+    }.freeze
+
     include GobiertoCommon::Sluggable
 
     belongs_to :site
@@ -16,6 +23,10 @@ module GobiertoCommon
 
     def attributes_for_slug
       [name]
+    end
+
+    def reserved?
+      RESERVED.values.any? { |definition| definition[:slug] == slug }
     end
 
     def maximum_level

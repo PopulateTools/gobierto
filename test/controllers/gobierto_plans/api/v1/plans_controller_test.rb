@@ -1071,6 +1071,26 @@ module GobiertoPlans
 
         # PUT /api/v1/plans/1
         # PUT /api/v1/plans/1.json
+        def test_reset_keeps_terms_of_reserved_vocabularies
+          reserved_vocabulary = gobierto_common_vocabularies(:animals)
+          reserved_vocabulary.update!(slug: ::GobiertoCommon::Vocabulary::RESERVED.dig(:sdgs, :slug))
+          reserved_terms_ids = reserved_vocabulary.terms.pluck(:id)
+
+          with(site:) do
+            put(
+              gobierto_plans_api_v1_plan_path(other_plan),
+              headers: { Authorization: admin_token },
+              as: :json,
+              params: update_reset_valid_params
+            )
+
+            assert_response :success
+            assert_equal reserved_terms_ids.sort, reserved_vocabulary.terms.pluck(:id).sort
+          end
+        end
+
+        # PUT /api/v1/plans/1
+        # PUT /api/v1/plans/1.json
         def test_reset_and_update_with_admin_token
           categories_terms_ids = other_plan.categories_vocabulary.terms.pluck(:id)
           statuses_terms_ids = other_plan.statuses_vocabulary.terms.pluck(:id)

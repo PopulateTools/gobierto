@@ -159,6 +159,8 @@ module GobiertoCommon
     end
 
     def splitted_plain_text_value
+      return plain_text_value.map { |value| value.to_s.strip } if plain_text_value.is_a?(Array)
+
       (CSV.parse_line(plain_text_value.tr("\n", ",").gsub(/\"\s*,\s*\"/, "\",\"").strip, liberal_parsing: true) || []).compact.map(&:strip)
     rescue CSV::MalformedCSVError
       plain_text_value.tr("\n", ",").split(",").compact.map(&:strip)

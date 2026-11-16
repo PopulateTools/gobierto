@@ -24,6 +24,21 @@ module GobiertoCommon
       @cat ||= gobierto_common_terms(:cat)
     end
 
+    def table_field
+      @table_field ||= CustomField.new(
+        site: sites(:madrid),
+        class_name: "GobiertoPlans::Node",
+        field_type: :plugin,
+        uid: "sub-actions",
+        options: {
+          configuration: {
+            plugin_type: "table",
+            plugin_configuration: { columns: [{ id: "date", type: "date" }, { id: "name", type: "text" }] }
+          }
+        }.deep_stringify_keys
+      )
+    end
+
     def decorated_value(custom_field, plain_text_value, allow_vocabulary_terms_creation: false)
       decorator = PlainCustomFieldValueDecorator.new(custom_field)
       decorator.allow_vocabulary_terms_creation = allow_vocabulary_terms_creation
@@ -65,6 +80,34 @@ module GobiertoCommon
 
     def test_single_select_with_external_id
       assert_equal cat.id.to_s, decorated_value(single_select_field, "3")
+    end
+
+    def test_table_rows_keep_configured_columns_and_store_dates_in_iso_format
+      rows = [
+        { "date" => "13/11/2023", "name" => "First sub-action", "unknown" => "Ignored" },
+        { "date" => "2025-06-02", "name" => "Second sub-action" },
+        { "date" => "", "name" => nil }
+      ]
+
+      expected_rows = [
+        { "date" => "2023-11-13", "name" => "First sub-action" },
+        { "date" => "2025-06-02", "name" => "Second sub-action" },
+        { "date" => nil, "name" => nil }
+      ]
+      assert_equal expected_rows, decorated_value(table_field, rows)
+    end
+
+    def test_table_with_invalid_date_raises
+      error = assert_raises(PlainCustomFieldValueDecorator::InvalidValue) do
+        decorated_value(table_field, [{ "date" => "not a date", "name" => "Sub-action" }])
+      end
+
+      assert_equal({ "value" => "not a date", "uid" => "sub-actions" }, JSON.parse(error.message))
+    end
+
+    def test_table_that_is_not_a_list_of_rows_raises
+      assert_raises(PlainCustomFieldValueDecorator::InvalidValue) { decorated_value(table_field, "13/11/2023: Sub-action") }
+      assert_raises(PlainCustomFieldValueDecorator::InvalidValue) { decorated_value(table_field, ["13/11/2023: Sub-action"]) }
     end
 
     def test_unknown_term_raises_when_creation_is_not_allowed

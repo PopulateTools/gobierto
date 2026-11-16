@@ -61,14 +61,14 @@ module GobiertoCommon
           find_term(term)&.id
         end.compact.map(&:to_s)
       else
-        find_term(plain_text_value.strip)&.id.to_s
+        find_term(single_plain_text_value)&.id.to_s
       end
     end
 
     def options_value
       return unless has_options?
 
-      selections = multiple_options? ? splitted_plain_text_value : [plain_text_value.strip]
+      selections = multiple_options? ? splitted_plain_text_value : [single_plain_text_value]
 
       values = selections.map do |selection|
         options.find do |_key, translations|
@@ -164,6 +164,10 @@ module GobiertoCommon
       (CSV.parse_line(plain_text_value.tr("\n", ",").gsub(/\"\s*,\s*\"/, "\",\"").strip, liberal_parsing: true) || []).compact.map(&:strip)
     rescue CSV::MalformedCSVError
       plain_text_value.tr("\n", ",").split(",").compact.map(&:strip)
+    end
+
+    def single_plain_text_value
+      Array.wrap(plain_text_value).first.to_s.strip
     end
 
     def attachments_collection

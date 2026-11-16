@@ -1069,6 +1069,110 @@ module GobiertoPlans
           end
         end
 
+        def sub_actions_custom_field
+          @sub_actions_custom_field ||= site.custom_fields.create!(
+            class_name: "GobiertoPlans::Node",
+            instance: other_plan,
+            field_type: :plugin,
+            uid: "sub-actions",
+            name_translations: { en: "Sub-actions", es: "Subacciones" },
+            options: {
+              configuration: {
+                plugin_type: "table",
+                plugin_configuration: { columns: [{ id: "date", type: "date" }, { id: "name", type: "text" }] }
+              }
+            }
+          )
+        end
+
+        def update_params_with_sub_actions(sub_actions)
+          update_valid_params.tap do |params|
+            params[:data][:attributes][:projects].first["custom_field_table_sub_actions"] = sub_actions
+          end
+        end
+
+        def sub_actions_payload(external_id)
+          node = other_plan.nodes.find_by!(external_id: external_id)
+
+          ::GobiertoCommon::CustomFieldRecord.find_by(item: node, custom_field: sub_actions_custom_field)&.payload
+        end
+
+        # PUT /api/v1/plans/1
+        # PUT /api/v1/plans/1.json
+        def test_update_imports_table_custom_field
+          sub_actions_custom_field
+
+          with(site:) do
+            put(
+              gobierto_plans_api_v1_plan_path(other_plan),
+              headers: { Authorization: admin_token },
+              as: :json,
+              params: update_params_with_sub_actions([{ date: "13/11/2023", name: "First sub-action" }, { date: "2025-06-02", name: "Second sub-action" }])
+            )
+
+            assert_response :success
+            expected_rows = [{ "date" => "2023-11-13", "name" => "First sub-action" }, { "date" => "2025-06-02", "name" => "Second sub-action" }]
+            assert_equal({ "sub-actions" => expected_rows }, sub_actions_payload("1"))
+          end
+        end
+
+        # PUT /api/v1/plans/1
+        # PUT /api/v1/plans/1.json
+        def test_update_keeps_table_custom_field_missing_in_project_data
+          existing_payload = { "sub-actions" => [{ "date" => "2020-01-01", "name" => "Added from the admin" }] }
+          ::GobiertoCommon::CustomFieldRecord.create!(
+            item: other_plan.nodes.find_by!(external_id: "1"),
+            custom_field: sub_actions_custom_field,
+            payload: existing_payload
+          )
+
+          with(site:) do
+            put gobierto_plans_api_v1_plan_path(other_plan), headers: { Authorization: admin_token }, as: :json, params: update_valid_params
+
+            assert_response :success
+            assert_equal existing_payload, sub_actions_payload("1")
+          end
+        end
+
+        # PUT /api/v1/plans/1
+        # PUT /api/v1/plans/1.json
+        def test_update_with_invalid_date_in_table_custom_field
+          sub_actions_custom_field
+
+          with(site:) do
+            put(
+              gobierto_plans_api_v1_plan_path(other_plan),
+              headers: { Authorization: admin_token },
+              as: :json,
+              params: update_params_with_sub_actions([{ date: "not a date", name: "Sub-action" }])
+            )
+
+            assert_response :unprocessable_entity
+            assert_includes response.body, "not a date"
+            assert_nil sub_actions_payload("1")
+          end
+        end
+
+        # PUT /api/v1/plans/1
+        # PUT /api/v1/plans/1.json
+        def test_reset_keeps_terms_of_reserved_vocabularies
+          reserved_vocabulary = gobierto_common_vocabularies(:animals)
+          reserved_vocabulary.update!(slug: ::GobiertoCommon::Vocabulary::RESERVED.dig(:sdgs, :slug))
+          reserved_terms_ids = reserved_vocabulary.terms.pluck(:id)
+
+          with(site:) do
+            put(
+              gobierto_plans_api_v1_plan_path(other_plan),
+              headers: { Authorization: admin_token },
+              as: :json,
+              params: update_reset_valid_params
+            )
+
+            assert_response :success
+            assert_equal reserved_terms_ids.sort, reserved_vocabulary.terms.pluck(:id).sort
+          end
+        end
+
         # PUT /api/v1/plans/1
         # PUT /api/v1/plans/1.json
         def test_reset_and_update_with_admin_token

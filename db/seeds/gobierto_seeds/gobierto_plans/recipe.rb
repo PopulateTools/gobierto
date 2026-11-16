@@ -6,10 +6,12 @@ module GobiertoSeeds
       include GobiertoCommon::ModuleNamePrefixable
 
       def self.run(site)
+        sdgs = ::GobiertoCommon::Vocabulary::RESERVED.fetch(:sdgs)
+
         # Create vocabulary
-        vocabulary = site.vocabularies.find_or_initialize_by(slug: "sdgs-vocabulary")
+        vocabulary = site.vocabularies.find_or_initialize_by(slug: sdgs[:slug])
         if vocabulary.new_record?
-          vocabulary.name_translations = prefix_translations({ ca: "Vocabulari d'ODSs", en: "SDGs vocabulary", es: "Vocabulario de ODSs" })
+          vocabulary.name_translations = prefix_translations(sdgs[:name_translations])
           vocabulary.save
         end
 

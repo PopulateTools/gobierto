@@ -19,6 +19,12 @@
     <div class="form_item input_text">
       <%= f.label :slug %>
       <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+
+      <% if f.object.reserved? %>
+        <div class="inline_help">
+          <%= t(".hints.reserved_slug") %>
+        </div>
+      <% end %>
     </div>
   </div>
 

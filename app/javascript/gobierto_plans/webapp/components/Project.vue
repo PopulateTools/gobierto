@@ -47,15 +47,20 @@ export default {
 
     this.title = name;
 
-    // filter only the columns specified in the configuration
-    const fields = show_project_fields ? show_project_fields.map(x => meta.find(y => y.attributes.uid === x)) : meta
+    // filter only the columns specified in the configuration, skipping the ones
+    // without a custom field (e.g. "status", which is a native attribute)
+    const fields = show_project_fields
+      ? show_project_fields.map(x => meta.find(y => y.attributes.uid === x)).filter(Boolean)
+      : meta
 
     // Expand the META object with the matching values for this project
     this.customFields = fields.reduce((acc, item) => {
       const { uid } = item.attributes;
       const value = attributes[uid];
+      // tables and multiple selections are empty lists when they have no value
+      const isEmpty = Array.isArray(value) ? value.length === 0 : !value;
 
-      if (show_empty_fields || !!value) {
+      if (show_empty_fields || !isEmpty) {
         acc.push({
           ...item,
           attributes: { ...item.attributes, value }

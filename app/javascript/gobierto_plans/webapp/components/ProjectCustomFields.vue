@@ -11,6 +11,17 @@
 
         <CustomFieldPluginRawIndicators :attributes="attributes" />
       </template>
+      <template v-else-if="pluginTableType">
+        <div class="project-description__list mb1">
+          <div class="project-description__title">
+            {{ attributes.name_translations | translate }}
+          </div>
+
+          <div class="project-description__desc">
+            <CustomFieldPluginTable :attributes="attributes" />
+          </div>
+        </div>
+      </template>
       <template v-else>
         <!-- incomplete markups: plugin types progress & budgets -->
       </template>
@@ -67,6 +78,7 @@ import { translate, money } from '../../../lib/vue/filters';
 import { FieldTypeMixin } from '../lib/mixins/field-type';
 import CustomFieldParagraph from './CustomFieldParagraph.vue';
 import CustomFieldPluginRawIndicators from './CustomFieldPluginRawIndicators.vue';
+import CustomFieldPluginTable from './CustomFieldPluginTable.vue';
 import CustomFieldVocabulary from './CustomFieldVocabulary.vue';
 import CustomFieldSelection from './CustomFieldSelection.vue';
 import CustomFieldImage from './CustomFieldImage.vue';
@@ -76,6 +88,7 @@ export default {
   components: {
     CustomFieldParagraph,
     CustomFieldPluginRawIndicators,
+    CustomFieldPluginTable,
     CustomFieldVocabulary,
     CustomFieldSelection,
     CustomFieldImage

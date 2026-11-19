@@ -34,7 +34,8 @@ module GobiertoAdmin
 
       preferred_locale = (locale_param || locale_cookie || I18n.default_locale).to_s
 
-      I18n.locale = cookies.permanent.signed[:locale] = preferred_locale.to_sym
+      I18n.locale = preferred_locale.to_sym
+      store_locale_cookie
     end
 
     def set_admin_site

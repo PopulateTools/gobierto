@@ -67,8 +67,14 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     if available_locales.include?(preferred_locale)
-      I18n.locale = cookies.permanent.signed[:locale] = preferred_locale.to_sym
+      I18n.locale = preferred_locale.to_sym
+      store_locale_cookie
     end
+  end
+
+  # Only the server reads the locale cookie, so scripts must not see it.
+  def store_locale_cookie
+    cookies.permanent.signed[:locale] = { value: I18n.locale, httponly: true }
   end
 
   def preferred_locale

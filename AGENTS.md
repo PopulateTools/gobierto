@@ -10,7 +10,7 @@ The codebase is modular by domain. Each major capability lives under its own nam
 
 ### Git
 
-The main branch is `master`. The repository lives at `PopulateTools/gobierto` on GitHub. CI runs on CircleCI.
+The main branch is `master`. The repository lives at `PopulateTools/gobierto` on GitHub. CI runs on GitHub Actions (`.github/workflows/ci.yml`).
 
 ### Key Technologies
 

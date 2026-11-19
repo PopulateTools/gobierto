@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/PopulateTools/gobierto-dev.svg?style=svg)](https://circleci.com/gh/PopulateTools/gobierto-dev)
+[![CI](https://github.com/PopulateTools/gobierto/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/PopulateTools/gobierto/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/PopulateTools/gobierto/branch/master/graph/badge.svg)](https://codecov.io/gh/PopulateTools/gobierto)
 [![Stories in Ready](https://badge.waffle.io/PopulateTools/gobierto-dev.svg?label=ready&title=Ready)](http://waffle.io/PopulateTools/gobierto-dev)
 

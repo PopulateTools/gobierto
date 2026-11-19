@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/PopulateTools/gobierto.svg?style=svg)](https://circleci.com/gh/PopulateTools/gobierto)
+[![CI](https://github.com/PopulateTools/gobierto/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/PopulateTools/gobierto/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/PopulateTools/gobierto/branch/master/graph/badge.svg)](https://codecov.io/gh/PopulateTools/gobierto)
 
 

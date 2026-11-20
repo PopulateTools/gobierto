@@ -214,6 +214,8 @@ module GobiertoPlans
               instance: @resource
             )
             @custom_fields_form.associated_vocabularies.each do |vocabulary|
+              next if vocabulary.reserved?
+
               vocabulary.terms.destroy_all
             end
           end

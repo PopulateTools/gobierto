@@ -6,6 +6,8 @@ module GobiertoCommon
   class PlainCustomFieldValueDecorator < BaseDecorator
     class TermNotFound < StandardError; end
 
+    class InvalidValue < StandardError; end
+
     include GobiertoHelper
 
     attr_accessor :plain_text_value
@@ -31,6 +33,8 @@ module GobiertoCommon
         options_value
       elsif image?
         image_value
+      elsif table?
+        table_value
       else
         plain_text_value
       end
@@ -38,12 +42,65 @@ module GobiertoCommon
 
     private
 
+    # Rows come as hashes keyed by column id. Dates are stored in ISO 8601, the
+    # format the admin table editor uses
+    def table_value
+      raise_invalid_value(plain_text_value) unless plain_text_value.is_a?(Array)
+
+      plain_text_value.map do |row|
+        raise_invalid_value(row) unless row.is_a?(Hash)
+
+        table_columns.to_h do |column|
+          [column["id"], table_cell_value(column["type"], row.with_indifferent_access[column["id"]])]
+        end
+      end
+    end
+
+    def table_cell_value(column_type, cell)
+      return if cell.blank?
+
+      case column_type
+      when "date" then Date.parse(cell.to_s).iso8601
+      when "text" then cell.to_s
+      else cell
+      end
+    rescue Date::Error
+      raise_invalid_value(cell)
+    end
+
+    def raise_invalid_value(value)
+      raise InvalidValue, { value: value, uid: uid }.to_json
+    end
+
+    def table?
+      plugin? && configuration.plugin_type == "table"
+    end
+
+    def table_columns
+      configuration.plugin_configuration&.dig("columns") || []
+    end
+
     def find_term(term_text)
       return if term_text.blank?
 
       vocabulary.terms.with_name_translation(term_text).take ||
+        find_term_by_external_id(term_text) ||
         allow_vocabulary_terms_creation? && vocabulary.terms.create(name: term_text) ||
         raise(TermNotFound, { term: term_text, vocabulary: vocabulary.name, uid: uid }.to_json)
+    end
+
+    def find_term_by_external_id(external_id)
+      vocabulary.terms.find_by(external_id: external_id) || find_term_by_numeric_external_id(external_id)
+    end
+
+    # Matches "03" with a term whose external_id is "3", and the other way round
+    def find_term_by_numeric_external_id(external_id)
+      return unless /\A\d+\z/.match?(external_id)
+
+      vocabulary.terms.where(
+        "terms.external_id ~ '^[0-9]+$' AND ltrim(terms.external_id, '0') = ltrim(?, '0')",
+        external_id
+      ).take
     end
 
     def localized_value
@@ -61,14 +118,14 @@ module GobiertoCommon
           find_term(term)&.id
         end.compact.map(&:to_s)
       else
-        find_term(plain_text_value.strip)&.id.to_s
+        find_term(single_plain_text_value)&.id.to_s
       end
     end
 
     def options_value
       return unless has_options?
 
-      selections = multiple_options? ? splitted_plain_text_value : [plain_text_value.strip]
+      selections = multiple_options? ? splitted_plain_text_value : [single_plain_text_value]
 
       values = selections.map do |selection|
         options.find do |_key, translations|
@@ -159,9 +216,15 @@ module GobiertoCommon
     end
 
     def splitted_plain_text_value
+      return plain_text_value.map { |value| value.to_s.strip } if plain_text_value.is_a?(Array)
+
       (CSV.parse_line(plain_text_value.tr("\n", ",").gsub(/\"\s*,\s*\"/, "\",\"").strip, liberal_parsing: true) || []).compact.map(&:strip)
     rescue CSV::MalformedCSVError
       plain_text_value.tr("\n", ",").split(",").compact.map(&:strip)
+    end
+
+    def single_plain_text_value
+      Array.wrap(plain_text_value).first.to_s.strip
     end
 
     def attachments_collection

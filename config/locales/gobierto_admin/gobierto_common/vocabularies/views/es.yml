@@ -8,6 +8,10 @@ es:
         edit_modal:
           title: Editar %{vocabulary}
         form:
+          hints:
+            reserved_slug: Este vocabulario está reservado, así que sus términos se
+              conservan al borrar los proyectos de un plan. Si cambias el slug, dejará
+              de estar reservado y sus términos podrán borrarse.
           placeholders:
             name: Reino animal
             slug: reino_animal

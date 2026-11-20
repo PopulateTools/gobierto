@@ -94,6 +94,8 @@ module GobiertoAdmin
             instance: @plan
           )
           @custom_fields_form.associated_vocabularies.each do |vocabulary|
+            next if vocabulary.reserved?
+
             destroy_terms(vocabulary)
           end
         end

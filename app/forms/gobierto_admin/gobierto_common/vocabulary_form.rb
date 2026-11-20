@@ -14,7 +14,7 @@ module GobiertoAdmin
         :slug
       )
 
-      delegate :persisted?, to: :vocabulary
+      delegate :persisted?, :reserved?, to: :vocabulary
 
       validates :name_translations, presence: true
       validates :site, presence: true

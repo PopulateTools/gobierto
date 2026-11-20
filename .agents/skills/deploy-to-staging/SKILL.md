@@ -21,7 +21,7 @@ Staging deploys go through a webhook script that triggers the deploy bot.
 script/staging_deploy.sh
 ```
 
-This issues a POST to the deploy webhook. The script returns immediately; the actual deploy happens asynchronously on the staging server. Watch CircleCI / the staging dashboard for completion.
+This issues a POST to the deploy webhook. The script returns immediately; the actual deploy happens asynchronously on the staging server. Watch the staging dashboard for completion.
 
 ## Notes
 

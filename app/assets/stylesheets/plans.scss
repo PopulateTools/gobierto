@@ -941,6 +941,36 @@ $nodeLevel1HeightMobile: 20vh;
     }
   }
 
+  // Table custom fields
+  .project-table {
+    width: 100%;
+    margin: 0;
+    line-height: 18px;
+    color: #4d4d4d;
+
+    th,
+    td {
+      font-size: 14px;
+      text-align: left;
+      vertical-align: top;
+      padding: 0.25em 0.75em 0.25em 0;
+    }
+
+    th {
+      font-weight: bold;
+      color: rgba(#4d4d4d, 0.5);
+      border-bottom: 2px solid rgba(#000, 0.2);
+    }
+
+    tbody tr:not(:last-child) td {
+      border-bottom: 1px solid rgba(#000, 0.2);
+    }
+
+    &__date {
+      white-space: nowrap;
+    }
+  }
+
   // Raw Indicators
   .tablerow {
     padding: 0.5em 0;

@@ -227,6 +227,63 @@ module GobiertoPlans
       end
     end
 
+    def test_project_with_table_custom_field
+      project = projects.to_a.last
+      create_sub_actions_table(project, [{ "date" => "2023-11-13", "name" => "Launch of the digital assistance service" }])
+      configuration = plan.configuration_data
+      # Uids without a custom field, like a native attribute, are skipped
+      configuration["show_project_fields"] = %w(status not-a-custom-field sub-actions)
+      configuration["show_empty_fields"] = false
+      plan.update_attribute(:configuration_data, JSON.pretty_generate(configuration))
+      publish_last_version_on_all_projects!
+
+      with(site: site, js: true) do
+        visit @path
+
+        within("section.level_0") { first("div", text: axes.first.name).click }
+
+        within ".planification-content" do
+          find("h3", text: action_lines.first.name).click
+
+          within "section.level_2" do
+            find("h3", text: actions.first.name).click
+            find("td", text: project.name).click
+          end
+
+          within "[data-custom-field-slug='sub-actions'] table" do
+            assert has_selector?("th", text: "Sub-action")
+            assert has_selector?("td", text: "11/13/2023")
+            assert has_selector?("td", text: "Launch of the digital assistance service")
+          end
+        end
+      end
+    end
+
+    def create_sub_actions_table(project, rows)
+      site.custom_fields.create!(
+        class_name: "GobiertoPlans::Node",
+        field_type: :plugin,
+        uid: "sub-actions",
+        name_translations: { en: "Sub-actions", es: "Subacciones" },
+        options: {
+          configuration: {
+            plugin_type: "table",
+            plugin_configuration: {
+              columns: [
+                { id: "date", type: "date", name_translations: { en: "Date", es: "Fecha" } },
+                { id: "name", type: "text", name_translations: { en: "Sub-action", es: "Subacción" } }
+              ]
+            }
+          }
+        }
+      )
+
+      custom_fields_form = ::GobiertoCommon::CustomFieldRecordsForm.new(site_id: site.id, item: project, instance: plan, with_version: true, version_index: 0)
+      custom_fields_form.custom_field_records = { "sub-actions" => rows }
+      custom_fields_form.force_new_version = true
+      custom_fields_form.save
+    end
+
     def test_draft_project
       with(site: site, js: true) do
         visit @path

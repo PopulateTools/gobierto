@@ -56,6 +56,25 @@ module GobiertoAdmin
         end
       end
 
+      def test_delete_contents_keeps_terms_of_reserved_vocabularies
+        custom_field_vocabulary.update!(slug: ::GobiertoCommon::Vocabulary::RESERVED.dig(:sdgs, :slug))
+        reserved_terms_ids = custom_field_vocabulary.terms.pluck(:id)
+
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit path
+
+            click_link "Delete projects of this plan"
+
+            assert has_message? "Plan projects has been successfully deleted"
+
+            assert plan.nodes.blank?
+            assert statuses_vocabulary.terms.blank?
+            assert_equal reserved_terms_ids.sort, custom_field_vocabulary.terms.pluck(:id).sort
+          end
+        end
+      end
+
       def test_delete_contents_with_other_empty_plan_with_same_statuses_vocabulary
         site.plans.create(plan.attributes.slice("title_translations", "introduction_translations", "plan_type_id", "statuses_vocabulary_id").merge(year: plan.year + 1))
         with_signed_in_admin(admin) do

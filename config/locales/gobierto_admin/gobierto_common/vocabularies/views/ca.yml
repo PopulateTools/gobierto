@@ -8,6 +8,10 @@ ca:
         edit_modal:
           title: Editar %{vocabulary}
         form:
+          hints:
+            reserved_slug: Aquest vocabulari està reservat, de manera que els seus
+              termes es conserven en eliminar els projectes d'un pla. Si canvies el
+              slug, deixarà d'estar reservat i els seus termes es podran eliminar.
           placeholders:
             name: Regne animal
             slug: regne_animal

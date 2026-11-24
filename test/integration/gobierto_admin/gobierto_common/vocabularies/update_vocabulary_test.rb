@@ -37,6 +37,21 @@ module GobiertoCommon
           end
         end
 
+        def test_reserved_vocabulary_shows_slug_warning
+          warning = "If you change the slug, it will no longer be reserved"
+
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit edit_admin_common_vocabulary_path(vocabulary)
+              assert has_no_content?(warning)
+
+              vocabulary.update!(slug: ::GobiertoCommon::Vocabulary::RESERVED.dig(:sdgs, :slug))
+              visit edit_admin_common_vocabulary_path(vocabulary)
+              assert has_content?(warning)
+            end
+          end
+        end
+
         def test_update_vocabulary
           with_javascript do
             with_signed_in_admin(admin) do

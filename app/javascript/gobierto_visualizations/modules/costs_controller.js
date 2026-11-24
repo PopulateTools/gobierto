@@ -153,13 +153,20 @@ export class CostsController {
 
     let yearsCosts = [...new Set(rawData.map(item => item.any_))];
 
+    const populationByYear = populationData.data;
+    const populationForYear = (year) => {
+      const previousYears = populationByYear.filter(x => x.year <= year);
+      const { value } = previousYears[previousYears.length - 1] || populationByYear[0] || {};
+      return value;
+    };
+
     const data = rawData.map((item) => {
       for (let amounts of amountStrings) {
         item[amounts] = toNumber(item[amounts]);
       }
 
       return {
-        population: populationData.data.find(x => x.year === +item["any_"]).value,
+        population: populationForYear(+item["any_"]),
         ...item
       }
     })

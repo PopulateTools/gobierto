@@ -29,7 +29,7 @@ module GobiertoAdmin
         :multiple
       )
 
-      delegate :persisted?, :has_vocabulary?, :allow_multiple?, to: :custom_field
+      delegate :persisted?, :has_vocabulary?, :requires_vocabulary?, :allow_multiple?, to: :custom_field
 
       validates :name_translations, :site, :klass, :field_type, presence: true
       validate :instance_type_is_enabled
@@ -100,7 +100,7 @@ module GobiertoAdmin
         @options ||= {}.tap do |opts|
           opts[:configuration] ||= {}
           opts.merge!(options_translations.except("new_option")) if has_options? && options_translations
-          if has_vocabulary?
+          if requires_vocabulary?
             opts[:vocabulary_id] = vocabulary_id.to_i if vocabulary_id
             opts[:configuration][:vocabulary_type] = vocabulary_type if vocabulary_type.present?
           end
@@ -137,7 +137,7 @@ module GobiertoAdmin
       end
 
       def has_options?
-        @has_options ||= !has_vocabulary? && custom_field.has_options?
+        @has_options ||= !requires_vocabulary? && custom_field.has_options?
       end
 
       def valid_resource_name?

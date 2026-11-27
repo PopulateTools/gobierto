@@ -7,7 +7,7 @@
       :count="phase.count"
       :budget="phase.budget | money"
       :projects="phase.items"
-      :is-negative="i > 2"
+      :is-negative="i > 3"
     />
   </div>
 </template>

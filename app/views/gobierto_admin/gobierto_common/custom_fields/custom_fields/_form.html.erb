@@ -73,12 +73,12 @@
           <% end %>
         <% end %>
         <%= content_tag :div, class: "form_block" do %>
-          <%= content_tag :div, id: "vocabulary_type", class: "form_item", style: @custom_field_form.has_vocabulary? ? nil : "display: none;" do %>
+          <%= content_tag :div, id: "vocabulary_type", class: "form_item", style: @custom_field_form.requires_vocabulary? ? nil : "display: none;" do %>
             <%= render partial: "vocabulary_type_select", locals: { f: f } %>
           <% end %>
         <% end %>
         <%= content_tag :div, class: "form_block" do %>
-          <%= content_tag :div, id: "vocabulary", class: "form_item", style: @custom_field_form.has_vocabulary? ? nil : "display: none;" do %>
+          <%= content_tag :div, id: "vocabulary", class: "form_item", style: @custom_field_form.requires_vocabulary? ? nil : "display: none;" do %>
             <%= render partial: "vocabulary_select", locals: { f: f } %>
           <% end %>
         <% end %>

@@ -46,6 +46,15 @@ export const ItemsFilterMixin = {
       this.filters = this.filters.map(filter => {
         const __filter = this.calculateOptionCounters(filter)
 
+        // Filter options based on allowedValues if defined
+        if (__filter.allowedValues && Array.isArray(__filter.allowedValues) && __filter.allowedValues.length > 0) {
+          __filter.options = __filter.options.filter(option => {
+            const slug = String(option.slug)
+            const id = String(option.id)
+            return __filter.allowedValues.includes(slug) || __filter.allowedValues.includes(id)
+          })
+        }
+
         if (this.noEmptyOptions) {
           __filter.options = __filter.options.filter(({ counter }) => counter > 0)
         }

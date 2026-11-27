@@ -100,9 +100,42 @@ window.GobiertoAdmin.GobiertoCmsController = (function() {
     getSections(sectionSelected);
   }
 
+  $(document).on("turbolinks:before-cache", function() {
+    // Restored pages reload their options, so do not cache our temporary disabled state.
+    var loading = $("#page_section").closest("form").data("section-options-loading");
+    if (loading) loading.$submit.prop("disabled", false);
+  });
+
+  function _loadSectionOptions(url, callback) {
+    var $form = $("#page_section").closest("form");
+    var loading = $form.data("section-options-loading");
+
+    if (!loading) {
+      loading = { pending: 0, $submit: $form.find(":submit:enabled") };
+      $form.data("section-options-loading", loading);
+      loading.$submit.prop("disabled", true);
+      $form.on("submit.cmsSections", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    }
+
+    loading.pending++;
+    $.getJSON(url, function(data) {
+      callback(data);
+      // A failed request leaves submission blocked until the page is reloaded.
+      loading.pending--;
+      if (loading.pending === 0) {
+        loading.$submit.prop("disabled", false);
+        $form.removeData("section-options-loading");
+        $form.off("submit.cmsSections");
+      }
+    });
+  }
+
   function getSections(sectionSelected) {
     // Get sections
-    $.getJSON("/admin/cms/sections", function(data) {
+    _loadSectionOptions("/admin/cms/sections", function(data) {
       appendSections(data["sections"], sectionSelected);
     });
   }
@@ -135,7 +168,7 @@ window.GobiertoAdmin.GobiertoCmsController = (function() {
 
     if (!(section == "null")) {
       // Get children
-      $.getJSON("/admin/cms/sections/" + section + "/section_items/", function(data) {
+      _loadSectionOptions("/admin/cms/sections/" + section + "/section_items/", function(data) {
         var theOptions;
         theOptions = data["section_items"];
 
